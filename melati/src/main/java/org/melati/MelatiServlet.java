@@ -236,7 +236,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    */
 
   protected Template handle(WebContext context, Melati melati)
-      throws PoemException, WebMacroException {
+      throws Exception {
     return null;
   }
 
@@ -249,7 +249,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    */
 
   protected Template handle(WebContext context)
-      throws PoemException, WebMacroException {
+      throws Exception {
     return handle(context, (Melati)context.get("melati"));
   }
 

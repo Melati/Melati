@@ -25,11 +25,16 @@ OLDCP=$CLASSPATH
 #-------------------------------------------------------------------
 # Define the paths to each of the packages
 #-------------------------------------------------------------------
-# none currently
 # It is assumed that the following is on the classpath before this script is run
 #   The standard Java servlet jar from Sun - usually jsdk.jar
 #   The webmacro build that you are using - currently recommended to be webmacro-22-12-1999
 #   The Postgres jdbc drivers - for example jdbc7.0-1.2.jar
+#
+# Assumed that the following are in melati/CVS
+export ODMG=../poem/odmg/required-libs/odmg3.jar
+
+# for jobs that use melati - need melati itself on classpath
+export MELATI_JAR=../../../../lib/melati-1.0.jar
 
 #--------------------------------------------
 # No need to edit anything past here
@@ -116,7 +121,7 @@ fi
 echo "Now building ${TARGET}..."
 
 # add onto the classpath the jars for ant, that is ant.jar and an xml parser...
-export CLASSPATH=${CLASSPATH}:jaxp.jar:parser.jar:ant.jar
+export CLASSPATH=${CLASSPATH}:jaxp.jar:parser.jar:ant.jar:${ODMG}:${MELATI_JAR}
 
 echo JAVAC = ${JAVAC}
 echo CLASSPATH= ${CLASSPATH}

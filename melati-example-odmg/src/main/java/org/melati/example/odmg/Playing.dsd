@@ -1,0 +1,14 @@
+package org.melati.poem.odmg.playing;
+
+table Parent
+{
+  (primary) Integer id;
+  String name (size = 60);
+}
+
+table Child
+{
+  (primary) Integer id;
+  String name (size = 60);
+  Parent parent;
+}

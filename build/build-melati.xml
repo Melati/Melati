@@ -24,6 +24,8 @@
         <property name="optimize" value="off"/>
         <property name="deprecation" value="on"/>
         
+        <property name="poemODMGDSD" value="${build.src}/org/melati/poem/odmg/playing/Playing.dsd"/>
+        
         <filter token="year" value="${year}"/>
         <filter token="version" value="${version}"/>
         <filter token="date" value="${TODAY}"/>        
@@ -60,6 +62,50 @@
         />
     </target>
     
+    <!-- =================================================================== -->
+    <!-- Runs the pre-processor to generate the poem support classes         -->
+    <!-- =================================================================== -->
+    <target name="preproODMGPlaying" depends="jar">
+       <java classname="org.melati.poem.prepro.DSD"
+             fork="yes"
+             args="${poemODMGDSD}"
+             jvmargs=""
+       />
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Compiles the source directory                                       -->
+    <!-- =================================================================== -->
+    <target name="compileODMGPlaying" depends="preproODMGPlaying">
+        <javac srcdir="${build.src}"
+            destdir="${build.dest}"
+            includes="org/melati/poem/odmg/playing/**/*.java"
+            debug="${debug}"
+            deprecation="${deprecation}"
+            optimize="${optimize}"/>
+    </target>
+  
+    <!-- =================================================================== -->
+    <!-- Compiles the source directory and creates a .jar file               -->
+    <!-- =================================================================== -->
+    <target name="jarODMGPlaying" depends="compileODMGPlaying">
+        <jar jarfile="${build.jar.dir}/${final.name}.jar"
+            basedir="${build.dest}"
+            includes="**/*.class"
+        />
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Runs the pre-processor to generate the poem support classes         -->
+    <!-- =================================================================== -->
+    <target name="runODMGPlaying" depends="jarODMGPlaying">
+       <java classname="org.melati.poem.odmg.playing.PlayingTest"
+             fork="yes"
+             args=""
+             jvmargs=""
+       />
+    </target>
+
     <!-- =================================================================== -->
     <!-- Creates the API documentation                                       -->
     <!-- =================================================================== -->

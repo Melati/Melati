@@ -50,9 +50,9 @@ package org.melati.util;
  * 
  * @todo Javadoc voodoo
  */
-public class StringUtils {
+public final class StringUtils {
 
-  public StringUtils() {}
+  private StringUtils() {}
 
   public static String[] split(String s, char c) {
     int n = 0;

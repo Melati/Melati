@@ -79,7 +79,6 @@ import org.melati.poem.ValidationPoemException;
 
 import org.melati.util.EnumUtils;
 import org.melati.util.MappedEnumeration;
-import org.melati.util.StringUtils;
 import org.melati.util.MelatiRuntimeException;
 
 
@@ -186,7 +185,6 @@ public class Admin extends TemplateServlet {
     String p = c.substring(0, dot);
 
     context.put("package", p);
-    context.put("stringutils", new StringUtils());
     return adminTemplate(context, "DSD");
   }
 

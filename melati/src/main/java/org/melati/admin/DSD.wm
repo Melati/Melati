@@ -97,7 +97,7 @@ package $(package);
 //   $table
 //   $table.Class.Name
 #end
-table $stringutils.capitalised($table.Name)
+table $table.defaultDisplayName()
 
 
 #foreach $field in $table.getInfo().getFields()

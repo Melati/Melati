@@ -48,6 +48,7 @@ package org.melati.util;
 
 import java.lang.ref.*;
 import java.util.*;
+import java.io.*;
 
 public final class Cache {
 
@@ -117,8 +118,89 @@ public final class Cache {
   private HeldNode theMRU = null, theLRU = null;
   private int heldNodes = 0;
   private int maxSize;
+  private int droppedEver = 0;
 
   private ReferenceQueue collectedValuesQueue = new ReferenceQueue();
+
+  // invariants:
+  //   if theMRU != null, theMRU.prevMRU == null
+  //   if theLRU != null, theLRU.nextMRU == null
+  //   following theMRU gives you the same elements as following theLRU
+  //       in the opposite order
+  //   everything in the[ML]RU is in table as a HeldNode, and vv.
+  //   heldNodes == length of the[ML]RU
+
+  public class InconsistencyException extends MelatiRuntimeException {
+    public Vector probs;
+
+    public InconsistencyException(Vector probs) {
+      this.probs = probs;
+    }
+
+    public String getMessage() {
+      return EnumUtils.concatenated("\n", probs.elements());
+    }
+  }
+
+  private Vector invariantBreaches() {
+    Vector probs = new Vector();
+
+    if (theMRU != null && theMRU.prevMRU != null)
+      probs.addElement("theMRU.prevMRU == " + theMRU.prevMRU);
+    if (theLRU != null && theLRU.nextMRU != null)
+      probs.addElement("theLRU.nextMRU == " + theLRU.nextMRU);
+
+    Object[] held = new Object[heldNodes];
+    Hashtable heldHash = new Hashtable();
+
+    int countML = 0;
+    for (HeldNode n = theMRU; n != null; n = n.nextMRU, ++countML) {
+      if (table.get(n.key()) != n)
+        probs.addElement("table.get(" + n + ".key()) == " + table.get(n.key()));
+      if (countML < heldNodes)
+        held[countML] = n;
+      heldHash.put(n, Boolean.TRUE);
+    }
+
+    if (countML != heldNodes)
+      probs.addElement(countML + " nodes in MRU->LRU not " + heldNodes);
+
+    Hashtable keys = new Hashtable();
+    int countLM = 0;
+    for (HeldNode n = theLRU; n != null; n = n.prevMRU, ++countLM) {
+      HeldNode oldn = (HeldNode)keys.get(n.key());
+      if (oldn != null)
+        probs.addElement("key " + n.key() + " duplicated in " + n + " and " +
+                         oldn);
+      keys.put(n.key(), n);
+
+      if (table.get(n.key()) != n)
+        probs.addElement("table.get(" + n + ".key()) == " + table.get(n.key()));
+      if (countLM < heldNodes) {
+        int o = heldNodes - (1 + countLM);
+        if (n != held[o])
+          probs.addElement("lm[" + countLM + "] == " + n + " != ml[" +
+                           o + "] == " + held[o]);
+      }
+    }
+
+    for (Enumeration nodes = table.elements(); nodes.hasMoreElements();) {
+      Node n = (Node)nodes.nextElement();
+      if (n instanceof HeldNode && !heldHash.containsKey(n))
+        probs.addElement(n + " in table but not MRU->LRU");
+    }
+
+    if (countLM != heldNodes)
+      probs.addElement(countLM + " nodes in LRU->MRU not " + heldNodes);
+
+    return probs;
+  }
+
+  private void assertInvariant() {
+    // Vector probs = invariantBreaches();
+    // if (probs.size() != 0)
+    //   throw new InconsistencyException(probs);
+  }
 
   public Cache(int maxSize) {
     setSize(maxSize);
@@ -132,8 +214,10 @@ public final class Cache {
 
   private synchronized void gc() {
     DroppedNode dropped;
-    while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null)
+    while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null) {
       table.remove(dropped.key);
+      ++droppedEver;
+    }
   }
 
   public synchronized void trim(int maxSize) {
@@ -142,13 +226,18 @@ public final class Cache {
     HeldNode n = theLRU;
     while (n != null && heldNodes > maxSize) {
       HeldNode nn = n.prevMRU;
-      if (n == theLRU) theLRU = n.prevMRU;
-      if (n == theMRU) theMRU = n.nextMRU;
       n.putBefore(null);
-      --heldNodes;
       table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
+      --heldNodes;
       n = nn;
     }
+
+    if (n == null)
+      theLRU = theMRU = null;
+    else
+      theLRU = n;
+
+    assertInvariant();
   }
 
   public synchronized void put(Object key, Object value) {
@@ -170,9 +259,12 @@ public final class Cache {
 
       node.putBefore(theMRU);
       theMRU = node;
+
       if (theLRU == null) theLRU = node;
 
       ++heldNodes;
+
+      assertInvariant();
     }
   }
 
@@ -185,8 +277,15 @@ public final class Cache {
       return null;
     else {
       HeldNode held;
-      if (node instanceof HeldNode)
+      if (node instanceof HeldNode) {
 	held = (HeldNode)node;
+        if (held != theMRU) {
+          if (held == theLRU)
+            theLRU = held.prevMRU;
+          held.putBefore(theMRU);
+          theMRU = held;
+        }
+      }
       else {
 	if (node.value() == null)
 	  // This probably doesn't happen
@@ -194,11 +293,13 @@ public final class Cache {
 
 	held = new HeldNode(key, node.value());
 	table.put(key, held);
+        ++heldNodes;
+        held.putBefore(theMRU);
+        theMRU = held;
+        trim(maxSize);
       }
 
-      held.putBefore(theMRU);
-      theMRU = held;
-      if (theLRU == null) theLRU = held;
+      assertInvariant();
       return held.value;
     }
   }
@@ -212,48 +313,55 @@ public final class Cache {
     }
   }
 
-  public synchronized void dumpAnalysis() {
-    Hashtable inLRU = new Hashtable();
-    int numFromLRU = 0;
+  public Enumeration getReport() {
+    return new ConsEnumeration(
+               heldNodes + " held, " + table.size() + " total ",
+               invariantBreaches().elements());
+  }
 
-    // System.err.println("-- LRU->MRU");
+  public class Info {
 
-    for (HeldNode n = theLRU; n != null; n = n.prevMRU) {
-      // System.err.println("[" + n + "]");
-      ++numFromLRU;
-      if (!table.containsKey(n.key()))
-        System.err.println("*** ERROR " + n + " is not in the table");
-      if (inLRU.containsKey(n.key()))
-        System.err.println("*** ERROR " + n + " is in LRU->MRU twice");
-      inLRU.put(n.key(), n);
+    private Info() {}
+
+    public Enumeration getHeldElements() {
+      gc();
+      return new MappedEnumeration(
+          new FilteredEnumeration(table.elements()) {
+            public boolean isIncluded(Object o) {
+              return o instanceof HeldNode;
+            }
+          }) {
+        public Object mapped(Object o) {
+          return ((Node)o).value();
+        }
+      };
     }
 
-    Hashtable inMRU = new Hashtable();
-    int numFromMRU = 0;
-    int contentsSize = 0;
-
-    // System.err.println("-- MRU->LRU");
-
-    for (HeldNode n = theMRU; n != null; n = n.nextMRU) {
-      // System.err.println("[" + n + "]");
-      ++numFromMRU;
-      if (!table.containsKey(n.key()))
-        System.err.println("*** ERROR " + n + " is not in the table");
-      if (inMRU.containsKey(n.key()))
-        System.err.println("*** ERROR " + n + " is in MRU->LRU twice");
-      inMRU.put(n.key(), n);
-      if (!inLRU.containsKey(n.key()))
-        System.err.println("*** ERROR " + n + " is in LRU->MRU " +
-                           "but not MRU->LRU");
+    public Enumeration getDroppedElements() {
+      gc();
+      return new MappedEnumeration(
+          new FilteredEnumeration(table.elements()) {
+            public boolean isIncluded(Object o) {
+              return o instanceof DroppedNode;
+            }
+          }) {
+        public Object mapped(Object o) {
+          return ((Node)o).value();
+        }
+      };
     }
 
-    if (numFromMRU != numFromMRU && numFromMRU != table.size())
-      System.err.println("*** ERROR the table has " + table.size() +
-                         " elements but LRU->MRU and vv. have " +
-                         numFromLRU + " & " + numFromMRU);
-    else
-      System.err.println("Cache size: " + numFromMRU);
+    public Enumeration getReport() {
+      return Cache.this.getReport();
+    }
+  }
 
-    System.err.println("Contents size: " + contentsSize);
+  public Info getInfo() {
+    return new Info();
+  }
+
+  public void dumpAnalysis() {
+    for (Enumeration l = getReport(); l.hasMoreElements();)
+      System.err.println(l.nextElement());
   }
 }

@@ -27,11 +27,11 @@ public abstract class MarkupLanguage {
     return rendered(field.getValueString());
   }
 
-  // 
+  //
   // =========
   //  Widgets
   // =========
-  // 
+  //
 
   protected String defaultTempletName(BooleanPoemType type) {
     return "tickbox.wm";
@@ -92,7 +92,7 @@ public abstract class MarkupLanguage {
   }
 
   public String input(Field field)
-      throws ResourceUnavailableException, UnsupportedTypeException {
+      throws InvalidTypeException, UnsupportedTypeException, NotFoundException {
     Template templet =
         (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
                                                   templetPath(field));
@@ -103,5 +103,5 @@ public abstract class MarkupLanguage {
     finally {
       webContext.remove("obj");
     }
-  } 
+  }
 }

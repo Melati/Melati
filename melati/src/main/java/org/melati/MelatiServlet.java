@@ -4,11 +4,12 @@ import java.util.*;
 import java.io.*;
 import org.melati.*;
 import org.melati.poem.*;
+import org.webmacro.*;
 import org.webmacro.util.*;
 import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
 import org.webmacro.resource.TemplateProvider;
-import org.webmacro.broker.ResourceUnavailableException;
+//import org.webmacro.broker.ResourceUnavailableException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
@@ -63,7 +64,10 @@ public abstract class MelatiServlet extends WMServlet {
       return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
                                                     loginTemplateName());
     }
-    catch (ResourceUnavailableException e) {
+    catch (InvalidTypeException e) {
+      throw new HandlerException(e.toString());
+    }
+    catch (NotFoundException e) {
       throw new HandlerException(e.toString());
     }
   }

@@ -71,6 +71,7 @@ public class TableDef {
   private Vector data = new Vector();
   boolean isAbstract;
   boolean hidesSuperclass = false;
+  boolean overridesPoemTable = false;
 
   int nextFieldDisplayOrder = 0;
 
@@ -106,6 +107,8 @@ public class TableDef {
       hidesSuperclass =
 	  superclass.substring(superclass.lastIndexOf('.') + 1).
               equals(mainClass);
+
+      overridesPoemTable = superclass.startsWith("org.melati.poem.");
     }
     else
       tokens.pushBack();
@@ -120,6 +123,10 @@ public class TableDef {
     while (tokens.nextToken() != '}')
       data.addElement(FieldDef.from(this, tokens, nextFieldDisplayOrder++));
     tokens.nextToken();
+  }
+
+  public boolean isPoemOverride() {
+    return overridesPoemTable;
   }
 
   private final TableDef this_ = this;

@@ -60,6 +60,7 @@ public class DSD {
   private final Vector packageComponents = new Vector();
   private final String packageName;
   private final Vector tables = new Vector();
+  private final Vector overridenPoemTables = new Vector();
   final Hashtable tableOfClass = new Hashtable();
   private final File dsdFile, dsdDir, dsdDirGen;
   private final String name;
@@ -133,6 +134,8 @@ public class DSD {
         tokens.nextToken();
         TableDef table = new TableDef(this, tokens, t, isAbstract);
         tables.addElement(table);
+        if (table.isPoemOverride())
+            overridenPoemTables.addElement(table);
         tableOfClass.put(table.mainClass, table);
       }
     } finally {
@@ -172,26 +175,15 @@ public class DSD {
       if (overwrite) {
         w.write(autogenStamp + "\n" +
                 "\n");
-
         w.write("package " + packageName + ".generated;\n" +
-                "\n" +
-                "import " + packageName + ".*;\n" +
-                "import java.util.*;\n" +
-                "import java.sql.Date;\n" + // FIXME hack!
-                "import java.sql.Timestamp;\n" + // FIXME hack!
-                "import org.melati.util.*;\n");
+                "\n");
+        writeImports(w, false);
+
       } else {
         w.write("package " + packageName + ";\n" +
-                "\n" +
-                "import " + packageName + ".generated.*;\n" +
-                "import java.util.*;\n" +
-                "import java.sql.Date;\n" + // FIXME hack!
-                "import java.sql.Timestamp;\n" + // FIXME hack!
-                "import org.melati.util.*;\n");
+                "\n");
+        writeImports(w, true);
       }
-
-      if (!packageName.equals("org.melati.poem"))
-        w.write("import org.melati.poem.*;\n");
 
       w.write("\n");
 
@@ -209,6 +201,28 @@ public class DSD {
     }
 
     w.close();
+  }
+
+  void writeImports(Writer w, boolean generated) throws IOException {
+
+    for (Enumeration t = overridenPoemTables.elements(); t.hasMoreElements();) {
+      TableDef overridenTable = (TableDef)t.nextElement();
+      w.write("import " + packageName + "." +
+              overridenTable.mainClass + ";\n");
+      w.write("import " + packageName + "." +
+              overridenTable.tableMainClass + ";\n");
+    }
+
+    w.write("import " + packageName +
+            (generated ? ".generated" : "") +
+            ".*;\n" +
+            "import java.util.*;\n" +
+            "import java.sql.Date;\n" + // FIXME hack!
+            "import java.sql.Timestamp;\n" + // FIXME hack!
+            "import org.melati.util.*;\n");
+
+    if (!packageName.equals("org.melati.poem"))
+      w.write("import org.melati.poem.*;\n");
   }
 
   void createJava(String name, Generator proc) throws IOException {

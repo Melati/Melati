@@ -15,8 +15,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
   /**
   * <A NAME=hackedVariable>You must use a hacked version of
-  * <TT>org.melati.engine.Variable</TT> with Melati.</A> Sorry this has to go
-  * into <TT>org.melati.engine</TT>: lobby Justin to stop making everything
+  * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
+  * into <TT>org.webmacro.engine</TT>: lobby Justin to stop making everything
   * final or package-private or static!  It will probably not break your
   * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
   * semantics are essentially the same as the traditional ones until configured
@@ -141,27 +141,29 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     if (underlying == null || !(underlying instanceof AccessPoemException))
       super.handleException(context, exception);
+    else {
 
-    AccessPoemException accessException = (AccessPoemException)underlying;
+      AccessPoemException accessException = (AccessPoemException)underlying;
 
-    HttpServletRequest request = context.getRequest();
-    HttpServletResponse response = context.getResponse();
+      HttpServletRequest request = context.getRequest();
+      HttpServletResponse response = context.getResponse();
 
-    HttpSession session = request.getSession(true);
+      HttpSession session = request.getSession(true);
 
-    session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
-                     new HttpServletRequestParameters(request));
+      session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
+                       new HttpServletRequestParameters(request));
 
-    if (accessException != null)
-      session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
-    else
-      session.removeValue(Login.TRIGGERING_EXCEPTION);
+      if (accessException != null)
+        session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
+      else
+        session.removeValue(Login.TRIGGERING_EXCEPTION);
 
-    try {
-      response.sendRedirect(loginPageURL(request));
-    }
-    catch (IOException e) {
-      throw new HandlerException(e.toString());
+      try {
+        response.sendRedirect(loginPageURL(request));
+      }
+      catch (IOException e) {
+        throw new HandlerException(e.toString());
+      }
     }
 
     return null;

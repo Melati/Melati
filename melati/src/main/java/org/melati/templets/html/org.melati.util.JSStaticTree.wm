@@ -43,6 +43,7 @@
 ## 
 ##
 ##
+<!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
 
 <SCRIPT LANGUAGE="JavaScript1.2" src="$melati.JavascriptLibraryURL/statictrees.js"></SCRIPT>
 
@@ -104,6 +105,4 @@
 
 
 
-
-
-
+<!-- end org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->

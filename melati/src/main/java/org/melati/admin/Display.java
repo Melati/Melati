@@ -77,7 +77,7 @@ public class Display extends MelatiServlet {
     }
     catch (Exception e) {
       e.printStackTrace();
-      throw new HandlerException("Bollocks: " + e);
+      throw new HandlerException("Rubbish: " + e);
     }
   }
 }

@@ -62,8 +62,32 @@ public class Searchability {
     this.name = name;
   }
 
-  public static final Searchability
-      primary, yes, no;
+  /**
+   * The column is the only one in the table for which a
+   * special widget is provided to enter a search value.
+   * <p>
+   * There is at most one such column per table.
+   * The user is able to select matching rows without
+   * popping up a search criteria dialogue window.
+   */
+  public static final Searchability primary;
+
+  /**
+   * The column is searchable so that the user is able
+   * to enter search criteria for it included along
+   * with others when searching for rows.
+   * <p>
+   * Currently the search criteria for a column consist
+   * of at most one non-null value.
+   */
+  public static final Searchability yes;
+
+  /**
+   * The column is not searchable so the user will not
+   * be given the opportunity to enter search criteria
+   * for it.
+   */
+  public static final Searchability no;
 
   private static int n = 0;
 

@@ -31,6 +31,17 @@
 #     org.melati.poem.postgresql.jdbc2.Driver.  Postgresql's driver
 #     has a problem with getIndexInfo which will make Melati attempt
 #     to recreate already existing indexes.
+#
+#  org.melati.LogicalDatabase.<logical db>.user
+#
+#     The (Postgres) username under which to connect to the database.
+#     Depending on your access policy (e.g. `/usr/lib/pgsql/pg_hba.conf'),
+#     `postgres' may be a good choice.
+#
+#  org.melati.LogicalDatabase.<logical db>.pass
+#
+#     The password associated with the username.  Depending on your
+#     access policy, `*' may well work fine.
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest

@@ -41,68 +41,26 @@
  *     Tim Joyce <timj@paneris.org>
  */
 
-package org.melati.template.webmacro;
+package org.melati.util;
 
-import java.io.ByteArrayOutputStream;
+import java.io.StringWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import org.melati.util.StringMelatiWriter;
 
 import org.webmacro.FastWriter;
 
 /**
- * This provides an interface for objects that output from melati
+ * wrap up string writer as a Melati writer
  */
 
-public class FastStringMelatiWriter implements StringMelatiWriter {
-
-  private FastWriter peer;
-  private ByteArrayOutputStream os;
+public class MelatiStringWriter extends MelatiWriter {
   
-  public FastStringMelatiWriter(String encoding) throws IOException {
-    os = new ByteArrayOutputStream();
-    peer = new FastWriter(os,encoding);
+  public MelatiStringWriter() {
+    out = new StringWriter();
   }
   
-/**
- * get the underlying writer object
- *
- * @return - the underlying writer object
- */  
-  public Object getPeer() {
-    return peer;
-  }
-  
-/**
- * write to the writer
- *
- * @param - the String to write
- */  
-  public void write(String s) throws IOException {
-    peer.write(s);
-  }
-  
-  public void writeTo() throws IOException {
-    peer.flush();
-  }
-  
-  public String asString() throws IOException {
-    peer.flush();
-    return os.toString();
-  }
-
-  public PrintWriter getPrintWriter() throws IOException {
-    return new PrintWriter(peer);
-  }
-
   public void reset() throws IOException {
-    peer.flush();
-    os.reset();
+    out = new StringWriter();
   }
-
-  public void flush() throws IOException {
-    peer.flush();
-  }  
-
+  
 }

@@ -43,6 +43,7 @@
 
 package org.melati.util;
 
+import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.io.PrintWriter;
@@ -51,46 +52,38 @@ import java.io.PrintWriter;
  * This provides an interface for objects that output from melati
  */
 
-public class SimpleMelatiWriter implements MelatiWriter {
+public class MelatiBufferedWriter extends MelatiWriter {
 
-  private Writer peer;
+  // the output is buffered
+  private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
   
-  public SimpleMelatiWriter(Writer writer) {
-    peer = writer;
+  public MelatiBufferedWriter(Writer writer) {
+    out = writer;
   }
   
-/**
- * get the underlying writer object
- *
- * @return - the underlying writer object
- */  
-  public Object getPeer() {
-    return peer;
-  }
-  
-/**
- * write to the writer
- *
- * @param - the String to write
- */  
-  public void write(String s) throws IOException {
-    peer.write(s);
-  }
-  
-  public void writeTo() throws IOException {
-    peer.close();
-  }
-
-  public PrintWriter getPrintWriter() throws IOException {
-    return new PrintWriter(peer);
+  public void write(char cbuf[], int off, int len) throws IOException {
+    System.err.println("bufferedwrite");
+    startFlushing();
+    bufferedOutput.write(cbuf, off, len);
   }
 
   public void reset() throws IOException {
-    // can't do anything :(
-    return;
+    bufferedOutput.reset();
+  }
+
+  public void flush() throws IOException {
+    bufferedOutput.flush();
+    out.flush();
+  }
+
+  public void close() throws IOException {
+    bufferedOutput.writeTo(out);
+    bufferedOutput.close();
+    super.close();
   }
   
-  public void flush() throws IOException {
-    peer.flush();
-  }  
+  public String asString() throws IOException {
+    return bufferedOutput.toString();
+  }
+
 }

@@ -41,61 +41,44 @@
  *     Tim Joyce <timj@paneris.org>
  */
 
-package org.melati.util;
+package org.melati.template.webmacro;
 
-import java.io.CharArrayWriter;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import java.io.Writer;
+import java.io.OutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+
+import org.melati.util.MelatiWriter;
+
+import org.webmacro.FastWriter;
 
 /**
  * This provides an interface for objects that output from melati
  */
 
-public class BufferedMelatiWriter implements MelatiWriter {
+public class MelatiFastWriter extends MelatiWriter {
 
-  private Writer peer;
-  // the output is buffered
-  private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
+  protected OutputStream outputStream;
   
-  public BufferedMelatiWriter(Writer writer) {
-    peer = writer;
-  }
-  
-/**
- * get the underlying writer object
- *
- * @return - the underlying writer object
- */  
-  public Object getPeer() {
-    return peer;
+  public MelatiFastWriter(HttpServletResponse response) 
+      throws IOException {
+    this(response.getOutputStream(), response.getCharacterEncoding());
   }
   
-/**
- * write to the writer
- *
- * @param - the String to write
- */  
-  public void write(String s) throws IOException {
-    bufferedOutput.write(s);
-  }
-  
-  public void writeTo() throws IOException {
-    bufferedOutput.writeTo(peer);
-    bufferedOutput.close();
-    peer.close();
+  public MelatiFastWriter(OutputStream output, String encoding)
+      throws IOException {
+    // need to make this accessable to subcalsses
+    outputStream = output;
+    out = new FastWriter(output, encoding);
   }
 
-  public PrintWriter getPrintWriter() throws IOException {
-    return new PrintWriter(peer);
+  public FastWriter getPeer() {
+    // as we can write to the underlying peer, the Flusher may not get started
+    // so we should start it here
+    startFlushing();
+    return (FastWriter)out;
   }
 
-  public void reset() throws IOException {
-    bufferedOutput.reset();
-  }
-
-  public void flush() throws IOException {
-    bufferedOutput.flush();
-    peer.flush();
-  }
 }

@@ -49,7 +49,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringMelatiWriter;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -105,10 +104,11 @@ public interface TemplateEngine
     
   public Object getPassbackVariableExceptionHandler();
   
-  public MelatiWriter getServletWriter(HttpServletResponse response)
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+                                       boolean buffered)
           throws IOException;
   
-  public StringMelatiWriter getStringWriter(String encoding)
+  public MelatiWriter getStringWriter(String encoding)
           throws IOException;
   /** 
    * get the underlying engine

@@ -51,9 +51,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
-import org.melati.util.SimpleMelatiWriter;
-import org.melati.util.SimpleStringMelatiWriter;
-import org.melati.util.StringMelatiWriter;
+import org.melati.util.MelatiSimpleWriter;
+import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiBufferedWriter;
 
 
 /**
@@ -145,14 +145,18 @@ public class NoTemplateEngine implements TemplateEngine
     throw new TemplateEngineException(exceptiion);
   }
 
-  public MelatiWriter getServletWriter(HttpServletResponse response) 
-          throws IOException {
-    return new SimpleMelatiWriter(response.getWriter());
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+      boolean buffered) throws IOException {
+    if (buffered) {
+      return new MelatiBufferedWriter(response.getWriter());
+    } else {
+      return new MelatiSimpleWriter(response.getWriter());
+    }
   }
 
-  public StringMelatiWriter getStringWriter(String encoding) 
+  public MelatiWriter getStringWriter(String encoding) 
           throws IOException {
-    return new SimpleStringMelatiWriter();
+    return new MelatiStringWriter();
   }
 
 }

@@ -73,8 +73,8 @@ public class WebmacroTemplate implements Template
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException {
     try {
-      template.write((FastWriter)out.getPeer(), 
-                     (WebContext)templateContext.getContext());
+      FastWriter fw = ((MelatiFastWriter)out).getPeer();
+      template.write(fw, (WebContext)templateContext.getContext());
     } catch (ContextException e) {
       throw new TemplateEngineException(e);
     } catch (IOException e) {

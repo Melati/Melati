@@ -71,8 +71,7 @@ public class JTemplaterTemplate implements Template
   public void write(MelatiWriter out, TemplateContext templateContext,
   TemplateEngine engine) throws TemplateEngineException {
     try {
-      template.expand(templateContext, (Writer)out.getPeer(), 
-                     (JTemplater)engine.getEngine());
+      template.expand(templateContext, out, (JTemplater)engine.getEngine());
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }

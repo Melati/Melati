@@ -59,7 +59,6 @@ import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.NoAccessTokenPoemException;
-import org.melati.servlet.Flusher;
 import org.melati.servlet.MelatiContext;
 import org.melati.template.TemplateContext;
 import org.melati.template.HTMLMarkupLanguage;
@@ -71,10 +70,9 @@ import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
-import org.melati.util.SimpleMelatiWriter;
-import org.melati.util.StringMelatiWriter;
-import org.melati.util.SimpleStringMelatiWriter;
-import org.melati.util.BufferedMelatiWriter;
+import org.melati.util.MelatiSimpleWriter;
+import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiBufferedWriter;
 
 /**
  * This is the main entry point for using Melati.
@@ -111,15 +109,13 @@ public class Melati {
   // the object that is used by the template engine to expand the template 
   // against
   private TemplateContext templateContext;
-  // most of the time we buffer the output
-  private boolean buffered = true;
   // check to see if we have got the writer
   private boolean gotwriter = false;
-  // if we don't buffer, we can allow the output to be interrupted
-  private boolean stopping = true;
-  // the flusher send output to the client ever x seconds
-  private Flusher flusher;
-  
+  // are we manually flushing the output
+  private boolean flushing = false;
+  // are we buffering the output
+  private boolean buffered= false;
+  // the output writer
   private MelatiWriter writer;
   
   private String encoding;
@@ -453,10 +449,16 @@ public class Melati {
  * the user will be allows to interrupt the request
  * @see org.melati.test.FlushingServletTest
  */  
-  // FIXME - need to stop people changing the Writer after they have got one
-  public void setBufferingOff(boolean stop) {
+  public void setBufferingOff() throws IOException {
+    if (gotwriter) throw new IOException
+        ("You have already requested a Writer, and can't change it's properties now");
     buffered = false;
-    stopping = stop;
+  }
+
+  public void setFlushingOn() throws IOException {
+    if (gotwriter) throw new IOException
+        ("You have already requested a Writer, and can't change it's properties now");
+    flushing = true;
   }
 
 /**
@@ -497,7 +499,6 @@ public class Melati {
  * @throws IOException if there is a problem with the writer
  */  
   public MelatiWriter getWriter() throws IOException {
-
     if (writer == null) writer = createWriter();
     // if we have it, remember that fact
     if (writer != null) gotwriter = true;
@@ -514,12 +515,12 @@ public class Melati {
  *
  * @throws IOException if there is a problem with the writer
  */  
-  public StringMelatiWriter getStringWriter() throws IOException {
+  public MelatiWriter getStringWriter() throws IOException {
 
     if (templateEngine != null) {
       return templateEngine.getStringWriter(getEncoding());
     } else {
-      return new SimpleStringMelatiWriter();
+      return new MelatiStringWriter();
     }
   }
 
@@ -529,19 +530,16 @@ public class Melati {
     MelatiWriter writer = null;
     if (response != null) {
       if (templateEngine != null) {
-        writer = templateEngine.getServletWriter(response);
+        writer = templateEngine.getServletWriter(response, buffered);
       } else {
         if (buffered) {
-          writer = new BufferedMelatiWriter(response.getWriter());
+          writer = new MelatiBufferedWriter(response.getWriter());
         } else {
-          writer = new SimpleMelatiWriter(response.getWriter());
+          writer = new MelatiSimpleWriter(response.getWriter());
         }
       }
     }
-    if (stopping) {
-      flusher = new Flusher(writer);
-      flusher.start();
-    }
+    if (flushing) writer.setFlushingOn();
     return writer;
   }
 
@@ -553,10 +551,7 @@ public class Melati {
  */  
   public void write() throws IOException {
     // only write stuff if we have previously got a writer
-    if (gotwriter) {
-      writer.writeTo();
-// FIXME - put this back      if (flusher != null) flusher.setStopTask(true);
-    }
+    if (gotwriter) writer.close();
   }
 
 /**

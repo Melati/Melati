@@ -58,7 +58,6 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringMelatiWriter;
 
 import org.webmacro.WM;
 import org.webmacro.InitException;
@@ -129,14 +128,18 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     return wm;
   }
 
-  public MelatiWriter getServletWriter(HttpServletResponse response) 
+  public MelatiWriter getServletWriter(HttpServletResponse response, boolean buffered) 
           throws IOException {
-    return new FastMelatiWriter(response);
+    if (buffered) {
+      return new MelatiBufferedFastWriter(response);
+    } else {
+      return new MelatiFastWriter(response);
+    }
   }
 
-  public StringMelatiWriter getStringWriter(String encoding) 
+  public MelatiWriter getStringWriter(String encoding) 
           throws IOException {
-    return new FastStringMelatiWriter(encoding);
+    return new MelatiBufferedFastWriter(encoding);
   }
 
   /**

@@ -56,9 +56,9 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiWriter;
-import org.melati.util.SimpleMelatiWriter;
-import org.melati.util.SimpleStringMelatiWriter;
-import org.melati.util.StringMelatiWriter;
+import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiSimpleWriter;
+import org.melati.util.MelatiBufferedWriter;
 
 import org.melati.jtemplater.JTemplater;
 
@@ -103,14 +103,19 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     return jt;
   }
 
-  public MelatiWriter getServletWriter(HttpServletResponse response) 
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+                                       boolean buffered) 
           throws IOException {
-    return new SimpleMelatiWriter(response.getWriter());
+    if (buffered) {
+      return new MelatiBufferedWriter(response.getWriter());
+    } else {
+      return new MelatiSimpleWriter(response.getWriter());
+    }
   }
 
-  public StringMelatiWriter getStringWriter(String encoding) 
+  public MelatiWriter getStringWriter(String encoding) 
           throws IOException {
-    return new SimpleStringMelatiWriter();
+    return new MelatiStringWriter();
   }
   
   public TemplateContext getTemplateContext(Melati melati)

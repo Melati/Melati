@@ -39,18 +39,43 @@
  * Contact details for copyright holder:
  *
  *     Tim Joyce <timj@paneris.org>
+ *     http://paneris.org/
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
 package org.melati.util;
 
-import java.io.IOException;
 
 /**
- * This provides an interface for objects that output from melati
- */
+  * Flusher replaces need for Thread.stop
+*/
+public final class Flusher extends Thread {
+    private MelatiWriter out = null;
+    private boolean stopTask = false;
 
-public interface StringMelatiWriter extends MelatiWriter {
+    private int getPauseLength() {
+        return 2000;
+    }
 
-  public String asString() throws IOException;
-  
+    public Flusher(MelatiWriter aOut) {
+        out = aOut;
+    }
+
+    public synchronized boolean getStopTask() {
+        return stopTask;
+    }
+
+    public synchronized void setStopTask(boolean aStopTask) {
+        stopTask = aStopTask;
+    }
+
+    public void run() {
+      try {
+        while (!getStopTask()) {
+          Thread.sleep( getPauseLength() );
+          out.flush();
+        }
+      }
+      catch (Exception e) {}
+    }
 }

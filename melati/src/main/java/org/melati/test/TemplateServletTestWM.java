@@ -57,7 +57,7 @@ import org.melati.servlet.MultipartFormField;
 import org.melati.template.Template;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
-import org.melati.util.StringMelatiWriter;
+import org.melati.util.MelatiWriter;
 
 /**
  * Base class to use Melati with Servlets.
@@ -98,7 +98,7 @@ public class TemplateServletTestWM extends TemplateServlet {
       if (melati.getMethod().equals("StandAlone")) {
         // construct a Melati with a StringWriter instead of a servlet
         // request and response
-        StringMelatiWriter sw = 
+        MelatiWriter sw = 
                 templateEngine.getStringWriter(melati.getEncoding());
         Melati melati2 = new Melati(melati.getConfig(),sw);
         TemplateContext templateContext2 = 

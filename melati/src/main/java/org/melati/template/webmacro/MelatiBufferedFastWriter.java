@@ -58,61 +58,50 @@ import org.webmacro.FastWriter;
  * This provides an interface for objects that output from melati
  */
 
-public class FastMelatiWriter implements MelatiWriter {
+public class MelatiBufferedFastWriter extends MelatiFastWriter {
 
-  private FastWriter peer;
   private OutputStream underlying;
   private ByteArrayOutputStream buffer;
   
-  public FastMelatiWriter(HttpServletResponse response) throws IOException {
-    this (response.getOutputStream(), response.getCharacterEncoding());
-  }
-  
-  public FastMelatiWriter(OutputStream output, String encoding) throws IOException {
-    buffer = new ByteArrayOutputStream();
-    peer = new FastWriter(buffer, encoding);
+  public MelatiBufferedFastWriter(OutputStream output, String encoding)
+      throws IOException {
+    super(new ByteArrayOutputStream(), encoding);
+    buffer = (ByteArrayOutputStream)outputStream;
     underlying = output;
   }
-  
-/**
- * get the underlying writer object
- *
- * @return - the underlying writer object
- */  
-  public Object getPeer() {
-    return peer;
+
+  public MelatiBufferedFastWriter(HttpServletResponse response) 
+      throws IOException {
+    this(response.getOutputStream(), response.getCharacterEncoding());
   }
   
-/**
- * write to the writer
- *
- * @param - the String to write
- */  
-  public void write(String s) throws IOException {
-    peer.write(s);
+  public MelatiBufferedFastWriter(String encoding) throws IOException {
+    this(new ByteArrayOutputStream(), encoding);
   }
-  
-  public void writeTo() throws IOException {
-    peer.close();
+
+  public void close() throws IOException {
+    super.close();
     buffer.writeTo(underlying);
+    buffer.close(); 
     underlying.flush();
-    buffer.reset(); 
-  }
-
-  public PrintWriter getPrintWriter() throws IOException {
-    return new PrintWriter(peer);
-  }
-
-  public void reset() throws IOException {
-    peer.flush();
-    buffer.reset();
+    underlying.close();
   }
   
   public void flush() throws IOException {
-    peer.flush();
+    out.flush();
     buffer.writeTo(underlying);
     buffer.reset(); 
     underlying.flush();
   }  
+
+  public void reset() throws IOException {
+    out.flush();
+    buffer.reset();
+  }
   
+  public String asString() throws IOException {
+    out.flush();
+    return buffer.toString();
+  }
+
 }

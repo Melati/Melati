@@ -43,60 +43,18 @@
 
 package org.melati.util;
 
-import java.io.StringWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.io.PrintWriter;
-
-import org.webmacro.FastWriter;
 
 /**
  * This provides an interface for objects that output from melati
  */
 
-public class SimpleStringMelatiWriter implements StringMelatiWriter {
+public class MelatiSimpleWriter extends MelatiWriter {
 
-  private StringWriter peer;
-  
-  public SimpleStringMelatiWriter() {
-    peer = new StringWriter();
+  public MelatiSimpleWriter(Writer writer) {
+    out = writer;
   }
-  
-/**
- * get the underlying writer object
- *
- * @return - the underlying writer object
- */  
-  public Object getPeer() {
-    return peer;
-  }
-  
-/**
- * write to the writer
- *
- * @param - the String to write
- */  
-  public void write(String s) throws IOException {
-    peer.write(s);
-  }
-  
-  public void writeTo() throws IOException {
-    peer.close();
-  }
-  
-  public String asString() throws IOException {
-    return peer.toString();
-  }
-
-  public void reset() throws IOException {
-    peer = new StringWriter();
-  }
-
-  public PrintWriter getPrintWriter() throws IOException {
-    return new PrintWriter(peer);
-  }
-  
-  public void flush() throws IOException {
-    peer.flush();
-  }  
   
 }

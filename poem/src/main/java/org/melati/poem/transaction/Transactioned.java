@@ -70,7 +70,26 @@ public abstract class Transactioned {
   }
 
   protected abstract void load(Transaction transaction);
+
+  /**
+   * Is this instance up-to-date?
+   * <p>
+   * This enables subtypes to define under what circumstances
+   * an instance needs to be reloaded when it is marked as
+   * invalid.
+   * <p>
+   * There is some confusion about the requirements.
+   * See subtypes.
+   * <p>
+   * {@link Transactioned#ensureValid(Transaction)} will
+   * reload instances that are not up-to-date but it is not
+   * clear what purpose this serves in cases where this
+   * method is overridden e.g. org.paneris.bibliomania.
+   *
+   * @todo Review javadocs
+   */
   protected abstract boolean upToDate(Transaction transaction);
+
   protected abstract void writeDown(Transaction transaction);
 
   protected synchronized void reset() {
@@ -135,6 +154,18 @@ public abstract class Transactioned {
     ensureValid(transaction);
   }
 
+  /**
+   * Get a write lock on the given object if we do not already
+   * have one.
+   * <p>
+   * This will block until no other transactions have
+   * write locks on the object.before claiming the next write
+   * lock. Then it will block until none have read locks.
+   * <p>
+   * Finally it calls {@link #ensureValid(Transaction)}.
+   *
+   * @todo Review Javadocs
+   */
   protected void writeLock(Transaction transaction) {
 
     if (transaction == null)

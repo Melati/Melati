@@ -296,7 +296,7 @@ public class MySQL extends AnsiStandard {
       int preIndex, postIndex; //Places of apostrophes around index value
       int preColumn; //Place of "key ", which is in front of column number
     
-          preIndex= m.indexOf('\'');
+      preIndex= m.indexOf('\'');
       postIndex= m.lastIndexOf('\'');
       preColumn= m.indexOf("key ");
   

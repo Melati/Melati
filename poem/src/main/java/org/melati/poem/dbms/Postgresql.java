@@ -40,7 +40,10 @@
  *
  *     David Warnock (david@sundayta.co.uk)
  *     Sundayta Ltd
- *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
+ *     International House, 
+ *     174 Three Bridges Road, 
+ *     Crawley, West Sussex 
+ *     RH10 1LE, UK
  *
  */
 
@@ -103,6 +106,9 @@ public class Postgresql extends AnsiStandard {
     return "OID";
   }
 
+  /**
+   * An Object Id poem type
+   */
   public static class OidPoemType extends IntegerPoemType {
       public OidPoemType(boolean nullable) {
           super(Types.INTEGER, "OID", nullable);
@@ -151,6 +157,8 @@ public class Postgresql extends AnsiStandard {
                                                   sql, insert, e);
         }
         catch (NoSuchColumnPoemException f) {
+	    throw new SeriousPoemException(
+               "Duplicate Key exception thrown on a non-existant column",f);
         }
       }
       return new DuplicateKeySQLPoemException(table, sql, insert, e);

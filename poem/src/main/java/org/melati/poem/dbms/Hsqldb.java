@@ -100,11 +100,13 @@ public class Hsqldb extends AnsiStandard {
     }
   }
 
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) throws SQLException {
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) 
+      throws SQLException {
     ResultSetMetaData rsmd = md.getMetaData();
 
     if (md.getString("TYPE_NAME").equals("BIT"))
-      return new HsqldbBooleanPoemType(md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+      return new HsqldbBooleanPoemType(
+                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     else
       return super.defaultPoemTypeOfColumnMetaData(md);
   }
@@ -121,7 +123,8 @@ public class Hsqldb extends AnsiStandard {
       }
     }
 
-    protected void _setRaw(PreparedStatement ps, int col, Object bool) throws SQLException {
+    protected void _setRaw(PreparedStatement ps, int col, Object bool) 
+        throws SQLException {
       ps.setInt(col, ((Boolean) bool).booleanValue() ? 1 : 0);
     }
 

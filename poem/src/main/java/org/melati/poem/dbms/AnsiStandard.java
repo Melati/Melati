@@ -40,7 +40,10 @@
  *
  *     David Warnock (david@sundayta.co.uk)
  *     Sundayta Ltd
- *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
+ *     International House, 
+ *     174 Three Bridges Road, 
+ *     Crawley, 
+ *     West Sussex RH10 1LE, UK
  *
  */
 
@@ -126,16 +129,22 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
+  public Connection getConnection(String url, String user, String password) 
+      throws ConnectionFailurePoemException {
     synchronized (driverClassName) {
       if ( !getDriverLoaded() ) {
         if (getDriverClassName() == null) {
-          throw new ConnectionFailurePoemException(new SQLException("No Driver Classname set in dbms specific class"));
+          throw new ConnectionFailurePoemException(
+              new SQLException(
+                  "No Driver Classname set in dbms specific class"));
         }
         loadDriver();
       }
       if ( !getDriverLoaded() ) {
-        throw new ConnectionFailurePoemException(new SQLException("The Driver class " + getDriverClassName() + " failed to load"));
+        throw new ConnectionFailurePoemException(
+            new SQLException(
+                "The Driver class " 
+                    + getDriverClassName() + " failed to load"));
       }
     }
 

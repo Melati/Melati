@@ -40,7 +40,11 @@
  *
  *     David Warnock (david@sundayta.co.uk)
  *     Sundayta Ltd
- *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
+ *     International House, 
+ *     174 Three Bridges Road, 
+ *     Crawley, 
+ *     West Sussex 
+ *     RH10 1LE, UK
  *
  */
 
@@ -50,39 +54,45 @@ import java.util.Hashtable;
 import java.sql.SQLException;
 import org.melati.poem.ConnectionFailurePoemException;
 
+/**
+ * A factory class to create Dbms objects.
+ * 
+ * @todo Revisit exception handling
+ */
 public class DbmsFactory {
 
     private static final Hashtable dbmsObjects = new Hashtable();
 
     // FIXME
     // What horrible exception handling. We need a non SQL Exception here
-    public static final Dbms getDbms(String dbmsClass) throws ConnectionFailurePoemException {
-        synchronized (dbmsObjects) {
-            try {
-                Dbms dbms = (Dbms)dbmsObjects.get(dbmsClass);
-                if (dbms != null) {
-                    return dbms;
-                }
+    public static final Dbms getDbms(String dbmsClass) 
+        throws ConnectionFailurePoemException {
+      synchronized (dbmsObjects) {
+        try {
+          Dbms dbms = (Dbms)dbmsObjects.get(dbmsClass);
+          if (dbms != null) {
+            return dbms;
+          }
 
-                Object dbmsObject = Class.forName(dbmsClass).newInstance();
+          Object dbmsObject = Class.forName(dbmsClass).newInstance();
 
-                if (!(dbmsObject instanceof Dbms)) {
-                    throw new ClassCastException(
-                                                "The .class=" + dbmsClass + " entry named a class of type " +
-                                                dbmsObject.getClass() + ", " +
-                                                "which is not an org.melati.poem.dbms.Dbms");
-                }
+          if (!(dbmsObject instanceof Dbms)) {
+            throw new ClassCastException(
+                 "The .class=" + dbmsClass + " entry named a class of type " +
+                 dbmsObject.getClass() + ", " +
+                 "which is not an org.melati.poem.dbms.Dbms");
+          }
 
-                dbms = (Dbms)dbmsObject;
-                dbmsObjects.put(dbmsClass, dbms);
-                return dbms;
-            } catch (Exception e) {
+          dbms = (Dbms)dbmsObject;
+          dbmsObjects.put(dbmsClass, dbms);
+          return dbms;
+        } catch (Exception e) {
               // get the stack trace
-              e.printStackTrace(System.err);
-                throw new ConnectionFailurePoemException( new SQLException(e.getMessage()));
-            }
+          e.printStackTrace(System.err);
+          throw new ConnectionFailurePoemException(
+                        new SQLException(e.getMessage()));
         }
-
+      }
     }
 }
 

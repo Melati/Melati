@@ -40,7 +40,11 @@
  *
  *     David Warnock (david@sundayta.co.uk)
  *     Sundayta Ltd
- *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
+ *     International House, 
+ *     174 Three Bridges Road, 
+ *     Crawley, 
+ *     West Sussex 
+ *     RH10 1LE, UK
  *
  */
 

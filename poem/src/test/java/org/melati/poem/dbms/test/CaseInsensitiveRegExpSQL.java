@@ -18,7 +18,7 @@ public class CaseInsensitiveRegExpSQL extends TestCase {
 
   /**
    * Constructor for CaseInsensitiveRegExpSQL.
-   * @param arg0
+   * @param arg0 First argument
    */
   public CaseInsensitiveRegExpSQL(String arg0) {
     super(arg0);

@@ -590,7 +590,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc but without clean) and run"
-          depends="compile, unittest, war, run">
+          depends="compile, unittest, jar, war, run">
   </target>
   <target name="compileJar" 
           description="Compile changed sources, test and build jar"

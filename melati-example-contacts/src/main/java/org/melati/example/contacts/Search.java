@@ -1,7 +1,6 @@
 package org.melati.example.contacts;
 
 import org.melati.Melati;
-import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.MelatiContext;
 import org.melati.servlet.PathInfoException;
@@ -13,7 +12,7 @@ import org.melati.MelatiUtil;
   *  Example servlet to search contacts and display them.
   *
   **/
-public class Search extends TemplateServlet {
+public class Search extends ContactsServlet {
 
   protected String doTemplateRequest(Melati melati, TemplateContext context)
      throws Exception {

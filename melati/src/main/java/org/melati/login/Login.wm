@@ -61,10 +61,10 @@
 
 <H1>Login</H1>
 
-#if ($triggeringException) {
+#if ($triggeringException) #begin
   <P>You need to log in.</P>
   <P>$ml.rendered($triggeringException.Message)</P>
-}
+#end
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
   <TR>

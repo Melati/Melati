@@ -222,7 +222,7 @@ abstract table ValueInfo {
       (displaylevel = detail) (searchability = no) (uneditable);
 
   Integer size
-      (description = "For character fields, the maximum number of characters that can be stored")
+      (description = "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)")
       (displaylevel = detail) (searchability = no) (uneditable);
 
   Integer width

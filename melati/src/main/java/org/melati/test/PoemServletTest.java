@@ -105,7 +105,10 @@ public class PoemServletTest extends PoemServlet {
     melati.getZoneURL() + 
     "/HelloWorld/>HelloWorld</a>, or <a href=" + 
     melati.getZoneURL() + 
-    "/GuestBook/>GuestBook</a><br>You can test your WebMacro working with " +
+    "/GuestBook/>GuestBook</a>, or <a href=" + 
+    melati.getZoneURL() + 
+    "/org.melati.test.WebmacroStandalone/>WebmacroStandalone</a>" + 
+    "<br>You can test your WebMacro working with " +
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.TemplateServletTestWM/>" + 

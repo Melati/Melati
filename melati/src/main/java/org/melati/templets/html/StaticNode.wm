@@ -1,3 +1,5 @@
+#set $admin = $melati.AdminUtils
 ##   Static Node Label templet
 ##  This templet is evaluated for every node in a StaticTree
-"<font face='Arial, Helvetica'> $(node.Data.Name)</font>"
+" <font face='Arial, Helvetica' size=1>&nbsp; <a href='$admin.EditURL($node.Data)'>$(node.Data.Name)</a></font>"
+##?returnTarget=Form.returnTarget&returnURL=Form.returnURL' target=admin_edit$node.Data.Table.Name$node.Data.troid()

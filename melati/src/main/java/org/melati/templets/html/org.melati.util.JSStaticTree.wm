@@ -77,9 +77,11 @@ roots[roots.length] = Node$(root.UniqueName);
 var tree = new StaticTree(parent.treedisplay,       ## displayFrame
                           "parent.treecontrol",     ## controlFrameName needs quotes
                           roots,                
-                          true,                     ## selectNodes
-                          true,                     ## selectLeaves
-                          "$tree.ImageBaseRef",
+                          false,                     ## selectNodes
+                          false,                     ## selectLeaves
+                          "$tree.BackgroundColour",
+                          "$tree.VerticalLinkImage",
+                          "$tree.SpacerImage",
                           "$tree.OpenedTImage",  
                           "$tree.OpenedLImage",  
                           "$tree.ClosedTImage",  
@@ -93,7 +95,8 @@ tree.display();
 }
 
 // In case someone forgets the onload in the body tag
-if (window.onload == null) window.onload = init;
+// :( doesn't work on IE, do remember to put this in your body tag
+//if (window.onload == null) window.onload = init;
 </script>
 
 

@@ -555,25 +555,43 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Update");
   }
 
-  protected String modifyTemplate
-  (TemplateContext context, Melati melati)
-  throws FormParameterException {
+  protected String modifyTemplate(TemplateContext context, Melati melati)
+                                                     throws FormParameterException {
     String action = melati.getRequest().getParameter("action");
     if ("Update".equals(action))
-    return updateTemplate(context, melati);
+      return updateTemplate(context, melati);
     else if ("Delete".equals(action))
-    return deleteTemplate(context, melati);
+      return deleteTemplate(context, melati);
     else if ("Duplicate".equals(action))
-    return duplicateTemplate(context, melati);
+      return duplicateTemplate(context, melati);
     else
-    throw new FormParameterException
-    ("action", "bad action from Edit: " + action);
+      throw new FormParameterException("action",
+                                       "bad action from Edit: " + action);
   }
 
   protected String uploadTemplate(TemplateContext context)
-  throws PoemException {
+                                              throws PoemException {
     context.put("field", context.getForm("field"));
     return adminTemplate(context, "Upload");
+  }
+
+
+  /*
+   * For this to work you need to set your melati-wide FormDataAdaptorFactory
+   * to something that returns a valid URL, for instance,
+   * UploadDirDataAdaptorFactory (remember to set your UploadDir and UploadURL
+   * in the Setting table.
+   */
+  protected String uploadDoneTemplate(TemplateContext context, Melati melati)
+                                              throws PoemException {
+    String field = context.getForm("field");
+    context.put("field", field);
+    String url = "";
+    try {
+      url = context.getMultipartForm("file").getDataURL();
+    } catch (Exception e) {}
+    context.put("url", url);
+    return adminTemplate(context, "UploadDone");
   }
 
 
@@ -583,66 +601,71 @@ public class Admin extends TemplateServlet {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin))
-    throw new AccessPoemException(token, admin);
+      throw new AccessPoemException(token, admin);
 
     context.put("admin", melati.getAdminUtils());
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
-      return rightTemplate(context, melati);
+        return rightTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
-      return editHeaderTemplate(context, melati);
+        return editHeaderTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
-      return editTemplate(context, melati);
-      else if (melati.getMethod().equals("Update"))
-      return modifyTemplate(context, melati);
-      else if (melati.getObject() instanceof AdminSpecialised) {
-        String templateName =
-        ((AdminSpecialised)melati.getObject()).adminHandle(
-        melati, melati.getHTMLMarkupLanguage());
-        if (templateName != null) return templateName;
-      }
+        return editTemplate(context, melati);
+      else
+        if (melati.getMethod().equals("Update"))
+          return modifyTemplate(context, melati);
+        else
+          if (melati.getObject() instanceof AdminSpecialised) {
+            String templateName =
+              ((AdminSpecialised)melati.getObject()).adminHandle(
+                melati, melati.getHTMLMarkupLanguage());
+            if (templateName != null)
+              return templateName;
+          }
     }
     else if (melati.getTable() != null) {
       if (melati.getMethod().equals("Bottom"))
-      return bottomTemplate(context, melati);
+        return bottomTemplate(context, melati);
       if (melati.getMethod().equals("Left"))
-      return leftTemplate(context, melati);
+        return leftTemplate(context, melati);
       if (melati.getMethod().equals("PrimarySelect"))
-      return primarySelectTemplate(context, melati);
+        return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))
-      return selectionTemplate(context, melati);
+        return selectionTemplate(context, melati);
       if (melati.getMethod().equals("SelectionRight"))
-      return selectionRightTemplate(context, melati);
+        return selectionRightTemplate(context, melati);
       if (melati.getMethod().equals("Navigation"))
-      return navigationTemplate(context, melati);
+        return navigationTemplate(context, melati);
       if (melati.getMethod().equals("PopUp"))
-      return popupTemplate(context, melati);
+        return popupTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindow"))
-      return selectionWindowTemplate(context, melati);
+        return selectionWindowTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowPrimarySelect"))
-      return selectionWindowPrimarySelectTemplate(context, melati);
+        return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))
-      return selectionWindowSelectionTemplate(context, melati);
+        return selectionWindowSelectionTemplate(context, melati);
       if (melati.getMethod().equals("Add"))
-      return addTemplate(context, melati);
+        return addTemplate(context, melati);
       if (melati.getMethod().equals("AddUpdate"))
-      return addUpdateTemplate(context, melati);
+        return addUpdateTemplate(context, melati);
     }
     else {
       if (melati.getMethod().equals("Main"))
-      return mainTemplate(context);
+        return mainTemplate(context);
       if (melati.getMethod().equals("Top"))
-      return topTemplate(context);
+        return topTemplate(context);
       if (melati.getMethod().equals("Create"))
-      return tableCreateTemplate(context, melati);
+        return tableCreateTemplate(context, melati);
       if (melati.getMethod().equals("Create_doit"))
-      return tableCreate_doitTemplate(context, melati);
+        return tableCreate_doitTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn"))
-      return columnCreateTemplate(context, melati);
+        return columnCreateTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn_doit"))
-      return columnCreate_doitTemplate(context, melati);
+        return columnCreate_doitTemplate(context, melati);
       if (melati.getMethod().equals("Upload"))
-      return uploadTemplate(context);
+        return uploadTemplate(context);
+      if (melati.getMethod().equals("UploadDone"))
+        return uploadDoneTemplate(context, melati);
     }
 
     throw new InvalidUsageException(this, melati.getContext());

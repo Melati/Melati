@@ -151,9 +151,10 @@ public class AdminUtils {
   }
 
   public String UploadHandlerURL(String field) {
-    int admin = adminURL.indexOf("admin.Admin");
-    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + 
-    "/" +field;
+//    int admin = adminURL.indexOf("admin.Admin");
+//    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + 
+//    "/" +field;
+      return adminURL + "/" + logicalDatabase + "/UploadDone?field="+field;
   }
 
   // establish if this is a reference poem type field

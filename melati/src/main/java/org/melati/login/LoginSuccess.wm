@@ -59,11 +59,9 @@
 
 <H1>You have logged in</H1>
 
-#if ($continuationURL) {
-<META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
-} #else {
-<META HTTP-EQUIV="Refresh" CONTENT="1; URL=/">
-}
+#if ($continuationURL) #begin
+  <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
+#end
 
 </CENTER>
 

@@ -257,10 +257,12 @@ public class DSD {
       try {
         w.close();
       } catch (Exception ee) {
+        ; // If we fail here the cause is reported below
       }
       try {
         f.delete();
       } catch (Exception ee) {
+        ; // If we fail here the cause is reported below
       }
       throw e;
     }

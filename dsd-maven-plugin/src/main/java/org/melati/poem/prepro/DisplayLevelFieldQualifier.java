@@ -48,13 +48,29 @@
 package org.melati.poem.prepro;
 
 import java.io.*;
+import org.melati.poem.DisplayLevel;
 
-public class PrimaryCriterionFieldQualifier extends FieldQualifier {
+public class DisplayLevelFieldQualifier extends FieldQualifier {
 
-  public PrimaryCriterionFieldQualifier(StreamTokenizer tokens) {
+  private DisplayLevel displayLevel;
+
+  public DisplayLevelFieldQualifier(StreamTokenizer tokens)
+      throws ParsingDSDException, IOException {
+    DSD.expect(tokens, '=');
+    tokens.nextToken();
+    if (tokens.ttype != StreamTokenizer.TT_WORD)
+      throw new ParsingDSDException("<display level name>", tokens);
+    try {
+      displayLevel = DisplayLevel.named(tokens.sval);
+    }
+    catch (DisplayLevel.NameUnrecognisedException e) {
+      throw new ParsingDSDException("<display level name>", tokens);
+    }
+
+    tokens.nextToken();
   }
 
-  public void apply(FieldDef field) {
-    field.isPrimaryCriterionColumn = true;
+  public void apply(FieldDef field) throws IllegalityException {
+    field.displayLevel = displayLevel;
   }
 }

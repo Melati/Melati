@@ -48,13 +48,29 @@
 package org.melati.poem.prepro;
 
 import java.io.*;
+import org.melati.poem.Searchability;
 
-public class HiddenFieldQualifier extends FieldQualifier {
+public class SearchabilityFieldQualifier extends FieldQualifier {
 
-  public HiddenFieldQualifier(StreamTokenizer tokens) {
+  private Searchability searchability;
+
+  public SearchabilityFieldQualifier(StreamTokenizer tokens)
+      throws ParsingDSDException, IOException {
+    DSD.expect(tokens, '=');
+    tokens.nextToken();
+    if (tokens.ttype != StreamTokenizer.TT_WORD)
+      throw new ParsingDSDException("<searchability level name>", tokens);
+    try {
+      searchability = Searchability.named(tokens.sval);
+    }
+    catch (Searchability.NameUnrecognisedException e) {
+      throw new ParsingDSDException("<searchability level name>", tokens);
+    }
+
+    tokens.nextToken();
   }
 
-  public void apply(FieldDef field) {
-    field.recorddisplay = false;
+  public void apply(FieldDef field) throws IllegalityException {
+    field.searchability = searchability;
   }
 }

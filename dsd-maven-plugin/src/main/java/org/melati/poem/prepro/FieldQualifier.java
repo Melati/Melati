@@ -73,10 +73,6 @@ public abstract class FieldQualifier {
       it = new SizeFieldQualifier(tokens);
     else if (kind.equals("deleted"))
       it = new DeletedFieldQualifier(tokens);
-    else if (kind.equals("primarydisplay"))
-      it = new PrimaryDisplayFieldQualifier(tokens);
-    else if (kind.equals("primarycriterion"))
-      it = new PrimaryCriterionFieldQualifier(tokens);
     else if (kind.equals("displayorderpriority"))
       it = new DisplayOrderPriorityFieldQualifier(tokens);
     else if (kind.equals("uneditable"))
@@ -85,14 +81,14 @@ public abstract class FieldQualifier {
       it = new UncreateableFieldQualifier(tokens);
     else if (kind.equals("displayname"))
       it = new DisplayNameFieldQualifier(tokens);
+    else if (kind.equals("displayorder"))
+      it = new DisplayOrderFieldQualifier(tokens);
     else if (kind.equals("description"))
       it = new DescriptionFieldQualifier(tokens);
-    else if (kind.equals("hidden"))
-      it = new HiddenFieldQualifier(tokens);
-    else if (kind.equals("summaryhidden"))
-      it = new SummaryHiddenFieldQualifier(tokens);
-    else if (kind.equals("criterionhidden"))
-      it = new CriterionHiddenFieldQualifier(tokens);
+    else if (kind.equals("displaylevel"))
+      it = new DisplayLevelFieldQualifier(tokens);
+    else if (kind.equals("searchability"))
+      it = new SearchabilityFieldQualifier(tokens);
     else if (kind.equals("compareonly"))
       it = new CompareOnlyFieldQualifier(tokens);
     else if (kind.equals("width"))

@@ -382,7 +382,7 @@ abstract public class Database implements TransactionPool {
    */
 
   public final int transactionsMax() {
-    return 15;
+    return 5;
   }
 
   // 

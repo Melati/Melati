@@ -600,7 +600,7 @@ public class Melati {
    * this allows an Exception to be handled inline during Template expansion
    *
    * for example, if you would like to render AccessPoemExceptions to a
-   * String to be displayed on the page that is eturned to the client.
+   * String to be displayed on the page that is returned to the client.
    *
    * @return - PassbackVariableExceptionHandler specific to the
    * template engine

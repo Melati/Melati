@@ -57,7 +57,7 @@ import com.mockobjects.dynamic.Mock;
  *
  * @author Tim Toyce
  */
-public class TestCaseDbms extends TestCase {
+public class DbmsCaseTest extends TestCase {
 
   /**
    * Constructor for CaseInsensitiveRegExpSQL.
@@ -112,3 +112,7 @@ public class TestCaseDbms extends TestCase {
   }
 
 }
+
+
+
+

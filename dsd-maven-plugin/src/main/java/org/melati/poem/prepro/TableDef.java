@@ -179,7 +179,7 @@ public class TableDef {
             "  }\n\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
-      w.write("  ");
+      w.write("  protected ");
       ((FieldDef)f.nextElement()).generateJavaDeclaration(w);
       w.write(";\n");
     }

@@ -118,6 +118,10 @@ public abstract class Column implements FieldAttributes {
     return null;
   }
 
+  protected boolean defaultSortDescending() {
+    return false;
+  }
+
   protected String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
@@ -171,6 +175,7 @@ public abstract class Column implements FieldAttributes {
                   i.setDescription(defaultDescription());
                   i.setDisplaylevel(defaultDisplayLevel());
                   i.setSearchability(defaultSearchability());
+                  i.setSortdescending(defaultSortDescending());
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
@@ -315,6 +320,11 @@ public abstract class Column implements FieldAttributes {
 
   public final Integer getDisplayOrderPriority() {
     return info == null ? null : info.getDisplayorderpriority();
+  }
+
+  public final boolean getSortDescending() {
+    return info.getSortdescending() == null ? false : 
+      info.getSortdescending().booleanValue();
   }
 
   // 

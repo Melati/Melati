@@ -176,6 +176,10 @@ public class UserTableBase extends Table {
             return true;
           }
 
+          protected int defaultWidth() {
+            return 10;
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin_unsafe();

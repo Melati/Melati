@@ -117,6 +117,7 @@ public abstract class FieldDef {
   public static FieldDef from(TableDef table, StreamTokenizer tokens,
                               int displayOrder)
       throws ParsingDSDException, IOException, IllegalityException {
+    table.definesColumns = true;
     Vector qualifiers = new Vector();
     fieldQualifiers(qualifiers, tokens);
     if (tokens.ttype != StreamTokenizer.TT_WORD)

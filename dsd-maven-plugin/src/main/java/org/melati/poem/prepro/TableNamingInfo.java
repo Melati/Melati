@@ -51,7 +51,7 @@ package org.melati.poem.prepro;
 
 public class TableNamingInfo {
 
-  public final static String POEM = "org.melati.poem";
+  public static final String POEM = "org.melati.poem";
 
   /** This package eg org.melati.example.contacts */
   public String packageName = null;

@@ -70,14 +70,15 @@ public class TableDef {
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
   private Vector fields = new Vector();
   boolean isAbstract;
+  boolean definesColumns;
   TableNamingInfo naming = null;
 
   int nextFieldDisplayOrder = 0;
   // Note we have to store the imports and process them at 
   // the end to avoid referring to a table that has yet to be processed.
-  final private Hashtable imports = new Hashtable();
-  final private Hashtable tableBaseImports = new Hashtable();
-  final private Hashtable persistentBaseImports = new Hashtable();
+  private final Hashtable imports = new Hashtable();
+  private final Hashtable tableBaseImports = new Hashtable();
+  private final Hashtable persistentBaseImports = new Hashtable();
 
   public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder,
                   boolean isAbstract, TableNamingStore nameStore)
@@ -192,25 +193,13 @@ public class TableDef {
   * @param w  PersistentBase
   */
   public void generateBaseJava(Writer w) throws IOException {
-    w.write("import org.melati.poem.Column;\n");
-    w.write("import org.melati.poem.Field;\n");
-    if (naming.superclassMainUnambiguous().equals("Persistent")) {
-        w.write("import org.melati.poem.Persistent;\n");
-    } else {
-      w.write("import " + naming.superclassMainFQName() + ";\n");
-    }
-    w.write("import org.melati.poem.AccessPoemException;\n");
-    w.write("import org.melati.poem.ValidationPoemException;\n");
-
+    
     w.write("\n");
     for (Enumeration i = persistentBaseImports.keys(); i.hasMoreElements();) {
       w.write("import " + i.nextElement() + ";\n");
     }
     w.write("\n");
 
-    w.write("import " + naming.tableMainClassFQName() + ";\n" );
-    w.write("import " + dsd.packageName + "." + 
-            dsd.databaseTablesClass + ";\n");
 
     // if we subclass a table with the same name we need to cast the table to
     // have the same return type as the root superclass
@@ -296,12 +285,16 @@ public class TableDef {
 
     w.write("import org.melati.poem.Database;\n");
     w.write("import org.melati.poem.DefinitionSource;\n");
-    w.write("import org.melati.poem.Column;\n");
-    w.write("import org.melati.poem.Persistent;\n");
-    w.write("import org.melati.poem.Field;\n");
     w.write("import org.melati.poem.PoemException;\n");
-    w.write("import org.melati.poem.AccessPoemException;\n");
-    w.write("import org.melati.poem.ValidationPoemException;\n");
+    w.write("import org.melati.poem.Persistent;\n");
+    // Have we actually added any columns
+    if (fields != null && fields.size() > 0 ) {
+      w.write("import org.melati.poem.Column;\n");
+      w.write("import org.melati.poem.Field;\n");
+      w.write("import org.melati.poem.AccessPoemException;\n");
+      w.write("import org.melati.poem.ValidationPoemException;\n");
+    }
+
     if (naming.superclassTableUnambiguous().equals("Table")) {
         w.write("import org.melati.poem.Table;\n");
     } else {
@@ -486,6 +479,22 @@ public class TableDef {
     if (hasSearchability)
       addImport("org.melati.poem.Searchability", "table");
     addImport(naming.tableFQName, "table");
+    if (definesColumns) {
+      addImport("org.melati.poem.Column", "persistent");
+      addImport("org.melati.poem.Field", "persistent");
+      addImport("org.melati.poem.AccessPoemException", "persistent");
+      addImport("org.melati.poem.ValidationPoemException", "persistent");
+    }
+    if (naming.superclassMainUnambiguous().equals("Persistent")) {
+       addImport("org.melati.poem.Persistent", "persistent");
+    } else {
+       addImport(naming.superclassMainFQName(), "persistent");
+    }
+
+    addImport(naming.tableMainClassFQName(), "persistent");
+    addImport(dsd.packageName + "." + 
+              dsd.databaseTablesClass, "persistent");
+
     // Sort out the imports
     for (Enumeration i = imports.keys(); i.hasMoreElements();) { 
       String fqKey;

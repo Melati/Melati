@@ -472,7 +472,7 @@ public class DSD {
     if (file == -1)
       throw new ResourceNotFoundException(resource,
                   "I can't find a package name for this resource");
-    String packageName = resource.substring(0, file);
+    String packageNameLocal = resource.substring(0, file);
     String fileName = resource.substring(file + 1, ext);
     String extension = resource.substring(ext + 1);
     String fileToLookFor = fileName + "." + extension;
@@ -480,11 +480,11 @@ public class DSD {
                             "Database";
     Class database;
     try {
-      database = Class.forName(packageName + "." + databaseName);
+      database = Class.forName(packageNameLocal + "." + databaseName);
     } catch (Exception e) {
       throw new ResourceNotFoundException(resource,
                   "I can't find the database class associated with this "+
-                  "resource (" + packageName + "." + databaseName + "). " +
+                  "resource (" + packageNameLocal + "." + databaseName + "). " +
                   "Is it in your classpath?");
     }
     java.net.URL url = database.getResource(fileToLookFor);

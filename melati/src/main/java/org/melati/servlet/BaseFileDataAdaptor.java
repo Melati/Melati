@@ -94,14 +94,14 @@ public abstract class BaseFileDataAdaptor implements FormDataAdaptor {
    */
   public byte[] getData() {
 
-    File file = getFile();
-    if (file == null)
+    File fileLocal = getFile();
+    if (fileLocal == null)
       return new byte[0];
 
     InputStream in = null;
     ByteArrayOutputStream out = null;
     try {
-      in = new BufferedInputStream(new FileInputStream(file));
+      in = new BufferedInputStream(new FileInputStream(fileLocal));
       out = new ByteArrayOutputStream();
       byte[] buff = new byte[BUFSIZE];
       int count;

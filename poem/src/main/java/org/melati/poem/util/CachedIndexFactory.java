@@ -61,11 +61,10 @@ import java.util.Vector;
  * <p>
  * Individual elements can be removed from the cache, or all of
  * them.
- * <p>
- * (Please review this description and delete this line. JimW.)
  * 
- * @author williamc@paneris.org (not javadocs)
+ * @author williamc@paneris.org
  */
+
 public abstract class CachedIndexFactory implements IndexFactory {
   private Vector cache = new Vector();
   private static final Object nullFromFactory = new Object();

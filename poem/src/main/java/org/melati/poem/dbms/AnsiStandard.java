@@ -266,14 +266,17 @@ public class AnsiStandard implements Dbms {
   */
   public String givesCapabilitySQL(User user, String capabilityExpr) {
     return
-        "SELECT * FROM groupmembership " +
-        "WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
+        "SELECT * FROM " + getQuotedName("groupmembership") +
+        " WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
 	"EXISTS ( " +
-	  "SELECT groupcapability." + getQuotedName("group") + " " +
-          "FROM groupcapability, groupmembership " +
-          "WHERE groupcapability." + getQuotedName("group") +
-              " = groupmembership." + getQuotedName("group") + " " +
-          "AND capability = " + capabilityExpr + ")";
+	  "SELECT " + getQuotedName("groupcapability") + "." + 
+           getQuotedName("group") + " " +
+          "FROM " + getQuotedName("groupcapability") + ", " + 
+                   getQuotedName("groupmembership") +
+          " WHERE " + getQuotedName("groupcapability") + "." + 
+           getQuotedName("group") +" = " + 
+          getQuotedName("groupmembership") + "." + getQuotedName("group") + 
+          " AND " + getQuotedName("capability") + " = " + capabilityExpr + ")";
   }
 
   /**

@@ -211,8 +211,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   // ************
   // 
 
-  /** a shortcut method to mark this object as persistent */
-
+ /** 
+  * A convenience method to mark this object as persistent.
+  */
   public final void makePersistent() {
     getTable().create(this);
   }
@@ -223,10 +224,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return extras;
   }
 
-  /**
-   * The table from which the object comes.
-   */
-
+ /**
+  * The table from which the object comes.
+  */
   public final Table getTable() {
     return table;
   }
@@ -238,16 +238,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
 
-  /**
-   * The database from which the object comes.  <I>I.e.</I>
-   * <TT>getTable().getDatabase()</TT>.
-   */
-
+ /**
+  * The database from which the object comes.  <I>I.e.</I>
+  * <TT>getTable().getDatabase()</TT>.
+  */
   public final Database getDatabase() {
     return table.getDatabase();
   }
 
   /**
+   * The Table Row Object Id for this Persistent.
+   * 
    * FIXME This shouldn't be public because we don't in principle want people
    * to know even the troid of an object they aren't allowed to read.  However,
    * I think this information may leak out elsewhere.

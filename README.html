@@ -180,9 +180,16 @@
     <tr> 
       <td valign="top">3.</td>
       <td> Download the latest Melati snapshot from <a href="http;//www.melati.org">www.melati.org</a>, 
-        and unzip or untar it somewhere: 
+        and unzip or untar it. eg: 
         <ul>
-          <li>Unix users, type: tar -xzf melati-snapshot.tar.gz</li>
+          <li>Unix users type: 
+            <ul>
+              <li><tt>cd /usr/local/</tt></li>
+              <li> <tt>tar -xzf melati_2000-11-16.tar.gz</tt></li>
+              <li>for convenience, create a soft link: <tt>ln -s melati_2000-11-16 
+                melati </tt></li>
+            </ul>
+          </li>
           <li>Windows users should use WinZip</li>
         </ul>
         </td>
@@ -193,18 +200,19 @@
         <p><a name="6"></a>Arrange for Melati's classes and properties files to 
           be accessible to your servlet runner. </p>
         <p>For Apache Jserv, this can be done either in the <tt>jserv.properties</tt> 
-          file, by adding a line </p>
+          file, by adding a lines</p>
         <blockquote> 
           <pre>
-wrapper.classpath=/usr/local/melati
+wrapper.classpath=/usr/local/melati/src
 
-wrapper.classpath=/usr/local/melati/melati-snapshot.jar</pre>
+wrapper.classpath=/usr/local/melati/lib/melati.jar</pre>
         </blockquote>
         <p>or in your <tt>&lt;zone&gt;.properties</tt> file by adding </p>
         <blockquote> 
-          <pre>/usr/local/melati,/usr/local/melati/melati-snapshot.jar</pre>
+          <pre>/usr/local/melati/src,/usr/local/melati/melati.jar</pre>
         </blockquote>
         <p>to the line beginning <tt>repositories=</tt></p>
+        <p><b>Note:</b> These should be placed before references to webmacro.jar.</p>
         </td>
     </tr>
     <tr> 
@@ -218,10 +226,10 @@ wrapper.classpath=/usr/local/melati/melati-snapshot.jar</pre>
           this up with Apache, one typically does something like </p>
         <blockquote> 
           <pre>
-ln -s /usr/local/melati/org/melati /usr/local/apache/htdocs/melati-static
+ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
 </pre>
         </blockquote>
-        <p> An alternate URL can be specified in the configuration file <tt>org/melati/org.melati.MelatiServlet.properties</tt>. 
+        <p> An alternate URL can be specified in the configuration file <tt>src/org/melati/org.melati.MelatiServlet.properties</tt>. 
         </p>
       </td>
     </tr>
@@ -232,7 +240,7 @@ ln -s /usr/local/melati/org/melati /usr/local/apache/htdocs/melati-static
         its source tree, so you should edit your <tt>WebMacro.properties</tt> 
         to say something like 
         <blockquote> 
-          <pre>TemplatePath = /usr/local/melati/org/melati:/home/me/templates</pre>
+          <pre>TemplatePath = /usr/local/melati/src/org/melati:/home/me/templates</pre>
         </blockquote>
       </td>
     </tr>
@@ -271,9 +279,7 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   </table>
   <h3>&nbsp; </h3>
   <p> 
-  <a name="Started"> 
   <h2>Getting Started </h2>
-  </a> 
   <p>Umm, this is where the docs run out.</p>
   <p>For the time being, please read the Poem User Guide and Preprocessor User 
     Guide on <a href="http://melati.org">http://melati.org</a>. You can also find 

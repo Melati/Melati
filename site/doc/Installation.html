@@ -179,12 +179,21 @@
     <td> 
       <h3>Either</h3>
       <p>Download the latest Melati snapshot from <a href="http;//www.melati.org">www.melati.org</a>, 
-        and unzip or untar it somewhere:</p>
+        and unzip or untar it. eg: </p>
       <ul>
-        <li>Unix users, type: tar -xzf melati-snapshot.tar.gz</li>
+        <li>Unix users type: 
+          <ul>
+            <li><tt>cd /usr/local/</tt></li>
+            <li> <tt>tar -xzf melati_2000-11-16.tar.gz</tt></li>
+            <li>for convenience, create a soft link: <tt>ln -s melati_2000-11-16 
+              melati </tt></li>
+          </ul>
+        </li>
         <li>Windows users should use WinZip</li>
       </ul>
-      <p>Jump to Item <a href="#6">6</a>.</p>
+      <p>Follow the Installation instructions in the file README.html in the snapshot. 
+      </p>
+      <p>&nbsp; </p>
       <hr align=left width=50%>
       <h3>Or</h3>
       <p><a name=hackedVariable> Using anonymous CVS, install the Melati source 
@@ -539,6 +548,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.28  2000/11/16 11:07:20  timj
+  <BR>final changes for 16/11/2000 snapshot
+  <BR>
   <BR>Revision 1.27  2000/11/08 14:33:35  timj
   <BR>reduce risks
   <BR>

@@ -114,4 +114,12 @@ public class EnumUtils {
 
     return b.toString();
   }
+
+  public static boolean contains(Enumeration e, Object o) {
+    while (e.hasMoreElements())
+      if (e.nextElement().equals(o))
+        return true;
+
+    return false;
+  }
 }

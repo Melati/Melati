@@ -184,7 +184,7 @@ function StaticTree(displayFrame, controlFrameName,
     for(var i=0; i<aboves.length; i++)
     {
         if (aboves[i] == true) {
-           str += "<IMG align='absmiddle' SRC='" + this.verticalLinkimage + "' border='0' HEIGHT='22' WIDTH='16'>";
+           str += "<IMG align='absmiddle' SRC='" + this.verticalLinkImage + "' border='0' HEIGHT='22' WIDTH='16'>";
         }
         else {
            str += "<IMG align='absmiddle' SRC='" + this.spacerImage + "' border='0' HEIGHT='22' WIDTH='16'>";

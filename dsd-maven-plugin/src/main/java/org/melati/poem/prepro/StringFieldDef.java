@@ -61,6 +61,7 @@ public class StringFieldDef extends AtomFieldDef {
   }
 
   public String poemTypeJava() {
-    return "new StringPoemType(" + isNullable + ", " + size + ")";
+    return "new StringPoemType(" + isNullable + ", " + size + ", " +
+                                   width + ", " + height + ")";
   }
 }

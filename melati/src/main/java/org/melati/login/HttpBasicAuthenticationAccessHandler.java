@@ -79,6 +79,9 @@ class HttpAuthorization {
   public String username;
   public String password;
 
+  private HttpAuthorization() {
+    ; // Utility classes should not have a public or default constructor
+  }
   public HttpAuthorization(String type, String username, String password) {
     this.type = type;
     this.username = username;
@@ -86,7 +89,7 @@ class HttpAuthorization {
   }
 
   public static HttpAuthorization from(String authHeader) {
-    // FIXME single space probably not only valid sep
+    // FIXME single space probably not only valid separator
 
     if (authHeader.regionMatches(0, "Basic ", 0, 6)) {
 

@@ -10,8 +10,6 @@ abstract class PoemFloatingVersionedObject extends FloatingVersionedObject {
     this.database = database;
   }
 
-  protected abstract Version backingVersion(Session session);
-
   protected int sessionsMax() {
     return database.sessionsMax();
   }

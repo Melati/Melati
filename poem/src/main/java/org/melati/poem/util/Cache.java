@@ -116,6 +116,7 @@ public final class Cache {
 
   private Hashtable table = new Hashtable();
   private HeldNode theMRU = null, theLRU = null;
+  private int heldNodes = 0;
   private int maxSize;
 
   private ReferenceQueue collectedValuesQueue = new ReferenceQueue();
@@ -140,12 +141,13 @@ public final class Cache {
     gc();
 
     HeldNode n = theLRU;
-    while (n != null && table.size() > maxSize) {
+    while (n != null && heldNodes > maxSize) {
       HeldNode nn = n.prevMRU;
       if (n == theLRU) theLRU = n.prevMRU;
       if (n == theMRU) theMRU = n.nextMRU;
       n.putBefore(null);
       table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
+      --heldNodes;
       n = nn;
     }
   }
@@ -164,50 +166,39 @@ public final class Cache {
       throw new CacheDuplicationException();
     }
 
-    // System.err.println("put " + key + " -> " + value);
-
     node.putBefore(theMRU);
     theMRU = node;
     if (theLRU == null) theLRU = node;
+
+    ++heldNodes;
   }
 
   public synchronized Object get(Object key) {
 
     gc();
 
-    if (table.isEmpty()) {
-      // System.err.println("get " + key + ": empty");
+    if (table.isEmpty())
       return null;
-    }
     else {
       Node node = (Node)table.get(key);
-      if (node == null) {
-	// System.err.println("get " + key + ": no entry");
+      if (node == null)
 	return null;
-      }
       else {
 	HeldNode held;
-	if (node instanceof HeldNode) {
-	  // System.err.println("get " + key + ": held");
+	if (node instanceof HeldNode)
 	  held = (HeldNode)node;
-	}
 	else {
-	  if (node.value() == null) {
-	    // System.err.println("get " + key + ": dropped, null!");
+	  if (node.value() == null)
 	    // This probably doesn't happen
 	    return null;
-	  }
 
 	  held = new HeldNode(key, node.value());
 	  table.put(key, held);
-	  
-	  // System.err.println("get " + key + ": dropped -> held");
 	}
 
         held.putBefore(theMRU);
         theMRU = held;
         if (theLRU == null) theLRU = held;
-	// System.err.println("get " + key + ": value " + held.value);
         return held.value;
       }
     }

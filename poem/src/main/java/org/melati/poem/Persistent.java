@@ -981,8 +981,15 @@ public class Persistent extends Transactioned implements Cloneable {
     assertNotFloating();
     SessionToken sessionToken = PoemThread.sessionToken();
     deleteLock(sessionToken);
-    table.delete(troid(), sessionToken.transaction);    
-    status = DELETED;
+    try {
+      status = DELETED;
+      table.delete(troid(), sessionToken.transaction);
+    }
+    catch (PoemException e) {
+      status = EXISTENT;
+      throw e;
+    }
+
   }
 
   public Field getPrimaryDisplayField() {
@@ -1017,6 +1024,7 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public void delete(Map integrityFixOfColumn) {
+    
     assertNotFloating();
 
     deleteLock(PoemThread.sessionToken());
@@ -1024,6 +1032,9 @@ public class Persistent extends Transactioned implements Cloneable {
     Enumeration columns = getDatabase().referencesTo(getTable());
     Vector refEnumerations = new Vector();
 
+    // FIXME These integrity fixes may result in calls to postWrite()
+    // unless the deletion status is changed first. Not sure what the
+    // side effects would be. JimW
     while (columns.hasMoreElements()) {
       Column column = (Column)columns.nextElement();
 
@@ -1053,8 +1064,9 @@ public class Persistent extends Transactioned implements Cloneable {
       throw new DeletionIntegrityPoemException(this, refs);
 
     delete_unsafe();
+    // This requires source=1.4 in build.xml
+    // assert status == DELETED : "Status changed by delete_unsafe()";
 
-    status = DELETED;
   }
 
   public final void delete() {

@@ -8,15 +8,16 @@
     <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
-  <property name="version"            value="0.7.2"/>
+  <property name="version"            value="0.7.2.2"/>
   <property name="year"               value="2004"/>
-  <property name="date"               value="26-04-2004"/>
+  <property name="date"               value="22-12-2004"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="modern"/>
   <property name="this.root"          value=".."/>
-  <property name="src"                value="../src"/>
+  <property name="src"                value="../src/main"/>
+  <property name="test"               value="../src/test"/>
   <property name="build.lib"          value="../lib"/>
   <property name="built"              value="dist"/>
   <property name="built.root"         value="./${built}"/>
@@ -133,6 +134,16 @@ usage:
       <mkdir dir="${compiled.root}"/>
   
       <javac srcdir="${src}"
+             destdir="${compiled.root}"
+             excludes="**/site/**/*.java"
+             includes="**/*.java"
+	     source="${javac.source}"
+             debug="${debug}"
+             deprecation="${deprecation}"
+             optimize="${optimize}"
+             classpathref="classpath.compile" 
+       />
+      <javac srcdir="${test}"
              destdir="${compiled.root}"
              excludes="**/site/**/*.java"
              includes="**/*.java"

@@ -70,6 +70,7 @@ public class ChildrenDrivenMutableTree {
      * An enumeration that is always empty. This is used when an enumeration
      * of a leaf node's children is requested.
      */
+    // FIXME Why not just = DefaultMutableTreeNode.EMPTY_ENUMERATION ?
     public static final Enumeration EMPTY_ENUMERATION
         = new Enumeration() {
           public boolean hasMoreElements() { return false; }
@@ -136,15 +137,38 @@ public class ChildrenDrivenMutableTree {
       return root;
     }
 
+    /**
+     * Return an enumeration of nodes in preorder, whatever
+     * that means.
+     * <p>
+     * Root is first node. What is the difference
+     * from breadth first?
+     */
     public Enumeration preorderEnumeration() {
       return root.preorderEnumeration();
     }
+
+    /**
+     * Return an enumeration of nodes in postorder, whatever
+     * that means.
+     * <p>
+     * Leftmost leaf is first. What is the difference
+     * from depth first?
+     */
     public Enumeration postorderEnumeration() {
       return root.postorderEnumeration();
     }
+
+    /**
+     * Return an enumeration of nodes in breadth first order.
+     */
     public Enumeration breadthFirstEnumeration() {
       return root.breadthFirstEnumeration();
     }
+
+    /**
+     * Return an enumeration of nodes in depth first order.
+     */
     public Enumeration depthFirstEnumeration() {
       return root.depthFirstEnumeration();
     }

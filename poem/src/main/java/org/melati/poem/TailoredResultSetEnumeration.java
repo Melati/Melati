@@ -48,6 +48,12 @@ package org.melati.poem;
 import java.util.*;
 import java.sql.*;
 
+/**
+ * A <code>ResultSetEnumeration</code> relying on a <code>TailoredQuery</code> for
+ * column and access information.
+ *
+ * @author williamc@paneris.org (except javadocs)
+ */
 public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 
   protected TailoredQuery query;
@@ -58,6 +64,9 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     this.query = query;
   }
 
+  /**
+   * Throw an exception if we cannot read all the tables.
+   */
   void checkTableAccess(ResultSet them) {
     AccessToken token = PoemThread.accessToken();
 
@@ -68,6 +77,9 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     }
   }
 
+  /**
+   * Returns the raw value of a numbered column in the current row of a result set.
+   */
   Object column(ResultSet them, int c) {
     Column column = query.columns[c];
     Object raw = column.getSQLType().getRaw(them, c + 1);
@@ -86,6 +98,10 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     return raw;
   }
 
+  /**
+   * Return the current result set row packaged with column names in a 
+   * <code>FieldSet</code>.
+   */
   protected Object mapped(ResultSet them)
       throws SQLException, NoSuchRowPoemException {
     checkTableAccess(them);

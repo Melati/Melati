@@ -103,6 +103,11 @@ public class Admin extends TemplateServlet {
         });
   }
 
+  /**
+   * Return the resource path for an admin template.
+   *
+   * @param context Ignored. Allows modification in the same expression. Yuk.
+   */
   protected final String adminTemplate(TemplateContext context, String name) {
     return "org" + File.separatorChar + 
            "melati" + File.separatorChar + 
@@ -197,7 +202,9 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  // return select template (a selection of records from a table)
+  /**
+   * Return template for a selection of records from a table.
+   */
   protected String selectionTemplate(TemplateContext context, Melati melati)
       throws FormParameterException {
     return adminTemplate(selection(context, melati), "Selection");
@@ -480,6 +487,14 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "CreateTable_doit");
   }
 
+  /**
+   * Prepare to use an editing template.
+   * <p>
+   * Throw an exception if the access token does not allow the object
+   * to be read.
+   * <p>
+   * Put objects required by editing templates in the context.
+   */
   protected TemplateContext editingTemplate(TemplateContext context,
                                             Melati melati)
       throws PoemException {

@@ -161,7 +161,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       WebContext context, AccessPoemException accessException)
           throws Exception {
 
-    String capName = accessException.capability.getName();
+    String capName = "melati";
     if (useSession())
       context.getSession().putValue(REALM, capName);
     forceLogin(context.getResponse(), capName, accessException.getMessage());

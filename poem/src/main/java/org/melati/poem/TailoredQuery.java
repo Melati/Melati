@@ -6,7 +6,9 @@ import java.sql.*;
 /**
  * This is how you run low-level SQL queries including joins, and get the
  * results back in the form of convenient Melati <TT>Field</TT>s which can be
- * rendered automatically in templates.
+ * rendered automatically in templates.  A complement to the high-level
+ * <TT>Table.selection</TT> on the one hand, and the low-level
+ * <TT>ResultSet</TT> on the other.
  *
  * <P>
  *
@@ -17,6 +19,8 @@ import java.sql.*;
  * during the query, the interface necessarily takes a slightly structured form
  * rather than just being raw SQL---although the programmer does get complete
  * freedom as far as the core <TT>WHERE</TT> clause is concerned.
+ *
+ * @see Table#selection(java.lang.String, java.lang.String, boolean)
  */
 
 public class TailoredQuery {

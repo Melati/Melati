@@ -71,13 +71,21 @@ $ml.rendered($object)</a>
   <td align=right valign=top>
    <p>
     <font FACE="Arial, Helvetica" size=-1>
-     for this record you can edit:<br>
+     for this record you can edit:
+    </font>
+   </p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan=2 align=right>
+   <p>
+    <font FACE="Arial, Helvetica" size=-1>
 #foreach $column in $references #begin
 [&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object.Table.Name$object.troid()">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>
    </p>
- </td>
+  </td>
 #end 
 </tr>
 </table>

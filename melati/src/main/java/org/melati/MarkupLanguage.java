@@ -88,12 +88,14 @@ public abstract class MarkupLanguage {
   public abstract String rendered(Exception e);
 
   public String rendered(Object o) {
+    if (o instanceof Persistent)
+      return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
     if (o instanceof AccessPoemException)
       return rendered((AccessPoemException)o);
     if (o instanceof Exception)
       return rendered((Exception)o);
-    else
-      return rendered(o.toString());
+
+    return rendered(o.toString());
   }
 
   public String rendered(Field field, int style) {

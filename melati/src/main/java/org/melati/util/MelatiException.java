@@ -63,13 +63,22 @@ public abstract class MelatiException extends Exception {
     return this.getClass().getName() + "\n" + subException;
   }
 
+  public Exception innermostException() {
+    return subException == null ? this :
+           subException instanceof MelatiException ?
+               ((MelatiException)subException).innermostException() :
+           subException instanceof MelatiRuntimeException ?
+               ((MelatiRuntimeException)subException).innermostException() :
+           subException;
+  }
+
   public void printStackTrace() {
     if (subException == null)
       super.printStackTrace();
     else {
       System.err.println(this);
       System.err.println("---");
-      subException.printStackTrace();
+      innermostException().printStackTrace();
     }
   }
 
@@ -79,7 +88,7 @@ public abstract class MelatiException extends Exception {
     else {
       s.println(this);
       s.println("---");
-      subException.printStackTrace(s);
+      innermostException().printStackTrace(s);
     }
   }
 
@@ -89,7 +98,7 @@ public abstract class MelatiException extends Exception {
     else {
       w.println(this);
       w.println("---");
-      subException.printStackTrace(w);
+      innermostException().printStackTrace(w);
     }
   }
 }

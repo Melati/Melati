@@ -193,13 +193,33 @@ public class Melati {
     return HttpUtil.zoneURL(webContext.getRequest());
   }
 
+  public static String sameQueryWith(String qs, String field, String value) {
+
+    String fenc = URLEncoder.encode(field);
+    String fenceq = fenc + '=';
+    String fev = fenceq + URLEncoder.encode(value);
+
+    if (qs == null || qs.equals(""))
+      return fev;
+
+    int i;
+    if (qs.startsWith(fenceq))
+      i = 0;
+    else {
+      i = qs.indexOf('&' + fenceq);
+      if (i == -1)
+	return qs + '&' + fev;
+      ++i;
+    }
+
+    int a = qs.indexOf('&', i);
+    return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
+  }
+
   public String sameURLWith(String field, String value) {
     HttpServletRequest request = webContext.getRequest();
-    return
-	request.getRequestURI() + "?" +
-        (request.getQueryString() == null ?
-           "" : request.getQueryString() + "&" ) +
-        URLEncoder.encode(field) + "=" + URLEncoder.encode(value);
+    return request.getRequestURI() + "?" +
+           sameQueryWith(request.getQueryString(), field, value);
   }
 
   public String sameURLWith(String field) {

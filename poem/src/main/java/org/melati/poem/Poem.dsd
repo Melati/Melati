@@ -123,8 +123,6 @@ table GroupCapability
       (description = "The capability");
 }
 
-
-
 table TableInfo
     (displayorder = 3010)
     (displayname = "Table")

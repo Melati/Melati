@@ -12,7 +12,6 @@
   <property name="date"               value="11-06-2002"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
-  <property name="ant.home"           value="."/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="jikes"/>
   <property name="this.root"          value="../../../"/>
@@ -80,18 +79,17 @@
 usage:
    ant -help          display ant help screen
    ant help           display this message
-   ant jar            build the melati.jar
-   ant all            build everything from scratch and run it
-   ant test           build everything except javadoc 
    ant clean          delete the built directory
+   ant compile        compile all sources
+   ant jar            build the melati.jar
+   ant war            build the melati.war
    ant javadoc        create javadoc for the distribution package
-   ant site           create website
+   ant site           create website http://www.melati.org/
+   ant run            run Jetty
 
+   ant build         build everything from scratch 
+   ant go            build everything from scratch and run it
 
-example:
-   ant jar
-   ant clean
-   ant all
       </echo>      
    </target>
 
@@ -121,19 +119,30 @@ example:
     </target>
 
     <!-- ================================================================= -->
-    <!-- Copies the other files                                            -->
+    <!-- Copies the source files                                            -->
     <!-- ================================================================= -->
     <target name="sources">
-      <mkdir dir="${doc.dir}"/>
+      <!-- Tidy up empty CVS directories -->
+      <delete dir="${this.root}/org/melati/org/webmacro"/>
+      <delete dir="${this.root}/org/melati/org"/>
+      <delete dir="${this.root}/org/melati/templets"/>
+      <delete dir="${this.root}/org/melati/playing/chippy"/>
+      <delete dir="${this.root}/org/melati/playing/extend"/>
+      <delete dir="${this.root}/org/melati/playing/neutral"/>
+      <delete dir="${this.root}/org/melati/playing"/>
+      <delete dir="${this.root}/org/melati/doc/example/generated"/>
+      <delete dir="${this.root}/org/melati/poem/postgresql/jdbc1"/>
+      <delete dir="${this.root}/org/melati/poem/sql/jdbc1"/>
+      <delete dir="${this.root}/org/melati/template/jtemplater"/>
+      <delete dir="${this.root}/org/melati/upload"/>
       <copy todir="${built.src}">
         <fileset dir="${this.root}">
           <patternset>
-            <include name="**/*.wm"/>
-            <include name="**/*.js"/>
-            <include name="**/*.html"/>
-            <include name="**/*.gif"/>
-            <exclude name="**/doc/example/**/*.wm"/>
-            <exclude name="**/playing/**/*.wm"/>
+            <include name="**/*"/>
+            <exclude name="**/*.class"/>
+            <exclude name="**/*.zip"/>
+            <exclude name="**/dist/**"/>
+            <exclude name="**/qa/javadoc/**"/>
             <exclude name="**/README.html"/>
             <exclude name="**/RELEASE-NOTES.html"/>
           </patternset>
@@ -153,6 +162,7 @@ example:
         <fileset dir="${this.root}">
           <patternset>
             <include name="**/*.properties.example"/>
+            <exclude name="**/dist/**"/>
           </patternset>
         </fileset>
         <mapper type="glob" from="*.properties.example" to="*.properties"/>
@@ -249,6 +259,8 @@ example:
     <!-- Creates the API documentation                                    -->
     <!-- ================================================================ -->
     <target name="javadocs">
+      <!-- if running out of the distribution this may not exist -->
+      <mkdir dir="${doc.dir}"/>
       <delete>
        <fileset dir="${doc.dir}" includes="*.html"/>
       </delete>
@@ -278,9 +290,11 @@ example:
     <!-- ================================================================= -->
     <target name="package" >
        <mkdir dir="${packaged}"/>
-       <zip  basedir="${this.root}" excludes="**/${built}/**"
+       <zip  basedir="${built.root}" 
+             excludes="${packaged},${compiled},**/*.zip"
              zipfile="${packaged}/${project}_${version}.zip" />
-       <tar  basedir="${this.root}" excludes="**/${built}/**"
+       <tar  basedir="${built.root}" 
+             excludes="${packaged},${compiled},**/*.zip"
              tarfile="${packaged}/${project}_${version}.tar" />
        <gzip src="${packaged}/${project}_${version}.tar"
              zipfile="${packaged}/${project}_${version}.tar.gz" />
@@ -290,6 +304,9 @@ example:
              tarfile="${packaged}/${project}_${version}_doc.tar" />
        <gzip src="${packaged}/${project}_${version}_doc.tar"
              zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
+       <delete>
+        <fileset dir="${packaged}" includes="*.tar"/>
+       </delete>
     </target>
     
     
@@ -315,14 +332,13 @@ example:
                   prefix="melati-static/poem">
           <include name="PoemDatabase.java"/>
       </zipfileset>
-<!--   Javadocs 
+      <!-- Javadocs -->
       <zipfileset dir="${this.root}/org/melati/qa/javadoc" 
                   prefix="javadoc">
           <include name="**/*.html"/>
           <include name="**/*.css"/>
           <exclude name="**/CVS/**"/>
       </zipfileset>
--->
       <!-- Source for Admin is referenced in site --> 
       <zipfileset dir="${this.root}/org/melati/admin" 
                   prefix="melati-static/admin">
@@ -391,9 +407,16 @@ example:
           depends="site, war, run">
   </target>
 
-  <target name="all" 
+    <!-- ============================================================== -->
+    <!-- Do all of it                                                   -->
+    <!-- ============================================================== -->
+  <target name="build" 
+          description="build from scratch"
+          depends="clean, compile, jar, javadocs, site, sources, package, war">
+  </target>
+  <target name="go" 
           description="build from scratch and run"
-          depends="clean, compile, jar, javadocs, site, sources, package, war, run">
+          depends="build, run">
   </target>
 
 </project>

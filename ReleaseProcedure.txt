@@ -13,34 +13,20 @@ If you just type ant you will be given a list of available options.
 
 To build a distributable copy of Melati just type:
 
-ant all
-
-To build a jar file of all Melati code, under unix, just use 
-   ant jar
-
-Assuming you have melati installed in a directory like 
-    ..inst/melati/org/melati/...
+ant build
 
 It will create a directory
    .../dist/ in which the distribution is created.
 
-Which will contain all the compiled classes, and additional files (*.wm, *.html, *.gif and *.js)
-the melati jar file, the javadocs, 
-a zip file of the sources,
-and additional files (*.wm, *.html, *.gif and *.js)
+To run the Melati site on the jetty webserver type:
 
+ant run 
 
-To just compile the code, but not generate the jar file
-   sh build-melati.sh compile
+and point your browser at http://localhost:8080/
 
+or to do both just type:
 
-To generate the javadoc report
-   sh build-melati.sh javadocs
-
-
-To remove all the compiled code and generated jar files
-   sh build-melati.sh clean
-
+ant go
 
 
 MAKING A RELEASE
@@ -57,15 +43,22 @@ to create a release:
 5.  Replace Release paragraph with one above in
     melati/site/Download.html
 6.  CVS commit all of the above
-7.  CVS tag this release (cvs tag 0.6.1)
+7.  CVS tag this release (cvs tag Melati-0-6-1)
 8.  Build melati (again)
 9.  Upload jars and zips to http://www.melati.org/
-    scp *.zip www.melati.org:/home/apache/share/htdocs/melati/download/
-    scp *.gz www.melati.org:/home/apache/share/htdocs/melati/download/
+    scp dist/packaged/*.* www.melati.org:/home/apache/share/htdocs/melati/download/
 10. Update website
     cd /inst/melati/org/melati 
     cvs update
-11. Done - well done
+11. Email webmacro@webmacro.org, 
+          velocity-user@lists.apache.org, 
+          pgsql-jdbc@postgresql.org,
+          java@lists.mysql.com, 
+          mckoi@mckoi.com,
+          hsqldb-developers@lists.sourceforge.net
+          jetty-discuss@yahoogroups.com
+
+12. Done - well done
 
 
 

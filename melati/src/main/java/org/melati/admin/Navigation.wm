@@ -53,10 +53,14 @@
 </HEAD>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<center>
 <form>
 <script TYPE="text/javascript">
 <!--
-var remoteWin = null;
+var remoteWin = remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
+if (remoteWin != null) {
+    remoteWin.close();
+}
 var height = 30 * $table.SearchCriterionColumnsCount; + 60;
 var sizeString = "WIDTH=450,HEIGHT="+height;
 #use 'text' until "--The End--"
@@ -70,6 +74,11 @@ function openWindow() {
      remoteWin.focus();
    }
    return false;
+}
+
+function focusThis() {
+alert("1");
+   this.focus();
 }
 
 --The End--

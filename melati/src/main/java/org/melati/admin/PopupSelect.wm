@@ -54,7 +54,6 @@
 </HEAD>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
-
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <script TYPE="text/javascript">
@@ -62,7 +61,7 @@
 #use 'text' until "--The End--"
 function checkAndClose(object) {
   if (validate(object)) {
-    setTimeout("window.close()", 500);
+    setTimeout("opener.focus()", 500);
     return true;
   }
   else
@@ -80,6 +79,7 @@ function popupupdate(popupwin,returnfield,id,value) {
 </script>
 
 <center>
+<table cellpadding=8 cellspacing=0><tr><td>
 <FORM METHOD=get action=$admin.SelectionURL($table) target=admin_selection>
 <TABLE CELLPADDING=1 CELLSPACING=0 border=0>
 #foreach $field in $criteria #begin
@@ -104,6 +104,7 @@ function popupupdate(popupwin,returnfield,id,value) {
   </font>
 </td></tr>
 </table>
+</td></tr></table>
 </FORM>
 
 </CENTER>

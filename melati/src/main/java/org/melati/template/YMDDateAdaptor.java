@@ -46,6 +46,7 @@
 package org.melati.template;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.text.DateFormat;
 
 import org.melati.util.MelatiLocale;
@@ -139,18 +140,20 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
     if (year.equals("") && month.equals("") && day.equals(""))
       return null;
-    else if (!year.equals("") && !month.equals("") && !day.equals(""))
-      return new Date(Integer.parseInt(year) - 1900,
-                      Integer.parseInt(month) - 1,
-                      Integer.parseInt(day));
-    else
+    else if (!year.equals("") && !month.equals("") && !day.equals("")) {
+      Calendar cal = Calendar.getInstance();
+      cal.set(Integer.parseInt(year),
+              Integer.parseInt(month) - 1,
+              Integer.parseInt(day));
+      return new Date(cal.getTime().getTime());
+    } else {
       throw new PartlyNullException(fieldName);
+    }
   }
 
   public Field yearField(Field field) {
 
-    java.util.Date when = (java.util.Date)field.getRaw();
-
+    Calendar when = when(field);
     int firstYear = 2000; // FIXME put these in ColumnInfo
     int limitYear = 2005;
 
@@ -159,7 +162,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
     String displayName = field.getDisplayName() + " (year)";
 
     return new Field(
-        when == null ? null : new Integer(when.getYear() + 1900),
+        when == null ? null : new Integer(when.get(Calendar.YEAR)),
         new BaseFieldAttributes(
             field.getName() + yearSuffix,
             displayName,
@@ -172,14 +175,13 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
   public Field monthField(Field field) {
 
-    java.util.Date when = (java.util.Date)field.getRaw();
-
+    Calendar when = when(field);
     // This isn't meant to be used, so we don't try to localize it
 
     String displayName = field.getDisplayName() + " (month)";
 
     return new Field(
-        when == null ? null : new Integer(when.getMonth() + 1),
+        when == null ? null : new Integer(when.get(Calendar.MONTH) + 1),
         new BaseFieldAttributes(
             field.getName() + monthSuffix, displayName, null,
             field.getType().getNullable() ? new MonthPoemType(true) :
@@ -190,19 +192,25 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
   public Field dayField(Field field) {
 
-    java.util.Date when = (java.util.Date)field.getRaw();
-
+    Calendar when = when(field);
     // This isn't meant to be used, so we don't try to localize it
 
     String displayName = field.getDisplayName() + " (day)";
 
     return new Field(
-        when == null ? null : new Integer(when.getDate()),
+        when == null ? null : new Integer(when.get(Calendar.DAY_OF_MONTH)),
         new BaseFieldAttributes(
             field.getName() + daySuffix, displayName, null,
             field.getType().getNullable() ? new DayPoemType(true) :
                                             new DayPoemType(false),
 	    2, 1,
             null, false, true, true));
+  }
+  
+  protected Calendar when(Field field) {
+    if (field.getRaw() == null) return null;
+    Calendar when = Calendar.getInstance();
+    when.setTime((java.util.Date)field.getRaw());
+    return when;
   }
 }

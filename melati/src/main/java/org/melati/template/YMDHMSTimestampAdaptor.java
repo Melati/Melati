@@ -45,6 +45,7 @@
 
 package org.melati.template;
 
+import java.util.Calendar;
 import java.sql.Timestamp;
 
 import org.melati.util.MelatiLocale;
@@ -119,28 +120,30 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
         hour.equals("") && minute.equals("") && second.equals(""))
       return null;
     else if (!year.equals("") && !month.equals("") && !day.equals("") &&
-             !hour.equals("") && !minute.equals("") && !second.equals(""))
-      return new Timestamp(Integer.parseInt(year) - 1900,
-                           Integer.parseInt(month) - 1,
-                           Integer.parseInt(day),
-                           Integer.parseInt(hour),
-                           Integer.parseInt(minute),
-                           Integer.parseInt(second),
-                           0);
-    else
+             !hour.equals("") && !minute.equals("") && !second.equals("")) {
+      Calendar cal = Calendar.getInstance();
+      cal.set(Integer.parseInt(year),
+              Integer.parseInt(month) - 1,
+              Integer.parseInt(day),
+              Integer.parseInt(hour),
+              Integer.parseInt(minute),
+              Integer.parseInt(second));
+      return new Timestamp(cal.getTime().getTime());
+    } else {
       throw new PartlyNullException(fieldName);
+    }
   }
 
   public Field hourField(Field field) {
 
-    Timestamp when = (Timestamp)field.getRaw();
+    Calendar when = when(field);
 
     // This isn't meant to be used, so we don't try to localize it
 
     String displayName = field.getDisplayName() + " (hour)";
 
     return new Field(
-        when == null ? null : new Integer(when.getHours()),
+        when == null ? null : new Integer(when.get(Calendar.HOUR_OF_DAY)),
         new BaseFieldAttributes(
             field.getName() + hourSuffix, displayName, null,
             field.getType().getNullable() ? new HourPoemType(true) :
@@ -151,14 +154,14 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
   public Field minuteField(Field field) {
 
-    Timestamp when = (Timestamp)field.getRaw();
+    Calendar when = when(field);
 
     // This isn't meant to be used, so we don't try to localize it
 
     String displayName = field.getDisplayName() + " (minutes)";
 
     return new Field(
-        when == null ? null : new Integer(when.getMinutes()),
+        when == null ? null : new Integer(when.get(Calendar.MINUTE)),
         new BaseFieldAttributes(
             field.getName() + minuteSuffix, displayName, null,
             field.getType().getNullable() ? new MinutePoemType(true) :
@@ -169,14 +172,14 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
   public Field secondField(Field field) {
 
-    Timestamp when = (Timestamp)field.getRaw();
+    Calendar when = when(field);
 
     // This isn't meant to be used, so we don't try to localize it
 
     String displayName = field.getDisplayName() + " (seconds)";
 
     return new Field(
-        when == null ? null : new Integer(when.getSeconds()),
+        when == null ? null : new Integer(when.get(Calendar.SECOND)),
         new BaseFieldAttributes(
             field.getName() + secondSuffix, displayName, null,
             field.getType().getNullable() ? new SecondPoemType(true) :

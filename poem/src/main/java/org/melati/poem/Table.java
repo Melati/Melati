@@ -552,13 +552,13 @@ public class Table implements Selectable {
       PoemThread.commit();
 
     try {
-      // System.err.println("about to execute:" + sql);
+      // if (logSQL()) log("about to execute:" + sql);
 
       Statement updateStatement = database.getCommittedConnection().createStatement();
       updateStatement.executeUpdate(sql);
       updateStatement.close();
       database.getCommittedConnection().commit();
-      database.log(new StructuralModificationLogEvent(sql));
+      if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
     }
     catch (SQLException e) {
       throw new StructuralModificationFailedPoemException(sql, e);
@@ -2406,20 +2406,20 @@ public class Table implements Selectable {
         }
         dbColumns.put(column, Boolean.TRUE);
       }
-    }  else System.err.println(
-                        "Table.UnifyWithDB called with null ResultsSet");
+    }  // else System.err.println(
+       //                 "Table.unifyWithDB called with null ResultsSet");
 
     if (dbIndex == 0) {
       // OK, we simply don't exist ...
       // ie the Database MetaData  Result Set passed in was empty or null
-//      System.err.println(
+//      if (logSQL()) log(
 //        "Table.UnifyWithDB called with null or empty ResultsSet");
       dbCreateTable();
     } else {
       // silently create any missing columns
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-        //  System.err.println("About to add missing column: " + columns[c]);
+        //  if (logSQL()) log("About to add missing column: " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }
@@ -2438,7 +2438,7 @@ public class Table implements Selectable {
       // Check indices are unique
 
       Hashtable dbHasIndexForColumn = new Hashtable();
-      // System.err.println("Getting indexes for "+ 
+      // if (logSQL()) log("Getting indexes for "+ 
       //    dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().

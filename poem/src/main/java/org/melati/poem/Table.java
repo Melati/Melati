@@ -531,6 +531,7 @@ public class Table implements Selectable {
       PoemThread.commit();
 
     try {
+      System.err.println("about to execute:" + sql);
       database.getCommittedConnection().createStatement().executeUpdate(sql);
       database.log(new StructuralModificationLogEvent(sql));
     }
@@ -2321,13 +2322,15 @@ public class Table implements Selectable {
           // only retrieve those without a schema
           // null, null means ignore both
               getIndexInfo(null, dbms().getSchema(), 
-                           dbms().getQuotedName(dbms().unreservedName(getName())), 
+                  dbms().getJdbcMetadataName(dbms().unreservedName(getName())), 
                            false, true);
-
+      System.err.println("Getting indexes for "+ 
+          dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       while (index.next()) {
         try {
           String columnName = dbms().
                                melatiName(index.getString("COLUMN_NAME"));
+          System.err.println("Column " + columnName);
           if (columnName != null) { // which MSSQL seems to return sometimes
             Column column = getColumn(columnName);
             column.unifyWithIndex(index);

@@ -374,9 +374,11 @@ public abstract class Column implements FieldAttributes {
     if (selectionWhereEq == null)
       selectionWhereEq = new PreparedStatementFactory(
           getDatabase(),
-          getTable().selectionSQL(quotedName + " = " +
-	      dbms().getRhsValueTemplateSqlDefinition(getType()), 
-                                  null, false));
+          getTable().selectionSQL(
+              quotedName + " = " +
+              dbms().preparedStatementPlaceholder(getType()), 
+              null, false));
+
     return selectionWhereEq;
   }
 

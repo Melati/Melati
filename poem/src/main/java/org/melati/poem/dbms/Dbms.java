@@ -40,7 +40,8 @@
  *
  *     David Warnock (david@sundayta.co.uk)
  *     Sundayta Ltd
- *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
+ *     International House, 174 Three Bridges Road, Crawley,
+ *     West Sussex RH10 1LE, UK
  *
  */
 
@@ -50,21 +51,21 @@ import java.sql.*;
 import org.melati.poem.*;
 
 public interface Dbms {
-    Connection getConnection(String url, String user, String password)
-        throws ConnectionFailurePoemException;
+  Connection getConnection(String url, String user, String password)
+      throws ConnectionFailurePoemException;
 
-    String getQuotedName(String name);
+  String getQuotedName(String name);
 
-    String getRhsValueTemplateSqlDefinition(PoemType type);
+  String preparedStatementPlaceholder(PoemType type);
 
-    String getSqlDefinition(String sqlTypeName) throws SQLException;
+  String getSqlDefinition(String sqlTypeName) throws SQLException;
 
-    String getStringSqlDefinition(int size) throws SQLException;
+  String getStringSqlDefinition(int size) throws SQLException;
 
-    String getBinarySqlDefinition(int size) throws SQLException;
+  String getBinarySqlDefinition(int size) throws SQLException;
 
-    PoemType canRepresent(PoemType storage, PoemType type);
+  PoemType canRepresent(PoemType storage, PoemType type);
 
-    SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
-        throws SQLException;
+  SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
+      throws SQLException;
 }

@@ -102,7 +102,7 @@ abstract public class Database implements TransactionPool {
   private synchronized void init() {
     if (!initialised) {
       for (Enumeration t = this.tables.elements(); t.hasMoreElements();)
-	((Table)t.nextElement()).init();
+        ((Table)t.nextElement()).init();
       initialised = true;
     }
   }
@@ -280,7 +280,7 @@ abstract public class Database implements TransactionPool {
     }
     else
       tables.setElementAt(table,
-			  tables.indexOf(
+                          tables.indexOf(
                               tablesByName.put(table.getName(), table)));
 
     displayTables = null;
@@ -301,8 +301,7 @@ abstract public class Database implements TransactionPool {
                             DefinitionSource.infoTables);
     table.setTableInfo(info);
     table.defineColumn(new ExtraColumn(table, troidName, 
-                                       //TroidPoemType.it,
-                                       new TroidPoemType(),
+                                       TroidPoemType.it,
                                        DefinitionSource.infoTables,
                                        table.extrasIndex++));
     table.unifyWithColumnInfo();
@@ -355,24 +354,25 @@ abstract public class Database implements TransactionPool {
       Table table = (Table)tablesByName.get(tableName);
 
       if (table == null) {
-	// but we only want to include them if they have a plausible troid:
+        // but we only want to include them if they have a plausible troid:
 
-	ResultSet idCol = m.getColumns(null, null, tableName, "id");
-	if (idCol.next() &&
-	    defaultPoemTypeOfColumnMetaData(idCol).canBe(new TroidPoemType())) {
-	  try {
-	    defineTable(table = new Table(this, tableName,
-					  DefinitionSource.sqlMetaData));
-	  }
-	  catch (DuplicateTableNamePoemException e) {
-	    throw new UnexpectedExceptionPoemException(e);
-	  }
-	  table.createTableInfo();
-	}
+        ResultSet idCol = m.getColumns(null, null, tableName, "id");
+        if (idCol.next() &&
+            dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol),
+                              TroidPoemType.it) != null) {
+          try {
+            defineTable(table = new Table(this, tableName,
+                                          DefinitionSource.sqlMetaData));
+          }
+          catch (DuplicateTableNamePoemException e) {
+            throw new UnexpectedExceptionPoemException(e);
+          }
+          table.createTableInfo();
+        }
       }
 
       if (table != null)
-	table.unifyWithDB(columnsMetadata(m, tableName));
+        table.unifyWithDB(columnsMetadata(m, tableName));
     }
 
     // ... and create any that simply don't exist
@@ -426,7 +426,7 @@ abstract public class Database implements TransactionPool {
       if (freeTransactions.size() == 0)
         throw new NoMoreTransactionsException();
       PoemTransaction transaction =
-	  (PoemTransaction)freeTransactions.lastElement();
+          (PoemTransaction)freeTransactions.lastElement();
       freeTransactions.setSize(freeTransactions.size() - 1);
       return transaction;
     }
@@ -594,7 +594,7 @@ abstract public class Database implements TransactionPool {
     PoemThread.endSession();
     tx.close(true);
     lock.readUnlock();
-	 
+         
   }
 
   /**
@@ -1013,6 +1013,14 @@ abstract public class Database implements TransactionPool {
   // =========================
   // 
 
+  public Dbms getDbms() {
+      return dbms;
+  }
+  
+  private void setDbms(Dbms aDbms) {
+      dbms = aDbms;
+  }
+
   /* Now in dbms*
    * Quote a name for use as an identifier in an SQL statement.  FIXME this is
    * DBMS-specific and we need a <TT>DatabasePecularities</TT> class to
@@ -1051,81 +1059,14 @@ abstract public class Database implements TransactionPool {
     return b.toString();
   }
   */
+
   public final String quotedName(String name) {
       return getDbms().getQuotedName(name);
   }
 
-  private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
-      throws UnsupportedTypePoemException {
-    UnsupportedTypePoemException e;
-    try {
-      e = new UnsupportedTypePoemException(
-          md.getString("TABLE_NAME"), md.getString("COLUMN_NAME"),
-          md.getShort("DATA_TYPE"), sqlTypeName,
-          md.getString("TYPE_NAME"));
-    }
-    catch (SQLException ee) {
-      throw new UnsupportedTypePoemException(sqlTypeName);
-    }
-
-    throw e;
-  }
-
-  /**
-   * The simplest POEM type corresponding to a JDBC description from the
-   * database.  FIXME this is meant to be customised per-database, and needs to
-   * be delegated to a <TT>DatabasePecularities</TT> class.
-   */
-
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  final SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
-    int typeCode = md.getShort("DATA_TYPE");
-    boolean nullable =
-        md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
-    int width = md.getInt("COLUMN_SIZE");
-    switch (typeCode) {
-      case Types.BIT            : return new BooleanPoemType(nullable);
-      case Types.TINYINT        : return unsupported("TINYINT", md);
-      case Types.SMALLINT       : return unsupported("SMALLINT", md);
-      case Types.INTEGER        : return new IntegerPoemType(nullable);
-      case Types.BIGINT         : return unsupported("BIGINT", md);
-
-      case Types.FLOAT          : return unsupported("FLOAT", md);
-      case Types.REAL           : return new DoublePoemType(nullable);
-      case Types.DOUBLE         : return new DoublePoemType(nullable);
-
-      case Types.NUMERIC        : return unsupported("NUMERIC", md);
-      case Types.DECIMAL        : return unsupported("DECIMAL", md);
-
-      case Types.CHAR           : return unsupported("CHAR", md);
-      case Types.VARCHAR        : return new StringPoemType(nullable, width);
-      case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
-
-      case Types.DATE           : return new DatePoemType(nullable);
-      case Types.TIME           : return unsupported("TIME", md);
-      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
-
-      case Types.BINARY         : return unsupported("BINARY", md);
-      case Types.VARBINARY      : return unsupported("VARBINARY", md);
-      case Types.LONGVARBINARY  : return unsupported("LONGVARBINARY", md);
-
-      case Types.NULL           : return unsupported("NULL", md);
-
-      case Types.OTHER          : return unsupported("OTHER", md);
-
-      default: return unsupported("<code not in Types.java!>", md);
-    }
-  }
-
-  public Dbms getDbms() {
-      if (dbms == null) {
-          System.out.println("************************** NULL dbms");
-      }
-      return dbms;
-  }
-  
-  private void setDbms(Dbms aDbms) {
-      dbms = aDbms;
+    return getDbms().defaultPoemTypeOfColumnMetaData(md);
   }
 
   // 

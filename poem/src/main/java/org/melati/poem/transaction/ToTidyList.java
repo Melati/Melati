@@ -85,7 +85,9 @@ public class ToTidyList {
       else if (o instanceof Closeable)
         ((Closeable)o).close();
     }
-    catch (Exception e) {}
+    catch (Exception e) {
+      e.printStackTrace(System.err);
+    }
   }
 
   public synchronized void close() {

@@ -46,21 +46,15 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
-public class StringPoemType extends AtomPoemType {
+public class StringPoemType extends SizedAtomPoemType {
 
   public static final StringPoemType nullable = new StringPoemType(true, -1);
 
-  protected int size;             // or, < 0 for "unlimited"
-
   public StringPoemType(boolean nullable, int size) {
-    super(Types.VARCHAR, "VARCHAR", nullable);
-    this.size = size;
-  }
-
-  public int getSize() {
-    return size;
+    super(Types.VARCHAR, "VARCHAR", nullable, size);
   }
 
   protected void _assertValidRaw(Object raw)
@@ -68,7 +62,7 @@ public class StringPoemType extends AtomPoemType {
     if (raw != null) {
       if (!(raw instanceof String))
 	throw new TypeMismatchPoemException(raw, this);
-      if (size >= 0 && ((String)raw).length() > size)
+      if (!sizeGreaterEqual(getSize(), ((String)raw).length()))
 	throw new StringLengthValidationPoemException(this, (String)raw);
     }
   }
@@ -88,30 +82,29 @@ public class StringPoemType extends AtomPoemType {
 
   protected String _sqlDefinition(Dbms dbms) {
     try {
-      return dbms.getStringSqlDefinition(size);
+      return dbms.getStringSqlDefinition(getSize());
     } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
   }
 
-  protected boolean _canBe(PoemType other) {
-    if (!(other instanceof StringPoemType))
-      return false;
-    int otherSize = ((StringPoemType)other).size;
-    return otherSize < 0 || size >= 0 && otherSize >= size;
+  protected boolean _canRepresent(SQLPoemType other) {
+    return
+        other instanceof StringPoemType &&
+        sizeGreaterEqual(getSize(), ((StringPoemType)other).getSize());
   }
 
   public String toString() {
-    return (getNullable() ? "nullable " : "") + "String(" + size + ")";
+    return (getNullable() ? "nullable " : "") + "String(" + getSize() + ")";
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.STRING);
-    columnInfo.setSize(size);
+    columnInfo.setSize(getSize());
   }
 
   protected String _quotedRaw(Object raw) {
-    return org.melati.util.StringUtils.quoted((String)raw, '\'');
+    return StringUtils.quoted((String)raw, '\'');
   }
 }

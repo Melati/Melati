@@ -102,8 +102,6 @@ public class HttpSessionAccessHandler implements AccessHandler {
                                         WebContext context,
 					AccessPoemException accessException)
       throws Exception {
-    accessException.printStackTrace();
-
     HttpServletRequest request = context.getRequest();
     HttpServletResponse response = context.getResponse();
 

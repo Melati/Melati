@@ -262,7 +262,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     }
     catch (Exception e) {
       PoemThread.rollback();
-      e.printStackTrace();
+      System.err.println(e);
       throw e;
     }
   }

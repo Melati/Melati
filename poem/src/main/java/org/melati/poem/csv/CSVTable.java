@@ -81,7 +81,7 @@ public class CSVTable {
                                throws CSVPrimaryKeyColumnAlreadySetException {
     if (isPrimaryKey && primaryKey != null)
       throw new CSVPrimaryKeyColumnAlreadySetException(table.getName());
-    CSVColumn col = new CSVColumn(poemName, true);
+    CSVColumn col = new CSVColumn(poemName, isPrimaryKey);
     columns.put(csvName, col);
     if (isPrimaryKey)
       primaryKey = col;
@@ -145,22 +145,23 @@ public class CSVTable {
 
 
     /**
-     * Reads the details file until is has seen an object's-worth of
-     * field name/value pairs (e.g. it sees an EOF or a line starting
-     * with '$') which is returns in a hashtable (null if there are
+     * Reads the file until is has seen an object's-worth of
+     * field values (ie until it sees an EOF or a line starting
+     * with '$') which it returns in a hashtable (null if there are
      * no field values).
      */
 
-  public CSVRecord parseRecord(CSVFileParser parser, String name)
+  private CSVRecord parseRecord(CSVFileParser parser, String fileName)
                                     throws IOException, CSVParseException {
     if (!parser.nextRecord())
       return null;
 
     int i = 0;
+    String value = null;
     try {
       CSVRecord record = new CSVRecord(table);
       for (; i < columnsInUploadOrder.size(); i++) {
-        String value = (String) parser.nextField();
+        value = (String) parser.nextField();
         CSVColumn col = (CSVColumn)columnsInUploadOrder.elementAt(i);
         record.addField(new CSVField(col, value));
       }
@@ -169,11 +170,18 @@ public class CSVTable {
     }
     catch (IllegalArgumentException e) {
        throw new CSVParseException("Failed to read data field no. " + (i+1) + " in " +
-                                    name + ": " + e.toString());
+                                    fileName + ": " + e.toString());
     }
     catch (NoSuchElementException f) {
-       throw new CSVParseException("Failed to read data field no. " + (i+1) + " in " +
-                                    name + ": " + f.toString());
+      if (value == null) {
+        throw new CSVParseException("Problem with data field no. " + (i+1) + 
+                                   " in " + fileName + 
+                                   " (Check last line of file) : " + f.toString());
+      } else {
+        throw new CSVParseException("Problem with data field no. " + (i+1) + 
+                                   " in " + fileName + 
+                                   ", Value:" + value + ": " + f.toString());
+      }
     }
   }
 
@@ -207,7 +215,7 @@ public class CSVTable {
    * with the given value for the CSV table's primary key
    */
 
-  public Persistent getRecordWithID(String csvValue)
+  protected Persistent getRecordWithID(String csvValue)
                                      throws NoPrimaryKeyInCSVTableException {
     if (primaryKey == null)
       throw new NoPrimaryKeyInCSVTableException(table.getName(), csvValue);

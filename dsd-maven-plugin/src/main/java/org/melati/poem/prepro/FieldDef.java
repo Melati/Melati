@@ -170,8 +170,9 @@ public abstract class FieldDef {
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public Field get" + suffix + "Field() " +
                   "throws AccessPoemException {\n" +
-            "    return Field.of(this, _" + tableAccessorMethod + "()." +
-                                         "get" + suffix + "Column());\n" +
+            "    Column c = _" + tableAccessorMethod + "()." +
+                     "get" + suffix + "Column();\n" +
+            "    return new Field(c.getRaw(this), c);\n" +
             "  }\n");
   }
 

@@ -352,6 +352,10 @@ public abstract class Column implements FieldAttributes {
     Enumeration them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
+  
+  public PreparedSelection preparedSelectionWhereEq(Object raw) {
+    return new PreparedSelection(getTable(), eqClause(raw), null);
+  }
 
   // 
   // =======================================

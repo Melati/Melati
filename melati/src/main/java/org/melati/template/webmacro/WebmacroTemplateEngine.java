@@ -56,6 +56,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiWriter;
+import org.melati.util.MelatiStringWriter;
 import org.melati.util.StringUtils;
 
 import org.webmacro.WM;
@@ -248,11 +249,13 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
+   * @deprecated The best possible {@link MelatiWriter} that is like a
+   * <code>StringWriter</code> is a {@link MelatiStringWriter} -
+   * use directly.
    */
   public MelatiWriter getStringWriter(String encoding) 
           throws IOException {
-//    return new MelatiBufferedFastWriter(encoding);
-    return new MelatiBufferedFastWriter(wm.getBroker(),encoding);
+    return new MelatiStringWriter();
   }
 
   /**

@@ -58,6 +58,7 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
+import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
 
@@ -297,10 +298,12 @@ public class VelocityTemplateEngine implements TemplateEngine {
    * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
+   * @deprecated The best possible {@link MelatiWriter} that is like a
+   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
    */
   public MelatiWriter getStringWriter(String encoding) 
           throws IOException {
-    return new MelatiBufferedVelocityWriter(encoding);
+    return new MelatiStringWriter();
   }
 
   /** 

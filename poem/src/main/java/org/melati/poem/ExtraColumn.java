@@ -104,10 +104,6 @@ public class ExtraColumn extends Column {
   public static Column from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
     return new ExtraColumn(
-        table,
-        columnInfo.getName(),
-        BasePoemType.ofColumnInfo(table.getDatabase(), columnInfo),
-        source,
-        extrasIndex);
+        table, columnInfo.getName(), columnInfo.getType(), source, extrasIndex);
   }
 }

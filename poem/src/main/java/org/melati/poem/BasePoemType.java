@@ -137,7 +137,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   }
 
   protected abstract void _setRaw(PreparedStatement ps, int col,
-                                    Object raw)
+                                  Object raw)
       throws SQLException;
 
   public final void setRaw(PreparedStatement ps, int col, Object raw) {
@@ -310,14 +310,6 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   public String toString() {
     return (nullable ? "nullable " : "") + _toString();
-  }
-
-  public static SQLPoemType ofColumnInfo(Database database,
-				      final ColumnInfo info) {
-    return
-        PoemTypeFactory.forCode(database,
-                                info.getTypefactory_unsafe().intValue()).typeOf(
-                                    database, info.toTypeParameter());
   }
 
   // 

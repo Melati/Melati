@@ -91,8 +91,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
-    refineType(BasePoemType.ofColumnInfo(getDatabase(), columnInfo),
-               DefinitionSource.infoTables);
+    refineType(columnInfo.getType(), DefinitionSource.infoTables);
     columnInfo.setColumn(this);
     if (columnInfo.getDisplaylevel() == DisplayLevel.primary)
       table.setDisplayColumn(this);

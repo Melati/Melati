@@ -17,12 +17,11 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   * <A NAME=hackedVariable>You must use a hacked version of
   * <TT>org.melati.engine.Variable</TT> with Melati.</A> Sorry this has to go
   * into <TT>org.melati.engine</TT>: lobby Justin to stop making everything
-  * final or package-private or static!  It may slightly break your existing
-  * webmacro code if you put it in your <TT>CLASSPATH</TT> since its semantics
-  * are slightly different: the effect is that variables for which resolution
-  * triggers an exception will interpolate as the <TT>toString</TT> text of the
-  * exception, not as an HTML comment.  You can get the hacked version by
-  * anonymous CVS from melati.org (see the <A
+  * final or package-private or static!  It will probably not break your
+  * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
+  * semantics are essentially the same as the traditional ones until configured
+  * otherwise.  You can get the hacked version by anonymous CVS from melati.org
+  * (see the <A
   * HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
   * guide</A>).
   */

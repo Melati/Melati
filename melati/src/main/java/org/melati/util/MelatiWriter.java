@@ -67,6 +67,10 @@ public abstract class MelatiWriter extends Writer {
     startFlushing();
   }
   
+  public void write(String string) throws IOException {
+    out.write(string);
+  }
+  
   protected void startFlushing() {
     if (flush && flusher == null) {
       flusher = new Flusher(this);

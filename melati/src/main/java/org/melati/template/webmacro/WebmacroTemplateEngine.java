@@ -201,15 +201,34 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       }
       throw problem;
     }
-/*    } catch (VariableException problem) {
-      Exception underlying = problem.innermostException();
-      if (underlying instanceof AccessPoemException) {
-        throw (AccessPoemException)underlying;
-      } else {
-        throw new TemplateEngineException(underlying);
+  }
+
+  /**
+   * Expand the Template against the context and return it as a string.
+   *
+   * @param template        the {@link org.melati.template.Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public String expandTemplate(org.melati.template.Template template,  
+                                TemplateContext templateContext)
+              throws TemplateEngineException {
+    try {
+      MelatiStringWriter s = new MelatiWebmacroStringWriter();
+      template.write (s, templateContext, this);
+      return s.toString();
+    } catch (TemplateEngineException problem) {
+      Exception underlying = problem.subException;
+      if (underlying instanceof PropertyException) {
+        Throwable caught = ((PropertyException)underlying).getCaught();
+        if (caught instanceof AccessPoemException) {
+          throw (AccessPoemException)caught;
+        }
       }
+      throw problem;
     }
-*/
+
   }
 
   /** 

@@ -264,6 +264,20 @@ public class VelocityTemplateEngine implements TemplateEngine {
   }
 
   /** 
+   * Not Implemented. Expand the Template against the context.
+   *
+   * @param template        the {@link org.melati.template.Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public String expandTemplate(org.melati.template.Template template, 
+                             TemplateContext templateContext)
+              throws TemplateEngineException {
+    throw new TemplateEngineException("Not Implemented.");
+  }
+
+  /** 
    * Get a variable exception handler for use if there is 
    * a problem accessing a variable.
    *

@@ -136,6 +136,18 @@ public interface TemplateEngine {
                              TemplateContext templateContext) 
       throws TemplateEngineException;
 
+  /** 
+   * Expand the Template against the context and retutrn the expansion as a string.
+   *
+   * @param template        the {@link Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  String expandTemplate(Template template, 
+                             TemplateContext templateContext) 
+      throws TemplateEngineException;
+
     
   /** 
    * Get a variable exception handler for use if there is 

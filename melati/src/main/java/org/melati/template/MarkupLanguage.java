@@ -627,8 +627,7 @@ public abstract class MarkupLanguage {
     vars.put("field", field);
     vars.put("ml", this);
     vars.put("melati", melati);
-    expandedTemplet(templet, vars, melati.getWriter());
-    return "";
+    return expandedTemplet(templet, vars, melati.getWriter());
   }
 
   public Template templet(String templetName) throws NotFoundException {
@@ -642,9 +641,9 @@ public abstract class MarkupLanguage {
                                  clazz);
   }
 
-  protected void expandedTemplet(Template templet, TemplateContext tc,
+  protected String expandedTemplet(Template templet, TemplateContext tc,
                                  MelatiWriter out)
       throws TemplateEngineException, IOException {
-    melati.getTemplateEngine().expandTemplate(out,templet,tc);
+    return melati.getTemplateEngine().expandTemplate(templet,tc);
   }
 }

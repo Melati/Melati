@@ -25,7 +25,8 @@ package org.melati.template.webmacro;
 
 import java.io.*;
 
-import org.webmacro.util.ByteBufferOutputStream;
+//import org.webmacro.util.ByteBufferOutputStream;
+import java.io.BufferedOutputStream;
 import org.webmacro.util.Encoder;
 import org.webmacro.util.EncoderProvider;
 import org.webmacro.WebMacro;
@@ -89,7 +90,8 @@ public class FastWriter extends Writer
     private final int DEFAULT_BUFFER_SIZE;
     private final String _encoding;      // what encoding we use
     private final Writer _bwriter;
-    private final ByteBufferOutputStream _bstream;
+    //private final ByteBufferOutputStream _bstream;
+    private final BufferedOutputStream _bstream;
     private final Encoder _encoder;
 
     private OutputStream _out;
@@ -107,8 +109,10 @@ public class FastWriter extends Writer
     {
         DEFAULT_BUFFER_SIZE = broker.getSettings().getIntegerSetting("FastWriter.DefaultBufferSize", 4096);
         _encoding = hackEncoding(encoding);
-        _bstream = new ByteBufferOutputStream(DEFAULT_BUFFER_SIZE);
+        //_bstream = new ByteBufferOutputStream(DEFAULT_BUFFER_SIZE);
+        _bstream = new BufferedOutputStream(out, DEFAULT_BUFFER_SIZE);
         _bwriter = new OutputStreamWriter(_bstream, _encoding);
+        
 
         // fetch our encoder from the broker
         try
@@ -179,7 +183,8 @@ public class FastWriter extends Writer
      */
     public OutputStream getOutputStream ()
     {
-        return _out;
+        //return _out;
+        return _bstream;
     }
 
     /**
@@ -273,6 +278,11 @@ public class FastWriter extends Writer
             // this should never happen
             uee.printStackTrace();
         }
+        catch (java.io.IOException ioe)
+        {
+            // this should never happen
+            ioe.printStackTrace();
+        }
     }
 
     /**
@@ -285,7 +295,14 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        _bstream.write(rawBytes);
+        try {
+            _bstream.write(rawBytes);
+        }
+        catch (java.io.IOException ioe)
+        {
+            // this should never happen
+            ioe.printStackTrace();
+        }
     }
 
     /**
@@ -298,7 +315,15 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        _bstream.write(rawBytes, offset, len);
+        try {
+            _bstream.write(rawBytes, offset, len);
+        }
+        catch (java.io.IOException ioe)
+        {
+            // this should never happen
+            ioe.printStackTrace();
+        }
+
     }
 
     private void bflush ()
@@ -332,10 +357,10 @@ public class FastWriter extends Writer
 
         if (_out != null)
         {
-            writeTo(_out);
+            //writeTo(_out);
             _out.flush();
         }
-        _bstream.reset();
+        //_bstream.reset();
     }
 
     /**
@@ -348,8 +373,8 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-
-        return _bstream.size();
+        return 0;
+        //return _bstream.size();
     }
 
     /**
@@ -361,7 +386,8 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        return _bstream.getBytes();
+        return null;
+        //return _bstream.getBytes();
     }
 
     /**
@@ -373,16 +399,20 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        try
-        {
-            return _bstream.toString(_encoding);
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace(); // never happen: we already used it
-            return null;
-        }
+        return null;
     }
+    
+    //    try
+       // {
+            //return _bstream.toString(_encoding);
+          //  return null;
+       // }
+        //catch (UnsupportedEncodingException e)
+        //{
+        //    e.printStackTrace(); // never happen: we already used it
+        //    return null;
+       // }
+    //}
 
     /**
      * Copy the contents written so far to the suppiled output stream
@@ -393,7 +423,7 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        _bstream.writeTo(out);
+        //_bstream.writeTo(out);
     }
 
     /**
@@ -406,7 +436,7 @@ public class FastWriter extends Writer
         {
             bflush();
         }
-        _bstream.reset();
+        //_bstream.reset();
         _out = out;
     }
 
@@ -456,12 +486,12 @@ public class FastWriter extends Writer
         }
     }
 
-    public void close () throws IOException
+     public void close () throws IOException
     {
         flush();
         if (_out != null)
         {
-            _out.close();
+            //_out.close();
             _out = null;
         }
     }

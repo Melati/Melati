@@ -224,7 +224,7 @@ $ cvs update
     <td valign="top">4.</td>
     <td>Ensure that the following is in your classpath. <br>
       <ul>
-        <li>Java (classes.zip)
+        <li>Java (classes.zip) 
         <li>ApacheJServ.jar 
         <li>jsdk.jar 
         <li>the melati install directory, <b>before</b> the webmacro install directory 
@@ -233,17 +233,22 @@ $ cvs update
         <li>the webmacro install directory 
       </ul>
       <p>For example (on Linux boxes running a bash shell) this can be done by 
-        editing ~/.bash_profile, and adding the line: 
+        editing ~/.bash_profile, and adding the lines: 
       <blockquote> 
-        <pre>export CLASSPATH=.:/usr/local/packages/jdk117_v3/lib/classes.zip:/usr/local/lib/ApacheJServ.jar:/usr/local/lib/jsdk.jar:/usr/local/packages/inst/melati-0.0.x/:/usr/local/packages/inst/webmacro/webmacro.jar</pre>
-      </blockquote>
+        <pre>CLASSPATH=&quot;$CLASSPATH:/usr/local/packages/jdk117_v3/lib/classes.zip&quot;
+CLASSPATH=&quot;$CLASSPATH:/usr/local/lib/ApacheJServ.jar&quot;
+CLASSPATH=&quot;$CLASSPATH:/usr/local/lib/jsdk.jar&quot;
+CLASSPATH=&quot;$CLASSPATH:/usr/local/packages/inst/melati-0.0.x/&quot;
+CLASSPATH=&quot;$CLASSPATH:/usr/local/packages/inst/webmacro/webmacro.jar&quot;
+export CLASSPATH</pre>
         <p>You will need to run</p>
         <pre>source ~/.bash_profile</pre>
-        <p>in order to load the new CLASSPATH into you current environment
-           settings---or, if you have several windows plus an IDE open, you
-          may choose to log right out and in again.
-          You can check the CLASSPATH has been set by typing </p>
+        <p>in order to load the new CLASSPATH into you current environment settings---or, 
+          if you have several windows plus an IDE open, you may choose to log 
+          right out and in again. You can check the CLASSPATH has been set by 
+          typing </p>
         <pre>echo $CLASSPATH</pre>
+      </blockquote>
       <p>&nbsp;</p>
     </td>
   </tr>
@@ -450,6 +455,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.15  2000/03/22 16:38:35  timj
+  <BR>improve formatting
+  <BR>
   <BR>Revision 1.14  2000/03/22 15:54:35  williamc
   <BR>Make it clear that Justin encourages jikes too; update list of proven-compatible software; minor formatting glitches
   <BR>

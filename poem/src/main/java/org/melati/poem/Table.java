@@ -874,10 +874,12 @@ public class Table {
   }
 
   protected void rememberAllTroids(boolean flag) {
-    // FIXME can't actually cancel since would have to remove PS from observers
-
-    if (flag && allTroids == null)
-      allTroids = new PreparedSelection(this, null, null);
+    if (flag) {
+      if (allTroids == null)
+	allTroids = new PreparedSelection(this, null, null);
+    }
+    else
+      allTroids = null;
   }
 
   protected void setCacheLimit(Integer limit) {

@@ -183,8 +183,6 @@ public abstract class AbstractVersionedObject
    * 
    * @return An independent copy of the session's version, fetched if
    *         necessary using <TT>backingVersion</TT>.
-   *         to other sessions' versions---if you want an independent copy you
-   *         can change, use <TT>versionForWriting</TT>.
    *
    * @see #versionForReading
    */

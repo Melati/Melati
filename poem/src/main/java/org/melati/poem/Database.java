@@ -365,8 +365,9 @@ public abstract class Database implements TransactionPool {
       Table table = (Table)tablesByName.get(tableInfo.getName());
       if (table == null) {
         System.err.println("Defining table:" + tableInfo.getName());
-        defineTable(table = new Table(this, tableInfo.getName(),
-                                      DefinitionSource.infoTables));
+        table = new Table(this, tableInfo.getName(),
+                          DefinitionSource.infoTables);
+        defineTable(table);
       }
       table.setTableInfo(tableInfo);
     }
@@ -386,7 +387,8 @@ public abstract class Database implements TransactionPool {
     String[] normalTables = { "TABLE" };
 
     DatabaseMetaData m = committedConnection.getMetaData();
-    ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null, normalTables);
+    ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null, 
+                                       normalTables);
     while (tableDescs.next()) {
      System.err.println("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
@@ -404,8 +406,9 @@ public abstract class Database implements TransactionPool {
                               TroidPoemType.it) != null) {
           System.err.println("Got an ID col");
           try {
-            defineTable(table = new Table(this, tableName,
-                                          DefinitionSource.sqlMetaData));
+            table = new Table(this, tableName,
+                              DefinitionSource.sqlMetaData);
+            defineTable(table);
           }
           catch (DuplicateTableNamePoemException e) {
             throw new UnexpectedExceptionPoemException(e);

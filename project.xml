@@ -486,6 +486,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-javadoc-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-changes-plugin</report>
+
 <!--
     <report>maven-changelog-plugin</report>
     <report>maven-developer-activity-plugin</report>

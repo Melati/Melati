@@ -1,0 +1,113 @@
+#set $Response.Header.Content-Type = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<FORM METHOD=get>
+
+<CENTER>
+
+<H1>Table: $ml.rendered($table.DisplayName)</H1>
+
+#if ($table.Description) #begin
+  <P>Purpose: $ml.rendered($table.Description)</P>
+#end
+
+<P><FONT SIZE=1>&nbsp;</FONT></P>
+
+<P><B>Criteria</B></P>
+
+<TABLE CELLPADDING=0 CELLSPACING=0>
+  #foreach $field in $criteria #begin
+    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+    #if ($field.Description) #begin
+      <TR>
+	<TD></TD><TD></TD>
+	<TD><FONT SIZE=1>$ml.rendered($field.Description)</TD>
+      </TR>
+    #end
+    <TR>
+      <TD>
+        $ml.rendered($field.DisplayName)
+      </TD><TD></TD><TD>
+        $ml.input($field)
+      </TD>
+    </TR>
+  #end
+</TABLE>
+
+<P><B>Ordering</B></P>
+
+<P>
+</P>
+
+<INPUT NAME=action VALUE=Search TYPE=submit
+       ONCLICK="return validate(this.form);">
+
+<P>
+  <A HREF=Add>Add a new $ml.rendered($table.DisplayName)</A>
+</P>
+
+#if ($objects) #begin
+
+  <P><FONT SIZE=1>&nbsp;</FONT></P>
+
+  <P><B>
+    Records $objects.PageStart to $objects.PageEnd of
+    #if ($objects.TotalCountIsMinimum) #begin
+      at least
+    #end
+    $objects.TotalCount
+  </B></P>
+
+  <TABLE CELLSPACING=0>
+    <TR>
+      <TH></TH>
+      #foreach $column in $table.SummaryDisplayColumns #begin
+	<TH>&nbsp;&nbsp;</TH>
+	<TH BGCOLOR=cyan>$ml.rendered($column.DisplayName)</TH>
+      #end
+    </TR>
+    #foreach $object in $objects #begin
+      <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+      <TR>
+	<TD><A HREF="$admin.editURL($object)">Edit</A></TD>
+	#foreach $field in $object.SummaryDisplayFields #begin
+	  <TD></TD>
+	  <TD BGCOLOR=yellow>$ml.rendered($field)</TD>
+	#end
+      </TR>
+    #end
+  </TABLE>
+
+  <P>
+    #if ($objects.PrevPageStart) #begin
+      <A HREF="View?start=$objects.PrevPageStart">&lt;&lt;</A>
+    #end
+    #else #begin
+      &lt;&lt;
+    #end
+
+    &nbsp;&nbsp;
+
+    #if ($objects.NextPageStart) #begin
+      <A HREF="View?start=$objects.NextPageStart">&gt;&gt;</A>
+    #end
+    #else #begin
+      &gt;&gt;
+    #end
+  </P>
+
+#end
+
+</FORM>
+
+</CENTER>
+
+</BODY>
+</HTML>

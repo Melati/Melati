@@ -2511,7 +2511,7 @@ public class Table implements Selectable {
               column.unifyWithIndex(index);
               dbHasIndexForColumn.put(column, Boolean.TRUE);
             } else {
-              System.err.println("not creating index fbecause " + 
+              System.err.println("Not creating index because " + 
                   mdIndexName.toUpperCase() + " != " + expectedIndex);
             }
           } 

@@ -1,0 +1,44 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<FORM METHOD=post ACTION=Update><CENTER>
+
+<TABLE CELLPADDING=0 CELLSPACING=0>
+  <TR><TD>Troid</TD><TD>&nbsp;&nbsp;</TD><TD>$object.Troid</TD></TR>
+  #foreach $field in $object {
+    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+    <TR>
+      <TD>
+        #if ($field.Nullable) {
+          $ml.rendered($field.DisplayName)
+        } #else {
+          <B>$ml.rendered($field.DisplayName)</B>
+        }
+      </TD>
+      <TD></TD>
+      <TD>$ml.input($field)</TD>
+    </TR>
+  }
+</TABLE>
+
+<INPUT NAME=action VALUE=Update TYPE=submit
+       ONCLICK="return validate(this.form);">
+&nbsp;&nbsp;
+<INPUT NAME=action VALUE=Delete TYPE=submit
+       ONCLICK="return confirm(
+                    'Please confirm that you want to delete this record')">
+&nbsp;&nbsp;
+<INPUT NAME=action VALUE=Duplicate TYPE=submit
+       ONCLICK="return validate(this.form);">
+
+</CENTER></FORM>
+
+</BODY>
+</HTML>

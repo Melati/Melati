@@ -1,0 +1,54 @@
+package org.melati.poem;
+
+table TableInfo {
+  (primary) Integer id;
+  String name (size = 50);
+  String displayname (size = 60);
+  Capability defaultcanread (nullable);
+  Capability defaultcanwrite (nullable);
+}
+
+table ColumnInfo {
+  (primary) Integer id;
+  TableInfo tableinfo;
+  String name (size = 50);
+
+  String displayname (size = 60);
+  Integer displayorder (nullable);
+  Boolean primarydisplay;
+
+  Integer typecode;
+  Boolean nullable;
+  Integer size;
+  Integer width;
+  Integer height;
+  TableInfo targettable (nullable);
+  String renderinfo (size = unlimited) (nullable);
+}
+
+table Capability {
+  (primary) Integer id;
+  String name (size = 60);
+}
+
+table User {
+  (primary) Integer id;
+  String name (size = 60);
+}
+
+table Group {
+  (primary) Integer id;
+  String name (size = 60);
+}
+
+table GroupMembership {
+  (primary) Integer id;
+  User user;
+  Group group;
+}
+
+table GroupCapability {
+  (primary) Integer id;
+  Group group;
+  Capability capability;
+}

@@ -1,0 +1,26 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<CENTER>
+
+<P>The available tables are:</P>
+
+<TABLE CELLPADDING=0 CELLSPACING=0>
+  #foreach $table in $tables {
+    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+    <TR><TD>
+      FIXME need a thing to render URLs
+      <A HREF="$admin.tableURL($table)">$ml.rendered($table.DisplayName)</A>
+    </TD></TR>
+  }
+</TABLE>
+
+</CENTER>
+
+</BODY>
+</HTML>

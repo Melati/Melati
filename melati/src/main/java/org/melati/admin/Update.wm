@@ -1,0 +1,12 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+Done
+
+</BODY>
+</HTML>

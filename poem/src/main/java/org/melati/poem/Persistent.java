@@ -1155,7 +1155,10 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   /**
-   * Create a new object identical to this one.
+   * Create a new object like this one.
+   * <p>
+   * This object is assumed to exist in the database undeleted.
+   * The result is not yet in the database.
    */
   public Persistent duplicated() throws AccessPoemException {
     assertNotFloating();
@@ -1164,8 +1167,14 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   /**
-   * Create a new persistent similar to this one
-   */
+   * Create a new persistent like this one
+   * <p>
+   * No assumptions are made about this object, so it could be
+   * floating (i.e. NONEXISTENT meaning not in the database?).
+   * It does not currently have to be floating but perhaps best
+   * not rely on this.
+   * The result is not yet in the database.
+   */`
   public Persistent duplicatedFloating() throws AccessPoemException {
     return (Persistent)clone();
   }

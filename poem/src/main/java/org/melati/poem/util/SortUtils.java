@@ -86,7 +86,7 @@ public class SortUtils {
   }
 
   public static Object[] sorted(Order cmp, Vector v) {
-    Object[] arr = Array.of(v);
+    Object[] arr = ArrayUtils.arrayOf(v);
     qsort(cmp, arr);
     return arr;
   }

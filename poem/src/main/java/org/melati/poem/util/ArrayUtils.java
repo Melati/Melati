@@ -2,8 +2,11 @@ package org.melati.util;
 
 import java.util.*;
 
-public class Array {
-  public static Object[] of(Vector v) {
+public class ArrayUtils {
+
+  private ArrayUtils() {}
+
+  public static Object[] arrayOf(Vector v) {
     Object[] arr;
     synchronized (v) {
       arr = new Object[v.size()];

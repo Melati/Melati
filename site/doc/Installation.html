@@ -163,121 +163,149 @@
 <!-- ============== -->
 </H3>
 
-<P>
-  It is assumed that you already have a working installation of Webmacro
-  (<I>i.e.</I> web server, servlet runner, and Webmacro classes), and a working
-  installation of Postgres or, presuming compatibility, another RDBMS.
-</P>
-
-<UL>
-  <LI> Set up a database for use by Melati. With Postgres this involves typing, 
-    for example, <TT>createdb melatitest</TT> at the Linux prompt, as a user who 
-    is allowed to create databases. 
-
-  <LI> Arrange for the user in whose name your httpd runs---often,
-    `<TT>nobody</TT>'---to be able to connect to the test database and create
-    tables in it. With Postgres this is a no-op under the default `security'
-    setup, assuming that your postmaster is running on the same machine as your
-    web server.
-
-  <LI> <A NAME=hackedVariable>Using anonymous CVS, install the Melati source
-    tree somewhere. You also have to install a specially hacked version of
-    <TT>org.webmacro.engine.Variable</TT>.  We are very sorry about this, but
-    there really is no alternative---lobby Justin to stop making everything
-    <TT>final</TT> and/or package-private!</A> For instance,
-    <BLOCKQUOTE>
-      <PRE>
+<P> It is assumed that you already have a working installation of Webmacro (<I>i.e.</I> 
+  web server, servlet runner, and Webmacro classes), and a working installation 
+  of Postgres or, presuming compatibility, another RDBMS. </P>
+<table width="0%" border="0" cellpadding="10" cellspacing="10">
+  <tr> 
+    <td valign="top">1.</td>
+    <td>Set up a database for use by Melati. With Postgres this involves typing, 
+      for example, <tt>createdb melatitest</tt> at the Linux prompt, as a user 
+      who is allowed to create databases. </td>
+  </tr>
+  <tr> 
+    <td valign="top">2.</td>
+    <td>Arrange for the user in whose name your httpd runs---often, `<tt>nobody</tt>'---to 
+      be able to connect to the test database and create tables in it. With Postgres 
+      this is a no-op under the default `security' setup, assuming that your postmaster 
+      is running on the same machine as your web server. </td>
+  </tr>
+  <tr> 
+    <td valign="top">3.</td>
+    <td><a name=hackedVariable>Using anonymous CVS, install the Melati source 
+      tree somewhere. You also have to install a specially hacked version of <tt>org.webmacro.engine.Variable</tt>. 
+      We are very sorry about this, but there really is no alternative---lobby 
+      Justin to stop making everything <tt>final</tt> and/or package-private!</a> 
+      For instance, 
+      <blockquote> 
+        <pre>
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
 (Logging in to anonymous@melati.org)
 CVS password: anonymous
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/webmacro
-</PRE>
-    </BLOCKQUOTE>
-
-    Thereafter you will be able to get an updated snapshot by <TT>cd</TT>ing to
-    the Melati source tree and doing
-
-<BLOCKQUOTE><PRE>
+</pre>
+      </blockquote>
+      Thereafter you will be able to get an updated snapshot by <tt>cd</tt>ing 
+      to the Melati source tree and doing 
+      <blockquote> 
+        <pre>
 $ cvs update
-</PRE></BLOCKQUOTE>
-
-    (CVS remembers the server from which the tree came in the control files in
-    the <TT>CVS</TT> subdirectories it creates, and the login/password you gave
-    in a file <TT>.cvspass</TT> in your home directory.)  If you are working
-    over a slow link, you might find the <A
-    HREF=http://rsync.samba.org/rsync/><TT>rsync</TT></A> program useful: it
-    uses clever checksum tricks, compression and pipelining to perform file
-    comparison and update quicker than you would think possible.  Let us know
-    if you would like &quot;anonymous rsync&quot; access.
-
-  <LI> Ensure that the following is in your classpath 
-    <ul>
-      <li>ApacheJServ.jar 
-      <li>jsdk.jar 
-      <li>the melati install directory, <B>before</B> the webmacro install
-      directory (because of the <A
-      HREF=#hackedVariable>hacked version of <TT>Variable</TT></A> you must use)
-      <li>the webmacro install directory
-    </ul>
-    <p>&nbsp;</p>
-
-  <li>Compile melati. For instance, 
-    <BLOCKQUOTE> 
-      <PRE>
+</pre>
+      </blockquote>
+      (CVS remembers the server from which the tree came in the control files 
+      in the <tt>CVS</tt> subdirectories it creates, and the login/password you 
+      gave in a file <tt>.cvspass</tt> in your home directory.) If you are working 
+      over a slow link, you might find the <a
+    href=http://rsync.samba.org/rsync/><tt>rsync</tt></a> program useful: it uses 
+      clever checksum tricks, compression and pipelining to perform file comparison 
+      and update quicker than you would think possible. Let us know if you would 
+      like &quot;anonymous rsync&quot; access. </td>
+  </tr>
+  <tr> 
+    <td valign="top">4.</td>
+    <td>Ensure that the following is in your classpath. <br>
+      <ul>
+        <li>ApacheJServ.jar 
+        <li>jsdk.jar 
+        <li>the melati install directory, <b>before</b> the webmacro install directory 
+          (because of the <a
+      href=#hackedVariable>hacked version of <tt>Variable</tt></a> you must use) 
+        <li>the webmacro install directory 
+      </ul>
+      <p>For example (on Linux boxes running a bash shell) this can be done by 
+        editing ~/.bash_profile, and adding the line: 
+      <blockquote> 
+        <pre>CLASSPATH=.:/usr/local/lib/ApacheJServ.jar:/usr/local/lib/jsdk.jar:/usr/local/packages/inst/melati-0.0.x/:/usr/local/packages/inst/webmacro/webmacro.jar</pre>
+        <p>You will need to add CLASSPATH to the export line in ~/.bash_profile, 
+          so it sould read something like: </p>
+        <pre>export USERNAME BASH_ENV PATH CLASSPATH</pre>
+        <p>You will need to run</p>
+        <pre>source ~/.bash_profile</pre>
+        <p>in order to load the new CLASSPATH into you current environment settings. 
+          Check the CLASSPATH has been set by typing </p>
+        <pre>echo $CLASSPATH</pre>
+      </blockquote>
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">5.</td>
+    <td>Compile melati. For instance, 
+      <blockquote> 
+        <pre>
 cd /usr/local/packages/inst/melati-0.0.x/org/melati
-javac admin/Admin.java poem/prepro/DSD.java poem/PoemDatabase.java</PRE>
-    </BLOCKQUOTE>
-    ---those three files being entry points to respectively the admin system,
-    and the DSD preprocessor and a class named in the <A
-    HREF=#config>config</A> file---which should cause everything to get
-    compiled (except for a few sources not currently in use).
-</UL>
-
-<UL>
-  <LI> Arrange for Melati's classes to be accessible to your servlet runner, for 
-    instance by adding a line 
-    <BLOCKQUOTE> 
-      <PRE>
+javac admin/Admin.java poem/prepro/DSD.java poem/PoemDatabase.java</pre>
+      </blockquote>
+      ---those three files being entry points to respectively the admin system, 
+      and the DSD preprocessor and a class named in the <a
+    href=#config>config</a> file---which should cause everything to get compiled 
+      (except for a few sources not currently in use). </td>
+  </tr>
+  <tr> 
+    <td valign="top" height="111">6.</td>
+    <td height="111">Arrange for Melati's classes to be accessible to your servlet 
+      runner, for instance by adding a line 
+      <blockquote> 
+        <pre>
 wrapper.classpath=/usr/local/packages/inst/melati-0.0.x
-</PRE>
-    </BLOCKQUOTE>
-    to the appropriate place in your <TT>jserv.properties</TT>, or <tt>&lt;zone&gt;.proerties</tt>.
-</UL>
-<UL>
-  <LI> Get Melati's Webmacro templates into Webmacro's template path. Melati looks 
-    for its templates relative to <TT>org/melati</TT> in its source tree, so you 
-    should edit your <TT>WebMacro.properties</TT> to say something like 
-    <blockquote> 
-      <pre>TemplatePath = /usr/local/packages/inst/melati-0.0.x/org/melati:/home/me/templates</pre>
-    </blockquote>
-</UL>
-<UL>
-  <li> <A NAME=config>Edit Melati's own config file</A>, found in the source
-    tree as <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, which
-    describes the mapping from &quot;logical database names&quot; to JDBC
-    connection details. You may not have to change anything.</li>
-</UL>
-<UL>
-  <li>Restart your Servlet Runner, typically you will need to kick apache using 
-    <tt>apachectl restart</tt>.</li>
-</UL>
-<p>&nbsp;</p>
-<P>
-  To check that Melati is working, try looking at
-</P>
-
-<BLOCKQUOTE>
-  <PRE>
+</pre>
+      </blockquote>
+      to the appropriate place in your <tt>jserv.properties</tt>, or <tt>&lt;zone&gt;.proerties</tt>. 
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" height="111">7.</td>
+    <td height="111">Get Melati's Webmacro templates into Webmacro's template 
+      path. Melati looks for its templates relative to <tt>org/melati</tt> in 
+      its source tree, so you should edit your <tt>WebMacro.properties</tt> to 
+      say something like 
+      <blockquote> 
+        <pre>TemplatePath = /usr/local/packages/inst/melati-0.0.x/org/melati:/home/me/templates</pre>
+      </blockquote>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top" height="111">8.</td>
+    <td height="111"><a name=config>Edit Melati's own config file</a>, found in 
+      the source tree as <tt>org/melati/org.melati.LogicalDatabase.properties</tt>, 
+      which describes the mapping from &quot;logical database names&quot; to JDBC 
+      connection details. You may not have to change anything.</td>
+  </tr>
+  <tr> 
+    <td valign="top" height="111">9.</td>
+    <td height="111">Restart your Servlet Runner, typically you will need to kick 
+      apache using <tt>apachectl restart</tt>.</td>
+  </tr>
+  <tr>
+    <td valign="top" height="111">10.</td>
+    <td height="111">
+      <p>To check that Melati is working, try looking at </p>
+      <blockquote> 
+        <pre>
 http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
-</PRE>
-</BLOCKQUOTE>
-
-<P>
-  After a long pause (up to twenty seconds on my 100MHz Pentium with too little
-  memory), you should see a list of tables in the <TT>melatitest</TT> database.
-</P>
+</pre>
+      </blockquote>
+      <p> After a long pause (up to twenty seconds on my 100MHz Pentium with too 
+        little memory), you should see a list of tables in the <tt>melatitest</tt> 
+        database. </p>
 
 
+
+</td>
+  </tr>
+</table>
+<P>&nbsp; </P>
+<P>&nbsp; </P>
 
 <H3>
 <!-- ================= -->
@@ -391,6 +419,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.12  2000/03/22 12:57:28  timj
+  <BR>give an example of correctly setting the classpath
+  <BR>
   <BR>Revision 1.11  2000/03/20 17:13:34  williamc
   <BR>Add comments about what to do after cvs checkout
   <BR>

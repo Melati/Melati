@@ -9,15 +9,25 @@
 // Tree. This provides a frames based implementation of an 
 // expandable/collapsible tree
 //
+// You can contol whether to display checkboxes against 
+// terminal nodes (leaves) or non-reminal nodes.
+//
+// You can contol the images used to display the tree and 
+// the node labels.
+//
 // Author: MJ Chippendale 12/02/2002
 //         TP Pizey       12/02/2002
 //
 //
 // See: org/melati/util/JSStaticTree.java
 //      org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm
+//      org/melati/template/webmacro/templets/html/StaticNode.wm
 //      org/melati/template/MarkupLanguage.java
 //
 //
+//  TODO
+//  Generate indexes in data
+//  Remove UniqueName ???
 //
 // Browser sniffing code
 //
@@ -31,11 +41,14 @@ if (parseInt(navigator.appVersion.charAt(0)) >= 4) {
 // TreeNode Objects
 // ****************
 
-function TreeNode(data, depth, isLeaf, id) {
-  this.data = data;
+function TreeNode(nodeLabel, depth, isLeaf, id, table, troid) {
+  this.nodeLabel = nodeLabel;
   this.depth = depth;
   this.isLeaf = isLeaf;
   this.id = id; // unique id (for communicating with the server)
+  this.table = table;
+  this.troid = troid; 
+
   this.parent = null;
   this.children = [];
 }
@@ -54,7 +67,7 @@ TreeNode.prototype.getChildren = function (dontload) {
     depthPerDownload = (theTree && theTree.depthPerDownload)
                        ? theTree.depthPerDownload : -1;
 
-//    loadData("new_data.html");
+//    loadNodeLabel("new_data.html");
     var URL="new_data.html";
     if (isNav4) document.layers["loadbuffer"].load(URL,0);
     else parent.loadframe.document.location = URL;
@@ -102,6 +115,8 @@ var globalImageBaseRef = null;
 
 function StaticTree(displayFrame, controlFrameName,
                     roots, 
+                    selectNodes,
+                    selectLeaves,
                     imageBaseRef,
                     openedTImage, openedLImage,
                     closedTImage, closedLImage,
@@ -116,6 +131,8 @@ function StaticTree(displayFrame, controlFrameName,
   this.flattened = [];
   this.frame = displayFrame;
   this.controlName = controlFrameName;
+  this.selectNodes = selectNodes;
+  this.selectLeaves = selectLeaves;
 
   theTree = this;
 
@@ -191,18 +208,34 @@ function StaticTree(displayFrame, controlFrameName,
       str += (this.isOpen) ? "<IMG align='absmiddle' src='"+this.openedFolderImage+"'>" : "<IMG align='absmiddle' src='"+this.closedFolderImage+"'>";
     }
     str += "</TD><TD valign=middle><NOBR>";
-// FIXME - only some of this is in StaticNode.wm
-//    str += "<input type=checkbox name=check"+this.index+" onClick=\""+theTree.controlName+".selectThis("+this.index+")\"";
-//    if (this.selected) {
-//      str += " checked";
-//    }
-//    str += ">";
-//    if (this.chosen)
-//      str += "<B>";
-//    str += "<FONT size=3>"+this.data+"</FONT>";
-//    if (this.chosen)
-//      str += "</B>";
-    str += this.data;
+    if (this.isLeaf) {
+      if(theTree.selectLeaves) {
+        str += "<input type=checkbox name=check"+this.index+" onClick=\""+theTree.controlName+".selectLeaf("+this.index+")\"";
+        if (this.selected) {
+          str += " checked";
+        }
+        str += ">";
+      }
+    } else {
+      if (theTree.selectNodes) {
+        str += "<input type=checkbox name=check"+this.index+" onClick=\""+theTree.controlName+".selectNode("+this.index+")\"";
+        if (this.selected) {
+          str += " checked";
+        }
+        str += ">";
+      }
+    }
+    if (this.chosen) {
+      str += "<B>";
+      str += "<FONT size=3>";
+    } else {
+      str += "<FONT size=1>";
+    }
+    str += this.nodeLabel;
+
+    str += "</FONT>";
+    if (this.chosen)
+      str += "</B>";
 
     str += "</NOBR>";
     str += "</TD></TR></TABLE>\n";
@@ -268,23 +301,42 @@ function expand(index) {
   }
 
   var node = theTree.flattened[index];
-  if (lastChosen != null) {
-    lastChosen.chosen = false;
-  }
   node.isOpen = !node.isOpen;
-  node.chosen = true;
-  lastChosen = node;
-  theTree.display(false);
+  theTree.display(false); //FIXME ? no need for false here?
   
   theTree.frame.scrollTo(pageX,pageY);
   
 };
 
-function selectThis(index) {
+function selectLeaf(index) {
   var node = theTree.flattened[index];
   node.selected = !node.selected;
+  if (lastChosen != null) {
+    lastChosen.chosen = false;
+  }
+  node.chosen = true;
+  lastChosen = node;
+  if (!node.selected && node.parent.selected) {
+    node.parent.selected = false;
+  }
+
+  theTree.display();  
 }
 
+function selectNode(index) {
+  var node = theTree.flattened[index];
+  node.selected = !node.selected;
+  if (lastChosen != null) {
+    lastChosen.chosen = false;
+  }
+  node.chosen = true;
+  lastChosen = node;
+  var kids = node.getChildren(true);
+  for(var i=0; i<kids.length; i++) {
+     kids[i].selected = node.selected;
+  }
+  theTree.display();  
+}
 
 function getIndex(hashId) {
   var i;
@@ -294,3 +346,27 @@ function getIndex(hashId) {
   }
   return -1;
 }
+
+function getSelectedTroids() {
+ var selected = new Array();
+  for(i=0;i < theTree.flattened.length; i++) {
+    var node = theTree.flattened[i];
+    if(node.selected) {
+      selected[selected.length]=node.troid;
+    }
+  }
+  return selected;
+}
+
+function getSelectedTroidsWithTable(table) {
+ var selected = new Array();
+  for(i=0;i < theTree.flattened.length; i++) {
+    var node = theTree.flattened[i];
+    if(node.table == table && node.selected) {
+      selected[selected.length]=node.troid;
+    }
+  }
+  return selected;
+}
+
+

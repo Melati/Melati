@@ -1,7 +1,4 @@
 ##
-## $Source$
-## $Revision$
-##
 ## Copyright (C) 2002 Myles Chippendale
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
@@ -61,8 +58,7 @@ function init() {
 
 
 #foreach $node in $tree.flattened($tree.DepthPerDownload) #begin
-  Node$node.UniqueName = new TreeNode(#include as template "$tree.NodeLabelTemplet", $node.Depth, $node.isLeaf(), "$node.UniqueName");
-
+  Node$node.UniqueName = new TreeNode(#include as template "$tree.NodeLabelTemplet", $node.Depth, $node.isLeaf(), "$node.UniqueName","$node.Data.Table.Name",$node.Data.Troid);
   #if ($node.Parent) #begin
    Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName);
 
@@ -81,6 +77,8 @@ roots[roots.length] = Node$(root.UniqueName);
 var tree = new StaticTree(parent.treedisplay,       ## displayFrame
                           "parent.treecontrol",     ## controlFrameName needs quotes
                           roots,                
+                          true,                     ## selectNodes
+                          true,                     ## selectLeaves
                           "$tree.ImageBaseRef",
                           "$tree.OpenedTImage",  
                           "$tree.OpenedLImage",  

@@ -4,6 +4,7 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
@@ -25,6 +26,9 @@ public class OrderTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();  }
+
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -39,7 +43,15 @@ public class OrderTableBase extends Table {
             ((Order)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Order)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
             return false;
           }
 
@@ -80,6 +92,10 @@ public class OrderTableBase extends Table {
             ((Order)g).setBuyer((Buyer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Order)g).getBuyerField();
+          }
+
           protected int defaultDisplayOrder() {
             return 1;
           }
@@ -117,6 +133,10 @@ public class OrderTableBase extends Table {
             ((Order)g).setProduct((Product)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Order)g).getProductField();
+          }
+
           protected int defaultDisplayOrder() {
             return 2;
           }
@@ -152,6 +172,10 @@ public class OrderTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((Order)g).setUrgent((Boolean)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((Order)g).getUrgentField();
           }
 
           protected int defaultDisplayOrder() {

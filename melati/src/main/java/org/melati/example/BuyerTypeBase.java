@@ -4,10 +4,15 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
 public class BuyerTypeBase extends Persistent {
+
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();
+  }
 
   public BuyerTypeTable getBuyerTypeTable() {
     return (BuyerTypeTable)getTable();
@@ -46,8 +51,8 @@ public class BuyerTypeBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getBuyerTypeTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getBuyerTypeTable().getIdColumn());
   }
 
   public String getDescription_unsafe() {
@@ -71,7 +76,7 @@ public class BuyerTypeBase extends Persistent {
     setDescription_unsafe(cooked);
   }
 
-  public final Field getDescriptionField() throws AccessPoemException {
-    return _getBuyerTypeTable().getDescriptionColumn().asField(this);
+  public Field getDescriptionField() throws AccessPoemException {
+    return Field.of(this, _getBuyerTypeTable().getDescriptionColumn());
   }
 }

@@ -4,10 +4,15 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
 public class ProductBase extends Persistent {
+
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();
+  }
 
   public ProductTable getProductTable() {
     return (ProductTable)getTable();
@@ -47,8 +52,8 @@ public class ProductBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getProductTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getProductTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -72,8 +77,8 @@ public class ProductBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getProductTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getProductTable().getNameColumn());
   }
 
   public Double getPrice_unsafe() {
@@ -102,7 +107,7 @@ public class ProductBase extends Persistent {
     setPrice(new Double(cooked));
   }
 
-  public final Field getPriceField() throws AccessPoemException {
-    return _getProductTable().getPriceColumn().asField(this);
+  public Field getPriceField() throws AccessPoemException {
+    return Field.of(this, _getProductTable().getPriceColumn());
   }
 }

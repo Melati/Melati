@@ -4,10 +4,15 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
 public class BuyerBase extends Persistent {
+
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();
+  }
 
   public BuyerTable getBuyerTable() {
     return (BuyerTable)getTable();
@@ -47,8 +52,8 @@ public class BuyerBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getBuyerTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getBuyerTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -72,8 +77,8 @@ public class BuyerBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getBuyerTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getBuyerTable().getNameColumn());
   }
 
   public Integer getType_unsafe() {
@@ -101,7 +106,7 @@ public class BuyerBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getTypeTroid();
     return troid == null ? null :
-        ((ExampleDatabase)getDatabase()).getBuyerTypeTable().getBuyerTypeObject(troid);
+        getExampleDatabase().getBuyerTypeTable().getBuyerTypeObject(troid);
   }
 
   public void setType(BuyerType cooked)
@@ -109,7 +114,7 @@ public class BuyerBase extends Persistent {
     setTypeTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getTypeField() throws AccessPoemException {
-    return _getBuyerTable().getTypeColumn().asField(this);
+  public Field getTypeField() throws AccessPoemException {
+    return Field.of(this, _getBuyerTable().getTypeColumn());
   }
 }

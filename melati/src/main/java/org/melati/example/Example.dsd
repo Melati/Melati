@@ -7,7 +7,7 @@ table Buyer
 
   (unique) String name (size = 25)
       (description = "The buyer's name")
-      (primarydisplay) (displayorderpriority = 0);
+(displayorderpriority = 0);
 
   (indexed) BuyerType type
       (description = "The buyer's type");
@@ -20,7 +20,7 @@ table BuyerType
 
   (unique) String description (size = unlimited)
       (displayname = "A description of the kind of buyer")
-      (primarydisplay) (displayorderpriority = 0);
+     (displayorderpriority = 0);
 }
 
 table Product
@@ -30,7 +30,7 @@ table Product
 
   (unique) String name (size = 25)
       (description = "The product's name")
-      (primarydisplay) (displayorderpriority = 0);
+   (displayorderpriority = 0);
 
   Double price
       (description = "The product's price");

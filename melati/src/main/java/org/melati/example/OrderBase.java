@@ -4,10 +4,15 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
 public class OrderBase extends Persistent {
+
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();
+  }
 
   public OrderTable getOrderTable() {
     return (OrderTable)getTable();
@@ -48,8 +53,8 @@ public class OrderBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getOrderTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getOrderTable().getIdColumn());
   }
 
   public Integer getBuyer_unsafe() {
@@ -77,7 +82,7 @@ public class OrderBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getBuyerTroid();
     return troid == null ? null :
-        ((ExampleDatabase)getDatabase()).getBuyerTable().getBuyerObject(troid);
+        getExampleDatabase().getBuyerTable().getBuyerObject(troid);
   }
 
   public void setBuyer(Buyer cooked)
@@ -85,8 +90,8 @@ public class OrderBase extends Persistent {
     setBuyerTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getBuyerField() throws AccessPoemException {
-    return _getOrderTable().getBuyerColumn().asField(this);
+  public Field getBuyerField() throws AccessPoemException {
+    return Field.of(this, _getOrderTable().getBuyerColumn());
   }
 
   public Integer getProduct_unsafe() {
@@ -114,7 +119,7 @@ public class OrderBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getProductTroid();
     return troid == null ? null :
-        ((ExampleDatabase)getDatabase()).getProductTable().getProductObject(troid);
+        getExampleDatabase().getProductTable().getProductObject(troid);
   }
 
   public void setProduct(Product cooked)
@@ -122,8 +127,8 @@ public class OrderBase extends Persistent {
     setProductTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getProductField() throws AccessPoemException {
-    return _getOrderTable().getProductColumn().asField(this);
+  public Field getProductField() throws AccessPoemException {
+    return Field.of(this, _getOrderTable().getProductColumn());
   }
 
   public Boolean getUrgent_unsafe() {
@@ -152,7 +157,7 @@ public class OrderBase extends Persistent {
     setUrgent(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
-  public final Field getUrgentField() throws AccessPoemException {
-    return _getOrderTable().getUrgentColumn().asField(this);
+  public Field getUrgentField() throws AccessPoemException {
+    return Field.of(this, _getOrderTable().getUrgentColumn());
   }
 }

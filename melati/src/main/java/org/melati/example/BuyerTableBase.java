@@ -4,6 +4,7 @@ package org.melati.doc.example;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
@@ -24,6 +25,9 @@ public class BuyerTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
+  public ExampleDatabase getExampleDatabase() {
+    return (ExampleDatabase)getDatabase();  }
+
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -38,7 +42,15 @@ public class BuyerTableBase extends Table {
             ((Buyer)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Buyer)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
             return false;
           }
 
@@ -79,8 +91,8 @@ public class BuyerTableBase extends Table {
             ((Buyer)g).setName((String)cooked);
           }
 
-          protected boolean defaultPrimaryDisplay() {
-            return true;
+          public Field asField(Persistent g) {
+            return ((Buyer)g).getNameField();
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -130,6 +142,10 @@ public class BuyerTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((Buyer)g).setType((BuyerType)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((Buyer)g).getTypeField();
           }
 
           protected int defaultDisplayOrder() {

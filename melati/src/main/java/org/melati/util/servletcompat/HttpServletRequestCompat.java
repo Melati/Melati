@@ -68,7 +68,7 @@ import org.melati.util.UnexpectedExceptionException;
  */
 
 
-public class HttpServletRequestCompat {
+public final class HttpServletRequestCompat {
 
   private HttpServletRequestCompat() {}
 
@@ -113,20 +113,20 @@ public class HttpServletRequestCompat {
       getUserPrincipal = methodOrNull(hsr, "getUserPrincipal", noparams);
       getContextPath = methodOrNull(hsr, "getContextPath", noparams);
       getHeaders = methodOrNull(hsr, "getHeaders", 
-                                new String[] { "java.lang.String" } );
+                                new String[] { "java.lang.String" });
       getSession = methodOrNull(hsr, "getSession", noparams);
       isRequestedSessionIdFromURL = methodOrNull(hsr, 
                                    "isRequestedSessionIdFromURL", noparams);
       isUserInRole = methodOrNull(hsr, "isUserInRole", 
-                                  new String[] { "java.lang.String" } );
+                                  new String[] { "java.lang.String" });
       getAttributeNames = methodOrNull(hsr, "getAttributeNames", noparams);
       getLocale = methodOrNull(hsr, "getLocale", noparams);
       getLocales = methodOrNull(hsr, "getLocales", noparams);
       getRequestDispatcher = methodOrNull(hsr, "getRequestDispatcher",
-                                        new String[] { "java.lang.String" } );
+                                        new String[] { "java.lang.String" });
       isSecure = methodOrNull(hsr, "isSecure", noparams);
       removeAttribute = methodOrNull(hsr, "removeAttribute",
-                                     new String[] { "java.lang.String" } );
+                                     new String[] { "java.lang.String" });
       setAttribute = methodOrNull(hsr, "setAttribute",
                     new String[] { "java.lang.String", "java.lang.Object" });
     }

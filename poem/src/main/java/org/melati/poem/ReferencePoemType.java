@@ -72,10 +72,13 @@ public class ReferencePoemType extends IntegerPoemType {
       throws ValidationPoemException {
     if (!(cooked instanceof Persistent))
       throw new TypeMismatchPoemException(cooked, this);
-    if (((Persistent)cooked).getTable() != targetTable)
+
+    Persistent persistent = (Persistent)cooked;
+
+    if (persistent.getTable() != targetTable)
       throw new ValidationPoemException(
-          this, cooked,
-          new TableMismatchPoemException((Persistent)cooked, targetTable));
+          this, persistent,
+          new TableMismatchPoemException(persistent, targetTable));
   }
 
   protected Object _cookedOfRaw(Object raw) throws NoSuchRowPoemException {

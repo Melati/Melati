@@ -53,6 +53,14 @@ public class MelatiContext {
   public Integer troid;
   public String method;
 
+  public MelatiContext(String logicalDatabase, String table, Integer troid,
+                       String method) {
+    this.logicalDatabase = logicalDatabase;
+    this.table = table;
+    this.troid = troid;
+    this.method = method;
+  }
+
   public String toString() {
     return "logicalDatabase = " + logicalDatabase + ", " +
            "table = " + table + ", " +

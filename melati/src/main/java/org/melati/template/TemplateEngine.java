@@ -159,14 +159,19 @@ public interface TemplateEngine {
       throws IOException;
   
   /** 
-   * @param encoding the character encoding to associate with this writer
-   * @throws IOException if there is a problem with the filesystem.
-   * @return a {@link MelatiWriter} 
-   *         configured for this engine.
-   * @deprecated The best possible {@link MelatiWriter} that is like a
-   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
+   * @param encoding Ignored.
+   * @return a {@link MelatiStringWriter} for this engine.
+   * @deprecated Use {@link #getStringWriter()}.
+   * @todo Delete this method. Suggest 2004.
    */
   MelatiWriter getStringWriter(String encoding) throws IOException;
+
+  /** 
+   * Return a {@link MelatiStringWriter}.
+   *
+   * @see Melati#getStringWriter() 
+   */
+  MelatiStringWriter getStringWriter();
 
   /** 
    * Get the underlying engine.

@@ -86,12 +86,17 @@ to create a release:
     cd build 
     ant build
 10. Copy downloadable  jars and zips to 
-    cp dist/packaged/*.* /home/apache/share/htdocs/melati/download/
+    cp dist/packaged/*.* /dist/melati/download/
 11. Generate Maven site
     cd /dist/melati
     maven site
     maven dist
-12. Email 
+12. Update sourceforge
+cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
+cvs -d:ext:developername@melati.org:/usr/cvsroot export melati
+cvs commit
+
+13. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,
        melati-users@lists.sourceforge.net,
@@ -105,12 +110,14 @@ to create a release:
        hsqldb-developers@lists.sourceforge.net,
        wafer-developer@lists.sourceforge.net
 
-13. Notify Melati project boards:
+14. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
        pol@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
        begbroke@messageboards.paneris.org
-14. Add SNAPSHOT to currentVersion in ../project.xml
+15. Add an item to the Sourceforge news
+    https://sourceforge.net/news/submit.php?group_id=11389
+16. Add SNAPSHOT to currentVersion in ../project.xml
 
 
 

@@ -90,6 +90,9 @@ public class Postgresql extends AnsiStandard {
   }
 
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
+   */
   public boolean canDropColumns(Connection con) throws SQLException {
     if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
       return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).
@@ -99,6 +102,9 @@ public class Postgresql extends AnsiStandard {
   }
 
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
+   */
   public String preparedStatementPlaceholder(PoemType type) {
     if (type instanceof IntegerPoemType)
       return "CAST(? AS INT4)";
@@ -110,6 +116,9 @@ public class Postgresql extends AnsiStandard {
       return "?";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
        return "TEXT";
@@ -117,6 +126,9 @@ public class Postgresql extends AnsiStandard {
        return super.getStringSqlDefinition(size);
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) {
    // BLOBs in Postgres are represented as OIDs pointing to the data
     return "OID";
@@ -141,6 +153,9 @@ public class Postgresql extends AnsiStandard {
       }
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
@@ -150,6 +165,9 @@ public class Postgresql extends AnsiStandard {
         super.defaultPoemTypeOfColumnMetaData(md);
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
+   */
   public SQLPoemException exceptionForUpdate(
       Table table, String sql, boolean insert, SQLException e) {
 
@@ -183,6 +201,9 @@ public class Postgresql extends AnsiStandard {
         return super.exceptionForUpdate(table, sql, insert, e);
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " ~* " + term2;
   }

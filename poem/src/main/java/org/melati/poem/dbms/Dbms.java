@@ -69,7 +69,7 @@ public interface Dbms {
 
   /**
    * Postgresql versions less than 7.3 have a maximum label 
-   * length of 32. 
+   * length of 31. 
    * 
    * @return the maximum length of a field.
    */

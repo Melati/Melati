@@ -569,11 +569,16 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
+   * Load from Database.
+   * 
    * @todo Double validation
+   * @param rs A <code>ResultSet</code>containing the value(s) to load
+   * @param rsCol The index in the <tt>ResultSet</tt> of this {link column}
+   * @param g The {@link Persistent} to load db values into
+   * @throws LoadException
    */
   public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
     throws LoadException {
-    // FIXME double validation
     try {
       setRaw_unsafe(g, type.getRaw(rs, rsCol));
     } catch (Exception e) {
@@ -581,9 +586,20 @@ public abstract class Column implements FieldAttributes {
     }
   }
 
+  /**
+   * Save to database.
+   * 
+   * @param g The {@link Persistent} containing unsaved values
+   * @param ps <tt>PreparedStatement</tt> to save this column
+   * @param psCol index of this Column in the PreparedStatement
+   * @todo Double validation
+   */
   public void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
-    // FIXME double validation
-    type.setRaw(ps, psCol, getRaw_unsafe(g));
+    try {
+      type.setRaw(ps, psCol, getRaw_unsafe(g));
+    } catch (Exception e) {
+      throw new FieldContentsPoemException(this, e); 
+    }
   }
 
   // 

@@ -66,7 +66,7 @@
     <li>Support for <a href="http://jakarta.apache.org/velocity/">Velocity</a></li>
     <li>DSDs can now be imported into other DSDs giving some level of modularisation 
       for Melati applications</li>
-    <li>Support for Webmacro 0.97a1</li>
+    <li>Support for Webmacro 0.97</li>
     <li>Cascading deletion in POEM</li>
     <li>Cleaner servlet API</li>
     <li>File upload</li>
@@ -86,11 +86,12 @@
   </a> 
   <h3>To upgrade from Melati 0.53.5 to Melati 0.54</h3>
   <ol>
-    <li>You must upgrade to WebMacro 0.97a1.</li>
+    <li>You must upgrade to WebMacro 0.97.</li>
     <li>If you construct your own FastWriter, you need to supply a Broker to the 
       constructor.</li>
     <li>If you use a PassbackExceptionHandler (in order to render AccessPoemExceptions 
-      inline in the page), you will need to set it by using: <tt>$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)</tt></li>
+      inline in the page), you will need to set it by using: <tt>$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler) 
+      </tt>in your templates.</li>
   </ol>
   <h3>&nbsp;</h3>
   <p> </p>
@@ -259,8 +260,9 @@
     <tr> 
       <td>Template Engine</td>
       <td> 
-        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> snapshot 
-          0.97a1</blockquote>
+        <blockquote><a href=http://webmacro.org/Download.html> </a><a href=http://www.webmacro.org>Webmacro</a> 
+          <a href="http://jakarta.apache.org/velocity/"></a> 0.97 and up, <a href="http://jakarta.apache.org/velocity/">Velocity</a> 
+          rc1.1 and up</blockquote>
       </td>
     </tr>
   </table>
@@ -320,19 +322,14 @@
           file, by adding a lines</p>
         <blockquote> 
           <pre>
-
-wrapper.classpath=/usr/local/melati/src
-
-
-
 wrapper.classpath=/usr/local/melati/lib/melati.jar</pre>
         </blockquote>
         <p>or in your <tt>&lt;zone&gt;.properties</tt> file by adding </p>
         <blockquote> 
-          <pre>/usr/local/melati/src,/usr/local/melati/lib/melati.jar</pre>
+          <pre>/usr/local/melati/lib/melati.jar</pre>
         </blockquote>
         <p>to the line beginning <tt>repositories=</tt></p>
-        <p><b>Note:</b> These should be placed before references to webmacro.jar.</p>
+        <p>&nbsp;</p>
       </td>
     </tr>
     <tr> 
@@ -357,15 +354,19 @@ ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
     </tr>
     <tr> 
       <td valign="top">6.</td>
-      <td  valign=top>Get Melati's Webmacro templates into Webmacro's template 
-        path. Melati looks for its templates relative to <tt>org/melati</tt> in 
-        its source tree, so you should edit your <tt>WebMacro.properties</tt> 
-        to say something like 
-        <blockquote> 
-          <pre>TemplatePath = /usr/local/melati/src/org/melati:/home/me/templates
-</pre>
+      <td  valign=top> 
+        <p>Set the path allowing your application to access the Melati templates. 
+          Melati looks for its templates relative to <tt>src/org/melati</tt> in 
+          its source tree, so you should edit your template path accordingly:</p>
+        <p>6.1 For Webmacro:</p>
+        <blockquote>
+          <p>By default Webmacro will load templates from the CLASSPATH, so the 
+            easiest thing to do is add something like </p>
+          <p><tt>wrapper.classpath=/usr/local/melati/src/org/melati/ </tt></p>
+          <p>to your ServletRunner's CLASSPATH. Alternatively, set the path in 
+            your <tt>WebMacro.properties</tt> file.</p>
         </blockquote>
-        <p>If you are using Velocity:</p>
+        <p>6.2 For Velocity </p>
         <ol>
           <li>in <tt>org.melati.MelatiServlet.properties</tt>, Specify Velocity 
             as your Template Engine:<br>
@@ -374,9 +375,9 @@ ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
           </li>
           <li>you should set your TemplatePath in <tt>org.melati.MelatiServlet.properties</tt>: 
             <tt>org.melati.MelatiServlet.templatePath=/usr/local/packages/melati/org/melati/ 
-            </tt> </li>
+            </tt></li>
         </ol>
-        </td>
+      </td>
     </tr>
     <tr> 
       <td valign="top">7.</td>
@@ -409,8 +410,8 @@ http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
 </pre>
         </blockquote>
         <p> This is the 1st servlet in the Melati Test suite. the test suite demonstrates 
-          all the features of melati, and gives you access to examples. It will 
-          also help you debug your installation</p>
+          some of the features of melati, and gives you access to examples. It 
+          will also help you debug your installation</p>
       </td>
     </tr>
   </table>

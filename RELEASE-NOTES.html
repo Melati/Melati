@@ -10,16 +10,16 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 14/05/2001 - timj@paneris.org</h4>
+  <h4 align="center">last updated 11/06/2001 - timj@paneris.org</h4>
   <h2>Release 0.54</h2>
-  <h4>14/05/2001 </h4>
+  <h4>11/06/2001 </h4>
   <ul>
-    <li>support for Webmacro 0.97a1. Previous versions of webmacro are no longer 
+    <li>support for Webmacro 0.97. Previous versions of webmacro are no longer 
       supported. </li>
     <li>support for Velocity 1.1</li>
     <li>changes to Upload System</li>
   </ul>
-  <h3>WebMacro 0.97a1</h3>
+  <h3>WebMacro 0.97</h3>
   <ol>
     <li><b>Cleaning up.</b> We have removed all 'hacked' webmacro classes from 
       Melati. If you have any org.webmacro.* classes hanging arround, please ensure 
@@ -30,7 +30,7 @@
       <tt>MelatiFastWriter(Broker broker, OutputStream output, String encoding) 
       </tt></li>
     <li><b>Exception Handling in Templates.</b> Melati sets a <tt>PassbackExceptionHandler</tt> 
-      by default (forcing a logon page on encountering a <tt>AccessPoemException. 
+      by default (forcing a logon page on encountering a <tt>AccessPoemException). 
       </tt>If you want to use a <tt>PassbackExceptionHandler</tt>, you <b>must</b> 
       set it in your template: <br>
       <tt>$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler). 
@@ -46,7 +46,7 @@
       </tt>If a .vm template with the correct name is found it will be used, otherwise, 
       the .wm template will be loaded and translated.</li>
     <li>The template path for Velocity is set in <tt>org.melati.MelatiServlet.properties. 
-      </tt>It may be agood idea to do this for WebMAcro as well, but it wasn't 
+      </tt>It may be a good idea to do this for WebMacro as well, but it wasn't 
       obvious how to do this, so it has been left for the time being.</li>
   </ol>
   <h3>Upload System</h3>

@@ -51,4 +51,4 @@ fi
           "in the following lines:\n\n$wronglines\n\n" \
           "You should probably change them to $JDBC."
 
-#$JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/$JDBC/}}*.java
+$JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/$JDBC/}}*.java

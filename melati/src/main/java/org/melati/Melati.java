@@ -165,7 +165,7 @@ public class Melati {
 
   /**
    * It is sometimes convenient to reconstruct the request object and
-   * reset it.  for example, when returning from a log-in page
+   * reset it, for example when returning from a log-in page.
    *
    * @see org.melati.login.HttpSessionAccessHandler
    * @param request - new request object

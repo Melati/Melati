@@ -49,15 +49,15 @@ import org.melati.poem.FieldAttributes;
 
 public interface TempletLoader {
 
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  String templetName)
-  throws NotFoundException;
+  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
+                   String templetName)
+      throws NotFoundException;
 
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  Class clazz)
-  throws NotFoundException;
+  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
+                   Class clazz)
+      throws NotFoundException;
 
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  FieldAttributes attributes)
-  throws NotFoundException;
+  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
+                   FieldAttributes attributes)
+      throws NotFoundException;
 }

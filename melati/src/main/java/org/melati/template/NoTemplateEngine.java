@@ -173,7 +173,7 @@ public class NoTemplateEngine implements TemplateEngine {
   /** 
    * Expand the Template against the context.
    *
-   * @param templateName    the name of the template to expand
+   * @param melatiName      the name of the template to expand
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked

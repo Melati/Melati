@@ -111,6 +111,6 @@ public interface Dbms {
 
   public String givesCapabilitySQL(User user, String capabilityExpr);
 
-  public String caseInsensitiveCompare(String term1, String term2);
+  public String caseInsensitiveRegExpSQL(String term1, String term2);
 
 }

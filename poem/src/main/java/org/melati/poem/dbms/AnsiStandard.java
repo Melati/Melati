@@ -277,12 +277,10 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-  * Postgres has a single operator
-  *
-  * @see Postgresql#caseInsensitiveCompare
-  */
-  public String caseInsensitiveCompare(String term1, String term2) {
-    return "UPPER(" + term1 + ") LIKE UPPER(" + term2 + ")";
+  * This is the MySQL syntax
+  **/
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    return  term1 + " REGEXP " + term2 ;
   }
 
 }

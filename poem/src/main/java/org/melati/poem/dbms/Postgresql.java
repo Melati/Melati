@@ -134,7 +134,7 @@ public class Postgresql extends AnsiStandard {
         return super.exceptionForUpdate(table, sql, insert, e);
   }
 
-  public String caseInsensitiveCompare(String term1, String term2) {
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " ~* " + term2;
   }
 

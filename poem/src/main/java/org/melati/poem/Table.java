@@ -1153,7 +1153,7 @@ public class Table {
 
         if (column.getType() instanceof StringPoemType) {
 	  clause.append( 
-	    getDatabase().getDbms().caseInsensitiveCompare(
+	    getDatabase().getDbms().caseInsensitiveRegExpSQL(
                   column.quotedName(),
                   column.getSQLType().quotedRaw(raw)));
         } else {

@@ -19,7 +19,7 @@ This page last updated: $Date$ $Author$
 </td></tr></table>
 <p>
   Included in the distribution is a simple 
-  <a href="/melati/org.melati.doc.example.contacts.Search">Contacts Database</a> application allowing 
+  <a href="/melati/org.melati.example.contacts.Search">Contacts Database</a> application allowing 
   addition, modification, deletion and search of Contact records.
 </p>
 <p>

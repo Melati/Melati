@@ -50,7 +50,7 @@ public class ContactView extends TemplateServlet {
       }
       try {
         melati.getResponse().sendRedirect
-        ("/melati/org.melati.doc.example.contacts.Search/contacts");
+        ("/melati/org.melati.example.contacts.Search/contacts");
       } catch (IOException e) {
         throw new Exception(e.toString());
       }
@@ -62,7 +62,7 @@ public class ContactView extends TemplateServlet {
       contact.deleteAndCommit();
       try {
         melati.getResponse().sendRedirect
-        ("/melati/org.melati.doc.example.contacts.Search/contacts");
+        ("/melati/org.melati.example.contacts.Search/contacts");
       } catch (IOException e) {
         throw new Exception(e.toString());
       }
@@ -77,7 +77,7 @@ public class ContactView extends TemplateServlet {
     context.put("contact",contact);
     context.put("categories",db.getCategoryTable().selection());
     // The file extension is added by the template engine
-    return "org/melati/doc/example/contacts/ContactView";
+    return "org/melati/example/contacts/ContactView";
   }
 
   public void deleteCategories(ContactsDatabase db, Contact contact) {

@@ -41,7 +41,7 @@ public class Search extends TemplateServlet {
       context.put("results", db.getContactTable().selection(where));
     }
     // The file extension is added by the TemplateEngine
-    return "org/melati/doc/example/contacts/Search";
+    return "org/melati/example/contacts/Search";
   }
   
   protected MelatiContext melatiContext(Melati melati)

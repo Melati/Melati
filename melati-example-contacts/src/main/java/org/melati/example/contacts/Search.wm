@@ -16,8 +16,8 @@
 </p>
 <p>
   The source code is available in 
-  <a href=/melati-static/doc/example/contacts/>
-     <tt>org/melati/doc/example/contacts/</tt>
+  <a href=/melati-static/example/contacts/>
+     <tt>org/melati/example/contacts/</tt>
   </a>
 </p>
 <p>
@@ -27,7 +27,7 @@
 <table border=1 cellpadding=5 width="60%">
 <tr>
  <td>
-  <a href=$melati.ZoneURL/org.melati.doc.example.contacts.ContactView/contact/Insert>Add a new Contact</a>
+  <a href=$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/Insert>Add a new Contact</a>
  </td>
  <td>
   <a href=$melati.ZoneURL/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
@@ -57,7 +57,7 @@
 <table>
 #foreach $item in $results #begin
 <tr>
- <td><a href=/melati/org.melati.doc.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
+ <td><a href=/melati/org.melati.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
  <td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td>
 </tr>
 #end

@@ -549,7 +549,7 @@ public class TableDef {
       if (f.searchability != null)
         hasSearchability = true;
     }
-    if (fieldCount == 0 && !isAbstract)
+    if (fieldCount == 0 && !isAbstract && naming.superclass == null)
       throw new NonAbstractEmptyTableException(name);
 
     if (hasDisplayLevel)

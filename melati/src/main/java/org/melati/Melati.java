@@ -114,7 +114,7 @@ public class Melati {
   // are we manually flushing the output
   private boolean flushing = false;
   // are we buffering the output
-  private boolean buffered= false;
+  private boolean buffered= true;
   // the output writer
   private MelatiWriter writer;
   
@@ -445,8 +445,6 @@ public class Melati {
  * to the login page.  This could not be done if any bytes have been written
  * to the client
  *
- * @param stop - if TRUE, the output will be flushed every 2 seconds, and
- * the user will be allows to interrupt the request
  * @see org.melati.test.FlushingServletTest
  */  
   public void setBufferingOff() throws IOException {

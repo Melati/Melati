@@ -63,8 +63,8 @@ public abstract class MelatiWriter extends Writer {
   }
   
   public void write(char cbuf[], int off, int len) throws IOException {
-    startFlushing();
     out.write(cbuf, off, len);
+    startFlushing();
   }
   
   protected void startFlushing() {

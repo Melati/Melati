@@ -62,9 +62,8 @@ public class MelatiBufferedWriter extends MelatiWriter {
   }
   
   public void write(char cbuf[], int off, int len) throws IOException {
-    System.err.println("bufferedwrite");
-    startFlushing();
     bufferedOutput.write(cbuf, off, len);
+    startFlushing();
   }
 
   public void reset() throws IOException {

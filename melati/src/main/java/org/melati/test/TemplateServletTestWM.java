@@ -74,7 +74,6 @@ public class TemplateServletTestWM extends TemplateServlet {
 
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
 
-
     if (melati.getMethod() != null) {
 
       if (melati.getMethod().equals("Upload")) {
@@ -107,7 +106,6 @@ public class TemplateServletTestWM extends TemplateServlet {
         templateEngine.expandTemplate(melati2.getWriter(), 
                                       "test/StandAlone.wm",
                                       templateContext2);
-        melati2.write();
         // write to the StringWriter
         String out = sw.asString();
         // finally, put what we have into the original templateContext

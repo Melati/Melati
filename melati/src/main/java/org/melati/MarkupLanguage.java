@@ -237,7 +237,6 @@ public abstract class MarkupLanguage {
       vars.put("exception", e);
       Template templet =
           templetLoader.templet(webContext.getBroker(), this, e.getClass());
-      System.err.println("******* expanding exception " + e.getClass() + " using " + templet);
       return expandedTemplet(templet, vars);
     }
     catch (Exception f) {

@@ -24,6 +24,8 @@
               files="DatePoemtype.java" />
     <suppress checks="FileLength"
               files="Table.java" />
+    <suppress checks="LineLength"
+              files="FirstSQL.java" />
     <!-- Name deliberately chosen -->
     <suppress checks="LocalVariableName"
               files="FieldSet.java" />

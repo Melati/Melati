@@ -180,7 +180,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
      * Get an InputStream so that the Runtime can build a
      * template with it.
      *
-     * @param name name of template to get
+     * @param templateName name of template to get
      * @return InputStream containing the template
      * @throws ResourceNotFoundException if template not found
      *         in the file template path.
@@ -254,7 +254,8 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
     /**
      * Try to find a template given a normalized path.
      * 
-     * @param String a normalized path
+     * @param path a normalized path
+     * @param template the name of template
      * @return InputStream input stream that will be parsed
      *
      */

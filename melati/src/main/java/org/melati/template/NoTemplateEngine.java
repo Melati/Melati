@@ -72,7 +72,7 @@ public class NoTemplateEngine implements TemplateEngine {
   /**
    * Construct a new Engine.
    *
-   * @param melatiConfig a {@link MelatiConfig}
+   * @param config a {@link MelatiConfig}
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void init(MelatiConfig config) throws TemplateEngineException {
@@ -159,7 +159,7 @@ public class NoTemplateEngine implements TemplateEngine {
    * Expand the Template against the context.
    *
    * @param out             a {@link MelatiWriter} to output on
-   * @param template        the {@link Template} to expand
+   * @param melatiTemplate  the {@link Template} to expand
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked

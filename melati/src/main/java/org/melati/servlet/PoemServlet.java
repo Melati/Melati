@@ -210,11 +210,12 @@ import org.melati.util.MelatiWriter;
 public abstract class PoemServlet extends ConfigServlet {
 
   /**
-   * Overriden in TemplateServlet
-   * @param org.melati.Melati  
-   *                    A source of information about the Melati database
-   *                    context (database, table, object) and utility objects
-   *                    such as error handlers.
+   * Overriden in TemplateServlet.
+   *
+   * @param melati org.melati.Melati  
+   *               A source of information about the Melati database
+   *               context (database, table, object) and utility objects
+   *               such as error handlers.
    */
 
   protected void prePoemSession(Melati melati) throws Exception {

@@ -125,8 +125,8 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
   }
 
   /**
-   * @deprecated Arrange to use {@link MelatiStringWriter#toString()}.
-   * @todo Fix bug or delete as this uses the default platform charset to decode.
+   * @deprecated Use {@link org.melati.util.MelatiStringWriter#toString()}.
+   * @todo Fix or delete as this uses the default platform charset to decode.
    */
   public String asString() throws IOException {
     out.flush();

@@ -61,7 +61,7 @@ public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
     /**
      *  Constructor
      *
-     *  @param req HttpServletRequest object to wrap
+     *  @param peer HttpServletRequest object to wrap
      */
     public HttpServletRequestWrap(HttpServletRequest peer) {
         super(peer);
@@ -77,6 +77,12 @@ public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
         return peer;
     }
    
+    /**
+     *  Accessor to allow one to retrieve the 
+     *  parameters
+     *
+     *  @return Parameter as String
+     */
     public String get(String name) {
         return getParameter(name);
     }

@@ -49,8 +49,7 @@ import javax.swing.text.html.HTMLEditorKit;
 /**
  * An extended <code>ParserCallback</code>.
  *
- * @todo Explain why this is in Melati
- * @deprecated Only used in Bibliomania
+ * @todo Explain why this is in Melati as it is only used in Bibliomania
  */
 public abstract class FictionalNotifiableParserCallback
     extends HTMLEditorKit.ParserCallback {

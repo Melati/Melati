@@ -100,7 +100,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   void assertMatches(ResultSet colDesc)
-    throws SQLException, TypeDefinitionMismatchException {
+      throws SQLException, TypeDefinitionMismatchException {
     PoemType dbType = getDatabase().defaultPoemTypeOfColumnMetaData(colDesc);
 
     if (dbms().canRepresent(dbType, type) == null)

@@ -74,7 +74,6 @@ public class SQLSeriousPoemException extends SeriousPoemException {
   /**
    * Constructor for use if you do not have the SQL string. 
    * 
-   * @deprecated as we really rather want the statement
    * @param sqlException the db exception that has been caught 
    */
   public SQLSeriousPoemException(SQLException sqlException) {

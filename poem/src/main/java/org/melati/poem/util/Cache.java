@@ -68,22 +68,44 @@ public final class Cache {
     }
 
     synchronized void putBefore(HeldNode nextMRU) {
-      if (this.nextMRU != null)
-	this.nextMRU.prevMRU = prevMRU;
 
-      if (prevMRU != null)
-	prevMRU.nextMRU = this.nextMRU;
+      //
+      // Before:
+      //
+      //   11 -A-> 00 -B-> 22      33 -E-> 44
+      //   11 <-C- 00 <-D- 22      33 <-F- 44
+      //
+      // After:
+      //
+      //   11 -G-> 22              33 -I-> 00 -J-> 44
+      //   11 <-H- 22              33 <-K- 00 <-L- 44
+      //
+      // What has to happen:
+      //
+      //   A => G if 1 exists
+      //   B => J
+      //   C => K
+      //   D => H if 2 exists
+      //   E => I if 3 exists
+      //   F => L if 4 exists
+      //
 
-      if (nextMRU != null) {
-	if (nextMRU.prevMRU != null)
-	  nextMRU.prevMRU.nextMRU = this;
-	prevMRU = nextMRU.prevMRU;
-	nextMRU.prevMRU = this;
+      if (this.nextMRU != null)                 // 2 exists
+	this.nextMRU.prevMRU = prevMRU; 	// D => H using C
+
+      if (prevMRU != null)                      // 1 exists
+	prevMRU.nextMRU = this.nextMRU;         // A => G using B
+
+      if (nextMRU != null) {                    // 4 exists
+	if (nextMRU.prevMRU != null)            // 3 exists
+	  nextMRU.prevMRU.nextMRU = this;       // E => I
+	prevMRU = nextMRU.prevMRU;              // C => K using F
+	nextMRU.prevMRU = this;                 // F => L
       }
       else
-	prevMRU = null;
+	prevMRU = null;                         // C => K
 
-      this.nextMRU = nextMRU;
+      this.nextMRU = nextMRU;                   // B => J
     }
 
     public Object key() {

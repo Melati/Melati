@@ -77,9 +77,9 @@ public class BitmapSet implements Cloneable {
   }
 
   public boolean get(int n) {
-    int[] flags = this.flags;
+    int[] flagsLocal = this.flags;
     int i = n / 32;
-    return flags.length <= i ? false : (flags[i] & (1 << i % 32)) != 0;
+    return flagsLocal.length <= i ? false : (flagsLocal[i] & (1 << i % 32)) != 0;
   }
 
   public Object clone() {

@@ -258,8 +258,8 @@ public interface Dbms {
   /**
    * Accomodate the variety of ways of ignoring case.
    * 
-   * @param term1 the term to find 
-   * @param term2 the term to find it in
+   * @param term1 the term to find in 
+   * @param term2 the quoted term to find 
    * @return the SQL query to use
    */
   String caseInsensitiveRegExpSQL(String term1, String term2);

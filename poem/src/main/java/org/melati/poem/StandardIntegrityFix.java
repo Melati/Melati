@@ -61,7 +61,9 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   public final Integer index;
   public final String name;
 
-  /* private -- makes Sun compiler barf ... */ 
+  /* private -- makes Sun compiler barf ... 
+     An abstract class must be extended so cannot have a private constructor.
+   */ 
   StandardIntegrityFix(int index, String name) {
     this.index = new Integer(index);
     this.name = name;
@@ -69,6 +71,31 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
 
   public static final StandardIntegrityFix delete, clear, prevent;
 
+  /**
+   * Each {@link StandardIntegrityFix} differs from another by the 
+   * way they implement {@link #referencesTo}.
+   *
+   * <b>delete</b> deletes all references to this {@link Persistent}. <br/>
+   * <b>clear</b> sets the references to null. <br/>
+   * <b>prevent</b> returns the references, which prevokes an exception
+   * 
+   * @see Persistent#delete(Map)
+   * @param referee the {@link Persistent} we are deleting
+   * @param column the {@link Column} of the reference to {@link Persistent} 
+   *        we are deleting, used in <b>clear</b>
+   * @param refs an {@link Enumeration} of the objects which contain 
+   *        a reference to the {@link Persistent} we are deleting,
+   *        each is deleted, cleared or returned respectively
+   * @param referenceFixOfColumn a {@link Map} keyed on {@link Column} 
+   *        giving the associated {@link IntegrityFix}, passed in to 
+   *        the {@link Persistent} referer to delete itself
+   *@return an {@link Enumeration} of the remaining referers    
+   */
+   public abstract Enumeration referencesTo(Persistent referee,
+                                   Column column,
+                                   Enumeration refs,
+                                   Map referenceFixOfColumn);
+  
   private static final StandardIntegrityFix[] fixes = { 
     delete = new StandardIntegrityFix(0, "delete") {
       public Enumeration referencesTo(Persistent referee, Column column,

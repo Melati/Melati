@@ -219,7 +219,9 @@ public class Admin extends MelatiServlet {
       }
     }
 
-    String orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
+    String orderBySQL = null;
+    if (orderingNames.elements().hasMoreElements()) 
+      orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
     context.put("orderClause",
                 EnumUtils.concatenated("&", orderClause.elements()));
 

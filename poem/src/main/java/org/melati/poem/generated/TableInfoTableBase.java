@@ -787,7 +787,7 @@ public class TableInfoTableBase extends Table {
   }
 
   protected Integer defaultCacheLimit() {
-    return null;
+    return new Integer(999999999);
   }
 
   protected String defaultCategory() {

@@ -209,7 +209,7 @@ public class SettingTableBase extends ValueInfoTable {
   }
 
   protected Integer defaultCacheLimit() {
-    return null;
+    return new Integer(999999999);
   }
 
   protected String defaultCategory() {

@@ -48,6 +48,8 @@
 package org.melati.poem;
 
 import java.util.*;
+import java.io.*;
+import java.text.*;
 import org.melati.util.*;
 
 public class Field implements FieldAttributes, Cloneable {
@@ -202,5 +204,10 @@ public class Field implements FieldAttributes, Cloneable {
     catch (AccessPoemException accessException) {
       return new Field(accessException, column);
     }
+  }
+
+  public void dump(PrintStream p) {
+    p.print(getName() + ": " + getCookedString(MelatiLocale.here,
+					       DateFormat.MEDIUM));
   }
 }

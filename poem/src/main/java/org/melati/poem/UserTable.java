@@ -53,7 +53,7 @@ import java.sql.*;
 
 public class UserTable extends UserTableBase {
 
-  private User guestUser, administratorUser;
+  protected User guestUser, administratorUser;
   // see below
   // private Capability canReadPasswords = new Capability("ReadPasswords");
   // private Capability canWritePasswords = new Capability("WritePasswords");

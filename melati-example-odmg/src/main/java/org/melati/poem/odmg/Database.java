@@ -43,6 +43,7 @@ class Database implements org.odmg.Database
 
   public void close() 
   { 
+    _poemDB.disconnect();
     _poemDB = null;
     _cachedTables = null;
   }

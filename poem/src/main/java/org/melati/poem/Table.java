@@ -73,6 +73,7 @@ public class Table {
   private Column deletedColumn = null;
   private Column canReadColumn = null;
   private Column canWriteColumn = null;
+  private Column canDeleteColumn = null;
   private Column displayColumn = null;
   private Column searchColumn = null;
 
@@ -316,7 +317,9 @@ public class Table {
                 }
               }))) {
             public Object mapped(Object column) {
-              return ((Column)column).quotedName();
+              String sort = ((Column)column).quotedName();
+              if (((Column)column).getSortDescending()) sort += " desc";
+              return sort;
             }
           });
 
@@ -881,7 +884,7 @@ public class Table {
                "" : "(" + whereClause + ") AND ") +
           "NOT " + deletedColumn.getName();
 
-    if (orderByClause == null)
+    if (orderByClause == null) 
       orderByClause = defaultOrderByClause();
 
     // FIXME must work in some kind of limit
@@ -1027,13 +1030,10 @@ public class Table {
     return selection(whereClause, null, false);
   }
 
-  public Persistent firstSelection(String whereClause, String orderByClause) {
-    Enumeration them = selection(whereClause, orderByClause, false);
-    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
-  }
 
   public Persistent firstSelection(String whereClause) {
-    return firstSelection(whereClause, null);
+    Enumeration them = selection(whereClause);
+    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
   /**
@@ -1254,6 +1254,8 @@ public class Table {
 
     SessionToken sessionToken = PoemThread.sessionToken();
 
+    if (persistent.getTable() == null)
+      persistent.setTable(this, null);
     persistent.assertCanCreate(sessionToken.accessToken);
 
     claim(persistent, troidFor(persistent));
@@ -1413,6 +1415,10 @@ public class Table {
     return info == null ? null : info.getDefaultcanwrite();
   }
 
+  public final Capability getDefaultCanDelete() {
+    return info == null ? null : info.getDefaultcandelete();
+  }
+
   /**
    * The capability required for creating records in the table.  This simply
    * comes from the table's record in the <TT>tableinfo</TT> table.
@@ -1430,6 +1436,10 @@ public class Table {
 
   final Column canWriteColumn() {
     return canWriteColumn;
+  }
+
+  final Column canDeleteColumn() {
+    return canDeleteColumn;
   }
 
   // 
@@ -1636,6 +1646,8 @@ public class Table {
             canReadColumn = column;
           else if (column.getName().equals("canwrite"))
             canWriteColumn = column;
+          else if (column.getName().equals("candelete"))
+            canDeleteColumn = column;
         }
       }
     }

@@ -76,4 +76,9 @@ public class CapabilityTable extends CapabilityTableBase {
     if (info.getCancreate() == null)
       info.setCancreate(administer);
   }
+
+  public Capability get(String name) {
+      return (Capability) getNameColumn().firstWhereEq(name);
+  }
+
 }

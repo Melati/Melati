@@ -27,4 +27,11 @@ public class UserTable extends UserTableBase {
     if (guestUser == null)
       guestUser = (User)create(guestData);
   }
+
+  void postInitialise() {
+    if (info.getDefaultcanwrite() == null)
+      info.setDefaultcanwrite(getDatabase().administerCapability());
+    if (info.getCancreate() == null)
+      info.setCancreate(getDatabase().administerCapability());
+  }
 }

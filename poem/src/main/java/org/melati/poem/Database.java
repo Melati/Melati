@@ -30,6 +30,7 @@ abstract public class Database {
 
   private Vector tables = new Vector();
   private Hashtable tablesByName = new Hashtable();
+  private Table[] displayTables = null;
 
   // 
   // ================
@@ -118,15 +119,13 @@ abstract public class Database {
     }
 
     try {
-      // Bootstrap: set up the tableinfo and fieldinfo tables
+      // Bootstrap: set up the tableinfo and columninfo tables
 
       DatabaseMetaData m = committedConnection.getMetaData();
       getTableInfoTable().unifyWithDB(
           m.getColumns(null, null, getTableInfoTable().getName(), null));
       getColumnInfoTable().unifyWithDB(
           m.getColumns(null, null, getColumnInfoTable().getName(), null));
-      getCapabilityTable().unifyWithDB(
-          m.getColumns(null, null, getCapabilityTable().getName(), null));
 
       inSession(AccessToken.root,
                 new PoemTask() {
@@ -249,6 +248,9 @@ abstract public class Database {
       if (!colDescs.next())
         table.unifyWithDB(null);
     }
+
+    for (Enumeration t = tables.elements(); t.hasMoreElements();)
+      ((Table)t.nextElement()).postInitialise();
   }
 
   // 
@@ -473,6 +475,27 @@ abstract public class Database {
     return tables.elements();
   }
 
+  public final Enumeration getDisplayTables() {
+    if (displayTables == null) {
+      Enumeration tableIDs = getTableInfoTable().troidSelection(
+          null /* "displayable" */, "displayorder, name", false, null);
+
+      Vector them = new Vector();
+      while (tableIDs.hasMoreElements()) {
+        Table table =
+            tableWithTableInfoID(((Integer)tableIDs.nextElement()).intValue());
+        if (table != null)
+          them.addElement(table);
+      }
+
+      displayTables = new Table[them.size()];
+      them.copyInto(displayTables);
+      this.displayTables = displayTables;
+    }
+
+    return new ArrayEnumeration(displayTables);
+  }
+
   /**
    * The table with a given ID in the <TT>tableinfo</TT> table, or
    * <TT>null</TT>.
@@ -481,16 +504,25 @@ abstract public class Database {
    */
 
   final Table tableWithTableInfoID(int tableInfoID) {
-    synchronized (tables) {
-      for (Enumeration t = tables.elements(); t.hasMoreElements();) {
-        Table table = (Table)t.nextElement();
-        Integer id = table.tableInfoID();
-        if (id != null && id.intValue() == tableInfoID)
-          return table;
-      }
-
-      return null;
+    for (Enumeration t = tables.elements(); t.hasMoreElements();) {
+      Table table = (Table)t.nextElement();
+      Integer id = table.tableInfoID();
+      if (id != null && id.intValue() == tableInfoID)
+        return table;
     }
+
+    return null;
+  }
+
+  final Column columnWithColumnInfoID(int columnInfoID) {
+    for (Enumeration t = tables.elements(); t.hasMoreElements();) {
+      Column column =
+          ((Table)t.nextElement()).columnWithColumnInfoID(columnInfoID);
+      if (column != null)
+        return column;
+    }
+
+    return null;
   }
 
   /**
@@ -677,6 +709,10 @@ abstract public class Database {
 
   public AccessToken guestAccessToken() {
     return getUserTable().guestUser();
+  }
+
+  public Capability administerCapability() {
+    return getCapabilityTable().administer();
   }
 
   // 
@@ -890,62 +926,4 @@ abstract public class Database {
       ((Table)tables.elementAt(t)).uncacheContents();
     endExclusiveLock();
   }
-
-/*
-  synchronized void addTable(Table table, final String tableName)
-      throws InvalidNamePoemException, DuplicateTableNamePoemException {
-
-    if (tablesByName.get(tableName) != null)
-      throw new DuplicateTableNamePoemException(this, tableName);
-
-    table.isNonexistent = true;
-    grab(table, tableName);
-    if (tableInfoTable != null) {
-      tableInfoTable.create(
-        new Initialiser() {
-          public void init(Persistent p) {
-            TableInfo i = (TableInfo)p;
-            i.setName(tableName);
-          } 
-        });
-  }
-*/
-
-  /**
-   * Don't call this!  Call <TT>Table.rename</TT> instead.
-   */
-
-/*
-  void rename(Table table, String newName)
-      throws CannotBeInSessionPoemException, DuplicateTableNamePoemException,
-             InvalidNamePoemException {
-
-    DatabaseMixingPoemException.check(this, table.getDatabase());
-
-    String sql = "ALTER TABLE " + table.getQuotedName() +
-                 " RENAME TO " + quotedName(newName);
-
-    beginStructuralModification();
-    try {
-      if (tablesByName.get(newName) != null)
-        throw new DuplicateTableNamePoemException(this, newName);
-
-      try {
-        committedSession().getConnection().createStatement().
-            executeUpdate(sql);
-      }
-      catch (SQLException e) {
-        throw new StructuralModificationFailedPoemException(sql, e);
-      }
-
-      synchronized (tablesByName) {
-        tablesByName.remove(table.getName());
-        tablesByName.put(newName, table);
-      }
-    }
-    finally {
-      endStructuralModification();
-    }
-  }
-*/
 }

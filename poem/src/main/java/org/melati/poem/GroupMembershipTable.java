@@ -10,4 +10,11 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     getDatabase().invalidateCapabilityCache(session);
     super.notifyTouched(session, troid);
   }
+
+  void postInitialise() {
+    if (info.getDefaultcanwrite() == null)
+      info.setDefaultcanwrite(getDatabase().administerCapability());
+    if (info.getCancreate() == null)
+      info.setCancreate(getDatabase().administerCapability());
+  }
 }

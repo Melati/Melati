@@ -21,9 +21,9 @@ public class Table {
   private String name;
   private DefinitionSource definitionSource;
 
-  private TableInfo info = null;
+  TableInfo info = null;
 
-  private Vector columns = new Vector();
+  private Column[] columns = {};
   private Hashtable columnsByName = new Hashtable();
 
   private Column troidColumn = null;
@@ -31,6 +31,8 @@ public class Table {
   private Column canReadColumn = null;
   private Column canWriteColumn = null;
   private Column displayColumn = null;
+
+  private Column[] displayColumns = null;
 
   private PoemFloatingVersionedObject allTroids = null;
 
@@ -105,19 +107,89 @@ public class Table {
   }
 
   /**
-   * All the table's `normal' columns.  Its troid column and any deleted-flag
-   * column are omitted.
+   * All the table's columns.
    *
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
 
   public final Enumeration columns() {
-    return columns.elements();
+    return new ArrayEnumeration(columns);
   }
 
   final int getColumnsCount() {
-    return columns.size();
+    return columns.length;
+  }
+
+  Column columnWithColumnInfoID(int columnInfoID) {
+    for (Enumeration c = columns(); c.hasMoreElements();) {
+      Column column = (Column)c.nextElement();
+      Integer id = column.columnInfoID();
+      if (id != null && id.intValue() == columnInfoID)
+        return column;
+    }
+
+    return null;
+  }
+
+  private String displayColumnsOrderClause() {
+     return EnumUtils.concatenated(
+        ", ",
+        new MappedEnumeration(new ArrayEnumeration(SortUtils.sorted(
+            new Order() {
+              public boolean lessOrEqual(Object a, Object b) {
+                return
+                    ((Column)a).getDisplayOrderPriority().intValue() <=
+                    ((Column)b).getDisplayOrderPriority().intValue();
+              }
+            },
+            new FilteredEnumeration(columns()) {
+              public boolean isIncluded(Object column) {
+                return ((Column)column).getDisplayOrderPriority() != null;
+              }
+            }))) {
+          public Object mapped(Object column) {
+            return _quotedName(((Column)column).getName());
+          }
+        });
+  }
+
+  final void invalidateDisplayColumns() {
+    displayColumns = null;
+  }
+
+  /**
+   * The table's displayable columns in display order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
+   * @see Column
+   */
+
+  public final Enumeration getDisplayColumns() {
+    Column[] displayColumns = this.displayColumns;
+
+    if (displayColumns == null) {
+      // get the col IDs from the committed session
+
+      Enumeration colIDs =
+          getDatabase().getColumnInfoTable().troidSelection(
+              "tableinfo = " + tableInfoID() + " AND displayable",
+              displayColumnsOrderClause(), false, null);
+
+      Vector them = new Vector();
+      while (colIDs.hasMoreElements()) {
+        Column column =
+            columnWithColumnInfoID(((Integer)colIDs.nextElement()).intValue());
+        if (column != null)
+          them.addElement(column);
+      }
+
+      displayColumns = new Column[them.size()];
+      them.copyInto(displayColumns);
+      this.displayColumns = displayColumns;
+    }
+
+    return new ArrayEnumeration(displayColumns);
   }
 
   /**
@@ -197,11 +269,10 @@ public class Table {
   private void dbCreateTable() {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + _quotedName(name) + " (");
-    for (int c = 0; c < columns.size(); ++c) {
-      Column column = (Column)columns.elementAt(c);
+    for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
-      sqb.append(_quotedName(column.getName()) + " " +
-                 column.getType().sqlDefinition());
+      sqb.append(_quotedName(columns[c].getName()) + " " +
+                 columns[c].getType().sqlDefinition());
     }
 
     sqb.append(")");
@@ -234,12 +305,12 @@ public class Table {
   private PreparedStatement simpleInsert(Connection connection) {
     StringBuffer sql = new StringBuffer();
     sql.append("INSERT INTO " + _quotedName(name) + " (");
-    for (int c = 0; c < columns.size(); ++c) {
+    for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(((Column)columns.elementAt(c)).getName()));
+      sql.append(_quotedName(columns[c].getName()));
     }
     sql.append(") VALUES (");
-    for (int c = 0; c < columns.size(); ++c) {
+    for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
       sql.append("?");
     }
@@ -257,9 +328,9 @@ public class Table {
   private PreparedStatement simpleGet(Connection connection) {
     StringBuffer sql = new StringBuffer();
     sql.append("SELECT ");
-    for (int c = 0; c < columns.size(); ++c) {
+    for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(((Column)columns.elementAt(c)).getName()));
+      sql.append(_quotedName(columns[c].getName()));
     }
     sql.append(" FROM " + _quotedName(name) +
                " WHERE " + _quotedName(troidColumn.getName()) + " = ?");
@@ -276,9 +347,9 @@ public class Table {
     // FIXME synchronize this too
     StringBuffer sql = new StringBuffer();
     sql.append("UPDATE " + _quotedName(name) + " SET ");
-    for (int c = 0; c < columns.size(); ++c) {
+    for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(((Column)columns.elementAt(c)).getName()));
+      sql.append(_quotedName(columns[c].getName()));
       sql.append(" = ?");
     }
     sql.append(" WHERE " + _quotedName(troidColumn.getName()) + " = ?");
@@ -341,8 +412,8 @@ public class Table {
           return null;
 
         Data data = newData();
-        for (int c = 0; c < columns.size(); ++c)
-          ((Column)columns.elementAt(c)).load(rs, c + 1, data);
+        for (int c = 0; c < columns.length; ++c)
+          columns[c].load(rs, c + 1, data);
 
         if (rs.next())
           throw new DuplicateTroidPoemException(this, troid);
@@ -372,10 +443,10 @@ public class Table {
     PreparedStatement modify =
         ((SessionStuff)sessionStuffs.get(session.index())).modify;
     synchronized (modify) {
-      for (int c = 0; c < columns.size(); ++c)
-        ((Column)columns.elementAt(c)).save(data, modify, c + 1);
+      for (int c = 0; c < columns.length; ++c)
+        columns[c].save(data, modify, c + 1);
       try {
-        modify.setInt(columns.size() + 1, troid.intValue());
+        modify.setInt(columns.length + 1, troid.intValue());
         modify.executeUpdate();
       }
       catch (SQLException e) {
@@ -390,8 +461,8 @@ public class Table {
     PreparedStatement insert =
         ((SessionStuff)sessionStuffs.get(session.index())).insert;
     synchronized (insert) {
-      for (int c = 0; c < columns.size(); ++c)
-        ((Column)columns.elementAt(c)).save(data, insert, c + 1);
+      for (int c = 0; c < columns.length; ++c)
+        columns[c].save(data, insert, c + 1);
       try {
         insert.executeUpdate();
       }
@@ -541,10 +612,11 @@ public class Table {
   // 
 
   private ResultSet selectionResultSet(
-      String whereClause, boolean includeDeleted, PoemSession session)
+      String whereClause, String orderByClause, boolean includeDeleted,
+      PoemSession session)
           throws SQLPoemException {
     if (deletedColumn != null && !includeDeleted)
-      whereClause = (whereClause == null ? "" : whereClause + " AND ") +
+      whereClause = (whereClause == null ? "" : "(" + whereClause + ") AND ") +
                     "NOT " + deletedColumn.getName();
 
     // FIXME must work in some kind of limit
@@ -552,12 +624,21 @@ public class Table {
     String sql =
         "SELECT " + _quotedName(troidColumn.getName()) +
         " FROM " + _quotedName(name) +
-        (whereClause == null ? "" : " WHERE " + whereClause);
+        (whereClause == null || whereClause.equals("") ?
+             "" : " WHERE " + whereClause) +
+        (orderByClause == null || orderByClause.equals("") ?
+             "" : " ORDER BY " + orderByClause);
 
     try {
-      session.writeDown();
-      ResultSet rs =
-          session.getConnection().createStatement().executeQuery(sql);
+      Connection connection;
+      if (session == null)
+        connection = getDatabase().getCommittedConnection();
+      else {
+        session.writeDown();
+        connection = session.getConnection();
+      }
+
+      ResultSet rs = connection.createStatement().executeQuery(sql);
       if (database.logSQL)
         database.log(new SQLLogEvent(sql));
       return rs;
@@ -567,9 +648,11 @@ public class Table {
     }
   }
 
-  private Enumeration troidSelection(
-      String whereClause, boolean includeDeleted, PoemSession session) {
-    ResultSet them = selectionResultSet(whereClause, includeDeleted, session);
+  Enumeration troidSelection(
+      String whereClause, String orderByClause,
+      boolean includeDeleted, PoemSession session) {
+    ResultSet them = selectionResultSet(whereClause, orderByClause,
+                                        includeDeleted, session);
     return
         new ResultSetEnumeration(them) {
           public Object mapped(ResultSet rs) throws SQLException {
@@ -583,7 +666,7 @@ public class Table {
       protected Version backingVersion(Session session) {
         VersionVector store = new VersionVector();
         for (Enumeration them =
-                 troidSelection(null, false, (PoemSession)session);
+                 troidSelection(null, null, false, (PoemSession)session);
              them.hasMoreElements();)
           store.addElement(them.nextElement());
         return store;
@@ -604,14 +687,17 @@ public class Table {
    * @see #selection(java.lang.String, boolean)
    */
 
-  Enumeration troidSelection(String whereClause, boolean includeDeleted)
+  Enumeration troidSelection(String whereClause, String orderByClause,
+                             boolean includeDeleted)
       throws SQLPoemException {
     PoemSession session = PoemThread.session();
     PoemFloatingVersionedObject allTroids = this.allTroids;
-    if (allTroids != null && whereClause == null && !includeDeleted)
+    if (allTroids != null &&
+        whereClause == null && orderByClause == null && !includeDeleted)
       return ((Vector)allTroids.versionForReading(session)).elements();
     else
-      return troidSelection(whereClause, includeDeleted, session);
+      return troidSelection(whereClause, orderByClause, includeDeleted,
+                            session);
   }
 
   /**
@@ -628,7 +714,7 @@ public class Table {
    */
 
   public Enumeration selection() throws SQLPoemException {
-    return selection(null, false);
+    return selection(null, null, false);
   }
 
   /**
@@ -654,7 +740,7 @@ public class Table {
 
   public final Enumeration selection(String whereClause)
       throws SQLPoemException {
-    return selection(whereClause, false);
+    return selection(whereClause, null, false);
   }
 
   /**
@@ -668,22 +754,26 @@ public class Table {
    * @see #selection(java.lang.String)
    */
 
-  public Enumeration selection(String whereClause, boolean includeDeleted)
+  public Enumeration selection(String whereClause, String orderByClause,
+                               boolean includeDeleted)
       throws SQLPoemException {
     return
-        new MappedEnumeration(troidSelection(whereClause, includeDeleted)) {
+        new MappedEnumeration(troidSelection(whereClause, orderByClause,
+                                             includeDeleted)) {
           public Object mapped(Object troid) {
             return getObject((Integer)troid);
           }
         };
   }
 
-  public PageEnumeration selection(String whereClause, boolean includeDeleted,
-                                   int pageStart, int pageSize)
-      throws SQLPoemException {
+  public PageEnumeration selection(
+      String whereClause, String orderByClause, boolean includeDeleted,
+      int pageStart, int pageSize)
+          throws SQLPoemException {
     // FIXME do this more sensibly where SQL permits
-    return new DumbPageEnumeration(selection(whereClause, includeDeleted),
-                                   pageStart, pageSize, 200);
+    return new DumbPageEnumeration(
+        selection(whereClause, orderByClause, includeDeleted),
+        pageStart, pageSize, 200);
   }
 
   /**
@@ -699,7 +789,7 @@ public class Table {
 
   public Enumeration referencesTo(final Persistent object) {
     return new FlattenedEnumeration(
-        new MappedEnumeration(columns.elements()) {
+        new MappedEnumeration(columns()) {
           public Object mapped(Object column) {
             return ((Column)column).referencesTo(object);
           }
@@ -713,8 +803,8 @@ public class Table {
   // 
 
   private void validate(Data data) throws FieldContentsPoemException {
-    for (int c = 0; c < columns.size(); ++c) {
-      Column column = (Column)columns.elementAt(c);
+    for (int c = 0; c < columns.length; ++c) {
+      Column column = columns[c];
       try {
         column.getType().assertValidIdent(column.getIdent(data));
       }
@@ -1014,9 +1104,10 @@ public class Table {
    */
 
   public void dump() {
-    System.out.println("=== table " + name);
-    for (int c = 0; c < columns.size(); ++c)
-      ((Column)columns.elementAt(c)).dump();
+    System.out.println("=== table " + name +
+                       " (tableinfo id " + tableInfoID() + ")");
+    for (int c = 0; c < columns.length; ++c)
+      columns[c].dump();
   }
 
   // 
@@ -1065,7 +1156,8 @@ public class Table {
     }
 
     column.setTable(this);
-    columns.addElement(column);
+    columns = (Column[])Array.added(columns, column);
+    invalidateDisplayColumns();
     columnsByName.put(column.getName(), column);
   }
 
@@ -1099,6 +1191,10 @@ public class Table {
     return StringUtils.capitalised(getName());
   }
 
+  protected int defaultDisplayOrder() {
+    return 100;
+  }
+
   /**
    * The `factory-default' description for the table, or <TT>null</TT> if it
    * doesn't have one.  Application-specialised tables override this to return
@@ -1111,11 +1207,16 @@ public class Table {
     return null;
   }
 
+  TableInfoData defaultTableInfoData() {
+    return new TableInfoData(
+        getName(), defaultDisplayName(), defaultDisplayOrder(),
+        defaultDescription());
+  }
+
   void createTableInfo() throws PoemException {
     if (info == null) {
-      TableInfoData tid = new TableInfoData(getName(), defaultDisplayName(),
-                                            defaultDescription());
-      info = (TableInfo)getDatabase().getTableInfoTable().create(tid);
+      info = (TableInfo)getDatabase().getTableInfoTable().
+                 create(defaultTableInfoData());
     }
   }
 
@@ -1143,7 +1244,7 @@ public class Table {
 
     // Conversely, make columnInfo for any columns which don't have it
 
-    for (Enumeration c = columns.elements(); c.hasMoreElements();)
+    for (Enumeration c = columns(); c.hasMoreElements();)
       ((Column)c.nextElement()).createColumnInfo();
   }
 
@@ -1199,10 +1300,9 @@ public class Table {
       dbCreateTable();
     else {
       // silently create any missing columns
-      for (int c = 0; c < columns.size(); ++c) {
-        Column column = (Column)columns.elementAt(c);
-        if (dbColumns.get(column) == null)
-          dbAddColumn(column);
+      for (int c = 0; c < columns.length; ++c) {
+        if (dbColumns.get(columns[c]) == null)
+          dbAddColumn(columns[c]);
       }
     }
 
@@ -1235,10 +1335,9 @@ public class Table {
 
       // Silently create any missing indices
 
-      for (int c = 0; c < columns.size(); ++c) {
-        Column column = (Column)columns.elementAt(c);
-        if (dbHasIndexForColumn.get(column) != Boolean.TRUE)
-          dbCreateIndex(column);
+      for (int c = 0; c < columns.length; ++c) {
+        if (dbHasIndexForColumn.get(columns[c]) != Boolean.TRUE)
+          dbCreateIndex(columns[c]);
       }
     }
 
@@ -1263,5 +1362,8 @@ public class Table {
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
+  }
+
+  void postInitialise() {
   }
 }

@@ -21,7 +21,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
                 return ((PoemTypeFactory)factory).code;
               }
             },
-            database.getTableInfoTable().troidSelection(null, false));
+            database.getTableInfoTable().troidSelection(null, null, false));
   }
 
   protected void _assertValidValue(Object value)

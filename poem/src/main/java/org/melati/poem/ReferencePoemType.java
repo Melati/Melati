@@ -19,7 +19,7 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   public Enumeration possibleIdents() {
-    Enumeration them = targetTable.troidSelection(null, false);
+    Enumeration them = targetTable.troidSelection(null, null, false);
     return isNullable() ? new ConsEnumeration(null, them) : them;
   }
 

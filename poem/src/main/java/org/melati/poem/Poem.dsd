@@ -4,7 +4,8 @@ table TableInfo
     (displayname = "Table")
     (description = "Configuration information about a table in the database") {
 
-  (primary) Integer id;
+  (primary) Integer id
+      (hidden);
 
   (unique) String name (size = 50)
       (description = "A code-name for the table")
@@ -18,7 +19,7 @@ table TableInfo
   String description (size = unlimited) (nullable)
       (description = "A brief description of the table's function");
 
-  Integer displayorder (nullable)
+  Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the table appears in the list of all tables")
       (displayorderpriority = 0);
@@ -46,7 +47,8 @@ table ColumnInfo
       (displayname = "Owning table")
       (description = "The table to which the field belongs");
 
-  (unique with tableinfo) String name (size = 50)
+  /* (unique with tableinfo) */
+  (indexed) String name (size = 50)
       (description = "A code-name for the field")
       (uneditable);
 
@@ -58,7 +60,7 @@ table ColumnInfo
   String description (size = unlimited) (nullable)
       (description = "A brief description of the field's function");
 
-  Integer displayorder (nullable)
+  Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the field appears in lists")
       (displayorderpriority = 0);
@@ -69,7 +71,7 @@ table ColumnInfo
       
   Boolean displayable
       (displayname = "User-viewable")
-      (description = "Whether it makes sense for the user to the field's value");
+      (description = "Whether it makes sense for the user to see the field's value");
 
   Boolean primarydisplay
       (displayname = "Primary display field")

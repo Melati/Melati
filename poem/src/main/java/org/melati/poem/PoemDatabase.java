@@ -32,34 +32,38 @@ public class PoemDatabase extends PoemDatabaseBase {
               try {
                 t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
                 t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
+                for (Enumeration e = t.getDisplayColumns(); e.hasMoreElements();)
+                  System.out.println(e.nextElement());
+                for (Enumeration e = t.getObject(3).getDisplayFields(); e.hasMoreElements();)
+                  System.out.println(((Field)e.nextElement()).getValueString());
 
-                // Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
-                // while (e.hasMoreElements())
-                //   System.out.println(e.nextElement());
+//                 // Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
+//                 // while (e.hasMoreElements())
+//                 //   System.out.println(e.nextElement());
 
-                TableInfoData tid = new TableInfoData();
-                tid.name = "newtable";
-                tid.displayname = "A random new table";
-                tid.description = "Just a gash table to test the addTable thing";
-                TableInfo ti = (TableInfo)database.getTableInfoTable().create(tid);
-                database.addTableAndCommit(ti, "id");
+//                 TableInfoData tid = new TableInfoData();
+//                 tid.name = "newtable";
+//                 tid.displayname = "A random new table";
+//                 tid.description = "Just a gash table to test the addTable thing";
+//                 TableInfo ti = (TableInfo)database.getTableInfoTable().create(tid);
+//                 database.addTableAndCommit(ti, "id");
 
-                Table newtable = database.getTable("newtable");
+//                 Table newtable = database.getTable("newtable");
 
-                ColumnInfoData cid = new ColumnInfoData();
-                cid.name = "newcolumn";
-                cid.displayname = "A random new column";
-                cid.description = "Just a column to test the addColumn thing";
-                cid.tableinfo = newtable.tableInfoID();
-                cid.usereditable = Boolean.TRUE;
-                cid.displayable = Boolean.TRUE;
-                cid.primarydisplay = Boolean.FALSE;
-                cid.type = PoemTypeFactory.STRING.code;
-                cid.nullable = Boolean.TRUE;
-                cid.size = new Integer(20);
-                cid.width = new Integer(1);
-                cid.height = new Integer(1);
-                newtable.addColumnAndCommit((ColumnInfo)database.getColumnInfoTable().create(cid));
+//                 ColumnInfoData cid = new ColumnInfoData();
+//                 cid.name = "newcolumn";
+//                 cid.displayname = "A random new column";
+//                 cid.description = "Just a column to test the addColumn thing";
+//                 cid.tableinfo = newtable.tableInfoID();
+//                 cid.usereditable = Boolean.TRUE;
+//                 cid.displayable = Boolean.TRUE;
+//                 cid.primarydisplay = Boolean.FALSE;
+//                 cid.type = PoemTypeFactory.STRING.code;
+//                 cid.nullable = Boolean.TRUE;
+//                 cid.size = new Integer(20);
+//                 cid.width = new Integer(1);
+//                 cid.height = new Integer(1);
+//                 newtable.addColumnAndCommit((ColumnInfo)database.getColumnInfoTable().create(cid));
               }
               catch (Exception e) {
                 e.printStackTrace();

@@ -10,4 +10,11 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     getDatabase().invalidateCapabilityCache(session);
     super.notifyTouched(session, troid);
   }
+
+  void postInitialise() {
+    if (info.getDefaultcanwrite() == null)
+      info.setDefaultcanwrite(getDatabase().administerCapability());
+    if (info.getCancreate() == null)
+      info.setCancreate(getDatabase().administerCapability());
+  }
 }

@@ -62,6 +62,10 @@ public abstract class Column {
     return StringUtils.capitalised(getName());
   }
 
+  protected int defaultDisplayOrder() {
+    return 100;
+  }
+
   protected String defaultDescription() {
     return null;
   }
@@ -91,6 +95,7 @@ public abstract class Column {
                   ColumnInfo i = (ColumnInfo)g;
                   i.setName(getName());
                   i.setDisplayname(defaultDisplayName());
+                  i.setDisplayorder(defaultDisplayOrder());
                   i.setDescription(defaultDescription());
                   i.setPrimarydisplay(defaultPrimaryDisplay());
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
@@ -143,8 +148,23 @@ public abstract class Column {
     return info.getDescription();
   }
 
+  /**
+   * The troid (<TT>id</TT>) of the column's entry in the <TT>columninfo</TT>
+   * table.  It will always have one (except during initialisation, which the
+   * application programmer will never see).
+   */
+
+  final Integer columnInfoID() {
+    return info == null ? null : info.troid();
+  }
+
   public final boolean isPrimaryDisplay() {
     return info == null ? false : info.getPrimarydisplay().booleanValue();
+  }
+
+  public final void setPrimaryDisplay(boolean flag) {
+    if (info != null)
+      info.setPrimarydisplay(flag);
   }
 
   public final boolean isUserEditable() {
@@ -180,6 +200,10 @@ public abstract class Column {
     return info.getRenderinfo();
   }
 
+  public final Integer getDisplayOrderPriority() {
+    return info.getDisplayorderpriority();
+  }
+
   // 
   // ===========
   //  Utilities
@@ -204,7 +228,7 @@ public abstract class Column {
     try {
       String clause = _quotedName(name) + " = " + type.quotedIdent(ident);
       return resolved ? getTable().selection(clause) :
-                        getTable().troidSelection(clause, false);
+                        getTable().troidSelection(clause, null, false);
     }
     catch (SQLPoemException e) {
       throw new UnexpectedExceptionPoemException(e);

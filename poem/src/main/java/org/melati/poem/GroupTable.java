@@ -6,4 +6,11 @@ public class GroupTable extends GroupTableBase {
     super(database, name);
   }
   // programmer's domain-specific code here
+
+  void postInitialise() {
+    if (info.getDefaultcanwrite() == null)
+      info.setDefaultcanwrite(getDatabase().administerCapability());
+    if (info.getCancreate() == null)
+      info.setCancreate(getDatabase().administerCapability());
+  }
 }

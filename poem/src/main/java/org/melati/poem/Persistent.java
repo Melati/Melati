@@ -1,5 +1,6 @@
 package org.melati.poem;
 
+import org.melati.util.*;
 import java.util.*;
 
 /**
@@ -647,8 +648,33 @@ public class Persistent {
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    */
 
-  public Enumeration elements() {
-    return new FieldsEnumeration(this);
+  public Enumeration getFields() {
+    final Persistent _this = this;
+    return
+        new MappedEnumeration(getTable().columns()) {
+          public Object mapped(Object column) {
+            return new Field(_this, (Column)column);
+          }
+        };
+  }
+
+  /**
+   * The values of all the object's fields, wrapped up with type information
+   * sufficient for rendering them.  This method is called <TT>elements</TT> so
+   * that <TT>Persistent</TT>s can be used directly in Webmacro
+   * <TT>#foreach</TT> directives.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
+   */
+
+  public Enumeration getDisplayFields() {
+    final Persistent _this = this;
+    return
+        new MappedEnumeration(getTable().getDisplayColumns()) {
+          public Object mapped(Object column) {
+            return new Field(_this, (Column)column);
+          }
+        };
   }
 
   // 

@@ -4,10 +4,16 @@ public class ColumnInfo extends ColumnInfoBase {
   
   protected void assertCanRead(Data data, AccessToken token) {}
 
-  private Column column;
+  private Column _column = null;
+
+  private Column column() {
+    if (_column == null)
+      _column = getTable().columnWithColumnInfoID(troid().intValue());
+    return _column;
+  }
 
   void setColumn(Column column) {
-    this.column = column;
+    _column = column;
   }
 
   public void setName(String name) {
@@ -20,10 +26,22 @@ public class ColumnInfo extends ColumnInfoBase {
   public void setPrimarydisplay(Boolean value) {
     super.setPrimarydisplay(value);
     if (value.booleanValue()) {
-      Column column = this.column;
-      if (column != null)
-        column.getTable().setDisplayColumn(column);
+      Column column = column();
+      if (column != null) {
+        Table table = column.getTable();
+        Column previous = table.displayColumn();
+        if (previous != null)
+          previous.setPrimaryDisplay(false);
+        table.setDisplayColumn(column);
+      }
     }
+  }
+
+  public void setDisplayorderpriority(Integer value) {
+    super.setDisplayorderpriority(value);
+    Column column = column();
+    if (column != null)
+      column.getTable().invalidateDisplayColumns();
   }
 
   public String displayString() throws AccessPoemException {

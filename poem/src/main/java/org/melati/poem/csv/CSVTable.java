@@ -309,5 +309,13 @@ public class CSVTable {
                   " Persistents in this table\n\n");
   }
 
+  /**
+   * Used in debugging to display name of table being emptied.
+   * 
+   * @return the POEM Table's name
+   */
+  public String getName() {
+    return table.getName();
+  }
 }
 

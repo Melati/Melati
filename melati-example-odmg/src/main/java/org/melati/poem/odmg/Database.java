@@ -46,6 +46,7 @@ class Database implements org.odmg.Database
     _poemDB.disconnect();
     _poemDB = null;
     _cachedTables = null;
+    ODMGFactory.resetDb();
   }
 
   private Map _cachedTables = null;

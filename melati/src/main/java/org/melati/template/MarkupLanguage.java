@@ -60,7 +60,7 @@ import org.melati.poem.Field;
 import org.melati.poem.AccessPoemException;
 
 /**
- * MarkupLanguage provise a variety of methods for rendering objects in a
+ * MarkupLanguage provides a variety of methods for rendering objects in a
  * template.  Each object to be rendered has 3 methods:
  *
  * 1 - String rendered(Object o) - this will render the object to a string
@@ -612,9 +612,9 @@ public abstract class MarkupLanguage {
     Template templet;
     try {
       templet =
-      templetName == null ?
-      templetLoader.templet(melati.getTemplateEngine(), this, field) :
-      templetLoader.templet(melati.getTemplateEngine(), this, templetName);
+        templetName == null ?
+          templetLoader.templet(melati.getTemplateEngine(), this, field) :
+          templetLoader.templet(melati.getTemplateEngine(), this, templetName);
     }
     catch (NotFoundException e) {
       throw new TemplateEngineException(e);
@@ -652,3 +652,9 @@ public abstract class MarkupLanguage {
     melati.getTemplateEngine().expandTemplate(out,templet,tc);
   }
 }
+
+
+
+
+
+

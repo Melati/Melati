@@ -46,21 +46,24 @@
 
   <property name="melatiJar"        value="${jar}" />
 
-  <property name="servletJar"      value="javax.servlet.jar"/>
-  <property name="postgresqlJar"   value="pg73jdbc3.jar"/>
-  <property name="hsqldbJar"       value="hsqldb-1.7.1.jar"/>
-  <property name="mysqlJar"        value="mm.mysql-2.0.11-bin.jar" />
-  <property name="mckoiJar"        value="mkjdbc.jar}" />
+  <property name="servletJar"       value="javax.servlet.jar"/>
+  <property name="postgresqlJar"    value="pg73jdbc3.jar"/>
+  <property name="hsqldbJar"        value="hsqldb-1.7.1.jar"/>
+  <property name="mysqlJar"         value="mm.mysql-2.0.11-bin.jar" />
+  <property name="sqlserverJar"     value="mssqlserver.jar" />
+  <property name="msBaseJar"        value="msbase.jar" />
+  <property name="msUtilJar"        value="msutil.jar" />
+  <property name="mckoiJar"         value="mkjdbc.jar}" />
 
-  <property name="webmacroJar"     value="webmacro-classic-2.0b1.jar"/>
-  <property name="concurrentJar"   value="concurrent.jar"/>
-  <property name="velocityJar"     value="velocity-1.3.1.jar" />
-  <property name="oroJar"          value="jakarta-oro-2.0.8.jar" />
-  <property name="collectionsJar"  value="commons-collections-3.0.jar" />
-  <property name="odmgJar"         value="odmg3.jar" />
+  <property name="webmacroJar"      value="webmacro-classic-2.0b1.jar"/>
+  <property name="concurrentJar"    value="concurrent.jar"/>
+  <property name="velocityJar"      value="velocity-1.3.1.jar" />
+  <property name="oroJar"           value="jakarta-oro-2.0.8.jar" />
+  <property name="collectionsJar"   value="commons-collections-3.0.jar" />
+  <property name="odmgJar"          value="odmg3.jar" />
 
-  <property name="junitJar"        value="junit.jar" />
-  <property name="mockobjectsJar"  value="mockobjects-core-0.09.jar" />
+  <property name="junitJar"         value="junit.jar" />
+  <property name="mockobjectsJar"   value="mockobjects-core-0.09.jar" />
 
   <path id="classpath.compile">
     <pathelement path="${build.lib}/${servletJar}"/>
@@ -495,8 +498,11 @@ usage:
         <include name="${velocityJar}" />
         <include name="${odmgJar}" />
         <include name="${junit}" />
-        <include name="${mysqlJar}" />
 -->
+        <include name="${mysqlJar}" />
+        <include name="${sqlserverJar}" />
+        <include name="${msBaseJar}" />
+        <include name="${msUtilJar}" />
         <include name="${melatiJar}"/>
       </lib>
     </war>

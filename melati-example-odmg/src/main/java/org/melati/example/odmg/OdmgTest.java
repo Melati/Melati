@@ -10,7 +10,7 @@ import java.util.Iterator;
  *
  */
 
-public class OdmgTest {
+public final class OdmgTest {
 
   private OdmgTest() {}
   

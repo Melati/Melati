@@ -1100,7 +1100,7 @@ public class Table {
     // FIXME do this more sensibly where SQL permits
     return new DumbPageEnumeration(
         selection(whereClause, orderByClause, includeDeleted),
-        pageStart, pageSize, 200);
+        pageStart, pageSize, 2000);
   }
 
   String countSQL(String whereClause) {

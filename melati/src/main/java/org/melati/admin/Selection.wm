@@ -60,8 +60,13 @@
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="&lt;&lt; Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
 #end
 <b><FONT face="Arial, Helvetica" size=-1>
-Records $results.PageStart to
-$results.PageEnd of $table.Count
+Records $results.PageStart to $results.PageEnd of 
+
+#if ($results.TotalCountIsMinimum) #begin
+ at least
+#end
+
+$results.TotalCount
 </FONT></b>
 
 #if ($results.NextPageStart) #begin

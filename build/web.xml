@@ -34,8 +34,33 @@
   </servlet>
   
   <servlet>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <servlet-class>org.melati.test.ConfigServletTestOverride</servlet-class>
+  </servlet>
+  
+  <servlet>
     <servlet-name>org.melati.test.PoemServletTest</servlet-name>
     <servlet-class>org.melati.test.PoemServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.TemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <servlet-class>org.melati.test.FlushingServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <servlet-class>org.melati.test.WebmacroMelatiServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <servlet-class>org.melati.test.WebmacroStandalone</servlet-class>
   </servlet>
   
   <servlet>
@@ -77,10 +102,34 @@
     <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
     <url-pattern>/melati/org.melati.test.ConfigServletTest/*</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <url-pattern>/melati/org.melati.test.ConfigServletTestOverride/*</url-pattern>
+  </servlet-mapping>
   
   <servlet-mapping>
     <servlet-name>org.melati.test.PoemServletTest</servlet-name>
     <url-pattern>/melati/org.melati.test.PoemServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.TemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.FlushingServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroMelatiServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroStandalone/*</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

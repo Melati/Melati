@@ -135,7 +135,11 @@ public class TableDef {
   public void generateBaseJava(Writer w) throws IOException {
     w.write("public class " + baseClass + " extends " +
                 (superclass == null ? "Persistent" : superclass) + " {\n" +
-            "\n");
+            "\n" +
+	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
+                   "() {\n" +
+	    "    return (" + dsd.databaseClass + ")getDatabase();" +
+            "}\n");
 
     // FIXME hack
 
@@ -202,6 +206,11 @@ public class TableDef {
             "    this(database, name, DefinitionSource.dsd);\n" +
             "  }\n" +
             "\n" +
+	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
+                   "() {\n" +
+	    "    return (" + dsd.databaseClass + ")getDatabase();" +
+	    "  }\n" +
+	    "\n" +
             "  protected void init() throws PoemException {\n" +
 	    "    super.init();\n");
 

@@ -11,20 +11,20 @@ public class ReferenceFieldDef extends FieldDef {
     super(table, name, type, "Integer", displayOrder, qualifiers);
   }
 
-  protected void generateColIdentAccessors(Writer w) throws IOException {
-    super.generateColIdentAccessors(w);
+  protected void generateColRawAccessors(Writer w) throws IOException {
+    super.generateColRawAccessors(w);
 
     w.write(
       "\n" +
-      "          public Object getIdent(Persistent g)\n" +
+      "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "Troid();\n" +
       "          }\n" +
       "\n" +
-      "          public void setIdent(Persistent g, Object ident)\n" +
+      "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
       "            ((" + mainClass + ")g).set" + suffix + "Troid((" +
-                       identType + ")ident);\n" +
+                       rawType + ")raw);\n" +
       "          }\n");
   }
 
@@ -42,12 +42,12 @@ public class ReferenceFieldDef extends FieldDef {
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "Troid(Integer ident)\n" +
+            "  public void set" + suffix + "Troid(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
             "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
-                     "getType().assertValidIdent(ident);\n" +
+                     "getType().assertValidRaw(raw);\n" +
 	    "    writeLock();\n" +
-            "    set" + suffix + "_unsafe(ident);\n" +
+            "    set" + suffix + "_unsafe(raw);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +
@@ -59,9 +59,9 @@ public class ReferenceFieldDef extends FieldDef {
                          "get" + targetSuffix + "Object(troid);\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "(" + type + " value)\n" +
+            "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "Troid(value == null ? null : value.troid());\n" +
+            "    set" + suffix + "Troid(cooked == null ? null : cooked.troid());\n" +
             "  }\n");
   }
 

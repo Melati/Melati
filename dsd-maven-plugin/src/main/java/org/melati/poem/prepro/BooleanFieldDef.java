@@ -13,9 +13,9 @@ public class BooleanFieldDef extends AtomFieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
     w.write("\n" +
-            "  public final void set" + suffix + "(boolean value)\n" +
+            "  public final void set" + suffix + "(boolean cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(value ? Boolean.TRUE : Boolean.FALSE);\n" +
+            "    set" + suffix + "(cooked ? Boolean.TRUE : Boolean.FALSE);\n" +
             "  }\n");
   }
 

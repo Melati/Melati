@@ -13,9 +13,9 @@ public class IntegerFieldDef extends AtomFieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
     w.write("\n" +
-            "  public final void set" + suffix + "(int value)\n" +
+            "  public final void set" + suffix + "(int cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(new Integer(value));\n" +
+            "    set" + suffix + "(new Integer(cooked));\n" +
             "  }\n");
   }
 

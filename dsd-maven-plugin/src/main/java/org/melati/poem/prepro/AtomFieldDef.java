@@ -11,20 +11,20 @@ public class AtomFieldDef extends FieldDef {
     super(table, name, type, type, displayOrder, qualifiers);
   }
 
-  protected void generateColIdentAccessors(Writer w) throws IOException {
-    super.generateColIdentAccessors(w);
+  protected void generateColRawAccessors(Writer w) throws IOException {
+    super.generateColRawAccessors(w);
 
     w.write(
       "\n" +
-      "          public Object getIdent(Persistent g)\n" +
+      "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
       "          }\n" +
       "\n" +
-      "          public void setIdent(Persistent g, Object ident)\n" +
+      "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
       "            ((" + mainClass + ")g).set" + suffix +
-                     "((" + identType + ")ident);\n" +
+                     "((" + rawType + ")raw);\n" +
       "          }\n");
   }
 
@@ -38,12 +38,12 @@ public class AtomFieldDef extends FieldDef {
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "(" + type + " value)\n" +
+            "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
             "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
-                     "getType().assertValidValue(value);\n" +
+                     "getType().assertValidCooked(cooked);\n" +
 	    "    writeLock();\n" +
-	    "    set" + suffix + "_unsafe(value);\n" +
+	    "    set" + suffix + "_unsafe(cooked);\n" +
             "  }\n");
   }
 

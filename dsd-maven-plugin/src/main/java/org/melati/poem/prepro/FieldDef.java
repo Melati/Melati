@@ -12,7 +12,7 @@ public abstract class FieldDef {
   String displayName;
   String description;
   protected final String type;
-  protected final String identType;
+  protected final String rawType;
   protected final Vector qualifiers;
 
   final String baseClass;
@@ -33,7 +33,7 @@ public abstract class FieldDef {
   boolean isCompareOnly = false;
 
   public FieldDef(TableDef table, String name,
-                  String type, String identType,
+                  String type, String rawType,
                   int displayOrder, Vector qualifiers)
       throws IllegalityException {
     this.table = table;
@@ -41,7 +41,7 @@ public abstract class FieldDef {
     this.displayOrder = displayOrder;
     this.suffix = StringUtils.capitalised(name);
     this.type = type;
-    this.identType = identType;
+    this.rawType = rawType;
     this.qualifiers = qualifiers;
 
     this.baseClass = table.baseClass;
@@ -100,12 +100,12 @@ public abstract class FieldDef {
   }
 
   public void generateBaseMethods(Writer w) throws IOException {
-    w.write("  public " + identType + " get" + suffix + "_unsafe() {\n" +
+    w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n" +
             "    return " + name + ";\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "_unsafe(" + identType + " value) {\n" +
-            "    " + name + " = value;\n" +
+            "  public void set" + suffix + "_unsafe(" + rawType + " cooked) {\n" +
+            "    " + name + " = cooked;\n" +
             "  }\n");
   }
 
@@ -129,19 +129,19 @@ public abstract class FieldDef {
             "  }\n");
   }
 
-  protected void generateColIdentAccessors(Writer w)
+  protected void generateColRawAccessors(Writer w)
       throws IOException {
     w.write(
-      "          public Object getIdent_unsafe(Persistent g)\n" +
+      "          public Object getRaw_unsafe(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g)." +
                       "get" + suffix + "_unsafe();\n" +
       "          }\n" +
       "\n" +
-      "          public void setIdent_unsafe(Persistent g, Object ident)\n" +
+      "          public void setRaw_unsafe(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
       "            ((" + mainClass + ")g).set" + suffix + "_unsafe((" +
-                       identType + ")ident);\n" +
+                       rawType + ")raw);\n" +
       "          }\n");
   }
 
@@ -150,15 +150,15 @@ public abstract class FieldDef {
       "    defineColumn(col_" + name + " =\n" +
       "        new Column(this, \"" + name + "\", " + poemTypeJava() + ", " +
                     "DefinitionSource.dsd) { \n" +
-      "          public Object getValue(Persistent g)\n" +
+      "          public Object getCooked(Persistent g)\n" +
       "              throws AccessPoemException, PoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
       "          }\n" +
       "\n" +
-      "          public void setValue(Persistent g, Object value)\n" +
+      "          public void setCooked(Persistent g, Object cooked)\n" +
       "              throws AccessPoemException, ValidationPoemException {\n" +
       "            ((" + mainClass + ")g).set" + suffix + "((" +
-                       type + ")value);\n" +
+                       type + ")cooked);\n" +
       "          }\n" +
       "\n");
 
@@ -229,7 +229,7 @@ public abstract class FieldDef {
               "          }\n" +
               "\n");
 
-    generateColIdentAccessors(w);
+    generateColRawAccessors(w);
 
     w.write(
       "        });\n");

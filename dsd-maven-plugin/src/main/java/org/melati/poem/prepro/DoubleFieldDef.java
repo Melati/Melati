@@ -13,9 +13,9 @@ public class DoubleFieldDef extends AtomFieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
     w.write("\n" +
-            "  public final void set" + suffix + "(double value)\n" +
+            "  public final void set" + suffix + "(double cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(new Double(value));\n" +
+            "    set" + suffix + "(new Double(cooked));\n" +
             "  }\n");
   }
 }

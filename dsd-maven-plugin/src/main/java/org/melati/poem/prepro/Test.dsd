@@ -1,0 +1,7 @@
+package org.melati.poem.prepro;
+
+table Foo {
+  Integer bar;
+  String floo;
+  Bar xyxzzy;
+}

@@ -131,6 +131,13 @@ public class WebMacroFileResourceLoader extends ResourceLoader
         "#parse\\s+([^\\s#]+)[ \\t]?",
         "#parse( $1 )",
 
+        // parse is now depricated for web macro
+        // include as template is recommended. 
+        // Velocity supports only parse
+        // added for melati conversion
+        "#include\\s+as\\s+template\\s+([^\\s#]+)[ \\t]?",
+        "#parse( $1 )",
+
         // Convert WM style #include to Velocity directive style.
         "#include\\s+([^\\s#]+)[ \\t]?",
         "#include( $1 )",
@@ -284,7 +291,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
                         "s/" + res[i] + "/" + res[i+1] + "/", contents);
                     }
                 }
-//                System.err.println(contents);
+                System.err.println(contents);
                 return new ByteArrayInputStream(contents.getBytes());
               } else {
                 return new BufferedInputStream(

@@ -48,6 +48,7 @@ package org.melati.template;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -82,6 +83,19 @@ public class NoTemplateEngine implements TemplateEngine {
     // exception to the browser
 
     return;
+  }
+
+  /**
+   * Construct a new Engine for use in a servlet environment.
+   *
+   * @see org.melati.servlet.TemplateServlet
+   * @param melatiConfig a {@link MelatiConfig}
+   * @param servlet the servlet we are within
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException {
+    init(melatiConfig);
   }
 
   /**

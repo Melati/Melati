@@ -48,6 +48,7 @@ package org.melati.template;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -70,6 +71,17 @@ public interface TemplateEngine {
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   void init(MelatiConfig melatiConfig) throws TemplateEngineException;
+
+  /**
+   * Construct a new Engine for use in a servlet environment.
+   *
+   * @see org.melati.servlet.TemplateServlet
+   * @param melatiConfig a {@link MelatiConfig}
+   * @param servlet the servlet we are within
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException ;
 
   /**
    * Get the generic parameters for this engine.

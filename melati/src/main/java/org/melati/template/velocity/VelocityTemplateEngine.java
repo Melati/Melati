@@ -50,6 +50,7 @@ import java.io.File;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -92,6 +93,19 @@ public class VelocityTemplateEngine implements TemplateEngine {
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
+  }
+
+  /**
+   * Construct a new Engine for use in a servlet environment.
+   *
+   * @see org.melati.servlet.TemplateServlet
+   * @param melatiConfig a {@link MelatiConfig}
+   * @param servlet the servlet we are within
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException {
+    init(melatiConfig);
   }
 
   protected Properties loadConfiguration(MelatiConfig melatiConfig) 

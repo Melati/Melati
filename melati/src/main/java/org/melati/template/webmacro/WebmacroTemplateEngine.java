@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.File;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -85,9 +86,27 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @param melatiConfig a {@link MelatiConfig}
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
+  public void init(MelatiConfig melatiConfig) 
+      throws TemplateEngineException {
     try {
       wm = new WM ();
+    } catch (InitException e) {
+      throw new TemplateEngineException(e);
+    }
+  }
+
+  /**
+   * Construct a new Engine for use in a servlet environment.
+   *
+   * @see org.melati.servlet.TemplateServlet
+   * @param melatiConfig a {@link MelatiConfig}
+   * @param servlet the servlet we are within
+   * @throws TemplateEngineException if any problem occurs with the engine
+   */
+  public void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException {
+    try {
+      wm = new WM (servlet);
     } catch (InitException e) {
       throw new TemplateEngineException(e);
     }

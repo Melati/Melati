@@ -422,9 +422,10 @@ public class Persistent extends Transactioned implements Cloneable {
       if (canWrite != null) {
         if (!token.givesCapability(canWrite))
           throw new WritePersistentAccessPoemException(this, token, canWrite);
-        if (clearedToken != token)
+        if (clearedToken != token) {
           knownCanRead = false;
           knownCanDelete = false;
+        }
         clearedToken = token;
         knownCanWrite = true;
       }
@@ -477,9 +478,10 @@ public class Persistent extends Transactioned implements Cloneable {
       if (canDelete != null) {
         if (!token.givesCapability(canDelete))
           throw new DeletePersistentAccessPoemException(this, token, canDelete);
-        if (clearedToken != token)
+        if (clearedToken != token) {
           knownCanRead = false;
           knownCanWrite = false;
+        }
         clearedToken = token;
         knownCanDelete = true;
       }

@@ -86,6 +86,13 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
   protected abstract Object mapped(ResultSet resultSet)
       throws SQLException, NoSuchRowPoemException;
 
+  /**
+   * Return the next element.
+   * <p>
+   * Note that a <code>RowDisappearedPoemException</code> might be thrown
+   * but does not prevent subsequent use of the object.
+   * This behaviour is now relied upon <code>StandardIntegrityFix</code>.
+   */
   public synchronized Object nextElement() throws NoSuchElementException {
     try {
       if (more == -1)

@@ -72,6 +72,9 @@ import org.melati.poem.dbms.Dbms;
 
 /**
  *  A Table.
+ *
+ * 
+ * @todo See FIXMEs
  **/
 
 public class Table {
@@ -483,7 +486,7 @@ public class Table {
     if (columns == null)
       searchColumns = columns = 
          columnsWhere(database.quotedName("searchability") + " <= " +
-					     Searchability.yes.index);
+                                          Searchability.yes.index);
 
     return new ArrayEnumeration(searchColumns);
   }
@@ -1017,7 +1020,7 @@ public class Table {
   protected void rememberAllTroids(boolean flag) {
     if (flag) {
       if (allTroids == null)
-	allTroids = new CachedSelection(this, null, null);
+        allTroids = new CachedSelection(this, null, null);
     }
     else
       allTroids = null;
@@ -1048,9 +1051,9 @@ public class Table {
     CachedSelection allTroids = this.allTroids;
     if (allTroids != null &&
         (whereClause == null || whereClause.equals("")) &&
-	(orderByClause == null || orderByClause.equals("") ||
-	   orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
-	!includeDeleted)
+        (orderByClause == null || orderByClause.equals("") ||
+        orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
+        !includeDeleted)
       return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
@@ -1229,15 +1232,15 @@ public class Table {
           hadOne = true;
 
         if (column.getType() instanceof StringPoemType) {
-	  clause.append( 
-	    dbms().caseInsensitiveRegExpSQL(
+          clause.append( 
+            dbms().caseInsensitiveRegExpSQL(
                   column.quotedName(),
                   column.getSQLType().quotedRaw(raw)));
         } else {
           clause.append(column.quotedName());
           clause.append(" = ");
           clause.append(column.getSQLType().quotedRaw(raw));
-        }			
+        }
       }
     }
   }
@@ -1571,7 +1574,7 @@ public class Table {
     try {
       synchronized (cache) {    // belt and braces
         uncacheContents();
-	transactionStuffs.invalidate();
+        transactionStuffs.invalidate();
         defineColumn(column, true);
       }
       PoemThread.commit();
@@ -1965,12 +1968,14 @@ public class Table {
         }
         dbColumns.put(column, Boolean.TRUE);
       }
-    } // else System.err.println("Table.UnifyWithDB called with null ResultsSet");
+    } // else System.err.println(
+      //                  "Table.UnifyWithDB called with null ResultsSet");
 
     if (dbIndex == 0) {
       // OK, we simply don't exist ...
       // ie the Database MetaData  Result Set passed in was empty or null
-//      System.err.println("Table.UnifyWithDB called with null or empty ResultsSet");
+//      System.err.println(
+//        "Table.UnifyWithDB called with null or empty ResultsSet");
       dbCreateTable();
     } else {
       // silently create any missing columns

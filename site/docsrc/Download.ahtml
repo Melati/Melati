@@ -58,7 +58,7 @@ If you are using <a href="http://www.eclipse.org/">Eclipse</a> then
  you can just point to the above repository and checkout as project.
 </p>
 <p>If you want a Windows CVS client, check out <a
- href="http://www.wincvs.org">www.wincvs.org</a>
+ href="http://www.tortoisecvs.org">www.tortoisecvs.org</a>
 </p>
 @sectionEndTag@
 @footer@

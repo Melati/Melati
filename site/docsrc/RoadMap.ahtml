@@ -99,16 +99,23 @@ would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.7.4</td>
+    <td>
+      Add support for Oracle, improved support for MS SQL Server.
+    </td>
+    <td><b>done</b></td>
+  </tr>
+  <tr> 
+    <td>0.7.5</td>
     <td>Velocity version of admin system</td>
     <td></td>
   </tr>
   <tr> 
-    <td>0.7.5</td>
+    <td>0.7.6</td>
     <td>Completion of JavaDocs.</td>
     <td>In progess</td>
   </tr>
   <tr> 
-    <td>0.7.6</td>
+    <td>0.7.7</td>
     <td>Completion of Documentation - Manual, Howto's.</td>
     <td>In progess</td>
   </tr>

@@ -100,7 +100,7 @@ public class ReferencePoemType extends IntegerPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setTypeCode(targetTable.tableInfoID());
+    columnInfo.setTypefactoryCode(targetTable.tableInfoID());
   }
 
   public String toString() {

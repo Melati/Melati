@@ -103,7 +103,7 @@ public class StringPoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.STRING);
+    columnInfo.setTypefactory(PoemTypeFactory.STRING);
     columnInfo.setSize(size);
   }
 

@@ -120,6 +120,6 @@ public class BooleanPoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.BOOLEAN);
+    columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
   }
 }

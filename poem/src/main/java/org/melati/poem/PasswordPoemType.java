@@ -62,7 +62,7 @@ public class PasswordPoemType extends StringPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.PASSWORD);
+    columnInfo.setTypefactory(PoemTypeFactory.PASSWORD);
     columnInfo.setSize(size);
   }
 }

@@ -59,7 +59,7 @@ public class TroidPoemType extends IntegerPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.TROID);
+    columnInfo.setTypefactory(PoemTypeFactory.TROID);
   }
 
   protected boolean _canBe(PoemType other) {

@@ -59,7 +59,7 @@ public class DeletedPoemType extends BooleanPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.DELETED);
+    columnInfo.setTypefactory(PoemTypeFactory.DELETED);
   }
 
   protected boolean _canBe(PoemType other) {

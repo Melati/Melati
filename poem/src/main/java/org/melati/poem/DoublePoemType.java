@@ -88,6 +88,6 @@ public class DoublePoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.DOUBLE);
+    columnInfo.setTypefactory(PoemTypeFactory.DOUBLE);
   }
 }

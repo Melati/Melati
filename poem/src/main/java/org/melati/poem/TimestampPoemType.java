@@ -98,6 +98,6 @@ public class TimestampPoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.TIMESTAMP);
+    columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);
   }
 }

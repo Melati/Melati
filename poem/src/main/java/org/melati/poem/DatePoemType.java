@@ -85,6 +85,6 @@ public class DatePoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.DATE);
+    columnInfo.setTypefactory(PoemTypeFactory.DATE);
   }
 }

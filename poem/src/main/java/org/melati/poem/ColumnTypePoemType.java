@@ -97,7 +97,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setType(PoemTypeFactory.TYPE);
+    columnInfo.setTypefactory(PoemTypeFactory.TYPE);
   }
 
   public String toString() {

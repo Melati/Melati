@@ -3,7 +3,7 @@
 set -e
 
 if ! javaversion=`java -version 2>&1` ; then
-  echo -e "When I try to run java -version, this happens:\n"
+  echo -e >&2 "When I try to run java -version, this happens:\n"
   java -version
   exit 1
 fi
@@ -40,15 +40,15 @@ ldb="$here"org.melati.LogicalDatabase.properties
 ldbe="$ldb.example"
 
 if [ ! -e "$ldb" ] && [ -e "$ldbe" ] ; then
-   echo -e "*** warning: $ldb not found, \nso creating new $ldb from"
-   echo -e "$ldbe\n\n"
+   echo >&2 -e "*** warning: $ldb not found, \nso creating new $ldb from" \
+               "$ldbe\n\n"
    cp $ldbe $ldb
 fi
 
 [ -e "$ldb" ] &&
     wronglines=`grep -v '^[[:space:]]*[#!]' "$ldb" | fgrep -n $wrongJDBC` &&
-  echo -e "*** warning: your $ldb mentions $wrongJDBC rather than $JDBC" \
-          "in the following lines:\n\n$wronglines\n\n" \
-          "You should probably change them to $JDBC."
+  echo -e >&2 "*** warning: your $ldb mentions $wrongJDBC rather than $JDBC" \
+              "in the following lines:\n\n$wronglines\n\n" \
+              "You should probably change them to $JDBC."
 
 $JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/$JDBC/}}*.java

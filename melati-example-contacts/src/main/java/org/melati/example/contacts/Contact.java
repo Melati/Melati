@@ -38,7 +38,7 @@ import org.melati.util.EnumUtils;
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class Contact extends ContactBase {
+public class Contact extends ContactBase implements Treeable {
 
  /**
   * Constructor 

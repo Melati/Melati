@@ -79,8 +79,8 @@ public class WebmacroTemplateContext implements TemplateContext {
     return null;
   }
 
-  public Object get(Object o) {
-    return webContext.get(o);
+  public Object get(String s) {
+    return webContext.get(s);
   }
 
   public Object getContext() {

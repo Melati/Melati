@@ -76,10 +76,11 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     int orderByStart = lowerCaseQueryString.indexOf("order by ");
     int whereEnd = 0;
     if (orderByStart<0)
-      whereEnd = queryString.length() - whereStart;
+      whereEnd = queryString.length();
     else if (orderByStart==0)
     {
       whereStart = -1; // no where clause
+      orderByStart += 9;
     }
     else
     {
@@ -89,13 +90,19 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     
     String whereClause = "";
     String orderByClause = "";
-    if (whereStart<0)
+    if (whereStart>=0)
       whereClause = queryString.substring(whereStart,whereEnd);
-    if (orderByStart<0)
+    if (orderByStart>=0)
       orderByClause = queryString.substring(orderByStart,queryString.length());
 
-    System.err.println("where clause="+whereClause);
-    System.err.println("order by clause="+orderByClause);
+/*
+    System.err.println("[poem-odmg]query string="+queryString);
+    System.err.println("[poem-odmg]where start="+whereStart);
+    System.err.println("[poem-odmg]where end="+whereEnd);
+    System.err.println("[poem-odmg]order by start="+orderByStart);
+    System.err.println("[poem-odmg]where clause="+whereClause);
+    System.err.println("[poem-odmg]order by clause="+orderByClause);
+*/
     return new EnumerationIterator(_wrappedTable.selection(whereClause,orderByClause,true));
   }
 

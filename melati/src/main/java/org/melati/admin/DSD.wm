@@ -50,20 +50,28 @@
  * 
  */
 
+#if ($Form.comments) #begin
+#set $c = true
+#end
 package $(package);
 
-#foreach $table in $database.getDisplayTables()
- #if ($table.Class.Name.indexOf($package) == 0) #begin
 
+#foreach $table in $database.getDisplayTables()
+#if ($table.Class.Name.indexOf($package) == 0) #begin
+
+#if ($c) #begin
 //   $table
 //   $table.Class.Name
+#end
 table $stringutils.capitalised($table.Name)
 
 
 #foreach $field in $table.getInfo().getFields()
 #set $infoFieldClass = $field.getType().getClass().getName()
 #if($field.getRaw() == null) #begin
+#if ($c) #begin
   // ($field.getName() = null)
+#end
 #end #else #begin
 #if ($field.getName() == "id") #begin #end
 #else #begin
@@ -79,7 +87,9 @@ table $stringutils.capitalised($table.Name)
 #if ($field.getRaw().toString().equals("true")) #begin 
   ($field.getName())
 #end #else #begin
+#if ($c) #begin
   // Not $field.getName()
+#end
 #end 
 #end #else #begin
   ($field.getName() = $ml.rendered($field))
@@ -94,16 +104,20 @@ table $stringutils.capitalised($table.Name)
 
   #foreach $column in $table.columns()
 
+#if ($c) #begin
     //$column 
+#end
     $column.getType().toDsdType() $column.getName()
 
 #if ($column.isTroidColumn()) #begin
-          (primary)
+      (primary)
 #end
 #foreach $field in $column.getColumnInfo().getDsdQualifiers()
 #set $infoFieldClass = $field.getType().getClass().getName()
 #if($field.getRaw() == null) #begin
+#if ($c) #begin
       // ($field.getName() = null)
+#end
 #end #else #begin
 #if ($field.getName() == "size") #begin 
 #if ($field.getRaw() == -1) #begin
@@ -118,14 +132,18 @@ table $stringutils.capitalised($table.Name)
 #if($infoFieldClass.equals("org.melati.poem.BooleanPoemType")) #begin
 #if ($field.getName().equals("usereditable")) #begin
 #if ($field.getRaw().toString().equals("true")) #begin 
+#if ($c) #begin
       // $field.getName()
+#end
 #end #else #begin
       (uneditable)
 #end 
 #end #else #begin
 #if ($field.getName().equals("usercreateable")) #begin
 #if ($field.getRaw().toString().equals("true")) #begin 
+#if ($c) #begin
       // $field.getName()
+#end
 #end #else #begin
       (uncreateable)
 #end 
@@ -133,7 +151,9 @@ table $stringutils.capitalised($table.Name)
 #if ($field.getRaw().toString().equals("true")) #begin 
       ($field.getName())
 #end #else #begin
+#if ($c) #begin
       // Not $field.getName()
+#end
 #end 
 #end
 #end

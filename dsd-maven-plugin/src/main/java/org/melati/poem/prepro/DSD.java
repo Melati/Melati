@@ -366,8 +366,11 @@ public class DSD {
     w.write("// " + tablesInDatabase.size() + " tables in database\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-      if (!(td.isAbstract || td.naming.hidden || td.naming.hidesOther))
-        w.write(td.naming.importTableString());
+      if (td.isAbstract) w.write("// abstract ");
+      if (td.naming.hidden) w.write ("// hidden ");
+      if (td.naming.hidesOther) w.write ("// hides ");
+      w.write(td.naming.importTableString());
+
     }
     for (int j = 0; j < importedDSDs.size(); j++) {
       DSD dsd = (DSD)importedDSDs.elementAt(j);

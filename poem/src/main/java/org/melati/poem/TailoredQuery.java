@@ -155,6 +155,12 @@ public class TailoredQuery {
 
   public TailoredQuery(Column[] selectedColumns, Table[] otherTables,
                        String whereClause, String orderByClause) {
+    this(null, selectedColumns, otherTables, whereClause, orderByClause);
+  }
+
+  public TailoredQuery(String modifier, // FIXME hack
+		       Column[] selectedColumns, Table[] otherTables,
+                       String whereClause, String orderByClause) {
 
     this.database = selectedColumns[0].getDatabase();
 
@@ -221,6 +227,11 @@ public class TailoredQuery {
     StringBuffer sql = new StringBuffer();
 
     sql.append("SELECT ");
+
+    if (modifier != null) {
+      sql.append(modifier);
+      sql.append(' ');
+    }
 
     for (int c = 0; c < columns.size(); ++c) {
       if (c > 0) sql.append(", ");
@@ -329,5 +340,26 @@ public class TailoredQuery {
 
   public Enumeration selection() {
     return new TailoredResultSetEnumeration(this, database.sqlQuery(sql));
+  }
+
+  public class FirstRawTailoredResultSetEnumeration
+      extends TailoredResultSetEnumeration {
+
+    public FirstRawTailoredResultSetEnumeration(TailoredQuery query,
+						ResultSet resultSet) {
+      super(query, resultSet);
+    }
+
+    protected Object mapped(ResultSet them) {
+      checkTableAccess(them);
+      for (int c = 1; c < query.columns.length; ++c)
+	column(them, c);
+      return column(them, 0);
+    }
+  }
+
+  public Enumeration selection_firstRaw() {
+    return new FirstRawTailoredResultSetEnumeration(this,
+						    database.sqlQuery(sql));
   }
 }

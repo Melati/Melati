@@ -54,13 +54,24 @@ import org.melati.util.*;
 public class PreparedTailoredQuery extends TailoredQuery {
   private PreparedStatementFactory statements;
 
+  public PreparedTailoredQuery(String modifier,
+			       Column[] selectedColumns, Table[] otherTables,
+			       String whereClause, String orderByClause) {
+    super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
+    statements = new PreparedStatementFactory(database, sql);
+  }
+
   public PreparedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
 			       String whereClause, String orderByClause) {
-    super(selectedColumns, otherTables, whereClause, orderByClause);
-    statements = new PreparedStatementFactory(database, sql);
+    this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
   public Enumeration selection() {
     return new TailoredResultSetEnumeration(this, statements.resultSet());
+  }
+
+  public Enumeration selection_firstRaw() {
+    return new FirstRawTailoredResultSetEnumeration(this,
+						    statements.resultSet());
   }
 }

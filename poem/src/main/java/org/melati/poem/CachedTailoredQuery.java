@@ -54,30 +54,48 @@ import org.melati.util.*;
 public class CachedTailoredQuery extends PreparedTailoredQuery {
 
   private Vector results = null;
+  private Vector firstRawResults = null;
   private long[] tableSerials;
 
-  public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
+  public CachedTailoredQuery(String modifier, 
+			     Column[] selectedColumns, Table[] otherTables,
 			     String whereClause, String orderByClause) {
-    super(selectedColumns, otherTables, whereClause, orderByClause);
+    super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     tableSerials = new long[tables.length];
   }
 
-  public Enumeration selection() {
+  public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
+			     String whereClause, String orderByClause) {
+    this(null, selectedColumns, otherTables, whereClause, orderByClause);
+  }
+
+  protected boolean upToDate() {
+    boolean is = true;
+
     PoemTransaction transaction = PoemThread.transaction();
-
-    Vector results = this.results;
-
     for (int t = 0; t < tables.length; ++t) {
       long currentSerial = tables[t].serial(transaction);
       if (tableSerials[t] != currentSerial) {
-	results = null;
+	is = false;
 	tableSerials[t] = currentSerial;
       }
     }
 
-    if (results == null)
-      results = this.results = EnumUtils.vectorOf(super.selection());
+    return is;
+  }
 
+  public Enumeration selection() {
+    Vector results = this.results;
+    if (!upToDate() || results == null)
+      results = this.results = EnumUtils.vectorOf(super.selection());
     return results.elements();
+  }
+
+  public Enumeration selection_firstRaw()  {
+    Vector firstRawResults = this.firstRawResults;
+    if (!upToDate() || firstRawResults == null)
+      firstRawResults = this.firstRawResults =
+	  EnumUtils.vectorOf(super.selection_firstRaw());
+    return firstRawResults.elements();
   }
 }

@@ -211,7 +211,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public String expandTemplate(org.melati.template.Template template,  
+  public String expandedTemplate(org.melati.template.Template template,  
                                 TemplateContext templateContext)
               throws TemplateEngineException {
     try {

@@ -144,7 +144,7 @@ public interface TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  String expandTemplate(Template template, 
+  String expandedTemplate(Template template, 
                              TemplateContext templateContext) 
       throws TemplateEngineException;
 

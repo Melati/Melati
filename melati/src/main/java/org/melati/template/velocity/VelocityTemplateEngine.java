@@ -246,7 +246,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
                              TemplateContext templateContext)
               throws TemplateEngineException {
     try {
-      template.write (out, templateContext, this);
+      template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof AccessPoemException) {
@@ -271,7 +271,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public String expandTemplate(org.melati.template.Template template, 
+  public String expandedTemplate(org.melati.template.Template template, 
                              TemplateContext templateContext)
               throws TemplateEngineException {
     throw new TemplateEngineException("Not Implemented.");

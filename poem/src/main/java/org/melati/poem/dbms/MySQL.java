@@ -138,7 +138,7 @@ public class MySQL extends AnsiStandard {
   * @param sqlTypeName the Melati internal type name
   * @return this dbms specific type keyword
   */
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if(sqlTypeName.equals("BOOLEAN")) return "BOOL"; 
     return super.getSqlDefinition(sqlTypeName);
   }
@@ -150,7 +150,7 @@ public class MySQL extends AnsiStandard {
     return super.getStringSqlDefinition(size); //VARCHAR(size) is OK
   }
 
-  public String getBinarySqlDefinition(int size) throws SQLException {
+  public String getBinarySqlDefinition(int size) {
     return "BLOB"; //How to define BLOB of limited size?
   }
 
@@ -360,7 +360,7 @@ public class MySQL extends AnsiStandard {
   }
 
  /**
-  *MySQL requires TEXT and BLOB field indices to have an 
+  * MySQL requires TEXT and BLOB field indices to have an 
   * explicit length, 30 should be fine.
   *
   * @return a snippet of sql to insert into an SQL statement.

@@ -70,7 +70,41 @@ public class User extends UserBase implements AccessToken {
     return getDatabase().hasCapability(this, capability);
   }
 
+  /**
+   * Will throw a <TT>ReadPasswordAccessPoemException</TT> unless the access
+   * token associated with the running thread is the <TT>User</TT> object
+   * itself or provides the <TT>readPasswords</TT> capability.
+   */
+
+  public String getPassword() throws AccessPoemException {
+    // FIXME need 2 sorts of obj
+    if (troid() != null) {
+      AccessToken token = PoemThread.accessToken();
+      if (token != this &&
+	  !token.givesCapability(getUserTable().canReadPasswords()))
+	throw new ReadPasswordAccessPoemException(
+	      this, getUserTable().getPasswordColumn(), token,
+	      getUserTable().canReadPasswords());
+    }
+
+    return super.getPassword();
+  }
+
+  public void setPassword(String cooked) throws AccessPoemException {
+    // FIXME need 2 sorts of obj
+    if (troid() != null) {
+      AccessToken token = PoemThread.accessToken();
+      if (token != this &&
+	  !token.givesCapability(getUserTable().canWritePasswords()))
+	throw new WriteFieldAccessPoemException(
+	      this, getUserTable().getPasswordColumn(), token,
+	      getUserTable().canWritePasswords());
+    }
+
+    super.setPassword(cooked);
+  }
+
   public String toString() {
-    return getLogin_unsafe();
+    return getLogin_unsafe() == null ? super.toString() : getLogin_unsafe();
   }
 }

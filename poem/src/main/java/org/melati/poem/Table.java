@@ -858,6 +858,8 @@ public class Table {
     if (!persistent.statusExistent())
       throw new NoSuchRowPoemException(this, troid);
 
+    persistent.existenceLock(PoemThread.sessionToken());
+
     return persistent;
   }
 
@@ -1210,7 +1212,6 @@ public class Table {
         }
       };
   }
-
 
   // 
   // ----------

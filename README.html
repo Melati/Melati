@@ -26,6 +26,7 @@
     <li><a href="#Licensing">Licensing</a> 
     <li><a href="#Anatomy">Anatomy of this Release</a> 
     <li><a href="#Installing">Installing</a> 
+    <li><a href="#Recompiling">Recompiling</a> 
     <li><a href="#Started">Getting Started</a> 
     <li><a href="#Credits">Credits</a> 
   </ul>
@@ -423,6 +424,141 @@ http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
       </td>
     </tr>
   </table>
+
+  <p>&nbsp;</p>
+  <h2><a name=Recompiling>Recompiling</a></h2>
+
+  <p>
+    If all the necessary libraries (see <A HREF=#compdeps>below</A>) are in
+    your classpath, you can recompile Melati so:
+  </p>
+
+  <blockquote><pre>
+cd src/org/melati
+javac `find -name '*.java'`
+  </pre></blockquote>
+
+  <p>
+    For a typical installation using webmacro rather than Velocity or
+    JTemplater, try this:
+  </p>
+
+  <blockquote><pre>
+cd src/org/melati
+rm -rf template/velocity template/jtemplater poem/odmg
+javac `find -name '*.java'`
+  </pre></blockquote>
+
+  <p>
+    Thanks to Chris Kimptoc, there is also a build script for <A
+    HREF=http://jakarta.apache.org/ant/ >ANT</A> in <A HREF=build
+    ><TT>org/melati/build</TT></A>.
+  </p>
+
+  <p>
+    The code should compile cleanly with any compiler (<TT>jikes</TT> is very
+    nice and fast!), except for complaints about "deprecated APIs", which arise
+    from some classes implementing JSDK&nbsp;2.0 methods now marked as
+    <TT>@deprecated</TT>.  If anything worse happens with your compiler we
+    would like to know.
+  </p>
+
+  <p>
+    <A NAME=compdeps>The full list of compilation dependencies</A> is
+  </p>
+
+  <UL>
+    <LI><P>
+      <TT>src/</TT> from the Melati distribution, not only for <A
+      HREF=.><TT>org.melati</TT>...</A> but also for a couple of utility
+      classes in <A HREF=../apache/java/lang/
+      ><TT>org.apache.java.lang</TT></A> and a stub in <A
+      HREF=../../javax/servlet/ ><TT>javax.servlet</TT></A> (enabling us to
+      compile and run interchangeably against JSDK 2.0 and&nbsp;2.2)
+    </P></LI>
+    <LI><P>
+      The Servlet Development Kit (JSDK) 2.0 or&nbsp;2.2, generally
+      <TT>jsdk.jar</TT>.  Melati will compile and run against either version.
+    </P></LI>
+    <LI><P>
+      The webmacro template engine, <I>e.g.</I> <TT>webmacro.jar</TT> from the
+      appropriate distribution.  You need this even if you intend to use
+      Velocity, because of the Velocity-Webmacro compatibility mode.
+    </P></LI>
+    <LI><P>
+      The Velocity template engine, <I>e.g.</I> <TT>velocity-<I>#</I>.jar</TT>
+      from the appropriate distribution.  If you do not intend to use Velocity,
+      you can just delete <A HREF=template/velocity/
+      ><TT>org/melati/template/velocity/</TT></A> from the Melati source tree.
+    </P></LI>
+    <LI><P>
+      The JTemplater template engine.  If you do not intend to use JTemplater
+      (you probably don't), you can just delete <A HREF=template/jtemplater/
+      ><TT>org/melati/template/jtemplater/</TT></A> from the Melati source tree.
+    </P></LI>
+    <LI><P>
+      The Postgresql JDBC driver, <I>e.g.</I> <TT>postgresql.jar</TT> from the
+      appropriate distribution.  If you are do not intend to use Postgresql,
+      you can just delete <A HREF=poem/postgresql/
+      ><TT>org/melati/poem/postgresql</TT></A> and <A
+      HREF=poem/dbms/Postgresql.java
+      ><TT>org/melati/poem/dbms/Postgresql.java</TT></A> from the Melati source
+      tree.
+    </P></LI>
+    <LI><P>
+      The ODMG library included in the Melati sources as <A
+      HREF=poem/odmg/required-libs/odmg3.jar
+      ><TT>org/melati/poem/odmg/required-libs/odmg3.jar</TT></A>.  If you do
+      not intend to use the ODMG interface, you can just delete
+      <A HREF=poem/odmg/ ><TT>org/melati/poem/odmg</TT></A> from the Melati
+      source tree.
+    </P></LI>
+  </UL>
+
+  <P>
+    You can obtain a bleeding edge snapshot of Melati by anonymous CVS.  Make
+    sure to join the <A
+    HREF="http://lists.sourceforge.net/mailman/listinfo/melati-developers"
+    ><TT>melati-developers</TT></A> mailing list.  With the standard Unix
+    <TT>cvs</TT> client you need to do something like
+  </P>
+
+  <BLOCKQUOTE><PRE>
+$ mkdir melati/src
+$ cd melati/src
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
+(Logging in to anonymous@melati.org)
+CVS password: anonymous
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/apache javax
+  </PRE></BLOCKQUOTE>
+
+  <P>
+    Thereafter you will be able to get an updated snapshot by doing
+
+  <BLOCKQUOTE><PRE>
+$ cd melati/src/org/melati
+$ cvs update
+  </PRE></BLOCKQUOTE>
+
+    (CVS remembers the server from which the tree came in the control files in
+    the <tt>CVS</tt> subdirectories it creates, and the login/password you gave
+    in a file <tt>.cvspass</tt> in your home directory.)
+  </P>
+
+  <P>
+    For a Windows CVS client, try <A HREF=http://www.wincvs.org
+    >www.wincvs.org</A>.  Point it at the repository <TT>/usr/cvsroot</TT> on
+    <TT>melati.org</TT>, give username and password <TT>anonymous</TT>, and
+    make sure to check out the modules <TT>org/melati</TT>, <TT>org/apache</TT>
+    and <TT>javax</TT>.
+  </P>
+
+  <P>
+    If you are working over a slow link, you might find the <a
+    href=http://rsync.samba.org/rsync/><tt>rsync</tt></a> program useful; let
+    us know if you would like &quot;anonymous rsync&quot; access.
+  </P>
+
   <h3>&nbsp; </h3>
   <p> 
   <h2>Getting Started </h2>

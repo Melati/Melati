@@ -3,7 +3,6 @@
 package org.melati.doc.example.contacts.generated;
 
 import org.melati.doc.example.contacts.*;
-import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.poem.*;

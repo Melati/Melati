@@ -242,7 +242,8 @@ public class AnsiStandard implements Dbms {
       case Types.TINYINT :
         return unsupported("TINYINT", md);
       case Types.SMALLINT :
-        return unsupported("SMALLINT", md);
+	  //        return unsupported("SMALLINT", md);
+        return new IntegerPoemType(nullable);
       case Types.INTEGER :
         return new IntegerPoemType(nullable);
       case Types.BIGINT :
@@ -261,7 +262,8 @@ public class AnsiStandard implements Dbms {
         return new BigDecimalPoemType(nullable, width, scale);
 
       case Types.CHAR :
-        return unsupported("CHAR", md);
+	  //        return unsupported("CHAR", md);
+        return new StringPoemType(nullable, 1);
       case Types.VARCHAR :
         return new StringPoemType(nullable, width);
       case Types.LONGVARCHAR :

@@ -96,7 +96,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public String loginPageURL(Melati melati, HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
-    HttpUtil.appendZoneURL(url, request);
+    HttpUtil.appendRelativeZoneURL(url, request);
     url.append('/');
     url.append(loginPageServletClassName());
     url.append('/');

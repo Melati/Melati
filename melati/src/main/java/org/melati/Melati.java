@@ -372,7 +372,7 @@ public class Melati {
 
   public String getLogoutURL() {
     StringBuffer url = new StringBuffer();
-    HttpUtil.appendZoneURL(url, getRequest());
+    HttpUtil.appendRelativeZoneURL(url, getRequest());
     url.append('/');
     url.append(config.logoutPageServletClassName());
     url.append('/');

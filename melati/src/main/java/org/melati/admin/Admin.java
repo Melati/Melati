@@ -6,6 +6,7 @@ import javax.servlet.http.*;
 import org.melati.*;
 import org.melati.util.*;
 import org.melati.poem.*;
+import org.webmacro.*;
 import org.webmacro.util.*;
 import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
@@ -66,19 +67,19 @@ public class Admin extends MelatiServlet {
   }
 
   protected final Template adminTemplate(WebContext context, String name)
-      throws ResourceUnavailableException {
+      throws NotFoundException, InvalidTypeException {
     return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
                                                   "admin/" + name);
   }
 
   protected Template tablesViewTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     context.put("tables", PoemThread.database().tables());
     return adminTemplate(context, "Tables.wm");
   }
 
   protected Template tableCreateTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     Table tit = PoemThread.database().getTableInfoTable();
     Enumeration fields =
         new MappedEnumeration(tit.columns()) {
@@ -92,7 +93,7 @@ public class Admin extends MelatiServlet {
 
   protected Template tableCreate_doitTemplate(WebContext context,
                                               MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
 
     Database database = PoemThread.database();
     //    database.addTable(
@@ -101,7 +102,7 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template tableListTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     Table table = tableFromPathInfo(ref);
     context.put("table", table);
     context.put("objects", table.selection());
@@ -109,13 +110,13 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template editTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     context.put("object", objectFromPathInfo(ref));
     return adminTemplate(context, "Edit.wm");
   }
 
   protected Template addTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
 
     Table table = tableFromPathInfo(ref);
     context.put("table", table);
@@ -149,7 +150,7 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template updateTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     if (ref.troid.intValue() == -1)
       create(tableFromPathInfo(ref), context);
     else
@@ -159,7 +160,7 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template deleteTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException {
     try {
       objectFromPathInfo(ref).deleteAndCommit();
       return adminTemplate(context, "Delete.wm");
@@ -172,13 +173,13 @@ public class Admin extends MelatiServlet {
   }
 
    protected Template duplicateTemplate(WebContext context, MethodRef ref)
-       throws ResourceUnavailableException, PoemException {
+       throws NotFoundException, InvalidTypeException, PoemException {
      objectFromPathInfo(ref).duplicated();
      return adminTemplate(context, "Duplicate.wm");
    }
 
   protected Template modifyTemplate(WebContext context, MethodRef ref)
-      throws ResourceUnavailableException, PoemException, HandlerException {
+      throws NotFoundException, InvalidTypeException, PoemException, HandlerException {
     String action = context.getRequest().getParameter("action");
     if ("Update".equals(action))
       return updateTemplate(context, ref);

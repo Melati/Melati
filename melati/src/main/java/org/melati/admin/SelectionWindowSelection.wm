@@ -72,13 +72,7 @@
 </font>
 #end
 <b><FONT face="Arial, Helvetica" size=-1>
-Records $results.PageStart to $results.PageEnd of 
-
-#if ($results.TotalCountIsMinimum) #begin
- at least
-#end
-
-$results.TotalCount
+Records $results.PageStart to $results.PageEnd of $results.TotalCount
 </FONT>
 </b>
 

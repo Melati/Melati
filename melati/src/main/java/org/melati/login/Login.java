@@ -66,83 +66,17 @@ public class Login extends MelatiServlet {
       TRIGGERING_EXCEPTION =
           "org.melati.Login.triggeringException";
 
+  LoginHandler loginHandler = null;
 
-  protected Template loginTemplate(String name) throws WebMacroException {
-        return getTemplate("login/" + name);
-  }
+  protected LoginHandler getLoginHandler() {
+    if (loginHandler == null)
+      loginHandler = new LoginHandler(this);
 
-  protected Template loginPageTemplate() throws WebMacroException {
-    return loginTemplate("Login.wm");
-  }
-
-  protected Template usernameUnknownTemplate() throws WebMacroException {
-    return loginTemplate("LoginFailure.wm");
-  }
-
-  protected Template passwordIncorrectTemplate() throws WebMacroException {
-    return loginTemplate("LoginFailure.wm");
-  }
-
-  protected Template loginSuccessTemplate() throws WebMacroException {
-    return loginTemplate("LoginSuccess.wm");
+    return loginHandler;
   }
 
   protected Template handle(WebContext context)
       throws PoemException, WebMacroException {
-        
-    HttpSession session = context.getSession();
-
-    AccessPoemException triggeringException =
-        (AccessPoemException)session.getValue(TRIGGERING_EXCEPTION);
-
-    if (triggeringException != null)
-      context.put("triggeringException", triggeringException);
-
-    String username = context.getForm("field_login");
-    String password = context.getForm("field_password");
-    UserTable users = PoemThread.database().getUserTable();
-    
-    context.put("login", new Field(username, users.getLoginColumn()));
-    context.put("password",
-                new Field(password, users.getPasswordColumn()));
-
-    if (username == null)
-      return loginPageTemplate();
-
-    User user = (User)PoemThread.database().getUserTable().getLoginColumn().
-                    firstWhereEq(username);
-    if (user == null)
-      return usernameUnknownTemplate();
-
-    if (!user.getPassword_unsafe().equals(password))
-      return passwordIncorrectTemplate();
-
-    // Authenticated successfully.
-
-    // Arrange for the original parameters from the request that triggered the
-    // login to be overlaid on the next request that comes in if it's a match
-    // (this allows POSTed fields to be recovered without converting the
-    // request into a GET that the browser will repeat on reload with giving
-    // any warning).
-
-    HttpServletRequestParameters triggeringParams =
-        (HttpServletRequestParameters)session.getValue(
-            TRIGGERING_REQUEST_PARAMETERS);
-
-    if (triggeringParams != null) {
-      session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
-		       triggeringParams);
-      session.removeValue(TRIGGERING_REQUEST_PARAMETERS);
-      session.removeValue(TRIGGERING_EXCEPTION);
-      context.put("continuationURL", triggeringParams.continuationURL());
-    } else {
-      if (context.getForm("continuationURL") != null) {
-		  context.put("continuationURL",context.getForm("continuationURL"));
-	  }
-	}
-
-    session.putValue(HttpSessionAccessHandler.USER, user);
-
-    return loginSuccessTemplate();
+    return getLoginHandler().handle(context);
   }
 }

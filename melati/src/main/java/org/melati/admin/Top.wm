@@ -51,7 +51,7 @@ return false;
 <input type=button value=" Go " onclick="goto_page(0)">
 </font></td>
 <td align=right>
-<FONT SIZE="-2" FACE="Arial, Helvetica"><input type=button value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL';">
+<FONT SIZE="-2" FACE="Arial, Helvetica"><input type=button value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
 #if ($database.SettingTable.homepageurl) #begin
 <input type=button value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
 #end 

@@ -48,8 +48,12 @@
 
 package org.melati.util;
 
-import java.util.*;
-import java.nio.charset.*;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Representation of the Accept-Charset header fields.
@@ -58,7 +62,7 @@ import java.nio.charset.*;
  * preferences.
  *
  * @author  jimw@paneris.org
- * @version $Version$
+ * @version $Version: $
  */
 public class AcceptCharset extends HttpHeader {
 
@@ -125,7 +129,8 @@ public class AcceptCharset extends HttpHeader {
   public AcceptCharset(String values, List serverPreference) throws HttpHeaderException {
     super(values);
     int position = 0;
-    for (CharsetAndQValueIterator i = charsetAndQValueIterator(); i.hasNext(); ) {
+    for (CharsetAndQValueIterator i = charsetAndQValueIterator(); 
+         i.hasNext();) {
       CharsetAndQValue c = i.nextCharsetAndQValue();
       if (c.isWildcard()) {
         wildcard = c;
@@ -177,7 +182,7 @@ public class AcceptCharset extends HttpHeader {
         }
       }
       catch (UnsupportedCharsetException uce) {
-        // Ingnore this charset
+        // Ignore this charset
         // System.err.println("Tested 7");
       }
       
@@ -253,7 +258,7 @@ public class AcceptCharset extends HttpHeader {
    */
   public String choice(Comparator comparator) {
     CharsetAndQValue best = null;
-    for (Iterator i = supportedPreferred.values().iterator(); i.hasNext(); ) {
+    for (Iterator i = supportedPreferred.values().iterator(); i.hasNext();) {
       CharsetAndQValue c = (CharsetAndQValue)i.next();
       if (best == null || comparator.compare(c, best) > 0) {
         best = c;
@@ -377,6 +382,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.3  2004/11/25 18:44:34  timp
+ * Avoid * imports
+ *
  * Revision 1.2  2003/11/19 04:14:06  jimw
  * Added standard header.
  *

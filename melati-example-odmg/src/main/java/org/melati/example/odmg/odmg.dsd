@@ -1,4 +1,4 @@
-package org.melati.poem.odmg.playing;
+package org.melati.poem.example.odmg;
 
 table Parent
 {

@@ -1,15 +1,15 @@
-package org.melati.poem.odmg.playing;
+package org.melati.poem.example.odmg;
 
 import org.odmg.Database;
 import org.odmg.Transaction;
 import org.odmg.DCollection;
 import java.util.Iterator;
 
-public class PlayingTest {
+public class OdmgTest {
   public static final void main(String[] argsIn)
     throws Exception {
 
-    System.out.println("PlayingTest started:");
+    System.out.println("OdmgTest started:");
 
     Database db = org.melati.poem.odmg.ODMGFactory.getNewDatabase();
     System.out.println("Got a db = "+db);
@@ -69,7 +69,7 @@ public class PlayingTest {
 
     tx.commit();
     
-    System.out.println("PlayingTest done:");
+    System.out.println("OdmgTest done:");
   }
 
   private static final Parent newParent()

@@ -31,25 +31,28 @@ org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTem
 
 #
 # --------------------------------------------
-#  Where to look for Templates (only used by Velocity - if using WebMacro, set the template path 
-#  in WebMacro.properties)
+#  Where to look for Templates 
+# (only used by Velocity - if using WebMacro, 
+#  set the template path in WebMacro.properties)
+#
+# Since about 2002 both have happily found 
+# templates on ths CLASSPATH, so ignore this setting
 # --------------------------------------------
 # 
 
-org.melati.MelatiServlet.templatePath=/usr/local/packages/melati/org/melati/
+#org.melati.MelatiServlet.templatePath=/usr/local/packages/melati/org/melati/
 
 #
 # --------------------------------------------
 #  Where to look for Melati's static content?
 # --------------------------------------------
 # 
-
-# This should point, relative to your server's http root, to this directory.
 # e.g. ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
 
 org.melati.MelatiServlet.staticURL=/melati-static/
 
-# This should point, relative to your server's http root, to the admin directory
+# This should point, relative to your server's http root, 
+# to the admin directory
 # (will be achieved by the ln -s suggested above)
 
 org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/admin/
@@ -70,7 +73,7 @@ org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.MemoryDataAda
 
 #org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.PoemFileDataAdaptorFactory
 
-# This one saves them as temporary files (deleted with the JVM quits)
+# This one saves them as temporary files (deleted when the JVM quits)
 
 #org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.TemporaryFileDataAdaptorFactory
 
@@ -96,10 +99,10 @@ org.melati.MelatiServlet.locale=en-gb
 # the behaviour of existing applications (backward
 # compatibility paranoia) not because it is good.
 #
-# org.melati.MelatiServlet.preferredCharsets = "ISO-8859-1, UTF-8, UTF-16"
+# org.melati.MelatiServlet.preferredCharsets= ISO-8859-1, UTF-8, UTF-16
 
 # This serves the western world well
-org.melati.MelatiServlet.preferredCharsets = "UTF-8, UTF-16, ISO-8859-1"
+org.melati.MelatiServlet.preferredCharsets = UTF-8, UTF-16, ISO-8859-1
 
 # This is more global and requires at most twice the packets
-# org.melati.MelatiServlet.preferredCharsets = "UTF-16, UTF-8, ISO-8859-1"
+# org.melati.MelatiServlet.preferredCharsets = UTF-16, UTF-8, ISO-8859-1

@@ -231,14 +231,14 @@ public abstract class Database implements TransactionPool {
 
         DatabaseMetaData m = committedConnection.getMetaData();
         getTableInfoTable().unifyWithDB(
-            m.getColumns(null, getDbms().getSchema(), 
-                         getTableInfoTable().getName(), null));
+            m.getColumns(null, dbms.getSchema(), 
+                         dbms.unreservedName(getTableInfoTable().getName()), null));
         getColumnInfoTable().unifyWithDB(
-            m.getColumns(null, getDbms().getSchema(), 
-                         getColumnInfoTable().getName(), null));
+            m.getColumns(null, dbms.getSchema(), 
+                         dbms.unreservedName(getColumnInfoTable().getName()), null));
         getTableCategoryTable().unifyWithDB(
-            m.getColumns(null, getDbms().getSchema(), 
-                         getTableCategoryTable().getName(), null));
+            m.getColumns(null, dbms.getSchema(), 
+                         dbms.unreservedName(getTableCategoryTable().getName()), null));
 
         inSession(AccessToken.root,
                   new PoemTask() {
@@ -454,9 +454,11 @@ public abstract class Database implements TransactionPool {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Table table = (Table)t.nextElement();
       // bit yukky using getColumns ...
-      ResultSet colDescs = columnsMetadata(m, table.getName());
+      ResultSet colDescs = columnsMetadata(m, 
+                               dbms.unreservedName(table.getName()));
       if (!colDescs.next()) {
-//      System.err.println("Table has no columns in dbms:" + table.getName());
+        System.err.println("Table has no columns in dbms:" + 
+                            dbms.unreservedName(table.getName()));
         table.unifyWithDB(null);
       }
     }

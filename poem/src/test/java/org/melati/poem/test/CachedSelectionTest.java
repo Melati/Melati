@@ -108,7 +108,7 @@ public class CachedSelectionTest {
         }
 
         if (theSignal[0] == set) {
-          AThing t = (AThing)table.firstSelection(null);
+          Athing t = (Athing)table.firstSelection(null);
           if (t == null)
             System.err.println("\n*** setter: nothing to set\n");
           else {
@@ -119,13 +119,13 @@ public class CachedSelectionTest {
         }
         else if (theSignal[0] == add) {
           System.err.println("\n*** setter: adding\n");
-          AThing t = (AThing)table.newPersistent();
+          Athing t = (Athing)table.newPersistent();
             // FIXME - line removed by ttj to allow melati to compile
 //          t.setWhatsit("whatsit" + (serial++));
           t.makePersistent();
         }
         else if (theSignal[0] == delete) {
-          AThing t = (AThing)table.firstSelection(null);
+          Athing t = (Athing)table.firstSelection(null);
           if (t == null)
             System.err.println("\n*** setter: nothing to delete\n");
           else {
@@ -209,10 +209,10 @@ public class CachedSelectionTest {
             try {
               db.setLogSQL(true);
 
-              Setter setter = new Setter(db.getAThingTable());
+              Setter setter = new Setter(db.getAthingTable());
               setter.start();
 
-              Getter getter = new Getter(db.getAThingTable());
+              Getter getter = new Getter(db.getAthingTable());
               getter.start();
 
               Thread.sleep(1000);

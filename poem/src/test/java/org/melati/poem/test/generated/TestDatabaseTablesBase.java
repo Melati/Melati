@@ -13,7 +13,7 @@ import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
-import org.melati.poem.test.AThingTable;
+import org.melati.poem.test.AthingTable;
 
 /**
  * Melati POEM generated interface
@@ -29,5 +29,5 @@ public interface TestDatabaseTablesBase {
   TableInfoTable getTableInfoTable();
   ColumnInfoTable getColumnInfoTable();
   SettingTable getSettingTable();
-  AThingTable getAThingTable();
+  AthingTable getAthingTable();
 }

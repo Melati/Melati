@@ -3,18 +3,18 @@
 package org.melati.poem.test.generated;
 
 
-import org.melati.poem.PoemDatabase;
-import org.melati.poem.DefinitionSource;
-import org.melati.poem.UserTable;
-import org.melati.poem.GroupTable;
 import org.melati.poem.CapabilityTable;
-import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.DefinitionSource;
 import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupTable;
+import org.melati.poem.PoemDatabase;
+import org.melati.poem.SettingTable;
 import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
-import org.melati.poem.ColumnInfoTable;
-import org.melati.poem.SettingTable;
-import org.melati.poem.test.AThingTable;
+import org.melati.poem.UserTable;
+import org.melati.poem.test.AthingTable;
 
 /**
  * Melati POEM generated base class
@@ -30,7 +30,7 @@ public class TestDatabaseBase extends PoemDatabase {
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;
   private SettingTable tab_setting = null;
-  private AThingTable tab_athing = null;
+  private AthingTable tab_athing = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -42,7 +42,7 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_athing = new AThingTable(this, "athing", DefinitionSource.dsd));
+    redefineTable(tab_athing = new AthingTable(this, "athing", DefinitionSource.dsd));
   }
 
   public UserTable getUserTable() {
@@ -82,7 +82,7 @@ public class TestDatabaseBase extends PoemDatabase {
     return tab_setting;
   }
 
-  public AThingTable getAThingTable() {
+  public AthingTable getAthingTable() {
     return tab_athing;
   }
 }

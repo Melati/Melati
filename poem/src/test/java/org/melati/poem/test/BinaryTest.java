@@ -59,13 +59,13 @@ public class BinaryTest {
         new PoemTask() {
           public void run() {
             try {
-              AThing aThing = (AThing)db.getAThingTable().firstSelection(null);
+              Athing aThing = (Athing)db.getAthingTable().firstSelection(null);
               System.out.println(
                   aThing == null ?
                       "Nothing in there" :
                       "Found " + new String(aThing.getBinaryfield()));
 
-              AThing bThing = (AThing)db.getAThingTable().newPersistent();
+							Athing bThing = (Athing)db.getAthingTable().newPersistent();
               bThing.setBinaryfield(new byte[] { 98, -3, -120 });
               bThing.makePersistent();
             }

@@ -222,9 +222,8 @@ public class HttpServletRequestCompat {
    */
 
   public static String getContextPath(HttpServletRequest it) {
-    //    if (getContextPath == null) return "";
-    //else
-return (String)invoke(getContextPath, it, noargs);
+    if (getContextPath == null) return "";
+    else return (String)invoke(getContextPath, it, noargs);
     // return it.getContextPath();
   }
 

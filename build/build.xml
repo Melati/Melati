@@ -46,6 +46,7 @@
     <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
     <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
     <pathelement path="${build.lib}/odmg3.jar" />
+    <pathelement path="${build.lib}/junit.jar" />
   </path>
 
   <path id="classpath.jetty">
@@ -84,6 +85,7 @@ usage:
 
    ant build         build everything from scratch 
    ant go            build everything from scratch and run it
+   ant unittest       run unit tests
 
       </echo>      
    </target>
@@ -382,7 +384,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, zip, javadoc, site, sources, package, war">
+          depends="clean, compile, test, zip, javadoc, site, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"
@@ -394,7 +396,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc) and run"
-          depends="clean, compile, zip, sources, package, war, run">
+          depends="clean, compile, test, zip, sources, package, war, run">
   </target>
     <!-- ============================================================== -->
     <!-- Edit, compile, test cycle                                      -->
@@ -402,6 +404,14 @@ usage:
   <target name="template" 
           description="build (excluding javadoc) and run"
           depends="sources, war, run">
+  </target>
+  <target name="unittest" description="run functional tests" depends="compile">
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement path="${compiled.root}"/>
+      </classpath>
+      <test name="org.melati.AllUnitTests"/>
+    </junit>
   </target>
 </project>
 

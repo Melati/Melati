@@ -4,23 +4,11 @@
 <!--#include file="Menu.html" -->
 <H2>Feature summary</h2>
 
-<p>
-  For a comparison of Melati with J2EE see <a href=http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/>
-  MylesC's post to melati-developers</a>.
-</p>
-<P>
-  (The links lead into the original Functional Specification---the
-  <A HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/doc/index.html>overview document</A> 
-  is more up to date but less chatty.)
-
-
-
-</P>
 
 <UL>
   <LI> An easy-to-use transparent <B>persistence layer</B> over a JDBC
        relational database.  The programmer can <A
-       HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#data-def>define</A>
+       HREF=/melati-static/qa/FunctionalSpecification.html#data-def>define</A>
        table rows to be extensible Java `business objects', without having to
        write any more code than she would for an equivalent non-persistent
        object.
@@ -28,22 +16,22 @@
   <LI> Implicit <B>permissions checks</B> on accesses to persistent
        objects (table rows), based on a flexible and efficient
        user/group/capability
-       <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#access>authentication system</A>.
+       <A HREF=/melati-static/qa/FunctionalSpecification.html#access>authentication system</A>.
 
   <LI> Support for <A
-       HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#transactions><B>transactions</B></A>,
+       HREF=/melati-static/qa/FunctionalSpecification.html#transactions><B>transactions</B></A>,
        either explicitly, or transparently with a simple default pattern
        appropriate for servicing typical HTTP requests; and behind that, of
        course, `connection pooling'.
 
   <LI> Transparent (and transaction-safe) <A
-       HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#cacheing><B>cacheing</B></A> of rows from the most
+       HREF=/melati-static/qa/FunctionalSpecification.html#cacheing><B>cacheing</B></A> of rows from the most
        intensively used tables, such as lookups or localisation phrases.
 
   <LI> Convenient and flexible <A
-       HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#templating><B>templating</B></A> of persistent objects.
+       HREF=/melati-static/qa/FunctionalSpecification.html#templating><B>templating</B></A> of persistent objects.
   <LI> A comprehensive <A
-       HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/FunctionalSpecification.html#adminsystem><B>administration
+       HREF=/melati-static/qa/FunctionalSpecification.html#adminsystem><B>administration
        system</B></A>, supporting the following operations on any Melati
        database without requiring configuration:
 
@@ -57,6 +45,15 @@
 	 <LI> Cascading Deletes
        </UL>
 </UL>
+<P>
+  For a comparison of Melati with J2EE see <a href=http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/>
+  MylesC's post to melati-developers</a>.
+</P>
+<P>
+  (The links lead into the original Functional Specification---the
+  <A HREF=/melati-static/doc/index.html>overview document</A> 
+  is more up to date but less chatty.)
+</P>
 <!--#include file="Footer.html" -->
 <!-- End of $Source$ -->
 

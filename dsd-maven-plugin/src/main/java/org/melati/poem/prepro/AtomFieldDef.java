@@ -1,0 +1,49 @@
+package org.melati.poem.prepro;
+
+import java.util.*;
+import java.io.*;
+
+public class AtomFieldDef extends FieldDef {
+
+  public AtomFieldDef(TableDef table, int index, String name,
+                      String type, Vector qualifiers)
+       throws IllegalityException {
+    super(table, index, name, type, type, qualifiers);
+  }
+
+  protected void generateColIdentAccessors(Writer w) throws IOException {
+    w.write(
+      "          public Object getIdent(Persistent g)\n" +
+      "              throws AccessPoemException {\n" +
+      "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
+      "          }\n" +
+      "\n" +
+      "          public void setIdent(Persistent g, Object ident)\n" +
+      "              throws AccessPoemException {\n" +
+      "            ((" + mainClass + ")g).set" + suffix +
+                     "((" + identType + ")ident);\n" +
+      "          }\n");
+  }
+
+  public void generateBaseMethods(Writer w) throws IOException {
+    w.write("  public " + type + " get" + suffix + "()\n" +
+            "      throws AccessPoemException {\n" +
+            "    return dataForReading()." + name + ";\n" +
+            "  }\n" +
+            "\n" +
+            "  public void set" + suffix + "(" + type + " value)\n" +
+            "      throws AccessPoemException, ValidationPoemException {\n" +
+            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+                     "getType().assertValidValue(value);\n" +
+            "    dataForWriting()." + name + " = value;\n" +
+            "  }\n");
+  }
+
+  public void generateJavaDeclaration(Writer w) throws IOException {
+    w.write(type + " " + name);
+  }
+
+  public String poemTypeJava() {
+    return "new " + type + "PoemType(" + isNullable + ")"; // FIXME :)
+  }
+}

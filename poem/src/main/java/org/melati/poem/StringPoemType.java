@@ -4,18 +4,26 @@ import java.sql.*;
 
 public class StringPoemType extends AtomPoemType {
 
-  private int size;
+  private int size;             // or, < 0 for "unlimited"
+
+  public StringPoemType(boolean nullable, int size, int width, int height) {
+    super(Types.VARCHAR, "VARCHAR", nullable, width, height);
+    this.size = size;
+  }
 
   public StringPoemType(boolean nullable, int size) {
-    super(Types.VARCHAR, "VARCHAR", nullable);
-    this.size = size;
+    this(nullable, size, size < 0 ? 40 : size, 1);
+  }
+
+  public int getSize() {
+    return size;
   }
 
   protected void _assertValidIdent(Object ident)
       throws ValidationPoemException {
     if (ident != null && !(ident instanceof String))
       throw new TypeMismatchPoemException(ident, this);
-    if (((String)ident).length() > size)
+    if (size >= 0 && ((String)ident).length() > size)
       throw new StringLengthValidationPoemException(this, (String)ident);
   }
 
@@ -33,13 +41,15 @@ public class StringPoemType extends AtomPoemType {
   }
 
   protected String _sqlDefinition() {
-    return "VARCHAR(" + size + ")";
+    // FIXME Postgres-specific---aargh (have PostgresStringPoemType etc.)
+    return size < 0 ? "TEXT" : "VARCHAR(" + size + ")";
   }
 
   protected boolean _canBe(PoemType other) {
-    return
-        other instanceof StringPoemType && 
-        ((StringPoemType)other).size >= size;
+    if (!(other instanceof StringPoemType))
+      return false;
+    int otherSize = ((StringPoemType)other).size;
+    return otherSize < 0 || size >= 0 && otherSize >= size;
   }
 
   public String toString() {

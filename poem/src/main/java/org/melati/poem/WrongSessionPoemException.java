@@ -1,22 +1,17 @@
 package org.melati.poem;
 
 public class WrongSessionPoemException extends AppBugPoemException {
-  public SessionToken objectSession;
-  public SessionToken threadSession;
   public Table table;
+  public Integer troid;
 
-  public WrongSessionPoemException(
-      SessionToken objectSession, SessionToken threadSession, Table table) {
-    this.objectSession = objectSession;
-    this.threadSession = threadSession;
+  public WrongSessionPoemException(Table table, Integer troid) {
     this.table = table;
+    this.troid = troid;
   }
 
   public String getMessage() {
     return
-        "A thread accessed a Poem object obtained in a different session.\n" +
-        "Thread session: " + threadSession + "\n" +
-        "Object session: " + objectSession + "\n" +
-        "The object was from the table `" + table.getName() + "'";
+        "An object being constructed was accessed in a different session\n" +
+        "Object is table `" + table.getName() + "', troid " + troid;
   }
 }

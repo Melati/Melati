@@ -1,25 +1,26 @@
 package org.melati.poem;
 
 import java.util.*;
+import org.melati.util.*;
 
 public final class Cache {
 
   private Hashtable table = new Hashtable();
   private CacheNode theMRU = null, theLRU = null;
-  private int maxSize;
+  // private int maxSize;
   private boolean complete = true;
 
-  public Cache(int maxSize) {
-    if (maxSize < 0)
-      throw new IllegalArgumentException();
-    this.maxSize = maxSize;
+  public Cache(/* int maxSize */ ) {
+    // if (maxSize < 0)
+    //   throw new IllegalArgumentException();
+    // this.maxSize = maxSize;
   }
 
   public synchronized void put(CacheNode value) {
     if (value == null)
       throw new NullPointerException();
 
-    if (maxSize > 0) {
+    // if (maxSize > 0) {
       Object previous = table.put(value.getKey(), value);
       if (previous != null) {
         table.put(value.getKey(), previous);
@@ -29,16 +30,14 @@ public final class Cache {
       value.putBefore(theMRU);
       theMRU = value;
       if (theLRU == null) theLRU = value;
-      value.valid = true;
-    }
+    // }
   }
 
-  public synchronized void trim() {
-    for (CacheNode n = theLRU;
-         n != null && table.size() > maxSize;
-         n = n.nextMRU) {
-      if (n.isDroppable()) {
-        n.valid = false;
+  public synchronized void trim(int maxSize) {
+    CacheNode n = theLRU;
+    while (n != null && table.size() > maxSize) {
+      CacheNode nn = n.prevMRU;
+      if (n.drop()) {
         if (n == theLRU) theLRU = n.prevMRU;
         if (n == theMRU) theMRU = n.nextMRU;
         n.putBefore(null);
@@ -47,6 +46,7 @@ public final class Cache {
       }
       else
         n.uncacheContents();
+      n = nn;
     }
   }
 
@@ -71,5 +71,56 @@ public final class Cache {
     }
 
     return null;
+  }
+
+  public synchronized void iterate(Function f) {
+    for (CacheNode n = theLRU; n != null; n = n.prevMRU)
+      f.apply(n);
+  }
+
+  public synchronized void dumpAnalysis() {
+    Hashtable inLRU = new Hashtable();
+    int numFromLRU = 0;
+
+    // System.err.println("-- LRU->MRU");
+
+    for (CacheNode n = theLRU; n != null; n = n.prevMRU) {
+      // System.err.println("[" + n + "]");
+      ++numFromLRU;
+      if (!table.containsKey(n.getKey()))
+        System.err.println("*** ERROR " + n + " is not in the table");
+      if (inLRU.containsKey(n.getKey()))
+        System.err.println("*** ERROR " + n + " is in LRU->MRU twice");
+      inLRU.put(n.getKey(), n);
+    }
+
+    Hashtable inMRU = new Hashtable();
+    int numFromMRU = 0;
+    int contentsSize = 0;
+
+    // System.err.println("-- MRU->LRU");
+
+    for (CacheNode n = theMRU; n != null; n = n.nextMRU) {
+      // System.err.println("[" + n + "]");
+      ++numFromMRU;
+      if (!table.containsKey(n.getKey()))
+        System.err.println("*** ERROR " + n + " is not in the table");
+      if (inMRU.containsKey(n.getKey()))
+        System.err.println("*** ERROR " + n + " is in MRU->LRU twice");
+      inMRU.put(n.getKey(), n);
+      if (!inLRU.containsKey(n.getKey()))
+        System.err.println("*** ERROR " + n + " is in LRU->MRU " +
+                           "but not MRU->LRU");
+      contentsSize += n.analyseContents();
+    }
+
+    if (numFromMRU != numFromMRU && numFromMRU != table.size())
+      System.err.println("*** ERROR the table has " + table.size() +
+                         " elements but LRU->MRU and vv. have " +
+                         numFromLRU + " & " + numFromMRU);
+    else
+      System.err.println("Cache size: " + numFromMRU);
+
+    System.err.println("Contents size: " + contentsSize);
   }
 }

@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
 
-public class Database {
+abstract public class Database {
 
   private final int sessionsMax = 1;
 
@@ -17,20 +17,26 @@ public class Database {
 
   private Vector tables = new Vector();
   private Hashtable tablesByName = new Hashtable();
-  // private UserInfoTable userInfoTable = null;
-  private TableInfoTable tableInfoTable = null;
-  private ColumnInfoTable columnInfoTable = null;
 
-  public Database() {
-    try {
-      defineTable(tableInfoTable = new TableInfoTable(this, "tableinfo"));
-      defineTable(columnInfoTable = new ColumnInfoTable(this, "columninfo"));
-      tableInfoTable.init();
-      columnInfoTable.init();
-    }
-    catch (PoemException e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
+  // 
+  // ==========
+  //  Cacheing
+  // ==========
+  // 
+
+  public void dumpCacheAnalysis() {
+    for (Enumeration t = tables.elements(); t.hasMoreElements();)
+      ((Table)t.nextElement()).dumpCacheAnalysis();
+  }
+
+  public void uncacheContents() {
+    for (Enumeration t = tables.elements(); t.hasMoreElements();)
+      ((Table)t.nextElement()).uncacheContents();
+  }
+
+  public void trimCache(int maxSize) {
+    for (Enumeration t = tables.elements(); t.hasMoreElements();)
+      ((Table)t.nextElement()).trimCache(maxSize);
   }
 
   protected synchronized void defineTable(Table table)
@@ -70,10 +76,12 @@ public class Database {
       // Bootstrap: set up the tableinfo and fieldinfo tables
 
       DatabaseMetaData m = committedConnection.getMetaData();
-      tableInfoTable.unifyWithDB(
-          m.getColumns(null, null, tableInfoTable.getName(), null));
-      columnInfoTable.unifyWithDB(
-          m.getColumns(null, null, columnInfoTable.getName(), null));
+      getTableInfoTable().unifyWithDB(
+          m.getColumns(null, null, getTableInfoTable().getName(), null));
+      getColumnInfoTable().unifyWithDB(
+          m.getColumns(null, null, getColumnInfoTable().getName(), null));
+      getCapabilityTable().unifyWithDB(
+          m.getColumns(null, null, getCapabilityTable().getName(), null));
     }
     catch (SQLException e) {
       throw new DatabaseMetaDataFailurePoemException(e);
@@ -86,8 +94,8 @@ public class Database {
                   try {
                     _this.unifyWithDB();
                   }
-                  catch (SQLException e) {
-                    throw new DatabaseMetaDataFailurePoemException(e);
+                  catch (Exception e) {
+                    throw new UnificationPoemException(e);
                   }
                 }
               });
@@ -98,19 +106,14 @@ public class Database {
     // Check all tables against tableInfo, silently defining the ones
     // that don't exist
 
-    for (Enumeration ti = tableInfoTable.selection();
+    for (Enumeration ti = getTableInfoTable().selection();
          ti.hasMoreElements();) {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
-      System.err.println("*** looking at t i for " + tableInfo.getName());
       Table table = (Table)tablesByName.get(tableInfo.getName());
-      if (table == null) {
-        System.err.println("*** (not found)");
+      if (table == null)
         defineTable(table = new Table(this, tableInfo.getName(),
                                       DefinitionSource.infoTables));
-      } {
-        System.err.println("*** (found " + tableInfo.getId() + ")");
-        table.setTableInfoID(tableInfo.getId());
-      }
+      table.setTableInfo(tableInfo);
     }
 
     // Conversely, add tableInfo for the tables that aren't there
@@ -134,7 +137,6 @@ public class Database {
       Table table = (Table)tablesByName.get(tableName);
 
       if (table == null) {
-        System.err.println("*** creating table " + tableName);
         try {
           defineTable(table = new Table(this, tableName,
                                         DefinitionSource.sqlMetaData));
@@ -144,14 +146,20 @@ public class Database {
         }
         table.createTableInfo();
       }
-      else
-        System.err.println("*** found table " + tableName);
 
-      table.unifyWithDB(getColumnsMetadata(m, tableName));
+      table.unifyWithDB(columnsMetadata(m, tableName));
+    }
+
+    for (Enumeration t = tables.elements(); t.hasMoreElements();) {
+      Table table = (Table)t.nextElement();
+      // bit yukky using getColumns ...
+      ResultSet colDescs = columnsMetadata(m, table.getName());
+      if (!colDescs.next())
+        table.unifyWithDB(colDescs);
     }
   }
 
-  public int getSessionsMax() {
+  public int sessionsMax() {
     return sessionsMax;
   }
 
@@ -165,7 +173,7 @@ public class Database {
                        "of which " + freeSessions.size() + " are free");
   }
 
-  protected ResultSet getColumnsMetadata(DatabaseMetaData m, String tableName)
+  protected ResultSet columnsMetadata(DatabaseMetaData m, String tableName)
       throws SQLException {
     return m.getColumns(null, null, tableName, null);
   }
@@ -176,12 +184,16 @@ public class Database {
     return table;
   }
 
+  public final Enumeration tables() {
+    return tables.elements();
+  }
+
   final Table tableWithTableInfoID(int tableInfoID) {
     synchronized (tables) {
       for (Enumeration t = tables.elements(); t.hasMoreElements();) {
         Table table = (Table)t.nextElement();
-        if (table.getTableInfoID() != null &&
-            table.getTableInfoID().intValue() == tableInfoID)
+        Integer id = table.tableInfoID();
+        if (id != null && id.intValue() == tableInfoID)
           return table;
       }
 
@@ -200,20 +212,15 @@ public class Database {
   }
 
   void notifyClosed(Session session) {
-    try {
-      session.commit();
-    }
-    finally {
-      freeSessions.addElement(session);
-    }
+    freeSessions.addElement(session);
   }
 
   Session session(int index) {
-    System.err.println("lookup session " + index + " of " + sessions.size());
     return (Session)sessions.elementAt(index);
   }
 
-  protected void inSession(AccessToken accessToken, Runnable task) {
+  public void inSession(AccessToken accessToken, final Runnable task,
+                        boolean committedSession) {
     try {
       structuralModificationLock.readLock();
     }
@@ -222,26 +229,86 @@ public class Database {
     }
 
     try {
-      Session session = openSession();
-      try {
-        PoemThread.inSession(task, accessToken, session);
-      }
-      finally {
-        session.close();
-      }
+      final Session session = committedSession ? null : openSession();
+      PoemThread.inSession(new Runnable() {
+                             public void run() {
+                               try {
+                                 task.run();
+                                 if (session != null)
+                                   session.commit();
+                               }
+                               catch (RuntimeException e) {
+                                 if (session != null)
+                                   session.close(false);
+                                 throw e;
+                               }
+                               finally {
+                                 if (session != null)
+                                   session.close(true);
+                               }
+                             }
+                           },
+                           accessToken,
+                           session);
     }
     finally {
       structuralModificationLock.readUnlock();
     }
   }
 
+  public void inSession(AccessToken accessToken, final Runnable task) {
+    inSession(accessToken, task, false);
+  }
+
+  public void inCommittedSession(AccessToken accessToken, final Runnable task) {
+    inSession(accessToken, task, true);
+  }
+
   Connection getCommittedConnection() {
     return committedConnection;
   }
 
+  public ResultSet sqlQuery(String sql) throws SQLPoemException {
+    Session session = PoemThread.session();
+    session.writeDown();
+    try {
+      ResultSet rs =
+          session.getConnection().createStatement().executeQuery(sql);
+      if (logSQL)
+        log(new SQLLogEvent(sql));
+      return rs;
+    }
+    catch (SQLException e) {
+      throw new ExecutingSQLPoemException(sql, e);
+    }
+  }
+
+  public int sqlUpdate(String sql) throws SQLPoemException {
+    Session session = PoemThread.session();
+    session.writeDown();
+    try {
+      int n = session.getConnection().createStatement().executeUpdate(sql);
+      if (logSQL)
+        log(new SQLLogEvent(sql));
+      return n;
+    }
+    catch (SQLException e) {
+      throw new ExecutingSQLPoemException(sql, e);
+    }
+  }
+
+  public Enumeration referencesTo(final Persistent object) {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(tables.elements()) {
+          public Object mapped(Object table) {
+            return ((Table)table).referencesTo(object);
+          }
+        });
+  }
+
   public void appendQuotedName(StringBuffer buffer, String name)
       throws InvalidNamePoemException {
-    StringUtils.appendQuoted(buffer, name, '"');
+    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
   }
 
   public final String quotedName(String name) throws InvalidNamePoemException {
@@ -259,13 +326,18 @@ public class Database {
     }
   }
 
+  public boolean logSQL = false;
+
   void log(PoemLogEvent e) {
     System.err.println("---\n" + e.toString());
   }
 
-  void beginStructuralModification() throws CannotBeInSessionPoemException {
+  void beginExclusiveLock() {
     if (PoemThread.inSession())
-      throw new CannotBeInSessionPoemException();
+      structuralModificationLock.readUnlock();
+
+    // FIXME yuk, see above
+
     try {
       structuralModificationLock.writeLock();
     }
@@ -274,10 +346,28 @@ public class Database {
     }
   }
 
+  void endExclusiveLock() {
+    structuralModificationLock.writeUnlock();
+
+    // FIXME yuk, see above
+
+    if (PoemThread.inSession())
+      try {
+        structuralModificationLock.readLock();
+      }
+      catch (InterruptedException e) {
+        throw new InterruptedPoemException(e);
+      }
+  }
+
+  void beginStructuralModification() {
+    beginExclusiveLock();
+  }
+
   void endStructuralModification() {
     for (int t = 0; t < tables.size(); ++t)
       ((Table)tables.elementAt(t)).uncacheContents();
-    structuralModificationLock.writeUnlock();
+    endExclusiveLock();
   }
 
 /*
@@ -354,13 +444,12 @@ public class Database {
     throw e;
   }
 
-  public TableInfoTable getTableInfoTable() {
-    return tableInfoTable;
-  }
-
-  public ColumnInfoTable getColumnInfoTable() {
-    return columnInfoTable;
-  }
+  public abstract TableInfoTable getTableInfoTable();
+  public abstract ColumnInfoTable getColumnInfoTable();
+  public abstract CapabilityTable getCapabilityTable();
+  public abstract UserTable getUserTable();
+  public abstract GroupTable getGroupTable();
+  public abstract GroupMembershipTable getGroupMembershipTable();
 
   public PoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {

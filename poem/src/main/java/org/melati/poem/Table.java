@@ -9,12 +9,18 @@ public class Table {
   private Database database;
   private String name;
   private DefinitionSource definitionSource;
-  private Integer tableInfoID = null;
+
+  private TableInfo info = null;
 
   private Vector columns = new Vector();
+  private Vector normalColumns = null;
   private Hashtable columnsByName = new Hashtable();
 
   private Column troidColumn = null;
+  private Column deletedColumn = null;
+  private Column canReadColumn = null;
+  private Column canWriteColumn = null;
+  private Column displayColumn = null;
 
   public Table(Database database, String name,
                DefinitionSource definitionSource) {
@@ -29,12 +35,10 @@ public class Table {
   // ================
   // 
 
-  protected void init() throws PoemException {
-  }
-
   protected synchronized void defineColumn(Column column)
       throws DuplicateColumnNamePoemException,
-             DuplicateTroidColumnPoemException {
+             DuplicateTroidColumnPoemException,
+             DuplicateDeletedColumnPoemException {
     if (column.getTable() != this)
       throw new ColumnInUsePoemException(this, column);
 
@@ -46,9 +50,27 @@ public class Table {
         throw new DuplicateTroidColumnPoemException(this, column);
       troidColumn = column;
     }
+    else if (column.isDeletedColumn()) {
+      if (deletedColumn != null)
+        throw new DuplicateDeletedColumnPoemException(this, column);
+      deletedColumn = column;
+    }
+    else {
+      PoemType type = column.getType();
+      if (type instanceof ReferencePoemType &&
+          ((ReferencePoemType)type).targetTable() ==
+               database.getCapabilityTable()) {
+        if (column.getName().equals("canread"))
+          canReadColumn = column;
+        else if (column.getName().equals("canwrite"))
+          canWriteColumn = column;
+      }
+    }
+
+    if (column.isPrimaryDisplay())
+      displayColumn = column;
 
     column.setTable(this);
-    column.setDBIndex(-1);
     columns.addElement(column);
     columnsByName.put(column.getName(), column);
   }
@@ -67,17 +89,14 @@ public class Table {
 
   private int extrasIndex = 0;
 
-  synchronized void createTableInfo() throws PoemException {
-    final Table _this = this;
-    if (getTableInfoID() == null) {
-      System.err.println("*** creating t i for " + getName());
-      setTableInfoID(
-          getDatabase().getTableInfoTable().create(
-              new Initialiser() {
-                public void init(Persistent g) throws AccessPoemException {
-                  ((TableInfo)g).setName(_this.getName());
-                }
-              }).getTroid());
+  void setTableInfo(TableInfo tableInfo) {
+    info = tableInfo;
+  }
+
+  void createTableInfo() throws PoemException {
+    if (info == null) {
+      TableInfoData tid = new TableInfoData(getName());
+      info = (TableInfo)getDatabase().getTableInfoTable().create(tid);
     }
   }
 
@@ -85,39 +104,33 @@ public class Table {
 
     // Match columnInfo with our columns
 
-    if (tableInfoID == null)
+    if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");
 
     for (Enumeration ci =
              database.getColumnInfoTable().getTableinfoColumn().
-                 selectionWhereEq(tableInfoID);
+                 selectionWhereEq(info.troid());
          ci.hasMoreElements();) {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
-      System.err.println("*** looking at columninfo for " + name + "." + columnInfo.getName());
       Column column = (Column)columnsByName.get(columnInfo.getName());
       if (column == null) {
-        System.err.println("*** (creating)");
         column = ExtraColumn.from(this, columnInfo, extrasIndex++);
         _defineColumn(column);
       }
-      else {
-        System.err.println("*** (found)");
-        column.readColumnInfo(columnInfo);
-      }
 
-      column.setColumnInfoID(columnInfo.getId());
+      column.setColumnInfo(columnInfo);
     }
 
     // Conversely, make columnInfo for any columns which don't have it
 
-    System.err.println("*** making c i");
     for (Enumeration c = columns.elements(); c.hasMoreElements();)
       ((Column)c.nextElement()).createColumnInfo();
   }
 
-  synchronized void unifyWithDB(ResultSet colDescs) throws SQLException {
-    for (int c = 0; c < columns.size(); ++c)
-      ((Column)columns.elementAt(c)).setDBIndex(-1);
+  synchronized void unifyWithDB(ResultSet colDescs)
+      throws SQLException, PoemException {
+
+    Hashtable dbColumns = new Hashtable();
 
     int dbIndex;
     for (dbIndex = 0; colDescs.next(); ++dbIndex) {
@@ -132,6 +145,10 @@ public class Table {
             colType.canBe(TroidPoemType.it))
           colType = TroidPoemType.it;
 
+        if (deletedColumn == null && colName.equals("deleted") &&
+            colType.canBe(DeletedPoemType.it))
+          colType = DeletedPoemType.it;
+
         column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
                                  colType, DefinitionSource.sqlMetaData,
                                  extrasIndex++);
@@ -143,13 +160,13 @@ public class Table {
         // but it gets fixed in the next round when all tables
         // (including them, again) are unified
 
-        if (tableInfoID != null)
+        if (info != null)
           column.createColumnInfo();
       }
       else
         column.assertMatches(colDescs);
 
-      column.setDBIndex(dbIndex);
+      dbColumns.put(column, Boolean.TRUE);
     }
 
     if (dbIndex == 0)
@@ -159,9 +176,8 @@ public class Table {
       // silently create any missing columns
       for (int c = 0; c < columns.size(); ++c) {
         Column column = (Column)columns.elementAt(c);
-        if (column.getDBIndex() == -1)
+        if (dbColumns.get(column) == null)
           dbAddColumn(column);
-        column.setDBIndex(dbIndex++);
       }
     }
 
@@ -178,6 +194,8 @@ public class Table {
       ResultSet maxTroid =
           getDatabase().getCommittedConnection().createStatement().
               executeQuery(sql);
+      if (database.logSQL)
+        database.log(new SQLLogEvent(sql));
       if (maxTroid.next())
         nextTroid = maxTroid.getInt(1) + 1;
       else
@@ -185,6 +203,13 @@ public class Table {
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
+    }
+
+    normalColumns = new Vector();
+    for (int c = 0; c < columns.size(); ++c) {
+      Column column = (Column)columns.elementAt(c);
+      if (column.isNormal())
+        normalColumns.addElement(column);
     }
   }
 
@@ -214,20 +239,20 @@ public class Table {
   // ===========
   // 
 
-  public final String getName() {
-    return name;
-  }
-
   public final Database getDatabase() {
     return database;
   }
 
-  final Integer getTableInfoID() {
-    return tableInfoID;
+  public final String getName() {
+    return name;
   }
 
-  final void setTableInfoID(Integer tableInfoID) {
-    this.tableInfoID = tableInfoID;
+  public final String getDisplayName() {
+    return info.getDisplayname();
+  }
+
+  public final Enumeration columns() {
+    return normalColumns.elements();
   }
 
   final int getColumnsCount() {
@@ -238,8 +263,20 @@ public class Table {
     return (Column)columnsByName.get(name);
   }
 
-  public final Column getTroidColumn() {
+  public final Column troidColumn() {
     return troidColumn;
+  }
+
+  public final Column deletedColumn() {
+    return deletedColumn;
+  }
+
+  public final Column displayColumn() {
+    return displayColumn == null ? troidColumn : displayColumn;
+  }
+
+  final Integer tableInfoID() {
+    return info == null ? null : info.troid();
   }
 
   // 
@@ -268,8 +305,8 @@ public class Table {
     String sql = sqb.toString();
 
     try {
-      database.log(new StructuralModificationLogEvent(sql));
       database.getCommittedConnection().createStatement().executeUpdate(sql);
+      database.log(new StructuralModificationLogEvent(sql));
     }
     catch (SQLException e) {
       throw new StructuralModificationFailedPoemException(sql, e);
@@ -282,8 +319,8 @@ public class Table {
                  " " + column.getType().sqlDefinition();
 
     try {
-      database.log(new StructuralModificationLogEvent(sql));
       database.getCommittedConnection().createStatement().executeUpdate(sql);
+      database.log(new StructuralModificationLogEvent(sql));
     }
     catch (SQLException e) {
       throw new StructuralModificationFailedPoemException(sql, e);
@@ -394,23 +431,25 @@ public class Table {
   // --------------------
   // 
 
-  private boolean load(PreparedStatement select, Integer troid,
-                       Fields fields) {
+  private Data dbData(PreparedStatement select, Integer troid) {
     try {
       synchronized (select) {
         select.setInt(1, troid.intValue());
         ResultSet rs = select.executeQuery();
+        if (database.logSQL)
+          database.log(new SQLLogEvent(select.toString()));
 
         if (!rs.next())
-          return false;
+          return null;
 
+        Data data = newData();
         for (int c = 0; c < columns.size(); ++c)
-          ((Column)columns.elementAt(c)).load(rs, c + 1, fields);
+          ((Column)columns.elementAt(c)).load(rs, c + 1, data);
 
         if (rs.next())
           throw new DuplicateTroidPoemException(this, troid);
 
-        return true;
+        return data;
       }
     }
     catch (SQLException e) {
@@ -424,54 +463,95 @@ public class Table {
     }
   }
 
-  boolean load(Session session, Integer troid, Fields fields) {
-    return load(((SessionStuff)sessionStuffs.get(session.getIndex())).get,
-                troid, fields);
+  Data dbData(Session session, Integer troid) {
+    return dbData(((SessionStuff)sessionStuffs.get(session.index())).get,
+                  troid);
   }
 
-  boolean loadCommitted(Integer troid, Fields fields) {
-    return load(getCommittedSessionStuff().get, troid, fields);
+  Data dbCommittedData(Integer troid) {
+    return dbData(getCommittedSessionStuff().get, troid);
   }
 
-  private void modify(Session session, Fields fields) {
+  private void modify(Session session, Integer troid, Data data) {
     PreparedStatement modify =
-        ((SessionStuff)sessionStuffs.get(session.getIndex())).modify;
+        ((SessionStuff)sessionStuffs.get(session.index())).modify;
     synchronized (modify) {
       for (int c = 0; c < columns.size(); ++c)
-        ((Column)columns.elementAt(c)).save(fields, modify, c + 1);
-      troidColumn.save(fields, modify, columns.size() + 1);
+        ((Column)columns.elementAt(c)).save(data, modify, c + 1);
       try {
+        modify.setInt(columns.size() + 1, troid.intValue());
         modify.executeUpdate();
       }
       catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
+      if (database.logSQL)
+        database.log(new SQLLogEvent(modify.toString()));
     }
   }
 
-  private void insert(Session session, Fields fields) {
+  private void insert(Session session, Integer troid, Data data) {
     PreparedStatement insert =
-        ((SessionStuff)sessionStuffs.get(session.getIndex())).insert;
+        ((SessionStuff)sessionStuffs.get(session.index())).insert;
     synchronized (insert) {
       for (int c = 0; c < columns.size(); ++c)
-        ((Column)columns.elementAt(c)).save(fields, insert, c + 1);
+        ((Column)columns.elementAt(c)).save(data, insert, c + 1);
       try {
         insert.executeUpdate();
       }
       catch (SQLException e) {
         throw new PreparedSQLSeriousPoemException(insert, e);
       }
+      if (database.logSQL)
+        database.log(new SQLLogEvent(insert.toString()));
     }
   }
 
-  void writeDown(Session session, Fields fields) {
-    // FIXME race, I suppose
-    if (fields.exists)
-      modify(session, fields);
-    else {
-      fields.exists = true;
-      insert(session, fields);
+  public Enumeration referencesTo(final Persistent object) {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(columns.elements()) {
+          public Object mapped(Object column) {
+            return ((Column)column).referencesTo(object);
+          }
+        });
+  }
+
+  void delete(Integer troid, Session session) {
+    String sql =
+        "DELETE FROM " + _quotedName(name) +
+        " WHERE " + _quotedName(troidColumn.getName()) + " = " +
+        troid.toString();
+
+    try {
+      Connection connection;
+      if (session == null)
+        connection = getDatabase().getCommittedConnection();
+      else {
+        session.writeDown();
+        connection = session.getConnection();
+      }
+
+      connection.createStatement().executeUpdate(sql);
+      if (database.logSQL)
+        database.log(new SQLLogEvent(sql));
     }
+    catch (SQLException e) {
+      throw new ExecutingSQLPoemException(sql, e);
+    }
+  }
+
+  void writeDown(Session session, Integer troid, Data data) {
+    troidColumn.setIdent(data, troid);
+
+    // FIXME race, I suppose
+    if (data.exists)
+      modify(session, troid, data);
+    else {
+      insert(session, troid, data);
+      data.exists = true;
+    }
+
+    data.dirty = false;
   }
 
   // 
@@ -486,39 +566,39 @@ public class Table {
   // ----------
   // 
 
-  private int maxCacheSize = 1000;
-  private Cache cache = new Cache(maxCacheSize);
+  private Cache cache = new Cache();
+
+  public void dumpCacheAnalysis() {
+    System.err.println("\n-------- Analysis of " + name + "'s cache\n");
+    cache.dumpAnalysis();
+  }
 
   void uncacheContents() {
     cache.uncacheContents();
   }
 
-  private InterSession getInterSession(Integer troid) {
+  void trimCache(int maxSize) {
+    cache.trim(maxSize);
+  }
+
+  void cacheIterate(final Session session, final Function f) {
+    cache.iterate(new Function() {
+                    public Object apply(Object is) {
+                      Data data = ((CacheInterSession)is).cachedData(session);
+                      if (data != null) f.apply(data);
+                      return null;
+                    }
+                  });
+  }
+
+  CacheInterSession interSession(Integer troid) {
     synchronized (cache) {
-      InterSession is = (InterSession)cache.get(troid);
+      CacheInterSession is = (CacheInterSession)cache.get(troid);
       if (is == null) {
-        is = new InterSession(troid);
+        is = new CacheInterSession(this, troid);
         cache.put(is);
       }
       return is;
-    }
-  }
-
-  private Persistent _get(Integer troid) {
-    SessionToken sessionToken = PoemThread.sessionToken();
-    int s = sessionToken.session.getIndex();
-
-    InterSession is = getInterSession(troid);
-    synchronized (is) {
-      if (is.versions == null) {
-        is.versions = new Persistent[database.getSessionsMax()];
-        return is.versions[s] = newPersistent(troid, sessionToken, is);
-      }
-      else {
-        Persistent g = is.versions[s];
-        return g != null ? g :
-            (is.versions[s] = newPersistent(troid, sessionToken, is));
-      }
     }
   }
 
@@ -528,23 +608,31 @@ public class Table {
   // ----------
   // 
 
-  public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
-    Persistent g = _get(troid);
+  public Persistent getObject(Integer troid)  {
+    Persistent persistent = newPersistent();
+    persistent.init(interSession(troid));
+
     try {
-      g.fieldsUnchecked();
+      persistent.dataUnchecked(PoemThread.session());
     }
     catch (RowDisappearedPoemException e) {
       throw new NoSuchRowPoemException(this, troid);
     }
-    return g;
+
+    return persistent;
   }
 
   public Persistent getObject(int troid) throws NoSuchRowPoemException {
     return getObject(new Integer(troid));
   }
 
-  public Enumeration selection(String whereClause)
+  private ResultSet selectionResultSet(String whereClause,
+                                       boolean includeDeleted)
       throws SQLPoemException {
+    if (deletedColumn != null && !includeDeleted)
+      whereClause = (whereClause == null ? "" : whereClause + " AND ") +
+                    "NOT " + deletedColumn.getName();
+      
     String sql =
         "SELECT " + _quotedName(troidColumn.getName()) +
         " FROM " + _quotedName(name) +
@@ -553,17 +641,41 @@ public class Table {
     try {
       Session session = PoemThread.session();
       session.writeDown();
-      return new ResultSetEnumeration(
-          this,
-          session.getConnection().createStatement().executeQuery(sql));
+      ResultSet rs =
+          session.getConnection().createStatement().executeQuery(sql);
+      if (database.logSQL)
+        database.log(new SQLLogEvent(sql));
+      return rs;
     }
     catch (SQLException e) {
       throw new ExecutingSQLPoemException(sql, e);
     }
   }
 
-  public Enumeration selection() throws SQLPoemException {
-    return selection(null);
+  public Enumeration selection(String whereClause, boolean includeDeleted)
+      throws SQLPoemException {
+    return new ResultSetEnumeration(
+        this, selectionResultSet(whereClause, includeDeleted), true);
+  }
+
+  Enumeration troidSelection(String whereClause, boolean includeDeleted)
+      throws SQLPoemException {
+    return new ResultSetEnumeration(
+        this, selectionResultSet(whereClause, includeDeleted), false);
+  }
+
+  public final Enumeration selection(String whereClause)
+      throws SQLPoemException {
+    return selection(whereClause, false);
+  }
+
+  public final Enumeration selection(boolean includeDeleted)
+      throws SQLPoemException {
+    return selection(null, includeDeleted);
+  }
+
+  public final Enumeration selection() throws SQLPoemException {
+    return selection(null, false);
   }
 
   // 
@@ -572,11 +684,11 @@ public class Table {
   // ----------
   // 
 
-  private void validate(Fields fields) throws FieldContentsPoemException {
+  private void validate(Data data) throws FieldContentsPoemException {
     for (int c = 0; c < columns.size(); ++c) {
       Column column = (Column)columns.elementAt(c);
       try {
-        column.getType().assertValidIdent(column.getIdent(fields));
+        column.getType().assertValidIdent(column.getIdent(data));
       }
       catch (Exception e) {
         throw new FieldContentsPoemException(column, e);
@@ -592,64 +704,81 @@ public class Table {
     return new Integer(nextTroid++);
   }
 
-  public Persistent create(Initialiser initialiser)
-      throws AccessPoemException, ValidationPoemException {
+  final int troidBound() {
+    if (nextTroid == -1)
+      throw new PoemBugPoemException();
+    return nextTroid;
+  }
 
-    // Set it up without an InterSession but with some blank fields
+  // FIXME don't use the Data version 'cos it messes up triggers ...
+
+  private Persistent create(Object initOrData)
+      throws AccessPoemException, ValidationPoemException,
+             InitialisationPoemException {
+
+    Integer troid = nextTroid();
+
+    Data data;
+    if (initOrData instanceof Data)
+      data = (Data)initOrData;
+    else
+      data = newData();
+
+    troidColumn.setIdent(data, troid);
+    if (deletedColumn != null)
+      deletedColumn.setIdent(data, Boolean.FALSE);
+    data.exists = false;
 
     SessionToken sessionToken = PoemThread.sessionToken();
-    Integer troid = nextTroid();
-    Persistent g = newPersistentForInit(troid, sessionToken);
-    g.getFields().exists = false;
-    troidColumn.setIdent(g.getFields(), troid);
+    ConstructionInterSession dummyInterSession =
+        new ConstructionInterSession(this, troid, data, sessionToken.session);
+    Persistent object = newPersistent();
+    object.initForConstruct(dummyInterSession, sessionToken.accessToken);
 
-    // Let the user do their worst.
-
-    initialiser.init(g);
+    if (initOrData instanceof Initialiser)
+      // Let the user do their worst.
+      ((Initialiser)initOrData).init(object);
 
     // Are the values they have put in legal, and is the result
     // something they could have created by writing into a record?
     // FIXME does this do the right thing?
 
     try {
-      validate(g.getFields());
-      g.assertCanWrite(g.getFields(), g.getSessionToken().accessToken);
+      validate(data);
+      object.assertCanWrite(data, sessionToken.accessToken);
     }
     catch (Exception e) {
       throw new InitialisationPoemException(this, e);
     }
 
-    // Plug it into the cache ...
+    // Plug it into the cache for later writedown
 
-    InterSession is = getInterSession(troid);
-    synchronized (is) {
-      if (is.versions != null)
-        // FIXME this check is definitely NOT sufficient!
-        throw new DuplicateTroidPoemException(this, troid);
-
-      is.versions = new Persistent[database.getSessionsMax()];
-      is.versions[sessionToken.session.getIndex()] = g;
-      g.setInterSession(is);
-    }
-
-    // ... for later writedown
-
-    g.markTouched();
-
-    return g;
+    CacheInterSession interSession = interSession(troid);
+    interSession.setData(sessionToken.session, data);
+    object.init(interSession);
+    return object;
   }
 
-  private Persistent newPersistent(
-      Integer troid, SessionToken sessionToken, InterSession interSession) {
-    Persistent g = newPersistent();
-    g.init(this, troid, sessionToken, interSession);
-    return g;
+  public Persistent create(Data data) 
+      throws AccessPoemException, ValidationPoemException,
+             InitialisationPoemException {
+    return create((Object)data);
   }
 
-  private Persistent newPersistentForInit(Integer troid, SessionToken sessionToken) {
-    Persistent g = newPersistent();
-    g.initForInit(this, troid, sessionToken);
-    return g;
+  public Persistent create(Initialiser initialiser) 
+      throws AccessPoemException, ValidationPoemException,
+             InitialisationPoemException {
+    return create((Object)initialiser);
+  }
+
+  protected Data _newData() {
+    return new Data();
+  }
+
+  final Data newData() {
+    Data them = _newData();
+    them.extras = new Object[getExtrasCount()];
+    return them;
   }
 
   protected Persistent newPersistent() {
@@ -666,21 +795,22 @@ public class Table {
   // ----------------
   // 
 
-  final AccessToken readOverride = new BaseAccessToken();
-
-  public Column getCanReadColumn() {
-    return null;
+  public Capability getDefaultCanRead() {
+    return info.getDefaultcanread();
   }
 
-  public Capability getCanRead() {
-    return null;
+  public Capability getDefaultCanWrite() {
+    return info.getDefaultcanwrite();
   }
 
-  public Column getCanWriteColumn() {
-    return null;
+  final Column canReadColumn() {
+    return canReadColumn;
   }
 
-  public Capability getCanWrite() {
-    return null;
+  final Column canWriteColumn() {
+    return canWriteColumn;
+  }
+
+  protected void notifyUpdate(Session session, Data data) {
   }
 }

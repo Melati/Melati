@@ -1,5 +1,8 @@
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class ReferencePoemType extends IntegerPoemType {
 
   private Table targetTable;
@@ -9,6 +12,15 @@ public class ReferencePoemType extends IntegerPoemType {
     if (targetTable == null)
       throw new NullPointerException();
     this.targetTable = targetTable;
+  }
+
+  public Table targetTable() {
+    return targetTable;
+  }
+
+  public Enumeration possibleIdents() {
+    Enumeration them = targetTable.troidSelection(null, false);
+    return isNullable() ? new ConsEnumeration(null, them) : them;
   }
 
   protected void _assertValidValue(Object value)
@@ -26,7 +38,16 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   protected Object _identOfValue(Object value) {
-    return ((Persistent)value).getTroid();
+    return ((Persistent)value).troid();
+  }
+
+  protected String _stringOfValue(Object value) throws PoemException {
+    Persistent g = (Persistent)value;
+    Column displayColumn = targetTable.displayColumn();
+    if (displayColumn == null)
+      return g.getTroid().toString();
+    else
+      return displayColumn.getType().stringOfValue(displayColumn.getValue(g));
   }
 
   protected boolean _canBe(PoemType other) {
@@ -38,7 +59,7 @@ public class ReferencePoemType extends IntegerPoemType {
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypecode(BasePoemType.REFERENCE);
-    columnInfo.setTargettableTroid(targetTable.getTableInfoID());
+    columnInfo.setTargettableTroid(targetTable.tableInfoID());
   }
 
   public String toString() {

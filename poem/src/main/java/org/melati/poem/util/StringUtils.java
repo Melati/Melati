@@ -1,6 +1,28 @@
 package org.melati.util;
 
 public class StringUtils {
+  public static String[] split(String s, char c) {
+    int n = 0;
+    for (int i = s.indexOf(c); i >= 0; i = s.indexOf(c, i + 1))
+      ++n;
+
+    String[] them = new String[n + 1];
+
+    for (int i = 0, m = 0;; ++m) {
+      int j = s.indexOf(c, i);
+      if (j == -1) {
+        them[m] = s.substring(i);
+        break;
+      }
+      else {
+        them[m] = s.substring(i, j);
+        i = j + 1;
+      }
+    }
+
+    return them;
+  }
+
   public static void appendEscaped(StringBuffer b, String s, char e) {
     int l = s.length();
     for (int i = 0; i < l; ++i) {

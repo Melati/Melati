@@ -10,4 +10,10 @@ class SessionToken {
     this.session = session;
     this.accessToken = accessToken;
   }
+
+  void invalidate() {
+    thread = null;
+    session = null;
+    accessToken = null;
+  }
 }

@@ -1,262 +1,145 @@
 package org.melati.poem;
 
+import java.util.*;
+
 public class Persistent {
 
-  private Table table;
-  private Integer troid;
-  private SessionToken sessionToken;
-
-  // if `interSession' is null we are free-floating, either because we
-  // are being initialised (if flags_initialising) or because we are
-  // uncached; in the latter case we must cache ourselves on write
-
   private InterSession interSession;
+  private AccessToken clearedToken;
+  private boolean knownCanRead = false, knownCanWrite = false;
 
-  // if `fields' is null they haven't been accessed yet and can safely
-  // be initialised to the committed version on read or write
-
-  private Fields fields;
-  private int flags = 0;
-  private static final int
-      flags_knownCanRead  = 1 << 0,
-      flags_knownCanWrite = 1 << 1,
-      flags_touched       = 1 << 2,
-      flags_initialising  = 1 << 3;
-
-  protected Persistent() {
-  }
-
-  final void init(Table table, Integer troid,
-                  SessionToken sessionToken, InterSession interSession) {
-    this.table = table;
-    this.troid = troid;
-    this.sessionToken = sessionToken;
+  synchronized final void init(CacheInterSession interSession) {
     this.interSession = interSession;
-    if (interSession == null)
-      fields = newFields();
-    else
-      fields = null;
+    clearedToken = null;
+    knownCanRead = false;
+    knownCanWrite = false;
   }
 
-  final void initForInit(Table table, Integer troid,
-                         SessionToken sessionToken) {
-    init(table, troid, sessionToken, null);
-    flags |= flags_initialising;
-  }
-
-  final SessionToken getSessionToken() {
-    return sessionToken;
-  }
-
-  protected Fields _newFields() {
-    return new Fields();
-  }
-
-  public final Fields newFields() {
-    Fields them = _newFields();
-    them.extras = new Object[getTable().getExtrasCount()];
-    return them;
+  synchronized final void initForConstruct(
+      ConstructionInterSession interSession, AccessToken accessToken) {
+    this.interSession = interSession;
+    clearedToken = accessToken;
+    knownCanRead = true;
+    knownCanWrite = true;
   }
 
   public final Table getTable() {
-    return table;
+    return interSession.getTable();
   }
 
   public final Database getDatabase() {
     return getTable().getDatabase();
   }
 
-  final Integer getTroid() {
-    return troid;
+  final Integer troid() {
+    return interSession.getTroid();
   }
 
-  private void assertRightSession() {
-    if (sessionToken == null)
-      throw new SessionFinishedPoemException();
-    if (sessionToken.thread != Thread.currentThread())
-      throw new WrongSessionPoemException(
-          sessionToken, PoemThread.sessionToken(), getTable());
+  public final Integer getTroid() throws AccessPoemException {
+    _dataForReading();
+    return troid();
   }
 
-  final Fields getFields() {
-    return fields;
+  public boolean getReadable() {
+    try {
+      _dataForReading();
+      return true;
+    }
+    catch (AccessPoemException e) {
+      return false;
+    }
   }
 
-  final void setInterSession(InterSession interSession) {
-    flags &= ~flags_initialising;
-    this.interSession = interSession;
+  private synchronized InterSession interSession() {
+    // FIXME what happens if:
+    //   we find interSession is valid but relinquish the lock for a moment
+    //   before calling its dataForReading?
+    if (!interSession.valid())
+      interSession =
+          interSession.getTable().interSession(interSession.getTroid());
+    return interSession;
   }
 
-  protected Capability getCanRead(Fields fields) {
-    Column canReadColumn = getTable().getCanReadColumn();
+  protected Capability getCanRead(Data data) {
+    Column canReadColumn = getTable().canReadColumn();
     return
         canReadColumn == null ? null :
-            (Capability)canReadColumn.getValue(fields);
+            (Capability)canReadColumn.getValue(data);
   }
 
-  protected void assertCanRead(Fields fields, AccessToken token)
+  protected void assertCanRead(Data data, AccessToken token)
       throws AccessPoemException {
-    Capability canRead = getCanRead(fields);
-    if (canRead == null)
-      canRead = getTable().getCanRead();
-    if (!token.givesCapability(canRead))
-      throw new AccessPoemException(token, canRead);
+    // FIXME optimise this ...
+    if (!(clearedToken == token && knownCanRead)) {
+      Capability canRead = getCanRead(data);
+      if (canRead == null)
+        canRead = getTable().getDefaultCanRead();
+      if (canRead != null) {
+        if (!token.givesCapability(canRead))
+          throw new AccessPoemException(token, canRead);
+        if (clearedToken != token)
+          knownCanWrite = false;
+        clearedToken = token;
+        knownCanRead = true;
+      }
+    }
   }
 
-  protected Capability getCanWrite(Fields fields) {
-    Column canWriteColumn = getTable().getCanWriteColumn();
+  protected Capability getCanWrite(Data data) {
+    Column canWriteColumn = getTable().canWriteColumn();
     return
         canWriteColumn == null ? null :
-            (Capability)canWriteColumn.getValue(fields);
+            (Capability)canWriteColumn.getValue(data);
   }
 
-  protected void assertCanWrite(Fields fields, AccessToken token)
+  protected void assertCanWrite(Data data, AccessToken token)
       throws AccessPoemException {
-    Capability canWrite = getCanWrite(fields);
-    if (canWrite == null)
-      canWrite = getTable().getCanWrite();
-    if (!token.givesCapability(canWrite))
-      throw new AccessPoemException(token, canWrite);
-  }
-
-  /**
-   * FIXME not `synchronized' (though I think the worst that can
-   * happen is it's fetched twice from the DB).
-   */
-
-  private Fields committedFields() {
-    Fields them = interSession.committedFields;
-    if (them != InterSession.notInCache)
-      return them;
-    else {
-      Fields got = newFields();
-      if (!getTable().load(sessionToken.session, getTroid(), got))
-        got = InterSession.nonexistent;
-
-      synchronized (interSession) {
-        if (interSession.committedFields == InterSession.notInCache)
-          interSession.committedFields = got;
-        return interSession.committedFields;
+    if (!(clearedToken == token && knownCanWrite)) {
+      Capability canWrite = getCanWrite(data);
+      if (canWrite == null)
+        canWrite = getTable().getDefaultCanWrite();
+      if (canWrite != null) {
+        if (!token.givesCapability(canWrite))
+          throw new AccessPoemException(token, canWrite);
+        if (clearedToken != token)
+          knownCanRead = false;
+        clearedToken = token;
+        knownCanWrite = true;
       }
     }
-  } 
-
-  private Fields dbSessionFields() {
-    Fields got = newFields();
-    return
-        getTable().load(sessionToken.session, getTroid(), got) ?
-            got : InterSession.nonexistent;
   }
 
-  final Fields fieldsUnchecked() {
-    Fields them = fields;
-    if (them == null) {
-      Fields got = committedFields();
-      synchronized (this) {
-        if (fields == null)
-          fields = got;
-        else
-          them = fields;
-      }
-      sessionToken.session.notifySeen(this);
-    }
-    else if (them == InterSession.notInCache) {
-      Fields got = dbSessionFields();
-      synchronized (this) {
-        if (fields == InterSession.notInCache)
-          fields = got;
-        else
-          them = fields;
-      }
-    }
-
-    if (them == InterSession.nonexistent)
-      throw new RowDisappearedPoemException(getTable(), getTroid());
-
-    return them;
+  final Data dataUnchecked(Session session)
+      throws RowDisappearedPoemException {
+    Data data = interSession().dataForReading(session);
+    if (data == InterSession.nonexistent)
+      throw new RowDisappearedPoemException(getTable(), troid());
+    return data;
   }
 
-  protected final Fields _fieldsForReading() throws AccessPoemException {
-    assertRightSession();
-
-    if (interSession == null)
-      // own copy
-      return fields;
-
-    Fields them = fieldsUnchecked();
-
-    if ((flags & flags_knownCanRead) == 0) {
-      assertCanRead(them, sessionToken.accessToken);
-      flags |= flags_knownCanRead;
-    }
-
-    return them;
+  protected final Data _dataForReading() throws AccessPoemException {
+    SessionToken sessionToken = PoemThread.sessionToken();
+    Data data = dataUnchecked(sessionToken.session);
+    assertCanRead(data, sessionToken.accessToken);
+    return data;
   }
 
-  synchronized final void markTouched() {
-    if ((flags & flags_touched) == 0) {
-      flags |= flags_touched;
-      sessionToken.session.notifyTouched(this);
-    }
+  protected final Data _dataForWriting() throws AccessPoemException {
+    SessionToken sessionToken = PoemThread.sessionToken();
+    assertCanWrite(dataUnchecked(sessionToken.session),
+                   sessionToken.accessToken);
+
+    // FIXME this is really gross ... necessary because assertCanWrite can
+    // provoke a premature writeDown
+
+    Data data = interSession.dataForWriting(sessionToken.session);
+    if (data == InterSession.nonexistent)
+      throw new RowDisappearedPoemException(getTable(), troid());
+    return data;
   }
 
-  protected final Fields _fieldsForWriting() throws AccessPoemException {
-    assertRightSession();
-
-    if (interSession == null) {
-      if ((flags & flags_initialising) == 0) {
-        // get ourselves into the cache
-        throw new Error("FIXME");
-      }
-      // own copy
-      return fields;
-    }
-
-    Fields them = fieldsUnchecked();
-
-    synchronized (this) {
-      if ((flags & flags_touched) == 0) {
-        fields = them = (Fields)them.clone(); 
-        flags |= flags_touched;
-        sessionToken.session.notifyTouched(this);
-      }
-    }
-
-    if ((flags & flags_knownCanWrite) == 0) {
-      assertCanWrite(them, sessionToken.accessToken);
-      flags |= flags_knownCanWrite;
-    }
-
-    return them;
-  }
-
-  public final Fields _fieldsSnapshot() throws AccessPoemException {
-    return (Fields)_fieldsForReading().clone();
-  }
-
-  synchronized final void unSee() {
-    if (sessionToken != null && interSession != null) {
-      synchronized (interSession) {
-        Persistent[] versions = interSession.versions;
-        // shouldn't be null since we exist and are valid
-        versions[sessionToken.session.getIndex()] = null;
-        // FIXME this is relatively expensive: do we bother?
-        int v;
-        for (v = versions.length - 1; v >= 0; --v)
-          if (versions[v] != null) break;
-        if (v < 0)
-          interSession.versions = null;
-      }
-    }
-
-    sessionToken = null;
-    interSession = null;
-  }
-
-  final void commit() {
-    Fields newCommittedVersion = fields;
-    if (newCommittedVersion != null)
-      interSession.committedFields = newCommittedVersion;
+  public final Data _dataSnapshot() throws AccessPoemException {
+    return (Data)_dataForReading().clone();
   }
 
   public Object getIdent(String name)
@@ -270,6 +153,39 @@ public class Persistent {
     getTable().getColumn(name).setIdent(this, ident);
   }
 
+  public final void setIdentString(String name, String string)
+      throws AccessPoemException, ParsingPoemException,
+             ValidationPoemException, NoSuchColumnPoemException {
+    Column column = getTable().getColumn(name);
+    column.setIdent(this, column.getType().identOfString(string));
+  }
+
+  public final void deleteAndCommit()
+      throws AccessPoemException, DeletionIntegrityPoemException {
+
+    getDatabase().beginExclusiveLock();
+    try {
+      SessionToken sessionToken = PoemThread.sessionToken();
+      assertCanWrite(dataUnchecked(sessionToken.session),
+                     sessionToken.accessToken);
+
+      Enumeration refs = getDatabase().referencesTo(this);
+      if (refs.hasMoreElements())
+        throw new DeletionIntegrityPoemException(this, refs);
+
+      interSession().delete(sessionToken.session);
+      if (sessionToken.session != null)
+        sessionToken.session.commit();
+    }
+    finally {
+      getDatabase().endExclusiveLock();
+    }
+  }
+
+  public Persistent duplicated() throws AccessPoemException {
+    return getTable().create(_dataSnapshot());
+  }
+
   public Object getValue(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).getValue(this);
@@ -279,5 +195,17 @@ public class Persistent {
       throws NoSuchColumnPoemException, ValidationPoemException,
              AccessPoemException {
     getTable().getColumn(name).setValue(this, value);
+  }
+
+  public final Field getField(String name) {
+    return getTable().getColumn(name).asField(this);
+  }
+
+  public Enumeration elements() {
+    return new FieldsEnumeration(this);
+  }
+
+  public String toString() {
+    return getTable().getName() + "/" + troid();
   }
 }

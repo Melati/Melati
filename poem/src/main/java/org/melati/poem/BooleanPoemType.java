@@ -1,11 +1,31 @@
 package org.melati.poem;
 
 import java.sql.*;
+import java.util.*;
+
+class BooleanPossibleIdentEnumeration implements Enumeration {
+  private int state = 0;
+
+  public boolean hasMoreElements() {
+    return state == 0;
+  }
+
+  public synchronized Object nextElement() {
+    if (state == 2)
+      throw new NoSuchElementException();
+    else
+      return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
+  }
+}
 
 public class BooleanPoemType extends AtomPoemType {
 
   public BooleanPoemType(boolean nullable) {
-    super(Types.BIT, "BOOLEAN", nullable);
+    super(Types.BIT, "BOOLEAN", nullable, 5);
+  }
+
+  public Enumeration possibleIdents() {
+    return new BooleanPossibleIdentEnumeration();
   }
 
   protected void _assertValidIdent(Object ident) {

@@ -1,6 +1,7 @@
 package org.melati.poem;
 
 import java.sql.*;
+import java.util.*;
 
 public interface PoemType {
   void assertValidIdent(Object ident)
@@ -11,6 +12,7 @@ public interface PoemType {
              ParsingPoemException;
   void setIdent(PreparedStatement ps, int col, Object value)
       throws TypeMismatchPoemException;
+  Enumeration possibleIdents();
 
   String stringOfIdent(Object ident)
       throws TypeMismatchPoemException, ValidationPoemException;
@@ -24,7 +26,12 @@ public interface PoemType {
       throws TypeMismatchPoemException, PoemException;
   Object identOfValue(Object value) throws TypeMismatchPoemException;
 
+  String stringOfValue(Object value)
+      throws TypeMismatchPoemException, PoemException;
+
   boolean isNullable();
+  int getWidth();
+  int getHeight();
 
   int sqlTypeCode();
   String sqlDefinition();

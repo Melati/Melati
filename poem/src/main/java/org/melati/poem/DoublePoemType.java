@@ -4,8 +4,12 @@ import java.sql.*;
 
 public class DoublePoemType extends AtomPoemType {
 
+  public DoublePoemType(boolean nullable, int width) {
+    super(Types.DOUBLE, "DOUBLE", nullable, width);
+  }
+
   public DoublePoemType(boolean nullable) {
-    super(Types.DOUBLE, "DOUBLE", nullable);
+    super(Types.DOUBLE, "DOUBLE", nullable, 9);
   }
 
   protected void _assertValidIdent(Object ident) {

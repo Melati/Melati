@@ -12,22 +12,22 @@ public class ExtraColumn extends Column {
     this.extrasIndex = extrasIndex;
   }
 
-  protected Object getIdent(Fields fields) {
-    return fields.extras[extrasIndex];
+  protected Object getIdent(Data data) {
+    return data.extras[extrasIndex];
   }
 
-  protected void setIdent(Fields fields, Object ident) {
-    fields.extras[extrasIndex] = ident;
+  protected void setIdent(Data data, Object ident) {
+    data.extras[extrasIndex] = ident;
   }
 
   public Object getIdent(Persistent g) throws AccessPoemException {
-    return getIdent(g._fieldsForReading());
+    return getIdent(g._dataForReading());
   }
 
   public void setIdent(Persistent g, Object ident)
       throws AccessPoemException, ValidationPoemException {
     getType().assertValidIdent(ident);
-    setIdent(g._fieldsForWriting(), ident);
+    setIdent(g._dataForWriting(), ident);
   }
 
   public Object getValue(Persistent g) throws AccessPoemException, PoemException {
@@ -48,7 +48,7 @@ public class ExtraColumn extends Column {
         table,
         columnInfo.getName(),
         BasePoemType.ofColumnInfo(table.getDatabase(),
-                                  columnInfo.fieldsSnapshot()),
+                                  columnInfo.dataSnapshot()),
         DefinitionSource.sqlMetaData,
         extrasIndex);
   }

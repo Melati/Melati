@@ -1,12 +1,24 @@
 package org.melati.poem;
 
+import java.util.*;
+
 public abstract class AtomPoemType extends BasePoemType {
 
   private String sqlTypeName;
 
-  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
-    super(sqlTypeCode, nullable);
+  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable,
+                      int width, int height) {
+    super(sqlTypeCode, nullable, width, height);
     this.sqlTypeName = sqlTypeName;
+  }
+
+  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable,
+                      int width) {
+    this(sqlTypeCode, sqlTypeName, nullable, width, 1);
+  }
+
+  public Enumeration possibleIdents() {
+    return null;
   }
 
   protected String _stringOfIdent(Object ident) {
@@ -24,6 +36,10 @@ public abstract class AtomPoemType extends BasePoemType {
 
   protected Object _identOfValue(Object value) {
     return value;
+  }
+
+  protected String _stringOfValue(Object value) {
+    return _stringOfIdent(_identOfValue(value));
   }
 
   protected String _sqlDefinition() {

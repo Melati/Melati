@@ -8,13 +8,15 @@ public class Session {
   private Database database;
   private Connection connection;
   private int index;
+  private int mask;
+  private int negMask;
 
   private int seenCapacityMin = 50;
   private int seenCapacityMax = 1000;
   private Vector seen = new Vector(seenCapacityMin);
 
-  private int changedCapacityMin = 50;
-  private int changedCapacityMax = 1000;
+  private int touchedCapacityMin = 50;
+  private int touchedCapacityMax = 1000;
   private Vector touched = new Vector();
 
   Session(Database database, Connection connection, int index) {
@@ -24,42 +26,49 @@ public class Session {
     this.database = database;
     this.connection = connection;
     this.index = index;
+    mask = 1 << index;
+    negMask = ~mask;
   }
 
-  final int getIndex() {
+  final Database getDatabase() {
+    return database;
+  }
+
+  final int index() {
     return index;
+  }
+
+  final int mask() {
+    return mask;
+  }
+
+  final int negMask() {
+    return negMask;
   }
 
   final Connection getConnection() {
     return connection;
   }
 
-  final void notifyTouched(Persistent g) {
-    touched.addElement(g);
+  final void notifyTouched(CacheInterSession is) {
+    touched.addElement(is);
   }
 
-  final void notifySeen(Persistent g) {
-    seen.addElement(g);
+  final void notifySeen(CacheInterSession is) {
+    seen.addElement(is);
   }
 
   public void writeDown() {
     synchronized (touched) {
-      for (Enumeration g = touched.elements(); g.hasMoreElements();) {
-        Persistent generic = (Persistent)g.nextElement();
-        generic.getTable().writeDown(this, generic.getFields());
-      }
-
-      if (touched.size() > changedCapacityMax)
-        touched = new Vector(changedCapacityMin);
-      else
-        touched.setSize(0);
+      for (Enumeration is = touched.elements(); is.hasMoreElements();)
+        ((CacheInterSession)is.nextElement()).writeDown(this);
     }
   }
 
   private void unSee() {
     synchronized (seen) {
-      for (Enumeration g = seen.elements(); g.hasMoreElements();)
-        ((Persistent)g.nextElement()).unSee();
+      for (Enumeration is = seen.elements(); is.hasMoreElements();)
+        ((CacheInterSession)is.nextElement()).unSee(this);
 
       if (seen.size() > seenCapacityMax)
         seen = new Vector(seenCapacityMin);
@@ -75,13 +84,19 @@ public class Session {
       writeDown();
       try {
         connection.commit();
+        database.log(new CommitLogEvent(this));
       }
       catch (SQLException e) {
         throw new CommitFailedPoemException(e);
       }
 
-      for (Enumeration g = touched.elements(); g.hasMoreElements();)
-        ((Persistent)g.nextElement()).commit();
+      for (Enumeration is = touched.elements(); is.hasMoreElements();)
+        ((CacheInterSession)is.nextElement()).commit(this);
+
+      if (touched.size() > touchedCapacityMax)
+        touched = new Vector(touchedCapacityMin);
+      else
+        touched.setSize(0);
     }
     finally {
       unSee();
@@ -91,6 +106,7 @@ public class Session {
   public void rollback() {
     try {
       connection.rollback();
+      database.log(new RollbackLogEvent(this));
     }
     catch (SQLException e) {
       throw new RollbackFailedPoemException(e);
@@ -100,7 +116,11 @@ public class Session {
     }
   }
 
-  public void close() {
+  public void close(boolean commit) {
+    if (commit)
+      commit();
+    else
+      rollback();
     database.notifyClosed(this);
   }
 }

@@ -4,8 +4,12 @@ import java.sql.*;
 
 public class IntegerPoemType extends AtomPoemType {
 
+  public IntegerPoemType(boolean nullable, int width) {
+    super(Types.INTEGER, "INT", nullable, width);
+  }
+
   public IntegerPoemType(boolean nullable) {
-    super(Types.INTEGER, "INT", nullable);
+    super(Types.INTEGER, "INT", nullable, 9);
   }
 
   protected void _assertValidIdent(Object ident) {

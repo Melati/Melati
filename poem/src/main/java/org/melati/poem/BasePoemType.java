@@ -1,14 +1,27 @@
 package org.melati.poem;
 
+import java.util.*;
 import java.sql.*;
 
 public abstract class BasePoemType implements PoemType {
   private int sqlTypeCode;
   private boolean nullable;
+  private int width;
+  private int height;
 
-  BasePoemType(int sqlTypeCode, boolean nullable) {
+  BasePoemType(int sqlTypeCode, boolean nullable, int width, int height) {
     this.sqlTypeCode = sqlTypeCode;
     this.nullable = nullable;
+    this.width = width;
+    this.height = height;
+  }
+
+  BasePoemType(int sqlTypeCode, boolean nullable, int width) {
+    this(sqlTypeCode, nullable, width, 1);
+  }
+
+  BasePoemType(int sqlTypeCode, boolean nullable) {
+    this(sqlTypeCode, nullable, 8);
   }
 
   protected abstract void _assertValidIdent(Object ident)
@@ -115,12 +128,28 @@ public abstract class BasePoemType implements PoemType {
     return value == null ? null : _identOfValue(value);
   }
 
+  protected abstract String _stringOfValue(Object value)
+      throws PoemException;
+
+  public final String stringOfValue(Object value) throws PoemException {
+    doubleCheckValidValue(value);
+    return value == null ? "" : _stringOfValue(value);
+  }
+
   public final boolean isNullable() {
     return nullable;
   }
 
   public final int sqlTypeCode() {
     return sqlTypeCode;
+  }
+
+  public final int getWidth() {
+    return width;
+  }
+
+  public final int getHeight() {
+    return height;
   }
 
   protected abstract String _sqlDefinition();
@@ -143,6 +172,9 @@ public abstract class BasePoemType implements PoemType {
 
   public void saveColumnInfo(ColumnInfo info) throws AccessPoemException {
     info.setNullable(nullable);
+    info.setSize(0);
+    info.setWidth(width);
+    info.setHeight(height);
     _saveColumnInfo(info);
   }
 
@@ -160,28 +192,35 @@ public abstract class BasePoemType implements PoemType {
   }
 
   static final int
-      TROID = 0, BOOLEAN = 1, INTEGER = 2, STRING = 3, DOUBLE = 4, REFERENCE = 6;
+      TROID = 0, DELETED = 1,
+      BOOLEAN = 2, INTEGER = 3, STRING = 4, DOUBLE = 5, REFERENCE = 6;
 
   static PoemType ofColumnInfo(Database database,
-                               ColumnInfoFields info) {
+                               ColumnInfoData info) {
     // FIXME null checking ...
+
+    boolean nullable = info.nullable.booleanValue();
+    int width = info.width.intValue();
+    int height = info.height.intValue();
+
     switch (info.typecode.intValue()) {
       case TROID:
         return TroidPoemType.it;
+      case DELETED:
+        return DeletedPoemType.it;
       case BOOLEAN:
-        return new BooleanPoemType(info.nullable.booleanValue());
+        return new BooleanPoemType(nullable);
       case INTEGER:
-        return new IntegerPoemType(info.nullable.booleanValue());
+        return new IntegerPoemType(nullable, width);
       case STRING:
-        return new StringPoemType(info.nullable.booleanValue(),
-                                  info.size.intValue());
+        return new StringPoemType(nullable, info.size.intValue(),
+                                  width, height);
       case DOUBLE:
-        return new DoublePoemType(info.nullable.booleanValue());
+        return new DoublePoemType(nullable, width);
       case REFERENCE:
         Table table =
           database.tableWithTableInfoID(info.targettable.intValue());
-        return new ReferencePoemType(table,
-                                     info.nullable.booleanValue());
+        return new ReferencePoemType(table, nullable);
       default:
         throw new InvalidColumnInfoTypecodePoemException(info);
     }

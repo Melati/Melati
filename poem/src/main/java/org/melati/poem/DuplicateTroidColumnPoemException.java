@@ -14,6 +14,6 @@ public class DuplicateTroidColumnPoemException extends NormalPoemException {
     return
         "Can't add " + column.getName() + " to " + table.getName() +
         " as a troid column, because it already has one, i.e. " +
-        table.getTroidColumn();
+        table.troidColumn();
   }
 }

@@ -44,6 +44,7 @@ public class PoemThread {
     }
     finally {
       synchronized (freeSessionTokenIndices) {
+        ((SessionToken)sessionTokens.elementAt(token.intValue())).invalidate();
         sessionTokens.setElementAt(null, token.intValue());
         freeSessionTokenIndices.addElement(token);
       }
@@ -71,7 +72,7 @@ public class PoemThread {
   }
 
   public static boolean inSession() {
-    return session() != null;   // FIXME really, what does this mean?
+    return sessionToken() != null;   // FIXME really, what does this mean?
   }
 
   public static AccessToken accessToken() throws NoAccessTokenPoemException {
@@ -88,5 +89,12 @@ public class PoemThread {
     AccessToken old = context.accessToken;
     context.accessToken = token;
     return old;
+  }
+
+  public static Database database() throws NotInSessionPoemException {
+    Session session = session();
+    if (session == null)
+      throw new NoAccessTokenPoemException();
+    return session.getDatabase();
   }
 }

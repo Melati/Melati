@@ -4,19 +4,19 @@ package org.melati.poem;
 
 class ColumnInfoBase extends Persistent {
 
-  public final ColumnInfoFields fieldsSnapshot()
+  public final ColumnInfoData dataSnapshot()
       throws AccessPoemException {
-    return (ColumnInfoFields)_fieldsSnapshot();
+    return (ColumnInfoData)_dataSnapshot();
   }
 
-  protected final ColumnInfoFields fieldsForReading()
+  protected final ColumnInfoData dataForReading()
       throws AccessPoemException {
-    return (ColumnInfoFields)_fieldsForReading();
+    return (ColumnInfoData)_dataForReading();
   }
 
-  protected final ColumnInfoFields fieldsForWriting()
+  protected final ColumnInfoData dataForWriting()
       throws AccessPoemException {
-    return (ColumnInfoFields)_fieldsForWriting();
+    return (ColumnInfoData)_dataForWriting();
   }
 
   public ColumnInfoTable getColumnInfoTable() {
@@ -25,13 +25,13 @@ class ColumnInfoBase extends Persistent {
 
   public Integer getId()
       throws AccessPoemException {
-    return fieldsForReading().id;
+    return dataForReading().id;
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getIdColumn().getType().assertValidValue(value);
-    fieldsForWriting().id = value;
+    dataForWriting().id = value;
   }
 
   public final void setId(int value)
@@ -39,14 +39,18 @@ class ColumnInfoBase extends Persistent {
     setId(new Integer(value));
   }
 
+  public final Field getIdField() throws AccessPoemException {
+    return getColumnInfoTable().getIdColumn().asField(this);
+  }
+
   public Integer getTableinfoTroid()
       throws AccessPoemException {
-    return fieldsForReading().tableinfo;
+    return dataForReading().tableinfo;
   }
 
   public void setTableinfoTroid(Integer ident)
       throws AccessPoemException {
-    fieldsForWriting().tableinfo = ident;
+    dataForWriting().tableinfo = ident;
   }
 
   public TableInfo getTableinfo()
@@ -58,29 +62,92 @@ class ColumnInfoBase extends Persistent {
 
   public void setTableinfo(TableInfo value)
       throws AccessPoemException {
-    setTableinfoTroid(value == null ? null : value.getTroid());
+    setTableinfoTroid(value == null ? null : value.troid());
+  }
+
+  public final Field getTableinfoField() throws AccessPoemException {
+    return getColumnInfoTable().getTableinfoColumn().asField(this);
   }
 
   public String getName()
       throws AccessPoemException {
-    return fieldsForReading().name;
+    return dataForReading().name;
   }
 
   public void setName(String value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getNameColumn().getType().assertValidValue(value);
-    fieldsForWriting().name = value;
+    dataForWriting().name = value;
+  }
+
+  public final Field getNameField() throws AccessPoemException {
+    return getColumnInfoTable().getNameColumn().asField(this);
+  }
+
+  public String getDisplayname()
+      throws AccessPoemException {
+    return dataForReading().displayname;
+  }
+
+  public void setDisplayname(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getDisplaynameColumn().getType().assertValidValue(value);
+    dataForWriting().displayname = value;
+  }
+
+  public final Field getDisplaynameField() throws AccessPoemException {
+    return getColumnInfoTable().getDisplaynameColumn().asField(this);
+  }
+
+  public Integer getDisplayorder()
+      throws AccessPoemException {
+    return dataForReading().displayorder;
+  }
+
+  public void setDisplayorder(Integer value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getDisplayorderColumn().getType().assertValidValue(value);
+    dataForWriting().displayorder = value;
+  }
+
+  public final void setDisplayorder(int value)
+      throws AccessPoemException, ValidationPoemException {
+    setDisplayorder(new Integer(value));
+  }
+
+  public final Field getDisplayorderField() throws AccessPoemException {
+    return getColumnInfoTable().getDisplayorderColumn().asField(this);
+  }
+
+  public Boolean getPrimarydisplay()
+      throws AccessPoemException {
+    return dataForReading().primarydisplay;
+  }
+
+  public void setPrimarydisplay(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getPrimarydisplayColumn().getType().assertValidValue(value);
+    dataForWriting().primarydisplay = value;
+  }
+
+  public final void setPrimarydisplay(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setPrimarydisplay(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getPrimarydisplayField() throws AccessPoemException {
+    return getColumnInfoTable().getPrimarydisplayColumn().asField(this);
   }
 
   public Integer getTypecode()
       throws AccessPoemException {
-    return fieldsForReading().typecode;
+    return dataForReading().typecode;
   }
 
   public void setTypecode(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getTypecodeColumn().getType().assertValidValue(value);
-    fieldsForWriting().typecode = value;
+    dataForWriting().typecode = value;
   }
 
   public final void setTypecode(int value)
@@ -88,15 +155,19 @@ class ColumnInfoBase extends Persistent {
     setTypecode(new Integer(value));
   }
 
+  public final Field getTypecodeField() throws AccessPoemException {
+    return getColumnInfoTable().getTypecodeColumn().asField(this);
+  }
+
   public Boolean getNullable()
       throws AccessPoemException {
-    return fieldsForReading().nullable;
+    return dataForReading().nullable;
   }
 
   public void setNullable(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getNullableColumn().getType().assertValidValue(value);
-    fieldsForWriting().nullable = value;
+    dataForWriting().nullable = value;
   }
 
   public final void setNullable(boolean value)
@@ -104,15 +175,19 @@ class ColumnInfoBase extends Persistent {
     setNullable(value ? Boolean.TRUE : Boolean.FALSE);
   }
 
+  public final Field getNullableField() throws AccessPoemException {
+    return getColumnInfoTable().getNullableColumn().asField(this);
+  }
+
   public Integer getSize()
       throws AccessPoemException {
-    return fieldsForReading().size;
+    return dataForReading().size;
   }
 
   public void setSize(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getSizeColumn().getType().assertValidValue(value);
-    fieldsForWriting().size = value;
+    dataForWriting().size = value;
   }
 
   public final void setSize(int value)
@@ -120,14 +195,58 @@ class ColumnInfoBase extends Persistent {
     setSize(new Integer(value));
   }
 
+  public final Field getSizeField() throws AccessPoemException {
+    return getColumnInfoTable().getSizeColumn().asField(this);
+  }
+
+  public Integer getWidth()
+      throws AccessPoemException {
+    return dataForReading().width;
+  }
+
+  public void setWidth(Integer value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getWidthColumn().getType().assertValidValue(value);
+    dataForWriting().width = value;
+  }
+
+  public final void setWidth(int value)
+      throws AccessPoemException, ValidationPoemException {
+    setWidth(new Integer(value));
+  }
+
+  public final Field getWidthField() throws AccessPoemException {
+    return getColumnInfoTable().getWidthColumn().asField(this);
+  }
+
+  public Integer getHeight()
+      throws AccessPoemException {
+    return dataForReading().height;
+  }
+
+  public void setHeight(Integer value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getHeightColumn().getType().assertValidValue(value);
+    dataForWriting().height = value;
+  }
+
+  public final void setHeight(int value)
+      throws AccessPoemException, ValidationPoemException {
+    setHeight(new Integer(value));
+  }
+
+  public final Field getHeightField() throws AccessPoemException {
+    return getColumnInfoTable().getHeightColumn().asField(this);
+  }
+
   public Integer getTargettableTroid()
       throws AccessPoemException {
-    return fieldsForReading().targettable;
+    return dataForReading().targettable;
   }
 
   public void setTargettableTroid(Integer ident)
       throws AccessPoemException {
-    fieldsForWriting().targettable = ident;
+    dataForWriting().targettable = ident;
   }
 
   public TableInfo getTargettable()
@@ -139,10 +258,25 @@ class ColumnInfoBase extends Persistent {
 
   public void setTargettable(TableInfo value)
       throws AccessPoemException {
-    setTargettableTroid(value == null ? null : value.getTroid());
+    setTargettableTroid(value == null ? null : value.troid());
   }
 
-  protected Fields _newFields() {
-    return new ColumnInfoFields();
+  public final Field getTargettableField() throws AccessPoemException {
+    return getColumnInfoTable().getTargettableColumn().asField(this);
+  }
+
+  public String getRenderinfo()
+      throws AccessPoemException {
+    return dataForReading().renderinfo;
+  }
+
+  public void setRenderinfo(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getRenderinfoColumn().getType().assertValidValue(value);
+    dataForWriting().renderinfo = value;
+  }
+
+  public final Field getRenderinfoField() throws AccessPoemException {
+    return getColumnInfoTable().getRenderinfoColumn().asField(this);
   }
 }

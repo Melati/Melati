@@ -3,7 +3,6 @@ package org.melati.poem;
 public abstract class CacheNode {
   CacheNode nextMRU = null;
   CacheNode prevMRU = null;
-  boolean valid = false;
 
   synchronized void putBefore(CacheNode nextMRU) {
     if (this.nextMRU != null)
@@ -24,11 +23,8 @@ public abstract class CacheNode {
     this.nextMRU = nextMRU;
   }
 
-  protected final boolean isValid() {
-    return valid;
-  }
-
-  public abstract boolean isDroppable();
+  public abstract boolean drop();
   public abstract void uncacheContents();
+  public abstract int analyseContents();
   protected abstract Object getKey();
 }

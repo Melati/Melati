@@ -113,4 +113,11 @@ public class MelatiFastWriter extends MelatiWriter
     // Do nothing
   }
 
+/*
+From Brian
+*/
+  public OutputStream getOutputStream() { 
+    return outputStream;
+  }
+
 }

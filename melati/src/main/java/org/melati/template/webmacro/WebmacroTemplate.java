@@ -57,7 +57,7 @@ import org.webmacro.FastWriter;
 import org.webmacro.servlet.WebContext;
 
 /**
- * Interface for a Template for use with Melati
+ * A WebMacro Template for use with Melati.
  *
  */
 
@@ -75,9 +75,8 @@ public class WebmacroTemplate implements Template {
                     TemplateEngine engine) throws TemplateEngineException {
     MelatiWebmacroWriter mww = (MelatiWebmacroWriter)out;
     try {
-      FastWriter fw = mww.getFastWriter(engine);
-      template.write(fw, (WebContext)templateContext.getContext());
-      mww.stopUsingFastWriter(fw);
+      template.write(((MelatiFastWriter)out).getOutputStream(), 
+                     (WebContext)templateContext.getContext());
     } catch (ContextException e) {
       throw new TemplateEngineException(e);
     } catch (IOException e) {

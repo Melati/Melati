@@ -1,4 +1,7 @@
 /*
+ * $Source$
+ * $Revision$
+ *
  * Copyright (c) 1998, 1999, 2000 Semiotek Inc. All Rights Reserved.
  *
  * This software is the confidential intellectual property of
@@ -57,7 +60,6 @@ public class WebmacroStandalone extends HttpServlet {
      * load Templates, and begin other WebMacro operations.
      */
    private WebMacro _wm = null;
-   private WebContext _webContext;
 
    /**
      * The init() method will be called by your servlet runner whenever 
@@ -69,7 +71,6 @@ public class WebmacroStandalone extends HttpServlet {
       try {
          if (_wm == null) {
             _wm = new WM();
-            _webContext = new WebContext(_wm.getBroker());
          }
       } catch (InitException e) {
          throw new ServletException("Could not initialize WebMacro: " + e);
@@ -83,10 +84,8 @@ public class WebmacroStandalone extends HttpServlet {
      * since it might be a lot of resources. 
      */
    public void destroy() {
-      if (_wm != null) {
-         _wm.destroy();
+      if (_wm != null) 
          _wm = null;
-      }
    }
 
 
@@ -122,8 +121,7 @@ public class WebmacroStandalone extends HttpServlet {
          try {
 
             // create a context for the current request
-            _webContext.clear();
-            WebContext c = _webContext.newInstance(req,resp);
+            WebContext c = new WebContext(_wm.getBroker(), req, resp);
 
             // fill up the context with our data
             c.put("Today", new Date());
@@ -141,15 +139,8 @@ public class WebmacroStandalone extends HttpServlet {
             Template t = _wm.getTemplate(
                                    "org/melati/test/WebmacroStandalone.wm");
 
-            // Create FastWriter for fast output encoding
-//            FastWriter fw = new FastWriter(resp.getOutputStream(),
-//                                           resp.getCharacterEncoding());
-            FastWriter fw = new FastWriter(_wm.getBroker(),
-                                           resp.getOutputStream(),
-                                           resp.getCharacterEncoding());
             // write the template to the output, using our context
-            t.write(fw, c);
-            fw.close();
+            t.write(resp.getOutputStream(), c);
          } catch (org.webmacro.NotFoundException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),
                                            resp.getOutputStream(),

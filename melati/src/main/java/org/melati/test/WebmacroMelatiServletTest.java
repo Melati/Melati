@@ -89,7 +89,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
         Context context2 = wm.getContext();
         context2.put("melati",m);
         Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
-        template.write(fmw.getPeer(), context2);
+        template.write(fmw.getOutputStream(), melati.getEncoding(), context2);
         fmw.flush();
         // write to the StringWriter
         String out = sw.toString();

@@ -1156,7 +1156,7 @@ public abstract class Database implements TransactionPool {
       return connectionUrl;
   }
 
-  Connection getCommittedConnection() {
+  public Connection getCommittedConnection() {
     return committedConnection;
   }
 

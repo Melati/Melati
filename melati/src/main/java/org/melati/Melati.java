@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import org.melati.util.*;
 import org.melati.poem.*;
+import org.melati.templets.*;
 import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
 
@@ -12,24 +13,34 @@ public class Melati {
   private WebContext webContext;
   private Database database;
   private MelatiContext melatiContext;
+  private MelatiLocale locale;
+  private TempletLoader templetLoader;
   private Table table;
   private Persistent object;
 
   public Melati(WebContext webContext,
-                Database database, MelatiContext melatiContext)
+                Database database, MelatiContext melatiContext,
+                MelatiLocale locale, TempletLoader templetLoader)
       throws PoemException {
     this.webContext = webContext;
     this.database = database;
     this.melatiContext = melatiContext;
+    this.locale = locale;
+    this.templetLoader = templetLoader;
+
     if (melatiContext.table != null) {
       table = database.getTable(melatiContext.table);
       if (melatiContext.troid != null && melatiContext.troid.intValue() >= 0)
-	object = table.getObject(melatiContext.troid.intValue());
+        object = table.getObject(melatiContext.troid.intValue());
     }
   }
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    return new HTMLMarkupLanguage(webContext);
+    return new HTMLMarkupLanguage(webContext, templetLoader, locale);
+  }
+
+  public YMDDateAdaptor getYMDDateAdaptor() {
+    return YMDDateAdaptor.it;
   }
 
   public VariableExceptionHandler getPassbackVariableExceptionHandler() {
@@ -88,5 +99,38 @@ public class Melati {
 
   public String getMethod() {
     return getContext().method;
+  }
+
+  public static void extractFields(WebContext context, Persistent object) {
+    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
+      Column column = (Column)c.nextElement();
+      String formFieldName = "field-" + column.getName();
+      String rawString = context.getForm(formFieldName);
+
+      if (rawString == null) {
+        String adaptorFieldName = formFieldName + "-adaptor";
+        String adaptorName = context.getForm(adaptorFieldName);
+        if (adaptorName != null) {
+          TempletAdaptor adaptor;
+          try {
+	    // FIXME cache this instantiation
+            adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
+          }
+          catch (Exception e) {
+            throw new TempletAdaptorConstructionMelatiException(
+                      adaptorFieldName, adaptorName, e);
+          }
+
+          column.setRaw(object, adaptor.rawFrom(context, formFieldName));
+        }
+      }
+      else if (rawString.equals(""))
+        if (column.getType().getNullable())
+          column.setRaw(object, null);
+        else
+          column.setRawString(object, "");
+      else
+        column.setRawString(object, rawString);
+    }
   }
 }

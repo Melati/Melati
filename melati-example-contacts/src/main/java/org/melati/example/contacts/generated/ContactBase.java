@@ -10,8 +10,8 @@ import org.melati.poem.*;
 
 public abstract class ContactBase extends Persistent {
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
   }
 
   public ContactTable getContactTable() {
@@ -24,6 +24,7 @@ public abstract class ContactBase extends Persistent {
 
   protected Integer id;
   protected String name;
+  protected Integer owner;
   protected String address;
   protected Integer updates;
   protected Date lastupdated;
@@ -83,6 +84,50 @@ public abstract class ContactBase extends Persistent {
 
   public Field getNameField() throws AccessPoemException {
     Column c = _getContactTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Integer getOwner_unsafe() {
+    return owner;
+  }
+
+  public void setOwner_unsafe(Integer cooked) {
+    owner = cooked;
+  }
+
+  public Integer getOwnerTroid()
+      throws AccessPoemException {
+    readLock();
+    return getOwner_unsafe();
+  }
+
+  public void setOwnerTroid(Integer raw)
+      throws AccessPoemException {
+    setOwner(raw == null ? null : 
+        getContactsDatabaseTables().getContactTable().getContactObject(raw));
+  }
+
+  public Contact getOwner()
+      throws AccessPoemException, NoSuchRowPoemException {
+    Integer troid = getOwnerTroid();
+    return troid == null ? null :
+        getContactsDatabaseTables().getContactTable().getContactObject(troid);
+  }
+
+  public void setOwner(Contact cooked)
+      throws AccessPoemException {
+    _getContactTable().getOwnerColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setOwner_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setOwner_unsafe(cooked.troid());
+    }
+  }
+
+  public Field getOwnerField() throws AccessPoemException {
+    Column c = _getContactTable().getOwnerColumn();
     return new Field(c.getRaw(this), c);
   }
 
@@ -185,21 +230,27 @@ public abstract class ContactBase extends Persistent {
 
   public void setLastupdateuserTroid(Integer raw)
       throws AccessPoemException {
-    _getContactTable().getLastupdateuserColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setLastupdateuser_unsafe(raw);
+    setLastupdateuser(raw == null ? null : 
+        getContactsDatabaseTables().getUserTable().getUserObject(raw));
   }
 
   public User getLastupdateuser()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getLastupdateuserTroid();
     return troid == null ? null :
-        getContactsDatabase().getUserTable().getUserObject(troid);
+        getContactsDatabaseTables().getUserTable().getUserObject(troid);
   }
 
   public void setLastupdateuser(User cooked)
       throws AccessPoemException {
-    setLastupdateuserTroid(cooked == null ? null : cooked.troid());
+    _getContactTable().getLastupdateuserColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setLastupdateuser_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setLastupdateuser_unsafe(cooked.troid());
+    }
   }
 
   public Field getLastupdateuserField() throws AccessPoemException {

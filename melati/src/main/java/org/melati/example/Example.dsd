@@ -7,7 +7,7 @@ table Buyer
 
   (unique) String name (size = 25)
       (description = "The buyer's name")
-(displayorderpriority = 0);
+  (displayorderpriority = 0);
 
   (indexed) BuyerType type
       (description = "The buyer's type");
@@ -45,3 +45,7 @@ table Order
   Product product;
   Boolean urgent;
 }
+
+
+
+

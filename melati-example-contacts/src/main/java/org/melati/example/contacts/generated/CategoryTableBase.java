@@ -24,8 +24,9 @@ public class CategoryTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();  }
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();

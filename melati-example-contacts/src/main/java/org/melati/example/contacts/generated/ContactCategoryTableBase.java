@@ -25,8 +25,9 @@ public class ContactCategoryTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();  }
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -88,7 +89,7 @@ public class ContactCategoryTableBase extends Table {
         });
 
     defineColumn(col_category =
-        new Column(this, "category", new ReferencePoemType(((ContactsDatabase)getDatabase()).getCategoryTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "category", new ReferencePoemType(getContactsDatabaseTables().getCategoryTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ContactCategory)g).getCategory();
@@ -142,10 +143,14 @@ public class ContactCategoryTableBase extends Table {
               throws AccessPoemException {
             ((ContactCategory)g).setCategoryTroid((Integer)raw);
           }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.delete;
+          }
         });
 
     defineColumn(col_contact =
-        new Column(this, "contact", new ReferencePoemType(((ContactsDatabase)getDatabase()).getContactTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "contact", new ReferencePoemType(getContactsDatabaseTables().getContactTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ContactCategory)g).getContact();
@@ -198,6 +203,10 @@ public class ContactCategoryTableBase extends Table {
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ContactCategory)g).setContactTroid((Integer)raw);
+          }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.delete;
           }
         });
   }

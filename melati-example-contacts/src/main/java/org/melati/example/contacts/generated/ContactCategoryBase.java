@@ -10,8 +10,8 @@ import org.melati.poem.*;
 
 public abstract class ContactCategoryBase extends Persistent {
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
   }
 
   public ContactCategoryTable getContactCategoryTable() {
@@ -73,21 +73,27 @@ public abstract class ContactCategoryBase extends Persistent {
 
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
-    _getContactCategoryTable().getCategoryColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setCategory_unsafe(raw);
+    setCategory(raw == null ? null : 
+        getContactsDatabaseTables().getCategoryTable().getCategoryObject(raw));
   }
 
   public Category getCategory()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCategoryTroid();
     return troid == null ? null :
-        getContactsDatabase().getCategoryTable().getCategoryObject(troid);
+        getContactsDatabaseTables().getCategoryTable().getCategoryObject(troid);
   }
 
   public void setCategory(Category cooked)
       throws AccessPoemException {
-    setCategoryTroid(cooked == null ? null : cooked.troid());
+    _getContactCategoryTable().getCategoryColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setCategory_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setCategory_unsafe(cooked.troid());
+    }
   }
 
   public Field getCategoryField() throws AccessPoemException {
@@ -111,21 +117,27 @@ public abstract class ContactCategoryBase extends Persistent {
 
   public void setContactTroid(Integer raw)
       throws AccessPoemException {
-    _getContactCategoryTable().getContactColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setContact_unsafe(raw);
+    setContact(raw == null ? null : 
+        getContactsDatabaseTables().getContactTable().getContactObject(raw));
   }
 
   public Contact getContact()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getContactTroid();
     return troid == null ? null :
-        getContactsDatabase().getContactTable().getContactObject(troid);
+        getContactsDatabaseTables().getContactTable().getContactObject(troid);
   }
 
   public void setContact(Contact cooked)
       throws AccessPoemException {
-    setContactTroid(cooked == null ? null : cooked.troid());
+    _getContactCategoryTable().getContactColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setContact_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setContact_unsafe(cooked.troid());
+    }
   }
 
   public Field getContactField() throws AccessPoemException {

@@ -10,8 +10,8 @@ import org.melati.poem.*;
 
 public abstract class CategoryBase extends Persistent {
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
   }
 
   public CategoryTable getCategoryTable() {

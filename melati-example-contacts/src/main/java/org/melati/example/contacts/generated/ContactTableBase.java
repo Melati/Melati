@@ -12,6 +12,7 @@ public class ContactTableBase extends Table {
 
   private Column col_id = null;
   private Column col_name = null;
+  private Column col_owner = null;
   private Column col_address = null;
   private Column col_updates = null;
   private Column col_lastupdated = null;
@@ -28,8 +29,9 @@ public class ContactTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public ContactsDatabase getContactsDatabase() {
-    return (ContactsDatabase)getDatabase();  }
+  public ContactsDatabaseTables getContactsDatabaseTables() {
+    return (ContactsDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -151,6 +153,63 @@ public class ContactTableBase extends Table {
           }
         });
 
+    defineColumn(col_owner =
+        new Column(this, "owner", new ReferencePoemType(getContactsDatabaseTables().getContactTable(), true), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((Contact)g).getOwner();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((Contact)g).setOwner((Contact)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((Contact)g).getOwnerField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.yes;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(1);
+          }
+
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
+
+          protected String defaultDescription() {
+            return "Contact who owns this contact";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Contact)g).getOwner_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Contact)g).setOwner_unsafe((Integer)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((Contact)g).getOwnerTroid();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Contact)g).setOwnerTroid((Integer)raw);
+          }
+        });
+
     defineColumn(col_address =
         new Column(this, "address", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -176,7 +235,7 @@ public class ContactTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 2;
+            return 3;
           }
 
           protected String defaultDescription() {
@@ -241,7 +300,7 @@ public class ContactTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 3;
+            return 4;
           }
 
           protected String defaultDescription() {
@@ -302,7 +361,7 @@ public class ContactTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 4;
+            return 5;
           }
 
           protected String defaultDescription() {
@@ -335,7 +394,7 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_lastupdateuser =
-        new Column(this, "lastupdateuser", new ReferencePoemType(((ContactsDatabase)getDatabase()).getUserTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "lastupdateuser", new ReferencePoemType(getContactsDatabaseTables().getUserTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getLastupdateuser();
@@ -355,7 +414,7 @@ public class ContactTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.summary;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {
@@ -363,7 +422,7 @@ public class ContactTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 5;
+            return 6;
           }
 
           protected String defaultDescription() {
@@ -398,6 +457,10 @@ public class ContactTableBase extends Table {
 
   public final Column getNameColumn() {
     return col_name;
+  }
+
+  public final Column getOwnerColumn() {
+    return col_owner;
   }
 
   public final Column getAddressColumn() {

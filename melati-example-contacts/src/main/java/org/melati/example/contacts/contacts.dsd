@@ -17,6 +17,14 @@ table Contact
     (displayorderpriority = 0)
     (width = 20);
 
+  Contact owner
+    (nullable)
+    (displaylevel = record) 
+    (searchability = yes)
+    (displayorderpriority = 1)
+    (description = "Contact who owns this contact")
+    ;
+
   String address
     (size = unlimited) 
     (displaylevel = record) 
@@ -40,7 +48,7 @@ table Contact
     (description = "When was this last updated?");
 
   User lastupdateuser
-    (displaylevel = summary) 
+    (displaylevel = record) 
     (searchability = yes)
     (uneditable)
     (description = "Who last updated this?");
@@ -79,13 +87,17 @@ table ContactCategory
     (displaylevel = primary) 
     (searchability = primary)
     (description = "Category")
-    (displayorderpriority = 0);
+    (displayorderpriority = 0)
+    (integrityfix=delete);
 
   Contact contact
     (displaylevel = summary) 
     (searchability = yes)
     (description = "Contact")
-    (displayorderpriority = 1);
+    (displayorderpriority = 1)
+    (integrityfix=delete);
 
 }
+
+
 

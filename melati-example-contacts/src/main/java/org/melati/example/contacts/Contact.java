@@ -1,11 +1,14 @@
 package org.melati.doc.example.contacts;
 
 import org.melati.doc.example.contacts.generated.*;
+import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.servlet.MelatiContext;
 import org.melati.poem.User;
 import org.melati.poem.PoemThread;
+import org.melati.util.Treeable;
+import org.melati.util.EnumUtils;
 
 public class Contact extends ContactBase {
   public Contact() {}
@@ -13,7 +16,7 @@ public class Contact extends ContactBase {
   // programmer's domain-specific code here
   
     public boolean isIn(Category category) {
-      return getContactsDatabase().getContactCategoryTable()
+      return getContactsDatabaseTables().getContactCategoryTable()
            .exists("contact = " + getTroid() + " AND category = " + category.getTroid());
   }
   
@@ -32,4 +35,23 @@ public class Contact extends ContactBase {
     return "contacts";
   }
     
+  public Treeable[] getChildren() {
+    return (Contact.arrayOf(getContactTable().getOwnerColumn().selectionWhereEq(troid())));
+  }
+  
+  public static Treeable[] arrayOf(Vector v) {
+    Treeable[] arr;
+    synchronized (v) {
+      arr = new Treeable[v.size()];
+      v.copyInto(arr);
+    }
+
+    return arr;
+  }
+
+  public static Treeable[] arrayOf(Enumeration e) {
+    Vector v = EnumUtils.vectorOf(e);
+    return arrayOf(v);
+  }
+
 }

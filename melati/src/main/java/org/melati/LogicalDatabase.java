@@ -148,8 +148,16 @@ public class LogicalDatabase {
         int maxTrans = 
         PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
 
-        Object databaseObject = Class.forName(clazz).newInstance();
+		//Object databaseObject=Class.forName(clazz).newInstance();
 
+        Object databaseObject = null;
+		
+		try {
+			databaseObject=Thread.currentThread().getContextClassLoader().loadClass(clazz).newInstance();
+		} catch (Exception e) {
+			databaseObject=Class.forName(clazz).newInstance();
+		}
+		
         if (!(databaseObject instanceof Database)) 
           throw new ClassCastException(
               "The .class=" + clazz + " entry named a class of type " +

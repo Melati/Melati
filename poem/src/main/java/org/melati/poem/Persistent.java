@@ -58,8 +58,15 @@ import org.melati.util.MelatiLocale;
 /*
  *  A <code>Persistent</code> is the object representing a single 
  * table row.
+ * <p>
+ * Instances are also used to represent selection criteria snd as
+ * such constructs in the DBMS dialect of SQL.
+ * Features have now been added specifically to support this but
+ * this functionality might later be factored out into separate
+ * types specifically for that purpose.
  *
  * @author William Chesters
+ * @author jimw@paneris.org (Representing query constructs)
  */
 
 public class Persistent extends Transactioned implements Cloneable {
@@ -509,6 +516,20 @@ public class Persistent extends Transactioned implements Cloneable {
 
   public final void assertCanDelete() throws AccessPoemException {
     assertCanDelete(PoemThread.accessToken());
+  }
+
+  /**
+   * The capability required to select the object.
+   * <p>
+   * There is no <code>assertCanSelect()</code> yet because I don't understand
+   * this stale token stuff!
+   *
+   * @return the capability the user needs to select this record
+   */
+  protected Capability getCanSelect() {
+    Column c = getTable().canSelectColumn();
+    return c == null ? null :
+        (Capability)c.getType().cookedOfRaw(c.getRaw_unsafe(this));
   }
 
   /**
@@ -1248,4 +1269,54 @@ public class Persistent extends Transactioned implements Cloneable {
    */
   public void postModify() {
   }
+
+  // 
+  // ================================
+  // Use to Represent Query Contructs
+  // ================================
+  //
+
+  /**
+   * Return a SELECT query to count rows matching criteria represented
+   * by this object.
+   */
+  public String countMatchSQL(boolean includeDeleted,
+                              boolean cannotSelect) {
+    return getTable().countSQL(
+      fromClause(),
+      getTable().whereClause(this),
+      includeDeleted, cannotSelect);
+  }
+
+  /**
+   * Return an SQL FROM clause for use when selecting rows using criteria
+   * represented by this object.
+   * <p>
+   * By default just the table name is returned, quoted as necessary for
+   * the DBMS.
+   * One way of changing this is to override {@link #otherMatchTables()}.
+   * <p>
+   * Subtypes must ensure the result is compatible with the
+   * result of {@link Table #appendWhereClause(StringBuffer, Persistent)}.
+   */
+  public String fromClause() {
+    String result = getTable().quotedName();
+    Table[] other = otherMatchTables();
+    for (int i = 0; i < other.length; i++) {
+      result += ", " + other[i].quotedName();
+    }
+    return result;
+  }
+
+  /**
+   * Return any other tables involved in the SELECT query for which
+   * this represents criteria.
+   * <p>
+   * Note that this does not support aliases, unless we implement
+   * these through a subtype of {@link Table}.
+   */
+  public Table[] otherMatchTables() {
+    return new Table[0];
+  }
+
 }

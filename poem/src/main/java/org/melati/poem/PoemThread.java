@@ -82,7 +82,8 @@ public class PoemThread {
     return _sessionToken() != null;
   }
 
-  public static AccessToken accessToken() throws NoAccessTokenPoemException {
+  public static AccessToken accessToken()
+      throws NotInSessionPoemException, NoAccessTokenPoemException {
     AccessToken it = sessionToken().accessToken;
     if (it == null)
       throw new NoAccessTokenPoemException();

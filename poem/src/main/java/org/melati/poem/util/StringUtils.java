@@ -191,6 +191,19 @@ public class StringUtils {
       return c.toString();
     }
   }
+  
+  private static String allowableChars = 
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
+
+  public static String getRandomString(int i) {
+    String result = "";
+    int j = allowableChars.length();
+    for (int a=0;a<i;a++) {
+      int index = new Double(Math.random() * j).intValue() ;
+      result += allowableChars.charAt(index);
+    }
+    return result;
+  }
 
   public static void main(String[] args) {
     System.out.println(tr(args[0], "abc", "123"));

@@ -52,12 +52,13 @@ import java.util.NoSuchElementException;
  * An <code>Enumeration</code> of Integers.
  */
 public class IntegerEnumeration implements Enumeration {
+  // Currently no real need for start
   private int start, limit, i;
 
   public IntegerEnumeration(int start, int limit) {
     this.start = start;
     this.limit = limit;
-    this.i = start;
+    this.i = this.start;
   }
 
   public boolean hasMoreElements() {

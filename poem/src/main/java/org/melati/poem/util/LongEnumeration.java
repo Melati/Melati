@@ -52,12 +52,13 @@ import java.util.NoSuchElementException;
  * An <code>Enumeration</code> of Longs.
  */
 public class LongEnumeration implements Enumeration {
+  // No real need for start
   private long start, limit, i;
 
   public LongEnumeration(long start, long limit) {
     this.start = start;
     this.limit = limit;
-    this.i = start;
+    this.i = this.start;
   }
 
   public boolean hasMoreElements() {

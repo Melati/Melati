@@ -30,7 +30,7 @@
   infrastructure for the rapid and convenient development of web-based database
   applications.  This guide describes the API of Melati POEM (Persistent Object
   Engine For Melati): the layer which provides Melati with its object-oriented
-  view of the underlying relational database.  POEM is, in fact, not dependent
+  view of the underlying relational database.  POEM is, in fact, independent
   of the rest of Melati and could be used on its own in non-web applications.
 </P>
 
@@ -160,7 +160,7 @@ database.inSession(
   or non-null uniquely indexed integer field.  Typically, the troid field is
   called <TT>id</TT>, but it need not be.  The call
   <TT>database.getUserTable().getUserObject(5)</TT> returns an object
-  representing the record from the <TT>user</TT> table with troid~5.
+  representing the record from the <TT>user</TT> table with troid&nbsp;5.
 </P>
 
 <P>
@@ -456,8 +456,8 @@ table User {
   The CVS log for this document is:
   <BR>
   <BR>$Log$
-  <BR>Revision 1.6  2000/02/29 17:06:28  williamc
-  <BR>Implement addTable and addColumn; implement auto-creation of indices
+  <BR>Revision 1.7  2000/03/01 21:20:05  williamc
+  <BR>Fix a couple of typos
   <BR>
   <BR>Revision 1.3  2000/02/27 21:19:14  williamc
   <BR>Add table and field descriptions; fill out auto-initalisation from DSD

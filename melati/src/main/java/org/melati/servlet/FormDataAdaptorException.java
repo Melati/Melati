@@ -45,7 +45,7 @@
 
 package org.melati.servlet;
 
-import org.melati.util.*;
+import org.melati.util.MelatiRuntimeException;
 
 /**
  * Some sort of problem with saving or reading an uploaded file.

@@ -79,7 +79,6 @@ import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
-import org.melati.poem.TableInfoTable;
 import org.melati.poem.ValidationPoemException;
 
 import org.melati.util.EnumUtils;
@@ -87,15 +86,16 @@ import org.melati.util.MappedEnumeration;
 import org.melati.util.StringUtils;
 
 /**
- * FIXME getting a bit big, wants breaking up
+ * @todo Getting a bit big, wants breaking up
+ * @todo Ensure that the new, duplicated record is editted, not the original, 
+ *       in Duplicate (see FIXME)
+ * @todo Review working of where clause for dates (see FIXME)
  */
 
 public class Admin extends TemplateServlet {
 
   /**
    * Creates a row for a table using field data in a template context.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
    */
   protected Persistent create(Table table, final TemplateContext context, 
                               final Melati melati) {
@@ -120,15 +120,18 @@ public class Admin extends TemplateServlet {
            name;
   }
 
-  // return the 'Main' admin frame
+  /**
+   *  @return the 'Main' admin frame
+   */
 
   protected String mainTemplate(TemplateContext context) {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Main");
   }
 
-  // return a DSD for the database
-
+  /**
+   *  @return a DSD for the database
+   */
   protected String dsdTemplate(TemplateContext context) {
     context.put("database", PoemThread.database());
     // Webmacro security prevents access from within template
@@ -145,15 +148,17 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "DSD");
   }
 
-  // return top template
-
+  /**
+   *  @return the top template
+   */
   protected String topTemplate(TemplateContext context) throws PoemException {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Top");
   }
 
-  // return the 'bottom' admin page
-
+  /**
+   *  @return the 'bottom' admin page
+   */
   protected String bottomTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     context.put("database", PoemThread.database());
@@ -172,8 +177,9 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Left");
   }
 
-  // return primary select template
-
+  /**
+   *  @return primary select template
+   */
   protected String primarySelectTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     return adminTemplate(primarySelect(context, melati), "PrimarySelect");
@@ -327,7 +333,6 @@ public class Admin extends TemplateServlet {
         start = Math.max(0, Integer.parseInt(startString));
       }
       catch (NumberFormatException e) {
-        //FIXME - surely not a PoemException
         throw new 
             FormParameterException("start", "param to must be an Integer");
       }
@@ -339,7 +344,9 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  // return the 'navigation' admin page
+  /**
+   *  @return the 'navigation' admin page
+   */
   protected String navigationTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     context.put("database", PoemThread.database());
@@ -421,7 +428,9 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "SelectionWindow");
   }
 
-  // return primary select template
+  /**
+   *  @return primary select template
+   */
   protected String selectionWindowPrimarySelectTemplate(TemplateContext context,
                                                         Melati melati)
       throws PoemException {
@@ -429,7 +438,9 @@ public class Admin extends TemplateServlet {
                          "SelectionWindowPrimarySelect");
   }
 
-  // return select template (a selection of records from a table)
+  /**
+   *  @return select template (a selection of records from a table)
+   */
   protected String selectionWindowSelectionTemplate(TemplateContext context,
                                                     Melati melati)
       throws FormParameterException {
@@ -568,8 +579,6 @@ public class Admin extends TemplateServlet {
    * Returns the Add template after placing the table and fields for
    * the new row in the context using any field values already in
    * the context.
-   * <p>
-   * (Please review this description and delete this line. JimW)
    */
   protected String addTemplate(TemplateContext context, Melati melati)
       throws PoemException {
@@ -597,8 +606,6 @@ public class Admin extends TemplateServlet {
    * <p>
    * If successful the template will say so while reloading according
    * to the returnTarget and returnURL values from the Form in context.
-   * <p>
-   * (Please review this description and delete this line. JimW)
    */
   protected String updateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
@@ -612,8 +619,6 @@ public class Admin extends TemplateServlet {
    * <p>
    * If successful the template will say so while reloading according
    * to the returnTarget and returnURL values from the Form in context.
-   * <p>
-   * (Please review this description and delete this line. JimW)
    */
   protected String addUpdateTemplate(TemplateContext context, Melati melati)
       throws PoemException {

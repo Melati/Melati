@@ -43,21 +43,27 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
 
 package org.melati.servlet;
 
-import java.io.*;
-import org.melati.util.*;
+import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.File;
+import java.io.IOException;
+import org.melati.util.DelimitedBufferedInputStream;
 
 /**
+ * Interface for a file uploaded from a HTML form.
+ *
  * We store the data uploaded from a multipart form by saving it to
- * a file on disk and, optionally, give it an associated URL
+ * a file on disk and, optionally, give it an associated URL.
  */
-abstract public class BaseFileDataAdaptor implements FormDataAdaptor
-{
+abstract public class BaseFileDataAdaptor implements FormDataAdaptor {
   /** Size for byte buffers */
   protected int BUFSIZE = 2048;
 

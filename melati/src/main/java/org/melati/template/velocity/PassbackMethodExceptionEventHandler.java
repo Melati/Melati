@@ -1,4 +1,3 @@
-package org.melati.template.velocity;
 /*
  * $Source$
  * $Revision$
@@ -41,7 +40,9 @@ package org.melati.template.velocity;
  *
  *     Tim Joyce <timj@paneris.org>
  */
+package org.melati.template.velocity;
 
+import org.apache.velocity.app.event.MethodExceptionEventHandler;
 
 /**
  *  Reference 'null reference' event handler.  Called when
@@ -50,17 +51,12 @@ package org.melati.template.velocity;
  *
  *  Please return what you want rendered into the output stream.
  *
- * @author <a href="mailto:geirm@optonline.net">Geir Magnusson Jr.</a>
- * @version $Id$
+ * @author Geir Magnusson Jr. <geirm@optonline.net>
  */
-
-import java.lang.reflect.InvocationTargetException;
-import org.apache.velocity.app.event.MethodExceptionEventHandler;
-
 public class PassbackMethodExceptionEventHandler 
        implements MethodExceptionEventHandler {
          
-  public Object methodException( Class claz, String method, Exception e )
+  public Object methodException(Class claz, String method, Exception e)
                 throws Exception {
     return e;
   }

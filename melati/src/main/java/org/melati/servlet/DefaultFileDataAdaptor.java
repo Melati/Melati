@@ -43,22 +43,17 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
-
 package org.melati.servlet;
 
-import java.io.*;
-import java.net.*;
-import org.melati.*;
-import org.melati.util.*;
+import java.io.File;
+import java.net.URLEncoder;
+import org.melati.util.FileUtils;
 
 /**
- * The default way to save an uploaded file to disk - we tell
- * it what directory to save it in and the base URL to that
- * directory
- * 
+ * The default way to save an uploaded file to disk.
+ *
+ * We tell it what directory to save it in and the base URL 
+ * to that directory.
  */
 
 public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
@@ -83,9 +78,9 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
   /**
    * Constructor
    * 
-   * @param uploadDir The directory to save this file in
-   * @param uploadURL A URL pointing to this directory  (null if there
-   *                  isn't an appropriate URL)
+   * @param uploadDir  The directory to save this file in
+   * @param uploadURL  A URL pointing to this directory  (null if there
+   *                   isn't an appropriate URL)
    * @param makeUnique Whether we should make sure the new file has a unique
    *                   name within the <code>uploadDir</code> directory
    */

@@ -43,6 +43,24 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
+package org.melati.servlet;
+
+import java.io.PrintWriter;
+import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.melati.Melati;
+import org.melati.MelatiConfig;
+import org.melati.util.ConnectionPendingException;
+import org.melati.util.MelatiException;
+import org.melati.util.StringUtils;
+import org.melati.util.MelatiWriter;
+
 /*
  * Config Servlet is the simplest way to use Melati.
  *
@@ -91,26 +109,6 @@
  * You can change the way these things are determined by overriding
  * <TT>melatiContext</TT>.
  */
-
-package org.melati.servlet;
-
-import java.io.StringWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.melati.Melati;
-import org.melati.MelatiConfig;
-import org.melati.util.ConnectionPendingException;
-import org.melati.util.MelatiException;
-import org.melati.util.MelatiLocale;
-import org.melati.util.StringUtils;
-import org.melati.util.MelatiWriter;
 
 public abstract class ConfigServlet extends HttpServlet {
 
@@ -202,12 +200,17 @@ public abstract class ConfigServlet extends HttpServlet {
     }
   }
   
+    /**
+     * Print an error directly to the client.
+     *
+     * This is rarely called, eg when the template engine 
+     * fails to render the default error template.
+     */
   public void writeError(PrintWriter out, Exception e) {
     out.println("<html><head><title>Melati Error</title></head>");
-    out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
+    out.println("<!-- HTML generated in " + 
+                "org.melati.servlet.ConfigServlet.java -->");
     out.println("<body><h2>Melati Error</h2>");
-    // This is rarely called, eg when the template engine 
-    // fails to render the default error template
     out.println("<h3>Reported from ConfigServlet</h3>");
     out.println("<p>An error has occured in the application"); 
     out.println("that runs this website, please contact <a href='mailto:");
@@ -219,12 +222,16 @@ public abstract class ConfigServlet extends HttpServlet {
   }    
   
   public void writeConnectionPendingException(PrintWriter out, Exception e) {
-    out.println("<html><head><title>Database Initialising</title><META HTTP-EQUIV='Refresh' CONTENT='30'></head>");
-    out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
+    out.println("<html><head><title>Database Initialising</title>\n");
+    out.println("<META HTTP-EQUIV='Refresh' CONTENT='30'>\n</head>\n");
+    out.println("<!-- Generated in org.melati.servlet.ConfigServlet.java -->");
     out.println("<body><center><h2>Database Initialising</h2><p>&nbsp;</p>");
-    out.println("<p>Sorry, but the database that runs this website is just starting up.");
-    out.println("This takes a few seconds, so you should be able to use the site in a moment.");
-    out.println("<p>This page will refresh in 30 seconds, and you will be able to continue.</p>");
+    out.println("<p><b>Sorry</b>, ");
+    out.println("the database that runs this website is just starting up.");
+    out.println("This takes a few seconds, ");
+    out.println("so you should be able to use the site in a moment.");
+    out.println("<p>This page will refresh in 30 seconds, ");
+    out.println("and you will be able to continue.</p>");
     out.println("<!--" );
     e.printStackTrace(out);
     out.println("--></center></body></html>");

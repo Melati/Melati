@@ -49,7 +49,6 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
-import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 
 /**

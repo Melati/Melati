@@ -45,10 +45,7 @@
 
 package org.melati.template.velocity;
 
-import java.io.IOException;
-
 import org.melati.util.MelatiWriter;
-import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateEngine;
@@ -56,12 +53,11 @@ import org.melati.template.TemplateEngine;
 import org.apache.velocity.VelocityContext;
 
 /**
- * Interface for a Template for use with Melati
+ * A Velocity Template for use with Melati.
  *
  */
 
-public class VelocityTemplate implements org.melati.template.Template
-{
+public class VelocityTemplate implements org.melati.template.Template {
   private org.apache.velocity.Template template;
 
   public VelocityTemplate(org.apache.velocity.Template t) {

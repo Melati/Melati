@@ -45,34 +45,28 @@
 
 package org.melati.test;
 
-import java.io.*;
-import java.util.Hashtable;
-
-import javax.servlet.ServletException;
-
-import org.melati.servlet.*;
+import org.melati.servlet.DefaultFileDataAdaptorFactory;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
-import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
-import org.melati.util.ExceptionUtils;
 
 public class ConfigServletTestOverride extends ConfigServletTest {
 
 /**
- * this simply demonstrates how to use a different melati configuration
+ * Demonstrates how to use a different Melati configuration.
  */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
-    DefaultFileDataAdaptorFactory factory = new DefaultFileDataAdaptorFactory();
+    DefaultFileDataAdaptorFactory factory = 
+        new DefaultFileDataAdaptorFactory();
     factory.setUploadDir("/tmp");
     config.setFormDataAdaptorFactory(factory);
     return config;
   }
   
   protected String getUploadMessage(Melati melati) {
-    return "This will save your file in your /tmp directory. Try saving a file in "+
+    return "This will save your file in your /tmp directory. " + 
+           "Try saving a file in "+
            "memory <a href='" + melati.getZoneURL() +
            "/org.melati.test.ConfigServletTest/'>here</a>.";
   }

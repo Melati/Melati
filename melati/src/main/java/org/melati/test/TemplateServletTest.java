@@ -52,14 +52,11 @@ import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
 import org.melati.servlet.MultipartFormField;
-import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.MelatiWriter;
 
 /**
- * Base class to use Melati with Servlets.
- * Simply extend this class, override the doRequest method
+ * A test servlet
  *
  * @author Tim Joyce
  * $Revision$
@@ -93,14 +90,15 @@ public class TemplateServletTest extends TemplateServlet {
     return("test/TemplateServletTest");
   }
 
-/*
- * set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
+/**
+ * Set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  
+ *
+ * Useful when writing appications where you are typically only accessing
+ * a single database.
  */
   protected MelatiContext melatiContext(Melati melati)
-  throws PathInfoException {
+      throws PathInfoException {
     MelatiContext mc = super.melatiContext(melati);
     if (mc.getLogicalDatabase().equals("")) 
       mc = melatiContextWithLDB(melati,"melatitest");

@@ -46,10 +46,8 @@
 package org.melati.login;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.melati.poem.PoemException;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemThread;
@@ -63,7 +61,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 /**
  * Flags up when something was illegal or not supported about an incoming HTTP
- * authorization
+ * authorization.
  */
 
 class HttpAuthorizationMelatiException extends MelatiRuntimeException {
@@ -153,7 +151,8 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
   protected void forceLogin(HttpServletResponse resp,
   String realm, String message) {
-    String desc = realm == null ? "<unknown>" : StringUtils.tr(realm, '"', ' ');
+    String desc = realm == null ? "<unknown>" 
+                                : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
     // i don't believe there is a lot we can do about an IO exception here,
     // so i am simply going to log it
@@ -165,8 +164,9 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     }
   }
 
-  public void handleAccessException(Melati melati, AccessPoemException accessException)
-                                                                      throws Exception {
+  public void handleAccessException(Melati melati, 
+                                    AccessPoemException accessException)
+      throws Exception {
     String capName = "melati";
     if (useSession())
       melati.getSession().putValue(REALM, capName);

@@ -45,11 +45,11 @@
 
 package org.melati.servlet;
 
-import org.melati.*;
+import org.melati.Melati;
 
 /**
  * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * the field which was uploaded.
  */
 
 public class TemporaryFileDataAdaptorFactory extends FormDataAdaptorFactory {

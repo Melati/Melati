@@ -2,61 +2,53 @@
  * $Source$
  * $Revision$
  *
+ * Copyright (C) 2000 Tim Joyce
+ *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
  *
- * -------------------------------------
- *  Copyright (C) 2000 William Chesters
- * -------------------------------------
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * A copy of the GPL should be in the file org/melati/COPYING in this tree.
- * Or see http://melati.org/License.html.
- *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
- *
- *
- * ------
- *  Note
- * ------
- *
- * I will assign copyright to PanEris (http://paneris.org) as soon as
- * we have sorted out what sort of legal existence we need to have for
- * that to make sense.
- * In the meantime, if you want to use Melati on non-GPL terms,
- * contact me!
+ *     Tim Joyce <timj@paneris.org>
  */
 
 package org.melati.template.velocity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.util.Properties;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletOutputStream;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -65,12 +57,10 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
-import org.melati.template.velocity.HttpServletRequestWrap;
 import org.melati.util.MelatiWriter;
 
 import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.io.VelocityWriter;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -118,11 +108,13 @@ public class VelocityTemplateEngine implements TemplateEngine {
       if ( realPath != null ) propsFile = realPath;
       p.load( new FileInputStream(propsFile) );
     }
-    // fixme, work out how to set this some other way
+    // FIXME work out how to set this some other way
  */
     Properties p = new Properties();
-    p.setProperty("file.resource.loader.path", melatiConfig.getTemplatePath());
-    p.setProperty("file.resource.loader.class", "org.melati.template.velocity.WebMacroFileResourceLoader");
+    p.setProperty("file.resource.loader.path", 
+                  melatiConfig.getTemplatePath());
+    p.setProperty("file.resource.loader.class", 
+                  "org.melati.template.velocity.WebMacroFileResourceLoader");
     return p;
   }
 
@@ -132,7 +124,8 @@ public class VelocityTemplateEngine implements TemplateEngine {
   public TemplateContext getTemplateContext(Melati melati) {
     VelocityContext context = new VelocityContext();
     org.melati.template.velocity.HttpServletRequestWrap req = 
-    new org.melati.template.velocity.HttpServletRequestWrap(melati.getRequest());
+      new org.melati.template.velocity.HttpServletRequestWrap(
+            melati.getRequest());
     context.put(VelocityTemplateContext.REQUEST, req);
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, 
@@ -165,8 +158,9 @@ public class VelocityTemplateEngine implements TemplateEngine {
     return null;
   }
 
-  public MelatiWriter getServletWriter(HttpServletResponse response, boolean buffered) 
-          throws IOException {
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+                                       boolean buffered) 
+      throws IOException {
     if (buffered) {
       return new MelatiBufferedVelocityWriter(response);
     } else {
@@ -233,7 +227,8 @@ public class VelocityTemplateEngine implements TemplateEngine {
         throw (AccessPoemException)underlying;
       }
       if (underlying instanceof MethodInvocationException) {
-        Throwable caught = ((MethodInvocationException)underlying).getWrappedThrowable();
+        Throwable caught = ((MethodInvocationException)underlying).
+                                getWrappedThrowable();
         if (caught instanceof AccessPoemException) {
           throw (AccessPoemException)caught;
         }

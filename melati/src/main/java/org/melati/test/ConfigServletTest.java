@@ -45,12 +45,18 @@
 
 package org.melati.test;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.IOException;
+
 import java.util.Hashtable;
 
 import javax.servlet.ServletException;
 
-import org.melati.servlet.*;
+import org.melati.servlet.ConfigServlet;
+import org.melati.servlet.MemoryDataAdaptorFactory;
+import org.melati.servlet.MultipartFormField;
+import org.melati.servlet.MultipartDataDecoder;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
@@ -71,9 +77,9 @@ public class ConfigServletTest extends ConfigServlet {
           InputStream in = melati.getRequest().getInputStream();
           MultipartDataDecoder decoder=
             new MultipartDataDecoder(melati,
-                                     in,
-                                     melati.getRequest().getContentType(),
-                                     melati.getConfig().getFormDataAdaptorFactory());
+                  in,
+                  melati.getRequest().getContentType(),
+                  melati.getConfig().getFormDataAdaptorFactory());
           fields = decoder.parseData();
         }
         catch (IOException e) {
@@ -107,7 +113,8 @@ public class ConfigServletTest extends ConfigServlet {
     "successfully created a Melati and a Melati, using the configuration " +
     "given in org.melati.MelatiServlet.properties.  Please note that this " +
     "servlet does not construct a POEM session or initialise a template " +
-    "engine.</p><h4>Your Melati is configured with the following parameters: " +
+    "engine.</p>\n" + 
+    "<h4>Your Melati is configured with the following parameters: " +
     "</h4><table><tr><td>TemplateEngine</td><td>" +
     config.getTemplateEngine().getClass().getName() +
     "</td></tr><tr><td>AccessHandler</td><td>" +
@@ -126,7 +133,9 @@ public class ConfigServletTest extends ConfigServlet {
     "<h4>This servlet was called with the following Method (taken from " +
     "melati.getMethod()): " + 
     melati.getMethod() + 
-    "</h4><h4>Further Testing:</h4>You can test melati Exception handling by " +
+    "</h4>\n" + 
+    "<h4>Further Testing:</h4>\n" + 
+    "You can test melati Exception handling by " +
     "clicking <a href=" + 
     melati.getSameURL() + 
     "/Exception>Exception</a><br>You can test melati Redirect " +

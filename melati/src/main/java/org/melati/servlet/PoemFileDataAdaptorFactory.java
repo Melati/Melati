@@ -45,19 +45,18 @@
 
 package org.melati.servlet;
 
-import java.io.*;
 import java.util.Hashtable;
-import org.melati.*;
-import org.melati.poem.*;
+import org.melati.Melati;
+import org.melati.poem.Database;
 
 /**
  * Save the uploaded file to disk in a particular directory
  * which has a particular URL. We get these values from the
  * values of <code>UploadDir</code> and <code>UploadURL</code>
- * in the Setting table of the current Database
+ * in the Setting table of the current Database.
  */
-public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory
-{
+public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
+
   final static private Hashtable dirByDatabase = new Hashtable();
   final static private Hashtable urlByDatabase = new Hashtable();
 

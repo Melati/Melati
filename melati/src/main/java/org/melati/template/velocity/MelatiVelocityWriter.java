@@ -75,7 +75,8 @@ public class MelatiVelocityWriter extends MelatiWriter {
     outputStream = output;
     out = (VelocityWriter) writerPool.get();
     if (out == null) {
-      out = new VelocityWriter(new OutputStreamWriter(output, encoding), 4*1024, true);
+      out = new VelocityWriter(new OutputStreamWriter(output, encoding), 
+                               4*1024, true);
     } else {
       ((VelocityWriter)out).recycle(new OutputStreamWriter(output, encoding));
     }

@@ -46,11 +46,8 @@
 package org.melati.test;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Enumeration;
 import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
@@ -60,7 +57,6 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.servlet.PoemServlet;
-import org.melati.servlet.MelatiContext;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;

@@ -48,12 +48,14 @@ package org.melati.template;
 import java.util.Calendar;
 import java.sql.Timestamp;
 
-import org.melati.util.MelatiLocale;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 
+/**
+ * @todo Javadoc
+ */
 class HourPoemType extends IntegerPoemType {
   public HourPoemType(boolean nullable) {
     super(nullable);
@@ -148,7 +150,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
             field.getName() + hourSuffix, displayName, null,
             field.getType().getNullable() ? new HourPoemType(true) :
                                             new HourPoemType(false),
-	    2, 1,
+            2, 1,
             null, false, true, true));
   }
 
@@ -166,7 +168,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
             field.getName() + minuteSuffix, displayName, null,
             field.getType().getNullable() ? new MinutePoemType(true) :
                                             new MinutePoemType(false),
-	    2, 1,
+            2, 1,
             null, false, true, true));
   }
 
@@ -184,7 +186,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
             field.getName() + secondSuffix, displayName, null,
             field.getType().getNullable() ? new SecondPoemType(true) :
                                             new SecondPoemType(false),
-	    2, 1,
+            2, 1,
             null, false, true, true));
   }
 }

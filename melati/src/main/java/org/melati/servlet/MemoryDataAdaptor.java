@@ -49,14 +49,15 @@
 
 package org.melati.servlet;
 
-import java.io.*;
-import org.melati.util.*;
+import java.io.File;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import org.melati.util.DelimitedBufferedInputStream;
 
 /**
  * Store the uploaded data in a byte array
  */
-public class MemoryDataAdaptor implements FormDataAdaptor
-{
+public class MemoryDataAdaptor implements FormDataAdaptor {
   /** Size for byte buffers */
   protected int BUFSIZE = 512;
 

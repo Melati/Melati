@@ -57,7 +57,8 @@ public class RestrictedAccessObject {
   public String getAccessPoemException() throws AccessPoemException {
     Capability admin = PoemThread.database().administerCapability();
     AccessToken token = PoemThread.accessToken();
-    if (token.givesCapability(admin)) return "You are logged in as an Administrator";
+    if (token.givesCapability(admin)) 
+      return "You are logged in as an Administrator";
     throw new AccessPoemException(token, admin);
   }
 }

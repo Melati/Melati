@@ -45,8 +45,9 @@
 
 package org.melati.servlet;
 
-import java.io.*;
-import org.melati.util.*;
+import java.io.File;
+import java.io.IOException;
+import org.melati.util.DelimitedBufferedInputStream;
 
 /**
  * An interface to the data portion of a MultipartFormField.
@@ -65,35 +66,35 @@ public interface FormDataAdaptor {
    * Return the data as a byte array.
    */
 
-  public byte[] getData();
+  byte[] getData();
 
   /**
    * Return the size of the data.
    */
 
-  public long getSize();
+  long getSize();
 
   /**
    * Return a File object pointing to the saved data or null
    * if none exists.
    */
 
-  public File getFile();
+  File getFile();
 
   /**
    * Return a url to the object or null if none exists.
    */
 
-  public String getURL();
+  String getURL();
 
   /**
    * Read data from <code>in</code> until the delim is found and
    * save the data so that we can access it again.
    */
 
-  public void readData(MultipartFormField field,
-                       DelimitedBufferedInputStream in,
-                       byte[] delim) throws IOException;
+  void readData(MultipartFormField field,
+                DelimitedBufferedInputStream in,
+                byte[] delim) throws IOException;
 }
 
 

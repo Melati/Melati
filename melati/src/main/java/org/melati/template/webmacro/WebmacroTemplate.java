@@ -62,8 +62,7 @@ import org.webmacro.FastWriter;
  *
  */
 
-public class WebmacroTemplate implements Template
-{
+public class WebmacroTemplate implements Template {
   private org.webmacro.Template template;
 
   public WebmacroTemplate(org.webmacro.Template t) {

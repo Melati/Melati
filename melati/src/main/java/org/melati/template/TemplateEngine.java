@@ -48,7 +48,6 @@ package org.melati.template;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.ServletConfig;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -67,38 +66,38 @@ public interface TemplateEngine {
    * Construct a new Engine
    */
 
-  public void init(MelatiConfig melatiConfig) throws TemplateEngineException;
+  void init(MelatiConfig melatiConfig) throws TemplateEngineException;
 
   /**
    * get the generic parameters for this engine
    */
 
-  public TemplateContext getTemplateContext(Melati melati)
+  TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException;
 
   /**
    * The name of the template engine (used to find the templets)
    */
 
-  public String getName();
+  String getName();
 
   /**
    * The extension of the templates used by this template engine)
    */
 
-  public String templateExtension();
+  String templateExtension();
   
   /** 
    * Get a template given it's name
    */
 
-  public Template template(String templateName) throws NotFoundException;
+  Template template(String templateName) throws NotFoundException;
   
   /** 
    * Expand the Template against the context.
    */
 
-  public void expandTemplate(MelatiWriter out, String templateName, 
+  void expandTemplate(MelatiWriter out, String templateName, 
                              TemplateContext templateContext) 
       throws TemplateEngineException;
   
@@ -106,22 +105,22 @@ public interface TemplateEngine {
    * Expand the Template against the context.
    */
 
-  public void expandTemplate(MelatiWriter out, Template template, 
+  void expandTemplate(MelatiWriter out, Template template, 
                              TemplateContext templateContext) 
       throws TemplateEngineException;
 
     
-  public Object getPassbackVariableExceptionHandler();
+  Object getPassbackVariableExceptionHandler();
   
-  public MelatiWriter getServletWriter(HttpServletResponse response, 
+  MelatiWriter getServletWriter(HttpServletResponse response, 
                                        boolean buffered)
       throws IOException;
   
-  public MelatiWriter getStringWriter(String encoding) throws IOException;
+  MelatiWriter getStringWriter(String encoding) throws IOException;
 
   /** 
    * Get the underlying engine
    */
-  public Object getEngine();
+  Object getEngine();
   
 }

@@ -45,19 +45,15 @@
 
 package org.melati.login;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.net.URLEncoder;
 import java.net.URLDecoder;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.PoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.Melati;
@@ -70,8 +66,10 @@ import org.melati.util.MD5Util;
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
-     OVERLAY_PARAMETERS = "org.melati.login.HttpSessionAccessHandler.overlayParameters",
-     USER = "org.melati.login.HttpSessionAccessHandler.user";
+     OVERLAY_PARAMETERS = 
+       "org.melati.login.HttpSessionAccessHandler.overlayParameters",
+     USER = 
+       "org.melati.login.HttpSessionAccessHandler.user";
 
   /**
    * The class name of the class implementing the login servlet.  Unless
@@ -89,7 +87,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * substituting <TT>loginPageServletClassName()</TT> into the URL of the
    * request being serviced.
    *
-   * @param request	the request currently being serviced
+   * @param request  the request currently being serviced
    *
    * @see #loginPageServletClassName
    */
@@ -122,10 +120,12 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
   /**
-   * set the Access token to be used for this request.  This is eithier picked
-   * up from the session, or from a cookie.  The cookie is keyed on the logical 
-   * database, this retrieves the user's login.  The login
-   * is used (with the logical database name) to retrieve an encoded
+   * Set the Access token to be used for this request.  
+   *
+   * The Access Token is eithier picked up from the session, or from a cookie. 
+   * The cookie is keyed on the logical database and is used to 
+   * retrieve the user's login. 
+   * The login is used (with the logical database name) to retrieve an encoded
    * password which is then checked.
    *
    * @see org.melati.login.LoginHandler
@@ -159,7 +159,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
   public User getUserFromCookie(Melati melati,String key) {
     String login = getCookieValue(melati,key);
     if (login == null) return null;
-    return (User)melati.getDatabase().getUserTable().getLoginColumn().firstWhereEq(login);
+    return (User)melati.getDatabase().getUserTable().getLoginColumn().
+              firstWhereEq(login);
   }
 
   public String getCookieValue(Melati melati,String key) {
@@ -196,7 +197,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
         // going to set up the old request parameters
 
         melati.setRequest(
-            new ReconstructedHttpServletRequest(oldParams, melati.getRequest()));
+            new ReconstructedHttpServletRequest(oldParams, 
+                                                melati.getRequest()));
       }
     }
   }

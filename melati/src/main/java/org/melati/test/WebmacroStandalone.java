@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 1998, 1999, 2000 Semiotek Inc. All Rights Reserved.
  *
@@ -19,7 +18,11 @@
 
 package org.melati.test;
 
-import org.webmacro.*;
+import org.webmacro.WebMacro;
+import org.webmacro.WM;
+import org.webmacro.FastWriter;
+import org.webmacro.Template;
+import org.webmacro.InitException;
 import org.webmacro.servlet.WebContext;
 import java.util.Date;
 
@@ -46,8 +49,7 @@ import javax.servlet.ServletException;
   * make sure that the TemplatePath is correctly set and that the template
   * used by this servlet, "standalone.wm", is available on that path.
   */
-public class WebmacroStandalone extends HttpServlet
-{
+public class WebmacroStandalone extends HttpServlet {
 
    /**
      * This is the core WebMacro interface which we use to create Contexts, 
@@ -153,7 +155,9 @@ public class WebmacroStandalone extends HttpServlet
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
              
-             out.write("ERROR!  Could not locate template standalone.wm, check that your template path is set properly in WebMacro.properties");
+             out.write("ERROR!  Could not locate template standalone.wm, " + 
+                       "check that your template path is set " +
+                       "properly in WebMacro.properties");
              out.close();
          } catch (org.webmacro.ContextException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),
@@ -161,7 +165,8 @@ public class WebmacroStandalone extends HttpServlet
                                            resp.getCharacterEncoding());
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
-             out.write("ERROR!  Could not locate required data in the Context.");
+             out.write("ERROR! " + 
+                       "Could not locate required data in the Context.");
              out.close();
          } catch (org.webmacro.ResourceException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),
@@ -169,12 +174,14 @@ public class WebmacroStandalone extends HttpServlet
                                            resp.getCharacterEncoding());
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
-             out.write("ERROR!  Could not locate required data in the Context.");
+             out.write("ERROR! " + 
+                       "Could not locate required data in the Context.");
              out.close();
          }
       } catch (java.io.IOException e) {
           // what else can we do?
-          System.out.println("ERROR: IOException while writing to servlet output stream.");
+          System.out.println("ERROR: " + 
+                             "IOException writing to servlet output stream.");
       }
    }
 

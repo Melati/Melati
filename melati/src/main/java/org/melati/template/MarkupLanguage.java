@@ -47,7 +47,6 @@ package org.melati.template;
 
 import java.text.DateFormat;
 
-import java.io.StringWriter;
 import java.io.IOException;
 
 import org.melati.Melati;
@@ -57,12 +56,12 @@ import org.melati.util.JSDynamicTree;
 import org.melati.util.JSStaticTree;
 import org.melati.poem.Persistent;
 import org.melati.poem.Field;
-import org.melati.poem.AccessPoemException;
 
 /**
  * MarkupLanguage provides a variety of methods for rendering objects in a
- * template.  Each object to be rendered has 3 methods:
+ * template.  
  *
+ * Each object to be rendered has 3 methods:
  * 1 - String rendered(Object o) - this will render the object to a string
  * 2 - void render(Object o) - renders the object to melati.getWriter()
  * 3 - void render(Object o, MelatiWriter w) - render the object to w.

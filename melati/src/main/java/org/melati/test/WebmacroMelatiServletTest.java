@@ -46,7 +46,6 @@
 package org.melati.test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 
 import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.Melati;
@@ -54,7 +53,6 @@ import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
 import org.melati.template.webmacro.MelatiFastWriter;
-import org.webmacro.WebMacroException;
 import org.webmacro.servlet.WebContext;
 
 import org.webmacro.WebMacro;
@@ -79,7 +77,8 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
       // to a string and then include it within this template
       // you would not normally do this this way, a much better approach would
       // be to use templets
-      if (melati.getMethod() != null && melati.getMethod().equals("StandAlone")) {
+      if (melati.getMethod() != null && 
+          melati.getMethod().equals("StandAlone")) {
         // construct a Melati with a StringWriter instead of a servlet
         // request and response
         WebMacro wm = new WM();

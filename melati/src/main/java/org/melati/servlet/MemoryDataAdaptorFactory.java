@@ -43,28 +43,15 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
-
 package org.melati.servlet;
 
-import java.io.*;
-import org.melati.*;
-import org.melati.poem.*;
+import org.melati.Melati;
 
 /**
  * Save uploaded files in a byte[] in memory
  */
-public class MemoryDataAdaptorFactory extends FormDataAdaptorFactory
-{
+public class MemoryDataAdaptorFactory extends FormDataAdaptorFactory {
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new MemoryDataAdaptor();
   }
 }
-
-
-
-
-
-

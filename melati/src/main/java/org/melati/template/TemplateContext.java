@@ -54,18 +54,18 @@ import org.melati.servlet.MultipartFormField;
 
 public interface TemplateContext {
 
-  public void put(String s, Object o);
+  void put(String s, Object o);
 
-  public String getForm(String s);
+  String getForm(String s);
 
-  public MultipartFormField getMultipartForm(String s);
+  MultipartFormField getMultipartForm(String s);
 
-  public Object get(String s);
+  Object get(String s);
 
-  public HttpSession getSession();
+  HttpSession getSession();
 
-  public Object getContext();
+  Object getContext();
   
-  public void setVariableExceptionHandler(Object veh);
+  void setVariableExceptionHandler(Object veh);
 
 }

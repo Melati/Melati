@@ -45,15 +45,15 @@
 
 package org.melati.template;
 
-import org.melati.util.*;
-import org.melati.poem.*;
+import org.melati.util.MelatiRuntimeException;
+import org.melati.poem.FieldAttributes;
 
 public class DefaultTempletNotFoundException extends MelatiRuntimeException {
   public TempletLoader loader;
   public FieldAttributes attributes;
 
   public DefaultTempletNotFoundException(TempletLoader loader,
-					 FieldAttributes attributes) {
+                                         FieldAttributes attributes) {
     this.loader = loader;
     this.attributes = attributes;
   }

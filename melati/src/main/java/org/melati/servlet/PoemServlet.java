@@ -50,17 +50,13 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
-import org.melati.login.AccessHandler;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
-import org.melati.util.DatabaseInitException;
-import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -179,8 +175,8 @@ import org.melati.util.MelatiWriter;
  * <LI>
  * <A NAME=loginmechanism>It's possible to configure how your
  * <TT>PoemServlet</TT>-derived servlets implement user login.</A> If the
- * properties file <TT><A
- * HREF=../../../../org.melati.MelatiServlet.properties>org.melati.MelatiServlet.properties</A></TT>
+ * properties file <TT><A HREF=../org.melati.MelatiServlet.properties>
+ * org.melati.MelatiServlet.properties</A></TT>
  * exists and contains a setting
  * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then
  * <TT><I>foo</I></TT> is taken to be the name of a class implementing the

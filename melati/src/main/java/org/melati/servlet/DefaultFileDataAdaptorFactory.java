@@ -45,18 +45,15 @@
 
 package org.melati.servlet;
 
-import java.io.*;
-import org.melati.*;
-import org.melati.poem.*;
+import org.melati.Melati;
 
 /**
  * Save the uploaded file to disk in a particular directory
  * which has a particular URL
  */
-public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory
-{
+public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  /* The directory to save files in */
+  /** The directory to save files in */
   protected String uploadDir = null;
 
   public String getUploadDir() {
@@ -67,7 +64,7 @@ public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory
     uploadDir = dir;
   }
 
-  /* A URL the uploadDir */
+  /** A URL the uploadDir */
   protected String uploadURL = null;
 
   public String getUploadURL() {

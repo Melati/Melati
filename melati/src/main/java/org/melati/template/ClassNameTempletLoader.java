@@ -60,12 +60,18 @@ public class ClassNameTempletLoader implements TempletLoader {
 
   public ClassNameTempletLoader() {
       // These templates cannot be overridden
-    specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", "select");
-    specialTemplateNames.put("org.melati.poem.RestrictedReferencePoemType", "select");
-    specialTemplateNames.put("org.melati.poem.ReferencePoemType", "select");
-    specialTemplateNames.put("org.melati.poem.DisplayLevelPoemType", "select");
-    specialTemplateNames.put("org.melati.poem.SearchabilityPoemType", "select");
-    specialTemplateNames.put("org.melati.poem.IntegrityFixPoemType", "select");
+    specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", 
+                             "select");
+    specialTemplateNames.put("org.melati.poem.RestrictedReferencePoemType", 
+                             "select");
+    specialTemplateNames.put("org.melati.poem.ReferencePoemType", 
+                             "select");
+    specialTemplateNames.put("org.melati.poem.DisplayLevelPoemType", 
+                             "select");
+    specialTemplateNames.put("org.melati.poem.SearchabilityPoemType", 
+                             "select");
+    specialTemplateNames.put("org.melati.poem.IntegrityFixPoemType", 
+                             "select");
   }
 
   protected String templetsPath(TemplateEngine templateEngine, 

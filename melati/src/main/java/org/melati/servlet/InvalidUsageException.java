@@ -61,6 +61,6 @@ public class InvalidUsageException extends MelatiException {
 
   public String getMessage() {
     return "The servlet " + servlet.getClass().getName() + " was invoked " +
-	  "with invalid parameters " + context;
+           "with invalid parameters " + context;
   }
 }

@@ -48,10 +48,12 @@ package org.melati.template;
 import org.melati.util.MelatiWriter;
 
 /**
- * A webmacro template
+ * A template engine template.
+ * 
+ * So far the Velocity, WebMacro and JTemplater engines have been fitted to it.
  */
 
 public interface Template {
-  public void write(MelatiWriter out, TemplateContext templateContext, 
+  void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException;
 }

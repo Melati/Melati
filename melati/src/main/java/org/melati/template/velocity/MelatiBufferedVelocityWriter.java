@@ -48,12 +48,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
-
-import org.melati.util.MelatiWriter;
 
 /**
- * This provides an interface for objects that output from melati
+ * Provides an interface for objects that output from melati.
  */
 
 public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {

@@ -44,23 +44,19 @@
 
 package org.melati.servlet;
 
-import java.io.*;
-import java.lang.*;
-import java.util.*;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Holds information parsed from a multipart/form-data file upload
+ *
+ * Based on RFC 1867 which describes the format 
+ * for uploading files in multipart/form-data.
+ * Tested on IE 5.0, HotJava 3.0, Netscape Navigator 4.x
+ * @see <a href="http://www.ietf.org/rfc/rfc1867.txt">rfc1867</a>
+ * @Author Vasily Pozhidaev <vasilyp@paneris.org>
  */
-
-/*
-@Author Vasily Pozhidaev 
-this source based on RFC 1867 which describes format 
-for uploading files multipart/from-data
-http://www.ietf.org/rfc/rfc1867.txt
-tested on IE 5.0, HotJava 3.0, Netscape Navigator 4.x
-*/
-public class MultipartFormField
-{
+public class MultipartFormField {
     private String contentDisposition="";
     private String fieldName="";
     private String filePath="";
@@ -92,7 +88,7 @@ public class MultipartFormField
         this.adaptor=adaptor;
     }
     
-    /*
+    /**
      * Mime information
      */
     public void setContentType(String contentType) {
@@ -138,9 +134,9 @@ public class MultipartFormField
       }
     }
 
-    /*
-     * Work with an uploaded file/stored value
-     * <p>
+    /**
+     * Work with an uploaded file/stored value.
+     * 
      * We can store uploaded files or values in different ways depending
      * on which adaptor we use.
      */
@@ -200,7 +196,7 @@ public class MultipartFormField
     }
 
   /**
-   * The size of the file as a formatted string
+   * The size of the file as a formatted string.
    */
   public String getPrettyDataSize() {
     long size = 0;

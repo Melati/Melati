@@ -45,9 +45,8 @@
 
 package org.melati.servlet;
 
-import java.io.*;
-
-import org.melati.util.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Save uploaded files in a temporary file which is deleted when

@@ -55,6 +55,9 @@ import org.melati.poem.IntegerPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 
+/**
+ * @todo Javadoc
+ */
 class YearPoemType extends IntegerPoemType {
   public YearPoemType(boolean nullable, int low, int limit) {
     super(nullable);
@@ -168,8 +171,8 @@ public class YMDDateAdaptor implements TempletAdaptor {
             displayName,
             null,
             new YearPoemType(field.getType().getNullable(),
-			     firstYear, limitYear),
-	    5, 1,
+                             firstYear, limitYear),
+                             5, 1,
             null, false, true, true));
   }
 
@@ -185,8 +188,8 @@ public class YMDDateAdaptor implements TempletAdaptor {
         new BaseFieldAttributes(
             field.getName() + monthSuffix, displayName, null,
             field.getType().getNullable() ? new MonthPoemType(true) :
-	                                    new MonthPoemType(false),
-	    3, 1,
+                                            new MonthPoemType(false),
+            3, 1,
             null, false, true, true));
   }
 
@@ -203,7 +206,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
             field.getName() + daySuffix, displayName, null,
             field.getType().getNullable() ? new DayPoemType(true) :
                                             new DayPoemType(false),
-	    2, 1,
+            2, 1,
             null, false, true, true));
   }
   

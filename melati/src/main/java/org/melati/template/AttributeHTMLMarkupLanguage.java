@@ -47,7 +47,6 @@ package org.melati.template;
 
 import java.io.IOException;
 
-import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.HTMLUtils;

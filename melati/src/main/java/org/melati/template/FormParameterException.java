@@ -48,7 +48,7 @@ package org.melati.template;
 import org.melati.util.MelatiException;
 
 /**
- * something is wrong with this parameter.
+ * Something is wrong with this parameter.
  */
 public class FormParameterException extends MelatiException {
 

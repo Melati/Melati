@@ -57,7 +57,6 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
 import org.melati.template.TemplateContext;
-import org.melati.template.TemplateContext;
 import org.melati.util.MelatiException;
 
 /**
@@ -73,7 +72,7 @@ public class TemplateServletTestOverride extends TemplateServlet {
                                      TemplateContext templateContext) 
                                                           throws Exception {
 
-    // provoke an exception to prove us right!                                                            
+    // provoke an exception to prove us right!
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     throw new AccessPoemException(token, admin);

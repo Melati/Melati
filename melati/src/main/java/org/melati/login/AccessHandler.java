@@ -46,8 +46,6 @@
 package org.melati.login;
 
 import java.io.IOException;
-import javax.servlet.ServletException;
-import org.melati.poem.PoemException;
 import org.melati.poem.AccessPoemException;
 import org.melati.Melati;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;

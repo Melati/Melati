@@ -53,7 +53,7 @@ public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
   private AttributeHTMLMarkupLanguage attributeML = null;
 
   public HTMLMarkupLanguage(Melati melati,
-			    TempletLoader templetLoader, MelatiLocale locale) {
+                            TempletLoader templetLoader, MelatiLocale locale) {
     super("html", melati, templetLoader, locale);
   }
 

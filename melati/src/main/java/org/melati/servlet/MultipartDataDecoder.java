@@ -2,8 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Myles Chippendale, based on code by
- *   Vasily Pozhidaev <voodoo@knastu.ru; vpozhidaev@mail.ru>
+ * Copyright (C) 2000 Myles Chippendale
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -42,16 +41,18 @@
  *     Myles Chippendale <mylesc@paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
- */
+ *
+ * Based on code by
+ *   Vasily Pozhidaev <voodoo@knastu.ru; vpozhidaev@mail.ru>
+ * */
 
 package org.melati.servlet;
 
-import java.io.*;
-import java.util.*;
-import org.melati.*;
-import org.melati.poem.*;
-import org.melati.template.*;
-import org.melati.util.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Hashtable;
+import org.melati.Melati;
+import org.melati.util.DelimitedBufferedInputStream;
 
 /**
  * Parses a multipart/form-data request into it different
@@ -128,7 +129,9 @@ public class MultipartDataDecoder {
       if (state == FIELD_START) {
         count = in.readToDelimiter(buff, 0, buff.length, boundary.getBytes());
         if (count == buff.length) {
-          throw new IOException("Didn't find a boundary in the first "+buff.length+" bytes");
+          throw new IOException(
+              "Didn't find a boundary in the first " 
+              + buff.length + " bytes");
         }
         count = in.readToDelimiter(buff, 0, buff.length, CRLF);
         line = new String(buff, 0, count);
@@ -137,13 +140,15 @@ public class MultipartDataDecoder {
           state = IN_FIELD_HEADER;
           header = "";
           if (in.read(buff, 0, 2) != 2) // snarf the crlf
-            throw new IOException("Boundary wasn't followed by 2 bytes (\\r\\n)");
+            throw new IOException(
+                "Boundary wasn't followed by 2 bytes (\\r\\n)");
         }
         else if (line.equals(boundary+"--")) {
           state = STOP;
         }
         else
-          throw new IOException("Didn't find the boundary I was expecting before a field");
+          throw new IOException(
+              "Didn't find the boundary I was expecting before a field");
       }
       
       /*
@@ -160,7 +165,8 @@ public class MultipartDataDecoder {
           fields.put(field.getFieldName(), field);
         }
         if (in.read(buff, 0, 2) != 2) // snarf the crlf
-          throw new IOException("Header line wasn't followed by 2 bytes (\\r\\n)");
+          throw new IOException(
+              "Header line wasn't followed by 2 bytes (\\r\\n)");
       } 
 
       /*
@@ -187,7 +193,8 @@ public class MultipartDataDecoder {
   }
 
   private void readField(MultipartFormField field, String header) {
-    field.setContentDisposition(extractField(header, "content-disposition:", ";"));
+    field.setContentDisposition(extractField(header, 
+                                             "content-disposition:", ";"));
     String fieldName=extractField(header, "name=",";");
     try {
       if(fieldName.charAt(0)=='\"')
@@ -206,27 +213,29 @@ public class MultipartDataDecoder {
   }
 
  /**
-   * extract a String from header bounded by lBound and either: rBound or a "\r\n"
-   * or the end of the String
-   */
-    protected String extractField(String header, String lBound, String rBound) {
-        String lheader=header.toLowerCase();
-        int begin=0, end=0;
-        begin=lheader.indexOf(lBound);
-        if(begin==-1)
-            return "";
-        begin=begin+lBound.length();
-        end=lheader.indexOf(rBound, begin);
-        if(end==-1)
-            end=lheader.indexOf("\r\n", begin);
-        if(end==-1)
-            end=lheader.length();
-        return header.substring(begin, end).trim();
-    }
+  * Extract a String from header bounded by lBound and either: 
+  * rBound or a "\r\n"
+  * or the end of the String
+  */
+  protected String extractField(String header, String lBound, 
+                                  String rBound) {
+    String lheader=header.toLowerCase();
+    int begin=0, end=0;
+    begin=lheader.indexOf(lBound);
+    if(begin==-1)
+      return "";
+     begin=begin+lBound.length();
+     end=lheader.indexOf(rBound, begin);
+     if(end==-1)
+       end=lheader.indexOf("\r\n", begin);
+     if(end==-1)
+       end=lheader.length();
+     return header.substring(begin, end).trim();
+  }
 
-  /**
-   * extract boundary from header or from data
-   */
+ /**
+  * extract boundary from header or from data
+  */
   private String getBoundary(byte[] data, String header) throws IOException {
     String boundary="";
     int index;

@@ -48,7 +48,7 @@ package org.melati.template;
 import org.melati.util.MelatiRuntimeException;
 
 public class MissingFieldException extends MelatiRuntimeException {
-	
+
   TempletAdaptor adaptor;
   String name;
   String fullName;

@@ -49,11 +49,13 @@
 
 package org.melati.template;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.http.*;
-import org.melati.*;
-import org.melati.servlet.*;
+import java.io.InputStream;
+import java.io.IOException;
+import java.util.Hashtable;
+import javax.servlet.http.HttpSession;
+import org.melati.Melati;
+import org.melati.servlet.MultipartFormField;
+import org.melati.servlet.MultipartDataDecoder;
 
 
 /**
@@ -67,23 +69,23 @@ import org.melati.servlet.*;
  * <p>
  * Note that you need to pass in a TemplateContext to the contructor
  */
-public class MultipartTemplateContext implements TemplateContext 
-{
+public class MultipartTemplateContext implements TemplateContext {
   TemplateContext peer;
   Hashtable fields;
   Melati melati;
 
   public MultipartTemplateContext(Melati melati, TemplateContext context)
-                                                               throws IOException {
+      throws IOException {
     peer = context;
     this.melati = melati;
     try {
       InputStream in = melati.getRequest().getInputStream();
       MultipartDataDecoder decoder=
-        new MultipartDataDecoder(melati,
-                                 in,
-                                 melati.getRequest().getContentType(),
-                                 melati.getConfig().getFormDataAdaptorFactory());
+        new MultipartDataDecoder(
+                             melati,
+                             in,
+                             melati.getRequest().getContentType(),
+                             melati.getConfig().getFormDataAdaptorFactory());
       fields = decoder.parseData();
     }
     catch (IOException e) {
@@ -94,17 +96,17 @@ public class MultipartTemplateContext implements TemplateContext
 
   public MultipartTemplateContext(Melati melati, TemplateContext context,
                                   int maxSize)
-                                                               throws IOException {
+      throws IOException {
     peer = context;
     this.melati = melati;
     try {
       InputStream in = melati.getRequest().getInputStream();
       MultipartDataDecoder decoder=
         new MultipartDataDecoder(melati,
-                                 in,
-                                 melati.getRequest().getContentType(),
-                                 melati.getConfig().getFormDataAdaptorFactory(),
-                                 maxSize);
+                             in,
+                             melati.getRequest().getContentType(),
+                             melati.getConfig().getFormDataAdaptorFactory(),
+                             maxSize);
       fields = decoder.parseData();
     }
     catch (IOException e) {

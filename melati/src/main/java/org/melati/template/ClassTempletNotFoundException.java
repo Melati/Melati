@@ -45,8 +45,7 @@
 
 package org.melati.template;
 
-import org.melati.util.*;
-import org.melati.poem.*;
+import org.melati.util.MelatiRuntimeException;
 
 public class ClassTempletNotFoundException extends MelatiRuntimeException {
   public TempletLoader loader;

@@ -51,8 +51,10 @@ import org.melati.template.TemplateContext;
 
 public class Login extends TemplateServlet {
   public static final String
-     TRIGGERING_REQUEST_PARAMETERS = "org.melati.login.Login.triggeringRequestParameters",
-     TRIGGERING_EXCEPTION = "org.melati.login.Login.triggeringException";
+     TRIGGERING_REQUEST_PARAMETERS = 
+       "org.melati.login.Login.triggeringRequestParameters",
+     TRIGGERING_EXCEPTION = 
+       "org.melati.login.Login.triggeringException";
 
   LoginHandler loginHandler = null;
 
@@ -62,8 +64,9 @@ public class Login extends TemplateServlet {
     return loginHandler;
   }
 
-  protected String doTemplateRequest(Melati melati, TemplateContext templateContext)
-                                                                          throws Exception {
+  protected String doTemplateRequest(Melati melati, 
+                                     TemplateContext templateContext)
+      throws Exception {
     return getLoginHandler().doTemplateRequest(melati, templateContext);
   }
   

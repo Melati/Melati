@@ -1,5 +1,3 @@
-package org.melati.template.velocity;
-
 /*
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.melati.template.velocity;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.melati.template.velocity;
 
 import java.io.File;
 import java.io.FileReader;
@@ -60,9 +59,7 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
 
-import java.util.Map;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -81,10 +78,8 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  * That'll change once we decide how we want to do configuration
  * 
  * @author <a href="mailto:jvanzyl@periapt.com">Jason van Zyl</a>
- * @version $Id$
  */
-public class WebMacroFileResourceLoader extends ResourceLoader
-{
+public class WebMacroFileResourceLoader extends ResourceLoader {
     /**
      * The paths to search for templates.
      */
@@ -98,8 +93,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      * in pairs. The first is the string to match, the
      * second is the substitution to make.
      */
-    protected String[] res =
-    {
+    protected String[] res = {
         // Make #if directive match the Velocity directive style.
         "#if\\s*[(]\\s*(.*\\S)\\s*[)]\\s*(#begin|{)[ \\t]?",
         "#if( $1 )",
@@ -163,8 +157,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      */
     private Hashtable templatePaths = new Hashtable();
 
-    public void init(ExtendedProperties configuration)
-    {
+    public void init(ExtendedProperties configuration) {
         Runtime.info("FileResourceLoader : initialization starting.");
         
         paths = configuration.getVector("path");
@@ -175,9 +168,9 @@ public class WebMacroFileResourceLoader extends ResourceLoader
 
         int sz = paths.size();
 
-        for( int i=0; i < sz; i++)
-        {
-            Runtime.info("FileResourceLoader : adding path '" + (String) paths.get(i) + "'");
+        for( int i=0; i < sz; i++) {
+            Runtime.info("FileResourceLoader : adding path '" + 
+                         (String) paths.get(i) + "'");
         }
 
         Runtime.info("FileResourceLoader : initialization complete.");
@@ -193,20 +186,17 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      *         in the file template path.
      */
     public synchronized InputStream getResourceStream(String templateName)
-        throws ResourceNotFoundException
-    {
-        String template = null;
-        int size = paths.size();
+        throws ResourceNotFoundException {
+      String template = null;
+      int size = paths.size();
 
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             String path = (String) paths.get(i);
         
             /*
              * Make sure we have a valid templateName.
              */
-            if (templateName == null || templateName.length() == 0)
-            {
+            if (templateName == null || templateName.length() == 0) {
                 /*
                  * If we don't get a properly formed templateName
                  * then there's not much we can do. So
@@ -218,8 +208,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
             }
 
             template = StringUtils.normalizePath(templateName);
-            if ( template == null || template.length() == 0 )
-            {
+            if ( template == null || template.length() == 0 ) {
                 String msg = "File resource error : argument " + template + 
                     " contains .. and may be trying to access " + 
                     "content outside of template root.  Rejected.";
@@ -232,15 +221,13 @@ public class WebMacroFileResourceLoader extends ResourceLoader
             /*
              *  if a / leads off, then just nip that :)
              */
-            if ( template.startsWith("/") )
-            {
+            if (template.startsWith("/")) {
                 template = template.substring(1);
             }
 
             InputStream inputStream = findTemplate(path, template);
             
-            if (inputStream != null)
-            {
+            if (inputStream != null) {
                 /*
                  * Store the path that this template came
                  * from so that we can check its modification
@@ -261,7 +248,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
           template;
     
         //Runtime.error(msg);
-        throw new ResourceNotFoundException( msg );
+        throw new ResourceNotFoundException(msg);
     }
     
     /**
@@ -271,14 +258,11 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      * @return InputStream input stream that will be parsed
      *
      */
-    private InputStream findTemplate(String path, String template)
-    {
-        try 
-        {
+    private InputStream findTemplate(String path, String template) {
+        try {
             File file = new File( path, template );   
         
-            if ( file.canRead() )
-            {
+            if (file.canRead()) {
              if (file.toString().endsWith(".wm")) {
                 FileReader fr = new FileReader(file);
                 char[] content = new char[(int) file.length()];
@@ -298,13 +282,11 @@ public class WebMacroFileResourceLoader extends ResourceLoader
                     new FileInputStream(file.getAbsolutePath()));
               }
             }
-            else
-            {                
+            else {                
                 return null;
             }                
         }
-        catch( Exception e )
-        {
+        catch(Exception e) {
             Runtime.error( "WebMacroFileResourceLoader: " + e.toString());
             return null;
         }
@@ -314,19 +296,15 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      * How to keep track of all the modified times
      * across the paths.
      */
-    public boolean isSourceModified(Resource resource)
-    {
+    public boolean isSourceModified(Resource resource) {
         String path = (String) templatePaths.get(resource.getName());
         File file = new File( path, resource.getName() );           
         
-        if ( file.canRead() )
-        {
-            if (file.lastModified() != resource.getLastModified())
-            {
+        if (file.canRead()) {
+            if (file.lastModified() != resource.getLastModified()) {
                 return true;
             }                
-            else
-            {
+            else {
                 return false;
             }                
         }
@@ -342,17 +320,14 @@ public class WebMacroFileResourceLoader extends ResourceLoader
         return true;
     }
 
-    public long getLastModified(Resource resource)
-    {
+    public long getLastModified(Resource resource) {
         String path = (String) templatePaths.get(resource.getName());
         File file = new File(path, resource.getName());
 
-        if (file.canRead())
-        {
+        if (file.canRead()) {
             return file.lastModified();
         }            
-        else
-        {
+        else {
             return 0;
         }            
     }

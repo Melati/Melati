@@ -58,7 +58,6 @@ import org.melati.servlet.MelatiContext;
 import org.melati.Melati;
 import org.melati.util.Waiter;
 import org.melati.servlet.PathInfoException;
-import org.webmacro.WebMacroException;
 import org.webmacro.servlet.WebContext;
 
 public class FlushingServletTest extends WebmacroMelatiServlet {

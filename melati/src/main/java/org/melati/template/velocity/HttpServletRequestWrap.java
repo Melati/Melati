@@ -1,5 +1,3 @@
-package org.melati.template.velocity;
-
 /*
  * $Source$
  * $Revision$
@@ -44,33 +42,26 @@ package org.melati.template.velocity;
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
+package org.melati.template.velocity;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-import javax.servlet.ServletInputStream;
 
-import java.util.Enumeration;
-import java.util.Locale;
-
-import java.io.BufferedReader;
-import java.io.IOException;
 
 import org.melati.util.DelegatedHttpServletRequest;
 
-/* 
- * add get method that allows us to $Form.XXXX to access for parameters
+/**
+ * @todo Add get method that allows us to use $Form.XXXX 
+ *       to access for parameters
  */
 
 public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
 
     /**
-     *  CTOR
+     *  Constructor
      *
      *  @param req HttpServletRequest object to wrap
      */
-    public HttpServletRequestWrap( HttpServletRequest peer )
-    {
+    public HttpServletRequestWrap(HttpServletRequest peer) {
         super(peer);
     }
 
@@ -80,13 +71,11 @@ public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
      *
      *  @return Wrapped HttpServletRequest
      */
-    public HttpServletRequest getWrappedObject()
-    {
+    public HttpServletRequest getWrappedObject() {
         return peer;
     }
    
-    public String get( String name )
-    {
-        return getParameter( name );
+    public String get(String name) {
+        return getParameter(name);
     }
 }

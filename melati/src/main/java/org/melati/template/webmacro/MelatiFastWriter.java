@@ -47,8 +47,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 
 import org.melati.util.MelatiWriter;
 
@@ -56,7 +54,7 @@ import org.webmacro.FastWriter;
 import org.webmacro.Broker;
 
 /**
- * This provides an interface for objects that output from melati
+ * Provides an interface for objects that output from melati.
  */
 
 public class MelatiFastWriter extends MelatiWriter {

@@ -52,7 +52,6 @@ import org.melati.util.*;
 public class PoemTransaction extends Transaction {
   private Database database;
   private Connection connection;
-  private ToTidyList toTidy = new ToTidyList();
 
   PoemTransaction(Database database, Connection connection, int index) {
     super(index);
@@ -102,12 +101,7 @@ public class PoemTransaction extends Transaction {
         rollback();
     }
     finally {
-      try {
-        toTidy.close();
-      }
-      finally {
-        database.notifyClosed(this);
-      }
+      database.notifyClosed(this);
     }
   }
 }

@@ -53,16 +53,16 @@
 
 
 <script LANGUAGE="JavaScript">
-	function init() {
-	// Go through nodes adding items and lists
+  function init() {
+  // Go through nodes adding items and lists
 
 
 #foreach $node in $tree.flattened($tree.DepthPerDownload) #begin
 ## NOTE: space added after #include as template filename so 
 ## that webmacro->velocity parses this correctly
-	  Node$node.UniqueName = new TreeNode(#include as template "$tree.NodeLabelTemplet" , $node.Depth, $node.isLeaf(), "$node.UniqueName","$node.Data.Table.Name",$node.Data.Troid);
+    Node$node.UniqueName = new TreeNode(#include as template "$tree.NodeLabelTemplet" , $node.Depth, $node.isLeaf(), "$node.UniqueName","$node.Data.Table.Name",$node.Data.Troid);
   #if ($node.Parent) #begin
-	   Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName);
+     Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName);
 
   #end
 #end
@@ -70,36 +70,36 @@
 
 
 
-	var roots=[];
-	#foreach $root in $tree.flattened(0)
-	#begin
-	roots[roots.length] = Node$(root.UniqueName);
-	#end
+  var roots=[];
+  #foreach $root in $tree.flattened(0)
+  #begin
+  roots[roots.length] = Node$(root.UniqueName);
+  #end
 
-	var tree = new StaticTree(parent.treedisplay,       ## displayFrame
-							  "parent.treecontrol",     ## controlFrameName needs quotes
-							  roots,                
-							  false,                     ## selectNodes
-							  false,                     ## selectLeaves
-							  "$tree.BackgroundColour",
-							  "",                        ## no stylesheet set
-							  "$tree.VerticalLinkImage",
-							  "$tree.SpacerImage",
-							  "$tree.OpenedTImage",  
-							  "$tree.OpenedLImage",  
-							  "$tree.ClosedTImage",  
-							  "$tree.ClosedLImage",  
-							  "$tree.LeafTImage",    
-							  "$tree.LeafLImage",     
-							  "$tree.OpenedFolderImage",
-							  "$tree.ClosedFolderImage",
-							  "$tree.LeafImage");
-	tree.display();
-	}
+  var tree = new StaticTree(parent.treedisplay,       ## displayFrame
+                "parent.treecontrol",     ## controlFrameName needs quotes
+                roots,                
+                false,                     ## selectNodes
+                false,                     ## selectLeaves
+                "$tree.BackgroundColour",
+                "",                        ## no stylesheet set
+                "$tree.VerticalLinkImage",
+                "$tree.SpacerImage",
+                "$tree.OpenedTImage",  
+                "$tree.OpenedLImage",  
+                "$tree.ClosedTImage",  
+                "$tree.ClosedLImage",  
+                "$tree.LeafTImage",    
+                "$tree.LeafLImage",     
+                "$tree.OpenedFolderImage",
+                "$tree.ClosedFolderImage",
+                "$tree.LeafImage");
+  tree.display();
+  }
 
-	// In case someone forgets the onload in the body tag
-	// :( doesn't work on IE, do remember to put this in your body tag
-	//if (window.onload == null) window.onload = init;
+  // In case someone forgets the onload in the body tag
+  // :( doesn't work on IE, do remember to put this in your body tag
+  //if (window.onload == null) window.onload = init;
 </script>
 
 

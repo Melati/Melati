@@ -48,8 +48,10 @@ package org.melati.template;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 
 import org.melati.Melati;
+import org.melati.poem.Persistent;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.HTMLUtils;
@@ -82,6 +84,10 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
   public String escaped(String s) {
     return HTMLUtils.jsEscaped(s);
+  }
+
+  public String escaped(Persistent o) {
+    return escaped(o.displayString(locale, DateFormat.MEDIUM));
   }
 
   public String encoded(String s) {

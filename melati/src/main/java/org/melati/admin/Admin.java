@@ -531,6 +531,11 @@ public class Admin extends MelatiServlet {
 
   protected Template handle(WebContext context, Melati melati)
       throws Exception {
+    Capability admin = PoemThread.database().getCanAdminister();
+    AccessToken token = PoemThread.accessToken();
+    if (!token.givesCapability(admin)) 
+      throw new AccessPoemException(token,admin);
+
     context.put("admin", melati.getAdminUtils());
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))

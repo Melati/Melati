@@ -914,7 +914,7 @@ abstract public class Database implements TransactionPool {
   }
 
   // by default, anyone can administer a database
-  public Capability getCanUseAdminSystem() {
+  public Capability getCanAdminister() {
     return null;
   }
 

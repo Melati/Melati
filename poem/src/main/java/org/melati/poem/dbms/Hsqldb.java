@@ -44,8 +44,16 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.*;
-import org.melati.poem.*;
+import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import org.melati.poem.User;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.StringPoemType;
 
  /**
   *
@@ -110,16 +118,16 @@ public class Hsqldb extends AnsiStandard {
       }
 
       protected Object _getRaw(ResultSet rs, int col) throws SQLException {
- 	  synchronized (rs) {
-   	      	int i = rs.getInt(col);
-      	       	return rs.wasNull() ? null :
-		     (i==1 ? Boolean.TRUE : Boolean.FALSE);
-    	  }
+        synchronized (rs) {
+          int i = rs.getInt(col);
+          return rs.wasNull() ? null :
+                   (i==1 ? Boolean.TRUE : Boolean.FALSE);
+        }
       }
 
       protected void _setRaw(PreparedStatement ps, int col, Object bool)
-	throws SQLException {
-	    ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
+          throws SQLException {
+        ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
       }
         
   }
@@ -133,8 +141,8 @@ public class Hsqldb extends AnsiStandard {
     return
         "SELECT * FROM " + getQuotedName("groupmembership") +
         " WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
-	"EXISTS ( " +
-	  "SELECT " + getQuotedName("groupcapability") + "." + 
+        "EXISTS ( " +
+        "SELECT " + getQuotedName("groupcapability") + "." + 
            getQuotedName("group") + " " +
           "FROM " + getQuotedName("groupcapability") + ", " + 
                    getQuotedName("groupmembership") + " AS GM2" + 

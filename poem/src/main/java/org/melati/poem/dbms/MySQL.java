@@ -99,9 +99,25 @@ because end users don't read sources.
 
 package org.melati.poem.dbms;
 
-import java.sql.*;
-import org.melati.poem.*;
-import java.util.*;
+import java.util.Enumeration;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import org.melati.poem.User;
+import org.melati.poem.Table;
+import org.melati.poem.Column;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.DuplicateKeySQLPoemException;
+import org.melati.poem.ParsingPoemException;
+import org.melati.poem.SQLPoemException;
 
  /**
   * A Driver for MySQL (http://www.mysql.com)
@@ -109,78 +125,76 @@ import java.util.*;
 public class MySQL extends AnsiStandard {
 
 
-    public MySQL() {
-       setDriverClassName("org.gjt.mm.mysql.Driver");	
+  public MySQL() {
+    setDriverClassName("org.gjt.mm.mysql.Driver");
+  }
+
+  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+    if(sqlTypeName.equals("BOOLEAN")) return "BOOL"; 
+    return super.getSqlDefinition(sqlTypeName);
+  }
+
+  public String getStringSqlDefinition(int size) throws SQLException {
+    if (size < 0) { 
+      return "TEXT";
+    }
+    return super.getStringSqlDefinition(size); //VARCHAR(size) is OK
+  }
+
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    return "BLOB"; //How to define BLOB of limited size?
+  }
+
+  public static class MySQLStringPoemType extends StringPoemType {
+
+    public MySQLStringPoemType(boolean nullable, int size) {
+      super(nullable, size);
     }
 
-    public String getSqlDefinition(String sqlTypeName) throws SQLException {
-	if( sqlTypeName.equals("BOOLEAN"))
-	    return "BOOL"; 
-	return super.getSqlDefinition(sqlTypeName);
+    //_assertValidRow(Object) is defined OK in StringPoemType
+
+    //MySQL returns metadata info size 65535 for TEXT type
+    protected boolean _canRepresent(SQLPoemType other) {
+      return
+        other instanceof StringPoemType &&
+              (getSize()<0 || getSize()==65535 ||
+               getSize()>=((StringPoemType)other).getSize() );
     }
 
-    public String getStringSqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            return "TEXT";
-        }
-        return super.getStringSqlDefinition(size); //VARCHAR(size) is OK
+    public PoemType canRepresent(PoemType other) {
+      return other instanceof StringPoemType &&
+             _canRepresent((StringPoemType)other) &&
+             !(!getNullable() && ((StringPoemType)other).getNullable()) ?
+               other : null;
+      }
     }
-
-    public String getBinarySqlDefinition(int size) throws SQLException {
-        return "BLOB"; //How to define BLOB of limited size?
-    }
-
-
-    public static class MySQLStringPoemType extends StringPoemType {
-        public MySQLStringPoemType(boolean nullable, int size) {
-            super(nullable, size);
-        }
-
-	//_assertValidRow(Object) is defined OK in StringPoemType
-
-	//MySQL returns metadata info size 65535 for TEXT type
-	protected boolean _canRepresent(SQLPoemType other) {
-	   return
-	        other instanceof StringPoemType &&
-	        (getSize()<0 || getSize()==65535 ||
-		 getSize()>=((StringPoemType)other).getSize() );
-	}
-
-        public PoemType canRepresent(PoemType other) {
-            return other instanceof StringPoemType &&
-		    _canRepresent((StringPoemType)other) &&
-                   !(!getNullable() && ((StringPoemType)other).getNullable()) ?
-                       other : null;
-        }
-    }
-
 
     public static class MySQLBooleanPoemType extends BooleanPoemType {
-        public MySQLBooleanPoemType(boolean nullable) {
-            super(nullable);
+      public MySQLBooleanPoemType(boolean nullable) {
+        super(nullable);
+      }
+
+      protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+        synchronized (rs) {
+          int i = rs.getInt(col);
+            return rs.wasNull() ? null :
+              (i==1 ? Boolean.TRUE : Boolean.FALSE);
         }
+      }
+/*
+      protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+        synchronized (rs) {
+          String v = rs.getString(col);
+          return rs.wasNull() ? null :
+           (v.equals("t") ? Boolean.TRUE : Boolean.FALSE);
+        }
+    }
+*/
 
-	protected Object _getRaw(ResultSet rs, int col) throws SQLException {
- 		synchronized (rs) {
-   			int i = rs.getInt(col);
-      			return rs.wasNull() ? null :
-				(i==1 ? Boolean.TRUE : Boolean.FALSE);
-    		}
-  	}
-        /*
-	protected Object _getRaw(ResultSet rs, int col) throws SQLException {
- 		synchronized (rs) {
-   			String v = rs.getString(col);
-      			return rs.wasNull() ? null :
-				(v.equals("t") ? Boolean.TRUE : Boolean.FALSE);
-    		}
-  	}
-        */
-
-        protected void _setRaw(PreparedStatement ps, int col, Object bool)
-	throws SQLException {
-	    ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
-	}
+      protected void _setRaw(PreparedStatement ps, int col, Object bool)
+      throws SQLException {
+        ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
+      }
         /*
         protected void _setRaw(PreparedStatement ps, int col, Object bool)
         throws SQLException {
@@ -191,36 +205,36 @@ public class MySQL extends AnsiStandard {
         }
         */ // End of previous /* was here.
         
-	// We could leave also original method from BooleanPoemType, 
-        // it recognizes 0/1
-	protected Object _rawOfString(String rawString)
-	throws ParsingPoemException {
-		rawString = rawString.trim();
-		switch (rawString.charAt(0)) {
-			case '1': return Boolean.TRUE;
-       			case '0': return Boolean.FALSE;
-		        default: throw new ParsingPoemException(this, rawString);
-		}
-	}
-        
+  // We could leave also original method from BooleanPoemType, 
+  // it recognizes 0/1
+      protected Object _rawOfString(String rawString)
+      throws ParsingPoemException {
+        rawString = rawString.trim();
+        switch (rawString.charAt(0)) {
+          case '1': return Boolean.TRUE;
+          case '0': return Boolean.FALSE;
+          default: throw new ParsingPoemException(this, rawString);
+        }
+      }
+
     }
 
 
     //About the same as in Postgresql.java, hope it's OK.
     public static class BlobPoemType extends IntegerPoemType {
-        public BlobPoemType(boolean nullable) {
-            super(Types.INTEGER, "BLOB", nullable);
-        }
+      public BlobPoemType(boolean nullable) {
+        super(Types.INTEGER, "BLOB", nullable);
+      }
 
-        protected boolean _canRepresent(SQLPoemType other) {
-            return other instanceof BinaryPoemType;
-        }
+      protected boolean _canRepresent(SQLPoemType other) {
+        return other instanceof BinaryPoemType;
+      }
 
-        public PoemType canRepresent(PoemType other) {
-            return other instanceof BinaryPoemType &&
-                   !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
+      public PoemType canRepresent(PoemType other) {
+        return other instanceof BinaryPoemType &&
+          !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
                        other : null;
-        }
+      }
     }
 
     public PoemType canRepresent(PoemType storage, PoemType type) {
@@ -234,25 +248,25 @@ public class MySQL extends AnsiStandard {
 
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
-	ResultSetMetaData rsmd= md.getMetaData();
+      ResultSetMetaData rsmd= md.getMetaData();
 
-        //I leave case as Postgres driver has it.
+      //I leave case as Postgres driver has it.
 
-	if( md.getString("TYPE_NAME").equals("blob") )
-	    return new BlobPoemType( md.getInt("NULLABLE") ==
-                                  DatabaseMetaData.columnNullable );
-	else
-	if( md.getString("TYPE_NAME").equals("text") )
-	    return new MySQLStringPoemType( md.getInt("NULLABLE")==
-		DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE") );
+      if( md.getString("TYPE_NAME").equals("blob") )
+        return new BlobPoemType( md.getInt("NULLABLE") ==
+                                 DatabaseMetaData.columnNullable );
+      else
+        if( md.getString("TYPE_NAME").equals("text") )
+          return new MySQLStringPoemType( md.getInt("NULLABLE")==
+            DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE") );
 
-	// MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
-	else
-	if( md.getString("TYPE_NAME").equals("tinyint") )
-	    return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
-		DatabaseMetaData.columnNullable );
-	else
-    	    return super.defaultPoemTypeOfColumnMetaData(md);
+  // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
+        else
+          if( md.getString("TYPE_NAME").equals("tinyint") )
+            return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
+              DatabaseMetaData.columnNullable );
+        else
+          return super.defaultPoemTypeOfColumnMetaData(md);
     }
 
 
@@ -271,55 +285,55 @@ public class MySQL extends AnsiStandard {
       if (m != null &&
           m.indexOf("1062") >= 0) {
 
-	// It's not simple as in Postgres. This duplicated 'index' is one
-	// of possibly more unique columns. That involves searching for its
-	// column. For error "Duplicate entry '106' for key 4"
-	// we search 4th unique field = we loop over columns, skip first 3 that
-	// are unique and return 4th unique.
+  // It's not simple as in Postgres. This duplicated 'index' is one
+  // of possibly more unique columns. That involves searching for its
+  // column. For error "Duplicate entry '106' for key 4"
+  // we search 4th unique field = we loop over columns, skip first 3 that
+  // are unique and return 4th unique.
 
-	try { //Try parsing error message.
+  try { //Try parsing error message.
 
-	    int preIndex, postIndex; //Places of apostrophes around index value
-	    int preColumn; //Place of "key ", which is in front of column number
-		
-    	    preIndex= m.indexOf('\'');
-	    postIndex= m.lastIndexOf('\'');
-	    preColumn= m.indexOf("key ");
-	
-	    String indexValue= m.substring(preIndex+1,postIndex);
-	    String indexColumn= m.substring(preColumn+4);
+      int preIndex, postIndex; //Places of apostrophes around index value
+      int preColumn; //Place of "key ", which is in front of column number
+    
+          preIndex= m.indexOf('\'');
+      postIndex= m.lastIndexOf('\'');
+      preColumn= m.indexOf("key ");
+  
+      String indexValue= m.substring(preIndex+1,postIndex);
+      String indexColumn= m.substring(preColumn+4);
 
-            System.err.println("Duplicated value "+indexValue+
-		" of "+indexColumn+"th unique field."); 
-	
-    	    int indexNum= Integer.parseInt(indexColumn);
-	    Column column= table.troidColumn(); //Just to satisfy compiler.
-	    //At the end, it will (should) be our column anyway.
-	    
-    	    for( Enumeration columns= table.columns();
-		columns.hasMoreElements();)
-	    {
-		column= (Column)columns.nextElement();
-		if( column.getUnique())
-	    	    if( --indexNum==0)
-			break; //We found it!
-            }
-	    //Now, it's found & indexNum==0.
-    	    if(indexNum==0)
-    		return new DuplicateKeySQLPoemException( column, sql, insert, e);
-	}
-	catch( NumberFormatException f) {}
-		
-        return new DuplicateKeySQLPoemException(table, sql, insert, e);
+      System.err.println("Duplicated value "+indexValue+
+        " of "+indexColumn+"th unique field."); 
+  
+      int indexNum= Integer.parseInt(indexColumn);
+      Column column= table.troidColumn(); //Just to satisfy compiler.
+      //At the end, it will (should) be our column anyway.
+      
+      for( Enumeration columns= table.columns();
+           columns.hasMoreElements();)
+      {
+        column= (Column)columns.nextElement();
+        if( column.getUnique())
+            if( --indexNum==0)
+        break; //We found it!
       }
+      //Now, it's found & indexNum==0.
+      if(indexNum==0)
+        return new DuplicateKeySQLPoemException( column, sql, insert, e);
+  }
+  catch( NumberFormatException f) {}
+        return new DuplicateKeySQLPoemException(table, sql, insert, e);
+  }
 
       return super.exceptionForUpdate(table, sql, insert, e);
-    }
+  }
 
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("group")) name = "melati_" + name;
     return name;
   }
+
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("melati_group")) name = "group";
     return name;
@@ -347,6 +361,5 @@ public class MySQL extends AnsiStandard {
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
-
 
 }

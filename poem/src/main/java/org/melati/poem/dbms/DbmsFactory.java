@@ -46,9 +46,9 @@
 
 package org.melati.poem.dbms;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.poem.*;
+import java.util.Hashtable;
+import java.sql.SQLException;
+import org.melati.poem.ConnectionFailurePoemException;
 
 public class DbmsFactory {
 

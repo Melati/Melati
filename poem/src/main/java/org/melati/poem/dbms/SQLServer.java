@@ -1,6 +1,6 @@
 package org.melati.poem.dbms;
 
-import java.sql.*;
+import java.sql.SQLException;
 
  /**
   * A driver for the Microsoft SQL server 

@@ -46,7 +46,7 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.*;
+import java.sql.SQLException;
 
 public class Interbase extends AnsiStandard {
     public Interbase() {

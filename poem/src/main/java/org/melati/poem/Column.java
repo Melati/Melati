@@ -335,9 +335,14 @@ public abstract class Column implements FieldAttributes {
     System.out.println(toString());
   }
 
+  public String eqClause(Object raw) {
+    return quotedName + (raw == null ? " IS NULL" :
+			               " = " + type.quotedRaw(raw));
+  }
+
   Enumeration selectionWhereEq(Object raw, boolean resolved) {
     try {
-      String clause = quotedName + " = " + type.quotedRaw(raw);
+      String clause = eqClause(raw);
       return resolved ? getTable().selection(clause) :
                         getTable().troidSelection(clause, null, false);
     }
@@ -434,7 +439,7 @@ public abstract class Column implements FieldAttributes {
           EmptyEnumeration.it;
   }
 
-  Persistent ensure(Persistent orCreate) {
+  public Persistent ensure(Persistent orCreate) {
     Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
     if (there == null) {
       getTable().create(orCreate);

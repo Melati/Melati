@@ -48,14 +48,14 @@
     <servlet-class>org.melati.login.Logout</servlet-class>
   </servlet>
   
-<!-- doc/examples/contacts setup -->
+<!-- examples/contacts setup -->
   <servlet>
-    <servlet-name>org.melati.doc.example.contacts.Search</servlet-name>
-    <servlet-class>org.melati.doc.example.contacts.Search</servlet-class>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <servlet-class>org.melati.example.contacts.Search</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>org.melati.doc.example.contacts.ContactView</servlet-name>
-    <servlet-class>org.melati.doc.example.contacts.ContactView</servlet-class>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <servlet-class>org.melati.example.contacts.ContactView</servlet-class>
   </servlet>
 
 <!-- Now map them to URLs -->
@@ -96,13 +96,13 @@
 <!-- doc/examples/contacts setup -->
   
   <servlet-mapping>
-    <servlet-name>org.melati.doc.example.contacts.Search</servlet-name>
-    <url-pattern>/melati/org.melati.doc.example.contacts.Search/*</url-pattern>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.Search/*</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>org.melati.doc.example.contacts.ContactView</servlet-name>
-    <url-pattern>/melati/org.melati.doc.example.contacts.ContactView/*</url-pattern>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.ContactView/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

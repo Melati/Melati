@@ -9,22 +9,22 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>Documentation</h2>
 <ul>
- <li><A HREF=/melati-static/doc/index.html>Overview of Melati</a> 
+ <li><A HREF=doc/index.html>Overview of Melati</a> 
  <li><A HREF=/melati-static/README.html>README</a> 
  <li><A HREF=/melati-static/RELEASE-NOTES.html>RELEASE-NOTES</a> 
- <li><A HREF=/melati-static/poem/doc/Internals.html>Poem Internals</a>
- <li><A HREF=/melati-static/poem/doc/UserGuide.html>Poem User Guide</a>
- <li><A HREF=/melati-static/poem/prepro/doc/UserGuide.html>Preprocessor User Guide</a>
+ <li><A HREF=doc/PoemInternals.html>Poem Internals</a>
+ <li><A HREF=doc/PoemUserGuide.html>Poem User Guide</a>
+ <li><A HREF=doc/PoemPreproUserGuide.html>Preprocessor User Guide</a>
  <li><A HREF=/javadoc/>Java Docs</a>.  Also available for <a href="Download.html">download</a>.
 </ul>
 <p>The specification documents for Melati</p>
 <ul>
- <li><A HREF=/melati-static/qa/RelatedProducts.html>Related Products Report</a>
- <li><A HREF=/melati-static/qa/Requirements.html>Requirements Specification</a>
- <li><A HREF=/melati-static/qa/QA.html>Master Quality Document</a>
- <li><A HREF=/melati-static/qa/FunctionalSpecification.html>Functional Specification</a>
- <li><A HREF=/melati-static/qa/ImplementationPlan.html>Implementation Plan</a>
- <li><A HREF=/melati-static/qa/Internals.html>Internals Document</a>
+ <li><A HREF=doc/RelatedProducts.html>Related Products Report</a>
+ <li><A HREF=doc/Requirements.html>Requirements Specification</a>
+ <li><A HREF=doc/QA.html>Master Quality Document</a>
+ <li><A HREF=doc/FunctionalSpecification.html>Functional Specification</a>
+ <li><A HREF=doc/ImplementationPlan.html>Implementation Plan</a>
+ <li><A HREF=doc/Internals.html>Internals Document</a>
 </ul>
 @footer@
 

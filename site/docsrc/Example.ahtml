@@ -24,11 +24,11 @@ This page last updated: $Date$ $Author$
 </p>
 <p>
  The code is very simple:
- <A HREF=/melati-static/doc/example/contacts/Search.java>Search.java</a>.
+ <A HREF=/melati-static/example/contacts/Search.java>Search.java</a>.
 </p>
 <p>
   The data is stored in an SQL database, which is created from a 
-  <A HREF=/melati-static/doc/example/contacts/contacts.dsd>Data
+  <A HREF=/melati-static/example/contacts/contacts.dsd>Data
   Structure Definition</a> 
   (DSD). The database is also accessible through the generic 
   <a href="/melati/org.melati.admin.Admin/contacts/Main">Admin Interface</a>. 

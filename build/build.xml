@@ -15,7 +15,7 @@
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="modern"/>
   <property name="this.root"          value=".."/>
-  <property name="this.src"           value="../src"/>
+  <property name="src"                value="../src"/>
   <property name="site"               value="../site"/>
   <property name="build.lib"          value="./lib"/>
   <property name="built"              value="dist"/>
@@ -26,7 +26,8 @@
   <property name="built.src"          value="${built.dir}/src"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
-  <property name="doc.dir"            value="${site}/javadoc"/>
+  <property name="javadoc.dir"        value="${site}/javadoc"/>
+  <property name="doc.dir"            value="${site}/doc"/>
   <property name="packaged"           value="${built.root}/packaged/"/>
   <property name="war"                value="${packaged}/${project}.war"/>
   <property name="debug"              value="on"/>
@@ -34,7 +35,7 @@
   <!-- We still use javax.servlet.HttpSession.getValue etc 
    for Servlet 2.0 compatibility -->
   <property name="deprecation"        value="off"/>
-  <property name="poemODMGDSD"        value="${this.src}/org/melati/poem/odmg/playing/Playing.dsd"/>
+  <property name="poemODMGDSD"        value="${src}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
 
   <path id="classpath.compile">
@@ -42,7 +43,7 @@
     <pathelement path="${build.lib}/webmacro-1.0.jar"/>
     <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
     <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
-    <pathelement path="${this.src}/org/melati/poem/odmg/required-libs/odmg3.jar" />
+    <pathelement path="${build.lib}/odmg3.jar" />
   </path>
 
   <path id="classpath.jetty">
@@ -59,11 +60,7 @@
   </path>
   <path id="classpath.run">
     <path refid="classpath.jetty"/>
-    <!--path refid="classpath.compile"/-->
-    <!--pathelement path="${built.lib}/${project}.jar"/-->
     <pathelement path="${war}"/>
-    <!--pathelement path="../../../"/-->
-    <!--path refid="classpath.drivers"/-->
   </path>
 
 
@@ -106,9 +103,9 @@ usage:
     <target name="compile">
       <mkdir dir="${compiled.root}"/>
   
-      <javac srcdir="${this.src}"
+      <javac srcdir="${src}"
              destdir="${compiled.root}"
-             excludes="**/playing/**/*.java,**/jtemplater/**/*.java,**/site/**/*.java"
+             excludes="**/playing/**/*.java,**/site/**/*.java"
              includes="**/*.java"
              debug="${debug}"
              deprecation="${deprecation}"
@@ -121,28 +118,14 @@ usage:
     <!-- Copies the source files                                            -->
     <!-- ================================================================= -->
     <target name="sources">
-      <!-- Tidy up empty CVS directories -->
-      <delete dir="${this.src}/org/melati/org/webmacro"/>
-      <delete dir="${this.src}/org/melati/org"/>
-      <delete dir="${this.src}/org/melati/templets"/>
-      <delete dir="${this.src}/org/melati/playing/chippy"/>
-      <delete dir="${this.src}/org/melati/playing/extend"/>
-      <delete dir="${this.src}/org/melati/playing/neutral"/>
-      <delete dir="${this.src}/org/melati/playing"/>
-      <delete dir="${this.src}/org/melati/doc/example/generated"/>
-      <delete dir="${this.src}/org/melati/poem/postgresql/jdbc1"/>
-      <delete dir="${this.src}/org/melati/poem/sql/jdbc1"/>
-      <delete dir="${this.src}/org/melati/template/jtemplater"/>
-      <delete dir="${this.src}/org/melati/upload"/>
       <copy todir="${built.src}">
-        <fileset dir="${this.src}">
+        <fileset dir="${src}">
           <patternset>
             <include name="**/*"/>
             <exclude name="**/*.class"/>
             <exclude name="**/*.zip"/>
             <exclude name="**/*.jar"/>
             <exclude name="**/dist/**"/>
-            <exclude name="**/qa/javadoc/**"/>
             <exclude name="**/README.html"/>
             <exclude name="**/RELEASE-NOTES.html"/>
           </patternset>
@@ -150,7 +133,7 @@ usage:
       </copy>
 
       <copy todir="${built.dir}">
-        <fileset dir="${this.src}/org/melati">
+        <fileset dir="${this.root}">
           <patternset>
             <include name="*.txt"/>
             <include name="*.html"/>
@@ -159,7 +142,7 @@ usage:
       </copy>
 
       <copy todir="${built.src}">
-        <fileset dir="${this.src}">
+        <fileset dir="${src}">
           <patternset>
             <include name="**/*.properties.example"/>
             <exclude name="**/dist/**"/>
@@ -180,12 +163,12 @@ usage:
             includes="**/*.class, **/*.dsd"
         />
         <zip zipfile="${built.lib}/src.zip" 
-            basedir="${this.src}" 
+            basedir="${src}" 
             includes="**/*.java"/>
         <zip zipfile="${built.lib}/example.zip" 
-            basedir="${this.src}" 
-            includes="org/melati/doc/example/contacts/**/*"
-            excludes="org/melati/doc/example/contacts/**/CSV/*"/>
+            basedir="${src}" 
+            includes="org/melati/example/contacts/**/*"
+            excludes="org/melati/example/contacts/**/CSV/*"/>
     </target>
     
     <!-- ================================================================= -->
@@ -202,7 +185,7 @@ usage:
     <!-- Compile the ODMG source                                           -->
     <!-- ================================================================= -->
     <target name="compileODMGPlaying" depends="preproODMGPlaying">
-      <javac srcdir      = "${this.src}"
+      <javac srcdir      = "${src}"
              destdir     = "${built.src}"
              includes    = "org/melati/poem/odmg/playing/**/*.java"
              debug       = "${debug}"
@@ -258,21 +241,21 @@ usage:
     <!-- ================================================================ -->
     <!-- Creates the API documentation                                    -->
     <!-- ================================================================ -->
-    <target name="javadocs">
+    <target name="javadoc">
       <!-- if running out of the distribution this may not exist -->
-      <mkdir dir="${doc.dir}"/>
+      <mkdir dir="${javadoc.dir}"/>
       <delete>
-       <fileset dir="${doc.dir}" includes="*.html"/>
+       <fileset dir="${javadoc.dir}" includes="*.html"/>
       </delete>
       <filter token="year"     value="${year}"/>
       <filter token="version"  value="${version}"/>
       <filter token="date"     value="${date}"/>        
       <javadoc
-          sourcepath="${this.src}"
+          sourcepath="${src}"
           sourcefiles=""
           classpathref="classpath.compile" 
           packagenames="org.*"
-          destdir="${doc.dir}"
+          destdir="${javadoc.dir}"
           author="true"
           private="true"
           version="true"
@@ -291,16 +274,16 @@ usage:
     <target name="package" >
        <mkdir dir="${packaged}"/>
        <zip  basedir="${built.root}" 
-             excludes="${packaged},${compiled},**/*.zip"
+             excludes="${compiled.root},${packaged},**/*.zip"
              zipfile="${packaged}/${project}_${version}.zip" />
        <tar  basedir="${built.root}" 
-             excludes="${packaged},${compiled},**/*.zip"
+             excludes="${compiled.root},${packaged},**/*.zip"
              tarfile="${packaged}/${project}_${version}.tar" />
        <gzip src="${packaged}/${project}_${version}.tar"
              zipfile="${packaged}/${project}_${version}.tar.gz" />
-       <zip  basedir="${doc.dir}"
+       <zip  basedir="${javadoc.dir}"
              zipfile="${packaged}/${project}_${version}_doc.zip" />
-       <tar  basedir="${doc.dir}"
+       <tar  basedir="${javadoc.dir}"
              tarfile="${packaged}/${project}_${version}_doc.tar" />
        <gzip src="${packaged}/${project}_${version}_doc.tar"
              zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
@@ -322,50 +305,41 @@ usage:
           <exclude name="**/src/**"/>
       </fileset>
       <!-- Readme and License -->
-      <zipfileset dir="${this.src}/org/melati"
+      <zipfileset dir="${this.root}"
                   prefix="melati-static">
           <include name="*.html"/>
           <include name="*.txt"/>
       </zipfileset>
       <!-- Individual java files referenced -->
-      <zipfileset dir="${this.src}/org/melati/poem"
+      <zipfileset dir="${src}/org/melati/poem"
                   prefix="melati-static/poem">
           <include name="PoemDatabase.java"/>
       </zipfileset>
-      <!-- Javadocs -->
-      <zipfileset dir="${doc.dir}" 
-                  prefix="javadoc">
-          <include name="**/*.html"/>
-          <include name="**/*.css"/>
+      <zipfileset dir="${src}/org/melati/example/contacts"
+                  prefix="melati-static/example/contacts">
+          <include name="Search.java"/>
+          <include name="contacts.dsd"/>
       </zipfileset>
       <!-- Source for Admin is referenced in site --> 
-      <zipfileset dir="${this.src}/org/melati/admin" 
+      <zipfileset dir="${src}/org/melati/admin" 
                   prefix="melati-static/admin">
           <exclude name="**/CVS/**"/>
           <exclude name="**/*.class"/>
       </zipfileset>
+      <!-- Javadocs -->
+      <zipfileset dir="${javadoc.dir}" 
+                  prefix="javadoc">
+          <include name="**/*.html"/>
+          <include name="**/*.css"/>
+      </zipfileset>
       <!-- Documentation  --> 
-      <zipfileset dir="${this.src}/org/melati/doc" 
-                  prefix="melati-static/doc">
-          <exclude name="**/CVS/**"/>
-          <exclude name="**/*.class"/>
-      </zipfileset>
       <!-- Project documents -->
-      <zipfileset dir="${this.src}/org/melati/qa" 
-                  prefix="melati-static/qa">
-          <exclude name="**/CVS/**"/>
-          <exclude name="**/javadoc/**"/>
-          <exclude name="**/*.class"/>
-      </zipfileset>
       <!-- Poem user guides -->
-      <zipfileset dir="${this.src}/org/melati/poem/doc" 
-                  prefix="melati-static/poem/doc">
-          <exclude name="**/CVS/**"/>
-      </zipfileset>
       <!-- Poem preprocessor user guide -->
-      <zipfileset dir="${this.src}/org/melati/poem/prepro/doc" 
-                  prefix="melati-static/poem/prepro/doc">
+      <zipfileset dir="${doc.dir}" 
+                  prefix="doc">
           <exclude name="**/CVS/**"/>
+          <exclude name="**/*.class"/>
       </zipfileset>
       <!-- Templets and properties files -->
       <fileset dir="${built.src}">
@@ -406,7 +380,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, jar, javadocs, site, sources, package, war">
+          depends="clean, compile, jar, javadoc, site, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"

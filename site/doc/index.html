@@ -117,7 +117,7 @@
 <P>
   The entry points to a Melati application are a set of one or more servlets
   derived from <A
-  HREF=../qa/javadoc/org/melati/MelatiServlet.html><TT>MelatiServlet</TT></A>
+  HREF=/javadoc/org/melati/MelatiServlet.html><TT>MelatiServlet</TT></A>
   (<A HREF=../MelatiServlet.java><TT>MelatiServlet.java</TT></A>).
   <TT>MelatiServlet</TT> is drop-in compatible with WebMacro's
   <TT>WMServlet</TT>.  It takes care of determining the Melati username
@@ -130,7 +130,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 
 <P>
   asks the
-  <A HREF=../qa/javadoc/org/melati/admin/Admin.html><TT>Admin</TT></A>
+  <A HREF=/javadoc/org/melati/admin/Admin.html><TT>Admin</TT></A>
   servlet (<A HREF=../Admin.java><TT>Admin.java</TT></A>) to &quot;view the
   <TT>user</TT> table of the <TT>melatitest</TT> database&quot;.  This scheme
   has the (admittedly minor) advantage that it makes possible the use of
@@ -162,11 +162,11 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   The end result of all this as far as the Java code is concerned is a natural
   and convenient representation of the database in terms of
-  <A HREF=../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>,
-  <A HREF=../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A> and
-  <A HREF=../qa/javadoc/org/melati/poem/Column.html><TT>Column</TT></A>
+  <A HREF=/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>,
+  <A HREF=/javadoc/org/melati/poem/Table.html><TT>Table</TT></A> and
+  <A HREF=/javadoc/org/melati/poem/Column.html><TT>Column</TT></A>
   objects.  Columns have rich
-  <A HREF=../qa/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>
+  <A HREF=/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>
   types which include information such as the target of a reference (link)
   or the default height of a text field; but in general one works directly in
   terms of <TT>Persistent</TT> objects representing the rows in the database.
@@ -182,7 +182,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   Template writers can simply ask for the appropriate field value and let the
   <A
-  HREF=../qa/javadoc/org/melati/MarkupLanguage.html><TT>MarkupLanguage</TT></A>
+  HREF=/javadoc/org/melati/MarkupLanguage.html><TT>MarkupLanguage</TT></A>
   of their choice render it appropriately.  For instance, assuming that an
   application servlet has set <TT>$product</TT> to refer to some
   <TT>Persistent</TT> object, one could say

@@ -81,4 +81,20 @@ public class MelatiFastWriter extends MelatiWriter {
     return (FastWriter)out;
   }
 
+   public static void main(String arg[]) {
+
+      System.out.println("----START----");
+      try {
+         MelatiFastWriter fw = new MelatiFastWriter(System.out, "UTF8");
+         for (int i = 0; i < arg.length; i++) {
+            fw.write(arg[i].toCharArray());
+         }
+         fw.flush();
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      System.out.println("----DONE----");
+
+   }
+
 }

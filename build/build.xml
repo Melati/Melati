@@ -126,6 +126,17 @@ usage:
     <!-- Copies the source files                                            -->
     <!-- ================================================================= -->
     <target name="sources">
+      <!-- Copy the licence and readme -->
+      <copy todir="${built.dir}">
+        <fileset dir="${this.root}">
+          <patternset>
+            <include name="*.txt"/>
+            <include name="*.html"/>
+          </patternset>
+        </fileset>
+      </copy>
+
+      <!-- Copy the source files -->
       <copy todir="${built.src}">
         <fileset dir="${src}">
           <patternset>
@@ -140,15 +151,7 @@ usage:
         </fileset>
       </copy>
 
-      <copy todir="${built.dir}">
-        <fileset dir="${this.root}">
-          <patternset>
-            <include name="*.txt"/>
-            <include name="*.html"/>
-          </patternset>
-        </fileset>
-      </copy>
-
+      <!-- Copy and rename the properties files -->
       <copy todir="${built.src}">
         <fileset dir="${src}">
           <patternset>

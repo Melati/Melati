@@ -13,7 +13,7 @@ This page last updated: $Date$ $Author$
   others downloading and installing Melati.
 </p>
 <p>
-  If you would like to contribute to the melati code, please join the 
+  If you would like to contribute to the Melati code, please join the 
   <a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">
    development mailing list
   </a>.
@@ -21,20 +21,29 @@ This page last updated: $Date$ $Author$
 <p>
   Please review the <a href="RoadMap.html">RoadMap</a> 
   for things that need to be done. 
-  More immediate tasks can be found on 
-  <a href="http://sourceforge.net/pm/?group_id=11389">SourceForge</a>.
+  Smaller tasks  can be found on the <a
+  href="http://maven.melati.org/task-list.html"><b>todo</b> list</a> on the 
+  <a href="http://maven.melati.org">Maven site</a>.
 </p>
 <p>
   In principle we give CVS write access to anyone who asks.
-  The only quality policy 
-  we ask people to enforce is that committed changes should compile correctly, 
-  and that they should be believed to work. To make changes, please 
-  follow this procedure:
+  The main quality policy we ask people to enforce is that 
+  committed changes should compile correctly, 
+  and that they should be believed to work. <br>
+  However we have put quite a bit of work into ensuring that 
+  the codebase meets minimal code standards as defined by 
+  <a href="http://maven.apache.org/">Maven</a> 
+  so please try not to add to the errors listed on the 
+  <a href="http://maven.apache.org/checkstyle-report.html">Checkstyle 
+  Report</a>.<br>
+  To make changes, please follow this procedure:
 </p>
 <ol>
- <li>Submit a Bug Report or Feature Request detailing what you plan to do/fix. 
+ <li>Email <a href=MailingList.html>Developer List</A> detailing 
+     what you plan to do. 
  <li>Make changes and commit them to CVS.
- <li>Submit a Change Notice detailing what you have done. 
+ <li>Email <a href=MailingList.html>Developer List</A> detailing 
+     what you have done. 
 </ol>
 @footer@
 

@@ -63,7 +63,7 @@
   <h2 id="Release" name="Release"> Release Notes</h2>
   </a> 
   <p>See the <a href="RELEASE-NOTES.html">release notes</a> for detailed documentation 
-    about what has changed. This is the 21th beta release of Melati, offering 
+    about what has changed. This is the 22nd beta release of Melati, offering 
     the following improvements over Alpha versions of Melati:</p>
   <ul>
     <li>Support for MySQL, MckoiDB, HSQLDB</li>
@@ -82,6 +82,8 @@
     <li>Ant build script</li>
     <li>Mailing list hosted on SourceForge</li>
     <li>More documentation (this document).</li>
+    <li>Support for <a href="http://eclipse.org/">Eclipse</a></li>
+    <li>Maven validation and <a href="http://maven.mealti.org/">site</a> generation </li>
     <li>Revised licensing - Dual ASF / GPL licensing.</li>
   </ul>
   <p>&nbsp; </p>
@@ -89,6 +91,17 @@
   <a name="Upgrading"> 
   <h2 id="Upgrading" name="Upgrading">Upgrading</h2>
   </a> 
+  <h3>To upgrade from Melati 0.6.* to Melati 0.7.*</h3>
+  <ol>
+    <li> 
+      <p>
+       You will have to upgrade your Postgresql installation to at least 7.3, 
+       so as to use the driver supplied with Melati. Note that recent versions
+       of Postgresql require a character set to be specified at db
+       creation time. 
+      </p>
+    </li>
+  </ol>
   <h3>To upgrade from Melati 0.55.* to Melati 0.6.*</h3>
   <ol>
     <li> 

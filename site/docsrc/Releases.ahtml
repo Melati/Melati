@@ -9,12 +9,20 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>Release History</h2>
 <p>
-<table width="0%" border="1" cellpadding="5" cellspacing="0">
+<table border="1" cellpadding="5" cellspacing="0">
   <tr>
     <td><b>Release</b></td>
     <td align=center><b>Jar and Source</b></td>
-    <td align=center><b>Javadoc</b></td>
+    <td align=center><b>Javadoc</b>&nbsp;&nbsp;</td>
     <td align=center><b>Template Engine</b></td>
+  </tr>
+  <tr>
+    <td>Melati Beta 0.7.0 - 04/06/2003</td>
+    <td><a href="/download/melati_0.7.0.tar.gz">Unix</a><br>
+        <a href="/download/melati_0.7.0.zip">Windows</a></td>
+    <td><a href="/download/melati_0.7.0_doc.tar.gz">Unix</a><br>
+        <a href="/download/melati_0.7.0_doc.zip">Windows </a></td>
+    <td>WebMacro 1.1, Velocity 1.3rc1 bundled</td>
   </tr>
   <tr>
     <td>Melati Beta 0.6.1 - 11/06/2002</td>
@@ -22,7 +30,7 @@ This page last updated: $Date$ $Author$
         <a href="/download/melati_0.6.1.zip">Windows</a></td>
     <td><a href="/download/melati_0.6.1_doc.tar.gz">Unix</a><br>
         <a href="/download/melati_0.6.1_doc.zip">Windows </a></td>
-    <td>WebMacro 1.0, Velocity 1.3rc1 bundled</td>
+    <td>WebMacro 1.0, Velocity 1.3rc1 bundled</td>	 
   </tr>
   <tr>
     <td>Melati Beta 0.6.0 - 19/04/2002</td>

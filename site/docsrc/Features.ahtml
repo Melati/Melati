@@ -36,7 +36,7 @@ This page last updated: $Date$ $Author$
   <LI> Convenient and flexible <A
        HREF=doc/FunctionalSpecification.html#templating><B>templating</B></A> of persistent objects.
 
-  <LI> CSV utilities to initialise a databse from CSV files.
+  <LI> CSV utilities to initialise a database from CSV files.
 
   <LI> A comprehensive <A
        HREF=/melati/org.melati.admin.Admin/contacts/Main><B>administration
@@ -57,8 +57,8 @@ This page last updated: $Date$ $Author$
 </UL>
 <p>
   Code for a generic 
-  <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/boards>Messageboard System</a> 
-  and a generic <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/shopping>Shopping Trolley</a> 
+  <A HREF="http://boards.paneris.net">Messageboard System</a> 
+  and a generic <A HREF="http://shopping.paneris.net">Shopping Trolley</a> 
   are also available.
 </p>
 

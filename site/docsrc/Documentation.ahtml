@@ -15,7 +15,10 @@ This page last updated: $Date$ $Author$
  <li><A HREF=doc/PoemInternals.html>Poem Internals</a>
  <li><A HREF=doc/PoemUserGuide.html>Poem User Guide</a>
  <li><A HREF=doc/PoemPreproUserGuide.html>Preprocessor User Guide</a>
- <li><A HREF=/javadoc/>Java Docs</a>.  Also available for <a href="Download.html">download</a>.
+ <li><A HREF=/javadoc/>Java Docs</a>.  
+     Also available for <a href="Download.html">download</a>.
+ <li><a href="http://maven.apache.org">Maven</a> generated 
+     <a href="http://maven.melati.org">site</a>.
 </ul>
 <p>The specification documents for Melati</p>
 <ul>

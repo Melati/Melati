@@ -19,6 +19,8 @@ This page last updated: $Date$ $Author$
     users mailing list</a></li>
   <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">announcements 
     mailing list</a></li>
+  <li><a
+  href="http://lists.sourceforge.net/mailman/listinfo/melati-cvs">CVS commits</a></li>
 </ul>
 Or <a href="mailto:timp@melati.org">email me</a>.
 @footer@

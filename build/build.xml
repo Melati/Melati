@@ -9,8 +9,8 @@
     <!-- ============================================= -->
 
   <property name="version"            value="0.7.0"/>
-  <property name="year"               value="2002"/>
-  <property name="date"               value="11-12-2002"/>
+  <property name="year"               value="2003"/>
+  <property name="date"               value="04-06-2003"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
@@ -109,7 +109,7 @@ usage:
   
       <javac srcdir="${src}"
              destdir="${compiled.root}"
-             excludes="**/playing/**/*.java,**/site/**/*.java"
+             excludes="**/site/**/*.java"
              includes="**/*.java"
 	     source="${javac.source}"
              debug="${debug}"
@@ -178,8 +178,8 @@ usage:
             includes="**/*.java"/>
         <zip zipfile="${built.lib}/example.zip" 
             basedir="${src}" 
-            includes="org/melati/example/contacts/**/*"
-            excludes="org/melati/example/contacts/**/CSV/*"/>
+            includes="org/melati/example/**/*"
+            excludes="org/melati/example/**/CSV/*"/>
     </target>
     
     <!-- ================================================================= -->
@@ -198,7 +198,7 @@ usage:
     <target name="compileODMGPlaying" depends="preproODMGPlaying">
       <javac srcdir      = "${src}"
              destdir     = "${built.src}"
-             includes    = "org/melati/poem/odmg/playing/**/*.java"
+             includes    = "org/melati/poem/example/odmg/**/*.java"
 	     source="${javac.source}"
              debug       = "${debug}"
              deprecation = "${deprecation}"
@@ -219,7 +219,7 @@ usage:
     <!-- Run ODMG PlayingTest                                        -->
     <!-- =========================================================== -->
     <target name="runODMGPlaying" depends="jarODMGPlaying">
-       <java classname="org.melati.poem.odmg.playing.PlayingTest"
+       <java classname="org.melati.example.odmg.OdmgTest"
              fork="yes"
        />
     </target>
@@ -409,6 +409,33 @@ usage:
     </java>
   </target>
 
+    <!-- ============================================================== -->
+    <!-- Run Unit tests                                                 -->
+    <!-- ============================================================== -->
+  <target name="unittest" description="run functional tests" depends="compile">
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement path="${compiled.root}"/>
+      </classpath>
+      <test name="org.melati.AllUnitTests"/>
+    </junit>
+  </target>
+
+    <!-- ============================================================== -->
+    <!-- Edit java, compile, test cycle                                 -->
+    <!-- ============================================================== -->
+  <target name="test" 
+          description="build (excluding javadoc) and run"
+          depends="clean, compile, unittest, zip, sources, package, war, run">
+  </target>
+
+    <!-- ============================================================== -->
+    <!-- Edit a template and test cycle                                 -->
+    <!-- ============================================================== -->
+  <target name="template" 
+          description="build (excluding javadoc) and run"
+          depends="sources, war, run">
+  </target>
 
     <!-- ============================================================== -->
     <!-- Do all of it                                                   -->
@@ -422,27 +449,6 @@ usage:
           depends="build, run">
   </target>
 
-    <!-- ============================================================== -->
-    <!-- Edit, compile, test cycle                                      -->
-    <!-- ============================================================== -->
-  <target name="test" 
-          description="build (excluding javadoc) and run"
-          depends="clean, compile, unittest, zip, sources, package, war, run">
-  </target>
-    <!-- ============================================================== -->
-    <!-- Edit, compile, test cycle                                      -->
-    <!-- ============================================================== -->
-  <target name="template" 
-          description="build (excluding javadoc) and run"
-          depends="sources, war, run">
-  </target>
-  <target name="unittest" description="run functional tests" depends="compile">
-    <junit printsummary="yes" haltonfailure="yes">
-      <classpath>
-        <pathelement path="${compiled.root}"/>
-      </classpath>
-      <test name="org.melati.AllUnitTests"/>
-    </junit>
-  </target>
+
 </project>
 

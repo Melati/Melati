@@ -9,11 +9,11 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>Download</h2>
 <p>
-<table width="0%" border="1" cellpadding="5" cellspacing=0>
+<table border="1" cellpadding="5" cellspacing=0>
   <tr>
     <td><b>Release</b></td>
     <td align=center><b>Jar and Source</b></td>
-    <td align=center><b>Javadoc</b></td>
+    <td align=center><b>Javadoc</b>&nbsp;&nbsp;</td>
     <td align=center><b>War</b></td>
   </tr>
   <tr>
@@ -46,5 +46,11 @@ $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout melati
  variety of other interfaces from 
  <a href=http://www.sourcegear.com/CVS>www.sourcegear.com</a>.
 </p>
-<p>If you want a Windows CVS client, check out <a href=http://www.wincvs.org>www.wincvs.org</a></p>
+<p>
+If you are using <a href="http://www.eclipse.org/">Eclipse</a> then
+ you can just point to the above repository and checkout as project.
+</p>
+<p>If you want a Windows CVS client, check out <a
+ href=http://www.wincvs.org>www.wincvs.org</a>
+</p>
 @footer@

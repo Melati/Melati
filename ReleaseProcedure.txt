@@ -7,7 +7,7 @@ The original ant script was written by kimptoc@techie.com.
 
 HOW TO USE
 
-You need the latest version of ant (1.5.1).
+You need a modern version of ant (1.5 or higher).
 
 If you just type ant you will be given a list of available options. 
 
@@ -39,28 +39,36 @@ to create a release:
     in the Upgrading section of melati/README.html
 3.  Change Last Updated and Updated By and add a new paragraph to 
     melati/RELEASE-NOTES.html
-4.  Add a paragraph about this release to melati/site/Releases.html
-5.  Replace Release paragraph with one above in
-    melati/site/Download.html
-6.  CVS commit all of the above
-7.  CVS tag this release (cvs tag Melati-0-6-1)
-8.  Build melati (again)
-9.  Upload jars and zips to http://www.melati.org/
-    scp dist/packaged/*.* www.melati.org:/home/apache/share/htdocs/melati/download/
-10. Update website
-    cd /inst/melati/org/melati 
+4.  Add a paragraph about this release to melati/site/src/Releases.ahtml
+5.  CVS commit all of the above
+6.  CVS tag this release (cvs tag Melati-0-7-0)
+7.  Build melati (again) locally
+8.  Test everything
+9.  Update ganesh
+    cd /inst/melati
     cvs update
-11. Email webmacro@webmacro.org, 
-          velocity-user@lists.apache.org, 
-          pgsql-jdbc@postgresql.org,
-          java@lists.mysql.com, 
-          mckoi@mckoi.com,
-          hsqldb-developers@lists.sourceforge.net
-          jetty-discuss@yahoogroups.com
+    cd build 
+    ant build
+10. Copy downloadable  jars and zips to 
+    cp dist/packaged/*.* /home/apache/share/htdocs/melati/download/
+11. Generate Maven site
+    cd /inst/melati
+    maven site:generate
+12. Email webmacro@webmacro.org, 
+       velocity-user@lists.apache.org, 
+       pgsql-jdbc@postgresql.org,
+       java@lists.mysql.com, 
+       mckoi@mckoi.com,
+       hsqldb-developers@lists.sourceforge.net
+       jetty-discuss@yahoogroups.com
 
-12. Done - well done
-
-
+13. Notify Melati project boards:
+       bibliomania_tech@messageboards.paneris.org
+       pol@messageboards.paneris.org
+       ftc@messageboards.paneris.org
+       apw@messageboards.paneris.org
+       gtl@messageboards.paneris.org
+       jammyjoes@messageboards.paneris.org
 
 $Id$
 

@@ -7,7 +7,6 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
-<h2>What is it?</h2>
 <P>
   Melati is a tool for building websites backed by a
   database or accessing a database over <tt>HTTP</tt>.
@@ -17,26 +16,36 @@ This page last updated: $Date$ $Author$
   <li>a generic 
     <a href="/melati/org.melati.admin.Admin/contacts/Main">
     database administration system</A>, allowing the site manager to edit 
-    both the contents and the structure of the database through a simple web based 
-    interface.</li>
-  <li>rapid templating mechanism, using "templets" (sub-templates) for rendering 
-    interface elements (eg HTML input boxes, dropdowns), and providing an easy 
-    interface with persistent objects.
-  <li>close integration with the <A HREF=http://www.webmacro.org>Webmacro</A> and 
-  <A HREF=http://jakarta.apache.org/velocity/>Velocity</a> templating 
-    engines. </li>
-  <li>cookie-based or HTTP-based login provoked automatically by access control 
-    failure.</li>
-  <li>full integration with <b>POEM</b> (Persistent Object Engine for Melati).  POEM provides
-  <ul>
-  <li>industrial-strength open source object database technology, delivering 
-    <b><a href=http://www.odmg.org/>ODMG 3.0</a></b> compliant Java support.</li>
-  <li>an API which enables the database to be seen as a collection of Java objects, 
-    via a (genuinely!) easy-to-use <b>transparent persistence layer</b> on top 
-    of JDBC. </li>
-  <li>a <b>low level security model</b> allowing restrictions to be placed on tables, 
-    rows and fields.</li>
-  </ul>
+    both the contents and the structure of the database through 
+    a simple web interface.
+  </li>
+  <li>
+    a rapid templating mechanism, using "templets" (sub-templates)
+    provides an easy mechanism for rendering persistent objects as
+    interface elements (eg HTML input boxes, dropdowns).
+  <li>
+    a cookie-based or a HTTP-based access control mechanism.
+  </li>
+  <li>
+    full integration with <b>POEM</b> (Persistent Object Engine for Melati).
+  <br>
+  POEM provides:
+   <ul>
+    <li>
+    industrial-strength open source object database technology, delivering 
+    <b><a href=http://www.odmg.org/>ODMG 3.0</a></b> compliant Java
+    support.
+    </li>
+    <li>
+    an API which enables the database to be seen as a collection of 
+    Java objects, via a (genuinely!) easy-to-use 
+    <b>transparent persistence layer</b> on top of JDBC. 
+    </li>
+    <li>
+    a <b>low level security model</b> allowing restrictions to be 
+    placed on tables, rows and fields.
+    </li>
+   </ul>
   </li> 
 </ul>
 <P>

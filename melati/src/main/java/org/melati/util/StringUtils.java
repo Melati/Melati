@@ -148,6 +148,15 @@ public class StringUtils {
     return new String(suffix);
   }
 
+ /**
+  * As Perl <code>tr</code>; swap any occurances of any characters in the 
+  * <code>from</code> string in the input string with the 
+  * corresponding character from the <code>to</code> string.
+  * 
+  * <code>
+  *  tr("melati", "ait", "osn").equals("melons")
+  * </code>
+  */
   public static String tr(String s, String from, String to) {
     StringBuffer sNew = null;
 
@@ -163,6 +172,15 @@ public class StringUtils {
     return sNew == null ? s : sNew.toString();
   }
 
+ /**
+  * As Perl <code>tr</code>; swap any occurances of the 
+  * <code>from</code> character in the input string with the 
+  * corresponding the <code>to</code> character.
+  * 
+  * <code>
+  *  tr("melati", 'i', 'o').equals("melato")
+  * </code>
+  */
   public static String tr(String s, char from, char to) {
     StringBuffer sNew = null;
 

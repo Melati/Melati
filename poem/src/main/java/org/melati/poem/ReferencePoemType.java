@@ -118,10 +118,11 @@ public class ReferencePoemType extends IntegerPoemType {
 
   public String toString() {
     return
-        "reference to " + targetTable.getName() + " (" + super.toString() + ")";
+        "reference to " + targetTable.getName() + 
+        " (" + super.toString() + ")";
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {

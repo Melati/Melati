@@ -55,10 +55,17 @@ public class IndexedFieldQualifier extends FieldQualifier {
   private Vector withs = new Vector();
 
   public IndexedFieldQualifier(StreamTokenizer tokens) throws IOException {
+    /*
+    The difficulty in implementing (unique with) it is that it's
+    not obvious how you are meant to extract information about
+    multi-column indexes from the JDBC metadata.  Look at the
+    DatabaseMetaData.getIndexInfo.
+
     if (tokens.ttype == StreamTokenizer.TT_WORD &&
         tokens.sval.equals("with"))
       while (tokens.nextToken() == StreamTokenizer.TT_WORD)
         withs.addElement(tokens.sval);
+    */
   }
 
   public void apply(FieldDef field) throws IllegalityException {

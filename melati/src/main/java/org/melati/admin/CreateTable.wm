@@ -53,7 +53,7 @@
 
 <BODY BGCOLOR=white>
 
-<SCRIPT src="/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <FORM METHOD=post ACTION=Create_doit>
 

@@ -66,14 +66,14 @@ parent.opener.popupupdate(parent,returnfield,id,value)
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
 #if ($results) #begin
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>#end
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='SelectionWindowSelection?start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>#end
 <b><FONT face="Arial, Helvetica" size=-1>Records $results.PageStart to $results.PageEnd of
 #if ($results.TotalCountIsMinimum) #begin
   at least
 #end
 $results.TotalCount</b>
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
 #end
 
   <TABLE CELLSPACING=0 cellpadding=0 border=0 width=100%>

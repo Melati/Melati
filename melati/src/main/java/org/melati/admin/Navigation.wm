@@ -76,8 +76,8 @@ function openWindow() {
 //-->
 </script>
 
-<input type=button value="Search" onClick ="openWindow();"><br><br>
-<A HREF='$admin.addURL($table)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)")' target=admin_record><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a></td>
+<A HREF='#' onClick ="openWindow();"><IMG src="$admin.StaticURL/search.gif" border="0" alt="Search $table.DisplayName" vspace=3></a><br>
+<A HREF='$admin.addURL($table)?returnTarget=top.admin_bottom.admin_left.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)")' target=admin_record><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a>
 </CENTER>
 </BODY>
 </HTML>

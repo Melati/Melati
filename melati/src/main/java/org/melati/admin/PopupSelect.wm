@@ -99,7 +99,7 @@ function popupupdate(popupwin,returnfield,id,value) {
 <tr>
 <td></td><td>
   <FONT face="Arial, Helvetica" size=-2>
-    <INPUT NAME=action VALUE="Search" TYPE=submit
+    <INPUT NAME=action VALUE="Search" TYPE=image src="$admin.StaticURL/search.gif" border="0" alt="Search $table.DisplayName" 
            ONCLICK="return checkAndClose(this.form);">
   </font>
 </td></tr>

@@ -158,7 +158,8 @@ public class MultipartFormField
     /**
      * @return the saved data as a string
      */
-    public String getDataString() {
+
+   public String getDataString() {
       return new String(getData());
     }
 
@@ -226,5 +227,3 @@ public class MultipartFormField
   }
 
 }
-
-

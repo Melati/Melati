@@ -281,9 +281,9 @@ public class TableDef {
                " extends " + tableBaseClass + " {\n" +
             "\n" +
             "  public " + tableMainClass + "(\n" +
-	    "    Database database, String name,\n" +
-	    "    DefinitionSource definitionSource)" +
-                   " throws PoemException {\n" +
+	    "      Database database, String name,\n" +
+	    "      DefinitionSource definitionSource)" +
+                     " throws PoemException {\n" +
             "    super(database, name, definitionSource);\n" +
             "  }\n" +
             "\n" +

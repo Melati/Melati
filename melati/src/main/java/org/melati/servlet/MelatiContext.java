@@ -43,23 +43,39 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.admin;
+package org.melati.servlet;
 
-import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
-import org.melati.Melati;
+import org.melati.util.UnexpectedExceptionException;
 
-public class Display extends TemplateServlet {
+public class MelatiContext implements Cloneable {
+  public String logicalDatabase;
+  public String table;
+  public Integer troid;
+  public String method;
 
-  protected String doTemplateRequest
-  (Melati melati, TemplateContext context)
-  throws Exception {
+  public MelatiContext(String logicalDatabase, String table, Integer troid,
+                       String method) {
+    this.logicalDatabase = logicalDatabase;
+    this.table = table;
+    this.troid = troid;
+    this.method = method;
+  }
 
-    context.put("includedir", "");
-    if (melati.getObject() != null) {
-      melati.getObject().assertCanRead();
-      context.put("object", melati.getObject());
+  public MelatiContext() {  }
+
+  public String toString() {
+    return "logicalDatabase = " + logicalDatabase + ", " +
+           "table = " + table + ", " +
+           "troid = " + troid + ", " +
+           "method = " + method;
+  }
+
+  public Object clone() {
+    try {
+      return super.clone();
     }
-    return context.getForm("template");
+    catch (CloneNotSupportedException e) {
+      throw new UnexpectedExceptionException(e);
+    }
   }
 }

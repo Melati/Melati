@@ -54,7 +54,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.util.MelatiRuntimeException;
 import org.melati.util.Base64;
 import org.melati.util.StringUtils;
@@ -157,26 +157,26 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
   }
 
-  public void handleAccessException(MelatiContext melatiContext,
+  public void handleAccessException(Melati melati,
   AccessPoemException accessException)
   throws Exception {
 
     String capName = "melati";
     if (useSession())
-    melatiContext.getSession().putValue(REALM, capName);
-    forceLogin(melatiContext.getResponse(), capName, accessException.getMessage());
+    melati.getSession().putValue(REALM, capName);
+    forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
-  public MelatiContext establishUser(MelatiContext melatiContext)
+  public Melati establishUser(Melati melati)
   throws ReconstructedHttpServletRequestMismatchException, IOException {
 
-    HttpAuthorization auth = HttpAuthorization.from(melatiContext.getRequest());
+    HttpAuthorization auth = HttpAuthorization.from(melati.getRequest());
 
     if (auth == null) {
       // No attempt to log in: become `guest'
 
-      PoemThread.setAccessToken(melatiContext.getDatabase().guestAccessToken());
-      return melatiContext;
+      PoemThread.setAccessToken(melati.getDatabase().guestAccessToken());
+      return melati;
     }
     else {
       // They are trying to log in
@@ -185,13 +185,13 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       // SELECTion implied by firstWhereEq for every hit
 
       User sessionUser =
-      useSession() ? (User)melatiContext.getSession().getValue(USER) : null;
+      useSession() ? (User)melati.getSession().getValue(USER) : null;
       User user = null;
 
       if (sessionUser == null ||
       !sessionUser.getLogin().equals(auth.username))
       try {
-        user = (User)melatiContext.getDatabase().getUserTable().getLoginColumn().
+        user = (User)melati.getDatabase().getUserTable().getLoginColumn().
         firstWhereEq(auth.username);
       }
       catch (NoSuchRowPoemException e) {
@@ -210,12 +210,12 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
         String storedRealm;
         if (useSession() &&
-        (storedRealm = (String)melatiContext.getSession().getValue(REALM)) !=
+        (storedRealm = (String)melati.getSession().getValue(REALM)) !=
         null) {
 
           // The "realm" is stored in the session
 
-          forceLogin(melatiContext.getResponse(), storedRealm,
+          forceLogin(melati.getResponse(), storedRealm,
           "Login/password not recognised");
           return null;
         }
@@ -226,8 +226,8 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
           // message all over again.  Not very satisfactory but the alternative
           // is providing a default realm like "<unknown>".
 
-          PoemThread.setAccessToken(melatiContext.getDatabase().guestAccessToken());
-          return melatiContext;
+          PoemThread.setAccessToken(melati.getDatabase().guestAccessToken());
+          return melati;
         }
       }
       else {
@@ -237,9 +237,9 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         PoemThread.setAccessToken(user);
 
         if (useSession() && user != sessionUser)
-        melatiContext.getSession().putValue(USER, user);
+        melati.getSession().putValue(USER, user);
 
-        return melatiContext;
+        return melati;
       }
     }
   }

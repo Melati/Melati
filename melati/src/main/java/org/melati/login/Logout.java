@@ -47,26 +47,26 @@ package org.melati.login;
 
 import javax.servlet.http.HttpSession;
 
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.TemplateServlet;
 
 public class Logout extends TemplateServlet {
 
-  protected TemplateContext logoutTemplate(TemplateContext context, String name) {
-    context.setTemplateName("login/" + name);
-    return context;
+  protected String logoutTemplate
+  (String name) {
+    return "login/" + name;
   }
 
-  protected TemplateContext logoutSuccessTemplate(TemplateContext context) {
-    return logoutTemplate(context, "Logout.wm");
+  protected String logoutSuccessTemplate() {
+    return logoutTemplate("Logout");
   }
 
-  protected TemplateContext doTemplateRequest
-  (MelatiContext melatiContext, TemplateContext context)
+  protected String doTemplateRequest
+  (Melati melati, TemplateContext context)
   throws Exception {
 
-    HttpSession session = melatiContext.getSession();
+    HttpSession session = melati.getSession();
 
 	String returnURL = context.getForm("returnURL");
     if (returnURL == null) {
@@ -77,13 +77,7 @@ public class Logout extends TemplateServlet {
 
     session.removeValue(HttpSessionAccessHandler.USER);
 
-    return logoutSuccessTemplate(context);
+    return logoutSuccessTemplate();
   }
   
-    
-  // the 1st parameter is the database name
-  public String getLogicalDatabase(MelatiContext melatiContext, String logicalDatabase) {
-    return melatiContext.getMethod();
-  }
-
 }

@@ -50,8 +50,8 @@ import org.melati.poem.Persistent;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.ReferencePoemType;
-import org.melati.MelatiContext;
-import org.melati.MarkupLanguage;
+import org.melati.Melati;
+import org.melati.template.MarkupLanguage;
 
 public class AdminUtils {
 
@@ -129,15 +129,18 @@ public class AdminUtils {
   }
 
   public String SelectionWindowURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindow";
+    return adminURL + "/" + logicalDatabase + "/" + 
+    table.getName() + "/SelectionWindow";
   }
 
   public String SelectionWindowPrimarySelectURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowPrimarySelect";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
+    "/SelectionWindowPrimarySelect";
   }
 
   public String SelectionWindowSelectionURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowSelection";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
+    "/SelectionWindowSelection";
   }
 
   public String UploadURL(Field field) {
@@ -146,7 +149,8 @@ public class AdminUtils {
 
   public String UploadHandlerURL(String field) {
     int admin = adminURL.indexOf("admin.Admin");
-    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + "/" +field;
+    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + 
+    "/" +field;
   }
 
   // establish if this is a reference poem type field
@@ -158,12 +162,13 @@ public class AdminUtils {
     return adminStaticURL;
   }
 
-  public String specialFacilities(MelatiContext melatiContext, MarkupLanguage ml,
+  public String specialFacilities(Melati melati, MarkupLanguage ml,
   Persistent object)
   throws Exception {
     if (object instanceof AdminSpecialised)
-    melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),
-    ((AdminSpecialised)object).adminSpecialFacilities(melatiContext, ml));
+    melati.getTemplateEngine().expandTemplate(melati.getWriter(),
+    ((AdminSpecialised)object).adminSpecialFacilities(melati, ml),
+    melati.getTemplateContext());
     return "";
   }
 }

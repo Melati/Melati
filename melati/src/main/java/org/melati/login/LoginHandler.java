@@ -4,7 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.UserTable;
 import org.melati.poem.User;
@@ -20,25 +20,24 @@ public class LoginHandler {
     this.servlet = servlet;
   }
 
-  protected TemplateContext loginTemplate(TemplateContext templateContext, String name) {
-    templateContext.setTemplateName("login/" + name);
-    return templateContext;
+  protected String loginTemplate(String name) {
+    return "login/" + name;
   }
 
-  protected TemplateContext loginPageTemplate(TemplateContext templateContext) {
-    return loginTemplate(templateContext, "Login.wm");
+  protected String loginPageTemplate() {
+    return loginTemplate("Login");
   }
 
-  protected TemplateContext usernameUnknownTemplate(TemplateContext templateContext) {
-    return loginTemplate(templateContext, "LoginFailure.wm");
+  protected String usernameUnknownTemplate() {
+    return loginTemplate("LoginFailure");
   }
 
-  protected TemplateContext passwordIncorrectTemplate(TemplateContext templateContext) {
-    return loginTemplate(templateContext, "LoginFailure.wm");
+  protected String passwordIncorrectTemplate() {
+    return loginTemplate("LoginFailure");
   }
 
-  protected TemplateContext loginSuccessTemplate(TemplateContext templateContext) {
-    return loginTemplate(templateContext, "LoginSuccess.wm");
+  protected String loginSuccessTemplate () {
+    return loginTemplate("LoginSuccess");
   }
 
   /*
@@ -68,7 +67,8 @@ public class LoginHandler {
     context.put("passwordWrong", Boolean.FALSE);
   }
 
-  public TemplateContext loginSuccessfullyAs(TemplateContext templateContext, User user) {
+  public String loginSuccessfullyAs
+  (TemplateContext templateContext, User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
@@ -89,21 +89,22 @@ public class LoginHandler {
       templateContext.put("continuationURL", triggeringParams.continuationURL());
     } else {
       if (templateContext.getForm("continuationURL") != null) {
-        templateContext.put("continuationURL",templateContext.getForm("continuationURL"));
+        templateContext.put("continuationURL",
+        templateContext.getForm("continuationURL"));
       }
     }
 
     session.putValue(HttpSessionAccessHandler.USER, user);
 
-    return loginSuccessTemplate(templateContext);
+    return loginSuccessTemplate();
   }
 
   public String getLogin(TemplateContext context) {
     return context.getForm("field_login");
   }
 
-  protected TemplateContext doTemplateRequest(
-  MelatiContext melatiContext, TemplateContext templateContext )
+  protected String doTemplateRequest(
+  Melati melati, TemplateContext templateContext )
   throws Exception {
 
     setupContext(templateContext);
@@ -112,18 +113,18 @@ public class LoginHandler {
     String password = templateContext.getForm("field_password");
 
     if (username == null)
-    return loginPageTemplate(templateContext);
+    return loginPageTemplate();
 
     User user = (User)PoemThread.database().getUserTable().getLoginColumn().
     firstWhereEq(username);
     if (user == null) {
       templateContext.put("loginUnknown", Boolean.TRUE);
-      return usernameUnknownTemplate(templateContext);
+      return usernameUnknownTemplate();
     }
 
     if (!user.getPassword_unsafe().equals(password)) {
       templateContext.put("passwordWrong", Boolean.TRUE);
-      return passwordIncorrectTemplate(templateContext);
+      return passwordIncorrectTemplate();
     }
 
     return loginSuccessfullyAs(templateContext, user);

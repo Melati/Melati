@@ -49,11 +49,11 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import org.melati.poem.PoemException;
 import org.melati.poem.AccessPoemException;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 
 public interface AccessHandler {
-  void handleAccessException(MelatiContext melatiContext, 
+  void handleAccessException(Melati melati, 
                              AccessPoemException accessException)
     throws Exception;
 
@@ -64,6 +64,6 @@ public interface AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  MelatiContext establishUser(MelatiContext melatiContext)
+  Melati establishUser(Melati melati)
     throws ReconstructedHttpServletRequestMismatchException, IOException;
 }

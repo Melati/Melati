@@ -43,23 +43,24 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.admin;
+package org.melati.servlet;
 
-import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
-import org.melati.Melati;
+import javax.servlet.http.HttpServlet;
 
-public class Display extends TemplateServlet {
+import org.melati.util.MelatiException;
 
-  protected String doTemplateRequest
-  (Melati melati, TemplateContext context)
-  throws Exception {
+public class InvalidUsageException extends MelatiException {
 
-    context.put("includedir", "");
-    if (melati.getObject() != null) {
-      melati.getObject().assertCanRead();
-      context.put("object", melati.getObject());
-    }
-    return context.getForm("template");
+  HttpServlet servlet;
+  MelatiContext context;
+
+  public InvalidUsageException(HttpServlet servlet, MelatiContext context) {
+    this.servlet = servlet;
+    this.context = context;
+  }
+
+  public String getMessage() {
+    return "The servlet " + servlet.getClass().getName() + " was invoked " +
+	  "with invalid parameters " + context;
   }
 }

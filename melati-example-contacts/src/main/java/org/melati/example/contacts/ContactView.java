@@ -2,15 +2,19 @@ package org.melati.doc.example.contacts;
 
 import java.io.IOException;
 
-import org.melati.MelatiContext;
+import org.melati.Melati;
+import org.melati.MelatiUtil;
+import org.melati.servlet.MelatiContext;
+import org.melati.servlet.PathInfoException;
 import org.melati.template.webmacro.WebmacroMelatiServlet;
+import org.melati.template.TemplateContext;
 
 import org.webmacro.servlet.WebContext;
 import org.webmacro.WebMacroException;
 
 public class ContactView extends WebmacroMelatiServlet {
 
-  public String handle( MelatiContext melati, WebContext context )
+  public String handle( Melati melati, WebContext context )
   throws WebMacroException {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
@@ -23,10 +27,10 @@ public class ContactView extends WebmacroMelatiServlet {
     else if (melati.getMethod().equals("Update")) {
       if (contact == null) {
         contact = (Contact) db.getContactTable().newPersistent();
-        melati.getMelati().extractFields(melati.getTemplateContext(),contact);
+        MelatiUtil.extractFields(melati.getTemplateContext(),contact);
         db.getContactTable().create(contact);
       } else {
-        melati.getMelati().extractFields(melati.getTemplateContext(),contact);
+        MelatiUtil.extractFields(melati.getTemplateContext(),contact);
       }
       deleteCategories(db,contact);
       String[] categories =
@@ -73,5 +77,9 @@ public class ContactView extends WebmacroMelatiServlet {
     db.sqlUpdate("DELETE FROM contactcategory WHERE contact = " + contact.getTroid());
   }
 
+  protected MelatiContext melatiContext(Melati melati)
+  throws PathInfoException {
+    return melatiContextWithLDB(melati,"contacts");
+  }
 
 }

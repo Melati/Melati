@@ -14,7 +14,7 @@
 <p>The source code is available in org/melati/doc/example/contacts/, and forms a useful starting point to developing a Melati application</p>
 <hr>
 <p>
-<a href=/melati/org.melati.doc.example.contacts.ContactView/contacts/contact/Insert>add a new contact</a>
+<a href=/melati/org.melati.doc.example.contacts.ContactView/contact/Insert>add a new contact</a>
 &nbsp;
 &nbsp;
 &nbsp;
@@ -26,7 +26,7 @@
 &nbsp;
 &nbsp;
 &nbsp;
-<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.LogicalDatabaseName/Main>go to the admin system</a></p>
+<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>go to the admin system</a></p>
 <hr>
 <h2>Search the Contacts</h2>
 <form>
@@ -38,7 +38,7 @@
 #if ($results) #begin
 <table>
 #foreach $item in $results #begin
-<tr><td><a href=/melati/org.melati.doc.example.contacts.ContactView/contacts/contact/$item.Troid/View>edit</a></td><td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td></tr>
+<tr><td><a href=/melati/org.melati.doc.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td><td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td></tr>
 #end
 </table>
 #end

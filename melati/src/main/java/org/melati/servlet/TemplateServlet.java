@@ -48,7 +48,6 @@ package org.melati.servlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
 
-import org.melati.MelatiContext;
 import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
@@ -76,26 +75,38 @@ public abstract class TemplateServlet extends PoemServlet
   {
     super.init( config );
     try {
-      templateEngine = melati.getTemplateEngine();
+      templateEngine = melatiConfig.getTemplateEngine();
       if (templateEngine != null) templateEngine.init();
     } catch (TemplateEngineException e) {
-      // log it to system.err as ServletExceptions go to the 
+      // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
       e.printStackTrace(System.err);
       throw new ServletException(e.toString());
     }
   }
 
-  protected void doPoemRequest( MelatiContext melatiContext) throws Exception {
-    melatiContext.setTemplateEngine(templateEngine);
-    TemplateContext templateContext = templateEngine.getTemplateContext(melatiContext);
-    templateContext.put("melati",melatiContext);
-    melatiContext.setTemplateContext(templateContext);
-    templateContext =  doTemplateRequest(melatiContext,templateContext);
+  protected void doPoemRequest(Melati melati) throws Exception {
+    // for this request, set the Initialised Template Engine
+    melati.setTemplateEngine(templateEngine);
+    TemplateContext templateContext = templateEngine.getTemplateContext(melati);
+    templateContext.put("melati",melati);
+    melati.setTemplateContext(templateContext);
+    String templateName = doTemplateRequest(melati,templateContext);
+    templateName = addExtension(templateName);
     // only expand a template if we have one (it could be a redirect)
-    if (templateContext.getTemplateName() != null) {
-      templateEngine.expandTemplate(melatiContext.getWriter(), templateContext);
+    if (templateName != null) {
+      templateEngine.expandTemplate
+      (melati.getWriter(), templateName, templateContext);
     }
+  }
+  
+  /**
+  * the template extension is added in an overridable method
+  * to allow the application developer to specify their own template
+  * extensions
+  */
+  public String addExtension(String templateName) {
+    return templateName + templateEngine.templateExtension();
   }
 
   /**
@@ -103,8 +114,8 @@ public abstract class TemplateServlet extends PoemServlet
    * @param melatiContext
    * @return an object with all you need to do the template expansion
    */
-  protected abstract TemplateContext doTemplateRequest(
-  MelatiContext melatiContext, TemplateContext templateContext)
+  protected abstract String doTemplateRequest(
+  Melati melati, TemplateContext templateContext)
   throws Exception ;
 
 }

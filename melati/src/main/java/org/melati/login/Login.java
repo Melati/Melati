@@ -46,7 +46,7 @@
 package org.melati.login;
 
 import org.melati.servlet.TemplateServlet;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.template.TemplateContext;
 
 public class Login extends TemplateServlet {
@@ -63,14 +63,10 @@ public class Login extends TemplateServlet {
     return loginHandler;
   }
 
-  protected TemplateContext doTemplateRequest(MelatiContext melatiContext, TemplateContext templateContext)
+  protected String doTemplateRequest
+  (Melati melati, TemplateContext templateContext)
   throws Exception {
-    return getLoginHandler().doTemplateRequest(melatiContext, templateContext);
-  }
-  
-  // the 1st parameter is the database name
-  public String getLogicalDatabase(MelatiContext melatiContext, String logicalDatabase) {
-    return melatiContext.getMethod();
+    return getLoginHandler().doTemplateRequest(melati, templateContext);
   }
   
 }

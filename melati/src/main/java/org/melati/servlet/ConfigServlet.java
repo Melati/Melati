@@ -42,17 +42,56 @@
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
- 
- /*
- * Config Servlet is the simplest way to use Melati.  
+
+/*
+ * Config Servlet is the simplest way to use Melati.
  *
- * All a ComboServlet does is to configure a melati and combine the 
+ * All a ComboServlet does is to configure a melati and combine the
  * doGet and doPost methods.  Importantly it does not establish a poem session
  * leaving you to do this for yourself.
  *
  * if you want a poem session established, please extend PoemServlet
+ *
+ * <A NAME=pathinfoscan>ComboServlet does set up a basic
+ * MelatiContext with the Method set,
+ * but not the POEM logicaldatabase, table or troid
+ *
+ * The URL is expected to take one of the following form:
+ *
+ * <BLOCKQUOTE><TT>
+ * http://<I>h</I>/<I>s</I>/<I>meth</I>
+ * </TT></BLOCKQUOTE>
+ *
+ * the method is broken out of the path info and passed to
+ * your application code in the <TT>Melati</TT> and
+ * <TT>MelatiContext</TT> parameter
+ *
+ * <TABLE>
+ *   <TR>
+ *     <TD><TT><I>h</I></TT></TD>
+ *     <TD>host name, such as <TT>www.melati.org</TT></TD>
+ *   </TR>
+ *   <TR>
+ *     <TD><TT><I>s</I></TT></TD>
+ *     <TD>
+ *       servlet-determining part, such as
+ *       <TT>melati/org.melati.admin.Admin</TT>
+ *     </TD>
+ *   </TR>
+ *   <TR>
+ *     <TD><TT><I>meth</I></TT></TD>
+ *     <TD>
+ *       A freeform string telling your servlet what it is meant to do.  This
+ *       is automatically made available in templates as
+ *       <TT>$melati.Method</TT>.
+ *     </TD>
+ *   </TR>
+ * </TABLE>
+ *
+ * You can change the way these things are determined by overriding
+ * <TT>melatiContext</TT>.
  */
- 
+
 package org.melati.servlet;
 
 import java.io.PrintWriter;
@@ -65,123 +104,119 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
-import org.melati.MelatiContext;
+import org.melati.MelatiConfig;
 import org.melati.util.MelatiException;
+import org.melati.util.StringUtils;
 
 public abstract class ConfigServlet extends HttpServlet
 {
 
   // the melati
-  public Melati melati;
-  
-  /** 
+  public MelatiConfig melatiConfig;
+
+  /**
    * Inititialise Melati
    * @param ServletConfig
    */
-  public void init( ServletConfig config ) throws ServletException
+  public void init ( ServletConfig config ) throws ServletException
   {
-     super.init( config );
-     try {
-       melati = new Melati();
-     } catch (MelatiException e) {
-       // log it to system.err as ServletExceptions go to the 
-       // servlet runner log (eg jserv.log), and don't have a stack trace!
-       e.printStackTrace(System.err);
-       throw new ServletException(e.toString());
-     }
+    super.init ( config );
+    try {
+      melatiConfig = new MelatiConfig ();
+    } catch (MelatiException e) {
+      // log it to system.err as ServletExceptions go to the
+      // servlet runner log (eg jserv.log), and don't have a stack trace!
+      e.printStackTrace (System.err);
+      throw new ServletException (e.toString ());
+    }
   }
-    
+
   /**
    * Handles GET
    */
-  public void doGet( HttpServletRequest request, HttpServletResponse response )
-    throws ServletException, IOException
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException
   {
-    doGetPostRequest(request, response);
+    doGetPostRequest (request, response);
   }
 
   /**
    * Handle a POST
    */
-  public void doPost( HttpServletRequest request, HttpServletResponse response )
-    throws ServletException, IOException
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  throws ServletException, IOException
   {
-    doGetPostRequest(request, response);
+    doGetPostRequest (request, response);
   }
 
   /**
    * Process the request.
    */
   private void doGetPostRequest
-   (final HttpServletRequest request, final HttpServletResponse response)
-    throws IOException {
+  (final HttpServletRequest request, final HttpServletResponse response)
+  throws IOException {
 
     try {
-      // the method (taken from pathinfo)
-      String method = null;
-      MelatiContext melatiContext = melati.getContext(request, response); 
-      // set the method called
-      String[] parts = melatiContext.getPathInfoParts();
-      if (parts.length > 0) method = getMethod(melatiContext, nulled(parts[parts.length - 1]));
-      melatiContext.setMethod(method);
-    
-      doConfiguredRequest(melatiContext);
+      Melati melati = melatiConfig.getMelati (request, response);
+      MelatiContext melatiContext = melatiContext(melati);
+      melati.setContext(melatiContext);
+
+      doConfiguredRequest (melati);
       // send the output to the client
-      melatiContext.write();
+      melati.write ();
     } catch (Exception e) {
-      error(response,e);
+      error (response,e);
     }
-  }                                                                                
-    
+  }
+
   /**
    * Send an error message
    */
-  protected void error( HttpServletResponse response, Exception e )
-    throws IOException {
-       // has it been trapped already, if so, we don't need to relog it here
-      if (!(e instanceof TrappedException)) {
-        // log it
-        e.printStackTrace(System.err);
-        // and put it on the page
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<html><head><title>Melati Error</title></head><body><h2>Melati Error</h2>");
-        out.println("<p>An error has occured in the application that runs this website, please ");
-        out.println("contact <a href='mailto:" + getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
-        out.println(", with the information given below.</p>");
-        out.println("<h4><font color=red><pre>" );
-        e.printStackTrace(out);
-        out.println("</pre></font></h4></body></html>");
+  protected void error ( HttpServletResponse response, Exception e )
+  throws IOException {
+    // has it been trapped already, if so, we don't need to relog it here
+    if (! (e instanceof TrappedException)) {
+      // log it
+      e.printStackTrace (System.err);
+      // and put it on the page
+      response.setContentType ("text/html");
+      PrintWriter out = response.getWriter ();
+      out.println("<html><head><title>Melati Error</title></head><body><h2>");
+      out.println("Melati Error</h2><p>An error has occured in the application"); 
+      out.println("that runs this website, please contact <a href='mailto:");
+      out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
+      out.println(", with the information given below.</p>");
+      out.println("<h4><font color=red><pre>" );
+      e.printStackTrace(out);
+      out.println("</pre></font></h4></body></html>");
     }
   }
 
-  /* 
-  * please override these settings
-  */
-  public String getSysAdminName() {
+  /*
+   * please override these settings
+   */
+  public String getSysAdminName () {
     return "nobody";
   }
-  public String getSysAdminEmail() {
+  public String getSysAdminEmail () {
     return "nobody@nobody.com";
   }
 
-  // override this to set your method to something other than is provided in pathinfo
-  public String getMethod(MelatiContext melatiContextIn, String methodIn) {
-    return methodIn;
-  }
-
-  // null a string
-  private static String nulled(String s) {
-    if (s.equals("")) return null;
-    return s;
+  protected MelatiContext melatiContext(Melati melati) 
+  throws PathInfoException {
+    MelatiContext it = new MelatiContext();
+    String[] parts = melati.getPathInfoParts();
+    if (parts.length > 0)
+    it.method = StringUtils.nulled(parts[parts.length - 1]);
+    return it;
   }
 
   /**
    * Override the method to build up your output
-   * @param melatiContext 
+   * @param melati
    */
-  protected abstract void doConfiguredRequest(MelatiContext melatiContext) 
-    throws Exception;
+  protected abstract void doConfiguredRequest (Melati melati)
+  throws Exception;
 
 }
 

@@ -130,6 +130,13 @@ public interface Dbms {
   String getLongSqlDefinition();
 
   /**
+   * Accomodate different true and false values. 
+   * 
+   * @return the DBMS specific truth and false values 
+   */
+  String sqlBooleanValueOfRaw(Object raw);
+  
+  /**
    * Accomodate different treatment of different sized binary data.
    * 
    * @param size how big the field is

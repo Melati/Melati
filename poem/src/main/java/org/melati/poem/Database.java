@@ -673,6 +673,10 @@ abstract public class Database {
         protected Version backingVersion(Session session) {
           return new VersionHashtable();
         }
+
+	protected boolean upToDate(Session session, Version version) {
+	  return true;
+	}
       };
 
   private boolean dbGivesCapability(User user, Capability capability) {

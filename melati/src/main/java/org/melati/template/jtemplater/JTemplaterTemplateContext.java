@@ -72,8 +72,8 @@ public class JTemplaterTemplateContext implements TemplateContext {
     return null;
   }
 
-  public Object get(Object o) {
-    return vars.get(o);
+  public Object get(String s) {
+    return vars.get(s);
   }
 
   public HttpSession getSession() {
@@ -89,6 +89,8 @@ public class JTemplaterTemplateContext implements TemplateContext {
     JTemplaterTemplateContext c = new JTemplaterTemplateContext();
     return c.getClass();
   }
+
+  public void setVariableExceptionHandler(Object veh) {};
 
 }
 

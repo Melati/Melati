@@ -65,4 +65,7 @@ public interface TemplateContext {
   public HttpSession getSession();
 
   public Object getContext();
+  
+  public void setVariableExceptionHandler(Object veh);
+
 }

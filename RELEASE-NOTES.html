@@ -6,22 +6,65 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 13/03/2001 - tim@hoop.co.uk</h4>
+  <h4 align="center">last updated 23/03/2001 - mylesc@paneris.org</h4>
+  <h2>Release 0.53.5</h2>
+  <h4>23/03/2001 </h4>
+  <p>0.53.5 introduces the following changes.</p>
+  <ul>
+    <li>DSDs can now be imported into other DSDs</li>
+  </ul>
+  <h3> Importing DSDs into other DSDs</h3>
+  <p> You can now import DSDs into other DSDs. For instance, in my ImportBoards.dsd 
+    I have a line:</p>
+  <pre> import org.paneris.melati.boards.model.boards.dsd;</pre>
+  <p> This adds all the tables defined in the <tt>boards.dsd</tt> file into my 
+    ImportBoardsDatabase in such a way that you can access them in the same way 
+    as any tables defined in ImportBoards.dsd. In particular, the objects in these 
+    tables are instances of org.paneris.melati.boards.model.boards.* (i.e. any 
+    custom code is available).</p>
+  <p>All the imported tables are included into the new database. Note that all 
+    Tables/Persistents are cast to the "base" table/persistent with the same name 
+    - you will have to manually cast them to the correct type. Here "base" means 
+    the oldest (nearest the root) base class. E.g. Poem.dsd defines User. boards.dsd 
+    defines a new persistent, org.paneris.melati.boards.model.User (and ImportBoards.dsd 
+    defines a org.paneris.melati.playing.importboards.User). If you call getUserTable() 
+    on any of these databases you will get a org.melati.poem.User object (which 
+    can be cast to org.paneris.melati.boards.User or org.paneris.melati.playing.importboards.User).</p>
+  <h4> Changes required to projects:</h4>
+  <p> 1) We no longer provide a getXxxxDatabase() function in each Table and Persistent. 
+    Instead you should either just use getDatabase() or you can use getXxxxDatabaseTables() 
+    to access tables specific to your project. In particular, getPoemDatabase() 
+    is no longer available in the Poem tables/persisents. So if you call getPoemDatabase() 
+    in your code, you should change it one of getDatabase() or getPoemDatabaseTables(). 
+    Similarly, if you re-run DSD on your project Xxxx then you will need to handle 
+    any calls to getXxxxDatabase(). You can either change them to getXxxxDatabaseTables(), 
+    getDatabase(), or you can add the old function into your non-generated files: 
+    e.g. in MyTable.java add:</p>
+  <pre> XxxxDatabase getXxxxDatabase() { 
+    (XxxxDatabase)getDatabase();
+ }</pre>
+  <p> 2) I have tested this on several databases and although I am fairly confident 
+    that it should work, IF YOU RE-RUN DSD ON YOUR OWN DATABASES YOU MAY EXPERIENCE 
+    PROBLEMS.</p>
+  <p> 3) Your .dsd file must live in the same directory as your compiled code 
+    because it is loaded as a Resource. </p>
+  <p>&nbsp;</p>
   <h2>Release 0.53.4</h2>
   <h4>13/03/2001 </h4>
   <p>0.53.4 introduces the following changes.</p>
   <ul>
-    <li>support for Webmacro 0.95b3. Previous versions of webmacro are no longer 
+    <li>Support for Webmacro 0.95b3. Previous versions of webmacro are no longer 
       supported. </li>
     <li>Improved support for MS SQLServer</li>
   </ul>
   <p>This release patches the memory problems experienced with Webmacro previously.</p>
   <p>&nbsp;</p>
+  <h2></h2>
   <h2>Release 0.53.3</h2>
   <h4>26/02/2001 </h4>
   <p>0.53.3 introduces the following changes.</p>
   <ul>
-    <li>support for Webmacro 2000-12-06. Previous versions of webmacro are no 
+    <li>Support for Webmacro 2000-12-06. Previous versions of webmacro are no 
       longer supported. </li>
     <li>PoemTransaction monitoring, please see <tt><br>
       http://localhost/&lt;servlet zone&gt;/org.melati.poem.SessionAnalysisServlet</tt></li>
@@ -34,6 +77,8 @@
   <h4>01/03/2001 </h4>
   <p>Provides a workarround for the bug where Webmacro0.94 Fastwriter silently 
     failed to write context of &gt; 512 chars</p>
+  <p>&nbsp;</p>
+  <hr>
   <p>&nbsp;</p>
   <h2>Release 0.53</h2>
   <h4>13/02/2001 </h4>
@@ -183,6 +228,8 @@
     operations. Both methods will remain for now, and both support the new, more 
     flexible integrity maintenance scheme. </p>
   <p>&nbsp;</p>
+  <hr>
+  <p>&nbsp;</p>
   <h2>Release 0.52.1</h2>
   <h4>21//01/2001 </h4>
   <p>The main motivation for this release is to seperate the Java doc from the 
@@ -194,7 +241,6 @@
     <li>ability to override Melati Config settings.</li>
     <li>support for BINARY types in POEM</li>
   </ul>
-  <p>&nbsp;</p>
   <p>&nbsp;</p>
   <h2>Release 0.52</h2>
   <h4>18/01/2001 </h4>

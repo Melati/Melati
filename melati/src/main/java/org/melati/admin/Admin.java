@@ -135,7 +135,7 @@ public class Admin extends MelatiServlet {
     Column column = table.primaryCriterionColumn();
 	Field primaryCriterion = null;
     if (column != null) {
-      String string = context.getForm("field-" + column.getName());
+      String string = context.getForm("field_" + column.getName());
       if (string != null && !string.equals(""))
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
       final PoemType nullable = column.getType().withNullable(true);
@@ -172,7 +172,7 @@ public class Admin extends MelatiServlet {
     Vector whereClause = new Vector();
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      String name = "field-" + column.getName();
+      String name = "field_" + column.getName();
       String string = context.getForm(name);
       if (string != null && !string.equals("")) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
@@ -184,7 +184,7 @@ public class Admin extends MelatiServlet {
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true, database.getDbms()) {
+        new ReferencePoemType(database.getColumnInfoTable(), true) {
           protected Enumeration _possibleRaws() {
             return
                 new MappedEnumeration(table.getSearchCriterionColumns()) {
@@ -199,7 +199,7 @@ public class Admin extends MelatiServlet {
     Vector orderClause = new Vector();
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
-      String orderColumnIDString = context.getForm("field-" + name);
+      String orderColumnIDString = context.getForm("field_" + name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
@@ -278,7 +278,7 @@ public class Admin extends MelatiServlet {
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true, database.getDbms()) {
+        new ReferencePoemType(database.getColumnInfoTable(), true) {
           protected Enumeration _possibleRaws() {
             return
                 new MappedEnumeration(table.getSearchCriterionColumns()) {
@@ -294,7 +294,7 @@ public class Admin extends MelatiServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
-      String orderColumnIDString = context.getForm("field-" + name);
+      String orderColumnIDString = context.getForm("field_" + name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
@@ -393,7 +393,7 @@ public class Admin extends MelatiServlet {
     Database database = melati.getDatabase();
     database.addTableAndCommit(
         (TableInfo)create(database.getTableInfoTable(), context),
-        context.getForm("field-troidName"));
+        context.getForm("field_troidName"));
 
     return adminTemplate(context, "CreateTable_doit.wm");
   }

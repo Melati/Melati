@@ -335,21 +335,12 @@ public class Admin extends MelatiServlet {
     
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
     final Column tic = cit.getTableinfoColumn();
-    final Column typeColumn = cit.getTypeColumn();
+    final Column typeColumn = cit.getTypefactoryColumn();
 
     Enumeration columnInfoFields =
         new MappedEnumeration(cit.columns()) {
           public Object mapped(Object column) {
-/*            if (column == tic)
-              // What does this do??!
-              return new Field(
-                  (Object)null,
-                  new BaseFieldAttributes(
-                      tic.getName(), tic.getDisplayName(), tic.getDescription(),
-                      tic.getType(), tic.getRenderInfo()));
-            else 
-*/
-			if (column == typeColumn)
+	    if (column == typeColumn)
               return new Field(PoemTypeFactory.STRING.getCode(), typeColumn);
             else
               return new Field((Object)null, (FieldAttributes)column);
@@ -400,101 +391,6 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
-/* this no longer used, but kept for reference
-  
-  protected WebContext tableList(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    final Table table = melati.getTable();
-    context.put("table", table);
-
-    final Database database = table.getDatabase();
-    context.put("database", database);
-
-    // sort out search criteria
-
-    final Persistent criteria = table.newPersistent();
-
-    for (Enumeration c = table.columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement();
-      String string = context.getForm("field-" + column.getName());
-      if (string != null && !string.equals(""))
-        column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-    }
-
-    MappedEnumeration criterias =
-        new MappedEnumeration(table.getSearchCriterionColumns()) {
-	  public Object mapped(Object c) {
-	    Column column = (Column)c;
-	    final PoemType nullable = column.getType().withNullable(true);
-	    return
-		new Field(column.getRaw(criteria), column) {
-		  public PoemType getType() {
-		    return nullable;
-		  }
-		};
-	  }
-	};
-
-    context.put("criteria", EnumUtils.vectorOf(criterias));
-
-    // sort out ordering (FIXME this is a bit out of control)
-
-    PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true) {
-          protected Enumeration _possibleRaws() {
-            return
-                new MappedEnumeration(table.getSearchCriterionColumns()) {
-                  public Object mapped(Object column) {
-                    return ((Column)column).getColumnInfo().getTroid();
-                  }
-                };
-          }
-        };
-
-    Vector orderingNames = new Vector();
-    Vector orderings = new Vector();
-
-    for (int o = 1; o <= 2; ++o) {
-      String name = "order-" + o;
-      String orderColumnIDString = context.getForm("field-" + name);
-      Integer orderColumnID = null;
-      if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
-        orderColumnID =
-            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
-        ColumnInfo info =
-            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
-        orderingNames.addElement(database.quotedName(info.getName()));
-      }
-
-      orderings.addElement(
-          new Field(orderColumnID,
-                    new BaseFieldAttributes(name, searchColumnsType)));
-    }
-
-    context.put("orderings", orderings);
-
-    String orderByClause = EnumUtils.concatenated(", ",
-                                                  orderingNames.elements());
-
-    int start = 0;
-    String startString = context.getForm("start");
-    if (startString != null) {
-      try {
-        start = Math.max(0, Integer.parseInt(startString));
-      }
-      catch (NumberFormatException e) {
-        throw new HandlerException("`start' param to `List' must be a number");
-      }
-    }
-
-    context.put("objects", table.selection(table.whereClause(criteria),
-                                           orderByClause, false, start, 20));
-
-    return context;
-  }
-*/
-  
   protected Template columnCreate_doitTemplate(final WebContext context,
                                                final Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {

@@ -13,9 +13,15 @@ public class AccessPoemException extends PoemException {
     this(null, null);
   }
 
+  public String getActionDescription() {
+    return null;
+  }
+
   public String getMessage() {
+    String ad = getActionDescription();
     return
-        "You need the capability " + capability + " but your access token " +
+        "You need the capability " + capability +
+        (ad == null ? "" : "to " + ad + " ") + "but your access token " +
         token + " doesn't confer it";
   }
 }

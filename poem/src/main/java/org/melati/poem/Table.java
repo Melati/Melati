@@ -1152,6 +1152,10 @@ public class Table {
           PoemType colType =
               database.defaultPoemTypeOfColumnMetaData(colDescs);
 
+          // magically make eligible columns called "id" and "deleted"
+          // into designed troid and soft-deleted-flag columns
+          // FIXME this may not be a good idea
+
           if (troidColumn == null && colName.equals("id") &&
               colType.canBe(TroidPoemType.it))
             colType = TroidPoemType.it;
@@ -1230,6 +1234,7 @@ public class Table {
 
     // Where should we start numbering new records?
 
+    PoemThread.writeDown();
     String sql = 
         "SELECT " + _quotedName(troidColumn.getName()) +
         " FROM " + _quotedName(name) +

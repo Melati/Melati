@@ -180,7 +180,7 @@ public class Persistent {
         canRead = getTable().getDefaultCanRead();
       if (canRead != null) {
         if (!token.givesCapability(canRead))
-          throw new AccessPoemException(token, canRead);
+          throw new ReadPersistentAccessPoemException(this, token, canRead);
         if (clearedToken != token)
           knownCanWrite = false;
         clearedToken = token;
@@ -246,7 +246,7 @@ public class Persistent {
         canWrite = getTable().getDefaultCanWrite();
       if (canWrite != null) {
         if (!token.givesCapability(canWrite))
-          throw new AccessPoemException(token, canWrite);
+          throw new WritePersistentAccessPoemException(this, token, canWrite);
         if (clearedToken != token)
           knownCanRead = false;
         clearedToken = token;

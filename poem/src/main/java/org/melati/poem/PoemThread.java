@@ -89,15 +89,28 @@ public class PoemThread {
     return it;
   }
 
-  static AccessToken setAccessToken(AccessToken token) {
+  /**
+   * Change the access token under which your thread is operating.  You can't
+   * do this unless the current token is <TT>root</TT>.
+   *
+   * @see AccessToken#root
+   */
+
+  public static void setAccessToken(AccessToken token)
+      throws NonRootSetAccessTokenPoemException {
     SessionToken context = sessionToken();
     AccessToken old = context.accessToken;
+    if (old != AccessToken.root)
+      throw new NonRootSetAccessTokenPoemException(old);
     context.accessToken = token;
-    return old;
   }
 
   public static Database database() throws NotInSessionPoemException {
     return session().getDatabase();
+  }
+
+  public static void writeDown() {
+    session().writeDown();
   }
 
   public static void commit() {

@@ -71,41 +71,60 @@ public class ClassNameTempletLoader implements TempletLoader {
   }
 
   protected String templetPath(TemplateEngine templateEngine,
-                               MarkupLanguage markupLanguage, String name) {
-    return "template" + File.separatorChar + templateEngine.getName() + 
-               File.separatorChar + templetsPath(markupLanguage) + 
-               File.separatorChar + name + templateEngine.templateExtension();
+                               MarkupLanguage markupLanguage,
+                               String purpose, String name) {
+    if (purpose == null)
+      return "template" + File.separatorChar + templateEngine.getName() + 
+                 File.separatorChar + templetsPath(markupLanguage) + 
+                 File.separatorChar + name +
+                 templateEngine.templateExtension();
+    else
+      return "template" + File.separatorChar + templateEngine.getName() + 
+                 File.separatorChar + templetsPath(markupLanguage) + 
+                 File.separatorChar + purpose +
+                 File.separatorChar + name +
+                 templateEngine.templateExtension();
   }
 
   public Template templet(TemplateEngine templateEngine,
-                          MarkupLanguage markupLanguage, String name)
-      throws NotFoundException {
+                          MarkupLanguage markupLanguage, String purpose,
+                          String name) throws NotFoundException {
     return templateEngine.template(templetPath(templateEngine, markupLanguage,
-                                               name));
+                                               purpose, name));
+  }
+
+  public final Template templet(TemplateEngine templateEngine,
+                                MarkupLanguage markupLanguage, String name)
+      throws NotFoundException {
+    return templet(templateEngine, markupLanguage, null, name);
   }
 
   public Template templet(TemplateEngine templateEngine,
-                          MarkupLanguage markupLanguage, Class clazz)
+                          MarkupLanguage markupLanguage, String purpose,
+                          Class clazz)
       throws NotFoundException {
 
-    String cacheKey = clazz + "/" + markupLanguage;
+    String cacheKey = clazz + "/" + purpose + "/" + markupLanguage;
     Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
 
     if (templet == null) {
       while (clazz != null) {
         try {
-          templet = templet(templateEngine, markupLanguage, clazz.getName());
+          templet = templet(templateEngine, markupLanguage,
+                            purpose, clazz.getName());
           break;
         }
         catch (NotFoundException e) {}
 
-        String specialTemplateName =
-            (String) specialTemplateNames.get(clazz.getName());
+        if (purpose == null) {
+          String specialTemplateName =
+              (String)specialTemplateNames.get(clazz.getName());
 
-        if (specialTemplateName != null) {
-          templet =
-              templet(templateEngine, markupLanguage, specialTemplateName);
-          break;
+          if (specialTemplateName != null) {
+            templet =
+                templet(templateEngine, markupLanguage, specialTemplateName);
+            break;
+          }
         }
 
         clazz = clazz.getSuperclass();
@@ -117,6 +136,12 @@ public class ClassNameTempletLoader implements TempletLoader {
     }
 
     return templet;
+  }
+
+  public final Template templet(TemplateEngine templateEngine,
+                                MarkupLanguage markupLanguage, Class clazz)
+      throws NotFoundException {
+    return templet(templateEngine, markupLanguage, null, clazz);
   }
 
   public Template templet(TemplateEngine templateEngine,

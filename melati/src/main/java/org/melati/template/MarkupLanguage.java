@@ -601,7 +601,14 @@ public abstract class MarkupLanguage {
   }
 
   public Template templet(String templetName) throws NotFoundException {
-    return templetLoader.templet(melati.getTemplateEngine(), this, templetName);
+    return templetLoader.templet(melati.getTemplateEngine(), this,
+                                 templetName);
+  }
+
+  public Template templet(String purpose, Class clazz)
+      throws NotFoundException {
+    return templetLoader.templet(melati.getTemplateEngine(), this, purpose,
+                                 clazz);
   }
 
   protected void expandedTemplet(Template templet, TemplateContext tc,

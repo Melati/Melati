@@ -54,7 +54,15 @@ public interface TempletLoader {
       throws NotFoundException;
 
   Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
+                   String purpose, String templetName)
+      throws NotFoundException;
+
+  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
                    Class clazz)
+      throws NotFoundException;
+
+  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,
+                   String purpose, Class clazz)
       throws NotFoundException;
 
   Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage,

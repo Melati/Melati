@@ -82,13 +82,13 @@ class HttpAuthorization {
   private HttpAuthorization() {
     ; // Utility classes should not have a public or default constructor
   }
-  public HttpAuthorization(String type, String username, String password) {
+  HttpAuthorization(String type, String username, String password) {
     this.type = type;
     this.username = username;
     this.password = password;
   }
 
-  public static HttpAuthorization from(String authHeader) {
+  static HttpAuthorization from(String authHeader) {
     // FIXME single space probably not only valid separator
 
     if (authHeader.regionMatches(0, "Basic ", 0, 6)) {
@@ -121,7 +121,7 @@ class HttpAuthorization {
     }
   }
 
-  public static HttpAuthorization from(HttpServletRequest request) {
+  static HttpAuthorization from(HttpServletRequest request) {
     String header = request.getHeader("Authorization");
     return header == null ? null : from(header);
   }

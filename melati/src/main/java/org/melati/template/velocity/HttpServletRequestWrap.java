@@ -56,24 +56,22 @@ import java.util.Locale;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+import org.melati.util.DelegatedHttpServletRequest;
+
 /* 
  * add get method that allows us to $Form.XXXX to access for parameters
  */
 
-public class HttpServletRequestWrap implements HttpServletRequest {
-    /*
-     *  The object that we are wrapping, set in the CTOR
-     */
-    private HttpServletRequest req = null;
+public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
 
     /**
      *  CTOR
      *
      *  @param req HttpServletRequest object to wrap
      */
-    public HttpServletRequestWrap( HttpServletRequest req )
+    public HttpServletRequestWrap( HttpServletRequest peer )
     {
-        this.req = req;
+        super(peer);
     }
 
     /**
@@ -84,197 +82,11 @@ public class HttpServletRequestWrap implements HttpServletRequest {
      */
     public HttpServletRequest getWrappedObject()
     {
-        return req;
-    }
-
-    /* --------- HttpServletRequest -----------  */
-
-    public String getAuthType()
-    {
-        return req.getAuthType();
-    }
-
-    public Cookie[] getCookies()
-    {
-        return req.getCookies();
-    }
-
-    public long getDateHeader(String name)
-    {
-        return req.getDateHeader( name );
+        return peer;
     }
    
-    public String getHeader(String name)
-    {
-        return req.getHeader( name );
-    }
-
-    public Enumeration getHeaderNames()
-    {
-        return req.getHeaderNames();
-    }
-
-    public int getIntHeader(String name)
-    {
-        return req.getIntHeader( name );
-    }
-    
-    public String getMethod()
-    {
-        return req.getMethod();
-    }
-     
-    public String getPathInfo()
-    {
-        return req.getPathInfo();
-    }
-
-    public String getPathTranslated()
-    {
-        return req.getPathTranslated();
-    }
-
-    public String getQueryString()
-    {
-        return req.getQueryString();
-    }
-
-    public String getRemoteUser()
-    {
-        return req.getRemoteUser();
-    }
-
-    public String getRequestedSessionId()
-    {
-        return req.getRequestedSessionId();
-    }
-    
-    public String getRequestURI()
-    {
-        return req.getRequestURI();
-    }
-    
-    public String getServletPath()
-    {
-        return req.getServletPath();
-    }
- 
-    public HttpSession getSession(boolean create)
-    {
-        return req.getSession( create );
-    }
-
-    public boolean isRequestedSessionIdValid()
-    {
-        return req.isRequestedSessionIdValid();
-    }
- 
-    public boolean isRequestedSessionIdFromCookie()
-    {
-        return req.isRequestedSessionIdFromCookie();
-    }
-
-    /**
-     *  @deprecated
-     */
-    public boolean isRequestedSessionIdFromUrl()
-    {
-        return req.isRequestedSessionIdFromUrl();
-    }
-
-    /* ----------------  ServletRequest -------------- */
-
-
-    public Object getAttribute(String name)
-    {
-        return req.getAttribute( name );
-    }
-
-    public String getCharacterEncoding()
-    {
-        return req.getCharacterEncoding();
-    }
-
-    public int getContentLength()
-    {
-        return req.getContentLength();
-    }
-
-    public String getContentType()
-    {
-        return req.getContentType();
-    }
-    
-    public ServletInputStream getInputStream() 
-        throws IOException
-    {
-        return req.getInputStream();
-    }
-     
-    public String getParameter(String name)
-    {
-        return req.getParameter( name );
-    }
-
-    public Enumeration getParameterNames()
-    {
-        return req.getParameterNames();
-    }
-
-    public String[] getParameterValues(String name)
-    {
-        return req.getParameterValues( name );
-    }
-
-  
-    public String getProtocol()
-    {
-        return req.getProtocol();
-    }
-
-    public String getScheme()
-    {
-        return req.getScheme();
-    }
-
-    public String getServerName()
-    {
-        return req.getServerName();
-    }
- 
-    public int getServerPort()
-    {
-        return req.getServerPort();
-    }
-    
-    public BufferedReader getReader() 
-        throws IOException
-    {
-        return req.getReader();
-    }
-
-    public String getRemoteAddr()
-    {
-        return req.getRemoteAddr();
-    }
-
-    public String getRemoteHost()
-    {
-        return req.getRemoteHost();
-    }
-   
-    /**
-     */
     public String get( String name )
     {
         return getParameter( name );
-    }
-   
-    /**
-     *  @deprecated
-     */
-    public String getRealPath( String path )
-    {
-        return req.getRealPath( path );
     }
 }

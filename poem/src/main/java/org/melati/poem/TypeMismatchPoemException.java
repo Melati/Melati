@@ -59,8 +59,7 @@ public class TypeMismatchPoemException extends AppBugPoemException {
     try {
       s = String.valueOf(value);
       if (s.length() >= 100) s = "<long>";
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       s = "<error>";
     }
     return

@@ -45,9 +45,6 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.poem.dbms.*;
-
 public class DeletedPoemType extends BooleanPoemType {
 
   public static final DeletedPoemType it = new DeletedPoemType();

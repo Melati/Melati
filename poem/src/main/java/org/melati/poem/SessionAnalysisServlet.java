@@ -45,19 +45,17 @@
 
 package org.melati.poem;
 
-import java.io.Writer;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.*;
+
+import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 
 import org.melati.servlet.ConfigServlet;
-import org.melati.servlet.MelatiContext;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
-import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.ExceptionUtils;
 import org.melati.util.MelatiWriter;
 
 /**

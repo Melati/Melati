@@ -45,10 +45,6 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
-
 public class PasswordPoemType extends StringPoemType {
 
   public PasswordPoemType(boolean nullable, int size) {

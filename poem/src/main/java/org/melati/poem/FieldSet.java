@@ -45,8 +45,9 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Hashtable;
+import java.util.Enumeration;
+import org.melati.util.ArrayEnumeration;
 
 public class FieldSet {
 

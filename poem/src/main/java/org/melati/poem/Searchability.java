@@ -45,8 +45,8 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Hashtable;
+import org.melati.util.MelatiRuntimeException;
 
 public class Searchability {
 
@@ -93,7 +93,7 @@ public class Searchability {
 
     public String getMessage() {
       return
-	  "No searchability level found which goes by the name `" + name + "'";
+        "No searchability level found which goes by the name `" + name + "'";
     }
   }
 

@@ -52,11 +52,13 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.melati.poem.Database;
-import org.melati.util.MelatiRuntimeException;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.PropertiesUtils;
 
+/**
+ * An object which knows how to connect to a database.
+ */
 public class LogicalDatabase {
 
   private LogicalDatabase() {}
@@ -93,14 +95,6 @@ public class LogicalDatabase {
     return dbs;
   }
 
-  /**
-  @deprecated
-  */
-/*
-  public static Database named(String name) throws DatabaseInitException {
-      return getDatabase(name);
-  }
-*/
 
   private static final Object pending = new Object();
 
@@ -140,7 +134,7 @@ public class LogicalDatabase {
         //Object databaseObject=Class.forName(clazz).newInstance();
 
         Object databaseObject = null;
-		
+
         try {
           databaseObject = Thread.currentThread().getContextClassLoader().
                                loadClass(clazz).newInstance();
@@ -148,7 +142,7 @@ public class LogicalDatabase {
         catch (Exception e) {
           databaseObject = Class.forName(clazz).newInstance();
         }
-		
+
         if (!(databaseObject instanceof Database)) 
           throw new ClassCastException(
               "The .class=" + clazz + " entry named a class of type " +
@@ -157,7 +151,7 @@ public class LogicalDatabase {
 
         database = (Database)databaseObject;
 
-        // Changed to use dbmsclass not driver, it will throw and exception 
+        // Changed to use dbmsclass not driver, it will throw an exception 
         // if that is not correct
 
         database.connect(dbmsclass, url, user, pass, maxTrans);

@@ -53,7 +53,8 @@ public class DoubleCreatePoemException extends AppBugPoemException {
   }
 
   public String getMessage() {
-    return "The application tried to create an already-existing persistent object " +
+    return "The application tried to create an already-existing " +
+           "persistent object " +
            "`" + persistent + "'";
   }
 }

@@ -45,11 +45,15 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.SQLException;
+import org.melati.util.MelatiLocale;
+import org.melati.poem.dbms.Dbms;
 
+/** 
+ * Base class for all atomic types.
+ *
+ * Currently all types.
+ */
 public abstract class AtomPoemType extends BasePoemType {
 
   private String sqlTypeName;
@@ -81,7 +85,7 @@ public abstract class AtomPoemType extends BasePoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-				   MelatiLocale locale, int style) {
+                                   MelatiLocale locale, int style) {
     return _stringOfRaw(_rawOfCooked(cooked));
   }
  

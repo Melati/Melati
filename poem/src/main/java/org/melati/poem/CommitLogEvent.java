@@ -45,7 +45,6 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
 
 public class CommitLogEvent extends PoemLogEvent {
 

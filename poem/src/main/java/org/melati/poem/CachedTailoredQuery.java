@@ -45,9 +45,9 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+import org.melati.util.EnumUtils;
 
 public class CachedTailoredQuery extends PreparedTailoredQuery {
 
@@ -56,14 +56,14 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
   private long[] tableSerials;
 
   public CachedTailoredQuery(String modifier, 
-			     Column[] selectedColumns, Table[] otherTables,
-			     String whereClause, String orderByClause) {
+                             Column[] selectedColumns, Table[] otherTables,
+                             String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     tableSerials = new long[tables.length];
   }
 
   public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
-			     String whereClause, String orderByClause) {
+                             String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
@@ -74,8 +74,8 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
     for (int t = 0; t < tables.length; ++t) {
       long currentSerial = tables[t].serial(transaction);
       if (tableSerials[t] != currentSerial) {
-	is = false;
-	tableSerials[t] = currentSerial;
+        is = false;
+        tableSerials[t] = currentSerial;
       }
     }
 
@@ -93,7 +93,7 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
     Vector firstRawResults = this.firstRawResults;
     if (!upToDate() || firstRawResults == null)
       firstRawResults = this.firstRawResults =
-	  EnumUtils.vectorOf(super.selection_firstRaw());
+        EnumUtils.vectorOf(super.selection_firstRaw());
     return firstRawResults.elements();
   }
 }

@@ -45,8 +45,9 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.poem.dbms.*;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import org.melati.poem.dbms.Dbms;
 
 public interface SQLType {
   int sqlTypeCode();

@@ -64,9 +64,7 @@ import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
-import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.PropertiesUtils;
-import org.melati.util.MelatiLocale;
 
 
 /**
@@ -132,36 +130,41 @@ public class MelatiConfig {
     }
 
     try {
-      accessHandler =
-          (AccessHandler)PropertiesUtils.instanceOfNamedClass(
+      accessHandler = (AccessHandler)PropertiesUtils.
+          instanceOfNamedClass(
               configuration, 
               accessHandlerProp,
               "org.melati.login.AccessHandler",
               "org.melati.login.HttpBasicAuthenticationAccessHandler");
 
-      fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.instanceOfNamedClass(
+      fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.
+          instanceOfNamedClass(
                        configuration, 
                        fdaFactoryProp,
                        "org.melati.servlet.FormDataAdaptorFactory",
                        "org.melati.servlet.MemoryDataAdaptorFactory");
 
-      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
+      templetLoader = (TempletLoader)PropertiesUtils.
+          instanceOfNamedClass(
                           configuration,
                           templetLoaderProp,
                           "org.melati.template.TempletLoader",
                           "org.melati.template.ClassNameTempletLoader");
 
-      templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass(
+      templateEngine = (TemplateEngine)PropertiesUtils.
+          instanceOfNamedClass(
                            configuration,
                            templateEngineProp,
                            "org.melati.template.TemplateEngine",
                            "org.melati.template.NoTemplateEngine");
 
-      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration,
-                                                      javascriptLibraryURLProp);
+      javascriptLibraryURL = PropertiesUtils.getOrDie(
+                                                  configuration,
+                                                  javascriptLibraryURLProp);
 
       staticURL = PropertiesUtils.getOrDie(configuration, staticURLProp);
-      templatePath = PropertiesUtils.getOrDefault(configuration, templatePathProp, ".");
+      templatePath = PropertiesUtils.getOrDefault(configuration, 
+                                                  templatePathProp, ".");
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +
@@ -260,18 +263,6 @@ public class MelatiConfig {
     return SimpleDateAdaptor.it;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

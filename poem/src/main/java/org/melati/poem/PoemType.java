@@ -45,8 +45,8 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import org.melati.util.MelatiLocale;
 
 public interface PoemType {
   void assertValidRaw(Object raw)

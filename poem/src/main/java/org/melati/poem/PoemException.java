@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
+import org.melati.util.MelatiRuntimeException;
 
 public abstract class PoemException extends MelatiRuntimeException {
 

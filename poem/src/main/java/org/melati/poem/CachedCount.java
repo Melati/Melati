@@ -45,9 +45,8 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
-import java.sql.*;
-import java.util.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CachedCount extends CachedQuery {
 

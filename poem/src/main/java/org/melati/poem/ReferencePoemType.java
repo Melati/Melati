@@ -45,10 +45,9 @@
 
 package org.melati.poem;
 
-import java.util.*;
+import java.util.Enumeration;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiLocale;
-import org.melati.poem.dbms.*;
 
 /**
  * Object reference.
@@ -95,7 +94,8 @@ public class ReferencePoemType extends IntegerPoemType {
     return ((Persistent)cooked).troid();
   }
 
-  protected String _stringOfCooked(Object cooked, MelatiLocale locale, int style)
+  protected String _stringOfCooked(Object cooked, 
+                                   MelatiLocale locale, int style)
       throws PoemException {
     return ((Persistent)cooked).displayString(locale, style);
   }

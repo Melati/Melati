@@ -45,13 +45,12 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.util.Enumeration;
 
 /**
  * FIXME this doesn't do quite what you'd expect, and can't unless it parses
  * the selection's whereClause in order to determine what a valid value is ...
+ * @todo Clarify FIXME ;)
  */
 
 public class RestrictedReferencePoemType extends ReferencePoemType {
@@ -59,7 +58,7 @@ public class RestrictedReferencePoemType extends ReferencePoemType {
   private final CachedSelection selection;
 
   public RestrictedReferencePoemType(CachedSelection selection,
-				     boolean nullable) {
+                                     boolean nullable) {
     super(selection.getTable(), nullable);
     this.selection = selection;
   }

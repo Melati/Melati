@@ -45,9 +45,9 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.util.Enumeration;
+import org.melati.util.IntegerEnumeration;
+import org.melati.util.MelatiLocale;
 
 public class IntegrityFixPoemType extends IntegerPoemType {
 
@@ -74,7 +74,7 @@ public class IntegrityFixPoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-				   MelatiLocale locale, int style)
+                                   MelatiLocale locale, int style)
       throws PoemException {
     return ((StandardIntegrityFix)cooked).name;
   }

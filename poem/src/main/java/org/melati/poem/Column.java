@@ -45,11 +45,15 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import java.util.*;
-import java.text.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Enumeration;
+import java.text.DateFormat;
+import org.melati.util.EmptyEnumeration;
+import org.melati.util.MelatiLocale;
+import org.melati.util.StringUtils;
+import org.melati.poem.dbms.Dbms;
 
 public abstract class Column implements FieldAttributes {
   private Table table = null;
@@ -192,10 +196,10 @@ public abstract class Column implements FieldAttributes {
                   i.setUsercreateable(defaultUserCreateable());
                   i.setIndexed(defaultIndexed());
                   i.setUnique(defaultUnique());
-		  i.setWidth(defaultWidth());
-		  i.setHeight(defaultHeight());
-		  i.setRenderinfo(defaultRenderinfo());
-		  i.setIntegrityfix(defaultIntegrityFix());
+                  i.setWidth(defaultWidth());
+                  i.setHeight(defaultHeight());
+                  i.setRenderinfo(defaultRenderinfo());
+                  i.setIntegrityfix(defaultIntegrityFix());
                   getType().saveColumnInfo(i);
                 }
               });
@@ -364,8 +368,8 @@ public abstract class Column implements FieldAttributes {
   }
 
   public String eqClause(Object raw) {
-    return quotedName + (raw == null ? " IS NULL" :
-			               " = " + type.quotedRaw(raw));
+    return quotedName + (raw == null ? " IS NULL" 
+                                     :  " = " + type.quotedRaw(raw));
   }
 
   private PreparedStatementFactory selectionWhereEq = null;
@@ -448,6 +452,9 @@ public abstract class Column implements FieldAttributes {
     }
   }
 
+    /**
+     * @todo Double validation
+     */
   public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
       throws LoadException {
     // FIXME double validation
@@ -555,9 +562,9 @@ public abstract class Column implements FieldAttributes {
         "LIMIT 1");
     try {
       if (results.next())
-	return results.getInt(1);
+        return results.getInt(1);
       else
-	return 0;
+        return 0;
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);

@@ -45,17 +45,16 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import org.melati.util.*;
-import java.sql.*;
+import org.melati.poem.generated.CapabilityTableBase;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CapabilityTable extends CapabilityTableBase {
 
   private static final Object nullEntry = new Object();
 
   public CapabilityTable(Database database, String name,
-			 DefinitionSource definitionSource)
+                         DefinitionSource definitionSource)
       throws PoemException {
     super(database, name, definitionSource);
   }

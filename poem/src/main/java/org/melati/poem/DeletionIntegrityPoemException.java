@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import java.util.*;
+import java.util.Enumeration;
 
 public class DeletionIntegrityPoemException extends PoemException {
   public Persistent object;

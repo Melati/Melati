@@ -45,8 +45,11 @@
 
 package org.melati.poem;
 
-import java.util.*;
-
+/**
+ * Seems unused in melati or paneris
+ * @todo Delete me
+ * @deprecated Not used, shouldn't be used
+ */ 
 public class TableProjection {
   private Column column;
   private Object raw;

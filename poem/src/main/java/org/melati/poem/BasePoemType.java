@@ -45,10 +45,13 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.util.Enumeration;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.melati.util.ConsEnumeration;
+import org.melati.util.MelatiLocale;
+import org.melati.poem.dbms.Dbms;
 
 /**
  * Base of all fundamental types.
@@ -256,6 +259,9 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   protected abstract boolean _canRepresent(SQLPoemType other);
 
+    /**
+     * @todo Work out semantics of range.
+     */ 
   public PoemType canRepresent(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?

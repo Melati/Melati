@@ -45,9 +45,22 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import org.melati.util.FlattenedEnumeration;
+import org.melati.util.MappedEnumeration;
+import org.melati.util.ArrayEnumeration;
+import org.melati.util.MelatiLocale;
 
+/**
+ * A metadata type which defines the type of another column.
+ *
+ * Used in the <tt>ColumnInfo</tt> table it can take 
+ * positive values to indicate a refernce to a type defined 
+ * in the <tt>TableInfo</tt> table or a negative value to 
+ * point to a fundamental type.
+ *
+ * @see PoemTypeFactory#forCode
+ */
 public class ColumnTypePoemType extends IntegerPoemType {
 
   private Database database;
@@ -84,7 +97,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-				   MelatiLocale locale, int style)
+                                   MelatiLocale locale, int style)
       throws PoemException {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }
@@ -102,7 +115,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
     return "type code (" + super.toString() + ")";
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {

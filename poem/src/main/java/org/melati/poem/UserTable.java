@@ -45,10 +45,9 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import org.melati.util.*;
-import java.sql.*;
+import org.melati.poem.generated.UserTableBase;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class UserTable extends UserTableBase {
 
@@ -62,7 +61,7 @@ public class UserTable extends UserTableBase {
   }
 
   public UserTable(Database database, String name,
-		   DefinitionSource definitionSource) throws PoemException {
+                   DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
 
     guestUser = (User)newPersistent();

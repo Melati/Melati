@@ -45,13 +45,19 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import java.text.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.text.ParseException;
+import org.melati.util.StringUtils;
+import org.melati.util.MelatiLocale;
 
 /**
- *
+ * A Timestamp.
  */
 public class TimestampPoemType extends AtomPoemType {
 

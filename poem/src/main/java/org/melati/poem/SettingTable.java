@@ -1,10 +1,57 @@
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2000 William Chesters
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     William Chesters <williamc@paneris.org>
+ *     http://paneris.org/~williamc
+ *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ */
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import java.sql.Date;
-import org.melati.util.*;
+import org.melati.poem.generated.SettingTableBase;
+import java.util.Hashtable;
 
+/**
+ * A <TT>Table</TT> which is used like a properties file.
+ *
+ * Every Melati DB has one.
+ */
 public class SettingTable extends SettingTableBase {
 
   private static final Object nullEntry = new Object();
@@ -32,13 +79,13 @@ public class SettingTable extends SettingTableBase {
       Setting prop =
           (Setting)getNameColumn().firstWhereEq(name);
       if (prop == null) {
-	cache.put(name, nullEntry);
-	return null;
+        cache.put(name, nullEntry);
+        return null;
       }
       else {
-	Object propValue = prop.getCooked();
-	cache.put(name, propValue == null ? nullEntry : propValue);
-	return propValue;
+        Object propValue = prop.getCooked();
+        cache.put(name, propValue == null ? nullEntry : propValue);
+        return propValue;
       }
     }
   }
@@ -57,7 +104,6 @@ public class SettingTable extends SettingTableBase {
 
     public String getMessage() {
       return "The application's `" + name + "' parameter has not been set";
-      // FIXME include an URL
     }
   }
 
@@ -69,7 +115,7 @@ public class SettingTable extends SettingTableBase {
   }
 
   public Setting ensure(String name, PoemTypeFactory typefactory, Object value,
-			String displayname, String description) {
+                        String displayname, String description) {
     Setting setting = (Setting)getNameColumn().firstWhereEq(name);
     if (setting != null)
       return setting;
@@ -95,15 +141,15 @@ public class SettingTable extends SettingTableBase {
   }
 
   public Setting ensure(String name, String value,
-			String displayname, String description) {
+                        String displayname, String description) {
     return ensure(name, PoemTypeFactory.STRING, value,
-		  displayname, description);
+                  displayname, description);
   }
 
   public Setting ensure(String name, int value,
-			String displayname, String description) {
+                        String displayname, String description) {
     return ensure(name, PoemTypeFactory.INTEGER, new Integer(value),
-		  displayname, description);
+                  displayname, description);
   }
   
   public Setting ensure(String name, boolean value, 

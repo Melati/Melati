@@ -45,27 +45,13 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import java.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.Types;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
-/**
- * 
- */
-class BooleanPossibleRawEnumeration implements Enumeration {
-  private int state = 0;
-
-  public boolean hasMoreElements() {
-    return state < 2;
-  }
-
-  public synchronized Object nextElement() {
-    if (state == 2)
-      throw new NoSuchElementException();
-    else
-      return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
-  }
-}
 
 public class BooleanPoemType extends AtomPoemType {
 
@@ -130,5 +116,21 @@ public class BooleanPoemType extends AtomPoemType {
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
+  }
+
+}
+
+class BooleanPossibleRawEnumeration implements Enumeration {
+  private int state = 0;
+
+  public boolean hasMoreElements() {
+    return state < 2;
+  }
+
+  public synchronized Object nextElement() {
+    if (state == 2)
+      throw new NoSuchElementException();
+    else
+      return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
   }
 }

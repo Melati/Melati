@@ -77,7 +77,7 @@ public class MelatiUtil {
    * the result is parsed. 
    * This is currently used for dates.
    *
-   * @todo Cache adaptor templets.
+   * @todo Cache adaptor templet.
    */
 
   public static void extractFields(TemplateContext context, 
@@ -145,7 +145,7 @@ public class MelatiUtil {
 
   /**
    *  Create a Java Script tree object from a Tree.
-   *  @deprecated Not used anywhere as far as I can see, tpp.
+   *  @deprecated Not used anywhere in melati or paneris
    */
   public JSDynamicTree getJSDynamicTree(Tree tree) {
     return new JSDynamicTree(tree);

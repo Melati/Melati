@@ -64,8 +64,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
     else {
       try {
         resultSet.close();
-      }
-      catch (SQLException e) {
+      } catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
       return 0;
@@ -77,8 +76,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
       if (more == -1)
         more = resultSetNext();
       return more == 1;
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
   }
@@ -107,11 +105,9 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
       finally {
         more = resultSetNext();
       }
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
-    }
-    catch (NoSuchRowPoemException e) {
+    } catch (NoSuchRowPoemException e) {
       throw new RowDisappearedPoemException(e);
     }
   }
@@ -123,8 +119,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
       if (more == 0)
         throw new NoSuchElementException();
       more = resultSetNext();
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
   }

@@ -45,8 +45,6 @@
 
 package org.melati.poem;
 
-import java.util.*;
-
 public interface FieldAttributes {
   String getName();
   String getDisplayName();

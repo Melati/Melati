@@ -222,12 +222,12 @@ public class Persistent extends Transactioned implements Cloneable {
   public final Database getDatabase() {
     return table.getDatabase();
   }
+
   /**
    * FIXME This shouldn't be public because we don't in principle want people
    * to know even the troid of an object they aren't allowed to read.  However,
    * I think this information may leak out elsewhere.
    */
-
   public final Integer troid() {
     return troid;
   }
@@ -351,6 +351,8 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see #getCanRead
    * @see Database#inSession
    * @see Table#getDefaultCanRead
+   *
+   * @todo Ensure token is not stale
    */
 
   public void assertCanRead(AccessToken token)
@@ -423,6 +425,8 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see #assertCanRead
    * @see #getCanWrite
    * @see Table#getDefaultCanWrite
+   * 
+   * @todo Ensure token is not stale
    */
 
   public void assertCanWrite(AccessToken token)
@@ -451,8 +455,8 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * The capability required for deleting the object.  This is
-   * used by <TT>assertCanDelete</TT> (unless that's been overridden) to obtain a
-   * <TT>Capability</TT> for comparison against the caller's
+   * used by <TT>assertCanDelete</TT> (unless that's been overridden) 
+   * to obtain a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    *
    * @return the capability specified by the record's <TT>candelete</TT> field,
@@ -479,6 +483,8 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see #assertCanRead
    * @see #getCanDelete
    * @see Table#getDefaultCanDelete
+   *
+   * @todo Ensure token is not stale
    */
 
   public void assertCanDelete(AccessToken token)
@@ -1021,6 +1027,8 @@ public class Persistent extends Transactioned implements Cloneable {
    *            <TT>null</TT> to mean `empty'.  If a column isn't mentioned,
    *            the default behaviour for the column is used.  (The default
    *            default is {@link StandardIntegrityFix#prevent}.)
+   *
+   * @todo Reassure list that issues around postWrite are fixed.
    */
 
   public void delete(Map integrityFixOfColumn) {
@@ -1154,7 +1162,7 @@ public class Persistent extends Transactioned implements Cloneable {
     else
       return
           displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
-						 locale, style);
+                                                 locale, style);
   }
 
   // 

@@ -45,8 +45,10 @@
 
 package org.melati.poem;
 
-import java.sql.*;
 
+/**
+ * @todo Validated twice - see FIXME
+ */
 public class ExtraColumn extends Column {
   private final int extrasIndex;
 

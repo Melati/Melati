@@ -45,7 +45,8 @@
 
 package org.melati.poem;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PreparedSQLSeriousPoemException extends SQLSeriousPoemException {
   public PreparedStatement statement;

@@ -45,15 +45,18 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Hashtable;
+import org.melati.util.EmptyEnumeration;
 
 public abstract class StandardIntegrityFix implements IntegrityFix {
 
   public final Integer index;
   public final String name;
 
-  /* private -- makes Sun compiler barf ... */ StandardIntegrityFix(int index, String name) {
+  /* private -- makes Sun compiler barf ... */ 
+  StandardIntegrityFix(int index, String name) {
     this.index = new Integer(index);
     this.name = name;
   }

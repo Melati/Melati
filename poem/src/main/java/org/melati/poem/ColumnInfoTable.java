@@ -45,8 +45,12 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
+import org.melati.poem.generated.ColumnInfoTableBase;
 
+/**
+ * A Table which holds information about all Columns in the Database.
+ * If a database does not contain a table called columninfo it will be created.
+ */
 public class ColumnInfoTable extends ColumnInfoTableBase {
 
   public ColumnInfoTable(Database database, String name) throws PoemException {
@@ -54,11 +58,15 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
   }
 
   public ColumnInfoTable(Database database, String name,
-			 DefinitionSource definitionSource)
+                         DefinitionSource definitionSource)
       throws PoemException {
     super(database, name, definitionSource);
   }
 
+  /**
+   * Apply default protection to this table 
+   * if it has not already been protected.
+   */ 
   protected void postInitialise() {
     super.postInitialise();
     if (getTableInfo().getDefaultcanwrite() == null)

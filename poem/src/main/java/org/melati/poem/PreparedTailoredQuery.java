@@ -45,22 +45,23 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
+import java.util.Enumeration;
 
+/**
+ * @todo An example might be good
+ */ 
 public class PreparedTailoredQuery extends TailoredQuery {
   private PreparedStatementFactory statements;
 
   public PreparedTailoredQuery(String modifier,
-			       Column[] selectedColumns, Table[] otherTables,
-			       String whereClause, String orderByClause) {
+                               Column[] selectedColumns, Table[] otherTables,
+                               String whereClause, String orderByClause) {
     super(modifier, selectedColumns, otherTables, whereClause, orderByClause);
     statements = new PreparedStatementFactory(database, sql);
   }
 
   public PreparedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
-			       String whereClause, String orderByClause) {
+                               String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
@@ -70,6 +71,6 @@ public class PreparedTailoredQuery extends TailoredQuery {
 
   public Enumeration selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
-						    statements.resultSet());
+                                                    statements.resultSet());
   }
 }

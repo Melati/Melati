@@ -45,8 +45,10 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.poem.dbms.*;
+import java.sql.Types;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Normal doubles, dependant upon the databse/SQL implementation.
@@ -88,7 +90,7 @@ public class DoublePoemType extends AtomPoemType {
     return other instanceof DoublePoemType;
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {

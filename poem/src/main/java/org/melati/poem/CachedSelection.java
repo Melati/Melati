@@ -45,9 +45,11 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
-import java.sql.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.util.Enumeration;
+import java.util.Vector;
+import org.melati.util.MappedEnumeration;
 
 public class CachedSelection extends CachedQuery {
 

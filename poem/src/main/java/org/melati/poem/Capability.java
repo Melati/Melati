@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
+import org.melati.poem.generated.CapabilityBase;
 
 public class Capability extends CapabilityBase {
 

@@ -45,10 +45,12 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import java.util.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.Types;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Enumeration;
+import org.melati.util.IntegerEnumeration;
 
 /**
  * Plain old integers, the range being contingent on the underlying SQL type. 

@@ -45,10 +45,12 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.io.*;
-import java.text.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import java.io.PrintStream;
+import java.text.DateFormat;
+import org.melati.util.LimitedEnumeration;
+import org.melati.util.MappedEnumeration;
+import org.melati.util.MelatiLocale;
 
 public class Field implements FieldAttributes, Cloneable {
 
@@ -176,7 +178,8 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   public Field withDescription(String description) {
-    return new Field(raw, new BaseFieldAttributes(attrs, attrs.getName(), description));
+    return new Field(raw, new BaseFieldAttributes(
+                                        attrs, attrs.getName(), description));
   }
 
   public Enumeration getPossibilities() {
@@ -205,7 +208,7 @@ public class Field implements FieldAttributes, Cloneable {
 
   public void dump(PrintStream p) {
     p.print(getName() + ": " + getCookedString(MelatiLocale.here,
-					       DateFormat.MEDIUM));
+                                               DateFormat.MEDIUM));
   }
 
   public static Field basic(Object value, String name, PoemType type) {

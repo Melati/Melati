@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
+import org.melati.util.StringUtils;
 
 public class BinaryLengthValidationPoemException
     extends ValidationPoemException {

@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import java.sql.*;
+import java.sql.SQLException;
 
 public class DatabaseMetaDataFailurePoemException
     extends SQLSeriousPoemException {

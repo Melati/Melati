@@ -45,8 +45,6 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
-
 public class RollbackLogEvent extends PoemLogEvent {
 
   public PoemTransaction transaction;

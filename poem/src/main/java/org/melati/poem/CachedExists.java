@@ -45,10 +45,6 @@
 
 package org.melati.poem;
 
-import org.melati.util.*;
-import java.sql.*;
-import java.util.*;
-
 public class CachedExists extends CachedCount {
 
   public CachedExists(final Table table,

@@ -105,7 +105,8 @@ public class BaseFieldAttributes implements FieldAttributes {
 
   /* allow the description to vary as well
    */
-  public BaseFieldAttributes(FieldAttributes other, String name, String description) {
+  public BaseFieldAttributes(FieldAttributes other, String name, 
+                             String description) {
     this(name, other.getDisplayName(), description,
          other.getType(), other.getWidth(), other.getHeight(), 
          other.getRenderInfo(),

@@ -45,9 +45,12 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.Types;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import org.melati.util.MelatiLocale;
 
 /**
  * Normal dates.

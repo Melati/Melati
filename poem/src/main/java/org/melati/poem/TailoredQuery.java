@@ -45,8 +45,10 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.Hashtable;
+import java.sql.ResultSet;
 
 /**
  * This is how you run low-level SQL queries including joins, and get the

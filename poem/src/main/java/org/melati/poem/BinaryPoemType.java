@@ -45,9 +45,13 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.Types;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.melati.util.StringUtils;
+import org.melati.util.Base64;
+import org.melati.poem.dbms.Dbms;
 
 public class BinaryPoemType extends SizedAtomPoemType {
  
@@ -59,9 +63,9 @@ public class BinaryPoemType extends SizedAtomPoemType {
       throws ValidationPoemException {
     if (raw != null) {
       if (!(raw instanceof byte[]))
-	throw new TypeMismatchPoemException(raw, this);
+        throw new TypeMismatchPoemException(raw, this);
       if (!sizeGreaterEqual(getSize(), ((byte[])raw).length))
-	throw new BinaryLengthValidationPoemException(this, (byte[])raw);
+        throw new BinaryLengthValidationPoemException(this, (byte[])raw);
     }
   }
 

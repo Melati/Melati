@@ -45,14 +45,18 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
+import org.melati.poem.generated.UserBase;
 
 /**
- * FIXME it shouldn't be possible for anyone to getPassword
+ * The <TT>Table</TT> of registered users.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least a _guest_ and _administrator_ 
+ * <tt>User</tt>.
+ *
+ * @todo Introduce a new type to conceal passwords
  */
+//* FIXME it shouldn't be possible for anyone to getPassword
 
 public class User extends UserBase implements AccessToken {
 
@@ -80,10 +84,10 @@ public class User extends UserBase implements AccessToken {
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&
-	  !token.givesCapability(getUserTable().canReadPasswords()))
-	throw new ReadPasswordAccessPoemException(
-	      this, getUserTable().getPasswordColumn(), token,
-	      getUserTable().canReadPasswords());
+          !token.givesCapability(getUserTable().canReadPasswords()))
+        throw new ReadPasswordAccessPoemException(
+              this, getUserTable().getPasswordColumn(), token,
+              getUserTable().canReadPasswords());
     }
 
     return super.getPassword();
@@ -94,10 +98,10 @@ public class User extends UserBase implements AccessToken {
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&
-	  !token.givesCapability(getUserTable().canWritePasswords()))
-	throw new WriteFieldAccessPoemException(
-	      this, getUserTable().getPasswordColumn(), token,
-	      getUserTable().canWritePasswords());
+          !token.givesCapability(getUserTable().canWritePasswords()))
+        throw new WriteFieldAccessPoemException(
+              this, getUserTable().getPasswordColumn(), token,
+              getUserTable().canWritePasswords());
     }
 
     super.setPassword(cooked);

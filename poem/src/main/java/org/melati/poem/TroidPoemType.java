@@ -45,8 +45,6 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import org.melati.poem.dbms.*;
 
 /**
  * Table row ids.
@@ -72,10 +70,10 @@ public class TroidPoemType extends IntegerPoemType {
     return "troid (" + super.toString() + ")";
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
-  //FIXME: might be nicer as 'Troid' ?
+  //might be nicer as 'Troid' ?
   public String toDsdType() {
     return "Integer";
   }

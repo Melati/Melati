@@ -160,6 +160,21 @@ table GroupCapability
     (description = "The capability");
 }
 
+table TableCategory
+    (displayorder = 3030)
+    (displayname = "Table type")
+    (description = "A category under which a table can be classified")
+    (category = "System")
+    (cachelimit = unlimited)
+    (seqcached) {
+
+  (primary) Integer id;
+
+  (unique) String name (size = 60)
+      (description = "A human-readable name for the category")
+      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
+}
+
 table TableInfo
   (displayorder = 3010)
   (displayname = "Table")
@@ -268,7 +283,8 @@ abstract table ValueInfo {
       (displayname = "Type")
       (description = "The field's Melati type")
       (displaylevel = detail) (searchability = no) (uneditable);
-      // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
+      // In fact this is a reference into TableInfo.id, or, 
+      // if negative, the code for an atomic type.
       // see PoemTypeFactory.forCode
 
   Boolean nullable
@@ -368,21 +384,6 @@ table ColumnInfo extends org.melati.poem.ValueInfo
       (displayname = "Integrity fix")
       (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
       (displaylevel = record) (searchability = no);
-}
-
-table TableCategory
-    (displayorder = 3030)
-    (displayname = "Table type")
-    (description = "A category under which a table can be classified")
-    (category = "System")
-    (cachelimit = unlimited)
-    (seqcached) {
-
-  (primary) Integer id;
-
-  (unique) String name (size = 60)
-      (description = "A human-readable name for the category")
-      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
 }
 
 table Setting extends org.melati.poem.ValueInfo

@@ -45,12 +45,12 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
- * A <code>ResultSetEnumeration</code> relying on a <code>TailoredQuery</code> for
- * column and access information.
+ * A <code>ResultSetEnumeration</code> relying on a <code>TailoredQuery</code> 
+ * for column and access information.
  *
  * @author williamc@paneris.org (except javadocs)
  */
@@ -73,12 +73,13 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     for (int t = 0; t < query.canReadTables.length; ++t) {
       Capability canRead = query.canReadTables[t].getDefaultCanRead();
       if (canRead != null && !token.givesCapability(canRead))
-	throw new AccessPoemException(token, canRead);
+        throw new AccessPoemException(token, canRead);
     }
   }
 
   /**
-   * Returns the raw value of a numbered column in the current row of a result set.
+   * Returns the raw value of a numbered column in the current row 
+   * of a result set.
    */
   Object column(ResultSet them, int c) {
     Column column = query.columns[c];
@@ -87,11 +88,11 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     if (query.isCanReadColumn[c]) {
       Capability canRead = (Capability)column.getType().cookedOfRaw(raw);
       if (canRead == null)
-	canRead = column.getTable().getDefaultCanRead();
+        canRead = column.getTable().getDefaultCanRead();
       if (canRead != null) {
-	AccessToken token = PoemThread.accessToken();
-	if (!token.givesCapability(canRead))
-	  throw new AccessPoemException(token, canRead);
+        AccessToken token = PoemThread.accessToken();
+        if (!token.givesCapability(canRead))
+          throw new AccessPoemException(token, canRead);
       }
     }
 

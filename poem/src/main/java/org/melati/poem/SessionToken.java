@@ -45,8 +45,7 @@
 
 package org.melati.poem;
 
-import java.util.Date;
-import org.melati.util.*;
+import org.melati.util.ToTidyList;
 
 class SessionToken {
   Thread thread;

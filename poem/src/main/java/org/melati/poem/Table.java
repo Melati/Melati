@@ -73,7 +73,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  *  A Table.
  *
- * 
+ * @todo Allow selection based on null fields
  * @todo See FIXMEs
  **/
 
@@ -134,9 +134,7 @@ public class Table {
    * It may be overridden to perform other actions. For example to
    * ensure required rows exist in tables that define numeric ID's for
    * codes.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
-   *
+  *
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
    */
@@ -1137,10 +1135,11 @@ public class Table {
 
   /**
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
-   * possibly including those flagged as deleted.  The results are returned in 'pages'.
+   * possibly including those flagged as deleted.  
+   * The results are returned in 'pages'.
    *
    * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   * If the orderByClause is an empty string, ie "" then no ordering is applied
    *
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
@@ -1210,10 +1209,9 @@ public class Table {
   /**
    * Append an SQL logical expression to the given buffer to match rows
    * according to the non-null fields of the given object.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
-   * <p>
-   * FIXME you can't search for NULLs ...
+   * 
+   * 
+   * @todo Add mechanism for searching for Nulls
    *
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
@@ -1225,7 +1223,7 @@ public class Table {
     for (int c = 0; c < columns.length; ++c) {
       Column column = columns[c];
       Object raw = column.getRaw_unsafe(persistent);
-      if (raw != null) {
+      if (raw != null) { //FIXME you can't search for NULLs ...
         if (hadOne)
           clause.append(" AND ");
         else
@@ -1350,13 +1348,11 @@ public class Table {
 
   /**
    * Write a new row containing the given object.
-   * <p>
+   * 
    * The given object will be assigned the next troid.and its internal
    * state will also be modified.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
    *
-   * @exception InitialisationPoemException The object failed internal validation
+   * @exception InitialisationPoemException The object failed validation
    *   (currently one of its field values failed).
    */
   public void create(Persistent persistent)
@@ -1479,7 +1475,8 @@ public class Table {
 
   public void delete_unsafe(String whereClause) {
     serial.increment(PoemThread.transaction());
-    getDatabase().sqlUpdate("DELETE FROM " + quotedName + " WHERE " + whereClause);
+    getDatabase().sqlUpdate("DELETE FROM " + quotedName + 
+                            " WHERE " + whereClause);
     uncacheContents();
   }
 

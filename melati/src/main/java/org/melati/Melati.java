@@ -65,8 +65,6 @@ import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.template.TemplateEngine;
 import org.melati.util.HttpUtil;
-import org.melati.util.ThrowingPrintWriter;
-import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;

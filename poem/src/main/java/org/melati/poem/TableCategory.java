@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
+import org.melati.poem.generated.TableCategoryBase;
 
 public class TableCategory extends TableCategoryBase {
   public TableCategory(String name) {

@@ -46,10 +46,21 @@
 package org.melati.poem;
 
 import org.apache.java.lang.Lock;
-import java.sql.*;
-import java.util.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DatabaseMetaData;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.Hashtable;
+import org.melati.util.FlattenedEnumeration;
+import org.melati.util.MappedEnumeration;
+import org.melati.util.ArrayEnumeration;
+import org.melati.util.Transaction;
+import org.melati.util.TransactionPool;
+import org.melati.poem.dbms.Dbms;
+import org.melati.poem.dbms.DbmsFactory;
 
 /**
  * An RDBMS database.  Don't instantiate (or subclass) this class, but rather
@@ -139,8 +150,9 @@ abstract public class Database implements TransactionPool {
    *        </OL>
    *
    *        Any tables or columns defined in the DSD or the metadata tables,
-   *        but not present in the actual database, will be created.  FIXME
-   *        this doesn't work with Postgres 6.4.2 because <TT>ALTER TABLE ADD
+   *        but not present in the actual database, will be created.  
+   *        FIXME
+   *        This doesn't work with Postgres 6.4.2 because <TT>ALTER TABLE ADD
    *        COLUMN</TT> does not respect the <TT>NOT NULL</TT> attribute.
    *        Conversely, entries will be created in the metadata tables for
    *        tables and columns that don't have them.  If an inconsistency is
@@ -249,8 +261,7 @@ abstract public class Database implements TransactionPool {
 
     try {
       Enumeration iter = freeTransactions.elements();
-      while (iter.hasMoreElements())
-      {
+      while (iter.hasMoreElements()) {
         PoemTransaction txn = (PoemTransaction)iter.nextElement();
         txn.getConnection().close();
       }
@@ -382,7 +393,7 @@ abstract public class Database implements TransactionPool {
           }
           table.createTableInfo();
         }
-      }// else 	System.err.println("table not null:" + tableName);
+      }// else System.err.println("table not null:" + tableName);
 
 
       if (table != null) {
@@ -562,31 +573,31 @@ abstract public class Database implements TransactionPool {
    * that Melati programmers don't have to worry about this, because the
    * <TT>MelatiServlet</TT> will have done this by the time they get control).
    *
-   * @param accessToken         A token determining the <TT>Capability</TT>s
-   *                            available to the task, which in turn determine
-   *                            what data it can attempt to read and write
-   *                            without triggering an
-   *                            <TT>AccessPoemException</TT>.  Note that a
-   *                            <TT>User</TT> can be an <TT>AccessToken</TT>.
+   * @param accessToken    A token determining the <TT>Capability</TT>s
+   *                       available to the task, which in turn determine
+   *                       what data it can attempt to read and write
+   *                       without triggering an
+   *                       <TT>AccessPoemException</TT>.  Note that a
+   *                       <TT>User</TT> can be an <TT>AccessToken</TT>.
    *
-   * @param task                What to do: its <TT>run()</TT> is invoked, in
-   *                            the current Java thread; until <TT>run()</TT>
-   *                            returns, all POEM accesses made by the thread
-   *                            are taken to be performed with the capabilities
-   *                            given by <TT>accessToken</TT>, and in a private
-   *                            transaction.  No changes made to the database
-   *                            by other transactions will be visible to it (in the
-   *                            sense that once it has seen a particular
-   *                            version of a record, it will always
-   *                            subsequently see the same one), and its own
-   *                            changes will not be made permanent until it
-   *                            completes successfully or performs an explicit
-   *                            <TT>PoemThread.commit()</TT>.  If it terminates
-   *                            with an exception or issues a
-   *                            <TT>PoemThread.rollback()</TT> its changes will
-   *                            be lost.  (The task is allowed to continue
-   *                            after either a <TT>commit()</TT> or a
-   *                            <TT>rollback()</TT>.)
+   * @param task           What to do: its <TT>run()</TT> is invoked, in
+   *                       the current Java thread; until <TT>run()</TT>
+   *                       returns, all POEM accesses made by the thread
+   *                       are taken to be performed with the capabilities
+   *                       given by <TT>accessToken</TT>, and in a private
+   *                       transaction.  No changes made to the database
+   *                       by other transactions will be visible to it (in the
+   *                       sense that once it has seen a particular
+   *                       version of a record, it will always
+   *                       subsequently see the same one), and its own
+   *                       changes will not be made permanent until it
+   *                       completes successfully or performs an explicit
+   *                       <TT>PoemThread.commit()</TT>.  If it terminates
+   *                       with an exception or issues a
+   *                       <TT>PoemThread.rollback()</TT> its changes will
+   *                       be lost.  (The task is allowed to continue
+   *                       after either a <TT>commit()</TT> or a
+   *                       <TT>rollback()</TT>.)
    *
    * @see PoemThread
    * @see PoemThread#commit
@@ -598,9 +609,11 @@ abstract public class Database implements TransactionPool {
     perform(accessToken, task, false);
   }
 
-  /** start a db session
-  * This is the very manual way of doing db work - not reccomended - use inSession 
-  */
+  /** 
+   * start a db session
+   * This is the very manual way of doing db work - not reccomended - 
+   * use inSession 
+   */
   public void beginSession(AccessToken accessToken) {
     try {
       lock.readLock();
@@ -612,9 +625,11 @@ abstract public class Database implements TransactionPool {
     PoemThread.beginSession(accessToken,openTransaction());
   }
 
-  /** end a db session
-  * This is the very manual way of doing db work - not reccomended - use inSession 
-  */
+  /** 
+   * end a db session
+   * This is the very manual way of doing db work - not reccomended - 
+   * use inSession 
+   */
   public void endSession() {
     PoemTransaction tx = PoemThread.sessionToken().transaction;
     PoemThread.endSession();
@@ -624,12 +639,13 @@ abstract public class Database implements TransactionPool {
   }
 
   /**
-   * Perform a task with the database, but not in an insulated transaction.  The
-   * effect is the same as <TT>inSession</TT>, except that the task will see
-   * changes to the database made by other transactions as they are committed, and
-   * it is not allowed to make any changes of its own.  (If it tries, it will
-   * currently trigger a <TT>NullPointerException</TT>---FIXME!)  Not
-   * recommended.
+   * Perform a task with the database, but not in an insulated transaction.  
+   * The effect is the same as <TT>inSession</TT>, except that the task will 
+   * see changes to the database made by other transactions as they are 
+   * committed, and it is not allowed to make any changes of its own.  
+   * (If it tries, it will
+   * currently trigger a <TT>NullPointerException</TT>---FIXME!)  
+   * Not recommended.
    *
    * @see #inSession
    */
@@ -885,6 +901,9 @@ abstract public class Database implements TransactionPool {
     return dbms.givesCapabilitySQL(user, capability.troid().toString());
   }
 
+ /**
+  * @todo Use a prepared statement to get Capabilities
+  */
   private boolean dbGivesCapability(User user, Capability capability) {
 
     // FIXME use a prepared statement
@@ -1073,7 +1092,7 @@ abstract public class Database implements TransactionPool {
       if (connectionUrl == null) 
         return "unconnected database";
       else 
-	return connectionUrl;
+        return connectionUrl;
     }
 
   Connection getCommittedConnection() {

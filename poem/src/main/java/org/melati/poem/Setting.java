@@ -45,10 +45,9 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import java.sql.Date;
-import org.melati.util.*;
+import org.melati.poem.generated.SettingBase;
+//import java.util.*;
+//import org.melati.util.*;
 
 public class Setting extends SettingBase {
   public Setting() {}

@@ -45,8 +45,11 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import org.melati.util.*;
+import java.util.Vector;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.HashMap;
+import org.melati.util.ToTidyList;
 
 public class PoemThread {
 

@@ -727,6 +727,7 @@ public class Table {
       }
 
       persistent.dirty = false;
+      persistent.postWrite();
     }
   }
 

@@ -14,14 +14,16 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.Table;
 import org.melati.example.contacts.ContactsDatabaseTables;
 
-import org.melati.example.contacts.Contact;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.ReferencePoemType;
-import org.melati.poem.TroidPoemType;
-import org.melati.poem.DatePoemType;
 import java.sql.Date;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.DatePoemType;
+import org.melati.poem.Searchability;
+import org.melati.poem.DisplayLevel;
+import org.melati.example.contacts.Contact;
 import org.melati.poem.User;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.IntegerPoemType;
 
 
 /**

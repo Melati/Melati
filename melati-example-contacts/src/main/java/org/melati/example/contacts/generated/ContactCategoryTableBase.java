@@ -16,9 +16,12 @@ import org.melati.example.contacts.ContactsDatabaseTables;
 
 import org.melati.example.contacts.Contact;
 import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.Searchability;
 import org.melati.poem.ReferencePoemType;
-import org.melati.example.contacts.Category;
+import org.melati.example.contacts.ContactCategory;
 import org.melati.poem.TroidPoemType;
+import org.melati.example.contacts.Category;
+import org.melati.poem.DisplayLevel;
 
 
 /**

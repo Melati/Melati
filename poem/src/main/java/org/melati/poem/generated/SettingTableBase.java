@@ -14,8 +14,11 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.ValueInfoTable;
 import org.melati.poem.PoemDatabaseTables;
 
+import org.melati.poem.Setting;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
+import org.melati.poem.DisplayLevel;
 
 
 /**

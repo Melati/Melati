@@ -14,13 +14,16 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.Table;
 import org.melati.poem.PoemDatabaseTables;
 
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.StringPoemType;
+import org.melati.poem.TableInfo;
 import org.melati.poem.ReferencePoemType;
-import org.melati.poem.TroidPoemType;
-import org.melati.poem.BooleanPoemType;
+import org.melati.poem.StringPoemType;
 import org.melati.poem.TableCategory;
 import org.melati.poem.Capability;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Searchability;
+import org.melati.poem.DisplayLevel;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.IntegerPoemType;
 
 
 /**

@@ -15,9 +15,12 @@ import org.melati.poem.Table;
 import org.melati.poem.PoemDatabaseTables;
 
 import org.melati.poem.ReferencePoemType;
+import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
+import org.melati.poem.GroupCapability;
 import org.melati.poem.Capability;
 import org.melati.poem.Group;
+import org.melati.poem.DisplayLevel;
 
 
 /**

@@ -14,10 +14,13 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.poem.Table;
 import org.melati.poem.PoemDatabaseTables;
 
+import org.melati.poem.GroupMembership;
 import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.Searchability;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.Group;
+import org.melati.poem.DisplayLevel;
 import org.melati.poem.User;
 
 

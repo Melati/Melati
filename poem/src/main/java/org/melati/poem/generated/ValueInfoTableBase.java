@@ -16,9 +16,12 @@ import org.melati.poem.PoemDatabaseTables;
 
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.Searchability;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.ColumnTypePoemType;
 import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.DisplayLevel;
+import org.melati.poem.ValueInfo;
 
 
 /**

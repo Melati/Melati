@@ -21,6 +21,7 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.SearchabilityPoemType;
 import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.Searchability;
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.DisplayLevel;

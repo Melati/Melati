@@ -40,55 +40,45 @@
        </P>
 
   <LI> <B>Getting database fields on and off web pages</B>
-       <P>
-	 Melati can render both field values and input controls such as
-	 <TT>&lt;INPUT&gt;</TT>s and <TT>&lt;SELECT&gt;</TT>s automatically,
-	 using JDBC field information enriched with web-settable preferences.
-	 It also adds Javascript triggers for validating input values on the
-	 client side before submission, according to the fields' types.  Links
-	 between related fields are resolved transparently, so that they seem
-	 like Java references.  <FONT COLOR=red>Alpha-ready.</FONT>
-       </P>
+       
+    <P> Melati can render both field values and input controls such as <TT>&lt;INPUT&gt;</TT>s 
+      and <TT>&lt;SELECT&gt;</TT>s automatically, using JDBC field information 
+      enriched with web-settable preferences. It also adds Javascript triggers 
+      for validating input values on the client side before submission, according 
+      to the fields' types. Links between related fields are resolved transparently, 
+      so that they seem like Java references. </P>
 
   <LI> <B>Administering database content</B>
-       <P>
-	 Melati offers a generic database admin system which allows
-	 searching/browsing of any table, and editing of both the contents and
-	 the structure of any part of the database, without the need for
-	 customised admin pages: data entry and editing &quot;out of the
-	 box&quot;, just like you get with desktop database packages.  <FONT
-	 COLOR=red>Alpha-ready.</FONT>
-       </P>
+       
+    <P> Melati offers a generic database admin system which allows searching/browsing 
+      of any table, and editing of both the contents and the structure of any 
+      part of the database, without the need for customised admin pages: data 
+      entry and editing &quot;out of the box&quot;, just like you get with desktop 
+      database packages. </P>
 
   <LI> <B>Managing users and their access permissions</B>
-       <P>
-	 All database accesses made through Melati are subjected to low-level
-	 checks via a user/group/capability mechanism, configurable by the
-	 administrator.  Either cookies or HTTP Basic Authentication (the
-	 mechanism commonly used for password protection of static pages) can
-	 be used to maintain the user ID in a session.  <FONT
-	 COLOR=red>Alpha-ready.</FONT>
-       </P>
+       
+    <P> All database accesses made through Melati are subjected to low-level checks 
+      via a user/group/capability mechanism, configurable by the administrator. 
+      Either cookies or HTTP Basic Authentication (the mechanism commonly used 
+      for password protection of static pages) can be used to maintain the user 
+      ID in a session. </P>
 
   <LI> <B>Expressing business logic cleanly</B>
-       <P>
-	 Melati's easy-to-use persistence mechanism can present a predefined
-	 subset of the database to the programmer as a collection of Java
-	 objects, with statically typed <TT>set</TT>/<TT>get</TT> methods,
-	 which happen to store their state in the database.  She can add Java
-         methods to these objects (table rows), and express the application
-	 logic in a much more natural way than she could using JDBC directly.
-         <FONT COLOR=red>Alpha-ready.</FONT>
-       </P>
+       
+    <P> Melati's easy-to-use persistence mechanism can present a predefined subset 
+      of the database to the programmer as a collection of Java objects, with 
+      statically typed <TT>set</TT>/<TT>get</TT> methods, which happen to store 
+      their state in the database. She can add Java methods to these objects (table 
+      rows), and express the application logic in a much more natural way than 
+      she could using JDBC directly. </P>
 
   <LI> <B>Implicit transactions</B>
-       <P>
-         Each Java thread (such as that processing
-	 a single servlet request) is associated with a different concurrent
-         database transaction, and runs with different access permissions
-         depending on the user on whose behalf it is working.
-         <FONT COLOR=red>Alpha-ready.</FONT>
-       </P>
+       
+    <P> Each Java thread (such as that processing a single servlet request) is 
+      associated with a different concurrent database transaction, and runs with 
+      different access permissions depending on the user on whose behalf it is 
+      working. </P>
 
   <LI> <B>Cacheing frequently-used table rows</B>
        <P>

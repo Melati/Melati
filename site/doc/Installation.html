@@ -87,16 +87,9 @@
 <!-- ****************** -->
 </H2>
 
-<P>
-  You can get a pre-alpha snapshot of Melati by anonymous CVS.  Go to <A
-  HREF=http://melati.org><TT>http://melati.org</TT></A> and follow the
-  instructions.  The code is changing almost daily, sometimes in incompatible
-  ways.
-</P>
-
-
-
-
+<P> Download the latest melati snapshot from <A
+  HREF=http://melati.org><TT>http://melati.org</TT></A> and unzip or untar the 
+  and follow the installation instructions. </P>
 <H2>
 <!-- ************** -->
       Implications
@@ -184,11 +177,23 @@
   </tr>
   <tr> 
     <td valign="top">3.</td>
-    <td><a name=hackedVariable>Using anonymous CVS, install the Melati source 
-      tree somewhere. You also have to install a specially hacked version of <tt>org.webmacro.engine.Variable</tt>. 
-      We are very sorry about this, but there really is no alternative---lobby 
-      Justin to stop making everything <tt>final</tt> and/or package-private!</a> 
-      For instance, 
+    <td> 
+      <h3>Either</h3>
+      <p>Download the latest Melati snapshot from <a href="http;//www.melati.org">www.melati.org</a>, 
+        and unzip or untar it somewhere:</p>
+      <ul>
+        <li>Unix users, type: tar -xzf melati-snapshot.tar.gz</li>
+        <li>Windows users should use WinZip</li>
+      </ul>
+      <p>Jump to Item <a href="#6">6</a>.</p>
+      <hr align=left width=50%>
+      <h3>Or</h3>
+      <p><a name=hackedVariable> Using anonymous CVS, install the Melati source 
+        tree somewhere. You also have to install a specially hacked version of 
+        <tt>org.webmacro.engine.Variable</tt>. We are very sorry about this, but 
+        there really is no alternative---lobby Justin to stop making everything 
+        <tt>final</tt> and/or package-private!</a></p>
+      <p> For instance, </p>
       <blockquote> 
         <pre>
 $ cd /usr/local/melati
@@ -261,15 +266,15 @@ export CLASSPATH</pre>
       <p>
         There is an <a href=http://jakarta.apache.org/ant/index.html>Ant</a> based build script in the org/melati/build directory.
       </p>
-<BLOCKQUOTE><PRE>
+<BLOCKQUOTE>
+        <PRE>
 cd .../org/melati/build
 sh build-melati.sh
-</PRE></BLOCKQUOTE>
 
-      <p>
-        Note:
-Assuming you have melati installed in a directory like 
-<BLOCKQUOTE><PRE>
+</PRE></BLOCKQUOTE>
+      Note: Assuming you have melati installed in a directory like 
+
+      <BLOCKQUOTE><PRE>
     .../src/org/melati/...
 </PRE></BLOCKQUOTE>
 
@@ -278,25 +283,30 @@ It will create a directory
    .../dist/
 </PRE></BLOCKQUOTE>
 
-Which will contain all the compiled classes
+Which will contain all the compiled classes and additional files (*.wm, *.html, 
+      *.gif and *.js) and a directory 
+      <BLOCKQUOTE>
+        <PRE>
+   .../built/
+</PRE>
+      </BLOCKQUOTE>
 
-And a directory
-<BLOCKQUOTE><PRE>
-   .../lib/
-</PRE></BLOCKQUOTE>
-
-Which will contain the melati jar file.
-      </p>
+Which will contain the melati jar file, the javadocs, a zip file of the sources, 
+      and additional files (*.wm, *.html, *.gif and *.js)
+<p></p>
         
 <hr align=left width=50%>
 
       <p>
         Alternatively, all you need to do is:
       </p>
-<BLOCKQUOTE><PRE>
+<BLOCKQUOTE>
+        <PRE>
 cd /usr/local/melati/org/melati
 ./compile.sh
-</PRE></BLOCKQUOTE>
+</PRE>
+      </BLOCKQUOTE>
+<p>This will compile all of melati</p>
 
 <hr align=left width=50%>
 
@@ -317,11 +327,11 @@ org.melati.poem.postgresql.jdbc2
   </tr>
   <tr> 
     <td valign="top">6.</td>
-    <td  valign=top>
-      <p>Arrange for Melati's classes to be accessible to your servlet runner. 
-      </p>
-        <p>For Apache Jserv, this can be done either in the <tt>jserv.properties</tt> 
-          file, by adding a line </p>
+    <td  valign=top> 
+      <p><a name="6"></a>Arrange for Melati's classes and properties files to 
+        be accessible to your servlet runner. </p>
+      <p>For Apache Jserv, this can be done either in the <tt>jserv.properties</tt> 
+        file, by adding a line </p>
         <blockquote> 
           <pre>
 wrapper.classpath=/usr/local/melati
@@ -331,15 +341,22 @@ wrapper.classpath=/usr/local/melati
         <blockquote> 
           <pre>/usr/local/melati</pre>
         </blockquote>
-        <p>to the line beginning <tt>repositories=</tt></p>
-    </td>
+        
+      <p>to the line beginning <tt>repositories=</tt></p>
+      <p>NOTE: If you have downloaded the snapshot, or have build a .jar, you 
+        must <b>additionally</b> reference the .jar:</p>
+      <blockquote> 
+        <pre>/usr/local/melati/melati-snapshot.jar</pre>
+      </blockquote>
+        
+      </td>
   </tr>
   <tr> 
     <td valign="top">7.</td>
     <td  valign=top>
       <p>Arrange for Melati's statically served pages to be accessible via
          your web server.</p>
-      </p>
+      <p></p>
         <p>
           By default, Melati will expect to find its JavaScript, images and
           static HTML under <TT>http://your.server/melati-static</TT>.
@@ -523,6 +540,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.24  2000/11/07 13:04:45  timj
+  <BR>update for snapshot
+  <BR>
   <BR>Revision 1.23  2000/09/11 11:35:22  kimptoc
   <BR>added some notes about the ant build script
   <BR>

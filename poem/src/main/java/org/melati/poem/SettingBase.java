@@ -22,8 +22,9 @@ public class SettingBase extends Persistent {
   }
 
   Integer id;
+  Integer typefactory;
   String name;
-  String value;
+  String rawstring;
   String displayname;
   String description;
 
@@ -57,6 +58,43 @@ public class SettingBase extends Persistent {
     return _getSettingTable().getIdColumn().asField(this);
   }
 
+  public Integer getTypefactory_unsafe() {
+    return typefactory;
+  }
+
+  public void setTypefactory_unsafe(Integer cooked) {
+    typefactory = cooked;
+  }
+
+  public Integer getTypefactoryCode()
+      throws AccessPoemException {
+    readLock();
+    return getTypefactory_unsafe();
+  }
+
+  public void setTypefactoryCode(Integer raw)
+      throws AccessPoemException {
+    getSettingTable().getTypefactoryColumn().getType().assertValidRaw(raw);
+    writeLock();
+    setTypefactory_unsafe(raw);
+  }
+
+  public PoemTypeFactory getTypefactory()
+      throws AccessPoemException {
+    Integer code = getTypefactoryCode();
+    return code == null ? null :
+        PoemTypeFactory.forCode(getDatabase(), code.intValue());
+  }
+
+  public void setTypefactory(PoemTypeFactory cooked)
+      throws AccessPoemException {
+    setTypefactoryCode(cooked == null ? null : cooked.code);
+  }
+
+  public final Field getTypefactoryField() throws AccessPoemException {
+    return _getSettingTable().getTypefactoryColumn().asField(this);
+  }
+
   public String getName_unsafe() {
     return name;
   }
@@ -82,29 +120,29 @@ public class SettingBase extends Persistent {
     return _getSettingTable().getNameColumn().asField(this);
   }
 
-  public String getValue_unsafe() {
-    return value;
+  public String getRawstring_unsafe() {
+    return rawstring;
   }
 
-  public void setValue_unsafe(String cooked) {
-    value = cooked;
+  public void setRawstring_unsafe(String cooked) {
+    rawstring = cooked;
   }
 
-  public String getValue()
+  public String getRawstring()
       throws AccessPoemException {
     readLock();
-    return getValue_unsafe();
+    return getRawstring_unsafe();
   }
 
-  public void setValue(String cooked)
+  public void setRawstring(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSettingTable().getValueColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getRawstringColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setValue_unsafe(cooked);
+    setRawstring_unsafe(cooked);
   }
 
-  public final Field getValueField() throws AccessPoemException {
-    return _getSettingTable().getValueColumn().asField(this);
+  public final Field getRawstringField() throws AccessPoemException {
+    return _getSettingTable().getRawstringColumn().asField(this);
   }
 
   public String getDisplayname_unsafe() {

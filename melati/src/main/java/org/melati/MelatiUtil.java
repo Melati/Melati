@@ -198,4 +198,79 @@ public class MelatiUtil {
     int a = qs.indexOf('&', i);
     return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
   }
+  
+    
+  /**
+  * a useful utility method that gets a value from the Form.  It will return
+  * null if the value is "" or not present
+  *
+  * @param context - a template context
+  * @param field - the name of the field to get
+  *
+  * @return - the value of the field requested
+  */
+  public static String getFormNulled(TemplateContext context, String field) {
+    return getForm(context,field,null);
+  }
+  
+    
+  /**
+  * a useful utility method that gets a value from the Form.  It will return
+  * the default if the value is "" or not present
+  *
+  * @param context - a template context
+  * @param field - the name of the field to get
+  * @param def - the default value if the field is "" or not present
+  *
+  * @return - the value of the field requested
+  */
+  public static String getForm(TemplateContext context, String field, 
+                               String def) {
+    String val = context.getForm(field);
+    if (val == null) return def;
+    return val.trim().equals("")?def:val;
+  }
+
+  /**
+  * a useful utility method that gets a value from the Form as an Integer.  
+  * It will return null if the value is "" or not present
+  *
+  * @param context - a template context
+  * @param field - the name of the field to get
+  * @param def - the default value if the field is "" or not present
+  *
+  * @return - the value of the field requested
+  */
+  public static Integer getFormInteger(TemplateContext context, String field, 
+                                Integer def) {
+    String val = getFormNulled(context,field);
+    return val==null?def:new Integer(val);
+  }
+
+  /**
+  * a useful utility method that gets a value from the Form as an Integer.  
+  * It will return null if the value is "" or not present
+  *
+  * @param context - a template context
+  * @param field - the name of the field to get
+  *
+  * @return - the value of the field requested
+  */
+  public static Integer getFormInteger(TemplateContext context, String field) {
+    return getFormInteger(context,field,null);
+  }
+
+  /**
+  * a useful utility method that tests weather a field is present in a Form,
+  * returning a Boolean.  
+  *
+  * @param context - a template context
+  * @param field - the name of the field to get
+  *
+  * @return - TRUE or FALSE depending if the field is present
+  */
+  public static Boolean getFormBoolean(TemplateContext context, String field) {
+    return getFormNulled(context,field) ==  null ? Boolean.FALSE : Boolean.TRUE;
+  }
+
 }

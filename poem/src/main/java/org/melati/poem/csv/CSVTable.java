@@ -148,7 +148,7 @@ public class CSVTable {
 
       // Suck in all the data
       CSVRecord record;
-      while(null != (record = parseRecord(parser, data.getPath())) ) {
+      while(null != (record = parseRecord(parser, data.getPath()))) {
         records.addElement(record);
       }
 

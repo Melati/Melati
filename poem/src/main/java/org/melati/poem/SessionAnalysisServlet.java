@@ -121,7 +121,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
         }
         output.write("</td></tr>\n");
       }
-      output.write( "</table>\n");
+      output.write("</table>\n");
     }
 
     output.write("<h2>Initialised Databases</h2>\n"

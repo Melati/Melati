@@ -2,6 +2,9 @@
 
 package org.melati.doc.example;
 
+import java.util.*;
+import java.sql.Date;
+import org.melati.util.*;
 import org.melati.poem.*;
 
 public class BuyerTypeTableBase extends Table {
@@ -9,11 +12,19 @@ public class BuyerTypeTableBase extends Table {
   private Column col_id = null;
   private Column col_description = null;
 
-  public BuyerTypeTableBase(Database database, String name) throws PoemException {
-    super(database, name, DefinitionSource.dsd);
+  public BuyerTypeTableBase(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
+  public BuyerTypeTableBase(
+      Database database, String name) throws PoemException {
+    this(database, name, DefinitionSource.dsd);
   }
 
   protected void init() throws PoemException {
+    super.init();
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)

@@ -2,6 +2,9 @@
 
 package org.melati.doc.example;
 
+import java.util.*;
+import java.sql.Date;
+import org.melati.util.*;
 import org.melati.poem.*;
 
 public class ExampleDatabaseBase extends PoemDatabase {
@@ -11,20 +14,11 @@ public class ExampleDatabaseBase extends PoemDatabase {
   private ProductTable tab_product = null;
   private OrderTable tab_order = null;
 
-  public ExampleDatabaseBase() {
-    try {
-      defineTable(tab_buyer = new BuyerTable(this, "buyer"));
-      defineTable(tab_buyertype = new BuyerTypeTable(this, "buyertype"));
-      defineTable(tab_product = new ProductTable(this, "product"));
-      defineTable(tab_order = new OrderTable(this, "order"));
-      tab_buyer.init();
-      tab_buyertype.init();
-      tab_product.init();
-      tab_order.init();
-    }
-    catch (PoemException e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
+  protected ExampleDatabaseBase() {
+    redefineTable(tab_buyer = new BuyerTable(this, "buyer", DefinitionSource.dsd));
+    redefineTable(tab_buyertype = new BuyerTypeTable(this, "buyertype", DefinitionSource.dsd));
+    redefineTable(tab_product = new ProductTable(this, "product", DefinitionSource.dsd));
+    redefineTable(tab_order = new OrderTable(this, "order", DefinitionSource.dsd));
   }
 
   public BuyerTable getBuyerTable() {

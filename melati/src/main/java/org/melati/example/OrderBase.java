@@ -2,11 +2,18 @@
 
 package org.melati.doc.example;
 
+import java.util.*;
+import java.sql.Date;
+import org.melati.util.*;
 import org.melati.poem.*;
 
 public class OrderBase extends Persistent {
 
   public OrderTable getOrderTable() {
+    return (OrderTable)getTable();
+  }
+
+  private OrderTable _getOrderTable() {
     return (OrderTable)getTable();
   }
 
@@ -31,7 +38,7 @@ public class OrderBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getOrderTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getOrderTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -42,7 +49,7 @@ public class OrderBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getOrderTable().getIdColumn().asField(this);
+    return _getOrderTable().getIdColumn().asField(this);
   }
 
   public Integer getBuyer_unsafe() {
@@ -79,7 +86,7 @@ public class OrderBase extends Persistent {
   }
 
   public final Field getBuyerField() throws AccessPoemException {
-    return getOrderTable().getBuyerColumn().asField(this);
+    return _getOrderTable().getBuyerColumn().asField(this);
   }
 
   public Integer getProduct_unsafe() {
@@ -116,7 +123,7 @@ public class OrderBase extends Persistent {
   }
 
   public final Field getProductField() throws AccessPoemException {
-    return getOrderTable().getProductColumn().asField(this);
+    return _getOrderTable().getProductColumn().asField(this);
   }
 
   public Boolean getUrgent_unsafe() {
@@ -135,7 +142,7 @@ public class OrderBase extends Persistent {
 
   public void setUrgent(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    getOrderTable().getUrgentColumn().getType().assertValidCooked(cooked);
+    _getOrderTable().getUrgentColumn().getType().assertValidCooked(cooked);
     writeLock();
     setUrgent_unsafe(cooked);
   }
@@ -146,6 +153,6 @@ public class OrderBase extends Persistent {
   }
 
   public final Field getUrgentField() throws AccessPoemException {
-    return getOrderTable().getUrgentColumn().asField(this);
+    return _getOrderTable().getUrgentColumn().asField(this);
   }
 }

@@ -2,11 +2,18 @@
 
 package org.melati.doc.example;
 
+import java.util.*;
+import java.sql.Date;
+import org.melati.util.*;
 import org.melati.poem.*;
 
 public class BuyerBase extends Persistent {
 
   public BuyerTable getBuyerTable() {
+    return (BuyerTable)getTable();
+  }
+
+  private BuyerTable _getBuyerTable() {
     return (BuyerTable)getTable();
   }
 
@@ -30,7 +37,7 @@ public class BuyerBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getBuyerTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -41,7 +48,7 @@ public class BuyerBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getBuyerTable().getIdColumn().asField(this);
+    return _getBuyerTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -60,13 +67,13 @@ public class BuyerBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getBuyerTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getBuyerTable().getNameColumn().asField(this);
+    return _getBuyerTable().getNameColumn().asField(this);
   }
 
   public Integer getType_unsafe() {
@@ -103,6 +110,6 @@ public class BuyerBase extends Persistent {
   }
 
   public final Field getTypeField() throws AccessPoemException {
-    return getBuyerTable().getTypeColumn().asField(this);
+    return _getBuyerTable().getTypeColumn().asField(this);
   }
 }

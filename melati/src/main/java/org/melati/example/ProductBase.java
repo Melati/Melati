@@ -2,11 +2,18 @@
 
 package org.melati.doc.example;
 
+import java.util.*;
+import java.sql.Date;
+import org.melati.util.*;
 import org.melati.poem.*;
 
 public class ProductBase extends Persistent {
 
   public ProductTable getProductTable() {
+    return (ProductTable)getTable();
+  }
+
+  private ProductTable _getProductTable() {
     return (ProductTable)getTable();
   }
 
@@ -30,7 +37,7 @@ public class ProductBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getProductTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getProductTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -41,7 +48,7 @@ public class ProductBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getProductTable().getIdColumn().asField(this);
+    return _getProductTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -60,13 +67,13 @@ public class ProductBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getProductTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getProductTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getProductTable().getNameColumn().asField(this);
+    return _getProductTable().getNameColumn().asField(this);
   }
 
   public Double getPrice_unsafe() {
@@ -85,7 +92,7 @@ public class ProductBase extends Persistent {
 
   public void setPrice(Double cooked)
       throws AccessPoemException, ValidationPoemException {
-    getProductTable().getPriceColumn().getType().assertValidCooked(cooked);
+    _getProductTable().getPriceColumn().getType().assertValidCooked(cooked);
     writeLock();
     setPrice_unsafe(cooked);
   }
@@ -96,6 +103,6 @@ public class ProductBase extends Persistent {
   }
 
   public final Field getPriceField() throws AccessPoemException {
-    return getProductTable().getPriceColumn().asField(this);
+    return _getProductTable().getPriceColumn().asField(this);
   }
 }

@@ -5,8 +5,8 @@
 <html>
 <head>
  <title>Contacts Example</title>
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 </head>
-
 <body bgcolor="#ffffff">
 <h1>
   A very simple Melati Application

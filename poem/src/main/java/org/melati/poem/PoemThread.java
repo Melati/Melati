@@ -137,7 +137,7 @@ public class PoemThread {
     }
   }
 
-  static Vector openSessions() {
+  public static Vector openSessions() {
     Vector open = new Vector();
     Enumeration e = null;
 //    synchronized(sessionTokens) {

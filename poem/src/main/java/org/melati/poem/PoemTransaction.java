@@ -68,7 +68,7 @@ public class PoemTransaction extends Transaction {
     }
   }
 
-  final Database getDatabase() {
+  public final Database getDatabase() {
     return database;
   }
 

@@ -45,18 +45,23 @@
 
 package org.melati.test;
 
-import java.io.StringWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
+import org.webmacro.WebMacro;
+import org.webmacro.WM;
+import org.webmacro.Context;
+import org.webmacro.Template;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
 import org.melati.servlet.MultipartFormField;
-import org.melati.template.Template;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.template.webmacro.MelatiFastWriter;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -73,6 +78,7 @@ public class TemplateServletTestWM extends TemplateServlet {
                                                           throws Exception {
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
 
+    System.err.println("starting doTemplateRequest");
     if (melati.getMethod() != null) {
 
       if (melati.getMethod().equals("Upload")) {
@@ -96,21 +102,22 @@ public class TemplateServletTestWM extends TemplateServlet {
       if (melati.getMethod().equals("StandAlone")) {
         // construct a Melati with a StringWriter instead of a servlet
         // request and response
-        MelatiWriter sw = 
-                templateEngine.getStringWriter(melati.getEncoding());
-        Melati melati2 = new Melati(melati.getConfig(),sw);
-        TemplateContext templateContext2 = 
-                        templateEngine.getTemplateContext(melati2);
-        templateContext2.put("melati",melati2);
-        templateEngine.expandTemplate(melati2.getWriter(), 
-                                      "test/StandAlone.wm",
-                                      templateContext2);
+        WebMacro wm = new WM();
+        ByteArrayOutputStream sw = new ByteArrayOutputStream();
+        MelatiFastWriter fmw = new MelatiFastWriter(sw, melati.getEncoding());
+        Melati m = new Melati(new MelatiConfig(),fmw);
+        Context context2 = wm.getContext();
+        context2.put("melati",m);
+        Template template = wm.getTemplate("test/StandAlone.wm");
+        template.write(fmw.getPeer(), context2);
+        fmw.flush();
         // write to the StringWriter
-        String out = sw.asString();
+        String out = sw.toString();
         // finally, put what we have into the original templateContext
         templateContext.put("StandAlone",out);
       }
     }      
+    System.err.println("completed doTemplateRequest");
     return("test/TemplateServletTestWM");
   }
 

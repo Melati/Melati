@@ -1,2 +1,4 @@
+#set $ml = $melati.HTMLMarkupLanguage
 <h3>'Stand Alone' Mode</h3>
 <p>This text was expanded to a StringWriter</p>
+<p>This text is \$ml.rendered: <b>$ml.rendered("hey it got rendered correctly!")</b></p>

@@ -45,6 +45,8 @@
 package org.melati.poem.csv;
 
 /**
+ * Thrown when there is an error writing a CSV value to the database.
+ * 
  * @author tim.pizey
  *
  */
@@ -53,10 +55,13 @@ public class CSVWriteDownException extends Exception {
   String tableName = null;
   int lineNo;
   Exception e;
+  
   /**
+   * Report an error on a line.
    * 
    * @param tableName name of table missing primary key
-   * @param cvsValue value of field
+   * @param lineNo the line number of the CSV file
+   * @param e the provoking exception
    */
   public CSVWriteDownException(String tableName, int lineNo, Exception e) {
     super();
@@ -66,7 +71,7 @@ public class CSVWriteDownException extends Exception {
   }
   
 
-  /**
+  /* (non-Javadoc)
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

@@ -83,7 +83,6 @@ public abstract class MelatiWriter extends Writer {
   }
 
   public void reset() throws IOException {
-    return;
   }
 
   public void close() throws IOException {

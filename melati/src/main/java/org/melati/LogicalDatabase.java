@@ -96,15 +96,18 @@ public class LogicalDatabase {
   /**
   @deprecated
   */
+/*
   public static Database named(String name) throws DatabaseInitException {
       return getDatabase(name);
   }
+*/
 
   private static final Object pending = new Object();
 
-  public static Database getDatabase(String name) throws DatabaseInitException {
+  public static Database getDatabase(String name) 
+         throws DatabaseInitException {
     if (name == null)
-      name = "default";
+      throw new NullPointerException();
 
     Object dbOrPending;
 
@@ -173,3 +176,10 @@ public class LogicalDatabase {
     }
   }
 }
+
+
+
+
+
+
+

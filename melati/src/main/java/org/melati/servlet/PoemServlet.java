@@ -220,6 +220,7 @@ public abstract class PoemServlet extends ConfigServlet
         try {
           Melati melati =
           melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
+          melati.loadTableAndObject();
           try {
             _this.doPoemRequest(melatiIn);
           }

@@ -51,18 +51,17 @@ import org.webmacro.engine.VariableException;
 import org.melati.poem.AccessPoemException;
 
 public class PassbackVariableExceptionHandler
-implements VariableExceptionHandler {
+                                        implements VariableExceptionHandler {
   public static final PassbackVariableExceptionHandler it =
   new PassbackVariableExceptionHandler();
 
   public Object handle(Variable variable, Object context, Exception problem) {
     Exception underlying =
-    problem instanceof VariableException ?
-    ((VariableException)problem).problem : problem;
+        problem instanceof VariableException ?
+                                ((VariableException)problem).problem : problem;
 
-    return underlying != null &&
-    underlying instanceof AccessPoemException ?
-    underlying : problem;
+    return underlying != null && underlying instanceof AccessPoemException
+                                     ? underlying : problem;
   }
 }
 

@@ -46,7 +46,7 @@
     and a <tt>MelatiContext.</tt> The PathInfo is parsed to provide a 'Method'. 
     Extending ConfigServlet is useful when writing servlets that do no want to 
     run entirely within a POEM Session. Eg, a servlet that does a lengthy task 
-    nor associated with POEM (like streaming a download) could tie up POEM Transactions 
+    not associated with POEM (like streaming a download) could tie up POEM Transactions 
     for a long time unnecessarily.</p>
   <p>To use ConfigServlet, implement:</p>
   <p> <tt>protected abstract void doConfiguredRequest(Melati melati) throws Exception; 

@@ -41,6 +41,7 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.Melati;
 import org.melati.template.TemplateContext;
+import org.melati.template.FormFile;
 
 /*
 * this is just an example of a parameters class for use with jtemplater
@@ -65,6 +66,10 @@ public class JTemplaterTemplateContext implements TemplateContext {
 
   public String getForm(String s) {
     return melati.getRequest().getParameter(s);
+  }
+
+  public FormFile getFormFile(String s) {
+    return null;
   }
 
   public Object get(Object o) {

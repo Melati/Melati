@@ -105,6 +105,8 @@ public class TableDef {
         tokens.ordinaryChar('.');
       }
       superclass = tokens.sval;
+//      if (superclass.indexOf('.') == -1)
+//        superclass = packageName + superclass
 
       hidesSuperclass =
 	  superclass.substring(superclass.lastIndexOf('.') + 1).

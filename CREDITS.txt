@@ -10,6 +10,7 @@ current team is:
       Tim Pizey               Core Developer 
       Dave Warnock            Core Developer 
       Colin Rainsforth        Core Developer 
+      Vasily Pozhidaev        Core Developer 
 
 If you would like to contribute to the Melati project please 
 join the developers mailing list at

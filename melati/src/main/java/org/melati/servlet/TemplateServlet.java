@@ -51,6 +51,7 @@ import javax.servlet.ServletConfig;
 import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.template.MultipartTemplateContext;
 import org.melati.template.TemplateEngineException;
 
 /**
@@ -89,14 +90,25 @@ public abstract class TemplateServlet extends PoemServlet
     // for this request, set the Initialised Template Engine
     melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext = templateEngine.getTemplateContext(melati);
+
+
+    // If we have an multipart form, we use a different template context
+    // which allows us to access the uploaded files as well as fields.
+    String contentType = melati.getRequest().getHeader("content-type");
+    if (contentType != null &&
+        contentType.substring(0,19).equalsIgnoreCase("multipart/form-data"))
+      templateContext =
+        new MultipartTemplateContext(melati, templateContext);
+
+
     templateContext.put("melati",melati);
     melati.setTemplateContext(templateContext);
     String templateName = doTemplateRequest(melati,templateContext);
     // only expand a template if we have one (it could be a redirect)
     if (templateName != null) {
       templateName = addExtension(templateName);
-      templateEngine.expandTemplate
-      (melati.getWriter(), templateName, templateContext);
+      templateEngine.expandTemplate(melati.getWriter(), templateName,
+                                    templateContext);
     }
   }
   

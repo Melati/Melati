@@ -49,6 +49,7 @@ package org.melati.template.webmacro;
 import javax.servlet.http.HttpSession;
 
 import org.melati.template.TemplateContext;
+import org.melati.template.FormFile;
 import org.webmacro.servlet.WebContext;
 
 /**
@@ -72,6 +73,10 @@ public class WebmacroTemplateContext implements TemplateContext {
 
   public String getForm(String s) {
     return webContext.getForm(s);
+  }
+
+  public FormFile getFormFile(String s) {
+    return null;
   }
 
   public Object get(Object o) {

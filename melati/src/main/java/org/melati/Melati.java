@@ -122,6 +122,9 @@ public class Melati {
     this.context = context;
     if (context.logicalDatabase != null) 
       database = LogicalDatabase.getDatabase(context.logicalDatabase);
+  }
+
+  public void loadTableAndObject() {
     if (context.table != null && database != null) 
       table = database.getTable(context.table);
     if (context.troid != null && table != null) 
@@ -178,8 +181,8 @@ public class Melati {
     String pathInfo = request.getPathInfo ();
     if (pathInfo == null || pathInfo.length () < 1) return new String[0];
     pathInfo = pathInfo.substring (1);
-    if (pathInfo.endsWith ("/")) 
-    pathInfo = pathInfo.substring(0,pathInfo.length()-1);
+//    if (pathInfo.endsWith ("/")) 
+//      pathInfo = pathInfo.substring(0,pathInfo.length()-1);
     return StringUtils.split (pathInfo, '/');
   }
 

@@ -58,6 +58,8 @@ public interface TemplateContext
 
   public String getForm(String s);
 
+  public FormFile getFormFile(String s);
+
   public Object get(Object o);
 
   public HttpSession getSession();

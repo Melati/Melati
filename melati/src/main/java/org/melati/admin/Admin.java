@@ -24,7 +24,7 @@ public class Admin extends MelatiServlet {
         new Initialiser() {
           public void init(Persistent object)
               throws AccessPoemException, ValidationPoemException {
-            copyFields(context, object);
+            Melati.extractFields(context, object);
           }
         });
   }
@@ -51,17 +51,17 @@ public class Admin extends MelatiServlet {
         "id",
         new BaseFieldAttributes(
             "troidName", "Troid column", "Name of TROID column",
-	    database.getColumnInfoTable().getNameColumn().getType(), null));
+            database.getColumnInfoTable().getNameColumn().getType(), null));
 
     context.put("troidNameField", troidNameField);
 
     Table tit = database.getTableInfoTable();
     Enumeration tableInfoFields =
-	new MappedEnumeration(tit.columns()) {
-	  public Object mapped(Object column) {
-	    return new Field((Object)null, (Column)column);
-	  }
-	};
+        new MappedEnumeration(tit.columns()) {
+          public Object mapped(Object column) {
+            return new Field((Object)null, (Column)column);
+          }
+        };
 
     context.put("tableInfoFields", tableInfoFields);
 
@@ -95,7 +95,7 @@ public class Admin extends MelatiServlet {
       Column column = (Column)c.nextElement();
       String string = context.getForm("field-" + column.getName());
       if (string != null && !string.equals(""))
-        column.setIdent_unsafe(criteria, column.getType().identOfString(string));
+        column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
     }
 
     context.put("criteria",
@@ -105,7 +105,7 @@ public class Admin extends MelatiServlet {
                     final PoemType nullable =
                         column.getType().withNullable(true);
                     return
-                        new Field(column.getIdent(criteria), column) {
+                        new Field(column.getRaw(criteria), column) {
                           public PoemType getType() {
                             return nullable;
                           }
@@ -117,7 +117,7 @@ public class Admin extends MelatiServlet {
 
     PoemType searchColumnsType =
         new ReferencePoemType(database.getColumnInfoTable(), true) {
-          protected Enumeration _possibleIdents() {
+          protected Enumeration _possibleRaws() {
             return
                 new MappedEnumeration(table.getSearchCriterionColumns()) {
                   public Object mapped(Object column) {
@@ -136,9 +136,9 @@ public class Admin extends MelatiServlet {
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
-            (Integer)searchColumnsType.identOfString(orderColumnIDString);
+            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
-            (ColumnInfo)searchColumnsType.valueOfIdent(orderColumnID);
+            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
         orderingNames.addElement(database.quotedName(info.getName()));
       }
 
@@ -170,23 +170,29 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template columnCreateTemplate(WebContext context,
-					  Melati melati)
+                                          Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
     final Column tic = cit.getTableinfoColumn();
+    final Column typeColumn = cit.getTypeColumn();
 
     Enumeration columnInfoFields =
-	new MappedEnumeration(cit.columns()) {
-	  public Object mapped(Object column) {
-	    if (column == tic)
-	      column = new BaseFieldAttributes(
-                  tic.getName(), tic.getDisplayName(), tic.getDescription(),
-		  tic.getType(), tic.getRenderInfo());
-
-	    return new Field((Object)null, (FieldAttributes)column);
-	  }
-	};
+        new MappedEnumeration(cit.columns()) {
+          public Object mapped(Object column) {
+            if (column == tic)
+              // What does this do??!
+              return new Field(
+                  (Object)null,
+                  new BaseFieldAttributes(
+                      tic.getName(), tic.getDisplayName(), tic.getDescription(),
+                      tic.getType(), tic.getRenderInfo()));
+            else if (column == typeColumn)
+              return new Field(PoemTypeFactory.STRING.getCode(), typeColumn);
+            else
+              return new Field((Object)null, (FieldAttributes)column);
+          }
+        };
 
     context.put("columnInfoFields", columnInfoFields);
 
@@ -194,19 +200,19 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template columnCreate_doitTemplate(final WebContext context,
-					       final Melati melati)
+                                               final Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
 
     ColumnInfo columnInfo =
-        (ColumnInfo)melati.getDatabase().getColumnInfoTable().create (
-	    new Initialiser() {
-	      public void init(Persistent object)
-		  throws AccessPoemException, ValidationPoemException {
-		((ColumnInfo)object).setTableinfoTroid(
+        (ColumnInfo)melati.getDatabase().getColumnInfoTable().create(
+            new Initialiser() {
+              public void init(Persistent object)
+                  throws AccessPoemException, ValidationPoemException {
+                ((ColumnInfo)object).setTableinfoTroid(
                     melati.getTable().tableInfoID());
-		copyFields(context, object);
-	      }
-	    });
+                Melati.extractFields(context, object);
+              }
+            });
 
     melati.getTable().addColumnAndCommit(columnInfo);
 
@@ -236,25 +242,9 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Add.wm");
   }
 
-  private void copyFields(WebContext context, Persistent object)
-      throws PoemException {
-    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement();
-      String value = context.getForm("field-" + column.getName());
-      if (value != null)
-        if (value.equals(""))
-          if (column.getType().getNullable())
-            column.setIdent(object, null);
-          else
-            column.setIdentString(object, "");
-        else
-          column.setIdentString(object, value);
-    }
-  }
-
   protected Template updateTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
-    copyFields(context, melati.getObject());
+    Melati.extractFields(context, melati.getObject());
     return adminTemplate(context, "Update.wm");
   }
 
@@ -290,7 +280,7 @@ public class Admin extends MelatiServlet {
 
   protected Template modifyTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException,
-	     HandlerException {
+             HandlerException {
     String action = context.getRequest().getParameter("action");
     if ("Update".equals(action))
       return updateTemplate(context, melati);

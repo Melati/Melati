@@ -9,9 +9,13 @@ public class PoemDatabase extends PoemDatabaseBase {
 
   public static void main(final String[] args) {
     try {
-      DriverManager.registerDriver((Driver)Class.forName("postgresql.Driver").newInstance());
+      // pull in a driver, but not at code level to avoid compilation problems
+      // with JDBC1.1
+
+      Driver driver = (Driver)Class.forName("org.melati.poem.postgresql.jdbc2.Driver").newInstance();
+
       final Database database = new PoemDatabase();
-      database.connect("jdbc:postgresql:melatitest", "postgres", "*");
+      database.connect(driver, "jdbc:postgresql:melatitest", "postgres", "*");
 
       database.logSQL = true;
 
@@ -23,15 +27,35 @@ public class PoemDatabase extends PoemDatabaseBase {
             }
           });
 
-      final Table t = database.getTable("foo");
+      // final Table t = database.getTable("foo");
 
       database.inSession(
           william,
           new PoemTask() {
             public void run() {
               try {
-                t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
-                t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
+		Column[] columns = {
+		    database.getUserTable().getNameColumn(),
+		    database.getGroupTable().getNameColumn(),
+		};
+		Table[] tables = { database.getGroupMembershipTable() };
+
+		TailoredQuery q =
+		    new TailoredQuery(
+			columns, tables,
+			"\"user\" = \"user\".id AND \"group\" = \"group\".id",
+			null);
+
+		for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+		  FieldSet fs = (FieldSet)ms.nextElement();
+		  System.out.println(fs.get("user_name").getValueString() +
+				     ", " +
+				     fs.get("group_name").getValueString());
+		}
+
+				  
+//                 t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
+//                 t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
 
 //                 // Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
 //                 // while (e.hasMoreElements())

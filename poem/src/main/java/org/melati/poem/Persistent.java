@@ -904,7 +904,7 @@ public class Persistent extends Transactioned implements Cloneable {
     return getTable().getColumn(name).asField(this);
   }
 
-  private Enumeration fieldsOfColumns(Enumeration columns) {
+  public Enumeration fieldsOfColumns(Enumeration columns) {
     // return new FieldsEnumeration(this, columns);
     final Persistent _this = this;
     return

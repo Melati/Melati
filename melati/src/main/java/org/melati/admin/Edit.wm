@@ -1,5 +1,6 @@
 #set $Response.Header.Content-Type = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
+#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
 </HEAD>
@@ -20,7 +21,7 @@
 }
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $field in $object {
+  #foreach $field in $object.DisplayFields {
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     #if ($field.Description) {
       <TR>

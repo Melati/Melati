@@ -31,7 +31,7 @@
 <TABLE CELLSPACING=0>
   <TR>
     <TH></TH>
-    #foreach $column in $table.columns() {
+    #foreach $column in $table.DisplayColumns {
       <TH>&nbsp;&nbsp;</TH>
       <TH BGCOLOR=cyan>$ml.rendered($column.DisplayName)</TH>
     }
@@ -40,7 +40,7 @@
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     <TR>
       <TD><A HREF="$admin.editURL($object)">Edit</A></TD>
-      #foreach $field in $object {
+      #foreach $field in $object.DisplayFields {
         <TD></TD>
         <TD BGCOLOR=yellow>$ml.rendered($field)</TD>
       }

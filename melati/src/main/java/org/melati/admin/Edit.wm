@@ -96,11 +96,13 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
          </a>
         #end
        </B>
-      </FONT><FONT SIZE="-2" FACE="Arial, Helvetica">
+      </FONT>
       #if ($field.Description) #begin
+      <FONT SIZE="-2" FACE="Arial, Helvetica">
 	($ml.rendered($field.Description))
+      </FONT>
       #end
-      </FONT></TD>
+     </TD>
     </TR>
     <TR><TD>
       <FONT SIZE="-1" FACE="Arial, Helvetica">

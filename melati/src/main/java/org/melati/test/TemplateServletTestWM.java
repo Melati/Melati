@@ -71,7 +71,6 @@ public class TemplateServletTestWM extends TemplateServlet {
   protected String doTemplateRequest(Melati melati,
                                      TemplateContext templateContext) 
                                                           throws Exception {
-
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
 
     if (melati.getMethod() != null) {

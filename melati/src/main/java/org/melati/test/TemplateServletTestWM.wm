@@ -34,6 +34,11 @@ $nonexistant
 </p>
 #end
 
+#if ($null) #begin
+<p><font color=red>i tried an \#if (\$null) \#begin check wheren \$null is null, and it returned true.  this is a problem!
+the contents of \$null are <h4>$null</h4></font></p>
+#end
+
 #if ($Form.passback || $Form.propagate) #begin
 <p>You have tried to access a RestrictedAccessObject but:<br>
 <b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>

@@ -1,0 +1,52 @@
+<html><head><title>WebMacro "Standalone" example!</title></head>
+#set $Response.ContentType = "text/html"
+
+<body>
+<h1><font color="red">WebMacro "standalone" example!</font></h1>
+$hello and $Form.other
+<p>
+If you have "var=whatever" in the query string of your URL, the value of
+whatever should appear here: $Form.var
+<p>
+Today is $Today 
+<p>
+Number is $Number 
+
+<p>
+Here is a list of your stuff (in the "stuff" form variable)
+<ul>
+#if ($FormList.stuff) {
+   #foreach $thing in $FormList.stuff
+   { 
+      <li>$thing
+   }
+}
+</ul>
+<p>
+Here is a list of your colors (in the "color" form variable)
+<ul>
+#if ($FormList.color) {
+   #foreach $thing in $FormList.color
+   { 
+      <li>$thing
+   }
+}
+</ul>
+<hr>
+<form>
+other: <input type=text name=other value=""> <br>
+var: <input type=text name=var value=""> <br>
+apple: <input type=checkbox name=stuff value="apple"> <br>
+banana: <input type=checkbox name=stuff value="banana"> <br>
+cherry: <input type=checkbox name=stuff value="cherry"> <br>
+
+Select colors:
+
+<select multiple size=3 name=color>
+<option name=red>red</option>
+<option name=blue>blue</option>
+<option name=green>green</option>
+</select><br>
+<input type=submit name=submit value="try it"> <br>
+</form>
+</body></html>

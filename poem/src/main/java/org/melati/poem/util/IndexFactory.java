@@ -46,13 +46,13 @@
 package org.melati.util;
 
 /**
- * FIXME Trivial interface only used in one implementing class and
+ * Trivial interface only used in one implementing class and
  * with ambiguous/misleading name.
- * <p>
+ * 
  * What the name means is that the manufactured objects are
  * identified by a numeric index.
- * <p>
- * Suggest we might move the details to the subtype and delete. JimW
+ * 
+ * @todo Suggest we might move the details to the subtype and delete. JimW
  */
 public interface IndexFactory {
   Object get(int i) throws Exception;

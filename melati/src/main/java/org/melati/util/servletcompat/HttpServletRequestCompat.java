@@ -260,8 +260,8 @@ public class HttpServletRequestCompat {
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
-
-  public static java.security.Principal getUserPrincipal(HttpServletRequest it) {
+  public static java.security.Principal getUserPrincipal(
+                                                       HttpServletRequest it) {
     return (java.security.Principal)invoke(getUserPrincipal, it, noargs);
     // return it.getUserPrincipal();
   }
@@ -342,7 +342,8 @@ public class HttpServletRequestCompat {
 
   public static RequestDispatcher getRequestDispatcher(
                           HttpServletRequest it, String arg) {
-    return (RequestDispatcher)invoke(getRequestDispatcher, it, new Object[] { arg });
+    return (RequestDispatcher)invoke(getRequestDispatcher, it, 
+                                     new Object[] { arg });
     // return it.getRequestDispatcher(arg);
   }
 

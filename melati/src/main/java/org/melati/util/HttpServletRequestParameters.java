@@ -74,7 +74,7 @@ public class HttpServletRequestParameters {
   }
 
     public Hashtable getParameters() {
-	return parameters;
+      return parameters;
     }
 
   public String continuationURL() {

@@ -55,7 +55,7 @@ import java.sql.ResultSet;
 public class ToTidyList {
 
   public interface Closeable {
-    public void close();
+    void close();
   }
 
   private Vector objects = new Vector();

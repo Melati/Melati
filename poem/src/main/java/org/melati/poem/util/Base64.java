@@ -18,8 +18,7 @@
 
 package org.melati.util;
 
-final public class Base64
-{
+final public class Base64 {
 
    private static final byte UPPER_FOUR = (byte) (16 + 32 + 64 + 128);
    private static final byte LOWER_FOUR = (byte) (1 + 2 + 4 + 8);
@@ -33,24 +32,21 @@ final public class Base64
     * Get the plain text version of a base64 encoded string
     */
    
-   final public static String decode(String encoded)
-   {
+   final public static String decode(String encoded) {
       return decode(encoded.getBytes());
    }
 
    /*
     * Get the base64 encoded version of a plain text String
     */
-   final public static String encode(String plainText)
-   {
+   final public static String encode(String plainText) {
       return encode(plainText.getBytes());
    }
 
    /*
     * Get the plain text version of a base64 encoded byte array
     */
-   final public static String decode(byte[] encoded)
-   {
+   final public static String decode(byte[] encoded) {
       byte[] plain = new byte[(int) (encoded.length * 0.75) + 2];
 
       byte code, ptext;
@@ -123,8 +119,7 @@ final public class Base64
    /*
     * Get the base64 encoded version of a plain text byte array
     */
-   final static public String encode(byte[] plain)
-   {
+   final static public String encode(byte[] plain) {
 
       /*
        * base64 encoding: turn 3*8 bits into 4*6 bits via the pattern:
@@ -199,8 +194,7 @@ final public class Base64
      * @exception NumberFormatException if base64 is not a base64 character
      */
    private static byte sixBits(byte base64)
-      throws NumberFormatException
-   {
+      throws NumberFormatException {
 
       if ((base64 >= 'A') && (base64 <= 'Z')) {
          return (byte) (base64 - 'A');
@@ -231,8 +225,7 @@ final public class Base64
     /*
      * Turn a six-bit value into a base64 digit
      */
-   static private char base64(byte sixBits)
-   {
+   static private char base64(byte sixBits) {
 
       if (sixBits <= 25) { // less/equal base64 'Z'
          return (char) ('A' + sixBits);

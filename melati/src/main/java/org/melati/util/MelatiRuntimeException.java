@@ -45,6 +45,9 @@
 
 package org.melati.util;
 
+/**
+ * @todo Upgrade to Java 1.4 after we stop supporting Java 1.3
+ */
 public abstract class MelatiRuntimeException extends RuntimeException {
 
   /**
@@ -86,7 +89,7 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   public Throwable initCause(Throwable cause) {
     subException = (Exception)cause;
     return this;
-    // FIXME Do this if we have abandoned Java 1.3
+    // FIXME Do this after we have abandoned Java 1.3
     // return super.initCause(cause);
   }
   

@@ -52,6 +52,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+/**
+ * Useful things to do with properties files.
+ */
 public class PropertiesUtils {
 
   public static Properties fromFile(File path) throws IOException {
@@ -135,7 +138,6 @@ public class PropertiesUtils {
       return defaulT.newInstance();
     }
     catch (Exception e) {
-      // FIXME grrrr
       throw new RuntimeException(e.toString());
     }
     else {
@@ -162,13 +164,9 @@ public class PropertiesUtils {
       defaulT = Class.forName(defaultName);
     }
     catch (Exception e) {
-      // FIXME grrrr
       throw new RuntimeException(e.toString());
     }
 
-
-    return instanceOfNamedClass(properties, propertyName,
-    // FIXME improve error-checking
-    base, defaulT);
+    return instanceOfNamedClass(properties, propertyName, base, defaulT);
   }
 }

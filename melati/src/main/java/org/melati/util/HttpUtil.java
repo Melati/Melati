@@ -48,14 +48,16 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 public class HttpUtil {
 
   
-  public static void appendZoneURL(
-      StringBuffer url, HttpServletRequest request) {
+  public static void appendZoneURL(StringBuffer url, 
+                                   HttpServletRequest request) {
     url.append(request.getScheme());
     url.append("://");
     url.append(request.getServerName());
-    if (request.getScheme().equals("http") && request.getServerPort() != 80 ||
-        request.getScheme().equals("https") && request.getServerPort() != 443)
-    {
+    if (request.getScheme().equals("http") && 
+        request.getServerPort() != 80 
+        ||
+        request.getScheme().equals("https") && 
+        request.getServerPort() != 443) {
       url.append(':');
       url.append(request.getServerPort());
     }

@@ -219,7 +219,8 @@ public class StringUtils {
   }
 
   private static final char[] hexDigits =
-    { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+    { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+      'A', 'B', 'C', 'D', 'E', 'F' };
 
   public static String hexEncoding(byte[] bs) {
     StringBuffer it = new StringBuffer(bs.length * 2);
@@ -248,13 +249,15 @@ public class StringUtils {
 
     int l = digits.length() / 2;
     if (l * 2 != digits.length())
-      throw new IllegalArgumentException("Hex string has odd number of digits");
+      throw new IllegalArgumentException(
+                                    "Hex string has odd number of digits");
 
     byte[] it = new byte[l];
 
     for (int i = 0; i < l; ++i)
       it[i] =
-        (byte) (hexDecoding(digits.charAt(i * 2)) << 4 | hexDecoding(digits.charAt(i * 2 + 1)));
+        (byte) (hexDecoding(digits.charAt(i * 2)) << 4 | 
+                hexDecoding(digits.charAt(i * 2 + 1)));
 
     return it;
   }
@@ -268,7 +271,9 @@ public class StringUtils {
       return false;
     if (in.length() < 2)
       return false;
-    if ((in.startsWith("'") || in.startsWith("\"")) && (in.endsWith("'") || in.endsWith("\""))) {
+    if ((in.startsWith("'") || in.startsWith("\"")) 
+        && 
+        (in.endsWith("'") || in.endsWith("\""))) {
       return true;
     }
     return false;

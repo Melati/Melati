@@ -45,7 +45,7 @@ package org.melati.util;
 public class JSStaticTree extends Tree {
 
     private String nodeLabelTemplet = 
-                         "org/melati/template/webmacro/templets/html/StaticNode.wm";
+           "org/melati/template/webmacro/templets/html/StaticNode.wm";
     private String backgroundColour = "FFFFFF";
     private String verticalLinkImage = "/melati-static/admin/vertline.gif";
     private String spacerImage = "/melati-static/admin/spacer.gif";

@@ -77,7 +77,9 @@ TreeNode.prototype.getChildren = function (dontload) {
 }
 
 TreeNode.prototype.flatten = function (depthFirst, depth, dontload) {
-  agenda = [this];
+  //agenda = [this];
+  agenda = new Array();
+  agenda[0]= this;
   results = new Array();
 
   while (agenda.length != 0) {
@@ -126,7 +128,7 @@ function StaticTree(displayFrame, controlFrameName,
   // StaticTree members
   // *******************
   this.roots = roots; // Should be an array of TreeNodes
-  this.flattened = [];
+  this.flattened = new Array();
   this.frame = displayFrame;
   this.controlName = controlFrameName;
   this.selectNodes = selectNodes;
@@ -253,8 +255,12 @@ function StaticTree(displayFrame, controlFrameName,
 //********************
 
 StaticTree.prototype.indexNodes = function ()  {
-  for(i=0; i<this.roots.length; i++)
-    this.flattened = this.flattened.concat(this.roots[i].flatten(true,-1,true))
+  for(i=0; i<this.roots.length; i++) {
+    var f = this.roots[i].flatten(true,-1,true);
+    for(j=0; j<f.length; j++) {
+      this.flattened[this.flattened.length] = f[j];  
+    }
+  }
   for(i=0; i<this.flattened.length; i++)
     this.flattened[i].index = i;
 }
@@ -262,8 +268,7 @@ StaticTree.prototype.indexNodes = function ()  {
 var indexed = false;
 StaticTree.prototype.display = function () {
 
-  if (indexed == false)
-  {
+  if (indexed == false) {
     this.indexNodes();
     indexed = true;
   }
@@ -281,9 +286,11 @@ StaticTree.prototype.display = function () {
 
     y = this.roots[i].writeTree(doc, (i == (this.roots.length -1)), []);
    }
-// Appended by ColinR: scrollSpacer is added for browsers which do not allow JavaScript 
+// Appended by ColinR: 
+// scrollSpacer is added for browsers which do not allow JavaScript 
 // to scroll the window beyond the document length
-  doc.write("<IMG src='" + this.spacerImage + "' height=100% width=1 name=scrollSpacer border=0></form></body></html>\n");
+  doc.write("<IMG src='" + this.spacerImage + "' height='100%' width='1' ");
+  doc.write("name='scrollSpacer' border='0'></form></body></html>\n");
   doc.close();
     
 }
@@ -297,16 +304,19 @@ var lastChosen = null;
 
 function expand(index) {
 
-// Appended by ColinR: pageYOffset (etc) is detected so the the newly rendered tree
+// Appended by ColinR: 
+// pageYOffset (etc) is detected so the newly rendered tree
 // is scrolled to the current tree position to avoid confusion and the need
 // to scroll down the tree each time a new node is opened or closed
 
+  var pageY = 0;
+  var pageX = 0;
   if (isNav4) {
-    var pageY = theTree.frame.window.pageYOffset;
-    var pageX = theTree.frame.window.pageXOffset;
+    pageY = theTree.frame.window.pageYOffset;
+    pageX = theTree.frame.window.pageXOffset;
   } else {
-    var pageY = theTree.frame.document.body.scrollTop;
-    var pageX = theTree.frame.document.body.scrollLeft;
+    pageY = theTree.frame.document.body.scrollTop;
+    pageX = theTree.frame.document.body.scrollLeft;
   }
 
   var node = theTree.flattened[index];
@@ -329,7 +339,6 @@ function selectLeaf(index) {
     node.parent.selected = false;
     theTree.display();  
   }
-
 }
 
 function selectNode(index) {

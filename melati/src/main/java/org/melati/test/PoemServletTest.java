@@ -107,15 +107,7 @@ public class PoemServletTest extends PoemServlet {
       append(((Table)e.nextElement()).getDisplayName()).toString());
     }
 
-    output.write("<h4>Further Testing:</h4>\n");
-    if (method != null) {
-      output.write("You can test melati Exception " +
-      "handling by clicking <a href=Exception>Exception</a><br>\n");
-      output.write("You can test " +
-      "melati Access Poem Exception handling (requiring you to log-in as an " +
-      "administrator) by clicking <a href=AccessPoemException>Access Poem " +
-      "Exception</a><br>\n");
-    }
+    output.write("<h3>Further Testing:</h3>\n");
     output.write("<h4>Template Engine Testing:</h4>\n");
     output.write("You are currently using: <b>" + 
     melati.getConfig().getTemplateEngine().getClass().getName() + 
@@ -132,6 +124,12 @@ public class PoemServletTest extends PoemServlet {
 
     String method = melati.getMethod();
     if (method != null) {
+      output.write("Test melati Exception handling" +
+      "handling by clicking <a href=Exception>Exception</a><br>\n");
+      output.write("Test " +
+      "melati Access Poem Exception handling (requiring you to log-in as an " +
+      "administrator) by clicking <a href=AccessPoemException>Access Poem " +
+      "Exception</a><br>\n");
       output.write("Current method:" + method + "<br/>\n");
       Capability admin = PoemThread.database().getCanAdminister();
       AccessToken token = PoemThread.accessToken();

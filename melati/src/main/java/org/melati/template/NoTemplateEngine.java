@@ -232,7 +232,6 @@ public class NoTemplateEngine implements TemplateEngine {
 
   /** 
    * @param encoding Ignored.
-   * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
    * @deprecated The best possible {@link MelatiWriter} that is like a

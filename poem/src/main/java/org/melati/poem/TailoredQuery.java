@@ -25,11 +25,12 @@ import java.sql.*;
 
 public class TailoredQuery {
 
-  private Database database;
-  private String sql;
+  protected Database database;
+  protected String sql;
   int selectedColumnsCount;
   Column[] columns;
   boolean[] isCanReadColumn;
+  Table[] tables;
   Table[] canReadTables;
 
   Hashtable table_columnMap = new Hashtable();
@@ -105,25 +106,27 @@ public class TailoredQuery {
    * @see PoemType#quotedIdent(java.lang.Object)
    */
 
-  public TailoredQuery(final Column[] selectedColumns,
-		       Table[] otherTables,
+  public TailoredQuery(Column[] selectedColumns, Table[] otherTables,
 		       String whereClause, String orderByClause) {
 
     this.database = selectedColumns[0].getDatabase();
 
     // Make a list of all the tables used
 
-    Vector tables = new Vector();
+    Vector tablesV = new Vector();
 
     for (int c = 0; c < selectedColumns.length; ++c) {
       Table table = selectedColumns[c].getTable();
-      if (!tables.contains(table))
-	tables.addElement(table);
+      if (!tablesV.contains(table))
+	tablesV.addElement(table);
     }
 
     for (int t = 0; t < otherTables.length; ++t)
-      if (!tables.contains(otherTables[t]))
-	tables.addElement(otherTables[t]);
+      if (!tablesV.contains(otherTables[t]))
+	tablesV.addElement(otherTables[t]);
+
+    tables = new Table[tablesV.size()];
+    tablesV.copyInto(tables);
 
     // Record the access protection sources for all the tables used (of course
     // this doesn't include computed `Persistent.assertCanRead's written by the
@@ -138,8 +141,8 @@ public class TailoredQuery {
     for (int c = 0; c < selectedColumns.length; ++c)
       columns.addElement(selectedColumns[c]);
 
-    for (int t = 0; t < tables.size(); ++t) {
-      Table table = (Table)tables.elementAt(t);
+    for (int t = 0; t < tables.length; ++t) {
+      Table table = tables[t];
       Column canRead = table.canReadColumn();
       if (canRead == null) {
 	// No specific canRead column, revert to the table default protection
@@ -182,9 +185,9 @@ public class TailoredQuery {
 
     sql.append(" FROM ");
 
-    for (int t = 0; t < tables.size(); ++t) {
+    for (int t = 0; t < tables.length; ++t) {
       if (t > 0) sql.append(", ");
-      sql.append(((Table)tables.elementAt(t)).quotedName());
+      sql.append((tables[t]).quotedName());
     }
 
     if (whereClause != null && !whereClause.trim().equals("")) {

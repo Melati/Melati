@@ -274,34 +274,42 @@ public class Melati {
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      String formFieldName = "field_" + column.getName();
-      String rawString = context.getForm(formFieldName);
+      Object raw = extractField(context, "field_" + column.getName());
 
-      String adaptorFieldName = formFieldName + "-adaptor";
-      String adaptorName = context.getForm(adaptorFieldName);
-      if (adaptorName != null) {
-        TempletAdaptor adaptor;
-        try {
-          // FIXME cache this instantiation
-          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-        } catch (Exception e) {
-          throw new TempletAdaptorConstructionMelatiException(
-                      adaptorFieldName, adaptorName, e);
-        }
-        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
+      if (raw instanceof String)
+      {
+        if (raw == null)
+          return;
+
+        if (raw.equals("") && column.getType().getNullable())
+            column.setRaw(object, null);
+        else
+          column.setRawString(object, (String)raw);
       }
-      else {
-        if (rawString != null) {
-          if (rawString.equals("")) {
-            if (column.getType().getNullable())
-              column.setRaw(object, null);
-            else
-              column.setRawString(object, "");
-          }
-          else
-            column.setRawString(object, rawString);
-        }
-      }
+      else
+        column.setRaw(object, raw);
     }
+  }
+
+  public static Object extractField(WebContext context,
+                                    String fieldName)
+                           throws TempletAdaptorConstructionMelatiException {
+
+    String rawString = context.getForm(fieldName);
+
+    String adaptorFieldName = fieldName + "-adaptor";
+    String adaptorName = context.getForm(adaptorFieldName);
+    if (adaptorName != null) {
+      TempletAdaptor adaptor;
+      try {
+        // FIXME cache this instantiation
+        adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
+      } catch (Exception e) {
+        throw new TempletAdaptorConstructionMelatiException(
+                    adaptorFieldName, adaptorName, e);
+      }
+      return adaptor.rawFrom(context, fieldName);
+    }
+    return rawString;
   }
 }

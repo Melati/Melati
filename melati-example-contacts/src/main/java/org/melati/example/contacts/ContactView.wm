@@ -1,15 +1,14 @@
 #set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>
 <head>
-	<title>Edit/Amend a Contact</title>
+  <title>Edit/Amend a Contact</title>
 </head>
-<SCRIPT src="/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
-<body>
+<body bgcolor="#ffffff">
 <h1>
 #if ($contact.Troid) #begin
 Edit
@@ -38,10 +37,16 @@ Contact</h1>
 	#end
 #end
 </table>
-
-<input type=submit name=update value=update>
+<input type=submit name=update value=update ONCLICK="return validate(this.form);">
 </form>
 <a href=Delete>Delete</a>
-
 </body>
 </html>
+
+
+
+
+
+
+
+

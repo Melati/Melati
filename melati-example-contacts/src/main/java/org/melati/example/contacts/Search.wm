@@ -2,20 +2,24 @@
 #set $ml = $melati.HTMLMarkupLanguage
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
 <html>
 <head>
-	<title>Search the Contacts</title>
+ <title>Search the Contacts</title>
 </head>
-<SCRIPT src="/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <body bgcolor="#ffffff">
 <p>
-    This is a very simple Melati Application.  It allows you to enter contacts into a database, and search them.
+  This is a very simple Melati Application.  
+<br>
+  It allows you to enter contacts into a database, and search them.
 </p>
 <p>
-    The source code is available in <tt>org/melati/doc/example/contacts/</tt>, 
-    and forms a useful starting point to developing a Melati application
+  The source code is available in 
+  <a href=/melati-static/doc/example/contacts/>
+     <tt>org/melati/doc/example/contacts/</tt>
+  </a>, 
+  and forms a useful starting point to developing a Melati application.
 </p>
 <hr>
 <table border=1 cellpadding=5 width="60%">
@@ -27,7 +31,7 @@
   <a href=$melati.ZoneURL/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
  </td>
  <td>
-  <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>go to the Admin System</a></p>
+  <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>go to the Admin System</a>
  </td>
 <tr>
 </table>
@@ -36,7 +40,7 @@
 <form>
 <p>$ml.rendered($name.DisplayName): $ml.input($name)</p>
 <p>$ml.rendered($category.DisplayName): $ml.searchInput($category,"Any")</p>
-<input type=submit name=submit>
+<input type=submit name=submit ONCLICK="return validate(this.form);">
 </form>
 #if ($results) #begin
 <table>

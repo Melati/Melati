@@ -44,6 +44,14 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!--
+  You can make Melati display different pages for different kinds of
+  Exception by creating specialised templates named after Exception
+  classes in this directory
+  (org/melati/template/webmacro/templets/html/error).  See 
+  org.melati.poem.DuplicateKeySQLPoemException.wm for an example.
+ -->
+
 #set $ml = $melati.HTMLMarkupLanguage
 
 <html><head><title>Melati Error Template</title></head>

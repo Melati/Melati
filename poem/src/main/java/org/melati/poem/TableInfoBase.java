@@ -185,4 +185,44 @@ public class TableInfoBase extends Persistent {
   public final Field getCancreateField() throws AccessPoemException {
     return getTableInfoTable().getCancreateColumn().asField(this);
   }
+
+  public Integer getCachelimit()
+      throws AccessPoemException {
+    return dataForReading().cachelimit;
+  }
+
+  public void setCachelimit(Integer value)
+      throws AccessPoemException, ValidationPoemException {
+    getTableInfoTable().getCachelimitColumn().getType().assertValidValue(value);
+    dataForWriting().cachelimit = value;
+  }
+
+  public final void setCachelimit(int value)
+      throws AccessPoemException, ValidationPoemException {
+    setCachelimit(new Integer(value));
+  }
+
+  public final Field getCachelimitField() throws AccessPoemException {
+    return getTableInfoTable().getCachelimitColumn().asField(this);
+  }
+
+  public Boolean getSeqcached()
+      throws AccessPoemException {
+    return dataForReading().seqcached;
+  }
+
+  public void setSeqcached(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getTableInfoTable().getSeqcachedColumn().getType().assertValidValue(value);
+    dataForWriting().seqcached = value;
+  }
+
+  public final void setSeqcached(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setSeqcached(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getSeqcachedField() throws AccessPoemException {
+    return getTableInfoTable().getSeqcachedColumn().asField(this);
+  }
 }

@@ -11,6 +11,8 @@ public class TableDef {
   final String suffix;
   String displayName;
   String description;
+  boolean seqCached;
+  int cacheSize = -1;
   final String dataBaseClass;
   final String dataMainClass;
   final String baseClass;
@@ -188,10 +190,21 @@ public class TableDef {
               "  }\n" +
               "\n");
 
+    if (seqCached)
+      w.write("  protected boolean defaultRememberAllTroids() {\n" +
+              "    return true;\n" +
+              "  }\n" +
+              "\n");
+
+    if (cacheSize >= 0)
+      w.write("  protected boolean defaultCacheLimit() {\n" +
+              "    return " + cacheSize + ";\n" +
+              "  }\n" +
+              "\n");
+
     w.write("  protected int defaultDisplayOrder() {\n" +
             "    return " + displayOrder + ";\n" +
-            "  }\n" +
-            "\n");
+            "  }\n");
 
     w.write("}\n");
   }

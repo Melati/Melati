@@ -13,4 +13,9 @@ public class TableInfo extends TableInfoBase {
   public String displayString() throws AccessPoemException {
     return getDisplayname();
   }
+
+  public void setSeqcached(Boolean b) throws AccessPoemException {
+    super.setSeqcached(b);
+    getTable().rememberAllTroids(b.booleanValue());
+  }
 }

@@ -37,9 +37,9 @@ public class GroupCapabilityTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -80,9 +80,9 @@ public class GroupCapabilityTableBase extends Table {
             return "Group";
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "The user-group which has the capability";
@@ -123,9 +123,9 @@ public class GroupCapabilityTableBase extends Table {
             return new Integer(1);
           }
 
-  protected int defaultDisplayOrder() {
-    return 2;
-  }
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -177,5 +177,4 @@ public class GroupCapabilityTableBase extends Table {
   protected int defaultDisplayOrder() {
     return 6;
   }
-
 }

@@ -181,9 +181,9 @@ public abstract class FieldDef {
               "          }\n" +
               "\n");
 
-    w.write("  protected int defaultDisplayOrder() {\n" +
-            "    return " + displayOrder + ";\n" +
-            "  }\n" +
+    w.write("          protected int defaultDisplayOrder() {\n" +
+            "            return " + displayOrder + ";\n" +
+            "          }\n" +
             "\n");
 
     if (description != null)

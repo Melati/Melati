@@ -52,9 +52,9 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -87,13 +87,21 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setTableinfo((TableInfo)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
           protected String defaultDisplayName() {
             return "Owning table";
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "The table to which the field belongs";
@@ -134,9 +142,9 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 2;
-  }
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
 
           protected String defaultDescription() {
             return "A code-name for the field";
@@ -182,16 +190,16 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected Integer defaultDisplayOrderPriority() {
-            return new Integer(1);
+            return new Integer(2);
           }
 
           protected String defaultDisplayName() {
             return "Display name";
           }
 
-  protected int defaultDisplayOrder() {
-    return 3;
-  }
+          protected int defaultDisplayOrder() {
+            return 3;
+          }
 
           protected String defaultDescription() {
             return "A user-friendly name for the field";
@@ -228,9 +236,9 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setDescription((String)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 4;
-  }
+          protected int defaultDisplayOrder() {
+            return 4;
+          }
 
           protected String defaultDescription() {
             return "A brief description of the field's function";
@@ -248,7 +256,7 @@ public class ColumnInfoTableBase extends Table {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder", new IntegerPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((ColumnInfoData)data).displayorder;
           }
@@ -268,16 +276,16 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected Integer defaultDisplayOrderPriority() {
-            return new Integer(0);
+            return new Integer(1);
           }
 
           protected String defaultDisplayName() {
             return "Display order";
           }
 
-  protected int defaultDisplayOrder() {
-    return 5;
-  }
+          protected int defaultDisplayOrder() {
+            return 5;
+          }
 
           protected String defaultDescription() {
             return "A rank determining where the field appears in lists";
@@ -318,9 +326,9 @@ public class ColumnInfoTableBase extends Table {
             return "User-editable";
           }
 
-  protected int defaultDisplayOrder() {
-    return 6;
-  }
+          protected int defaultDisplayOrder() {
+            return 6;
+          }
 
           protected String defaultDescription() {
             return "Whether it makes sense for the user to update the field's value";
@@ -361,9 +369,9 @@ public class ColumnInfoTableBase extends Table {
             return "User-viewable";
           }
 
-  protected int defaultDisplayOrder() {
-    return 7;
-  }
+          protected int defaultDisplayOrder() {
+            return 7;
+          }
 
           protected String defaultDescription() {
             return "Whether it makes sense for the user to see the field's value";
@@ -404,9 +412,9 @@ public class ColumnInfoTableBase extends Table {
             return "Primary display field";
           }
 
-  protected int defaultDisplayOrder() {
-    return 8;
-  }
+          protected int defaultDisplayOrder() {
+            return 8;
+          }
 
           protected String defaultDescription() {
             return "Whether the field is used as a short representation of the whole record";
@@ -447,9 +455,9 @@ public class ColumnInfoTableBase extends Table {
             return "Display order priority";
           }
 
-  protected int defaultDisplayOrder() {
-    return 9;
-  }
+          protected int defaultDisplayOrder() {
+            return 9;
+          }
 
           protected String defaultDescription() {
             return "If present, the level at which lists of records are sorted by the field";
@@ -486,9 +494,13 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setType((PoemTypeFactory)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 10;
-  }
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected int defaultDisplayOrder() {
+            return 10;
+          }
 
           protected String defaultDescription() {
             return "The field's Melati type";
@@ -525,9 +537,13 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setNullable((Boolean)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 11;
-  }
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected int defaultDisplayOrder() {
+            return 11;
+          }
 
           protected String defaultDescription() {
             return "Whether the field can be empty";
@@ -564,9 +580,9 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setIndexed((Boolean)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 12;
-  }
+          protected int defaultDisplayOrder() {
+            return 12;
+          }
 
           protected String defaultDescription() {
             return "Whether the field is indexed (ignored if the field is marked `unique')";
@@ -603,9 +619,13 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setUnique((Boolean)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 13;
-  }
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected int defaultDisplayOrder() {
+            return 13;
+          }
 
           protected String defaultDescription() {
             return "Whether the field is unique (implies that it's `indexed')";
@@ -642,9 +662,9 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setSize((Integer)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 14;
-  }
+          protected int defaultDisplayOrder() {
+            return 14;
+          }
 
           protected String defaultDescription() {
             return "For character fields, the maximum number of characters that can be stored";
@@ -685,9 +705,9 @@ public class ColumnInfoTableBase extends Table {
             return "Input-box width";
           }
 
-  protected int defaultDisplayOrder() {
-    return 15;
-  }
+          protected int defaultDisplayOrder() {
+            return 15;
+          }
 
           protected String defaultDescription() {
             return "A sensible width for text boxes used for entering the field, where appropriate";
@@ -728,9 +748,9 @@ public class ColumnInfoTableBase extends Table {
             return "Input-box height";
           }
 
-  protected int defaultDisplayOrder() {
-    return 16;
-  }
+          protected int defaultDisplayOrder() {
+            return 16;
+          }
 
           protected String defaultDescription() {
             return "A sensible height for text boxes used for entering the field, where appropriate";
@@ -771,9 +791,9 @@ public class ColumnInfoTableBase extends Table {
             return "Rendering information";
           }
 
-  protected int defaultDisplayOrder() {
-    return 17;
-  }
+          protected int defaultDisplayOrder() {
+            return 17;
+          }
 
           protected String defaultDescription() {
             return "The name of the Melati templet (if not the default) to use for input controls for the field";
@@ -886,8 +906,11 @@ public class ColumnInfoTableBase extends Table {
     return "Configuration information about a column in the database";
   }
 
+  protected boolean defaultRememberAllTroids() {
+    return true;
+  }
+
   protected int defaultDisplayOrder() {
     return 1;
   }
-
 }

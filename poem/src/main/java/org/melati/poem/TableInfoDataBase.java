@@ -11,4 +11,6 @@ public class TableInfoDataBase extends Data {
   Integer defaultcanread;
   Integer defaultcanwrite;
   Integer cancreate;
+  Integer cachelimit;
+  Boolean seqcached;
 }

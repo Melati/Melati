@@ -15,7 +15,7 @@ public class DisplayNameTableQualifier extends TableQualifier {
     tokens.nextToken();
   }
 
-  public void apply(TableDef field) {
-    field.displayName = displayName;
+  public void apply(TableDef table) {
+    table.displayName = displayName;
   }
 }

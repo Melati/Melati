@@ -15,7 +15,7 @@ public class DescriptionTableQualifier extends TableQualifier {
     tokens.nextToken();
   }
 
-  public void apply(TableDef field) {
-    field.description = description;
+  public void apply(TableDef table) {
+    table.description = description;
   }
 }

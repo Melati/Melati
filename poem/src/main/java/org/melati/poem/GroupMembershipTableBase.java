@@ -37,9 +37,9 @@ public class GroupMembershipTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -80,9 +80,9 @@ public class GroupMembershipTableBase extends Table {
             return "User";
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "The user who belongs to the group";
@@ -127,9 +127,9 @@ public class GroupMembershipTableBase extends Table {
             return "Group";
           }
 
-  protected int defaultDisplayOrder() {
-    return 2;
-  }
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
 
           protected String defaultDescription() {
             return "The group to which the user belongs";
@@ -185,5 +185,4 @@ public class GroupMembershipTableBase extends Table {
   protected int defaultDisplayOrder() {
     return 5;
   }
-
 }

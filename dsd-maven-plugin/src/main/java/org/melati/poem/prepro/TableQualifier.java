@@ -17,6 +17,10 @@ public abstract class TableQualifier {
       it = new DisplayNameTableQualifier(tokens);
     else if (kind.equals("description"))
       it = new DescriptionTableQualifier(tokens);
+    else if (kind.equals("cachelimit"))
+      it = new CacheSizeTableQualifier(tokens);
+    else if (kind.equals("seqcached"))
+      it = new SeqCachedTableQualifier(tokens);
     else
       throw new ParsingDSDException("<table qualifier>", kind, tokens);
     return it;

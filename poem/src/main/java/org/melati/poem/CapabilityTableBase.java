@@ -36,9 +36,9 @@ public class CapabilityTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -83,9 +83,9 @@ public class CapabilityTableBase extends Table {
             return "Name";
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "A human-readable name for the capability";
@@ -134,8 +134,11 @@ public class CapabilityTableBase extends Table {
     return "A capability which users can be required to possess before accessing data";
   }
 
+  protected boolean defaultRememberAllTroids() {
+    return true;
+  }
+
   protected int defaultDisplayOrder() {
     return 2;
   }
-
 }

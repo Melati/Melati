@@ -38,9 +38,9 @@ public class UserTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -73,9 +73,9 @@ public class UserTableBase extends Table {
             ((User)g).setLogin((String)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "The user's login name";
@@ -116,9 +116,9 @@ public class UserTableBase extends Table {
             ((User)g).setPassword((String)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 2;
-  }
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
 
           protected String defaultDescription() {
             return "The user's password";
@@ -167,9 +167,9 @@ public class UserTableBase extends Table {
             return "Full name";
           }
 
-  protected int defaultDisplayOrder() {
-    return 3;
-  }
+          protected int defaultDisplayOrder() {
+            return 3;
+          }
 
           protected String defaultDescription() {
             return "The user's real name";
@@ -226,8 +226,11 @@ public class UserTableBase extends Table {
     return "A registered user of the database";
   }
 
+  protected boolean defaultRememberAllTroids() {
+    return true;
+  }
+
   protected int defaultDisplayOrder() {
     return 3;
   }
-
 }

@@ -12,6 +12,8 @@ public class TableInfoTableBase extends Table {
   private Column col_defaultcanread = null;
   private Column col_defaultcanwrite = null;
   private Column col_cancreate = null;
+  private Column col_cachelimit = null;
+  private Column col_seqcached = null;
 
   public TableInfoTableBase(Database database, String name) throws PoemException {
     super(database, name, DefinitionSource.dsd);
@@ -46,9 +48,9 @@ public class TableInfoTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 0;
-  }
+          protected int defaultDisplayOrder() {
+            return 0;
+          }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -85,9 +87,9 @@ public class TableInfoTableBase extends Table {
             return false;
           }
 
-  protected int defaultDisplayOrder() {
-    return 1;
-  }
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
 
           protected String defaultDescription() {
             return "A code-name for the table";
@@ -140,9 +142,9 @@ public class TableInfoTableBase extends Table {
             return "Display name";
           }
 
-  protected int defaultDisplayOrder() {
-    return 2;
-  }
+          protected int defaultDisplayOrder() {
+            return 2;
+          }
 
           protected String defaultDescription() {
             return "A user-friendly name for the table";
@@ -179,9 +181,9 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDescription((String)value);
           }
 
-  protected int defaultDisplayOrder() {
-    return 3;
-  }
+          protected int defaultDisplayOrder() {
+            return 3;
+          }
 
           protected String defaultDescription() {
             return "A brief description of the table's function";
@@ -199,7 +201,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder", new IntegerPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((TableInfoData)data).displayorder;
           }
@@ -226,9 +228,9 @@ public class TableInfoTableBase extends Table {
             return "Display order";
           }
 
-  protected int defaultDisplayOrder() {
-    return 4;
-  }
+          protected int defaultDisplayOrder() {
+            return 4;
+          }
 
           protected String defaultDescription() {
             return "A rank determining where the table appears in the list of all tables";
@@ -269,9 +271,9 @@ public class TableInfoTableBase extends Table {
             return "Default `read' capability";
           }
 
-  protected int defaultDisplayOrder() {
-    return 5;
-  }
+          protected int defaultDisplayOrder() {
+            return 5;
+          }
 
           protected String defaultDescription() {
             return "The capability required, by default, for reading the table's records";
@@ -312,9 +314,9 @@ public class TableInfoTableBase extends Table {
             return "Default `write' capability";
           }
 
-  protected int defaultDisplayOrder() {
-    return 6;
-  }
+          protected int defaultDisplayOrder() {
+            return 6;
+          }
 
           protected String defaultDescription() {
             return "The capability required, by default, for updating the table's records";
@@ -355,9 +357,9 @@ public class TableInfoTableBase extends Table {
             return "Default `create' capability";
           }
 
-  protected int defaultDisplayOrder() {
-    return 7;
-  }
+          protected int defaultDisplayOrder() {
+            return 7;
+          }
 
           protected String defaultDescription() {
             return "The capability required, by default, for creating records in the table";
@@ -371,6 +373,92 @@ public class TableInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((TableInfo)g).setCancreateTroid((Integer)ident);
+          }
+        });
+
+    defineColumn(col_cachelimit =
+        new Column(this, "cachelimit", new IntegerPoemType(true), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Integer)((TableInfoData)data).cachelimit;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((TableInfoData)data).cachelimit = (Integer)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getCachelimit();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setCachelimit((Integer)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Cache size limit";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 8;
+          }
+
+          protected String defaultDescription() {
+            return "The maximum number of records from the table to keep in the cache";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCachelimit();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setCachelimit((Integer)ident);
+          }
+        });
+
+    defineColumn(col_seqcached =
+        new Column(this, "seqcached", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((TableInfoData)data).seqcached;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((TableInfoData)data).seqcached = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getSeqcached();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setSeqcached((Boolean)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Record sequence cached";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 9;
+          }
+
+          protected String defaultDescription() {
+            return "Whether the display sequence for the table's records is cached";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getSeqcached();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setSeqcached((Boolean)ident);
           }
         });
   }
@@ -407,6 +495,14 @@ public class TableInfoTableBase extends Table {
     return col_cancreate;
   }
 
+  public final Column getCachelimitColumn() {
+    return col_cachelimit;
+  }
+
+  public final Column getSeqcachedColumn() {
+    return col_seqcached;
+  }
+
   public TableInfo getTableInfoObject(Integer troid) {
     return (TableInfo)getObject(troid);
   }
@@ -430,8 +526,11 @@ public class TableInfoTableBase extends Table {
     return "Configuration information about a table in the database";
   }
 
+  protected boolean defaultRememberAllTroids() {
+    return true;
+  }
+
   protected int defaultDisplayOrder() {
     return 0;
   }
-
 }

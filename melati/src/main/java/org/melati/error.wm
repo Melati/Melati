@@ -46,13 +46,16 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 
-<html><head><title>ERROR!</title></head>
+<html><head><title>Melati Error Template</title></head>
 
 <body bgcolor="white">
-<h1><font color="green">ERROR!</font></h1>
-
+<h1><font color="green">Melati Error Template</font></h1>
+<p>An error has occured in the application that runs this website, please contact 
+<a href='mailto:$SysAdminEmail'>$SysAdminName</a>, with the information given below.</p>
+<h4><font color=red>
 <PRE>
-$ml.rendered($error)
+$error
 </PRE>
-
-</body></html>
+</h4>
+</body>
+</html>

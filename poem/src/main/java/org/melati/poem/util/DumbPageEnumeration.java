@@ -158,6 +158,6 @@ public class DumbPageEnumeration implements PageEnumeration {
     }
     public int getNumber() {return number;}
     public int getStart() {return start;}
-  };
+  }
 
 }

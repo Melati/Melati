@@ -47,11 +47,30 @@ package org.melati.util;
 
 public abstract class MelatiRuntimeException extends RuntimeException {
 
+  /**
+   * Pre-java 1.4 initial cause.
+   *
+   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
+   */
   public Exception subException;
 
+  /**
+   * Pre-java 1.4 initial cause.
+   *
+   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
+   */
   public MelatiRuntimeException(String message, Exception subException) {
+    this(message);
+    initCause(subException);
+  }
+
+  /**
+   * Pre-java 1.4 initial cause.
+   *
+   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
+   */
+  public MelatiRuntimeException(String message) {
     super(message);
-    this.subException = subException;
   }
 
   public MelatiRuntimeException(Exception subException) {
@@ -59,11 +78,23 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   }
 
   public MelatiRuntimeException() {
-    this(null);
   }
 
   /**
+   * Overrides standard method for backward compatibility.
+   */
+  public Throwable initCause(Throwable cause) {
+    subException = (Exception)cause;
+    return this;
+    // FIXME Do this if we have abandoned Java 1.3
+    // return super.initCause(cause);
+  }
+  
+
+  /**
    * FIXME yuk
+   *
+   * @deprecated
    */
 
   public String getCoreMessage() {

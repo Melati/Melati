@@ -50,7 +50,9 @@ public class DuplicateTroidPoemException extends DBConsistencyPoemException {
   public Integer troid;
 
   public DuplicateTroidPoemException(Table table, Integer troid) {
+    super("Troid " + troid + " duplicated in table " + table + ".");
     this.table = table;
     this.troid = troid;
   }
+
 }

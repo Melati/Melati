@@ -46,4 +46,12 @@
 package org.melati.poem;
 
 public abstract class DBConsistencyPoemException extends SeriousPoemException {
+
+  public DBConsistencyPoemException(String message) {
+    super(message);
+  }
+
+  public DBConsistencyPoemException() {
+  }
+
 }

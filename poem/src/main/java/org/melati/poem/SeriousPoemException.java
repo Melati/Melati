@@ -49,14 +49,26 @@ import org.melati.util.*;
 
 public class SeriousPoemException extends MelatiRuntimeException {
 
+  /**
+   * This should probably be deprecated as from Java 1.4.
+   */
   public SeriousPoemException(String message, Exception subException) {
-    super(message, subException);
+    this(message);
+    initCause(subException);
   }
 
+  public SeriousPoemException(String message) {
+    super(message);
+  }
+
+  /**
+   * This should probably be deprecated as from Java 1.4.
+   */
   public SeriousPoemException(Exception subException) {
-    super(subException);
+    initCause(subException);
   }
 
   public SeriousPoemException() {
   }
+
 }

@@ -55,8 +55,6 @@ import org.melati.poem.BaseFieldAttributes;
 
 /**
  * An hour.
- *
- * @todo Javadoc
  */
 class HourPoemType extends IntegerPoemType {
   public HourPoemType(boolean nullable) {
@@ -75,7 +73,6 @@ class HourPoemType extends IntegerPoemType {
 
 /**
  * A minute.
- * @todo Javadoc
  */
 class MinutePoemType extends IntegerPoemType {
   public MinutePoemType(boolean nullable) {
@@ -94,7 +91,6 @@ class MinutePoemType extends IntegerPoemType {
 
 /**
  * A second.
- * @todo Javadoc
  */
 class SecondPoemType extends IntegerPoemType {
   public SecondPoemType(boolean nullable) {
@@ -114,8 +110,6 @@ class SecondPoemType extends IntegerPoemType {
 
 /**
  * An adaptor for a string date in YMDHMST format.
- *
- * @todo Improve javadoc
  */
 public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
   private static final String

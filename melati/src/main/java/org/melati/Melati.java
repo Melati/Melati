@@ -357,8 +357,8 @@ public class Melati {
 
   public AdminUtils getAdminUtils() {
     return new AdminUtils(
-        HttpServletRequestCompat.getContextPath(getRequest()) +
-            getRequest().getServletPath(),
+        HttpServletRequestCompat.getContextPath(getRequest()),
+        getRequest().getServletPath(),
         config.getStaticURL() + "/admin",
         context.logicalDatabase);
   }
@@ -597,8 +597,7 @@ public class Melati {
 
   /**
    * get a PassbackVariableExceptionHandler for the TemplateEngine.
-   * this allows an Exception to be handled inline during Template expansion
-   *
+   * This allows an Exception to be handled inline during Template expansion
    * for example, if you would like to render AccessPoemExceptions to a
    * String to be displayed on the page that is returned to the client.
    *
@@ -606,6 +605,7 @@ public class Melati {
    * template engine
    *
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable e)
+   * @see org.melati.poem.TailoredQuery
    */
 
   public Object getPassbackVariableExceptionHandler() {

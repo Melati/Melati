@@ -131,7 +131,7 @@ public abstract class MarkupLanguage {
   }
   
   private StringMelatiWriter getStringWriter() throws IOException {    
-    return melati.getTemplateEngine().getStringWriter(melati.getEncoding());
+    return melati.getStringWriter();
   }
   
 

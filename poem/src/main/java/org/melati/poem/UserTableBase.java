@@ -131,6 +131,14 @@ public class UserTableBase extends Table {
             ((User)g).setPassword((String)cooked);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
             return 2;
           }

@@ -8,4 +8,7 @@ import org.melati.poem.*;
 
 public interface ContactsDatabaseTables extends ContactsDatabaseTablesBase {
   // programmer's domain-specific code here
+  public boolean logSQL() {
+    return true;
+  }
 }

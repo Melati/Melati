@@ -13,7 +13,7 @@ public interface Persistable {
    *                if <TT>assertCanRead</TT> fails
    *
    * @see Table#getObject(java.lang.Integer)
-   * @see #assertCanRead
+   * @see Persistent#getTroid()
    */
   public abstract Integer getTroid() throws AccessPoemException;
 }

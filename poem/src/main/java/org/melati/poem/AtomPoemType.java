@@ -76,10 +76,16 @@ public abstract class AtomPoemType extends BasePoemType {
     _assertValidRaw(cooked);
   }
 
+  /**
+   * Returns the given value unchanged.
+   */
   protected Object _cookedOfRaw(Object raw) throws PoemException {
     return raw;
   }
 
+  /**
+   * Returns the given value unchanged.
+   */
   protected Object _rawOfCooked(Object cooked) {
     return cooked;
   }

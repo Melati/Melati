@@ -47,7 +47,14 @@ package org.melati.util;
 
 import java.util.Enumeration;
 
+/**
+ * An <code>Enumeration</code> that encapsulates another and
+ * translates each element according to an abstract mapping function.
+ * <p>
+ * Implementations must provide {@link #mapped(Object)}.
+ */
 public abstract class MappedEnumeration implements Enumeration {
+
   private Enumeration enumeration;
 
   public MappedEnumeration(Enumeration enumeration) {

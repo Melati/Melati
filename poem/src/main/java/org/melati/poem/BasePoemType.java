@@ -114,6 +114,11 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
+  /**
+   * Detect bugs where a raw value should be valid but is not.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   public final void doubleCheckValidRaw(Object raw) {
     try {
       assertValidRaw(raw);
@@ -179,13 +184,27 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     return raw == null ? null : _stringOfRaw(raw);
   }
 
+  /**
+   * Converts a non-null string to a low level representation
+   * of a database column value.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   protected abstract Object _rawOfString(String string)
       throws ParsingPoemException;
 
   /**
-   * This <B>does</T> do an explicit <TT>assertValidRaw</TT>.
+   * Converts a possibly null <code>String</code> to a low level
+   * representation of a valid database column value.
+   * <p>
+   * A null value is converted to null.
+   * <p>
+   * This result is validated with {@link #assertValidRaw(Object)}
+   * whereas {@link #stringOfRaw(Object)} assumes this is not
+   * required.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
    */
-
   public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
     Object raw = string == null ? null : _rawOfString(string);
@@ -218,9 +237,30 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
+  /**
+   * Converts a non-null low-level representation of a database
+   * column value to the form most useful internally.
+   * <p>
+   * For example, integer codes are converted to objects.
+   * Other values remain unchanged.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   protected abstract Object _cookedOfRaw(Object raw) throws PoemException;
 
+  /**
+   * Converts a possibly null low-level representation of a database
+   * column value to the form most useful internally.
+   * <p>
+   * A null value is converted to a null value.
+   * <p>
+   * It is assume the value is valid.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   public final Object cookedOfRaw(Object raw) throws PoemException {
+    // Well actually it is not assumed the value is valid because
+    // this is a good place to detect bugs.
     doubleCheckValidRaw(raw);
     return raw == null ? null : _cookedOfRaw(raw);
   }

@@ -48,9 +48,18 @@ package org.melati.poem;
 /**
  * I'd just like you to know that I had to type this file in again after
  * deleting it.  It's not even very nice is it?
+ *
+ * @author williamc@paneris.org (Not javadocs)
  */
 
 public abstract class PoemTypeFactory {
+
+  /**
+   * Integer code for this type factory.
+   * <p>
+   * Negative for atomic types and the troid of the table metadata
+   * object for row types.
+   */
   final Integer code;
 
   public PoemTypeFactory(int c) {
@@ -304,6 +313,10 @@ public abstract class PoemTypeFactory {
     }
   };
 
+  /**
+   * Returns an instance given a database and the integer code for
+   * the instance.
+   */
   public static PoemTypeFactory forCode(Database database, int code) {
     if (code < 0)
       return atomTypeFactories[(-code)-1];

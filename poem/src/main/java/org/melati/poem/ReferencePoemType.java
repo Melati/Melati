@@ -69,6 +69,11 @@ public class ReferencePoemType extends IntegerPoemType {
     return targetTable;
   }
 
+  /**
+   * Returns an <code>Enumeration</code> of the possible raw values.
+   * <p>
+   * In this case the troids of rows in the referenced table.
+   */
   protected Enumeration _possibleRaws() {
     return targetTable.troidSelection(null, null, false);
   }

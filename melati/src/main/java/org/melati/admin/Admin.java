@@ -329,7 +329,8 @@ public class Admin extends TemplateServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
-      String orderColumnIDString = MelatiUtil.getFormNulled(context,"field_" + name);
+      String orderColumnIDString =
+          MelatiUtil.getFormNulled(context,"field_" + name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null) {
         orderColumnID =
@@ -581,6 +582,11 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "UploadDone");
   }
 
+  public static final String
+      METHOD_CREATE_TABLE = "Create",
+      METHOD_CREATE_COLUMN = "CreateColumn",
+      METHOD_ADD_RECORD = "Add";
+
   protected String doTemplateRequest(Melati melati, TemplateContext context)
       throws Exception {
     Capability admin = PoemThread.database().getCanAdminister();
@@ -629,7 +635,7 @@ public class Admin extends TemplateServlet {
         return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))
         return selectionWindowSelectionTemplate(context, melati);
-      if (melati.getMethod().equals("Add"))
+      if (melati.getMethod().equals(METHOD_ADD_RECORD))
         return addTemplate(context, melati);
       if (melati.getMethod().equals("AddUpdate"))
         return addUpdateTemplate(context, melati);
@@ -639,11 +645,11 @@ public class Admin extends TemplateServlet {
         return mainTemplate(context);
       if (melati.getMethod().equals("Top"))
         return topTemplate(context);
-      if (melati.getMethod().equals("Create"))
+      if (melati.getMethod().equals(METHOD_CREATE_TABLE))
         return tableCreateTemplate(context, melati);
       if (melati.getMethod().equals("Create_doit"))
         return tableCreate_doitTemplate(context, melati);
-      if (melati.getMethod().equals("CreateColumn"))
+      if (melati.getMethod().equals(METHOD_CREATE_COLUMN))
         return columnCreateTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn_doit"))
         return columnCreate_doitTemplate(context, melati);

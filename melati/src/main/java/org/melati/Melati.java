@@ -89,6 +89,10 @@ public class Melati {
   public YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
+  
+  public SimpleDateAdaptor getSimpleDateAdaptor() {
+    return SimpleDateAdaptor.it;
+  }
 
   public VariableExceptionHandler getPassbackVariableExceptionHandler() {
     return
@@ -172,30 +176,32 @@ public class Melati {
       String formFieldName = "field-" + column.getName();
       String rawString = context.getForm(formFieldName);
 
-      if (rawString == null) {
-        String adaptorFieldName = formFieldName + "-adaptor";
-        String adaptorName = context.getForm(adaptorFieldName);
-        if (adaptorName != null) {
-          TempletAdaptor adaptor;
-          try {
-            // FIXME cache this instantiation
-            adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-          }
-          catch (Exception e) {
-            throw new TempletAdaptorConstructionMelatiException(
+      String adaptorFieldName = formFieldName + "-adaptor";
+      String adaptorName = context.getForm(adaptorFieldName);
+      if (adaptorName != null) {
+        TempletAdaptor adaptor;
+        try {
+          // FIXME cache this instantiation
+          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
+        } catch (Exception e) {
+          throw new TempletAdaptorConstructionMelatiException(
                       adaptorFieldName, adaptorName, e);
+        }
+        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
+	  } else {
+        if (rawString != null) {
+	      if (rawString.equals("")) {
+            if (column.getType().getNullable()) {
+              column.setRaw(object, null);
+            } else {
+              column.setRawString(object, "");
+		    }
+		  
+		  } else {
+            column.setRawString(object, rawString);
           }
-
-          column.setRaw(object, adaptor.rawFrom(context, formFieldName));
         }
       }
-      else if (rawString.equals(""))
-        if (column.getType().getNullable())
-          column.setRaw(object, null);
-        else
-          column.setRawString(object, "");
-      else
-        column.setRawString(object, rawString);
     }
   }
 }

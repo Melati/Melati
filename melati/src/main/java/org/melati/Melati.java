@@ -118,15 +118,15 @@ public class Melati {
     this.output = output;
   }
 
-  public HttpServletRequest getRequest () {
+  public HttpServletRequest getRequest() {
     return request;
   }
 
-  public void setRequest (HttpServletRequest request) {
+  public void setRequest(HttpServletRequest request) {
     this.request = request;
   }
 
-  public HttpServletResponse getResponse () {
+  public HttpServletResponse getResponse() {
     return response;
   }
   
@@ -148,120 +148,122 @@ public class Melati {
   }
 
   // get the database
-  public Database getDatabase () {
+  public Database getDatabase() {
     return database;
   }
 
   // get the table
-  public Table getTable () {
+  public Table getTable() {
     return table;
   }
 
   // get the object
-  public Persistent getObject () {
+  public Persistent getObject() {
     return object;
   }
 
-  public String getMethod () {
+  public String getMethod() {
     return context.method;
   }
 
-  public void setTemplateEngine (TemplateEngine te) {
+  public void setTemplateEngine(TemplateEngine te) {
     templateEngine = te;
   }
 
-  public TemplateEngine getTemplateEngine () {
+  public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
 
 
-  public void setTemplateContext (TemplateContext tc) {
+  public void setTemplateContext(TemplateContext tc) {
     templateContext = tc;
   }
 
-  public TemplateContext getTemplateContext () {
+  public TemplateContext getTemplateContext() {
     return templateContext;
   }
 
-  public MelatiConfig getConfig () {
+  public MelatiConfig getConfig() {
     return config;
   }
 
   /* get the pathinf, split into bits
    */
-  public String[] getPathInfoParts () {
+  public String[] getPathInfoParts() {
     String pathInfo = request.getPathInfo ();
     if (pathInfo == null || pathInfo.length () < 1) return new String[0];
     pathInfo = pathInfo.substring (1);
 //    if (pathInfo.endsWith ("/")) 
 //      pathInfo = pathInfo.substring(0,pathInfo.length()-1);
-    return StringUtils.split (pathInfo, '/');
+    return StringUtils.split(pathInfo, '/');
   }
 
 
-  public HttpSession getSession () {
-    return getRequest ().getSession (true);
+  public HttpSession getSession() {
+    return getRequest().getSession(true);
   }
 
   // get the admin utils object
-  public AdminUtils getAdminUtils () {
-    return new AdminUtils (getRequest ().getServletPath (),
-    config.getStaticURL () + "/admin",
-    context.logicalDatabase);
+  public AdminUtils getAdminUtils() {
+    return new AdminUtils(getRequest().getServletPath (),
+                          config.getStaticURL() + "/admin",
+                          context.logicalDatabase);
   }
 
-  public String getLogoutURL () {
-    StringBuffer url = new StringBuffer ();
-    HttpUtil.appendZoneURL (url, getRequest ());
-    url.append ('/');
-    url.append (config.logoutPageServletClassName ());
-    url.append ('/');
-    url.append (context.logicalDatabase);
-    return url.toString ();
+  public String getLogoutURL() {
+    StringBuffer url = new StringBuffer();
+    HttpUtil.appendZoneURL(url, getRequest ());
+    url.append('/');
+    url.append(config.logoutPageServletClassName ());
+    url.append('/');
+    url.append(context.logicalDatabase);
+    return url.toString();
   }
 
-  public String getZoneURL () {
-    return HttpUtil.zoneURL (getRequest ());
+  public String getZoneURL() {
+    return HttpUtil.zoneURL(getRequest());
   }
 
   // location of javascript for this site
-  public String getJavascriptLibraryURL () {
-    return config.getJavascriptLibraryURL ();
+  public String getJavascriptLibraryURL() {
+    return config.getJavascriptLibraryURL();
   }
 
-  public HTMLMarkupLanguage getHTMLMarkupLanguage () {
-    return new HTMLMarkupLanguage (this,
-    config.getTempletLoader (),
-    config.getLocale ());
+  public HTMLMarkupLanguage getHTMLMarkupLanguage() {
+    return new HTMLMarkupLanguage 
+                    (this,
+                     config.getTempletLoader(),
+                     config.getLocale());
   }
 
-  public WMLMarkupLanguage getWMLMarkupLanguage () {
-    return new WMLMarkupLanguage (this,
-    config.getTempletLoader (),
-    config.getLocale ());
+  public WMLMarkupLanguage getWMLMarkupLanguage() {
+    return new WMLMarkupLanguage 
+                    (this,
+                     config.getTempletLoader(),
+                     config.getLocale());
   }
 
   public String sameURLWith (String field, String value) {
-    return MelatiUtil.sameURLWith (getRequest (), field, value);
+    return MelatiUtil.sameURLWith(getRequest(), field, value);
   }
 
   public String sameURLWith (String field) {
-    return sameURLWith (field, "1");
+    return sameURLWith(field, "1");
   }
 
-  public String getSameURL () {
-    String qs = getRequest ().getQueryString ();
-    return getRequest ().getRequestURI () + (qs == null ? "" : '?' + qs);
+  public String getSameURL() {
+    String qs = getRequest().getQueryString();
+    return getRequest().getRequestURI() + (qs == null ? "" : '?' + qs);
   }
 
   // turn off buffering
   // the stop paramter allow you flush the output and stop when cancelled
-  public void setBufferingOff (boolean stop) {
+  public void setBufferingOff(boolean stop) {
     buffered = false;
     stopping = stop;
   }
 
-  public boolean gotWriter () {
+  public boolean gotWriter() {
     return gotwriter;
   }
 
@@ -299,16 +301,16 @@ public class Melati {
   }
 
   // FIXME - returning untyped object is not nice
-  public Object getPassbackVariableExceptionHandler () {
+  public Object getPassbackVariableExceptionHandler() {
     return templateEngine.getPassbackVariableExceptionHandler();
   }
 
   // get the current user for this session (if he is there)
-  public User getUser () {
+  public User getUser() {
     // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
     // an AccessToken
     try {
-      return (User)PoemThread.accessToken ();
+      return (User)PoemThread.accessToken();
     }
     catch (NotInSessionPoemException e) {
       return null;

@@ -80,10 +80,14 @@ import org.melati.util.MelatiLocale;
 
 
 /*
-<p>A MelatiConfig loads and provides access to the configuration
-parameters for melati.  These are held in org.melati.MelatiServlet.properties</p>
-<p>After configuration, you can then get a Melati, using getMelati()</p>
- */
+<p>
+A MelatiConfig loads and provides access to the configuration
+parameters for melati.  These are held in org.melati.MelatiServlet.properties
+</p>
+<p>
+After configuration, you can then get a Melati, using Melati.getMelati()
+</p>
+*/
 
 public class MelatiConfig {
 
@@ -96,12 +100,12 @@ public class MelatiConfig {
   private String defaultPropertiesName = "org.melati.MelatiServlet";
 
   // allows creation of a melaticonfig with default config params
-  public MelatiConfig () throws MelatiException {
+  public MelatiConfig() throws MelatiException {
     init (defaultPropertiesName);
   }
 
   // allows creation of a melaticonfig with a specified properties file
-  public MelatiConfig (String propertiesName) throws MelatiException {
+  public MelatiConfig(String propertiesName) throws MelatiException {
     init (propertiesName);
   }
   
@@ -114,80 +118,78 @@ public class MelatiConfig {
     String staticURLProp = pref + "staticURL";
     try {
       configuration =
-      PropertiesUtils.fromResource (getClass (), pref + "properties");
+      PropertiesUtils.fromResource(getClass (), pref + "properties");
     }
     catch (FileNotFoundException e) {
       // i think that if we don't have a properties file, it is pretty fatal
       // configuration = new Properties();
-      throw new ConfigException ("The file " + pref +
-      "properties could not be found.  Is it in your CLASSPATH?  Full Error: " +
-      e.toString ());
+      throw new ConfigException("The file " + pref + "properties could not be found." +
+                                " Is it in your CLASSPATH?  Full Error: " +
+                                e.toString ());
     }
     catch (IOException e) {
-      throw new ConfigException ("The file " + pref +
-      "properties could not be read.  Full Error: " + e.toString ());
+      throw new ConfigException ("The file " + pref + "properties could not be read." +
+                                 " Full Error: " + e.toString ());
     }
 
     try {
-      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass (
-      configuration, accessHandlerProp, "org.melati.login.AccessHandler",
-      "org.melati.login.HttpBasicAuthenticationAccessHandler");
+      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
+                         configuration, accessHandlerProp, "org.melati.login.AccessHandler",
+                         "org.melati.login.HttpBasicAuthenticationAccessHandler");
 
-      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass (
-      configuration, templetLoaderProp, "org.melati.template.TempletLoader",
-      "org.melati.template.ClassNameTempletLoader");
+      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
+                          configuration, templetLoaderProp, "org.melati.template.TempletLoader",
+                          "org.melati.template.ClassNameTempletLoader");
 
-      templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass (
-      configuration, templateEngineProp, "org.melati.template.TemplateEngine",
-      "org.melati.template.NoTemplateEngine");
+      templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass(
+                          configuration, templateEngineProp, "org.melati.template.TemplateEngine",
+                          "org.melati.template.NoTemplateEngine");
 
-      javascriptLibraryURL = PropertiesUtils.getOrDie (configuration,
-      javascriptLibraryURLProp);
+      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration, javascriptLibraryURLProp);
 
-      staticURL = PropertiesUtils.getOrDie (configuration,
-      staticURLProp);
+      staticURL = PropertiesUtils.getOrDie (configuration, staticURLProp);
     }
     catch (Exception e) {
-      throw new ConfigException ("Melati could not be configured because: " +
-      e.toString ());
+      throw new ConfigException("Melati could not be configured because: " +
+                                e.toString ());
     }
 
   }
 
   // creates a melati context
-  public Melati getMelati (HttpServletRequest request,
-  HttpServletResponse response) throws MelatiException {
-    return new Melati (this, request, response);
+  public Melati getMelati(HttpServletRequest request, HttpServletResponse response) 
+   throws MelatiException {
+    return new Melati(this, request, response);
   }
 
   // the template engine in use
-  public TemplateEngine getTemplateEngine () {
+  public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
 
-  public AccessHandler getAccessHandler () {
+  public AccessHandler getAccessHandler() {
     return accessHandler;
   }
 
-  public MelatiLocale getLocale () {
+  public MelatiLocale getLocale() {
     return MelatiLocale.here;
   }
 
-  public TempletLoader getTempletLoader () {
+  public TempletLoader getTempletLoader() {
     return templetLoader;
   }
 
   // location of javascript for this site
-  public String getJavascriptLibraryURL () {
+  public String getJavascriptLibraryURL() {
     return javascriptLibraryURL;
   }
 
   // location of static content for this site
-  public String getStaticURL () {
+  public String getStaticURL() {
     return staticURL;
   }
 
-  public static String logoutPageServletClassName () {
+  public static String logoutPageServletClassName() {
     return "org.melati.login.Logout";
   }
 
@@ -196,13 +198,23 @@ public class MelatiConfig {
   }
 
   // get the adaptor for rendering dates as drop-downs
-  public static YMDDateAdaptor getYMDDateAdaptor () {
+  public static YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
 
   // get the adaptor for rendering dates as normal
-  public static SimpleDateAdaptor getSimpleDateAdaptor () {
+  public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }
 
 }
+
+
+
+
+
+
+
+
+
+

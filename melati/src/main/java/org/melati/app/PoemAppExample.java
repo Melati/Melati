@@ -47,7 +47,6 @@ import java.util.Enumeration;
 
 import org.melati.Melati;
 import org.melati.poem.User;
-import org.melati.app.PoemApp;
 
 /**
  * An example of how to access a POEM database from the command line. 

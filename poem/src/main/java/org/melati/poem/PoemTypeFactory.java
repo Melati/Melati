@@ -62,17 +62,6 @@ public abstract class PoemTypeFactory {
   public static interface Parameter {
     boolean getNullable();
     int getSize();
-
-    public static final Parameter generic =
-        new Parameter() {
-          public boolean getNullable() {
-	    return false;
-	  }
-
-	  public int getSize() {
-	    return -1;
-	  }
-        };
   }
 
   abstract PoemType typeOf(Database database, Parameter info);
@@ -91,7 +80,7 @@ public abstract class PoemTypeFactory {
 
   public static final PoemTypeFactory
       TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD,
-      TIMESTAMP;
+      TIMESTAMP, DISPLAYLEVEL, SEARCHABILITY;
 
   private static int n = -1;
 
@@ -239,6 +228,34 @@ public abstract class PoemTypeFactory {
 
       public String getName() {
         return "TIMESTAMP";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    DISPLAYLEVEL = new PoemTypeFactory(n--) {
+      public PoemType typeOf(Database database, Parameter info) {
+        return new DisplayLevelPoemType();
+      }
+
+      public String getName() {
+        return "DISPLAYLEVEL";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    SEARCHABILITY = new PoemTypeFactory(n--) {
+      public PoemType typeOf(Database database, Parameter info) {
+        return new SearchabilityPoemType();
+      }
+
+      public String getName() {
+        return "SEARCHABILITY";
       }
 
       public String getDescription() {

@@ -7,11 +7,14 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>What is it?</h2>
 <P>
-  Melati is a tool for building Java-programmed websites backed by a
+  Melati is a tool for building websites backed by a
   database or accessing a database over <tt>HTTP</tt>.
-  It provides the following features:</P>
+  It is written in Java and provides the following features:
+</P>
 <ul>
-  <li>a generic <B>database administration system</B>, allowing the site manager to edit 
+  <li>a generic 
+    <a href="/melati/org.melati.admin.Admin/contacts/Main">
+    database administration system</A>, allowing the site manager to edit 
     both the contents and the structure of the database through a simple web based 
     interface.</li>
   <li>rapid templating mechanism, using "templets" (sub-templates) for rendering 
@@ -75,6 +78,10 @@ This page last updated: $Date$ $Author$
   <td align=center><a href="http://www.hsqldb.org/"><img
   src="images/hsqldb.gif" alt="Works with HsqlDb" border=0 
   width=131 height=50></a>
+  </td>
+  <td align=center><a href="http://jetty.mortbay.org/"><img
+  src="images/poweredByJetty.gif" alt="Bundled with Jetty" border=0 
+  width=140 height=58></a>
   </td>
  </tr>
 </table>

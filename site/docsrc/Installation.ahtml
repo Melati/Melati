@@ -8,7 +8,7 @@ This page last updated: $Date$ $Author$
 <h2>Installation</h2>
 <p>
   The Melati distribution includes a webserver (<a
-  href="http://www.mortbay.org/" target=jetty>Jetty</a>), a database (<a
+  href="http://jetty.mortbay.org/" target=jetty>Jetty</a>), a database (<a
   href="http://www.hsqldb.org/" target=hsqldb>HSQLDB</a>) and two 
   templating engines (<a
   href="http://jakarta.apache.org/velocity/">Velocity</a> and 

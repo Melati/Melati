@@ -49,6 +49,12 @@ import java.util.Hashtable;
 import java.util.Enumeration;
 import org.melati.util.ArrayEnumeration;
 
+/**
+ * A set of {@link Field}s accessible in sequence or looked up
+ * using an encoding of the table name and column name.
+ *
+ * @author williamc@paneris.org (except Javadocs)
+ */
 public class FieldSet {
 
   private Hashtable table_columnMap;
@@ -63,6 +69,12 @@ public class FieldSet {
     return new ArrayEnumeration(fields);
   }
 
+  /**
+   * Return a specified field.
+   *
+   * @param name The table name and column name separated by "_".
+   * @see TailoredResultSetEnumeration#mapped(ResultSet)
+   */
   public Field get(String name) {
     Integer f = (Integer)table_columnMap.get(name);
     return f == null ? null : fields[f.intValue()];

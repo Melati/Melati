@@ -51,7 +51,7 @@ import java.util.Enumeration;
 /**
  * A collection of useful operations on <code>Array</code>s.
  */
-public class ArrayUtils {
+public final class ArrayUtils {
 
   private ArrayUtils() {}
 

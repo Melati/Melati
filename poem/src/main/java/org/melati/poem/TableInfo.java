@@ -67,10 +67,10 @@ public class TableInfo extends TableInfoBase {
                    boolean rememberAllTroids, TableCategory category) {
     setName_unsafe(name);
     setDisplayname_unsafe(displayName);
-    setDisplayorder_unsafe( new Integer(displayOrder) );
+    setDisplayorder_unsafe(new Integer(displayOrder));
     setDescription_unsafe(description);
     setCachelimit_unsafe(cacheLimit);
-    setSeqcached_unsafe( rememberAllTroids ? Boolean.TRUE : Boolean.FALSE);
+    setSeqcached_unsafe(rememberAllTroids ? Boolean.TRUE : Boolean.FALSE);
     setCategory_unsafe(category.troid());
   }
 
@@ -87,11 +87,13 @@ public class TableInfo extends TableInfoBase {
 
   public void setSeqcached(Boolean b) throws AccessPoemException {
     super.setSeqcached(b);
-    actualTable().rememberAllTroids(b.booleanValue());
+    Table t = actualTable();
+    if (t != null) t.rememberAllTroids(b.booleanValue());
   }
 
   public void setCachelimit(Integer limit) throws AccessPoemException {
     super.setCachelimit(limit);
-    actualTable().setCacheLimit(limit);
+    Table t = actualTable();
+    if (t != null) t.setCacheLimit(limit);
   }
 }

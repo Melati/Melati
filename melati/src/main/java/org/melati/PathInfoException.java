@@ -63,6 +63,8 @@ public class PathInfoException extends MelatiException {
 
   public String getMessage() {
     return pathInfo == null ?
-        "No path info given" : "Path info `" + pathInfo + "' has wrong form";
+        "No path info given" :
+        "Path info `" + pathInfo + "' has wrong form" +
+            (subException == null ? "" : ":\n" + subException.toString());
   }
 }

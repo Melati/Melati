@@ -175,8 +175,8 @@ public abstract class JspServlet
     try {
       melati = melatiConfig.getMelati(request, response);
     } catch (MelatiException e) {
-        e.printStackTrace(System err);
-        throw new ServletException(e);
+        e.printStackTrace(System.err);
+        throw new ServletException(e.toString());
     }
     MelatiContext mc = getMelatiContext();
     try {

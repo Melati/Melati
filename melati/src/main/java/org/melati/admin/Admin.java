@@ -182,8 +182,10 @@ public class Admin extends MelatiServlet {
       String string = context.getForm(name);
       if (string != null && !string.equals("")) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-//        whereClause.addElement(name + "=" + URLEncoder.encode(string));
-        whereClause.addElement(column.eqClause(string));
+        
+        // FIXME needs to work for dates?
+        whereClause.addElement(name + "=" + URLEncoder.encode(string));
+//        whereClause.addElement(column.eqClause(string));
       }
     }
 

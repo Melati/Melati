@@ -113,20 +113,26 @@ public class CSVRecord extends Vector {
             if (csvValue != null && !csvValue.equals("")) {
               newObj.setRawString(col.poemName, csvValue);
             }
-
-           } catch (Exception e) {
+          } catch (Exception e) {
             throw new RuntimeException("Problem processing column " + 
-                                       col.poemName + 
-                                       " of table " + 
-                                       table.getName() + 
-                                       " value :" + csvValue + 
-                                       ": " + e.toString());
+                col.poemName + 
+                " of table " + 
+                table.getName() + 
+                " value :" + csvValue + 
+                ": " + e.toString());
           }
-          
       }
       // Lookup up value in the foreign Table
       else {
         Persistent lookup = col.foreignTable.getRecordWithID(csvValue);
+        if (lookup == null) {
+          throw new RuntimeException("No persistent found with primary key " + 
+              csvValue +
+              " for column " + 
+              col.poemName + 
+              " of table " + 
+              table.getName() );
+        }
         newObj.setCooked(col.poemName, lookup);
       }
     }

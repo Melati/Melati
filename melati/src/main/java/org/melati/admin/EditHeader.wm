@@ -54,7 +54,7 @@
 <BODY  bgcolor="#cccccc">
 <table cellpadding=0 cellspacing=0 width=100%><tr><td><FONT FACE="Arial, Helvetica" size=4>$table.DisplayName: <a href=$admin.RightURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL target=_parent>$ml.rendered($object)</a></font></td>#set $references = $database.referencesTo($table)
 #if ($references.hasMoreElements()) #begin
-<td align=right valign=bottom nowrap><p><FONT FACE="Arial, Helvetica" size=-1>for this record you can edit:<br>
+<td align=right valign=bottom><p><FONT FACE="Arial, Helvetica" size=-1>for this record you can edit:<br>
 #foreach $column in $references #begin
 <a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object">$column.Table.DisplayName</a>,
 #end

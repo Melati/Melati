@@ -90,11 +90,11 @@ public class Persistent extends Transactioned implements Cloneable {
     status = EXISTENT;
   }
 
-  final boolean statusNonexistent() {
+  public final boolean statusNonexistent() {
     return status == NONEXISTENT;
   }
 
-  final boolean statusExistent() {
+  public final boolean statusExistent() {
     return status == EXISTENT;
   }
 

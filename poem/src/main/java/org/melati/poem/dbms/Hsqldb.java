@@ -133,7 +133,9 @@ public class Hsqldb extends AnsiStandard {
   /**
    * Hsqldb gets its scope confused unless inner table is aliased.
    *
-   * @see MySQL#givesCapabilitySQL
+   * @todo Test that there are no results if the user does not have
+   * the capability but some other user does, because it seems to
+   * me (in my ignorance) that such a test will fail, JimW.
    */
   public String givesCapabilitySQL(User user, String capabilityExpr) {
     return "SELECT * FROM "

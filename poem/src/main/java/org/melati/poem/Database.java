@@ -318,17 +318,24 @@ abstract public class Database implements TransactionPool {
       Table table = (Table)tablesByName.get(tableName);
 
       if (table == null) {
-        try {
-          defineTable(table = new Table(this, tableName,
-                                        DefinitionSource.sqlMetaData));
-        }
-        catch (DuplicateTableNamePoemException e) {
-          throw new UnexpectedExceptionPoemException(e);
-        }
-        table.createTableInfo();
+	// but we only want to include them if they have a plausible troid:
+
+	ResultSet idCol = m.getColumns(null, null, tableName, "id");
+	if (idCol.next() &&
+	    defaultPoemTypeOfColumnMetaData(idCol).canBe(TroidPoemType.it)) {
+	  try {
+	    defineTable(table = new Table(this, tableName,
+					  DefinitionSource.sqlMetaData));
+	  }
+	  catch (DuplicateTableNamePoemException e) {
+	    throw new UnexpectedExceptionPoemException(e);
+	  }
+	  table.createTableInfo();
+	}
       }
 
-      table.unifyWithDB(columnsMetadata(m, tableName));
+      if (table != null)
+	table.unifyWithDB(columnsMetadata(m, tableName));
     }
 
     // ... and create any that simply don't exist

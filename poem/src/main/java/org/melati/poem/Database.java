@@ -954,9 +954,7 @@ abstract public class Database implements TransactionPool {
    *
    * @param maxSize     The data for all but this many records per table will
    *                    be dropped from POEM's cache, on a least-recently-used
-   *                    basis, with the exception of private copies made by
-   *                    currently running transactions of records which they or
-   *                    another transaction have changed will remain in memory.
+   *                    basis.
    */
 
   public void trimCache(int maxSize) {
@@ -965,10 +963,7 @@ abstract public class Database implements TransactionPool {
   }
 
   /**
-   * Dump all the contents of the cache.  Actually only the `committed'
-   * versions of the records stored in the cache are dropped, which means that
-   * some private copies made by currently running transactions of records which
-   * they or another transaction have changed may remain in memory.
+   * Dump all the contents of the cache.
    */
 
   public void uncacheContents() {
@@ -1037,45 +1032,6 @@ abstract public class Database implements TransactionPool {
   private void setDbms(Dbms aDbms) {
       dbms = aDbms;
   }
-
-  /* Now in dbms*
-   * Quote a name for use as an identifier in an SQL statement.  FIXME this is
-   * DBMS-specific and we need a <TT>DatabasePecularities</TT> class to
-   * which this is delegated.
-   *
-   * @exception InvalidNamePoemException
-   *             if the name simply cannot be used with the DBMS (e.g. FIXME
-   *             Postgres will have to throw this if there are any upper case
-   *             letters)
-   */
-
-//  public void appendQuotedName(StringBuffer buffer, String name)
-//      throws InvalidNamePoemException {
-//    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
-//  }
-
-  /* NOW IN Dbms *
-   * Quote a name for use as an identifier in an SQL statement.  FIXME this is
-   * DBMS-specific and we need a <TT>DatabasePecularities</TT> class to
-   * which this is delegated.
-   */
-
-  /*
-   I have taken out the exception for the moment. The dbms should give a SQL error 
-   if there is a problem and will be much more thorough than we can be
-   * @exception InvalidNamePoemException
-
-   *             if the name simply cannot be used with the DBMS (e.g. FIXME
-   *             Postgres will have to throw this if there are any upper case
-   *             letters)
-   */
-  /*
-  public final String quotedName(String name) throws InvalidNamePoemException {
-    StringBuffer b = new StringBuffer();
-    appendQuotedName(b, name);
-    return b.toString();
-  }
-  */
 
   public final String quotedName(String name) {
       return getDbms().getQuotedName(name);

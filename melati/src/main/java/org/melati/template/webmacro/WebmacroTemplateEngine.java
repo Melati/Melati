@@ -80,6 +80,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
 
   // the webmacro
   public WM wm;
+  private WebContext _webContext;
 
   /**
    * Inititialise the Engine
@@ -87,6 +88,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public void init () throws TemplateEngineException {
     try {
       wm = new WM ();
+      _webContext = new WebContext(wm.getBroker());
     } catch (InitException e) {
       throw new TemplateEngineException(e);
     }
@@ -96,7 +98,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * get the generic parameters for webmacro
    */
   public TemplateContext getTemplateContext(Melati melati) {
-    WebContext wc = wm.getWebContext(melati.getRequest(),melati.getResponse());
+    _webContext.clear();
+    WebContext wc = _webContext.newInstance(melati.getRequest(),melati.getResponse());
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
     wc.put(Variable.EXCEPTION_HANDLER, PropagateVariableExceptionHandler.it);
@@ -147,12 +150,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    */
   public org.melati.template.Template template(String templateName)
                                       throws NotFoundException {
-    try {
-      return new WebmacroTemplate (wm.getTemplate (templateName));
-    } catch (org.webmacro.NotFoundException e) {
-      throw new NotFoundException(
-          "I couldn't find the template: " + templateName + " because: " + e);
-    }
+      org.webmacro.Template template = wm.getTemplate (templateName);
+      return new WebmacroTemplate (template);
   }
 
   /**

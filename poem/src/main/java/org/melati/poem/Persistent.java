@@ -45,7 +45,6 @@ public class Persistent extends Transactioned implements Cloneable {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
 
-    System.err.println(this + "writeDown(" + transaction + ")");
     table.writeDown((PoemTransaction)transaction, this);
     // table will clear our dirty flag
   }
@@ -78,7 +77,6 @@ public class Persistent extends Transactioned implements Cloneable {
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
 
     super.rollback(transaction);
-    table.notifyTouched(null, this);
   }
 
   // 

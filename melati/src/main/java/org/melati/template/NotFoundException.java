@@ -54,6 +54,11 @@ import org.melati.util.MelatiException;
 public class NotFoundException extends MelatiException {
 
   String error;
+  
+  public NotFoundException(Exception underlying) {
+    super(underlying);
+    error = underlying.toString();
+  }
 
   public NotFoundException(String error) {
     this.error = error;

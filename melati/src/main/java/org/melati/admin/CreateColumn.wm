@@ -80,12 +80,12 @@
   #end
 </TABLE>
 
-#if ($Form.returnURL) {
-<input type=hidden name=returnURL value='$Form.returnURL'>
-}
-#if ($Form.returnTarget) {
-<input type=hidden name=returnTarget value='$Form.returnTarget'>
-}
+#if ($Form.returnURL) #begin
+  <input type=hidden name=returnURL value='$Form.returnURL'>
+#end
+#if ($Form.returnTarget) #begin
+  <input type=hidden name=returnTarget value='$Form.returnTarget'>
+#end
 <INPUT NAME=action VALUE="Create the column" TYPE=submit
        ONCLICK="return validate(this.form);">
 

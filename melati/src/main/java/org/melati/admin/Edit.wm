@@ -106,12 +106,12 @@ function popupupdate(popupwin,returnfield,id,value) {
        ONCLICK="return confirm(
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
-#if ($Form.returnURL) {
-<input type=hidden name=returnURL value='$Form.returnURL'>
-}
-#if ($Form.returnTarget) {
-<input type=hidden name=returnTarget value='$Form.returnTarget'>
-}
+#if ($Form.returnURL) #begin
+  <input type=hidden name=returnURL value='$Form.returnURL'>
+#end
+#if ($Form.returnTarget) #begin
+  <input type=hidden name=returnTarget value='$Form.returnTarget'>
+#end
 <INPUT NAME=action VALUE=Duplicate TYPE=submit
        ONCLICK="return validate(this.form);">
 </td></tr>

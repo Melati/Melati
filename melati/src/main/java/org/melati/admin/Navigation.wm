@@ -62,7 +62,7 @@ var sizeString = "WIDTH=450,HEIGHT="+height;
 #use 'text' until "--The End--"
 
 function openWindow() {
-   remoteWin = window.open("", "search", sizeString, 'scrollbars=yes');
+   remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
    if (remoteWin != null) {
 --The End--
      remoteWin.location = '$admin.PopupURL($table)';

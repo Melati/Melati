@@ -51,7 +51,7 @@
 <HEAD>
 </HEAD>
 <script>
-#if ($Form.returnURL) {
+#if ($Form.returnURL) #begin
 #use 'text' until "--The End--"
 function reloadframes() {
 --The End--
@@ -60,7 +60,7 @@ $Form.returnTarget;.focus();
 #use 'text' until "--The End--"
 }
 --The End--
-}
+#end
 </script>
 <BODY bgcolor="#cccccc" onLoad="reloadframes()">
 <center><br><br><br><br>

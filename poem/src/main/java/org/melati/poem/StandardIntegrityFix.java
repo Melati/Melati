@@ -76,7 +76,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
                                       Map referenceFixOfColumn) {
         while (refs.hasMoreElements()) {
           try {
-            ((Persistent)refs.nextElement()).delete(referenceFixOfColumn);
+            Persistent p = (Persistent)refs.nextElement();
+            p.delete(referenceFixOfColumn);
           }
           catch (RowDisappearedPoemException e) {
             // This is possible if the table has a (currently non-standard)

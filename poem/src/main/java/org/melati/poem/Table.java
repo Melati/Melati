@@ -791,9 +791,9 @@ public class Table {
     if (persistent.dirty) {
       troidColumn.setRaw_unsafe(persistent, persistent.troid());
 
-      if (persistent.statusExistent())
+      if (persistent.statusExistent()) {
         modify(transaction, persistent);
-      else if (persistent.statusNonexistent()) {
+      } else if (persistent.statusNonexistent()) {
         insert(transaction, persistent);
         persistent.setStatusExistent();
       }
@@ -1629,7 +1629,7 @@ public class Table {
 
   /**
    * Write a new row containing the given object.
-   * 
+   * <p>
    * The given object will be assigned the next troid.and its internal
    * state will also be modified.
    *

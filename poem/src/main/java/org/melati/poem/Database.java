@@ -185,7 +185,7 @@ public abstract class Database implements TransactionPool {
    *
    * @param password    The password to go with the username.
    *
-   * @param transactionsMax 
+   * @param transactionsMaxP 
    *                    The maximum number of concurrent Transactions allowed,
    *                    usually specified in 
    *                    org.melati.LogicalDatabase.properties.
@@ -195,7 +195,7 @@ public abstract class Database implements TransactionPool {
 
   public void connect(String dbmsclass, String url,
                       String username, String password,
-                      int transactionsMax) throws PoemException {
+                      int transactionsMaxP) throws PoemException {
 
     connectionUrl = url; 
 
@@ -212,7 +212,7 @@ public abstract class Database implements TransactionPool {
       if (committedConnection != null)
         throw new ReconnectionPoemException();
 
-      setTransactionsMax(transactionsMax);
+      setTransactionsMax(transactionsMaxP);
       committedConnection = getDbms().getConnection(url, username, password);
       transactions = new Vector();
       for (int s = 0; s < transactionsMax(); ++s)
@@ -231,11 +231,14 @@ public abstract class Database implements TransactionPool {
 
         DatabaseMetaData m = committedConnection.getMetaData();
         getTableInfoTable().unifyWithDB(
-            m.getColumns(null, null, getTableInfoTable().getName(), null));
+            m.getColumns(null, getDbms().getSchema(), 
+                         getTableInfoTable().getName(), null));
         getColumnInfoTable().unifyWithDB(
-            m.getColumns(null, null, getColumnInfoTable().getName(), null));
+            m.getColumns(null, getDbms().getSchema(), 
+                         getColumnInfoTable().getName(), null));
         getTableCategoryTable().unifyWithDB(
-            m.getColumns(null, null, getTableCategoryTable().getName(), null));
+            m.getColumns(null, getDbms().getSchema(), 
+                         getTableCategoryTable().getName(), null));
 
         inSession(AccessToken.root,
                   new PoemTask() {
@@ -321,7 +324,7 @@ public abstract class Database implements TransactionPool {
 
   private ResultSet columnsMetadata(DatabaseMetaData m, String tableName)
       throws SQLException {
-    return m.getColumns(null, null, dbms.unreservedName(tableName), null);
+    return m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
   }
 
   public Table addTableAndCommit(TableInfo info, String troidName)
@@ -361,7 +364,7 @@ public abstract class Database implements TransactionPool {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
       Table table = (Table)tablesByName.get(tableInfo.getName());
       if (table == null) {
-//        System.err.println("Defining table:" + tableInfo.getName());
+        System.err.println("Defining table:" + tableInfo.getName());
         defineTable(table = new Table(this, tableInfo.getName(),
                                       DefinitionSource.infoTables));
       }
@@ -383,22 +386,23 @@ public abstract class Database implements TransactionPool {
     String[] normalTables = { "TABLE" };
 
     DatabaseMetaData m = committedConnection.getMetaData();
-    ResultSet tableDescs = m.getTables(null, null, null, normalTables);
+    ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null, normalTables);
     while (tableDescs.next()) {
-    // System.err.println("Table:" + tableDescs.getString("TABLE_NAME") +
-    //                    " Type:" + tableDescs.getString("TABLE_TYPE"));
+     System.err.println("Table:" + tableDescs.getString("TABLE_NAME") +
+                        " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       if (tableName == null) break; //dbms returning grotty table name
       Table table = tableName == null ? null : 
                                           (Table)tablesByName.get(tableName);
       if (table == null) {
-//      System.err.println("table null but named:" + tableName);
-        // but we only want to include them if they have a plausible troid:
+        System.err.println("table null but named:" + tableName);
 
-        ResultSet idCol = m.getColumns(null, null, tableName, "id");
+        // but we only want to include them if they have a plausible troid:
+        ResultSet idCol = m.getColumns(null, dbms.getSchema(), tableName, "id");
         if (idCol.next() &&
             dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol),
                               TroidPoemType.it) != null) {
+          System.err.println("Got an ID col");
           try {
             defineTable(table = new Table(this, tableName,
                                           DefinitionSource.sqlMetaData));
@@ -407,7 +411,31 @@ public abstract class Database implements TransactionPool {
             throw new UnexpectedExceptionPoemException(e);
           }
           table.createTableInfo();
-        }
+        } /** 
+        // Try to promote the primary key to a troid
+        else {
+          ResultSet pKeys = m.getPrimaryKeys(null, dbms.getSchema(), tableName);
+          if (pKeys.next()) {
+            String keyName = pKeys.getString("COLUMN_NAME");
+            if (!pKeys.next()) {
+              ResultSet keyCol = m.getColumns(null, dbms.getSchema(), 
+                                              tableName, keyName);
+              if (keyCol.next() &&
+                  dbms.canRepresent(defaultPoemTypeOfColumnMetaData(keyCol),
+                                    TroidPoemType.it) != null) {
+                System.err.println("Got a unique primary key");
+                try {
+                  defineTable(table = new Table(this, tableName,
+                                                DefinitionSource.sqlMetaData));
+                }
+                catch (DuplicateTableNamePoemException e) {
+                  throw new UnexpectedExceptionPoemException(e);
+                }
+                table.createTableInfo();
+              }
+            }
+          }
+        } */
       }// else System.err.println("table not null:" + tableName);
 
 
@@ -712,9 +740,9 @@ public abstract class Database implements TransactionPool {
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s 
    */
   public Enumeration getDisplayTables() {
-    Table[] displayTables = this.displayTables;
+    Table[] displayTablesL = this.displayTables;
 
-    if (displayTables == null) {
+    if (displayTablesL == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
         (String)null /* "displayable" */, 
         quotedName("displayorder") + ", " + quotedName("name"), 
@@ -728,12 +756,12 @@ public abstract class Database implements TransactionPool {
           them.addElement(table);
       }
 
-      displayTables = new Table[them.size()];
-      them.copyInto(displayTables);
-      this.displayTables = displayTables;
+      displayTablesL = new Table[them.size()];
+      them.copyInto(displayTablesL);
+      this.displayTables = displayTablesL;
     }
 
-    return new ArrayEnumeration(displayTables);
+    return new ArrayEnumeration(this.displayTables);
   }
 
   /**

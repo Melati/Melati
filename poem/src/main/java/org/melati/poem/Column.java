@@ -123,6 +123,10 @@ public abstract class Column implements FieldAttributes {
     return true;
   }
 
+  protected boolean defaultUserCreateable() {
+    return true;
+  }
+
   protected boolean defaultRecordDisplay() {
     return true;
   }
@@ -166,6 +170,7 @@ public abstract class Column implements FieldAttributes {
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
+                  i.setUsercreateable(defaultUserCreateable());
                   i.setRecorddisplay(defaultRecordDisplay());
                   i.setSummarydisplay(defaultSummaryDisplay());
                   i.setSearchcriterion(defaultSearchCriterion());
@@ -251,11 +256,12 @@ public abstract class Column implements FieldAttributes {
 
   public final boolean getUserEditable() {
     return !isTroidColumn() &&
-           (info == null ? true : info.getUsereditable().booleanValue());
+           (info == null || info.getUsereditable().booleanValue());
   }
 
   public final boolean getUserCreateable() {
-    return !isTroidColumn();
+    return !isTroidColumn() &&
+           (info == null || info.getUsercreateable().booleanValue());
   }
 
   public final PoemType getType() {
@@ -390,5 +396,32 @@ public abstract class Column implements FieldAttributes {
     }
     else
       return there;
+  }
+
+  public int firstFree(String whereClause) {
+    if (whereClause != null && whereClause.trim().equals(""))
+      whereClause = null;
+    getTable().readLock();
+    ResultSet results = getDatabase().sqlQuery(
+        "SELECT " + quotedName + " + 1 " +
+        "FROM " + getTable().quotedName() + " AS t1 " +
+        "WHERE " +
+            (whereClause == null ? "" : "(t1." + whereClause + ") AND ") +
+            "NOT EXISTS (" +
+                "SELECT * FROM " + getTable().quotedName() + " AS t2 " +
+                "WHERE " +
+                    (whereClause == null ?
+                      "" : "(t2." + whereClause + ") AND ") +
+                      "t2." + quotedName + " = t1." + quotedName + " + 1) " +
+        "LIMIT 1");
+    try {
+      if (results.next())
+	return results.getInt(1);
+      else
+	return 0;
+    }
+    catch (SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
   }
 }

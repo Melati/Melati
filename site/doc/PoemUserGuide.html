@@ -3,7 +3,7 @@
 <TITLE> org.melati.poem User Guide (document $Revision$) </TITLE>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
 </HEAD>
-<BODY BGCOLOR=#FFFFFF>
+<BODY BGCOLOR="#FFFFFF">
 
 <H1>org.melati.poem User Guide (document $Revision$)</H1>
 
@@ -26,7 +26,7 @@
 </H3>
 
 <P>
-  <A HREF=../../doc/index.html>Melati</A> is an open source, Java-based
+  <A HREF="../../doc/index.html">Melati</A> is an open source, Java-based
   infrastructure for the rapid and convenient development of web-based database
   applications.  This guide describes the API of Melati POEM (Persistent Object
   Engine For Melati): the layer which provides Melati with its object-oriented
@@ -49,23 +49,23 @@
 </P>
 
 <P>
-  See also the <A HREF=../../qa/javadoc/index.html>javadoc documentation</A>
+  See also the <A HREF=/javadoc/index.html>javadoc documentation</A>
   for Melati's classes.  The key classes which have been (roughly) documented
   to date are
 </P>
 
 <UL>
-  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
-  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>
-  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Persistent.html><TT>Persistent</TT></A>
-  <LI> <A HREF=../../qa/javadoc/org/melati/poem/TailoredQuery.html><TT>TailoredQuery</TT></A>
+  <LI> <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A></li>
+  <LI> <A HREF="/javadoc/org/melati/poem/Table.html"><TT>Table</TT></A></li>
+  <LI> <A HREF="/javadoc/org/melati/poem/Persistent.html"><TT>Persistent</TT></A></li>
+  <LI> <A HREF="/javadoc/org/melati/poem/TailoredQuery.html"><TT>TailoredQuery</TT></A></li>
 </UL>
 
 <P>
-  The <A HREF=../>sources</A> themselves, especially
-  <A HREF=../Database.java>Database.java</A>,
-  <A HREF=../Table.java>Table.java</A> and
-  <A HREF=../Persistent.java>Persistent.java</A>
+  The <A HREF="../">sources</A> themselves, especially
+  <A HREF="../Database.java">Database.java</A>,
+  <A HREF="../Table.java">Table.java</A> and
+  <A HREF="../Persistent.java">Persistent.java</A>
   are reasonably tidy and possibly more readable than the Javadoc.  However,
   the nature of the task POEM sets for itself mean that some parts of it
   probably need further elucidation.
@@ -80,9 +80,9 @@
 </H3>
 
 <P>
-  The following fragment (see <A HREF=Trivial.java><TT>Trivial.java</TT></A>)
+  The following fragment (see <A HREF="Trivial.java"><TT>Trivial.java</TT></A>)
   shows the general pattern in which POEM is used.  First, the
-  <A HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
+  <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>
   object is created and connected to the RDBMS using the standard JDBC
   &quot;URL&quot;, username, and password:
 </P>
@@ -116,38 +116,40 @@ database.inSession(
 <P>
   <I>Why the <TT>new</TT> <TT>PoemTask</TT> business?</I> Every access to a
   Melati database must be made from inside a
-  <A HREF=../../qa/javadoc/org/melati/poem/PoemTask.html><TT>PoemTask</TT></A>
+  <A HREF="/javadoc/org/melati/poem/PoemTask.html"><TT>PoemTask</TT></A>
   passed to the database's
-  <A HREF=../../qa/javadoc/org/melati/poem/Database.html#inSession><TT>inSession</TT></A>
+  <A HREF="/javadoc/org/melati/poem/Database.html#inSession"><TT>inSession</TT></A>
   method.  This is because everything done by the <TT>run()</TT> method you
   provide is carried out
 </P>
 
 <OL TYPE=a>
   <LI> with a specific set of access
-       <A HREF=../../qa/javadoc/org/melati/poem/Capability.html><TT>Capability</TT></A>s
+       <A HREF="/javadoc/org/melati/poem/Capability.html"><TT>Capability</TT></A>s
        determined by your session's
-       <A HREF=../../qa/javadoc/org/melati/poem/AccessToken.html><TT>AccessToken</TT></A>---the
+       <A HREF="/javadoc/org/melati/poem/AccessToken.html"><TT>AccessToken</TT></A>---the
        first argument to 
-       <A HREF=../../qa/javadoc/org/melati/poem/Database.html#inSession><TT>Database.inSession</TT></A>,
+       <A HREF="/javadoc/org/melati/poem/Database.html#inSession"><TT>Database.inSession</TT></A>,
        and
+  </LI>
   <LI> in the context of a single database transaction, which is implicitly
        committed at the end or rolled back if an exception is thrown.
+  </LI>
 </OL>
 
 <P>
   In this example, the access token used is
-  <A HREF=../../qa/javadoc/org/melati/poem/AccessToken.html#root><TT>root</TT></A>,
+  <A HREF="/javadoc/org/melati/poem/AccessToken.html#root"><TT>root</TT></A>,
   which simply allows you to do anything; but most often the token will
   correspond to a particular
-  <A HREF=../../qa/javadoc/org/melati/poem/User.html><TT>User</TT></A>, and
+  <A HREF="/javadoc/org/melati/poem/User.html"><TT>User</TT></A>, and
   Melati will make sure that your task cannot see/change any data to which the
   administrator has denied the user read/write access.  Furthermore, it will
   not see any changes to the database made by other tasks which may be running
   at the same time, unless it does an explicit
-  <A HREF=../../qa/javadoc/org/melati/poem/PoemThread.html#commit><TT>commit</TT></A>
+  <A HREF="/javadoc/org/melati/poem/PoemThread.html#commit"><TT>commit</TT></A>
   or
-  <A HREF=../../qa/javadoc/org/melati/poem/PoemThread.html#commit><TT>rollback</TT></A>.
+  <A HREF="/javadoc/org/melati/poem/PoemThread.html#commit"><TT>rollback</TT></A>.
   The upshot is that once you have set your task running, you do not
   have worry about or even mention permissions or transactions at all.
 </P>
@@ -155,7 +157,7 @@ database.inSession(
 <P>
   Of course, when POEM is used as part of Melati, sessions are started
   automatically (by
-  <A HREF=../../qa/javadoc/org/melati/MelatiServlet.html#service><TT>MelatiServlet.service</TT></A>)
+  <A HREF="/javadoc/org/melati/MelatiServlet.html#service"><TT>MelatiServlet.service</TT></A>)
   with an appropriate access token, so Melati programmers never normally
   have to call <TT>inSession</TT>.
 </P>
@@ -188,7 +190,7 @@ table User {
 </PRE></BLOCKQUOTE>
 
 <P>
-  The <A HREF=../prepro/doc/>POEM preprocessor</A> turns this into boilerplate
+  The <A HREF="../prepro/doc/">POEM preprocessor</A> turns this into boilerplate
   code which defines typed accessor methods like <TT>setName</TT> corresponding
   to the fields given in the DSD, and also ensures that the fields are present
   in the database when the application starts up (by creating them if
@@ -248,10 +250,10 @@ table User {
 
 <P>
   Each <A
-  HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
+  HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>
   object corresponds to a single database (<I>i.e.</I> collection of tables) in
   the DBMS.  Its function is to act as a container for <A
-  HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>s and as
+  HREF="/javadoc/org/melati/poem/Table.html"><TT>Table</TT></A>s and as
   the carrier of POEM's top-level APIs.
 </P>
 
@@ -275,7 +277,7 @@ table User {
 </H4>
 
 <P>
-  Each <A HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>
+  Each <A HREF="/javadoc/org/melati/poem/Table.html"><TT>Table</TT></A>
   object represents a single table in the DBMS.  It acts as a container for the
   table's columns and provides methods for searching over and retrieval of the
   records in the table.
@@ -313,11 +315,11 @@ table User {
 </P>
 
 
-<H4><A NAME=DSD>
+<H4><A NAME=DSD></A>
 <!-- ------------------------------- -->
       The Data Structure Definition
 <!-- ------------------------------- -->
-</A></H4>
+</H4>
 
 <P>
   The programmer's contribution is called the Data Structure Definition or DSD.
@@ -325,9 +327,9 @@ table User {
   definitions each resembling a Java class definition---or, better, a C
   structure definition, since at this stage no methods can be specified.
   POEM's own builtin special tables are defined in this way in
-  <A HREF=../Poem.dsd><TT>../Poem.dsd</TT></A>, which makes a good example of a
+  <A HREF="../Poem.dsd"><TT>../Poem.dsd</TT></A>, which makes a good example of a
   DSD; the file format is described in detail in the
-  <A HREF=../prepro/doc/>documentation</A> for the preprocessor which
+  <A HREF="../prepro/doc/">documentation</A> for the preprocessor which
   interprets them.
 </P>
 
@@ -362,7 +364,7 @@ table User {
   which wasn't used in any Java-coded application logic, or just change the
   default width of a text box.  So POEM stores its rich field-type information
   in special tables in the database itself, where it can be edited through a
-  web interface (the <A HREF=../../admin/doc/>generic admin system</A>).
+  web interface (the <A HREF="../../admin/doc/">generic admin system</A>).
 </P>
 
 <P>
@@ -370,10 +372,10 @@ table User {
   database (including itself): its programmatic <TT>name</TT>, its
   <TT>displayname</TT> and <TT>displayorder</TT> (used by the Melati admin
   system), and the
-  <A HREF=../../qa/javadoc/org/melati/poem/Capability.html><TT>Capability</TT></A>s
+  <A HREF="/javadoc/org/melati/poem/Capability.html"><TT>Capability</TT></A>s
   required for reading and writing its rows (where not overridden in the rows
   themselves, or in the application Java code---see the
-  <A HREF=#accessControl>discussion</A> of POEM's access control mechanism).
+  <A HREF="#accessControl">discussion</A> of POEM's access control mechanism).
 </P>
 
 <P>
@@ -381,7 +383,7 @@ table User {
   database (including its own).  Like <TT>tableinfo</TT>s, <TT>columninfo</TT>s
   define a programmatic and a display name and a display order; in addition,
   they carry fields which jointly define the column's
-  <A HREF=../../qa/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>.
+  <A HREF="/javadoc/org/melati/poem/PoemType.html"><TT>PoemType</TT></A>.
 </P>
 
 <P>
@@ -482,6 +484,7 @@ table User {
   <UL>
     <LI> <B>Users</B> (programmers) should understand how to use POEM's API and
          how it fits in to its broader contex.
+    </LI>
   </UL>
 
   This document is also intended to give the wider <B>open source community</B>
@@ -514,6 +517,9 @@ table User {
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.11  2002/10/09 14:33:58  timp
+  <BR>Change javadoc URLs, validate HTML
+  <BR>
   <BR>Revision 1.10  2000/09/11 10:56:42  kimptoc
   <BR>added some ODMG/POEM documentation
   <BR>

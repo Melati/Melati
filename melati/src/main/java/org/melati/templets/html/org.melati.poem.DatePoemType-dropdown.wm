@@ -44,7 +44,7 @@
 ##
 
 <INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
-       VALUE="org.melati.templets.YMDDateAdaptor">
+       VALUE="org.melati.template.YMDDateAdaptor">
 
 #set $yearField = $melati.YMDDateAdaptor.yearField($field)
 #set $monthField = $melati.YMDDateAdaptor.monthField($field)

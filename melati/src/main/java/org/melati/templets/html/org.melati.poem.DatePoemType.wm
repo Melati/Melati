@@ -44,7 +44,7 @@
 ##
 
 <INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
-       VALUE="org.melati.templets.SimpleDateAdaptor">
+       VALUE="org.melati.template.SimpleDateAdaptor">
 
 <INPUT NAME="field_$ml.rendered($field.Name)" SIZE=10
 	 VALUE="$ml.Attr.rendered($melati.SimpleDateAdaptor.rendered($field))"> (dd/mm/yyyy)

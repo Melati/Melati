@@ -58,7 +58,7 @@ org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.MemoryDataAda
 # entry in the database's Setting table (and calculates its
 # URL from the ``UploadURL'' Setting)
 
-#org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.UploadDirDataAdaptorFactory
+#org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.PoemFileDataAdaptorFactory
 
 # This one saves them as temporary files (deleted with the JVM quits)
 

@@ -77,7 +77,8 @@ public abstract class TemplateServlet extends PoemServlet {
   /**
    * Inititialise the template engine.
    *
-   * @param ServletConfig
+   * @param config a <code>ServletConfig</code>
+   * @throws ServletException if the TemplateEngine has a problem
    */
 
   public void init(ServletConfig config) throws ServletException {
@@ -99,6 +100,9 @@ public abstract class TemplateServlet extends PoemServlet {
    * This allows us to parse any uploaded files before we enter
    * our PoemSession (so we don't hang on to transactions
    * unnecessarily).
+   *
+   * @param melati the current Melati
+   * @throws Exception if anything goes wrong
    */
 
   protected void prePoemSession(Melati melati) throws Exception {
@@ -157,7 +161,7 @@ public abstract class TemplateServlet extends PoemServlet {
   }
 
   
-  /**
+ /**
   * a useful utility method that gets a value from the Form.  It will return
   * null if the value is "" or not present
   *
@@ -175,7 +179,11 @@ public abstract class TemplateServlet extends PoemServlet {
   
   
   /**
-   * Send an error message
+   * Send an error message.
+   *
+   * @param melati the {@link Melati}
+   * @param e      the {@link Exception} to report
+   * @throws IOException if anything goes wrong with the file system
    */
   public void error(Melati melati, Exception e ) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
@@ -224,8 +232,9 @@ public abstract class TemplateServlet extends PoemServlet {
   /**
    * Override this method to build up your own output.
    *
-   * @param melatiContext
-   * @return Template name, possibly excluding extension.
+   * @param melati the current Melati
+   * @param templateContext the current <code>TemplateContext</code>
+   * @return a Template name, possibly excluding extension.
    */
   protected abstract String doTemplateRequest(Melati melati, 
                                               TemplateContext templateContext)

@@ -57,6 +57,11 @@ import org.melati.util.test.StringUtilsTest;
  */
 public class AllUnitTests {
 
+ /**
+  * Create the test suite.
+  *
+  * @return a new <code>Test</code> suite
+  */
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for Melati");
     suite.addTestSuite(CaseInsensitiveRegExpSQL.class);

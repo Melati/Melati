@@ -127,7 +127,6 @@ public class Melati {
    * @param request - the Servlet Request
    * @param response - the Servlet Response
    */
-
   public Melati(MelatiConfig config,
                 HttpServletRequest request,
                 HttpServletResponse response) {
@@ -203,7 +202,7 @@ public class Melati {
    * Load a POEM Table and POEM Object for use in this request.  This is useful
    * as often Servlet requests are relevant for a single Table and/or Object.
    *
-   * The Table name and Object id are set from the MelatiContext
+   * The Table name and Object id are set from the MelatiContext.
    *
    * @see org.melati.admin.Admin
    * @see org.melati.servlet.PoemServlet
@@ -217,7 +216,7 @@ public class Melati {
   }
 
   /**
-   * Get the MelatiContext for this Request
+   * Get the MelatiContext for this Request.
    *
    * @return - the MelatiContext for this Request
    */
@@ -227,7 +226,7 @@ public class Melati {
   }
 
   /**
-   * Get the POEM Database for this Request
+   * Get the POEM Database for this Request.
    *
    * @return - the POEM Database for this Request
    * @see #setContext
@@ -238,7 +237,7 @@ public class Melati {
   }
 
   /**
-   * Get the POEM Table (if any) in use for this Request
+   * Get the POEM Table (if any) in use for this Request.
    *
    * @return the POEM Table for this Request
    * @see #loadTableAndObject
@@ -260,7 +259,7 @@ public class Melati {
   }
 
   /**
-   * Get the Method (if any) that has been set for this Request
+   * Get the Method (if any) that has been set for this Request.
    *
    * @return the Method for this Request
    * @see org.melati.servlet.MelatiContext
@@ -273,7 +272,7 @@ public class Melati {
   }
 
   /**
-   * Set the template engine to be used for this Request
+   * Set the template engine to be used for this Request.
    *
    * @param te - the template engine to be used
    * @see org.melati.servlet.TemplateServlet
@@ -284,7 +283,7 @@ public class Melati {
   }
 
   /**
-   * Get the template engine in use for this Request
+   * Get the template engine in use for this Request.
    *
    * @return - the template engine to be used
    */
@@ -294,7 +293,7 @@ public class Melati {
   }
 
   /**
-   * Set the TemplateContext to be used for this Request
+   * Set the TemplateContext to be used for this Request.
    *
    * @param tc - the template context to be used
    * @see org.melati.servlet.TemplateServlet
@@ -305,7 +304,7 @@ public class Melati {
   }
 
   /**
-   * Get the TemplateContext used for this Request
+   * Get the TemplateContext used for this Request.
    *
    * @return - the template context being used
    */
@@ -315,7 +314,7 @@ public class Melati {
   }
 
   /**
-   * Get the MelatiConfig associated with this Request
+   * Get the MelatiConfig associated with this Request.
    *
    * @return - the template context being used
    */
@@ -325,7 +324,7 @@ public class Melati {
   }
 
   /**
-   * Get the PathInfo for this Request split into Parts by '/'
+   * Get the PathInfo for this Request split into Parts by '/'.
    *
    * @return - an array of the parts found on the PathInfo
    */
@@ -338,7 +337,7 @@ public class Melati {
   }
 
   /**
-   * Get the Session for this Request
+   * Get the Session for this Request.
    *
    * @return - the Session for this Request
    */
@@ -348,7 +347,7 @@ public class Melati {
   }
 
   /**
-   * Get the AdminUtils object for this Request
+   * Get the AdminUtils object for this Request.
    *
    * @return - the AdminUtils
    * @see org.melati.admin.Admin
@@ -363,12 +362,11 @@ public class Melati {
   }
 
   /**
-   * Get the URL for the Logout Page
+   * Get the URL for the Logout Page.
    *
    * @return - the URL for the Logout Page
    * @see org.melati.login.Logout
    */
-
   public String getLogoutURL() {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendRelativeZoneURL(url, getRequest());
@@ -380,34 +378,31 @@ public class Melati {
   }
 
   /**
-   * Get the URL for this Servlet Zone
+   * Get the URL for this Servlet Zone.
    *
    * @return - the URL for this Servlet Zone
    * @see org.melati.util.HttpUtil#zoneURL
    */
-
   public String getZoneURL() {
     return HttpUtil.zoneURL(getRequest());
   }
 
   /**
-   * Get the URL for this request
+   * Get the URL for this request.
    *
    * @return - the URL for this request
    * @see org.melati.util.HttpUtil#servletURL
    */
-
   public String getServletURL() {
     return HttpUtil.servletURL(getRequest());
   }
 
   /**
-   * Get the URL for the JavascriptLibrary
+   * Get the URL for the JavascriptLibrary.
    *
    * @return - the URL for the JavascriptLibrary
    * @see org.melati.MelatiConfig#getJavascriptLibraryURL
    */
-
   public String getJavascriptLibraryURL() {
     return config.getJavascriptLibraryURL();
   }
@@ -427,13 +422,12 @@ public class Melati {
 
 
   /**
-   * Get a HTMLMarkupLanguage for use when generating HTML in templates
+   * Get a HTMLMarkupLanguage for use when generating HTML in templates.
    *
    * @return - a HTMLMarkupLanguage
    * @see org.melati.template.TempletLoader
    * @see org.melati.util.MelatiLocale
    */
-
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
     return new HTMLMarkupLanguage(this,
                                   config.getTempletLoader(),
@@ -441,13 +435,12 @@ public class Melati {
   }
 
   /**
-   * Get a WMLMarkupLanguage for use when generating WML in templates
+   * Get a WMLMarkupLanguage for use when generating WML in templates.
    *
    * @return - a WMLMarkupLanguage
    * @see org.melati.template.TempletLoader
    * @see org.melati.util.MelatiLocale
    */
-
   public WMLMarkupLanguage getWMLMarkupLanguage() {
     return new WMLMarkupLanguage
                     (this,
@@ -467,7 +460,6 @@ public class Melati {
    *                string, one is added.
    * @see org.melati.MelatiUtil
    */
-
   public String sameURLWith(String field, String value) {
     return MelatiUtil.sameURLWith(getRequest(), field, value);
   }
@@ -483,7 +475,6 @@ public class Melati {
    *                string, one is added.
    * @see org.melati.MelatiUtil
    */
-
   public String sameURLWith(String field) {
     return sameURLWith(field, "1");
   }
@@ -491,9 +482,8 @@ public class Melati {
   /**
    * The URL of the servlet request associated with this <TT>Melati</TT>.
    *
-   * @return - a string
+   * @return a string
    */
-
   public String getSameURL() {
     String qs = getRequest().getQueryString();
     return getRequest().getRequestURI() + (qs == null ? "" : '?' + qs);
@@ -510,8 +500,8 @@ public class Melati {
    * to the client
    *
    * @see org.melati.test.FlushingServletTest
+   * @throws IOException if a writer has already been selected
    */
-
   public void setBufferingOff() throws IOException {
     if (gotwriter)
       throw new IOException("You have already requested a Writer, " +
@@ -539,13 +529,11 @@ public class Melati {
    *
    * @return - have we sucessfully called getWriter()?
    */
-
   public boolean gotWriter() {
     return gotwriter;
   }
 
   /**
-   * @throws IOException if there is a problem reading from the response
    * @return the encoding in use
    */
   public String getEncoding() {
@@ -557,9 +545,9 @@ public class Melati {
   }
 
   /**
-   * get a Writer for this request
+   * Get a Writer for this request.
    *
-   * if you have not accessed the Writer, it is reasonable to assume that
+   * If you have not accessed the Writer, it is reasonable to assume that
    * nothing has been written to the output stream.
    *
    * @return - one of:
@@ -579,7 +567,7 @@ public class Melati {
   }
 
   /**
-   * get a StringWriter
+   * Get a StringWriter.
    *
    * @return - one of:
    *
@@ -588,7 +576,6 @@ public class Melati {
    *
    * @throws IOException if there is a problem with the writer
    */
-
   public MelatiWriter getStringWriter() throws IOException {
     if (templateEngine != null) {
       return templateEngine.getStringWriter(getEncoding());
@@ -599,7 +586,7 @@ public class Melati {
 
 
   private MelatiWriter createWriter() throws IOException {
-    // first effort is to use the writer supplied by the template engein
+    // first effort is to use the writer supplied by the template engine
     MelatiWriter writer = null;
     if (response != null) {
       if (templateEngine != null) {
@@ -617,12 +604,11 @@ public class Melati {
   }
 
   /**
-   * write the buffered output to the Writer
-   * we also need to stop the flusher if it has started
+   * Write the buffered output to the Writer
+   * we also need to stop the flusher if it has started.
    *
    * @throws IOException if there is a problem with the writer
    */
-
   public void write() throws IOException {
     // only write stuff if we have previously got a writer
     if (gotwriter) writer.close();
@@ -640,7 +626,6 @@ public class Melati {
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable e)
    * @see org.melati.poem.TailoredQuery
    */
-
   public Object getPassbackVariableExceptionHandler() {
     return templateEngine.getPassbackVariableExceptionHandler();
   }
@@ -660,7 +645,6 @@ public class Melati {
    *
    * @return - a User for this request
    */
-
   public User getUser() {
     // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
     // an AccessToken

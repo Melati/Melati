@@ -116,10 +116,11 @@ public abstract class ConfigServlet extends HttpServlet {
   protected MelatiConfig melatiConfig;
 
   /**
-   * Inititialise Melati
-   * @param ServletConfig
+   * Inititialise Melati.
+   *
+   * @param config a <code>ServletConfig</code>
+   * @throws ServletException is anything goes wrong
    */
-
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
     try {
@@ -133,18 +134,26 @@ public abstract class ConfigServlet extends HttpServlet {
   }
 
   /**
-   * Handles GET
+   * Handles GET.
+   *
+   * @param request the incoming <code>HttpServletRequest</code>
+   * @param response the outgoing <code>HttpServletResponse</code>
+   * @throws ServletException is anything goes wrong with Melati
+   * @throws IOException if anything goes wrong with the file system
    */
-
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doGetPostRequest(request, response);
   }
 
   /**
-   * Handle a POST
+   * Handle a POST.
+   *
+   * @param request the incoming <code>HttpServletRequest</code>
+   * @param response the outgoing <code>HttpServletResponse</code>
+   * @throws ServletException is anything goes wrong with Melati
+   * @throws IOException if anything goes wrong with the file system
    */
-
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doGetPostRequest(request, response);
@@ -152,8 +161,11 @@ public abstract class ConfigServlet extends HttpServlet {
 
   /**
    * Process the request.
+   *
+   * @param request the incoming <code>HttpServletRequest</code>
+   * @param response the outgoing <code>HttpServletResponse</code>
+   * @throws IOException if anything goes wrong with the file system
    */
-
   private void doGetPostRequest(final HttpServletRequest request, 
                                 final HttpServletResponse response)
       throws IOException {
@@ -177,9 +189,12 @@ public abstract class ConfigServlet extends HttpServlet {
   }
 
   /**
-   * Send an error message
+   * Send an error message.
+   *
+   * @param melati the {@link Melati}
+   * @param e      the {@link Exception} to report
+   * @throws IOException if anything goes wrong with the file system
    */
-
   public void error(Melati melati, Exception e ) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
@@ -200,12 +215,15 @@ public abstract class ConfigServlet extends HttpServlet {
     }
   }
   
-    /**
-     * Print an error directly to the client.
-     *
-     * This is rarely called, eg when the template engine 
-     * fails to render the default error template.
-     */
+  /**
+   * Print an error directly to the client.
+   *
+   * This is rarely called, eg when the template engine 
+   * fails to render the default error template.
+   *
+   * @param out the <code>PrintWriter</code> to print to 
+   * @param e   the {@link Exception} to report
+   */
   public void writeError(PrintWriter out, Exception e) {
     out.println("<html><head><title>Melati Error</title></head>");
     out.println("<!-- HTML generated in " + 
@@ -221,6 +239,15 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("</pre></font></h4></body></html>");
   }    
   
+  /**
+   * Print the <code>ConnectionPendingException</code>  directly to the client.
+   *
+   * This is called if a request is made whilst the system is 
+   * still being initialised.
+   *
+   * @param out the <code>PrintWriter</code> to print to 
+   * @param e   the {@link Exception} to report
+   */
   public void writeConnectionPendingException(PrintWriter out, Exception e) {
     out.println("<html><head><title>Database Initialising</title>\n");
     out.println("<META HTTP-EQUIV='Refresh' CONTENT='30'>\n</head>\n");
@@ -237,14 +264,18 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("--></center></body></html>");
   }    
 
-  /*
-   * Please override these settings.
+  /** 
+   * This method <b>SHOULD</b> be overidden.
+   * @return the System Administrators name.
    */
-
   public String getSysAdminName () {
     return "nobody";
   }
 
+  /** 
+   * This method <b>SHOULD</b> be overidden.
+   * @return the System Administrators email address.
+   */
   public String getSysAdminEmail () {
     return "nobody@nobody.com";
   }
@@ -272,17 +303,17 @@ public abstract class ConfigServlet extends HttpServlet {
    *   }
    * </PRE>
    *
+   * @throws MelatiException if anything goes wrong with Melati
    */
-
   protected MelatiConfig melatiConfig() throws MelatiException {
     return new MelatiConfig();
   }
   
   /**
-   * Override this method to build up your output
+   * Instantiate this method to build up your own output.
    * @param melati
+   * @throws Exception if anything goes wrong
    */
-
   protected abstract void doConfiguredRequest (Melati melati)
       throws Exception;
 }

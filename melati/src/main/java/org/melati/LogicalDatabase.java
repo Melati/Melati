@@ -63,6 +63,7 @@ public class LogicalDatabase {
 
   private LogicalDatabase() {}
 
+  /** The class name of this <code>LogicalDatabase</code>. */
   public static final String className =
       new LogicalDatabase().getClass().getName();
 
@@ -81,6 +82,11 @@ public class LogicalDatabase {
 
   private static final Hashtable databases = new Hashtable();
 
+  /** 
+   * Retrieve the the databases which have completed initialisation.
+   *
+   * @return a <code>Vector</code> of the initialised databases
+   */
   public static Vector initialisedDatabases() {
     Vector dbs = new Vector();
     Enumeration e = null;
@@ -98,8 +104,15 @@ public class LogicalDatabase {
 
   private static final Object pending = new Object();
 
+  /** 
+   * Retrieve a database by name.
+   *
+   * @param name the name of the database
+   * @throws DatabaseInitException if any Exception is trapped
+   * @return a <code>Database</code> with the name specified
+   */
   public static Database getDatabase(String name) 
-         throws DatabaseInitException {
+      throws DatabaseInitException {
     if (name == null)
       throw new NullPointerException();
 
@@ -128,8 +141,8 @@ public class LogicalDatabase {
         String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
         String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
         // max transactions default to 8 if not set
-        int maxTrans = 
-            PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions", 8);
+        int maxTrans = PropertiesUtils.
+                           getOrDefault_int(defs, pref + "maxtransactions", 8);
 
         //Object databaseObject=Class.forName(clazz).newInstance();
 

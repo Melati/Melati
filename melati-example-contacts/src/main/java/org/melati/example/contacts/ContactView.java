@@ -13,12 +13,11 @@ import org.melati.template.TemplateContext;
  /**
   *  Example servlet to display or edit a contact and its categories.
   *
-  **/
-
+  */
 public class ContactView extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, TemplateContext context)
-            throws Exception {
+      throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
     Contact contact = (Contact)melati.getObject();
@@ -80,6 +79,12 @@ public class ContactView extends TemplateServlet {
     return "org/melati/example/contacts/ContactView";
   }
 
+ /**
+  *  Remove all categories associated with a Contact.
+  *
+  * @param db      the {@link ContactsDatabase}
+  * @param contact the {@link Contact} 
+  */
   public void deleteCategories(ContactsDatabase db, Contact contact) {
 
     db.sqlUpdate("DELETE FROM " + db.quotedName("contactcategory") + 
@@ -88,7 +93,7 @@ public class ContactView extends TemplateServlet {
   }
 
   protected MelatiContext melatiContext(Melati melati)
-  throws PathInfoException {
+      throws PathInfoException {
     return melatiContextWithLDB(melati,"contacts");
   }
 

@@ -52,11 +52,24 @@ import org.melati.util.UnexpectedExceptionException;
  */
 
 public class MelatiContext implements Cloneable {
-  public String logicalDatabase;
-  public String table;
-  public Integer troid;
-  public String method;
+  String logicalDatabase;
+  String table;
+  Integer troid;
+  String method;
 
+ /**
+  * Empty constructor.
+  * If you use this then you have to populate the object by hand.
+  */
+  public MelatiContext() {  }
+
+ /**
+  * Constructor.
+  * @param logicalDatabase the name of a logical database
+  * @param table           the name of the table we are dealing with table
+  * @param troid           the Table Row Object ID we are dealing with
+  * @param method          what we are doing to this object
+  */
   public MelatiContext(String logicalDatabase, String table, Integer troid,
                        String method) {
     this.logicalDatabase = logicalDatabase;
@@ -65,8 +78,10 @@ public class MelatiContext implements Cloneable {
     this.method = method;
   }
 
-  public MelatiContext() {  }
-
+  
+ /**
+  * @return a string representation of the state of this class
+  */
   public String toString() {
     return "logicalDatabase = " + logicalDatabase + ", " +
            "table = " + table + ", " +
@@ -74,6 +89,10 @@ public class MelatiContext implements Cloneable {
            "method = " + method;
   }
 
+ /**
+  * Clone me.
+  * @return a duplicate of this
+  */
   public Object clone() {
     try {
       return super.clone();
@@ -83,18 +102,31 @@ public class MelatiContext implements Cloneable {
     }
   }
   
+
+ /**
+  * @return the logical database name.
+  */
   public String getLogicalDatabase() {
     return logicalDatabase;
   }
   
+ /**
+  * @return the table name.
+  */
   public String getTable() {
     return table;
   }
   
+ /**
+  * @return the TROID.
+  */
   public Integer getTroid() {
     return troid;
   }
   
+ /**
+  * @return the method.
+  */
   public String getMethod() {
     return method;
   }

@@ -57,11 +57,20 @@ public class InvalidUsageException extends MelatiException {
   HttpServlet servlet;
   MelatiContext context;
 
+  /**
+   * Constructor.
+   * 
+   * @param servlet the servlet misused
+   * @param context the <code>MelatiContext</code> of the request
+   */
   public InvalidUsageException(HttpServlet servlet, MelatiContext context) {
     this.servlet = servlet;
     this.context = context;
   }
 
+  /**
+   * @return the message.
+   */
   public String getMessage() {
     return "The servlet " + servlet.getClass().getName() + " was invoked " +
            "with invalid parameters " + context;

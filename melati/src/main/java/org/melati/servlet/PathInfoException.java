@@ -51,17 +51,20 @@ import org.melati.util.MelatiException;
  * Servlet was called with unexpected PathInfo.
  */
 public class PathInfoException extends MelatiException {
-  public String pathInfo;
+  String pathInfo;
 
-  public PathInfoException(String pathInfo, Exception problem) {
+  PathInfoException(String pathInfo, Exception problem) {
     super(problem);
     this.pathInfo = pathInfo;
   }
 
-  public PathInfoException(String pathInfo) {
+  PathInfoException(String pathInfo) {
     this(pathInfo, null);
   }
 
+  /**
+   * @return the message.
+   */
   public String getMessage() {
     return pathInfo == null ?
         "No path info given" :

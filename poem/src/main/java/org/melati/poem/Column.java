@@ -464,13 +464,80 @@ public abstract class Column implements FieldAttributes {
   // =======================================
   // 
 
+ /**
+  * Retrieves the field value, with locking,
+  * for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to read
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights
+  */
   public abstract Object getRaw(Persistent g) throws AccessPoemException;
+
+ /**
+  * Retrieves the field value, without locking,
+  * for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to read
+  */
   public abstract Object getRaw_unsafe(Persistent g);
+
+ /**
+  * Sets the field value, with locking,
+  * for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to modify
+  * @param raw the value to set the field to 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the raw value is not valid
+  */
   public abstract void setRaw(Persistent g, Object raw)
     throws AccessPoemException, ValidationPoemException;
+
+ /**
+  * Sets the field value, without locking,
+  * for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to modify
+  * @param raw the value to set the field to 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the raw value is not valid
+  */
   public abstract void setRaw_unsafe(Persistent g, Object raw);
+
+ /**
+  * Retrieves the field value, with locking and  access control 
+  * for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights
+  * @throws PoemException 
+  *         if any problem occurs
+  */
   public abstract Object getCooked(Persistent g)
     throws AccessPoemException, PoemException;
+
+ /**
+  * Sets the field value, with locking, access control 
+  * and validation for this <code>Column</code>.
+  * 
+  * @param g  the <code>Persistent</code> to modify
+  * @param cooked  the value to set
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public abstract void setCooked(Persistent g, Object cooked)
     throws AccessPoemException, ValidationPoemException;
 
@@ -485,6 +552,7 @@ public abstract class Column implements FieldAttributes {
       this.column = column;
     }
 
+   /** @return the message */
     public String getMessage() {
       return "An unexpected problem arose loading "
         + column
@@ -550,6 +618,7 @@ public abstract class Column implements FieldAttributes {
           + "'";
     }
 
+   /** @return the message */
     public String getMessage() {
       return "Unable to set " + columnDesc + "\n" + subException;
     }

@@ -79,8 +79,9 @@ public class MelatiUtil {
    * This is currently used for dates.
    *
    * @todo Cache adaptor templet.
+   * @param context the current {@link TemplateContext} to get values from
+   * @param object  the {@link Persistent} to update
    */
-
   public static void extractFields(TemplateContext context, 
                                    Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
@@ -119,6 +120,12 @@ public class MelatiUtil {
 
   /**
    * Fill in value of a Field from a TemplateContext.
+   *
+   * @param context    the current {@link TemplateContext} to get values from
+   * @param fieldName  the name of the field to extract
+   * @return the value of the field 
+   * @throws TempletAdaptorConstructionMelatiException 
+   *             if there is a problem, for example with the class name
    */
   public static Object extractField(TemplateContext context, String fieldName)
       throws TempletAdaptorConstructionMelatiException {
@@ -145,8 +152,12 @@ public class MelatiUtil {
 
 
   /**
-   *  Create a Java Script tree object from a Tree.
-   *  @deprecated Not used anywhere in melati or paneris
+   * Create a Java Script tree object from a Tree.
+   *
+   * @deprecated Not used anywhere in melati or paneris
+   *
+   * @param tree a {@link Tree}
+   * @return a JSDynamicTree
    */
   public JSDynamicTree getJSDynamicTree(Tree tree) {
     return new JSDynamicTree(tree);

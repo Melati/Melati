@@ -79,7 +79,6 @@ import org.melati.util.StringUtils;
  * @see #getMelati(HttpServletRequest, HttpServletResponse) 
  *
  */
-
 public class MelatiConfig {
 
   private Properties configuration = null;
@@ -95,20 +94,26 @@ public class MelatiConfig {
   private String defaultPropertiesName = "org.melati.MelatiServlet";
 
  /**
-  * allows creation of a melaticonfig with default config params.
+  * Allows creation of a <code>MelatiConfig</code> with default config params.
+  *
+  * @throws MelatiException is anything goes wrong.
   */
   public MelatiConfig() throws MelatiException {
     init(defaultPropertiesName);
   }
 
  /** 
-  * Allows creation of a melaticonfig with a specified properties file.
+  * Allows creation of a <code>MelatiConfig</code> with 
+  * a specified properties file.
+  *
+  * @param propertiesName the name of a properties file
+  * @throws MelatiException is anything goes wrong.
   */
   public MelatiConfig(String propertiesName) throws MelatiException {
     init(propertiesName);
   }
   
-  public void init(String propertiesName) throws MelatiException {
+  void init(String propertiesName) throws MelatiException {
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
     String fdaFactoryProp = pref + "formDataAdaptorFactory";
@@ -194,6 +199,11 @@ public class MelatiConfig {
 
  /**
   * Creates a melati context.
+  *
+  * @param request the incoming <code>HttpServletRequest</code>
+  * @param response the outgoing <code>HttpServletResponse</code>
+  * @throws MelatiException is anything goes wrong.
+  * @return a new {@link Melati}
   */
   public Melati getMelati(HttpServletRequest request,
                           HttpServletResponse response) 
@@ -202,71 +212,111 @@ public class MelatiConfig {
   }
 
  /** 
-  * The template engine in use.
+  * @return template engine in use.
   */
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
   
+ /** 
+  * Set the template engine to use.
+  * 
+  * @param templateEngine a {@link TemplateEngine} 
+  */
   public void setTemplateEngine(TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 
+ /** 
+  * @return the configured <code>AccessHandler</code>
+  */
   public AccessHandler getAccessHandler() {
     return accessHandler;
   }
 
+ /** 
+  * Set the <code>AccessHandler</code> for use by this Melati.
+  *
+  * @param accessHandler a {@link AccessHandler}
+  */
   public void setAccessHandler(AccessHandler accessHandler) {
     this.accessHandler = accessHandler;
   }
 
+ /** 
+  * @return the configured <code>TempletLoader</code>
+  */
   public TempletLoader getTempletLoader() {
     return templetLoader;
   }
 
+ /** 
+  * Set the <code>TempletLoader</code> for use by this Melati.
+  *
+  * @param templetLoader a {@link TempletLoader}
+  */
   public void setTempletLoader(TempletLoader templetLoader) {
     this.templetLoader = templetLoader;
   }
 
-  public void setFormDataAdaptorFactory(FormDataAdaptorFactory fdaf) {
-    fdaFactory = fdaf;
-  }
-
+ /** 
+  * @return the configured <code>FormDataAdaptorFactory</code>
+  */
   public FormDataAdaptorFactory getFormDataAdaptorFactory() {
     return fdaFactory;
   }
 
+ /** 
+  * Set the <code>FormDataAdaptorFactory</code> for use by this Melati.
+  *
+  * @param fdaf a {@link FormDataAdaptorFactory}
+  */
+  public void setFormDataAdaptorFactory(FormDataAdaptorFactory fdaf) {
+    fdaFactory = fdaf;
+  }
+
  /**
-  * Location of javascript for this site.
+  * @return the location of javascript for this site.
   */
   public String getJavascriptLibraryURL() {
     return javascriptLibraryURL;
   }
 
+ /** 
+  * Set the <code>JavascriptLibraryURL</code> for use by this Melati.
+  *
+  * @param url a URL to the directory containing the JavaScript for this site
+  */
   public void setJavascriptLibraryURL(String url) {
     this.javascriptLibraryURL = url;
   }
 
  /** 
-  * Location of static content for this site.
+  * @return the location of static content for this site.
   */
   public String getStaticURL() {
     return staticURL;
   }
 
- /**
-  * Location of templates.
+ /** 
+  * Set the <code>StaticURL</code> for use by this Melati.
+  *
+  * @param url a URL to the directory containing the static content 
   */
-  public String getTemplatePath() {
-    return templatePath;
-  }
-
   public void setStaticURL(String url) {
     this.staticURL = url;
   }
 
  /**
+  * @return the location of templates.
+  */
+  public String getTemplatePath() {
+    return templatePath;
+  }
+
+ /**
   * @todo make this configurable
+  * @return the class name of the logout servlet
   */ 
   public static String logoutPageServletClassName() {
     return "org.melati.login.Logout";
@@ -283,6 +333,7 @@ public class MelatiConfig {
 
  /**
   * Get the default MelatiLocale from the configuration file.
+  *
   * @return The default MelatiLocale
   */
   public MelatiLocale getLocale() {
@@ -292,6 +343,7 @@ public class MelatiConfig {
   /**
    * Returns a MelatiLocale based on a language tag.  Locales
    * are cached for future use.
+   *
    * @param languageHeader A language header from RFC 3282
    * @return a MelatiLocale based on a language tag.
    */
@@ -331,21 +383,21 @@ public class MelatiConfig {
   }   
 
  /**
-  * Get the adaptor for rendering dates as drop-downs.
+  * @return the adaptor for rendering dates as drop-downs.
   */
   public static YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
 
  /**
-  * Get the adaptor for rendering timestamps as drop-downs.
+  * @return the adaptor for rendering timestamps as drop-downs.
   */
   public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
     return YMDHMSTimestampAdaptor.it;
   }
 
  /**
-  * Get the adaptor for rendering dates as normal.
+  * @return the adaptor for rendering dates as normal.
   */
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;

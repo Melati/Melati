@@ -207,30 +207,6 @@ public class DSD {
       reader.close();
     }
 
-    // Sort out the imports
-    for (Enumeration e = tablesInPackage.elements(); e.hasMoreElements();) {
-      TableDef t = (TableDef)e.nextElement();
-      for (Enumeration i = t.imports.keys(); i.hasMoreElements();) { 
-        String fqKey;
-        String key = (String)i.nextElement();
-        if (key.indexOf(".") == -1) {
-          TableNamingInfo targetTable =
-              (TableNamingInfo)nameStore.tablesByShortName.get(key);
-          fqKey = targetTable.tableFQName;
-        } else {
-          fqKey = key;
-        }
-        String destination = (String)t.imports.get(key);
-        if (destination == "table") {
-          t.tableBaseImports.put(fqKey,"used");
-        } else if (destination == "persistent") {
-          t.persistentBaseImports.put(fqKey,"used");
-        } else {
-          t.tableBaseImports.put(fqKey,"used");
-          t.persistentBaseImports.put(fqKey,"used");
-        }
-      }
-    }
   }
 
   void createJava(String name, Generator proc, boolean overwrite)
@@ -317,15 +293,6 @@ public class DSD {
 
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-/*
-      if (!td.naming.hidden &&
-          (!(td.naming.tableFQName.startsWith("org.melati.poem") &&
-               // allow org.melati.poem.test
-             packageName.lastIndexOf(".") == 10) 
-           ||
-           (packageName.equals("org.melati.poem") &&
-            name.equalsIgnoreCase("Poem"))))
-*/
       if (!td.naming.hidden)
         w.write(td.naming.importTableString());
     }
@@ -385,10 +352,6 @@ public class DSD {
     w.write("// " + tablesInDatabase.size() + " tables in database\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-//      if (!td.naming.hidden &&
-//          (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-//           (packageName.equals("org.melati.poem") &&
-//            name.equalsIgnoreCase("Poem"))))
       if (!td.isAbstract && !td.naming.hidden)
        w.write(td.naming.importTableString());
     }
@@ -411,10 +374,6 @@ public class DSD {
     w.write(" {\n\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-//      if (!td.naming.hidden &&
-//          (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-//           (packageName.equals("org.melati.poem") &&
-//            name.equalsIgnoreCase("Poem"))))
       if (!td.naming.hidden)
         td.generateTableAccessorDefnJava(w);
     }

@@ -75,9 +75,9 @@ public class TableDef {
   int nextFieldDisplayOrder = 0;
   // Note we have to store the imports and process them at 
   // the end to avoid referring to a table that has yet to be processed.
-  Hashtable imports = new Hashtable();
-  Hashtable tableBaseImports = new Hashtable();
-  Hashtable persistentBaseImports = new Hashtable();
+  final private Hashtable imports = new Hashtable();
+  final private Hashtable tableBaseImports = new Hashtable();
+  final private Hashtable persistentBaseImports = new Hashtable();
 
   public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder,
                   boolean isAbstract, TableNamingStore nameStore)
@@ -125,6 +125,7 @@ public class TableDef {
   }
 
   void addImport(String importName, String destination) {
+      System.err.println("Adding " + importName + " to " + name + " for " + destination);
     if (!destination.equals("table") &&
         !destination.equals("persistent"))
       throw new RuntimeException(
@@ -294,8 +295,6 @@ public class TableDef {
   */
   public void generateTableBaseJava(Writer w) throws IOException {
 
-
-
     w.write("import org.melati.poem.Database;\n");
     w.write("import org.melati.poem.DefinitionSource;\n");
     w.write("import org.melati.poem.Column;\n");
@@ -311,14 +310,6 @@ public class TableDef {
     }
     w.write("import " + dsd.packageName + "." + 
             dsd.databaseTablesClass + ";\n");
-
-    // Avoid duplicate import in ColumnInfo*
-    addImport("org.melati.poem.DisplayLevel", "table");
-    addImport("org.melati.poem.Searchability", "table");
-    // These may already be used, if table contains reference to 
-    // an item of its own type eg a contact in a contact table 
-    // as a parent or child
-    addImport(naming.tableFQName, "table");
 
     w.write("\n");
     for (Enumeration i = tableBaseImports.keys(); i.hasMoreElements();) {
@@ -480,6 +471,34 @@ public class TableDef {
   /* Generate the 4 files */
   public void generateJava() throws IOException {
 
+    // Avoid duplicate import in ColumnInfo*
+    addImport("org.melati.poem.DisplayLevel", "table");
+    addImport("org.melati.poem.Searchability", "table");
+    // These may already be used, if table contains reference to 
+    // an item of its own type eg a contact in a contact table 
+    // as a parent or child
+    addImport(naming.tableFQName, "table");
+    // Sort out the imports
+    for (Enumeration i = imports.keys(); i.hasMoreElements();) { 
+      String fqKey;
+      String key = (String)i.nextElement();
+      if (key.indexOf(".") == -1) {
+        TableNamingInfo targetTable =
+            (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
+        fqKey = targetTable.tableFQName;
+      } else {
+        fqKey = key;
+      }
+      String destination = (String)imports.get(key);
+      if (destination == "table") {
+        tableBaseImports.put(fqKey,"used");
+      } else if (destination == "persistent") {
+        persistentBaseImports.put(fqKey,"used");
+      } else {
+        tableBaseImports.put(fqKey,"used");
+        persistentBaseImports.put(fqKey,"used");
+      }
+    }
     dsd.createJava(naming.baseClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {

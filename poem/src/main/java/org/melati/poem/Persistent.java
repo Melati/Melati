@@ -1072,11 +1072,20 @@ public class Persistent extends Transactioned implements Cloneable {
   /**
    * Create a new object identical to this one.
    */
-
   public Persistent duplicated() throws AccessPoemException {
     assertNotFloating();
     assertNotDeleted();
     return (Persistent)clone();
+  }
+
+  /**
+   * Create a new persistent similar to this one
+   */
+  public Persistent duplicatedFloating() throws AccessPoemException {
+    Persistent _new = (Persistent)clone();
+    _new.setStatusNonexistent();
+    _new.troid = null;
+    return _new;
   }
 
   // 

@@ -87,6 +87,10 @@ public class GroupTableBase extends Table {
     return (Group)getObject(troid);
   }
 
+  public Group getGroupObject(int troid) {
+    return (Group)getObject(troid);
+  }
+
   protected Persistent newPersistent() {
     return new Group();
   }

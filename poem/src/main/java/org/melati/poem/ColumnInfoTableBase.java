@@ -483,6 +483,10 @@ public class ColumnInfoTableBase extends Table {
     return (ColumnInfo)getObject(troid);
   }
 
+  public ColumnInfo getColumnInfoObject(int troid) {
+    return (ColumnInfo)getObject(troid);
+  }
+
   protected Persistent newPersistent() {
     return new ColumnInfo();
   }

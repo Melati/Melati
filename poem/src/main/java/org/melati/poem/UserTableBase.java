@@ -5,6 +5,8 @@ package org.melati.poem;
 public class UserTableBase extends Table {
 
   private Column col_id = null;
+  private Column col_login = null;
+  private Column col_password = null;
   private Column col_name = null;
 
   public UserTableBase(Database database, String name) throws PoemException {
@@ -40,6 +42,68 @@ public class UserTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((User)g).setId((Integer)ident);
+          }
+        });
+
+    defineColumn(col_login =
+        new Column(this, "login", new StringPoemType(false, 20), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (String)((UserData)data).login;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((UserData)data).login = (String)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((User)g).getLogin();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((User)g).setLogin((String)value);
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getLogin();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setLogin((String)ident);
+          }
+        });
+
+    defineColumn(col_password =
+        new Column(this, "password", new StringPoemType(false, 20), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (String)((UserData)data).password;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((UserData)data).password = (String)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((User)g).getPassword();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((User)g).setPassword((String)value);
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getPassword();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setPassword((String)ident);
           }
         });
 
@@ -79,11 +143,23 @@ public class UserTableBase extends Table {
     return col_id;
   }
 
+  public final Column getLoginColumn() {
+    return col_login;
+  }
+
+  public final Column getPasswordColumn() {
+    return col_password;
+  }
+
   public final Column getNameColumn() {
     return col_name;
   }
 
   public User getUserObject(Integer troid) {
+    return (User)getObject(troid);
+  }
+
+  public User getUserObject(int troid) {
     return (User)getObject(troid);
   }
 

@@ -3,9 +3,13 @@ package org.melati.poem;
 table TableInfo {
   (primary) Integer id;
   String name (size = 50);
+
   String displayname (size = 60);
+  Integer displayorder (nullable);
+
   Capability defaultcanread (nullable);
   Capability defaultcanwrite (nullable);
+  Capability cancreate (nullable);
 }
 
 table ColumnInfo {
@@ -33,6 +37,8 @@ table Capability {
 
 table User {
   (primary) Integer id;
+  String login (size = 20);
+  String password (size = 20);
   String name (size = 60);
 }
 

@@ -42,12 +42,7 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   protected String _stringOfValue(Object value) throws PoemException {
-    Persistent g = (Persistent)value;
-    Column displayColumn = targetTable.displayColumn();
-    if (displayColumn == null)
-      return g.getTroid().toString();
-    else
-      return displayColumn.getType().stringOfValue(displayColumn.getValue(g));
+    return ((Persistent)value).displayString();
   }
 
   protected boolean _canBe(PoemType other) {

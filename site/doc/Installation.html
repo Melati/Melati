@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<TITLE> org.melati Installation Guide (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1><TT>org.melati</TT> Installation Guide (document $Revision$)</H1>
+
+<P>
+  This document describes how to install the system on a new machine.
+  See also the system's <A HREF=QA.html>master QA document</A>, and
+  its <A HREF=Administration.html>administration guide</A>.
+</P>
+
+
+
+
+<H2>
+<!-- *************** -->
+      Prerequisites
+<!-- *************** -->
+</H2>
+
+
+
+<H3>
+<!-- ========== -->
+      Hardware
+<!-- ========== -->
+</H3>
+
+<P>
+  Since Melati is written entirely in Java, it is portable relatively easily to
+  any machine which supports the JVM mentioned below.  However, at the moment
+  you probably need a Linux/Pentium box.  You'll probably need at least 64Mb of
+  memory to run Postgres, Apache, Java for Webmacro/Melati, X and Netscape all
+  at the same time.
+</P>
+
+
+
+<H3>
+<!-- ========== -->
+      Software
+<!-- ========== -->
+</H3>
+
+<P>
+  The pre-alpha snapshot of Melati has been developed against the following
+  software:
+</P>
+
+<UL>
+  <LI> Linux 2.0.34/i586 with glibc 2.0.7 (probably noncritical)
+
+  <LI> Apache 1.3.3, with JServ 1.0b2 (note that RedHat 5.x Apache RPMs make
+       it hard for you to get JServ working)
+
+  <LI> Blackdown JDK 1.1.7a
+
+  <LI> JSDK (servlet development kit) 2.0
+
+  <LI> Webmacro 0.89.1 [sic]
+</UL>
+
+<P>
+  Everything up to here could be summarised as: a working webmacro
+  installation.  Finally,
+</P>
+
+<UL>
+  <LI> Postgres 6.4.2 (6.5 may be better since there is at least one known
+       problem with 6.4.2: it does not honour <TT>NOT NULL</TT> in
+       <TT>ALTER</TT> <TT>TABLE</TT> <TT>ADD</TT> <TT>COLUMN</TT>)
+</UL>
+
+<P>
+  The JDBC facilities used by Melati are pretty simple, and we are aiming for
+  compatibility with any DBMS which supports JDBC and transactions, but you
+  know how it is ...
+</P>
+
+
+
+
+<H2>
+<!-- ****************** -->
+      Obtaining Melati
+<!-- ****************** -->
+</H2>
+
+<P>
+  You can get a pre-alpha snapshot of Melati from
+  <A HREF=http://melati.org><TT>http://melati.org</TT></A>.
+</P>
+
+
+
+
+<H2>
+<!-- ************** -->
+      Implications
+<!-- ************** -->
+</H2>
+
+
+
+<H3>
+<!-- ================================= -->
+      Interations with other software
+<!-- ================================= -->
+</H3>
+
+<P>
+  Melati interacts with other software in the following ways which you should
+  know about:
+</P>
+
+<UL>
+  <LI> you will have to restart your Melati application (<I>e.g.</I> with
+       <TT>apachectl</TT> <TT>graceful</TT>) if Postgres goes down while it is
+       running
+</UL>
+
+
+
+<H3>
+<!-- =============== -->
+      Risk analysis
+<!-- =============== -->
+</H3>
+
+<P>
+  The things that might be broken if you install the system on a computer are:
+</P>
+
+<UL>
+  <LI> Database corruption.  Do not let Melati connect to a database whose
+       contents you value!
+
+  <LI> Insecurity.  Although Melati provides a user authorisation and access
+       control system, it isn't supposed to be indefeasible by the application
+       programmer, and anyway it probably doesn't work yet.
+
+  <LI> Bugginess.  Do not use Melati for anything important.
+</UL>
+
+
+
+
+<H2>
+<!-- ************** -->
+      Installation
+<!-- ************** -->
+</H2>
+
+
+
+<H3>
+<!-- ============== -->
+      Step by step
+<!-- ============== -->
+</H3>
+
+<P>
+  It is assumed that you already have a working installation of Webmacro
+  (<I>i.e.</I> web server, servlet runner, and Webmacro classes), and a working
+  installation of Postgres or, presuming compatibility, another RDBMS.
+</P>
+
+<UL>
+  <LI> Set up a database for use by Melati.  With Postgres this involves typing,
+       for example, <TT>createdb melatitest</TT> at the Linux prompt, as a user
+       who is allowed to create databases.
+
+  <LI> Arrange for the user in whose name your httpd runs---often,
+       `<TT>nobody</TT>'---to be able to connect to the test database and
+       create tables in it.  With Postgres this is a no-op under the default
+       `security' setup, assuming that your postmaster is running on the same
+       machine as your web server.
+
+  <LI> Install the Melati source tree somewhere, and compile it.  For instance,
+
+<BLOCKQUOTE><PRE>
+cd /usr/local/packages/inst/melati
+tar zxf melati-0.0.x.tar.gz
+cd melati-0.0.x/org/melati
+javac admin/Admin.java poem/prepro/DSD.java
+</PRE></BLOCKQUOTE>
+
+       ---those two files being entry points to respectively the admin system
+       and the DSD preprocessor, which should cause everything to get compiled
+       (except for a few sources not currently in use).
+
+<BLOCKQUOTE><PRE>
+TemplatePath = /usr/local/packages/inst/melati-0.0.x/org/melati:/home/me/templates
+</PRE></BLOCKQUOTE>
+
+  <LI> Arrange for Melati's classes to be accessible to your servlet runner,
+       for instance by adding a line
+
+<BLOCKQUOTE><PRE>
+wrapper.classpath=/usr/local/packages/inst/melati-0.0.x
+</PRE></BLOCKQUOTE>
+
+       to the appropriate place in your <TT>jserv.properties</TT>.
+
+  <LI> Arrange for Melati servlets you play with or write to be accessible
+       through your httpd.  This should be straightforward if you have a
+       working Webmacro installation; I don't really understand servlets but I
+       seem to be able to call them up using URLs like
+
+<BLOCKQUOTE><PRE>
+http://localhost/webmacro/org.melati.admin.Admin/...
+</PRE></BLOCKQUOTE>
+
+       containing a full Java package/class name, just as long as (a) the
+       &quot;servlet zone&quot; <TT>webmacro</TT> exists and (b)
+       <TT>org/melati/admin/Admin.class</TT> is in the <TT>CLASSPATH</TT>.
+       YMMV.
+
+  <LI> Get Melati's Webmacro templates into Webmacro's template path.  Melati
+       looks for its templates relative to <TT>org/melati</TT> in its source
+       tree, so you should edit your <TT>WebMacro.properties</TT> to say
+       something like
+
+  <LI> Edit Melati's own config file, found in the source tree as
+       <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, which
+       describes the mapping from &quot;logical database names&quot; to JDBC
+       connection details.  You may not have to change anything.
+
+</UL>
+
+<P>
+  To check that Melati is working, try looking at
+</P>
+
+<BLOCKQUOTE><PRE>
+http://localhost/webmacro/org.melati.admin.Admin/melatitest/View
+</PRE></BLOCKQUOTE>
+
+<P>
+  After a long pause (up to twenty seconds on my 100MHz Pentium with too little
+  memory), you should see a list of tables in the <TT>melatitest</TT> database.
+</P>
+
+
+
+<H3>
+<!-- ================= -->
+      Troubleshooting
+<!-- ================= -->
+</H3>
+
+<P>
+  If something doesn't work, sorry!  Drop us an email at
+  <A HREF=mailto:melati@messageboards.paneris.org>melati@messageboards.paneris.org</A>.
+</P>
+
+
+
+
+<H2>
+<!-- ******************************** -->
+      Appendix: building from source
+<!-- ******************************** -->
+</H2>
+
+<P>
+  N/A at this stage.
+</P>
+
+
+
+
+<HR>
+
+<H2>
+<!-- ********************* -->
+      About this document
+<!-- ********************* -->
+</H2>
+
+
+
+<H3>
+<!-- ========= -->
+      Authors
+<!-- ========= -->
+</H3>
+
+<P>
+  <A HREF=mailto:williamc@paneris.org>William Chesters
+  &lt;williamc@paneris.org&gt;</A>
+</P>
+
+<P>
+  Most recent CVS $Author$ @paneris.org
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      Quality
+<!-- ========= -->
+</H3>
+
+<P>
+  The current quality level of this document is: <B>Personal</B>.  It's not
+  finished.
+</P>
+
+
+
+<H3>
+<!-- ======================== -->
+      Readership and purpose
+<!-- ======================== -->
+</H3>
+
+<UL>
+  <LI> The <B>customer's admins</B> should know how to install the system from
+       scratch on a new computer.
+
+  <LI> So should <B>future developers</B>.
+</UL>
+
+<P>
+  However, at present this document is primary intended to help the wider
+  <B>open source community</B> get Melati running, so that they can give us
+  feedback pre-release and evaluate the finished product in an informed manner.
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      History
+<!-- ========= -->
+</H3>
+
+<P>
+  The important points in the life of this document are listed
+  below.
+</P>
+
+<TABLE>
+  <TR><TH>Date</TH><TH>Event</TH></TR>
+  <TR>
+    <TD>(not yet)</TD>
+    <TD>Certified at release quality level by ...</TD>
+  </TR>
+</TABLE>
+
+<P>
+  The CVS log for this document is:
+  <BR>
+  <BR>$Log$
+  <BR>Revision 1.1  2000/02/25 20:20:36  williamc
+  <BR>Snapshot of 25 Feb 2000
+  <BR>
+  <BR>
+</P>
+
+
+</BODY>
+</HTML>

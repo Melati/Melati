@@ -1,10 +1,13 @@
 package org.melati.poem.prepro;
 
-import java.util.*;
 import java.io.*;
 
-public class UniqueFieldQualifier extends IndexedFieldQualifier {
+public class UniqueFieldQualifier extends FieldQualifier {
+
   public UniqueFieldQualifier(StreamTokenizer tokens) {
-    super(tokens);
+  }
+
+  public void apply(FieldDef field) throws IllegalityException {
+    // FIXME implement ...
   }
 }

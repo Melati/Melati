@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE> Overview of Melati (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1>Overview of Melati (document $Revision$)</H1>
+
+
+
+
+<H2>
+<!-- ************** -->
+      Introduction
+<!-- ************** -->
+</H2>
+
+
+
+<H3>
+<!-- ===================== -->
+      What is Melati for?
+<!-- ===================== -->
+</H3>
+
+<P>
+  Melati is an open source, Java-based infrastructure for the rapid and
+  convenient development of web-based database applications.  It addresses the
+  following problems typically encountered in the development of complex sites:
+</P>
+
+<UL>
+  <LI> <B>Separating design from logic</B>
+       <P>
+         Melati is based on the popular <A
+         HREF=http://webmacro.org>Webmacro</A> templating system, which allows
+         for a clean divide between the HTML (WML, ...) page design and the
+         program.
+       </P>
+
+  <LI> <B>Getting database fields on and off web pages</B>
+       <P>
+	 Melati can render both field values and input controls such as
+	 <TT>&lt;INPUT&gt;</TT>s and <TT>&lt;SELECT&gt;</TT>s automatically,
+	 using JDBC field information enriched with web-settable preferences.
+	 It also adds Javascript triggers for validating input values on the
+	 client side before submission, according to the fields' types.  Links
+	 between related fields are resolved transparently, so that they seem
+	 like Java references.  <FONT COLOR=red>Alpha-ready, but we need to
+	 port JAL's nifty system of date dropdowns.</FONT>
+       </P>
+
+  <LI> <B>Administering database content</B>
+       <P>
+	 Melati offers a generic database admin system which allows editing of
+	 both the contents and (soon) the structure of any part of the
+	 database, without the need for customised admin pages: data entry and
+	 editing &quot;out of the box&quot;, just like you get with desktop
+	 database packages.  <FONT COLOR=red>Close to alpha-ready; it's just a
+	 matter of working up the missing screens and making it prettier.
+	 E.g. one of the other Paneris people who contributed to JAL will be
+	 able to help me on this one.</FONT>
+       </P>
+
+  <LI> <B>Managing users and their access permissions</B>
+       <P>
+	 All database accesses made through Melati are subjected to low-level
+	 checks via a user/group/capability mechanism, configurable by the
+	 administrator.  <FONT COLOR=red>Alpha-ready, but not yet integrated
+	 into the servlet user-session system.</FONT>
+       </P>
+
+  <LI> <B>Expressing business logic cleanly</B>
+       <P>
+	 Melati's easy-to-use persistence mechanism can present a predefined
+	 subset of the database to the programmer as a collection of Java
+	 objects, with typed <TT>set</TT>/<TT>get</TT> methods, which happen to
+	 store their state in the database, allowing her to express the
+	 application logic in a much more natural way than she could using JDBC
+	 directly.  Each Java thread (such as that processing a servlet
+	 request) is associated with a different concurrent database
+	 transaction, and runs with different access permissions depending on
+	 the user on whose behalf it is working.
+         <FONT COLOR=red>Alpha-ready.</FONT>
+       </P>
+
+  <LI> <B>Cacheing frequently-used table rows</B>
+       <P>
+	 Intensively-used tables can be transparently cached on a
+	 least-recently-used basis (and the cache behaves correctly with
+	 respect to transactions).  <FONT COLOR=red>Alpha-ready.</FONT>
+       </P>
+</UL>
+
+
+
+
+<H2>
+<!-- ************************ -->
+      Where to go from here?
+<!-- ************************ -->
+</H2>
+
+
+
+<H3>
+<!-- =========== -->
+      Resources
+<!-- =========== -->
+</H3>
+
+<P>
+  Melati's home on the web,
+  <A HREF=http://melati.org><TT>http://melati.org</TT></A>, provides
+  information, web/email messageboards, and CVS access.
+</P>
+
+
+
+<H3>
+<!-- ================== -->
+      A simple example
+<!-- ================== -->
+</H3>
+
+<P>
+  <I>Ought to have one ...</I>
+</P>
+
+
+
+<H3>
+<!-- =================== -->
+      Installing Melati
+<!-- =================== -->
+</H3>
+
+<P>
+  A brief first draft of the <A HREF=../qa/Installation.html>Installation
+  Guide</A> is available.
+</P>
+
+
+
+<H3>
+<!-- ===================================== -->
+      Guides to Melati's component parts
+<!-- ===================================== -->
+</H3>
+
+<TABLE CELLSPACING=0>
+  <TR VALIGN=TOP>
+    <TD>
+      <A HREF=../poem/doc/UserGuide.html><TT>org.melati.poem</TT></A>
+      <BR><FONT COLOR=red>(in progress)</FONT>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      Melati POEM (Persistent Object Engine For Melati) is what gives Melati
+      its object-oriented view of the underlying relational database.  It
+      maintains type information about database fields, and handles connection
+      pooling, cacheing and access control.  POEM is independent of the rest of
+      Melati and could be used for non-web applications.  Of interest to
+      programmers.
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <!-- A HREF=../poem/prepro/doc/UserGuide.html --><TT>org.melati.poem.prepro</TT><!-- /A -->
+      <BR><FONT COLOR=red>(not yet)</FONT>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      POEM's preprocessor is responsible for turning concise, Java-style
+      &quot;Data Structure Definitions&quot; into boilerplate code for creating
+      a corresponding relational database and representing it as a collection
+      of typed objects.  Of interest to programmers.
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <!-- A HREF=Templating.html --><TT>org.melati</TT><!-- /A -->
+      <BR><FONT COLOR=red>(not yet)</FONT>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      Melati's interface with Webmacro exploits the rationalised view of the
+      RDBMS offered by POEM to automate the process of generating views and
+      inputs for fields and rows.  Of interest to page authors.
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <!-- A HREF=../admin/doc/UserGuide.html --><TT>org.melati.admin</TT><!-- /A -->
+      <BR><FONT COLOR=red>(not yet)</FONT>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      The generic database administration system supports &quot;out of the
+      box&quot; content editing.  Of interest to administrators, and page
+      authors who may wish to adapt admin templates for their applications (or
+      just link to them).
+    </TD>
+  </TR>
+</TABLE>
+
+
+
+<H3>
+<!-- ================ -->
+      How do I ... ?
+<!-- ================ -->
+</H3>
+
+<P>
+  <I>How to do typical tasks ...</I>
+</P>
+
+
+
+<H3>
+<!-- ============================ -->
+      Frequently asked questions
+<!-- ============================ -->
+</H3>
+
+<P>
+  <I>...</I>
+</P>
+
+
+</BODY>
+</HTML>

@@ -74,9 +74,18 @@ final class CacheInterSession extends CacheNode implements InterSession {
 
   public synchronized void uncacheContents() {
     committedVersion = notInCache;
-    // there is actually little point in uncacheing the
-    // session-specific data since it ought to go away fairly soon
-    // anyway
+  }
+
+  /**
+   * Don't call this when there might be outstanding writes not yet written
+   * down!
+   */
+
+  public synchronized void uncacheContents(Session session) {
+    if (versions != null) {
+      Data data = versions[session.index()];
+      if (data != null) versions[session.index()] = notInCache;
+    }
   }
 
   public synchronized int analyseContents() {
@@ -197,19 +206,24 @@ final class CacheInterSession extends CacheNode implements InterSession {
    *         if it doesn't exist
    */
 
-  public synchronized Data dataForWriting(Session session) {
-    Data version = dataForReading(session);
+  public Data dataForWriting(Session session) {
+    Data version;
+    synchronized (this) {
+      version = dataForReading(session);
 
-    if ((touchedMask & session.mask()) == 0) {
-      if (versions == null)
-        versions = new Data[getDatabase().sessionsMax()];
-      version = versions[session.index()] = copy(version);
-      session.notifyTouched(this);
-      touchedMask |= session.mask();
+      if ((touchedMask & session.mask()) == 0) {
+        if (versions == null)
+          versions = new Data[getDatabase().sessionsMax()];
+        version = versions[session.index()] = copy(version);
+        session.notifyTouched(this);
+        touchedMask |= session.mask();
+      }
+
+      if (version != notInCache && version != nonexistent)
+        version.dirty = true;
     }
 
-    if (version != notInCache && version != nonexistent)
-      version.dirty = true;
+    getTable().notifyTouched(session, troid, version);
 
     return version;
   }
@@ -251,18 +265,25 @@ final class CacheInterSession extends CacheNode implements InterSession {
       versions[session.index()] = null;
   }
 
-  synchronized void commit(Session session) {
-    if (versions != null) {
-      if ((touchedMask & session.mask()) == 0)
-        throw new PoemBugPoemException("committing touched version");
-      seenMask &= session.negMask();
-      Data toCommit = versions[session.index()];
-      if (toCommit != null) {
-        versions[session.index()] = null;
-        setCommittedVersion(toCommit);
+  void commit(Session session) {
+    Data toCommit = null;
+
+    synchronized (this) {
+      if (versions != null) {
+        if ((touchedMask & session.mask()) == 0)
+          throw new PoemBugPoemException("committing touched version");
+        seenMask &= session.negMask();
+        toCommit = versions[session.index()];
+        if (toCommit != null) {
+          versions[session.index()] = null;
+          setCommittedVersion(toCommit);
+        }
       }
+
+      unSee(session);
     }
 
-    unSee(session);
+    if (toCommit != null)
+      getTable().notifyTouched(null, troid, toCommit);
   }
 }

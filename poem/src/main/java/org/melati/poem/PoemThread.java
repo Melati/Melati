@@ -36,8 +36,8 @@ public class PoemThread {
     }
   }
 
-  static void inSession(Runnable task, AccessToken accessToken,
-                        Session session) {
+  static void inSession(PoemTask task, AccessToken accessToken,
+                        Session session) throws PoemException {
     Integer token = allocatedSessionToken(accessToken, session);
     try {
       task.run();
@@ -51,7 +51,7 @@ public class PoemThread {
     }
   }
 
-  static SessionToken sessionToken() {
+  static SessionToken _sessionToken() {
     try {
       SessionToken context =
           (SessionToken)sessionTokens.elementAt(Thread.currentThread().
@@ -66,35 +66,44 @@ public class PoemThread {
     }
   }
 
+  static SessionToken sessionToken() throws NotInSessionPoemException {
+    SessionToken it = _sessionToken();
+    if (it == null)
+      throw new NotInSessionPoemException();
+    return it;
+  }
+
   public static Session session() {
-    SessionToken context = sessionToken();
-    return context == null ? null : context.session;
+    return sessionToken().session;
   }
 
   public static boolean inSession() {
-    return sessionToken() != null;   // FIXME really, what does this mean?
+    return _sessionToken() != null;
   }
 
   public static AccessToken accessToken() throws NoAccessTokenPoemException {
-    SessionToken context = sessionToken();
-    if (context == null || context.accessToken == null)
+    AccessToken it = sessionToken().accessToken;
+    if (it == null)
       throw new NoAccessTokenPoemException();
-    return context.accessToken;
+    return it;
   }
 
   static AccessToken setAccessToken(AccessToken token) {
     SessionToken context = sessionToken();
-    if (context == null)
-      throw new NotInSessionPoemException();
     AccessToken old = context.accessToken;
     context.accessToken = token;
     return old;
   }
 
   public static Database database() throws NotInSessionPoemException {
-    Session session = session();
-    if (session == null)
-      throw new NoAccessTokenPoemException();
-    return session.getDatabase();
+    return session().getDatabase();
+  }
+
+  public static void commit() {
+    session().commit();
+  }
+
+  public static void rollback() {
+    session().rollback();
   }
 }

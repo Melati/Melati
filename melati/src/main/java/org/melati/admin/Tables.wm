@@ -14,7 +14,7 @@
   #foreach $table in $tables {
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     <TR><TD>
-      FIXME need a thing to render URLs
+      <!-- FIXME need a thing to render URLs -->
       <A HREF="$admin.tableURL($table)">$ml.rendered($table.DisplayName)</A>
     </TD></TR>
   }

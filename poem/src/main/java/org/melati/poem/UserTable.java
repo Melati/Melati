@@ -8,11 +8,10 @@ public class UserTable extends UserTableBase {
     super(database, name);
   }
 
-  static final Function capabilityCacheInvalidator =
-      new Function() {
-        public Object apply(Object data) {
+  static final Procedure capabilityCacheInvalidator =
+      new Procedure() {
+        public void apply(Object data) {
           ((UserData)data).capabilities = null;
-          return null;
         }
       };
 
@@ -25,9 +24,9 @@ public class UserTable extends UserTableBase {
   void invalidateCapabilityCaches(Session session) {
     synchronized (capabilityCacheInvalidator) {
       if (capabilityCachesExist) {
-        cacheIterate(session, capabilityCacheInvalidator);
+        cacheIterate(null, capabilityCacheInvalidator);
         if (session != null)
-          cacheIterate(null, capabilityCacheInvalidator);
+          cacheIterate(session, capabilityCacheInvalidator);
         capabilityCachesExist = false;
       }
     }

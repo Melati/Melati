@@ -73,7 +73,7 @@ public final class Cache {
     return null;
   }
 
-  public synchronized void iterate(Function f) {
+  public synchronized void iterate(Procedure f) {
     for (CacheNode n = theLRU; n != null; n = n.prevMRU)
       f.apply(n);
   }

@@ -84,7 +84,6 @@ public abstract class MelatiServlet extends WMServlet {
     // lambda idiom :(
 
     final MelatiServlet _this = this;
-    final Exception problem[] = new Exception[1];
 
     Database database;
     try {
@@ -95,28 +94,29 @@ public abstract class MelatiServlet extends WMServlet {
       throw new ServletException(e.toString());
     }
 
-    database.inSession(
-        AccessToken.root,
-        new Runnable() {
-          public void run() {
-            try {
-              _this.reallyService(request, response);
-            }
-            catch (Exception e) {
-              problem[0] = e;
-            }
-          }
-        });
+    final String[] problem = new String[1];
 
-    if (problem[0] != null) {
-      if (problem[0] instanceof ServletException)
-        throw (ServletException)problem[0];
-      else if (problem[0] instanceof IOException)
-        throw (IOException)problem[0];
-      else if (problem[0] instanceof RuntimeException)
-        throw (RuntimeException)problem[0];
-      else
-        throw new ServletException(problem[0].toString());
+    try {
+      database.inSession(
+          AccessToken.root,
+          new PoemTask() {
+            public void run() {
+              try {
+                _this.reallyService(request, response);
+              }
+              catch (Exception e) {
+               // FIXME oops we have to do this in-session!
+                problem[0] = e.toString();
+                e.printStackTrace();
+              }
+            }
+          });
     }
+    catch (Exception e) {
+      throw new ServletException(e.toString());
+    }
+
+    if (problem[0] != null)
+      throw new ServletException(problem[0]);
   }
 }

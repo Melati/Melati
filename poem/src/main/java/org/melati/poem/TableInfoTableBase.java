@@ -7,8 +7,10 @@ public class TableInfoTableBase extends Table {
   private Column col_id = null;
   private Column col_name = null;
   private Column col_displayname = null;
+  private Column col_displayorder = null;
   private Column col_defaultcanread = null;
   private Column col_defaultcanwrite = null;
+  private Column col_cancreate = null;
 
   public TableInfoTableBase(Database database, String name) throws PoemException {
     super(database, name, DefinitionSource.dsd);
@@ -108,6 +110,37 @@ public class TableInfoTableBase extends Table {
           }
         });
 
+    defineColumn(col_displayorder =
+        new Column(this, "displayorder", new IntegerPoemType(true), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Integer)((TableInfoData)data).displayorder;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((TableInfoData)data).displayorder = (Integer)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getDisplayorder();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setDisplayorder((Integer)value);
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDisplayorder();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDisplayorder((Integer)ident);
+          }
+        });
+
     defineColumn(col_defaultcanread =
         new Column(this, "defaultcanread", new ReferencePoemType(getDatabase().getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
@@ -169,6 +202,37 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDefaultcanwriteTroid((Integer)ident);
           }
         });
+
+    defineColumn(col_cancreate =
+        new Column(this, "cancreate", new ReferencePoemType(getDatabase().getCapabilityTable(), true), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Integer)((TableInfoData)data).cancreate;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((TableInfoData)data).cancreate = (Integer)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getCancreate();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setCancreate((Capability)value);
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCancreateTroid();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setCancreateTroid((Integer)ident);
+          }
+        });
   }
 
   public final Column getIdColumn() {
@@ -183,6 +247,10 @@ public class TableInfoTableBase extends Table {
     return col_displayname;
   }
 
+  public final Column getDisplayorderColumn() {
+    return col_displayorder;
+  }
+
   public final Column getDefaultcanreadColumn() {
     return col_defaultcanread;
   }
@@ -191,7 +259,15 @@ public class TableInfoTableBase extends Table {
     return col_defaultcanwrite;
   }
 
+  public final Column getCancreateColumn() {
+    return col_cancreate;
+  }
+
   public TableInfo getTableInfoObject(Integer troid) {
+    return (TableInfo)getObject(troid);
+  }
+
+  public TableInfo getTableInfoObject(int troid) {
     return (TableInfo)getObject(troid);
   }
 

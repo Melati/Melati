@@ -123,6 +123,10 @@ public class GroupMembershipTableBase extends Table {
     return (GroupMembership)getObject(troid);
   }
 
+  public GroupMembership getGroupMembershipObject(int troid) {
+    return (GroupMembership)getObject(troid);
+  }
+
   protected Persistent newPersistent() {
     return new GroupMembership();
   }

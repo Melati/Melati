@@ -6,8 +6,8 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     super(database, name);
   }
 
-  protected void notifyUpdate(Session session, Data data) {
+  protected void notifyTouched(Session session, Integer troid, Data data) {
     getDatabase().getUserTable().invalidateCapabilityCaches(session);
-    super.notifyUpdate(session, data);
+    super.notifyTouched(session, troid, data);
   }
 }

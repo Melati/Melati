@@ -43,6 +43,36 @@ class UserBase extends Persistent {
     return getUserTable().getIdColumn().asField(this);
   }
 
+  public String getLogin()
+      throws AccessPoemException {
+    return dataForReading().login;
+  }
+
+  public void setLogin(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getUserTable().getLoginColumn().getType().assertValidValue(value);
+    dataForWriting().login = value;
+  }
+
+  public final Field getLoginField() throws AccessPoemException {
+    return getUserTable().getLoginColumn().asField(this);
+  }
+
+  public String getPassword()
+      throws AccessPoemException {
+    return dataForReading().password;
+  }
+
+  public void setPassword(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getUserTable().getPasswordColumn().getType().assertValidValue(value);
+    dataForWriting().password = value;
+  }
+
+  public final Field getPasswordField() throws AccessPoemException {
+    return getUserTable().getPasswordColumn().asField(this);
+  }
+
   public String getName()
       throws AccessPoemException {
     return dataForReading().name;

@@ -9,5 +9,13 @@ public class AccessPoemException extends PoemException {
     this.capability = capability;
   }
 
-  // FIXME toString
+  public AccessPoemException() {
+    this(null, null);
+  }
+
+  public String getMessage() {
+    return
+        "You need the capability " + capability + " but your access token " +
+        token + " doesn't confer it";
+  }
 }

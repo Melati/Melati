@@ -87,6 +87,10 @@ public class CapabilityTableBase extends Table {
     return (Capability)getObject(troid);
   }
 
+  public Capability getCapabilityObject(int troid) {
+    return (Capability)getObject(troid);
+  }
+
   protected Persistent newPersistent() {
     return new Capability();
   }

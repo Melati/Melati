@@ -123,6 +123,10 @@ public class GroupCapabilityTableBase extends Table {
     return (GroupCapability)getObject(troid);
   }
 
+  public GroupCapability getGroupCapabilityObject(int troid) {
+    return (GroupCapability)getObject(troid);
+  }
+
   protected Persistent newPersistent() {
     return new GroupCapability();
   }

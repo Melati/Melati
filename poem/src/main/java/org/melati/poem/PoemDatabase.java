@@ -5,47 +5,53 @@ import java.sql.*;
 
 public class PoemDatabase extends PoemDatabaseBase {
 
-  public static void main(final String[] args) throws Exception {
-    DriverManager.registerDriver((Driver)Class.forName("postgresql.Driver").newInstance());
-    final Database database = new PoemDatabase();
-    database.connect("jdbc:postgresql:williamc", "williamc", "*");
-    // database.dump();
+  private static User william = null;
 
-    User william = database.getUserTable().getUserObject(new Integer(0));
-    final Table t = database.getTable("foo");
+  public static void main(final String[] args) {
+    try {
+      DriverManager.registerDriver((Driver)Class.forName("postgresql.Driver").newInstance());
+      final Database database = new PoemDatabase();
+      database.connect("jdbc:postgresql:williamc", "williamc", "*");
+      database.dump();
 
-    database.logSQL = true;
+      database.logSQL = true;
 
-    database.inSession(
-        william,
-        new Runnable() {
-          public void run() {
-            try {
-              t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
-              t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
-              Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
-              while (e.hasMoreElements())
-                System.out.println(e.nextElement());
+      database.inSession(
+          AccessToken.root,
+          new PoemTask() {
+            public void run() {
+              william = database.getUserTable().getUserObject(new Integer(0));
             }
-            catch (Exception e) {
-              e.printStackTrace();
-            }
-          }
-        });
+          });
 
-    database.inCommittedSession(
-        william,
-        new Runnable() {
-          public void run() {
-            try {
-              t.getObject(4).deleteAndCommit();
-            }
-            catch (Exception e) {
-              e.printStackTrace();
-            }
-          }
-        });
+      final Table t = database.getTable("foo");
 
+      database.inSession(
+          william,
+          new PoemTask() {
+            public void run() {
+              try {
+                t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
+                t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
+                Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
+                while (e.hasMoreElements())
+                  System.out.println(e.nextElement());
+              }
+              catch (Exception e) {
+                e.printStackTrace();
+              }
+            }
+          });
+    }
+    catch (Exception e) {
+      try {
+        e.printStackTrace();
+      }
+      catch (Exception ee) {
+        System.err.println("caught exception: " + ee.getClass().getName());
+        ee.printStackTrace();
+      }
+    }
 
 //     database.dumpCacheAnalysis();
 //     System.err.println("\n=== uncacheing contents");

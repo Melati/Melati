@@ -1,4 +1,4 @@
 package org.melati.poem;
 
-public class NotInSessionPoemException extends PoemBugPoemException {
+public class NotInSessionPoemException extends SeriousPoemException {
 }

@@ -199,7 +199,7 @@ public abstract class Column {
   // ============
   // 
 
-  public Field asField(Persistent g) {
+  public Field asField(Persistent g) throws AccessPoemException {
     return new Field(getIdent(g), this);
   }
 

@@ -16,8 +16,4 @@ public class Data implements Cloneable {
     other.extras = extras == null ? null : (Object[])extras.clone();
     return other;
   }
-
-  public int dsdDataCount() {
-    return 0;
-  }
 }

@@ -4,5 +4,7 @@ package org.melati.poem;
 
 class UserDataBase extends Data {
   Integer id;
+  String login;
+  String password;
   String name;
 }

@@ -21,6 +21,8 @@ public abstract class MarkupLanguage {
     return name;
   }
 
+  public abstract String rendered(String s);
+
   // 
   // =========
   //  Widgets

@@ -130,7 +130,9 @@ public class DSD {
   }
 
   public void generateDatabaseBaseJava(Writer w) throws IOException {
-    w.write("class " + databaseBaseClass + " extends Database {\n" +
+    w.write("class " + databaseBaseClass + " extends " +
+            (packageName.equals("org.melati.poem") && name.equals("Poem") ?
+                 "Database" : "PoemDatabase") + " {\n" +
             "\n");
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)

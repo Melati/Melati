@@ -20,12 +20,12 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   * break your existing webmacro code if you put it in your <TT>CLASSPATH</TT>
   * since its semantics are only different when configured so to be.  You can
   * get the hacked version by anonymous CVS from melati.org (see the <A
-  * HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~org/melati/qa/Installation.html>Installation
+  * HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
   * guide</A>).
   */
 
   public static final Object check =
-      org.melati.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
+      org.webmacro.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
 
   static final String
       OVERLAY_PARAMETERS = "org.melati.MelatiServlet.overlayParameters",

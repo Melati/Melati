@@ -464,21 +464,12 @@ public class Admin extends MelatiServlet {
       Column column = (Column)columns.nextElement();
       String stringValue = context.getForm("field_" + column.getName());
       Object value = null;
-      if (stringValue != null) value = column.getType().rawOfString(stringValue);
+      if (stringValue != null)
+        value = column.getType().rawOfString(stringValue);
       fields.add(new Field(value, column));
     }
     context.put("fields", fields.elements());
-/*
-    the lovely MappedEnumeration approach has been removed in order to allow fields
-    to take default values passed on the query string :(
-    Enumeration fields =
-        new MappedEnumeration(melati.getTable().columns()) {
-          public Object mapped(Object column) {
-            return new Field((Object)null, (Column)column);
-          }
-        };
-    context.put("fields", fields);
-*/
+
     return adminTemplate(context, "Add.wm");
   }
 
@@ -546,7 +537,7 @@ public class Admin extends MelatiServlet {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin)) 
-      throw new AccessPoemException(token,admin);
+      throw new AccessPoemException(token, admin);
 
     context.put("admin", melati.getAdminUtils());
     if (melati.getObject() != null) {

@@ -76,7 +76,7 @@
   <TR>
     <TD>Password</TD>
     <TD>&nbsp;&nbsp;</TD>
-    <TD>$ml.input($password)</TD>
+    <TD>$ml.inputAs($password, "passwordForChecking")</TD>
   </TR>
 </TABLE>
 

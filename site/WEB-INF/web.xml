@@ -24,6 +24,11 @@
   </servlet>
   
   <servlet>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <servlet-class>org.melati.admin.Display</servlet-class>
+  </servlet>
+  
+  <servlet>
     <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
     <servlet-class>org.melati.poem.SessionAnalysisServlet</servlet-class>
   </servlet>
@@ -115,6 +120,19 @@
   <servlet-mapping>
     <servlet-name>org.melati.admin.Admin</servlet-name>
     <url-pattern>/Admin/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/org.melati.admin.Display/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Display</servlet-name>
+    <url-pattern>/Display/*</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

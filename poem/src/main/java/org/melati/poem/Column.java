@@ -247,6 +247,10 @@ public abstract class Column implements FieldAttributes {
     return quotedName;
   }
 
+  public final String fullQuotedName() {
+    return table.quotedName() + "." + quotedName;
+  }
+
   public final String getDisplayName() {
     return info.getDisplayname();
   }

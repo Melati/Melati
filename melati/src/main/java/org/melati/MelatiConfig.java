@@ -59,7 +59,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.login.AccessHandler;
 import org.melati.servlet.FormDataAdaptorFactory;
-import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TempletLoader;
 import org.melati.template.SimpleDateAdaptor;
 import org.melati.template.YMDDateAdaptor;
@@ -90,7 +90,7 @@ public class MelatiConfig {
   private AccessHandler accessHandler = null;
   private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
-  private TemplateEngine templateEngine = null;
+  private ServletTemplateEngine templateEngine = null;
   private MelatiLocale melatiLocale = null;
   private Vector preferredCharset = null;
   private int maxLocales = 10;
@@ -175,11 +175,11 @@ public class MelatiConfig {
                           "org.melati.template.TempletLoader",
                           "org.melati.template.ClassNameTempletLoader");
 
-      templateEngine = (TemplateEngine)PropertiesUtils.
+      templateEngine = (ServletTemplateEngine)PropertiesUtils.
           instanceOfNamedClass(
                            configuration,
                            templateEngineProp,
-                           "org.melati.template.TemplateEngine",
+                           "org.melati.template.ServletTemplateEngine",
                            "org.melati.template.NoTemplateEngine");
                            
       String languageTag = PropertiesUtils.getOrDefault(configuration,
@@ -243,18 +243,18 @@ public class MelatiConfig {
     }
 
  /** 
-  * @return {@link TemplateEngine} in use.
+  * @return {@link ServletTemplateEngine} in use.
   */
-  public TemplateEngine getTemplateEngine() {
+  public ServletTemplateEngine getTemplateEngine() {
     return templateEngine;
   }
   
  /** 
-  * Set the {@link TemplateEngine} to use.
+  * Set the {@link ServletTemplateEngine} to use.
   * 
-  * @param templateEngine a {@link TemplateEngine} 
+  * @param templateEngine a {@link ServletTemplateEngine} 
   */
-  public void setTemplateEngine(TemplateEngine templateEngine) {
+  public void setTemplateEngine(ServletTemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 
@@ -435,7 +435,7 @@ public class MelatiConfig {
   * @return the adaptor for rendering timestamps as drop-downs.
   */
   public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
-    return YMDHMSTimestampAdaptor.it;
+    return YMDHMSTimestampAdaptor.getIt();
   }
 
  /**

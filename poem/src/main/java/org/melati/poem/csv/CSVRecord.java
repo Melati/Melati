@@ -71,7 +71,13 @@ public class CSVRecord extends Vector {
 
   /* The Poem Persistent corresponding to writing this record to the db */
   Persistent poemRecord = null;
-
+  
+  /** The line number of the CSV file */
+  public int lineNo;
+  
+  /** The record number of the CSV file */
+  public int recordNo;
+  
   /**
    * Constructor
    */
@@ -107,7 +113,8 @@ public class CSVRecord extends Vector {
             if (csvValue != null && !csvValue.equals("")) {
               newObj.setRawString(col.poemName, csvValue);
             }
-          } catch (Exception e) {
+
+           } catch (Exception e) {
             throw new RuntimeException("Problem processing column " + 
                                        col.poemName + 
                                        " of table " + 
@@ -115,6 +122,7 @@ public class CSVRecord extends Vector {
                                        " value :" + csvValue + 
                                        ": " + e.toString());
           }
+          
       }
       // Lookup up value in the foreign Table
       else {

@@ -162,7 +162,7 @@ public class CSVTable {
 
     }
     catch (IllegalArgumentException e) {
-       throw new CSVParseException("Failed to read column header in " +
+       throw new CSVParseException("Failed to load field in " +
                                     data.getPath() + 
                                     " line " + lineNo +
                                     ": " + e.toString());

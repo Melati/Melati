@@ -158,7 +158,7 @@ public abstract class Column implements FieldAttributes {
     return name;
   }
 
-  final String quotedName() {
+  public final String quotedName() {
     return quotedName;
   }
 
@@ -310,15 +310,15 @@ public abstract class Column implements FieldAttributes {
   // 
 
   public Field asField(Persistent g) {
-    return ColumnField.of(g, this);
+    return Field.of(g, this);
   }
 
   public Field asField(Data data) {
-    return new ColumnField(getIdent(data), this);
+    return new Field(getIdent(data), this);
   }
 
   public Field asEmptyField() {
-    return new ColumnField((Object)null, this);
+    return new Field((Object)null, this);
   }
 
   public void setIdentString(Persistent g, String identString)

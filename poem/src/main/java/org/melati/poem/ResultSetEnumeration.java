@@ -57,7 +57,7 @@ import org.melati.util.SkipEnumeration;
  * <p>
  * Implementations must provide {@link #mapped(ResultSet)}.
  */
-abstract class ResultSetEnumeration implements SkipEnumeration {
+public abstract class ResultSetEnumeration implements SkipEnumeration {
   private final ResultSet resultSet;
   private int more = -1;
 

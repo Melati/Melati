@@ -19,6 +19,22 @@
 
 
 <H2>
+<!-- ******* -->
+      Scope
+<!-- ******* -->
+</H2>
+
+<P>
+  This document covers development of Melati up to the initial alpha release
+  (0.1).  For its current quality level, see the <A HREF=#quality>indicator</A>
+  below.
+</P>
+
+
+
+
+
+<H2>
 <!-- ************************* -->
       Phasing of deliverables
 <!-- ************************* -->
@@ -29,32 +45,64 @@
 </P>
 
 <TABLE>
-  <TR><TH>Deliverables</TH><TH>Completion date</TH></TR>
+
+  <TR><TH>Deliverables</TH><TH>Target date</TH></TR>
+
   <TR>
     <TD>
-      Working prototype for integration tests/final appraisal
+      Basic persistence mechanism, in a form in which Paneris and other
+      developers can evaluate it easily: including DSD processor and database
+      creator, access control, cacheing, transactions, user guide, but not
+      including any kind of web or templating interface
     </TD>
     <TD>
-      ...
+      Sat, 12 Feb 2000
     </TD>
   </TR>
+
   <TR>
     <TD>
-      Deployment of phase one
+      Basic templating mechanism, for evaluation: generation of displays and
+      controls for text and numeric fields and for dropdowns, but no Javascript
+      validation
     </TD>
     <TD>
-      ...
+      Tue, 15 Feb 2000
     </TD>
   </TR>
+
   <TR>
     <TD>
-      Final deployment
+      Incomplete admin system, for evaluation: display/edit single records,
+      with Javascript validation
     </TD>
     <TD>
-      some time in the future
+      Thu, 17 Feb 2000
     </TD>
   </TR>
+
+  <TR>
+    <TD>
+      <I>Version 0.1.</I>
+      Basic admin system, with paged selection of records by field value
+      `template', but no changing of database structure.
+    </TD>
+    <TD>
+      Sat, 19 Feb 2000
+    </TD>
+  </TR>
+
 </TABLE>
+
+<P>
+  DB structure change is in fact probably not a large job, but we're trying to
+  be conservative so as to reduce the chance of disappointing anyone.
+</P>
+
+<P>
+  Deliverables and target dates for 0.2 and later versions will be decided once
+  version 0.1 has been evaluated.
+</P>
 
 
 
@@ -70,8 +118,9 @@
 </P>
 
 <P>
-  ... <I>computer, OS, database, middleware (refer to the
-  <A HREF=Requirements.html#platform>requirements analysis</A></I>
+  Linux 2.2/i586, Blackdown JDK1.1.7, Apache 1.3.3, JServ 1.0, Webmacro 0.89.1,
+  Postgres 6.4 (see the <A HREF=Requirements.html#platform>requirements
+  analysis</A></I>)
 </P>
 
 
@@ -92,29 +141,46 @@
 
 
 <H3>
-<!-- =============== -->
-      Core software
-<!-- =============== -->
+<!-- ================== -->
+      Persistent store
+<!-- ================== -->
 </H3>
+
+
+<H4>
+<!-- ----------------------- -->
+      Basic data structures
+<!-- ----------------------- -->
+</H4>
+
+<P>
+  <TT>Database</TT>, <TT>Session</TT>, <TT>Table</TT>, <TT>Type</TT> hierarchy,
+  table rows, value-bundled-with--type (provisionally <TT>Field</TT>)
+</P>
+
+<P>
+  <TT>User</TT>, <TT>UserGroup</TT>, <TT>Capability</TT>,
+  <TT>SettableCapability</TT>
+</P>
 
 
 
 <H4>
-<!-- ----------------------------------------- -->
-      Processor for data structure definition
-<!-- ----------------------------------------- -->
+<!-- ------------------- -->
+      Processor for DSD
+<!-- ------------------- -->
 </H4>
 
 <P>
-  Parsing definition file, and generating Java code for the base classes and
-  for the database structure the app expects to find.
+  Parsing structure definition file, and generating Java code for the base
+  classes and for the database structure the app expects to find.
 </P>
 
 
 <H4>
-<!-- -------------------------------------- -->
-      Database structure inspector/creator
-<!-- -------------------------------------- -->
+<!-- ----------------------------------- -->
+      Database schema inspector/creator
+<!-- ----------------------------------- -->
 </H4>
 
 <P>
@@ -124,11 +190,17 @@
   fields it contains.
 </P>
 
+<UL>
+  <LI> all fields present with right types
+  <LI> all indexes present with right uniqueness attributes
+  <LI> (if possible: nothing weird going on like defaulting fields)
+</UL>
+
 
 <H4>
-<!-- ---------------- -->
-      Cacheing logic
-<!-- ---------------- -->
+<!-- ---------- -->
+      Cacheing
+<!-- ---------- -->
 </H4>
 
 <P>
@@ -164,6 +236,18 @@
 </P>
 
 
+<H4>
+<!-- ----------------------------- -->
+      Persistent store user guide
+<!-- ----------------------------- -->
+</H4>
+
+<P>
+  How to use it, for the programmer.
+</P>
+
+
+
 
 <H3>
 <!-- ======================== -->
@@ -179,7 +263,8 @@
 </H4>
 
 <P>
-  Port the current JAL admin system to Melati.
+  Port the current JAL admin system to Melati.  In the timetable below, this
+  task is divided into two parts.
 </P>
 
 
@@ -211,26 +296,143 @@
 </A></H3>
 
 <P>
-  The tasks involved in the implementation will be carried out as
-  follows:
+  The tasks involved in the implementation will (provisionally) be carried out
+  as listed in the table below.  Most of the work will be done by williamc, but
+  the availability of mylesc and timp will be investigated in regard to the
+  porting of the JAL admin system, of which they have more experience than the
+  aforemetioned williamc.  timj, who actually wrote it, will be consulted but
+  is very busy with a different project.
 </P>
 
 <P>
   <TABLE>
+
     <TR>
       <TH>Task</TH>
       <TH>Developers</TH>
       <TH>Time needed</TH>
       <TH>Target date</TH>
-      <TH>Depends on</TH>
     </TR>
+
     <TR>
-      <TD>... <I>remember user/third party tasks!</I></TD>
-      <TD>...</TD>
-      <TD>...</TD>
-      <TD>...</TD>
-      <TD>...</TD>
+      <TD>Basic data structures</TD>
+      <TD>williamc</TD>
+      <TD>7 hours</TD>
+      <TD>Sun, 6 Feb 2000</TD>
     </TR>
+
+    <TR>
+      <TD>Get infrastructure running on my boxes</TD>
+      <TD>williamc</TD>
+      <TD>3 hours</TD>
+      <TD>Sun, 6 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Searching/retrieval; cacheing; transactions</TD>
+      <TD>williamc</TD>
+      <TD>12 hours</TD>
+      <TD>Tue, 8 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Processor for DSD</TD>
+      <TD>williamc</TD>
+      <TD>7 hours</TD>
+      <TD>Wed, 9 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Database schema inspector/creator</TD>
+      <TD>williamc</TD>
+      <TD>6 hours</TD>
+      <TD>Thu, 10 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Persistent store user guide (brief)</TD>
+      <TD>williamc</TD>
+      <TD>6 hours</TD>
+      <TD>Fri, 11 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD><I>Deliver: basic persistence mechanism</I></TD>
+      <TD>williamc</TD>
+      <TD>1 hour</TD>
+      <TD>Sat, 12 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Text templating (display and input)</TD>
+      <TD>williamc</TD>
+      <TD>5 hours</TD>
+      <TD>Mon, 14 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Dropdown templating</TD>
+      <TD>williamc; mylesc?</TD>
+      <TD>2 hours</TD>
+      <TD>Tue, 15 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD><I>Deliver: basic templating mechanism</I></TD>
+      <TD>williamc</TD>
+      <TD>1 hour</TD>
+      <TD>Tue, 15 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Figure out how a servlet/webmacro app determines user ID (blush)</TD>
+      <TD>williamc</TD>
+      <TD>1 hour</TD>
+      <TD>Tue, 15 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Javascript validation</TD>
+      <TD>williamc; mylesc?</TD>
+      <TD>7 hours</TD>
+      <TD>Wed, 16 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>
+        Port admin actions <II>tables</II> (but not altering DB structure),
+        <II>display</II>, <II>edit</II> (except for <TT>UploadURL</TT>),
+        <II>update</II>
+      </TD>
+      <TD>williamc; mylesc?</TD>
+      <TD>6 hours</TD>
+      <TD>Thu, 17 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>
+        Port admin actions <II>update multiple</II>, <II>select</II>,
+        <II>briefselect</II> (whatever that is)
+      </TD>
+      <TD>williamc; mylesc?</TD>
+      <TD>4 hours</TD>
+      <TD>Fri, 17 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD><I>Deliver: basic admin system</I></TD>
+      <TD>williamc</TD>
+      <TD>1 hour</TD>
+      <TD>Sat, 19 Feb 2000</TD>
+    </TR>
+
+    <TR>
+      <TD>Subsets</TD>
+      <TD>williamc</TD>
+      <TD>3 hours</TD>
+      <TD>tbd</TD>
+    </TR>
+
   </TABLE>
 </P>
 
@@ -243,7 +445,8 @@
 </H3>
 
 <P>
-  ...
+  Work on the admin system only makes sense once the persistent store is
+  finished.  The fallback is to deliver the persistent store only.
 </P>
 
 
@@ -268,7 +471,9 @@
 </P>
 
 <P>
-  ...
+  <A HREF=mailto:williamc@paneris.org>William Chesters
+  &lt;williamc@paneris.org&gt;</A>; other Paneris developers will be invited to
+  help with porting the administration system.
 </P>
 
 
@@ -284,7 +489,7 @@
 </P>
 
 <P>
-  ...
+  William's boxes and paneris.org: no problem.
 </P>
 
 
@@ -300,7 +505,7 @@
 </P>
 
 <P>
-  ...
+  None.
 </P>
 
 
@@ -338,7 +543,8 @@
 </H3>
 
 <P>
-  ... <I>the project leader</I>
+  <A HREF=mailto:williamc@paneris.org>William Chesters
+  &lt;williamc@paneris.org&gt;</A>
 </P>
 
 <P>
@@ -347,19 +553,20 @@
 
 
 
-<H3>
+<H3><A NAME=quality>
 <!-- ========= -->
       Quality
 <!-- ========= -->
-</H3>
+</A></H3>
 
 <P>
-  The current quality level of this document is:
+  The current quality level of this document is: <B>Alpha</B>.
   <!-- Waived Personal Alpha Beta Release -->
 </P>
 
 <P>
-  Explanation, if needed: ...
+  Scrappy, unreliable at the moment, and subject to revision as I get a clearer
+  idea of what each task involves.
 </P>
 
 
@@ -405,8 +612,9 @@
 
 <P>
   <BR>$Log$
-  <BR>Revision 1.2  2000/02/04 18:28:34  williamc
-  <BR>Add QA stub; explain DSD-admin interactino a little better
+  <BR>Revision 1.3  2000/02/05 10:24:38  williamc
+  <BR>Alpha draft
+  <BR>
   <BR>
   <BR>
 </P>

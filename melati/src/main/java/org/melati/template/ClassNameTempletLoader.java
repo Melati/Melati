@@ -105,21 +105,21 @@ public class ClassNameTempletLoader implements TempletLoader {
 
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
-                          String name) throws NotFoundException {
+                          String name) throws TemplateEngineException {
     return templateEngine.template(templetPath(templateEngine, markupLanguage,
                                                purpose, name));
   }
 
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, String name)
-      throws NotFoundException {
+      throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, name);
   }
 
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
                           Class clazz)
-      throws NotFoundException {
+      throws TemplateEngineException {
 
     String cacheKey = clazz + "/" + purpose + "/" + markupLanguage;
     Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
@@ -153,14 +153,14 @@ public class ClassNameTempletLoader implements TempletLoader {
 
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, Class clazz)
-      throws NotFoundException {
+      throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, clazz);
   }
 
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage,
                           FieldAttributes attributes)
-      throws NotFoundException {
+      throws TemplateEngineException {
     if (attributes.getRenderInfo() != null)
       return templet(templateEngine, markupLanguage,
                      attributes.getRenderInfo());

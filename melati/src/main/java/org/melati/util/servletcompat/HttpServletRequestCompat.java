@@ -52,15 +52,39 @@ import javax.servlet.http.*;
 import java.lang.reflect.*;
 import org.melati.util.UnexpectedExceptionException;
 
+
+ /*
+  * The <code>HttpServletRequestCompat</code> class enables 
+  * Melati to compile, without warnings, with the Servlet API 
+  * versions 2.0, 2.1, 2.2 and 2.3.
+  * However, if you use a method which is not in your version 
+  * of the API then you will get a runtime exception.
+  *
+  * @see   org.melati.util.DelegatedHttpServletRequest
+  */
+
+
 public class HttpServletRequestCompat {
 
   private HttpServletRequestCompat() {}
 
+  // Deprecated in Servlet 2.2
+  private static Method
+      isRequestedSessionIdFromUrl, getRealPath;
+
+  // New in Servlet 2.2
   private static Method
       getUserPrincipal, getContextPath, getHeaders, getSession,
       isRequestedSessionIdFromURL, isUserInRole, getAttributeNames, getLocale,
       getLocales, getRequestDispatcher, isSecure, removeAttribute,
       setAttribute;
+
+  // New in Servlet 2.3
+  private static Method
+      getRequestURL,
+      setCharacterEncoding,
+      getParameterMap;
+
 
   private static Method methodOrNull(Class c, String n, String[] pn) {
     try {
@@ -152,9 +176,8 @@ public class HttpServletRequestCompat {
   public static HttpSession getSession(HttpServletRequest it, boolean a) {
     return it.getSession(a);
   }
-  public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
-    return it.isRequestedSessionIdFromUrl();
-  }
+
+
   public static boolean isRequestedSessionIdValid(HttpServletRequest it) {
     return it.isRequestedSessionIdValid();
   }
@@ -240,9 +263,9 @@ public class HttpServletRequestCompat {
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
 
-  public static Enumeration getHeaders(HttpServletRequest it, String a) {
-    return (Enumeration)invoke(getHeaders, it, new Object[] { a });
-    // return it.getHeaders(a);
+  public static Enumeration getHeaders(HttpServletRequest it, String arg) {
+    return (Enumeration)invoke(getHeaders, it, new Object[] { arg });
+    // return it.getHeaders(arg);
   }
 
   /**
@@ -268,10 +291,10 @@ public class HttpServletRequestCompat {
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
 
-  public static boolean isUserInRole(HttpServletRequest it, String a) {
-    return ((Boolean)invoke(isUserInRole, it, new Object[] { a })).
+  public static boolean isUserInRole(HttpServletRequest it, String arg) {
+    return ((Boolean)invoke(isUserInRole, it, new Object[] { arg })).
         booleanValue();
-    // return it.isUserInRole(a);
+    // return it.isUserInRole(arg);
   }
 
   /**
@@ -310,7 +333,8 @@ public class HttpServletRequestCompat {
    * distribution, which is provided to help you out here.
    */
 
-  public static RequestDispatcher getRequestDispatcher(HttpServletRequest it, String arg) {
+  public static RequestDispatcher getRequestDispatcher(
+                          HttpServletRequest it, String arg) {
     return (RequestDispatcher)invoke(getRequestDispatcher, it, new Object[] { arg });
     // return it.getRequestDispatcher(arg);
   }
@@ -337,8 +361,85 @@ public class HttpServletRequestCompat {
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
 
-  public static void setAttribute(HttpServletRequest it, String arg1, Object arg2) {
+  public static void setAttribute(HttpServletRequest it, String arg1, 
+                                  Object arg2) {
     invoke(setAttribute, it, new Object[] { arg1, arg2 });
     // it.setAttribute(arg1, arg2);
   }
+
+  // 
+  // ============================
+  //  Servlet API 2.3 extensions
+  // ============================
+  // 
+
+  /**
+   * Throws <TT>MissingMethodError</TT> when run against 2.2 API.
+   */
+
+  public static StringBuffer getRequestURL(HttpServletRequest it) {
+    return (StringBuffer)invoke(getRequestURL, it, noargs);
+    // it.getRequestURL();
+  }
+
+  /**
+   * Throws <TT>MissingMethodError</TT> when run against 2.2 API.
+   */
+
+  public static void setCharacterEncoding(HttpServletRequest it, String arg) {
+    invoke(setCharacterEncoding, it, new Object[] { arg });
+    // it.setCharacterEncoding(arg);
+  }
+
+  /**
+   * Throws <TT>MissingMethodError</TT> when run against 2.2 API.
+   */
+
+  public static Map getParameterMap(HttpServletRequest it) {
+    return (Map)invoke(getParameterMap, it, noargs);
+    //return  it.getParameterMap();
+  }
+
+  /**
+   * Deprecated in Servlet API 2.3
+   */
+
+  public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
+    return ((Boolean)invoke(isRequestedSessionIdFromUrl, 
+                            it, noargs)).booleanValue();
+    //return it.isRequestedSessionIdFromUrl();
+  }
+
+  /**
+   * Deprecated in Servlet API 2.1
+   * Throws <TT>MissingMethodError</TT> when run against 2.3 API.
+   */
+
+  public static String getRealPath(HttpServletRequest it, String arg) {
+    return (String)invoke(getRealPath, it, new Object[] { arg });
+    //return it.getRealPath(rg);
+  }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -171,6 +171,8 @@ public class TableDef {
 
   public void generateMainJava(Writer w) throws IOException { 
     w.write("public class " + mainClass + " extends " + baseClass + " {\n" +
+	    "  public " + mainClass + "() {}\n" +
+	    "\n" +
             "  // programmer's domain-specific code here\n" +
             "}\n");
   }
@@ -279,7 +281,7 @@ public class TableDef {
                " extends " + tableBaseClass + " {\n" +
             "\n" +
             "  public " + tableMainClass + "(\n" +
-	    "    Database database, String name," +
+	    "    Database database, String name,\n" +
 	    "    DefinitionSource definitionSource)" +
                    " throws PoemException {\n" +
             "    super(database, name, definitionSource);\n" +

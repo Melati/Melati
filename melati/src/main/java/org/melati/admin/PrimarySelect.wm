@@ -104,12 +104,12 @@
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
        <input type=hidden name="_$ml.rendered($primaryCriterion.Name)" value='$ml.rendered($primaryCriterion.RawString)'>
     <FONT face="Arial, Helvetica" size=-1>
-       <input type=text name="_$ml.rendered($primaryCriterion.Name);_dummy" 
+       <input type=text name="_$(ml.rendered($primaryCriterion.Name))_dummy" 
        #if ($primaryCriterion.Raw) #begin
          value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
-       size=30 onfocus="document.forms[0].$ml.rendered($primaryCriterion.Name);_button.focus()">
-       <input type=button value="choose" name=$ml.rendered($primaryCriterion.Name);_button 
+       size=30 onfocus="document.forms[0].$(ml.rendered($primaryCriterion.Name))_button.focus()">
+       <input type=button value="choose" name=$(ml.rendered($primaryCriterion.Name))_button 
                onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;">
     </FONT>
     <FONT face="Arial, Helvetica" size=-1><input type=button value=" Go " onclick="goto_page2()"></font>

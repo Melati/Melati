@@ -84,6 +84,8 @@ import org.melati.poem.ValidationPoemException;
 import org.melati.util.EnumUtils;
 import org.melati.util.MappedEnumeration;
 import org.melati.util.StringUtils;
+import org.melati.util.MelatiRuntimeException;
+
 
 /**
  * Melati template servlet for administration.
@@ -758,11 +760,20 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Upload");
   }
 
-  /*
-   * For this to work you need to set your melati-wide FormDataAdaptorFactory
+  /** 
+   * Finished uploading.
+   *
+   * If you want the system to display the file 
+   * you need to set your melati-wide FormDataAdaptorFactory,
+   * in org.melati.MelatiServlet.properties,
    * to something that returns a valid URL, for instance,
-   * UploadDirDataAdaptorFactory (remember to set your UploadDir and UploadURL
-   * in the Setting table.
+   * PoemFileDataAdaptorFactory;
+   * (remember to set your UploadDir and UploadURL
+   * in the Setting table).
+   *
+   * @param context the {@link TemplateContext} in use
+   * @param melati the current {@link Melati}
+   * @return a template name
    */
 
   protected String uploadDoneTemplate(TemplateContext context, Melati melati)
@@ -770,14 +781,17 @@ public class Admin extends TemplateServlet {
     String field = context.getForm("field");
     context.put("field", field);
     String url = "";
-
-    try {
-      url = context.getMultipartForm("file").getDataURL();
-    } catch (Exception e) {
-      e.printStackTrace(System.err);
-    }
+    url = context.getMultipartForm("file").getDataURL();
+    if (url == null) throw new NullUrlDataAdaptorException();
     context.put("url", url);
     return adminTemplate(context, "UploadDone");
+  }
+
+  static class NullUrlDataAdaptorException extends MelatiRuntimeException {
+    /** @return the message */
+    public String getMessage() {
+      return  "The configured FormDataAdaptor returns a null URL.";
+    }
   }
 
   public static final String

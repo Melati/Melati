@@ -1,10 +1,9 @@
 #set $Response.ContentType = "text/html"
-
 ##
 ## $Source$
 ## $Revision$
 ##
-## Copyright (C) 2000 Myles Chippendale
+## Copyright (C) 2003 Tim Pizey
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
 ## development of clean, maintainable web applications.
@@ -40,17 +39,35 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Mylesc Chippendale <mylesc@paneris.org>
-##     http://www.paneris.org/
-##     29 Stanley Road, Oxford, OX4 1QY, UK
+##     Tim Pizey <timp@paneris.org>
 ##
 
-<html>
-<head>
-<title>File has been uploaded</title>
-</head>
-<body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')">
-Your file has been saved at <a href='$url'>$url</a>.
+#set $ml = $melati.HTMLMarkupLanguage
+
+<html><head><title>
+File Upload Configuration Error 
+</title></head>
+
+<body bgcolor="white">
+<h1><font color="green">File Upload Configuration Error </font></h1>
+<p>
+<font color="red">
+The setting <code>$melati.Config.FormDataAdaptorFactory</code>
+for <code>org.melati.MelatiServlet.formDataAdaptorFactory</code> 
+in <code>$melati.Config.propertiesName</code><coe>.properties</code> is wrong.
+</font>
+</p>
+<p>
+Choose an adaptor which returns a URL, for example 
+<code>org.melati.servlet.PoemFileDataAdaptorFactory</code>.
+</p>
+<!--
+<PRE>
+$error
+</PRE>
+-->
+<p>
+Please inform <a href='mailto:$SysAdminEmail'>$SysAdminName</a>.
+</p>
 </body>
 </html>
-

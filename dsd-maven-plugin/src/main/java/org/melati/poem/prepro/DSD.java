@@ -127,7 +127,7 @@ public class DSD {
   }
 
   public void generateDatabaseBaseJava(Writer w) throws IOException {
-    w.write("class " + databaseBaseClass + " extends " +
+    w.write("public class " + databaseBaseClass + " extends " +
             (packageName.equals("org.melati.poem") && name.equals("Poem") ?
                  "Database" : "PoemDatabase") + " {\n" +
             "\n");

@@ -120,6 +120,11 @@ public abstract class Column implements FieldAttributes {
                   getType().saveColumnInfo(i);
                 }
               });
+
+      // FIXME repeating this in several places is a bad sign
+
+      if (defaultPrimaryDisplay())
+	table.setDisplayColumn(this);
     }
   }
 

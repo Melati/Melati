@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <project name="melati" default="help" basedir="." >
+<property file="build.properties"/>
 
     <!-- ============================================= -->
     <description> Ant Build file for Melati </description>
@@ -40,6 +41,7 @@
 
   <path id="classpath.compile">
     <pathelement path="${build.lib}/javax.servlet.jar"/>
+    <pathelement path="${build.lib}/pg73jdbc3.jar"/>
     <pathelement path="${build.lib}/webmacro-1.0.jar"/>
     <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
     <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
@@ -398,13 +400,4 @@ usage:
           depends="sources, war, run">
   </target>
 </project>
-
-
-
-
-
-
-
-
-
 

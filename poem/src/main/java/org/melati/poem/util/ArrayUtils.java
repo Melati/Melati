@@ -80,6 +80,13 @@ public class ArrayUtils {
     return xsys;
   }
 
+  public static Object[] section(Object[] xs, int start, int limit) {
+    Object[] xs_ = (Object[])java.lang.reflect.Array.newInstance(
+                       xs.getClass().getComponentType(), limit - start);
+    System.arraycopy(xs, start, xs_, 0, xs_.length);
+    return xs_;
+  }
+
   public static int indexOf(Object[] xs, Object x) {
     for (int i = 0; i < xs.length; ++i)
       if (xs[i].equals(x)) return i;

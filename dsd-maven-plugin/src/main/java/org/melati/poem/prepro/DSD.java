@@ -349,10 +349,11 @@ public class DSD {
     w.write(" {\n\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-      if (!td.naming.hidden &&
-          (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-           (packageName.equals("org.melati.poem") &&
-            name.equalsIgnoreCase("Poem"))))
+//      if (!td.naming.hidden &&
+//          (!td.naming.tableFQName.startsWith("org.melati.poem") ||
+//           (packageName.equals("org.melati.poem") &&
+//            name.equalsIgnoreCase("Poem"))))
+      if (!td.naming.hidden)
         td.generateTableAccessorDefnJava(w);
     }
     w.write("}\n");

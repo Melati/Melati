@@ -71,13 +71,12 @@ public class PoemServletTest extends PoemServlet {
     Writer output = melatiContext.getWriter();
 
     output.write("<html><head><title>PoemServlet Test</title></head><body><h2>PoemServlet Test</h2>");
-    output.write("<p>This servlet tests your basic melati/poem configuration. ");
-    output.write("If you can read this message, it means that you have successfully ");
+    output.write("<p>This servlet tests your basic melati/poem configuration. </p>");
+    output.write("<p>If you can read this message, it means that you have successfully ");
     output.write("created a  POEM session using the configurations given in ");
-    output.write("org.melati.LogicalDatabase.properties. ");
+    output.write("org.melati.LogicalDatabase.properties. </p>");
 
-    output.write("Please note that this servlet does not initialise a template engine.</p>");
-    output.write(melatiContext.getMethod() + "</h4>");
+    output.write("<p>Please note that this servlet does not initialise a template engine.</p>");
     output.write("<h4>Your Database has the following tables:</h4><table>");
 
     for (Enumeration e = melatiContext.getDatabase().getDisplayTables(); e.hasMoreElements(); ) {
@@ -95,6 +94,7 @@ public class PoemServletTest extends PoemServlet {
 
     String method = melatiContext.getMethod();
     if (method != null) {
+      output.write("<h4>" + melatiContext.getMethod() + "</h4>");
       Capability admin = PoemThread.database().getCanAdminister();
       AccessToken token = PoemThread.accessToken();
       if (method.equals("AccessPoemException")) throw new AccessPoemException(token, admin);
@@ -109,4 +109,9 @@ public class PoemServletTest extends PoemServlet {
   }
 
 }
+
+
+
+
+
 

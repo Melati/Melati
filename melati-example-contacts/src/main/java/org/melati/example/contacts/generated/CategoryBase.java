@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.poem.*;
 
-public class CategoryBase extends Persistent {
+public abstract class CategoryBase extends Persistent {
 
   public ContactsDatabase getContactsDatabase() {
     return (ContactsDatabase)getDatabase();

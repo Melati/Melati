@@ -12,7 +12,7 @@
 
 set -e
 
-JAVAC=javac
+JAVAC="javac -d /usr/local/melati"
 #JAVAC=jikes
 
 if ! javaversion=`java -version 2>&1` ; then
@@ -21,10 +21,6 @@ if ! javaversion=`java -version 2>&1` ; then
   exit 1
 fi
 
-if echo "$javaversion" | grep -q '[^0-9.]1\.1' ; then
-  echo >&2 -e "Sorry, you must use JDK1.2 with Melati now."
-  exit 1
-fi
 
 hereRaw=`dirname $0`
 if [ "$hereRaw" = . ] ; then

@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.poem.*;
 
-public class ContactCategoryBase extends Persistent {
+public abstract class ContactCategoryBase extends Persistent {
 
   public ContactsDatabase getContactsDatabase() {
     return (ContactsDatabase)getDatabase();
@@ -73,7 +73,7 @@ public class ContactCategoryBase extends Persistent {
 
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
-    getContactCategoryTable().getCategoryColumn().getType().assertValidRaw(raw);
+    _getContactCategoryTable().getCategoryColumn().getType().assertValidRaw(raw);
     writeLock();
     setCategory_unsafe(raw);
   }
@@ -111,7 +111,7 @@ public class ContactCategoryBase extends Persistent {
 
   public void setContactTroid(Integer raw)
       throws AccessPoemException {
-    getContactCategoryTable().getContactColumn().getType().assertValidRaw(raw);
+    _getContactCategoryTable().getContactColumn().getType().assertValidRaw(raw);
     writeLock();
     setContact_unsafe(raw);
   }

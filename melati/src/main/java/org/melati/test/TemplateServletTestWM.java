@@ -47,7 +47,7 @@ package org.melati.test;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.MelatiContext;
-import org.melati.template.TemplateParameters;
+import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 
 /**

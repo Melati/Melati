@@ -78,7 +78,7 @@ public class ConfigServletTest extends ConfigServlet {
         output.write("<tr><td>JavascriptLibraryURL</td><td>" + melati.getJavascriptLibraryURL() + "</td></tr>");
         output.write("<tr><td>StaticURL</td><td>" + melati.getStaticURL() + "</td></tr></table>");
 
-        output.write("<h4>This servlet was called with the follwing Method (taken from melatiContext.getMethod()): " + melatiContext.getMethod() + "</h4>");
+        output.write("<h4>This servlet was called with the following Method (taken from melatiContext.getMethod()): " + melatiContext.getMethod() + "</h4>");
         
         output.write("<h4>Further Testing:</h4>");
         output.write("You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>");

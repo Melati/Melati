@@ -1,6 +1,7 @@
 package org.melati.doc.example.contacts;
 
 import org.melati.MelatiContext;
+import org.melati.poem.*;
 import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.poem.Field;
 

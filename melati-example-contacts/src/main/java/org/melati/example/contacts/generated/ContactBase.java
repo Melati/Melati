@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.poem.*;
 
-public class ContactBase extends Persistent {
+public abstract class ContactBase extends Persistent {
 
   public ContactsDatabase getContactsDatabase() {
     return (ContactsDatabase)getDatabase();
@@ -185,7 +185,7 @@ public class ContactBase extends Persistent {
 
   public void setLastupdateuserTroid(Integer raw)
       throws AccessPoemException {
-    getContactTable().getLastupdateuserColumn().getType().assertValidRaw(raw);
+    _getContactTable().getLastupdateuserColumn().getType().assertValidRaw(raw);
     writeLock();
     setLastupdateuser_unsafe(raw);
   }

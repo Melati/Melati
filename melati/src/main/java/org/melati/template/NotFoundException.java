@@ -58,6 +58,6 @@ public class NotFoundException extends MelatiException {
   }
 
   public String getMessage() {
-    return "I couldn't find the template rtequested because: " + error;
+    return "I couldn't find the template requested because: " + error;
   }
 }

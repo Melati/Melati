@@ -61,9 +61,12 @@
 <!--
 #use 'text' until "--The End--"
 function checkAndClose(object) {
-  success = validate(object);
-  this.close();
-  return success;
+  if (validate(object)) {
+    setTimeout("window.close()", 500);
+    return true;
+  }
+  else
+    return false;
 }
 --The End--
 //-->
@@ -88,8 +91,10 @@ function checkAndClose(object) {
 </tr>
 <tr>
 <td></td><td>
-<FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE="Search" TYPE=submit
-       ONCLICK="return checkAndClose(this.form);"></font>
+  <FONT face="Arial, Helvetica" size=-2>
+    <INPUT NAME=action VALUE="Search" TYPE=submit
+           ONCLICK="return checkAndClose(this.form);">
+  </font>
 </td></tr>
 </table>
 </FORM>

@@ -51,6 +51,9 @@ import java.sql.*;
 
 public class StringPoemType extends AtomPoemType {
 
+  public static final StringPoemType nullable =
+      new StringPoemType(true, -1);
+
   protected int size;             // or, < 0 for "unlimited"
 
   public StringPoemType(boolean nullable, int size) {

@@ -47,6 +47,7 @@ package org.melati.poem;
 
 import java.io.Writer;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.*;
 
 import javax.servlet.ServletException;
@@ -59,7 +60,15 @@ import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.ExceptionUtils;
 import org.melati.util.MelatiWriter;
 
-// class ChippyThreadDeath extends Error {}
+/**
+ * SessionAnalysisServlet
+ *
+ * Displays information about the status of this JVM and the databases
+ * running from it. Well, with JServ it's for this servlet zone.
+ *
+ * It shows us information about any Poem sessions running and
+ * each transaction in (think 'connection to') a database.
+ */
 
 public class SessionAnalysisServlet extends ConfigServlet {
 
@@ -82,9 +91,15 @@ public class SessionAnalysisServlet extends ConfigServlet {
                   + "<body>\n"
                   + "<h1>Transactions Analysis</h1>"
                   + "<p>Run at " + now + "</p>\n"
-                  + "<form>Reload every <input name=repeat size=3 value="
-                    + repeat + "> seconds <input type=submit></form>\n"
-                  + "<h2>PoemSessions in use</h2>\n");
+                  + "<p>JVM Free memory: " +
+   NumberFormat.getInstance().format(Runtime.getRuntime().freeMemory())
+                  + "</p>\n"
+                  + "<p>JVM Total memory: " +
+   NumberFormat.getInstance().format(Runtime.getRuntime().totalMemory())
+                  + "</p>\n"
+                  + "<form>Reload every <input name=repeat size=5 value="
+                  + repeat + "> seconds <input type=submit></form>\n"
+                  + "<h2>Poem sessions in use</h2>\n");
 
     Enumeration e = PoemThread.openSessions().elements();
 
@@ -93,11 +108,11 @@ public class SessionAnalysisServlet extends ConfigServlet {
       output.write("<table border=1 cellspacing=0 cellpadding=1>\n <tr><tr>\n"
                    + "  <tr><th colspan=2>Session: " + token + "</td><tr>\n"
                    + "  <tr><th>Running for</th><td>"
-                       + (now.getTime()-token.started) + " ms</td><tr>\n"
+                   + (now.getTime()-token.started) + " ms</td><tr>\n"
                    + "  <tr><th>Thread</th><td>" + token.thread + "</td><tr>\n"
                    + "  <tr><th>PoemTransaction</th><td>"
-                       + token.transaction + "<br>(Database:"
-                       + token.transaction.getDatabase() + ")</td><tr>\n"
+                   + token.transaction + "<br>(Database:"
+                   + token.transaction.getDatabase() + ")</td><tr>\n"
                    + "  <tr><th>PoemTask</th><td>" + token.task + "</td><tr>\n"
                    + " <tr>\n"
                    + "</table>\n");
@@ -116,7 +131,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
         boolean isFree = db.isFree(db.poemTransaction(i));
         output.write("<tr><td>" + db + "</td>\n"
                      + "<td>" + db.poemTransaction(i) + "</td>\n"
-                     + "<td bgcolor=" + (isFree ? "red" : "green") + ">"
+                     + "<td bgcolor=" + (isFree ? "green" : "red") + ">"
                        + isFree + "</td>\n</tr>\n");
       }
     }

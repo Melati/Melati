@@ -26,7 +26,7 @@
 </H3>
 
 <P>
-  <A HREF="../../doc/index.html">Melati</A> is an open source, Java-based
+  <A HREF="../doc/index.html">Melati</A> is an open source, Java-based
   infrastructure for the rapid and convenient development of web-based database
   applications.  This guide describes the API of Melati POEM (Persistent Object
   Engine For Melati): the layer which provides Melati with its object-oriented
@@ -62,10 +62,10 @@
 </UL>
 
 <P>
-  The <A HREF="../">sources</A> themselves, especially
-  <A HREF="../Database.java">Database.java</A>,
-  <A HREF="../Table.java">Table.java</A> and
-  <A HREF="../Persistent.java">Persistent.java</A>
+  The <A HREF="../src/">sources</A> themselves, especially
+  <A HREF="../src/Database.java">Database.java</A>,
+  <A HREF="../src/Table.java">Table.java</A> and
+  <A HREF="../src/Persistent.java">Persistent.java</A>
   are reasonably tidy and possibly more readable than the Javadoc.  However,
   the nature of the task POEM sets for itself mean that some parts of it
   probably need further elucidation.
@@ -80,7 +80,7 @@
 </H3>
 
 <P>
-  The following fragment (see <A HREF="Trivial.java"><TT>Trivial.java</TT></A>)
+  The following fragment (see <A HREF="/src/org/melati/example/contacts/Search.java.java"><TT>Search.java</TT></A>)
   shows the general pattern in which POEM is used.  First, the
   <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>
   object is created and connected to the RDBMS using the standard JDBC
@@ -176,7 +176,7 @@ database.inSession(
   <I>Where does the object's <TT>setName</TT> method come from?</I> Every POEM
   database must contain various tables whose properties are declared at
   (POEM's) compile time in the &quot;data structure definition&quot; (or DSD)
-  <A HREF=../Poem.dsd><TT>Poem.dsd</TT></A>, including <TT>user</TT>; the
+  <A HREF=/src/org/melati/poem/Poem.dsd><TT>Poem.dsd</TT></A>, including <TT>user</TT>; the
   relevant excerpt is
 </P>
 
@@ -190,7 +190,7 @@ table User {
 </PRE></BLOCKQUOTE>
 
 <P>
-  The <A HREF="../prepro/doc/">POEM preprocessor</A> turns this into boilerplate
+  The <A HREF="/src/org/melati/poem/prepro/doc/">POEM preprocessor</A> turns this into boilerplate
   code which defines typed accessor methods like <TT>setName</TT> corresponding
   to the fields given in the DSD, and also ensures that the fields are present
   in the database when the application starts up (by creating them if
@@ -266,7 +266,7 @@ table User {
   you can add methods of your own.  It is <TT><I>Bar</I>Database</TT> that you
   should instantiate.  Or, if you are not working with a DSD-defined schema,
   you should instantiate <TT>PoemDatabase</TT> (which is actually derived from
-  a DSD file called <A HREF=../Poem.dsd><TT>Poem.dsd</TT></A>).
+  a DSD file called <A HREF=/src/org/melati/poem/Poem.dsd><TT>Poem.dsd</TT></A>).
 </P>
 
 
@@ -327,9 +327,9 @@ table User {
   definitions each resembling a Java class definition---or, better, a C
   structure definition, since at this stage no methods can be specified.
   POEM's own builtin special tables are defined in this way in
-  <A HREF="../Poem.dsd"><TT>../Poem.dsd</TT></A>, which makes a good example of a
+  <A HREF="/src/org/melati/poem/Poem.dsd"><TT>../Poem.dsd</TT></A>, which makes a good example of a
   DSD; the file format is described in detail in the
-  <A HREF="../prepro/doc/">documentation</A> for the preprocessor which
+  <A HREF="/src/org/melati/poem/prepro/doc/">documentation</A> for the preprocessor which
   interprets them.
 </P>
 
@@ -364,7 +364,7 @@ table User {
   which wasn't used in any Java-coded application logic, or just change the
   default width of a text box.  So POEM stores its rich field-type information
   in special tables in the database itself, where it can be edited through a
-  web interface (the <A HREF="../../admin/">generic admin system</A>).
+  web interface (the <A HREF="/src/org/melati/admin/">generic admin system</A>).
 </P>
 
 <P>
@@ -517,6 +517,9 @@ table User {
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.13  2003/02/10 16:44:33  timp
+  <BR>Update hrefs
+  <BR>
   <BR>Revision 1.12  2002/11/25 15:56:09  timp
   <BR>Broken link (reported by seventwentyfour.com)
   <BR>

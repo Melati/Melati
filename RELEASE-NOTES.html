@@ -28,7 +28,7 @@
       <tt>MelatiFastWriter(OutputStream output, String encoding)</tt> with<br>
       <tt>MelatiFastWriter(Broker broker, OutputStream output, String encoding) 
       </tt></li>
-    <li><b>Exception Handling in Templates.</b> Melati sets a <tt>PassbackExceptionHandler</tt> 
+    <li><b>Exception Handling in Templates.</b> Melati sets a <tt>PropagateExceptionHandler</tt> 
       by default (forcing a logon page on encountering a <tt>AccessPoemException). 
       </tt>If you want to use a <tt>PassbackExceptionHandler</tt>, you <b>must</b> 
       set it in your template: <br>
@@ -36,8 +36,7 @@
       </tt>Please ensure you check your Templates.</li>
   </ol>
   <h3>Velocity</h3>
-  <p>Melati now supports Velocity. You must use the version in CVS (or a nightly 
-    build). Items to note:</p>
+  <p>Melati now supports Velocity 1.1. </p>
   <ol>
     <li>At this stage, we don't ship any Velocity specific templates, instead 
       we translate the webmacro templates 'on the fly'. To do this, we override 

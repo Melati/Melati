@@ -45,9 +45,22 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.io.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.Map;
+import java.io.PrintStream;
+import org.melati.util.Transaction;
+import org.melati.util.Transactioned;
+import org.melati.util.MappedEnumeration;
+import org.melati.util.FlattenedEnumeration;
+import org.melati.util.MelatiLocale;
+
+/*
+ *  A <code>Persistent</code> is the object representing a single 
+ * table row.
+ *
+ * @author William Chesters
+ */
 
 public class Persistent extends Transactioned implements Cloneable {
   private Table table;

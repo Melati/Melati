@@ -56,6 +56,7 @@ import javax.servlet.ServletException;
 import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
+import org.melati.util.Transaction;
 
 /**
  * Displays information about the status of this JVM and the databases
@@ -71,7 +72,7 @@ import org.melati.util.MelatiWriter;
 public class SessionAnalysisServlet extends ConfigServlet {
 
   protected void doConfiguredRequest(Melati melati)
-                              throws ServletException, IOException {
+      throws ServletException, IOException {
 
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
@@ -81,7 +82,8 @@ public class SessionAnalysisServlet extends ConfigServlet {
                   + "<title>Transaction Analysis</title>\n");
     String repeat = melati.getRequest().getParameter("repeat");
     if (repeat != null)
-      output.write("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"" + repeat + "; URL="
+      output.write("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"" 
+                    + repeat + "; URL="
                     + melati.getRequest().getRequestURI() + "?repeat="
                     + repeat + "\">");
     output.write("</head>\n"
@@ -102,10 +104,10 @@ public class SessionAnalysisServlet extends ConfigServlet {
 
     while(e.hasMoreElements()) {
       SessionToken token = (SessionToken) e.nextElement();
-      output.write("<table border=1 cellspacing=0 cellpadding=1>\n <tr><tr>\n"
+      output.write("<table border=1 cellspacing=0 cellpadding=1>\n"
                    + "  <tr><th colspan=2>Session: " + token + "</td><tr>\n"
                    + "  <tr><th>Running for</th><td>"
-                   + (now.getTime()-token.started) + " ms</td><tr>\n"
+                   + (now.getTime() - token.started) + " ms</td><tr>\n"
                    + "  <tr><th>Thread</th><td>" + token.thread + "</td><tr>\n"
                    + "  <tr><th>PoemTransaction</th><td>"
                    + token.transaction + "<br>(Database:"
@@ -115,28 +117,32 @@ public class SessionAnalysisServlet extends ConfigServlet {
                    + "</table>\n");
     }
 
-    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
-                                                   elements();
-
     output.write("<h2>Initialised Databases</h2>\n"
                  + "<table border=1 cellspacing=0 cellpadding=1>"
                  + "<tr><th>Database</th><th>PoemTransation</th>"
-                 + "<th>Free</th></tr>\n");
+                 + "<th>Free</th><th>Blocked</th></tr>\n");
+    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
+                                                   elements();
     while(dbs.hasMoreElements()) {
       Database db = (Database)dbs.nextElement();
       for(int i=0; i<db.transactionsMax(); i++) {
         boolean isFree = db.isFree(db.poemTransaction(i));
+        Transaction blockedOn = db.poemTransaction(i).getBlockedOn();
+        boolean blocked = false;
+        if (blockedOn != null) blocked = true;
         output.write("<tr><td>" + db + "</td>\n"
                      + "<td>" + db.poemTransaction(i) + "</td>\n"
                      + "<td bgcolor=" + (isFree ? "green" : "red") + ">"
-                       + isFree + "</td>\n</tr>\n");
+                     + isFree + "</td>\n"
+                     + "<td bgcolor=" + (blocked ? "red" : "green") + ">"
+                     + (blocked ? blockedOn.toString() : "&nbsp;") + "</td>\n"
+                     + "</tr>\n");
       }
     }
     output.write("</table>\n"
                  + "</body>\n"
                  + "</html>\n");
   }
-
 
 }
 

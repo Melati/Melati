@@ -193,6 +193,7 @@ public abstract class ConfigServlet extends HttpServlet {
       mw.reset();
       PrintWriter out = mw.getPrintWriter();
       out.println("<html><head><title>Melati Error</title></head>");
+      out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
       out.println("<body><h2>Melati Error</h2>");
       out.println("<p>An error has occured in the application"); 
       out.println("that runs this website, please contact <a href='mailto:");

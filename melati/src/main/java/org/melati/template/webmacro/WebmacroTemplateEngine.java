@@ -150,8 +150,13 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    */
   public org.melati.template.Template template(String templateName)
                                       throws NotFoundException {
-      org.webmacro.Template template = wm.getTemplate (templateName);
-      return new WebmacroTemplate (template);
+      try {                                  
+        org.webmacro.Template template = wm.getTemplate (templateName);
+        return new WebmacroTemplate (template);
+      } catch (org.webmacro.NotFoundException e) {
+        throw new NotFoundException("I couldn't find the template: " + 
+            templateName + " because: " + e);
+      }
   }
 
   /**

@@ -93,7 +93,7 @@
     <url-pattern>/melati/org.melati.login.Logout/*</url-pattern>
   </servlet-mapping>
 
-<!-- doc/examples/contacts setup -->
+<!-- examples/contacts setup -->
   
   <servlet-mapping>
     <servlet-name>org.melati.example.contacts.Search</servlet-name>

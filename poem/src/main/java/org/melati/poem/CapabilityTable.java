@@ -53,6 +53,8 @@ import java.sql.*;
 
 public class CapabilityTable extends CapabilityTableBase {
 
+  private static final Object nullEntry = new Object();
+
   public CapabilityTable(Database database, String name,
 			 DefinitionSource definitionSource)
       throws PoemException {
@@ -76,8 +78,30 @@ public class CapabilityTable extends CapabilityTableBase {
     if (info.getCancreate() == null)
       info.setCancreate(administer);
   }
+  
+
+  private Hashtable cache = null;
+  private long cacheSerial = 0L;
 
   public Capability get(String name) {
-    return (Capability)getNameColumn().firstWhereEq(name);
+    if (cache == null || cacheSerial != serial(PoemThread.transaction()))
+      cache = new Hashtable();
+    Object value = cache.get(name);
+    if (value == nullEntry)
+      return null;
+    else if (value != null)
+      return (Capability)value;
+    else {
+      Capability cap = (Capability)getNameColumn().firstWhereEq(name);
+      if (cap == null) {
+	cache.put(name, nullEntry);
+	return null;
+      }
+      else {
+	cache.put(name, cap == null ? nullEntry : cap);
+	return cap;
+      }
+    }
   }
+
 }

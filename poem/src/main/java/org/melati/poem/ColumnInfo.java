@@ -8,7 +8,7 @@ public class ColumnInfo extends ColumnInfoBase {
 
   private Column column() {
     if (_column == null)
-      _column = getTable().columnWithColumnInfoID(troid().intValue());
+      _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;
   }
 

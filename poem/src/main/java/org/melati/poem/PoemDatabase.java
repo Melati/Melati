@@ -11,7 +11,7 @@ public class PoemDatabase extends PoemDatabaseBase {
     try {
       DriverManager.registerDriver((Driver)Class.forName("postgresql.Driver").newInstance());
       final Database database = new PoemDatabase();
-      database.connect("jdbc:postgresql:williamc", "williamc", "*");
+      database.connect("jdbc:postgresql:melatitest", "postgres", "*");
       database.dump();
 
       database.logSQL = true;
@@ -20,7 +20,7 @@ public class PoemDatabase extends PoemDatabaseBase {
           AccessToken.root,
           new PoemTask() {
             public void run() {
-              william = database.getUserTable().getUserObject(new Integer(0));
+              william = database.getUserTable().getUserObject(0);
             }
           });
 
@@ -39,6 +39,7 @@ public class PoemDatabase extends PoemDatabaseBase {
               }
               catch (Exception e) {
                 e.printStackTrace();
+                throw new RuntimeException();
               }
             }
           });

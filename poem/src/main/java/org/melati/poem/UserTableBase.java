@@ -34,6 +34,10 @@ public class UserTableBase extends Table {
             ((User)g).setId((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId();

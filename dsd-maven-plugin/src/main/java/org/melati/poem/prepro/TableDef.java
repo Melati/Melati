@@ -43,7 +43,7 @@ public class TableDef {
 
     DSD.expect(tokens, '{');
     while (tokens.nextToken() != '}')
-      data.addElement(FieldDef.from(this, tokens, data.size()));
+      data.addElement(FieldDef.from(this, tokens));
     tokens.nextToken();
   }
 

@@ -214,24 +214,30 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getDisplayorderpriorityColumn().asField(this);
   }
 
-  public Integer getTypecode()
+  public Integer getTypeCode()
       throws AccessPoemException {
-    return dataForReading().typecode;
+    return dataForReading().type;
   }
 
-  public void setTypecode(Integer value)
-      throws AccessPoemException, ValidationPoemException {
-    getColumnInfoTable().getTypecodeColumn().getType().assertValidValue(value);
-    dataForWriting().typecode = value;
+  public void setTypeCode(Integer ident)
+      throws AccessPoemException {
+    dataForWriting().type = ident;
   }
 
-  public final void setTypecode(int value)
-      throws AccessPoemException, ValidationPoemException {
-    setTypecode(new Integer(value));
+  public PoemTypeFactory getType()
+      throws AccessPoemException {
+    Integer code = getTypeCode();
+    return code == null ? null :
+        PoemTypeFactory.forCode(getDatabase(), code.intValue());
   }
 
-  public final Field getTypecodeField() throws AccessPoemException {
-    return getColumnInfoTable().getTypecodeColumn().asField(this);
+  public void setType(PoemTypeFactory value)
+      throws AccessPoemException {
+    setTypeCode(value == null ? null : value.code);
+  }
+
+  public final Field getTypeField() throws AccessPoemException {
+    return getColumnInfoTable().getTypeColumn().asField(this);
   }
 
   public Boolean getNullable()
@@ -312,32 +318,6 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getHeightField() throws AccessPoemException {
     return getColumnInfoTable().getHeightColumn().asField(this);
-  }
-
-  public Integer getTargettableTroid()
-      throws AccessPoemException {
-    return dataForReading().targettable;
-  }
-
-  public void setTargettableTroid(Integer ident)
-      throws AccessPoemException {
-    dataForWriting().targettable = ident;
-  }
-
-  public TableInfo getTargettable()
-      throws AccessPoemException, NoSuchRowPoemException {
-    Integer troid = getTargettableTroid();
-    return troid == null ? null :
-        getDatabase().getTableInfoTable().getTableInfoObject(troid);
-  }
-
-  public void setTargettable(TableInfo value)
-      throws AccessPoemException {
-    setTargettableTroid(value == null ? null : value.troid());
-  }
-
-  public final Field getTargettableField() throws AccessPoemException {
-    return getColumnInfoTable().getTargettableColumn().asField(this);
   }
 
   public String getRenderinfo()

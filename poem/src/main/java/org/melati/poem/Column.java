@@ -44,6 +44,9 @@ public abstract class Column {
     refineType(BasePoemType.ofColumnInfo(getDatabase(),
                                          columnInfo.dataSnapshot()),
                DefinitionSource.infoTables);
+    columnInfo.setColumn(this);
+    if (columnInfo.getPrimarydisplay().booleanValue())
+      table.setDisplayColumn(this);
     info = columnInfo;
   }
 

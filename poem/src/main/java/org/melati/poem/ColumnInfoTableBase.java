@@ -14,12 +14,11 @@ public class ColumnInfoTableBase extends Table {
   private Column col_displayable = null;
   private Column col_primarydisplay = null;
   private Column col_displayorderpriority = null;
-  private Column col_typecode = null;
+  private Column col_type = null;
   private Column col_nullable = null;
   private Column col_size = null;
   private Column col_width = null;
   private Column col_height = null;
-  private Column col_targettable = null;
   private Column col_renderinfo = null;
 
   public ColumnInfoTableBase(Database database, String name) throws PoemException {
@@ -45,6 +44,10 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setId((Integer)value);
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
           }
 
           public Object getIdent(Persistent g)
@@ -417,42 +420,38 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
-    defineColumn(col_typecode =
-        new Column(this, "typecode", new IntegerPoemType(false), DefinitionSource.dsd) { 
+    defineColumn(col_type =
+        new Column(this, "type", new ColumnTypePoemType(getDatabase()), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
-            return (Integer)((ColumnInfoData)data).typecode;
+            return (Integer)((ColumnInfoData)data).type;
           }
 
           public void setIdent(Data data, Object ident) {
-            ((ColumnInfoData)data).typecode = (Integer)ident;
+            ((ColumnInfoData)data).type = (Integer)ident;
           }
 
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((ColumnInfo)g).getTypecode();
+            return ((ColumnInfo)g).getType();
           }
 
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setTypecode((Integer)value);
-          }
-
-          protected String defaultDisplayName() {
-            return "Type code";
+            ((ColumnInfo)g).setType((PoemTypeFactory)value);
           }
 
           protected String defaultDescription() {
-            return "The Melati POEM code for the field's type";
+            return "The field's Melati type";
           }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
-            return ((ColumnInfo)g).getTypecode();
+            return ((ColumnInfo)g).getTypeCode();
           }
 
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
-            ((ColumnInfo)g).setTypecode((Integer)ident);
+            ((ColumnInfo)g).setTypeCode((Integer)ident);
           }
         });
 
@@ -604,45 +603,6 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
-    defineColumn(col_targettable =
-        new Column(this, "targettable", new ReferencePoemType(getDatabase().getTableInfoTable(), true), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((ColumnInfoData)data).targettable;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((ColumnInfoData)data).targettable = (Integer)ident;
-          }
-
-          public Object getValue(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((ColumnInfo)g).getTargettable();
-          }
-
-          public void setValue(Persistent g, Object value)
-              throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setTargettable((TableInfo)value);
-          }
-
-          protected String defaultDisplayName() {
-            return "Target table";
-          }
-
-          protected String defaultDescription() {
-            return "For link fields, the table containing the referenced record";
-          }
-
-          public Object getIdent(Persistent g)
-              throws AccessPoemException {
-            return ((ColumnInfo)g).getTargettableTroid();
-          }
-
-          public void setIdent(Persistent g, Object ident)
-              throws AccessPoemException {
-            ((ColumnInfo)g).setTargettableTroid((Integer)ident);
-          }
-        });
-
     defineColumn(col_renderinfo =
         new Column(this, "renderinfo", new StringPoemType(true, -1), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
@@ -723,8 +683,8 @@ public class ColumnInfoTableBase extends Table {
     return col_displayorderpriority;
   }
 
-  public final Column getTypecodeColumn() {
-    return col_typecode;
+  public final Column getTypeColumn() {
+    return col_type;
   }
 
   public final Column getNullableColumn() {
@@ -741,10 +701,6 @@ public class ColumnInfoTableBase extends Table {
 
   public final Column getHeightColumn() {
     return col_height;
-  }
-
-  public final Column getTargettableColumn() {
-    return col_targettable;
   }
 
   public final Column getRenderinfoColumn() {
@@ -771,7 +727,7 @@ public class ColumnInfoTableBase extends Table {
   }
 
   protected String defaultDescription() {
-    return "Configuration information about the columns in the database";
+    return "Configuration information about a column in the database";
   }
 
 }

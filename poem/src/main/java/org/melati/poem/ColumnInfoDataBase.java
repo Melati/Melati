@@ -13,11 +13,10 @@ public class ColumnInfoDataBase extends Data {
   Boolean displayable;
   Boolean primarydisplay;
   Integer displayorderpriority;
-  Integer typecode;
+  Integer type;
   Boolean nullable;
   Integer size;
   Integer width;
   Integer height;
-  Integer targettable;
   String renderinfo;
 }

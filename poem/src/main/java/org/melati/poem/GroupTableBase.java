@@ -32,6 +32,10 @@ public class GroupTableBase extends Table {
             ((Group)g).setId((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getId();

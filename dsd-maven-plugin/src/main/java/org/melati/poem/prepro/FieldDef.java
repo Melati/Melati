@@ -12,7 +12,6 @@ public abstract class FieldDef {
   String description;
   protected final String type;
   protected final String identType;
-  protected final int index;
   protected final Vector qualifiers;
 
   final String dataBaseClass;
@@ -29,11 +28,10 @@ public abstract class FieldDef {
   boolean isEditable = true;
   boolean isDisplayable = true;
 
-  public FieldDef(TableDef table, int index, String name,
+  public FieldDef(TableDef table, String name,
                   String type, String identType, Vector qualifiers)
       throws IllegalityException {
     this.table = table;
-    this.index = index;
     this.name = name;
     this.suffix = StringUtils.capitalised(name);
     this.type = type;
@@ -67,8 +65,7 @@ public abstract class FieldDef {
     }
   }
 
-  public static FieldDef from(TableDef table, StreamTokenizer tokens,
-                              int index)
+  public static FieldDef from(TableDef table, StreamTokenizer tokens)
       throws ParsingDSDException, IOException, IllegalityException {
     Vector qualifiers = new Vector();
     fieldQualifiers(qualifiers, tokens);
@@ -83,13 +80,15 @@ public abstract class FieldDef {
     DSD.expect(tokens, ';');
 
     if (type.equals("Integer"))
-      return new IntegerFieldDef(table, index, name, qualifiers);
+      return new IntegerFieldDef(table, name, qualifiers);
     else if (type.equals("Boolean"))
-      return new BooleanFieldDef(table, index, name, qualifiers);
+      return new BooleanFieldDef(table, name, qualifiers);
     else if (type.equals("String"))
-      return new StringFieldDef(table, index, name, qualifiers);
+      return new StringFieldDef(table, name, qualifiers);
+    else if (type.equals("ColumnType"))
+      return new ColumnTypeFieldDef(table, name, qualifiers);
     else
-      return new ReferenceFieldDef(table, index, name, type, qualifiers);
+      return new ReferenceFieldDef(table, name, type, qualifiers);
   }
 
   public abstract void generateBaseMethods(Writer w) throws IOException;

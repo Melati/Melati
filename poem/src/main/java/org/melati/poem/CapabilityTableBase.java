@@ -32,6 +32,10 @@ public class CapabilityTableBase extends Table {
             ((Capability)g).setId((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getId();

@@ -3,24 +3,23 @@ package org.melati.poem.prepro;
 import java.util.*;
 import java.io.*;
 
-public class ReferenceFieldDef extends FieldDef {
+public class ColumnTypeFieldDef extends FieldDef {
 
-  public ReferenceFieldDef(TableDef table, String name,
-                           String type, Vector qualifiers)
-      throws IllegalityException {
-    super(table, name, type, "Integer", qualifiers);
+  public ColumnTypeFieldDef(TableDef table, String name,
+                            Vector qualifiers) throws IllegalityException {
+    super(table, name, "PoemTypeFactory", "Integer", qualifiers);
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {
     w.write(
       "          public Object getIdent(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "Troid();\n" +
+      "            return ((" + mainClass + ")g).get" + suffix + "Code();\n" +
       "          }\n" +
       "\n" +
       "          public void setIdent(Persistent g, Object ident)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "Troid((" +
+      "            ((" + mainClass + ")g).set" + suffix + "Code((" +
                        identType + ")ident);\n" +
       "          }\n");
   }
@@ -30,27 +29,26 @@ public class ReferenceFieldDef extends FieldDef {
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    w.write("  public Integer get" + suffix + "Troid()\n" +
+    w.write("  public Integer get" + suffix + "Code()\n" +
             "      throws AccessPoemException {\n" +
             "    return dataForReading()." + name + ";\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "Troid(Integer ident)\n" +
+            "  public void set" + suffix + "Code(Integer ident)\n" +
             "      throws AccessPoemException {\n" +
             "    dataForWriting()." + name + " = ident;\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +
-            "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-            "    Integer troid = get" + suffix + "Troid();\n" +
-            "    return troid == null ? null :\n" +
-            "        getDatabase()." + targetTableAccessorMethod + "()." +
-                         "get" + targetSuffix + "Object(troid);\n" +
+            "      throws AccessPoemException {\n" +
+            "    Integer code = get" + suffix + "Code();\n" +
+            "    return code == null ? null :\n" +
+            "        PoemTypeFactory.forCode(getDatabase(), code.intValue());\n" +
             "  }\n" +
             "\n" +
             "  public void set" + suffix + "(" + type + " value)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "Troid(value == null ? null : value.troid());\n" +
+            "    set" + suffix + "Code(value == null ? null : value.code);\n" +
             "  }\n");
   }
 
@@ -59,10 +57,6 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    // FIXME the definition of these is duplicated from TableDef
-    String targetTableAccessorMethod = "get" + type + "Table";
-    return
-        "new ReferencePoemType(getDatabase()." +
-        targetTableAccessorMethod + "(), " + isNullable + ")";
+    return "new ColumnTypePoemType(getDatabase())";
   }
 }

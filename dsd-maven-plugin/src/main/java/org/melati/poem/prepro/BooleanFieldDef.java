@@ -5,9 +5,9 @@ import java.io.*;
 
 public class BooleanFieldDef extends AtomFieldDef {
 
-  public BooleanFieldDef(TableDef table, int index, String name,
+  public BooleanFieldDef(TableDef table, String name,
                          Vector qualifiers) throws IllegalityException {
-    super(table, index, name, "Boolean", qualifiers);
+    super(table, name, "Boolean", qualifiers);
   }
 
   public void generateBaseMethods(Writer w) throws IOException {

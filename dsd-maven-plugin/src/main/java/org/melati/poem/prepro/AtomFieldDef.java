@@ -5,10 +5,10 @@ import java.io.*;
 
 public class AtomFieldDef extends FieldDef {
 
-  public AtomFieldDef(TableDef table, int index, String name,
+  public AtomFieldDef(TableDef table, String name,
                       String type, Vector qualifiers)
        throws IllegalityException {
-    super(table, index, name, type, type, qualifiers);
+    super(table, name, type, type, qualifiers);
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {

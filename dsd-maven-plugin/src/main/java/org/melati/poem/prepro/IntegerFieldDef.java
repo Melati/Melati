@@ -5,9 +5,9 @@ import java.io.*;
 
 public class IntegerFieldDef extends AtomFieldDef {
 
-  public IntegerFieldDef(TableDef table, int index, String name,
+  public IntegerFieldDef(TableDef table, String name,
                          Vector qualifiers) throws IllegalityException {
-    super(table, index, name, "Integer", qualifiers);
+    super(table, name, "Integer", qualifiers);
   }
 
   public void generateBaseMethods(Writer w) throws IOException {

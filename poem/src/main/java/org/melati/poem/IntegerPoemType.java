@@ -45,6 +45,6 @@ public class IntegerPoemType extends AtomPoemType {
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
-    columnInfo.setTypecode(BasePoemType.INTEGER);
+    columnInfo.setType(PoemTypeFactory.INTEGER);
   }
 }

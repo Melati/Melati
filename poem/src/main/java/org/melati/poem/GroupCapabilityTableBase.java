@@ -33,6 +33,10 @@ public class GroupCapabilityTableBase extends Table {
             ((GroupCapability)g).setId((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId();

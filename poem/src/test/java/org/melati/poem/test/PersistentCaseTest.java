@@ -4,7 +4,7 @@ import org.melati.poem.Persistent;
 
 import junit.framework.TestCase;
 
-public class TestCasePersistent extends TestCase {
+public class PersistentCaseTest extends TestCase {
 
   public void testToStringNull() {
     Persistent unit = new Persistent();

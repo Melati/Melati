@@ -88,6 +88,7 @@ public class Table {
   private TransactionedSerial serial;
 
   private CachedSelection allTroids = null;
+  private CachedCount count = null;
   private Hashtable cachedSelections = new Hashtable();
   private Hashtable cachedCounts = new Hashtable();
   private Hashtable cachedExists = new Hashtable();
@@ -1094,9 +1095,8 @@ public class Table {
    *
    * @see #selection(java.lang.String)
    */
-  public PageEnumeration selection(
-      String whereClause, String orderByClause, boolean includeDeleted,
-      int pageStart, int pageSize)
+  public PageEnumeration selection(String whereClause, String orderByClause, 
+      boolean includeDeleted, int pageStart, int pageSize)
           throws SQLPoemException {
     // FIXME do this more sensibly where SQL permits
     return new DumbPageEnumeration(
@@ -1571,6 +1571,13 @@ public class Table {
       }
     }
     return it;
+  }
+
+  /*
+   * The number of records in this Table.
+   */ 
+  public int getCount() {
+    return cachedCount("").count();
   }
 
   public CachedExists cachedExists(String whereClause) {

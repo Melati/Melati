@@ -334,7 +334,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
     <dependency>
       <id>postgresql</id>
-      <version>7.3-jdbc3</version>
+      <version>74.214.jdbc3</version>
       <url>http://jdbc.postgresql.org/</url>
       <properties>
          <war.bundle>false</war.bundle>
@@ -383,14 +383,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </properties>
     </dependency>
 
-    <!-- dependency>
+    <dependency>
       <id>servlet</id>
       <version>2.2</version>
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
       </properties>
-    </dependency -->
+    </dependency>
     <!-- dependency>
       <id>activation</id>
       <version>1.0</version>

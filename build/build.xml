@@ -38,10 +38,8 @@
   <!-- We still use javax.servlet.HttpSession.getValue etc 
    for Servlet 2.0 compatibility -->
   <property name="deprecation"        value="off"/>
-  <!-- This may cause problems with old versions of Jikes. -->
-  <!-- 1.4 (instead of 1.3) enables assert to be used for debugging. -->
-  <property name="javac.source"       value="1.3"/>
-  <!-- need 1.4 for todo tag -->
+  <!-- We now assume Java 1.4. -->
+  <property name="javac.source"       value="1.4"/>
   <property name="javadoc.source"     value="1.4"/>
   <property name="poemODMGDSD"        value="${src}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
@@ -137,7 +135,7 @@ usage:
     </target>
 
     <!-- ================================================================= -->
-    <!-- Copies the source files                                            -->
+    <!-- Copies the source files                                           -->
     <!-- ================================================================= -->
     <target name="sources">
       <!-- Copy the licence and readme -->
@@ -186,7 +184,7 @@ usage:
         <fileset dir="${src}">
           <patternset>
             <include name="**/*.wm"/>
-            <include name="**/*.dsd"/>
+            <!-- include name="**/*.dsd"/ -->
           </patternset>
         </fileset>
       </copy>
@@ -332,7 +330,7 @@ usage:
     <!-- ================================================================ -->
     <!-- Creates the API documentation                                    -->
     <!-- ================================================================ -->
-    <target name="javadoc">
+    <target name="javadoc" description="API documentation">
       <!-- if running out of the distribution this may not exist -->
       <mkdir dir="${javadoc.dir}"/>
       <delete>
@@ -525,22 +523,34 @@ usage:
     <!-- Run Unit tests                                                 -->
     <!-- ============================================================== -->
   <target name="unittest" description="run functional tests" depends="compile">
-    <junit printsummary="on" haltonfailure="yes" filtertrace="off" showoutput="true">
-	<formatter type="plain"/>
+    <!-- Writing exceptions to output is particularly useful in emacs. -->
+    <!-- Do not fail initially, copy output to stderr and then fail -->
+    <!-- based on failure property. Not sure if ant provides other -->
+    <!-- ways but emacs does if there is a problem with this. -->
+    <junit printsummary="withOutAndErr"
+	failureproperty="unitTestsFailed"
+        filtertrace="off"
+        showoutput="true">
+      <formatter type="plain"/>
       <classpath>
         <pathelement path="${compiled.root}"/>
 		<pathelement path="${build.lib}/mockobjects-core-0.09.jar" />
       </classpath>
       <test name="org.melati.AllUnitTests"/>
+      <formatter type="plain"/>
     </junit>
+    <concat>
+      <filelist dir="." files="TEST-org.melati.AllUnitTests.txt"/>
+    </concat>
+    <fail if="unitTestsFailed" message="Unit tests failed"/>
   </target>
 
     <!-- ============================================================== -->
     <!-- Edit java, compile, test cycle                                 -->
     <!-- ============================================================== -->
   <target name="test" 
-          description="build (excluding javadoc) and run"
-          depends="clean, compile, unittest, zip, sources, package, war, run">
+          description="build (excluding javadoc but without clean) and run"
+          depends="compile, unittest, zip, sources, package, war, run">
   </target>
   <target name="compileJar" 
           description="Compile changed sources, test and build jar"

@@ -57,18 +57,43 @@ because end users don't read sources.
    FIXME: Or change quotedName(), so MySQL runs in faster no-ANSI?
    
 4. Start MySQL with transactioned tables as default. InnoDB is stable,
-   BDB about being stable. 
+   BDB about being stable.
 
-   FIXME: Untested
+   BDB tables of MySQL-Max 3.23.49 don't support full transactions
+   - they lock whole table instead, until commit/rollback is called.
+   According to MySQL 4.0.2-alpha doc, interface between MySQL and
+   BDB tables is still improved.
+
+   As I tested MySQL-Max 3.23.49, InnoDB has correct transactions,
+   however database size must be specified & reserved in advance
+   in one file, that is share by all InnoDB tables.
+   Set in /etc/my.cnf by line like:
+       innodb_data_file_path=ibdata1:30M
+
+   run
    safe_mysqld --user=mysql --ansi --default-table-type=InnoDB
 
-   Works for me:
+   After it created and initialised dB file /var/lib/mysql/ibdata1
+   of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
+   and ib_logfile1, both of size 5MB.
+
+   InnoDB provides ACID compliancy (does it help us?)
+
+   Works for Timp:
    safe_mysqld --user=mysql --ansi --default-table-type=BDB 
 
 5. FIXME: Allow TCP connections, as JDBC can't use unix ports.
 
 6. FIXME: I tried to get the MySQL BOOL type to work, but it was 
    set to tinyint ....
+
+6a. boolean type works (both applications melatitest and contacts).
+    Because MySQL returns metainfo about BOOL as TINYINT, it's
+    recommended not to use TINYINT in DSD definitions (is it allowed type?).
+    Mapping:
+
+     Melati:boolean --> MySQL:BOOL
+     Melati:boolean <-- TINYINT <--MySQL:BOOL
 
 */
 
@@ -85,11 +110,9 @@ public class MySQL extends AnsiStandard {
        setDriverClassName("org.gjt.mm.mysql.Driver");	
     }
 
-    // this should probably be MySQL type BOOL == char(1)
     public String getSqlDefinition(String sqlTypeName) throws SQLException {
 	if( sqlTypeName.equals("BOOLEAN"))
-	    return "INT"; 
-//	    return "BOOL"; 
+	    return "BOOL"; 
 	return super.getSqlDefinition(sqlTypeName);
     }
 
@@ -106,14 +129,6 @@ public class MySQL extends AnsiStandard {
 
 
     public static class MySQLStringPoemType extends StringPoemType {
-    /*FIXME: 
-      StringPoemType(boolean nullable, int size) calls
-      SizedAtomPoemType(Types.VARCHAR, "VARCHAR", nullable, size)
-      This works, however is it supposed to work this way? 
-      Shouldn't it be
-      MySQLStringPoemType be direct subclass of SizedAtomPoemType
-      and call SizedAtomPoemType(Types.VARCHAR, "TEXT"..)?
-     */
         public MySQLStringPoemType(boolean nullable, int size) {
             super(nullable, size);
         }
@@ -171,9 +186,9 @@ public class MySQL extends AnsiStandard {
             else
               ps.setString(col, "f");
         }
-        */
+        */ // End of previous /* was here.
         
-	// We can leave original method from BooleanPoemType, 
+	// We could leave also original method from BooleanPoemType, 
         // it recognizes 0/1
 	protected Object _rawOfString(String rawString)
 	throws ParsingPoemException {
@@ -205,7 +220,7 @@ public class MySQL extends AnsiStandard {
         }
     }
 
-    public PoemType canRepresent(PoemType storage, PoemType type) {
+      public PoemType canRepresent(PoemType storage, PoemType type) {
       if (storage instanceof IntegerPoemType &&
           type instanceof BooleanPoemType) {
         return type;
@@ -214,24 +229,9 @@ public class MySQL extends AnsiStandard {
       }
     }
 
-
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
 	ResultSetMetaData rsmd= md.getMetaData();
-
-        /*
-	try{
-    	    int num= rsmd.getColumnCount();
-	    System.err.println("rsmd has "+new Integer(num)+" columns:");
-	    for( int i=0; i<num; i++) {
-		try {System.err.print( "type: "+rsmd.getColumnType(i) ); }
-		catch(Exception e) {}
-		try {System.err.println( "name: "+rsmd.getColumnName(i) );}
-		catch(Exception e) {}
-	    }
-	} catch(SQLException e) {}
-        System.err.println("TYPE:" + md.getString("TYPE_NAME"));
-        */
 
         //I leave case as Postgres driver has it.
 
@@ -242,8 +242,10 @@ public class MySQL extends AnsiStandard {
 	if( md.getString("TYPE_NAME").equals("text") )
 	    return new MySQLStringPoemType( md.getInt("NULLABLE")==
 		DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE") );
+
+	// MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
 	else
-	if( md.getString("TYPE_NAME").equals("boolean") )
+	if( md.getString("TYPE_NAME").equals("tinyint") )
 	    return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
 		DatabaseMetaData.columnNullable );
 	else
@@ -345,13 +347,3 @@ public class MySQL extends AnsiStandard {
 
 
 }
-
-
-
-
-
-
-
-
-
-

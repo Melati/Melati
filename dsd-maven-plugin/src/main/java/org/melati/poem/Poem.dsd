@@ -318,8 +318,7 @@ table TableCategory
 
 table Setting
     (displayorder = 3040)
-    (displayname = "Application wide parameters")
-    (description = "Name-Value parameters wich it is nice to store in the database")
+    (description = "A configurable setting for the application")
     (category = "System")
     (cachelimit = unlimited)
     (seqcached) {
@@ -327,23 +326,17 @@ table Setting
   (primary) Integer id;
 
   (unique) String name (size = unlimited)
-      (description = "A code name for this parameter")
-      (displayorderpriority = 0);
+      (description = "A code name for this setting");
 
   String value (size = unlimited)
-      (description = "The value of this parameter")
-      (displayorderpriority = 5);
+      (description = "The value of this setting");
 
   (unique) String displayname (size = unlimited)
-      (description = "A human-readable name for this parameter")
-      (displayorderpriority = 10) 
-      (primarydisplay)
+      (description = "A human-readable name for this setting")
+      (displayorderpriority = 0) (primarydisplay)
       (summaryhidden);
 
-  (unique) String description (size = unlimited)
-      (description = "A description for this parameter")
-      (displayorderpriority = 10) 
-      (primarydisplay)
-      (criterionhidden)
-      (summaryhidden);
+  String description (size = unlimited)
+      (description = "A description for this setting")
+      (criterionhidden) (summaryhidden);
 }

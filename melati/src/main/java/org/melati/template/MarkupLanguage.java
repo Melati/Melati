@@ -93,9 +93,9 @@ public abstract class MarkupLanguage {
    *    found in the 'html' directory.
    * @param melati - the melati currently in use
    * @param templetLoader - the template loader in use
-   *       (taken from org.melati.MelaitServlet.properties)
+   *       (taken from org.melati.MelatiServlet.properties)
    * @param locale - the locale in use
-   *    (taken from org.melati.MelaitServlet.properties)
+   *    (taken from org.melati.MelatiServlet.properties)
    */
 
   public MarkupLanguage(String name,

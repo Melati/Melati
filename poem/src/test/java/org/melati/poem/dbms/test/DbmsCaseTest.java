@@ -63,7 +63,7 @@ public class DbmsCaseTest extends TestCase {
    * Constructor for CaseInsensitiveRegExpSQL.
    * @param arg0 First argument
    */
-  public TestCaseDbms(String arg0) {
+  public DbmsCaseTest(String arg0) {
     super(arg0);
   }
 

@@ -56,6 +56,7 @@ import org.webmacro.servlet.*;
 import org.webmacro.resource.TemplateProvider;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import org.melati.util.ThrowingPrintWriter;
 
 /**
  * FIXME this it not pretty (I blame Jason ;) ).
@@ -431,22 +432,14 @@ public abstract class MelatiWMServlet extends HttpServlet {
 
   protected void expand(Template tmpl, WebContext context)
       throws WebMacroException, IOException {
-    if (context.get(UNROLL) != null) {
-      final PrintWriter out = context.getResponse().getWriter();
-/*      
-      Thread flusher =
-	  new Thread() {
-	    public void run() {
-	      try {
-		for (;;) {
-		  Thread.sleep(2000);
-		  out.flush();
-		}
-	      }
-	      catch (Exception e) {}
-	    }
-          };
-*/
+    Object unroll = context.get(UNROLL);
+    if (unroll != null) {
+      final PrintWriter out =
+	  unroll.equals("stopWhenCancelled") ?
+	    new ThrowingPrintWriter(context.getResponse().getWriter(),
+				        "servlet response stream") :
+            context.getResponse().getWriter();
+
       Flusher flusher = new Flusher(out);
 
       flusher.start();
@@ -454,7 +447,6 @@ public abstract class MelatiWMServlet extends HttpServlet {
 	tmpl.write(out, context);
       }
       finally {
-//	flusher.stop();
         flusher.setStopTask(true);
       }
     }

@@ -796,11 +796,13 @@ abstract public class Database implements TransactionPool {
    */
 
   public ResultSet sqlQuery(String sql) throws SQLPoemException {
-    PoemTransaction transaction = PoemThread.transaction();
-    transaction.writeDown();
+    SessionToken token = PoemThread.sessionToken();
+    token.transaction.writeDown();
     try {
-      ResultSet rs =
-          transaction.getConnection().createStatement().executeQuery(sql);
+      Statement s = token.transaction.getConnection().createStatement();
+      token.toTidy().add(s);
+      ResultSet rs = s.executeQuery(sql);
+      token.toTidy().add(rs);
       if (logSQL())
         log(new SQLLogEvent(sql));
       return rs;
@@ -826,14 +828,13 @@ abstract public class Database implements TransactionPool {
    */
 
   public int sqlUpdate(String sql) throws SQLPoemException {
-    // FIXME this relies on the one-thread-per-transaction thing, else needs
-    // more syncing
-
-    PoemTransaction transaction = PoemThread.transaction();
-    transaction.writeDown();
+    SessionToken token = PoemThread.sessionToken();
+    token.transaction.writeDown();
 
     try {
-      int n = transaction.getConnection().createStatement().executeUpdate(sql);
+      Statement s = token.transaction.getConnection().createStatement();
+      token.toTidy().add(s);
+      int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
       return n;

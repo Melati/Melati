@@ -1254,6 +1254,8 @@ public class Table {
 
     SessionToken sessionToken = PoemThread.sessionToken();
 
+    if (persistent.getTable() == null)
+      persistent.setTable(this, null);
     persistent.assertCanCreate(sessionToken.accessToken);
 
     claim(persistent, troidFor(persistent));

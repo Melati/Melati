@@ -164,6 +164,12 @@ public class Persistent extends Transactioned implements Cloneable {
   // ************
   // 
 
+  /** a shortcut method to mark this object as persistent */
+  public final void makePersistent()
+  {
+      getTable().create(this);
+  }
+  
   synchronized Object[] extras() {
     if (extras == null)
       extras = new Object[table.extrasCount()];

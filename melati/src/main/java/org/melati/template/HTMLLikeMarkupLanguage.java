@@ -64,11 +64,25 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
     super(name, other);
   }
 
-/* FIXME: webmacro unfortunately won't call methods with void returns
+/* 
+ <b>Note</b>
+ <p>
+   To avoid the unnecessary overhead of writing to a string and then writing that string to the 
+   output stream we render directly to the output stream, however this means that you cannot use 
+   rendered other than where you want the output to occur, ie use renderedString if you want to 
+   assign the rendered value to a variable.
+ </p>
+*/
+/* 
+ FIXME: webmacro unfortunately won't call methods with void returns
 */
   public String rendered(String s) throws IOException {
     super.melati.getWriter().write(HTMLUtils.entitied(s));
     return "";
+  }
+
+  public String renderedString(String s) throws IOException {
+    return HTMLUtils.entitied(s);
   }
 
   public String escaped(String s) {
@@ -79,3 +93,4 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
     return URLEncoder.encode(s);
   }
 }
+

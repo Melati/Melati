@@ -50,6 +50,7 @@ package org.melati;
 import java.util.*;
 import java.io.*;
 import org.melati.util.*;
+import org.melati.login.*;
 import org.melati.poem.*;
 import org.melati.templets.*;
 import org.webmacro.*;
@@ -492,8 +493,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     try {
       accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
-	  configuration, accessHandlerProp, "org.melati.AccessHandler",
-	  "org.melati.HttpSessionAccessHandler");
+	  configuration, accessHandlerProp, "org.melati.login.AccessHandler",
+	  "org.melati.login.HttpSessionAccessHandler");
 
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
 	  configuration, templetLoaderProp, "org.melati.templets.TempletLoader",

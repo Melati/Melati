@@ -174,26 +174,21 @@ public class Admin extends MelatiServlet {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
     }
 
-    MappedEnumeration criter = new MappedEnumeration(table.getSearchCriterionColumns()) {
-                  public Object mapped(Object c) {
-                    Column column = (Column)c;
-                    final PoemType nullable =
-                        column.getType().withNullable(true);
-                    return
-                        new Field(column.getRaw(criteria), column) {
-                          public PoemType getType() {
-                            return nullable;
-                          }
-                        };
-                  }
-                };
+    MappedEnumeration criteria =
+        new MappedEnumeration(table.getSearchCriterionColumns()) {
+	  public Object mapped(Object c) {
+	    Column column = (Column)c;
+	    final PoemType nullable = column.getType().withNullable(true);
+	    return
+		new Field(column.getRaw(criteria), column) {
+		  public PoemType getType() {
+		    return nullable;
+		  }
+		};
+	  }
+	};
 
-	Vector criteriaVector = new Vector();
-    while (criter.hasMoreElements()) {
-      criteriaVector.add(criter.nextElement());
-    }
-
-    context.put("criteria",criteriaVector);
+    context.put("criteria", EnumUtils.vectorOf(criteria));
 
     // sort out ordering (FIXME this is a bit out of control)
 

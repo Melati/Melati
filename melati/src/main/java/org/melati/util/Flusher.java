@@ -72,7 +72,7 @@ public final class Flusher extends Thread {
     public void run() {
       try {
         while (!getStopTask()) {
-          Thread.sleep( getPauseLength() );
+          Thread.sleep(getPauseLength());
           out.flush();
         }
       }

@@ -60,19 +60,15 @@ import org.webmacro.engine.*;
 import org.webmacro.resource.*;
 import org.webmacro.broker.*;
 
-/**
- * FIXME getting a bit big, wants breaking up
- */
-
 public class Display extends MelatiServlet {
 
   protected Template handle(WebContext context, Melati melati)
       throws PoemException, HandlerException {
 
     try {
-        melati.getObject().assertCanRead();
-        context.put("object", melati.getObject());
-        return getTemplate(context.getForm("template"));
+      melati.getObject().assertCanRead();
+      context.put("object", melati.getObject());
+      return getTemplate(context.getForm("template"));
     }
     catch (PoemException e) {
       // we want to let these through untouched, since MelatiServlet handles
@@ -83,6 +79,5 @@ public class Display extends MelatiServlet {
       e.printStackTrace();
       throw new HandlerException("Bollocks: " + e);
     }
-
   }
 }

@@ -101,22 +101,22 @@ public abstract class TemplateServlet extends PoemServlet {
    * unnecessarily).
    */
 
-  protected void prePoemSession(Melati melatiIn) throws Exception {
+  protected void prePoemSession(Melati melati) throws Exception {
     // for this request, set the Initialised Template Engine
-    melatiIn.setTemplateEngine(templateEngine);
+    melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext =
-                        templateEngine.getTemplateContext(melatiIn);
+                        templateEngine.getTemplateContext(melati);
 
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
-    String contentType = melatiIn.getRequest().getHeader("content-type");
+    String contentType = melati.getRequest().getHeader("content-type");
     if (contentType != null &&
         contentType.substring(0,19).equalsIgnoreCase("multipart/form-data")) {
       templateContext =
-        new MultipartTemplateContext(melatiIn, templateContext);
+        new MultipartTemplateContext(melati, templateContext);
     }
 
-    melatiIn.setTemplateContext(templateContext);
+    melati.setTemplateContext(templateContext);
   }
 
   protected void doPoemRequest(Melati melati) throws Exception {

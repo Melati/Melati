@@ -226,20 +226,20 @@ public abstract class PoemServlet extends ConfigServlet {
    * Process the request.
    */
 
-  protected void doConfiguredRequest(final Melati melatiIn)
+  protected void doConfiguredRequest(final Melati melati)
       throws ServletException, IOException {
 
     // Set up a POEM session and call the application code
 
     // Do something outside of the PoemSession
     try {
-      melatiIn.getConfig().getAccessHandler().buildRequest(melatiIn);
-      prePoemSession(melatiIn);
+      melati.getConfig().getAccessHandler().buildRequest(melati);
+      prePoemSession(melati);
     }
     catch (Exception e) {
       try {
         // we have to log this here, otherwise we loose the stacktrace
-        error(melatiIn, e);
+        error(melati, e);
         throw new TrappedException(e.toString());
       }
       catch (IOException f) {
@@ -249,22 +249,21 @@ public abstract class PoemServlet extends ConfigServlet {
 
     final PoemServlet _this = this;
 
-    melatiIn.getDatabase().inSession (
+    melati.getDatabase().inSession (
       AccessToken.root, new PoemTask() {
         public void run () {
+          melati.getConfig().getAccessHandler().establishUser(melati);
+          melati.loadTableAndObject();
           try {
-            Melati melati = 
-                melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
-            melati.loadTableAndObject();
             try {
-              _this.doPoemRequest(melatiIn);
+              _this.doPoemRequest(melati);
             } catch (Exception e) {
-              _handleException (melatiIn, e);
+              _handleException (melati, e);
             }
           } catch (Exception e) {
             try {
               // we have to log this here, otherwise we loose the stacktrace
-              error(melatiIn, e);
+              error(melati, e);
               throw new TrappedException(e.toString());
             } catch (IOException f) {
               throw new TrappedException(f.toString());
@@ -273,7 +272,7 @@ public abstract class PoemServlet extends ConfigServlet {
         }
 
         public String toString() {
-          HttpServletRequest request = melatiIn.getRequest();
+          HttpServletRequest request = melati.getRequest();
           return "PoemServlet: " +
             ((request == null) ? "(no request present)"
                                : request.getRequestURI());

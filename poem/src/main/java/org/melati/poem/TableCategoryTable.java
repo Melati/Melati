@@ -16,4 +16,12 @@ public class TableCategoryTable extends TableCategoryTableBase {
     it.setName(name);
     return (TableCategory)getNameColumn().ensure(it);
   }
+  
+  protected void postInitialise() {
+    super.postInitialise();
+    if (getTableInfo().getDefaultcanwrite() == null)
+      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
+    if (getTableInfo().getCancreate() == null)
+      getTableInfo().setCancreate(getDatabase().administerCapability());
+  }
 }

@@ -392,12 +392,37 @@ public abstract class MelatiWMServlet extends HttpServlet {
       return _wm.getConfig(key);
    }
 
+  public static final String UNROLL = "__UNROLL__";
 
   protected void expand(Template tmpl, WebContext context)
       throws WebMacroException, IOException {
-    CharArrayWriter buffer = new CharArrayWriter(2000);
-    tmpl.write(buffer, context);
-    buffer.writeTo(context.getResponse().getWriter());
+    if (context.get(UNROLL) != null) {
+      final PrintWriter out = context.getResponse().getWriter();
+      Thread flusher =
+	  new Thread() {
+	    public void run() {
+	      try {
+		for (;;) {
+		  Thread.sleep(2000);
+		  out.flush();
+		}
+	      }
+	      catch (Exception e) {}
+	    }
+          };
+      flusher.start();
+      try {
+	tmpl.write(out, context);
+      }
+      finally {
+	flusher.stop();
+      }
+    }
+    else {
+      CharArrayWriter buffer = new CharArrayWriter(2000);
+      tmpl.write(buffer, context);
+      buffer.writeTo(context.getResponse().getWriter());
+    }
   }
 
   protected void expandOrCarp(Template tmpl, WebContext context) {

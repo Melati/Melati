@@ -55,7 +55,7 @@ package org.melati.template.velocity;
  */
 
 import java.lang.reflect.InvocationTargetException;
-import org.apache.velocity.context.MethodExceptionEventHandler;
+import org.apache.velocity.app.event.MethodExceptionEventHandler;
 
 public class PassbackMethodExceptionEventHandler 
        implements MethodExceptionEventHandler {

@@ -70,7 +70,11 @@ public class GroupTable extends GroupTableBase {
 
   protected void postInitialise() {
     super.postInitialise();
+
+    administratorsGroup = (Group)newPersistent();
+    administratorsGroup.setName_unsafe("Melati database administrators");
     administratorsGroup = (Group)getNameColumn().ensure(administratorsGroup);
+
     TableInfo info = ((Table)this).info;
 
     if (info.getDefaultcanwrite() == null)

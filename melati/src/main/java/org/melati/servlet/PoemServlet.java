@@ -65,11 +65,14 @@ import org.melati.util.MelatiWriter;
 
 /**
  * Base class to use Poem with Servlets.
+ *
+ * <p>
  * Simply extend this class and override the doPoemRequest method.
- * If you are going to use a template engine look at TemplateServlet
- */
-
-/**
+ * If you are going to use a template engine look at TemplateServlet.
+ *
+ *
+ * <UL>
+ * <LI>
  * <A NAME=pathinfoscan>By default, the path info of the URL by which the
  * servlet was called up is examined to determine the `logical name' of the
  * Melati POEM database to which the servlet should connect, and possibly a
@@ -150,11 +153,11 @@ import org.melati.util.MelatiWriter;
  *   </TR>
  * </TABLE>
  *
+ * <LI>
  * You can change the way these things are determined by overriding
  * <TT>melatiContext</TT>.
- *
+ * 
  * <LI>
- *
  * Any POEM database operations you perform will be done with the access
  * rights of the POEM <TT>User</TT> associated with the servlet session.  If
  * there is no established servlet session, the current user will be set to
@@ -165,7 +168,6 @@ import org.melati.util.MelatiWriter;
  * login is <A HREF=#loginmechanism>configurable</A>.
  *
  * <LI>
- *
  * No changes made to the database by other concurrently executing threads
  * will be visible to you (in the sense that once you have seen a particular
  * version of a record, you will always subsequently see the same one), and
@@ -175,7 +177,6 @@ import org.melati.util.MelatiWriter;
  * <TT>PoemThread.rollback()</TT>, your changes will be lost.
  *
  * <LI>
- *
  * <A NAME=loginmechanism>It's possible to configure how your
  * <TT>PoemServlet</TT>-derived servlets implement user login.</A> If the
  * properties file <TT><A

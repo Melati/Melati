@@ -70,7 +70,6 @@ import java.util.NoSuchElementException;
  *
  * @author  myles@paneris.org, based heavily on williamc@paneris.org
  *          orginal CSVStringEnumeration
- * @quality     personal
  */
 
 public class CSVFileParser {

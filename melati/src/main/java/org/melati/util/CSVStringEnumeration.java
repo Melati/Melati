@@ -56,7 +56,6 @@ import java.util.NoSuchElementException;
  * </PRE>
  *
  * @author      williamc@paneris.org
- * @quality     personal
  */
 
 public class CSVStringEnumeration implements Enumeration {

@@ -5,6 +5,10 @@ import java.util.*;
 import org.melati.*;
 import org.melati.poem.*;
 
+/**
+ * Wrapper class to prsent a Poem Table as a Collection.
+ */
+
 class PoemTableAsDCollection implements org.odmg.DCollection
 {
   public static final String cvs = "$Id$";
@@ -36,9 +40,10 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     return true;
   }
 
-  /** removes the specified object from the collection 
+ /** removes the specified object from the collection.
+  *
   * WARNING - this removes and commits it immediately!
-  * WARNING2 - it also deletes entries from any tables that reference this object 
+  * WARNING2 - it also deletes entries from tables that reference this object 
   * - this means you CANNOT have circular references
   */
   public boolean remove(Object obj) 
@@ -61,8 +66,10 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     return new EnumerationIterator(_wrappedTable.selection());
   }
 
-  /** returns all objects that meet the query
-  * NOTE: Passes the query string is split into the where clause and the order by clause and passed to poem
+ /** 
+  * returns all objects that match the query.
+  * NOTE: The query string is split into the where-clause and 
+  * the order-by-clause and passed to poem.
   */
   public Iterator select(String queryString) 
   {
@@ -115,15 +122,33 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   }
 
 // the following have not been implemented - yet...
-  public org.odmg.DCollection query(String queryString) { throw new org.odmg.NotImplementedException(); }
-  public Object[] toArray(Object[] obj) { throw new org.odmg.NotImplementedException(); }
-  public Object[] toArray() { throw new org.odmg.NotImplementedException(); }
-  public boolean existsElement(String obj) { throw new org.odmg.NotImplementedException(); }
-  public boolean contains(Object obj) { throw new org.odmg.NotImplementedException(); }
-  public boolean addAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public boolean containsAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public boolean retainAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public void clear() { throw new org.odmg.NotImplementedException(); }
+  public org.odmg.DCollection query(String queryString) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public Object[] toArray(Object[] obj) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public Object[] toArray() { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public boolean existsElement(String obj) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public boolean contains(Object obj) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public boolean addAll(Collection coll) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public boolean containsAll(Collection coll) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public boolean retainAll(Collection coll) { 
+    throw new org.odmg.NotImplementedException(); 
+  }
+  public void clear() { 
+    throw new org.odmg.NotImplementedException(); 
+  }
 
 /** utility class for converting enumerations into iterators */
 private class EnumerationIterator implements Iterator

@@ -179,7 +179,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   /**
    * 
    * @deprecated    As of Version 2.1 of the Java Servlet API,
-   *                use {@link ServletContext#getRealPath} instead.
+   *                use ServletContext.getRealPath instead.
    **/
   public java.lang.String getRealPath(java.lang.String a) {
     return HttpServletRequestCompat.getRealPath(peer, a);

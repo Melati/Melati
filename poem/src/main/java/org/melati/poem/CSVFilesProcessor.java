@@ -6,8 +6,8 @@ import org.melati.poem.csv.*;
 
 
 /**
- * A class to define a sequence of CSVTables and then process
- * them (i.e. parse the files and write the data into the database)
+ * A class to define a sequence of CSVTables and  process them 
+ * by parsing the files and writing the data to the database.
  */
 public class CSVFilesProcessor {
 
@@ -30,9 +30,9 @@ public class CSVFilesProcessor {
 
   /**
    * Load all the data from the files, empty the tables if
-   * necessary and then write the new data into the tables
-   *
-   * Write a report of the progress to the Writer
+   * necessary and then write the new data into the tables.
+   * <p>
+   * Write a report of the progress to the Writer.
    */
   public void process(boolean emptyTables,
                       boolean recordDetails,

@@ -54,6 +54,8 @@ import java.io.InputStream;
  * Like a BufferedInputStream except it has a new function
  * readToDelimiter which will only read bytes upto the start
  * of any occurrence of the delimiter in the InputStream.
+ *
+ * @see java.io.BufferedInputStream
  */
 
 public class DelimitedBufferedInputStream extends BufferedInputStream {
@@ -67,7 +69,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * buffer array is created and  stored in <code>buf</code>.
      *
      * @param   in   the underlying input stream.
-     */
+     **/
     public DelimitedBufferedInputStream(InputStream in) {
        super(in);
     }
@@ -83,7 +85,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * @param   in     the underlying input stream.
      * @param   size   the buffer size.
      * @exception IllegalArgumentException if size <= 0.
-     */
+     **/
     public DelimitedBufferedInputStream(InputStream in, int size) {
       super(in, size);
     }
@@ -96,7 +98,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * hence pos > count.
      * <p>
      * This code is copy'n'pasted from BufferedInputString (it's private)
-     */
+     **/
     private void fill() throws IOException {
       if (markpos < 0)
            pos = 0;                 /* no mark: throw away the buffer */
@@ -127,10 +129,10 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
     }
 
     /**
-     * Check to make sure that this stream has not been closed
+     * Check to make sure that this stream has not been closed.
      * <p>
      * This code is copy'n'pasted from BufferedInputString (it's private)
-     */
+     **/
     private void ensureOpen() throws IOException {
       if (in == null)
         throw new IOException("Stream closed");
@@ -139,7 +141,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
     /**
      * Read characters into a portion of an array, reading from the underlying
      * stream at most twice if necessary.
-     */
+     **/
     private int readToDelimiter1(byte[] b, int off, int len, byte delim[])
           throws IOException {
       int avail = count - pos;
@@ -164,7 +166,8 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
 
       /* We want to shuffle the buffer so that it contains
        * at least delim.length bytes after potentialMatch,
-       * if we have read that far into the buffer */
+       * if we have read that far into the buffer 
+       */
       if (found == -1 && potentialMatch != -1 && pos == potentialMatch) {
 
         /* the number of bytes to shift the buffer down by */
@@ -172,8 +175,10 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
                        ? potentialMatch
                        : markpos;
 
-        /* the number of bytes we need to read to get all our potential
-           delim into the buffer */
+        /* 
+           the number of bytes we need to read to get all our potential
+           delim into the buffer 
+         */
         int extras = potentialMatch + delim.length - count;
 
         /* the number of bytes we want to end up in buf */
@@ -248,7 +253,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * @return     the number of bytes read, or <code>-1</code> if the end of
      *             the stream has been reached.
      * @exception  IOException  if an I/O error occurs.
-     */
+     **/
   public synchronized int readToDelimiter(byte b[], int off, 
                                           int len, byte delim[])
         throws IOException  {
@@ -287,7 +292,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * @param      len   maximum number of bytes of data1 to look in.
      * @return the index of data2 within data1 or
      *         -1 if data2 does not occur within data1
-     */
+     **/
     public int indexOf(byte[] data1, byte[] data2, int fromIndex, int len) {
       byte[] v1 = data1;
       byte[] v2 = data2;

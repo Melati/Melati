@@ -51,9 +51,7 @@ import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
 /**
- *
  *  A Table.
- *
  **/
 
 public class Table {
@@ -179,8 +177,7 @@ public class Table {
   }
 
   /**
-   * FIXME not sure we really want people using this directly?
-   * <tpp>Comes in handy in admin/DSD.wm</tpp>
+   * @see org.melati.admin.Admin#dsdTemplate
    */
 
   public final TableInfo getInfo() {

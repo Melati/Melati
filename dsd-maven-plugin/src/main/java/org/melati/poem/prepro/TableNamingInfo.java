@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/** 
+ * A store for Table Name information extracted from the DSD.
+ */
+
 public class TableNamingInfo {
 
   public final static String POEM = "org.melati.poem";
@@ -60,7 +64,7 @@ public class TableNamingInfo {
   public TableNamingInfo superclass = null;
 
   /** Does this Table have the same name as another table "higher up" in our
-      hierarchy (i.e. a table already dealt with by DSD). */
+      hierarchy (that is a table already dealt with by DSD). */
   // If so, we must import the tableFQName before the DSD's package and
   // before melati in our java source
   public boolean hidesOther = false;

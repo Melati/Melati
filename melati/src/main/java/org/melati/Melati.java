@@ -504,7 +504,7 @@ public class Melati {
 
   /**
    * Have we asked to access the Writer for this request?
-   *
+   * <p>
    * If you have not accessed the Writer, it is reasonable to assume that
    * nothing has been written to the output stream.
    *

@@ -1,6 +1,5 @@
 package org.melati.example.contacts;
 
-import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
 import org.melati.example.contacts.generated.ContactsDatabaseBase;
 
@@ -14,7 +13,9 @@ public class ContactsDatabase extends ContactsDatabaseBase
                       String password, int maxConnections) {
     super.connect(dbmsclass, url, username, password, maxConnections);
 
-    inSession(AccessToken.root, new PoemTask() {
+    // We can't use the normal AccessToken.root
+    // as we need the troid to set lastupdateuser
+    inSession(getUserTable().administratorUser(), new PoemTask() {
       public void run() {
 
         Contact adam =

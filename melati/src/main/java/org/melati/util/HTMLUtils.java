@@ -9,6 +9,36 @@ import javax.swing.text.html.parser.*;
 public class HTMLUtils {
   private HTMLUtils() {}
 
+  public static final String dtdNameForHTMLParser = "html32.bdtd";
+
+  private static DTD dtdForHTMLParser = null;
+
+  public static DTD dtdForHTMLParser() {
+    // not clear HTF this putDTDHash/getDTD API is meant to be useful ...
+
+    if (dtdForHTMLParser == null)
+      try {
+	dtdForHTMLParser = DTD.getDTD(dtdNameForHTMLParser);
+	InputStream res = dtdForHTMLParser.getClass().
+                              getResourceAsStream(dtdNameForHTMLParser);
+	if (res == null)
+	  throw new FileNotFoundException(
+	      "Resource " + dtdNameForHTMLParser + " not found: " +
+	      "but it ought to be in rt.jar?!");
+	dtdForHTMLParser.read(new DataInputStream(res));
+      }
+      catch (Exception e) {
+	throw new UnexpectedExceptionException(
+	    "making the DTD for Sun's HTML parser", e);
+      }
+
+    return dtdForHTMLParser;
+  }
+
+  public static DocumentParser newDocumentParser() {
+    return new DocumentParser(dtdForHTMLParser());
+  }
+
   public static String elementFor(char c) {
     switch (c) {
       case '<': return "&lt;";

@@ -396,7 +396,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc) and run"
-          depends="clean, compile, test, zip, sources, package, war, run">
+          depends="clean, compile, zip, sources, package, war, run">
   </target>
     <!-- ============================================================== -->
     <!-- Edit, compile, test cycle                                      -->

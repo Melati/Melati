@@ -44,6 +44,7 @@
         <javac srcdir="${build.src}"
             destdir="${build.dest}"
             includes="**/*.java"
+            excludes="**/playing/**/*.java **/doc/example/**/*.java **/test/**/*.java **/template/**/*.java"
             debug="${debug}"
             deprecation="${deprecation}"
             optimize="${optimize}"/>
@@ -55,7 +56,8 @@
     <target name="jar" depends="compile">
         <jar jarfile="${build.jar.dir}/${final.name}.jar"
             basedir="${build.dest}"
-            includes="**/*.class"/>
+            includes="**/*.class"
+        />
     </target>
     
     <!-- =================================================================== -->

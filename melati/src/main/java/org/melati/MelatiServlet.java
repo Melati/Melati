@@ -443,10 +443,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
           });
     }
     catch (TrappedException e) {
-      throw new ServletException(e.getMessage());
+      throw new ServletException(e.toString());
     }
     catch (MelatiException e) {
-      throw new ServletException(e.getMessage());
+      throw new ServletException(e.toString());
     }
   }
 

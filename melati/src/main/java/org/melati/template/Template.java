@@ -49,15 +49,9 @@ import org.melati.util.MelatiWriter;
 
 /**
  * A webmacro template
- *
  */
+
 public interface Template {
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException;
 }
-
-
-
-
-
-

@@ -23,7 +23,7 @@ public class ContactView extends TemplateServlet {
     Contact contact = (Contact)melati.getObject();
     // used to display a blank page for new data entry
     if (melati.getMethod().equals("Insert")) {
-      contact = (Contact) db.getContactTable().newPersistent();
+      contact = (Contact)db.getContactTable().newPersistent();
     }
     // used to update or insert a record
     else if (melati.getMethod().equals("Update")) {
@@ -67,8 +67,8 @@ public class ContactView extends TemplateServlet {
       }
       return null;
     }
-    //  view an existing record
     else if (melati.getMethod().equals("View")) {
+      //  view an existing record
     }
     else { 
        throw new Exception("Invalid Method");

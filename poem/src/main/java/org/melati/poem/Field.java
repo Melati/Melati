@@ -205,7 +205,8 @@ public class Field implements FieldAttributes, Cloneable {
   public static Field basic(Object value, String name, PoemType type) {
     return
         new Field(value,
-                  new BaseFieldAttributes(name, name, null, type, 20, 1, null));
+                  new BaseFieldAttributes(name, name, null, type, 20, 1, null,
+                                          false, true, true));
   }
 
   public static Field string(String value, String name) {

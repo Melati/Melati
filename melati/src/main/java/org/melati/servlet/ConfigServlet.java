@@ -206,6 +206,9 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("<html><head><title>Melati Error</title></head>");
     out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
     out.println("<body><h2>Melati Error</h2>");
+    // This is rarely called, eg when the template engine 
+    // fails to render the default error template
+    out.println("<h3>Reported from ConfigServlet</h3>");
     out.println("<p>An error has occured in the application"); 
     out.println("that runs this website, please contact <a href='mailto:");
     out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");

@@ -27,7 +27,7 @@ OLDCP=$CLASSPATH
 #-------------------------------------------------------------------
 # It is assumed that the following is on the classpath before this script is run
 #   The standard Java servlet jar from Sun - usually jsdk.jar
-#   The webmacro build that you are using - currently recommended to be webmacro-22-12-1999
+#   The webmacro build that you are using - currently recommended to be webmacro-19-07-2000
 #   The Postgres jdbc drivers - for example jdbc7.0-1.2.jar
 #
 # Assumed that the following are in melati/CVS

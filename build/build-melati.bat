@@ -27,8 +27,10 @@ REM -------------------------------------------------------------------
 REM none currently
 REM It is assumed that the following is on the classpath before this script is run
 REM   The standard Java servlet jar from Sun - usually jsdk.jar
-REM   The webmacro build that you are using - currently recommended to be webmacro-22-12-1999
+REM   The webmacro build that you are using - currently recommended to be webmacro-19-07-2000
 REM   The Postgres jdbc drivers - for example jdbc7.0-1.2.jar
+
+set ODMG=..\poem\odmg\required-libs\odmg3.jar
 
 REM --------------------------------------------
 REM No need to edit anything past here
@@ -54,7 +56,7 @@ if exist %JAVA_HOME%\lib\tools.jar set CLASSPATH=%CLASSPATH%;%JAVA_HOME%\lib\too
 
 echo Now building %TARGET%...
 
-set CLASSPATH=%CLASSPATH%;ant.jar;jaxp.jar;parser.jar
+set CLASSPATH=%CLASSPATH%;ant.jar;jaxp.jar;parser.jar;%ODMG%
 set CP=%CLASSPATH%
 
 echo Classpath: %CLASSPATH%

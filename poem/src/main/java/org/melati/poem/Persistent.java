@@ -978,6 +978,9 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected Object clone() {
+
+//  to clone it you have to be able to read it
+    assertCanRead();
     Persistent it;
     try {
       it = (Persistent)super.clone();

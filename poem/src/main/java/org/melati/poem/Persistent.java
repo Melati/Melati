@@ -1174,7 +1174,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * It does not currently have to be floating but perhaps best
    * not rely on this.
    * The result is not yet in the database.
-   */`
+   */
   public Persistent duplicatedFloating() throws AccessPoemException {
     return (Persistent)clone();
   }

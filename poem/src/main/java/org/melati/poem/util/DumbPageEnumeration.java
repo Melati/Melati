@@ -74,6 +74,6 @@ public class DumbPageEnumeration implements PageEnumeration {
 
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
-    return totalCountIsMinimum || it < totalCount ? new Integer(it) : null;
+    return totalCountIsMinimum || it <= totalCount ? new Integer(it) : null;
   }
 }

@@ -125,7 +125,7 @@ public class AdminUtils {
                Admin.METHOD_CREATE_COLUMN :
              table instanceof org.melati.poem.TableInfoTable ?
                Admin.METHOD_CREATE_TABLE :
-               Admin.METHOD_ADD_RECORD);
+               table.getName() + "/" + Admin.METHOD_ADD_RECORD);
   }
 
   public String PopupURL(Table table) {

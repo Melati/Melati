@@ -47,7 +47,8 @@ package org.melati;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.melati.poem.dbms.test.TestCaseDbms;
+import org.melati.poem.dbms.test.DbmsCaseTest;
+import org.melati.poem.test.PersistentCaseTest;
 import org.melati.util.test.StringUtilsTest;
 import org.melati.util.test.HttpHeaderTest;
 import org.melati.util.test.AcceptCharsetTest;
@@ -60,16 +61,24 @@ import org.melati.util.test.AcceptCharsetTest;
 public class AllUnitTests {
 
  /**
+  * Don't want people instantiating this Utility Class.
+  */ 
+  private AllUnitTests () {}
+
+ /**
   * Create the test suite.
   *
   * @return a new <code>Test</code> suite
   */
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for Melati");
-    suite.addTestSuite(TestCaseDbms.class);
+    suite.addTestSuite(DbmsCaseTest.class);
+    suite.addTestSuite(PersistentCaseTest.class);
     suite.addTestSuite(StringUtilsTest.class);
     suite.addTestSuite(HttpHeaderTest.class);
     suite.addTestSuite(AcceptCharsetTest.class);
     return suite;
   }
 }
+
+

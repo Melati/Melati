@@ -244,7 +244,7 @@ public abstract class MarkupLanguage {
     try {
       Hashtable vars = new Hashtable();
       vars.put("exception", e);
-      Template templet =
+      Template templet = 
           templetLoader.templet(webContext.getBroker(), this, e.getClass());
       return expandedTemplet(templet, vars);
     }

@@ -957,6 +957,9 @@ public class Table {
    * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
    * criteria.
    *
+   * If the orderByClause is null, then the default order by clause is applied.
+   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   *
    * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
    *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
    *         or you can just use <TT>selection</TT>
@@ -1034,6 +1037,9 @@ public class Table {
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
    * possibly including those flagged as deleted.
    *
+   * If the orderByClause is null, then the default order by clause is applied.
+   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   *
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
    *                            <TT>deleted</TT> column)
@@ -1053,6 +1059,19 @@ public class Table {
         };
   }
 
+  /**
+   * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
+   * possibly including those flagged as deleted.  The results are returned in 'pages'.
+   *
+   * If the orderByClause is null, then the default order by clause is applied.
+   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   *
+   * @param includeDeleted      whether to return objects flagged as deleted
+   *                            (ignored if the table doesn't have a
+   *                            <TT>deleted</TT> column)
+   *
+   * @see #selection(java.lang.String)
+   */
   public PageEnumeration selection(
       String whereClause, String orderByClause, boolean includeDeleted,
       int pageStart, int pageSize)

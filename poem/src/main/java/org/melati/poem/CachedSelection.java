@@ -89,7 +89,8 @@ public class CachedSelection extends CachedQuery {
     if (statements == null)
       statements = new PreparedStatementFactory(
                        table.getDatabase(),
-                       table.selectionSQL(null, whereClause, orderByClause, false, false));
+                       table.selectionSQL(null, whereClause, 
+                                          orderByClause, false, false));
 
     return statements;
   }

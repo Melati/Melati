@@ -80,7 +80,8 @@ public class OdmgTest {
 
   private static final Parent newParent()
     throws Exception {
-    return (Parent)org.melati.poem.odmg.ODMGFactory.getPoemDatabase().getTable("parent").newPersistent();
+    return (Parent)org.melati.poem.odmg.ODMGFactory.
+                       getPoemDatabase().getTable("parent").newPersistent();
   }
 
 }

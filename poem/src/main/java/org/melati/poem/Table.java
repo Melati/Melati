@@ -889,7 +889,7 @@ public class Table {
    *                    <TT>id</TT>, so that it can be conveniently `named' for
    *                    retrieval by this method.
    *
-   * @return A <TT>Persistent</TT> representing the record with the given troid;
+   * @return A <TT>Persistent</TT> of the record with the given troid;
    *         or, if the table was defined in the DSD under the name
    *         <TT><I>foo</I></TT>, an application-specialised subclass
    *         <TT><I>Foo</I></TT> of <TT>Persistent</TT>.  In that case, there
@@ -985,8 +985,9 @@ public class Table {
   }
 
   /**
-   * @param transaction null now defaults to {@link PoemThread#transaction()} but
-   * we do not rely on this much yet.
+   * @param transaction null now defaults to 
+   *                    {@link PoemThread#transaction()} but
+   *                    we do not rely on this much yet.
    */
   private ResultSet selectionResultSet(
       String fromClause, String whereClause, String orderByClause,
@@ -1038,12 +1039,15 @@ public class Table {
    *
    * @see #troidSelection(String, String, boolean, PoemTransaction)
    * @param criteria Represents selection criteria possibly on joined tables
-   * @param transaction A transaction or null for {@link PoemThread#transaction()}
+   * @param transaction A transaction or null for 
+   *                    {@link PoemThread#transaction()}
    */
   public Enumeration troidSelection(Persistent criteria, String orderByClause,
-                                    boolean includeDeleted, boolean cannotSelect,
+                                    boolean includeDeleted, 
+                                    boolean cannotSelect,
                                     PoemTransaction transaction) {
-    return troidsFrom(selectionResultSet(criteria.fromClause(), whereClause(criteria),
+    return troidsFrom(selectionResultSet(criteria.fromClause(), 
+                                         whereClause(criteria),
                                          orderByClause,
                                          includeDeleted, cannotSelect,
                                          transaction));
@@ -1078,7 +1082,8 @@ public class Table {
    * criteria.
    *
    * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   * If the orderByClause is an empty string, ie "", then no ordering is 
+   * applied.
    *
    * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
    *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
@@ -1157,7 +1162,8 @@ public class Table {
    * possibly including those flagged as deleted.
    *
    * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "", then no ordering is applied
+   * If the orderByClause is an empty string, ie "", then no ordering is 
+   * applied.
    *
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
@@ -1183,7 +1189,8 @@ public class Table {
                                 boolean includeDeleted, boolean cannotSelect)
      throws SQLPoemException {
      return objectsFromTroids(troidSelection(criteria, orderByClause,
-                                             includeDeleted, cannotSelect, null));
+                                             includeDeleted, cannotSelect, 
+                                             null));
    }
 
   /**
@@ -1212,8 +1219,9 @@ public class Table {
    * @see #selection(java.lang.String)
    */
   public PageEnumeration selection(String whereClause, String orderByClause, 
-      boolean includeDeleted, int pageStart, int pageSize)
-          throws SQLPoemException {
+                                   boolean includeDeleted, int pageStart, 
+                                   int pageSize)
+      throws SQLPoemException {
     return new CountedDumbPageEnumeration(
         selection(whereClause, orderByClause, includeDeleted),
         pageStart, pageSize, cachedCount(whereClause, includeDeleted).count());
@@ -1226,8 +1234,10 @@ public class Table {
    * @param criteria Represents selection criteria possibly on joined tables
    */
   public PageEnumeration selection(Persistent criteria, String orderByClause, 
-      boolean includeDeleted, boolean cannotSelect, int pageStart, int pageSize)
-          throws SQLPoemException {
+                                   boolean includeDeleted, 
+                                   boolean cannotSelect, int pageStart, 
+                                   int pageSize)
+      throws SQLPoemException {
     return new CountedDumbPageEnumeration(
         selection(criteria, orderByClause, includeDeleted, cannotSelect),
         pageStart, pageSize,
@@ -1275,7 +1285,8 @@ public class Table {
 
     String result = "SELECT " + selectClause + " FROM " + fromClause;
 
-    whereClause = appendWhereClauseFilters(whereClause, includeDeleted, cannotSelect);
+    whereClause = appendWhereClauseFilters(whereClause, includeDeleted, 
+                                           cannotSelect);
 
     if (whereClause.length() > 0) {
       result += " WHERE " + whereClause;
@@ -1371,7 +1382,8 @@ public class Table {
         " = " +
         database.getGroupCapabilityTable().getGroupColumn().fullQuotedName() +
         " AND " +
-        database.getGroupCapabilityTable().getCapabilityColumn().fullQuotedName() +
+        database.getGroupCapabilityTable().getCapabilityColumn().
+                                                            fullQuotedName() +
         " = " +
         canSelect.fullQuotedName() +
         "))";
@@ -1917,14 +1929,14 @@ public class Table {
     return cachedCount(whereClause, includeDeleted, true);
   }
 
-  public CachedCount cachedCount(String whereClause,
-                                 boolean includeDeleted, boolean cannotSelect) {
+  public CachedCount cachedCount(String whereClause, boolean includeDeleted, 
+                                 boolean cannotSelect) {
     return cachedCount(appendWhereClauseFilters(whereClause,
                                                 includeDeleted, cannotSelect));
   }
 
-  public CachedCount cachedCount(Persistent criteria,
-                                 boolean includeDeleted, boolean cannotSelect) {
+  public CachedCount cachedCount(Persistent criteria, boolean includeDeleted, 
+                                 boolean cannotSelect) {
     return cachedCount(whereClause(criteria, includeDeleted, cannotSelect),
                        criteria);
   }

@@ -52,8 +52,8 @@ import org.melati.Melati;
 /**
  * Display an object using the Template specified.
  *
- * Invoked with 
- * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=template
+ * Invoked with:
+ * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=t
  */
 public class Display extends TemplateServlet {
 

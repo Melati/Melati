@@ -81,7 +81,7 @@ public abstract class MarkupLanguage {
   protected Melati melati;
   private TemplateContext templateContext;
   private TempletLoader templetLoader;
-  private MelatiLocale locale;
+  protected MelatiLocale locale;
 
 /**
  * Construct a Markup Language object

@@ -60,4 +60,13 @@ public class MelatiStringWriter extends MelatiWriter {
     out = new StringWriter();
   }
  
+  /**
+   * Returns the buffer contents.
+   * <p>
+   * This is the same as <code>java.io.StringBuffer</code>.
+   */
+  public String toString() {
+    return out.toString();
+  }
+
 }

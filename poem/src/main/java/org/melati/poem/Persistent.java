@@ -48,6 +48,7 @@
 package org.melati.poem;
 
 import java.util.*;
+import java.io.*;
 import org.melati.util.*;
 
 public class Persistent extends Transactioned implements Cloneable {
@@ -836,6 +837,14 @@ public class Persistent extends Transactioned implements Cloneable {
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
+  public void delete_unsafe()
+      throws AccessPoemException {
+    assertNormalPersistent();
+    SessionToken sessionToken = PoemThread.sessionToken();
+    writeLock(sessionToken);
+    table.delete(troid(), sessionToken.transaction);    
+  }
+
   public Field getPrimaryDisplayField() {
     return fieldOfColumn(getTable().displayColumn());
   }
@@ -974,5 +983,14 @@ public class Persistent extends Transactioned implements Cloneable {
     it.status = NONEXISTENT;
 
     return it;
+  }
+
+  public void dump(PrintStream p) {
+    p.println(getTable().getName() + "/" + troid());
+    for (Enumeration f = getRecordDisplayFields(); f.hasMoreElements();) {
+      p.print("  ");
+      ((Field)f.nextElement()).dump(p);
+      p.println();
+    }
   }
 }

@@ -159,9 +159,9 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
       final HttpServletResponse response) throws ServletException {
     final Melati melati;
     melati = melatiConfig.getMelati(request, response);
-    PoemContext mc = getMelatiContext();
+    PoemContext pc = getPoemContext();
     try {
-      melati.setContext(mc);
+      melati.setPoemContext(pc);
     } catch (DatabaseInitException e) {
       e.printStackTrace(System.err);
       throw new ServletException(e.toString());
@@ -188,28 +188,28 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
   }
 
   /**
-   * Override this to supply a MelatiContext with at least a database field
+   * Override this to supply a PoemContext with at least a database field
    * filled. <code>
-   *    protected MelatiContext getMelatiContext() {
-   *     return new getMelatiContext("mydatabase");
+   *    protected PoemContext getPoemContext() {
+   *     return getPoemContext("mydatabase");
    *    }
    * </code>
    * 
    * @return a new context
    */
-  protected PoemContext getMelatiContext() {
+  protected PoemContext getPoemContext() {
     return new PoemContext();
   }
 
-  protected PoemContext getMelatiContext(String logicalDatabase) {
+  protected PoemContext getPoemContext(String logicalDatabase) {
     PoemContext it = new PoemContext();
     it.setLogicalDatabase(logicalDatabase);
     return it;
   }
-
+  
   protected PoemContext getPoemContext(String logicalDatabase,
       String pathInfo) throws PathInfoException {
-    PoemContext it = getMelatiContext(logicalDatabase);
+    PoemContext it = getPoemContext(logicalDatabase);
     String[] pathInfoParts = StringUtils.split(pathInfo, '/');
     if (pathInfoParts.length > 0) {
       if (pathInfoParts.length == 1)

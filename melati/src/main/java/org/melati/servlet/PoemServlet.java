@@ -152,7 +152,7 @@ import org.melati.util.MelatiWriter;
  *
  * <LI>
  * You can change the way these things are determined by overriding
- * <TT>melatiContext</TT>.
+ * <TT>poemContext</TT>.
  * 
  * <LI>
  * Any POEM database operations you perform will be done with the access
@@ -201,7 +201,7 @@ import org.melati.util.MelatiWriter;
  * @see org.melati.poem.Database#guestAccessToken
  * @see org.melati.poem.PoemThread#commit
  * @see org.melati.poem.PoemThread#rollback
- * @see #melatiContext
+ * @see #poemContext
  * @see org.melati.login.AccessHandler
  * @see org.melati.login.HttpSessionAccessHandler
  * @see org.melati.login.Login
@@ -326,10 +326,10 @@ public abstract class PoemServlet extends ConfigServlet {
     melati.write();
   }
 
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
 
-    MelatiContext it = new MelatiContext();
+    PoemContext it = new PoemContext();
     String[] parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
@@ -370,20 +370,20 @@ public abstract class PoemServlet extends ConfigServlet {
    * writing your appications where you are typically only accessing
    * a single database.
    *
-   * Simply override melatiContext(Melati melati) thus:
+   * Simply override poemContext(Melati melati) thus:
    *
    * <PRE>
-   * protected MelatiContext melatiContext(Melati melati)
+   * protected PoemContext poemContext(Melati melati)
    *     throws PathInfoException {
-   *   return melatiContextWithLDB(melati,"<your logical database name>");
+   *   return poemContextWithLDB(melati,"<your logical database name>");
    * }
    * </PRE>
    *
    */
-    protected MelatiContext melatiContextWithLDB (Melati melati, 
+    protected PoemContext poemContextWithLDB (Melati melati, 
                                                   String logicalDatabase) 
         throws PathInfoException {
-    MelatiContext it = new MelatiContext();
+    PoemContext it = new PoemContext();
     String[] parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
@@ -419,10 +419,6 @@ public abstract class PoemServlet extends ConfigServlet {
     return it;
   }
 
-  protected PoemContext poemContextWithLDB (Melati melati, String logicalDatabase) 
-    throws PathInfoException {
-    return (PoemContext)melatiContextWithLDB(melati, logicalDatabase);
-  }
 
   /**
    * Override this method to build up your own output.

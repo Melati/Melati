@@ -175,7 +175,7 @@ public abstract class ConfigServlet extends HttpServlet {
       try {
         melati.establishCharsets();
         PoemContext poemContext = poemContext(melati);
-        melati.setContext(poemContext);
+        melati.setPoemContext(poemContext);
         doConfiguredRequest(melati);
         // send the output to the client
         melati.write();

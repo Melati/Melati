@@ -52,48 +52,39 @@
 <HEAD>
 </HEAD>
 
-<BODY BGCOLOR=white>
+<BODY  bgcolor="#cccccc">
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <FORM METHOD=post ACTION=Update>
-
-<CENTER>
-
-<H1>Edit a record</H1>
-
-<P>Table: $ml.rendered($object.Table.DisplayName)</P>
-#if ($object.Table.Description) #begin
-  <P>Purpose: $ml.rendered($object.Table.Description)</P>
-#end
-
 <TABLE CELLPADDING=0 CELLSPACING=0>
   #foreach $field in $object.RecordDisplayFields #begin
-    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
-    #if ($field.Description) #begin
-      <TR>
-	<TD></TD><TD></TD>
-	<TD><FONT SIZE=1>$ml.rendered($field.Description)</TD>
-      </TR>
-    #end
+    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     <TR>
-      <TD>
+	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
         #if ($field.Type.Nullable) #begin
           $ml.rendered($field.DisplayName)
         #end #else #begin
           <B>$ml.rendered($field.DisplayName)</B>
         #end
-      </TD><TD></TD><TD>
+      </font><FONT SIZE="-2" FACE="Arial, Helvetica">
+    #if ($field.Description) #begin
+	  ($ml.rendered($field.Description))
+    #end
+    </font></TD>
+	</TR>
+    <TR><td>
+      <FONT SIZE="-1" FACE="Arial, Helvetica">
         #if ($field.UserEditable) #begin
           $ml.input($field)
         #end #else #begin
 	  $ml.rendered($field)
         #end
-      </TD>
+      </font></TD>
     </TR>
   #end
-</TABLE>
-
+    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+<tr><td align=center>
 <INPUT NAME=action VALUE=Update TYPE=submit
        ONCLICK="return validate(this.form);">
 &nbsp;&nbsp;
@@ -101,10 +92,12 @@
        ONCLICK="return confirm(
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
+<input type=hidden name=returnURL value='$Form.returnURL'>
+<input type=hidden name=target value='$Form.target'>
 <INPUT NAME=action VALUE=Duplicate TYPE=submit
        ONCLICK="return validate(this.form);">
-
-</CENTER>
+</td></tr>
+</TABLE>
 
 </FORM>
 

@@ -47,22 +47,66 @@
 
 #set $Response.Header.Content-Type = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
+#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
 </HEAD>
-<script>
+
+<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+
+<script TYPE="text/javascript">
+<!--
 #use 'text' until "--The End--"
-function reloadframes() {
---The End--
-$Form.target;.location.href="$Form.returnURL";
-$Form.target;.focus();
-#use 'text' until "--The End--"
+function checkAndunfocus(object) {
+  success = validate(object);
+  return success;
 }
 --The End--
+//-->
 </script>
-<BODY bgcolor="#cccccc" onLoad="reloadframes()">
-<center><br><br><br><br>
-<h3><FONT SIZE="" FACE="Arial, Helvetica">Done</font></h3>
-</center>
+
+#set $crit=""
+#foreach $field in $criteria #begin
+#set $crit="$crit&field-$ml.rendered($field.Name)=$ml.rendered($field.RawString)"
+#end
+
+#set $ord=""
+#foreach $field in $orderings #begin
+#set $ord="$ord&field-$ml.rendered($field.Name)=$ml.rendered($field.RawString)"
+#end
+<center>
+<h3><FONT face="Arial, Helvetica">Search</font></h3>
+<FORM METHOD=get action=$admin.tableURL($table) target=file_browser>
+<TABLE CELLPADDING=1 CELLSPACING=0 border=0>
+#foreach $field in $criteria #begin
+    <TR>
+      <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
+	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)
+#if ($admin.isReferencePoemType($field)) #begin
+<a href='$admin.addURL($field.getType().targetTable())?target=top.sub_menu.file_browser.choosewindow&returnURL=$ml.encoded("$admin.popupTableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="/images/new_dir.gif" border="0" alt="New $field.DisplayName"></a>
+#end
+</font></TD>
+    </TR>
+#end
+<tr><td><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
+<td><FONT face="Arial, Helvetica" size=-2>
+#foreach $field in $orderings #begin
+    $ml.input($field)
+    &nbsp;
+#end
+</font></td>
+</tr>
+<tr>
+<td></td><td>
+<FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE="Search" TYPE=submit
+       ONCLICK="return checkAndunfocus(this.form);"></font>
+</td></tr>
+</table>
+</FORM>
+
+</CENTER>
+
 </BODY>
 </HTML>

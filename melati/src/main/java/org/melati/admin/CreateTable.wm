@@ -51,56 +51,46 @@
 <HEAD>
 </HEAD>
 
-<BODY BGCOLOR=white>
+<BODY bgcolor="#cccccc">
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <FORM METHOD=post ACTION=Create_doit>
 
-<CENTER>
-
 <H1>Create a new table</H1>
 
-<TABLE CELLSPACING=0>
+<TABLE CELLPADDING=0 CELLSPACING=0>
   #foreach $field in $tableInfoFields #begin
     #if ($field.UserCreateable) #begin
-      #if ($field.Description) #begin
-	<TR>
-	  <TD></TD><TD></TD>
-	  <TD><FONT SIZE=1>$ml.rendered($field.Description)</FONT></TD>
-	</TR>
-      #end
       <TR>
-	<TD>
+	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
 	    $ml.rendered($field.DisplayName)
 	  #end #else #begin
 	    <B>$ml.rendered($field.DisplayName)</B>
 	  #end
-	</TD><TD><FONT SIZE=1>&nbsp;</FONT></TD><TD>
-	  $ml.input($field)
+	</font><FONT SIZE="-2" FACE="Arial, Helvetica">
+	      #if ($field.Description) #begin
+($ml.rendered($field.Description))
+      #end
+</FONT></TD></TR><TR><TD>
+	  <FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($field)</font>
 	</TD>
       </TR>
-      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+      <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     #end
   #end
   <TR>
-    <TD></TD><TD></TD>
-    <TD>
-      <FONT SIZE=1>The name of the table's TROID (primary key) column</FONT>
-    </TD>
+    <TD><FONT SIZE="-1" FACE="Arial, Helvetica"><B>TROID column name</B></font><FONT SIZE="-2" FACE="Arial, Helvetica">(The name of the table's TROID (primary key) column)</FONT></TD>
+</tr><TR><TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($troidNameField)</font></TD>
   </TR>
-  <TR>
-    <TD><B>TROID column name</B></TD>
-    <TD><FONT SIZE=1>&nbsp;</FONT></TD>
-    <TD>$ml.input($troidNameField)</TD>
-  </TR>
+      <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
 </TABLE>
 
+<input type=hidden name=returnURL value='$Form.returnURL'>
+<input type=hidden name=target value='$Form.target'>
 <INPUT NAME=action VALUE="Create the table" TYPE=submit
        ONCLICK="return validate(this.form);">
-
-</CENTER>
 
 </FORM>
 

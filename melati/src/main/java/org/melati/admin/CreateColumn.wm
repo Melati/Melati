@@ -51,51 +51,43 @@
 <HEAD>
 </HEAD>
 
-<BODY BGCOLOR=white>
+<BODY bgcolor="#cccccc">
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <FORM METHOD=post ACTION=CreateColumn_doit>
 
-<CENTER>
+<H2><FONT FACE="Arial, Helvetica">Create a new column</font></H2>
 
-<H1>Create a new column</H1>
-
-<P>Owning table: $ml.rendered($melati.Table.DisplayName)</P>
-
-<TABLE CELLSPACING=0>
+<TABLE CELLPADDING=0 CELLSPACING=0>
   #foreach $field in $columnInfoFields #begin
     #if ($field.UserCreateable) #begin
-      #if ($field.Description) #begin
-	<TR>
-	  <TD></TD><TD></TD>
-	  <TD><FONT SIZE=1>$ml.rendered($field.Description)</FONT></TD>
-	</TR>
-      #end
       <TR>
-	<TD>
+	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
 	    $ml.rendered($field.DisplayName)
 	  #end #else #begin
 	    <B>$ml.rendered($field.DisplayName)</B>
 	  #end
-	</TD><TD><FONT SIZE=1>&nbsp;</FONT></TD><TD>
-	  $ml.input($field)
-	</TD>
+	</font><FONT SIZE="-2" FACE="Arial, Helvetica">
+#if ($field.Description) #begin
+($ml.rendered($field.Description))
+      #end
+</FONT></TD></TR><TR><TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($field)</font></TD>
       </TR>
-      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+      <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     #end
   #end
 </TABLE>
 
+<input type=hidden name=returnURL value='$Form.returnURL'>
+<input type=hidden name=target value='$Form.target'>
 <INPUT NAME=action VALUE="Create the column" TYPE=submit
        ONCLICK="return validate(this.form);">
 
 <P><FONT SIZE=-1>
   (Be aware that deleting a column once it's been created is rather difficult!)
 </FONT></P>
-
-</CENTER>
 
 </FORM>
 

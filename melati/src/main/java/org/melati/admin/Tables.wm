@@ -1,139 +1,62 @@
-##
-## $Source$
-## $Revision$
-##
-## Part of Melati (http://melati.org), a framework for the rapid
-## development of clean, maintainable web applications.
-##
-## -------------------------------------
-##  Copyright (C) 2000 William Chesters
-## -------------------------------------
-##
-## This program is free software; you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation; either version 2 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program; if not, write to the Free Software
-## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-##
-## A copy of the GPL should be in the file org/melati/COPYING in this tree.
-## Or see http://melati.org/License.html.
-##
-## Contact details for copyright holder:
-##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
-##
-##
-## ------
-##  Note
-## ------
-##
-## I will assign copyright to PanEris (http://paneris.org) as soon as
-## we have sorted out what sort of legal existence we need to have for
-## that to make sense.  When WebMacro's "Simple Public License" is
-## finalised, we'll offer it as an alternative license for Melati.
-## In the meantime, if you want to use Melati on non-GPL terms,
-## contact me!
-##
-
 #set $Response.Header.Content-Type = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
+<TITLE>Options</TITLE>
+
+<SCRIPT Language="JavaScript">
+#use 'text' until "--THEEND--"
+
+function goto_page() {
+var selector;
+selector = document.forms[0].mainmenu;
+var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+if (option != "null") parent["sub_menu"].location = option;
+return false;
+}
+
+--THEEND--
+</SCRIPT>
+
 </HEAD>
 
-<BODY BGCOLOR=white>
+<BODY bgcolor="#dddddd" onLoad="goto_page(0)">
 
-<CENTER>
+<TABLE cellpadding="0" cellspacing="0" border="0" width="600">
+<TR>
+<TH align="left">
+<FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
+</TH>
 
-<P>The available tables are:</P>
+<FORM method="get" action="index2.html" target="sub_menu">
+<TD align="centre">
+<FONT SIZE="1" FACE="Arial, Helvetica">
+<SELECT name="mainmenu" OnChange="return(goto_page(0));">
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $table in $database.DisplayTables #begin
-    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
-    <TR>
-      <TD>
-        <A HREF="$admin.tableURL($table)">$ml.rendered($table.DisplayName)</A>
-      </TD>
-      <TD>&nbsp;&nbsp;</TD>
-      <TD>
-        #if ($table.Description) #begin
-          $ml.rendered($table.Description)
-        #end
-      </TD>
-    </TD></TR>
+#set $lasttype = ""
+#set $selected = false
+#foreach $tab in $database.DisplayTables #begin
+  #if ($tab.Category != $lasttype) #begin
+    <option value=null></option>
+    <option value=null>$tab.Category.Name</option>
+    <option value=null>============</option>
   #end
+  #set $lasttype = $tab.Category
+
+<OPTION value="$admin.lowerFrameTableURL($tab)"
+#if (!$selected) #begin
+    selected
+#end
+#set $selected = true
+> $ml.rendered($tab.DisplayName)</option>
+#end
+<OPTION value="$melati.LogoutURL"> Logout</option>
+</SELECT>
+<input type=button value=" Go " onclick="goto_page(0)">
+</td>
+</TR>
 </TABLE>
 
-<P>
-  <A HREF=Create>Create a new table</A>
-</P>
-
-<P>&nbsp;</P>
-
-##
-## Do not remove the following copyright notice.  It will be removed by myself
-## at some point in the future, to be replaced by a discreet Powered By Melati
-## link.
-##
-
-<TABLE ALIGN=CENTER><TR><TD>
-<FONT SIZE=-1><PRE>
-The web application you are using was developed using Melati
-(<A HREF=http://melati.org>http://melati.org</A>), a framework for the rapid development of clean,
-maintainable web applications.
-
--------------------------------------
- Copyright (C) 2000 William Chesters
--------------------------------------
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-A copy of the GPL should be in the file org/melati/COPYING in this tree.
-Or see http://melati.org/License.html.
-
-Contact details for copyright holder:
-
-    William Chesters &lt;<A HREF=mailto:williamc@paneris.org>williamc@paneris.org</A>&gt;
-    <A HREF=http://paneris.org/~williamc>http://paneris.org/~williamc</A>
-    Obrechtstraat 114, 2517VX Den Haag, The Netherlands
-
-
-------
- Note
-------
-
-I will assign copyright to PanEris (<A HREF=http://paneris.org>http://paneris.org</A>) as soon as
-we have sorted out what sort of legal existence we need to have for
-that to make sense.  When WebMacro's "Simple Public License" is
-finalised, we'll offer it as an alternative license for Melati.
-In the meantime, if you want to use Melati on non-GPL terms,
-contact me!
-</PRE></FONT>
-</TD></TR></TABLE>
-
-</CENTER>
-
+</FORM>
 </BODY>
 </HTML>

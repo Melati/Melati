@@ -51,7 +51,7 @@
 <HEAD>
 </HEAD>
 
-<BODY BGCOLOR=white>
+<BODY bgcolor="#cccccc">
 
 <CENTER>
 
@@ -60,16 +60,16 @@
 </P>
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  <TR><TD><I>Table</I></TD><TD>&nbsp;&nbsp;</TD><TD><I>Troid</I></TD>
+  <TR><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Table</font></I></TD><TD>&nbsp;&nbsp;</TD><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Troid</font></I></TD>
   #foreach $ref in $references #begin
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     <TR>
-      <TD>$ml.rendered($ref.Table.Name)</TD>
+      <TD><FONT SIZE=-1 FACE="Arial, Helvetica">$ml.rendered($ref.Table.Name)</font></TD>
       <TD></TD>
       #if ($ref.getReadable()) #begin
-        <TD><A HREF="$admin.editURL($ref)">$ref.Troid</A></TD>
+        <TD><FONT SIZE=-1 FACE="Arial, Helvetica"><A HREF="$admin.editURL($ref)?returnURL=$Form.returnURL">$ref.Troid</A></font></TD>
       #end #else #begin
-        <TD>(read access denied)</TD>
+        <TD><FONT SIZE=-1 FACE="Arial, Helvetica">(read access denied)</font></TD>
       #end
     </TR>
   #end

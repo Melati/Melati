@@ -119,12 +119,17 @@ public class Table implements Selectable {
   private Hashtable cachedCounts = new Hashtable();
   private Hashtable cachedExists = new Hashtable();
 
+  
+  /**
+   * Constructor.
+   */
   public Table(Database database, String name,
                DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
     // Don't do this here as the database does not know about the dbms yet
     // this.quotedName = database.quotedName(name);
+    // this is actually set the first time it is accessed in quotedName()
     this.definitionSource = definitionSource;
     serial = new TransactionedSerial(database);
   }
@@ -166,7 +171,6 @@ public class Table implements Selectable {
   /**
    * The database to which the table is attached.
    */
-
   public final Database getDatabase() {
     return database;
   }
@@ -175,33 +179,35 @@ public class Table implements Selectable {
    * The table's programmatic name.  Identical with its name in the DSD (if the
    * table was defined there), in its <TT>tableinfo</TT> entry, and in the
    * RDBMS itself.
+   *
+   * @return the table name, case as defined in the DSD
    */
-
   public final String getName() {
     return name;
   }
 
+ /**
+  * @return table name quoted using the DBMS' specific quoting rules.
+  */
   public final String quotedName() {
     if (quotedName == null) quotedName = database.quotedName(name);
     return quotedName;
   }
 
-  /**
-   * The human-readable name of the table.  POEM itself doesn't use this, but
-   * it's available to applications and Melati's generic admin system as a
-   * default label for the table and caption for its records.
-   */
-
+ /**
+  * The human-readable name of the table.  POEM itself doesn't use this, but
+  * it's available to applications and Melati's generic admin system as a
+  * default label for the table and caption for its records.
+  */
   public final String getDisplayName() {
     return info.getDisplayname();
   }
 
-  /**
-   * A brief description of the table's function.  POEM itself doesn't use
-   * this, but it's available to applications and Melati's generic admin system
-   * as a default label for the table and caption for its records.
-   */
-
+ /**
+  * A brief description of the table's function.  POEM itself doesn't use
+  * this, but it's available to applications and Melati's generic admin system
+  * as a default label for the table and caption for its records.
+  */
   public final String getDescription() {
     return info.getDescription();
   }
@@ -211,25 +217,24 @@ public class Table implements Selectable {
    * this, but it's available to applications and Melati's generic admin system
    * as a default label for the table and caption for its records.
    */
-
   public final TableCategory getCategory() {
      return info.getCategory();
   }
 
-  /**
-   * @see org.melati.admin.Admin#dsdTemplate
-   */
-
+ /**
+  * 
+  * @see org.melati.admin.Admin#dsdTemplate
+  * @return the {@link TableInfo} for this table
+  */
   public final TableInfo getInfo() {
      return info;
   }
 
-  /**
-   * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
-   * table.  It will always have one (except during initialisation, which the
-   * application programmer will never see).
-   */
-
+ /**
+  * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
+  * table.  It will always have one (except during initialisation, which the
+  * application programmer will never see).
+  */
   public final Integer tableInfoID() {
     return info == null ? null : info.troid();
   }
@@ -244,7 +249,6 @@ public class Table implements Selectable {
    *
    * @exception NoSuchColumnPoemException if there is no column with that name
    */
-
   public final Column getColumn(String name) throws NoSuchColumnPoemException {
     Column column = _getColumn(name); 
     if (column == null)
@@ -263,11 +267,13 @@ public class Table implements Selectable {
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
-
   public final Enumeration columns() {
     return new ArrayEnumeration(columns);
   }
 
+ /**
+  * @return the number of columns in this table.
+  */
   public final int getColumnsCount() {
     return columns.length;
   }
@@ -291,15 +297,13 @@ public class Table implements Selectable {
    *
    * @see #getObject(java.lang.Integer)
    */
-
   public final Column troidColumn() {
     return troidColumn;
   }
 
   /**
-   * The table's deleted-flag column, if any.  FIXME.
+   * The table's deleted-flag column, if any.
    */
-
   public final Column deletedColumn() {
     return deletedColumn;
   }
@@ -316,7 +320,6 @@ public class Table implements Selectable {
    * @see ReferencePoemType#_stringOfCooked
    * @see DisplayLevel#primary
    */
-
   public final Column displayColumn() {
     return displayColumn == null ? troidColumn : displayColumn;
   }
@@ -336,7 +339,6 @@ public class Table implements Selectable {
   *
   * @see Searchability
   */
-
   public final Column primaryCriterionColumn() {
     return searchColumn;
   }
@@ -429,6 +431,9 @@ public class Table implements Selectable {
     return new ArrayEnumeration(columns);
   }
 
+  /**
+   * @return the number of columns at a display level.
+   */ 
   public final int displayColumnsCount(DisplayLevel level) {
     int l = level.index.intValue();
     if (displayColumns[l] == null)
@@ -450,6 +455,9 @@ public class Table implements Selectable {
     return displayColumns(DisplayLevel.detail);
   }
 
+  /**
+   * @return the number of columns at display level <tt>Detail</tt>
+   */ 
   public final int getDetailDisplayColumnsCount() {
     return displayColumnsCount(DisplayLevel.detail);
   }
@@ -462,11 +470,13 @@ public class Table implements Selectable {
    * @see #displayColumns(DisplayLevel)
    * @see DisplayLevel#record
    */
-
   public final Enumeration getRecordDisplayColumns() {
     return displayColumns(DisplayLevel.record);
   }
 
+  /**
+   * @return the number of columns at display level <tt>Record</tt>
+   */ 
   public final int getRecordDisplayColumnsCount() {
     return displayColumnsCount(DisplayLevel.record);
   }
@@ -480,7 +490,6 @@ public class Table implements Selectable {
    * @see #displayColumns(DisplayLevel)
    * @see DisplayLevel#summary
    */
-
   public final Enumeration getSummaryDisplayColumns() {
     return displayColumns(DisplayLevel.summary);
   }
@@ -492,7 +501,6 @@ public class Table implements Selectable {
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
-
   public final Enumeration getSearchCriterionColumns() {
     Column[] columns = searchColumns;
 
@@ -504,6 +512,9 @@ public class Table implements Selectable {
     return new ArrayEnumeration(searchColumns);
   }
 
+  /**
+   * @return the number of columns which are searchable
+   */ 
   public final int getSearchCriterionColumnsCount() {
     if (searchColumns == null)
       // FIXME race
@@ -536,7 +547,7 @@ public class Table implements Selectable {
       PoemThread.commit();
 
     try {
-      System.err.println("about to execute:" + sql);
+      // System.err.println("about to execute:" + sql);
 
       Statement updateStatement = database.getCommittedConnection().createStatement();
       updateStatement.executeUpdate(sql);
@@ -863,10 +874,16 @@ public class Table implements Selectable {
     cache.trim(maxSize);
   }
 
+  /**
+   * @return the Cache Info object
+   */ 
   public Cache.Info getCacheInfo() {
     return cache.getInfo();
   }
 
+  /**
+   * Add a {@link TableListener} to this Table.
+   */ 
   public void addListener(TableListener listener) {
     listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
@@ -884,7 +901,6 @@ public class Table implements Selectable {
    *
    * @see GroupMembershipTable#notifyTouched
    */
-
   void notifyTouched(PoemTransaction transaction, Persistent persistent) {
     serial.increment(transaction);
 
@@ -893,10 +909,16 @@ public class Table implements Selectable {
       listeners[l].notifyTouched(transaction, this, persistent);
   }
 
+  /**
+   * @return the Transaction serial 
+   */ 
   public long serial(PoemTransaction transaction) {
     return serial.current(transaction);
   }
 
+  /**
+   * Lock this record.
+   */ 
   public void readLock() {
     serial(PoemThread.transaction());
   }
@@ -935,7 +957,6 @@ public class Table implements Selectable {
    *
    * @see Persistent#getTroid()
    */
-
   public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
     Persistent persistent = (Persistent)cache.get(troid);
 
@@ -966,7 +987,6 @@ public class Table implements Selectable {
    *
    * @see #getObject(java.lang.Integer)
    */
-
   public Persistent getObject(int troid) throws NoSuchRowPoemException {
     return getObject(new Integer(troid));
   }
@@ -1003,9 +1023,9 @@ public class Table implements Selectable {
    * @param fromClause Comma separated list of table names or null for default.
    * @todo Should work within some kind of limit
    */
-  public String selectionSQL(
-      String fromClause, String whereClause, String orderByClause,
-      boolean includeDeleted, boolean cannotSelect) {
+  public String selectionSQL(String fromClause, String whereClause, 
+                             String orderByClause, boolean includeDeleted, 
+                             boolean cannotSelect) {
     return selectOrCountSQL(troidColumn().fullQuotedName(),
                             fromClause, whereClause, orderByClause,
                             includeDeleted, cannotSelect);
@@ -1016,11 +1036,12 @@ public class Table implements Selectable {
    *                    {@link PoemThread#transaction()} but
    *                    we do not rely on this much yet.
    */
-  private ResultSet selectionResultSet(
-      String fromClause, String whereClause, String orderByClause,
-      boolean includeDeleted, boolean cannotDelete,
-      PoemTransaction transaction)
-          throws SQLPoemException {
+  private ResultSet selectionResultSet(String fromClause, String whereClause,
+                                       String orderByClause, 
+                                       boolean includeDeleted, 
+                                       boolean cannotDelete,
+                                       PoemTransaction transaction)
+      throws SQLPoemException {
 
     String sql = selectionSQL(fromClause, whereClause, orderByClause,
                               includeDeleted, cannotDelete);
@@ -1053,9 +1074,12 @@ public class Table implements Selectable {
     }
   }
 
-  public Enumeration troidSelection(
-      String whereClause, String orderByClause,
-      boolean includeDeleted, PoemTransaction transaction) {
+  /**
+   * @return an {@link Enumeration} of Troids satisfying the criteria.
+   */ 
+  public Enumeration troidSelection(String whereClause, String orderByClause,
+                                    boolean includeDeleted, 
+                                    PoemTransaction transaction) {
     return troidsFrom(selectionResultSet(null, whereClause, orderByClause,
                                          includeDeleted, true,
                                          transaction));
@@ -1119,7 +1143,6 @@ public class Table implements Selectable {
    * @see #getObject(java.lang.Integer)
    * @see #selection(java.lang.String, java.lang.String, boolean)
    */
-
   public Enumeration troidSelection(String whereClause, String orderByClause,
                                     boolean includeDeleted)
       throws SQLPoemException {
@@ -1147,7 +1170,6 @@ public class Table implements Selectable {
    *         has a <TT>deleted</TT> column, the objects flagged as deleted will
    *         be passed over.
    */
-
   public Enumeration selection() throws SQLPoemException {
     return selection((String)null, (String)null, false);
   }
@@ -1172,13 +1194,22 @@ public class Table implements Selectable {
    *
    * @see Column#selectionWhereEq(java.lang.Object)
    */
-
   public final Enumeration selection(String whereClause)
       throws SQLPoemException {
     return selection(whereClause, null, false);
   }
 
 
+ /**
+  * Get an object satisfying the where clause.
+  * It is the programmer's responsibility to use this in a 
+  * context where only one result will be found, if more than one 
+  * actually exist only the first will be returned. 
+  *
+  * @param whereClause         SQL <TT>SELECT</TT>ion criteria for the search:
+  *                            the part that should appear after the
+  *                            <TT>WHERE</TT> keyword
+  */
   public Persistent firstSelection(String whereClause) {
     Enumeration them = selection(whereClause);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
@@ -1197,8 +1228,7 @@ public class Table implements Selectable {
    *                            <TT>deleted</TT> column)
    *
    * @see #selection(java.lang.String)
-   */
-   
+   */   
    public Enumeration selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
@@ -1298,13 +1328,10 @@ public class Table implements Selectable {
    * @param fromClause Comma separated list of table names or null for default.
    * @param orderByClause null for default, can be empty for counts
    */
-  private String selectOrCountSQL(
-      String selectClause,
-      String fromClause,
-      String whereClause,
-      String orderByClause,
-      boolean includeDeleted,
-      boolean cannotSelect) {
+  private String selectOrCountSQL(String selectClause, String fromClause,
+                                  String whereClause, String orderByClause,
+                                  boolean includeDeleted, 
+                                  boolean cannotSelect) {
 
     if (fromClause == null) {
       fromClause = quotedName();
@@ -1340,7 +1367,7 @@ public class Table implements Selectable {
    * So <code>cannotSelect</code> should default to <code>true</code>
    * and is only specified when selecting rows.
    * <p>
-   * Despite the name this does not user a <code>StringBuffer</code>.
+   * Despite the name this does not use a <code>StringBuffer</code>.
    * in the belief that the costs outweigh the benefits here.
    */
   private String appendWhereClauseFilters(String whereClause,
@@ -1417,6 +1444,9 @@ public class Table implements Selectable {
     }
   }
 
+  /**
+   * @return the number records satisfying criteria.
+   */ 
   public int count(String whereClause,
                    boolean includeDeleted, boolean cannotSelect)
       throws SQLPoemException {
@@ -1424,11 +1454,17 @@ public class Table implements Selectable {
                                           includeDeleted, cannotSelect));
   }
 
+  /**
+   * @return the number records satisfying criteria.
+   */ 
   public int count(String whereClause, boolean includeDeleted)
       throws SQLPoemException {
     return count(whereClause, includeDeleted, true);
   }
 
+  /**
+   * @return the number records satisfying criteria.
+   */ 
   public int count(String whereClause)
       throws SQLPoemException {
 
@@ -1458,8 +1494,19 @@ public class Table implements Selectable {
   }
 
 
+  /**
+   * @param whereClause the SQL criteria
+   * @return whether any  records satisfy criteria.
+   */ 
   public boolean exists(String whereClause) throws SQLPoemException {
     return count(whereClause) > 0;
+  }
+  /**
+   * @param persistent a {@link Persistent} with some fields filled in 
+   * @return whether any  records exist with the same fields filled
+   */ 
+  public boolean exists(Persistent persistent) {
+    return exists(whereClause(persistent));
   }
 
   /**
@@ -1481,7 +1528,6 @@ public class Table implements Selectable {
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
    */
-
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
     Column[] columns = this.columns;
     boolean hadOne = false;
@@ -1500,7 +1546,7 @@ public class Table implements Selectable {
             dbms().caseInsensitiveRegExpSQL(
                   columnSQL,
                   column.getSQLType().quotedRaw(raw)));
-        } if (column.getType() instanceof BooleanPoemType) {
+        } else if (column.getType() instanceof BooleanPoemType) {
           clause.append(columnSQL);
           clause.append(" = ");
           clause.append(dbms().sqlBooleanValueOfRaw(raw));
@@ -1573,9 +1619,6 @@ public class Table implements Selectable {
                                     includeDeleted, cannotSelect);
   }
 
-  public boolean exists(Persistent persistent) {
-    return exists(whereClause(persistent));
-  }
 
   /**
    * All the objects in the table which refer to a given object.  If none of
@@ -1763,9 +1806,8 @@ public class Table implements Selectable {
   }
 
   /**
-   * A freshly minted <TT>Persistent</TT> object for the table.
+   * A freshly minted <TT>Persistent</TT> object for this table.
    */
-
   public Persistent newPersistent() {
     Persistent it = _newPersistent();
     it.setTable(this, null);
@@ -1778,7 +1820,6 @@ public class Table implements Selectable {
    * This method is overridden in application-specialised <TT>Table</TT>
    * subclasses derived from the Data Structure Definition.
    */
-
   protected Persistent _newPersistent() {
     return new Persistent();
   }
@@ -1793,7 +1834,6 @@ public class Table implements Selectable {
   /**
    * The number of `extra' (non-DSD-defined) columns in the table.
    */
-
   int extrasCount() {
     return extrasIndex;
   }
@@ -1811,7 +1851,6 @@ public class Table implements Selectable {
    *
    * @see Persistent#getCanRead()
    */
-
   public final Capability getDefaultCanRead() {
     return info == null ? null : info.getDefaultcanread();
   }
@@ -1822,12 +1861,20 @@ public class Table implements Selectable {
    * record in the <TT>tableinfo</TT> table.
    *
    * @see Persistent#getCanWrite()
+   * @return the default  {@link Capabaility} required to write  a 
+   *         {@link Persistent}, if any
    */
-
   public final Capability getDefaultCanWrite() {
     return info == null ? null : info.getDefaultcanwrite();
   }
 
+  /**
+   * The capability required for deleting records in the table, unless
+   * overridden in the record itself.  This simply comes from the table's
+   * record in the <TT>tableinfo</TT> table.
+   * @return the default  {@link Capabaility} required to delete a 
+   *         {@link Persistent}, if any
+   */ 
   public final Capability getDefaultCanDelete() {
     return info == null ? null : info.getDefaultcandelete();
   }
@@ -1838,7 +1885,6 @@ public class Table implements Selectable {
    *
    * @see #create(org.melati.poem.Initialiser)
    */
-
   public final Capability getCanCreate() {
     return info == null ? null : info.getCancreate();
   }
@@ -1865,6 +1911,12 @@ public class Table implements Selectable {
   // -----------
   // 
 
+  /**
+   * Add a {@link Column} to the database and the {@link TableInfo} table.
+   *
+   * @param info the meta data about the {@link Column} 
+   * @return the newly added column
+   */
   public Column addColumnAndCommit(ColumnInfo info) throws PoemException {
 
     // Set the new column up
@@ -1908,7 +1960,6 @@ public class Table implements Selectable {
    * description of where it was defined (the DSD, the metadata tables or the
    * JDBC metadata).
    */
-
   public String toString() {
     return getName() + " (from " + definitionSource + ")";
   }
@@ -1917,7 +1968,6 @@ public class Table implements Selectable {
    * Print some diagnostic information about the contents and consistency of
    * POEM's cache for this table to stderr.
    */
-
   public void dumpCacheAnalysis() {
     System.err.println("\n-------- Analysis of " + name + "'s cache\n");
     cache.dumpAnalysis();
@@ -1926,7 +1976,6 @@ public class Table implements Selectable {
   /**
    * Print information about the structure of the database to stdout.
    */
-
   public void dump() {
     System.out.println("=== table " + name +
                        " (tableinfo id " + tableInfoID() + ")");
@@ -1941,7 +1990,6 @@ public class Table implements Selectable {
    * @param orderByClause which field to order by or null
    * @return the results
    */
-
   public CachedSelection cachedSelection(String whereClause,
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
@@ -1960,22 +2008,51 @@ public class Table implements Selectable {
     return them;
   }
 
+  /**
+   * A mechanism for caching a record count.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @param includeDeleted whether to include soft deleted records
+   * @return a cached count
+   */
   public CachedCount cachedCount(String whereClause, boolean includeDeleted) {
     return cachedCount(whereClause, includeDeleted, true);
   }
 
+  /**
+   * A mechanism for caching a record count.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @param includeDeleted whether to include soft deleted records
+   * @param cannotSelect whether to exclude columns which cannot be selected
+   * @return a cached count
+   */
   public CachedCount cachedCount(String whereClause, boolean includeDeleted, 
                                  boolean cannotSelect) {
     return cachedCount(appendWhereClauseFilters(whereClause,
                                                 includeDeleted, cannotSelect));
   }
 
+  /**
+   * A mechanism for caching a record count.
+   * 
+   * @param criteria a {@link Persistent} with selection fields filled
+   * @param includeDeleted whether to include soft deleted records
+   * @param cannotSelect whether to exclude columns which cannot be selected
+   * @return a cached count
+   */
   public CachedCount cachedCount(Persistent criteria, boolean includeDeleted, 
                                  boolean cannotSelect) {
     return cachedCount(whereClause(criteria, includeDeleted, cannotSelect),
                        criteria);
   }
 
+  /**
+   * A mechanism for caching a record count.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @return a cached count
+   */
   public CachedCount cachedCount(String whereClause) {
     return cachedCount(whereClause, (Persistent)null);
   }
@@ -1998,6 +2075,12 @@ public class Table implements Selectable {
     return it;
   }
 
+  /**
+   * A mechanism for caching an existance.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @return a cached exists
+   */
   public CachedExists cachedExists(String whereClause) {
     CachedExists it = (CachedExists)cachedExists.get(whereClause);
     if (it == null) {
@@ -2012,8 +2095,16 @@ public class Table implements Selectable {
     return it;
   }
 
-  public RestrictedReferencePoemType cachedSelectionType(
-      String whereClause, String orderByClause, boolean nullable) {
+  /**
+   * A mechanism for caching a record count.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @param orderBtClause raw SQL order clause appropriate for this DBMS
+   * @param nullable whether thit is nullable
+   * @return a {@link RestrictedReferencePoemType}
+   */
+  public RestrictedReferencePoemType cachedSelectionType(String whereClause, 
+                                   String orderByClause, boolean nullable) {
     return new RestrictedReferencePoemType(
                cachedSelection(whereClause, orderByClause), nullable);
   }
@@ -2065,7 +2156,6 @@ public class Table implements Selectable {
    *                            <I>i.e.</I>
    *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
    */
-
   public Field cachedSelectionField(
       String whereClause, String orderByClause, boolean nullable,
       Integer selectedTroid, String name) {
@@ -2088,7 +2178,6 @@ public class Table implements Selectable {
    * method) or directly in the RDBMS (in which case the initialisation code
    * will).
    */
-
   protected synchronized void defineColumn(Column column, boolean reallyDoIt)
       throws DuplicateColumnNamePoemException,
              DuplicateTroidColumnPoemException,
@@ -2163,6 +2252,9 @@ public class Table implements Selectable {
     setCacheLimit(tableInfo.getCachelimit());
   }
   
+  /**
+   * @return the {@link TableInfo} for this table.
+   */
   public TableInfo getTableInfo() {
     return info;
   }
@@ -2174,7 +2266,6 @@ public class Table implements Selectable {
    * in the DSD.  This is only ever used at startup time when creating
    * <TT>columninfo</TT> records for tables that don't have them.
    */
-
   protected String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
@@ -2190,7 +2281,6 @@ public class Table implements Selectable {
    * only ever used at startup time when creating <TT>columninfo</TT> records
    * for tables that don't have them.
    */
-
   protected String defaultDescription() {
     return null;
   }
@@ -2250,6 +2340,12 @@ public class Table implements Selectable {
       ((Column)c.nextElement()).createColumnInfo();
   }
 
+  /**
+   * Unify the JDBC description of this table with the 
+   * meta data held in the {@linkTableInfo}
+   *
+   * @param colDescs a JDBC {@link ResultSet} describing the columns
+   */
   public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
 
@@ -2312,7 +2408,7 @@ public class Table implements Selectable {
       // silently create any missing columns
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-          System.err.println("About to add missing column: " + columns[c]);
+        //  System.err.println("About to add missing column: " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }

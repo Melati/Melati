@@ -282,14 +282,6 @@ public abstract class ConfigServlet extends HttpServlet {
     return "nobody@nobody.com";
   }
 
-  /** 
-   * @deprecated use poemContext
-   */
-  protected MelatiContext melatiContext(Melati melati) 
-  throws PathInfoException {
-   return (MelatiContext)poemContext(melati);
- }
-
   protected PoemContext poemContext(Melati melati) 
   throws PathInfoException {
     PoemContext it = new PoemContext();
@@ -312,7 +304,8 @@ public abstract class ConfigServlet extends HttpServlet {
    *     return config;
    *   }
    * </PRE>
-   *
+   * 
+   * @return a new {@link MelatiConfig}
    * @throws MelatiException if anything goes wrong with Melati
    */
   protected MelatiConfig melatiConfig() throws MelatiException {

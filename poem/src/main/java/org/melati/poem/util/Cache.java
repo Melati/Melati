@@ -267,7 +267,15 @@ public final class Cache {
       return;
 
     if (n instanceof HeldNode) {
-      ((HeldNode)n).putBefore(null);
+      HeldNode h = (HeldNode)n;
+
+      if (theLRU == h)
+        theLRU = h.prevMRU;
+      if (theMRU == h)
+        theMRU = h.nextMRU;
+
+      h.putBefore(null);
+
       --heldNodes;
     }
 
@@ -295,7 +303,6 @@ public final class Cache {
 
       node.putBefore(theMRU);
       theMRU = node;
-
       if (theLRU == null) theLRU = node;
 
       ++heldNodes;
@@ -332,6 +339,8 @@ public final class Cache {
         ++heldNodes;
         held.putBefore(theMRU);
         theMRU = held;
+        if (theLRU == null)
+          theLRU = held;
         trim(maxSize);
       }
 

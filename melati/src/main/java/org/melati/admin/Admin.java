@@ -133,6 +133,7 @@ public class Admin extends MelatiServlet {
     context.put("table", table);
 
     final Database database = table.getDatabase();
+    context.put("database", database);
 
     // sort out search criteria
 

@@ -18,4 +18,9 @@ public class TableInfo extends TableInfoBase {
     super.setSeqcached(b);
     getTable().rememberAllTroids(b.booleanValue());
   }
+
+  public void setCachelimit(Integer limit) throws AccessPoemException {
+    super.setCachelimit(limit);
+    getTable().setCacheLimit(limit);
+  }
 }

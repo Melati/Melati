@@ -4,6 +4,8 @@ import java.io.*;
 
 public class CacheSizeTableQualifier extends TableQualifier {
 
+  public static final int DEFAULT = -1, UNLIMITED = -2;
+
   private int size;
 
   public CacheSizeTableQualifier(StreamTokenizer tokens)
@@ -12,7 +14,7 @@ public class CacheSizeTableQualifier extends TableQualifier {
     tokens.nextToken();
     if (tokens.ttype == StreamTokenizer.TT_WORD &&
         tokens.sval.equals("unlimited"))
-      size = -1;
+      size = CacheSizeTableQualifier.UNLIMITED;
     else {
       if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval <= 0)
         throw new ParsingDSDException("<positive size number>", tokens);

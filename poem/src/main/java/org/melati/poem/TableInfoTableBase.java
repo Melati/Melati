@@ -530,6 +530,10 @@ public class TableInfoTableBase extends Table {
     return true;
   }
 
+  protected Integer defaultCacheLimit() {
+    return null;
+  }
+
   protected int defaultDisplayOrder() {
     return 0;
   }

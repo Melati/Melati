@@ -699,6 +699,10 @@ public class Table {
         };
   }
 
+  protected void setCacheLimit(Integer limit) {
+    cache.setSize(limit == null ? CACHE_LIMIT_DEFAULT : limit.intValue());
+  }
+
   /**
    * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
    * criteria.
@@ -1283,9 +1287,7 @@ public class Table {
   void setTableInfo(TableInfo tableInfo) {
     info = tableInfo;
     rememberAllTroids(tableInfo.getSeqcached().booleanValue());
-    Integer cacheLimit = tableInfo.getCachelimit();
-    cache.setSize(cacheLimit == null ?
-                      CACHE_LIMIT_DEFAULT : cacheLimit.intValue());
+    setCacheLimit(tableInfo.getCachelimit());
   }
 
   /**
@@ -1317,7 +1319,7 @@ public class Table {
   }
 
   protected Integer defaultCacheLimit() {
-    return null;
+    return new Integer(CACHE_LIMIT_DEFAULT);
   }
 
   protected boolean defaultRememberAllTroids() {

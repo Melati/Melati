@@ -12,7 +12,7 @@ public class TableDef {
   String displayName;
   String description;
   boolean seqCached;
-  int cacheSize = -1;
+  int cacheSize = CacheSizeTableQualifier.DEFAULT;
   final String dataBaseClass;
   final String dataMainClass;
   final String baseClass;
@@ -196,9 +196,12 @@ public class TableDef {
               "  }\n" +
               "\n");
 
-    if (cacheSize >= 0)
-      w.write("  protected boolean defaultCacheLimit() {\n" +
-              "    return " + cacheSize + ";\n" +
+    if (cacheSize != CacheSizeTableQualifier.DEFAULT)
+      w.write("  protected Integer defaultCacheLimit() {\n" +
+              "    return " +
+                       (cacheSize == CacheSizeTableQualifier.UNLIMITED ?
+                            "null" :  "new Integer(" + cacheSize + ")") +
+                       ";\n" +
               "  }\n" +
               "\n");
 

@@ -94,7 +94,7 @@ public class TreeNode {
     }
 
     public synchronized TreeNode[] getChildren() {
-        if (checkedForChildren == true)
+        if (checkedForChildren)
             return children;
        
         Treeable[] kids = data.getChildren();

@@ -50,10 +50,9 @@ package org.melati.poem.dbms;
 
 import java.sql.SQLException;
 
- /**
-  * A Driver for the Microsoft SQL server.
-  */
-
+/**
+ * A Driver for the Microsoft SQL server.
+ */
 public class SQLServer extends AnsiStandard {
   
   public SQLServer() {
@@ -61,7 +60,8 @@ public class SQLServer extends AnsiStandard {
   //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
     //setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); //does not work
     //setDriverClassName("com.ashna.jturbo.driver.Driver"); //works
-    setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
+    //setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
+    setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); //works
     //FreeTDS driver now have many unimplemented features and => does not work.
   }
 
@@ -94,3 +94,13 @@ public class SQLServer extends AnsiStandard {
   }
 
 }
+
+
+
+
+
+
+
+
+
+

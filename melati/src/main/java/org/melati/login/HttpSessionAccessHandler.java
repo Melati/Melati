@@ -88,7 +88,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public String loginPageURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
-    HttpUtils.appendZoneURL(url, request);
+    HttpUtil.appendZoneURL(url, request);
 
     url.append(loginPageServletClassName());
     url.append('/');

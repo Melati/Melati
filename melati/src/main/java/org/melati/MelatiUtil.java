@@ -59,49 +59,49 @@ import org.melati.template.TempletAdaptorConstructionMelatiException;
 import org.melati.util.Tree;
 import org.melati.util.JSDynamicTree;
 
-/*
-<p>MelatiUtil is a place where useful Static methods can be put. </p>
+/**
+ * MelatiUtil is a place where useful Static methods can be put.
  */
 
 public class MelatiUtil {
 
   public static void extractFields(TemplateContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement ();
-      String formFieldName = "field_" + column.getName ();
-      String rawString = context.getForm (formFieldName);
+      Column column = (Column)c.nextElement();
+      String formFieldName = "field_" + column.getName();
+      String rawString = context.getForm(formFieldName);
 
       String adaptorFieldName = formFieldName + "-adaptor";
-      String adaptorName = context.getForm (adaptorFieldName);
+      String adaptorName = context.getForm(adaptorFieldName);
       if (adaptorName != null) {
         TempletAdaptor adaptor;
         try {
           // FIXME cache this instantiation
-          adaptor = (TempletAdaptor)Class.forName (adaptorName).newInstance ();
-        } catch (Exception e) {
-          throw new TempletAdaptorConstructionMelatiException (
-          adaptorFieldName, adaptorName, e);
+          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
         }
-        column.setRaw (object, adaptor.rawFrom (context, formFieldName));
+        catch (Exception e) {
+          throw new TempletAdaptorConstructionMelatiException(
+              adaptorFieldName, adaptorName, e);
+        }
+        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
       }
       else {
         if (rawString != null) {
-          if (rawString.equals ("")) {
-            if (column.getType ().getNullable ())
-            column.setRaw (object, null);
+          if (rawString.equals("")) {
+            if (column.getType().getNullable())
+              column.setRaw(object, null);
             else
-            column.setRawString (object, "");
+              column.setRawString(object, "");
           }
           else
-          column.setRawString (object, rawString);
+          column.setRawString(object, rawString);
         }
       }
     }
   }
 
-  public static Object extractField(TemplateContext context,
-  String fieldName)
-  throws TempletAdaptorConstructionMelatiException {
+  public static Object extractField(TemplateContext context, String fieldName)
+      throws TempletAdaptorConstructionMelatiException {
 
     String rawString = context.getForm(fieldName);
 
@@ -113,7 +113,8 @@ public class MelatiUtil {
       try {
         // FIXME cache this instantiation
         adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-      } catch (Exception e) {
+      }
+      catch (Exception e) {
         throw new TempletAdaptorConstructionMelatiException(
         adaptorFieldName, adaptorName, e);
       }
@@ -124,40 +125,77 @@ public class MelatiUtil {
 
 
   // get a tree object
-  public JSDynamicTree getJSDynamicTree (Tree tree) {
-    return new JSDynamicTree (tree);
+  public JSDynamicTree getJSDynamicTree(Tree tree) {
+    return new JSDynamicTree(tree);
   }
 
+  /**
+   * Modify or add a form parameter setting (query string component) in a URL.
+   *
+   * @param uri     A URI
+   * @param query   A query string
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        <TT><I>uri</I>?<I>query</I></TT> with <TT>field=value</TT>.
+   *                If there is already a binding for <TT>field</TT> in the
+   *                query string it is replaced, not duplicated.
+   * @see org.melati.util.MelatiUtil
+   */
 
-  public static String sameURLWith (String uri, String query,
-  String field, String value) {
-    return uri + "?" + sameQueryWith (query, field, value);
+  public static String sameURLWith(String uri, String query,
+                                   String field, String value) {
+    return uri + "?" + sameQueryWith(query, field, value);
   }
 
-  public static String sameURLWith (HttpServletRequest request,
-  String field, String value) {
-    return sameURLWith (request.getRequestURI (), request.getQueryString (),
-    field, value);
+  /**
+   * Modify or add a form parameter setting (query string component) in the URL
+   * for a servlet request.
+   *
+   * @param request A servlet request
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        The request's URL with <TT>field=value</TT>.  If there is
+   *                already a binding for <TT>field</TT> in the query string
+   *                it is replaced, not duplicated.  If there is no query
+   *                string, one is added.
+   * @see org.melati.util.MelatiUtil
+   */
+
+  public static String sameURLWith(HttpServletRequest request,
+                                   String field, String value) {
+    return sameURLWith(request.getRequestURI(), request.getQueryString(),
+                       field, value);
   }
 
-  public static String sameQueryWith (String qs, String field, String value) {
-    String fenc = URLEncoder.encode (field);
+  /**
+   * Modify or add a form parameter setting (query string component) in a query
+   * string.
+   *
+   * @param qs      A query string
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        <TT>qs</TT> with <TT>field=value</TT>.
+   *                If there is already a binding for <TT>field</TT> in the
+   *                query string it is replaced, not duplicated.
+   * @see org.melati.util.MelatiUtil
+   */
+
+  public static String sameQueryWith(String qs, String field, String value) {
+    String fenc = URLEncoder.encode(field);
     String fenceq = fenc + '=';
-    String fev = fenceq + URLEncoder.encode (value);
+    String fev = fenceq + URLEncoder.encode(value);
 
-    if (qs == null || qs.equals ("")) return fev;
+    if (qs == null || qs.equals("")) return fev;
 
     int i;
-    if (qs.startsWith (fenceq)) i = 0;
+    if (qs.startsWith(fenceq)) i = 0;
     else {
-      i = qs.indexOf ('&' + fenceq);
+      i = qs.indexOf('&' + fenceq);
       if (i == -1) return qs + '&' + fev;
       ++i;
     }
 
-    int a = qs.indexOf ('&', i);
-    return qs.substring (0, i) + fev + (a == -1 ? "" : qs.substring (a));
+    int a = qs.indexOf('&', i);
+    return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
   }
-
 }
-

@@ -46,7 +46,6 @@
 package org.melati.poem;
 
 import org.melati.poem.generated.CapabilityBase;
-import org.melati.poem.PoemThread;
 
 /**
  * The quality of being able to perform an action.

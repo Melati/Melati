@@ -415,11 +415,17 @@ public class Melati {
   /**
    * Returns a MelatiLocale object based on the Accept-Language header
    * of this request.
+   *
+   * If we are using Melati outside of a servlet context then the 
+   * configured locale is returned. 
    * 
    * @return a MelatiLocale object
    */
   public MelatiLocale getMelatiLocale() {
-    String acceptLanguage = getRequest().getHeader("Accept-Language");
+    HttpServletRequest r = getRequest();
+    String acceptLanguage = null;
+    if (r != null) 
+      acceptLanguage = r.getHeader("Accept-Language");
     if (acceptLanguage == null)
       return config.getLocale();
     return config.getLocale(acceptLanguage);

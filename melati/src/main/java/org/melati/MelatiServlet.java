@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import org.melati.util.*;
 import org.melati.poem.*;
+import org.melati.templets.*;
 import org.webmacro.*;
 import org.webmacro.util.*;
 import org.webmacro.engine.*;
@@ -25,23 +26,25 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   }
 
   /**
-  * <A NAME=hackedVariable>You must use a hacked version of
-  * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
-  * into <TT>org.webmacro.engine</TT>: lobby Justin to stop making everything
-  * final or package-private or static!  It will probably not break your
-  * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
-  * semantics are essentially the same as the traditional ones until configured
-  * otherwise.  You can get the hacked version by anonymous CVS from melati.org
-  * (see the <A
-  * HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
-  * guide</A>).
-  */
+   * <A NAME=hackedVariable>You must use a hacked version of
+   * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
+   * into <TT>org.webmacro.engine</TT>: lobby Justin to stop making everything
+   * final or package-private or static!  It will probably not break your
+   * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
+   * semantics are essentially the same as the traditional ones until configured
+   * otherwise.  You can get the hacked version by anonymous CVS from melati.org
+   * (see the <A
+   * HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
+   * guide</A>).
+   */
 
   public static final Object check =
       org.webmacro.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
 
   private Properties configuration = null;
   private AccessHandler accessHandler = null;
+  private TempletLoader templetLoader = null;
+  private MelatiLocale locale = MelatiLocale.here;
 
   /**
    * Melati's main entry point.  Override this to do WebMacro-like things and
@@ -167,10 +170,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    *
    * </UL>
    *
-   * @param context	a WebMacro `context' object, representing the
+   * @param context     a WebMacro `context' object, representing the
    *                    template expansion namespace and carrying the servlet
    *                    request, session <I>etc.</I>
-   * @param melati	a source of information about the Melati database
+   * @param melati      a source of information about the Melati database
    *                    context (database, table, object) and utility objects
    *                    like error handlers
    *
@@ -300,8 +303,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
       // FIXME make this nicer since users will see it if they play around
       // with URLs
       throw new PathInfoException(
-	  "The servlet expects to see pathinfo in the form " +
-	  "/db/, /db/method, /db/table/method or /db/table/troid/method");
+          "The servlet expects to see pathinfo in the form " +
+          "/db/, /db/method, /db/table/method or /db/table/troid/method");
 
     try {
       MelatiContext it = new MelatiContext();
@@ -354,11 +357,11 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
       final Database database;
       try {
-	database = LogicalDatabase.named(melatiContext.logicalDatabase);
+        database = LogicalDatabase.named(melatiContext.logicalDatabase);
       }
       catch (DatabaseInitException e) {
-	e.printStackTrace();
-	throw new ServletException(e.toString());
+        e.printStackTrace();
+        throw new ServletException(e.toString());
       }
 
       database.logSQL = true;
@@ -368,15 +371,16 @@ public abstract class MelatiServlet extends MelatiWMServlet {
           new PoemTask() {
             public void run() {
               try {
-		WebContext context =
-		    accessHandler().establishUser(contextIn, database);
-		if (context != null) {
-		  context.put("melati", new Melati(context, database,
-						   melatiContext));
-		  context.put(Variable.EXCEPTION_HANDLER,
-			      PropagateVariableExceptionHandler.it);
-		  _this.superDoRequest(context);
-		}
+                WebContext context =
+                    accessHandler().establishUser(contextIn, database);
+                if (context != null) {
+                  context.put("melati",
+                              new Melati(context, database, melatiContext,
+                                         locale(), templetLoader()));
+                  context.put(Variable.EXCEPTION_HANDLER,
+                              PropagateVariableExceptionHandler.it);
+                  _this.superDoRequest(context);
+                }
               }
               catch (Exception e) {
                 // FIXME oops we have to do this in-session!  This is because
@@ -403,6 +407,14 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     return accessHandler;
   }
 
+  protected TempletLoader templetLoader() {
+    return templetLoader;
+  }
+
+  protected MelatiLocale locale() {
+    return locale;
+  }
+
   /**
    * Initialise a <TT>MelatiServlet</TT>.  Loads
    * <TT>org.melati.MelatiServlet.properties</TT> and reads the access handler
@@ -418,10 +430,11 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     String pref = clazz.getName() + ".";
     String accessHandlerProp = pref + "accessHandler";
+    String templetLoaderProp = pref + "templetLoader";
 
     try {
       configuration =
-	  PropertiesUtils.fromResource(clazz, pref + "properties");
+          PropertiesUtils.fromResource(clazz, pref + "properties");
     }
     catch (FileNotFoundException e) {
       configuration = new Properties();
@@ -430,29 +443,17 @@ public abstract class MelatiServlet extends MelatiWMServlet {
       throw new ServletException(e.toString());
     }
 
-    // Is the access handler defined, or should we use the default?
+    try {
+      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
+	  configuration, accessHandlerProp, "org.melati.AccessHandler",
+	  "org.melati.HttpSessionAccessHandler");
 
-    String accessHandlerName =
-        (String)configuration.get(accessHandlerProp);
-
-    if (accessHandlerName == null)
-      accessHandler = new HttpSessionAccessHandler();
-    else {
-      Object ah;
-
-      try {
-	ah = Class.forName(accessHandlerName).newInstance();
-      }
-      catch (Exception e) {
-	throw new ServletException(e.toString());
-      }
-
-      if (!(ah instanceof AccessHandler))
-	throw new ServletException("The property `" + accessHandlerProp + "' " +
-				   "named a class which does not implement " +
-				   "`org.melati.AccessHandler'");
-      else
-	accessHandler = (AccessHandler)ah;
+      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
+	  configuration, templetLoaderProp, "org.melati.templets.TempletLoader",
+	  "org.melati.templets.ClassNameTempletLoader");
+    }
+    catch (Exception e) {
+      throw new ServletException(e.toString());
     }
   }
 }

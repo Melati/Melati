@@ -10,6 +10,11 @@ public class FlattenedEnumeration implements Enumeration {
     this.enumerations = enumerations;
   }
 
+  public FlattenedEnumeration(Enumeration a, Enumeration b) {
+    this.enumerations =
+        new ConsEnumeration(a, new ConsEnumeration(b, EmptyEnumeration.it));
+  }
+
   private void probe() {
     while ((enumeration == null || !enumeration.hasMoreElements()) &&
            enumerations.hasMoreElements())

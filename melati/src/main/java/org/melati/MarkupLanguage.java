@@ -53,6 +53,10 @@ public abstract class MarkupLanguage {
     return "reference.wm";
   }
 
+  protected String defaultTempletName(ColumnTypePoemType type) {
+    return "columntype.wm";
+  }
+
   protected String defaultTempletName(PoemType type)
       throws UnsupportedTypeException {
     // FIXME do something more OO, or would that be a bit laboured?
@@ -60,6 +64,8 @@ public abstract class MarkupLanguage {
       return defaultTempletName((TroidPoemType)type);
     else if (type instanceof ReferencePoemType)
       return defaultTempletName((ReferencePoemType)type);
+    else if (type instanceof ColumnTypePoemType)
+      return defaultTempletName((ColumnTypePoemType)type);
     else if (type instanceof BooleanPoemType)
       return defaultTempletName((BooleanPoemType)type);
     else if (type instanceof IntegerPoemType)

@@ -6,9 +6,9 @@ import java.io.*;
 public class AtomFieldDef extends FieldDef {
 
   public AtomFieldDef(TableDef table, String name,
-                      String type, Vector qualifiers)
+                      String type, int displayOrder, Vector qualifiers)
        throws IllegalityException {
-    super(table, name, type, type, qualifiers);
+    super(table, name, type, type, displayOrder, qualifiers);
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {

@@ -5,10 +5,10 @@ import java.io.*;
 
 public class ReferenceFieldDef extends FieldDef {
 
-  public ReferenceFieldDef(TableDef table, String name,
+  public ReferenceFieldDef(TableDef table, String name, int displayOrder,
                            String type, Vector qualifiers)
       throws IllegalityException {
-    super(table, name, type, "Integer", qualifiers);
+    super(table, name, type, "Integer", displayOrder, qualifiers);
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {

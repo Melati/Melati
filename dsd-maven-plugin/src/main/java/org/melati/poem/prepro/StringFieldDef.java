@@ -6,9 +6,10 @@ public class StringFieldDef extends AtomFieldDef {
 
   int size;
 
-  public StringFieldDef(TableDef table, String name, Vector qualifiers)
+  public StringFieldDef(TableDef table, String name, int displayOrder,
+                        Vector qualifiers)
       throws IllegalityException {
-    super(table, name, "String", qualifiers);
+    super(table, name, "String", displayOrder, qualifiers);
     if (size == 0) throw new StringSizeZeroException(this);
   }
 

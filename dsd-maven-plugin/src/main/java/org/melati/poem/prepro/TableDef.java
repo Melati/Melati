@@ -18,11 +18,13 @@ public class TableDef {
   final String tableBaseClass;
   final String tableMainClass;
   final String tableAccessorMethod;
+  final int displayOrder;
   private Vector data = new Vector();
 
-  public TableDef(DSD dsd, StreamTokenizer tokens)
+  public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder)
       throws ParsingDSDException, IOException, IllegalityException {
     this.dsd = dsd;
+    this.displayOrder = displayOrder;
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<table name>", tokens);
     suffix = tokens.sval;
@@ -42,8 +44,8 @@ public class TableDef {
     }
 
     DSD.expect(tokens, '{');
-    while (tokens.nextToken() != '}')
-      data.addElement(FieldDef.from(this, tokens));
+    for (int f = 0; tokens.nextToken() != '}'; ++f)
+      data.addElement(FieldDef.from(this, tokens, f));
     tokens.nextToken();
   }
 
@@ -185,6 +187,11 @@ public class TableDef {
               "    return " + StringUtils.quoted(description, '"') + ";\n" +
               "  }\n" +
               "\n");
+
+    w.write("  protected int defaultDisplayOrder() {\n" +
+            "    return " + displayOrder + ";\n" +
+            "  }\n" +
+            "\n");
 
     w.write("}\n");
   }

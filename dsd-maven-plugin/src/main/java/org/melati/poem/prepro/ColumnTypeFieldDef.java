@@ -5,9 +5,9 @@ import java.io.*;
 
 public class ColumnTypeFieldDef extends FieldDef {
 
-  public ColumnTypeFieldDef(TableDef table, String name,
+  public ColumnTypeFieldDef(TableDef table, String name, int displayOrder,
                             Vector qualifiers) throws IllegalityException {
-    super(table, name, "PoemTypeFactory", "Integer", qualifiers);
+    super(table, name, "PoemTypeFactory", "Integer", displayOrder, qualifiers);
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {

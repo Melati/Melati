@@ -36,6 +36,10 @@ public class CapabilityTableBase extends Table {
             return false;
           }
 
+  protected int defaultDisplayOrder() {
+    return 0;
+  }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getId();
@@ -79,12 +83,16 @@ public class CapabilityTableBase extends Table {
             return "Name";
           }
 
+  protected int defaultDisplayOrder() {
+    return 1;
+  }
+
           protected String defaultDescription() {
             return "A human-readable name for the capability";
           }
 
           protected boolean defaultUnique() {
-            return false;
+            return true;
           }
 
           public Object getIdent(Persistent g)
@@ -124,6 +132,10 @@ public class CapabilityTableBase extends Table {
   }
   protected String defaultDescription() {
     return "A capability which users can be required to possess before accessing data";
+  }
+
+  protected int defaultDisplayOrder() {
+    return 2;
   }
 
 }

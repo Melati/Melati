@@ -26,6 +26,8 @@ public abstract class FieldQualifier {
       it = new SizeFieldQualifier(tokens);
     else if (kind.equals("deleted"))
       it = new DeletedFieldQualifier(tokens);
+    else if (kind.equals("hidden"))
+      it = new UndisplayableFieldQualifier(tokens);
     else if (kind.equals("primarydisplay"))
       it = new PrimaryDisplayFieldQualifier(tokens);
     else if (kind.equals("displayorderpriority"))

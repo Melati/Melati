@@ -42,6 +42,14 @@ public class TableInfoTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultDisplayable() {
+            return false;
+          }
+
+  protected int defaultDisplayOrder() {
+    return 0;
+  }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getId();
@@ -77,12 +85,16 @@ public class TableInfoTableBase extends Table {
             return false;
           }
 
+  protected int defaultDisplayOrder() {
+    return 1;
+  }
+
           protected String defaultDescription() {
             return "A code-name for the table";
           }
 
           protected boolean defaultUnique() {
-            return false;
+            return true;
           }
 
           public Object getIdent(Persistent g)
@@ -128,6 +140,10 @@ public class TableInfoTableBase extends Table {
             return "Display name";
           }
 
+  protected int defaultDisplayOrder() {
+    return 2;
+  }
+
           protected String defaultDescription() {
             return "A user-friendly name for the table";
           }
@@ -162,6 +178,10 @@ public class TableInfoTableBase extends Table {
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setDescription((String)value);
           }
+
+  protected int defaultDisplayOrder() {
+    return 3;
+  }
 
           protected String defaultDescription() {
             return "A brief description of the table's function";
@@ -206,6 +226,10 @@ public class TableInfoTableBase extends Table {
             return "Display order";
           }
 
+  protected int defaultDisplayOrder() {
+    return 4;
+  }
+
           protected String defaultDescription() {
             return "A rank determining where the table appears in the list of all tables";
           }
@@ -244,6 +268,10 @@ public class TableInfoTableBase extends Table {
           protected String defaultDisplayName() {
             return "Default `read' capability";
           }
+
+  protected int defaultDisplayOrder() {
+    return 5;
+  }
 
           protected String defaultDescription() {
             return "The capability required, by default, for reading the table's records";
@@ -284,6 +312,10 @@ public class TableInfoTableBase extends Table {
             return "Default `write' capability";
           }
 
+  protected int defaultDisplayOrder() {
+    return 6;
+  }
+
           protected String defaultDescription() {
             return "The capability required, by default, for updating the table's records";
           }
@@ -322,6 +354,10 @@ public class TableInfoTableBase extends Table {
           protected String defaultDisplayName() {
             return "Default `create' capability";
           }
+
+  protected int defaultDisplayOrder() {
+    return 7;
+  }
 
           protected String defaultDescription() {
             return "The capability required, by default, for creating records in the table";
@@ -392,6 +428,10 @@ public class TableInfoTableBase extends Table {
 
   protected String defaultDescription() {
     return "Configuration information about a table in the database";
+  }
+
+  protected int defaultDisplayOrder() {
+    return 0;
   }
 
 }

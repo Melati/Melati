@@ -38,6 +38,10 @@ public class UserTableBase extends Table {
             return false;
           }
 
+  protected int defaultDisplayOrder() {
+    return 0;
+  }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId();
@@ -69,12 +73,16 @@ public class UserTableBase extends Table {
             ((User)g).setLogin((String)value);
           }
 
+  protected int defaultDisplayOrder() {
+    return 1;
+  }
+
           protected String defaultDescription() {
             return "The user's login name";
           }
 
           protected boolean defaultUnique() {
-            return false;
+            return true;
           }
 
           public Object getIdent(Persistent g)
@@ -107,6 +115,10 @@ public class UserTableBase extends Table {
               throws AccessPoemException, ValidationPoemException {
             ((User)g).setPassword((String)value);
           }
+
+  protected int defaultDisplayOrder() {
+    return 2;
+  }
 
           protected String defaultDescription() {
             return "The user's password";
@@ -154,6 +166,10 @@ public class UserTableBase extends Table {
           protected String defaultDisplayName() {
             return "Full name";
           }
+
+  protected int defaultDisplayOrder() {
+    return 3;
+  }
 
           protected String defaultDescription() {
             return "The user's real name";
@@ -208,6 +224,10 @@ public class UserTableBase extends Table {
   }
   protected String defaultDescription() {
     return "A registered user of the database";
+  }
+
+  protected int defaultDisplayOrder() {
+    return 3;
   }
 
 }

@@ -36,6 +36,10 @@ public class GroupTableBase extends Table {
             return false;
           }
 
+  protected int defaultDisplayOrder() {
+    return 0;
+  }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getId();
@@ -67,12 +71,16 @@ public class GroupTableBase extends Table {
             ((Group)g).setName((String)value);
           }
 
+  protected int defaultDisplayOrder() {
+    return 1;
+  }
+
           protected String defaultDescription() {
             return "A human-readable name for the group";
           }
 
           protected boolean defaultUnique() {
-            return false;
+            return true;
           }
 
           public Object getIdent(Persistent g)
@@ -112,6 +120,10 @@ public class GroupTableBase extends Table {
   }
   protected String defaultDescription() {
     return "A group to which registered users of the database can belong";
+  }
+
+  protected int defaultDisplayOrder() {
+    return 4;
   }
 
 }

@@ -37,6 +37,10 @@ public class GroupCapabilityTableBase extends Table {
             return false;
           }
 
+  protected int defaultDisplayOrder() {
+    return 0;
+  }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId();
@@ -76,6 +80,10 @@ public class GroupCapabilityTableBase extends Table {
             return "Group";
           }
 
+  protected int defaultDisplayOrder() {
+    return 1;
+  }
+
           protected String defaultDescription() {
             return "The user-group which has the capability";
           }
@@ -114,6 +122,10 @@ public class GroupCapabilityTableBase extends Table {
           protected Integer defaultDisplayOrderPriority() {
             return new Integer(1);
           }
+
+  protected int defaultDisplayOrder() {
+    return 2;
+  }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
@@ -160,6 +172,10 @@ public class GroupCapabilityTableBase extends Table {
 
   protected String defaultDescription() {
     return "A record that users belonging to a given group possess a given capability";
+  }
+
+  protected int defaultDisplayOrder() {
+    return 6;
   }
 
 }

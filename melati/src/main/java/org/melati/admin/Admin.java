@@ -182,7 +182,8 @@ public class Admin extends MelatiServlet {
       String string = context.getForm(name);
       if (string != null && !string.equals("")) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-        whereClause.addElement(name + "=" + URLEncoder.encode(string));
+//        whereClause.addElement(name + "=" + URLEncoder.encode(string));
+        whereClause.addElement(column.eqClause(string));
       }
     }
 
@@ -531,6 +532,13 @@ public class Admin extends MelatiServlet {
       throw new HandlerException("bad action from Edit.wm: " + action);
   }
 
+  protected Template uploadTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    context.put("field", context.getForm("field"));
+    return adminTemplate(context, "Upload.wm");
+  }
+
+
   protected Template handle(WebContext context, Melati melati)
       throws Exception {
     Capability admin = PoemThread.database().getCanAdminister();
@@ -594,6 +602,8 @@ public class Admin extends MelatiServlet {
         return columnCreateTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn_doit"))
         return columnCreate_doitTemplate(context, melati);
+      if (melati.getMethod().equals("Upload"))
+        return uploadTemplate(context, melati);
     }
 
     throw new InvalidUsageException(this, melati.getContext());

@@ -65,8 +65,11 @@ public class Display extends MelatiServlet {
       throws PoemException, HandlerException {
 
     try {
-      melati.getObject().assertCanRead();
-      context.put("object", melati.getObject());
+      context.put("includedir", "");
+      if (melati.getObject() != null) {
+        melati.getObject().assertCanRead();
+        context.put("object", melati.getObject());
+      }
       return getTemplate(context.getForm("template"));
     }
     catch (PoemException e) {

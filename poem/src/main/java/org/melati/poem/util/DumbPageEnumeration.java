@@ -139,4 +139,26 @@ public class DumbPageEnumeration implements PageEnumeration {
     int it = pageStart + pageSize;
     return totalCountIsMinimum || it <= totalCount ? new Integer(it) : null;
   }
+
+  public Vector getPageStartList() {
+    Vector ret = new Vector(totalCount / pageSize);
+    int i=1;
+    while((i-1)*pageSize < totalCount) {
+      ret.addElement(new Page(i,(i-1)*pageSize+1));
+      i++;
+    }
+    return ret;
+  }
+
+  public class Page {
+    int number;
+    int start;
+    public Page(int number, int start) {
+      this.number = number;
+      this.start = start;
+    }
+    public int getNumber() {return number;}
+    public int getStart() {return start;}
+  };
+
 }

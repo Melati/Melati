@@ -1,0 +1,21 @@
+#set $Response.ContentType = "text/html"
+<html>
+<head>
+<title>Upload a file</title>
+</head>
+
+<body bgcolor='#ffffff' onLoad="window.focus()">
+<form ENCTYPE="multipart/form-data" METHOD=POST action="http://192.168.0.4/melati/org.melati.upload.Upload/$melati.Context.logicalDatabase/$field">
+<div align=center>
+<b>File to upload:</b>
+<br>
+<input name="file" type="file" size=30 onchange="window.focus()">
+<input name="field" type="hidden" value="$field">
+<p>
+<input type="submit" value=" Upload ">
+<input type="button" value=" Cancel " onclick="window.close()">
+</div>
+</form>
+
+</body>
+</html>

@@ -46,41 +46,35 @@ package org.melati.app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.OutputStreamWriter;
-
 
 import org.melati.Melati;
-import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
+import org.melati.util.ArrayUtils;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
 import org.melati.util.UnexpectedExceptionException;
-import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiSimpleWriter;
 
 /**
  * Base class to use Poem as an application.
  *
  * <p>
- * Simply extend this class and override the doPoemRequest method.
+ * Simply extend this class and override the {@link #doPoemRequest} method.
  * If you are going to use a template engine look at {@link TemplateApp}.
  * </p>
  *
  * <UL>
  * <LI>
  * The command line arguments are expected in the following order:
- * 
  * <BLOCKQUOTE><TT>
- *     db
- * <BR>db meth
+ * <BR>db
+ * <BR>db method
  * <BR>db table method
  * <BR>db table troid  method
- * <BR>db table troid method other
  * </TT></BLOCKQUOTE>
  *
  * these components are broken out of the command line arguments and passed to
@@ -120,12 +114,6 @@ import org.melati.util.MelatiSimpleWriter;
  *       A freeform string telling your servlet what it is meant to do.  This
  *       is automatically made available in templates as
  *       <TT>$melati.Method</TT>.
- *     </TD>
- *   </TR>
- *   <TR>
- *     <TD><TT><I>other</I></TT></TD>
- *     <TD>
- *       Any other information you wish to pass in. 
  *     </TD>
  *   </TR>
  * </TABLE>
@@ -176,137 +164,82 @@ import org.melati.util.MelatiSimpleWriter;
  * @todo work out non-http access control
  */
 
-public abstract class PoemApp implements PoemTask {
-
-  protected static MelatiConfig melatiConfig;
+public abstract class PoemApp extends ConfigApp implements  App {
 
   /**
-   * Inititialise Melati.
-   *
-   * @throws MelatiException is anything goes wrong
+   * Initialise.
+   * 
+   * @param args the command line arguments
    */
-  public void init() throws MelatiException {
+  public Melati init(String[] args)  {
+    return super.init(args);
+  }
+
+  /**
+   * A place holder for things you might want to do before 
+   * setting up a <code>PoemSession</code>.
+   *
+   * @param melati the current Melati
+   * @throws Exception if anything goes wrong
+   */
+  protected void prePoemSession(Melati melati) throws Exception {
   }
 
   /**
    * Process the request.
-   *
-   * @param request the incoming <code>HttpServletRequest</code>
-   * @param response the outgoing <code>HttpServletResponse</code>
-   * @throws IOException if anything goes wrong with the file system
    */
-  public void run() {
+  public void run(String[] args) {
     try {
-      melatiConfig = melatiConfig();
-      MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(System.out));
-      final Melati melati = melatiConfig.getMelati(out);
-      PoemContext poemContext = poemContext(melati);
-      melati.setPoemContext(poemContext);
-      // Set up a POEM session and call the application code
-
-      // Do something outside of the PoemSession
-      melati.getConfig().getAccessHandler().buildRequest(melati);
-      //prePoemSession(melati);
-
-
-      melati.getDatabase().inSession (
-        AccessToken.root, new PoemTask() {
-          public void run () {
-            melati.getConfig().getAccessHandler().establishUser(melati);
-            melati.loadTableAndObject();
-            try {
-              try {
-                doPoemRequest(melati);
-              } catch (Exception e) {
-                _handleException (melati, e);
-              }
-            } catch (Exception e) {
-              throw new UnexpectedExceptionException(e);
-          }
-          }
-
-          public String toString() {
-            return "PoemApp";
-          }
-        }
-      );
+      final Melati melati = init(args);
+      try {
+        PoemContext poemContext = poemContext(melati);
+        melati.setPoemContext(poemContext);
+      } catch (MelatiException e) {
+        throw new UnexpectedExceptionException(e);
+      }
+      doConfiguredRequest(melati);
       // send the output to the client
       melati.write();
     }
     catch (Exception e) {
-      // log it
-      e.printStackTrace(System.err);
+      throw new UnexpectedExceptionException(e);
     }
   }
 
-  /**
-   * Print the <code>ConnectionPendingException</code>  directly to the client.
-   *
-   * This is called if a request is made whilst the system is 
-   * still being initialised.
-   *  
-   * Which makes no sense for a command line application!
-   *
-   * @param out the <code>PrintWriter</code> to print to 
-   * @param e   the {@link Exception} to report
-   */
-  public void writeConnectionPendingException(PrintWriter out, Exception e) {
-    out.println("Problem in org.melati.app.ConfigApp");
-    out.println("Sorry");
-    out.println("The database is starting up.");
-    out.println("This takes a few seconds. ");
-    e.printStackTrace(out);
-  }    
+  protected void doConfiguredRequest(final Melati melati) {
+    // Do something outside of the PoemSession
+    try {
+      melati.getConfig().getAccessHandler().buildRequest(melati);
+      prePoemSession(melati);
+    } catch (Exception e) {
+      throw new UnexpectedExceptionException(e);
+    }
+    
+    melati.getDatabase().inSession (
+      AccessToken.root, new PoemTask() {
+        public void run () {
+          melati.getConfig().getAccessHandler().establishUser(melati);
+          melati.loadTableAndObject();
+          try {
+            try {
+              doPoemRequest(melati);
+            } catch (Exception e) {
+              _handleException (melati, e);
+            }
+          } catch (Exception e) {
+            throw new UnexpectedExceptionException(e);
+          }
+        }
 
-  /** 
-   * This method <b>SHOULD</b> be overidden.
-   * @return the System Administrators name.
-   */
-  public String getSysAdminName () {
-    return "nobody";
+        public String toString() {
+          return "PoemApp";
+        }
+      }
+    );
+
   }
-
-  /** 
-   * This method <b>SHOULD</b> be overidden.
-   * @return the System Administrators email address.
-   */
-  public String getSysAdminEmail () {
-    return "nobody@nobody.com";
-  }
-
+ 
   
-  /** 
-   * To override any setting from MelatiServlet.properties,
-   * simply override this method and return a vaild MelatiConfig.
-   *
-   * eg to use a different AccessHandler from the default:
-   *
-   * <PRE>
-   *   protected MelatiConfig melatiConfig() throws MelatiException {
-   *     MelatiConfig config = super.melatiConfig();
-   *     config.setAccessHandler(new YourAccessHandler());
-   *     return config;
-   *   }
-   * </PRE>
-   *
-   * @throws MelatiException if anything goes wrong with Melati
-   */
-  protected MelatiConfig melatiConfig() throws MelatiException {
-    return new MelatiConfig();
-  }
-  /**
-   * Overriden in TemplateServlet.
-   *
-   * @param melati org.melati.Melati  
-   *               A source of information about the Melati database
-   *               context (database, table, object) and utility objects
-   *               such as error handlers.
-   */
-
-  protected void prePoemSession(Melati melati) throws Exception {
-  }
-
-
  /**
   * Default method to handle an exception without a template engine.
   *
@@ -351,34 +284,16 @@ public abstract class PoemApp implements PoemTask {
   protected static PoemContext poemContext(Melati melati) 
       throws InvalidArgumentsException {
 
-    String[] args = new String[0];//melati.getArguments();
+    String[] args = melati.getArguments();
     
-    PoemContext it = new PoemContext();
-
-    // set it to something in order to provoke meaningful error
-    it.setLogicalDatabase("");
+    PoemContext pc = new PoemContext();
     if (args.length > 0) {
-      it.setLogicalDatabase(args[0]);
-      if (args.length == 2) it.setMethod(args[1]);
-      if (args.length == 3) {
-        it.setTable(args[1]);
-        it.setMethod(args[2]);
-      }
-      if (args.length == 4) {
-        it.setTable(args[1]);
-        try {
-          it.setTroid(new Integer (args[2]));
-        }
-        catch (NumberFormatException e) {
-          throw new InvalidArgumentsException (args,e);
-        }
-        it.setMethod(args[3]);
-      }
-      if (args.length > 4 ) {
-        throw new InvalidArgumentsException(args);
-      }
+      pc.setLogicalDatabase(args[0]);
     }
-    return it;
+    String[] munched = (String[])ArrayUtils.section(args,  1,  args.length);
+    setTableTroidMethod(pc, munched);
+
+    return pc;
   }
 
   /**
@@ -397,44 +312,40 @@ public abstract class PoemApp implements PoemTask {
    *
    */
   protected PoemContext poemContextWithLDB(Melati melati, 
-                                            String logicalDatabase) 
+                                           String logicalDatabase) 
       throws InvalidArgumentsException {
-
-    String[] args = new String[0];// melati.getArguments();
-    
-    PoemContext it = new PoemContext();
-
-    // set it to something in order to provoke meaningful error
-    it.setLogicalDatabase(logicalDatabase);
-    if (args.length > 0) {
-      if (args.length == 1) it.setMethod(args[0]);
-      if (args.length == 2) {
-        it.setTable(args[0]);
-        it.setMethod(args[1]);
-      }
-      if (args.length == 3) {
-        it.setTable(args[0]);
-        try {
-          it.setTroid(new Integer (args[1]));
-        }
-        catch (NumberFormatException e) {
-          throw new InvalidArgumentsException (args,e);
-        }
-        it.setMethod(args[2]);
-      }
-      if (args.length > 3) {
-        throw new InvalidArgumentsException(args);
-      }
-    }
-    return it;
+    PoemContext pc = new PoemContext();
+    pc.setLogicalDatabase(logicalDatabase);
+    setTableTroidMethod(pc, melati.getArguments());
+    return pc;
   }
 
+  private static void setTableTroidMethod(PoemContext pc, String[] args){
+    if (args.length == 1) pc.setMethod(args[0]);
+    if (args.length == 2) {
+        pc.setTable(args[0]);
+        pc.setMethod(args[1]);
+    }
+    if (args.length == 3) {
+      pc.setTable(args[0]);
+      try {
+        pc.setTroid(new Integer (args[1]));
+      }
+      catch (NumberFormatException e) {
+        throw new UnexpectedExceptionException(new InvalidArgumentsException (args,e));
+      }
+      pc.setMethod(args[2]);
+    }
+    if (args.length > 3) {
+      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
+    }
+  }
   
    
   /**
-   * Override this method to build up your own output.
+   * Override this method to do your own thing.
    *
-   * @param melati 
+   * @param melati a {@link Melati} containing POEM and other configuration data
    */
   protected abstract void doPoemRequest(Melati melati) throws Exception;
 

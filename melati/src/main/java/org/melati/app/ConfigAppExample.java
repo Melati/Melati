@@ -41,56 +41,40 @@
  *     Tim Pizey <timp@paneris.org>
  *     http://paneris.org/~timp
  */
-
 package org.melati.app;
 
-import org.melati.util.MelatiException;
+import org.melati.Melati;
 
 /**
- * Thrown when an application was called with unexpected arguments.
+ * An example of how to access a configured application from the command line. 
+ * 
+ * Invoke: 
+ * 
+ * java -cp melati.jar;site\properties
+ *     org.melati.app.ConfigAppExample Method
+ * 
  */
-public class InvalidArgumentsException extends MelatiException {
-  
-  String[] args = null;
+public class ConfigAppExample extends ConfigApp {
 
   /**
-   * Constructor.
+   * The main method to override. 
    * 
-   * @param args the argument array
-   * @param problem the exception to be reported
+   * @param melati A {@link Melati} with arguments and properties set
+   * @throws Exception if anything goes wrong
+   * @see org.melati.app.ConfigApp#doConfiguredRequest(org.melati.Melati)
    */
-  public InvalidArgumentsException(String[] args, Exception problem) {
-    super(problem);
-    this.args = args;
+  protected void doConfiguredRequest(Melati melati) throws Exception {
+    System.out.println("Hello World");
+    System.out.println("Your Method was:" + melati.getMethod());
   }
 
   /**
-   * Constructor.
+   * The main entry point.
    * 
-   * @param args the arguments passed in
+   * @param args can only be <code>method</code> 
    */
-  public InvalidArgumentsException(String[] args) {
-    this(args, null);
-  }
-
-  /**
-   * @return the message.
-   */
-  public String getMessage() {
-    return args == null ?
-        "No arguments given" : 
-        "Arguments `" + join(args, " ") + "' have wrong form" +
-            (subException == null ? "" : ":\n" + subException.toString());
-  }
-  
-  private String join(String[] array, String sep){
-    StringBuffer sb = new StringBuffer();
-    boolean hadOne = false;
-    for (int i = 0; i < array.length; i++) {
-      if (hadOne) sb.append(sep);
-      hadOne = true;
-      sb.append(array[i]);
-    }
-    return sb.toString();
+  public static void main(String[] args) {
+    ConfigAppExample me = new ConfigAppExample();
+    me.run(args);
   }
 }

@@ -41,56 +41,50 @@
  *     Tim Pizey <timp@paneris.org>
  *     http://paneris.org/~timp
  */
-
 package org.melati.app;
 
-import org.melati.util.MelatiException;
+import org.melati.Melati;
+import org.melati.template.TemplateContext;
 
 /**
- * Thrown when an application was called with unexpected arguments.
+ * An example of how to use a Template Engine with a poem database 
+ * from the command line. 
+ * 
+ * Invoke: 
+ * 
+ * java -cp melati.jar:site\properties:lib\hsqldb.jar: \
+ *  lib\webmacro.jar:lib\servlet.jar \
+ *  org.melati.app.PoemTemplateExample poemtest user 0 \
+ *  org/melati/app/TemplateAppExample
+ * 
  */
-public class InvalidArgumentsException extends MelatiException {
-  
-  String[] args = null;
+public class TemplateAppExample extends TemplateApp {
 
   /**
-   * Constructor.
+   * The main method to override. 
    * 
-   * @param args the argument array
-   * @param problem the exception to be reported
+   * @param melati A {@link Melati} with arguments and properties set
+   * @param templateContext A {@link TemplateContext} containing a {@link Melati}
+   * @return the name of a template to expand
+   * @throws Exception if anything goes wrong
+   * @see org.melati.app.TemplateApp#doTemplateRequest
+   *         (org.melati.Melati, org.melati.template.TemplateContext)
    */
-  public InvalidArgumentsException(String[] args, Exception problem) {
-    super(problem);
-    this.args = args;
+  protected String doTemplateRequest(Melati melati,
+      TemplateContext templateContext) throws Exception {
+    if (melati.getMethod() == null)
+      melati.getPoemContext().setMethod("org/melati/app/TemplateAppExample");
+    return melati.getMethod();
   }
 
   /**
-   * Constructor.
+   * The main entry point.
    * 
-   * @param args the arguments passed in
+   * @param args in format <code>db table troid method</code> 
+   *             where method is a template name 
    */
-  public InvalidArgumentsException(String[] args) {
-    this(args, null);
-  }
-
-  /**
-   * @return the message.
-   */
-  public String getMessage() {
-    return args == null ?
-        "No arguments given" : 
-        "Arguments `" + join(args, " ") + "' have wrong form" +
-            (subException == null ? "" : ":\n" + subException.toString());
-  }
-  
-  private String join(String[] array, String sep){
-    StringBuffer sb = new StringBuffer();
-    boolean hadOne = false;
-    for (int i = 0; i < array.length; i++) {
-      if (hadOne) sb.append(sep);
-      hadOne = true;
-      sb.append(array[i]);
-    }
-    return sb.toString();
+  public static void main(String[] args) {
+    TemplateAppExample me = new TemplateAppExample();
+    me.run(args);
   }
 }

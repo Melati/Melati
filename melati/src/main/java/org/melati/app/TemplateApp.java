@@ -45,7 +45,6 @@
 package org.melati.app;
 
 import org.melati.Melati;
-import org.melati.util.MelatiException;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 
@@ -53,40 +52,34 @@ import org.melati.template.TemplateContext;
  * Base class to use Melati with a Template Engine as an application.
  * To create your own application simply extend this class, 
  * overriding the {@link #doTemplateRequest} method.
- *
- * @author Tim Pizey
- * $Revision$
  */
-public abstract class TemplateApp extends PoemApp {
+public abstract class TemplateApp extends PoemApp implements App {
 
-  // the template engine
   protected TemplateEngine templateEngine;
 
   /**
-   * Inititialise the template engine.
-   *
-   * @throws MelatiException if the TemplateEngine has a problem
+   * Initialise.
+   * 
+   * @param args the command line arguments
    */
-  public void init() throws MelatiException {
-    super.init();
-      templateEngine = melatiConfig.getTemplateEngine();
-      if (templateEngine != null)
-        templateEngine.init(melatiConfig);
+  public Melati init(String[] args)  {
+    return super.init(args);
   }
 
   /**
-   * Set the TemplateEngine and TemplateContext in our Melati.
-   *
-   * @param melati the current Melati
-   * @throws Exception if anything goes wrong
+   * Fullfil {@link PoemApp}'s promises.
+   * 
+   * @param melati the {@link Melati} 
+   * @throws Exception if anything goes wrong 
+   * @see org.melati.app.PoemApp#doPoemRequest(org.melati.Melati)
    */
-  protected void prePoemSession(Melati melati) throws Exception {
-    melati.setTemplateEngine(templateEngine);
-    melati.setTemplateContext(templateEngine.getTemplateContext(melati));
-  }
-
   protected void doPoemRequest(Melati melati) throws Exception {
-    TemplateContext templateContext = melati.getTemplateContext();
+    templateEngine = melatiConfig.getTemplateEngine();
+    if (templateEngine != null)
+      templateEngine.init(melatiConfig);
+    melati.setTemplateEngine(templateEngine);
+    TemplateContext templateContext = templateEngine.getTemplateContext(melati); 
+    melati.setTemplateContext(templateContext);
     templateContext.put("melati", melati);
 
     String templateName = doTemplateRequest(melati,templateContext);

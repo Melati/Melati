@@ -92,6 +92,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   private Properties configuration = null;
   private AccessHandler accessHandler = null;
   private TempletLoader templetLoader = null;
+  private String javascriptLibraryURL = null;
   private MelatiLocale locale = MelatiLocale.here;
 
   /**
@@ -424,7 +425,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
                 if (context != null) {
                   context.put("melati",
                               new Melati(context, database, melatiContext,
-                                         locale(), templetLoader()));
+                                         locale(), templetLoader(),
+					 javascriptLibraryURL()));
                   context.put(Variable.EXCEPTION_HANDLER,
                               PropagateVariableExceptionHandler.it);
                   _this.superDoRequest(context);
@@ -459,6 +461,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     return templetLoader;
   }
 
+  protected String javascriptLibraryURL() {
+    return javascriptLibraryURL;
+  }
+
   protected MelatiLocale locale() {
     return locale;
   }
@@ -479,6 +485,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     String pref = clazz.getName() + ".";
     String accessHandlerProp = pref + "accessHandler";
     String templetLoaderProp = pref + "templetLoader";
+    String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
 
     try {
       configuration =
@@ -503,5 +510,9 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     catch (Exception e) {
       throw new ServletException(e.toString());
     }
+
+    javascriptLibraryURL = (String)configuration.get(javascriptLibraryURLProp);
+    if (javascriptLibraryURL == null)
+      javascriptLibraryURL = "";
   }
 }

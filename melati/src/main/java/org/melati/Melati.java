@@ -62,24 +62,31 @@ public class Melati {
   private MelatiContext melatiContext;
   private MelatiLocale locale;
   private TempletLoader templetLoader;
+  private String javascriptLibraryURL;
   private Table table;
   private Persistent object;
 
   public Melati(WebContext webContext,
                 Database database, MelatiContext melatiContext,
-                MelatiLocale locale, TempletLoader templetLoader)
+                MelatiLocale locale, TempletLoader templetLoader,
+		String javascriptLibraryURL)
       throws PoemException {
     this.webContext = webContext;
     this.database = database;
     this.melatiContext = melatiContext;
     this.locale = locale;
     this.templetLoader = templetLoader;
+    this.javascriptLibraryURL = javascriptLibraryURL;
 
     if (melatiContext.table != null) {
       table = database.getTable(melatiContext.table);
       if (melatiContext.troid != null)
         object = table.getObject(melatiContext.troid.intValue());
     }
+  }
+
+  public String getJavascriptLibraryURL() {
+    return javascriptLibraryURL;
   }
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {

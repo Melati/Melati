@@ -31,6 +31,7 @@ public abstract class FieldDef {
   boolean isIndexed = false;
   boolean isUnique = false;
   boolean isCompareOnly = false;
+  int width = -1, height = -1;
 
   public FieldDef(TableDef table, String name,
                   String type, String rawType,
@@ -111,10 +112,10 @@ public abstract class FieldDef {
 
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public final Field get" + suffix + "Field() " +
-		  "throws AccessPoemException {\n" +
-	    "    return " + tableAccessorMethod + "()." +
-		    "get" + suffix + "Column().asField(this);\n" +
-	    "  }\n");
+                  "throws AccessPoemException {\n" +
+            "    return " + tableAccessorMethod + "()." +
+                    "get" + suffix + "Column().asField(this);\n" +
+            "  }\n");
   }
 
   public abstract void generateJavaDeclaration(Writer w) throws IOException;
@@ -226,6 +227,18 @@ public abstract class FieldDef {
     if (isUnique)
       w.write("          protected boolean defaultUnique() {\n" +
               "            return true;\n" +
+              "          }\n" +
+              "\n");
+
+    if (width != -1)
+      w.write("          protected int defaultWidth() {\n" +
+              "            return " + width + ";\n" +
+              "          }\n" +
+              "\n");
+
+    if (height != -1)
+      w.write("          protected int defaultHeight() {\n" +
+              "            return " + height + ";\n" +
               "          }\n" +
               "\n");
 

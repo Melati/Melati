@@ -44,6 +44,10 @@ public abstract class FieldQualifier {
       it = new CriterionHiddenFieldQualifier(tokens);
     else if (kind.equals("compareonly"))
       it = new CompareOnlyFieldQualifier(tokens);
+    else if (kind.equals("width"))
+      it = new WidthFieldQualifier(tokens);
+    else if (kind.equals("height"))
+      it = new HeightFieldQualifier(tokens);
     else
       throw new ParsingDSDException("<field qualifier>", tokens);
     return it;

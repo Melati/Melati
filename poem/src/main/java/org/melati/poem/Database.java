@@ -20,6 +20,8 @@ import org.melati.util.*;
 
 abstract public class Database {
 
+  final Database _this = this;
+
   private Vector sessions = null; // FIXME make this more explicit
   private Vector freeSessions = null;
 
@@ -104,9 +106,10 @@ abstract public class Database {
       sessions = new Vector();
       for (int s = 0; s < sessionsMax(); ++s)
         sessions.addElement(
-            new Session(this,
-                        DriverManager.getConnection(url, username, password),
-                        s));
+            new PoemSession(
+                this,
+                DriverManager.getConnection(url, username, password),
+                s));
       freeSessions = (Vector)sessions.clone();
     }
     catch (SQLException e) {
@@ -124,7 +127,6 @@ abstract public class Database {
       getCapabilityTable().unifyWithDB(
           m.getColumns(null, null, getCapabilityTable().getName(), null));
 
-      final Database _this = this;
       inSession(AccessToken.root,
                 new PoemTask() {
                   public void run() throws PoemException {
@@ -236,7 +238,7 @@ abstract public class Database {
    * <TT>connect</TT>ed, currently simply fixed at five.
    */
 
-  // ¡CacheInterSession depends on this staying constant!, because overflows
+  // ¡AbstractVersionedObject depends on this staying constant!, because overflows
   // of its `versions' array are not trapped
 
   public final int sessionsMax() {
@@ -254,11 +256,11 @@ abstract public class Database {
    * be put back later.
    */
 
-  private Session openSession() {
+  private PoemSession openSession() {
     synchronized (freeSessions) {
       if (freeSessions.size() == 0)
         throw new NoMoreSessionsException();
-      Session session = (Session)freeSessions.lastElement();
+      PoemSession session = (PoemSession)freeSessions.lastElement();
       freeSessions.setSize(freeSessions.size() - 1);
       return session;
     }
@@ -268,7 +270,7 @@ abstract public class Database {
    * Finish using a session.  It's put back on the freelist.
    */
 
-  void notifyClosed(Session session) {
+  void notifyClosed(PoemSession session) {
     freeSessions.addElement(session);
   }
 
@@ -277,8 +279,8 @@ abstract public class Database {
    * session(i).index() == i
    */
 
-  Session session(int index) {
-    return (Session)sessions.elementAt(index);
+  PoemSession session(int index) {
+    return (PoemSession)sessions.elementAt(index);
   }
 
   void beginExclusiveLock() {
@@ -325,7 +327,7 @@ abstract public class Database {
     }
 
     try {
-      final Session session = committedSession ? null : openSession();
+      final PoemSession session = committedSession ? null : openSession();
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                try {
@@ -540,7 +542,7 @@ abstract public class Database {
    */
 
   public ResultSet sqlQuery(String sql) throws SQLPoemException {
-    Session session = PoemThread.session();
+    PoemSession session = PoemThread.session();
     session.writeDown();
     try {
       ResultSet rs =
@@ -573,7 +575,7 @@ abstract public class Database {
     // FIXME this relies on the one-thread-per-session thing, else needs more
     // syncing
 
-    Session session = PoemThread.session();
+    PoemSession session = PoemThread.session();
     session.writeDown();
 
     try {
@@ -587,13 +589,65 @@ abstract public class Database {
     }
   }
 
-  public Enumeration referencesTo(final Persistent object) {
-    return new FlattenedEnumeration(
-        new MappedEnumeration(tables.elements()) {
-          public Object mapped(Object table) {
-            return ((Table)table).referencesTo(object);
-          }
-        });
+  // 
+  // =======
+  //  Users
+  // =======
+  // 
+
+  private PoemFloatingVersionedObject userCapabilities =
+      new PoemFloatingVersionedObject(_this) {
+        protected Version backingVersion(Session session) {
+          return new VersionHashtable();
+        }
+      };
+
+  private boolean dbGivesCapability(User user, Capability capability) {
+    String sql = 
+        "SELECT count(*) FROM groupmembership " +
+        "WHERE \"user\" = " + user.troid() + " AND " +
+        "EXISTS (" +
+          "SELECT \"group\", capability FROM groupcapability " +
+          "WHERE groupcapability.\"group\" = groupmembership.\"group\" AND " +
+                "capability = " + capability.troid() + ")";
+
+    try {
+      ResultSet rs = sqlQuery(sql);
+      rs.next();
+      return rs.getInt(1) > 0;
+    }
+    catch (SQLPoemException e) {
+      throw new UnexpectedExceptionPoemException(e);
+    }
+    catch (SQLException e) {
+      throw new SQLSeriousPoemException(e, sql);
+    }
+  }
+
+  boolean hasCapability(User user, Capability capability) {
+
+    // `versionForReading' is right here rather than `versionForWriting',
+    // because as soon as there is any question of things being different in
+    // this session, `invalidateVersion' is called (below)
+
+    Hashtable caps =
+        (Hashtable)userCapabilities.versionForReading(PoemThread.session());
+
+    Long pair = new Long(
+        (user.troid().longValue() << 32) | (capability.troid().longValue()));
+    Boolean known = (Boolean)caps.get(pair);
+
+    if (known != null)
+      return known.booleanValue();
+    else {
+      boolean does = dbGivesCapability(user, capability);
+      caps.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
+      return does;
+    }
+  }
+
+  void invalidateCapabilityCache(PoemSession session) {
+    userCapabilities.invalidateVersion(session);
   }
 
   // 
@@ -634,6 +688,15 @@ abstract public class Database {
   //  Utilities
   // ===========
   // 
+
+  public Enumeration referencesTo(final Persistent object) {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(tables.elements()) {
+          public Object mapped(Object table) {
+            return ((Table)table).referencesTo(object);
+          }
+        });
+  }
 
   /**
    * Print some diagnostic information about the contents and consistency of

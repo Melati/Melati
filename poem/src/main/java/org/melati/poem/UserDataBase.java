@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class UserDataBase extends Data {
+public class UserDataBase extends Data {
   Integer id;
   String login;
   String password;

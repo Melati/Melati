@@ -1,10 +1,12 @@
 package org.melati.poem;
 
+import org.melati.util.*;
+
 public class CommitLogEvent extends PoemLogEvent {
 
-  public Session session;
+  public PoemSession session;
 
-  public CommitLogEvent(Session session) {
+  public CommitLogEvent(PoemSession session) {
     this.session = session;
   }
 

@@ -1,6 +1,8 @@
 package org.melati.poem;
 
-public class Data implements Cloneable {
+import org.melati.util.*;
+
+public class Data implements Version {
   Object[] extras;
   boolean exists = true;
   boolean dirty = false;

@@ -6,8 +6,8 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     super(database, name);
   }
 
-  protected void notifyTouched(Session session, Integer troid, Data data) {
-    getDatabase().getUserTable().invalidateCapabilityCaches(session);
-    super.notifyTouched(session, troid, data);
+  protected void notifyTouched(PoemSession session, Integer troid) {
+    getDatabase().invalidateCapabilityCache(session);
+    super.notifyTouched(session, troid);
   }
 }

@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class ColumnInfoDataBase extends Data {
+public class ColumnInfoDataBase extends Data {
   Integer id;
   Integer tableinfo;
   String name;

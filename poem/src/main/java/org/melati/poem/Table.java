@@ -33,6 +33,8 @@ public class Table {
   private Column canWriteColumn = null;
   private Column displayColumn = null;
 
+  private PoemFloatingVersionedObject allTroids = null;
+
   public Table(Database database, String name,
                DefinitionSource definitionSource) {
     this.database = database;
@@ -340,16 +342,14 @@ public class Table {
     }
   }
 
-  Data dbData(Session session, Integer troid) {
-    return dbData(((SessionStuff)sessionStuffs.get(session.index())).get,
+  Data dbData(PoemSession session, Integer troid) {
+    return dbData(session == null ?
+                      getCommittedSessionStuff().get :
+                      ((SessionStuff)sessionStuffs.get(session.index())).get,
                   troid);
   }
 
-  Data dbCommittedData(Integer troid) {
-    return dbData(getCommittedSessionStuff().get, troid);
-  }
-
-  private void modify(Session session, Integer troid, Data data) {
+  private void modify(PoemSession session, Integer troid, Data data) {
     PreparedStatement modify =
         ((SessionStuff)sessionStuffs.get(session.index())).modify;
     synchronized (modify) {
@@ -367,7 +367,7 @@ public class Table {
     }
   }
 
-  private void insert(Session session, Integer troid, Data data) {
+  private void insert(PoemSession session, Integer troid, Data data) {
     PreparedStatement insert =
         ((SessionStuff)sessionStuffs.get(session.index())).insert;
     synchronized (insert) {
@@ -384,7 +384,7 @@ public class Table {
     }
   }
 
-  void delete(Integer troid, Session session) {
+  void delete(Integer troid, PoemSession session) {
     String sql =
         "DELETE FROM " + _quotedName(name) +
         " WHERE " + _quotedName(troidColumn.getName()) + " = " +
@@ -408,7 +408,7 @@ public class Table {
     }
   }
 
-  void writeDown(Session session, Integer troid, Data data) {
+  void writeDown(PoemSession session, Integer troid, Data data) {
     troidColumn.setIdent(data, troid);
 
     // no race, provided that the one-thread-per-session parity is maintained
@@ -441,35 +441,15 @@ public class Table {
     cache.uncacheContents();
   }
 
-  void uncacheContents(final Session session) {
-    // FIXME this relies on the one-thread-per-session thing, else needs more
-    // syncing
-    session.writeDown();
-    cache.iterate(new Procedure() {
-                    public void apply(Object is) {
-                      ((CacheInterSession)is).uncacheContents(session);
-                    }
-                  });
-  }
-
   void trimCache(int maxSize) {
     cache.trim(maxSize);
   }
 
-  void cacheIterate(final Session session, final Procedure f) {
-    cache.iterate(new Procedure() {
-                    public void apply(Object is) {
-                      Data data = ((CacheInterSession)is).cachedData(session);
-                      if (data != null) f.apply(data);
-                    }
-                  });
-  }
-
-  CacheInterSession interSession(Integer troid) {
+  CachedVersionedRow versionedRow(Integer troid) {
     synchronized (cache) {
-      CacheInterSession is = (CacheInterSession)cache.get(troid);
+      CachedVersionedRow is = (CachedVersionedRow)cache.get(troid);
       if (is == null) {
-        is = new CacheInterSession(this, troid);
+        is = new CachedVersionedRow(this, troid);
         cache.put(is);
       }
       return is;
@@ -513,7 +493,7 @@ public class Table {
 
   public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
     Persistent persistent = newPersistent();
-    persistent.init(interSession(troid));
+    persistent.init(versionedRow(troid));
 
     try {
       persistent.dataUnchecked(PoemThread.session());
@@ -535,9 +515,15 @@ public class Table {
     return getObject(new Integer(troid));
   }
 
-  private ResultSet selectionResultSet(String whereClause,
-                                       boolean includeDeleted)
-      throws SQLPoemException {
+  // 
+  // -----------
+  //  Searching
+  // -----------
+  // 
+
+  private ResultSet selectionResultSet(
+      String whereClause, boolean includeDeleted, PoemSession session)
+          throws SQLPoemException {
     if (deletedColumn != null && !includeDeleted)
       whereClause = (whereClause == null ? "" : whereClause + " AND ") +
                     "NOT " + deletedColumn.getName();
@@ -548,7 +534,6 @@ public class Table {
         (whereClause == null ? "" : " WHERE " + whereClause);
 
     try {
-      Session session = PoemThread.session();
       session.writeDown();
       ResultSet rs =
           session.getConnection().createStatement().executeQuery(sql);
@@ -559,6 +544,53 @@ public class Table {
     catch (SQLException e) {
       throw new ExecutingSQLPoemException(sql, e);
     }
+  }
+
+  private Enumeration troidSelection(
+      String whereClause, boolean includeDeleted, PoemSession session) {
+    ResultSet them = selectionResultSet(whereClause, includeDeleted, session);
+    return
+        new ResultSetEnumeration(them) {
+          public Object mapped(ResultSet rs) throws SQLException {
+            return new Integer(rs.getInt(1));
+          }
+        };
+  }
+
+  protected void rememberAllTroids() {
+    allTroids = new PoemFloatingVersionedObject(getDatabase()) {
+      protected Version backingVersion(Session session) {
+        VersionVector store = new VersionVector();
+        for (Enumeration them =
+                 troidSelection(null, false, (PoemSession)session);
+             them.hasMoreElements();)
+          store.addElement(them.nextElement());
+        return store;
+      }
+    };
+  }
+
+  /**
+   * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
+   * criteria.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
+   *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
+   *         or you can just use <TT>selection</TT>
+   *
+   * @see #select(java.lang.String, boolean)
+   * @see #getObject(java.lang.Integer)
+   * @see #selection(java.lang.String, boolean)
+   */
+
+  final Enumeration troidSelection(String whereClause, boolean includeDeleted)
+      throws SQLPoemException {
+    PoemSession session = PoemThread.session();
+    PoemFloatingVersionedObject allTroids = this.allTroids;
+    if (allTroids != null && whereClause == null && !includeDeleted)
+      return ((Vector)allTroids.versionForReading(session)).elements();
+    else
+      return troidSelection(whereClause, includeDeleted, session);
   }
 
   /**
@@ -617,25 +649,12 @@ public class Table {
 
   public Enumeration selection(String whereClause, boolean includeDeleted)
       throws SQLPoemException {
-    return new ResultSetEnumeration(
-        this, selectionResultSet(whereClause, includeDeleted), true);
-  }
-
-  /**
-   * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
-   * criteria.
-   *
-   * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
-   *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>
-   *
-   * @see #select(java.lang.String, boolean)
-   * @see #getObject(java.lang.Integer)
-   */
-
-  Enumeration troidSelection(String whereClause, boolean includeDeleted)
-      throws SQLPoemException {
-    return new ResultSetEnumeration(
-        this, selectionResultSet(whereClause, includeDeleted), false);
+    return
+        new MappedEnumeration(troidSelection(whereClause, includeDeleted)) {
+          public Object mapped(Object troid) {
+            return getObject((Integer)troid);
+          }
+        };
   }
 
   /**
@@ -717,10 +736,10 @@ public class Table {
       deletedColumn.setIdent(data, Boolean.FALSE);
     data.exists = false;
 
-    ConstructionInterSession dummyInterSession =
-        new ConstructionInterSession(this, troid, data, sessionToken.session);
+    ConstructionVersionedRow dummyVersionedRow =
+        new ConstructionVersionedRow(this, troid, data, sessionToken.session);
     Persistent object = newPersistent();
-    object.initForConstruct(dummyInterSession, sessionToken.accessToken);
+    object.initForConstruct(dummyVersionedRow, sessionToken.accessToken);
 
     if (initOrData instanceof Initialiser)
       // Let the user do their worst.
@@ -739,9 +758,9 @@ public class Table {
 
     // Plug it into the cache for later writedown
 
-    CacheInterSession interSession = interSession(troid);
-    interSession.setData(sessionToken.session, data);
-    object.init(interSession);
+    CachedVersionedRow versionedRow = versionedRow(troid);
+    versionedRow.setVersion(sessionToken.session, data);
+    object.init(versionedRow);
     return object;
   }
 
@@ -885,21 +904,24 @@ public class Table {
   }
 
   /**
-   * Notify the table that one if its records has been changed in a session.
-   * You can (with care) use this to support cacheing of frequently-used facts
-   * about the table's records.  For instance, <TT>GroupMembershipTable</TT>
-   * and <TT>GroupCapabilityTable</TT> override this to inform
-   * <TT>UserTable</TT> that its cache of users' capabilities has become
-   * invalid.
+   * Notify the table that one if its records is about to be changed in a
+   * session.  You can (with care) use this to support cacheing of
+   * frequently-used facts about the table's records.  For instance,
+   * <TT>GroupMembershipTable</TT> and <TT>GroupCapabilityTable</TT> override
+   * this to inform <TT>UserTable</TT> that its cache of users' capabilities
+   * has become invalid.
    *
-   * @param session     the session in which the change has been made
+   * @param session     the session in which the change will be made
    * @param troid       the troid of the record which has been changed
    * @param data        the new values of the record's fields
    *
    * @see GroupMembershipTable#notifyTouched
    */
 
-  protected void notifyTouched(Session session, Integer troid, Data data) {
+  protected void notifyTouched(PoemSession session, Integer troid) {
+    PoemFloatingVersionedObject allTroids = this.allTroids;
+    if (allTroids != null)
+      allTroids.invalidateVersion(session);
   }
 
   // 

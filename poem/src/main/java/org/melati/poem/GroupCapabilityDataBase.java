@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class GroupCapabilityDataBase extends Data {
+public class GroupCapabilityDataBase extends Data {
   Integer id;
   Integer group;
   Integer capability;

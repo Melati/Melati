@@ -1,10 +1,12 @@
 package org.melati.poem;
 
+import org.melati.util.*;
+
 public class RollbackLogEvent extends PoemLogEvent {
 
-  public Session session;
+  public PoemSession session;
 
-  public RollbackLogEvent(Session session) {
+  public RollbackLogEvent(PoemSession session) {
     this.session = session;
   }
 

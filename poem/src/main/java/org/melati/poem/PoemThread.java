@@ -1,6 +1,7 @@
 package org.melati.poem;
 
 import java.util.*;
+import org.melati.util.*;
 
 public class PoemThread {
 
@@ -12,7 +13,7 @@ public class PoemThread {
   public static final int threadsMax = 100; // must be < Char.MAX_VALUE = 64k
 
   static Integer allocatedSessionToken(AccessToken accessToken,
-                                       Session session) {
+                                       PoemSession session) {
     synchronized (freeSessionTokenIndices) {
       Integer index;
       if (freeSessionTokenIndices.size() == 0) {
@@ -37,7 +38,7 @@ public class PoemThread {
   }
 
   static void inSession(PoemTask task, AccessToken accessToken,
-                        Session session) throws PoemException {
+                        PoemSession session) throws PoemException {
     Integer token = allocatedSessionToken(accessToken, session);
     try {
       task.run();
@@ -73,7 +74,7 @@ public class PoemThread {
     return it;
   }
 
-  public static Session session() {
+  public static PoemSession session() {
     return sessionToken().session;
   }
 

@@ -61,7 +61,7 @@ public class TableDef {
   }
 
   public void generateDataBaseJava(Writer w) throws IOException {
-    w.write("class " + dataBaseClass + " extends Data {\n");
+    w.write("public class " + dataBaseClass + " extends Data {\n");
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
       w.write("  ");
       ((FieldDef)f.nextElement()).generateJavaDeclaration(w);
@@ -78,7 +78,7 @@ public class TableDef {
   }
 
   public void generateBaseJava(Writer w) throws IOException {
-    w.write("class " + baseClass + " extends Persistent {\n" +
+    w.write("public class " + baseClass + " extends Persistent {\n" +
             "\n" +
             "  public final " + dataMainClass + " dataSnapshot()\n" +
             "      throws AccessPoemException {\n" +

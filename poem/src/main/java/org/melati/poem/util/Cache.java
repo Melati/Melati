@@ -1,7 +1,6 @@
-package org.melati.poem;
+package org.melati.util;
 
 import java.util.*;
-import org.melati.util.*;
 
 public final class Cache {
 

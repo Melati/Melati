@@ -4,7 +4,8 @@ public class TableInfo extends TableInfoBase {
   protected void assertCanRead(Data data, AccessToken token) {}
 
   public void setName(String name) {
-    if (getName() != null)
+    String current = getName();
+    if (current != null && current != name)
       throw new TableRenamePoemException(name);
     super.setName(name);
   }

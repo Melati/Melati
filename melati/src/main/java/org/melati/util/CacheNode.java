@@ -1,4 +1,4 @@
-package org.melati.poem;
+package org.melati.util;
 
 public abstract class CacheNode {
   CacheNode nextMRU = null;
@@ -26,5 +26,5 @@ public abstract class CacheNode {
   public abstract boolean drop();
   public abstract void uncacheContents();
   public abstract int analyseContents();
-  protected abstract Object getKey();
+  public abstract Object getKey();
 }

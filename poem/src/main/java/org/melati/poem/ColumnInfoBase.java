@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class ColumnInfoBase extends Persistent {
+public class ColumnInfoBase extends Persistent {
 
   public final ColumnInfoData dataSnapshot()
       throws AccessPoemException {

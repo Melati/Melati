@@ -3,17 +3,12 @@ package org.melati.poem;
 import java.util.*;
 import java.sql.*;
 
-class ResultSetEnumeration implements Enumeration {
-  private final Table table;
+abstract class ResultSetEnumeration implements Enumeration {
   private final ResultSet resultSet;
   private int more = -1;
-  private final boolean resolve;
 
-  public ResultSetEnumeration(Table table, ResultSet resultSet,
-                              boolean resolve) {
-    this.table = table;
+  public ResultSetEnumeration(ResultSet resultSet) {
     this.resultSet = resultSet;
-    this.resolve = resolve;
   }
 
   public synchronized boolean hasMoreElements() {
@@ -27,6 +22,9 @@ class ResultSetEnumeration implements Enumeration {
     }
   }
 
+  protected abstract Object mapped(ResultSet resultSet)
+      throws SQLException, NoSuchRowPoemException;
+
   public synchronized Object nextElement() throws NoSuchElementException {
     try {
       if (more == -1)
@@ -36,8 +34,7 @@ class ResultSetEnumeration implements Enumeration {
         throw new NoSuchElementException();
 
       try {
-        Integer troid = new Integer(resultSet.getInt(1));
-        return resolve ? (Object)table.getObject(troid) : (Object)troid;
+        return mapped(resultSet);
       }
       finally {
         more = resultSet.next() ? 1 : 0;

@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class CapabilityDataBase extends Data {
+public class CapabilityDataBase extends Data {
   Integer id;
   String name;
 }

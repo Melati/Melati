@@ -13,7 +13,7 @@ import java.util.*;
 
 public class Persistent {
 
-  private InterSession interSession;
+  private VersionedRow versionedRow;
   private AccessToken clearedToken;
   private boolean knownCanRead = false, knownCanWrite = false;
 
@@ -23,29 +23,29 @@ public class Persistent {
   // ================
   // 
 
-  synchronized final void init(CacheInterSession interSession) {
-    this.interSession = interSession;
+  synchronized final void init(CachedVersionedRow versionedRow) {
+    this.versionedRow = versionedRow;
     clearedToken = null;
     knownCanRead = false;
     knownCanWrite = false;
   }
 
   synchronized final void initForConstruct(
-      ConstructionInterSession interSession, AccessToken accessToken) {
-    this.interSession = interSession;
+      ConstructionVersionedRow versionedRow, AccessToken accessToken) {
+    this.versionedRow = versionedRow;
     clearedToken = accessToken;
     knownCanRead = true;
     knownCanWrite = true;
   }
 
-  private synchronized InterSession interSession() {
+  private synchronized VersionedRow versionedRow() {
     // FIXME what happens if:
-    //   we find interSession is valid but relinquish the lock for a moment
-    //   before calling its dataForReading?
-    if (!interSession.valid())
-      interSession =
-          interSession.getTable().interSession(interSession.getTroid());
-    return interSession;
+    //   we find versionedRow is valid but relinquish the lock for a moment
+    //   before calling its versionForReading?
+    if (!versionedRow.valid())
+      versionedRow =
+          versionedRow.getTable().versionedRow(versionedRow.getTroid());
+    return versionedRow;
   }
 
   // 
@@ -59,7 +59,7 @@ public class Persistent {
    */
 
   public final Table getTable() {
-    return interSession.getTable();
+    return versionedRow.getTable();
   }
 
   /**
@@ -78,7 +78,7 @@ public class Persistent {
    */
 
   final Integer troid() {
-    return interSession.getTroid();
+    return versionedRow.getTroid();
   }
 
   /**
@@ -619,6 +619,13 @@ public class Persistent {
    * is the form in which Melati's templating facilities expect to receive
    * values for displaying them or creating input boxes.
    *
+   * <P>
+   *
+   * If the field <TT><I>baz</I></TT> is defined in the DSD as part of a table
+   * called <TT><I>foo</I></TT>, then the table's records will be represented
+   * by an application-specialised subclass of <TT>Persistent</TT> called
+   * <TT><I>Foo</I></TT> which provides a <TT>get<I>Baz</I>Field</TT> method.
+   *
    * @see org.melati.MarkupLanguage#input(org.melati.poem.Field)
    */
 
@@ -672,7 +679,7 @@ public class Persistent {
       if (refs.hasMoreElements())
         throw new DeletionIntegrityPoemException(this, refs);
 
-      interSession().delete(sessionToken.session);
+      versionedRow().delete(sessionToken.session);
       if (sessionToken.session != null)
         sessionToken.session.commit();
     }
@@ -738,10 +745,10 @@ public class Persistent {
     return (Data)_dataForReading().clone();
   }
 
-  final Data dataUnchecked(Session session)
+  final Data dataUnchecked(PoemSession session)
       throws RowDisappearedPoemException {
-    Data data = interSession().dataForReading(session);
-    if (data == InterSession.nonexistent)
+    Data data = (Data)versionedRow().versionForReading(session);
+    if (data == VersionedRow.nonexistent)
       throw new RowDisappearedPoemException(getTable(), troid());
     return data;
   }
@@ -775,9 +782,18 @@ public class Persistent {
     // FIXME this is really gross ... necessary because assertCanWrite can
     // provoke a premature writeDown
 
-    Data data = interSession.dataForWriting(sessionToken.session);
-    if (data == InterSession.nonexistent)
+    Data data = (Data)versionedRow.versionForWriting(sessionToken.session);
+    if (data == VersionedRow.nonexistent)
       throw new RowDisappearedPoemException(getTable(), troid());
     return data;
+  }
+
+  public final int hashCode() {
+    return troid().intValue();
+  }
+
+  public final boolean equals(Object other) {
+    return
+        other instanceof Persistent && ((Persistent)other).troid() == troid();
   }
 }

@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class CapabilityBase extends Persistent {
+public class CapabilityBase extends Persistent {
 
   public final CapabilityData dataSnapshot()
       throws AccessPoemException {

@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class GroupBase extends Persistent {
+public class GroupBase extends Persistent {
 
   public final GroupData dataSnapshot()
       throws AccessPoemException {

@@ -56,8 +56,6 @@ import org.melati.MelatiConfig;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Database;
 import org.melati.poem.PoemTask;
-import org.melati.servlet.MelatiContext;
-import org.melati.servlet.PathInfoException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.MelatiException;
 import org.melati.util.StringUtils;

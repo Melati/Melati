@@ -881,7 +881,7 @@ public class Table {
                "" : "(" + whereClause + ") AND ") +
           "NOT " + deletedColumn.getName();
 
-    if (orderByClause == null || orderByClause.equals(""))
+    if (orderByClause == null)
       orderByClause = defaultOrderByClause();
 
     // FIXME must work in some kind of limit

@@ -161,6 +161,7 @@ public class DSD {
               "\n" +
 	      "import java.util.*;\n" +
 	      "import java.sql.Date;\n" + // FIXME hack!
+	      "import java.sql.Timestamp;\n" + // FIXME hack!
 	      "import org.melati.util.*;\n");
 
       if (!packageName.equals("org.melati.poem"))

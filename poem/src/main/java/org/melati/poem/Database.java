@@ -994,7 +994,7 @@ abstract public class Database implements TransactionPool {
 
       case Types.DATE           : return new DatePoemType(nullable);
       case Types.TIME           : return unsupported("TIME", md);
-      case Types.TIMESTAMP      : return unsupported("TIMESTAMP", md);
+      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
 
       case Types.BINARY         : return unsupported("BINARY", md);
       case Types.VARBINARY      : return unsupported("VARBINARY", md);

@@ -430,7 +430,9 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * This is the MySQL syntax
+   * This is the MySQL syntax.
+   *
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;

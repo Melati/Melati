@@ -100,7 +100,7 @@ public abstract class CachedQuery {
         }
       }
       catch (SQLException e) {
-            throw new SQLSeriousPoemException(e);
+        throw new SQLSeriousPoemException(e);
       }
       this.rows = rows;
       updateSerials(token.transaction);

@@ -771,6 +771,10 @@ public class Table {
     cache.trim(maxSize);
   }
 
+  public Cache.Info getCacheInfo() {
+    return cache.getInfo();
+  }
+
   public void addListener(TableListener listener) {
     listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }

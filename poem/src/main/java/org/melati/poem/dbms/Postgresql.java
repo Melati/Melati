@@ -46,19 +46,39 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.*;
-import org.melati.poem.*;
+import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.Types;
+import org.melati.poem.Table;
+import org.melati.poem.SQLPoemException;
+import org.melati.poem.NoSuchColumnPoemException;
+import org.melati.poem.DuplicateKeySQLPoemException;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.DoublePoemType;
 
  /**
-  * A Driver for Postgresql (http://www.postgresql.org)
+  * A Driver for Postgresql (http://www.postgresql.org/)
   **/
+
 public class Postgresql extends AnsiStandard {
 
   public Postgresql() {
     setDriverClassName("org.postgresql.Driver");
-
-
   }
+
+  public boolean canDropColumns(Connection con) throws SQLException {
+    if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
+      return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).haveMinimumServerVersion("7.3");
+    }
+    return false;
+  }
+
 
   public String preparedStatementPlaceholder(PoemType type) {
     if (type instanceof IntegerPoemType)
@@ -95,7 +115,7 @@ public class Postgresql extends AnsiStandard {
       public PoemType canRepresent(PoemType other) {
           return other instanceof BinaryPoemType &&
                  !(!getNullable() && 
-		   ((BinaryPoemType)other).getNullable()) ? other : null;
+       ((BinaryPoemType)other).getNullable()) ? other : null;
       }
   }
 

@@ -92,6 +92,10 @@ public class ExtraColumn extends Column {
     setRaw(g, getType().rawOfCooked(cooked));
   }
 
+  public Field asField(Persistent g) {
+    return Field.of(g, this);
+  }
+
   public static Column from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
     return new ExtraColumn(

@@ -63,6 +63,8 @@ import org.melati.Melati;
  */
 public class CharData {
 
+  private CharData() {}
+
   public static Iterator getItems() {
     return new Iterator() {
 

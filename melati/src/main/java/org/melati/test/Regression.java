@@ -55,6 +55,8 @@ import org.melati.poem.PoemDatabase;
  */
 public class Regression {
 
+  private Regression() {}
+
   public static final String dbName = "melatiregression";
 
   public static void main(String[] args) throws Exception {

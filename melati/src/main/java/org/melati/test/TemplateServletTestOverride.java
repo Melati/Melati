@@ -55,7 +55,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.PoemThread;
 import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.PathInfoException;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.template.TemplateContext;
 import org.melati.util.MelatiException;
 
@@ -97,9 +97,9 @@ public class TemplateServletTestOverride extends TemplateServlet {
  * This is a good idea when writing appications where you are 
  * typically only accessing a single database.
  */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
-    return melatiContextWithLDB(melati,"melatitest");
+    return poemContextWithLDB(melati,"melatitest");
   }
   
 }

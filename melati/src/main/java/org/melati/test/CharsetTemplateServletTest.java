@@ -49,7 +49,7 @@
 package org.melati.test;
 
 import org.melati.Melati;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
@@ -80,9 +80,9 @@ public class CharsetTemplateServletTest extends TemplateServlet {
  * Useful when writing appications where you are typically only accessing
  * a single database.
  */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
-    MelatiContext mc = super.melatiContext(melati);
+    PoemContext mc = super.poemContext(melati);
     if (mc.getLogicalDatabase().equals("")) 
       mc = melatiContextWithLDB(melati,"melatitest");
     return mc;

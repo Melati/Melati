@@ -47,7 +47,7 @@ package org.melati.test;
 
 
 import org.melati.template.webmacro.WebmacroMelatiServlet;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.Melati;
 import org.melati.util.Waiter;
 import org.melati.servlet.PathInfoException;
@@ -82,9 +82,9 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
  * writing your appications where you are typically only accessing
  * a single database
  */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
-    return melatiContextWithLDB(melati,"melatitest");
+    return poemContextWithLDB(melati,"melatitest");
   }
 
 }

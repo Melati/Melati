@@ -51,7 +51,7 @@ import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.template.webmacro.MelatiFastWriter;
 import org.webmacro.servlet.WebContext;
 
@@ -106,9 +106,9 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
  * writing your appications where you are typically only accessing
  * a single database
  */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
-    return melatiContextWithLDB(melati,"melatitest");
+    return poemContextWithLDB(melati,"melatitest");
   }
 
 }

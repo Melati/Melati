@@ -56,7 +56,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.servlet.PoemServlet;
 import org.melati.servlet.PathInfoException;
 import org.melati.util.MelatiBugMelatiException;
@@ -89,13 +89,13 @@ public class PoemServletTest extends PoemServlet {
     "servlet does not initialise a template engine.</p>\n");
     output.write("<p>Your " +
     "<b>MelatiContext</b> is set up as: " +
-    melati.getContext() +
+    melati.getPoemContext() +
     "<br>, \n");
     output.write("try playing with the PathInfo to see the results (or click " +
     "<a href=" +
     melati.getZoneURL() +
     "/org.melati.test.PoemServletTest/" +
-    melati.getContext().logicalDatabase +
+    melati.getPoemContext().getLogicalDatabase() +
     "/user/1/View>user/1/View" +
     "</a>).</p>\n");
     output.write("<h4>Your Database has the following tables:</h4>\n");
@@ -120,16 +120,16 @@ public class PoemServletTest extends PoemServlet {
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.TemplateServletTest/" + 
-    melati.getContext().logicalDatabase + 
+    melati.getPoemContext().getLogicalDatabase() + 
     ">" + 
     "org.melati.test.TemplateServletTest/" + 
-    melati.getContext().logicalDatabase + "</a><br/>\n");
+    melati.getPoemContext().getLogicalDatabase() + "</a><br/>\n");
 
     output.write("<p>\n");
     output.write("Make sure the <a href='"+ 
       melati.getZoneURL() + 
       "/org.melati.admin.Admin/" + 
-      melati.getContext().logicalDatabase + 
+      melati.getPoemContext().getLogicalDatabase() + 
       "/Main'>Admin System</a> is working." + 
       "\n");
     output.write("</p>\n");
@@ -171,13 +171,13 @@ public class PoemServletTest extends PoemServlet {
  * writing your appications where you are typically only accessing
  * a single database
  */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
     String[] parts = melati.getPathInfoParts();
     if (parts.length == 0) 
-      return melatiContextWithLDB(melati,"melatitest");
+      return poemContextWithLDB(melati,"melatitest");
     else 
-      return super.melatiContext(melati);
+      return super.poemContext(melati);
   }
 }
 

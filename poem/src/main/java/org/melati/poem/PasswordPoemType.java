@@ -48,6 +48,7 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.util.*;
 
 public class PasswordPoemType extends StringPoemType {
 
@@ -68,5 +69,4 @@ public class PasswordPoemType extends StringPoemType {
     columnInfo.setType(PoemTypeFactory.PASSWORD);
     columnInfo.setSize(size);
   }
-
 }

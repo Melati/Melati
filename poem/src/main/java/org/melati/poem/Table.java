@@ -583,8 +583,9 @@ public class Table {
 
   private CachedIndexFactory transactionStuffs = new CachedIndexFactory() {
     public Object reallyGet(int index) {
+      // "Table.this" is attempt to work around Dietmar's problem with JDK1.3.1
       return new TransactionStuff(
-          database.poemTransaction(index).getConnection());
+          Table.this.database.poemTransaction(index).getConnection());
     }
   };
 

@@ -107,8 +107,8 @@ public class MultipartTemplateContext implements TemplateContext
     return (MultipartFormField)fields.get(s);
   }
 
-  public Object get(Object o) {
-    return peer.get(o);
+  public Object get(String s) {
+    return peer.get(s);
   }
 
   public HttpSession getSession() {

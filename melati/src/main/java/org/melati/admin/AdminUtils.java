@@ -137,6 +137,15 @@ public class AdminUtils {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowSelection";
   }
   
+  public String UploadURL(Field field) {
+    return adminURL + "/" + logicalDatabase + "/Upload?field="+field.getName();
+  }
+
+  public String UploadHandlerURL(String field) {
+    int admin = adminURL.indexOf("admin.Admin");
+    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + "/" +field;
+  }
+
   // establish if this is a reference poem type field
   public boolean isReferencePoemType(Field field) {
     return field.getType() instanceof ReferencePoemType;

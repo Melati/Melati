@@ -68,7 +68,7 @@ to create a release:
 4.  Add a paragraph about this release to melati/site/docsrc/Releases.ahtml
     Review melati/site/docsrc/Roadmap.ahtml
 5.  CVS commit all of the above
-6.  CVS tag this release (cvs tag Melati-0-7-1)
+6.  CVS tag this release (cvs tag Melati-0-7-2)
 7.  Build melati (again) locally
 8.  Test everything
 9.  Update ganesh

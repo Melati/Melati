@@ -255,6 +255,12 @@ public class Melati {
     return sameURLWith(field, "1");
   }
 
+  public String getSameURL() {
+    String qs = webContext.getRequest().getQueryString();
+    return webContext.getRequest().getRequestURI() +
+               (qs == null ? "" : '?' + qs);
+  }
+
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();

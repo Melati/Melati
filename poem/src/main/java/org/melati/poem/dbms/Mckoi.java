@@ -69,7 +69,7 @@ public class Mckoi extends AnsiStandard {
     return false;
   }
 
-  public String getBinarySqlDefinition(int size) throws SQLException {
+  public String getBinarySqlDefinition(int size) {
       // BLOBs in Postgres are represented as OIDs pointing to the data
     return "LONGVARBINARY";
   }
@@ -91,7 +91,7 @@ public class Mckoi extends AnsiStandard {
  /**
   * @todo Check against modern McKoi 
   */
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("INT")) {
       return ("INTEGER");
     }

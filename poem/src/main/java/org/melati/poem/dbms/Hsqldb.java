@@ -72,14 +72,14 @@ public class Hsqldb extends AnsiStandard {
     setDriverClassName("org.hsqldb.jdbcDriver");
   }
 
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
     }
     return super.getSqlDefinition(sqlTypeName);
   }
 
-  public String getStringSqlDefinition(int size) throws SQLException {
+  public String getStringSqlDefinition(int size) {
     if (size < 0)
       return "VARCHAR(2500)";
     return "VARCHAR(" + size + ")";

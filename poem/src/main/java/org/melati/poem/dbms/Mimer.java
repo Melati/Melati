@@ -45,7 +45,6 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
 import org.melati.poem.PoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.BooleanPoemType;
@@ -60,7 +59,7 @@ public class Mimer extends AnsiStandard {
      setDriverClassName("com.mimer.jdbc.Driver");
   }
 
-  public String getStringSqlDefinition(int size) throws SQLException {
+  public String getStringSqlDefinition(int size)  {
     if (size < 0) return "VARCHAR(2500)";
     return "VARCHAR(" + size + ")";
   }
@@ -85,7 +84,7 @@ public class Mimer extends AnsiStandard {
 
 
 
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
           return ("INT");
     }

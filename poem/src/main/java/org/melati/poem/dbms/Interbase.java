@@ -65,7 +65,7 @@ public class Interbase extends AnsiStandard {
     return "q" + name;
   }
 
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("INT");
     }

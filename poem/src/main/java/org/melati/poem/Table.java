@@ -75,6 +75,7 @@ import org.melati.poem.dbms.Dbms;
  *
  * @author WilliamC@paneris.org
  * @todo Allow selection based on null fields
+ * @todo Write equals method
  * @todo See FIXMEs
  **/
 
@@ -702,7 +703,9 @@ public class Table implements Selectable {
             throw new DuplicateTroidPoemException(this, persistent.troid());
         }
         finally {
-          try { rs.close(); } catch (Exception e) {}
+          try { rs.close(); } catch (Exception e) {
+            System.err.println("Cannot close resultset after exception.");  
+          }
         }
       }
     }

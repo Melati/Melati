@@ -117,13 +117,13 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
       minuteSuffix = "-minute",
       secondSuffix = "-second";
 
-  private static final YMDHMSTimestampAdaptor it = new YMDHMSTimestampAdaptor();
+  private static final YMDHMSTimestampAdaptor me = new YMDHMSTimestampAdaptor();
 
   /**
    * @return Returns the it.
    */
   public static YMDHMSTimestampAdaptor getIt() {
-    return it;
+    return me;
   }
 
   public Object rawFrom(ServletTemplateContext context, String fieldName) {

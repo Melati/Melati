@@ -52,10 +52,13 @@ import org.melati.poem.*;
 public class AdminUtils {
 
   private String adminURL;
+  private String adminStaticURL;
   private String logicalDatabase;
 
-  public AdminUtils(String adminURL, String logicalDatabase) {
+  public AdminUtils(String adminURL, String adminStaticURL,
+		    String logicalDatabase) {
     this.adminURL = adminURL;
+    this.adminStaticURL = adminStaticURL;
     this.logicalDatabase = logicalDatabase;
   }
 
@@ -72,7 +75,8 @@ public class AdminUtils {
   }
 
   public String lowerFrameTableURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/LowerFrame";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/LowerFrame";
   }
   
   public String tableURL(Table table) {
@@ -89,8 +93,10 @@ public class AdminUtils {
   
   // establish if this is a reference poem type field
   public boolean isReferencePoemType(Field field) {
-	  return field.getType() instanceof ReferencePoemType;
+    return field.getType() instanceof ReferencePoemType;
   }
 
-
+  public String getStaticURL() {
+    return adminStaticURL;
+  }
 }

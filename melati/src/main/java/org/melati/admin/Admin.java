@@ -378,6 +378,7 @@ public class Admin extends MelatiServlet {
     try {
       context.put("admin",
                   new AdminUtils(context.getRequest().getServletPath(),
+				 melati.getStaticURL() + "/admin",
                                  melati.getLogicalDatabaseName()));
 
       if (melati.getObject() != null) {

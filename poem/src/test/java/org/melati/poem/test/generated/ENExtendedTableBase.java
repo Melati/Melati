@@ -25,19 +25,19 @@ import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.test.EverythingNormalExtended;
+import org.melati.poem.test.ENExtended;
 import org.melati.poem.test.EverythingNormalTable;
 import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>EverythingNormalExtended</code>.
+<code>Table</code> <code>ENExtended</code>.
  *
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
+public class ENExtendedTableBase extends EverythingNormalTable {
 
   private Column col_binaryfield2 = null;
   private Column col_stringfield2 = null;
@@ -60,7 +60,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
   * @throws PoemException    if anything goes wrong
   */
 
-  public EverythingNormalExtendedTableBase(
+  public ENExtendedTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
@@ -75,7 +75,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
   * @param name              the name of this <code>Table</code>
   * @throws PoemException    if anything goes wrong
   */
-  public EverythingNormalExtendedTableBase(
+  public ENExtendedTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
@@ -99,16 +99,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getBinaryfield2();
+            return ((ENExtended)g).getBinaryfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setBinaryfield2((byte[])cooked);
+            ((ENExtended)g).setBinaryfield2((byte[])cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getBinaryfield2Field();
+            return ((ENExtended)g).getBinaryfield2Field();
           }
 
           protected boolean defaultUserEditable() {
@@ -149,22 +149,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBinaryfield2_unsafe();
+            return ((ENExtended)g).getBinaryfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBinaryfield2_unsafe((byte[])raw);
+            ((ENExtended)g).setBinaryfield2_unsafe((byte[])raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBinaryfield2();
+            return ((ENExtended)g).getBinaryfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBinaryfield2((byte[])raw);
+            ((ENExtended)g).setBinaryfield2((byte[])raw);
           }
         });
 
@@ -174,16 +174,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getStringfield2();
+            return ((ENExtended)g).getStringfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setStringfield2((String)cooked);
+            ((ENExtended)g).setStringfield2((String)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getStringfield2Field();
+            return ((ENExtended)g).getStringfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -220,22 +220,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getStringfield2_unsafe();
+            return ((ENExtended)g).getStringfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setStringfield2_unsafe((String)raw);
+            ((ENExtended)g).setStringfield2_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getStringfield2();
+            return ((ENExtended)g).getStringfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setStringfield2((String)raw);
+            ((ENExtended)g).setStringfield2((String)raw);
           }
         });
 
@@ -245,16 +245,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getPasswordfield2();
+            return ((ENExtended)g).getPasswordfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setPasswordfield2((String)cooked);
+            ((ENExtended)g).setPasswordfield2((String)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getPasswordfield2Field();
+            return ((ENExtended)g).getPasswordfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -287,22 +287,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getPasswordfield2_unsafe();
+            return ((ENExtended)g).getPasswordfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setPasswordfield2_unsafe((String)raw);
+            ((ENExtended)g).setPasswordfield2_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getPasswordfield2();
+            return ((ENExtended)g).getPasswordfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setPasswordfield2((String)raw);
+            ((ENExtended)g).setPasswordfield2((String)raw);
           }
         });
 
@@ -312,16 +312,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getBooleanfield2();
+            return ((ENExtended)g).getBooleanfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setBooleanfield2((Boolean)cooked);
+            ((ENExtended)g).setBooleanfield2((Boolean)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getBooleanfield2Field();
+            return ((ENExtended)g).getBooleanfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -354,22 +354,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBooleanfield2_unsafe();
+            return ((ENExtended)g).getBooleanfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBooleanfield2_unsafe((Boolean)raw);
+            ((ENExtended)g).setBooleanfield2_unsafe((Boolean)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBooleanfield2();
+            return ((ENExtended)g).getBooleanfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBooleanfield2((Boolean)raw);
+            ((ENExtended)g).setBooleanfield2((Boolean)raw);
           }
         });
 
@@ -379,16 +379,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getDatefield2();
+            return ((ENExtended)g).getDatefield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setDatefield2((Date)cooked);
+            ((ENExtended)g).setDatefield2((Date)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getDatefield2Field();
+            return ((ENExtended)g).getDatefield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -421,22 +421,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getDatefield2_unsafe();
+            return ((ENExtended)g).getDatefield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setDatefield2_unsafe((Date)raw);
+            ((ENExtended)g).setDatefield2_unsafe((Date)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getDatefield2();
+            return ((ENExtended)g).getDatefield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setDatefield2((Date)raw);
+            ((ENExtended)g).setDatefield2((Date)raw);
           }
         });
 
@@ -446,16 +446,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getDoublefield2();
+            return ((ENExtended)g).getDoublefield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setDoublefield2((Double)cooked);
+            ((ENExtended)g).setDoublefield2((Double)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getDoublefield2Field();
+            return ((ENExtended)g).getDoublefield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -488,22 +488,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getDoublefield2_unsafe();
+            return ((ENExtended)g).getDoublefield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setDoublefield2_unsafe((Double)raw);
+            ((ENExtended)g).setDoublefield2_unsafe((Double)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getDoublefield2();
+            return ((ENExtended)g).getDoublefield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setDoublefield2((Double)raw);
+            ((ENExtended)g).setDoublefield2((Double)raw);
           }
         });
 
@@ -513,16 +513,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getIntegerfield2();
+            return ((ENExtended)g).getIntegerfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setIntegerfield2((Integer)cooked);
+            ((ENExtended)g).setIntegerfield2((Integer)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getIntegerfield2Field();
+            return ((ENExtended)g).getIntegerfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -555,22 +555,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getIntegerfield2_unsafe();
+            return ((ENExtended)g).getIntegerfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setIntegerfield2_unsafe((Integer)raw);
+            ((ENExtended)g).setIntegerfield2_unsafe((Integer)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getIntegerfield2();
+            return ((ENExtended)g).getIntegerfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setIntegerfield2((Integer)raw);
+            ((ENExtended)g).setIntegerfield2((Integer)raw);
           }
         });
 
@@ -580,16 +580,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getLongfield2();
+            return ((ENExtended)g).getLongfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setLongfield2((Long)cooked);
+            ((ENExtended)g).setLongfield2((Long)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getLongfield2Field();
+            return ((ENExtended)g).getLongfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -622,22 +622,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getLongfield2_unsafe();
+            return ((ENExtended)g).getLongfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setLongfield2_unsafe((Long)raw);
+            ((ENExtended)g).setLongfield2_unsafe((Long)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getLongfield2();
+            return ((ENExtended)g).getLongfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setLongfield2((Long)raw);
+            ((ENExtended)g).setLongfield2((Long)raw);
           }
         });
 
@@ -647,16 +647,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getBigdecimalfield2();
+            return ((ENExtended)g).getBigdecimalfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setBigdecimalfield2((BigDecimal)cooked);
+            ((ENExtended)g).setBigdecimalfield2((BigDecimal)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getBigdecimalfield2Field();
+            return ((ENExtended)g).getBigdecimalfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -689,22 +689,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBigdecimalfield2_unsafe();
+            return ((ENExtended)g).getBigdecimalfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBigdecimalfield2_unsafe((BigDecimal)raw);
+            ((ENExtended)g).setBigdecimalfield2_unsafe((BigDecimal)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getBigdecimalfield2();
+            return ((ENExtended)g).getBigdecimalfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setBigdecimalfield2((BigDecimal)raw);
+            ((ENExtended)g).setBigdecimalfield2((BigDecimal)raw);
           }
         });
 
@@ -714,16 +714,16 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((EverythingNormalExtended)g).getTimestampfield2();
+            return ((ENExtended)g).getTimestampfield2();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((EverythingNormalExtended)g).setTimestampfield2((Timestamp)cooked);
+            ((ENExtended)g).setTimestampfield2((Timestamp)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((EverythingNormalExtended)g).getTimestampfield2Field();
+            return ((ENExtended)g).getTimestampfield2Field();
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -756,22 +756,22 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getTimestampfield2_unsafe();
+            return ((ENExtended)g).getTimestampfield2_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setTimestampfield2_unsafe((Timestamp)raw);
+            ((ENExtended)g).setTimestampfield2_unsafe((Timestamp)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((EverythingNormalExtended)g).getTimestampfield2();
+            return ((ENExtended)g).getTimestampfield2();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((EverythingNormalExtended)g).setTimestampfield2((Timestamp)raw);
+            ((ENExtended)g).setTimestampfield2((Timestamp)raw);
           }
         });
   }
@@ -779,7 +779,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Binaryfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield2 <code>Column</code>
@@ -791,7 +791,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Stringfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield2 <code>Column</code>
@@ -803,7 +803,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Passwordfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield2 <code>Column</code>
@@ -815,7 +815,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Booleanfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield2 <code>Column</code>
@@ -827,7 +827,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Datefield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield2 <code>Column</code>
@@ -839,7 +839,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Doublefield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield2 <code>Column</code>
@@ -851,7 +851,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Integerfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield2 <code>Column</code>
@@ -863,7 +863,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Longfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield2 <code>Column</code>
@@ -875,7 +875,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Bigdecimalfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield2 <code>Column</code>
@@ -887,7 +887,7 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
  /**
   * Retrieves the <code>Timestampfield2</code> <code>Column</code> for this 
-  * <code>EverythingNormalExtended</code> <code>Table</code>
+  * <code>ENExtended</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield2 <code>Column</code>
@@ -898,30 +898,30 @@ public class EverythingNormalExtendedTableBase extends EverythingNormalTable {
 
 
  /**
-  * Retrieve the <code>EverythingNormalExtended</code> as a <code>EverythingNormalExtended</code>.
+  * Retrieve the <code>ENExtended</code> as a <code>ENExtended</code>.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
-  public EverythingNormalExtended getEverythingNormalExtendedObject(Integer troid) {
-    return (EverythingNormalExtended)getObject(troid);
+  public ENExtended getENExtendedObject(Integer troid) {
+    return (ENExtended)getObject(troid);
   }
 
 
  /**
-  * Retrieve the <code>EverythingNormalExtended</code> 
-  * as a <code>EverythingNormalExtended</code>.
+  * Retrieve the <code>ENExtended</code> 
+  * as a <code>ENExtended</code>.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
-  public EverythingNormalExtended getEverythingNormalExtendedObject(int troid) {
-    return (EverythingNormalExtended)getObject(troid);
+  public ENExtended getENExtendedObject(int troid) {
+    return (ENExtended)getObject(troid);
   }
 
   protected Persistent _newPersistent() {
-    return new EverythingNormalExtended();
+    return new ENExtended();
   }
   protected String defaultDisplayName() {
     return "Everything Normal Extended";

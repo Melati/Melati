@@ -10,12 +10,15 @@ import org.melati.poem.GroupMembershipTable;
 import org.melati.poem.GroupCapabilityTable;
 import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
+// abstract import org.melati.poem.ValueInfoTable;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
 import org.melati.poem.test.AthingTable;
+// abstract import org.melati.poem.test.EmptyAbstractTableTable;
 import org.melati.poem.test.EverythingNormalTable;
-import org.melati.poem.test.EverythingNormalExtendedTable;
-import org.melati.poem.test.EverythingAbstractExtendedTable;
+import org.melati.poem.test.ENExtendedTable;
+// abstract import org.melati.poem.test.EverythingAbstractTable;
+import org.melati.poem.test.EAExtendedTable;
 
 /**
  * Melati POEM generated base interface to the tables in 
@@ -113,18 +116,18 @@ public interface TestDatabaseTablesBase {
   EverythingNormalTable getEverythingNormalTable();
 
  /**
-  * Retrieves the <code>EverythingNormalExtendedTable</code> table.
+  * Retrieves the <code>ENExtendedTable</code> table.
   * 
   * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
-  * @return the EverythingNormalExtendedTable from this database
+  * @return the ENExtendedTable from this database
   */
-  EverythingNormalExtendedTable getEverythingNormalExtendedTable();
+  ENExtendedTable getENExtendedTable();
 
  /**
-  * Retrieves the <code>EverythingAbstractExtendedTable</code> table.
+  * Retrieves the <code>EAExtendedTable</code> table.
   * 
   * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
-  * @return the EverythingAbstractExtendedTable from this database
+  * @return the EAExtendedTable from this database
   */
-  EverythingAbstractExtendedTable getEverythingAbstractExtendedTable();
+  EAExtendedTable getEAExtendedTable();
 }

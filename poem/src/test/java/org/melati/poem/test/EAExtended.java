@@ -1,10 +1,10 @@
 package org.melati.poem.test;
 
-import org.melati.poem.test.generated.EverythingAbstractExtendedBase;
+import org.melati.poem.test.generated.EAExtendedBase;
 
 /**
  * Melati POEM generated, programmer modifiable stub 
- * for a <code>Persistent</code> <code>EverythingAbstractExtended</code> object.
+ * for a <code>Persistent</code> <code>EAExtended</code> object.
  * 
  * <p> 
  * Description: 
@@ -13,7 +13,7 @@ import org.melati.poem.test.generated.EverythingAbstractExtendedBase;
  * 
  * <table> 
  * <tr><th colspan='3'>
- * Field summary for SQL table <code>EverythingAbstractExtended</code>
+ * Field summary for SQL table <code>EAExtended</code>
  * </th></tr>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
@@ -39,11 +39,11 @@ import org.melati.poem.test.generated.EverythingAbstractExtendedBase;
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class EverythingAbstractExtended extends EverythingAbstractExtendedBase {
+public class EAExtended extends EAExtendedBase {
 
  /**
   * Constructor 
-  * for a <code>Persistent</code> <code>EverythingAbstractExtended</code> object.
+  * for a <code>Persistent</code> <code>EAExtended</code> object.
   * <p>
   * Description: 
   *   Every datatype inheritted from an abstract table and a normally 
@@ -52,7 +52,7 @@ public class EverythingAbstractExtended extends EverythingAbstractExtendedBase {
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */
-  public EverythingAbstractExtended() { }
+  public EAExtended() { }
 
   // programmer's domain-specific code here
 }

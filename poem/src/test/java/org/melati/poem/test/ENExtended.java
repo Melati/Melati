@@ -1,22 +1,19 @@
 package org.melati.poem.test;
 
-import org.melati.poem.test.generated.EverythingNormalExtendedTableBase;
-import org.melati.poem.DefinitionSource;
-import org.melati.poem.Database;
-import org.melati.poem.PoemException;
+import org.melati.poem.test.generated.ENExtendedBase;
 
 /**
  * Melati POEM generated, programmer modifiable stub 
- * for a <code>EverythingNormalExtendedTable</code> object.
- * <p>
+ * for a <code>Persistent</code> <code>ENExtended</code> object.
+ * 
+ * <p> 
  * Description: 
  *   Every datatype inheritted from a normal table and normally defined. 
  * </p>
- *
  * 
  * <table> 
  * <tr><th colspan='3'>
- * Field summary for SQL table <code>EverythingNormalExtended</code>
+ * Field summary for SQL table <code>ENExtended</code>
  * </th></tr>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> binaryfield2 </td><td> byte[] </td><td> Second Binary Field 
@@ -39,24 +36,21 @@ import org.melati.poem.PoemException;
  * Field </td></tr> 
  * </table> 
  * 
- * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class EverythingNormalExtendedTable extends EverythingNormalExtendedTableBase {
+public class ENExtended extends ENExtendedBase {
 
  /**
-  * Constructor.
+  * Constructor 
+  * for a <code>Persistent</code> <code>ENExtended</code> object.
+  * <p>
+  * Description: 
+  *   Every datatype inheritted from a normal table and normally defined. 
+  * </p>
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @param definitionSource  which definition is being used
-  * @throws PoemException    if anything goes wrong
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */
-  public EverythingNormalExtendedTable(
-      Database database, String name,
-      DefinitionSource definitionSource) throws PoemException {
-    super(database, name, definitionSource);
-  }
+  public ENExtended() { }
 
   // programmer's domain-specific code here
 }

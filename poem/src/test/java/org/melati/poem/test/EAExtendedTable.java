@@ -1,21 +1,25 @@
 package org.melati.poem.test;
 
-import org.melati.poem.test.generated.EverythingNormalExtendedBase;
+import org.melati.poem.test.generated.EAExtendedTableBase;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Database;
+import org.melati.poem.PoemException;
 
 /**
  * Melati POEM generated, programmer modifiable stub 
- * for a <code>Persistent</code> <code>EverythingNormalExtended</code> object.
- * 
- * <p> 
+ * for a <code>EAExtendedTable</code> object.
+ * <p>
  * Description: 
- *   Every datatype inheritted from a normal table and normally defined. 
+ *   Every datatype inheritted from an abstract table and a normally defined. 
  * </p>
+ *
  * 
  * <table> 
  * <tr><th colspan='3'>
- * Field summary for SQL table <code>EverythingNormalExtended</code>
+ * Field summary for SQL table <code>EAExtended</code>
  * </th></tr>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
  * <tr><td> binaryfield2 </td><td> byte[] </td><td> Second Binary Field 
  * </td></tr> 
  * <tr><td> stringfield2 </td><td> String </td><td> Second String Field 
@@ -36,21 +40,24 @@ import org.melati.poem.test.generated.EverythingNormalExtendedBase;
  * Field </td></tr> 
  * </table> 
  * 
- * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
-public class EverythingNormalExtended extends EverythingNormalExtendedBase {
+public class EAExtendedTable extends EAExtendedTableBase {
 
  /**
-  * Constructor 
-  * for a <code>Persistent</code> <code>EverythingNormalExtended</code> object.
-  * <p>
-  * Description: 
-  *   Every datatype inheritted from a normal table and normally defined. 
-  * </p>
+  * Constructor.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
   */
-  public EverythingNormalExtended() { }
+  public EAExtendedTable(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
 
   // programmer's domain-specific code here
 }

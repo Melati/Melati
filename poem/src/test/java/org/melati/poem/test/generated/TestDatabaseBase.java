@@ -15,8 +15,8 @@ import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
 import org.melati.poem.test.AthingTable;
 import org.melati.poem.test.EverythingNormalTable;
-import org.melati.poem.test.EverythingNormalExtendedTable;
-import org.melati.poem.test.EverythingAbstractExtendedTable;
+import org.melati.poem.test.ENExtendedTable;
+import org.melati.poem.test.EAExtendedTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -34,8 +34,8 @@ public class TestDatabaseBase extends PoemDatabase {
   private SettingTable tab_setting = null;
   private AthingTable tab_athing = null;
   private EverythingNormalTable tab_everythingnormal = null;
-  private EverythingNormalExtendedTable tab_everythingnormalextended = null;
-  private EverythingAbstractExtendedTable tab_everythingabstractextended = null;
+  private ENExtendedTable tab_enextended = null;
+  private EAExtendedTable tab_eaextended = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -49,8 +49,8 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
     redefineTable(tab_athing = new AthingTable(this, "athing", DefinitionSource.dsd));
     redefineTable(tab_everythingnormal = new EverythingNormalTable(this, "everythingnormal", DefinitionSource.dsd));
-    redefineTable(tab_everythingnormalextended = new EverythingNormalExtendedTable(this, "everythingnormalextended", DefinitionSource.dsd));
-    redefineTable(tab_everythingabstractextended = new EverythingAbstractExtendedTable(this, "everythingabstractextended", DefinitionSource.dsd));
+    redefineTable(tab_enextended = new ENExtendedTable(this, "enextended", DefinitionSource.dsd));
+    redefineTable(tab_eaextended = new EAExtendedTable(this, "eaextended", DefinitionSource.dsd));
   }
 
 
@@ -178,24 +178,24 @@ public class TestDatabaseBase extends PoemDatabase {
 
 
  /**
-  * Retrieves the EverythingNormalExtendedTable table.
+  * Retrieves the ENExtendedTable table.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
-  * @return the EverythingNormalExtendedTable from this database
+  * @return the ENExtendedTable from this database
   */
-  public EverythingNormalExtendedTable getEverythingNormalExtendedTable() {
-    return tab_everythingnormalextended;
+  public ENExtendedTable getENExtendedTable() {
+    return tab_enextended;
   }
 
 
 
  /**
-  * Retrieves the EverythingAbstractExtendedTable table.
+  * Retrieves the EAExtendedTable table.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
-  * @return the EverythingAbstractExtendedTable from this database
+  * @return the EAExtendedTable from this database
   */
-  public EverythingAbstractExtendedTable getEverythingAbstractExtendedTable() {
-    return tab_everythingabstractextended;
+  public EAExtendedTable getEAExtendedTable() {
+    return tab_eaextended;
   }
 }

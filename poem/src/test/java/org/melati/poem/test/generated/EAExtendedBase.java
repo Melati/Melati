@@ -10,18 +10,18 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.EAExtendedTable;
 import org.melati.poem.test.EverythingAbstract;
-import org.melati.poem.test.EverythingAbstractExtendedTable;
 import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
- * <code>EverythingAbstractExtended</code> Object.
+ * <code>EAExtended</code> Object.
  *
  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
-public abstract class EverythingAbstractExtendedBase extends EverythingAbstract {
+public abstract class EAExtendedBase extends EverythingAbstract {
 
 
  /**
@@ -36,18 +36,18 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
 
  /**
-  * Retrieves the  <code>EverythingAbstractExtendedTable</code> table 
+  * Retrieves the  <code>EAExtendedTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
-  * @return the EverythingAbstractExtendedTable
+  * @return the EAExtendedTable
   */
-  public EverythingAbstractExtendedTable getEverythingAbstractExtendedTable() {
-    return (EverythingAbstractExtendedTable)getTable();
+  public EAExtendedTable getEAExtendedTable() {
+    return (EAExtendedTable)getTable();
   }
 
-  private EverythingAbstractExtendedTable _getEverythingAbstractExtendedTable() {
-    return (EverythingAbstractExtendedTable)getTable();
+  private EAExtendedTable _getEAExtendedTable() {
+    return (EAExtendedTable)getTable();
   }
 
   // Fields in this table 
@@ -99,7 +99,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Id</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
@@ -111,7 +111,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Id</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -122,14 +122,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Id value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Id</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Integer getId()
@@ -141,7 +141,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Id</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
   * @param cooked  a validated <code>int</code> 
@@ -153,7 +153,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getIdColumn().
+    _getEAExtendedTable().getIdColumn().
       getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
@@ -161,7 +161,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Id</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
   * @param cooked  a validated <code>int</code>
@@ -180,7 +180,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Id</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -189,14 +189,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Integer id
   */
   public Field getIdField() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getIdColumn();
+    Column c = _getEAExtendedTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Binaryfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] binaryfield2
@@ -208,7 +208,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Binaryfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -219,7 +219,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Binaryfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Binary Field 
   * 
@@ -228,7 +228,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Binaryfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public byte[] getBinaryfield2()
@@ -240,7 +240,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Binaryfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Binary Field 
   * 
@@ -254,7 +254,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setBinaryfield2(byte[] cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getBinaryfield2Column().
+    _getEAExtendedTable().getBinaryfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setBinaryfield2_unsafe(cooked);
@@ -263,7 +263,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Binaryfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -272,14 +272,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the byte[] binaryfield2
   */
   public Field getBinaryfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getBinaryfield2Column();
+    Column c = _getEAExtendedTable().getBinaryfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Stringfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String stringfield2
@@ -291,7 +291,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Stringfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -302,7 +302,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Stringfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second String Field 
   * 
@@ -311,7 +311,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Stringfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public String getStringfield2()
@@ -323,7 +323,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Stringfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second String Field 
   * 
@@ -337,7 +337,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setStringfield2(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getStringfield2Column().
+    _getEAExtendedTable().getStringfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setStringfield2_unsafe(cooked);
@@ -346,7 +346,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Stringfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -355,14 +355,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the String stringfield2
   */
   public Field getStringfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getStringfield2Column();
+    Column c = _getEAExtendedTable().getStringfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Passwordfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the String passwordfield2
@@ -374,7 +374,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Passwordfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -385,7 +385,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Passwordfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Password Field 
   * 
@@ -394,7 +394,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Passwordfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public String getPasswordfield2()
@@ -406,7 +406,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Passwordfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Password Field 
   * 
@@ -420,7 +420,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setPasswordfield2(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getPasswordfield2Column().
+    _getEAExtendedTable().getPasswordfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setPasswordfield2_unsafe(cooked);
@@ -429,7 +429,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Passwordfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -438,14 +438,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the String passwordfield2
   */
   public Field getPasswordfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getPasswordfield2Column();
+    Column c = _getEAExtendedTable().getPasswordfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Booleanfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Boolean booleanfield2
@@ -457,7 +457,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Booleanfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -468,7 +468,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Booleanfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Boolean Field 
   * 
@@ -477,7 +477,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Booleanfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Boolean getBooleanfield2()
@@ -489,7 +489,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Booleanfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Boolean Field 
   * 
@@ -503,7 +503,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setBooleanfield2(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getBooleanfield2Column().
+    _getEAExtendedTable().getBooleanfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setBooleanfield2_unsafe(cooked);
@@ -512,7 +512,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
  /**
   * Sets the <code>Booleanfield2</code> value, with checking, 
   * from a <code>boolean</code>, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Boolean Field 
   * 
@@ -534,7 +534,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Booleanfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -543,14 +543,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Boolean booleanfield2
   */
   public Field getBooleanfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getBooleanfield2Column();
+    Column c = _getEAExtendedTable().getBooleanfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Datefield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Date datefield2
@@ -562,7 +562,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Datefield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -573,7 +573,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Datefield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Date Field 
   * 
@@ -582,7 +582,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Datefield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Date getDatefield2()
@@ -594,7 +594,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Datefield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Date Field 
   * 
@@ -608,7 +608,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setDatefield2(Date cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getDatefield2Column().
+    _getEAExtendedTable().getDatefield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setDatefield2_unsafe(cooked);
@@ -617,7 +617,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Datefield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -626,14 +626,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Date datefield2
   */
   public Field getDatefield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getDatefield2Column();
+    Column c = _getEAExtendedTable().getDatefield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Doublefield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Double doublefield2
@@ -645,7 +645,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Doublefield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -656,7 +656,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Doublefield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Double Field 
   * 
@@ -665,7 +665,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Doublefield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Double getDoublefield2()
@@ -677,7 +677,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Doublefield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Double Field 
   * 
@@ -691,14 +691,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setDoublefield2(Double cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getDoublefield2Column().
+    _getEAExtendedTable().getDoublefield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setDoublefield2_unsafe(cooked);
   }
 
  /**
-  * Sets the <code>Doublefield2</code> value, with checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * Sets the <code>Doublefield2</code> value, with checking, for this <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Double Field 
   * 
@@ -720,7 +720,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Doublefield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -729,14 +729,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Double doublefield2
   */
   public Field getDoublefield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getDoublefield2Column();
+    Column c = _getEAExtendedTable().getDoublefield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Integerfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer integerfield2
@@ -748,7 +748,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Integerfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -759,7 +759,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Integerfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Integer Field 
   * 
@@ -768,7 +768,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Integerfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Integer getIntegerfield2()
@@ -780,7 +780,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Integerfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Integer Field 
   * 
@@ -794,7 +794,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setIntegerfield2(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getIntegerfield2Column().
+    _getEAExtendedTable().getIntegerfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setIntegerfield2_unsafe(cooked);
@@ -802,7 +802,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Integerfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Integer Field 
   * 
@@ -824,7 +824,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Integerfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -833,14 +833,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Integer integerfield2
   */
   public Field getIntegerfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getIntegerfield2Column();
+    Column c = _getEAExtendedTable().getIntegerfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Longfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Long longfield2
@@ -852,7 +852,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Longfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -863,7 +863,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Longfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Long Field 
   * 
@@ -872,7 +872,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Longfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Long getLongfield2()
@@ -884,7 +884,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Longfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Long Field 
   * 
@@ -898,7 +898,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setLongfield2(Long cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getLongfield2Column().
+    _getEAExtendedTable().getLongfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setLongfield2_unsafe(cooked);
@@ -906,7 +906,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Longfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Long Field 
   * 
@@ -928,7 +928,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Longfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -937,14 +937,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Long longfield2
   */
   public Field getLongfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getLongfield2Column();
+    Column c = _getEAExtendedTable().getLongfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Bigdecimalfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the BigDecimal bigdecimalfield2
@@ -956,7 +956,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Bigdecimalfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -967,7 +967,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Bigdecimalfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second BigDecimal Field 
   * 
@@ -976,7 +976,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Bigdecimalfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public BigDecimal getBigdecimalfield2()
@@ -988,7 +988,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Bigdecimalfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second BigDecimal Field 
   * 
@@ -1002,7 +1002,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setBigdecimalfield2(BigDecimal cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getBigdecimalfield2Column().
+    _getEAExtendedTable().getBigdecimalfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setBigdecimalfield2_unsafe(cooked);
@@ -1011,7 +1011,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Bigdecimalfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -1020,14 +1020,14 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the BigDecimal bigdecimalfield2
   */
   public Field getBigdecimalfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getBigdecimalfield2Column();
+    Column c = _getEAExtendedTable().getBigdecimalfield2Column();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Timestampfield2</code> value, without locking, 
-  * for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * for this <code>EAExtended</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Timestamp timestampfield2
@@ -1039,7 +1039,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Timestampfield2</code> value directly, without checking, 
-  * for this EverythingAbstractExtended <code>Persistent</code>.
+  * for this EAExtended <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -1050,7 +1050,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the Timestampfield2 value, with locking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Timestamp Field 
   * 
@@ -1059,7 +1059,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Timestampfield2</code> for this 
-  *         <code>EverythingAbstractExtended</code> <code>Persistent</code>  
+  *         <code>EAExtended</code> <code>Persistent</code>  
   */
 
   public Timestamp getTimestampfield2()
@@ -1071,7 +1071,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Sets the <code>Timestampfield2</code> value, with checking, for this 
-  * <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * <code>EAExtended</code> <code>Persistent</code>.
   * Field description: 
   *   Second Timestamp Field 
   * 
@@ -1085,7 +1085,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   */
   public void setTimestampfield2(Timestamp cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getEverythingAbstractExtendedTable().getTimestampfield2Column().
+    _getEAExtendedTable().getTimestampfield2Column().
       getType().assertValidCooked(cooked);
     writeLock();
     setTimestampfield2_unsafe(cooked);
@@ -1094,7 +1094,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
 
  /**
   * Retrieves the <code>Timestampfield2</code> value as a <code>Field</code>
-  * from this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
+  * from this <code>EAExtended</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -1103,7 +1103,7 @@ public abstract class EverythingAbstractExtendedBase extends EverythingAbstract 
   * @return the Timestamp timestampfield2
   */
   public Field getTimestampfield2Field() throws AccessPoemException {
-    Column c = _getEverythingAbstractExtendedTable().getTimestampfield2Column();
+    Column c = _getEAExtendedTable().getTimestampfield2Column();
     return new Field(c.getRaw(this), c);
   }
 }

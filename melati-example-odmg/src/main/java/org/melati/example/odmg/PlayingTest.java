@@ -1,13 +1,14 @@
 package org.melati.poem.odmg.playing;
 
-import org.odmg.*;
-import java.util.*;
+import org.odmg.Database;
+import org.odmg.Transaction;
+import org.odmg.DCollection;
+import java.util.Iterator;
 
-public class PlayingTest
-{
+public class PlayingTest {
   public static final void main(String[] argsIn)
-    throws Exception
-  {
+    throws Exception {
+
     System.out.println("PlayingTest started:");
 
     Database db = org.melati.poem.odmg.ODMGFactory.getNewDatabase();
@@ -24,8 +25,7 @@ public class PlayingTest
     parents.removeAll(parents);
 
     System.out.println("ADDING PARENTS");
-    for (int i=0; i<10; i++)
-    {
+    for (int i=0; i<10; i++) {
       Parent p = newParent();
       p.setName("parent-"+parents.size());
       System.out.println("Adding parent: "+p.getName()); 
@@ -34,40 +34,35 @@ public class PlayingTest
 
     System.out.println("PARENTS DESCENDING");
     Iterator iter = parents.select("order by name desc");
-    while (iter.hasNext())
-    {
+    while (iter.hasNext()) {
       Parent p = (Parent)iter.next();
       System.out.println("Parent:"+p.getName());
     }
 
     System.out.println("PARENTS UNDER 5 ASCENDING");
     iter = parents.select("where name<'parent-5' order by name asc");
-    while (iter.hasNext())
-    {
+    while (iter.hasNext()) {
       Parent p = (Parent)iter.next();
       System.out.println("Parent:"+p.getName());
     }
 
     System.out.println("PARENTS UNDER 3 NO SORTING");
     iter = parents.select("name<'parent-3'");
-    while (iter.hasNext())
-    {
+    while (iter.hasNext()) {
       Parent p = (Parent)iter.next();
       System.out.println("Parent:"+p.getName());
     }
 
     System.out.println("PARENTS UNDER 2 WITH WHERE KEYWORD NO SORTING");
     iter = parents.select("where name<'parent-2'");
-    while (iter.hasNext())
-    {
+    while (iter.hasNext()) {
       Parent p = (Parent)iter.next();
       System.out.println("Parent:"+p.getName());
     }
 
     System.out.println("ALL PARENTS NO SORTING");
     iter = parents.select("");
-    while (iter.hasNext())
-    {
+    while (iter.hasNext()) {
       Parent p = (Parent)iter.next();
       System.out.println("Parent:"+p.getName());
     }
@@ -78,8 +73,7 @@ public class PlayingTest
   }
 
   private static final Parent newParent()
-    throws Exception
-  {
+    throws Exception {
     return (Parent)org.melati.poem.odmg.ODMGFactory.getPoemDatabase().getTable("parent").newPersistent();
   }
 

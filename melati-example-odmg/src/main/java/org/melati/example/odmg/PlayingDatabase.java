@@ -1,11 +1,12 @@
 package org.melati.poem.odmg.playing;
 
-import org.melati.poem.odmg.playing.generated.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
-public class PlayingDatabase extends PlayingDatabaseBase {
+import org.melati.poem.odmg.playing.generated.PlayingDatabaseBase;
+
+/**
+ * Melati POEM generated stub
+ */
+public class PlayingDatabase extends PlayingDatabaseBase
+                            implements PlayingDatabaseTables {
   // programmer's domain-specific code here
 }

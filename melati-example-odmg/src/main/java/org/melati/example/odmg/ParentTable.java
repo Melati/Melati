@@ -1,11 +1,14 @@
 package org.melati.poem.odmg.playing;
 
-import org.melati.poem.odmg.playing.generated.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.odmg.playing.generated.ParentTableBase;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Database;
+import org.melati.poem.PoemException;
+
+/**
+ * Melati POEM generated stub
+ */
 public class ParentTable extends ParentTableBase {
 
   public ParentTable(

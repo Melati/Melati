@@ -12,20 +12,6 @@ public final class ThrowingPrintWriter extends PrintWriter {
     }
   }
 
-  private static class ForbiddenWriter extends Writer {
-    public void write(char[] buf, int off, int len) {
-      throw new SuperUseException();
-    }
-
-    public void flush() {
-      throw new SuperUseException();
-    }
-
-    public void close() {
-      throw new SuperUseException();
-    }
-  }
-
   public ThrowingPrintWriter(PrintWriter pw, String description) {
     super(pw);
     this.pw = pw;

@@ -52,7 +52,7 @@ import java.sql.*;
 
 public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 
-  private TailoredQuery query;
+  protected TailoredQuery query;
 
   public TailoredResultSetEnumeration(TailoredQuery query,
                                       ResultSet resultSet) {
@@ -60,33 +60,42 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
     this.query = query;
   }
 
-  protected Object mapped(ResultSet them)
-      throws SQLException, NoSuchRowPoemException {
-    Field[] fields = new Field[query.columns.length];
-
+  void checkTableAccess(ResultSet them) {
     AccessToken token = PoemThread.accessToken();
 
+    for (int t = 0; t < query.canReadTables.length; ++t) {
+      Capability canRead = query.canReadTables[t].getDefaultCanRead();
+      if (canRead != null && !token.givesCapability(canRead))
+	throw new AccessPoemException(token, canRead);
+    }
+  }
+
+  Object column(ResultSet them, int c) {
+    Column column = query.columns[c];
+    Object raw = column.getType().getRaw(them, c + 1);
+
+    if (query.isCanReadColumn[c]) {
+      Capability canRead = (Capability)column.getType().cookedOfRaw(raw);
+      if (canRead == null)
+	canRead = column.getTable().getDefaultCanRead();
+      if (canRead != null) {
+	AccessToken token = PoemThread.accessToken();
+	if (!token.givesCapability(canRead))
+	  throw new AccessPoemException(token, canRead);
+      }
+    }
+
+    return raw;
+  }
+
+  protected Object mapped(ResultSet them)
+      throws SQLException, NoSuchRowPoemException {
+    checkTableAccess(them);
+
+    Field[] fields = new Field[query.columns.length];
     try {
-      for (int t = 0; t < query.canReadTables.length; ++t) {
-        Capability canRead = query.canReadTables[t].getDefaultCanRead();
-        if (canRead != null && !token.givesCapability(canRead))
-          throw new AccessPoemException(token, canRead);
-      }
-
-      for (int c = 0; c < fields.length; ++c) {
-        Column column = query.columns[c];
-        Object raw = column.getType().getRaw(them, c + 1);
-
-        if (query.isCanReadColumn[c]) {
-          Capability canRead = (Capability)column.getType().cookedOfRaw(raw);
-          if (canRead == null)
-            canRead = column.getTable().getDefaultCanRead();
-          if (canRead != null && !token.givesCapability(canRead))
-            throw new AccessPoemException(token, canRead);
-        }
-
-        fields[c] = new Field(raw, column);
-      }
+      for (int c = 0; c < fields.length; ++c)
+        fields[c] = new Field(column(them, c), query.columns[c]);
     }
     catch (AccessPoemException accessProblem) {
       // Blank out the whole FieldSet.  We have to do this because we don't

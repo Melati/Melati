@@ -60,7 +60,7 @@ public interface TemplateContext {
 
   public MultipartFormField getMultipartForm(String s);
 
-  public Object get(Object o);
+  public Object get(String s);
 
   public HttpSession getSession();
 

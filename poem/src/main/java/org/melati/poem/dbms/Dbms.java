@@ -103,4 +103,14 @@ public interface Dbms {
 
   SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
                                       boolean insert, SQLException e);
+
+  public String unreservedName(String name);
+  public String melatiName(String name);
+
+  public String getIndexLength(Column column);
+
+  public String givesCapabilitySQL(User user, String capabilityExpr);
+
+  public String caseInsensitiveCompare(String term1, String term2);
+
 }

@@ -124,11 +124,6 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  public String getQuotedName(String name) {
-    StringBuffer b = new StringBuffer();
-    StringUtils.appendQuoted(b, name, '"');
-    return b.toString();
-  }
 
   public String preparedStatementPlaceholder(PoemType type) {
     if (type instanceof IntegerPoemType)
@@ -237,4 +232,72 @@ public class AnsiStandard implements Dbms {
     return exceptionForUpdate(table, ps == null ? null : ps.toString(),
                               insert, e);
   }
+
+  public String getQuotedName(String name) {
+    StringBuffer b = new StringBuffer();
+    StringUtils.appendQuoted(b, unreservedName(name), '"');
+    return b.toString();
+  }
+
+  /**
+  * A pair of functions for getting around 
+  * keywords which make your JDBC driver barf, as 
+  * 'group' does for MySQL.
+  *
+  * @see MySQL#unreservedName
+  * @see MySQL#melatiName
+  */
+
+  public String unreservedName(String name) {
+    return name;
+  }
+  public String melatiName(String name) {
+    return name;
+  }
+
+  /**
+  * MySQL requires a length argument when creating
+  * an index on a BLOB or TEXT column.
+  *
+  * @see MySQL#getIndexLength
+  */
+
+  public String getIndexLength(Column column) {
+    return "";
+  }  
+
+  /**
+  * MySQL has no EXISTS keyword.
+  *
+  * @see MySQL#givesCapabilitySQL
+  */
+  public String givesCapabilitySQL(User user, String capabilityExpr) {
+    return
+        "SELECT * FROM groupmembership " +
+        "WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
+	"EXISTS ( " +
+	  "SELECT groupcapability." + getQuotedName("group") + " " +
+          "FROM groupcapability, groupmembership " +
+          "WHERE groupcapability." + getQuotedName("group") +
+              " = groupmembership." + getQuotedName("group") + " " +
+          "AND capability = " + capabilityExpr + ")";
+  }
+
+  /**
+  * Postgres has a single operator
+  *
+  * @see Postgresql#caseInsensitiveCompare
+  */
+  public String caseInsensitiveCompare(String term1, String term2) {
+    return "UPPER(" + term1 + ") LIKE UPPER(" + term2 + ")";
+  }
+
 }
+
+
+
+
+
+
+
+

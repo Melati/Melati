@@ -8,6 +8,14 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
 
   void postInitialise() {
     super.postInitialise();
+
+    Database d = getDatabase();
+    GroupMembershipData admin =
+        new GroupMembershipData(d.getUserTable().administratorUser(),
+				d.getGroupTable().administratorsGroup());
+    if (!exists(admin))
+      create(admin);
+
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

@@ -78,12 +78,21 @@
     </TR>
 #end
     <tr>
-     <td valign=top><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
-     <td><FONT face="Arial, Helvetica" size=-2>
+     <td><hr></td>
+    </tr>
+    <tr>
+     <td valign=top><FONT face="Arial, Helvetica" size=-1><b>Ordering</b></font></td>
+     <td>
+       <table border=0>
 #foreach $field in $orderings #begin
-    $ml.input($field)<br>
+        <tr>
+         <td><FONT face="Arial, Helvetica" size=-2>
+           $ml.input($field)
+         </font></td>
+        </tr>
 #end
-</font></td>
+      </table>
+     </td>
     </tr>
     <tr>
      <td></td><td>

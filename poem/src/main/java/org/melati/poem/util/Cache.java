@@ -45,9 +45,11 @@
 
 package org.melati.util;
 
-import java.lang.ref.*;
-import java.util.*;
-import java.io.*;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 public final class Cache {
 
@@ -91,20 +93,19 @@ public final class Cache {
       //
 
       if (this.nextMRU != null)                 // 2 exists
-	this.nextMRU.prevMRU = prevMRU; 	// D => H using C
+        this.nextMRU.prevMRU = prevMRU;         // D => H using C
 
       if (prevMRU != null)                      // 1 exists
-	prevMRU.nextMRU = this.nextMRU;         // A => G using B
+        prevMRU.nextMRU = this.nextMRU;         // A => G using B
 
       if (nextMRU != null) {                    // 4 exists
-	if (nextMRU.prevMRU != null)            // 3 exists
-	  nextMRU.prevMRU.nextMRU = this;       // E => I
-	prevMRU = nextMRU.prevMRU;              // C => K using F
-	nextMRU.prevMRU = this;                 // F => L
+        if (nextMRU.prevMRU != null)            // 3 exists
+          nextMRU.prevMRU.nextMRU = this;       // E => I
+        prevMRU = nextMRU.prevMRU;              // C => K using F
+        nextMRU.prevMRU = this;                 // F => L
       }
       else
-	prevMRU = null;                         // C => K
-
+        prevMRU = null;                         // C => K
       this.nextMRU = nextMRU;                   // B => J
     }
 
@@ -297,8 +298,8 @@ public final class Cache {
 
       Object previous = table.put(key, node);
       if (previous != null) {
-	table.put(key, previous);
-	throw new CacheDuplicationException();
+        table.put(key, previous);
+        throw new CacheDuplicationException();
       }
 
       node.putBefore(theMRU);
@@ -321,7 +322,7 @@ public final class Cache {
     else {
       HeldNode held;
       if (node instanceof HeldNode) {
-	held = (HeldNode)node;
+        held = (HeldNode)node;
         if (held != theMRU) {
           if (held == theLRU)
             theLRU = held.prevMRU;
@@ -330,12 +331,12 @@ public final class Cache {
         }
       }
       else {
-	if (node.value() == null)
-	  // This probably doesn't happen
-	  return null;
+        if (node.value() == null)
+        // This probably doesn't happen
+          return null;
 
-	held = new HeldNode(key, node.value());
-	table.put(key, held);
+        held = new HeldNode(key, node.value());
+        table.put(key, held);
         ++heldNodes;
         held.putBefore(theMRU);
         theMRU = held;
@@ -354,7 +355,7 @@ public final class Cache {
     for (Enumeration n = table.elements(); n.hasMoreElements();) {
       Object value = ((Node)n.nextElement()).value();
       if (value != null)
-	f.apply(value);
+        f.apply(value);
     }
   }
 
@@ -410,3 +411,7 @@ public final class Cache {
       System.err.println(l.nextElement());
   }
 }
+
+
+
+

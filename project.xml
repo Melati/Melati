@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7</currentVersion>
+  <currentVersion>0.7.0</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -23,20 +23,16 @@
 Melati Java Web Development Suite
   </description>
 
-  <url>http://maven.melati.net/</url>
-  <siteAddress>maven.melati.net</siteAddress>
+  <url>http://www.melati.org/</url>
+  <siteAddress>maven.melati.org</siteAddress>
   <siteDirectory>/inst/melati/target/docs/</siteDirectory>
   <issueTrackingUrl>
 <!-- http://nagoya.apache.org/scarab/servlet/scarab/ -->
        
 http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </issueTrackingUrl>
-  <siteAddress>www.melati.org</siteAddress>
-  <siteDirectory>
-    /www/httpd/htdocs/
-  </siteDirectory>
   <distributionDirectory>
-    /inst/melati
+    /inst/melati/target/distributions/
   </distributionDirectory>
 
   <repository>
@@ -136,6 +132,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Original author</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Tim Joyce</name>
@@ -144,6 +141,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Original author</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Tim Pizey</name>
@@ -154,6 +152,7 @@ subscribe.melati@messageboards.paneris.org
         <role>Lurker</role>
         <role>Maven maven</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Myles Chippendale</name>
@@ -163,6 +162,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Colin Rainsforth</name>
@@ -172,6 +172,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Graphics Designer</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Chris Kimpton</name>
@@ -181,6 +182,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Jim Wright</name>
@@ -190,6 +192,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>+3</timezone>
     </developer>
     <developer>
       <name>David Warnock</name>
@@ -199,6 +202,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Karl Zilles</name>
@@ -208,6 +212,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>-10</timezone>
     </developer>
     <developer>
       <name>Vasily Pozhidaev</name>
@@ -217,6 +222,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>-10</timezone>
     </developer>
     <developer>
       <name>Peter Kehl</name>
@@ -226,6 +232,7 @@ subscribe.melati@messageboards.paneris.org
       <roles>
         <role>Developer</role>
       </roles>
+      <timezone>+1</timezone>
     </developer>
 
   </developers>

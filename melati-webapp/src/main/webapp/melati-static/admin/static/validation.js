@@ -148,6 +148,13 @@ function add_number(name, heading, mandatory) {
   add_rule(name, heading, mandatory, "^-?\\d*(\\.\\d*)?\\s*$");
 }
 
+// Email           - "@" symbol and no spaces - one or more good 
+// characters before and after "@" - .xx country code or .xxx (.xxxx) tld to end
+function add_email(name, heading, mandatory) {
+  add_rule(name, heading, mandatory, "^\\S+@\\S+\\.\\w{2,4}$");
+}
+
+
 // Date             - dd/mm/yyyy
 // We need to put '/' chars in a char class (i.e. [/]) to prevent
 // IE from complaining that our re is wrong :-(

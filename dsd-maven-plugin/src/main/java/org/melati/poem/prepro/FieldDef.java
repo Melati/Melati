@@ -81,6 +81,7 @@ public abstract class FieldDef {
   boolean isUnique = false;
   boolean isCompareOnly = false;
   int width = -1, height = -1;
+  String renderinfo = null;
 
   public FieldDef(TableDef table, String name,
                   String type, String rawType,
@@ -146,6 +147,8 @@ public abstract class FieldDef {
       return new PasswordFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("Date"))
       return new DateFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("Timestamp"))
+      return new TimestampFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("ColumnType"))
       return new ColumnTypeFieldDef(table, name, displayOrder, qualifiers);
     else
@@ -292,6 +295,25 @@ public abstract class FieldDef {
     if (isUnique)
       w.write("          protected boolean defaultUnique() {\n" +
               "            return true;\n" +
+              "          }\n" +
+              "\n");
+
+    if (width != -1)
+      w.write("          protected int defaultWidth() {\n" +
+              "            return " + width + ";\n" +
+              "          }\n" +
+              "\n");
+
+    if (height != -1)
+      w.write("          protected int defaultHeight() {\n" +
+              "            return " + height + ";\n" +
+              "          }\n" +
+              "\n");
+
+    if (renderinfo != null)
+      w.write("          protected String defaultRenderinfo() {\n" +
+              "            return " +
+                               StringUtils.quoted(renderinfo, '"') + ";\n" +
               "          }\n" +
               "\n");
 

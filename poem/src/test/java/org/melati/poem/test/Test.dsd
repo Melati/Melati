@@ -298,7 +298,7 @@ table EverythingNormal
       ;
 }
 
-table EverythingNormalExtended extends EverythingNormal
+table ENExtended extends EverythingNormal
 
   (displayname = "Everything Normal Extended")
   (description = "Every datatype inheritted from a normal table and normally defined")
@@ -722,7 +722,7 @@ abstract table EverythingAbstract
 
 
 
-table EverythingAbstractExtended extends EverythingAbstract
+table EAExtended extends EverythingAbstract
 
   (displayname = "Everything Abstract Extended")
   (description = "Every datatype inheritted from an abstract table and a normally defined")

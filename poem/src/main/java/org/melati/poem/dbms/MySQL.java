@@ -103,6 +103,9 @@ import java.sql.*;
 import org.melati.poem.*;
 import java.util.*;
 
+ /**
+  * A Driver for MySQL (http://www.mysql.com)
+  **/
 public class MySQL extends AnsiStandard {
 
 

@@ -53,7 +53,7 @@ import org.melati.poem.*;
   *
   * Note that HSQLDB uppercases any name that isn't quoted, 
   * this strictness uncovered a few loopholes,
-  *  now all names in Melati should be quoted.
+  * now all names in Melati should be quoted.
   *
   **/
 

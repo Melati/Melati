@@ -47,6 +47,9 @@ package org.melati.poem.dbms;
 import java.sql.*;
 import org.melati.poem.*;
 
+ /**
+  * A Database Management System from http://www.mckoi.com/.
+  **/
 public class Mckoi extends AnsiStandard {
 
     public Mckoi() {

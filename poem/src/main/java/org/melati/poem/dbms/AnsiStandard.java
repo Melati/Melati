@@ -51,6 +51,14 @@ import java.sql.*;
 import org.melati.poem.*;
 import org.melati.util.*;
 
+ /**
+  * An SQL 92 compliant Database Management System.
+  * Should there ever be such a thing then you wouldn't 
+  * need to extend this, but all DBs used with Melati 
+  * so far have needed to extend the standard with their 
+  * own variations.
+  *
+  */
 public class AnsiStandard implements Dbms {
   private boolean driverLoaded = false;
   private String driverClassName = null;

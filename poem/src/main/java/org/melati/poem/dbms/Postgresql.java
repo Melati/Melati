@@ -49,6 +49,9 @@ package org.melati.poem.dbms;
 import java.sql.*;
 import org.melati.poem.*;
 
+ /**
+  * A Driver for Postgresql (http://www.postgresql.org)
+  **/
 public class Postgresql extends AnsiStandard {
 
   public Postgresql() {

@@ -2,6 +2,10 @@ package org.melati.poem.dbms;
 
 import java.sql.*;
 
+ /**
+  * A driver for the Microsoft SQL server 
+  **/
+
 public class SQLServer extends AnsiStandard {
   
   public SQLServer() {

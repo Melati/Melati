@@ -22,6 +22,9 @@ public class GroupTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();  }
+
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -151,10 +154,10 @@ public class GroupTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "User";
+    return "System";
   }
 
   protected int defaultDisplayOrder() {
-    return 2020;
+    return 6;
   }
 }

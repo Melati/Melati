@@ -6,20 +6,21 @@ import java.util.*;
 import java.sql.Date;
 import org.melati.util.*;
 
-public class CapabilityBase extends Persistent {
+public class SettingBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();}
-  public CapabilityTable getCapabilityTable() {
-    return (CapabilityTable)getTable();
+  public SettingTable getSettingTable() {
+    return (SettingTable)getTable();
   }
 
-  private CapabilityTable _getCapabilityTable() {
-    return (CapabilityTable)getTable();
+  private SettingTable _getSettingTable() {
+    return (SettingTable)getTable();
   }
 
   Integer id;
   String name;
+  String value;
 
   public Integer getId_unsafe() {
     return id;
@@ -37,7 +38,7 @@ public class CapabilityBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -48,7 +49,7 @@ public class CapabilityBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return _getCapabilityTable().getIdColumn().asField(this);
+    return _getSettingTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -67,12 +68,37 @@ public class CapabilityBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getCapabilityTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return _getCapabilityTable().getNameColumn().asField(this);
+    return _getSettingTable().getNameColumn().asField(this);
+  }
+
+  public String getValue_unsafe() {
+    return value;
+  }
+
+  public void setValue_unsafe(String cooked) {
+    value = cooked;
+  }
+
+  public String getValue()
+      throws AccessPoemException {
+    readLock();
+    return getValue_unsafe();
+  }
+
+  public void setValue(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getSettingTable().getValueColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setValue_unsafe(cooked);
+  }
+
+  public final Field getValueField() throws AccessPoemException {
+    return _getSettingTable().getValueColumn().asField(this);
   }
 }

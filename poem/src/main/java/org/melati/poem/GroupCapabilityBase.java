@@ -57,7 +57,7 @@ public class GroupCapabilityBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
     return troid == null ? null :
-        getDatabase().getGroupTable().getGroupObject(troid);
+        ((PoemDatabase)getDatabase()).getGroupTable().getGroupObject(troid);
   }
 
   public void setGroup(Group value)
@@ -83,7 +83,7 @@ public class GroupCapabilityBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCapabilityTroid();
     return troid == null ? null :
-        getDatabase().getCapabilityTable().getCapabilityObject(troid);
+        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCapability(Capability value)

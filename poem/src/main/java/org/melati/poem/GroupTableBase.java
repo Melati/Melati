@@ -71,6 +71,14 @@ public class GroupTableBase extends Table {
             ((Group)g).setName((String)value);
           }
 
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
           protected int defaultDisplayOrder() {
             return 1;
           }

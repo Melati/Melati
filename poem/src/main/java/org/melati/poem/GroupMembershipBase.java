@@ -57,7 +57,7 @@ public class GroupMembershipBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getUserTroid();
     return troid == null ? null :
-        getDatabase().getUserTable().getUserObject(troid);
+        ((PoemDatabase)getDatabase()).getUserTable().getUserObject(troid);
   }
 
   public void setUser(User value)
@@ -83,7 +83,7 @@ public class GroupMembershipBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
     return troid == null ? null :
-        getDatabase().getGroupTable().getGroupObject(troid);
+        ((PoemDatabase)getDatabase()).getGroupTable().getGroupObject(troid);
   }
 
   public void setGroup(Group value)

@@ -53,7 +53,7 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_user =
-        new Column(this, "user", new ReferencePoemType(getDatabase().getUserTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "user", new ReferencePoemType(((PoemDatabase)getDatabase()).getUserTable(), false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((GroupMembershipData)data).user;
           }
@@ -100,7 +100,7 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(getDatabase().getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((GroupMembershipData)data).group;
           }

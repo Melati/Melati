@@ -268,7 +268,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanread =
-        new Column(this, "defaultcanread", new ReferencePoemType(getDatabase().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanread", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((TableInfoData)data).defaultcanread;
           }
@@ -319,7 +319,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanwrite =
-        new Column(this, "defaultcanwrite", new ReferencePoemType(getDatabase().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanwrite", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((TableInfoData)data).defaultcanwrite;
           }
@@ -370,7 +370,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_cancreate =
-        new Column(this, "cancreate", new ReferencePoemType(getDatabase().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((TableInfoData)data).cancreate;
           }

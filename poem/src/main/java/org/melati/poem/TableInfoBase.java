@@ -122,7 +122,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanreadTroid();
     return troid == null ? null :
-        getDatabase().getCapabilityTable().getCapabilityObject(troid);
+        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanread(Capability value)
@@ -148,7 +148,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanwriteTroid();
     return troid == null ? null :
-        getDatabase().getCapabilityTable().getCapabilityObject(troid);
+        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanwrite(Capability value)
@@ -174,7 +174,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCancreateTroid();
     return troid == null ? null :
-        getDatabase().getCapabilityTable().getCapabilityObject(troid);
+        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCancreate(Capability value)

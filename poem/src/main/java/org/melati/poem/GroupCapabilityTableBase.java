@@ -53,7 +53,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(getDatabase().getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((GroupCapabilityData)data).group;
           }
@@ -76,10 +76,6 @@ public class GroupCapabilityTableBase extends Table {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
-            return "Group";
-          }
-
           protected int defaultDisplayOrder() {
             return 1;
           }
@@ -100,7 +96,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_capability =
-        new Column(this, "capability", new ReferencePoemType(getDatabase().getCapabilityTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((GroupCapabilityData)data).capability;
           }
@@ -125,6 +121,10 @@ public class GroupCapabilityTableBase extends Table {
 
           protected int defaultDisplayOrder() {
             return 2;
+          }
+
+          protected String defaultDescription() {
+            return "The capability";
           }
 
           public Object getIdent(Persistent g)

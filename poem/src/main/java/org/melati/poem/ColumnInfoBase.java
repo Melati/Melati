@@ -57,7 +57,7 @@ public class ColumnInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getTableinfoTroid();
     return troid == null ? null :
-        getDatabase().getTableInfoTable().getTableInfoObject(troid);
+        ((PoemDatabase)getDatabase()).getTableInfoTable().getTableInfoObject(troid);
   }
 
   public void setTableinfo(TableInfo value)

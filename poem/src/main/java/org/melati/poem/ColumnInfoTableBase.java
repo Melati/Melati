@@ -70,7 +70,7 @@ public class ColumnInfoTableBase extends Table {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo", new ReferencePoemType(getDatabase().getTableInfoTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
             return (Integer)((ColumnInfoData)data).tableinfo;
           }

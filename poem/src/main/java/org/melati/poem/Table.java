@@ -74,6 +74,7 @@ public class Table {
   private Column canReadColumn = null;
   private Column canWriteColumn = null;
   private Column displayColumn = null;
+  private Column criterionColumn = null;
 
   private String defaultOrderByClause = null;
   private Column[] recordDisplayColumns = null;
@@ -277,6 +278,14 @@ public class Table {
 
   final void setDisplayColumn(Column column) {
     displayColumn = column;
+  }
+
+  public final Column criterionColumn() {
+    return criterionColumn;
+  }
+
+  final void setCriterionColumn(Column column) {
+    criterionColumn = column;
   }
 
   String defaultOrderByClause() {

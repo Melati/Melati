@@ -65,12 +65,6 @@ public class ConfigServletTest extends ConfigServlet {
 
     String method = melati.getMethod();
     if (method != null) {
-      if (method.equals("Exception")) 
-        throw new MelatiBugMelatiException("It got caught!");
-      if (method.equals("Redirect")) {
-        melati.getResponse().sendRedirect("http://www.melati.org");
-        return;
-      }
       if (method.equals("Upload")) {
         Hashtable fields = null;
         try {
@@ -147,6 +141,14 @@ public class ConfigServletTest extends ConfigServlet {
     "<input type=\"submit\" name=\"Submit\" value=\"Upload file\"><br>" +
     getUploadMessage(melati) +
     "</form>");
+    if (method != null) {
+      if (method.equals("Exception")) 
+        throw new MelatiBugMelatiException("It got caught!");
+      if (method.equals("Redirect")) {
+        melati.getResponse().sendRedirect("http://www.melati.org");
+        return;
+      }
+    }
   }
 
 /**

@@ -2,11 +2,22 @@
 #set $melati.ResponseContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
+#set $treeControllUrl = $admin.TreeControlURL($object)
+#if ($Form.returnTarget != null) #begin
+ #set $treeControllUrl = "$(treeControllUrl)?returnTarget=$Form.returnTarget"
+#end
+#if ($Form.returnURL != null) #begin
+ #if ($Form.returnTarget != null) #begin
+  #set $treeControllUrl = "$(treeControllUrl)&returnURL=$Form.returnURL"
+ #end #else #begin
+  #set $treeControllUrl = "$(treeControllUrl)?returnURL=$Form.returnURL"
+ #end
+#end
+
 <HTML>
 <frameset border=0 frameborder=0 framespacing=0 rows=100%,*>
  <frame name=treedisplay src="$admin.StaticURL/blank.html" scrolling=yes>
- <frame name=treecontrol src="$admin.TreeControlURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
-  scrolling=yes>
+ <frame name=treecontrol src="$treeControllUrl"  scrolling=yes>
 </frameset>
 </HTML>
 <!-- end org/melati/admin/Tree.wm -->

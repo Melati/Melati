@@ -62,14 +62,14 @@ function init() {
   Node$node.UniqueName = new TreeNode(
 #parse $tree.NodeLabelTemplet, $node.Depth, $node.isLeaf(), "$node.UniqueName");
   #if ($node.Parent) #begin
-  Node$node.UniqueName;.setParent(Node$node.Parent.UniqueName;)
+  Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName;)
   #end
 #end
 
 var roots=[];
 #foreach $root in $tree.flattened(0)
 #begin
-roots[roots.length] = Node$root.UniqueName;;
+roots[roots.length] = Node$(root.UniqueName);
 #end
 var tree = new DynamicTree(roots,
                 $tree.X,

@@ -2,7 +2,6 @@
 
 package org.melati.example.contacts.generated;
 
-
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.UserTable;

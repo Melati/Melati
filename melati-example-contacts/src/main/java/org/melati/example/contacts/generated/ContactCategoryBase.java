@@ -3,18 +3,17 @@
 package org.melati.example.contacts.generated;
 
 
-import org.melati.poem.Column;
-import org.melati.poem.Field;
-import org.melati.poem.Persistent;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-
-import org.melati.example.contacts.Contact;
-import org.melati.poem.NoSuchRowPoemException;
 import org.melati.example.contacts.Category;
-
+import org.melati.example.contacts.Contact;
 import org.melati.example.contacts.ContactCategoryTable;
 import org.melati.example.contacts.ContactsDatabaseTables;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.NoSuchRowPoemException;
+import org.melati.poem.Persistent;
+import org.melati.poem.ValidationPoemException;
+
 
 /**
  * Melati POEM generated base class for persistent ContactCategory.

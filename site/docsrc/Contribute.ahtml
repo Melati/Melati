@@ -34,7 +34,7 @@ This page last updated: $Date$ $Author$
   the codebase meets minimal code standards as defined by 
   <a href="http://maven.apache.org/">Maven</a> 
   so please try not to add to the errors listed on the 
-  <a href="http://maven.apache.org/checkstyle-report.html">Checkstyle 
+  <a href="http://maven.melati.org/checkstyle-report.html">Checkstyle 
   Report</a>.<br />
   To make changes, please follow this procedure:
 </p>

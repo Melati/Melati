@@ -1086,7 +1086,7 @@ public class Table {
     // so it won't cause DB activity.
 
     CachedVersionedRow versionedRow = versionedRow(troid);
-    versionedRow.setVersion(sessionToken.session, data);
+    versionedRow.versionKnownToBe(sessionToken.session, data);
     object.init(versionedRow);
     return object;
   }

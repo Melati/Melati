@@ -146,18 +146,14 @@ public abstract class TemplateServlet extends PoemServlet {
    * to allow the application developer to specify their own template
    * extensions.
    * <p>
-   * Cope with heterogenous naming convention :)
-   * Checking for a "." assumes that if there is one then we have 
-   * the full filename. I think this is
-   * reasonable and unlikely to break anything that is not already
-   * stupid. 
+   * To obtain nice URLs one method is to call your templates 
+   * <code>foo.html.wm</code> for example, your urls can then look like
+   * <code>servlet/db/table/troid/method.html</code>.
    */
 
   protected String addExtension(String templateName) {
-    int index = templateName.indexOf(".");
-    if (index == -1) 
-      templateName = templateName + templateEngine.templateExtension();
-    return templateName;
+      
+    return templateName + templateEngine.templateExtension();
   }
 
   

@@ -101,23 +101,22 @@ function validate (form, allowSubmit) {
                 display += "* "+heading+" must be filled in\n";
         }
         // Check if we match the pattern
-        else 
-          if (RegExp) {
-            if (value.search(pattern) != -1 ) {
-              if (snippet) {
-                // If we have a code snippet 
-                // turn it into a function and call it on value
-                var func = new Function("value", "form", snippet);
-                func_result = func(value, form);
-                if (func_result)
-                  display += "* "+heading+": "+func_result+"\n";
-              }
-            }
-            else {        // failed to match pattern
-              if (pattern)
-                display += "* "+heading+": The value '"+value+"' is not allowed\n";
-            }
-          } //else alert("No RegExp");
+        else {
+          if (pattern) {
+            if (RegExp)  // if this broswer supports RegExp
+              if (value.search(pattern) == -1 ) // failed to match pattern
+                if (!snippet) { // If we don't have a code snippet 
+                  display += "* "+heading+": The value '"+value+"' is not allowed\n";
+                }
+          }
+          if (snippet) { // If we have a code snippet 
+          // turn it into a function and call it on value
+            var func = new Function("value", "form", snippet);
+            func_result = func(value, form);
+            if (func_result)
+              display += "* "+heading+": "+func_result+"\n";
+           }
+        }
       }
     }       // end of loop through rules
     // Loop through our extras, evaluating each one

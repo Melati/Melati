@@ -60,6 +60,7 @@ public class DSD {
   private final Vector packageComponents = new Vector();
   private final String packageName;
   private final Vector tables = new Vector();
+  final Hashtable tableOfClass = new Hashtable();
   private final File dsdFile, dsdDir;
   private final String name;
   final String databaseClass, databaseBaseClass;
@@ -115,7 +116,9 @@ public class DSD {
       for (int t = 0; tokens.ttype != StreamTokenizer.TT_EOF; ++t) {
         expect(tokens, "table");
         tokens.nextToken();
-        tables.addElement(new TableDef(this, tokens, t));
+	TableDef table = new TableDef(this, tokens, t);
+        tables.addElement(table);
+	tableOfClass.put(table.mainClass, table);
       }
     }
     finally {

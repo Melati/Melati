@@ -75,6 +75,12 @@ public class ReferenceFieldDef extends FieldDef {
       "          }\n");
   }
 
+  private String targetCast() {
+    TableDef targetTable = (TableDef)table.dsd.tableOfClass.get(type);
+    return targetTable == null || targetTable.superclass == null ?
+             "" : "(" + type + ")";
+  }
+
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
@@ -101,7 +107,10 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException, NoSuchRowPoemException {\n" +
             "    Integer troid = get" + suffix + "Troid();\n" +
             "    return troid == null ? null :\n" +
-            "        ((" + table.dsd.databaseClass + ")getDatabase())." +
+	                 // This cast is necessary when the target table is
+	                 // an "extends"
+	    "        " + targetCast() +
+                         "get" + table.dsd.databaseClass + "()." +
                          targetTableAccessorMethod + "()." +
                          "get" + targetSuffix + "Object(troid);\n" +
             "  }\n" +

@@ -78,7 +78,6 @@ public class PoemThread {
       SessionToken token = new SessionToken(
           Thread.currentThread(), transaction, accessToken);
       sessionTokens.setElementAt(token, index.intValue());
-      Thread.currentThread().setName("" + (char)index.intValue());
 
       return index;
     }
@@ -87,10 +86,13 @@ public class PoemThread {
   static void inSession(PoemTask task, AccessToken accessToken,
                         PoemTransaction transaction) throws PoemException {
     Integer token = allocatedSessionToken(accessToken, transaction);
+    String oldname = Thread.currentThread().getName();
+    Thread.currentThread().setName("" + (char)token.intValue());
     try {
       task.run();
     }
     finally {
+      Thread.currentThread().setName(oldname);
       synchronized (freeSessionTokenIndices) {
         ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
         sessionTokens.setElementAt(null, token.intValue());
@@ -159,6 +161,18 @@ public class PoemThread {
     if (old != AccessToken.root)
       throw new NonRootSetAccessTokenPoemException(old);
     context.accessToken = token;
+  }
+
+  public static void withAccessToken(AccessToken token, PoemTask task) {
+    SessionToken context = sessionToken();
+    AccessToken old = context.accessToken;
+    context.accessToken = token;
+    try {
+      task.run();
+    }
+    finally {
+      context.accessToken = old;
+    }
   }
 
   public static void assertHasCapability(Capability capability)

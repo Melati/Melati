@@ -108,7 +108,10 @@ public class ReferenceFieldDef extends FieldDef {
             "  public void set" + suffix + "Troid(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
             "    set" + suffix + "(" +
-                     "raw == null ? null : " +
+                     "raw == null ? null : \n" +
+	                 // This cast is necessary when the target table is
+	                 // an "extends"
+	    "        " + targetCast() +
                        db + "." + targetTableAccessorMethod + "()." +
                        "get" + targetSuffix + "Object(raw));\n" +
             "  }\n" +

@@ -73,6 +73,8 @@ public class TimeoutException extends Exception {
 
     /**
      * Constructor with a message associated.
+     * 
+     * @param message the message to display
      */
     public TimeoutException(String message) {
         super(message);

@@ -235,9 +235,8 @@ public class Melati {
    * Get the POEM Database for this Request.
    *
    * @return - the POEM Database for this Request
-   * @see #setContext
+   * @see #setPoemContext
    */
-
   public Database getDatabase() {
     return database;
   }

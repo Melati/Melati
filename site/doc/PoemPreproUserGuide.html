@@ -17,9 +17,160 @@
 <!-- ************** -->
 </H2>
 
+
+
+<H3>
+<!-- ================================== -->
+      Melati and the POEM preprocessor
+<!-- ================================== -->
+</H3>
+
 <P>
-  <A HREF=http://melati.org>Melati</A> is 
+  <A HREF=../../../../doc/index.html>Melati</A> is an open source, Java-based
+  infrastructure for the rapid and convenient development of web-based database
+  applications.  This guide describes a preprocessor facility which forms part
+  of <A HREF=../../doc/UserGuide.html>Melati POEM</A> (Persistent Object Engine
+  For Melati), the layer which provides Melati with its object-oriented view of
+  the underlying relational database.  The preprocessor's task is to map a
+  succinct Java-style &quot;data structure definition&quot; file, in which the
+  application programmer describes the schema of the database to which they
+  expect their code to be attached, into a set of boilerplate Java source files
+  implementing a statically-typed object-oriented API for that schema.
 </P>
+
+
+
+<H3>
+<!-- ========= -->
+      Outline
+<!-- ========= -->
+</H3>
+
+<P>
+  This document describes each of the stages involved in setting up a
+  statically-typed application-specific object-oriented view of an RDBMS
+  database using Melati POEM.
+</P>
+
+<UL>
+  <LI> <A HREF=#oo><B>Think about your schema.</B></A>
+       <P>
+         Melati POEM encourages you to think about your relational database in
+         a somewhat object-oriented way.  A table row corresponds to a Java
+         object (and can effectively be given Java methods).
+       </P>
+
+  <LI> <A HREF=#dsd><B>Write your data structure definition.</B></A>
+       <P>
+          POEM's DSD grammar is simple (similar to Java's syntax for defining
+          class fields) and provides a convenient way of specifying display
+          attributes for your objects' fields.
+       </P>
+
+  <LI> <A HREF=#invoke><B>Run the DSD preprocessor.</B></A>
+       <P>
+         The DSD processor turns your DSD file into boilerplate classes which
+         implement a type-safe API for your schema, and automatically
+         create/validate your database at application startup time.
+       </P>
+
+  <LI> <A HREF=#extend><B>Add Java methods.</B></A>
+       <P>
+         The DSD also outputs stub classes to which you can add any special
+         Java methods you wish to attach to your row-objects.
+       </P>
+
+  <LI> <A HREF=#compile><B>Compile your application.</B></A>
+       <P>
+         ...
+       </P>
+
+  <LI> <A HREF=#run><B>Run your application.</B></A>
+       <P>
+         ...
+       </P>
+</UL>
+
+
+
+<A NAME=oo>
+<H2>
+<!-- ********************************** -->
+      The POEM view of a relational DB
+<!-- ********************************** -->
+</H2>
+</A>
+
+<P>
+  POEM allows you a 
+</P>
+
+<P>
+  coexistence with JDBC (though UPDATEs a bit trickier)
+</P>
+
+
+
+
+<A NAME=dsd>
+<H2>
+<!-- ************************************ -->
+      The data structure definition file
+<!-- ************************************ -->
+</H2>
+</A>
+
+<P>
+  Attributes are &quot;factory defaults&quot; and are not applied to existing
+  tables/columns.  DSD is not exclusive.
+</P>
+
+
+
+
+
+<A NAME=invoke>
+<H2>
+<!-- *************************** -->
+      Invoking the preprocessor
+<!-- *************************** -->
+</H2>
+</A>
+
+<P>
+  It will only overwrite files with a tag at the top, and it doesn't try to
+  overwrite stubs.
+</P>
+
+
+
+
+
+
+<A NAME=compile>
+<H2>
+<!-- **************************** -->
+      Compiling your application
+<!-- **************************** -->
+</H2>
+</A>
+
+
+
+
+<A NAME=run>
+<H2>
+<!-- ************************** -->
+      Running your application
+<!-- ************************** -->
+</H2>
+</A>
+
+<P>
+  Attributes only find their way in the first time.  Incompatibilities =>
+  startup aborts.  How to fix problems.
+</P>
+
 
 <HR>
 
@@ -103,6 +254,9 @@
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.9  2000/03/18 10:29:46  williamc
+  <BR>Beginnings of some text (not clear where it's going)
+  <BR>
   <BR>Revision 1.8  2000/03/06 11:51:52  williamc
   <BR>Add missing files (why did it ever work?)
   <BR>

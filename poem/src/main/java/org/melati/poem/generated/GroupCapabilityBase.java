@@ -72,9 +72,7 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
-    _getGroupCapabilityTable().getGroupColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setGroup_unsafe(raw);
+    setGroup(raw == null ? null : getPoemDatabase().getGroupTable().getGroupObject(raw));
   }
 
   public Group getGroup()
@@ -86,7 +84,14 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setGroup(Group cooked)
       throws AccessPoemException {
-    setGroupTroid(cooked == null ? null : cooked.troid());
+    _getGroupCapabilityTable().getGroupColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setGroup_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setGroup_unsafe(cooked.troid());
+    }
   }
 
   public Field getGroupField() throws AccessPoemException {
@@ -110,9 +115,7 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setCapabilityTroid(Integer raw)
       throws AccessPoemException {
-    _getGroupCapabilityTable().getCapabilityColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setCapability_unsafe(raw);
+    setCapability(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getCapability()
@@ -124,7 +127,14 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setCapability(Capability cooked)
       throws AccessPoemException {
-    setCapabilityTroid(cooked == null ? null : cooked.troid());
+    _getGroupCapabilityTable().getCapabilityColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setCapability_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setCapability_unsafe(cooked.troid());
+    }
   }
 
   public Field getCapabilityField() throws AccessPoemException {

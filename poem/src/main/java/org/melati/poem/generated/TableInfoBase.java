@@ -190,9 +190,7 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanreadTroid(Integer raw)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcanreadColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setDefaultcanread_unsafe(raw);
+    setDefaultcanread(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcanread()
@@ -204,7 +202,14 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanread(Capability cooked)
       throws AccessPoemException {
-    setDefaultcanreadTroid(cooked == null ? null : cooked.troid());
+    _getTableInfoTable().getDefaultcanreadColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setDefaultcanread_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setDefaultcanread_unsafe(cooked.troid());
+    }
   }
 
   public Field getDefaultcanreadField() throws AccessPoemException {
@@ -228,9 +233,7 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanwriteTroid(Integer raw)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setDefaultcanwrite_unsafe(raw);
+    setDefaultcanwrite(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcanwrite()
@@ -242,7 +245,14 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanwrite(Capability cooked)
       throws AccessPoemException {
-    setDefaultcanwriteTroid(cooked == null ? null : cooked.troid());
+    _getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setDefaultcanwrite_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setDefaultcanwrite_unsafe(cooked.troid());
+    }
   }
 
   public Field getDefaultcanwriteField() throws AccessPoemException {
@@ -266,9 +276,7 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcandeleteTroid(Integer raw)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcandeleteColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setDefaultcandelete_unsafe(raw);
+    setDefaultcandelete(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcandelete()
@@ -280,7 +288,14 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcandelete(Capability cooked)
       throws AccessPoemException {
-    setDefaultcandeleteTroid(cooked == null ? null : cooked.troid());
+    _getTableInfoTable().getDefaultcandeleteColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setDefaultcandelete_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setDefaultcandelete_unsafe(cooked.troid());
+    }
   }
 
   public Field getDefaultcandeleteField() throws AccessPoemException {
@@ -304,9 +319,7 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCancreateTroid(Integer raw)
       throws AccessPoemException {
-    _getTableInfoTable().getCancreateColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setCancreate_unsafe(raw);
+    setCancreate(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getCancreate()
@@ -318,7 +331,14 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCancreate(Capability cooked)
       throws AccessPoemException {
-    setCancreateTroid(cooked == null ? null : cooked.troid());
+    _getTableInfoTable().getCancreateColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setCancreate_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setCancreate_unsafe(cooked.troid());
+    }
   }
 
   public Field getCancreateField() throws AccessPoemException {
@@ -404,9 +424,7 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
-    _getTableInfoTable().getCategoryColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setCategory_unsafe(raw);
+    setCategory(raw == null ? null : getPoemDatabase().getTableCategoryTable().getTableCategoryObject(raw));
   }
 
   public TableCategory getCategory()
@@ -418,7 +436,14 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCategory(TableCategory cooked)
       throws AccessPoemException {
-    setCategoryTroid(cooked == null ? null : cooked.troid());
+    _getTableInfoTable().getCategoryColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setCategory_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setCategory_unsafe(cooked.troid());
+    }
   }
 
   public Field getCategoryField() throws AccessPoemException {

@@ -32,6 +32,7 @@ public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
   protected Boolean sortdescending;
   protected Boolean indexed;
   protected Boolean unique;
+  protected Integer integrityfix;
 
   public Integer getId_unsafe() {
     return id;
@@ -80,9 +81,7 @@ public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
 
   public void setTableinfoTroid(Integer raw)
       throws AccessPoemException {
-    _getColumnInfoTable().getTableinfoColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setTableinfo_unsafe(raw);
+    setTableinfo(raw == null ? null : getPoemDatabase().getTableInfoTable().getTableInfoObject(raw));
   }
 
   public TableInfo getTableinfo()
@@ -94,7 +93,14 @@ public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
 
   public void setTableinfo(TableInfo cooked)
       throws AccessPoemException {
-    setTableinfoTroid(cooked == null ? null : cooked.troid());
+    _getColumnInfoTable().getTableinfoColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setTableinfo_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setTableinfo_unsafe(cooked.troid());
+    }
   }
 
   public Field getTableinfoField() throws AccessPoemException {
@@ -387,6 +393,44 @@ public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
 
   public Field getUniqueField() throws AccessPoemException {
     Column c = _getColumnInfoTable().getUniqueColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Integer getIntegrityfix_unsafe() {
+    return integrityfix;
+  }
+
+  public void setIntegrityfix_unsafe(Integer cooked) {
+    integrityfix = cooked;
+  }
+
+  public Integer getIntegrityfixIndex()
+      throws AccessPoemException {
+    readLock();
+    return getIntegrityfix_unsafe();
+  }
+
+  public void setIntegrityfixIndex(Integer raw)
+      throws AccessPoemException {
+    getColumnInfoTable().getIntegrityfixColumn().getType().assertValidRaw(raw);
+    writeLock();
+    setIntegrityfix_unsafe(raw);
+  }
+
+  public StandardIntegrityFix getIntegrityfix()
+      throws AccessPoemException {
+    Integer index = getIntegrityfixIndex();
+    return index == null ? null :
+        StandardIntegrityFix.forIndex(index.intValue());
+  }
+
+  public void setIntegrityfix(StandardIntegrityFix cooked)
+      throws AccessPoemException {
+    setIntegrityfixIndex(cooked == null ? null : cooked.index);
+  }
+
+  public Field getIntegrityfixField() throws AccessPoemException {
+    Column c = _getColumnInfoTable().getIntegrityfixColumn();
     return new Field(c.getRaw(this), c);
   }
 }

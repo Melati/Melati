@@ -20,6 +20,7 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
   private Column col_sortdescending = null;
   private Column col_indexed = null;
   private Column col_unique = null;
+  private Column col_integrityfix = null;
 
   public ColumnInfoTableBase(
       Database database, String name,
@@ -647,6 +648,63 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
             ((ColumnInfo)g).setUnique((Boolean)raw);
           }
         });
+
+    defineColumn(col_integrityfix =
+        new Column(this, "integrityfix", new IntegrityFixPoemType(true), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getIntegrityfix();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setIntegrityfix((StandardIntegrityFix)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((ColumnInfo)g).getIntegrityfixField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.detail;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
+          }
+
+          protected String defaultDisplayName() {
+            return "Integrity fix";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 309;
+          }
+
+          protected String defaultDescription() {
+            return "How referential integrity for the field is maintained";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getIntegrityfix_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setIntegrityfix_unsafe((Integer)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getIntegrityfixIndex();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setIntegrityfixIndex((Integer)raw);
+          }
+        });
   }
 
   public final Column getIdColumn() {
@@ -691,6 +749,10 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
 
   public final Column getUniqueColumn() {
     return col_unique;
+  }
+
+  public final Column getIntegrityfixColumn() {
+    return col_integrityfix;
   }
 
   public ColumnInfo getColumnInfoObject(Integer troid) {

@@ -104,7 +104,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public void handleAccessException(Melati melati, 
                          AccessPoemException accessException) throws Exception {
-    accessException.printStackTrace();
+    // cut down unnecessary messages in logs.
+    // accessException.printStackTrace();
     HttpServletRequest request = melati.getRequest();
     HttpServletResponse response = melati.getResponse();
     HttpSession session = request.getSession(true);
@@ -122,7 +123,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  public Melati establishUser(Melati melati) throws IOException {
+  public Melati establishUser(Melati melati) {
     HttpSession session = melati.getSession();
     synchronized (session) {
       User user = (User)session.getValue(USER);

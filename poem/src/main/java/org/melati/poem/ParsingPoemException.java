@@ -61,4 +61,9 @@ public class ParsingPoemException extends NormalPoemException {
   public ParsingPoemException(PoemType type, String string) {
     this(type, string, null);
   }
+
+  public String getMessage() {
+    return "The value `" + string + "' is not legal for the type " + type +
+           (subException == null ? "" : "\n" + subException);
+  }
 }

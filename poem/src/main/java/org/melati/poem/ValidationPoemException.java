@@ -61,4 +61,9 @@ public class ValidationPoemException extends NormalPoemException {
   public ValidationPoemException(PoemType type, Object value) {
     this(type, value, null);
   }
+
+  public String getMessage() {
+    return "The value `" + value + "' is not legal for the type " + type +
+           (subException == null ? "" : "\n" + subException);
+  }
 }

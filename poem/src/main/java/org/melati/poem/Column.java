@@ -49,6 +49,7 @@ package org.melati.poem;
 
 import java.sql.*;
 import java.util.*;
+import java.text.*;
 import org.melati.util.*;
 
 public abstract class Column implements FieldAttributes {
@@ -416,10 +417,37 @@ public abstract class Column implements FieldAttributes {
     return new Field((Object)null, this);
   }
 
-  public void setRawString(Persistent g, String rawString)
-      throws ParsingPoemException, ValidationPoemException,
-             AccessPoemException {
-    setRaw(g, getType().rawOfString(rawString));
+  public static class SettingException extends NormalPoemException {
+    public Persistent persistent;
+    public Column column;
+    public String columnDesc;
+
+    public SettingException(Persistent persistent, Column column,
+                            Exception trouble) {
+      super(trouble);
+      this.persistent = persistent;
+      this.column = column;
+      columnDesc =
+          "field `" + column.getDisplayName() + "' in object `" +
+          persistent.displayString(MelatiLocale.here, DateFormat.MEDIUM) +
+          "' of type `" + column.getTable().getDisplayName() + "'";
+    }
+
+    public String getMessage() {
+      return "Unable to set " + columnDesc + "\n" + subException;
+    }
+  }
+
+  public void setRawString(Persistent g, String rawString) {
+    Object raw;
+    try {
+      raw = getType().rawOfString(rawString);
+    }
+    catch (Exception e) {
+      throw new SettingException(g, this, e);
+    }
+
+    setRaw(g, raw);
   }
 
   public Enumeration referencesTo(Persistent object) {

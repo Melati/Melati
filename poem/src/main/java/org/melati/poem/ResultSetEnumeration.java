@@ -45,9 +45,10 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
+import java.util.NoSuchElementException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.melati.util.SkipEnumeration;
 
 abstract class ResultSetEnumeration implements SkipEnumeration {
   private final ResultSet resultSet;
@@ -62,10 +63,11 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
       return 1;
     else {
       try {
-	resultSet.close();
+        resultSet.close();
       }
-      catch (Exception e) {}
-
+      catch (SQLException e) {
+        throw new SQLSeriousPoemException(e);
+      }
       return 0;
     }
   }
@@ -73,8 +75,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
   public synchronized boolean hasMoreElements() {
     try {
       if (more == -1)
-	more = resultSetNext();
-      
+        more = resultSetNext();
       return more == 1;
     }
     catch (SQLException e) {

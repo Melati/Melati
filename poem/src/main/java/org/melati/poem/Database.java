@@ -679,7 +679,9 @@ abstract public class Database implements TransactionPool {
 
     if (displayTables == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
-          null /* "displayable" */, "displayorder, name", false, null);
+          null /* "displayable" */, 
+            quotedName("displayorder") + ", " + quotedName("name"), 
+              false, null);
 
       Vector them = new Vector();
       while (tableIDs.hasMoreElements()) {
@@ -1066,22 +1068,6 @@ abstract public class Database implements TransactionPool {
       else 
 	return connectionUrl;
     }
-
-  /**
-   * <TT>quotedName</TT>, but don't expect anything to go wrong (cheesy or
-   * what).
-   *
-   * @see #quotedName
-   */
-
-  String _quotedName(String name) {
-    try {
-      return quotedName(name);
-    }
-    catch (InvalidNamePoemException e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
-  }
 
   Connection getCommittedConnection() {
     return committedConnection;

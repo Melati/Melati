@@ -192,7 +192,8 @@ table Group
   (primary) Integer id;
 
   (unique) String name (size = 60)
-      (description = "A human-readable name for the group");
+      (description = "A human-readable name for the group")
+      (displayorderpriority = 0) (primarydisplay);
 }
 
 table GroupMembership
@@ -217,8 +218,8 @@ table GroupCapability
   (primary) Integer id;
 
   Group group (displayorderpriority = 0)
-      (displayname = "Group")
       (description = "The user-group which has the capability");
 
-  Capability capability (displayorderpriority = 1);
+  Capability capability (displayorderpriority = 1)
+      (description = "The capability");
 }

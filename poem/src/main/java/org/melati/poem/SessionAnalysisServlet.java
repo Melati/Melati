@@ -105,16 +105,23 @@ public class SessionAnalysisServlet extends ConfigServlet {
     while(e.hasMoreElements()) {
       SessionToken token = (SessionToken) e.nextElement();
       output.write("<table border=1 cellspacing=0 cellpadding=1>\n"
-                   + "  <tr><th colspan=2>Session: " + token + "</td><tr>\n"
-                   + "  <tr><th>Running for</th><td>"
-                   + (now.getTime() - token.started) + " ms</td><tr>\n"
-                   + "  <tr><th>Thread</th><td>" + token.thread + "</td><tr>\n"
-                   + "  <tr><th>PoemTransaction</th><td>"
-                   + token.transaction + "<br>(Database:"
-                   + token.transaction.getDatabase() + ")</td><tr>\n"
-                   + "  <tr><th>PoemTask</th><td>" + token.task + "</td><tr>\n"
-                   + " <tr>\n"
-                   + "</table>\n");
+                 + " <tr><th colspan=2>Session: " + token + "</td></tr>\n"
+                 + " <tr><th>Running for</th><td>"
+                 + (now.getTime() - token.started) + " ms</td></tr>\n"
+                 + " <tr><th>Thread</th><td>" + token.thread + "</td></tr>\n"
+                 + " <tr><th>PoemTransaction</th><td>"
+                 + token.transaction + "<br>(Database:"
+                 + token.transaction.getDatabase() + ")</td></tr>\n"
+                 + " <tr><th>PoemTask</th><td>" + token.task + "</td></tr>\n");
+      Enumeration o = token.toTidy().elements();
+      if(o.hasMoreElements()) {
+        output.write("<tr><th>Open: </th><td>");
+        while (o.hasMoreElements()) {
+          output.write(o.nextElement() + "<br>");
+        }
+        output.write("</td></tr>\n");
+      }
+      output.write( "</table>\n");
     }
 
     output.write("<h2>Initialised Databases</h2>\n"

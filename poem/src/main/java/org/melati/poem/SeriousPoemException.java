@@ -49,11 +49,14 @@ import org.melati.util.*;
 
 public class SeriousPoemException extends MelatiRuntimeException {
 
+  public SeriousPoemException(String message, Exception subException) {
+    super(message, subException);
+  }
+
   public SeriousPoemException(Exception subException) {
     super(subException);
   }
 
   public SeriousPoemException() {
-    this(null);
   }
 }

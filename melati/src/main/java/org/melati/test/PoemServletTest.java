@@ -108,12 +108,11 @@ public class PoemServletTest extends PoemServlet {
     "/GuestBook/>GuestBook</a>, or <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.WebmacroStandalone/>WebmacroStandalone</a>" + 
-    "<br>You can test your WebMacro working with " +
+    "<br>You can test your Template Engine working with " +
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
-    "/org.melati.test.TemplateServletTestWM/>" + 
-    "org.melati.test.TemplateServletTestWM/</a><br>Melati does not work with " +
-    "JTemplater at present, this should be fixed soon.");
+    "/org.melati.test.TemplateServletTest/>" + 
+    "org.melati.test.TemplateServletTest/</a>");
 
     String method = melati.getMethod();
     if (method != null) {

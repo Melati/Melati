@@ -306,18 +306,18 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     if (underlying == null || !(underlying instanceof AccessPoemException))
       throw exception;
     else
-      return accessHandler().handleAccessException(melatiContext(context),
-                 context, (AccessPoemException)underlying);
+      return accessHandler().handleAccessException(
+                                 melatiContext(context), context,
+                                 (AccessPoemException)underlying);
   }
 
-  protected final Template _handleException(WebContext context, Exception exception)
-      throws Exception {
+  protected final Template _handleException(
+      WebContext context, Exception exception) throws Exception {
     try {
       return handleException(context, exception);
     }
     catch (Exception e) {
       PoemThread.rollback();
-      e.printStackTrace();
       throw e;
     }
   }
@@ -434,13 +434,6 @@ public abstract class MelatiServlet extends MelatiWMServlet {
                 }
               }
               catch (Exception e) {
-                // FIXME oops we have to do this in-session!  This is because
-                // some PoemExceptions (might?) generate their messages on the
-                // fly from Persistents that can't be interrogated outside a
-                // database session.  Indeed the toString() can actually
-                // generate a further exception.  Not very satisfactory.
-
-                e.printStackTrace();
                 throw new TrappedException(e.toString());
               }
             }

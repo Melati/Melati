@@ -99,7 +99,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
   
-  public Template handleAccessException(MelatiContext melati, WebContext context,
+  public Template handleAccessException(MelatiContext melati,
+                                        WebContext context,
 					AccessPoemException accessException)
       throws Exception {
     accessException.printStackTrace();

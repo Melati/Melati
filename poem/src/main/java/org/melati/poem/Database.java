@@ -855,10 +855,11 @@ abstract public class Database implements TransactionPool {
         "SELECT * FROM groupmembership " +
         "WHERE " + quotedName("user") + " = " + user.troid() + " AND " +
         "EXISTS (" +
-          "SELECT " + quotedName("group") + ", capability FROM groupcapability " +
-          "WHERE groupcapability." + quotedName("group") + " = groupmembership." + quotedName("group") + " AND " +
-                "capability = " + capabilityExpr + ")";
-
+          "SELECT " + quotedName("group") + ", capability " +
+          "FROM groupcapability " +
+          "WHERE groupcapability." + quotedName("group") +
+              " = groupmembership." + quotedName("group") + " " +
+          "AND capability = " + capabilityExpr + ")";
   }
 
   public String givesCapabilitySQL(User user, Capability capability) {

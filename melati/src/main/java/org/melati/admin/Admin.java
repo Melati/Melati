@@ -83,6 +83,18 @@ public class Admin extends MelatiServlet {
 
   protected Template addTemplate(WebContext context, MethodRef ref)
       throws ResourceUnavailableException, PoemException {
+
+    Table table = tableFromPathInfo(ref);
+    context.put("table", table);
+
+    Enumeration fields =
+        new MappedEnumeration(table.columns()) {
+          public Object mapped(Object column) {
+            return new Field((Object)null, (Column)column);
+          }
+        };
+    context.put("fields", fields);
+                              
     return adminTemplate(context, "Add.wm");
   }
 

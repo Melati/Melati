@@ -14,7 +14,9 @@
   <P>Purpose: $ml.rendered($table.Description)</P>
 }
 
-<A HREF=/notimpl>Add a new $ml.rendered($table.DisplayName)</A>
+<P>
+  <A HREF=Add>Add a new $ml.rendered($table.DisplayName)</A>
+</P>
 
 <TABLE CELLSPACING=0>
   <TR>

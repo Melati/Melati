@@ -1,0 +1,54 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<FORM METHOD=post
+      ACTION=new/Update> <!-- see MethodRef(String pathInfo) in Admin.java -->
+
+<CENTER>
+
+<H1>Create a new record</H1>
+
+<P>Table: $ml.rendered($table.DisplayName)</P>
+#if ($table.Description) {
+  <P>Purpose: $ml.rendered($table.Description)</P>
+}
+
+<TABLE CELLPADDING=0 CELLSPACING=0>
+  #foreach $field in $fields {
+    #if ($field.UserCreateable) {
+      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+      <TR><TD COLSPAN=3>
+        <FONT SIZE=1>$ml.rendered($field.Description)
+      </TD></TR>
+      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+      <TR>
+	<TD>
+	  #if ($field.Nullable) {
+	    $ml.rendered($field.DisplayName)
+	  } #else {
+	    <B>$ml.rendered($field.DisplayName)</B>
+	  }
+	</TD><TD></TD><TD>
+	  $ml.input($field)
+	</TD>
+      </TR>
+    }
+  }
+</TABLE>
+
+<INPUT NAME=action VALUE=Update TYPE=submit
+       ONCLICK="return validate(this.form);">
+
+</CENTER>
+
+</FORM>
+
+</BODY>
+</HTML>

@@ -1,96 +1,47 @@
 package org.melati.poem;
 
-import org.melati.util.*;
 import java.util.*;
+import org.melati.util.*;
 
-public class Field {
+public abstract class Field implements FieldAttributes, Cloneable {
 
   private AccessPoemException accessException;
   private Object ident;
-  private Column column;
 
-  public Field(Object ident, Column column) {
+  protected Field(Object ident) {
     this.ident = ident;
-    this.column = column;
-  }
-
-  public Field(Persistent persistent, Column column) {
-    this.column = column;
-    try {
-      ident = column.getIdent(persistent);
-      accessException = null;
-    }
-    catch (AccessPoemException accessException) {
-      ident = null;
-      this.accessException = accessException;
-    }
-  }
-
-  public Field(Column column) {
-    this.column = column;
-    ident = null;
     accessException = null;
   }
 
-  public String getName() {
-    return column.getName();
+  protected Field(AccessPoemException accessException) {
+    this.accessException = accessException;
+    ident = null;
   }
 
-  public String getDisplayName() {
-    return column.getDisplayName();
-  }
-
-  public String getDescription() {
-    return column.getDescription();
-  }
-
-  public PoemType getType() {
-    return column.getType();
-  }
-
-  public boolean getNullable() {
-    return getType().isNullable();
-  }
-
-  public boolean getIndexed() {
-    return column.isIndexed();
-  }
-
-  public boolean getUserEditable() {
-    return column.isUserEditable();
-  }
-
-  public boolean getUserCreateable() {
-    return column.isUserCreateable();
-  }
-
-  public String getRenderInfo() {
-    return column.getRenderInfo();
-  }
-
-  public Object getIdent() throws AccessPoemException {
+  public final Object getIdent() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return ident;
   }
 
-  public Object getIdentString() throws AccessPoemException {
+  public final Object getIdentString() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return ident == null ? "" : getType().stringOfIdent(ident);
   }
 
-  public Object getValue() throws AccessPoemException {
+  public final Object getValue() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return getType().valueOfIdent(ident);
   }
 
-  public String getValueString() throws AccessPoemException {
+  public final String getValueString() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return ident == null ? "" : getType().stringOfValue(getValue());
   }
+
 
   public int getWidth() {
     return getType().getWidth();
@@ -100,12 +51,18 @@ public class Field {
     return getType().getHeight();
   }
 
+  public Field withIdent(Object ident) {
+    Field it = (Field)clone();
+    it.ident = ident;
+    return it;
+  }
+
   public Enumeration getPossibilities() {
-    final Column column = this.column;
+    final Field _this = this;
     return
         new MappedEnumeration(getType().possibleIdents()) {
           protected Object mapped(Object ident) {
-            return new Field(ident, column);
+            return _this.withIdent(ident);
           }
         };
   }
@@ -114,5 +71,14 @@ public class Field {
     if (accessException != null)
       throw accessException;
     return ident == null ? other.ident == null : ident.equals(other.ident);
+  }
+
+  public Object clone() {
+    try {
+      return super.clone();
+    }
+    catch (CloneNotSupportedException e) {
+      throw new PoemBugPoemException();
+    }
   }
 }

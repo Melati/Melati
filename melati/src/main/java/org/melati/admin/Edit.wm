@@ -31,7 +31,7 @@
     }
     <TR>
       <TD>
-        #if ($field.Nullable) #begin
+        #if ($field.Type.Nullable) #begin
           $ml.rendered($field.DisplayName)
         #end #else #begin
           <B>$ml.rendered($field.DisplayName)</B>

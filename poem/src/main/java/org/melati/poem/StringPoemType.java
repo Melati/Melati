@@ -53,7 +53,7 @@ public class StringPoemType extends AtomPoemType {
   }
 
   public String toString() {
-    return (isNullable() ? "nullable " : "") + "String(" + size + ")";
+    return (getNullable() ? "nullable " : "") + "String(" + size + ")";
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

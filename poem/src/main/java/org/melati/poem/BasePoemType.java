@@ -88,7 +88,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   public Enumeration possibleIdents() {
     Enumeration them = _possibleIdents();
     return them == null ? null :
-                   isNullable() ? new ConsEnumeration(null, them) :
+                   getNullable() ? new ConsEnumeration(null, them) :
                    them;
   }
 
@@ -154,7 +154,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return value == null ? "" : _stringOfValue(value);
   }
 
-  public final boolean isNullable() {
+  public final boolean getNullable() {
     return nullable;
   }
 
@@ -181,7 +181,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   public final boolean canBe(PoemType other) {
     return
         other.sqlTypeCode() == sqlTypeCode &&
-        other.isNullable() == nullable &&
+        other.getNullable() == nullable &&
         _canBe(other);
   }
 

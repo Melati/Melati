@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
 
-public abstract class Column {
+public abstract class Column implements FieldAttributes {
   private Table table = null;
   private String name;
   private String quotedName;
@@ -126,9 +126,9 @@ public abstract class Column {
   void unifyWithIndex(ResultSet index)
       throws SQLException, IndexUniquenessPoemException {
     boolean indexUnique = !index.getBoolean("NON_UNIQUE");
-    if (indexUnique != isUnique())
+    if (indexUnique != getUnique())
       throw new IndexUniquenessPoemException(
-          this, index.getString("INDEX_NAME"), isUnique());
+          this, index.getString("INDEX_NAME"), getUnique());
   }
 
   // 
@@ -175,7 +175,7 @@ public abstract class Column {
     return info == null ? null : info.troid();
   }
 
-  public final boolean isPrimaryDisplay() {
+  public final boolean getPrimaryDisplay() {
     return info == null ? false : info.getPrimarydisplay().booleanValue();
   }
 
@@ -184,12 +184,12 @@ public abstract class Column {
       info.setPrimarydisplay(flag);
   }
 
-  public final boolean isUserEditable() {
+  public final boolean getUserEditable() {
     return !isTroidColumn() &&
            (info == null ? true : info.getUsereditable().booleanValue());
   }
 
-  public final boolean isUserCreateable() {
+  public final boolean getUserCreateable() {
     return !isTroidColumn();
   }
 
@@ -205,11 +205,11 @@ public abstract class Column {
     return getType() instanceof DeletedPoemType;
   }
 
-  public final boolean isIndexed() {
-    return isUnique() || info.getIndexed().booleanValue();
+  public final boolean getIndexed() {
+    return getUnique() || info.getIndexed().booleanValue();
   }
 
-  public final boolean isUnique() {
+  public final boolean getUnique() {
     return isTroidColumn() || info.getUnique().booleanValue();
   }
 
@@ -300,16 +300,16 @@ public abstract class Column {
   // ============
   // 
 
-  public Field asField(Persistent g) throws AccessPoemException {
-    return new Field(getIdent(g), this);
+  public Field asField(Persistent g) {
+    return ColumnField.of(g, this);
   }
 
   public Field asField(Data data) {
-    return new Field(getIdent(data), this);
+    return new ColumnField(getIdent(data), this);
   }
 
   public Field asEmptyField() {
-    return new Field(null, this);
+    return new ColumnField((Object)null, this);
   }
 
   public void setIdentString(Persistent g, String identString)

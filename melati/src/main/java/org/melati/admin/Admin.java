@@ -83,7 +83,7 @@ public class Admin extends MelatiServlet {
     Enumeration fields =
         new MappedEnumeration(tit.columns()) {
           public Object mapped(Object column) {
-            return new Field((Object)null, (Column)column);
+            return new ColumnField((Object)null, (Column)column);
           }
         };
     context.put("fields", fields);
@@ -122,7 +122,7 @@ public class Admin extends MelatiServlet {
                     final PoemType nullable =
                         column.getType().withNullable(true);
                     return
-                        new Field(column.getIdent(data), column) {
+                        new ColumnField(column.getIdent(data), column) {
                           public PoemType getType() {
                             return nullable;
                           }
@@ -164,7 +164,7 @@ public class Admin extends MelatiServlet {
     Enumeration fields =
         new MappedEnumeration(table.columns()) {
           public Object mapped(Object column) {
-            return new Field((Column)column);
+            return new ColumnField((Object)null, (Column)column);
           }
         };
     context.put("fields", fields);
@@ -179,7 +179,7 @@ public class Admin extends MelatiServlet {
       String value = context.getForm("field-" + column.getName());
       if (value != null)
         if (value.equals(""))
-          if (column.getType().isNullable())
+          if (column.getType().getNullable())
             column.setIdent(object, null);
           else
             column.setIdentString(object, "");

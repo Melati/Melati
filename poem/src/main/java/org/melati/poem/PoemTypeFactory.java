@@ -8,8 +8,8 @@ package org.melati.poem;
 public abstract class PoemTypeFactory {
   final Integer code;
 
-  public PoemTypeFactory(int code) {
-    this.code = new Integer(code);
+  public PoemTypeFactory(int c) {
+    this.code = new Integer(c);
   }
 
   abstract PoemType typeOf(Database database, ColumnInfoData info);

@@ -644,7 +644,7 @@ public class Persistent {
     return
         new MappedEnumeration(columns) {
           public Object mapped(Object column) {
-            return new Field(_this, (Column)column);
+            return ((Column)column).asField(_this);
           }
         };
   }

@@ -29,7 +29,7 @@ public interface PoemType {
   String stringOfValue(Object value)
       throws TypeMismatchPoemException, PoemException;
 
-  boolean isNullable();
+  boolean getNullable();
   int getWidth();
   int getHeight();
 

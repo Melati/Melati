@@ -32,7 +32,7 @@
       }
       <TR>
 	<TD>
-	  #if ($field.Nullable) {
+	  #if ($field.Type.Nullable) {
 	    $ml.rendered($field.DisplayName)
 	  } #else {
 	    <B>$ml.rendered($field.DisplayName)</B>

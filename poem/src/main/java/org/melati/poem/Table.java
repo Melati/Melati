@@ -299,11 +299,11 @@ public class Table {
    * The table's primary display column, if any.  This is the column used to
    * represent records from the table concisely in reports or whatever.  It is
    * determined at initialisation time by examining the <TT>Column</TT>s
-   * <TT>isPrimaryDisplay()</TT> flags.
+   * <TT>getPrimaryDisplay()</TT> flags.
    *
    * @return the table's display column, or <TT>null</TT> if it hasn't got one
    *
-   * @see Column#isPrimaryDisplay()
+   * @see Column#getPrimaryDisplay()
    * @see ReferencePoemType#_stringOfValue(Object)
    */
 
@@ -370,9 +370,9 @@ public class Table {
   }
 
   private void dbCreateIndex(Column column) {
-    if (column.isIndexed())
+    if (column.getIndexed())
       dbModifyStructure(
-          "CREATE " + (column.isUnique() ? "UNIQUE " : "") + "INDEX " +
+          "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
           database._quotedName(name + "_" + column.getName() + "_index") +
           " ON " + quotedName + " " +
           "(" + column.quotedName() + ")");

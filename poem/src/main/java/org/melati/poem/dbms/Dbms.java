@@ -66,8 +66,21 @@ public interface Dbms {
   Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException;
 
+  /**
+   * Accomodate different quoting strategies.
+   * 
+   * @param name the unquoted name
+   * @return the name quoted (or not) appropriate for this Dbms
+   */
   String getQuotedName(String name);
 
+  /**
+   * Accomodate casting in placeholders.
+   * 
+   * @param type
+   * @return the place holder
+   * @see Postgresql
+   */
   String preparedStatementPlaceholder(PoemType type);
 
  /**
@@ -82,19 +95,68 @@ public interface Dbms {
   */
   String getSqlDefinition(String sqlTypeName) throws SQLException;
 
+  /**
+   * Accomodate String / Text distinction.
+   * 
+   * @param size
+   * @return the SQL definition for a string of this size 
+   * @throws SQLException
+   */
   String getStringSqlDefinition(int size) throws SQLException;
 
+  /**
+   * Accomodate Long / Bigint deviants.
+   * @return the keyword to use.
+   */
   String getLongSqlDefinition();
 
+  /**
+   * Accomodate different treatment of different sized binary data.
+   * 
+   * @param size how big the field is
+   * @return the keyword to use
+   * @throws SQLException 
+   */
   String getBinarySqlDefinition(int size) throws SQLException;
   
+  /**
+   * Accomodate differing Fixed Point notations.
+   * 
+   * @param scale the number of places to right of decimal point
+   * @param precision how many digits in total
+   * @return the keywords to use
+   * @throws SQLException potentially
+   */
   String getFixedPtSqlDefinition(int scale, int precision) throws SQLException;
 
+  /**
+   * Enable one PoemType to represent another, 
+   * for example a <tt>bit</tt> to represent a <tt>boolean</tt>.
+   * 
+   * @param storage the POEM native type
+   * @param type the current type
+   * @return the PoemType to use
+   */
   PoemType canRepresent(PoemType storage, PoemType type);
 
+  /**
+   * The simplest POEM type corresponding to a JDBC description from the
+   * database.
+   * 
+   * @param rs the JDBC metadata
+   * @return the PoemType to use 
+   * @throws SQLException potentially
+   */
   SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
       throws SQLException;
 
+  /**
+   * Whether this DBMS can drop columns.
+   * 
+   * @param con the current connection
+   * @return true if we can
+   * @throws SQLException
+   */
   boolean canDropColumns(Connection con) throws SQLException; 
 
   /**
@@ -132,16 +194,60 @@ public interface Dbms {
   SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
                                       boolean insert, SQLException e);
 
+  /**
+   * Translate special names to non special ones.
+   * 
+   * @param name the field or table name
+   * @return the name translated if necessary
+   */
   String unreservedName(String name);
+  
+  /**
+   * Reverse the mapping in <tt>unreservedName</tt>.
+   * 
+   * @param name an SQL name
+   * @return the coresponding name to use within Melati
+   */
   String melatiName(String name);
 
+  /**
+   * Accomodate DBMS which require a length for BLOBS.
+   * 
+   * @param column the POEM Column we are dealing with
+   * @return SQL length string
+   */
   String getIndexLength(Column column);
 
+  /**
+   * Whether a <tt>Column</tt> can have an SQL index applied to it.
+   * 
+   * @param column the POEM Column we are dealing with
+   * @return true if it can, false otherwise.
+   */
   boolean canBeIndexed(Column column);
 
+  /**
+   * SQL string to get a <tt>Capability</tt>
+   * 
+   * @param user the User Persistable whose troid is used in the query
+   * @param capabilityExpr the capability troid we need
+   * @return the SQL query to use
+   */
   String givesCapabilitySQL(Persistable user, String capabilityExpr);
 
+  /**
+   * Accomodate the variety of ways of ignoring case.
+   * 
+   * @param term1 the term to find 
+   * @param term2 the term to find it in
+   * @return the SQL query to use
+   */
   String caseInsensitiveRegExpSQL(String term1, String term2);
 
+  /**
+   * A string to represent this DBMS.
+   * 
+   * @return the class name.
+   */
   String toString();
 }

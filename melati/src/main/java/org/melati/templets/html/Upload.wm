@@ -42,14 +42,15 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+## Upload an ordinary file.
 
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
-	    COLS=$field.Width
+            COLS=$field.Width
             ROWS=$field.Height>$ml.rendered($field.RawString)</TEXTAREA>
 #end #else #begin
   <INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
-	 VALUE="$ml.Attr.rendered($field.RawString)">
+         VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 <br>
 <a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
@@ -57,7 +58,7 @@
 <SCRIPT LANGUAGE=JavaScript1.2>
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
-	       !$field.Type.Nullable)
+           !$field.Type.Nullable)
 </SCRIPT>
 <SCRIPT>
 var uploadwin_$ml.escaped($field.Name);

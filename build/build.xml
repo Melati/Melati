@@ -291,7 +291,7 @@ usage:
         <filter token="header"   value="${Xheader}"/>
         <filter token="footer"   value="${Xfooter}"/>
         <filter token="menu"     value="${Xmenu}"/>
-        <filter token="version"  value="${Xversion}"/>
+        <filter token="version"  value="${version}"/>
         <filter token="project"  value="${project}"/>
         <filter token="name"     value="${name}"/>
         <filter token="date"     value="${date}"/>

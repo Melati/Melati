@@ -320,8 +320,15 @@ public class Table implements Selectable {
   }
 
  /**
-  * In a similar manner to the primary display column, each table can have a 
-  * primary criterion column.
+  * In a similar manner to the primary display column, each table can have 
+  * one primary criterion column.
+  * <p>
+  * The Primary Criterion is the main grouping field of the table, 
+  * ie the most important non-unique type field.
+  * <p>
+  * For example the Primary Criterion for a User table might be Nationality.
+  *
+  * @see Searchability
   */
 
   public final Column primaryCriterionColumn() {
@@ -1301,11 +1308,9 @@ public class Table implements Selectable {
       orderByClause = defaultOrderByClause();
     }
 
-    // assert orderByClause != null : "Default orderByClause is ID";
     if (orderByClause.trim().length() > 0) {
       result += " ORDER BY " + orderByClause;
     }
-
     return result;
   }
 

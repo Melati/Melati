@@ -260,11 +260,15 @@ return super.defaultPoemTypeOfColumnMetaData(md);
 
 */  
   
-/*
+  /**
+   * Note that this is case sensitive.
+   * 
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    return term1 + " ~* " + term2;
+    return term2 + " LIKE '%" + term1 + "%'";
   }
-  */
+
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("user")) name = "melati_" + name;
     return name;

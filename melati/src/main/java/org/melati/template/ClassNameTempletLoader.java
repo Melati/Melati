@@ -46,7 +46,6 @@
 package org.melati.template;
 
 import java.util.Hashtable;
-import java.io.File;
 
 import org.melati.poem.FieldAttributes;
 

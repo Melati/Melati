@@ -50,6 +50,12 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ *
+ *  A Table.
+ *
+ **/
+
 public class Table {
 
   public static final int CACHE_LIMIT_DEFAULT = 100;
@@ -341,7 +347,8 @@ public class Table {
 
     Enumeration colIDs =
         getDatabase().getColumnInfoTable().troidSelection(
-            "tableinfo = " + tableInfoID() + " AND (" + whereClause + ")",
+            database.quotedName("tableinfo") + " = " + tableInfoID() + 
+              " AND (" + whereClause + ")",
             null, false, null);
 
     Vector them = new Vector();
@@ -363,7 +370,7 @@ public class Table {
 
     if (columns == null)
       displayColumns[level.index.intValue()] = columns =
-	  columnsWhere("displaylevel <= " + level.index);
+	  columnsWhere(database.quotedName("displaylevel") + " <= " + level.index);
 
     return new ArrayEnumeration(columns);
   }
@@ -488,17 +495,17 @@ public class Table {
     dbModifyStructure(
         "ALTER TABLE " + quotedName() +
         " ADD COLUMN " + column.quotedName() +
-        " " + column.getSQLType().sqlDefinition(getDatabase().getDbms()));
+        " " + column.getSQLType().sqlDefinition(dbms()));
   }
 
   private void dbCreateIndex(Column column) {
     if (column.getIndexed())
       dbModifyStructure(
           "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
-          database._quotedName(name + "_" + column.getName() + "_index") +
+          database.quotedName(name + "_" + column.getName() + "_index") +
           " ON " + quotedName() + " " +
           "(" + column.quotedName() + 
-           getDatabase().getDbms().getIndexLength(column) + ")");
+           dbms().getIndexLength(column) + ")");
   }
 
   // 
@@ -1153,7 +1160,7 @@ public class Table {
 
         if (column.getType() instanceof StringPoemType) {
 	  clause.append( 
-	    getDatabase().getDbms().caseInsensitiveRegExpSQL(
+	    dbms().caseInsensitiveRegExpSQL(
                   column.quotedName(),
                   column.getSQLType().quotedRaw(raw)));
         } else {
@@ -1897,11 +1904,12 @@ public class Table {
       Hashtable dbHasIndexForColumn = new Hashtable();
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().
-              getIndexInfo(null, "", getDatabase().getDbms().
+              getIndexInfo(null, "", dbms().
                                unreservedName(getName()), false, true);
+
       while (index.next()) {
         try {
-          String columnName = getDatabase().getDbms().
+          String columnName = dbms().
                                melatiName(index.getString("COLUMN_NAME"));
           Column column = getColumn(columnName);
           column.unifyWithIndex(index);

@@ -121,7 +121,6 @@ public class LogicalDatabase {
                 "The .class=" + clazz + " entry named a class of type " +
                 databaseObject.getClass() + ", " +
                 "which is not an org.melati.poem.Database");
-            // above used DriverName which was surely wrong
 
           database = (Database)databaseObject;
 
@@ -131,7 +130,6 @@ public class LogicalDatabase {
           database.connect(dbmsclass, url, user, pass);
         }
         catch (Exception e) {
-            e.printStackTrace();
           throw new DatabaseInitException(databaseDefsName, name, e);
         }
 

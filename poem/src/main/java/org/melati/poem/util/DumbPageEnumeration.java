@@ -105,6 +105,16 @@ public class DumbPageEnumeration implements PageEnumeration {
     return currentPosition;
   }
 
+  public int getNextPosition() {
+    if (hasMoreElements()) return currentPosition+1;
+	return 0;
+  }
+  
+  public boolean nextElementOnThisPage() {
+	if (hasMoreElements() && getPageEnd() >= getNextPosition()) return true;
+	return false;
+  }
+
   public int getPageSize() {
     return page.size();
   }

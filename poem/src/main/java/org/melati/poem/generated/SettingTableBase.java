@@ -18,7 +18,6 @@ import org.melati.poem.Setting;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
-import org.melati.poem.DisplayLevel;
 
 
 /**

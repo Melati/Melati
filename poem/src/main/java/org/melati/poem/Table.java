@@ -39,7 +39,8 @@ public class Table {
   private Column canWriteColumn = null;
   private Column displayColumn = null;
 
-  private PoemFloatingVersionedObject allTroids = null;
+  private PreparedSelection allTroids = null;
+  private Hashtable cachedSelections = null;
 
   private String defaultOrderByClause = null;
   private Column[] recordDisplayColumns = null;
@@ -62,18 +63,25 @@ public class Table {
                                     Integer troid, Data data) {
             _this.notifyColumnInfo((ColumnInfoData)data);
           }
+
+          public void notifyUncached(Table table) {
+            _this.clearColumnInfoCaches();
+          }
         });
+  }
+
+  private void clearColumnInfoCaches() {
+    defaultOrderByClause = null;
+    recordDisplayColumns = null;
+    summaryDisplayColumns = null;
+    searchCriterionColumns = null;
   }
 
   void notifyColumnInfo(ColumnInfoData data) {
     // FIXME data == null means deleted: effect is too broad really
     if (data == null ||
-        ((ColumnInfoData)data).tableinfo.equals(tableInfoID())) {
-      defaultOrderByClause = null;
-      recordDisplayColumns = null;
-      summaryDisplayColumns = null;
-      searchCriterionColumns = null;
-    }
+        ((ColumnInfoData)data).tableinfo.equals(tableInfoID()))
+      clearColumnInfoCaches();
   }
 
   // 
@@ -609,7 +617,9 @@ public class Table {
 
   void uncacheContents() {
     cache.uncacheContents();
-    allTroids.uncacheContents();
+    TableListener[] listeners = this.listeners;
+    for (int l = 0; l < listeners.length; ++l)
+      listeners[l].notifyUncached(this);
   }
 
   void trimCache(int maxSize) {
@@ -692,10 +702,8 @@ public class Table {
   // -----------
   // 
 
-  private ResultSet selectionResultSet(
-      String whereClause, String orderByClause, boolean includeDeleted,
-      PoemSession session)
-          throws SQLPoemException {
+  String selectionSQL(String whereClause, String orderByClause,
+                      boolean includeDeleted) {
     if (deletedColumn != null && !includeDeleted)
       whereClause =
           (whereClause == null || whereClause.equals("") ?
@@ -707,7 +715,7 @@ public class Table {
 
     // FIXME must work in some kind of limit
       
-    String sql =
+    return
         "SELECT " + troidColumn.quotedName() +
         " FROM " + quotedName +
         (whereClause == null || whereClause.equals("") ?
@@ -715,7 +723,15 @@ public class Table {
         // actually orderByClause is never null (since fallback is id)
         (orderByClause == null || orderByClause.equals("") ?
              "" : " ORDER BY " + orderByClause);
+  }
 
+  private ResultSet selectionResultSet(
+      String whereClause, String orderByClause, boolean includeDeleted,
+      PoemSession session)
+          throws SQLPoemException {
+
+    String sql = selectionSQL(whereClause, orderByClause, includeDeleted);
+            
     try {
       Connection connection;
       if (session == null)
@@ -749,13 +765,10 @@ public class Table {
   }
 
   protected void rememberAllTroids(boolean flag) {
-    allTroids = !flag ? null :
-        new PoemFloatingVersionedObject(getDatabase()) {
-          protected Version backingVersion(Session session) {
-            return EnumUtils.versionVectorOf(
-                       troidSelection(null, null, false, (PoemSession)session));
-          }
-        };
+    // FIXME can't actually cancel since would have to remove PS from observers
+
+    if (flag && allTroids == null)
+      allTroids = new PreparedSelection(this, null, null);
   }
 
   protected void setCacheLimit(Integer limit) {
@@ -778,14 +791,13 @@ public class Table {
   Enumeration troidSelection(String whereClause, String orderByClause,
                              boolean includeDeleted)
       throws SQLPoemException {
-    PoemSession session = PoemThread.session();
-    PoemFloatingVersionedObject allTroids = this.allTroids;
+    PreparedSelection allTroids = this.allTroids;
     if (allTroids != null &&
         whereClause == null && orderByClause == null && !includeDeleted)
-      return ((Vector)allTroids.versionForReading(session)).elements();
+      return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
-                            session);
+                            PoemThread.session());
   }
 
   /**
@@ -1213,9 +1225,6 @@ public class Table {
    */
 
   protected void notifyTouched(PoemSession session, Integer troid, Data data) {
-    PoemFloatingVersionedObject allTroids = this.allTroids;
-    if (allTroids != null)
-      allTroids.invalidateVersion(session);
     TableListener[] listeners = this.listeners;
     for (int l = 0; l < listeners.length; ++l)
       listeners[l].notifyTouched(session, this, troid, data);
@@ -1284,6 +1293,39 @@ public class Table {
       columns[c].dump();
   }
 
+  public PreparedSelection cachedSelection(String whereClause,
+                                           String orderByClause) {
+    String key = whereClause + "/" + orderByClause;
+    PreparedSelection them = (PreparedSelection)cachedSelections.get(key);
+    if (them == null) {
+      PreparedSelection newThem =
+          new PreparedSelection(this, whereClause, orderByClause);
+      synchronized (cachedSelections) {
+	them = (PreparedSelection)cachedSelections.get(key);
+	if (them == null)
+	  cachedSelections.put(key, them = newThem);
+      }
+    }
+
+    return them;
+  }
+
+  public RestrictedReferencePoemType cachedSelectionType(
+      String whereClause, String orderByClause, boolean nullable) {
+    return new RestrictedReferencePoemType(
+               cachedSelection(whereClause, orderByClause), nullable);
+  }
+
+  public Field cachedSelectionField(
+      String whereClause, String orderByClause, boolean nullable,
+      Object ident, String name) {
+    return new Field(
+        ident,
+        new BaseFieldAttributes(name,
+				cachedSelectionType(whereClause,
+						    orderByClause, nullable)));
+  }
+
   // 
   // ================
   //  Initialization
@@ -1330,7 +1372,7 @@ public class Table {
     }
 
     column.setTable(this);
-    columns = (Column[])Array.added(columns, column);
+    columns = (Column[])ArrayUtils.added(columns, column);
     columnsByName.put(column.getName(), column);
   }
 
@@ -1550,6 +1592,6 @@ public class Table {
   }
 
   public void addListener(TableListener listener) {
-    listeners = (TableListener[])Array.added(listeners, listener);
+    listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
 }

@@ -10,6 +10,9 @@ public class LogicalDatabase {
 
   private LogicalDatabase() {}
 
+  public static final String className =
+      new LogicalDatabase().getClass().getName();
+
   private static final String databaseDefsName =
       "org.melati.LogicalDatabase.properties";
 
@@ -34,23 +37,17 @@ public class LogicalDatabase {
       if (database == null) {
         try {
           Properties defs = databaseDefs();
-          String pref = "org.melati.LogicalDatabase." + name + ".";
+          String pref = className + "." + name + ".";
           String url = PropertiesUtils.getOrDie(defs, pref + "url");
           String user = PropertiesUtils.getOrDie(defs, pref + "user");
           String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
           String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-          String driver = PropertiesUtils.getOrDie(defs, pref + "driver");
+          String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
 
-          try {
-            DriverManager.getDriver(url);
-          }
-          catch (SQLException e) {
-            DriverManager.registerDriver(
-                (Driver)Class.forName(driver).newInstance());
-          }
+	  Driver driver = (Driver)Class.forName(driverName).newInstance();
 
           database = (Database)Class.forName(clazz).newInstance();
-          database.connect(url, user, pass);
+          database.connect(driver, url, user, pass);
         }
         catch (Exception e) {
           throw new DatabaseInitException(name, e);

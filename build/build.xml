@@ -54,6 +54,7 @@
     <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
     <pathelement path="${build.lib}/odmg3.jar" />
     <pathelement path="${build.lib}/junit.jar" />
+    <pathelement path="${build.lib}/mockobjects-core-0.09.jar" />
   </path>
 
   <path id="classpath.jetty">
@@ -524,9 +525,11 @@ usage:
     <!-- Run Unit tests                                                 -->
     <!-- ============================================================== -->
   <target name="unittest" description="run functional tests" depends="compile">
-    <junit printsummary="yes" haltonfailure="yes">
+    <junit printsummary="on" haltonfailure="yes" filtertrace="off" showoutput="true">
+	<formatter type="plain"/>
       <classpath>
         <pathelement path="${compiled.root}"/>
+		<pathelement path="${build.lib}/mockobjects-core-0.09.jar" />
       </classpath>
       <test name="org.melati.AllUnitTests"/>
     </junit>

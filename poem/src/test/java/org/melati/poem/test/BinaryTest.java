@@ -65,7 +65,7 @@ public class BinaryTest {
                       "Nothing in there" :
                       "Found " + new String(aThing.getBinaryfield()));
 
-							Athing bThing = (Athing)db.getAthingTable().newPersistent();
+              Athing bThing = (Athing)db.getAthingTable().newPersistent();
               bThing.setBinaryfield(new byte[] { 98, -3, -120 });
               bThing.makePersistent();
             }

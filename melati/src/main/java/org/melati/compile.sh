@@ -40,4 +40,4 @@ fi
               "in the following lines:\n\n$wronglines\n\n" \
               "You must use JDK1.2 with Melati now, so you should change them to jdbc2."
 
-$JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/jdbc2/}}*.java
+$JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/jdbc2/},util/}*.java

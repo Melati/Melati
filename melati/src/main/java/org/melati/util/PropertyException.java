@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import java.util.Properties ;
+import java.util.Properties;
 
 /**
  * Thrown when any <code>Property</code> related problem occurs.

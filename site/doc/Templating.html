@@ -34,10 +34,12 @@
   and records.
 </P>
 
+<!-- Not sure what this is supposed to be but its broken
 <P>
   See also 
       <A HREF=../admin/doc/UserGuide.html><TT>org.melati.admin</TT></A>
 </P>
+-->
 
 
 <H3>
@@ -151,7 +153,7 @@
 </P>
 
 <P>
-  The functionality is: compute the field's localised &#145;cooked string&#146;
+  The functionality is: compute the field's localised &lsquo;cooked string&rsquo;
   representation; size-limit it; escape it for the doc-body context.
 </P>
 
@@ -165,7 +167,7 @@
   <LI>
     <P>
       The locale is set up when the <TT>MarkupLanguage</TT> is constructed:
-      at present it's always &#145;UK&#146;.
+      at present it's always &lsquo;UK&rsquo;.
     </P>
   <LI>
     <P>
@@ -177,7 +179,7 @@
     <P>
       The size limit is generally 10M, and is only meant to prevent
       out-of-memory errors.  There is a variant which limits to 50&nbsp;chars,
-      for &#145;short displays&#146; such as the admin system browse lists.
+      for &lsquo;short displays&rsquo; such as the admin system browse lists.
     </P>
 </UL>
 
@@ -202,7 +204,7 @@
 
 <P>
   Rendering of an input box, dropdown, <I>etc.</I> appropriate for entering the
-  value of a POEM <TT>Field</TT>.  This has always used a &#145;templet&#146;
+  value of a POEM <TT>Field</TT>.  This has always used a &lsquo;templet&rsquo;
   mechanism similar to that used for exceptions: a markup language-specific
   directory is searched for a templet named after the <TT>PoemType</TT> of the
   field, except that the templet name can also be set explicitly in the field's
@@ -244,8 +246,8 @@
     </P>
   <LI>
     <P>
-      &#145;What are we rendering&#146; and &#145;what context are we rendering
-      in&#146; are essentially orthogonal considerations.  This is actually
+      &lsquo;What are we rendering&rsquo; and &lsquo;what context are we rendering
+      in&rsquo; are essentially orthogonal considerations.  This is actually
       handled quite well in the current implementation, where
       <TT>HTMLMarkupLanguage</TT> will give you an
       <TT>AttributeHTMLMarkupLanguage</TT> as one of its properties.  However,
@@ -265,7 +267,7 @@
 </H2>
 
 <P>
-  The idea of making &#145;Melati&#146; essentially a utility object
+  The idea of making &lsquo;Melati&rsquo; essentially a utility object
   (<TT>$melati</TT>) accessible within templates still seems a good one.
   However,
 </P>
@@ -284,8 +286,8 @@
     </P>
   <LI>
     <P>
-      It should be simpler.  There are rather a lot of &#145;here's one I
-      found handy once&#146; methods floating around.
+      It should be simpler.  There are rather a lot of &lsquo;here's one I
+      found handy once&rsquo; methods floating around.
     </P>
   <LI>
     <P>
@@ -299,13 +301,13 @@
     </P>
   <LI>
     <P>
-      It should make the &#145;current object&#146; feature a bit more
+      It should make the &lsquo;current object&rsquo; feature a bit more
       optional.  In particular the logical database should probably be
       configurable in a <TT>.properties</TT> file.
     </P>
   <LI>
     <P>
-      It should make it easy to say &#145;make me a dropdown&#146; without
+      It should make it easy to say &lsquo;make me a dropdown&rsquo; without
       having to know what a <TT>Field</TT> is.
     </P>
 </UL>
@@ -386,6 +388,9 @@
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.8  2003/04/15 02:26:39  jimw
+  <BR>Largely cosmetic fixes
+  <BR>
   <BR>Revision 1.7  2002/12/13 01:12:06  timp
   <BR>Auto save prior to moving
   <BR>

@@ -48,6 +48,7 @@
 package org.melati;
 
 import java.net.URLEncoder;
+import org.webmacro.*;
 import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
 import org.melati.util.*;
@@ -56,8 +57,9 @@ import org.melati.templets.*;
 
 public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
-  public HTMLLikeMarkupLanguage(String name, WebContext webContext,
-			    TempletLoader templetLoader, MelatiLocale locale) {
+  public HTMLLikeMarkupLanguage(String name, Context webContext,
+                                TempletLoader templetLoader,
+                                MelatiLocale locale) {
     super(name, webContext, templetLoader, locale);
   }
   
@@ -71,11 +73,7 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
   }
 
   public String escaped(String s) {
-    return StringUtils.escaped(s, '"');
-  }
-
-  public String rendered(Exception e) {
-    return "[" + rendered(e.toString()) + "]";
+    return HTMLUtils.jsEscaped(s);
   }
 
   public String encoded(String s) {

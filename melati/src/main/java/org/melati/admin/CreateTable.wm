@@ -65,9 +65,9 @@
       <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
-	    $ml.rendered($field.DisplayName)
+	    <b>$ml.rendered($field.DisplayName)</B>
 	  #end #else #begin
-	    <B>$ml.rendered($field.DisplayName)</B>
+	    <B><font color=red>$ml.rendered($field.DisplayName)</font></B>
 	  #end
 	</font><FONT SIZE="-2" FACE="Arial, Helvetica">
 	      #if ($field.Description) #begin

@@ -103,6 +103,15 @@ public class Admin extends MelatiServlet {
     context.put("table", table);
     return adminTemplate(context, "Bottom.wm");
   }
+  
+  // return the 'left' admin page
+  protected Template leftTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    context.put("database", PoemThread.database());
+    final Table table = melati.getTable();
+    context.put("table", table);
+    return adminTemplate(context, "Left.wm");
+  }
 
   // return primary select template
   protected Template primarySelectTemplate(WebContext context, Melati melati)
@@ -509,6 +518,8 @@ public class Admin extends MelatiServlet {
     else if (melati.getTable() != null) {
       if (melati.getMethod().equals("Bottom"))
     	return bottomTemplate(context, melati);
+      if (melati.getMethod().equals("Left"))
+    	return leftTemplate(context, melati);
       if (melati.getMethod().equals("PrimarySelect"))
     	return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))

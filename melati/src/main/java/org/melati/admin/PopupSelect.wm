@@ -68,6 +68,13 @@ function checkAndClose(object) {
   else
     return false;
 }
+
+function popupupdate(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+}
 --The End--
 //-->
 </script>

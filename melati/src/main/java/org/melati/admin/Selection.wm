@@ -55,6 +55,7 @@
 <center>
 
 <BODY BGCOLOR="#eeeeee" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<form>
 #if ($results) #begin
 #if ($results.PrevPageStart) #begin
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="&lt;&lt; Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>#end
@@ -96,5 +97,5 @@ $results.TotalCount</b>
 
 </CENTER>
 
-</BODY>
+</form></BODY>
 </HTML>

@@ -59,26 +59,53 @@ function get_list() {
 parent.admin_selection.location.href = newURL;
 return false;
 }
+function goto_page() {
+var selector;
+selector = document.forms[0].elements[0];
+var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+if (option != "null") parent["admin_selection"].location = option;
+return false;
+}
 // -->
 --The End--
 </SCRIPT>
 </HEAD>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="get_list()">
-<FORM METHOD=GET action=$admin.SelectionURL($table) target=admin_selection>
 #if ($primaryCriterion) #begin
-  <table cellspacing=0 cellpadding=0><tr>
+<FORM METHOD=GET action=$admin.SelectionURL($table) target=admin_selection>
+  <table cellspacing=0 cellpadding=0 border=0><tr>
   <td></td>
   <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</font></td>
   </tr><tr><td><FONT face="Arial, Helvetica" size=-1>
   #if ($admin.isReferencePoemType($primaryCriterion)) #begin
     <a href='$admin.addURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
+  </td><td>
+
+<SELECT NAME="field-$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
+  #foreach $poss in $primaryCriterion.First1000Possibilities #begin
+    <OPTION VALUE="$admin.SelectionURL($table)?field-$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+      #if ($poss.sameRawAs($primaryCriterion)) #begin
+        SELECTED
+      #end
+    >
+      #if ($poss.RawString.equals("") && $nullValue) #begin
+        $ml.rendered($nullValue)
+      #end #else #begin
+        $ml.renderedString($poss)
+      #end
+    </OPTION>
   #end
+</SELECT>
+<input type=button value=" Go " onclick="goto_page()">
+  #end #else #begin
   </td><td>
   <FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)
-  <INPUT NAME=action VALUE=" Go " TYPE=submit></font></td></tr></table>
+  <INPUT NAME=action VALUE=" Go " TYPE=submit>
 #end
+</font></td></tr></table>
 </FORM>
+#end
 
 </BODY>
 </HTML>

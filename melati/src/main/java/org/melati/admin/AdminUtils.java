@@ -73,6 +73,11 @@ public class AdminUtils {
            "/Bottom";
   }
   
+  public String LeftURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/Left";
+  }
+  
   public String PrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
            "/PrimarySelect";

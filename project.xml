@@ -216,16 +216,6 @@ subscribe.melati@messageboards.paneris.org
       <timezone>-8</timezone>
     </developer>
     <developer>
-      <name>Vasily Pozhidaev</name>
-      <id>vasilyp</id>
-      <email>vasilyp@paneris.org</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+11</timezone>
-    </developer>
-    <developer>
       <name>Samuel Goldstein</name>
       <id>samuelg</id>
       <email>gamuelg@paneris.org</email>
@@ -234,6 +224,16 @@ subscribe.melati@messageboards.paneris.org
         <role>Developer</role>
       </roles>
       <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <name>Vasily Pozhidaev</name>
+      <id>vasilyp</id>
+      <email>vasilyp@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+11</timezone>
     </developer>
     <developer>
       <name>Peter Kehl</name>

@@ -22,7 +22,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   * semantics are essentially the same as the traditional ones until configured
   * otherwise.  You can get the hacked version by anonymous CVS from melati.org
   * (see the <A
-  * HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
+  * HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
   * guide</A>).
   */
 
@@ -252,6 +252,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
       AccessPoemException accessException = (AccessPoemException)underlying;
 
+      accessException.printStackTrace();
+
       HttpServletRequest request = context.getRequest();
       HttpServletResponse response = context.getResponse();
 
@@ -259,11 +261,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
       session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
                        new HttpServletRequestParameters(request));
-
-      if (accessException != null)
-        session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
-      else
-        session.removeValue(Login.TRIGGERING_EXCEPTION);
+      session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
 
       try {
         response.sendRedirect(loginPageURL(request));

@@ -140,6 +140,8 @@ public abstract class FieldDef {
       return new BooleanFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("String"))
       return new StringFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("Date"))
+      return new DateFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("ColumnType"))
       return new ColumnTypeFieldDef(table, name, displayOrder, qualifiers);
     else

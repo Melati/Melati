@@ -75,7 +75,7 @@ public class Logout extends TemplateServlet {
     } else {
       context.put("continuationURL", returnURL);
     }
-    session.removeAttribute(HttpSessionAccessHandler.USER);
+    session.removeValue(HttpSessionAccessHandler.USER);
 
     return logoutSuccessTemplate();
   }

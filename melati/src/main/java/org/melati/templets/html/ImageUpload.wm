@@ -51,7 +51,7 @@
          VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 <br>
-<img src="$field.RawString" width=40 height=40 name=$ml.escaped($field.Name) align=top>
+<a href="#" onClick="popup = window.open('$field.RawString','Zoom','scrollbars=yes,width=650,height=450');popup.focus()"><img src="$field.RawString" width=40 height=40 name=$ml.escaped($field.Name) align=top border=0></a>
 <a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
 
 

@@ -1,6 +1,6 @@
 package org.melati.example.contacts;
 
-import org.melati.example.contacts.generated.*;
+import org.melati.example.contacts.generated.ContactBase;
 import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.servlet.MelatiContext;
@@ -37,7 +37,8 @@ public class Contact extends ContactBase implements Treeable {
   }
     
   public Treeable[] getChildren() {
-    return (Contact.arrayOf(getContactTable().getOwnerColumn().selectionWhereEq(troid())));
+    return (Contact.arrayOf(getContactTable().getOwnerColumn().
+                                                   selectionWhereEq(troid())));
   }
   
   public static Treeable[] arrayOf(Vector v) {

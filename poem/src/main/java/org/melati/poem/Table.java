@@ -1076,6 +1076,7 @@ public class Table {
       if (database.logSQL)
         database.log(new SQLLogEvent(sql));
       rs.next();
+      rs.close();
       return rs.getInt(1);
     }
     catch (SQLException e) {
@@ -1190,6 +1191,22 @@ public class Table {
     return new Integer(nextTroid++);
   }
 
+  public static class AccessibleCreationException extends AccessPoemException {
+    public AccessibleCreationException(AccessPoemException e) {
+      super(e);
+    }
+
+    public String getActionDescription() {
+      return "create an object which can only be accessed by users with the " +
+             "capability " + capability;
+    }
+
+    public String getMessage() {
+      return "You cannot " + getActionDescription() + " since your access " +
+             "token " + token + " doesn't confer that capability";
+    }
+  }
+
   public void create(Persistent persistent)
       throws AccessPoemException, ValidationPoemException,
              InitialisationPoemException {
@@ -1203,7 +1220,6 @@ public class Table {
                                             canCreate);
 
     claim(persistent, troidFor(persistent));
-
     persistent.setStatusNonexistent();
 
     // Are the values they have put in legal; is the result something they
@@ -1211,7 +1227,16 @@ public class Table {
 
     try {
       validate(persistent);
+    }
+    catch (Exception e) {
+      throw new InitialisationPoemException(this, e);
+    }
+
+    try {
       persistent.assertCanWrite(sessionToken.accessToken);
+    }
+    catch (AccessPoemException e) {
+      throw new AccessibleCreationException(e);
     }
     catch (Exception e) {
       throw new InitialisationPoemException(this, e);

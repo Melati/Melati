@@ -144,6 +144,10 @@ public class Melati {
     return melatiContext;
   }
 
+  public MelatiLocale getLocale() {
+    return locale;
+  }
+
   public String getMethod() {
     return getContext().method;
   }

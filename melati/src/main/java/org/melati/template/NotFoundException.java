@@ -50,20 +50,34 @@ import org.melati.util.MelatiException;
 /**
  * You asked for something that is not currently available.
  */
-
 public class NotFoundException extends TemplateEngineException {
 
 
+ /**
+  * Construct this decorator.
+  * 
+  * @param underlying the exception we are decorating.
+  */
   public NotFoundException(Exception underlying) {
     super(underlying);
     message = underlying.toString();
   }
 
+ /**
+  * Construct this Exception with an informational snippet.
+  * 
+  * @param message to the user.
+  */
   public NotFoundException(String message) {
     super(message);
   }
 
+ /**
+  * Retrieve the object message. 
+  * 
+  * @return the message created when this object was constructed.
+  */
   public String getMessage() {
-    return "I couldn't find the template requested because: " + message;
+    return message;
   }
 }

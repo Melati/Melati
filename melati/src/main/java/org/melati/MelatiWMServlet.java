@@ -287,7 +287,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    WebContext wc = _wc.clone(req,resp);
+    WebContext wc = _wc.newInstance(req,resp);
     try {
       doRequest(wc);
     }
@@ -300,7 +300,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
       throws ServletException, IOException {
     if (_wc == null)
       init();
-    doRequest(_wc.clone(req,resp));
+    doRequest(_wc.newInstance(req,resp));
   }
 
    protected void doRequest(WebContext context)

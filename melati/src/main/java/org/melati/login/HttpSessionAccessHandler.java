@@ -144,7 +144,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
       if (oldParams != null) {
         session.removeValue(OVERLAY_PARAMETERS);
         try {
-          context = context.clone(
+          context = context.newInstance(
               new ReconstructedHttpServletRequest(oldParams,
                                                   context.getRequest()),
               context.getResponse());

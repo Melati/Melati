@@ -72,7 +72,13 @@ public class DbmsCaseTest extends TestCase {
     userControl.expectAndReturn("getTroid",new Integer(42));
     AnsiStandard unit = new AnsiStandard();
     String actual = unit.givesCapabilitySQL((Persistable)userControl.proxy(),"hello");
-    String expected = "SELECT * FROM \"groupmembership\" WHERE \"user\" = 42 AND EXISTS ( SELECT \"groupcapability\".\"group\" FROM \"groupcapability\" WHERE \"groupcapability\".\"group\" = \"groupmembership\".\"group\" AND \"capability\" = hello)";
+    String expected = "SELECT * FROM \"groupmembership\" " + 
+                      "WHERE \"user\" = 42 AND " + 
+                      "EXISTS ( SELECT \"groupcapability\".\"group\" " + 
+                      "FROM \"groupcapability\" WHERE " + 
+                      "\"groupcapability\".\"group\" = " + 
+                      "\"groupmembership\".\"group\" AND " + 
+                      "\"capability\" = hello)";
     assertEquals(expected,actual);
   } 
   

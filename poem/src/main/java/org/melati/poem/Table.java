@@ -1292,13 +1292,8 @@ public class Table {
     // up any inconsistencies like duplicated unique fields
 
     synchronized (cache) {
-      try {
-        persistent.dirty = true;
-        writeDown(sessionToken.transaction, persistent);
-      }
-      catch (Exception e) {
-        throw new InitialisationPoemException(this, e);
-      }
+      persistent.dirty = true;
+      writeDown(sessionToken.transaction, persistent);
 
       // OK, it worked.  Plug the object into the cache.
 

@@ -53,6 +53,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
 
 import org.melati.Melati;
+import org.melati.util.MelatiWriter;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.MultipartTemplateContext;
@@ -82,7 +83,7 @@ public abstract class TemplateServlet extends PoemServlet {
     try {
       templateEngine = melatiConfig.getTemplateEngine();
       if (templateEngine != null)
-        templateEngine.init();
+        templateEngine.init(config);
     } catch (TemplateEngineException e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
@@ -165,19 +166,22 @@ public abstract class TemplateServlet extends PoemServlet {
   public void error(Melati melati, Exception e ) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (!(e instanceof TrappedException)) {
-      // log it
-      e.printStackTrace(System.err);
-      // and put it on the page
-      TemplateContext templateContext = melati.getTemplateContext();
-      templateContext.put("melati",melati);
-      StringWriter sw = new StringWriter();
-      e.printStackTrace(new PrintWriter(sw));
-      templateContext.put("error",sw);
-      templateContext.put("SysAdminName",getSysAdminName());
-      templateContext.put("SysAdminEmail",getSysAdminEmail());
-      String templateName = addExtension("error");
       try {
-        templateEngine.expandTemplate(melati.getWriter(), 
+      // log it
+        e.printStackTrace(System.err);
+        // and put it on the page
+        MelatiWriter mw =  melati.getWriter();
+        // get rid of anything that has been written so far
+        mw.reset();
+        TemplateContext templateContext = melati.getTemplateContext();
+        templateContext.put("melati",melati);
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        templateContext.put("error",sw);
+        templateContext.put("SysAdminName",getSysAdminName());
+        templateContext.put("SysAdminEmail",getSysAdminEmail());
+        String templateName = addExtension("error");
+        templateEngine.expandTemplate(mw, 
                                       templateName,
                                       templateContext);
         melati.write();

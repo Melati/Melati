@@ -107,6 +107,8 @@ public abstract class TemplateServlet extends PoemServlet {
     TemplateContext templateContext =
                         templateEngine.getTemplateContext(melati);
 
+    melati.setTemplateContext(templateContext);
+    
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
     String contentType = melati.getRequest().getHeader("content-type");

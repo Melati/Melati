@@ -50,7 +50,6 @@ import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.NotFoundException;
 import org.melati.template.TemplateContext;
-import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiStringWriter;
@@ -95,7 +94,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * Get the generic parameters for WebMacro.
    *
    * @param melati the {@link Melati}
-   * @return a {@link ServletTemplateContext}
+   * @return a {@link TemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati) {
     Context context = new Context(wm.getBroker());
@@ -159,7 +158,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param templateName    the name of the template to expand
-   * @param templateContext the {@link ServletTemplateContext} to expand 
+   * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
@@ -181,7 +180,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param template        the {@link org.melati.template.Template} to expand
-   * @param templateContext the {@link ServletTemplateContext} to expand 
+   * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
@@ -207,7 +206,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * Expand the Template against the context and return it as a string.
    *
    * @param template        the {@link org.melati.template.Template} to expand
-   * @param templateContext the {@link ServletTemplateContext} to expand 
+   * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */

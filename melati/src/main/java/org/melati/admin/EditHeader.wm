@@ -56,8 +56,8 @@
  <tr>
   <td valign="top">
    <FONT FACE="Arial, Helvetica" size=2><IMG src="/melati-static/admin/file.gif">&nbsp;$table.DisplayName:
-<a href="JavaScript:void(0);"
-onClick="return parent[1].location='$admin.EditURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL';">
+<a href= "$admin.EditURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
+target=admin_edit>
 $ml.rendered($object)</a>
    </font>
   </td>
@@ -68,7 +68,7 @@ $ml.rendered($object)</a>
     <font FACE="Arial, Helvetica" size=-1>
      for this record you can edit:<br>
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object">$column.Table.DisplayName</a>&nbsp;]
+[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>
    </p>

@@ -75,17 +75,32 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
   #foreach $field in $fields #begin
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     <TR>
-	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
-        #if ($field.Type.Nullable) #begin
-	    <b>$ml.rendered($field.DisplayName)</B>
-	  #end #else #begin
-	    <B><font color=red>$ml.rendered($field.DisplayName)</font></B>
+     <TD><FONT SIZE="-1" FACE="Arial, Helvetica">
+       <B>
+       #if (!$field.Type.Nullable) #begin
+         <font color=red>
+         *
+         </font>
         #end
-      </font><FONT SIZE="-2" FACE="Arial, Helvetica">
+        #if ($admin.isReferencePoemType($field)) #begin
+         <a
+          #if ($field.Raw) #begin
+ href=$admin.RightURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)")
+          #end #else #begin
+ href=$admin.SelectionRightURL($field.Type.targetTable())
+          #end
+ target="admin_edit">
+        #end
+ $ml.rendered($field.DisplayName)
+        #if ($admin.isReferencePoemType($field)) #begin
+         </a>
+        #end
+       </B>
+      </FONT><FONT SIZE="-2" FACE="Arial, Helvetica">
       #if ($field.Description) #begin
 	($ml.rendered($field.Description))
       #end
-      </font></TD>
+      </FONT></TD>
     </TR>
     <TR><TD>
       <FONT SIZE="-1" FACE="Arial, Helvetica">

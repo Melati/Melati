@@ -49,4 +49,4 @@ fi
               "in the following lines:\n\n$wronglines\n\n" \
               "You must use JDK1.2 with Melati now, so you should change them to jdbc2."
 
-find "$hereRaw" -name '*.java' -print0 | xargs -0 $JAVAC
+find "$hereRaw" -path "$hereRaw/playing" -prune -o -name '*.java' -print0 | xargs -0 $JAVAC

@@ -51,14 +51,11 @@
 </HEAD>
 
 <BODY bgcolor="#cccccc">
-
-<CENTER>
-
-<P>
+<P align=center>
   You can't delete this record, because it is referred to by other records:
 </P>
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<TABLE CELLPADDING=0 CELLSPACING=0 ALIGN=center>
   <TR><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Table</font></I></TD><TD>&nbsp;&nbsp;</TD><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Troid</font></I></TD>
   #foreach $ref in $references #begin
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
@@ -73,8 +70,6 @@
     </TR>
   #end
 </TABLE>
-
-</CENTER>
 
 </BODY>
 </HTML>

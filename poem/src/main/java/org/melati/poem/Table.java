@@ -1488,7 +1488,7 @@ public class Table {
    * Return an SQL WHERE clause to select rows that match the non-null
    * fields of the given object.
    * <p>
-   * This does not filters out any rows with a capability the user
+   * This does not filter out any rows with a capability the user
    * does not have in a canselect column, nor did it ever filter
    * out rows deleted according to a "deleted" column.
    * But the caller usually gets a second chance to do both.

@@ -279,8 +279,12 @@ public abstract class PoemServlet extends ConfigServlet {
     );
   }
 
-  // default method to handle an exception without a template engine
-
+ /**
+  * Default method to handle an exception without a template engine.
+  *
+  * @param melati the Melati
+  * @param exception the exception to handle
+  */
   protected void handleException(Melati melati, Exception exception)
       throws Exception {
 
@@ -395,12 +399,10 @@ public abstract class PoemServlet extends ConfigServlet {
   }
 
   /**
-   * Override this method to build up your own output
+   * Override this method to build up your own output.
    *
-   * @param melati
-   * @return String
+   * @param melati 
    */
-
   protected abstract void doPoemRequest(Melati melati) throws Exception;
 
 }

@@ -68,8 +68,8 @@ import org.melati.poem.AccessPoemException;
  * 3 - void render(Object o, MelatiWriter w) - render the object to w.
  *
  * For maximum effieiency, render the object direct to the output stream using
- * method (2) above.  However, WebMacro throws errors on clals to void methods,
- * so we user (1) when writing Webmacro tempaltes (for the time being)
+ * method (2) above.  However, WebMacro throws errors on calls to void methods,
+ * so we use (1) when writing Webmacro templates (for the time being)
  */
 
 public abstract class MarkupLanguage {

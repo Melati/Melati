@@ -93,6 +93,25 @@
   <h2 id="Upgrading" name="Upgrading">Upgrading</h2>
   </a> 
 
+  <h3>To upgrade from Melati 0.7.4 to Melati 0.7.5</h3>
+  <ol>
+    <li> 
+  <p>
+   You will need to change references to org.melati.servlet.MelatiContext 
+   to org.melati.PoemContext and remove direct access to its members, use
+   the setters and getters. 
+  </p>
+    </li>
+  </ol>
+  <h3>To upgrade from Melati 0.7.3 to Melati 0.7.4</h3>
+  <ol>
+    <li> 
+  <p>
+  You will need to change <tt>melati-static</tt> to point to 
+  <tt>/dist/melati/src/main</tt>.
+  </p>
+    </li>
+  </ol>
   <h3>To upgrade from Melati 0.7.1 to Melati 0.7.3</h3>
   <ol>
     <li> 

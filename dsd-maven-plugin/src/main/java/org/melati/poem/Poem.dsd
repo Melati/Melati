@@ -57,12 +57,12 @@ table User
 
   Password password (size = 20)
       (description = "The user's password")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   String name (size = 60)
       (displayname = "Full name")
       (description = "The user's real name")
-      (displayorderpriority = 0) (primarydisplay) (indexed);
+      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary) (indexed);
 }
 
 table Group
@@ -75,7 +75,7 @@ table Group
 
   (unique) String name (size = 60)
       (description = "A human-readable name for the group")
-      (displayorderpriority = 0) (primarydisplay);
+      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
 }
 
 table Capability
@@ -88,7 +88,7 @@ table Capability
 
   (unique) String name (size = 60)
       (description = "A human-readable name for the capability")
-      (displayorderpriority = 0) (primarydisplay);
+      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
 }
 
 table GroupMembership
@@ -105,7 +105,8 @@ table GroupMembership
 
   Group group (displayorderpriority = 1)
       (displayname = "Group")
-      (description = "The group to which the user belongs");
+      (description = "The group to which the user belongs")
+      (searchability = primary);
 }
 
 table GroupCapability
@@ -117,7 +118,8 @@ table GroupCapability
   (primary) Integer id;
 
   Group group (displayorderpriority = 0)
-      (description = "The user-group which has the capability");
+      (description = "The user-group which has the capability")
+      (searchability = primary);
 
   Capability capability (displayorderpriority = 1)
       (description = "The capability");
@@ -135,54 +137,112 @@ table TableInfo
 
   (unique) String name (size = 50)
       (description = "A code-name for the table")
-      (uneditable) (summaryhidden) (criterionhidden);
+      (uneditable) (displaylevel = record) (searchability = no);
 
   String displayname (size = 60)
       (displayname = "Display name")
       (description = "A user-friendly name for the table")
-      (displayorderpriority = 1) (primarydisplay);
+      (displayorderpriority = 1) (displaylevel = primary);
 
   String description (size = unlimited) (nullable)
       (description = "A brief description of the table's function")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the table appears in the list of all tables")
       (displayorderpriority = 0)
-      (summaryhidden) (criterionhidden);
+      (displaylevel = summary);
 
   Capability defaultcanread (nullable)
       (displayname = "Default `read' capability")
       (description = "The capability required, by default, for reading the table's records")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   Capability defaultcanwrite (nullable)
       (displayname = "Default `write' capability")
       (description = "The capability required, by default, for updating the table's records")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   Capability cancreate (nullable)
       (displayname = "Default `create' capability")
       (description = "The capability required, by default, for creating records in the table")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   Integer cachelimit (nullable)
       (displayname = "Cache size limit")
       (description = "The maximum number of records from the table to keep in the cache")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   Boolean seqcached
       (displayname = "Record sequence cached")
       (description = "Whether the display sequence for the table's records is cached")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
   TableCategory category
       (description = "Which category the table falls into")
-      (summaryhidden);
+      (displaylevel = record) (searchability = primary);
 }
 
-table ColumnInfo
+abstract table ValueInfo {
+  String displayname (size = 60)
+      (displayname = "Display name")
+      (displayorder = 100)
+      (description = "A user-friendly name for the field")
+      (displayorderpriority = 2) (displaylevel = primary);
+
+  String description (size = unlimited) (nullable)
+      (description = "A brief description of the field's function")
+      (displaylevel = record) (searchability = no);
+
+  Boolean usereditable
+      (displayname = "User-editable")
+      (displayorder = 200)
+      (description = "Whether it makes sense for the user to update the field's value")
+      (displaylevel = detail) (searchability = no);
+
+  ColumnType typefactory
+      (displayname = "Type")
+      (description = "The field's Melati type")
+      (displaylevel = detail) (searchability = no) (uneditable);
+      // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
+      // see BasePoemType.ofColumnInfo
+
+  Boolean nullable
+      (description = "Whether the field can be empty")
+      (displaylevel = detail) (searchability = no) (uneditable);
+
+  Integer size
+      (description = "For character fields, the maximum number of characters that can be stored")
+      (displaylevel = detail) (searchability = no) (uneditable);
+
+  Integer width
+      (displayname = "Input-box width")
+      (description = "A sensible width for text boxes used for entering the field, where appropriate")
+      (displaylevel = detail) (searchability = no);
+
+  Integer height
+      (displayname = "Input-box height")
+      (description = "A sensible height for text boxes used for entering the field, where appropriate")
+      (displaylevel = detail) (searchability = no);
+
+  String renderinfo (size = unlimited) (nullable)
+      (displayname = "Rendering information")
+      (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
+      (displaylevel = detail) (searchability = no);
+
+  String rangelow_string (size = unlimited) (nullable)
+      (displayname = "Range: low")
+      (description = "The low end of the range of permissible values for the field")
+      (displaylevel = detail) (searchability = no);
+
+  String rangelimit_string (size = unlimited) (nullable)
+      (displayname = "Range: limit")
+      (description = "The (exclusive) limit of the range of permissible values for the field")
+      (displaylevel = detail) (searchability = no);
+}
+
+table ColumnInfo extends ValueInfo
     (displayorder = 3020)
     (displayname = "Column")
     (description = "Configuration information about a column in the database")
@@ -190,120 +250,49 @@ table ColumnInfo
     (cachelimit = unlimited)
     (seqcached) {
 
-  (primary) Integer id;
+  (primary) Integer id
+      (displayorder = 0);
 
   TableInfo tableinfo
       (displayname = "Owning table")
       (description = "The table to which the field belongs")
-      (displayorderpriority = 0)
+      (displayorderpriority = 0) (searchability = primary)
       (uneditable);
 
-  /* (unique with tableinfo) */
   (indexed) String name (size = 50)
+      (displayorder = 300)
       (description = "A code-name for the field")
-      (uneditable) (summaryhidden) (criterionhidden);
-
-  String displayname (size = 60)
-      (displayname = "Display name")
-      (description = "A user-friendly name for the field")
-      (displayorderpriority = 2) (primarydisplay);
-
-  String description (size = unlimited) (nullable)
-      (description = "A brief description of the field's function")
-      (summaryhidden) (criterionhidden);
+      (uneditable) (displaylevel = record) (searchability = no);
 
   Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the field appears in lists")
       (displayorderpriority = 1)
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no);
 
-  Boolean usereditable
-      (displayname = "User-editable")
-      (description = "Whether it makes sense for the user to update the field's value")
-      (summaryhidden) (criterionhidden);
-      
   Boolean usercreateable
       (displayname = "User-createable")
       (description = "Whether it makes sense for the user to initialise the field's value")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = detail) (searchability = no);
+
+  DisplayLevel displaylevel
+      (displaylevel = detail) (searchability = no);
+
+  Searchability searchability
+      (displaylevel = detail) (searchability = no);
       
-  Boolean recorddisplay
-      (displayname = "Record display")
-      (description = "Whether to show the field in full displays of a record")
-      (summaryhidden) (criterionhidden);
-
-  Boolean summarydisplay
-      (displayname = "Summary display")
-      (description = "Whether to show the field in summary displays")
-      (summaryhidden) (criterionhidden);
-
-  Boolean primarydisplay
-      (displayname = "Primary display")
-      (description = "Whether the field is used as a short representation of the whole record")
-      (criterionhidden);
-
-  Boolean searchcriterion
-      (displayname = "Search criterion")
-      (description = "Whether to offer the field as a criterion in searches")
-      (summaryhidden) (criterionhidden);
-
-  Boolean primarycriterion
-      (displayname = "Primary search criterion")
-      (description = "Whether the field is used as the main criterion in searches")
-      (summaryhidden) (criterionhidden);
-
   Integer displayorderpriority (nullable)
       (displayname = "Display order priority")
       (description = "If present, the level at which lists of records are sorted by the field")
-      (criterionhidden);
-
-  ColumnType type
-      (description = "The field's Melati type")
-      (criterionhidden) (uneditable);
-      // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
-      // see BasePoemType.ofColumnInfo
-
-  Boolean nullable
-      (description = "Whether the field can be empty")
-      (criterionhidden) (uneditable);
+      (searchability = no);
 
   Boolean indexed
       (description = "Whether the field is indexed (ignored if the field is marked `unique')")
-      (summaryhidden) (criterionhidden) (uneditable);
+      (displaylevel = record) (searchability = no) (uneditable);
 
   Boolean unique
       (description = "Whether the field is unique (implies that it's `indexed')")
-      (summaryhidden) (criterionhidden) (uneditable);
-
-  Integer size
-      (description = "For character fields, the maximum number of characters that can be stored")
-      (summaryhidden) (criterionhidden) (uneditable);
-
-  Integer width
-      (displayname = "Input-box width")
-      (description = "A sensible width for text boxes used for entering the field, where appropriate")
-      (summaryhidden) (criterionhidden);
-
-  Integer height
-      (displayname = "Input-box height")
-      (description = "A sensible height for text boxes used for entering the field, where appropriate")
-      (summaryhidden) (criterionhidden);
-
-  String renderinfo (size = unlimited) (nullable)
-      (displayname = "Rendering information")
-      (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
-      (summaryhidden) (criterionhidden);
-
-  String rangelow_string (size = unlimited) (nullable)
-      (displayname = "Range: low")
-      (description = "The low end of the range of permissible values for the field")
-      (summaryhidden) (criterionhidden);
-
-  String rangelimit_string (size = unlimited) (nullable)
-      (displayname = "Range: limit")
-      (description = "The (exclusive) limit of the range of permissible values for the field")
-      (summaryhidden) (criterionhidden);
+      (displaylevel = record) (searchability = no) (uneditable);
 }
 
 table TableCategory
@@ -318,38 +307,24 @@ table TableCategory
 
   (unique) String name (size = 60)
       (description = "A human-readable name for the category")
-      (displayorderpriority = 0) (primarydisplay);
+      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
 }
 
-table Setting
+table Setting extends ValueInfo
     (displayorder = 3040)
     (description = "A configurable setting for the application")
     (category = "System")
     (cachelimit = unlimited)
     (seqcached) {
 
-  (primary) Integer id;
-
-  ColumnType typefactory
-      (displayname = "Type")
-      (description = "The setting's Melati type")
-      (summaryhidden) (criterionhidden) (uneditable);
-      // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
-      // see BasePoemType.ofColumnInfo
+  (primary) Integer id
+      (displayorder = 0);
 
   (unique) String name (size = unlimited)
-      (description = "A code name for this setting");
+      (description = "A code name for this setting")
+      (searchability = primary);
 
-  String rawstring (size = unlimited)
-      (displayname = "Value")
+  (nullable) String value (size = unlimited)
+      (displayorder = 150)
       (description = "The value of this setting");
-
-  (unique) String displayname (size = unlimited)
-      (description = "A human-readable name for this setting")
-      (displayorderpriority = 0) (primarydisplay)
-      (summaryhidden);
-
-  String description (size = unlimited)
-      (description = "A description for this setting")
-      (criterionhidden) (summaryhidden);
 }

@@ -8,6 +8,7 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
 
   void postInitialise() {
     super.postInitialise();
+
     Database d = getDatabase();
     GroupCapabilityData admin =
         new GroupCapabilityData(d.getGroupTable().administratorsGroup(),

@@ -790,8 +790,22 @@ public class Persistent extends Transactioned implements Cloneable {
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).asField(this);
   }
+
+//   private static class FieldsEnumeration extends MappedEnumeration {
+//     private Persistent persistent;
+
+//     public FieldsEnumeration(Persistent persistent, Enumeration columns) {
+//       super(columns);
+//       this.persistent = persistent;
+//     }
+
+//     public Object mapped(Object column) {
+//       return ((Column)column).asField(persistent);
+//     }
+//   }
   
   private Enumeration fieldsOfColumns(Enumeration columns) {
+    // return new FieldsEnumeration(this, columns);
     final Persistent _this = this;
     return
         new MappedEnumeration(columns) {
@@ -799,11 +813,6 @@ public class Persistent extends Transactioned implements Cloneable {
             return ((Column)column).asField(_this);
           }
         };
-  }
-
-  private Field fieldOfColumn(Column column) {
-    final Persistent _this = this;
-    return column.asField(_this);
   }
 
   /**
@@ -829,6 +838,10 @@ public class Persistent extends Transactioned implements Cloneable {
     return fieldsOfColumns(getTable().getRecordDisplayColumns());
   }
 
+  public Enumeration getDetailDisplayFields() {
+    return fieldsOfColumns(getTable().getDetailDisplayColumns());
+  }
+
   public Enumeration getSummaryDisplayFields() {
     return fieldsOfColumns(getTable().getSummaryDisplayColumns());
   }
@@ -846,7 +859,7 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   public Field getPrimaryDisplayField() {
-    return fieldOfColumn(getTable().displayColumn());
+    return getTable().displayColumn().asField(this);
   }
 
   // 

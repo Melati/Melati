@@ -56,6 +56,7 @@ public class DumbPageEnumeration implements PageEnumeration {
   private int totalCount;
   private boolean totalCountIsMinimum;
   private Enumeration us;
+  private int currentPosition;
 
   public DumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int countHorizon) {
@@ -67,6 +68,7 @@ public class DumbPageEnumeration implements PageEnumeration {
                      EnumUtils.skip(base, countHorizon - (c + page.size()));
     totalCountIsMinimum = base.hasMoreElements();
     us = page.elements();
+	currentPosition = pageStart-1; 
   }
 
   public DumbPageEnumeration(SkipEnumeration base,
@@ -85,6 +87,7 @@ public class DumbPageEnumeration implements PageEnumeration {
   }
 
   public Object nextElement() {
+	currentPosition++;
     return us.nextElement();
   }
 
@@ -96,6 +99,10 @@ public class DumbPageEnumeration implements PageEnumeration {
 
   public int getPageStart() {
     return pageStart;
+  }
+
+  public int getCurrentPosition() {
+    return currentPosition;
   }
 
   public int getPageSize() {

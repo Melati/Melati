@@ -47,6 +47,7 @@ package org.melati.template.webmacro;
 
 import java.io.IOException;
 
+import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
@@ -56,6 +57,7 @@ import org.melati.template.TemplateEngine;
 import org.webmacro.servlet.WebContext;
 import org.webmacro.ContextException;
 import org.webmacro.FastWriter;
+import org.webmacro.WM;
 
 /**
  * Interface for a Template for use with Melati
@@ -68,12 +70,17 @@ public class WebmacroTemplate implements Template {
   public WebmacroTemplate(org.webmacro.Template t) {
     template = t;
   }
-  
+
+  /**
+   * @param out A {@link MelatiWebmacroWriter}.
+   */
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException {
+    MelatiWebmacroWriter mww = (MelatiWebmacroWriter)out;
     try {
-      FastWriter fw = ((MelatiFastWriter)out).getPeer();
+      FastWriter fw = mww.getFastWriter(engine);
       template.write(fw, (WebContext)templateContext.getContext());
+      mww.stopUsingFastWriter(fw);
     } catch (ContextException e) {
       throw new TemplateEngineException(e);
     } catch (IOException e) {

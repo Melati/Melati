@@ -392,6 +392,17 @@ public class Melati {
   }
 
   /**
+   * Get the URL for this request
+   *
+   * @return - the URL for this request
+   * @see org.melati.util.HttpUtil#servletURL
+   */
+
+  public String getServletURL() {
+    return HttpUtil.servletURL(getRequest());
+  }
+
+  /**
    * Get the URL for the JavascriptLibrary
    *
    * @return - the URL for the JavascriptLibrary

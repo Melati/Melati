@@ -46,6 +46,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 public class HttpUtil {
+
+  
   public static void appendZoneURL(
       StringBuffer url, HttpServletRequest request) {
     url.append(request.getScheme());
@@ -60,6 +62,14 @@ public class HttpUtil {
     appendRelativeZoneURL(url,request);
   }
 
+  /*
+   * Note that this function should return 
+   * http://host/zone from a request of form 
+   * http://host/zone/servlet/pathinfo?querystring
+   * on all servlet API versions 2.0 through 2.3
+   * In 2.0 the zone was returned in the ServletPath 
+   * it is now in the ContextPath.
+   */
   public static void appendRelativeZoneURL (
       StringBuffer url, HttpServletRequest request) {
     url.append(HttpServletRequestCompat.getContextPath(request));
@@ -72,6 +82,16 @@ public class HttpUtil {
   public static String zoneURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     appendZoneURL(url, request);
+    return url.toString();
+  }
+
+  public static String servletURL(HttpServletRequest request) {
+    StringBuffer url = new StringBuffer();
+    appendZoneURL(url, request);
+    String servlet = request.getServletPath();
+    if (servlet != null && !servlet.equals(""))
+      url.append(servlet.substring(
+                          servlet.lastIndexOf('/'), servlet.length()));
     return url.toString();
   }
 

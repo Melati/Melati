@@ -58,9 +58,6 @@ import org.melati.poem.Database;
  */
 public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  private static final Hashtable dirByDatabase = new Hashtable();
-  private static final Hashtable urlByDatabase = new Hashtable();
-
   /**
    * Get the parameters for the adaptor from the database and 
    * create it.

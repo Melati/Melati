@@ -48,23 +48,22 @@ package org.melati.template;
 import org.melati.util.MelatiException;
 
 /**
-  * You asked for something that is not currently available.
-  */
+ * You asked for something that is not currently available.
+ */
 
-public class NotFoundException extends MelatiException {
+public class NotFoundException extends TemplateEngineException {
 
-  String error;
-  
+
   public NotFoundException(Exception underlying) {
     super(underlying);
-    error = underlying.toString();
+    message = underlying.toString();
   }
 
-  public NotFoundException(String error) {
-    this.error = error;
+  public NotFoundException(String message) {
+    super(message);
   }
 
   public String getMessage() {
-    return "I couldn't find the template requested because: " + error;
+    return "I couldn't find the template requested because: " + message;
   }
 }

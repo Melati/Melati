@@ -172,7 +172,9 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     try {
       expandTemplate (out, template (templateName), templateContext);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException(e);
+      throw e;
+    } catch (Exception e2) {
+      throw new TemplateEngineException(e2);
     }
   }
 

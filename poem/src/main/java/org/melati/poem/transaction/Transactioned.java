@@ -129,8 +129,6 @@ public abstract class Transactioned {
 
   protected void writeLock(Transaction transaction) {
 
-    // System.err.println(this + ".writeLock(" + transaction + ")");
-
     if (transaction == null)
       throw new WriteCommittedException(this);
 
@@ -189,13 +187,13 @@ public abstract class Transactioned {
 
   protected synchronized void commit(Transaction transaction) {
     if (touchedBy != transaction)
-      throw new CrossTransactionCommitException();
+      throw new CrossTransactionCommitException(this);
     touchedBy = null;
   }
 
   protected synchronized void rollback(Transaction transaction) {
     if (touchedBy != transaction)
-      throw new CrossTransactionCommitException();
+      throw new CrossTransactionCommitException(this);
     touchedBy = null;
     valid = false;
   }

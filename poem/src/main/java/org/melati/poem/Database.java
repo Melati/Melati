@@ -359,12 +359,12 @@ abstract public class Database {
                                  if (session != null)
                                    session.close(true);
                                }
-                               catch (RuntimeException e) {
+                               catch (PoemException e) {
                                  if (session != null)
                                    session.close(false);
                                  throw e;
                                }
-                               catch (PoemException e) {
+                               catch (RuntimeException e) {
                                  if (session != null)
                                    session.close(false);
                                  throw e;

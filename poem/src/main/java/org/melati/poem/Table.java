@@ -2,6 +2,8 @@
  * $Source$
  * $Revision$
  *
+ * Copyright (C) 2000 William Chesters
+ * 
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
  *

@@ -130,6 +130,7 @@ table GroupMembership
     (displayorderpriority = 0)
     (displayname = "User")
     (description = "The user who belongs to the group")
+    (renderinfo = "SelectionWindow")
     (integrityfix = delete);
 
   Group group 

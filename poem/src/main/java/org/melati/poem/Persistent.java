@@ -10,7 +10,9 @@ public class Persistent extends Transactioned implements Cloneable {
   private boolean knownCanRead = false, knownCanWrite = false;
 
   boolean dirty = false;
-  boolean exists = false;
+
+  private static final int NONEXISTENT = 0, EXISTENT = 1, DELETED = 2;
+  private int status = NONEXISTENT;
 
   private Object[] extras = null;
 
@@ -24,15 +26,42 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   // 
-  // ---------------
-  //  Transactioned
-  // ---------------
+  // --------
+  //  Status
+  // --------
   // 
 
-  protected void load(Transaction transaction) {
+  final void setStatusNonexistent() {
+    status = NONEXISTENT;
+  }
+
+  final void setStatusExistent() {
+    status = EXISTENT;
+  }
+
+  final boolean statusNonexistent() {
+    return status == NONEXISTENT;
+  }
+
+  final boolean statusExistent() {
+    return status == EXISTENT;
+  }
+
+  // 
+  // ***************
+  //  Transactioned
+  // ***************
+  // 
+
+  private void assertNormalPersistent() {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
+    if (status == DELETED)
+      throw new RowDisappearedPoemException(this);
+  }
 
+  protected void load(Transaction transaction) {
+    assertNormalPersistent();
     table.load((PoemTransaction)transaction, this);
     // table will clear our dirty flag
   }
@@ -42,15 +71,14 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected void writeDown(Transaction transaction) {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-
+    assertNormalPersistent();
     table.writeDown((PoemTransaction)transaction, this);
     // table will clear our dirty flag
   }
 
   protected void writeLock(Transaction transaction) {
     if (troid != null) {
+      assertNormalPersistent();
       super.writeLock(transaction);
       dirty = true;
       table.notifyTouched((PoemTransaction)transaction, this);
@@ -62,27 +90,26 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   protected void readLock(Transaction transaction) {
-    super.readLock(transaction);
+    if (troid != null) {
+      assertNormalPersistent();
+      super.readLock(transaction);
+    }
   }
 
   protected void commit(Transaction transaction) {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-
+    assertNormalPersistent();
     super.commit(transaction);
   }
 
   protected void rollback(Transaction transaction) {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
-
+    assertNormalPersistent();
     super.rollback(transaction);
   }
 
   // 
-  // ------------
+  // ************
   //  Persistent
-  // ------------
+  // ************
   // 
 
   synchronized Object[] extras() {
@@ -145,9 +172,9 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   // 
-  // ================
+  // ----------------
   //  Access control
-  // ================
+  // ----------------
   // 
 
   protected void readLock(SessionToken sessionToken)
@@ -207,10 +234,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * Although this check can in theory be quite time-consuming, in practice
    * this isn't a problem, because the most recent access token for which the
    * check succeeded is cached; repeat accesses from within the same transaction
-   * are therefore quick.  And since the <TT>Table</TT> will always return a
-   * fresh <TT>Persistent</TT> whenever it is interrogated, that's virtually
-   * always the pattern, unless you explicitly store <TT>Persistent</TT>s in
-   * cross-transaction data structures.
+   * are therefore quick.
    *
    * <P>
    *
@@ -776,8 +800,7 @@ public class Persistent extends Transactioned implements Cloneable {
   public final void deleteAndCommit()
       throws AccessPoemException, DeletionIntegrityPoemException {
 
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
+    assertNormalPersistent();
 
     getDatabase().beginExclusiveLock();
     try {
@@ -792,7 +815,7 @@ public class Persistent extends Transactioned implements Cloneable {
       if (sessionToken.transaction != null)
         sessionToken.transaction.commit();
 
-      exists = false;
+      status = DELETED;
     }
     finally {
       getDatabase().endExclusiveLock();
@@ -804,8 +827,7 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public Persistent duplicated() throws AccessPoemException {
-    if (troid == null)
-      throw new InvalidOperationOnFloatingPersistentPoemException(this);
+    assertNormalPersistent();
 
     Persistent it = (Persistent)clone();
     getTable().create(it);
@@ -868,6 +890,7 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   public synchronized void invalidate() {
+    assertNormalPersistent();
     super.invalidate();
     extras = null;
   }
@@ -884,6 +907,7 @@ public class Persistent extends Transactioned implements Cloneable {
     it.extras = (Object[])extras().clone();
     it.reset();
     it.troid = null;
+    it.status = NONEXISTENT;
 
     return it;
   }

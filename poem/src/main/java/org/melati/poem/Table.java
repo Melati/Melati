@@ -493,9 +493,9 @@ public class Table {
           database.log(new SQLLogEvent(select.toString()));
 
         if (!rs.next())
-	  persistent.exists = false;
+	  persistent.setStatusNonexistent();
 	else {
-	  persistent.exists = true;
+	  persistent.setStatusExistent();
 	  for (int c = 0; c < columns.length; ++c)
 	    columns[c].load_unsafe(rs, c + 1, persistent);
 	}
@@ -591,11 +591,11 @@ public class Table {
     if (persistent.dirty) {
       troidColumn.setIdent_unsafe(persistent, persistent.troid());
 
-      if (persistent.exists)
+      if (persistent.statusExistent())
 	modify(transaction, persistent);
-      else {
+      else if (persistent.statusNonexistent()) {
 	insert(transaction, persistent);
-	persistent.exists = true;
+	persistent.setStatusExistent();
       }
 
       persistent.dirty = false;
@@ -707,7 +707,7 @@ public class Table {
       persistent = newPersistent();
       claim(persistent, troid);
       load(PoemThread.transaction(), persistent);
-      if (persistent.exists)
+      if (persistent.statusExistent())
 	synchronized (cache) {
 	  Persistent tryAgain = (Persistent)cache.get(troid);
 	  if (tryAgain == null)
@@ -717,7 +717,7 @@ public class Table {
 	}
     }
 
-    if (!persistent.exists)
+    if (!persistent.statusExistent())
       throw new NoSuchRowPoemException(this, troid);
 
     return persistent;
@@ -1063,7 +1063,7 @@ public class Table {
 
     claim(persistent, nextTroid());
 
-    persistent.exists = false;
+    persistent.setStatusNonexistent();
 
     // Are the values they have put in legal; is the result something they
     // could have created by writing into a record?

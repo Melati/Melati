@@ -687,8 +687,10 @@ public class Admin extends TemplateServlet {
    */
   protected String updateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
-    MelatiUtil.extractFields(context, melati.getObject());
-    melati.getObject().postEdit(false);
+    Persistent object = melati.getObject();
+    object.preEdit();
+    MelatiUtil.extractFields(context, object);
+    object.postEdit(false);
     return adminTemplate(context, "Update");
   }
 
@@ -701,7 +703,8 @@ public class Admin extends TemplateServlet {
    */
   protected String addUpdateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
-    create(melati.getTable(), context, melati);
+    Persistent object = create(melati.getTable(), context, melati);
+    context.put("object", object);
     return adminTemplate(context, "Update");
   }
 

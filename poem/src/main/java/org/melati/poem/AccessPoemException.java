@@ -79,4 +79,8 @@ public class AccessPoemException extends PoemException {
         (ad == null ? "" : " to " + ad) + " but your access token " +
         token + " doesn't confer it";
   }
+  
+  public AccessToken getToken() {
+    return token;
+  }
 }

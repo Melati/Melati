@@ -48,5 +48,12 @@ org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
 org.melati.LogicalDatabase.melatitest.user=postgres
 org.melati.LogicalDatabase.melatitest.pass=*
-org.melati.LogicalDatabase.melatitest.maxtransactions=8
+org.melati.LogicalDatabase.melatitest.maxtransactions=4
+
+org.melati.LogicalDatabase.contacts.class=org.melati.doc.example.contacts.ContactsDatabase
+org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
+org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
+org.melati.LogicalDatabase.contacts.user=postgres
+org.melati.LogicalDatabase.contacts.pass=*
+org.melati.LogicalDatabase.contacts.maxtransactions=4
 

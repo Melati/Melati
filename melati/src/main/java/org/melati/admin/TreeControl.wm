@@ -1,4 +1,4 @@
-#set $Response.ContentType = "text/html"
+#set $melati.ResponseContentType = "text/html"
 <HTML>
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage

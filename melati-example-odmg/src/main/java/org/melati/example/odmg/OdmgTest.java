@@ -14,7 +14,7 @@ public final class OdmgTest {
 
   private OdmgTest() {}
   
-  public static final void main(String[] argsIn)
+  public static void main(String[] argsIn)
     throws Exception {
 
     System.out.println("OdmgTest started:");

@@ -70,6 +70,10 @@ public final class ThrowingPrintWriter extends PrintWriter {
     this.description = description;
   }
 
+  /**
+   * Thrown if there is a problem writing to this 
+   * <code>ThowingPrintWriter</code>.
+   */
   public class TroubleException extends MelatiRuntimeException {
     public String getMessage() {
       return "An exception condition occurred writing to " +

@@ -159,6 +159,9 @@ public final class Cache {
   //   everything in the[ML]RU is in table as a HeldNode, and vv.
   //   heldNodes == length of the[ML]RU
 
+  /**
+   * Thrown if one or more problems are discovered with cache consistency.
+   */
   public class InconsistencyException extends MelatiRuntimeException {
     public Vector probs;
 
@@ -373,6 +376,9 @@ public final class Cache {
                invariantBreaches().elements());
   }
 
+  /**
+   * A class which enables reporting upon the state of the <code>Cache</code>.
+   */
   public class Info {
 
     private Info() {}

@@ -93,25 +93,37 @@ abstract public class Database {
    *
    * @param password    The password to go with the username.
    *
-   * @see java.sql.DriverManager
    * @see #sessionsMax()
    */
 
   public void connect(String url, String username, String password)
       throws PoemException {
+    try {
+      // FIXME this isn't quite as good as DriverManager.getConnection
+      connect(DriverManager.getDriver(url), url, username, password);
+    }
+    catch (SQLException e) {
+      throw new ConnectionFailurePoemException(e);
+    }
+  }
 
+  public void connect(Driver driver, String url,
+		      String username, String password) throws PoemException {
     if (committedConnection != null)
       throw new ReconnectionPoemException();
 
+    Properties info = new Properties();
+    if (username != null) info.put("user", username);
+    if (password != null) info.put("password", password);
+
     try {
-      committedConnection =
-          DriverManager.getConnection(url, username, password);
+      committedConnection = driver.connect(url, info);
       sessions = new Vector();
       for (int s = 0; s < sessionsMax(); ++s)
         sessions.addElement(
             new PoemSession(
                 this,
-                DriverManager.getConnection(url, username, password),
+                driver.connect(url, info),
                 s));
       freeSessions = (Vector)sessions.clone();
     }

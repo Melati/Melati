@@ -59,10 +59,24 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
     this.resultSet = resultSet;
   }
 
+  private int resultSetNext() throws SQLException {
+    if (resultSet.next())
+      return 1;
+    else {
+      try {
+	resultSet.close();
+      }
+      catch (Exception e) {}
+
+      return 0;
+    }
+  }
+
   public synchronized boolean hasMoreElements() {
     try {
       if (more == -1)
-        more = resultSet.next() ? 1 : 0;
+	more = resultSetNext();
+      
       return more == 1;
     }
     catch (SQLException e) {
@@ -76,7 +90,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
   public synchronized Object nextElement() throws NoSuchElementException {
     try {
       if (more == -1)
-        more = resultSet.next() ? 1 : 0;
+        more = resultSetNext();
 
       if (more == 0)
         throw new NoSuchElementException();
@@ -85,7 +99,7 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
         return mapped(resultSet);
       }
       finally {
-        more = resultSet.next() ? 1 : 0;
+        more = resultSetNext();
       }
     }
     catch (SQLException e) {
@@ -99,10 +113,10 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
   public synchronized void skip() throws NoSuchElementException {
     try {
       if (more == -1)
-        more = resultSet.next() ? 1 : 0;
+        more = resultSetNext();
       if (more == 0)
         throw new NoSuchElementException();
-      more = resultSet.next() ? 1 : 0;
+      more = resultSetNext();
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);

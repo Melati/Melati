@@ -138,7 +138,6 @@ public class Melati {
     this.request = request;
     this.response = response;
     this.config = config;
-    
   }
 
   /**
@@ -732,18 +731,21 @@ public class Melati {
 
   /**
    * Get a StringWriter.
-   * <p>
-   * Provided the possibility of getting a string writer from
-   * the template engine.
+   *
+   * @return - one of:
+   *
+   * - a MelaitStringWriter from the template engine
+   * - a new MelatiStringWriter
    *
    * @throws IOException if there is a problem with the writer
-   * @deprecated The best possible {@link MelatiWriter} that is like a
-   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
    */
   public MelatiWriter getStringWriter() throws IOException {
-    return new MelatiStringWriter();
+    if (templateEngine == null) {
+      return new MelatiStringWriter();
+    } else {
+      return templateEngine.getStringWriter();
+    }
   }
-
 
   private MelatiWriter createWriter() throws IOException {
     // first effort is to use the writer supplied by the template engine

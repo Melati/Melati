@@ -64,8 +64,18 @@ public abstract class MelatiRuntimeException extends RuntimeException {
     this(null);
   }
 
+  /**
+   * FIXME yuk
+   */
+
+  public String getCoreMessage() {
+    return super.getMessage();
+  }
+
   public String getMessage() {
-    return this.getClass().getName() + "\n" + subException;
+    return this.getClass().getName() +
+           (super.getMessage() == null ? "" : ": " + super.getMessage()) +
+           (subException == null ? "" : "\n" + subException);
   }
 
   public void printStackTrace() {

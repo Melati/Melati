@@ -91,14 +91,20 @@ public abstract class Column implements FieldAttributes {
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
-    refineType(columnInfo.getType(), DefinitionSource.infoTables);
-    columnInfo.setColumn(this);
-    if (columnInfo.getDisplaylevel() == DisplayLevel.primary)
-      table.setDisplayColumn(this);
-    if (columnInfo.getSearchability() == Searchability.primary)
-      table.setSearchColumn(this);
-    info = columnInfo;
-    table.notifyColumnInfo(info);
+    try {
+      refineType(columnInfo.getType(), DefinitionSource.infoTables);
+      columnInfo.setColumn(this);
+      if (columnInfo.getDisplaylevel() == DisplayLevel.primary)
+        table.setDisplayColumn(this);
+      if (columnInfo.getSearchability() == Searchability.primary)
+        table.setSearchColumn(this);
+      info = columnInfo;
+      table.notifyColumnInfo(info);
+    }
+    catch (Exception e) {
+      throw new UnexpectedExceptionPoemException(
+          e, "Setting column info for " + name + " to " + columnInfo);
+    }
   }
 
   protected DisplayLevel defaultDisplayLevel() {

@@ -47,44 +47,44 @@ package org.melati.util;
 
 import java.io.*;
 
-public class FileUtils 
-{
-    /**
-     * Returns a File in the given <code>directory</code> which does
-     * not already exist. This file is found by starting with the given
-     * <code>filename</code>. If a file of this name already exists we
-     * put 0 then 1,2,... before the extension until we find one that
-     * does not exists.
-     * <p>
-     * For instance, if <code>newfile.txt</code> exists then we
-     * check <code>newfile0.txt</code>, <code>newfile1.txt</code>, ...
-     * until we find a new filename.
-     */
-    public static File withUniqueName(File file) {
-      String directory = file.getParent();
-      String filename = file.getName();
-      int dot = filename.lastIndexOf(".");
-      String start = (dot != -1) ? filename.substring(0,dot) : filename;
-      String extension = (dot != -1) ? filename.substring(dot,filename.length()) : "";
+public class FileUtils {
 
-      int count = 0;
-      while (file.exists()) {
-        filename = start + (count++) + extension;
-        file = new File(directory, filename);
-      }
-      return file;
+  /**
+   * Returns a File in the given <code>directory</code> which does
+   * not already exist. This file is found by starting with the given
+   * <code>filename</code>. If a file of this name already exists we
+   * put 0 then 1,2,... before the extension until we find one that
+   * does not exists.
+   * <p>
+   * For instance, if <code>newfile.txt</code> exists then we
+   * check <code>newfile0.txt</code>, <code>newfile1.txt</code>, ...
+   * until we find a new filename.
+   */
+
+  public static File withUniqueName(File file) {
+    String directory = file.getParent();
+    String filename = file.getName();
+    int dot = filename.lastIndexOf(".");
+    String start = (dot != -1) ? filename.substring(0,dot) : filename;
+    String extension =
+        (dot != -1) ? filename.substring(dot,filename.length()) : "";
+
+    int count = 0;
+    while (file.exists()) {
+      filename = start + (count++) + extension;
+      file = new File(directory, filename);
     }
+    return file;
+  }
 
   /**
    * Write a byte array to a given file
    */
+
   public static File writeFile(File file, byte[] data) throws IOException {
     FileOutputStream os=new FileOutputStream(file);
     os.write(data);
     os.close();
     return file;
   }
-
 }
-
-

@@ -104,7 +104,7 @@ public class ValueInfo extends ValueInfoBase {
   }
 
   public Field getRangelimit_stringField() {
-    Field it = rangeEndField(getValueInfoTable().getRangelow_stringColumn());
+    Field it = rangeEndField(getValueInfoTable().getRangelimit_stringColumn());
     return it != null ? it : super.getRangelimit_stringField();
   }
 

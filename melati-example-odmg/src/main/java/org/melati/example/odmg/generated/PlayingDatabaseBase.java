@@ -10,10 +10,9 @@ import org.melati.poem.GroupTable;
 import org.melati.poem.CapabilityTable;
 import org.melati.poem.GroupMembershipTable;
 import org.melati.poem.GroupCapabilityTable;
-import org.melati.poem.TableInfoTable;
-import org.melati.poem.ValueInfoTable;
-import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfoTable;
+import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
 import org.melati.poem.odmg.playing.ParentTable;
 import org.melati.poem.odmg.playing.ChildTable;
@@ -28,9 +27,9 @@ public class PlayingDatabaseBase extends PoemDatabase {
   private CapabilityTable tab_capability = null;
   private GroupMembershipTable tab_groupmembership = null;
   private GroupCapabilityTable tab_groupcapability = null;
+  private TableCategoryTable tab_tablecategory = null;
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;
-  private TableCategoryTable tab_tablecategory = null;
   private SettingTable tab_setting = null;
   private ParentTable tab_parent = null;
   private ChildTable tab_child = null;
@@ -41,9 +40,9 @@ public class PlayingDatabaseBase extends PoemDatabase {
     redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
     redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership", DefinitionSource.dsd));
     redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability", DefinitionSource.dsd));
+    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
-    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
     redefineTable(tab_parent = new ParentTable(this, "parent", DefinitionSource.dsd));
     redefineTable(tab_child = new ChildTable(this, "child", DefinitionSource.dsd));
@@ -69,6 +68,10 @@ public class PlayingDatabaseBase extends PoemDatabase {
     return tab_groupcapability;
   }
 
+  public TableCategoryTable getTableCategoryTable() {
+    return tab_tablecategory;
+  }
+
   public TableInfoTable getTableInfoTable() {
     return tab_tableinfo;
   }
@@ -76,10 +79,6 @@ public class PlayingDatabaseBase extends PoemDatabase {
 
   public ColumnInfoTable getColumnInfoTable() {
     return tab_columninfo;
-  }
-
-  public TableCategoryTable getTableCategoryTable() {
-    return tab_tablecategory;
   }
 
   public SettingTable getSettingTable() {

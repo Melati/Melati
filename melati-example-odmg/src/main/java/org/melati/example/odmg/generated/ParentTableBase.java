@@ -16,9 +16,7 @@ import org.melati.poem.odmg.playing.PlayingDatabaseTables;
 
 import org.melati.poem.odmg.playing.Parent;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
-import org.melati.poem.DisplayLevel;
 
 
 /**

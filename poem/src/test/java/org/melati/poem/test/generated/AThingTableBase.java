@@ -15,10 +15,8 @@ import org.melati.poem.Table;
 import org.melati.poem.test.TestDatabaseTables;
 
 import org.melati.poem.test.AThing;
-import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.BinaryPoemType;
-import org.melati.poem.DisplayLevel;
 
 
 /**

@@ -52,7 +52,7 @@ package org.melati.util;
  */
 public class StringUtils {
 
-  private StringUtils() {}
+  public StringUtils() {}
 
   public static String[] split(String s, char c) {
     int n = 0;

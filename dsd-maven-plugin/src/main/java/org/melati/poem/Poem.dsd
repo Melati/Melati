@@ -248,6 +248,11 @@ table ColumnInfo
       (description = "Whether to offer the field as a criterion in searches")
       (summaryhidden) (criterionhidden);
 
+  Boolean primarycriterion
+      (displayname = "Primary search criterion")
+      (description = "Whether the field is used as the main criterion in searches")
+      (summaryhidden) (criterionhidden);
+
   Integer displayorderpriority (nullable)
       (displayname = "Display order priority")
       (description = "If present, the level at which lists of records are sorted by the field")

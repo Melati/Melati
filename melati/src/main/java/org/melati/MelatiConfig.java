@@ -59,6 +59,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.login.AccessHandler;
 import org.melati.servlet.FormDataAdaptorFactory;
+import org.melati.template.TemplateEngine;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TempletLoader;
 import org.melati.template.SimpleDateAdaptor;
@@ -90,7 +91,7 @@ public class MelatiConfig {
   private AccessHandler accessHandler = null;
   private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
-  private ServletTemplateEngine templateEngine = null;
+  private TemplateEngine templateEngine = null;
   private MelatiLocale melatiLocale = null;
   private Vector preferredCharset = null;
   private int maxLocales = 10;
@@ -175,11 +176,11 @@ public class MelatiConfig {
                           "org.melati.template.TempletLoader",
                           "org.melati.template.ClassNameTempletLoader");
 
-      templateEngine = (ServletTemplateEngine)PropertiesUtils.
+      templateEngine = (TemplateEngine)PropertiesUtils.
           instanceOfNamedClass(
                            configuration,
                            templateEngineProp,
-                           "org.melati.template.ServletTemplateEngine",
+                           "org.melati.template.TemplateEngine",
                            "org.melati.template.NoTemplateEngine");
                            
       String languageTag = PropertiesUtils.getOrDefault(configuration,
@@ -246,7 +247,7 @@ public class MelatiConfig {
   * @return {@link ServletTemplateEngine} in use.
   */
   public ServletTemplateEngine getTemplateEngine() {
-    return templateEngine;
+    return (ServletTemplateEngine)templateEngine;
   }
   
  /** 

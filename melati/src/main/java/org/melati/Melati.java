@@ -113,7 +113,7 @@ public class Melati {
   private String[] arguments;
   
   // the template engine that is in use (if any)
-  private ServletTemplateEngine templateEngine;
+  private TemplateEngine templateEngine;
   // the object that is used by the template engine to expand the template
   // against
   private TemplateContext templateContext;
@@ -286,7 +286,7 @@ public class Melati {
    * @see org.melati.servlet.TemplateServlet
    */
 
-  public void setTemplateEngine(ServletTemplateEngine te) {
+  public void setTemplateEngine(TemplateEngine te) {
     templateEngine = te;
   }
 
@@ -790,7 +790,7 @@ public class Melati {
     MelatiWriter writerL = null;
     if (response != null) {
       if (templateEngine != null) {
-        writerL = templateEngine.getServletWriter(response, buffered);
+        writerL = ((ServletTemplateEngine)templateEngine).getServletWriter(response, buffered);
       } else {
         if (buffered) {
           writerL = new MelatiBufferedWriter(response.getWriter());

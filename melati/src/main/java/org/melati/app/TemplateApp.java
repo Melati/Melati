@@ -45,7 +45,7 @@
 package org.melati.app;
 
 import org.melati.Melati;
-import org.melati.template.ServletTemplateEngine;
+import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 
 /**
@@ -55,7 +55,7 @@ import org.melati.template.TemplateContext;
  */
 public abstract class TemplateApp extends PoemApp implements App {
 
-  protected ServletTemplateEngine templateEngine;
+  protected TemplateEngine templateEngine;
 
   /**
    * Initialise.

@@ -493,6 +493,11 @@ public class ColumnInfoTableBase extends ValueInfoTable {
             return ((ColumnInfo)g).getSortdescendingField();
           }
 
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+    
           protected Searchability defaultSearchability() {
             return Searchability.no;
           }

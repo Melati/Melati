@@ -306,6 +306,7 @@ table ColumnInfo extends ValueInfo
     (displayname = "Sort Descending?")
     (description = "Whether when sorting by this column, the sort order should be reversed")
     (nullable)
+    (displaylevel = record)
     (searchability = no);
 
   Boolean indexed

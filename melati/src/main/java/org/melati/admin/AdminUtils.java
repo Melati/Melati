@@ -21,4 +21,9 @@ public class AdminUtils {
   public String tableURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/View";
   }
+
+  public String tablesURL() {
+    return adminURL + "/" + logicalDatabase + "/View";
+  }
+  
 }

@@ -59,14 +59,6 @@
 <script TYPE="text/javascript">
 <!--
 #use 'text' until "--The End--"
-function checkAndClose(object) {
-  if (validate(object)) {
-    opener.focus();
-    return true;
-  }
-  else
-    return false;
-}
 
 function popupupdate(popupwin,returnfield,id,value) {
     var returnfieldummy = returnfield + "_dummy";
@@ -100,7 +92,7 @@ function popupupdate(popupwin,returnfield,id,value) {
 <td></td><td>
   <FONT face="Arial, Helvetica" size=-1>
     <INPUT NAME=action VALUE="Search" TYPE=submit border="0" alt="Search $table.DisplayName" 
-           ONCLICK="return checkAndClose(this.form);">
+           ONCLICK="return validate(this.form);">
   </font>
 </td></tr>
 </table>

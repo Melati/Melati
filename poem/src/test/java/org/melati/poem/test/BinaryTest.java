@@ -50,6 +50,9 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
 public class BinaryTest {
+
+  private BinaryTest() {}
+
   public static void main(final String[] args) {
     final TestDatabase db = new TestDatabase();
     db.connect("org.melati.poem.dbms.Postgresql", args[0], args[1], args[2], 2);

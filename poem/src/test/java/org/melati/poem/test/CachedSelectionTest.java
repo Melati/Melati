@@ -54,6 +54,8 @@ import org.melati.poem.UnexpectedExceptionPoemException;
 
 public class CachedSelectionTest {
 
+  private CachedSelectionTest() {}
+
   abstract static class PoemTaskThread extends Thread {
 
     Table table;

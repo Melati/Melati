@@ -106,6 +106,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiException;
+import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
 
 public abstract class ConfigServlet extends HttpServlet
@@ -122,7 +123,7 @@ public abstract class ConfigServlet extends HttpServlet
   {
     super.init(config);
     try {
-      melatiConfig = new MelatiConfig ();
+      melatiConfig = melatiConfig();
     } catch (MelatiException e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
@@ -209,7 +210,24 @@ public abstract class ConfigServlet extends HttpServlet
       it.method = StringUtils.nulled(parts[parts.length - 1]);
     return it;
   }
-
+  
+  /** 
+   * to override any setting from MelatiServlet.properties,
+   * simply override this method and return a vaild MelatiConfig
+   *
+   * eg to use a different AccessHandler from the default:
+   *
+   *  protected MelatiConfig melatiConfig() throws MelatiException {
+   *    MelatiConfig config = super.melatiConfig();
+   *    config.setAccessHandler(new YourAccessHandler());
+   *    return config;
+   *  }
+   *
+   */
+  protected MelatiConfig melatiConfig() throws MelatiException {
+    return new MelatiConfig();
+  }
+  
   /**
    * Override this method to build up your output
    * @param melati
@@ -218,9 +236,3 @@ public abstract class ConfigServlet extends HttpServlet
   throws Exception;
 
 }
-
-
-
-
-
-

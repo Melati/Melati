@@ -254,8 +254,8 @@ public abstract class PoemServlet extends ConfigServlet
       AccessToken.root, new PoemTask() {
         public void run () {
           try {
-            Melati melati =
-            melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
+            Melati melati = 
+                melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
             melati.loadTableAndObject();
             try {
               _this.doPoemRequest(melatiIn);
@@ -277,7 +277,7 @@ public abstract class PoemServlet extends ConfigServlet
   }
 
   // default method to handle an exception withut a template engine
-  protected void handleException (Melati melati, Exception exception)
+  protected void handleException(Melati melati, Exception exception)
                  throws Exception {
 
     if (exception instanceof AccessPoemException) {

@@ -48,6 +48,10 @@ You can test your interface for writing Melati servlets using the Webmacro templ
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
 You can test Melati in 'Stand Alone' mode by clicking <a href=StandAlone>StandAlone</a>.<br>
+You can test that you are able to override your AccessHandler mode by clicking 
+<a href=$melati.ZoneURL/org.melati.test.TemplateServletTestOverride>override your AccessHandler</a>.
+This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
+is configured by default in your org.melati.MelatiServlet.properties file).<br>
 
 #if ($melati.Method == "StandAlone") #begin
 $StandAlone

@@ -124,5 +124,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
   protected void _saveColumnInfo(ColumnInfo columnInfo)
     throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.BIGDECIMAL);
+    columnInfo.setPrecision(getPrecision());
+    columnInfo.setScale(getScale());
   }
 }

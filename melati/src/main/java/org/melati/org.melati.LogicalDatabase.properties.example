@@ -60,30 +60,38 @@
 
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
-org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
+org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Hsqldb
+#org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
 #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.MySQL
 #org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Mckoi
-org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
+org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:melatitest
+#org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
 #org.melati.LogicalDatabase.melatitest.url=jdbc:mysql:///melatitest
 #org.melati.LogicalDatabase.melatitest.url=jdbc:mckoi://localhost/melatitest
-org.melati.LogicalDatabase.melatitest.user=postgres
+org.melati.LogicalDatabase.melatitest.user=sa
+#org.melati.LogicalDatabase.melatitest.user=postgres
 #org.melati.LogicalDatabase.melatitest.user=melati
 #org.melati.LogicalDatabase.melatitest.user=test
-org.melati.LogicalDatabase.melatitest.pass=*
+org.melati.LogicalDatabase.melatitest.pass=
+#org.melati.LogicalDatabase.melatitest.pass=*
 #org.melati.LogicalDatabase.melatitest.pass=melati
 #org.melati.LogicalDatabase.melatitest.pass=test
 org.melati.LogicalDatabase.melatitest.maxtransactions=4
 
 org.melati.LogicalDatabase.contacts.class=org.melati.doc.example.contacts.ContactsDatabase
-org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
+org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Hsqldb
+#org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
 #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.MySQL
 #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Mckoi
-org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
+org.melati.LogicalDatabase.contacts.url=jdbc:hsqldb:contacts
+#org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
 #org.melati.LogicalDatabase.contacts.url=jdbc:mysql:///contacts
 #org.melati.LogicalDatabase.contacts.url=jdbc:mckoi://localhost/contacts
-org.melati.LogicalDatabase.contacts.user=postgres
+org.melati.LogicalDatabase.contacts.user=sa
+#org.melati.LogicalDatabase.contacts.user=postgres
 #org.melati.LogicalDatabase.contacts.user=test
-org.melati.LogicalDatabase.contacts.pass=*
+org.melati.LogicalDatabase.contacts.pass=
+#org.melati.LogicalDatabase.contacts.pass=*
 #org.melati.LogicalDatabase.contacts.pass=test
 org.melati.LogicalDatabase.contacts.maxtransactions=4
 

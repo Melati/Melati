@@ -44,18 +44,6 @@
  */
 
 
-  /**
-   * <A NAME=hackedVariable>You must use a hacked version of
-   * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
-   * into <TT>org.webmacro.engine</TT>: lobby Justin to stop making everything
-   * final or package-private or static!  It will probably not break your
-   * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
-   * semantics are essentially the same as the traditional ones until configured
-   * otherwise.  You can get the hacked version by anonymous CVS from melati.org
-   * (see the <A
-   * HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
-   * guide</A>).
-   */
 
 package org.melati;
 
@@ -272,3 +260,19 @@ public class MelatiConfig {
     return SimpleDateAdaptor.it;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

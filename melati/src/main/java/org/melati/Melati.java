@@ -80,8 +80,8 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
  *
  * You will need to have create a MelatiConfig in order to construct a Melati
  *
- * If you are using servlets, you will want to construct melati with a request
- * and response object.  Otherwise, simply pass in a Writer.
+ * If you are using servlets, you will want to construct a melati with 
+ * a request and response object.  Otherwise, simply pass in a Writer.
  *
  * A Melati exists once per request.
  *

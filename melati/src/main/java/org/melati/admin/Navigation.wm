@@ -64,7 +64,7 @@ if (remoteWin != null) {
 }
 
 function openWindow() {
-   remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
+   remoteWin = window.open("", "search", sizeString + ", scrollbars=yes");
    if (remoteWin != null) {
      remoteWin.location = '$admin.PopupURL($table)';
      remoteWin.focus();

@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2003 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,9 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp@paneris.org>
  */
 
 package org.melati.util;
@@ -48,41 +46,28 @@ package org.melati.util;
 import java.util.Enumeration;
 
 /*
- * A PageEnumeration which doesn't know how big it is.
+ * A PageEnumeration which knows how big it is.
  * Ideally SQL would allow you to start at an offset.
  * Also this calls should probably be called 
- * DumbPagedEnumeration as this is not an enumeration of Pages.
+ * DumbCountedPagedEnumeration as this is not an enumeration of Pages.
  */
-public class DumbPageEnumeration extends PageEnumerationBase {
+public class CountedDumbPageEnumeration extends PageEnumerationBase {
   
-  private boolean totalCountIsMinimum;
-
-  public DumbPageEnumeration(Enumeration base,
-                             int pageStart, int pageSize, int countHorizon) {
+  public CountedDumbPageEnumeration(Enumeration base,
+                             int pageStart, int pageSize, int totalCount) {
     this.pageStart = pageStart = Math.max(pageStart, 1);
     this.pageSize = pageSize;
+    this.totalCount = totalCount;
+    // This is the bit that makes it dumb!
     int c = EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
-    // This is the bit that makes it dumb!
-    totalCount = c + page.size() +
-                     EnumUtils.skip(base, countHorizon - (c + page.size()));
-    totalCountIsMinimum = base.hasMoreElements();
     us = page.elements();
-    currentPosition = pageStart-1; 
+    currentPosition = pageStart -1; 
   }
 
-  public DumbPageEnumeration(SkipEnumeration base,
-                             int pageStart, int pageSize, int countHorizon) {
-    this((Enumeration)base, pageStart, pageSize, countHorizon);
-  }
-
-  public Integer getNextPageStart() {
-    int it = pageStart + pageSize;
-    return totalCountIsMinimum || it <= totalCount ? new Integer(it) : null;
-  }
-
-  public boolean getTotalCountIsMinimum() {
-    return totalCountIsMinimum;
+  public CountedDumbPageEnumeration(SkipEnumeration base,
+                             int pageStart, int pageSize, int totalCount) {
+    this((Enumeration)base, pageStart, pageSize, totalCount);
   }
 
 }

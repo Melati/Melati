@@ -77,11 +77,10 @@ function popupupdate(popupwin,returnfield,id,value) {
 	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)</TD>
     </TR>
 #end
-<tr><td><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
+<tr><td valign=top><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
 <td><FONT face="Arial, Helvetica" size=-2>
 #foreach $field in $orderings #begin
-    $ml.input($field)
-    &nbsp;
+    $ml.input($field)<br>
 #end
 </font></td>
 </tr>

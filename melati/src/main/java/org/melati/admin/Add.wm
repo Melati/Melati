@@ -95,7 +95,11 @@ function popupupdate(popupwin,returnfield,id,value) {
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
 </TABLE>
 #if ($Form.returnURL) #begin
-<input type=hidden name=returnURL value='$Form.returnURL'>
+  <input type=hidden name=returnURL value='$Form.returnURL'>
+#end #else #begin
+  #if ($CGI.HTTP_REFERER) #begin
+    <input type=hidden name=returnURL value='$CGI.HTTP_REFERER'>
+  #end
 #end
 #if ($Form.returnTarget) #begin
 <input type=hidden name=returnTarget value='$Form.returnTarget'>

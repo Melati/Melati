@@ -50,15 +50,26 @@
 <HTML>
 <HEAD>
 </HEAD>
-<script>
-#if ($Form.returnURL) #begin
-  function reloadframes() {
-    $Form.returnTarget;.location.href="$Form.returnURL";
-    $Form.returnTarget;.focus();
-  }
+#if ($Form.returnTarget) #begin
+  <script>
+    function reloadframes() {
+      $Form.returnTarget;.location.href="$Form.returnURL";
+      $Form.returnTarget;.focus();
+    }
+  </script>
+  <BODY bgcolor="#cccccc" onLoad="reloadframes()">
+#end #else #begin
+  #if ($Form.returnURL) #begin
+    <script>
+    function reloadframe() {
+      location.href="$Form.returnURL";
+    }
+    </script>
+    <BODY bgcolor="#cccccc" onLoad="reloadframe()">
+  #end #else #begin
+    <BODY bgcolor="#cccccc">
+  #end
 #end
-</script>
-<BODY bgcolor="#cccccc" onLoad="reloadframes()">
 <center><br><br><br><br>
 <h3><FONT SIZE="" FACE="Arial, Helvetica">Done</font></h3>
 </center>

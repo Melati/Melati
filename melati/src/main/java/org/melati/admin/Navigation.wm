@@ -56,8 +56,8 @@
 
 <script TYPE="text/javascript">
 <!--
-var height = 30 * $table.SearchCriterionColumnsCount; + 60;
-var sizeString = "WIDTH=450,HEIGHT="+height;
+var height = 25 * $table.SearchCriterionColumnsCount; + 85;
+var sizeString = "WIDTH=470,HEIGHT="+height;
 var remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
 if (remoteWin != null) {
     remoteWin.close();

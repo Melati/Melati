@@ -432,6 +432,19 @@ public class Admin extends MelatiServlet {
 
     context.put("table", melati.getTable());
 
+    Enumeration columns = melati.getTable().columns();
+    Vector fields = new Vector();
+    while (columns.hasMoreElements()) {
+      Column column = (Column)columns.nextElement();
+      String stringValue = context.getForm("field_" + column.getName());
+      Object value = null;
+      if (stringValue != null) value = column.getType().rawOfString(stringValue);
+      fields.add(new Field(value, column));
+    }
+    context.put("fields", fields.elements());
+/*
+    the lovely MappedEnumeration approach has been removed in order to allow fields
+    to take default values passed on the query string :(
     Enumeration fields =
         new MappedEnumeration(melati.getTable().columns()) {
           public Object mapped(Object column) {
@@ -439,7 +452,7 @@ public class Admin extends MelatiServlet {
           }
         };
     context.put("fields", fields);
-
+*/
     return adminTemplate(context, "Add.wm");
   }
 

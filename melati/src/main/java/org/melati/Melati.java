@@ -74,6 +74,7 @@ import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 
 import org.webmacro.engine.VariableExceptionHandler;
+import org.webmacro.engine.PassbackVariableExceptionHandler;
 
 
 public class Melati {

@@ -45,10 +45,30 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.util.Hashtable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.melati.util.PageEnumeration;
+import org.melati.util.CountedDumbPageEnumeration;
+import org.melati.util.ArrayEnumeration;
+import org.melati.util.FlattenedEnumeration;
+import org.melati.util.FilteredEnumeration;
+import org.melati.util.MappedEnumeration;
+import org.melati.util.EnumUtils;
+import org.melati.util.StringUtils;
+import org.melati.util.ArrayUtils;
+import org.melati.util.SortUtils;
+import org.melati.util.Order;
+import org.melati.util.Procedure;
+import org.melati.util.Transactioned;
+import org.melati.util.TransactionedSerial;
+import org.melati.util.Cache;
+import org.melati.util.CachedIndexFactory;
+import org.melati.poem.dbms.Dbms;
 
 /**
  *  A Table.
@@ -1128,16 +1148,27 @@ public class Table {
   public PageEnumeration selection(String whereClause, String orderByClause, 
       boolean includeDeleted, int pageStart, int pageSize)
           throws SQLPoemException {
-    // FIXME do this more sensibly where SQL permits
-    return new DumbPageEnumeration(
+    return new CountedDumbPageEnumeration(
         selection(whereClause, orderByClause, includeDeleted),
-        pageStart, pageSize, 2000);
+        pageStart, pageSize, cachedCount(whereClause, includeDeleted).count());
   }
 
   String countSQL(String whereClause) {
     return "SELECT count(*) FROM " + quotedName() +
         (whereClause == null || whereClause.equals("") ? "" :
              " WHERE " + whereClause);
+  }
+
+
+  public int count(String whereClause, boolean includeDeleted)
+      throws SQLPoemException {
+
+    if (deletedColumn != null && !includeDeleted)
+      whereClause =
+          (whereClause == null || whereClause.equals("") ?
+               "" : "(" + whereClause + ") AND ") +
+          "NOT " + deletedColumn.getName();
+    return count(whereClause);
   }
 
   public int count(String whereClause)
@@ -1167,6 +1198,7 @@ public class Table {
       throw new ExecutingSQLPoemException(sql, e);
     }
   }
+
 
   public boolean exists(String whereClause) throws SQLPoemException {
     return count(whereClause) > 0;
@@ -1603,6 +1635,16 @@ public class Table {
       }
     }
     return them;
+  }
+
+  public CachedCount cachedCount(String whereClause, boolean includeDeleted) {
+
+    if (deletedColumn != null && !includeDeleted)
+      whereClause =
+          (whereClause == null || whereClause.equals("") ?
+               "" : "(" + whereClause + ") AND ") +
+          "NOT " + deletedColumn.getName();
+    return cachedCount(whereClause);
   }
 
   public CachedCount cachedCount(String whereClause) {

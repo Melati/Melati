@@ -9,5 +9,8 @@ import org.melati.util.*;
 public class GroupCapability extends GroupCapabilityBase {
   public GroupCapability() {}
 
-  // programmer's domain-specific code here
+  public GroupCapability(Group group, Capability capability) {
+    this.group = group.troid();
+    this.capability = capability.troid();
+  }
 }

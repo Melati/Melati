@@ -697,6 +697,15 @@ abstract public class Database implements TransactionPool {
     return null;
   }
 
+  public Enumeration columns() {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(tables()) {
+          public Object mapped(Object table) {
+            return ((Table)table).columns();
+          }
+        });
+  }
+
   Column columnWithColumnInfoID(int columnInfoID) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Column column =
@@ -975,7 +984,7 @@ abstract public class Database implements TransactionPool {
 
   public Enumeration referencesTo(final Persistent object) {
     return new FlattenedEnumeration(
-        new MappedEnumeration(tables.elements()) {
+        new MappedEnumeration(tables()) {
           public Object mapped(Object table) {
             return ((Table)table).referencesTo(object);
           }
@@ -984,7 +993,7 @@ abstract public class Database implements TransactionPool {
 
   public Enumeration referencesTo(final Table tablein) {
     return new FlattenedEnumeration(
-        new MappedEnumeration(tables.elements()) {
+        new MappedEnumeration(tables()) {
           public Object mapped(Object table) {
             return ((Table)table).referencesTo(tablein);
           }

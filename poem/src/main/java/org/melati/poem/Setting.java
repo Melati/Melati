@@ -48,10 +48,10 @@ package org.melati.poem;
 import org.melati.poem.generated.SettingBase;
 
 /**
- * A setting, analageous to a Property
+ * A setting, analageous to a Property.
  *
- * Melati POEM generated, programmer modifiable stub 
- * for a <code>Persistent</code> <code>Setting</code> object.
+ * Melati POEM generated, modified definition of  
+ * a <code>Persistent</code> <code>Setting</code> object.
  * 
  * <p> 
  * Description: 

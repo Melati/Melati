@@ -52,8 +52,8 @@ import java.util.Hashtable;
  *
  * Every Melati DB has one.
  *
- * Melati POEM generated, programmer modifiable stub 
- * for a <code>SettingTable</code> object.
+ * Extended from a Melati POEM generated stub. 
+ * 
  * <p>
  * Description: 
  *   A configurable setting for the application. 

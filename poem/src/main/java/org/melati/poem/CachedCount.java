@@ -56,8 +56,26 @@ public class CachedCount extends CachedQuery {
     super(table, table.countSQL(whereClause), otherTables);
   }
 
-  public CachedCount(final Table table, final String query) {
-    this(table, query, null);
+  /**
+   * Create an instance from arguments representing the query.
+   * <p>
+   * This allows the query to join to other tables.
+   * It reflects use of {@link Persistent}s to represent queries
+   * and is a step in the direction of types specifically for that
+   * purpose.
+   * <p>
+   * We could have passed the whole query in the meantime but for
+   * potential signature confusion.
+   */
+  public CachedCount(final Persistent criteria,
+                     boolean includeDeleted, boolean cannotSelect) {
+    super(criteria.getTable(),
+          criteria.countMatchSQL(includeDeleted, cannotSelect),
+          criteria.otherMatchTables());
+  }
+
+  public CachedCount(final Table table, final String whereClause) {
+    this(table, whereClause, null);
   }
 
   protected final Object extract(ResultSet rs) throws SQLException {

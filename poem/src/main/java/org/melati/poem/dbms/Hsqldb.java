@@ -168,7 +168,7 @@ public class Hsqldb extends AnsiStandard {
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
-      term2 = getQuotedName(StringUtils.quoted(term2, '%'));
+      term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
     } else {
       term2 = StringUtils.quoted(term2, '%');
     }

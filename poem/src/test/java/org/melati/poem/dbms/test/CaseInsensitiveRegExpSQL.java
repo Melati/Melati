@@ -32,7 +32,7 @@ public class CaseInsensitiveRegExpSQL extends TestCase {
   }
 
   public void testHsqldbQuoted() {
-    String expected = "a LIKE \"%b%\"";
+    String expected = "a LIKE \'%b%\'";
     Hsqldb db = new Hsqldb();
     String actual = db.caseInsensitiveRegExpSQL("a", "\"b\"");
     assertEquals(expected, actual);

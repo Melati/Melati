@@ -521,6 +521,8 @@ public class Melati {
 
   /**
    * Turn on flushing of the output stream.
+   *
+   * @throws IOException if there is a problem with the writer
    */
   public void setFlushingOn() throws IOException {
     if (gotwriter)
@@ -543,9 +545,10 @@ public class Melati {
   }
 
   /**
+   * @throws IOException if there is a problem reading from the response
    * @return the encoding in use
    */
-  public String getEncoding() throws IOException {
+  public String getEncoding() {
     if (encoding == null)
       encoding = response == null ? DEFAULT_ENCODING :
                                     response.getCharacterEncoding();

@@ -84,7 +84,7 @@ public class Table {
   private TransactionedSerial serial;
 
   private PreparedSelection allTroids = null;
-  private Hashtable cachedSelections = null;
+  private Hashtable cachedSelections = new Hashtable();
 
   public Table(Database database, String name,
                DefinitionSource definitionSource) {

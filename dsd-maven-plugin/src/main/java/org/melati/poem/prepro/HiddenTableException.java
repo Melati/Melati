@@ -48,6 +48,9 @@ package org.melati.poem.prepro;
 /**
  * Thrown when a table is given a name which is already used in 
  * this or an imported DSD.
+ *
+ * Note that this exception is thrown if a table is refered to by the 
+ * <tt>extends</tt> keyword before it is defined (FIXME?).
  */
 class HiddenTableException extends IllegalityException {
   String name;
@@ -61,6 +64,7 @@ class HiddenTableException extends IllegalityException {
   /** @return the message */
   public String getMessage() {
     return "You cannot name a table `" + name + "' unless it extends the " +
-           "pre-existing table " + table;
+           "pre-existing table " + table + 
+           "(Check that extended tables are defined before being referenced)";
   }
 }

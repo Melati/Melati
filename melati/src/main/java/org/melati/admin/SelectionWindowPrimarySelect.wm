@@ -43,7 +43,7 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-#set $Response.Content-Type = "text/html"
+#set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>

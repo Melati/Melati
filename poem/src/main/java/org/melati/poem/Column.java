@@ -363,10 +363,29 @@ public abstract class Column implements FieldAttributes {
   public abstract void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException;
 
+  public static class LoadException extends UnexpectedExceptionPoemException {
+    public Column column;
+
+    public LoadException(Column column, Exception problem) {
+      super(problem);
+      this.column = column;
+    }
+
+    public String getMessage() {
+      return "An unexpected problem arose loading " + column + " from the " +
+             "database:\n" + subException;
+    }
+  }
+
   public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
-      throws ParsingPoemException, ValidationPoemException {
+      throws LoadException {
     // FIXME double validation
-    setRaw_unsafe(g, type.getRaw(rs, rsCol));
+    try {
+      setRaw_unsafe(g, type.getRaw(rs, rsCol));
+    }
+    catch (Exception e) {
+      throw new LoadException(this, e);
+    }
   }
 
   public void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {

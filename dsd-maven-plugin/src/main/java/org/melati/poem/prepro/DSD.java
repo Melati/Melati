@@ -293,7 +293,7 @@ public class DSD {
 
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-      if (!td.naming.hidden)
+      if (!(td.naming.hidden || td.isAbstract))
         w.write(td.naming.importTableString());
     }
 
@@ -352,8 +352,8 @@ public class DSD {
     w.write("// " + tablesInDatabase.size() + " tables in database\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-      if (!td.isAbstract && !td.naming.hidden)
-       w.write(td.naming.importTableString());
+      if (!(td.isAbstract || td.naming.hidden))
+        w.write(td.naming.importTableString());
     }
     w.write("\n" + 
             "/**\n" +

@@ -2,6 +2,7 @@ package org.melati.util;
 
 import java.util.*;
 import java.io.*;
+import java.sql.*;
 
 public class ToTidyList {
 
@@ -13,7 +14,9 @@ public class ToTidyList {
 
   private static void tidy(Object o) {
     try {
-      if (o instanceof Reader)
+      if (o instanceof ResultSet)
+        ((ResultSet)o).close();
+      else if (o instanceof Reader)
         ((Reader)o).close();
       else if (o instanceof Writer)
         ((Writer)o).close();
@@ -37,6 +40,10 @@ public class ToTidyList {
   private void addObject(Object o) {
     objects.addElement(o);
   }
+
+  public void add(ResultSet o) {
+    addObject(o);
+  } 
 
   public void add(Reader o) {
     addObject(o);

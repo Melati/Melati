@@ -1,8 +1,9 @@
-#set $Response.Content-Type = "text/html"
+#set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
 <TITLE>FlushingServlet Test</TITLE>
+$melati
 </head>
 <body>
 <h2>FlushingServlet Test</h2>

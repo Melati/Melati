@@ -1,4 +1,4 @@
-#set $Response.Content-Type = "text/html"
+#set $Response.ContentType = "text/html"
 #if ($Form.passback) #begin
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #end

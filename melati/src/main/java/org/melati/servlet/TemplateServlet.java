@@ -121,7 +121,7 @@ public abstract class TemplateServlet extends PoemServlet {
 
   protected void doPoemRequest(Melati melati) throws Exception {
     TemplateContext templateContext = melati.getTemplateContext();
-    templateContext.put("melati",melati);
+    templateContext.put("melati", melati);
 
     String templateName = doTemplateRequest(melati,templateContext);
 

@@ -136,7 +136,7 @@ public class Table implements Selectable {
    * It may be overridden to perform other actions. For example to
    * ensure required rows exist in tables that define numeric ID's for
    * codes.
-  *
+   *
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
    */

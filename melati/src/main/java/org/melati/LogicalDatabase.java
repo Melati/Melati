@@ -134,54 +134,45 @@ public class LogicalDatabase {
       return (Database)dbOrPending;
 
     try {
-      Properties defs = databaseDefs();
-      String pref = className + "." + name + ".";
-      String url = PropertiesUtils.getOrDie(defs, pref + "url");
-      String user = PropertiesUtils.getOrDie(defs, pref + "user");
-      String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
-      String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-      String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
-      // max transactions default to 8 if not set
-      int maxTrans = 
-      PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
+      Database database;
 
-      /*
-       The driver is now initialized and checked by the dbms class as we
-       have one dbms class for each jdbc driver.
+      try {
+        Properties defs = databaseDefs();
+        String pref = className + "." + name + ".";
+        String url = PropertiesUtils.getOrDie(defs, pref + "url");
+        String user = PropertiesUtils.getOrDie(defs, pref + "user");
+        String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
+        String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
+        String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+        // max transactions default to 8 if not set
+        int maxTrans = 
+        PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
 
-      String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
+        Object databaseObject = Class.forName(clazz).newInstance();
 
-      Object driverObject = Class.forName(driverName).newInstance();
+        if (!(databaseObject instanceof Database)) 
+          throw new ClassCastException(
+              "The .class=" + clazz + " entry named a class of type " +
+              databaseObject.getClass() + ", " +
+              "which is not an org.melati.poem.Database");
 
-      if (!(driverObject instanceof Driver))
-        throw new ClassCastException(
-            "The .driver=" + driverName + " entry named a class of type " +
-            driverObject.getClass() + ", which is not a java.sql.Driver");
+        database = (Database)databaseObject;
 
-      Driver driver = (Driver)driverObject;
-      */
+        // Changed to use dbmsclass not driver, it will throw and exception 
+        // if that is not correct
 
-      Object databaseObject = Class.forName(clazz).newInstance();
-
-      if (!(databaseObject instanceof Database)) 
-        throw new ClassCastException(
-            "The .class=" + clazz + " entry named a class of type " +
-            databaseObject.getClass() + ", " +
-            "which is not an org.melati.poem.Database");
-
-      Database database = (Database)databaseObject;
-
-      // Changed to use dbmsclass not driver, it will throw and exception 
-      // if that is not correct
-
-      database.connect(dbmsclass, url, user, pass, maxTrans);
+        database.connect(dbmsclass, url, user, pass, maxTrans);
+      }
+      finally {
+        // get it removed from the "initialising" state even if an Error, such
+        // as no class found, occurs
+        databases.remove(name);
+      }
 
       databases.put(name, database);
-
       return database;
     }
     catch (Exception e) {
-      databases.remove(name);
       throw new DatabaseInitException(databaseDefsName, name, e);
     }
   }

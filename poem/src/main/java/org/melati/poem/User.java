@@ -52,10 +52,9 @@ import org.melati.poem.generated.UserBase;
  *
  * @todo Introduce a new type to conceal passwords
  */
-
-//* FIXME it shouldn't be possible for anyone to getPassword
-
 public class User extends UserBase implements AccessToken {
+
+// FIXME it shouldn't be possible for anyone to getPassword
 
   public User() {
   }

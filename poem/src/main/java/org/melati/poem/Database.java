@@ -122,6 +122,10 @@ public abstract class Database implements TransactionPool {
 
   private final boolean[] connecting = new boolean[1];
 
+ /**
+  * Thrown when a request is made whilst the connection to 
+  * the underlying database is still in progress.
+  */
   public class ConnectingException extends PoemException {
     public String toString() {
       return "Connection to the database is currently in progress; " +

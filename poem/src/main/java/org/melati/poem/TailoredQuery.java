@@ -294,15 +294,6 @@ public class TailoredQuery {
   /**
    * Run the query.
    *
-   * @return 
-   *
-   * An <TT>Enumeration</TT> of <TT>FieldSet</TT>s, one per row returned from
-   * the DBMS.  You can invoke each <TT>FieldSet</TT>'s <TT>elements</TT>
-   * method to get an <TT>Enumeration</TT> of all the <TT>Field</TT>s in the
-   * row, ready for rendering.  Or you can fetch them by name using the
-   * <TT>FieldSet</TT>'s <TT>get</TT> method.  A field corresponding to
-   * column <TT><I>col</I></TT> of table <TT><I>tab</I></TT> is named
-   * <TT><I>tab</I>_<I>col</I></TT>.
    *
    * <P>
    *
@@ -357,15 +348,30 @@ public class TailoredQuery {
    * @see PoemThread#accessToken()
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable)
    * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
+   *
+   * @return 
+   * An <TT>Enumeration</TT> of <TT>FieldSet</TT>s, one per row returned from
+   * the DBMS.  You can invoke each <TT>FieldSet</TT>'s <TT>elements</TT>
+   * method to get an <TT>Enumeration</TT> of all the <TT>Field</TT>s in the
+   * row, ready for rendering.  Or you can fetch them by name using the
+   * <TT>FieldSet</TT>'s <TT>get</TT> method.  A field corresponding to
+   * column <TT><I>col</I></TT> of table <TT><I>tab</I></TT> is named
+   * <TT><I>tab</I>_<I>col</I></TT>.
    */
 
   public Enumeration selection() {
     return new TailoredResultSetEnumeration(this, database.sqlQuery(sql));
   }
 
+  /**
+   * Extended class which only processes the first result.
+   */
   public class FirstRawTailoredResultSetEnumeration
       extends TailoredResultSetEnumeration {
 
+   /**
+    * Retrieve the first row of a {@link TailoredQuery}.
+    */
     public FirstRawTailoredResultSetEnumeration(TailoredQuery query,
                                                 ResultSet resultSet) {
       super(query, resultSet);
@@ -379,6 +385,9 @@ public class TailoredQuery {
     }
   }
 
+ /**
+  * Retrieve the first row of this <code>TailoredQuery</code>.
+  */
   public Enumeration selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
                                                     database.sqlQuery(sql));

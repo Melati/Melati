@@ -45,6 +45,10 @@
 
 package org.melati.poem;
 
+/**
+ * An extension of {@link AtomPoemType} which adds <code>precision</code> 
+ * and <code>scale</code>.
+ */
 public abstract class FixedPointAtomPoemType extends AtomPoemType {
 
   private int precision;

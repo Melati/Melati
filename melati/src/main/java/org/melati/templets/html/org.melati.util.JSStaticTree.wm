@@ -80,6 +80,7 @@ var tree = new StaticTree(parent.treedisplay,       ## displayFrame
                           false,                     ## selectNodes
                           false,                     ## selectLeaves
                           "$tree.BackgroundColour",
+                          "",                        ## no stylesheet set
                           "$tree.VerticalLinkImage",
                           "$tree.SpacerImage",
                           "$tree.OpenedTImage",  

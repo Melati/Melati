@@ -38,10 +38,20 @@ class PoemTableAsDCollection implements org.odmg.DCollection
 
   /** removes the specified object from the collection 
   * WARNING - this removes and commits it immediately!
+  * WARNING2 - it also deletes entries from any tables that reference this object 
+  * - this means you CANNOT have circular references
   */
   public boolean remove(Object obj) 
   {  
     Persistent p = (Persistent)obj;
+	 // delete all refs first
+	 Enumeration refs = _wrappedTable.getDatabase().referencesTo(p);
+	 while (refs.hasMoreElements())
+	 {
+	   Persistent q = (Persistent)refs.nextElement();
+		q.deleteAndCommit();
+	 }
+	 
     p.deleteAndCommit();
     return true;
   }

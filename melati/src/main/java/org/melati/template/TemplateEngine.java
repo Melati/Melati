@@ -151,7 +151,7 @@ public interface TemplateEngine {
       throws TemplateEngineException;
 
   /** 
-   * Expand the Template against the context and retutrn the expansion as a string.
+   * Expand the Template against the context and return the expansion as a string.
    *
    * @param template        the {@link Template} to expand
    * @param templateContext the {@link TemplateContext} to expand 

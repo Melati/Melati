@@ -59,21 +59,26 @@ function get_list() {
 // -->
 </SCRIPT>
 </HEAD>
-
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="get_list()">
 #if ($primaryCriterion) #begin
 <FORM METHOD=GET action=$admin.SelectionWindowSelectionURL($table) target=selectionwindow_selection>
-  <table cellspacing=0 cellpadding=0><tr>
-  <td></td>
-  <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</td>
-  </tr><tr><td>
-  </td><td>
+ <table cellspacing=0 cellpadding=0>
+  <tr>
+   <td></td>
+   <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</td>
+  </tr>
+  <tr>
+   <td></td>
+   <td>
   $ml.input($primaryCriterion)
   <input type=hidden name=returnfield value="$Form.returnfield">
   <INPUT NAME=action VALUE=" Go " TYPE=submit></font>
-  </td></tr></table>
+   </td>
+  </tr>
+ </table>
 </FORM>
 #end
-
 </BODY>
 </HTML>
+
+

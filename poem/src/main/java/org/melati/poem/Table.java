@@ -157,6 +157,26 @@ public class Table {
   }
 
   /**
+   * The category of this table.  POEM itself doesn't use
+   * this, but it's available to applications and Melati's generic admin system
+   * as a default label for the table and caption for its records.
+   */
+
+  public final TableCategory getCategory() {
+     return info.getCategory();
+  }
+
+  /**
+   * The info of this table.  POEM itself doesn't use
+   * this, but it's available to applications and Melati's generic admin system
+   * as a default label for the table and caption for its records.
+   */
+
+  public final TableInfo getInfo() {
+     return info;
+  }
+
+  /**
    * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
    * table.  It will always have one (except during initialisation, which the
    * application programmer will never see).

@@ -1,0 +1,59 @@
+INTRODUCTION
+
+Hello,
+
+The scripts in this directory provide a means of building melati and poem using the Ant makefiles.
+
+You will be able to generate a jar file that contains the complete software needed to use melati and or poem.
+
+
+If you have any problems with this, please let me know - kimptoc@techie.com
+
+Make sure you know how to use Ant in general - see - http://jakarta.apache.org/ant/index.html
+
+Have fun,
+Chris
+
+
+HOW TO USE
+
+
+To build a jar file of all Melati code, under unix, just use 
+   sh build-melati.sh 
+
+Assuming you have melati installed in a directory like 
+    .../src/org/melati/...
+
+It will create a directory
+   .../dist/
+
+Which will contain all the compiled classes
+
+And a directory
+   .../lib/
+
+Which will contain the melati jar file.
+
+
+
+To just compile the code, but not generate the jar file
+   sh build-melati.sh compile
+
+
+
+To generate the javadoc report
+   sh build-melati.sh javadocs
+
+
+
+To remove all the compiled code and generated jar files
+   sh build-melati.sh clean
+
+
+
+NOTE
+The above assumed you were working on unix... 
+There is a also a build-melati.bat script that works on NT - although it has not been tested (VOLUNTEERS?)
+
+
+

@@ -48,7 +48,7 @@ package org.melati.poem;
 /**
  * <code>AccessToken</code> that gives no capabilities.
  *
- * @author williamc@paneris.org (not Javadocs)
+ * @author williamc@paneris.org
  */
 public class BaseAccessToken implements AccessToken {
   public boolean givesCapability(Capability capability) {

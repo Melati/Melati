@@ -97,7 +97,7 @@ public class ReferenceFieldDef extends FieldDef {
             "\n" +
             "  public void set" + suffix + "Troid(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
-            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+            "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
                      "getType().assertValidRaw(raw);\n" +
 	    "    writeLock();\n" +
             "    set" + suffix + "_unsafe(raw);\n" +

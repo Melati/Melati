@@ -103,7 +103,7 @@ fi
               "You must use JDK1.2 with Melati now, so you should change them to jdbc2."
 
 if test -z "${TARGET}" ; then 
-TARGET=jar
+TARGET=package
 fi
 
 if test -f ${JAVA_HOME}/lib/tools.jar ; then

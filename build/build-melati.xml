@@ -9,15 +9,13 @@
         <property name="Name" value="melati"/>
         <property name="version" value="snapshot"/>
         <property name="project" value="melati"/>
-        <property name="src.java.dir" value="../../.."/>
         <property name="build.compiler" value="${JAVAC}"/>
-        <property name="build.dir" value="../../../../dist"/>
-        <property name="build.jar.dir" value="../../../../lib"/>
-        <property name="build.src" value="${src.java.dir}"/>
-        <property name="build.dest" value="${build.dir}"/>
-        <property name="javadoc.destdir" value="../../../../docs/apidocs"/>
+        <property name="build.src" value="../../.."/>
+        <property name="build.dist" value="../../../../dist"/>
+        <property name="build.built" value="../../../../built"/>
+        <property name="build.javadoc" value="${build.built}/docs"/>
         <property name="final.name" value="${project}-${version}"/>
-        <property name="final.dir" value="../${final.name}/"/>
+        <property name="final.dir" value="../../../../${final.name}/"/>
         <property name="year" value="2000"/>
         <property name="ant.home" value="."/>
         <property name="debug" value="on"/>
@@ -35,21 +33,31 @@
     <!-- Prepares the build directory                                        -->
     <!-- =================================================================== -->
     <target name="prepare" depends="init">
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.jar.dir}"/>
-        <copydir src="${src.java.dir}" dest="${build.dir}"
+        <mkdir dir="${build.dist}"/>
+        <mkdir dir="${build.built}"/>
+        <copydir src="${build.src}" dest="${build.dist}"
             includes="**/*.properties"
+            excludes="**/poem/odmg/playing/**/*.properties"
             filtering="on"/>
-        <copydir src="${src.java.dir}" dest="${build.dir}"
+        <copydir src="${build.src}" dest="${build.dist}"
+            includes="**/*.properties.example"
+            filtering="on"/>
+        <renameext srcDir="${build.dist}" 
+            includes="**/*.properties.example" 
+            fromExtension=".properties.example" 
+            toExtension=".properties" 
+            replace="true"/>
+        <copydir src="${build.src}" dest="${build.dist}"
             includes="**/*.wm"
+            excludes="**/doc/**/*.wm **/playing/**/*.wm"
             filtering="on"/>
-        <copydir src="${src.java.dir}" dest="${build.dir}"
+        <copydir src="${build.src}" dest="${build.dist}"
             includes="**/*.js"
             filtering="on"/>
-        <copydir src="${src.java.dir}" dest="${build.dir}"
+        <copydir src="${build.src}" dest="${build.dist}"
             includes="org/melati/admin/**/*.html"
             filtering="on"/>
-        <copydir src="${src.java.dir}" dest="${build.dir}"
+        <copydir src="${build.src}" dest="${build.dist}"
             includes="org/melati/admin/**/*.gif"
             filtering="on"/>
 
@@ -60,7 +68,7 @@
     <!-- =================================================================== -->
     <target name="compile" depends="prepare">
         <javac srcdir="${build.src}"
-            destdir="${build.dest}"
+            destdir="${build.dist}"
             includes="**/*.java"
             excludes="**/playing/**/*.java **/doc/example/**/*.java **/test/**/*.java **/template/**/*.java"
             debug="${debug}"
@@ -71,20 +79,37 @@
     <!-- =================================================================== -->
     <!-- Compiles the source directory and creates a .jar file               -->
     <!-- =================================================================== -->
+<!-- don't include properties and wm files in jar -->
+<!--
     <target name="jar" depends="compile">
         <jar jarfile="${build.jar.dir}/${final.name}.jar"
-            basedir="${build.dest}"
+            basedir="${build.dist}"
             includes="**/*.class **/*.properties **/*.wm"
         />
-        <copydir src="${build.dir}" dest="${build.jar.dir}"
+-->
+        <target name="jar" depends="compile">
+        <jar jarfile="${build.built}/${final.name}.jar"
+            basedir="${build.dist}"
+            includes="**/*.class"
+        />
+        <copydir src="${build.dist}" dest="${build.built}"
             includes="**/*.js"
             filtering="on"/>
-        <copydir src="${build.dir}" dest="${build.jar.dir}"
+        <copydir src="${build.dist}" dest="${build.built}"
+            includes="**/*.properties"
+            filtering="on"/>
+        <copydir src="${build.dist}" dest="${build.built}"
+            includes="**/*.wm"
+            filtering="on"/>
+        <copydir src="${build.dist}" dest="${build.built}"
             includes="**/*.html"
             filtering="on"/>
-        <copydir src="${build.dir}" dest="${build.jar.dir}"
+        <copydir src="${build.dist}" dest="${build.built}"
             includes="**/*.gif"
             filtering="on"/>
+        <zip zipfile="${build.built}/${final.name}.src.zip" 
+            basedir="${build.src}" 
+            includes="**/*.java"/>
     </target>
     
     <!-- =================================================================== -->
@@ -103,7 +128,7 @@
     <!-- =================================================================== -->
     <target name="compileODMGPlaying" depends="preproODMGPlaying">
         <javac srcdir="${build.src}"
-            destdir="${build.dest}"
+            destdir="${build.dist}"
             includes="org/melati/poem/odmg/playing/**/*.java"
             debug="${debug}"
             deprecation="${deprecation}"
@@ -114,8 +139,8 @@
     <!-- Compiles the source directory and creates a .jar file               -->
     <!-- =================================================================== -->
     <target name="jarODMGPlaying" depends="compileODMGPlaying">
-        <jar jarfile="${build.jar.dir}/${final.name}.jar"
-            basedir="${build.dest}"
+        <jar jarfile="${build.built}/${final.name}.ODMGPlaying.jar"
+            basedir="${build.dist}"
             includes="**/*.class **/*.properties"
         />
     </target>
@@ -135,12 +160,14 @@
     <!-- Creates the API documentation                                       -->
     <!-- =================================================================== -->
     <target name="javadocs" depends="prepare">
-        <mkdir dir="${javadoc.destdir}"/>
+        <mkdir dir="${build.javadoc}"/>
         <javadoc
+            includes="**/*.java"
+            excludes="**/playing/**/*.java **/doc/example/**/*.java **/test/**/*.java **/template/**/*.java"
             sourcepath="${build.src}"
             sourcefiles=""
             packagenames="org.*"
-            destdir="${javadoc.destdir}"
+            destdir="${build.javadoc}"
             author="true"
             private="true"
             version="true"
@@ -152,47 +179,25 @@
     </target>
     
     <!-- =================================================================== -->
-    <!-- Package                                                             -->
+    <!-- Package as .zip and .tgz                                            -->
     <!-- =================================================================== -->
+<!-- fixme - put back javadocs
+    <target name="package" depends="jar,javadocs">
+-->
     <target name="package" depends="jar,javadocs">
         <mkdir dir="${final.dir}"/>
-        <mkdir dir="${final.dir}/src/java"/>
-        <copydir src="${build.dir}/src/" dest="${final.dir}/src/java/"/>
-        <copydir src="../docs" dest="${final.dir}/docs"
-            excludes="**/dist/**"/>
-        <copydir src="../build" dest="${final.dir}/build"/>
-        <copydir src="../lib" dest="${final.dir}/lib"/>
-        
-        <copyfile src="${build.dir}/${final.name}.jar" dest="${final.dir}/${final.name}.jar"/>
-    </target>
-  
-    <!-- =================================================================== -->
-    <!-- Packages the distribution with ZIP                                  -->
-    <!-- =================================================================== -->
-    <target name="package-zip" depends="package">
-        <zip zipfile="../${Name}-${version}.zip" basedir="../" includes="**/${final.name}/**"/>
+        <zip zipfile="${final.dir}/${Name}-${version}.zip" basedir="${build.built}"/>
+        <tar tarfile="${final.dir}/${Name}-${version}.tar" basedir="${build.built}"/>
+       <gzip zipfile="${final.dir}/${Name}-${version}.tar.gz" src="${final.dir}/${Name}-${version}.tar"/>
     </target>
     
-    <!-- =================================================================== -->
-    <!-- Packages the distribution with TAR-GZIP                             -->
-    <!-- =================================================================== -->
-    <target name="package-tgz" depends="package">
-        <tar tarfile="../${Name}-${version}.tar" basedir="../" includes="**/${final.name}/**"/>
-        <gzip zipfile="../${Name}-${version}.tar.gz" src="../${Name}-${version}.tar"/>
-    </target>
-    
-    <!-- =================================================================== -->
-    <!-- Packages the distribution with ZIP and TAG-GZIP                     -->
-    <!-- =================================================================== -->
-    <target name="package-all" depends="package-zip, package-tgz">
-    </target>
     
     <!-- =================================================================== -->
     <!-- Cleans up the build directory                                       -->
     <!-- =================================================================== -->
     <target name="clean">
-        <deltree dir="${build.dir}"/>
-        <deltree dir="${build.jar.dir}"/>
-        <deltree dir="${javadoc.destdir}"/>
+        <deltree dir="${build.dist}"/>
+        <deltree dir="${build.built}"/>
+        <deltree dir="${final.dir}"/>
     </target>
 </project>

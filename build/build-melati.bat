@@ -41,7 +41,7 @@ if "%TARGET%" == "" goto setdist
 goto final
 
 :setdist
-set TARGET=jar
+set TARGET=package
 goto final
 
 :final

@@ -55,6 +55,16 @@ public class Admin extends MelatiServlet {
     return tableFromPathInfo(ref).getObject(ref.troid);
   }
 
+  protected Persistent create(Table table, final WebContext context) {
+    return table.create(
+        new Initialiser() {
+          public void init(Persistent object)
+              throws AccessPoemException, ValidationPoemException {
+            copyFields(context, object);
+          }
+        });
+  }
+
   protected final Template adminTemplate(WebContext context, String name)
       throws ResourceUnavailableException {
     return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
@@ -65,6 +75,30 @@ public class Admin extends MelatiServlet {
       throws ResourceUnavailableException, PoemException {
     context.put("tables", PoemThread.database().tables());
     return adminTemplate(context, "Tables.wm");
+  }
+
+  protected Template tableCreateTemplate(WebContext context, MethodRef ref)
+      throws ResourceUnavailableException, PoemException {
+    Table tit = PoemThread.database().getTableInfoTable();
+    Enumeration fields =
+        new MappedEnumeration(tit.columns()) {
+          public Object mapped(Object column) {
+            return new Field((Object)null, (Column)column);
+          }
+        };
+    context.put("fields", fields);
+    return adminTemplate(context, "CreateTable.wm");
+  }
+
+  protected Template tableCreate_doitTemplate(WebContext context,
+                                              MethodRef ref)
+      throws ResourceUnavailableException, PoemException {
+
+    Database database = PoemThread.database();
+    database.addTable(
+        (TableInfo)create(database.getTableInfoTable(), context));
+
+    return adminTemplate(context, "CreateTable_doit.wm");
   }
 
   protected Template tableListTemplate(WebContext context, MethodRef ref)
@@ -98,8 +132,9 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Add.wm");
   }
 
-  private void copyFields(HttpServletRequest request, Persistent object)
+  private void copyFields(WebContext context, Persistent object)
       throws PoemException {
+    HttpServletRequest request = context.getRequest();
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String value = request.getParameter("field-" + column.getName());
@@ -116,18 +151,10 @@ public class Admin extends MelatiServlet {
 
   protected Template updateTemplate(WebContext context, MethodRef ref)
       throws ResourceUnavailableException, PoemException {
-    final HttpServletRequest request = context.getRequest();
-
     if (ref.troid.intValue() == -1)
-      tableFromPathInfo(ref).create(
-          new Initialiser() {
-            public void init(Persistent object)
-                throws AccessPoemException, ValidationPoemException {
-              copyFields(request, object);
-            }
-          });
+      create(tableFromPathInfo(ref), context);
     else
-      copyFields(request, objectFromPathInfo(ref));
+      copyFields(context, objectFromPathInfo(ref));
 
     return adminTemplate(context, "Update.wm");
   }
@@ -187,6 +214,10 @@ public class Admin extends MelatiServlet {
       else {
         if (ref.method.equals("View"))
           return tablesViewTemplate(context, ref);
+        else if (ref.method.equals("Create"))
+          return tableCreateTemplate(context, ref);
+        else if (ref.method.equals("Create_doit"))
+          return tableCreate_doitTemplate(context, ref);
       }
 
       throw new InvalidPathInfoException(pathInfo);

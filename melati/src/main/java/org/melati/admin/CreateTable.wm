@@ -1,0 +1,50 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<FORM METHOD=post ACTION=Create_doit>
+
+<CENTER>
+
+<H1>Create a new table</H1>
+
+<TABLE CELLSPACING=0>
+  #foreach $field in $fields {
+    #if ($field.UserCreateable) {
+      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+      #if ($field.Description) {
+	<TR>
+	  <TD></TD><TD></TD>
+	  <TD><FONT SIZE=1>$ml.rendered($field.Description)</FONT></TD>
+	</TR>
+      }
+      <TR>
+	<TD>
+	  #if ($field.Nullable) {
+	    $ml.rendered($field.DisplayName)
+	  } #else {
+	    <B>$ml.rendered($field.DisplayName)</B>
+	  }
+	</TD><TD></TD><TD>
+	  $ml.input($field)
+	</TD>
+      </TR>
+    }
+  }
+</TABLE>
+
+<INPUT NAME=action VALUE"'Create the table" TYPE=submit
+       ONCLICK="return validate(this.form);">
+
+</CENTER>
+
+</FORM>
+
+</BODY>
+</HTML>

@@ -242,8 +242,7 @@ public class AnsiStandard implements Dbms {
       case Types.TINYINT :
         return unsupported("TINYINT", md);
       case Types.SMALLINT :
-	  //        return unsupported("SMALLINT", md);
-        return new IntegerPoemType(nullable);
+	return unsupported("SMALLINT", md);
       case Types.INTEGER :
         return new IntegerPoemType(nullable);
       case Types.BIGINT :
@@ -262,8 +261,7 @@ public class AnsiStandard implements Dbms {
         return new BigDecimalPoemType(nullable, width, scale);
 
       case Types.CHAR :
-	  //        return unsupported("CHAR", md);
-        return new StringPoemType(nullable, 1);
+         return unsupported("CHAR", md);
       case Types.VARCHAR :
         return new StringPoemType(nullable, width);
       case Types.LONGVARCHAR :
@@ -385,7 +383,7 @@ public class AnsiStandard implements Dbms {
 
  /**
   * This is the MySQL syntax
-  **/
+  */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;
   }

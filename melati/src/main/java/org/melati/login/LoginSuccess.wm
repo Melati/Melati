@@ -49,6 +49,11 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
+
+#if ($continuationURL) #begin
+  <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
+#end
+
 </HEAD>
 
 <BODY BGCOLOR=white>
@@ -58,10 +63,6 @@
 <CENTER>
 
 <H1>You have logged in</H1>
-
-#if ($continuationURL) #begin
-  <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
-#end
 
 </CENTER>
 

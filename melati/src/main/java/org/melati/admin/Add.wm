@@ -104,10 +104,10 @@ function popupupdate(popupwin,returnfield,id,value) {
 #if ($Form.returnTarget) #begin
 <input type=hidden name=returnTarget value='$Form.returnTarget'>
 #end
-<INPUT NAME=action VALUE=Update TYPE=submit
+<FONT SIZE="-1" FACE="Arial, Helvetica">
+ <INPUT NAME=action VALUE=Update TYPE=submit
        ONCLICK="return validate(this.form);">
-
+</FONT>
 </FORM>
-
 </BODY>
 </HTML>

@@ -80,6 +80,12 @@ public class CSVTable {
   protected CSVColumn primaryKey = null;
   protected Vector records = new Vector();
 
+  /**
+   * Constructor.
+   * 
+   * @param table POEM table to load data into
+   * @param data CSV file to read from
+   */
   public CSVTable(Table table, File data) {
     this.table = table;
     this.data = data;
@@ -137,7 +143,7 @@ public class CSVTable {
     try {
       while (parser.recordHasMoreFields()) {
 
-        String key = (String) parser.nextField();
+        String key = parser.nextField();
         Object col = columns.get(key);
         if (col == null)
           throw new CSVParseException(
@@ -184,7 +190,7 @@ public class CSVTable {
     try {
       CSVRecord record = new CSVRecord(table);
       for (; i < columnsInUploadOrder.size(); i++) {
-        value = (String) parser.nextField();
+        value = parser.nextField();
         CSVColumn col = (CSVColumn)columnsInUploadOrder.elementAt(i);
         record.addField(new CSVField(col, value));
       }

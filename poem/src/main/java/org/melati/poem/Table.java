@@ -1250,16 +1250,28 @@ public class Table implements Selectable {
   }
 
    /**
-    * Return a selection of rows given arguments specifying a query.
+    * Return a selection of rows given an exemplar.
     *
     * @see #selection(String, String, boolean)
     * @param criteria Represents selection criteria possibly on joined tables
-    * @param orderByClause Comma separated list
     */
-    public Enumeration selection(Persistent criteria, String orderByClause)
+    public Enumeration selection(Persistent criteria)
       throws SQLPoemException {
-      return selection(criteria, orderByClause, false, true);
+      return selection(criteria, 
+                       criteria.getTable().defaultOrderByClause(), false, true);
     }
+    
+    /**
+     * Return a selection of rows given arguments specifying a query.
+     *
+     * @see #selection(String, String, boolean)
+     * @param criteria Represents selection criteria possibly on joined tables
+     * @param orderByClause Comma separated list
+     */
+     public Enumeration selection(Persistent criteria, String orderByClause)
+       throws SQLPoemException {
+       return selection(criteria, orderByClause, false, true);
+     }
     /**
      * Return a selection of rows given arguments specifying a query.
      *

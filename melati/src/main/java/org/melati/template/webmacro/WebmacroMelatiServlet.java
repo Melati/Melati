@@ -63,16 +63,6 @@ public abstract class WebmacroMelatiServlet extends TemplateServlet {
     return handle(m, (WebContext)c.getContext());
   }
   
-  /*
-   * Adding the extension is left up to the application developer.
-   * 
-   * @todo Suggest we fix the overridden method to add the
-   * template extension if there is no "." and delete this. JimW
-   */
-  protected String addExtension(String templateName) {
-    return templateName;
-  }
-
   protected abstract String handle(Melati m, WebContext c) 
    throws Exception;
   

@@ -128,9 +128,9 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * there is no established servlet session, the current user will be set to
    * the default `guest' user.  If this method terminates with an
    * <TT>AccessPoemException</TT>, indicating that you have attempted something
-   * which you aren't entitled to do, the <TT>loginTemplate</TT> method will be
-   * invoked instead; once the user has logged in, the original request will be
-   * retried.
+   * which you aren't entitled to do, the user will be prompted to log in, and
+   * the original request will be retried.  The precise mechanism used for
+   * login is <A HREF=#loginmechanism>configurable</A>.
    *
    * <LI>
    *
@@ -146,8 +146,9 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    *
    * <A NAME=loginmechanism>It's possible to configure how your
    * <TT>MelatiServlet</TT>-derived servlets implement user login.</A> If the
-   * properties file <TT>org.melati.MelatiServlet.properties</TT> exists and
-   * contains a setting
+   * properties file <TT><A
+   * HREF=../../../../org.melati.MelatiServlet.properties>org.melati.MelatiServlet.properties</A></TT>
+   * exists and contains a setting
    * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then
    * <TT><I>foo</I></TT> is taken to be the name of a class implementing the
    * <TT>AccessHandler</TT> interface.  The default is
@@ -173,8 +174,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    *                    context (database, table, object) and utility objects
    *                    like error handlers
    *
-   * @see org.melati.poem.Database#guestUser
-   * @see #loginTemplate
+   * @see org.melati.poem.Database#guestAccessToken
    * @see org.melati.poem.PoemThread#commit
    * @see org.melati.poem.PoemThread#rollback
    * @see org.webmacro.servlet.WMServlet#handle
@@ -227,9 +227,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * @see #handle(org.webmacro.servlet.WebContext)
    * @see #handle(org.webmacro.servlet.WebContext, org.melati.Melati)
    * @see org.melati.poem.AccessPoemException
-   * @see #loginPageURL
    * @see org.webmacro.util.VariableException
-   * @see #handleAccessException
+   * @see AccessHandler#handleAccessException
    */
 
   protected Template handleException(WebContext context, Exception exception)

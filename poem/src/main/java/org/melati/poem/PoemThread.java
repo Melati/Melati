@@ -106,6 +106,14 @@ public class PoemThread {
     context.accessToken = token;
   }
 
+  public static void assertHasCapability(Capability capability)
+     throws NotInSessionPoemException, NoAccessTokenPoemException,
+            AccessPoemException {
+    AccessToken token = accessToken();
+    if (!token.givesCapability(capability))
+      throw new AccessPoemException(token, capability);
+  }
+
   public static Database database() throws NotInSessionPoemException {
     return session().getDatabase();
   }

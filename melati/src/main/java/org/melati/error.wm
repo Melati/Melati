@@ -1,6 +1,7 @@
-<html><head><title>ERROR!</title></head>
 #set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
+
+<html><head><title>ERROR!</title></head>
 
 <body bgcolor="white">
 <h1><font color="green">ERROR!</font></h1>

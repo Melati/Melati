@@ -114,6 +114,6 @@ public class SearchabilityFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    return "new SearchabilityPoemType(getDatabase().getDbms())";
+    return "new SearchabilityPoemType()";
   }
 }

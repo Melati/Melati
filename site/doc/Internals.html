@@ -37,12 +37,6 @@
 </P>
 
 <P>
-  database tables for field links and display preferences
-  core: table rows
-        table shapes
-        tables
-        
-
   <I> ... data dictionary; content management of static web pages;
   admin configuration</I>
 </P>
@@ -117,14 +111,49 @@
 
 
 
-<H3>
+<H3><A NAME=dsd-proc>
 <!-- ===================================== -->
       Data structure definition processor
 <!-- ===================================== -->
-</H3>
+</A></H3>
+
+
+<H4>
+<!-- -------- -->
+      Parser
+<!-- -------- -->
+</H4>
 
 <P>
-  This involves a parser.
+  The <A HREF=FunctionalSpecification.html#dsd-example>language</A> is simple.
+  The only wrinkle is that the definitions are recursive.  So we use a simple
+  custom top-down parser (with, obviously, Java's library tokenizer).
+</P>
+
+
+<H4>
+<!-- ----------------------- -->
+      Base class generation
+<!-- ----------------------- -->
+</H4>
+
+<P>
+  The auto-generated base classes for the business objects wrapping the table
+  rows are quite simple, because most of the logic of fetching and interpreting
+  table rows sits in the <TT>Table</TT> itself (including invalidation of
+  cached rows when the schema is changed).
+</P>
+
+
+<H4>
+<!-- ------------------------------- -->
+      Database structure generation
+<!-- ------------------------------- -->
+</H4>
+
+<P>
+  Some more auto-generated code needs to describe the minimum database scheme
+  the app expects to find, including indexes.
 </P>
 
 
@@ -148,12 +177,23 @@
   transaction.  This means that <TT>==</TT> tests between <TT>Record</TT>s will
   work as expected, and minimises the consequences of programmers storing
   references in data structures of their own which carry over between sessions
-  or adding data members when the extend the auto-generated base classes.  The
-  object's fields array is, however, obtained by a method call, because it
-  depends on the current transaction.  It's optimised for case in which the
-  default auto-commit transaction is being used.
+  or adding data members when the extend the auto-generated base classes.
 </P>
 
+<P>
+  The object's fields array is obtained by a method call, because it depends on
+  the current transaction, but this doesn't involve a hashtable lookup: the
+  object has space for pointers to two field arrays, one for the committed
+  cache and one for the (almost always) only session in which the object has
+  been pencilled in for a modification.  In the rare case that more than one
+  session-cached version is needed, a list is introduced.
+</P>
+
+<P>
+  Alternatively: fetching the field array always involves a hash lookup in both
+  the session cache and the committed cache---a little slower, but makes it
+  easier to invalidate caches.
+</P>
 
 
 <H4>
@@ -163,15 +203,16 @@
 </H4>
 
 <P>
-  What happens if the administrator changes the database while a write is being
-  prepared?  It needs to fail.  E.g. enumeration of generic fields can produce
-  odd results in this case.
+  <FONT COLOR=red>What happens if the administrator changes the database while
+  a write is being prepared?  It needs to fail.  E.g. enumeration of generic
+  fields can produce odd results in this case.</FONT>
 </P>
 
 <P>
-  We know everything that can possibly have changed in a session, since it's
-  only doable by setter methods.  Other things that come in can go into the
-  committed cache.
+  We know everything that can possibly have changed in a session, since we
+  forbid SQL <TT>UPDATE</TT>s which are not mediated through setter methods.
+  So everything that comes in from the database and is not already in the
+  session cache can go straight into the committed cache.
 </P>
 
 
@@ -185,6 +226,113 @@
   Need to be able to: select themselves out of the db with a prepared
   statement; trigger to be changed when a field of a record is changed.
 </P>
+
+
+
+<H3>
+<!-- ============== -->
+      Admin system
+<!-- ============== -->
+</H3>
+
+
+<H4>
+<!-- ---------------------------------------------- -->
+      How does <TT>Admin.java</TT> work currently?
+<!-- ---------------------------------------------- -->
+</H4>
+
+<TABLE>
+  <TR>
+    <TH>`Action'</TH>
+    <TH>Incoming <TT>.wm</TT></TH>
+    <TH>Function</TH>
+    <TH>Outgoing <TT>.wm</TT></TH>
+  </TR>
+
+  <TR>
+    <TD><TT>tables</TT></TD>
+    <TD>various</TD>
+    <TD>
+      list tables in database
+    </TD>
+    <TD><TT>AdministrationTables1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>select</TT></TD>
+    <TD>various</TD>
+    <TD>
+      ``Get all relevant drop boxes to SELECT a set of records and perhaps LIST
+      them or LISTEDIT them'' [yeah right, as you do].  I think this means: the
+      screen where you choose the criteria by which you want a report of
+      records from a table.
+    </TD>
+    <TD><TT>AdministrationEditList1</TT>, <TT>AdministrationList1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>briefselect</TT></TD>
+    <TD><TT>select_frameset2.wm</TT></TD>
+    <TD>
+      ``Get one drop boxes to BRIEFSELECT a set of records (the "first" select
+      box)''.  I have no idea what this does.
+    </TD>
+    <TD><TT>select2.wm</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>display</TT></TD>
+    <TD>none, apparently</TD>
+    <TD>
+      ``DISPLAY one record.''  Dead simple.
+    </TD>
+    <TD><TT>AdministrationDisplay1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>edit</TT></TD>
+    <TD>various</TD>
+    <TD>
+      ``EDIT one record.''  I don't understand <TT>UploadURL</TT>.
+    </TD>
+    <TD>
+       <TT>AdministrationEdit1</TT>; <TT>AdministrationEditPageContents1</TT>
+    </TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update</TT></TD>
+    <TD>
+      <TT>AdministrationEdit1</TT>; <TT>AdministrationEditPageContents1</TT>;
+      <TT>edit2</TT>; <TT>editadd2</TT>
+    </TD>
+    <TD>
+      ``UPDATE one record.''  Handles incoming add/edit/delete.
+    </TD>
+    <TD><TT>AdministrationUpdate1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update multiple</TT> when not <TT>add_button</TT></TD>
+    <TD><TT><TT>AdministrationEdit1.wm</TT>; <TT>editlist2.wm</TT></TD>
+    <TD>
+      ``UPDATE MULTIPLE records.''  Apparently handles incoming
+      `add/edit/delete all'.  Don't understand.
+    </TD>
+    <TD><TT>AdministrationMultipleUpdate1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update multiple</TT> when <TT>add_button</TT></TD>
+    <TD><TT><TT>AdministrationEdit1.wm</TT>; <TT>editlist2.wm</TT></TD>
+    <TD>
+      ``ADD a new record to a MULTIPLE records list.''  Apparently handles
+      incoming `add'.  Don't understand.
+    </TD>
+    <TD><TT>AdministrationEditList1</TT></TD>
+  </TR>
+</TABLE>
 
 
 
@@ -301,7 +449,8 @@
 </H3>
 
 <P>
-  ... <I>the project leader</I>
+  <A HREF=mailto:williamc@paneris.org>William Chesters
+  &lt;williamc@paneris.org&gt;</A>
 </P>
 
 <P>
@@ -319,12 +468,14 @@
 <P>
   The current quality level of this document (including any
   computer-generated documentation, such as javadoc, which belongs
-  with it) is: ...
+  with it) is: <B>Personal</B>.
   <!-- Waived Personal Alpha Beta Release -->
 </P>
 
 <P>
-  Explanation, if needed: ...
+  These are simply my scrappy working notes.  I justify this by saying that
+  it's only me developing the core code, and that will be its own best
+  documentation (along with a <I>post hoc</I> description of the mechanisms).
 </P>
 
 
@@ -369,6 +520,9 @@
 
 <P>
   <BR>$Log$
+  <BR>Revision 1.3  2000/02/05 10:24:55  williamc
+  <BR>Scrappy notes, but will put up anyway
+  <BR>
   <BR>Revision 1.2  2000/02/04 18:28:34  williamc
   <BR>Add QA stub; explain DSD-admin interactino a little better
   <BR>

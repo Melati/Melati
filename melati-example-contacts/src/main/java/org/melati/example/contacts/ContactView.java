@@ -12,10 +12,16 @@ import org.melati.template.TemplateContext;
 import org.webmacro.servlet.WebContext;
 import org.webmacro.WebMacroException;
 
+ /**
+  *  Example servlet to display or edit a contact and its categories.
+  *
+  * TODO: update this to use MelatiTemplateServlet
+  **/
+
 public class ContactView extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context )
-  throws WebMacroException {
+    throws WebMacroException {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
     Contact contact = (Contact)melati.getObject();
@@ -67,10 +73,12 @@ public class ContactView extends WebmacroMelatiServlet {
     //  view an existing record
     else if (melati.getMethod().equals("View")) {
     }
-  else { throw new WebMacroException("Invalid Method");}
+    else { 
+       throw new WebMacroException("Invalid Method");
+    }
     context.put("contact",contact);
     context.put("categories",db.getCategoryTable().selection());
-    return "doc/example/contacts/ContactView.wm";
+    return "org/melati/doc/example/contacts/ContactView.wm";
   }
 
   public void deleteCategories(ContactsDatabase db, Contact contact) {

@@ -11,6 +11,11 @@ import org.melati.MelatiUtil;
 import org.webmacro.servlet.WebContext;
 import org.webmacro.WebMacroException;
 
+ /**
+  *  Example servlet to search contacts and display them.
+  *
+  * TODO: update this to use MelatiTemplateServlet
+  **/
 public class Search extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context )
@@ -37,7 +42,7 @@ public class Search extends WebmacroMelatiServlet {
     if (submit != null) {
       context.put("results", db.getContactTable().selection(where));
     }
-    return "doc/example/contacts/Search.wm";
+    return "org/melati/doc/example/contacts/Search.wm";
   }
   
   protected MelatiContext melatiContext(Melati melati)

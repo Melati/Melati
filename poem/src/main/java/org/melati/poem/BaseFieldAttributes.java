@@ -16,7 +16,12 @@ public class BaseFieldAttributes implements FieldAttributes {
     this.description = description;
     this.type = type;
     this.renderInfo = renderInfo;
-  }  
+  }
+
+  public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
+    this(other.getName(), other.getDisplayName(), other.getDescription(),
+	 other.getType().withNullable(nullable), other.getRenderInfo());
+  }
 
   public BaseFieldAttributes(String name, PoemType type) {
     this(name, name, null, type, null);

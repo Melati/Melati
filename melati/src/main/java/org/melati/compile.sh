@@ -37,7 +37,6 @@ fi
 echo -e "Compiling Melati using $JAVAC for use with $JDBC_descr\n"
 
 ldb="$here"org.melati.LogicalDatabase.properties
-
 ldbe="$ldb.example"
 
 if [ ! -e "$ldb" ] && [ -e "$ldbe" ] ; then
@@ -46,7 +45,8 @@ if [ ! -e "$ldb" ] && [ -e "$ldbe" ] ; then
    cp $ldbe $ldb
 fi
 
-[ -e "$ldb" ] && wronglines=`fgrep -n $wrongJDBC "$ldb"` &&
+[ -e "$ldb" ] &&
+    wronglines=`grep -v '^[[:space:]]*[#!]' "$ldb" | fgrep -n $wrongJDBC` &&
   echo -e "*** warning: your $ldb mentions $wrongJDBC rather than $JDBC" \
           "in the following lines:\n\n$wronglines\n\n" \
           "You should probably change them to $JDBC."

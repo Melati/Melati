@@ -133,6 +133,13 @@ public class MySQL extends AnsiStandard {
     setDriverClassName("org.gjt.mm.mysql.Driver");
   }
 
+ /**
+  * Retrieve a SQL type keyword used by the DBMS 
+  * for the given Melati type name.
+  *
+  * @param sqlTypeName the Melati internal type name
+  * @return this dbms specific type keyword
+  */
   public String getSqlDefinition(String sqlTypeName) throws SQLException {
     if(sqlTypeName.equals("BOOLEAN")) return "BOOL"; 
     return super.getSqlDefinition(sqlTypeName);
@@ -234,9 +241,9 @@ public class MySQL extends AnsiStandard {
   * Translates a MySQL Blob into a Poem <code>IntegerPoemType</code>.
   * About the same as in Postgresql.java, hope it's OK.
   */ 
-    public static class BlobPoemType extends IntegerPoemType {
-      public BlobPoemType(boolean nullable) {
-        super(Types.INTEGER, "BLOB", nullable);
+    public static class BlobPoemType extends BinaryPoemType {
+      public BlobPoemType(boolean nullable, int size) {
+        super(nullable, size);
       }
 
       protected boolean _canRepresent(SQLPoemType other) {
@@ -266,8 +273,9 @@ public class MySQL extends AnsiStandard {
       //I leave case as Postgres driver has it.
 
       if( md.getString("TYPE_NAME").equals("blob") )
-        return new BlobPoemType( md.getInt("NULLABLE") ==
-                                 DatabaseMetaData.columnNullable );
+        return new BlobPoemType(
+                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
+                    md.getInt("COLUMN_SIZE"));
       else
         if( md.getString("TYPE_NAME").equals("text") )
           return new MySQLStringPoemType( md.getInt("NULLABLE")==

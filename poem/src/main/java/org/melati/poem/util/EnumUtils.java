@@ -51,7 +51,7 @@ import java.util.Enumeration;
 /**
  * An assortment of useful operations on <code>Enumeration</code>s.
  */
-public class EnumUtils {
+public final class EnumUtils {
   private EnumUtils() {}
 
   public static int skip(Enumeration e, int n) {

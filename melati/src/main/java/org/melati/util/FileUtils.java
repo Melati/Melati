@@ -52,7 +52,7 @@ import java.io.FileOutputStream;
 /**
  * An assortment of useful operations on <code>File</code>s.
  */
-public class FileUtils {
+public final class FileUtils {
 
   private FileUtils() {}
   

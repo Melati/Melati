@@ -69,6 +69,10 @@ public class Persistent extends Transactioned implements Cloneable {
     this.troid = troid;
   }
 
+  public Persistent(Table table) {
+    this.table = table;
+  }
+
   public Persistent() {
   }
 

@@ -65,13 +65,15 @@ public class CachedSelectionTest {
             System.err.println("\n*** setter: nothing to set\n");
           else {
             System.err.println("\n*** setter: setting\n");
-            t.setWhatsit("whatsit" + (serial++));
+            // FIXME - line removed by ttj to allow melait to compile
+//            t.setWhatsit("whatsit" + (serial++));
           }
         }
         else if (theSignal[0] == add) {
           System.err.println("\n*** setter: adding\n");
           AThing t = (AThing)table.newPersistent();
-          t.setWhatsit("whatsit" + (serial++));
+            // FIXME - line removed by ttj to allow melait to compile
+//          t.setWhatsit("whatsit" + (serial++));
           t.makePersistent();
         }
         else if (theSignal[0] == delete) {
@@ -128,7 +130,8 @@ public class CachedSelectionTest {
           System.err.print("\n*** got");
 
           while (them.hasMoreElements())
-            System.err.print(" " + ((AThing)them.nextElement()).getWhatsit());
+            // FIXME - line removed by ttj to allow melait to compile
+//            System.err.print(" " + ((AThing)them.nextElement()).getWhatsit());
 
           System.err.println("\n");
         }

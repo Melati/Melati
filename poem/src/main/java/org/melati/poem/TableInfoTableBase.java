@@ -81,6 +81,10 @@ public class TableInfoTableBase extends Table {
             return "A code-name for the table";
           }
 
+          protected boolean defaultUnique() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName();

@@ -26,7 +26,7 @@ abstract public class Database {
   private Vector freeSessions = null;
 
   private Connection committedConnection;
-  private final Lock structuralModificationLock = new Lock();
+  private final Lock lock = new Lock();
 
   private Vector tables = new Vector();
   private Hashtable tablesByName = new Hashtable();
@@ -168,6 +168,28 @@ abstract public class Database {
     return m.getColumns(null, null, tableName, null);
   }
 
+  public Table addTableAndCommit(TableInfo info, String troidName)
+      throws PoemException {
+    Table table = new Table(this, info.getName(),
+                            DefinitionSource.infoTables);
+    table.setTableInfo(info);
+    table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
+                                       DefinitionSource.infoTables,
+                                       table.extrasIndex++));
+    table.unifyWithColumnInfo();
+    try {
+      table.unifyWithDB(null);
+    }
+    catch (SQLException e) {
+      throw new SQLPoemException(e);
+    }
+
+    PoemThread.commit();
+    defineTable(table);
+
+    return table;
+  }
+
   private synchronized void unifyWithDB() throws PoemException, SQLException {
 
     // Check all tables against tableInfo, silently defining the ones
@@ -217,12 +239,14 @@ abstract public class Database {
       table.unifyWithDB(columnsMetadata(m, tableName));
     }
 
+    // ... and create any that simply don't exist
+
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Table table = (Table)t.nextElement();
       // bit yukky using getColumns ...
       ResultSet colDescs = columnsMetadata(m, table.getName());
       if (!colDescs.next())
-        table.unifyWithDB(colDescs);
+        table.unifyWithDB(null);
     }
   }
 
@@ -287,10 +311,10 @@ abstract public class Database {
     // FIXME yuk
 
     if (PoemThread.inSession())
-      structuralModificationLock.readUnlock();
+      lock.readUnlock();
 
     try {
-      structuralModificationLock.writeLock();
+      lock.writeLock();
     }
     catch (InterruptedException e) {
       throw new InterruptedPoemException(e);
@@ -298,13 +322,13 @@ abstract public class Database {
   }
 
   void endExclusiveLock() {
-    structuralModificationLock.writeUnlock();
+    lock.writeUnlock();
 
     // FIXME yuk, see above
 
     if (PoemThread.inSession())
       try {
-        structuralModificationLock.readLock();
+        lock.readLock();
       }
       catch (InterruptedException e) {
         throw new InterruptedPoemException(e);
@@ -320,7 +344,7 @@ abstract public class Database {
   private void perform(AccessToken accessToken, final PoemTask task,
                        boolean committedSession) throws PoemException {
     try {
-      structuralModificationLock.readLock();
+      lock.readLock();
     }
     catch (InterruptedException e) {
       throw new InterruptedPoemException(e);
@@ -351,7 +375,7 @@ abstract public class Database {
                            session);
     }
     finally {
-      structuralModificationLock.readUnlock();
+      lock.readUnlock();
     }
   }
 

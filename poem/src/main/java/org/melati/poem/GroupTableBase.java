@@ -71,6 +71,10 @@ public class GroupTableBase extends Table {
             return "A human-readable name for the group";
           }
 
+          protected boolean defaultUnique() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getName();

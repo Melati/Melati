@@ -15,6 +15,8 @@ public class ColumnInfoDataBase extends Data {
   Integer displayorderpriority;
   Integer type;
   Boolean nullable;
+  Boolean indexed;
+  Boolean unique;
   Integer size;
   Integer width;
   Integer height;

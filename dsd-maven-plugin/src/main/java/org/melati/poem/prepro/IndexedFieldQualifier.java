@@ -16,6 +16,6 @@ public class IndexedFieldQualifier extends FieldQualifier {
   }
 
   public void apply(FieldDef field) throws IllegalityException {
-    // FIXME implement ...
+    field.isIndexed = true;
   }
 }

@@ -16,6 +16,8 @@ public class ColumnInfoTableBase extends Table {
   private Column col_displayorderpriority = null;
   private Column col_type = null;
   private Column col_nullable = null;
+  private Column col_indexed = null;
+  private Column col_unique = null;
   private Column col_size = null;
   private Column col_width = null;
   private Column col_height = null;
@@ -126,6 +128,10 @@ public class ColumnInfoTableBase extends Table {
 
           protected String defaultDescription() {
             return "A code-name for the field";
+          }
+
+          protected boolean defaultUnique() {
+            return false;
           }
 
           public Object getIdent(Persistent g)
@@ -490,6 +496,76 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
+    defineColumn(col_indexed =
+        new Column(this, "indexed", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).indexed;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).indexed = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getIndexed();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setIndexed((Boolean)value);
+          }
+
+          protected String defaultDescription() {
+            return "Whether the field is indexed (ignored if the field is marked `unique')";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getIndexed();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setIndexed((Boolean)ident);
+          }
+        });
+
+    defineColumn(col_unique =
+        new Column(this, "unique", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).unique;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).unique = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getUnique();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setUnique((Boolean)value);
+          }
+
+          protected String defaultDescription() {
+            return "Whether the field is unique (implies that it's `indexed')";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getUnique();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setUnique((Boolean)ident);
+          }
+        });
+
     defineColumn(col_size =
         new Column(this, "size", new IntegerPoemType(false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
@@ -689,6 +765,14 @@ public class ColumnInfoTableBase extends Table {
 
   public final Column getNullableColumn() {
     return col_nullable;
+  }
+
+  public final Column getIndexedColumn() {
+    return col_indexed;
+  }
+
+  public final Column getUniqueColumn() {
+    return col_unique;
   }
 
   public final Column getSizeColumn() {

@@ -260,6 +260,46 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getNullableColumn().asField(this);
   }
 
+  public Boolean getIndexed()
+      throws AccessPoemException {
+    return dataForReading().indexed;
+  }
+
+  public void setIndexed(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getIndexedColumn().getType().assertValidValue(value);
+    dataForWriting().indexed = value;
+  }
+
+  public final void setIndexed(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setIndexed(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getIndexedField() throws AccessPoemException {
+    return getColumnInfoTable().getIndexedColumn().asField(this);
+  }
+
+  public Boolean getUnique()
+      throws AccessPoemException {
+    return dataForReading().unique;
+  }
+
+  public void setUnique(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getUniqueColumn().getType().assertValidValue(value);
+    dataForWriting().unique = value;
+  }
+
+  public final void setUnique(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setUnique(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getUniqueField() throws AccessPoemException {
+    return getColumnInfoTable().getUniqueColumn().asField(this);
+  }
+
   public Integer getSize()
       throws AccessPoemException {
     return dataForReading().size;

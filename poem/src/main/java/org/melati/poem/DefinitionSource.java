@@ -14,5 +14,6 @@ public class DefinitionSource {
   public static final DefinitionSource
       dsd = new DefinitionSource("the data structure definition"),
       infoTables = new DefinitionSource("the data dictionary"),
-      sqlMetaData = new DefinitionSource("the JDBC metadata");
+      sqlMetaData = new DefinitionSource("the JDBC metadata"),
+      runtime = new DefinitionSource("the running application");
 }

@@ -73,6 +73,10 @@ public class UserTableBase extends Table {
             return "The user's login name";
           }
 
+          protected boolean defaultUnique() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin();
@@ -153,6 +157,10 @@ public class UserTableBase extends Table {
 
           protected String defaultDescription() {
             return "The user's real name";
+          }
+
+          protected boolean defaultIndexed() {
+            return true;
           }
 
           public Object getIdent(Persistent g)

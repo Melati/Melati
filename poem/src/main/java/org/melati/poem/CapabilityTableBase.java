@@ -83,6 +83,10 @@ public class CapabilityTableBase extends Table {
             return "A human-readable name for the capability";
           }
 
+          protected boolean defaultUnique() {
+            return false;
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getName();

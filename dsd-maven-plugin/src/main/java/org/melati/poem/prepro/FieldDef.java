@@ -27,6 +27,8 @@ public abstract class FieldDef {
   int displayOrderPriority = -1;
   boolean isEditable = true;
   boolean isDisplayable = true;
+  boolean isIndexed = false;
+  boolean isUnique = false;
 
   public FieldDef(TableDef table, String name,
                   String type, String identType, Vector qualifiers)
@@ -178,6 +180,18 @@ public abstract class FieldDef {
       w.write("          protected String defaultDescription() {\n" +
               "            return " +
                                StringUtils.quoted(description, '"') + ";\n" +
+              "          }\n" +
+              "\n");
+
+    if (isIndexed)
+      w.write("          protected boolean defaultIndexed() {\n" +
+              "            return true;\n" +
+              "          }\n" +
+              "\n");
+
+    if (isUnique)
+      w.write("          protected boolean defaultUnique() {\n" +
+              "            return false;\n" +
               "          }\n" +
               "\n");
 

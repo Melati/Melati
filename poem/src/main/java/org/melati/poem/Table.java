@@ -183,6 +183,17 @@ public class Table {
   // -----------
   // 
 
+  private void dbModifyStructure(String sql)
+      throws StructuralModificationFailedPoemException {
+    try {
+      database.getCommittedConnection().createStatement().executeUpdate(sql);
+      database.log(new StructuralModificationLogEvent(sql));
+    }
+    catch (SQLException e) {
+      throw new StructuralModificationFailedPoemException(sql, e);
+    }
+  }
+
   private void dbCreateTable() {
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + _quotedName(name) + " (");
@@ -194,29 +205,24 @@ public class Table {
     }
 
     sqb.append(")");
-    String sql = sqb.toString();
 
-    try {
-      database.getCommittedConnection().createStatement().executeUpdate(sql);
-      database.log(new StructuralModificationLogEvent(sql));
-    }
-    catch (SQLException e) {
-      throw new StructuralModificationFailedPoemException(sql, e);
-    }
+    dbModifyStructure(sqb.toString());
   }
 
   private void dbAddColumn(Column column) {
-    String sql = "ALTER TABLE " + _quotedName(name) +
-                 " ADD COLUMN " + _quotedName(column.getName()) +
-                 " " + column.getType().sqlDefinition();
+    dbModifyStructure(
+        "ALTER TABLE " + _quotedName(name) +
+        " ADD COLUMN " + _quotedName(column.getName()) +
+        " " + column.getType().sqlDefinition());
+  }
 
-    try {
-      database.getCommittedConnection().createStatement().executeUpdate(sql);
-      database.log(new StructuralModificationLogEvent(sql));
-    }
-    catch (SQLException e) {
-      throw new StructuralModificationFailedPoemException(sql, e);
-    }
+  private void dbCreateIndex(Column column) {
+    if (column.isIndexed())
+      dbModifyStructure(
+          "CREATE " + (column.isUnique() ? "UNIQUE " : "") + "INDEX " +
+          _quotedName(name + "_" + column.getName() + "_index") + " " +
+          "ON " + _quotedName(name) + " " +
+          "(" + _quotedName(column.getName()) + ")");
   }
 
   // 
@@ -938,6 +944,32 @@ public class Table {
   }
 
   // 
+  // -----------
+  //  Structure
+  // -----------
+  // 
+
+  public Column addColumnAndCommit(ColumnInfo info) throws PoemException {
+    Column column = ExtraColumn.from(this, info, extrasIndex++,
+                                     DefinitionSource.runtime);
+    column.setColumnInfo(info);
+    dbAddColumn(column);
+    database.beginStructuralModification();
+    try {
+      synchronized (cache) {    // belt and braces
+        uncacheContents();
+        defineColumn(column);
+      }
+      PoemThread.commit();
+    }
+    finally {
+      database.endStructuralModification();
+    }
+
+    return column;
+  }
+
+  // 
   // ===========
   //  Utilities
   // ===========
@@ -1039,15 +1071,31 @@ public class Table {
     }
   }
 
-  private int extrasIndex = 0;
+  int extrasIndex = 0;
 
   void setTableInfo(TableInfo tableInfo) {
     info = tableInfo;
   }
 
+  /**
+   * The `factory-default' display name for the table.  By default this is the
+   * table's programmatic name, capitalised.  Application-specialised tables
+   * override this to return any <TT>(displayname = </TT>...<TT>)</TT> provided
+   * in the DSD.  This is only ever used at startup time when creating
+   * <TT>columninfo</TT> records for tables that don't have them.
+   */
+
   protected String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
+
+  /**
+   * The `factory-default' description for the table, or <TT>null</TT> if it
+   * doesn't have one.  Application-specialised tables override this to return
+   * any <TT>(description = </TT>...<TT>)</TT> provided in the DSD.  This is
+   * only ever used at startup time when creating <TT>columninfo</TT> records
+   * for tables that don't have them.
+   */
 
   protected String defaultDescription() {
     return null;
@@ -1075,7 +1123,8 @@ public class Table {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
       Column column = (Column)columnsByName.get(columnInfo.getName());
       if (column == null) {
-        column = ExtraColumn.from(this, columnInfo, extrasIndex++);
+        column = ExtraColumn.from(this, columnInfo, extrasIndex++,
+                                  DefinitionSource.infoTables);
         _defineColumn(column);
       }
 
@@ -1093,42 +1142,43 @@ public class Table {
 
     Hashtable dbColumns = new Hashtable();
 
-    int dbIndex;
-    for (dbIndex = 0; colDescs.next(); ++dbIndex) {
-      String colName = colDescs.getString("COLUMN_NAME");
-      Column column = (Column)columnsByName.get(colName);
+    int dbIndex = 0;
+    if (colDescs != null)
+      for (; colDescs.next(); ++dbIndex) {
+        String colName = colDescs.getString("COLUMN_NAME");
+        Column column = (Column)columnsByName.get(colName);
 
-      if (column == null) {
-        PoemType colType =
-            database.defaultPoemTypeOfColumnMetaData(colDescs);
+        if (column == null) {
+          PoemType colType =
+              database.defaultPoemTypeOfColumnMetaData(colDescs);
 
-        if (troidColumn == null && colName.equals("id") &&
-            colType.canBe(TroidPoemType.it))
-          colType = TroidPoemType.it;
+          if (troidColumn == null && colName.equals("id") &&
+              colType.canBe(TroidPoemType.it))
+            colType = TroidPoemType.it;
 
-        if (deletedColumn == null && colName.equals("deleted") &&
-            colType.canBe(DeletedPoemType.it))
-          colType = DeletedPoemType.it;
+          if (deletedColumn == null && colName.equals("deleted") &&
+              colType.canBe(DeletedPoemType.it))
+            colType = DeletedPoemType.it;
 
-        column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
-                                 colType, DefinitionSource.sqlMetaData,
-                                 extrasIndex++);
+          column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
+                                   colType, DefinitionSource.sqlMetaData,
+                                   extrasIndex++);
 
-        _defineColumn(column);
+          _defineColumn(column);
 
-        // FIXME hack: this happens when *InfoTable are unified with
-        // the database---obviously they haven't been initialised yet
-        // but it gets fixed in the next round when all tables
-        // (including them, again) are unified
+          // FIXME hack: info == null happens when *InfoTable are unified with
+          // the database---obviously they haven't been initialised yet but it
+          // gets fixed in the next round when all tables (including them,
+          // again) are unified
 
-        if (info != null)
-          column.createColumnInfo();
+          if (info != null)
+            column.createColumnInfo();
+        }
+        else
+          column.assertMatches(colDescs);
+
+        dbColumns.put(column, Boolean.TRUE);
       }
-      else
-        column.assertMatches(colDescs);
-
-      dbColumns.put(column, Boolean.TRUE);
-    }
 
     if (dbIndex == 0)
       // OK, we simply don't exist ...
@@ -1144,6 +1194,39 @@ public class Table {
 
     if (troidColumn == null)
       throw new NoTroidColumnException(this);
+
+    // FIXME hack: info == null happens when *InfoTable are unified with
+    // the database---obviously they haven't been initialised yet but it
+    // gets fixed in the next round when all tables (including them,
+    // again) are unified
+
+    if (info != null) {
+
+      // Check indices are unique
+
+      Hashtable dbHasIndexForColumn = new Hashtable();
+      ResultSet index =
+          getDatabase().getCommittedConnection().getMetaData().
+              getIndexInfo(null, "", getName(), false, true);
+      while (index.next()) {
+        try {
+          Column column = getColumn(index.getString("COLUMN_NAME"));
+          column.unifyWithIndex(index);
+          dbHasIndexForColumn.put(column, Boolean.TRUE);
+        }
+        catch (NoSuchColumnPoemException e) {
+          // hmm, let's just ignore this since it will never happen
+        }
+      }
+
+      // Silently create any missing indices
+
+      for (int c = 0; c < columns.size(); ++c) {
+        Column column = (Column)columns.elementAt(c);
+        if (dbHasIndexForColumn.get(column) != Boolean.TRUE)
+          dbCreateIndex(column);
+      }
+    }
 
     // Where should we start numbering new records?
 

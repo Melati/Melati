@@ -10,6 +10,6 @@ public class UniqueFieldQualifier extends IndexedFieldQualifier {
   }
 
   public void apply(FieldDef field) throws IllegalityException {
-    // FIXME implement ...
+    field.isUnique = true;
   }
 }

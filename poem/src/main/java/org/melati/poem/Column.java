@@ -74,6 +74,14 @@ public abstract class Column {
     return true;
   }
 
+  protected boolean defaultIndexed() {
+    return isTroidColumn();
+  }
+
+  protected boolean defaultUnique() {
+    return false;
+  }
+
   void createColumnInfo() throws PoemException {
     if (info == null) {
       info =
@@ -89,10 +97,20 @@ public abstract class Column {
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
                   i.setDisplayable(defaultDisplayable());
+                  i.setIndexed(defaultIndexed());
+                  i.setUnique(defaultUnique());
                   getType().saveColumnInfo(i);
                 }
               });
     }
+  }
+
+  void unifyWithIndex(ResultSet index)
+      throws SQLException, IndexUniquenessPoemException {
+    boolean indexUnique = !index.getBoolean("NON_UNIQUE");
+    if (indexUnique != isUnique())
+      throw new IndexUniquenessPoemException(
+          this, index.getString("INDEX_NAME"), isUnique());
   }
 
   // 
@@ -148,6 +166,14 @@ public abstract class Column {
 
   public final boolean isDeletedColumn() {
     return getType() instanceof DeletedPoemType;
+  }
+
+  public final boolean isIndexed() {
+    return isUnique() || info.getIndexed().booleanValue();
+  }
+
+  public final boolean isUnique() {
+    return isTroidColumn() || info.getUnique().booleanValue();
   }
 
   public final String getRenderInfo() {
@@ -245,29 +271,8 @@ public abstract class Column {
   public Enumeration referencesTo(Persistent object) {
     return
         getType() instanceof ReferencePoemType &&
-        ((ReferencePoemType)getType()).targetTable() == object.getTable() ?
-            selectionWhereEq(object.troid()) :
-            EmptyEnumeration.it;
+            ((ReferencePoemType)getType()).targetTable() == object.getTable() ?
+          selectionWhereEq(object.troid()) :
+          EmptyEnumeration.it;
   }
-
-/*
-  public void rename(String newName)
-      throws AccessPoemException, CannotBeInSessionPoemException,
-             DuplicateColumnNamePoemException, AlterDSDAttemptPoemException {
-
-    if (isDefinedInDSD)
-      throw new AlterDSDAttemptPoemException();
-
-    PoemThread.accessToken().assertHasCapability(attributes.getCanAlter());
-
-    table.rename(this, newName);
-    try {
-      attributes.setName(newName);
-    }
-    catch (Exception e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
-    name = newName;
-  }
-*/
 }

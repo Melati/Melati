@@ -66,12 +66,13 @@ public class PreparedSelection {
   public PreparedSelection(final Table table,
                            final String whereClause,
                            final String orderByClause,
-						   final Table otherTables[]) {
+                           final Table otherTables[]) {
     this.table = table;
     this.whereClause = whereClause;
     this.orderByClause = orderByClause;
     this.otherTables = otherTables;
-    if (otherTables != null) otherTablesSerial = new long[otherTables.length];
+    if (otherTables != null)
+      otherTablesSerial = new long[otherTables.length];
   }
 
   public PreparedSelection(final Table table,
@@ -84,15 +85,15 @@ public class PreparedSelection {
     if (orderByClause == null) {
       String defaultOrderByClause = table.defaultOrderByClause();
       if (defaultOrderByClause != tableDefaultOrderByClause) {
-	statements = null;
-	tableDefaultOrderByClause = defaultOrderByClause;
+        statements = null;
+        tableDefaultOrderByClause = defaultOrderByClause;
       }
     }
 
     if (statements == null)
       statements = new PreparedStatementFactory(
-		       table.getDatabase(),
-		       table.selectionSQL(whereClause, orderByClause, false));
+                       table.getDatabase(),
+                       table.selectionSQL(whereClause, orderByClause, false));
 
     return statements;
   }
@@ -103,17 +104,17 @@ public class PreparedSelection {
     if (selection == null || somethingHasChanged(transaction)) {
       selection = new Vector();
       try {
-	ResultSet rs = statements().resultSet(transaction);
-	try {
-	  while (rs.next())
-	    selection.addElement(new Integer(rs.getInt(1)));
-	}
-	finally {
-	  try { rs.close(); } catch (Exception e) {}
-	}
+        ResultSet rs = statements().resultSet(transaction);
+        try {
+          while (rs.next())
+            selection.addElement(new Integer(rs.getInt(1)));
+        }
+        finally {
+          try { rs.close(); } catch (Exception e) {}
+        }
       }
       catch (SQLException e) {
-	    throw new SQLSeriousPoemException(e);
+            throw new SQLSeriousPoemException(e);
       }
       this.selection = selection;
       updateSerials(transaction);
@@ -123,13 +124,17 @@ public class PreparedSelection {
   }
 
   private boolean somethingHasChanged(PoemTransaction transaction) {
-    if (table.serial(transaction) != tableSerial) return true;
+    if (table.serial(transaction) != tableSerial)
+      return true;
+
     if (otherTables != null) {
-      for (int i=0; i<otherTables.length; i++) {
-		if (otherTables[i].serial(transaction) != otherTablesSerial[i]) return true;
-	  }
-	}
-	return false;
+      for (int i = 0; i < otherTables.length; i++) {
+        if (otherTables[i].serial(transaction) != otherTablesSerial[i])
+          return true;
+      }
+    }
+
+    return false;
   }
 
   private void updateSerials(PoemTransaction transaction) {
@@ -138,7 +143,7 @@ public class PreparedSelection {
       for (int i=0; i<otherTables.length; i++) {
         otherTablesSerial[i] = otherTables[i].serial(transaction);
       }
-	}
+    }
   }
 
   public Table getTable() {

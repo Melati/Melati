@@ -45,8 +45,6 @@
 
 package org.melati.login;
 
-import java.net.URLEncoder;
-import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +60,7 @@ import org.melati.util.HttpServletRequestParameters;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 import org.melati.util.ReconstructedHttpServletRequest;
 import org.melati.util.MD5Util;
+import org.melati.util.UTF8URLEncoder;
 
 /**
  * An {@link AccessHandler} which uses <code>Session</code> cookies to
@@ -103,7 +102,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     url.append('/');
     url.append(loginPageServletClassName());
     url.append('/');
-    url.append(melati.getContext().logicalDatabase);
+    url.append(melati.getPoemContext().getLogicalDatabase());
     url.append('/');
 
     return url.toString();
@@ -118,9 +117,9 @@ public class HttpSessionAccessHandler implements AccessHandler {
     HttpServletRequest request = melati.getRequest();
     HttpServletResponse response = melati.getResponse();
     HttpSession session = request.getSession(true);
-    session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
+    session.setAttribute(Login.TRIGGERING_REQUEST_PARAMETERS,
                      new HttpServletRequestParameters(request));
-    session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
+    session.setAttribute(Login.TRIGGERING_EXCEPTION, accessException);
     melati.getWriter().reset();
     response.sendRedirect(loginPageURL(melati, request));
   }
@@ -139,10 +138,10 @@ public class HttpSessionAccessHandler implements AccessHandler {
   
   // now if we establish a user, we must also set this frigging cookie
   public Melati establishUser(Melati melati) {
-    String ldb = melati.getContext().getLogicalDatabase();
+    String ldb = melati.getPoemContext().getLogicalDatabase();
     HttpSession session = melati.getSession();
     synchronized (session) {
-      User user = (User)session.getValue(USER);
+      User user = (User)session.getAttribute(USER);
       if (user == null) {
         user = getUserFromCookie(melati,ldb);
         if (user != null) {
@@ -171,16 +170,12 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public String getCookieValue(Melati melati,String key) {
     // try and get from cookie
-    key = URLEncoder.encode(key);
+    key = UTF8URLEncoder.encode(key);
     Cookie[] cookies = melati.getRequest().getCookies();
     if(cookies == null) return null;
     for (int i=0; i<cookies.length; i++) {
       Cookie c = cookies[i];
-      try {
-        if (c.getName().equals(key)) return URLDecoder.decode(c.getValue());
-      } catch (Exception e) {
-        return null;
-      }
+        if (c.getName().equals(key)) return UTF8URLEncoder.decode(c.getValue());
     }
     return null;
   }
@@ -194,10 +189,10 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
     synchronized (session) {
       HttpServletRequestParameters oldParams =
-          (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
+          (HttpServletRequestParameters)session.getAttribute(OVERLAY_PARAMETERS);
 
       if (oldParams != null) {
-        session.removeValue(OVERLAY_PARAMETERS);
+        session.removeAttribute(OVERLAY_PARAMETERS);
 
         // we don't want to create a new object here, rather we are simply 
         // going to set up the old request parameters

@@ -45,14 +45,14 @@ org.melati.MelatiServlet.templatePath=/usr/local/packages/melati/org/melati/
 # 
 
 # This should point, relative to your server's http root, to this directory.
-# e.g. ln -s /usr/local/melati/org/melati /usr/local/apache/htdocs/melati-static
+# e.g. ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
 
-org.melati.MelatiServlet.staticURL=/melati-static/templets/html
+org.melati.MelatiServlet.staticURL=/melati-static/
 
-# This should point, relative to your server's http root, to templets/html
+# This should point, relative to your server's http root, to the admin directory
 # (will be achieved by the ln -s suggested above)
 
-org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/template/webmacro/templets/html
+org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/admin/
 
 #
 # ------------------------------

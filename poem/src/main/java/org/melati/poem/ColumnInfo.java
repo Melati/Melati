@@ -84,7 +84,7 @@ public class ColumnInfo extends ColumnInfoBase {
       if (column != null) {
         Table table = column.getTable();
         Column previous = table.displayColumn();
-        if (previous != null)
+        if (previous != null && previous != column)
           previous.setPrimaryDisplay(false);
         table.setDisplayColumn(column);
       }

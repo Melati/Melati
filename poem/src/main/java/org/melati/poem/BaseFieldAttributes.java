@@ -55,10 +55,14 @@ public class BaseFieldAttributes implements FieldAttributes {
   private PoemType type;
   private String renderInfo;
   private int width, height;
+  private boolean indexed;
+  private boolean userEditable;
+  private boolean userCreateable;
 
-  public BaseFieldAttributes(String name, String displayName,
-                             String description, PoemType type,
-                             int width, int height, String renderInfo) {
+  public BaseFieldAttributes(
+      String name, String displayName, String description, PoemType type,
+      int width, int height, String renderInfo, boolean indexed,
+      boolean userEditable, boolean userCreateable) {
     this.name = name;
     this.displayName = displayName;
     this.description = description;
@@ -66,19 +70,33 @@ public class BaseFieldAttributes implements FieldAttributes {
     this.width = width;
     this.height = height;
     this.renderInfo = renderInfo;
+    this.indexed = indexed;
+    this.userEditable = userEditable;
+    this.userCreateable = userCreateable;
+  }
+
+  /*
+  public BaseFieldAttributes(String name, String displayName,
+                             String description, PoemType type,
+                             int width, int height, String renderInfo) {
+    this(name, displayName, description, type, width, height, renderInfo,
+         false, true, false);
+  }
+  */
+
+  public BaseFieldAttributes(String name, PoemType type) {
+    this(name, name, null, type, 0, 0, null, false, true, true);
   }
 
   public BaseFieldAttributes(FieldAttributes other, PoemType type) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
-	 type, other.getWidth(), other.getHeight(), other.getRenderInfo());
+	 type, other.getWidth(), other.getHeight(), other.getRenderInfo(),
+         other.getIndexed(), other.getUserEditable(),
+         other.getUserCreateable());
   }
 
   public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
     this(other, other.getType().withNullable(nullable));
-  }
-
-  public BaseFieldAttributes(String name, PoemType type) {
-    this(name, name, null, type, 0, 0, null);
   }
 
   public String getName() {
@@ -98,15 +116,15 @@ public class BaseFieldAttributes implements FieldAttributes {
   }
 
   public boolean getIndexed() {
-    return false;
+    return indexed;
   }
 
   public boolean getUserEditable() {
-    return true;
+    return userEditable;
   }
 
   public boolean getUserCreateable() {
-    return false;
+    return userCreateable;
   }
 
   public int getWidth() {

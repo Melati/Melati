@@ -1,133 +1,131 @@
 package org.melati.login;
 
-import java.util.*;
-import java.io.*;
-import org.melati.util.*;
-import org.melati.*;
-import org.melati.poem.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpSession;
+
+import org.melati.servlet.TemplateServlet;
+import org.melati.template.TemplateContext;
+import org.melati.MelatiContext;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.UserTable;
+import org.melati.poem.User;
+import org.melati.poem.PoemThread;
+import org.melati.poem.Field;
+import org.melati.util.HttpServletRequestParameters;
 
 public class LoginHandler {
 
-  protected MelatiServlet servlet;
+  protected TemplateServlet servlet;
 
-  public LoginHandler(MelatiServlet servlet) {
+  public LoginHandler(TemplateServlet servlet) {
     this.servlet = servlet;
   }
 
-  protected Template getTemplate(String name) throws WebMacroException {
-    return servlet.getTemplate(name);
+  protected TemplateContext loginTemplate(TemplateContext templateContext, String name) {
+    templateContext.setTemplateName("login/" + name);
+    return templateContext;
   }
 
-  protected Template loginTemplate(String name) throws WebMacroException {
-    return getTemplate("login/" + name);
+  protected TemplateContext loginPageTemplate(TemplateContext templateContext) {
+    return loginTemplate(templateContext, "Login.wm");
   }
 
-  protected Template loginPageTemplate() throws WebMacroException {
-    return loginTemplate("Login.wm");
+  protected TemplateContext usernameUnknownTemplate(TemplateContext templateContext) {
+    return loginTemplate(templateContext, "LoginFailure.wm");
   }
 
-  protected Template usernameUnknownTemplate() throws WebMacroException {
-    return loginTemplate("LoginFailure.wm");
+  protected TemplateContext passwordIncorrectTemplate(TemplateContext templateContext) {
+    return loginTemplate(templateContext, "LoginFailure.wm");
   }
 
-  protected Template passwordIncorrectTemplate() throws WebMacroException {
-    return loginTemplate("LoginFailure.wm");
+  protected TemplateContext loginSuccessTemplate(TemplateContext templateContext) {
+    return loginTemplate(templateContext, "LoginSuccess.wm");
   }
 
-  protected Template loginSuccessTemplate() throws WebMacroException {
-    return loginTemplate("LoginSuccess.wm");
-  }
-
+  /*
   protected Field loginField(Field standard) {
-    return standard;
+  return standard;
   }
+   */
 
-  public void setupContext(WebContext context) {
+  public void setupContext(TemplateContext context) {
     HttpSession session = context.getSession();
 
     AccessPoemException triggeringException =
-        (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
+    (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)
-      context.put("triggeringException", triggeringException);
+    context.put("triggeringException", triggeringException);
 
     String username = context.getForm("field_login");
     String password = context.getForm("field_password");
     UserTable users = PoemThread.database().getUserTable();
-    
-    context.put("login",
-                loginField(new Field(username, users.getLoginColumn())));
+
+    context.put("login", new Field(username, users.getLoginColumn()));
     context.put("password",
-                new Field(password, users.getPasswordColumn()));
+    new Field(password, users.getPasswordColumn()));
 
     context.put("loginUnknown", Boolean.FALSE);
     context.put("passwordWrong", Boolean.FALSE);
   }
 
-  public Template loginSuccessfullyAs(WebContext context, User user)
-      throws WebMacroException {
+  public TemplateContext loginSuccessfullyAs(TemplateContext templateContext, User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
     // request into a GET that the browser will repeat on reload with giving
     // any warning).
 
-    HttpSession session = context.getSession();
+    HttpSession session = templateContext.getSession();
 
     HttpServletRequestParameters triggeringParams =
-        (HttpServletRequestParameters)session.getValue(
-            Login.TRIGGERING_REQUEST_PARAMETERS);
+    (HttpServletRequestParameters)session.getValue(
+    Login.TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
       session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
-                       triggeringParams);
+      triggeringParams);
       session.removeValue(Login.TRIGGERING_REQUEST_PARAMETERS);
       session.removeValue(Login.TRIGGERING_EXCEPTION);
-      context.put("continuationURL", triggeringParams.continuationURL());
+      templateContext.put("continuationURL", triggeringParams.continuationURL());
     } else {
-      if (context.getForm("continuationURL") != null) {
-        context.put("continuationURL",context.getForm("continuationURL"));
+      if (templateContext.getForm("continuationURL") != null) {
+        templateContext.put("continuationURL",templateContext.getForm("continuationURL"));
       }
     }
 
     session.putValue(HttpSessionAccessHandler.USER, user);
 
-    return loginSuccessTemplate();
+    return loginSuccessTemplate(templateContext);
   }
 
-  public String getLogin(WebContext context) {
+  public String getLogin(TemplateContext context) {
     return context.getForm("field_login");
   }
 
-  public Template handle(WebContext context)
-      throws PoemException, WebMacroException {
+  protected TemplateContext doTemplateRequest(
+  MelatiContext melatiContext, TemplateContext templateContext )
+  throws Exception {
 
-    setupContext(context);
+    setupContext(templateContext);
 
-    String username = getLogin(context);
-    String password = context.getForm("field_password");
+    String username = getLogin(templateContext);
+    String password = templateContext.getForm("field_password");
 
     if (username == null)
-      return loginPageTemplate();
+    return loginPageTemplate(templateContext);
 
     User user = (User)PoemThread.database().getUserTable().getLoginColumn().
-                    firstWhereEq(username);
+    firstWhereEq(username);
     if (user == null) {
-      context.put("loginUnknown", Boolean.TRUE);
-      return usernameUnknownTemplate();
+      templateContext.put("loginUnknown", Boolean.TRUE);
+      return usernameUnknownTemplate(templateContext);
     }
 
     if (!user.getPassword_unsafe().equals(password)) {
-      context.put("passwordWrong", Boolean.TRUE);
-      return passwordIncorrectTemplate();
+      templateContext.put("passwordWrong", Boolean.TRUE);
+      return passwordIncorrectTemplate(templateContext);
     }
 
-    return loginSuccessfullyAs(context, user);
+    return loginSuccessfullyAs(templateContext, user);
   }
 }

@@ -45,12 +45,16 @@
 
 package org.melati.admin;
 
-import org.webmacro.*;
-import org.melati.*;
+import org.melati.template.TemplateContext;
+import org.melati.MelatiContext;
+import org.melati.MarkupLanguage;
 
 public interface AdminSpecialised {
-  Template adminHandle(Melati melati, MarkupLanguage markupLanguage)
-      throws WebMacroException;
-  Template adminSpecialFacilities(Melati melati, MarkupLanguage markupLanguage)
-      throws WebMacroException;
+  TemplateContext adminHandle
+  (MelatiContext melatiContext, MarkupLanguage markupLanguage)
+      throws Exception;
+  
+  TemplateContext adminSpecialFacilities
+  (MelatiContext melatiContext, MarkupLanguage markupLanguage)
+      throws Exception;
 }

@@ -45,16 +45,20 @@
 
 package org.melati.login;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.engine.*;
-import org.webmacro.servlet.*;
-import org.melati.util.*;
-import org.melati.*;
-import org.melati.poem.*;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.NoSuchRowPoemException;
+import org.melati.poem.PoemThread;
+import org.melati.poem.User;
+import org.melati.MelatiContext;
+import org.melati.util.MelatiRuntimeException;
+import org.melati.util.Base64;
+import org.melati.util.StringUtils;
+import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 
 /**
  * Flags up when something was illegal or not supported about an incoming HTTP
@@ -92,26 +96,26 @@ class HttpAuthorization {
       int colon = logpas.indexOf(':');
 
       if (colon == -1)
-	throw new HttpAuthorizationMelatiException(
-            "The browser sent Basic Authorization credentials with no colon " +
-	    "(that's not legal)");
+      throw new HttpAuthorizationMelatiException(
+      "The browser sent Basic Authorization credentials with no colon " +
+      "(that's not legal)");
 
       return new HttpAuthorization("Basic",
-				   logpas.substring(0, colon).trim(),
-				   logpas.substring(colon + 1).trim());
+      logpas.substring(0, colon).trim(),
+      logpas.substring(colon + 1).trim());
     }
     else {
       int space = authHeader.indexOf(' ');
       if (space == -1)
-	throw new HttpAuthorizationMelatiException(
-            "The browser sent an Authorization header without a space, " +
-            "so it can't be anything Melati understands: " +
-            authHeader);
+      throw new HttpAuthorizationMelatiException(
+      "The browser sent an Authorization header without a space, " +
+      "so it can't be anything Melati understands: " +
+      authHeader);
 
       String type = authHeader.substring(0, space);
       throw new HttpAuthorizationMelatiException(
-          "The browser tried to authenticate using an authorization type " +
-	  "`" + type + "' which Melati doesn't understand");
+      "The browser tried to authenticate using an authorization type " +
+      "`" + type + "' which Melati doesn't understand");
     }
   }
 
@@ -127,13 +131,11 @@ class HttpAuthorization {
  * doesn't use the servlet session at all, so it doesn't try to send cookies or
  * do URL rewriting.
  *
- * @see MelatiServlet#handle(org.webmacro.servlet.WebContext, org.melati.Melati)
- * @see MelatiServlet#init
  */
 
 public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   private static final String className =
-      new HttpBasicAuthenticationAccessHandler().getClass().getName();
+  new HttpBasicAuthenticationAccessHandler().getClass().getName();
 
   public final String REALM = className + ".realm";
   public final String USER = className + ".user";
@@ -149,33 +151,32 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
    */
 
   protected void forceLogin(HttpServletResponse resp,
-			    String realm, String message) throws IOException {
+  String realm, String message) throws IOException {
     String desc = realm == null ? "<unknown>" : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
     resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
   }
 
-  public Template handleAccessException(MelatiContext melati, 
-      WebContext context, AccessPoemException accessException)
-          throws Exception {
+  public void handleAccessException(MelatiContext melatiContext,
+  AccessPoemException accessException)
+  throws Exception {
 
     String capName = "melati";
     if (useSession())
-      context.getSession().putValue(REALM, capName);
-    forceLogin(context.getResponse(), capName, accessException.getMessage());
-    return null;
+    melatiContext.getSession().putValue(REALM, capName);
+    forceLogin(melatiContext.getResponse(), capName, accessException.getMessage());
   }
 
-  public WebContext establishUser(WebContext context, Database database)
-      throws PoemException, IOException, ServletException {
+  public MelatiContext establishUser(MelatiContext melatiContext)
+  throws ReconstructedHttpServletRequestMismatchException, IOException {
 
-    HttpAuthorization auth = HttpAuthorization.from(context.getRequest());
+    HttpAuthorization auth = HttpAuthorization.from(melatiContext.getRequest());
 
     if (auth == null) {
       // No attempt to log in: become `guest'
 
-      PoemThread.setAccessToken(database.guestAccessToken());
-      return context;
+      PoemThread.setAccessToken(melatiContext.getDatabase().guestAccessToken());
+      return melatiContext;
     }
     else {
       // They are trying to log in
@@ -184,61 +185,61 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       // SELECTion implied by firstWhereEq for every hit
 
       User sessionUser =
-	  useSession() ? (User)context.getSession().getValue(USER) : null;
+      useSession() ? (User)melatiContext.getSession().getValue(USER) : null;
       User user = null;
 
       if (sessionUser == null ||
-	  !sessionUser.getLogin().equals(auth.username))
-	try {
-	  user = (User)database.getUserTable().getLoginColumn().
-		     firstWhereEq(auth.username);
-	}
-        catch (NoSuchRowPoemException e) {
-	}
-        catch (AccessPoemException e) {
-	  // paranoia
-	}
+      !sessionUser.getLogin().equals(auth.username))
+      try {
+        user = (User)melatiContext.getDatabase().getUserTable().getLoginColumn().
+        firstWhereEq(auth.username);
+      }
+      catch (NoSuchRowPoemException e) {
+      }
+      catch (AccessPoemException e) {
+        // paranoia
+      }
       else
-	user = sessionUser;
+      user = sessionUser;
 
       if (user == null || !user.getPassword_unsafe().equals(auth.password)) {
 
-	// Login/password authentication failed; we must trigger another
-	// attempt.  But do we know the "realm" (= POEM capability name) for
-	// which they were originally found not to be authorized?
+        // Login/password authentication failed; we must trigger another
+        // attempt.  But do we know the "realm" (= POEM capability name) for
+        // which they were originally found not to be authorized?
 
-	String storedRealm;
-	if (useSession() &&
-	    (storedRealm = (String)context.getSession().getValue(REALM)) !=
-	         null) {
+        String storedRealm;
+        if (useSession() &&
+        (storedRealm = (String)melatiContext.getSession().getValue(REALM)) !=
+        null) {
 
-	  // The "realm" is stored in the session
+          // The "realm" is stored in the session
 
-	  forceLogin(context.getResponse(), storedRealm,
-		     "Login/password not recognised");
-	  return null;
-	}
-	else {
+          forceLogin(melatiContext.getResponse(), storedRealm,
+          "Login/password not recognised");
+          return null;
+        }
+        else {
 
-	  // We don't know the "realm", so we just let the user try again as
-	  // `guest' and hopefully trigger the same problem and get the same
-	  // message all over again.  Not very satisfactory but the alternative
-	  // is providing a default realm like "<unknown>".
+          // We don't know the "realm", so we just let the user try again as
+          // `guest' and hopefully trigger the same problem and get the same
+          // message all over again.  Not very satisfactory but the alternative
+          // is providing a default realm like "<unknown>".
 
-	  PoemThread.setAccessToken(database.guestAccessToken());
-	  return context;
-	}
+          PoemThread.setAccessToken(melatiContext.getDatabase().guestAccessToken());
+          return melatiContext;
+        }
       }
       else {
 
-	// Login/password authentication succeeded
+        // Login/password authentication succeeded
 
-	PoemThread.setAccessToken(user);
+        PoemThread.setAccessToken(user);
 
-	if (useSession() && user != sessionUser)
-	  context.getSession().putValue(USER, user);
+        if (useSession() && user != sessionUser)
+        melatiContext.getSession().putValue(USER, user);
 
-	return context;
+        return melatiContext;
       }
     }
   }

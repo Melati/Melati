@@ -45,36 +45,32 @@
 
 package org.melati.login;
 
-import java.util.*;
-import java.io.*;
-import org.melati.util.*;
-import org.melati.*;
-import org.melati.poem.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import org.melati.servlet.TemplateServlet;
+import org.melati.MelatiContext;
+import org.melati.template.TemplateContext;
 
-public class Login extends MelatiServlet {
+public class Login extends TemplateServlet {
   public static final String
-      TRIGGERING_REQUEST_PARAMETERS =
-          "org.melati.Login.triggeringRequestParameters",
-      TRIGGERING_EXCEPTION =
-          "org.melati.Login.triggeringException";
+  TRIGGERING_REQUEST_PARAMETERS =
+  "org.melati.Login.triggeringRequestParameters",
+  TRIGGERING_EXCEPTION =
+  "org.melati.Login.triggeringException";
 
   LoginHandler loginHandler = null;
 
   protected LoginHandler getLoginHandler() {
-    if (loginHandler == null)
-      loginHandler = new LoginHandler(this);
-
+    if (loginHandler == null) loginHandler = new LoginHandler(this);
     return loginHandler;
   }
 
-  protected Template handle(WebContext context)
-      throws PoemException, WebMacroException {
-    return getLoginHandler().handle(context);
+  protected TemplateContext doTemplateRequest(MelatiContext melatiContext, TemplateContext templateContext)
+  throws Exception {
+    return getLoginHandler().doTemplateRequest(melatiContext, templateContext);
   }
+  
+  // the 1st parameter is the database name
+  public String getLogicalDatabase(MelatiContext melatiContext, String logicalDatabase) {
+    return melatiContext.getMethod();
+  }
+  
 }

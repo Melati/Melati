@@ -53,7 +53,7 @@
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
-<FORM METHOD=post ACTION=Update>
+<FORM METHOD=post>
 
 <CENTER>
 

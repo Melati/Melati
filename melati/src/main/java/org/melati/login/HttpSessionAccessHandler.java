@@ -41,27 +41,47 @@
  *     William Chesters <williamc@paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+<<<<<<< HttpSessionAccessHandler.java
+ *
+ *
+ * ------
+ *  Note
+ * ------
+ *
+ * I will assign copyright to PanEris (http://paneris.org) as soon as
+ * we have sorted out what sort of legal existence we need to have for
+ * that to make sense.
+ * In the meantime, if you want to use Melati on non-GPL terms,
+ * contact me!
+=======
+>>>>>>> 1.12
  */
 
 package org.melati.login;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.engine.*;
-import org.webmacro.servlet.*;
-import org.melati.util.*;
-import org.melati.*;
-import org.melati.poem.*;
+import java.io.IOException;
+import java.io.Writer;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.PoemException;
+import org.melati.poem.PoemThread;
+import org.melati.poem.User;
+import org.melati.MelatiContext;
+import org.melati.util.HttpUtil;
+import org.melati.util.HttpServletRequestParameters;
+import org.melati.util.ReconstructedHttpServletRequestMismatchException;
+import org.melati.util.ReconstructedHttpServletRequest;
 
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
-      OVERLAY_PARAMETERS =
-          "org.melati.HttpSessionAccessHandler.overlayParameters",
-      USER = "org.melati.HttpSessionAccessHandler.user";
+  OVERLAY_PARAMETERS =
+  "org.melati.HttpSessionAccessHandler.overlayParameters",
+  USER = "org.melati.HttpSessionAccessHandler.user";
 
   /**
    * The class name of the class implementing the login servlet.  Unless
@@ -84,40 +104,33 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * @see #loginPageServletClassName
    */
 
-  public String loginPageURL(MelatiContext melati, HttpServletRequest request) {
+  public String loginPageURL(MelatiContext context, HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendZoneURL(url, request);
     url.append('/');
     url.append(loginPageServletClassName());
     url.append('/');
-    url.append(melati.logicalDatabase);
+    url.append(context.getLogicalDatabaseName());
     url.append('/');
 
     return url.toString();
   }
 
-  
-  public Template handleAccessException(MelatiContext melati,
-                                        WebContext context,
-					AccessPoemException accessException)
-      throws Exception {
+
+  public void handleAccessException(MelatiContext context,
+  AccessPoemException accessException)
+  throws Exception {
+    accessException.printStackTrace();
+
     HttpServletRequest request = context.getRequest();
     HttpServletResponse response = context.getResponse();
 
     HttpSession session = request.getSession(true);
 
     session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
-		     new HttpServletRequestParameters(request));
+    new HttpServletRequestParameters(request));
     session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
-
-    try {
-      response.sendRedirect(loginPageURL(melati, request));
-    }
-    catch (IOException e) {
-      throw new HandlerException(e.toString());
-    }
-
-    return null;
+    response.sendRedirect(loginPageURL(context, request));
   }
 
   /**
@@ -127,33 +140,38 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  public WebContext establishUser(WebContext context, Database database)
-      throws PoemException, IOException, ServletException {
-    HttpSession session = context.getSession();
+  public MelatiContext establishUser(MelatiContext melatiContext) 
+  throws ReconstructedHttpServletRequestMismatchException, IOException {
+    HttpSession session = melatiContext.getSession();
 
     // First off, is the user continuing after a login?  If so, we want to
     // recover any POSTed fields from the request that triggered it.
 
     synchronized (session) {
       HttpServletRequestParameters oldParams =
-          (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
+      (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
       if (oldParams != null) {
         session.removeValue(OVERLAY_PARAMETERS);
-        try {
-          context = context.newInstance(
-              new ReconstructedHttpServletRequest(oldParams,
-                                                  context.getRequest()),
-              context.getResponse());
-        }
-        catch (ReconstructedHttpServletRequestMismatchException e) {
-        }
+        /* we don't want to create a new object here, rather we are simply going to set
+           up the old request parameters
+        */
+        melatiContext.setRequest(
+        new ReconstructedHttpServletRequest(oldParams,
+        melatiContext.getRequest()));
+        /*
+        melatiContext = melatiContext.newInstance(
+        new ReconstructedHttpServletRequest(oldParams,
+        melatiContext.getRequest()),
+        melatiContext.getResponse());
+//        melatiContext.getWriter().write("donePoemRequest context: " + melatiContext );
+        */
       }
 
       User user = (User)session.getValue(USER);
       PoemThread.setAccessToken(
-	  user == null ? database.guestAccessToken() : user);
+      user == null ? melatiContext.getDatabase().guestAccessToken() : user);
     }
 
-    return context;
+    return melatiContext;
   }
 }

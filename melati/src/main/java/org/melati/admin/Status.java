@@ -1,15 +1,15 @@
 package org.melati.admin;
 
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import org.webmacro.resource.*;
-import org.webmacro.broker.*;
-import org.melati.*;
+import org.melati.servlet.TemplateServlet;
+import org.melati.MelatiContext;
+import org.melati.template.TemplateContext;
 
-public class Status extends MelatiServlet {
-  protected Template handle(WebContext context) throws Exception {
-    return getTemplate("admin/Status.wm");
+public class Status extends TemplateServlet {
+
+  protected TemplateContext doTemplateRequest
+  (MelatiContext melati, TemplateContext context)
+  throws Exception {
+    context.setTemplateName("admin/Status.wm");
+    return context;
   }
 }

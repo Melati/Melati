@@ -45,18 +45,17 @@
 
 package org.melati.login;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import org.webmacro.servlet.*;
-import org.webmacro.*;
-import org.melati.poem.*;
-import org.melati.*;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.MelatiContext;
+import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 
 public interface AccessHandler {
-  Template handleAccessException(MelatiContext melati, WebContext context,
-                                 AccessPoemException accessException)
-      throws Exception;
+  void handleAccessException(MelatiContext melatiContext, 
+                             AccessPoemException accessException)
+    throws Exception;
 
   /**
    * @return the <TT>WebContext</TT> to use in processing the request; can
@@ -65,6 +64,6 @@ public interface AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  WebContext establishUser(WebContext context, Database database)
-      throws PoemException, IOException, ServletException;
+  MelatiContext establishUser(MelatiContext melatiContext)
+    throws ReconstructedHttpServletRequestMismatchException, IOException;
 }

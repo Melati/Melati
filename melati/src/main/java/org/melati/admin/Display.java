@@ -45,40 +45,22 @@
 
 package org.melati.admin;
 
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import org.melati.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import org.webmacro.resource.*;
-import org.webmacro.broker.*;
+import org.melati.servlet.TemplateServlet;
+import org.melati.template.TemplateContext;
+import org.melati.MelatiContext;
 
-public class Display extends MelatiServlet {
+public class Display extends TemplateServlet {
 
-  protected Template handle(WebContext context, Melati melati)
-      throws PoemException, HandlerException {
+  protected TemplateContext doTemplateRequest
+  (MelatiContext melati, TemplateContext context)
+  throws Exception {
 
-    try {
-      context.put("includedir", "");
-      if (melati.getObject() != null) {
-        melati.getObject().assertCanRead();
-        context.put("object", melati.getObject());
-      }
-      return getTemplate(context.getForm("template"));
+    context.put("includedir", "");
+    if (melati.getObject() != null) {
+      melati.getObject().assertCanRead();
+      context.put("object", melati.getObject());
     }
-    catch (PoemException e) {
-      // we want to let these through untouched, since MelatiServlet handles
-      // AccessPoemException specially ...
-      throw e;
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      throw new HandlerException("Rubbish: " + e);
-    }
+    context.setTemplateName(context.getForm("template"));
+    return context;
   }
 }

@@ -45,84 +45,111 @@
 
 package org.melati.admin;
 
-import java.util.*;
-import java.net.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import org.melati.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import org.webmacro.resource.*;
-import org.webmacro.broker.*;
+import java.net.URLEncoder;
+
+import java.util.Vector;
+import java.util.Enumeration;
+
+import org.melati.servlet.TemplateServlet;
+import org.melati.MelatiContext;
+import org.melati.InvalidUsageException;
+import org.melati.template.TemplateContext;
+import org.melati.template.FormParameterException;
+
+import org.melati.poem.AccessToken;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.BaseFieldAttributes;
+import org.melati.poem.Capability;
+import org.melati.poem.Column;
+import org.melati.poem.ColumnInfo;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.Database;
+import org.melati.poem.DeletionIntegrityPoemException;
+import org.melati.poem.Field;
+import org.melati.poem.FieldAttributes;
+import org.melati.poem.Initialiser;
+import org.melati.poem.Persistent;
+import org.melati.poem.PoemException;
+import org.melati.poem.PoemThread;
+import org.melati.poem.PoemType;
+import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.Table;
+import org.melati.poem.TableInfo;
+import org.melati.poem.TableInfoTable;
+import org.melati.poem.ValidationPoemException;
+
+import org.melati.util.EnumUtils;
+import org.melati.util.MappedEnumeration;
 
 /**
  * FIXME getting a bit big, wants breaking up
  */
 
-public class Admin extends MelatiServlet {
+public class Admin extends TemplateServlet {
 
-  protected Persistent create(Table table, final WebContext context) {
+  protected Persistent create(Table table, final TemplateContext context, 
+  final MelatiContext melatiContext) {
     return table.create(
-        new Initialiser() {
-          public void init(Persistent object)
-              throws AccessPoemException, ValidationPoemException {
-            Melati.extractFields(context, object);
-          }
-        });
+    new Initialiser() {
+      public void init(Persistent object)
+      throws AccessPoemException, ValidationPoemException {
+        melatiContext.getMelati().extractFields(context, object);
+      }
+    });
   }
 
-  protected final Template adminTemplate(WebContext context, String name)
-      throws NotFoundException, InvalidTypeException {
-        return getTemplate("admin/" + name);
+  protected final TemplateContext adminTemplate(TemplateContext context, 
+  String name) {
+    context.setTemplateName("admin/" + name);
+    return context;
   }
-  
+
   // return the 'Main' admin frame
-  protected Template mainTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext mainTemplate(TemplateContext context)
+ {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Main.wm");
   }
 
   // return top template
-  protected Template topTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext topTemplate(TemplateContext context)
+  throws PoemException {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Top.wm");
   }
-  
+
   // return the 'bottom' admin page
-  protected Template bottomTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext bottomTemplate(TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
     context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
+    final Table table = melatiContext.getTable();
     context.put("table", table);
     return adminTemplate(context, "Bottom.wm");
   }
-  
+
   // return the 'left' admin page
-  protected Template leftTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext leftTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
     context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
+    final Table table = melatiContext.getTable();
     context.put("table", table);
     return adminTemplate(context, "Left.wm");
   }
 
   // return primary select template
-  protected Template primarySelectTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(primarySelect(context,melati), "PrimarySelect.wm");
+  protected TemplateContext primarySelectTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(primarySelect(context, melatiContext), 
+    "PrimarySelect.wm");
   }
 
-  protected WebContext primarySelect(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    final Table table = melati.getTable();
+  protected TemplateContext primarySelect(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
+    final Table table = melatiContext.getTable();
     context.put("table", table);
 
     final Database database = table.getDatabase();
@@ -134,36 +161,37 @@ public class Admin extends MelatiServlet {
     if (column != null) {
       String sea = context.getForm("field_" + column.getName());
       primaryCriterion = new Field(
-          sea == null || sea.equals("") ? null :
-                                          column.getType().rawOfString(sea),
-          new BaseFieldAttributes(column,
-                                  column.getType().withNullable(true)));
+      sea == null || sea.equals("") ? null :
+      column.getType().rawOfString(sea),
+      new BaseFieldAttributes(column,
+      column.getType().withNullable(true)));
     }
     else
-      primaryCriterion = null;
+    primaryCriterion = null;
 
     context.put("primaryCriterion", primaryCriterion);
     return context;
   }
 
   // return select template (a selection of records from a table)
-  protected Template selectionTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(selection(context,melati), "Selection.wm");
+  protected TemplateContext selectionTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws FormParameterException {
+    return adminTemplate(selection(context, melatiContext), "Selection.wm");
   }
 
   // return select template (a selection of records from a table)
-  protected Template selectionRightTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(selection(context,melati), "SelectionRight.wm");
+  protected TemplateContext selectionRightTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws FormParameterException {
+    return adminTemplate(selection(context, melatiContext), 
+    "SelectionRight.wm");
   }
 
-  protected WebContext selection(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    final Table table = melati.getTable();
+  protected TemplateContext selection(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws FormParameterException {
+    final Table table = melatiContext.getTable();
     context.put("table", table);
 
     final Database database = table.getDatabase();
@@ -181,29 +209,29 @@ public class Admin extends MelatiServlet {
       String string = context.getForm(name);
       if (string != null && !string.equals("")) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-        
+
         // FIXME needs to work for dates?
         whereClause.addElement(name + "=" + URLEncoder.encode(string));
-//        whereClause.addElement(column.eqClause(string));
+        //        whereClause.addElement(column.eqClause(string));
       }
     }
 
     context.put("whereClause",
-                EnumUtils.concatenated("&", whereClause.elements()));
+    EnumUtils.concatenated("&", whereClause.elements()));
 
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true) {
-          protected Enumeration _possibleRaws() {
-            return
-                new MappedEnumeration(table.getSearchCriterionColumns()) {
-                  public Object mapped(Object column) {
-                    return ((Column)column).getColumnInfo().getTroid();
-                  }
-                };
+    new ReferencePoemType(database.getColumnInfoTable(), true) {
+      protected Enumeration _possibleRaws() {
+        return
+        new MappedEnumeration(table.getSearchCriterionColumns()) {
+          public Object mapped(Object column) {
+            return ((Column)column).getColumnInfo().getTroid();
           }
         };
+      }
+    };
 
     Vector orderingNames = new Vector();
     Vector orderClause = new Vector();
@@ -213,19 +241,19 @@ public class Admin extends MelatiServlet {
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
-            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
+        (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
-            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
+        (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
         orderingNames.addElement(database.quotedName(info.getName()));
         orderClause.addElement(name+"="+orderColumnIDString);
       }
     }
 
     String orderBySQL = null;
-    if (orderingNames.elements().hasMoreElements()) 
-      orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
+    if (orderingNames.elements().hasMoreElements())
+    orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
     context.put("orderClause",
-                EnumUtils.concatenated("&", orderClause.elements()));
+    EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
     String startString = context.getForm("start");
@@ -234,36 +262,38 @@ public class Admin extends MelatiServlet {
         start = Math.max(0, Integer.parseInt(startString));
       }
       catch (NumberFormatException e) {
-        throw new HandlerException("`start' param to `List' must be a number");
+        //FIXME - surely not a PoemException
+        throw new FormParameterException("start", "param to must be an Integer");
       }
     }
 
     context.put("results", table.selection(table.whereClause(criteria),
-                                           orderBySQL, false, start, 20));
+    orderBySQL, false, start, 20));
 
     return context;
   }
 
   // return the 'navigation' admin page
-  protected Template navigationTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext navigationTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
     context.put("database", PoemThread.database());
-    final Table table = melati.getTable();
+    final Table table = melatiContext.getTable();
     context.put("table", table);
     return adminTemplate(context, "Navigation.wm");
   }
 
-  protected Template popupTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(popup(context,melati), "PopupSelect.wm");
+  protected TemplateContext popupTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(popup(context, melatiContext), "PopupSelect.wm");
   }
 
-  
-  protected WebContext popup(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    final Table table = melati.getTable();
+
+  protected TemplateContext popup(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
+    final Table table = melatiContext.getTable();
     context.put("table", table);
 
     final Database database = table.getDatabase();
@@ -274,27 +304,27 @@ public class Admin extends MelatiServlet {
     final Persistent criteria = table.newPersistent();
 
     MappedEnumeration criterias =
-        new MappedEnumeration(table.getSearchCriterionColumns()) {
-          public Object mapped(Object c) {
-            return ((Column)c).asField(criteria).withNullable(true);
-          }
-	};
-    
+    new MappedEnumeration(table.getSearchCriterionColumns()) {
+      public Object mapped(Object c) {
+        return ((Column)c).asField(criteria).withNullable(true);
+      }
+    };
+
     context.put("criteria", EnumUtils.vectorOf(criterias));
 
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true) {
-          protected Enumeration _possibleRaws() {
-            return
-                new MappedEnumeration(table.getSearchCriterionColumns()) {
-                  public Object mapped(Object column) {
-                    return ((Column)column).getColumnInfo().getTroid();
-                  }
-                };
+    new ReferencePoemType(database.getColumnInfoTable(), true) {
+      protected Enumeration _possibleRaws() {
+        return
+        new MappedEnumeration(table.getSearchCriterionColumns()) {
+          public Object mapped(Object column) {
+            return ((Column)column).getColumnInfo().getTroid();
           }
         };
+      }
+    };
 
     Vector orderingNames = new Vector();
     Vector orderings = new Vector();
@@ -305,15 +335,15 @@ public class Admin extends MelatiServlet {
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
-            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
+        (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
-            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
+        (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
         orderingNames.addElement(database.quotedName(info.getName()));
       }
 
       orderings.addElement(
-          new Field(orderColumnID,
-                    new BaseFieldAttributes(name, searchColumnsType)));
+      new Field(orderColumnID,
+      new BaseFieldAttributes(name, searchColumnsType)));
     }
 
     context.put("orderings", orderings);
@@ -321,150 +351,159 @@ public class Admin extends MelatiServlet {
     return context;
   }
 
-  protected Template selectionWindowTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
+  protected TemplateContext selectionWindowTemplate(TemplateContext context, 
+  MelatiContext melatiContext)
+  throws PoemException {
     context.put("database", PoemThread.database());
-    context.put("table", melati.getTable());
+    context.put("table", melatiContext.getTable());
     return adminTemplate(context, "SelectionWindow.wm");
   }
 
   // return primary select template
-  protected Template selectionWindowPrimarySelectTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(primarySelect(context,melati), "SelectionWindowPrimarySelect.wm");
+  protected TemplateContext selectionWindowPrimarySelectTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(primarySelect(context, melatiContext), 
+    "SelectionWindowPrimarySelect.wm");
   }
 
   // return select template (a selection of records from a table)
-  protected Template selectionWindowSelectionTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    return adminTemplate(selection(context,melati), "SelectionWindowSelection.wm");
+  protected TemplateContext selectionWindowSelectionTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws FormParameterException {
+    return adminTemplate(selection(context, melatiContext), 
+    "SelectionWindowSelection.wm");
   }
 
-  protected Template columnCreateTemplate(WebContext context,
-                                          Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    
-    final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
+  protected TemplateContext columnCreateTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+
+    final ColumnInfoTable cit = melatiContext.getDatabase().getColumnInfoTable();
     final Column tic = cit.getTableinfoColumn();
     final Column typeColumn = cit.getTypefactoryColumn();
 
     Enumeration columnInfoFields =
-        new MappedEnumeration(cit.getDetailDisplayColumns()) {
-          public Object mapped(Object column) {
-            if (column == typeColumn)
-                  return new Field(PoemTypeFactory.STRING.getCode(),
-                                   typeColumn);
-                else
-                  return new Field((Object)null, (FieldAttributes)column);
-              }
-            };
+    new MappedEnumeration(cit.getDetailDisplayColumns()) {
+      public Object mapped(Object column) {
+        if (column == typeColumn)
+        return new Field(PoemTypeFactory.STRING.getCode(),
+        typeColumn);
+        else
+        return new Field((Object)null, (FieldAttributes)column);
+      }
+    };
 
     context.put("columnInfoFields", columnInfoFields);
 
     return adminTemplate(context, "CreateColumn.wm");
   }
 
-  protected Template tableCreateTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    Database database = melati.getDatabase();
+  protected TemplateContext tableCreateTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    Database database = melatiContext.getDatabase();
 
     // Compose field for naming the TROID column: the display name and
     // description are redundant, since they not used in the template
 
     Field troidNameField = new Field(
-        "id",
-        new BaseFieldAttributes(
-            "troidName", "Troid column", "Name of TROID column",
-            database.getColumnInfoTable().getNameColumn().getType(),
-            20, 1, null, false, true, true));
+    "id",
+    new BaseFieldAttributes(
+    "troidName", "Troid column", "Name of TROID column",
+    database.getColumnInfoTable().getNameColumn().getType(),
+    20, 1, null, false, true, true));
 
     context.put("troidNameField", troidNameField);
 
     Table tit = database.getTableInfoTable();
     Enumeration tableInfoFields =
-        new MappedEnumeration(tit.columns()) {
-          public Object mapped(Object column) {
-            return new Field((Object)null, (Column)column);
-          }
-        };
+    new MappedEnumeration(tit.columns()) {
+      public Object mapped(Object column) {
+        return new Field((Object)null, (Column)column);
+      }
+    };
 
     context.put("tableInfoFields", tableInfoFields);
 
     return adminTemplate(context, "CreateTable.wm");
   }
 
-  protected Template tableCreate_doitTemplate(WebContext context,
-                                              Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    Database database = melati.getDatabase();
+  protected TemplateContext tableCreate_doitTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    Database database = melatiContext.getDatabase();
     database.addTableAndCommit(
-        (TableInfo)create(database.getTableInfoTable(), context),
-        context.getForm("field_troidName"));
+    (TableInfo)create(database.getTableInfoTable(), context, melatiContext),
+    context.getForm("field_troidName"));
 
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
-  protected Template columnCreate_doitTemplate(final WebContext context,
-                                               final Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext columnCreate_doitTemplate
+  (final TemplateContext context, final MelatiContext melatiContext)
+  throws PoemException {
 
-    Database db = melati.getDatabase();
+    Database db = melatiContext.getDatabase();
 
     ColumnInfo columnInfo =
-        (ColumnInfo)db.getColumnInfoTable().create(
-            new Initialiser() {
-              public void init(Persistent object)
-                  throws AccessPoemException, ValidationPoemException {
-                Melati.extractFields(context, object);
-              }
-            });
+    (ColumnInfo)db.getColumnInfoTable().create(
+    new Initialiser() {
+      public void init(Persistent object)
+      throws AccessPoemException, ValidationPoemException {
+        melatiContext.getMelati().extractFields(context, object);
+      }
+    });
 
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
 
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
-  protected WebContext editingTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    melati.getObject().assertCanRead();
-    context.put("object", melati.getObject());
-    Database database = melati.getDatabase();
+  protected TemplateContext editingTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    melatiContext.getObject().assertCanRead();
+    context.put("object", melatiContext.getObject());
+    Database database = melatiContext.getDatabase();
     context.put("database", database);
-    context.put("table", melati.getTable());
+    context.put("table", melatiContext.getTable());
     return context;
   }
 
-  protected Template rightTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    return adminTemplate(editingTemplate(context,melati), "Right.wm");
+  protected TemplateContext rightTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(editingTemplate(context, melatiContext), "Right.wm");
   }
 
-  protected Template editHeaderTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    return adminTemplate(editingTemplate(context,melati), "EditHeader.wm");
+  protected TemplateContext editHeaderTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(editingTemplate(context, melatiContext),
+    "EditHeader.wm");
   }
 
-  protected Template editTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    return adminTemplate(editingTemplate(context,melati), "Edit.wm");
+  protected TemplateContext editTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    return adminTemplate(editingTemplate(context, melatiContext), "Edit.wm");
   }
 
-  protected Template addTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext addTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
 
-    context.put("table", melati.getTable());
+    context.put("table", melatiContext.getTable());
 
-    Enumeration columns = melati.getTable().columns();
+    Enumeration columns = melatiContext.getTable().columns();
     Vector fields = new Vector();
     while (columns.hasMoreElements()) {
       Column column = (Column)columns.nextElement();
       String stringValue = context.getForm("field_" + column.getName());
       Object value = null;
       if (stringValue != null)
-        value = column.getType().rawOfString(stringValue);
+      value = column.getType().rawOfString(stringValue);
       fields.add(new Field(value, column));
     }
     context.put("fields", fields.elements());
@@ -472,22 +511,25 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Add.wm");
   }
 
-  protected Template updateTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    Melati.extractFields(context, melati.getObject());
+  protected TemplateContext updateTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    melatiContext.getMelati().extractFields(context, melatiContext.getObject());
     return adminTemplate(context, "Update.wm");
   }
 
-  protected Template addUpdateTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
-    create(melati.getTable(), context);
+  protected TemplateContext addUpdateTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    create(melatiContext.getTable(), context, melatiContext);
     return adminTemplate(context, "Update.wm");
   }
 
-  protected Template deleteTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext deleteTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
     try {
-      melati.getObject().deleteAndCommit();
+      melatiContext.getObject().deleteAndCommit();
       return adminTemplate(context, "Update.wm");
     }
     catch (DeletionIntegrityPoemException e) {
@@ -497,107 +539,109 @@ public class Admin extends MelatiServlet {
     }
   }
 
-   protected Template duplicateTemplate(WebContext context, Melati melati)
-       throws NotFoundException, InvalidTypeException, PoemException {
-     // FIXME the ORIGINAL object is the one that will get edited when the
-     // update comes in from Edit.wm, because it will be identified from
-     // the path info!
-     
-     Persistent dup = melati.getObject().duplicated();
-     Melati.extractFields(context, dup);
-     dup.getTable().create(dup);
-     context.put("object", dup);
-     return adminTemplate(context, "Update.wm");
-   }
+  protected TemplateContext duplicateTemplate(TemplateContext context, MelatiContext melatiContext)
+  throws PoemException {
+    // FIXME the ORIGINAL object is the one that will get edited when the
+    // update comes in from Edit.wm, because it will be identified from
+    // the path info!
 
-  protected Template modifyTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException,
-             HandlerException {
-    String action = context.getRequest().getParameter("action");
-    if ("Update".equals(action))
-      return updateTemplate(context, melati);
-    else if ("Delete".equals(action))
-      return deleteTemplate(context, melati);
-    else if ("Duplicate".equals(action))
-      return duplicateTemplate(context, melati);
-    else
-      throw new HandlerException("bad action from Edit.wm: " + action);
+    Persistent dup = melatiContext.getObject().duplicated();
+    melatiContext.getMelati().extractFields(context, dup);
+    dup.getTable().create(dup);
+    context.put("object", dup);
+    return adminTemplate(context, "Update.wm");
   }
 
-  protected Template uploadTemplate(WebContext context, Melati melati)
-      throws NotFoundException, InvalidTypeException, PoemException {
+  protected TemplateContext modifyTemplate
+  (TemplateContext context, MelatiContext melatiContext)
+  throws FormParameterException {
+    String action = melatiContext.getRequest().getParameter("action");
+    if ("Update".equals(action))
+    return updateTemplate(context, melatiContext);
+    else if ("Delete".equals(action))
+    return deleteTemplate(context, melatiContext);
+    else if ("Duplicate".equals(action))
+    return duplicateTemplate(context, melatiContext);
+    else
+    throw new FormParameterException
+    ("action", "bad action from Edit.wm: " + action);
+  }
+
+  protected TemplateContext uploadTemplate(TemplateContext context)
+  throws PoemException {
     context.put("field", context.getForm("field"));
     return adminTemplate(context, "Upload.wm");
   }
 
 
-  protected Template handle(WebContext context, Melati melati)
-      throws Exception {
+  protected TemplateContext doTemplateRequest
+  (MelatiContext melatiContext, TemplateContext context)
+  throws Exception {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
-    if (!token.givesCapability(admin)) 
-      throw new AccessPoemException(token, admin);
+    if (!token.givesCapability(admin))
+    throw new AccessPoemException(token, admin);
 
-    context.put("admin", melati.getAdminUtils());
-    if (melati.getObject() != null) {
-      if (melati.getMethod().equals("Right"))
-        return rightTemplate(context, melati);
-      if (melati.getMethod().equals("EditHeader"))
-        return editHeaderTemplate(context, melati);
-      if (melati.getMethod().equals("Edit"))
-        return editTemplate(context, melati);
-      else if (melati.getMethod().equals("Update"))
-        return modifyTemplate(context, melati);
-      else if (melati.getObject() instanceof AdminSpecialised) {
-        Template it =
-            ((AdminSpecialised)melati.getObject()).adminHandle(
-                melati, melati.getHTMLMarkupLanguage());
+    context.put("admin", melatiContext.getAdminUtils());
+    if (melatiContext.getObject() != null) {
+      if (melatiContext.getMethod().equals("Right"))
+      return rightTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("EditHeader"))
+      return editHeaderTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Edit"))
+      return editTemplate(context, melatiContext);
+      else if (melatiContext.getMethod().equals("Update"))
+      return modifyTemplate(context, melatiContext);
+      else if (melatiContext.getObject() instanceof AdminSpecialised) {
+        TemplateContext it =
+        ((AdminSpecialised)melatiContext.getObject()).adminHandle(
+        melatiContext, melatiContext.getHTMLMarkupLanguage());
         if (it != null) return it;
       }
     }
-    else if (melati.getTable() != null) {
-      if (melati.getMethod().equals("Bottom"))
-        return bottomTemplate(context, melati);
-      if (melati.getMethod().equals("Left"))
-        return leftTemplate(context, melati);
-      if (melati.getMethod().equals("PrimarySelect"))
-        return primarySelectTemplate(context, melati);
-      if (melati.getMethod().equals("Selection"))
-        return selectionTemplate(context, melati);
-      if (melati.getMethod().equals("SelectionRight"))
-        return selectionRightTemplate(context, melati);
-      if (melati.getMethod().equals("Navigation"))
-        return navigationTemplate(context, melati);
-      if (melati.getMethod().equals("PopUp"))
-        return popupTemplate(context, melati);
-      if (melati.getMethod().equals("SelectionWindow"))
-        return selectionWindowTemplate(context, melati);
-      if (melati.getMethod().equals("SelectionWindowPrimarySelect"))
-        return selectionWindowPrimarySelectTemplate(context, melati);
-      if (melati.getMethod().equals("SelectionWindowSelection"))
-        return selectionWindowSelectionTemplate(context, melati);
-      if (melati.getMethod().equals("Add"))
-        return addTemplate(context, melati);
-      if (melati.getMethod().equals("AddUpdate"))
-        return addUpdateTemplate(context, melati);
+    else if (melatiContext.getTable() != null) {
+      if (melatiContext.getMethod().equals("Bottom"))
+      return bottomTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Left"))
+      return leftTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("PrimarySelect"))
+      return primarySelectTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Selection"))
+      return selectionTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("SelectionRight"))
+      return selectionRightTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Navigation"))
+      return navigationTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("PopUp"))
+      return popupTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("SelectionWindow"))
+      return selectionWindowTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("SelectionWindowPrimarySelect"))
+      return selectionWindowPrimarySelectTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("SelectionWindowSelection"))
+      return selectionWindowSelectionTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Add"))
+      return addTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("AddUpdate"))
+      return addUpdateTemplate(context, melatiContext);
     }
     else {
-      if (melati.getMethod().equals("Main"))
-	return mainTemplate(context, melati);
-      if (melati.getMethod().equals("Top"))
-	return topTemplate(context, melati);
-      if (melati.getMethod().equals("Create"))
-	return tableCreateTemplate(context, melati);
-      if (melati.getMethod().equals("Create_doit"))
-	return tableCreate_doitTemplate(context, melati);
-      if (melati.getMethod().equals("CreateColumn"))
-        return columnCreateTemplate(context, melati);
-      if (melati.getMethod().equals("CreateColumn_doit"))
-        return columnCreate_doitTemplate(context, melati);
-      if (melati.getMethod().equals("Upload"))
-        return uploadTemplate(context, melati);
+      if (melatiContext.getMethod().equals("Main"))
+      return mainTemplate(context);
+      if (melatiContext.getMethod().equals("Top"))
+      return topTemplate(context);
+      if (melatiContext.getMethod().equals("Create"))
+      return tableCreateTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Create_doit"))
+      return tableCreate_doitTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("CreateColumn"))
+      return columnCreateTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("CreateColumn_doit"))
+      return columnCreate_doitTemplate(context, melatiContext);
+      if (melatiContext.getMethod().equals("Upload"))
+      return uploadTemplate(context);
     }
 
-    throw new InvalidUsageException(this, melati.getContext());
+    throw new InvalidUsageException(this, melatiContext);
   }
 }

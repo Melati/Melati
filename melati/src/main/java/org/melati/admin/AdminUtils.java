@@ -45,9 +45,13 @@
 
 package org.melati.admin;
 
-import org.webmacro.WebMacroException;
-import org.melati.poem.*;
-import org.melati.*;
+import org.melati.poem.Table;
+import org.melati.poem.Persistent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Field;
+import org.melati.poem.ReferencePoemType;
+import org.melati.MelatiContext;
+import org.melati.MarkupLanguage;
 
 public class AdminUtils {
 
@@ -56,7 +60,7 @@ public class AdminUtils {
   private String logicalDatabase;
 
   public AdminUtils(String adminURL, String adminStaticURL,
-		    String logicalDatabase) {
+  String logicalDatabase) {
     this.adminURL = adminURL;
     this.adminStaticURL = adminStaticURL;
     this.logicalDatabase = logicalDatabase;
@@ -65,59 +69,59 @@ public class AdminUtils {
   public String TopURL() {
     return adminURL + "/" + logicalDatabase + "/Top";
   }
-  
+
   public String BottomURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/Bottom";
+    "/Bottom";
   }
-  
+
   public String LeftURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/Left";
+    "/Left";
   }
-  
+
   public String PrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/PrimarySelect";
+    "/PrimarySelect";
   }
 
   public String SelectionURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/Selection";
+    "/Selection";
   }
 
   public String SelectionRightURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/SelectionRight";
+    "/SelectionRight";
   }
 
   public String NavigationURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/Navigation";
+    "/Navigation";
   }
 
   public String RightURL(Persistent object) throws AccessPoemException {
     return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/Right";
+    adminURL + "/" + logicalDatabase + "/" +
+    object.getTable().getName() + "/" + object.troid() + "/Right";
   }
 
   public String EditHeaderURL(Persistent object) throws AccessPoemException {
     return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/EditHeader";
+    adminURL + "/" + logicalDatabase + "/" +
+    object.getTable().getName() + "/" + object.troid() + "/EditHeader";
   }
 
   public String EditURL(Persistent object) throws AccessPoemException {
     return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/Edit";
+    adminURL + "/" + logicalDatabase + "/" +
+    object.getTable().getName() + "/" + object.troid() + "/Edit";
   }
 
   public String AddURL(Table table) throws AccessPoemException {
     return
-        adminURL + "/" + logicalDatabase + "/" +
-        table.getAddURL();
+    adminURL + "/" + logicalDatabase + "/" +
+    table.getAddURL();
   }
 
   public String PopupURL(Table table) {
@@ -127,15 +131,15 @@ public class AdminUtils {
   public String SelectionWindowURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindow";
   }
-  
+
   public String SelectionWindowPrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowPrimarySelect";
   }
-  
+
   public String SelectionWindowSelectionURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowSelection";
   }
-  
+
   public String UploadURL(Field field) {
     return adminURL + "/" + logicalDatabase + "/Upload?field="+field.getName();
   }
@@ -154,13 +158,11 @@ public class AdminUtils {
     return adminStaticURL;
   }
 
-  public String specialFacilities(Melati melati, MarkupLanguage ml,
-				  Persistent object)
-      throws WebMacroException {
-    if (!(object instanceof AdminSpecialised))
-      return "";
-    else
-      return ml.templetExpansion(
-          ((AdminSpecialised)object).adminSpecialFacilities(melati, ml));
+  public void specialFacilities(MelatiContext melatiContext, MarkupLanguage ml,
+  Persistent object)
+  throws Exception {
+    if (object instanceof AdminSpecialised)
+    melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),
+    ((AdminSpecialised)object).adminSpecialFacilities(melatiContext, ml));
   }
 }

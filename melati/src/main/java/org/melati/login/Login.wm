@@ -53,11 +53,12 @@
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
-<FORM METHOD=post ACTION=Login>
+<FORM METHOD=post>
 
 <CENTER>
 
 <H1>Login</H1>
+
 
 #if ($triggeringException) #begin
   <P>You need to log in.</P>

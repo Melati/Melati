@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,52 +38,23 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Joyce <timj@paneris.org>
+ *     http://paneris.org/
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.login;
+package org.melati.servlet;
 
-import javax.servlet.http.HttpSession;
-
-import org.melati.MelatiContext;
-import org.melati.template.TemplateContext;
-import org.melati.servlet.TemplateServlet;
-
-public class Logout extends TemplateServlet {
-
-  protected TemplateContext logoutTemplate(TemplateContext context, String name) {
-    context.setTemplateName("login/" + name);
-    return context;
+/* if we have to turn an exception into a runtime exception, we do it using a TrappedException
+*/
+public class TrappedException extends RuntimeException {
+  public TrappedException(String message) {
+    super(message);
   }
-
-  protected TemplateContext logoutSuccessTemplate(TemplateContext context) {
-    return logoutTemplate(context, "Logout.wm");
-  }
-
-  protected TemplateContext doTemplateRequest
-  (MelatiContext melatiContext, TemplateContext context)
-  throws Exception {
-
-    HttpSession session = melatiContext.getSession();
-
-	String returnURL = context.getForm("returnURL");
-    if (returnURL == null) {
-      context.put("continuationURL", "/");
-    } else {
-      context.put("continuationURL", returnURL);
-    }
-
-    session.removeValue(HttpSessionAccessHandler.USER);
-
-    return logoutSuccessTemplate(context);
-  }
-  
-    
-  // the 1st parameter is the database name
-  public String getLogicalDatabase(MelatiContext melatiContext, String logicalDatabase) {
-    return melatiContext.getMethod();
-  }
-
 }
+
+
+
+
+
+

@@ -197,7 +197,8 @@ public interface Dbms {
    * invokes <TT>PreparedStatement.toString()</TT> and calls the
    * <TT>String</TT> version.
    *
-   * @see AnsiStandard#exceptionForUpdate
+   * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.lang.String, 
+   *                             boolean, java.sql.SQLException)
    */
 
   SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,

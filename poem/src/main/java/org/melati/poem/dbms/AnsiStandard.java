@@ -340,7 +340,8 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
+   * @see Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, 
+   *                             boolean, java.sql.SQLException)
    */
   public SQLPoemException exceptionForUpdate(Table table, String sql,
       boolean insert, SQLException e) {
@@ -348,7 +349,9 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, boolean, java.sql.SQLException)
+   * @see Dbms#exceptionForUpdate(org.melati.poem.Table, 
+   *                              java.sql.PreparedStatement, 
+   *                              boolean, java.sql.SQLException)
    */
   public SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
       boolean insert, SQLException e) {
@@ -434,3 +437,4 @@ public class AnsiStandard implements Dbms {
   }
 
 }
+

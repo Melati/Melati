@@ -60,9 +60,9 @@ public class LongPoemType extends AtomPoemType {
 
   public static final LongPoemType nullable = new LongPoemType(true);
 
-
+//FIXME we need to know the DBMS specific name here
   public LongPoemType(boolean nullable) {
-    super(Types.BIGINT, "INT8", nullable);
+    super(Types.BIGINT, "INT8", nullable); 
   }
 
   protected LongPoemType(int sqlTypeCode, String sqlTypeName,

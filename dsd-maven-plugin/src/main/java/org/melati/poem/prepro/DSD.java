@@ -157,6 +157,7 @@ public class DSD {
       w.write("package " + packageName + ";\n" +
               "\n" +
 	      "import java.util.*;\n" +
+	      "import java.sql.Date;\n" + // FIXME hack!
 	      "import org.melati.util.*;\n");
 
       if (!packageName.equals("org.melati.poem"))

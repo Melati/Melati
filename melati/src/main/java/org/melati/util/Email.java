@@ -53,6 +53,8 @@ import org.melati.poem.*;
 
 public class Email {
 
+  public static String SMTPSERVER = "SMTPServer";
+
   static SimpleDateFormat formatter = 
                        new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
 
@@ -77,7 +79,7 @@ public class Email {
                                                        IOException {
 
     SmtpClient smtp;
-    String smtpserver = database.getSettingTable().get("smtpserver");
+    String smtpserver = database.getSettingTable().get(SMTPSERVER);
     try {
       smtp = new SmtpClient(smtpserver);
     } catch (Exception e) {

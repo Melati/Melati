@@ -23,9 +23,6 @@ public class GroupMembershipTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
-
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -204,10 +201,10 @@ public class GroupMembershipTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 7;
+    return 2040;
   }
 }

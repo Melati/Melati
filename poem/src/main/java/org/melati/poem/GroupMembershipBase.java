@@ -8,8 +8,6 @@ import org.melati.util.*;
 
 public class GroupMembershipBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();}
   public GroupMembershipTable getGroupMembershipTable() {
     return (GroupMembershipTable)getTable();
   }

@@ -31,9 +31,6 @@ public class TableInfoTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
-
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -684,6 +681,6 @@ public class TableInfoTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 2;
+    return 3010;
   }
 }

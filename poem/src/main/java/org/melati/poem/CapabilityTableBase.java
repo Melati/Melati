@@ -22,9 +22,6 @@ public class CapabilityTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
-
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
@@ -154,10 +151,10 @@ public class CapabilityTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 4;
+    return 2030;
   }
 }

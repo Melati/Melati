@@ -8,8 +8,6 @@ import org.melati.util.*;
 
 public class ColumnInfoBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();}
   public ColumnInfoTable getColumnInfoTable() {
     return (ColumnInfoTable)getTable();
   }

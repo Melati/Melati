@@ -8,8 +8,6 @@ import org.melati.util.*;
 
 public class CapabilityBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();}
   public CapabilityTable getCapabilityTable() {
     return (CapabilityTable)getTable();
   }

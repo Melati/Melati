@@ -8,6 +8,6 @@ public class Status extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, TemplateContext context)
       throws Exception {
-    return "admin/Status";
+    return "org/melati/admin/Status";
   }
 }

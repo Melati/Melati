@@ -61,9 +61,8 @@ import org.webmacro.Context;
 import org.webmacro.Template;
 
 /**
- * Test Melati in standalone mode (outside of using the servlet API)
- * by expanding a template to a string and then include it within this 
- * template.
+ * Test Melati in standalone mode (outside the servlet API) by expanding 
+ * a template to a string and then including it within a template.
  *
  * You would not normally do this this way, a much better approach would
  * be to use templets.

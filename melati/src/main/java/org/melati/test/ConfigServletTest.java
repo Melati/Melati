@@ -110,33 +110,56 @@ public class ConfigServletTest extends ConfigServlet {
     MelatiWriter output = melati.getWriter();
 
     output.write(
-    "<html><head><title>ConfigServlet Test</title></head><body><h2> " +
-    "ConfigServlet Test</h2><p>This servlet tests your basic melati " +
-    "configuration. If you can read this message, it means that you have " +
-    "successfully created a Melati and a Melati, using the configuration " +
-    "given in org.melati.MelatiServlet.properties.  Please note that this " +
+    "<html><head><title>ConfigServlet Test</title></head>\n");
+    output.write(
+    "<body><h2>ConfigServlet Test</h2>");
+    output.write(
+    "<p>This servlet tests your basic melati " +
+    "configuration. <br>\n" +
+    "If you can read this message, it means that you have " +
+    "successfully created a Melati using the configuration " +
+    "given in org.melati.MelatiServlet.properties.<br>\n"+
+    "Please note that this " +
     "servlet does not construct a POEM session or initialise a template " +
-    "engine.</p>\n" + 
-    "<h4>Your Melati is configured with the following parameters: " +
-    "</h4><table><tr><td>TemplateEngine</td><td>" +
-    config.getTemplateEngine().getClass().getName() +
-    "</td></tr><tr><td>AccessHandler</td><td>" +
+    "engine.</p>\n");
+    output.write(
+    "<h4>Your Melati is configured with the following properties: " +
+    "</h4>\n<table>");
+    output.write(
+    "<tr><td>AccessHandler</td><td>" +
     config.getAccessHandler().getClass().getName() +
-    "</td></tr><tr><td>FormDataAdaptorFactory</td><td>" +
-    config.getFormDataAdaptorFactory().getClass().getName() +
-    "</td></tr><tr><td>Locale</td><td>" +
-    config.getLocale().getClass().getName() +
-    "</td></tr><tr><td>TempletLoader</td><td>" +
-    config.getTempletLoader().getClass().getName() +
-    "</td></tr><tr><td>JavascriptLibraryURL</td><td>" +
+    "</td></tr>\n");
+    output.write(
+    "<tr><td>TemplateEngine</td><td>" +
+    config.getTemplateEngine().getClass().getName() +
+    "</td></tr>\n");
+    output.write(
+    "<tr><td>StaticURL</td><td>" +
+    config.getStaticURL() + "</td></tr>\n");
+    output.write(
+    "<tr><td>JavascriptLibraryURL</td><td>" +
     config.getJavascriptLibraryURL() +
-    "</td></tr><tr><td>StaticURL</td><td>" +
-    config.getStaticURL() + "</td></tr></table>" +
+    "</td></tr>\n");
+    output.write(
+    "<tr><td>FormDataAdaptorFactory</td><td>" +
+    config.getFormDataAdaptorFactory().getClass().getName() +
+    "</td></tr>\n");
+    output.write(
+    "<tr><td>Locale</td><td>" +
+    config.getLocale().getClass().getName() +
+    "</td></tr>\n");
+    output.write(
+    "<tr><td>TempletLoader</td><td>" +
+    config.getTempletLoader().getClass().getName() +
+    "</td></tr>\n");
+    output.write(
+    "</table>" +
 
     "<h4>This servlet was called with the following Method (taken from " +
     "melati.getMethod()): " + 
     melati.getMethod() + 
-    "</h4>\n" + 
+    "</h4>\n");
+    output.write(
     "<h4>Further Testing:</h4>\n" + 
     "You can test melati Exception handling by " +
     "clicking <a href=" + 

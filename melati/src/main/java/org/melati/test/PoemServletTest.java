@@ -56,7 +56,9 @@ import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
+import org.melati.servlet.MelatiContext;
 import org.melati.servlet.PoemServlet;
+import org.melati.servlet.PathInfoException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
@@ -74,21 +76,30 @@ public class PoemServletTest extends PoemServlet {
     MelatiWriter output = melati.getWriter();
 
     output.write(
-    "<html><head><title>PoemServlet Test</title></head><body><h2>PoemServlet " +
-    "Test</h2><p>This servlet tests your basic melati/poem configuration. " +
-    "</p><p>If you can read this message, it means that you have " +
+    "<html><head><title>PoemServlet Test</title></head>\n");
+    output.write("<body>\n");
+    output.write("<h2>PoemServlet " +
+    "Test</h2>\n");
+    output.write("<p>This servlet tests your melati/poem configuration. " +
+    "</p>\n");
+    output.write("<p>If you can read this message, it means that you have " +
     "successfully created a  POEM session using the configurations given in " +
-    "org.melati.LogicalDatabase.properties. </p><p>Please note that this " +
-    "servlet does not initialise a template engine.</p><p>Your " +
+    "org.melati.LogicalDatabase.properties. </p>\n");
+    output.write("<p>Please note that this " +
+    "servlet does not initialise a template engine.</p>\n");
+    output.write("<p>Your " +
     "<b>MelatiContext</b> is set up as: " +
     melati.getContext() +
-    "<br>, try playing with the PathInfo to see the results (or click " +
+    "<br>, \n");
+    output.write("try playing with the PathInfo to see the results (or click " +
     "<a href=" +
     melati.getZoneURL() +
     "/org.melati.test.PoemServletTest/" +
     melati.getContext().logicalDatabase +
     "/user/1/View>user/1/View" +
-    "</a>).</p><h4>Your Database has the following tables:</h4><table>");
+    "</a>).</p>\n");
+    output.write("<h4>Your Database has the following tables:</h4>\n");
+    output.write("<table>");
 
     for (Enumeration e = melati.getDatabase().getDisplayTables(); 
          e.hasMoreElements(); ) {
@@ -96,21 +107,24 @@ public class PoemServletTest extends PoemServlet {
       append(((Table)e.nextElement()).getDisplayName()).toString());
     }
 
-    output.write("<h4>Further Testing:</h4>You can test melati Exception " +
-    "handling by clicking <a href=Exception>Exception</a><br>You can test " +
-    "melati Access Poem Exception handling (requiring you to log-in as an " +
-    "administrator) by clicking <a href=AccessPoemException>Access Poem " +
-    "Exception</a><br><h4>Template Engine Testing:</h4>You are currently " +
-    "using: <b>" + 
+    output.write("<h4>Further Testing:</h4>\n");
+    if (method != null) {
+      output.write("You can test melati Exception " +
+      "handling by clicking <a href=Exception>Exception</a><br>\n");
+      output.write("You can test " +
+      "melati Access Poem Exception handling (requiring you to log-in as an " +
+      "administrator) by clicking <a href=AccessPoemException>Access Poem " +
+      "Exception</a><br>\n");
+    }
+    output.write("<h4>Template Engine Testing:</h4>\n");
+    output.write("You are currently using: <b>" + 
     melati.getConfig().getTemplateEngine().getClass().getName() + 
-    "</b>.<br>You can test your WebMacro installaction by clicking <a href=" + 
-    melati.getZoneURL() + 
-    "/HelloWorld/>HelloWorld</a>, or <a href=" + 
-    melati.getZoneURL() + 
-    "/GuestBook/>GuestBook</a>, or <a href=" + 
+    "</b>.<br>\n");
+    output.write("You can test your WebMacro installation by clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.WebmacroStandalone/>WebmacroStandalone</a>" + 
-    "<br>You can test your Template Engine working with " +
+    "<br>\n");
+    output.write("You can test your Template Engine working with " +
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.TemplateServletTest/>" + 
@@ -118,7 +132,7 @@ public class PoemServletTest extends PoemServlet {
 
     String method = melati.getMethod();
     if (method != null) {
-      output.write("<h4>" + method + "</h4>");
+      output.write("Current method:" + method + "<br/>\n");
       Capability admin = PoemThread.database().getCanAdminister();
       AccessToken token = PoemThread.accessToken();
       if (method.equals("AccessPoemException")) 
@@ -131,15 +145,31 @@ public class PoemServletTest extends PoemServlet {
   }
   
 /**
- * this simply demonstrates how to use a different melati configuration
+ * How to use a different melati configuration.
  *
- **/
+ */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
     config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
     return config;
   }
 
+/**
+ * Set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  
+ *
+ * This is a very good idea when
+ * writing your appications where you are typically only accessing
+ * a single database
+ */
+  protected MelatiContext melatiContext(Melati melati)
+  throws PathInfoException {
+    String[] parts = melati.getPathInfoParts();
+    if (parts.length == 0) 
+      return melatiContextWithLDB(melati,"melatitest");
+    else 
+      return super.melatiContext(melati);
+  }
 }
 
 

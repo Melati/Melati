@@ -55,7 +55,7 @@ import org.webmacro.servlet.WebContext;
 
 /**
  * Illustrate the difference between flushing and not flushing 
- * your output buffwer.
+ * your output buffer.
  *
  * @author Tim Joyce
  * $Revision$
@@ -68,13 +68,14 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
   public String handle( Melati melati, WebContext context ) 
       throws Exception {
     melati.setBufferingOff();
-    if (!melati.getMethod().equals("unflushed")) melati.setFlushingOn();
+    if (melati.getMethod() != null && 
+        !melati.getMethod().equals("unflushed")) melati.setFlushingOn();
     context.put("waiter", new Waiter());
     return "org/melati/test/FlushingServletTest.wm";
   }
 
 /**
- * set up the melati context so we don't have to specify the 
+ * Set up the melati context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  
  *
  * This is a very good idea when

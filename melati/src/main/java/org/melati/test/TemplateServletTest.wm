@@ -53,14 +53,17 @@
 </head>
 <body>
 <h2>TemplateServlet Test</h2>
+<h3>This servlet tests your melati/poem/template engine configuration. </h3>
 
-<p>This servlet tests your basic melati/poem/template engine configuration. 
-If you can read this message, it means that you have successfully created a POEM session 
-and loaded a Template Engine (in this case WebMacro).<p>
+<p>
+If you can read this message, it means that you have successfully 
+configured a Melati, created a POEM session 
+and loaded a Template Engine (in this case WebMacro).
+<p>
 
 <p>Your <b>MelatiContext</b> is set up as: $melati.Context
 <br>, try playing with the PathInfo to see the results (or click 
-<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/user/1/View">user/1/View</a>).</p>
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/user/1/View">user/1/View</a>).</p>
 
 #if ($thisisnull) #begin
 <p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!
@@ -74,7 +77,7 @@ the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
 
 <h3>Exception Testing</h3>
 
-#if ($Form.nonexistant) #begin
+#if ($Form && $Form.nonexistant) #begin
 <p>Here is an object that doesn't exist<br>
 <textarea cols=60 rows=5>
 $nonexistant
@@ -100,8 +103,8 @@ AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.
 
 
 <h3>Further Testing</h3>
-You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>
-You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>
+You can test melati Exception handling by clicking <a href=./Exception>Exception</a><br>
+You can test melati Redirect handling by clicking <a href=./Redirect>Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.LogicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>

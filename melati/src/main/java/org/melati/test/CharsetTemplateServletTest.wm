@@ -12,20 +12,21 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>"$servlet.ServletName"</title>
+<title>$servlet.ServletName</title>
 </head>
 <body>
 <h1>Characters Displayed in a Template</h1>
-<p>Based on available configuration information Melati
-has suggested the response encoding $melati.Response.CharacterEncoding
-and we are using it for this test.
+<p>
+melati.Response.CharacterEncoding = $melati.Response.CharacterEncoding
 </p>
-<p>The test data originally comes from the Unicode Database.
+<p>
+The test data originally comes from the Unicode Database.
 If you are viewing it online then for copyright information
 and UCD Terms click here:
 <a href="http://www.unicode.org/unicode/copyright.html">
 http://www.unicode.org/unicode/copyright.html</a>.
-Offline please refer to the Javadocs.</p>
+Offline please refer to the Javadocs.
+</p>
 <table border="1">
 <thead>
 <tr>

@@ -60,7 +60,10 @@ import org.melati.template.TemplateContext;
 import org.melati.util.MelatiException;
 
 /**
- * Illustrate exception handling.
+ * Illustrate overridden exception handling.
+ * AccessHandler is assumed to be set to 
+ * <code>org.melati.login.HttpSessionAccessHandler</code> in 
+ * <code>org.melati.MelatiServlet.properties</code>.
  *
  * @author Tim Joyce
  * $Revision$
@@ -71,15 +74,15 @@ public class TemplateServletTestOverride extends TemplateServlet {
                                      TemplateContext templateContext) 
       throws Exception {
 
-    // provoke an exception to prove us right!
+    // thow exception to illustrate it being handled.
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     throw new AccessPoemException(token, admin);
   }
 
 /**
- * Demonstrates how to use a different melati configuration.
- *
+ * Override the default (set) authentication method.
+ * Demonstrates how to override individual set properties.
  */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
@@ -88,12 +91,11 @@ public class TemplateServletTestOverride extends TemplateServlet {
   }
 
 /**
- * set up the melati context so we don't have to specify the 
+ * Set up the melati context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  
  *
- * This is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
+ * This is a good idea when writing appications where you are 
+ * typically only accessing a single database.
  */
   protected MelatiContext melatiContext(Melati melati)
       throws PathInfoException {

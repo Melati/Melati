@@ -109,6 +109,9 @@ public class CharsetServletTest extends ConfigServlet {
     w.println("</html>");
   }
 
+  public String getServletName() {
+      return "org.melati.test.CharsetServletTest";
+  }
   
   
 }

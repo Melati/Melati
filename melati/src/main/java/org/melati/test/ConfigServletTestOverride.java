@@ -51,7 +51,8 @@ import org.melati.MelatiConfig;
 import org.melati.util.MelatiException;
 
 /**
- * Demonstrates how to use a different Melati configuration.
+ * Demonstrates how to override individual property settings 
+ * programmatically.
  */
 public class ConfigServletTestOverride extends ConfigServletTest {
 

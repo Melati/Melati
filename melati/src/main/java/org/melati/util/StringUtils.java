@@ -173,6 +173,26 @@ public class StringUtils {
     return sNew == null ? s : sNew.toString();
   }
 
+  public static String concatenated(String sep, String[] xs) {
+    if (xs.length == 0)
+      return "";
+    else {
+      int l = sep.length() * (xs.length - 1) + xs[0].length();
+      for (int i = 1; i < xs.length; ++i)
+	l += xs[i].length();
+
+      StringBuffer c = new StringBuffer(l);
+
+      c.append(xs[0]);
+      for (int i = 1; i < xs.length; ++i) {
+	c.append(sep);
+	c.append(xs[i]);
+      }
+
+      return c.toString();
+    }
+  }
+
   public static void main(String[] args) {
     System.out.println(tr(args[0], "abc", "123"));
     System.out.println(tr(args[0], "a", "1"));

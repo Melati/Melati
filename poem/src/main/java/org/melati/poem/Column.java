@@ -151,14 +151,6 @@ public abstract class Column implements FieldAttributes {
     return isTroidColumn();
   }
 
-  protected int defaultWidth() {
-    return 9;
-  }
-
-  protected int defaultHeight() {
-    return 1;
-  }
-
   void createColumnInfo() throws PoemException {
     if (info == null) {
       info =
@@ -181,8 +173,6 @@ public abstract class Column implements FieldAttributes {
                   i.setSearchcriterion(defaultSearchCriterion());
                   i.setIndexed(defaultIndexed());
                   i.setUnique(defaultUnique());
-                  i.setWidth(defaultWidth());
-                  i.setHeight(defaultHeight());
                   getType().saveColumnInfo(i);
                 }
               });

@@ -295,18 +295,6 @@ public abstract class FieldDef {
               "          }\n" +
               "\n");
 
-    if (width != -1)
-      w.write("          protected int defaultWidth() {\n" +
-              "            return " + width + ";\n" +
-              "          }\n" +
-              "\n");
-
-    if (height != -1)
-      w.write("          protected int defaultHeight() {\n" +
-              "            return " + height + ";\n" +
-              "          }\n" +
-              "\n");
-
     generateColRawAccessors(w);
 
     w.write(

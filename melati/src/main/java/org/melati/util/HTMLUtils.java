@@ -248,12 +248,14 @@ public final class HTMLUtils {
     b.append(escape);
 
     char c;
-    for (++i; i < l; ++i)
-      if ((escape = jsEscapeFor(c = s.charAt(i))) != null)
+    for (++i; i < l; ++i) {
+      c = s.charAt(i);
+      escape = jsEscapeFor(c);
+      if (escape != null)
         b.append(escape);
       else
         b.append(c);
-
+    }
     return b.toString();
   }
 

@@ -62,11 +62,41 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   }
 
   /** returns all objects that meet the query
-  * NOTE: Passes the query string directly to poem
+  * NOTE: Passes the query string is split into the where clause and the order by clause and passed to poem
   */
   public Iterator select(String queryString) 
   {
-    return new EnumerationIterator(_wrappedTable.selection(queryString));
+    String lowerCaseQueryString = queryString.toLowerCase();
+    int whereStart = lowerCaseQueryString.indexOf("where ");
+    if (whereStart<0) 
+      whereStart = 0;
+    else
+      whereStart += 6;
+
+    int orderByStart = lowerCaseQueryString.indexOf("order by ");
+    int whereEnd = 0;
+    if (orderByStart<0)
+      whereEnd = queryString.length() - whereStart;
+    else if (orderByStart==0)
+    {
+      whereStart = -1; // no where clause
+    }
+    else
+    {
+      whereEnd = orderByStart;
+      orderByStart += 9;
+    }
+    
+    String whereClause = "";
+    String orderByClause = "";
+    if (whereStart<0)
+      whereClause = queryString.substring(whereStart,whereEnd);
+    if (orderByStart<0)
+      orderByClause = queryString.substring(orderByStart,queryString.length());
+
+    System.err.println("where clause="+whereClause);
+    System.err.println("order by clause="+orderByClause);
+    return new EnumerationIterator(_wrappedTable.selection(whereClause,orderByClause,true));
   }
 
   public Object selectElement(String queryString) 

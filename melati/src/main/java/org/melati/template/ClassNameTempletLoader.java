@@ -63,6 +63,7 @@ public class ClassNameTempletLoader implements TempletLoader {
     specialTemplateNames.put("org.melati.poem.ReferencePoemType", "select");
     specialTemplateNames.put("org.melati.poem.DisplayLevelPoemType", "select");
     specialTemplateNames.put("org.melati.poem.SearchabilityPoemType", "select");
+    specialTemplateNames.put("org.melati.poem.IntegrityFixPoemType", "select");
   }
 
   protected String templetsPath(MarkupLanguage markupLanguage) {

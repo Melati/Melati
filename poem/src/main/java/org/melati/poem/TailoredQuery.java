@@ -78,19 +78,19 @@ public class TailoredQuery {
    * 
    * TailoredQuery q =
    *     new TailoredQuery(
-   * 	columns, tables,
-   * 	"\"user\" = \"user\".id AND \"group\" = \"group\".id",
-   * 	null);
+   *    columns, tables,
+   *    "\"user\" = \"user\".id AND \"group\" = \"group\".id",
+   *    null);
    * 
    * for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
    *   FieldSet fs = (FieldSet)ms.nextElement();
-   *   System.out.println(fs.get("user_name").getValueString() +
-   * 		     ", " +
-   * 		     fs.get("group_name").getValueString());
+   *   System.out.println(fs.get("user_name").getCookedString() +
+   *                 ", " +
+   *                 fs.get("group_name").getCookedString());
    * }
    * </PRE></BLOCKQUOTE>
    *
-   * @param selectedColumns	The columns you want to select out
+   * @param selectedColumns     The columns you want to select out
    * @param otherTables         Tables aside from those to which your
    *                            <TT>selectedColumns</TT> are attached which
    *                            you need to use in the <TT>whereClause</TT>
@@ -98,16 +98,16 @@ public class TailoredQuery {
    *                            you will have to do any necessary quoting of
    *                            identifiers/values yourself (or use
    *                            <TT>Column.quotedName</TT> and
-   *                            <TT>PoemType.quotedIdent</TT>)
+   *                            <TT>PoemType.quotedRaw</TT>)
    * @param orderByClause       Ordering criteria for your query
    *
    * @see #selection
    * @see Column#quotedName()
-   * @see PoemType#quotedIdent(java.lang.Object)
+   * @see PoemType#quotedRaw(java.lang.Object)
    */
 
   public TailoredQuery(Column[] selectedColumns, Table[] otherTables,
-		       String whereClause, String orderByClause) {
+                       String whereClause, String orderByClause) {
 
     this.database = selectedColumns[0].getDatabase();
 
@@ -118,12 +118,12 @@ public class TailoredQuery {
     for (int c = 0; c < selectedColumns.length; ++c) {
       Table table = selectedColumns[c].getTable();
       if (!tablesV.contains(table))
-	tablesV.addElement(table);
+        tablesV.addElement(table);
     }
 
     for (int t = 0; t < otherTables.length; ++t)
       if (!tablesV.contains(otherTables[t]))
-	tablesV.addElement(otherTables[t]);
+        tablesV.addElement(otherTables[t]);
 
     tables = new Table[tablesV.size()];
     tablesV.copyInto(tables);
@@ -145,17 +145,17 @@ public class TailoredQuery {
       Table table = tables[t];
       Column canRead = table.canReadColumn();
       if (canRead == null) {
-	// No specific canRead column, revert to the table default protection
+        // No specific canRead column, revert to the table default protection
 
-	if (!canReadTables.contains(table))
-	  canReadTables.addElement(table);
+        if (!canReadTables.contains(table))
+          canReadTables.addElement(table);
       }
       else
-	if (!columns.contains(canRead)) {
-	  canReadColumnIndices.addElement(new Integer(columns.size()));
-	  columns.addElement(canRead);
-	}
-    }	  
+        if (!columns.contains(canRead)) {
+          canReadColumnIndices.addElement(new Integer(columns.size()));
+          columns.addElement(canRead);
+        }
+    }     
 
     this.columns = new Column[columns.size()];
     columns.copyInto(this.columns);

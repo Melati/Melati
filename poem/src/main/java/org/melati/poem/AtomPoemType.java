@@ -1,6 +1,7 @@
 package org.melati.poem;
 
 import java.util.*;
+import org.melati.util.*;
 
 public abstract class AtomPoemType extends BasePoemType {
 
@@ -17,25 +18,26 @@ public abstract class AtomPoemType extends BasePoemType {
     this(sqlTypeCode, sqlTypeName, nullable, width, 1);
   }
 
-  protected String _stringOfIdent(Object ident) {
-    return ident.toString();
+  protected String _stringOfRaw(Object raw) {
+    return raw.toString();
   }
 
-  protected void _assertValidValue(Object value)
+  protected void _assertValidCooked(Object cooked)
       throws ValidationPoemException {
-    _assertValidIdent(value);
+    _assertValidRaw(cooked);
   }
 
-  protected Object _valueOfIdent(Object ident) throws PoemException {
-    return ident;
+  protected Object _cookedOfRaw(Object raw) throws PoemException {
+    return raw;
   }
 
-  protected Object _identOfValue(Object value) {
-    return value;
+  protected Object _rawOfCooked(Object cooked) {
+    return cooked;
   }
 
-  protected String _stringOfValue(Object value) {
-    return _stringOfIdent(_identOfValue(value));
+  protected String _stringOfCooked(Object cooked,
+				   MelatiLocale locale, int style) {
+    return _stringOfRaw(_rawOfCooked(cooked));
   }
 
   protected String _sqlDefinition() {

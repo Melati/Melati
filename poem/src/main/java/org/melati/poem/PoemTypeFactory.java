@@ -6,13 +6,17 @@ package org.melati.poem;
  */
 
 public abstract class PoemTypeFactory {
-  Integer code;
+  final Integer code;
 
   public PoemTypeFactory(int c) {
     this.code = new Integer(c);
   }
 
   abstract PoemType typeOf(Database database, ColumnInfo info);
+
+  public Integer getCode() {
+    return code;
+  }
 
   public abstract String getName();
 
@@ -22,8 +26,8 @@ public abstract class PoemTypeFactory {
 
   public abstract String getDescription();
 
-  static PoemTypeFactory
-      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING;
+  public static final PoemTypeFactory
+      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE;
 
   private static int n = -1;
 
@@ -102,7 +106,7 @@ public abstract class PoemTypeFactory {
     DOUBLE = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
         return new DoublePoemType(info.nullable.booleanValue(),
-                                   info.size.intValue());
+                                  info.size.intValue());
       }
 
       public String getName() {
@@ -124,6 +128,20 @@ public abstract class PoemTypeFactory {
 
       public String getName() {
         return "STRING";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    DATE = new PoemTypeFactory(n--) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
+        return new DatePoemType(info.nullable.booleanValue());
+      }
+
+      public String getName() {
+        return "DATE";
       }
 
       public String getDescription() {

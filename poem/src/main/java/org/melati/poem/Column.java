@@ -245,9 +245,9 @@ public abstract class Column implements FieldAttributes {
     System.out.println(toString());
   }
 
-  Enumeration selectionWhereEq(Object ident, boolean resolved) {
+  Enumeration selectionWhereEq(Object raw, boolean resolved) {
     try {
-      String clause = quotedName + " = " + type.quotedIdent(ident);
+      String clause = quotedName + " = " + type.quotedRaw(raw);
       return resolved ? getTable().selection(clause) :
                         getTable().troidSelection(clause, null, false);
     }
@@ -256,16 +256,16 @@ public abstract class Column implements FieldAttributes {
     }
   }
 
-  public Enumeration selectionWhereEq(Object ident) {
-    return selectionWhereEq(ident, true);
+  public Enumeration selectionWhereEq(Object raw) {
+    return selectionWhereEq(raw, true);
   }
 
-  Enumeration troidSelectionWhereEq(Object ident) {
-    return selectionWhereEq(ident, false);
+  Enumeration troidSelectionWhereEq(Object raw) {
+    return selectionWhereEq(raw, false);
   }
 
-  public Persistent firstWhereEq(Object ident) {
-    Enumeration them = selectionWhereEq(ident);
+  public Persistent firstWhereEq(Object raw) {
+    Enumeration them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
 
@@ -275,26 +275,26 @@ public abstract class Column implements FieldAttributes {
   // =======================================
   // 
 
-  public abstract Object getIdent(Persistent g)
+  public abstract Object getRaw(Persistent g)
       throws AccessPoemException;
-  public abstract Object getIdent_unsafe(Persistent g);
-  public abstract void setIdent(Persistent g, Object ident)
+  public abstract Object getRaw_unsafe(Persistent g);
+  public abstract void setRaw(Persistent g, Object raw)
       throws AccessPoemException, ValidationPoemException;
-  public abstract void setIdent_unsafe(Persistent g, Object ident);
-  public abstract Object getValue(Persistent g)
+  public abstract void setRaw_unsafe(Persistent g, Object raw);
+  public abstract Object getCooked(Persistent g)
       throws AccessPoemException, PoemException;
-  public abstract void setValue(Persistent g, Object value)
+  public abstract void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException;
 
   public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
       throws ParsingPoemException, ValidationPoemException {
     // FIXME double validation
-    setIdent_unsafe(g, type.getIdent(rs, rsCol));
+    setRaw_unsafe(g, type.getRaw(rs, rsCol));
   }
 
   public void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
     // FIXME double validation
-    type.setIdent(ps, psCol, getIdent_unsafe(g));
+    type.setRaw(ps, psCol, getRaw_unsafe(g));
   }
 
   // 
@@ -311,10 +311,10 @@ public abstract class Column implements FieldAttributes {
     return new Field((Object)null, this);
   }
 
-  public void setIdentString(Persistent g, String identString)
+  public void setRawString(Persistent g, String rawString)
       throws ParsingPoemException, ValidationPoemException,
              AccessPoemException {
-    setIdent(g, getType().identOfString(identString));
+    setRaw(g, getType().rawOfString(rawString));
   }
 
   public Enumeration referencesTo(Persistent object) {
@@ -326,7 +326,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   Persistent ensure(Persistent orCreate) {
-    Persistent there = firstWhereEq(getIdent_unsafe(orCreate));
+    Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
     if (there == null) {
       getTable().create(orCreate);
       return orCreate;

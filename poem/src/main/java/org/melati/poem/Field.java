@@ -6,11 +6,11 @@ import org.melati.util.*;
 public class Field implements FieldAttributes, Cloneable {
 
   private AccessPoemException accessException;
-  private Object ident;
+  private Object raw;
   private FieldAttributes attrs;
 
-  public Field(Object ident, FieldAttributes attrs) {
-    this.ident = ident;
+  public Field(Object raw, FieldAttributes attrs) {
+    this.raw = raw;
     this.attrs = attrs;
     accessException = null;
   }
@@ -18,7 +18,7 @@ public class Field implements FieldAttributes, Cloneable {
   public Field(AccessPoemException accessException, FieldAttributes attrs) {
     this.accessException = accessException;
     this.attrs = attrs;
-    ident = null;
+    raw = null;
   }
 
   // 
@@ -80,30 +80,31 @@ public class Field implements FieldAttributes, Cloneable {
   // -------
   // 
 
-  public final Object getIdent() throws AccessPoemException {
+  public final Object getRaw() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return ident;
+    return raw;
   }
 
-  public final Object getIdentString() throws AccessPoemException {
+  public final Object getRawString() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return ident == null ? "" : getType().stringOfIdent(ident);
+    return raw == null ? "" : getType().stringOfRaw(raw);
   }
 
-  public final Object getValue() throws AccessPoemException {
+  public final Object getCooked() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return getType().valueOfIdent(ident);
+    return getType().cookedOfRaw(raw);
   }
 
-  public final String getValueString() throws AccessPoemException {
+  public final String getCookedString(MelatiLocale locale, int style)
+      throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return ident == null ? "" : getType().stringOfValue(getValue());
+    return raw == null ? "" :
+                         getType().stringOfCooked(getCooked(), locale, style);
   }
-
 
   public int getWidth() {
     return getType().getWidth();
@@ -113,31 +114,39 @@ public class Field implements FieldAttributes, Cloneable {
     return getType().getHeight();
   }
 
-  public Field withIdent(Object ident) {
+  public Field withRaw(Object raw) {
     Field it = (Field)clone();
-    it.ident = ident;
+    it.raw = raw;
     return it;
   }
 
   public Enumeration getPossibilities() {
     final Field _this = this;
     return
-        new MappedEnumeration(getType().possibleIdents()) {
-          protected Object mapped(Object ident) {
-            return _this.withIdent(ident);
+        new MappedEnumeration(getType().possibleRaws()) {
+          protected Object mapped(Object raw) {
+            return _this.withRaw(raw);
           }
         };
   }
 
-  public boolean sameIdentAs(Field other) throws AccessPoemException {
+  /**
+   * A bit of a hack?
+   */
+
+  public Enumeration getFirst1000Possibilities() {
+    return new LimitedEnumeration(getPossibilities(), 1000);
+  }
+
+  public boolean sameRawAs(Field other) throws AccessPoemException {
     if (accessException != null)
       throw accessException;
-    return ident == null ? other.ident == null : ident.equals(other.ident);
+    return raw == null ? other.raw == null : raw.equals(other.raw);
   }
 
   public static Field of(Persistent persistent, Column column) {
     try {
-      return new Field(column.getIdent(persistent), column);
+      return new Field(column.getRaw(persistent), column);
     }
     catch (AccessPoemException accessException) {
       return new Field(accessException, column);

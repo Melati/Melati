@@ -2,31 +2,36 @@ package org.melati.poem;
 
 import java.sql.*;
 import java.util.*;
+import org.melati.util.*;
 
 public interface PoemType {
-  void assertValidIdent(Object ident)
+  void assertValidRaw(Object raw)
       throws TypeMismatchPoemException, ValidationPoemException;
 
-  Object getIdent(ResultSet rs, int col)
+  Object getRaw(ResultSet rs, int col)
       throws TypeMismatchPoemException, ValidationPoemException,
              ParsingPoemException;
-  void setIdent(PreparedStatement ps, int col, Object value)
+  void setRaw(PreparedStatement ps, int col, Object cooked)
       throws TypeMismatchPoemException;
-  Enumeration possibleIdents();
+  Enumeration possibleRaws();
 
-  String stringOfIdent(Object ident)
+  String stringOfRaw(Object raw)
       throws TypeMismatchPoemException, ValidationPoemException;
-  Object identOfString(String identString)
+  Object rawOfString(String rawString)
       throws ParsingPoemException, ValidationPoemException;
 
-  void assertValidValue(Object value)
+  void assertValidCooked(Object cooked)
       throws TypeMismatchPoemException, ValidationPoemException;
 
-  Object valueOfIdent(Object ident)
+  Object cookedOfRaw(Object raw)
       throws TypeMismatchPoemException, PoemException;
-  Object identOfValue(Object value) throws TypeMismatchPoemException;
+  Object rawOfCooked(Object cooked) throws TypeMismatchPoemException;
 
-  String stringOfValue(Object value)
+  /**
+   * @param style       as in <TT>java.text.DateFormat.SHORT</TT>, ...
+   */
+
+  String stringOfCooked(Object cooked, MelatiLocale locale, int style)
       throws TypeMismatchPoemException, PoemException;
 
   boolean getNullable();
@@ -35,7 +40,7 @@ public interface PoemType {
 
   int sqlTypeCode();
   String sqlDefinition();
-  String quotedIdent(Object ident);
+  String quotedRaw(Object raw);
 
   boolean canBe(PoemType other);
 

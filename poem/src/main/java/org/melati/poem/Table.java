@@ -39,7 +39,7 @@ public class Table {
   private Hashtable cachedSelections = null;
 
   public Table(Database database, String name,
-	       DefinitionSource definitionSource) {
+               DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
     this.quotedName = database.quotedName(name);
@@ -194,7 +194,7 @@ public class Table {
    * @return the table's display column, or <TT>null</TT> if it hasn't got one
    *
    * @see Column#getPrimaryDisplay()
-   * @see ReferencePoemType#_stringOfValue(Object)
+   * @see ReferencePoemType#_stringOfCooked
    */
 
   public final Column displayColumn() {
@@ -493,15 +493,15 @@ public class Table {
           database.log(new SQLLogEvent(select.toString()));
 
         if (!rs.next())
-	  persistent.setStatusNonexistent();
-	else {
-	  persistent.setStatusExistent();
-	  for (int c = 0; c < columns.length; ++c)
-	    columns[c].load_unsafe(rs, c + 1, persistent);
-	}
+          persistent.setStatusNonexistent();
+        else {
+          persistent.setStatusExistent();
+          for (int c = 0; c < columns.length; ++c)
+            columns[c].load_unsafe(rs, c + 1, persistent);
+        }
 
-	persistent.dirty = false;
-	persistent.markValid();
+        persistent.dirty = false;
+        persistent.markValid();
 
         if (rs.next())
           throw new DuplicateTroidPoemException(this, persistent.troid());
@@ -520,9 +520,9 @@ public class Table {
 
   void load(PoemTransaction transaction, Persistent persistent) {
     load(transaction == null ?
-	    getCommittedTransactionStuff().get :
-	    ((TransactionStuff)transactionStuffs.get(transaction.index)).get,
-	 persistent);
+            getCommittedTransactionStuff().get :
+            ((TransactionStuff)transactionStuffs.get(transaction.index)).get,
+         persistent);
   }
 
   private void modify(PoemTransaction transaction, Persistent persistent) {
@@ -589,13 +589,13 @@ public class Table {
     // maintained
 
     if (persistent.dirty) {
-      troidColumn.setIdent_unsafe(persistent, persistent.troid());
+      troidColumn.setRaw_unsafe(persistent, persistent.troid());
 
       if (persistent.statusExistent())
-	modify(transaction, persistent);
+        modify(transaction, persistent);
       else if (persistent.statusNonexistent()) {
-	insert(transaction, persistent);
-	persistent.setStatusExistent();
+        insert(transaction, persistent);
+        persistent.setStatusExistent();
       }
 
       persistent.dirty = false;
@@ -619,8 +619,8 @@ public class Table {
   private static final Procedure invalidator =
       new Procedure() {
         public void apply(Object arg) {
-	  ((Transactioned)arg).invalidate();
-	}
+          ((Transactioned)arg).invalidate();
+        }
       };
 
   void uncacheContents() {
@@ -648,7 +648,7 @@ public class Table {
    * has become invalid.
    *
    * @param transaction the transaction in which the change will be made
-   * @param persistent	the record to be changed
+   * @param persistent  the record to be changed
    *
    * @see GroupMembershipTable#notifyTouched
    */
@@ -708,13 +708,13 @@ public class Table {
       claim(persistent, troid);
       load(PoemThread.transaction(), persistent);
       if (persistent.statusExistent())
-	synchronized (cache) {
-	  Persistent tryAgain = (Persistent)cache.get(troid);
-	  if (tryAgain == null)
-	    cache.put(troid, persistent);
-	  else
-	    persistent = tryAgain;
-	}
+        synchronized (cache) {
+          Persistent tryAgain = (Persistent)cache.get(troid);
+          if (tryAgain == null)
+            cache.put(troid, persistent);
+          else
+            persistent = tryAgain;
+        }
     }
 
     if (!persistent.statusExistent())
@@ -955,8 +955,8 @@ public class Table {
     boolean hadOne = false;
     for (int c = 0; c < columns.length; ++c) {
       Column column = columns[c];
-      Object ident = column.getIdent_unsafe(persistent);
-      if (ident != null) {
+      Object raw = column.getRaw_unsafe(persistent);
+      if (raw != null) {
         if (hadOne)
           clause.append(" AND ");
         else
@@ -964,7 +964,7 @@ public class Table {
 
         clause.append(column.quotedName());
         clause.append(" = ");
-        clause.append(column.getType().quotedIdent(ident));
+        clause.append(column.getType().quotedRaw(raw));
       }
     }
   }
@@ -1027,7 +1027,7 @@ public class Table {
     for (int c = 0; c < columns.length; ++c) {
       Column column = columns[c];
       try {
-        column.getType().assertValidIdent(column.getIdent_unsafe(persistent));
+        column.getType().assertValidRaw(column.getRaw_unsafe(persistent));
       }
       catch (Exception e) {
         throw new FieldContentsPoemException(column, e);
@@ -1081,11 +1081,11 @@ public class Table {
 
     synchronized (cache) {
       try {
-	persistent.dirty = true;
-	writeDown(sessionToken.transaction, persistent);
+        persistent.dirty = true;
+        writeDown(sessionToken.transaction, persistent);
       }
       catch (Exception e) {
-	throw new InitialisationPoemException(this, e);
+        throw new InitialisationPoemException(this, e);
       }
 
       // OK, it worked.  Plug the object into the cache.
@@ -1150,9 +1150,9 @@ public class Table {
 
     persistent.setTable(this, troid);
 
-    troidColumn.setIdent_unsafe(persistent, troid);
+    troidColumn.setRaw_unsafe(persistent, troid);
     if (deletedColumn != null)
-      deletedColumn.setIdent_unsafe(persistent, Boolean.FALSE);
+      deletedColumn.setRaw_unsafe(persistent, Boolean.FALSE);
   }
 
   /**
@@ -1319,9 +1319,9 @@ public class Table {
       PreparedSelection newThem =
           new PreparedSelection(this, whereClause, orderByClause);
       synchronized (cachedSelections) {
-	them = (PreparedSelection)cachedSelections.get(key);
-	if (them == null)
-	  cachedSelections.put(key, them = newThem);
+        them = (PreparedSelection)cachedSelections.get(key);
+        if (them == null)
+          cachedSelections.put(key, them = newThem);
       }
     }
 
@@ -1361,23 +1361,23 @@ public class Table {
    * always reflect the state of affairs within your transaction even if you
    * haven't done a commit.
    *
-   * @param whereClause		an SQL expression (the bit after the
+   * @param whereClause         an SQL expression (the bit after the
    *                            <TT>SELECT</TT> ... <TT>WHERE</TT>) for picking
    *                            out the records you want
    *
-   * @param orderByClause	a comma-separated list of column names which
+   * @param orderByClause       a comma-separated list of column names which
    *                            determine the order in which the records are
    *                            presented; if this is <TT>null</TT>, the
    *                            <TT>displayorderpriority</TT> attributes of the
    *                            table's columns determine the order
    *
-   * @param nullable		whether to allow a blank <TT>NULL</TT> option
+   * @param nullable            whether to allow a blank <TT>NULL</TT> option
    *                            as the first possibility
    *
-   * @param selectedTroid	the troid of the record to which the
+   * @param selectedTroid       the troid of the record to which the
    *                            <TT>SELECT</TT> field should initially be set
    *
-   * @param name		the HTML name attribute of the field,
+   * @param name                the HTML name attribute of the field,
    *                            <I>i.e.</I>
    *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
    */
@@ -1388,8 +1388,8 @@ public class Table {
     return new Field(
         selectedTroid,
         new BaseFieldAttributes(name,
-				cachedSelectionType(whereClause,
-						    orderByClause, nullable)));
+                                cachedSelectionType(whereClause,
+                                                    orderByClause, nullable)));
   }
 
   // 
@@ -1419,25 +1419,25 @@ public class Table {
       if (troidColumn != null)
         throw new DuplicateTroidColumnPoemException(this, column);
       if (reallyDoIt)
-	troidColumn = column;
+        troidColumn = column;
     }
     else if (column.isDeletedColumn()) {
       if (deletedColumn != null)
         throw new DuplicateDeletedColumnPoemException(this, column);
       if (reallyDoIt)
-	deletedColumn = column;
+        deletedColumn = column;
     }
     else {
       if (reallyDoIt) {
-	PoemType type = column.getType();
-	if (type instanceof ReferencePoemType &&
-	    ((ReferencePoemType)type).targetTable() ==
-		 database.getCapabilityTable()) {
-	  if (column.getName().equals("canread"))
-	    canReadColumn = column;
-	  else if (column.getName().equals("canwrite"))
-	    canWriteColumn = column;
-	}
+        PoemType type = column.getType();
+        if (type instanceof ReferencePoemType &&
+            ((ReferencePoemType)type).targetTable() ==
+                 database.getCapabilityTable()) {
+          if (column.getName().equals("canread"))
+            canReadColumn = column;
+          else if (column.getName().equals("canwrite"))
+            canWriteColumn = column;
+        }
       }
     }
 

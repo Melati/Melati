@@ -4,11 +4,11 @@ import java.util.*;
 
 public class TableProjection {
   private Column column;
-  private Object ident;
+  private Object raw;
 
-  public TableProjection(Column column, Object ident) {
+  public TableProjection(Column column, Object raw) {
     this.column = column;
-    this.ident = ident;
+    this.raw = raw;
   }
 
   public Table getTable() {
@@ -16,6 +16,6 @@ public class TableProjection {
   }
 
   Enumeration elements(boolean resolved) {
-    return column.selectionWhereEq(ident, resolved);
+    return column.selectionWhereEq(raw, resolved);
   }
 }

@@ -19,25 +19,25 @@ public class StringPoemType extends AtomPoemType {
     return size;
   }
 
-  protected void _assertValidIdent(Object ident)
+  protected void _assertValidRaw(Object raw)
       throws ValidationPoemException {
-    if (ident != null && !(ident instanceof String))
-      throw new TypeMismatchPoemException(ident, this);
-    if (size >= 0 && ((String)ident).length() > size)
-      throw new StringLengthValidationPoemException(this, (String)ident);
+    if (raw != null && !(raw instanceof String))
+      throw new TypeMismatchPoemException(raw, this);
+    if (size >= 0 && ((String)raw).length() > size)
+      throw new StringLengthValidationPoemException(this, (String)raw);
   }
 
-  protected Object _getIdent(ResultSet rs, int col) throws SQLException {
+  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     return rs.getString(col);
   }
 
-  protected void _setIdent(PreparedStatement ps, int col, Object string)
+  protected void _setRaw(PreparedStatement ps, int col, Object string)
       throws SQLException {
     ps.setString(col, (String)string);
   }
 
-  protected Object _identOfString(String identString) {
-    return identString;
+  protected Object _rawOfString(String rawString) {
+    return rawString;
   }
 
   protected String _sqlDefinition() {
@@ -62,7 +62,7 @@ public class StringPoemType extends AtomPoemType {
     columnInfo.setSize(size);
   }
 
-  protected String _quotedIdent(Object ident) {
-    return org.melati.util.StringUtils.quoted((String)ident, '\'');
+  protected String _quotedRaw(Object raw) {
+    return org.melati.util.StringUtils.quoted((String)raw, '\'');
   }
 }

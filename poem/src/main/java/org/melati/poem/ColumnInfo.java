@@ -23,11 +23,11 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setName(name);
   }
 
-  public void setTableinfoTroid(Integer ident) throws AccessPoemException {
+  public void setTableinfoTroid(Integer raw) throws AccessPoemException {
     Integer ti = super.getTableinfoTroid();
-    if (ti != null && !ti.equals(ident))
+    if (ti != null && !ti.equals(raw))
       throw new IllegalArgumentException();
-    super.setTableinfoTroid(ident);
+    super.setTableinfoTroid(raw);
   }
 
   public void setPrimarydisplay(Boolean value) {

@@ -5,7 +5,7 @@ import org.melati.util.*;
 
 public class Persistent extends Transactioned implements Cloneable {
   private Table table;
-  private Integer troid;	// or null if a floating object
+  private Integer troid;        // or null if a floating object
   private AccessToken clearedToken;
   private boolean knownCanRead = false, knownCanWrite = false;
 
@@ -214,7 +214,7 @@ public class Persistent extends Transactioned implements Cloneable {
     Column canReadColumn = getTable().canReadColumn();
     return
         canReadColumn == null ? null :
-            (Capability)canReadColumn.getValue(this);
+            (Capability)canReadColumn.getCooked(this);
   }
 
   /**
@@ -313,7 +313,7 @@ public class Persistent extends Transactioned implements Cloneable {
     Column canWriteColumn = getTable().canWriteColumn();
     return
         canWriteColumn == null ? null :
-            (Capability)canWriteColumn.getValue(this);
+            (Capability)canWriteColumn.getCooked(this);
   }
 
   /**
@@ -365,16 +365,16 @@ public class Persistent extends Transactioned implements Cloneable {
   // 
 
   // 
-  // --------
-  //  Idents
-  // --------
+  // ------
+  //  Raws
+  // ------
   // 
 
   /**
    * The `identifying value' of one of the object's fields.  This is the value
    * which is actually stored in the database, give as a basic Java type;
    * currently, the only fields for which this differs from the `true value'
-   * returned from <TT>getValue</TT> are reference fields with type
+   * returned from <TT>getCooked</TT> are reference fields with type
    * <TT>ReferencePoemType</TT>.
    *
    * <P>
@@ -408,9 +408,9 @@ public class Persistent extends Transactioned implements Cloneable {
    *         <TT>Date</TT> as appropriate.  If the field is a reference field,
    *         the result is an <TT>Integer</TT> giving the troid of the referee.
    *         If you want references to be resolved transparently to
-   *         <TT>Persistent</TT>s, use <TT>getValue</TT>.  If you want a string
-   *         representation of the field, use <TT>getIdentString</TT> or
-   *         <TT>getValueString</TT>.
+   *         <TT>Persistent</TT>s, use <TT>getCooked</TT>.  If you want a string
+   *         representation of the field, use <TT>getRawString</TT> or
+   *         <TT>getCookedString</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist
@@ -418,9 +418,9 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have read access to the
    *                object (see <TT>assertCanRead</TT>)
    *
-   * @see #getValue
-   * @see #getIdentString
-   * @see #getValueString
+   * @see #getCooked
+   * @see #getRawString
+   * @see #getCookedString
    * @see #getField
    * @see Database#inSession
    * @see PoemThread#commit
@@ -428,16 +428,16 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see #assertCanRead
    */
 
-  public Object getIdent(String name)
+  public Object getRaw(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
-    return getTable().getColumn(name).getIdent(this);
+    return getTable().getColumn(name).getRaw(this);
   }
 
   /**
    * A string representation of the `identifying value' of one of the object's
    * fields.  The value returned is relative to the transaction associated with
    * the calling thread, as set up by <TT>Database.inSession</TT>: see the
-   * remarks made about <TT>getIdent</TT>.
+   * remarks made about <TT>getRaw</TT>.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
@@ -446,9 +446,9 @@ public class Persistent extends Transactioned implements Cloneable {
    *         to show the field's value.  If you want reference fields to be
    *         represented by their referee's <TT>displayString()</TT> (by
    *         default, its primary display field) rather than by its troid, use
-   *         <TT>getValueString</TT>.  If you want the field's value as an
-   *         appropriate Java type like <TT>Integer</TT>, use <TT>getIdent</TT>
-   *         or <TT>getValue</TT>---or an equivalent, but type-safe, method
+   *         <TT>getCookedString</TT>.  If you want the field's value as an
+   *         appropriate Java type like <TT>Integer</TT>, use <TT>getRaw</TT>
+   *         or <TT>getCooked</TT>---or an equivalent, but type-safe, method
    *         derived from the DSD.
    *
    * @exception NoSuchColumnPoemException
@@ -457,23 +457,23 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have read access to the
    *                object (see <TT>assertCanRead</TT>)
    *
-   * @see #getValueString
-   * @see #getIdent
-   * @see #getValue
+   * @see #getCookedString
+   * @see #getRaw
+   * @see #getCooked
    * @see #assertCanRead
    */
 
-  public final String getIdentString(String name)
+  public final String getRawString(String name)
       throws AccessPoemException, NoSuchColumnPoemException {
     Column column = getTable().getColumn(name);
-    return column.getType().stringOfIdent(column.getIdent(this));
+    return column.getType().stringOfRaw(column.getRaw(this));
   }
 
   /**
    * Set the `identifying value' of one of the record's fields.  This is the
    * value which is actually stored in the database, give as a basic Java type;
    * currently, the only fields for which this differs from the `true value'
-   * expected by <TT>setValue</TT> are reference fields with type
+   * expected by <TT>setCooked</TT> are reference fields with type
    * <TT>ReferencePoemType</TT>.
    *
    * <P>
@@ -485,7 +485,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * method.  So the easiest way to be sure of your types is to predeclare any
    * fields you use in the DSD, use the typed field-access methods, and let the
    * compiler take the strain.  When working with generic <TT>Persistent</TT>s,
-   * you probably mean <TT>setIdentString</TT> anyway.
+   * you probably mean <TT>setRawString</TT> anyway.
    *
    * <P>
    *
@@ -500,21 +500,21 @@ public class Persistent extends Transactioned implements Cloneable {
    *
    * In fact, your changes are not written down to the database, even relative
    * to an uncommitted transaction, until it's actually necessary.  So multiple
-   * calls to <TT>setIdent</TT> and relatives will not cause multiple SQL
+   * calls to <TT>setRaw</TT> and relatives will not cause multiple SQL
    * <TT>UPDATE</TT>s to be issued.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
    *
-   * @param ident       The new value for the field: a <TT>String</TT>,
+   * @param raw       The new value for the field: a <TT>String</TT>,
    *                    <TT>Boolean</TT>, <TT>Integer</TT>, <TT>Double</TT> or
    *                    <TT>Date</TT> as appropriate.  If the field is a
    *                    reference field: an <TT>Integer</TT> giving the troid
    *                    of the referee.  If you want to pass referees as actual
-   *                    <TT>Persistent</TT>s, use <TT>setValue</TT>.  If you
+   *                    <TT>Persistent</TT>s, use <TT>setCooked</TT>.  If you
    *                    want to set the field from a string representation
    *                    (<I>e.g.</I> typed in by the user), use
-   *                    <TT>setIdentString</TT>.
+   *                    <TT>setRawString</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist
@@ -522,30 +522,30 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have write access to the
    *                object (see <TT>assertCanWrite</TT>)
    * @exception TypeMismatchPoemException
-   *                if <TT>ident</TT> is of the wrong type; it's easiest to use
+   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
    *                DSD-derived typed versions of this method
    * @exception ValidationPoemException
-   *                if <TT>ident</TT> is not a valid value for the field
+   *                if <TT>raw</TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
    *
-   * @see #setValue
-   * @see #setIdentString
+   * @see #setCooked
+   * @see #setRawString
    * @see #assertCanWrite
    * @see Database#inSession
    * @see PoemThread#commit
    * @see PoemThread#rollback
    */
 
-  public void setIdent(String name, Object ident)
+  public void setRaw(String name, Object raw)
       throws NoSuchColumnPoemException, AccessPoemException,
              ValidationPoemException {
-    getTable().getColumn(name).setIdent(this, ident);
+    getTable().getColumn(name).setRaw(this, raw);
   }
 
   /**
    * Set the `identifying value' of one of the record's fields from a string
    * representation.  The remarks about sessions (transactions) and DSD-derived
-   * type-safe methods made for <TT>setIdent</TT> apply here too.
+   * type-safe methods made for <TT>setRaw</TT> apply here too.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
@@ -554,7 +554,7 @@ public class Persistent extends Transactioned implements Cloneable {
    *                    for the field.  If it's a reference field, this should
    *                    be a decimal representation of the referee's troid.  If
    *                    you want to set fields to values defined by appropriate
-   *                    Java types, use <TT>setIdent</TT> or <TT>setValue</TT>.
+   *                    Java types, use <TT>setRaw</TT> or <TT>setCooked</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist
@@ -568,16 +568,16 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if <TT>string</TT> parses to an invalid value for the field
    *                (<I>e.g.</I> it's too wide)
    *
-   * @see #setIdent
-   * @see #setValue
+   * @see #setRaw
+   * @see #setCooked
    * @see #assertCanWrite
    */
 
-  public final void setIdentString(String name, String string)
+  public final void setRawString(String name, String string)
       throws NoSuchColumnPoemException, AccessPoemException,
              ParsingPoemException, ValidationPoemException {
     Column column = getTable().getColumn(name);
-    column.setIdent(this, column.getType().identOfString(string));
+    column.setRaw(this, column.getType().rawOfString(string));
   }
 
   // 
@@ -590,28 +590,28 @@ public class Persistent extends Transactioned implements Cloneable {
    * The `true value' of one of the object's fields.  This is the
    * fully-interpreted value rather than the one actually stored in the
    * database; currently, the only fields for which this differs from the
-   * `identifying value' return from <TT>getIdent</TT> are reference fields
+   * `identifying value' return from <TT>getRaw</TT> are reference fields
    * with type <TT>ReferencePoemType</TT>.
    *
    * <P>
    *
    * The value returned is relative to the transaction associated with the
    * calling thread, as set up by <TT>Database.inSession</TT>: see the remarks
-   * made about <TT>getIdent</TT>.
+   * made about <TT>getRaw</TT>.
    *
    * <P>
    *
    * The easiest way to be sure of your types is to predeclare any fields you
    * use in the DSD, or use <TT>getField</TT>.  Again, see the remarks made
-   * about <TT>getIdent</TT>.
+   * about <TT>getRaw</TT>.
    *
    * @return The field's `true value'; this will be a <TT>String</TT>,
    *         <TT>Boolean</TT>, <TT>Integer</TT>, <TT>Double</TT>,
    *         <TT>Date</TT>, or, if the field is a reference field, a
    *         <TT>Persistent</TT> representing the referee.  If you just want to
-   *         see referees' troids, use <TT>getIdent</TT>.  If you want a string
-   *         representation of the field, use <TT>getIdentString</TT> or
-   *         <TT>getValueString</TT>.
+   *         see referees' troids, use <TT>getRaw</TT>.  If you want a string
+   *         representation of the field, use <TT>getRawString</TT> or
+   *         <TT>getCookedString</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist
@@ -619,23 +619,23 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have read access to the
    *                object (see <TT>assertCanRead</TT>)
    *
-   * @see #getIdent
-   * @see #getIdentString
-   * @see #getValueString
+   * @see #getRaw
+   * @see #getRawString
+   * @see #getCookedString
    * @see #getField
    * @see #assertCanRead
    */
 
-  public Object getValue(String name)
+  public Object getCooked(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
-    return getTable().getColumn(name).getValue(this);
+    return getTable().getColumn(name).getCooked(this);
   }
 
   /**
    * A string representation of the `true value' of one of the object's fields.
    * The value returned is relative to the transaction associated with the
    * calling thread, as set up by <TT>Database.inSession</TT>: see the remarks
-   * made about <TT>getIdent</TT>.
+   * made about <TT>getRaw</TT>.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
@@ -644,9 +644,9 @@ public class Persistent extends Transactioned implements Cloneable {
    *         to show the field's value, except that reference fields are
    *         represented by their referee's <TT>displayString()</TT> (by
    *         default, its primary display field) rather than by its troid.  If
-   *         you want to see troids instead, use <TT>getIdentString</TT>.  If
+   *         you want to see troids instead, use <TT>getRawString</TT>.  If
    *         you want the field's value as an appropriate Java type like
-   *         <TT>Integer</TT>, use <TT>getIdent</TT> or <TT>getValue</TT>---or
+   *         <TT>Integer</TT>, use <TT>getRaw</TT> or <TT>getCooked</TT>---or
    *         an equivalent, but type-safe, method derived from the DSD.
    *
    * @exception NoSuchColumnPoemException
@@ -655,37 +655,39 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have read access to the
    *                object (see <TT>assertCanRead</TT>)
    *
-   * @see #getIdentString
-   * @see #getIdent
-   * @see #getValue
+   * @see #getRawString
+   * @see #getRaw
+   * @see #getCooked
    * @see #assertCanRead
    * @see #displayString
    */
 
-  public final String getValueString(String name)
+  public final String getCookedString(String name, MelatiLocale locale,
+                                     int style)
       throws NoSuchColumnPoemException, AccessPoemException {
     Column column = getTable().getColumn(name);
-    return column.getType().stringOfValue(column.getValue(this));
+    return column.getType().stringOfCooked(column.getCooked(this),
+                                          locale, style);
   }
 
   /**
    * Set the `true value' of one of the record's fields.  Like
-   * <TT>setIdent</TT>, but reference fields expect to see a
+   * <TT>setRaw</TT>, but reference fields expect to see a
    * <TT>Persistent</TT> representing their new referee rather than an
    * <TT>Integer</TT> specifying its troid.  The remarks about sessions
    * (transactions) and DSD-derived type-safe methods made for
-   * <TT>setIdent</TT> apply here too.
+   * <TT>setRaw</TT> apply here too.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
    *
-   * @param ident       The new value for the field: a <TT>String</TT>,
+   * @param raw       The new value for the field: a <TT>String</TT>,
    *                    <TT>Boolean</TT>, <TT>Integer</TT>, <TT>Double</TT>,
    *                    <TT>Date</TT> or, for a reference field, a
    *                    <TT>Persistent</TT>.  If you want to pass referees as
-   *                    troids, use <TT>setIdent</TT>.  If you want to set the
+   *                    troids, use <TT>setRaw</TT>.  If you want to set the
    *                    field from a string representation (<I>e.g.</I> typed
-   *                    in by the user), use <TT>setIdentString</TT>.
+   *                    in by the user), use <TT>setRawString</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist
@@ -693,21 +695,21 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if the calling thread doesn't have write access to the
    *                object (see <TT>assertCanWrite</TT>)
    * @exception TypeMismatchPoemException
-   *                if <TT>ident</TT> is of the wrong type; it's easiest to use
+   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
    *                DSD-derived typed versions of this method
    * @exception ValidationPoemException
-   *                if <TT>ident</TT> is not a valid value for the field
+   *                if <TT>idrawTT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
    *
-   * @see #setIdent
-   * @see #setIdentString
+   * @see #setRaw
+   * @see #setRawString
    * @see #assertCanWrite
    */
 
-  public void setValue(String name, Object value)
+  public void setCooked(String name, Object cooked)
       throws NoSuchColumnPoemException, ValidationPoemException,
              AccessPoemException {
-    getTable().getColumn(name).setValue(this, value);
+    getTable().getColumn(name).setCooked(this, cooked);
   }
 
   // 
@@ -857,13 +859,15 @@ public class Persistent extends Transactioned implements Cloneable {
    * (as a decimal string).
    */
 
-  public String displayString() throws AccessPoemException {
+  public String displayString(MelatiLocale locale, int style)
+      throws AccessPoemException {
     Column displayColumn = getTable().displayColumn();
     if (displayColumn == null)
       return String.valueOf(getTroid());
     else
       return
-          displayColumn.getType().stringOfValue(displayColumn.getValue(this));
+          displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
+                                                locale, style);
   }
 
   // 

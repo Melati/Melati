@@ -108,7 +108,7 @@ abstract public class Database implements TransactionPool {
   }
 
   public void connect(Driver driver, String url,
-		      String username, String password) throws PoemException {
+                      String username, String password) throws PoemException {
     if (committedConnection != null)
       throw new ReconnectionPoemException();
 
@@ -272,9 +272,9 @@ abstract public class Database implements TransactionPool {
   }
 
   // 
-  // ==========
+  // ==============
   //  Transactions
-  // ==========
+  // ==============
   // 
 
   /**
@@ -377,7 +377,7 @@ abstract public class Database implements TransactionPool {
 
     try {
       final PoemTransaction transaction =
-	  committedTransaction ? null : openTransaction();
+          committedTransaction ? null : openTransaction();
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                try {
@@ -707,28 +707,28 @@ abstract public class Database implements TransactionPool {
     boolean hasCapability(User user, Capability capability) {
       PoemTransaction transaction = PoemThread.transaction();
       long currentGroupMembershipSerial =
-	  getGroupMembershipTable().serial(transaction);
+          getGroupMembershipTable().serial(transaction);
       long currentGroupCapabilitySerial =
-	  getGroupCapabilityTable().serial(transaction);
-	  
+          getGroupCapabilityTable().serial(transaction);
+          
       if (userCapabilities == null ||
-	  groupMembershipSerial != currentGroupMembershipSerial ||
-	  groupCapabilitySerial != currentGroupCapabilitySerial) {
-	userCapabilities = new Hashtable();
-	groupMembershipSerial = currentGroupMembershipSerial;
-	groupCapabilitySerial = currentGroupCapabilitySerial;
+          groupMembershipSerial != currentGroupMembershipSerial ||
+          groupCapabilitySerial != currentGroupCapabilitySerial) {
+        userCapabilities = new Hashtable();
+        groupMembershipSerial = currentGroupMembershipSerial;
+        groupCapabilitySerial = currentGroupCapabilitySerial;
       }
 
       Long pair = new Long(
-	  (user.troid().longValue() << 32) | (capability.troid().longValue()));
+          (user.troid().longValue() << 32) | (capability.troid().longValue()));
       Boolean known = (Boolean)userCapabilities.get(pair);
 
       if (known != null)
-	return known.booleanValue();
+        return known.booleanValue();
       else {
-	boolean does = dbGivesCapability(user, capability);
-	userCapabilities.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
-	return does;
+        boolean does = dbGivesCapability(user, capability);
+        userCapabilities.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
+        return does;
       }
     }
   };
@@ -904,7 +904,7 @@ abstract public class Database implements TransactionPool {
       case Types.VARCHAR        : return new StringPoemType(nullable, width);
       case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
 
-      case Types.DATE           : return unsupported("DATE", md);
+      case Types.DATE           : return new DatePoemType(nullable);
       case Types.TIME           : return unsupported("TIME", md);
       case Types.TIMESTAMP      : return unsupported("TIMESTAMP", md);
 

@@ -14,14 +14,14 @@ public class GroupTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Group)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Group)g).setId((Integer)value);
+            ((Group)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -32,37 +32,37 @@ public class GroupTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setId_unsafe((Integer)ident);
+            ((Group)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setId((Integer)ident);
+            ((Group)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Group)g).getName();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Group)g).setName((String)value);
+            ((Group)g).setName((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -85,24 +85,24 @@ public class GroupTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getName_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setName_unsafe((String)ident);
+            ((Group)g).setName_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getName();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setName((String)ident);
+            ((Group)g).setName((String)raw);
           }
         });
   }

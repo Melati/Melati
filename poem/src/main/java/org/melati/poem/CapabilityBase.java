@@ -15,8 +15,8 @@ public class CapabilityBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -25,16 +25,16 @@ public class CapabilityBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getCapabilityTable().getIdColumn().getType().assertValidValue(value);
+    getCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -45,8 +45,8 @@ public class CapabilityBase extends Persistent {
     return name;
   }
 
-  public void setName_unsafe(String value) {
-    name = value;
+  public void setName_unsafe(String cooked) {
+    name = cooked;
   }
 
   public String getName()
@@ -55,11 +55,11 @@ public class CapabilityBase extends Persistent {
     return getName_unsafe();
   }
 
-  public void setName(String value)
+  public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getCapabilityTable().getNameColumn().getType().assertValidValue(value);
+    getCapabilityTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setName_unsafe(value);
+    setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {

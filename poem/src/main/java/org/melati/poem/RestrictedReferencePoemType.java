@@ -18,7 +18,7 @@ public class RestrictedReferencePoemType extends ReferencePoemType {
     this.selection = selection;
   }
 
-  protected Enumeration _possibleIdents() {
+  protected Enumeration _possibleRaws() {
     return selection.troids();
   }
 }

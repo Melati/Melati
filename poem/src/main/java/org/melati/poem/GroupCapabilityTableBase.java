@@ -15,14 +15,14 @@ public class GroupCapabilityTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((GroupCapability)g).setId((Integer)value);
+            ((GroupCapability)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -33,37 +33,37 @@ public class GroupCapabilityTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setId_unsafe((Integer)ident);
+            ((GroupCapability)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setId((Integer)ident);
+            ((GroupCapability)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_group =
         new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getGroup();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((GroupCapability)g).setGroup((Group)value);
+            ((GroupCapability)g).setGroup((Group)cooked);
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -78,37 +78,37 @@ public class GroupCapabilityTableBase extends Table {
             return "The user-group which has the capability";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getGroup_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setGroup_unsafe((Integer)ident);
+            ((GroupCapability)g).setGroup_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getGroupTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setGroupTroid((Integer)ident);
+            ((GroupCapability)g).setGroupTroid((Integer)raw);
           }
         });
 
     defineColumn(col_capability =
         new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getCapability();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((GroupCapability)g).setCapability((Capability)value);
+            ((GroupCapability)g).setCapability((Capability)cooked);
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -123,24 +123,24 @@ public class GroupCapabilityTableBase extends Table {
             return "The capability";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getCapability_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setCapability_unsafe((Integer)ident);
+            ((GroupCapability)g).setCapability_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getCapabilityTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((GroupCapability)g).setCapabilityTroid((Integer)ident);
+            ((GroupCapability)g).setCapabilityTroid((Integer)raw);
           }
         });
   }

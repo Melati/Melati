@@ -10,6 +10,8 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   private int width;
   private int height;
 
+  private Comparable low = null, limit = null;
+
   BasePoemType(int sqlTypeCode, boolean nullable, int width, int height) {
     this.sqlTypeCode = sqlTypeCode;
     this.nullable = nullable;
@@ -25,133 +27,173 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     this(sqlTypeCode, nullable, 8);
   }
 
-  protected abstract void _assertValidIdent(Object ident)
+  protected void setRawRange(Comparable low, Comparable limit) {
+    this.low = low;
+    this.limit = limit;
+  }
+
+  protected Comparable getLowRaw() {
+    return low;
+  }
+
+  protected Comparable getLimitRaw() {
+    return limit;
+  }
+
+  protected abstract void _assertValidRaw(Object raw)
       throws ValidationPoemException;
 
-  public final void assertValidIdent(Object ident)
+  private void assertRawInRange(Object raw) {
+    // Range check.  Since we can't do this with multiple inheritance, we
+    // provide it as a facility even in types for which it is meaningless.
+
+    Comparable asComparable;
+    try {
+      asComparable = (Comparable)raw;
+    }
+    catch (ClassCastException e) {
+      throw new NotComparablePoemException(raw, this);
+    }
+
+    if ((low != null && low.compareTo(asComparable) > 0) ||
+        (limit != null && limit.compareTo(asComparable) <= 0))
+      throw new ValidationPoemException(
+          this, raw, new OutsideRangePoemException(low, limit, raw));
+  }
+
+  public final void assertValidRaw(Object raw)
       throws ValidationPoemException {
-    if (ident == null) {
+    if (raw == null) {
       if (!nullable)
         throw new NullTypeMismatchPoemException(this);
     }
-    else
-      _assertValidIdent(ident);
+    else {
+      if (low != null || limit != null)
+        assertRawInRange(raw);
+      _assertValidRaw(raw);
+    }
   }
 
-  public final void doubleCheckValidIdent(Object ident) {
+  public final void doubleCheckValidRaw(Object raw) {
     try {
-      assertValidIdent(ident);
+      assertValidRaw(raw);
     }
     catch (ValidationPoemException e) {
       throw new UnexpectedValidationPoemException(e);
     }
   }
 
-  protected abstract Object _getIdent(ResultSet rs, int col)
+  protected abstract Object _getRaw(ResultSet rs, int col)
       throws SQLException;
 
-  public final Object getIdent(ResultSet rs, int col)
+  public final Object getRaw(ResultSet rs, int col)
       throws ValidationPoemException {
     Object o;
     try {
-      o = _getIdent(rs, col);
+      o = _getRaw(rs, col);
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
 
-    assertValidIdent(o);
+    assertValidRaw(o);
     return o;
   }
 
-  protected abstract void _setIdent(PreparedStatement ps, int col,
-                                    Object ident)
+  protected abstract void _setRaw(PreparedStatement ps, int col,
+                                    Object raw)
       throws SQLException;
 
-  public final void setIdent(PreparedStatement ps, int col, Object ident) {
-    doubleCheckValidIdent(ident);
+  public final void setRaw(PreparedStatement ps, int col, Object raw) {
+    doubleCheckValidRaw(raw);
     try {
-      if (ident == null)
+      if (raw == null)
         ps.setNull(col, sqlTypeCode());
       else
-        _setIdent(ps, col, ident);
+        _setRaw(ps, col, raw);
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
   }
 
-  protected Enumeration _possibleIdents() {
+  protected Enumeration _possibleRaws() {
     return null;
   }
   
-  public Enumeration possibleIdents() {
-    Enumeration them = _possibleIdents();
+  public Enumeration possibleRaws() {
+    Enumeration them = _possibleRaws();
     return them == null ? null :
                    getNullable() ? new ConsEnumeration(null, them) :
                    them;
   }
 
-  protected abstract String _stringOfIdent(Object ident);
+  protected abstract String _stringOfRaw(Object raw);
 
-  public final String stringOfIdent(Object ident)
+  public final String stringOfRaw(Object raw)
       throws ValidationPoemException {
-    assertValidIdent(ident);
-    return _stringOfIdent(ident);
+    assertValidRaw(raw);
+    return _stringOfRaw(raw);
   }
 
-  protected abstract Object _identOfString(String string)
+  protected abstract Object _rawOfString(String string)
       throws ParsingPoemException;
 
-  public final Object identOfString(String string)
+  public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
-    Object ident = _identOfString(string);
-    assertValidIdent(ident);
-    return ident;
+    Object raw = _rawOfString(string);
+    assertValidRaw(raw);
+    return raw;
   }
 
-  protected abstract void _assertValidValue(Object value)
+  protected abstract void _assertValidCooked(Object cooked)
       throws ValidationPoemException;
 
-  public final void assertValidValue(Object value)
+  public final void assertValidCooked(Object cooked)
       throws ValidationPoemException {
-    if (value == null) {
+    if (cooked == null) {
       if (!nullable)
         throw new NullTypeMismatchPoemException(this);
     }
-    else
-      _assertValidValue(value);
+    else {
+      _assertValidCooked(cooked);
+      if (low != null || limit != null)
+        assertRawInRange(_rawOfCooked(cooked));
+    }
   }
 
-  public final void doubleCheckValidValue(Object value) {
+  public final void doubleCheckValidCooked(Object cooked) {
     try {
-      assertValidValue(value);
+      assertValidCooked(cooked);
     }
     catch (ValidationPoemException e) {
       throw new UnexpectedValidationPoemException(e);
     }
   }
 
-  protected abstract Object _valueOfIdent(Object ident) throws PoemException;
+  protected abstract Object _cookedOfRaw(Object raw) throws PoemException;
 
-  public final Object valueOfIdent(Object ident) throws PoemException {
-    doubleCheckValidIdent(ident);
-    return ident == null ? null : _valueOfIdent(ident);
+  public final Object cookedOfRaw(Object raw) throws PoemException {
+    doubleCheckValidRaw(raw);
+    return raw == null ? null : _cookedOfRaw(raw);
   }
 
-  protected abstract Object _identOfValue(Object ident) throws PoemException;
+  protected abstract Object _rawOfCooked(Object raw) throws PoemException;
 
-  public final Object identOfValue(Object value) {
-    doubleCheckValidValue(value);
-    return value == null ? null : _identOfValue(value);
+  public final Object rawOfCooked(Object cooked) {
+    doubleCheckValidCooked(cooked);
+    return cooked == null ? null : _rawOfCooked(cooked);
   }
 
-  protected abstract String _stringOfValue(Object value)
+  protected abstract String _stringOfCooked(Object cooked,
+                                           MelatiLocale locale, int style)
       throws PoemException;
 
-  public final String stringOfValue(Object value) throws PoemException {
-    doubleCheckValidValue(value);
-    return value == null ? "" : _stringOfValue(value);
+  public final String stringOfCooked(Object cooked,
+                                    MelatiLocale locale, int style)
+      throws PoemException {
+    doubleCheckValidCooked(cooked);
+    return cooked == null ? "" : _stringOfCooked(cooked, locale, style);
   }
 
   public final boolean getNullable() {
@@ -179,6 +221,8 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   protected abstract boolean _canBe(PoemType other);
 
   public final boolean canBe(PoemType other) {
+    // FIXME takes no account of range---need to decide on semantics for this,
+    // is it subset (inclusion) or some other notion of storability?
     return
         other.sqlTypeCode() == sqlTypeCode &&
         other.getNullable() == nullable &&
@@ -206,13 +250,13 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     _saveColumnInfo(info);
   }
 
-  protected String _quotedIdent(Object ident) {
-    return ident.toString();
+  protected String _quotedRaw(Object raw) {
+    return raw.toString();
   }
 
-  public String quotedIdent(Object ident) throws ValidationPoemException {
-    assertValidIdent(ident);
-    return ident == null ? "NULL" : _quotedIdent(ident);
+  public String quotedRaw(Object raw) throws ValidationPoemException {
+    assertValidRaw(raw);
+    return raw == null ? "NULL" : _quotedRaw(raw);
   }
 
   public String toString() {

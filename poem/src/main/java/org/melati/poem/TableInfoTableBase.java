@@ -22,14 +22,14 @@ public class TableInfoTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setId((Integer)value);
+            ((TableInfo)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -40,37 +40,37 @@ public class TableInfoTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setId_unsafe((Integer)ident);
+            ((TableInfo)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setId((Integer)ident);
+            ((TableInfo)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getName();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setName((String)value);
+            ((TableInfo)g).setName((String)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -97,37 +97,37 @@ public class TableInfoTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setName_unsafe((String)ident);
+            ((TableInfo)g).setName_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setName((String)ident);
+            ((TableInfo)g).setName((String)raw);
           }
         });
 
     defineColumn(col_displayname =
         new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayname();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDisplayname((String)value);
+            ((TableInfo)g).setDisplayname((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -150,37 +150,37 @@ public class TableInfoTableBase extends Table {
             return "A user-friendly name for the table";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayname_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDisplayname_unsafe((String)ident);
+            ((TableInfo)g).setDisplayname_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayname();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDisplayname((String)ident);
+            ((TableInfo)g).setDisplayname((String)raw);
           }
         });
 
     defineColumn(col_description =
         new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDescription();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDescription((String)value);
+            ((TableInfo)g).setDescription((String)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -199,37 +199,37 @@ public class TableInfoTableBase extends Table {
             return "A brief description of the table's function";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDescription_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDescription_unsafe((String)ident);
+            ((TableInfo)g).setDescription_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDescription();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDescription((String)ident);
+            ((TableInfo)g).setDescription((String)raw);
           }
         });
 
     defineColumn(col_displayorder =
         new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayorder();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDisplayorder((Integer)value);
+            ((TableInfo)g).setDisplayorder((Integer)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -256,37 +256,37 @@ public class TableInfoTableBase extends Table {
             return "A rank determining where the table appears in the list of all tables";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayorder_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDisplayorder_unsafe((Integer)ident);
+            ((TableInfo)g).setDisplayorder_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayorder();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDisplayorder((Integer)ident);
+            ((TableInfo)g).setDisplayorder((Integer)raw);
           }
         });
 
     defineColumn(col_defaultcanread =
         new Column(this, "defaultcanread", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanread();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDefaultcanread((Capability)value);
+            ((TableInfo)g).setDefaultcanread((Capability)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -309,37 +309,37 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for reading the table's records";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanread_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDefaultcanread_unsafe((Integer)ident);
+            ((TableInfo)g).setDefaultcanread_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanreadTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDefaultcanreadTroid((Integer)ident);
+            ((TableInfo)g).setDefaultcanreadTroid((Integer)raw);
           }
         });
 
     defineColumn(col_defaultcanwrite =
         new Column(this, "defaultcanwrite", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanwrite();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDefaultcanwrite((Capability)value);
+            ((TableInfo)g).setDefaultcanwrite((Capability)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -362,37 +362,37 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for updating the table's records";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanwrite_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDefaultcanwrite_unsafe((Integer)ident);
+            ((TableInfo)g).setDefaultcanwrite_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanwriteTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setDefaultcanwriteTroid((Integer)ident);
+            ((TableInfo)g).setDefaultcanwriteTroid((Integer)raw);
           }
         });
 
     defineColumn(col_cancreate =
         new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCancreate();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setCancreate((Capability)value);
+            ((TableInfo)g).setCancreate((Capability)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -415,37 +415,37 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for creating records in the table";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCancreate_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setCancreate_unsafe((Integer)ident);
+            ((TableInfo)g).setCancreate_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCancreateTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setCancreateTroid((Integer)ident);
+            ((TableInfo)g).setCancreateTroid((Integer)raw);
           }
         });
 
     defineColumn(col_cachelimit =
         new Column(this, "cachelimit", new IntegerPoemType(true), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCachelimit();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setCachelimit((Integer)value);
+            ((TableInfo)g).setCachelimit((Integer)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -468,37 +468,37 @@ public class TableInfoTableBase extends Table {
             return "The maximum number of records from the table to keep in the cache";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCachelimit_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setCachelimit_unsafe((Integer)ident);
+            ((TableInfo)g).setCachelimit_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCachelimit();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setCachelimit((Integer)ident);
+            ((TableInfo)g).setCachelimit((Integer)raw);
           }
         });
 
     defineColumn(col_seqcached =
         new Column(this, "seqcached", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getSeqcached();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setSeqcached((Boolean)value);
+            ((TableInfo)g).setSeqcached((Boolean)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -521,24 +521,24 @@ public class TableInfoTableBase extends Table {
             return "Whether the display sequence for the table's records is cached";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getSeqcached_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setSeqcached_unsafe((Boolean)ident);
+            ((TableInfo)g).setSeqcached_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getSeqcached();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((TableInfo)g).setSeqcached((Boolean)ident);
+            ((TableInfo)g).setSeqcached((Boolean)raw);
           }
         });
   }

@@ -2,7 +2,7 @@
 
 package org.melati.poem;
 
-class PoemDatabaseBase extends Database {
+public class PoemDatabaseBase extends Database {
 
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;

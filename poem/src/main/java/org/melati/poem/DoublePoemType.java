@@ -12,30 +12,30 @@ public class DoublePoemType extends AtomPoemType {
     this(nullable, 9);
   }
 
-  protected void _assertValidIdent(Object ident) {
-    if (ident != null && !(ident instanceof Double))
-      throw new TypeMismatchPoemException(ident, this);
+  protected void _assertValidRaw(Object raw) {
+    if (raw != null && !(raw instanceof Double))
+      throw new TypeMismatchPoemException(raw, this);
   }
 
-  protected Object _getIdent(ResultSet rs, int col) throws SQLException {
+  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       double x = rs.getDouble(col);
       return rs.wasNull() ? null : new Double(x);
     }
   }
 
-  protected void _setIdent(PreparedStatement ps, int col, Object real)
+  protected void _setRaw(PreparedStatement ps, int col, Object real)
       throws SQLException {
     ps.setDouble(col, ((Double)real).doubleValue());
   }
 
-  protected Object _identOfString(String identString)
+  protected Object _rawOfString(String rawString)
       throws ParsingPoemException {
     try {
-      return new Double(identString);
+      return new Double(rawString);
     }
     catch (NumberFormatException e) {
-      throw new ParsingPoemException(this, identString, e);
+      throw new ParsingPoemException(this, rawString, e);
     }
   }
 

@@ -17,8 +17,8 @@ public class UserBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -27,16 +27,16 @@ public class UserBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getIdColumn().getType().assertValidValue(value);
+    getUserTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -47,8 +47,8 @@ public class UserBase extends Persistent {
     return login;
   }
 
-  public void setLogin_unsafe(String value) {
-    login = value;
+  public void setLogin_unsafe(String cooked) {
+    login = cooked;
   }
 
   public String getLogin()
@@ -57,11 +57,11 @@ public class UserBase extends Persistent {
     return getLogin_unsafe();
   }
 
-  public void setLogin(String value)
+  public void setLogin(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getLoginColumn().getType().assertValidValue(value);
+    getUserTable().getLoginColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setLogin_unsafe(value);
+    setLogin_unsafe(cooked);
   }
 
   public final Field getLoginField() throws AccessPoemException {
@@ -72,8 +72,8 @@ public class UserBase extends Persistent {
     return password;
   }
 
-  public void setPassword_unsafe(String value) {
-    password = value;
+  public void setPassword_unsafe(String cooked) {
+    password = cooked;
   }
 
   public String getPassword()
@@ -82,11 +82,11 @@ public class UserBase extends Persistent {
     return getPassword_unsafe();
   }
 
-  public void setPassword(String value)
+  public void setPassword(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getPasswordColumn().getType().assertValidValue(value);
+    getUserTable().getPasswordColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setPassword_unsafe(value);
+    setPassword_unsafe(cooked);
   }
 
   public final Field getPasswordField() throws AccessPoemException {
@@ -97,8 +97,8 @@ public class UserBase extends Persistent {
     return name;
   }
 
-  public void setName_unsafe(String value) {
-    name = value;
+  public void setName_unsafe(String cooked) {
+    name = cooked;
   }
 
   public String getName()
@@ -107,11 +107,11 @@ public class UserBase extends Persistent {
     return getName_unsafe();
   }
 
-  public void setName(String value)
+  public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getNameColumn().getType().assertValidValue(value);
+    getUserTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setName_unsafe(value);
+    setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {

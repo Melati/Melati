@@ -16,8 +16,8 @@ public class GroupMembershipBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -26,16 +26,16 @@ public class GroupMembershipBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getGroupMembershipTable().getIdColumn().getType().assertValidValue(value);
+    getGroupMembershipTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -46,8 +46,8 @@ public class GroupMembershipBase extends Persistent {
     return user;
   }
 
-  public void setUser_unsafe(Integer value) {
-    user = value;
+  public void setUser_unsafe(Integer cooked) {
+    user = cooked;
   }
 
   public Integer getUserTroid()
@@ -56,11 +56,11 @@ public class GroupMembershipBase extends Persistent {
     return getUser_unsafe();
   }
 
-  public void setUserTroid(Integer ident)
+  public void setUserTroid(Integer raw)
       throws AccessPoemException {
-    getGroupMembershipTable().getUserColumn().getType().assertValidIdent(ident);
+    getGroupMembershipTable().getUserColumn().getType().assertValidRaw(raw);
     writeLock();
-    setUser_unsafe(ident);
+    setUser_unsafe(raw);
   }
 
   public User getUser()
@@ -70,9 +70,9 @@ public class GroupMembershipBase extends Persistent {
         ((PoemDatabase)getDatabase()).getUserTable().getUserObject(troid);
   }
 
-  public void setUser(User value)
+  public void setUser(User cooked)
       throws AccessPoemException {
-    setUserTroid(value == null ? null : value.troid());
+    setUserTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getUserField() throws AccessPoemException {
@@ -83,8 +83,8 @@ public class GroupMembershipBase extends Persistent {
     return group;
   }
 
-  public void setGroup_unsafe(Integer value) {
-    group = value;
+  public void setGroup_unsafe(Integer cooked) {
+    group = cooked;
   }
 
   public Integer getGroupTroid()
@@ -93,11 +93,11 @@ public class GroupMembershipBase extends Persistent {
     return getGroup_unsafe();
   }
 
-  public void setGroupTroid(Integer ident)
+  public void setGroupTroid(Integer raw)
       throws AccessPoemException {
-    getGroupMembershipTable().getGroupColumn().getType().assertValidIdent(ident);
+    getGroupMembershipTable().getGroupColumn().getType().assertValidRaw(raw);
     writeLock();
-    setGroup_unsafe(ident);
+    setGroup_unsafe(raw);
   }
 
   public Group getGroup()
@@ -107,9 +107,9 @@ public class GroupMembershipBase extends Persistent {
         ((PoemDatabase)getDatabase()).getGroupTable().getGroupObject(troid);
   }
 
-  public void setGroup(Group value)
+  public void setGroup(Group cooked)
       throws AccessPoemException {
-    setGroupTroid(value == null ? null : value.troid());
+    setGroupTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getGroupField() throws AccessPoemException {

@@ -12,37 +12,37 @@ public class ExtraColumn extends Column {
     this.extrasIndex = extrasIndex;
   }
 
-  public Object getIdent(Persistent g) throws AccessPoemException {
+  public Object getRaw(Persistent g) throws AccessPoemException {
     g.readLock();
-    return getIdent_unsafe(g);
+    return getRaw_unsafe(g);
   }
 
-  public Object getIdent_unsafe(Persistent g) {
+  public Object getRaw_unsafe(Persistent g) {
     return g.extras()[extrasIndex];
   }
 
-  public void setIdent(Persistent g, Object ident)
+  public void setRaw(Persistent g, Object raw)
       throws AccessPoemException, ValidationPoemException {
-    getType().assertValidIdent(ident);
+    getType().assertValidRaw(raw);
     g.writeLock();
-    setIdent_unsafe(g, ident);
+    setRaw_unsafe(g, raw);
   }
 
-  public void setIdent_unsafe(Persistent g, Object ident) {
-    g.extras()[extrasIndex] = ident;
+  public void setRaw_unsafe(Persistent g, Object raw) {
+    g.extras()[extrasIndex] = raw;
   }
 
-  public Object getValue(Persistent g)
+  public Object getCooked(Persistent g)
       throws AccessPoemException, PoemException {
     // FIXME revalidation
-    return getType().valueOfIdent(getIdent(g));
+    return getType().cookedOfRaw(getRaw(g));
   }
 
-  public void setValue(Persistent g, Object value)
+  public void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException {
     // FIXME revalidation
-    getType().assertValidValue(value);
-    setIdent(g, getType().identOfValue(value));
+    getType().assertValidCooked(cooked);
+    setRaw(g, getType().rawOfCooked(cooked));
   }
 
   public static Column from(Table table, ColumnInfo columnInfo,

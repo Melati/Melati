@@ -17,8 +17,8 @@ public interface Initialiser {
    *                    if the table was defined in the DSD under the name
    *                    <TT><I>foo</I></TT>, an application-specialised
    *                    subclass <TT><I>Foo</I></TT> of <TT>Persistent</TT>.
-   *                    You should call its <TT>setIdent</TT> and/or
-   *                    <TT>setValue</TT> methods to get it into a state which
+   *                    You should call its <TT>setRaw</TT> and/or
+   *                    <TT>setCooked</TT> methods to get it into a state which
    *                    is (a) legal, in that all its fields have valid values,
    *                    and (b) writeable by you (the <TT>AccessToken</TT> of
    *                    the calling thread).

@@ -12,7 +12,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
     this.database = database;
   }
 
-  public Enumeration possibleIdents() {
+  public Enumeration possibleRaws() {
     return
         new FlattenedEnumeration(
             new MappedEnumeration(
@@ -24,22 +24,23 @@ public class ColumnTypePoemType extends IntegerPoemType {
             database.getTableInfoTable().troidSelection(null, null, false));
   }
 
-  protected void _assertValidValue(Object value)
+  protected void _assertValidCooked(Object cooked)
       throws ValidationPoemException {
-    if (!(value instanceof PoemTypeFactory))
-      throw new TypeMismatchPoemException(value, this);
+    if (!(cooked instanceof PoemTypeFactory))
+      throw new TypeMismatchPoemException(cooked, this);
   }
 
-  protected Object _valueOfIdent(Object ident) throws NoSuchRowPoemException {
-    return PoemTypeFactory.forCode(database, ((Integer)ident).intValue());
+  protected Object _cookedOfRaw(Object raw) throws NoSuchRowPoemException {
+    return PoemTypeFactory.forCode(database, ((Integer)raw).intValue());
   }
 
-  protected Object _identOfValue(Object value) {
-    return ((PoemTypeFactory)value).code;
+  protected Object _rawOfCooked(Object cooked) {
+    return ((PoemTypeFactory)cooked).code;
   }
 
-  protected String _stringOfValue(Object value) throws PoemException {
-    return ((PoemTypeFactory)value).getDisplayName();
+  protected String _stringOfCooked(Object cooked, MelatiLocale locale, int style)
+      throws PoemException {
+    return ((PoemTypeFactory)cooked).getDisplayName();
   }
 
   protected boolean _canBe(PoemType other) {

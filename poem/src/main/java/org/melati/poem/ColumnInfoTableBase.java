@@ -32,14 +32,14 @@ public class ColumnInfoTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setId((Integer)value);
+            ((ColumnInfo)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -50,37 +50,37 @@ public class ColumnInfoTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setId_unsafe((Integer)ident);
+            ((ColumnInfo)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setId((Integer)ident);
+            ((ColumnInfo)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_tableinfo =
         new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getTableinfo();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setTableinfo((TableInfo)value);
+            ((ColumnInfo)g).setTableinfo((TableInfo)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -103,37 +103,37 @@ public class ColumnInfoTableBase extends Table {
             return "The table to which the field belongs";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTableinfo_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setTableinfo_unsafe((Integer)ident);
+            ((ColumnInfo)g).setTableinfo_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTableinfoTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setTableinfoTroid((Integer)ident);
+            ((ColumnInfo)g).setTableinfoTroid((Integer)raw);
           }
         });
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getName();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setName((String)value);
+            ((ColumnInfo)g).setName((String)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -160,37 +160,37 @@ public class ColumnInfoTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getName_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setName_unsafe((String)ident);
+            ((ColumnInfo)g).setName_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getName();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setName((String)ident);
+            ((ColumnInfo)g).setName((String)raw);
           }
         });
 
     defineColumn(col_displayname =
         new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayname();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setDisplayname((String)value);
+            ((ColumnInfo)g).setDisplayname((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -213,37 +213,37 @@ public class ColumnInfoTableBase extends Table {
             return "A user-friendly name for the field";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayname_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayname_unsafe((String)ident);
+            ((ColumnInfo)g).setDisplayname_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayname();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayname((String)ident);
+            ((ColumnInfo)g).setDisplayname((String)raw);
           }
         });
 
     defineColumn(col_description =
         new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDescription();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setDescription((String)value);
+            ((ColumnInfo)g).setDescription((String)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -262,37 +262,37 @@ public class ColumnInfoTableBase extends Table {
             return "A brief description of the field's function";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDescription_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDescription_unsafe((String)ident);
+            ((ColumnInfo)g).setDescription_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDescription();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDescription((String)ident);
+            ((ColumnInfo)g).setDescription((String)raw);
           }
         });
 
     defineColumn(col_displayorder =
         new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorder();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setDisplayorder((Integer)value);
+            ((ColumnInfo)g).setDisplayorder((Integer)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -319,37 +319,37 @@ public class ColumnInfoTableBase extends Table {
             return "A rank determining where the field appears in lists";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayorder_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayorder_unsafe((Integer)ident);
+            ((ColumnInfo)g).setDisplayorder_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayorder();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayorder((Integer)ident);
+            ((ColumnInfo)g).setDisplayorder((Integer)raw);
           }
         });
 
     defineColumn(col_usereditable =
         new Column(this, "usereditable", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUsereditable();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setUsereditable((Boolean)value);
+            ((ColumnInfo)g).setUsereditable((Boolean)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -372,37 +372,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether it makes sense for the user to update the field's value";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getUsereditable_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setUsereditable_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setUsereditable_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getUsereditable();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setUsereditable((Boolean)ident);
+            ((ColumnInfo)g).setUsereditable((Boolean)raw);
           }
         });
 
     defineColumn(col_recorddisplay =
         new Column(this, "recorddisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getRecorddisplay();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setRecorddisplay((Boolean)value);
+            ((ColumnInfo)g).setRecorddisplay((Boolean)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -425,37 +425,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether to show the field in full displays of a record";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getRecorddisplay_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setRecorddisplay_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setRecorddisplay_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getRecorddisplay();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setRecorddisplay((Boolean)ident);
+            ((ColumnInfo)g).setRecorddisplay((Boolean)raw);
           }
         });
 
     defineColumn(col_summarydisplay =
         new Column(this, "summarydisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSummarydisplay();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setSummarydisplay((Boolean)value);
+            ((ColumnInfo)g).setSummarydisplay((Boolean)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -478,37 +478,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether to show the field in summary displays";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSummarydisplay_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSummarydisplay_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setSummarydisplay_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSummarydisplay();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSummarydisplay((Boolean)ident);
+            ((ColumnInfo)g).setSummarydisplay((Boolean)raw);
           }
         });
 
     defineColumn(col_primarydisplay =
         new Column(this, "primarydisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getPrimarydisplay();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setPrimarydisplay((Boolean)value);
+            ((ColumnInfo)g).setPrimarydisplay((Boolean)cooked);
           }
 
           protected boolean defaultSearchCriterion() {
@@ -527,37 +527,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether the field is used as a short representation of the whole record";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getPrimarydisplay_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setPrimarydisplay_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setPrimarydisplay_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getPrimarydisplay();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setPrimarydisplay((Boolean)ident);
+            ((ColumnInfo)g).setPrimarydisplay((Boolean)raw);
           }
         });
 
     defineColumn(col_searchcriterion =
         new Column(this, "searchcriterion", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSearchcriterion();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setSearchcriterion((Boolean)value);
+            ((ColumnInfo)g).setSearchcriterion((Boolean)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -580,37 +580,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether to offer the field as a criterion in searches";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSearchcriterion_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSearchcriterion_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setSearchcriterion_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSearchcriterion();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSearchcriterion((Boolean)ident);
+            ((ColumnInfo)g).setSearchcriterion((Boolean)raw);
           }
         });
 
     defineColumn(col_displayorderpriority =
         new Column(this, "displayorderpriority", new IntegerPoemType(true), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorderpriority();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setDisplayorderpriority((Integer)value);
+            ((ColumnInfo)g).setDisplayorderpriority((Integer)cooked);
           }
 
           protected boolean defaultSearchCriterion() {
@@ -629,37 +629,37 @@ public class ColumnInfoTableBase extends Table {
             return "If present, the level at which lists of records are sorted by the field";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayorderpriority_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayorderpriority_unsafe((Integer)ident);
+            ((ColumnInfo)g).setDisplayorderpriority_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayorderpriority();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayorderpriority((Integer)ident);
+            ((ColumnInfo)g).setDisplayorderpriority((Integer)raw);
           }
         });
 
     defineColumn(col_type =
         new Column(this, "type", new ColumnTypePoemType(getDatabase()), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getType();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setType((PoemTypeFactory)value);
+            ((ColumnInfo)g).setType((PoemTypeFactory)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -678,37 +678,37 @@ public class ColumnInfoTableBase extends Table {
             return "The field's Melati type";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getType_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setType_unsafe((Integer)ident);
+            ((ColumnInfo)g).setType_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTypeCode();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setTypeCode((Integer)ident);
+            ((ColumnInfo)g).setTypeCode((Integer)raw);
           }
         });
 
     defineColumn(col_nullable =
         new Column(this, "nullable", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getNullable();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setNullable((Boolean)value);
+            ((ColumnInfo)g).setNullable((Boolean)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -727,37 +727,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether the field can be empty";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getNullable_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setNullable_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setNullable_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getNullable();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setNullable((Boolean)ident);
+            ((ColumnInfo)g).setNullable((Boolean)raw);
           }
         });
 
     defineColumn(col_indexed =
         new Column(this, "indexed", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getIndexed();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setIndexed((Boolean)value);
+            ((ColumnInfo)g).setIndexed((Boolean)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -780,37 +780,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether the field is indexed (ignored if the field is marked `unique')";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getIndexed_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setIndexed_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setIndexed_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getIndexed();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setIndexed((Boolean)ident);
+            ((ColumnInfo)g).setIndexed((Boolean)raw);
           }
         });
 
     defineColumn(col_unique =
         new Column(this, "unique", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUnique();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setUnique((Boolean)value);
+            ((ColumnInfo)g).setUnique((Boolean)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -833,37 +833,37 @@ public class ColumnInfoTableBase extends Table {
             return "Whether the field is unique (implies that it's `indexed')";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getUnique_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setUnique_unsafe((Boolean)ident);
+            ((ColumnInfo)g).setUnique_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getUnique();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setUnique((Boolean)ident);
+            ((ColumnInfo)g).setUnique((Boolean)raw);
           }
         });
 
     defineColumn(col_size =
         new Column(this, "size", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSize();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setSize((Integer)value);
+            ((ColumnInfo)g).setSize((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -886,41 +886,37 @@ public class ColumnInfoTableBase extends Table {
             return "For character fields, the maximum number of characters that can be stored";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSize_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSize_unsafe((Integer)ident);
+            ((ColumnInfo)g).setSize_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getSize();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setSize((Integer)ident);
+            ((ColumnInfo)g).setSize((Integer)raw);
           }
         });
 
     defineColumn(col_width =
         new Column(this, "width", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getWidth();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setWidth((Integer)value);
-          }
-
-          protected boolean defaultUserEditable() {
-            return false;
+            ((ColumnInfo)g).setWidth((Integer)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -943,41 +939,37 @@ public class ColumnInfoTableBase extends Table {
             return "A sensible width for text boxes used for entering the field, where appropriate";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getWidth_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setWidth_unsafe((Integer)ident);
+            ((ColumnInfo)g).setWidth_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getWidth();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setWidth((Integer)ident);
+            ((ColumnInfo)g).setWidth((Integer)raw);
           }
         });
 
     defineColumn(col_height =
         new Column(this, "height", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getHeight();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setHeight((Integer)value);
-          }
-
-          protected boolean defaultUserEditable() {
-            return false;
+            ((ColumnInfo)g).setHeight((Integer)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -1000,41 +992,37 @@ public class ColumnInfoTableBase extends Table {
             return "A sensible height for text boxes used for entering the field, where appropriate";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getHeight_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setHeight_unsafe((Integer)ident);
+            ((ColumnInfo)g).setHeight_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getHeight();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setHeight((Integer)ident);
+            ((ColumnInfo)g).setHeight((Integer)raw);
           }
         });
 
     defineColumn(col_renderinfo =
         new Column(this, "renderinfo", new StringPoemType(true, -1), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getRenderinfo();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setRenderinfo((String)value);
-          }
-
-          protected boolean defaultUserEditable() {
-            return false;
+            ((ColumnInfo)g).setRenderinfo((String)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -1057,24 +1045,24 @@ public class ColumnInfoTableBase extends Table {
             return "The name of the Melati templet (if not the default) to use for input controls for the field";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getRenderinfo_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setRenderinfo_unsafe((String)ident);
+            ((ColumnInfo)g).setRenderinfo_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getRenderinfo();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((ColumnInfo)g).setRenderinfo((String)ident);
+            ((ColumnInfo)g).setRenderinfo((String)raw);
           }
         });
   }

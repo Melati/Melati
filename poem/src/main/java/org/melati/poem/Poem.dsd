@@ -142,17 +142,17 @@ table ColumnInfo
   Integer width
       (displayname = "Input-box width")
       (description = "A sensible width for text boxes used for entering the field, where appropriate")
-      (summaryhidden) (criterionhidden) (uneditable);
+      (summaryhidden) (criterionhidden);
 
   Integer height
       (displayname = "Input-box height")
       (description = "A sensible height for text boxes used for entering the field, where appropriate")
-      (summaryhidden) (criterionhidden) (uneditable);
+      (summaryhidden) (criterionhidden);
 
   String renderinfo (size = unlimited) (nullable)
       (displayname = "Rendering information")
       (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
-      (summaryhidden) (criterionhidden) (uneditable);
+      (summaryhidden) (criterionhidden);
 }
 
 table Capability

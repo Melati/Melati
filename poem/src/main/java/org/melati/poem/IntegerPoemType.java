@@ -1,6 +1,8 @@
 package org.melati.poem;
 
 import java.sql.*;
+import java.util.*;
+import org.melati.util.*;
 
 public class IntegerPoemType extends AtomPoemType {
 
@@ -9,33 +11,47 @@ public class IntegerPoemType extends AtomPoemType {
   }
 
   public IntegerPoemType(boolean nullable) {
-    super(Types.INTEGER, "INT", nullable, 9);
+    this(nullable, 9);
   }
 
-  protected void _assertValidIdent(Object ident) {
-    if (ident != null && !(ident instanceof Integer))
-      throw new TypeMismatchPoemException(ident, this);
+  /**
+   * FIXME do down-counting??
+   */
+
+  protected Enumeration _possibleRaws() {
+    Integer low = (Integer)getLowRaw();
+    Integer limit = (Integer)getLimitRaw();
+    return low == null ?
+        null :
+        new IntegerEnumeration(low.intValue(),
+                               limit == null ?
+                                   Integer.MAX_VALUE : limit.intValue());
   }
 
-  protected Object _getIdent(ResultSet rs, int col) throws SQLException {
+  protected void _assertValidRaw(Object raw) {
+    if (raw != null && !(raw instanceof Integer))
+      throw new TypeMismatchPoemException(raw, this);
+  }
+
+  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       int i = rs.getInt(col);
       return i == 0 && rs.wasNull() ? null : new Integer(i);
     }
   }
 
-  protected void _setIdent(PreparedStatement ps, int col, Object integer)
+  protected void _setRaw(PreparedStatement ps, int col, Object integer)
       throws SQLException {
     ps.setInt(col, ((Integer)integer).intValue());
   }
 
-  protected Object _identOfString(String identString)
+  protected Object _rawOfString(String rawString)
       throws ParsingPoemException {
     try {
-      return new Integer(identString);
+      return new Integer(rawString);
     }
     catch (NumberFormatException e) {
-      throw new ParsingPoemException(this, identString, e);
+      throw new ParsingPoemException(this, rawString, e);
     }
   }
 

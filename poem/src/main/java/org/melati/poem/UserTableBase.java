@@ -16,14 +16,14 @@ public class UserTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((User)g).setId((Integer)value);
+            ((User)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -34,37 +34,37 @@ public class UserTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setId_unsafe((Integer)ident);
+            ((User)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setId((Integer)ident);
+            ((User)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_login =
         new Column(this, "login", new StringPoemType(false, 20), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getLogin();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((User)g).setLogin((String)value);
+            ((User)g).setLogin((String)cooked);
           }
 
           protected int defaultDisplayOrder() {
@@ -79,37 +79,37 @@ public class UserTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setLogin_unsafe((String)ident);
+            ((User)g).setLogin_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setLogin((String)ident);
+            ((User)g).setLogin((String)raw);
           }
         });
 
     defineColumn(col_password =
         new Column(this, "password", new StringPoemType(false, 20), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getPassword();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((User)g).setPassword((String)value);
+            ((User)g).setPassword((String)cooked);
           }
 
           protected int defaultDisplayOrder() {
@@ -120,37 +120,37 @@ public class UserTableBase extends Table {
             return "The user's password";
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getPassword_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setPassword_unsafe((String)ident);
+            ((User)g).setPassword_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getPassword();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setPassword((String)ident);
+            ((User)g).setPassword((String)raw);
           }
         });
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getName();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((User)g).setName((String)value);
+            ((User)g).setName((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -177,24 +177,24 @@ public class UserTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getName_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setName_unsafe((String)ident);
+            ((User)g).setName_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getName();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((User)g).setName((String)ident);
+            ((User)g).setName((String)raw);
           }
         });
   }

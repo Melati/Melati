@@ -23,8 +23,8 @@ public class TableInfoBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -33,16 +33,16 @@ public class TableInfoBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getIdColumn().getType().assertValidValue(value);
+    getTableInfoTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -53,8 +53,8 @@ public class TableInfoBase extends Persistent {
     return name;
   }
 
-  public void setName_unsafe(String value) {
-    name = value;
+  public void setName_unsafe(String cooked) {
+    name = cooked;
   }
 
   public String getName()
@@ -63,11 +63,11 @@ public class TableInfoBase extends Persistent {
     return getName_unsafe();
   }
 
-  public void setName(String value)
+  public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getNameColumn().getType().assertValidValue(value);
+    getTableInfoTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setName_unsafe(value);
+    setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
@@ -78,8 +78,8 @@ public class TableInfoBase extends Persistent {
     return displayname;
   }
 
-  public void setDisplayname_unsafe(String value) {
-    displayname = value;
+  public void setDisplayname_unsafe(String cooked) {
+    displayname = cooked;
   }
 
   public String getDisplayname()
@@ -88,11 +88,11 @@ public class TableInfoBase extends Persistent {
     return getDisplayname_unsafe();
   }
 
-  public void setDisplayname(String value)
+  public void setDisplayname(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getDisplaynameColumn().getType().assertValidValue(value);
+    getTableInfoTable().getDisplaynameColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setDisplayname_unsafe(value);
+    setDisplayname_unsafe(cooked);
   }
 
   public final Field getDisplaynameField() throws AccessPoemException {
@@ -103,8 +103,8 @@ public class TableInfoBase extends Persistent {
     return description;
   }
 
-  public void setDescription_unsafe(String value) {
-    description = value;
+  public void setDescription_unsafe(String cooked) {
+    description = cooked;
   }
 
   public String getDescription()
@@ -113,11 +113,11 @@ public class TableInfoBase extends Persistent {
     return getDescription_unsafe();
   }
 
-  public void setDescription(String value)
+  public void setDescription(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getDescriptionColumn().getType().assertValidValue(value);
+    getTableInfoTable().getDescriptionColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setDescription_unsafe(value);
+    setDescription_unsafe(cooked);
   }
 
   public final Field getDescriptionField() throws AccessPoemException {
@@ -128,8 +128,8 @@ public class TableInfoBase extends Persistent {
     return displayorder;
   }
 
-  public void setDisplayorder_unsafe(Integer value) {
-    displayorder = value;
+  public void setDisplayorder_unsafe(Integer cooked) {
+    displayorder = cooked;
   }
 
   public Integer getDisplayorder()
@@ -138,16 +138,16 @@ public class TableInfoBase extends Persistent {
     return getDisplayorder_unsafe();
   }
 
-  public void setDisplayorder(Integer value)
+  public void setDisplayorder(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getDisplayorderColumn().getType().assertValidValue(value);
+    getTableInfoTable().getDisplayorderColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setDisplayorder_unsafe(value);
+    setDisplayorder_unsafe(cooked);
   }
 
-  public final void setDisplayorder(int value)
+  public final void setDisplayorder(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setDisplayorder(new Integer(value));
+    setDisplayorder(new Integer(cooked));
   }
 
   public final Field getDisplayorderField() throws AccessPoemException {
@@ -158,8 +158,8 @@ public class TableInfoBase extends Persistent {
     return defaultcanread;
   }
 
-  public void setDefaultcanread_unsafe(Integer value) {
-    defaultcanread = value;
+  public void setDefaultcanread_unsafe(Integer cooked) {
+    defaultcanread = cooked;
   }
 
   public Integer getDefaultcanreadTroid()
@@ -168,11 +168,11 @@ public class TableInfoBase extends Persistent {
     return getDefaultcanread_unsafe();
   }
 
-  public void setDefaultcanreadTroid(Integer ident)
+  public void setDefaultcanreadTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getDefaultcanreadColumn().getType().assertValidIdent(ident);
+    getTableInfoTable().getDefaultcanreadColumn().getType().assertValidRaw(raw);
     writeLock();
-    setDefaultcanread_unsafe(ident);
+    setDefaultcanread_unsafe(raw);
   }
 
   public Capability getDefaultcanread()
@@ -182,9 +182,9 @@ public class TableInfoBase extends Persistent {
         ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
-  public void setDefaultcanread(Capability value)
+  public void setDefaultcanread(Capability cooked)
       throws AccessPoemException {
-    setDefaultcanreadTroid(value == null ? null : value.troid());
+    setDefaultcanreadTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getDefaultcanreadField() throws AccessPoemException {
@@ -195,8 +195,8 @@ public class TableInfoBase extends Persistent {
     return defaultcanwrite;
   }
 
-  public void setDefaultcanwrite_unsafe(Integer value) {
-    defaultcanwrite = value;
+  public void setDefaultcanwrite_unsafe(Integer cooked) {
+    defaultcanwrite = cooked;
   }
 
   public Integer getDefaultcanwriteTroid()
@@ -205,11 +205,11 @@ public class TableInfoBase extends Persistent {
     return getDefaultcanwrite_unsafe();
   }
 
-  public void setDefaultcanwriteTroid(Integer ident)
+  public void setDefaultcanwriteTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidIdent(ident);
+    getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidRaw(raw);
     writeLock();
-    setDefaultcanwrite_unsafe(ident);
+    setDefaultcanwrite_unsafe(raw);
   }
 
   public Capability getDefaultcanwrite()
@@ -219,9 +219,9 @@ public class TableInfoBase extends Persistent {
         ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
-  public void setDefaultcanwrite(Capability value)
+  public void setDefaultcanwrite(Capability cooked)
       throws AccessPoemException {
-    setDefaultcanwriteTroid(value == null ? null : value.troid());
+    setDefaultcanwriteTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getDefaultcanwriteField() throws AccessPoemException {
@@ -232,8 +232,8 @@ public class TableInfoBase extends Persistent {
     return cancreate;
   }
 
-  public void setCancreate_unsafe(Integer value) {
-    cancreate = value;
+  public void setCancreate_unsafe(Integer cooked) {
+    cancreate = cooked;
   }
 
   public Integer getCancreateTroid()
@@ -242,11 +242,11 @@ public class TableInfoBase extends Persistent {
     return getCancreate_unsafe();
   }
 
-  public void setCancreateTroid(Integer ident)
+  public void setCancreateTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getCancreateColumn().getType().assertValidIdent(ident);
+    getTableInfoTable().getCancreateColumn().getType().assertValidRaw(raw);
     writeLock();
-    setCancreate_unsafe(ident);
+    setCancreate_unsafe(raw);
   }
 
   public Capability getCancreate()
@@ -256,9 +256,9 @@ public class TableInfoBase extends Persistent {
         ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
   }
 
-  public void setCancreate(Capability value)
+  public void setCancreate(Capability cooked)
       throws AccessPoemException {
-    setCancreateTroid(value == null ? null : value.troid());
+    setCancreateTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getCancreateField() throws AccessPoemException {
@@ -269,8 +269,8 @@ public class TableInfoBase extends Persistent {
     return cachelimit;
   }
 
-  public void setCachelimit_unsafe(Integer value) {
-    cachelimit = value;
+  public void setCachelimit_unsafe(Integer cooked) {
+    cachelimit = cooked;
   }
 
   public Integer getCachelimit()
@@ -279,16 +279,16 @@ public class TableInfoBase extends Persistent {
     return getCachelimit_unsafe();
   }
 
-  public void setCachelimit(Integer value)
+  public void setCachelimit(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getCachelimitColumn().getType().assertValidValue(value);
+    getTableInfoTable().getCachelimitColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setCachelimit_unsafe(value);
+    setCachelimit_unsafe(cooked);
   }
 
-  public final void setCachelimit(int value)
+  public final void setCachelimit(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setCachelimit(new Integer(value));
+    setCachelimit(new Integer(cooked));
   }
 
   public final Field getCachelimitField() throws AccessPoemException {
@@ -299,8 +299,8 @@ public class TableInfoBase extends Persistent {
     return seqcached;
   }
 
-  public void setSeqcached_unsafe(Boolean value) {
-    seqcached = value;
+  public void setSeqcached_unsafe(Boolean cooked) {
+    seqcached = cooked;
   }
 
   public Boolean getSeqcached()
@@ -309,16 +309,16 @@ public class TableInfoBase extends Persistent {
     return getSeqcached_unsafe();
   }
 
-  public void setSeqcached(Boolean value)
+  public void setSeqcached(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableInfoTable().getSeqcachedColumn().getType().assertValidValue(value);
+    getTableInfoTable().getSeqcachedColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setSeqcached_unsafe(value);
+    setSeqcached_unsafe(cooked);
   }
 
-  public final void setSeqcached(boolean value)
+  public final void setSeqcached(boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    setSeqcached(value ? Boolean.TRUE : Boolean.FALSE);
+    setSeqcached(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
   public final Field getSeqcachedField() throws AccessPoemException {

@@ -245,7 +245,8 @@ public class Admin extends TemplateServlet {
         (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
         (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
-        String desc = (info.getSortdescending() == Boolean.TRUE) ? " DESC" : "";
+        String desc = Boolean.TRUE.equals(info.getSortdescending()) ?
+                          " DESC" : "";
         orderings.addElement(database.quotedName(info.getName()) + desc);
         orderClause.addElement(name+"="+orderColumnIDString);
       }

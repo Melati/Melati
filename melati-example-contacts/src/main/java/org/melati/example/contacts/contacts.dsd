@@ -38,6 +38,7 @@ table Contact
     (searchability = no)
     (description = "How many times has this record been updated?")
     (uneditable)
+    (uncreateable)
     (width = 5);
 
   Date lastupdated
@@ -45,12 +46,14 @@ table Contact
     (searchability = no)
     (renderinfo = "org.melati.poem.DatePoemType-dropdown")
     (uneditable)
+    (uncreateable)
     (description = "When was this last updated?");
 
   User lastupdateuser
     (displaylevel = record) 
     (searchability = yes)
     (uneditable)
+    (uncreateable)
     (description = "Who last updated this?");
 
 }

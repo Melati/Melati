@@ -82,7 +82,7 @@ would be nice to have before a 1.0 release.
   <tr> 
     <td>0.72</td>
     <td>Additional support for joins, access filtering.
-        Upgrade to Velocity and Webmacro.
+        Upgrade to Velocity.
     </td>
     <td><b>done</b></td>
   </tr>

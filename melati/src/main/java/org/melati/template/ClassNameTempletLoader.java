@@ -79,13 +79,21 @@ public class ClassNameTempletLoader implements TempletLoader {
 
   protected String templetsPath(TemplateEngine templateEngine, 
                                 MarkupLanguage markupLanguage) {
+    /*
+    // Fails to find templates in jars!!
     return "org" + File.separatorChar + 
            "melati" + File.separatorChar + 
            "template" + File.separatorChar + 
             templateEngine.getName() + File.separatorChar + 
            "templets" + File.separatorChar +
             markupLanguage.getName() + File.separatorChar;
-  }
+    */
+    return "org/melati/template/" +  
+     templateEngine.getName() +  
+    "/templets/" + 
+     markupLanguage.getName() + "/";
+    
+    }
 
   protected String templetPath(TemplateEngine templateEngine,
                                MarkupLanguage markupLanguage,
@@ -95,12 +103,11 @@ public class ClassNameTempletLoader implements TempletLoader {
                  templetsPath(templateEngine, markupLanguage) + 
                  name +
                  templateEngine.templateExtension();
-    else
-      return 
-                 templetsPath(templateEngine, markupLanguage) + 
-                 purpose + File.separatorChar + 
-                 name +
-                 templateEngine.templateExtension();
+    return 
+               templetsPath(templateEngine, markupLanguage) + 
+               purpose + "/" + 
+               name +
+               templateEngine.templateExtension();
   }
 
   public Template templet(TemplateEngine templateEngine,

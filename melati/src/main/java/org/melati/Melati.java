@@ -751,14 +751,12 @@ public class Melati {
    * - a MelaitStringWriter from the template engine
    * - a new MelatiStringWriter
    *
-   * @throws IOException if there is a problem with the writer
    */
-  public MelatiWriter getStringWriter() throws IOException {
+  public MelatiWriter getStringWriter() {
     if (templateEngine == null) {
       return new MelatiStringWriter();
-    } else {
-      return templateEngine.getStringWriter();
-    }
+    } 
+    return templateEngine.getStringWriter();
   }
 
   private MelatiWriter createWriter() throws IOException {

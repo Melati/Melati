@@ -217,10 +217,10 @@ public class VelocityTemplateEngine implements TemplateEngine {
   public org.melati.template.Template template(Class clazz)
       throws NotFoundException {
 
+    // Note File.separator will not find templates in jars
+    // so we use forward slash
     String templateName = StringUtils.tr(clazz.getName(),
-                                         ".", 
-                                         new String(
-                                           new char[] {File.separatorChar})) 
+                                         ".", "/") 
                           + templateExtension();
     return template(templateName);
   }

@@ -77,11 +77,15 @@ public class LoginHandler {
   }
 
   protected String loginTemplate(String name) {
+    /*
+    // Fails to find templates in jars!!
     return "org" + File.separatorChar + 
            "melati" + File.separatorChar + 
            "login" + File.separatorChar + 
            name;
-  }
+    */
+    return "org/melati/login/" + name;
+    }
 
   protected String loginPageTemplate() {
     return loginTemplate("Login");

@@ -63,7 +63,9 @@ public final class AllUnitTests {
  /**
   * Don't want people instantiating this Utility Class.
   */ 
-  private AllUnitTests () {}
+  private AllUnitTests () {
+   // don't want this sub classed
+  }
 
  /**
   * Create the test suite.

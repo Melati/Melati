@@ -223,12 +223,10 @@ public class MelatiConfig {
   *
   * @param request the incoming <code>HttpServletRequest</code>
   * @param response the outgoing <code>HttpServletResponse</code>
-  * @throws MelatiException is anything goes wrong.
   * @return a new {@link Melati}
   */
   public Melati getMelati(HttpServletRequest request,
-                          HttpServletResponse response) 
-      throws MelatiException {
+                          HttpServletResponse response) {
     return new Melati(this, request, response);
   }
 

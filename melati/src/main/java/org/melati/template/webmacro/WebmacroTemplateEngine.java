@@ -169,10 +169,10 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public org.melati.template.Template template(Class clazz)
       throws TemplateEngineException {
 
+    // Note we don't use File.separator but hardcode "/" 
+    // as templates canmnot be found within jar files otherwise
     String templateName = StringUtils.tr(clazz.getName(),
-                                         ".", 
-                                         new String(
-                                           new char[] {File.separatorChar})) 
+                                         ".", "/")
                           + templateExtension();
     return template(templateName);
   }

@@ -61,11 +61,15 @@ import org.melati.servlet.TemplateServlet;
 public class Logout extends TemplateServlet {
 
   protected String logoutTemplate(String name) {
+    /*
+    // Fails to find templates in jars!!
     return "org" + File.separatorChar + 
            "melati" + File.separatorChar +
            "login" + File.separatorChar + 
            name;
-  }
+    */
+    return "org/melati/login" + name;
+    }
 
   protected String logoutSuccessTemplate() {
     return logoutTemplate("Logout");

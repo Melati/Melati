@@ -41,6 +41,7 @@
 ##     Tim Pizey <timp@paneris.org>
 ##
 #set $Response.ContentType = "text/plain"
+
 ## We don't have a TextMarkupLanguage as yet
 #set $ml = $melati.HTMLMarkupLanguage
 
@@ -65,19 +66,24 @@
  * 2) Abstract tables are not preserved; the tables are 'de-normalised'.
  * 3) Importing another DSD, such as messageboards, is 
  *    not preserved, all tables are in a single package namespace.
- *    
 
 #if (!$c) #begin
+ *    
  * NOTE
  * This template can include comments for defaulted items
  * (add comments=true to URL)
 #end
-
-#if (!$all) #begin
+#if ($all) #begin
+ *    
  * NOTE
- * This template can include all System, dynamically created and 
- * inherited tables, but should then NOT be used to replace an existing DSD.
- * (add comments=true to URL)
+ * This template includes all System, dynamically created and 
+ * inherited tables, so should NOT be used to replace an existing DSD.
+#end #else #begin 
+ *    
+ * NOTE
+ * This template can include all system, dynamically created and 
+ * inherited tables but then should NOT be used to replace an existing DSD.
+ * (add all=true to URL)
 #end
  *    
  */

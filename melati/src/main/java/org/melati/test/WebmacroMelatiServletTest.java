@@ -73,7 +73,7 @@ import org.webmacro.Template;
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
 
-  public String handle( Melati melati, WebContext context ) 
+  public String handle(Melati melati, WebContext context) 
       throws Exception {
 
       if (melati.getMethod() != null && 

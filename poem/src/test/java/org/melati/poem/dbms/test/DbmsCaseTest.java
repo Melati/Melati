@@ -48,6 +48,7 @@ import org.melati.poem.Persistable;
 import org.melati.poem.dbms.AnsiStandard;
 import org.melati.poem.dbms.Hsqldb;
 import org.melati.poem.dbms.Postgresql;
+import org.melati.poem.dbms.Oracle;
 
 import com.mockobjects.dynamic.Mock;
 
@@ -113,6 +114,16 @@ public class DbmsCaseTest extends TestCase {
   public void testPostgresql() {
     String expected = "a ~* b";
     Postgresql db = new Postgresql();
+    String actual = db.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
+  }
+
+  /**
+   * 
+   */
+  public void testOracle() {
+    String expected = "b LIKE '%a%'";
+    Oracle db = new Oracle();
     String actual = db.caseInsensitiveRegExpSQL("a", "b");
     assertEquals(expected, actual);
   }

@@ -145,7 +145,7 @@ public class AcceptCharset extends HttpHeader {
           }
         }
         catch (UnsupportedCharsetException uce) {
-          // Continue with next one
+          ; // Continue with next one
         }
       }
     }
@@ -182,7 +182,7 @@ public class AcceptCharset extends HttpHeader {
         }
       }
       catch (UnsupportedCharsetException uce) {
-        // Ignore this charset
+        ; // Ignore this charset
         // System.err.println("Tested 7");
       }
       
@@ -382,6 +382,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.4  2005/01/14 13:15:51  timp
+ * Stop barfing about empty catch blocks
+ *
  * Revision 1.3  2004/11/25 18:44:34  timp
  * Avoid * imports
  *

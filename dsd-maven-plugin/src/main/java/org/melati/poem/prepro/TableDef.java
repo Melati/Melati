@@ -760,7 +760,8 @@ public class TableDef {
   }
 
   /**
-   * Generate the 4 files 
+   * Generate the 4 files.
+   *  
    * @throws IOException
    *    if a problem with the file system is encountered
    * @throws IllegalityException

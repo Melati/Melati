@@ -25,8 +25,6 @@ public class IoUtils {
 
     i.close();
 
-    System.err.println("slurped " + p + " bytes");
-
     if (p == b.length)
       return b;
     else {
@@ -37,6 +35,38 @@ public class IoUtils {
   }
 
   public static byte[] slurp(InputStream i, int estimate) throws IOException {
+    return slurp(i, estimate, Integer.MAX_VALUE);
+  }
+
+  public static char[] slurp(Reader i, int estimate, int limit)
+      throws IOException {
+    char[] b = new char[estimate];
+    int p = 0;
+
+    for (;;) {
+      int g = i.read(b, p, Math.min(b.length, limit) - p);
+      if (g == -1) break;
+      p += g;
+      if (p >= limit) break;
+      if (p >= b.length) {
+        char[] c = new char[2 * b.length];
+        System.arraycopy(b, 0, c, 0, p);
+        b = c;
+      }
+    }
+
+    i.close();
+
+    if (p == b.length)
+      return b;
+    else {
+      char[] c = new char[p];
+      System.arraycopy(b, 0, c, 0, p);
+      return c;
+    }
+  }
+
+  public static char[] slurp(Reader i, int estimate) throws IOException {
     return slurp(i, estimate, Integer.MAX_VALUE);
   }
 
@@ -78,6 +108,16 @@ public class IoUtils {
   public static void copy(InputStream i, int buf, OutputStream o)
       throws IOException {
     byte b[] = new byte[buf];
+    for (;;) {
+      int g = i.read(b);
+      if (g == -1) break;
+      o.write(b, 0, g);
+    }
+  }
+
+  public static void copy(Reader i, int buf, Writer o)
+      throws IOException {
+    char b[] = new char[buf];
     for (;;) {
       int g = i.read(b);
       if (g == -1) break;

@@ -54,6 +54,8 @@ import org.melati.poem.dbms.*;
 
 public class IntegerPoemType extends AtomPoemType {
 
+  public static final IntegerPoemType nullable = new IntegerPoemType(true);
+
   public IntegerPoemType(boolean nullable) {
     super(Types.INTEGER, "INT", nullable);
   }

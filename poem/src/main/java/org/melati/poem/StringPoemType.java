@@ -52,8 +52,7 @@ import org.melati.poem.dbms.*;
 
 public class StringPoemType extends AtomPoemType {
 
-//  public static final StringPoemType nullable =
-//      new StringPoemType(true, -1);
+  public static final StringPoemType nullable = new StringPoemType(true, -1);
 
   protected int size;             // or, < 0 for "unlimited"
 

@@ -2,25 +2,23 @@
 
 package org.melati.poem.generated;
 
-
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Capability;
+import org.melati.poem.Column;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
-import org.melati.poem.Column;
-import org.melati.poem.Persistent;
+import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
-import org.melati.poem.PoemException;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-import org.melati.poem.Table;
+import org.melati.poem.Group;
+import org.melati.poem.GroupCapability;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
-
+import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
+import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
-import org.melati.poem.GroupCapability;
-import org.melati.poem.Capability;
-import org.melati.poem.Group;
-import org.melati.poem.DisplayLevel;
+import org.melati.poem.ValidationPoemException;
 
 
 /**
@@ -31,6 +29,7 @@ import org.melati.poem.DisplayLevel;
  *   capability
  *
  */
+
 public class GroupCapabilityTableBase extends Table {
 
   private Column col_id = null;

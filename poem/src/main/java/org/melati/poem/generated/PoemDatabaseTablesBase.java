@@ -2,7 +2,6 @@
 
 package org.melati.poem.generated;
 
-
 // 10 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;
@@ -19,13 +18,13 @@ import org.melati.poem.SettingTable;
  */
 public interface PoemDatabaseTablesBase {
 
-UserTable getUserTable();
-GroupTable getGroupTable();
-CapabilityTable getCapabilityTable();
-GroupMembershipTable getGroupMembershipTable();
-GroupCapabilityTable getGroupCapabilityTable();
-TableCategoryTable getTableCategoryTable();
-TableInfoTable getTableInfoTable();
-ColumnInfoTable getColumnInfoTable();
-SettingTable getSettingTable();
+  UserTable getUserTable();
+  GroupTable getGroupTable();
+  CapabilityTable getCapabilityTable();
+  GroupMembershipTable getGroupMembershipTable();
+  GroupCapabilityTable getGroupCapabilityTable();
+  TableCategoryTable getTableCategoryTable();
+  TableInfoTable getTableInfoTable();
+  ColumnInfoTable getColumnInfoTable();
+  SettingTable getSettingTable();
 }

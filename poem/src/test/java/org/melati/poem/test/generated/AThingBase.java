@@ -3,15 +3,15 @@
 package org.melati.poem.test.generated;
 
 
-import org.melati.poem.Column;
-import org.melati.poem.Field;
-import org.melati.poem.Persistent;
+
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
-
-
 import org.melati.poem.test.AThingTable;
+import org.melati.poem.Field;
 import org.melati.poem.test.TestDatabaseTables;
+import org.melati.poem.Column;
+
 
 /**
  * Melati POEM generated base class for persistent AThing.

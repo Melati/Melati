@@ -20,14 +20,14 @@ import org.melati.poem.test.AThingTable;
  */
 public interface TestDatabaseTablesBase {
 
-UserTable getUserTable();
-GroupTable getGroupTable();
-CapabilityTable getCapabilityTable();
-GroupMembershipTable getGroupMembershipTable();
-GroupCapabilityTable getGroupCapabilityTable();
-TableCategoryTable getTableCategoryTable();
-TableInfoTable getTableInfoTable();
-ColumnInfoTable getColumnInfoTable();
-SettingTable getSettingTable();
-AThingTable getAThingTable();
+  UserTable getUserTable();
+  GroupTable getGroupTable();
+  CapabilityTable getCapabilityTable();
+  GroupMembershipTable getGroupMembershipTable();
+  GroupCapabilityTable getGroupCapabilityTable();
+  TableCategoryTable getTableCategoryTable();
+  TableInfoTable getTableInfoTable();
+  ColumnInfoTable getColumnInfoTable();
+  SettingTable getSettingTable();
+  AThingTable getAThingTable();
 }

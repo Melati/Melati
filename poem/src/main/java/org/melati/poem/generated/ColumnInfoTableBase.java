@@ -2,31 +2,29 @@
 
 package org.melati.poem.generated;
 
-
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Column;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
-import org.melati.poem.Column;
-import org.melati.poem.Persistent;
+import org.melati.poem.DisplayLevel;
+import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.Field;
-import org.melati.poem.PoemException;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-import org.melati.poem.ValueInfoTable;
-import org.melati.poem.PoemDatabaseTables;
-
+import org.melati.poem.IntegerPoemType;
 import org.melati.poem.IntegrityFixPoemType;
-import org.melati.poem.TableInfo;
+import org.melati.poem.Persistent;
+import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
-import org.melati.poem.StringPoemType;
+import org.melati.poem.Searchability;
 import org.melati.poem.SearchabilityPoemType;
 import org.melati.poem.StandardIntegrityFix;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.ColumnInfo;
-import org.melati.poem.Searchability;
-import org.melati.poem.DisplayLevelPoemType;
-import org.melati.poem.DisplayLevel;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.TableInfo;
 import org.melati.poem.TroidPoemType;
-import org.melati.poem.IntegerPoemType;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.ValueInfoTable;
 
 
 /**
@@ -46,6 +44,7 @@ import org.melati.poem.IntegerPoemType;
  *   integrityfix
  *
  */
+
 public class ColumnInfoTableBase extends ValueInfoTable {
 
   private Column col_id = null;

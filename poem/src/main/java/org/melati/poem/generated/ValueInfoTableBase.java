@@ -2,25 +2,23 @@
 
 package org.melati.poem.generated;
 
-
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Column;
+import org.melati.poem.ColumnTypePoemType;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
-import org.melati.poem.Column;
-import org.melati.poem.Persistent;
-import org.melati.poem.Field;
-import org.melati.poem.PoemException;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-import org.melati.poem.Table;
-import org.melati.poem.PoemDatabaseTables;
-
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.Searchability;
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.ColumnTypePoemType;
-import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.DisplayLevel;
+import org.melati.poem.Field;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.Persistent;
+import org.melati.poem.PoemDatabaseTables;
+import org.melati.poem.PoemException;
+import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.Searchability;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.Table;
+import org.melati.poem.ValidationPoemException;
 import org.melati.poem.ValueInfo;
 
 
@@ -40,6 +38,7 @@ import org.melati.poem.ValueInfo;
  *   rangelimit_string
  *
  */
+
 public class ValueInfoTableBase extends Table {
 
   private Column col_displayname = null;

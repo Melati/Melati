@@ -2,22 +2,20 @@
 
 package org.melati.poem.generated;
 
-
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Column;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
-import org.melati.poem.Column;
-import org.melati.poem.Persistent;
 import org.melati.poem.Field;
-import org.melati.poem.PoemException;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-import org.melati.poem.ValueInfoTable;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
-
+import org.melati.poem.PoemException;
+import org.melati.poem.Searchability;
 import org.melati.poem.Setting;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Searchability;
 import org.melati.poem.TroidPoemType;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.ValueInfoTable;
 
 
 /**
@@ -28,6 +26,7 @@ import org.melati.poem.TroidPoemType;
  *   value
  *
  */
+
 public class SettingTableBase extends ValueInfoTable {
 
   private Column col_id = null;

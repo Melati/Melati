@@ -3,18 +3,17 @@
 package org.melati.poem.generated;
 
 
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
+import org.melati.poem.Group;
+import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.Persistent;
-import org.melati.poem.AccessPoemException;
+import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.ValidationPoemException;
 
-import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.Capability;
-import org.melati.poem.Group;
-
-import org.melati.poem.GroupCapabilityTable;
-import org.melati.poem.PoemDatabaseTables;
 
 /**
  * Melati POEM generated base class for persistent GroupCapability.

@@ -157,7 +157,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
   }
 
-  public Template handleAccessException(
+  public Template handleAccessException(MelatiContext melati, 
       WebContext context, AccessPoemException accessException)
           throws Exception {
 

@@ -86,13 +86,13 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * @see #loginPageServletClassName
    */
 
-  public String loginPageURL(HttpServletRequest request) {
+  public String loginPageURL(MelatiContext melati, HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendZoneURL(url, request);
 
     url.append(loginPageServletClassName());
     url.append('/');
-    url.append(getDBName(request));
+    url.append(melati.logicalDatabase);
 
     return url.toString();
   }
@@ -103,7 +103,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     return pathInfo.substring(1, pathInfo.indexOf('/', 1) + 1);
   }
 
-  public Template handleAccessException(WebContext context,
+  public Template handleAccessException(MelatiContext melati, WebContext context,
 					AccessPoemException accessException)
       throws Exception {
     accessException.printStackTrace();
@@ -118,7 +118,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
 
     try {
-      response.sendRedirect(loginPageURL(request));
+      response.sendRedirect(loginPageURL(melati, request));
     }
     catch (IOException e) {
       throw new HandlerException(e.toString());

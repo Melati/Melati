@@ -53,9 +53,10 @@ import javax.servlet.http.*;
 import org.webmacro.servlet.*;
 import org.webmacro.*;
 import org.melati.poem.*;
+import org.melati.*;
 
 public interface AccessHandler {
-  Template handleAccessException(WebContext context,
+  Template handleAccessException(MelatiContext melati, WebContext context,
                                  AccessPoemException accessException)
       throws Exception;
 

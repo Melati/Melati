@@ -31,6 +31,16 @@ public abstract class PoemTypeFactory {
 
   private static int n = -1;
 
+//   private static final void extractRange(ColumnInfo info, BasePoemType type) {
+//     try {
+//       type.setRawRange(type.rawOfString(info.getRangelow_string()),
+//                        type.rawOfString(into.getRangehigh_string()));
+//     }
+//     catch (ValidationPoemException e) {
+//       throw new RangeExtractionException(info, type, e);
+//     }
+//   }
+
   static final PoemTypeFactory[] atomTypeFactories = {
     TROID = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {

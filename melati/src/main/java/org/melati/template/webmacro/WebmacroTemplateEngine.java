@@ -136,8 +136,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     try {
       return new WebmacroTemplate (wm.getTemplate (templateName));
     } catch (org.webmacro.NotFoundException e) {
-      throw new NotFoundException ("I couldn't find the template: " +
-      templateName + " because: " +e.toString ());
+      throw new NotFoundException(
+          "I couldn't find the template: " + templateName + " because: " + e);
     }
   }
 

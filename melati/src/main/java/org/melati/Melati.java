@@ -117,6 +117,10 @@ public class Melati {
     return SimpleDateAdaptor.it;
   }
 
+  public JSDynamicTree getJSDynamicTree(Tree tree) {
+    return new JSDynamicTree(tree);
+  }
+
   public static class PassbackVariableExceptionHandler
       implements VariableExceptionHandler {
     public static final PassbackVariableExceptionHandler it =

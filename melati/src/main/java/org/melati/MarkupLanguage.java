@@ -91,6 +91,8 @@ public abstract class MarkupLanguage {
   }
 
   public String rendered(Object o) throws WebMacroException {
+    if (o instanceof JSDynamicTree)
+      return rendered((JSDynamicTree)o);
     if (o instanceof Persistent)
       return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
     if (o instanceof Exception)
@@ -99,6 +101,14 @@ public abstract class MarkupLanguage {
     return rendered(o.toString());
   }
 
+  public String rendered(JSDynamicTree tree) throws WebMacroException {
+    Object otree = webContext.get("tree");
+    webContext.put("tree",tree);
+    String results = templetExpansion(templet("org.melati.util.JSDynamicTree"));
+    webContext.put("tree", otree);
+    return results;
+  }
+  
   public String rendered(Field field, int style, int limit)
       throws WebMacroException {
     try {

@@ -54,16 +54,36 @@ import java.sql.SQLException;
   * @author WilliamC@paneris.org
   */
 public class SQLSeriousPoemException extends SeriousPoemException {
+
+  /**
+   * The SQL string that was being executed when the error occurred.
+   */
   public String sql;
 
+  /**
+   * An SQL exception and the statement that provoked it. 
+   * 
+   * @param sqlException the db exception that has been caught 
+   * @param sql the SQL statement that provoked the exception
+   */
   public SQLSeriousPoemException(SQLException sqlException, String sql) {
     super(sqlException);
+    this.sql = sql;
   }
 
+  /**
+   * Constructor for use if you do not have the SQL string. 
+   * 
+   * @deprecated as we really rather want the statement
+   * @param sqlException the db exception that has been caught 
+   */
   public SQLSeriousPoemException(SQLException sqlException) {
     this(sqlException, null);
   }
 
+  /* (non-Javadoc)
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "An error was reported by the SQL driver:\n" +

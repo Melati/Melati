@@ -83,7 +83,12 @@ to create a release:
 6. CVS commit all of the above
 7. Build melati (again)
 8. Upload jars and zips to http://www.melati.org/
-9. Done - well done
+   scp *.zip www.melati.org:/home/apache/share/htdocs/melati/download/
+   scp *.gz www.melati.org:/home/apache/share/htdocs/melati/download/
+9. Update website
+   cd /home/apache/share/htdocs/melati/org/melati/site
+   cvs update
+10. Done - well done
 
 
 

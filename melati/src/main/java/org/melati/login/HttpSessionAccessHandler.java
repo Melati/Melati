@@ -166,6 +166,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     // try and get from cookie
     key = URLEncoder.encode(key);
     Cookie[] cookies = melati.getRequest().getCookies();
+    if(cookies == null) return null;
     for (int i=0;i<cookies.length;i++) {
       Cookie c = cookies[i];
       try {

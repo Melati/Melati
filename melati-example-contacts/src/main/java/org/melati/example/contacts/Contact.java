@@ -10,7 +10,7 @@ import org.melati.poem.PoemThread;
 import org.melati.util.Treeable;
 import org.melati.util.EnumUtils;
 
-public class Contact extends ContactBase {
+public class Contact extends ContactBase implements Treeable {
   public Contact() {}
 
   // programmer's domain-specific code here

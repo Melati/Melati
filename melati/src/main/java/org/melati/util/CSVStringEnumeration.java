@@ -5,12 +5,11 @@ import java.util.*;
 /**
  * A utility for tokenising a string made up of comma-separated
  * variables.  Unlike Tim's effort, it handles quoted variables as
- * well.  FIXME just don't try and read off the end if the last field
- * is zero-length.
+ * well.
  *
  * <PRE>
- *   foo, bar om,,"baz, ,oof",xyz   ->
- *     "foo", " bar om", "", "baz, , oof", "xyz"
+ *   foo, bar om,,"baz, ,oof",xyz,   ->
+ *     "foo", " bar om", "", "baz, , oof", "xyz", ""
  * </PRE>
  *
  * @author	williamc@paneris.org
@@ -20,6 +19,7 @@ import java.util.*;
 public class CSVStringEnumeration implements Enumeration {
 
   private String line = "";
+  private boolean emptyLastField = false;
   int p = 0;
 
   /**
@@ -36,7 +36,7 @@ public class CSVStringEnumeration implements Enumeration {
    */
 
   public boolean hasMoreElements() {
-    return p < line.length();
+    return emptyLastField || p < line.length();
   }
 
   /**
@@ -53,6 +53,11 @@ public class CSVStringEnumeration implements Enumeration {
 
   public String nextToken() {
 
+    if (emptyLastField) {
+      emptyLastField = false;
+      return "";
+    }
+
     if (p >= line.length()) throw new NoSuchElementException();
 
     if (line.charAt(p) == '"') {
@@ -61,7 +66,7 @@ public class CSVStringEnumeration implements Enumeration {
       int q = line.indexOf("\",", p);
       // if it is not there, we are (hopefully) at the end of a line
       if (q == -1 && (line.indexOf('"', p) == line.length()-1)) 
-      q = line.length()-1;
+        q = line.length()-1;
         
       if (q == -1) {
 	      p = line.length();
@@ -73,10 +78,12 @@ public class CSVStringEnumeration implements Enumeration {
       ++q;
       p = q+1;
       if (q < line.length()) {
-	      if (line.charAt(q) != ',') {
+        if (line.charAt(q) != ',') {
 	        p = line.length();
 	        throw new IllegalArgumentException("No comma after quotes");
         }
+        else if (q == line.length() - 1)
+          emptyLastField = true;
       }
       return it;
     } else {
@@ -87,6 +94,8 @@ public class CSVStringEnumeration implements Enumeration {
 	      return it;
       } else {
 	      String it = line.substring(p, q);
+          if (q == line.length() - 1)
+            emptyLastField = true;
 	      p = q + 1;
 	      return it;
       }

@@ -53,7 +53,8 @@ public class ContactCategoryBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getContactCategoryTable().getIdColumn());
+    Column c = _getContactCategoryTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getCategory_unsafe() {
@@ -90,7 +91,8 @@ public class ContactCategoryBase extends Persistent {
   }
 
   public Field getCategoryField() throws AccessPoemException {
-    return Field.of(this, _getContactCategoryTable().getCategoryColumn());
+    Column c = _getContactCategoryTable().getCategoryColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getContact_unsafe() {
@@ -127,6 +129,7 @@ public class ContactCategoryBase extends Persistent {
   }
 
   public Field getContactField() throws AccessPoemException {
-    return Field.of(this, _getContactCategoryTable().getContactColumn());
+    Column c = _getContactCategoryTable().getContactColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

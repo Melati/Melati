@@ -34,7 +34,7 @@ public class ContactTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getId();
@@ -91,7 +91,7 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getName();
@@ -152,7 +152,7 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_address =
-        new Column(this, "address", new StringPoemType(false,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
+        new Column(this, "address", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getAddress();
@@ -213,7 +213,7 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_updates =
-        new Column(this, "updates", new IntegerPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "updates", new IntegerPoemType(false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getUpdates();
@@ -226,6 +226,10 @@ public class ContactTableBase extends Table {
 
           public Field asField(Persistent g) {
             return ((Contact)g).getUpdatesField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -270,7 +274,7 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_lastupdated =
-        new Column(this, "lastupdated", new DatePoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "lastupdated", new DatePoemType(false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getLastupdated();
@@ -283,6 +287,10 @@ public class ContactTableBase extends Table {
 
           public Field asField(Persistent g) {
             return ((Contact)g).getLastupdatedField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
           }
 
           protected DisplayLevel defaultDisplayLevel() {
@@ -340,6 +348,10 @@ public class ContactTableBase extends Table {
 
           public Field asField(Persistent g) {
             return ((Contact)g).getLastupdateuserField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
           }
 
           protected DisplayLevel defaultDisplayLevel() {

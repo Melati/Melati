@@ -56,7 +56,8 @@ public class ContactBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getIdColumn());
+    Column c = _getContactTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -81,7 +82,8 @@ public class ContactBase extends Persistent {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getNameColumn());
+    Column c = _getContactTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getAddress_unsafe() {
@@ -106,7 +108,8 @@ public class ContactBase extends Persistent {
   }
 
   public Field getAddressField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getAddressColumn());
+    Column c = _getContactTable().getAddressColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getUpdates_unsafe() {
@@ -136,7 +139,8 @@ public class ContactBase extends Persistent {
   }
 
   public Field getUpdatesField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getUpdatesColumn());
+    Column c = _getContactTable().getUpdatesColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Date getLastupdated_unsafe() {
@@ -161,7 +165,8 @@ public class ContactBase extends Persistent {
   }
 
   public Field getLastupdatedField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getLastupdatedColumn());
+    Column c = _getContactTable().getLastupdatedColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getLastupdateuser_unsafe() {
@@ -198,6 +203,7 @@ public class ContactBase extends Persistent {
   }
 
   public Field getLastupdateuserField() throws AccessPoemException {
-    return Field.of(this, _getContactTable().getLastupdateuserColumn());
+    Column c = _getContactTable().getLastupdateuserColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

@@ -30,7 +30,7 @@ public class CategoryTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Category)g).getId();
@@ -87,7 +87,7 @@ public class CategoryTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Category)g).getName();

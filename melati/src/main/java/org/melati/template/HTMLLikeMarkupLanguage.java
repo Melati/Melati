@@ -79,7 +79,7 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
   * </p>
   */
   public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitied(s));
+    writer.write(HTMLUtils.entitied(s, true, melati.getEncoding()));
   }
 
   public String escaped(String s) {

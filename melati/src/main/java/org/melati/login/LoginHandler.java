@@ -50,10 +50,10 @@ public class LoginHandler {
     HttpSession session = context.getSession();
 
     AccessPoemException triggeringException =
-    (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
+      (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)
-    context.put("triggeringException", triggeringException);
+      context.put("triggeringException", triggeringException);
 
     String username = context.getForm("field_login");
     String password = context.getForm("field_password");
@@ -67,8 +67,8 @@ public class LoginHandler {
     context.put("passwordWrong", Boolean.FALSE);
   }
 
-  public String loginSuccessfullyAs
-  (TemplateContext templateContext, User user) {
+  public String loginSuccessfullyAs(TemplateContext templateContext, 
+                                    User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
@@ -78,8 +78,8 @@ public class LoginHandler {
     HttpSession session = templateContext.getSession();
 
     HttpServletRequestParameters triggeringParams =
-    (HttpServletRequestParameters)session.getValue(
-    Login.TRIGGERING_REQUEST_PARAMETERS);
+      (HttpServletRequestParameters)session.getValue(
+                                    Login.TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
       session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
@@ -103,9 +103,9 @@ public class LoginHandler {
     return context.getForm("field_login");
   }
 
-  protected String doTemplateRequest(
-  Melati melati, TemplateContext templateContext )
-  throws Exception {
+  public String doTemplateRequest(Melati melati, 
+                                  TemplateContext templateContext)
+                throws Exception {
 
     setupContext(templateContext);
 

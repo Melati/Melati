@@ -47,6 +47,19 @@ public class EnumUtils {
     return vectorOf(e, 20);
   }
 
+  public static VersionVector versionVectorOf(Enumeration e, int roughSize) {
+    VersionVector v = new VersionVector(roughSize);
+
+    while (e.hasMoreElements())
+      v.addElement(e.nextElement());
+
+    return v;
+  }
+
+  public static VersionVector versionVectorOf(Enumeration e) {
+    return versionVectorOf(e, 20);
+  }
+
   public static String concatenated(String sep, Enumeration e) {
     StringBuffer b = new StringBuffer();
 

@@ -67,4 +67,30 @@ The above assumed you were working on unix...
 There is a also a build-melati.bat script that works on NT - although it has not been tested (VOLUNTEERS?)
 
 
+MAKING A RELEASE
+
+Once you have the scripts working there are a few things you should do
+to create a release:
+
+1. Change the version number in build-melati.xml
+2. If you change requires upgrade action by the user make a note
+   in the Upgrading section of melati/README.html
+3. Change Last Updated and Updated By and add a new paragraph to 
+   melati/RELEASE-NOTES.html
+4. Add a paragraph about this release to melati/site/Releases.html
+5. Replace Release paragraph with one above in
+   melati/site/Download.html
+6. CVS commit all of the above
+7. Build melati (again)
+8. Upload jars and zips to http://www.melati.org/
+9. Done - well done
+
+
+
 $Id$
+
+
+
+
+
+

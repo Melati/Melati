@@ -6,13 +6,13 @@
 
 <suppressions>
     <suppress checks="MagicNumber"
+              files=".java" />
+    <suppress checks="MagicNumber"
               files="Test.java" />
     <suppress checks="Javadoc"
               files="Test.java" />
     <suppress checks="EmptyBlock"
               files="Test.java" />
-    <suppress checks="LineLength"
-              files="generated" />
     <suppress checks="Header"
               files="Base.java" />
     <suppress checks="Header"
@@ -25,6 +25,9 @@
               files="DatePoemtype.java" />
     <suppress checks="FileLength"
               files="Table.java" />
+    <!-- no way to shorten output statements -->
+    <suppress checks="MethodLength"
+              files="TableDef.java" />
     <!-- Generated files -->
     <suppress checks="MagicNumber"
               files="Base.java" />
@@ -33,6 +36,10 @@
     <suppress checks="InnerAssignment"
               files="Base.java" />
     <suppress checks="RedundantThrows"
+              files="Base.java" />
+    <suppress checks="LineLength"
+              files="Base.java" />
+    <suppress checks="NewlineAtEndOfFile"
               files="Base.java" />
     <!-- Not ours -->
     <suppress checks=""
@@ -44,5 +51,5 @@
     <suppress checks=""
               files="Base64.java" />
     <suppress checks=""
-              files="org/apache/" />
+              files="apache" />
 </suppressions>

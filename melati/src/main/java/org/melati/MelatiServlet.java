@@ -2,19 +2,20 @@ package org.melati;
 
 import java.util.*;
 import java.io.*;
-import org.melati.*;
+import org.melati.util.*;
 import org.melati.poem.*;
 import org.webmacro.*;
 import org.webmacro.util.*;
-import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
-import org.webmacro.resource.TemplateProvider;
-//import org.webmacro.broker.ResourceUnavailableException;
+import org.webmacro.servlet.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import java.sql.*;
 
-public abstract class MelatiServlet extends WMServlet {
+public abstract class MelatiServlet extends MelatiWMServlet {
+
+  static final String
+      OVERLAY_PARAMETERS = "org.melati.MelatiServlet.overlayParameters",
+      USER = "org.melati.MelatiServlet.user";
 
   /**
    * Melati's main entry point.  Override this to do WebMacro-like things and
@@ -23,15 +24,19 @@ public abstract class MelatiServlet extends WMServlet {
    * <UL>
    * <LI>
    *
+   * The `logical name' of the Melati POEM database to which the servlet should
+   * connect is determined from the first component of the pathinfo.
+   *
+   * <LI>
+   *
    * Any POEM database operations you perform will be done with the access
-   * rights of the POEM <TT>User</TT> associated with the servlet session.
-   * [FIXME once this has been implemented, hopefully tomorrow.]  If there is
-   * no established servlet session, the current user will be set to the
-   * default `guest' user [or for now to the `root' access token].  If this
-   * method terminates with an <TT>AccessPoemException</TT>, indicating that
-   * you have attempted something which you aren't entitled to do, the
-   * <TT>loginTemplate</TT> method will be invoked instead; once the user has
-   * logged in, the original request will be retried [when that's implemented].
+   * rights of the POEM <TT>User</TT> associated with the servlet session.  If
+   * there is no established servlet session, the current user will be set to
+   * the default `guest' user.  If this method terminates with an
+   * <TT>AccessPoemException</TT>, indicating that you have attempted something
+   * which you aren't entitled to do, the <TT>loginTemplate</TT> method will be
+   * invoked instead; once the user has logged in, the original request will be
+   * retried.
    *
    * <LI>
    *
@@ -51,52 +56,80 @@ public abstract class MelatiServlet extends WMServlet {
    * @see org.melati.poem.PoemThread#rollback
    */
 
-  protected abstract Template template(WebContext context)
-      throws PoemException, HandlerException;
+  protected abstract Template melatiHandle(WebContext context)
+      throws PoemException, WebMacroException;
 
-  protected String loginTemplateName() {
-    return "Login.wm";
+  protected String loginPageServletClassName() {
+    return "org.melati.Login";
   }
 
-  protected Template loginTemplate(WebContext context)
-      throws PoemException, HandlerException {
+  protected String loginPageURL(HttpServletRequest request) {
+    StringBuffer url = new StringBuffer();
+    url.append(request.getScheme());
+    url.append("://");
+    url.append(request.getServerName());
+    if (request.getScheme().equals("http") && request.getServerPort() != 80 ||
+        request.getScheme().equals("https") && request.getServerPort() != 443) {
+      url.append(':');
+      url.append(request.getServerPort());
+    }
+
+    String servlet = request.getServletPath();
+    if (servlet != null)
+      url.append(servlet.substring(0, servlet.lastIndexOf('/') + 1));
+
+    url.append(loginPageServletClassName());
+    url.append('/');
+    // FIXME cut the front off the pathinfo to retrieve the DB name
+    String pathInfo = request.getPathInfo();
+    url.append(pathInfo.substring(1, pathInfo.indexOf('/', 1) + 1));
+
+    return url.toString();
+  }
+
+  protected Template handleAccessFailure(WebContext context,
+                                         AccessPoemException accessException)
+      throws HandlerException {
+    HttpServletRequest request = context.getRequest();
+    HttpServletResponse response = context.getResponse();
+
+    HttpSession session = request.getSession(true);
+
+    session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
+                     new HttpServletRequestParameters(request));
+
+    if (accessException != null)
+      session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
+    else
+      session.removeValue(Login.TRIGGERING_EXCEPTION);
+
     try {
-      return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
-                                                    loginTemplateName());
+      response.sendRedirect(loginPageURL(request));
     }
-    catch (InvalidTypeException e) {
+    catch (IOException e) {
       throw new HandlerException(e.toString());
     }
-    catch (NotFoundException e) {
-      throw new HandlerException(e.toString());
-    }
+
+    return null;
   }
 
   /**
-   * WebMacro's main entry point, overridden <TT>final</TT>ly.  It sets up
-   * Melati's environment and invokes its entry point, `<TT>template</TT>'.
+   * WebMacro's main entry point, overridden to set up Melati's environment and
+   * invoke its entry point, `<TT>template</TT>'.  Don't override this unless
+   * you really know what you're doing.
    *
    * @see #template
    */
 
-  protected final Template handle(WebContext context) throws HandlerException {
+  protected Template handle(WebContext context) throws WebMacroException {
     context.put("melati", new Melati(context));
 
-    // HttpSession session = context.getSession();
-    // User user = (User)session.getValue("user");
-    // PoemThread.setAccessToken(user == null ? guest: user);
+    HttpSession session = context.getSession();
+    User user = (User)session.getValue(USER);
+    PoemThread.setAccessToken(
+        user == null ? PoemThread.database().guestAccessToken() : user);
 
-    try {
-      try {
-        return template(context);
-      }
-      catch (AccessPoemException e) {
-        return loginTemplate(context);
-      }
-    }
-    catch (Exception e) {
-      throw new HandlerException(e.toString());
-    }
+    return melatiHandle(context);
   }
 
   private void reallyService(ServletRequest request, ServletResponse response)
@@ -104,44 +137,84 @@ public abstract class MelatiServlet extends WMServlet {
     super.service(request, response);
   }
 
+  /**
+   * Overrides main servlet entry point to allow Melati to set up its
+   * environment before WebMacro takes over.  We have to take control very
+   * early, since the POEM database session must be wrapped around the whole
+   * WebMacro logic: the session must be active while the template is expanded.
+   * NB the application programmer's entry point to Melati is
+   * <TT>melatiHandle</TT>, above.
+   *
+   * @see #melatiHandle
+   */
+
   public void service(final ServletRequest plainRequest,
                       final ServletResponse response)
       throws ServletException, IOException {
 
-    final HttpServletRequest request = (HttpServletRequest)plainRequest;
-
-    String pathInfo = request.getPathInfo();
-    String subPathInfo = null;
-    String logicalDatabaseName = null;
-    if (pathInfo != null) {
-      int slash = pathInfo.indexOf('/');
-      if (slash != -1) {
-        int slash2 = pathInfo.indexOf('/', slash + 1);
-        logicalDatabaseName =
-            slash2 == -1 ? pathInfo.substring(slash + 1) :
-                           pathInfo.substring(slash + 1, slash2);
-        subPathInfo = slash2 == -1 ? null : pathInfo.substring(slash2 + 1);
-      }
-    }
-
-    // dearie me, what a lot of hoops to jump through
-    // at the end of the day Java is terribly poorly suited to this kind of
-    // lambda idiom :(
-
-    final MelatiServlet _this = this;
-
-    Database database;
-    try {
-      database = LogicalDatabase.named(logicalDatabaseName);
-    }
-    catch (DatabaseInitException e) {
-      e.printStackTrace();
-      throw new ServletException(e.toString());
-    }
-
     final String[] problem = new String[1];
 
     try {
+      HttpServletRequest incoming = (HttpServletRequest)plainRequest;
+      HttpSession session = incoming.getSession(true);
+
+      // First off, is the user continuing after a login?  If so, we want to
+      // recover any POSTed fields from the request that triggered it.
+
+      HttpServletRequestParameters oldParams;
+      final HttpServletRequest request;
+
+      synchronized (session) {
+        oldParams =
+            (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
+        if (oldParams != null) {
+          session.removeValue(OVERLAY_PARAMETERS);
+          HttpServletRequest req;
+          try {
+            req = new ReconstructedHttpServletRequest(oldParams, incoming);
+          }
+          catch (ReconstructedHttpServletRequestMismatchException e) {
+            req = incoming;
+          }
+          request = req;
+        }
+        else
+          request = incoming;
+      }
+
+      // Now, get the logical database name from the initial section of PATH_INFO
+
+      String pathInfo = request.getPathInfo();
+      String subPathInfo = null;
+      String logicalDatabaseName = null;
+      if (pathInfo != null) {
+        int slash = pathInfo.indexOf('/');
+        if (slash != -1) {
+          int slash2 = pathInfo.indexOf('/', slash + 1);
+          logicalDatabaseName =
+              slash2 == -1 ? pathInfo.substring(slash + 1) :
+                             pathInfo.substring(slash + 1, slash2);
+          subPathInfo = slash2 == -1 ? null : pathInfo.substring(slash2 + 1);
+        }
+      }
+
+      // Set up a Poem session and call the application code
+
+      // dearie me, what a lot of hoops to jump through
+      // at the end of the day Java is terribly poorly suited to this kind of
+      // lambda idiom :(
+
+      final MelatiServlet _this = this;
+
+      Database database;
+      try {
+        database = LogicalDatabase.named(logicalDatabaseName);
+      }
+      catch (DatabaseInitException e) {
+        e.printStackTrace();
+        throw new ServletException(e.toString());
+      }
+
       database.inSession(
           AccessToken.root,
           new PoemTask() {
@@ -163,6 +236,7 @@ public abstract class MelatiServlet extends WMServlet {
           });
     }
     catch (Exception e) {
+      e.printStackTrace();
       throw new ServletException(e.toString());
     }
 

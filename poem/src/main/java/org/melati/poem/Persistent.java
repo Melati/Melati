@@ -189,6 +189,10 @@ public class Persistent {
     }
   }
 
+  public final void assertCanRead() throws AccessPoemException {
+    _dataForReading();
+  }
+
   /**
    * Whether the object is readable by you.
    *

@@ -68,8 +68,7 @@ public class Admin extends MelatiServlet {
 
   protected final Template adminTemplate(WebContext context, String name)
       throws NotFoundException, InvalidTypeException {
-    return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
-                                                  "admin/" + name);
+    return getTemplate("admin/" + name);
   }
 
   protected Template tablesViewTemplate(WebContext context, MethodRef ref)
@@ -111,7 +110,9 @@ public class Admin extends MelatiServlet {
 
   protected Template editTemplate(WebContext context, MethodRef ref)
       throws NotFoundException, InvalidTypeException, PoemException {
-    context.put("object", objectFromPathInfo(ref));
+    Persistent object = objectFromPathInfo(ref);
+    // object.assertCanRead();
+    context.put("object", object);
     return adminTemplate(context, "Edit.wm");
   }
 
@@ -191,7 +192,7 @@ public class Admin extends MelatiServlet {
       throw new HandlerException("bad action from Edit.wm: " + action);
   }
 
-  public Template template(WebContext context)
+  protected Template melatiHandle(WebContext context)
       throws PoemException, HandlerException {
     try {
       String pathInfo = context.getRequest().getPathInfo();

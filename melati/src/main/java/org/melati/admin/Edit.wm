@@ -30,17 +30,17 @@
     }
     <TR>
       <TD>
-        #if ($field.Nullable) {
+        #if ($field.Nullable) #begin
           $ml.rendered($field.DisplayName)
-        } #else {
+        #end #else #begin
           <B>$ml.rendered($field.DisplayName)</B>
-        }
+        #end
       </TD><TD></TD><TD>
-        #if ($field.UserEditable) {
+        #if ($field.UserEditable) #begin
           $ml.input($field)
-        } #else {
+        #end #else #begin
 	  $ml.rendered($field)
-        }
+        #end
       </TD>
     </TR>
   }

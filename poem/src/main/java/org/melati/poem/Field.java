@@ -4,6 +4,8 @@ import org.melati.util.*;
 import java.util.*;
 
 public final class Field {
+
+  private AccessPoemException accessException;
   private Object ident;
   private Column column;
 
@@ -12,9 +14,16 @@ public final class Field {
     this.column = column;
   }
 
-  public Field(Persistent persistent,
-               Column column) throws AccessPoemException {
-    this(column.getIdent(persistent), column);
+  public Field(Persistent persistent, Column column) {
+    this.column = column;
+    try {
+      ident = column.getIdent(persistent);
+      accessException = null;
+    }
+    catch (AccessPoemException accessException) {
+      ident = null;
+      this.accessException = accessException;
+    }
   }
 
   public String getName() {
@@ -49,19 +58,27 @@ public final class Field {
     return column.getRenderInfo();
   }
 
-  public Object getIdent() {
+  public Object getIdent() throws AccessPoemException {
+    if (accessException != null)
+      throw accessException;
     return ident;
   }
 
-  public Object getIdentString() {
+  public Object getIdentString() throws AccessPoemException {
+    if (accessException != null)
+      throw accessException;
     return ident == null ? "" : getType().stringOfIdent(ident);
   }
 
-  public Object getValue() {
+  public Object getValue() throws AccessPoemException {
+    if (accessException != null)
+      throw accessException;
     return getType().valueOfIdent(ident);
   }
 
-  public String getValueString() {
+  public String getValueString() throws AccessPoemException {
+    if (accessException != null)
+      throw accessException;
     return ident == null ? "" : getType().stringOfValue(getValue());
   }
 
@@ -83,7 +100,9 @@ public final class Field {
         };
   }
 
-  public boolean sameIdentAs(Field other) {
+  public boolean sameIdentAs(Field other) throws AccessPoemException {
+    if (accessException != null)
+      throw accessException;
     return ident == null ? other.ident == null : ident.equals(other.ident);
   }
 }

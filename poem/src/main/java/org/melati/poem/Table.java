@@ -1234,7 +1234,7 @@ public class Table {
 
     // Where should we start numbering new records?
 
-    PoemThread.writeDown();
+    // PoemThread.writeDown(); FIXME
     String sql = 
         "SELECT " + _quotedName(troidColumn.getName()) +
         " FROM " + _quotedName(name) +

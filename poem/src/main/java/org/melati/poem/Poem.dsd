@@ -104,10 +104,6 @@ table ColumnInfo
       (displayname = "Input-box height")
       (description = "A sensible height for text boxes used for entering the field, where appropriate");
 
-  // TableInfo targettable (nullable)
-  //     (displayname = "Target table")
-  //     (description = "For link fields, the table containing the referenced record");
-
   String renderinfo (size = unlimited) (nullable)
       (displayname = "Rendering information")
       (description = "The name of the Melati templet (if not the default) to use for input controls for the field");

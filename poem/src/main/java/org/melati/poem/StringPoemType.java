@@ -63,6 +63,6 @@ public class StringPoemType extends AtomPoemType {
   }
 
   protected String _quotedIdent(Object ident) {
-    return org.melati.util.StringUtils.quoted((String)ident, '"');
+    return org.melati.util.StringUtils.quoted((String)ident, '\'');
   }
 }

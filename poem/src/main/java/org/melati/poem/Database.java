@@ -84,9 +84,10 @@ abstract public class Database {
    *                    programmer's responsibility to make sure that an
    *                    appropriate driver has been loaded.  
    *
-   * @param username    The username under which to connect to the database.
-   *                    This has nothing to do with the user/group/capability
-   *                    authentication performed by Melati.
+   * @param username    The username under which to establish JDBC connections
+   *                    to the database.  This has nothing to do with the
+   *                    user/group/capability authentication performed by
+   *                    Melati.
    *
    * @param password    The password to go with the username.
    *
@@ -674,6 +675,10 @@ abstract public class Database {
     userCapabilities.invalidateVersion(session);
   }
 
+  public AccessToken guestAccessToken() {
+    return getUserTable().guestUser();
+  }
+
   // 
   // ==========
   //  Cacheing
@@ -784,7 +789,6 @@ abstract public class Database {
     appendQuotedName(b, name);
     return b.toString();
   }
-
 
   private PoemType unsupported(String sqlTypeName, ResultSet md)
       throws UnsupportedTypePoemException {

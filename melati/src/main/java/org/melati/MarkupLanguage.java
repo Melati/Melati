@@ -93,16 +93,16 @@ public abstract class MarkupLanguage {
   }
 
   public String input(Field field)
-      throws InvalidTypeException, InvalidContextException, UnsupportedTypeException, NotFoundException {
+      throws UnsupportedTypeException, WebMacroException {
     Template templet =
         (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
                                                   templetPath(field));
-    webContext.put("obj", field);
+    webContext.put("field", field);
     try {
       return (String)templet.evaluate(webContext);
     }
     finally {
-      webContext.remove("obj");
+      webContext.remove("field");
     }
   }
 }

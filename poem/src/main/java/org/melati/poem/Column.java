@@ -219,6 +219,11 @@ public abstract class Column {
     return selectionWhereEq(ident, false);
   }
 
+  public Persistent firstWhereEq(Object ident) {
+    Enumeration them = selectionWhereEq(ident);
+    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
+  }
+
   // 
   // =======================================
   //  Reading/setting the column in records

@@ -2,6 +2,7 @@ package org.melati;
 
 import org.webmacro.servlet.*;
 import org.melati.util.*;
+import org.melati.poem.*;
 
 public class HTMLMarkupLanguage extends MarkupLanguage {
 

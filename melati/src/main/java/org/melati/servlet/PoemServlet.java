@@ -65,8 +65,8 @@ import org.melati.util.MelatiWriter;
 
 /**
  * Base class to use Poem with Servlets.
- * Simply extend this class, override the doPoemRequest method if
- * you are going to use a template engine, please take a look at TemplateServlet
+ * Simply extend this class and override the doPoemRequest method.
+ * If you are going to use a template engine look at TemplateServlet
  */
 
 /**
@@ -239,7 +239,7 @@ public abstract class PoemServlet extends ConfigServlet {
     }
     catch (Exception e) {
       try {
-        // we have to log this here, otherwise we loose the stacktrace
+        // we have to log this here, otherwise we lose the stacktrace
         error(melati, e);
         throw new TrappedException(e.toString());
       }
@@ -263,7 +263,7 @@ public abstract class PoemServlet extends ConfigServlet {
             }
           } catch (Exception e) {
             try {
-              // we have to log this here, otherwise we loose the stacktrace
+              // we have to log this here, otherwise we lose the stacktrace
               error(melati, e);
               throw new TrappedException(e.toString());
             } catch (IOException f) {
@@ -282,7 +282,7 @@ public abstract class PoemServlet extends ConfigServlet {
     );
   }
 
-  // default method to handle an exception withut a template engine
+  // default method to handle an exception without a template engine
 
   protected void handleException(Melati melati, Exception exception)
       throws Exception {
@@ -398,11 +398,12 @@ public abstract class PoemServlet extends ConfigServlet {
   }
 
   /**
-   * Override the method to build up your output
+   * Override this method to build up your own output
    *
    * @param melati
    * @return String
    */
 
   protected abstract void doPoemRequest(Melati melati) throws Exception;
+
 }

@@ -210,7 +210,8 @@ public abstract class TemplateServlet extends PoemServlet {
 
 
   /**
-   * Override the method to build up your output
+   * Override this method to build up your own output.
+   *
    * @param melatiContext
    * @return an object with all you need to do the template expansion
    */

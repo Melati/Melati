@@ -32,7 +32,7 @@ org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTem
 #
 # --------------------------------------------
 #  Where to look for Templates (only used by Velocity - if using WebMacro, set the template path 
-#  conventionally
+#  in WebMacro.properties)
 # --------------------------------------------
 # 
 

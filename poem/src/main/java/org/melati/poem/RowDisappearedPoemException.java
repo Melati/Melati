@@ -1,6 +1,6 @@
 package org.melati.poem;
 
-public class RowDisappearedPoemException extends SeriousPoemException {
+public class RowDisappearedPoemException extends PoemException {
 
   public Table table;
   public Integer troid;
@@ -12,5 +12,13 @@ public class RowDisappearedPoemException extends SeriousPoemException {
 
   public RowDisappearedPoemException(NoSuchRowPoemException e) {
     this(e.table, e.troid);
+  }
+
+  public RowDisappearedPoemException(Persistent persistent) {
+    this(persistent.getTable(), persistent.troid());
+  }
+
+  public String getMessage() {
+    return "The row " + table.getName() + "/" + troid + " has been deleted";
   }
 }

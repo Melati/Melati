@@ -49,7 +49,7 @@ import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 
   /**
-   * A class that allows the editting and display of an object to be extended.
+   * An interface that allows the editting and display of an object to be extended.
    * To process the object in a special way your template should use 
    * a method other than <code>Update</code>.
    */

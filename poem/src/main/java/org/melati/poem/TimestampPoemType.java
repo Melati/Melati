@@ -67,6 +67,12 @@ public class TimestampPoemType extends AtomPoemType {
   public TimestampPoemType(boolean nullable) {
     super(Types.TIMESTAMP, "TIMESTAMP", nullable);
   }
+ /**
+  * @see org.melati.poem.dbms.SQLServer
+  */
+  public TimestampPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
+    super(sqlTypeCode, sqlTypeName, nullable);
+  }
 
   protected void _assertValidRaw(Object raw) {
     if (raw != null && !(raw instanceof Timestamp))

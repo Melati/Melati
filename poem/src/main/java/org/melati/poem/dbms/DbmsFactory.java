@@ -62,6 +62,8 @@ public class DbmsFactory {
 
     private static final Hashtable dbmsObjects = new Hashtable();
 
+    private DbmsFactory() {}
+
     // FIXME
     // What horrible exception handling. We need a non SQL Exception here
     public static final Dbms getDbms(String dbmsClass) 

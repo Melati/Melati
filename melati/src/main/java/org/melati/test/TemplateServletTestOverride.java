@@ -60,16 +60,10 @@ import org.melati.template.TemplateContext;
 import org.melati.util.MelatiException;
 
 /**
- * Base class to use Melati with Servlets.
- * Simply extend this class, override the doRequest method
+ * Illustrate exception handling.
  *
  * @author Tim Joyce
  * $Revision$
- */
-
-/**
- * Illustrate exception handling.
- *
  */
 public class TemplateServletTestOverride extends TemplateServlet {
 

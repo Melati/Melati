@@ -120,15 +120,15 @@ public class Setting extends SettingBase {
   }
 
   public void setValue(String value) {
-    Object raw;
+    Object rawLocal;
     try {
-      raw = getType().rawOfString(value);
+      rawLocal = getType().rawOfString(value);
     } catch (Exception e) {
       throw new SettingValidationException(getName_unsafe(), e);
     }
 
     super.setValue(value);
-    this.raw = raw;
+    this.raw = rawLocal;
     cooked = null;
   }
 
@@ -185,33 +185,33 @@ public class Setting extends SettingBase {
   }
 
   public Integer getIntegerCooked() {
-    Object cooked = getCooked();
-    if (cooked == null)
+    Object cookedLocal = getCooked();
+    if (cookedLocal == null)
       return null;
-    else if (cooked instanceof Integer)
-      return (Integer)cooked;
+    else if (cookedLocal instanceof Integer)
+      return (Integer)cookedLocal;
     else
       throw new SettingTypeMismatchException(getName_unsafe(),
                                              getTypefactory(), "Integer");
   }
 
   public String getStringCooked() {
-    Object cooked = getCooked();
-    if (cooked == null)
+    Object cookedLocal = getCooked();
+    if (cookedLocal == null)
       return null;
-    else if (cooked instanceof String)
-      return (String)cooked;
+    else if (cookedLocal instanceof String)
+      return (String)cookedLocal;
     else
       throw new SettingTypeMismatchException(getName_unsafe(),
                                              getTypefactory(), "String");
   }
 
   public Boolean getBooleanCooked() {
-    Object cooked = getCooked();
-    if (cooked == null)
+    Object cookedLocal = getCooked();
+    if (cookedLocal == null)
       return null;
-    else if (cooked instanceof Boolean)
-      return (Boolean)cooked;
+    else if (cookedLocal instanceof Boolean)
+      return (Boolean)cookedLocal;
     else
       throw new SettingTypeMismatchException(getName_unsafe(),
                                              getTypefactory(), "Boolean");

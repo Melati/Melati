@@ -55,8 +55,7 @@
   }
 </script>
 <BODY bgcolor="#cccccc" onLoad="reloadframes()">
-<center><br><br><br><br>
-<h3><FONT SIZE="" FACE="Arial, Helvetica">Done</font></h3>
-</center>
+<br><br><br><br>
+<h3 align=center><FONT FACE="Arial, Helvetica">Done</font></h3>
 </BODY>
 </HTML>

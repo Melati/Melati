@@ -391,6 +391,24 @@ usage:
     </java>
   </target>
 
+    <!-- ============================================================== -->
+    <!-- run Jetty w/the specified configuration file & remote debugger -->
+    <!-- ============================================================== -->
+
+  <target name="rundebug" description="Launch Jetty with remote debugging">
+    <java classname="org.mortbay.jetty.Server"
+          classpathref="classpath.jetty"
+          fork="yes"
+          failonerror="yes">
+      <jvmarg value="-Xdebug"/>
+	  <jvmarg value="-Xint"/>
+	  <jvmarg value="-server"/>
+	  <jvmarg value="-Xnoagent"/>
+	  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"/>
+      <arg line="jetty.xml"/>
+    </java>
+  </target>
+
 
     <!-- ============================================================== -->
     <!-- Do all of it                                                   -->

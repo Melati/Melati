@@ -17,29 +17,41 @@ Insert
 #end
 Contact</h1>
 <form method=post action=Update>
+<table>
 #foreach $field in $contact.RecordDisplayFields #begin
 #if ($field.UserEditable) #begin
-<p>$ml.rendered($field.Name): $ml.input($field)</p>
+      <TR>
+        <TD>
+          $ml.rendered($field.Name)</TD><TD> $ml.input($field)
+        </TD>
+      </TR>
 #end
 #end
-
-<table>
 #if ($categories.hasMoreElements()) #begin
     #foreach $category in $categories #begin
       <TR>
-        <TD>$ml.rendered($category.Name)
-      <INPUT TYPE=checkbox name=field_category value=$category.Troid
+        <TD>$ml.rendered($category.Name)</TD>
+        <TD><INPUT TYPE=checkbox name=field_category value=$category.Troid
 	  #if ($contact.isIn($category)) #begin 
 	        CHECKED
       #end
 	>
-	</td></tr>
+        </TD></TR>
 	#end
 #end
-</table>
-<input type=submit name=update value=update ONCLICK="return validate(this.form);">
+      <TR>
+        <TD colspan=2 align=center>
+         <input type=submit name=update value=update 
+                ONCLICK="return validate(this.form);">
+        </TD>
+      </TR>
 </form>
-<a href=Delete>Delete</a>
+      <TR>
+        <TD colspan=2 align=center>
+         <a href=Delete>Delete</a>
+        </TD>
+      </TR>
+</table>
 </body>
 </html>
 

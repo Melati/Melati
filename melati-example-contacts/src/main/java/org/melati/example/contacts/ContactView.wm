@@ -1,0 +1,47 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Edit/Amend a Contact</title>
+</head>
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<body>
+<h1>
+#if ($contact.Troid) #begin
+Edit
+#end #else #begin
+Insert
+#end
+Contact</h1>
+<form method=post action=Update>
+#foreach $field in $contact.RecordDisplayFields #begin
+#if ($field.UserEditable) #begin
+<p>$ml.rendered($field.Name): $ml.input($field)</p>
+#end
+#end
+
+<table>
+#if ($categories.hasMoreElements()) #begin
+    #foreach $category in $categories #begin
+      <TR>
+        <TD>$ml.rendered($category.Name)
+      <INPUT TYPE=checkbox name=field_category value=$category.Troid
+	  #if ($contact.isIn($category)) #begin 
+	        CHECKED
+      #end
+	>
+	</td></tr>
+	#end
+#end
+</table>
+
+<input type=submit name=update value=update>
+</form>
+<a href=Delete>Delete</a>
+
+</body>
+</html>

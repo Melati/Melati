@@ -1,0 +1,91 @@
+package org.melati.doc.example.contacts;
+
+table Contact
+  (displayorder = 10)
+  (category = "Data")
+  (description = "A Contact") {
+
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+  String name 
+    (size = unlimited) 
+    (displaylevel = primary) 
+    (searchability = primary)
+    (description = "Contact Name")
+    (displayorderpriority = 0)
+    (width = 20);
+
+  String address
+    (size = unlimited) 
+    (displaylevel = record) 
+    (searchability = no)
+    (description = "Contact Address")
+    (height = 5)
+    (width = 40);
+
+  Integer updates
+    (displaylevel = record) 
+    (searchability = no)
+    (description = "How many times has this record been updated?")
+    (uneditable)
+    (width = 5);
+
+  Date lastupdated
+    (displaylevel = record) 
+    (searchability = no)
+    (renderinfo = "org.melati.poem.DatePoemType-dropdown.wm")
+    (uneditable)
+    (description = "When was this last updated?");
+
+  User lastupdateuser
+    (displaylevel = summary) 
+    (searchability = yes)
+    (uneditable)
+    (description = "Who last updated this?");
+
+}
+
+table Category
+  (displayorder = 100)
+  (category = "Codes")
+  (description = "A Category for Contacts") {
+
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+  String name 
+    (size = unlimited) 
+    (displaylevel = primary) 
+    (searchability = primary)
+    (description = "Category Name")
+    (displayorderpriority = 0)
+    (width = 20);
+}
+
+table ContactCategory
+
+  (displayorder = 10)
+  (category = "Data")
+  (description = "Contacts Categories") {
+
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+  Category category
+    (displaylevel = primary) 
+    (searchability = primary)
+    (description = "Category")
+    (displayorderpriority = 0);
+
+  Contact contact
+    (displaylevel = summary) 
+    (searchability = yes)
+    (description = "Contact")
+    (displayorderpriority = 1);
+
+}
+

@@ -12,6 +12,13 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
   }
 
   void postInitialise() {
+    Database d = getDatabase();
+    GroupCapabilityData admin =
+        new GroupCapabilityData(d.getGroupTable().administratorsGroup(),
+                                d.administerCapability());
+    if (!exists(admin))
+      create(admin);
+
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

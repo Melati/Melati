@@ -1,5 +1,10 @@
 package org.melati.poem;
 
 public class GroupCapabilityData extends GroupCapabilityDataBase {
-  // programmer's domain-specific code here
+  public GroupCapabilityData(Group group, Capability capability) {
+    this.group = group.troid();
+    this.capability = capability.troid();
+  }
+
+  public GroupCapabilityData() {}
 }

@@ -9,7 +9,13 @@ public class UserTable extends UserTableBase {
   static final UserData guestData =
       new UserData("_guest_", "", "Melati guest user");
 
-  private User guestUser;
+  private User guestUser = null;
+
+  static final UserData administratorData =
+      new UserData("_administrator_", "FIXME",
+                   "Melati database administrator");
+
+  private User administratorUser = null;
 
   public UserTable(Database database, String name) throws PoemException {
     super(database, name);
@@ -19,13 +25,22 @@ public class UserTable extends UserTableBase {
     return guestUser;
   }
 
+  User administratorUser() {
+    return administratorUser;
+  }
+
+  private User ensureUser(UserData userData) {
+    User user = (User)getLoginColumn().firstWhereEq(userData.login);
+    if (user == null)
+      user = (User)create(userData);
+    return user;
+  }
+
   synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
-
-    guestUser = (User)getLoginColumn().firstWhereEq(guestData.login);
-    if (guestUser == null)
-      guestUser = (User)create(guestData);
+    guestUser = ensureUser(guestData);
+    administratorUser = ensureUser(administratorData);
   }
 
   void postInitialise() {

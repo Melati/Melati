@@ -52,7 +52,7 @@ import org.melati.util.MelatiRuntimeException;
  * The quality of being searchable:
  *  <tt>yes</tt>, <tt>no</tt> or <tt>primary</tt>.
  */
-public class Searchability {
+public final class Searchability {
 
   public final Integer index;
   public final String name;

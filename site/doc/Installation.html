@@ -170,68 +170,70 @@
 </P>
 
 <UL>
-  <LI> Set up a database for use by Melati.  With Postgres this involves typing,
-       for example, <TT>createdb melatitest</TT> at the Linux prompt, as a user
-       who is allowed to create databases.
-
-  <LI> Arrange for the user in whose name your httpd runs---often,
-       `<TT>nobody</TT>'---to be able to connect to the test database and
-       create tables in it.  With Postgres this is a no-op under the default
-       `security' setup, assuming that your postmaster is running on the same
-       machine as your web server.
-
-  <LI> Install the Melati source tree somewhere, and compile it.  For instance,
-
-<BLOCKQUOTE><PRE>
+  <LI> Set up a database for use by Melati. With Postgres this involves typing, 
+    for example, <TT>createdb melatitest</TT> at the Linux prompt, as a user who 
+    is allowed to create databases. 
+  <LI> Arrange for the user in whose name your httpd runs---often, `<TT>nobody</TT>'---to 
+    be able to connect to the test database and create tables in it. With Postgres 
+    this is a no-op under the default `security' setup, assuming that your postmaster 
+    is running on the same machine as your web server. 
+  <LI> Install the Melati source tree somewhere. For instance, 
+    <BLOCKQUOTE> 
+      <PRE>
 cd /usr/local/packages/inst/melati
 tar zxf melati-0.0.x.tar.gz
-cd melati-0.0.x/org/melati
+</pre>
+    </BLOCKQUOTE>
+  <LI> Ensure that the following is in your classpath 
+    <ul>
+      <li>ApacheJServ.jar 
+      <li>jsdk.jar 
+      <li>webmacro.jar 
+      <li>the melati install directory 
+    </ul>
+    <p>&nbsp;</p>
+  <li>Compile melati. For instance, 
+    <BLOCKQUOTE> 
+      <PRE>
+cd /usr/local/packages/inst/melati/melati-0.0.x/org/melati
 javac admin/Admin.java poem/prepro/DSD.java
-</PRE></BLOCKQUOTE>
-
-       ---those two files being entry points to respectively the admin system
-       and the DSD preprocessor, which should cause everything to get compiled
-       (except for a few sources not currently in use).
-
-<BLOCKQUOTE><PRE>
-TemplatePath = /usr/local/packages/inst/melati-0.0.x/org/melati:/home/me/templates
-</PRE></BLOCKQUOTE>
-
-  <LI> Arrange for Melati's classes to be accessible to your servlet runner,
-       for instance by adding a line
-
-<BLOCKQUOTE><PRE>
-wrapper.classpath=/usr/local/packages/inst/melati-0.0.x
-</PRE></BLOCKQUOTE>
-
-       to the appropriate place in your <TT>jserv.properties</TT>.
-
-  <LI> Arrange for Melati servlets you play with or write to be accessible
-       through your httpd.  This should be straightforward if you have a
-       working Webmacro installation; I don't really understand servlets but I
-       seem to be able to call them up using URLs like
-
-<BLOCKQUOTE><PRE>
-http://localhost/webmacro/org.melati.admin.Admin/...
-</PRE></BLOCKQUOTE>
-
-       containing a full Java package/class name, just as long as (a) the
-       &quot;servlet zone&quot; <TT>webmacro</TT> exists and (b)
-       <TT>org/melati/admin/Admin.class</TT> is in the <TT>CLASSPATH</TT>.
-       YMMV.
-
-  <LI> Get Melati's Webmacro templates into Webmacro's template path.  Melati
-       looks for its templates relative to <TT>org/melati</TT> in its source
-       tree, so you should edit your <TT>WebMacro.properties</TT> to say
-       something like
-
-  <LI> Edit Melati's own config file, found in the source tree as
-       <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, which
-       describes the mapping from &quot;logical database names&quot; to JDBC
-       connection details.  You may not have to change anything.
-
+</PRE>
+    </BLOCKQUOTE>
+    ---those two files being entry points to respectively the admin system and 
+    the DSD preprocessor, which should cause everything to get compiled (except 
+    for a few sources not currently in use). 
 </UL>
-
+<UL>
+  <LI> Arrange for Melati's classes to be accessible to your servlet runner, for 
+    instance by adding a line 
+    <BLOCKQUOTE> 
+      <PRE>
+wrapper.classpath=/usr/local/packages/inst/melati-0.0.x
+</PRE>
+    </BLOCKQUOTE>
+    to the appropriate place in your <TT>jserv.properties</TT>. 
+  <LI> Arrange for Melati servlets you play with or write to be accessible through 
+    your httpd. This should be straightforward if you have a working Webmacro 
+    installation; I don't really understand servlets but I seem to be able to 
+    call them up using URLs like 
+    <BLOCKQUOTE> 
+      <PRE>
+http://localhost/webmacro/org.melati.admin.Admin/...
+</PRE>
+    </BLOCKQUOTE>
+    containing a full Java package/class name, just as long as (a) the &quot;servlet 
+    zone&quot; <TT>webmacro</TT> exists and (b) <TT>org/melati/admin/Admin.class</TT> 
+    is in the <TT>CLASSPATH</TT>. YMMV. 
+  <LI> Get Melati's Webmacro templates into Webmacro's template path. Melati looks 
+    for its templates relative to <TT>org/melati</TT> in its source tree, so you 
+    should edit your <TT>WebMacro.properties</TT> to say something like 
+  <blockquote>
+    <pre>TemplatePath = /usr/local/packages/inst/melati-0.0.x/org/melati:/home/me/templates</pre>
+  </blockquote>
+  <li> Edit Melati's own config file, found in the source tree as <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, 
+    which describes the mapping from &quot;logical database names&quot; to JDBC 
+    connection details. You may not have to change anything. </li>
+</UL>
 <P>
   To check that Melati is working, try looking at
 </P>
@@ -358,6 +360,9 @@ http://localhost/webmacro/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.7  2000/03/01 11:45:35  timj
+  <BR>explicitly identify what needs to be in the classpath in order to compile
+  <BR>
   <BR>Revision 1.6  2000/02/29 09:53:02  williamc
   <BR>Finish recovering from disaster; point out in the docs that you can 'add methods to table rows'
   <BR>

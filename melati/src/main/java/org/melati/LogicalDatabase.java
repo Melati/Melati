@@ -81,60 +81,87 @@ public class LogicalDatabase {
       return getDatabase(name);
   }
 
+  private static final Object pending = new Object();
+
+  public static class ConnectionPendingException
+      extends MelatiRuntimeException {
+
+    public String name;
+
+    public ConnectionPendingException(String name) {
+      this.name = name;
+    }
+
+    public String getMessage() {
+      return "The database `" + name + "' is in the process of being " +
+             "initialized; please try again in a moment";
+    }
+  }
+
   public static Database getDatabase(String name) throws DatabaseInitException {
     if (name == null)
       name = "default";
-    
+
+    Object dbOrPending;
+
     synchronized (databases) {
-      Database database = (Database)databases.get(name);
-      if (database == null) {
-        try {
-          Properties defs = databaseDefs();
-          String pref = className + "." + name + ".";
-          String url = PropertiesUtils.getOrDie(defs, pref + "url");
-          String user = PropertiesUtils.getOrDie(defs, pref + "user");
-          String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
-          String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-          String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
-          
-          /*
-           The driver is now initialized and checked by the dbms class as we
-           have one dbms class for each jdbc driver.
+      dbOrPending = databases.get(name);
+      if (dbOrPending == pending)
+        throw new ConnectionPendingException(name);
+      else if (dbOrPending == null)
+        databases.put(name, pending);
+    }
 
-          String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
+    if (dbOrPending != null)
+      return (Database)dbOrPending;
 
-	  Object driverObject = Class.forName(driverName).newInstance();
+    try {
+      Properties defs = databaseDefs();
+      String pref = className + "." + name + ".";
+      String url = PropertiesUtils.getOrDie(defs, pref + "url");
+      String user = PropertiesUtils.getOrDie(defs, pref + "user");
+      String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
+      String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
+      String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
 
-	  if (!(driverObject instanceof Driver))
-	    throw new ClassCastException(
-                "The .driver=" + driverName + " entry named a class of type " +
-                driverObject.getClass() + ", which is not a java.sql.Driver");
+      /*
+       The driver is now initialized and checked by the dbms class as we
+       have one dbms class for each jdbc driver.
 
-	  Driver driver = (Driver)driverObject;
-          */
+      String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
 
-	  Object databaseObject = Class.forName(clazz).newInstance();
+      Object driverObject = Class.forName(driverName).newInstance();
 
-	  if (!(databaseObject instanceof Database)) 
- 	    throw new ClassCastException(
-                "The .class=" + clazz + " entry named a class of type " +
-                databaseObject.getClass() + ", " +
-                "which is not an org.melati.poem.Database");
+      if (!(driverObject instanceof Driver))
+        throw new ClassCastException(
+            "The .driver=" + driverName + " entry named a class of type " +
+            driverObject.getClass() + ", which is not a java.sql.Driver");
 
-          database = (Database)databaseObject;
+      Driver driver = (Driver)driverObject;
+      */
 
-          // Changed to use dbmsclass not driver, it will throw and exception 
-          // if that is not correct
-          //database.connect(driver, url, user, pass);
-          database.connect(dbmsclass, url, user, pass);
-        }
-        catch (Exception e) {
-          throw new DatabaseInitException(databaseDefsName, name, e);
-        }
+      Object databaseObject = Class.forName(clazz).newInstance();
 
-        databases.put(name, database);
-      }
+      if (!(databaseObject instanceof Database)) 
+        throw new ClassCastException(
+            "The .class=" + clazz + " entry named a class of type " +
+            databaseObject.getClass() + ", " +
+            "which is not an org.melati.poem.Database");
+
+      Database database = (Database)databaseObject;
+
+      // Changed to use dbmsclass not driver, it will throw and exception 
+      // if that is not correct
+
+      database.connect(dbmsclass, url, user, pass);
+
+      databases.put(name, database);
+
       return database;
+    }
+    catch (Exception e) {
+      databases.remove(name);
+      throw new DatabaseInitException(databaseDefsName, name, e);
     }
   }
 }

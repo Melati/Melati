@@ -1,6 +1,7 @@
 package org.melati.util;
 
 import javax.servlet.http.*;
+import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 public class HttpUtil {
   public static void appendZoneURL(
@@ -13,6 +14,8 @@ public class HttpUtil {
       url.append(':');
       url.append(request.getServerPort());
     }
+
+    url.append(HttpServletRequestCompat.getContextPath(request));
 
     String servlet = request.getServletPath();
     if (servlet != null)

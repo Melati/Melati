@@ -64,7 +64,7 @@ public class TemplateServletTestJT extends TemplateServlet {
   Melati melati, TemplateContext templateContext) 
   throws Exception {
 
-    return("test/TemplateServletTestJT");
+    return("org/melati/test/TemplateServletTestJT");
   }
   
 /*

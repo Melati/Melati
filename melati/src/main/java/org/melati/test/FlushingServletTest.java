@@ -63,11 +63,11 @@ import org.webmacro.servlet.WebContext;
 public class FlushingServletTest extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context ) 
-  throws Exception {
+      throws Exception {
     melati.setBufferingOff();
     if (!melati.getMethod().equals("unflushed")) melati.setFlushingOn();
     context.put("waiter", new Waiter());
-    return "test/FlushingServletTest.wm";
+    return "org/melati/test/FlushingServletTest.wm";
   }
 
 /*

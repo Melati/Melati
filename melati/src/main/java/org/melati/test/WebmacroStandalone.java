@@ -137,7 +137,8 @@ public class WebmacroStandalone extends HttpServlet {
             }
 
             // get the template we intend to execute
-            Template t = _wm.getTemplate("test/WebmacroStandalone.wm");
+            Template t = _wm.getTemplate(
+                                   "org/melati/test/WebmacroStandalone.wm");
 
             // Create FastWriter for fast output encoding
 //            FastWriter fw = new FastWriter(resp.getOutputStream(),

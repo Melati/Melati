@@ -70,7 +70,7 @@ import org.webmacro.Template;
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context ) 
-  throws Exception {
+      throws Exception {
 
       // test melati in standalone mode (outside of using the servlet API)
       // by expanding a template
@@ -88,7 +88,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
         Melati m = new Melati(new MelatiConfig(),fmw);
         Context context2 = wm.getContext();
         context2.put("melati",m);
-        Template template = wm.getTemplate("test/StandAlone.wm");
+        Template template = wm.getTemplate("org/melati/test/StandAlone.wm");
         template.write(fmw.getPeer(), context2);
         fmw.flush();
         // write to the StringWriter
@@ -96,7 +96,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
         // finally, put what we have into the original templateContext
         context.put("StandAlone",out);
       }
-    return "test/WebmacroMelatiServletTest.wm";
+    return "org/melati/test/WebmacroMelatiServletTest.wm";
   }
 
 /*

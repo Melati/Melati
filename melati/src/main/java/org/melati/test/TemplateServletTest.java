@@ -65,8 +65,9 @@ public class TemplateServletTest extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
                                      TemplateContext templateContext) 
-                                                          throws Exception {
-    templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
+      throws Exception {
+    templateContext.put("RestrictedAccessObject", 
+                        new RestrictedAccessObject());
 
     if (melati.getMethod() != null) {
 
@@ -87,7 +88,7 @@ public class TemplateServletTest extends TemplateServlet {
       if (melati.getMethod().equals("Exception")) 
         throw new MelatiBugMelatiException("It got caught!");
     }   
-    return("test/TemplateServletTest");
+    return("org/melati/test/TemplateServletTest");
   }
 
 /**

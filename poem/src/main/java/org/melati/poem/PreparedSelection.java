@@ -168,8 +168,13 @@ public class PreparedSelection {
   public Persistent nth(int n) {
     compute();
     Vector selection = this.selection;
-    return selection.isEmpty() ?
+    return selection.size() <= n ?
                null :
                table.getObject((Integer)selection.elementAt(n));
+  }
+
+  public int count() {
+    compute();
+    return this.selection.size();
   }
 }

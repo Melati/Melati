@@ -52,6 +52,9 @@ import org.melati.poem.Field;
 import org.melati.poem.ReferencePoemType;
 import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
+import org.melati.util.Tree;
+import org.melati.util.Treeable;
+import org.melati.util.JSStaticTree;
 
 public class AdminUtils {
 
@@ -116,6 +119,18 @@ public class AdminUtils {
     return
         adminURL + "/" + logicalDatabase + "/" +
         object.getTable().getName() + "/" + object.troid() + "/Edit";
+  }
+
+  public String TreeURL(Persistent object) throws AccessPoemException {
+    return
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/Tree";
+  }
+
+  public String TreeControlURL(Persistent object) throws AccessPoemException {
+    return
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/TreeControl";
   }
 
   public String AddURL(Table table) throws AccessPoemException {
@@ -187,4 +202,11 @@ public class AdminUtils {
                melati.getTemplateContext());
     return "";
   }
+
+  public JSStaticTree createTree(Treeable node) {
+      return new JSStaticTree(new Tree(node));
+  }
+
 }
+
+

@@ -31,7 +31,7 @@ public class Admin extends MelatiServlet {
 
   protected final Template adminTemplate(WebContext context, String name)
       throws NotFoundException, InvalidTypeException {
-    return getTemplate("admin/" + name);
+        return getTemplate("admin/" + name);
   }
 
   protected Template tablesViewTemplate(WebContext context, Melati melati)

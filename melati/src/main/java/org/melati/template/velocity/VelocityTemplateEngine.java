@@ -294,15 +294,19 @@ public class VelocityTemplateEngine implements TemplateEngine {
   }
 
   /** 
-   * @param encoding the character encoding to associate with this writer
-   * @throws IOException if there is a problem with the filesystem.
-   * @return a {@link MelatiWriter} 
-   *         configured for this engine.
-   * @deprecated The best possible {@link MelatiWriter} that is like a
-   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
+   * @deprecated Use {@link #getStringWriter()}.
+   * @todo Delete this method. Suggest 2004.
    */
-  public MelatiWriter getStringWriter(String encoding) 
-          throws IOException {
+  public MelatiWriter getStringWriter(String encoding) {
+    return getStringWriter();
+  }
+
+  /** 
+   * Return a {@link MelatiStringWriter}.
+   *
+   * @see Melati#getStringWriter() 
+   */
+  public MelatiStringWriter getStringWriter() {
     return new MelatiStringWriter();
   }
 

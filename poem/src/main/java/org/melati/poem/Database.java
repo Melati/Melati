@@ -297,7 +297,7 @@ abstract public class Database implements TransactionPool {
 
   private ResultSet columnsMetadata(DatabaseMetaData m, String tableName)
       throws SQLException {
-    return m.getColumns(null, null, tableName, null);
+    return m.getColumns(null, null, dbms.unreservedName(tableName), null);
   }
 
   public Table addTableAndCommit(TableInfo info, String troidName)
@@ -336,9 +336,11 @@ abstract public class Database implements TransactionPool {
          ti.hasMoreElements();) {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
       Table table = (Table)tablesByName.get(tableInfo.getName());
-      if (table == null)
+      if (table == null) {
+//        System.err.println("Defining table:" + tableInfo.getName());
         defineTable(table = new Table(this, tableInfo.getName(),
                                       DefinitionSource.infoTables));
+      }
       table.setTableInfo(tableInfo);
     }
 
@@ -359,10 +361,12 @@ abstract public class Database implements TransactionPool {
     DatabaseMetaData m = committedConnection.getMetaData();
     ResultSet tableDescs = m.getTables(null, null, null, normalTables);
     while (tableDescs.next()) {
-      String tableName = tableDescs.getString("TABLE_NAME");
+      String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       Table table = (Table)tablesByName.get(tableName);
+//      System.err.println("tableDescs:" + tableName);
 
       if (table == null) {
+//      System.err.println("table null but named:" + tableName);
         // but we only want to include them if they have a plausible troid:
 
         ResultSet idCol = m.getColumns(null, null, tableName, "id");
@@ -378,10 +382,17 @@ abstract public class Database implements TransactionPool {
           }
           table.createTableInfo();
         }
-      }
+      }// else 	System.err.println("table not null:" + tableName);
 
-      if (table != null)
+
+      if (table != null) {
+//         System.err.println("table not null now:" + tableName);
+//         System.err.println("columnsMetadata(m, tableName):" 
+//                              + columnsMetadata(m, tableName));
+         // Create the table if it has no metadata
+         // unify with it either way
         table.unifyWithDB(columnsMetadata(m, tableName));
+      }
     }
 
     // ... and create any that simply don't exist
@@ -390,8 +401,10 @@ abstract public class Database implements TransactionPool {
       Table table = (Table)t.nextElement();
       // bit yukky using getColumns ...
       ResultSet colDescs = columnsMetadata(m, table.getName());
-      if (!colDescs.next())
+      if (!colDescs.next()) {
+//      System.err.println("Table has no columns in dbms:" + table.getName());
         table.unifyWithDB(null);
+      }
     }
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
@@ -858,26 +871,14 @@ abstract public class Database implements TransactionPool {
   // =======
   // 
 
-  public String givesCapabilitySQL(User user, String capabilityExpr) {
-    return
-        "SELECT * FROM groupmembership " +
-        "WHERE " + quotedName("user") + " = " + user.troid() + " AND " +
-        "EXISTS (" +
-          "SELECT " + quotedName("group") + ", capability " +
-          "FROM groupcapability " +
-          "WHERE groupcapability." + quotedName("group") +
-              " = groupmembership." + quotedName("group") + " " +
-          "AND capability = " + capabilityExpr + ")";
-  }
 
   public String givesCapabilitySQL(User user, Capability capability) {
-    return givesCapabilitySQL(user, capability.troid().toString());
+    return dbms.givesCapabilitySQL(user, capability.troid().toString());
   }
 
   private boolean dbGivesCapability(User user, Capability capability) {
 
     // FIXME use a prepared statement
-    // FIXME use the quotedName
 
     String sql = givesCapabilitySQL(user, capability);
     ResultSet rs = null;

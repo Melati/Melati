@@ -69,7 +69,7 @@ public class Setting extends SettingBase {
     if (poemType == null) {
       PoemTypeFactory f = getTypefactory();
       if (f == null)
-	return StringPoemType.nullable;
+	return new StringPoemType(true, getDatabase().getDbms(), -1);
       poemType = getTypefactory().typeOf(getDatabase(), toTypeParameter());
     }
     return poemType;

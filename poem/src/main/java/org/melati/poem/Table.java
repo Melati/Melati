@@ -1331,6 +1331,7 @@ public class Table {
     try {
       synchronized (cache) {    // belt and braces
         uncacheContents();
+	transactionStuffs.invalidate();
         defineColumn(column, true);
       }
       PoemThread.commit();

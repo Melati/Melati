@@ -58,7 +58,7 @@ package org.melati.poem.csv;
  * An error in parsing a CSV line
  *
  */
-public class CSVParseException extends Exception {
+public class CSVParseException extends RuntimeException {
 
   /**
    * @param s the error message.

@@ -50,7 +50,7 @@ package org.melati.poem.csv;
  * @author tim.pizey
  *
  */
-public class CSVWriteDownException extends Exception {
+public class CSVWriteDownException extends RuntimeException {
 
   String tableName = null;
   int lineNo;

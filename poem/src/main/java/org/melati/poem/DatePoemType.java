@@ -87,7 +87,7 @@ public class DatePoemType extends AtomPoemType {
   }
 
   /** 
-   * HACK reformat DDMMYYY dates to YYYY-MMM-DD
+   * HACK reformat DDMMYYYY dates to YYYY-MM-DD
    * @see org.melati.poem.BasePoemType#_rawOfString(java.lang.String)
    */
   protected Object _rawOfString(String raw) {

@@ -120,6 +120,10 @@ public class Field implements FieldAttributes, Cloneable {
     return it;
   }
 
+  public Field withNullable(boolean nullable) {
+    return new Field(raw, new BaseFieldAttributes(attrs, nullable));
+  }
+
   public Enumeration getPossibilities() {
     final Field _this = this;
     return

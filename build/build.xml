@@ -177,7 +177,7 @@ usage:
         <mkdir dir="${built.lib}"/>
         <jar jarfile="${built.lib}/${project}.jar"
             basedir="${compiled.root}"
-            includes="**/*.class"
+            includes="**/*.class, **/*.dsd"
         />
         <zip zipfile="${built.lib}/src.zip" 
             basedir="${this.root}" 
@@ -369,11 +369,10 @@ usage:
           <exclude name="**/CVS/**"/>
       </zipfileset>
       <!-- Templets and properties files -->
-      <fileset dir="${this.root}">
+      <fileset dir="${built.src}">
         <patternset>
           <include name="**/*.properties"/>
           <include name="**/*.wm"/>
-          <exclude name="**/dist/**"/>
         </patternset>
       </fileset>
       <!-- Third party jars -->
@@ -402,10 +401,6 @@ usage:
     </java>
   </target>
 
-  <target name="test" 
-          description="build (excluding javadoc) and run"
-          depends="site, war, run">
-  </target>
 
     <!-- ============================================================== -->
     <!-- Do all of it                                                   -->
@@ -419,6 +414,20 @@ usage:
           depends="build, run">
   </target>
 
+    <!-- ============================================================== -->
+    <!-- Edit, compile, test cycle                                      -->
+    <!-- ============================================================== -->
+  <target name="test" 
+          description="build (excluding javadoc) and run"
+          depends="clean, compile, jar, sources, package, war, run">
+  </target>
+    <!-- ============================================================== -->
+    <!-- Edit, compile, test cycle                                      -->
+    <!-- ============================================================== -->
+  <target name="template" 
+          description="build (excluding javadoc) and run"
+          depends="sources, war, run">
+  </target>
 </project>
 
 

@@ -453,14 +453,22 @@ public class Melati {
   public void establishCharsets() throws ServletException {
 
     AcceptCharset ac;
+    String acs = request.getHeader("Accept-Charset");
+    assert acs == null || acs.trim().length() > 0 :
+      "Accept-Charset should not be empty but can be absent";
+    // Having said that we don't want to split hairs once debugged
+    if (acs != null && acs.trim().length() == 0) {
+      acs = null;
+    }
     try {
-      ac = new AcceptCharset(request.getHeader("Accept-Charset"),
-                             config.getPreferredCharsets());
+      ac = new AcceptCharset(acs, config.getPreferredCharsets());
     }
     catch (HttpHeader.HttpHeaderException e) {
       ServletException t = new ServletException(
           "An error was apparently detected in your HTTP request header " +
-          " worthy of response code: " + HttpServletResponse.SC_BAD_REQUEST);
+          " worthy of response code: " +
+          HttpServletResponse.SC_BAD_REQUEST +
+          ": \"" + acs + '"');
       t.initCause(e);
       throw t;
     }

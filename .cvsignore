@@ -1,2 +1,8 @@
+site
 classes
 scripts
+target
+maven.log
+velocity.log
+.project
+.classpath

@@ -99,15 +99,26 @@ public class CSVRecord extends Vector {
 
     for(int j = 0; j < size(); j++) {
       CSVColumn col = ((CSVField)elementAt(j)).column;
-      String cvsValue = ((CSVField)elementAt(j)).value;
+      String csvValue = ((CSVField)elementAt(j)).value;
 
       if (col.foreignTable == null) {
         if (col.poemName != null)
-          newObj.setRawString(col.poemName, cvsValue);
+          try {
+            if (csvValue != null && !csvValue.equals("")) {
+              newObj.setRawString(col.poemName, csvValue);
+            }
+          } catch (Exception e) {
+            throw new RuntimeException("Problem processing column " + 
+                                       col.poemName + 
+                                       " of table " + 
+                                       table.getName() + 
+                                       " value :" + csvValue + 
+                                       ": " + e.toString());
+          }
       }
       // Lookup up value in the foreign Table
       else {
-        Persistent lookup = col.foreignTable.getRecordWithID(cvsValue);
+        Persistent lookup = col.foreignTable.getRecordWithID(csvValue);
         newObj.setCooked(col.poemName, lookup);
       }
     }

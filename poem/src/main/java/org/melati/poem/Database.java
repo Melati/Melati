@@ -198,6 +198,10 @@ abstract public class Database {
 
   public Table addTableAndCommit(TableInfo info, String troidName)
       throws PoemException {
+
+    // For permission control we rely on them having successfully created a
+    // TableInfo---FIXME this may not be enough!
+
     Table table = new Table(this, info.getName(),
                             DefinitionSource.infoTables);
     table.setTableInfo(info);

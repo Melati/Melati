@@ -25,6 +25,10 @@
               files="DatePoemtype.java" />
     <suppress checks="FileLength"
               files="Table.java" />
+    <!-- Name deliberately chosen -->
+    <suppress checks="LocalVariableName"
+              files="FieldSet.java" />
+
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"
               files="TableDef.java" />

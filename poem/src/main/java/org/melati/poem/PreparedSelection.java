@@ -16,8 +16,6 @@ public class PreparedSelection {
   private PoemFloatingVersionedObject cache;
   private final Table table;
 
-  private PreparedStatement statementForCommittedSession = null;
-
   public PreparedSelection(final Table table,
                            final String whereClause,
                            final String orderByClause) {

@@ -82,13 +82,8 @@ public class MySQL extends AnsiStandard {
 
 
     public MySQL() {
-        setDriverClassName("org.gjt.mm.mysql.Driver");	
+       setDriverClassName("org.gjt.mm.mysql.Driver");	
     }
-
-    public String preparedStatementPlaceholder(PoemType type) {
-      		return "?";
-  }
-
 
     // this should probably be MySQL type BOOL == char(1)
     public String getSqlDefinition(String sqlTypeName) throws SQLException {
@@ -239,6 +234,7 @@ public class MySQL extends AnsiStandard {
         */
 
         //I leave case as Postgres driver has it.
+
 	if( md.getString("TYPE_NAME").equals("blob") )
 	    return new BlobPoemType( md.getInt("NULLABLE") ==
                                   DatabaseMetaData.columnNullable );

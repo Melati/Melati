@@ -48,11 +48,12 @@ package org.melati.admin;
 import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 
-  /**
-   * An interface that allows the editting and display of an object to be extended.
-   * To process the object in a special way your template should use 
-   * a method other than <code>Update</code>.
-   */
+/**
+ * An interface that allows the editting and display of an object 
+ * to be extended.
+ * To process the object in a special way your template should use 
+ * a method other than <code>Update</code>.
+ */
 
 public interface AdminSpecialised {
 
@@ -60,18 +61,28 @@ public interface AdminSpecialised {
    * Perform the specialised function and return the name of the
    * template presenting the results.
    * Return null if not used.
+   * 
    * @see org.melati.admin.Admin
+   * @param melati         the current {@link Melati}
+   * @param markupLanguage the current {@link MarkupLanguage}
+   * @return the name of a special template or null if not used
+   * @throws Exception if anything goes wrong
    */
   String adminHandle (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;
   
   /**
-   * Returns the name of a template which provides access to the
+   * Returns the name of a templet which provides access to the
    * specialised functionality.
    * The results of the template are currently included at the bottom of the 
    * standard edit page.
+   * 
    * see also org.melati.admin.Edit.wm
    * @see org.melati.admin.AdminUtils
+   * @param melati         the current {@link Melati}
+   * @param markupLanguage the current {@link MarkupLanguage}
+   * @return the name of a special templet or null if not used
+   * @throws Exception if anything goes wrong
    */
   String adminSpecialFacilities (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;

@@ -51,6 +51,7 @@ import java.util.*;
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import java.security.Principal;
 
 public class ReconstructedHttpServletRequest implements HttpServletRequest {
 
@@ -109,6 +110,9 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
     return newRequest.getRemoteHost();
   }
 
+  /**
+    * @deprecated in Servlet API 2.2
+  */
   public String getRealPath(String path) {
     return newRequest.getRealPath(path);
   }
@@ -226,7 +230,64 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
     return newRequest.isRequestedSessionIdFromCookie();
   }
 
+  /**
+    * @deprecated in Servlet API 2.2
+  */
   public boolean isRequestedSessionIdFromUrl() {
     return newRequest.isRequestedSessionIdFromUrl();
   }
+
+  // added for Servlet API 2.2
+  public String getContextPath() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public Enumeration getHeaders(String arg) {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public HttpSession getSession() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public Principal getUserPrincipal() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public boolean isRequestedSessionIdFromURL() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public boolean isUserInRole(String arg) {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public Enumeration getAttributeNames() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public Locale getLocale()  {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public Enumeration getLocales() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public RequestDispatcher getRequestDispatcher(String arg) {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public boolean isSecure() {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public void removeAttribute(String arg) {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
+  public void setAttribute(String arg1, Object arg2) {
+      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  }
+
 }

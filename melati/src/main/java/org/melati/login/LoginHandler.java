@@ -1,5 +1,7 @@
 package org.melati.login;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import java.net.URLEncoder;
@@ -27,7 +29,10 @@ public class LoginHandler {
   }
 
   protected String loginTemplate(String name) {
-    return "login/" + name;
+    return "org" + File.separatorChar + 
+           "melati" + File.separatorChar + 
+           "login" + File.separatorChar + 
+           name;
   }
 
   protected String loginPageTemplate() {

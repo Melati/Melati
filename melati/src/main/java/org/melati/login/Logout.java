@@ -45,6 +45,7 @@
 
 package org.melati.login;
 
+import java.io.File;
 import javax.servlet.http.HttpSession;
 
 import org.melati.Melati;
@@ -55,7 +56,10 @@ import org.melati.servlet.TemplateServlet;
 public class Logout extends TemplateServlet {
 
   protected String logoutTemplate(String name) {
-    return "login/" + name;
+    return "org" + File.separatorChar + 
+           "melati" + File.separatorChar +
+           "login" + File.separatorChar + 
+           name;
   }
 
   protected String logoutSuccessTemplate() {

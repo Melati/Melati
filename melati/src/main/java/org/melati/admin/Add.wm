@@ -86,7 +86,9 @@ function popupupdate(popupwin,returnfield,id,value) {
 	  ($ml.rendered($field.Description))
       #end
 	</font></TD><TR></TR><TD>
+	  <FONT SIZE="-1" FACE="Arial, Helvetica">
 	  $ml.input($field)
+	  </FONT>
 	</TD>
       </TR>
     #end

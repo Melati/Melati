@@ -119,7 +119,11 @@ public class Melati {
   public YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
-  
+
+  public YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
+    return YMDHMSTimestampAdaptor.it;
+  }
+
   public SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }

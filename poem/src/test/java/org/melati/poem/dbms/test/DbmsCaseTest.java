@@ -84,7 +84,7 @@ public class DbmsCaseTest extends TestCase {
   } 
   
   public void testHsqldb() {
-    String expected = "a LIKE %b%";
+    String expected = "a LIKE '%b%'";
     Hsqldb db = new Hsqldb();
     String actual = db.caseInsensitiveRegExpSQL("a", "b");
     assertEquals(expected, actual);
@@ -98,7 +98,7 @@ public class DbmsCaseTest extends TestCase {
   }
 
   public void testHsqldbBlank() {
-    String expected = " LIKE %%";
+    String expected = " LIKE '%%'";
     Hsqldb db = new Hsqldb();
     String actual = db.caseInsensitiveRegExpSQL("", "");
     assertEquals(expected, actual);
@@ -122,9 +122,9 @@ public class DbmsCaseTest extends TestCase {
    * 
    */
   public void testOracle() {
-    String expected = "b LIKE '%a%'";
+    String expected = "a LIKE '%b%'";
     Oracle db = new Oracle();
-    String actual = db.caseInsensitiveRegExpSQL("a", "b");
+    String actual = db.caseInsensitiveRegExpSQL("a", "'b'");
     assertEquals(expected, actual);
   }
 

@@ -1,4 +1,3 @@
-<!-- End of $Source$ -->
 @header@
   <p align=center>
    <font size=-1><i>
@@ -47,4 +46,3 @@ $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/apac
 </p>
 <p>If you want a Windows CVS client, check out <a href=http://www.wincvs.org>www.wincvs.org</a></p>
 @footer@
-<!-- End of $Source$ -->

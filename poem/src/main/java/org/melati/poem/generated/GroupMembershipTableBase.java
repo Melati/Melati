@@ -134,6 +134,10 @@ public class GroupMembershipTableBase extends Table {
               throws AccessPoemException {
             ((GroupMembership)g).setUserTroid((Integer)raw);
           }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.delete;
+          }
         });
 
     defineColumn(col_group =

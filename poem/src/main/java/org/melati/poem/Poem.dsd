@@ -129,7 +129,8 @@ table GroupMembership
   User user 
     (displayorderpriority = 0)
     (displayname = "User")
-    (description = "The user who belongs to the group");
+    (description = "The user who belongs to the group")
+    (integrityfix = delete);
 
   Group group 
     (displayorderpriority = 1)

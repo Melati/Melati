@@ -683,7 +683,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected String defaultDescription() {
-            return "How referential integrity for the field is maintained";
+            return "How referential integrity is maintained, what to do when the object referred to is deleted";
           }
 
           public Object getRaw_unsafe(Persistent g)

@@ -43,7 +43,7 @@ table Contact
   Date lastupdated
     (displaylevel = record) 
     (searchability = no)
-    (renderinfo = "org.melati.poem.DatePoemType-dropdown.wm")
+    (renderinfo = "org.melati.poem.DatePoemType-dropdown")
     (uneditable)
     (description = "When was this last updated?");
 

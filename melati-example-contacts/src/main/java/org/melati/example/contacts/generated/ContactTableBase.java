@@ -369,7 +369,7 @@ public class ContactTableBase extends Table {
           }
 
           protected String defaultRenderinfo() {
-            return "org.melati.poem.DatePoemType-dropdown.wm";
+            return "org.melati.poem.DatePoemType-dropdown";
           }
 
           public Object getRaw_unsafe(Persistent g)

@@ -59,7 +59,7 @@
    <a href=$admin.TreeURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL
 target=admin_edit$object.Table.Name$object.troid()>tree</a>
 #end
-   <IMG src="$admin.StaticURL/admin/file.gif">
+   <IMG src="$admin.StaticURL/file.gif">
    <FONT FACE="Arial, Helvetica" size=2>&nbsp;$table.DisplayName:
 <a href= "$admin.EditURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
 target=admin_edit$object.Table.Name$object.troid()>

@@ -44,7 +44,8 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException, NoSuchRowPoemException {\n" +
             "    Integer troid = get" + suffix + "Troid();\n" +
             "    return troid == null ? null :\n" +
-            "        getDatabase()." + targetTableAccessorMethod + "()." +
+            "        ((" + table.dsd.databaseClass + ")getDatabase())." +
+                         targetTableAccessorMethod + "()." +
                          "get" + targetSuffix + "Object(troid);\n" +
             "  }\n" +
             "\n" +
@@ -62,7 +63,7 @@ public class ReferenceFieldDef extends FieldDef {
     // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     return
-        "new ReferencePoemType(getDatabase()." +
+        "new ReferencePoemType(((" + table.dsd.databaseClass + ")getDatabase())." +
         targetTableAccessorMethod + "(), " + isNullable + ")";
   }
 }

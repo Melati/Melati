@@ -55,7 +55,7 @@ public class HttpServletRequestParameters {
   final String requestURL;
   final String queryString;
   final String method;
-  final HttpSession session;
+  final String sessionID;
 
   public HttpServletRequestParameters(HttpServletRequest request) {
     parameters = new Hashtable();
@@ -68,7 +68,8 @@ public class HttpServletRequestParameters {
     requestURL = HttpUtils.getRequestURL(request).toString();
     queryString = request.getQueryString();
     method = request.getMethod();
-    session = request.getSession(true);
+    HttpSession session = request.getSession(true);
+    sessionID = session == null ? null : session.getId();
   }
 
   public String continuationURL() {

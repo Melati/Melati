@@ -45,7 +45,9 @@
 
 package org.melati.poem;
 
-import org.melati.poem.generated.*;
+import java.util.Vector;
+import java.util.Enumeration;
+import org.melati.poem.generated.ColumnInfoBase;
 
 public class ColumnInfo extends ColumnInfoBase {
 
@@ -91,4 +93,29 @@ public class ColumnInfo extends ColumnInfoBase {
       }
     }
   }
+
+ /* 
+  * Only those fields which are relevant to this column 
+  * and legal as a field qualifier in the DSD.
+  */ 
+  public Enumeration getDsdQualifiers() {
+    Vector v = new Vector();
+    Enumeration allFields = getFields();
+    while (allFields.hasMoreElements()) {
+      Field f = (Field)allFields.nextElement();
+      String n = f.getName();
+      if (f.getType() instanceof TroidPoemType) {}
+      else if (n.equals("name")) {}
+      else if (n.equals("typefactory")) {}
+      else if (n.equals("tableinfo")) {}
+      else if (n.equals("size") && 
+        (!(column().getType() instanceof SizedAtomPoemType))) {}
+      else if (n.equals("integrityfix") && 
+        (!(column().getType() instanceof ReferencePoemType))) {}
+      else v.addElement(f);
+    }
+    return v.elements();
+  }
 }
+
+

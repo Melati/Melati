@@ -1,12 +1,24 @@
 #set $Response.ContentType = "text/html"
 <HTML>
-<body onload="init();">
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage
 #if ($tree) #begin
+ #if ($tree.flattened().size() < 2000) #begin
+<body onload="init();">
 $ml.rendered($tree)
+ #end #else #begin
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2">
+ alert("Tree size is greater than limit of 2000: " + $tree.flattened().size());
+</SCRIPT>
+Tree size is greater than limit of 2000: " + $tree.flattened().size()
+ #end
 #end #else #begin
-Tree is null
+<body>
+<SCRIPT LANGUAGE="JavaScript1.2">
+ alert("Tree is null.");
+</SCRIPT>
+Tree is null.
 #end
 
 </body>

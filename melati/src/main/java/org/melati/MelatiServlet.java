@@ -414,8 +414,6 @@ public abstract class MelatiServlet extends MelatiWMServlet {
         throw new ServletException(e.toString());
       }
 
-      database.logSQL = true;
-
       database.inSession(
           AccessToken.root,
           new PoemTask() {

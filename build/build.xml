@@ -53,6 +53,7 @@
   <property name="sqlserverJar"     value="mssqlserver.jar" />
   <property name="msBaseJar"        value="msbase.jar" />
   <property name="msUtilJar"        value="msutil.jar" />
+  <property name="Sprinta2000Jar"   value="Sprinta2000.jar" />
   <property name="mckoiJar"         value="mkjdbc.jar}" />
 
   <property name="webmacroJar"      value="webmacro-classic-2.0b1.jar"/>
@@ -498,15 +499,16 @@ usage:
         <include name="${velocityJar}" />
         <include name="${odmgJar}" />
         <include name="${junit}" />
--->
         <include name="${mysqlJar}" />
         <include name="${sqlserverJar}" />
         <include name="${msBaseJar}" />
         <include name="${msUtilJar}" />
+-->
+        <include name="${Sprinta2000Jar}" />
         <include name="${melatiJar}"/>
       </lib>
     </war>
-    <!-- don't want to have to refer to specific versions in jelly.xml -->
+    <!-- don't want to have to refer to specific versions in jetty.xml -->
     <copy file="${war}" tofile="${packaged.dir}/${project}.war"/>
   </target>
   

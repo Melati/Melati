@@ -58,6 +58,21 @@
 
 
 <H4>
+<!-- ---------- -->
+      Dataflow
+<!-- ---------- -->
+</H4>
+
+<P>
+  The data structure definition is processed into a set of machine-generated
+  Java files, including a Java schema representation whose job is to initialise
+  (and subsequently check the consistency of) the running database when the
+  Melati application is started up.
+</P>
+
+
+
+<H4>
 <!-- ------------------- -->
       Annotated example
 <!-- ------------------- -->
@@ -1042,6 +1057,13 @@ TextType notesTypes = invoice.table().getNotesType();
   something suitable for input to a PDF generator.
 </P>
 
+<P>
+  <FONT COLOR=red>FIXME: this is in fact probably NOT how we will do it; we've
+  realised that calling up mini subtemplates for controls is a much better
+  idea!  Embedding HTML (or whatever) in the Java is just wrong, even if it's
+  wrapped in some library.</FONT>
+</P>
+
 
 <H4>
 <!-- ------------------------- -->
@@ -1150,6 +1172,13 @@ TextType notesTypes = invoice.table().getNotesType();
   facilities for inserting markup which renders field values (which need, for
   instance, to be escaped in a manner appropriate to the target language) and
   input controls.
+</P>
+
+<P>
+  <FONT COLOR=red>FIXME: this is in fact probably NOT how we will do it; we've
+  realised that calling up mini subtemplates for controls is a much better
+  idea!  Embedding HTML (or whatever) in the Java is just wrong, even if it's
+  wrapped in some library.</FONT>
 </P>
 
 
@@ -1417,12 +1446,13 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
 <P>
   Field display preferences set in the data structure definition---canonically,
   the default height of a <TT>TEXTAREA</TT>---can be adjusted freely by the
-  administrator; the system will never `change them back', because the
-  definition is only used for the initial creation of predeclared tables and
-  for checking that the database has not been changed in such a fundamental way
-  as to break the Java code.  <FONT COLOR=red>FIXME: TimJ points out that this
-  could be confusing: ``I changed my DSD and regenerated, but my text area is
-  still the same size''.</FONT>
+  administrator; the system will never `change them back', because the system
+  only ever <I>adds</I> fields in the DSD which are missing from the running
+  database.  <FONT COLOR=red>FIXME: TimJ points out that this could be
+  confusing: ``I changed my DSD and regenerated, but my text area is still the
+  same size''.  It is confusing, and we need a warning message, but the only
+  alternative is to remove preference information to a separate file, and that
+  would detract from the appealing conciseness of the notation.</FONT>
 </P>
 
 <P>
@@ -1432,7 +1462,8 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
   field (and add it again in a different form), or rename it, provided that it
   was not declared in the data structure definition; whenever such a change is
   made (which is assumed to be seldom), the data cache is cleared of records
-  from the table in question.
+  from the table in question, because otherwise the persistent store would have
+  to cope with multiple versions of a table's shape.
 </P>
 
 
@@ -1643,8 +1674,8 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
   The CVS log for this document is:
   <BR>
   <BR>$Log$
-  <BR>Revision 1.1  2000/02/04 11:51:59  williamc
-  <BR>Rename from JAL2 to Melati
+  <BR>Revision 1.2  2000/02/04 18:28:34  williamc
+  <BR>Add QA stub; explain DSD-admin interactino a little better
   <BR>
   <BR>
 </P>

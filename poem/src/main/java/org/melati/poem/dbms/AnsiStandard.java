@@ -126,13 +126,6 @@ public class AnsiStandard implements Dbms {
 
 
   public String preparedStatementPlaceholder(PoemType type) {
-    if (type instanceof IntegerPoemType)
-      return "CAST(? AS INT4)";
-    else if (type instanceof LongPoemType)
-      return "CAST(? AS INT8)";
-    else if (type instanceof DoublePoemType)
-      return "CAST(? AS FLOAT8)";
-    else 
       return "?";
   }
 

@@ -69,8 +69,13 @@ to create a release:
 4.  Add a paragraph about this release to melati/site/docsrc/Releases.ahtml
     Review melati/site/docsrc/Roadmap.ahtml
 5.  CVS commit all of the above
-6.  CVS tag this release (cvs tag Melati-0-7-2)
+6.  CVS tag this release (cvs tag Melati-0-7-3)
 7.  Build melati (again) locally
+    cd build
+    ant go
+    cd ..
+    maven clean
+    maven site
 8.  Test everything
 9.  Update ganesh
     cd /inst/melati
@@ -91,7 +96,6 @@ to create a release:
 
        webmacro-user@lists.sourceforge.net,
        velocity-user@jakarta.apache.org, 
-       users@maven.apache.org
 
        pgsql-jdbc@postgresql.org,
        java@lists.mysql.com, 
@@ -102,9 +106,6 @@ to create a release:
 13. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
        pol@messageboards.paneris.org
-       ftc@messageboards.paneris.org
-       apw@messageboards.paneris.org
-       gtl@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
        begbroke@messageboards.paneris.org
 14. Add SNAPSHOT to currentVersion in ../project.xml

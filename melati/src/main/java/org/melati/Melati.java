@@ -605,10 +605,12 @@ public class Melati {
    * @see org.melati.template.MarkupLanguage#rendered(Exception e)
    */
 
-  // FIXME - returning untyped object is not nice
-
   public Object getPassbackVariableExceptionHandler() {
     return templateEngine.getPassbackVariableExceptionHandler();
+  }
+
+  public void setVariableExceptionHandler(Object veh) {
+    templateContext.setVariableExceptionHandler(veh);
   }
 
   /**

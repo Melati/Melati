@@ -232,7 +232,7 @@ public final class PoemThread {
   }
 
   /**
-   * Run a {@link PoemTask} under a specified {@link AccessToken, typically 
+   * Run a {@link PoemTask} under a specified {@link AccessToken}, typically 
    * <tt>Root</tt>.
    *
    * @param token the token to run with

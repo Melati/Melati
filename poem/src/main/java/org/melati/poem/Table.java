@@ -1866,7 +1866,7 @@ public class Table implements Selectable {
    * record in the <TT>tableinfo</TT> table.
    *
    * @see Persistent#getCanWrite()
-   * @return the default  {@link Capabaility} required to write  a 
+   * @return the default  {@link Capability} required to write  a 
    *         {@link Persistent}, if any
    */
   public final Capability getDefaultCanWrite() {
@@ -1877,7 +1877,7 @@ public class Table implements Selectable {
    * The capability required for deleting records in the table, unless
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
-   * @return the default  {@link Capabaility} required to delete a 
+   * @return the default  {@link Capability} required to delete a 
    *         {@link Persistent}, if any
    */ 
   public final Capability getDefaultCanDelete() {
@@ -2110,7 +2110,7 @@ public class Table implements Selectable {
    * A mechanism for caching a record count.
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
-   * @param orderBtClause raw SQL order clause appropriate for this DBMS
+   * @param orderByClause raw SQL order clause appropriate for this DBMS
    * @param nullable whether thit is nullable
    * @return a {@link RestrictedReferencePoemType}
    */

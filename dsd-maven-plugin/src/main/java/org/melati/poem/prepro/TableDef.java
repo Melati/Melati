@@ -183,7 +183,7 @@ public class TableDef {
   */
   public void generateTableAccessorDefnJava(Writer w) throws IOException {
     if (!isAbstract) {
-      w.write(naming.tableMainClassRootReturnClass() + 
+      w.write("  " + naming.tableMainClassRootReturnClass() + 
               " get" + naming.tableMainClassShortName() + "();\n");
     }
   }

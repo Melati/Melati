@@ -12,6 +12,8 @@ import java.util.Iterator;
 
 public class OdmgTest {
 
+  private OdmgTest() {}
+  
   public static final void main(String[] argsIn)
     throws Exception {
 
@@ -78,7 +80,7 @@ public class OdmgTest {
     System.out.println("OdmgTest done:");
   }
 
-  private static final Parent newParent()
+  private static Parent newParent()
     throws Exception {
     return (Parent)org.melati.poem.odmg.ODMGFactory.
                        getPoemDatabase().getTable("parent").newPersistent();

@@ -16,8 +16,8 @@ This page last updated: $Date$ $Author$
 </p>
 <ul>
   <li>Support for the JSDK2.0, JSDK2.2 and JSDK2.3 APIs.</li>
-  <li>Support for Velocity 1.2 and 1.3RC1</li>
-  <li>Support for Webmacro 1.0</li>
+  <li>Support for <a href="http://jakarta.apache.org/velocity/">Velocity</a> 1.2 and 1.3RC1</li>
+  <li>Support for <a href="http://www.webmacro.org/">Webmacro</a> 1.0</li>
   <li>Support for <a href="http://www.postgresql.org">Postgresql</a> (version 6 to current)</li>
   <li>Support for <a href="http://www.hsqldb.org">HSQLDB</a>, 
       which is included.</li>

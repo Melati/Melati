@@ -160,6 +160,8 @@ usage:
             basedir="${compiled.root}"
             includes="**/*.class, **/*.dsd"
         />
+    </target>
+    <target name="zip" depends="jar">
         <zip zipfile="${built.lib}/src.zip" 
             basedir="${src}" 
             includes="**/*.java"/>
@@ -172,7 +174,7 @@ usage:
     <!-- ================================================================= -->
     <!-- Run the pre-processor to generate the ODMG classes                -->
     <!-- ================================================================= -->
-    <target name="preproODMGPlaying" depends="jar">
+    <target name="preproODMGPlaying" depends="zip">
        <java classname="org.melati.poem.prepro.DSD"
              fork="yes"
              args="${poemODMGDSD}"
@@ -295,7 +297,8 @@ usage:
     <!-- ================================================================= -->
     <!-- Build the .war                                                    -->
     <!-- ================================================================= -->
-  <target name="war">
+  <target name="war" depends="sources">
+    <mkdir dir="${packaged}"/>
     <delete file="${war}"/>
     <war warfile="${war}" webxml="web.xml">
       <!-- The site HTML -->
@@ -378,7 +381,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, jar, javadoc, site, sources, package, war">
+          depends="clean, compile, zip, javadoc, site, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"
@@ -390,7 +393,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc) and run"
-          depends="clean, compile, jar, sources, package, war, run">
+          depends="clean, compile, zip, sources, package, war, run">
   </target>
     <!-- ============================================================== -->
     <!-- Edit, compile, test cycle                                      -->

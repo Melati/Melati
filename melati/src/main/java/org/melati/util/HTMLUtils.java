@@ -48,7 +48,10 @@ import java.io.InputStream;
 import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.Enumeration;
+import java.util.HashMap;
 import javax.swing.text.html.parser.ContentModel;
 import javax.swing.text.html.parser.DTD;
 import javax.swing.text.html.parser.DTDConstants;
@@ -137,7 +140,23 @@ public class HTMLUtils {
     return new FictionalNotifyingDocumentParser(dtdForHTMLParser());
   }
 
-  public static String entityFor(char c, boolean mapBR) {
+  /**
+   * If the given character has special meaning in HTML or will not
+   * necessarily encode in the character set, then return an escape string.
+   * <p>
+   * The name of this method implies the character is escaped as a
+   * character entity but if the second argument is true then newlines
+   * are encoded as &lt;BR&gt;.
+   * This is not required for attribute values.
+   * <p>
+   * Which characters will necessarily encode depends on the charset.
+   * For backward compatibility if a charset is not passed we assume the
+   * character will encode.
+   * If a charset is passed and a character does not encode then we
+   * replace it with a numeric character reference (not an entity
+   * either but pretty similar).
+   */
+  public static String entityFor(char c, boolean mapBR, CharsetEncoder ce) {
     switch (c) {
       case '\n': return mapBR ? "<BR>\n" : null;
       case '<': return "&lt;";
@@ -145,16 +164,30 @@ public class HTMLUtils {
       case '&': return "&amp;";
       case '"': return "&quot;";
       case '\'': return "&#39;";
-      default: return null;
+      default:
+        if (ce == null || ce.canEncode(c)) {
+          // System.err.println("Tested");
+          return null;  
+        } else {
+          String result = "&#x" + Integer.toHexString(c) + ";";
+          System.err.println("Cannot encode: " + c + " so encoded as: " + result);
+          return result;
+        }
     }
-  } 
+  }
 
-  public static String entitied(String s, boolean mapBR) {
+  public static String entitied(String s, boolean mapBR, String encoding) {
     int l = s.length();
-    int i = 0;
+    int i;
     String entity = null;
+
+    CharsetEncoder ce = null;
+    if (encoding != null) {
+      ce = Charset.forName(encoding).newEncoder();
+    }
+
     for (i = 0;
-         i < l && (entity = entityFor(s.charAt(i), mapBR)) == null;
+         i < l && (entity = entityFor(s.charAt(i), mapBR, ce)) == null;
          ++i);
 
     if (entity == null) return s;
@@ -167,7 +200,7 @@ public class HTMLUtils {
 
     char c;
     for (++i; i < l; ++i)
-      if ((entity = entityFor(c = s.charAt(i), mapBR)) != null)
+      if ((entity = entityFor(c = s.charAt(i), mapBR, ce)) != null)
         b.append(entity);
       else
         b.append(c);
@@ -175,8 +208,17 @@ public class HTMLUtils {
     return b.toString();
   }
 
+  /**
+   * Escape the given string as PCDATA without regard for any characters that
+   * cannot be encoded in some required character set.
+   * <p>
+   * This is for backward compatibility mainly because it is used below and
+   * I cannot be bothered to unravel the call sequence to find out what for.
+   *
+   * @see #entitied(String, boolean, String)
+   */    
   public static String entitied(String s) {
-    return entitied(s, true);
+    return entitied(s, true, null);
   }
 
   public static String jsEscapeFor(char c) {

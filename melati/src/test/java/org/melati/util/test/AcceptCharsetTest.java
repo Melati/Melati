@@ -103,6 +103,10 @@ public class AcceptCharsetTest extends TestCase {
     ac = new AcceptCharset(headerValue, supportedPreference);
     assertEquals(null, ac.clientChoice());
     assertEquals(null, ac.serverChoice());
+
+    ac = new AcceptCharset(null, supportedPreference);
+    assertEquals("ISO-8859-1", ac.clientChoice());
+    assertEquals("ISO-8859-1", ac.serverChoice());
   }
 
 }

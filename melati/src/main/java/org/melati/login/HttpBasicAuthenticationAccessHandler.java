@@ -96,9 +96,9 @@ class HttpAuthorization {
       int colon = logpas.indexOf(':');
 
       if (colon == -1)
-      throw new HttpAuthorizationMelatiException(
-        "The browser sent Basic Authorization credentials with no colon " +
-        "(that's not legal)");
+        throw new HttpAuthorizationMelatiException(
+            "The browser sent Basic Authorization credentials with no colon " +
+            "(that's not legal)");
 
       return new HttpAuthorization("Basic",
                                    logpas.substring(0, colon).trim(),
@@ -161,7 +161,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
                                                                       throws Exception {
     String capName = "melati";
     if (useSession())
-    melati.getSession().putValue(REALM, capName);
+      melati.getSession().putValue(REALM, capName);
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
@@ -182,11 +182,11 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       // SELECTion implied by firstWhereEq for every hit
 
       User sessionUser =
-      useSession() ? (User)melati.getSession().getValue(USER) : null;
+          useSession() ? (User)melati.getSession().getValue(USER) : null;
       User user = null;
 
       if (sessionUser == null ||
-      !sessionUser.getLogin().equals(auth.username))
+          !sessionUser.getLogin().equals(auth.username))
       try {
         user = (User)melati.getDatabase().getUserTable().getLoginColumn().
         firstWhereEq(auth.username);
@@ -197,7 +197,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         // paranoia
       }
       else
-      user = sessionUser;
+        user = sessionUser;
 
       if (user == null || !user.getPassword_unsafe().equals(auth.password)) {
 
@@ -234,7 +234,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         PoemThread.setAccessToken(user);
 
         if (useSession() && user != sessionUser)
-        melati.getSession().putValue(USER, user);
+          melati.getSession().putValue(USER, user);
 
         return melati;
       }
@@ -243,6 +243,5 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
   public void buildRequest(Melati melati) 
       throws ReconstructedHttpServletRequestMismatchException, IOException {
-    return;
   }
 }

@@ -49,6 +49,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 
+import org.melati.util.MelatiStringWriter;
+
 /**
  * Provides an interface for objects that output from melati.
  */
@@ -70,6 +72,15 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
   
+  /**
+   * Not sure if this is used now.
+   * <p>
+   * It was used like a <code>StringWriter</code> which is pointless.
+   * If it is used to convert characters to bytes (and not back again)
+   * then that might make sense.
+   *
+   * @todo Check if used and deprecate/delete.
+   */
   public MelatiBufferedVelocityWriter(String encoding) throws IOException {
     this(new ByteArrayOutputStream(), encoding);
   }
@@ -93,7 +104,11 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     out.flush();
     buffer.reset();
   }
-  
+
+  /**
+   * @deprecated Arrange to use {@link MelatiStringWriter#toString()}.
+   * @todo Fix bug or delete as this uses the default platform charset to decode.
+   */
   public String asString() throws IOException {
     out.flush();
     return buffer.toString();

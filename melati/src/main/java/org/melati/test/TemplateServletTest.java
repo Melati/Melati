@@ -83,8 +83,10 @@ public class TemplateServletTest extends TemplateServlet {
         return null;
       }
 
-      if (melati.getMethod().equals("Redirect"))
+      if (melati.getMethod().equals("Redirect")) {
         melati.getResponse().sendRedirect("http://www.melati.org");
+        return null;
+      }
       if (melati.getMethod().equals("Exception")) 
         throw new MelatiBugMelatiException("It got caught!");
     }   

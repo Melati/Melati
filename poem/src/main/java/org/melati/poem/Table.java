@@ -177,7 +177,7 @@ public class Table {
     return name;
   }
 
-  final String quotedName() {
+  public final String quotedName() {
     if (quotedName == null) quotedName = database.quotedName(name);
     return quotedName;
   }
@@ -330,7 +330,7 @@ public class Table {
     searchColumn = column;
   }
 
-  String defaultOrderByClause() {
+  protected String defaultOrderByClause() {
     String clause = defaultOrderByClause;
 
     if (clause == null) {
@@ -1209,7 +1209,9 @@ public class Table {
   /**
    * Append an SQL logical expression to the given buffer to match rows
    * according to the non-null fields of the given object.
-   * 
+   * <p>
+   * The column names are now qualified with the table name so that
+   * subtypes can append elements of a join.
    * 
    * @todo Add mechanism for searching for Nulls
    *
@@ -1229,13 +1231,14 @@ public class Table {
         else
           hadOne = true;
 
+        String columnSQL = column.fullQuotedName();
         if (column.getType() instanceof StringPoemType) {
           clause.append( 
             dbms().caseInsensitiveRegExpSQL(
-                  column.quotedName(),
+                  columnSQL,
                   column.getSQLType().quotedRaw(raw)));
         } else {
-          clause.append(column.quotedName());
+          clause.append(columnSQL);
           clause.append(" = ");
           clause.append(column.getSQLType().quotedRaw(raw));
         }
@@ -2048,4 +2051,15 @@ public class Table {
 
   protected void init() {
   }
+
+  /**
+   * Ensure tables can be used as hashtable keys.
+   * <p>
+   * {@link Persistent.hashcode()} is defined in terms of this
+   * but not used at the time of writing.
+   */
+  public final int hashCode() {
+    return name.hashCode();
+  }
+
 }

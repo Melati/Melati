@@ -55,29 +55,32 @@ public class IoUtils {
 
   public static byte[] slurp(InputStream i, int estimate, int limit)
       throws IOException {
-    byte[] b = new byte[estimate];
-    int p = 0;
+    try {
+      byte[] b = new byte[estimate];
+      int p = 0;
 
-    for (;;) {
-      int g = i.read(b, p, Math.min(b.length, limit) - p);
-      if (g == -1) break;
-      p += g;
-      if (p >= limit) break;
-      if (p >= b.length) {
-        byte[] c = new byte[2 * b.length];
+      for (;;) {
+        int g = i.read(b, p, Math.min(b.length, limit) - p);
+        if (g == -1) break;
+        p += g;
+        if (p >= limit) break;
+        if (p >= b.length) {
+          byte[] c = new byte[2 * b.length];
+          System.arraycopy(b, 0, c, 0, p);
+          b = c;
+        }
+      }
+
+      if (p == b.length)
+        return b;
+      else {
+        byte[] c = new byte[p];
         System.arraycopy(b, 0, c, 0, p);
-        b = c;
+        return c;
       }
     }
-
-    i.close();
-
-    if (p == b.length)
-      return b;
-    else {
-      byte[] c = new byte[p];
-      System.arraycopy(b, 0, c, 0, p);
-      return c;
+    finally {
+      try { i.close(); } catch (Exception e) {}
     }
   }
 
@@ -87,29 +90,32 @@ public class IoUtils {
 
   public static char[] slurp(Reader i, int estimate, int limit)
       throws IOException {
-    char[] b = new char[estimate];
-    int p = 0;
+    try {
+      char[] b = new char[estimate];
+      int p = 0;
 
-    for (;;) {
-      int g = i.read(b, p, Math.min(b.length, limit) - p);
-      if (g == -1) break;
-      p += g;
-      if (p >= limit) break;
-      if (p >= b.length) {
-        char[] c = new char[2 * b.length];
+      for (;;) {
+        int g = i.read(b, p, Math.min(b.length, limit) - p);
+        if (g == -1) break;
+        p += g;
+        if (p >= limit) break;
+        if (p >= b.length) {
+          char[] c = new char[2 * b.length];
+          System.arraycopy(b, 0, c, 0, p);
+          b = c;
+        }
+      }
+
+      if (p == b.length)
+        return b;
+      else {
+        char[] c = new char[p];
         System.arraycopy(b, 0, c, 0, p);
-        b = c;
+        return c;
       }
     }
-
-    i.close();
-
-    if (p == b.length)
-      return b;
-    else {
-      char[] c = new char[p];
-      System.arraycopy(b, 0, c, 0, p);
-      return c;
+    finally {
+      try { i.close(); } catch (Exception e) {}
     }
   }
 

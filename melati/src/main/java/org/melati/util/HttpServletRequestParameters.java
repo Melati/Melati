@@ -73,6 +73,10 @@ public class HttpServletRequestParameters {
     sessionID = session == null ? null : session.getId();
   }
 
+    public Hashtable getParameters() {
+	return parameters;
+    }
+
   public String continuationURL() {
     return
         requestURL +

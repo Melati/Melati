@@ -3,7 +3,6 @@
 package org.melati.poem.generated;
 
 import org.melati.poem.*;
-import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -113,6 +112,10 @@ public class GroupMembershipTableBase extends Table {
 
           protected String defaultDescription() {
             return "The user who belongs to the group";
+          }
+
+          protected String defaultRenderinfo() {
+            return "SelectionWindow";
           }
 
           public Object getRaw_unsafe(Persistent g)

@@ -3,7 +3,6 @@
 package org.melati.poem.generated;
 
 import org.melati.poem.*;
-import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -344,7 +343,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.detail;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {
@@ -397,7 +396,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.detail;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {
@@ -454,7 +453,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.detail;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {
@@ -511,7 +510,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.detail;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {

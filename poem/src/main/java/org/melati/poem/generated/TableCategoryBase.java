@@ -3,7 +3,6 @@
 package org.melati.poem.generated;
 
 import org.melati.poem.*;
-import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 

@@ -277,22 +277,22 @@ abstract table ValueInfo {
 
   Integer size
       (description = "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)")
-      (displaylevel = detail) (searchability = no) (uneditable);
+      (displaylevel = record) (searchability = no) (uneditable);
 
   Integer width
       (displayname = "Input-box width")
       (description = "A sensible width for text boxes used for entering the field, where appropriate")
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
 
   Integer height
       (displayname = "Input-box height")
       (description = "A sensible height for text boxes used for entering the field, where appropriate")
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
 
   String renderinfo (size = unlimited) (nullable)
       (displayname = "Rendering information")
       (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
 
   String rangelow_string (size = unlimited) (nullable)
       (displayname = "Range: low")
@@ -342,7 +342,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
       (displaylevel = record) (searchability = no);
 
   Searchability searchability
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
       
   Integer displayorderpriority (nullable)
       (displayname = "Display order priority")
@@ -367,7 +367,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
   (nullable) IntegrityFix integrityfix
       (displayname = "Integrity fix")
       (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
 }
 
 table TableCategory

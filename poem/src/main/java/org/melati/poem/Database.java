@@ -139,6 +139,8 @@ abstract public class Database implements TransactionPool {
           m.getColumns(null, null, getTableInfoTable().getName(), null));
       getColumnInfoTable().unifyWithDB(
           m.getColumns(null, null, getColumnInfoTable().getName(), null));
+      getTableCategoryTable().unifyWithDB(
+          m.getColumns(null, null, getTableCategoryTable().getName(), null));
 
       inSession(AccessToken.root,
                 new PoemTask() {
@@ -556,6 +558,8 @@ abstract public class Database implements TransactionPool {
 
   public abstract TableInfoTable getTableInfoTable();
 
+  public abstract TableCategoryTable getTableCategoryTable();
+
   /**
    * The metadata table with information about all columns in all tables in the
    * database.
@@ -962,4 +966,3 @@ abstract public class Database implements TransactionPool {
     endExclusiveLock();
   }
 }
-

@@ -45,8 +45,11 @@
 
 package org.melati.template;
 
-import java.io.Writer;
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
+import org.melati.util.MelatiWriter;
+import org.melati.util.StringMelatiWriter;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -86,7 +89,7 @@ public interface TemplateEngine
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, 
+  public void expandTemplate(MelatiWriter out, 
                              String templateName, 
                              TemplateContext templateContext) 
               throws TemplateEngineException;
@@ -94,14 +97,19 @@ public interface TemplateEngine
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, 
+  public void expandTemplate(MelatiWriter out, 
                              Template template, 
                              TemplateContext templateContext) 
               throws TemplateEngineException;
 
     
   public Object getPassbackVariableExceptionHandler();
-    
+  
+  public MelatiWriter getServletWriter(HttpServletResponse response)
+          throws IOException;
+  
+  public StringMelatiWriter getStringWriter(String encoding)
+          throws IOException;
   /** 
    * get the underlying engine
    */

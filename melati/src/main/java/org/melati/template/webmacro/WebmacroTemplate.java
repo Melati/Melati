@@ -45,9 +45,9 @@
 
 package org.melati.template.webmacro;
 
-import java.io.Writer;
 import java.io.IOException;
 
+import org.melati.util.MelatiWriter;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -55,6 +55,7 @@ import org.melati.template.TemplateEngine;
 
 import org.webmacro.servlet.WebContext;
 import org.webmacro.ContextException;
+import org.webmacro.FastWriter;
 
 /**
  * Interface for a Template for use with Melati
@@ -69,10 +70,11 @@ public class WebmacroTemplate implements Template
     template = t;
   }
   
-  public void write(Writer out, TemplateContext templateContext, 
-  TemplateEngine engine) throws TemplateEngineException {
+  public void write(MelatiWriter out, TemplateContext templateContext, 
+                    TemplateEngine engine) throws TemplateEngineException {
     try {
-      template.write(out, (WebContext) templateContext.getContext());
+      template.write((FastWriter)out.getPeer(), 
+                     (WebContext)templateContext.getContext());
     } catch (ContextException e) {
       throw new TemplateEngineException(e);
     } catch (IOException e) {

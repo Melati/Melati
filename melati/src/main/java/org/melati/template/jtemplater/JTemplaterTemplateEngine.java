@@ -46,14 +46,19 @@
 
 package org.melati.template.jtemplater;
 
-import java.io.Writer;
 import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
+import org.melati.util.MelatiWriter;
+import org.melati.util.SimpleMelatiWriter;
+import org.melati.util.SimpleStringMelatiWriter;
+import org.melati.util.StringMelatiWriter;
 
 import org.melati.jtemplater.JTemplater;
 
@@ -98,6 +103,16 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     return jt;
   }
 
+  public MelatiWriter getServletWriter(HttpServletResponse response) 
+          throws IOException {
+    return new SimpleMelatiWriter(response.getWriter());
+  }
+
+  public StringMelatiWriter getStringWriter(String encoding) 
+          throws IOException {
+    return new SimpleStringMelatiWriter();
+  }
+  
   public TemplateContext getTemplateContext(Melati melati)
   throws TemplateEngineException {
     return new JTemplaterTemplateContext(melati);
@@ -114,8 +129,8 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     }
   }
 
-  public void expandTemplate
-  (Writer out, String templateName, TemplateContext templateContext)
+  public void expandTemplate(MelatiWriter out, String templateName, 
+                             TemplateContext templateContext)
   throws TemplateEngineException {
     try {
       expandTemplate(out, template(templateName), templateContext);
@@ -131,8 +146,10 @@ public class JTemplaterTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, org.melati.template.Template template,
-  TemplateContext templateContext) throws TemplateEngineException {
+  public void expandTemplate(MelatiWriter out, 
+                             org.melati.template.Template template,
+                             TemplateContext templateContext) 
+                                 throws TemplateEngineException {
     template.write(out, templateContext, this);
   }
 

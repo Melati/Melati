@@ -45,9 +45,6 @@
 
 package org.melati;
 
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,6 +70,9 @@ import org.melati.util.ThrowingPrintWriter;
 import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
+import org.melati.util.MelatiWriter;
+import org.melati.util.SimpleMelatiWriter;
+import org.melati.util.BufferedMelatiWriter;
 
 /**
  * This is the main entry point for using Melati.
@@ -95,6 +95,7 @@ import org.melati.util.StringUtils;
 
 public class Melati {
 
+  private static String DEFAULT_ENCODING = "UTF8";
   private MelatiConfig config;
   private MelatiContext context;
   private HttpServletRequest request;
@@ -116,10 +117,10 @@ public class Melati {
   private boolean stopping = true;
   // the flusher send output to the client ever x seconds
   private Flusher flusher;
-  // what we write to
-  private Writer output = null;
-  // the output is buffered
-  private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
+  
+  private MelatiWriter writer;
+  
+  private String encoding;
 
 /**
  * construct a Melati for use with Servlets
@@ -143,9 +144,9 @@ public class Melati {
    * @param config - the MelatiConfig
    * @param output - the Writer that all output is written to
  */
-  public Melati(MelatiConfig config, Writer output) {
+  public Melati(MelatiConfig config, MelatiWriter writer) {
     this.config = config;
-    this.output = output;
+    this.writer = writer;
   }
   
 /**
@@ -468,7 +469,17 @@ public class Melati {
     return gotwriter;
   }
 
-
+  public String getEncoding() throws IOException {
+    if (encoding == null) {
+      if (response != null) {
+        encoding = response.getCharacterEncoding();
+      } else {
+        encoding = DEFAULT_ENCODING;
+      }
+    }
+    return encoding;
+  }
+  
 /**
  * get a Writer for this request
  *
@@ -483,28 +494,35 @@ public class Melati {
  * - a ThrowingPrintWriter
  * @throws IOException if there is a problem with the writer
  */  
-  public Writer getWriter() throws IOException {
-    // if we don't yet have a writer, get it from the servlet resonse
-    if (output == null && response != null) output = response.getWriter();
+  public MelatiWriter getWriter() throws IOException {
+
+    if (writer == null) writer = createWriter();
     // if we have it, remember that fact
-    if (output != null) gotwriter = true;
-    if (buffered) {
-      return bufferedOutput;
-    } else {
-      if (stopping) {
-        // FIXME - cache this instance
-        Writer throwingOutput = 
-               new ThrowingPrintWriter(new PrintWriter(output),
-                                       "servlet response stream");
-        flusher = new Flusher(throwingOutput);
-        flusher.start();
-        return throwingOutput;
-      } else {
-        return output;
-      }
-    }
+    if (writer != null) gotwriter = true;
+    return writer;
   }
 
+
+  private MelatiWriter createWriter() throws IOException {
+    // first effort is to use the writer supplied by the template engein
+    MelatiWriter writer = null;
+    if (response != null) {
+      if (templateEngine != null) {
+        writer = templateEngine.getServletWriter(response);
+      } else {
+        if (buffered) {
+          writer = new BufferedMelatiWriter(response.getWriter());
+        } else {
+          writer = new SimpleMelatiWriter(response.getWriter());
+        }
+      }
+    }
+    if (stopping) {
+      flusher = new Flusher(writer);
+      flusher.start();
+    }
+    return writer;
+  }
 
 /**
  * write the buffered output to the Writer
@@ -515,8 +533,8 @@ public class Melati {
   public void write() throws IOException {
     // only write stuff if we have previously got a writer
     if (gotwriter) {
-      if (buffered) bufferedOutput.writeTo(output);
-      if (flusher != null) flusher.setStopTask(true);
+      writer.writeTo();
+// FIXME - put this back      if (flusher != null) flusher.setStopTask(true);
     }
   }
 

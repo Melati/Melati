@@ -51,6 +51,7 @@ import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateEngine;
+import org.melati.util.MelatiWriter;
 import org.melati.jtemplater.JTemplater;
 
 
@@ -67,10 +68,11 @@ public class JTemplaterTemplate implements Template
     template = t;
   }
 
-  public void write(Writer out, TemplateContext templateContext,
+  public void write(MelatiWriter out, TemplateContext templateContext,
   TemplateEngine engine) throws TemplateEngineException {
     try {
-      template.expand(templateContext, out, (JTemplater)engine.getEngine());
+      template.expand(templateContext, (Writer)out.getPeer(), 
+                     (JTemplater)engine.getEngine());
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }

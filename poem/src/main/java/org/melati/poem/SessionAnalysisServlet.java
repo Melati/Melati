@@ -57,6 +57,7 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.ExceptionUtils;
+import org.melati.util.MelatiWriter;
 
 // class ChippyThreadDeath extends Error {}
 
@@ -67,7 +68,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
 
     MelatiConfig config = melati.getConfig();
     melati.getResponse().setContentType("text/html");
-    Writer output = melati.getWriter();
+    MelatiWriter output = melati.getWriter();
     output.write("<h1>Transactions</h1>");
     Date now = new Date();
     output.write("Run at "+now);

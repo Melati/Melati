@@ -45,9 +45,16 @@
 
 package org.melati.template;
 
-import java.io.Writer;
 import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.melati.Melati;
+import org.melati.util.MelatiWriter;
+import org.melati.util.SimpleMelatiWriter;
+import org.melati.util.SimpleStringMelatiWriter;
+import org.melati.util.StringMelatiWriter;
+
 
 /**
  * Interface for a Template engine for use with Melati
@@ -117,7 +124,7 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, TemplateContext templateContext)
+  public void expandTemplate(MelatiWriter out, TemplateContext templateContext)
   throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }
@@ -125,7 +132,7 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, String templateName,
+  public void expandTemplate(MelatiWriter out, String templateName,
   TemplateContext templateContext) throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }
@@ -133,11 +140,20 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, Template melatiTemplate,
+  public void expandTemplate(MelatiWriter out, Template melatiTemplate,
   TemplateContext templateContext) throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }
 
+  public MelatiWriter getServletWriter(HttpServletResponse response) 
+          throws IOException {
+    return new SimpleMelatiWriter(response.getWriter());
+  }
+
+  public StringMelatiWriter getStringWriter(String encoding) 
+          throws IOException {
+    return new SimpleStringMelatiWriter();
+  }
 
 }
 

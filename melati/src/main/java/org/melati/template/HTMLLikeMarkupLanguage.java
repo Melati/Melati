@@ -50,6 +50,7 @@ import java.io.Writer;
 import java.net.URLEncoder;
 
 import org.melati.Melati;
+import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.HTMLUtils;
 
@@ -75,7 +76,7 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
    a variable.
  </p>
 */
-  public void render(String s, Writer writer) throws IOException {
+  public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s));
   }
 

@@ -61,6 +61,7 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
+import org.melati.util.MelatiWriter;
 
 /**
  * Base class to use Poem with Servlets.
@@ -239,7 +240,7 @@ public abstract class PoemServlet extends ConfigServlet
     catch (Exception e) {
       try {
         // we have to log this here, otherwise we loose the stacktrace
-        error(melatiIn.getResponse(), e);
+        error(melatiIn, e);
         throw new TrappedException(e.toString());
       }
       catch (IOException f) {
@@ -265,7 +266,7 @@ public abstract class PoemServlet extends ConfigServlet
           } catch (Exception e) {
             try {
               // we have to log this here, otherwise we loose the stacktrace
-              error(melatiIn.getResponse(), e);
+              error(melatiIn, e);
               throw new TrappedException(e.toString());
             } catch (IOException f) {
               throw new TrappedException(f.toString());
@@ -286,7 +287,7 @@ public abstract class PoemServlet extends ConfigServlet
     }
     else if (exception instanceof NoMoreTransactionsException) {
       exception.printStackTrace(System.err);
-      dbBusyMessage(melati.getResponse());
+      dbBusyMessage(melati);
     }
     else
       throw exception;
@@ -303,13 +304,17 @@ public abstract class PoemServlet extends ConfigServlet
     }
   }
 
-  protected void dbBusyMessage(HttpServletResponse response) throws IOException {
-    response.setContentType ("text/html");
-    PrintWriter out = response.getWriter ();
+  protected void dbBusyMessage(Melati melati) throws IOException {
+    melati.getResponse().setContentType ("text/html");
+    MelatiWriter mw =  melati.getWriter();
+    // get rid of anything that has been written so far
+    mw.reset();
+    PrintWriter out = mw.getPrintWriter();
     out.println("<html>\n<head><title>Server Busy</title></head>");
     out.println("<body>\n<h4>Server Busy</h4>");
     out.println("<p>Please try again in a short while</p>"); 
     out.println("</body>\n</html>");
+    melati.write();
   }
 
   protected MelatiContext melatiContext(Melati melati)

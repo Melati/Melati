@@ -94,6 +94,7 @@
 
 package org.melati.servlet;
 
+import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 
@@ -108,6 +109,7 @@ import org.melati.MelatiConfig;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
+import org.melati.util.MelatiWriter;
 
 public abstract class ConfigServlet extends HttpServlet
 {
@@ -153,33 +155,41 @@ public abstract class ConfigServlet extends HttpServlet
   /**
    * Process the request.
    */
-  private void doGetPostRequest(final HttpServletRequest request, final HttpServletResponse response)
-   throws IOException {
+  private void doGetPostRequest(final HttpServletRequest request, 
+                                final HttpServletResponse response)
+          throws IOException {
     try {
       Melati melati = melatiConfig.getMelati(request, response);
-      MelatiContext melatiContext = melatiContext(melati);
-      melati.setContext(melatiContext);
-
-      doConfiguredRequest(melati);
-      // send the output to the client
-      melati.write();
+      try {
+        MelatiContext melatiContext = melatiContext(melati);
+        melati.setContext(melatiContext);
+        doConfiguredRequest(melati);
+        // send the output to the client
+        melati.write();
+      } catch (Exception f) {
+        error(melati,f);
+      }
     } catch (Exception e) {
-      error(response,e);
+      // log it
+      e.printStackTrace(System.err);
     }
   }
 
   /**
    * Send an error message
    */
-  protected void error(HttpServletResponse response, Exception e )
+  protected void error(Melati melati, Exception e )
    throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
       // log it
       e.printStackTrace(System.err);
       // and put it on the page
-      response.setContentType ("text/html");
-      PrintWriter out = response.getWriter ();
+      melati.getResponse().setContentType ("text/html");
+      MelatiWriter mw =  melati.getWriter();
+      // get rid of anything that has been written so far
+      mw.reset();
+      PrintWriter out = mw.getPrintWriter();
       out.println("<html><head><title>Melati Error</title></head>");
       out.println("<body><h2>Melati Error</h2>");
       out.println("<p>An error has occured in the application"); 
@@ -189,6 +199,7 @@ public abstract class ConfigServlet extends HttpServlet
       out.println("<h4><font color=red><pre>" );
       e.printStackTrace(out);
       out.println("</pre></font></h4></body></html>");
+      melati.write();
     }
   }
 

@@ -45,18 +45,15 @@
 
 package org.melati.template;
 
-import java.io.Writer;
+import org.melati.util.MelatiWriter;
 
 /**
  * A webmacro template
  *
  */
-public interface Template
-{
-  
-  public void write(Writer out, TemplateContext templateContext, 
-  TemplateEngine engine) throws TemplateEngineException;
-
+public interface Template {
+  public void write(MelatiWriter out, TemplateContext templateContext, 
+                    TemplateEngine engine) throws TemplateEngineException;
 }
 
 

@@ -7,7 +7,7 @@
 
     <target name="init">
         <property name="Name" value="melati"/>
-        <property name="version" value="0.52"/>
+        <property name="version" value="0.52.1"/>
         <property name="project" value="melati"/>
         <property name="build.compiler" value="${JAVAC}"/>
         <property name="build.root" value="../../.."/>
@@ -15,7 +15,8 @@
         <property name="build.dist.src" value="${build.dist}/src"/>
         <property name="build.built.root" value="../../../../built"/>
         <property name="build.built" value="${build.built.root}/${project}_${version}"/>
-        <property name="build.doc" value="${build.built}/doc"/>
+        <property name="build.doc.root" value="../../../../doc"/>
+        <property name="build.doc" value="${build.doc.root}/${project}_${version}/doc"/>
         <property name="build.lib" value="${build.built}/lib"/>
         <property name="build.src" value="${build.built}/src"/>
         <property name="final.name" value="package"/>
@@ -197,7 +198,10 @@
         <mkdir dir="${final.dir}"/>
         <zip zipfile="${final.dir}/${Name}_${version}.zip" basedir="${build.built.root}"/>
         <tar tarfile="${final.dir}/${Name}_${version}.tar" basedir="${build.built.root}"/>
-       <gzip zipfile="${final.dir}/${Name}_${version}.tar.gz" src="${final.dir}/${Name}_${version}.tar"/>
+        <gzip zipfile="${final.dir}/${Name}_${version}.tar.gz" src="${final.dir}/${Name}_${version}.tar"/>
+        <zip zipfile="${final.dir}/${Name}_${version}_doc.zip" basedir="${build.doc.root}"/>
+        <tar tarfile="${final.dir}/${Name}_${version}_doc.tar" basedir="${build.doc.root}"/>
+        <gzip zipfile="${final.dir}/${Name}_${version}_doc.tar.gz" src="${final.dir}/${Name}_${version}_doc.tar"/>
     </target>
     
     
@@ -207,6 +211,7 @@
     <target name="clean">
         <deltree dir="${build.dist}"/>
         <deltree dir="${build.built.root}"/>
+        <deltree dir="${build.doc.root}"/>
         <deltree dir="${final.dir}"/>
     </target>
 </project>

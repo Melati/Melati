@@ -52,14 +52,18 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
-import org.melati.servlet.PoemServlet;
-import org.melati.servlet.MelatiContext;
-import org.melati.util.MelatiBugMelatiException;
+import org.melati.MelatiConfig;
+import org.melati.login.HttpBasicAuthenticationAccessHandler;
 import org.melati.poem.Table;
 import org.melati.poem.Capability;
 import org.melati.poem.AccessToken;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
+import org.melati.servlet.PoemServlet;
+import org.melati.servlet.MelatiContext;
+import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.MelatiWriter;
+import org.melati.util.MelatiException;
 
 public class PoemServletTest extends PoemServlet {
 
@@ -67,7 +71,7 @@ public class PoemServletTest extends PoemServlet {
   throws ServletException, IOException {
 
     melati.getResponse().setContentType("text/html");
-    Writer output = melati.getWriter();
+    MelatiWriter output = melati.getWriter();
 
     output.write(
     "<html><head><title>PoemServlet Test</title></head><body><h2>PoemServlet " +
@@ -120,6 +124,17 @@ public class PoemServletTest extends PoemServlet {
       if (method.equals("Redirect")) 
       melati.getResponse().sendRedirect("http://www.melati.org");
     }
+  }
+  
+/**
+ *
+ * this simply demonstrates how to use a different melati configuration
+ *
+ **/
+  protected MelatiConfig melatiConfig() throws MelatiException {
+    MelatiConfig config = super.melatiConfig();
+    config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
+    return config;
   }
 
 }

@@ -46,7 +46,10 @@
 
 package org.melati.template.webmacro;
 
-import java.io.Writer;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
@@ -54,9 +57,12 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
+import org.melati.util.MelatiWriter;
+import org.melati.util.StringMelatiWriter;
 
 import org.webmacro.WM;
 import org.webmacro.InitException;
+import org.webmacro.FastWriter;
 import org.webmacro.servlet.WebContext;
 import org.webmacro.engine.Variable;
 import org.webmacro.engine.VariableException;
@@ -123,10 +129,20 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     return wm;
   }
 
+  public MelatiWriter getServletWriter(HttpServletResponse response) 
+          throws IOException {
+    return new FastMelatiWriter(response);
+  }
+
+  public StringMelatiWriter getStringWriter(String encoding) 
+          throws IOException {
+    return new FastStringMelatiWriter(encoding);
+  }
+
   /**
    * get a template given it's name
    */
-  public org.melati.template.Template template (String templateName)
+  public org.melati.template.Template template(String templateName)
                                       throws NotFoundException {
     try {
       return new WebmacroTemplate (wm.getTemplate (templateName));
@@ -139,7 +155,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, 
+  public void expandTemplate(MelatiWriter out, 
                              String templateName, 
                              TemplateContext templateContext)
               throws TemplateEngineException {
@@ -153,7 +169,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out,
+  public void expandTemplate(MelatiWriter out,
                              org.melati.template.Template template, 
                              TemplateContext templateContext)
               throws TemplateEngineException {

@@ -42,7 +42,6 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-
 <SELECT NAME="field_$ml.rendered($field.Name)">
   #foreach $poss in $field.First1000Possibilities #begin
     <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"

@@ -55,6 +55,7 @@ import org.melati.servlet.MelatiContext;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.MelatiWriter;
 
 public class ConfigServletTest extends ConfigServlet {
 
@@ -63,7 +64,7 @@ public class ConfigServletTest extends ConfigServlet {
 
     MelatiConfig config = melati.getConfig();
     melati.getResponse().setContentType("text/html");
-    Writer output = melati.getWriter();
+    MelatiWriter output = melati.getWriter();
     output.write(
     "<html><head><title>ConfigServlet Test</title></head><body><h2> " +
     "ConfigServlet Test</h2><p>This servlet tests your basic melati " +

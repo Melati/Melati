@@ -57,6 +57,7 @@ import org.melati.template.FormFile;
 import org.melati.template.Template;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.util.StringMelatiWriter;
 
 /**
  * Base class to use Melati with Servlets.
@@ -109,18 +110,20 @@ public class TemplateServletTestWM extends TemplateServlet {
       // you would not normally do this this way, a much better approach would
       // be to use templets
       if (melati.getMethod().equals("StandAlone")) {
-        StringWriter out = new StringWriter();
         // construct a Melati with a StringWriter instead of a servlet
         // request and response
-        Melati melati2 = new Melati(melati.getConfig(),out);
+        StringMelatiWriter sw = 
+                templateEngine.getStringWriter(melati.getEncoding());
+        Melati melati2 = new Melati(melati.getConfig(),sw);
         TemplateContext templateContext2 = 
                         templateEngine.getTemplateContext(melati2);
         templateContext2.put("melati",melati2);
         templateEngine.expandTemplate(melati2.getWriter(), 
                                       "test/StandAlone.wm",
                                       templateContext2);
-        // write to the StringWriter
         melati2.write();
+        // write to the StringWriter
+        String out = sw.asString();
         // finally, put what we have into the original templateContext
         templateContext.put("StandAlone",out);
       }

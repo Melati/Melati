@@ -45,20 +45,20 @@
 
 package org.melati.servlet;
 
-import java.io.Writer;
+import org.melati.util.MelatiWriter;
 
 /**
   * Flusher replaces need for Thread.stop
 */
 public final class Flusher extends Thread {
-    private Writer out = null;
+    private MelatiWriter out = null;
     private boolean stopTask = false;
 
     private int getPauseLength() {
         return 2000;
     }
 
-    public Flusher(Writer aOut) {
+    public Flusher(MelatiWriter aOut) {
         out = aOut;
     }
 

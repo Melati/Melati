@@ -59,6 +59,7 @@ public class MelatiLocale {
   private final DateFormatSymbols dateFormatSymbols;
   private final String[] months, shortMonths;
   private final DateFormat[] dateFormats;
+  private final DateFormat[] timestampFormats;
 
   public MelatiLocale(Locale locale) {
     if (locale == null)
@@ -78,6 +79,20 @@ public class MelatiLocale {
         DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
     dateFormats[DateFormat.SHORT] =
         DateFormat.getDateInstance(DateFormat.SHORT, locale);
+
+    timestampFormats = new DateFormat[4]; // don't tell me this will break
+    timestampFormats[DateFormat.FULL] =
+        DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL,
+				       locale);
+    timestampFormats[DateFormat.LONG] =
+        DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG,
+				       locale);
+    timestampFormats[DateFormat.MEDIUM] =
+        DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM,
+				       locale);
+    timestampFormats[DateFormat.SHORT] =
+        DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
+				       locale);
   }
 
   public final Locale locale() {
@@ -94,5 +109,9 @@ public class MelatiLocale {
 
   public DateFormat dateFormat(int style) {
     return dateFormats[style];
+  }
+
+  public DateFormat timestampFormat(int style) {
+    return timestampFormats[style];
   }
 }

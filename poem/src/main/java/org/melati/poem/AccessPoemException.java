@@ -51,9 +51,19 @@ public class AccessPoemException extends PoemException {
   public AccessToken token;
   public Capability capability;
 
-  public AccessPoemException(AccessToken token, Capability capability) {
+  public AccessPoemException(Exception problem,
+                             AccessToken token, Capability capability) {
+    super(problem);
     this.token = token;
     this.capability = capability;
+  }
+
+  public AccessPoemException(AccessToken token, Capability capability) {
+    this(null, token, capability);
+  }
+
+  public AccessPoemException(AccessPoemException e) {
+    this(e, e.token, e.capability);
   }
 
   public AccessPoemException() {

@@ -86,6 +86,42 @@ import org.melati.util.MappedEnumeration;
 import org.melati.util.StringUtils;
 
 /**
+ * Melati template servlet for administration.
+ * <p>
+ * This class defines
+ * {@link #doTemplateRequest(Melati, TemplateContext)}
+ * and methods it calls to
+ * interpret request methods, perhaps depending on the current
+ * table and object, if any.
+ * <p>
+ * Java methods with names ending "<code>Template</code>"
+ * and taking a {@link TemplateContext} and {@link Melati}
+ * as arguments are generally called by
+ * {@link #doTemplateRequest(Melati, TemplateContext)}) to
+ * implement corresponding request methods. 
+ * {@link #modifyTemplate(TemplateContext, Melati)}
+ * and associated methods are slight variations.
+ * <p>
+ * {@link #adminTemplate(TemplateContext, String)} is called
+ * in all cases to return the template path. The name of the
+ * template is usually the same as the request method but not
+ * if the same template is used for more than one method or
+ * the template served depends on how request processing
+ * proceeds.
+ * <p>
+ * These methods are sometimes called to modify the context:
+ * <ul>
+ * <li>{@link #editingTemplate(TemplateContext, Melati)}</li>
+ * <li>{@link #popup(TemplateContext, Melati)}</li>
+ * <li>{@link #primarySelect(TemplateContext, Melati)}</li>
+ * <li>{@link #selection(TemplateContext, Melati)}</li>
+ * </ul>
+ * <p>
+ * At the time of writing this covers everything except
+ * {@link #create(Table, TemplateContext, Melati)}.
+ * <p>
+ * (Please review this description and delete this line. JimW)
+ *
  * @todo Getting a bit big, wants breaking up
  * @todo Ensure that the new, duplicated record is editted, not the original, 
  *       in Duplicate (see FIXME)
@@ -167,8 +203,9 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Bottom");
   }
 
-  // return the 'left' admin page
-
+  /**
+   *  @return the 'left' admin page
+   */
   protected String leftTemplate(TemplateContext context, Melati melati)
   throws PoemException {
     context.put("database", PoemThread.database());
@@ -221,7 +258,11 @@ public class Admin extends TemplateServlet {
     return adminTemplate(selection(context, melati), "Selection");
   }
 
-  // return select template (a selection of records from a table)
+  /**
+   * Implements request to display a selection of records from a table.
+   *
+   * @return SelectionRight template. 
+   */
   protected String selectionRightTemplate(TemplateContext context, 
                                           Melati melati)
       throws FormParameterException {
@@ -235,22 +276,22 @@ public class Admin extends TemplateServlet {
    * <p>
    * The table and database are added to the context.
    * <p>
-   * Any form fields in the context with names starting &quot;field_&quot;
+   * Any form fields in the context with names starting "field_"
    * are assumed to hold values that must be matched in selected rows
    * (if not null - or does that mean there is no such field? FIXME).
    * These contribute to the where clause for SQL SELECT.
    * <p>
    * An encoding of the resulting where clause is added to the context.
-   * AND is replaced by an & separator.
+   * "AND" is replaced by an & separator.
    * <p>
    * There's some stuff that needs sorting out (FIXME) regarding ordering,
    * presumably of selected rows. The resulting orderClause is added to
    * the context.
    * <p>
-   * A form field with name &quot;start&quot; is assumed to hold the number
+   * A form field with name "start" is assumed to hold the number
    * of the start row in the result set. The default is zero.
    * The next 20 rows are selected and added as to the context as
-   * &quot;results&quot;.
+   * "results".
    *
    * @return The modified context.
    * @see #adminTemplate(TemplateContext, String)
@@ -278,7 +319,6 @@ public class Admin extends TemplateServlet {
 
         // FIXME needs to work for dates?
         whereClause.addElement(name + "=" + URLEncoder.encode(string));
-        //        whereClause.addElement(column.eqClause(string));
       }
     }
 
@@ -355,6 +395,12 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Navigation");
   }
 
+  /**
+   * Implements the "PopUp" request method.
+   * <p>
+   * The name should really be <code>popUpTemplate()</code> (FIXME?).
+   * The default template name is "PopupSelect". (FIXME?)
+   */
   protected String popupTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     return adminTemplate(popup(context, melati), "PopupSelect");
@@ -382,7 +428,7 @@ public class Admin extends TemplateServlet {
     context.put("criteria", EnumUtils.vectorOf(criterias));
 
     // sort out ordering (FIXME this is a bit out of control and is mostly
-    // duplicated in popup())
+    // duplicated in selection())
 
     PoemType searchColumnsType =
         new ReferencePoemType(database.getColumnInfoTable(), true) {
@@ -406,6 +452,7 @@ public class Admin extends TemplateServlet {
       if (orderColumnIDString != null) {
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
+        // This is not used but 
         ColumnInfo info =
             (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
       }
@@ -448,6 +495,12 @@ public class Admin extends TemplateServlet {
                          "SelectionWindowSelection");
   }
 
+  /**
+   * Implements the "ColumnCreate" request method.
+   * <p>
+   * FIXME Why is this not called
+   * <code>createColumnTemplate()</code>? Could deprecate.
+   */
   protected String columnCreateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
 
@@ -471,6 +524,12 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "CreateColumn");
   }
 
+  /**
+   * Implements the "Create" request method.
+   * <p>
+   * The request method, java method and template name do
+   * not follow the naming conventions (FIXME?).
+   */
   protected String tableCreateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     Database database = melati.getDatabase();
@@ -500,6 +559,12 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "CreateTable");
   }
 
+  /**
+   * Implements the "Create_doit" request method.
+   * <p>
+   * The request method, java method and template name do
+   * not follow the naming conventions (FIXME?).
+   */
   protected String tableCreate_doitTemplate(TemplateContext context,
                                             Melati melati)
       throws PoemException {
@@ -511,6 +576,14 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "CreateTable_doit");
   }
 
+  /**
+   * Implements the "ColumnCreate_doit" request method.
+   * <p>
+   * FIXME Why is this not called
+   * <code>createColumn_doitTemplate()</code>? Could deprecate.
+   * <p>
+   * The template served is "CreateTable_doit".
+   */
   protected String columnCreate_doitTemplate(final TemplateContext context,
                                              final Melati melati)
       throws PoemException {
@@ -652,6 +725,15 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Update");
   }
 
+  /**
+   * Implements request method "Update".
+   * <p>
+   * Calls another method depending on the requested action.
+   *
+   * @see #updateTemplate(TemplateContext, Melati)
+   * @see #deleteTemplate(TemplateContext, Melati)
+   * @see #duplicateTemplate(TemplateContext, Melati)
+   */
   protected String modifyTemplate(TemplateContext context, Melati melati)
       throws FormParameterException {
     String action = melati.getRequest().getParameter("action");
@@ -782,6 +864,3 @@ public class Admin extends TemplateServlet {
     throw new InvalidUsageException(this, melati.getContext());
   }
 }
-
-
-

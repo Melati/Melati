@@ -372,7 +372,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   public String eqClause(Object raw) {
-    return quotedName + (raw == null ? " IS NULL" 
+    return fullQuotedName() + (raw == null ? " IS NULL" 
                                      :  " = " + type.quotedRaw(raw));
   }
 
@@ -383,9 +383,10 @@ public abstract class Column implements FieldAttributes {
       selectionWhereEq = new PreparedStatementFactory(
           getDatabase(),
           getTable().selectionSQL(
-              quotedName + " = " +
+              null,
+              fullQuotedName() + " = " +
               dbms().preparedStatementPlaceholder(getType()), 
-              null, false));
+              null, false, true));
 
     return selectionWhereEq;
   }

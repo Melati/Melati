@@ -147,13 +147,16 @@ public class AdminUtils {
                "/SelectionWindowSelection";
   }
 
-  public String UploadURL(Field field) {
-    return adminURL + "/" + logicalDatabase + "/Upload?field=" +
-               field.getName();
+  public String UploadURL(Persistent object, Field field) {
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+                    + "/" + object.troid() +  "/Upload?field="
+                    + field.getName();
   }
 
-  public String UploadHandlerURL(String field) {
-      return adminURL + "/" + logicalDatabase + "/UploadDone?field="+field;
+  public String UploadHandlerURL(Persistent object, String field) {
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+                    + "/" + object.troid() +  "/UploadDone?field="
+                    + field;
   }
 
   // establish if this is a reference poem type field

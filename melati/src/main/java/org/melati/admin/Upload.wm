@@ -51,7 +51,7 @@
 </head>
 
 <body bgcolor='#ffffff' onLoad="window.focus()">
-<form ENCTYPE="multipart/form-data" METHOD=POST action="$admin.UploadHandlerURL($field)">
+<form ENCTYPE="multipart/form-data" METHOD=POST action="$admin.UploadHandlerURL($melati.getObject(),$field)">
 <div align=center>
 <b>File to upload:</b>
 <br>

@@ -600,6 +600,10 @@ public class Admin extends TemplateServlet {
         return rightTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
         return editHeaderTemplate(context, melati);
+      if (melati.getMethod().equals("Upload"))
+        return uploadTemplate(context);
+      if (melati.getMethod().equals("UploadDone"))
+        return uploadDoneTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
         return editTemplate(context, melati);
       else
@@ -653,10 +657,6 @@ public class Admin extends TemplateServlet {
         return columnCreateTemplate(context, melati);
       if (melati.getMethod().equals("CreateColumn_doit"))
         return columnCreate_doitTemplate(context, melati);
-      if (melati.getMethod().equals("Upload"))
-        return uploadTemplate(context);
-      if (melati.getMethod().equals("UploadDone"))
-        return uploadDoneTemplate(context, melati);
     }
 
     throw new InvalidUsageException(this, melati.getContext());

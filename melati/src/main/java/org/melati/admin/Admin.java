@@ -574,9 +574,9 @@ public class Admin extends TemplateServlet {
 
     try {
       url = context.getMultipartForm("file").getDataURL();
+    } catch (Exception e) {
+      e.printStackTrace(System.err);
     }
-    catch (Exception e) {}
-
     context.put("url", url);
     return adminTemplate(context, "UploadDone");
   }

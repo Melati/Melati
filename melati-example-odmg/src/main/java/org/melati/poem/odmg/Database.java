@@ -57,7 +57,7 @@ final class Database implements org.odmg.Database {
   private Database() {}
   /** provide a package factory method 
       so we could return a different type if needed **/
-  static final Database getNewDatabase() { 
+  static Database getNewDatabase() { 
     return new Database(); 
   }
 

@@ -1,38 +1,27 @@
-INTRODUCTION
-
 Hello,
 
-The scripts in this directory provide a means of building melati and poem using the Ant makefiles.
+The scripts in this directory provide a means of building melati 
+and poem using Ant. 
 
-You will be able to generate a tar and zip file that contains the complete software needed to use melati and or poem.
-
-
-If you have any problems with this, please let me know - kimptoc@techie.com
-
-Make sure you know how to use Ant in general - see - http://jakarta.apache.org/ant/index.html
-
-Have fun,
-Chris
-
+The original ant script was written by kimptoc@techie.com.
 
 HOW TO USE
 
-To build a distributable copy of Melati, under unix, just use 
+You need the latest version of ant (1.5.1), but this is included, 
+you may need to define $ANT_HOME as this directory. 
 
-   sh build-melati.sh
+If you just type ant you will be given a list of available options. 
+
+To build a distributable copy of Melati just type:
+
+ant all
+
 
 It will create a directory
-   .../snapshot/ which contains:
-
-melati-snapshot.tar
-melati-snapshot.tar.gz
-melati-snapshot.tar.zip
-
-these files contain all the sources, the java docs and the other misc files associated with melati.
-
+   .../built/ in which the distribution is created.
 
 To build a jar file of all Melati code, under unix, just use 
-   sh build-melati.sh jar
+   ant jar
 
 Assuming you have melati installed in a directory like 
     .../src/org/melati/...
@@ -45,7 +34,8 @@ Which will contain all the compiled classes, and additional files (*.wm, *.html,
 And a directory
    .../built/
 
-Which will contain the melati jar file, the javadocs, a zip file of the sources,
+Which will contain the melati jar file, the javadocs, 
+a zip file of the sources,
 and additional files (*.wm, *.html, *.gif and *.js)
 
 
@@ -72,27 +62,30 @@ MAKING A RELEASE
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1. Change the version number in build-melati.xml
-2. If your change requires upgrade action by the user make a note
-   in the Upgrading section of melati/README.html
-3. Change Last Updated and Updated By and add a new paragraph to 
-   melati/RELEASE-NOTES.html
-4. Add a paragraph about this release to melati/site/Releases.html
-5. Replace Release paragraph with one above in
-   melati/site/Download.html
-6. CVS commit all of the above
-7. Build melati (again)
-8. Upload jars and zips to http://www.melati.org/
-   scp *.zip www.melati.org:/home/apache/share/htdocs/melati/download/
-   scp *.gz www.melati.org:/home/apache/share/htdocs/melati/download/
-9. Update website
-   cd /home/apache/share/htdocs/melati/org/melati/site
-   cvs update
-10. Done - well done
+1.  Change the version number in build-melati.xml
+2.  If your change requires upgrade action by the user make a note
+    in the Upgrading section of melati/README.html
+3.  Change Last Updated and Updated By and add a new paragraph to 
+    melati/RELEASE-NOTES.html
+4.  Add a paragraph about this release to melati/site/Releases.html
+5.  Replace Release paragraph with one above in
+    melati/site/Download.html
+6.  CVS commit all of the above
+7.  CVS tag this release
+8.  Build melati (again)
+9.  Upload jars and zips to http://www.melati.org/
+    scp *.zip www.melati.org:/home/apache/share/htdocs/melati/download/
+    scp *.gz www.melati.org:/home/apache/share/htdocs/melati/download/
+10. Update website
+    cd /inst/melati/org/melati 
+    cvs update
+11. Done - well done
 
 
 
 $Id$
+
+
 
 
 

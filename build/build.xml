@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<project name="melati" default="help" basedir="." >
+
+    <!-- ============================================= -->
+    <description> Ant Build file for Melati </description>
+    <!-- cvs="$Revision$"                            -->
+    <!-- ============================================= -->
+
+  <property name="project"            value="melati"/>
+  <property name="ant.home"           value="."/>
+  <property name="build.sysclasspath" value="ignore"/>
+  <property name="build.compiler"     value="jikes"/>
+  <property name="version"            value="0.6.0"/>
+  <property name="this.root"          value="../../../"/>
+  <property name="build.root"         value="${this.root}/build"/>
+  <property name="build.lib"          value="./lib"/>
+  <property name="compiled.root"      value="${build.root}/compiled"/>
+  <property name="built.root"         value="${build.root}/built"/>
+  <property name="built.dir"          value="${built.root}/${project}_${version}"/>
+  <property name="built.lib"          value="${built.dir}/lib"/>
+  <property name="built.src"          value="${built.dir}/src"/>
+  <property name="site"               value="../site"/>
+  <property name="site.src"               value="../site/src"/>
+  <property name="doc.root"           value="${build.root}/doc"/>
+  <property name="doc.dir"            value="${doc.root}/${project}_${version}/doc"/>
+  <property name="packaged.root"      value="${build.root}/packaged/"/>
+  <property name="year"               value="2002"/>
+  <property name="debug"              value="on"/>
+  <property name="optimize"           value="off"/>
+  <property name="deprecation"        value="on"/>        
+  <property name="poemODMGDSD"        value="${build.root}/org/melati/poem/odmg/playing/Playing.dsd"/>
+
+
+  <path id="classpath.compile">
+    <pathelement path="${build.lib}/javax.servlet.jar"/>
+    <pathelement path="${build.lib}/webmacro.jar"/>
+    <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
+    <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
+    <!-- Not needed if using more uptodate postgres jar -->
+    <pathelement path="${this.root}/org/melati/poem/postgresql/required-libs/postgresql-7.0-fixedTimestampAndReceiveString.jar" />
+    <pathelement path="${this.root}/org/melati/poem/odmg/required-libs/odmg3.jar" />
+  </path>
+
+  <path id="classpath.run">
+    <pathelement path="${build.lib}/javax.servlet.jar"/>
+    <pathelement path="${build.lib}/javax.xml.jaxp.jar"/>
+    <pathelement path="${build.lib}/org.apache.crimson.jar"/>
+    <pathelement path="${build.lib}/org.apache.jasper.jar"/>
+    <pathelement path="${build.lib}/org.mortbay.jetty.jar"/>
+    <pathelement path="${built.lib}/${project}.jar"/>
+    <pathelement path="../../../"/>
+    <pathelement path="${build.lib}/hsqldb.jar"/>
+    <pathelement path="${build.lib}/postgresql-7.0-fixedTimestampAndReceiveString.jar" />
+    <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
+    <pathelement path="${build.lib}/mkjdbc.jar"/>
+  </path>
+
+
+    <!-- ================================================================= -->
+    <!-- Help if no command given                                          -->
+    <!-- ================================================================= -->
+
+   <target name="help">
+      <echo>
+  This script requires Ant 1.5 or higher
+
+usage:
+   ant -help          display ant help screen
+   ant help           display this message
+   ant jar            build the melati.jar
+   ant all            build everything from scratch and run it
+   ant test           build everything except javadoc 
+   ant clean          delete the built directory
+   ant javadoc        create javadoc for the distribution package
+   ant site           create website
+
+
+example:
+   ant jar
+   ant clean
+   ant all
+      </echo>      
+   </target>
+
+
+    <!-- ================================================================= -->
+    <!-- Compiles the source directory                                     -->
+    <!-- ================================================================= -->
+    <target name="compile">
+      <mkdir dir="${compiled.root}"/>
+  
+      <javac srcdir="${this.root}"
+             destdir="${compiled.root}"
+             excludes="**/playing/**/*.java,**/jtemplater/**/*.java,**/site/**/*.java"
+             includes="**/*.java"
+             debug="${debug}"
+             deprecation="${deprecation}"
+             optimize="${optimize}"
+             classpathref="classpath.compile" 
+       />
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- Copies the other files                                            -->
+    <!-- ================================================================= -->
+    <target name="sources">
+        <copy todir="${built.src}">
+          <fileset dir="${this.root}">
+            <patternset>
+              <include name="**/*.wm"/>
+              <include name="**/*.js"/>
+              <include name="**/*.html"/>
+              <include name="**/*.gif"/>
+              <exclude name="**/doc/example/**/*.wm"/>
+              <exclude name="**/playing/**/*.wm"/>
+              <exclude name="**/README.html"/>
+              <exclude name="**/RELEASE-NOTES.html"/>
+            </patternset>
+          </fileset>
+        </copy>
+
+        <copy todir="${built.dir}">
+          <fileset dir="${this.root}/org/melati">
+            <patternset>
+              <include name="*.txt"/>
+              <include name="*.html"/>
+            </patternset>
+          </fileset>
+        </copy>
+
+        <copy todir="${built.src}">
+          <fileset dir="${this.root}">
+            <patternset>
+              <include name="**/*.properties.example"/>
+            </patternset>
+          </fileset>
+          <mapper type="glob" from="*.properties.example" to="*.properties"/>
+        </copy>
+
+    </target>
+  
+    <!-- ================================================================= -->
+    <!-- Creates .jar and the .zip files                                   -->
+    <!-- ================================================================= -->
+    <!-- don't include properties and wm files in jar -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${built.lib}"/>
+        <jar jarfile="${built.lib}/${project}.jar"
+            basedir="${compiled.root}"
+            includes="**/*.class"
+        />
+        <zip zipfile="${built.lib}/src.zip" 
+            basedir="${this.root}" 
+            includes="**/*.java"/>
+        <zip zipfile="${built.lib}/example.zip" 
+            basedir="${this.root}" 
+            includes="org/melati/doc/example/contacts/**/*"
+            excludes="org/melati/doc/example/contacts/**/CSV/*"/>
+    </target>
+    
+    <!-- ================================================================= -->
+    <!-- Run the pre-processor to generate the ODMG classes                -->
+    <!-- ================================================================= -->
+    <target name="preproODMGPlaying" depends="jar">
+       <java classname="org.melati.poem.prepro.DSD"
+             fork="yes"
+             args="${poemODMGDSD}"
+             jvmargs=""
+       />
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- Compile the ODMG source                                           -->
+    <!-- ================================================================= -->
+    <target name="compileODMGPlaying" depends="preproODMGPlaying">
+      <javac srcdir      = "${build.root}"
+             destdir     = "${build.dist.src}"
+             includes    = "org/melati/poem/odmg/playing/**/*.java"
+             debug       = "${debug}"
+             deprecation = "${deprecation}"
+             optimize    = "${optimize}"/>
+    </target>
+  
+    <!-- =============================================================== -->
+    <!-- Create the ODMG .jar file                                       -->
+    <!-- =============================================================== -->
+    <target name="jarODMGPlaying" depends="compileODMGPlaying">
+      <jar jarfile  ="${build.built}/${project}.ODMGPlaying.jar"
+           basedir  = "${build.dist.src}"
+           includes = "**/*.class **/*.properties"
+      />
+    </target>
+    
+    <!-- =============================================================== == -->
+    <!-- Runs the pre-processor to generate the ODMG poem support classes   -->
+    <!-- ================================================================== -->
+    <target name="runODMGPlaying" depends="jarODMGPlaying">
+       <java classname="org.melati.poem.odmg.playing.PlayingTest"
+             fork="yes"
+             args=""
+             jvmargs=""
+       />
+    </target>
+
+  <target name="site"
+          description="build site documentation">
+
+    <delete>
+       <fileset dir="${site}" includes="*.html"/>
+    </delete>
+    <loadfile property="header" srcFile="${site.src}/header.html"/>
+    <loadfile property="footer" srcFile="${site.src}/footer.html"/>
+    <loadfile property="menu" srcFile="${site.src}/menu.html"/>
+    <filter token="header" value="${header}"/>
+    <filter token="footer" value="${footer}"/>
+    <filter token="menu" value="${menu}"/>
+    <copy todir="${site}" filtering="true">
+       <fileset dir="${site.src}"/>
+       <mapper type="glob" from="*.ahtml" to="*.html"/>
+    </copy>
+    
+  </target>
+
+    <!-- ================================================================ -->
+    <!-- Creates the API documentation                                    -->
+    <!-- ================================================================ -->
+    <target name="javadocs">
+      <mkdir dir="${doc.dir}"/>
+      <filter token="year"     value="${year}"/>
+      <filter token="version"  value="${version}"/>
+      <filter token="date"     value="${TODAY}"/>        
+      <javadoc
+          sourcepath="${this.root}"
+          sourcefiles=""
+          classpathref="classpath.compile" 
+          packagenames="org.*"
+          destdir="${doc.dir}"
+          author="true"
+          private="true"
+          version="true"
+          use="true"
+          windowtitle="${project} ${version} API"
+          doctitle="${project} ${version} API"
+          bottom="Copyright &#169; ${year} &lt;i&gt;${project}&lt;/i&gt;. All Rights Reserved."
+        />
+    </target>
+    
+    <!-- ================================================================= -->
+    <!-- Package as .zip and .tgz                                          -->
+    <!-- ================================================================= -->
+    <target name="package" depends="jar,javadocs,sources">
+       <mkdir dir="${packaged.root}"/>
+       <zip  basedir="${built.root}"
+             zipfile="${packaged.root}/${project}_${version}.zip" />
+       <tar  basedir="${built.root}" 
+             tarfile="${packaged.root}/${project}_${version}.tar" />
+       <gzip src="${packaged.root}/${project}_${version}.tar"
+             zipfile="${packaged.root}/${project}_${version}.tar.gz" />
+       <zip  basedir="${doc.dir}"
+             zipfile="${packaged.root}/${project}_${version}_doc.zip" />
+       <tar  basedir="${doc.dir}"
+             tarfile="${packaged.root}/${project}_${version}_doc.tar" />
+       <gzip src="${packaged.root}/${project}_${version}_doc.tar"
+             zipfile="${packaged.root}/${project}_${version}_doc.tar.gz" />
+    </target>
+    
+    
+    <!-- ================================================================= -->
+    <!-- Clean up the build directory                                      -->
+    <!-- ================================================================= -->
+    <target name="clean">
+        <delete dir="${build.root}"/>
+    </target>
+
+
+    <!-- ================================================================= -->
+    <!-- Build the .war                                                    -->
+    <!-- ================================================================= -->
+  <target name="war" depends="jar">
+    <mkdir dir="dist"/>
+    <echo>${built.lib}/${project}.jar</echo>
+
+    <war warfile="dist/${project}.war" webxml="web.xml">
+
+      <fileset dir="${this.root}/org/melati/site"/>
+      <lib dir="${build.lib}">
+        <include name="velocity-1.2.jar"/>
+        <include name="velocity-dep-1.2.jar"/>
+        <include name="webmacro.jar"/>
+        <include name="postgresql-7.0.-fixedTimestampAndReceiveString.jar"/>
+      </lib>
+      <lib dir="${built.lib}">
+        <include name="${project}.jar"/>
+      </lib>
+    </war>
+  </target>
+  
+
+    <!-- ============================================================== -->
+    <!-- run Jetty with the specified configuration file                -->
+    <!-- ============================================================== -->
+
+  <target name="run" description="Launch Jetty">
+    <java classname="org.mortbay.jetty.Server"
+          classpathref="classpath.run"
+          fork="yes"
+          failonerror="yes">
+      <arg line="jetty.xml"/>
+    </java>
+  </target>
+
+  <target name="test" 
+          description="build (excluding javadoc) and run"
+          depends="compile, jar, site, war, run">
+  </target>
+
+  <target name="all" 
+          description="build from scratch and run"
+          depends="clean, compile, site, package, war, run">
+  </target>
+
+</project>
+
+
+
+
+
+
+
+
+
+

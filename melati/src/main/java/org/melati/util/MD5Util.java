@@ -51,7 +51,7 @@ import java.security.MessageDigest;
  * MD5 - utils for encoding using MD5
  */
 
-public class MD5Util {
+public final class MD5Util {
 
   private MD5Util() {}
 

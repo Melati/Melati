@@ -61,7 +61,7 @@ import org.melati.Melati;
 /**
  * Provides character data for test servlets.
  */
-public class CharData {
+public final class CharData {
 
   private CharData() {}
 

@@ -61,7 +61,7 @@ import java.net.URL;
  *
  * @todo Javadoc
  */ 
-public class IoUtils {
+public final class IoUtils {
 
   private IoUtils() {}
 

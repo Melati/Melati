@@ -51,7 +51,7 @@ import java.util.Enumeration;
 /**
  * An assortment of useful sorting operations.
  */
-public class SortUtils {
+public final class SortUtils {
 
   private SortUtils() {}
 

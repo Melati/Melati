@@ -50,7 +50,7 @@ import java.io.PrintWriter;
 /**
  * An assortment of useful operations on <code>Exception</code>s.
  */
-public class ExceptionUtils {
+public final class ExceptionUtils {
 
   private ExceptionUtils() {}
 

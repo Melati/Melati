@@ -55,7 +55,7 @@ import java.io.FileNotFoundException;
 /**
  * Useful things to do with properties files.
  */
-public class PropertiesUtils {
+public final class PropertiesUtils {
 
 
   private PropertiesUtils() {}

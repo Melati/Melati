@@ -58,7 +58,7 @@ import java.sql.SQLException;
  * 
  * @todo Revisit exception handling
  */
-public class DbmsFactory {
+public final class DbmsFactory {
 
     private static final Hashtable dbmsObjects = new Hashtable();
 

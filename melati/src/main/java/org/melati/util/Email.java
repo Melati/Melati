@@ -58,7 +58,7 @@ import org.melati.poem.Database;
  * @todo replace with org.paneris.ftc.controller.Email
  * @deprecated Uses Sun class
  */
-public class Email {
+public final class Email {
 
   public static String SMTPSERVER = "SMTPServer";
 

@@ -53,7 +53,7 @@ import org.melati.poem.PoemDatabase;
  *
  * @todo Write a regression test.
  */
-public class Regression {
+public final class Regression {
 
   private Regression() {}
 

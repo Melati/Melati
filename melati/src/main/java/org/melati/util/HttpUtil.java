@@ -48,10 +48,10 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 /**
  * An assortment of useful things to do with <code>Http</code>.
  */
-public class HttpUtil {
+public final class HttpUtil {
 
   
-  private HttpUtil(){}
+  private HttpUtil() {}
 
   public static void appendZoneURL(StringBuffer url, 
                                    HttpServletRequest request) {

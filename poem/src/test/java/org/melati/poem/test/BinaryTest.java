@@ -49,7 +49,7 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
-public class BinaryTest {
+public final class BinaryTest {
 
   private BinaryTest() {}
 

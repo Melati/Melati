@@ -52,7 +52,7 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
-public class CachedSelectionTest {
+public final class CachedSelectionTest {
 
   private CachedSelectionTest() {}
 

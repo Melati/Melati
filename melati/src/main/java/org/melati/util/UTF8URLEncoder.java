@@ -50,7 +50,7 @@ import java.net.URLDecoder;
 /**
  * A utility class to work around need for catch block.
  */
-public class UTF8URLEncoder {
+public final class UTF8URLEncoder {
   
   private UTF8URLEncoder() {}
 

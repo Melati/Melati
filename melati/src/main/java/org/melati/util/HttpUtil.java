@@ -21,7 +21,7 @@ public class HttpUtil {
       StringBuffer url, HttpServletRequest request) {
     url.append(HttpServletRequestCompat.getContextPath(request));
     String servlet = request.getServletPath();
-    if (servlet != null)
+    if (servlet != null && !servlet.equals(""))
       url.append(servlet.substring(0, servlet.lastIndexOf('/')));
   }
 

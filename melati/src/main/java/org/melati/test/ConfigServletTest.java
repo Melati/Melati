@@ -100,9 +100,9 @@ public class ConfigServletTest extends ConfigServlet {
     String method = melati.getMethod();
     if (method != null) {
       if (method.equals("Exception")) 
-      throw new MelatiBugMelatiException("It got caught!");
+        throw new MelatiBugMelatiException("It got caught!");
       if (method.equals("Redirect")) 
-      melati.getResponse().sendRedirect("http://www.melati.org");
+        melati.getResponse().sendRedirect("http://www.melati.org");
     }
 
   }

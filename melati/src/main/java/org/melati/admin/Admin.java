@@ -13,48 +13,11 @@ import org.webmacro.engine.*;
 import org.webmacro.resource.*;
 import org.webmacro.broker.*;
 
-class MethodRef {
-  String database = null;
-  String table = null;
-  Integer troid = null;
-  String method = null;
-
-  MethodRef(String pathInfo) throws PathInfoMethodRefException {
-    try {
-      String[] parts = StringUtils.split(pathInfo, '/');
-
-      method = parts[parts.length - 1];
-
-      switch (parts.length - 1) {
-        case 4:
-          troid =
-              parts[3].equals("new") ? // see Add.wm
-                  new Integer(-1) : new Integer(parts[3]);
-        case 3:
-          table = parts[2];
-        default:
-          database = parts[1];  // provoke exception if 0-length
-      }
-    }
-    catch (Exception e) {
-      throw new PathInfoMethodRefException(null);
-    }
-  }
-}
+/**
+ * FIXME getting a bit big, wants breaking up
+ */
 
 public class Admin extends MelatiServlet {
-
-  protected Table tableFromPathInfo(MethodRef ref) throws PoemException {
-    if (ref.table == null) throw new NullPointerException();
-    Database database = PoemThread.database();
-    database.logSQL = true;
-    return database.getTable(ref.table);
-  }
-
-  protected Persistent objectFromPathInfo(MethodRef ref) throws PoemException {
-    if (ref.troid == null) throw new NullPointerException();
-    return tableFromPathInfo(ref).getObject(ref.troid);
-  }
 
   protected Persistent create(Table table, final WebContext context) {
     return table.create(
@@ -71,13 +34,13 @@ public class Admin extends MelatiServlet {
     return getTemplate("admin/" + name);
   }
 
-  protected Template tablesViewTemplate(WebContext context, MethodRef ref)
+  protected Template tablesViewTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Tables.wm");
   }
 
-  protected Template tableCreateTemplate(WebContext context, MethodRef ref)
+  protected Template tableCreateTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     Table tit = PoemThread.database().getTableInfoTable();
     Enumeration fields =
@@ -91,7 +54,7 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template tableCreate_doitTemplate(WebContext context,
-                                              MethodRef ref)
+                                              Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
 
     Database database = PoemThread.database();
@@ -100,10 +63,10 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
-  protected Template tableListTemplate(WebContext context, MethodRef ref)
+  protected Template tableListTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
-    final Table table = tableFromPathInfo(ref);
+    final Table table = melati.getTable();
     context.put("table", table);
 
     final Database database = table.getDatabase();
@@ -190,22 +153,20 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Select.wm");
   }
 
-  protected Template editTemplate(WebContext context, MethodRef ref)
+  protected Template editTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
-    Persistent object = objectFromPathInfo(ref);
-    // object.assertCanRead();
-    context.put("object", object);
+    melati.getObject().assertCanRead();
+    context.put("object", melati.getObject());
     return adminTemplate(context, "Edit.wm");
   }
 
-  protected Template addTemplate(WebContext context, MethodRef ref)
+  protected Template addTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
 
-    Table table = tableFromPathInfo(ref);
-    context.put("table", table);
+    context.put("table", melati.getTable());
 
     Enumeration fields =
-        new MappedEnumeration(table.columns()) {
+        new MappedEnumeration(melati.getTable().columns()) {
           public Object mapped(Object column) {
             return new ColumnField((Object)null, (Column)column);
           }
@@ -231,20 +192,22 @@ public class Admin extends MelatiServlet {
     }
   }
 
-  protected Template updateTemplate(WebContext context, MethodRef ref)
+  protected Template updateTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
-    if (ref.troid.intValue() == -1)
-      create(tableFromPathInfo(ref), context);
-    else
-      copyFields(context, objectFromPathInfo(ref));
-
+    copyFields(context, melati.getObject());
     return adminTemplate(context, "Update.wm");
   }
 
-  protected Template deleteTemplate(WebContext context, MethodRef ref)
+  protected Template addUpdateTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    create(melati.getTable(), context);
+    return adminTemplate(context, "Update.wm");
+  }
+
+  protected Template deleteTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     try {
-      objectFromPathInfo(ref).deleteAndCommit();
+      melati.getObject().deleteAndCommit();
       return adminTemplate(context, "Delete.wm");
     }
     catch (DeletionIntegrityPoemException e) {
@@ -254,61 +217,66 @@ public class Admin extends MelatiServlet {
     }
   }
 
-   protected Template duplicateTemplate(WebContext context, MethodRef ref)
+   protected Template duplicateTemplate(WebContext context, Melati melati)
        throws NotFoundException, InvalidTypeException, PoemException {
-     objectFromPathInfo(ref).duplicated();
-     return adminTemplate(context, "Duplicate.wm");
+     // FIXME the ORIGINAL object is the one that will get edited when the
+     // update comes in from Edit.wm, because it will be identified from
+     // the path info!
+
+     melati.getObject().duplicated();
+     context.put("object", melati.getObject());
+     return adminTemplate(context, "Edit.wm");
    }
 
-  protected Template modifyTemplate(WebContext context, MethodRef ref)
-      throws NotFoundException, InvalidTypeException, PoemException, HandlerException {
+  protected Template modifyTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException,
+	     HandlerException {
     String action = context.getRequest().getParameter("action");
     if ("Update".equals(action))
-      return updateTemplate(context, ref);
+      return updateTemplate(context, melati);
     else if ("Delete".equals(action))
-      return deleteTemplate(context, ref);
+      return deleteTemplate(context, melati);
     else if ("Duplicate".equals(action))
-      return duplicateTemplate(context, ref);
+      return duplicateTemplate(context, melati);
     else
       throw new HandlerException("bad action from Edit.wm: " + action);
   }
 
-  protected Template melatiHandle(WebContext context)
+  protected Template handle(WebContext context, Melati melati)
       throws PoemException, HandlerException {
     try {
-      String pathInfo = context.getRequest().getPathInfo();
-      MethodRef ref = new MethodRef(pathInfo);
       context.put("admin",
                   new AdminUtils(context.getRequest().getServletPath(),
-                                 ref.database));
+                                 melati.getLogicalDatabaseName()));
 
-      if (ref.troid != null) {
-        if (ref.method.equals("Edit"))
-          return editTemplate(context, ref);
-        else if (ref.method.equals("Update"))
-          return modifyTemplate(context, ref);
+      if (melati.getObject() != null) {
+        if (melati.getMethod().equals("Edit"))
+          return editTemplate(context, melati);
+        else if (melati.getMethod().equals("Update"))
+          return modifyTemplate(context, melati);
       }
-      else if (ref.table != null) {
-        if (ref.method.equals("View"))
-          return tableListTemplate(context, ref);
-        else if (ref.method.equals("Add"))
-          return addTemplate(context, ref);
+      else if (melati.getTable() != null) {
+        if (melati.getMethod().equals("View"))
+          return tableListTemplate(context, melati);
+        else if (melati.getMethod().equals("Add"))
+          return addTemplate(context, melati);
+        else if (melati.getMethod().equals("AddUpdate"))
+          return addUpdateTemplate(context, melati);
       }
       else {
-        if (ref.method.equals("View"))
-          return tablesViewTemplate(context, ref);
-        else if (ref.method.equals("Create"))
-          return tableCreateTemplate(context, ref);
-        else if (ref.method.equals("Create_doit"))
-          return tableCreate_doitTemplate(context, ref);
+        if (melati.getMethod().equals("View"))
+          return tablesViewTemplate(context, melati);
+        else if (melati.getMethod().equals("Create"))
+          return tableCreateTemplate(context, melati);
+        else if (melati.getMethod().equals("Create_doit"))
+          return tableCreate_doitTemplate(context, melati);
       }
 
-      throw new InvalidPathInfoException(pathInfo);
+      throw new InvalidUsageException(this, melati.getContext());
     }
     catch (PoemException e) {
       // we want to let these through untouched, since MelatiServlet handles
       // AccessPoemException specially ...
-      e.printStackTrace();
       throw e;
     }
     catch (Exception e) {

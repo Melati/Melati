@@ -167,22 +167,26 @@ public class ColumnInfo extends ColumnInfoBase {
     while (allFields.hasMoreElements()) {
       Field f = (Field) allFields.nextElement();
       String n = f.getName();
-      if (f.getType() instanceof TroidPoemType) {
-      } else if (n.equals("name")) {
-      } else if (n.equals("typefactory")) {
-      } else if (n.equals("tableinfo")) {
-      } else if (
-        n.equals("size")
-          && (!(column().getType() instanceof SizedAtomPoemType))) {
-      } else if (
-        n.equals("integrityfix")
-          && (!(column().getType() instanceof ReferencePoemType))) {
-      } else if (
-        n.equals("precision")
+      if (f.getType() instanceof TroidPoemType) { 
+        ; // Do nothing
+      } else if (n.equals("name")) { 
+        ; // Do nothing
+      } else if (n.equals("typefactory")) { 
+        ; // Do nothing
+      } else if (n.equals("tableinfo")) { 
+        ; // Do nothing
+      } else if (n.equals("size")
+          && (!(column().getType() instanceof SizedAtomPoemType))) { 
+        ; // Do nothing
+      } else if (n.equals("integrityfix")
+          && (!(column().getType() instanceof ReferencePoemType))) { 
+        ; // Do nothing
+      } else if (n.equals("precision")
           && (!(column().getType() instanceof FixedPointAtomPoemType))) {
-      } else if (
-        n.equals("scale")
+        ; // Do nothing
+      } else if (n.equals("scale")
           && (!(column().getType() instanceof FixedPointAtomPoemType))) {
+        ; // Do nothing
       } else
         v.addElement(f);
     }

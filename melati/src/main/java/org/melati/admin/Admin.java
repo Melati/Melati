@@ -551,7 +551,7 @@ public class Admin extends TemplateServlet {
   protected String deleteTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     try {
-      melati.getObject().deleteAndCommit();
+      melati.getObject().delete();
       return adminTemplate(context, "Update");
     }
     catch (DeletionIntegrityPoemException e) {

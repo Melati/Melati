@@ -75,10 +75,20 @@ public class SettingTable extends SettingTableBase {
     else {
       setting = (Setting)newPersistent();
       setting.setName(name);
-      setting.setTypefactory(typefactory);
-      setting.setRaw(value);
       setting.setDisplayname(displayname);
       setting.setDescription(description);
+
+      setting.setUsereditable(true);
+
+      setting.setWidth(20);
+      setting.setHeight(1);
+
+      setting.setNullable(true);
+      setting.setSize(-1);
+      setting.setTypefactory(typefactory);
+
+      setting.setRaw(value);
+
       return (Setting)getNameColumn().ensure(setting);
     }
   }

@@ -56,19 +56,18 @@ public class Setting extends SettingBase {
   private Object raw = null;
   private Object cooked = null;
 
-  public Setting(Integer typefactory, String name, String rawstring,
+  public Setting(Integer typefactory, String name, String value,
 		 String displayname, String description) {
     this.typefactory = typefactory;
     this.name = name;
-    this.rawstring = rawstring;
+    this.value = value;
     this.displayname = displayname;
     this.description = description;
   }
 
   public PoemType getType() {
     if (poemType == null)
-      poemType = getTypefactory().typeOf(getDatabase(),
-					 PoemTypeFactory.Parameter.generic);
+      poemType = getTypefactory().typeOf(getDatabase(), toTypeParameter());
     return poemType;
   }
 
@@ -86,16 +85,16 @@ public class Setting extends SettingBase {
     }
   }
 
-  public void setRawstring(String rawstring) {
+  public void setValue(String value) {
     Object raw;
     try {
-      raw = getType().rawOfString(rawstring);
+      raw = getType().rawOfString(value);
     }
     catch (Exception e) {
       throw new SettingValidationException(name, e);
     }
 
-    super.setRawstring(rawstring);
+    super.setValue(value);
     this.raw = raw;
     cooked = null;
   }
@@ -109,7 +108,7 @@ public class Setting extends SettingBase {
       throw new SettingValidationException(name, e);
     }
 
-    super.setRawstring(string);
+    super.setValue(string);
     this.raw = raw;
     cooked = null;
   }
@@ -117,7 +116,7 @@ public class Setting extends SettingBase {
   public Object getRaw() {
     if (raw == null)
       try {
-	raw = getType().rawOfString(getRawstring());
+	raw = getType().rawOfString(getValue());
       }
       catch (Exception e) {
 	throw new SettingValidationException(name, e);
@@ -150,23 +149,44 @@ public class Setting extends SettingBase {
     }
   }
 
-  public int getIntValue() {
-    Object value = getCooked();
-    if (value instanceof Integer)
-      return ((Integer)value).intValue();
+  public Integer getIntegerCooked() {
+    Object cooked = getCooked();
+    if (cooked == null)
+      return null;
+    else if (cooked instanceof Integer)
+      return (Integer)cooked;
     else
-      throw new SettingTypeMismatchException(name, getTypefactory(), "int");
+      throw new SettingTypeMismatchException(name, getTypefactory(), "Integer");
   }
 
-  public String getStringValue() {
-    Object value = getCooked();
-    if (value instanceof String)
-      return (String)value;
+  public String getStringCooked() {
+    Object cooked = getCooked();
+    if (cooked == null)
+      return null;
+    else if (cooked instanceof String)
+      return (String)cooked;
     else
       throw new SettingTypeMismatchException(name, getTypefactory(), "String");
   }
 
-  public String getValue() {
-    return getStringValue();
+  private FieldAttributes valueAttributes() {
+    if (valueAttributes == null) {
+      Column c = getSettingTable().getValueColumn();
+      valueAttributes =
+	  new BaseFieldAttributes(
+              c.getName(), c.getDisplayName(), c.getDescription(), getType(),
+              width.intValue(), height.intValue(), renderinfo);
+    }
+
+    return valueAttributes;
+  }
+
+  public Field getValueField() {
+    try {
+      return new Field(getRaw(), valueAttributes());
+    }
+    catch (AccessPoemException accessException) {
+      return new Field(accessException, valueAttributes());
+    }
   }
 }

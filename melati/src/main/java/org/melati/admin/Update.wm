@@ -66,7 +66,16 @@
     </script>
     <BODY bgcolor="#cccccc" onLoad="reloadframe()">
   #end #else #begin
-    <BODY bgcolor="#cccccc">
+    #if ($Form.returnfield) #begin
+      <script language="JavaScript" TYPE="text/javascript">
+        function popupupdate(returnfield, id, value) {
+          opener.popupupdate(parent, returnfield, id, value)
+        }
+      </script>
+      <BODY bgcolor="#cccccc" onLoad="popupupdate('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
+    #end #else #begin
+      <BODY bgcolor="#cccccc">
+    #end
   #end
 #end
 <center><br><br><br><br>

@@ -54,23 +54,31 @@ import org.melati.util.*;
 import org.melati.poem.*;
 import org.melati.templets.*;
 
-public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
+public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
-  private AttributeHTMLMarkupLanguage attributeML = null;
-
-  public HTMLMarkupLanguage(WebContext webContext,
+  public HTMLLikeMarkupLanguage(String name, WebContext webContext,
 			    TempletLoader templetLoader, MelatiLocale locale) {
-    super("html", webContext, templetLoader, locale);
+    super(name, webContext, templetLoader, locale);
   }
-
-  protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {
+  
+  protected HTMLLikeMarkupLanguage(String name, MarkupLanguage other) {
     super(name, other);
   }
 
-  public AttributeHTMLMarkupLanguage getAttr() {
-    if (attributeML == null)
-      attributeML = new AttributeHTMLMarkupLanguage(this);
-    return attributeML;
+
+  public String rendered(String s) {
+    return HTMLUtils.entitied(s);
   }
 
+  public String escaped(String s) {
+    return StringUtils.escaped(s, '"');
+  }
+
+  public String rendered(Exception e) {
+    return "[" + rendered(e.toString()) + "]";
+  }
+
+  public String encoded(String s) {
+    return URLEncoder.encode(s);
+  }
 }

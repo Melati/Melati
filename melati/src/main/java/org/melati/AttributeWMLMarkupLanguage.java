@@ -47,30 +47,17 @@
 
 package org.melati;
 
-import java.net.URLEncoder;
-import org.webmacro.engine.*;
-import org.webmacro.servlet.*;
-import org.melati.util.*;
 import org.melati.poem.*;
-import org.melati.templets.*;
+import org.webmacro.*;
 
-public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
-  private AttributeHTMLMarkupLanguage attributeML = null;
+public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
 
-  public HTMLMarkupLanguage(WebContext webContext,
-			    TempletLoader templetLoader, MelatiLocale locale) {
-    super("html", webContext, templetLoader, locale);
+  public AttributeWMLMarkupLanguage(WMLMarkupLanguage html) {
+    super("wml_attr", html);
   }
 
-  protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {
-    super(name, other);
+  public String rendered(AccessPoemException e) throws WebMacroException {
+    return "[Access denied to " + rendered(e.token) + "]";
   }
-
-  public AttributeHTMLMarkupLanguage getAttr() {
-    if (attributeML == null)
-      attributeML = new AttributeHTMLMarkupLanguage(this);
-    return attributeML;
-  }
-
 }

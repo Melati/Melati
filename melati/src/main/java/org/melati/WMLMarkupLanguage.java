@@ -54,22 +54,22 @@ import org.melati.util.*;
 import org.melati.poem.*;
 import org.melati.templets.*;
 
-public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
+public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
-  private AttributeHTMLMarkupLanguage attributeML = null;
+  private AttributeWMLMarkupLanguage attributeML = null;
 
-  public HTMLMarkupLanguage(WebContext webContext,
+  public WMLMarkupLanguage(WebContext webContext,
 			    TempletLoader templetLoader, MelatiLocale locale) {
-    super("html", webContext, templetLoader, locale);
+    super("wml", webContext, templetLoader, locale);
   }
-
-  protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {
+  
+  protected WMLMarkupLanguage(String name, WMLMarkupLanguage other) {
     super(name, other);
   }
 
-  public AttributeHTMLMarkupLanguage getAttr() {
+  public AttributeWMLMarkupLanguage getAttr() {
     if (attributeML == null)
-      attributeML = new AttributeHTMLMarkupLanguage(this);
+      attributeML = new AttributeWMLMarkupLanguage(this);
     return attributeML;
   }
 

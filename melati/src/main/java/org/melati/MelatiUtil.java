@@ -198,8 +198,8 @@ public class MelatiUtil {
   
     
   /**
-  * a useful utility method that gets a value from the Form.  It will return
-  * null if the value is "" or not present
+  * A utility method that gets a value from the Form.  It will return
+  * null if the value is "" or not present.
   *
   * @param context - a template context
   * @param field - the name of the field to get
@@ -212,8 +212,8 @@ public class MelatiUtil {
   
     
   /**
-  * a useful utility method that gets a value from the Form.  It will return
-  * the default if the value is "" or not present
+  * A utility method that gets a value from the Form.  It will return
+  * the default if the value is "" or not present.
   *
   * @param context - a template context
   * @param field - the name of the field to get
@@ -229,8 +229,8 @@ public class MelatiUtil {
   }
 
   /**
-  * a useful utility method that gets a value from the Form as an Integer.  
-  * It will return null if the value is "" or not present
+  * A utility method that gets a value from the Form as an Integer.  
+  * It will return null if the value is "" or not present.
   *
   * @param context - a template context
   * @param field - the name of the field to get
@@ -245,8 +245,8 @@ public class MelatiUtil {
   }
 
   /**
-  * a useful utility method that gets a value from the Form as an Integer.  
-  * It will return null if the value is "" or not present
+  * A utility method that gets a value from the Form as an Integer.  
+  * It will return null if the value is "" or not present.
   *
   * @param context - a template context
   * @param field - the name of the field to get
@@ -258,7 +258,7 @@ public class MelatiUtil {
   }
 
   /**
-  * a useful utility method that tests weather a field is present in a Form,
+  * A utility method that tests whether a field is present in a Form,
   * returning a Boolean.  
   *
   * @param context - a template context

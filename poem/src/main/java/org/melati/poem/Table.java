@@ -264,7 +264,7 @@ public class Table {
    *
    * @return the table's display column, or <TT>null</TT> if it hasn't got one
    *
-   * @see Column#getPrimaryDisplay()
+   * @see Column#setColumnInfo()
    * @see ReferencePoemType#_stringOfCooked
    */
 

@@ -5,8 +5,8 @@
 <body bgcolor="white">
 <blockquote> 
   <h1 align="center">The Melati Project</h1>
-  <h3 align="center"> Release 0.52.1 </h3>
-  <h4 align="center"> last updated 21/01/2001 - tim@hoop.co.uk</h4>
+  <h3 align="center"> Release 0.53 </h3>
+  <h4 align="center"> last updated 06/02/2001 - tim@hoop.co.uk</h4>
   <!-- -----------------------------------------------------
         This document is fairly readable as text, but looks 
         real ugly. It'll be more fun reading it in a browser.
@@ -53,15 +53,16 @@
   <h2> Release Notes</h2>
   </a> 
   <p>See the <a href="RELEASE-NOTES.html">release notes</a> for detailed documentation 
-    about what has changed. This is the 2nd beta release of Melati, offering the 
+    about what has changed. This is the 3rd beta release of Melati, offering the 
     following improvements over Alpha versions of Melati:</p>
   <ul>
+    <li>Support for Webmacro 0.94</li>
     <li>Cleaner servlet API</li>
     <li>File upload</li>
     <li>Melati Test suite</li>
     <li>Testing and numerous bug fixes</li>
     <li>Now available as a downloadable zip / tar.gz. </li>
-    <li>Precompiled melati-snapshot.jar</li>
+    <li>Precompiled (javac) melati.jar</li>
     <li>Ant build script</li>
     <li>Mailing list hosted on SourceForge</li>
     <li>More documentation (this document).</li>
@@ -72,10 +73,16 @@
   <a name="Upgrading"> 
   <h2>Upgrading</h2>
   </a> 
+  <h3>To upgrade from Melati 0.52.1 to Melati 0.53</h3>
+  <ul>
+    <li>you must install version 0.94 (at least) of webmacro</li>
+  </ul>
+  <h3>&nbsp;</h3>
   <h3>To upgrade from Melati 0.52 to Melati 0.52.1</h3>
   <ul>
     <li>no changes are required.</li>
   </ul>
+  <p>&nbsp;</p>
   <p>&nbsp;</p>
   <h3>To upgrade from Melati 0.50 to Melati 0.52</h3>
   <ul>
@@ -201,10 +208,8 @@
     <tr> 
       <td>Template Engine</td>
       <td> 
-        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> Snapshot 
-          July 19, 2000. Available for download as <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
-          or <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.tgz">tgz</a>. 
-        </blockquote>
+        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> version 
+          0.94 or higher.</blockquote>
       </td>
     </tr>
   </table>
@@ -334,8 +339,8 @@ http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
 </pre>
         </blockquote>
         <p> This is the 1st servlet in the Melati Test suite. the test suite demonstrates 
-          all teh features of melati, and gives you access to examples. It will 
-          also help you debug yoiur installation</p>
+          all the features of melati, and gives you access to examples. It will 
+          also help you debug your installation</p>
       </td>
     </tr>
   </table>

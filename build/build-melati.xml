@@ -9,18 +9,17 @@
         <property name="Name" value="melati"/>
         <property name="version" value="0.54"/>
         <property name="project" value="melati"/>
-        <property name="build.compiler" value="${JAVAC}"/>
-        <property name="build.root" value="../../.."/>
-        <property name="build.dist" value="../../../../dist"/>
-        <property name="build.dist.src" value="${build.dist}/src"/>
-        <property name="build.built.root" value="../../../../built"/>
-        <property name="build.built" value="${build.built.root}/${project}_${version}"/>
-        <property name="build.doc.root" value="../../../../doc"/>
-        <property name="build.doc" value="${build.doc.root}/${project}_${version}/doc"/>
-        <property name="build.lib" value="${build.built}/lib"/>
-        <property name="build.src" value="${build.built}/src"/>
-        <property name="final.name" value="package"/>
-        <property name="final.dir" value="../../../../${final.name}/"/>
+        <property name="compiler" value="${JAVAC}"/>
+        <property name="this.root"      value="../../.."/>
+        <property name="build.root"     value="${this.root}/../build"/>
+        <property name="compiled.root"  value="${build.root}/compiled"/>
+        <property name="built.root"     value="${build.root}/built"/>
+        <property name="built.dir"      value="${built.root}/${project}_${version}"/>
+        <property name="built.lib"      value="${built.dir}/lib"/>
+        <property name="built.src"      value="${built.dir}/src"/>
+        <property name="doc.root"       value="${build.root}/doc"/>
+        <property name="doc.dir"        value="${doc.root}/${project}_${version}/doc"/>
+        <property name="packaged.root"  value="${build.root}/packaged/"/>
         <property name="year" value="2000"/>
         <property name="ant.home" value="."/>
         <property name="debug" value="on"/>
@@ -35,94 +34,74 @@
     </target>
 
     <!-- =================================================================== -->
-    <!-- Prepares the build directory                                        -->
-    <!-- =================================================================== -->
-    <target name="prepare" depends="init">
-        <mkdir dir="${build.dist}"/>
-        <mkdir dir="${build.built}"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="**/*.properties"
-            excludes="**/poem/odmg/playing/**/*.properties"
-            filtering="on"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="**/*.properties.example"
-            filtering="on"/>
-        <renameext srcDir="${build.dist.src}" 
-            includes="**/*.properties.example" 
-            fromExtension=".properties.example" 
-            toExtension=".properties" 
-            replace="true"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="**/*.wm"
-            excludes="**/doc/example/*.wm **/playing/**/*.wm"
-            filtering="on"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="**/*.js"
-            filtering="on"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="org/melati/admin/**/*.html"
-            filtering="on"/>
-        <copydir src="${build.root}" dest="${build.dist.src}"
-            includes="org/melati/admin/**/*.gif"
-            filtering="on"/>
-        <copydir src="${build.root}/org/melati" dest="${build.dist}"
-            includes="*.html"
-            filtering="on"/>
-        <copydir src="${build.root}/org/melati" dest="${build.dist}"
-            includes="*.txt"
-            filtering="on"/>
-
-    </target>
-
-    <!-- =================================================================== -->
     <!-- Compiles the source directory                                       -->
     <!-- =================================================================== -->
-    <target name="compile" depends="prepare">
-        <javac srcdir="${build.root}"
-            destdir="${build.dist.src}"
+    <target name="compile" depends="init">
+      <mkdir dir="${compiled.root}"/>
+  
+      <javac srcdir="${this.root}"
+            destdir="${compiled.root}"
             includes="**/*.java"
-            excludes="**/playing/**/*.java"
+            excludes="**/playing/**/*.java,**/jtemplater/**/*.java"
             debug="${debug}"
             deprecation="${deprecation}"
             optimize="${optimize}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Coppies the other files                                             -->
+    <!-- =================================================================== -->
+    <target name="sources" depends="init">
+        <copy todir="${built.src}">
+          <fileset dir="${this.root}">
+            <patternset id="sources" >
+              <include name="**/*.wm"/>
+              <include name="**/*.js"/>
+              <include name="**/*.html"/>
+              <include name="**/*.gif"/>
+              <exclude name="**/doc/example/**/*.wm"/>
+              <exclude name="**/playing/**/*.wm"/>
+              <exclude name="**/README.html"/>
+              <exclude name="**/RELEASE-NOTES.html"/>
+            </patternset>
+          </fileset>
+        </copy>
+
+        <copy todir="${built.dir}">
+          <fileset dir="${this.root}/org/melati">
+            <patternset id="sources" >
+              <include name="*.txt"/>
+              <include name="*.html"/>
+            </patternset>
+          </fileset>
+        </copy>
+
+        <copy todir="${built.src}">
+          <fileset dir="${this.root}">
+            <patternset id="sources" >
+              <include name="**/*.properties.example"/>
+            </patternset>
+          </fileset>
+          <mapper type="glob" from="*.properties.example" to="*.properties"/>
+        </copy>
+
     </target>
   
     <!-- =================================================================== -->
     <!-- Compiles the source directory and creates a .jar file               -->
     <!-- =================================================================== -->
-<!-- don't include properties and wm files in jar -->
+    <!-- don't include properties and wm files in jar -->
     <target name="jar" depends="compile">
-        <mkdir dir="${build.lib}"/>
-        <jar jarfile="${build.lib}/${project}.jar"
-            basedir="${build.dist.src}"
+        <mkdir dir="${built.lib}"/>
+        <jar jarfile="${built.lib}/${project}.jar"
+            basedir="${compiled.root}"
             includes="**/*.class"
         />
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.js"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.properties"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.wm"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.html"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.gif"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.txt"
-            filtering="on"/>
-        <copydir src="${build.dist}" dest="${build.built}"
-            includes="**/*.html"
-            filtering="on"/>
-        <zip zipfile="${build.lib}/src.zip" 
-            basedir="${build.root}" 
+        <zip zipfile="${built.lib}/src.zip" 
+            basedir="${this.root}" 
             includes="**/*.java"/>
-        <zip zipfile="${build.lib}/example.zip" 
-            basedir="${build.root}" 
+        <zip zipfile="${built.lib}/example.zip" 
+            basedir="${this.root}" 
             includes="org/melati/doc/example/contacts/**/*"
             excludes="org/melati/doc/example/contacts/**/CSV/*"/>
     </target>
@@ -174,13 +153,13 @@
     <!-- =================================================================== -->
     <!-- Creates the API documentation                                       -->
     <!-- =================================================================== -->
-    <target name="javadocs" depends="prepare">
-        <mkdir dir="${build.doc}"/>
+    <target name="javadocs" depends="init">
+      <mkdir dir="${doc.dir}"/>
         <javadoc
-            sourcepath="${build.root}"
+            sourcepath="${this.root}"
             sourcefiles=""
             packagenames="org.*"
-            destdir="${build.doc}"
+            destdir="${doc.dir}"
             author="true"
             private="true"
             version="true"
@@ -194,24 +173,21 @@
     <!-- =================================================================== -->
     <!-- Package as .zip and .tgz                                            -->
     <!-- =================================================================== -->
-    <target name="package" depends="jar,javadocs">
-        <mkdir dir="${final.dir}"/>
-        <zip zipfile="${final.dir}/${Name}_${version}.zip" basedir="${build.built.root}"/>
-        <tar tarfile="${final.dir}/${Name}_${version}.tar" basedir="${build.built.root}"/>
-        <gzip zipfile="${final.dir}/${Name}_${version}.tar.gz" src="${final.dir}/${Name}_${version}.tar"/>
-        <zip zipfile="${final.dir}/${Name}_${version}_doc.zip" basedir="${build.doc.root}"/>
-        <tar tarfile="${final.dir}/${Name}_${version}_doc.tar" basedir="${build.doc.root}"/>
-        <gzip zipfile="${final.dir}/${Name}_${version}_doc.tar.gz" src="${final.dir}/${Name}_${version}_doc.tar"/>
+    <target name="package" depends="jar,javadocs,sources">
+        <mkdir dir="${packaged.root}"/>
+        <zip zipfile="${packaged.root}/${Name}_${version}.zip" basedir="${built.root}"/>
+        <tar tarfile="${packaged.root}/${Name}_${version}.tar" basedir="${built.root}"/>
+        <gzip zipfile="${packaged.root}/${Name}_${version}.tar.gz" src="${packaged.root}/${Name}_${version}.tar"/>
+        <zip zipfile="${packaged.root}/${Name}_${version}_doc.zip" basedir="${doc.dir}"/>
+        <tar tarfile="${packaged.root}/${Name}_${version}_doc.tar" basedir="${doc.dir}"/>
+        <gzip zipfile="${packaged.root}/${Name}_${version}_doc.tar.gz" src="${packaged.root}/${Name}_${version}_doc.tar"/>
     </target>
     
     
     <!-- =================================================================== -->
     <!-- Cleans up the build directory                                       -->
     <!-- =================================================================== -->
-    <target name="clean">
-        <deltree dir="${build.dist}"/>
-        <deltree dir="${build.built.root}"/>
-        <deltree dir="${build.doc.root}"/>
-        <deltree dir="${final.dir}"/>
+    <target name="clean" depends="init">
+        <delete dir="${build.root}"/>
     </target>
 </project>

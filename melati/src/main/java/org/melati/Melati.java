@@ -412,8 +412,8 @@ public class Melati {
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
     return new HTMLMarkupLanguage(this,
-    config.getTempletLoader(),
-    config.getLocale());
+                                  config.getTempletLoader(),
+                                  config.getLocale());
   }
 
   /**

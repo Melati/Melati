@@ -85,7 +85,8 @@ public class ColumnTypePoemType extends IntegerPoemType {
     return ((PoemTypeFactory)cooked).code;
   }
 
-  protected String _stringOfCooked(Object cooked, MelatiLocale locale, int style)
+  protected String _stringOfCooked(Object cooked,
+				   MelatiLocale locale, int style)
       throws PoemException {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }

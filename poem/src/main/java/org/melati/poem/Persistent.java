@@ -349,8 +349,8 @@ public class Persistent extends Transactioned implements Cloneable {
    * <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    *
-   * @return the capability specified by the record's <TT>canwrite</TT> field, or
-   *         <TT>null</TT> if it doesn't have one or its value is SQL
+   * @return the capability specified by the record's <TT>canwrite</TT> field,
+   *         or <TT>null</TT> if it doesn't have one or its value is SQL
    *         <TT>NULL</TT>
    *
    * @see #assertCanWrite
@@ -419,9 +419,9 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * The `identifying value' of one of the object's fields.  This is the value
-   * which is actually stored in the database, give as a basic Java type;
-   * currently, the only fields for which this differs from the `true value'
-   * returned from <TT>getCooked</TT> are reference fields with type
+   * which is actually stored in the database, given to you as a basic Java
+   * type; currently, the only fields for which this differs from the `true
+   * value' returned from <TT>getCooked</TT> are reference fields with type
    * <TT>ReferencePoemType</TT>.
    *
    * <P>
@@ -440,12 +440,12 @@ public class Persistent extends Transactioned implements Cloneable {
    * The value returned is relative to the transaction associated with the
    * calling thread, as set up by <TT>Database.inSession</TT>.  This means that
    * you never see the value of a field change in your transaction because of
-   * another transaction's activities, unless you do a <TT>PoemThread.commit()</TT>
-   * or a <TT>PoemThread.rollback()</TT>.  If you need to, you can store a
-   * <TT>Persistent</TT> in a permanent data structure and access it in
-   * different sessions over time---or even from concurrently running sessions,
-   * though this may slow down access checking; each transaction will see the value
-   * it expects.
+   * another transaction's activities, unless you do a
+   * <TT>PoemThread.commit()</TT> or a <TT>PoemThread.rollback()</TT>.  If you
+   * need to, you can store a <TT>Persistent</TT> in a permanent data structure
+   * and access it in different sessions over time---or even from concurrently
+   * running sessions, though this may slow down access checking; each
+   * transaction will see the value it expects.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
@@ -518,9 +518,9 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * Set the `identifying value' of one of the record's fields.  This is the
-   * value which is actually stored in the database, give as a basic Java type;
-   * currently, the only fields for which this differs from the `true value'
-   * expected by <TT>setCooked</TT> are reference fields with type
+   * value which is actually stored in the database, given by you as a basic
+   * Java type; currently, the only fields for which this differs from the
+   * `true value' expected by <TT>setCooked</TT> are reference fields with type
    * <TT>ReferencePoemType</TT>.
    *
    * <P>
@@ -745,7 +745,7 @@ public class Persistent extends Transactioned implements Cloneable {
    *                if <TT>raw</TT> is of the wrong type; it's easiest to use
    *                DSD-derived typed versions of this method
    * @exception ValidationPoemException
-   *                if <TT>idrawTT> is not a valid value for the field
+   *                if <TT>cooked<TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
    *
    * @see #setRaw
@@ -914,7 +914,7 @@ public class Persistent extends Transactioned implements Cloneable {
     else
       return
           displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
-                                                locale, style);
+						 locale, style);
   }
 
   // 

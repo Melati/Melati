@@ -58,7 +58,7 @@ public class Capability extends CapabilityBase {
     setName_unsafe(name);
   }
 
-  protected void assertCanRead(AccessToken token) {}
+  public void assertCanRead(AccessToken token) {}
 
   public String toString() {
     return getName();

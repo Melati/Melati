@@ -60,5 +60,5 @@ public class Group extends GroupBase {
     this.name = name;
   }
 
-  protected void assertCanRead(AccessToken token) {}
+  public void assertCanRead(AccessToken token) {}
 }

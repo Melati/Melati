@@ -56,4 +56,6 @@ public class TableCategory extends TableCategoryBase {
 
   public TableCategory() {
   }
+
+  public void assertCanRead(AccessToken token) {}
 }

@@ -51,7 +51,7 @@ import org.melati.poem.generated.*;
 
 public class ColumnInfo extends ColumnInfoBase {
 
-  protected void assertCanRead(AccessToken token) {}
+  public void assertCanRead(AccessToken token) {}
 
   private Column _column = null;
 

@@ -59,7 +59,7 @@ public class TableInfo extends TableInfoBase {
     return _actualTable;
   }
 
-  protected void assertCanRead(AccessToken token) {}
+  public void assertCanRead(AccessToken token) {}
 
   public TableInfo() {
   }

@@ -72,5 +72,4 @@ public class AdminUtils {
   public String tablesURL() {
     return adminURL + "/" + logicalDatabase + "/View";
   }
-  
 }

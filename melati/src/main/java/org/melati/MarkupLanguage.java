@@ -178,6 +178,11 @@ public abstract class MarkupLanguage {
         throw e;
     }
 
+    Template templet =
+        templetName == null ?
+          templetLoader.templet(webContext.getBroker(), this, field) :
+          templetLoader.templet(webContext.getBroker(), this, templetName);
+
     Object previousNullValue = null;
     if (overrideNullable) {
       final PoemType nullable =
@@ -191,12 +196,8 @@ public abstract class MarkupLanguage {
       previousNullValue = webContext.put("nullValue", nullValue);
     }
 
-    Template templet =
-        templetName == null ?
-          templetLoader.templet(webContext.getBroker(), this, field) :
-          templetLoader.templet(webContext.getBroker(), this, templetName);
-
     Object previous = webContext.put("field", field);
+
     try {
       return (String)templet.evaluate(webContext);
     }

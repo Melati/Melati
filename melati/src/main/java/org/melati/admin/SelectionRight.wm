@@ -79,7 +79,7 @@ $results.TotalCount</b></font>
     </TR>
 	#set $color1 = "#E9EDFD"
 	#set $color2 = "#FFFFFF"
-	#set $color = $color1;
+	#set $color = $color1
     #foreach $result in $results #begin
       <TR>
 	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.RightURL($result)?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&$orderClause&$whereClause")'><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0 hspace=2></a>&nbsp;</font></TD>

@@ -52,8 +52,8 @@
 #if ($Form.returnTarget) #begin
   <script>
     function reloadframes() {
-      $Form.returnTarget;.location.href="$Form.returnURL";
-      $Form.returnTarget;.focus();
+      $(Form.returnTarget).location.href="$Form.returnURL";
+      $(Form.returnTarget).focus();
     }
   </script>
   <BODY bgcolor="#cccccc" onLoad="reloadframes()">

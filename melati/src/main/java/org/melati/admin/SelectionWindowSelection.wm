@@ -86,7 +86,7 @@ $results.TotalCount</b>
     </TR>
 	#set $color1 = "#E9EDFD"
 	#set $color2 = "#FFFFFF"
-	#set $color = $color1;
+	#set $color = $color1
     #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>

@@ -57,8 +57,8 @@ public class StringPoemType extends AtomPoemType {
 
   protected int size;             // or, < 0 for "unlimited"
 
-  public StringPoemType(boolean nullable, Dbms dbms, int size) {
-    super(Types.VARCHAR, "VARCHAR", nullable, dbms);
+  public StringPoemType(boolean nullable, int size) {
+    super(Types.VARCHAR, "VARCHAR", nullable);
     this.size = size;
   }
 
@@ -89,10 +89,9 @@ public class StringPoemType extends AtomPoemType {
     return rawString;
   }
 
-  protected String _sqlDefinition() {
-    // FIXME Postgres-specific---aargh (have PostgresStringPoemType etc.)
+  protected String _sqlDefinition(Dbms dbms) {
     try {
-      return getDbms().getStringSqlDefinition(size);
+      return dbms.getStringSqlDefinition(size);
     } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }

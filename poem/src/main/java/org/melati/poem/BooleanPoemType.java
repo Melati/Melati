@@ -68,8 +68,8 @@ class BooleanPossibleRawEnumeration implements Enumeration {
 
 public class BooleanPoemType extends AtomPoemType {
 
-  public BooleanPoemType(boolean nullable, Dbms dbms) {
-    super(Types.BIT, "BOOLEAN", nullable, dbms);
+  public BooleanPoemType(boolean nullable) {
+    super(Types.BIT, "BOOLEAN", nullable);
   }
 
   protected Enumeration _possibleRaws() {

@@ -52,11 +52,10 @@ import org.melati.poem.dbms.*;
 
 public class DeletedPoemType extends BooleanPoemType {
 
-  // Cannot use due to need to pass Dbms in
-  //public static final DeletedPoemType it = new DeletedPoemType();
+  public static final DeletedPoemType it = new DeletedPoemType();
 
-  public DeletedPoemType(Dbms dbms) {
-    super(false, dbms);
+  public DeletedPoemType() {
+    super(false);
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

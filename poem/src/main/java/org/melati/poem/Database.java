@@ -279,7 +279,7 @@ abstract public class Database implements TransactionPool {
     table.setTableInfo(info);
     table.defineColumn(new ExtraColumn(table, troidName, 
                                        //TroidPoemType.it,
-                                       new TroidPoemType(getDbms()),
+                                       new TroidPoemType(),
                                        DefinitionSource.infoTables,
                                        table.extrasIndex++));
     table.unifyWithColumnInfo();
@@ -336,8 +336,7 @@ abstract public class Database implements TransactionPool {
 
 	ResultSet idCol = m.getColumns(null, null, tableName, "id");
 	if (idCol.next() &&
-	    //defaultPoemTypeOfColumnMetaData(idCol).canBe(TroidPoemType.it)) {
-	    defaultPoemTypeOfColumnMetaData(idCol).canBe( new TroidPoemType( getDbms() ))) {
+	    defaultPoemTypeOfColumnMetaData(idCol).canBe(new TroidPoemType())) {
 	  try {
 	    defineTable(table = new Table(this, tableName,
 					  DefinitionSource.sqlMetaData));
@@ -1011,26 +1010,26 @@ abstract public class Database implements TransactionPool {
         md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
     int width = md.getInt("COLUMN_SIZE");
     switch (typeCode) {
-      case Types.BIT            : return new BooleanPoemType(nullable, getDbms() );
+      case Types.BIT            : return new BooleanPoemType(nullable);
       case Types.TINYINT        : return unsupported("TINYINT", md);
       case Types.SMALLINT       : return unsupported("SMALLINT", md);
-      case Types.INTEGER        : return new IntegerPoemType(nullable, getDbms() );
+      case Types.INTEGER        : return new IntegerPoemType(nullable);
       case Types.BIGINT         : return unsupported("BIGINT", md);
 
       case Types.FLOAT          : return unsupported("FLOAT", md);
-      case Types.REAL           : return new DoublePoemType(nullable, getDbms() );
-      case Types.DOUBLE         : return new DoublePoemType(nullable, getDbms() );
+      case Types.REAL           : return new DoublePoemType(nullable);
+      case Types.DOUBLE         : return new DoublePoemType(nullable);
 
       case Types.NUMERIC        : return unsupported("NUMERIC", md);
       case Types.DECIMAL        : return unsupported("DECIMAL", md);
 
       case Types.CHAR           : return unsupported("CHAR", md);
-      case Types.VARCHAR        : return new StringPoemType(nullable, getDbms(), width);
-      case Types.LONGVARCHAR    : return new StringPoemType(nullable, getDbms(), width);
+      case Types.VARCHAR        : return new StringPoemType(nullable, width);
+      case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
 
-      case Types.DATE           : return new DatePoemType(nullable, getDbms());
+      case Types.DATE           : return new DatePoemType(nullable);
       case Types.TIME           : return unsupported("TIME", md);
-      case Types.TIMESTAMP      : return new TimestampPoemType(nullable, getDbms());
+      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
 
       case Types.BINARY         : return unsupported("BINARY", md);
       case Types.VARBINARY      : return unsupported("VARBINARY", md);

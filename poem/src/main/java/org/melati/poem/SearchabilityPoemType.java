@@ -53,8 +53,8 @@ import org.melati.poem.dbms.*;
 
 public class SearchabilityPoemType extends IntegerPoemType {
 
-  public SearchabilityPoemType(Dbms dbms) {
-    super(false, dbms);
+  public SearchabilityPoemType() {
+    super(false);
   }
 
   public Enumeration possibleRaws() {

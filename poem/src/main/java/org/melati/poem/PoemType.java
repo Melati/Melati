@@ -50,6 +50,7 @@ package org.melati.poem;
 import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public interface PoemType {
   void assertValidRaw(Object raw)
@@ -84,7 +85,7 @@ public interface PoemType {
   boolean getNullable();
 
   int sqlTypeCode();
-  String sqlDefinition();
+  String sqlDefinition(Dbms dbms);
   String quotedRaw(Object raw);
 
   boolean canBe(PoemType other);

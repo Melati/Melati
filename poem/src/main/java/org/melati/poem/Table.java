@@ -50,6 +50,7 @@ package org.melati.poem;
 import java.util.*;
 import java.sql.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class Table {
 
@@ -474,12 +475,13 @@ public class Table {
   }
 
   private void dbCreateTable() {
+    Dbms dbms = getDatabase().getDbms();
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + quotedName() + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
       sqb.append(columns[c].quotedName() + " " +
-                 columns[c].getType().sqlDefinition());
+                 columns[c].getType().sqlDefinition(dbms));
     }
 
     sqb.append(")");
@@ -491,7 +493,7 @@ public class Table {
     dbModifyStructure(
         "ALTER TABLE " + quotedName() +
         " ADD COLUMN " + column.quotedName() +
-        " " + column.getType().sqlDefinition());
+        " " + column.getType().sqlDefinition(getDatabase().getDbms()));
   }
 
   private void dbCreateIndex(Column column) {
@@ -1749,18 +1751,12 @@ public class Table {
           // FIXME this may not be a good idea
 
           if (troidColumn == null && colName.equals("id") &&
-              //colType.canBe(TroidPoemType.it))
-              colType.canBe( new TroidPoemType( getDatabase().getDbms() ))) {
-            //colType = TroidPoemType.it;
-            colType = new TroidPoemType( getDatabase().getDbms() );
-          }
+              colType.canBe(TroidPoemType.it))
+            colType = TroidPoemType.it;
 
           if (deletedColumn == null && colName.equals("deleted") &&
-              //colType.canBe(DeletedPoemType.it)) {
-              colType.canBe( new DeletedPoemType( getDatabase().getDbms() ))) {
-            //colType = DeletedPoemType.it;
-            colType = new DeletedPoemType( getDatabase().getDbms() );
-          }
+              colType.canBe(DeletedPoemType.it))
+            colType = DeletedPoemType.it;
 
           column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
                                    colType, DefinitionSource.sqlMetaData,

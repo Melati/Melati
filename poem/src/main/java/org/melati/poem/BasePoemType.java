@@ -50,6 +50,7 @@ package org.melati.poem;
 import java.util.*;
 import java.sql.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public abstract class BasePoemType implements PoemType, Cloneable {
   private int sqlTypeCode;
@@ -246,10 +247,10 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return sqlTypeCode;
   }
 
-  protected abstract String _sqlDefinition();
+  protected abstract String _sqlDefinition(Dbms dbms);
 
-  public final String sqlDefinition() {
-    return _sqlDefinition() + (nullable ? "" : " NOT NULL");
+  public final String sqlDefinition(Dbms dbms) {
+    return _sqlDefinition(dbms) + (nullable ? "" : " NOT NULL");
   }
 
   protected abstract boolean _canBe(PoemType other);
@@ -299,8 +300,10 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return raw == null ? "NULL" : _quotedRaw(raw);
   }
 
+  protected abstract String _toString();
+
   public String toString() {
-    return sqlDefinition();
+    return (nullable ? "nullable " : "") + _toString();
   }
 
   public static PoemType ofColumnInfo(Database database,

@@ -53,8 +53,8 @@ import org.melati.poem.dbms.*;
 
 public class PasswordPoemType extends StringPoemType {
 
-  public PasswordPoemType(boolean nullable, Dbms dbms, int size) {
-    super(nullable, dbms, size);
+  public PasswordPoemType(boolean nullable, int size) {
+    super(nullable, size);
   }
 
   public String toString() {

@@ -55,7 +55,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
   private Database database;
 
   public ColumnTypePoemType(Database database) {
-    super(false, database.getDbms());
+    super(false);
     this.database = database;
   }
 

@@ -56,7 +56,7 @@ public class ReferencePoemType extends IntegerPoemType {
   private Table targetTable;
 
   public ReferencePoemType(Table targetTable, boolean nullable) {
-    super(nullable, targetTable.getDatabase().getDbms());
+    super(nullable);
     if (targetTable == null)
       throw new NullPointerException();
     this.targetTable = targetTable;

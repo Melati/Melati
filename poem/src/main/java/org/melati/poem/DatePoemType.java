@@ -53,8 +53,8 @@ import org.melati.poem.dbms.*;
 
 public class DatePoemType extends AtomPoemType {
 
-  public DatePoemType(boolean nullable, Dbms dbms) {
-    super(Types.DATE, "DATE", nullable, dbms);
+  public DatePoemType(boolean nullable) {
+    super(Types.DATE, "DATE", nullable);
   }
 
   protected void _assertValidRaw(Object raw) {

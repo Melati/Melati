@@ -53,8 +53,8 @@ import org.melati.poem.dbms.*;
 
 public class DisplayLevelPoemType extends IntegerPoemType {
 
-  public DisplayLevelPoemType(Dbms dbms) {
-    super(false, dbms);
+  public DisplayLevelPoemType() {
+    super(false);
   }
 
   public Enumeration possibleRaws() {

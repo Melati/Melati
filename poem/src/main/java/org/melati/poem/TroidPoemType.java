@@ -52,11 +52,10 @@ import org.melati.poem.dbms.*;
 
 public class TroidPoemType extends IntegerPoemType {
 
-// Cannot use as we need to pass the Dbms parameter
-//  public static final TroidPoemType it = new TroidPoemType();
+  public static final TroidPoemType it = new TroidPoemType();
 
-  public TroidPoemType(Dbms dbms) {
-    super(false, dbms);
+  public TroidPoemType() {
+    super(false);
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

@@ -48,22 +48,15 @@
 
 package org.melati.test;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.Iterator;
 
-import javax.servlet.ServletException;
-
-import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
-import org.melati.MelatiConfig;
-import org.melati.util.MelatiWriter;
 
 /**
  * Provides character data for test servlets.

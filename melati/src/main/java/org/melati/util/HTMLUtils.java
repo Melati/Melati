@@ -42,22 +42,22 @@
  */
 package org.melati.util;
 
-import java.io.Writer;
-import java.io.StringWriter;
-import java.io.InputStream;
 import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.Enumeration;
-import java.util.HashMap;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.parser.AttributeList;
 import javax.swing.text.html.parser.ContentModel;
 import javax.swing.text.html.parser.DTD;
 import javax.swing.text.html.parser.DTDConstants;
-import javax.swing.text.html.parser.AttributeList;
-import javax.swing.text.html.HTML;
-import javax.swing.text.AttributeSet;
 import javax.swing.text.html.parser.Element;
 
 /**

@@ -47,17 +47,14 @@ package org.melati.template.webmacro;
 
 import java.io.IOException;
 
-import org.melati.util.MelatiStringWriter;
-import org.melati.util.MelatiWriter;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngineException;
 import org.melati.template.TemplateEngine;
-
-import org.webmacro.servlet.WebContext;
+import org.melati.template.TemplateEngineException;
+import org.melati.util.MelatiWriter;
 import org.webmacro.ContextException;
 import org.webmacro.FastWriter;
-import org.webmacro.WM;
+import org.webmacro.servlet.WebContext;
 
 /**
  * Interface for a Template for use with Melati

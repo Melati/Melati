@@ -43,13 +43,11 @@
 
 package org.melati.template.velocity;
 
-import javax.servlet.http.HttpServletResponse;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
 
-import org.melati.util.MelatiStringWriter;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Provides an interface for objects that output from melati.

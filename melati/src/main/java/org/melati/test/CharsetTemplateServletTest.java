@@ -48,14 +48,8 @@
 
 package org.melati.test;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Iterator;
-
-import javax.servlet.ServletException;
-
-import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
+import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 
 /**

@@ -43,15 +43,13 @@
 
 package org.melati.template.webmacro;
 
-import javax.servlet.http.HttpServletResponse;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.ByteArrayOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.webmacro.Broker;
-
-import org.melati.util.MelatiStringWriter;
 
 /**
  * Writes to a buffered output object.

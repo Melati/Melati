@@ -85,7 +85,9 @@ public class PoemServletTest extends PoemServlet {
     "<br>, try playing with the PathInfo to see the results (or click " +
     "<a href=" +
     melati.getZoneURL() +
-    "/org.melati.test.PoemServletTest/melatitest/user/1/View>user/1/View" +
+    "/org.melati.test.PoemServletTest/" +
+    melati.getContext().logicalDatabase +
+    "/user/1/View>user/1/View" +
     "</a>).</p><h4>Your Database has the following tables:</h4><table>");
 
     for (Enumeration e = melati.getDatabase().getDisplayTables(); 

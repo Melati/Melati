@@ -48,11 +48,9 @@
 
 package org.melati.util.test;
 
-import org.melati.util.AcceptCharset;
-
 import junit.framework.TestCase;
 
-import java.util.*;
+import org.melati.util.AcceptCharset;
 
 /**
  * Tests the corresponding class in the superpackage.

@@ -144,8 +144,12 @@ public abstract class PageEnumerationBase implements PageEnumeration {
       this.number = number;
       this.start = start;
     }
-    public int getNumber() {return number;}
-    public int getStart() {return start;}
+    public int getNumber() {
+      return number;
+    }
+    public int getStart() {
+      return start; 
+    }
   }
 
 }

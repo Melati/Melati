@@ -101,7 +101,7 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 
   /**
    * Return the current result set row packaged with column names in a 
-   * <code>FieldSet</code>.
+   * {@link FieldSet}.
    */
   protected Object mapped(ResultSet them)
       throws SQLException, NoSuchRowPoemException {

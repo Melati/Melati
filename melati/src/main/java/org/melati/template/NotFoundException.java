@@ -45,7 +45,6 @@
 
 package org.melati.template;
 
-import org.melati.util.MelatiException;
 
 /**
  * You asked for something that is not currently available.

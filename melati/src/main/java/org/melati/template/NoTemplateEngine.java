@@ -58,7 +58,7 @@ import org.melati.util.MelatiBufferedWriter;
 
 
 /**
- * Interface for a Template engine for use with Melati
+ * The <code>null</code> {@link TemplateEngine}.
  *
  * @author Tim Joyce
  * $Revision$

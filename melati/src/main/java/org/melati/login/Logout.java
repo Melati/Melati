@@ -53,6 +53,11 @@ import org.melati.MelatiUtil;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.TemplateServlet;
 
+/**
+ * A servlet which deletes login session cookies to 
+ * log a user off from the system.
+ *
+ */
 public class Logout extends TemplateServlet {
 
   protected String logoutTemplate(String name) {

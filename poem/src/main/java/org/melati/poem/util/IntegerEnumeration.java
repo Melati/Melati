@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> of Integers.
+ */
 public class IntegerEnumeration implements Enumeration {
   private int start, limit, i;
 

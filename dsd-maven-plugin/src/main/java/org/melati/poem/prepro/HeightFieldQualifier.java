@@ -48,6 +48,12 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the <tt>Height</tt> 
+ * of a <tt>Field</tt>.
+ * 
+ * Only makes sense when applied to a text field.
+ */
 public class HeightFieldQualifier extends FieldQualifier {
 
   private int height;

@@ -48,6 +48,12 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> created by filtering another 
+ * according to an abstract inclusion function.
+ * <p>
+ * Implementations must provide {@link #isIncluded(Object)}.
+ */
 public abstract class FilteredEnumeration implements SkipEnumeration {
   private Enumeration base;
   private int finished = -1;

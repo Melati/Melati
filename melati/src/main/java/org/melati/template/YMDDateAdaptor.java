@@ -56,8 +56,11 @@ import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 
 /**
- * @todo Javadoc
+ * A Year 
+ *
+ * @todo Improve javadoc
  */
+
 class YearPoemType extends IntegerPoemType {
   public YearPoemType(boolean nullable, int low, int limit) {
     super(nullable);
@@ -73,6 +76,11 @@ class YearPoemType extends IntegerPoemType {
   }
 }
 
+/**
+ * A Month
+ *
+ * @todo Improve javadoc
+ */
 class MonthPoemType extends IntegerPoemType {
 
   public MonthPoemType(boolean nullable) {
@@ -102,6 +110,11 @@ class MonthPoemType extends IntegerPoemType {
   }
 }
 
+/**
+ * A Day
+ *
+ * @todo Improve javadoc
+ */
 class DayPoemType extends IntegerPoemType {
 
   public DayPoemType(boolean nullable) {
@@ -118,6 +131,11 @@ class DayPoemType extends IntegerPoemType {
   }
 }
 
+/**
+ * An adaptor for a string date in YMD format.
+ *
+ * @todo Improve javadoc
+ */
 public class YMDDateAdaptor implements TempletAdaptor {
 
   protected static final String

@@ -9,6 +9,9 @@ import org.melati.poem.PoemThread;
 import org.melati.util.Treeable;
 import org.melati.util.EnumUtils;
 
+/**
+ * A Contact object, embellished from the original, POEM generated, stub.
+ */
 public class Contact extends ContactBase implements Treeable {
   public Contact() {}
 

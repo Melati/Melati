@@ -47,6 +47,11 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is <tt>Nullable</tt>.
+ *
+ */
 public class NullableFieldQualifier extends FieldQualifier {
 
   public NullableFieldQualifier(StreamTokenizer tokens) {

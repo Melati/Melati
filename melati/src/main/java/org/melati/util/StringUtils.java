@@ -45,6 +45,11 @@
 
 package org.melati.util;
 
+/**
+ * An assortment of useful operations on <code>String</code>s.
+ * 
+ * @todo Javadoc voodoo
+ */
 public class StringUtils {
   public static String[] split(String s, char c) {
     int n = 0;

@@ -54,6 +54,10 @@
 
 package org.melati.poem.csv;
 
+/**
+ * Thrown when no primary key is set.
+ *
+ */
 public class NoPrimaryKeyInCSVTableException extends Exception {
 
   String tableName = null;

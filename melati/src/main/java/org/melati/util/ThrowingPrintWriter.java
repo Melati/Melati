@@ -46,10 +46,18 @@ package org.melati.util;
 
 import java.io.PrintWriter;
 
+/**
+ * A <code>PrintWriter</code> which can throw an <code>Exception</code>.
+ *
+ * @todo Revisit javadoc
+ */
 public final class ThrowingPrintWriter extends PrintWriter {
   private PrintWriter pw;
   public final String description;
 
+ /**
+  * Thrown when a programmer attempts to use <code>super.out</code>.
+  */
   public static class SuperUseException extends BugException {
     public SuperUseException() {
       super("ThrowingPrintWriter tried to use super.out");

@@ -55,9 +55,8 @@ import org.melati.util.MappedEnumeration;
 import org.melati.util.FlattenedEnumeration;
 import org.melati.util.MelatiLocale;
 
-/*
- *  A <code>Persistent</code> is the object representing a single 
- * table row.
+/**
+ * The object representing a single table row; this is the <B>PO</B> in POEM!
  * <p>
  * Instances are also used to represent selection criteria snd as
  * such constructs in the DBMS dialect of SQL.

@@ -54,6 +54,10 @@
 
 package org.melati.poem.csv;
 
+/**
+ * Thrown when an attempt to set a second field as a primary key is made. 
+ *
+ */
 public class CSVPrimaryKeyColumnAlreadySetException extends Exception {
 
   String tableName = null;

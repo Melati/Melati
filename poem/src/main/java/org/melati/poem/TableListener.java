@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * An object which notices and records when a {@link Table} is 
+ * accessed.
+ *
+ * @author WilliamC@paneris.org
+ */
 public interface TableListener {
   void notifyTouched(PoemTransaction transaction,
                      Table table, Persistent persistent);

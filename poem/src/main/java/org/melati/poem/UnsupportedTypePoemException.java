@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a dbms contains a type not supported by Poem.
+  *
+  * @author WilliamC@paneris.org
+  * @todo Move to dbms.
+  */
 public class UnsupportedTypePoemException extends SeriousPoemException {
   public String tableName;
   public String columnName;

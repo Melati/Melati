@@ -45,6 +45,12 @@
 
 package org.melati.util;
 
+/**
+ * A Procedure?
+ *
+ * @deprecated Seems to be a {@link Procedure}.
+ * @todo Delete me.
+ */
 public interface Function {
   Object apply(Object arg);
 }

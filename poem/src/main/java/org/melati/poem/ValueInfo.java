@@ -47,6 +47,12 @@ package org.melati.poem;
 
 import org.melati.poem.generated.ValueInfoBase;
 
+/**
+ * Abstract persistent generated from Poem.dsd
+ * and extended to cover {@link Setting} and {@link ColumnInfo}.
+ *
+ * @todo Expand javadoc 
+ */
 public class ValueInfo extends ValueInfoBase {
   public ValueInfo() {}
 

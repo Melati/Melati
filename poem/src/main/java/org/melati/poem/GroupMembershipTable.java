@@ -47,6 +47,14 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupMembershipTableBase;
 
+/**
+ * The {@link Table} of {@link GroupMembership}s.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least the tuple
+ * <code>_administrator_</code>:<code>Melati database administrators</code>. 
+ *
+ */
 public class GroupMembershipTable extends GroupMembershipTableBase {
 
   public GroupMembershipTable(

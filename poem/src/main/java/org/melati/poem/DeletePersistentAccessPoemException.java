@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an unauthorised <tt>delete</tt> of a {@link Persistent} 
+ * is attempted.
+ * 
+ */
 public class DeletePersistentAccessPoemException
     extends PersistentAccessPoemException {
   public DeletePersistentAccessPoemException(

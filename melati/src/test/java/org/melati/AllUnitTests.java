@@ -51,9 +51,9 @@ import org.melati.poem.dbms.test.CaseInsensitiveRegExpSQL;
 import org.melati.util.test.StringUtilsTest;
 
 /**
- * @author timj@paneris.org
- *
  * The top level test suite for Melati.
+ *
+ * @author timj@paneris.org
  */
 public class AllUnitTests {
 

@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt is made to change the {@link AccessToken} under 
+  * which a {@link PoemThread} is running by a {@link PoemThread} with an 
+  * {@link AccessToken} other than {@link RootAccessToken}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NonRootSetAccessTokenPoemException extends PoemException {
   public AccessToken token;
 

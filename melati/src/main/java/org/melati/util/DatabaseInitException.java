@@ -45,6 +45,12 @@
 
 package org.melati.util;
 
+/**
+ * Thrown when there is a problem initialising a database.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class DatabaseInitException extends MelatiException {
 
   public String databaseDefsName;

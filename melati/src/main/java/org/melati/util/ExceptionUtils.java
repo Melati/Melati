@@ -47,6 +47,9 @@ package org.melati.util;
 import java.io.StringWriter;
 import java.io.PrintWriter;
 
+/**
+ * An assortment of useful operations on <code>Exception</code>s.
+ */
 public class ExceptionUtils {
   public static String stackTrace(Throwable e) {
     StringWriter buf = new StringWriter();

@@ -52,6 +52,13 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
+ * Maps proper names onto a four-letter canonical pronunciation, so that you
+ * can search for all names phonetically similar to the one the user typed in.
+ * The matching is often considerably more discriminating than Soundex---very
+ * useful for situations in which you know users will have a fair idea of the
+ * name they are chasing, and will not be happy to see thirty or forty useless
+ * suggestions coming back at them.
+ *
  * This nifty facility was very kindly provided by
  *
  * <BLOCKQUOTE>
@@ -65,14 +72,6 @@ import java.util.Hashtable;
  * article entitled "Hanging on the Metaphone" Computer Language v7 n12,
  * December 1990, pp39-43.
  *
- * <P>
- *
- * It maps proper names onto a four-letter canonical pronunciation, so that you
- * can search for all names phonetically similar to the one the user typed in.
- * The matching is often considerably more discriminating than Soundex---very
- * useful for situations in which you know users will have a fair idea of the
- * name they are chasing, and will not be happy to see thirty or forty useless
- * suggestions coming back at them.
  */
 
 public class Metaphone {

@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a attempt is made to perform an operation on a 
+  * {@link Persistent} which has yet to be written to the dbms 
+  * or for some other reason has yet to gain a <code>Troid</code>.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class InvalidOperationOnFloatingPersistentPoemException
     extends AppBugPoemException {
 

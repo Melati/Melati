@@ -45,6 +45,9 @@ package org.melati.util;
 import javax.servlet.http.HttpServletRequest;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
+/**
+ * An assortment of useful things to do with <code>Http</code>.
+ */
 public class HttpUtil {
 
   

@@ -47,6 +47,11 @@ package org.melati.poem;
 
 import org.melati.util.StringUtils;
 
+/** 
+ * Thrown when an overlong value is asserted to be a valid 
+ * raw {@link BinaryPoemType} {@link Field}.
+ */
+
 public class BinaryLengthValidationPoemException
     extends ValidationPoemException {
   public BinaryLengthValidationPoemException(PoemType type, byte[] value) {

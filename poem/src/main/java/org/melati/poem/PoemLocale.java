@@ -49,6 +49,9 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 
+/**
+ * A wrapper for a <code>Locale</code> for use within Melati.
+ */
 public class MelatiLocale {
 
   public static final MelatiLocale here = new MelatiLocale(Locale.UK);

@@ -56,7 +56,7 @@ import org.melati.template.TemplateContext;
 import org.melati.util.MelatiBugMelatiException;
 
 /**
- * A test servlet
+ * Test a Melati configuration with a Template Engine.
  *
  * @author Tim Joyce
  * $Revision$

@@ -46,7 +46,7 @@
 package org.melati.poem;
 
 /**
- * <code>AccessToken</code> that gives no capabilities.
+ * {@link AccessToken} that gives no capabilities.
  *
  * @author williamc@paneris.org
  */

@@ -49,6 +49,12 @@ import java.util.Enumeration;
 import java.util.Vector;
 import org.melati.util.EnumUtils;
 
+/**
+ * A cached instance of a {@link PreparedTailoredQuery}.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public class CachedTailoredQuery extends PreparedTailoredQuery {
 
   private Vector results = null;

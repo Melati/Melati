@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * A <tt>DeletedField</tt> is a flag field in a record which 
+ * marks the whole record as deleted.
+ *
+ * @see org.melati.poem.prepro.DeletedFieldQualifier
+ */
 public class DeletedPoemType extends BooleanPoemType {
 
   public static final DeletedPoemType it = new DeletedPoemType();

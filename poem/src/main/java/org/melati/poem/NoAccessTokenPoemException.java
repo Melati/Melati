@@ -45,5 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when it is discovered that a {@link PoemThread} is running 
+  * without an {@link AccessToken}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoAccessTokenPoemException extends AppBugPoemException {
 }

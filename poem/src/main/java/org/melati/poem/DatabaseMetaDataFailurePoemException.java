@@ -47,6 +47,9 @@ package org.melati.poem;
 
 import java.sql.SQLException;
 
+/**
+ * @deprecated Not used in Melati
+ */
 public class DatabaseMetaDataFailurePoemException
     extends SQLSeriousPoemException {
 

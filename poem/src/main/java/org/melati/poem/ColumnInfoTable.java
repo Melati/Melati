@@ -48,8 +48,10 @@ package org.melati.poem;
 import org.melati.poem.generated.ColumnInfoTableBase;
 
 /**
- * A Table which holds information about all Columns in the Database.
- * If a database does not contain a table called columninfo it will be created.
+ * A {@link Table} which holds information about all {@link Column}s in 
+ * a {@link Database}.
+ * If a database does not contain a table called <tt>columninfo</tt> 
+ * it will be created.
  */
 public class ColumnInfoTable extends ColumnInfoTableBase {
 

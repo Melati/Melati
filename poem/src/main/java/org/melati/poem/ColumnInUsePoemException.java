@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * In the unexpected event that a {@link Column} is being defined twice.
+ */
 public class ColumnInUsePoemException extends SeriousPoemException {
   public Table table;
   public Column column;

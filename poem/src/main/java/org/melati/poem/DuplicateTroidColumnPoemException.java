@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt to add a second <code>Troid</code> column is made. 
+  *
+  * @author WilliamC@paneris.org
+  */
 public class DuplicateTroidColumnPoemException extends NormalPoemException {
 
   public Table table;

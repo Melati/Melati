@@ -46,6 +46,9 @@ package org.melati.poem;
 
 import org.melati.poem.generated.ValueInfoTableBase;
 
+/**
+ * Abstract table generated from Poem.dsd
+ */
 public class ValueInfoTable extends ValueInfoTableBase {
 
   public ValueInfoTable(

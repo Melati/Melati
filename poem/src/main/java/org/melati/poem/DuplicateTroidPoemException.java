@@ -45,6 +45,14 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when it is discovered that there is more than one record with 
+  * a given <code>Troid</code> in the {@link Database}.
+  *
+  * This should not happen without human intervention.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class DuplicateTroidPoemException extends DBConsistencyPoemException {
   public Table table;
   public Integer troid;

@@ -47,6 +47,9 @@ package org.melati.servlet;
 
 import org.melati.util.MelatiException;
 
+/**
+ * Servlet was called with unexpected PathInfo.
+ */
 public class PathInfoException extends MelatiException {
   public String pathInfo;
 

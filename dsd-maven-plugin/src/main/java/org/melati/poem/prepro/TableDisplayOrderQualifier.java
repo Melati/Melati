@@ -48,6 +48,12 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>TableQualifier</tt> which defines the <tt>DisplayOrder</tt> 
+ * of a <tt>Table</tt>.
+ * 
+ * @todo Rename to DisplayOrderTableQualifier
+ */
 public class TableDisplayOrderQualifier extends TableQualifier {
 
   private int priority;

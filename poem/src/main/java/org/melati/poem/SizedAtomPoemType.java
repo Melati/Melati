@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * An {@link AtomPoemType} with a <code>size</code>.
+ */
 public abstract class SizedAtomPoemType extends AtomPoemType {
 
   private int size;

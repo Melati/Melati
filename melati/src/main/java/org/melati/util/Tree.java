@@ -45,6 +45,10 @@ package org.melati.util;
 
 import java.util.Vector;
 
+/**
+ * A whole tree.
+ *
+ */
 public class Tree {
     private Treeable[] orig_roots;
     private TreeNode[] roots;

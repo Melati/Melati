@@ -46,6 +46,11 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupCapabilityBase;
 
+/**
+ * A record of a {@link Group}'s ability to perform an action.
+ *
+ * @author WilliamC@paneris.org
+ */
 public class GroupCapability extends GroupCapabilityBase {
   public GroupCapability() {}
 

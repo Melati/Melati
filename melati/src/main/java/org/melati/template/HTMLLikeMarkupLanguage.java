@@ -55,6 +55,11 @@ import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.HTMLUtils;
 
+/**
+ * A Markup language with syntax similar to HTML.
+ *
+ * @todo Improve javadoc
+ */
 public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
   public HTMLLikeMarkupLanguage(String name, Melati melati,
@@ -67,17 +72,12 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
     super(name, other);
   }
 
-  /* 
-   <b>Note</b>
-   <p>
-     To avoid the unnecessary overhead of writing to a string and then writing
-     that string to the output stream we render directly to the output stream,
-     however this means that you cannot use rendered other than where you want
-     the output to occur, ie use renderedString if you want to assign the
-     rendered value to a variable.
-   </p>
+ /** 
+  * <p>
+  *   To avoid the unnecessary overhead of writing to a string and then writing
+  *   that string to the output stream we render directly to the output stream.
+  * </p>
   */
-
   public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s));
   }

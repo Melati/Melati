@@ -64,6 +64,9 @@ import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
 import org.melati.util.ExceptionUtils;
 
+/**
+ * Test a Melati configuration without using a Template Engine.
+ */
 public class ConfigServletTest extends ConfigServlet {
 
   protected void doConfiguredRequest(Melati melati)

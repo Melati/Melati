@@ -54,7 +54,7 @@ import org.webmacro.FastWriter;
 import org.webmacro.Broker;
 
 /**
- * Provides an interface for objects that output from melati.
+ * Writes to an output object.
  */
 
 public class MelatiFastWriter extends MelatiWriter {

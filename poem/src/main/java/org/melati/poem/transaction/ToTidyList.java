@@ -52,8 +52,15 @@ import java.io.Writer;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+/**
+ * List of objects which need closing when a <code>Transaction</code> 
+ * is terminated.
+ *
+ * @todo Review javadoc
+ */
 public class ToTidyList {
 
+/** Can be closed */
   public interface Closeable {
     void close();
   }

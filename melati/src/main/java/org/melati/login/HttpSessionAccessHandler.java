@@ -63,6 +63,11 @@ import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 import org.melati.util.ReconstructedHttpServletRequest;
 import org.melati.util.MD5Util;
 
+/**
+ * An {@link AccessHandler} which uses <code>Session</code> cookies to
+ * elicit and maintain the user's login and password.  
+ *
+ */
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
@@ -84,7 +89,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   /**
    * The URL of the login servlet.  Unless overridden, this is computed by
-   * substituting <TT>loginPageServletClassName()</TT> into the URL of the
+   * substituting {@link #loginPageServletClassName()} into the URL of the
    * request being serviced.
    *
    * @param request  the request currently being serviced
@@ -106,7 +111,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
 
   public void handleAccessException(Melati melati, 
-                         AccessPoemException accessException) throws Exception {
+                                    AccessPoemException accessException) 
+      throws Exception {
     // cut down unnecessary messages in logs.
     // accessException.printStackTrace();
     HttpServletRequest request = melati.getRequest();

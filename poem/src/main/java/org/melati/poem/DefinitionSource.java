@@ -45,6 +45,19 @@
 
 package org.melati.poem;
 
+/**
+ * A possible origin for metadata for a {@link Field}, {@link Column} 
+ * or {@link Table}.
+ *
+ * The definition sources are unified during Poem initialisation.
+ *
+ * @author WilliamC@paneris.org
+ *
+ * @see Database#unifyWithDB
+ * @see Table#unifyWithDB
+ * @see Column#unifyWithDB
+ *
+ */ 
 public class DefinitionSource {
   private String name;
 

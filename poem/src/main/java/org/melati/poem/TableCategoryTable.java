@@ -46,6 +46,10 @@ package org.melati.poem;
 
 import org.melati.poem.generated.TableCategoryTableBase;
 
+/**
+ * A {@link Table} which holds {@link TableCategory}s.
+ *
+ */
 public class TableCategoryTable extends TableCategoryTableBase {
 
   public TableCategoryTable(Database database, String name, 
@@ -54,12 +58,18 @@ public class TableCategoryTable extends TableCategoryTableBase {
     super(database, name, definitionSource);
   }
 
+ /**
+  * Create an entry with the given name if it doesn't exist.
+  */
   TableCategory ensure(String name) {
     TableCategory it = (TableCategory)newPersistent();
     it.setName(name);
     return (TableCategory)getNameColumn().ensure(it);
   }
   
+ /**
+  * Setup default access capabilities.
+  */
   protected void postInitialise() {
     super.postInitialise();
     if (getTableInfo().getDefaultcandelete() == null)

@@ -45,6 +45,10 @@
 
 package org.melati.util;
 
+/**
+ * A pool of <code>Transactions</code>.
+ *
+ */
 public interface TransactionPool {
   int transactionsMax();
   Transaction transaction(int index);

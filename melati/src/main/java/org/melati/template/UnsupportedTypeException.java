@@ -48,6 +48,13 @@ package org.melati.template;
 import org.melati.poem.PoemType;
 import org.melati.util.MelatiException;
 
+/**
+ * Thrown, in theory, if a <code>PoemType</code> is not supported by a 
+ * <code>MarkupLanguage</code>.
+ *
+ * @deprecated Never thrown.
+ * @todo Delete me.
+ */
 public class UnsupportedTypeException extends MelatiException {
   public MarkupLanguage markupLanguage;
   public PoemType type;

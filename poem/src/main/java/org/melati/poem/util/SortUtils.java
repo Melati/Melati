@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Vector;
 import java.util.Enumeration;
 
+/**
+ * An assortment of useful sorting operations.
+ */
 public class SortUtils {
   public static void swap(Object[] arr, int i, int j) {
     Object t = arr[i];

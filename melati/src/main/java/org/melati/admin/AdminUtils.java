@@ -56,6 +56,9 @@ import org.melati.util.Tree;
 import org.melati.util.Treeable;
 import org.melati.util.JSStaticTree;
 
+/**
+ * A utility object for placing in a <code>TemplateContext</code>.
+ */
 public class AdminUtils {
 
   private String contextPath;

@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt to add a {@link Table} to a {@link Database} 
+  * which already has one of that name.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class DuplicateTableNamePoemException extends NormalPoemException {
   public Database database;
   public String name;

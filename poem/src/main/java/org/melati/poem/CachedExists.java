@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * A cached instance of an SQL <code>count</code> &gt; 0 query.
+ */
 public class CachedExists extends CachedCount {
 
   public CachedExists(final Table table,

@@ -52,6 +52,10 @@ package org.melati.poem.dbms;
 
 import java.sql.SQLException;
 
+/**
+ * A Driver for Interbase.
+ * Untested.
+ */
 public class Interbase extends AnsiStandard {
     public Interbase() {
         setDriverClassName("interbase.interclient.Driver");

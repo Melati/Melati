@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * @deprecated Not used in Melati
+  * @author WilliamC@paneris.org
+  * 
+  */
 public class DuplicateCacheingPoemException
     extends DBConsistencyPoemException {
   public Table table;

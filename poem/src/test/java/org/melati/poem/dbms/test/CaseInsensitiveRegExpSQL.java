@@ -49,12 +49,10 @@ import org.melati.poem.dbms.Hsqldb;
 import org.melati.poem.dbms.Postgresql;
 
 /**
- * @author Tim
+ * Test to ensure that CaseInsensitiveRegExpSQL behaves in the same 
+ * way for all DBMS classes.
  *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * @author Tim Toyce
  */
 public class CaseInsensitiveRegExpSQL extends TestCase {
 

@@ -45,6 +45,11 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a <tt>DeletedFieldQualifier</tt> is applied to a 
+ * non-<tt>Boolean</tt> field.
+ *
+ */
 public class DeletedTypeException extends IllegalityException {
   public FieldDef field;
 

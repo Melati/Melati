@@ -42,6 +42,11 @@
  */
 package org.melati.util;
 
+/**
+ * A JavaScript tree which can be rendered as Dynamic HTML.
+ *
+ * @todo Rename to JsDhtmlTree
+ */
 public class JSDynamicTree extends Tree {
 
     private Integer x = new Integer(10);

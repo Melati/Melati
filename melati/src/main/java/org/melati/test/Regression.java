@@ -49,6 +49,8 @@ import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
 
 /**
+ * Place holder fro a regression test.
+ *
  * @todo Write a regression test.
  */
 public class Regression {

@@ -45,13 +45,6 @@
 
 package org.melati.test;
 
-/**
- * Base class to use Melati with Servlets.
- * Simply extend this class, override the doRequest method
- *
- * @author Tim Joyce
- * $Revision$
- */
 
 import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.servlet.MelatiContext;
@@ -60,8 +53,18 @@ import org.melati.util.Waiter;
 import org.melati.servlet.PathInfoException;
 import org.webmacro.servlet.WebContext;
 
+/**
+ * Illustrate the difference between flushing and not flushing 
+ * your output buffwer.
+ *
+ * @author Tim Joyce
+ * $Revision$
+ */
 public class FlushingServletTest extends WebmacroMelatiServlet {
 
+/**
+ * Main entry point.
+ */
   public String handle( Melati melati, WebContext context ) 
       throws Exception {
     melati.setBufferingOff();
@@ -70,9 +73,11 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
     return "org/melati/test/FlushingServletTest.wm";
   }
 
-/*
+/**
  * set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
+ * logicaldatabase on the pathinfo.  
+ *
+ * This is a very good idea when
  * writing your appications where you are typically only accessing
  * a single database
  */

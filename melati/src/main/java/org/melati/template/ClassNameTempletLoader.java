@@ -50,6 +50,9 @@ import java.io.File;
 
 import org.melati.poem.FieldAttributes;
 
+/**
+ * Load a template to render an object based upon the object's class.
+ */
 public class ClassNameTempletLoader implements TempletLoader {
 
   public static final ClassNameTempletLoader it = new ClassNameTempletLoader();

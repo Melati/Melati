@@ -62,7 +62,6 @@ import org.melati.poem.Table;
 import org.melati.poem.Column;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.UnsupportedTypePoemException;
-import org.melati.poem.ConnectionFailurePoemException;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.User;

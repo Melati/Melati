@@ -45,6 +45,11 @@
 
 package org.melati.util;
 
+/**
+ * Transaction voodoo.
+ *
+ * @todo Review javadoc
+ */
 public class TransactionedSerial extends Transactioned {
 
   private long serial = 0L;

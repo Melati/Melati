@@ -45,6 +45,12 @@
 
 package org.melati.util;
 
+/** 
+ * Thrown if an attempt is made to use a DBMS whilst it is initialising.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public class ConnectionPendingException extends MelatiRuntimeException {
 
   public String name;

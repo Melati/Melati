@@ -48,6 +48,9 @@ package org.melati.poem.prepro;
 import java.io.IOException;
 import java.io.File;
 
+/**
+ * Thrown when a file does not meet the overwriting criteria.
+ */
 public class TargetExistsDSDException extends IOException {
   public File target;
 

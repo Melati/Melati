@@ -47,6 +47,13 @@ package org.melati.util;
 
 import java.util.Properties;
 
+/**
+ * Thrown when there is a problem finding or creating a class 
+ * from a property value.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class InstantiationPropertyException extends PropertyException {
 
   public InstantiationPropertyException(

@@ -45,6 +45,10 @@
 
 package org.melati.util;
 
+/**
+ * Thrown when a programmer attempts to do something which 
+ * is possible but wrong.
+ */
 public class BugException extends MelatiRuntimeException {
   public BugException(String message) {
     super(message, null);

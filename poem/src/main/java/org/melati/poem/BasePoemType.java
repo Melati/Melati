@@ -54,7 +54,10 @@ import org.melati.util.MelatiLocale;
 import org.melati.poem.dbms.Dbms;
 
 /**
- * Base of all fundamental types.
+ * Base class of all fundamental types.
+ *
+ * @author WilliamC@paneris.org
+ *
  */
 public abstract class BasePoemType implements SQLPoemType, Cloneable {
   private int sqlTypeCode;

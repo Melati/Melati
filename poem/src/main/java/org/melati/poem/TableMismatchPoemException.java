@@ -45,6 +45,14 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown during validation of a {@link ReferencePoemType} 
+ * if a {@link Persistent} is claimed to be of that type but has the 
+ * wrong {@link Table} set.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TableMismatchPoemException extends PoemException {
   public Persistent value;
   public Table table;

@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when a reference to a {@link Persistent} is made 
+ * after it has been deleted.
+ * 
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class RowDisappearedPoemException extends PoemException {
 
   public Table table;

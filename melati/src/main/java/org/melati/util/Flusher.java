@@ -47,7 +47,7 @@ package org.melati.util;
 
 
 /**
-  * Flusher replaces need for Thread.stop
+ * Flusher replaces need for <code>Thread.stop</code>.
 */
 public final class Flusher extends Thread {
     private MelatiWriter out = null;

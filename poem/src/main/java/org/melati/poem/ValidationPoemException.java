@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a {@link Field}'s value does not meet its contract.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class ValidationPoemException extends NormalPoemException {
   public PoemType type;
   public Object value;

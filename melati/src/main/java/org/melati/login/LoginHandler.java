@@ -62,6 +62,10 @@ import org.melati.poem.Field;
 import org.melati.util.HttpServletRequestParameters;
 import org.melati.util.MD5Util;
 
+/**
+ * An object which sets up the login process.
+ *
+ */
 public class LoginHandler {
 
   public static int ONEYEARINSECONDS = 60 * 60 * 24 * 365;

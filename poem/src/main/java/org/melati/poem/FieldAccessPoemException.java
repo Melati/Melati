@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an unauthorised access of a {@link Field} 
+ * of a {@link Persistent} is attempted.
+ * 
+ */
 public abstract class FieldAccessPoemException
     extends PersistentAccessPoemException {
 

@@ -48,6 +48,12 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 
 /**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is a <tt>TroidField</tt>.
+ *
+ * A Table Row Object Id field is expected in every <tt>Table</tt>.
+ *
+ * @see org.melati.poem.TroidPoemType 
  * @todo Add duplication check.
  */
 

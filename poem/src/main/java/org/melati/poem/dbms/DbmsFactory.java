@@ -52,7 +52,6 @@ package org.melati.poem.dbms;
 
 import java.util.Hashtable;
 import java.sql.SQLException;
-import org.melati.poem.ConnectionFailurePoemException;
 
 /**
  * A factory class to create Dbms objects.

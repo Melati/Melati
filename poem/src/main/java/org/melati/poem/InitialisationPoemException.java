@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a candidate {@link Persistent} fails its validation tests 
+  * prior to being written to the database.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class InitialisationPoemException extends PoemException {
 
   public Table table;

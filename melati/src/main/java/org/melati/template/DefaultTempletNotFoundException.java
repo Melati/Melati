@@ -48,6 +48,9 @@ package org.melati.template;
 import org.melati.util.MelatiRuntimeException;
 import org.melati.poem.FieldAttributes;
 
+/**
+ * Thrown when a default templet cannot be found.
+ */
 public class DefaultTempletNotFoundException extends MelatiRuntimeException {
   public TempletLoader loader;
   public FieldAttributes attributes;

@@ -47,6 +47,9 @@ package org.melati.poem;
 
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * Base class for all Poem unchecked exceptions.
+ */
 public abstract class PoemException extends MelatiRuntimeException {
 
   public PoemException(Exception subException) {

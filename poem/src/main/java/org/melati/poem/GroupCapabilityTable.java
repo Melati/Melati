@@ -47,6 +47,14 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupCapabilityTableBase;
 
+/**
+ * The {@link Table} of {@link GroupCapability}s.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least the tuple
+ * <code>Melati database administrators</code>:<code>_administer_</code>. 
+ *
+ */
 public class GroupCapabilityTable extends GroupCapabilityTableBase {
 
   public GroupCapabilityTable(

@@ -48,6 +48,9 @@ package org.melati.poem.prepro;
 import java.io.Writer;
 import java.io.IOException;
 
+/**
+ * An interface which defines a process method on a <tt>Writer</tt>.
+ */
 public interface Generator {
   void process(Writer w) throws IOException;
 }

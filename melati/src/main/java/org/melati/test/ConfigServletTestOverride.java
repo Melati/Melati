@@ -50,11 +50,11 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiException;
 
-public class ConfigServletTestOverride extends ConfigServletTest {
-
 /**
  * Demonstrates how to use a different Melati configuration.
  */
+public class ConfigServletTestOverride extends ConfigServletTest {
+
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
     DefaultFileDataAdaptorFactory factory = 

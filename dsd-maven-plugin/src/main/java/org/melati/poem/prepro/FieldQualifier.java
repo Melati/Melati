@@ -48,6 +48,9 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * Abstract class from which all <tt>FieldQualifier</TT>s are derived.
+ */
 public abstract class FieldQualifier {
 
   public abstract void apply(FieldDef field) throws IllegalityException;

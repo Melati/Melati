@@ -48,6 +48,12 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>TableQualifier</tt> which defines the size of the cache 
+ * for a <tt>Table</tt>.
+ * 
+ * If missing the cache size defaults.
+ */
 public class CacheSizeTableQualifier extends TableQualifier {
 
   public static final int DEFAULT = -1, UNLIMITED = -2;

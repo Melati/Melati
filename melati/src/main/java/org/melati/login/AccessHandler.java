@@ -50,6 +50,13 @@ import org.melati.poem.AccessPoemException;
 import org.melati.Melati;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 
+/**
+ * A Object invoked when an {@link AccessPoemException} occurs.
+ *
+ * The actions required are to offer the user the opportunity to 
+ * login and then return the user to the same point as they were before 
+ * the {@link AccessPoemException} occurred and retry that operation.
+ */
 public interface AccessHandler {
 
   void handleAccessException(Melati melati, 
@@ -57,10 +64,7 @@ public interface AccessHandler {
                         throws Exception;
 
   /**
-   * @return the <TT>WebContext</TT> to use in processing the request; can
-   *         just be <TT>context</TT>, or something derived from
-   *         <TT>context</TT>, or <TT>null</TT> if the routine has already
-   *         handled the request (<I>e.g.</I> by sending back an error)
+   * @return A {@link Melati} with the appropriate fields filled.
    */
 
   Melati establishUser(Melati melati);

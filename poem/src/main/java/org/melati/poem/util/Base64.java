@@ -18,6 +18,13 @@
 
 package org.melati.util;
 
+/**
+ * A representation of the Base64 encoding scheme.
+ *
+ * @todo Delete me.
+ * @deprecated Unused in Melati or the PanEris tree.
+ */
+
 public final class Base64 {
 
    private static final byte UPPER_FOUR = (byte) (16 + 32 + 64 + 128);

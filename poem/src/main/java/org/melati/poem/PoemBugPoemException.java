@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown if an internal assumption about Poem is violated.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class PoemBugPoemException extends SeriousPoemException {
 
   public String bug;

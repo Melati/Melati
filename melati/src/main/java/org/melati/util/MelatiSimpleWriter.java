@@ -46,7 +46,7 @@ package org.melati.util;
 import java.io.Writer;
 
 /**
- * This provides an interface for objects that output from melati
+ * An output object for Melati.
  */
 
 public class MelatiSimpleWriter extends MelatiWriter {

@@ -45,6 +45,14 @@
 
 package org.melati.util;
 
+/**
+ * A representation of a Bitmap set..
+ *
+ * 
+ * @todo Delete me.
+ * @deprecated Unused in Melati or the PanEris tree.
+ */
+
 public class BitmapSet implements Cloneable {
   private int[] flags;
 

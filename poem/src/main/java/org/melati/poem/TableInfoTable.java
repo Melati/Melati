@@ -47,6 +47,13 @@ package org.melati.poem;
 
 import org.melati.poem.generated.TableInfoTableBase;
 
+/**
+ * A {@link Table} which holds information about all {@link Table}s in 
+ * the Database.
+ *
+ * If a database does not contain a table called <tt>tableinfo</tt> 
+ * it will be created.
+ */
 public class TableInfoTable extends TableInfoTableBase {
 
   public TableInfoTable(

@@ -48,14 +48,11 @@ package org.melati.poem;
 import org.melati.poem.generated.UserBase;
 
 /**
- * The <TT>Table</TT> of registered users.
- *
- * Every Melati DB has this table.
- * This table will contain at least a _guest_ and _administrator_ 
- * <tt>User</tt>.
+ * A registered user.
  *
  * @todo Introduce a new type to conceal passwords
  */
+
 //* FIXME it shouldn't be possible for anyone to getPassword
 
 public class User extends UserBase implements AccessToken {

@@ -45,6 +45,13 @@
 
 package org.melati.util;
 
+/**
+ * Abstract base class for all <code>Exception</code>s within 
+ * Melati.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public abstract class MelatiException extends Exception {
 
   public Exception subException;

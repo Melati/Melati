@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an unauthorised <tt>read</tt> of a <code>password</code> 
+ * {@link Field} of a protected {@link Persistent} is attempted.
+ * 
+ */
 public class ReadPasswordAccessPoemException
     extends ReadFieldAccessPoemException {
   public ReadPasswordAccessPoemException(

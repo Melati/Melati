@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt to create a second {@link Column} of type 
+  * {@link DeletedPoemType} in a {@link Table} is made. 
+  *
+  * @author WilliamC@paneris.org
+  *
+  */
 public class DuplicateDeletedColumnPoemException extends NormalPoemException {
 
   public Table table;

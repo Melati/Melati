@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> with no elements in it.
+ */
 public class EmptyEnumeration implements Enumeration {
 
   public static final EmptyEnumeration it = new EmptyEnumeration();

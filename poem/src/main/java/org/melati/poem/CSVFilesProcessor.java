@@ -52,8 +52,11 @@ import org.melati.poem.csv.NoPrimaryKeyInCSVTableException;
 
 
 /**
- * A class to define a sequence of CSVTables and  process them 
+ * A class to define a sequence of {@link CSVTable}s and  process them 
  * by parsing the files and writing the data to the database.
+ *
+ * @author MylesC@paneris.org
+ *
  */
 public class CSVFilesProcessor {
 

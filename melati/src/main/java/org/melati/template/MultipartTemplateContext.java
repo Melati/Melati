@@ -43,9 +43,6 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a Template engine for use with Melati
- */
 
 package org.melati.template;
 
@@ -59,15 +56,16 @@ import org.melati.servlet.MultipartDataDecoder;
 
 
 /**
- * A TemplateContext which allows access to the filename and
- * body of any file which is uploaded from a HTML form field (by setting
- * its ENCTYPE to ``multipart/form-data'' and setting the field's type to
- * ``file'').
+ * A {@link TemplateContext} which allows access to the filename and
+ * body of any file which is uploaded from a HTML form field.
+ *
+ * (by setting its ENCTYPE to ``multipart/form-data'' and 
+ * setting the field's type to * ``file'').
  * <p>
  * You can retrive the value of any field variable as usual by
  * using getForm(s).
  * <p>
- * Note that you need to pass in a TemplateContext to the contructor
+ * Note that you need to pass in a {@link TemplateContext} to the contructor.
  */
 public class MultipartTemplateContext implements TemplateContext {
   TemplateContext peer;

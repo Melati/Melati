@@ -46,10 +46,15 @@
 package org.melati.poem;
 
 /**
+ * An object factory which produces {@link PoemType} objects
+ * given a {@link Database} and a code.
+ *
+ * See {@link #forCode(Database, int)}.
+ *
  * I'd just like you to know that I had to type this file in again after
  * deleting it.  It's not even very nice is it?
  *
- * @author williamc@paneris.org (Not javadocs)
+ * @author williamc@paneris.org
  */
 
 public abstract class PoemTypeFactory {
@@ -66,6 +71,10 @@ public abstract class PoemTypeFactory {
     this.code = new Integer(c);
   }
 
+ /** 
+  * A Parameter object which knows whether a {@link PoemType} 
+  * is <tt>nullable</tt> and its <tt>size</tt>.
+  */
   public interface Parameter {
     boolean getNullable();
     int getSize();

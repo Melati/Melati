@@ -45,5 +45,8 @@
 
 package org.melati.poem;
 
+/**
+ * @deprecated Not used in Melati
+ */
 public class AlterDSDAttemptPoemException extends PoemException {
 }

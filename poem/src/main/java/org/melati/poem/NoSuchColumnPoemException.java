@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a reference to a non-existent {@link Column} is made.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoSuchColumnPoemException extends NormalPoemException {
   public Table table;
   public String name;

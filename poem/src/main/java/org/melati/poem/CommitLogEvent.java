@@ -46,6 +46,9 @@
 package org.melati.poem;
 
 
+/**
+ * A record of a committed transaction.
+ */
 public class CommitLogEvent extends PoemLogEvent {
 
   public PoemTransaction transaction;

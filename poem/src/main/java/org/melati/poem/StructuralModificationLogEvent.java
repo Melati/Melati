@@ -45,6 +45,10 @@
 
 package org.melati.poem;
 
+/**
+ * A record of a structural change to the underlying DBMS.
+ * For example the creation of a table ot the addition of a column.
+ */
 public class StructuralModificationLogEvent extends SQLLogEvent {
   public StructuralModificationLogEvent(String sql) {
     super(sql);

@@ -50,6 +50,9 @@ import java.util.Hashtable;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The parameters of an Http Servlet Request.
+ */
 public class HttpServletRequestParameters {
 
   final Hashtable parameters;

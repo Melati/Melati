@@ -610,9 +610,9 @@ public abstract class Database implements TransactionPool {
   }
 
   /** 
-   * start a db session
+   * Start a db session.
    * This is the very manual way of doing db work - not reccomended - 
-   * use inSession 
+   * use inSession.
    */
   public void beginSession(AccessToken accessToken) {
     try {
@@ -626,9 +626,9 @@ public abstract class Database implements TransactionPool {
   }
 
   /** 
-   * end a db session
+   * End a db session.
    * This is the very manual way of doing db work - not reccomended - 
-   * use inSession 
+   * use inSession.
    */
   public void endSession() {
     PoemTransaction tx = PoemThread.sessionToken().transaction;
@@ -693,7 +693,6 @@ public abstract class Database implements TransactionPool {
   /**
    * Currently all the tables in the database in DisplayOrder
    * order.
-   * 
    *
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s 
    */
@@ -740,6 +739,9 @@ public abstract class Database implements TransactionPool {
     return null;
   }
 
+ /**
+  * All the {@link Column}s in the whole {@link Database}.
+  */  
   public Enumeration columns() {
     return new FlattenedEnumeration(
         new MappedEnumeration(tables()) {

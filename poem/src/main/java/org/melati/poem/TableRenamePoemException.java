@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an attempt is made to set the name of a {@link Table} 
+ * in its the {@link TableInfo} when it has already been set.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TableRenamePoemException extends AccessPoemException {
   public String tableName;
   public String newName;

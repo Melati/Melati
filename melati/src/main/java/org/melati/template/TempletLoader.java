@@ -47,6 +47,9 @@ package org.melati.template;
 
 import org.melati.poem.FieldAttributes;
 
+/**
+ * Interface for loading templets using a  Template Engine.
+ */
 public interface TempletLoader {
 
   Template templet(TemplateEngine templateEngine, 

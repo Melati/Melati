@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when there is a problem in a situation where it is 
+  * assumed for the normal working of the system that there will not be. 
+  *
+  * @author WilliamC@paneris.org
+  */
 public class UnexpectedExceptionPoemException extends SeriousPoemException {
   public String info;
 

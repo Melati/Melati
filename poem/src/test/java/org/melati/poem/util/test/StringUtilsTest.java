@@ -49,7 +49,7 @@ import org.melati.util.StringUtils;
 import junit.framework.TestCase;
 
 /**
- * A test.
+ * A test for the org.melati.util.StringUtil class.
  *
  * @author TimJ@paneris.org
  */

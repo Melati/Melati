@@ -46,6 +46,10 @@
 package org.melati.util;
 
 /**
+ * Abstract base class for all <code>RuntimeException}s within Melati.
+ *
+ * @author WilliamC@paneris.org
+ *
  * @todo Upgrade to Java 1.4 after we stop supporting Java 1.3
  */
 public abstract class MelatiRuntimeException extends RuntimeException {

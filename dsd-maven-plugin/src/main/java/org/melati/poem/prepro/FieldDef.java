@@ -51,6 +51,11 @@ import java.io.Writer;
 import java.io.IOException;
 import org.melati.util.StringUtils;
 
+/**
+ * An abstract definition of a  <tt>Field</tt> from which 
+ * all other <tt>FieldDef</tt>s are derived.
+ * 
+ */
 public abstract class FieldDef {
   protected final TableDef table;
   protected final String name;

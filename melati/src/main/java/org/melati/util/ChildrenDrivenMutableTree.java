@@ -48,13 +48,15 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 /**
- * A tree of <code>DefaultMutableTreeNode</code>s, the userObjects of which
- * are <code>Treeable</code> objects which supply their own
- * <code>getChildren()</code> functions. This is used to build the tree of
+ * A tree of <code>DefaultMutableTreeNode</code>s, 
+ * the <code>userObject</code>s of which
+ * are {@link Treeable} objects which supply their own
+ * <code>getChildren()</code> functions. 
+ * This is used to build the tree of
  * <code>DefaultMutableTreeNode</code>s.
  * <p>
  * It also allows you to search the subtree for a particular
- * <code>Treeable</code> object and returns the corresponding
+ * {@link Treeable} object and returns the corresponding
  * <code>DefaultMutableTreeNode</code> object if one exists.
  *
  * @see DefaultMutableTreeNode

@@ -45,5 +45,8 @@
 
 package org.melati.poem;
 
+/**
+ * A record of any underlying DBMS action.
+ */
 public abstract class PoemLogEvent {
 }

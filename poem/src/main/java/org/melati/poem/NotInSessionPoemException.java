@@ -45,5 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when it is discovered that a <code>Transaction</code> has 
+  * somehow been created outside a <code>Session</code>.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NotInSessionPoemException extends SeriousPoemException {
 }

@@ -51,6 +51,12 @@ import org.melati.poem.AccessPoemException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.HTMLUtils;
 
+/**
+ * An HTML based markup language which has attributes.
+ *
+ * @todo Javadoc review.
+ *
+ */
 public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
 
   public AttributeHTMLMarkupLanguage(HTMLMarkupLanguage html) {

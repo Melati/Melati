@@ -55,7 +55,7 @@
 package org.melati.poem.csv;
 
 /**
- * A field within a CSV file.
+ * A field within a record of a CSV file.
  */
 
 public class CSVField {

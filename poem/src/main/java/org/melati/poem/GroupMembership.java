@@ -47,6 +47,9 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupMembershipBase;
 
+/**
+ * A record of a {@link User}'s belonging to a {@link Group}.
+ */
 public class GroupMembership extends GroupMembershipBase {
   public GroupMembership() {}
 

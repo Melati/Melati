@@ -51,7 +51,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Normal doubles, dependant upon the databse/SQL implementation.
+ * Normal doubles, dependant upon the database/SQL implementation.
  */
 public class DoublePoemType extends AtomPoemType {
 

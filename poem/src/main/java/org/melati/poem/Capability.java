@@ -47,6 +47,12 @@ package org.melati.poem;
 
 import org.melati.poem.generated.CapabilityBase;
 
+/**
+ * The quality of being able to perform an action.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public class Capability extends CapabilityBase {
 
   public Capability() {

@@ -46,10 +46,12 @@
 package org.melati.poem;
 
 /**
- * A piece of code for initialising a newly created object in a POEM table.
+ * A piece of code for initialising a newly created {@link Persistent} 
+ * object in a POEM {@link Table}.
  * Much like a Java constructor.  You will probably want to define these as
  * anonymous classes.
  *
+ * @author WilliamC@paneris.org
  * @see Table#create(org.melati.poem.Initialiser)
  */
 

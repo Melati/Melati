@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * An interface which defines attributes of all {@link Field}s.
+ *
+ * @author WilliamC@paneris.org
+ */
 public interface FieldAttributes {
   String getName();
   String getDisplayName();

@@ -47,6 +47,9 @@ package org.melati.util;
 import java.io.Writer;
 import java.io.PrintWriter;
 
+/**
+ * A <code>PrintWriter</code> which knows how much it has written.
+ */
 public class FtellPrintWriter extends PrintWriter {
   protected long position = 0;
 

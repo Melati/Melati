@@ -71,7 +71,7 @@ class HttpAuthorizationMelatiException extends MelatiRuntimeException {
 }
 
 /**
- * The information contained in an HTTP authorization
+ * The information contained in an HTTP authorization.
  */
 
 class HttpAuthorization {
@@ -125,9 +125,11 @@ class HttpAuthorization {
 }
 
 /**
- * An <TT>AccessHandler</TT> which uses the HTTP Basic Authentication scheme to
- * elicit and maintain the user's login and password.  This implementation
- * doesn't use the servlet session at all, so it doesn't try to send cookies or
+ * An {@link AccessHandler} which uses the HTTP Basic Authentication scheme to
+ * elicit and maintain the user's login and password.  
+ *
+ * This implementation doesn't use the servlet session at all, 
+ * so it doesn't try to send cookies or
  * do URL rewriting.
  *
  */

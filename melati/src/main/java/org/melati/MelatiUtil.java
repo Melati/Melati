@@ -60,7 +60,8 @@ import org.melati.util.Tree;
 import org.melati.util.JSDynamicTree;
 
 /**
- * MelatiUtil is a place where useful Static methods can be put.
+ * An object to hold useful static methods for inclusion in a 
+ * {@link TemplateContext}.
  *
  * @todo Cache adaptor templet
  */

@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an authorisation problem occurs, that is when 
+ * a {@link User} does not have the required {@link Capability} 
+ * or is not in a {@link Group} with the required {@link Capability} 
+ * to access a restricted object.
+ */
 public class AccessPoemException extends PoemException {
   public AccessToken token;
   public Capability capability;

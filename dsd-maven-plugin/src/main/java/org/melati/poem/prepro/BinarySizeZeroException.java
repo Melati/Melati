@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown if a <tt>BinaryFieldDef</TT> does not have size greater than zero.
+ *
+ */
 public class BinarySizeZeroException extends IllegalityException {
   public FieldDef field;
 

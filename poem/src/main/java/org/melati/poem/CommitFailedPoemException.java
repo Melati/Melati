@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when a <code>commit</code> fails.
+ */
 public class CommitFailedPoemException extends SQLSeriousPoemException {
   public CommitFailedPoemException(java.sql.SQLException e) {
     super(e);

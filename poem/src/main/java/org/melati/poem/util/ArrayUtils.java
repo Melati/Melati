@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Vector;
 import java.util.Enumeration;
 
+/**
+ * A collection of useful operations on <code>Array</code>s.
+ */
 public class ArrayUtils {
 
   private ArrayUtils() {}

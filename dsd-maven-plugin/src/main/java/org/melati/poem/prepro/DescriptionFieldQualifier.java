@@ -48,6 +48,11 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the <tt>Description</tt> 
+ * of a <tt>Field</tt>.
+ * 
+ */
 public class DescriptionFieldQualifier extends FieldQualifier {
 
   private String description;

@@ -45,5 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when the system runs out of its pool of <code>Transaction</code>s;
+  * which happens if <code>Transaction</codE>s die with an <code>Error</code> 
+  * such as <code>OutOfMemoryError</code>.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoMoreTransactionsException extends SeriousPoemException {
 }

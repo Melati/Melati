@@ -45,6 +45,9 @@
 
 package org.melati.util;
 
+/**
+ * A Procedure.
+ */
 public interface Procedure {
   void apply(Object arg);
 }

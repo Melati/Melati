@@ -45,6 +45,9 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when an imported DSD cannot be read.
+ */
 public class ResourceNotFoundException extends Exception {
 
   public String resource, message;

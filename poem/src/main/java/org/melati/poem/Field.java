@@ -52,6 +52,9 @@ import org.melati.util.LimitedEnumeration;
 import org.melati.util.MappedEnumeration;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A Field.
+ */
 public class Field implements FieldAttributes, Cloneable {
 
   private AccessPoemException accessException;

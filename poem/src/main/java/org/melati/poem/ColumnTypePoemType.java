@@ -52,11 +52,11 @@ import org.melati.util.ArrayEnumeration;
 import org.melati.util.MelatiLocale;
 
 /**
- * A metadata type which defines the type of another column.
+ * A metadata type which defines the type of another {@link Column}.
  *
- * Used in the <tt>ColumnInfo</tt> table it can take 
+ * Used in the {@link ColumnInfoTable} it can take 
  * positive values to indicate a reference to a type defined 
- * in the <tt>TableInfo</tt> table or a negative value to 
+ * in the {@link TableInfoTable} or a negative value to 
  * point to a fundamental type.
  *
  * @see PoemTypeFactory#forCode

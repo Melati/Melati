@@ -45,6 +45,12 @@
 
 package org.melati.util;
 
+/** 
+ * Thrown when there is a problem configuring Melati.
+ * 
+ * @author TimJ@paneris.org
+ *
+ */ 
 public class ConfigException extends MelatiException {
 
   String error;

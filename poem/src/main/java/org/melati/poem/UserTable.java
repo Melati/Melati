@@ -49,6 +49,14 @@ import org.melati.poem.generated.UserTableBase;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+/**
+ * The {@link Table} of registered users.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least a <code>_guest_</code>
+ *  and <code>_administrator_</code> {@link User}.
+ *
+ */
 public class UserTable extends UserTableBase {
 
   protected User guestUser, administratorUser;

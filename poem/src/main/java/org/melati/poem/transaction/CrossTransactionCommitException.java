@@ -45,6 +45,13 @@
 
 package org.melati.util;
 
+/**
+ * Thrown should there be an attempt within one {@link Transactioned} 
+ * {@link Transaction} to commit changes made in another.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class CrossTransactionCommitException extends MelatiRuntimeException {
 
   public Transactioned object;

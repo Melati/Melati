@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown if you forget to define a <codE>Troid</code> for a 
+  * {@link Table}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoTroidColumnException extends SeriousPoemException {
   public Table table;
 

@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * This provides an interface for objects that output from melati
+ * A buffered output object for Melati.
  */
 
 public class MelatiBufferedWriter extends MelatiWriter {

@@ -44,6 +44,12 @@
  */
 package org.melati.util;
 
+/**
+ * A single use utility object for placing in a 
+ * <code>TemplateContext</code>. 
+ * All it does is allow you to increment a counter.
+ * 
+ */
 public class ContextUtil extends Object {
 
     public ContextUtil() {

@@ -50,9 +50,9 @@ import org.melati.util.StringUtils;
 import org.melati.util.MelatiLocale;
 
 /**
- * Object reference.
- * <p>
- * An object is a row in a table..
+ * A data type that is a reference to a {@link Persistent} object.
+ *
+ * @author WilliamC@paneris.org
  */
 public class ReferencePoemType extends IntegerPoemType {
 

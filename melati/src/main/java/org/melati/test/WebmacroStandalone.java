@@ -33,22 +33,23 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 /**
-  * This example demonstrates using WebMacro in "standalone" mode. Instead 
-  * of subclassing from WMServlet you create and maintain your own WebMacro
-  * object, and you are free to subclass from another servlet. Also, this 
-  * technique can be used outside the servlet context.
-  * <p>
-  * The WebMacro master object is initialized when the servlet is initialized
-  * and destroyed when the servlet is destroyed. There is some overhead 
-  * involved in creating the interface so you should prefer not to create one
-  * on every request, although it is not too expensive. 
-  * <p>
-  * This servlet can be compiled and installed as an ordinary servlet. You 
-  * need to ensure that your WebMacro.properties file is properly configured
-  * and available on your CLASSPATH. When setting up WebMacro.properties 
-  * make sure that the TemplatePath is correctly set and that the template
-  * used by this servlet, "standalone.wm", is available on that path.
-  */
+ * This example demonstrates using WebMacro in "standalone" mode. 
+ * Instead of subclassing from WMServlet you create and maintain 
+ * your own WebMacro object
+ * and you are free to subclass from another servlet. 
+ * Also, this technique can be used outside the servlet context.
+ * <p>
+ * The WebMacro master object is initialized when the servlet is initialized
+ * and destroyed when the servlet is destroyed. There is some overhead 
+ * involved in creating the interface so you should prefer not to create one
+ * on every request, although it is not too expensive. 
+ * <p>
+ * This servlet can be compiled and installed as an ordinary servlet. You 
+ * need to ensure that your WebMacro.properties file is properly configured
+ * and available on your CLASSPATH. When setting up WebMacro.properties 
+ * make sure that the TemplatePath is correctly set and that the template
+ * used by this servlet, "standalone.wm", is available on that path.
+ */
 public class WebmacroStandalone extends HttpServlet {
 
    /**

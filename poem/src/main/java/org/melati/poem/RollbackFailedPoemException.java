@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an SQL <code>ROLLBACK</code> fails.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class RollbackFailedPoemException extends SQLSeriousPoemException {
   public RollbackFailedPoemException(java.sql.SQLException e) {
     super(e);

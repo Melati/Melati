@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a {@link Field} fails its content validation.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class FieldContentsPoemException extends PoemException {
 
   public Column column;

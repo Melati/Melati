@@ -47,6 +47,10 @@ package org.melati.template;
 
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * Thrown when only some of the fields of a compound field, such as a date, 
+ * have been filled in.
+ */
 public class PartlyNullException extends MelatiRuntimeException {
   public String name;
 

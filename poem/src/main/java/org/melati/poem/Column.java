@@ -55,6 +55,12 @@ import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
 import org.melati.poem.dbms.Dbms;
 
+/**
+ * Abstract {@link Table} column which is extended by the generated classes.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public abstract class Column implements FieldAttributes {
   private Table table = null;
   private String name;
@@ -443,6 +449,9 @@ public abstract class Column implements FieldAttributes {
   public abstract void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException;
 
+ /**
+  * Thrown when any unforseen problem arises loading a {@link Column}.
+  */
   public static class LoadException extends UnexpectedExceptionPoemException {
     public Column column;
 
@@ -488,6 +497,10 @@ public abstract class Column implements FieldAttributes {
     return new Field((Object)null, this);
   }
 
+ /**
+  * Thrown when any unforseen problem arises setting the value 
+  * of a {@link Column}.
+  */
   public static class SettingException extends NormalPoemException {
     public Persistent persistent;
     public Column column;

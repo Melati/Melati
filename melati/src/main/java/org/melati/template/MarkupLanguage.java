@@ -581,22 +581,19 @@ public abstract class MarkupLanguage {
   //
    public String input(Field field)
       throws TemplateEngineException,
-             IOException,
-             UnsupportedTypeException {
+             IOException {
     return input(field, null, "", false);
   }
 
   public String inputAs(Field field, String templetName)
       throws TemplateEngineException,
-             IOException,
-             UnsupportedTypeException {
+             IOException {
     return input(field, templetName, "", false);
   }
 
   public String searchInput(Field field, String nullValue)
       throws TemplateEngineException,
-             IOException,
-             UnsupportedTypeException {
+             IOException{
     return input(field, null, nullValue, true);
   }
 
@@ -604,8 +601,7 @@ public abstract class MarkupLanguage {
                          String templetName,
                          String nullValue,
                          boolean overrideNullable)
-       throws UnsupportedTypeException,
-              TemplateEngineException,
+       throws TemplateEngineException,
               IOException {
 
     Template templet;

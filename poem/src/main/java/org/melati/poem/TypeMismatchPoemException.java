@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when the type of an object isn't the one expected.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TypeMismatchPoemException extends AppBugPoemException {
   public Object value;
   public PoemType type;

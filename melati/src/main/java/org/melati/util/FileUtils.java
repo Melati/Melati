@@ -49,11 +49,16 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
 
+/**
+ * An assortment of useful operations on <code>File</code>s.
+ */
 public class FileUtils {
 
   /**
    * Returns a File in the given <code>directory</code> which does
-   * not already exist. This file is found by starting with the given
+   * not already exist. 
+   *
+   * This file is found by starting with the given
    * <code>filename</code>. If a file of this name already exists we
    * put 0 then 1,2,... before the extension until we find one that
    * does not exists.

@@ -53,6 +53,9 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 
+/**
+ * A <tt>Boolean</tt> <tt>Nullable</tt> {@link Field} type.
+ */
 public class BooleanPoemType extends AtomPoemType {
 
   public BooleanPoemType(boolean nullable) {
@@ -120,6 +123,11 @@ public class BooleanPoemType extends AtomPoemType {
 
 }
 
+/**
+ * The possible raw values of a {@link BooleanPoemType}.
+ * 
+ * @todo If this works rewrite so it doesn't look as though it has a bug.
+ */
 class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
 
@@ -130,7 +138,7 @@ class BooleanPossibleRawEnumeration implements Enumeration {
   public synchronized Object nextElement() {
     if (state == 2)
       throw new NoSuchElementException();
-    else
+    else //FIXME surely never returns FALSE ?
       return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
   }
 }

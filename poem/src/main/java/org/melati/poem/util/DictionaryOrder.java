@@ -45,6 +45,10 @@
 
 package org.melati.util;
 
+/**
+ * An ordering using <code>String.compareTo</code>
+ * 
+ */
 public class DictionaryOrder implements Order {
 
   public static DictionaryOrder vanilla = new DictionaryOrder();

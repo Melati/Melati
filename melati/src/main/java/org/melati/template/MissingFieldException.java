@@ -47,6 +47,10 @@ package org.melati.template;
 
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * Thrown when a {@link TempletAdaptor} cannot find a required form field 
+ * in a templet.
+ */
 public class MissingFieldException extends MelatiRuntimeException {
 
   TempletAdaptor adaptor;

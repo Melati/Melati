@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt to create a {@link Column} in a {@link Table} 
+  * which already contains one of that name is made. 
+  *
+  * @author WilliamC@paneris.org
+  *
+  */
 public class DuplicateColumnNamePoemException extends NormalPoemException {
   public Table table;
   public Column column;

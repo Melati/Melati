@@ -47,6 +47,12 @@ package org.melati.poem;
 
 import org.melati.util.MelatiRuntimeException;
 
+ /**
+  * Thrown when there is an {@link Exception} thrown in a situation where 
+  * normal operation cannot sustain it.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class SeriousPoemException extends MelatiRuntimeException {
 
   /**

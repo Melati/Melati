@@ -48,6 +48,11 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>TableQualifier</tt> which defines the <tt>Category</tt> 
+ * of a <tt>Table</tt>.
+ * 
+ */
 public class CategoryTableQualifier extends TableQualifier {
 
   private String category;

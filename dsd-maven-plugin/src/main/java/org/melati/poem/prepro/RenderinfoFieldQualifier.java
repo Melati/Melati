@@ -48,6 +48,11 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the which templet 
+ * to use to render the field.
+ * 
+ */
 public class RenderinfoFieldQualifier extends FieldQualifier {
 
   private String renderinfo;

@@ -48,6 +48,11 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> created by flattening 
+ * an <code>Enumeration</code> of <code>Enumeration</code>s 
+ * or flattening two <code>Enumeration</code>s .
+ */
 public class FlattenedEnumeration implements Enumeration {
   private Enumeration enumerations;
   private Enumeration enumeration = null;

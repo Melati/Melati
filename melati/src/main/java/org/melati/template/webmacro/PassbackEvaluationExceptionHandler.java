@@ -55,10 +55,8 @@ import org.webmacro.engine.Variable;
 import org.webmacro.util.Settings;
 
 /**
- * PassbackEvaluationExceptionHandler
- *
  * An implementation of EvaluationExceptionHandler which attempts to use a 
- * templet to render the exception
+ * templet to render the exception.
  *
  */
 

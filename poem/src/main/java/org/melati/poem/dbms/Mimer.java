@@ -42,9 +42,6 @@
  *
  */
 
-/*
- NOT WORKING YET!!!
- */
 
 package org.melati.poem.dbms;
 
@@ -54,6 +51,9 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.IntegerPoemType;
 
+/**
+ * A Driver for Mimer ( NOT WORKING YET!!!)
+ */
 public class Mimer extends AnsiStandard {
 
   public Mimer() {

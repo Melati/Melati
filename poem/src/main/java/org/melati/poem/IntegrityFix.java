@@ -48,21 +48,24 @@ import java.util.Enumeration;
 import java.util.Map;
 
 /**
- * Class representing what to do about references to a <TT>Persistent</TT>
+ * Class representing what to do about references to a {@link Persistent}
  * which is about to be deleted.
  *
- * Three canned <TT>IntegrityFix</TT> policies are provided: {@link
+ * Three canned {@link IntegrityFix} policies are provided: {@link
  * StandardIntegrityFix#delete}, which simply deletes all referring objects,
  * {@link StandardIntegrityFix#clear}, which <TT>NULL</TT>s out all
  * references, and {@link StandardIntegrityFix#prevent}, which prevents
  * deletion if there are any references which would be left dangling.
+ *
+ * @author WilliamC@paneris.org
+ *
  */
 
 public interface IntegrityFix {
 
   /**
    * Do something about references from a given column to a
-   * <TT>Persistent</TT> which is about to be deleted.  Called via {@link
+   * {@link Persistent} which is about to be deleted.  Called via {@link
    * Persistent#deleteAndCommit}, this gives the application programmer 
    * fine-grained control over how referential integrity is maintained.
    *

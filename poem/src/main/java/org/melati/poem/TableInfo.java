@@ -47,6 +47,10 @@ package org.melati.poem;
 
 import org.melati.poem.generated.TableInfoBase;
 
+/**
+ * All the data defining a {@link Table}; actually a {@link Persistent} 
+ * from the {@link TableInfoTable}.
+ */
 public class TableInfo extends TableInfoBase {
 
   private Table _actualTable = null;

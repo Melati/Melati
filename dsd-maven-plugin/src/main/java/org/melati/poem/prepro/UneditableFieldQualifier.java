@@ -47,6 +47,11 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is <tt>Unedittable</tt>.
+ *
+ */
 public class UneditableFieldQualifier extends FieldQualifier {
 
   public UneditableFieldQualifier(StreamTokenizer tokens) {

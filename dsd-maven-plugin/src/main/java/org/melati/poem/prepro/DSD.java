@@ -58,7 +58,7 @@ import java.io.StreamTokenizer;
 import java.io.IOException ;
 import org.melati.util.StringUtils;
 
-/* 
+/**
  * The <code>DSD</code> class is an application which parses a DSD 
  * (Data Structure Definition) file and outputs Java code, creating 
  * a POEM view of a database.

@@ -49,6 +49,14 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * An <code>HttpServletRequest</code> created from values stored in 
+ * the <code>Session</code>.
+ * 
+ * Used during login to be able to return to the point where an 
+ * <code>AccessPoemException</code> was thrown once the user has 
+ * sucessfully logged in. 
+ */
 public class ReconstructedHttpServletRequest
     extends DelegatedHttpServletRequest {
 

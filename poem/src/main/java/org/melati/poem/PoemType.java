@@ -48,6 +48,9 @@ package org.melati.poem;
 import java.util.Enumeration;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A data type.
+ */
 public interface PoemType {
   void assertValidRaw(Object raw)
       throws TypeMismatchPoemException, ValidationPoemException;

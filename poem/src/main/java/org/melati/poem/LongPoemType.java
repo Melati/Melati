@@ -52,9 +52,13 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import org.melati.util.LongEnumeration;
 
+/**
+ * Normal longs: <code>INT8</code>.
+ */
 public class LongPoemType extends AtomPoemType {
 
   public static final LongPoemType nullable = new LongPoemType(true);
+
 
   public LongPoemType(boolean nullable) {
     super(Types.BIGINT, "INT8", nullable);

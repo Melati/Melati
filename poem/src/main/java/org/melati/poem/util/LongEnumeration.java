@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> of Longs.
+ */
 public class LongEnumeration implements Enumeration {
   private long start, limit, i;
 

@@ -57,15 +57,15 @@ import java.lang.reflect.InvocationTargetException;
 import org.melati.util.UnexpectedExceptionException;
 
 
- /*
-  * The <code>HttpServletRequestCompat</code> class enables 
-  * Melati to compile, without warnings, with the Servlet API 
-  * versions 2.0, 2.1, 2.2 and 2.3.
-  * However, if you use a method which is not in your version 
-  * of the API then you will get a runtime exception.
-  *
-  * @see   org.melati.util.DelegatedHttpServletRequest
-  */
+/**
+ * The <code>HttpServletRequestCompat</code> class enables 
+ * Melati to compile, without warnings, with the Servlet API 
+ * versions 2.0, 2.1, 2.2 and 2.3.
+ * However, if you use a method which is not in your version 
+ * of the API then you will get a runtime exception.
+ *
+ * @see   org.melati.util.DelegatedHttpServletRequest
+ */
 
 
 public class HttpServletRequestCompat {
@@ -203,6 +203,9 @@ public class HttpServletRequestCompat {
   // ============================
   // 
 
+  /**
+   * Thrown when a method that is not available is invoked.
+   */
   public static class MissingMethodError extends NoSuchMethodError {
     public String getMessage() {
       return "The application tried to use a method from the " +

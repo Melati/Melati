@@ -61,22 +61,22 @@ import org.webmacro.Context;
 import org.webmacro.Template;
 
 /**
- * Base class to use Melati with Servlets.
- * Simply extend this class, override the doRequest method
+ * Test Melati in standalone mode (outside of using the servlet API)
+ * by expanding a template to a string and then include it within this 
+ * template.
+ *
+ * You would not normally do this this way, a much better approach would
+ * be to use templets.
  *
  * @author Tim Joyce
  * $Revision$
  */
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
+
   public String handle( Melati melati, WebContext context ) 
       throws Exception {
 
-      // test melati in standalone mode (outside of using the servlet API)
-      // by expanding a template
-      // to a string and then include it within this template
-      // you would not normally do this this way, a much better approach would
-      // be to use templets
       if (melati.getMethod() != null && 
           melati.getMethod().equals("StandAlone")) {
         // construct a Melati with a StringWriter instead of a servlet
@@ -99,9 +99,11 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
     return "org/melati/test/WebmacroMelatiServletTest.wm";
   }
 
-/*
+/**
  * set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
+ * logicaldatabase on the pathinfo.  
+ *
+ * This is a very good idea when
  * writing your appications where you are typically only accessing
  * a single database
  */

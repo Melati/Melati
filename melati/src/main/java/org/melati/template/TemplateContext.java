@@ -43,15 +43,15 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-/**
- * Interface for a Template engine for use with Melati
- */
 
 package org.melati.template;
 
 import javax.servlet.http.HttpSession;
 import org.melati.servlet.MultipartFormField;
 
+/**
+ * Interface for a Template engine for use with Melati
+ */
 public interface TemplateContext {
 
   void put(String s, Object o);

@@ -46,6 +46,11 @@ package org.melati.util;
 import java.util.Vector;
 import java.util.Enumeration;
 
+
+/**
+ * All the code common to {@link CountedDumbPageEnumeration}
+ * and {@link DumbPageEnumeration}.
+ */
 public abstract class PageEnumerationBase implements PageEnumeration {
   
   int pageStart, pageSize;

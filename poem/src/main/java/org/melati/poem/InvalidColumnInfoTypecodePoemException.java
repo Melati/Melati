@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * @deprecated Not used in Melati
+  *
+  * @author WilliamC@paneris.org
+  */
 public class InvalidColumnInfoTypecodePoemException
     extends SeriousPoemException {
   public ColumnInfo columnInfo;

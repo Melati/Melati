@@ -48,6 +48,13 @@ package org.melati.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Thrown should a {@link ReconstructedHttpServletRequest} not match the 
+ * stored parameters of the original request.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class ReconstructedHttpServletRequestMismatchException
     extends MelatiException {
 

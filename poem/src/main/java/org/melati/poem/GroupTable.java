@@ -47,6 +47,14 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupTableBase;
 
+/**
+ * The {@link Table} of {@link Group}s.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least 
+ * <code>Melati database administrators</code>. 
+ *
+ */
 public class GroupTable extends GroupTableBase {
 
   public GroupTable(

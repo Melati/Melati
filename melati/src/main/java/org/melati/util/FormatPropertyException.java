@@ -47,6 +47,13 @@ package org.melati.util;
 
 import java.util.Properties;
 
+/**
+ * Thrown when an attempt is made to cast a <code>String</code> 
+ * property value as a numeric type.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class FormatPropertyException extends PropertyException {
 
   public String value;

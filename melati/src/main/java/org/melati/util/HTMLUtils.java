@@ -57,6 +57,9 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.html.parser.Element;
 
+/**
+ * An assortment of useful things to do with HTML.
+ */
 public class HTMLUtils {
   private HTMLUtils() {}
 
@@ -240,6 +243,11 @@ public class HTMLUtils {
     return w.toString();
   }
 
+/**
+ * An Instance of a tag?
+ * 
+ * @todo Javadoc
+ */
   public static class TagInstance {
     public final HTML.Tag tag;
     public final AttributeSet attributes;

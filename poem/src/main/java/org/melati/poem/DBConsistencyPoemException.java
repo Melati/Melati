@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * Those thrown when the database becomes inconsistent.
+ */
 public abstract class DBConsistencyPoemException extends SeriousPoemException {
 
   public DBConsistencyPoemException(String message) {

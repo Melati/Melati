@@ -50,6 +50,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.melati.util.SkipEnumeration;
 
+/**
+ * An <code>Enumeration</code> created by filtering a 
+ * <code>ResultSet</code> according to an abstract 
+ * function applied to each element of the <code>ResultSet</code>.
+ * <p>
+ * Implementations must provide {@link #mapped(ResultSet)}.
+ */
 abstract class ResultSetEnumeration implements SkipEnumeration {
   private final ResultSet resultSet;
   private int more = -1;
@@ -87,9 +94,9 @@ abstract class ResultSetEnumeration implements SkipEnumeration {
   /**
    * Return the next element.
    * <p>
-   * Note that a <code>RowDisappearedPoemException</code> might be thrown
+   * Note that a {@link RowDisappearedPoemException} might be thrown
    * but does not prevent subsequent use of the object.
-   * This behaviour is now relied upon <code>StandardIntegrityFix</code>.
+   * This behaviour is now relied upon in {@link StandardIntegrityFix}.
    */
   public synchronized Object nextElement() throws NoSuchElementException {
     try {

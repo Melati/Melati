@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * A record of a cancelled transaction.
+ */
 public class RollbackLogEvent extends PoemLogEvent {
 
   public PoemTransaction transaction;

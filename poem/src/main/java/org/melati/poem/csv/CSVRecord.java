@@ -58,6 +58,9 @@ import java.util.Vector;
 import org.melati.poem.Table;
 import org.melati.poem.Persistent;
 
+/**
+ * A record within a CSV File.
+ */
 public class CSVRecord extends Vector {
 
   /* The value of the primary key of this record, from the csv file */

@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when there is a problem with the format of the <code>String</code> 
+  * representation of a non-<code>String</code> datatype instance.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class ParsingPoemException extends NormalPoemException {
   public PoemType type;
   public String string;

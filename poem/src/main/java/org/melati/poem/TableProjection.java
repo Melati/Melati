@@ -48,7 +48,7 @@ package org.melati.poem;
 /**
  * Seems unused in melati or paneris
  * @todo Delete me
- * @deprecated Not used, shouldn't be used
+ * @deprecated Not used in Melati
  */ 
 public class TableProjection {
   private Column column;

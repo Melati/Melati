@@ -55,6 +55,7 @@ import org.melati.poem.Field;
 /**
  * A SimpleDateAdaptor is used to format a date field into 
  * a dd/mm/yyyy format for display. 
+ *
  * It also adapts the input (given in dd/mm/yyyy or yyyyMMdd)
  * back to a java.sql.Date.
  */

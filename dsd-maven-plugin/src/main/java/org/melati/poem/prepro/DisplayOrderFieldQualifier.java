@@ -48,6 +48,11 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the <tt>DisplayOrder</tt> 
+ * of a <tt>Field</tt>.
+ * 
+ */
 public class DisplayOrderFieldQualifier extends FieldQualifier {
 
   private int order;

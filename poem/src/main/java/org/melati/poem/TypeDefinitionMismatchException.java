@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown during {@link Column} unification if there is a contradiction 
+ * between two of the possible {@link DefinitionSource}s.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TypeDefinitionMismatchException extends SeriousPoemException {
   public Column column;
   public PoemType newType;

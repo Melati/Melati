@@ -45,6 +45,15 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown deliberately by the programmer.
+  *
+  * This is not used to signal an error or an exceptional, crisis 
+  * situation; rather it is to be used when no records are found or 
+  * similar normal failures.
+  *
+  * @author WilliamC@paneris.org
+  */
 public abstract class NormalPoemException extends PoemException {
   public NormalPoemException(Exception subException) {
     super(subException);

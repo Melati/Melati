@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a value outside of a {@link Field}'s range is discovered.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class OutsideRangePoemException extends PoemException {
   public Object low, limit, value;
 

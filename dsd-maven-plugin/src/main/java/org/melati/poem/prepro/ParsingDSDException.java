@@ -47,6 +47,10 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 
+/**
+ * Thrown when an unexpected token is encountered during parsing.
+ *
+ */
 public class ParsingDSDException extends Exception {
 
   public String expected, got;

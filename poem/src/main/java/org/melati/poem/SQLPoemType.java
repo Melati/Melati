@@ -45,5 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * A datatype of a {@link Field} which is both a {@link PoemType} 
+ * and an {@link SQLType}.
+ */
 public interface SQLPoemType extends SQLType, PoemType {
 }

@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * Something that can be <code>run</code>.
+ */
 public interface PoemTask {
   void run();
 }

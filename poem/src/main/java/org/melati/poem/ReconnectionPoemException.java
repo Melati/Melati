@@ -45,5 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when a committed <code>Connection</code> still exists.
+ * 
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class ReconnectionPoemException extends AppBugPoemException {
 }

@@ -113,7 +113,7 @@ public class Postgresql extends AnsiStandard {
   }
 
   /**
-   * An Object Id poem type
+   * An Object Id <code>PoemType</code>.
    */
   public static class OidPoemType extends IntegerPoemType {
       public OidPoemType(boolean nullable) {

@@ -47,6 +47,14 @@ package org.melati.util;
 
 import java.util.Enumeration;
 
+/**
+ * No good to man nor beast.
+ *
+ * 
+ * @todo Explain me.
+ * @todo Delete me.
+ * @deprecated Unused in Melati or the PanEris tree.
+ */
 public class DelegatedEnumeration implements Enumeration {
 
   private Enumeration them;

@@ -47,13 +47,17 @@ package org.melati.poem;
 
 import org.melati.poem.generated.TableCategoryBase;
 
+/**
+ * A grouping into which a {@link Table} can be assigned, eg <tt>Data</tt> 
+ * or <tt>System</tt>.
+ */
 public class TableCategory extends TableCategoryBase {
+  public TableCategory() {}
+
   public TableCategory(String name) {
     setName_unsafe(name);
   }
 
-  public TableCategory() {
-  }
 
   public void assertCanRead(AccessToken token) {}
 }

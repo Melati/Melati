@@ -52,6 +52,12 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import org.melati.poem.Database;
 
+/** 
+ * Send an email to one or more recipients.
+ *
+ * @todo replace with org.paneris.ftc.controller.Email
+ * @deprecated Uses Sun class
+ */
 public class Email {
 
   public static String SMTPSERVER = "SMTPServer";

@@ -51,6 +51,12 @@ import javax.swing.text.html.parser.DocumentParser;
 import javax.swing.text.html.parser.TagElement;
 import javax.swing.text.html.parser.DTD;
 
+/**
+ * An extended <code>DocumentParser</code>.
+ *
+ * @todo Explain why this is in Melati
+ * @deprecated Only used in Bibliomania
+ */
 public class FictionalNotifyingDocumentParser extends DocumentParser {
   protected FictionalNotifiableParserCallback callback = null;
 

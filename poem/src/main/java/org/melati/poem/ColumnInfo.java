@@ -49,6 +49,10 @@ import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.poem.generated.ColumnInfoBase;
 
+/**
+ * All the data defining a {@link Column}; actually a {@link Persistent} 
+ * from the {@link ColumnInfoTable}.
+ */
 public class ColumnInfo extends ColumnInfoBase {
 
   public void assertCanRead(AccessToken token) {}
@@ -94,10 +98,10 @@ public class ColumnInfo extends ColumnInfoBase {
     }
   }
 
- /* 
-  * Only those fields which are relevant to this column 
-  * and legal as a field qualifier in the DSD.
-  */ 
+/**
+ * Only those fields which are relevant to this column 
+ * and legal as a field qualifier in the DSD.
+ */ 
   public Enumeration getDsdQualifiers() {
     Vector v = new Vector();
     Enumeration allFields = getFields();

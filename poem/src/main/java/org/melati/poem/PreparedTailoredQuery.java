@@ -48,6 +48,8 @@ package org.melati.poem;
 import java.util.Enumeration;
 
 /**
+ * A {@link TailoredQuery} which uses a <code>PreparedStatement</code>.
+ *
  * @todo An example might be good
  */ 
 public class PreparedTailoredQuery extends TailoredQuery {

@@ -47,5 +47,12 @@ package org.melati.util;
 
 import org.melati.poem.PoemException;
 
+/**
+ * Thrown if a {@link Transaction} would get into a deadly embrace 
+ * with another.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class WouldDeadlockException extends PoemException {
 }

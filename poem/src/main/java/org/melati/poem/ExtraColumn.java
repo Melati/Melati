@@ -47,6 +47,8 @@ package org.melati.poem;
 
 
 /**
+ * A {@link Column} which exists in the dbms but is not defined in the 
+ * DSD.
  * @todo Validated twice - see FIXME
  */
 public class ExtraColumn extends Column {
@@ -104,6 +106,7 @@ public class ExtraColumn extends Column {
   public static Column from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
     return new ExtraColumn(
-        table, columnInfo.getName(), columnInfo.getType(), source, extrasIndex);
+        table, columnInfo.getName(), columnInfo.getType(), 
+        source, extrasIndex);
   }
 }

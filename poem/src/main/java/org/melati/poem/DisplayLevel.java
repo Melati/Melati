@@ -47,6 +47,11 @@ package org.melati.poem;
 
 import java.util.Hashtable;
 
+/**
+ * An attribute of a {@link Column} which indicates what level of 
+ * reporting of a {@link Table} it should be included in.
+ *
+ */
 public class DisplayLevel {
 
   public final Integer index;
@@ -58,18 +63,18 @@ public class DisplayLevel {
   }
 
   /**
-   * Display level of the column used to refer concisely to a record
-   * on the UI.
+   * Display level of a {@link Column} used as the name of the 
+   * whole record.
    *
    * @see Table#displayColumn()
    */
   public static final DisplayLevel primary;
 
   /**
-   * Display level of columns included in a summary of records in
-   * a set.
+   * Display level of {@link Column}s to be included in a summary of 
+   * records in a set.
    * <p>
-   * This is the default display level for a column.
+   * This is the default display level for a {@link Column}.
    *
    * @see Table#getSummaryDisplayColumns()
    * @see Column#defaultDisplayLevel()
@@ -78,7 +83,7 @@ public class DisplayLevel {
   public static final DisplayLevel summary;
 
   /**
-   * Display level of columns included in display focusing on a
+   * Display level of {@link Column}s included in display focusing on a
    * single record, but without detail.
    *
    * @see Table#getRecordDisplayColumns()
@@ -87,7 +92,7 @@ public class DisplayLevel {
   public static final DisplayLevel record;
 
   /**
-   * Display level of columns included in a detailed display
+   * Display level of {@link Column}s included in a detailed display
    * of a single record.
    *
    * @see Table#getRecordDisplayColumns()
@@ -96,7 +101,7 @@ public class DisplayLevel {
   public static final DisplayLevel detail;
 
   /**
-   * Display level of columns hidden from users.
+   * Display level of {@link Column}s hidden from users.
    */
   public static final DisplayLevel never;
 
@@ -124,6 +129,10 @@ public class DisplayLevel {
     return displayLevels.length;
   }
 
+ /**
+  * Thrown when a <code>DisplayLevel</code> which doesn't exist is referenced, 
+  * by misspelling for example.
+  */
   public static class NameUnrecognisedException extends PoemException {
     public String name;
 

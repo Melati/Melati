@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when an attempt is made to <code>redefine</codE> a {@link Table} 
+ * when it is being accessed by another {@link PoemThread}.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TableInUsePoemException extends SeriousPoemException {
   public Database database;
   public Table table;

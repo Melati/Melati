@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * @deprecated Not used in Melati.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoDeletedColumnException extends SeriousPoemException {
   public Table table;
 

@@ -51,6 +51,11 @@ import java.util.Map;
 import java.util.HashMap;
 import org.melati.util.ToTidyList;
 
+/**
+ * A Poem Thread.
+ *
+ * @todo Improve javadoc
+ */
 public class PoemThread {
 
   private PoemThread() {}

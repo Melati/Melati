@@ -45,5 +45,11 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when the number of {@link PoemThread}s exceeds the limit.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class TooManyThreadsPoemException extends SeriousPoemException {
 }

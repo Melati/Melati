@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a <tt>SizeFieldQualifier</tt> is applied to 
+ * an inappropriate field.
+ */
 public class SizeApplicationException extends IllegalityException {
   public FieldDef field;
 

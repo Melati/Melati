@@ -49,6 +49,12 @@ import java.util.Enumeration;
 import org.melati.util.IntegerEnumeration;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A data type used within the POEM {@link ColumnInfo} metadata.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public class SearchabilityPoemType extends IntegerPoemType {
 
   public SearchabilityPoemType() {
@@ -92,9 +98,9 @@ public class SearchabilityPoemType extends IntegerPoemType {
     return "searchability (" + super.toString() + ")";
   }
 
-   /**
-   * The field type used in the Data Structure Definition language.
-   */
+ /**
+  * The field type used in the Data Structure Definition language.
+  */
   public String toDsdType() {
     return "Searchability";
   }

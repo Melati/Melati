@@ -47,6 +47,11 @@ package org.melati.poem;
 
 import org.melati.util.ToTidyList;
 
+/**
+ * A Session Token.
+ * 
+ * @todo Javadoc - what more can be said?
+ */
 class SessionToken {
   Thread thread;
   long started;

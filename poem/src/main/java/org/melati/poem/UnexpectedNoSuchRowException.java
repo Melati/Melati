@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a {@link NoSuchRowPoemException} is thrown when it 
+  * is not thought to be possible for it to, if all is working well.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class UnexpectedNoSuchRowException extends SeriousPoemException {
   public UnexpectedNoSuchRowException(NoSuchRowPoemException exception) {
     super(exception);

@@ -45,6 +45,11 @@
 
 package org.melati.util;
 
+/**
+ * An object which can have uncommitted state within a {@link Transaction}.
+ *
+ * @todo Improve javadoc
+ */
 public abstract class Transactioned {
 
   private boolean valid = true;
@@ -82,7 +87,8 @@ public abstract class Transactioned {
       TransactionPool transactionPool) {
     if (transactionPool == null)
       throw new NullPointerException();
-    if (this.transactionPool != null && this.transactionPool != transactionPool)
+    if (this.transactionPool != null && 
+        this.transactionPool != transactionPool)
       throw new IllegalArgumentException();
 
     this.transactionPool = transactionPool;

@@ -47,6 +47,13 @@ package org.melati.poem;
 
 import java.sql.SQLException;
 
+/**
+ * Thrown when an {@link SQLException} is thrown by a command to 
+ * alter or create a <code>table</code>.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class StructuralModificationFailedPoemException
     extends ExecutingSQLSeriousPoemException {
 

@@ -51,13 +51,19 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+/**
+ * A store of known objects.
+ */
+
 public final class Cache {
 
+ /** A <code>key:value</code> pair */
   private interface Node {
     Object key();
     Object value();
   }
 
+ /** A <code>node</code> in a linked list */
   private static class HeldNode implements Node {
     Object key;
     Object value;
@@ -118,6 +124,7 @@ public final class Cache {
     }
   }
 
+ /** A node that has been dropped. */
   private static class DroppedNode extends SoftReference implements Node {
 
     Object key;
@@ -298,6 +305,7 @@ public final class Cache {
 
       Object previous = table.put(key, node);
       if (previous != null) {
+        // FIXME why if we are going to throw and Exception?
         table.put(key, previous);
         throw new CacheDuplicationException();
       }

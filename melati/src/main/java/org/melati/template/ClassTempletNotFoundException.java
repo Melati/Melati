@@ -47,6 +47,9 @@ package org.melati.template;
 
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * Thrown when a templet cannot be found for a class.
+ */
 public class ClassTempletNotFoundException extends MelatiRuntimeException {
   public TempletLoader loader;
   public Class clazz;

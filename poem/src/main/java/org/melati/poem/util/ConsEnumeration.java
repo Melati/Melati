@@ -47,6 +47,11 @@ package org.melati.util;
 
 import java.util.Enumeration;
 
+/**
+ * An implementation of the Lisp <code>cons</code> function on 
+ * enumerations ie it allows you to add an object to the front 
+ * of an <code>Enumeration</code>.
+ */
 public class ConsEnumeration implements SkipEnumeration {
   private boolean hadHd = false;
   private Object hd;

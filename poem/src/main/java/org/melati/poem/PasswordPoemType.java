@@ -45,6 +45,9 @@
 
 package org.melati.poem;
 
+/**
+ * A password.
+ */
 public class PasswordPoemType extends StringPoemType {
 
   public PasswordPoemType(boolean nullable, int size) {

@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt to create a {@link Persistent} which 
+  * already exists is made. 
+  *
+  * @author WilliamC@paneris.org
+  *
+  */
 public class DoubleCreatePoemException extends AppBugPoemException {
   public Persistent persistent;
 

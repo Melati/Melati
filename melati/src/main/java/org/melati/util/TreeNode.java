@@ -45,6 +45,12 @@ package org.melati.util;
 
 import java.util.Vector;
 
+/**
+ * A {@link Tree} node.
+ *
+ * @author MylesC@paneris.org
+ *
+ */
 public class TreeNode {
     private Treeable data;
     int depth;

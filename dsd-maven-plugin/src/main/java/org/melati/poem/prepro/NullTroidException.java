@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a <tt>NullableFieldQualifier</tt> is applied to a 
+ * <tt>TroidFieldDef</tt>.
+ */
 public class NullTroidException extends IllegalityException {
   public FieldDef field;
 

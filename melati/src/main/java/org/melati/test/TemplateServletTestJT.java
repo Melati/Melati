@@ -52,8 +52,7 @@ import org.melati.servlet.MelatiContext;
 import org.melati.template.TemplateContext;
 
 /**
- * Base class to use Melati with Servlets.
- * Simply extend this class, override the doRequest method
+ * Incomplete test servlet for JTemplater.
  *
  * @author Tim Joyce
  * $Revision$
@@ -67,9 +66,11 @@ public class TemplateServletTestJT extends TemplateServlet {
     return("org/melati/test/TemplateServletTestJT");
   }
   
-/*
- * set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
+/**
+ * Set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  
+ *
+ * This is a very good idea when
  * writing your appications where you are typically only accessing
  * a single database
  */

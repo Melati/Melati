@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when there is a problem loading a {@link Table}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class SimpleRetrievalFailedPoemException
     extends SQLSeriousPoemException {
   public SimpleRetrievalFailedPoemException(java.sql.SQLException e) {

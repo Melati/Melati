@@ -51,8 +51,8 @@ package org.melati.poem.dbms;
 import java.sql.SQLException;
 
  /**
-  * A driver for the Microsoft SQL server 
-  **/
+  * A Driver for the Microsoft SQL server.
+  */
 
 public class SQLServer extends AnsiStandard {
   

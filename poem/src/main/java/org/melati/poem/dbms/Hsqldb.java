@@ -58,8 +58,7 @@ import org.melati.poem.User;
 import org.melati.util.StringUtils;
 
 /**
- *
- * A driver for the http://www.hsqldb.org/ database.
+ * A Driver for HSQLDB (http://www.hsqldb.org/).
  *
  * Note that HSQLDB uppercases any name that isn't quoted, 
  * this strictness uncovered a few loopholes,
@@ -111,6 +110,9 @@ public class Hsqldb extends AnsiStandard {
       return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
+ /**
+  * Translates an HSQLDB Boolean into a Poem <code>BooleanPoemType</code>.
+  */ 
   public static class HsqldbBooleanPoemType extends BooleanPoemType {
     public HsqldbBooleanPoemType(boolean nullable) {
       super(nullable);

@@ -149,6 +149,9 @@ public class MySQL extends AnsiStandard {
     return "BLOB"; //How to define BLOB of limited size?
   }
 
+ /**
+  * Translates a MySQL String into a Poem <code>BooleanPoemType</code>.
+  */ 
   public static class MySQLStringPoemType extends StringPoemType {
 
     public MySQLStringPoemType(boolean nullable, int size) {
@@ -173,6 +176,9 @@ public class MySQL extends AnsiStandard {
       }
     }
 
+ /**
+  * Translates a MySQL Boolean into a Poem <code>BooleanType</code>.
+  */ 
     public static class MySQLBooleanPoemType extends BooleanPoemType {
       public MySQLBooleanPoemType(boolean nullable) {
         super(nullable);
@@ -224,7 +230,10 @@ public class MySQL extends AnsiStandard {
     }
 
 
-    //About the same as in Postgresql.java, hope it's OK.
+ /**
+  * Translates a MySQL Blob into a Poem <code>IntegerPoemType</code>.
+  * About the same as in Postgresql.java, hope it's OK.
+  */ 
     public static class BlobPoemType extends IntegerPoemType {
       public BlobPoemType(boolean nullable) {
         super(Types.INTEGER, "BLOB", nullable);

@@ -45,6 +45,13 @@
 
 package org.melati.poem;
 
+/**
+ * Thrown when a {@link StringPoemType} {@link Field}'s value 
+ * is too long. 
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class StringLengthValidationPoemException
     extends ValidationPoemException {
   public StringLengthValidationPoemException(PoemType type, String value) {

@@ -48,7 +48,7 @@ import java.io.Writer;
 import java.io.PrintWriter;
 
 /**
- * This provides an interface for objects that output from melati
+ * An abstract <code>Writer</code> for objects that output from Melati.
  */
 
 public abstract class MelatiWriter extends Writer {

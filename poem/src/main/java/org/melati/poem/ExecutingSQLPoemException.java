@@ -47,6 +47,11 @@ package org.melati.poem;
 
 import java.sql.SQLException;
 
+ /**
+  * Thrown when there is a problem executing an SQL command.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class ExecutingSQLPoemException extends SQLPoemException {
   public String sql;
   public ExecutingSQLPoemException(String sql, SQLException e) {

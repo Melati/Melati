@@ -49,6 +49,11 @@ import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
+/**
+ * A Transaction.
+ *
+ * @todo Review javadoc
+ */
 public abstract class Transaction {
 
   public final int index;

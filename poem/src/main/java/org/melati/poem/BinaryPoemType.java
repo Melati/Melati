@@ -53,6 +53,9 @@ import org.melati.util.StringUtils;
 import org.melati.util.Base64;
 import org.melati.poem.dbms.Dbms;
 
+/**
+ * A <tt>Blob</tt> {@link Field} type.
+ */
 public class BinaryPoemType extends SizedAtomPoemType {
  
   public BinaryPoemType(boolean nullable, int size) {

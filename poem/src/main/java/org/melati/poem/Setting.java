@@ -46,8 +46,13 @@
 package org.melati.poem;
 
 import org.melati.poem.generated.SettingBase;
-//import java.util.*;
-//import org.melati.util.*;
+
+/**
+ * A setting, analageous to a Property
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 
 public class Setting extends SettingBase {
   public Setting() {}
@@ -65,6 +70,9 @@ public class Setting extends SettingBase {
     setDescription_unsafe(description);
   }
 
+ /**
+  * Thrown when a {@link Setting} value fails validation.
+  */
   public static class SettingValidationException extends PoemException {
     public String name;
 
@@ -122,7 +130,11 @@ public class Setting extends SettingBase {
     return cooked;
   }
 
-  public static class SettingTypeMismatchException extends AppBugPoemException {
+ /**
+  * Thrown when a {@link Setting}'s type does not match the type required. 
+  */
+  public static class 
+      SettingTypeMismatchException extends AppBugPoemException {
     public String name;
     public PoemTypeFactory type;
     public String reqType;

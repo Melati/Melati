@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a <tt>StringFieldDef</tt> does not have a 
+ * <tt>SizeFieldQualifier</tt>. 
+ */
 public class StringSizeZeroException extends IllegalityException {
   public FieldDef field;
 

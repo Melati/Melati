@@ -45,12 +45,20 @@
 
 package org.melati.poem;
 
+/**
+ * An <tt>AccessToken</tt> (aka User) which can do anything.
+ *
+ */
 class RootAccessToken implements AccessToken {
   public boolean givesCapability(Capability capability) {
     return true;
   }
 }
 
+/**
+ * An AccessToken (aka User).
+ *
+ */
 public interface AccessToken {
   boolean givesCapability(Capability capability);
 

@@ -45,5 +45,10 @@
 
 package org.melati.util;
 
+/**
+ * Thrown should a duplicate entry be put in the {@link Cache}.
+ * 
+ * @todo Shouldn't this extend MelatiBugMelatiException and be an Error ?
+ */
 public class CacheDuplicationException extends IllegalArgumentException {
 }

@@ -47,7 +47,7 @@ import java.io.StringWriter;
 import java.io.IOException;
 
 /**
- * wrap up string writer as a Melati writer
+ * Wrap up <code>StringWriter</code> as a {@link MelatiWriter}.
  */
 
 public class MelatiStringWriter extends MelatiWriter {

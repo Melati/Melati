@@ -49,10 +49,10 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 /**
- * A <code>ResultSetEnumeration</code> relying on a <code>TailoredQuery</code> 
+ * A {@link ResultSetEnumeration} relying on a {@link TailoredQuery}
  * for column and access information.
  *
- * @author williamc@paneris.org (except javadocs)
+ * @author williamc@paneris.org
  */
 public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 

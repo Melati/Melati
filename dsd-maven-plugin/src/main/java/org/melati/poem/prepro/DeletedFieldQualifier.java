@@ -46,7 +46,15 @@
 package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
+
 /**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is a <tt>DeletedField</tt>.
+ *
+ * A <tt>DeletedField</tt> is a flag field in a record which 
+ * marks the whole record as deleted.
+ *
+ * @see org.melati.poem.DeletedPoemType 
  * @todo Check for duplication
  */
 public class DeletedFieldQualifier extends FieldQualifier {

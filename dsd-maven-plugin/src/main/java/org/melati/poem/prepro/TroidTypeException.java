@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a field does not meet the criteria for being a 
+ * Table Row Object Id field.
+ */
 public class TroidTypeException extends IllegalityException {
   public FieldDef field;
 

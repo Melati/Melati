@@ -45,6 +45,14 @@
 
 package org.melati.util;
 
+/**
+ * Thrown when any <code>Transaction</code> related problem occurs.
+ *
+ * @deprecated Unused in Melati.
+ * @author WilliamC@paneris.org
+ * @todo Delete me
+ * 
+ */
 public class TransactionException extends MelatiRuntimeException {
 
   public TransactionException(String message) {

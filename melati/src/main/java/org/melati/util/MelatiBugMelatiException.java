@@ -45,6 +45,12 @@
 
 package org.melati.util;
 
+/**
+ * Thrown if an internal assumption about Melati is violated.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class MelatiBugMelatiException extends MelatiRuntimeException {
 
   public String bug;

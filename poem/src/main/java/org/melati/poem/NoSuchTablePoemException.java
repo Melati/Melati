@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a reference to a non existent {@link Table} is made.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoSuchTablePoemException extends NormalPoemException {
   public Database database;
   public String name;

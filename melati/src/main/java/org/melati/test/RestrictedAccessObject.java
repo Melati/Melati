@@ -50,6 +50,9 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Capability;
 
+/**
+ * An object which requires authorisation to view it.
+ */
 public class RestrictedAccessObject {
 
   public RestrictedAccessObject() {}

@@ -59,13 +59,14 @@ import org.melati.MelatiConfig;
 import org.melati.util.MelatiWriter;
 
 /**
- * SessionAnalysisServlet
- *
  * Displays information about the status of this JVM and the databases
  * running from it. Well, with JServ it's for this servlet zone.
  *
  * It shows us information about any Poem sessions running and
  * each transaction in (think 'connection to') a database.
+ *
+ * @author MylesC@paneris.org
+ *
  */
 
 public class SessionAnalysisServlet extends ConfigServlet {

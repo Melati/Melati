@@ -67,6 +67,10 @@ import org.melati.util.MelatiException;
  * $Revision$
  */
 
+/**
+ * Illustrate exception handling.
+ *
+ */
 public class TemplateServletTestOverride extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
@@ -80,9 +84,9 @@ public class TemplateServletTestOverride extends TemplateServlet {
   }
 
 /**
- * this simply demonstrates how to use a different melati configuration
+ * Demonstrates how to use a different melati configuration.
  *
- **/
+ */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
     config.setAccessHandler(new HttpBasicAuthenticationAccessHandler());
@@ -91,7 +95,9 @@ public class TemplateServletTestOverride extends TemplateServlet {
 
 /**
  * set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
+ * logicaldatabase on the pathinfo.  
+ *
+ * This is a very good idea when
  * writing your appications where you are typically only accessing
  * a single database
  */

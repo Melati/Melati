@@ -73,6 +73,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  * A Table.
  *
+ * @author WilliamC@paneris.org
  * @todo Allow selection based on null fields
  * @todo See FIXMEs
  **/
@@ -1595,6 +1596,9 @@ public class Table {
     return new Integer(nextTroid++);
   }
 
+ /**
+  * Thrown when an unauthorised attempt to create an object is made.
+  */
   public static class AccessibleCreationException extends AccessPoemException {
     public AccessibleCreationException(AccessPoemException e) {
       super(e);

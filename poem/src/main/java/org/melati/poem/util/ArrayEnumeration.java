@@ -48,6 +48,9 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> created from an <code>Array</code>.
+ */
 public class ArrayEnumeration implements Enumeration {
   private Object[] a;
   private int i;

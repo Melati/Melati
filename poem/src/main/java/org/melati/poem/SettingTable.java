@@ -48,7 +48,7 @@ import org.melati.poem.generated.SettingTableBase;
 import java.util.Hashtable;
 
 /**
- * A <TT>Table</TT> which is used like a properties file.
+ * A {@link Table} which is used like a properties file.
  *
  * Every Melati DB has one.
  */
@@ -95,6 +95,9 @@ public class SettingTable extends SettingTableBase {
     return it == null ? null : it.toString();
   }
 
+ /**
+  * Thrown when a {@link Setting} requested has not been set. 
+  */
   public static class UnsetException extends PoemException {
     public String name;
 

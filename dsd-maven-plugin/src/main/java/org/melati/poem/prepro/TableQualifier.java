@@ -48,6 +48,10 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * Abstract class from which all <tt>TableQualifier</TT>s are derived.
+ *
+ */
 public abstract class TableQualifier {
 
   public abstract void apply(TableDef table) throws IllegalityException;

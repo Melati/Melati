@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a {@link ParsingPoemException} is thrown when it 
+  * is not thought to be possible for it to, if all is working well.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class UnexpectedParsingPoemException extends SeriousPoemException {
   public UnexpectedParsingPoemException(ParsingPoemException exception) {
     super(exception);

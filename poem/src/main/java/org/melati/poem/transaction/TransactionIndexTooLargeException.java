@@ -47,5 +47,12 @@ package org.melati.util;
 
 import org.melati.poem.SeriousPoemException;
 
+/**
+ * Thrown when the number of {@link Transaction}s exceeds the limit.
+ *
+ * @author WilliamC@paneris.org
+ * @todo Maybe this should extend TransactionException?
+ * 
+ */
 public class TransactionIndexTooLargeException extends SeriousPoemException {
 }

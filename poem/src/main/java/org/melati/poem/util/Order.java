@@ -45,6 +45,9 @@
 
 package org.melati.util;
 
+/**
+ * An Ordering.
+ */
 public interface Order {
   boolean lessOrEqual(Object a, Object b);
 }

@@ -48,6 +48,11 @@ package org.melati.poem;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+ /**
+  * Thrown when an SQL <code>PreparedStatement</code> fails.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class PreparedSQLSeriousPoemException extends SQLSeriousPoemException {
   public PreparedStatement statement;
   public PreparedSQLSeriousPoemException(PreparedStatement statement,

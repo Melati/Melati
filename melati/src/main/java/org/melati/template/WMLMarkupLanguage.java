@@ -48,6 +48,11 @@ package org.melati.template;
 import org.melati.Melati;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A representation of WML.
+ *
+ * @todo Improve javadoc
+ */
 public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
   private AttributeWMLMarkupLanguage attributeML = null;

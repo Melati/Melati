@@ -47,6 +47,14 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 
+ /**
+  * Thrown when an attempt is made to delete a {@link Persistent} which is 
+  * referred to by others and where the {@link IntegrityFix} is 
+  * <tt>prevent</tt>.
+  *
+  * @author WilliamC@paneris.org
+  *
+  */
 public class DeletionIntegrityPoemException extends PoemException {
   public Persistent object;
   public Enumeration references;

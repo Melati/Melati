@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a reference to a non existent row is made.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NoSuchRowPoemException extends NormalPoemException {
   public Table table;
   public Integer troid;

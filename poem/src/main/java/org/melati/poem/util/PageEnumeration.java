@@ -47,6 +47,9 @@ package org.melati.util;
 
 import java.util.Enumeration;
 
+/**
+ * The required methods for a <code>PageEnumeration</code>.
+ */
 public interface PageEnumeration extends Enumeration {
 
   /**

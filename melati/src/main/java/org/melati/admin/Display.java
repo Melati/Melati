@@ -49,6 +49,12 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 import org.melati.Melati;
 
+/**
+ * Display an object using the Template specified.
+ *
+ * Invoked with 
+ * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=template
+ */
 public class Display extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, TemplateContext context)

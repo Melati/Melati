@@ -49,6 +49,12 @@ import java.io.StreamTokenizer;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is <tt>Indexed</tt>.
+ *
+ */
+
 public class IndexedFieldQualifier extends FieldQualifier {
 
   protected boolean unique = false;

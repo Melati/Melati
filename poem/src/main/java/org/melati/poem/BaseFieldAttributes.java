@@ -47,6 +47,12 @@ package org.melati.poem;
 
 import org.melati.util.StringUtils;
 
+/**
+ * Base class of all {@link Field}s.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public class BaseFieldAttributes implements FieldAttributes {
 
   private String name;

@@ -50,6 +50,12 @@ import java.util.Map;
 import java.util.Hashtable;
 import org.melati.util.EmptyEnumeration;
 
+/**
+ * A class which defines the three standard integrity fixes of 
+ * <tt>delete</tt>, <tt>clear</tt> and <tt>fix</tt>.
+ *
+ * @todo More javadoc please.
+ */
 public abstract class StandardIntegrityFix implements IntegrityFix {
 
   public final Integer index;
@@ -117,6 +123,10 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
       fixOfName.put(fixes[i].name, fixes[i]);
   }
 
+ /**
+  * Thrown when an invalid {@link StandardIntegrityFix} is specified, 
+  * by a typing mistake in the DSD for example.
+  */
   public static class NameUnrecognisedException extends PoemException {
     public String name;
 

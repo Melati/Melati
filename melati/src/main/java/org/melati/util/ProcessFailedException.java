@@ -46,6 +46,12 @@ package org.melati.util;
 
 import java.io.IOException;
 
+/**
+ * Thrown when an external program fails to <code>exec</code>.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class ProcessFailedException extends IOException {
   public String stderr;
   public ProcessFailedException(String message, String stderr) {

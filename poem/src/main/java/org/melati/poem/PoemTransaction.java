@@ -49,6 +49,9 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import org.melati.util.Transaction;
 
+/**
+ * A set of dbms actions, which can be rolled back if necessary.
+ */
 public class PoemTransaction extends Transaction {
   private Database database;
   private Connection connection;

@@ -49,6 +49,9 @@ import java.util.Enumeration;
 import org.melati.util.IntegerEnumeration;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A {@link Field} type which can hold a {@link DisplayLevel}.
+ */
 public class DisplayLevelPoemType extends IntegerPoemType {
 
   public DisplayLevelPoemType() {

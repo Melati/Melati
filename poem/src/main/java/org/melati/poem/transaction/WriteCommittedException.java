@@ -45,6 +45,10 @@
 
 package org.melati.util;
 
+/**
+ * Thrown when an attempt is made to write to an object within a 
+ * committed {@link Transaction}.
+ */
 public class WriteCommittedException extends MelatiRuntimeException {
   public Transactioned transactioned;
 
@@ -53,7 +57,8 @@ public class WriteCommittedException extends MelatiRuntimeException {
   }
 
   public String getMessage() {
-    return "An attempt was made to write to the object " + transactioned + " " +
+    return "An attempt was made to write to the object " + 
+           transactioned + " " +
            "in the committed transaction";
   }
 }

@@ -49,6 +49,9 @@ import java.util.Vector;
 import java.io.IOException;
 import java.io.Writer;
 
+/**
+ * The definition of all base fields.
+ */
 public class AtomFieldDef extends FieldDef {
 
   public AtomFieldDef(TableDef table, String name,

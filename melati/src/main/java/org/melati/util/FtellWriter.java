@@ -46,6 +46,9 @@ import java.io.Writer;
 import java.io.FilterWriter;
 import java.io.IOException;
 
+/**
+ * A <code>FilterWriter</code> which knows how much it has written.
+ */
 public class FtellWriter extends FilterWriter {
   protected long position = 0;
 

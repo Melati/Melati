@@ -49,9 +49,9 @@ import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 
   /**
-   * A class that allows the editting of an object to be extended.
+   * A class that allows the editting and display of an object to be extended.
    * To process the object in a special way your template should use 
-   * a method other that <code>Update</code>.
+   * a method other than <code>Update</code>.
    */
 
 public interface AdminSpecialised {

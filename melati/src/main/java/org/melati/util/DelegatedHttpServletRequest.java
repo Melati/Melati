@@ -52,14 +52,13 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
- /*
-  * The <code>DelegatedHttpServletRequest</code> class enables 
-  * Melati to compile, without warnings, with the Servlet API 
+ /**
+  * Enables Melati to compile, without warnings, with the Servlet API 
   * versions 2.0, 2.1, 2.2 and 2.3.
   * However, unless you use one of the core methods you will 
   * get warnings.
   *
-  * @see   servletcompat.HttpServletRequestCompat
+  * @see   org.melati.util.servletcompat.HttpServletRequestCompat
   */
 
 public class DelegatedHttpServletRequest implements HttpServletRequest {
@@ -69,7 +68,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
  /*
-  * Core methods common to all APIs
+  * Core methods common to all APIs.
   */
 
   public java.lang.String getAuthType() {

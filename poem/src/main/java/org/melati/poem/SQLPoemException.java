@@ -47,6 +47,11 @@ package org.melati.poem;
 
 import java.sql.SQLException;
 
+ /**
+  * Thrown when there is an {@link SQLException} thrown by the dbms.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class SQLPoemException extends NormalPoemException {
   public SQLPoemException(SQLException sqlException) {
     super(sqlException);

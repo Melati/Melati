@@ -52,9 +52,9 @@ import java.sql.ResultSet;
 
 /**
  * This is how you run low-level SQL queries including joins, and get the
- * results back in the form of convenient Melati <TT>Field</TT>s which can be
+ * results back in the form of convenient Melati {@link Field}s which can be
  * rendered automatically in templates.  A complement to the high-level
- * <TT>Table.selection</TT> on the one hand, and the low-level
+ * {@link Table#selection()} on the one hand, and the low-level
  * <TT>ResultSet</TT> on the other.
  *
  * <p><quote>
@@ -62,9 +62,9 @@ import java.sql.ResultSet;
  * TailoredQuery is specifically for when you want a few fields back
  * (possibly joined from several tables) rather than whole objects.
  * Suppose you want to do
- * 
+ * <blockquote><code>
  *   SELECT a.foo, b.bar FROM a, b WHERE a.something AND b.id = a.b
- * 
+ * </code></blockquote>
  * There is nothing to stop you doing this with a good old ResultSet =
  * Database.sqlQuery("SELECT ...").  However if you want to get the same
  * effect, without forgoing the nice features offered by

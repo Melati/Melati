@@ -47,6 +47,9 @@ package org.melati.poem;
 
 import org.melati.poem.generated.GroupBase;
 
+/**
+ * An authorisation grouping that a {@link User} can belong to.
+ */
 public class Group extends GroupBase {
   public Group() {}
 

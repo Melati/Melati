@@ -45,6 +45,10 @@
 
 package org.melati.poem.prepro;
 
+/**
+ * Thrown when a table is given a name which is already used in 
+ * this or an imported DSD.
+ */
 public class HiddenTableException extends IllegalityException {
   public String name;
   public String table;

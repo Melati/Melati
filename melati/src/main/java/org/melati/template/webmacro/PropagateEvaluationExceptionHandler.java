@@ -51,10 +51,10 @@ import org.webmacro.engine.Variable;
 import org.webmacro.util.Settings;
 
 /**
- * PropagateEvaluationExceptionHandler
- *
  * An implementation of EvaluationExceptionHandler which throws an exception
- * whenever it is called.  This will generally cause the exception to be
+ * whenever it is called.  
+ * 
+ * This will generally cause the exception to be
  * displayed to the user -- useful for debugging.
  *
  * modified to allow #if ($null)

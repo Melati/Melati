@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+/**
+ * A record of a cancelled transaction.
+ * 
+ * @deprecated Not used.
+ * @todo Delete me
+ */
 public class MissingColumnInfoLogEvent extends PoemLogEvent {
   public Table table;
   public String columnName;

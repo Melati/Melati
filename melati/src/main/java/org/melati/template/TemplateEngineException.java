@@ -47,6 +47,10 @@ package org.melati.template;
 
 import org.melati.util.MelatiException;
 
+/**
+ * Thrown when the {@link TemplateEngine} itself throws an 
+ * <code>Exception</code>.
+ */
 public class TemplateEngineException extends MelatiException {
 
   String message;

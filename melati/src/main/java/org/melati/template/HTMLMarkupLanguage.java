@@ -48,6 +48,11 @@ package org.melati.template;
 import org.melati.Melati;
 import org.melati.util.MelatiLocale;
 
+/**
+ * A representation of HTML.
+ *
+ * @todo Improve javadoc
+ */
 public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
   private AttributeHTMLMarkupLanguage attributeML = null;

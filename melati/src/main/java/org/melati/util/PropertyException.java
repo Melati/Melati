@@ -47,6 +47,12 @@ package org.melati.util;
 
 import java.util.Properties ;
 
+/**
+ * Thrown when any <code>Property</code> related problem occurs.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class PropertyException extends MelatiException {
   public Properties properties;
   public String propertyName;

@@ -47,6 +47,13 @@ package org.melati.poem;
 
 import java.sql.SQLException;
 
+ /**
+  * Thrown when an attempt to insert a value which is already present 
+  * in a column with a unique index is made.
+  *
+  * @author WilliamC@paneris.org
+  * @todo Move to dbms
+  */
 public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
 
   public String table;

@@ -48,6 +48,10 @@ package org.melati.poem;
 import java.util.Hashtable;
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * The quality of being searchable:
+ *  <tt>yes</tt>, <tt>no</tt> or <tt>primary</tt>.
+ */
 public class Searchability {
 
   public final Integer index;
@@ -83,6 +87,10 @@ public class Searchability {
     return searchabilities.length;
   }
 
+ /**
+  * Thrown when an invalid {@link Searchability} level is specified, 
+  * by a typing mistake in the DSD for example.
+  */
   public static class NameUnrecognisedException
       extends MelatiRuntimeException {
     public String name;

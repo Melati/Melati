@@ -52,7 +52,7 @@ import java.io.ByteArrayOutputStream;
 import org.webmacro.Broker;
 
 /**
- * This provides an interface for objects that output from melati
+ * Writes to a buffered output object.
  */
 
 public class MelatiBufferedFastWriter extends MelatiFastWriter {

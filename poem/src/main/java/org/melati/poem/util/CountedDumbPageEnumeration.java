@@ -45,11 +45,13 @@ package org.melati.util;
 
 import java.util.Enumeration;
 
-/*
- * A PageEnumeration which knows how big it is.
+/**
+ * A {@link PageEnumeration} which knows how big it is.
  * Ideally SQL would allow you to start at an offset.
  * Also this class should probably be called 
  * DumbCountedPagedEnumeration as this is not an enumeration of Pages.
+ *
+ * @todo Deprecate and rename
  */
 public class CountedDumbPageEnumeration extends PageEnumerationBase {
   

@@ -49,6 +49,11 @@ import java.io.StreamTokenizer;
 import java.io.IOException;
 import org.melati.poem.Searchability;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the type of 
+ * <tt>Searchability</tt> a <tt>Field</tt> has.
+ *
+ */
 public class SearchabilityFieldQualifier extends FieldQualifier {
 
   private Searchability searchability;

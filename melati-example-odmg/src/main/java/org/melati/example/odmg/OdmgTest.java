@@ -5,7 +5,13 @@ import org.odmg.Transaction;
 import org.odmg.DCollection;
 import java.util.Iterator;
 
+/**
+ * A command line application to test the ODMG API.
+ *
+ */
+
 public class OdmgTest {
+
   public static final void main(String[] argsIn)
     throws Exception {
 

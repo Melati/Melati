@@ -47,6 +47,9 @@ package org.melati.template;
 
 import org.melati.util.MelatiRuntimeException;
 
+/**
+ * Thrown when a {@link TempletAdaptor} has problems during construction.
+ */
 public class TempletAdaptorConstructionMelatiException
     extends MelatiRuntimeException {
   public String adaptorFieldName, adaptorName;

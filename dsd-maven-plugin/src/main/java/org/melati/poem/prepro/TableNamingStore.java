@@ -47,7 +47,9 @@ package org.melati.poem.prepro;
 
 import java.util.Hashtable;
 
-
+/**
+ * A store of naming information for a <tt>Table</tt>.
+ */
 public class TableNamingStore {
 
   Hashtable tablesByShortName = new Hashtable();

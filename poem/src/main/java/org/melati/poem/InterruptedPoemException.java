@@ -45,6 +45,11 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a commit is interrupted.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class InterruptedPoemException extends SeriousPoemException {
   public InterruptedPoemException(InterruptedException exception) {
     super(exception);

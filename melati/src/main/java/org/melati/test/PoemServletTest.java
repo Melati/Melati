@@ -61,6 +61,10 @@ import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
 
+/**
+ * Test a Melati configuration which accesses a POEM database 
+ * without using a Template Engine.
+ */
 public class PoemServletTest extends PoemServlet {
 
   protected void doPoemRequest(Melati melati)
@@ -125,7 +129,6 @@ public class PoemServletTest extends PoemServlet {
   }
   
 /**
- *
  * this simply demonstrates how to use a different melati configuration
  *
  **/

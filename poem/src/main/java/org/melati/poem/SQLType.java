@@ -49,6 +49,12 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import org.melati.poem.dbms.Dbms;
 
+/**
+ * A native SQL {@link Field} datatype.
+ *
+ * @author WilliamC@paneris.org
+ *
+ */
 public interface SQLType {
   int sqlTypeCode();
   String sqlDefinition(Dbms dbms);

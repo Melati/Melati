@@ -49,6 +49,13 @@ import org.melati.poem.generated.CapabilityTableBase;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The {@link Table} of {@link Capability}s.
+ *
+ * Every Melati DB has this table.
+ * This table will contain at least <code>_administer_</code>. 
+ *
+ */
 public class CapabilityTable extends CapabilityTableBase {
 
   private static final Object nullEntry = new Object();

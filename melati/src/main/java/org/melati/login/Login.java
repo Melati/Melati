@@ -49,6 +49,11 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.template.TemplateContext;
 
+/**
+ * A servlet which handles user logins.
+ *
+ */
+
 public class Login extends TemplateServlet {
   public static final String
      TRIGGERING_REQUEST_PARAMETERS = 

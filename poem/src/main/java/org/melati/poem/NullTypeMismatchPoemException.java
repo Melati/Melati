@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when a <code>null</code> value is discovered in a non-nullable 
+  * {@link Field}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NullTypeMismatchPoemException extends TypeMismatchPoemException {
   public NullTypeMismatchPoemException(PoemType type) {
     super(null, type);

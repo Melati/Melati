@@ -47,6 +47,10 @@ package org.melati.servlet;
 
 import org.melati.util.UnexpectedExceptionException;
 
+/**
+ * An object to hold the information a Melati object knows about itself.
+ */
+
 public class MelatiContext implements Cloneable {
   public String logicalDatabase;
   public String table;

@@ -49,6 +49,11 @@ import java.io.StreamTokenizer;
 import java.io.IOException;
 import org.melati.poem.StandardIntegrityFix;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the type of 
+ * <tt>IntegrityFix</tt> to use with a reference field.
+ *
+ */
 public class IntegrityfixFieldQualifier extends FieldQualifier {
 
   private StandardIntegrityFix integrityfix;

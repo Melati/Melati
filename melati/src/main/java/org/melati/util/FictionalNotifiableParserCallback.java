@@ -46,6 +46,12 @@ package org.melati.util;
 
 import javax.swing.text.html.HTMLEditorKit;
 
+/**
+ * An extended <code>ParserCallback</code>.
+ *
+ * @todo Explain why this is in Melati
+ * @deprecated Only used in Bibliomania
+ */
 public abstract class FictionalNotifiableParserCallback
     extends HTMLEditorKit.ParserCallback {
   public abstract void notifyCurrentIsFictional(boolean is);

@@ -61,14 +61,14 @@ import org.melati.util.MelatiException;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 
-/*
+/**
  * Config Servlet is the simplest way to use Melati.
  *
  * All a ConfigServlet does is to configure a melati and combine the
  * doGet and doPost methods.  Importantly it does not establish a poem session
  * leaving you to do this for yourself.
  *
- * if you want a poem session established, please extend PoemServlet
+ * If you want a poem session established, please extend PoemServlet.
  *
  * <A NAME=pathinfoscan>ConfigServlet does set up a basic
  * MelatiContext with the Method set,

@@ -48,6 +48,10 @@ package org.melati.util;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * An <code>Enumeration</code> representing the first <code>n</code> 
+ * elements of another <code>Enumeration</code>.
+ */
 public class LimitedEnumeration implements SkipEnumeration {
 
   private Enumeration base;

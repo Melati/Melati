@@ -53,12 +53,14 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
-import org.melati.poem.ConnectionFailurePoemException;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.User;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 
+/**
+ * A Database Management System.
+ */
 public interface Dbms {
   Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException;

@@ -49,6 +49,9 @@ import javax.servlet.http.HttpServlet;
 
 import org.melati.util.MelatiException;
 
+/**
+ * Servlet was called with missing or invalid parameters.
+ */
 public class InvalidUsageException extends MelatiException {
 
   HttpServlet servlet;

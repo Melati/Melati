@@ -43,6 +43,10 @@
  */
 package org.melati.poem.odmg;
 
+/**
+ * An ODMG Transaction.
+ */
+
 class Transaction implements org.odmg.Transaction {
   public static final String cvs = "$Id";
 

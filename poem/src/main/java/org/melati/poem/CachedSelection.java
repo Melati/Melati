@@ -51,6 +51,9 @@ import java.util.Enumeration;
 import java.util.Vector;
 import org.melati.util.MappedEnumeration;
 
+/**
+ * A cached instance of an SQL <code>select</code> query.
+ */
 public class CachedSelection extends CachedQuery {
 
   private String whereClause;

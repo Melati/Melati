@@ -51,8 +51,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Like a BufferedInputStream except it has a new function
- * readToDelimiter which will only read bytes upto the start
+ * Like a <code>BufferedInputStream</code> except it has a new function
+ * {@link #readToDelimiter} which will only read bytes upto the start
  * of any occurrence of the delimiter in the InputStream.
  *
  * @see java.io.BufferedInputStream

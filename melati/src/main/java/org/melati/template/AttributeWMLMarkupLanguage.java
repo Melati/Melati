@@ -48,6 +48,12 @@ package org.melati.template;
 import java.io.IOException;
 import org.melati.poem.AccessPoemException;
 
+/**
+ * A WML based markup language which has attributes.
+ *
+ * @todo Javadoc review.
+ *
+ */
 public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
 
   public AttributeWMLMarkupLanguage(WMLMarkupLanguage html) {

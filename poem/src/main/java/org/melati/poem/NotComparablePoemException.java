@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when an attempt is made to set a <code>Range</code> for a 
+  * non comparable {@link PoemType}.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class NotComparablePoemException extends TypeMismatchPoemException {
 
   public NotComparablePoemException(Object value, PoemType type) {

@@ -31,7 +31,7 @@
  * outlined here.  It is our intention to allow Melati to be used by as
  * wide an audience as possible.
  *
- * This program is distributed in the hope that it will be useful,
+# * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -48,6 +48,11 @@ package org.melati.poem.prepro;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines whether 
+ * a <tt>Field</tt> is a <tt>CompareOnly</tt> field.
+ * 
+ */
 public class CompareOnlyFieldQualifier extends FieldQualifier {
 
   public CompareOnlyFieldQualifier(StreamTokenizer tokens) throws IOException {

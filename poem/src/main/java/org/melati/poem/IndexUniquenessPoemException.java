@@ -45,6 +45,12 @@
 
 package org.melati.poem;
 
+ /**
+  * Thrown when there is a mismatch over the uniqueness of an index in 
+  * the Poem metadata and the jdbc metadata.
+  *
+  * @author WilliamC@paneris.org
+  */
 public class IndexUniquenessPoemException extends SeriousPoemException {
 
   public Column column;

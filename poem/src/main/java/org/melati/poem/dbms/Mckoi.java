@@ -56,7 +56,7 @@ import org.melati.poem.BinaryPoemType;
 import org.melati.poem.StringPoemType;
 
  /**
-  * A Database Management System from http://www.mckoi.com/.
+  * A Driver for Mckoidb (http://www.mckoi.com/).
   * 
   **/
 public class Mckoi extends AnsiStandard {

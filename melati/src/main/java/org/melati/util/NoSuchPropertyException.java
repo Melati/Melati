@@ -47,6 +47,9 @@ package org.melati.util;
 
 import java.util.Properties;
 
+/**
+ * Thrown when a <code>Property</code> is not found.
+ */
 public class NoSuchPropertyException extends PropertyException {
 
   public NoSuchPropertyException(Properties properties, String propertyName) {

@@ -47,6 +47,12 @@ package org.melati.util;
 
 import java.io.IOException;
 
+/**
+ * Thrown when there is a problem sending an {@link Email}.
+ *
+ * @author WilliamC@paneris.org
+ * 
+ */
 public class EmailException extends IOException {
     public EmailException() {
        super();

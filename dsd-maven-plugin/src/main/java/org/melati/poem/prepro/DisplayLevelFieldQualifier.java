@@ -49,6 +49,11 @@ import java.io.StreamTokenizer;
 import java.io.IOException;
 import org.melati.poem.DisplayLevel;
 
+/**
+ * A <tt>FieldQualifier</tt> which defines the <tt>DisplayLevel</tt> 
+ * of a <tt>Field</tt>.
+ * 
+ */
 public class DisplayLevelFieldQualifier extends FieldQualifier {
 
   private DisplayLevel displayLevel;

@@ -83,6 +83,10 @@ public abstract class MarkupLanguage {
 
   public abstract String rendered(String s);
 
+  public String rendered(String s, int limit) {
+    return rendered(s.length() < limit + 3 ? s : s.substring(0, limit) + "...");
+  }
+
   public abstract String rendered(Exception e);
 
   public String rendered(Object o) throws WebMacroException {
@@ -96,9 +100,10 @@ public abstract class MarkupLanguage {
     return rendered(o.toString());
   }
 
-  public String rendered(Field field, int style) throws WebMacroException {
+  public String rendered(Field field, int style, int limit)
+      throws WebMacroException {
     try {
-      return rendered(field.getCookedString(locale, style));
+      return rendered(field.getCookedString(locale, style), limit);
     }
     catch (AccessPoemException e) {
       VariableExceptionHandler handler =
@@ -108,6 +113,10 @@ public abstract class MarkupLanguage {
       else
         throw e;
     }
+  }
+
+  public String rendered(Field field, int style) throws WebMacroException {
+    return rendered(field, style, 10000000);
   }
 
   public String renderedShort(Field field) throws WebMacroException {
@@ -128,6 +137,10 @@ public abstract class MarkupLanguage {
 
   public String rendered(Field field) throws WebMacroException {
     return renderedMedium(field);
+  }
+
+  public String renderedStart(Field field) throws WebMacroException {
+    return rendered(field, DateFormat.MEDIUM, 50);
   }
 
   /**

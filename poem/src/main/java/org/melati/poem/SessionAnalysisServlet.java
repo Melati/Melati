@@ -69,54 +69,60 @@ public class SessionAnalysisServlet extends ConfigServlet {
     MelatiConfig config = melati.getConfig();
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
-    output.write("<h1>Transactions</h1>");
     Date now = new Date();
-    output.write("Run at "+now);
-    output.write("</h1>\n");
-    output.write("<h2>PoemSessions in use</h2>\n");
-    output.write("<table border=1 cellspacing=0 cellpadding=1>\n <tr>\n");
-    output.write("  <th>Session</th>\n");
-    output.write("  <th>Started</th>\n");
-    output.write("  <th>Thread</th>\n");
-    output.write("  <th>PoemTransaction</th>\n");
-//    output.write("  <th>AccessToken</th>\n <tr>\n");
+    output.write("<html>\n"
+                  + "<head>\n"
+                  + "<title>Transaction Analysis</title>\n");
+    String repeat = melati.getRequest().getParameter("repeat");
+    if (repeat != null)
+      output.write("<META HTTP-EQUIV=\"Refresh\" CONTENT=\"" + repeat + "; URL="
+                    + melati.getRequest().getRequestURI() + "?repeat="
+                    + repeat + "\">");
+    output.write("</head>\n"
+                  + "<body>\n"
+                  + "<h1>Transactions Analysis</h1>"
+                  + "<p>Run at " + now + "</p>\n"
+                  + "<form>Reload every <input name=repeat size=3 value="
+                    + repeat + "> seconds <input type=submit></form>\n"
+                  + "<h2>PoemSessions in use</h2>\n");
 
     Enumeration e = PoemThread.openSessions().elements();
+
     while(e.hasMoreElements()) {
       SessionToken token = (SessionToken) e.nextElement();
-      output.write(" <tr>\n");
-      output.write("  <td>"+token+"</td>\n");
-      output.write("  <td>"+token.started+"<br>(Running for "+(now.getTime()-token.started.getTime())+" ms)</td>\n");
-      output.write("  <td>"+token.thread);
-/*
-      try {
-        token.thread.stop(new ThreadDeath());
-      }
-      catch (Exception f) {
-        output.write(ExceptionUtils.stackTrace(f));
-      }
-*/
-      output.write("</td>\n");
-      output.write("  <td>"+token.transaction+"<br>(Database:"+token.transaction.getDatabase()+")</td>\n");
-//      output.write("  <td>"+token.accessToken+"</td>\n");
-      output.write(" <tr>\n");
+      output.write("<table border=1 cellspacing=0 cellpadding=1>\n <tr><tr>\n"
+                   + "  <tr><th colspan=2>Session: " + token + "</td><tr>\n"
+                   + "  <tr><th>Running for</th><td>"
+                       + (now.getTime()-token.started) + " ms</td><tr>\n"
+                   + "  <tr><th>Thread</th><td>" + token.thread + "</td><tr>\n"
+                   + "  <tr><th>PoemTransaction</th><td>"
+                       + token.transaction + "<br>(Database:"
+                       + token.transaction.getDatabase() + ")</td><tr>\n"
+                   + "  <tr><th>PoemTask</th><td>" + token.task + "</td><tr>\n"
+                   + " <tr>\n"
+                   + "</table>\n");
     }
-    output.write("</table>\n");
 
-    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().elements();
-//    Enumeration dbs = org.melati.LogicalDatabase.getDatabases();
+    Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
+                                                   elements();
 
-    output.write("<h2>Initialised Databases</h2>\n");
-    output.write("<table border=1 cellspacing=0 cellpadding=1><tr><th>Database</th><th>PoemTransation</th><th>Free</th></tr>\n");
+    output.write("<h2>Initialised Databases</h2>\n"
+                 + "<table border=1 cellspacing=0 cellpadding=1>"
+                 + "<tr><th>Database</th><th>PoemTransation</th>"
+                 + "<th>Free</th></tr>\n");
     while(dbs.hasMoreElements()) {
       Database db = (Database)dbs.nextElement();
       for(int i=0; i<db.transactionsMax(); i++) {
-        output.write("<tr><td>"+db+"</td>");
-        output.write("\n<td>"+db.poemTransaction(i)+"</td>\n");
-        output.write("<td>"+db.isFree(db.poemTransaction(i))+"</td>\n</tr>\n");
+        boolean isFree = db.isFree(db.poemTransaction(i));
+        output.write("<tr><td>" + db + "</td>\n"
+                     + "<td>" + db.poemTransaction(i) + "</td>\n"
+                     + "<td bgcolor=" + (isFree ? "red" : "green") + ">"
+                       + isFree + "</td>\n</tr>\n");
       }
     }
-    output.write("</table>\n");
+    output.write("</table>\n"
+                 + "</body>\n"
+                 + "</html>\n");
   }
 
 

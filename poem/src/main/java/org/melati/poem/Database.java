@@ -217,6 +217,10 @@ abstract public class Database implements TransactionPool {
                         throw new SQLPoemException(e);
                       }
                     }
+
+                    public String toString() {
+                      return "Unifying with DB";
+                    }
                   });
       }
       catch (SQLException e) {
@@ -520,6 +524,10 @@ abstract public class Database implements TransactionPool {
                                    transaction.close(false);
                                  throw e;
                                }
+                             }
+
+                             public String toString() {
+                               return task.toString();
                              }
                            },
                            accessToken,

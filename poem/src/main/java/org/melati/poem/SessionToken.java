@@ -50,22 +50,26 @@ import org.melati.util.*;
 
 class SessionToken {
   Thread thread;
-  Date started;
+  long started;
   PoemTransaction transaction;
+  PoemTask task;
   AccessToken accessToken;
   private ToTidyList toTidy = null;
 
-  SessionToken(Thread thread, PoemTransaction transaction, AccessToken accessToken) {
+  SessionToken(Thread thread, PoemTransaction transaction,
+               AccessToken accessToken, PoemTask task) {
     this.thread = thread;
-    this.started = new Date();
+    this.started = System.currentTimeMillis();
     this.transaction = transaction;
+    this.task        = task;
     this.accessToken = accessToken;
   }
 
   void close() {
     thread = null;
-    started = null;
+    started = 0L;
     transaction = null;
+    task = null;
     accessToken = null;
     if (toTidy != null)
       toTidy.close();

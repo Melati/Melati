@@ -58,7 +58,8 @@ public class PoemThread {
   public static final int threadsMax = 100; // must be < Char.MAX_VALUE = 64k
 
   static Integer allocatedSessionToken(AccessToken accessToken,
-                                       PoemTransaction transaction) {
+                                       PoemTransaction transaction,
+                                       PoemTask task) {
     synchronized (freeSessionTokenIndices) {
       Integer index;
       if (freeSessionTokenIndices.size() == 0) {
@@ -74,7 +75,7 @@ public class PoemThread {
       }
 
       SessionToken token = new SessionToken(
-          Thread.currentThread(), transaction, accessToken);
+          Thread.currentThread(), transaction, accessToken, task);
       sessionTokens.setElementAt(token, index.intValue());
 
       return index;
@@ -86,12 +87,18 @@ public class PoemThread {
   
   /** this method does the processing to start a db session */
   static void beginSession(AccessToken accessToken,
-                           PoemTransaction transaction) throws PoemException {
-    Integer token = allocatedSessionToken(accessToken, transaction);
+                           PoemTransaction transaction,
+                           PoemTask task) throws PoemException {
+    Integer token = allocatedSessionToken(accessToken, transaction, task);
     String oldname = Thread.currentThread().getName();
     Thread.currentThread().setName("" + (char)token.intValue());
     // Save the old thread name for later use
     threadOldNames.put(token,oldname);
+  }
+
+  static void beginSession(AccessToken accessToken,
+                           PoemTransaction transaction) throws PoemException {
+    beginSession(accessToken, transaction, null);
   }
 
   /** this method does the processing to end a db session */
@@ -113,7 +120,7 @@ public class PoemThread {
   /** performs the specified task in the current thread session */
   static void inSession(PoemTask task, AccessToken accessToken,
                         PoemTransaction transaction) throws PoemException {
-    beginSession(accessToken, transaction);
+    beginSession(accessToken, transaction, task);
     try {
       task.run();
     }
@@ -125,9 +132,9 @@ public class PoemThread {
   static Vector openSessions() {
     Vector open = new Vector();
     Enumeration e = null;
-    synchronized(sessionTokens) {
+//    synchronized(sessionTokens) {
       e = sessionTokens.elements();
-    }
+//    }
     while(e.hasMoreElements()) {
       SessionToken token = (SessionToken) e.nextElement();
       if (token != null)

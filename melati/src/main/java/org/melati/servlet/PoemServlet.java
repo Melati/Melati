@@ -273,6 +273,13 @@ public abstract class PoemServlet extends ConfigServlet
             }
           }
         }
+
+        public String toString() {
+          HttpServletRequest request = melatiIn.getRequest();
+          return "PoemServlet: " +
+            ((request == null) ? "(no request present)"
+                               : request.getRequestURI());
+        }
       }
     );
   }

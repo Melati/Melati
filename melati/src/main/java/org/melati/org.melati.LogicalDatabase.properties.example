@@ -42,11 +42,3 @@ org.melati.LogicalDatabase.melatitest.user=postgres
 org.melati.LogicalDatabase.melatitest.pass=*
 
 
-
-# some settings for the example app
-
-org.melati.LogicalDatabase.example.class=org.melati.doc.example.ExampleDatabase
-org.melati.LogicalDatabase.example.url=jdbc:postgresql:example
-org.melati.LogicalDatabase.example.driver=org.melati.poem.postgresql.jdbc2.Driver
-org.melati.LogicalDatabase.example.user=postgres
-org.melati.LogicalDatabase.example.pass=*

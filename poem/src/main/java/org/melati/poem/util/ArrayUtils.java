@@ -23,4 +23,14 @@ public class ArrayUtils {
     xsx[xs.length] = y;
     return xsx;
   }
+
+  public static int indexOf(Object[] xs, Object x) {
+    for (int i = 0; i < xs.length; ++i)
+      if (xs[i].equals(x)) return i;
+    return -1;
+  }
+
+  public static boolean contains(Object[] xs, Object x) {
+    return indexOf(xs, x) != -1;
+  }
 }

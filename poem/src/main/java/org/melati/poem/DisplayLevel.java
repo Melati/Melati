@@ -52,7 +52,7 @@ import java.util.Hashtable;
  * reporting of a {@link Table} it should be included in.
  *
  */
-public class DisplayLevel {
+public final class DisplayLevel {
 
   public final Integer index;
   public final String name;

@@ -9,25 +9,29 @@
 </head>
 <SCRIPT src="/validation.js"></SCRIPT>
 
-<body>
-<p>This is a very simple Melati Application.  It allows you to enter contacts into a database, and search them.</p>
-<p>The source code is available in org/melati/doc/example/contacts/, and forms a useful starting point to developing a Melati application</p>
-<hr>
+<body bgcolor="#ffffff">
 <p>
-<a href=/melati/org.melati.doc.example.contacts.ContactView/contact/Insert>add a new contact</a>
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-<a href=/melati/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>go to the admin system</a></p>
+    This is a very simple Melati Application.  It allows you to enter contacts into a database, and search them.
+</p>
+<p>
+    The source code is available in <tt>org/melati/doc/example/contacts/</tt>, 
+    and forms a useful starting point to developing a Melati application
+</p>
 <hr>
+<table border=1 cellpadding=5 width="60%">
+<tr>
+ <td>
+  <a href=$melati.ZoneURL/org.melati.doc.example.contacts.ContactView/contact/Insert>Add a new Contact</a>
+ </td>
+ <td>
+  <a href=$melati.ZoneURL/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
+ </td>
+ <td>
+  <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>go to the Admin System</a></p>
+ </td>
+<tr>
+</table>
+
 <h2>Search the Contacts</h2>
 <form>
 <p>$ml.rendered($name.DisplayName): $ml.input($name)</p>
@@ -37,11 +41,16 @@
 #if ($results) #begin
 <table>
 #foreach $item in $results #begin
-<tr><td><a href=/melati/org.melati.doc.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td><td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td></tr>
+<tr>
+ <td><a href=/melati/org.melati.doc.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
+ <td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td>
+</tr>
 #end
 </table>
 #end
 
-
 </body>
 </html>
+
+
+

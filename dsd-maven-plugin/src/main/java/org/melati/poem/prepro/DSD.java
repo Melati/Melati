@@ -46,6 +46,8 @@ public class DSD {
       StreamTokenizer tokens = new StreamTokenizer(reader);
       tokens.slashSlashComments(true);
       tokens.slashStarComments(true);
+      tokens.wordChars('_', '_');
+
       tokens.nextToken();
       expect(tokens, "package");
 

@@ -82,9 +82,9 @@ public class CharsetTemplateServletTest extends TemplateServlet {
  */
   protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
-    PoemContext mc = super.poemContext(melati);
-    if (mc.getLogicalDatabase().equals("")) 
-      mc = melatiContextWithLDB(melati,"melatitest");
-    return mc;
+    PoemContext pc = super.poemContext(melati);
+    if (pc.getLogicalDatabase().equals("")) 
+      pc = poemContextWithLDB(melati,"melatitest");
+    return pc;
   }
 }

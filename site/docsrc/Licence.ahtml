@@ -7,13 +7,13 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
+@sectionStartTagStart@ Licence Info @sectionStartTagEnd@
 <p>
   We would like melati to be used by as many people as possible. 
   If licencing issues are going to stop you using Melati, 
   please let us know on the <a href="MailingList.html">mailing lists</a> 
   and we will make every effort to accomodate you.
 </p>
-@sectionStartTagStart@ Licence Info @sectionStartTagEnd@
 <pre>
 /* 
  * Melati is free software; Permission is granted to copy, distribute 

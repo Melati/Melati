@@ -380,7 +380,7 @@ abstract public class Database implements TransactionPool {
    */
 
   public final int transactionsMax() {
-    return 5;
+    return 8;
   }
 
   // 
@@ -1114,6 +1114,7 @@ abstract public class Database implements TransactionPool {
   }
 
   public boolean logSQL = false;
+  public boolean logCommits = false;
 
   void log(PoemLogEvent e) {
     System.err.println("---\n" + e.toString());

@@ -167,6 +167,13 @@ table TableInfo
     (displaylevel = record) 
     (searchability = no);
 
+  Capability defaultcandelete 
+    (nullable)
+    (displayname = "Default `delete' capability")
+    (description = "The capability required, by default, for deleting the table's records")
+    (displaylevel = record) 
+    (searchability = no);
+
   Capability cancreate 
     (nullable)
     (displayname = "Default `create' capability")
@@ -295,6 +302,12 @@ table ColumnInfo extends ValueInfo
       (description = "If present, the level at which lists of records are sorted by the field")
       (searchability = no);
 
+  Boolean sortdescending
+    (displayname = "Sort Descending?")
+    (description = "Whether when sorting by this column, the sort order should be reversed")
+    (nullable)
+    (searchability = no);
+
   Boolean indexed
       (description = "Whether the field is indexed (ignored if the field is marked `unique')")
       (displaylevel = record) (searchability = no) (uneditable);
@@ -302,6 +315,7 @@ table ColumnInfo extends ValueInfo
   Boolean unique
       (description = "Whether the field is unique (implies that it's `indexed')")
       (displaylevel = record) (searchability = no) (uneditable);
+
 }
 
 table TableCategory
@@ -331,7 +345,7 @@ table Setting extends ValueInfo
 
   (unique) String name (size = unlimited)
       (description = "A code name for this setting")
-      (displaylevel = record);
+      (searchability = primary);
 
   (nullable) String value (size = unlimited)
       (displayorder = 150)

@@ -61,8 +61,9 @@ import org.melati.poem.*;
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
-      OVERLAY_PARAMETERS = "org.melati.MelatiServlet.overlayParameters",
-      USER = "org.melati.MelatiServlet.user";
+      OVERLAY_PARAMETERS =
+          "org.melati.HttpSessionAccessHandler.overlayParameters",
+      USER = "org.melati.HttpSessionAccessHandler.user";
 
   /**
    * The class name of the class implementing the login servlet.  Unless

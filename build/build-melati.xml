@@ -7,7 +7,7 @@
 
     <target name="init">
         <property name="Name" value="melati"/>
-        <property name="version" value="0.55.6"/>
+        <property name="version" value="0.6.0"/>
         <property name="project" value="melati"/>
         <property name="compiler" value="${JAVAC}"/>
         <property name="this.root"      value="../../.."/>
@@ -20,7 +20,7 @@
         <property name="doc.root"       value="${build.root}/doc"/>
         <property name="doc.dir"        value="${doc.root}/${project}_${version}/doc"/>
         <property name="packaged.root"  value="${build.root}/packaged/"/>
-        <property name="year" value="2000"/>
+        <property name="year" value="2002"/>
         <property name="ant.home" value="."/>
         <property name="debug" value="on"/>
         <property name="optimize" value="off"/>

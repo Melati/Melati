@@ -99,6 +99,8 @@ public abstract class FieldQualifier {
       it = new WidthFieldQualifier(tokens);
     else if (kind.equals("height"))
       it = new HeightFieldQualifier(tokens);
+    else if (kind.equals("renderinfo"))
+      it = new RenderinfoFieldQualifier(tokens);
     else
       throw new ParsingDSDException("<field qualifier>", tokens);
     return it;

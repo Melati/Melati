@@ -114,6 +114,10 @@ public class HttpHeaderTest extends TestCase {
     }
     catch (HttpHeader.HttpHeaderException e) {
     }
+    catch (AssertionError e) {
+      // This is the current policy. "" is treated as null if
+      // assertions are switched off.
+    }
       
     try {
       cornFields = new HttpHeader(",EmptyFirst");

@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2000 Myles Chippendale
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,35 +38,28 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Mylesc Chippendale <mylesc@paneris.org>
  *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
 /**
- * Interface for a Template engine for use with Melati
+ * Interface for a file uploaded from a HTML form 
  */
 
-package org.melati.template;
+package org.melati.servlet;
 
-import javax.servlet.http.HttpSession;
-import org.melati.servlet.MultipartFormField;
+import java.io.*;
 
-public interface TemplateContext 
+import org.melati.*;
+
+/**
+ * An Interface to create a FormDataAdaptor from a melati and
+ * the field which was upload
+ */
+public interface FormDataAdaptorFactory
 {
-
-  public void put(String s, Object o);
-
-  public String getForm(String s);
-
-  public MultipartFormField getMultipartForm(String s);
-
-  public Object get(Object o);
-
-  public HttpSession getSession();
-
-  public Object getContext();
-
+  public FormDataAdaptor get(Melati melati, MultipartFormField field);
 }
 
 

@@ -1,0 +1,109 @@
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2000 Myles Chippendale
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Mylesc Chippendale <mylesc@paneris.org>
+ *     http://paneris.org/
+ *     29 Stanley Road, Oxford, OX4 1QY, UK
+ */
+
+/**
+ * Interface for a file uploaded from a HTML form 
+ */
+
+package org.melati.servlet;
+
+import java.io.*;
+import java.net.*;
+import org.melati.*;
+import org.melati.util.*;
+
+/**
+ * The default way to save an uploaded file to disk - we tell
+ * it what directory to save it in and what the base URL to that
+ * directory is.
+ * 
+ * @param uploadDir The directory to save this file in
+ * @param uploadURL The URL to 
+ */
+public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
+{
+  protected String uploadDir = null;
+  protected String uploadURL = null;
+  protected boolean makeUnique = true;
+
+  /**
+   * Constructor
+   * 
+   * @param uploadDir The directory to save this file in
+   * @param uploadURL A URL pointing to this directory
+   */
+  public DefaultFileDataAdaptor(String uploadDir, String uploadURL) {
+    this.uploadDir = uploadDir;
+    this.uploadURL = uploadURL;
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param uploadDir The directory to save this file in
+   * @param uploadURL A URL pointing to this directory
+   * @param makeUnique Whether we should make sure the new file has a unique
+   *                   name within the UploadDir
+   */
+  public DefaultFileDataAdaptor(String uploadDir, String uploadURL,
+                                boolean makeUnique) {
+    this.uploadDir = uploadDir;
+    this.uploadURL = uploadURL;
+    this.makeUnique = makeUnique;
+  }
+
+  protected File calculateLocalFile() throws Exception {
+    File f = new File(uploadDir, URLEncoder.encode(field.getUploadedFileName()));
+    return (makeUnique) ? FileUtils.withUniqueName(f) : f;
+  }
+
+  protected String calculateURL() throws Exception {
+    return (uploadURL != null && getFile() != null)
+             ? uploadURL + File.separatorChar + file.getName()
+             : null;
+  }
+
+}
+

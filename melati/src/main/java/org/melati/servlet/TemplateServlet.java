@@ -100,9 +100,10 @@ public abstract class TemplateServlet extends PoemServlet {
     // which allows us to access the uploaded files as well as fields.
     String contentType = melatiIn.getRequest().getHeader("content-type");
     if (contentType != null &&
-        contentType.substring(0,19).equalsIgnoreCase("multipart/form-data"))
+        contentType.substring(0,19).equalsIgnoreCase("multipart/form-data")) {
       templateContext =
         new MultipartTemplateContext(melatiIn, templateContext);
+    }
 
     melatiIn.setTemplateContext(templateContext);
   }

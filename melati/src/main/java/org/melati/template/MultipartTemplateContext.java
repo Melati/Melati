@@ -73,17 +73,22 @@ public class MultipartTemplateContext implements TemplateContext
   Hashtable fields;
   Melati melati;
 
-  public MultipartTemplateContext(Melati melati, TemplateContext context) {
+  public MultipartTemplateContext(Melati melati, TemplateContext context)
+                                                               throws Exception {
     peer = context;
     this.melati = melati;
     try {
       InputStream in = melati.getRequest().getInputStream();
-      MultipartDataDecoder decoder=new MultipartDataDecoder(in,
-                                     melati.getRequest().getContentType(),
-                                     melati.getRequest().getContentLength());
+      MultipartDataDecoder decoder=
+        new MultipartDataDecoder(melati,
+                                 in,
+                                 melati.getRequest().getContentType(),
+                                 melati.getConfig().getFormDataAdaptorFactory());
       fields = decoder.parseData();
-    } catch (IOException ioe) {
+    }
+    catch (Exception e) {
       fields = new Hashtable();
+      throw e;
     }
   }
 
@@ -92,14 +97,19 @@ public class MultipartTemplateContext implements TemplateContext
   }
 
   public String getForm(String s) {
-    FormField field = (FormField)fields.get(s);
+    MultipartFormField field = (MultipartFormField)fields.get(s);
     if (field == null)
       return peer.getForm(s);
-    return new String(field.getData());
+    try {
+      return field.getDataString();
+    }
+    catch (Exception e) {
+      return null;
+    }
   }
 
-  public FormFile getFormFile(String s) {
-    return new UploadFormFile((FormField)fields.get(s), melati);
+  public MultipartFormField getMultipartForm(String s) {
+    return (MultipartFormField)fields.get(s);
   }
 
   public Object get(Object o) {

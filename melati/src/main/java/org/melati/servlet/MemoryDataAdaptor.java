@@ -1,0 +1,130 @@
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2000 Myles Chippendale
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Mylesc Chippendale <mylesc@paneris.org>
+ *     http://paneris.org/
+ *     29 Stanley Road, Oxford, OX4 1QY, UK
+ */
+
+/**
+ * Interface for a file uploaded from a HTML form 
+ */
+
+package org.melati.servlet;
+
+import java.io.*;
+import org.melati.util.*;
+
+/**
+ * An interface to the data portion of a MultipartFormField.
+ * <p>
+ * This data might be stored in memory or saved to file. Therefore
+ * we provide a number of ways to access the data.
+ */
+public class MemoryDataAdaptor implements FormDataAdaptor
+{
+  protected int BUFSIZE = 2048;
+  private byte[] data = new byte[0];
+
+  /**
+   * return the data as a byte array
+   */
+  public byte[] getData() {
+    return data;
+  }
+
+  /**
+   * return a File object pointing to the saved data (if one exists)
+   */
+  public File getFile() throws Exception {
+    return null;
+  }
+
+  /**
+   * return the size of the data
+   */
+  public long getSize() {
+    return data.length;
+  }
+
+  /**
+   * return a url to the object (if one exists)
+   */
+  public String getURL() throws Exception {
+    return null;
+  }
+
+  /**
+   * read data from in until the delim and save it
+   * in an internal buffer for later use
+   */
+  public void readData(MultipartFormField field,
+                  DelimitedBufferedInputStream in,
+                  byte[] delim) throws Exception {
+
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    byte[] buff = new byte[BUFSIZE];
+    int count;
+
+    try {
+      while ((count = in.readToDelimiter(buff, 0, buff.length, delim)) > 0)
+        out.write(buff, 0, count);
+      if (count == -1)
+        throw new IOException("Didn't find boundary whilst reading field data");
+      data = out.toByteArray();
+    }
+    catch (IOException e) {
+      throw e;
+    }
+    finally {
+      try {
+        out.close();
+        out = null;
+      }
+      catch (Exception e) {}
+    }
+  }
+}
+
+
+
+
+
+

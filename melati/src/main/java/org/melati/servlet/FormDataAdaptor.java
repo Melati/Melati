@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2000 Myles Chippendale
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,35 +38,55 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Mylesc Chippendale <mylesc@paneris.org>
  *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
 /**
- * Interface for a Template engine for use with Melati
+ * Interface for a file uploaded from a HTML form 
  */
 
-package org.melati.template;
+package org.melati.servlet;
 
-import javax.servlet.http.HttpSession;
-import org.melati.servlet.MultipartFormField;
+import java.io.*;
+import org.melati.util.*;
 
-public interface TemplateContext 
+/**
+ * An interface to the data portion of a MultipartFormField.
+ * <p>
+ * This data might be stored in memory or saved to file. Therefore
+ * we provide a number of ways to access the data.
+ */
+public interface FormDataAdaptor
 {
+  /**
+   * return the data as a byte array
+   */
+  public byte[] getData();
 
-  public void put(String s, Object o);
+  /**
+   * return a File object pointing to the saved data (if one exists)
+   */
+  public File getFile() throws Exception;
 
-  public String getForm(String s);
+  /**
+   * return the size of the data
+   */
+  public long getSize();
 
-  public MultipartFormField getMultipartForm(String s);
+  /**
+   * return a url to the object (if one exists)
+   */
+  public String getURL() throws Exception;
 
-  public Object get(Object o);
-
-  public HttpSession getSession();
-
-  public Object getContext();
-
+  /**
+   * read data from in until the delim and somehow save it
+   * for later use
+   */
+  public void readData(MultipartFormField field,
+                       DelimitedBufferedInputStream in,
+                       byte[] delim) throws Exception;
 }
 
 

@@ -67,6 +67,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.login.AccessHandler;
+import org.melati.servlet.FormDataAdaptorFactory;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TempletLoader;
 import org.melati.template.SimpleDateAdaptor;
@@ -93,6 +94,7 @@ public class MelatiConfig {
 
   private Properties configuration = null;
   private AccessHandler accessHandler = null;
+  private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
   private String javascriptLibraryURL = null;
@@ -112,6 +114,7 @@ public class MelatiConfig {
   public void init(String propertiesName) throws MelatiException {
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
+    String fdaFactoryProp = pref + "formDataAdaptorFactory";
     String templetLoaderProp = pref + "templetLoader";
     String templateEngineProp = pref + "templateEngine";
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
@@ -140,6 +143,12 @@ public class MelatiConfig {
                          accessHandlerProp,
                          "org.melati.login.AccessHandler",
                          "org.melati.login.HttpBasicAuthenticationAccessHandler");
+
+      fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.instanceOfNamedClass(
+                         configuration, 
+                         fdaFactoryProp,
+                         "org.melati.servlet.FormDataAdaptorFactory",
+                         "org.melati.servlet.DefaultDataAdaptorFactory");
 
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
                           configuration,
@@ -195,6 +204,14 @@ public class MelatiConfig {
 
   public void setTempletLoader(TempletLoader templetLoader) {
     this.templetLoader = templetLoader;
+  }
+
+  public void setFormDataAdaptorFactory(FormDataAdaptorFactory fdaf) {
+    fdaFactory = fdaf;
+  }
+
+  public FormDataAdaptorFactory getFormDataAdaptorFactory() {
+    return fdaFactory;
   }
 
   // location of javascript for this site

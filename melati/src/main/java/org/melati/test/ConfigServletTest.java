@@ -77,6 +77,8 @@ public class ConfigServletTest extends ConfigServlet {
     config.getTemplateEngine().getClass().getName() +
     "</td></tr><tr><td>AccessHandler</td><td>" +
     config.getAccessHandler().getClass().getName() +
+    "</td></tr><tr><td>FormDataAdaptorFactory</td><td>" +
+    config.getFormDataAdaptorFactory().getClass().getName() +
     "</td></tr><tr><td>Locale</td><td>" +
     config.getLocale().getClass().getName() +
     "</td></tr><tr><td>TempletLoader</td><td>" +

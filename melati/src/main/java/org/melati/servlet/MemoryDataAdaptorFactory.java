@@ -47,65 +47,28 @@
  * Interface for a file uploaded from a HTML form 
  */
 
-package org.melati.template;
+package org.melati.servlet;
 
 import java.io.*;
-import java.net.*;
 import org.melati.*;
-import org.melati.servlet.*;
-import org.melati.util.*;
+import org.melati.poem.*;
 
-public class UploadFormFile extends FormFile
+/**
+ * An Interface to create a FormDataAdaptor from a melati and
+ * the field which was upload
+ */
+public class MemoryDataAdaptorFactory implements FormDataAdaptorFactory
 {
 
-  FormField field = null;
-  Melati melati = null;
-
-  public UploadFormFile(FormField field, Melati melati) {
-    this.field = field;
-    this.melati = melati;
-  }
-
   /**
-   * Returns the name of a file which has
-   * been uploaded, null if it is a normal form variable
+   * All data is stored in memory. 
+   * <p>
+   * Since uploaded files can be large, you might want to use
+   * UploadDirDataAdaptorFactory instead.
    */
-  public String getUploadedFilename() {
-    if (field == null)
-      return null;
-    return field.getFileName();
+  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
+    return new MemoryDataAdaptor();
   }
-
-  /**
-   * Returns the contents of a file which has
-   * been uploaded. Note that you could use getForm(s) to get
-   * the contents of the file in a String - this function should
-   * be a better way to manipulate large files.
-   */
-  public byte[] getDataArray() {
-    if (field == null)
-      return new byte[0];
-    return field.getData();
-  }
-
-  public String getDataString() {
-    return new String(getDataArray());
-  }
-
-  public File calculateLocalFile() throws Exception {
-    String parent = (String)melati.getDatabase().getSettingTable().
-                      getOrDie("UploadDir");
-    return FileUtils.withUniqueName(
-       new File(parent, URLEncoder.encode(getUploadedFilename())));
-  }
-
-  public String calculateURL() throws Exception {
-    String parent = (String)melati.getDatabase().getSettingTable().
-                      getOrDie("UploadURL");
-    return (parent != null) ? parent + File.separatorChar + getLocalName() : null;
-  }
-
-
 }
 
 

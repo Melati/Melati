@@ -76,8 +76,7 @@ public class FileUtils
     }
 
   /**
-   * Write a byte array to a given file, optionally making sure that
-   * the file is uniqually named
+   * Write a byte array to a given file
    */
   public static File writeFile(File file, byte[] data) throws IOException {
     FileOutputStream os=new FileOutputStream(file);

@@ -53,7 +53,7 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
-import org.melati.template.FormFile;
+import org.melati.servlet.MultipartFormField;
 import org.melati.template.Template;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
@@ -78,8 +78,8 @@ public class TemplateServletTestWM extends TemplateServlet {
     if (melati.getMethod() != null) {
 
       if (melati.getMethod().equals("Upload")) {
-        FormFile file = templateContext.getFormFile("file");
-        byte[] data = file.getDataArray();
+        MultipartFormField field = templateContext.getMultipartForm("file");
+        byte[] data = field.getData();
 
         // NB!!! Even though we attempt to set the MimeType below,
         // some browsers will not display the file correctly unless
@@ -92,9 +92,12 @@ public class TemplateServletTestWM extends TemplateServlet {
         // InputStream fileIS = new FileInputStream(file.getLocalPath())
         // and a byte[] buffer rather than file.getDataArray())
 
-        melati.getResponse().setContentType(
-            getServletConfig().getServletContext().getMimeType(
-                file.getUploadedFilename()));
+        String mimetype = getServletConfig().getServletContext().getMimeType(
+                            field.getUploadedFileName());
+        if (mimetype != null)
+          melati.getResponse().setContentType(mimetype);
+        else
+          melati.getResponse().setContentType("application/octet-stream");
         OutputStream output = melati.getResponse().getOutputStream();
         output.write(data);
         output.close();

@@ -103,6 +103,10 @@ public abstract class Column implements FieldAttributes {
     return false;
   }
 
+  protected boolean defaultPrimaryCriterion() {
+    return false;
+  }
+
   protected Integer defaultDisplayOrderPriority() {
     return null;
   }
@@ -167,6 +171,7 @@ public abstract class Column implements FieldAttributes {
                   i.setDisplayorder(defaultDisplayOrder());
                   i.setDescription(defaultDescription());
                   i.setPrimarydisplay(defaultPrimaryDisplay());
+                  i.setPrimarycriterion(defaultPrimaryCriterion());
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
@@ -250,6 +255,15 @@ public abstract class Column implements FieldAttributes {
   }
 
   public final void setPrimaryDisplay(boolean flag) {
+    if (info != null)
+      info.setPrimarydisplay(flag);
+  }
+
+  public final boolean getPrimaryCriterion() {
+    return info == null ? false : info.getPrimarycriterion().booleanValue();
+  }
+
+  public final void setPrimaryCriterion(boolean flag) {
     if (info != null)
       info.setPrimarydisplay(flag);
   }

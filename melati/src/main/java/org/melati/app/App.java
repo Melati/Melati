@@ -47,9 +47,10 @@ package org.melati.app;
  * A command line application.
  */
 public interface App {
+
   /**
    * Process a command line with its arguments.
    */
-  public void run(String[] args);
+  void run(String[] args);
 }
 

@@ -20,6 +20,5 @@ public class ArrayEnumeration implements Enumeration {
       return a[i++];
     else
       throw new NoSuchElementException();
-
   }
 }

@@ -105,4 +105,13 @@ public class SettingTable extends SettingTableBase {
     return ensure(name, PoemTypeFactory.INTEGER, new Integer(value),
 		  displayname, description);
   }
+  
+  protected void postInitialise() {
+    super.postInitialise();
+    if (getTableInfo().getDefaultcanwrite() == null)
+      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
+    if (getTableInfo().getCancreate() == null)
+      getTableInfo().setCancreate(getDatabase().administerCapability());
+  }
+
 }

@@ -44,7 +44,6 @@
 package org.melati.template.webmacro;
 
 import org.melati.template.TemplateEngine;
-import org.melati.template.ServletTemplateEngine;
 import org.melati.util.MelatiStringWriter;
 
 import org.webmacro.WM;
@@ -87,8 +86,6 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
   /**
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
-   *
-   * @see #getFastWriter(ServletTemplateEngine)
    */
   public void stopUsingFastWriter(FastWriter fw) throws IOException {
     write(fw.toString());

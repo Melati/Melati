@@ -44,7 +44,6 @@
 package org.melati.template.webmacro;
 
 import org.melati.template.TemplateEngine;
-import org.melati.template.ServletTemplateEngine;
 import java.io.IOException;
 
 /**
@@ -70,7 +69,6 @@ public interface MelatiWebmacroWriter {
    * Anything written to the given writer since obtained will
    * have been written to this object on return.
    *
-   * @see #getFastWriter(ServletTemplateEngine)
    */
   void stopUsingFastWriter(FastWriter fw) throws IOException;
 

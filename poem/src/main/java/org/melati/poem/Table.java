@@ -52,7 +52,6 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import org.melati.util.PageEnumeration;
 import org.melati.util.CountedDumbPageEnumeration;
@@ -247,13 +246,17 @@ public class Table implements Selectable {
    */
 
   public final Column getColumn(String name) throws NoSuchColumnPoemException {
-    Column column = (Column)columnsByName.get(name);
+    Column column = _getColumn(name); 
     if (column == null)
       throw new NoSuchColumnPoemException(this, name);
     else
       return column;
   }
-
+  protected final Column _getColumn(String name) {
+    Column column = (Column)columnsByName.get(name.toLowerCase());    
+    return column;
+  }
+  
   /**
    * All the table's columns.
    *
@@ -2093,7 +2096,7 @@ public class Table implements Selectable {
     if (column.getTable() != this)
       throw new ColumnInUsePoemException(this, column);
 
-    if (columnsByName.get(column.getName()) != null)
+    if (_getColumn(column.getName()) != null)
       throw new DuplicateColumnNamePoemException(this, column);
 
     if (column.isTroidColumn()) {
@@ -2129,7 +2132,7 @@ public class Table implements Selectable {
     if (reallyDoIt) {
       column.setTable(this);
       columns = (Column[])ArrayUtils.added(columns, column);
-      columnsByName.put(column.getName(), column);
+      columnsByName.put(column.getName().toLowerCase(), column);
     }
   }
 
@@ -2231,7 +2234,7 @@ public class Table implements Selectable {
                  selectionWhereEq(info.troid());
          ci.hasMoreElements();) {
       ColumnInfo columnInfo = (ColumnInfo)ci.nextElement();
-      Column column = (Column)columnsByName.get(columnInfo.getName());
+      Column column = _getColumn(columnInfo.getName());
       if (column == null) {
         column = ExtraColumn.from(this, columnInfo, extrasIndex++,
                                   DefinitionSource.infoTables);
@@ -2257,8 +2260,7 @@ public class Table implements Selectable {
 
       for (; colDescs.next(); ++dbIndex) {
         String colName = colDescs.getString("COLUMN_NAME");
-        Column column = (Column)columnsByName.get(
-                          dbms().melatiName(colName));
+        Column column = _getColumn(dbms().melatiName(colName));
 
         if (column == null) {
           SQLPoemType colType =
@@ -2297,8 +2299,8 @@ public class Table implements Selectable {
         }
         dbColumns.put(column, Boolean.TRUE);
       }
-    } // else System.err.println(
-      //                  "Table.UnifyWithDB called with null ResultsSet");
+    }  else System.err.println(
+                        "Table.UnifyWithDB called with null ResultsSet");
 
     if (dbIndex == 0) {
       // OK, we simply don't exist ...
@@ -2310,7 +2312,7 @@ public class Table implements Selectable {
       // silently create any missing columns
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-          System.err.println("About to add missing column" + columns[c]);
+          System.err.println("About to add missing column: " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }

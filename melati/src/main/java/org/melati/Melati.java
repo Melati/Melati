@@ -62,9 +62,10 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.template.HTMLMarkupLanguage;
+import org.melati.template.TemplateEngine;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.AcceptCharset;
 import org.melati.util.DatabaseInitException;
@@ -112,7 +113,7 @@ public class Melati {
   private String[] arguments;
   
   // the template engine that is in use (if any)
-  private TemplateEngine templateEngine;
+  private ServletTemplateEngine templateEngine;
   // the object that is used by the template engine to expand the template
   // against
   private TemplateContext templateContext;
@@ -285,7 +286,7 @@ public class Melati {
    * @see org.melati.servlet.TemplateServlet
    */
 
-  public void setTemplateEngine(TemplateEngine te) {
+  public void setTemplateEngine(ServletTemplateEngine te) {
     templateEngine = te;
   }
 
@@ -814,7 +815,7 @@ public class Melati {
   }
 
   /**
-   * Get a PassbackVariableExceptionHandler for the TemplateEngine.
+   * Get a PassbackVariableExceptionHandler for the ServletTemplateEngine.
    * This allows an Exception to be handled inline during Template expansion
    * for example, if you would like to render AccessPoemExceptions to a
    * String to be displayed on the page that is returned to the client.

@@ -44,6 +44,7 @@
 package org.melati.template.webmacro;
 
 import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.util.MelatiStringWriter;
 
 import org.webmacro.WM;
@@ -56,7 +57,7 @@ import java.io.UnsupportedEncodingException;
  *
  * @see WebmacroTemplate#write(org.melati.util.MelatiWriter, 
  *                             org.melati.template.ServletTemplateContext, 
- *                             org.melati.template.TemplateEngine)
+ *                             org.melati.template.ServletTemplateEngine)
  */
 public class MelatiWebmacroStringWriter extends MelatiStringWriter
     implements MelatiWebmacroWriter {
@@ -67,7 +68,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * @see #stopUsingFastWriter(FastWriter)
    */
   public FastWriter getFastWriter(TemplateEngine engine) {
-    WebmacroTemplateEngine wte = (WebmacroTemplateEngine)engine;
+    WebmacroServletTemplateEngine wte = (WebmacroServletTemplateEngine)engine;
     WM wm = (WM)wte.getEngine();
     // All we want to do is efficiently convert to and from bytes
     // in an encoding that works for all Java characters.
@@ -87,7 +88,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    *
-   * @see #getFastWriter(TemplateEngine)
+   * @see #getFastWriter(ServletTemplateEngine)
    */
   public void stopUsingFastWriter(FastWriter fw) throws IOException {
     write(fw.toString());

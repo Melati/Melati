@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServlet;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
-import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -72,7 +72,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 /**
  * Wrapper for the Velocity Template Engine for use with Melati.
  */
-public class VelocityTemplateEngine implements TemplateEngine {
+public class VelocityTemplateEngine implements ServletTemplateEngine {
 
   /**
    * This is the string that is looked for when getInitParameter is

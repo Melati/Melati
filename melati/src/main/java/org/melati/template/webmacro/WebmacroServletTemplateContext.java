@@ -38,49 +38,69 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
- *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ * Tim Joyce <timj@paneris.org>
+ *
  */
 
 package org.melati.template.webmacro;
 
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
-import org.melati.template.TemplateEngine;
-import org.melati.template.Template;
-import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngineException;
-import org.melati.util.MelatiWriter;
-import org.webmacro.ContextException;
-import org.webmacro.Context;
+import org.melati.template.ServletTemplateContext;
+import org.melati.servlet.MultipartFormField;
+import org.webmacro.servlet.WebContext;
+import org.webmacro.engine.EvaluationExceptionHandler;
 
 /**
- * Interface for a Template for use with Melati
- *
+ * Implements a template context for Melati / Webmacro
+ * 
+ * @author Tim Joyce
+ * $Revision$
  */
+public class WebmacroServletTemplateContext implements ServletTemplateContext {
 
-public class WebmacroTemplate implements Template {
-  private org.webmacro.Template template;
+  // the webcontext
+  public WebContext webContext;
 
-  public WebmacroTemplate(org.webmacro.Template t) {
-    template = t;
+  public WebmacroServletTemplateContext(WebContext wc) {
+    webContext = wc;
+    // always put a PropagateVariableExceptionHandler in otherwise
+    // we never get our errors out!
+    webContext.setEvaluationExceptionHandler(
+      new PropagateEvaluationExceptionHandler());
   }
 
-  /**
-   * @param out A {@link MelatiWebmacroWriter}.
-   */
-  public void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException {
-    try {
-      Object o = template.evaluateAsString((Context)templateContext.getContext());
-      out.write(o.toString());
-    } catch (ContextException e) {
-      throw new TemplateEngineException(e);
-    } 
-    catch (IOException e) {
-      throw new TemplateEngineException(e);
-    }    
+  public void put(String s, Object o) {
+    webContext.put(s,o);
   }
 
+  public String getForm(String s) {
+    return webContext.getForm(s);
+  }
+
+  public MultipartFormField getMultipartForm(String s) {
+    return null;
+  }
+
+  public Object get(String s) {
+    return webContext.get(s);
+  }
+
+  public Object getContext() {
+    return webContext;
+  }
+
+  public HttpSession getSession() {
+    return webContext.getSession();
+  }
+  
+  public void setVariableExceptionHandler(Object veh) {
+    webContext.setEvaluationExceptionHandler((EvaluationExceptionHandler)veh);
+  }
 }
+
+
+
+
+
+

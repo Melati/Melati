@@ -43,44 +43,44 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.template.webmacro;
+package org.melati.template;
 
 import java.io.IOException;
 
-import org.melati.template.TemplateEngine;
-import org.melati.template.Template;
-import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngineException;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
+
+import org.melati.MelatiConfig;
 import org.melati.util.MelatiWriter;
-import org.webmacro.ContextException;
-import org.webmacro.Context;
 
 /**
- * Interface for a Template for use with Melati
- *
+ * Interface for a Template engine for use with Melati and Servlets.
  */
-
-public class WebmacroTemplate implements Template {
-  private org.webmacro.Template template;
-
-  public WebmacroTemplate(org.webmacro.Template t) {
-    template = t;
-  }
+public interface ServletTemplateEngine extends TemplateEngine {
 
   /**
-   * @param out A {@link MelatiWebmacroWriter}.
+   * Construct a new Engine for use in a servlet environment.
+   *
+   * @see org.melati.servlet.TemplateServlet
+   * @param melatiConfig a {@link MelatiConfig}
+   * @param servlet the servlet we are within
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public void write(MelatiWriter out, TemplateContext templateContext, 
-                    TemplateEngine engine) throws TemplateEngineException {
-    try {
-      Object o = template.evaluateAsString((Context)templateContext.getContext());
-      out.write(o.toString());
-    } catch (ContextException e) {
-      throw new TemplateEngineException(e);
-    } 
-    catch (IOException e) {
-      throw new TemplateEngineException(e);
-    }    
-  }
+  void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException;
 
+  /**
+   * Get a Writer which can write to s Servlet output.
+   *  
+   * @param response the <code>HttpServletResponse</code> that this 
+   *                 writer will be part of
+   * @param buffered whether the writer should be buffered
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         appropriate for this engine.
+   */
+  MelatiWriter getServletWriter(HttpServletResponse response, 
+                                boolean buffered)
+      throws IOException;
+  
 }

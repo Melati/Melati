@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2005 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,64 +38,78 @@
  *
  * Contact details for copyright holder:
  *
- * Tim Joyce <timj@paneris.org>
- *
+ * Tim Pizey <timp@paneris.org>
+ * http://paneris.org/~timp
  */
 
 package org.melati.template.webmacro;
 
-import javax.servlet.http.HttpSession;
 
-import org.melati.template.ServletTemplateContext;
-import org.melati.servlet.MultipartFormField;
-import org.webmacro.servlet.WebContext;
+import org.melati.template.TemplateContext;
+import org.webmacro.Context;
 import org.webmacro.engine.EvaluationExceptionHandler;
 
 /**
- * Implements a template context for Melati / Webmacro
+ * Implements a template context for Melati / Webmacro without a Servlet.
  * 
- * @author Tim Joyce
- * $Revision$
  */
-public class WebmacroTemplateContext implements ServletTemplateContext {
+public class WebmacroTemplateContext implements TemplateContext {
 
-  // the webcontext
-  public WebContext webContext;
+  Context context;
 
-  public WebmacroTemplateContext(WebContext wc) {
-    webContext = wc;
+  /**
+   * Constructor.
+   * 
+   * @param c a {@link Context} to use to evaluate against
+   */
+  public WebmacroTemplateContext(Context c) {
+    context = c;
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
-    webContext.setEvaluationExceptionHandler(
+    context.setEvaluationExceptionHandler(
       new PropagateEvaluationExceptionHandler());
   }
 
+  /**
+   * Set a value in the Context.
+   * 
+   * @param s key
+   * @param o value
+   * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
+   */
   public void put(String s, Object o) {
-    webContext.put(s,o);
+    context.put(s,o);
   }
 
-  public String getForm(String s) {
-    return webContext.getForm(s);
-  }
-
-  public MultipartFormField getMultipartForm(String s) {
-    return null;
-  }
-
+  /**
+   * Get a value by key.
+   * 
+   * @param s key
+   * @return value
+   * @see org.melati.template.TemplateContext#get(java.lang.String)
+   */
   public Object get(String s) {
-    return webContext.get(s);
+    return context.get(s);
   }
 
+  /**
+   * Get the context itself.
+   * 
+   * @return the context
+   * @see org.melati.template.TemplateContext#getContext()
+   */
   public Object getContext() {
-    return webContext;
+    return context;
   }
 
-  public HttpSession getSession() {
-    return webContext.getSession();
-  }
-  
+  /**
+   * Set the Variable Exception Handler.
+   * 
+   * @param veh the Variable Exception Handler
+   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   */
   public void setVariableExceptionHandler(Object veh) {
-    webContext.setEvaluationExceptionHandler((EvaluationExceptionHandler)veh);
+    context.setEvaluationExceptionHandler((EvaluationExceptionHandler)veh);
   }
 }
 

@@ -220,7 +220,7 @@ public abstract class MarkupLanguage {
    * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   public String rendered(Object o)
       throws TemplateEngineException, IOException {
@@ -236,7 +236,7 @@ public abstract class MarkupLanguage {
    * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   protected void render(Object o) throws TemplateEngineException, IOException {
     render(o,melati.getWriter());
@@ -250,7 +250,7 @@ public abstract class MarkupLanguage {
    * @param writer - the MelatiWriter to render this Object to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   protected void render(Object o, MelatiWriter writer)
       throws TemplateEngineException, IOException {
@@ -273,7 +273,7 @@ public abstract class MarkupLanguage {
    * @param tree - the Tree to be rendered
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   public String rendered(JSDynamicTree tree)
       throws TemplateEngineException, IOException {
@@ -296,7 +296,7 @@ public abstract class MarkupLanguage {
    * @param tree - the Tree to be rendered
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   protected void render(JSDynamicTree tree)
       throws TemplateEngineException, IOException {
@@ -316,7 +316,7 @@ public abstract class MarkupLanguage {
    * @param writer - the MelatiWriter to render this Object to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
 
   protected void render(JSDynamicTree tree, MelatiWriter writer)
@@ -366,7 +366,7 @@ public abstract class MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   public String rendered(Field field, int style, int limit)
       throws TemplateEngineException, IOException {
@@ -386,7 +386,7 @@ public abstract class MarkupLanguage {
    * @param limit - the lenght to trim the rendered string to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   protected void render(Field field, int style, int limit)
       throws TemplateEngineException, IOException {
@@ -405,7 +405,7 @@ public abstract class MarkupLanguage {
    * @param writer - the MelatiWriter to render this Object to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
-   *                                   TemplateEngine
+   *                                   ServletTemplateEngine
    */
   protected void render(Field field, int style, int limit, MelatiWriter writer)
       throws TemplateEngineException, IOException {

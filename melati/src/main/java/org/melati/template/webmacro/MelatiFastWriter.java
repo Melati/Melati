@@ -49,6 +49,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.util.MelatiWriter;
 import org.webmacro.Broker;
 
@@ -114,7 +115,7 @@ public class MelatiFastWriter extends MelatiWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    *
-   * @see #getFastWriter(TemplateEngine)
+   * @see #getFastWriter(ServletTemplateEngine)
    */
   public void stopUsingFastWriter(FastWriter fw) throws IOException {
     // Do nothing

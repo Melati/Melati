@@ -56,7 +56,7 @@ import org.melati.poem.User;
  * java -cp melati.jar;site\properties;lib\hsqldb.jar 
  *     org.melati.app.PoemAppExample poemtest
  * </pre>
- * (Note: if you have configured a WebmacroTemplateEngine then you will 
+ * (Note: if you have configured a WebmacroServletTemplateEngine then you will 
  * need webmacro.jar and servlet.jar in your classpath).
  */
 public class PoemAppExample extends PoemApp {

@@ -130,7 +130,7 @@ public class ConfigServletTest extends ConfigServlet {
     config.getAccessHandler().getClass().getName() +
     "</td></tr>\n");
     output.write(
-    "<tr><td>TemplateEngine</td><td>" +
+    "<tr><td>ServletTemplateEngine</td><td>" +
     config.getTemplateEngine().getClass().getName() +
     "</td></tr>\n");
     output.write(

@@ -59,12 +59,12 @@ import org.melati.util.MelatiBufferedWriter;
 
 
 /**
- * The <code>null</code> {@link TemplateEngine}.
+ * The <code>null</code> {@link ServletTemplateEngine}.
  *
  * @author Tim Joyce
  * $Revision$
  */
-public class NoTemplateEngine implements TemplateEngine {
+public class NoTemplateEngine implements ServletTemplateEngine {
 
   private String message =
       "No Template engine is Configured, please specify an engine in " +

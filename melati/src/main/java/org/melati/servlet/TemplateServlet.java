@@ -54,7 +54,7 @@ import javax.servlet.ServletConfig;
 
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
-import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.MultipartTemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -72,13 +72,13 @@ import org.melati.template.NotFoundException;
 public abstract class TemplateServlet extends PoemServlet {
 
   // the template engine
-  protected TemplateEngine templateEngine;
+  protected ServletTemplateEngine templateEngine;
 
   /**
    * Inititialise the template engine.
    *
    * @param config a <code>ServletConfig</code>
-   * @throws ServletException if the TemplateEngine has a problem
+   * @throws ServletException if the ServletTemplateEngine has a problem
    */
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
@@ -95,7 +95,7 @@ public abstract class TemplateServlet extends PoemServlet {
   }
 
   /**
-   * Set the TemplateEngine and ServletTemplateContext in our Melati.
+   * Set the ServletTemplateEngine and ServletTemplateContext in our Melati.
    * This allows us to parse any uploaded files before we enter
    * our PoemSession (so we don't hang on to transactions
    * unnecessarily).

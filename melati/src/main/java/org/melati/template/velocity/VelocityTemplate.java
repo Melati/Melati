@@ -46,9 +46,9 @@
 package org.melati.template.velocity;
 
 import org.melati.util.MelatiWriter;
+import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
-import org.melati.template.TemplateEngine;
 
 import org.apache.velocity.VelocityContext;
 

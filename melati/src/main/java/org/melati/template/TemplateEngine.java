@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2005 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,17 +38,12 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
- *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ *     Tim Pizey <timp@paneris.org>
+ *     http://paneris.org/~timp
  */
-
 package org.melati.template;
 
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServlet;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
@@ -56,14 +51,10 @@ import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
 /**
- * Interface for a Template engine for use with Melati.
+ * @author tim.pizey
  *
- * @author Tim Joyce
- * $Revision$
  */
-
 public interface TemplateEngine {
-
   /**
    * Construct a new Engine.
    *
@@ -71,17 +62,6 @@ public interface TemplateEngine {
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   void init(MelatiConfig melatiConfig) throws TemplateEngineException;
-
-  /**
-   * Construct a new Engine for use in a servlet environment.
-   *
-   * @see org.melati.servlet.TemplateServlet
-   * @param melatiConfig a {@link MelatiConfig}
-   * @param servlet the servlet we are within
-   * @throws TemplateEngineException if any problem occurs with the engine
-   */
-  void init(MelatiConfig melatiConfig, HttpServlet servlet) 
-      throws TemplateEngineException;
 
   /**
    * Get the generic parameters for this engine.
@@ -103,7 +83,7 @@ public interface TemplateEngine {
    * @return the extension of the templates used by this template engine
    */
   String templateExtension();
-  
+
   /** 
    * Get a template given it's name.
    * 
@@ -111,8 +91,7 @@ public interface TemplateEngine {
    * @throws NotFoundException if the template is not found by the engine
    * @return a template
    */
-  Template template(String templateName) 
-      throws TemplateEngineException;
+  Template template(String templateName) throws TemplateEngineException;
 
   /** 
    * Get a template for a given class.
@@ -121,9 +100,8 @@ public interface TemplateEngine {
    * @throws NotFoundException if the template is not found by the engine
    * @return a template
    */
-  Template template(Class clazz) 
-      throws TemplateEngineException;
-  
+  Template template(Class clazz) throws TemplateEngineException;
+
   /** 
    * Expand the Template against the context.
    *
@@ -133,10 +111,9 @@ public interface TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  void expandTemplate(MelatiWriter out, String templateName, 
-                      TemplateContext templateContext) 
-      throws TemplateEngineException;
-  
+  void expandTemplate(MelatiWriter out, String templateName,
+      TemplateContext templateContext) throws TemplateEngineException;
+
   /** 
    * Expand the Template against the context.
    *
@@ -146,9 +123,8 @@ public interface TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  void expandTemplate(MelatiWriter out, Template template, 
-                      TemplateContext templateContext) 
-      throws TemplateEngineException;
+  void expandTemplate(MelatiWriter out, Template template,
+      TemplateContext templateContext) throws TemplateEngineException;
 
   /** 
    * Expand the Template against the context and return the expansion as a string.
@@ -158,11 +134,9 @@ public interface TemplateEngine {
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  String expandedTemplate(Template template, 
-                             TemplateContext templateContext) 
+  String expandedTemplate(Template template, TemplateContext templateContext)
       throws TemplateEngineException;
 
-    
   /** 
    * Get a variable exception handler for use if there is 
    * a problem accessing a variable.
@@ -171,19 +145,7 @@ public interface TemplateEngine {
    *         appropriate for this engine.
    */
   Object getPassbackVariableExceptionHandler();
-  
-  /** 
-   * @param response the <code>HttpServletResponse</code> that this 
-   *                 writer will be part of
-   * @param buffered whether the writer should be buffered
-   * @throws IOException if there is a problem with the filesystem.
-   * @return a {@link MelatiWriter} 
-   *         appropriate for this engine.
-   */
-  MelatiWriter getServletWriter(HttpServletResponse response, 
-                                boolean buffered)
-      throws IOException;
-  
+
   /** 
    * @param encoding Ignored.
    * @return a {@link MelatiStringWriter} for this engine.
@@ -205,5 +167,5 @@ public interface TemplateEngine {
    * @return the configured template engine
    */
   Object getEngine();
-  
+
 }

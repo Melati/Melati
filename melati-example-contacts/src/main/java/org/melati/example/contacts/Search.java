@@ -39,7 +39,7 @@ public class Search extends ContactsServlet {
     if (submit != null) {
       context.put("results", db.getContactTable().selection(where));
     }
-    // The file extension is added by the TemplateEngine
+    // The file extension is added by the ServletTemplateEngine
     return "org/melati/example/contacts/Search";
   }
   

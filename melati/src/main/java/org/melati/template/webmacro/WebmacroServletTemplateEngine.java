@@ -54,7 +54,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.template.NotFoundException;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
-import org.melati.template.TemplateEngine;
+import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -68,7 +68,7 @@ import org.webmacro.servlet.WebContext;
 /**
  * Wrapper for the WebMacro Template Engine for use with Melati.
  */
-public class WebmacroTemplateEngine implements TemplateEngine {
+public class WebmacroServletTemplateEngine implements ServletTemplateEngine {
 
 
 //  public static final Object check =
@@ -121,7 +121,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     WebContext webContext = new WebContext(wm.getBroker(),
                                 melati.getRequest(),
                                 melati.getResponse());
-    return new WebmacroTemplateContext(webContext);
+    return new WebmacroServletTemplateContext(webContext);
   }
   
   /**

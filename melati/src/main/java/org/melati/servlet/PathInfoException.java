@@ -53,7 +53,13 @@ import org.melati.util.MelatiException;
 public class PathInfoException extends MelatiException {
   String pathInfo;
 
-  PathInfoException(String pathInfo, Exception problem) {
+  /**
+   * Constructor.
+   * 
+   * @param pathInfo actually just a message
+   * @param problem the exception to be reported
+   */
+  public PathInfoException(String pathInfo, Exception problem) {
     super(problem);
     this.pathInfo = pathInfo;
   }

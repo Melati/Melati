@@ -73,10 +73,6 @@ import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 
-import org.webmacro.engine.VariableExceptionHandler;
-import org.webmacro.engine.PassbackVariableExceptionHandler;
-
-
 public class Melati {
 
   private MelatiConfig config;
@@ -283,8 +279,9 @@ public class Melati {
     }
   }
 
-  public VariableExceptionHandler getPassbackVariableExceptionHandler () {
-    return PassbackVariableExceptionHandler.it;
+  // FIXME - returning untyped object is not nice
+  public Object getPassbackVariableExceptionHandler () {
+    return templateEngine.getPassbackVariableExceptionHandler();
   }
 
   // get the current user for this session (if he is there)

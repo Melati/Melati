@@ -45,9 +45,30 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
-import org.melati.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+import java.io.Writer;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.Reader;
+import java.io.BufferedReader;
+import java.io.StreamTokenizer;
+import java.io.IOException ;
+import org.melati.util.StringUtils;
+
+/* 
+ * The <code>DSD</code> class is an application which parses a DSD 
+ * (Data Structure Definition) file and outputs Java code, creating 
+ * a POEM view of a database.
+ * <p>
+ * The generated files are placed in the current directory, which is 
+ * assumed to be similar to <code>org/paneris/myapp/model/</code> and 
+ * also in a new directory below it called <code>generated</code>.
+ *
+ * @author  William Chesters
+ */
 
 public class DSD {
 
@@ -269,7 +290,7 @@ public class DSD {
       w.write("import " + dsd.packageName + ".*;\n");
     }
 
-    w.write("import java.util.*;\n" +
+    w.write(// "import java.util.*;\n" +
             "import java.sql.Date;\n" + // FIXME hack!
             "import java.sql.Timestamp;\n" // FIXME hack!
 			);
@@ -446,3 +467,12 @@ public class DSD {
   }
 
 }
+
+
+
+
+
+
+
+
+

@@ -104,21 +104,23 @@ function popupupdate(popupwin,returnfield,id,value) {
        onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;">
        <FONT face="Arial, Helvetica" size=-2><input type=button value=" Go " onclick="goto_page2()"></font>
     #end #else #begin
-      <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
-      #foreach $poss in $primaryCriterion.First1000Possibilities #begin
-        <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
-        #if ($poss.sameRawAs($primaryCriterion)) #begin
-          SELECTED
+      <FONT face="Arial, Helvetica">
+        <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
+        #foreach $poss in $primaryCriterion.First1000Possibilities #begin
+          <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
+          #if ($poss.sameRawAs($primaryCriterion)) #begin
+            SELECTED
+          #end
+          >
+          #if ($poss.RawString.equals("")) #begin
+            All
+          #end #else #begin
+            $ml.rendered($poss)
+          #end
+          </OPTION>
         #end
-        >
-        #if ($poss.RawString.equals("")) #begin
-          All
-        #end #else #begin
-          $ml.rendered($poss)
-        #end
-        </OPTION>
-      #end
-      </SELECT>
+        </SELECT>
+      </FONT>
       <FONT face="Arial, Helvetica" size=-2><input type=button value=" Go " onclick="goto_page()"></font>
 	#end
   #end #else #begin

@@ -174,7 +174,7 @@ public class Admin extends MelatiServlet {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
     }
 
-    MappedEnumeration criteria =
+    MappedEnumeration criterias =
         new MappedEnumeration(table.getSearchCriterionColumns()) {
 	  public Object mapped(Object c) {
 	    Column column = (Column)c;
@@ -188,7 +188,7 @@ public class Admin extends MelatiServlet {
 	  }
 	};
 
-    context.put("criteria", EnumUtils.vectorOf(criteria));
+    context.put("criteria", EnumUtils.vectorOf(criterias));
 
     // sort out ordering (FIXME this is a bit out of control)
 

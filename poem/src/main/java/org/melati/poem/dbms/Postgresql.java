@@ -107,7 +107,7 @@ public class Postgresql extends AnsiStandard {
        return super.getStringSqlDefinition(size);
   }
 
-  public String getBinarySqlDefinition(int size) throws SQLException {
+  public String getBinarySqlDefinition(int size) {
    // BLOBs in Postgres are represented as OIDs pointing to the data
     return "OID";
   }
@@ -134,10 +134,10 @@ public class Postgresql extends AnsiStandard {
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
-        md.getString("TYPE_NAME").equals("oid") ?
-            new OidPoemType(md.getInt("NULLABLE") ==
-                                DatabaseMetaData.columnNullable) :
-            super.defaultPoemTypeOfColumnMetaData(md);
+    md.getString("TYPE_NAME").equals("oid") ?
+        new OidPoemType(md.getInt("NULLABLE") ==
+                            DatabaseMetaData.columnNullable) :
+        super.defaultPoemTypeOfColumnMetaData(md);
   }
 
   public SQLPoemException exceptionForUpdate(

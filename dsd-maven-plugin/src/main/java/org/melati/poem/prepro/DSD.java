@@ -352,7 +352,7 @@ public class DSD {
               databaseBaseClass + ";\n");
     w.write("\n" + 
             "/**\n" +
-            " * Melati POEM generated, programmer modifyable stub.\n" +
+            " * Melati POEM generated, programmer modifiable stub.\n" +
             " */\n");
     w.write("public class " + databaseClass +
             " extends " + databaseBaseClass +

@@ -47,6 +47,8 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
+<!-- PrimarySelect.wm -->
+
 <HTML>
 <HEAD>
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
@@ -86,25 +88,33 @@ function popupupdate(popupwin,returnfield,id,value) {
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="get_list()">
 #if ($primaryCriterion) #begin
 <FORM METHOD=GET action=$admin.SelectionURL($table) target=admin_selection>
-  <table cellspacing=0 cellpadding=0 border=0><tr>
-  <td></td>
-  <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</font></td>
-  </tr><tr><td><FONT face="Arial, Helvetica" size=-1>
+ <table cellspacing=0 cellpadding=0 border=0>
+  <tr>
+   <td></td>
+   <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</font></td>
+  </tr>
+  <tr>
+   <td>
   #if ($admin.isReferencePoemType($primaryCriterion)) #begin
-    <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
-    </td><td>
+    <FONT face="Arial, Helvetica" size=-1>
+     <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
+    </FONT>
+   </td>
+   <td>
     #if ($primaryCriterion.RenderInfo && $primaryCriterion.RenderInfo.equals("SelectionWindow")) #begin
- 	   <input type=hidden name="_$ml.rendered($primaryCriterion.Name)" value='$ml.rendered($primaryCriterion.RawString)'>
+       <input type=hidden name="_$ml.rendered($primaryCriterion.Name)" value='$ml.rendered($primaryCriterion.RawString)'>
+    <FONT face="Arial, Helvetica" size=-1>
        <input type=text name="_$ml.rendered($primaryCriterion.Name);_dummy" 
        #if ($primaryCriterion.Raw) #begin
          value='$ml.rendered($primaryCriterion.Cooked)' 
        #end
        size=30 onfocus="document.forms[0].$ml.rendered($primaryCriterion.Name);_button.focus()">
        <input type=button value="choose" name=$ml.rendered($primaryCriterion.Name);_button 
-       onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;">
-       <FONT face="Arial, Helvetica" size=-2><input type=button value=" Go " onclick="goto_page2()"></font>
+               onClick ="choosewindow = window.open('$admin.SelectionWindowURL($primaryCriterion.getType().targetTable())?returnfield=_$ml.rendered($primaryCriterion.Name)','$ml.rendered($primaryCriterion.Name)','width=400,height=500,scrollbars=yes'); return false;">
+    </FONT>
+    <FONT face="Arial, Helvetica" size=-1><input type=button value=" Go " onclick="goto_page2()"></font>
     #end #else #begin
-      <FONT face="Arial, Helvetica">
+    <FONT face="Arial, Helvetica">
         <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
         #foreach $poss in $primaryCriterion.First1000Possibilities #begin
           <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
@@ -120,16 +130,19 @@ function popupupdate(popupwin,returnfield,id,value) {
           </OPTION>
         #end
         </SELECT>
-      </FONT>
-      <FONT face="Arial, Helvetica" size=-2><input type=button value=" Go " onclick="goto_page()"></font>
-	#end
+    </FONT>
+    <FONT face="Arial, Helvetica" size=-1><input type=button value=" Go " onclick="goto_page()"></font>
+     #end
   #end #else #begin
-    </td><td><FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)</font>
-    <FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE=" Go " TYPE=submit>
+   </td>
+   <td>
+    <FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)</font>
+    <FONT face="Arial, Helvetica" size=-1><INPUT NAME=action VALUE=" Go " TYPE=submit></font>
   #end
-  </font></td></tr></table>
-  </FORM>
+   </td>
+  </tr>
+ </table>
+</FORM>
 #end
-
 </BODY>
 </HTML>

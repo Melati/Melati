@@ -2,6 +2,9 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class UserTableBase extends Table {
 
   private Column col_id = null;
@@ -9,8 +12,15 @@ public class UserTableBase extends Table {
   private Column col_password = null;
   private Column col_name = null;
 
-  public UserTableBase(Database database, String name) throws PoemException {
-    super(database, name, DefinitionSource.dsd);
+  public UserTableBase(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
+  public UserTableBase(
+      Database database, String name) throws PoemException {
+    this(database, name, DefinitionSource.dsd);
   }
 
   protected void init() throws PoemException {

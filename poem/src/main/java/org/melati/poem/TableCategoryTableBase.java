@@ -2,13 +2,23 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class TableCategoryTableBase extends Table {
 
   private Column col_id = null;
   private Column col_name = null;
 
-  public TableCategoryTableBase(Database database, String name) throws PoemException {
-    super(database, name, DefinitionSource.dsd);
+  public TableCategoryTableBase(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
+  public TableCategoryTableBase(
+      Database database, String name) throws PoemException {
+    this(database, name, DefinitionSource.dsd);
   }
 
   protected void init() throws PoemException {

@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class GroupBase extends Persistent {
 
   public GroupTable getGroupTable() {
+    return (GroupTable)getTable();
+  }
+
+  private GroupTable _getGroupTable() {
     return (GroupTable)getTable();
   }
 
@@ -27,7 +34,7 @@ public class GroupBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getGroupTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getGroupTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -38,7 +45,7 @@ public class GroupBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getGroupTable().getIdColumn().asField(this);
+    return _getGroupTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -57,12 +64,12 @@ public class GroupBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getGroupTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getGroupTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getGroupTable().getNameColumn().asField(this);
+    return _getGroupTable().getNameColumn().asField(this);
   }
 }

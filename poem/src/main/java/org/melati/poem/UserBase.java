@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class UserBase extends Persistent {
 
   public UserTable getUserTable() {
+    return (UserTable)getTable();
+  }
+
+  private UserTable _getUserTable() {
     return (UserTable)getTable();
   }
 
@@ -29,7 +36,7 @@ public class UserBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getUserTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -40,7 +47,7 @@ public class UserBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getUserTable().getIdColumn().asField(this);
+    return _getUserTable().getIdColumn().asField(this);
   }
 
   public String getLogin_unsafe() {
@@ -59,13 +66,13 @@ public class UserBase extends Persistent {
 
   public void setLogin(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getLoginColumn().getType().assertValidCooked(cooked);
+    _getUserTable().getLoginColumn().getType().assertValidCooked(cooked);
     writeLock();
     setLogin_unsafe(cooked);
   }
 
   public final Field getLoginField() throws AccessPoemException {
-    return getUserTable().getLoginColumn().asField(this);
+    return _getUserTable().getLoginColumn().asField(this);
   }
 
   public String getPassword_unsafe() {
@@ -84,13 +91,13 @@ public class UserBase extends Persistent {
 
   public void setPassword(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getPasswordColumn().getType().assertValidCooked(cooked);
+    _getUserTable().getPasswordColumn().getType().assertValidCooked(cooked);
     writeLock();
     setPassword_unsafe(cooked);
   }
 
   public final Field getPasswordField() throws AccessPoemException {
-    return getUserTable().getPasswordColumn().asField(this);
+    return _getUserTable().getPasswordColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -109,12 +116,12 @@ public class UserBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getUserTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getUserTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getUserTable().getNameColumn().asField(this);
+    return _getUserTable().getNameColumn().asField(this);
   }
 }

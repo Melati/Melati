@@ -2,6 +2,9 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class PoemDatabaseBase extends Database {
 
   private TableCategoryTable tab_tablecategory = null;
@@ -13,28 +16,15 @@ public class PoemDatabaseBase extends Database {
   private GroupMembershipTable tab_groupmembership = null;
   private GroupCapabilityTable tab_groupcapability = null;
 
-  public PoemDatabaseBase() {
-    try {
-      defineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory"));
-      defineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo"));
-      defineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo"));
-      defineTable(tab_capability = new CapabilityTable(this, "capability"));
-      defineTable(tab_user = new UserTable(this, "user"));
-      defineTable(tab_group = new GroupTable(this, "group"));
-      defineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership"));
-      defineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability"));
-      tab_tablecategory.init();
-      tab_tableinfo.init();
-      tab_columninfo.init();
-      tab_capability.init();
-      tab_user.init();
-      tab_group.init();
-      tab_groupmembership.init();
-      tab_groupcapability.init();
-    }
-    catch (PoemException e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
+  protected PoemDatabaseBase() {
+    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
+    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
+    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
+    redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
+    redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
+    redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
+    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership", DefinitionSource.dsd));
+    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability", DefinitionSource.dsd));
   }
 
   public TableCategoryTable getTableCategoryTable() {

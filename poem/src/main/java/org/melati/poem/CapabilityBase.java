@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class CapabilityBase extends Persistent {
 
   public CapabilityTable getCapabilityTable() {
+    return (CapabilityTable)getTable();
+  }
+
+  private CapabilityTable _getCapabilityTable() {
     return (CapabilityTable)getTable();
   }
 
@@ -27,7 +34,7 @@ public class CapabilityBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -38,7 +45,7 @@ public class CapabilityBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getCapabilityTable().getIdColumn().asField(this);
+    return _getCapabilityTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -57,12 +64,12 @@ public class CapabilityBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getCapabilityTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getCapabilityTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getCapabilityTable().getNameColumn().asField(this);
+    return _getCapabilityTable().getNameColumn().asField(this);
   }
 }

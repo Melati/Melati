@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class GroupCapabilityBase extends Persistent {
 
   public GroupCapabilityTable getGroupCapabilityTable() {
+    return (GroupCapabilityTable)getTable();
+  }
+
+  private GroupCapabilityTable _getGroupCapabilityTable() {
     return (GroupCapabilityTable)getTable();
   }
 
@@ -28,7 +35,7 @@ public class GroupCapabilityBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getGroupCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getGroupCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -39,7 +46,7 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getGroupCapabilityTable().getIdColumn().asField(this);
+    return _getGroupCapabilityTable().getIdColumn().asField(this);
   }
 
   public Integer getGroup_unsafe() {
@@ -76,7 +83,7 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public final Field getGroupField() throws AccessPoemException {
-    return getGroupCapabilityTable().getGroupColumn().asField(this);
+    return _getGroupCapabilityTable().getGroupColumn().asField(this);
   }
 
   public Integer getCapability_unsafe() {
@@ -113,6 +120,6 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public final Field getCapabilityField() throws AccessPoemException {
-    return getGroupCapabilityTable().getCapabilityColumn().asField(this);
+    return _getGroupCapabilityTable().getCapabilityColumn().asField(this);
   }
 }

@@ -2,14 +2,24 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class GroupCapabilityTableBase extends Table {
 
   private Column col_id = null;
   private Column col_group = null;
   private Column col_capability = null;
 
-  public GroupCapabilityTableBase(Database database, String name) throws PoemException {
-    super(database, name, DefinitionSource.dsd);
+  public GroupCapabilityTableBase(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
+  public GroupCapabilityTableBase(
+      Database database, String name) throws PoemException {
+    this(database, name, DefinitionSource.dsd);
   }
 
   protected void init() throws PoemException {

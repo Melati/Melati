@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class GroupMembershipBase extends Persistent {
 
   public GroupMembershipTable getGroupMembershipTable() {
+    return (GroupMembershipTable)getTable();
+  }
+
+  private GroupMembershipTable _getGroupMembershipTable() {
     return (GroupMembershipTable)getTable();
   }
 
@@ -28,7 +35,7 @@ public class GroupMembershipBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getGroupMembershipTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getGroupMembershipTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -39,7 +46,7 @@ public class GroupMembershipBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getGroupMembershipTable().getIdColumn().asField(this);
+    return _getGroupMembershipTable().getIdColumn().asField(this);
   }
 
   public Integer getUser_unsafe() {
@@ -76,7 +83,7 @@ public class GroupMembershipBase extends Persistent {
   }
 
   public final Field getUserField() throws AccessPoemException {
-    return getGroupMembershipTable().getUserColumn().asField(this);
+    return _getGroupMembershipTable().getUserColumn().asField(this);
   }
 
   public Integer getGroup_unsafe() {
@@ -113,6 +120,6 @@ public class GroupMembershipBase extends Persistent {
   }
 
   public final Field getGroupField() throws AccessPoemException {
-    return getGroupMembershipTable().getGroupColumn().asField(this);
+    return _getGroupMembershipTable().getGroupColumn().asField(this);
   }
 }

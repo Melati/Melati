@@ -2,9 +2,16 @@
 
 package org.melati.poem;
 
+import java.util.*;
+import org.melati.util.*;
+
 public class TableCategoryBase extends Persistent {
 
   public TableCategoryTable getTableCategoryTable() {
+    return (TableCategoryTable)getTable();
+  }
+
+  private TableCategoryTable _getTableCategoryTable() {
     return (TableCategoryTable)getTable();
   }
 
@@ -27,7 +34,7 @@ public class TableCategoryBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableCategoryTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getTableCategoryTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -38,7 +45,7 @@ public class TableCategoryBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return getTableCategoryTable().getIdColumn().asField(this);
+    return _getTableCategoryTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -57,12 +64,12 @@ public class TableCategoryBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getTableCategoryTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getTableCategoryTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return getTableCategoryTable().getNameColumn().asField(this);
+    return _getTableCategoryTable().getNameColumn().asField(this);
   }
 }

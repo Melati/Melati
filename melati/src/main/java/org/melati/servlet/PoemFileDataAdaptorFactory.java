@@ -45,7 +45,6 @@
 
 package org.melati.servlet;
 
-import java.util.Hashtable;
 import org.melati.Melati;
 import org.melati.poem.Database;
 

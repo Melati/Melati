@@ -55,9 +55,8 @@
   <LI> Linux 2.0.34/i586 with glibc 2.0.7.  Probably noncritical.
   <LI> Apache 1.3.3, with JServ 1.0b2.  Note that RedHat 5.x Apache RPMs make it
        hard for you to get JServ working.
-  <LI> Sun's JDK 1.2 (Borland's JIT seems to work fine).  Or Blackdown JDK
-       1.1.7 <A HREF=#jikes>with IBM Jikes compiler</A>, or IBM's 1.1.8; but we
-       don't guarantee that Melati won't in the future require Java 1.2.
+  <LI> Sun's JDK 1.2 (Borland's JIT seems to work fine).  Melati will no longer work
+       with 1.1 (it uses <TT>SoftReference</TT>s in its cache).
   <LI> JSDK (servlet development kit) 2.0 
   <LI> <A HREF=http://webmacro.org/Download.html>WebMacro</A> Snapshot
        1999-12-22
@@ -65,7 +64,7 @@
 
 <P>
   Everything up to here could be summarised as: a working webmacro
-  installation.  Finally,
+  installation with Java 1.2.  Finally,
 </P>
 
 <UL>
@@ -73,7 +72,8 @@
        problem with 6.4.2: it silently ignores <TT>NOT NULL</TT> in
        <TT>ALTER</TT> <TT>TABLE</TT> <TT>ADD</TT> <TT>COLUMN</TT>, which tends
        to confuse Melati.  For that reason, we haven't maintained 6.4.2
-       support.
+       support.  [Actually it turns out that this problem is STILL present in 6.5.3
+       but 6.4.2 is getting old anyway.]
 </UL>
 
 <P>
@@ -222,11 +222,10 @@ $ cvs update
     <td valign="top">4.</td>
     <td>Ensure that the following is in your classpath. <br>
       <ul>
-        <li>Java (<TT>classes.zip</TT> for JDK 1.1, <TT>rt.jar</TT> for
-            JDK 1.2) 
+        <li>Java (<TT>jre/lib/rt.jar</TT>, remember, in JDK 1.2---not
+            <TT>classes.zip</TT>)
         <li><TT>ApacheJServ.jar</TT>
-        <li><TT>jdbc6.5-1.2.jar</TT> from the Postgresql distribution,
-            or <TT>jdbc6.5-1.1.jar</TT> if you are using JDK 1.1; the Red Hat
+        <li><TT>jdbc6.5-1.2.jar</TT> from the Postgresql distribution; the Red Hat
             RPMS put these in <TT>/usr/lib/pgsql</TT>.  You need this even
             though Melati has its own Postgresql-specific classes which
             add some functionality to the standard drivers in order to overcome
@@ -240,10 +239,10 @@ $ cvs update
       <p>For example (on Linux boxes running a bash shell) this can be done by 
         editing <TT>~/.bash_profile</TT>, and adding the lines: 
       <blockquote> 
-        <pre>CLASSPATH=&quot;$CLASSPATH:/usr/local/jdk117_v3/lib/classes.zip&quot;
+        <pre>CLASSPATH=&quot;$CLASSPATH:/usr/local/jdk1.2.2/jre/lib/rt.jar&quot;
 CLASSPATH=&quot;$CLASSPATH:/usr/local/lib/ApacheJServ.jar&quot;
 CLASSPATH=&quot;$CLASSPATH:/usr/local/lib/jsdk.jar&quot;
-CLASSPATH=&quot;$CLASSPATH:/usr/lib/pgsql/jdbc6.5-1.1.jar&quot;
+CLASSPATH=&quot;$CLASSPATH:/usr/lib/pgsql/jdbc6.5-1.2.jar&quot;
 CLASSPATH=&quot;$CLASSPATH:/usr/local/melati/&quot;
 CLASSPATH=&quot;$CLASSPATH:/usr/local/webmacro/webmacro.jar&quot;
 export CLASSPATH</pre>
@@ -271,39 +270,6 @@ cd /usr/local/melati/org/melati
 ./compile.sh
 </PRE></BLOCKQUOTE>
 
-      <p>
-        You need a FULLY compliant Java 1.1 or 1.2 compiler.  <A NAME=jikes>The
-        javac that comes with Sun's JDK 1.1 (and the 1.1 Blackdown port) has a
-        known bug with respect to blank final variables</A>, so---as Justin
-        says for WebMacro---you must either use JDK 1.2 or go and get IBM's <A
-        HREF=http://www.ibm.com/research/jikes>jikes</A> compiler, which is
-        fully compliant with the spec.  Jikes offers much faster compilation as
-        well.  We don't guarantee that Melati won't at some point require Java
-        1.2.
-      </p>
-
-      <P>
-        So the first thing this script does is determine whether you are running
-        Java 1.1; if it thinks you are, it will use jikes for the compilation,
-        otherwise javac.
-      </P>
-
-      <P>
-        Which Java you have also determines whether the script compiles JDBC
-        1.1- or 1.2-specific versions of certain packages; if you simply try to
-        compile the whole tree, one or the other of the packages will generate
-        large numbers of error messages, although in principle you could ignore
-        them.  (In fact, the JDBC-sensitive packages are only used to overcome
-        a shortcoming in Postgresql's JDBC driver.)
-      </P>
-
-      <P>
-        For good measure, the script also warns you if your
-        <TT>org.melati.LogicalDatabase.properties</TT> file (see <A
-        HREF=#config>below</A>) appears to refer to any packages specific to
-        the version of JDBC you are <I>not</I> using.
-      </P>
-
       <P>
         If you want to build Melati by hand, you should compile the following
         packages:
@@ -315,24 +281,8 @@ org.melati.admin
 org.melati.util
 org.melati.poem
 org.melati.poem.prepro
-</PRE></BLOCKQUOTE>
-
-      <P>
-        and either
-      </P>
-
-<BLOCKQUOTE><PRE>
-org.melati.poem.postgresql.jdbc1
-org.melati.poem.sql.jdbc1
-</PRE></BLOCKQUOTE>
-
-      <P>
-        or
-      </P>
-
-<BLOCKQUOTE><PRE>
-org.melati.poem.postgresql.jdbc2
 org.melati.poem.sql.jdbc2
+org.melati.poem.postgresql.jdbc2
 </PRE></BLOCKQUOTE>
   </tr>
   <tr> 
@@ -373,9 +323,7 @@ wrapper.classpath=/usr/local/melati
 	the source tree as
 	<tt>org/melati/org.melati.LogicalDatabase.properties</tt>, which
 	describes the mapping from &quot;logical database names&quot; to JDBC
-	connection details.  If you are using Java 1.1, change any instances of
-	<TT>jdbc2</TT> to <TT>jdbc1</TT>.
-	You may not have to change anything else.
+	connection details.  You may not have to change anything.
       </P>
 
       <P>
@@ -527,6 +475,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.18  2000/03/29 16:01:54  williamc
+  <BR>Update for removal of JDK1.1 support
+  <BR>
   <BR>Revision 1.17  2000/03/24 15:05:51  williamc
   <BR>commit to get log/revision right
   <BR>

@@ -151,10 +151,16 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
    */
 
   protected void forceLogin(HttpServletResponse resp,
-  String realm, String message) throws IOException {
+  String realm, String message) {
     String desc = realm == null ? "<unknown>" : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
-    resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
+    // i don't believe there is a lot we can do about an IO exception here,
+    // so i am simply going to log it
+    try {
+      resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
+    } catch (IOException e) {
+      e.printStackTrace(System.err);
+    }
   }
 
   public void handleAccessException(Melati melati, AccessPoemException accessException)
@@ -165,7 +171,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
-  public Melati establishUser(Melati melati) throws IOException {
+  public Melati establishUser(Melati melati) {
 
     HttpAuthorization auth = HttpAuthorization.from(melati.getRequest());
 

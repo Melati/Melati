@@ -1,7 +1,954 @@
+
 package org.melati.poem.test;
 
-table AThing {
-  (primary) Integer id;
+table Athing
 
-  (nullable) byte[] binaryfield (size = 13);
+  (displayname = "Thing")
+  (description = "A thing ")
+  (displayorder = 40)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+    Integer id
+      (primary)
+      (displayname = "Id")
+      // (description = null)
+      (uneditable)
+      // Not nullable
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      (displayorder = 0)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      (indexed)
+      (unique)
+      ;
+    byte[] binaryfield
+      (displayname = "Binaryfield")
+      // (description = null)
+      (uneditable)
+      (nullable)
+      (size = 13)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 1)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
 }
+
+
+abstract table EmptyAbstractTable
+
+  (displayname = "Empty Abstract")
+  (description = "Empty abstract table to create a stub")
+  (displayorder = 50)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+}
+
+table EverythingNormal
+
+  (displayname = "EverythingNormal")
+  (description = "Every datatype in one table")
+  (displayorder = 50)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+    Integer id
+      (primary)
+      (displayname = "Id")
+      // (description = null)
+      (uneditable)
+      // Not nullable
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      (displayorder = 0)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      (indexed)
+      (unique)
+      ;
+    byte[] binaryfield
+      (displayname = "Binaryfield")
+      // (description = null)
+      (uneditable)
+      (nullable)
+      (size = 13)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 1)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    String stringfield
+      (displayname = "String Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 2)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Password passwordfield
+      (displayname = "Password Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 3)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Boolean booleanfield
+      (displayname = "Boolean Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 4)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefield
+      (displayname = "Date Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 5)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Double doublefield
+      (displayname = "Double Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 6)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Integer integerfield
+      (displayname = "Integer Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 7)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Long longfield
+      (displayname = "Long Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 8)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    BigDecimal bigdecimalfield
+      (displayname = "BigDecimal Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (precision = 22)
+      (scale = 2)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 9)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Timestamp timestampfield
+      (displayname = "Timestamp Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 10)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+}
+
+table EverythingNormalExtended extends EverythingNormal
+
+  (displayname = "Everything Normal Extended")
+  (description = "Every datatype inheritted from a normal table and normally defined")
+  (displayorder = 70)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+    byte[] binaryfield2
+      (displayname = "Binaryfield2")
+      (description = "Second Binary Field")
+      (uneditable)
+      (nullable)
+      (size = 13)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 11)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    String stringfield2
+      (displayname = "String Field 2")
+      (description = "Second String Field")
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 20)
+      // usercreateable
+      (displaylevel = primary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      (unique)
+      ;
+    Password passwordfield2
+      (displayname = "Password Field 2")
+      (description = "Second Password Field")
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 13)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Boolean booleanfield2
+      (displayname = "Boolean Field 2")
+      (description = "Second Boolean Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 14)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefield2
+      (displayname = "Date Field 2")
+      (description = "Second Date Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 15)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Double doublefield2
+      (displayname = "Double Field 2")
+      (description = "Second Double Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 16)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Integer integerfield2
+      (displayname = "Integer Field 2")
+      (description = "Second Integer Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 17)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Long longfield2
+      (displayname = "Long Field 2")
+      (description = "Second Long Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 18)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    BigDecimal bigdecimalfield2
+      (displayname = "BigDecimal Field 2")
+      (description = "Second BigDecimal Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (precision = 22)
+      (scale = 2)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 19)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Timestamp timestampfield2
+      (displayname = "Timestamp Field 2")
+      (description = "Second Timestamp Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 20)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+}
+
+
+
+abstract table EverythingAbstract
+
+  (displayname = "EverythingAbstract")
+  (description = "Every datatype in one abstract table")
+  (displayorder = 50)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+    byte[] binaryfield
+      (displayname = "Binaryfield")
+      // (description = null)
+      (uneditable)
+      (nullable)
+      (size = 13)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 1)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    String stringfield
+      (displayname = "String Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 2)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Password passwordfield
+      (displayname = "Password Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 3)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Boolean booleanfield
+      (displayname = "Boolean Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 4)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefield
+      (displayname = "Date Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 5)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Double doublefield
+      (displayname = "Double Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 6)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Integer integerfield
+      (displayname = "Integer Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 7)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Long longfield
+      (displayname = "Long Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 8)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    BigDecimal bigdecimalfield
+      (displayname = "BigDecimal Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (precision = 22)
+      (scale = 2)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 9)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Timestamp timestampfield
+      (displayname = "Timestamp Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 10)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+}
+
+
+
+table EverythingAbstractExtended extends EverythingAbstract
+
+  (displayname = "Everything Abstract Extended")
+  (description = "Every datatype inheritted from an abstract table and a normally defined")
+  (displayorder = 80)
+  // (defaultcanread = null)
+  // (defaultcanwrite = null)
+  // (defaultcandelete = null)
+  // (cancreate = null)
+  (cachelimit = 100)
+  // Not seqcached
+  (category = "Normal")
+{
+    Integer id
+      (primary)
+      (displayname = "Id")
+      // (description = null)
+      (uneditable)
+      // Not nullable
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      (displayorder = 10)
+      (uncreateable)
+      (displaylevel = record)
+      (searchability = yes)
+      (displayorderpriority = 0)
+      // Not sortdescending
+      (indexed)
+      (unique)
+      ;
+    byte[] binaryfield2
+      (displayname = "Binaryfield2")
+      (description = "Second Binary Field")
+      (uneditable)
+      (nullable)
+      (size = 13)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 11)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    String stringfield2
+      (displayname = "String Field 2")
+      (description = "Second String Field")
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 20)
+      // usercreateable
+      (displaylevel = primary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      (unique)
+      ;
+    Password passwordfield2
+      (displayname = "Password Field 2")
+      (description = "Second Password Field")
+      // usereditable
+      (nullable)
+      (size = 23)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 13)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Boolean booleanfield2
+      (displayname = "Boolean Field 2")
+      (description = "Second Boolean Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 14)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Date datefield2
+      (displayname = "Date Field 2")
+      (description = "Second Date Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 15)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Double doublefield2
+      (displayname = "Double Field 2")
+      (description = "Second Double Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 16)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Integer integerfield2
+      (displayname = "Integer Field 2")
+      (description = "Second Integer Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 17)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Long longfield2
+      (displayname = "Long Field 2")
+      (description = "Second Long Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 18)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    BigDecimal bigdecimalfield2
+      (displayname = "BigDecimal Field 2")
+      (description = "Second BigDecimal Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      (precision = 22)
+      (scale = 2)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 19)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    Timestamp timestampfield2
+      (displayname = "Timestamp Field 2")
+      (description = "Second Timestamp Field")
+      // usereditable
+      (nullable)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 20)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+}
+
+
+

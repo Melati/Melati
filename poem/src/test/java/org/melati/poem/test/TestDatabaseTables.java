@@ -1,6 +1,5 @@
 package org.melati.poem.test;
 
-
 import org.melati.poem.test.generated.TestDatabaseTablesBase;
 
 /**

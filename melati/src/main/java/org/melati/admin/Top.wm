@@ -30,7 +30,7 @@ return false;
 
 <FORM method="get" action="index2.html" target="admin_bottom">
 <TD align="centre">
-<FONT SIZE="1" FACE="Arial, Helvetica">
+<FONT SIZE="-1" FACE="Arial, Helvetica">
 <SELECT name="mainmenu" OnChange="return(goto_page(0));">
 
 #set $lasttype = ""
@@ -51,14 +51,15 @@ return false;
 > $ml.rendered($tab.DisplayName)</option>
 #end
 </SELECT>
+</font><FONT SIZE="-2" FACE="Arial, Helvetica">
 <input type=button value=" Go " onclick="goto_page(0)">
-</td>
+</font></td>
 <td align=right>
-<input type=button value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL';">
+<FONT SIZE="-2" FACE="Arial, Helvetica"><input type=button value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL';">
 #if ($database.SettingTable.homepageurl) #begin
 <input type=button value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
 #end 
-</td></TR>
+</font></td></TR>
 </TABLE>
 
 </FORM>

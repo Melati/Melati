@@ -57,12 +57,12 @@
 <form>
 <script TYPE="text/javascript">
 <!--
-var remoteWin = remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
+var height = 30 * $table.SearchCriterionColumnsCount; + 60;
+var sizeString = "WIDTH=450,HEIGHT="+height;
+var remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
 if (remoteWin != null) {
     remoteWin.close();
 }
-var height = 30 * $table.SearchCriterionColumnsCount; + 60;
-var sizeString = "WIDTH=450,HEIGHT="+height;
 #use 'text' until "--The End--"
 
 function openWindow() {

@@ -134,9 +134,7 @@ public class Admin extends MelatiServlet {
 
     Column column = table.primaryCriterionColumn();
 	Field primaryCriterion = null;
-		context.put("debug","not got it");
     if (column != null) {
-		context.put("debug","got it");
       String string = context.getForm("field-" + column.getName());
       if (string != null && !string.equals(""))
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));

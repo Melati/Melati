@@ -96,11 +96,10 @@ return false;
     </OPTION>
   #end
 </SELECT>
-<input type=button value=" Go " onclick="goto_page()">
+  <FONT face="Arial, Helvetica" size=-2><input type=button value=" Go " onclick="goto_page()"></font>
   #end #else #begin
-  </td><td>
-  <FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)
-  <INPUT NAME=action VALUE=" Go " TYPE=submit>
+  </td><td><FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)</font>
+  <FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE=" Go " TYPE=submit>
 #end
 </font></td></tr></table>
 </FORM>

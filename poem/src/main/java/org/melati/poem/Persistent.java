@@ -945,16 +945,29 @@ public class Persistent extends Transactioned implements Cloneable {
    * them.
    *
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
+   * @see DisplayLevel#record
    */
 
   public Enumeration getRecordDisplayFields() {
     return fieldsOfColumns(getTable().getRecordDisplayColumns());
   }
 
+  /**
+   * All fields at the detailed display level in display order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
+   * @see DisplayLevel#detail
+   */
   public Enumeration getDetailDisplayFields() {
     return fieldsOfColumns(getTable().getDetailDisplayColumns());
   }
 
+  /**
+   * All fields at the summary display level in display order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
+   * @see DisplayLevel#summary
+   */
   public Enumeration getSummaryDisplayFields() {
     return fieldsOfColumns(getTable().getSummaryDisplayColumns());
   }

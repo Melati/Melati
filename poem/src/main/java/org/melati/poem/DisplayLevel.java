@@ -13,8 +13,48 @@ public class DisplayLevel {
     this.name = name;
   }
 
-  public static final DisplayLevel
-      primary, summary, record, detail, never;
+  /**
+   * Display level of the column used to refer concisely to a record
+   * on the UI.
+   *
+   * @see Table#displayColumn()
+   */
+  public static final DisplayLevel primary;
+
+  /**
+   * Display level of columns included in a summary of records in
+   * a set.
+   * <p>
+   * This is the default display level for a column.
+   *
+   * @see Table#getSummaryDisplayColumns()
+   * @see Column#defaultDisplayLevel()
+   * @see Persistent#getSummaryDisplayFields()
+   */
+  public static final DisplayLevel summary;
+
+  /**
+   * Display level of columns included in display focusing on a
+   * single record, but without detail.
+   *
+   * @see Table#getRecordDisplayColumns()
+   * @see Persistent#getRecordDisplayFields()
+   */
+  public static final DisplayLevel record;
+
+  /**
+   * Display level of columns included in a detailed display
+   * of a single record.
+   *
+   * @see Table#getRecordDisplayColumns()
+   * @see Persistent#getDetailDisplayFields()
+   */
+  public static final DisplayLevel detail;
+
+  /**
+   * Display level of columns hidden from users.
+   */
+  public static final DisplayLevel never;
 
   private static int n = 0;
 

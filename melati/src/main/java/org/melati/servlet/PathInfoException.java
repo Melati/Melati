@@ -58,7 +58,12 @@ public class PathInfoException extends MelatiException {
     this.pathInfo = pathInfo;
   }
 
-  PathInfoException(String pathInfo) {
+  /**
+   * Constructor.
+   * 
+   * @param pathInfo actually just a message.
+   */
+  public PathInfoException(String pathInfo) {
     this(pathInfo, null);
   }
 

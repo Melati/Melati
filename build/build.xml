@@ -16,14 +16,13 @@
   <property name="build.root"         value="${this.root}/build"/>
   <property name="build.lib"          value="./lib"/>
   <property name="compiled.root"      value="${build.root}/compiled"/>
-  <property name="built.root"         value="${build.root}/built"/>
+  <property name="built.root"         value="./built"/>
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
   <property name="site"               value="../site"/>
-  <property name="site.src"               value="../site/src"/>
-  <property name="doc.root"           value="${build.root}/doc"/>
-  <property name="doc.dir"            value="${doc.root}/${project}_${version}/doc"/>
+  <property name="site.src"           value="../site/src"/>
+  <property name="doc.dir"            value="../qa/javadoc"/>
   <property name="packaged.root"      value="${build.root}/packaged/"/>
   <property name="year"               value="2002"/>
   <property name="debug"              value="on"/>
@@ -34,7 +33,7 @@
 
   <path id="classpath.compile">
     <pathelement path="${build.lib}/javax.servlet.jar"/>
-    <pathelement path="${build.lib}/webmacro.jar"/>
+    <pathelement path="${build.lib}/webmacro-1.0.jar"/>
     <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
     <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
     <!-- Not needed if using more uptodate postgres jar -->

@@ -49,6 +49,7 @@ package org.melati.template;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Enumeration;
 import javax.servlet.http.HttpSession;
 import org.melati.Melati;
 import org.melati.servlet.MultipartFormField;
@@ -126,6 +127,10 @@ public class MultipartTemplateContext implements TemplateContext {
 
   public MultipartFormField getMultipartForm(String s) {
     return (MultipartFormField)fields.get(s);
+  }
+
+  public Enumeration getFieldNames() {
+    return fields.elements();
   }
 
   public Object get(String s) {

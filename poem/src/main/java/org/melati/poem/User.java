@@ -71,6 +71,6 @@ public class User extends UserBase implements AccessToken {
   }
 
   public String toString() {
-    return getLogin();
+    return getLogin_unsafe();
   }
 }

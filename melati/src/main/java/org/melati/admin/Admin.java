@@ -234,7 +234,7 @@ public class Admin extends TemplateServlet {
       }
     };
 
-    Vector orderingNames = new Vector();
+    Vector orderings = new Vector();
     Vector orderClause = new Vector();
     for (int o = 1; o <= 2; ++o) {
       String name = "field_order-" + o;
@@ -245,14 +245,15 @@ public class Admin extends TemplateServlet {
         (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
         (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
-        orderingNames.addElement(database.quotedName(info.getName()));
+        String desc = (info.getSortdescending() == Boolean.TRUE) ? " DESC" : "";
+        orderings.addElement(database.quotedName(info.getName()) + desc);
         orderClause.addElement(name+"="+orderColumnIDString);
       }
     }
 
     String orderBySQL = null;
-    if (orderingNames.elements().hasMoreElements())
-    orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
+    if (orderings.elements().hasMoreElements())
+    orderBySQL = EnumUtils.concatenated(", ", orderings.elements());
     context.put("orderClause",
     EnumUtils.concatenated("&", orderClause.elements()));
 
@@ -328,7 +329,6 @@ public class Admin extends TemplateServlet {
       }
     };
 
-    Vector orderingNames = new Vector();
     Vector orderings = new Vector();
 
     for (int o = 1; o <= 2; ++o) {
@@ -340,7 +340,6 @@ public class Admin extends TemplateServlet {
         (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
         (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
-        orderingNames.addElement(database.quotedName(info.getName()));
       }
 
       orderings.addElement(

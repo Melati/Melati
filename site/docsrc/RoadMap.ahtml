@@ -106,13 +106,18 @@ would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.7.5</td>
-    <td>Velocity version of admin system</td>
-    <td></td>
+    <td>Separation of Melati from servlets</td>
+    <td>Done</td>
   </tr>
   <tr> 
     <td>0.7.6</td>
     <td>Completion of JavaDocs.</td>
-    <td>In progess</td>
+    <td>All public classes done</td>
+  </tr>
+  <tr> 
+    <td>0.7.5</td>
+    <td>Velocity version of admin system</td>
+    <td></td>
   </tr>
   <tr> 
     <td>0.7.7</td>
@@ -125,8 +130,18 @@ would be nice to have before a 1.0 release.
     <td>In Progress</td>
   </tr>
   <tr> 
+    <td>0.8.1</td>
+    <td>Velocity version of admin system</td>
+    <td></td>
+  </tr>
+  <tr> 
+    <td>0.8.2</td>
+    <td>Support for XML</td>
+    <td></td>
+  </tr>
+  <tr> 
     <td>0.9.0</td>
-    <td>Melati / POEM separation.</td>
+    <td><a href="/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.</td>
     <td></td>
   </tr>
   <tr>

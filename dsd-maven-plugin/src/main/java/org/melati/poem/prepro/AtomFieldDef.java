@@ -87,7 +87,7 @@ public class AtomFieldDef extends FieldDef {
             "\n" +
             "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+            "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
                      "getType().assertValidCooked(cooked);\n" +
 	    "    writeLock();\n" +
 	    "    set" + suffix + "_unsafe(cooked);\n" +

@@ -54,6 +54,12 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     super(database, name);
   }
 
+  public GroupCapabilityTable(Database database, String name,
+			      DefinitionSource definitionSource)
+      throws PoemException {
+    super(database, name, definitionSource);
+  }
+
   void postInitialise() {
     super.postInitialise();
 

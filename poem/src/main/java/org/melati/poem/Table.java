@@ -412,7 +412,32 @@ public class Table {
     dbModifyStructure(sqb.toString());
   }
 
+  public static class AddColumnNotNullException extends SeriousPoemException {
+    public Column column;
+
+    public AddColumnNotNullException(Column column) {
+      this.column = column;
+    }
+
+    public String getMessage() {
+      return
+          "I need to add a column " + column + " to the database. But that " +
+          "isn't possible with Postgres 6.5 because it ignores NOT NULL " +
+          "qualifiers in ADD COLUMN commands.  Workarounds: specify the " +
+          "column as nullable, if it's being added through the admin " +
+          "interface; it it's coming from an extended DSD, delete the " +
+          "table and force POEM to recreate it from scratch; possibly, " +
+          "upgrade to Postgres 7 beta, which may not have this problem " +
+          "and get williamc to modify POEM to exploit it appropriately.";
+    }
+  }
+
   private void dbAddColumn(Column column) {
+    // FIXME Postgresql ADD COLUMN ... NOT NULL workaround
+
+    if (!column.getType().getNullable())
+      throw new AddColumnNotNullException(column);
+
     dbModifyStructure(
         "ALTER TABLE " + quotedName +
         " ADD COLUMN " + column.quotedName() +
@@ -1721,5 +1746,8 @@ public class Table {
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
+  }
+
+  void init() {
   }
 }

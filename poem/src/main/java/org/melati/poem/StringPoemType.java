@@ -68,10 +68,12 @@ public class StringPoemType extends AtomPoemType {
 
   protected void _assertValidRaw(Object raw)
       throws ValidationPoemException {
-    if (raw != null && !(raw instanceof String))
-      throw new TypeMismatchPoemException(raw, this);
-    if (size >= 0 && ((String)raw).length() > size)
-      throw new StringLengthValidationPoemException(this, (String)raw);
+    if (raw != null) {
+      if (!(raw instanceof String))
+	throw new TypeMismatchPoemException(raw, this);
+      if (size >= 0 && ((String)raw).length() > size)
+	throw new StringLengthValidationPoemException(this, (String)raw);
+    }
   }
 
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {

@@ -54,6 +54,12 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     super(database, name);
   }
 
+  public GroupMembershipTable(Database database, String name,
+			      DefinitionSource definitionSource)
+      throws PoemException {
+    super(database, name, definitionSource);
+  }
+
   void postInitialise() {
     super.postInitialise();
 

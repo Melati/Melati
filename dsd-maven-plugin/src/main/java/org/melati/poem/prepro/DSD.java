@@ -156,10 +156,13 @@ public class DSD {
 
       w.write("package " + packageName + ";\n" +
               "\n" +
-	      "import java.util.*;\n");
+	      "import java.util.*;\n" +
+	      "import org.melati.util.*;\n");
 
       if (!packageName.equals("org.melati.poem"))
-        w.write("import org.melati.poem.*;\n\n");
+        w.write("import org.melati.poem.*;\n");
+
+      w.write("\n");
 
       proc.process(w);
     }
@@ -186,19 +189,12 @@ public class DSD {
       ((TableDef)t.nextElement()).generateTableDeclJava(w);
 
     w.write("\n" +
-            "  public " + databaseBaseClass + "() {\n" +
-            "    try {\n");
+            "  protected " + databaseBaseClass + "() {\n");
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((TableDef)t.nextElement()).generateTableDefnJava(w);
-    for (Enumeration t = tables.elements(); t.hasMoreElements();)
-      ((TableDef)t.nextElement()).generateTableInitJava(w);
 
-    w.write("    }\n" +
-            "    catch (PoemException e) {\n" +
-            "      throw new UnexpectedExceptionPoemException(e);\n" +
-            "    }\n" +
-            "  }\n");
+    w.write("  }\n");
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       w.write('\n');

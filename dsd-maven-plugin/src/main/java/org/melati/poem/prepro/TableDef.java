@@ -55,6 +55,7 @@ public class TableDef {
 
   DSD dsd;
   final String name;
+  String superclass = null;
   final String suffix;
   String displayName;
   String description;
@@ -83,6 +84,22 @@ public class TableDef {
     tableMainClass = suffix + "Table";
     tableAccessorMethod = "get" + tableMainClass;
 
+    if (tokens.nextToken() == StreamTokenizer.TT_WORD) {
+      if (!tokens.sval.equals("extends"))
+        throw new ParsingDSDException("{", tokens);
+      tokens.wordChars('.', '.');
+      try {
+        if (tokens.nextToken() != StreamTokenizer.TT_WORD)
+          throw new ParsingDSDException("<class name>", tokens);
+      }
+      finally {
+        tokens.ordinaryChar('.');
+      }
+      superclass = tokens.sval;
+    }
+    else
+      tokens.pushBack();
+
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
       TableQualifier.from(tokens).apply(this);
@@ -102,25 +119,35 @@ public class TableDef {
   }
 
   public void generateTableDefnJava(Writer w) throws IOException {
-    w.write("      defineTable(tab_" + name + " = " +
-                      "new " + tableMainClass + "(this, \"" + name + "\"));\n");
-  }
-
-  public void generateTableInitJava(Writer w) throws IOException {
-    w.write("      tab_" + name + ".init();\n");
+    w.write("    redefineTable(tab_" + name + " = " +
+	             "new " + tableMainClass + "(this, \"" + name + "\", DefinitionSource.dsd));\n");
   }
 
   public void generateTableAccessorJava(Writer w) throws IOException {
-    w.write("  public " + tableMainClass + " get" + tableMainClass + "() {\n" +
+    // FIXME hack
+    w.write("  public " + (superclass == null ? tableMainClass :
+			                        superclass + "Table") +
+                " get" + tableMainClass + "() {\n" +
             "    return tab_" + name + ";\n" +
             "  }\n");
   }
 
   public void generateBaseJava(Writer w) throws IOException {
-    w.write("public class " + baseClass + " extends Persistent {\n" +
+    w.write("public class " + baseClass + " extends " +
+                (superclass == null ? "Persistent" : superclass) + " {\n" +
             "\n");
 
-    w.write("  public " + tableMainClass + " " + tableAccessorMethod +
+    // FIXME hack
+
+    String tableRetClass =
+        superclass == null ? tableMainClass : superclass + "Table";
+
+    w.write("  public " + tableRetClass + " " + tableAccessorMethod +
+                   "() {\n" +
+            "    return (" + tableRetClass + ")getTable();\n" +
+            "  }\n\n");
+
+    w.write("  private " + tableMainClass + " _" + tableAccessorMethod +
                    "() {\n" +
             "    return (" + tableMainClass + ")getTable();\n" +
             "  }\n\n");
@@ -149,7 +176,8 @@ public class TableDef {
   }
 
   public void generateTableBaseJava(Writer w) throws IOException {
-    w.write("public class " + tableBaseClass + " extends Table {\n" +
+    w.write("public class " + tableBaseClass + " extends " +
+                (superclass == null ? "" : superclass) + "Table {\n" +
             "\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
@@ -159,12 +187,21 @@ public class TableDef {
     }
 
     w.write("\n" +
-            "  public " + tableBaseClass + "(Database database, String name)" +
+            "  public " + tableBaseClass + "(\n" +
+	    "      Database database, String name,\n" +
+	    "      DefinitionSource definitionSource)" +
                    " throws PoemException {\n" +
-            "    super(database, name, DefinitionSource.dsd);\n" +
+            "    super(database, name, definitionSource);\n" +
             "  }\n" +
             "\n" +
-            "  protected void init() throws PoemException {\n");
+            "  public " + tableBaseClass + "(\n" +
+	    "      Database database, String name)" +
+                   " throws PoemException {\n" +
+            "    this(database, name, DefinitionSource.dsd);\n" +
+            "  }\n" +
+            "\n" +
+            "  protected void init() throws PoemException {\n" +
+	    "    super.init();\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
       ((FieldDef)f.nextElement()).generateColDefinition(w);
@@ -179,14 +216,16 @@ public class TableDef {
       w.write('\n');
     }
 
-    w.write("  public " + mainClass + " get" + mainClass + "Object(" +
+    String retMainClass = superclass == null ? mainClass : superclass;
+
+    w.write("  public " + retMainClass + " get" + mainClass + "Object(" +
                   "Integer troid) {\n" +
-            "    return (" + mainClass + ")getObject(troid);\n" +
+            "    return (" + retMainClass + ")getObject(troid);\n" +
             "  }\n" +
             "\n" +
-            "  public " + mainClass + " get" + mainClass + "Object(" +
+            "  public " + retMainClass + " get" + mainClass + "Object(" +
                   "int troid) {\n" +
-            "    return (" + mainClass + ")getObject(troid);\n" +
+            "    return (" + retMainClass + ")getObject(troid);\n" +
             "  }\n" +
             "\n" +
             "  protected Persistent _newPersistent() {\n" +
@@ -239,9 +278,11 @@ public class TableDef {
     w.write("public class " + tableMainClass +
                " extends " + tableBaseClass + " {\n" +
             "\n" +
-            "  public " + tableMainClass + "(Database database, String name)" +
+            "  public " + tableMainClass + "(\n" +
+	    "    Database database, String name," +
+	    "    DefinitionSource definitionSource)" +
                    " throws PoemException {\n" +
-            "    super(database, name);\n" +
+            "    super(database, name, definitionSource);\n" +
             "  }\n" +
             "\n" +
             "  // programmer's domain-specific code here\n" +

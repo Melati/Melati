@@ -51,4 +51,8 @@ public class NullTypeMismatchPoemException extends TypeMismatchPoemException {
   public NullTypeMismatchPoemException(PoemType type) {
     super(null, type);
   }
+
+  public String getMessage() {
+    return "NULL is not an allowed value";
+  }
 }

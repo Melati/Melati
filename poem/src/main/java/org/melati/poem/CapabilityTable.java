@@ -53,8 +53,10 @@ import java.sql.*;
 
 public class CapabilityTable extends CapabilityTableBase {
 
-  public CapabilityTable(Database database, String name) throws PoemException {
-    super(database, name);
+  public CapabilityTable(Database database, String name,
+			 DefinitionSource definitionSource)
+      throws PoemException {
+    super(database, name, definitionSource);
   }
 
   private Capability administer = new Capability("_administer_");

@@ -53,6 +53,12 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
     super(database, name);
   }
 
+  public ColumnInfoTable(Database database, String name,
+			 DefinitionSource definitionSource)
+      throws PoemException {
+    super(database, name, definitionSource);
+  }
+
   void postInitialise() {
     super.postInitialise();
     if (info.getDefaultcanwrite() == null)

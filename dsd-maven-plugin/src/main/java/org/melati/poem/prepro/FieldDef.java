@@ -162,7 +162,7 @@ public abstract class FieldDef {
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public final Field get" + suffix + "Field() " +
                   "throws AccessPoemException {\n" +
-            "    return " + tableAccessorMethod + "()." +
+            "    return _" + tableAccessorMethod + "()." +
                     "get" + suffix + "Column().asField(this);\n" +
             "  }\n");
   }

@@ -53,7 +53,7 @@ public class StringLengthValidationPoemException
     super(type, value);
   }
 
-  public String toString() {
+  public String getMessage() {
     String value = (String)super.value;
     return
         "The string \"" +  (value.length() > 30 ? "<long>" : value) + "\" " +

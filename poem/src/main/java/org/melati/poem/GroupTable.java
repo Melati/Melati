@@ -56,6 +56,11 @@ public class GroupTable extends GroupTableBase {
     super(database, name);
   }
 
+  public GroupTable(Database database, String name,
+		    DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
+
   Group administratorsGroup() {
     return administratorsGroup;
   }

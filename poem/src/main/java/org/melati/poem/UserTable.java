@@ -53,14 +53,25 @@ import java.sql.*;
 
 public class UserTable extends UserTableBase {
 
-  private User guestUser =
-      new User("_guest_", "", "Melati guest user");
-
-  private User administratorUser =
-      new User("_administrator_", "FIXME", "Melati database administrator");
+  private User guestUser, administratorUser;
 
   public UserTable(Database database, String name) throws PoemException {
-    super(database, name);
+    this(database, name, DefinitionSource.dsd);
+  }
+
+  public UserTable(Database database, String name,
+		   DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+
+    guestUser = (User)newPersistent();
+    guestUser.setLogin_unsafe("_guest_");
+    guestUser.setPassword_unsafe("");
+    guestUser.setName_unsafe("Melati guest user");
+
+    administratorUser = (User)newPersistent();
+    administratorUser.setLogin_unsafe("_administrator_");
+    administratorUser.setPassword_unsafe("FIXME");
+    administratorUser.setName_unsafe("Melati database administrator");
   }
 
   User guestUser() {

@@ -52,7 +52,8 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getGroupCapabilityTable().getIdColumn());
+    Column c = _getGroupCapabilityTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getGroup_unsafe() {
@@ -89,7 +90,8 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public Field getGroupField() throws AccessPoemException {
-    return Field.of(this, _getGroupCapabilityTable().getGroupColumn());
+    Column c = _getGroupCapabilityTable().getGroupColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getCapability_unsafe() {
@@ -126,6 +128,7 @@ public class GroupCapabilityBase extends Persistent {
   }
 
   public Field getCapabilityField() throws AccessPoemException {
-    return Field.of(this, _getGroupCapabilityTable().getCapabilityColumn());
+    Column c = _getGroupCapabilityTable().getCapabilityColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

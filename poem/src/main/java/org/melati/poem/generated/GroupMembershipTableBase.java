@@ -30,7 +30,7 @@ public class GroupMembershipTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getId();

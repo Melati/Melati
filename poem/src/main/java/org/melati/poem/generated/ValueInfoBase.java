@@ -55,7 +55,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getDisplaynameField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getDisplaynameColumn());
+    Column c = _getValueInfoTable().getDisplaynameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getDescription_unsafe() {
@@ -80,7 +81,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getDescriptionField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getDescriptionColumn());
+    Column c = _getValueInfoTable().getDescriptionColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getUsereditable_unsafe() {
@@ -110,7 +112,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getUsereditableField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getUsereditableColumn());
+    Column c = _getValueInfoTable().getUsereditableColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getTypefactory_unsafe() {
@@ -147,7 +150,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getTypefactoryField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getTypefactoryColumn());
+    Column c = _getValueInfoTable().getTypefactoryColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getNullable_unsafe() {
@@ -177,7 +181,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getNullableField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getNullableColumn());
+    Column c = _getValueInfoTable().getNullableColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getSize_unsafe() {
@@ -207,7 +212,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getSizeField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getSizeColumn());
+    Column c = _getValueInfoTable().getSizeColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getWidth_unsafe() {
@@ -237,7 +243,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getWidthField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getWidthColumn());
+    Column c = _getValueInfoTable().getWidthColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getHeight_unsafe() {
@@ -267,7 +274,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getHeightField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getHeightColumn());
+    Column c = _getValueInfoTable().getHeightColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getRenderinfo_unsafe() {
@@ -292,7 +300,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getRenderinfoField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getRenderinfoColumn());
+    Column c = _getValueInfoTable().getRenderinfoColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getRangelow_string_unsafe() {
@@ -317,7 +326,8 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getRangelow_stringField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getRangelow_stringColumn());
+    Column c = _getValueInfoTable().getRangelow_stringColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getRangelimit_string_unsafe() {
@@ -342,6 +352,7 @@ public class ValueInfoBase extends Persistent {
   }
 
   public Field getRangelimit_stringField() throws AccessPoemException {
-    return Field.of(this, _getValueInfoTable().getRangelimit_stringColumn());
+    Column c = _getValueInfoTable().getRangelimit_stringColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

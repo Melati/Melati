@@ -52,7 +52,8 @@ public class SettingBase extends ValueInfo {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getSettingTable().getIdColumn());
+    Column c = _getSettingTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -77,7 +78,8 @@ public class SettingBase extends ValueInfo {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getSettingTable().getNameColumn());
+    Column c = _getSettingTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getValue_unsafe() {
@@ -102,6 +104,7 @@ public class SettingBase extends ValueInfo {
   }
 
   public Field getValueField() throws AccessPoemException {
-    return Field.of(this, _getSettingTable().getValueColumn());
+    Column c = _getSettingTable().getValueColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

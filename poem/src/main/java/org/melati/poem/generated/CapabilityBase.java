@@ -51,7 +51,8 @@ public class CapabilityBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getCapabilityTable().getIdColumn());
+    Column c = _getCapabilityTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -76,6 +77,7 @@ public class CapabilityBase extends Persistent {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getCapabilityTable().getNameColumn());
+    Column c = _getCapabilityTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

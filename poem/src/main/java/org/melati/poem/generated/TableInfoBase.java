@@ -60,7 +60,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getIdColumn());
+    Column c = _getTableInfoTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -85,7 +86,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getNameColumn());
+    Column c = _getTableInfoTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getDisplayname_unsafe() {
@@ -110,7 +112,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getDisplaynameField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getDisplaynameColumn());
+    Column c = _getTableInfoTable().getDisplaynameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getDescription_unsafe() {
@@ -135,7 +138,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getDescriptionField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getDescriptionColumn());
+    Column c = _getTableInfoTable().getDescriptionColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDisplayorder_unsafe() {
@@ -165,7 +169,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getDisplayorderField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getDisplayorderColumn());
+    Column c = _getTableInfoTable().getDisplayorderColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDefaultcanread_unsafe() {
@@ -202,7 +207,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getDefaultcanreadField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getDefaultcanreadColumn());
+    Column c = _getTableInfoTable().getDefaultcanreadColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDefaultcanwrite_unsafe() {
@@ -239,7 +245,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getDefaultcanwriteField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getDefaultcanwriteColumn());
+    Column c = _getTableInfoTable().getDefaultcanwriteColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getCancreate_unsafe() {
@@ -276,7 +283,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getCancreateField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getCancreateColumn());
+    Column c = _getTableInfoTable().getCancreateColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getCachelimit_unsafe() {
@@ -306,7 +314,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getCachelimitField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getCachelimitColumn());
+    Column c = _getTableInfoTable().getCachelimitColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getSeqcached_unsafe() {
@@ -336,7 +345,8 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getSeqcachedField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getSeqcachedColumn());
+    Column c = _getTableInfoTable().getSeqcachedColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getCategory_unsafe() {
@@ -373,6 +383,7 @@ public class TableInfoBase extends Persistent {
   }
 
   public Field getCategoryField() throws AccessPoemException {
-    return Field.of(this, _getTableInfoTable().getCategoryColumn());
+    Column c = _getTableInfoTable().getCategoryColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

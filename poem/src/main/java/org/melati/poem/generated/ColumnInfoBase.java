@@ -59,7 +59,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getIdColumn());
+    Column c = _getColumnInfoTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getTableinfo_unsafe() {
@@ -96,7 +97,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getTableinfoField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getTableinfoColumn());
+    Column c = _getColumnInfoTable().getTableinfoColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -121,7 +123,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getNameColumn());
+    Column c = _getColumnInfoTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDisplayorder_unsafe() {
@@ -151,7 +154,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getDisplayorderField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getDisplayorderColumn());
+    Column c = _getColumnInfoTable().getDisplayorderColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getUsercreateable_unsafe() {
@@ -181,7 +185,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getUsercreateableField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getUsercreateableColumn());
+    Column c = _getColumnInfoTable().getUsercreateableColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDisplaylevel_unsafe() {
@@ -218,7 +223,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getDisplaylevelField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getDisplaylevelColumn());
+    Column c = _getColumnInfoTable().getDisplaylevelColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getSearchability_unsafe() {
@@ -255,7 +261,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getSearchabilityField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getSearchabilityColumn());
+    Column c = _getColumnInfoTable().getSearchabilityColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Integer getDisplayorderpriority_unsafe() {
@@ -285,7 +292,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getDisplayorderpriorityField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getDisplayorderpriorityColumn());
+    Column c = _getColumnInfoTable().getDisplayorderpriorityColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getIndexed_unsafe() {
@@ -315,7 +323,8 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getIndexedField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getIndexedColumn());
+    Column c = _getColumnInfoTable().getIndexedColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public Boolean getUnique_unsafe() {
@@ -345,6 +354,7 @@ public class ColumnInfoBase extends ValueInfo {
   }
 
   public Field getUniqueField() throws AccessPoemException {
-    return Field.of(this, _getColumnInfoTable().getUniqueColumn());
+    Column c = _getColumnInfoTable().getUniqueColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

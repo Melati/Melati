@@ -53,7 +53,8 @@ public class UserBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getUserTable().getIdColumn());
+    Column c = _getUserTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getLogin_unsafe() {
@@ -78,7 +79,8 @@ public class UserBase extends Persistent {
   }
 
   public Field getLoginField() throws AccessPoemException {
-    return Field.of(this, _getUserTable().getLoginColumn());
+    Column c = _getUserTable().getLoginColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getPassword_unsafe() {
@@ -103,7 +105,8 @@ public class UserBase extends Persistent {
   }
 
   public Field getPasswordField() throws AccessPoemException {
-    return Field.of(this, _getUserTable().getPasswordColumn());
+    Column c = _getUserTable().getPasswordColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -128,6 +131,7 @@ public class UserBase extends Persistent {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getUserTable().getNameColumn());
+    Column c = _getUserTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

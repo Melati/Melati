@@ -51,7 +51,8 @@ public class TableCategoryBase extends Persistent {
   }
 
   public Field getIdField() throws AccessPoemException {
-    return Field.of(this, _getTableCategoryTable().getIdColumn());
+    Column c = _getTableCategoryTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
   }
 
   public String getName_unsafe() {
@@ -76,6 +77,7 @@ public class TableCategoryBase extends Persistent {
   }
 
   public Field getNameField() throws AccessPoemException {
-    return Field.of(this, _getTableCategoryTable().getNameColumn());
+    Column c = _getTableCategoryTable().getNameColumn();
+    return new Field(c.getRaw(this), c);
   }
 }

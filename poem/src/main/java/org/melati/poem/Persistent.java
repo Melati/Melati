@@ -263,10 +263,10 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   protected Capability getCanRead() {
-    Column canReadColumn = getTable().canReadColumn();
+    Column crCol = getTable().canReadColumn();
     return
-        canReadColumn == null ? null :
-            (Capability)canReadColumn.getCooked(this);
+        crCol == null ? null :
+            (Capability)crCol.getType().cookedOfRaw(crCol.getRaw_unsafe(this));
   }
 
   /**
@@ -310,7 +310,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see Table#getDefaultCanRead
    */
 
-  protected void assertCanRead(AccessToken token)
+  public void assertCanRead(AccessToken token)
       throws AccessPoemException {
     // FIXME!!!! this is wrong because token could be stale ...
     if (!(clearedToken == token && knownCanRead) && troid != null) {
@@ -362,10 +362,10 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   protected Capability getCanWrite() {
-    Column canWriteColumn = getTable().canWriteColumn();
+    Column cwCol = getTable().canWriteColumn();
     return
-        canWriteColumn == null ? null :
-            (Capability)canWriteColumn.getCooked(this);
+        cwCol == null ? null :
+            (Capability)cwCol.getType().cookedOfRaw(cwCol.getRaw_unsafe(this));
   }
 
   /**
@@ -380,7 +380,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see Table#getDefaultCanWrite
    */
 
-  protected void assertCanWrite(AccessToken token)
+  public void assertCanWrite(AccessToken token)
       throws AccessPoemException {
     // FIXME!!!! this is wrong because token could be stale ...
     if (!(clearedToken == token && knownCanWrite) && troid != null) {
@@ -398,16 +398,8 @@ public class Persistent extends Transactioned implements Cloneable {
     }
   }
 
-  void forceAccess(AccessToken accessToken) {
-    clearedToken = accessToken;
-    knownCanRead = true;
-    knownCanWrite = true;
-  }
-
-  void closeAccess() {
-    clearedToken = null;
-    knownCanRead = false;
-    knownCanWrite = false;
+  public final void assertCanWrite() throws AccessPoemException {
+    assertCanWrite(PoemThread.accessToken());
   }
 
   // 

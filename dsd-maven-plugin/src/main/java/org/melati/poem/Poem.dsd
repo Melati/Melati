@@ -53,6 +53,7 @@ table User
 
   Integer id
     (primary) 
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (displayorder = 10);
 
@@ -86,6 +87,7 @@ table Group
   (seqcached) {
 
   Integer id
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (primary);
 
@@ -104,6 +106,7 @@ table Capability
   (seqcached) {
 
   Integer id
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (primary);
 
@@ -123,6 +126,7 @@ table GroupMembership
   (description = "A record that a given user is a member of a given group") {
 
   Integer id
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (primary) ;
 
@@ -147,6 +151,7 @@ table GroupCapability
   (description = "A record that users belonging to a given group possess a given capability") {
 
   Integer id
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (primary);
 
@@ -161,18 +166,22 @@ table GroupCapability
 }
 
 table TableCategory
-    (displayorder = 3030)
-    (displayname = "Table type")
-    (description = "A category under which a table can be classified")
-    (category = "System")
-    (cachelimit = unlimited)
-    (seqcached) {
+  (displayorder = 3030)
+  (displayname = "Table type")
+  (description = "A category under which a table can be classified")
+  (category = "System")
+  (cachelimit = unlimited)
+  (seqcached) {
 
-  (primary) Integer id;
+  (primary) Integer id
+    (description = "The Table Row Object ID");
 
-  (unique) String name (size = 60)
-      (description = "A human-readable name for the category")
-      (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
+  (unique) String name 
+    (size = 60)
+    (description = "A human-readable name for the category")
+    (displayorderpriority = 0) 
+    (displaylevel = primary) 
+    (searchability = primary);
 }
 
 table TableInfo
@@ -184,6 +193,7 @@ table TableInfo
   (seqcached) {
 
   Integer id
+    (description = "The Table Row Object ID")
     (displaylevel = detail) 
     (primary);
 
@@ -263,72 +273,99 @@ table TableInfo
 }
 
 abstract table ValueInfo {
-  String displayname (size = 60)
-      (displayname = "Display name")
-      (displayorder = 100)
-      (description = "A user-friendly name for the field")
-      (displayorderpriority = 2) (displaylevel = primary);
+  String displayname
+    (size = 60)
+    (displayname = "Display name")
+    (displayorder = 100)
+    (description = "A user-friendly name for the field")
+    (displayorderpriority = 2)
+    (displaylevel = primary);
 
-  String description (size = unlimited) (nullable)
-      (description = "A brief description of the field's function")
-      (displaylevel = record) (searchability = no);
+  String description
+    (size = unlimited)
+    (nullable)
+    (description = "A brief description of the field's function")
+    (displaylevel = record)
+    (searchability = no);
 
   Boolean usereditable
-      (displayname = "User-editable")
-      (displayorder = 200)
-      (description = "Whether it makes sense for the user to update the field's value")
-      (displaylevel = detail) (searchability = no);
+    (displayname = "User-editable")
+    (displayorder = 200)
+    (description = "Whether it makes sense for the user to update the field's value")
+    (displaylevel = detail) 
+    (searchability = no);
 
   ColumnType typefactory
-      (displayname = "Type")
-      (description = "The field's Melati type")
-      (displaylevel = detail) (searchability = no) (uneditable);
+    (displayname = "Type")
+    (description = "The field's Melati type")
+    (displaylevel = detail)
+    (searchability = no)
+    (uneditable);
       // In fact this is a reference into TableInfo.id, or, 
       // if negative, the code for an atomic type.
       // see PoemTypeFactory.forCode
 
   Boolean nullable
-      (description = "Whether the field can be empty")
-      (displaylevel = detail) (searchability = no) (uneditable);
+    (description = "Whether the field can be empty")
+    (displaylevel = detail)
+    (searchability = no)
+    (uneditable);
 
   Integer size
-      (description = "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)")
-      (displaylevel = record) (searchability = no) (uneditable);
+    (description = "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)")
+    (displaylevel = record)
+    (searchability = no)
+    (uneditable);
 
   Integer width
-      (displayname = "Input-box width")
-      (description = "A sensible width for text boxes used for entering the field, where appropriate")
-      (displaylevel = record) (searchability = no);
+    (displayname = "Input-box width")
+    (description = "A sensible width for text boxes used for entering the field, where appropriate")
+    (displaylevel = record)
+    (searchability = no);
 
   Integer height
-      (displayname = "Input-box height")
-      (description = "A sensible height for text boxes used for entering the field, where appropriate")
-      (displaylevel = record) (searchability = no);
+    (displayname = "Input-box height")
+    (description = "A sensible height for text boxes used for entering the field, where appropriate")
+    (displaylevel = record)
+    (searchability = no);
 
   Integer precision 
-      (displayname = "Precision")
-      (description = "Precision (total number of digits) for fixed-point numbers")
-      (displaylevel = record) (searchability = no) (uneditable);
+    (displayname = "Precision")
+    (description = "Precision (total number of digits) for fixed-point numbers")
+    (displaylevel = record)
+    (searchability = no)
+    (uneditable);
 
   Integer scale 
-      (displayname = "Scale")
-      (description = "Scale (number of digits after the decimal) for fixed-point numbers")
-      (displaylevel = record) (searchability = no) (uneditable);
+    (displayname = "Scale")
+    (description = "Scale (number of digits after the decimal) for fixed-point numbers")
+    (displaylevel = record)
+    (searchability = no)
+    (uneditable);
 
-  String renderinfo (size = unlimited) (nullable)
-      (displayname = "Rendering information")
-      (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
-      (displaylevel = record) (searchability = no);
+  String renderinfo 
+    (size = unlimited) 
+    (nullable)
+    (displayname = "Rendering information")
+    (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
+    (displaylevel = record)
+    (searchability = no);
 
-  String rangelow_string (size = unlimited) (nullable)
-      (displayname = "Range: low")
-      (description = "The low end of the range of permissible values for the field")
-      (displaylevel = detail) (searchability = no);
+  String rangelow_string 
+    (size = unlimited) 
+    (nullable)
+    (displayname = "Range: low")
+    (description = "The low end of the range of permissible values for the field")
+    (displaylevel = detail)
+    (searchability = no);
 
-  String rangelimit_string (size = unlimited) (nullable)
-      (displayname = "Range: limit")
-      (description = "The (exclusive) limit of the range of permissible values for the field")
-      (displaylevel = detail) (searchability = no);
+  String rangelimit_string
+    (size = unlimited)
+    (nullable)
+    (displayname = "Range: limit")
+    (description = "The (exclusive) limit of the range of permissible values for the field")
+    (displaylevel = detail)
+    (searchability = no);
 }
 
 table ColumnInfo extends org.melati.poem.ValueInfo
@@ -343,37 +380,48 @@ table ColumnInfo extends org.melati.poem.ValueInfo
       (displayorder = 0);
 
   TableInfo tableinfo
-      (displayname = "Owning table")
-      (description = "The table to which the field belongs")
-      (displayorderpriority = 0) (searchability = primary)
-      (uneditable);
+    (displayname = "Owning table")
+    (description = "The table to which the field belongs")
+    (displayorderpriority = 0)
+    (searchability = primary)
+    (uneditable);
 
   (indexed) String name (size = 50)
-      (displayorder = 300)
-      (description = "A code-name for the field")
-      (uneditable) (displaylevel = record) (searchability = no);
+    (displayorder = 300)
+    (description = "A code-name for the field")
+    (uneditable) 
+    (displaylevel = record)
+    (searchability = no);
 
   Integer displayorder
-      (displayname = "Display order")
-      (description = "A rank determining where the field appears in lists")
-      (displayorderpriority = 1)
-      (displaylevel = record) (searchability = no);
+    (displayname = "Display order")
+    (description = "A rank determining where the field appears in lists")
+    (displayorderpriority = 1)
+    (displaylevel = record)
+    (searchability = no);
 
   Boolean usercreateable
-      (displayname = "User-createable")
-      (description = "Whether it makes sense for the user to initialise the field's value")
-      (displaylevel = detail) (searchability = no);
+    (displayname = "User-createable")
+    (description = "Whether it makes sense for the user to initialise the field's value")
+    (displaylevel = detail)
+    (searchability = no);
 
   DisplayLevel displaylevel
-      (displaylevel = record) (searchability = no);
+    (displayname = "Display level")
+    (description = "A category determining what granularity of report the field appears in")
+    (displaylevel = record)
+    (searchability = no);
 
   Searchability searchability
-      (displaylevel = record) (searchability = no);
+    (description = "A category determining what level of searching this field supports")
+    (displaylevel = record)
+    (searchability = no);
       
-  Integer displayorderpriority (nullable)
-      (displayname = "Display order priority")
-      (description = "If present, the level at which lists of records are sorted by the field")
-      (searchability = no);
+  Integer displayorderpriority
+    (nullable)
+    (displayname = "Display order priority")
+    (description = "If present, the level at which lists of records are sorted by the field")
+    (searchability = no);
 
   Boolean sortdescending
     (displayname = "Sort Descending?")
@@ -383,34 +431,40 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     (searchability = no);
 
   Boolean indexed
-      (description = "Whether the field is indexed (ignored if the field is marked `unique')")
-      (displaylevel = record) (searchability = no) (uneditable);
+    (description = "Whether the field is indexed (ignored if the field is marked `unique')")
+    (displaylevel = record)
+    (searchability = no)
+    (uneditable);
 
   Boolean unique
-      (description = "Whether the field is unique (implies that it's `indexed')")
-      (displaylevel = record) (searchability = no) (uneditable);
+    (description = "Whether the field is unique (implies that it's `indexed')")
+    (displaylevel = record)
+    (searchability = no)
+    (uneditable);
 
   (nullable) IntegrityFix integrityfix
-      (displayname = "Integrity fix")
-      (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
-      (displaylevel = record) (searchability = no);
+    (displayname = "Integrity fix")
+    (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
+    (displaylevel = record)
+    (searchability = no);
 }
 
 table Setting extends org.melati.poem.ValueInfo
-    (displayorder = 3040)
-    (description = "A configurable setting for the application")
-    (category = "System")
-    (cachelimit = unlimited)
-    (seqcached) {
+  (displayorder = 3040)
+  (description = "A configurable setting for the application")
+  (category = "System")
+  (cachelimit = unlimited)
+  (seqcached) {
 
   (primary) Integer id
-      (displayorder = 0);
+    (description = "The Table Row Object ID")
+    (displayorder = 0);
 
   (unique) String name (size = 200)
-      (description = "A code name for this setting")
-      (searchability = primary);
+    (description = "A code name for this setting")
+    (searchability = primary);
 
   (nullable) String value (size = unlimited)
-      (displayorder = 150)
-      (description = "The value of this setting");
+    (displayorder = 150)
+    (description = "The value of this setting");
 }

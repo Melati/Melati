@@ -7,7 +7,7 @@
 
     <target name="init">
         <property name="Name" value="melati"/>
-        <property name="version" value="0.55.3"/>
+        <property name="version" value="0.55.4"/>
         <property name="project" value="melati"/>
         <property name="compiler" value="${JAVAC}"/>
         <property name="this.root"      value="../../.."/>

@@ -85,6 +85,14 @@ public Connection getConnection(String url, String user, String password) throws
 		return connect1;
 	}
 	catch(Exception e) {}
-	return null;;
+	return null;
   }
 }
+
+
+
+
+
+
+
+

@@ -220,7 +220,7 @@ public class MySQL extends AnsiStandard {
         }
     }
 
-      public PoemType canRepresent(PoemType storage, PoemType type) {
+    public PoemType canRepresent(PoemType storage, PoemType type) {
       if (storage instanceof IntegerPoemType &&
           type instanceof BooleanPoemType) {
         return type;

@@ -54,19 +54,20 @@ import org.melati.Melati;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.JSDynamicTree;
+import org.melati.util.JSStaticTree;
 import org.melati.poem.Persistent;
 import org.melati.poem.Field;
 import org.melati.poem.AccessPoemException;
 
 /**
- * MarkupLanguage provise a variety of menthods for rendering objects in a
+ * MarkupLanguage provise a variety of methods for rendering objects in a
  * template.  Each object to be rendered has 3 methods:
  *
  * 1 - String rendered(Object o) - this will render the object to a string
  * 2 - void render(Object o) - renders the object to melati.getWriter()
  * 3 - void render(Object o, MelatiWriter w) - render the object to w.
  *
- * For maximum effieiency, render the object direct to the output stream using
+ * For maximum efficiency, render the object direct to the output stream using
  * method (2) above.  However, WebMacro throws errors on calls to void methods,
  * so we use (1) when writing Webmacro templates (for the time being)
  */
@@ -265,6 +266,8 @@ public abstract class MarkupLanguage {
       throws TemplateEngineException, IOException {
     if (o instanceof JSDynamicTree)
       render((JSDynamicTree)o, writer);
+    else if (o instanceof JSStaticTree)
+      render((JSStaticTree)o, writer);
     else if (o instanceof Persistent) 
       render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
     else if (o instanceof Throwable) 
@@ -290,6 +293,13 @@ public abstract class MarkupLanguage {
     return sw.asString();
   }
 
+  public String rendered(JSStaticTree tree)
+      throws TemplateEngineException, IOException {
+    MelatiWriter sw = getStringWriter();
+    render(tree,sw);
+    return sw.asString();
+  }
+
   /**
    * Render an Tree Object in a MarkupLanguage specific way, rendering to
    * melati.getWriter()
@@ -305,9 +315,14 @@ public abstract class MarkupLanguage {
     render(tree, melati.getWriter());
   }
 
+  public void render(JSStaticTree tree)
+      throws TemplateEngineException, IOException {
+    render(tree, melati.getWriter());
+  }
+
   /**
    * Render an Tree Object in a MarkupLanguage specific way, rendering to
-   * a suplier Wrtier
+   * a suplied Writer
    *
    * @param tree - the Tree to be rendered
    * @param writer - the MelatiWriter to render this Object to
@@ -323,6 +338,23 @@ public abstract class MarkupLanguage {
     vars.put("tree",tree);
     vars.put("melati", melati);
     String templetName = "org.melati.util.JSDynamicTree";
+    try {
+      expandedTemplet(
+          templetLoader.templet(melati.getTemplateEngine(), this, templetName),
+          vars, writer);
+    }
+    catch (NotFoundException e) {
+      throw new TemplateEngineException(e);
+    }
+  }
+
+  public void render(JSStaticTree tree, MelatiWriter writer)
+      throws TemplateEngineException, IOException {
+    TemplateContext vars =
+        melati.getTemplateEngine().getTemplateContext(melati);
+    vars.put("tree",tree);
+    vars.put("melati", melati);
+    String templetName = "org.melati.util.JSStaticTree";
     try {
       expandedTemplet(
           templetLoader.templet(melati.getTemplateEngine(), this, templetName),

@@ -1,0 +1,14 @@
+##    if (this.selected) {
+##      str += " checked";
+##    }
+##    str += ">";
+##    if (this.chosen)
+##      str += "<B>";
+##    str += "<FONT size=3>"+this.data+"</FONT>";
+##    if (this.chosen)
+##      str += "</B>";
+##  
+" #if($node.Data.Class.Name=="org.paneris.fleetnet.Vehicle")<input type=checkbox name=check$(node.UniqueName) onclick='parent.treecontrol.selectThis(parent.treecontrol.getIndex(\\"$(node.UniqueName)\\")); return parent.treecontrol.clickLeaf($node.Data.Troid);'>#end<font face='Arial, Helvetica' size=1> $(node.Data.Name) #if($node.Data.Class.Name=="org.paneris.fleetnet.Vehicle") ($(node.Data.Troid))#end</font>"
+## The frame name treecontrol is determined in 
+## <templatepath>template/webmacro/templets/html/org.melati.util.JSStaticTree.wm
+

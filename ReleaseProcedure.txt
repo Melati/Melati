@@ -67,8 +67,10 @@ to create a release:
 3.  Change Last Updated and Updated By and add a new paragraph to 
     melati/RELEASE-NOTES.html
 4.  Add a paragraph about this release to melati/site/docsrc/Releases.ahtml
+    Update melati/site/docsrc/Download.ahtml
     Review melati/site/docsrc/Roadmap.ahtml
 5.  CVS commit all of the above
+    except project.xml
 6.  CVS tag this release (cvs tag Melati-0-7-3)
 7.  Build melati (again) locally
     cd build
@@ -77,8 +79,9 @@ to create a release:
     maven clean
     maven site
 8.  Test everything
-9.  Update ganesh
-    cd /inst/melati
+9.  Commit project.xml to initiate a maven build on the server
+    Update rama
+    cd /dist/melati
     cvs update
     cd build 
     ant build
@@ -88,7 +91,6 @@ to create a release:
     cd /dist/melati
     maven site
     maven dist
-
 12. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,

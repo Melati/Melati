@@ -6,7 +6,7 @@
 <blockquote> 
   <h1 align="center">The Melati Project</h1>
   <h3 align="center"> Release 0.53 </h3>
-  <h4 align="center"> last updated 06/02/2001 - tim@hoop.co.uk</h4>
+  <h4 align="center"> last updated 13/02/2001 - tim@hoop.co.uk</h4>
   <!-- -----------------------------------------------------
         This document is fairly readable as text, but looks 
         real ugly. It'll be more fun reading it in a browser.
@@ -57,6 +57,7 @@
     following improvements over Alpha versions of Melati:</p>
   <ul>
     <li>Support for Webmacro 0.94</li>
+    <li>cascading deletion in POEM</li>
     <li>Cleaner servlet API</li>
     <li>File upload</li>
     <li>Melati Test suite</li>
@@ -76,6 +77,8 @@
   <h3>To upgrade from Melati 0.52.1 to Melati 0.53</h3>
   <ul>
     <li>you must install version 0.94 (at least) of webmacro</li>
+    <li> if your code overrides `Persistent.deleteAndCommit(), please read the 
+      <a href="RELEASE-NOTES.html">Release Notes</a>.</li>
   </ul>
   <h3>&nbsp;</h3>
   <h3>To upgrade from Melati 0.52 to Melati 0.52.1</h3>
@@ -251,9 +254,9 @@
           <li>Unix users type: 
             <ul>
               <li><tt>cd /usr/local/</tt></li>
-              <li> <tt>tar -xzf melati_0.52.1.tar.gz</tt></li>
-              <li>for convenience, create a soft link: <tt>ln -s melati_0.52.1 
-                melati </tt></li>
+              <li> <tt>tar -xzf melati_0.53.tar.gz</tt></li>
+              <li>for convenience, create a soft link: <tt>ln -s melati_0.53 melati 
+                </tt></li>
             </ul>
           </li>
           <li>Windows users should use WinZip</li>

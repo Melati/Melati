@@ -6,41 +6,154 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 06/02/2001 - tim@hoop.co.uk</h4>
+  <h4 align="center">last updated 13/02/2001 - tim@hoop.co.uk</h4>
   <h2>Release 0.53</h2>
-  <h4>06/02/2001 </h4>
+  <h4>13/02/2001 </h4>
   <p>0.53 introduces the following changes.</p>
   <ul>
     <li>support for Webmacro 0.94. Previous versions of webmacro are no longer 
       supported. </li>
-    <li>better file uploading (streaming to file, preventing &quot;out of memory&quot; 
+    <li>improved file uploading (streaming to file, preventing &quot;out of memory&quot; 
       errors). </li>
+    <li>cascading deletion in POEM</li>
   </ul>
+  <p>&nbsp;</p>
+  <h3>Webmacro 0.94</h3>
   <p> Webmacro 0.94 uses a FastWriter which writes to the underlying OutputStream. 
     It no longer uses a PrintWriter. So; Melati now has the following new classes: 
   </p>
-  <p><tt>interface MelatiWriter</tt> - for classes writing direct to the Servlet 
-    (or another) OutputStream / Writer<br>
-    <tt>interface MelatiStringWriter</tt> - for writing to a String </p>
-  <p><tt>class SimpleMelatiWriter</tt> - writes to a given Writer<br>
-    <tt>class BufferedMelatiWriter</tt> 
-    - writes to a given Writer (with buffering) <br>
-    <tt>class SimpleStringMelatiWriter </tt>- to get Melati output as a string 
-  </p>
-  <p>for using melati with webmacro: <br>
-    <tt>class FastMelatiWriter</tt> - writes to a FastWriter (with full buffering) 
-    <br>
-    <tt>class FastStringMelatiWriter</tt> - writes to a FastWriter (output available 
-    as a String) </p>
+  <p> <tt>abstract class MelatiWriter </tt>- for classes writing direct to the 
+    Servlet (or another) OutputStream / Writer</p>
+  <p><tt> class MelatiStringWriter extends MelatiWriter </tt>- for writing to 
+    a String <tt><br>
+    class MelatiSimpleWriter extends MelatiWriter </tt>- writes to a given Writer<tt><br>
+    class MelatiBufferedWriter extends MelatiWriter </tt>- writes to a given Writer 
+    (with buffering) </p>
+  <p><tt><br>
+    </tt>for using melati with webmacro: <tt><br>
+    class MelatiFastWriter extends MelatiWriter </tt>- writes to a FastWriter 
+    <tt><br>
+    class MelatiBufferedFastWriter extends MelatiFastWriter</tt> - writes to a 
+    FastWriter (with full buffering, output also available as a String) </p>
   <p><tt>melati.getWriter()</tt> will ask your template engine (if you have one) 
     for an appropiate writer, otherwise it will give you a<tt> SimpleMelatiWriter</tt> 
     or a <tt>BufferedMelatiWriter</tt> depending on if you have got buffering 
-    on or off. It will also start a <tt>Flusher</tt> if appropiate. </p>
+    on or off. <tt>MelatiWriter</tt> will also start a <tt>Flusher</tt> if appropiate. 
+  </p>
   <p>The only API change you need to be aware of is the alternate constructor 
     for melati (for use in 'stand alone' mode) is now: </p>
   <p><tt>public Melati(MelatiConfig config, MelatiWriter writer) </tt></p>
   <p>If melati can't get an encoding from <tt>response.getCharacterEncoding()</tt>, 
     it uses the default "UFT8". </p>
+  <p>&nbsp;</p>
+  <h3>Improved Uploading</h3>
+  <p>Access properties of an uploaded file (or "normal" form fields) through MultipartFormField. 
+    Some of these properties are supplied by FormDataAdaptors which save each 
+    field somehow (e.g. to memory or to a file). </p>
+  <p>You can handle uploaded files how you want by supplying a FormDataAdaptorFactory 
+    to MultipartDataDecoder. If you are using TemplateServlet then this is done 
+    automatically for you: It uses the FormDataAdaptorFactory set in the MelatiConfig 
+    (which can be set in org.melati.MelatiServlet.properties). You can override 
+    the default in your TemplateServlet by doing something like: </p>
+  <pre> protected MelatiConfig melatiConfig() throws MelatiException { 
+     MelatiConfig config = super.melatiConfig(); 
+     DefaultFileDataAdaptorFactory factory = new DefaultFileDataAdaptorFactory();      
+     factory.setUploadDir("/tmp"); 
+     config.setFormDataAdaptorFactory(factory); 
+     return config; 
+ } </pre>
+  <p>For an example of how to parse an uploaded file manually, see org.melati.test.ConfigServletTest. 
+    org.melati.test.TemplateServletTestWM also allows you to upload files. </p>
+  <p>If you are using UploadURLPoemType.wm for the renderinfo for a field (so 
+    you can upload files in Admin) then you need to make sure your FormDataAdaptorFactory 
+    implements getURL (e.g. use PoemFileDataAdaptorFactory) </p>
+  <p>In summary, then, the important classes (in org.melati.servlet) are: </p>
+  <p><tt>MultipartDataDecoder</tt> - parses a Multipart form into<br>
+    <tt>MultipartFormField </tt><br>
+    <tt>MultipartFormField</tt> - allows access to properties of uploaded fields 
+    (normal form fields and uploaded files) </p>
+  <p><tt>FormDataAdaptor</tt> - tell us how "save" an uploaded field: <br>
+    <tt>MemoryDataAdaptor</tt> - save the data in a byte array in memory <br>
+    <tt>TemporyFileDataAdaptor</tt> - save the data to a temporary file <br>
+    <tt>DefaultFileDataAdaptor</tt> - save the data in a (unique) file in the 
+    given directory </p>
+  <p><tt>FormDataAdaptorFactory</tt> - allows us to implement a policy for saving 
+    uploaded files (not normal form fields)<br>
+    <tt>MemoryDataAdaptorFactory</tt> - save all files in memory <br>
+    <tt>TemporyFileDataAdaptorFactory</tt> - save all files to a temporary file 
+    on disk <br>
+    <tt>DefaultFileDataAdaptorFactory</tt> - save all files in a (unique) file 
+    in the given directory <br>
+    <tt>PoemFileDataAdaptorFactory</tt> - save all files to in a directory specified 
+    in the database's setting table </p>
+  <p>&nbsp;</p>
+  <h3>Cascading Deletion in POEM</h3>
+  <p> 0.53 has the following improvements to Melati's object deletion mechanism: 
+  </p>
+  <ul>
+    <li> Facility for deleting referring objects, or NULLing out referring links, 
+      rather than aborting the delete in order to maintain referential integrity. 
+    </li>
+    <li>Intra-transation delete (which can be rolled back): handier than deleteAndCommit.</li>
+  </ul>
+  <h4> <b>Action required/risk analysis </b></h4>
+  <p>These changes have only been lightly tested, so administrators are advised 
+    to try the updated system out before deploying it. </p>
+  <p>In principle, no action is required unless you are a programmer and your 
+    code overrides `Persistent.deleteAndCommit()'. In that case you should change 
+    it to override the new `Persistent.delete(java.util.Map)' instead. </p>
+  <p>If you wish to use `Persistent.delete()' in your code in future, you should 
+    recreate the generated/*.java files from your application's DSD and recompile. 
+    Otherwise there is an unlocked race condition which might cause loss of referential 
+    integrity. Existing code which only calls `Persistent.deleteAndCommit()', 
+    and does not override it, does not need to be recompiled. </p>
+  <p>A new field is introduced into the `columninfo' table, but POEM's unification 
+    mechanism will handle that automatically. (The field is nullable, so does 
+    not need initialising.) </p>
+  <p>Adding support for the intra-transaction delete method involved introducing 
+    additional record locking in the case that a POEM thread creates a link to 
+    an object but does not examine its contents. Previously this would not read-lock 
+    the object; now it does. This is most unlikely to cause problems.</p>
+  <h4>Detailed description </h4>
+  <p> Flexible integrity fixes </p>
+  <p>Previously, if there were objects in the database containing references to 
+    the object to be deleted, the deletion would simply fail. That is still the 
+    default, but two alternative behaviours are now also available: NULL out the 
+    offending links, or delete the linking objects too. The policy followed is 
+    configurable for each referring column in the database, so that ephemeral 
+    records associated with a master object can be set selectively to auto-delete 
+    rather than inappropriately obstruct deletion of the parent. </p>
+  <p>To make a link delete its source when its target is deleted o in the DSD: 
+  </p>
+  <ul>
+    <li>use "(integrityfix = delete)". For instance,<br>
+      <tt>table BookStocking (description = "A record that a bookshop stocks a 
+      book") {<br>
+      (primary) Integer id; Bookshop shop (description = "The bookshop"); <br>
+      Book book (description = "The stocked book") (integrityfix = delete); ... 
+      <br>
+      } </tt><br>
+      The BookStocking record will be removed transparently if its `book' is deleted, 
+      but will (defaulting to the standard behaviour) prevent deletion of its 
+      `shop'. </li>
+    <li> via the admin system: find the column in the `Column' metadata table, 
+      and set its `Integrity fix' field to `delete' </li>
+    <li> via POEM directly: column.setIntegrityFix(StandardIntegrityFix.delete); 
+    </li>
+  </ul>
+  <p>To make the link instead NULL itself out, use `clear' rather than `delete'. 
+  </p>
+  <p>Applications programmers are also able to override these settings for each 
+    individual delete operation, by passing an optional argument to the `Persistent.delete' 
+    method. </p>
+  <h4> Cancellable intra-transaction deletes </h4>
+  <p>The new `Persistent.delete' method differs from the existing `Persistent.deleteAndCommit' 
+    in that (a) it does not wait for exclusive access to the database before attempting 
+    to delete the object, and (b) it does not perform a `commit' (`rollback') 
+    immediately upon (un)successful completion. This means that it can be rolled 
+    back later if necessary, and makes it more like the normal get/set/create 
+    operations. Both methods will remain for now, and both support the new, more 
+    flexible integrity maintenance scheme. </p>
   <p>&nbsp;</p>
   <h2>Release 0.52.1</h2>
   <h4>21//01/2001 </h4>

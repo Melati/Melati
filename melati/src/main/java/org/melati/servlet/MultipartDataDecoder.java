@@ -119,7 +119,7 @@ public class MultipartDataDecoder {
     throws IOException {
         int i = 0, index = 0, prev_index = 0;
         Hashtable fields = new Hashtable();
-        Field field;
+        FormField field;
         //start parsing data
         while((index = indexOf(data, boundary.getBytes(), index)) != -1) {
             if(i!=0) {
@@ -138,12 +138,12 @@ public class MultipartDataDecoder {
         return fields;
     }
     
-    private Field getField(byte[] data, int startIndex, int endIndex) 
+    private FormField getField(byte[] data, int startIndex, int endIndex) 
     throws IOException {
         // header separated from content by this codes
         // {13,10,13,10}
         byte[] ch = {13,10,13,10};
-        Field field = new Field();
+        FormField field = new FormField();
         String header;
         //parsing header
         int index = indexOf(data, ch, startIndex);

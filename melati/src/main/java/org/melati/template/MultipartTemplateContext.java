@@ -92,14 +92,14 @@ public class MultipartTemplateContext implements TemplateContext
   }
 
   public String getForm(String s) {
-    Field field = (Field)fields.get(s);
+    FormField field = (FormField)fields.get(s);
     if (field == null)
       return peer.getForm(s);
     return new String(field.getData());
   }
 
   public FormFile getFormFile(String s) {
-    return new UploadFormFile((Field)fields.get(s), melati);
+    return new UploadFormFile((FormField)fields.get(s), melati);
   }
 
   public Object get(Object o) {

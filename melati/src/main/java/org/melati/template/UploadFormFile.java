@@ -58,10 +58,10 @@ import org.melati.util.*;
 public class UploadFormFile extends FormFile
 {
 
-  Field field = null;
+  FormField field = null;
   Melati melati = null;
 
-  public UploadFormFile(Field field, Melati melati) {
+  public UploadFormFile(FormField field, Melati melati) {
     this.field = field;
     this.melati = melati;
   }

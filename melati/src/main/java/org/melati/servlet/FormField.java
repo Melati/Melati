@@ -55,15 +55,15 @@ for uploading files multipart/from-data
 http://www.ietf.org/rfc/rfc1867.txt
 tested on IE 5.0, HotJava 3.0, Netscape Navigator 4.x
 */
-public class Field
+public class FormField
 {
 	private String contentDisposition="", fieldName="", fileName="", contentType="";
 	private byte[] data=null;
 	
-	public Field() {
+	public FormField() {
 	}
 	
-	public Field(String contentDisposition, String fieldName, String fileName,
+	public FormField(String contentDisposition, String fieldName, String fileName,
 				 String contentType, byte[] data) {
 		this.contentDisposition=contentDisposition;
 		this.fieldName=fieldName;

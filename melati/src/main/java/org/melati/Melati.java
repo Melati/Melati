@@ -246,16 +246,14 @@ public class Melati {
         column.setRaw(object, adaptor.rawFrom(context, formFieldName));
 	  } else {
         if (rawString != null) {
-	      if (rawString.equals("")) {
-            if (column.getType().getNullable()) {
+          if (rawString.equals("")) {
+            if (column.getType().getNullable())
               column.setRaw(object, null);
-            } else {
+            else
               column.setRawString(object, "");
-		    }
-		  
-		  } else {
-            column.setRawString(object, rawString);
           }
+          else
+            column.setRawString(object, rawString);
         }
       }
     }

@@ -186,7 +186,7 @@ import org.melati.util.MelatiWriter;
  * session, and redirects to the <TT>Login</TT> servlet to throw up
  * templated login screens.  If instead you specify
  * <TT>HttpBasicAuthenticationAccessHandler</TT>, the user id is maintained
- * using HTTP Basic Authentication (RFC2068 §11.1, the mechanism commonly
+ * using HTTP Basic Authentication (RFC2068 ï¿½11.1, the mechanism commonly
  * used to password-protect static pages), and the task of popping up login
  * dialogs is delegated to the browser.  The advantage of the former method
  * is that the user gets a more informative interface which is more under the

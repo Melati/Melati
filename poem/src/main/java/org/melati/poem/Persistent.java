@@ -906,7 +906,11 @@ public class Persistent extends Transactioned implements Cloneable {
     assertNormalPersistent();
 
     Persistent it = (Persistent)clone();
-    getTable().create(it);
+//
+//  we can't write this object yet as we need to populate it with new info, otherwise
+//  when we write it is likely cause problems with unique indexes.  so you need to call
+//  getTable().create(it) yourself
+//  getTable().create(it);
     return it;
   }
 

@@ -474,8 +474,10 @@ public class Admin extends MelatiServlet {
      // update comes in from Edit.wm, because it will be identified from
      // the path info!
      
-     melati.getObject().duplicated();
-     context.put("object", melati.getObject());
+     Persistent dup = melati.getObject().duplicated();
+     Melati.extractFields(context, dup);
+     dup.getTable().create(dup);
+     context.put("object", dup);
      return adminTemplate(context, "Update.wm");
    }
 

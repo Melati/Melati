@@ -19,11 +19,4 @@ public abstract class FloatingVersionedObject extends AbstractVersionedObject {
    */
 
   public void delete(Session session) {}
-
-  /**
-   * Dummy method to satisfy <TT>CacheNode</TT> (want multiple inheritance
-   * really).
-   */
-
-  public void writeDown(Session session, Version version) {}
 }

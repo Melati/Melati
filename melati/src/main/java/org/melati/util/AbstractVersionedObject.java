@@ -60,7 +60,7 @@ public abstract class AbstractVersionedObject
   }
 
   protected int seenMask() {
-    return seenMask();
+    return seenMask;
   }
 
   /**
@@ -100,6 +100,7 @@ public abstract class AbstractVersionedObject
   // must be called `synchronized(this)'
 
   private void setCommittedVersion(Version toCommit) {
+
     // Give any sessions that need it the old committed version to see
     // again in future, even if it's `unknown' or `nonexistent'.
 
@@ -136,8 +137,20 @@ public abstract class AbstractVersionedObject
     }
   }
 
+  protected abstract boolean upToDate(Session session, Version version);
+
   protected abstract Version backingVersion(Session session);
+
   protected abstract int sessionsMax();
+
+  protected synchronized Version touchedVersion(Session session) {
+    if ((touchedMask & session.mask()) == 0)
+      return null;
+    else {
+      Version version = versions[session.index()];
+      return version == unknown ? null : version;
+    }
+  }
 
   /**
    * Retrieve a session's version for read access.
@@ -157,13 +170,13 @@ public abstract class AbstractVersionedObject
 
     if (session != null && versions != null) {
       Version version = versions[session.index()];
-      if (version == unknown)
-        return versions[session.index()] = backingVersion(session);
-      else if (version != null)
-        return version;
+      if (version != null)
+	return version == unknown || !upToDate(session, version) ?
+		 versions[session.index()] = backingVersion(session) :
+		 version;
     }
 
-    if (committedVersion == unknown)
+    if (committedVersion == unknown || !upToDate(null, committedVersion))
       committedVersion = backingVersion(null);
 
     if (session != null)
@@ -192,13 +205,32 @@ public abstract class AbstractVersionedObject
 
     Version version = versionForReading(session);
 
-    if ((touchedMask & session.mask()) == 0) {
-      if (versions == null)
-        versions = new Version[sessionsMax()];
-      version = versions[session.index()] = (Version)version.clone();
+    if (session == null) {
+      // Someone wants to change the committed version.  (This is supposed to
+      // be relatively rare.)  We have to ensure it's not aliased.
 
-      notifyTouched(session);
+      if (versions != null && (seenMask & ~touchedMask) != 0) {
+	Version oldCommittedVersion = null;
+
+	for (int s = 0; s < versions.length; ++s)
+	  if (versions[s] == version) {
+	    if (oldCommittedVersion == null)
+	      oldCommittedVersion = (Version)version.clone();
+	    versions[s] = oldCommittedVersion;
+	  }
+      }
     }
+    else 
+      // They want to change an uncommitted version.  If necessary, unalias it
+      // and mark it touched in the session.
+
+      if ((touchedMask & session.mask()) == 0) {
+	if (versions == null)
+	  versions = new Version[sessionsMax()];
+	version = versions[session.index()] = (Version)version.clone();
+
+	notifyTouched(session);
+      }
 
     return version;
   }
@@ -217,22 +249,14 @@ public abstract class AbstractVersionedObject
       versions[session.index()] = null;
   }
 
-  protected abstract void writeDown(Session session, Version version);
-
   /**
-   * Write a version down into the backing store.
+   * Write a version down into the backing store.  In the base implementation
+   * this is a no-op.  (Which is FIXME perhaps a bit ugly.)
+   *
+   * @see org.melati.poem.CachedVersionedRow#writeDown(org.melati.util.Session)
    */
 
   public void writeDown(Session session) {
-    Version version = null;
-
-    synchronized (this) {
-      if ((touchedMask & session.mask()) != 0)
-        version = versions[session.index()];
-    }
-
-    if (version != null && version != unknown)
-      writeDown(session, version);
   }
 
   /**

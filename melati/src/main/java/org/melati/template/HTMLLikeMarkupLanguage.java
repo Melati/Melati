@@ -46,7 +46,6 @@
 package org.melati.template;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 
 import org.melati.Melati;
@@ -54,6 +53,7 @@ import org.melati.poem.Persistent;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.HTMLUtils;
+import org.melati.util.UTF8URLEncoder;
 
 /**
  * A Markup language with syntax similar to HTML.
@@ -91,7 +91,7 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
   }
 
   public String encoded(String s) {
-    return URLEncoder.encode(s);
+    return UTF8URLEncoder.encode(s);
   }
 }
 

@@ -46,7 +46,7 @@
 package org.melati.servlet;
 
 import java.io.File;
-import java.net.URLEncoder;
+import org.melati.util.UTF8URLEncoder;
 import org.melati.util.FileUtils;
 
 /**
@@ -94,7 +94,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
 
   protected File calculateLocalFile() {
     File f = new File(uploadDir,
-                      URLEncoder.encode(field.getUploadedFileName()));
+                      UTF8URLEncoder.encode(field.getUploadedFileName()));
     return makeUnique ? FileUtils.withUniqueName(f) : f;
   }
 

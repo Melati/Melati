@@ -73,6 +73,7 @@ import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiBufferedWriter;
+import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 /**
  * This is the main entry point for using Melati.
@@ -87,7 +88,7 @@ import org.melati.util.MelatiBufferedWriter;
  * Melati is typically used with Servlets, POEM (Persistent Object Engine for
  * Melati) and a Template Engine
  *
- * @see org.melati.MelaitConfig
+ * @see org.melati.MelatiConfig
  * @see org.melati.servlet.ConfigServlet
  * @see org.melati.servlet.PoemServlet
  * @see org.melati.servlet.TemplateServlet
@@ -355,9 +356,11 @@ public class Melati {
    */
 
   public AdminUtils getAdminUtils() {
-    return new AdminUtils(getRequest().getServletPath(),
-    config.getStaticURL() + "/admin",
-    context.logicalDatabase);
+    return new AdminUtils(
+        HttpServletRequestCompat.getContextPath(getRequest()) +
+            getRequest().getServletPath(),
+        config.getStaticURL() + "/admin",
+        context.logicalDatabase);
   }
 
   /**

@@ -126,7 +126,7 @@ public class PropertiesUtils {
   public static Object instanceOfNamedClass(
       Properties properties, String propertyName, Class base, Class defaulT)
          throws InstantiationPropertyException {
-    String className = (String)properties.get(propertyName);
+      String className =  (String)properties.get(propertyName);
     if (className == null)
       try {
 	return defaulT.newInstance();

@@ -48,12 +48,19 @@
  */
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+//import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Types;
 
+import org.melati.poem.Column;
+import org.melati.poem.DatePoemType;
+import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.TimestampPoemType;
+
 
 /**
  * A Driver for the Microsoft SQL server.
@@ -90,12 +97,19 @@ public class SQLServer extends AnsiStandard {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
     }
+    if (sqlTypeName.equals("DATE")) {
+      return ("DATETIME");
+    }
+    if (sqlTypeName.equals("TIMESTAMP")) {
+      return ("DATETIME");
+    }
     return super.getSqlDefinition(sqlTypeName);
   }
 
   public String getStringSqlDefinition(int size) throws SQLException {
-    if (size < 0) { 
-      return "TEXT";
+    if (size < 0) { // Don't use TEXT as it doesn't support 
+                      //indexing or comparison
+      return "VARCHAR(255)";
     }
     return super.getStringSqlDefinition(size);
   }
@@ -110,28 +124,100 @@ public class SQLServer extends AnsiStandard {
       super(nullable, size);
     }
 
-    //_assertValidRow(Object) is defined OK in StringPoemType
-
-    //MSSQL returns metadata info size 2147483647 for TEXT type
+    // MSSQL returns metadata info size 2147483647 for its TEXT type
+    // We set size to 255 for our Text type
     protected boolean _canRepresent(SQLPoemType other) {
       return
         other instanceof StringPoemType &&
-              (getSize() < 0 || getSize() == 2147483647 ||
-               getSize() >= ((StringPoemType)other).getSize() );
+              (getSize() < 0 || 
+               getSize() == 2147483647 ||
+               getSize() == 255 || // HACK
+               getSize() >= ((StringPoemType)other).getSize());
+    }
+
+    public PoemType canRepresent(PoemType other) {
+      return other instanceof StringPoemType &&
+             _canRepresent((StringPoemType)other) &&
+             !(!getNullable() && ((StringPoemType)other).getNullable()) ?
+               other : null;
     }
 
   }
 
+ /**
+  * Translates a MSSQL Date into a Poem <code>DatePoemType</code>.
+  */ 
+  public static class MSSQLDatePoemType extends DatePoemType {
+
+    public MSSQLDatePoemType(boolean nullable) {
+      super(Types.DATE, "DATETIME", nullable);
+    }
+
+  }
+
+ /**
+  * Translates a MSSQL Date into a Poem <code>TimestampPoemType</code>.
+  */ 
+  public static class MSSQLTimestampPoemType extends TimestampPoemType {
+
+    public MSSQLTimestampPoemType(boolean nullable) {
+      super(Types.TIMESTAMP, "DATETIME", nullable);
+    }
+
+  }
+
+
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
 
-    if( md.getString("TYPE_NAME").equals("text"))
+      /*
+    ResultSetMetaData rsmd = md.getMetaData();
+    int cols = rsmd.getColumnCount();
+    for (int i = 1; i <= cols; i++) {
+      String table = rsmd.getTableName(i);
+      System.err.println("table name: " + table);
+      String column = rsmd.getColumnName(i);
+      System.err.println("column name: " + column);
+      int type = rsmd.getColumnType(i);
+      System.err.println("type: " + type);
+      String typeName = rsmd.getColumnTypeName(i);
+      System.err.println("type Name: " + typeName);
+      String className = rsmd.getColumnClassName(i);
+      System.err.println("class Name: " + className);
+      System.err.println("String val: " + md.getString(i));
+      System.err.println("");
+    }
+      */
+    if(md.getString("TYPE_NAME").equals("text"))
       return 
           new MSSQLStringPoemType(md.getInt("NULLABLE")==
                                       DatabaseMetaData.columnNullable, 
                                   md.getInt("COLUMN_SIZE"));
-      else
-        return super.defaultPoemTypeOfColumnMetaData(md);
+    // We use 255 as a magic number for text fields    
+    if(md.getString("TYPE_NAME").equals("varchar") && 
+        md.getInt("COLUMN_SIZE") == 255)
+      return 
+          new MSSQLStringPoemType(
+                  md.getInt("NULLABLE")== DatabaseMetaData.columnNullable, 
+                  md.getInt("COLUMN_SIZE"));
+    if(md.getString("TYPE_NAME").equals("char"))
+      return 
+          new StringPoemType(
+                  md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
+                  md.getInt("COLUMN_SIZE"));
+    if(md.getString("TYPE_NAME").equals("datetime"))
+      return 
+          new MSSQLDatePoemType(
+                  md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
+    /*
+    // MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP)
+    They don't mean what we mean by timestamp
+    if( md.getString("TYPE_NAME").equals("timestamp"))
+      return 
+          new TimestampPoemType(md.getInt("NULLABLE")==
+                                  DatabaseMetaData.columnNullable);
+    */
+    return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
  /**  
@@ -145,6 +231,24 @@ public class SQLServer extends AnsiStandard {
     if(name.equalsIgnoreCase("dtproperties")) return null;
     return name;
   }
+
+ /**
+  * MSSQL cannot index TEXT fields.
+  * Probably means that if you are serious about using MSSQL 
+  * you should use a varchar.
+  * 
+  * If a field is defined as Text in the DSD we use VARCHAR(255).
+  * Not sure what happens if a legacy db really uses TEXT.
+  *
+  * @return whether it is allowed.
+  */
+  public boolean canBeIndexed(Column column) {
+    PoemType t = column.getType();
+    if (t instanceof StringPoemType && 
+        ((StringPoemType)t).getSize() < 0) return false;
+    return true;
+   }
+
 }
 
 

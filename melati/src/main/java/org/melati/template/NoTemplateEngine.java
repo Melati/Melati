@@ -48,6 +48,7 @@ package org.melati.template;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletConfig;
 
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
@@ -73,7 +74,7 @@ public class NoTemplateEngine implements TemplateEngine {
    * Inititialise the Engine
    */
 
-  public void init() throws TemplateEngineException {
+  public void init(ServletConfig config) throws TemplateEngineException {
     // we don't throw an exception here as it gets hidden away, rather
     // it is better to wait until expandTemplate or getParameters, as
     // that produces a nice

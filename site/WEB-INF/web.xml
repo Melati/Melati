@@ -29,8 +29,8 @@
   </servlet>
   
   <servlet>
-    <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
-    <servlet-class>org.melati.poem.SessionAnalysisServlet</servlet-class>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <servlet-class>org.melati.test.SessionAnalysisServlet</servlet-class>
   </servlet>
   
   <servlet>
@@ -136,12 +136,12 @@
   </servlet-mapping>
   
   <servlet-mapping>
-    <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
-    <url-pattern>/org.melati.poem.SessionAnalysisServlet/*</url-pattern>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/org.melati.test.SessionAnalysisServlet/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
-    <url-pattern>/melati/org.melati.poem.SessionAnalysisServlet/*</url-pattern>
+    <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/melati/org.melati.test.SessionAnalysisServlet/*</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

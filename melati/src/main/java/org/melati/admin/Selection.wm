@@ -73,7 +73,11 @@ $results.TotalCount</b></font>
     <TR>
 	  <th><FONT SIZE-1>&nbsp;</FONT></th>
       #foreach $column in $table.SummaryDisplayColumns #begin
-	<TH align=left valign=bottom><FONT face="Arial, Helvetica" size=-1>$ml.rendered($column.DisplayName)&nbsp;</font></TH>
+	<TH align=left valign=bottom>
+         <FONT face="Arial, Helvetica" size=-1>
+           <a href="Selection?$whereClause&field_order-1=$column.getColumnInfo().getTroid()">$ml.rendered($column.DisplayName)</a>&nbsp;
+         </font>
+        </TH>
       #end
     </TR>
 	#set $color1 = "#E9EDFD"

@@ -295,7 +295,7 @@ public class Admin extends TemplateServlet {
     }
 
     context.put("results", table.selection(table.whereClause(criteria),
-    orderBySQL, false, start, 20));
+                orderBySQL, false, start, 20));
 
     return context;
   }
@@ -648,17 +648,15 @@ public class Admin extends TemplateServlet {
         return treeControlTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
         return editTemplate(context, melati);
-      else
-        if (melati.getMethod().equals("Update"))
-          return modifyTemplate(context, melati);
-        else
-          if (melati.getObject() instanceof AdminSpecialised) {
-            String templateName =
-              ((AdminSpecialised)melati.getObject()).adminHandle(
-                melati, melati.getHTMLMarkupLanguage());
-            if (templateName != null)
-              return templateName;
-          }
+      if (melati.getMethod().equals("Update"))
+        return modifyTemplate(context, melati);
+      if (melati.getObject() instanceof AdminSpecialised) {
+        String templateName =
+          ((AdminSpecialised)melati.getObject()).adminHandle(
+            melati, melati.getHTMLMarkupLanguage());
+         if (templateName != null)
+           return templateName;
+      }
     }
     else if (melati.getTable() != null) {
       if (melati.getMethod().equals("Bottom"))

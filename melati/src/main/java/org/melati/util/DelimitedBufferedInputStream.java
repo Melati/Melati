@@ -84,7 +84,6 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      *
      * @param   in     the underlying input stream.
      * @param   size   the buffer size.
-     * @exception IllegalArgumentException if size <= 0.
      **/
     public DelimitedBufferedInputStream(InputStream in, int size) {
       super(in, size);

@@ -59,7 +59,7 @@ public class DumbPageEnumeration implements PageEnumeration {
 
   public DumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int countHorizon) {
-    this.pageStart = Math.max(pageStart, 1);
+    this.pageStart = pageStart = Math.max(pageStart, 1);
     this.pageSize = pageSize;
     int c = EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);

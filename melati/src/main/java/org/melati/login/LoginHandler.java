@@ -46,7 +46,8 @@ package org.melati.login;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
-import java.net.URLEncoder;
+
+import java.io.UnsupportedEncodingException;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
@@ -58,6 +59,7 @@ import org.melati.poem.User;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Field;
 import org.melati.util.HttpServletRequestParameters;
+import org.melati.util.UTF8URLEncoder;
 import org.melati.util.MD5Util;
 
 /**
@@ -112,7 +114,7 @@ public class LoginHandler {
 
     AccessPoemException triggeringException = null;
     if (session != null) triggeringException = 
-        (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
+        (AccessPoemException)session.getAttribute(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)
       context.put("triggeringException", triggeringException);
@@ -138,7 +140,7 @@ public class LoginHandler {
     
     // if we have asked that our password be remembered, set the cookies
     if (MelatiUtil.getFormNulled(templateContext,"rememberme") != null) {
-      String ldb = melati.getContext().getLogicalDatabase();
+      String ldb = melati.getPoemContext().getLogicalDatabase();
       melati.getResponse().addCookie(makeCookie(ldb, user.getLogin_unsafe()));
       melati.getResponse().addCookie(makeCookie(ldb+user.getLogin_unsafe(), 
                            MD5Util.encode(user.getPassword_unsafe())));
@@ -147,14 +149,14 @@ public class LoginHandler {
     HttpSession session = templateContext.getSession();
 
     HttpServletRequestParameters triggeringParams =
-        (HttpServletRequestParameters)session.getValue(
+        (HttpServletRequestParameters)session.getAttribute(
                                           Login.TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
-      session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
+      session.setAttribute(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
                        triggeringParams);
-      session.removeValue(Login.TRIGGERING_REQUEST_PARAMETERS);
-      session.removeValue(Login.TRIGGERING_EXCEPTION);
+      session.removeAttribute(Login.TRIGGERING_REQUEST_PARAMETERS);
+      session.removeAttribute(Login.TRIGGERING_EXCEPTION);
       templateContext.put("continuationURL", 
                           triggeringParams.continuationURL());
     } else {
@@ -165,13 +167,14 @@ public class LoginHandler {
       }
     }
 
-    session.putValue(HttpSessionAccessHandler.USER, user);
+    session.setAttribute(HttpSessionAccessHandler.USER, user);
 
     return loginSuccessTemplate();
   }
   
   private Cookie makeCookie(String key, String value) {
-    Cookie c = new Cookie(URLEncoder.encode(key), URLEncoder.encode(value));
+    Cookie c =  new Cookie(UTF8URLEncoder.encode(key), UTF8URLEncoder.encode(value));
+
     c.setPath("/");
     c.setMaxAge(ONEYEARINSECONDS);
     c.setComment("This cookie is used to automatically log you back into " +

@@ -78,7 +78,7 @@ org.melati.LogicalDatabase.melatitest.pass=
 #org.melati.LogicalDatabase.melatitest.pass=test
 org.melati.LogicalDatabase.melatitest.maxtransactions=4
 
-org.melati.LogicalDatabase.contacts.class=org.melati.doc.example.contacts.ContactsDatabase
+org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
 org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Hsqldb
 #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
 #org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.MySQL

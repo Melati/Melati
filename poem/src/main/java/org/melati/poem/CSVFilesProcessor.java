@@ -92,6 +92,8 @@ public class CSVFilesProcessor {
    * @return a new CSVTable
    */
   public CSVTable addTable(Table tab, File file) {
+    if (!file.exists()) 
+      throw new RuntimeException("File not found: " + file.getPath());
     CSVTable table = new CSVTable(tab, file);
     tables.addElement(table);
     return table;
@@ -132,13 +134,16 @@ public class CSVFilesProcessor {
 
     // Delete all records from the tables, if necessary
     if (emptyTables) {
-      for(int i = 0; i < tables.size(); i++)
-        ((CSVTable)tables.elementAt(i)).emptyTable();
+      for(int i = 0; i < tables.size(); i++) {
+        CSVTable t = (CSVTable)tables.elementAt(i);
+        t.emptyTable();
+        output.write("Emptied table :" + t.getName() + "\n");
+        System.err.println("Emptied table :" +  t.getName());
+      }
       PoemThread.writeDown();
     }
 
     output.write("Emptied all tables\n");
-
     System.err.println("Emptied all tables");
 
     // We must have loaded in all the data before we

@@ -62,8 +62,9 @@ import org.melati.util.*;
  * @param uploadDir The directory to save this file in
  * @param uploadURL The URL to uploadDir
  */
-public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
-{
+
+public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
+
   protected String uploadDir = null;
   protected String uploadURL = null;
   protected boolean makeUnique = true;
@@ -75,6 +76,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
    * @param uploadURL A URL pointing to this directory (null if there
    *                  isn't an appropriate URL)
    */
+
   public DefaultFileDataAdaptor(String uploadDir, String uploadURL) {
     this.uploadDir = uploadDir;
     this.uploadURL = uploadURL;
@@ -89,6 +91,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
    * @param makeUnique Whether we should make sure the new file has a unique
    *                   name within the <code>uploadDir</code> directory
    */
+
   public DefaultFileDataAdaptor(String uploadDir, String uploadURL,
                                 boolean makeUnique) {
     this.uploadDir = uploadDir;
@@ -97,10 +100,9 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
   }
 
   protected File calculateLocalFile() {
-    File f = new File(uploadDir, URLEncoder.encode(field.getUploadedFileName()));
-    return (makeUnique)
-           ? FileUtils.withUniqueName(f)
-           : f;
+    File f = new File(uploadDir,
+                      URLEncoder.encode(field.getUploadedFileName()));
+    return makeUnique ? FileUtils.withUniqueName(f) : f;
   }
 
   protected String calculateURL() {
@@ -108,6 +110,4 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
              ? uploadURL + File.separatorChar + file.getName()
              : null;
   }
-
 }
-

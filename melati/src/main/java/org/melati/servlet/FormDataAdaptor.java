@@ -58,33 +58,39 @@ import org.melati.util.*;
  * the <code>getData()</code> and <code>getSize()</code> functions
  * but need not provide a URL or a File for its data.
  */
-public interface FormDataAdaptor
-{
+
+public interface FormDataAdaptor {
+
   /**
-   * return the data as a byte array
+   * Return the data as a byte array.
    */
+
   public byte[] getData();
 
   /**
-   * return the size of the data
+   * Return the size of the data.
    */
+
   public long getSize();
 
   /**
-   * return a File object pointing to the saved data or null
-   * if none exists
+   * Return a File object pointing to the saved data or null
+   * if none exists.
    */
+
   public File getFile();
 
   /**
-   * return a url to the object or null if non exists
+   * Return a url to the object or null if none exists.
    */
+
   public String getURL();
 
   /**
    * Read data from <code>in</code> until the delim is found and
-   * save the data so that we can access it again
+   * save the data so that we can access it again.
    */
+
   public void readData(MultipartFormField field,
                        DelimitedBufferedInputStream in,
                        byte[] delim) throws IOException;

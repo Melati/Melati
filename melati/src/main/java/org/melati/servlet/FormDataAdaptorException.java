@@ -50,8 +50,8 @@ import org.melati.util.*;
 /**
  * Some sort of problem with saving or reading an uploaded file.
  */
-public class FormDataAdaptorException extends MelatiRuntimeException
-{
+
+public class FormDataAdaptorException extends MelatiRuntimeException {
   public FormDataAdaptorException(String message, Exception subException) {
     super(message, subException);
   }

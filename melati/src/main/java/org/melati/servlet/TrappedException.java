@@ -45,8 +45,11 @@
 
 package org.melati.servlet;
 
-/* if we have to turn an exception into a runtime exception, we do it using a TrappedException
-*/
+/**
+ * If we have to turn an exception into a runtime exception, we do it using a
+ * TrappedException.
+ */
+
 public class TrappedException extends RuntimeException {
   public TrappedException(String message) {
     super(message);

@@ -53,8 +53,8 @@ import org.melati.util.*;
  * Save uploaded files in a temporary file which is deleted when
  * the JVM exits
  */
-public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor
-{
+
+public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
 
   protected File calculateLocalFile() {
     File file = null;
@@ -72,7 +72,6 @@ public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor
   protected String calculateURL() {
     return null;
   }
-
 }
 
 

@@ -51,8 +51,8 @@ import org.melati.*;
  * An Interface to create a FormDataAdaptor from a melati and
  * the field which was upload
  */
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
-{
+
+public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory {
 
   public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
     return new TemporaryFileDataAdaptor();

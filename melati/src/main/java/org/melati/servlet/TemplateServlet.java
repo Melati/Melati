@@ -61,15 +61,18 @@ import org.melati.template.TemplateEngineException;
  * @author Tim Joyce
  * $Revision$
  */
+
 public abstract class TemplateServlet extends PoemServlet {
 
   // the template engine
   protected TemplateEngine templateEngine;
 
   /**
-   * Inititialise WebMacro
+   * Inititialise WebMacro.
+   *
    * @param ServletConfig
    */
+
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
     try {
@@ -90,11 +93,12 @@ public abstract class TemplateServlet extends PoemServlet {
    * our PoemSession (so we don't hang on to transactions
    * unnecessarily).
    */
+
   protected void prePoemSession(Melati melatiIn) throws Exception {
     // for this request, set the Initialised Template Engine
     melatiIn.setTemplateEngine(templateEngine);
     TemplateContext templateContext =
-                      templateEngine.getTemplateContext(melatiIn);
+                        templateEngine.getTemplateContext(melatiIn);
 
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
@@ -124,21 +128,23 @@ public abstract class TemplateServlet extends PoemServlet {
   }
   
   /**
-  * the template extension is added in an overridable method
-  * to allow the application developer to specify their own template
-  * extensions
-  */
+   * The template extension is added in an overridable method
+   * to allow the application developer to specify their own template
+   * extensions.
+   */
+
   protected String addExtension(String templateName) {
     return templateName + templateEngine.templateExtension();
   }
 
   /**
-   * Override the method to build up your output
+   * Override the method to build up your output.
+   *
    * @param melatiContext
    * @return an object with all you need to do the template expansion
    */
+
   protected abstract String doTemplateRequest(Melati melati, 
                                               TemplateContext templateContext)
-                            throws Exception ;
-
+      throws Exception ;
 }

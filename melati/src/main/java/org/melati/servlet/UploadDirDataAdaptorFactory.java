@@ -57,8 +57,8 @@ import org.melati.poem.*;
  * An Interface to create a FormDataAdaptor from a melati and
  * the field which was upload
  */
-public class UploadDirDataAdaptorFactory implements FormDataAdaptorFactory
-{
+
+public class UploadDirDataAdaptorFactory implements FormDataAdaptorFactory {
 
   String uploadDir = null;
   String uploadURL = null;
@@ -67,33 +67,40 @@ public class UploadDirDataAdaptorFactory implements FormDataAdaptorFactory
    * Returns the FormDataAdaptor appropriate for this field with
    * this call to melati
    */
+
   public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
 
     /* If there is no filename it will be a form-data field, i.e. don't
      * bother saving it as a file */
+
     if (field.getUploadedFileName().equals("")) { // no file uploaded
       return new MemoryDataAdaptor();
     }
+
     /* Otherwise, save the data to a file in a given default directory -
      * DefaultFileDataAdaptor does this for us.
      * In this case we find the uploadDir (and uploadURL) from the database. */
+
     else {                             
       // Get the uploadDir and uploadURL from the database
       if (uploadDir == null || uploadURL == null) {
         final UploadDirDataAdaptorFactory _this = this;
-        melati.getDatabase().inSession(AccessToken.root,
-          new PoemTask() {
-            public void run() throws PoemException {
-                _this.uploadDir = (String)melati.getDatabase().getSettingTable().
-                                    getOrDie("UploadDir");
-                _this.uploadURL = (String)melati.getDatabase().getSettingTable().
-                                    getOrDie("UploadURL");
-            }
-            public String toString() {
-              return "Getting upload directory and url settings";
-            }
+
+        melati.getDatabase().inSession(
+            AccessToken.root,
+            new PoemTask() {
+              public void run() throws PoemException {
+                SettingTable settings = melati.getDatabase().getSettingTable();
+                _this.uploadDir = (String)settings.getOrDie("UploadDir");
+                _this.uploadURL = (String)settings.getOrDie("UploadURL");
+              }
+
+              public String toString() {
+                return "Getting upload directory and url settings";
+              }
           });
         }
+
       return new DefaultFileDataAdaptor(uploadDir, uploadURL);
     }
   }

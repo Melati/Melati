@@ -48,6 +48,7 @@
 package org.melati.admin;
 
 import java.util.*;
+import java.net.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import org.melati.*;
@@ -129,22 +130,20 @@ public class Admin extends MelatiServlet {
     final Database database = table.getDatabase();
     context.put("database", database);
 
-    // sort out primary search criteria
-    final Persistent criteria = table.newPersistent();
+    Field primaryCriterion;
 
     Column column = table.primaryCriterionColumn();
-	Field primaryCriterion = null;
     if (column != null) {
-      String string = context.getForm("field_" + column.getName());
-      if (string != null && !string.equals(""))
-        column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-      final PoemType nullable = column.getType().withNullable(true);
-      primaryCriterion = new Field(column.getRaw(criteria), column) {
-	    public PoemType getType() {
-		  return nullable;
-        }
-	  };
+      String sea = context.getForm("field_" + column.getName());
+      primaryCriterion = new Field(
+          sea == null || sea.equals("") ? null :
+                                          column.getType().rawOfString(sea),
+          new BaseFieldAttributes(column,
+                                  column.getType().withNullable(true)));
     }
+    else
+      primaryCriterion = null;
+
     context.put("primaryCriterion", primaryCriterion);
     return context;
   }
@@ -170,16 +169,19 @@ public class Admin extends MelatiServlet {
     final Persistent criteria = table.newPersistent();
 
     Vector whereClause = new Vector();
+
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String name = "field_" + column.getName();
       String string = context.getForm(name);
       if (string != null && !string.equals("")) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
-        whereClause.addElement(name+"="+string);
-	}
+        whereClause.addElement(name + "=" + URLEncoder.encode(string));
+      }
     }
-    context.put("whereClause", EnumUtils.concatenated("&", whereClause.elements()));
+
+    context.put("whereClause",
+                EnumUtils.concatenated("&", whereClause.elements()));
 
     // sort out ordering (FIXME this is a bit out of control)
 
@@ -210,8 +212,10 @@ public class Admin extends MelatiServlet {
         orderClause.addElement(name+"="+orderColumnIDString);
       }
     }
+
     String orderBySQL = EnumUtils.concatenated(", ", orderingNames.elements());
-    context.put("orderClause", EnumUtils.concatenated("&", orderClause.elements()));
+    context.put("orderClause",
+                EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
     String startString = context.getForm("start");
@@ -261,16 +265,9 @@ public class Admin extends MelatiServlet {
 
     MappedEnumeration criterias =
         new MappedEnumeration(table.getSearchCriterionColumns()) {
-	  public Object mapped(Object c) {
-	    Column column = (Column)c;
-	    final PoemType nullable = column.getType().withNullable(true);
-	    return
-		new Field(column.getRaw(criteria), column) {
-		  public PoemType getType() {
-		    return nullable;
-		  }
-		};
-	  }
+          public Object mapped(Object c) {
+            return ((Column)c).asField(criteria).withNullable(true);
+          }
 	};
     
     context.put("criteria", EnumUtils.vectorOf(criterias));
@@ -345,14 +342,15 @@ public class Admin extends MelatiServlet {
     final Column typeColumn = cit.getTypefactoryColumn();
 
     Enumeration columnInfoFields =
-        new MappedEnumeration(cit.columns()) {
+        new MappedEnumeration(cit.getDetailDisplayColumns()) {
           public Object mapped(Object column) {
-	    if (column == typeColumn)
-              return new Field(PoemTypeFactory.STRING.getCode(), typeColumn);
-            else
-              return new Field((Object)null, (FieldAttributes)column);
-          }
-        };
+            if (column == typeColumn)
+                  return new Field(PoemTypeFactory.STRING.getCode(),
+                                   typeColumn);
+                else
+                  return new Field((Object)null, (FieldAttributes)column);
+              }
+            };
 
     context.put("columnInfoFields", columnInfoFields);
 
@@ -370,7 +368,8 @@ public class Admin extends MelatiServlet {
         "id",
         new BaseFieldAttributes(
             "troidName", "Troid column", "Name of TROID column",
-            database.getColumnInfoTable().getNameColumn().getType(), 20, 1, null));
+            database.getColumnInfoTable().getNameColumn().getType(),
+            20, 1, null, false, true, true));
 
     context.put("troidNameField", troidNameField);
 
@@ -402,18 +401,18 @@ public class Admin extends MelatiServlet {
                                                final Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
 
+    Database db = melati.getDatabase();
+
     ColumnInfo columnInfo =
-        (ColumnInfo)melati.getDatabase().getColumnInfoTable().create(
+        (ColumnInfo)db.getColumnInfoTable().create(
             new Initialiser() {
               public void init(Persistent object)
                   throws AccessPoemException, ValidationPoemException {
-                ((ColumnInfo)object).setTableinfoTroid(
-                    melati.getTable().tableInfoID());
                 Melati.extractFields(context, object);
               }
             });
 
-    melati.getTable().addColumnAndCommit(columnInfo);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
 
     return adminTemplate(context, "CreateTable_doit.wm");
   }
@@ -497,59 +496,59 @@ public class Admin extends MelatiServlet {
   protected Template handle(WebContext context, Melati melati)
       throws Exception {
     context.put("admin",
-		new AdminUtils(context.getRequest().getServletPath(),
-			       melati.getStaticURL() + "/admin",
-			       melati.getLogicalDatabaseName()));
+                new AdminUtils(context.getRequest().getServletPath(),
+                               melati.getStaticURL() + "/admin",
+                               melati.getLogicalDatabaseName()));
 
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Edit"))
-	return editTemplate(context, melati);
+        return editTemplate(context, melati);
       else if (melati.getMethod().equals("Update"))
-	return modifyTemplate(context, melati);
+        return modifyTemplate(context, melati);
       else if (melati.getObject() instanceof AdminSpecialised) {
-	Template it =
-	    ((AdminSpecialised)melati.getObject()).adminHandle(
+        Template it =
+            ((AdminSpecialised)melati.getObject()).adminHandle(
                 melati, melati.getHTMLMarkupLanguage());
-	if (it != null) return it;
+        if (it != null) return it;
       }
     }
     else if (melati.getTable() != null) {
       if (melati.getMethod().equals("Bottom"))
-    	return bottomTemplate(context, melati);
+        return bottomTemplate(context, melati);
       if (melati.getMethod().equals("Left"))
-    	return leftTemplate(context, melati);
+        return leftTemplate(context, melati);
       if (melati.getMethod().equals("PrimarySelect"))
-    	return primarySelectTemplate(context, melati);
+        return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))
-    	return selectionTemplate(context, melati);
+        return selectionTemplate(context, melati);
       if (melati.getMethod().equals("Navigation"))
-    	return navigationTemplate(context, melati);
+        return navigationTemplate(context, melati);
       if (melati.getMethod().equals("PopUp"))
-    	return popupTemplate(context, melati);
+        return popupTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindow"))
-    	return selectionWindowTemplate(context, melati);
+        return selectionWindowTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowPrimarySelect"))
-    	return selectionWindowPrimarySelectTemplate(context, melati);
+        return selectionWindowPrimarySelectTemplate(context, melati);
       if (melati.getMethod().equals("SelectionWindowSelection"))
-    	return selectionWindowSelectionTemplate(context, melati);
-      else if (melati.getMethod().equals("Add"))
-	    return addTemplate(context, melati);
-      else if (melati.getMethod().equals("AddUpdate"))
-	    return addUpdateTemplate(context, melati);
-      else if (melati.getMethod().equals("CreateColumn"))
-	    return columnCreateTemplate(context, melati);
-      else if (melati.getMethod().equals("CreateColumn_doit"))
-	    return columnCreate_doitTemplate(context, melati);
+        return selectionWindowSelectionTemplate(context, melati);
+      if (melati.getMethod().equals("Add"))
+        return addTemplate(context, melati);
+      if (melati.getMethod().equals("AddUpdate"))
+        return addUpdateTemplate(context, melati);
     }
     else {
       if (melati.getMethod().equals("Main"))
 	return mainTemplate(context, melati);
       if (melati.getMethod().equals("Top"))
 	return topTemplate(context, melati);
-      else if (melati.getMethod().equals("Create"))
+      if (melati.getMethod().equals("Create"))
 	return tableCreateTemplate(context, melati);
-      else if (melati.getMethod().equals("Create_doit"))
+      if (melati.getMethod().equals("Create_doit"))
 	return tableCreate_doitTemplate(context, melati);
+      if (melati.getMethod().equals("CreateColumn"))
+        return columnCreateTemplate(context, melati);
+      if (melati.getMethod().equals("CreateColumn_doit"))
+        return columnCreate_doitTemplate(context, melati);
     }
 
     throw new InvalidUsageException(this, melati.getContext());

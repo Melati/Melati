@@ -20,14 +20,16 @@
   <P>Purpose: $ml.rendered($table.Description)</P>
 }
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<TABLE CELLSPACING=0>
   #foreach $field in $fields {
     #if ($field.UserCreateable) {
-      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
-      <TR><TD COLSPAN=3>
-        <FONT SIZE=1>$ml.rendered($field.Description)
-      </TD></TR>
-      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+      <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+      #if ($field.Description) {
+	<TR>
+	  <TD></TD><TD></TD>
+	  <TD><FONT SIZE=1>$ml.rendered($field.Description)</FONT></TD>
+	</TR>
+      }
       <TR>
 	<TD>
 	  #if ($field.Nullable) {

@@ -103,6 +103,33 @@ public class Admin extends MelatiServlet {
   protected Template tableListTemplate(WebContext context, MethodRef ref)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
+    Table table = tableFromPathInfo(ref);
+    context.put("table", table);
+
+    final Data data = table.newData();
+
+    for (Enumeration c = table.columns(); c.hasMoreElements();) {
+      Column column = (Column)c.nextElement();
+      String value = context.getForm("field-" + column.getName());
+      if (value != null && !value.equals(""))
+        column.setIdentString(data, value);
+    }
+
+    context.put("criteria",
+                new MappedEnumeration(table.getSearchCriterionColumns()) {
+                  public Object mapped(Object c) {
+                    Column column = (Column)c;
+                    final PoemType nullable =
+                        column.getType().withNullable(true);
+                    return
+                        new Field(column.getIdent(data), column) {
+                          public PoemType getType() {
+                            return nullable;
+                          }
+                        };
+                  }
+                });
+
     int start = 0;
     String startString = context.getForm("start");
     if (startString != null) {
@@ -114,11 +141,10 @@ public class Admin extends MelatiServlet {
       }
     }
 
-    Table table = tableFromPathInfo(ref);
-    context.put("table", table);
-    context.put("objects", table.selection(null, null, false, start, 20));
+    context.put("objects", table.selection(table.whereClause(data),
+                                           null, false, start, 20));
 
-    return adminTemplate(context, "List.wm");
+    return adminTemplate(context, "Select.wm");
   }
 
   protected Template editTemplate(WebContext context, MethodRef ref)
@@ -138,7 +164,7 @@ public class Admin extends MelatiServlet {
     Enumeration fields =
         new MappedEnumeration(table.columns()) {
           public Object mapped(Object column) {
-            return new Field((Object)null, (Column)column);
+            return new Field((Column)column);
           }
         };
     context.put("fields", fields);
@@ -148,10 +174,9 @@ public class Admin extends MelatiServlet {
 
   private void copyFields(WebContext context, Persistent object)
       throws PoemException {
-    HttpServletRequest request = context.getRequest();
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      String value = request.getParameter("field-" + column.getName());
+      String value = context.getForm("field-" + column.getName());
       if (value != null)
         if (value.equals(""))
           if (column.getType().isNullable())

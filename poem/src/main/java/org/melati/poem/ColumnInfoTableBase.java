@@ -11,8 +11,10 @@ public class ColumnInfoTableBase extends Table {
   private Column col_description = null;
   private Column col_displayorder = null;
   private Column col_usereditable = null;
-  private Column col_displayable = null;
+  private Column col_recorddisplay = null;
+  private Column col_summarydisplay = null;
   private Column col_primarydisplay = null;
+  private Column col_searchcriterion = null;
   private Column col_displayorderpriority = null;
   private Column col_type = null;
   private Column col_nullable = null;
@@ -142,6 +144,14 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
             return 2;
           }
@@ -236,6 +246,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setDescription((String)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
             return 4;
           }
@@ -273,6 +291,14 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setDisplayorder((Integer)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -322,6 +348,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setUsereditable((Boolean)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "User-editable";
           }
@@ -345,28 +379,36 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
-    defineColumn(col_displayable =
-        new Column(this, "displayable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+    defineColumn(col_recorddisplay =
+        new Column(this, "recorddisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
           public Object getIdent(Data data) {
-            return (Boolean)((ColumnInfoData)data).displayable;
+            return (Boolean)((ColumnInfoData)data).recorddisplay;
           }
 
           public void setIdent(Data data, Object ident) {
-            ((ColumnInfoData)data).displayable = (Boolean)ident;
+            ((ColumnInfoData)data).recorddisplay = (Boolean)ident;
           }
 
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((ColumnInfo)g).getDisplayable();
+            return ((ColumnInfo)g).getRecorddisplay();
           }
 
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
-            ((ColumnInfo)g).setDisplayable((Boolean)value);
+            ((ColumnInfo)g).setRecorddisplay((Boolean)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
           }
 
           protected String defaultDisplayName() {
-            return "User-viewable";
+            return "Record display";
           }
 
           protected int defaultDisplayOrder() {
@@ -374,17 +416,68 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "Whether it makes sense for the user to see the field's value";
+            return "Whether to show the field in full displays of a record";
           }
 
           public Object getIdent(Persistent g)
               throws AccessPoemException {
-            return ((ColumnInfo)g).getDisplayable();
+            return ((ColumnInfo)g).getRecorddisplay();
           }
 
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
-            ((ColumnInfo)g).setDisplayable((Boolean)ident);
+            ((ColumnInfo)g).setRecorddisplay((Boolean)ident);
+          }
+        });
+
+    defineColumn(col_summarydisplay =
+        new Column(this, "summarydisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).summarydisplay;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).summarydisplay = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getSummarydisplay();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setSummarydisplay((Boolean)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "Summary display";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 8;
+          }
+
+          protected String defaultDescription() {
+            return "Whether to show the field in summary displays";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getSummarydisplay();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setSummarydisplay((Boolean)ident);
           }
         });
 
@@ -408,12 +501,16 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setPrimarydisplay((Boolean)value);
           }
 
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
-            return "Primary display field";
+            return "Primary display";
           }
 
           protected int defaultDisplayOrder() {
-            return 8;
+            return 9;
           }
 
           protected String defaultDescription() {
@@ -428,6 +525,57 @@ public class ColumnInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((ColumnInfo)g).setPrimarydisplay((Boolean)ident);
+          }
+        });
+
+    defineColumn(col_searchcriterion =
+        new Column(this, "searchcriterion", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).searchcriterion;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).searchcriterion = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getSearchcriterion();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setSearchcriterion((Boolean)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "Search criterion";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 10;
+          }
+
+          protected String defaultDescription() {
+            return "Whether to offer the field as a criterion in searches";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getSearchcriterion();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setSearchcriterion((Boolean)ident);
           }
         });
 
@@ -451,12 +599,16 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setDisplayorderpriority((Integer)value);
           }
 
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Display order priority";
           }
 
           protected int defaultDisplayOrder() {
-            return 9;
+            return 11;
           }
 
           protected String defaultDescription() {
@@ -498,8 +650,12 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
-            return 10;
+            return 12;
           }
 
           protected String defaultDescription() {
@@ -541,8 +697,12 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
-            return 11;
+            return 13;
           }
 
           protected String defaultDescription() {
@@ -580,8 +740,20 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setIndexed((Boolean)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
-            return 12;
+            return 14;
           }
 
           protected String defaultDescription() {
@@ -623,8 +795,16 @@ public class ColumnInfoTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
-            return 13;
+            return 15;
           }
 
           protected String defaultDescription() {
@@ -662,8 +842,20 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setSize((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
-            return 14;
+            return 16;
           }
 
           protected String defaultDescription() {
@@ -701,12 +893,24 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setWidth((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Input-box width";
           }
 
           protected int defaultDisplayOrder() {
-            return 15;
+            return 17;
           }
 
           protected String defaultDescription() {
@@ -744,12 +948,24 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setHeight((Integer)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Input-box height";
           }
 
           protected int defaultDisplayOrder() {
-            return 16;
+            return 18;
           }
 
           protected String defaultDescription() {
@@ -787,12 +1003,24 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setRenderinfo((String)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Rendering information";
           }
 
           protected int defaultDisplayOrder() {
-            return 17;
+            return 19;
           }
 
           protected String defaultDescription() {
@@ -839,12 +1067,20 @@ public class ColumnInfoTableBase extends Table {
     return col_usereditable;
   }
 
-  public final Column getDisplayableColumn() {
-    return col_displayable;
+  public final Column getRecorddisplayColumn() {
+    return col_recorddisplay;
+  }
+
+  public final Column getSummarydisplayColumn() {
+    return col_summarydisplay;
   }
 
   public final Column getPrimarydisplayColumn() {
     return col_primarydisplay;
+  }
+
+  public final Column getSearchcriterionColumn() {
+    return col_searchcriterion;
   }
 
   public final Column getDisplayorderpriorityColumn() {

@@ -6,12 +6,11 @@ table TableInfo
     (cachelimit = unlimited)
     (seqcached) {
 
-  (primary) Integer id
-      (hidden);
+  (primary) Integer id;
 
   (unique) String name (size = 50)
       (description = "A code-name for the table")
-      (uneditable);
+      (uneditable) (summaryhidden) (criterionhidden);
 
   String displayname (size = 60)
       (displayname = "Display name")
@@ -19,32 +18,39 @@ table TableInfo
       (displayorderpriority = 1) (primarydisplay);
 
   String description (size = unlimited) (nullable)
-      (description = "A brief description of the table's function");
+      (description = "A brief description of the table's function")
+      (summaryhidden) (criterionhidden);
 
   Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the table appears in the list of all tables")
-      (displayorderpriority = 0);
+      (displayorderpriority = 0)
+      (summaryhidden) (criterionhidden);
 
   Capability defaultcanread (nullable)
       (displayname = "Default `read' capability")
-      (description = "The capability required, by default, for reading the table's records");
+      (description = "The capability required, by default, for reading the table's records")
+      (summaryhidden) (criterionhidden);
 
   Capability defaultcanwrite (nullable)
       (displayname = "Default `write' capability")
-      (description = "The capability required, by default, for updating the table's records");
+      (description = "The capability required, by default, for updating the table's records")
+      (summaryhidden) (criterionhidden);
 
   Capability cancreate (nullable)
       (displayname = "Default `create' capability")
-      (description = "The capability required, by default, for creating records in the table");
+      (description = "The capability required, by default, for creating records in the table")
+      (summaryhidden) (criterionhidden);
 
   Integer cachelimit (nullable)
       (displayname = "Cache size limit")
-      (description = "The maximum number of records from the table to keep in the cache");
+      (description = "The maximum number of records from the table to keep in the cache")
+      (summaryhidden) (criterionhidden);
 
   Boolean seqcached
       (displayname = "Record sequence cached")
-      (description = "Whether the display sequence for the table's records is cached");
+      (description = "Whether the display sequence for the table's records is cached")
+      (summaryhidden) (criterionhidden);
 }
 
 table ColumnInfo
@@ -64,7 +70,7 @@ table ColumnInfo
   /* (unique with tableinfo) */
   (indexed) String name (size = 50)
       (description = "A code-name for the field")
-      (uneditable);
+      (uneditable) (summaryhidden) (criterionhidden);
 
   String displayname (size = 60)
       (displayname = "Display name")
@@ -72,60 +78,81 @@ table ColumnInfo
       (displayorderpriority = 2) (primarydisplay);
 
   String description (size = unlimited) (nullable)
-      (description = "A brief description of the field's function");
+      (description = "A brief description of the field's function")
+      (summaryhidden) (criterionhidden);
 
   Integer displayorder
       (displayname = "Display order")
       (description = "A rank determining where the field appears in lists")
-      (displayorderpriority = 1);
+      (displayorderpriority = 1)
+      (summaryhidden) (criterionhidden);
 
   Boolean usereditable
       (displayname = "User-editable")
-      (description = "Whether it makes sense for the user to update the field's value");
+      (description = "Whether it makes sense for the user to update the field's value")
+      (summaryhidden) (criterionhidden);
       
-  Boolean displayable
-      (displayname = "User-viewable")
-      (description = "Whether it makes sense for the user to see the field's value");
+  Boolean recorddisplay
+      (displayname = "Record display")
+      (description = "Whether to show the field in full displays of a record")
+      (summaryhidden) (criterionhidden);
+
+  Boolean summarydisplay
+      (displayname = "Summary display")
+      (description = "Whether to show the field in summary displays")
+      (summaryhidden) (criterionhidden);
 
   Boolean primarydisplay
-      (displayname = "Primary display field")
-      (description = "Whether the field is used as a short representation of the whole record");
+      (displayname = "Primary display")
+      (description = "Whether the field is used as a short representation of the whole record")
+      (criterionhidden);
+
+  Boolean searchcriterion
+      (displayname = "Search criterion")
+      (description = "Whether to offer the field as a criterion in searches")
+      (summaryhidden) (criterionhidden);
 
   Integer displayorderpriority (nullable)
       (displayname = "Display order priority")
-      (description = "If present, the level at which lists of records are sorted by the field");
+      (description = "If present, the level at which lists of records are sorted by the field")
+      (criterionhidden);
 
   ColumnType type
       (description = "The field's Melati type")
-      (uneditable);
+      (criterionhidden) (uneditable);
       // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
       // see BasePoemType.ofColumnInfo
 
   Boolean nullable
       (description = "Whether the field can be empty")
-      (uneditable);
+      (criterionhidden) (uneditable);
 
   Boolean indexed
-      (description = "Whether the field is indexed (ignored if the field is marked `unique')");
+      (description = "Whether the field is indexed (ignored if the field is marked `unique')")
+      (summaryhidden) (criterionhidden) (uneditable);
 
   Boolean unique
       (description = "Whether the field is unique (implies that it's `indexed')")
-      (uneditable);
+      (summaryhidden) (criterionhidden) (uneditable);
 
   Integer size
-      (description = "For character fields, the maximum number of characters that can be stored");
+      (description = "For character fields, the maximum number of characters that can be stored")
+      (summaryhidden) (criterionhidden) (uneditable);
 
   Integer width
       (displayname = "Input-box width")
-      (description = "A sensible width for text boxes used for entering the field, where appropriate");
+      (description = "A sensible width for text boxes used for entering the field, where appropriate")
+      (summaryhidden) (criterionhidden) (uneditable);
 
   Integer height
       (displayname = "Input-box height")
-      (description = "A sensible height for text boxes used for entering the field, where appropriate");
+      (description = "A sensible height for text boxes used for entering the field, where appropriate")
+      (summaryhidden) (criterionhidden) (uneditable);
 
   String renderinfo (size = unlimited) (nullable)
       (displayname = "Rendering information")
-      (description = "The name of the Melati templet (if not the default) to use for input controls for the field");
+      (description = "The name of the Melati templet (if not the default) to use for input controls for the field")
+      (summaryhidden) (criterionhidden) (uneditable);
 }
 
 table Capability

@@ -77,7 +77,8 @@ final class CachedVersionedRow extends AbstractVersionedObject
     super.setVersion(session, data);
     if (data != nonexistent)
       ((Data)data).dirty = true;
-    table.notifyTouched((PoemSession)session, troid);
+    table.notifyTouched((PoemSession)session, troid,
+                        data == nonexistent ? null : (Data)data);
   }
 
   protected Version backingVersion(Session session) {
@@ -104,7 +105,7 @@ final class CachedVersionedRow extends AbstractVersionedObject
 
   public Version versionForWriting(Session session) {
     Data data = (Data)super.versionForWriting(session);
-    table.notifyTouched((PoemSession)session, troid);
+    table.notifyTouched((PoemSession)session, troid, data);
     if (data != nonexistent)
       ((Data)data).dirty = true;
     return data;
@@ -124,6 +125,6 @@ final class CachedVersionedRow extends AbstractVersionedObject
 
   public void commit(Session session) {
     super.commit(session);
-    table.notifyTouched(null, troid);
+    table.notifyTouched(null, troid, (Data)versionForReading(null));
   }
 }

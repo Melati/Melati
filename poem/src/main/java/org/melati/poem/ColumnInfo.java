@@ -23,6 +23,13 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setName(name);
   }
 
+  public void setTableinfoTroid(Integer ident) throws AccessPoemException {
+    Integer ti = super.getTableinfoTroid();
+    if (ti != null && !ti.equals(ident))
+      throw new IllegalArgumentException();
+    super.setTableinfoTroid(ident);
+  }
+
   public void setPrimarydisplay(Boolean value) {
     super.setPrimarydisplay(value);
     if (value.booleanValue()) {
@@ -35,13 +42,6 @@ public class ColumnInfo extends ColumnInfoBase {
         table.setDisplayColumn(column);
       }
     }
-  }
-
-  public void setDisplayorderpriority(Integer value) {
-    super.setDisplayorderpriority(value);
-    Column column = column();
-    if (column != null)
-      column.getTable().notifyDisplayOrderPriorities();
   }
 
   public String displayString() throws AccessPoemException {

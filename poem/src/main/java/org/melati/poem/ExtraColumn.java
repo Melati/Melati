@@ -12,7 +12,7 @@ public class ExtraColumn extends Column {
     this.extrasIndex = extrasIndex;
   }
 
-  protected Object getIdent(Data data) {
+  public Object getIdent(Data data) {
     return data.extras[extrasIndex];
   }
 

@@ -17,10 +17,6 @@ public abstract class AtomPoemType extends BasePoemType {
     this(sqlTypeCode, sqlTypeName, nullable, width, 1);
   }
 
-  public Enumeration possibleIdents() {
-    return null;
-  }
-
   protected String _stringOfIdent(Object ident) {
     return ident.toString();
   }

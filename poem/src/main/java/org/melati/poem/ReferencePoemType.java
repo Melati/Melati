@@ -18,9 +18,8 @@ public class ReferencePoemType extends IntegerPoemType {
     return targetTable;
   }
 
-  public Enumeration possibleIdents() {
-    Enumeration them = targetTable.troidSelection(null, null, false);
-    return isNullable() ? new ConsEnumeration(null, them) : them;
+  protected Enumeration _possibleIdents() {
+    return targetTable.troidSelection(null, null, false);
   }
 
   protected void _assertValidValue(Object value)

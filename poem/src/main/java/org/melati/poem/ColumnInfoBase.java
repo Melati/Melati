@@ -154,24 +154,44 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getUsereditableColumn().asField(this);
   }
 
-  public Boolean getDisplayable()
+  public Boolean getRecorddisplay()
       throws AccessPoemException {
-    return dataForReading().displayable;
+    return dataForReading().recorddisplay;
   }
 
-  public void setDisplayable(Boolean value)
+  public void setRecorddisplay(Boolean value)
       throws AccessPoemException, ValidationPoemException {
-    getColumnInfoTable().getDisplayableColumn().getType().assertValidValue(value);
-    dataForWriting().displayable = value;
+    getColumnInfoTable().getRecorddisplayColumn().getType().assertValidValue(value);
+    dataForWriting().recorddisplay = value;
   }
 
-  public final void setDisplayable(boolean value)
+  public final void setRecorddisplay(boolean value)
       throws AccessPoemException, ValidationPoemException {
-    setDisplayable(value ? Boolean.TRUE : Boolean.FALSE);
+    setRecorddisplay(value ? Boolean.TRUE : Boolean.FALSE);
   }
 
-  public final Field getDisplayableField() throws AccessPoemException {
-    return getColumnInfoTable().getDisplayableColumn().asField(this);
+  public final Field getRecorddisplayField() throws AccessPoemException {
+    return getColumnInfoTable().getRecorddisplayColumn().asField(this);
+  }
+
+  public Boolean getSummarydisplay()
+      throws AccessPoemException {
+    return dataForReading().summarydisplay;
+  }
+
+  public void setSummarydisplay(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getSummarydisplayColumn().getType().assertValidValue(value);
+    dataForWriting().summarydisplay = value;
+  }
+
+  public final void setSummarydisplay(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setSummarydisplay(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getSummarydisplayField() throws AccessPoemException {
+    return getColumnInfoTable().getSummarydisplayColumn().asField(this);
   }
 
   public Boolean getPrimarydisplay()
@@ -192,6 +212,26 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getPrimarydisplayField() throws AccessPoemException {
     return getColumnInfoTable().getPrimarydisplayColumn().asField(this);
+  }
+
+  public Boolean getSearchcriterion()
+      throws AccessPoemException {
+    return dataForReading().searchcriterion;
+  }
+
+  public void setSearchcriterion(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getSearchcriterionColumn().getType().assertValidValue(value);
+    dataForWriting().searchcriterion = value;
+  }
+
+  public final void setSearchcriterion(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setSearchcriterion(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getSearchcriterionField() throws AccessPoemException {
+    return getColumnInfoTable().getSearchcriterionColumn().asField(this);
   }
 
   public Integer getDisplayorderpriority()

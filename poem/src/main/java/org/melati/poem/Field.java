@@ -3,7 +3,7 @@ package org.melati.poem;
 import org.melati.util.*;
 import java.util.*;
 
-public final class Field {
+public class Field {
 
   private AccessPoemException accessException;
   private Object ident;
@@ -26,6 +26,12 @@ public final class Field {
     }
   }
 
+  public Field(Column column) {
+    this.column = column;
+    ident = null;
+    accessException = null;
+  }
+
   public String getName() {
     return column.getName();
   }
@@ -44,6 +50,10 @@ public final class Field {
 
   public boolean getNullable() {
     return getType().isNullable();
+  }
+
+  public boolean getIndexed() {
+    return column.isIndexed();
   }
 
   public boolean getUserEditable() {

@@ -19,12 +19,16 @@ public class Table {
 
   public static final int CACHE_LIMIT_DEFAULT = 100;
 
+  private final Table _this = this;
+
   private Database database;
   private String name;
   private String quotedName;
   private DefinitionSource definitionSource;
 
   TableInfo info = null;
+
+  private TableListener[] listeners = {};
 
   private Column[] columns = {};
   private Hashtable columnsByName = new Hashtable();
@@ -35,10 +39,12 @@ public class Table {
   private Column canWriteColumn = null;
   private Column displayColumn = null;
 
-  private Column[] displayColumns = null;
-  private String defaultOrderByClause = null;
-
   private PoemFloatingVersionedObject allTroids = null;
+
+  private String defaultOrderByClause = null;
+  private Column[] recordDisplayColumns = null;
+  private Column[] summaryDisplayColumns = null;
+  private Column[] searchCriterionColumns = null;
 
   public Table(Database database, String name,
                DefinitionSource definitionSource)
@@ -47,6 +53,27 @@ public class Table {
     this.name = name;
     this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
+  }
+
+  void postInitialise() {
+    database.getColumnInfoTable().addListener(
+        new TableListener() {
+          public void notifyTouched(PoemSession session, Table table,
+                                    Integer troid, Data data) {
+            _this.notifyColumnInfo((ColumnInfoData)data);
+          }
+        });
+  }
+
+  void notifyColumnInfo(ColumnInfoData data) {
+    // FIXME data == null means deleted: effect is too broad really
+    if (data == null ||
+        ((ColumnInfoData)data).tableinfo.equals(tableInfoID())) {
+      defaultOrderByClause = null;
+      recordDisplayColumns = null;
+      summaryDisplayColumns = null;
+      searchCriterionColumns = null;
+    }
   }
 
   // 
@@ -175,42 +202,76 @@ public class Table {
     return clause;
   }
 
-  final void notifyDisplayOrderPriorities() {
-    defaultOrderByClause = null;
+  private Column[] columnsWhere(String whereClause) {
+    // get the col IDs from the committed session
+
+    Enumeration colIDs =
+        getDatabase().getColumnInfoTable().troidSelection(
+            "tableinfo = " + tableInfoID() + " AND (" + whereClause + ")",
+            null, false, null);
+
+    Vector them = new Vector();
+    while (colIDs.hasMoreElements()) {
+      Column column =
+          columnWithColumnInfoID(((Integer)colIDs.nextElement()).intValue());
+      // null shouldn't happen but let's not gratuitously fail if it does
+      if (column != null)
+        them.addElement(column);
+    }
+
+    Column[] columns = new Column[them.size()];
+    them.copyInto(columns);
+    return columns;
   }
 
   /**
-   * The table's displayable columns in display order.
+   * The table's columns designated for display in a record, in display order.
    *
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
    */
 
-  public final Enumeration getDisplayColumns() {
-    Column[] displayColumns = this.displayColumns;
+  public final Enumeration getRecordDisplayColumns() {
+    Column[] columns = recordDisplayColumns;
 
-    if (displayColumns == null) {
-      // get the col IDs from the committed session
+    if (columns == null)
+      recordDisplayColumns = columns = columnsWhere("recorddisplay");
 
-      Enumeration colIDs =
-          getDatabase().getColumnInfoTable().troidSelection(
-              "tableinfo = " + tableInfoID() + " AND displayable",
-              null, false, null);
+    return new ArrayEnumeration(columns);
+  }
 
-      Vector them = new Vector();
-      while (colIDs.hasMoreElements()) {
-        Column column =
-            columnWithColumnInfoID(((Integer)colIDs.nextElement()).intValue());
-        if (column != null)
-          them.addElement(column);
-      }
+  /**
+   * The table's columns designated for display in a record summary, in display
+   * order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
+   * @see Column
+   */
 
-      displayColumns = new Column[them.size()];
-      them.copyInto(displayColumns);
-      this.displayColumns = displayColumns;
-    }
+  public final Enumeration getSummaryDisplayColumns() {
+    Column[] columns = summaryDisplayColumns;
 
-    return new ArrayEnumeration(displayColumns);
+    if (columns == null)
+      summaryDisplayColumns = columns = columnsWhere("summarydisplay");
+
+    return new ArrayEnumeration(columns);
+  }
+
+  /**
+   * The table's columns designated for use as search criteria, in display
+   * order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
+   * @see Column
+   */
+
+  public final Enumeration getSearchCriterionColumns() {
+    Column[] columns = searchCriterionColumns;
+
+    if (columns == null)
+      searchCriterionColumns = columns = columnsWhere("searchcriterion");
+
+    return new ArrayEnumeration(columns);
   }
 
   /**
@@ -388,8 +449,6 @@ public class Table {
   //  Session-specific things
   // -------------------------
   // 
-
-  private final Table _this = this;
 
   private class SessionStuff {
     PreparedStatement insert, modify, get;
@@ -989,7 +1048,9 @@ public class Table {
       throw new InitialisationPoemException(this, e);
     }
 
-    // OK, it worked.  Plug the object into the cache.
+    // OK, it worked.  Plug the object into the cache.  FIXME this will result
+    // in it getting writeDown-ed again but it will have been marked not dirty
+    // so it won't cause DB activity.
 
     CachedVersionedRow versionedRow = versionedRow(troid);
     versionedRow.setVersion(sessionToken.session, data);
@@ -1062,7 +1123,7 @@ public class Table {
     return new Data();
   }
 
-  final Data newData() {
+  public final Data newData() {
     Data them = _newData();
     them.extras = new Object[getExtrasCount()];
     return them;
@@ -1151,10 +1212,13 @@ public class Table {
    * @see GroupMembershipTable#notifyTouched
    */
 
-  protected void notifyTouched(PoemSession session, Integer troid) {
+  protected void notifyTouched(PoemSession session, Integer troid, Data data) {
     PoemFloatingVersionedObject allTroids = this.allTroids;
     if (allTroids != null)
       allTroids.invalidateVersion(session);
+    TableListener[] listeners = this.listeners;
+    for (int l = 0; l < listeners.length; ++l)
+      listeners[l].notifyTouched(session, this, troid, data);
   }
 
   // 
@@ -1462,7 +1526,9 @@ public class Table {
 
     // Where should we start numbering new records?
 
-    // PoemThread.writeDown(); FIXME
+    if (PoemThread.inSession())
+      PoemThread.writeDown();
+
     String sql = 
         "SELECT " + troidColumn.quotedName() +
         " FROM " + quotedName +
@@ -1483,6 +1549,7 @@ public class Table {
     }
   }
 
-  void postInitialise() {
+  public void addListener(TableListener listener) {
+    listeners = (TableListener[])Array.added(listeners, listener);
   }
 }

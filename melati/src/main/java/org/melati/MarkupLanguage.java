@@ -58,7 +58,7 @@ public abstract class MarkupLanguage {
   //
 
   protected String defaultTempletName(BooleanPoemType type) {
-    return "tickbox.wm";
+    return type.isNullable() ? "select.wm" : "tickbox.wm";
   }
 
   protected String defaultTempletName(StringPoemType type) {
@@ -74,7 +74,7 @@ public abstract class MarkupLanguage {
   }
 
   protected String defaultTempletName(ReferencePoemType type) {
-    return "reference.wm";
+    return "select.wm";
   }
 
   protected String defaultTempletName(ColumnTypePoemType type) {

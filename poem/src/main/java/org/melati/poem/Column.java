@@ -43,14 +43,14 @@ public abstract class Column {
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
-    refineType(BasePoemType.ofColumnInfo(getDatabase(),
-                                         columnInfo.dataSnapshot()),
+    ColumnInfoData snap = columnInfo.dataSnapshot();
+    refineType(BasePoemType.ofColumnInfo(getDatabase(), snap),
                DefinitionSource.infoTables);
     columnInfo.setColumn(this);
     if (columnInfo.getPrimarydisplay().booleanValue())
       table.setDisplayColumn(this);
     info = columnInfo;
-    table.notifyDisplayOrderPriorities();
+    table.notifyColumnInfo(snap);
   }
 
   protected boolean defaultPrimaryDisplay() {
@@ -77,8 +77,16 @@ public abstract class Column {
     return true;
   }
 
-  protected boolean defaultDisplayable() {
+  protected boolean defaultRecordDisplay() {
     return true;
+  }
+
+  protected boolean defaultSummaryDisplay() {
+    return !isTroidColumn();
+  }
+
+  protected boolean defaultSearchCriterion() {
+    return !isTroidColumn();
   }
 
   protected boolean defaultIndexed() {
@@ -86,7 +94,7 @@ public abstract class Column {
   }
 
   protected boolean defaultUnique() {
-    return false;
+    return isTroidColumn();
   }
 
   void createColumnInfo() throws PoemException {
@@ -104,7 +112,9 @@ public abstract class Column {
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
-                  i.setDisplayable(defaultDisplayable());
+                  i.setRecorddisplay(defaultRecordDisplay());
+                  i.setSummarydisplay(defaultSummaryDisplay());
+                  i.setSearchcriterion(defaultSearchCriterion());
                   i.setIndexed(defaultIndexed());
                   i.setUnique(defaultUnique());
                   getType().saveColumnInfo(i);
@@ -257,7 +267,7 @@ public abstract class Column {
   // =======================================
   // 
 
-  protected abstract Object getIdent(Data data);
+  public abstract Object getIdent(Data data);
   protected abstract void setIdent(Data data, Object ident);
 
   public Object getValue(Data data) throws PoemException {
@@ -294,10 +304,24 @@ public abstract class Column {
     return new Field(getIdent(g), this);
   }
 
+  public Field asField(Data data) {
+    return new Field(getIdent(data), this);
+  }
+
+  public Field asEmptyField() {
+    return new Field(null, this);
+  }
+
   public void setIdentString(Persistent g, String identString)
       throws ParsingPoemException, ValidationPoemException,
              AccessPoemException {
     setIdent(g, getType().identOfString(identString));
+  }
+
+  public void setIdentString(Data data, String identString)
+      throws ParsingPoemException, ValidationPoemException,
+             AccessPoemException {
+    setIdent(data, getType().identOfString(identString));
   }
 
   public Enumeration referencesTo(Persistent object) {

@@ -11,8 +11,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
-* FIXME this it not pretty (I blame Jason ;) )
-*/
+ * FIXME this it not pretty (I blame Jason ;) ).
+ * Lifted largely from WMServlet.
+ */
 
 /**
   * This handler gets called if a normal handler could not 

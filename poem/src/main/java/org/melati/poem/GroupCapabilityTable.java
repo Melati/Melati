@@ -6,12 +6,8 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     super(database, name);
   }
 
-  protected void notifyTouched(PoemSession session, Integer troid) {
-    getDatabase().invalidateCapabilityCache(session);
-    super.notifyTouched(session, troid);
-  }
-
   void postInitialise() {
+    super.postInitialise();
     Database d = getDatabase();
     GroupCapabilityData admin =
         new GroupCapabilityData(d.getGroupTable().administratorsGroup(),

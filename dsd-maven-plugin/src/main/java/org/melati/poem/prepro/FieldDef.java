@@ -27,7 +27,9 @@ public abstract class FieldDef {
   boolean isPrimaryDisplayColumn;
   int displayOrderPriority = -1;
   boolean isEditable = true;
-  boolean isDisplayable = true;
+  boolean recorddisplay = true;
+  boolean summarydisplay = true;
+  boolean searchcriterion = true;
   boolean isIndexed = false;
   boolean isUnique = false;
 
@@ -156,8 +158,20 @@ public abstract class FieldDef {
               "          }\n" +
               "\n");
 
-    if (!isDisplayable)
-      w.write("          protected boolean defaultDisplayable() {\n" +
+    if (!recorddisplay)
+      w.write("          protected boolean defaultRecordDisplay() {\n" +
+              "            return false;\n" +
+              "          }\n" +
+              "\n");
+
+    if (!summarydisplay)
+      w.write("          protected boolean defaultSummaryDisplay() {\n" +
+              "            return false;\n" +
+              "          }\n" +
+              "\n");
+
+    if (!searchcriterion)
+      w.write("          protected boolean defaultSearchCriterion() {\n" +
               "            return false;\n" +
               "          }\n" +
               "\n");

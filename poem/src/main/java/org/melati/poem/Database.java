@@ -43,7 +43,8 @@ abstract public class Database {
    * @see PoemDatabase
    */
 
-  Database() {}
+  Database() {
+  }
 
   /**
    * Connect to an RDBMS database.  This should be called once when the
@@ -138,6 +139,17 @@ abstract public class Database {
                     }
                   }
                 });
+
+      TableListener capabilityCacheInvalidator =
+          new TableListener() {
+            public void notifyTouched(PoemSession session, Table table,
+                                      Integer troid, Data data) {
+              userCapabilities.invalidateVersion(session);
+            }
+          };
+
+      getGroupCapabilityTable().addListener(capabilityCacheInvalidator);
+      getGroupMembershipTable().addListener(capabilityCacheInvalidator);
     }
     catch (SQLException e) {
       throw new UnificationPoemException(e);
@@ -652,7 +664,7 @@ abstract public class Database {
   // =======
   // 
 
-  private PoemFloatingVersionedObject userCapabilities =
+  private final PoemFloatingVersionedObject userCapabilities =
       new PoemFloatingVersionedObject(_this) {
         protected Version backingVersion(Session session) {
           return new VersionHashtable();
@@ -701,10 +713,6 @@ abstract public class Database {
       caps.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
       return does;
     }
-  }
-
-  void invalidateCapabilityCache(PoemSession session) {
-    userCapabilities.invalidateVersion(session);
   }
 
   public AccessToken guestAccessToken() {

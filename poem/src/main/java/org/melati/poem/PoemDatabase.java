@@ -32,10 +32,6 @@ public class PoemDatabase extends PoemDatabaseBase {
               try {
                 t.getObject(3).setValue("bar", new java.util.Date().toString().substring(0, 20));
                 t.getObject(3).setValue("baz", new java.util.Date().toString().substring(0, 20));
-                for (Enumeration e = t.getDisplayColumns(); e.hasMoreElements();)
-                  System.out.println(e.nextElement());
-                for (Enumeration e = t.getObject(3).getDisplayFields(); e.hasMoreElements();)
-                  System.out.println(((Field)e.nextElement()).getValueString());
 
 //                 // Enumeration e = database.referencesTo(database.getTableInfoTable().getObject(1));
 //                 // while (e.hasMoreElements())

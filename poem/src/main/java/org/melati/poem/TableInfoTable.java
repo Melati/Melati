@@ -7,6 +7,7 @@ public class TableInfoTable extends TableInfoTableBase {
   }
 
   void postInitialise() {
+    super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

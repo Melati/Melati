@@ -639,19 +639,10 @@ public class Persistent {
     return getTable().getColumn(name).asField(this);
   }
 
-  /**
-   * The values of all the object's fields, wrapped up with type information
-   * sufficient for rendering them.  This method is called <TT>elements</TT> so
-   * that <TT>Persistent</TT>s can be used directly in Webmacro
-   * <TT>#foreach</TT> directives.
-   *
-   * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
-   */
-
-  public Enumeration getFields() {
+  private Enumeration fieldsOfColumns(Enumeration columns) {
     final Persistent _this = this;
     return
-        new MappedEnumeration(getTable().columns()) {
+        new MappedEnumeration(columns) {
           public Object mapped(Object column) {
             return new Field(_this, (Column)column);
           }
@@ -660,21 +651,33 @@ public class Persistent {
 
   /**
    * The values of all the object's fields, wrapped up with type information
-   * sufficient for rendering them.  This method is called <TT>elements</TT> so
-   * that <TT>Persistent</TT>s can be used directly in Webmacro
-   * <TT>#foreach</TT> directives.
+   * sufficient for rendering them.
    *
    * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
    */
 
-  public Enumeration getDisplayFields() {
-    final Persistent _this = this;
-    return
-        new MappedEnumeration(getTable().getDisplayColumns()) {
-          public Object mapped(Object column) {
-            return new Field(_this, (Column)column);
-          }
-        };
+  public Enumeration getFields() {
+    return fieldsOfColumns(getTable().columns());
+  }
+
+  /**
+   * The values of all the object's fields designated for inclusion in full
+   * record displays, wrapped up with type information sufficient for rendering
+   * them.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Field</TT>s
+   */
+
+  public Enumeration getRecordDisplayFields() {
+    return fieldsOfColumns(getTable().getRecordDisplayColumns());
+  }
+
+  public Enumeration getSummaryDisplayFields() {
+    return fieldsOfColumns(getTable().getSummaryDisplayColumns());
+  }
+
+  public Enumeration getSearchCriterionFields() {
+    return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
   // 

@@ -44,6 +44,7 @@ public class UserTable extends UserTableBase {
   }
 
   void postInitialise() {
+    super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

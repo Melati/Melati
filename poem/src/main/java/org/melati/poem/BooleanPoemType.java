@@ -7,7 +7,7 @@ class BooleanPossibleIdentEnumeration implements Enumeration {
   private int state = 0;
 
   public boolean hasMoreElements() {
-    return state == 0;
+    return state < 2;
   }
 
   public synchronized Object nextElement() {
@@ -24,7 +24,7 @@ public class BooleanPoemType extends AtomPoemType {
     super(Types.BIT, "BOOLEAN", nullable, 5);
   }
 
-  public Enumeration possibleIdents() {
+  protected Enumeration _possibleIdents() {
     return new BooleanPossibleIdentEnumeration();
   }
 

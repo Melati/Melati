@@ -23,6 +23,7 @@ public class GroupTable extends GroupTableBase {
   }
 
   void postInitialise() {
+    super.postInitialise();
     administratorsGroup = ensureGroup(administratorsData);
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());

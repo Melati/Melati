@@ -21,7 +21,7 @@
 }
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $field in $object.DisplayFields {
+  #foreach $field in $object.RecordDisplayFields {
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     #if ($field.Description) {
       <TR>

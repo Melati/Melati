@@ -44,10 +44,6 @@ public class TableInfoTableBase extends Table {
             return false;
           }
 
-          protected boolean defaultDisplayable() {
-            return false;
-          }
-
           protected int defaultDisplayOrder() {
             return 0;
           }
@@ -84,6 +80,14 @@ public class TableInfoTableBase extends Table {
           }
 
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
             return false;
           }
 
@@ -181,6 +185,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDescription((String)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
             return 3;
           }
@@ -218,6 +230,14 @@ public class TableInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setDisplayorder((Integer)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -267,6 +287,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDefaultcanread((Capability)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Default `read' capability";
           }
@@ -308,6 +336,14 @@ public class TableInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setDefaultcanwrite((Capability)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
           }
 
           protected String defaultDisplayName() {
@@ -353,6 +389,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setCancreate((Capability)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Default `create' capability";
           }
@@ -396,6 +440,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setCachelimit((Integer)value);
           }
 
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
           protected String defaultDisplayName() {
             return "Cache size limit";
           }
@@ -437,6 +489,14 @@ public class TableInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setSeqcached((Boolean)value);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
           }
 
           protected String defaultDisplayName() {

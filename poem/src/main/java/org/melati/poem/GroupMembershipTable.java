@@ -6,12 +6,8 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     super(database, name);
   }
 
-  protected void notifyTouched(PoemSession session, Integer troid) {
-    getDatabase().invalidateCapabilityCache(session);
-    super.notifyTouched(session, troid);
-  }
-
   void postInitialise() {
+    super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

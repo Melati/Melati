@@ -2,8 +2,9 @@ package org.melati.poem;
 
 import java.util.*;
 import java.sql.*;
+import org.melati.util.*;
 
-public abstract class BasePoemType implements PoemType {
+public abstract class BasePoemType implements PoemType, Cloneable {
   private int sqlTypeCode;
   private boolean nullable;
   private int width;
@@ -78,6 +79,17 @@ public abstract class BasePoemType implements PoemType {
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
+  }
+
+  protected Enumeration _possibleIdents() {
+    return null;
+  }
+  
+  public Enumeration possibleIdents() {
+    Enumeration them = _possibleIdents();
+    return them == null ? null :
+                   isNullable() ? new ConsEnumeration(null, them) :
+                   them;
   }
 
   protected abstract String _stringOfIdent(Object ident);
@@ -173,6 +185,12 @@ public abstract class BasePoemType implements PoemType {
         _canBe(other);
   }
 
+  public final PoemType withNullable(boolean nullable) {
+    BasePoemType it = (BasePoemType)clone();
+    it.nullable = nullable;
+    return it;
+  }
+
   protected abstract void _saveColumnInfo(ColumnInfo info)
       throws AccessPoemException;
 
@@ -202,5 +220,20 @@ public abstract class BasePoemType implements PoemType {
     return
         PoemTypeFactory.forCode(database,
                                 info.type.intValue()).typeOf(database, info);
+  }
+
+  // 
+  // --------
+  //  Object
+  // --------
+  // 
+
+  protected Object clone() {
+    try {
+      return super.clone();
+    }
+    catch (CloneNotSupportedException e) {
+      throw new PoemBugPoemException();
+    }
   }
 }

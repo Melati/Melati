@@ -39,5 +39,7 @@ public interface PoemType {
 
   boolean canBe(PoemType other);
 
+  PoemType withNullable(boolean nullable);
+
   void saveColumnInfo(ColumnInfo columnInfo) throws AccessPoemException;
 }

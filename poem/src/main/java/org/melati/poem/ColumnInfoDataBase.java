@@ -10,8 +10,10 @@ public class ColumnInfoDataBase extends Data {
   String description;
   Integer displayorder;
   Boolean usereditable;
-  Boolean displayable;
+  Boolean recorddisplay;
+  Boolean summarydisplay;
   Boolean primarydisplay;
+  Boolean searchcriterion;
   Integer displayorderpriority;
   Integer type;
   Boolean nullable;

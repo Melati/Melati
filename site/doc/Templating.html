@@ -1,11 +1,11 @@
 <HTML>
 <HEAD>
-<TITLE> org.melati Page Writer's Guide (document $Revision$) </TITLE>
+<TITLE> Notes on Templating</TITLE>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
 </HEAD>
 <BODY BGCOLOR=#FFFFFF>
 
-<H1><TT>org.melati</TT> Page Writer's Guide (document $Revision$)</H1>
+<H1>Notes on Templating</H1>
 
 
 
@@ -18,7 +18,11 @@
 <!-- ************** -->
 </H2>
 
-
+<P>
+This document was turned into a document from some notes by WilliamC. 
+These notes where the basis for TimJ's abstraction of the templating engine 
+and most of the points in this note have been addressed. 
+</P>
 
 <H3>
 <!-- ====================== -->
@@ -34,7 +38,7 @@
   and records.
 </P>
 
-<!-- Not sure what this is supposed to be but its broken
+<!-- Admin user guide not written yet
 <P>
   See also 
       <A HREF=../admin/doc/UserGuide.html><TT>org.melati.admin</TT></A>
@@ -166,8 +170,8 @@
     </P>
   <LI>
     <P>
-      The locale is set up when the <TT>MarkupLanguage</TT> is constructed:
-      at present it's always &lsquo;UK&rsquo;.
+      The locale is determined from the Request's <tt>Accept-Language</tt> 
+      if present, defaulting to UK if absent.
     </P>
   <LI>
     <P>
@@ -265,7 +269,11 @@
       Desirable features for cleaner version
 <!-- **************************************** -->
 </H2>
-
+<P>
+<b>
+Note all of these suggestions have been implemented.
+</b>
+</p>
 <P>
   The idea of making &lsquo;Melati&rsquo; essentially a utility object
   (<TT>$melati</TT>) accessible within templates still seems a good one.
@@ -273,39 +281,39 @@
 </P>
 
 <UL>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It shouldn't care which templating mechanism is being used.  The same
       abstract logic should work with WebMacro and JTemplater.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should be capable, where possible, of rendering complex objects
       directly to the output stream rather than returning a string for
       interpolation.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should be simpler.  There are rather a lot of &lsquo;here's one I
       found handy once&rsquo; methods floating around.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should make it more obvious how to create a <TT>$melati</TT> object
       from outside a <TT>MelatiServlet</TT>.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should bring out more clearly the notions of expansion context and
       raw/cooked representation.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should make the &lsquo;current object&rsquo; feature a bit more
       optional.  In particular the logical database should probably be
       configurable in a <TT>.properties</TT> file.
     </P>
-  <LI>
+  <LI><B>Done</B> - 
     <P>
       It should make it easy to say &lsquo;make me a dropdown&rsquo; without
       having to know what a <TT>Field</TT> is.
@@ -340,25 +348,6 @@
 
 
 <H3>
-<!-- ========= -->
-      Authors
-<!-- ========= -->
-</H3>
-
-<P>
-  <A HREF=mailto:timp@paneris.org>Tim Pizey
-  &lt;timp@paneris.org&gt;</A>
-</P>
-
-<P>
-  Most recent CVS $Author$ @paneris.org
-</P>
-
-
-
-
-
-<H3>
 <!-- ======================== -->
       Readership and purpose
 <!-- ======================== -->
@@ -388,6 +377,9 @@
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.9  2003/07/11 23:47:41  timp
+  <BR>remove a few broken links
+  <BR>
   <BR>Revision 1.8  2003/04/15 02:26:39  jimw
   <BR>Largely cosmetic fixes
   <BR>

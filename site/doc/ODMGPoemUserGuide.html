@@ -27,8 +27,8 @@
 
 <P>
   This guide describes the ODMG API for Melati POEM (Persistent Object
-  Engine For Melati): the layer which provides an ODMG type view onto the 
-  Postgres database.
+  Engine for Melati): the layer which provides an ODMG type view onto a JDBC 
+  compliant database.
 
   It assumes you know how to setup and use POEM generally - so see that documentation first.
 </P>
@@ -42,10 +42,8 @@
 </H3>
 
 <P>
-  See also the <A HREF=UserGuide.html>Melati POEM API documentation</A><br>
-  See also the <a href=http://vg.morefire.com/docs/persistence_poem_odmg.html>Details of the ODMG wrapper for POEM</a><br>
-  See also <a href=http://dev.vg.morefire.com/kimptoc/twiki/cgi-bin/view/Vg/ODMGandPoemTips>tips on using the ODMG API</a><br>
-  See also the <a href=http://www.odmg.org>ODMG</a> site<br>
+  See also the <A HREF="PoemUserGuide.html">Melati POEM User Guide</A><br>
+  See also the <a href="http://www.odmg.org">ODMG</a> site<br>
 </P>
 
 
@@ -56,7 +54,9 @@
 </H3>
 
 <P>
-  The test program <a href=../odmg/playing/PlayingTest.java>PlayingTest.java</a> provides
+  The test program <a
+	href="/src/org/melati/example/odmg/OdmgTest.java">OdmgTest.java</a> 
+  provides
   a simple example of using the ODMG api to create, query and amend objects.
 </P>
 
@@ -70,16 +70,20 @@
 </PRE></BLOCKQUOTE>
 
 <P>
-  The <i>"odmgplaying"</i> is the name of the POEM Logical Database, as defined in your org.melati.LogicalDatabase.properties file. 
-  See the <A HREF=UserGuide.html>Melati POEM API documentation</A> for more info on this.
+  The <i>"odmgplaying"</i> is the name of the POEM Logical Database, 
+  as defined in your <tt>org.melati.LogicalDatabase.properties</tt> file. 
+  See the <A HREF="PoemUserGuide.html">Melati POEM API documentation</A> 
+  for more information on this.
 </P>
 
 <P>
   You then need to create and open a transaction in which to do any query or update work.
-  Note that transactions are thread based - thus all work in the same thread is assumed to be in 
+  Note that transactions are thread based - 
+  thus all work in the same thread is assumed to be in 
   the same transaction.
-  Also the current wrapper does not support multi-threaded processing, that is, you cannot open a transaction
-  in one thread and then access it in another. FIXME.
+  Also the current wrapper does not support multi-threaded processing, 
+  that is, you cannot open a transaction
+  in one thread and then access it in another. 
 </P>
 
 
@@ -135,35 +139,6 @@
 
 
 <H3>
-<!-- ========= -->
-      Authors
-<!-- ========= -->
-</H3>
-
-<P>
-  <A HREF=mailto:kimptoc@techie.com>Chris Kimpton
-  &lt;kimptoc@techie.com&gt;</A>
-</P>
-
-<P>
-  Most recent CVS $Author$ 
-</P>
-
-
-
-<H3>
-<!-- ========= -->
-      Quality
-<!-- ========= -->
-</H3>
-
-<P>
-  The current quality level of this document is: <B>Public</B>.
-</P>
-
-
-
-<H3>
 <!-- ======================== -->
       Readership and purpose
 <!-- ======================== -->
@@ -191,18 +166,13 @@
   below.
 </P>
 
-<TABLE>
-  <TR><TH>Date</TH><TH>Event</TH></TR>
-  <TR>
-    <TD>(not yet)</TD>
-    <TD>Certified at release quality level by ...</TD>
-  </TR>
-</TABLE>
-
 <P>
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.2  2003/07/11 23:47:41  timp
+  <BR>remove a few broken links
+  <BR>
   <BR>Revision 1.1  2000/09/11 10:56:42  kimptoc
   <BR>added some ODMG/POEM documentation
   <BR>

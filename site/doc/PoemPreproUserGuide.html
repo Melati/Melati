@@ -26,13 +26,13 @@
 </H3>
 
 <P>
-  <A HREF=../../../doc/index.html>Melati</A> is an open source, Java-based
+  <A HREF="index.html">Melati</A> is an open source, Java-based
   infrastructure for the rapid and convenient development of web-based database
   applications.  This guide describes a preprocessor facility which forms part
-  of <A HREF=../../doc/UserGuide.html>Melati POEM</A> (Persistent Object Engine
-  For Melati), the layer which provides Melati with its object-oriented view of
+  of <A HREF="UserGuide.html">Melati POEM</A> (Persistent Object Engine
+  for Melati), the layer which provides Melati with its object-oriented view of
   the underlying relational database.  The preprocessor's task is to map a
-  succinct Java-style &quot;data structure definition&quot; file, in which the
+  succinct Java-style &quot;Data Structure Definition&quot; file, in which the
   application programmer describes the schema of the database to which they
   expect their code to be attached, into a set of boilerplate Java source files
   implementing a statically-typed object-oriented API for that schema.
@@ -56,8 +56,14 @@
   <LI> <A HREF=#oo><B>Think about your schema.</B></A>
        <P>
          Melati POEM encourages you to think about your relational database in
-         a somewhat object-oriented way.  A table row corresponds to a Java
-         object (and can effectively be given Java methods).
+         an object-oriented way.  A table row corresponds to a Java
+         object and can be given Java methods.
+       </P>
+       <P>
+          If you database SQL definition contains repetition, 
+          say every table contains the fields <tt>changetime</tt> and  
+          <tt>changedbyuser</tt> these fields can be separated out into a 
+          an abstract table which all your other tables extend. 
        </P>
 
   <LI> <A HREF=#dsd><B>Write your data structure definition.</B></A>
@@ -74,40 +80,36 @@
          create/validate your database at application startup time.
        </P>
 
+  <LI> <A HREF=#run><B>Compile and inspect your schema.</B></A>
+       <P>
+         Before going any further you can look at your schema using the 
+         Melati Admin system.
+       </P>
+       <P>
+         Use the Admin system to fill in data in your schema. 
+       </P>
   <LI> <A HREF=#extend><B>Add Java methods.</B></A>
        <P>
          The DSD also outputs stub classes to which you can add any special
          Java methods you wish to attach to your row-objects.
        </P>
-
-  <LI> <A HREF=#compile><B>Compile your application.</B></A>
        <P>
-         ...
+         It is a good idea to use <tt>ensure</tt> methods to prepopulate 
+         code tables with values which are essential to the working of the
+         system; 
+         see for example <a href="/javadoc/org/melati/poem/CapabilityTable.html#ensure(java.lang.String)">CapabilityTable.ensure(java.lang.String)</a>
        </P>
 
-  <LI> <A HREF=#run><B>Run your application.</B></A>
+  <LI> <A HREF=#run><B>Review you DSD by exporting it</B></A>
        <P>
-         ...
+         You may wish to use the DSD export function to review your DSD, 
+         <A href="/melati/org.melati.admin.Admin/melatitest/DSD?comments"> 
+         http://www.melati.org/melati/org.melati.admin.Admin/melatitest/DSD?comments</A> 
+         though be aware that this function does not preserve abstract tables
+         and enforces the <b>only first letter capitalised</b> rule for table
+         names. 
        </P>
 </UL>
-
-
-
-<A NAME=oo>
-<H2>
-<!-- ********************************** -->
-      The POEM view of a relational DB
-<!-- ********************************** -->
-</H2>
-</A>
-
-<P>
-  POEM allows you a 
-</P>
-
-<P>
-  coexistence with JDBC (though UPDATEs a bit trickier)
-</P>
 
 
 
@@ -126,7 +128,7 @@
   tables/columns.  DSD is not exclusive.
 </P>
 <P>
-  You might like to look at <a href="../melati-static/poem/Poem.dsd">POEM's own DSD</a>.
+  You might like to look at <a href="/melati-static/poem/Poem.dsd">POEM's own DSD</a>.
 </P>
 <P>
   The <tt>package</tt> statement should be changed to the name of your
@@ -208,33 +210,6 @@ javac -d /usr/local/packages/inst/paneris `find . -path .*java`
 
 
 <H3>
-<!-- ========= -->
-      Authors
-<!-- ========= -->
-</H3>
-
-<P>
-  <A HREF=mailto:williamc@paneris.org>William Chesters
-  &lt;williamc@paneris.org&gt;</A>
-</P>
-
-<P>
-  Most recent CVS $Author$ @paneris.org
-</P>
-
-
-
-<H3>
-<!-- ========= -->
-      Quality
-<!-- ========= -->
-</H3>
-
-<P>
-  The current quality level of this document is: <B>Personal</B>.
-</P>
-
-<H3>
 <!-- ======================== -->
       Readership and purpose
 <!-- ======================== -->
@@ -264,18 +239,13 @@ javac -d /usr/local/packages/inst/paneris `find . -path .*java`
   below.
 </P>
 
-<TABLE>
-  <TR><TH>Date</TH><TH>Event</TH></TR>
-  <TR>
-    <TD>(not yet)</TD>
-    <TD>Certified at release quality level by ...</TD>
-  </TR>
-</TABLE>
-
 <P>
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.12  2003/07/11 23:47:41  timp
+  <BR>remove a few broken links
+  <BR>
   <BR>Revision 1.11  2003/03/04 22:01:47  jimw
   <BR>Removed some broken links and a few misleading historical details.
   <BR>

@@ -49,9 +49,8 @@
 </P>
 
 <P>
-  See also the <A HREF=/javadoc/index.html>javadoc documentation</A>
-  for Melati's classes.  The key classes which have been (roughly) documented
-  to date are
+  See also the <A HREF="/javadoc/index.html">javadoc documentation</A>
+  for Melati's classes.  The key classes are:
 </P>
 
 <UL>
@@ -61,15 +60,6 @@
   <LI> <A HREF="/javadoc/org/melati/poem/TailoredQuery.html"><TT>TailoredQuery</TT></A></li>
 </UL>
 
-<P>
-  The sources themselves, especially Database.java, Table.java and
-  Persistent.java,
-  are reasonably tidy and possibly more readable than the Javadoc.  However,
-  the nature of the task POEM sets for itself mean that some parts of it
-  probably need further elucidation.
-</P>
-
-
 
 <H3>
 <!-- =========================== -->
@@ -78,7 +68,7 @@
 </H3>
 
 <P>
-  The following fragment (see <A HREF="../melati-static/example/contacts/Search.java"><TT>Search.java</TT></A>)
+  The following fragment (see <A HREF="/src/org/melati/example/contacts/Search.java"><TT>Search.java</TT></A>)
   shows the general pattern in which POEM is used.  First, the
   <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>
   object is created and connected to the RDBMS using the standard JDBC
@@ -175,8 +165,8 @@ database.inSession(
   <I>Where does the object's <TT>setName</TT> method come from?</I> Every POEM
   database must contain various tables whose properties are declared at
   (POEM's) compile time in the &quot;data structure definition&quot; (or DSD)
-  <A HREF=../melati-static/poem/Poem.dsd><TT>Poem.dsd</TT></A>, including <TT>user</TT>; the
-  relevant excerpt is
+  <A HREF="/src/org/melati/poem/Poem.dsd><TT>Poem.dsd</TT></A>, 
+  including <TT>user</TT>; the relevant excerpt is
 </P>
 
 <BLOCKQUOTE><PRE>
@@ -291,13 +281,6 @@ table User {
 
 
 
-<P>
-  Blah ... must point out somewhere how to cache facts about the database in a
-  session-safe way, as is done for user-capabilities.
-</P>
-
-
-
 <H3>
 <!-- =============================== -->
       How the database gets defined
@@ -326,7 +309,9 @@ table User {
   definitions each resembling a Java class definition---or, better, a C
   structure definition, since at this stage no methods can be specified.
   POEM's own builtin special tables are defined in this way in
-  <A HREF="../melati-static/poem/Poem.dsd"><TT>../melati-static/poem/Poem.dsd</TT></A>, which makes a good example of a
+  <A
+    HREF="/src/org/melati/poem/Poem.dsd"><TT>org/melati/poem/Poem.dsd</TT></A>, 
+  which makes a good example of a
   DSD; the file format is described in detail in the
   <A HREF="PoemPreproUserGuide.html">documentation</A> for the preprocessor which
   interprets them.
@@ -363,7 +348,8 @@ table User {
   which wasn't used in any Java-coded application logic, or just change the
   default width of a text box.  So POEM stores its rich field-type information
   in special tables in the database itself, where it can be edited through a
-  web interface (the <A HREF="../javadoc/org/melati/admin/package-summary.html">generic admin system</A>).
+  web interface (the <A 
+  HREF="/javadoc/org/melati/admin/package-summary.html">generic admin system</A>).
 </P>
 
 <P>
@@ -399,11 +385,8 @@ table User {
 </H4>
 
 <P>
-  ...
+  coexistence with JDBC (though UPDATEs a bit trickier)
 </P>
-
-
-
 
 <H2>
 <!-- *********************** -->
@@ -444,35 +427,6 @@ table User {
 
 
 <H3>
-<!-- ========= -->
-      Authors
-<!-- ========= -->
-</H3>
-
-<P>
-  <A HREF=mailto:williamc@paneris.org>William Chesters
-  &lt;williamc@paneris.org&gt;</A>
-</P>
-
-<P>
-  Most recent CVS $Author$ @paneris.org
-</P>
-
-
-
-<H3>
-<!-- ========= -->
-      Quality
-<!-- ========= -->
-</H3>
-
-<P>
-  The current quality level of this document is: <B>Personal</B>.
-</P>
-
-
-
-<H3>
 <!-- ======================== -->
       Readership and purpose
 <!-- ======================== -->
@@ -503,18 +457,13 @@ table User {
   below.
 </P>
 
-<TABLE>
-  <TR><TH>Date</TH><TH>Event</TH></TR>
-  <TR>
-    <TD>(not yet)</TD>
-    <TD>Certified at release quality level by ...</TD>
-  </TR>
-</TABLE>
-
 <P>
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.17  2003/07/11 23:47:41  timp
+  <BR>remove a few broken links
+  <BR>
   <BR>Revision 1.16  2003/04/21 22:17:22  timp
   <BR>Broken link reported by SevenTwentyFour Inc
   <BR>

@@ -35,7 +35,7 @@
        <P>
          Melati was influenced in its development by the ground-breaking 
          <A
-         HREF=http://webmacro.org>Webmacro</A> templating system, which allows
+         HREF="http://webmacro.org">Webmacro</A> templating system, which allows
          for a clean divide between the HTML (WML, ...) page design and the
          program.
        </P>
@@ -46,8 +46,8 @@
          home grown templating engine (Jtemplater).
        </P>
        <p>
-         Melati fits into and encourages an Model / Controller / View (MVC) 
-         approach to systems design, as do 
+         Melati fits into and encourages a Model / Controller / View (MVC) 
+         approach to systems design. 
        </p>
   <LI> <B>Getting database fields on and off web pages</B>
        
@@ -117,7 +117,7 @@
 <P>
   The entry points to a Melati application are a set of one or more servlets
   derived from <A
-  HREF=../javadoc/org/melati/servlet/TemplateServlet.html><TT>TemplateServlet</TT></A>.
+  HREF="/javadoc/org/melati/servlet/TemplateServlet.html"><TT>TemplateServlet</TT></A>.
   There are subtypes for different template engines.
   It takes care of determining the Melati username
   associated with the client, and the `logical database' on which the servlet
@@ -129,8 +129,9 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 
 <P>
   asks the
-  <A HREF=/javadoc/org/melati/admin/Admin.html><TT>Admin</TT></A>
-  servlet (<A HREF=../Admin.java><TT>Admin.java</TT></A>) to &quot;view the
+  <A HREF="/javadoc/org/melati/admin/Admin.html"><TT>Admin</TT></A>
+  servlet (<A HREF="/src/org/melati//Admin.java"><TT>Admin.java</TT></A>) to
+  &quot; <tt>View</tt> the
   <TT>user</TT> table of the <TT>melatitest</TT> database&quot;.  This scheme
   has the (admittedly minor) advantage that it makes possible the use of
   concise relative URLs for many purposes.
@@ -140,7 +141,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   If it has not already been encountered by the running virtual machine, the
   logical database name is mapped to JDBC connection details via the config
   file <A
-  HREF=../org.melati.LogicalDatabase.properties.example><TT>org.melati.LogicalDatabase.properties</TT></A>.
+  HREF="/properties/org/melati/org.melati.LogicalDatabase.properties"><TT>org.melati.LogicalDatabase.properties</TT></A>.
   When the first JDBC connection has been established (<I>i.e.</I> once per
   JVM), a picture is built up of how the structure-database ought to look,
   drawing on the programmer's compile-time <A
@@ -161,14 +162,16 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   The end result of all this as far as the Java code is concerned is a natural
   and convenient representation of the database in terms of
-  <A HREF=/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>,
-  <A HREF=/javadoc/org/melati/poem/Table.html><TT>Table</TT></A> and
-  <A HREF=/javadoc/org/melati/poem/Column.html><TT>Column</TT></A>
+  <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>,
+  <A HREF="/javadoc/org/melati/poem/Table.html"><TT>Table</TT></A> and
+  <A HREF="/javadoc/org/melati/poem/Column.html"><TT>Column</TT></A>
   objects.  Columns have rich
-  <A HREF=/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>
+  <A HREF="/javadoc/org/melati/poem/PoemType.html"><TT>PoemType</TT></A>
   types which include information such as the target of a reference (link)
   or the default height of a text field; but in general one works directly in
-  terms of <TT>Persistent</TT> objects representing the rows in the database.
+  terms of 
+  <A HREF="/javadoc/org/melati/poem/Persistent.html"><TT>Persistent</TT></A> 
+  objects representing the rows in the database.
 </P>
 
 <P>
@@ -181,7 +184,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   Template writers can simply ask for the appropriate field value and let the
   <A
-  HREF=/javadoc/org/melati/MarkupLanguage.html><TT>MarkupLanguage</TT></A>
+  HREF="/javadoc/org/melati/template/MarkupLanguage.html"><TT>MarkupLanguage</TT></A>
   of their choice render it appropriately.  For instance, assuming that an
   application servlet has set <TT>$product</TT> to refer to some
   <TT>Persistent</TT> object, one could say
@@ -214,7 +217,8 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   Generating input controls for objects' fields is just as easy.  The following
   simplified fragment of a template from the generic admin system
-  (<A HREF=../admin/Edit.wm>Edit.wm</A>, also illustrates how you can iterate 
+  (<A HREF="/src/org/melati/admin/Edit.wm">Edit.wm</A>, 
+  also illustrates how you can iterate 
   over all the fields in
   an object without having to know their names:
 </P>
@@ -253,7 +257,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   JavaScript (VBScript, ...) routines for client-side validation of the values
   entered or otherwise selected by the user.  For instance, this is
   <A
-  HREF=../template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm>
+  HREF="/src/org/melati/template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm">
 <TT>
 template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 </TT></A>:
@@ -271,7 +275,9 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 </PRE></BLOCKQUOTE>
 
 <P>
-  You can see at the top and bottom of <A HREF=../admin/Edit.wm>Edit.wm</A> how
+  You can see at the top and bottom of <A
+	  HREF="/src/org/melati/admin/Edit.wm">Edit.wm</A> 
+  how
   these JavaScript fragments fit into the overall template.
 </P>
 
@@ -294,8 +300,10 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 
 <P>
   Melati's home on the web,
-  <A HREF=http://melati.org><TT>http://melati.org</TT></A>, provides
-  information, web/email messageboards, and CVS access.
+  <A HREF=http://melati.org><TT>http://melati.org</TT></A> and 
+  its <a href="http://maven.apache.org/">Maven</a> variant at 
+  <a href="http://maven.melati.org/">http://maven.melati.org/</a>, provide
+  information, mailing lists  and CVS access.
 </P>
 
 
@@ -307,7 +315,7 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 </H3>
 
 <P>
-  See the <A href="/Examples.html">Examples</a>.
+  See the <A href="/Example.html">Example</a>.
 </P>
 
 
@@ -319,7 +327,7 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 </H3>
 
 <P>
-  The <a href=../README.html>REAME</a> has installation details.
+  The <a href="http://melati.org/melati-static/README.html">README</a> has installation details.
 </P>
 
 
@@ -332,17 +340,27 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 
 <TABLE CELLSPACING=0>
   <TR VALIGN=TOP>
+    <TH>Document</TH>
+    <TH>&nbsp;&nbsp;</TH>
+    <TH>Description</TH>
+
+  </TR>
+  <TR VALIGN=TOP>
     <TD>
       <A HREF="PoemUserGuide.html"><TT>org.melati.poem</TT></A>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
-      Melati POEM (Persistent Object Engine For Melati) is what gives Melati
+      <P><em>
+      Of interest to programmers.
+      </em></P>
+      <P>
+      Melati POEM (Persistent Object Engine for Melati) is what gives Melati
       its object-oriented view of the underlying relational database.  It
       maintains type information about database fields, and handles connection
       pooling, cacheing and access control.  POEM is independent of the rest of
-      Melati and could be used for non-web applications.  Of interest to
-      programmers.
+      Melati and could be used for non-web applications.  
+      <P>
     </TD>
   </TR>
 
@@ -352,10 +370,15 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
+      <P><em>
+      Of interest to programmers.
+      </em></P>
+      <P>
       POEM's preprocessor is responsible for turning concise, Java-style
       &quot;Data Structure Definitions&quot; into boilerplate code for creating
       a corresponding relational database and representing it as a collection
-      of typed objects.  Of interest to programmers.
+      of typed objects.
+      <P>
     </TD>
   </TR>
 
@@ -365,33 +388,33 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
+      <P><em>
+      Of interest to page authors.
+      </em></P>
       <p>
       Melati's API is Template Engine agnostic. Melati can be used with 
       Webmacro or Velocity or both, as Webmacro templates are converted 
       on-the-fly to Velocity templates.
-      </p>
-      <p>
+      <br />
       Melati comes with default templets for rendering fields for 
       input and output in HTML or WML.
       The templets can be overridden or added to.
-      </p>
-      <p>
-      Of interest to page authors.
       </p>
     </TD>
   </TR>
 
   <TR VALIGN=TOP>
     <TD>
-      <!-- A HREF=../admin/doc/UserGuide.html --><TT>org.melati.admin</TT><!-- /A -->
-      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
+      <!-- A HREF="AdminUserGuide.html" --><TT>org.melati.admin</TT><!-- /A -->
+      <BR><!--(doc not yet ready)-->
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
+      <P><em>
+      Of interest to most users.
+      </em></P>
       The generic database administration system supports &quot;out of the
-      box&quot; content editing.  Of interest to administrators, and page
-      authors who may wish to adapt admin templates for their applications (or
-      just link to them).
+      box&quot; content editing.  
     </TD>
   </TR>
 </TABLE>
@@ -400,24 +423,25 @@ template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
 
 <H3>
 <!-- ================ -->
-      How do I ... ?
+<!--      How do I ... ? -->
 <!-- ================ -->
 </H3>
 
+<!--
 <P>
   <I>How to do typical tasks ...</I>
 </P>
-
+-->
 
 
 <H3>
 <!-- ============================ -->
-      Frequently asked questions
+      Frequently asked questions 
 <!-- ============================ -->
 </H3>
 
 <P>
-  <I>...</I>
+  <I>Go on, ask a question on the <a href="/MailingList.html">Mailing Lists</a>!</I>
 </P>
 
 

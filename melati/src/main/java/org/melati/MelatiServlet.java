@@ -304,7 +304,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     if (underlying == null || !(underlying instanceof AccessPoemException))
       throw exception;
     else
-      return accessHandler().handleAccessException(
+      return accessHandler().handleAccessException(melatiContext(context),
                  context, (AccessPoemException)underlying);
   }
 

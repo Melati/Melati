@@ -1,6 +1,8 @@
 package org.melati.util;
 
-public class VersionVector extends java.util.Vector implements Version {
+import java.util.Vector;
+
+public class VersionVector extends Vector implements Version {
 
   public VersionVector(int initialCapacity) {
     super(initialCapacity);

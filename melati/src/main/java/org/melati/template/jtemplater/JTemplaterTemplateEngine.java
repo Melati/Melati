@@ -56,7 +56,6 @@ import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 
 import org.melati.jtemplater.JTemplater;
-import org.melati.jtemplater.Template;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -89,16 +88,20 @@ public class JTemplaterTemplateEngine implements TemplateEngine
   public String getName() {
     return "jtemplater";
   }
+  
+  public Object getEngine() {
+    return jt;
+  }
 
   public TemplateContext getTemplateContext(MelatiContext melatiContext)
   throws TemplateEngineException {
     return new JTemplaterTemplateContext(melatiContext);
   }
 
-  public Object template(String templateName)
+  public org.melati.template.Template template(String templateName)
   throws NotFoundException {
     try {
-      return jt.getTemplate(templateName,JTemplaterTemplateContext.getClazz());
+      return new JTemplaterTemplate(jt.getTemplate(templateName,JTemplaterTemplateContext.getClazz()));
     } catch (Exception e) {
       throw new NotFoundException("I couldn't get the template: " + templateName + " because: " +e.toString());
     }
@@ -122,14 +125,9 @@ public class JTemplaterTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, Object melatiTemplate, TemplateContext templateContext)
-  throws TemplateEngineException {
-    Template template = (Template) melatiTemplate;
-    try {
-      template.expand(templateContext, out, jt);
-    } catch (Exception e) {
-      throw new TemplateEngineException("I couldn't expand the template because: " +e.toString());
-    }
+  public void expandTemplate(Writer out, org.melati.template.Template template, 
+  TemplateContext templateContext) throws TemplateEngineException {
+    template.write(out, templateContext, this);
   }
 
 }

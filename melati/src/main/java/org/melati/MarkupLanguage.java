@@ -57,6 +57,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.template.TempletLoader;
+import org.melati.template.Template;
 import org.melati.util.MelatiLocale;
 import org.melati.util.JSDynamicTree;
 import org.melati.poem.Persistent;
@@ -109,9 +110,16 @@ public abstract class MarkupLanguage {
 
   public String rendered(JSDynamicTree tree)
   throws TemplateEngineException, IOException {
-    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);;
+    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
     vars.put("tree",tree);
-    return expandedTemplet("org.melati.util.JSDynamicTree",vars);
+    String templetName = "org.melati.util.JSDynamicTree";
+    try {
+      return expandedTemplet(
+      templetLoader.templet(melatiContext.getTemplateEngine(), 
+      this, templetName), vars);
+    } catch (NotFoundException e) {
+      throw new TemplateEngineException("I couldn't find the templet: " + templetName + " because: " +e.toString());
+    }
   }
 
   public String rendered(Field field, int style, int limit)
@@ -208,11 +216,11 @@ public abstract class MarkupLanguage {
     return input(field, null, nullValue, true);
   }
 
-  public Object templet(String templetName) throws NotFoundException {
+  public Template templet(String templetName) throws NotFoundException {
     return templetLoader.templet(melatiContext.getTemplateEngine(), this, templetName);
   }
 
-  protected String expandedTemplet(Object templet, TemplateContext tc)
+  protected String expandedTemplet(Template templet, TemplateContext tc)
   throws TemplateEngineException, IOException {
     melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),templet,tc);
     return "";
@@ -234,7 +242,7 @@ public abstract class MarkupLanguage {
       throw e;
     }
 
-    Object templet;
+    Template templet;
     try {
       templet = 
       templetName == null ?
@@ -262,7 +270,7 @@ public abstract class MarkupLanguage {
   public final String rendered(Exception e) throws IOException {
     try {
       TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
-      Object templet = templetLoader.templet(melatiContext.getTemplateEngine(), this, e.getClass());
+      Template templet = templetLoader.templet(melatiContext.getTemplateEngine(), this, e.getClass());
       vars.put("exception", e);
       return expandedTemplet(templet,templateContext);
     }

@@ -77,17 +77,17 @@ public class ClassNameTempletLoader implements TempletLoader {
     templetsPath(markupLanguage) + File.separatorChar + name + ".wm";
   }
 
-  public Object templet(TemplateEngine templateEngine,
+  public Template templet(TemplateEngine templateEngine,
   MarkupLanguage markupLanguage, String name) throws NotFoundException {
     return templateEngine.template
     (templetPath(templateEngine, markupLanguage, name));
   }
 
-  public Object templet(TemplateEngine templateEngine,
+  public Template templet(TemplateEngine templateEngine,
   MarkupLanguage markupLanguage, Class clazz) throws NotFoundException {
 
     String cacheKey = clazz + "/" + markupLanguage;
-    Object templet = defaultTempletOfPoemType.get(cacheKey);
+    Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
 
     if (templet == null) {
       while (clazz != null) {
@@ -109,7 +109,7 @@ public class ClassNameTempletLoader implements TempletLoader {
     return templet;
   }
 
-  public Object templet(TemplateEngine templateEngine,
+  public Template templet(TemplateEngine templateEngine,
   MarkupLanguage markupLanguage, FieldAttributes attributes)
   throws NotFoundException {
     if (attributes.getRenderInfo() != null)

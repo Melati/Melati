@@ -47,7 +47,6 @@
 package org.melati.template.webmacro;
 
 import java.io.Writer;
-import java.io.IOException;
 
 import org.melati.MelatiContext;
 import org.melati.template.TemplateEngine;
@@ -55,11 +54,8 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 
-import org.webmacro.Template;
 import org.webmacro.WM;
 import org.webmacro.InitException;
-import org.webmacro.ContextException;
-import org.webmacro.servlet.WebContext;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -98,14 +94,21 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public String getName() {
     return "webmacro";
   }
+
+  /**
+  * the underlying engine
+  */
+  public Object getEngine() {
+    return wm;
+  }
   
   /** 
    * get a template given it's name
   */
-  public Object template(String templateName) 
+  public org.melati.template.Template template(String templateName) 
    throws NotFoundException {
     try {
-      return wm.getTemplate(templateName);
+      return new WebmacroTemplate(wm.getTemplate(templateName));
     } catch (org.webmacro.NotFoundException e) {
       throw new NotFoundException("I couldn't find the template: " + templateName + " because: " +e.toString());
     }
@@ -134,23 +137,10 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, Object melatiTemplate, TemplateContext templateContext) 
+  public void expandTemplate(Writer out, org.melati.template.Template template, TemplateContext templateContext) 
    throws TemplateEngineException {
-    Template template = (Template) melatiTemplate;
-    try {
-      template.write(out, (WebContext) templateContext.getContext());
-    } catch (ContextException e) {
-      throw new TemplateEngineException("I couldn't use the context because: " +e.toString());
-    } catch (IOException e) {
-      throw new TemplateEngineException("I couldn't expand the template because: " +e.toString());
-    }
+      template.write(out, templateContext, this);
   }
   
 
 }
-
-
-
-
-
-

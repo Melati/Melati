@@ -80,6 +80,13 @@ public class NoTemplateEngine implements TemplateEngine
   }
 
   /**
+  * the underlying engine
+  */
+  public Object getEngine() {
+    return "none";
+  }
+
+  /**
    * get the generic parameters for this engine
    */
   public TemplateContext getTemplateContext(MelatiContext melatiContext)
@@ -90,7 +97,7 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * get a template given it's name
    */
-  public Object template(String templateName) throws NotFoundException {
+  public Template template(String templateName) throws NotFoundException {
     throw new NotFoundException("I couldn't find the template: " + templateName +
     " because you have not configured a template engine.");
   }
@@ -114,7 +121,7 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, Object melatiTemplate,
+  public void expandTemplate(Writer out, Template melatiTemplate,
   TemplateContext templateContext) throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }

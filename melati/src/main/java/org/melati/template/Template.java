@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,27 +38,29 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Joyce <timj@paneris.org>
+ *     http://paneris.org/
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
 package org.melati.template;
 
-import org.melati.MarkupLanguage;
-import org.melati.poem.FieldAttributes;
+import java.io.Writer;
 
-public interface TempletLoader {
+/**
+ * A webmacro template
+ *
+ */
+public interface Template
+{
+  
+  public void write(Writer out, TemplateContext templateContext, 
+  TemplateEngine engine) throws TemplateEngineException;
 
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  String templetName)
-  throws NotFoundException;
-
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  Class clazz)
-  throws NotFoundException;
-
-  Template templet(TemplateEngine templateEngine, MarkupLanguage markupLanguage, 
-  FieldAttributes attributes)
-  throws NotFoundException;
 }
+
+
+
+
+
+

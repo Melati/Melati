@@ -158,11 +158,12 @@ public class AdminUtils {
     return adminStaticURL;
   }
 
-  public void specialFacilities(MelatiContext melatiContext, MarkupLanguage ml,
+  public String specialFacilities(MelatiContext melatiContext, MarkupLanguage ml,
   Persistent object)
   throws Exception {
     if (object instanceof AdminSpecialised)
     melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),
     ((AdminSpecialised)object).adminSpecialFacilities(melatiContext, ml));
+    return "";
   }
 }

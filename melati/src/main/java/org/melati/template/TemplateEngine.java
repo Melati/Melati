@@ -76,7 +76,7 @@ public interface TemplateEngine
   /** 
    * get a template given it's name
   */
-  public Object template(String templateName) throws NotFoundException;
+  public Template template(String templateName) throws NotFoundException;
   
   /** 
    * Expand the Template against the context.
@@ -91,7 +91,13 @@ public interface TemplateEngine
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, Object melatiTemplate, TemplateContext templateContext) throws TemplateEngineException;
+  public void expandTemplate(Writer out, Template template, TemplateContext templateContext) throws TemplateEngineException;
+
+    
+  /** 
+   * get the underlying engine
+   */
+  public Object getEngine();
 
 }
 

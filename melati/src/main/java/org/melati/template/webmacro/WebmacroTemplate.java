@@ -43,57 +43,41 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.template;
+package org.melati.template.webmacro;
+
+import java.io.Writer;
+import java.io.IOException;
+
+import org.melati.template.Template;
+import org.melati.template.TemplateContext;
+import org.melati.template.TemplateEngineException;
+import org.melati.template.TemplateEngine;
+
+import org.webmacro.servlet.WebContext;
+import org.webmacro.ContextException;
 
 /**
- * This class just wraps up a context or a parameter class and a template name to be passed in and out to the servlet
- * 
- * @author Tim Joyce
- * $Revision$
+ * Interface for a Template for use with Melati
+ *
  */
-public class TemplateParameters 
-{
 
-  TemplateContext templateContext = null;
-  String templateName = null;
-  
-  public TemplateParameters(String templateName, TemplateContext context) {
-    this.templateName = templateName;
-    this.templateContext = context;
-  }
-    
-  /** 
-   * get the template name
-   */
-  public String getTemplateName() {
-    return templateName;
+public class WebmacroTemplate implements Template
+{
+  private org.webmacro.Template template;
+
+  public WebmacroTemplate(org.webmacro.Template t) {
+    template = t;
   }
   
-  /** 
-   * get the parameters
-   */
-  public TemplateContext getTemplateContext() {
-    return templateContext;
-  }
-    
-  /** 
-   * set the template name
-   */
-  public void setTemplateName(String name) {
-    templateName = name;
-  }
-  
-  /** 
-   * set the parameters
-   */
-  public void setContext(TemplateContext context) {
-    this.templateContext = context;
+  public void write(Writer out, TemplateContext templateContext, 
+  TemplateEngine engine) throws TemplateEngineException {
+    try {
+      template.write(out, (WebContext) templateContext.getContext());
+    } catch (ContextException e) {
+      throw new TemplateEngineException("I couldn't use the context because: " +e.toString());
+    } catch (IOException e) {
+      throw new TemplateEngineException("I couldn't expand the template because: " +e.toString());
+    }
   }
 
 }
-
-
-
-
-
-

@@ -200,7 +200,14 @@ public abstract class Transaction {
     finish(false);
   }
 
+  public Transaction getBlockedOn() {
+    return blockedOn;
+  }
+
   public String toString() {
     return "transaction" + index;
   }
 }
+
+
+

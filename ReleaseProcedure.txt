@@ -86,14 +86,17 @@ to create a release:
 12. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,
+       melati-users@lists.sourceforge.net,
+
        webmacro-user@lists.sourceforge.net,
        velocity-user@jakarta.apache.org, 
+       users@maven.apache.org
+
        pgsql-jdbc@postgresql.org,
        java@lists.mysql.com, 
        mckoidb@mckoi.com,
-       hsqldb-developers@lists.sourceforge.net
-       jetty-discuss@yahoogroups.com
-       users@maven.apache.org
+       hsqldb-developers@lists.sourceforge.net,
+       wafer-developer@lists.sourceforge.net
 
 13. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
@@ -102,6 +105,7 @@ to create a release:
        apw@messageboards.paneris.org
        gtl@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
+       begbroke@messageboards.paneris.org
 14. Add SNAPSHOT to currentVersion in ../project.xml
 
 

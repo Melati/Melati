@@ -76,6 +76,10 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
     this.newRequest = newRequest;
   }
 
+  public HttpServletRequest getNewRequest() {
+    return newRequest;
+  }
+
   public int getContentLength() {
     return newRequest.getContentLength();
   }

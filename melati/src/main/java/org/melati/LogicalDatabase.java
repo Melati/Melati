@@ -59,7 +59,7 @@ import org.melati.util.PropertiesUtils;
 /**
  * An object which knows how to connect to a database.
  */
-public class LogicalDatabase {
+public final class LogicalDatabase {
 
   private LogicalDatabase() {}
 

@@ -1,0 +1,14 @@
+Perhaps unfortunately the Melati site uses Server Side Includes, 
+and for Apache 1.3 requires the following in your site options in httpd.conf:
+
+XBitHack Full
+
+You also need to set th executable bit on the HTML files with 
+
+chmod +x *.html
+
+TODO
+
+It would be nice to have a logo and a PoweredBy
+
+timp 19/0/2001

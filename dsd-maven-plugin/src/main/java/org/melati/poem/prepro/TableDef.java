@@ -445,17 +445,22 @@ public class TableDef {
  /**
   * Generate the 4 files 
   */
-  public void generateJava() throws IOException {
+  public void generateJava() throws IOException, IllegalityException {
 
     boolean hasDisplayLevel = false;
     boolean hasSearchability = false;
+    int fieldCount = 0;
     for (Enumeration e = fields.elements(); e.hasMoreElements();) {
+      fieldCount++;
       FieldDef f = (FieldDef)e.nextElement();
       if (f.displayLevel != null)
         hasDisplayLevel = true;
       if (f.searchability != null)
         hasSearchability = true;
     }
+    if (fieldCount == 0 && !isAbstract)
+	throw new NonAbstractEmptyTableException(name);
+
     if (hasDisplayLevel)
       addImport("org.melati.poem.DisplayLevel", "table");
     if (hasSearchability)
@@ -496,6 +501,8 @@ public class TableDef {
       if (key.indexOf(".") == -1) {
         TableNamingInfo targetTable =
             (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
+        if (targetTable == null) 
+            throw new RuntimeException("No TableNamingInfo for " + key);
         fqKey = targetTable.tableFQName;
         String destination = (String)imports.get(key);
         imports.remove(key);

@@ -385,7 +385,7 @@ public class DSD {
             "}\n");
   }
 
-  public void generateJava() throws IOException {
+  public void generateJava() throws IOException, IllegalityException {
     final DSD this_ = this;
 
     createJava(databaseBaseClass,

@@ -141,6 +141,14 @@ public abstract class MarkupLanguage {
     return rendered(field);
   }
 
+  public Template templet(String templetName) throws WebMacroException {
+    return templetLoader.templet(webContext.getBroker(), this, templetName);
+  }
+
+  public String templetExpansion(Template template) throws WebMacroException {
+    return (String)template.evaluate(webContext);
+  }
+
   //
   // =========
   //  Widgets

@@ -73,7 +73,7 @@ public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
       return new MemoryDataAdaptor();
     }
     else {                             
-      return new TemporyFileDataAdaptor();
+      return new TemporaryFileDataAdaptor();
     }
   }
 }

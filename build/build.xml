@@ -156,7 +156,6 @@ usage:
             <exclude name="**/dist/**"/>
           </patternset>
         </fileset>
-        <mapper type="glob" from="*.properties.example" to="*.properties"/>
       </copy>
     </target>
   
@@ -344,10 +343,11 @@ usage:
   <target name="war" depends="sources">
     <mkdir dir="${packaged}"/>
     <delete file="${war}"/>
-    <war warfile="${war}" webxml="web.xml">
+    <war warfile="${war}" webxml="${site}/WEB-INF/web.xml">
       <!-- The site HTML -->
       <fileset dir="${site}">
           <exclude name="**/src/**"/>
+          <exclude name="**/WEB-INF/web.xml"/>
       </fileset>
       <!-- Readme and License -->
       <zipfileset dir="${this.root}"
@@ -387,11 +387,16 @@ usage:
           <exclude name="**/CVS/**"/>
           <exclude name="**/*.class"/>
       </zipfileset>
-      <!-- Templets and properties files -->
+      <!-- Templets files -->
       <classes dir="${built.src}">
         <patternset>
-          <include name="**/*.properties"/>
           <include name="**/*.wm"/>
+        </patternset>
+      </classes>
+      <!-- properties files -->
+      <classes dir="${site}/properties">
+        <patternset>
+          <include name="**/*.properties"/>
         </patternset>
       </classes>
       <!-- Third party jars -->

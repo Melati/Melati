@@ -162,7 +162,7 @@ abstract table ValueInfo {
       (description = "The field's Melati type")
       (displaylevel = detail) (searchability = no) (uneditable);
       // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
-      // see BasePoemType.ofColumnInfo
+      // see PoemTypeFactory.forCode
 
   Boolean nullable
       (description = "Whether the field can be empty")

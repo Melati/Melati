@@ -612,7 +612,7 @@ public class Table {
         select.setInt(1, persistent.troid().intValue());
         ResultSet rs = select.executeQuery();
 	try {
-	  if (database.logSQL)
+	  if (database.logSQL())
 	    database.log(new SQLLogEvent(select.toString()));
 
 	  if (!rs.next())
@@ -665,7 +665,7 @@ public class Table {
       catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(modify.toString()));
     }
    persistent.postModify();
@@ -683,7 +683,7 @@ public class Table {
       catch (SQLException e) {
         throw new PreparedSQLSeriousPoemException(insert, e);
       }
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));
     }
    persistent.postInsert();
@@ -705,7 +705,7 @@ public class Table {
       }
 
       connection.createStatement().executeUpdate(sql);
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(sql));
     }
     catch (SQLException e) {
@@ -918,7 +918,7 @@ public class Table {
       if (token != null)
         token.toTidy().add(rs);
 
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       return rs;
     }
@@ -1100,7 +1100,7 @@ public class Table {
       }
 
       ResultSet rs = connection.createStatement().executeQuery(sql);
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       rs.next();
       rs.close();
@@ -1878,7 +1878,7 @@ public class Table {
       ResultSet maxTroid =
           getDatabase().getCommittedConnection().createStatement().
               executeQuery(sql);
-      if (database.logSQL)
+      if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       if (maxTroid.next())
         nextTroid = maxTroid.getInt(1) + 1;

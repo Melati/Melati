@@ -81,6 +81,7 @@ abstract public class Database implements TransactionPool {
   private Table[] displayTables = null;
 
   private Dbms dbms;
+  private boolean logSQL;
 
   // 
   // ================
@@ -776,7 +777,7 @@ abstract public class Database implements TransactionPool {
     try {
       ResultSet rs =
           transaction.getConnection().createStatement().executeQuery(sql);
-      if (logSQL)
+      if (logSQL())
         log(new SQLLogEvent(sql));
       return rs;
     }
@@ -809,7 +810,7 @@ abstract public class Database implements TransactionPool {
 
     try {
       int n = transaction.getConnection().createStatement().executeUpdate(sql);
-      if (logSQL)
+      if (logSQL())
         log(new SQLLogEvent(sql));
       return n;
     }
@@ -897,7 +898,10 @@ abstract public class Database implements TransactionPool {
 
   private UserCapabilityCache capabilityCache = new UserCapabilityCache();
 
-  boolean hasCapability(User user, Capability capability) {
+  public boolean hasCapability(User user, Capability capability) {
+    // no capability means that we always have access
+    if (capability == null) return true;
+    // otherwise, go to the cache
     return capabilityCache.hasCapability(user, capability);
   }
 
@@ -908,6 +912,12 @@ abstract public class Database implements TransactionPool {
   public Capability administerCapability() {
     return getCapabilityTable().administer();
   }
+
+  // by default, anyone can administer a database
+  public Capability getCanUseAdminSystem() {
+    return null;
+  }
+
 
   // 
   // ==========
@@ -1137,7 +1147,14 @@ abstract public class Database implements TransactionPool {
     return committedConnection;
   }
 
-  public boolean logSQL = false;
+  public boolean logSQL() {
+    return logSQL;
+  }
+
+  public void setLogSQL(boolean value) {
+    logSQL = value;
+  }
+
   public boolean logCommits = false;
 
   void log(PoemLogEvent e) {

@@ -94,7 +94,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
   public ResultSet resultSet(PoemTransaction transaction) {
     PreparedStatement statement = forTransaction(transaction);
     try {
-      if (database.logSQL)
+      if (database.logSQL())
 	database.log(new SQLLogEvent(statement.toString()));
       return statement.executeQuery();
     }

@@ -150,6 +150,7 @@ public abstract class TemplateServlet extends PoemServlet {
   * @param field - the name of the field to get
   *
   * @return - the value of the field requested
+  * @deprecated as of 02/04/2001 - use MelatiUtil methods
   */
   public String getFormNulled(Melati melati, String field) {
     String val = melati.getTemplateContext().getForm(field);

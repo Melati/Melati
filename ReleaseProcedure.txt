@@ -45,7 +45,7 @@ Which will contain all the compiled classes, and additional files (*.wm, *.html,
 And a directory
    .../built/
 
-Which will contain the melati jar file.  a zip file of the sources, 
+Which will contain the melati jar file, the javadocs, a zip file of the sources,
 and additional files (*.wm, *.html, *.gif and *.js)
 
 

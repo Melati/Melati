@@ -162,8 +162,6 @@
     <target name="javadocs" depends="prepare">
         <mkdir dir="${build.javadoc}"/>
         <javadoc
-            includes="**/*.java"
-            excludes="**/playing/**/*.java **/doc/example/**/*.java **/test/**/*.java **/template/**/*.java"
             sourcepath="${build.src}"
             sourcefiles=""
             packagenames="org.*"

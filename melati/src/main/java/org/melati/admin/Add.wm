@@ -8,8 +8,7 @@
 
 <SCRIPT src="/validation.js"></SCRIPT>
 
-<FORM METHOD=post
-      ACTION=new/Update> <!-- see MethodRef(String pathInfo) in Admin.java -->
+<FORM METHOD=post ACTION=AddUpdate>
 
 <CENTER>
 

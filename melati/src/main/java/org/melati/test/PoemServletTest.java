@@ -125,6 +125,14 @@ public class PoemServletTest extends PoemServlet {
     "org.melati.test.TemplateServletTest/" + 
     melati.getContext().logicalDatabase + "</a><br/>\n");
 
+    output.write("<p>\n");
+    output.write("Make sure the <a href='"+ 
+      melati.getZoneURL() + 
+      "/org.melati.admin.Admin/" + 
+      melati.getContext().logicalDatabase + 
+      "/Main'>Admin System</a> is working." + 
+      "\n");
+    output.write("</p>\n");
     String method = melati.getMethod();
     if (method != null) {
       output.write("Test melati Exception handling" +

@@ -60,6 +60,9 @@ package org.melati.poem.csv;
  */
 public class CSVParseException extends Exception {
 
+  /**
+   * @param s the error message.
+   */
   public CSVParseException(String s) {
     super(s);
   }

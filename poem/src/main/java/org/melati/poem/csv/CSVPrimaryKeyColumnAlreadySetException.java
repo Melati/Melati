@@ -62,10 +62,16 @@ public class CSVPrimaryKeyColumnAlreadySetException extends Exception {
 
   String tableName = null;
 
+  /**
+   * @param tableName the table in which we tried to create a second primary key.
+   */
   public CSVPrimaryKeyColumnAlreadySetException(String tableName) {
     this.tableName = tableName;
   }
 
+  /**
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Tried to add a Primary Key column to table " + tableName +
            " but one had already been set";

@@ -55,24 +55,47 @@
 package org.melati.poem.csv;
 
 /**
- * A column in a CSV file.
+ * A bridging object which is both a column in a CSV file and 
+ * a column in a POEM database.
+ * <p>
+ * A CSVColumn can be a primary key for this table, ie unique and 
+ * used by other tables to refer to this record.
+ * <p>
+ * A CSVColumn can also be a foreign key into another {@link CSVTable}. 
+ * 
  */
-
 public class CSVColumn {
 
   String poemName = null;
   boolean isPrimaryKey = false;
   CSVTable foreignTable = null;
 
+ /**
+  * Simplest case constructor.
+  * 
+  * @param poemName the name of the POEM column this is to be mapped to.
+  */
   public CSVColumn(String poemName) {
     this.poemName = poemName;
   }
 
+ /**
+  * Constructor for a key value into another table.
+  * 
+  * @param poemName the name of the POEM column this is to be mapped to.
+  * @param foreignTable another CSVTable in which this value should be found.
+  */
   public CSVColumn(String poemName, CSVTable foreignTable) {
     this.poemName = poemName;
     this.foreignTable = foreignTable;
   }
 
+ /**
+  * Constructor for a key value into another table.
+  * 
+  * @param poemName the name of the POEM column this is to be mapped to.
+  * @param isPrimaryKey flag to indicate this is the primary key column.
+  */
   public CSVColumn(String poemName, boolean isPrimaryKey) {
     this.poemName = poemName;
     this.isPrimaryKey = isPrimaryKey;

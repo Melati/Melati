@@ -72,32 +72,26 @@ public class CSVRecord extends Vector {
   /* The Poem Persistent corresponding to writing this record to the db */
   Persistent poemRecord = null;
 
-
   /**
    * Constructor
    */
-
   public CSVRecord(Table table) {
     super();
     this.table = table;
   }
 
-
   /**
    * Add a field to this record
    */
-
   public synchronized void addField(CSVField field) {
     if (field.column.isPrimaryKey)
       primaryKeyValue = field.value;
     addElement(field);
   }
 
-
   /**
    * Write the data in this record into a new Persistent
    */
-
   private void createPersistent() throws NoPrimaryKeyInCSVTableException {
     if (poemRecord != null)
       return;
@@ -120,13 +114,11 @@ public class CSVRecord extends Vector {
     newObj.makePersistent();
     poemRecord = newObj;
   }
-
-
-  /**
-   * Retreive the Persistent corresponding to this CSVRecord, if there
-   * is one
-   */
-
+  
+ /**
+  * Retreive the Persistent corresponding to this CSVRecord, if there
+  * is one.
+  */
   Persistent getPersistent() throws NoPrimaryKeyInCSVTableException {
     if (poemRecord != null)
       return poemRecord;
@@ -134,10 +126,9 @@ public class CSVRecord extends Vector {
     return poemRecord;
   }
 
-
-  /**
-   * Make sure this record is written to the database
-   */
+ /**
+  * Make sure this record is written to the database.
+  */
   void makePersistent() throws NoPrimaryKeyInCSVTableException {
     getPersistent();
   }

@@ -70,7 +70,6 @@ import org.melati.util.CSVFileParser;
 /**
  * A representation of a CSV file as a POEM Table.
  */
-
 public class CSVTable {
 
   protected Table table = null;
@@ -80,31 +79,27 @@ public class CSVTable {
   protected CSVColumn primaryKey = null;
   protected Vector records = new Vector();
 
-  /**
-   * Constructor.
-   * 
-   * @param table POEM table to load data into
-   * @param data CSV file to read from
-   */
+ /**
+  * Constructor.
+  * 
+  * @param table POEM table to load data into
+  * @param data CSV file to read from
+  */
   public CSVTable(Table table, File data) {
     this.table = table;
     this.data = data;
   }
 
-
-  /**
-   * Add column definitions to this table
-   */
-
+ /**
+  * Add column definitions to this table
+  */
   public void addColumn(String csvName, String poemName) {
     columns.put(csvName, new CSVColumn(poemName));
   }
 
-
-  /**
-   * Add column definitions, perhaps Primary Keys, to this table
-   */
-
+ /**
+  * Add column definitions, perhaps Primary Keys, to this table
+  */
   public void addColumn(String csvName, String poemName, boolean isPrimaryKey)
       throws CSVPrimaryKeyColumnAlreadySetException {
     if (isPrimaryKey && primaryKey != null)
@@ -115,21 +110,18 @@ public class CSVTable {
       primaryKey = col;
   }
 
-
-  /**
-   * Add column definitions for foreign keys to this table
-   */
-
+ /**
+  * Add column definitions for foreign keys to this table
+  */
   public void addColumn(String csvName, String poemName, 
                         CSVTable foreignTable) {
     columns.put(csvName, new CSVColumn(poemName, foreignTable));
   }
 
 
-  /**
-   * Parse the CSV data file and store the data for saving later
-   */
-
+ /**
+  * Parse the CSV data file and store the data for saving later
+  */
   public void load() throws IOException, CSVParseException {
 
     BufferedReader reader = new BufferedReader(new FileReader(data));
@@ -173,13 +165,12 @@ public class CSVTable {
   }
 
 
-    /**
-     * Reads the file until is has seen an object's-worth of
-     * field values (ie until it sees an EOF or a line starting
-     * with '$') which it returns in a hashtable (null if there are
-     * no field values).
-     */
-
+ /**
+  * Reads the file until is has seen an object's-worth of
+  * field values (ie until it sees an EOF or a line starting
+  * with '$') which it returns in a hashtable (null if there are
+  * no field values).
+  */
   private CSVRecord parseRecord(CSVFileParser parser, String fileName)
                                     throws IOException, CSVParseException {
     if (!parser.nextRecord())
@@ -203,24 +194,22 @@ public class CSVTable {
                                     fileName + ": " + e.toString());
     }
     catch (NoSuchElementException f) {
+      String message = "Problem with data field no. " + (i+1) + 
+      " in " + fileName;
       if (value == null) {
-        throw new CSVParseException("Problem with data field no. " + (i+1) + 
-                                   " in " + fileName + 
-                                   " (Check last line of file) : " + 
-                                   f.toString());
+        message += " (Check last line of file) : " + 
+                    f.toString();
       } else {
-        throw new CSVParseException("Problem with data field no. " + (i+1) + 
-                                   " in " + fileName + 
-                                   ", Value:" + value + ": " + f.toString());
+        message += ", Value:" + value + ": " + f.toString();
       }
+      throw new CSVParseException(message);
     }
   }
 
 
-  /**
-   * Delete all Persistents from the Poem table
-   */
-
+ /**
+  * Delete all Persistents from the Poem table
+  */
   public void emptyTable() {
     Enumeration rows = table.selection();
     while(rows.hasMoreElements()) {
@@ -229,23 +218,19 @@ public class CSVTable {
     }
   }
 
-
-  /**
-   * Write the records to the database
-   */
-
+ /**
+  * Write the records to the database.
+  */
   public void writeRecords() throws NoPrimaryKeyInCSVTableException {
     for (int i = 0; i < records.size(); i++) {
       ((CSVRecord)records.elementAt(i)).makePersistent();
     }
   }
 
-
   /**
    * Lookup the Persistent corresponding to the CSV record
-   * with the given value for the CSV table's primary key
+   * with the given value for the CSV table's primary key.
    */
-
   protected Persistent getRecordWithID(String csvValue)
                                      throws NoPrimaryKeyInCSVTableException {
     if (primaryKey == null)
@@ -257,15 +242,12 @@ public class CSVTable {
           record.primaryKeyValue.equals(csvValue))
         return record.getPersistent();
     }
-
     return null;
   }
 
-
-  /**
-   * Return a string reporting on the data added to this table
-   */
-
+ /**
+  * Return a string reporting on the data added to this table.
+  */
   public void report(boolean recordDetails, boolean fieldDetails,
                        Writer output) throws IOException {
 
@@ -296,7 +278,6 @@ public class CSVTable {
         }
       }
     }
-
     output.write("** Currently " + table.count(null) +
                   " Persistents in this table\n\n");
   }

@@ -57,12 +57,15 @@ package org.melati.poem.csv;
 /**
  * A field within a record of a CSV file.
  */
-
 public class CSVField {
 
   CSVColumn column = null;
   String value = null;
 
+  /**
+   * @param column the column this field is in
+   * @param value the field value as a string
+   */
   public CSVField(CSVColumn column, String value) {
     this.column = column;
     this.value = value;

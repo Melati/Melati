@@ -31,8 +31,9 @@
   <property name="xdocs"              value="../xdocs"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
   <property name="doc.dir"            value="${site}/doc"/>
-  <property name="packaged"           value="${built.root}/packaged/"/>
-  <property name="war"                value="${packaged}/${project}.war"/>
+  <property name="packaged.dir"           value="${built.root}/packaged"/>
+  <property name="war"                value="${packaged.dir}/${project}-${version}.war"/>
+  <property name="jar"                value="${project}-${version}.jar"/>
   <property name="debug"              value="on"/>
   <property name="optimize"           value="off"/>
   <!-- We still use javax.servlet.HttpSession.getValue etc 
@@ -43,60 +44,44 @@
   <property name="javadoc.source"     value="1.4"/>
   <property name="poemODMGDSD"        value="${src}/org/melati/example/odmg/odmg.dsd"/>
 
-  <property name="servletJar"      value="${build.lib}/javax.servlet.jar"/>
-  <property name="postgresqlJar"   value="${build.lib}/pg73jdbc3.jar"/>
-  <property name="hsqldbJar"       value="${build.lib}/hsqldb.jar"/>
-  <property name="mysqlJar"        value="${build.lib}/mm.mysql-2.0.11-bin.jar" />
-  <property name="mckoiJar"        value="${build.lib}/mkjdbc.jar}" />
+  <property name="melatiJar"        value="${jar}" />
 
-  <!--<property name="webmacroJar"     value="${build.lib}/webmacro-1.1.jar"/>-->
-  <property name="webmacroJar"     value="${build.lib}/webmacro-classic-2.0b1.jar"/>
-  <property name="concurrentJar"   value="${build.lib}/concurrent.jar"/>
-  <property name="velocityJar"     value="${build.lib}/velocity-1.3.1.jar" />
-  <property name="oroJar"          value="${build.lib}/jakarta-oro-2.0.8.jar" />
-  <property name="collectionsJar"  value="${build.lib}/commons-collections-3.0.jar" />
-  <property name="odmgJar"         value="${build.lib}/odmg3.jar" />
+  <property name="servletJar"      value="javax.servlet.jar"/>
+  <property name="postgresqlJar"   value="pg73jdbc3.jar"/>
+  <property name="hsqldbJar"       value="hsqldb-1.7.1.jar"/>
+  <property name="mysqlJar"        value="mm.mysql-2.0.11-bin.jar" />
+  <property name="mckoiJar"        value="mkjdbc.jar}" />
 
-  <property name="junitJar"        value="${build.lib}/junit.jar" />
-  <property name="mockobjectsJar"  value="${build.lib}/mockobjects-core-0.09.jar" />
+  <property name="webmacroJar"     value="webmacro-classic-2.0b1.jar"/>
+  <property name="concurrentJar"   value="concurrent.jar"/>
+  <property name="velocityJar"     value="velocity-1.3.1.jar" />
+  <property name="oroJar"          value="jakarta-oro-2.0.8.jar" />
+  <property name="collectionsJar"  value="commons-collections-3.0.jar" />
+  <property name="odmgJar"         value="odmg3.jar" />
+
+  <property name="junitJar"        value="junit.jar" />
+  <property name="mockobjectsJar"  value="mockobjects-core-0.09.jar" />
 
   <path id="classpath.compile">
-    <pathelement path="${servletJar}"/>
-    <pathelement path="${postgresqlJar}"/>
-    <pathelement path="${webmacroJar}"/>
-    <pathelement path="${velocityJar}" />
-    <pathelement path="${oroJar}" />
-    <pathelement path="${collectionsJar}" />
-    <pathelement path="${odmgJar}" />
-    <pathelement path="${junitJar}" />
-    <pathelement path="${mockobjectsJar}" />
+    <pathelement path="${build.lib}/${servletJar}"/>
+    <pathelement path="${build.lib}/${postgresqlJar}"/>
+    <pathelement path="${build.lib}/${webmacroJar}"/>
+    <pathelement path="${build.lib}/${velocityJar}" />
+    <pathelement path="${build.lib}/${oroJar}" />
+    <pathelement path="${build.lib}/${collectionsJar}" />
+    <pathelement path="${build.lib}/${odmgJar}" />
+    <pathelement path="${build.lib}/${junitJar}" />
+    <pathelement path="${build.lib}/${mockobjectsJar}" />
   </path>
 
   <path id="classpath.jetty">
-    <pathelement path="${servletJar}"/>
+    <pathelement path="${build.lib}/${servletJar}"/>
     <pathelement path="${build.lib}/javax.xml.jaxp.jar"/>
     <pathelement path="${build.lib}/org.apache.crimson.jar"/>
     <pathelement path="${build.lib}/org.apache.jasper.jar"/>
     <pathelement path="${build.lib}/org.mortbay.jetty.jar"/>
     <pathelement path="${build.lib}/tools.jar"/>
 
-    <pathelement path="${postgresqlJar}"/>
-    <pathelement path="${webmacroJar}"/>
-    <pathelement path="${concurrentJar}"/>
-    <pathelement path="${velocityJar}" />
-    <pathelement path="${oroJar}" />
-    <pathelement path="${collectionsJar}" />
-    <pathelement path="${odmgJar}" />
-    <pathelement path="${junit}" />
-    <pathelement path="${hsqldbJar}"/>
-    <pathelement path="${mysqlJar}" />
-    <pathelement path="${built.lib}/melati.jar"/>
-  </path>
-  <path id="classpath.drivers">
-    <pathelement path="${postgresqlJar}"/>
-    <pathelement path="${hsqldbJar}"/>
-    <pathelement path="${mysqlJar}" />
-    <pathelement path="${mckoiJar}"/>
   </path>
 
 
@@ -213,7 +198,7 @@ usage:
       <!-- loader bug such that Poem.dsd must be a real file on the -->
       <!-- classpath. -->
       <!-- Not sure the above is true anymore, as the DSD wasn't in the jar -->
-      <jar jarfile="${built.lib}/${project}.jar"
+      <jar jarfile="${jar}"
            basedir="${compiled.root}"
            includes="**/*.class, **/*.dsd, **/*.wm"
        />
@@ -386,7 +371,7 @@ usage:
     <!-- Package as .zip and .tgz                                          -->
     <!-- ================================================================= -->
     <target name="package" >
-      <mkdir dir="${packaged}"/>
+      <mkdir dir="${packaged.dir}"/>
       <copy todir="${built.lib}">
         <fileset dir="${build.lib}">
           <patternset>
@@ -414,21 +399,21 @@ usage:
       </copy>
 
       <zip  basedir="${built.root}" 
-            excludes="${compiled.root},${packaged},**/*.zip"
-            zipfile="${packaged}/${project}_${version}.zip" />
+            excludes="${compiled.root},${packaged.dir},**/*.zip"
+            zipfile="${packaged.dir}/${project}_${version}.zip" />
       <tar  basedir="${built.root}" 
-            excludes="${compiled.root},${packaged},**/*.zip"
-            tarfile="${packaged}/${project}_${version}.tar" />
-      <gzip src="${packaged}/${project}_${version}.tar"
-            zipfile="${packaged}/${project}_${version}.tar.gz" />
+            excludes="${compiled.root},${packaged.dir},**/*.zip"
+            tarfile="${packaged.dir}/${project}_${version}.tar" />
+      <gzip src="${packaged.dir}/${project}_${version}.tar"
+            zipfile="${packaged.dir}/${project}_${version}.tar.gz" />
       <zip  basedir="${javadoc.dir}"
-            zipfile="${packaged}/${project}_${version}_doc.zip" />
+            zipfile="${packaged.dir}/${project}_${version}_doc.zip" />
       <tar  basedir="${javadoc.dir}"
-            tarfile="${packaged}/${project}_${version}_doc.tar" />
-      <gzip src="${packaged}/${project}_${version}_doc.tar"
-            zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
+            tarfile="${packaged.dir}/${project}_${version}_doc.tar" />
+      <gzip src="${packaged.dir}/${project}_${version}_doc.tar"
+            zipfile="${packaged.dir}/${project}_${version}_doc.tar.gz" />
       <delete>
-       <fileset dir="${packaged}" includes="*.tar"/>
+       <fileset dir="${packaged.dir}" includes="*.tar"/>
       </delete>
     </target>
     
@@ -438,13 +423,14 @@ usage:
     <!-- Build the .war                                                    -->
     <!-- ================================================================= -->
   <target name="war" depends="sources">
-    <mkdir dir="${packaged}"/>
+    <mkdir dir="${packaged.dir}"/>
     <delete file="${war}"/>
+    <copy todir="${build.lib}" file="${jar}"/>
     <war warfile="${war}" webxml="${site}/WEB-INF/web.xml">
       <!-- The site HTML -->
       <fileset dir="${site}">
           <exclude name="**/docsrc/**"/>
-          <exclude name="**/WEB-INF/web.xml"/>
+          <exclude name="**/WEB-INF/**"/>
       </fileset>
       <!-- Readme and License -->
       <zipfileset dir="${this.root}"
@@ -500,12 +486,22 @@ usage:
       <lib dir="${build.lib}">
         <include name="${webmacroJar}"/>
         <include name="${hsqldbJar}"/>
-      </lib>
-      <!-- Melati jar -->
-      <lib dir="${built.lib}">
-        <include name="${project}.jar"/>
+        <include name="${concurrentJar}"/>
+        <include name="${oroJar}" />
+        <include name="${collectionsJar}" />
+
+<!-- other possible libraries
+        <include name="${postgresqlJar}"/>
+        <include name="${velocityJar}" />
+        <include name="${odmgJar}" />
+        <include name="${junit}" />
+        <include name="${mysqlJar}" />
+-->
+        <include name="${melatiJar}"/>
       </lib>
     </war>
+    <!-- don't want to have to refer to specific versions in jelly.xml -->
+    <copy file="${war}" tofile="${packaged.dir}/${project}.war"/>
   </target>
   
 
@@ -518,6 +514,7 @@ usage:
           classpathref="classpath.jetty"
           fork="yes"
           failonerror="yes">
+      <jvmarg value="-Xmx256M"/>
       <arg line="jetty.xml"/>
     </java>
   </target>
@@ -555,7 +552,7 @@ usage:
       <formatter type="plain"/>
       <classpath>
         <pathelement path="${compiled.root}"/>
-		<pathelement path="${build.lib}/${mockobjectsJar}" />
+        <pathelement path="${build.lib}/${mockobjectsJar}" />
       </classpath>
       <test name="org.melati.AllUnitTests"/>
       <formatter type="plain"/>
@@ -598,6 +595,41 @@ usage:
           depends="build, run">
   </target>
 
+
+    <!-- ============================================================== -->
+    <!-- Tomcat 4                                                       -->
+    <!-- ============================================================== -->
+  <property name="tomcat"  location="/inst/tomcat"/>
+  <path id="classpath.tomcat">
+    <pathelement path="${build.lib}/tools.jar"/>
+    <pathelement path="${tomcat}/server/lib/catalina.jar"/>
+  </path>
+
+  <target name="startTomcat" >
+  	<java jar="${tomcat}/bin/bootstrap.jar"  
+              classpathref="classpath.tomcat"
+              fork="true">
+	    <arg value="start"/>
+	    <sysproperty key="java.endorsed.dirs" value="${tomcat}/common/endorsed"/> 
+	    <sysproperty key="user.dir" value="${tomcat}/conf"/> 
+
+    </java>
+  </target>
+
+  <target name="stopTomcat">
+  	<java jar="${tomcat}/bin/bootstrap.jar"  
+              classpathref="classpath.tomcat"
+              fork="true">
+	    <arg value="stop"/> 
+	    <sysproperty key="user.dir" value="${tomcat}"/>
+    </java>
+  </target>
+
+  <target name="deployTomcat">
+      <copy todir="${tomcat}/webapps" file="${war}"/>
+  </target>
+  
+  <target name="kick" depends="stopTomcat, deployTomcat, startTomcat"></target>
 
 </project>
 

@@ -107,7 +107,6 @@ import java.sql.Types;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-//import java.sql.ResultSetMetaData;
 import org.melati.poem.User;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
@@ -157,7 +156,7 @@ public class MySQL extends AnsiStandard {
   }
 
  /**
-  * Translates a MySQL String into a Poem <code>BooleanPoemType</code>.
+  * Translates a MySQL String into a Poem <code>StringPoemType</code>.
   */ 
   public static class MySQLStringPoemType extends StringPoemType {
 
@@ -239,7 +238,6 @@ public class MySQL extends AnsiStandard {
 
  /**
   * Translates a MySQL Blob into a Poem <code>IntegerPoemType</code>.
-  * About the same as in Postgresql.java, hope it's OK.
   */ 
     public static class BlobPoemType extends BinaryPoemType {
       public BlobPoemType(boolean nullable, int size) {
@@ -270,24 +268,27 @@ public class MySQL extends AnsiStandard {
         throws SQLException {
       //ResultSetMetaData rsmd= md.getMetaData();
 
-      //I leave case as Postgres driver has it.
-
       if( md.getString("TYPE_NAME").equals("blob") )
         return new BlobPoemType(
                     md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                     md.getInt("COLUMN_SIZE"));
-      else
-        if( md.getString("TYPE_NAME").equals("text") )
-          return new MySQLStringPoemType( md.getInt("NULLABLE")==
+      else if( md.getString("TYPE_NAME").equals("text") )
+        return new MySQLStringPoemType( md.getInt("NULLABLE")==
             DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE") );
-
-  // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
-        else
-          if( md.getString("TYPE_NAME").equals("tinyint") )
-            return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
+      // Get it working hack
+      else if( md.getString("TYPE_NAME").equals("smallint") )
+        return new IntegerPoemType( md.getInt("NULLABLE") ==
               DatabaseMetaData.columnNullable );
-        else
-          return super.defaultPoemTypeOfColumnMetaData(md);
+      // Get it working hack
+      else if( md.getString("TYPE_NAME").equals("char") )
+        return new StringPoemType( md.getInt("NULLABLE") ==
+              DatabaseMetaData.columnNullable, 1);
+  // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
+      else if( md.getString("TYPE_NAME").equals("tinyint") )
+        return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
+              DatabaseMetaData.columnNullable );
+      else
+        return super.defaultPoemTypeOfColumnMetaData(md);
     }
 
 

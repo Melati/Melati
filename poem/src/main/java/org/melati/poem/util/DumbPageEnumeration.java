@@ -50,7 +50,7 @@ import java.util.Enumeration;
 /*
  * A PageEnumeration which doesn't know how big it is.
  * Ideally SQL would allow you to start at an offset.
- * Also this calls should probably be called 
+ * Also this class should probably be called 
  * DumbPagedEnumeration as this is not an enumeration of Pages.
  */
 public class DumbPageEnumeration extends PageEnumerationBase {

@@ -62,5 +62,5 @@ public class MelatiStringWriter extends MelatiWriter {
   public void reset() throws IOException {
     out = new StringWriter();
   }
-  
+ 
 }

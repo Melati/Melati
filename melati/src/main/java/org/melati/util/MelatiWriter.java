@@ -92,7 +92,7 @@ public abstract class MelatiWriter extends Writer {
   }
   
   public String asString() throws IOException {
-    return toString();
+    return out.toString();
   }
  
 }

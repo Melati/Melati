@@ -111,8 +111,7 @@ import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 
-public abstract class ConfigServlet extends HttpServlet
-{
+public abstract class ConfigServlet extends HttpServlet {
 
   // the melati
   protected MelatiConfig melatiConfig;
@@ -121,8 +120,8 @@ public abstract class ConfigServlet extends HttpServlet
    * Inititialise Melati
    * @param ServletConfig
    */
-  public void init(ServletConfig config) throws ServletException
-  {
+
+  public void init(ServletConfig config) throws ServletException {
     super.init(config);
     try {
       melatiConfig = melatiConfig();
@@ -137,27 +136,28 @@ public abstract class ConfigServlet extends HttpServlet
   /**
    * Handles GET
    */
+
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-   throws ServletException, IOException
-  {
+      throws ServletException, IOException {
     doGetPostRequest(request, response);
   }
 
   /**
    * Handle a POST
    */
+
   public void doPost(HttpServletRequest request, HttpServletResponse response)
-   throws ServletException, IOException
-  {
+      throws ServletException, IOException {
     doGetPostRequest(request, response);
   }
 
   /**
    * Process the request.
    */
+
   private void doGetPostRequest(final HttpServletRequest request, 
                                 final HttpServletResponse response)
-          throws IOException {
+      throws IOException {
     try {
       Melati melati = melatiConfig.getMelati(request, response);
       try {
@@ -166,10 +166,12 @@ public abstract class ConfigServlet extends HttpServlet
         doConfiguredRequest(melati);
         // send the output to the client
         melati.write();
-      } catch (Exception f) {
+      }
+      catch (Exception f) {
         error(melati,f);
       }
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       // log it
       e.printStackTrace(System.err);
     }
@@ -178,8 +180,8 @@ public abstract class ConfigServlet extends HttpServlet
   /**
    * Send an error message
    */
-  public void error(Melati melati, Exception e )
-   throws IOException {
+
+  public void error(Melati melati, Exception e ) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
       // log it
@@ -204,11 +206,13 @@ public abstract class ConfigServlet extends HttpServlet
   }
 
   /*
-   * please override these settings
+   * Please override these settings.
    */
+
   public String getSysAdminName () {
     return "nobody";
   }
+
   public String getSysAdminEmail () {
     return "nobody@nobody.com";
   }
@@ -223,18 +227,21 @@ public abstract class ConfigServlet extends HttpServlet
   }
   
   /** 
-   * to override any setting from MelatiServlet.properties,
-   * simply override this method and return a vaild MelatiConfig
+   * To override any setting from MelatiServlet.properties,
+   * simply override this method and return a vaild MelatiConfig.
    *
    * eg to use a different AccessHandler from the default:
    *
-   *  protected MelatiConfig melatiConfig() throws MelatiException {
-   *    MelatiConfig config = super.melatiConfig();
-   *    config.setAccessHandler(new YourAccessHandler());
-   *    return config;
-   *  }
+   * <PRE>
+   *   protected MelatiConfig melatiConfig() throws MelatiException {
+   *     MelatiConfig config = super.melatiConfig();
+   *     config.setAccessHandler(new YourAccessHandler());
+   *     return config;
+   *   }
+   * </PRE>
    *
    */
+
   protected MelatiConfig melatiConfig() throws MelatiException {
     return new MelatiConfig();
   }
@@ -243,7 +250,7 @@ public abstract class ConfigServlet extends HttpServlet
    * Override this method to build up your output
    * @param melati
    */
-  protected abstract void doConfiguredRequest (Melati melati)
-  throws Exception;
 
+  protected abstract void doConfiguredRequest (Melati melati)
+      throws Exception;
 }

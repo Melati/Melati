@@ -17,7 +17,7 @@ import org.melati.example.odmg.generated.ChildBase;
  * <tr><td> parent </td><td> Parent </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Child extends ChildBase {
 

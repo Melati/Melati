@@ -197,15 +197,6 @@ public class Field implements FieldAttributes, Cloneable {
     return raw == null ? other.raw == null : raw.equals(other.raw);
   }
 
-  public static Field of(Persistent persistent, Column column) {
-    try {
-      return new Field(column.getRaw(persistent), column);
-    }
-    catch (AccessPoemException accessException) {
-      return new Field(accessException, column);
-    }
-  }
-
   public void dump(PrintStream p) {
     p.print(getName() + ": " + getCookedString(MelatiLocale.here,
 					       DateFormat.MEDIUM));

@@ -93,7 +93,12 @@ public class ExtraColumn extends Column {
   }
 
   public Field asField(Persistent g) {
-    return Field.of(g, this);
+    try {
+      return new Field(getRaw(g), this);
+    }
+    catch (AccessPoemException accessException) {
+      return new Field(accessException, this);
+    }
   }
 
   public static Column from(Table table, ColumnInfo columnInfo,

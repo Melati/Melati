@@ -17,14 +17,14 @@ public class BuyerTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Buyer)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Buyer)g).setId((Integer)value);
+            ((Buyer)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -35,37 +35,37 @@ public class BuyerTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setId_unsafe((Integer)ident);
+            ((Buyer)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setId((Integer)ident);
+            ((Buyer)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 25), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Buyer)g).getName();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Buyer)g).setName((String)value);
+            ((Buyer)g).setName((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -88,37 +88,37 @@ public class BuyerTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getName_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setName_unsafe((String)ident);
+            ((Buyer)g).setName_unsafe((String)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getName();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setName((String)ident);
+            ((Buyer)g).setName((String)raw);
           }
         });
 
     defineColumn(col_type =
         new Column(this, "type", new ReferencePoemType(((ExampleDatabase)getDatabase()).getBuyerTypeTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Buyer)g).getType();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Buyer)g).setType((BuyerType)value);
+            ((Buyer)g).setType((BuyerType)cooked);
           }
 
           protected int defaultDisplayOrder() {
@@ -133,24 +133,24 @@ public class BuyerTableBase extends Table {
             return true;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getType_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setType_unsafe((Integer)ident);
+            ((Buyer)g).setType_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Buyer)g).getTypeTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Buyer)g).setTypeTroid((Integer)ident);
+            ((Buyer)g).setTypeTroid((Integer)raw);
           }
         });
   }

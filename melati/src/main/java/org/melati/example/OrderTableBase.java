@@ -18,14 +18,14 @@ public class OrderTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Order)g).getId();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Order)g).setId((Integer)value);
+            ((Order)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -36,135 +36,135 @@ public class OrderTableBase extends Table {
             return 0;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getId_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setId_unsafe((Integer)ident);
+            ((Order)g).setId_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getId();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setId((Integer)ident);
+            ((Order)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_buyer =
         new Column(this, "buyer", new ReferencePoemType(((ExampleDatabase)getDatabase()).getBuyerTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Order)g).getBuyer();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Order)g).setBuyer((Buyer)value);
+            ((Order)g).setBuyer((Buyer)cooked);
           }
 
           protected int defaultDisplayOrder() {
             return 1;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getBuyer_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setBuyer_unsafe((Integer)ident);
+            ((Order)g).setBuyer_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getBuyerTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setBuyerTroid((Integer)ident);
+            ((Order)g).setBuyerTroid((Integer)raw);
           }
         });
 
     defineColumn(col_product =
         new Column(this, "product", new ReferencePoemType(((ExampleDatabase)getDatabase()).getProductTable(), false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Order)g).getProduct();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Order)g).setProduct((Product)value);
+            ((Order)g).setProduct((Product)cooked);
           }
 
           protected int defaultDisplayOrder() {
             return 2;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getProduct_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setProduct_unsafe((Integer)ident);
+            ((Order)g).setProduct_unsafe((Integer)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getProductTroid();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setProductTroid((Integer)ident);
+            ((Order)g).setProductTroid((Integer)raw);
           }
         });
 
     defineColumn(col_urgent =
         new Column(this, "urgent", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getValue(Persistent g)
+          public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Order)g).getUrgent();
           }
 
-          public void setValue(Persistent g, Object value)
+          public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Order)g).setUrgent((Boolean)value);
+            ((Order)g).setUrgent((Boolean)cooked);
           }
 
           protected int defaultDisplayOrder() {
             return 3;
           }
 
-          public Object getIdent_unsafe(Persistent g)
+          public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getUrgent_unsafe();
           }
 
-          public void setIdent_unsafe(Persistent g, Object ident)
+          public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setUrgent_unsafe((Boolean)ident);
+            ((Order)g).setUrgent_unsafe((Boolean)raw);
           }
 
-          public Object getIdent(Persistent g)
+          public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Order)g).getUrgent();
           }
 
-          public void setIdent(Persistent g, Object ident)
+          public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Order)g).setUrgent((Boolean)ident);
+            ((Order)g).setUrgent((Boolean)raw);
           }
         });
   }

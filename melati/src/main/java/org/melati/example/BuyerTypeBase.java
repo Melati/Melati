@@ -17,8 +17,8 @@ public class BuyerTypeBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -27,16 +27,16 @@ public class BuyerTypeBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTypeTable().getIdColumn().getType().assertValidValue(value);
+    getBuyerTypeTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -47,8 +47,8 @@ public class BuyerTypeBase extends Persistent {
     return description;
   }
 
-  public void setDescription_unsafe(String value) {
-    description = value;
+  public void setDescription_unsafe(String cooked) {
+    description = cooked;
   }
 
   public String getDescription()
@@ -57,11 +57,11 @@ public class BuyerTypeBase extends Persistent {
     return getDescription_unsafe();
   }
 
-  public void setDescription(String value)
+  public void setDescription(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTypeTable().getDescriptionColumn().getType().assertValidValue(value);
+    getBuyerTypeTable().getDescriptionColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setDescription_unsafe(value);
+    setDescription_unsafe(cooked);
   }
 
   public final Field getDescriptionField() throws AccessPoemException {

@@ -4,7 +4,7 @@ package org.melati.doc.example;
 
 import org.melati.poem.*;
 
-class ExampleDatabaseBase extends PoemDatabase {
+public class ExampleDatabaseBase extends PoemDatabase {
 
   private BuyerTable tab_buyer = null;
   private BuyerTypeTable tab_buyertype = null;

@@ -18,8 +18,8 @@ public class BuyerBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -28,16 +28,16 @@ public class BuyerBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTable().getIdColumn().getType().assertValidValue(value);
+    getBuyerTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -48,8 +48,8 @@ public class BuyerBase extends Persistent {
     return name;
   }
 
-  public void setName_unsafe(String value) {
-    name = value;
+  public void setName_unsafe(String cooked) {
+    name = cooked;
   }
 
   public String getName()
@@ -58,11 +58,11 @@ public class BuyerBase extends Persistent {
     return getName_unsafe();
   }
 
-  public void setName(String value)
+  public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    getBuyerTable().getNameColumn().getType().assertValidValue(value);
+    getBuyerTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setName_unsafe(value);
+    setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
@@ -73,8 +73,8 @@ public class BuyerBase extends Persistent {
     return type;
   }
 
-  public void setType_unsafe(Integer value) {
-    type = value;
+  public void setType_unsafe(Integer cooked) {
+    type = cooked;
   }
 
   public Integer getTypeTroid()
@@ -83,11 +83,11 @@ public class BuyerBase extends Persistent {
     return getType_unsafe();
   }
 
-  public void setTypeTroid(Integer ident)
+  public void setTypeTroid(Integer raw)
       throws AccessPoemException {
-    getBuyerTable().getTypeColumn().getType().assertValidIdent(ident);
+    getBuyerTable().getTypeColumn().getType().assertValidRaw(raw);
     writeLock();
-    setType_unsafe(ident);
+    setType_unsafe(raw);
   }
 
   public BuyerType getType()
@@ -97,9 +97,9 @@ public class BuyerBase extends Persistent {
         ((ExampleDatabase)getDatabase()).getBuyerTypeTable().getBuyerTypeObject(troid);
   }
 
-  public void setType(BuyerType value)
+  public void setType(BuyerType cooked)
       throws AccessPoemException {
-    setTypeTroid(value == null ? null : value.troid());
+    setTypeTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getTypeField() throws AccessPoemException {

@@ -19,8 +19,8 @@ public class OrderBase extends Persistent {
     return id;
   }
 
-  public void setId_unsafe(Integer value) {
-    id = value;
+  public void setId_unsafe(Integer cooked) {
+    id = cooked;
   }
 
   public Integer getId()
@@ -29,16 +29,16 @@ public class OrderBase extends Persistent {
     return getId_unsafe();
   }
 
-  public void setId(Integer value)
+  public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    getOrderTable().getIdColumn().getType().assertValidValue(value);
+    getOrderTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setId_unsafe(value);
+    setId_unsafe(cooked);
   }
 
-  public final void setId(int value)
+  public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
-    setId(new Integer(value));
+    setId(new Integer(cooked));
   }
 
   public final Field getIdField() throws AccessPoemException {
@@ -49,8 +49,8 @@ public class OrderBase extends Persistent {
     return buyer;
   }
 
-  public void setBuyer_unsafe(Integer value) {
-    buyer = value;
+  public void setBuyer_unsafe(Integer cooked) {
+    buyer = cooked;
   }
 
   public Integer getBuyerTroid()
@@ -59,11 +59,11 @@ public class OrderBase extends Persistent {
     return getBuyer_unsafe();
   }
 
-  public void setBuyerTroid(Integer ident)
+  public void setBuyerTroid(Integer raw)
       throws AccessPoemException {
-    getOrderTable().getBuyerColumn().getType().assertValidIdent(ident);
+    getOrderTable().getBuyerColumn().getType().assertValidRaw(raw);
     writeLock();
-    setBuyer_unsafe(ident);
+    setBuyer_unsafe(raw);
   }
 
   public Buyer getBuyer()
@@ -73,9 +73,9 @@ public class OrderBase extends Persistent {
         ((ExampleDatabase)getDatabase()).getBuyerTable().getBuyerObject(troid);
   }
 
-  public void setBuyer(Buyer value)
+  public void setBuyer(Buyer cooked)
       throws AccessPoemException {
-    setBuyerTroid(value == null ? null : value.troid());
+    setBuyerTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getBuyerField() throws AccessPoemException {
@@ -86,8 +86,8 @@ public class OrderBase extends Persistent {
     return product;
   }
 
-  public void setProduct_unsafe(Integer value) {
-    product = value;
+  public void setProduct_unsafe(Integer cooked) {
+    product = cooked;
   }
 
   public Integer getProductTroid()
@@ -96,11 +96,11 @@ public class OrderBase extends Persistent {
     return getProduct_unsafe();
   }
 
-  public void setProductTroid(Integer ident)
+  public void setProductTroid(Integer raw)
       throws AccessPoemException {
-    getOrderTable().getProductColumn().getType().assertValidIdent(ident);
+    getOrderTable().getProductColumn().getType().assertValidRaw(raw);
     writeLock();
-    setProduct_unsafe(ident);
+    setProduct_unsafe(raw);
   }
 
   public Product getProduct()
@@ -110,9 +110,9 @@ public class OrderBase extends Persistent {
         ((ExampleDatabase)getDatabase()).getProductTable().getProductObject(troid);
   }
 
-  public void setProduct(Product value)
+  public void setProduct(Product cooked)
       throws AccessPoemException {
-    setProductTroid(value == null ? null : value.troid());
+    setProductTroid(cooked == null ? null : cooked.troid());
   }
 
   public final Field getProductField() throws AccessPoemException {
@@ -123,8 +123,8 @@ public class OrderBase extends Persistent {
     return urgent;
   }
 
-  public void setUrgent_unsafe(Boolean value) {
-    urgent = value;
+  public void setUrgent_unsafe(Boolean cooked) {
+    urgent = cooked;
   }
 
   public Boolean getUrgent()
@@ -133,16 +133,16 @@ public class OrderBase extends Persistent {
     return getUrgent_unsafe();
   }
 
-  public void setUrgent(Boolean value)
+  public void setUrgent(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    getOrderTable().getUrgentColumn().getType().assertValidValue(value);
+    getOrderTable().getUrgentColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setUrgent_unsafe(value);
+    setUrgent_unsafe(cooked);
   }
 
-  public final void setUrgent(boolean value)
+  public final void setUrgent(boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    setUrgent(value ? Boolean.TRUE : Boolean.FALSE);
+    setUrgent(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
   public final Field getUrgentField() throws AccessPoemException {

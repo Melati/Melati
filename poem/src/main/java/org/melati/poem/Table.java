@@ -1022,34 +1022,42 @@ public class Table implements Selectable {
    * The from clause has been added as an argument because it is
    * inextricably linked to the when clause, but the default is 
    * {@link #quotedName()}.
-   * <p>
-   * This is public for debugging purposes (delete this line if you use it).
    *
    * @param fromClause Comma separated list of table names or null for default.
+   * @param whereClause SQL fragment
+   * @param orderByClause Comma separated list
+   * @param includeDeleted Flag as to whether to include soft deleted records
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    * @todo Should work within some kind of limit
    */
   public String selectionSQL(String fromClause, String whereClause, 
                              String orderByClause, boolean includeDeleted, 
-                             boolean cannotSelect) {
+                             boolean excludeUnselectable) {
     return selectOrCountSQL(troidColumn().fullQuotedName(),
                             fromClause, whereClause, orderByClause,
-                            includeDeleted, cannotSelect);
+                            includeDeleted, excludeUnselectable);
   }
 
   /**
+   * @param fromClause SQL fragment
+   * @param whereClause SQL fragment
+   * @param orderByClause comma separated list
+   * @param includeDeleted flag as to whether to include soft deleted records
+   * @param excludeUnselectable whether to append unselectable exclusion SQL 
    * @param transaction null now defaults to 
    *                    {@link PoemThread#transaction()} but
    *                    we do not rely on this much yet.
+   * @throws SQLPoemException if necessary
    */
   private ResultSet selectionResultSet(String fromClause, String whereClause,
                                        String orderByClause, 
                                        boolean includeDeleted, 
-                                       boolean cannotDelete,
+                                       boolean excludeUnselectable,
                                        PoemTransaction transaction)
       throws SQLPoemException {
 
     String sql = selectionSQL(fromClause, whereClause, orderByClause,
-                              includeDeleted, cannotDelete);
+                              includeDeleted, excludeUnselectable);
 
     if (transaction == null) {
       transaction = PoemThread.transaction();
@@ -1100,12 +1108,12 @@ public class Table implements Selectable {
    */
   public Enumeration troidSelection(Persistent criteria, String orderByClause,
                                     boolean includeDeleted, 
-                                    boolean cannotSelect,
+                                    boolean excludeUnselectable,
                                     PoemTransaction transaction) {
     return troidsFrom(selectionResultSet(criteria.fromClause(), 
                                          whereClause(criteria),
                                          orderByClause,
-                                         includeDeleted, cannotSelect,
+                                         includeDeleted, excludeUnselectable,
                                          transaction));
   }
 
@@ -1241,19 +1249,44 @@ public class Table implements Selectable {
                                              includeDeleted));
   }
 
-  /**
-   * Return a selection of rows given arguments specifying a query.
-   *
-   * @see #selection(String, String, boolean)
-   * @param criteria Represents selection criteria possibly on joined tables
-   */
-   public Enumeration selection(Persistent criteria, String orderByClause,
-                                boolean includeDeleted, boolean cannotSelect)
-     throws SQLPoemException {
-     return objectsFromTroids(troidSelection(criteria, orderByClause,
-                                             includeDeleted, cannotSelect, 
-                                             null));
-   }
+   /**
+    * Return a selection of rows given an exemplar.
+    *
+    * @see #selection(String, String, boolean)
+    * @param criteria Represents selection criteria possibly on joined tables
+    */
+    public Enumeration selection(Persistent criteria)
+      throws SQLPoemException {
+      return selection(criteria, 
+                       criteria.getTable().defaultOrderByClause(), false, true);
+    }
+    
+    /**
+     * Return a selection of rows given arguments specifying a query.
+     *
+     * @see #selection(String, String, boolean)
+     * @param criteria Represents selection criteria possibly on joined tables
+     * @param orderByClause Comma separated list
+     */
+     public Enumeration selection(Persistent criteria, String orderByClause)
+       throws SQLPoemException {
+       return selection(criteria, orderByClause, false, true);
+     }
+    /**
+     * Return a selection of rows given arguments specifying a query.
+     *
+     * @see #selection(String, String, boolean)
+     * @param criteria Represents selection criteria possibly on joined tables
+     * @param orderByClause Comma separated list
+     * @param excludeUnselectable Whether to append unselectable exclusion SQL 
+     */
+     public Enumeration selection(Persistent criteria, String orderByClause,
+                                  boolean includeDeleted, boolean excludeUnselectable)
+       throws SQLPoemException {
+       return objectsFromTroids(troidSelection(criteria, orderByClause,
+                                               includeDeleted, excludeUnselectable, 
+                                               null));
+     }
 
   /**
    * Return an enumeration of objects given an enumeration of troids.
@@ -1295,16 +1328,20 @@ public class Table implements Selectable {
    *
    * @see #selection(String, String, boolean, int, int)
    * @param criteria Represents selection criteria possibly on joined tables
+   * @param includeDeleted      whether to return objects flagged as deleted
+   *                            (ignored if the table doesn't have a
+   *                            <TT>deleted</TT> column)
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
   public PageEnumeration selection(Persistent criteria, String orderByClause, 
                                    boolean includeDeleted, 
-                                   boolean cannotSelect, int pageStart, 
+                                   boolean excludeUnselectable, int pageStart, 
                                    int pageSize)
       throws SQLPoemException {
     return new CountedDumbPageEnumeration(
-        selection(criteria, orderByClause, includeDeleted, cannotSelect),
+        selection(criteria, orderByClause, includeDeleted, excludeUnselectable),
         pageStart, pageSize,
-        cachedCount(criteria, includeDeleted, cannotSelect).count());
+        cachedCount(criteria, includeDeleted, excludeUnselectable).count());
   }
 
   String countSQL(String whereClause) {
@@ -1323,21 +1360,26 @@ public class Table implements Selectable {
    * table.
    */
   public String countSQL(String fromClause, String whereClause,
-                         boolean includeDeleted, boolean cannotSelect) {
+                         boolean includeDeleted, boolean excludeUnselectable) {
     return selectOrCountSQL("count(*)", fromClause, whereClause, "",
-                            includeDeleted, cannotSelect);
+                            includeDeleted, excludeUnselectable);
   }
 
   /**
    * Return an SQL SELECT statement for selecting or counting rows.
    *
+   * @param selectClause the columns to return
    * @param fromClause Comma separated list of table names or null for default.
    * @param orderByClause null for default, can be empty for counts
+   * @param whereClause SQL fragment
+   * @param orderByClause Comma separated list
+   * @param includeDeleted Flag as to whether to include soft deleted records
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
   private String selectOrCountSQL(String selectClause, String fromClause,
                                   String whereClause, String orderByClause,
                                   boolean includeDeleted, 
-                                  boolean cannotSelect) {
+                                  boolean excludeUnselectable) {
 
     if (fromClause == null) {
       fromClause = quotedName();
@@ -1346,7 +1388,7 @@ public class Table implements Selectable {
     String result = "SELECT " + selectClause + " FROM " + fromClause;
 
     whereClause = appendWhereClauseFilters(whereClause, includeDeleted, 
-                                           cannotSelect);
+                                           excludeUnselectable);
 
     if (whereClause.length() > 0) {
       result += " WHERE " + whereClause;
@@ -1370,15 +1412,19 @@ public class Table implements Selectable {
    * This is an attempt to treat "delete" and "can select" columns
    * consistently. But I believe that there is an important difference
    * in that unselectable rows must be considered when ensuring integrity.
-   * So <code>cannotSelect</code> should default to <code>true</code>
+   * So <code>excludeUnselectable</code> should default to <code>true</code>
    * and is only specified when selecting rows.
    * <p>
    * Despite the name this does not use a <code>StringBuffer</code>.
    * in the belief that the costs outweigh the benefits here.
+   *
+   * @param whereClause SQL fragment
+   * @param includeDeleted Flag as to whether to include soft deleted records
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
   private String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
-                                          boolean cannotSelect) {
+                                          boolean excludeUnselectable) {
     if (whereClause == null || whereClause.trim().length() == 0) {
       whereClause = "";
     } else {
@@ -1394,8 +1440,8 @@ public class Table implements Selectable {
       whereClause += "NOT " + deletedColumn.getName();
     }
 
-    if (! cannotSelect) {
-      String s = whereCanSelectClause();
+    if (excludeUnselectable){
+      String s = canSelectClause();
       if (s != null) {
         if (whereClause.length() >  0) {
           whereClause += " AND ";
@@ -1408,7 +1454,7 @@ public class Table implements Selectable {
   }
 
   /**
-   * Return a where clause suffix that filters out rows that cannot
+   * Return a where clause fragment that filters out rows that cannot
    * be selected, or null.
    * <p>
    * By default the result is null unless there is a canselect column.
@@ -1418,7 +1464,7 @@ public class Table implements Selectable {
    * @return null or a non-empty boolean SQL expression that can be
    * appended with AND to a parenthesised prefix.
    */
-  private String whereCanSelectClause() {
+  private String canSelectClause() {
     Column canSelect = canSelectColumn();
     AccessToken accessToken = PoemThread.sessionToken().accessToken;
     if (canSelect == null || accessToken instanceof RootAccessToken) {
@@ -1454,10 +1500,10 @@ public class Table implements Selectable {
    * @return the number records satisfying criteria.
    */ 
   public int count(String whereClause,
-                   boolean includeDeleted, boolean cannotSelect)
+                   boolean includeDeleted, boolean excludeUnselectable)
       throws SQLPoemException {
     return count(appendWhereClauseFilters(whereClause,
-                                          includeDeleted, cannotSelect));
+                                          includeDeleted, excludeUnselectable));
   }
 
   /**
@@ -1587,11 +1633,11 @@ public class Table implements Selectable {
    * {@link Table#appendWhereClause(StringBuffer, Persistent)}.
    */
   public String whereClause(Persistent criteria,
-                            boolean includeDeleted, boolean cannotSelect) {
+                            boolean includeDeleted, boolean excludeUnselectable) {
     StringBuffer clause = new StringBuffer();
     appendWhereClause(clause, criteria);
     return appendWhereClauseFilters(clause.toString(),
-                                    includeDeleted, cannotSelect);
+                                    includeDeleted, excludeUnselectable);
   }
 
   /**
@@ -1607,7 +1653,7 @@ public class Table implements Selectable {
    * not work if any of the persistents produces an empty where clause.
    */
   public String cnfWhereClause(Enumeration persistents,
-                               boolean includeDeleted, boolean cannotSelect) {
+                               boolean includeDeleted, boolean excludeUnselectable) {
     StringBuffer clause = new StringBuffer();
 
     boolean hadOne = false;
@@ -1622,7 +1668,7 @@ public class Table implements Selectable {
     }
 
     return appendWhereClauseFilters(clause.toString(),
-                                    includeDeleted, cannotSelect);
+                                    includeDeleted, excludeUnselectable);
   }
 
 
@@ -2032,13 +2078,13 @@ public class Table implements Selectable {
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param includeDeleted whether to include soft deleted records
-   * @param cannotSelect whether to exclude columns which cannot be selected
+   * @param excludeUnselectable whether to exclude columns which cannot be selected
    * @return a cached count
    */
   public CachedCount cachedCount(String whereClause, boolean includeDeleted, 
-                                 boolean cannotSelect) {
+                                 boolean excludeUnselectable) {
     return cachedCount(appendWhereClauseFilters(whereClause,
-                                                includeDeleted, cannotSelect));
+                                                includeDeleted, excludeUnselectable));
   }
 
   /**
@@ -2046,12 +2092,12 @@ public class Table implements Selectable {
    * 
    * @param criteria a {@link Persistent} with selection fields filled
    * @param includeDeleted whether to include soft deleted records
-   * @param cannotSelect whether to exclude columns which cannot be selected
+   * @param excludeUnselectable whether to exclude columns which cannot be selected
    * @return a cached count
    */
   public CachedCount cachedCount(Persistent criteria, boolean includeDeleted, 
-                                 boolean cannotSelect) {
-    return cachedCount(whereClause(criteria, includeDeleted, cannotSelect),
+                                 boolean excludeUnselectable) {
+    return cachedCount(whereClause(criteria, includeDeleted, excludeUnselectable),
                        criteria);
   }
 
@@ -2439,8 +2485,8 @@ public class Table implements Selectable {
       // Check indices are unique
 
       Hashtable dbHasIndexForColumn = new Hashtable();
-      // if (logSQL()) log("Getting indexes for "+ 
-      //    dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
+      System.err.println("Getting indexes for "+ 
+          dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       ResultSet index =
         getDatabase().getCommittedConnection().getMetaData().
         // null, "" means ignore catalog, 
@@ -2453,15 +2499,19 @@ public class Table implements Selectable {
         try {
           String mdIndexName = index.getString("INDEX_NAME");
           String mdColName = index.getString("COLUMN_NAME");
-          if (mdColName != null) { // which MSSQL and Oracle seems to return sometimes
+          if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
             String columnName = dbms().melatiName(mdColName);
             Column column = getColumn(columnName);
             // Don't want to take account of non-melati indices
             String expectedIndex = getName().toUpperCase() + "_" + 
                                    columnName.toUpperCase() + "_INDEX";
+            expectedIndex = expectedIndex.substring(0,dbms().maxFieldLength());
             if (mdIndexName.toUpperCase().equals(expectedIndex)) {
               column.unifyWithIndex(index);
               dbHasIndexForColumn.put(column, Boolean.TRUE);
+            } else {
+              System.err.println("not creating index fbecause " + 
+                  mdIndexName.toUpperCase() + " != " + expectedIndex);
             }
           } 
           // else it is a compound index ??

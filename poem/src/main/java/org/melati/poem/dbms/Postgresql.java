@@ -80,6 +80,16 @@ public class Postgresql extends AnsiStandard {
     setDriverClassName("org.postgresql.Driver");
   }
 
+  /**
+   * Don't quote, let postgres uppercase it. 
+   * 
+   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
+   */
+  public String getJdbcMetadataName(String name) {
+    return name;
+  }
+
+
   public boolean canDropColumns(Connection con) throws SQLException {
     if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
       return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).

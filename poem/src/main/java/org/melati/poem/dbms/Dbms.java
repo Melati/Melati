@@ -68,6 +68,15 @@ public interface Dbms {
       throws ConnectionFailurePoemException;
 
   /**
+   * Postgresql versions less than 7.3 have a maximum label 
+   * length of 32. 
+   * 
+   * @return the maximum length of a field.
+   */
+  int maxFieldLength();
+  
+  
+  /**
    * The db schema name to use, if any.
    * This is typically the JDBC connection URL User string.
    * 

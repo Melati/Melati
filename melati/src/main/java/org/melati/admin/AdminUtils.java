@@ -191,15 +191,15 @@ public class AdminUtils {
    * situation.
    */
   public String UploadURL(Table table, Persistent object, Field field) {
-    return upload(table,object) + "/Upload?field=" + field.getName();
+    return upload(table, object) + "/Upload?field=" + field.getName();
   }
 
   public String 
     UploadHandlerURL(Table table, Persistent object, String field) {
-    return upload(table,object) + "/UploadDone?field=" + field;
+    return upload(table, object) + "/UploadDone?field=" + field;
   }
   
-  private String upload(Table table,Persistent object) {
+  private String upload(Table table, Persistent object) {
     String url = adminURL + "/" + logicalDatabase + "/" + table.getName();
     if (object != null) url += "/" + object.troid();
     return url;

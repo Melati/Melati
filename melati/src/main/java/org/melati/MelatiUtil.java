@@ -241,7 +241,7 @@ public class MelatiUtil {
   * @return - the value of the field requested
   */
   public static String getFormNulled(TemplateContext context, String field) {
-    return getForm(context,field,null);
+    return getForm(context, field, null);
   }
   
     
@@ -274,8 +274,8 @@ public class MelatiUtil {
   */
   public static Integer getFormInteger(TemplateContext context, String field, 
                                 Integer def) {
-    String val = getFormNulled(context,field);
-    return val==null?def:new Integer(val);
+    String val = getFormNulled(context, field);
+    return val == null ? def : new Integer(val);
   }
 
   /**
@@ -288,7 +288,7 @@ public class MelatiUtil {
   * @return - the value of the field requested
   */
   public static Integer getFormInteger(TemplateContext context, String field) {
-    return getFormInteger(context,field,null);
+    return getFormInteger(context, field, null);
   }
 
   /**
@@ -301,7 +301,17 @@ public class MelatiUtil {
   * @return - TRUE or FALSE depending if the field is present
   */
   public static Boolean getFormBoolean(TemplateContext context, String field) {
-    return getFormNulled(context,field) ==  null ? Boolean.FALSE : Boolean.TRUE;
+    return getFormNulled(context, field) ==  null ? 
+                                             Boolean.FALSE : Boolean.TRUE;
   }
 
 }
+
+
+
+
+
+
+
+
+

@@ -180,7 +180,7 @@ public class Admin extends TemplateServlet {
 
     String  c = PoemThread.database().getClass().getName();
     int dot = c.lastIndexOf('.');
-    String p = c.substring(0,dot);
+    String p = c.substring(0, dot);
 
     context.put("package", p);
     context.put("stringutils", new StringUtils());
@@ -316,7 +316,7 @@ public class Admin extends TemplateServlet {
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String name = "field_" + column.getName();
-      String string = MelatiUtil.getFormNulled(context,name);
+      String string = MelatiUtil.getFormNulled(context, name);
       if (string != null) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
 
@@ -348,7 +348,7 @@ public class Admin extends TemplateServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "field_order-" + o;
-      String orderColumnIDString = MelatiUtil.getFormNulled(context,name);
+      String orderColumnIDString = MelatiUtil.getFormNulled(context, name);
       Integer orderColumnID = null;
 
       if (orderColumnIDString != null) {
@@ -370,7 +370,7 @@ public class Admin extends TemplateServlet {
                 EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
-    String startString = MelatiUtil.getFormNulled(context,"start");
+    String startString = MelatiUtil.getFormNulled(context, "start");
     if (startString != null) {
       try {
         start = Math.max(0, Integer.parseInt(startString));
@@ -450,7 +450,7 @@ public class Admin extends TemplateServlet {
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
       String orderColumnIDString =
-          MelatiUtil.getFormNulled(context,"field_" + name);
+          MelatiUtil.getFormNulled(context, "field_" + name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null) {
         orderColumnID =

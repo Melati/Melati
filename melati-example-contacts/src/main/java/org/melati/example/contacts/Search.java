@@ -6,6 +6,7 @@ import org.melati.servlet.PathInfoException;
 import org.melati.poem.*;
 import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.poem.Field;
+import org.melati.MelatiUtil;
 
 import org.webmacro.servlet.WebContext;
 import org.webmacro.WebMacroException;
@@ -16,24 +17,22 @@ public class Search extends WebmacroMelatiServlet {
   throws WebMacroException {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
-    String name = context.getForm("field_name");
-    String category = context.getForm("field_category");
-    String submit = context.getForm("submit");
-    Integer categoryInteger = null;
-    if (category != null && !category.equals("")) 
-    categoryInteger = new Integer(category);
+    String name = MelatiUtil.getFormNulled(melati.getTemplateContext(),
+                                            "field_name");
+    Integer category = MelatiUtil.getFormInteger(melati.getTemplateContext(),
+                                                "field_category");
+    String submit = MelatiUtil.getFormNulled(melati.getTemplateContext(),
+                                              "submit");
     context.put("name",new Field(name, db.getContactTable().getNameColumn()));
     context.put("category", new Field
-    (categoryInteger, db.getContactCategoryTable().getCategoryColumn()));
+               (category, db.getContactCategoryTable().getCategoryColumn()));
 
     String where = "";
-    if (name != null && !name.equals("")) {
-      where += "\"name\" = '" + name + "' ";
-    }
-    if (category != null && !category.equals("")) {
+    if (name != null) where += "\"name\" = '" + name + "' ";
+    if (category != null) {
       if (!where.equals("")) where += " AND ";
       where += "exists (SELECT id FROM contactcategory WHERE \"category\" = " + 
-      category + " AND contact = contact.id)";
+      category.toString() + " AND contact = contact.id)";
     }
     if (submit != null) {
       context.put("results", db.getContactTable().selection(where));

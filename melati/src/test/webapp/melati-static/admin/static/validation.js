@@ -105,7 +105,7 @@ function validate (form, allowSubmit) {
         // Check that a mandatory field isn't empty
         if (trim(value) == "") {
             if (mandatory == true)
-                display += "* "+heading+" must be filled in\n";
+                display += "* "+heading+": Must be filled in\n";
         }
         // Check if we match the pattern
         else {

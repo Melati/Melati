@@ -24,68 +24,70 @@ grant codeBase "file:#{tomcat.home}/webapps/mt/WEB-INF/lib/-" {
    //doesn't work, same classpath...
    
 public class FirstSQLtest {
-	public static void main(String argv[]) throws Exception {
-		Class.forName("COM.FirstSQL.Dbcp.DbcpDriver");
-		java.sql.Connection connect1, connect2;
-		java.util.Properties info;
-		info = new java.util.Properties();
-		//info.put("user", "demo");
-		connect1 = java.sql.DriverManager.getConnection("jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
 
-//Just once, as we're in single user:
-//		connect2 = java.sql.DriverManager.getConnection("jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
-	}
+   public static void main(String argv[]) throws Exception {
+     Class.forName("COM.FirstSQL.Dbcp.DbcpDriver");
+     java.sql.Connection connect1, connect2;
+     java.util.Properties info;
+     info = new java.util.Properties();
+      //info.put("user", "demo");
+     connect1 = java.sql.DriverManager.getConnection(
+         "jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
 
+  //Just once, as we're in single user:
+  // connect2 = java.sql.DriverManager.getConnection(
+         "jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
+  }
 }
 */
 
 
-import java.sql.*;
-import org.melati.poem.*;
-import java.util.*;
+import java.sql.Connection;
+import org.melati.poem.ConnectionFailurePoemException;
 
 public class FirstSQL extends AnsiStandard {
 
-    static public java.io.PrintStream logStream= System.err;
+  static public java.io.PrintStream logStream= System.err;
 
-    public FirstSQL() {
-        setDriverClassName("COM.FirstSQL.Dbcp.DbcpDriver");	
-    }
+  public FirstSQL() {
+    setDriverClassName("COM.FirstSQL.Dbcp.DbcpDriver");  
+  }
+
 
 //It does the same error, even if we don't override it -
 // using AnsiStandard.getConnection(...)
-public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
+  public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
 /*      Properties info = new Properties();
       //if (user != null) info.put("user", user);
       //if (password != null) info.put("password", password);
       
       try {
-      
-      	Class.forName( getDriverClassName() );
-
-	logStream.println(); logStream.println( url); logStream.println( getDriverClassName() ); logStream.println();
-	
-       	return java.sql.DriverManager.getConnection(url, info);
+        Class.forName( getDriverClassName() );
+       logStream.println();
+       logStream.println( url);
+       logStream.println( getDriverClassName() );
+       logStream.println();
+       return java.sql.DriverManager.getConnection(url, info);
       }
       catch (ClassNotFoundException e) {
-        	throw new ConnectionFailurePoemException( new SQLException("JDBC driver class not found.") );
-	}
-
+          throw new ConnectionFailurePoemException( new SQLException("JDBC driver class not found.") );
+      }
       catch (SQLException e) {
-        	throw new ConnectionFailurePoemException(e);
-	}
+          throw new ConnectionFailurePoemException(e);
+      }
 */
-	try{
-		Class.forName("COM.FirstSQL.Dbcp.DbcpDriver");
-		java.sql.Connection connect1, connect2;
-		java.util.Properties info;
-		info = new java.util.Properties();
-		//info.put("user", "demo");
-		connect1 = java.sql.DriverManager.getConnection("jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
-		return connect1;
-	}
-	catch(Exception e) {}
-	return null;
+  try{
+    Class.forName("COM.FirstSQL.Dbcp.DbcpDriver");
+    java.sql.Connection connect1, connect2;
+    java.util.Properties info;
+    info = new java.util.Properties();
+    //info.put("user", "demo");
+    connect1 = java.sql.DriverManager.getConnection(
+        "jdbc:dbcp://local;database.path=/work/firstsqlpro/db;user=adm;password=firstsql",info);
+    return connect1;
+  }
+  catch(Exception e) {}
+  return null;
   }
 }
 

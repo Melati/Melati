@@ -48,6 +48,8 @@
 package org.melati;
 
 import org.melati.poem.*;
+import org.webmacro.*;
+
 
 public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
 
@@ -55,7 +57,7 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
     super("html_attr", html);
   }
 
-  public String rendered(AccessPoemException e) {
+  public String rendered(AccessPoemException e) throws WebMacroException {
     return "[Access denied to " + rendered(e.token) + "]";
   }
 }

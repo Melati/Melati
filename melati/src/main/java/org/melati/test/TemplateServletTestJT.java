@@ -49,7 +49,7 @@ import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.PoemContext;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 /**
  * Incomplete test servlet for JTemplater.
@@ -59,7 +59,7 @@ import org.melati.template.TemplateContext;
  */
 public class TemplateServletTestJT extends TemplateServlet {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext templateContext) 
+  protected String doTemplateRequest(Melati melati, ServletTemplateContext templateContext) 
       throws Exception {
 
     return("org/melati/test/TemplateServletTestJT");

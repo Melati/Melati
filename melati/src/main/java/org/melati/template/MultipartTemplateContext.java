@@ -57,7 +57,7 @@ import org.melati.servlet.MultipartDataDecoder;
 
 
 /**
- * A {@link TemplateContext} which allows access to the filename and
+ * A {@link ServletTemplateContext} which allows access to the filename and
  * body of any file which is uploaded from a HTML form field.
  *
  * (by setting its ENCTYPE to ``multipart/form-data'' and 
@@ -66,14 +66,14 @@ import org.melati.servlet.MultipartDataDecoder;
  * You can retrive the value of any field variable as usual by
  * using getForm(s).
  * <p>
- * Note that you need to pass in a {@link TemplateContext} to the contructor.
+ * Note that you need to pass in a {@link ServletTemplateContext} to the contructor.
  */
-public class MultipartTemplateContext implements TemplateContext {
-  TemplateContext peer;
+public class MultipartTemplateContext implements ServletTemplateContext {
+  ServletTemplateContext peer;
   Hashtable fields;
   Melati melati;
 
-  public MultipartTemplateContext(Melati melati, TemplateContext context)
+  public MultipartTemplateContext(Melati melati, ServletTemplateContext context)
       throws IOException {
     peer = context;
     this.melati = melati;
@@ -93,7 +93,7 @@ public class MultipartTemplateContext implements TemplateContext {
     }
   }
 
-  public MultipartTemplateContext(Melati melati, TemplateContext context,
+  public MultipartTemplateContext(Melati melati, ServletTemplateContext context,
                                   int maxSize)
       throws IOException {
     peer = context;

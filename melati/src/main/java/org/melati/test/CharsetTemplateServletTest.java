@@ -52,7 +52,7 @@ import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 /**
  * Test display of various characters using a Template Engine.
@@ -60,7 +60,7 @@ import org.melati.template.TemplateContext;
 public class CharsetTemplateServletTest extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
-                                     TemplateContext context)
+                                     ServletTemplateContext context)
       throws Exception {
 
     context.put("servlet", this);

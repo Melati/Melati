@@ -52,7 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.melati.poem.Persistent;
 import org.melati.poem.Column;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.template.TempletAdaptor;
 import org.melati.template.TempletAdaptorConstructionMelatiException;
 import org.melati.util.Tree;
@@ -61,7 +61,7 @@ import org.melati.util.UTF8URLEncoder;
 
 /**
  * An object to hold useful static methods for inclusion in a 
- * {@link TemplateContext}.
+ * {@link ServletTemplateContext}.
  *
  * @todo Cache adaptor templet
  */
@@ -79,10 +79,10 @@ public class MelatiUtil {
    * This is currently used for dates.
    *
    * @todo Cache adaptor templet.
-   * @param context the current {@link TemplateContext} to get values from
+   * @param context the current {@link ServletTemplateContext} to get values from
    * @param object  the {@link Persistent} to update
    */
-  public static void extractFields(TemplateContext context, 
+  public static void extractFields(ServletTemplateContext context, 
                                    Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
@@ -119,15 +119,15 @@ public class MelatiUtil {
   }
 
   /**
-   * Fill in value of a Field from a TemplateContext.
+   * Fill in value of a Field from a ServletTemplateContext.
    *
-   * @param context    the current {@link TemplateContext} to get values from
+   * @param context    the current {@link ServletTemplateContext} to get values from
    * @param fieldName  the name of the field to extract
    * @return the value of the field 
    * @throws TempletAdaptorConstructionMelatiException 
    *             if there is a problem, for example with the class name
    */
-  public static Object extractField(TemplateContext context, String fieldName)
+  public static Object extractField(ServletTemplateContext context, String fieldName)
       throws TempletAdaptorConstructionMelatiException {
 
     String rawString = context.getForm(fieldName);
@@ -242,7 +242,7 @@ public class MelatiUtil {
   *
   * @return - the value of the field requested
   */
-  public static String getFormNulled(TemplateContext context, String field) {
+  public static String getFormNulled(ServletTemplateContext context, String field) {
     return getForm(context, field, null);
   }
   
@@ -257,7 +257,7 @@ public class MelatiUtil {
   *
   * @return - the value of the field requested
   */
-  public static String getForm(TemplateContext context, String field, 
+  public static String getForm(ServletTemplateContext context, String field, 
                                String def) {
     String val = context.getForm(field);
     if (val == null) return def;
@@ -274,7 +274,7 @@ public class MelatiUtil {
   *
   * @return - the value of the field requested
   */
-  public static Integer getFormInteger(TemplateContext context, String field, 
+  public static Integer getFormInteger(ServletTemplateContext context, String field, 
                                 Integer def) {
     String val = getFormNulled(context, field);
     return val == null ? def : new Integer(val);
@@ -289,7 +289,7 @@ public class MelatiUtil {
   *
   * @return - the value of the field requested
   */
-  public static Integer getFormInteger(TemplateContext context, String field) {
+  public static Integer getFormInteger(ServletTemplateContext context, String field) {
     return getFormInteger(context, field, null);
   }
 
@@ -302,7 +302,7 @@ public class MelatiUtil {
   *
   * @return - TRUE or FALSE depending if the field is present
   */
-  public static Boolean getFormBoolean(TemplateContext context, String field) {
+  public static Boolean getFormBoolean(ServletTemplateContext context, String field) {
     return getFormNulled(context, field) ==  null ? 
                                              Boolean.FALSE : Boolean.TRUE;
   }

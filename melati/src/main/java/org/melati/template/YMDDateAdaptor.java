@@ -138,7 +138,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
   public static final YMDDateAdaptor it = new YMDDateAdaptor();
 
-  protected String getFormOrDie(TemplateContext context,
+  protected String getFormOrDie(ServletTemplateContext context,
                               String fieldName, String suffix) {
     String fullName = fieldName + suffix;
     String value = context.getForm(fullName);
@@ -147,7 +147,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
     return value;
   }
 
-  public Object rawFrom(TemplateContext context, String fieldName) {
+  public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);
     String month = getFormOrDie(context, fieldName, monthSuffix);
     String day = getFormOrDie(context, fieldName, daySuffix);

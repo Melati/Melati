@@ -46,7 +46,7 @@ package org.melati.template.velocity;
 
 import javax.servlet.http.HttpSession;
 
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.servlet.MultipartFormField;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.event.EventCartridge;
@@ -58,7 +58,7 @@ import org.apache.velocity.app.event.EventHandler;
  * @author Tim Joyce
  * $Revision$
  */
-public class VelocityTemplateContext implements TemplateContext {
+public class VelocityTemplateContext implements ServletTemplateContext {
 
     /**
      * The HTTP request object context key.

@@ -46,7 +46,7 @@ package org.melati.util;
 
 /**
  * A single use utility object for placing in a 
- * <code>TemplateContext</code>. 
+ * <code>ServletTemplateContext</code>. 
  * All it does is allow you to increment a counter.
  * 
  */

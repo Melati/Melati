@@ -47,7 +47,7 @@ import org.apache.velocity.app.event.MethodExceptionEventHandler;
 /**
  *  Reference 'null reference' event handler.  Called when
  *  a non-quiet reference ($foo vs $!foo) is null (not in the
- *  Context), which would result in '$foo' being rendered.
+ *  TemplateContext), which would result in '$foo' being rendered.
  *
  *  Please return what you want rendered into the output stream.
  *

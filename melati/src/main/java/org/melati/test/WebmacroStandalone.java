@@ -103,14 +103,14 @@ public class WebmacroStandalone extends HttpServlet {
      * be able to construct a WebContext object, since you would not have 
      * the HttpServletRequest and HttpServletResponse objects which you 
      * need in order to do that. WebContext is a subclass of Context, so 
-     * outside of a servlet just construct a Context object. You will 
+     * outside of a servlet just construct a TemplateContext object. You will 
      * obviously lose the ability to talk about servlet specific things 
      * in your templates (such as "Cookies") but otherwise it's the same.
      * <p>
      * There are a few exceptions you have to deal with. First, WebMacro 
      * may not be able to locate the template you've requested in which 
      * case it'll throw a NotFoundException. Second, the template will 
-     * expect to find certain information in the Context, and if you fail 
+     * expect to find certain information in the TemplateContext, and if you fail 
      * to provide that information a ContextException will be thrown. Aside
      * than WebMacro, in a servlet environment you also have to deal with 
      * the IOException that can be thrown if something goes wrong with 
@@ -166,7 +166,7 @@ public class WebmacroStandalone extends HttpServlet {
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
              out.write("ERROR! " + 
-                       "Could not locate required data in the Context.");
+                       "Could not locate required data in the TemplateContext.");
              out.close();
          } catch (org.webmacro.ResourceException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),
@@ -175,7 +175,7 @@ public class WebmacroStandalone extends HttpServlet {
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
              out.write("ERROR! " + 
-                       "Could not locate required data in the Context.");
+                       "Could not locate required data in the TemplateContext.");
              out.close();
          }
       } catch (java.io.IOException e) {

@@ -56,6 +56,7 @@ import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiStringWriter;
@@ -154,7 +155,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, 
                              melati.getResponse());
-    return new VelocityTemplateContext(context);
+    return (ServletTemplateContext)new VelocityTemplateContext(context);
   }
   
   /**
@@ -250,7 +251,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param template        the {@link org.melati.template.Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
@@ -280,12 +281,12 @@ public class VelocityTemplateEngine implements TemplateEngine {
    * Not Implemented. Expand the Template against the context.
    *
    * @param template        the {@link org.melati.template.Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   public String expandedTemplate(org.melati.template.Template template, 
-                             TemplateContext templateContext)
+                                 TemplateContext templateContext)
               throws TemplateEngineException {
     throw new TemplateEngineException("Not Implemented.");
   }

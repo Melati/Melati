@@ -7,7 +7,7 @@ import org.melati.MelatiUtil;
 import org.melati.servlet.TemplateServlet;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 
  /**
@@ -16,7 +16,7 @@ import org.melati.template.TemplateContext;
   */
 public class ContactView extends TemplateServlet {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext context)
+  protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
@@ -29,10 +29,10 @@ public class ContactView extends TemplateServlet {
     else if (melati.getMethod().equals("Update")) {
       if (contact == null) {
         contact = (Contact) db.getContactTable().newPersistent();
-        MelatiUtil.extractFields(melati.getTemplateContext(),contact);
+        MelatiUtil.extractFields(melati.getServletTemplateContext(),contact);
         db.getContactTable().create(contact);
       } else {
-        MelatiUtil.extractFields(melati.getTemplateContext(),contact);
+        MelatiUtil.extractFields(melati.getServletTemplateContext(),contact);
       }
       deleteCategories(db,contact);
 

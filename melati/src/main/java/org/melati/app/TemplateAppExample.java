@@ -64,11 +64,11 @@ public class TemplateAppExample extends TemplateApp {
    * The main method to override. 
    * 
    * @param melati A {@link Melati} with arguments and properties set
-   * @param templateContext A {@link TemplateContext} containing a {@link Melati}
+   * @param templateContext A {@link ServletTemplateContext} containing a {@link Melati}
    * @return the name of a template to expand
    * @throws Exception if anything goes wrong
    * @see org.melati.app.TemplateApp#doTemplateRequest
-   *         (org.melati.Melati, org.melati.template.TemplateContext)
+   *         (org.melati.Melati, org.melati.template.ServletTemplateContext)
    */
   protected String doTemplateRequest(Melati melati,
       TemplateContext templateContext) throws Exception {

@@ -62,6 +62,7 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.template.HTMLMarkupLanguage;
+import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.WMLMarkupLanguage;
@@ -299,7 +300,7 @@ public class Melati {
   }
 
   /**
-   * Set the TemplateContext to be used for this Request.
+   * Set the ServletTemplateContext to be used for this Request.
    *
    * @param tc - the template context to be used
    * @see org.melati.servlet.TemplateServlet
@@ -317,6 +318,15 @@ public class Melati {
 
   public TemplateContext getTemplateContext() {
     return templateContext;
+  }
+  /**
+   * Get the TemplateContext used for this Request.
+   *
+   * @return - the template context being used
+   */
+
+  public ServletTemplateContext getServletTemplateContext() {
+    return (ServletTemplateContext)templateContext;
   }
 
   /**
@@ -696,7 +706,7 @@ public class Melati {
    * set the request encoding if necessary.
    *
    * @see #establishCharsets()
-   * see also org.melati.admin.Admin#selection(TemplateContext, Melati)
+   * see also org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
    */
   public String getURLQueryEncoding() {
     return request.getCharacterEncoding();
@@ -708,7 +718,7 @@ public class Melati {
    * These is here because it uses knownledge of this object and
    * other methods.
    *
-   * see also org.melati.admin.Admin#selection(TemplateContext, Melati)
+   * see also org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
    */
   public String urlEncode(String string) {
     try {

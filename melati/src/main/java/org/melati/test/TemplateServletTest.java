@@ -52,7 +52,7 @@ import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.PoemContext;
 import org.melati.servlet.MultipartFormField;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.util.MelatiBugMelatiException;
 
 /**
@@ -64,7 +64,7 @@ import org.melati.util.MelatiBugMelatiException;
 public class TemplateServletTest extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
-                                     TemplateContext templateContext) 
+                                     ServletTemplateContext templateContext) 
       throws Exception {
     templateContext.put("RestrictedAccessObject", 
                         new RestrictedAccessObject());

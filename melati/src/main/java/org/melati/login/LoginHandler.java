@@ -48,7 +48,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
 import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.poem.AccessPoemException;
@@ -107,7 +107,7 @@ public class LoginHandler {
   }
    */
 
-  public void setupContext(TemplateContext context) {
+  public void setupContext(ServletTemplateContext context) {
     HttpSession session = context.getSession();
 
     AccessPoemException triggeringException = null;
@@ -129,7 +129,7 @@ public class LoginHandler {
   }
 
   public String loginSuccessfullyAs (Melati melati, 
-                                  TemplateContext templateContext, User user) {
+                                  ServletTemplateContext templateContext, User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
@@ -181,12 +181,12 @@ public class LoginHandler {
   }
     
 
-  public String getLogin(TemplateContext context) {
+  public String getLogin(ServletTemplateContext context) {
     return context.getForm("field_login");
   }
 
   public String doTemplateRequest(Melati melati, 
-                                  TemplateContext templateContext)
+                                  ServletTemplateContext templateContext)
      throws Exception {
 
     setupContext(templateContext);

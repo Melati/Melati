@@ -88,7 +88,7 @@ public interface TemplateEngine {
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
-   * @return a {@link TemplateContext}
+   * @return a {@link ServletTemplateContext}
    */
   TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException;
@@ -129,12 +129,12 @@ public interface TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param templateName    the name of the template to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   void expandTemplate(MelatiWriter out, String templateName, 
-                             TemplateContext templateContext) 
+                      TemplateContext templateContext) 
       throws TemplateEngineException;
   
   /** 
@@ -142,19 +142,19 @@ public interface TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param template        the {@link Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   void expandTemplate(MelatiWriter out, Template template, 
-                             TemplateContext templateContext) 
+                      TemplateContext templateContext) 
       throws TemplateEngineException;
 
   /** 
    * Expand the Template against the context and return the expansion as a string.
    *
    * @param template        the {@link Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
    */

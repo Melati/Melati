@@ -55,7 +55,7 @@ import javax.servlet.ServletConfig;
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
 import org.melati.template.TemplateEngine;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.template.MultipartTemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.Template;
@@ -95,7 +95,7 @@ public abstract class TemplateServlet extends PoemServlet {
   }
 
   /**
-   * Set the TemplateEngine and TemplateContext in our Melati.
+   * Set the TemplateEngine and ServletTemplateContext in our Melati.
    * This allows us to parse any uploaded files before we enter
    * our PoemSession (so we don't hang on to transactions
    * unnecessarily).
@@ -106,8 +106,8 @@ public abstract class TemplateServlet extends PoemServlet {
   protected void prePoemSession(Melati melati) throws Exception {
     // for this request, set the Initialised Template Engine
     melati.setTemplateEngine(templateEngine);
-    TemplateContext templateContext =
-                        templateEngine.getTemplateContext(melati);
+    ServletTemplateContext templateContext =
+            (ServletTemplateContext)templateEngine.getTemplateContext(melati);
 
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
@@ -122,7 +122,7 @@ public abstract class TemplateServlet extends PoemServlet {
   }
 
   protected void doPoemRequest(Melati melati) throws Exception {
-    TemplateContext templateContext = melati.getTemplateContext();
+    ServletTemplateContext templateContext = melati.getServletTemplateContext();
     templateContext.put("melati", melati);
 
     String templateName = doTemplateRequest(melati,templateContext);
@@ -162,7 +162,7 @@ public abstract class TemplateServlet extends PoemServlet {
   * @deprecated as of 02/04/2001 - use MelatiUtil methods
   */
   public String getFormNulled(Melati melati, String field) {
-    String val = melati.getTemplateContext().getForm(field);
+    String val = melati.getServletTemplateContext().getForm(field);
     if (val == null) return null;
     return val.equals("")?null:val;
   }
@@ -185,7 +185,7 @@ public abstract class TemplateServlet extends PoemServlet {
         MelatiWriter mw =  melati.getWriter();
         // get rid of anything that has been written so far
         mw.reset();
-        TemplateContext templateContext = melati.getTemplateContext();
+        ServletTemplateContext templateContext = melati.getServletTemplateContext();
         templateContext.put("melati",melati);
         templateContext.put("exceptionObject", e);
         StringWriter sw = new StringWriter();
@@ -229,10 +229,10 @@ public abstract class TemplateServlet extends PoemServlet {
    * Override this method to build up your own output.
    *
    * @param melati the current Melati
-   * @param templateContext the current <code>TemplateContext</code>
+   * @param templateContext the current <code>ServletTemplateContext</code>
    * @return a Template name, possibly excluding extension.
    */
   protected abstract String doTemplateRequest(Melati melati, 
-                                              TemplateContext templateContext)
+                                              ServletTemplateContext templateContext)
       throws Exception;
 }

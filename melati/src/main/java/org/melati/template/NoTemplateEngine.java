@@ -100,7 +100,7 @@ public class NoTemplateEngine implements TemplateEngine {
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
-   * @return a {@link TemplateContext}
+   * @return a {@link ServletTemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException {
@@ -155,7 +155,7 @@ public class NoTemplateEngine implements TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param templateName    the name of the template to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked
    */
@@ -171,7 +171,7 @@ public class NoTemplateEngine implements TemplateEngine {
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param melatiTemplate  the {@link Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked
    */
@@ -185,19 +185,19 @@ public class NoTemplateEngine implements TemplateEngine {
    * Expand the Template against the context.
    *
    * @param melatiTemplate  the {@link Template} to expand
-   * @param templateContext the {@link TemplateContext} to expand 
+   * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked
    */
   public String expandedTemplate(Template melatiTemplate,
-                             TemplateContext templateContext)
+                                 TemplateContext templateContext)
       throws TemplateEngineException {
     throw new TemplateEngineException(message);
   }
 
 /*
   Not used, not in the interface
-  public void expandTemplate(MelatiWriter out, TemplateContext templateContext)
+  public void expandTemplate(MelatiWriter out, ServletTemplateContext templateContext)
       throws TemplateEngineException {
     throw new TemplateEngineException(message);
   }

@@ -81,7 +81,7 @@ public abstract class MarkupLanguage {
    * The melati currently being used.
    */
   protected Melati melati;
-//  private TemplateContext templateContext;
+//  private ServletTemplateContext templateContext;
   private TempletLoader templetLoader;
   protected MelatiLocale locale;
 
@@ -648,7 +648,7 @@ public abstract class MarkupLanguage {
    * Return the results of having interpolated a templet.
    * 
    * @param templet {@link Template} to interpolate
-   * @param tc {@link TemplateContext} against which to instantiate variables
+   * @param tc {@link ServletTemplateContext} against which to instantiate variables
    * @return the expanded template as a String
    * @throws TemplateEngineException if something unexpected happens
    * @throws IOException if templet cannot be found

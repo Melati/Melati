@@ -45,7 +45,7 @@ package org.melati.template.webmacro;
 
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 import org.webmacro.servlet.WebContext;
 
@@ -58,7 +58,7 @@ import org.webmacro.servlet.WebContext;
  */
 public abstract class WebmacroMelatiServlet extends TemplateServlet {
 
-  protected String doTemplateRequest(Melati m, TemplateContext c) 
+  protected String doTemplateRequest(Melati m, ServletTemplateContext c) 
    throws Exception {
     return handle(m, (WebContext)c.getContext());
   }

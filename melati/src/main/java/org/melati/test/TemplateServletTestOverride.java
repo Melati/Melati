@@ -56,7 +56,7 @@ import org.melati.poem.PoemThread;
 import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.PathInfoException;
 import org.melati.PoemContext;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.util.MelatiException;
 
 /**
@@ -71,7 +71,7 @@ import org.melati.util.MelatiException;
 public class TemplateServletTestOverride extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
-                                     TemplateContext templateContext) 
+                                     ServletTemplateContext templateContext) 
       throws Exception {
 
     // thow exception to illustrate it being handled.

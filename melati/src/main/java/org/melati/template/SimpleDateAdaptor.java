@@ -72,7 +72,7 @@ public class SimpleDateAdaptor implements TempletAdaptor {
   private static SimpleDateFormat dateFormatter2 =
       new SimpleDateFormat("yyyyMMdd");
 
-  public Object rawFrom(TemplateContext context, String fieldName) {
+  public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String value = MelatiUtil.getFormNulled(context,fieldName);
     if (value == null) return null;
     java.util.Date date = dateFormatter1.parse(value, new ParsePosition(0));

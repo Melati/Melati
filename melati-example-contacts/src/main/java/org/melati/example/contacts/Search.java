@@ -1,7 +1,7 @@
 package org.melati.example.contacts;
 
 import org.melati.Melati;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.poem.Field;
@@ -14,15 +14,15 @@ import org.melati.MelatiUtil;
   **/
 public class Search extends ContactsServlet {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext context)
+  protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
      throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
-    String name = MelatiUtil.getFormNulled(melati.getTemplateContext(),
+    String name = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
                                             "field_name");
-    Integer category = MelatiUtil.getFormInteger(melati.getTemplateContext(),
+    Integer category = MelatiUtil.getFormInteger(melati.getServletTemplateContext(),
                                                 "field_category");
-    String submit = MelatiUtil.getFormNulled(melati.getTemplateContext(),
+    String submit = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
                                               "submit");
     context.put("name",new Field(name, db.getContactTable().getNameColumn()));
     context.put("category", new Field

@@ -47,7 +47,7 @@ package org.melati.admin;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.InvalidUsageException;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.Melati;
 
 /**
@@ -60,7 +60,7 @@ import org.melati.Melati;
  */
 public class Display extends TemplateServlet {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext context)
+  protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
 
     context.put("includedir", "");

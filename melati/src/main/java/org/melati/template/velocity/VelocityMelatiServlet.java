@@ -45,7 +45,7 @@ package org.melati.template.velocity;
 
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 /**
  * Base class to use Melati with Velocity.
@@ -56,7 +56,7 @@ import org.melati.template.TemplateContext;
  */
 public abstract class VelocityMelatiServlet extends TemplateServlet {
 
-  protected String doTemplateRequest(Melati m, TemplateContext c) 
+  protected String doTemplateRequest(Melati m, ServletTemplateContext c) 
    throws Exception {
     return handle(m, (VelocityTemplateContext)c.getContext());
   }

@@ -119,7 +119,7 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 
   public static final YMDHMSTimestampAdaptor it = new YMDHMSTimestampAdaptor();
 
-  public Object rawFrom(TemplateContext context, String fieldName) {
+  public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);
     String month = getFormOrDie(context, fieldName, monthSuffix);
     String day = getFormOrDie(context, fieldName, daySuffix);

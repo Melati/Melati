@@ -47,7 +47,7 @@ package org.melati.login;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 
 /**
  * A servlet which handles user logins.
@@ -70,7 +70,7 @@ public class Login extends TemplateServlet {
   }
 
   protected String doTemplateRequest(Melati melati, 
-                                     TemplateContext templateContext)
+                                     ServletTemplateContext templateContext)
       throws Exception {
     return getLoginHandler().doTemplateRequest(melati, templateContext);
   }

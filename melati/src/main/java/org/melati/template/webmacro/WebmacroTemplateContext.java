@@ -46,7 +46,7 @@ package org.melati.template.webmacro;
 
 import javax.servlet.http.HttpSession;
 
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.servlet.MultipartFormField;
 import org.webmacro.servlet.WebContext;
 import org.webmacro.engine.EvaluationExceptionHandler;
@@ -57,7 +57,7 @@ import org.webmacro.engine.EvaluationExceptionHandler;
  * @author Tim Joyce
  * $Revision$
  */
-public class WebmacroTemplateContext implements TemplateContext {
+public class WebmacroTemplateContext implements ServletTemplateContext {
 
   // the webcontext
   public WebContext webContext;

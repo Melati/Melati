@@ -103,7 +103,7 @@ public abstract class TemplateApp extends PoemApp implements App {
    * Override this method to build up your own output.
    *
    * @param melati the current {@link Melati}
-   * @param templateContext the current {@link TemplateContext}
+   * @param templateContext the current {@link ServletTemplateContext}
    * @return a Template name, possibly excluding extension.
    */
   protected abstract String doTemplateRequest(Melati melati, 

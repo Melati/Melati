@@ -169,7 +169,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
                                                                       throws Exception {
     String capName = "melati";
     if (useSession())
-      melati.getSession().putValue(REALM, capName);
+      melati.getSession().setAttribute(REALM, capName);
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
@@ -190,7 +190,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       // SELECTion implied by firstWhereEq for every hit
 
       User sessionUser =
-          useSession() ? (User)melati.getSession().getValue(USER) : null;
+          useSession() ? (User)melati.getSession().getAttribute(USER) : null;
       User user = null;
 
       if (sessionUser == null ||
@@ -215,7 +215,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
         String storedRealm;
         if (useSession() &&
-            (storedRealm = (String)melati.getSession().getValue(REALM))
+            (storedRealm = (String)melati.getSession().getAttribute(REALM))
                  != null) {
 
           // The "realm" is stored in the session
@@ -242,7 +242,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         PoemThread.setAccessToken(user);
 
         if (useSession() && user != sessionUser)
-          melati.getSession().putValue(USER, user);
+          melati.getSession().setAttribute(USER, user);
 
         return melati;
       }

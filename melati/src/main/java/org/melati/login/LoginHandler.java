@@ -57,7 +57,7 @@ public class LoginHandler {
 
     AccessPoemException triggeringException = null;
     if (session != null) triggeringException = 
-        (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
+        (AccessPoemException)session.getAttribute(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)
       context.put("triggeringException", triggeringException);
@@ -92,14 +92,14 @@ public class LoginHandler {
     HttpSession session = templateContext.getSession();
 
     HttpServletRequestParameters triggeringParams =
-        (HttpServletRequestParameters)session.getValue(
+        (HttpServletRequestParameters)session.getAttribute(
                                           Login.TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
-      session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
+      session.setAttribute(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
                        triggeringParams);
-      session.removeValue(Login.TRIGGERING_REQUEST_PARAMETERS);
-      session.removeValue(Login.TRIGGERING_EXCEPTION);
+      session.removeAttribute(Login.TRIGGERING_REQUEST_PARAMETERS);
+      session.removeAttribute(Login.TRIGGERING_EXCEPTION);
       templateContext.put("continuationURL", triggeringParams.continuationURL());
     } else {
       if (MelatiUtil.getFormNulled(templateContext,"continuationURL") != null) {
@@ -108,7 +108,7 @@ public class LoginHandler {
       }
     }
 
-    session.putValue(HttpSessionAccessHandler.USER, user);
+    session.setAttribute(HttpSessionAccessHandler.USER, user);
 
     return loginSuccessTemplate();
   }

@@ -44,7 +44,7 @@
 ## contact me!
 ##
 
-#set $Response.Header.Content-Type = "text/html"
+#set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>

@@ -257,7 +257,7 @@ public abstract class FieldDef {
 
     if (sortDescending)
       w.write("          protected boolean defaultSortDescending() {\n" +
-              "            return false;\n" +
+              "            return true;\n" +
               "          }\n" +
               "\n");
 

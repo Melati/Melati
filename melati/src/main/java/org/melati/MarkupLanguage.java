@@ -83,8 +83,6 @@ public abstract class MarkupLanguage {
 
   public abstract String rendered(String s);
 
-  //public abstract String rendered(AccessPoemException e);
-
   public abstract String rendered(Exception e);
 
   public String rendered(Object o) throws WebMacroException {
@@ -217,13 +215,11 @@ public abstract class MarkupLanguage {
     }
   }
 
-
   public String rendered(AccessPoemException e) throws WebMacroException {
-
     String templetName = "AccessPoemException";
-    Template templet =  templetLoader.templet(webContext.getBroker(), this, templetName);
+    Template templet =
+        templetLoader.templet(webContext.getBroker(), this, templetName);
     webContext.put("denieduser", e.token);
     return (String)templet.evaluate(webContext);
   }
-
 }

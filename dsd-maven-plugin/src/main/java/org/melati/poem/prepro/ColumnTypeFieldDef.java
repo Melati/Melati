@@ -93,7 +93,7 @@ public class ColumnTypeFieldDef extends FieldDef {
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "Code();\n" +
       "          }\n" +
-      "\n" );
+      "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
@@ -140,7 +140,7 @@ public class ColumnTypeFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
-            "  }\n" );
+            "  }\n");
     w.write(
       "\n /**\n"
       + "  * Sets the <code>Integer</code> <code>" 
@@ -201,7 +201,7 @@ public class ColumnTypeFieldDef extends FieldDef {
             "        PoemTypeFactory.forCode(getDatabase(), " + 
             "code.intValue());\n" +
             "  }\n" +
-            "\n" );
+            "\n");
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" + type + "</code> <code>" 

@@ -141,7 +141,7 @@ public class IntegrityFixFieldDef extends FieldDef {
             "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
-            "\n" );
+            "\n");
 
     w.write(
       "\n /**\n"
@@ -169,7 +169,7 @@ public class IntegrityFixFieldDef extends FieldDef {
             "    writeLock();\n" +
             "    set" + suffix + "_unsafe(raw);\n" +
             "  }\n" +
-            "\n" );
+            "\n");
     w.write(
       "\n /**\n"
       + "  * Retrieves the " 
@@ -194,7 +194,7 @@ public class IntegrityFixFieldDef extends FieldDef {
             "    return index == null ? null :\n" +
             "        StandardIntegrityFix.forIndex(index.intValue());\n" +
             "  }\n" +
-            "\n" );
+            "\n");
     w.write(
       "\n /**\n"
       + "  * Sets the <code>" 

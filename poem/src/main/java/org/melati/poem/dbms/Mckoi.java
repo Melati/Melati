@@ -130,9 +130,9 @@ public class Mckoi extends AnsiStandard {
       throws SQLException {
 //      ResultSetMetaData rsmd= md.getMetaData();
 
-    if( md.getString("TYPE_NAME").equals("NUMERIC") )
+    if(md.getString("TYPE_NAME").equals("NUMERIC"))
       return new DoublePoemType(md.getInt("NULLABLE")==
-                                DatabaseMetaData.columnNullable );
+                                DatabaseMetaData.columnNullable);
     else
       return super.defaultPoemTypeOfColumnMetaData(md);
   }

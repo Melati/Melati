@@ -55,7 +55,7 @@ import java.io.BufferedWriter;
 import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.StreamTokenizer;
-import java.io.IOException ;
+import java.io.IOException;
 import org.melati.util.StringUtils;
 
 /**

@@ -96,7 +96,7 @@ public class DisplayLevelFieldDef extends FieldDef {
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "Index();\n" +
       "          }\n" +
-      "\n" );
+      "\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +

@@ -59,7 +59,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class Login extends MelatiServlet {
-  static final String
+  public static final String
       TRIGGERING_REQUEST_PARAMETERS =
           "org.melati.Login.triggeringRequestParameters",
       TRIGGERING_EXCEPTION =

@@ -45,12 +45,22 @@
 
 package org.melati.test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+
 import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
+import org.melati.template.webmacro.MelatiFastWriter;
 import org.webmacro.WebMacroException;
 import org.webmacro.servlet.WebContext;
+
+import org.webmacro.WebMacro;
+import org.webmacro.WM;
+import org.webmacro.Context;
+import org.webmacro.Template;
 
 /**
  * Base class to use Melati with Servlets.
@@ -62,7 +72,31 @@ import org.webmacro.servlet.WebContext;
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context ) 
-  throws WebMacroException {
+  throws Exception {
+
+      // test melati in standalone mode (outside of using the servlet API)
+      // by expanding a template
+      // to a string and then include it within this template
+      // you would not normally do this this way, a much better approach would
+      // be to use templets
+      if (melati.getMethod() != null && melati.getMethod().equals("StandAlone")) {
+        // construct a Melati with a StringWriter instead of a servlet
+        // request and response
+        WebMacro wm = new WM();
+        ByteArrayOutputStream sw = new ByteArrayOutputStream();
+        MelatiFastWriter fmw = 
+                new MelatiFastWriter(wm.getBroker(), sw, melati.getEncoding());
+        Melati m = new Melati(new MelatiConfig(),fmw);
+        Context context2 = wm.getContext();
+        context2.put("melati",m);
+        Template template = wm.getTemplate("test/StandAlone.wm");
+        template.write(fmw.getPeer(), context2);
+        fmw.flush();
+        // write to the StringWriter
+        String out = sw.toString();
+        // finally, put what we have into the original templateContext
+        context.put("StandAlone",out);
+      }
     return "test/WebmacroMelatiServletTest.wm";
   }
 

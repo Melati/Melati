@@ -194,8 +194,8 @@ public class Melati {
 
   public void setContext(MelatiContext context) throws DatabaseInitException {
     this.context = context;
-    if (context.logicalDatabase != null)
-      database = LogicalDatabase.getDatabase(context.logicalDatabase);
+    if (context.getLogicalDatabase() != null)
+      database = LogicalDatabase.getDatabase(context.getLogicalDatabase());
   }
 
   /**
@@ -209,10 +209,10 @@ public class Melati {
    */
 
   public void loadTableAndObject() {
-    if (context.table != null && database != null)
-      table = database.getTable(context.table);
-    if (context.troid != null && table != null)
-      object = table.getObject(context.troid.intValue());
+    if (context.getTable() != null && database != null)
+      table = database.getTable(context.getTable());
+    if (context.getTroid() != null && table != null)
+      object = table.getObject(context.getTroid().intValue());
   }
 
   /**
@@ -268,7 +268,7 @@ public class Melati {
    */
 
   public String getMethod() {
-    return context.method;
+    return context.getMethod();
   }
 
   /**
@@ -358,7 +358,7 @@ public class Melati {
         HttpServletRequestCompat.getContextPath(getRequest()),
         getRequest().getServletPath(),
         config.getStaticURL() + "/admin",
-        context.logicalDatabase);
+        context.getLogicalDatabase());
   }
 
   /**
@@ -373,7 +373,7 @@ public class Melati {
     url.append('/');
     url.append(config.logoutPageServletClassName());
     url.append('/');
-    url.append(context.logicalDatabase);
+    url.append(context.getLogicalDatabase());
     return url.toString();
   }
 

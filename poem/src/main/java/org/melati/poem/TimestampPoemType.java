@@ -99,4 +99,9 @@ public class TimestampPoemType extends AtomPoemType {
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);
   }
+
+  protected String _quotedRaw(Object raw) {
+    return StringUtils.quoted(_stringOfRaw(raw), '\'');
+  }
+
 }

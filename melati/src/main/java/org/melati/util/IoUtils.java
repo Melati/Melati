@@ -190,4 +190,20 @@ public class IoUtils {
       o.write(b, 0, g);
     }
   }
+
+  public static void copy(File from, int buf, File to) throws IOException {
+    FileReader i = new FileReader(from);
+    try {
+      FileWriter o = new FileWriter(to);
+      try {
+        copy(i, buf, o);
+      }
+      finally {
+        try { o.close(); } catch (Exception e) {}
+      }
+    }
+    finally {
+      try { i.close(); } catch (Exception e) {}
+    }
+  }
 }

@@ -40,7 +40,7 @@ public abstract class Transaction {
   protected abstract void backingRollback();
 
   synchronized void block(Transaction blockee) {
-    System.err.println("*** " + this + ".block(" + blockee + ")");
+    // System.err.println("*** " + this + ".block(" + blockee + ")");
 
     blockees.addElement(blockee);
     blockee.blockedOn = this;
@@ -81,7 +81,7 @@ public abstract class Transaction {
 
 
   public void writeDown() {
-    System.err.println(this + ".writeDown()");
+    // System.err.println(this + ".writeDown()");
     synchronized (touched) {
       for (Enumeration p = touched.elements(); p.hasMoreElements();)
         ((Transactioned)p.nextElement()).writeDown(this);
@@ -131,7 +131,7 @@ public abstract class Transaction {
       // this is really the best we can do without using heavy Lock-ish objects
 
       synchronized (this) {
-	System.err.println(this + ".notifyAll() after commit = " + commit);
+	// System.err.println(this + ".notifyAll() after commit = " + commit);
 	notifyAll();
       }
     }

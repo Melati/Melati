@@ -117,7 +117,7 @@ public final class Cache {
       throw new CacheDuplicationException();
     }
 
-    System.err.println("put " + key + " -> " + value);
+    // System.err.println("put " + key + " -> " + value);
 
     node.putBefore(theMRU);
     theMRU = node;
@@ -129,24 +129,24 @@ public final class Cache {
     gc();
 
     if (table.isEmpty()) {
-      System.err.println("get " + key + ": empty");
+      // System.err.println("get " + key + ": empty");
       return null;
     }
     else {
       Node node = (Node)table.get(key);
       if (node == null) {
-	System.err.println("get " + key + ": no entry");
+	// System.err.println("get " + key + ": no entry");
 	return null;
       }
       else {
 	HeldNode held;
 	if (node instanceof HeldNode) {
-	  System.err.println("get " + key + ": held");
+	  // System.err.println("get " + key + ": held");
 	  held = (HeldNode)node;
 	}
 	else {
 	  if (node.value() == null) {
-	    System.err.println("get " + key + ": dropped, null!");
+	    // System.err.println("get " + key + ": dropped, null!");
 	    // This probably doesn't happen
 	    return null;
 	  }
@@ -154,13 +154,13 @@ public final class Cache {
 	  held = new HeldNode(key, node.value());
 	  table.put(key, held);
 	  
-	  System.err.println("get " + key + ": dropped -> held");
+	  // System.err.println("get " + key + ": dropped -> held");
 	}
 
         held.putBefore(theMRU);
         theMRU = held;
         if (theLRU == null) theLRU = held;
-	System.err.println("get " + key + ": value " + held.value);
+	// System.err.println("get " + key + ": value " + held.value);
         return held.value;
       }
     }

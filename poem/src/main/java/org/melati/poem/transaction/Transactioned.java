@@ -83,7 +83,7 @@ public abstract class Transactioned {
 
   protected void writeLock(Transaction transaction) {
 
-    System.err.println(this + ".writeLock(" + transaction + ")");
+    // System.err.println(this + ".writeLock(" + transaction + ")");
 
     if (transaction == null)
       throw new WriteCommittedException(this);
@@ -94,7 +94,7 @@ public abstract class Transactioned {
       Transaction blocker = null;
       synchronized (this) {
 	if (touchedBy == transaction) {
-	  System.err.println("already " + this + ".touchedBy == " + transaction);
+	  // System.err.println("already " + this + ".touchedBy == " + transaction);
 	  break;
 	}
 	else if (touchedBy != null)
@@ -103,12 +103,12 @@ public abstract class Transactioned {
 	  int othersSeenMask = seenMask & transaction.negMask;
 	  if (othersSeenMask == 0) {
 	    touchedBy = transaction;
-	    System.err.println("calling " + transaction + ".notifyTouched(" + this + ")");
+	    // System.err.println("calling " + transaction + ".notifyTouched(" + this + ")");
 	    transaction.notifyTouched(this);
 	    break;
 	  }
           else {
-	    System.err.println("othersSeenMask is " + othersSeenMask);
+	    // System.err.println("othersSeenMask is " + othersSeenMask);
 	    int m = transactionPool().transactionsMax();
 	    int t, mask;
 	    for (t = 0, mask = 1;
@@ -119,12 +119,12 @@ public abstract class Transactioned {
 	    if (t == m)
 	      break;
 	    blocker = transactionPool().transaction(t);
-	    System.err.println("it's " + (othersSeenMask & mask) + "; " + "transaction(" + t + ") -> " + blocker);
+	    // System.err.println("it's " + (othersSeenMask & mask) + "; " + "transaction(" + t + ") -> " + blocker);
 	  }
 	}
       }
 
-      System.err.println(this + " blocking " + transaction + " on " + blocker);
+      // System.err.println(this + " blocking " + transaction + " on " + blocker);
 
       blocker.block(transaction);
     }

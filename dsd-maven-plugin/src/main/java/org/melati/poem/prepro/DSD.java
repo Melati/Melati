@@ -245,12 +245,9 @@ public class DSD {
                 "\n");
         w.write("package " + packageName + ".generated;\n" +
                 "\n");
-        writeImports(w, name, true);
-
       } else {
         w.write("package " + packageName + ";\n" +
                 "\n");
-        writeImports(w, name, false);
       }
 
       w.write("\n");
@@ -271,17 +268,6 @@ public class DSD {
     w.close();
   }
 
-  /**
-   * @todo Establish exactly which imports to do
-   */
-  void writeImports(Writer w, String name, boolean generated)
-      throws IOException {
-
-    for (int j = 0; j < importedDSDs.size(); j++) {
-      DSD dsd = (DSD)importedDSDs.elementAt(j);
-      w.write("import " + dsd.packageName + ".*;\n");
-    }
-  }
 
   public void generateDatabaseBaseJava(Writer w) throws IOException {
     if (packageName.equals("org.melati.poem")) {
@@ -352,9 +338,15 @@ public class DSD {
     w.write("// " + tablesInDatabase.size() + " tables in database\n");
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
-      if (!(td.isAbstract || td.naming.hidden))
+      if (!(td.isAbstract || td.naming.hidden || td.naming.hidesOther))
         w.write(td.naming.importTableString());
     }
+    for (int j = 0; j < importedDSDs.size(); j++) {
+      DSD dsd = (DSD)importedDSDs.elementAt(j);
+      w.write("import " + dsd.packageName + "."+ 
+              dsd.databaseTablesClass + ";\n");
+    }
+
     w.write("\n" + 
             "/**\n" +
             " * Melati POEM generated interface\n" +

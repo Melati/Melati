@@ -678,10 +678,8 @@ public class Melati {
    * It assumes {@link #establishCharsets()} has been called to
    * set the request encoding if necessary.
    *
-   * @todo Someone other than JimW should review this requirements
-   * analysis.
    * @see #establishCharsets()
-   * @see org.melati.admin.Admin#selection(TemplateContext, Melati)
+   * see also org.melati.admin.Admin#selection(TemplateContext, Melati)
    */
   public String getURLQueryEncoding() {
     return request.getCharacterEncoding();
@@ -693,7 +691,7 @@ public class Melati {
    * These is here because it uses knownledge of this object and
    * other methods.
    *
-   * @see org.melati.admin.Admin#selection(TemplateContext, Melati)
+   * see also org.melati.admin.Admin#selection(TemplateContext, Melati)
    */
   public String urlEncode(String string) {
     try {
@@ -761,20 +759,20 @@ public class Melati {
 
   private MelatiWriter createWriter() throws IOException {
     // first effort is to use the writer supplied by the template engine
-    MelatiWriter writer = null;
+    MelatiWriter writerL = null;
     if (response != null) {
       if (templateEngine != null) {
-        writer = templateEngine.getServletWriter(response, buffered);
+        writerL = templateEngine.getServletWriter(response, buffered);
       } else {
         if (buffered) {
-          writer = new MelatiBufferedWriter(response.getWriter());
+          writerL = new MelatiBufferedWriter(response.getWriter());
         } else {
-          writer = new MelatiSimpleWriter(response.getWriter());
+          writerL = new MelatiSimpleWriter(response.getWriter());
         }
       }
     }
-    if (flushing) writer.setFlushingOn();
-    return writer;
+    if (flushing) writerL.setFlushingOn();
+    return writerL;
   }
 
   /**

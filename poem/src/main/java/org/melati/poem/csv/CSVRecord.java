@@ -74,10 +74,10 @@ public class CSVRecord extends Vector {
   Persistent poemRecord = null;
   
   /** The line number of the CSV file */
-  public int lineNo;
+  private int lineNo;
   
   /** The record number of the CSV file */
-  public int recordNo;
+  private int recordNo;
   
   /**
    * Constructor
@@ -97,9 +97,11 @@ public class CSVRecord extends Vector {
   }
 
   /**
-   * Write the data in this record into a new Persistent
+   * Write the data in this record into a new Persistent.
+   * @throws CSVWriteDownException
    */
-  private void createPersistent() throws NoPrimaryKeyInCSVTableException {
+  private void createPersistent() 
+      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
     if (poemRecord != null)
       return;
     Persistent newObj = table.newPersistent();
@@ -107,22 +109,23 @@ public class CSVRecord extends Vector {
     for(int j = 0; j < size(); j++) {
       CSVColumn col = ((CSVField)elementAt(j)).column;
       String csvValue = ((CSVField)elementAt(j)).value;
-
       if (col.foreignTable == null) {
-        if (col.poemName != null)
+        if (col.poemName != null) {
           try {
             if (csvValue != null && !csvValue.equals("")) {
               newObj.setRawString(col.poemName, csvValue);
             }
           } catch (Exception e) {
-            throw new RuntimeException("Problem processing column " + 
+            throw new CSVWriteDownException(table.getName(), getLineNo(), 
+                new RuntimeException("Problem processing column " + 
                 col.poemName + 
                 " of table " + 
                 table.getName() +
-                " on line " + lineNo + 
+                " on line " + getLineNo() + 
                 " value :" + csvValue + 
-                ": " + e.toString());
+                ": " + e.toString()));
           }
+        }
       }
       // Lookup up value in the foreign Table
       else {
@@ -133,7 +136,7 @@ public class CSVRecord extends Vector {
               col.poemName + 
               " of table " + 
               table.getName() +
-              " on line " + lineNo 
+              " on line " + getLineNo() 
               );
           }
         } else { 
@@ -145,25 +148,24 @@ public class CSVRecord extends Vector {
                 col.poemName + 
                 " of table " + 
                 table.getName() +
-                " on line " + lineNo 
+                " on line " + getLineNo() 
                 );
           }
           newObj.setCooked(col.poemName, lookup);
         }
       }
     }
-    newObj.makePersistent();
-    if (PoemThread.inSession())
-      PoemThread.writeDown();
-    PoemThread.commit();
     poemRecord = newObj;
   }
   
  /**
   * Retreive the Persistent corresponding to this CSVRecord, if there
   * is one.
+ * @throws NoPrimaryKeyInCSVTableException
+ * @throws CSVWriteDownException
   */
-  Persistent getPersistent() throws NoPrimaryKeyInCSVTableException {
+  public Persistent getPersistent() 
+      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
     if (poemRecord != null)
       return poemRecord;
     createPersistent();
@@ -173,8 +175,56 @@ public class CSVRecord extends Vector {
  /**
   * Make sure this record is written to the database.
   */
-  void makePersistent() throws NoPrimaryKeyInCSVTableException {
-    getPersistent();
+  void makePersistent() 
+      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
+    try {
+      getPersistent();
+      poemRecord.makePersistent();
+    } catch (NoPrimaryKeyInCSVTableException e1) {
+      throw e1;
+    } catch (CSVWriteDownException e2) {
+      throw e2;
+    } catch (Exception e) {
+      e.printStackTrace(System.err);
+      throw new RuntimeException(e.toString()
+                 + 
+                " in table " + 
+                table.getName() +
+                " on line " + getLineNo() 
+                );
+    }    
+
+    if (PoemThread.inSession())
+      PoemThread.writeDown();
+    PoemThread.commit();
+  }
+
+ /**
+  * @param recordNo The recordNo to set.
+  */
+  public void setRecordNo(int recordNo) {
+    this.recordNo = recordNo;
+  }
+
+ /**
+  * @return Returns the recordNo.
+  */
+  public int getRecordNo() {
+    return recordNo;
+  }
+
+ /**
+  * @param lineNo The lineNo to set.
+  */
+  public void setLineNo(int lineNo) {
+   this.lineNo = lineNo;
+  }
+
+  /**
+   * @return Returns the lineNo.
+   */
+  public int getLineNo() {
+    return lineNo;
   }
 
 }

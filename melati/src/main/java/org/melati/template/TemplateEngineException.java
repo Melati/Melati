@@ -49,12 +49,19 @@ import org.melati.util.MelatiException;
 
 public class TemplateEngineException extends MelatiException {
 
-  String error;
-  public TemplateEngineException(String error) {
-    this.error = error;
+  String message;
+  
+  public TemplateEngineException(Exception  underlying) {
+    super(underlying);
+  }
+
+  public TemplateEngineException(String message) {
+    this.message = message;
   }
 
   public String getMessage() {
-    return "I couldn't use the Template engine because: \n" + error;
+    if (message == null) return super.getMessage();
+    return message;
   }
+
 }

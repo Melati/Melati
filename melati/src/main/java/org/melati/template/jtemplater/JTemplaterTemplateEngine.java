@@ -76,9 +76,7 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     try {
       jt = new JTemplater();
     } catch (Exception e) {
-      // ensure we get the full error
-      e.printStackTrace(System.err);
-      throw new TemplateEngineException(e.toString());
+      throw new TemplateEngineException(e);
     }
   }
 
@@ -122,8 +120,7 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     try {
       expandTemplate(out, template(templateName), templateContext);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException("I couldn't find the template: " +
-      templateName + " because: " +e.toString());
+      throw new TemplateEngineException(e);
     }
   }
 

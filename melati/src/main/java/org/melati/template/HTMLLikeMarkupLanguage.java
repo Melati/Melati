@@ -46,6 +46,7 @@
 package org.melati.template;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.net.URLEncoder;
 
 import org.melati.Melati;
@@ -74,16 +75,8 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
    a variable.
  </p>
 */
-/* 
- FIXME: webmacro unfortunately won't call methods with void returns
-*/
-  public String rendered(String s) throws IOException {
-    super.melati.getWriter().write(HTMLUtils.entitied(s));
-    return "";
-  }
-
-  public String renderedString(String s) throws IOException {
-    return HTMLUtils.entitied(s);
+  public void render(String s, Writer writer) throws IOException {
+    writer.write(HTMLUtils.entitied(s));
   }
 
   public String escaped(String s) {

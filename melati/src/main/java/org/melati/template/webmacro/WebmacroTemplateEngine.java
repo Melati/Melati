@@ -86,9 +86,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     try {
       wm = new WM ();
     } catch (InitException e) {
-      // ensure we get the full error
-      e.printStackTrace (System.err);
-      throw new TemplateEngineException (e.toString ());
+      throw new TemplateEngineException(e);
     }
   }
 
@@ -151,8 +149,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     try {
       expandTemplate (out, template (templateName), templateContext);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException ("I couldn't find the template: " +
-      templateName + " because: " +e.toString ());
+      throw new TemplateEngineException(e);
     }
   }
 
@@ -170,9 +167,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       if (underlying instanceof AccessPoemException) {
         throw (AccessPoemException)underlying;
       } else {
-        throw new TemplateEngineException(
-                  "The template could not be expanded because:\n" + 
-                  underlying.toString());
+        throw new TemplateEngineException(underlying);
       }
     }
   }

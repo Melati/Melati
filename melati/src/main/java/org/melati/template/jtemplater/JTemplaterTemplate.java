@@ -72,8 +72,7 @@ public class JTemplaterTemplate implements Template
     try {
       template.expand(templateContext, out, (JTemplater)engine.getEngine());
     } catch (Exception e) {
-      throw new TemplateEngineException
-      ("I couldn't expand the template because: " +e.toString());
+      throw new TemplateEngineException(e);
     }
   }
 

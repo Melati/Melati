@@ -215,7 +215,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof PropertyException) {
-        Throwable caught = ((PropertyException)underlying).getCaught();
+        Throwable caught = ((PropertyException)underlying).getCause();
         if (caught instanceof AccessPoemException) {
           throw (AccessPoemException)caught;
         }
@@ -242,7 +242,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof PropertyException) {
-        Throwable caught = ((PropertyException)underlying).getCaught();
+        Throwable caught = ((PropertyException)underlying).getCause();
         if (caught instanceof AccessPoemException) {
           throw (AccessPoemException)caught;
         }

@@ -89,7 +89,7 @@ public class PassbackEvaluationExceptionHandler
      Throwable underlying = problem;
      if (problem instanceof PropertyException) {
        PropertyException prob = (PropertyException)problem;
-       if (prob.getCaught() != null) underlying = prob.getCaught();
+       if (prob.getCause() != null) underlying = prob.getCause();
      }
      try {
        return ml.rendered(underlying);

@@ -89,11 +89,11 @@ public class HttpSessionAccessHandler implements AccessHandler {
   public String loginPageURL(MelatiContext melati, HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendZoneURL(url, request);
-
     url.append('/');
     url.append(loginPageServletClassName());
     url.append('/');
     url.append(melati.logicalDatabase);
+    url.append('/');
 
     return url.toString();
   }

@@ -67,12 +67,16 @@ public class GroupTable extends GroupTableBase {
     return administratorsGroup;
   }
 
+  public Group ensure(String name) {
+    Group g = (Group)newPersistent();
+    g.setName_unsafe(name);
+    return (Group)getNameColumn().ensure(g);
+  }
+
   protected void postInitialise() {
     super.postInitialise();
 
-    administratorsGroup = (Group)newPersistent();
-    administratorsGroup.setName_unsafe("Melati database administrators");
-    administratorsGroup = (Group)getNameColumn().ensure(administratorsGroup);
+    administratorsGroup = ensure("Melati database administrators");
 
     TableInfo info = ((Table)this).info;
 

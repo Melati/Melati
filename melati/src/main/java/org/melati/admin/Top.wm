@@ -13,13 +13,13 @@
 ## Melati is free software; Permission is granted to copy, distribute
 ## and/or modify this software under the terms either:
 ##
-## a) the GNU General Public License as published by the Free Software
+## (a) the GNU General Public License as published by the Free Software
 ##    Foundation; either version 2 of the License, or (at your option)
 ##    any later version,
 ##
 ##    or
 ##
-## b) any version of the Melati Software License, as published
+## (b) any version of the Melati Software License, as published
 ##    at http://melati.org
 ##
 ## You should have received a copy of the GNU General Public License and
@@ -51,13 +51,13 @@
 <TITLE>Options</TITLE>
 
 <SCRIPT Language="JavaScript">
-function goto_page() {
-var selector;
-selector = document.forms[0].mainmenu;
-var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-if (option != "null") parent["admin_bottom"].location = option;
-return false;
-}
+  function goto_page() {
+  var selector;
+  selector = document.forms[0].mainmenu;
+  var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+  if (option != "null") parent["admin_bottom"].location = option;
+  return false;
+  }
 </SCRIPT>
 
 </HEAD>

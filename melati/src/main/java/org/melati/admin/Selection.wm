@@ -12,13 +12,13 @@
 ## Melati is free software; Permission is granted to copy, distribute
 ## and/or modify this software under the terms either:
 ##
-## a) the GNU General Public License as published by the Free Software
+## (a) the GNU General Public License as published by the Free Software
 ##    Foundation; either version 2 of the License, or (at your option)
 ##    any later version,
 ##
 ##    or
 ##
-## b) any version of the Melati Software License, as published
+## (b) any version of the Melati Software License, as published
 ##    at http://melati.org
 ##
 ## You should have received a copy of the GNU General Public License and
@@ -82,7 +82,7 @@ $results.TotalCount</b></font>
     </TR>
 	#set $color1 = "#E9EDFD"
 	#set $color2 = "#FFFFFF"
-	#set $color = $color1;
+	#set $color = $color1
     #foreach $result in $results #begin
       <TR>
 	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.RightURL($result)?returnTarget=top.admin_bottom.admin_left.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0 hspace=2></a>&nbsp;</font></TD>

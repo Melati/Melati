@@ -12,13 +12,13 @@
 ## Melati is free software; Permission is granted to copy, distribute
 ## and/or modify this software under the terms either:
 ##
-## a) the GNU General Public License as published by the Free Software
+## (a) the GNU General Public License as published by the Free Software
 ##    Foundation; either version 2 of the License, or (at your option)
 ##    any later version,
 ##
 ##    or
 ##
-## b) any version of the Melati Software License, as published
+## (b) any version of the Melati Software License, as published
 ##    at http://melati.org
 ##
 ## You should have received a copy of the GNU General Public License and
@@ -55,18 +55,18 @@
 
 <script TYPE="text/javascript">
 <!--
-if (top.remoteWin && !top.remoteWin.closed) {
+  if (top.remoteWin && !top.remoteWin.closed) {
     top.remoteWin.close();
-}
+  }
 
-function openWindow() {
-   top.remoteWin = window.open("", "search", "width=470,height=500,resizable=yes,scrollbars=yes");
-   if (top.remoteWin != null) {
-     top.remoteWin.location = '$admin.PopupURL($table)';
-     top.remoteWin.focus();
-   }
-   return false;
-}
+  function openWindow() {
+    top.remoteWin = window.open("", "search", "width=470,height=500,resizable=yes,scrollbars=yes");
+    if (top.remoteWin != null) {
+      top.remoteWin.location = '$admin.PopupURL($table)';
+      top.remoteWin.focus();
+    }
+    return false;
+  }
 
 //-->
 </script>

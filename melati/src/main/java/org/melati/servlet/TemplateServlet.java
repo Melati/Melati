@@ -63,12 +63,12 @@ import org.melati.template.NotFoundException;
 
 /**
  * Base class to use Melati with a Template Engine.
- * Simply extend this class, override the doTemplateRequest method
+ * To create your own servlet simply extend this class, 
+ * overriding the <code>doTemplateRequest</code> method.
  *
  * @author Tim Joyce
  * $Revision$
  */
-
 public abstract class TemplateServlet extends PoemServlet {
 
   // the template engine
@@ -80,7 +80,6 @@ public abstract class TemplateServlet extends PoemServlet {
    * @param config a <code>ServletConfig</code>
    * @throws ServletException if the TemplateEngine has a problem
    */
-
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
     try {
@@ -104,7 +103,6 @@ public abstract class TemplateServlet extends PoemServlet {
    * @param melati the current Melati
    * @throws Exception if anything goes wrong
    */
-
   protected void prePoemSession(Melati melati) throws Exception {
     // for this request, set the Initialised Template Engine
     melati.setTemplateEngine(templateEngine);
@@ -150,7 +148,6 @@ public abstract class TemplateServlet extends PoemServlet {
    * <code>foo.html.wm</code> for example, your urls can then look like
    * <code>servlet/db/table/troid/method.html</code>.
    */
-
   protected String addExtension(String templateName) {
       
     return templateName + templateEngine.templateExtension();

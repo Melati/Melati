@@ -16,7 +16,7 @@ public class HttpUtil {
 
     String servlet = request.getServletPath();
     if (servlet != null)
-      url.append(servlet.substring(0, servlet.lastIndexOf('/') + 1));
+      url.append(servlet.substring(0, servlet.lastIndexOf('/')));
   }
 
   public static String zoneURL(HttpServletRequest request) {

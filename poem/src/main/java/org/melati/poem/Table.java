@@ -1927,7 +1927,7 @@ public class Table implements Selectable {
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
     CachedSelection them = (CachedSelection)cachedSelections.get(key);
-    if (them == null) {
+    if (them == null || them.outOfDate()) {
       CachedSelection newThem =
           new CachedSelection(this, whereClause, orderByClause);
       // synchronise in case someone else has performed the query whilst 

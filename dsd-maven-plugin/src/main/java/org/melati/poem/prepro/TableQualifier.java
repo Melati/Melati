@@ -21,6 +21,8 @@ public abstract class TableQualifier {
       it = new CacheSizeTableQualifier(tokens);
     else if (kind.equals("seqcached"))
       it = new SeqCachedTableQualifier(tokens);
+    else if (kind.equals("category"))
+      it = new CategoryTableQualifier(tokens);
     else
       throw new ParsingDSDException("<table qualifier>", kind, tokens);
     return it;

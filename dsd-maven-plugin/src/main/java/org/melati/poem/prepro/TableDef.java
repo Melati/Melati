@@ -11,6 +11,7 @@ public class TableDef {
   final String suffix;
   String displayName;
   String description;
+  String category;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
   final String baseClass;
@@ -73,7 +74,7 @@ public class TableDef {
             "\n");
 
     w.write("  public " + tableMainClass + " " + tableAccessorMethod +
-	           "() {\n" +
+                   "() {\n" +
             "    return (" + tableMainClass + ")getTable();\n" +
             "  }\n\n");
 
@@ -144,7 +145,7 @@ public class TableDef {
             "  protected Persistent _newPersistent() {\n" +
             "    return new " + mainClass + "();\n" +
             "  }" +
-	    "\n");
+            "\n");
 
 
     if (displayName != null)
@@ -171,6 +172,12 @@ public class TableDef {
                        (cacheSize == CacheSizeTableQualifier.UNLIMITED ?
                             "null" :  "new Integer(" + cacheSize + ")") +
                        ";\n" +
+              "  }\n" +
+              "\n");
+
+    if (category != null)
+      w.write("  protected String defaultCategory() {\n" +
+              "    return " + StringUtils.quoted(category, '"') + ";\n" +
               "  }\n" +
               "\n");
 

@@ -85,11 +85,11 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
         #if ($admin.isReferencePoemType($field)) #begin
          <a
           #if ($field.Raw) #begin
- href=$admin.RightURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)")
+ href=$admin.RightURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&returnURL=$ml.encoded("$admin.SelectionRightURL($table)")
           #end #else #begin
  href=$admin.SelectionRightURL($field.Type.targetTable())
           #end
- target="admin_edit">
+ >
         #end
  $ml.rendered($field.DisplayName)
         #if ($admin.isReferencePoemType($field)) #begin

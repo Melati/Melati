@@ -1106,16 +1106,31 @@ public class Persistent extends Transactioned implements Cloneable {
     }
   }
 
-  // these method is called directly following a record being written (inserted or updated)
   // override it to provide functionality sussequent to writes (or inserts), 
   // your persistent will have a Troid at this stage
   // this method is only called once!
+
+  /*
+   * Called after this persistent is written to the database
+   * (i.e. after it is has created or modified and put into the db).
+   *
+   * It is called after postInsert() or postModify()
+   */
   public void postWrite() {
   }
-  // called only for an insert
+
+  /*
+   * Called after this persistent is inserted, i.e. written to the database
+   * for the first time
+   */
   public void postInsert() {
   }
-  // called only for a modification
+
+  /*
+   * Called after this persistent is modified, i.e. written to the database
+   * but _not_ for the first time
+   */
   public void postModify() {
   }
+
 }

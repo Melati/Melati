@@ -16,6 +16,8 @@ public class ToTidyList {
     try {
       if (o instanceof ResultSet)
         ((ResultSet)o).close();
+      else if (o instanceof Statement)
+        ((Statement)o).close();
       else if (o instanceof Reader)
         ((Reader)o).close();
       else if (o instanceof Writer)
@@ -42,6 +44,10 @@ public class ToTidyList {
   }
 
   public void add(ResultSet o) {
+    addObject(o);
+  } 
+
+  public void add(Statement o) {
     addObject(o);
   } 
 

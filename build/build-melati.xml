@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- Ant Build file for Melati -->
-<!-- cvs="$Id Exp $" -->
+<!-- cvs="$Revision $" -->
 
 <project name="melati" default="main" basedir="." >
 
@@ -49,7 +49,7 @@
     </target>
 
     <!-- =================================================================== -->
-    <!-- Coppies the other files                                             -->
+    <!-- Copies the other files                                             -->
     <!-- =================================================================== -->
     <target name="sources" depends="init">
         <copy todir="${built.src}">

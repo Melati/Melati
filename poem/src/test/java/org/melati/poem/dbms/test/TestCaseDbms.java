@@ -44,9 +44,12 @@ package org.melati.poem.dbms.test;
 
 import junit.framework.TestCase;
 
+import org.melati.poem.Persistable;
 import org.melati.poem.dbms.AnsiStandard;
 import org.melati.poem.dbms.Hsqldb;
 import org.melati.poem.dbms.Postgresql;
+
+import com.mockobjects.dynamic.Mock;
 
 /**
  * Test to ensure that CaseInsensitiveRegExpSQL behaves in the same 
@@ -54,16 +57,25 @@ import org.melati.poem.dbms.Postgresql;
  *
  * @author Tim Toyce
  */
-public class CaseInsensitiveRegExpSQL extends TestCase {
+public class TestCaseDbms extends TestCase {
 
   /**
    * Constructor for CaseInsensitiveRegExpSQL.
    * @param arg0 First argument
    */
-  public CaseInsensitiveRegExpSQL(String arg0) {
+  public TestCaseDbms(String arg0) {
     super(arg0);
   }
 
+  public void testGivesCapabilitySQL() {
+    Mock userControl = new Mock(Persistable.class);
+    userControl.expectAndReturn("getTroid",new Integer(42));
+    AnsiStandard unit = new AnsiStandard();
+    String actual = unit.givesCapabilitySQL((Persistable)userControl.proxy(),"hello");
+    String expected = "SELECT * FROM \"groupmembership\" WHERE \"user\" = 42 AND EXISTS ( SELECT \"groupcapability\".\"group\" FROM \"groupcapability\" WHERE \"groupcapability\".\"group\" = \"groupmembership\".\"group\" AND \"capability\" = hello)";
+    assertEquals(expected,actual);
+  } 
+  
   public void testHsqldb() {
     String expected = "a LIKE %b%";
     Hsqldb db = new Hsqldb();

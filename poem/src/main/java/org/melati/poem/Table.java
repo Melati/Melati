@@ -78,7 +78,7 @@ import org.melati.poem.dbms.Dbms;
  * @todo See FIXMEs
  **/
 
-public class Table {
+public class Table implements Selectable {
 
   public static final int CACHE_LIMIT_DEFAULT = 100;
 

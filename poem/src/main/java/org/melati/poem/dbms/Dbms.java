@@ -51,6 +51,8 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
+
+import org.melati.poem.Persistable;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
 import org.melati.poem.SQLPoemException;
@@ -126,7 +128,7 @@ public interface Dbms {
 
   String getIndexLength(Column column);
 
-  String givesCapabilitySQL(User user, String capabilityExpr);
+  String givesCapabilitySQL(Persistable user, String capabilityExpr);
 
   String caseInsensitiveRegExpSQL(String term1, String term2);
 

@@ -68,7 +68,7 @@ import org.melati.util.MelatiLocale;
  * @author jimw@paneris.org (Representing query constructs)
  */
 
-public class Persistent extends Transactioned implements Cloneable {
+public class Persistent extends Transactioned implements Cloneable, Persistable {
   private Table table;
   private Integer troid;        // null if a floating object
   private AccessToken clearedToken;
@@ -1191,6 +1191,9 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public String toString() {
+    if (getTable() == null) {
+       return "null/" + troid();      
+    }
     return getTable().getName() + "/" + troid();
   }
 
@@ -1231,7 +1234,7 @@ public class Persistent extends Transactioned implements Cloneable {
       return false;
     else {
       Persistent other = (Persistent)object;
-      return troid() != null && other.troid() == troid() &&
+      return other.troid() == troid() &&
              other.getTable() == getTable();
     }
   }

@@ -49,33 +49,34 @@
 
 package org.melati.poem.dbms;
 
-import java.util.Properties;
-import java.sql.Types;
-import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Driver;
-import org.melati.poem.Table;
-import org.melati.poem.Column;
-import org.melati.poem.ExecutingSQLPoemException;
-import org.melati.poem.UnsupportedTypePoemException;
-import org.melati.poem.SQLPoemException;
-import org.melati.poem.UnexpectedExceptionPoemException;
-import org.melati.poem.User;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemType;
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.IntegerPoemType;
-import org.melati.poem.DoublePoemType;
-import org.melati.poem.StringPoemType;
-import org.melati.poem.TimestampPoemType;
-import org.melati.poem.DatePoemType;
-import org.melati.poem.BooleanPoemType;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.Properties;
+
 import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Column;
+import org.melati.poem.DatePoemType;
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.Persistable;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.Table;
+import org.melati.poem.TimestampPoemType;
+import org.melati.poem.UnexpectedExceptionPoemException;
+import org.melati.poem.UnsupportedTypePoemException;
 import org.melati.util.StringUtils;
 
 /**
@@ -349,13 +350,13 @@ public class AnsiStandard implements Dbms {
   *
   * @see MySQL#givesCapabilitySQL
   */
-  public String givesCapabilitySQL(User user, String capabilityExpr) {
+  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return "SELECT * FROM "
       + getQuotedName("groupmembership")
       + " WHERE "
       + getQuotedName("user")
       + " = "
-      + user.troid()
+      + user.getTroid()
       + " AND "
       + "EXISTS ( "
       + "SELECT "
@@ -365,8 +366,6 @@ public class AnsiStandard implements Dbms {
       + " "
       + "FROM "
       + getQuotedName("groupcapability")
-      + ", "
-      + getQuotedName("groupmembership")
       + " WHERE "
       + getQuotedName("groupcapability")
       + "."

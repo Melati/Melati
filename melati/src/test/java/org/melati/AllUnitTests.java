@@ -47,7 +47,7 @@ package org.melati;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.melati.poem.dbms.test.CaseInsensitiveRegExpSQL;
+import org.melati.poem.dbms.test.TestCaseDbms;
 import org.melati.util.test.StringUtilsTest;
 
 /**
@@ -64,7 +64,7 @@ public class AllUnitTests {
   */
   public static Test suite() {
     TestSuite suite = new TestSuite("Test for Melati");
-    suite.addTestSuite(CaseInsensitiveRegExpSQL.class);
+    suite.addTestSuite(TestCaseDbms.class);
     suite.addTestSuite(StringUtilsTest.class);
     return suite;
   }

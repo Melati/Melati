@@ -23,10 +23,11 @@ package org.melati.test;
 
 import org.webmacro.WebMacro;
 import org.webmacro.WM;
-import org.webmacro.FastWriter;
+import org.melati.template.webmacro.FastWriter;
 import org.webmacro.Template;
 import org.webmacro.InitException;
 import org.webmacro.servlet.WebContext;
+import org.webmacro.Context;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,6 @@ public class WebmacroStandalone extends HttpServlet {
      * load Templates, and begin other WebMacro operations.
      */
    private WebMacro _wm = null;
-   private WebContext _webContext;
 
    /**
      * The init() method will be called by your servlet runner whenever 
@@ -72,7 +72,6 @@ public class WebmacroStandalone extends HttpServlet {
       try {
          if (_wm == null) {
             _wm = new WM();
-            _webContext = new WebContext(_wm.getBroker());
          }
       } catch (InitException e) {
          throw new ServletException("Could not initialize WebMacro: " + e);
@@ -87,7 +86,6 @@ public class WebmacroStandalone extends HttpServlet {
      */
    public void destroy() {
       if (_wm != null) {
-         _wm.destroy();
          _wm = null;
       }
    }
@@ -124,9 +122,7 @@ public class WebmacroStandalone extends HttpServlet {
       try {
          try {
 
-            // create a context for the current request
-            _webContext.clear();
-            WebContext c = _webContext.newInstance(req,resp);
+            WebContext c = new WebContext(_wm.getBroker(),req,resp);
 
             // fill up the context with our data
             c.put("Today", new Date());
@@ -151,7 +147,7 @@ public class WebmacroStandalone extends HttpServlet {
                                            resp.getOutputStream(),
                                            resp.getCharacterEncoding());
             // write the template to the output, using our context
-            t.write(fw, c);
+            t.write(fw.getOutputStream(), (Context) c);
             fw.close();
          } catch (org.webmacro.NotFoundException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),

@@ -49,7 +49,9 @@
   <property name="mysqlJar"        value="${build.lib}/mm.mysql-2.0.11-bin.jar" />
   <property name="mckoiJar"        value="${build.lib}/mkjdbc.jar}" />
 
-  <property name="webmacroJar"     value="${build.lib}/webmacro-1.1.jar"/>
+  <!--<property name="webmacroJar"     value="${build.lib}/webmacro-1.1.jar"/>-->
+  <property name="webmacroJar"     value="${build.lib}/webmacro-classic-2.0b1.jar"/>
+  <property name="concurrentJar"   value="${build.lib}/concurrent.jar"/>
   <property name="velocityJar"     value="${build.lib}/velocity-1.3.1.jar" />
   <property name="oroJar"          value="${build.lib}/jakarta-oro-2.0.8.jar" />
   <property name="collectionsJar"  value="${build.lib}/commons-collections-3.0.jar" />
@@ -80,6 +82,7 @@
 
     <pathelement path="${postgresqlJar}"/>
     <pathelement path="${webmacroJar}"/>
+    <pathelement path="${concurrentJar}"/>
     <pathelement path="${velocityJar}" />
     <pathelement path="${oroJar}" />
     <pathelement path="${collectionsJar}" />

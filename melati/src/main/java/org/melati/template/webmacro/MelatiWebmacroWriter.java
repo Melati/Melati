@@ -44,7 +44,7 @@
 package org.melati.template.webmacro;
 
 import org.melati.template.TemplateEngine;
-import org.webmacro.FastWriter;
+import org.melati.template.webmacro.FastWriter;
 import java.io.IOException;
 
 /**

@@ -51,7 +51,7 @@ import java.io.OutputStream;
 import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiWriter;
 
-import org.webmacro.FastWriter;
+import org.melati.template.webmacro.FastWriter;
 import org.webmacro.Broker;
 
 /**
@@ -101,6 +101,15 @@ public class MelatiFastWriter extends MelatiWriter
    */
   public FastWriter getFastWriter(TemplateEngine engine) {
     return getPeer();
+  }
+
+  /**
+   * Returns the underlying <code>OutputStream</code> that can be used.
+   *
+   * @see #stopUsingFastWriter(FastWriter)
+   */
+  public OutputStream getOutputStream() {
+    return outputStream;
   }
 
   /**

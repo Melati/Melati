@@ -49,7 +49,9 @@ import java.io.IOException;
 /**
  * MelatiWriter that can be used with WebMacro.
  *
- * @see WebmacroTemplate#write(MelatiWriter, TemplateContext, TemplateEngine)
+ * @see WebmacroTemplate#write(org.melati.util.MelatiWriter, 
+ *                             org.melati.template.TemplateContext, 
+ *                             org.melati.template.TemplateEngine)
  */
 public interface MelatiWebmacroWriter {
 

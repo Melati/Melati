@@ -88,18 +88,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public String loginPageURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
-    url.append(request.getScheme());
-    url.append("://");
-    url.append(request.getServerName());
-    if (request.getScheme().equals("http") && request.getServerPort() != 80 ||
-        request.getScheme().equals("https") && request.getServerPort() != 443) {
-      url.append(':');
-      url.append(request.getServerPort());
-    }                                                    
-
-    String servlet = request.getServletPath();
-    if (servlet != null)
-      url.append(servlet.substring(0, servlet.lastIndexOf('/') + 1));
+    HttpUtils.appendZoneURL(url, request);
 
     url.append(loginPageServletClassName());
     url.append('/');

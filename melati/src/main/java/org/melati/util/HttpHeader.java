@@ -112,7 +112,7 @@ public class HttpHeader {
      */
     public final boolean hasNext() {
       // System.err.println("Tested 24");
-      return tokenizer.ttype != Tokenizer.TT_EOF;
+      return tokenizer.ttype != StreamTokenizer.TT_EOF;
     }
 
     public void remove() throws UnsupportedOperationException {

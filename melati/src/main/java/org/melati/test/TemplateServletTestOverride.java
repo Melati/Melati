@@ -66,11 +66,12 @@ import org.melati.util.MelatiException;
  * @author Tim Joyce
  * $Revision$
  */
+
 public class TemplateServletTestOverride extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
                                      TemplateContext templateContext) 
-                                                          throws Exception {
+      throws Exception {
 
     // provoke an exception to prove us right!
     Capability admin = PoemThread.database().getCanAdminister();
@@ -79,7 +80,6 @@ public class TemplateServletTestOverride extends TemplateServlet {
   }
 
 /**
- *
  * this simply demonstrates how to use a different melati configuration
  *
  **/
@@ -89,14 +89,14 @@ public class TemplateServletTestOverride extends TemplateServlet {
     return config;
   }
 
-/*
+/**
  * set up the melati context so we don't have to specify the 
  * logicaldatabase on the pathinfo.  this is a very good idea when
  * writing your appications where you are typically only accessing
  * a single database
  */
   protected MelatiContext melatiContext(Melati melati)
-  throws PathInfoException {
+      throws PathInfoException {
     return melatiContextWithLDB(melati,"melatitest");
   }
   

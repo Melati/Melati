@@ -64,7 +64,7 @@ import org.melati.util.MelatiException;
 public class PoemServletTest extends PoemServlet {
 
   protected void doPoemRequest(Melati melati)
-  throws ServletException, IOException {
+      throws ServletException, IOException {
 
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
@@ -85,7 +85,7 @@ public class PoemServletTest extends PoemServlet {
     "</a>).</p><h4>Your Database has the following tables:</h4><table>");
 
     for (Enumeration e = melati.getDatabase().getDisplayTables(); 
-    e.hasMoreElements(); ) {
+         e.hasMoreElements(); ) {
       output.write(new StringBuffer("<br>").
       append(((Table)e.nextElement()).getDisplayName()).toString());
     }

@@ -67,7 +67,7 @@ import org.melati.util.ExceptionUtils;
 public class ConfigServletTest extends ConfigServlet {
 
   protected void doConfiguredRequest(Melati melati)
-  throws ServletException, IOException {
+      throws ServletException, IOException {
 
     String method = melati.getMethod();
     if (method != null) {

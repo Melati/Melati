@@ -68,10 +68,13 @@ public class BaseFieldAttributes implements FieldAttributes {
     this.renderInfo = renderInfo;
   }
 
-  public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
+  public BaseFieldAttributes(FieldAttributes other, PoemType type) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
-	 other.getType().withNullable(nullable),
-	 other.getWidth(), other.getHeight(), other.getRenderInfo());
+	 type, other.getWidth(), other.getHeight(), other.getRenderInfo());
+  }
+
+  public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
+    this(other, other.getType().withNullable(nullable));
   }
 
   public BaseFieldAttributes(String name, PoemType type) {

@@ -45,22 +45,26 @@
 
 package org.melati.poem;
 
+import java.util.Date;
 import org.melati.util.*;
 
 class SessionToken {
   Thread thread;
+  Date started;
   PoemTransaction transaction;
   AccessToken accessToken;
   private ToTidyList toTidy = null;
 
   SessionToken(Thread thread, PoemTransaction transaction, AccessToken accessToken) {
     this.thread = thread;
+    this.started = new Date();
     this.transaction = transaction;
     this.accessToken = accessToken;
   }
 
   void close() {
     thread = null;
+    started = null;
     transaction = null;
     accessToken = null;
     if (toTidy != null)

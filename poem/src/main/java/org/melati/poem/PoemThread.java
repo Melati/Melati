@@ -122,6 +122,20 @@ public class PoemThread {
     }
   }
 
+  static Vector openSessions() {
+    Vector open = new Vector();
+    Enumeration e = null;
+    synchronized(sessionTokens) {
+      e = sessionTokens.elements();
+    }
+    while(e.hasMoreElements()) {
+      SessionToken token = (SessionToken) e.nextElement();
+      if (token != null)
+        open.addElement(token);
+    }
+    return open;
+  }
+
   static SessionToken _sessionToken() {
     try {
       SessionToken context =

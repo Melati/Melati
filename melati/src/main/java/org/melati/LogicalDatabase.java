@@ -47,6 +47,8 @@ package org.melati;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Vector;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import org.melati.poem.Database;
@@ -75,6 +77,20 @@ public class LogicalDatabase {
   }
 
   private static final Hashtable databases = new Hashtable();
+
+  public static Vector initialisedDatabases() {
+    Vector dbs = new Vector();
+    Enumeration e = null;
+    synchronized (databases) {
+      e = databases.keys();
+      while (e.hasMoreElements()) {
+        Object dbOrPending = databases.get(e.nextElement());
+        if (dbOrPending != pending)
+          dbs.addElement(dbOrPending);
+      }
+    }
+    return dbs;
+  }
 
   /**
   @deprecated

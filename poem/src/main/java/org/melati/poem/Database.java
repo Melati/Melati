@@ -453,6 +453,10 @@ abstract public class Database implements TransactionPool {
     return poemTransaction(index);
   }
 
+  public boolean isFree(PoemTransaction trans) {
+    return freeTransactions.contains(trans);
+  }
+
   void beginExclusiveLock() {
     // FIXME yuk
 

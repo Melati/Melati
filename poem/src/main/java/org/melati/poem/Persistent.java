@@ -242,7 +242,8 @@ public class Persistent extends Transactioned implements Cloneable {
 
   protected void writeLock(SessionToken sessionToken)
       throws AccessPoemException {
-    assertCanWrite(sessionToken.accessToken);
+    if (troid != null)
+      assertCanWrite(sessionToken.accessToken);
     writeLock(sessionToken.transaction);
   }
 
@@ -299,12 +300,10 @@ public class Persistent extends Transactioned implements Cloneable {
    * programmatic access policies.  For instance, POEM's own <TT>TableInfo</TT>
    * class overrides it with an empty method in order to disable all read
    * protection on <TT>TableInfo</TT> objects.  More interestingly, you could
-   * implement a check that depends on the values of the object's fields, as
-   * given in the <TT>data</TT> argument: for example, you could allow read
-   * access to an invoice record to its issuing and receiving parties.
+   * implement a check that depends on the values of the object's fields:
+   * for example, you could allow read access to an invoice record to its
+   * issuing and receiving parties.
    *
-   * @param data        the field values of the object in the calling thread's
-   *                    transaction (not used in the base implementation)
    * @param token       the access token on the basis of which readability is
    *                    being claimed
    *
@@ -406,6 +405,37 @@ public class Persistent extends Transactioned implements Cloneable {
   public final void assertCanWrite() throws AccessPoemException {
     assertCanWrite(PoemThread.accessToken());
   }
+
+  /**
+   * Check that you have create access to the object.  Which is to say: the
+   * <TT>AccessToken</TT> associated with the POEM task executing in the
+   * running thread confers the <TT>Capability</TT> required for creating the
+   * object. The capability is determined solely by <TT>getCanCreate<TT>
+   * from the table. Unlike <TT>assertCanRead</TT> and <TT>assertCanWrite</TT>
+   * there is no idea of having a default <TT>Capability</TT> defined in
+   * in the table which could be overriden by a <TT>canwrite</TT> field
+   * in the persistent (since the persisent has not yet been been written).
+   *
+   * <P>
+   *
+   * Application programmers can override this method to implement their own
+   * programmatic access policies.
+   *
+   * @see #assertCanRead
+   * @see #assertCanWrite
+   * @see Table#getCanCreate
+   */
+
+  public void assertCanCreate(AccessToken token) {
+    Capability canCreate = getTable().getCanCreate();
+    if (canCreate != null && !token.givesCapability(canCreate))
+      throw new CreationAccessPoemException(getTable(), token, canCreate);
+  }
+
+  public final void assertCanCreate() throws AccessPoemException {
+    assertCanCreate(PoemThread.accessToken());
+  }
+
 
   // 
   // ============================

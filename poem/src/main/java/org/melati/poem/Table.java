@@ -1251,11 +1251,7 @@ public class Table {
 
     SessionToken sessionToken = PoemThread.sessionToken();
 
-    Capability canCreate = getCanCreate();
-    if (canCreate != null &&
-        !sessionToken.accessToken.givesCapability(canCreate))
-      throw new CreationAccessPoemException(this, sessionToken.accessToken,
-                                            canCreate);
+    persistent.assertCanCreate(sessionToken.accessToken);
 
     claim(persistent, troidFor(persistent));
     persistent.setStatusNonexistent();
@@ -1265,16 +1261,6 @@ public class Table {
 
     try {
       validate(persistent);
-    }
-    catch (Exception e) {
-      throw new InitialisationPoemException(this, e);
-    }
-
-    try {
-      persistent.assertCanWrite(sessionToken.accessToken);
-    }
-    catch (AccessPoemException e) {
-      throw new AccessibleCreationException(e);
     }
     catch (Exception e) {
       throw new InitialisationPoemException(this, e);

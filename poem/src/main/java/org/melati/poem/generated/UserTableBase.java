@@ -178,7 +178,7 @@ public class UserTableBase extends Table {
           }
 
           protected int defaultWidth() {
-            return 10;
+            return 20;
           }
 
           public Object getRaw_unsafe(Persistent g)

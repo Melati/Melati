@@ -50,7 +50,7 @@ import org.melati.LogicalDatabase;
 import org.melati.util.DatabaseInitException;
 
 /** POEM implementation of the ODMG Database API **/
-class Database implements org.odmg.Database {
+final class Database implements org.odmg.Database {
   public static final String cvs = "$Id";
 
   /** hide this from general use **/

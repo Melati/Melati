@@ -265,9 +265,9 @@ public abstract class MarkupLanguage {
       throws TemplateEngineException, IOException {
     if (o instanceof JSDynamicTree)
       render((JSDynamicTree)o, writer);
-    else if (o instanceof Persistent) {
+    else if (o instanceof Persistent) 
       render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
-    else if (o instanceof Exception) {
+    else if (o instanceof Exception) 
       render((Exception)o, writer);
     else
       render(o.toString(), writer);

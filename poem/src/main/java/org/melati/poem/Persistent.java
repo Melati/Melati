@@ -268,7 +268,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *                if <TT>assertCanRead</TT> fails
    *
    * @see Table#getObject(java.lang.Integer)
-   * @see #assertCanRead
+   * @see #assertCanRead()
    */
 
   public final Integer getTroid() throws AccessPoemException {
@@ -406,7 +406,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * Whether the object is readable by you.
    *
-   * @see #assertCanRead
+   * @see #assertCanRead()
    */
 
   public final boolean getReadable() {
@@ -446,7 +446,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * object's fields.  The remarks made about <TT>assertCanRead</TT> apply
    * (<I>mutatis mutandis</I>) here as well.
    *
-   * @see #assertCanRead
+   * @see #assertCanRead()
    * @see #getCanWrite
    * @see Table#getDefaultCanWrite
    * 
@@ -504,7 +504,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * object's fields.  The remarks made about <TT>assertCanRead</TT> apply
    * (<I>mutatis mutandis</I>) here as well.
    *
-   * @see #assertCanRead
+   * @see #assertCanRead()
    * @see #getCanDelete
    * @see Table#getDefaultCanDelete
    *
@@ -564,8 +564,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * Application programmers can override this method to implement their own
    * programmatic access policies.
    *
-   * @see #assertCanRead
-   * @see #assertCanWrite
+   * @see #assertCanRead()
+   * @see #assertCanWrite()
    * @see Table#getCanCreate
    */
 
@@ -647,7 +647,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see Database#inSession
    * @see PoemThread#commit
    * @see PoemThread#rollback
-   * @see #assertCanRead
+   * @see #assertCanRead()
    */
 
   public Object getRaw(String name)
@@ -682,7 +682,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #getCookedString
    * @see #getRaw
    * @see #getCooked
-   * @see #assertCanRead
+   * @see #assertCanRead()
    */
 
   public final String getRawString(String name)
@@ -752,7 +752,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @see #setCooked
    * @see #setRawString
-   * @see #assertCanWrite
+   * @see #assertCanWrite()
    * @see Database#inSession
    * @see PoemThread#commit
    * @see PoemThread#rollback
@@ -792,7 +792,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @see #setRaw
    * @see #setCooked
-   * @see #assertCanWrite
+   * @see #assertCanWrite()
    */
 
   public final void setRawString(String name, String string)
@@ -845,7 +845,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #getRawString
    * @see #getCookedString
    * @see #getField
-   * @see #assertCanRead
+   * @see #assertCanRead()
    */
 
   public Object getCooked(String name)
@@ -880,7 +880,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #getRawString
    * @see #getRaw
    * @see #getCooked
-   * @see #assertCanRead
+   * @see #assertCanRead()
    * @see #displayString
    */
 
@@ -925,7 +925,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @see #setRaw
    * @see #setRawString
-   * @see #assertCanWrite
+   * @see #assertCanWrite()
    */
 
   public void setCooked(String name, Object cooked)
@@ -1412,8 +1412,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * data model by performing model specific actions based on
    * the differences.
    * <p>
-   * Used in conjunction with {@link #preEdit()} and
-   * {@link #postEdit(boolean)} it is possible to ensure that
+   * Used in conjunction with {@link Persistent#preEdit()} and
+   * {@link Persistent#postEdit(boolean)} it is possible to ensure that
    * details of the data model defined in this way are
    * respected by Melati admin and other apps.
    *
@@ -1450,7 +1450,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
      * Substitute a brand new instance for a saved one.
      * <p>
      * This is possibly a way of simplifying
-     * {@link #postEdit(boolean)}
+     * {@link Persistent#postEdit(boolean)}
      * when a new object has been created and edited.
      * Call this and from then on much of the processing will be the
      * same as when an existing object is edited.

@@ -73,7 +73,7 @@ public class FieldSet {
    * Return a specified field.
    *
    * @param name The table name and column name separated by "_".
-   * @see TailoredResultSetEnumeration#mapped(ResultSet)
+   * @see TailoredResultSetEnumeration#mapped(java.sql.ResultSet)
    */
   public Field get(String name) {
     Integer f = (Integer)table_columnMap.get(name);

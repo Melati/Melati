@@ -66,7 +66,7 @@ public interface IntegrityFix {
   /**
    * Do something about references from a given column to a
    * {@link Persistent} which is about to be deleted.  Called via {@link
-   * Persistent#deleteAndCommit}, this gives the application programmer 
+   * Persistent#delete(Map)}, this gives the application programmer 
    * fine-grained control over how referential integrity is maintained.
    *
    * It's critically important that the application programmer
@@ -84,7 +84,7 @@ public interface IntegrityFix {
    *                  actually points to <TT>referee</TT>.
    *
    * @param referenceFixOfColumn The column-to-<TT>IntegrityFix</TT>
-   *         mapping passed into {@link Persistent#deleteAndCommit}.
+   *         mapping passed into {@link Persistent#delete(Map)}.
    *
    * @return A list of the <TT>Persistent</TT>s from <TT>refs</TT> which
    *         constitute reasons why the <TT>referee</TT> can't be deleted

@@ -139,9 +139,11 @@ public class HttpSessionAccessHandler implements AccessHandler {
       User user = (User)session.getValue(USER);
       if (user == null) {
         user = getUserFromCookie(melati,ldb);
-        if (user != null && 
-            !getCookieValue(melati,ldb+user.getLogin()).equals(
+        if (user != null) {
+          String cookie = getCookieValue(melati,ldb+user.getLogin());
+          if (cookie == null || !cookie.equals(
              MD5Util.encode(user.getPassword()))) user = null;
+        }
       }
       logUsIn(melati,user);
     }

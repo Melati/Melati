@@ -48,3 +48,5 @@ org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
 org.melati.LogicalDatabase.melatitest.user=postgres
 org.melati.LogicalDatabase.melatitest.pass=*
+org.melati.LogicalDatabase.melatitest.maxtransactions=8
+

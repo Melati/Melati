@@ -242,12 +242,18 @@ public abstract class MarkupLanguage {
  */  
   public void render(Object o, Writer writer)
               throws TemplateEngineException, IOException {
-    if (o instanceof JSDynamicTree)
+    if (o instanceof JSDynamicTree) {
       render((JSDynamicTree)o, writer);
-    if (o instanceof Persistent)
+      return;
+    }
+    if (o instanceof Persistent) {
       render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
-    if (o instanceof Exception)
+      return;
+    }
+    if (o instanceof Exception) {
       render((Exception)o, writer);
+      return;
+    }
     render(o.toString(), writer);
   }
 

@@ -63,14 +63,33 @@ public class CSVFilesProcessor {
   Vector tables = new Vector();
   Database db = null;
 
+  /**
+   * Constructor.
+   * 
+   * @param db the target database
+   */
   public CSVFilesProcessor(Database db) {
     this.db = db;
   }
 
+  /**
+   * Convenience method.
+   *  
+   * @param tablename the name of a POEM table
+   * @param file a CSV file, with first line containing field names
+   * @return a new CSVTable
+   */
   public CSVTable addTable(String tablename, File file) {
     return addTable(db.getTable(tablename), file);
   }
 
+  /**
+   * Add a table to this processor.
+   * 
+   * @param tab a POEM table
+   * @param file a CSV file, with first line containing field names
+   * @return a new CSVTable
+   */
   public CSVTable addTable(Table tab, File file) {
     CSVTable table = new CSVTable(tab, file);
     tables.addElement(table);
@@ -82,6 +101,14 @@ public class CSVFilesProcessor {
    * necessary and then write the new data into the tables.
    * <p>
    * Write a report of the progress to the Writer.
+   *
+   * @param emptyTables flag whether to remove remains from last run
+   * @param recordDetails flag passed in to table.report 
+   * @param fieldDetails flag passed in to table.report
+   * @param output tio write report to
+   * @throws IOException if file stuff goes wrong
+   * @throws CSVParseException if csv file has an error
+   * @throws NoPrimaryKeyInCSVTableException not thrown
    */
   public void process(boolean emptyTables,
                       boolean recordDetails,

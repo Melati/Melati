@@ -362,7 +362,7 @@ public class TableDef {
       w.write(" /**\n");
       w.write(DSD.javadocFormat(2,1,
         ((fd.displayName != null) ? fd.displayName 
-                                  : fd.name )
+                                  : fd.name)
          + ((fd.description != null) ? " - " + fd.description
                                      : "")));
       w.write("  */\n");
@@ -438,7 +438,7 @@ public class TableDef {
                  ((description.lastIndexOf(".") != description.length() -1) 
                    ? "." 
                    : "")))
-           + "  * </p>\n" ) : "")
+           + "  * </p>\n") : "")
       + "  * \n"
       + "  * @generator " 
       + "org.melati.poem.prepro.TableDef" 
@@ -720,7 +720,7 @@ public class TableDef {
                              : "")
       + " *\n");
     w.write(fieldSummaryTable());
-    w.write( 
+    w.write(
         " * \n"
       + " * @generator  "
       + "org.melati.poem.prepro.TableDef"
@@ -743,7 +743,7 @@ public class TableDef {
       + "  * @param name              the name of this <code>Table</code>\n"
       + "  * @param definitionSource  which definition is being used\n"
       + "  * @throws PoemException    if anything goes wrong\n"
-      + "  */\n";}};
+      + "  */\n"; }};
     w.write(o.toString());
     w.write(
       "  public "
@@ -857,9 +857,9 @@ public class TableDef {
     tableBaseImports.removeAllElements();
     persistentBaseImports.removeAllElements();
     for (int i = 0; i < t.length; i++)
-      tableBaseImports.addElement((String) t[i]);
+      tableBaseImports.addElement(t[i]);
     for (int i = 0; i < p.length; i++)
-      persistentBaseImports.addElement((String) p[i]);
+      persistentBaseImports.addElement(p[i]);
 
     dsd.createJava(naming.baseClassShortName(), new Generator() {
       public void process(Writer w) throws IOException {

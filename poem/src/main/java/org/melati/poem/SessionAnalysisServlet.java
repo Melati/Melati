@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2001 Myles Chippendale
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,9 +38,9 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Mylesc Chippendale <mylesc@paneris.org>
  *     http://paneris.org/
- *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
+ *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
 package org.melati.poem;

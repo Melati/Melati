@@ -48,6 +48,9 @@ package org.melati.poem;
 import java.sql.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Table row ids.
+ */
 public class TroidPoemType extends IntegerPoemType {
 
   public static final TroidPoemType it = new TroidPoemType();

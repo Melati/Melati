@@ -50,6 +50,9 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Base of all fundamental types.
+ */
 public abstract class BasePoemType implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
   private boolean nullable;

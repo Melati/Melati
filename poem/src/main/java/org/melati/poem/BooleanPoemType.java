@@ -49,6 +49,9 @@ import java.sql.*;
 import java.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * 
+ */
 class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
 

@@ -50,6 +50,11 @@ import org.melati.util.StringUtils;
 import org.melati.util.MelatiLocale;
 import org.melati.poem.dbms.*;
 
+/**
+ * Object reference.
+ * <p>
+ * An object is a row in a table..
+ */
 public class ReferencePoemType extends IntegerPoemType {
 
   private Table targetTable;

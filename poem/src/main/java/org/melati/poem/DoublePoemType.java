@@ -48,6 +48,9 @@ package org.melati.poem;
 import java.sql.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Normal doubles, dependant upon the databse/SQL implementation.
+ */
 public class DoublePoemType extends AtomPoemType {
 
   public DoublePoemType(boolean nullable) {

@@ -50,6 +50,9 @@ import java.text.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ *
+ */
 public class TimestampPoemType extends AtomPoemType {
 
   public static final DateFormat format =
@@ -87,7 +90,7 @@ public class TimestampPoemType extends AtomPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-				   MelatiLocale locale, int style) {
+                                   MelatiLocale locale, int style) {
     return locale.timestampFormat(style).format((Timestamp)cooked);
   }
 

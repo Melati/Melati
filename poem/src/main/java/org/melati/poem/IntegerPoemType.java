@@ -50,6 +50,9 @@ import java.util.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Plain old integers, the range being contingent on the underlying SQL type. 
+ */
 public class IntegerPoemType extends AtomPoemType {
 
   public static final IntegerPoemType nullable = new IntegerPoemType(true);

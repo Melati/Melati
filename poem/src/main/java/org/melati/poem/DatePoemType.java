@@ -49,6 +49,9 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Normal dates.
+ */
 public class DatePoemType extends AtomPoemType {
 
   public DatePoemType(boolean nullable) {
@@ -74,7 +77,7 @@ public class DatePoemType extends AtomPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-				   MelatiLocale locale, int style) {
+                                   MelatiLocale locale, int style) {
     return locale.dateFormat(style).format((Date)cooked);
   }
 

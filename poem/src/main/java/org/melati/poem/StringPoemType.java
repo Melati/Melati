@@ -49,6 +49,9 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
+/**
+ * Base of all character sequence types.
+ */
 public class StringPoemType extends SizedAtomPoemType {
 
   public static final StringPoemType nullable = new StringPoemType(true, -1);
@@ -61,9 +64,9 @@ public class StringPoemType extends SizedAtomPoemType {
       throws ValidationPoemException {
     if (raw != null) {
       if (!(raw instanceof String))
-	throw new TypeMismatchPoemException(raw, this);
+        throw new TypeMismatchPoemException(raw, this);
       if (!sizeGreaterEqual(getSize(), ((String)raw).length()))
-	throw new StringLengthValidationPoemException(this, (String)raw);
+        throw new StringLengthValidationPoemException(this, (String)raw);
     }
   }
 

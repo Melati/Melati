@@ -236,10 +236,19 @@ public class Melati {
     return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
   }
 
+  public static String sameURLWith(String uri, String query,
+                                   String field, String value) {
+    return uri + "?" + sameQueryWith(query, field, value);
+  }
+
+  public static String sameURLWith(HttpServletRequest request,
+                                   String field, String value) {
+    return sameURLWith(request.getRequestURI(), request.getQueryString(),
+                       field, value);
+  }
+
   public String sameURLWith(String field, String value) {
-    HttpServletRequest request = webContext.getRequest();
-    return request.getRequestURI() + "?" +
-           sameQueryWith(request.getQueryString(), field, value);
+    return sameURLWith(webContext.getRequest(), field, value);
   }
 
   public String sameURLWith(String field) {

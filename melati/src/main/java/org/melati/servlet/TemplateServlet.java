@@ -74,7 +74,8 @@ public abstract class TemplateServlet extends PoemServlet {
     super.init(config);
     try {
       templateEngine = melatiConfig.getTemplateEngine();
-      if (templateEngine != null) templateEngine.init();
+      if (templateEngine != null)
+        templateEngine.init();
     } catch (TemplateEngineException e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
@@ -83,22 +84,35 @@ public abstract class TemplateServlet extends PoemServlet {
     }
   }
 
-  protected void doPoemRequest(Melati melati) throws Exception {
+  /**
+   * Set the TemplateEngine and TemplateContext in our Melati.
+   * This allows us to parse any uploaded files before we enter
+   * our PoemSession (so we don't hang on to transactions
+   * unnecessarily).
+   */
+  protected void prePoemSession(Melati melatiIn) throws Exception {
     // for this request, set the Initialised Template Engine
-    melati.setTemplateEngine(templateEngine);
-    TemplateContext templateContext = templateEngine.getTemplateContext(melati);
+    melatiIn.setTemplateEngine(templateEngine);
+    TemplateContext templateContext =
+                      templateEngine.getTemplateContext(melatiIn);
 
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
-    String contentType = melati.getRequest().getHeader("content-type");
+    String contentType = melatiIn.getRequest().getHeader("content-type");
     if (contentType != null &&
         contentType.substring(0,19).equalsIgnoreCase("multipart/form-data"))
       templateContext =
-        new MultipartTemplateContext(melati, templateContext);
+        new MultipartTemplateContext(melatiIn, templateContext);
 
+    melatiIn.setTemplateContext(templateContext);
+  }
+
+  protected void doPoemRequest(Melati melati) throws Exception {
+    TemplateContext templateContext = melati.getTemplateContext();
     templateContext.put("melati",melati);
-    melati.setTemplateContext(templateContext);
+
     String templateName = doTemplateRequest(melati,templateContext);
+
     // only expand a template if we have one (it could be a redirect)
     if (templateName != null) {
       templateName = addExtension(templateName);

@@ -213,16 +213,38 @@ import org.melati.util.StringUtils;
 public abstract class PoemServlet extends ConfigServlet
 {
   /**
+   * Overriden in TemplateServlet
+   */
+  protected void prePoemSession(Melati melati) throws Exception {}
+
+  /**
    * Process the request.
    */
   protected void doConfiguredRequest(final Melati melatiIn)
-                 throws ServletException, IOException{
+                 throws ServletException, IOException {
 
     // Set up a POEM session and call the application code
 
     // dearie me, what a lot of hoops to jump through
     // at the end of the day Java is terribly poorly suited to this kind of
     // lambda idiom :(
+
+
+    // Do something outside of the PoemSession
+    try {
+      prePoemSession(melatiIn);
+    }
+    catch (Exception e) {
+      try {
+        // we have to log this here, otherwise we loose the stacktrace
+        error(melatiIn.getResponse(), e);
+        throw new TrappedException(e.toString());
+      }
+      catch (IOException f) {
+        throw new TrappedException(f.toString());
+      }
+    }
+     
 
     final PoemServlet _this = this;
 
@@ -236,15 +258,15 @@ public abstract class PoemServlet extends ConfigServlet
             try {
               _this.doPoemRequest(melatiIn);
             } catch (Exception e) {
-              _handleException (melatiIn,e);
+              _handleException (melatiIn, e);
             }
           } catch (Exception e) {
             try {
               // we have to log this here, otherwise we loose the stacktrace
               error(melatiIn.getResponse(),e);
-              throw new TrappedException(e.toString ());
+              throw new TrappedException(e.toString());
             } catch (IOException f) {
-              throw new TrappedException(f.toString ());
+              throw new TrappedException(f.toString());
             }
           }
         }

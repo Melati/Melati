@@ -138,7 +138,9 @@ public class ConfigServletTest extends ConfigServlet {
     melati.getZoneURL() + 
     "/org.melati.test.PoemServletTest/melatitest/>" +
     "org.melati.test.PoemServletTest/melatitest/</a><br>" +
-    "<form method=\"post\" action=\"Upload\" enctype=\"multipart/form-data\" target=_blank>" +
+    "<form method=\"post\" action=\"" + 
+    melati.getSameURL() + 
+    "/Upload\" enctype=\"multipart/form-data\" target=_blank>" +
     "You can upload a file here:<br>" +
     "<input type=hidden name=upload value=yes>" +
     "<input type=\"file\" name=\"file\" enctype=\"multipart/form-data\">" +

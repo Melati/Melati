@@ -204,8 +204,8 @@ public class Admin extends TemplateServlet {
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String name = "field_" + column.getName();
-      String string = context.getForm(name);
-      if (string != null && !string.equals("")) {
+      String string = MelatiUtil.getFormNulled(context,name);
+      if (string != null) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
 
         // FIXME needs to work for dates?
@@ -236,10 +236,10 @@ public class Admin extends TemplateServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "field_order-" + o;
-      String orderColumnIDString = context.getForm(name);
+      String orderColumnIDString = MelatiUtil.getFormNulled(context,name);
       Integer orderColumnID = null;
 
-      if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
+      if (orderColumnIDString != null) {
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
@@ -258,7 +258,7 @@ public class Admin extends TemplateServlet {
                 EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
-    String startString = context.getForm("start");
+    String startString = MelatiUtil.getFormNulled(context,"start");
     if (startString != null) {
       try {
         start = Math.max(0, Integer.parseInt(startString));
@@ -329,9 +329,9 @@ public class Admin extends TemplateServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
-      String orderColumnIDString = context.getForm("field_" + name);
+      String orderColumnIDString = MelatiUtil.getFormNulled(context,"field_" + name);
       Integer orderColumnID = null;
-      if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
+      if (orderColumnIDString != null) {
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =

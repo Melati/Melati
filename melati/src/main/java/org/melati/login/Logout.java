@@ -48,6 +48,7 @@ package org.melati.login;
 import javax.servlet.http.HttpSession;
 
 import org.melati.Melati;
+import org.melati.MelatiUtil;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.TemplateServlet;
 
@@ -62,19 +63,15 @@ public class Logout extends TemplateServlet {
     return logoutTemplate("Logout");
   }
 
-  protected String doTemplateRequest
-  (Melati melati, TemplateContext context)
-  throws Exception {
-
+  protected String doTemplateRequest(Melati melati, TemplateContext context)
+                                                            throws Exception {
     HttpSession session = melati.getSession();
-
-	String returnURL = context.getForm("returnURL");
+    String returnURL = MelatiUtil.getFormNulled(context,"returnURL");
     if (returnURL == null) {
       context.put("continuationURL", "/");
     } else {
       context.put("continuationURL", returnURL);
     }
-
     session.removeValue(HttpSessionAccessHandler.USER);
 
     return logoutSuccessTemplate();

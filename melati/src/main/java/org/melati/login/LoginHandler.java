@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 import org.melati.Melati;
+import org.melati.MelatiUtil;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.UserTable;
 import org.melati.poem.User;
@@ -87,7 +88,7 @@ public class LoginHandler {
       session.removeValue(Login.TRIGGERING_EXCEPTION);
       templateContext.put("continuationURL", triggeringParams.continuationURL());
     } else {
-      if (templateContext.getForm("continuationURL") != null) {
+      if (MelatiUtil.getFormNulled(templateContext,"continuationURL") != null) {
         templateContext.put("continuationURL",
         templateContext.getForm("continuationURL"));
       }
@@ -111,10 +112,10 @@ public class LoginHandler {
     String password = templateContext.getForm("field_password");
 
     if (username == null)
-    return loginPageTemplate();
+      return loginPageTemplate();
 
     User user = (User)PoemThread.database().getUserTable().getLoginColumn().
-    firstWhereEq(username);
+                                                         firstWhereEq(username);
     if (user == null) {
       templateContext.put("loginUnknown", Boolean.TRUE);
       return usernameUnknownTemplate();

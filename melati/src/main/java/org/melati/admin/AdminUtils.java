@@ -227,7 +227,7 @@ public class AdminUtils {
   }
 
   public JSStaticTree createTree(Treeable node) {
-    return new JSStaticTree(new Tree(node));
+    return new JSStaticTree(new Tree(node), getStaticURL());
   }
 
   // You can no longer (as of 1.0) 

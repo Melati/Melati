@@ -58,8 +58,7 @@ public class StringUtils {
       if (j == -1) {
         them[m] = s.substring(i);
         break;
-      }
-      else {
+      } else {
         them[m] = s.substring(i, j);
         i = j + 1;
       }
@@ -150,7 +149,8 @@ public class StringUtils {
     for (int i = 0; i < s.length(); ++i) {
       int t = from.indexOf(s.charAt(i));
       if (t != -1) {
-        if (sNew == null) sNew = new StringBuffer(s);
+        if (sNew == null)
+          sNew = new StringBuffer(s);
         sNew.setCharAt(i, to.charAt(t));
       }
     }
@@ -163,7 +163,8 @@ public class StringUtils {
 
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == from) {
-        if (sNew == null) sNew = new StringBuffer(s);
+        if (sNew == null)
+          sNew = new StringBuffer(s);
         sNew.setCharAt(i, to);
       }
     }
@@ -177,7 +178,7 @@ public class StringUtils {
     else {
       int l = sep.length() * (xs.length - 1) + xs[0].length();
       for (int i = 1; i < xs.length; ++i)
-         l += xs[i].length();
+        l += xs[i].length();
 
       StringBuffer c = new StringBuffer(l);
 
@@ -190,30 +191,35 @@ public class StringUtils {
       return c.toString();
     }
   }
-  
-  private static String allowableChars = 
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
+
+  private static String allowableChars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
 
   public static String randomString(int i) {
     String result = "";
     int j = allowableChars.length();
-    for (int a=0;a<i;a++) {
-      int index = new Double(Math.random() * j).intValue() ;
+    for (int a = 0; a < i; a++) {
+      int index = new Double(Math.random() * j).intValue();
       result += allowableChars.charAt(index);
     }
     return result;
   }
 
-    // null a string
-  public static String nulled (String s) {
-    if (s.equals ("")) return null;
+  // null a string
+  public static String nulled(String s) {
+    if (s.equals(""))
+      return null;
     return s;
   }
 
-  private static final char[] hexDigits = {
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    'A', 'B', 'C', 'D', 'E', 'F'
-  };
+  public static String unNulled(String in) {
+    if (in == null)
+      return "";
+    return in;
+  }
+
+  private static final char[] hexDigits =
+    { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
   public static String hexEncoding(byte[] bs) {
     StringBuffer it = new StringBuffer(bs.length * 2);
@@ -221,7 +227,7 @@ public class StringUtils {
     for (int i = 0; i < bs.length; ++i) {
       int b = bs[i];
       it.append(hexDigits[b >> 4 & 0xF]);
-      it.append(hexDigits[b      & 0xF]);
+      it.append(hexDigits[b & 0xF]);
     }
 
     return it.toString();
@@ -229,11 +235,11 @@ public class StringUtils {
 
   public static byte hexDecoding(char c) {
     if ('0' <= c && c <= '9')
-      return (byte)(c - '0');
+      return (byte) (c - '0');
     else if ('A' <= c && c <= 'F')
-      return (byte)(0xA + c - 'A');
+      return (byte) (0xA + c - 'A');
     else if ('a' <= c && c <= 'f')
-      return (byte)(0xa + c - 'a');
+      return (byte) (0xa + c - 'a');
     else
       throw new IllegalArgumentException("Invalid hex digit in string");
   }
@@ -247,13 +253,24 @@ public class StringUtils {
     byte[] it = new byte[l];
 
     for (int i = 0; i < l; ++i)
-      it[i] = (byte)(hexDecoding(digits.charAt(i*2)) << 4 |
-                     hexDecoding(digits.charAt(i*2+1)));
+      it[i] =
+        (byte) (hexDecoding(digits.charAt(i * 2)) << 4 | hexDecoding(digits.charAt(i * 2 + 1)));
 
     return it;
   }
 
   public static void main(String[] args) {
     System.out.println(hexEncoding(hexDecoding(args[0])));
+  }
+
+  public static boolean isQuoted(String in) {
+    if (in == null)
+      return false;
+    if (in.length() < 2)
+      return false;
+    if ((in.startsWith("'") || in.startsWith("\"")) && (in.endsWith("'") || in.endsWith("\""))) {
+      return true;
+    }
+    return false;
   }
 }

@@ -72,6 +72,6 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
   }
 
   public void render(String s, MelatiWriter writer) throws IOException {
-    writer.write(HTMLUtils.entitiedWithoutBRSubstitution(s));
+    writer.write(HTMLUtils.entitied(s,false));
   }
 }

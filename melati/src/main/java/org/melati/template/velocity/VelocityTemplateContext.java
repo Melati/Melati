@@ -51,7 +51,8 @@ import javax.servlet.http.HttpSession;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.MultipartFormField;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.HttpServletRequestWrap;
+import org.apache.velocity.context.EventCartridge;
+import org.apache.velocity.context.EventHandler;
 
 /**
  * Implements a template context for Melati / Webmacro
@@ -100,7 +101,16 @@ public class VelocityTemplateContext implements TemplateContext {
   }
 
   public HttpSession getSession() {
-    return ((HttpServletRequestWrap)velContext.get(REQUEST)).getSession();
+    return ((HttpServletRequestWrap)velContext.get(REQUEST)).getSession(true);
+  }
+
+  public void setVariableExceptionHandler(Object eeh) {
+    EventCartridge ec = velContext.getEventCartridge();
+    if (ec == null) {
+      ec = new EventCartridge();
+      velContext.attachEventCartridge(ec);
+    }
+    ec.addEventHandler((EventHandler)eeh);
   }
 
 }

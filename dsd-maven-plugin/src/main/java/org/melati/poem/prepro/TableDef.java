@@ -69,8 +69,12 @@ public class TableDef {
   final String tableAccessorMethod;
   private Vector data = new Vector();
   boolean isAbstract;
+  /* used to determine the return type of get___Table() and get___Object() methods */
   boolean hidesSuperclass = false;
+  /* used to #include this db's version of a Persisent/Table before melati's version */
   boolean overridesPoemTable = false;
+  String returnClass;
+
 
   int nextFieldDisplayOrder = 0;
 
@@ -107,10 +111,35 @@ public class TableDef {
 	  superclass.substring(superclass.lastIndexOf('.') + 1).
               equals(mainClass);
 
-      overridesPoemTable = superclass.startsWith("org.melati.poem.");
+//      overridesPoemTable = superclass.startsWith("org.melati.poem.");
+
+      Class poemClass, superClass;
+      try {
+        superClass = Class.forName(superclass);
+        try {
+          poemClass = Class.forName("org.melati.poem."+mainClass);
+          overridesPoemTable = poemClass.isAssignableFrom(superClass);
+        }
+        catch (ClassNotFoundException e) {
+          // If we can't find a melati class with this name, we don't override
+          // a poem class
+        }
+      }
+      catch (ClassNotFoundException e1) {
+        throw new IllegalityException("The superclass of "+mainClass+" ("+
+                                      superclass+") cannot be found. Check "+
+                                      "your dsd and classpath.");
+      }
+
     }
     else
       tokens.pushBack();
+
+    returnClass = overridesPoemTable
+                    ? "org.melati.poem."+mainClass
+                    : (hidesSuperclass
+                        ? superclass
+                        : mainClass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -145,8 +174,7 @@ public class TableDef {
   public void generateTableAccessorJava(Writer w) throws IOException {
     // FIXME hack
     if (!isAbstract)
-      w.write("  public " + (hidesSuperclass ? superclass + "Table" :
-			                       tableMainClass) +
+      w.write("  public " + returnClass + "Table" +
 		  " get" + tableMainClass + "() {\n" +
 	      "    return tab_" + name + ";\n" +
 	      "  }\n");
@@ -164,12 +192,9 @@ public class TableDef {
 
     // FIXME hack
 
-    String tableRetClass =
-        hidesSuperclass ? superclass + "Table" : tableMainClass;
-
-    w.write("  public " + tableRetClass + " " + tableAccessorMethod +
+    w.write("  public " + returnClass + "Table " + tableAccessorMethod +
                    "() {\n" +
-            "    return (" + tableRetClass + ")getTable();\n" +
+            "    return (" + returnClass + "Table)getTable();\n" +
             "  }\n\n");
 
     w.write("  private " + tableMainClass + " _" + tableAccessorMethod +
@@ -248,16 +273,14 @@ public class TableDef {
       w.write('\n');
     }
 
-    String retMainClass = hidesSuperclass ? superclass : mainClass;
-
-    w.write("  public " + retMainClass + " get" + mainClass + "Object(" +
+    w.write("  public " + returnClass + " get" + mainClass + "Object(" +
                   "Integer troid) {\n" +
-            "    return (" + retMainClass + ")getObject(troid);\n" +
+            "    return (" + returnClass + ")getObject(troid);\n" +
             "  }\n" +
             "\n" +
-            "  public " + retMainClass + " get" + mainClass + "Object(" +
+            "  public " + returnClass + " get" + mainClass + "Object(" +
                   "int troid) {\n" +
-            "    return (" + retMainClass + ")getObject(troid);\n" +
+            "    return (" + returnClass + ")getObject(troid);\n" +
             "  }\n");
 
     if (!isAbstract)

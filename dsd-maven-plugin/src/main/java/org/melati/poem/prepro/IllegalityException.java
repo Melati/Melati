@@ -47,4 +47,13 @@
 package org.melati.poem.prepro;
 
 public class IllegalityException extends Exception {
+
+  public IllegalityException() {
+    super();
+  }
+
+  public IllegalityException(String s) {
+    super(s);
+  }
+  
 }

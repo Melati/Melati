@@ -53,6 +53,7 @@ import java.io.PrintWriter;
 import org.melati.util.MelatiWriter;
 
 import org.webmacro.FastWriter;
+import org.webmacro.Broker;
 
 /**
  * This provides an interface for objects that output from melati
@@ -62,40 +63,35 @@ public class MelatiFastWriter extends MelatiWriter {
 
   protected OutputStream outputStream;
   
+  public MelatiFastWriter(Broker broker, HttpServletResponse response) 
+      throws IOException {
+    this(broker, response.getOutputStream(), response.getCharacterEncoding());
+  }
+/*  
   public MelatiFastWriter(HttpServletResponse response) 
       throws IOException {
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
-  
+*/  
+  public MelatiFastWriter(Broker broker, OutputStream output, String encoding)
+      throws IOException {
+    // need to make this accessable to subcalsses
+    outputStream = output;
+    out = FastWriter.getInstance(broker, output, encoding);
+  }
+/*  
   public MelatiFastWriter(OutputStream output, String encoding)
       throws IOException {
     // need to make this accessable to subcalsses
     outputStream = output;
-//    out = new FastWriter(output, encoding);
     out = FastWriter.getInstance(output, encoding);
   }
-
+*/
   public FastWriter getPeer() {
     // as we can write to the underlying peer, the Flusher may not get started
     // so we should start it here
     startFlushing();
     return (FastWriter)out;
   }
-
-   public static void main(String arg[]) {
-
-      System.out.println("----START----");
-      try {
-         MelatiFastWriter fw = new MelatiFastWriter(System.out, "UTF8");
-         for (int i = 0; i < arg.length; i++) {
-            fw.write(arg[i].toCharArray());
-         }
-         fw.flush();
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      System.out.println("----DONE----");
-
-   }
 
 }

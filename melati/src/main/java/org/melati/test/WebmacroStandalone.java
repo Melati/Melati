@@ -138,20 +138,37 @@ public class WebmacroStandalone extends HttpServlet
             Template t = _wm.getTemplate("test/WebmacroStandalone.wm");
 
             // Create FastWriter for fast output encoding
-            FastWriter fw = new FastWriter(resp.getOutputStream(),
+//            FastWriter fw = new FastWriter(resp.getOutputStream(),
+//                                           resp.getCharacterEncoding());
+            FastWriter fw = new FastWriter(_wm.getBroker(),
+                                           resp.getOutputStream(),
                                            resp.getCharacterEncoding());
             // write the template to the output, using our context
             t.write(fw, c);
             fw.close();
          } catch (org.webmacro.NotFoundException e) {
-             FastWriter out = new FastWriter(resp.getOutputStream(),
-                                             resp.getCharacterEncoding());
+            FastWriter out = new FastWriter(_wm.getBroker(),
+                                           resp.getOutputStream(),
+                                           resp.getCharacterEncoding());
+//             FastWriter out = new FastWriter(resp.getOutputStream(),
+//                                             resp.getCharacterEncoding());
              
              out.write("ERROR!  Could not locate template standalone.wm, check that your template path is set properly in WebMacro.properties");
              out.close();
          } catch (org.webmacro.ContextException e) {
-             FastWriter out = new FastWriter(resp.getOutputStream(),
-                                             resp.getCharacterEncoding());
+            FastWriter out = new FastWriter(_wm.getBroker(),
+                                           resp.getOutputStream(),
+                                           resp.getCharacterEncoding());
+//             FastWriter out = new FastWriter(resp.getOutputStream(),
+//                                             resp.getCharacterEncoding());
+             out.write("ERROR!  Could not locate required data in the Context.");
+             out.close();
+         } catch (org.webmacro.ResourceException e) {
+            FastWriter out = new FastWriter(_wm.getBroker(),
+                                           resp.getOutputStream(),
+                                           resp.getCharacterEncoding());
+//             FastWriter out = new FastWriter(resp.getOutputStream(),
+//                                             resp.getCharacterEncoding());
              out.write("ERROR!  Could not locate required data in the Context.");
              out.close();
          }

@@ -53,6 +53,7 @@ import java.io.PrintWriter;
 import org.melati.util.MelatiWriter;
 
 import org.webmacro.FastWriter;
+import org.webmacro.Broker;
 
 /**
  * This provides an interface for objects that output from melati
@@ -63,6 +64,23 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
   private OutputStream underlying;
   private ByteArrayOutputStream buffer;
   
+  public MelatiBufferedFastWriter(Broker broker, OutputStream output, String encoding)
+      throws IOException {
+    super(broker, new ByteArrayOutputStream(), encoding);
+    buffer = (ByteArrayOutputStream)outputStream;
+    underlying = output;
+  }
+
+  public MelatiBufferedFastWriter(Broker broker, HttpServletResponse response) 
+      throws IOException {
+    this(broker, response.getOutputStream(), response.getCharacterEncoding());
+  }
+  
+  public MelatiBufferedFastWriter(Broker broker, String encoding) throws IOException {
+    this(broker, new ByteArrayOutputStream(), encoding);
+  }
+
+  /*
   public MelatiBufferedFastWriter(OutputStream output, String encoding)
       throws IOException {
     super(new ByteArrayOutputStream(), encoding);
@@ -78,7 +96,7 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
   public MelatiBufferedFastWriter(String encoding) throws IOException {
     this(new ByteArrayOutputStream(), encoding);
   }
-
+*/
   public void close() throws IOException {
     super.close();
     buffer.writeTo(underlying);

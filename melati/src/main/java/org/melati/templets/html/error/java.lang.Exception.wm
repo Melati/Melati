@@ -58,11 +58,24 @@
 
 <body bgcolor="white">
 <h1><font color="green">Melati Error Template</font></h1>
-<p>An error has occured in the application that runs this website.  Please contact 
-<a href='mailto:$SysAdminEmail'>$SysAdminName</a>, with the information given below.</p>
-<font color=red>
+<p>
+An error has occured in the application that runs this website.
+</p>
+<p>
+Please contact <a href='mailto:$SysAdminEmail'>$SysAdminName</a>
+giving the URL of this page and the information given below.
+</p>
+<font color="green">
+<PRE>
+$exceptionObject.Message
+</PRE>
+</font>
+
+<hr>
+<font color="red">
 <PRE>
 $error
 </PRE>
+</font>
 </body>
 </html>

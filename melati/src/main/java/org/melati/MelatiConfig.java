@@ -72,6 +72,7 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TempletLoader;
 import org.melati.template.SimpleDateAdaptor;
 import org.melati.template.YMDDateAdaptor;
+import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
@@ -250,6 +251,11 @@ public class MelatiConfig {
   // get the adaptor for rendering dates as drop-downs
   public static YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
+  }
+
+  // get the adaptor for rendering timestamps as drop-downs
+  public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
+    return YMDHMSTimestampAdaptor.it;
   }
 
   // get the adaptor for rendering dates as normal

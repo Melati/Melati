@@ -195,6 +195,7 @@ public abstract class Column implements FieldAttributes {
 		  i.setWidth(defaultWidth());
 		  i.setHeight(defaultHeight());
 		  i.setRenderinfo(defaultRenderinfo());
+		  i.setIntegrityfix(defaultIntegrityFix());
                   getType().saveColumnInfo(i);
                 }
               });
@@ -319,6 +320,10 @@ public abstract class Column implements FieldAttributes {
   public IntegrityFix getIntegrityFix() {
     IntegrityFix it = info.getIntegrityfix();
     return it == null ? defaultIntegrityFix() : it;
+  }
+
+  public void setIntegrityFix(StandardIntegrityFix fix) {
+    info.setIntegrityfix(fix);
   }
 
   public final String getRenderInfo() {

@@ -62,7 +62,7 @@ public class Field implements FieldAttributes, Cloneable {
     this.raw = raw;
     this.attrs = attrs;
     accessException = null;
-  }
+  }      
 
   public Field(AccessPoemException accessException, FieldAttributes attrs) {
     this.accessException = accessException;

@@ -210,8 +210,50 @@ public class StringUtils {
     return s;
   }
 
+  private static final char[] hexDigits = {
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+    'A', 'B', 'C', 'D', 'E', 'F'
+  };
+
+  public static String hexEncoding(byte[] bs) {
+    StringBuffer it = new StringBuffer(bs.length * 2);
+
+    for (int i = 0; i < bs.length; ++i) {
+      int b = bs[i];
+      it.append(hexDigits[b >> 4 & 0xF]);
+      it.append(hexDigits[b      & 0xF]);
+    }
+
+    return it.toString();
+  }
+
+  public static byte hexDecoding(char c) {
+    if ('0' <= c && c <= '9')
+      return (byte)(c - '0');
+    else if ('A' <= c && c <= 'F')
+      return (byte)(0xA + c - 'A');
+    else if ('a' <= c && c <= 'f')
+      return (byte)(0xa + c - 'a');
+    else
+      throw new IllegalArgumentException("Invalid hex digit in string");
+  }
+
+  public static byte[] hexDecoding(String digits) {
+
+    int l = digits.length() / 2;
+    if (l * 2 != digits.length())
+      throw new IllegalArgumentException("Hex string has odd number of digits");
+
+    byte[] it = new byte[l];
+
+    for (int i = 0; i < l; ++i)
+      it[i] = (byte)(hexDecoding(digits.charAt(i*2)) << 4 |
+                     hexDecoding(digits.charAt(i*2+1)));
+
+    return it;
+  }
+
   public static void main(String[] args) {
-    System.out.println(tr(args[0], "abc", "123"));
-    System.out.println(tr(args[0], "a", "1"));
+    System.out.println(hexEncoding(hexDecoding(args[0])));
   }
 }

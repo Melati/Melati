@@ -163,10 +163,14 @@ public class PreparedSelection {
   }
 
   public Persistent firstObject() {
+    return nth(0);
+  }
+
+  public Persistent nth(int n) {
     compute();
     Vector selection = this.selection;
     return selection.isEmpty() ?
                null :
-               table.getObject((Integer)selection.elementAt(0));
+               table.getObject((Integer)selection.elementAt(n));
   }
 }

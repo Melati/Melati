@@ -62,7 +62,8 @@ public class Display extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
-
+    java.util.Date now = new java.util.Date();
+    context.put("now", now);
     context.put("includedir", "");
 
     if (melati.getObject() != null) {

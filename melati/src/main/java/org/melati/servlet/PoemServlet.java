@@ -46,6 +46,7 @@
 package org.melati.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +58,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
+import org.melati.poem.NoMoreTransactionsException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 
@@ -263,7 +265,7 @@ public abstract class PoemServlet extends ConfigServlet
           } catch (Exception e) {
             try {
               // we have to log this here, otherwise we loose the stacktrace
-              error(melatiIn.getResponse(),e);
+              error(melatiIn.getResponse(), e);
               throw new TrappedException(e.toString());
             } catch (IOException f) {
               throw new TrappedException(f.toString());
@@ -281,7 +283,13 @@ public abstract class PoemServlet extends ConfigServlet
     if (exception instanceof AccessPoemException) {
       melati.getConfig().getAccessHandler()
         .handleAccessException(melati,(AccessPoemException)exception);
-    } else throw exception;
+    }
+    else if (exception instanceof NoMoreTransactionsException) {
+      exception.printStackTrace(System.err);
+      dbBusyMessage(melati.getResponse());
+    }
+    else
+      throw exception;
   }
 
   protected final void _handleException(Melati melati, Exception exception) 
@@ -293,6 +301,15 @@ public abstract class PoemServlet extends ConfigServlet
       PoemThread.rollback();
       throw e;
     }
+  }
+
+  protected void dbBusyMessage(HttpServletResponse response) throws IOException {
+    response.setContentType ("text/html");
+    PrintWriter out = response.getWriter ();
+    out.println("<html>\n<head><title>Server Busy</title></head>");
+    out.println("<body>\n<h4>Server Busy</h4>");
+    out.println("<p>Please try again in a short while</p>"); 
+    out.println("</body>\n</html>");
   }
 
   protected MelatiContext melatiContext(Melati melati)

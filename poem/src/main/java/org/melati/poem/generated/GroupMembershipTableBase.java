@@ -24,8 +24,9 @@ public class GroupMembershipTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -83,7 +84,7 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_user =
-        new Column(this, "user", new ReferencePoemType(((PoemDatabase)getDatabase()).getUserTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "user", new ReferencePoemType(getPoemDatabaseTables().getUserTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getUser();
@@ -136,7 +137,7 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group", new ReferencePoemType(getPoemDatabaseTables().getGroupTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getGroup();

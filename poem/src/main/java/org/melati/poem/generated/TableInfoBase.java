@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 public abstract class TableInfoBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public TableInfoTable getTableInfoTable() {
@@ -190,14 +190,15 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanreadTroid(Integer raw)
       throws AccessPoemException {
-    setDefaultcanread(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
+    setDefaultcanread(raw == null ? null : 
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcanread()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanreadTroid();
     return troid == null ? null :
-        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanread(Capability cooked)
@@ -233,14 +234,15 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcanwriteTroid(Integer raw)
       throws AccessPoemException {
-    setDefaultcanwrite(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
+    setDefaultcanwrite(raw == null ? null : 
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcanwrite()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanwriteTroid();
     return troid == null ? null :
-        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanwrite(Capability cooked)
@@ -276,14 +278,15 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setDefaultcandeleteTroid(Integer raw)
       throws AccessPoemException {
-    setDefaultcandelete(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
+    setDefaultcandelete(raw == null ? null : 
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getDefaultcandelete()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcandeleteTroid();
     return troid == null ? null :
-        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcandelete(Capability cooked)
@@ -319,14 +322,15 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCancreateTroid(Integer raw)
       throws AccessPoemException {
-    setCancreate(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
+    setCancreate(raw == null ? null : 
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getCancreate()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCancreateTroid();
     return troid == null ? null :
-        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCancreate(Capability cooked)
@@ -424,14 +428,15 @@ public abstract class TableInfoBase extends Persistent {
 
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
-    setCategory(raw == null ? null : getPoemDatabase().getTableCategoryTable().getTableCategoryObject(raw));
+    setCategory(raw == null ? null : 
+        getPoemDatabaseTables().getTableCategoryTable().getTableCategoryObject(raw));
   }
 
   public TableCategory getCategory()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCategoryTroid();
     return troid == null ? null :
-        getPoemDatabase().getTableCategoryTable().getTableCategoryObject(troid);
+        getPoemDatabaseTables().getTableCategoryTable().getTableCategoryObject(troid);
   }
 
   public void setCategory(TableCategory cooked)

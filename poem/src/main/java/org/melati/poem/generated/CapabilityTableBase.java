@@ -23,8 +23,9 @@ public class CapabilityTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();

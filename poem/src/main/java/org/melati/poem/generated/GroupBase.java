@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 public abstract class GroupBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public GroupTable getGroupTable() {

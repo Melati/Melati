@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class SettingTableBase extends org.melati.poem.ValueInfoTable {
+public class SettingTableBase extends ValueInfoTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -24,8 +24,9 @@ public class SettingTableBase extends org.melati.poem.ValueInfoTable {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();

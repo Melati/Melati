@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
+public class ColumnInfoTableBase extends ValueInfoTable {
 
   private Column col_id = null;
   private Column col_tableinfo = null;
@@ -33,8 +33,9 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -88,7 +89,7 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "tableinfo", new ReferencePoemType(getPoemDatabaseTables().getTableInfoTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getTableinfo();
@@ -344,7 +345,7 @@ public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.detail;
+            return DisplayLevel.record;
           }
 
           protected Searchability defaultSearchability() {

@@ -24,8 +24,9 @@ public class GroupCapabilityTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();  }
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -83,7 +84,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group", new ReferencePoemType(getPoemDatabaseTables().getGroupTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getGroup();
@@ -136,7 +137,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_capability =
-        new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "capability", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getCapability();

@@ -84,7 +84,8 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   private String targetCast() {
-    TableDef targetTable = (TableDef)table.dsd.tableOfClass.get(type);
+    TableNamingInfo targetTable =
+      (TableNamingInfo)table.dsd.nameStore.tablesByShortName.get(type);
     return targetTable == null || targetTable.superclass == null ?
              "" : "(" + type + ")";
   }
@@ -96,12 +97,12 @@ public class ReferenceFieldDef extends FieldDef {
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    String db = "get" + table.dsd.databaseClass + "()";
+    String db = "get" + table.dsd.databaseTablesClass + "()";
 
     w.write("\n" +
-	    "  public Integer get" + suffix + "Troid()\n" +
+    	    "  public Integer get" + suffix + "Troid()\n" +
             "      throws AccessPoemException {\n" +
-	    "    readLock();\n" +
+	        "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
@@ -122,7 +123,7 @@ public class ReferenceFieldDef extends FieldDef {
             "    return troid == null ? null :\n" +
 	                 // This cast is necessary when the target table is
 	                 // an "extends"
-	    "        " + targetCast() +
+    	    "        " + targetCast() +
                          db + "." +
                          targetTableAccessorMethod + "()." +
                          "get" + targetSuffix + "Object(troid);\n" +
@@ -132,7 +133,7 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
                     "getType().assertValidCooked(cooked);\n" +
-	    "    writeLock();\n" +
+	        "    writeLock();\n" +
             "    if (cooked == null)\n" +
             "      set" + suffix + "_unsafe(null);\n" +
             "    else {\n" +
@@ -149,8 +150,10 @@ public class ReferenceFieldDef extends FieldDef {
   public String poemTypeJava() {
     // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
+    String db = "get" + table.dsd.databaseTablesClass + "()";
+
     return
-        "new ReferencePoemType(((" + table.dsd.databaseClass + ")getDatabase())." +
+        "new ReferencePoemType(" + db + "." +
         targetTableAccessorMethod + "(), " + isNullable + ")";
   }
 }

@@ -53,7 +53,6 @@ public class TableDef {
 
   DSD dsd;
   final String name;
-  String superclass = null;
   final String suffix;
   String displayName;
   String description;
@@ -61,24 +60,14 @@ public class TableDef {
   int displayOrder;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
-  final String baseClass;
-  final String mainClass;
-  final String tableBaseClass;
-  final String tableMainClass;
-  final String tableAccessorMethod;
   private Vector data = new Vector();
   boolean isAbstract;
-  /* used to determine the return type of get___Table() and get___Object() methods */
-  boolean hidesSuperclass = false;
-  /* used to #include this db's version of a Persisent/Table before melati's version */
-  boolean overridesPoemTable = false;
-  String returnClass;
-
+  TableNamingInfo naming = null;
 
   int nextFieldDisplayOrder = 0;
 
   public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder,
-		  boolean isAbstract)
+		  boolean isAbstract, TableNamingStore nameStore)
       throws ParsingDSDException, IOException, IllegalityException {
     this.dsd = dsd;
     this.displayOrder = displayOrder;
@@ -87,11 +76,8 @@ public class TableDef {
       throw new ParsingDSDException("<table name>", tokens);
     suffix = tokens.sval;
     name = suffix.toLowerCase();
-    baseClass = suffix + "Base";
-    mainClass = suffix;
-    tableBaseClass = suffix + "TableBase";
-    tableMainClass = suffix + "Table";
-    tableAccessorMethod = "get" + tableMainClass;
+
+    String superclass = null;
 
     if (tokens.nextToken() == StreamTokenizer.TT_WORD) {
       if (!tokens.sval.equals("extends"))
@@ -105,42 +91,11 @@ public class TableDef {
         tokens.ordinaryChar('.');
       }
       superclass = tokens.sval;
-//      if (superclass.indexOf('.') == -1)
-//        superclass = packageName + superclass
-
-      hidesSuperclass =
-	  superclass.substring(superclass.lastIndexOf('.') + 1).
-              equals(mainClass);
-
-//      overridesPoemTable = superclass.startsWith("org.melati.poem.");
-
-      Class poemClass, superClass;
-      try {
-        superClass = Class.forName(superclass);
-        try {
-          poemClass = Class.forName("org.melati.poem."+mainClass);
-          overridesPoemTable = poemClass.isAssignableFrom(superClass);
-        }
-        catch (ClassNotFoundException e) {
-          // If we can't find a melati class with this name, we don't override
-          // a poem class
-        }
-      }
-      catch (ClassNotFoundException e1) {
-        throw new IllegalityException("The superclass of "+mainClass+" ("+
-                                      superclass+") cannot be found. Check "+
-                                      "your dsd and classpath.");
-      }
-
     }
     else
       tokens.pushBack();
 
-    returnClass = overridesPoemTable
-                    ? "org.melati.poem."+mainClass
-                    : (hidesSuperclass
-                        ? superclass
-                        : mainClass);
+    naming = nameStore.add(dsd.packageName, suffix, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();
@@ -154,53 +109,71 @@ public class TableDef {
     tokens.nextToken();
   }
 
-  public boolean isPoemOverride() {
-    return overridesPoemTable;
-  }
-
   private final TableDef this_ = this;
 
+
+  /* For DatabaseBase */
   public void generateTableDeclJava(Writer w) throws IOException {
     if (!isAbstract)
-      w.write("  private " + tableMainClass + " tab_" + name + " = null;\n");
+      w.write("  private " + naming.tableMainClassUnambiguous() + " tab_" + name + " = null;\n");
   }
-
   public void generateTableDefnJava(Writer w) throws IOException {
     if (!isAbstract)
       w.write("    redefineTable(tab_" + name + " = " +
-	               "new " + tableMainClass + "(this, \"" + name + "\", " +
+	               "new " + naming.tableMainClassUnambiguous() + "(this, \"" + name + "\", " +
                                                    "DefinitionSource.dsd));\n");
   }
-
   public void generateTableAccessorJava(Writer w) throws IOException {
+
+    // if we subclass a table with the same name we need to cast the table to
+    // have the same return type as the root superclass
+    String requiredReturnClass = naming.tableMainClassRootReturnClass();
+
     // FIXME hack
-    if (!isAbstract)
-      w.write("  public " + returnClass + "Table" +
-		  " get" + tableMainClass + "() {\n" +
-	      "    return tab_" + name + ";\n" +
-	      "  }\n");
+    if (!isAbstract) {
+      w.write("  public " + requiredReturnClass + 
+              " get" + naming.tableMainClassShortName() + "() {\n" +
+              "    return ");
+      if (!requiredReturnClass.equals(naming.tableMainClassUnambiguous()))
+        w.write("(" + requiredReturnClass + ")");
+      w.write("tab_" + name + ";\n  }\n");
+    }
+  }
+  public void generateTableAccessorDefnJava(Writer w) throws IOException {
+    // FIXME hack
+    if (!isAbstract) {
+      w.write("  public " + naming.tableMainClassRootReturnClass() + 
+              " get" + naming.tableMainClassShortName() + "();\n");
+    }
   }
 
+  /* For Base */
   public void generateBaseJava(Writer w) throws IOException {
-    w.write("public abstract class " + baseClass + " extends " +
-                (superclass == null ? "Persistent" : superclass) + " {\n" +
+    // if we subclass a table with the same name we need to cast the table to
+    // have the same return type as the root superclass
+    String requiredReturnClass = naming.tableMainClassRootReturnClass();
+
+    w.write("public abstract class " + naming.baseClassShortName() + " extends " +
+                naming.superclassMainUnambiguous() + " {\n" +
             "\n" +
-	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
-                   "() {\n" +
-	    "    return (" + dsd.databaseClass + ")getDatabase();\n" +
+    	    "  public " + dsd.databaseTablesClass + " get" + dsd.databaseTablesClass +
+            "() {\n" +
+	        "    return (" + dsd.databaseTablesClass + ")getDatabase();\n" +
             "  }\n" +
-	    "\n");
+	        "\n");
 
     // FIXME hack
 
-    w.write("  public " + returnClass + "Table " + tableAccessorMethod +
+    w.write("  public " + requiredReturnClass + " " +
+                naming.tableAccessorMethod() +
                    "() {\n" +
-            "    return (" + returnClass + "Table)getTable();\n" +
+            "    return (" + requiredReturnClass + ")getTable();\n" +
             "  }\n\n");
 
-    w.write("  private " + tableMainClass + " _" + tableAccessorMethod +
+    w.write("  private " + naming.tableMainClassUnambiguous() + " _" +
+                naming.tableAccessorMethod() +
                    "() {\n" +
-            "    return (" + tableMainClass + ")getTable();\n" +
+            "    return (" + naming.tableMainClassUnambiguous() + ")getTable();\n" +
             "  }\n\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
@@ -220,17 +193,20 @@ public class TableDef {
     w.write("}\n");
   }
 
+  /* For Main */
   public void generateMainJava(Writer w) throws IOException { 
-    w.write("public class " + mainClass + " extends " + baseClass + " {\n" +
-	    "  public " + mainClass + "() {}\n" +
+    w.write("public class " + naming.mainClassShortName() + " extends " +
+            naming.baseClassShortName() + " {\n" +
+	    "  public " + naming.mainClassShortName() + "() {}\n" +
 	    "\n" +
             "  // programmer's domain-specific code here\n" +
             "}\n");
   }
 
+  /* For TableBase */
   public void generateTableBaseJava(Writer w) throws IOException {
-    w.write("public class " + tableBaseClass + " extends " +
-                (superclass == null ? "" : superclass) + "Table {\n" +
+    w.write("public class " + naming.tableBaseClassShortName() + " extends " +
+                naming.superclassTableUnambiguous() + " {\n" +
             "\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
@@ -240,22 +216,22 @@ public class TableDef {
     }
 
     w.write("\n" +
-            "  public " + tableBaseClass + "(\n" +
+            "  public " + naming.tableBaseClassShortName() + "(\n" +
 	    "      Database database, String name,\n" +
 	    "      DefinitionSource definitionSource)" +
                    " throws PoemException {\n" +
             "    super(database, name, definitionSource);\n" +
             "  }\n" +
             "\n" +
-            "  public " + tableBaseClass + "(\n" +
+            "  public " + naming.tableBaseClassShortName() + "(\n" +
 	    "      Database database, String name)" +
                    " throws PoemException {\n" +
             "    this(database, name, DefinitionSource.dsd);\n" +
             "  }\n" +
             "\n" +
-	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
+	    "  public " + dsd.databaseTablesClass + " get" + dsd.databaseTablesClass +
                    "() {\n" +
-	    "    return (" + dsd.databaseClass + ")getDatabase();" +
+	    "    return (" + dsd.databaseTablesClass + ")getDatabase();\n" +
 	    "  }\n" +
 	    "\n" +
             "  protected void init() throws PoemException {\n" +
@@ -274,20 +250,26 @@ public class TableDef {
       w.write('\n');
     }
 
-    w.write("  public " + returnClass + " get" + mainClass + "Object(" +
+    // if we subclass a table with the same name we need to cast the table to
+    // have the same return type as the root superclass
+    String requiredReturnClass = naming.mainClassRootReturnClass();
+
+    w.write("  public " + requiredReturnClass +
+            " get" + naming.mainClassShortName() + "Object(" +
                   "Integer troid) {\n" +
-            "    return (" + returnClass + ")getObject(troid);\n" +
+            "    return (" + requiredReturnClass + ")getObject(troid);\n" +
             "  }\n" +
             "\n" +
-            "  public " + returnClass + " get" + mainClass + "Object(" +
+            "  public " + requiredReturnClass +
+            " get" + naming.mainClassShortName() + "Object(" +
                   "int troid) {\n" +
-            "    return (" + returnClass + ")getObject(troid);\n" +
+            "    return (" + requiredReturnClass + ")getObject(troid);\n" +
             "  }\n");
 
     if (!isAbstract)
       w.write("\n" +
               "  protected Persistent _newPersistent() {\n" +
-              "    return new " + mainClass + "();\n" +
+              "    return new " + naming.mainClassUnambiguous() + "();\n" +
               "  }" +
               "\n");
 
@@ -331,11 +313,12 @@ public class TableDef {
     w.write("}\n");
   }
 
+  /* For Table */
   public void generateTableMainJava(Writer w) throws IOException { 
-    w.write("public class " + tableMainClass +
-               " extends " + tableBaseClass + " {\n" +
+    w.write("public class " + naming.tableMainClassShortName() +
+               " extends " + naming.tableBaseClassShortName() + " {\n" +
             "\n" +
-            "  public " + tableMainClass + "(\n" +
+            "  public " + naming.tableMainClassShortName() + "(\n" +
 	    "      Database database, String name,\n" +
 	    "      DefinitionSource definitionSource)" +
                      " throws PoemException {\n" +
@@ -346,16 +329,18 @@ public class TableDef {
             "}\n");
   }
 
+
+  /* Generate the 4 files */
   public void generateJava() throws IOException {
 
-    dsd.createJava(baseClass,
+    dsd.createJava(naming.baseClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {
                        this_.generateBaseJava(w);
                      }
                    });
 
-    dsd.createJava(mainClass,
+    dsd.createJava(naming.mainClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {
                        this_.generateMainJava(w);
@@ -363,14 +348,14 @@ public class TableDef {
                    },
                    false);
 
-    dsd.createJava(tableBaseClass,
+    dsd.createJava(naming.tableBaseClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {
                        this_.generateTableBaseJava(w);
                      }
                    });
 
-    dsd.createJava(tableMainClass,
+    dsd.createJava(naming.tableMainClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {
                        this_.generateTableMainJava(w);

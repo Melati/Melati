@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 public abstract class GroupMembershipBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public GroupMembershipTable getGroupMembershipTable() {
@@ -72,14 +72,15 @@ public abstract class GroupMembershipBase extends Persistent {
 
   public void setUserTroid(Integer raw)
       throws AccessPoemException {
-    setUser(raw == null ? null : getPoemDatabase().getUserTable().getUserObject(raw));
+    setUser(raw == null ? null : 
+        getPoemDatabaseTables().getUserTable().getUserObject(raw));
   }
 
   public User getUser()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getUserTroid();
     return troid == null ? null :
-        getPoemDatabase().getUserTable().getUserObject(troid);
+        getPoemDatabaseTables().getUserTable().getUserObject(troid);
   }
 
   public void setUser(User cooked)
@@ -115,14 +116,15 @@ public abstract class GroupMembershipBase extends Persistent {
 
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
-    setGroup(raw == null ? null : getPoemDatabase().getGroupTable().getGroupObject(raw));
+    setGroup(raw == null ? null : 
+        getPoemDatabaseTables().getGroupTable().getGroupObject(raw));
   }
 
   public Group getGroup()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
     return troid == null ? null :
-        getPoemDatabase().getGroupTable().getGroupObject(troid);
+        getPoemDatabaseTables().getGroupTable().getGroupObject(troid);
   }
 
   public void setGroup(Group cooked)

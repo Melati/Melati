@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 public abstract class ValueInfoBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public ValueInfoTable getValueInfoTable() {

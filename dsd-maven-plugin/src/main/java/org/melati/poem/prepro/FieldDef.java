@@ -60,9 +60,7 @@ public abstract class FieldDef {
   protected final String rawType;
   protected final Vector qualifiers;
 
-  final String baseClass;
   final String mainClass;
-  final String tableMainClass;
   final String tableAccessorMethod;
   org.melati.poem.DisplayLevel displayLevel = null;
   org.melati.poem.Searchability searchability = null;
@@ -91,10 +89,8 @@ public abstract class FieldDef {
     this.rawType = rawType;
     this.qualifiers = qualifiers;
 
-    this.baseClass = table.baseClass;
-    this.mainClass = table.mainClass;
-    this.tableMainClass = table.tableMainClass;
-    this.tableAccessorMethod = table.tableAccessorMethod;
+    this.mainClass = table.naming.mainClassUnambiguous();
+    this.tableAccessorMethod = table.naming.tableAccessorMethod();
 
     for (int q = 0; q < qualifiers.size(); ++q)
       ((FieldQualifier)qualifiers.elementAt(q)).apply(this);

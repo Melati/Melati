@@ -7,10 +7,10 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
+public abstract class ColumnInfoBase extends ValueInfo {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public ColumnInfoTable getColumnInfoTable() {
@@ -81,14 +81,15 @@ public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
 
   public void setTableinfoTroid(Integer raw)
       throws AccessPoemException {
-    setTableinfo(raw == null ? null : getPoemDatabase().getTableInfoTable().getTableInfoObject(raw));
+    setTableinfo(raw == null ? null : 
+        getPoemDatabaseTables().getTableInfoTable().getTableInfoObject(raw));
   }
 
   public TableInfo getTableinfo()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getTableinfoTroid();
     return troid == null ? null :
-        getPoemDatabase().getTableInfoTable().getTableInfoObject(troid);
+        getPoemDatabaseTables().getTableInfoTable().getTableInfoObject(troid);
   }
 
   public void setTableinfo(TableInfo cooked)

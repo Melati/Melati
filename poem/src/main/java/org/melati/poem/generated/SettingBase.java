@@ -7,10 +7,10 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public abstract class SettingBase extends org.melati.poem.ValueInfo {
+public abstract class SettingBase extends ValueInfo {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public SettingTable getSettingTable() {

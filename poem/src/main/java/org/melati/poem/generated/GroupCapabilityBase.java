@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 
 public abstract class GroupCapabilityBase extends Persistent {
 
-  public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();
+  public PoemDatabaseTables getPoemDatabaseTables() {
+    return (PoemDatabaseTables)getDatabase();
   }
 
   public GroupCapabilityTable getGroupCapabilityTable() {
@@ -72,14 +72,15 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
-    setGroup(raw == null ? null : getPoemDatabase().getGroupTable().getGroupObject(raw));
+    setGroup(raw == null ? null : 
+        getPoemDatabaseTables().getGroupTable().getGroupObject(raw));
   }
 
   public Group getGroup()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
     return troid == null ? null :
-        getPoemDatabase().getGroupTable().getGroupObject(troid);
+        getPoemDatabaseTables().getGroupTable().getGroupObject(troid);
   }
 
   public void setGroup(Group cooked)
@@ -115,14 +116,15 @@ public abstract class GroupCapabilityBase extends Persistent {
 
   public void setCapabilityTroid(Integer raw)
       throws AccessPoemException {
-    setCapability(raw == null ? null : getPoemDatabase().getCapabilityTable().getCapabilityObject(raw));
+    setCapability(raw == null ? null : 
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
   public Capability getCapability()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCapabilityTroid();
     return troid == null ? null :
-        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCapability(Capability cooked)

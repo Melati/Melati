@@ -92,12 +92,6 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   }
   
 
-  /**
-   * FIXME yuk
-   *
-   * @deprecated
-   */
-
   public String getCoreMessage() {
     return super.getMessage();
   }

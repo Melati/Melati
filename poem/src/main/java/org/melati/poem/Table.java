@@ -17,8 +17,11 @@ import java.util.*;
 
 public class Table {
 
+  public static final int CACHE_LIMIT_DEFAULT = 100;
+
   private Database database;
   private String name;
+  private String quotedName;
   private DefinitionSource definitionSource;
 
   TableInfo info = null;
@@ -33,13 +36,16 @@ public class Table {
   private Column displayColumn = null;
 
   private Column[] displayColumns = null;
+  private String defaultOrderByClause = null;
 
   private PoemFloatingVersionedObject allTroids = null;
 
   public Table(Database database, String name,
-               DefinitionSource definitionSource) {
+               DefinitionSource definitionSource)
+      throws InvalidNamePoemException {
     this.database = database;
     this.name = name;
+    this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
   }
 
@@ -65,6 +71,10 @@ public class Table {
 
   public final String getName() {
     return name;
+  }
+
+  final String quotedName() {
+    return quotedName;
   }
 
   /**
@@ -132,30 +142,41 @@ public class Table {
     return null;
   }
 
-  private String displayColumnsOrderClause() {
-     return EnumUtils.concatenated(
-        ", ",
-        new MappedEnumeration(new ArrayEnumeration(SortUtils.sorted(
-            new Order() {
-              public boolean lessOrEqual(Object a, Object b) {
-                return
-                    ((Column)a).getDisplayOrderPriority().intValue() <=
-                    ((Column)b).getDisplayOrderPriority().intValue();
-              }
-            },
-            new FilteredEnumeration(columns()) {
-              public boolean isIncluded(Object column) {
-                return ((Column)column).getDisplayOrderPriority() != null;
-              }
-            }))) {
-          public Object mapped(Object column) {
-            return _quotedName(((Column)column).getName());
-          }
-        });
+  private String defaultOrderByClause() {
+    String clause = defaultOrderByClause;
+
+    if (clause == null) {
+      clause = EnumUtils.concatenated(
+          ", ",
+          new MappedEnumeration(new ArrayEnumeration(SortUtils.sorted(
+              new Order() {
+                public boolean lessOrEqual(Object a, Object b) {
+                  return
+                      ((Column)a).getDisplayOrderPriority().intValue() <=
+                      ((Column)b).getDisplayOrderPriority().intValue();
+                }
+              },
+              new FilteredEnumeration(columns()) {
+                public boolean isIncluded(Object column) {
+                  return ((Column)column).getDisplayOrderPriority() != null;
+                }
+              }))) {
+            public Object mapped(Object column) {
+              return ((Column)column).quotedName();
+            }
+          });
+
+      if (clause.equals(""))
+        clause = displayColumn().quotedName();
+
+      defaultOrderByClause = clause;
+    }
+
+    return clause;
   }
 
-  final void invalidateDisplayColumns() {
-    displayColumns = null;
+  final void notifyDisplayOrderPriorities() {
+    defaultOrderByClause = null;
   }
 
   /**
@@ -174,7 +195,7 @@ public class Table {
       Enumeration colIDs =
           getDatabase().getColumnInfoTable().troidSelection(
               "tableinfo = " + tableInfoID() + " AND displayable",
-              displayColumnsOrderClause(), false, null);
+              null, false, null);
 
       Vector them = new Vector();
       while (colIDs.hasMoreElements()) {
@@ -268,10 +289,10 @@ public class Table {
 
   private void dbCreateTable() {
     StringBuffer sqb = new StringBuffer();
-    sqb.append("CREATE TABLE " + _quotedName(name) + " (");
+    sqb.append("CREATE TABLE " + quotedName + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
-      sqb.append(_quotedName(columns[c].getName()) + " " +
+      sqb.append(columns[c].quotedName() + " " +
                  columns[c].getType().sqlDefinition());
     }
 
@@ -282,8 +303,8 @@ public class Table {
 
   private void dbAddColumn(Column column) {
     dbModifyStructure(
-        "ALTER TABLE " + _quotedName(name) +
-        " ADD COLUMN " + _quotedName(column.getName()) +
+        "ALTER TABLE " + quotedName +
+        " ADD COLUMN " + column.quotedName() +
         " " + column.getType().sqlDefinition());
   }
 
@@ -291,9 +312,9 @@ public class Table {
     if (column.isIndexed())
       dbModifyStructure(
           "CREATE " + (column.isUnique() ? "UNIQUE " : "") + "INDEX " +
-          _quotedName(name + "_" + column.getName() + "_index") + " " +
-          "ON " + _quotedName(name) + " " +
-          "(" + _quotedName(column.getName()) + ")");
+          database._quotedName(name + "_" + column.getName() + "_index") +
+          " ON " + quotedName + " " +
+          "(" + column.quotedName() + ")");
   }
 
   // 
@@ -304,10 +325,10 @@ public class Table {
 
   private PreparedStatement simpleInsert(Connection connection) {
     StringBuffer sql = new StringBuffer();
-    sql.append("INSERT INTO " + _quotedName(name) + " (");
+    sql.append("INSERT INTO " + quotedName + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(columns[c].getName()));
+      sql.append(columns[c].quotedName());
     }
     sql.append(") VALUES (");
     for (int c = 0; c < columns.length; ++c) {
@@ -330,10 +351,10 @@ public class Table {
     sql.append("SELECT ");
     for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(columns[c].getName()));
+      sql.append(columns[c].quotedName());
     }
-    sql.append(" FROM " + _quotedName(name) +
-               " WHERE " + _quotedName(troidColumn.getName()) + " = ?");
+    sql.append(" FROM " + quotedName +
+               " WHERE " + troidColumn.quotedName() + " = ?");
 
     try {
       return connection.prepareStatement(sql.toString());
@@ -346,13 +367,13 @@ public class Table {
   private PreparedStatement simpleModify(Connection connection) {
     // FIXME synchronize this too
     StringBuffer sql = new StringBuffer();
-    sql.append("UPDATE " + _quotedName(name) + " SET ");
+    sql.append("UPDATE " + quotedName + " SET ");
     for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
-      sql.append(_quotedName(columns[c].getName()));
+      sql.append(columns[c].quotedName());
       sql.append(" = ?");
     }
-    sql.append(" WHERE " + _quotedName(troidColumn.getName()) + " = ?");
+    sql.append(" WHERE " + troidColumn.quotedName() + " = ?");
 
     try {
       return connection.prepareStatement(sql.toString());
@@ -476,8 +497,8 @@ public class Table {
 
   void delete(Integer troid, PoemSession session) {
     String sql =
-        "DELETE FROM " + _quotedName(name) +
-        " WHERE " + _quotedName(troidColumn.getName()) + " = " +
+        "DELETE FROM " + quotedName +
+        " WHERE " + troidColumn.quotedName() + " = " +
         troid.toString();
 
     try {
@@ -525,10 +546,11 @@ public class Table {
   // ----------
   // 
 
-  private Cache cache = new Cache();
+  private Cache cache = new Cache(CACHE_LIMIT_DEFAULT);
 
   void uncacheContents() {
     cache.uncacheContents();
+    allTroids.uncacheContents();
   }
 
   void trimCache(int maxSize) {
@@ -616,16 +638,22 @@ public class Table {
       PoemSession session)
           throws SQLPoemException {
     if (deletedColumn != null && !includeDeleted)
-      whereClause = (whereClause == null ? "" : "(" + whereClause + ") AND ") +
-                    "NOT " + deletedColumn.getName();
+      whereClause =
+          (whereClause == null || whereClause.equals("") ?
+               "" : "(" + whereClause + ") AND ") +
+          "NOT " + deletedColumn.getName();
+
+    if (orderByClause == null || orderByClause.equals(""))
+      orderByClause = defaultOrderByClause();
 
     // FIXME must work in some kind of limit
       
     String sql =
-        "SELECT " + _quotedName(troidColumn.getName()) +
-        " FROM " + _quotedName(name) +
+        "SELECT " + troidColumn.quotedName() +
+        " FROM " + quotedName +
         (whereClause == null || whereClause.equals("") ?
              "" : " WHERE " + whereClause) +
+        // actually orderByClause is never null (since fallback is id)
         (orderByClause == null || orderByClause.equals("") ?
              "" : " ORDER BY " + orderByClause);
 
@@ -661,17 +689,14 @@ public class Table {
         };
   }
 
-  protected void rememberAllTroids() {
-    allTroids = new PoemFloatingVersionedObject(getDatabase()) {
-      protected Version backingVersion(Session session) {
-        VersionVector store = new VersionVector();
-        for (Enumeration them =
-                 troidSelection(null, null, false, (PoemSession)session);
-             them.hasMoreElements();)
-          store.addElement(them.nextElement());
-        return store;
-      }
-    };
+  protected void rememberAllTroids(boolean flag) {
+    allTroids = !flag ? null :
+        new PoemFloatingVersionedObject(getDatabase()) {
+          protected Version backingVersion(Session session) {
+            return EnumUtils.versionVectorOf(
+                       troidSelection(null, null, false, (PoemSession)session));
+          }
+        };
   }
 
   /**
@@ -776,6 +801,89 @@ public class Table {
         pageStart, pageSize, 200);
   }
 
+  public int count(String whereClause)
+      throws SQLPoemException {
+    String sql =
+        "SELECT count(*) FROM " + quotedName +
+        (whereClause == null || whereClause.equals("") ? "" :
+             " WHERE " + whereClause);
+
+    try {
+      PoemSession session = PoemThread.session();
+      Connection connection;
+      if (session == null)
+        connection = getDatabase().getCommittedConnection();
+      else {
+        session.writeDown();
+        connection = session.getConnection();
+      }
+
+      ResultSet rs = connection.createStatement().executeQuery(sql);
+      if (database.logSQL)
+        database.log(new SQLLogEvent(sql));
+      rs.next();
+      return rs.getInt(1);
+    }
+    catch (SQLException e) {
+      throw new ExecutingSQLPoemException(sql, e);
+    }
+  }
+
+  public boolean exists(String whereClause) throws SQLPoemException {
+    // FIXME use EXISTS
+    return count(whereClause) > 0;
+  }
+
+  /**
+   * FIXME you can't search for NULLs ...
+   */
+
+  public void appendWhereClause(StringBuffer clause, Data data) {
+    Column[] columns = this.columns;
+    boolean hadOne = false;
+    for (int c = 0; c < columns.length; ++c) {
+      Column column = columns[c];
+      Object ident = column.getIdent(data);
+      if (ident != null) {
+        if (hadOne)
+          clause.append(" AND ");
+        else
+          hadOne = true;
+
+        clause.append(column.quotedName());
+        clause.append(" = ");
+        clause.append(column.getType().quotedIdent(ident));
+      }
+    }
+  }
+
+  public String whereClause(Data data) {
+    StringBuffer clause = new StringBuffer();
+    appendWhereClause(clause, data);
+    return clause.toString();
+  }
+
+  public String cnfWhereClause(Enumeration datas) {
+    StringBuffer clause = new StringBuffer();
+
+    boolean hadOne = false;
+    while (datas.hasMoreElements()) {
+      if (hadOne)
+        clause.append(" OR ");
+      else
+        hadOne = true;
+      clause.append("(");
+      appendWhereClause(clause, (Data)datas.nextElement());
+      clause.append(")");
+    }
+
+    return clause.toString();
+  }
+
+  public boolean exists(Data data) {
+    return exists(whereClause(data));
+  }
+
   /**
    * All the objects in the table which refer to a given object.  If none of
    * the table's columns are reference columns, the <TT>Enumeration</TT>
@@ -864,18 +972,20 @@ public class Table {
       // Let the user do their worst.
       ((Initialiser)initOrData).init(object);
 
-    // Are the values they have put in legal, and is the result
-    // something they could have created by writing into a record?
+    // Are the values they have put in legal; is the result something they
+    // could have created by writing into a record; does the DB pick up any
+    // inconsistencies like duplicated unique fields?
 
     try {
       validate(data);
       object.assertCanWrite(data, sessionToken.accessToken);
+      writeDown(sessionToken.session, troid, data);
     }
     catch (Exception e) {
       throw new InitialisationPoemException(this, e);
     }
 
-    // Plug it into the cache for later writedown
+    // OK, it worked.  Plug the object into the cache.
 
     CachedVersionedRow versionedRow = versionedRow(troid);
     versionedRow.setVersion(sessionToken.session, data);
@@ -1075,10 +1185,6 @@ public class Table {
   // ===========
   // 
 
-  private String _quotedName(String name) {
-    return database._quotedName(name);
-  }
-
   /**
    * A concise string to stand in for the table.  The table's name and a
    * description of where it was defined (the DSD, the metadata tables or the
@@ -1157,7 +1263,6 @@ public class Table {
 
     column.setTable(this);
     columns = (Column[])Array.added(columns, column);
-    invalidateDisplayColumns();
     columnsByName.put(column.getName(), column);
   }
 
@@ -1177,6 +1282,10 @@ public class Table {
 
   void setTableInfo(TableInfo tableInfo) {
     info = tableInfo;
+    rememberAllTroids(tableInfo.getSeqcached().booleanValue());
+    Integer cacheLimit = tableInfo.getCachelimit();
+    cache.setSize(cacheLimit == null ?
+                      CACHE_LIMIT_DEFAULT : cacheLimit.intValue());
   }
 
   /**
@@ -1207,17 +1316,25 @@ public class Table {
     return null;
   }
 
+  protected Integer defaultCacheLimit() {
+    return null;
+  }
+
+  protected boolean defaultRememberAllTroids() {
+    return false;
+  }
+
   TableInfoData defaultTableInfoData() {
     return new TableInfoData(
         getName(), defaultDisplayName(), defaultDisplayOrder(),
-        defaultDescription());
+        defaultDescription(), defaultCacheLimit(), defaultRememberAllTroids());
   }
 
   void createTableInfo() throws PoemException {
-    if (info == null) {
-      info = (TableInfo)getDatabase().getTableInfoTable().
-                 create(defaultTableInfoData());
-    }
+    if (info == null)
+      setTableInfo(
+          info = (TableInfo)getDatabase().getTableInfoTable().
+                     create(defaultTableInfoData()));
   }
 
   synchronized void unifyWithColumnInfo() throws PoemException {
@@ -1345,9 +1462,9 @@ public class Table {
 
     // PoemThread.writeDown(); FIXME
     String sql = 
-        "SELECT " + _quotedName(troidColumn.getName()) +
-        " FROM " + _quotedName(name) +
-        " ORDER BY " + _quotedName(troidColumn.getName()) + " DESC";
+        "SELECT " + troidColumn.quotedName() +
+        " FROM " + quotedName +
+        " ORDER BY " + troidColumn.quotedName() + " DESC";
     try {
       ResultSet maxTroid =
           getDatabase().getCommittedConnection().createStatement().

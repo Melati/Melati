@@ -1,0 +1,352 @@
+<?xml version="1.0"?>
+<project>
+  <pomVersion>3</pomVersion>
+  <id>melati</id>
+  <name>Melati</name>
+  <currentVersion>0.7</currentVersion>
+  <organization>
+    <name>PanEris</name>
+    <url>http://www.paneris.org/</url>
+    <logo>http://www.paneris.org/images/corporate/pelogo.png</logo>
+  </organization>
+  <inceptionYear>2000</inceptionYear>
+  <package>org.melati</package>
+  <logo>http://www.melati.org/images/logo.jpg</logo> 
+
+  <shortDescription>Melati Java Web Development Suite</shortDescription>
+
+  <!-- Gump integration 
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  -->
+
+  <description>
+Melati Java Web Development Suite
+  </description>
+
+  <url>http://maven.melati.net/</url>
+  <siteAddress>maven.melati.net</siteAddress>
+  <siteDirectory>/inst/melati/target/docs/</siteDirectory>
+  <issueTrackingUrl>
+<!-- http://nagoya.apache.org/scarab/servlet/scarab/ -->
+       
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+  </issueTrackingUrl>
+  <siteAddress>www.melati.org</siteAddress>
+  <siteDirectory>
+    /www/httpd/htdocs/
+  </siteDirectory>
+  <distributionDirectory>
+    /inst/melati
+  </distributionDirectory>
+
+  <repository>
+    <connection>
+      scm:cvs:pserver:anon@melati.org:/usr/cvsroot:melati
+    </connection>
+    <developerConnection>scm:cvs:ext:anon@melati.org:/usr/cvsroot:melati</developerConnection>
+
+    <url>
+      http://melati.org/cgi-bin/cvsweb.cgi/melati/
+    </url>
+  </repository>
+
+  <mailingLists>
+    <mailingList>
+      <name>Melati Announce</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-announce
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Developers</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-developers
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Users</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-users
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati CVS</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>PanEris Melati board <b>(Closed)</b></name>
+      <subscribe>
+subscribe.melati@messageboards.paneris.org
+      </subscribe>
+      <unsubscribe>
+subscribe.melati@messageboards.paneris.org
+      </unsubscribe>
+      <archive>
+       http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;messageboard=214
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>PanEris Melati Project board <b>(Closed)</b></name>
+      <subscribe>
+subscribe.melati@messageboards.paneris.org
+      </subscribe>
+      <unsubscribe>
+subscribe.melati@messageboards.paneris.org
+      </unsubscribe>
+      <archive>
+       http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;messageboard=231
+      </archive>
+    </mailingList>
+
+
+  </mailingLists>
+
+  <developers>
+
+    <developer>
+      <name>William Chesters</name>
+      <id>williamc</id>
+      <email>williamc@paneris.org</email>
+      <roles>
+        <role>Original author</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Tim Joyce</name>
+      <id>timj</id>
+      <email>timj@paneris.org</email>
+      <roles>
+        <role>Original author</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Tim Pizey</name>
+      <id>timp</id>
+      <email>timp@paneris.org</email>
+      <organization>Context Computing</organization>
+      <roles>
+        <role>Lurker</role>
+        <role>Maven maven</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Myles Chippendale</name>
+      <id>mylesc</id>
+      <email>mylesc@paneris.org</email>
+      <organization>MJC Solutions</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Colin Rainsforth</name>
+      <id>colinr</id>
+      <email>colinr@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Graphics Designer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Chris Kimpton</name>
+      <id>kimptoc</id>
+      <email>chris@kimptoc.net</email>
+      <organization>Kimptoc</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Jim Wright</name>
+      <id>jimw</id>
+      <email>jimw@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>David Warnock</name>
+      <id>davew</id>
+      <email>david@sundayta.com</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Karl Zilles</name>
+      <id>karlz</id>
+      <email>karlz@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Vasily Pozhidaev</name>
+      <id>vasilyp</id>
+      <email>vasilyp@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Peter Kehl</name>
+      <id>peterk</id>
+      <email>peterk@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+
+  </developers>
+
+
+  <dependencies>
+    <dependency>
+      <id>webmacro</id>
+      <version>1.0</version>
+      <url>http://www.webmacro.org/</url>
+    </dependency>
+    <dependency>
+      <id>velocity</id>
+      <version>1.3</version>
+      <url>http://jakarta.apache.org/velocity/</url>
+    </dependency>
+    <dependency>
+      <id>velocity-dep</id>
+      <version>1.3-rc1</version>
+      <url>http://jakarta.apache.org/velocity/</url>
+    </dependency>
+    <dependency>
+      <id>postgresql</id>
+      <version>7.3-jdbc3</version>
+      <url>http://jdbc.postgresql.org/</url>
+    </dependency>
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+      <url>http://www.junit.org/</url>
+    </dependency>
+    <dependency>
+      <id>javamail</id>
+      <version>1.2</version>
+      <url>http://java.sun.com/</url>
+    </dependency>
+    <dependency>
+      <id>servlet</id>
+      <version>2.2</version>
+      <url>http://java.sun.com/</url>
+    </dependency>
+    <dependency>
+      <id>activation</id>
+      <version>1.0</version>
+      <url>http://java.sun.com/</url>
+    </dependency>
+    <dependency>
+      <id>odmg</id>
+      <version>3.0</version>
+      <url>http://www.odmg.org/</url>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <nagEmailAddress>
+      timp@paneris.org
+    </nagEmailAddress>
+
+    <sourceDirectory>src</sourceDirectory>
+
+    <!--unitTestSourceDirectory>src/test/java</unitTestSourceDirectory-->
+    <!--integrationUnitTestSourceDirectory></integrationUnitTestSourceDirectory-->
+
+    <!--aspectSourceDirectory/-->
+
+    <!-- Unit test cases -->
+    <!--
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/RepositoryTest.java</exclude>
+      </excludes>
+    </unitTest>
+    -->
+    <!-- J A R  R E S O U R C E S -->
+    <!-- Resources that are packaged up inside the JAR file -->
+    <!--
+    <resources>
+      <includes>
+        <include>*.wm</include>
+        <include>*.properties</include>
+      </includes>
+    </resources>
+    -->
+    <!-- Integration unit test cases -->
+    <!--
+    <integrationUnitTest>
+    </integrationUnitTest>
+    -->
+    <!--
+    <jars>
+     /inst/melati-cvs/build/dist/melati_0.7.0/lib/melati.jar
+    </jars>
+     -->
+  </build>
+  <reports>
+     |
+     | These should all be completely self contained. You should be able
+     | to generate each of them individually without needing the final
+     | xdoc transformation.
+     |
+     | Each report plugin with it's POM and plugin.jelly logic should
+     | contain everything needed to produced the report.
+     |
+
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-tasklist-plugin</report>
+<!--
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jellydoc-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+-->
+  </reports>
+
+</project>
+

@@ -12,8 +12,8 @@
 
 set -e
 
-JAVAC="javac -d /usr/local/melati"
-#JAVAC=jikes
+#JAVAC=javac
+JAVAC=jikes
 
 if ! javaversion=`java -version 2>&1` ; then
   echo -e >&2 "When I try to run java -version, this happens:\n"

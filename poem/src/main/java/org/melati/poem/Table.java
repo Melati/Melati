@@ -1619,13 +1619,6 @@ public class Table {
     return it;
   }
 
-  /*
-   * The number of records in this Table.
-   */ 
-  public int getCount() {
-    return cachedCount("").count();
-  }
-
   public CachedExists cachedExists(String whereClause) {
     CachedExists it = (CachedExists)cachedExists.get(whereClause);
     if (it == null) {

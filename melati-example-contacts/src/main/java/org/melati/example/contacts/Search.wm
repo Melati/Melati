@@ -20,13 +20,13 @@
 &nbsp;
 &nbsp;
 &nbsp;
-<a href=http://po.hoop.home/melati/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a></p>
+<a href=http://po.hoop.home/melati/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a>
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
 &nbsp;
-<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.LogicalDatabaseName/Main>go to the admin system</a>
+<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.LogicalDatabaseName/Main>go to the admin system</a></p>
 <hr>
 <h2>Search the Contacts</h2>
 <form>

@@ -83,14 +83,14 @@ public class PoemServletTest extends PoemServlet {
     for (Enumeration e = melatiContext.getDatabase().getDisplayTables(); e.hasMoreElements(); ) {
       output.write(new StringBuffer("<br>").append(((Table)e.nextElement()).getDisplayName()).toString());
     }
-    
+
     output.write("<h4>Further Testing:</h4>");
     output.write("You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>");
     output.write("You can test melati Access Poem Exception handling (requiring you to log-in as an administrator) by clicking <a href=AccessPoemException>Access Poem Exception</a><br>");
     output.write("<h4>Template Engine Testing:</h4>");
-    output.write(melati.getTemplateEngine().getClass().getName() + "</b>.<br>");
-    output.write(melatiContext.getZoneURL() + "/HelloWorld/>HelloWorld</a>, or <a href=" + melatiContext.getZoneURL() + "/GuestBook/>GuestBook</a><br>");
-    output.write(melatiContext.getZoneURL() + "/org.melati.test.TemplateServletTestWM/>org.melati.test.TemplateServletTestWM/</a><br>");
+    output.write("You are currently using: <b>" + melati.getTemplateEngine().getClass().getName() + "</b>.<br>");
+    output.write("You can test your WebMacro installaction by clicking <a href=" + melatiContext.getZoneURL() + "/HelloWorld/>HelloWorld</a>, or <a href=" + melatiContext.getZoneURL() + "/GuestBook/>GuestBook</a><br>");
+    output.write("You can test your WebMacro working with Melati by clicking <a href=" + melatiContext.getZoneURL() + "/org.melati.test.TemplateServletTestWM/>org.melati.test.TemplateServletTestWM/</a><br>");
     output.write("Melati does not work with JTemplater at present, this should be fixed soon.");
 
     String method = melatiContext.getMethod();

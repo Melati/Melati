@@ -45,32 +45,38 @@
 
 package org.melati.test;
 
-import org.melati.poem.*;
+import org.melati.servlet.TemplateServlet;
+import org.melati.MelatiContext;
+import org.melati.template.TemplateParameters;
+import org.melati.template.TemplateContext;
 
-public class Regression {
+/**
+ * Base class to use Melati with Servlets.
+ * Simply extend this class, override the doRequest method
+ *
+ * @author Tim Joyce
+ * $Revision$
+ */
+public class TemplateServletTestWM extends TemplateServlet {
 
-  public static final String dbName = "melatiregression";
-
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+  protected TemplateContext doTemplateRequest( 
+  MelatiContext melatiContext, TemplateContext templateContext) 
+  throws Exception {
+    
+    templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
+    templateContext.setTemplateName("test/TemplateServletTestWM.wm");
+    return templateContext;
   }
+
+  public String getLogicalDatabase
+  (MelatiContext melatiContext, String logicalDatabase) {
+    return "melatitest";
+  }
+
 }
+
+
+
+
+
+

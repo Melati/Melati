@@ -1,0 +1,28 @@
+#set $Response.Header.Content-Type = "text/html"
+<HTML>
+<HEAD>
+<TITLE>WebmacroMelatiServlet Test</TITLE>
+</head>
+<body>
+<h2>WebmacroMelatiServlet Test</h2>
+<p>This servlet tests your interface for writing Melati servlets using
+the Webmacro template engine.
+If you can read this message, it means that you have successfully created a POEM session 
+and loaded the WebMacro Template Engine.<p>
+
+<p>This servlet was called with the following Method: <b>$melati.Method</b></p></p>
+
+#if ($Form.test) #begin
+<p><b>$Form.test</b> was passed in the parameter <b>test</b>.
+#end
+<p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
+
+<h3>Further Testing</h3>
+You can test a flushing output by clicking <a href=$melati.ZoneURL/org.melati.test.FlushingServletTest/>FlushingServletTest</a><br>
+
+<h3>Your Database has the following tables:</h3>
+#foreach $tab in $melati.Database.DisplayTables #begin
+  $tab.DisplayName<br>
+#end
+</body>
+</html>

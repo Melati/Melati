@@ -45,11 +45,21 @@
 
 package org.melati;
 
-import org.webmacro.servlet.HandlerException;
+import org.melati.util.MelatiException;
+import javax.servlet.http.HttpServlet;
 
-public class InvalidUsageException extends HandlerException {
-  public InvalidUsageException(MelatiServlet servlet, MelatiContext context) {
-    super("The servlet " + servlet.getClass().getName() + " was invoked " +
-	  "with invalid parameters " + context);
+public class InvalidUsageException extends MelatiException {
+
+  HttpServlet servlet;
+  MelatiContext context;
+
+  public InvalidUsageException(HttpServlet servlet, MelatiContext context) {
+    this.servlet = servlet;
+    this.context = context;
+  }
+
+  public String getMessage() {
+    return "The servlet " + servlet.getClass().getName() + " was invoked " +
+	  "with invalid parameters " + context;
   }
 }

@@ -45,21 +45,16 @@
 
 package org.melati;
 
-import java.net.URLEncoder;
-import org.webmacro.*;
-import org.webmacro.engine.*;
-import org.webmacro.servlet.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.melati.templets.*;
+import org.melati.template.TempletLoader;
+import org.melati.util.MelatiLocale;
 
 public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
   private AttributeHTMLMarkupLanguage attributeML = null;
 
-  public HTMLMarkupLanguage(Context webContext,
+  public HTMLMarkupLanguage(MelatiContext melatiContext,
 			    TempletLoader templetLoader, MelatiLocale locale) {
-    super("html", webContext, templetLoader, locale);
+    super("html", melatiContext, templetLoader, locale);
   }
 
   protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {

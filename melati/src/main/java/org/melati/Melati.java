@@ -41,115 +41,85 @@
  *     William Chesters <williamc@paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *
  */
 
 package org.melati;
 
-import java.util.*;
-import java.io.*;
-import java.net.*;
-import javax.servlet.http.*;
-import org.melati.admin.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.melati.templets.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.melati.login.AccessHandler;
+import org.melati.poem.User;
+import org.melati.poem.PoemThread;
+import org.melati.poem.Persistent;
+import org.melati.poem.Column;
+import org.melati.poem.NotInSessionPoemException;
+import org.melati.poem.NoAccessTokenPoemException;
+import org.melati.template.TemplateEngine;
+import org.melati.template.TemplateContext;
+import org.melati.template.TempletAdaptor;
+import org.melati.template.YMDDateAdaptor;
+import org.melati.template.SimpleDateAdaptor;
+import org.melati.template.TempletLoader;
+import org.melati.util.JSDynamicTree;
+import org.melati.util.MelatiException;
+import org.melati.util.MelatiLocale;
+import org.melati.util.Tree;
+
+/*
+<p>A melati is the main entry point for using Melati. </p>
+<p>Parameters are loaded when it is 1st requested</p>
+ */
 
 public class Melati {
 
-  private WebContext webContext;
-  private Database database;
-  private MelatiContext melatiContext;
-  private MelatiLocale locale;
-  private TempletLoader templetLoader;
-  private String javascriptLibraryURL;
-  private String staticURL;
-  private Table table;
-  private Persistent object;
+  private MelatiConfig config = null;
+  private TemplateEngine templateEngine = null;
 
-  public Melati(WebContext webContext,
-                Database database, MelatiContext melatiContext,
-                MelatiLocale locale, TempletLoader templetLoader,
-		String javascriptLibraryURL, String staticURL)
-      throws PoemException {
-    this.webContext = webContext;
-    this.database = database;
-    this.melatiContext = melatiContext;
-    this.locale = locale;
-    this.templetLoader = templetLoader;
-    this.javascriptLibraryURL = javascriptLibraryURL;
-    this.staticURL = staticURL;
-
-    if (melatiContext.table != null) {
-      table = database.getTable(melatiContext.table);
-      if (melatiContext.troid != null)
-        object = table.getObject(melatiContext.troid.intValue());
-    }
+  // allows creation of a melati with default config params
+  public Melati() throws MelatiException {
+    this(new MelatiConfig());
   }
 
-  public String getJavascriptLibraryURL() {
-    return javascriptLibraryURL;
+  // allows creation of a melati with a configuration
+  public Melati(MelatiConfig config) throws MelatiException {
+    this.config = config;
   }
 
-  public String getStaticURL() {
-    return staticURL;
-  }
-  
-  public AdminUtils getAdminUtils() {
-   return new AdminUtils(getWebContext().getRequest().getServletPath(),
-                         getStaticURL() + "/admin",  
-                         getLogicalDatabaseName());
-  }    
-
-  public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    return new HTMLMarkupLanguage(getWebContext(),
-                                  getTempletLoader(),
-                                  getLocale());
+  // creates a melati context
+  public MelatiContext getContext(HttpServletRequest request,
+  HttpServletResponse response) throws MelatiException {
+    return new MelatiContext(this, request, response);
   }
 
-  public WMLMarkupLanguage getWMLMarkupLanguage() {
-    return new WMLMarkupLanguage(getWebContext(),
-                                 getTempletLoader(),
-                                 getLocale());
+  // the template engine in use
+  public TemplateEngine getTemplateEngine() {
+    return config.getTemplateEngine();
   }
 
+  // get the adaptor for rendering dates as drop-downs
   public YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
 
-  public YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
-    return YMDHMSTimestampAdaptor.it;
-  }
-
+  // get the adaptor for rendering dates as normal
   public SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }
 
+  // get a tree object
   public JSDynamicTree getJSDynamicTree(Tree tree) {
     return new JSDynamicTree(tree);
   }
 
-  public static class PassbackVariableExceptionHandler
-      implements VariableExceptionHandler {
-    public static final PassbackVariableExceptionHandler it =
-        new PassbackVariableExceptionHandler();
-
-    public Object handle(Variable variable, Object context, Exception problem) {
-      Exception underlying =
-	  problem instanceof VariableException ?
-	    ((VariableException)problem).problem : problem;
-
-      return underlying != null &&
-	     underlying instanceof AccessPoemException ?
-	       underlying : problem;
-    }
+  public AccessHandler getAccessHandler() {
+    return config.getAccessHandler();
   }
 
-  public VariableExceptionHandler getPassbackVariableExceptionHandler() {
-    return PassbackVariableExceptionHandler.it;
-  }
-
+  // get the current user for this session (if he is there)
   public User getUser() {
     // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
     // an AccessToken
@@ -168,109 +138,29 @@ public class Melati {
     }
   }
 
-  public Database getDatabase() {
-    return database;
-  }
-
-  public String getLogicalDatabaseName() {
-    return melatiContext.logicalDatabase;
-  }
-
-  public Table getTable() {
-    return table;
-  }
-
-  public Persistent getObject() {
-    return object;
-  }
-
-  public final WebContext getWebContext() {
-    return webContext;
-  }
-
-  public final MelatiContext getContext() {
-    return melatiContext;
-  }
-
   public MelatiLocale getLocale() {
-    return locale;
+    return config.getMelatiLocale();
   }
 
-  TempletLoader getTempletLoader() {
-    return templetLoader;
+  public TempletLoader getTempletLoader() {
+    return config.getTempletLoader();
   }
 
-  public String getMethod() {
-    return getContext().method;
+  // location of javascript for this site
+  public String getJavascriptLibraryURL() {
+    return config.getJavascriptLibraryURL();
   }
 
-   protected String logoutPageServletClassName() {
+  // location of static content for this site
+  public String getStaticURL() {
+    return config.getStaticURL();
+  }
+
+  protected String logoutPageServletClassName() {
     return "org.melati.login.Logout";
   }
 
-  public String getLogoutURL() {
-    StringBuffer url = new StringBuffer();
-    HttpUtil.appendZoneURL(url, webContext.getRequest());
-    url.append('/');
-    url.append(logoutPageServletClassName());
-    url.append('/');
-    url.append(getLogicalDatabaseName());
-    return url.toString();
-  }
-
-  public String getZoneURL() {
-    return HttpUtil.zoneURL(webContext.getRequest());
-  }
-
-  public static String sameQueryWith(String qs, String field, String value) {
-
-    String fenc = URLEncoder.encode(field);
-    String fenceq = fenc + '=';
-    String fev = fenceq + URLEncoder.encode(value);
-
-    if (qs == null || qs.equals(""))
-      return fev;
-
-    int i;
-    if (qs.startsWith(fenceq))
-      i = 0;
-    else {
-      i = qs.indexOf('&' + fenceq);
-      if (i == -1)
-	return qs + '&' + fev;
-      ++i;
-    }
-
-    int a = qs.indexOf('&', i);
-    return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
-  }
-
-  public static String sameURLWith(String uri, String query,
-                                   String field, String value) {
-    return uri + "?" + sameQueryWith(query, field, value);
-  }
-
-  public static String sameURLWith(HttpServletRequest request,
-                                   String field, String value) {
-    return sameURLWith(request.getRequestURI(), request.getQueryString(),
-                       field, value);
-  }
-
-  public String sameURLWith(String field, String value) {
-    return sameURLWith(webContext.getRequest(), field, value);
-  }
-
-  public String sameURLWith(String field) {
-    return sameURLWith(field, "1");
-  }
-
-  public String getSameURL() {
-    String qs = webContext.getRequest().getQueryString();
-    return webContext.getRequest().getRequestURI() +
-               (qs == null ? "" : '?' + qs);
-  }
-
-  public static void extractFields(WebContext context, Persistent object) {
+  public static void extractFields(TemplateContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String formFieldName = "field_" + column.getName();
@@ -285,7 +175,7 @@ public class Melati {
           adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
         } catch (Exception e) {
           throw new TempletAdaptorConstructionMelatiException(
-                      adaptorFieldName, adaptorName, e);
+          adaptorFieldName, adaptorName, e);
         }
         column.setRaw(object, adaptor.rawFrom(context, formFieldName));
       }
@@ -293,37 +183,15 @@ public class Melati {
         if (rawString != null) {
           if (rawString.equals("")) {
             if (column.getType().getNullable())
-              column.setRaw(object, null);
+            column.setRaw(object, null);
             else
-              column.setRawString(object, "");
+            column.setRawString(object, "");
           }
           else
-            column.setRawString(object, rawString);
+          column.setRawString(object, rawString);
         }
       }
     }
   }
 
-  public static Object extractField(WebContext context,
-                                    String fieldName)
-                           throws TempletAdaptorConstructionMelatiException {
-
-    String rawString = context.getForm(fieldName);
-
-    String adaptorFieldName = fieldName + "-adaptor";
-    String adaptorName = context.getForm(adaptorFieldName);
-
-    if (adaptorName != null) {
-      TempletAdaptor adaptor;
-      try {
-        // FIXME cache this instantiation
-        adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-      } catch (Exception e) {
-        throw new TempletAdaptorConstructionMelatiException(
-                    adaptorFieldName, adaptorName, e);
-      }
-      return adaptor.rawFrom(context, fieldName);
-    }
-    return rawString;
-  }
 }

@@ -1,10 +1,11 @@
 package org.melati.doc.example.contacts;
 
 import org.melati.doc.example.contacts.generated.*;
-import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import org.melati.poem.*;
+import org.melati.MelatiContext;
+import org.melati.poem.User;
+import org.melati.poem.PoemThread;
 
 public class Contact extends ContactBase {
   public Contact() {}
@@ -24,4 +25,11 @@ public class Contact extends ContactBase {
       if (count == null) count = new Integer(0);
       setUpdates_unsafe(new Integer(count.intValue()+1));
     }
+    
+
+  public String getLogicalDatabase
+  (MelatiContext melatiContext, String logicalDatabase) {
+    return "contacts";
+  }
+    
 }

@@ -45,108 +45,123 @@
 
 package org.melati;
 
-import java.util.*;
-import java.io.*;
-import java.text.*;
-import org.webmacro.*;
-import org.webmacro.engine.*;
-import org.webmacro.resource.*;
-import org.webmacro.servlet.*;
-import org.webmacro.broker.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.melati.templets.*;
+import java.text.DateFormat;
+
+import java.io.IOException;
+
+// fixme - these should not be here! - need to use a newer WebMacro
+import org.webmacro.engine.VariableExceptionHandler;
+import org.webmacro.engine.Variable;
+
+import org.melati.template.TemplateContext;
+import org.melati.template.TemplateEngineException;
+import org.melati.template.NotFoundException;
+import org.melati.template.TempletLoader;
+import org.melati.util.MelatiLocale;
+import org.melati.util.JSDynamicTree;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.AccessPoemException;
 
 public abstract class MarkupLanguage {
 
   private String name;
-  private Context webContext;
+  protected MelatiContext melatiContext;
+  private TemplateContext templateContext;
   private TempletLoader templetLoader;
   private MelatiLocale locale;
-  private Object melati;
+  private Melati melati;
 
-  public MarkupLanguage(String name, Context webContext,
-                        TempletLoader templetLoader, MelatiLocale locale) {
+  public MarkupLanguage(String name, MelatiContext melatiContext,
+  TempletLoader templetLoader, MelatiLocale locale) {
     this.name = name;
-    this.webContext = webContext;
+    this.melatiContext = melatiContext;
+    this.templateContext = melatiContext.getTemplateContext();
     this.templetLoader = templetLoader;
     this.locale = locale;
-    melati = webContext.get("melati"); // FIXME hack
+    melati = melatiContext.getMelati();
   }
 
   protected MarkupLanguage(String name, MarkupLanguage other) {
-    this(name, other.webContext, other.templetLoader, other.locale);
+    this(name, other.melatiContext, other.templetLoader, other.locale);
   }
 
   public String getName() {
     return name;
   }
 
-  public abstract String rendered(String s);
+  public abstract String rendered(String s) throws IOException;
 
-  public String rendered(String s, int limit) {
+  public String rendered(String s, int limit) throws IOException {
     return rendered(s.length() < limit + 3 ? s : s.substring(0, limit) + "...");
   }
 
-  public String rendered(Object o) throws WebMacroException {
+  public String rendered(Object o)
+  throws TemplateEngineException, IOException {
     if (o instanceof JSDynamicTree)
-      return rendered((JSDynamicTree)o);
+    return rendered((JSDynamicTree)o);
     if (o instanceof Persistent)
-      return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
+    return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
     if (o instanceof Exception)
-      return rendered((Exception)o);
-
+    return rendered((Exception)o);
     return rendered(o.toString());
   }
 
-  public String rendered(JSDynamicTree tree) throws WebMacroException {
-    Object otree = webContext.get("tree");
-    webContext.put("tree",tree);
-    String results = templetExpansion(templet("org.melati.util.JSDynamicTree"));
-    webContext.put("tree", otree);
-    return results;
+  public String rendered(JSDynamicTree tree)
+  throws TemplateEngineException, IOException {
+    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);;
+    vars.put("tree",tree);
+    return expandedTemplet("org.melati.util.JSDynamicTree",vars);
   }
-  
+
   public String rendered(Field field, int style, int limit)
-      throws WebMacroException {
+  throws TemplateEngineException, IOException {
+
     try {
       return rendered(field.getCookedString(locale, style), limit);
     }
     catch (AccessPoemException e) {
       VariableExceptionHandler handler =
-          (VariableExceptionHandler)webContext.get(Variable.EXCEPTION_HANDLER);
+      (VariableExceptionHandler)templateContext.get(Variable.EXCEPTION_HANDLER);
       if (handler != null)
-        return rendered(handler.handle(null, webContext, e));
+      return rendered(handler.handle(null, templateContext, e));
       else
-        throw e;
+      throw e;
     }
   }
 
-  public String rendered(Field field, int style) throws WebMacroException {
+  public String rendered(Field field, int style)
+  throws TemplateEngineException, IOException {
     return rendered(field, style, 10000000);
   }
 
-  public String renderedShort(Field field) throws WebMacroException {
+  public String renderedShort(Field field)
+  throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.SHORT);
   }
 
-  public String renderedMedium(Field field) throws WebMacroException {
+  public String renderedMedium(Field field)
+  throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.MEDIUM);
   }
 
-  public String renderedLong(Field field) throws WebMacroException {
+  public String renderedLong(Field field)
+  throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.LONG);
   }
 
-  public String renderedFull(Field field) throws WebMacroException {
+  public String renderedFull(Field field)
+  throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.FULL);
   }
 
-  public String rendered(Field field) throws WebMacroException {
+  public String rendered(Field field)
+  throws TemplateEngineException, IOException {
     return renderedMedium(field);
   }
 
-  public String renderedStart(Field field) throws WebMacroException {
+  public String renderedStart(Field field)
+  throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.MEDIUM, 50);
   }
 
@@ -157,17 +172,20 @@ public abstract class MarkupLanguage {
    * <TT>rendered</TT> might not.
    */
 
-  public String renderedString(Field field) throws WebMacroException {
+  public String renderedString(Field field)  
+  throws TemplateEngineException, IOException {
     return rendered(field);
   }
 
-  public Template templet(String templetName) throws WebMacroException {
-    return templetLoader.templet(webContext.getBroker(), this, templetName);
+  /*
+  public Template templet(String templetName) {
+  return templetLoader.templet(templateContext.getBroker(), this, templetName);
   }
 
-  public String templetExpansion(Template template) throws WebMacroException {
-    return (String)template.evaluate(webContext);
+  public String templetExpansion(Template template)  {
+  return (String)template.evaluate(melaitContext);
   }
+   */
 
   //
   // =========
@@ -176,58 +194,58 @@ public abstract class MarkupLanguage {
   //
 
   public String input(Field field)
-      throws UnsupportedTypeException, WebMacroException {
+  throws TemplateEngineException, IOException, UnsupportedTypeException {
     return input(field, null, "", false);
   }
 
   public String inputAs(Field field, String templetName)
-      throws UnsupportedTypeException, WebMacroException {
+  throws TemplateEngineException, IOException, UnsupportedTypeException {
     return input(field, templetName, "", false);
   }
 
   public String searchInput(Field field, String nullValue)
-      throws UnsupportedTypeException, WebMacroException {
+  throws TemplateEngineException, IOException, UnsupportedTypeException {
     return input(field, null, nullValue, true);
   }
 
-  protected String expandedTemplet(Template templet, Hashtable vars)
-      throws WebMacroException {
-    vars.put("ml", this);
-    if (melati != null)
-      vars.put("melati", melati);
+  public Object templet(String templetName) throws NotFoundException {
+    return templetLoader.templet(melatiContext.getTemplateEngine(), this, templetName);
+  }
 
-    webContext.push(vars);
-
-    try {
-      return (String)templet.evaluate(webContext);
-    }
-    finally {
-      webContext.pop();
-    }
+  protected String expandedTemplet(Object templet, TemplateContext tc)
+  throws TemplateEngineException, IOException {
+    melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),templet,tc);
+    return "";
   }
 
   protected String input(Field field, String templetName,
-			 String nullValue, boolean overrideNullable) 
-      throws UnsupportedTypeException, WebMacroException {
+  String nullValue, boolean overrideNullable)
+  throws UnsupportedTypeException, TemplateEngineException, IOException {
 
     try {
       field.getRaw();
     }
     catch (AccessPoemException e) {
       VariableExceptionHandler handler =
-          (VariableExceptionHandler)webContext.get(Variable.EXCEPTION_HANDLER);
+      (VariableExceptionHandler)templateContext.get(Variable.EXCEPTION_HANDLER);
       if (handler != null)
-        return rendered(handler.handle(null, webContext, e));
+        rendered(handler.handle(null, melatiContext, e));
       else
-        throw e;
+      throw e;
     }
 
-    Template templet =
-        templetName == null ?
-          templetLoader.templet(webContext.getBroker(), this, field) :
-          templetLoader.templet(webContext.getBroker(), this, templetName);
+    Object templet;
+    try {
+      templet = 
+      templetName == null ?
+        templetLoader.templet(melatiContext.getTemplateEngine(), this, field) :
+        templetLoader.templet(melatiContext.getTemplateEngine(), this, templetName);
+    } catch (NotFoundException e) {
+      throw new TemplateEngineException("I couldn't find the templet: " + templetName + " because: " +e.toString());
+    }
 
-    Hashtable vars = new Hashtable();
+
+    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
 
     if (overrideNullable) {
       field = field.withNullable(true);
@@ -235,26 +253,31 @@ public abstract class MarkupLanguage {
     }
 
     vars.put("field", field);
+    vars.put("ml", this);
+    vars.put("melati", melatiContext);
 
     return expandedTemplet(templet, vars);
   }
 
-  public final String rendered(Exception e) throws WebMacroException {
+  public final String rendered(Exception e) throws IOException {
     try {
-      Hashtable vars = new Hashtable();
+      TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
+      Object templet = templetLoader.templet(melatiContext.getTemplateEngine(), this, e.getClass());
       vars.put("exception", e);
-      Template templet =
-          templetLoader.templet(webContext.getBroker(), this, e.getClass());
-      return expandedTemplet(templet, vars);
+      return expandedTemplet(templet,templateContext);
     }
     catch (Exception f) {
       try {
         System.err.println("MarkupLanguage failed to render an exception:");
         f.printStackTrace();
-        return "[" + rendered(e.toString()) + "]";
+        melatiContext.getWriter().write("[");
+        rendered(e.toString());
+        melatiContext.getWriter().write("]");
+        return "";
       }
       catch (Exception g) {
-        return "[UNRENDERABLE EXCEPTION!]";
+        melatiContext.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+        return "";
       }
     }
   }

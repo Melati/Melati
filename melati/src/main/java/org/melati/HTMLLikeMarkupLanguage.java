@@ -45,29 +45,30 @@
 
 package org.melati;
 
+import java.io.IOException;
 import java.net.URLEncoder;
-import org.webmacro.*;
-import org.webmacro.engine.*;
-import org.webmacro.servlet.*;
-import org.melati.util.*;
-import org.melati.poem.*;
-import org.melati.templets.*;
+
+import org.melati.template.TempletLoader;
+import org.melati.util.MelatiLocale;
+import org.melati.util.HTMLUtils;
 
 public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
-  public HTMLLikeMarkupLanguage(String name, Context webContext,
+  public HTMLLikeMarkupLanguage(String name, MelatiContext melatiContext,
                                 TempletLoader templetLoader,
                                 MelatiLocale locale) {
-    super(name, webContext, templetLoader, locale);
+    super(name, melatiContext, templetLoader, locale);
   }
   
   protected HTMLLikeMarkupLanguage(String name, MarkupLanguage other) {
     super(name, other);
   }
 
-
-  public String rendered(String s) {
-    return HTMLUtils.entitied(s);
+/* FIXME: webmacro unfortunately won't call methods with void returns
+*/
+  public String rendered(String s) throws IOException {
+    super.melatiContext.getWriter().write(HTMLUtils.entitied(s));
+    return "";
   }
 
   public String escaped(String s) {

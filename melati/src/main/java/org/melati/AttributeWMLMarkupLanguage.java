@@ -45,9 +45,8 @@
 
 package org.melati;
 
-import org.melati.poem.*;
-import org.webmacro.*;
-
+import java.io.IOException;
+import org.melati.poem.AccessPoemException;
 
 public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
 
@@ -55,7 +54,14 @@ public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
     super("wml_attr", html);
   }
 
-  public String rendered(AccessPoemException e) throws WebMacroException {
-    return "[Access denied to " + rendered(e.token) + "]";
+  public String rendered(AccessPoemException e) throws IOException {
+    try {
+      melatiContext.getWriter().write("[Access denied to ");
+      rendered(e.token);
+      melatiContext.getWriter().write("]");
+    } catch (Exception g) {
+      melatiContext.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+    }
+    return "";
   }
 }

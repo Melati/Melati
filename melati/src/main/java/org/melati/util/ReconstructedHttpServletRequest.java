@@ -57,16 +57,16 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   private HttpServletRequest newRequest;
 
   public ReconstructedHttpServletRequest(
-      HttpServletRequestParameters oldParams, HttpServletRequest newRequest)
-          throws ReconstructedHttpServletRequestMismatchException {
+  HttpServletRequestParameters oldParams, HttpServletRequest newRequest)
+  throws ReconstructedHttpServletRequestMismatchException {
     if (!oldParams.requestURL.equals(
-             HttpUtils.getRequestURL(newRequest).toString()) ||
-        !(oldParams.queryString == null ?
-              newRequest.getQueryString() == null :
-              oldParams.queryString.equals(newRequest.getQueryString())) ||
-        oldParams.session != newRequest.getSession(false))
-      throw new ReconstructedHttpServletRequestMismatchException(oldParams,
-                                                                 newRequest);
+    HttpUtils.getRequestURL(newRequest).toString()) ||
+    !(oldParams.queryString == null ?
+    newRequest.getQueryString() == null :
+    oldParams.queryString.equals(newRequest.getQueryString())) ||
+    oldParams.session != newRequest.getSession(false))
+    throw new ReconstructedHttpServletRequestMismatchException(oldParams,
+    newRequest);
 
     this.oldParams = oldParams;
     this.newRequest = newRequest;
@@ -109,8 +109,8 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-    * @deprecated in Servlet API 2.2
-  */
+   * @deprecated in Servlet API 2.2
+   */
   public String getRealPath(String path) {
     return newRequest.getRealPath(path);
   }
@@ -229,63 +229,63 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-    * @deprecated in Servlet API 2.2
-  */
+   * @deprecated in Servlet API 2.2
+   */
   public boolean isRequestedSessionIdFromUrl() {
     return newRequest.isRequestedSessionIdFromUrl();
   }
 
   // added for Servlet API 2.2
   public String getContextPath() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public Enumeration getHeaders(String arg) {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public HttpSession getSession() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public Principal getUserPrincipal() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public boolean isRequestedSessionIdFromURL() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public boolean isUserInRole(String arg) {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public Enumeration getAttributeNames() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public Locale getLocale()  {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public Enumeration getLocales() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
-/*
+  /*
   public RequestDispatcher getRequestDispatcher(String arg) {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+  throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
-*/
+   */
   public boolean isSecure() {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public void removeAttribute(String arg) {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
   public void setAttribute(String arg1, Object arg2) {
-      throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
 
 }

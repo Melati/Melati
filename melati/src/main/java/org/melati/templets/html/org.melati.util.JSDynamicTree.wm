@@ -1,0 +1,93 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     William Chesters <williamc@paneris.org>
+##     http://paneris.org/~williamc
+##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##
+
+<SCRIPT LANGUAGE="JavaScript1.2" src="$melati.JavascriptLibraryURL/trees.js"></SCRIPT>
+
+#foreach $node in $tree.flattened() #begin
+<DIV ID="Layer$node.UniqueName" style="position:absolute" name="Layer$node.UniqueName"></DIV>
+#end
+
+<DIV ID="loadbuffer" style="position:absolute; visibility:hidden;" name="loadbuffer"></DIV>
+<IFRAME name="loadframe" height=0 width=0></IFRAME>
+
+<script LANGUAGE="JavaScript">
+// IE remebers the last contents of the IFrame :-(
+if(!isNav4) parent.loadframe.document.location = "blank.html";
+
+function init() {
+// Go through nodes adding items and lists
+#foreach $node in $tree.flattened($tree.DepthPerDownload) #begin
+  Node$node.UniqueName = new TreeNode(
+#parse $tree.NodeLabelTemplet, $node.Depth, $node.isLeaf(), "$node.UniqueName");
+  #if ($node.Parent) #begin
+  Node$node.UniqueName;.setParent(Node$node.Parent.UniqueName;)
+  #end
+#end
+
+var roots=[];
+#foreach $root in $tree.flattened(0)
+#begin
+roots[roots.length] = Node$root.UniqueName;;
+#end
+var tree = new DynamicTree(roots,
+                $tree.X,
+                $tree.Y,
+                $tree.NodeWidth,
+                $tree.NodeHeight,
+                "$tree.NodeColour",
+                $tree.Indent,
+                "$tree.OpenedImage",
+                "$tree.ClosedImage",
+                "$tree.LeafImage",
+                $tree.DepthPerDownload
+            );
+tree.display();
+}
+
+// In case someone forgets the onload in the body tag
+if (window.onload == null) window.onload = init;
+</script>
+
+

@@ -10,8 +10,25 @@
 <SCRIPT src="/validation.js"></SCRIPT>
 
 <body>
-<h1>Search the Contacts</h1>
-<p>or add a new <a href=/melati/org.melati.doc.example.contacts.ContactView/contacts/contact/Insert>contact</a></p>
+<p>This is a very simple Melati Application.  It allows you to enter contacts into a database, and search them.</p>
+<p>The source code is available in org/melati/doc/example/contacts/, and forms a useful starting point to developing a Melati application</p>
+<hr>
+<p>
+<a href=/melati/org.melati.doc.example.contacts.ContactView/contacts/contact/Insert>add a new contact</a>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<a href=http://po.hoop.home/melati/org.melati.admin.Admin/contacts/category/Add>Add a new Category</a></p>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.LogicalDatabaseName/Main>go to the admin system</a>
+<hr>
+<h2>Search the Contacts</h2>
 <form>
 <p>$ml.rendered($name.DisplayName): $ml.input($name)</p>
 <p>$ml.rendered($category.DisplayName): $ml.searchInput($category,"Any")</p>

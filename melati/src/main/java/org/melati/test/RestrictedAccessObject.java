@@ -45,32 +45,19 @@
 
 package org.melati.test;
 
-import org.melati.poem.*;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.AccessToken;
+import org.melati.poem.PoemThread;
+import org.melati.poem.Capability;
 
-public class Regression {
+public class RestrictedAccessObject {
 
-  public static final String dbName = "melatiregression";
+public RestrictedAccessObject(){};
 
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+  public void getAccessPoemException() throws AccessPoemException {
+    Capability admin = PoemThread.database().getCanAdminister();
+    AccessToken token = PoemThread.accessToken();
+    throw new AccessPoemException(token, admin);
   }
 }
+

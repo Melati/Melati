@@ -43,34 +43,26 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.test;
+package org.melati;
 
-import org.melati.poem.*;
+import org.webmacro.engine.VariableExceptionHandler;
+import org.webmacro.engine.Variable;
+import org.webmacro.engine.VariableException;
+import org.melati.poem.AccessPoemException;
 
-public class Regression {
+public class PassbackVariableExceptionHandler
+implements VariableExceptionHandler {
+  public static final PassbackVariableExceptionHandler it =
+  new PassbackVariableExceptionHandler();
 
-  public static final String dbName = "melatiregression";
+  public Object handle(Variable variable, Object context, Exception problem) {
+    Exception underlying =
+    problem instanceof VariableException ?
+    ((VariableException)problem).problem : problem;
 
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+    return underlying != null &&
+    underlying instanceof AccessPoemException ?
+    underlying : problem;
   }
 }
+

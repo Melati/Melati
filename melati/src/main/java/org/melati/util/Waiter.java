@@ -43,34 +43,16 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.test;
+package org.melati.util;
 
-import org.melati.poem.*;
+/**
+  * just allows us to slow things down
+*/
+public class Waiter {
 
-public class Regression {
-
-  public static final String dbName = "melatiregression";
-
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+  public void wait(Integer length) {
+    try {
+      java.lang.Thread.sleep(length.intValue());
+    } catch (Exception e){}
   }
 }

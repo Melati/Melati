@@ -45,32 +45,43 @@
 
 package org.melati.test;
 
-import org.melati.poem.*;
+/**
+ * Base class to use Melati with Servlets.
+ * Simply extend this class, override the doRequest method
+ *
+ * @author Tim Joyce
+ * $Revision$
+ */
 
-public class Regression {
+import org.melati.template.webmacro.WebmacroMelatiServlet;
+import org.melati.MelatiContext;
+import org.melati.util.Waiter;
+import org.webmacro.WebMacroException;
+import org.webmacro.servlet.WebContext;
 
-  public static final String dbName = "melatiregression";
+public class FlushingServletTest extends WebmacroMelatiServlet {
 
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+  public String handle( MelatiContext melatiContext, WebContext context ) 
+  throws WebMacroException {
+    if (melatiContext.getMethod().equals("unflushed")) {
+      melatiContext.setBufferingOff(false);
+    } else {
+      melatiContext.setBufferingOff(true);
+    }
+    context.put("waiter", new Waiter());
+    return "test/FlushingServletTest.wm";
   }
+
+  public String getLogicalDatabase
+  (MelatiContext melatiContext, String logicalDatabase) {
+    return "melatitest";
+  }
+
+  public String getMethod
+  (MelatiContext melatiContext, String method) {
+    if (method == null) return "";
+    return method;
+  }
+
 }
+

@@ -1,0 +1,142 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2000 William Chesters
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     William Chesters <williamc@paneris.org>
+##     http://paneris.org/~williamc
+##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##
+
+<INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
+       VALUE="org.melati.templets.YMDDateAdaptor">
+
+#set $yearField = $melati.YMDDateAdaptor.yearField($field)
+#set $yearFieldName = "field_$ml.rendered($yearField.Name)"
+#set $monthField = $melati.YMDDateAdaptor.monthField($field)
+#set $monthFieldName = "field_$ml.rendered($monthField.Name)"
+#set $dayField = $melati.YMDDateAdaptor.dayField($field)
+#set $dayFieldName = "field_$ml.rendered($dayField.Name)"
+
+<SELECT NAME="$dayFieldName"
+  #if ($field.Type.Nullable) #begin
+    ONCHANGE="if (selectedIndex == 0) \{
+		form['$yearFieldName'].selectedIndex = 0;
+		form['$monthFieldName'].selectedIndex = 0;
+	      \}
+	      else \{
+		if (form['$yearFieldName'].selectedIndex == 0)
+		  form['$yearFieldName'].selectedIndex = 1;
+		if (form['$monthFieldName'].selectedIndex == 0)
+		  form['$monthFieldName'].selectedIndex = 1;
+	      \}"
+  #end
+>
+  #foreach $poss in $dayField.First1000Possibilities #begin
+    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+      #if ($poss.sameRawAs($dayField)) #begin
+        SELECTED
+      #end
+    >
+      #if ($poss.RawString.equals("") && $nullValue) #begin
+        $ml.rendered($nullValue)
+      #end #else #begin
+        $ml.renderedString($poss)
+      #end
+    </OPTION>
+  #end
+</SELECT>
+
+<SELECT NAME="$monthFieldName"
+  #if ($field.Type.Nullable) #begin
+    ONCHANGE="if (selectedIndex == 0) \{
+		form['$yearFieldName'].selectedIndex = 0;
+		form['$dayFieldName'].selectedIndex = 0;
+	      \}
+	      else \{
+		if (form['$yearFieldName'].selectedIndex == 0)
+		  form['$yearFieldName'].selectedIndex = 1;
+		if (form['$dayFieldName'].selectedIndex == 0)
+		  form['$dayFieldName'].selectedIndex = 1;
+	      \}"
+  #end
+>
+  #foreach $poss in $monthField.First1000Possibilities #begin
+    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+      #if ($poss.sameRawAs($monthField)) #begin
+        SELECTED
+      #end
+    >
+      #if ($poss.RawString.equals("") && $nullValue) #begin
+        $ml.rendered($nullValue)
+      #end #else #begin
+        $ml.renderedString($poss)
+      #end
+    </OPTION>
+  #end
+</SELECT>
+
+<SELECT NAME="$yearFieldName"
+  #if ($field.Type.Nullable) #begin
+    ONCHANGE="if (selectedIndex == 0) \{
+		form['$monthFieldName'].selectedIndex = 0;
+		form['$dayFieldName'].selectedIndex = 0;
+	      \}
+	      else \{
+		if (form['$monthFieldName'].selectedIndex == 0)
+		  form['$monthFieldName'].selectedIndex = 1;
+		if (form['$dayFieldName'].selectedIndex == 0)
+		  form['$dayFieldName'].selectedIndex = 1;
+	      \}"
+  #end
+>
+  #foreach $poss in $yearField.First1000Possibilities #begin
+    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+      #if ($poss.sameRawAs($yearField)) #begin
+        SELECTED
+      #end
+    >
+      #if ($poss.RawString.equals("") && $nullValue) #begin
+        $ml.rendered($nullValue)
+      #end #else #begin
+        $ml.renderedString($poss)
+      #end
+    </OPTION>
+  #end
+</SELECT>
+

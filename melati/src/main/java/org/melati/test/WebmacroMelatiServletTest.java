@@ -45,32 +45,34 @@
 
 package org.melati.test;
 
-import org.melati.poem.*;
+import org.melati.template.webmacro.WebmacroMelatiServlet;
+import org.melati.MelatiContext;
+import org.webmacro.WebMacroException;
+import org.webmacro.servlet.WebContext;
 
-public class Regression {
+/**
+ * Base class to use Melati with Servlets.
+ * Simply extend this class, override the doRequest method
+ *
+ * @author Tim Joyce
+ * $Revision$
+ */
+public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
-  public static final String dbName = "melatiregression";
-
-  public static void main(String[] args) throws Exception {
-    // ttj remove to allow it to compile
-//    if (Runtime.exec("destroydb " + dbName).waitFor() != 0 ||
-//	     Runtime.exec("createdb " + dbName).waitFor() != 0)
-//      exit(1);
-
-    final Database database = new PoemDatabase();
-
-    database.connect("org.melati.poem.dbms.Postgresql",
-		     "jdbc:postgresql:" + dbName, "postgres", "*",8);
-
-    // to test:
-
-    // creation
-    // deletion
-    // attempt to re-create
-    // 
-
-    // rollback
-    // blocking
-    // deadlock recovery
+  public String handle( MelatiContext melatiContext, WebContext context ) 
+  throws WebMacroException {
+    return "test/WebmacroMelatiServletTest.wm";
   }
+
+  public String getLogicalDatabase
+  (MelatiContext melatiContext, String logicalDatabase) {
+    return "melatitest";
+  }
+
 }
+
+
+
+
+
+

@@ -11,11 +11,11 @@
  *
  *
  * The GNU General Public License version 2 is included 
- * in this release, please read the file LICENCE-GPL.txt. It is also available at
+ * in this release, please read the file LICENSE-GPL.txt. It is also available at
  * http://www.gnu.org/copyleft/gpl.txt
  *
  * The Melati Software License is compatible with the Apache Software Foundation's 
- * Apache Software Licence, please read the file LICENCE-MSL.txt
+ * Apache Software Licence, please read the file LICENSE-MSL.txt
  *
  */  
 

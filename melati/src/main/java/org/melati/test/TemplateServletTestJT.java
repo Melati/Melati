@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,31 +38,44 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Joyce <timj@paneris.org>
+ *     http://paneris.org/
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati;
+package org.melati.test;
 
-import org.melati.util.*;
+import org.melati.servlet.TemplateServlet;
+import org.melati.MelatiContext;
+import org.melati.template.TemplateParameters;
+import org.melati.template.TemplateContext;
 
-public class PathInfoException extends MelatiException {
-  public String pathInfo;
+/**
+ * Base class to use Melati with Servlets.
+ * Simply extend this class, override the doRequest method
+ *
+ * @author Tim Joyce
+ * $Revision$
+ */
+public class TemplateServletTestJT extends TemplateServlet {
 
-  public PathInfoException(String pathInfo, Exception problem) {
-    super(problem);
-    this.pathInfo = pathInfo;
+  protected TemplateContext doTemplateRequest( 
+  MelatiContext melatiContext, TemplateContext templateContext) 
+  throws Exception {
+
+    templateContext.setTemplateName("test/TemplateServletTestJT.jt");
+    return templateContext;
   }
 
-  public PathInfoException(String pathInfo) {
-    this(pathInfo, null);
+  public String getLogicalDatabase
+  (MelatiContext melatiContext, String logicalDatabase) {
+    return "melatitest";
   }
 
-  public String getMessage() {
-    return pathInfo == null ?
-        "No path info given" :
-        "Path info `" + pathInfo + "' has wrong form" +
-            (subException == null ? "" : ":\n" + subException.toString());
-  }
 }
+
+
+
+
+
+

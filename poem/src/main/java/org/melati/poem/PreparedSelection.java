@@ -5,7 +5,14 @@ import java.sql.*;
 import java.util.*;
 
 public class PreparedSelection {
-  private CachedIndexFactory statements;
+
+  private static class SelectionVersion extends VersionVector {
+    long tableSerial;
+    SelectionVersion(long tableSerial) {
+      this.tableSerial = tableSerial;
+    }
+  }
+
   private PoemFloatingVersionedObject cache;
   private final Table table;
 
@@ -20,7 +27,7 @@ public class PreparedSelection {
     // HACK we use 0 to mean "committed session", i + 1 to mean "noncommitted
     // session i"
 
-    statements =
+    final CachedIndexFactory statements =
         new CachedIndexFactory() {
           protected Object reallyGet(int index) {
             String sql = table.selectionSQL(whereClause, orderByClause, false);
@@ -44,30 +51,27 @@ public class PreparedSelection {
 		  (PreparedStatement)statements.get(session == null ?
 						      0 :
 						      session.index() + 1);
+
+              SelectionVersion store =
+		  new SelectionVersion(table.serial(session));
+
               ResultSet them = statement.executeQuery();
 
-              VersionVector store = new VersionVector();
               while (them.next())
                 store.addElement(new Integer(them.getInt(1)));
+
               return store;
             }
             catch (SQLException e) {
               throw new SQLPoemException(e);
             }
           }
+
+ 	  public boolean upToDate(Session session, Version current) {
+ 	    return ((SelectionVersion)current).tableSerial ==
+	               table.serial(session);
+ 	  }
         };
-
-    table.addListener(
-        new TableListener() {
-          public void notifyTouched(
-              PoemSession session, Table t, Integer troid, Data data) {
-            cache.invalidateVersion(session);
-          }
-
-          public void notifyUncached(Table t) {
-            cache.uncacheContents();
-          }
-        });
   }
 
   public Table getTable() {
@@ -85,5 +89,9 @@ public class PreparedSelection {
             return table.getObject((Integer)troid);
           }
         };
+  }
+
+  public long serial(Session session) {
+    return ((SelectionVersion)cache.versionForReading(session)).tableSerial;
   }
 }

@@ -2,13 +2,10 @@ package org.melati.util;
 
 import java.util.*;
 
-public class NoSuchPropertyException extends Exception {
-  public Properties properties;
-  public String propertyName;
+public class NoSuchPropertyException extends PropertyException {
 
   public NoSuchPropertyException(Properties properties, String propertyName) {
-    this.properties = properties;
-    this.propertyName = propertyName;
+    super(properties, propertyName);
   }
 
   public String getMessage() {

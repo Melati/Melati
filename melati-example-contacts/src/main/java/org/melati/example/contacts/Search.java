@@ -1,25 +1,22 @@
 package org.melati.doc.example.contacts;
 
 import org.melati.Melati;
+import org.melati.servlet.TemplateServlet;
+import org.melati.template.TemplateContext;
 import org.melati.servlet.MelatiContext;
 import org.melati.servlet.PathInfoException;
-import org.melati.poem.*;
-import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.poem.Field;
 import org.melati.MelatiUtil;
 
-import org.webmacro.servlet.WebContext;
-import org.webmacro.WebMacroException;
 
  /**
   *  Example servlet to search contacts and display them.
   *
-  * TODO: update this to use MelatiTemplateServlet
   **/
-public class Search extends WebmacroMelatiServlet {
+public class Search extends TemplateServlet {
 
-  public String handle( Melati melati, WebContext context )
-  throws WebMacroException {
+  protected String doTemplateRequest(Melati melati, TemplateContext context)
+     throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
     String name = MelatiUtil.getFormNulled(melati.getTemplateContext(),
@@ -36,13 +33,15 @@ public class Search extends WebmacroMelatiServlet {
     if (name != null) where += "\"name\" = '" + name + "' ";
     if (category != null) {
       if (!where.equals("")) where += " AND ";
-      where += "exists (SELECT id FROM contactcategory WHERE \"category\" = " + 
-      category.toString() + " AND contact = contact.id)";
+      where += "exists (SELECT \"id\" FROM \"contactcategory\" " + 
+               "WHERE \"category\" = " + category.toString() + 
+               " AND \"contact\" = \"contact\".\"id\")";
     }
     if (submit != null) {
       context.put("results", db.getContactTable().selection(where));
     }
-    return "org/melati/doc/example/contacts/Search.wm";
+    // The file extension is added by the TemplateEngine
+    return "org/melati/doc/example/contacts/Search";
   }
   
   protected MelatiContext melatiContext(Melati melati)

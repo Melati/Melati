@@ -4,24 +4,21 @@ import java.io.IOException;
 
 import org.melati.Melati;
 import org.melati.MelatiUtil;
+import org.melati.servlet.TemplateServlet;
 import org.melati.servlet.MelatiContext;
 import org.melati.servlet.PathInfoException;
-import org.melati.template.webmacro.WebmacroMelatiServlet;
 import org.melati.template.TemplateContext;
 
-import org.webmacro.servlet.WebContext;
-import org.webmacro.WebMacroException;
 
  /**
   *  Example servlet to display or edit a contact and its categories.
   *
-  * TODO: update this to use MelatiTemplateServlet
   **/
 
-public class ContactView extends WebmacroMelatiServlet {
+public class ContactView extends TemplateServlet {
 
-  public String handle( Melati melati, WebContext context )
-    throws WebMacroException {
+  protected String doTemplateRequest(Melati melati, TemplateContext context)
+            throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
     Contact contact = (Contact)melati.getObject();
@@ -39,8 +36,9 @@ public class ContactView extends WebmacroMelatiServlet {
         MelatiUtil.extractFields(melati.getTemplateContext(),contact);
       }
       deleteCategories(db,contact);
-      String[] categories =
-      context.getRequest().getParameterValues("field_category");
+
+      String[] categories = melati.getRequest().
+                               getParameterValues("field_category");
       if (categories != null) {
         for (int i=0; i< categories.length; i++) {
           ContactCategory cat =
@@ -54,7 +52,7 @@ public class ContactView extends WebmacroMelatiServlet {
         melati.getResponse().sendRedirect
         ("/melati/org.melati.doc.example.contacts.Search/contacts");
       } catch (IOException e) {
-        throw new WebMacroException(e.toString());
+        throw new Exception(e.toString());
       }
       return null;
     }
@@ -63,10 +61,10 @@ public class ContactView extends WebmacroMelatiServlet {
       deleteCategories(db,contact);
       contact.deleteAndCommit();
       try {
-        context.getResponse().sendRedirect
+        melati.getResponse().sendRedirect
         ("/melati/org.melati.doc.example.contacts.Search/contacts");
       } catch (IOException e) {
-        throw new WebMacroException(e.toString());
+        throw new Exception(e.toString());
       }
       return null;
     }
@@ -74,15 +72,19 @@ public class ContactView extends WebmacroMelatiServlet {
     else if (melati.getMethod().equals("View")) {
     }
     else { 
-       throw new WebMacroException("Invalid Method");
+       throw new Exception("Invalid Method");
     }
     context.put("contact",contact);
     context.put("categories",db.getCategoryTable().selection());
-    return "org/melati/doc/example/contacts/ContactView.wm";
+    // The file extension is added by the template engine
+    return "org/melati/doc/example/contacts/ContactView";
   }
 
   public void deleteCategories(ContactsDatabase db, Contact contact) {
-    db.sqlUpdate("DELETE FROM contactcategory WHERE contact = " + contact.getTroid());
+
+    db.sqlUpdate("DELETE FROM " + db.quotedName("contactcategory") + 
+                 " WHERE " + db.quotedName("contact") + " = " + 
+                 contact.getTroid());
   }
 
   protected MelatiContext melatiContext(Melati melati)
@@ -91,3 +93,5 @@ public class ContactView extends WebmacroMelatiServlet {
   }
 
 }
+
+

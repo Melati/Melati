@@ -15,9 +15,11 @@ public class Contact extends ContactBase implements Treeable {
 
   // programmer's domain-specific code here
   
-    public boolean isIn(Category category) {
-      return getContactsDatabaseTables().getContactCategoryTable()
-           .exists("contact = " + getTroid() + " AND category = " + category.getTroid());
+  public boolean isIn(Category category) {
+     ContactsDatabase db = (ContactsDatabase)getContactsDatabaseTables();
+     String sql = db.quotedName("contact") + " = " + getTroid() + " AND " +
+	 db.quotedName("category") + " = " + category.getTroid();
+     return db.getContactCategoryTable().exists(sql);
   }
   
     protected void writeLock() {

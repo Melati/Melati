@@ -56,7 +56,7 @@ public class ConsEnumeration implements SkipEnumeration {
 
   public ConsEnumeration(Object hd, Enumeration tl) {
     this.hd = hd;
-    this.tl = tl;
+    this.tl = tl == null ? EmptyEnumeration.it : tl;
   }
 
   public synchronized boolean hasMoreElements() {

@@ -59,6 +59,7 @@ import org.melati.util.MelatiRuntimeException;
 import org.melati.util.Base64;
 import org.melati.util.StringUtils;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
+import org.melati.util.UnexpectedExceptionException;
 
 /**
  * Flags up when something was illegal or not supported about an incoming HTTP
@@ -160,6 +161,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
     } catch (IOException e) {
       e.printStackTrace(System.err);
+      throw new UnexpectedExceptionException(e);
     }
   }
 

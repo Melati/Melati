@@ -77,7 +77,7 @@ public class Melati {
 
     if (melatiContext.table != null) {
       table = database.getTable(melatiContext.table);
-      if (melatiContext.troid != null && melatiContext.troid.intValue() >= 0)
+      if (melatiContext.troid != null)
         object = table.getObject(melatiContext.troid.intValue());
     }
   }

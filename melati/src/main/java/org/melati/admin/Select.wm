@@ -100,7 +100,7 @@ $objects.TotalCount</b>
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='View?start=$objects.NextPageStart$crit#foreach $field in $orderings #begin &field-$ml.rendered($field.Name)=$ml.rendered($field.RawString) #end'"></font>
 #end
 	   </font></td>
-<td align=right><A HREF='$admin.addURL($table)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.TotalCount")' target=edit_space><IMG src="/images/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a></td>
+<td align=right><A HREF='$admin.addURL($table)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.TotalCount")' target=edit_space><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a></td>
 </tr></TABLE>
 <br>
 #if ($objects) #begin
@@ -120,7 +120,7 @@ $objects.TotalCount</b>
     #foreach $object in $objects #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href='$admin.editURL($object)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="/images/file.gif" border="0" alt="Edit" vspace=0></a></TD>
+	<TD bgcolor="$color"><a href='$admin.editURL($object)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0></a></TD>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $object.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field)</font></TD>

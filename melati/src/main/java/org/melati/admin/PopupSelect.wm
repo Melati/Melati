@@ -85,7 +85,7 @@ function checkAndunfocus(object) {
       <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
 	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)
 #if ($admin.isReferencePoemType($field)) #begin
-<a href='$admin.addURL($field.getType().targetTable())?target=top.sub_menu.file_browser.choosewindow&returnURL=$ml.encoded("$admin.popupTableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="/images/new_dir.gif" border="0" alt="New $field.DisplayName"></a>
+<a href='$admin.addURL($field.getType().targetTable())?target=top.sub_menu.file_browser.choosewindow&returnURL=$ml.encoded("$admin.popupTableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $field.DisplayName"></a>
 #end
 </font></TD>
     </TR>

@@ -7,6 +7,10 @@
 <suppressions>
     <suppress checks="MagicNumber"
               files="Test.java" />
+    <suppress checks="Javadoc"
+              files="Test.java" />
+    <suppress checks="EmptyBlock"
+              files="Test.java" />
     <suppress checks="LineLength"
               files="generated" />
     <suppress checks="Header"
@@ -15,6 +19,13 @@
               files="example" />
     <suppress checks="Header"
               files="test" />
+    <suppress checks="ParameterNumber"
+              files="BaseFieldAttributes.java" />
+    <suppress checks="MagicNumber"
+              files="DatePoemtype.java" />
+    <suppress checks="FileLength"
+              files="Table.java" />
+    <!-- Generated files -->
     <suppress checks="MagicNumber"
               files="Base.java" />
     <suppress checks="MethodLength"
@@ -32,4 +43,6 @@
               files="Metaphone.java" />
     <suppress checks=""
               files="Base64.java" />
+    <suppress checks=""
+              files="org/apache/" />
 </suppressions>

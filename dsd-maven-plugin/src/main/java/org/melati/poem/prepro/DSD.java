@@ -514,7 +514,7 @@ public class DSD {
   * @return the formatted string
   */
   static String javadocFormat(int indent1, int indent2, String string) {
-    int lineWidth = 79;
+    int lineWidth = 77;
     int index = indent1;
     StringBuffer b = new StringBuffer();
     for (int i = 0; i < indent1; i++) b.append(" ");

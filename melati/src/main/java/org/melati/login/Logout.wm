@@ -49,12 +49,12 @@
 <HEAD>
 <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
 </HEAD>
-
 <BODY BGCOLOR=white>
+<DIV ALIGN=CENTER>
 
-<CENTER>
-<H1>Logging you out...</H1>
-</CENTER>
+<h1>Logging you out...</h1>
+<p>Transferrng you <a href=$ml.escaped($continuationURL)>here</a>.</p>
 
+</DIV>
 </BODY>
 </HTML>

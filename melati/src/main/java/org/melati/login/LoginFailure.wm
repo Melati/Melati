@@ -47,15 +47,14 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 </HEAD>
-
 <BODY BGCOLOR=white>
 
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+<DIV ALIGN=CENTER>
 
 <FORM METHOD=post>
 
-<CENTER>
 
 <H1>Login</H1>
 
@@ -64,13 +63,13 @@
 <TABLE CELLPADDING=0 CELLSPACING=0>
   <TR>
     <TD>Login name</TD>
-    <TD>&nbsp;&nbsp;</TD>
+    <TD>&nbsp;</TD>
     <TD>$ml.input($login)</TD>
   </TR>
-  <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+  <TR><TD></TD><TD>&nbsp;</TD><TD></TD>
   <TR>
     <TD>Password</TD>
-    <TD>&nbsp;&nbsp;</TD>
+    <TD>&nbsp;</TD>
     <TD>$ml.inputAs($password, "passwordForChecking")</TD>
   </TR>
 </TABLE>
@@ -78,9 +77,13 @@
 <INPUT NAME=action VALUE="Log in" TYPE=submit
        ONCLICK="return validate(this.form);">
 
-</CENTER>
 
 </FORM>
-
+</DIV>
 </BODY>
 </HTML>
+
+
+
+
+

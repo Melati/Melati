@@ -48,33 +48,26 @@
 <HTML>
 <HEAD>
 </HEAD>
-
 <BODY BGCOLOR=white>
-
+<DIV ALIGN=center>
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-
 <FORM METHOD=post>
-
-<CENTER>
-
-<H1>Login</H1>
-
-
+<H1 ALIGN=center>Login</H1>
 #if ($triggeringException) #begin
   <P>You need to log in.</P>
   <P>$ml.rendered($triggeringException.Message)</P>
 #end
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<TABLE CELLPADDING=0 CELLSPACING=0 ALIGN=center>
   <TR>
     <TD>Login name</TD>
-    <TD>&nbsp;&nbsp;</TD>
+    <TD>&nbsp;</TD>
     <TD>$ml.input($login)</TD>
   </TR>
-  <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+  <TR><TD></TD><TD>&nbsp;</TD><TD></TD>
   <TR>
     <TD>Password</TD>
-    <TD>&nbsp;&nbsp;</TD>
+    <TD>&nbsp;</TD>
     <TD>$ml.inputAs($password, "passwordForChecking")</TD>
   </TR>
 </TABLE>
@@ -82,9 +75,10 @@
 <INPUT NAME=action VALUE="Log in" TYPE=submit
        ONCLICK="return validate(this.form);">
 
-</CENTER>
-
 </FORM>
-
+</DIV>
 </BODY>
 </HTML>
+
+
+

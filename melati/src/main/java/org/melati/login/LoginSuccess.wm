@@ -42,27 +42,17 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-
 #set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
-
 #if ($continuationURL) #begin
   <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
 #end
-
 </HEAD>
-
 <BODY BGCOLOR=white>
-
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-
-<CENTER>
-
-<H1>You have logged in</H1>
-
-</CENTER>
-
+<H1 align=center>You have logged in</H1>
+<p align=center>Transferring you <a href=$ml.escaped($continuationURL)>here</a>.</p>
 </BODY>
 </HTML>
+

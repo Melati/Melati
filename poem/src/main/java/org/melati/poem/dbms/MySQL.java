@@ -50,18 +50,26 @@ because end users don't read sources.
 2. Don't use asterix * for password, leave it empty (end of line), as:
    org.Melati.LogicalDatabase.melatitest.pass=
 
+2a. or use explicit username and password and 
+   GRANT ALL PRIVILEGES ON <dbname> 
+   TO <username>@localhost IDENTIFIED BY '<password>';
 3. Start MySQL in ANSI mode, for quoting names - ANSI.getQuotedName(String name)
-   FIXIT: Or change quotedName(), so MySQL runs in faster no-ANSI?
+   FIXME: Or change quotedName(), so MySQL runs in faster no-ANSI?
    
 4. Start MySQL with transactioned tables as default. InnoDB is stable,
-   BDB about being stable. I didn't try them because I don't have those modules: FIXIT
-   
+   BDB about being stable. 
+
+   FIXME: Untested
    safe_mysqld --user=mysql --ansi --default-table-type=InnoDB
 
    Works for me:
    safe_mysqld --user=mysql --ansi --default-table-type=BDB 
 
-5. Allow TCP connections, as JDBC can't use unix ports.
+5. FIXME: Allow TCP connections, as JDBC can't use unix ports.
+
+6. FIXME: I tried to get the MySQL BOOL type to work, but it was 
+   set to tinyint ....
+
 */
 
 package org.melati.poem.dbms;
@@ -72,57 +80,25 @@ import java.util.*;
 
 public class MySQL extends AnsiStandard {
 
-	//DEBUG FUN ONLY ::)
-	static public java.io.PrintStream logStream= System.err;
-/*	static {
-		try{
-			logStream= new java.io.PrintStream (new
-			 java.io.FileOutputStream("/root/logs/MySQL.Driver" ),true );
-		}
-		catch(Exception e) {
-			System.err.println();
-			System.err.println("LOG FILE COULDN'T BE CREATED!!!");
-			System.err.println();
-		}
-	}
-*/
 
     public MySQL() {
         setDriverClassName("org.gjt.mm.mysql.Driver");	
     }
 
-    //FIX IT!
     public String preparedStatementPlaceholder(PoemType type) {
-    	/*if (type instanceof IntegerPoemType)
-      		return "CAST(? AS INT4)";
-    	else if (type instanceof LongPoemType)
-      		return "CAST(? AS INT8)";
-    	else if (type instanceof DoublePoemType)
-     	 	return "CAST(? AS FLOAT8)";
-    	else */
       		return "?";
   }
 
 
     // this should probably be MySQL type BOOL == char(1)
     public String getSqlDefinition(String sqlTypeName) throws SQLException {
-	logStream.println();
-	logStream.println("--------------------------------------------");
-	logStream.println("MySQL.getSqlDefinition( "+sqlTypeName+") called");
 	if( sqlTypeName.equals("BOOLEAN"))
-	    return "INT"; //Any better type, as SHORT?
+	    return "INT"; 
+//	    return "BOOL"; 
 	return super.getSqlDefinition(sqlTypeName);
     }
 
     public String getStringSqlDefinition(int size) throws SQLException {
-	logStream.println();
-	logStream.println();
-	logStream.println("--------------------------------------------");
-	logStream.println("MySQL.getStringSqlDefinition(int) called:");
-	try {
-		throw new Exception(":)");
-	} catch(Exception e) {e.printStackTrace(System.err);}
-
         if (size < 0) { 
             return "TEXT";
         }
@@ -130,21 +106,18 @@ public class MySQL extends AnsiStandard {
     }
 
     public String getBinarySqlDefinition(int size) throws SQLException {
-	logStream.println();
-	logStream.println();
-	logStream.println("--------------------------------------------");
-	logStream.println("MySQL.getBinarySqlDefinition(int) called:");
         return "BLOB"; //How to define BLOB of limited size?
     }
 
 
     public static class MySQLStringPoemType extends StringPoemType {
-    /*FIXIT: StringPoemType(boolean nullable, int size) calls
+    /*FIXME: 
+      StringPoemType(boolean nullable, int size) calls
       SizedAtomPoemType(Types.VARCHAR, "VARCHAR", nullable, size)
-      This works, however is it supposed to work this way? Shouldn't be
+      This works, however is it supposed to work this way? 
+      Shouldn't it be
       MySQLStringPoemType be direct subclass of SizedAtomPoemType
       and call SizedAtomPoemType(Types.VARCHAR, "TEXT"..)?
-      I'm a newbie at this API..
      */
         public MySQLStringPoemType(boolean nullable, int size) {
             super(nullable, size);
@@ -181,13 +154,32 @@ public class MySQL extends AnsiStandard {
 				(i==1 ? Boolean.TRUE : Boolean.FALSE);
     		}
   	}
+        /*
+	protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+ 		synchronized (rs) {
+   			String v = rs.getString(col);
+      			return rs.wasNull() ? null :
+				(v.equals("t") ? Boolean.TRUE : Boolean.FALSE);
+    		}
+  	}
+        */
 
-	protected void _setRaw(PreparedStatement ps, int col, Object bool)
+        protected void _setRaw(PreparedStatement ps, int col, Object bool)
 	throws SQLException {
-		ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
+	    ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
 	}
-
-	//We can also leave original method from BooleanPoemType, it recognizes 0/1
+        /*
+        protected void _setRaw(PreparedStatement ps, int col, Object bool)
+        throws SQLException {
+            if (bool instanceof Boolean && bool == Boolean.TRUE) 
+              ps.setString(col, "t");
+            else
+              ps.setString(col, "f");
+        }
+        */
+        
+	// We can leave original method from BooleanPoemType, 
+        // it recognizes 0/1
 	protected Object _rawOfString(String rawString)
 	throws ParsingPoemException {
 		rawString = rawString.trim();
@@ -197,6 +189,7 @@ public class MySQL extends AnsiStandard {
 		        default: throw new ParsingPoemException(this, rawString);
 		}
 	}
+        
     }
 
 
@@ -218,10 +211,6 @@ public class MySQL extends AnsiStandard {
     }
 
     public PoemType canRepresent(PoemType storage, PoemType type) {
-      System.err.println();
-      System.err.println("MySQL.canRepresent called:");
-      System.err.println(storage.getClass()+": "+storage);
-      System.err.println(type.getClass()+": "+type);
       if (storage instanceof IntegerPoemType &&
           type instanceof BooleanPoemType) {
         return type;
@@ -231,26 +220,24 @@ public class MySQL extends AnsiStandard {
     }
 
 
-
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
-	System.err.println();
-	System.err.println("MySQL.defaultPoemTypeOfColumnMetaData(md) with:");
-	System.err.println(md);
-	System.err.println(md.getString("TYPE_NAME"));
 	ResultSetMetaData rsmd= md.getMetaData();
+
+        /*
 	try{
     	    int num= rsmd.getColumnCount();
 	    System.err.println("rsmd has "+new Integer(num)+" columns:");
 	    for( int i=0; i<num; i++) {
-		System.err.println();
 		try {System.err.print( "type: "+rsmd.getColumnType(i) ); }
 		catch(Exception e) {}
-		try {System.err.print( "name: "+rsmd.getColumnName(i) );}
+		try {System.err.println( "name: "+rsmd.getColumnName(i) );}
 		catch(Exception e) {}
 	    }
 	} catch(SQLException e) {}
-	
+        System.err.println("TYPE:" + md.getString("TYPE_NAME"));
+        */
+
         //I leave case as Postgres driver has it.
 	if( md.getString("TYPE_NAME").equals("blob") )
 	    return new BlobPoemType( md.getInt("NULLABLE") ==
@@ -301,8 +288,8 @@ public class MySQL extends AnsiStandard {
 	    String indexValue= m.substring(preIndex+1,postIndex);
 	    String indexColumn= m.substring(preColumn+4);
 
-	    System.err.println("Duplicated value "+indexValue+
-		" of "+indexColumn+"th unique field."); //For debug only.
+            System.err.println("Duplicated value "+indexValue+
+		" of "+indexColumn+"th unique field."); 
 	
     	    int indexNum= Integer.parseInt(indexColumn);
 	    Column column= table.troidColumn(); //Just to satisfy compiler.
@@ -327,4 +314,48 @@ public class MySQL extends AnsiStandard {
 
       return super.exceptionForUpdate(table, sql, insert, e);
     }
+
+  public String unreservedName(String name) {
+    if(name.equalsIgnoreCase("group")) name = "melati_" + name;
+    return name;
+  }
+  public String melatiName(String name) {
+    if(name.equalsIgnoreCase("melati_group")) name = "group";
+    return name;
+  }
+
+/*
+ MySQL requires TEXT and BLOB field indices to have an 
+ explicit length, 30 should be fine.
+ */
+
+  public String getIndexLength(Column column) {
+    PoemType t = column.getType();
+    if (t instanceof StringPoemType && ((StringPoemType)t).getSize() < 0) return "(30)";
+    if (t instanceof BlobPoemType) return "(30)";
+    return "";
+  }  
+
+  public String givesCapabilitySQL(User user, String capabilityExpr) {
+    return
+        "SELECT groupmembership.*  " + 
+        "FROM groupmembership LEFT JOIN groupcapability " +
+        "ON groupmembership." + getQuotedName("group") +
+        " =  groupcapability." + getQuotedName("group") + " " +
+        "WHERE " + getQuotedName("user") + " = " + user.troid() + " " +
+        "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
+        "AND capability = " + capabilityExpr;
+  }
+
+
 }
+
+
+
+
+
+
+
+
+
+

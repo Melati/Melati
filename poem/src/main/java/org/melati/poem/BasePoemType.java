@@ -130,14 +130,21 @@ public abstract class BasePoemType implements PoemType, Cloneable {
 
   protected abstract String _stringOfRaw(Object raw);
 
+  /**
+   * This <B>doesn't</B> do an explicit <TT>assertValidRaw</TT>.
+   */
+
   public final String stringOfRaw(Object raw)
       throws ValidationPoemException {
-    assertValidRaw(raw);
-    return _stringOfRaw(raw);
+    return raw == null ? null : _stringOfRaw(raw);
   }
 
   protected abstract Object _rawOfString(String string)
       throws ParsingPoemException;
+
+  /**
+   * This <B>does</T> do an explicit <TT>assertValidRaw</TT>.
+   */
 
   public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
@@ -247,6 +254,11 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     info.setSize(0);
     info.setWidth(width);
     info.setHeight(height);
+    info.setRangelow_string(
+        getLowRaw() == null ? null : stringOfRaw(getLowRaw()));
+    // this _won't_ throw an OutsideRangePoemException since it doesn't check
+    info.setRangelimit_string(
+        getLimitRaw() == null ? null : stringOfRaw(getLimitRaw()));
     _saveColumnInfo(info);
   }
 

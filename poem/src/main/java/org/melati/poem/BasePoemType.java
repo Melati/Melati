@@ -279,7 +279,10 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     // is it subset (inclusion) or some other notion of storability?
     return
         other.sqlTypeCode() == sqlTypeCode &&
-        other.getNullable() == nullable &&
+        // FIXME we weaken the nullability test so that ADD COLUMN can work with
+        // postgres
+        // other.getNullable() == nullable &&
+        !(other.getNullable() && !nullable) &&
         _canBe(other);
   }
 

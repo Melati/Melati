@@ -1074,6 +1074,7 @@ public class Table {
     try {
       validate(data);
       object.assertCanWrite(data, sessionToken.accessToken);
+      data.dirty = true;
       writeDown(sessionToken.session, troid, data);
     }
     catch (Exception e) {

@@ -287,10 +287,10 @@ public class TableDef {
 
     if (cacheSize != CacheSizeTableQualifier.DEFAULT)
       w.write("  protected Integer defaultCacheLimit() {\n" +
-              "    return " +
+              "    return new Integer(" +
                        (cacheSize == CacheSizeTableQualifier.UNLIMITED ?
-                            "null" :  "new Integer(" + cacheSize + ")") +
-                       ";\n" +
+                            "999999999" :  "" + cacheSize) +
+                       ");\n" +
               "  }\n" +
               "\n");
 

@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ColumnInfoTableBase extends ValueInfoTable {
+public class ColumnInfoTableBase extends org.melati.poem.ValueInfoTable {
 
   private Column col_id = null;
   private Column col_tableinfo = null;

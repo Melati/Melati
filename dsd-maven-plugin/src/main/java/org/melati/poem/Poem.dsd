@@ -303,7 +303,7 @@ abstract table ValueInfo {
       (displaylevel = detail) (searchability = no);
 }
 
-table ColumnInfo extends ValueInfo
+table ColumnInfo extends org.melati.poem.ValueInfo
     (displayorder = 3020)
     (displayname = "Column")
     (description = "Configuration information about a column in the database")
@@ -379,7 +379,7 @@ table TableCategory
       (displayorderpriority = 0) (displaylevel = primary) (searchability = primary);
 }
 
-table Setting extends ValueInfo
+table Setting extends org.melati.poem.ValueInfo
     (displayorder = 3040)
     (description = "A configurable setting for the application")
     (category = "System")
@@ -389,7 +389,7 @@ table Setting extends ValueInfo
   (primary) Integer id
       (displayorder = 0);
 
-  (unique) String name (size = unlimited)
+  (unique) String name (size = 200)
       (description = "A code name for this setting")
       (searchability = primary);
 

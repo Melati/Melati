@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public abstract class ColumnInfoBase extends ValueInfo {
+public abstract class ColumnInfoBase extends org.melati.poem.ValueInfo {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();

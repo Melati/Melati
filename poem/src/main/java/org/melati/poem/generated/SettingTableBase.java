@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class SettingTableBase extends ValueInfoTable {
+public class SettingTableBase extends org.melati.poem.ValueInfoTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -79,7 +79,7 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false, 200), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getName();

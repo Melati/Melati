@@ -18,7 +18,12 @@ class Database implements org.odmg.Database
   private org.melati.poem.Database _poemDB = null;
   private String _logicalDB = null;
 
-  org.melati.poem.Database getPoemDatabase() { return _poemDB; }
+  org.melati.poem.Database getPoemDatabase() 
+    throws org.odmg.ODMGException
+  { 
+    if (_poemDB == null) throw new org.odmg.DatabaseClosedException("org.melati.poem.odmg.Database::getPoemDatabase - POEM DB not set");
+    return _poemDB; 
+  }
 
   /** Opens a connection to the db
     @parameter openParameters the Poem logical db name
@@ -30,6 +35,7 @@ class Database implements org.odmg.Database
     try {
       _poemDB = LogicalDatabase.getDatabase(_logicalDB);
     } catch (DatabaseInitException err) {
+      err.printStackTrace();
       throw new org.odmg.ODMGException(err.getMessage());
     }
   }

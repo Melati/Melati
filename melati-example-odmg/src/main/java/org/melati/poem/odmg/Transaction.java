@@ -15,10 +15,16 @@ class Transaction implements org.odmg.Transaction
   private org.melati.util.Transaction _tx = null;
 
   public void begin() 
+    throws org.odmg.ODMGRuntimeException
   {
     if (_tx != null) throw new org.odmg.TransactionInProgressException();
- 
-    _tx = _db.getPoemDatabase().transaction(1);  // any issues with always using 1?
+
+    try { 
+      _tx = _db.getPoemDatabase().transaction(1);  // any issues with always using 1?
+    } catch (org.odmg.ODMGException exc) 
+    { 
+      throw new org.odmg.ODMGRuntimeException(exc.getMessage());
+    }
   }
 
   public void commit() { throw new org.odmg.NotImplementedException(); }

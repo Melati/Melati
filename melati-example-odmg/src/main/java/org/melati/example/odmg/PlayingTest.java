@@ -10,6 +10,9 @@ public class PlayingTest
     System.out.println("PlayingTest started:");
 
     Database db = org.melati.poem.odmg.ODMGFactory.getNewDatabase();
+    System.out.println("Got a db = "+db);
+
+    db.open("odmgplaying",Database.OPEN_READ_WRITE);
 
     Transaction tx = org.melati.poem.odmg.ODMGFactory.getNewTransaction(db);
     tx.begin();

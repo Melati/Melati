@@ -743,12 +743,12 @@ public class Persistent extends Transactioned implements Cloneable {
    * @exception AccessPoemException
    *                if the calling thread doesn't have write access to the
    *                object (see <TT>assertCanWrite</TT>)
-   * @exception TypeMismatchPoemException
-   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
-   *                DSD-derived typed versions of this method
    * @exception ValidationPoemException
    *                if <TT>raw</TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
+   * @exception TypeMismatchPoemException
+   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
+   *                DSD-derived typed versions of this method
    *
    * @see #setCooked
    * @see #setRawString
@@ -903,7 +903,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
    *
-   * @param raw       The new value for the field: a <TT>String</TT>,
+   * @param cooked      the new value for the field: a <TT>String</TT>,
    *                    <TT>Boolean</TT>, <TT>Integer</TT>, <TT>Double</TT>,
    *                    <TT>Date</TT> or, for a reference field, a
    *                    <TT>Persistent</TT>.  If you want to pass referees as

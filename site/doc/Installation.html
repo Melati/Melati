@@ -128,14 +128,13 @@
 </P>
 
 <UL>
-  <LI> Database corruption.  Do not let Melati connect to a database whose
-       contents you value!
-
-  <LI> Insecurity.  Although Melati provides a user authorisation and access
-       control system, it isn't supposed to be indefeasible by the application
-       programmer, and anyway it probably doesn't work yet.
-
-  <LI> Bugginess.  Do not use Melati for anything important.
+  <LI> Database corruption. Melati has been used for a number of projects over 
+    about 6 months, no corruption has ever been experienced
+  <LI> Insecurity. Although Melati provides a user authorization and access control 
+    system, it isn't supposed to be indefeasible by the application programmer. 
+    Bad programming can make your application insecure.
+  <LI> Bugginess. Melati is excitingly short on bugs! Any that you find will be 
+    jumped on :)
 </UL>
 
 
@@ -540,6 +539,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.27  2000/11/08 14:33:35  timj
+  <BR>reduce risks
+  <BR>
   <BR>Revision 1.26  2000/11/07 13:58:46  timj
   <BR>print stack traces when things go wrong
   <BR>

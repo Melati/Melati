@@ -21,17 +21,17 @@ public class ValueInfoBase extends Persistent {
     return (ValueInfoTable)getTable();
   }
 
-  String displayname;
-  String description;
-  Boolean usereditable;
-  Integer typefactory;
-  Boolean nullable;
-  Integer size;
-  Integer width;
-  Integer height;
-  String renderinfo;
-  String rangelow_string;
-  String rangelimit_string;
+  protected String displayname;
+  protected String description;
+  protected Boolean usereditable;
+  protected Integer typefactory;
+  protected Boolean nullable;
+  protected Integer size;
+  protected Integer width;
+  protected Integer height;
+  protected String renderinfo;
+  protected String rangelow_string;
+  protected String rangelimit_string;
 
   public String getDisplayname_unsafe() {
     return displayname;

@@ -21,10 +21,10 @@ public class UserBase extends Persistent {
     return (UserTable)getTable();
   }
 
-  Integer id;
-  String login;
-  String password;
-  String name;
+  protected Integer id;
+  protected String login;
+  protected String password;
+  protected String name;
 
   public Integer getId_unsafe() {
     return id;

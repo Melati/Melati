@@ -21,9 +21,9 @@ public class GroupMembershipBase extends Persistent {
     return (GroupMembershipTable)getTable();
   }
 
-  Integer id;
-  Integer user;
-  Integer group;
+  protected Integer id;
+  protected Integer user;
+  protected Integer group;
 
   public Integer getId_unsafe() {
     return id;

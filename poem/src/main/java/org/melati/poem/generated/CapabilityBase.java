@@ -21,8 +21,8 @@ public class CapabilityBase extends Persistent {
     return (CapabilityTable)getTable();
   }
 
-  Integer id;
-  String name;
+  protected Integer id;
+  protected String name;
 
   public Integer getId_unsafe() {
     return id;

@@ -21,8 +21,8 @@ public class GroupBase extends Persistent {
     return (GroupTable)getTable();
   }
 
-  Integer id;
-  String name;
+  protected Integer id;
+  protected String name;
 
   public Integer getId_unsafe() {
     return id;

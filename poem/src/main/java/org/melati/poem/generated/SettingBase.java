@@ -21,9 +21,9 @@ public class SettingBase extends ValueInfo {
     return (SettingTable)getTable();
   }
 
-  Integer id;
-  String name;
-  String value;
+  protected Integer id;
+  protected String name;
+  protected String value;
 
   public Integer getId_unsafe() {
     return id;

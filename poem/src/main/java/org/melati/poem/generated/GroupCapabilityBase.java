@@ -21,9 +21,9 @@ public class GroupCapabilityBase extends Persistent {
     return (GroupCapabilityTable)getTable();
   }
 
-  Integer id;
-  Integer group;
-  Integer capability;
+  protected Integer id;
+  protected Integer group;
+  protected Integer capability;
 
   public Integer getId_unsafe() {
     return id;

@@ -21,8 +21,8 @@ public class TableCategoryBase extends Persistent {
     return (TableCategoryTable)getTable();
   }
 
-  Integer id;
-  String name;
+  protected Integer id;
+  protected String name;
 
   public Integer getId_unsafe() {
     return id;

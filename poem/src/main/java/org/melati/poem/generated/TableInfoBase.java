@@ -21,17 +21,17 @@ public class TableInfoBase extends Persistent {
     return (TableInfoTable)getTable();
   }
 
-  Integer id;
-  String name;
-  String displayname;
-  String description;
-  Integer displayorder;
-  Integer defaultcanread;
-  Integer defaultcanwrite;
-  Integer cancreate;
-  Integer cachelimit;
-  Boolean seqcached;
-  Integer category;
+  protected Integer id;
+  protected String name;
+  protected String displayname;
+  protected String description;
+  protected Integer displayorder;
+  protected Integer defaultcanread;
+  protected Integer defaultcanwrite;
+  protected Integer cancreate;
+  protected Integer cachelimit;
+  protected Boolean seqcached;
+  protected Integer category;
 
   public Integer getId_unsafe() {
     return id;

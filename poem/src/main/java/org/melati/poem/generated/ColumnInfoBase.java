@@ -21,16 +21,16 @@ public class ColumnInfoBase extends ValueInfo {
     return (ColumnInfoTable)getTable();
   }
 
-  Integer id;
-  Integer tableinfo;
-  String name;
-  Integer displayorder;
-  Boolean usercreateable;
-  Integer displaylevel;
-  Integer searchability;
-  Integer displayorderpriority;
-  Boolean indexed;
-  Boolean unique;
+  protected Integer id;
+  protected Integer tableinfo;
+  protected String name;
+  protected Integer displayorder;
+  protected Boolean usercreateable;
+  protected Integer displaylevel;
+  protected Integer searchability;
+  protected Integer displayorderpriority;
+  protected Boolean indexed;
+  protected Boolean unique;
 
   public Integer getId_unsafe() {
     return id;

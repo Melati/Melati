@@ -33,9 +33,6 @@ OLDCP=$CLASSPATH
 # Assumed that the following are in melati/CVS
 export ODMG=../poem/odmg/required-libs/odmg3.jar
 
-# for jobs that use melati - need melati itself on classpath
-export MELATI_JAR=../../../../lib/melati-1.0.jar
-
 #--------------------------------------------
 # No need to edit anything past here
 #--------------------------------------------
@@ -71,7 +68,7 @@ if [ "$RC" -eq "1" ] ; then
    exit 1
 fi
 
-javap org.webmacro.engine.WMParser >/dev/null
+javap org.webmacro.WebMacro >/dev/null
 RC=$?
 if [ "$RC" -eq "1" ] ; then
    echo -e >&2 "I cannot find the webmacro stuff on the classpath..."
@@ -121,7 +118,7 @@ fi
 echo "Now building ${TARGET}..."
 
 # add onto the classpath the jars for ant, that is ant.jar and an xml parser...
-export CLASSPATH=${CLASSPATH}:jaxp.jar:parser.jar:ant.jar:${ODMG}:${MELATI_JAR}
+export CLASSPATH=${CLASSPATH}:jaxp.jar:parser.jar:ant.jar:${ODMG}
 
 echo JAVAC = ${JAVAC}
 echo CLASSPATH= ${CLASSPATH}

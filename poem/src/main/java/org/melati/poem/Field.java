@@ -175,6 +175,10 @@ public class Field implements FieldAttributes, Cloneable {
     return new Field(raw, new BaseFieldAttributes(attrs, name));
   }
 
+  public Field withDescription(String description) {
+    return new Field(raw, new BaseFieldAttributes(attrs, attrs.getName(), description));
+  }
+
   public Enumeration getPossibilities() {
     final Field _this = this;
     return

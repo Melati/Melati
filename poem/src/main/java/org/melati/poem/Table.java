@@ -649,8 +649,8 @@ public class Table {
    */
 
   void notifyTouched(PoemTransaction transaction, Persistent persistent) {
-    // we use transaction == null in case of rollbacks, where we should be locked
-    // anyway and certainly don't want to block
+    // we use transaction == null in case of rollbacks, where we should be
+    // locked anyway and certainly don't want to block
 
     if (transaction == null)
       serial.increment_unlocked();

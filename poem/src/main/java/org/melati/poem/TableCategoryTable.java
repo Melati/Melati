@@ -12,6 +12,8 @@ public class TableCategoryTable extends TableCategoryTableBase {
   }
 
   TableCategory ensure(String name) {
-    return (TableCategory)getNameColumn().ensure(new TableCategory(name));
+    TableCategory it = (TableCategory)newPersistent();
+    it.setName(name);
+    return (TableCategory)getNameColumn().ensure(it);
   }
 }

@@ -65,9 +65,9 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     super.postInitialise();
 
     Database d = getDatabase();
-    GroupMembership admin =
-        new GroupMembership(d.getUserTable().administratorUser(),
-                            d.getGroupTable().administratorsGroup());
+    GroupMembership admin = (GroupMembership)newPersistent();
+    admin.setUser(d.getUserTable().administratorUser());
+    admin.setGroup(d.getGroupTable().administratorsGroup());
     if (!exists(admin))
       create(admin);
 

@@ -144,7 +144,6 @@ public class Table {
   }
 
   final String quotedName() {
-
     if (quotedName == null) quotedName = database.quotedName(name);
     return quotedName;
   }
@@ -912,6 +911,11 @@ public class Table {
       }
 
       ResultSet rs = connection.createStatement().executeQuery(sql);
+
+      SessionToken token = PoemThread._sessionToken();
+      if (token != null)
+        token.toTidy().add(rs);
+
       if (database.logSQL)
         database.log(new SQLLogEvent(sql));
       return rs;
@@ -1036,7 +1040,7 @@ public class Table {
    */
    
    public Enumeration selection(String whereClause, String orderByClause,
-                               boolean includeDeleted)
+                                boolean includeDeleted)
       throws SQLPoemException {
     return
         new MappedEnumeration(troidSelection(whereClause, orderByClause,
@@ -1342,6 +1346,12 @@ public class Table {
 
   protected Persistent _newPersistent() {
     return new Persistent();
+  }
+
+  public void delete_unsafe(String whereClause) {
+    serial.increment(PoemThread.transaction());
+    getDatabase().sqlUpdate("DELETE FROM " + quotedName + " WHERE " + whereClause);
+    uncacheContents();
   }
 
   /**

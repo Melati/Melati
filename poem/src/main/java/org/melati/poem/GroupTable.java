@@ -61,8 +61,7 @@ public class GroupTable extends GroupTableBase {
     super(database, name, definitionSource);
   }
 
-  private Group administratorsGroup =
-      new Group("Melati database administrators");
+  private Group administratorsGroup;
 
   Group administratorsGroup() {
     return administratorsGroup;

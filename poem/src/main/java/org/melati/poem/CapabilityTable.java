@@ -62,7 +62,7 @@ public class CapabilityTable extends CapabilityTableBase {
     super(database, name, definitionSource);
   }
 
-  private Capability administer = new Capability("_administer_");
+  private Capability administer;
 
   Capability administer() {
     return administer;
@@ -72,7 +72,9 @@ public class CapabilityTable extends CapabilityTableBase {
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
 
-    administer = (Capability)getNameColumn().ensure(administer);
+    Capability standard = (Capability)newPersistent();
+    standard.setName_unsafe("_administer_");
+    administer = (Capability)getNameColumn().ensure(standard);
 
     if (getTableInfo().getDefaultcanwrite() == null)
       getTableInfo().setDefaultcanwrite(administer);

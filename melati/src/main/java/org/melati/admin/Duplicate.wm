@@ -51,14 +51,10 @@
 <HEAD>
 </HEAD>
 <script>
-#use 'text' until "--The End--"
 function reloadframes() {
---The End--
-$Form.returnTarget;.location.href="$Form.returnURL";
-$Form.returnTarget;.focus();
-#use 'text' until "--The End--"
+  $Form.returnTarget;.location.href="$Form.returnURL";
+  $Form.returnTarget;.focus();
 }
---The End--
 </script>
 <BODY bgcolor="#cccccc" onLoad="reloadframes()">
 <center><br><br><br><br>

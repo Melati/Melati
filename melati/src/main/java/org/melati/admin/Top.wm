@@ -5,8 +5,6 @@
 <TITLE>Options</TITLE>
 
 <SCRIPT Language="JavaScript">
-#use 'text' until "--THEEND--"
-
 function goto_page() {
 var selector;
 selector = document.forms[0].mainmenu;
@@ -14,8 +12,6 @@ var option = selector.options[document.forms[0].elements[0].selectedIndex].value
 if (option != "null") parent["admin_bottom"].location = option;
 return false;
 }
-
---THEEND--
 </SCRIPT>
 
 </HEAD>

@@ -54,20 +54,18 @@
 <SCRIPT Language="JavaScript">
 <!--
 var newURL = "$admin.SelectionURL($table)";
-#use 'text' until "--The End--"
 function get_list() {
-parent.admin_selection.location.href = newURL;
-return false;
+  parent.admin_selection.location.href = newURL;
+  return false;
 }
 function goto_page() {
-var selector;
-selector = document.forms[0].elements[0];
-var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-if (option != "null") parent["admin_selection"].location = option;
-return false;
+  var selector;
+  selector = document.forms[0].elements[0];
+  var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
+  if (option != "null") parent["admin_selection"].location = option;
+  return false;
 }
 // -->
---The End--
 </SCRIPT>
 </HEAD>
 

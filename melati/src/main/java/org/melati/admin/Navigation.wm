@@ -62,14 +62,11 @@ var remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
 if (remoteWin != null) {
     remoteWin.close();
 }
-#use 'text' until "--The End--"
 
 function openWindow() {
    remoteWin = window.open("", "search", sizeString, "scrollbars=yes");
    if (remoteWin != null) {
---The End--
      remoteWin.location = '$admin.PopupURL($table)';
-#use 'text' until "--The End--"
      remoteWin.focus();
    }
    return false;
@@ -79,8 +76,6 @@ function focusThis() {
 alert("1");
    this.focus();
 }
-
---The End--
 //-->
 </script>
 <center>

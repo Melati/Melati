@@ -54,13 +54,11 @@
 <SCRIPT Language="JavaScript">
 <!--
 var newURL = "$admin.SelectionWindowSelectionURL($table)?returnfield=$Form.returnfield";
-#use 'text' until "--The End--"
 function get_list() {
-parent.selectionwindow_selection.location.href = newURL;
-return false;
+  parent.selectionwindow_selection.location.href = newURL;
+  return false;
 }
 // -->
---The End--
 </SCRIPT>
 </HEAD>
 

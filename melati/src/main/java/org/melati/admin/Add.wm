@@ -55,7 +55,6 @@
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
-#use 'text' until '--END--'
 <script TYPE="text/javascript">
 <!--
 function popupupdate(popupwin,returnfield,id,value) {
@@ -66,7 +65,6 @@ function popupupdate(popupwin,returnfield,id,value) {
 }
 //-->
 </script>
---END--
 
 <FORM METHOD=post ACTION=AddUpdate>
 <H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>

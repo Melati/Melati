@@ -51,13 +51,9 @@
 <HEAD>
 </HEAD>
 <script>
-#use 'text' until "--The End--"
 function reloadframes() {
---The End--
-top.location.href="Main";
-#use 'text' until "--The End--"
+  top.location.href="Main";
 }
---The End--
 </script>
 <BODY bgcolor="#cccccc" onLoad="reloadframes()">
 <center><br><br><br><br>

@@ -201,4 +201,27 @@ public class Field implements FieldAttributes, Cloneable {
     p.print(getName() + ": " + getCookedString(MelatiLocale.here,
 					       DateFormat.MEDIUM));
   }
+
+  public static Field basic(Object value, String name, PoemType type) {
+    return
+        new Field(value,
+                  new BaseFieldAttributes(name, name, null, type, 20, 1, null));
+  }
+
+  public static Field string(String value, String name) {
+    return basic(value, name, StringPoemType.nullable);
+  }
+
+  public static Field integer(Integer value, String name) {
+    return basic(value, name, IntegerPoemType.nullable);
+  }
+
+  public static Field reference(Persistent value, String name) {
+    return basic(value.troid(), name,
+                 new ReferencePoemType(value.getTable(), true));
+  }
+
+  public static Field reference(Table table, String name) {
+    return basic(null, name, new ReferencePoemType(table, true));
+  }
 }

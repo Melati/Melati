@@ -48,6 +48,15 @@
 package org.melati.poem;
 
 public class TableInfo extends TableInfoBase {
+
+  private Table _actualTable = null;
+
+  private Table actualTable() {
+    if (_actualTable == null && troid() != null)
+      _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
+    return _actualTable;
+  }
+
   protected void assertCanRead(AccessToken token) {}
 
   public TableInfo() {
@@ -78,11 +87,11 @@ public class TableInfo extends TableInfoBase {
 
   public void setSeqcached(Boolean b) throws AccessPoemException {
     super.setSeqcached(b);
-    getTable().rememberAllTroids(b.booleanValue());
+    actualTable().rememberAllTroids(b.booleanValue());
   }
 
   public void setCachelimit(Integer limit) throws AccessPoemException {
     super.setCachelimit(limit);
-    getTable().setCacheLimit(limit);
+    actualTable().setCacheLimit(limit);
   }
 }

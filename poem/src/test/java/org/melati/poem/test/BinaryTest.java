@@ -64,7 +64,7 @@ public class BinaryTest {
                       "Found " + new String(aThing.getBinaryfield()));
 
               AThing bThing = (AThing)db.getAThingTable().newPersistent();
-              bThing.setBinaryfield("Bórÿ".getBytes());
+              bThing.setBinaryfield(new byte[] { 98, -3, -120 });
               bThing.makePersistent();
             }
             catch (Exception e) {

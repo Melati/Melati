@@ -114,7 +114,7 @@ public class Admin extends MelatiServlet {
         "id",
         new BaseFieldAttributes(
             "troidName", "Troid column", "Name of TROID column",
-            database.getColumnInfoTable().getNameColumn().getType(), null));
+            database.getColumnInfoTable().getNameColumn().getType(), 20, 1, null));
 
     context.put("troidNameField", troidNameField);
 

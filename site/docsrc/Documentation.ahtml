@@ -1,34 +1,45 @@
 @header@
 <!--
-  <p align=center>
-   <font size=-1><i>
+  <p align="center">
+   <font size="-1"><i>
 This page last updated: $Date$ $Author$
    </i></font>
   </p>
 -->
 @menu@
-<h2>Documentation</h2>
+@sectionStartTagStart@ Documentation @sectionStartTagEnd@
+<h3>Current Documentation.</h3>
 <ul>
- <li><A HREF=doc/index.html>Overview of Melati</a> 
- <li><A HREF=/melati-static/README.html>README</a> 
- <li><A HREF=/melati-static/RELEASE-NOTES.html>RELEASE-NOTES</a> 
- <li><A HREF=doc/PoemInternals.html>Poem Internals</a>
- <li><A HREF=doc/PoemUserGuide.html>Poem User Guide</a>
- <li><A HREF=doc/PoemPreproUserGuide.html>Preprocessor User Guide</a>
- <li><A HREF=/javadoc/>Java Docs</a>.  
-     Also available for <a href="Download.html">download</a>.
- <li><a href="http://maven.apache.org">Maven</a> generated 
-     <a href="http://maven.melati.org">site</a>.
+ <LI><A HREF="doc/index.html">Overview of Melati</A>  </LI>
+ <LI><A HREF="/melati-static/README.html">README</A>  </LI>
+ <LI><A HREF="/melati-static/RELEASE-NOTES.html">RELEASE-NOTES</A>  </LI>
+ <LI><A HREF="doc/PoemInternals.html">Poem Internals</A> </LI>
+ <LI><A HREF="doc/PoemUserGuide.html">Poem User Guide</A> </LI>
+ <LI><A HREF="doc/PoemPreproUserGuide.html">Preprocessor User Guide</A> </LI>
+ <LI><A HREF="/javadoc/">Java Docs</A>.  
+     Also available for <A href="Download.html">download</A>. </LI>
+ <LI><A href="http://maven.apache.org">Maven</A> generated 
+     <A href="http://maven.melati.org">site</A>. </LI>
 </ul>
-<p>The specification documents for Melati</p>
+<h3>The original specification documents for Melati.</h3>
+<p>
+Mostly of historical interest.
+</p>
 <ul>
- <li><A HREF=doc/RelatedProducts.html>Related Products Report</a>
- <li><A HREF=doc/Requirements.html>Requirements Specification</a>
- <li><A HREF=doc/QA.html>Master Quality Document</a>
- <li><A HREF=doc/FunctionalSpecification.html>Functional Specification</a>
- <li><A HREF=doc/ImplementationPlan.html>Implementation Plan</a>
- <li><A HREF=doc/Internals.html>Internals Document</a>
+ <LI><A 
+      HREF="doc/RelatedProducts.html">Related Products Report</A> </LI>
+ <LI><A 
+      HREF="doc/Requirements.html">Requirements Specification</A> </LI>
+ <LI><A 
+      HREF="doc/QA.html">Master Quality Document</A> </LI>
+ <LI><A 
+      HREF="doc/FunctionalSpecification.html">Functional Specification</A></LI>
+ <LI><A 
+      HREF="doc/ImplementationPlan.html">Implementation Plan</A> </LI>
+ <LI><A 
+      HREF="doc/Internals.html">Internals Document</A> </LI>
 </ul>
+@sectionEndTag@
 @footer@
 
 

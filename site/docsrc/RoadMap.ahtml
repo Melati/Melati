@@ -1,22 +1,22 @@
 @header@
 <!--
-<p align=center>
- <font size=-1><i>
+<p align="center">
+ <font size="-1"><i>
 This page last updated: $Date$ $Author$
  </i></font>
 </p>
 -->
 @menu@
-<h2>Roadmap to 1.0</h2>
+@sectionStartTagStart@ Roadmap to 1.0 @sectionStartTagEnd@
 <p>
-<b>Melati is stable and perfectly usable</b>.<br>
+<b>Melati is stable and perfectly usable</b>.<br />
 The following gives the items which 
 would be nice to have before a 1.0 release.
 </p>
 <table border="1" cellspacing="0" cellpadding="10">
   <tr> 
     <td><b>Release</b></td>
-    <td><b>Tasks</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td><b>Tasks</b></td>
     <td><b>Status</b></td>
   </tr>
   <tr> 
@@ -52,54 +52,55 @@ would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.61</td>
-    <td>Support for McKoiDB.  <BR>
-        Support for HSQLDB.   <BR>
-        Support for JSDK 2.3. <BR>
-        Removal of all deprecated methods. <BR>
-        Removal of all javadoc errors. <BR>
+    <td>Support for McKoiDB.  <BR />
+        Support for HSQLDB.   <BR />
+        Support for JSDK 2.3. <BR />
+        Removal of all deprecated methods. <BR />
+        Removal of all javadoc errors. <BR />
     </td>
     <td><b>done</b></td>
   </tr>
   <tr> 
     <td>0.70</td>
-    <td>Support for JDK 1.1.4. <br>
-        <a href="http://maven.melati.org">Maven site</a> generated. <br>
-        User Locale setting supported.<br>
-        All imports reorganised and generated code improved.<br>
+    <td>Support for JDK 1.1.4. <br />
+        <a href="http://maven.melati.org">Maven site</a> generated. <br />
+        User Locale setting supported.<br />
+        All imports reorganised and generated code improved.<br />
     </td>
     <td><b>done</b></td>
   </tr>
   <tr> 
-    <td>0.72</td>
-    <td>Support for Oracle, Interbase etc.</td>
-    <td>&nbsp;</td>
+    <td>0.71</td>
+    <td>Completion JavaDocs.</td>
+    <td></td>
   </tr>
   <tr> 
     <td>0.75</td>
-    <td>Completion of Documentation - Manual, Java Docs, Howto's.</td>
+    <td>Completion of Documentation - Manual, Howto's.</td>
     <td>In progess</td>
   </tr>
   <tr> 
     <td>0.80</td>
     <td>Templets are used to render everything.</td>
-    <td>&nbsp;</td>
+    <td></td>
   </tr>
   <tr> 
     <td>0.90</td>
     <td>Melati / POEM separation.</td>
-    <td>&nbsp;</td>
+    <td></td>
   </tr>
   <tr>
     <td>1.0</td>
     <td>MDK (Melati Developer's Kit)</td>
     <td>
-        Bundled with Jetty and HSQLDB. <br>
-        <tt>ant</tt> build script improved.<br>
-        Support for <a href="http://www.eclipse.org/">Eclipse</a>.<br>
+        Bundled with Jetty and HSQLDB. <br />
+        <tt>ant</tt> build script improved.<br />
+        Support for <a href="http://www.eclipse.org/">Eclipse</a>.<br />
         Support and use of <a href="http://maven.apache.org/">Maven</a>.
     </td>
   </tr>
 </table>
+@sectionEndTag@
 @footer@
 
 

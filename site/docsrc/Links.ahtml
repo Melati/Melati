@@ -7,8 +7,8 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
-<h2>Links</h2>
-<h3>Melati related Technologies:</h3>
+@sectionStartTagStart@ Melati related Technologies @sectionStartTagEnd@
+
 <ul>
  <li>
   <a href="http://www.sourceforge.net/projects/melati">Melati on 
@@ -30,7 +30,7 @@ This page last updated: $Date$ $Author$
   template engine supported by Melati. 
  </li>
  <li>
-  <a href=http://www.postgresql.org/>Postgres</a> is the reference database 
+  <a href="http://www.postgresql.org/">Postgres</a> is the reference database 
   for initial Melati development. 
  </li>
  <li>
@@ -70,14 +70,18 @@ This page last updated: $Date$ $Author$
  </li>
  <li><a href="http://www.cvshome.org/">CVS</a> Concurrent Versions System 
   is used by the Melati developers. 
+ </li>
  <li><a href="http://maven.apache.org/">Maven</a> is a useful system
   build, test and deployment system which is used to maintain
   Melati code quality and produce the 
   <a href="http://maven.melati.org">Maven site</a>.</li>
  <li><a href="http://www.eclipse.org/">Eclipse</a> 
   is an IDE used by some Melati developers, which Melati works well with.
+ </li>
  <li><a href="http://www.wincvs.org">WinCVS</a> CVS client for Windows. 
+ </li>
 </ul>
+@sectionEndTag@
 @footer@
 
 

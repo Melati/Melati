@@ -1,19 +1,26 @@
 @header@
 <!--
-<p align=center>
- <font size=-1><i>
+<p align="center">
+ <font size="-1"><i>
 This page last updated: $Date$ $Author$
  </i></font>
 </p>
 -->
 @menu@
-<h2>Licence Info</h2>
+<p>
+  We would like melati to be used by as many people as possible. 
+  If licencing issues are going to stop you using Melati, 
+  please let us know on the <a href="MailingList.html">mailing lists</a> 
+  and we will make every effort to accomodate you.
+</p>
+@sectionStartTagStart@ Licence Info @sectionStartTagEnd@
 <pre>
 /* 
- * Melati is free software; Permission is granted to copy, distribute and/or 
- * modify this software under the terms either:<br>
+ * Melati is free software; Permission is granted to copy, distribute 
+ * and/or modify this software under the terms either:
  *
- * a) the GNU General Public License as published by the Free Software Foundation; 
+ * a) the GNU General Public License as published by the 
+ *    Free Software Foundation; 
  *    either version 2 of the License, or (at your option) any later version.
  *
  * or
@@ -22,20 +29,26 @@ This page last updated: $Date$ $Author$
  *
  *
  * The GNU General Public License version 2 is included 
- * in this release, please read the file <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-GPL.txt>LICENSE-GPL.txt</a>. It is also available at
- * <A HREF=http://www.gnu.org/copyleft/gpl.txt>http://www.gnu.org/copyleft/gpl.txt</a>
+ * in this release, please read the file LICENSE-GPL.txt. 
+ * It is also available at http://www.gnu.org/copyleft/gpl.txt.
  *
- * The Melati Software License is compatible with the Apache Software Foundation's 
- * Apache Software Licence, please read the file <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-MSL.txt>LICENSE-MSL.txt</a>
+ * The Melati Software License is compatible with 
+ * the Apache Software Foundation's Apache Software Licence, 
+ * please read the file LICENSE-MSL.txt.
  *
  */  
 </pre>
+
 <p>
-  We would like melati to be used by as many people as possible.  If licencing issues are 
-  going to stop you using Melati, please let us know on the
-  <a href=MailingList.html>mailing lists</a> and we will make
-  every effort to accomodate you.
+<ol>
+ <li><A
+  HREF="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-GPL.txt">LICENSE-GPL.txt</A>.</li>
+ <li><A HREF="http://www.gnu.org/copyleft/gpl.txt">http://www.gnu.org/copyleft/gpl.txt</A>.</li>
+ <li><A HREF="http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/melati/LICENSE-MSL.txt">LICENSE-MSL.txt</A>.</li>
+</ol>
 </p>
+
+@sectionEndTag@
 @footer@
 
 

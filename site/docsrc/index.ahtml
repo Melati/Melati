@@ -1,12 +1,13 @@
 @header@
 <!--
-<p align=center>
- <font size=-1><i>
+<p align="center">
+ <font size="-1"><i>
 This page last updated: $Date$ $Author$
  </i></font>
 </p>
 -->
 @menu@
+@sectionStartTagStart@ Melati @sectionStartTagEnd@
 <P>
   Melati is a tool for building websites backed by a
   database or accessing a database over <tt>HTTP</tt>.
@@ -14,7 +15,7 @@ This page last updated: $Date$ $Author$
 </P>
 <ul>
   <li>a generic 
-    <a href="/melati/org.melati.admin.Admin/contacts/Main">
+    <A href="/melati/org.melati.admin.Admin/contacts/Main">
     database administration system</A>, allowing the site manager to edit 
     both the contents and the structure of the database through 
     a simple web interface.
@@ -23,17 +24,18 @@ This page last updated: $Date$ $Author$
     a rapid templating mechanism, using "templets" (sub-templates)
     provides an easy mechanism for rendering persistent objects as
     interface elements (eg HTML input boxes, dropdowns).
+  </li>
   <li>
     a cookie-based or a HTTP-based access control mechanism.
   </li>
   <li>
     full integration with <b>POEM</b> (Persistent Object Engine for Melati).
-  <br>
+  <br />
   POEM provides:
    <ul>
     <li>
     industrial-strength open source object database technology, delivering 
-    <b><a href=http://www.odmg.org/>ODMG 3.0</a></b> compliant Java
+    <b><a href="http://www.odmg.org/">ODMG 3.0</a></b> compliant Java
     support.
     </li>
     <li>
@@ -49,62 +51,58 @@ This page last updated: $Date$ $Author$
   </li> 
 </ul>
 <P>
-  Melati's design builds on our experience with previous systems we have deployed 
-  successfully on a number of commercial sites: we feel that it enables a particularly 
+  Melati's design builds on our experience with previous systems we
+  have deployed successfully on a number of 
+  <A href="ShowCase.html">commercial sites</A>: 
+  we feel that it enables a particularly 
   elegant and productive way of working. 
 </P>
-@footer@
-<table align=center>
+<table align="center" bgcolor="#ffffff">
  <tr>
-  <td align=center><a href="http://www.webmacro.org/"><img
-  src="images/webmacro.gif" alt="Works with WebMacro" border=0 
-  width=68 height=68></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.webmacro.org/"><img
+  src="images/webmacro.gif" alt="Works with WebMacro" border="0" 
+  width="68" height="68" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://jakarta.apache.org/velocity"><img
-  src="images/velocity.gif" alt="Works with Velocity" border=0 
-  width=71 height=32></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://jakarta.apache.org/velocity"><img
+  src="images/velocity.gif" alt="Works with Velocity" border="0" 
+  width="71" height="32" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://jakarta.apache.org/ant"><img
-  src="images/ant.gif" alt="Built with Ant" border=0 
-  width=126 height=88></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://jakarta.apache.org/ant"><img
+  src="images/ant.gif" alt="Built with Ant" border="0" 
+  width="126" height="88" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://www.odmg.org/"><img
-  src="images/odmg.gif" alt="ODMG 3.0 compliant" border=0 
-  width=134 height=32></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.odmg.org/"><img
+  src="images/odmg.gif" alt="ODMG 3.0 compliant" border="0" 
+  width="134" height="32" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://maven.apache.org/"><img
-  src="images/maven.png" alt="Checked with Maven" border=0 
-  width=90 height=30></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://maven.apache.org/"><img
+  src="images/maven.png" alt="Checked with Maven" border="0" 
+  width="90" height="30" align="center" valign="middle"/></a>
   </td>
  </tr>
  <tr>
-  <td align=center><a href="http://www.postgres.org/"><img
-  src="images/postgresql.jpg" alt="Works with Postgresql" border=0 
-  width=90 height=34></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.postgres.org/"><img
+  src="images/postgresql.jpg" alt="Works with Postgresql" border="0" 
+  width="90" height="34" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://www.mysql.com/"><img
-  src="images/mysql.gif" alt="Works with MySQL" border=0 
-  width=125 height=42></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.mysql.com/"><img
+  src="images/mysql.gif" alt="Works with MySQL" border="0" 
+  width="125" height="42" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://www.mckoi.com/database/"><img
-  src="images/mckoi.png" alt="Works with McKoiDb" border=0 
-  width=127 height=47></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.mckoi.com/database/"><img
+  src="images/mckoi.png" alt="Works with McKoiDb" border="0" 
+  width="127" height="47" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://www.hsqldb.org/"><img
-  src="images/hsqldb.gif" alt="Works with HsqlDb" border=0 
-  width=131 height=50></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://www.hsqldb.org/"><img
+  src="images/hsqldb.gif" alt="Works with HsqlDb" border="0" 
+  width="131" height="50" align="center" valign="middle"/></a>
   </td>
-  <td align=center><a href="http://jetty.mortbay.org/"><img
-  src="images/poweredByJetty.gif" alt="Bundled with Jetty" border=0 
-  width=140 height=58></a>
+  <td align="center" valign="middle" bgcolor="#ffffff"><a href="http://jetty.mortbay.org/"><img
+  src="images/poweredByJetty.gif" alt="Bundled with Jetty" border="0" 
+  width="140" height="58" align="center" valign="middle"/></a>
   </td>
  </tr>
 </table>
 
-
-
-
-
-
-
-
+@sectionEndTag@
+@footer@

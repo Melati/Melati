@@ -1,19 +1,19 @@
 @header@
 <!--
-<p align=center>
+<p align="center">
  <font size=-1><i>
 This page last updated: $Date$ $Author$
  </i></font>
 </p>
 -->
 @menu@
-<h2>Show Case</h2>
+@sectionStartTagStart@ Show Case @sectionStartTagEnd@
 <p>
   The following sites have all been built with Melati by members of 
-  <a href=http://www.paneris.org/>PanEris</a>. 
-  <br>
+  <a href="http://www.paneris.org/">PanEris</a>. 
+  <br />
   The source code for these sites is 
-  <a href=http://www.paneris.org/>available</a> to illustrate 
+  <a href="http://www.paneris.org/">available</a> to illustrate 
   the use of Melati.
 </p>
 <table width="0%" border="1" cellpadding="5" cellspacing="0">
@@ -23,7 +23,7 @@ This page last updated: $Date$ $Author$
       <h4><a href="http://bibliomania.paneris.net">Maven project site</a></h4>
       <p>Bibliomania - a publishing system which provides multiformat access and search of hundreds of out of copyright books.</p>
     </td>
-    <td><img src="/images/bibliomania.jpg" width="250" height="183"></td>
+    <td><img src="images/bibliomania.gif" width="195" height="183" /></td>
   </tr>
   <tr> 
     <td> 
@@ -33,7 +33,8 @@ This page last updated: $Date$ $Author$
       <p>Balthazar Ensemble - created using Melati offline and
       exported as html.</p>
     </td>
-    <td align=center><img src="/images/balthazarEnsemble.jpg" height="183"></td>
+    <td align="center"><img src="images/balthazarEnsemble.jpg" width="195"
+    height="183" /></td>
   </tr>
   <tr> 
     <td> 
@@ -41,7 +42,7 @@ This page last updated: $Date$ $Author$
       <h4><a href="http://jammyjoes.paneris.net">Maven project site</a></h4>
       <p>JammyJoes sells high quality kids toys.</p>
     </td>
-    <td><img src="/images/jammyjoes.jpg" width="250" height="183"></td>
+    <td><img src="images/jammyjoes.jpg" width="195" height="183" /></td>
   </tr>
   <tr> 
     <td> 
@@ -54,8 +55,8 @@ This page last updated: $Date$ $Author$
       System</a> 
       and <a href="http://boards.paneris.net">Melati Boards</a> internally.</p>
     </td>
-    <td><img src="/images/financial-training.jpg" 
-             width="250" height="183"></td>
+    <td><img src="images/financial-training.jpg" 
+             width="195" height="183" /></td>
   </tr>
   <tr>
     <td>
@@ -64,7 +65,7 @@ This page last updated: $Date$ $Author$
       <h4><a href="http://pol.paneris.net">Maven project site</a></h4>
       <p>Pianos Online assists users finding and buying pianos.</p>
     </td>
-    <td><img src="/images/pol.jpg" width="250" height="183"></td>
+    <td><img src="images/pol.gif" width="195" height="183" /></td>
   </tr>
   <tr>
     <td>
@@ -73,9 +74,10 @@ This page last updated: $Date$ $Author$
       <h4><a href="http://gtl.paneris.net">Maven project site</a></h4>
       <p>Allows the upload of files to a server under different accounts.</p>
     </td>
-    <td><img src="/images/gtl.jpg" width="250" height="183"></td>
+    <td><img src="images/gtl.jpg" width="195" height="183" /></td>
   </tr>
 </table>
+@sectionEndTag@
 @footer@
 
 

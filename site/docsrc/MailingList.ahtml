@@ -7,7 +7,7 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
-<h2>Melati Mailing List</h2>
+@sectionStartTagStart@ Melati Mailing List @sectionStartTagEnd@
 <p>
 
   We have the following lists hosted on 
@@ -23,6 +23,8 @@ This page last updated: $Date$ $Author$
   href="http://lists.sourceforge.net/mailman/listinfo/melati-cvs">CVS commits</a></li>
 </ul>
 Or <a href="mailto:timp@melati.org">email me</a>.
+</p>
+@sectionEndTag@
 @footer@
 
 

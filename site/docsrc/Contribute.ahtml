@@ -7,10 +7,10 @@ This page last updated: $Date$ $Author$
   </p>
 -->
 @menu@
-<h2>Contribute</h2>
+@sectionStartTagStart@ Contribute @sectionStartTagEnd@
 <p>
-  We would love to have <a href="MailingList.html">feedback</a> from 
-  others downloading and installing Melati.
+  We would greatly appreciate <a href="MailingList.html">feedback</a>
+  from new users of Melati. 
 </p>
 <p>
   If you would like to contribute to the Melati code, please join the 
@@ -29,22 +29,23 @@ This page last updated: $Date$ $Author$
   In principle we give CVS write access to anyone who asks.
   The main quality policy we ask people to enforce is that 
   committed changes should compile correctly, 
-  and that they should be believed to work. <br>
+  and that they should be believed to work. <br />
   However we have put quite a bit of work into ensuring that 
   the codebase meets minimal code standards as defined by 
   <a href="http://maven.apache.org/">Maven</a> 
   so please try not to add to the errors listed on the 
   <a href="http://maven.apache.org/checkstyle-report.html">Checkstyle 
-  Report</a>.<br>
+  Report</a>.<br />
   To make changes, please follow this procedure:
 </p>
 <ol>
- <li>Email <a href=MailingList.html>Developer List</A> detailing 
-     what you plan to do. 
- <li>Make changes and commit them to CVS.
- <li>Email <a href=MailingList.html>Developer List</A> detailing 
-     what you have done. 
+ <li>Email <a href="MailingList.html">Developer List</a> detailing 
+     what you plan to do.  </li>
+ <li>Make changes and commit them to CVS. </li>
+ <li>Email <a href="MailingList.html">Developer List</a> detailing 
+     what you have done.  </li>
 </ol>
+@sectionEndTag@
 @footer@
 
 

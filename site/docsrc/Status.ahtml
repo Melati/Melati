@@ -7,30 +7,38 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
-<h2>Release Status (Version @version@)</h2>
+@sectionStartTagStart@ Release Status (Version @version@) @sectionStartTagEnd@
 <p>
     Melati is stable Beta software.
-    Please subscribe to the <a href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">announcements 
-    mailing list</a>.
+    This means it is in production use on sites run by contributors, 
+    has required few changes over the last two years and is offered 
+    for use by competant java programmers.
 </p>
 <ul>
   <li>Support for the JSDK2.0, JSDK2.2 and JSDK2.3 APIs.</li>
   <li>Support for Velocity 1.2 and 1.3RC1</li>
   <li>Support for Webmacro 1.0</li>
-  <li>Support for <a href=http://www.postgresql.org>Postgresql</a> (version 6 to current)</li>
-  <li>Support for <a href=http://www.mysql.com>MySQL</a> (only recent versions)</li>
-  <li>Support for <a href=htt://www.hsqldb.org>HSQLDB</a>, 
+  <li>Support for <a href="http://www.postgresql.org">Postgresql</a> (version 6 to current)</li>
+  <li>Support for <a href="http://www.mysql.com">MySQL</a> (only recent versions)</li>
+  <li>Support for <a href="http://www.hsqldb.org">HSQLDB</a>, 
       which is included.</li>
-  <li>Support for <a href=htt://www.mckoi.com>MckoiDB</a></li>
+  <li>Support for <a href="http://www.mckoi.com">MckoiDB</a></li>
   <li>Melati is available as a zip, tar or war
       <a href="Download.html">download</a>.
   </li>
 </ul>
 <p>Melati is currently being used for 
       <a href="ShowCase.html">several substantial commercial projects</a> .
-<br>
+<br />
 See the <a href="RoadMap.html">roadmap</a> to a full release (1.0).
 </p>
+<p>
+    Please subscribe to the 
+    <a
+    href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">
+      announcements mailing list</a> to receive news of new versions.
+</p>
+@sectionEndTag@
 @footer@
 
 

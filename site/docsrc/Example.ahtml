@@ -1,20 +1,20 @@
 @header@
 <!--
-  <p align=center>
-   <font size=-1><i>
+  <p align="center">
+   <font size="-1"><i>
 This page last updated: $Date$ $Author$
    </i></font>
   </p>
 -->
 @menu@
-<h2>Example Application</h2>
-<table border=1 align=center><tr><td>
+@sectionStartTagStart@ Example Application @sectionStartTagEnd@
+<table border="12" align="center"><tr><td>
   Please feel free to play about as much as you like. 
   Note that you can add new tables and new fields to tables. 
-  <br>
+  <br />
   If you attempt  to make changes to protected data, you will be 
   challenged for a Username and Password. 
-  <br>
+  <br />
   Use <tt>_administrator_</tt> and <tt>FIXME</tt>.
 </td></tr></table>
 <p>
@@ -24,17 +24,18 @@ This page last updated: $Date$ $Author$
 </p>
 <p>
  The code is very simple:
- <A HREF=/melati-static/example/contacts/Search.java>Search.java</a>.
+ <A HREF="/melati-static/example/contacts/Search.java">Search.java</A>.
 </p>
 <p>
   The data is stored in an SQL database, which is created from a 
-  <A HREF=/melati-static/example/contacts/contacts.dsd>Data
-  Structure Definition</a> 
+  <A HREF="/melati-static/example/contacts/contacts.dsd">Data
+  Structure Definition</A> 
   (DSD). The database is also accessible through the generic 
   <a href="/melati/org.melati.admin.Admin/contacts/Main">Admin Interface</a>. 
 </p>
 <p>
-  The code for the Admin System can be viewed <A HREF=/melati-static/admin/>here</a>.
+  The code for the Admin System can be viewed <A HREF="/melati-static/admin/">here</A>.
 </p>
+@sectionEndTag@
 @footer@
 

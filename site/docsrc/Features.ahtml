@@ -7,69 +7,72 @@ This page last updated: $Date$ $Author$
 </p>
 -->
 @menu@
-<H2>Features</h2>
+@sectionStartTagStart@ Features @sectionStartTagEnd@
 
 
 <UL>
   <LI> An easy-to-use transparent <B>persistence layer</B> over a JDBC
        relational database.  The programmer can <A
-       HREF=doc/FunctionalSpecification.html#data-def>define</A>
+       HREF="doc/FunctionalSpecification.html#data-def">define</A>
        table rows to be extensible Java `business objects', without having to
        write any more code than she would for an equivalent non-persistent
        object.
-
+  </LI>
   <LI> Implicit <B>permissions checks</B> on accesses to persistent
        objects (table rows), based on a flexible and efficient
        user/group/capability
-       <A HREF=doc/FunctionalSpecification.html#access>authentication system</A>.
+       <A HREF="doc/FunctionalSpecification.html#access">authentication system</A>.
 
+  </LI>
   <LI> Support for <A
-       HREF=doc/FunctionalSpecification.html#transactions><B>transactions</B></A>,
+       HREF="doc/FunctionalSpecification.html#transactions"><B>transactions</B></A>,
        either explicitly, or transparently with a simple default pattern
        appropriate for servicing typical HTTP requests; and behind that, of
        course, `connection pooling'.
 
+  </LI>
   <LI> Transparent (and transaction-safe) <A
-       HREF=doc/FunctionalSpecification.html#cacheing><B>cacheing</B></A> of rows from the most
+       HREF="doc/FunctionalSpecification.html#cacheing"><B>cacheing</B></A> of rows from the most
        intensively used tables, such as lookups or localisation phrases.
 
+  </LI>
   <LI> Convenient and flexible <A
-       HREF=doc/FunctionalSpecification.html#templating><B>templating</B></A> of persistent objects.
+       HREF="doc/FunctionalSpecification.html#templating"><B>templating</B></A> of persistent objects.
 
+  </LI>
   <LI> CSV utilities to initialise a database from CSV files.
 
+  </LI>
   <LI> A comprehensive <A
-       HREF=/melati/org.melati.admin.Admin/contacts/Main><B>administration
+       HREF="/melati/org.melati.admin.Admin/contacts/Main"><B>administration
        system</B></A>, supporting the following operations on any Melati
        database without requiring configuration:
 
        <UL>
-	 <LI> list records in a table matching a template
-	 <LI> add/edit/delete records
-	 <LI> list records linked to (or linking to) a record
-         <LI> change the capabilities required to read/write a record
-	 <LI> add/delete tables and fields
-	 <LI> upload files
-	 <LI> cascading deletes
-         <LI> Javascript form validation
-         <LI> Javascript client side Tree browsing
+	 <LI> list records in a table matching a template </LI>
+	 <LI> add/edit/delete records </LI>
+	 <LI> list records linked to (or linking to) a record </LI>
+         <LI> change the capabilities required to read/write a record </LI>
+	 <LI> add/delete tables and fields </LI>
+	 <LI> upload files </LI>
+	 <LI> cascading deletes </LI>
+         <LI> Javascript form validation </LI>
+         <LI> Javascript client side Tree browsing </LI>
        </UL>
+  </LI>
 </UL>
 <p>
   Code for a generic 
-  <A HREF="http://boards.paneris.net">Messageboard System</a> 
-  and a generic <A HREF="http://shopping.paneris.net">Shopping Trolley</a> 
+  <A HREF="http://boards.paneris.net">Messageboard System</A> 
+  and a generic <A HREF="http://shopping.paneris.net">Shopping Trolley</A> 
   are also available.
 </p>
 
 <P>
-  For a comparison of Melati with J2EE see <a href=http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/>
-  MylesC's post to melati-developers</a>.
+  For a comparison of Melati with J2EE see 
+  <A href="http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/">
+  MylesC's post to melati-developers</A>.
 </P>
+@sectionEndTag@
 @footer@
-
-
-
-
-
 

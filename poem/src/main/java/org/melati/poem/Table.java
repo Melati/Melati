@@ -497,7 +497,8 @@ public class Table {
           "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
           database._quotedName(name + "_" + column.getName() + "_index") +
           " ON " + quotedName() + " " +
-          "(" + column.quotedName() + ")");
+          "(" + column.quotedName() + 
+           getDatabase().getDbms().getIndexLength(column) + ")");
   }
 
   // 
@@ -1121,8 +1122,9 @@ public class Table {
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       rs.next();
+      int count = rs.getInt(1);
       rs.close();
-      return rs.getInt(1);
+      return count;
     }
     catch (SQLException e) {
       throw new ExecutingSQLPoemException(sql, e);
@@ -1149,14 +1151,16 @@ public class Table {
         else
           hadOne = true;
 
-        clause.append(column.quotedName());
         if (column.getType() instanceof StringPoemType) {
-          // FIXME Postgres specific
-          clause.append(" ~* ");
+	  clause.append( 
+	    getDatabase().getDbms().caseInsensitiveCompare(
+                  column.quotedName(),
+                  column.getSQLType().quotedRaw(raw)));
         } else {
+          clause.append(column.quotedName());
           clause.append(" = ");
+          clause.append(column.getSQLType().quotedRaw(raw));
         }			
-        clause.append(column.getSQLType().quotedRaw(raw));
       }
     }
   }
@@ -1818,10 +1822,13 @@ public class Table {
     Hashtable dbColumns = new Hashtable();
 
     int dbIndex = 0;
-    if (colDescs != null)
+    if (colDescs != null){
+
       for (; colDescs.next(); ++dbIndex) {
         String colName = colDescs.getString("COLUMN_NAME");
-        Column column = (Column)columnsByName.get(colName);
+//        System.err.println("Table.unifyWithDB.colDescs:" + colName);
+        Column column = (Column)columnsByName.get(
+                          dbms().melatiName(colName));
 
         if (column == null) {
           SQLPoemType colType =
@@ -1839,7 +1846,9 @@ public class Table {
               dbms().canRepresent(colType, DeletedPoemType.it) != null)
             colType = DeletedPoemType.it;
 
-          column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
+          column = new ExtraColumn(this, 
+                                   dbms().melatiName(
+                                      colDescs.getString("COLUMN_NAME")),
                                    colType, DefinitionSource.sqlMetaData,
                                    extrasIndex++);
 
@@ -1853,16 +1862,19 @@ public class Table {
           if (info != null)
             column.createColumnInfo();
         }
-        else
+        else {
           column.assertMatches(colDescs);
-
+        }
         dbColumns.put(column, Boolean.TRUE);
       }
+    } // else System.err.println("Table.UnifyWithDB called with null ResultsSet");
 
-    if (dbIndex == 0)
+    if (dbIndex == 0) {
       // OK, we simply don't exist ...
+      // ie the Database MetaData  Result Set passed in was empty or null
+//      System.err.println("Table.UnifyWithDB called with null or empty ResultsSet");
       dbCreateTable();
-    else {
+    } else {
       // silently create any missing columns
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null)
@@ -1885,10 +1897,13 @@ public class Table {
       Hashtable dbHasIndexForColumn = new Hashtable();
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().
-              getIndexInfo(null, "", getName(), false, true);
+              getIndexInfo(null, "", getDatabase().getDbms().
+                               unreservedName(getName()), false, true);
       while (index.next()) {
         try {
-          Column column = getColumn(index.getString("COLUMN_NAME"));
+          String columnName = getDatabase().getDbms().
+                               melatiName(index.getString("COLUMN_NAME"));
+          Column column = getColumn(columnName);
           column.unifyWithIndex(index);
           dbHasIndexForColumn.put(column, Boolean.TRUE);
         }

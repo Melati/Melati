@@ -78,4 +78,20 @@ public class MelatiContext implements Cloneable {
       throw new UnexpectedExceptionException(e);
     }
   }
+  
+  public String getLogicalDatabase() {
+    return logicalDatabase;
+  }
+  
+  public String getTable() {
+    return table;
+  }
+  
+  public Integer getTroid() {
+    return troid;
+  }
+  
+  public String getMethod() {
+    return method;
+  }
 }

@@ -344,7 +344,7 @@ public class DSD {
         td.generateTableAccessorJava(w);
       }
     }
-    w.write("}\n");
+    w.write("}\n\n");
   }
 
   void generateDatabaseJava(Writer w) throws IOException {
@@ -359,7 +359,7 @@ public class DSD {
             "\n                            implements " + databaseTablesClass);
     w.write(" {\n" +
             "  // programmer's domain-specific code here\n" +
-            "}\n");
+            "}\n\n");
   }
 
   void generateDatabaseTablesBaseJava(Writer w) throws IOException {
@@ -402,7 +402,7 @@ public class DSD {
       if (!td.naming.hidden)
         td.generateTableAccessorDefnJava(w);
     }
-    w.write("}\n");
+    w.write("}\n\n");
   }
 
   void generateDatabaseTablesJava(Writer w) throws IOException {
@@ -416,7 +416,7 @@ public class DSD {
     w.write("public interface " + databaseTablesClass +
             " extends " + databaseTablesBaseClass + " {\n" +
             "  // programmer's domain-specific code here\n" +
-            "}\n");
+            "}\n\n");
   }
 
   void generateJava() throws IOException, IllegalityException {

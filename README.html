@@ -5,8 +5,8 @@
 <body bgcolor="white">
 <blockquote> 
   <h1 align="center">The Melati Project</h1>
-  <h3 align="center"> Release 0.53 </h3>
-  <h4 align="center"> last updated 13/02/2001 - tim@hoop.co.uk</h4>
+  <h3 align="center"> Release 0.53.3 </h3>
+  <h4 align="center"> last updated 26/02/2001 - tim@hoop.co.uk</h4>
   <!-- -----------------------------------------------------
         This document is fairly readable as text, but looks 
         real ugly. It'll be more fun reading it in a browser.
@@ -56,7 +56,7 @@
     about what has changed. This is the 3rd beta release of Melati, offering the 
     following improvements over Alpha versions of Melati:</p>
   <ul>
-    <li>Support for Webmacro 0.94</li>
+    <li>Support for Webmacro 2000-12-06</li>
     <li>cascading deletion in POEM</li>
     <li>Cleaner servlet API</li>
     <li>File upload</li>
@@ -74,19 +74,18 @@
   <a name="Upgrading"> 
   <h2>Upgrading</h2>
   </a> 
-  <h3>To upgrade from Melati 0.52.1 to Melati 0.53</h3>
+  <h3>To upgrade from Melati 0.53 to Melati 0.53.3</h3>
+  <ul>
+    <li>you must install the 2000-12-06 webmacro snapshot</li>
+  </ul>
+  <p>&nbsp;</p>
+  <h3>To upgrade from Melati 0.52 to Melati 0.53</h3>
   <ul>
     <li>you must install version 0.94 (at least) of webmacro</li>
     <li> if your code overrides `Persistent.deleteAndCommit(), please read the 
       <a href="RELEASE-NOTES.html">Release Notes</a>.</li>
   </ul>
   <h3>&nbsp;</h3>
-  <h3>To upgrade from Melati 0.52 to Melati 0.52.1</h3>
-  <ul>
-    <li>no changes are required.</li>
-  </ul>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
   <h3>To upgrade from Melati 0.50 to Melati 0.52</h3>
   <ul>
     <li>your Webmacro based servlets should now extend org.melati.template.webmacro.WebmacroTemplateServlet, 
@@ -211,8 +210,8 @@
     <tr> 
       <td>Template Engine</td>
       <td> 
-        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> version 
-          0.94 or higher.</blockquote>
+        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> snapshot 
+          2000-12-06 </blockquote>
       </td>
     </tr>
   </table>

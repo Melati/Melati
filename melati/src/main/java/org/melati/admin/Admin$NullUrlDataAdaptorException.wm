@@ -46,7 +46,9 @@
 
 <html><head><title>
 File Upload Configuration Error 
-</title></head>
+</title>
+ <meta name="CVS Id" content="$Id$">
+</head>
 
 <body bgcolor="white">
 <h1><font color="green">File Upload Configuration Error </font></h1>

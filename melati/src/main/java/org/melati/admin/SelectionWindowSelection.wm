@@ -49,6 +49,7 @@
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
+ <meta name="CVS Id" content="$Id$">
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
 	function popupupdate (returnfield,id,value) {

@@ -48,6 +48,7 @@
 
 <HTML>
 <HEAD>
+ <meta name="CVS Id" content="$Id$">
 </HEAD>
 #if ($Form.returnTarget) #begin
   <script>

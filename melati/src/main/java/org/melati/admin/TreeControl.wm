@@ -1,6 +1,9 @@
 #set $melati.ResponseContentType = "text/html"
 <!-- start org/melati/admin/TreeControl.wm -->
 <HTML>
+<head>
+ <meta name="CVS Id" content="$Id$">
+</head>
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage
 #if ($tree) #begin

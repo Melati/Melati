@@ -49,9 +49,7 @@
 $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <HTML>
 <HEAD>
-</HEAD>
-
-<BODY  bgcolor="#cccccc">
+ <meta name="CVS Id" content="$Id$">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <script TYPE="text/javascript">
@@ -64,6 +62,9 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
   }
 //-->
 </script>
+</HEAD>
+
+<BODY  bgcolor="#cccccc">
 
 <FORM METHOD=post ACTION=Update>
 <TABLE CELLPADDING=0 CELLSPACING=0>

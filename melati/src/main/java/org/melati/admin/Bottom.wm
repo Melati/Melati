@@ -48,6 +48,7 @@
 <html>
 <head>
 <title>Website Admin Suite</title>
+ <meta name="CVS Id" content="$Id$">
 </head>
 
 <frameset framespacing=2 border=3 cols="40%,60%">

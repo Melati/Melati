@@ -48,9 +48,7 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
-</HEAD>
-
-<BODY  bgcolor="#cccccc">
+ <meta name="CVS Id" content="$Id$">
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
@@ -64,6 +62,8 @@
   }
 //-->
 </script>
+</HEAD>
+<BODY  bgcolor="#cccccc">
 
 <FORM METHOD=post ACTION=AddUpdate>
 <H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>

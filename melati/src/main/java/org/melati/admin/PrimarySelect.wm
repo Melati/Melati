@@ -51,6 +51,7 @@
 
 <HTML>
 <HEAD>
+ <meta name="CVS Id" content="$Id$">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 <SCRIPT Language="JavaScript">
 <!-- 

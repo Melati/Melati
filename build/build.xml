@@ -12,7 +12,7 @@
   <property name="ant.home"           value="."/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="jikes"/>
-  <property name="version"            value="0.6.0"/>
+  <property name="version"            value="0.6.1"/>
   <property name="this.root"          value="../../../"/>
   <property name="build.lib"          value="./lib"/>
   <property name="built"              value="dist"/>
@@ -21,6 +21,7 @@
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
+  <property name="war"                value="${built}/${project}.war"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
   <property name="doc.dir"            value="../qa/javadoc"/>
@@ -42,18 +43,26 @@
     <pathelement path="${this.root}/org/melati/poem/odmg/required-libs/odmg3.jar" />
   </path>
 
-  <path id="classpath.run">
+  <path id="classpath.jetty">
     <pathelement path="${build.lib}/javax.servlet.jar"/>
     <pathelement path="${build.lib}/javax.xml.jaxp.jar"/>
     <pathelement path="${build.lib}/org.apache.crimson.jar"/>
     <pathelement path="${build.lib}/org.apache.jasper.jar"/>
     <pathelement path="${build.lib}/org.mortbay.jetty.jar"/>
-    <pathelement path="${built.lib}/${project}.jar"/>
-    <pathelement path="../../../"/>
+  </path>
+  <path id="classpath.drivers">
     <pathelement path="${build.lib}/hsqldb.jar"/>
     <pathelement path="${build.lib}/postgresql-7.0-fixedTimestampAndReceiveString.jar" />
     <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
     <pathelement path="${build.lib}/mkjdbc.jar"/>
+  </path>
+  <path id="classpath.run">
+    <path refid="classpath.jetty"/>
+    <!--path refid="classpath.compile"/-->
+    <!--pathelement path="${built.lib}/${project}.jar"/-->
+    <pathelement path="${war}"/>
+    <!--pathelement path="../../../"/-->
+    <!--path refid="classpath.drivers"/-->
   </path>
 
 
@@ -281,14 +290,26 @@ example:
     <!-- Build the .war                                                    -->
     <!-- ================================================================= -->
   <target name="war" depends="jar">
-    <war warfile="${built}/${project}.war" webxml="web.xml">
-
+    <war warfile="${war}" webxml="web.xml">
       <fileset dir="${this.root}/org/melati/site"/>
+      <fileset dir="${this.root}/org/melati">
+          <include name="*.html"/>
+          <include name="*.txt"/>
+      </fileset>
+      <fileset dir="${this.root}">
+        <patternset>
+          <include name="**/*.properties"/>
+          <include name="**/*.wm"/>
+          <include name="**/*.js"/>
+          <include name="**/*.html"/>
+          <include name="**/*.gif"/>
+          <exclude name="**/site/**"/>
+          <exclude name="**/melati/*.html"/>
+          <exclude name="**/melati/*.html"/>
+        </patternset>
+      </fileset>
       <lib dir="${build.lib}">
-        <include name="velocity-1.2.jar"/>
-        <include name="velocity-dep-1.2.jar"/>
-        <include name="webmacro.jar"/>
-        <include name="postgresql-7.0.-fixedTimestampAndReceiveString.jar"/>
+        <include name="*.jar"/>
       </lib>
       <lib dir="${built.lib}">
         <include name="${project}.jar"/>

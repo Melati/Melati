@@ -157,7 +157,7 @@ public class TailoredQuery {
   }
 
   public TailoredQuery(String modifier, // FIXME hack
-		       Column[] selectedColumns, Table[] otherTables,
+                       Column[] selectedColumns, Table[] otherTables,
                        String whereClause, String orderByClause) {
 
     this.database = selectedColumns[0].getDatabase();
@@ -292,8 +292,8 @@ public class TailoredQuery {
    * &nbsp;#foreach $fieldSet in $tailoredQuery.selection() #begin<BR>
    * &nbsp;&nbsp;&lt;TR&gt;<BR>
    * &nbsp;&nbsp;&nbsp;#foreach $field in $fieldSet #begin<BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;<TD>$ml.rendered($field.DisplayName)</TD><BR>
-   * &nbsp;&nbsp;&nbsp;&nbsp;<TD>$ml.rendered($field)</TD><BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field.DisplayName)&lt;/TD><BR>
+   * &nbsp;&nbsp;&nbsp;&nbsp;&lt;TD>$ml.rendered($field)&lt;/TD><BR>
    * &nbsp;&nbsp;&nbsp;#end<BR>
    * &nbsp;&nbsp;&lt;/TR&gt;<BR>
    * &nbsp;#end<BR>
@@ -344,20 +344,20 @@ public class TailoredQuery {
       extends TailoredResultSetEnumeration {
 
     public FirstRawTailoredResultSetEnumeration(TailoredQuery query,
-						ResultSet resultSet) {
+                                                ResultSet resultSet) {
       super(query, resultSet);
     }
 
     protected Object mapped(ResultSet them) {
       checkTableAccess(them);
       for (int c = 1; c < query.columns.length; ++c)
-	column(them, c);
+        column(them, c);
       return column(them, 0);
     }
   }
 
   public Enumeration selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
-						    database.sqlQuery(sql));
+                                                    database.sqlQuery(sql));
   }
 }

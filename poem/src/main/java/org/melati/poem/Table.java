@@ -1503,7 +1503,6 @@ public class Table {
           cachedSelections.put(key, them = newThem);
       }
     }
-
     return them;
   }
 

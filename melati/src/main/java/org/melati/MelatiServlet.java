@@ -497,8 +497,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     try {
       accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
-	  configuration, accessHandlerProp, "org.melati.login.AccessHandler",
-	  "org.melati.login.HttpSessionAccessHandler");
+	    configuration, accessHandlerProp, "org.melati.login.AccessHandler",
+	    "org.melati.login.HttpSessionAccessHandler");
 
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
 	  configuration, templetLoaderProp, "org.melati.templets.TempletLoader",
@@ -514,4 +514,5 @@ public abstract class MelatiServlet extends MelatiWMServlet {
       throw new ServletException(e.toString());
     }
   }
+  
 }

@@ -45,4 +45,5 @@ public interface Dbms {
     String getQuotedName(String name);
     String getSqlDefinition(String sqlTypeName) throws SQLException;
     String getStringSqlDefinition(int size) throws SQLException;
+
 }

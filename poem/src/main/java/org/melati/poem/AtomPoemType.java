@@ -82,7 +82,7 @@ public abstract class AtomPoemType extends BasePoemType {
 				   MelatiLocale locale, int style) {
     return _stringOfRaw(_rawOfCooked(cooked));
   }
-
+ 
   protected String _sqlDefinition(Dbms dbms) {
       try {
         return dbms.getSqlDefinition(sqlTypeName);

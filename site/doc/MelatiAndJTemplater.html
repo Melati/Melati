@@ -153,10 +153,6 @@ $renderBody(obj.getFoo())
       <TD><TT>&amp;quot;</TT></TD>
     </TR>
     <TR>
-      <TD>Attribute value (<I>e.g.</I>&nbsp;input box content)</TD>
-      <TD><TT>&amp;quot;</TT></TD>
-    </TR>
-    <TR>
       <TD>Javascript value</TD><TD><TT>\042</TT></TD>
     </TR>
     <TR>
@@ -362,6 +358,12 @@ $renderBody(obj.getFoo())
     <P>
       It shouldn't care which templating mechanism is being used.  The same
       abstract logic should work with WebMacro and JTemplater.
+    </P>
+  <LI>
+    <P>
+      It should be capable, where possible, of rendering complex objects
+      directly to the output stream rather than returning a string for
+      interpolation.
     </P>
   <LI>
     <P>

@@ -237,8 +237,8 @@ public class Admin extends TemplateServlet {
     Vector orderingNames = new Vector();
     Vector orderClause = new Vector();
     for (int o = 1; o <= 2; ++o) {
-      String name = "order-" + o;
-      String orderColumnIDString = context.getForm("field_" + name);
+      String name = "field_order-" + o;
+      String orderColumnIDString = context.getForm(name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =

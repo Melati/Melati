@@ -137,8 +137,11 @@ public interface Dbms {
 
   String getIndexLength(Column column);
 
+  boolean canBeIndexed(Column column);
+
   String givesCapabilitySQL(Persistable user, String capabilityExpr);
 
   String caseInsensitiveRegExpSQL(String term1, String term2);
 
+  String toString();
 }

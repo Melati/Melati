@@ -242,7 +242,7 @@ public class AnsiStandard implements Dbms {
       case Types.TINYINT :
         return unsupported("TINYINT", md);
       case Types.SMALLINT :
-	return unsupported("SMALLINT", md);
+        return unsupported("SMALLINT", md);
       case Types.INTEGER :
         return new IntegerPoemType(nullable);
       case Types.BIGINT :
@@ -334,16 +334,26 @@ public class AnsiStandard implements Dbms {
     return name;
   }
 
-  /**
+ /**
   * MySQL requires a length argument when creating
   * an index on a BLOB or TEXT column.
   *
   * @see MySQL#getIndexLength
   */
-
   public String getIndexLength(Column column) {
     return "";
   }
+
+ /**
+  * MSSQL cannot index a TEXT column.
+  * But neither can it compare them so we don't use it, 
+  * we use VARCHAR(255).
+  *
+  */
+   public boolean canBeIndexed(Column column) {
+     return true;
+   }
+
 
   /**
   * MySQL has no EXISTS keyword.
@@ -386,6 +396,10 @@ public class AnsiStandard implements Dbms {
   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;
+  }
+
+  public String toString() {
+    return this.getClass().getName();
   }
 
 }

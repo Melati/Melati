@@ -206,7 +206,7 @@ public class NoTemplateEngine implements TemplateEngine {
   }
 
   /** 
-   * @param encoding the character encoding to associate with this writer
+   * @param encoding Ignored.
    * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
@@ -214,8 +214,16 @@ public class NoTemplateEngine implements TemplateEngine {
    * <code>StringWriter</code> is a {@link MelatiStringWriter} -
    * use directly.
    */
-  public MelatiWriter getStringWriter(String encoding) 
-      throws IOException {
+  public MelatiWriter getStringWriter(String encoding) {
+    return getStringWriter();
+  }
+
+  /** 
+   * Return a {@link MelatiStringWriter}.
+   *
+   * @see Melati#getStringWriter() 
+   */
+  public MelatiStringWriter getStringWriter() {
     return new MelatiStringWriter();
   }
 

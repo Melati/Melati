@@ -239,6 +239,16 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </roles>
       <timezone>+1</timezone>
     </developer>
+    <developer>
+      <name>Lane Sharman</name>
+      <id>lanes</id>
+      <email>lanes@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
 
   </developers>
 

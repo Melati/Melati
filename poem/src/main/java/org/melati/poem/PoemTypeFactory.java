@@ -87,7 +87,7 @@ public abstract class PoemTypeFactory {
     INTEGER = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
         return new IntegerPoemType(info.nullable.booleanValue(),
-                                   info.size.intValue());
+                                   info.width.intValue());
       }
 
       public String getName() {

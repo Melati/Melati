@@ -47,6 +47,7 @@
 
 package org.melati;
 
+import java.util.*;
 import java.io.*;
 import java.text.*;
 import org.webmacro.*;
@@ -61,16 +62,18 @@ import org.melati.templets.*;
 public abstract class MarkupLanguage {
 
   private String name;
-  private WebContext webContext;
+  private Context webContext;
   private TempletLoader templetLoader;
   private MelatiLocale locale;
+  private Object melati;
 
-  public MarkupLanguage(String name, WebContext webContext,
+  public MarkupLanguage(String name, Context webContext,
                         TempletLoader templetLoader, MelatiLocale locale) {
     this.name = name;
     this.webContext = webContext;
     this.templetLoader = templetLoader;
     this.locale = locale;
+    melati = webContext.get("melati"); // FIXME hack
   }
 
   protected MarkupLanguage(String name, MarkupLanguage other) {
@@ -87,13 +90,9 @@ public abstract class MarkupLanguage {
     return rendered(s.length() < limit + 3 ? s : s.substring(0, limit) + "...");
   }
 
-  public abstract String rendered(Exception e);
-
   public String rendered(Object o) throws WebMacroException {
     if (o instanceof Persistent)
       return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
-    if (o instanceof AccessPoemException)
-      return rendered((AccessPoemException)o);
     if (o instanceof Exception)
       return rendered((Exception)o);
 
@@ -183,6 +182,22 @@ public abstract class MarkupLanguage {
     return input(field, null, nullValue, true);
   }
 
+  protected String expandedTemplet(Template templet, Hashtable vars)
+      throws WebMacroException {
+    vars.put("ml", this);
+    if (melati != null)
+      vars.put("melati", melati);
+
+    webContext.push(vars);
+
+    try {
+      return (String)templet.evaluate(webContext);
+    }
+    finally {
+      webContext.pop();
+    }
+  }
+
   protected String input(Field field, String templetName,
 			 String nullValue, boolean overrideNullable) 
       throws UnsupportedTypeException, WebMacroException {
@@ -204,43 +219,36 @@ public abstract class MarkupLanguage {
           templetLoader.templet(webContext.getBroker(), this, field) :
           templetLoader.templet(webContext.getBroker(), this, templetName);
 
-    Object previousNullValue = null;
+    Hashtable vars = new Hashtable();
+
     if (overrideNullable) {
-      final PoemType nullable =
-	  field.getType().withNullable(true);
       field = field.withNullable(true);
-	  new Field(field.getRaw(), field) {
-	    public PoemType getType() {
-	      return nullable;
-	    }
-	  };
-      previousNullValue = webContext.put("nullValue", nullValue);
+      vars.put("nullValue", nullValue);
     }
 
-    Object previous = webContext.put("field", field);
+    vars.put("field", field);
 
-    try {
-      return (String)templet.evaluate(webContext);
-    }
-    finally {
-      if (previous == null)
-        webContext.remove("field");
-      else
-        webContext.put("field", previous);
-
-      if (overrideNullable)
-	if (previousNullValue == null)
-          webContext.remove("nullValue");
-	else
-	  webContext.put("nullValue", previousNullValue);
-    }
+    return expandedTemplet(templet, vars);
   }
 
-  public String rendered(AccessPoemException e) throws WebMacroException {
-    String templetName = "AccessPoemException";
-    Template templet =
-        templetLoader.templet(webContext.getBroker(), this, templetName);
-    webContext.put("denieduser", e.token);
-    return (String)templet.evaluate(webContext);
+  public final String rendered(Exception e) throws WebMacroException {
+    try {
+      Hashtable vars = new Hashtable();
+      vars.put("exception", e);
+      Template templet =
+          templetLoader.templet(webContext.getBroker(), this, e.getClass());
+      System.err.println("******* expanding exception " + e.getClass() + " using " + templet);
+      return expandedTemplet(templet, vars);
+    }
+    catch (Exception f) {
+      try {
+        System.err.println("MarkupLanguage failed to render an exception:");
+        f.printStackTrace();
+        return "[" + rendered(e.toString()) + "]";
+      }
+      catch (Exception g) {
+        return "[UNRENDERABLE EXCEPTION!]";
+      }
+    }
   }
 }

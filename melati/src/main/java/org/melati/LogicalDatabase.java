@@ -6,7 +6,7 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.*;
 
-class LogicalDatabase {
+public class LogicalDatabase {
 
   private LogicalDatabase() {}
 
@@ -25,7 +25,10 @@ class LogicalDatabase {
 
   private static final Hashtable databases = new Hashtable();
 
-  static Database named(String name) throws DatabaseInitException {
+  public static Database named(String name) throws DatabaseInitException {
+    if (name == null)
+      name = "default";
+    
     synchronized (databases) {
       Database database = (Database)databases.get(name);
       if (database == null) {

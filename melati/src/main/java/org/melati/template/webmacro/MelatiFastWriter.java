@@ -73,7 +73,7 @@ public class MelatiFastWriter extends MelatiWriter {
 */  
   public MelatiFastWriter(Broker broker, OutputStream output, String encoding)
       throws IOException {
-    // need to make this accessable to subcalsses
+    // need to make this accessable to subclasses
     outputStream = output;
     out = FastWriter.getInstance(broker, output, encoding);
   }

@@ -268,7 +268,9 @@ StaticTree.prototype.display = function () {
     indexed = true;
   }
 
-  var doc = this.frame.document.open();
+  
+  //var doc = this.frame.document.open(); - does not work in Opera/Konqueror
+  var doc = this.frame.document;
   doc.write("<html><head>");
   if (this.stylesheet != null) {
     doc.write("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"" + this.stylesheet + "\">");

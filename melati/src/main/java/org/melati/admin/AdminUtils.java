@@ -72,59 +72,58 @@ public class AdminUtils {
 
   public String BottomURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/Bottom";
+               "/Bottom";
   }
 
   public String LeftURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/Left";
+               "/Left";
   }
 
   public String PrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/PrimarySelect";
+               "/PrimarySelect";
   }
 
   public String SelectionURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/Selection";
+               "/Selection";
   }
 
   public String SelectionRightURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/SelectionRight";
+               "/SelectionRight";
   }
 
   public String NavigationURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-    "/Navigation";
+               "/Navigation";
   }
 
   public String RightURL(Persistent object) throws AccessPoemException {
     return
-    adminURL + "/" + logicalDatabase + "/" +
-    object.getTable().getName() + "/" + object.troid() + "/Right";
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/Right";
   }
 
   public String EditHeaderURL(Persistent object) throws AccessPoemException {
     return
-    adminURL + "/" + logicalDatabase + "/" +
-    object.getTable().getName() + "/" + object.troid() + "/EditHeader";
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/EditHeader";
   }
 
   public String EditURL(Persistent object) throws AccessPoemException {
     return
-    adminURL + "/" + logicalDatabase + "/" +
-    object.getTable().getName() + "/" + object.troid() + "/Edit";
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/Edit";
   }
 
   public String AddURL(Table table) throws AccessPoemException {
     String url = adminURL + "/" + logicalDatabase + "/";
-    if (table instanceof org.melati.poem.ColumnInfoTable) {
+    if (table instanceof org.melati.poem.ColumnInfoTable)
       return url + "CreateColumn";
-    } else {
+    else
       return url + table.getName() + "/Add";
-    }
   }
 
   public String PopupURL(Table table) {
@@ -133,31 +132,30 @@ public class AdminUtils {
 
   public String SelectionWindowURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + 
-    table.getName() + "/SelectionWindow";
+               table.getName() + "/SelectionWindow";
   }
 
   public String SelectionWindowPrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
-    "/SelectionWindowPrimarySelect";
+               "/SelectionWindowPrimarySelect";
   }
 
   public String SelectionWindowSelectionURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
-    "/SelectionWindowSelection";
+               "/SelectionWindowSelection";
   }
 
   public String UploadURL(Field field) {
-    return adminURL + "/" + logicalDatabase + "/Upload?field="+field.getName();
+    return adminURL + "/" + logicalDatabase + "/Upload?field=" +
+               field.getName();
   }
 
   public String UploadHandlerURL(String field) {
-//    int admin = adminURL.indexOf("admin.Admin");
-//    return adminURL.substring(0,admin) + "upload.Upload/" + logicalDatabase + 
-//    "/" +field;
       return adminURL + "/" + logicalDatabase + "/UploadDone?field="+field;
   }
 
   // establish if this is a reference poem type field
+
   public boolean isReferencePoemType(Field field) {
     return field.getType() instanceof ReferencePoemType;
   }
@@ -166,8 +164,9 @@ public class AdminUtils {
     return adminStaticURL;
   }
 
-  public String specialFacilities(Melati melati, MarkupLanguage ml, Persistent object)
-   throws Exception {
+  public String specialFacilities(Melati melati, MarkupLanguage ml,
+                                  Persistent object)
+      throws Exception {
     if (object instanceof AdminSpecialised)
       melati.getTemplateEngine().expandTemplate(
                melati.getWriter(),

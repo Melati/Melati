@@ -51,15 +51,16 @@ import org.melati.Melati;
 
 public class Display extends TemplateServlet {
 
-  protected String doTemplateRequest
-  (Melati melati, TemplateContext context)
-  throws Exception {
+  protected String doTemplateRequest(Melati melati, TemplateContext context)
+      throws Exception {
 
     context.put("includedir", "");
+
     if (melati.getObject() != null) {
       melati.getObject().assertCanRead();
       context.put("object", melati.getObject());
     }
+
     return context.getForm("template");
   }
 }

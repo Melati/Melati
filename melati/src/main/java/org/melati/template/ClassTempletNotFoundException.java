@@ -59,6 +59,6 @@ public class ClassTempletNotFoundException extends MelatiRuntimeException {
 
   public String getMessage() {
     return "Templet loader `" + loader + "' failed to find a templet for " +
-    "class `" + clazz + "'";
+               "class `" + clazz + "'";
   }
 }

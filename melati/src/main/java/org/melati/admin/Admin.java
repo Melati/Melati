@@ -90,39 +90,38 @@ import org.melati.util.MappedEnumeration;
 public class Admin extends TemplateServlet {
 
   protected Persistent create(Table table, final TemplateContext context, 
-  final Melati melati) {
+                              final Melati melati) {
     return table.create(
-    new Initialiser() {
-      public void init(Persistent object)
-      throws AccessPoemException, ValidationPoemException {
-        MelatiUtil.extractFields(context, object);
-      }
-    });
+        new Initialiser() {
+          public void init(Persistent object)
+            throws AccessPoemException, ValidationPoemException {
+              MelatiUtil.extractFields(context, object);
+            }
+        });
   }
 
-  protected final String adminTemplate(TemplateContext context, 
-  String name) {
+  protected final String adminTemplate(TemplateContext context, String name) {
     return ("admin/" + name);
   }
 
   // return the 'Main' admin frame
-  protected String mainTemplate(TemplateContext context)
- {
+
+  protected String mainTemplate(TemplateContext context) {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Main");
   }
 
   // return top template
-  protected String topTemplate(TemplateContext context)
-  throws PoemException {
+
+  protected String topTemplate(TemplateContext context) throws PoemException {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Top");
   }
 
   // return the 'bottom' admin page
-  protected String bottomTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+
+  protected String bottomTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     context.put("database", PoemThread.database());
     final Table table = melati.getTable();
     context.put("table", table);
@@ -130,8 +129,8 @@ public class Admin extends TemplateServlet {
   }
 
   // return the 'left' admin page
-  protected String leftTemplate(TemplateContext context, 
-  Melati melati)
+
+  protected String leftTemplate(TemplateContext context, Melati melati)
   throws PoemException {
     context.put("database", PoemThread.database());
     final Table table = melati.getTable();
@@ -140,16 +139,15 @@ public class Admin extends TemplateServlet {
   }
 
   // return primary select template
-  protected String primarySelectTemplate(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
-    return adminTemplate(primarySelect(context, melati), 
-    "PrimarySelect");
+
+  protected String primarySelectTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
+    return adminTemplate(primarySelect(context, melati), "PrimarySelect");
   }
 
-  protected TemplateContext primarySelect(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
+  protected TemplateContext primarySelect(TemplateContext context,
+                                          Melati melati)
+      throws PoemException {
     final Table table = melati.getTable();
     context.put("table", table);
 
@@ -162,36 +160,35 @@ public class Admin extends TemplateServlet {
     if (column != null) {
       String sea = context.getForm("field_" + column.getName());
       primaryCriterion = new Field(
-      sea == null || sea.equals("") ? null :
-      column.getType().rawOfString(sea),
-      new BaseFieldAttributes(column,
-      column.getType().withNullable(true)));
+          sea == null || sea.equals("") ?
+            null :
+            column.getType().rawOfString(sea),
+          new BaseFieldAttributes(column,
+                                  column.getType().withNullable(true)));
     }
     else
-    primaryCriterion = null;
+      primaryCriterion = null;
 
     context.put("primaryCriterion", primaryCriterion);
     return context;
   }
 
   // return select template (a selection of records from a table)
-  protected String selectionTemplate(TemplateContext context, 
-  Melati melati)
-  throws FormParameterException {
+  protected String selectionTemplate(TemplateContext context, Melati melati)
+      throws FormParameterException {
     return adminTemplate(selection(context, melati), "Selection");
   }
 
   // return select template (a selection of records from a table)
   protected String selectionRightTemplate(TemplateContext context, 
-  Melati melati)
-  throws FormParameterException {
+                                          Melati melati)
+      throws FormParameterException {
     return adminTemplate(selection(context, melati), 
     "SelectionRight");
   }
 
-  protected TemplateContext selection(TemplateContext context, 
-  Melati melati)
-  throws FormParameterException {
+  protected TemplateContext selection(TemplateContext context, Melati melati)
+      throws FormParameterException {
     final Table table = melati.getTable();
     context.put("table", table);
 
@@ -218,33 +215,35 @@ public class Admin extends TemplateServlet {
     }
 
     context.put("whereClause",
-    EnumUtils.concatenated("&", whereClause.elements()));
+                EnumUtils.concatenated("&", whereClause.elements()));
 
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-    new ReferencePoemType(database.getColumnInfoTable(), true) {
-      protected Enumeration _possibleRaws() {
-        return
-        new MappedEnumeration(table.getSearchCriterionColumns()) {
-          public Object mapped(Object column) {
-            return ((Column)column).getColumnInfo().getTroid();
+        new ReferencePoemType(database.getColumnInfoTable(), true) {
+          protected Enumeration _possibleRaws() {
+            return
+                new MappedEnumeration(table.getSearchCriterionColumns()) {
+                  public Object mapped(Object column) {
+                    return ((Column)column).getColumnInfo().getTroid();
+                  }
+                };
           }
         };
-      }
-    };
 
     Vector orderings = new Vector();
     Vector orderClause = new Vector();
+
     for (int o = 1; o <= 2; ++o) {
       String name = "field_order-" + o;
       String orderColumnIDString = context.getForm(name);
       Integer orderColumnID = null;
+
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
-        (Integer)searchColumnsType.rawOfString(orderColumnIDString);
+            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
-        (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
+            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
         String desc = Boolean.TRUE.equals(info.getSortdescending()) ?
                           " DESC" : "";
         orderings.addElement(database.quotedName(info.getName()) + desc);
@@ -254,9 +253,9 @@ public class Admin extends TemplateServlet {
 
     String orderBySQL = null;
     if (orderings.elements().hasMoreElements())
-    orderBySQL = EnumUtils.concatenated(", ", orderings.elements());
+      orderBySQL = EnumUtils.concatenated(", ", orderings.elements());
     context.put("orderClause",
-    EnumUtils.concatenated("&", orderClause.elements()));
+                EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
     String startString = context.getForm("start");
@@ -267,7 +266,7 @@ public class Admin extends TemplateServlet {
       catch (NumberFormatException e) {
         //FIXME - surely not a PoemException
         throw new 
-        FormParameterException("start", "param to must be an Integer");
+            FormParameterException("start", "param to must be an Integer");
       }
     }
 
@@ -278,25 +277,21 @@ public class Admin extends TemplateServlet {
   }
 
   // return the 'navigation' admin page
-  protected String navigationTemplate(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
+  protected String navigationTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     context.put("database", PoemThread.database());
     final Table table = melati.getTable();
     context.put("table", table);
     return adminTemplate(context, "Navigation");
   }
 
-  protected String popupTemplate(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
+  protected String popupTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     return adminTemplate(popup(context, melati), "PopupSelect");
   }
 
-
-  protected TemplateContext popup(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
+  protected TemplateContext popup(TemplateContext context, Melati melati)
+      throws PoemException {
     final Table table = melati.getTable();
     context.put("table", table);
 
@@ -308,27 +303,27 @@ public class Admin extends TemplateServlet {
     final Persistent criteria = table.newPersistent();
 
     MappedEnumeration criterias =
-    new MappedEnumeration(table.getSearchCriterionColumns()) {
-      public Object mapped(Object c) {
-        return ((Column)c).asField(criteria).withNullable(true);
-      }
-    };
+        new MappedEnumeration(table.getSearchCriterionColumns()) {
+          public Object mapped(Object c) {
+            return ((Column)c).asField(criteria).withNullable(true);
+          }
+        };
 
     context.put("criteria", EnumUtils.vectorOf(criterias));
 
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-    new ReferencePoemType(database.getColumnInfoTable(), true) {
-      protected Enumeration _possibleRaws() {
-        return
-        new MappedEnumeration(table.getSearchCriterionColumns()) {
-          public Object mapped(Object column) {
-            return ((Column)column).getColumnInfo().getTroid();
+        new ReferencePoemType(database.getColumnInfoTable(), true) {
+          protected Enumeration _possibleRaws() {
+            return
+                new MappedEnumeration(table.getSearchCriterionColumns()) {
+                  public Object mapped(Object column) {
+                    return ((Column)column).getColumnInfo().getTroid();
+                  }
+                };
           }
         };
-      }
-    };
 
     Vector orderings = new Vector();
 
@@ -338,14 +333,14 @@ public class Admin extends TemplateServlet {
       Integer orderColumnID = null;
       if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
         orderColumnID =
-        (Integer)searchColumnsType.rawOfString(orderColumnIDString);
+            (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         ColumnInfo info =
-        (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
+            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
       }
 
       orderings.addElement(
-      new Field(orderColumnID,
-      new BaseFieldAttributes(name, searchColumnsType)));
+          new Field(orderColumnID,
+                    new BaseFieldAttributes(name, searchColumnsType)));
     }
 
     context.put("orderings", orderings);
@@ -354,117 +349,115 @@ public class Admin extends TemplateServlet {
   }
 
   protected String selectionWindowTemplate(TemplateContext context, 
-  Melati melati)
-  throws PoemException {
+                                           Melati melati)
+      throws PoemException {
     context.put("database", PoemThread.database());
     context.put("table", melati.getTable());
     return adminTemplate(context, "SelectionWindow");
   }
 
   // return primary select template
-  protected String selectionWindowPrimarySelectTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String selectionWindowPrimarySelectTemplate(TemplateContext context,
+                                                        Melati melati)
+      throws PoemException {
     return adminTemplate(primarySelect(context, melati), 
-    "SelectionWindowPrimarySelect");
+                         "SelectionWindowPrimarySelect");
   }
 
   // return select template (a selection of records from a table)
-  protected String selectionWindowSelectionTemplate
-  (TemplateContext context, Melati melati)
-  throws FormParameterException {
+  protected String selectionWindowSelectionTemplate(TemplateContext context,
+                                                    Melati melati)
+      throws FormParameterException {
     return adminTemplate(selection(context, melati), 
-    "SelectionWindowSelection");
+                         "SelectionWindowSelection");
   }
 
-  protected String columnCreateTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String columnCreateTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
 
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
     final Column tic = cit.getTableinfoColumn();
     final Column typeColumn = cit.getTypefactoryColumn();
 
     Enumeration columnInfoFields =
-    new MappedEnumeration(cit.getDetailDisplayColumns()) {
-      public Object mapped(Object column) {
-        if (column == typeColumn)
-        return new Field(PoemTypeFactory.STRING.getCode(),
-        typeColumn);
-        else
-        return new Field((Object)null, (FieldAttributes)column);
-      }
-    };
+        new MappedEnumeration(cit.getDetailDisplayColumns()) {
+          public Object mapped(Object column) {
+            if (column == typeColumn)
+              return new Field(PoemTypeFactory.STRING.getCode(),
+                               typeColumn);
+            else
+              return new Field((Object)null, (FieldAttributes)column);
+          }
+        };
 
     context.put("columnInfoFields", columnInfoFields);
 
     return adminTemplate(context, "CreateColumn");
   }
 
-  protected String tableCreateTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String tableCreateTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     Database database = melati.getDatabase();
 
     // Compose field for naming the TROID column: the display name and
     // description are redundant, since they not used in the template
 
     Field troidNameField = new Field(
-    "id",
-    new BaseFieldAttributes(
-    "troidName", "Troid column", "Name of TROID column",
-    database.getColumnInfoTable().getNameColumn().getType(),
-    20, 1, null, false, true, true));
+        "id",
+        new BaseFieldAttributes(
+            "troidName", "Troid column", "Name of TROID column",
+            database.getColumnInfoTable().getNameColumn().getType(),
+            20, 1, null, false, true, true));
 
     context.put("troidNameField", troidNameField);
 
     Table tit = database.getTableInfoTable();
     Enumeration tableInfoFields =
-    new MappedEnumeration(tit.columns()) {
-      public Object mapped(Object column) {
-        return new Field((Object)null, (Column)column);
-      }
-    };
+        new MappedEnumeration(tit.columns()) {
+          public Object mapped(Object column) {
+            return new Field((Object)null, (Column)column);
+          }
+        };
 
     context.put("tableInfoFields", tableInfoFields);
 
     return adminTemplate(context, "CreateTable");
   }
 
-  protected String tableCreate_doitTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String tableCreate_doitTemplate(TemplateContext context,
+                                            Melati melati)
+      throws PoemException {
     Database database = melati.getDatabase();
     database.addTableAndCommit(
-    (TableInfo)create(database.getTableInfoTable(), context, melati),
-    context.getForm("field_troidName"));
+        (TableInfo)create(database.getTableInfoTable(), context, melati),
+        context.getForm("field_troidName"));
 
     return adminTemplate(context, "CreateTable_doit");
   }
 
-  protected String columnCreate_doitTemplate
-  (final TemplateContext context, final Melati melati)
-  throws PoemException {
+  protected String columnCreate_doitTemplate(final TemplateContext context,
+                                             final Melati melati)
+      throws PoemException {
 
     Database db = melati.getDatabase();
 
     ColumnInfo columnInfo =
-    (ColumnInfo)db.getColumnInfoTable().create(
-    new Initialiser() {
-      public void init(Persistent object)
-      throws AccessPoemException, ValidationPoemException {
-        MelatiUtil.extractFields(context, object);
-      }
-    });
+        (ColumnInfo)db.getColumnInfoTable().create(
+        new Initialiser() {
+          public void init(Persistent object)
+              throws AccessPoemException, ValidationPoemException {
+            MelatiUtil.extractFields(context, object);
+          }
+        });
 
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
 
     return adminTemplate(context, "CreateTable_doit");
   }
 
-  protected TemplateContext editingTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected TemplateContext editingTemplate(TemplateContext context,
+                                            Melati melati)
+      throws PoemException {
     melati.getObject().assertCanRead();
     context.put("object", melati.getObject());
     Database database = melati.getDatabase();
@@ -473,28 +466,23 @@ public class Admin extends TemplateServlet {
     return context;
   }
 
-  protected String rightTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String rightTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     return adminTemplate(editingTemplate(context, melati), "Right");
   }
 
-  protected String editHeaderTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
-    return adminTemplate(editingTemplate(context, melati),
-    "EditHeader");
+  protected String editHeaderTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
+    return adminTemplate(editingTemplate(context, melati), "EditHeader");
   }
 
-  protected String editTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String editTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     return adminTemplate(editingTemplate(context, melati), "Edit");
   }
 
-  protected String addTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String addTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
 
     context.put("table", melati.getTable());
 
@@ -505,7 +493,7 @@ public class Admin extends TemplateServlet {
       String stringValue = context.getForm("field_" + column.getName());
       Object value = null;
       if (stringValue != null)
-      value = column.getType().rawOfString(stringValue);
+        value = column.getType().rawOfString(stringValue);
       fields.add(new Field(value, column));
     }
     context.put("fields", fields.elements());
@@ -513,23 +501,20 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Add");
   }
 
-  protected String updateTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String updateTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     MelatiUtil.extractFields(context, melati.getObject());
     return adminTemplate(context, "Update");
   }
 
-  protected String addUpdateTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String addUpdateTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     create(melati.getTable(), context, melati);
     return adminTemplate(context, "Update");
   }
 
-  protected String deleteTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String deleteTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     try {
       melati.getObject().deleteAndCommit();
       return adminTemplate(context, "Update");
@@ -541,9 +526,8 @@ public class Admin extends TemplateServlet {
     }
   }
 
-  protected String duplicateTemplate
-  (TemplateContext context, Melati melati)
-  throws PoemException {
+  protected String duplicateTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
     // FIXME the ORIGINAL object is the one that will get edited when the
     // update comes in from Edit, because it will be identified from
     // the path info!
@@ -556,7 +540,7 @@ public class Admin extends TemplateServlet {
   }
 
   protected String modifyTemplate(TemplateContext context, Melati melati)
-                                                     throws FormParameterException {
+      throws FormParameterException {
     String action = melati.getRequest().getParameter("action");
     if ("Update".equals(action))
       return updateTemplate(context, melati);
@@ -570,11 +554,10 @@ public class Admin extends TemplateServlet {
   }
 
   protected String uploadTemplate(TemplateContext context)
-                                              throws PoemException {
+      throws PoemException {
     context.put("field", context.getForm("field"));
     return adminTemplate(context, "Upload");
   }
-
 
   /*
    * For this to work you need to set your melati-wide FormDataAdaptorFactory
@@ -582,22 +565,24 @@ public class Admin extends TemplateServlet {
    * UploadDirDataAdaptorFactory (remember to set your UploadDir and UploadURL
    * in the Setting table.
    */
+
   protected String uploadDoneTemplate(TemplateContext context, Melati melati)
-                                              throws PoemException {
+      throws PoemException {
     String field = context.getForm("field");
     context.put("field", field);
     String url = "";
+
     try {
       url = context.getMultipartForm("file").getDataURL();
-    } catch (Exception e) {}
+    }
+    catch (Exception e) {}
+
     context.put("url", url);
     return adminTemplate(context, "UploadDone");
   }
 
-
-  protected String doTemplateRequest
-  (Melati melati, TemplateContext context)
-  throws Exception {
+  protected String doTemplateRequest(Melati melati, TemplateContext context)
+      throws Exception {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin))

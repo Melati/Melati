@@ -70,21 +70,23 @@ public class ClassNameTempletLoader implements TempletLoader {
     return "templets" + File.separatorChar + markupLanguage.getName();
   }
 
-  protected String templetPath
-  (TemplateEngine templateEngine, MarkupLanguage markupLanguage, String name) {
+  protected String templetPath(TemplateEngine templateEngine,
+                               MarkupLanguage markupLanguage, String name) {
     return "template" + File.separatorChar + templateEngine.getName() + 
-    File.separatorChar + templetsPath(markupLanguage) + 
-    File.separatorChar + name + templateEngine.templateExtension();
+               File.separatorChar + templetsPath(markupLanguage) + 
+               File.separatorChar + name + templateEngine.templateExtension();
   }
 
   public Template templet(TemplateEngine templateEngine,
-  MarkupLanguage markupLanguage, String name) throws NotFoundException {
-    return templateEngine.template
-    (templetPath(templateEngine, markupLanguage, name));
+                          MarkupLanguage markupLanguage, String name)
+      throws NotFoundException {
+    return templateEngine.template(templetPath(templateEngine, markupLanguage,
+                                               name));
   }
 
   public Template templet(TemplateEngine templateEngine,
-  MarkupLanguage markupLanguage, Class clazz) throws NotFoundException {
+                          MarkupLanguage markupLanguage, Class clazz)
+      throws NotFoundException {
 
     String cacheKey = clazz + "/" + markupLanguage;
     Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
@@ -94,31 +96,40 @@ public class ClassNameTempletLoader implements TempletLoader {
         try {
           templet = templet(templateEngine, markupLanguage, clazz.getName());
           break;
-      } catch (NotFoundException e) {}
+        }
+        catch (NotFoundException e) {}
+
         String specialTemplateName =
-        (String) specialTemplateNames.get(clazz.getName());
+            (String) specialTemplateNames.get(clazz.getName());
+
         if (specialTemplateName != null) {
-          templet = 
-          templet(templateEngine, markupLanguage, specialTemplateName);
+          templet =
+              templet(templateEngine, markupLanguage, specialTemplateName);
           break;
         }
+
         clazz = clazz.getSuperclass();
       }
+
       if (templet == null) throw new ClassTempletNotFoundException(this, clazz);
+
       defaultTempletOfPoemType.put(cacheKey, templet);
     }
+
     return templet;
   }
 
   public Template templet(TemplateEngine templateEngine,
-  MarkupLanguage markupLanguage, FieldAttributes attributes)
-  throws NotFoundException {
+                          MarkupLanguage markupLanguage,
+                          FieldAttributes attributes)
+      throws NotFoundException {
     if (attributes.getRenderInfo() != null)
-    return templet(templateEngine, markupLanguage, attributes.getRenderInfo());
+      return templet(templateEngine, markupLanguage,
+                     attributes.getRenderInfo());
     else {
       try {
-        return templet
-        (templateEngine, markupLanguage, attributes.getType().getClass());
+        return templet(templateEngine, markupLanguage,
+                       attributes.getType().getClass());
       }
       catch (ClassTempletNotFoundException e) {
         throw new DefaultTempletNotFoundException(this, attributes);

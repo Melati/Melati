@@ -100,6 +100,7 @@ public class MelatiConfig {
   private TemplateEngine templateEngine = null;
   private String javascriptLibraryURL = null;
   private String staticURL = null;
+  private String templatePath = null;
   private String defaultPropertiesName = "org.melati.MelatiServlet";
 
   // allows creation of a melaticonfig with default config params
@@ -120,6 +121,7 @@ public class MelatiConfig {
     String fdaFactoryProp = pref + "formDataAdaptorFactory";
     String templetLoaderProp = pref + "templetLoader";
     String templateEngineProp = pref + "templateEngine";
+    String templatePathProp = pref + "templatePath";
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
     String staticURLProp = pref + "staticURL";
     try {
@@ -170,6 +172,7 @@ public class MelatiConfig {
                                                       javascriptLibraryURLProp);
 
       staticURL = PropertiesUtils.getOrDie(configuration, staticURLProp);
+      templatePath = PropertiesUtils.getOrDie(configuration, templatePathProp);
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +
@@ -230,6 +233,11 @@ public class MelatiConfig {
   // location of static content for this site
   public String getStaticURL() {
     return staticURL;
+  }
+
+  // location of templates
+  public String getTemplatePath() {
+    return templatePath;
   }
 
   public void setStaticURL(String url) {

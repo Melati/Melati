@@ -6,3 +6,4 @@ build.properties
 melatitest.data
 melatitest.properties
 melatitest.script
+build/TEST-org.melati.AllUnitTests.txt

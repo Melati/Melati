@@ -54,14 +54,47 @@ import org.melati.poem.generated.GroupMembershipTableBase;
  * This table will contain at least the tuple
  * <code>_administrator_</code>:<code>Melati database administrators</code>. 
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>GroupMembershipTable</code> object.
+ * <p>
+ * Description: 
+ *   A record that a given user is a member of a given group. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>GroupMembership</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> user </td><td> User </td><td> The user who belongs to the group 
+ * </td></tr> 
+ * <tr><td> group </td><td> Group </td><td> The group to which the user 
+ * belongs </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
+
 public class GroupMembershipTable extends GroupMembershipTableBase {
 
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public GroupMembershipTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
+
+  // programmer's domain-specific code here
 
   protected void postInitialise() {
     super.postInitialise();

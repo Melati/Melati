@@ -90,12 +90,13 @@ public abstract class ValueInfoBase extends Persistent {
   */
   protected Integer precision;
  /**
-  * Scale - Scale (number of digits after the decimal) for fixed-point numbers 
+  * Scale - Scale (number of digits after the decimal) for fixed-point 
+  * numbers 
   */
   protected Integer scale;
  /**
-  * Rendering information - The name of the Melati templet (if not the default) 
-  * to use for input controls for the field 
+  * Rendering information - The name of the Melati templet (if not the 
+  * default) to use for input controls for the field 
   */
   protected String renderinfo;
  /**
@@ -103,8 +104,8 @@ public abstract class ValueInfoBase extends Persistent {
   */
   protected String rangelow_string;
  /**
-  * Range: limit - The (exclusive) limit of the range of permissible values for 
-  * the field 
+  * Range: limit - The (exclusive) limit of the range of permissible values 
+  * for the field 
   */
   protected String rangelimit_string;
 

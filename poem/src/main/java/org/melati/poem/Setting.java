@@ -50,12 +50,44 @@ import org.melati.poem.generated.SettingBase;
 /**
  * A setting, analageous to a Property
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>Setting</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A configurable setting for the application. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Setting</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A code name for this setting 
+ * </td></tr> 
+ * <tr><td> value </td><td> String </td><td> The value of this setting 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  * @author WilliamC@paneris.org
- *
  */
 
 public class Setting extends SettingBase {
-  public Setting() {}
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>Setting</code> object.
+  * <p>
+  * Description: 
+  *   A configurable setting for the application. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
+  public Setting() { }
+
+  // programmer's domain-specific code here
 
   private FieldAttributes valueAttributes = null;
   private Object raw = null;

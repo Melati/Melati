@@ -55,23 +55,59 @@ import java.sql.SQLException;
  * Every Melati DB has this table.
  * This table will contain at least <code>_administer_</code>. 
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>CapabilityTable</code> object.
+ * <p>
+ * Description: 
+ *   A capability which users can be required to possess before accessing 
+ *   data. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Capability</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * capability </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class CapabilityTable extends CapabilityTableBase {
 
-  private static final Object nullEntry = new Object();
-
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public CapabilityTable(Database database, String name,
                          DefinitionSource definitionSource)
       throws PoemException {
     super(database, name, definitionSource);
   }
 
+  // programmer's domain-specific code here
+
+  private static final Object nullEntry = new Object();
   private Capability administer;
 
   Capability administer() {
     return administer;
   }
 
+ /**
+  * Ensure that the <tt>_administer</tt> {@link Capability} 
+  * exists and apply it to this table.
+  *
+  * @param colDescs the {@link Column} descriptions 
+  */
   public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
@@ -88,10 +124,22 @@ public class CapabilityTable extends CapabilityTableBase {
       getTableInfo().setCancreate(administer);
   }
   
+ /**
+  * Retrieve a {@link Capability} by name.
+  *
+  * @param name the name of the {@link Capability} to return
+  * @return the existing {@link Capability}
+  */
   public Capability get(String name) {
       return (Capability) getNameColumn().firstWhereEq(name);
   }
 
+ /**
+  * Make sure that a record exists.
+  *
+  * @param name the name of the {@link Capability} to ensure
+  * @return the existing or newly created {@link Capability}
+  */
   public Capability ensure(String name) {
     Capability capability = get(name);
     if (capability != null)

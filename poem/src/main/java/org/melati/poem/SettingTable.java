@@ -51,11 +51,41 @@ import java.util.Hashtable;
  * A {@link Table} which is used like a properties file.
  *
  * Every Melati DB has one.
+ *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>SettingTable</code> object.
+ * <p>
+ * Description: 
+ *   A configurable setting for the application. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Setting</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A code name for this setting 
+ * </td></tr> 
+ * <tr><td> value </td><td> String </td><td> The value of this setting 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
+
 public class SettingTable extends SettingTableBase {
 
-  private static final Object nullEntry = new Object();
-
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public SettingTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
@@ -64,6 +94,7 @@ public class SettingTable extends SettingTableBase {
 
   // programmer's domain-specific code here
 
+  private static final Object nullEntry = new Object();
   private Hashtable cache = null;
   private long cacheSerial = 0L;
 

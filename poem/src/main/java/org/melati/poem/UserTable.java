@@ -50,24 +50,62 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 /**
- * The {@link Table} of registered users.
+ * The {@link Table} of registered {@link User}s.
  *
  * Every Melati DB has this table.
  * This table will contain at least a <code>_guest_</code>
  *  and <code>_administrator_</code> {@link User}.
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>UserTable</code> object.
+ * <p>
+ * Description: 
+ *   A registered user of the database. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>User</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> The user's real name </td></tr> 
+ * <tr><td> login </td><td> String </td><td> The user's login name </td></tr> 
+ * <tr><td> password </td><td> String </td><td> The user's password 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class UserTable extends UserTableBase {
 
+
+  // programmer's domain-specific code here
   protected User guestUser, administratorUser;
   // see below
   // private Capability canReadPasswords = new Capability("ReadPasswords");
   // private Capability canWritePasswords = new Capability("WritePasswords");
 
+ /**
+  * Constructor.
+  * 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public UserTable(Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+ /**
+  * Constructor.
+  * 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public UserTable(Database database, String name,
                    DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);

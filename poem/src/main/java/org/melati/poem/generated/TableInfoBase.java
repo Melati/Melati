@@ -93,8 +93,8 @@ public abstract class TableInfoBase extends Persistent {
   */
   protected Integer cancreate;
  /**
-  * Cache size limit - The maximum number of records from the table to keep in 
-  * the cache 
+  * Cache size limit - The maximum number of records from the table to keep 
+  * in the cache 
   */
   protected Integer cachelimit;
  /**

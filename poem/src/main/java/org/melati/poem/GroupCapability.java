@@ -49,11 +49,58 @@ import org.melati.poem.generated.GroupCapabilityBase;
 /**
  * A record of a {@link Group}'s ability to perform an action.
  *
- * @author WilliamC@paneris.org
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>GroupCapability</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A record that users belonging to a given group possess a given 
+ *   capability. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>GroupCapability</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> group </td><td> Group </td><td> The user-group which has the 
+ * capability </td></tr> 
+ * <tr><td> capability </td><td> Capability </td><td> The capability 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class GroupCapability extends GroupCapabilityBase {
-  public GroupCapability() {}
 
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>GroupCapability</code> object.
+  * <p>
+  * Description: 
+  *   A record that users belonging to a given group possess a given 
+  *   capability. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
+  public GroupCapability() { }
+
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>GroupCapability</code> object.
+  * <p>
+  * Description: 
+  *   A record that users belonging to a given group possess a given 
+  *   capability. 
+  * </p>
+  * 
+  * @param group      the {@link Group} 
+  * @param capability the {@link Capability} 
+  */
   public GroupCapability(Group group, Capability capability) {
     this.group = group.troid();
     this.capability = capability.troid();

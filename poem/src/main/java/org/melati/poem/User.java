@@ -50,14 +50,48 @@ import org.melati.poem.generated.UserBase;
 /**
  * A registered user.
  *
+ * 
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>User</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A registered user of the database. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>User</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> The user's real name </td></tr> 
+ * <tr><td> login </td><td> String </td><td> The user's login name </td></tr> 
+ * <tr><td> password </td><td> String </td><td> The user's password 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  * @todo Introduce a new type to conceal passwords
  */
 public class User extends UserBase implements AccessToken {
 
-// FIXME it shouldn't be possible for anyone to getPassword
 
-  public User() {
-  }
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>User</code> object.
+  * <p>
+  * Description: 
+  *   A registered user of the database. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
+  public User() { }
+
+  // programmer's domain-specific code here
+
+  // FIXME it shouldn't be possible for anyone to getPassword
 
   public User(String login, String password, String name) {
     setLogin_unsafe(login);

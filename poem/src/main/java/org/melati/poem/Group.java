@@ -49,13 +49,61 @@ import org.melati.poem.generated.GroupBase;
 
 /**
  * An authorisation grouping that a {@link User} can belong to.
+ *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>Group</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A group to which registered users of the database can belong. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Group</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * group </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Group extends GroupBase {
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>Group</code> object.
+  * <p>
+  * Description: 
+  *   A group to which registered users of the database can belong. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
   public Group() {}
 
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>Group</code> object.
+  * <p>
+  * Description: 
+  *   A group to which registered users of the database can belong. 
+  * </p>
+  * 
+  * @param name the name of the {@link Group} to create
+  */
   public Group(String name) {
     this.name = name;
   }
 
+ /**
+  * Allow this object to be read by anyone.
+  * 
+  * @param token any {@link AccessToken}
+  */
   public void assertCanRead(AccessToken token) {}
 }

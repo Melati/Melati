@@ -137,32 +137,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setId((Integer)raw);
@@ -221,32 +200,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setName_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Name value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName();
           }
 
-
- /**
-  * Sets the Name value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setName((String)raw);
@@ -301,32 +259,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDisplayname_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Displayname value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayname();
           }
 
-
- /**
-  * Sets the Displayname value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setDisplayname((String)raw);
@@ -377,32 +314,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDescription_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Description value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDescription();
           }
 
-
- /**
-  * Sets the Description value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setDescription((String)raw);
@@ -457,32 +373,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDisplayorder_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Displayorder value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayorder();
           }
 
-
- /**
-  * Sets the Displayorder value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setDisplayorder((Integer)raw);
@@ -777,32 +672,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setCachelimit_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Cachelimit value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCachelimit();
           }
 
-
- /**
-  * Sets the Cachelimit value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setCachelimit((Integer)raw);
@@ -857,32 +731,11 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setSeqcached_unsafe((Boolean)raw);
           }
 
- /**
-  * Retrieves the Seqcached value, 
-  * without checking, of this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getSeqcached();
           }
 
-
- /**
-  * Sets the Seqcached value, without checking, for this <code>TableInfo</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setSeqcached((Boolean)raw);

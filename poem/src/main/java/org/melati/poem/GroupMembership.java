@@ -49,15 +49,73 @@ import org.melati.poem.generated.GroupMembershipBase;
 
 /**
  * A record of a {@link User}'s belonging to a {@link Group}.
+ * 
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>GroupMembership</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A record that a given user is a member of a given group. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>GroupMembership</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> user </td><td> User </td><td> The user who belongs to the group 
+ * </td></tr> 
+ * <tr><td> group </td><td> Group </td><td> The group to which the user 
+ * belongs </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class GroupMembership extends GroupMembershipBase {
-  public GroupMembership() {}
 
+public class GroupMembership extends GroupMembershipBase {
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>GroupMembership</code> object.
+  * <p>
+  * Description: 
+  *   A record that a given user is a member of a given group. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
+  public GroupMembership() { }
+
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>GroupMembership</code> object.
+  * <p>
+  * Description: 
+  *   A record that a given user is a member of a given group. 
+  * </p>
+  * 
+  * @param user a {@link User}
+  * @param group a {@link Group}
+  */
   public GroupMembership(User user, Group group) {
     this.user = user.troid();
     this.group = group.troid();
   }
 
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>GroupMembership</code> object.
+  * <p>
+  * Description: 
+  *   A record that a given user is a member of a given group. 
+  * </p>
+  * 
+  * @param user a raw troid value representing a {@link User}
+  * @param group a raw troid value representing a {@link Group}
+  */
   public GroupMembership(Integer user, Integer group) {
     this.user = user;
     this.group = group;

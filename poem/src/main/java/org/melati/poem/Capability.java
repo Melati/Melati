@@ -49,21 +49,70 @@ import org.melati.poem.generated.CapabilityBase;
 
 /**
  * The quality of being able to perform an action.
- *
- * @author WilliamC@paneris.org
- *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>Capability</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A capability which users can be required to possess before accessing 
+ *   data. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Capability</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * capability </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Capability extends CapabilityBase {
 
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>Capability</code> object.
+  * <p>
+  * Description: 
+  *   A capability which users can be required to possess before accessing 
+  *   data. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
   public Capability() {
   }
 
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>Capability</code> object.
+  * <p>
+  * Description: 
+  *   A capability which users can be required to possess before accessing 
+  *   data. 
+  * </p>
+  * 
+  * @param name the name of a <code>Capability</code> to create.
+  */
   public Capability(String name) {
     setName_unsafe(name);
   }
 
+ /**
+  * Allow this object to be read by anyone.
+  * 
+  * @param token any {@link AccessToken}
+  */
   public void assertCanRead(AccessToken token) {}
 
+ /**
+  * @return the name of this <code>Capability</code>
+  */
   public String toString() {
     return getName();
   }

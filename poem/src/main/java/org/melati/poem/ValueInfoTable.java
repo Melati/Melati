@@ -47,10 +47,58 @@ package org.melati.poem;
 import org.melati.poem.generated.ValueInfoTableBase;
 
 /**
- * Abstract table generated from Poem.dsd
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>ValueInfoTable</code> object.
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>ValueInfo</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> displayname </td><td> String </td><td> A user-friendly name for 
+ * the field </td></tr> 
+ * <tr><td> description </td><td> String </td><td> A brief description of the 
+ * field's function </td></tr> 
+ * <tr><td> usereditable </td><td> Boolean </td><td> Whether it makes sense 
+ * for the user to update the field's value </td></tr> 
+ * <tr><td> typefactory </td><td> PoemTypeFactory </td><td> The field's 
+ * Melati type </td></tr> 
+ * <tr><td> nullable </td><td> Boolean </td><td> Whether the field can be 
+ * empty </td></tr> 
+ * <tr><td> size </td><td> Integer </td><td> For character fields, the 
+ * maximum number of characters that can be stored, (-1 for unlimited) 
+ * </td></tr> 
+ * <tr><td> width </td><td> Integer </td><td> A sensible width for text boxes 
+ * used for entering the field, where appropriate </td></tr> 
+ * <tr><td> height </td><td> Integer </td><td> A sensible height for text 
+ * boxes used for entering the field, where appropriate </td></tr> 
+ * <tr><td> precision </td><td> Integer </td><td> Precision (total number of 
+ * digits) for fixed-point numbers </td></tr> 
+ * <tr><td> scale </td><td> Integer </td><td> Scale (number of digits after 
+ * the decimal) for fixed-point numbers </td></tr> 
+ * <tr><td> renderinfo </td><td> String </td><td> The name of the Melati 
+ * templet (if not the default) to use for input controls for the field 
+ * </td></tr> 
+ * <tr><td> rangelow_string </td><td> String </td><td> The low end of the 
+ * range of permissible values for the field </td></tr> 
+ * <tr><td> rangelimit_string </td><td> String </td><td> The (exclusive) 
+ * limit of the range of permissible values for the field </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class ValueInfoTable extends ValueInfoTableBase {
 
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public ValueInfoTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {

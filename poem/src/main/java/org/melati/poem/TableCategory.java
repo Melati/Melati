@@ -50,14 +50,62 @@ import org.melati.poem.generated.TableCategoryBase;
 /**
  * A grouping into which a {@link Table} can be assigned, eg <tt>Data</tt> 
  * or <tt>System</tt>.
+ * 
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>TableCategory</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   A category under which a table can be classified. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>TableCategory</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * category </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class TableCategory extends TableCategoryBase {
-  public TableCategory() {}
 
+public class TableCategory extends TableCategoryBase {
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>TableCategory</code> object.
+  * <p>
+  * Description: 
+  *   A category under which a table can be classified. 
+  * </p>
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+  */
+  public TableCategory() { }
+
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor 
+  * for a <code>Persistent</code> <code>TableCategory</code> object.
+  * <p>
+  * Description: 
+  *   A category under which a table can be classified. 
+  * </p>
+  * 
+  * @param name the name of a <code>TableCategory</code> to create.
+  */
   public TableCategory(String name) {
     setName_unsafe(name);
   }
 
-
+ /**
+  * Allow this object to be read by anyone.
+  * 
+  * @param token any {@link AccessToken}
+  */
   public void assertCanRead(AccessToken token) {}
 }

@@ -52,17 +52,76 @@ import org.melati.poem.generated.ColumnInfoTableBase;
  * a {@link Database}.
  * If a database does not contain a table called <tt>columninfo</tt> 
  * it will be created.
+ *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>ColumnInfoTable</code> object.
+ * <p>
+ * Description: 
+ *   Configuration information about a column in the database. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>ColumnInfo</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
+ * <tr><td> tableinfo </td><td> TableInfo </td><td> The table to which the 
+ * field belongs </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A code-name for the field 
+ * </td></tr> 
+ * <tr><td> displayorder </td><td> Integer </td><td> A rank determining where 
+ * the field appears in lists </td></tr> 
+ * <tr><td> usercreateable </td><td> Boolean </td><td> Whether it makes sense 
+ * for the user to initialise the field's value </td></tr> 
+ * <tr><td> displaylevel </td><td> DisplayLevel </td><td> A category 
+ * determining what granularity of report the field appears in </td></tr> 
+ * <tr><td> searchability </td><td> Searchability </td><td> A category 
+ * determining what level of searching this field supports </td></tr> 
+ * <tr><td> displayorderpriority </td><td> Integer </td><td> If present, the 
+ * level at which lists of records are sorted by the field </td></tr> 
+ * <tr><td> sortdescending </td><td> Boolean </td><td> Whether when sorting 
+ * by this column, the sort order should be reversed </td></tr> 
+ * <tr><td> indexed </td><td> Boolean </td><td> Whether the field is indexed 
+ * (ignored if the field is marked `unique') </td></tr> 
+ * <tr><td> unique </td><td> Boolean </td><td> Whether the field is unique 
+ * (implies that it's `indexed') </td></tr> 
+ * <tr><td> integrityfix </td><td> StandardIntegrityFix </td><td> How 
+ * referential integrity is maintained, what to do when the object referred 
+ * to is deleted </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class ColumnInfoTable extends ColumnInfoTableBase {
 
-  public ColumnInfoTable(Database database, String name) throws PoemException {
-    super(database, name);
-  }
-
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public ColumnInfoTable(Database database, String name,
                          DefinitionSource definitionSource)
       throws PoemException {
     super(database, name, definitionSource);
+  }
+
+  // programmer's domain-specific code here
+
+ /**
+  * Constructor.
+  * @todo check if this is used
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
+  public ColumnInfoTable(Database database, String name) throws PoemException {
+    super(database, name);
   }
 
   /**

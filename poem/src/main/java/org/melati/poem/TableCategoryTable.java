@@ -49,14 +49,45 @@ import org.melati.poem.generated.TableCategoryTableBase;
 /**
  * A {@link Table} which holds {@link TableCategory}s.
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>TableCategoryTable</code> object.
+ * <p>
+ * Description: 
+ *   A category under which a table can be classified. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>TableCategory</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * category </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
+
 public class TableCategoryTable extends TableCategoryTableBase {
 
-  public TableCategoryTable(Database database, String name, 
-                            DefinitionSource definitionSource) 
-      throws PoemException {
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+  public TableCategoryTable(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
+
+  // programmer's domain-specific code here
 
  /**
   * Create an entry with the given name if it doesn't exist.

@@ -52,6 +52,47 @@ import org.melati.poem.generated.ColumnInfoBase;
 /**
  * All the data defining a {@link Column}; actually a {@link Persistent} 
  * from the {@link ColumnInfoTable}.
+ * 
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>Persistent</code> <code>ColumnInfo</code> object.
+ * 
+ * <p> 
+ * Description: 
+ *   Configuration information about a column in the database. 
+ * </p>
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>ColumnInfo</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
+ * <tr><td> tableinfo </td><td> TableInfo </td><td> The table to which the 
+ * field belongs </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A code-name for the field 
+ * </td></tr> 
+ * <tr><td> displayorder </td><td> Integer </td><td> A rank determining where 
+ * the field appears in lists </td></tr> 
+ * <tr><td> usercreateable </td><td> Boolean </td><td> Whether it makes sense 
+ * for the user to initialise the field's value </td></tr> 
+ * <tr><td> displaylevel </td><td> DisplayLevel </td><td> A category 
+ * determining what granularity of report the field appears in </td></tr> 
+ * <tr><td> searchability </td><td> Searchability </td><td> A category 
+ * determining what level of searching this field supports </td></tr> 
+ * <tr><td> displayorderpriority </td><td> Integer </td><td> If present, the 
+ * level at which lists of records are sorted by the field </td></tr> 
+ * <tr><td> sortdescending </td><td> Boolean </td><td> Whether when sorting 
+ * by this column, the sort order should be reversed </td></tr> 
+ * <tr><td> indexed </td><td> Boolean </td><td> Whether the field is indexed 
+ * (ignored if the field is marked `unique') </td></tr> 
+ * <tr><td> unique </td><td> Boolean </td><td> Whether the field is unique 
+ * (implies that it's `indexed') </td></tr> 
+ * <tr><td> integrityfix </td><td> StandardIntegrityFix </td><td> How 
+ * referential integrity is maintained, what to do when the object referred 
+ * to is deleted </td></tr> 
+ * </table> 
+ * 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class ColumnInfo extends ColumnInfoBase {
 
@@ -70,6 +111,11 @@ public class ColumnInfo extends ColumnInfoBase {
     _column = column;
   }
 
+ /**
+  * Set the name if it is not set.
+  * 
+  * @param name the name to set
+  */
   public void setName(String name) {
     String current = getName();
     if (current != null && !current.equals(name))
@@ -77,6 +123,11 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setName(name);
   }
 
+ /**
+  * Set the TableInfo reference.
+  * 
+  * @param raw the troid value to set
+  */
   public void setTableinfoTroid(Integer raw) throws AccessPoemException {
     Integer ti = super.getTableinfoTroid();
     if (ti != null && !ti.equals(raw))
@@ -84,6 +135,11 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setTableinfoTroid(raw);
   }
 
+ /**
+  * Set the DisplaylevelIndex value.
+  * 
+  * @param index the DisplaylevelIndex value to set
+  */
   public void setDisplaylevelIndex(Integer index) {
     super.setDisplaylevelIndex(index);
     if (index.equals(DisplayLevel.primary.index)) {
@@ -102,6 +158,8 @@ public class ColumnInfo extends ColumnInfoBase {
   /**
    * Only those fields which are relevant to this column 
    * and legal as a field qualifier in the DSD.
+   * 
+   * @return an Enumeration of {@link Field}s 
    */
   public Enumeration getDsdQualifiers() {
     Vector v = new Vector();

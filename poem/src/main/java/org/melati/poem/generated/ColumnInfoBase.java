@@ -75,8 +75,8 @@ public abstract class ColumnInfoBase extends ValueInfo {
   */
   protected Boolean usercreateable;
  /**
-  * Display level - A category determining what granularity of report the field 
-  * appears in 
+  * Display level - A category determining what granularity of report the 
+  * field appears in 
   */
   protected Integer displaylevel;
  /**
@@ -90,7 +90,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   */
   protected Integer displayorderpriority;
  /**
-  * Sort Descending? - Whether when sorting by this column, the sort order 
+  * Sort Descending - Whether when sorting by this column, the sort order 
   * should be reversed 
   */
   protected Boolean sortdescending;

@@ -54,14 +54,44 @@ import org.melati.poem.generated.GroupTableBase;
  * This table will contain at least 
  * <code>Melati database administrators</code>. 
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>GroupTable</code> object.
+ * <p>
+ * Description: 
+ *   A group to which registered users of the database can belong. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>Group</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> name </td><td> String </td><td> A human-readable name for the 
+ * group </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
 public class GroupTable extends GroupTableBase {
 
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public GroupTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
+
+  // programmer's domain-specific code here
 
   private Group administratorsGroup;
 
@@ -84,6 +114,12 @@ public class GroupTable extends GroupTableBase {
       info.setCancreate(getDatabase().administerCapability());
   }
   
+ /**
+  * Make sure that a record exists.
+  *
+  * @param name the name of the {@link Group} to ensure
+  * @return the existing or newly created {@link Group}
+  */
   public Group ensure(String name) {
     Group group = (Group)getNameColumn().firstWhereEq(name);
     if (group != null)

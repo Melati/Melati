@@ -54,14 +54,48 @@ import org.melati.poem.generated.GroupCapabilityTableBase;
  * This table will contain at least the tuple
  * <code>Melati database administrators</code>:<code>_administer_</code>. 
  *
+ * Melati POEM generated, programmer modifiable stub 
+ * for a <code>GroupCapabilityTable</code> object.
+ * <p>
+ * Description: 
+ *   A record that users belonging to a given group possess a given 
+ *   capability. 
+ * </p>
+ *
+ * 
+ * <table> 
+ * <tr><th colspan='3'>
+ * Field summary for SQL table <code>GroupCapability</code>
+ * </th></tr>
+ * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+ * <tr><td> id </td><td> Integer </td><td> The Table Row Object ID </td></tr> 
+ * <tr><td> group </td><td> Group </td><td> The user-group which has the 
+ * capability </td></tr> 
+ * <tr><td> capability </td><td> Capability </td><td> The capability 
+ * </td></tr> 
+ * </table> 
+ * 
+ * @generator  org.melati.poem.prepro.TableDef#generateTableMainJava 
  */
+
 public class GroupCapabilityTable extends GroupCapabilityTableBase {
 
+ /**
+  * Constructor.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableMainJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
   public GroupCapabilityTable(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
+
+  // programmer's domain-specific code here
 
   protected void postInitialise() {
     super.postInitialise();

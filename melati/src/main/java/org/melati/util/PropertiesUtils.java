@@ -46,7 +46,11 @@
 package org.melati.util;
 
 import java.util.Properties;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class PropertiesUtils {
 
@@ -55,8 +59,7 @@ public class PropertiesUtils {
     Properties them = new Properties();
     try {
       them.load(data);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IOException("Corrupt properties file `" + path + "': " +
       e.getMessage());
     }
@@ -65,17 +68,16 @@ public class PropertiesUtils {
   }
 
   public static Properties fromResource(Class clazz, String name)
-  throws IOException {
+      throws IOException {
     InputStream is = clazz.getResourceAsStream(name);
 
     if (is == null)
-    throw new FileNotFoundException(name + ": is it in CLASSPATH?");
+      throw new FileNotFoundException(name + ": is it in CLASSPATH?");
 
     Properties them = new Properties();
     try {
       them.load(is);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IOException("Corrupt properties file `" + name + "': " +
       e.getMessage());
     }
@@ -84,23 +86,23 @@ public class PropertiesUtils {
   }
 
   public static String getOrDie(Properties properties, String propertyName)
-  throws NoSuchPropertyException {
+      throws NoSuchPropertyException {
     String value = properties.getProperty(propertyName);
     if (value == null)
     throw new NoSuchPropertyException(properties, propertyName);
     return value;
   }
 
-  public static String getOrDefault
-  (Properties properties, String propertyName, String def)
-  throws NoSuchPropertyException {
+  public static String getOrDefault(Properties properties, 
+                                    String propertyName, String def)
+      throws NoSuchPropertyException {
     String value = properties.getProperty(propertyName);
     if (value == null) return def;
     return value;
   }
 
   public static int getOrDie_int(Properties properties, String propertyName)
-  throws NoSuchPropertyException, FormatPropertyException {
+      throws NoSuchPropertyException, FormatPropertyException {
     String string = getOrDie(properties, propertyName);
     try {
       return Integer.parseInt(string);
@@ -111,9 +113,9 @@ public class PropertiesUtils {
     }
   }
 
-  public static int getOrDefault_int
-  (Properties properties, String propertyName, int def)
-  throws NoSuchPropertyException, FormatPropertyException {
+  public static int getOrDefault_int(Properties properties, 
+                                     String propertyName, int def)
+      throws NoSuchPropertyException, FormatPropertyException {
     String string = getOrDefault(properties, propertyName, ""+def);
     try {
       return Integer.parseInt(string);
@@ -124,9 +126,9 @@ public class PropertiesUtils {
     }
   }
 
-  public static Object instanceOfNamedClass(
-  Properties properties, String propertyName, Class base, Class defaulT)
-  throws InstantiationPropertyException {
+  public static Object instanceOfNamedClass(Properties properties, 
+                           String propertyName, Class base, Class defaulT)
+      throws InstantiationPropertyException {
     String className =  (String)properties.get(propertyName);
     if (className == null)
     try {

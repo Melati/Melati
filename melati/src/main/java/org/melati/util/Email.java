@@ -46,10 +46,11 @@
 package org.melati.util;
 
 import sun.net.smtp.SmtpClient;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Date;
-import java.text.*;
-import org.melati.poem.*;
+import java.text.SimpleDateFormat;
+import org.melati.poem.Database;
 
 public class Email {
 

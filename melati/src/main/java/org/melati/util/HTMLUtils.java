@@ -1,10 +1,60 @@
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2001 Myles Chippendale
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Myles Chippendale <mylesc@paneris.org>
+ */
 package org.melati.util;
 
-import java.io.*;
-import java.util.*;
-import javax.swing.text.html.parser.*;
-import javax.swing.text.html.*;
-import javax.swing.text.*;
+import java.io.Writer;
+import java.io.StringWriter;
+import java.io.InputStream;
+import java.io.DataInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Enumeration;
+import javax.swing.text.html.parser.ContentModel;
+import javax.swing.text.html.parser.DTD;
+import javax.swing.text.html.parser.DTDConstants;
+import javax.swing.text.html.parser.AttributeList;
+import javax.swing.text.html.HTML;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.html.parser.Element;
 
 public class HTMLUtils {
@@ -47,14 +97,14 @@ public class HTMLUtils {
 
     if (dtdForHTMLParser == null)
       try {
-	dtdForHTMLParser = DTD.getDTD(dtdNameForHTMLParser);
-	InputStream res = dtdForHTMLParser.getClass().
+        dtdForHTMLParser = DTD.getDTD(dtdNameForHTMLParser);
+        InputStream res = dtdForHTMLParser.getClass().
                               getResourceAsStream(dtdNameForHTMLParser);
-	if (res == null)
-	  throw new FileNotFoundException(
-	      "Resource " + dtdNameForHTMLParser + " not found: " +
-	      "but it ought to be in rt.jar?!");
-	dtdForHTMLParser.read(new DataInputStream(res));
+        if (res == null)
+          throw new FileNotFoundException(
+              "Resource " + dtdNameForHTMLParser + " not found: " +
+              "but it ought to be in rt.jar?!");
+        dtdForHTMLParser.read(new DataInputStream(res));
 
         // add <SPAN CLASS=...> with the same content model as <DIV>
         // [which is a hack for bibliomania!!]
@@ -73,8 +123,8 @@ public class HTMLUtils {
         addToContentModels(dtdForHTMLParser, i, span);
       }
       catch (Exception e) {
-	throw new UnexpectedExceptionException(
-	    "making the DTD for Sun's HTML parser", e);
+        throw new UnexpectedExceptionException(
+          "making the DTD for Sun's HTML parser", e);
       }
 
     return dtdForHTMLParser;
@@ -164,7 +214,7 @@ public class HTMLUtils {
     w.write('<');
     w.write(tag.toString());
     for (Enumeration a = attributes.getAttributeNames();
-	 a.hasMoreElements();) {
+         a.hasMoreElements();) {
       Object n = a.nextElement();
       if (attributes.isDefined(n)) {
         w.write(' ');

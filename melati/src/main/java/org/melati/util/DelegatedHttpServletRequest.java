@@ -45,12 +45,12 @@
 
 package org.melati.util;
 
-import java.util.*;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.lang.reflect.*;
-import org.melati.util.servletcompat.*;
+import java.util.Map;
+import java.util.Enumeration;
+import java.util.Locale;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import org.melati.util.servletcompat.HttpServletRequestCompat;
 
  /*
   * The <code>DelegatedHttpServletRequest</code> class enables 
@@ -140,7 +140,8 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   public java.lang.String getContentType() {
     return peer.getContentType();
   }
-  public javax.servlet.ServletInputStream getInputStream() throws java.io.IOException {
+  public javax.servlet.ServletInputStream getInputStream() 
+        throws java.io.IOException {
     return peer.getInputStream();
   }
   public java.lang.String getParameter(java.lang.String a) {
@@ -177,8 +178,8 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
 
   /**
    * 
-   * @deprecated 	As of Version 2.1 of the Java Servlet API,
-   * 			use {@link ServletContext#getRealPath} instead.
+   * @deprecated    As of Version 2.1 of the Java Servlet API,
+   *                use {@link ServletContext#getRealPath} instead.
    **/
   public java.lang.String getRealPath(java.lang.String a) {
     return HttpServletRequestCompat.getRealPath(peer, a);

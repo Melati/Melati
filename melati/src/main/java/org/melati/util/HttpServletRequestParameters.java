@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 

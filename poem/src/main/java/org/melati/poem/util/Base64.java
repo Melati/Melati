@@ -29,26 +29,26 @@ final public class Base64
    private static final byte LOWER_SIX  = (byte) (1 + 2 + 4 + 8 + 16 + 32);
 
 
-   /**
-     * Get the plain text version of a base64 encoded string
-     */
+   /*
+    * Get the plain text version of a base64 encoded string
+    */
    
    final public static String decode(String encoded)
    {
       return decode(encoded.getBytes());
    }
 
-   /**
-     * Get the base64 encoded version of a plain text String
-     */
+   /*
+    * Get the base64 encoded version of a plain text String
+    */
    final public static String encode(String plainText)
    {
       return encode(plainText.getBytes());
    }
 
-   /**
-     * Ge tthe plain text version of a base64 encoded byte array
-     */
+   /*
+    * Get the plain text version of a base64 encoded byte array
+    */
    final public static String decode(byte[] encoded)
    {
       byte[] plain = new byte[(int) (encoded.length * 0.75) + 2];
@@ -120,9 +120,9 @@ final public class Base64
       return new String(plain);
    }
 
-   /**
-     * Get the base64 encoded version of a plain text byte array
-     */
+   /*
+    * Get the base64 encoded version of a plain text byte array
+    */
    final static public String encode(byte[] plain)
    {
 
@@ -131,7 +131,7 @@ final public class Base64
        * 111111 112222 222233 333333    (xx: high bits unused)
        * UPPER6 LOWER2 LOWER4 LOWER6
        *        UPPER4 UPPER2
-      **/ 
+       */ 
 
       StringBuffer encoded = new StringBuffer((int) (plain.length * 1.34) + 1);
 
@@ -191,7 +191,7 @@ final public class Base64
 
 
 
-   /**
+    /*
      * Translate a character in the base64 alphabet into a byte with
      * the corresponding bits set (ie: a number from 0 to 64).
      * @returns the base64 value, or 0 for the special '=' pad character
@@ -228,7 +228,7 @@ final public class Base64
       throw new NumberFormatException("Not a base64 character: " + base64);
    }
 
-   /**
+    /*
      * Turn a six-bit value into a base64 digit
      */
    static private char base64(byte sixBits)
@@ -258,7 +258,7 @@ final public class Base64
    }
 
 
-   /**
+    /*
      * Test harness
      */
    public static void main(String arg[]) {
@@ -283,4 +283,15 @@ final public class Base64
 
    }
 }
+
+
+
+
+
+
+
+
+
+
+
 

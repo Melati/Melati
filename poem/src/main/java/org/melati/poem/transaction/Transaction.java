@@ -45,8 +45,9 @@
 
 package org.melati.util;
 
-import java.util.*;
-import org.melati.poem.*;
+import java.util.Vector;
+import java.util.Enumeration;
+import org.melati.poem.UnexpectedExceptionPoemException;
 
 public abstract class Transaction {
 

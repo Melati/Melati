@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Vector;
 
 public abstract class CachedIndexFactory implements IndexFactory {
   private Vector cache = new Vector();
@@ -84,3 +84,7 @@ public abstract class CachedIndexFactory implements IndexFactory {
     cache.removeAllElements();
   }
 }
+
+
+
+

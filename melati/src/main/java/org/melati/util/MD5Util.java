@@ -45,7 +45,6 @@
 
 package org.melati.util;
 
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 
 /**
@@ -60,12 +59,13 @@ public class MD5Util {
       byte[] digest = md.digest(in.getBytes());
       return new String(digest);
     } catch (Exception e) {
-      throw new MelatiBugMelatiException("For some reason I couldn't encode the password!", e);
+      throw new MelatiBugMelatiException(
+         "For some reason I couldn't encode the password!", e);
     }
   }
 
   
-   /**
+    /**
      * Test harness
      */
    public static void main(String arg[]) {
@@ -81,3 +81,19 @@ public class MD5Util {
    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

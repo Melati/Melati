@@ -45,11 +45,9 @@
 
 package org.melati.util;
 
-import java.util.*;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.security.Principal;
+import java.util.Enumeration;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 public class ReconstructedHttpServletRequest
     extends DelegatedHttpServletRequest {

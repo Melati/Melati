@@ -45,11 +45,15 @@
 
 package org.melati.util.servletcompat;
 
-import java.util.*;
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.lang.reflect.*;
+import java.util.Map;
+import java.util.Enumeration;
+import java.util.Locale;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import org.melati.util.UnexpectedExceptionException;
 
 
@@ -108,20 +112,23 @@ public class HttpServletRequestCompat {
       Class hsr = Class.forName("javax.servlet.http.HttpServletRequest");
       getUserPrincipal = methodOrNull(hsr, "getUserPrincipal", noparams);
       getContextPath = methodOrNull(hsr, "getContextPath", noparams);
-      getHeaders = methodOrNull(hsr, "getHeaders", new String[] { "java.lang.String" } );
+      getHeaders = methodOrNull(hsr, "getHeaders", 
+                                new String[] { "java.lang.String" } );
       getSession = methodOrNull(hsr, "getSession", noparams);
-      isRequestedSessionIdFromURL = methodOrNull(hsr, "isRequestedSessionIdFromURL", noparams);
-      isUserInRole = methodOrNull(hsr, "isUserInRole", new String[] { "java.lang.String" } );
+      isRequestedSessionIdFromURL = methodOrNull(hsr, 
+                                   "isRequestedSessionIdFromURL", noparams);
+      isUserInRole = methodOrNull(hsr, "isUserInRole", 
+                                  new String[] { "java.lang.String" } );
       getAttributeNames = methodOrNull(hsr, "getAttributeNames", noparams);
       getLocale = methodOrNull(hsr, "getLocale", noparams);
       getLocales = methodOrNull(hsr, "getLocales", noparams);
       getRequestDispatcher = methodOrNull(hsr, "getRequestDispatcher",
-                                          new String[] { "java.lang.String" } );
+                                        new String[] { "java.lang.String" } );
       isSecure = methodOrNull(hsr, "isSecure", noparams);
       removeAttribute = methodOrNull(hsr, "removeAttribute",
                                      new String[] { "java.lang.String" } );
       setAttribute = methodOrNull(hsr, "setAttribute",
-                                  new String[] { "java.lang.String", "java.lang.Object" });
+                    new String[] { "java.lang.String", "java.lang.Object" });
     }
     catch (Exception e) {
       e.printStackTrace();

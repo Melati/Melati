@@ -45,7 +45,10 @@
 
 package org.melati.util;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Like a BufferedInputStream except it has a new function
@@ -66,7 +69,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * @param   in   the underlying input stream.
      */
     public DelimitedBufferedInputStream(InputStream in) {
-	  super(in);
+       super(in);
     }
 
     /**
@@ -96,26 +99,26 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      */
     private void fill() throws IOException {
       if (markpos < 0)
-	    pos = 0;		/* no mark: throw away the buffer */
-      else if (pos >= buf.length)	/* no room left in buffer */
-	    if (markpos > 0) {	/* can throw away early part of the buffer */
-          int sz = pos - markpos;
-		  System.arraycopy(buf, markpos, buf, 0, sz);
-		  pos = sz;
-		  markpos = 0;
-	    }
-	    else if (buf.length >= marklimit) {
-		  markpos = -1;	/* buffer got too big, invalidate mark */
-		  pos = 0;	/* drop buffer contents */
-	    }
-	    else {		/* grow buffer */
-		  int nsz = pos * 2;
-   		  if (nsz > marklimit)
-		    nsz = marklimit;
-		  byte nbuf[] = new byte[nsz];
-		  System.arraycopy(buf, 0, nbuf, 0, pos);
-		  buf = nbuf;
-	    }
+           pos = 0;                 /* no mark: throw away the buffer */
+      else if (pos >= buf.length)   /* no room left in buffer */
+           if (markpos > 0) {    /* can throw away early part of the buffer */
+               int sz = pos - markpos;
+               System.arraycopy(buf, markpos, buf, 0, sz);
+               pos = sz;
+               markpos = 0;
+            }
+            else if (buf.length >= marklimit) {
+               markpos = -1;    /* buffer got too big, invalidate mark */
+               pos = 0;         /* drop buffer contents */
+            }
+            else {              /* grow buffer */
+               int nsz = pos * 2;
+               if (nsz > marklimit)
+                   nsz = marklimit;
+               byte nbuf[] = new byte[nsz];
+               System.arraycopy(buf, 0, nbuf, 0, pos);
+               buf = nbuf;
+            }
 
       count = pos;
       int n = in.read(buf, pos, buf.length - pos);
@@ -130,7 +133,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      */
     private void ensureOpen() throws IOException {
       if (in == null)
-	    throw new IOException("Stream closed");
+        throw new IOException("Stream closed");
     }
 
     /**
@@ -138,26 +141,26 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      * stream at most twice if necessary.
      */
     private int readToDelimiter1(byte[] b, int off, int len, byte delim[])
-                                                            throws IOException {
-	  int avail = count - pos;
+          throws IOException {
+      int avail = count - pos;
       if (avail <= 0) {
-	    fill();
-	    avail = count - pos;
-	    if (avail <= 0) return -1;
+          fill();
+          avail = count - pos;
+          if (avail <= 0) return -1;
       }
-	  int cnt = (avail < len) ? avail : len;
+      int cnt = (avail < len) ? avail : len;
 
       // indexOf sets potentialMatch
       int found = indexOf(buf, delim, pos, avail);
       int max = cnt;
       if (found != -1)
-	    max = found - pos;
+        max = found - pos;
       else if (potentialMatch != -1)
         max = potentialMatch - pos;
 
-	  cnt = (max < cnt) ? max : cnt;
-	  System.arraycopy(buf, pos, b, off, cnt);
-	  pos += cnt;
+      cnt = (max < cnt) ? max : cnt;
+      System.arraycopy(buf, pos, b, off, cnt);
+      pos += cnt;
 
       /* We want to shuffle the buffer so that it contains
        * at least delim.length bytes after potentialMatch,
@@ -177,11 +180,11 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
         int nsz = potentialMatch + delim.length - halfmark;
         if (nsz > buf.length) {
           // we need to grow the buffer
-		  byte nbuf[] = new byte[nsz];
-		  System.arraycopy(buf, halfmark, nbuf, 0, count - halfmark);
-		  buf = nbuf;
+          byte nbuf[] = new byte[nsz];
+          System.arraycopy(buf, halfmark, nbuf, 0, count - halfmark);
+          buf = nbuf;
         } else {
-		  System.arraycopy(buf, halfmark, buf, 0, count - halfmark);
+          System.arraycopy(buf, halfmark, buf, 0, count - halfmark);
         }
 
         pos = pos - halfmark;
@@ -198,14 +201,13 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
           if (unfilled > 0) {
             avail = count - pos;
             int cnt2 = (unfilled < avail) ? unfilled : avail;
-	        System.arraycopy(buf, pos, b, off+cnt, cnt2);
-		    cnt += cnt2;
+            System.arraycopy(buf, pos, b, off+cnt, cnt2);
+            cnt += cnt2;
             pos += cnt2;
           }
         }
       }
-
-	  return cnt;
+      return cnt;
     }
 
     /**
@@ -247,24 +249,25 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
      *             the stream has been reached.
      * @exception  IOException  if an I/O error occurs.
      */
-  public synchronized int readToDelimiter(byte b[], int off, int len, byte delim[])
-                                            	throws IOException  {
+  public synchronized int readToDelimiter(byte b[], int off, 
+                                          int len, byte delim[])
+        throws IOException  {
     ensureOpen();
-	if ((off < 0) || (off > b.length) || (len < 0) ||
+    if ((off < 0) || (off > b.length) || (len < 0) ||
             ((off + len) > b.length) || ((off + len) < 0)) {
-	    throw new IndexOutOfBoundsException();
-	} else if (len == 0) {
-	    return 0;
-	}
+        throw new IndexOutOfBoundsException();
+    } else if (len == 0) {
+        return 0;
+    }
 
-	int n = readToDelimiter1(b, off, len, delim);
-	if (n <= 0) return n;
-	while ((n < len) && (in.available() > 0)) {
+    int n = readToDelimiter1(b, off, len, delim);
+    if (n <= 0) return n;
+    while ((n < len) && (in.available() > 0)) {
       int n1 = readToDelimiter1(b, off + n, len - n, delim);
-	  if (n1 <= 0) break;
-	  n += n1;
-	}
-	return n;
+      if (n1 <= 0) break;
+      n += n1;
+    }
+    return n;
   }
 
     public int indexOf(byte[] data1, byte[] data2, int fromIndex) {
@@ -299,7 +302,8 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
         fromIndex = 0;
       if (data2.length == 0)
         return fromIndex;
-      int end = (fromIndex + len > data1.length) ? data1.length : fromIndex + len;
+      int end = (fromIndex + len > data1.length) ? 
+                           data1.length : fromIndex + len;
       int maxStart = end - data2.length;
       byte first = v2[0];
       int i = fromIndex;
@@ -336,26 +340,41 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
       DelimitedBufferedInputStream tester =
         new DelimitedBufferedInputStream(
           new ByteArrayInputStream(arr1));
-      System.out.println("arr2 in arr1 (expect 2): " + tester.indexOf(arr1, arr2, 0));
-      System.out.println("potentialMatch (expect -1): " + tester.potentialMatch);
-      System.out.println("arr3 in arr1 (expect -1): " + tester.indexOf(arr1, arr3, 0));
-      System.out.println("potentialMatch (expect -1): " + tester.potentialMatch);
-      System.out.println("arr4 in arr1 (expect -1): " + tester.indexOf(arr1, arr4, 0));
-      System.out.println("potentialMatch (expect 2): " + tester.potentialMatch);
+      System.out.println("arr2 in arr1 (expect 2): " + 
+                         tester.indexOf(arr1, arr2, 0));
+      System.out.println("potentialMatch (expect -1): " + 
+                         tester.potentialMatch);
+      System.out.println("arr3 in arr1 (expect -1): " + 
+                         tester.indexOf(arr1, arr3, 0));
+      System.out.println("potentialMatch (expect -1): " + 
+                         tester.potentialMatch);
+      System.out.println("arr4 in arr1 (expect -1): " + 
+                         tester.indexOf(arr1, arr4, 0));
+      System.out.println("potentialMatch (expect 2): " + 
+                         tester.potentialMatch);
       try {
-        System.out.println("reading upto arr2 (expect 2): " + tester.readToDelimiter(sink, 0, 10, arr2));
-        System.out.println("reading upto arr2 again (expect 0): " + tester.readToDelimiter(sink, 0, 10, arr2));
-      tester = new DelimitedBufferedInputStream(new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr3 (expect 4): " + tester.readToDelimiter(sink, 0, 10, arr3));
-      tester = new DelimitedBufferedInputStream(new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr4 (expect 4): " + tester.readToDelimiter(sink, 0, 10, arr4));
-      tester = new DelimitedBufferedInputStream(new ByteArrayInputStream(arr1), 1);
-        System.out.println("reading upto arr4 (expect 3): " + tester.readToDelimiter(sink, 0, 3, arr4));
+        System.out.println("reading upto arr2 (expect 2): " + 
+                           tester.readToDelimiter(sink, 0, 10, arr2));
+        System.out.println("reading upto arr2 again (expect 0): " + 
+                           tester.readToDelimiter(sink, 0, 10, arr2));
+      tester = new DelimitedBufferedInputStream(
+                           new ByteArrayInputStream(arr1), 1);
+        System.out.println("reading upto arr3 (expect 4): " + 
+                           tester.readToDelimiter(sink, 0, 10, arr3));
+      tester = new DelimitedBufferedInputStream(
+                           new ByteArrayInputStream(arr1), 1);
+        System.out.println("reading upto arr4 (expect 4): " + 
+                           tester.readToDelimiter(sink, 0, 10, arr4));
+      tester = new DelimitedBufferedInputStream(
+                           new ByteArrayInputStream(arr1), 1);
+        System.out.println("reading upto arr4 (expect 3): " + 
+                           tester.readToDelimiter(sink, 0, 3, arr4));
       }
       catch (Exception e) {
         e.printStackTrace();
       }
-        System.out.println("buf.length is now (expect 3): " + tester.buf.length);
+        System.out.println("buf.length is now (expect 3): " + 
+                           tester.buf.length);
     }
 
 }

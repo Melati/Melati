@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 public class LongEnumeration implements Enumeration {
   private long start, limit, i;

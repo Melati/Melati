@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 public interface SkipEnumeration extends Enumeration {
   void skip() throws NoSuchElementException;

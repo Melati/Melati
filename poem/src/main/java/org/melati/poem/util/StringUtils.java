@@ -150,8 +150,8 @@ public class StringUtils {
     for (int i = 0; i < s.length(); ++i) {
       int t = from.indexOf(s.charAt(i));
       if (t != -1) {
-	if (sNew == null) sNew = new StringBuffer(s);
-	sNew.setCharAt(i, to.charAt(t));
+        if (sNew == null) sNew = new StringBuffer(s);
+        sNew.setCharAt(i, to.charAt(t));
       }
     }
 
@@ -163,8 +163,8 @@ public class StringUtils {
 
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == from) {
-	if (sNew == null) sNew = new StringBuffer(s);
-	sNew.setCharAt(i, to);
+        if (sNew == null) sNew = new StringBuffer(s);
+        sNew.setCharAt(i, to);
       }
     }
 
@@ -177,14 +177,14 @@ public class StringUtils {
     else {
       int l = sep.length() * (xs.length - 1) + xs[0].length();
       for (int i = 1; i < xs.length; ++i)
-	l += xs[i].length();
+         l += xs[i].length();
 
       StringBuffer c = new StringBuffer(l);
 
       c.append(xs[0]);
       for (int i = 1; i < xs.length; ++i) {
-	c.append(sep);
-	c.append(xs[i]);
+        c.append(sep);
+        c.append(xs[i]);
       }
 
       return c.toString();

@@ -45,7 +45,9 @@
 
 package org.melati.util;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class FileUtils {
 

@@ -43,9 +43,7 @@
 
 package org.melati.util;
 
-import java.io.IOException;
 import java.io.Writer;
-import java.io.PrintWriter;
 
 /**
  * This provides an interface for objects that output from melati

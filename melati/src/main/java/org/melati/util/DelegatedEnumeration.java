@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Enumeration;
 
 public class DelegatedEnumeration implements Enumeration {
 

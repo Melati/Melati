@@ -45,9 +45,9 @@
 
 package org.melati.util;
 
-/**
+ /*
   * just allows us to slow things down
-*/
+  */
 public class Waiter {
 
   public String wait(Integer length) {
@@ -57,3 +57,13 @@ public class Waiter {
     return "";
   }
 }
+
+
+
+
+
+
+
+
+
+

@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Properties ;
 
 public class PropertyException extends MelatiException {
   public Properties properties;

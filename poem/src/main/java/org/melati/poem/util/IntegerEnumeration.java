@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
 
 public class IntegerEnumeration implements Enumeration {
   private int start, limit, i;
@@ -66,3 +67,4 @@ public class IntegerEnumeration implements Enumeration {
     return new Integer(i++);
   }
 }
+

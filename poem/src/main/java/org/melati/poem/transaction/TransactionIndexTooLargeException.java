@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import org.melati.poem.*;
+import org.melati.poem.SeriousPoemException;
 
 public class TransactionIndexTooLargeException extends SeriousPoemException {
 }

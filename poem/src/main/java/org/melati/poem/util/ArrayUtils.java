@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Vector;
+import java.util.Enumeration;
 
 public class ArrayUtils {
 

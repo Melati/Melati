@@ -45,7 +45,8 @@
 
 package org.melati.util;
 
-import java.util.*;
+import java.util.Vector;
+import java.util.Enumeration;
 
 public class SortUtils {
   public static void swap(Object[] arr, int i, int j) {
@@ -71,8 +72,8 @@ public class SortUtils {
 
   /**
    * This is nicked from ocaml 2.03's Sort.array, in turn derived from
-   * Sedgewick.  ocaml is a superb object/functional language from INRIA: see
-   * http://caml.inria.fr.
+   * Sedgewick.  ocaml is a superb object/functional language from INRIA: 
+   * see http://caml.inria.fr.
    */
 
   private static void partlyQSort(Order cmp, Object[] arr, int lo, int hi) {

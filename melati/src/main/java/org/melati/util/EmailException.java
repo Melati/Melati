@@ -49,10 +49,10 @@ import java.io.IOException;
 
 public class EmailException extends IOException {
     public EmailException() {
-	super();
+       super();
     }
 
     public EmailException(String s) {
-	super(s);
+       super(s);
     }
 }

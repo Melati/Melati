@@ -45,7 +45,7 @@
 
 package org.melati.util;
 
-import org.melati.poem.*;
+import org.melati.poem.PoemException;
 
 public class WouldDeadlockException extends PoemException {
 }

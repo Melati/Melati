@@ -45,8 +45,9 @@
 
 package org.melati.util;
 
-import java.util.*;
-import java.text.*;
+import java.util.Locale;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 
 public class MelatiLocale {
 
@@ -81,16 +82,16 @@ public class MelatiLocale {
     timestampFormats = new DateFormat[4]; // don't tell me this will break
     timestampFormats[DateFormat.FULL] =
         DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL,
-				       locale);
+                                       locale);
     timestampFormats[DateFormat.LONG] =
         DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG,
-				       locale);
+                                       locale);
     timestampFormats[DateFormat.MEDIUM] =
         DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM,
-				       locale);
+                                       locale);
     timestampFormats[DateFormat.SHORT] =
         DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT,
-				       locale);
+                                       locale);
   }
 
   public final Locale locale() {

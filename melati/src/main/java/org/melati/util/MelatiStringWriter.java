@@ -45,9 +45,6 @@ package org.melati.util;
 
 import java.io.StringWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import org.webmacro.FastWriter;
 
 /**
  * wrap up string writer as a Melati writer

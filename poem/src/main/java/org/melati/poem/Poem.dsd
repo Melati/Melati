@@ -364,7 +364,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
 
   (nullable) IntegrityFix integrityfix
       (displayname = "Integrity fix")
-      (description = "How referential integrity for the field is maintained")
+      (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
       (displaylevel = detail) (searchability = no);
 }
 

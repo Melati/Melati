@@ -43,15 +43,13 @@
 
 package org.melati.template.webmacro;
 
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiWriter;
-
-import org.melati.template.webmacro.FastWriter;
 import org.webmacro.Broker;
 
 /**

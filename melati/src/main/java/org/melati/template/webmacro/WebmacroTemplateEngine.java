@@ -44,26 +44,24 @@
 package org.melati.template.webmacro;
 
 import java.io.IOException;
-import java.io.File;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
-import org.melati.template.TemplateEngine;
-import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
-import org.melati.util.MelatiWriter;
+import org.melati.template.TemplateContext;
+import org.melati.template.TemplateEngine;
+import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
-
-import org.webmacro.WM;
 import org.webmacro.InitException;
-import org.webmacro.servlet.WebContext;
 import org.webmacro.PropertyException;
+import org.webmacro.WM;
+import org.webmacro.servlet.WebContext;
 
 
 /**

@@ -111,9 +111,6 @@ public class User extends UserBase implements AccessToken {
     return (this == ((UserTable)getTable()).guestUser()) ? true: false;
   }
 
-  public boolean isAdministrator() {
-    return (this == ((UserTable)getTable()).administratorUser()) ? true: false;
-  }
 }
 
 

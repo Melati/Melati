@@ -49,9 +49,9 @@ public class Login extends MelatiServlet {
     String password = context.getForm("field-password");
 
     UserTable users = PoemThread.database().getUserTable();
-    context.put("login", new ColumnField(username, users.getLoginColumn()));
+    context.put("login", new Field(username, users.getLoginColumn()));
     context.put("password",
-                new ColumnField(password, users.getPasswordColumn()));
+                new Field(password, users.getPasswordColumn()));
 
     if (username == null)
       return loginTemplate();

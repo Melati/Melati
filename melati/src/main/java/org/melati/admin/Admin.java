@@ -97,7 +97,6 @@ public class Admin extends MelatiServlet {
     Database database = PoemThread.database();
     //    database.addTable(
     //        (TableInfo)create(database.getTableInfoTable(), context));
-
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
@@ -128,7 +127,7 @@ public class Admin extends MelatiServlet {
           }
         };
     context.put("fields", fields);
-                              
+
     return adminTemplate(context, "Add.wm");
   }
 

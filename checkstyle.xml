@@ -5,32 +5,20 @@
 
 <!--
 
-  Checkstyle configuration that checks the sun coding conventions from:
-
-    - the Java Language Specification at
-      http://java.sun.com/docs/books/jls/second_edition/html/index.html
-
-    - the Sun Code Conventions at http://java.sun.com/docs/codeconv/
-
-    - the Javadoc guidelines at
-      http://java.sun.com/j2se/javadoc/writingdoccomments/index.html
-
-    - the JDK Api documentation http://java.sun.com/j2se/docs/api/index.html
-
-    - some best practices
-
-  Checkstyle is very configurable. Be sure to read the documentation at
-  http://checkstyle.sf.net (or in your downloaded distribution).
-
-  Most Checks are configurable, be sure to consult the documentation.
-
-  To completely disable a check, just comment it out or delete it from the file.
-
-  Finally, it is worth reading the documentation.
+  Checkstyle configuration that checks the style fits with what 
+  the PanEris collective use.
+ 
+  Some checks have been disabled because they appear to require  
+  a reduction in the human readable semantics of the code.
+  Others have been disabled because it is too much work to retro fit!
 
 -->
 
 <module name="Checker">
+
+    <module name="SuppressionFilter">
+      <property name="file" value="checkstyleSuppressions.xml" />
+    </module>
 
     <!-- Checks that a package.html file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#PackageHtml -->
@@ -59,12 +47,8 @@
         </module -->
         <module name="LineLength">
           <property name="max" value="120"/>
-          <property name="ignorePattern" value="@version"/>
+          <property name="ignorePattern" value="$Source:"/>
         </module>
-        <module name="MemberName">
-          <property name="format" value="^[a-zA-Z0-9\_]*$"/>
-        </module>
-        
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
@@ -82,7 +66,12 @@
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
-        <module name="ConstantName"/>
+        <module name="MemberName">
+          <property name="format" value="^[a-zA-Z0-9\_]*$"/>
+        </module>
+        <module name="ConstantName">
+          <property name="format" value="^[a-zA-Z0-9\_]*$"/>
+        </module>
         <module name="LocalFinalVariableName">
          <property name="format" value="^[\_]?[a-zA-Z0-9\_]*$"/>
         </module>
@@ -98,10 +87,10 @@
 
         <!-- Checks for Headers                              -->
         <!-- See http://checkstyle.sf.net/config_header.html -->
-        <!-- module name="Header">
+        <module name="Header">
             <property name="headerFile" value="./LICENSE.txt"/>
-            <property name="ignoreLines" value="1, 2,3,5"/>
-        </module -->
+            <property name="ignoreLines" value="1,2,3,4,5,6,7,8,9"/>
+        </module>
 
         <!-- Following interprets the header file as regular expressions. -->
         <!-- <module name="RegexpHeader"/>                                -->
@@ -118,7 +107,9 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="FileLength"/>
-        <!-- module name="MethodLength"/ -->
+        <module name="MethodLength">
+          <property name="max" value="165"/>
+        </module>
         <module name="ParameterNumber"/>
 
 
@@ -129,6 +120,8 @@
          <property name="tokens" value="TYPECAST"/>
         </module>
         <module name="NoWhitespaceBefore"/>
+        <!-- Bad check - sometimes the operator should be on a new
+        line sometimes not -->
         <!-- module name="OperatorWrap"/ -->
         <!-- No padding -->
         <module name="TypecastParenPad"/>
@@ -137,8 +130,8 @@
         <!-- None allowed -->
         <module name="TabCharacter"/>
         <module name="WhitespaceAfter">
-         <property name="tokens" value="COMMA, SEMI"/>
-         <!-- Not TYPECAST -->
+         <property name="tokens" value="SEMI"/>
+         <!-- Not TYPECAST or COMMA -->
         </module>
         <!-- module name="WhitespaceAround"/ -->
 
@@ -165,16 +158,24 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- module name="AvoidInlineConditionals"/ -->
         <module name="DoubleCheckedLocking"/>    <!-- MY FAVOURITE -->
-        <module name="EmptyStatement"/>
+        <!-- Ignoring exceptions already dealt with -->
+        <!-- module name="EmptyStatement"/-->
         <module name="EqualsHashCode"/>
         <!-- done quite a bit -->
-        <!-- module name="HiddenField"/ -->
+        <module name="HiddenField">
+          <property name="tokens" value="VARIABLE_DEF"/>
+          <!-- ie ignore for params -->
+        </module>
         <module name="IllegalInstantiation"/>
-        <!-- Used by poem generated code quite a bit -->
-        <!-- module name="InnerAssignment"/ -->
-        <!-- Acceptable in generated code -->
-        <!-- module name="MagicNumber"/ -->
+        <!-- Suppressed in  poem generated code  -->
+        <module name="InnerAssignment"/>
+        <!-- Suppressed in  poem generated code  -->
+        <!-- But we have another xx occurrances -->
+        <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
+        <!-- We have loads of unchecked exceptions -->
+        <!-- also subclasses of PoemException in generated-->
+        <!-- bad check in my view -->
         <!-- module name="RedundantThrows"/ -->
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
@@ -185,6 +186,7 @@
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
+        <!-- We do use public fields responsibly sometimes -->
         <!-- module name="VisibilityModifier">
          <property name="protectedAllowed" value="true"/>
          <property name="packageAllowed" value="true"/>
@@ -193,8 +195,10 @@
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
-        <module name="ArrayTypeStyle"/>
+        <!-- module name="ArrayTypeStyle"/ -->
+        <!-- We don't do this at all -->
         <!-- module name="FinalParameters"/ -->
+        <!-- Bad check, it picks up on javadoc with terminal spaces -->
         <!-- module name="GenericIllegalRegexp">
             <property name="format" value="\s+$"/>
             <property name="message" value="Line has trailing spaces."/>

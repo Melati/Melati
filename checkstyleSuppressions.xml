@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.0//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+    <suppress checks="MagicNumber"
+              files="Test.java" />
+    <suppress checks="LineLength"
+              files="generated" />
+    <suppress checks="Header"
+              files="Base.java" />
+    <suppress checks="Header"
+              files="example" />
+    <suppress checks="Header"
+              files="test" />
+    <suppress checks="MagicNumber"
+              files="Base.java" />
+    <suppress checks="MethodLength"
+              files="Base.java" />
+    <suppress checks="InnerAssignment"
+              files="Base.java" />
+    <suppress checks="RedundantThrows"
+              files="Base.java" />
+    <!-- Not ours -->
+    <suppress checks=""
+              files="WebMacroFileResourceLoader.java" />
+    <suppress checks=""
+              files="FastWriter.java" />
+    <suppress checks=""
+              files="Metaphone.java" />
+    <suppress checks=""
+              files="Base64.java" />
+</suppressions>

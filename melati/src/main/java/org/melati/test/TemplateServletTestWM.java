@@ -119,7 +119,7 @@ public class TemplateServletTestWM extends TemplateServlet {
       }
       if (melati.getMethod().equals("Exception")) 
         throw new MelatiBugMelatiException("It got caught!");
-    }      
+    }   
     System.err.println("completed doTemplateRequest");
     return("test/TemplateServletTestWM");
   }

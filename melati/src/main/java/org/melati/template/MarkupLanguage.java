@@ -81,7 +81,7 @@ public abstract class MarkupLanguage {
    * The melati currently being used.
    */
   protected Melati melati;
-  private TemplateContext templateContext;
+//  private TemplateContext templateContext;
   private TempletLoader templetLoader;
   protected MelatiLocale locale;
 
@@ -104,9 +104,9 @@ public abstract class MarkupLanguage {
                         MelatiLocale locale) {
     this.name = name;
     this.melati = melati;
-    this.templateContext = melati.getTemplateContext();
     this.templetLoader = templetLoader;
     this.locale = locale;
+//    this.templateContext = melati.getTemplateContext();
   }
 
   /**

@@ -51,78 +51,88 @@ import org.melati.poem.*;
 
 public class Postgresql extends AnsiStandard {
 
-    public Postgresql() {
-        setDriverClassName("org.melati.poem.postgresql.jdbc2.Driver");
+  public Postgresql() {
+    setDriverClassName("org.melati.poem.postgresql.jdbc2.Driver");
+  }
+
+  public String preparedStatementPlaceholder(PoemType type) {
+    if (type instanceof IntegerPoemType)
+      return "CAST(? AS INT4)";
+    else if (type instanceof LongPoemType)
+      return "CAST(? AS INT8)";
+    else if (type instanceof DoublePoemType)
+      return "CAST(? AS FLOAT8)";
+    else 
+      return "?";
+  }
+
+  public String getStringSqlDefinition(int size) throws SQLException {
+    if (size < 0) { 
+       return "TEXT";
     }
+       return super.getStringSqlDefinition(size);
+  }
 
-    public String getStringSqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            return "TEXT";
-        }
-        return super.getStringSqlDefinition(size);
-    }
+  public String getBinarySqlDefinition(int size) throws SQLException {
+   // BLOBs in Postgres are represented as OIDs pointing to the data
+    return "OID";
+  }
 
-    public String getBinarySqlDefinition(int size) throws SQLException {
-        // BLOBs in Postgres are represented as OIDs pointing to the data
-        return "OID";
-    }
+  public static class OidPoemType extends IntegerPoemType {
+      public OidPoemType(boolean nullable) {
+          super(Types.INTEGER, "OID", nullable);
+      }
 
-    public static class OidPoemType extends IntegerPoemType {
-        public OidPoemType(boolean nullable) {
-            super(Types.INTEGER, "OID", nullable);
-        }
+      protected boolean _canRepresent(SQLPoemType other) {
+          return other instanceof BinaryPoemType;
+      }
 
-        protected boolean _canRepresent(SQLPoemType other) {
-            return other instanceof BinaryPoemType;
-        }
+      public PoemType canRepresent(PoemType other) {
+          return other instanceof BinaryPoemType &&
+                 !(!getNullable() && 
+		   ((BinaryPoemType)other).getNullable()) ? other : null;
+      }
+  }
 
-        public PoemType canRepresent(PoemType other) {
-            return other instanceof BinaryPoemType &&
-                   !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
-                       other : null;
-        }
-    }
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+      throws SQLException {
+    return
+        md.getString("TYPE_NAME").equals("oid") ?
+            new OidPoemType(md.getInt("NULLABLE") ==
+                                DatabaseMetaData.columnNullable) :
+            super.defaultPoemTypeOfColumnMetaData(md);
+  }
 
-    public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-        throws SQLException {
-      return
-          md.getString("TYPE_NAME").equals("oid") ?
-              new OidPoemType(md.getInt("NULLABLE") ==
-                                  DatabaseMetaData.columnNullable) :
-              super.defaultPoemTypeOfColumnMetaData(md);
-    }
+  public SQLPoemException exceptionForUpdate(
+      Table table, String sql, boolean insert, SQLException e) {
 
-    public SQLPoemException exceptionForUpdate(
-        Table table, String sql, boolean insert, SQLException e) {
-
-      String m = e.getMessage();
+    String m = e.getMessage();
 
       // Postgres's duplicate key message is:
       // "Cannot insert a duplicate key into unique index user_login_index"
 
-      if (m != null &&
-          m.indexOf("duplicate key") >= 0) {
+    if (m != null &&
+        m.indexOf("duplicate key") >= 0) {
 
-        // We call POEM's own indexes <table>_<column>_index:
-        // see Table.dbCreateIndex
+      // We call POEM's own indexes <table>_<column>_index:
+      // see Table.dbCreateIndex
 
-        int s, u;
-        if (m.endsWith("_index\n") &&
-            (s = m.lastIndexOf(' ')) >= 0 && (u = m.indexOf('_', s+1)) >= 0) {
-          String colname = m.substring(u+1, m.length() - 7);
-          try {
-            return new DuplicateKeySQLPoemException(table.getColumn(colname),
-                                                    sql, insert, e);
-          }
-          catch (NoSuchColumnPoemException f) {
-          }
+      int s, u;
+      if (m.endsWith("_index\n") &&
+         (s = m.lastIndexOf(' ')) >= 0 && (u = m.indexOf('_', s+1)) >= 0) {
+        String colname = m.substring(u+1, m.length() - 7);
+        try {
+          return new DuplicateKeySQLPoemException(table.getColumn(colname),
+                                                  sql, insert, e);
         }
-
-        return new DuplicateKeySQLPoemException(table, sql, insert, e);
+        catch (NoSuchColumnPoemException f) {
+        }
       }
+      return new DuplicateKeySQLPoemException(table, sql, insert, e);
+    }
       else
         return super.exceptionForUpdate(table, sql, insert, e);
-    }
+  }
 
   public String caseInsensitiveCompare(String term1, String term2) {
     return term1 + " ~* " + term2;

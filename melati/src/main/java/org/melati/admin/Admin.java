@@ -191,7 +191,8 @@ public class Admin extends MelatiServlet {
       throw new HandlerException("bad action from Edit.wm: " + action);
   }
 
-  public Template template(WebContext context) throws HandlerException {
+  public Template template(WebContext context)
+      throws PoemException, HandlerException {
     try {
       String pathInfo = context.getRequest().getPathInfo();
       MethodRef ref = new MethodRef(pathInfo);
@@ -221,6 +222,12 @@ public class Admin extends MelatiServlet {
       }
 
       throw new InvalidPathInfoException(pathInfo);
+    }
+    catch (PoemException e) {
+      // we want to let these through untouched, since MelatiServlet handles
+      // AccessPoemException specially ...
+      e.printStackTrace();
+      throw e;
     }
     catch (Exception e) {
       e.printStackTrace();

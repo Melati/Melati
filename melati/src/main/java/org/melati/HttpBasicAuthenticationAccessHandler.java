@@ -206,7 +206,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       if (user == null || !user.getPassword().equals(auth.password)) {
 
 	// Login/password authentication failed; we must trigger another
-	// attempt.  But do we know what "realm" (= POEM capability name) for
+	// attempt.  But do we know the "realm" (= POEM capability name) for
 	// which they were originally found not to be authorized?
 
 	String storedRealm;

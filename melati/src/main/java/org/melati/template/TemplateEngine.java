@@ -46,7 +46,10 @@
 package org.melati.template;
 
 import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletConfig;
+
 import org.melati.Melati;
 import org.melati.util.MelatiWriter;
 
@@ -63,7 +66,7 @@ public interface TemplateEngine {
    * Construct a new Engine
    */
 
-  public void init() throws TemplateEngineException;
+  public void init(ServletConfig config) throws TemplateEngineException;
 
   /**
    * get the generic parameters for this engine
@@ -88,7 +91,8 @@ public interface TemplateEngine {
    * Get a template given it's name
    */
 
-  public Template template(String templateName) throws NotFoundException;
+  public Template template(String templateName) 
+                  throws NotFoundException, TemplateEngineException;
   
   /** 
    * Expand the Template against the context.
@@ -118,6 +122,6 @@ public interface TemplateEngine {
   /** 
    * Get the underlying engine
    */
-
   public Object getEngine();
+  
 }

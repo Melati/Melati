@@ -34,6 +34,7 @@ class Database implements org.odmg.Database
     _logicalDB = openParameters;
     try {
       _poemDB = LogicalDatabase.getDatabase(_logicalDB);
+      _cachedTables = new HashMap();
     } catch (DatabaseInitException err) {
       err.printStackTrace();
       throw new org.odmg.ODMGException(err.getMessage());
@@ -46,7 +47,7 @@ class Database implements org.odmg.Database
     _cachedTables = null;
   }
 
-  private Map _cachedTables = new HashMap();
+  private Map _cachedTables = null;
 
   /** Retrieves a collection wrapper for the selected table i
     @parameter objectIdentifier the name of the table for which a collection is required

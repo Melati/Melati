@@ -107,6 +107,7 @@ public abstract class TemplateServlet extends PoemServlet {
     TemplateContext templateContext =
                         templateEngine.getTemplateContext(melati);
 
+    // FIXME Should this be done here and below? Better explain if so JimW
     melati.setTemplateContext(templateContext);
     
     // If we have an multipart form, we use a different template context

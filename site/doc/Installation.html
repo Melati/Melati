@@ -259,12 +259,46 @@ export CLASSPATH</pre>
     <td>
       <p>Compile melati. </p>
       <p>
-        In brief, all you need to do is:
+        There is an <a href=http://jakarta.apache.org/ant/index.html>Ant</a> based build script in the org/melati/build directory.
+      </p>
+<BLOCKQUOTE><PRE>
+cd .../org/melati/build
+sh build-melati.sh
+</PRE></BLOCKQUOTE>
+
+      <p>
+        Note:
+Assuming you have melati installed in a directory like 
+<BLOCKQUOTE><PRE>
+    .../src/org/melati/...
+</PRE></BLOCKQUOTE>
+
+It will create a directory
+<BLOCKQUOTE><PRE>
+   .../dist/
+</PRE></BLOCKQUOTE>
+
+Which will contain all the compiled classes
+
+And a directory
+<BLOCKQUOTE><PRE>
+   .../lib/
+</PRE></BLOCKQUOTE>
+
+Which will contain the melati jar file.
+      </p>
+        
+<hr align=left width=50%>
+
+      <p>
+        Alternatively, all you need to do is:
       </p>
 <BLOCKQUOTE><PRE>
 cd /usr/local/melati/org/melati
 ./compile.sh
 </PRE></BLOCKQUOTE>
+
+<hr align=left width=50%>
 
       <P>
         If you want to build Melati by hand, you should compile the following
@@ -489,6 +523,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.23  2000/09/11 11:35:22  kimptoc
+  <BR>added some notes about the ant build script
+  <BR>
   <BR>Revision 1.22  2000/07/31 13:18:32  kimptoc
   <BR>corrected webmacro info
   <BR>

@@ -140,6 +140,10 @@ public class MultipartTemplateContext implements TemplateContext
     return peer.getContext();
   }
 
+  public void setVariableExceptionHandler(Object veh) {
+    peer.setVariableExceptionHandler(veh);
+  }
+
 }
 
 

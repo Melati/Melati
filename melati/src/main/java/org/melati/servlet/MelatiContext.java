@@ -52,10 +52,14 @@ import org.melati.util.UnexpectedExceptionException;
  */
 
 public class MelatiContext implements Cloneable {
-  String logicalDatabase;
-  String table;
-  Integer troid;
-  String method;
+  /** the database in use */
+  public String logicalDatabase;
+  /** the table in use */
+  public String table;
+  /** the troid in use */
+  public Integer troid;
+  /** the method in use */
+  public String method;
 
  /**
   * Empty constructor.

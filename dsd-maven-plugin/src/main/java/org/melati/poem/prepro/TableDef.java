@@ -153,7 +153,7 @@ public class TableDef {
   }
 
   public void generateBaseJava(Writer w) throws IOException {
-    w.write("public class " + baseClass + " extends " +
+    w.write("public abstract class " + baseClass + " extends " +
                 (superclass == null ? "Persistent" : superclass) + " {\n" +
             "\n" +
 	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
@@ -258,13 +258,14 @@ public class TableDef {
             "  public " + retMainClass + " get" + mainClass + "Object(" +
                   "int troid) {\n" +
             "    return (" + retMainClass + ")getObject(troid);\n" +
-            "  }\n" +
-            "\n" +
-            "  protected Persistent _newPersistent() {\n" +
-            "    return new " + mainClass + "();\n" +
-            "  }" +
-            "\n");
+            "  }\n");
 
+    if (!isAbstract)
+      w.write("\n" +
+              "  protected Persistent _newPersistent() {\n" +
+              "    return new " + mainClass + "();\n" +
+              "  }" +
+              "\n");
 
     if (displayName != null)
       w.write("  protected String defaultDisplayName() {\n" +

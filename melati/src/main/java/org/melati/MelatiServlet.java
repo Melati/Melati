@@ -7,53 +7,92 @@ import org.melati.poem.*;
 import org.webmacro.util.*;
 import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
-import org.webmacro.resource.*;
+import org.webmacro.resource.TemplateProvider;
+import org.webmacro.broker.ResourceUnavailableException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.sql.*;
 
 public abstract class MelatiServlet extends WMServlet {
 
-/*
-  private final Hashtable handlers = new Hashtable();
+  /**
+   * Melati's main entry point.  Override this to do WebMacro-like things and
+   * return a WebMacro template---like <TT>WMServlet.handle</TT>.
+   *
+   * <UL>
+   * <LI>
+   *
+   * Any POEM database operations you perform will be done with the access
+   * rights of the POEM <TT>User</TT> associated with the servlet session.
+   * [FIXME once this has been implemented, hopefully tomorrow.]  If there is
+   * no established servlet session, the current user will be set to the
+   * default `guest' user [or for now to the `root' access token].  If this
+   * method terminates with an <TT>AccessPoemException</TT>, indicating that
+   * you have attempted something which you aren't entitled to do, the
+   * <TT>loginTemplate</TT> method will be invoked instead; once the user has
+   * logged in, the original request will be retried [when that's implemented].
+   *
+   * <LI>
+   *
+   * No changes made to the database by other concurrently executing threads
+   * will be visible to you (in the sense that once you have seen a particular
+   * version of a record, you will always subsequently see the same one), and
+   * your own changes will not be made permanent until this method completes
+   * successfully or you perform an explicit <TT>PoemThread.commit()</TT>.  If
+   * it terminates with an exception or you issue a
+   * <TT>PoemThread.rollback()</TT>, your changes will be lost.
+   *
+   * </UL>
+   *
+   * @see org.melati.poem.Database#guestUser
+   * @see #loginTemplate
+   * @see org.melati.poem.PoemThread#commit
+   * @see org.melati.poem.PoemThread#rollback
+   */
 
-  private Handler handler(String name) throws HandlerException {
-    synchronized (handlers) {
-      Handler handler = (Handler)handlers.get(name);
-      if (handler == null) {
-        try {
-          handler = (Handler)Class.forName(name).newInstance();
-        }
-        catch (Exception e) {
-          throw new HandlerException(e.toString());
-        }
-        handler.init();
-        handlers.put(name, handler);
-      }
-      return handler;
+  protected abstract Template template(WebContext context)
+      throws PoemException, HandlerException;
+
+  protected String loginTemplateName() {
+    return "Login.wm";
+  }
+
+  protected Template loginTemplate(WebContext context)
+      throws PoemException, HandlerException {
+    try {
+      return (Template)context.getBroker().getValue(TemplateProvider.TYPE,
+                                                    loginTemplateName());
+    }
+    catch (ResourceUnavailableException e) {
+      throw new HandlerException(e.toString());
     }
   }
 
-  protected void stop() {
-    synchronized (handlers) {
-      for (Enumeration h = handlers.elements(); h.hasMoreElements();)
-        ((Handler)h.nextElement()).destroy();
-    }
-  } 
-*/
-
-  protected abstract Template template(WebContext context) throws HandlerException;
+  /**
+   * WebMacro's main entry point, overridden <TT>final</TT>ly.  It sets up
+   * Melati's environment and invokes its entry point, `<TT>template</TT>'.
+   *
+   * @see #template
+   */
 
   protected final Template handle(WebContext context) throws HandlerException {
     context.put("melati", new Melati(context));
-/*
-    String servletPath = context.getRequest().getServletPath();
-    int slash = servletPath.lastIndexOf('/');
-    String handlerClassName =
-        slash == -1 ? servletPath : servletPath.substring(slash + 1);
-    return handler(handlerClassName).accept(context);
-*/
-    return template(context);
+
+    // HttpSession session = context.getSession();
+    // User user = (User)session.getValue("user");
+    // PoemThread.setAccessToken(user == null ? guest: user);
+
+    try {
+      try {
+        return template(context);
+      }
+      catch (AccessPoemException e) {
+        return loginTemplate(context);
+      }
+    }
+    catch (Exception e) {
+      throw new HandlerException(e.toString());
+    }
   }
 
   private void reallyService(ServletRequest request, ServletResponse response)
@@ -61,11 +100,13 @@ public abstract class MelatiServlet extends WMServlet {
     super.service(request, response);
   }
 
-  public void service(final ServletRequest request,
+  public void service(final ServletRequest plainRequest,
                       final ServletResponse response)
       throws ServletException, IOException {
 
-    String pathInfo = ((HttpServletRequest)request).getPathInfo();
+    final HttpServletRequest request = (HttpServletRequest)plainRequest;
+
+    String pathInfo = request.getPathInfo();
     String subPathInfo = null;
     String logicalDatabaseName = null;
     if (pathInfo != null) {
@@ -105,7 +146,12 @@ public abstract class MelatiServlet extends WMServlet {
                 _this.reallyService(request, response);
               }
               catch (Exception e) {
-               // FIXME oops we have to do this in-session!
+                // FIXME oops we have to do this in-session!  This is because
+                // some PoemExceptions generate their messages on the fly from
+                // Persistents that can't be interrogated outside a database
+                // session.  Indeed the toString() can actually generate a
+                // further exception.  Not very satisfactory.
+
                 problem[0] = e.toString();
                 e.printStackTrace();
               }

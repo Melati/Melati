@@ -44,8 +44,16 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.*;
-import org.melati.poem.*;
+import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import org.melati.poem.User;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.StringPoemType;
 
  /**
   * A Database Management System from http://www.mckoi.com/.
@@ -74,11 +82,10 @@ public class Mckoi extends AnsiStandard {
     }
 
     public String getQuotedName (String name) {
-	//McKoi doesn't quote names
-        if (name.equals("unique")) return super.getQuotedName(name);
-        if (name.equals("from")) return super.getQuotedName(name);
-
-	return name;
+     //McKoi doesn't quote names
+      if (name.equals("unique")) return super.getQuotedName(name);
+      if (name.equals("from")) return super.getQuotedName(name);
+      return name;
     }
 
     public String getSqlDefinition(String sqlTypeName) throws SQLException {
@@ -96,7 +103,7 @@ public class Mckoi extends AnsiStandard {
       if (storage instanceof StringPoemType &&
           type instanceof StringPoemType) {
 
-	  if (((StringPoemType)storage).getSize() == 2147483647 &&
+        if (((StringPoemType)storage).getSize() == 2147483647 &&
               ((StringPoemType)type).getSize() == -1) {
              return type;
           } else {
@@ -104,10 +111,10 @@ public class Mckoi extends AnsiStandard {
           }
       } else if (storage instanceof BinaryPoemType &&
                  type instanceof BinaryPoemType) {
-	  if (((BinaryPoemType)storage).getSize() == 2147483647 &&
-              ((BinaryPoemType)type).getSize() == -1) {
-             return type;
-          } else {
+        if (((BinaryPoemType)storage).getSize() == 2147483647 &&
+             ((BinaryPoemType)type).getSize() == -1) {
+          return type;
+        } else {
              return storage.canRepresent(type);
           }
       } else {
@@ -117,13 +124,13 @@ public class Mckoi extends AnsiStandard {
 
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
-	ResultSetMetaData rsmd= md.getMetaData();
+      ResultSetMetaData rsmd= md.getMetaData();
 
-	if( md.getString("TYPE_NAME").equals("NUMERIC") )
-	    return new DoublePoemType(md.getInt("NULLABLE")==
-		DatabaseMetaData.columnNullable );
-	else
-    	    return super.defaultPoemTypeOfColumnMetaData(md);
+      if( md.getString("TYPE_NAME").equals("NUMERIC") )
+        return new DoublePoemType(md.getInt("NULLABLE")==
+            DatabaseMetaData.columnNullable );
+      else
+        return super.defaultPoemTypeOfColumnMetaData(md);
     }
 
 

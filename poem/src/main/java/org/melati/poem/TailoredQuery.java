@@ -206,13 +206,13 @@ public class TailoredQuery {
     // programmer).  Make up a list of all the columns we need, included any
     // `canRead' access control columns for tables.
 
-    Vector columns = new Vector();
+    Vector columnsLocal = new Vector();
     Vector canReadColumnIndices = new Vector();
-    Vector canReadTables = new Vector();
+    Vector canReadTablesLocal = new Vector();
 
     selectedColumnsCount = selectedColumns.length;
     for (int c = 0; c < selectedColumns.length; ++c)
-      columns.addElement(selectedColumns[c]);
+      columnsLocal.addElement(selectedColumns[c]);
 
     for (int t = 0; t < tables.length; ++t) {
       Table table = tables[t];
@@ -220,62 +220,62 @@ public class TailoredQuery {
       if (canRead == null) {
         // No specific canRead column, revert to the table default protection
 
-        if (!canReadTables.contains(table))
-          canReadTables.addElement(table);
+        if (!canReadTablesLocal.contains(table))
+          canReadTablesLocal.addElement(table);
       }
       else
-        if (!columns.contains(canRead)) {
-          canReadColumnIndices.addElement(new Integer(columns.size()));
-          columns.addElement(canRead);
+        if (!columnsLocal.contains(canRead)) {
+          canReadColumnIndices.addElement(new Integer(columnsLocal.size()));
+          columnsLocal.addElement(canRead);
         }
     }     
 
-    this.columns = new Column[columns.size()];
-    columns.copyInto(this.columns);
+    this.columns = new Column[columnsLocal.size()];
+    columnsLocal.copyInto(this.columns);
 
-    isCanReadColumn = new boolean[columns.size()];
+    isCanReadColumn = new boolean[columnsLocal.size()];
     for (int i = 0; i < canReadColumnIndices.size(); ++i) {
       int c = ((Integer)canReadColumnIndices.elementAt(i)).intValue();
       isCanReadColumn[c] = true;
     }
 
-    this.canReadTables = new Table[canReadTables.size()];
-    canReadTables.copyInto(this.canReadTables);
+    this.canReadTables = new Table[canReadTablesLocal.size()];
+    canReadTablesLocal.copyInto(this.canReadTables);
 
     // Make up the SQL for the query
 
-    StringBuffer sql = new StringBuffer();
+    StringBuffer sqlLocal = new StringBuffer();
 
-    sql.append("SELECT ");
+    sqlLocal.append("SELECT ");
 
     if (modifier != null) {
-      sql.append(modifier);
-      sql.append(' ');
+      sqlLocal.append(modifier);
+      sqlLocal.append(' ');
     }
 
-    for (int c = 0; c < columns.size(); ++c) {
-      if (c > 0) sql.append(", ");
-      Column column = (Column)columns.elementAt(c);
-      sql.append(column.getTable().quotedName());
-      sql.append('.');
-      sql.append(column.quotedName());
+    for (int c = 0; c < columnsLocal.size(); ++c) {
+      if (c > 0) sqlLocal.append(", ");
+      Column column = (Column)columnsLocal.elementAt(c);
+      sqlLocal.append(column.getTable().quotedName());
+      sqlLocal.append('.');
+      sqlLocal.append(column.quotedName());
     }
 
-    sql.append(" FROM ");
+    sqlLocal.append(" FROM ");
 
     for (int t = 0; t < tables.length; ++t) {
-      if (t > 0) sql.append(", ");
-      sql.append((tables[t]).quotedName());
+      if (t > 0) sqlLocal.append(", ");
+      sqlLocal.append((tables[t]).quotedName());
     }
 
     if (whereClause != null && !whereClause.trim().equals("")) {
-      sql.append(" WHERE ");
-      sql.append(whereClause);
+      sqlLocal.append(" WHERE ");
+      sqlLocal.append(whereClause);
     }
 
     if (orderByClause != null && !orderByClause.trim().equals("")) {
-      sql.append(" ORDER BY ");
-      sql.append(orderByClause);
+      sqlLocal.append(" ORDER BY ");
+      sqlLocal.append(orderByClause);
     }
 
     this.sql = sql.toString();
@@ -283,8 +283,8 @@ public class TailoredQuery {
     // Set up mappings from column name (<table>_<column>) to position
     // (including the canRead columns, if anyone ever wants them)
 
-    for (int c = 0; c < columns.size(); ++c) {
-      Column column = (Column)columns.elementAt(c);
+    for (int c = 0; c < columnsLocal.size(); ++c) {
+      Column column = (Column)columnsLocal.elementAt(c);
       table_columnMap.put(
           column.getTable().getName() + "_" + column.getName(),
           new Integer(c));

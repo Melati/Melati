@@ -204,9 +204,16 @@ public class AdminUtils {
   }
 
   public JSStaticTree createTree(Treeable node) {
-      return new JSStaticTree(new Tree(node));
+    return new JSStaticTree(new Tree(node));
   }
 
+  // You can no longer (as of 1.0) 
+  // look at an object's methods in WebMacro
+  
+  public boolean isTreeable(Persistent object) {
+    return object instanceof Treeable;
+  }
+ 
 }
 
 

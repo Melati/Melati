@@ -88,7 +88,6 @@ public class Table {
   private TransactionedSerial serial;
 
   private CachedSelection allTroids = null;
-  private CachedCount count = null;
   private Hashtable cachedSelections = new Hashtable();
   private Hashtable cachedCounts = new Hashtable();
   private Hashtable cachedExists = new Hashtable();

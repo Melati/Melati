@@ -1293,6 +1293,10 @@ public class Table {
       columns[c].dump();
   }
 
+  /**
+   * FIXME to be documented.
+   */
+
   public PreparedSelection cachedSelection(String whereClause,
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
@@ -1316,11 +1320,59 @@ public class Table {
                cachedSelection(whereClause, orderByClause), nullable);
   }
 
+  /**
+   * Make up a <TT>Field</TT> object whose possible values are a selected
+   * subset of the records in the table.  You can make a "dropdown" offering a
+   * choice of your green customers by putting this in your handler
+   *
+   * <BLOCKQUOTE><PRE>
+   * context.put("greens",
+   *             melati.getDatabase().getCustomerTable().cachedSelectionField(
+   *                 "colour = 'green'", null, true, null, "greens"));
+   * </PRE></BLOCKQUOTE>
+   *
+   * and this in your template
+   *
+   * <BLOCKQUOTE><PRE>
+   *   Select a customer: $ml.input($greens)
+   * </PRE></BLOCKQUOTE>
+   *
+   * The list of member records is implicitly cached---permanently, and however
+   * big it turns out to be.  So don't go mad with this.  It is recomputed on
+   * demand if the contents of the table are changed.  The <TT>whereClause</TT>
+   * and <TT>orderByClause</TT> you pass in are checked to see if you have
+   * asked for the same list before, so however many times you call this
+   * method, you should only trigger actual <TT>SELECT</TT>s when the table
+   * contents have changed.  The list is also transaction-safe, in that it will
+   * always reflect the state of affairs within your transaction even if you
+   * haven't done a commit.
+   *
+   * @param whereClause		an SQL expression (the bit after the
+   *                            <TT>SELECT</TT> ... <TT>WHERE</TT>) for picking
+   *                            out the records you want
+   *
+   * @param orderByClause	a comma-separated list of column names which
+   *                            determine the order in which the records are
+   *                            presented; if this is <TT>null</TT>, the
+   *                            <TT>displayorderpriority</TT> attributes of the
+   *                            table's columns determine the order
+   *
+   * @param nullable		whether to allow a blank <TT>NULL</TT> option
+   *                            as the first possibility
+   *
+   * @param selectedTroid	the troid of the record to which the
+   *                            <TT>SELECT</TT> field should initially be set
+   *
+   * @param name		the HTML name attribute of the field,
+   *                            <I>i.e.</I>
+   *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
+   */
+
   public Field cachedSelectionField(
       String whereClause, String orderByClause, boolean nullable,
-      Object ident, String name) {
+      Integer selectedTroid, String name) {
     return new Field(
-        ident,
+        selectedTroid,
         new BaseFieldAttributes(name,
 				cachedSelectionType(whereClause,
 						    orderByClause, nullable)));

@@ -119,7 +119,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
 
     output.write("<h2>Initialised Databases</h2>\n"
                  + "<table border=1 cellspacing=0 cellpadding=1>"
-                 + "<tr><th>Database</th><th>PoemTransation</th>"
+                 + "<tr><th>Database</th><th>PoemTransaction</th>"
                  + "<th>Free</th><th>Blocked</th></tr>\n");
     Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases().
                                                    elements();

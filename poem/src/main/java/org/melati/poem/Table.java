@@ -608,22 +608,27 @@ public class Table {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
         ResultSet rs = select.executeQuery();
-        if (database.logSQL)
-          database.log(new SQLLogEvent(select.toString()));
+	try {
+	  if (database.logSQL)
+	    database.log(new SQLLogEvent(select.toString()));
 
-        if (!rs.next())
-          persistent.setStatusNonexistent();
-        else {
-          persistent.setStatusExistent();
-          for (int c = 0; c < columns.length; ++c)
-            columns[c].load_unsafe(rs, c + 1, persistent);
-        }
+	  if (!rs.next())
+	    persistent.setStatusNonexistent();
+	  else {
+	    persistent.setStatusExistent();
+	    for (int c = 0; c < columns.length; ++c)
+	      columns[c].load_unsafe(rs, c + 1, persistent);
+	  }
 
-        persistent.dirty = false;
-        persistent.markValid();
+	  persistent.dirty = false;
+	  persistent.markValid();
 
-        if (rs.next())
-          throw new DuplicateTroidPoemException(this, persistent.troid());
+	  if (rs.next())
+	    throw new DuplicateTroidPoemException(this, persistent.troid());
+	}
+	finally {
+	  try { rs.close(); } catch (Exception e) {}
+	}
       }
     }
     catch (SQLException e) {

@@ -1,0 +1,26 @@
+<!-- Start of $Source$ -->
+@header@
+<p align=center>
+ <font size=-1><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+@menu@
+<h2>Melati Mailing List</h2>
+<p>
+
+  We have the following lists hosted on 
+  <a href="http://www.sourceforge.net/projects/melati">SourceForge</a>. 
+<ul>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">development 
+    mailing list</a></li>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-users">melati 
+    users mailing list</a></li>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">announcements 
+    mailing list</a></li>
+</ul>
+@footer@
+<!-- End of $Source$ -->
+
+
+

@@ -1,84 +1,11 @@
 <!-- Start of $Source$ -->
-<!-- Start of $Source$ -->
-<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<HTML>
-<head>
- <title>Melati - Java SQL Website Development Engine</title>
- <meta name="keywords" content="Persistence, Java, SQL, Database, Templates, Object Relational Mapping, Objects, Object Oriented, J2EE replacement">
-</head>
-<!-- Background white, links blue (unvisited), navy (visited), red (active) -->
- <BODY BGCOLOR="#FFFFFF"
-  TEXT ="#000000"
-  LINK ="#0000FF"
-  VLINK="#000080"
-  ALINK="#FF0000"
- >
-<table cellpadding=0 cellspacing=0 border=0 width="100%">
- <tr>
-  <td align=left width="5%"><img src="images/melati.jpg" alt="Jasminum sambac" width=60 height=60></td>
-  <td width="90%">
-    <h1 align=center>Melati</h1>
-  </td>
-  <td align=left width="5%"><img src="images/melati.jpg" alt="Jasminum sambac" width=60 height=60></td>
- </tr>
-</table>
-<!-- End of $Source$ -->
-
+@header@
 <p align=center>
  <font size=-1><i>
 This page last updated: $Date$ $Author$
  </i></font>
 </p>
-<!-- Start of $Source$ -->
-<table cellpadding=10 cellspacing=15>
- <tr>
-  <td valign=top>
-    <table>
-      <tr> 
-        <td><strong><a href="index.html">Home</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Features.html">Features</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="ShowCase.html">Show Case</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Example.html">Example</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Download.html">Download</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Documentation.html">Documentation</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Status.html">Status</a></strong></td>
-      </tr>
-      <tr>
-        <td><strong><a href="RoadMap.html">Road Map</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Contribute.html">Contribute</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="MailingList.html">Mailing Lists</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Licence.html">Licence</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Links.html">Links</a></strong></td>
-      </tr>
-      <tr> 
-        <td><strong><a href="Releases.html">Release History</a></strong></td>
-      </tr>
-    </table>
-  </td>
-  <td valign=top>
-<!-- End of $Source$ -->
-
-
+@menu@
 <H2>Feature summary</h2>
 
 
@@ -131,15 +58,7 @@ This page last updated: $Date$ $Author$
   <A HREF=/melati-static/doc/index.html>overview document</A> 
   is more up to date but less chatty.)
 </P>
-<!-- Start of $Source$ -->
-  </td>
- </tr>
-</table>
-</body>
-</html>
-<!-- End of $Source$ -->
-
-
+@footer@
 <!-- End of $Source$ -->
 
 

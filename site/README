@@ -1,14 +1,31 @@
-Perhaps unfortunately the Melati site uses Server Side Includes, 
-and for Apache 1.3 requires the following in your site options in httpd.conf:
+> Perhaps unfortunately the Melati site uses Server Side Includes, 
+> and for Apache 1.3 requires the following in your site options in httpd.conf:
+>
+> XBitHack Full
+>
+> You also need to set the executable bit on the HTML files with 
+>
+> chmod +x *.html
+>
+Not any more.
 
-XBitHack Full
+> TODO
+>
+> It would be nice to have a logo and a PoweredBy
 
-You also need to set th executable bit on the HTML files with 
+Still nice to have.
 
-chmod +x *.html
+> 
+> timp 19/0/2001
 
-TODO
 
-It would be nice to have a logo and a PoweredBy
+The site is now written in AHTML format: 
+analogous to shtml/jhtml ahtml stands for 
+Ant HTML ie html with embedded Ant tags.
 
-timp 19/0/2001
+We use @header@, @menu@ and @footer@.
+These are substituted by ant for the contents 
+of Header.html, Menu.html and Footer.html 
+in ...build/build.xml
+
+timp 29/05/2002

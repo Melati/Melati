@@ -1,0 +1,50 @@
+<!-- End of $Source$ -->
+@header@
+  <p align=center>
+   <font size=-1><i>
+This page last updated: $Date$ $Author$
+   </i></font>
+  </p>
+@menu@
+<h2>Download</h2>
+<p>
+<table width="0%" border="1" cellpadding="5" cellspacing=0>
+  <tr>
+    <td><b>Release</b></td>
+    <td align=center><b>Jar and Source</b></td>
+    <td align=center><b>Javadoc</b></td>
+    <td align=center><b>Template Engine</b></td>
+  </tr>
+  <tr>
+    <td>Melati Beta 0.6.0 - 19/04/2002</td>
+    <td><a href="/download/melati_0.6.0.tar.gz">Unix</a><br>
+        <a href="/download/melati_0.6.0.zip">Windows</a></td>
+    <td><a href="/download/melati_0.6.0_doc.tar.gz">Unix</a><br>
+        <a href="/download/melati_0.6.0_doc.zip">Windows </a></td>
+    <td><a href="http://www.webmacro.org/DownloadWebMacro">webmacro 1.0 (or later)</a>, <a href="http://jakarta.apache.org/velocity/">Velocity 1.2 (or later)</a></td>
+  </tr>
+</table>
+<p>Installation instructions are in the <a href=/melati-static/README.html>README.html</a> file.</p>
+
+<h3>CVS</h3>
+<p>Melati is available via anonymous CVS, which also has a 
+<A HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/>web interface</a>. 
+</p>
+<p>With the command-line CVS client, you do:
+<pre>
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
+(Logging in to anonymous@melati.org)
+CVS password: anonymous
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/apache javax
+</pre>
+</p>
+
+<p>
+ You will need a CVS client to perform the above procedure.  
+ Every Linux distribution comes with command line cvs, or you can get a
+ variety of other interfaces from 
+ <a href=http://www.sourcegear.com/CVS>www.sourcegear.com</a>.
+</p>
+<p>If you want a Windows CVS client, check out <a href=http://www.wincvs.org>www.wincvs.org</a></p>
+@footer@
+<!-- End of $Source$ -->

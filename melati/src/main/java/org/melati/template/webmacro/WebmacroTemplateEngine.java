@@ -66,9 +66,6 @@ import org.webmacro.engine.PassbackVariableExceptionHandler;
 
 /**
  * Interface for a Template engine for use with Melati
- *
- * @author Tim Joyce
- * $Revision$
  */
 public class WebmacroTemplateEngine implements TemplateEngine {
 

@@ -291,7 +291,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
                         "s/" + res[i] + "/" + res[i+1] + "/", contents);
                     }
                 }
-                System.err.println(contents);
+//                System.err.println(contents);
                 return new ByteArrayInputStream(contents.getBytes());
               } else {
                 return new BufferedInputStream(

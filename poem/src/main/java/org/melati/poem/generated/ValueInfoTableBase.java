@@ -355,7 +355,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "For character fields, the maximum number of characters that can be stored";
+            return "For character fields, the maximum number of characters that can be stored, (-1 for unlimited)";
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -715,10 +715,6 @@ public class ValueInfoTableBase extends Table {
 
   public ValueInfo getValueInfoObject(int troid) {
     return (ValueInfo)getObject(troid);
-  }
-
-  protected Persistent _newPersistent() {
-    return new ValueInfo();
   }
   protected int defaultDisplayOrder() {
     return 6;

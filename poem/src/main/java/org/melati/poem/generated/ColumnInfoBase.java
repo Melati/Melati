@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ColumnInfoBase extends ValueInfo {
+public abstract class ColumnInfoBase extends ValueInfo {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();
@@ -79,7 +79,7 @@ public class ColumnInfoBase extends ValueInfo {
 
   public void setTableinfoTroid(Integer raw)
       throws AccessPoemException {
-    getColumnInfoTable().getTableinfoColumn().getType().assertValidRaw(raw);
+    _getColumnInfoTable().getTableinfoColumn().getType().assertValidRaw(raw);
     writeLock();
     setTableinfo_unsafe(raw);
   }

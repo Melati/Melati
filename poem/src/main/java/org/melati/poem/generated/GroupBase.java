@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class GroupBase extends Persistent {
+public abstract class GroupBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();

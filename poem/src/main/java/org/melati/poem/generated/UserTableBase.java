@@ -10,9 +10,9 @@ import java.sql.Timestamp;
 public class UserTableBase extends Table {
 
   private Column col_id = null;
+  private Column col_name = null;
   private Column col_login = null;
   private Column col_password = null;
-  private Column col_name = null;
 
   public UserTableBase(
       Database database, String name,
@@ -54,8 +54,12 @@ public class UserTableBase extends Table {
             return false;
           }
 
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.detail;
+          }
+
           protected int defaultDisplayOrder() {
-            return 0;
+            return 10;
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -79,6 +83,71 @@ public class UserTableBase extends Table {
           }
         });
 
+    defineColumn(col_name =
+        new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((User)g).getName();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((User)g).setName((String)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((User)g).getNameField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.primary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Full name";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 20;
+          }
+
+          protected String defaultDescription() {
+            return "The user's real name";
+          }
+
+          protected boolean defaultIndexed() {
+            return true;
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getName_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((User)g).setName_unsafe((String)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getName();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((User)g).setName((String)raw);
+          }
+        });
+
     defineColumn(col_login =
         new Column(this, "login", new StringPoemType(false, 20), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -96,7 +165,7 @@ public class UserTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 1;
+            return 30;
           }
 
           protected String defaultDescription() {
@@ -153,11 +222,15 @@ public class UserTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 2;
+            return 40;
           }
 
           protected String defaultDescription() {
             return "The user's password";
+          }
+
+          protected int defaultWidth() {
+            return 10;
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -180,75 +253,14 @@ public class UserTableBase extends Table {
             ((User)g).setPassword((String)raw);
           }
         });
-
-    defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getCooked(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((User)g).getName();
-          }
-
-          public void setCooked(Persistent g, Object cooked)
-              throws AccessPoemException, ValidationPoemException {
-            ((User)g).setName((String)cooked);
-          }
-
-          public Field asField(Persistent g) {
-            return ((User)g).getNameField();
-          }
-
-          protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.primary;
-          }
-
-          protected Searchability defaultSearchability() {
-            return Searchability.primary;
-          }
-
-          protected Integer defaultDisplayOrderPriority() {
-            return new Integer(0);
-          }
-
-          protected String defaultDisplayName() {
-            return "Full name";
-          }
-
-          protected int defaultDisplayOrder() {
-            return 3;
-          }
-
-          protected String defaultDescription() {
-            return "The user's real name";
-          }
-
-          protected boolean defaultIndexed() {
-            return true;
-          }
-
-          public Object getRaw_unsafe(Persistent g)
-              throws AccessPoemException {
-            return ((User)g).getName_unsafe();
-          }
-
-          public void setRaw_unsafe(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((User)g).setName_unsafe((String)raw);
-          }
-
-          public Object getRaw(Persistent g)
-              throws AccessPoemException {
-            return ((User)g).getName();
-          }
-
-          public void setRaw(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((User)g).setName((String)raw);
-          }
-        });
   }
 
   public final Column getIdColumn() {
     return col_id;
+  }
+
+  public final Column getNameColumn() {
+    return col_name;
   }
 
   public final Column getLoginColumn() {
@@ -257,10 +269,6 @@ public class UserTableBase extends Table {
 
   public final Column getPasswordColumn() {
     return col_password;
-  }
-
-  public final Column getNameColumn() {
-    return col_name;
   }
 
   public User getUserObject(Integer troid) {

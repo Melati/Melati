@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class GroupMembershipBase extends Persistent {
+public abstract class GroupMembershipBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();
@@ -72,7 +72,7 @@ public class GroupMembershipBase extends Persistent {
 
   public void setUserTroid(Integer raw)
       throws AccessPoemException {
-    getGroupMembershipTable().getUserColumn().getType().assertValidRaw(raw);
+    _getGroupMembershipTable().getUserColumn().getType().assertValidRaw(raw);
     writeLock();
     setUser_unsafe(raw);
   }
@@ -110,7 +110,7 @@ public class GroupMembershipBase extends Persistent {
 
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
-    getGroupMembershipTable().getGroupColumn().getType().assertValidRaw(raw);
+    _getGroupMembershipTable().getGroupColumn().getType().assertValidRaw(raw);
     writeLock();
     setGroup_unsafe(raw);
   }

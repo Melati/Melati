@@ -53,6 +53,10 @@ public class GroupMembershipTableBase extends Table {
             return false;
           }
 
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.detail;
+          }
+
           protected int defaultDisplayOrder() {
             return 0;
           }

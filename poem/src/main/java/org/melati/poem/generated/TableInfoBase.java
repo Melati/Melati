@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class TableInfoBase extends Persistent {
+public abstract class TableInfoBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();
@@ -189,7 +189,7 @@ public class TableInfoBase extends Persistent {
 
   public void setDefaultcanreadTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getDefaultcanreadColumn().getType().assertValidRaw(raw);
+    _getTableInfoTable().getDefaultcanreadColumn().getType().assertValidRaw(raw);
     writeLock();
     setDefaultcanread_unsafe(raw);
   }
@@ -227,7 +227,7 @@ public class TableInfoBase extends Persistent {
 
   public void setDefaultcanwriteTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidRaw(raw);
+    _getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidRaw(raw);
     writeLock();
     setDefaultcanwrite_unsafe(raw);
   }
@@ -265,7 +265,7 @@ public class TableInfoBase extends Persistent {
 
   public void setCancreateTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getCancreateColumn().getType().assertValidRaw(raw);
+    _getTableInfoTable().getCancreateColumn().getType().assertValidRaw(raw);
     writeLock();
     setCancreate_unsafe(raw);
   }
@@ -365,7 +365,7 @@ public class TableInfoBase extends Persistent {
 
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
-    getTableInfoTable().getCategoryColumn().getType().assertValidRaw(raw);
+    _getTableInfoTable().getCategoryColumn().getType().assertValidRaw(raw);
     writeLock();
     setCategory_unsafe(raw);
   }

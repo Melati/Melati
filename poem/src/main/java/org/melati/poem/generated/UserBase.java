@@ -7,7 +7,7 @@ import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class UserBase extends Persistent {
+public abstract class UserBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();
@@ -22,9 +22,9 @@ public class UserBase extends Persistent {
   }
 
   protected Integer id;
+  protected String name;
   protected String login;
   protected String password;
-  protected String name;
 
   public Integer getId_unsafe() {
     return id;
@@ -54,6 +54,32 @@ public class UserBase extends Persistent {
 
   public Field getIdField() throws AccessPoemException {
     Column c = _getUserTable().getIdColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public String getName_unsafe() {
+    return name;
+  }
+
+  public void setName_unsafe(String cooked) {
+    name = cooked;
+  }
+
+  public String getName()
+      throws AccessPoemException {
+    readLock();
+    return getName_unsafe();
+  }
+
+  public void setName(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getUserTable().getNameColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setName_unsafe(cooked);
+  }
+
+  public Field getNameField() throws AccessPoemException {
+    Column c = _getUserTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
 
@@ -106,32 +132,6 @@ public class UserBase extends Persistent {
 
   public Field getPasswordField() throws AccessPoemException {
     Column c = _getUserTable().getPasswordColumn();
-    return new Field(c.getRaw(this), c);
-  }
-
-  public String getName_unsafe() {
-    return name;
-  }
-
-  public void setName_unsafe(String cooked) {
-    name = cooked;
-  }
-
-  public String getName()
-      throws AccessPoemException {
-    readLock();
-    return getName_unsafe();
-  }
-
-  public void setName(String cooked)
-      throws AccessPoemException, ValidationPoemException {
-    _getUserTable().getNameColumn().getType().assertValidCooked(cooked);
-    writeLock();
-    setName_unsafe(cooked);
-  }
-
-  public Field getNameField() throws AccessPoemException {
-    Column c = _getUserTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
 }

@@ -64,7 +64,9 @@ function goto_page() {
   if (option != "null") parent["admin_selection"].location = option;
   return false;
 }
+#if ($primaryCriterion) #begin
 var chooseURL = "$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=";
+#end
 function goto_page2() {
   var url = chooseURL + document.forms[0].elements[0].value;
   parent["admin_selection"].location = url;

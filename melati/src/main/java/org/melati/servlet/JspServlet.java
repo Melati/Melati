@@ -172,12 +172,7 @@ public abstract class JspServlet
       throws ServletException, IOException 
   {
     final Melati melati;
-    try {
       melati = melatiConfig.getMelati(request, response);
-    } catch (MelatiException e) {
-      e.printStackTrace(System.err);
-      throw new ServletException(e.toString ());
-    }
     MelatiContext mc = getMelatiContext();
     try {
       melati.setContext(mc);

@@ -63,7 +63,8 @@ import javax.swing.text.html.parser.Element;
 /**
  * An assortment of useful things to do with HTML.
  */
-public class HTMLUtils {
+public final class HTMLUtils {
+
   private HTMLUtils() {}
 
   public static final String dtdNameForHTMLParser = "html32.bdtd";
@@ -199,12 +200,14 @@ public class HTMLUtils {
     b.append(entity);
 
     char c;
-    for (++i; i < l; ++i)
-      if ((entity = entityFor(c = s.charAt(i), mapBR, ce)) != null)
+    for (++i; i < l; ++i) {
+      c = s.charAt(i);
+      entity = entityFor(c, mapBR, ce);
+      if (entity != null)
         b.append(entity);
       else
         b.append(c);
-
+    }
     return b.toString();
   }
 

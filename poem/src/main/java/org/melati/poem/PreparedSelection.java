@@ -93,8 +93,14 @@ public class PreparedSelection {
     if (selection == null || currentTableSerial != tableSerial) {
       selection = new Vector();
       try {
-	for (ResultSet rs = statements().resultSet(transaction); rs.next();)
-	  selection.addElement(new Integer(rs.getInt(1)));
+	ResultSet rs = statements().resultSet(transaction);
+	try {
+	  while (rs.next())
+	    selection.addElement(new Integer(rs.getInt(1)));
+	}
+	finally {
+	  try { rs.close(); } catch (Exception e) {}
+	}
       }
       catch (SQLException e) {
 	throw new SQLSeriousPoemException(e);

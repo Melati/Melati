@@ -15,7 +15,7 @@
  * http://www.gnu.org/copyleft/gpl.txt
  *
  * The Melati Software License is compatible with the Apache Software Foundation's 
- * Apache Software Licence, please read the file LICENCE-ASF.txt
+ * Apache Software Licence, please read the file LICENCE-MSL.txt
  *
  */  
 

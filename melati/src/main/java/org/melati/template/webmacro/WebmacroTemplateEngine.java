@@ -245,17 +245,22 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   }
 
   /** 
-   * @param encoding the character encoding to associate with this writer
-   * @throws IOException if there is a problem with the filesystem.
-   * @return a {@link MelatiWriter} 
-   *         configured for this engine.
-   * @deprecated The best possible {@link MelatiWriter} that is like a
-   * <code>StringWriter</code> is a {@link MelatiStringWriter} -
-   * use directly.
+   * @param encoding ignored
+   * @return a {@link MelatiWriter} for this engine.
+   * @deprecated Use {@link #getStringWriter()}.
+   * @todo Delete this method. Suggest 2004.
    */
-  public MelatiWriter getStringWriter(String encoding) 
-          throws IOException {
-    return new MelatiStringWriter();
+  public final MelatiWriter getStringWriter(String encoding) {
+    return getStringWriter();
+  }
+
+  /** 
+   * Return a {@link MelatiWebmacroStringWriter}.
+   *
+   * @see Melati#getStringWriter() 
+   */
+  public MelatiStringWriter getStringWriter() {
+    return new MelatiWebmacroStringWriter();
   }
 
   /**

@@ -2,7 +2,7 @@ package org.melati.util;
 
 import javax.servlet.http.*;
 
-public class HttpUtils {
+public class HttpUtil {
   public static void appendZoneURL(
       StringBuffer url, HttpServletRequest request) {
     url.append(request.getScheme());

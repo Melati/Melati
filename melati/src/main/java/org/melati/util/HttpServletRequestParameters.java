@@ -49,6 +49,7 @@ package org.melati.util;
 
 import java.util.*;
 import javax.servlet.http.*;
+import javax.servlet.http.HttpUtils;
 
 public class HttpServletRequestParameters {
 

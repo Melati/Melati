@@ -53,10 +53,10 @@ import org.melati.util.ToTidyList;
  * @todo Javadoc - what more can be said?
  */
 public class SessionToken {
-  public Thread thread;
-  public long started;
-  public PoemTransaction transaction;
-  public PoemTask task;
+  Thread thread;
+  long started;
+  PoemTransaction transaction;
+  PoemTask task;
   AccessToken accessToken;
   private ToTidyList toTidy = null;
 
@@ -83,5 +83,34 @@ public class SessionToken {
     if (toTidy == null)
       toTidy = new ToTidyList();
     return toTidy;
+  }
+
+  /**
+   * @return Returns the started.
+   */
+  public long getStarted() {
+    return started;
+  }
+
+  /**
+   * @return Returns the task.
+   */
+  public PoemTask getTask() {
+    return task;
+  }
+ 
+  /**
+   * @return Returns the thread.
+   */
+
+  public Thread getThread() {
+    return thread;
+  }
+
+  /**
+   * @return Returns the transaction.
+   */
+  public PoemTransaction getTransaction() {
+    return transaction;
   }
 }

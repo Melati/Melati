@@ -43,7 +43,7 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-package org.melati.poem.test;
+package org.melati.test;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -111,12 +111,12 @@ public class SessionAnalysisServlet extends ConfigServlet {
       output.write("<table border=1 cellspacing=0 cellpadding=1>\n"
                  + " <tr><th colspan=2>Session: " + token + "</td></tr>\n"
                  + " <tr><th>Running for</th><td>"
-                 + (now.getTime() - token.started) + " ms</td></tr>\n"
-                 + " <tr><th>Thread</th><td>" + token.thread + "</td></tr>\n"
+                 + (now.getTime() - token.getStarted()) + " ms</td></tr>\n"
+                 + " <tr><th>Thread</th><td>" + token.getThread() + "</td></tr>\n"
                  + " <tr><th>PoemTransaction</th><td>"
-                 + token.transaction + "<br>(Database:"
-                 + token.transaction.getDatabase() + ")</td></tr>\n"
-                 + " <tr><th>PoemTask</th><td>" + token.task + "</td></tr>\n");
+                 + token.getTransaction() + "<br>(Database:"
+                 + token.getTransaction().getDatabase() + ")</td></tr>\n"
+                 + " <tr><th>PoemTask</th><td>" + token.getTask() + "</td></tr>\n");
       Enumeration o = token.toTidy().elements();
       if(o.hasMoreElements()) {
         output.write("<tr><th>Open: </th><td>");

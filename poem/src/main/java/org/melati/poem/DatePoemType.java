@@ -52,7 +52,7 @@ import org.melati.util.*;
 
 public class DatePoemType extends AtomPoemType {
 
-  DatePoemType(boolean nullable) {
+  public DatePoemType(boolean nullable) {
     super(Types.TIMESTAMP, "DATE", nullable, 10);
   }
 

@@ -94,14 +94,16 @@ public class MelatiConfig {
   private String templatePath = null;
   private String defaultPropertiesName = "org.melati.MelatiServlet";
 
-  // allows creation of a melaticonfig with default config params
-
+ /**
+  * allows creation of a melaticonfig with default config params.
+  */
   public MelatiConfig() throws MelatiException {
     init(defaultPropertiesName);
   }
 
-  // allows creation of a melaticonfig with a specified properties file
-
+ /** 
+  * Allows creation of a melaticonfig with a specified properties file.
+  */
   public MelatiConfig(String propertiesName) throws MelatiException {
     init(propertiesName);
   }
@@ -190,14 +192,18 @@ public class MelatiConfig {
   }
  
 
-  // creates a melati context
+ /**
+  * Creates a melati context.
+  */
   public Melati getMelati(HttpServletRequest request,
                           HttpServletResponse response) 
       throws MelatiException {
     return new Melati(this, request, response);
   }
 
-  // the template engine in use
+ /** 
+  * The template engine in use.
+  */
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
@@ -230,7 +236,9 @@ public class MelatiConfig {
     return fdaFactory;
   }
 
-  // location of javascript for this site
+ /**
+  * Location of javascript for this site.
+  */
   public String getJavascriptLibraryURL() {
     return javascriptLibraryURL;
   }
@@ -239,12 +247,16 @@ public class MelatiConfig {
     this.javascriptLibraryURL = url;
   }
 
-  // location of static content for this site
+ /** 
+  * Location of static content for this site.
+  */
   public String getStaticURL() {
     return staticURL;
   }
 
-  // location of templates
+ /**
+  * Location of templates.
+  */
   public String getTemplatePath() {
     return templatePath;
   }
@@ -253,23 +265,26 @@ public class MelatiConfig {
     this.staticURL = url;
   }
 
+ /**
+  * @todo make this configurable
+  */ 
   public static String logoutPageServletClassName() {
     return "org.melati.login.Logout";
   }
 
-  /**
-   * @deprecated Use getLocale if possible, 
-   *             otherwise you might as well use MelatiLocale.here.
-   * @return British English melati locale.  
-   */
+ /**
+  * @deprecated Use getLocale if possible, 
+  *             otherwise you might as well use MelatiLocale.here.
+  * @return British English melati locale.  
+  */
   public static MelatiLocale getMelatiLocale() {
     return MelatiLocale.here;
   }
 
-  /**
-   * Get the default MelatiLocale from the configuration file
-   * @return The default MelatiLocale
-   */
+ /**
+  * Get the default MelatiLocale from the configuration file.
+  * @return The default MelatiLocale
+  */
   public MelatiLocale getLocale() {
     return melatiLocale;
   }
@@ -315,17 +330,23 @@ public class MelatiConfig {
     return melatiLocale;
   }   
 
-  // get the adaptor for rendering dates as drop-downs
+ /**
+  * Get the adaptor for rendering dates as drop-downs.
+  */
   public static YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
 
-  // get the adaptor for rendering timestamps as drop-downs
+ /**
+  * Get the adaptor for rendering timestamps as drop-downs.
+  */
   public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
     return YMDHMSTimestampAdaptor.it;
   }
 
-  // get the adaptor for rendering dates as normal
+ /**
+  * Get the adaptor for rendering dates as normal.
+  */
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }

@@ -53,7 +53,8 @@ public class Persistent extends Transactioned implements Cloneable {
   private Table table;
   private Integer troid;        // or null if a floating object
   private AccessToken clearedToken;
-  private boolean knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
+  private boolean
+      knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
 
   boolean dirty = false;
 
@@ -103,17 +104,22 @@ public class Persistent extends Transactioned implements Cloneable {
   // ***************
   // 
 
-  private void assertNormalPersistent() {
+  private void assertNotFloating() {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
+  }
+
+  private void assertNotDeleted() {
     if (status == DELETED)
       throw new RowDisappearedPoemException(this);
   }
 
   protected void load(Transaction transaction) {
-    assertNormalPersistent();
+    if (troid == null)
+      throw new InvalidOperationOnFloatingPersistentPoemException(this);
+
     table.load((PoemTransaction)transaction, this);
-    // table will clear our dirty flag
+    // table will clear our dirty flag and set status
   }
 
   protected boolean upToDate(Transaction transaction) {
@@ -122,7 +128,7 @@ public class Persistent extends Transactioned implements Cloneable {
 
   protected void writeDown(Transaction transaction) {
     if (status != DELETED) {
-      assertNormalPersistent();
+      assertNotFloating();
       table.writeDown((PoemTransaction)transaction, this);
       // table will clear our dirty flag
     }
@@ -130,8 +136,8 @@ public class Persistent extends Transactioned implements Cloneable {
 
   protected void writeLock(Transaction transaction) {
     if (troid != null) {
-      assertNormalPersistent();
       super.writeLock(transaction);
+      assertNotDeleted();
       dirty = true;
       table.notifyTouched((PoemTransaction)transaction, this);
     }
@@ -143,21 +149,21 @@ public class Persistent extends Transactioned implements Cloneable {
 
   protected void readLock(Transaction transaction) {
     if (troid != null) {
-      assertNormalPersistent();
       super.readLock(transaction);
+      assertNotDeleted();
     }
   }
 
   protected void commit(Transaction transaction) {
     if (status != DELETED) {
-      assertNormalPersistent();
+      assertNotFloating();
       super.commit(transaction);
     }
   }
 
   protected void rollback(Transaction transaction) {
     if (status != DELETED) {
-      assertNormalPersistent();
+      assertNotFloating();
       super.rollback(transaction);
     }
   }
@@ -169,8 +175,8 @@ public class Persistent extends Transactioned implements Cloneable {
   // 
 
   /** a shortcut method to mark this object as persistent */
-  public final void makePersistent()
-  {
+
+  public final void makePersistent() {
     getTable().create(this);
   }
   
@@ -239,6 +245,10 @@ public class Persistent extends Transactioned implements Cloneable {
   // ----------------
   // 
 
+  protected void existenceLock(SessionToken sessionToken) {
+    super.readLock(sessionToken.transaction);
+  }
+
   protected void readLock(SessionToken sessionToken)
       throws AccessPoemException {
     assertCanRead(sessionToken.accessToken);
@@ -257,6 +267,10 @@ public class Persistent extends Transactioned implements Cloneable {
     if (troid != null)
       assertCanDelete(sessionToken.accessToken);
     writeLock(sessionToken.transaction);
+  }
+
+  public void existenceLock() {
+    existenceLock(PoemThread.sessionToken());
   }
 
   protected void readLock() throws AccessPoemException {
@@ -888,19 +902,6 @@ public class Persistent extends Transactioned implements Cloneable {
     return getTable().getColumn(name).asField(this);
   }
 
-//   private static class FieldsEnumeration extends MappedEnumeration {
-//     private Persistent persistent;
-
-//     public FieldsEnumeration(Persistent persistent, Enumeration columns) {
-//       super(columns);
-//       this.persistent = persistent;
-//     }
-
-//     public Object mapped(Object column) {
-//       return ((Column)column).asField(persistent);
-//     }
-//   }
-  
   private Enumeration fieldsOfColumns(Enumeration columns) {
     // return new FieldsEnumeration(this, columns);
     final Persistent _this = this;
@@ -949,7 +950,7 @@ public class Persistent extends Transactioned implements Cloneable {
 
   public void delete_unsafe()
       throws AccessPoemException {
-    assertNormalPersistent();
+    assertNotFloating();
     SessionToken sessionToken = PoemThread.sessionToken();
     deleteLock(sessionToken);
     table.delete(troid(), sessionToken.transaction);    
@@ -968,40 +969,102 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * Delete the object.  Before the record is deleted from the database, POEM
-   * checks to see if it is the target of any reference fields, and throws a
-   * <TT>DeletionIntegrityPoemException</TT> if it is.  However, if it's safe
-   * to delete the record, POEM does so---and then immediately commits your
-   * transaction to make the change permanent.  So deletions can't be undone.
-   * POEM also supports `soft deletion' through the use of `deleted
-   * flags' (FIXME describe)
+   * checks to see if it is the target of any reference fields.  What happens
+   * in this case is determined by the <TT>integrityfix</TT> setting of the
+   * referring column, unless that's overridden via the
+   * <TT>integrityFixOfColumn</TT> argument.  By default, a
+   * <TT>DeletionIntegrityPoemException</TT> is thrown, but this behaviour can
+   * be changed through the admin interface.
    *
+   * @see IntegrityFix
    * @see PoemThread#commit
-   * @see Database#referencesTo
+   *
+   * @param integrityFixOfColumn
+   *            A map from {@link Column} to {@link IntegrityFix} which says
+   *            how referential integrity is to be maintained for each column
+   *            that can refer to the object being deleted.  May be
+   *            <TT>null</TT> to mean `empty'.  If a column isn't mentioned,
+   *            the default behaviour for the column is used.  (The default
+   *            default is {@link IntegrityFix#prevent}.)
    */
 
-  public void deleteAndCommit()
-      throws AccessPoemException, DeletionIntegrityPoemException {
+  public void delete(Map integrityFixOfColumn) {
+    assertNotFloating();
 
-    assertNormalPersistent();
+    deleteLock(PoemThread.sessionToken());
+
+    Enumeration columns = getDatabase().referencesTo(getTable());
+    Vector refEnumerations = new Vector();
+
+    while (columns.hasMoreElements()) {
+      Column column = (Column)columns.nextElement();
+
+      IntegrityFix fix;
+      try {
+        fix = integrityFixOfColumn == null ?
+                null : (IntegrityFix)integrityFixOfColumn.get(column);
+      }
+      catch (ClassCastException e) {
+        throw new AppBugPoemException(
+            "integrityFixOfColumn argument to Persistent.deleteAndCommit " +
+                "is meant to be a Map from Column to IntegrityFix",
+            e);
+      }
+
+      if (fix == null)
+        fix = column.getIntegrityFix();
+
+      refEnumerations.addElement(
+          fix.referencesTo(this, column, column.selectionWhereEq(troid()),
+                           integrityFixOfColumn));
+    }
+
+    Enumeration refs = new FlattenedEnumeration(refEnumerations.elements());
+
+    if (refs.hasMoreElements())
+      throw new DeletionIntegrityPoemException(this, refs);
+
+    delete_unsafe();
+
+    status = DELETED;
+  }
+
+  public final void delete() {
+    delete(null);
+  }
+
+  /**
+   * Delete the object, with even more safety checks for referential integrity.
+   * As {@link delete(java.util.Map)}, but waits for exclusive access to the
+   * database before doing the delete, and commits the session immediately
+   * afterwards.  This used to be the only deletion entry point allowed, but
+   * now we (think we) ensure that the possible race condition involving new
+   * pointers to the deleted object created during the deletion process is
+   * covered.
+   *
+   * @deprecated Use {@link delete(java.util.Map)}
+   */
+
+  public void deleteAndCommit(Map integrityFixOfColumn)
+      throws AccessPoemException, DeletionIntegrityPoemException {
 
     getDatabase().beginExclusiveLock();
     try {
-      SessionToken sessionToken = PoemThread.sessionToken();
-      deleteLock(sessionToken);
-
-      Enumeration refs = getDatabase().referencesTo(this);
-      if (refs.hasMoreElements())
-        throw new DeletionIntegrityPoemException(this, refs);
-
-      table.delete(troid(), sessionToken.transaction);
-      if (sessionToken.transaction != null)
-        sessionToken.transaction.commit();
-
-      status = DELETED;
+      delete(integrityFixOfColumn);
+      PoemThread.commit();
+    }
+    catch (RuntimeException e) {
+      PoemThread.rollback();
+      throw e;
     }
     finally {
       getDatabase().endExclusiveLock();
     }
+  }
+
+  public final void deleteAndCommit()
+      throws AccessPoemException, DeletionIntegrityPoemException {
+    deleteAndCommit(null);
   }
 
   /**
@@ -1009,7 +1072,8 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public Persistent duplicated() throws AccessPoemException {
-    assertNormalPersistent();
+    assertNotFloating();
+    assertNotDeleted();
     return (Persistent)clone();
   }
 
@@ -1071,7 +1135,7 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   public synchronized void invalidate() {
-    assertNormalPersistent();
+    assertNotFloating();
     super.invalidate();
     extras = null;
   }

@@ -1,0 +1,65 @@
+#set $Response.Header.Content-Type = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<HEAD>
+</HEAD>
+
+<BODY BGCOLOR=white>
+
+<SCRIPT src="/validation.js"></SCRIPT>
+
+<CENTER>
+
+<H1>Buyer's purchases</H1>
+
+<P><FONT SIZE=1>&nbsp;</FONT></P>
+
+<P><B>
+  Records $buyers.PageStart to $buyers.PageEnd of
+  #if ($buyers.TotalCountIsMinimum) #begin
+    at least
+  #end
+  $buyers.TotalCount
+</B></P>
+
+#foreach $buyer in $buyers #begin
+
+<P>Buyer $ml.rendered($buyer.Name)</P>
+
+<TABLE CELLSPACING=0>
+  <TR>
+    <TH>Item ordered</TH>
+    <TH>&nbsp;&nbsp;</TH>
+    <TH>Price</TH>
+  </TR>
+  #foreach $order in $buyer.ItemsOrdered #begin
+    <TR>
+      <TD>$ml.rendered($order.Product.Name)</TD>
+      <TD><FONT SIZE=0>&nbsp;</FONT></TD>
+      <TD>$ml.rendered($order.Product.Price)</TD>
+    </TR>
+  #end
+</TABLE>
+
+<P>
+  #if ($buyers.PrevPageStart) #begin
+    <A HREF="org.melati.doc.example.BuyerOrders?start=$buyers.PrevPageStart">&lt;&lt;</A>
+  #end
+  #else #begin
+    &lt;&lt;
+  #end
+
+  &nbsp;&nbsp;
+
+  #if ($buyers.NextPageStart) #begin
+    <A HREF="org.melati.doc.example.BuyerOrders?start=$buyers.NextPageStart">&gt;&gt;</A>
+  #end
+  #else #begin
+    &gt;&gt;
+  #end
+</P>
+
+</CENTER>
+
+</BODY>
+</HTML>

@@ -8,8 +8,10 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>EmptyAbstractTableTable</code> object.
+ * <p>
  * Description: 
- *   Empty abstract table to create a stub 
+ *   Empty abstract table to create a stub. 
+ * </p>
  *
  * 
  * <table> 

@@ -6,8 +6,10 @@ import org.melati.poem.test.generated.EverythingNormalExtendedBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>EverythingNormalExtended</code> object.
  * 
+ * <p> 
  * Description: 
- *   Every datatype inheritted from a normal table and normally defined 
+ *   Every datatype inheritted from a normal table and normally defined. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -34,15 +36,17 @@ import org.melati.poem.test.generated.EverythingNormalExtendedBase;
  * Field </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class EverythingNormalExtended extends EverythingNormalExtendedBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>EverythingNormalExtended</code> object.
+  * <p>
   * Description: 
   *   Every datatype inheritted from a normal table and normally defined. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

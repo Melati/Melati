@@ -6,8 +6,10 @@ import org.melati.poem.test.generated.EmptyAbstractTableBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>EmptyAbstractTable</code> object.
  * 
+ * <p> 
  * Description: 
- *   Empty abstract table to create a stub 
+ *   Empty abstract table to create a stub. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -16,15 +18,17 @@ import org.melati.poem.test.generated.EmptyAbstractTableBase;
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class EmptyAbstractTable extends EmptyAbstractTableBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>EmptyAbstractTable</code> object.
+  * <p>
   * Description: 
   *   Empty abstract table to create a stub. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

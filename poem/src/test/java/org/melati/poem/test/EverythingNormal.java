@@ -6,8 +6,10 @@ import org.melati.poem.test.generated.EverythingNormalBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>EverythingNormal</code> object.
  * 
+ * <p> 
  * Description: 
- *   Every datatype in one table 
+ *   Every datatype in one table. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -27,15 +29,17 @@ import org.melati.poem.test.generated.EverythingNormalBase;
  * <tr><td> timestampfield </td><td> Timestamp </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class EverythingNormal extends EverythingNormalBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>EverythingNormal</code> object.
+  * <p>
   * Description: 
   *   Every datatype in one table. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

@@ -167,32 +167,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setId((Integer)raw);
@@ -263,32 +242,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setBinaryfield2_unsafe((byte[])raw);
           }
 
- /**
-  * Retrieves the Binaryfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getBinaryfield2();
           }
 
-
- /**
-  * Sets the Binaryfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setBinaryfield2((byte[])raw);
@@ -355,32 +313,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setStringfield2_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Stringfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getStringfield2();
           }
 
-
- /**
-  * Sets the Stringfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setStringfield2((String)raw);
@@ -443,32 +380,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setPasswordfield2_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Passwordfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getPasswordfield2();
           }
 
-
- /**
-  * Sets the Passwordfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setPasswordfield2((String)raw);
@@ -531,32 +447,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setBooleanfield2_unsafe((Boolean)raw);
           }
 
- /**
-  * Retrieves the Booleanfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getBooleanfield2();
           }
 
-
- /**
-  * Sets the Booleanfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setBooleanfield2((Boolean)raw);
@@ -619,32 +514,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setDatefield2_unsafe((Date)raw);
           }
 
- /**
-  * Retrieves the Datefield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getDatefield2();
           }
 
-
- /**
-  * Sets the Datefield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setDatefield2((Date)raw);
@@ -707,32 +581,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setDoublefield2_unsafe((Double)raw);
           }
 
- /**
-  * Retrieves the Doublefield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getDoublefield2();
           }
 
-
- /**
-  * Sets the Doublefield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setDoublefield2((Double)raw);
@@ -795,32 +648,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setIntegerfield2_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Integerfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getIntegerfield2();
           }
 
-
- /**
-  * Sets the Integerfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setIntegerfield2((Integer)raw);
@@ -883,32 +715,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setLongfield2_unsafe((Long)raw);
           }
 
- /**
-  * Retrieves the Longfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getLongfield2();
           }
 
-
- /**
-  * Sets the Longfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setLongfield2((Long)raw);
@@ -971,32 +782,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setBigdecimalfield2_unsafe((BigDecimal)raw);
           }
 
- /**
-  * Retrieves the Bigdecimalfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getBigdecimalfield2();
           }
 
-
- /**
-  * Sets the Bigdecimalfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setBigdecimalfield2((BigDecimal)raw);
@@ -1059,32 +849,11 @@ public class EverythingAbstractExtendedTableBase extends EverythingAbstractTable
             ((EverythingAbstractExtended)g).setTimestampfield2_unsafe((Timestamp)raw);
           }
 
- /**
-  * Retrieves the Timestampfield2 value, 
-  * without checking, of this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstractExtended)g).getTimestampfield2();
           }
 
-
- /**
-  * Sets the Timestampfield2 value, without checking, for this <code>EverythingAbstractExtended</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstractExtended)g).setTimestampfield2((Timestamp)raw);

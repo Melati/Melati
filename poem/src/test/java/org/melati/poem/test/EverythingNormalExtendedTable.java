@@ -8,8 +8,10 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>EverythingNormalExtendedTable</code> object.
+ * <p>
  * Description: 
- *   Every datatype inheritted from a normal table and normally defined 
+ *   Every datatype inheritted from a normal table and normally defined. 
+ * </p>
  *
  * 
  * <table> 

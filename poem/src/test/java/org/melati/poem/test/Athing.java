@@ -6,8 +6,10 @@ import org.melati.poem.test.generated.AthingBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>Athing</code> object.
  * 
+ * <p> 
  * Description: 
- *   A thing  
+ *   A thing . 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -18,15 +20,17 @@ import org.melati.poem.test.generated.AthingBase;
  * <tr><td> binaryfield </td><td> byte[] </td><td> &nbsp; </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Athing extends AthingBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>Athing</code> object.
+  * <p>
   * Description: 
   *   A thing . 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

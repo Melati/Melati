@@ -8,8 +8,10 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>AthingTable</code> object.
+ * <p>
  * Description: 
- *   A thing  
+ *   A thing . 
+ * </p>
  *
  * 
  * <table> 

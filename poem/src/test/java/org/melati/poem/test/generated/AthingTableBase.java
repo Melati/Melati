@@ -142,32 +142,11 @@ public class AthingTableBase extends Table {
             ((Athing)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>Athing</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Athing)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>Athing</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Athing)g).setId((Integer)raw);
@@ -234,32 +213,11 @@ public class AthingTableBase extends Table {
             ((Athing)g).setBinaryfield_unsafe((byte[])raw);
           }
 
- /**
-  * Retrieves the Binaryfield value, 
-  * without checking, of this <code>Athing</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Athing)g).getBinaryfield();
           }
 
-
- /**
-  * Sets the Binaryfield value, without checking, for this <code>Athing</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Athing)g).setBinaryfield((byte[])raw);

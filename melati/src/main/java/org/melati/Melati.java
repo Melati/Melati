@@ -102,7 +102,7 @@ public class Melati {
 
   private static String DEFAULT_ENCODING = "UTF8";
   private MelatiConfig config;
-  private PoemContext context;
+  private PoemContext poemContext;
   private HttpServletRequest request;
   private HttpServletResponse response;
   private Database database = null;
@@ -186,38 +186,39 @@ public class Melati {
   }
 
   /**
-   * Set the MelatiContext for this request.  If the Context has a
+   * Set the {@link PoemContext} for this request.  If the Context has a
    * LogicalDatabase set, this will be used to establish a connection
    * to the database.
    *
-   * @param context - a MelatiContext
+   * @param context - a PoemContext
    * @throws DatabaseInitException - if the database fails to initialise for
    *                                 some reason
    * @see org.melati.LogicalDatabase
    * @see org.melati.servlet.PoemServlet
    */
 
-  public void setContext(PoemContext context) throws DatabaseInitException {
-    this.context = context;
-    if (context.getLogicalDatabase() != null)
-      database = LogicalDatabase.getDatabase(context.getLogicalDatabase());
+  public void setPoemContext(PoemContext context) 
+      throws DatabaseInitException {
+    this.poemContext = context;
+    if (poemContext.getLogicalDatabase() != null)
+      database = LogicalDatabase.getDatabase(poemContext.getLogicalDatabase());
   }
 
   /**
    * Load a POEM Table and POEM Object for use in this request.  This is useful
    * as often Servlet requests are relevant for a single Table and/or Object.
    *
-   * The Table name and Object id are set from the MelatiContext.
+   * The Table name and Object id are set from the PoemContext.
    *
    * @see org.melati.admin.Admin
    * @see org.melati.servlet.PoemServlet
    */
 
   public void loadTableAndObject() {
-    if (context.getTable() != null && database != null)
-      table = database.getTable(context.getTable());
-    if (context.getTroid() != null && table != null)
-      object = table.getObject(context.getTroid().intValue());
+    if (poemContext.getTable() != null && database != null)
+      table = database.getTable(poemContext.getTable());
+    if (poemContext.getTroid() != null && table != null)
+      object = table.getObject(poemContext.getTroid().intValue());
   }
 
   /**
@@ -228,17 +229,17 @@ public class Melati {
    */
 
   public MelatiContext getContext() {
-    return (MelatiContext)context;
+    return (MelatiContext)poemContext;
   }
 
   /**
    * Get the PoemContext for this Request.
    *
-   * @return - the MelatiContext for this Request
+   * @return - the PoemContext for this Request
    */
 
   public PoemContext getPoemContext() {
-    return context;
+    return poemContext;
   }
 
   /**
@@ -279,11 +280,11 @@ public class Melati {
    *
    * @return the Method for this Request
    * @see org.melati.PoemContext
-   * @see org.melati.servlet.ConfigServlet#melatiContext
-   * @see org.melati.servlet.PoemServlet#melatiContext
+   * @see org.melati.servlet.ConfigServlet#poemContext
+   * @see org.melati.servlet.PoemServlet#poemContext
    */
   public String getMethod() {
-    return context.getMethod();
+    return poemContext.getMethod();
   }
 
   /**
@@ -373,7 +374,7 @@ public class Melati {
         HttpServletRequestCompat.getContextPath(getRequest()),
         getRequest().getServletPath(),
         config.getStaticURL() + "/admin",
-        context.getLogicalDatabase());
+        poemContext.getLogicalDatabase());
   }
 
   /**
@@ -388,7 +389,7 @@ public class Melati {
     url.append('/');
     url.append(MelatiConfig.logoutPageServletClassName());
     url.append('/');
-    url.append(context.getLogicalDatabase());
+    url.append(poemContext.getLogicalDatabase());
     return url.toString();
   }
 

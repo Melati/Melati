@@ -84,9 +84,9 @@ public class HTMLUtils {
     return new FictionalNotifyingDocumentParser(dtdForHTMLParser());
   }
 
-  public static String entityFor(char c) {
+  public static String entityFor(char c, boolean mapBR) {
     switch (c) {
-      case '\n': return "<BR>\n";
+      case '\n': return mapBR ? "<BR>\n" : null;
       case '<': return "&lt;";
       case '>': return "&gt;";
       case '&': return "&amp;";
@@ -96,11 +96,13 @@ public class HTMLUtils {
     }
   } 
 
-  public static String entitied(String s) {
+  public static String entitied(String s, boolean mapBR) {
     int l = s.length();
     int i = 0;
     String entity = null;
-    for (i = 0; i < l && (entity = entityFor(s.charAt(i))) == null; ++i);
+    for (i = 0;
+         i < l && (entity = entityFor(s.charAt(i), mapBR)) == null;
+         ++i);
 
     if (entity == null) return s;
 
@@ -112,7 +114,7 @@ public class HTMLUtils {
 
     char c;
     for (++i; i < l; ++i)
-      if ((entity = entityFor(c = s.charAt(i))) != null)
+      if ((entity = entityFor(c = s.charAt(i), mapBR)) != null)
         b.append(entity);
       else
         b.append(c);
@@ -120,39 +122,8 @@ public class HTMLUtils {
     return b.toString();
   }
 
-  public static String entityForWithoutBRSubstitution(char c) {
-    switch (c) {
-      case '<': return "&lt;";
-      case '>': return "&gt;";
-      case '&': return "&amp;";
-      case '"': return "&quot;";
-      case '\'': return "&#39;";
-      default: return null;
-    }
-  } 
-
-  public static String entitiedWithoutBRSubstitution(String s) {
-    int l = s.length();
-    int i = 0;
-    String entity = null;
-    for (i = 0; i < l && (entity = entityForWithoutBRSubstitution(s.charAt(i))) == null; ++i);
-
-    if (entity == null) return s;
-
-    StringBuffer b = new StringBuffer(l * 2);
-    for (int j = 0; j < i; ++j)
-      b.append(s.charAt(j));
-
-    b.append(entity);
-
-    char c;
-    for (++i; i < l; ++i)
-      if ((entity = entityForWithoutBRSubstitution(c = s.charAt(i))) != null)
-        b.append(entity);
-      else
-        b.append(c);
-
-    return b.toString();
+  public static String entitied(String s) {
+    return entitied(s, true);
   }
 
   public static String jsEscapeFor(char c) {

@@ -52,8 +52,10 @@
 </HEAD>
 <script>
 function reloadframes() {
-  $Form.returnTarget;.location.href="$Form.returnURL";
-  $Form.returnTarget;.focus();
+  #if ($Form.returnTarget) #begin
+    $Form.returnTarget;.location.href="$Form.returnURL";
+    $Form.returnTarget;.focus();
+  #end
 }
 </script>
 

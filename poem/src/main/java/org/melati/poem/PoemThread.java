@@ -215,10 +215,22 @@ public class PoemThread {
   }
 
   public static void commit() {
-    transaction().commit();
+    SessionToken token = sessionToken();
+    try {
+      token.transaction.commit();
+    }
+    finally {
+      token.toTidy().close();
+    }
   }
 
   public static void rollback() {
-    transaction().rollback();
+    SessionToken token = sessionToken();
+    try {
+      token.transaction.rollback();
+    }
+    finally {
+      token.toTidy().close();
+    }
   }
 }

@@ -468,7 +468,9 @@ public class TableDef {
   }
 
 
-  /* Generate the 4 files */
+ /**
+  * Generate the 4 files 
+  */
   public void generateJava() throws IOException {
 
     // Avoid duplicate import in ColumnInfo*

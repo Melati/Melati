@@ -43,10 +43,35 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+#if ($field.Type.Nullable) #begin
+
+<SELECT NAME="field_$ml.escaped($field.Name)">
+     <OPTION VALUE=""
+  #if (!$field.Raw && !($field.Raw == false)) #begin
+    SELECTED
+  #end
+	 ></option>
+     <OPTION VALUE="true"
+  #if ($field.Raw) #begin
+    SELECTED
+  #end
+	 >true</option>
+     <OPTION VALUE="false"
+  #if ($field.Raw == false) #begin
+    SELECTED
+  #end
+	 >false</option>
+</SELECT>
+
+#end #else #begin
+
 <INPUT TYPE=checkbox NAME="field_$ml.escaped($field.Name)" VALUE=true
   #if ($field.Raw) #begin
     CHECKED
   #end
 >
+
 ## FIXME will this always work?  It does with Apache/JServ
 <INPUT TYPE=hidden NAME="field_$ml.escaped($field.Name)" VALUE=false>
+
+#end

@@ -51,6 +51,8 @@ import java.io.ByteArrayOutputStream;
 
 import org.webmacro.Broker;
 
+import org.melati.util.MelatiStringWriter;
+
 /**
  * Writes to a buffered output object.
  */
@@ -72,7 +74,16 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
       throws IOException {
     this(broker, response.getOutputStream(), response.getCharacterEncoding());
   }
-  
+
+  /**
+   * Not sure if this is used now.
+   * <p>
+   * It was used like a <code>StringWriter</code> which is pointless.
+   * If it is used to convert characters to bytes (and not back again)
+   * then that might make sense.
+   *
+   * @todo Check if used and deprecate/delete.
+   */
   public MelatiBufferedFastWriter(Broker broker, String encoding) 
       throws IOException {
     this(broker, new ByteArrayOutputStream(), encoding);
@@ -114,7 +125,11 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
     out.flush();
     buffer.reset();
   }
-  
+
+  /**
+   * @deprecated Arrange to use {@link MelatiStringWriter#toString()}.
+   * @todo Fix bug or delete as this uses the default platform charset to decode.
+   */
   public String asString() throws IOException {
     out.flush();
     return buffer.toString();

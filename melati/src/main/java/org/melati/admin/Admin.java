@@ -153,9 +153,14 @@ public class Admin extends TemplateServlet {
    * @param context Ignored. Allows modification in the same expression. Yuk.
    */
   protected final String adminTemplate(TemplateContext context, String name) {
+      /*
+    // Fails to find templates in jars!!
     return "org" + File.separatorChar + 
            "melati" + File.separatorChar + 
            "admin" + File.separatorChar + 
+           name;
+      */
+    return "org/melati/admin/"  + 
            name;
   }
 

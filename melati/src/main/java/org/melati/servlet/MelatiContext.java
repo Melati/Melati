@@ -56,14 +56,5 @@ import org.melati.PoemContext;
 
 public class MelatiContext extends PoemContext implements Cloneable {
 
-  // FIXME these should not be public
-  /** the database in use */
-  public String logicalDatabase;
-  /** the table in use */
-  public String table;
-  /** the troid in use */
-  public Integer troid;
-  /** the method in use */
-  public String method;
 
 }

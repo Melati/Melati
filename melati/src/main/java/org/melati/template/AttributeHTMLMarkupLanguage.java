@@ -65,6 +65,7 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
     catch (Exception g) {
       melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
     }
+
     return "";
   }
 }

@@ -56,7 +56,7 @@ import org.melati.util.ToTidyList;
  *
  * @todo Improve javadoc
  */
-public class PoemThread {
+public final class PoemThread {
 
   private PoemThread() {}
 
@@ -137,6 +137,11 @@ public class PoemThread {
     }
   }
 
+ /**
+  * Retrieve the open sessions.
+  *
+  * @return a Vector of open {@link SessionToken}s
+  */
   public static Vector openSessions() {
     Vector open = new Vector();
     Enumeration e = null;
@@ -173,14 +178,29 @@ public class PoemThread {
     return it;
   }
 
+ /**
+  * Retrieve the {@link ToTidyList} for this session.
+  *
+  * @return the {@link ToTidyList} for this {@PoemThread}.
+  */
   public static ToTidyList toTidy() throws NotInSessionPoemException {
     return sessionToken().toTidy();
   }
 
+ /**
+  * Retrieve the {@link PoemTransaction} for this PoemThread.
+  *
+  * @return the {@link PoemTransaction} for this {@PoemThread}.
+  */
   public static PoemTransaction transaction() {
     return sessionToken().transaction;
   }
 
+ /**
+  * Whether we are currently in a session.
+  *
+  * @return whether we are currently in a session
+  */
   public static boolean inSession() {
     return _sessionToken() != null;
   }
@@ -188,7 +208,6 @@ public class PoemThread {
   /**
    * The access token under which your thread is running.
    */
-
   public static AccessToken accessToken()
       throws NotInSessionPoemException, NoAccessTokenPoemException {
     AccessToken it = sessionToken().accessToken;
@@ -203,7 +222,6 @@ public class PoemThread {
    *
    * @see AccessToken#root
    */
-
   public static void setAccessToken(AccessToken token)
       throws NonRootSetAccessTokenPoemException {
     SessionToken context = sessionToken();
@@ -213,6 +231,13 @@ public class PoemThread {
     context.accessToken = token;
   }
 
+  /**
+   * Run a {@link PoemTask} under a specified {@link AccessToken, typically 
+   * <tt>Root</tt>.
+   *
+   * @param token the token to run with
+   * @param task the task to run 
+   */
   public static void withAccessToken(AccessToken token, PoemTask task) {
     SessionToken context = sessionToken();
     AccessToken old = context.accessToken;
@@ -225,6 +250,12 @@ public class PoemThread {
     }
   }
 
+  /**
+   * Check that we have the given {@link Capability}, throw an 
+   * {@link AccessPoemException} if we don't.
+   *
+   * @param capability to check
+   */
   public static void assertHasCapability(Capability capability)
      throws NotInSessionPoemException, NoAccessTokenPoemException,
             AccessPoemException {
@@ -233,14 +264,27 @@ public class PoemThread {
       throw new AccessPoemException(token, capability);
   }
 
+  /**
+   * Retrieve the {@link Database} associated with this thread.
+   *
+   * @return the {@link Database} associated with this thread.
+   */
   public static Database database() throws NotInSessionPoemException {
     return transaction().getDatabase();
   }
 
+  /**
+   * Write to the underlying DBMS.
+   *
+   */
   public static void writeDown() {
     transaction().writeDown();
   }
 
+  /**
+   * Commit  to the underlying DBMS.
+   *
+   */
   public static void commit() {
     SessionToken token = sessionToken();
     try {
@@ -251,6 +295,10 @@ public class PoemThread {
     }
   }
 
+  /**
+   * Rollback the underlying DBMS.
+   *
+   */
   public static void rollback() {
     SessionToken token = sessionToken();
     try {

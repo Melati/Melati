@@ -7,12 +7,12 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>Show Case</h2>
 <p>
-  Some websites that have been build using 
-  melati. 
-</p>
-<p>
-  If you have build a site, please let us know and we will add it to the 
-  list.
+  The following sites have all been built with Melati by members of 
+  <a href=http://www.paneris.org/>PanEris</a>. 
+  <br>
+  The source code for these sites is 
+  <a href=http://www.paneris.org/>available</a> to illustrate 
+  the use of Melati.
 </p>
 <table width="0%" border="1" cellpadding="5" cellspacing="0">
   <tr> 
@@ -46,3 +46,7 @@ This page last updated: $Date$ $Author$
   </tr>
 </table>
 @footer@
+
+
+
+

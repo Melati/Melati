@@ -46,6 +46,9 @@ This page last updated: $Date$ $Author$
         <td><strong><a href="Download.html">Download</a></strong></td>
       </tr>
       <tr> 
+        <td><strong><a href="Installation.html">Installation</a></strong></td>
+      </tr>
+      <tr> 
         <td><strong><a href="Documentation.html">Documentation</a></strong></td>
       </tr>
       <tr> 
@@ -74,6 +77,7 @@ This page last updated: $Date$ $Author$
   <td valign=top>
 
 
+<h2>Example Application</h2>
 <table border=1 align=center><tr><td>
   Please feel free to play about as much as you like. 
   Note that you can add new tables and new fields to tables. 
@@ -81,42 +85,26 @@ This page last updated: $Date$ $Author$
   If you attempt  to make changes to protected data, you will be 
   challenged for a Username and Password. 
   <br>
-  Use <tt>_administrator_</tt> and password <tt>FIXME</tt>.
+  Use <tt>_administrator_</tt> and <tt>FIXME</tt>.
 </td></tr></table>
-<h2>Example Application</h2>
 <p>
   Included in the distribution is a simple 
   <a href="/melati/org.melati.doc.example.contacts.Search">Contacts Database</a> application allowing 
   addition, modification, deletion and search of Contact records.
 </p>
 <p>
-  The application runs on an SQL database, which is created from the 
-  <A HREF=/melati-static/doc/example/contacts/contacts.dsd>DSD</a> 
-  (Data Structure Definition). The created database is 
-  immediately usable through the generic 
+ The code is very simple:
+ <A HREF=/melati-static/doc/example/contacts/Search.java>Search.java</a>.
+</p>
+<p>
+  The data is stored in an SQL database, which is created from a 
+  <A HREF=/melati-static/doc/example/contacts/contacts.dsd>Data
+  Structure Definition</a> 
+  (DSD). The database is also accessible through the generic 
   <a href="/melati/org.melati.admin.Admin/contacts/Main">Admin Interface</a>. 
 </p>
 <p>
- See
- <A HREF=/melati-static/doc/example/contacts/Search.java>Search.java</a> or 
- just browse the <A HREF=http://melati.org/cgi-bin/cvsweb.cgi/org/melati/doc/example/contacts>CVS node</a> 
-</p>
-<h2>Installation Testing</h2>
-<p>
-  Melati builds a basic database 'out of the box'. 
-  When you have completed the installation 
-  this page on your local machine should look like 
-  <a href="/melati/org.melati.admin.Admin/melatitest/Main" target=_New>this</a>. 
-</p>
-<p>
-  Code for a generic 
-  <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/boards>Messageboard System</a> 
-  and a generic <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/shopping>Shopping Trolley</a> 
-  are also available.
-</p>
-<p>
-  Take things further on one of the <a href="MailingList.html">Melati 
-  mailing lists</a> or <a href="mailto:tim@hoop.co.uk">email me</a>.
+  The code for the Admin System can be viewed <A HREF=/melati-static/admin/>here</a>.
 </p>
   </td>
  </tr>

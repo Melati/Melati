@@ -7,9 +7,8 @@ This page last updated: $Date$ $Author$
 @menu@
 <h2>Roadmap to 1.0</h2>
 <p>
-  This page details the development milestones that needs to happen in order 
-  to produce a stable 1.0 release. This is not set in stone, but does act as a 
-  guide on how to version our releases.
+Melati is stable and perfectly usable, this gives the items which 
+would be nice to have before a 1.0 release.
 </p>
 <table width="0%" border="1" cellspacing="0" cellpadding="10">
   <tr> 
@@ -30,7 +29,7 @@ This page last updated: $Date$ $Author$
   </tr>
   <tr> 
     <td>0.53</td>
-    <td>Seperation of hacked WebMacro classes.</td>
+    <td>Removal of hacked WebMacro classes.</td>
     <td><b>done</b></td>
   </tr>
   <tr> 
@@ -50,7 +49,22 @@ This page last updated: $Date$ $Author$
   </tr>
   <tr> 
     <td>0.61</td>
-    <td>Support for McKoiDB.</td>
+    <td>Support for McKoiDB.  <BR>
+        Support for HSQLDB.   <BR>
+        Support for JSDK 2.3. <BR>
+        Removal of all deprecated methods. <BR>
+        Removal of all javadoc errors. <BR>
+    </td>
+    <td><b>Done</b></td>
+  </tr>
+  <tr> 
+    <td>0.62</td>
+    <td>Support for Oracle, Interbase etc.</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td>0.70</td>
+    <td>Support for JDK 1.1.4</td>
     <td>&nbsp;</td>
   </tr>
   <tr> 
@@ -64,19 +78,17 @@ This page last updated: $Date$ $Author$
     <td>&nbsp;</td>
   </tr>
   <tr> 
-    <td>0.85</td>
-    <td>Support for Oracle, Interbase etc.</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr> 
     <td>0.90</td>
-    <td>Melati / POEM seperation.</td>
+    <td>Melati / POEM separation.</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>1.0</td>
-    <td>MDK (Melati Developer's Kit), allowing easy install.</td>
-    <td>&nbsp;</td>
+    <td>MDK (Melati Developer's Kit)</td>
+    <td>
+        Bundled with Jetty and HSQLDB <BR>
+        <tt>ant</tt> build script improved.
+    </td>
   </tr>
 </table>
 @footer@

@@ -5,7 +5,7 @@ This page last updated: $Date$ $Author$
  </i></font>
 </p>
 @menu@
-<H2>Feature summary</h2>
+<H2>Features</h2>
 
 
 <UL>
@@ -33,8 +33,11 @@ This page last updated: $Date$ $Author$
 
   <LI> Convenient and flexible <A
        HREF=/melati-static/qa/FunctionalSpecification.html#templating><B>templating</B></A> of persistent objects.
+
+  <LI> CSV utilities to initialise a databse from CSV files.
+
   <LI> A comprehensive <A
-       HREF=/melati-static/qa/FunctionalSpecification.html#adminsystem><B>administration
+       HREF=/melati/org.melati.admin.Admin/contacts/Main><B>administration
        system</B></A>, supporting the following operations on any Melati
        database without requiring configuration:
 
@@ -44,18 +47,22 @@ This page last updated: $Date$ $Author$
 	 <LI> list records linked to (or linking to) a record
          <LI> change the capabilities required to read/write a record
 	 <LI> add/delete tables and fields
-	 <LI> Upload Files
-	 <LI> Cascading Deletes
+	 <LI> upload files
+	 <LI> cascading deletes
+         <LI> Javascript form validation
+         <LI> Javascript client side Tree browsing
        </UL>
 </UL>
+<p>
+  Code for a generic 
+  <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/boards>Messageboard System</a> 
+  and a generic <A HREF=http://paneris.org/cgi-bin/cvsweb.cgi/org/paneris/melati/shopping>Shopping Trolley</a> 
+  are also available.
+</p>
+
 <P>
   For a comparison of Melati with J2EE see <a href=http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/>
   MylesC's post to melati-developers</a>.
-</P>
-<P>
-  (The links lead into the original Functional Specification---the
-  <A HREF=/melati-static/doc/index.html>overview document</A> 
-  is more up to date but less chatty.)
 </P>
 @footer@
 

@@ -12,18 +12,18 @@ This page last updated: $Date$ $Author$
     <td><b>Release</b></td>
     <td align=center><b>Jar and Source</b></td>
     <td align=center><b>Javadoc</b></td>
-    <td align=center><b>Template Engine</b></td>
+    <td align=center><b>War</b></td>
   </tr>
   <tr>
-    <td>Melati Beta 0.6.0 - 19/04/2002</td>
-    <td><a href="/download/melati_0.6.0.tar.gz">Unix</a><br>
-        <a href="/download/melati_0.6.0.zip">Windows</a></td>
-    <td><a href="/download/melati_0.6.0_doc.tar.gz">Unix</a><br>
-        <a href="/download/melati_0.6.0_doc.zip">Windows </a></td>
-    <td><a href="http://www.webmacro.org/DownloadWebMacro">webmacro 1.0 (or later)</a>, <a href="http://jakarta.apache.org/velocity/">Velocity 1.2 (or later)</a></td>
+    <td>@name@ @version@ (@date@)</td>
+    <td><a href="/download/@filename@.tar.gz">Unix</a><br>
+        <a href="/download/@filename@.zip">Windows</a></td>
+    <td><a href="/download/@filename@_doc.tar.gz">Unix</a><br>
+        <a href="/download/@filename@_doc.zip">Windows </a></td>
+    <td><a href="/download/@project@.war">war</a>
+    </td>
   </tr>
 </table>
-<p>Installation instructions are in the <a href=/melati-static/README.html>README.html</a> file.</p>
 
 <h3>CVS</h3>
 <p>Melati is available via anonymous CVS, which also has a 

@@ -155,7 +155,8 @@ public class DSD {
                 "\n");
 
       w.write("package " + packageName + ";\n" +
-              "\n");
+              "\n" +
+	      "import java.util.*;\n");
 
       if (!packageName.equals("org.melati.poem"))
         w.write("import org.melati.poem.*;\n\n");

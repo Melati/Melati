@@ -80,8 +80,8 @@ public interface TemplateEngine {
    * @param servlet the servlet we are within
    * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public void init(MelatiConfig melatiConfig, HttpServlet servlet) 
-      throws TemplateEngineException ;
+  void init(MelatiConfig melatiConfig, HttpServlet servlet) 
+      throws TemplateEngineException;
 
   /**
    * Get the generic parameters for this engine.

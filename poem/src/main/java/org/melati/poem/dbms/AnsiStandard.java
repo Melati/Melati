@@ -253,6 +253,13 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
+   */
+  public String sqlBooleanValueOfRaw(Object raw) {
+    return raw.toString();
+  }
+
+  /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {

@@ -72,6 +72,7 @@ public abstract class FieldDef {
   boolean isDeletedColumn;
   int displayOrderPriority = -1;
   boolean isEditable = true;
+  boolean sortDescending = false;
   boolean isCreateable = true;
   boolean isIndexed = false;
   boolean isUnique = false;
@@ -251,6 +252,12 @@ public abstract class FieldDef {
     if (displayOrderPriority != -1)
       w.write("          protected Integer defaultDisplayOrderPriority() {\n" +
               "            return new Integer(" + displayOrderPriority + ");\n" +
+              "          }\n" +
+              "\n");
+
+    if (sortDescending)
+      w.write("          protected boolean defaultSortDescending() {\n" +
+              "            return false;\n" +
               "          }\n" +
               "\n");
 

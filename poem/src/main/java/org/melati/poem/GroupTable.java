@@ -73,6 +73,8 @@ public class GroupTable extends GroupTableBase {
 
     TableInfo info = ((Table)this).info;
 
+    if (info.getDefaultcandelete() == null)
+      info.setDefaultcandelete(getDatabase().administerCapability());
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

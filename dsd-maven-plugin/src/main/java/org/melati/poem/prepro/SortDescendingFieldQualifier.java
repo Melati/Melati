@@ -44,39 +44,16 @@
  * contact me!
  */
 
-package org.melati.poem;
+package org.melati.poem.prepro;
 
-import org.melati.poem.generated.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.util.*;
+import java.io.*;
 
-public class GroupCapabilityTable extends GroupCapabilityTableBase {
+public class SortDescendingFieldQualifier extends FieldQualifier {
 
-  public GroupCapabilityTable(
-      Database database, String name,
-      DefinitionSource definitionSource) throws PoemException {
-    super(database, name, definitionSource);
+  public SortDescendingFieldQualifier(StreamTokenizer tokens) {
   }
 
-  protected void postInitialise() {
-    super.postInitialise();
-
-    Database d = getDatabase();
-    GroupCapability admin = (GroupCapability)newPersistent();
-    admin.setGroup(d.getGroupTable().administratorsGroup());
-    admin.setCapability(d.administerCapability());
-
-    if (!exists(admin))
-      create(admin);
-
-    TableInfo info = ((Table)this).info;
-    if (info.getDefaultcanwrite() == null)
-      info.setDefaultcanwrite(getDatabase().administerCapability());
-    if (info.getDefaultcandelete() == null)
-      info.setDefaultcandelete(getDatabase().administerCapability());
-    if (info.getCancreate() == null)
-      info.setCancreate(getDatabase().administerCapability());
+  public void apply(FieldDef field) throws IllegalityException {
+    field.sortDescending = true;
   }
 }

@@ -17,6 +17,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   private Column col_displaylevel = null;
   private Column col_searchability = null;
   private Column col_displayorderpriority = null;
+  private Column col_sortdescending = null;
   private Column col_indexed = null;
   private Column col_unique = null;
 
@@ -476,6 +477,59 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
         });
 
+    defineColumn(col_sortdescending =
+        new Column(this, "sortdescending", new BooleanPoemType(true), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getSortdescending();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setSortdescending((Boolean)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((ColumnInfo)g).getSortdescendingField();
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
+          }
+
+          protected String defaultDisplayName() {
+            return "Sort Descending?";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 306;
+          }
+
+          protected String defaultDescription() {
+            return "Whether when sorting by this column, the sort order should be reversed";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getSortdescending_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setSortdescending_unsafe((Boolean)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getSortdescending();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setSortdescending((Boolean)raw);
+          }
+        });
+
     defineColumn(col_indexed =
         new Column(this, "indexed", new BooleanPoemType(false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -505,7 +559,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 306;
+            return 307;
           }
 
           protected String defaultDescription() {
@@ -562,7 +616,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
           }
 
           protected int defaultDisplayOrder() {
-            return 307;
+            return 308;
           }
 
           protected String defaultDescription() {
@@ -621,6 +675,10 @@ public class ColumnInfoTableBase extends ValueInfoTable {
 
   public final Column getDisplayorderpriorityColumn() {
     return col_displayorderpriority;
+  }
+
+  public final Column getSortdescendingColumn() {
+    return col_sortdescending;
   }
 
   public final Column getIndexedColumn() {

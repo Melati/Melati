@@ -29,6 +29,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   protected Integer displaylevel;
   protected Integer searchability;
   protected Integer displayorderpriority;
+  protected Boolean sortdescending;
   protected Boolean indexed;
   protected Boolean unique;
 
@@ -293,6 +294,37 @@ public abstract class ColumnInfoBase extends ValueInfo {
 
   public Field getDisplayorderpriorityField() throws AccessPoemException {
     Column c = _getColumnInfoTable().getDisplayorderpriorityColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Boolean getSortdescending_unsafe() {
+    return sortdescending;
+  }
+
+  public void setSortdescending_unsafe(Boolean cooked) {
+    sortdescending = cooked;
+  }
+
+  public Boolean getSortdescending()
+      throws AccessPoemException {
+    readLock();
+    return getSortdescending_unsafe();
+  }
+
+  public void setSortdescending(Boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getColumnInfoTable().getSortdescendingColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setSortdescending_unsafe(cooked);
+  }
+
+  public final void setSortdescending(boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setSortdescending(cooked ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public Field getSortdescendingField() throws AccessPoemException {
+    Column c = _getColumnInfoTable().getSortdescendingColumn();
     return new Field(c.getRaw(this), c);
   }
 

@@ -54,7 +54,7 @@ public class Persistent extends Transactioned implements Cloneable {
   private Table table;
   private Integer troid;        // or null if a floating object
   private AccessToken clearedToken;
-  private boolean knownCanRead = false, knownCanWrite = false;
+  private boolean knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
 
   boolean dirty = false;
 
@@ -247,6 +247,13 @@ public class Persistent extends Transactioned implements Cloneable {
     writeLock(sessionToken.transaction);
   }
 
+  protected void deleteLock(SessionToken sessionToken)
+      throws AccessPoemException {
+    if (troid != null)
+      assertCanDelete(sessionToken.accessToken);
+    writeLock(sessionToken.transaction);
+  }
+
   protected void readLock() throws AccessPoemException {
     readLock(PoemThread.sessionToken());
   }
@@ -324,8 +331,10 @@ public class Persistent extends Transactioned implements Cloneable {
       if (canRead != null) {
         if (!token.givesCapability(canRead))
           throw new ReadPersistentAccessPoemException(this, token, canRead);
-        if (clearedToken != token)
+        if (clearedToken != token) {
           knownCanWrite = false;
+          knownCanDelete = false;
+        }
         clearedToken = token;
         knownCanRead = true;
       }
@@ -396,6 +405,7 @@ public class Persistent extends Transactioned implements Cloneable {
           throw new WritePersistentAccessPoemException(this, token, canWrite);
         if (clearedToken != token)
           knownCanRead = false;
+          knownCanDelete = false;
         clearedToken = token;
         knownCanWrite = true;
       }
@@ -404,6 +414,61 @@ public class Persistent extends Transactioned implements Cloneable {
 
   public final void assertCanWrite() throws AccessPoemException {
     assertCanWrite(PoemThread.accessToken());
+  }
+
+  /**
+   * The capability required for deleting the object.  This is
+   * used by <TT>assertCanDelete</TT> (unless that's been overridden) to obtain a
+   * <TT>Capability</TT> for comparison against the caller's
+   * <TT>AccessToken</TT>.
+   *
+   * @return the capability specified by the record's <TT>candelete</TT> field,
+   *         or <TT>null</TT> if it doesn't have one or its value is SQL
+   *         <TT>NULL</TT>
+   *
+   * @see #assertCanDelete
+   */
+
+  protected Capability getCanDelete() {
+    Column cwCol = getTable().canDeleteColumn();
+    return
+        cwCol == null ? null :
+            (Capability)cwCol.getType().cookedOfRaw(cwCol.getRaw_unsafe(this));
+  }
+
+  /**
+   * Check that you have delete access to the object.  Which is to say: the
+   * <TT>AccessToken</TT> associated with the POEM task executing in the
+   * running thread confers the <TT>Capability</TT> required for updating the
+   * object's fields.  The remarks made about <TT>assertCanRead</TT> apply
+   * (<I>mutatis mutandis</I>) here as well.
+   *
+   * @see #assertCanRead
+   * @see #getCanDelete
+   * @see Table#getDefaultCanDelete
+   */
+
+  public void assertCanDelete(AccessToken token)
+      throws AccessPoemException {
+    // FIXME!!!! this is wrong because token could be stale ...
+    if (!(clearedToken == token && knownCanDelete) && troid != null) {
+      Capability canDelete = getCanDelete();
+      if (canDelete == null)
+        canDelete = getTable().getDefaultCanDelete();
+      if (canDelete != null) {
+        if (!token.givesCapability(canDelete))
+          throw new DeletePersistentAccessPoemException(this, token, canDelete);
+        if (clearedToken != token)
+          knownCanRead = false;
+          knownCanWrite = false;
+        clearedToken = token;
+        knownCanDelete = true;
+      }
+    }
+  }
+
+  public final void assertCanDelete() throws AccessPoemException {
+    assertCanDelete(PoemThread.accessToken());
   }
 
   /**
@@ -881,7 +946,7 @@ public class Persistent extends Transactioned implements Cloneable {
       throws AccessPoemException {
     assertNormalPersistent();
     SessionToken sessionToken = PoemThread.sessionToken();
-    writeLock(sessionToken);
+    deleteLock(sessionToken);
     table.delete(troid(), sessionToken.transaction);    
   }
 
@@ -916,7 +981,7 @@ public class Persistent extends Transactioned implements Cloneable {
     getDatabase().beginExclusiveLock();
     try {
       SessionToken sessionToken = PoemThread.sessionToken();
-      writeLock(sessionToken);
+      deleteLock(sessionToken);
 
       Enumeration refs = getDatabase().referencesTo(this);
       if (refs.hasMoreElements())

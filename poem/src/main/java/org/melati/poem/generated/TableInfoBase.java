@@ -28,6 +28,7 @@ public abstract class TableInfoBase extends Persistent {
   protected Integer displayorder;
   protected Integer defaultcanread;
   protected Integer defaultcanwrite;
+  protected Integer defaultcandelete;
   protected Integer cancreate;
   protected Integer cachelimit;
   protected Boolean seqcached;
@@ -246,6 +247,44 @@ public abstract class TableInfoBase extends Persistent {
 
   public Field getDefaultcanwriteField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDefaultcanwriteColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Integer getDefaultcandelete_unsafe() {
+    return defaultcandelete;
+  }
+
+  public void setDefaultcandelete_unsafe(Integer cooked) {
+    defaultcandelete = cooked;
+  }
+
+  public Integer getDefaultcandeleteTroid()
+      throws AccessPoemException {
+    readLock();
+    return getDefaultcandelete_unsafe();
+  }
+
+  public void setDefaultcandeleteTroid(Integer raw)
+      throws AccessPoemException {
+    _getTableInfoTable().getDefaultcandeleteColumn().getType().assertValidRaw(raw);
+    writeLock();
+    setDefaultcandelete_unsafe(raw);
+  }
+
+  public Capability getDefaultcandelete()
+      throws AccessPoemException, NoSuchRowPoemException {
+    Integer troid = getDefaultcandeleteTroid();
+    return troid == null ? null :
+        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
+  }
+
+  public void setDefaultcandelete(Capability cooked)
+      throws AccessPoemException {
+    setDefaultcandeleteTroid(cooked == null ? null : cooked.troid());
+  }
+
+  public Field getDefaultcandeleteField() throws AccessPoemException {
+    Column c = _getTableInfoTable().getDefaultcandeleteColumn();
     return new Field(c.getRaw(this), c);
   }
 

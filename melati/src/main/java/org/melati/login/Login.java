@@ -89,7 +89,7 @@ public class Login extends MelatiServlet {
 
   protected Template handle(WebContext context)
       throws PoemException, WebMacroException {
-
+        
     HttpSession session = context.getSession();
 
     AccessPoemException triggeringException =
@@ -98,10 +98,10 @@ public class Login extends MelatiServlet {
     if (triggeringException != null)
       context.put("triggeringException", triggeringException);
 
-    String username = context.getForm("field-login");
-    String password = context.getForm("field-password");
-
+    String username = context.getForm("field_login");
+    String password = context.getForm("field_password");
     UserTable users = PoemThread.database().getUserTable();
+    
     context.put("login", new Field(username, users.getLoginColumn()));
     context.put("password",
                 new Field(password, users.getPasswordColumn()));
@@ -114,7 +114,7 @@ public class Login extends MelatiServlet {
     if (user == null)
       return usernameUnknownTemplate();
 
-    if (!user.getPassword_unsafe().equals(context.getForm("field-password")))
+    if (!user.getPassword_unsafe().equals(password))
       return passwordIncorrectTemplate();
 
     // Authenticated successfully.

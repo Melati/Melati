@@ -34,7 +34,6 @@
 <p>$ml.rendered($category.DisplayName): $ml.searchInput($category,"Any")</p>
 <input type=submit name=submit>
 </form>
-
 #if ($results) #begin
 <table>
 #foreach $item in $results #begin
@@ -42,6 +41,7 @@
 #end
 </table>
 #end
+
 
 </body>
 </html>

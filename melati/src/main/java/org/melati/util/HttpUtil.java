@@ -51,6 +51,8 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 public class HttpUtil {
 
   
+  private HttpUtil(){}
+
   public static void appendZoneURL(StringBuffer url, 
                                    HttpServletRequest request) {
     url.append(request.getScheme());

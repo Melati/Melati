@@ -57,6 +57,9 @@ import java.io.FileNotFoundException;
  */
 public class PropertiesUtils {
 
+
+  private PropertiesUtils() {}
+
   public static Properties fromFile(File path) throws IOException {
     InputStream data = new FileInputStream(path);
     Properties them = new Properties();

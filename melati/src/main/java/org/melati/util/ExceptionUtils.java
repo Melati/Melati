@@ -51,6 +51,9 @@ import java.io.PrintWriter;
  * An assortment of useful operations on <code>Exception</code>s.
  */
 public class ExceptionUtils {
+
+  private ExceptionUtils() {}
+
   public static String stackTrace(Throwable e) {
     StringWriter buf = new StringWriter();
     e.printStackTrace(new PrintWriter(buf));

@@ -51,6 +51,9 @@ package org.melati.util;
  * @todo Javadoc voodoo
  */
 public class StringUtils {
+
+  private StringUtils() {}
+
   public static String[] split(String s, char c) {
     int n = 0;
     for (int i = s.indexOf(c); i >= 0; i = s.indexOf(c, i + 1))

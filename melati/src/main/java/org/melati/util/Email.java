@@ -65,6 +65,8 @@ public class Email {
   static SimpleDateFormat formatter = 
                        new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
 
+  private Email() {}
+
   public static void send(Database database,
                           String from,
                           String to,

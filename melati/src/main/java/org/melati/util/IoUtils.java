@@ -63,8 +63,9 @@ import java.net.URL;
  */ 
 public class IoUtils {
 
-  // not sure this is really optimal 
+  private IoUtils() {}
 
+  // not sure this is really optimal 
   public static byte[] slurp(InputStream i, int estimate, int limit)
       throws IOException {
     try {

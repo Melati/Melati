@@ -53,6 +53,8 @@ import java.security.MessageDigest;
 
 public class MD5Util {
 
+  private MD5Util() {}
+
   public static String encode(String in) {
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");

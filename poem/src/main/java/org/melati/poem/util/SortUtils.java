@@ -52,6 +52,9 @@ import java.util.Enumeration;
  * An assortment of useful sorting operations.
  */
 public class SortUtils {
+
+  private SortUtils() {}
+
   public static void swap(Object[] arr, int i, int j) {
     Object t = arr[i];
     arr[i] = arr[j];

@@ -78,10 +78,10 @@ public class CSVTable {
   protected Vector columnsInUploadOrder = new Vector();
   protected CSVColumn primaryKey = null;
   protected Vector records = new Vector();
-  /** The line number of the CSV file */
+  /** The line number of the CSV file. */
   private int lineNo;
   
-  /** The record number of the CSV file */
+  /** The record number of the CSV file. */
   private int recordNo;
 
 
@@ -97,14 +97,14 @@ public class CSVTable {
   }
 
  /**
-  * Add column definitions to this table
+  * Add column definitions to this table.
   */
   public void addColumn(String csvName, String poemName) {
     columns.put(csvName, new CSVColumn(poemName));
   }
 
  /**
-  * Add column definitions, perhaps Primary Keys, to this table
+  * Add column definitions, perhaps Primary Keys, to this table.
   */
   public void addColumn(String csvName, String poemName, boolean isPrimaryKey)
       throws CSVPrimaryKeyColumnAlreadySetException {
@@ -117,7 +117,7 @@ public class CSVTable {
   }
 
  /**
-  * Add column definitions for foreign keys to this table
+  * Add column definitions for foreign keys to this table.
   */
   public void addColumn(String csvName, String poemName, 
                         CSVTable foreignTable) {
@@ -126,7 +126,7 @@ public class CSVTable {
 
 
  /**
-  * Parse the CSV data file and store the data for saving later
+  * Parse the CSV data file and store the data for saving later.
   */
   public void load() throws IOException, CSVParseException {
 
@@ -227,7 +227,7 @@ public class CSVTable {
 
 
  /**
-  * Delete all Persistents from the Poem table
+  * Delete all Persistents from the Poem table.
   */
   public void emptyTable() {
     Enumeration rows = table.selection();

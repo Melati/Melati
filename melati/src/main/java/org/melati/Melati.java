@@ -74,6 +74,25 @@ import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 
+/**
+ * This is the main entry point for using Melati.
+ *
+ * You will need to have create a MelatiConfig in order to construct a Melati
+ *
+ * If you are using servlets, you will want to construct melati with a request
+ * and response object.  Otherwise, simply pass in a Writer.
+ *
+ * A Melati exists once per request.
+ *
+ * Melati is typically used with Servlets, POEM (Persistent Object Engine for
+ * Melati) and a Template Engine
+ *
+ * @see org.melati.MelaitConfig
+ * @see org.melati.servlet.ConfigServlet
+ * @see org.melati.servlet.PoemServlet
+ * @see org.melati.servlet.TemplateServlet
+ */
+
 public class Melati {
 
   private MelatiConfig config;
@@ -83,7 +102,11 @@ public class Melati {
   private Database database = null;
   private Table table = null;
   private Persistent object = null;
+  
+  // the template engine that is in use (if any)
   private TemplateEngine templateEngine;
+  // the object that is used by the template engine to expand the template 
+  // against
   private TemplateContext templateContext;
   // most of the time we buffer the output
   private boolean buffered = true;
@@ -91,16 +114,20 @@ public class Melati {
   private boolean gotwriter = false;
   // if we don't buffer, we can allow the output to be interrupted
   private boolean stopping = true;
-  // the flusher send output to the client ever two seconds
+  // the flusher send output to the client ever x seconds
   private Flusher flusher;
   // what we write to
   private Writer output = null;
   // the output is buffered
   private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
 
-  /* 
-   *   construct a melati for use with servlets
-   */
+/**
+ * construct a Melati for use with Servlets
+ *
+ * @param config - the MelatiConfig
+ * @param request - the Servlet Request
+ * @param response - the Servlet Response
+ */  
   public Melati(MelatiConfig config, 
                 HttpServletRequest request,
                 HttpServletResponse response) {
@@ -109,33 +136,73 @@ public class Melati {
     this.config = config;
   }
 
-  /* 
-   *   construct a melati for use in 'stand alone' mode
-   *   NB: you will not have access to servlet related stuff (eg sessions)
-   */
+  /**
+   * Construct a melati for use in 'stand alone' mode NB: you will not have 
+   * access to servlet related stuff (eg sessions)
+   *
+   * @param config - the MelatiConfig
+   * @param output - the Writer that all output is written to
+ */
   public Melati(MelatiConfig config, Writer output) {
     this.config = config;
     this.output = output;
   }
-
+  
+/**
+ * get the servlet request object
+ *
+ * @return the Servlet Request
+ */  
   public HttpServletRequest getRequest() {
     return request;
   }
 
+  /**
+   * if is sometimes convenient to reconstruct the request object and 
+   * reset it.  for example, when returning from a log-in page
+   *
+   * @see org.melati.login.HttpSessionAccessHandler
+   * @param request - new request object
+ */
   public void setRequest(HttpServletRequest request) {
     this.request = request;
   }
 
+/**
+ * get the servlet response object
+ *
+ * @return - the Servlet Response
+ */  
   public HttpServletResponse getResponse() {
     return response;
   }
   
+/**
+ * Set the MelatiContext for this requrest.  If the Context has a
+ * LogicalDatabase set, this will be used to establish a connection
+ * to the database.
+ *
+ * @param context - a MelatiContext
+ * @throws DatabaseInitException - if the database fials to initialise for some
+ * reason
+ * @see org.melati.poem.LogicalDatabase
+ * @see org.melati.servlet.PoemServlet
+ */  
   public void setContext(MelatiContext context) throws DatabaseInitException {
     this.context = context;
     if (context.logicalDatabase != null) 
       database = LogicalDatabase.getDatabase(context.logicalDatabase);
   }
 
+/**
+ * load a POEM Table and POEM Object for use in this request.  This is useful
+ * as often Servlet requests are relevant for a single Table and/or Object.
+ *
+ * The Table name and Object id are set from the MelatiContext
+ *
+ * @see org.melati.admin.Admin
+ * @see org.melati.servlet.PoemServlet
+ */  
   public void loadTableAndObject() {
     if (context.table != null && database != null) 
       table = database.getTable(context.table);
@@ -143,99 +210,193 @@ public class Melati {
       object = table.getObject(context.troid.intValue());
   }
   
+/**
+ * get the MelatiContext for this Request
+ *
+ * @return - the MelatiContext for this Request
+ */  
   public MelatiContext getContext() {
     return context;
   }
 
-  // get the database
+/**
+ * get the POEM Database for this Request
+ *
+ * @return - the POEM Database for this Request
+ * @see #setContext
+ */ 
   public Database getDatabase() {
     return database;
   }
 
-  // get the table
+/** 
+ * get the POEM Table (if any) in use for this Request
+ *
+ * @return the POEM Table for this Request
+ * @see #loadTableAndObject
+ */  
   public Table getTable() {
     return table;
   }
 
-  // get the object
+/** 
+ * get the POEM Object (if any) in use for this Request
+ *
+ * @return the POEM Object for this Request
+ * @see #loadTableAndObject
+ */  
   public Persistent getObject() {
     return object;
   }
 
+/** 
+ * get the Method (if any) that has been set for this Request
+ *
+ * @return the Method for this Request
+ * @see org.melati.servlet.MelatiContext
+ * @see org.melati.servlet.ConfigServlet#melatiContext
+ * @see org.melati.servlet.PoemServlet#melatiContext
+ */  
   public String getMethod() {
     return context.method;
   }
 
+/**
+ * set the template engine to be used for this Request
+ *
+ * @param te - the template engine to be used
+ * @see org.melati.servlet.TemplateServlet
+ */  
   public void setTemplateEngine(TemplateEngine te) {
     templateEngine = te;
   }
 
+/** 
+ * get the template engine in use for this Request
+ *
+ * @return - the template engine to be used
+ */  
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
 
-
+/**
+ * set the TemplateContext to be used for this Request
+ *
+ * @param tc - the template context to be used
+ * @see org.melati.servlet.TemplateServlet
+ */  
   public void setTemplateContext(TemplateContext tc) {
     templateContext = tc;
   }
 
+/**
+ * get the TemplateContext used for this Request
+ *
+ * @return - the template context being used
+ */  
   public TemplateContext getTemplateContext() {
     return templateContext;
   }
 
+/**
+ * get the MelatiConfig associated with this Request
+ *
+ * @return - the template context being used
+ */  
   public MelatiConfig getConfig() {
     return config;
   }
 
-  /* get the pathinf, split into bits
-   */
+/**
+ * get the PathInfo for this Request split into Parts by '/'
+ *
+ * @return - an array of the parts found on the PathInfo
+ */  
   public String[] getPathInfoParts() {
-    String pathInfo = request.getPathInfo ();
-    if (pathInfo == null || pathInfo.length () < 1) return new String[0];
-    pathInfo = pathInfo.substring (1);
-//    if (pathInfo.endsWith ("/")) 
-//      pathInfo = pathInfo.substring(0,pathInfo.length()-1);
+    String pathInfo = request.getPathInfo();
+    if (pathInfo == null || pathInfo.length() < 1) return new String[0];
+    pathInfo = pathInfo.substring(1);
     return StringUtils.split(pathInfo, '/');
   }
 
-
+/**
+ * get the Session for this Request
+ *
+ * @return - the Session for this Request
+ */  
   public HttpSession getSession() {
     return getRequest().getSession(true);
   }
 
-  // get the admin utils object
+/**
+ * get the AdminUtils object for this Request
+ *
+ * @return - the AdminUtils
+ * @see org.melati.admin.Admin
+ */  
   public AdminUtils getAdminUtils() {
-    return new AdminUtils(getRequest().getServletPath (),
-                          config.getStaticURL() + "/admin",
-                          context.logicalDatabase);
+    return new AdminUtils(getRequest().getServletPath(),
+    config.getStaticURL() + "/admin",
+    context.logicalDatabase);
   }
 
+/**
+ * get the URL for the Logout Page
+ *
+ * @return - the URL for the Logout Page
+ * @see org.melati.login.Logout
+ */  
   public String getLogoutURL() {
     StringBuffer url = new StringBuffer();
-    HttpUtil.appendZoneURL(url, getRequest ());
+    HttpUtil.appendZoneURL(url, getRequest());
     url.append('/');
-    url.append(config.logoutPageServletClassName ());
+    url.append(config.logoutPageServletClassName());
     url.append('/');
     url.append(context.logicalDatabase);
     return url.toString();
   }
 
+/**
+ * get the URL for this Servlet Zone
+ *
+ * @return - the URL for this Servlet Zone
+ * @see org.melati.util.HttpUtil#zoneURL
+ */  
   public String getZoneURL() {
     return HttpUtil.zoneURL(getRequest());
   }
 
-  // location of javascript for this site
+/**
+ * get the URL for the JavascriptLibrary
+ *
+ * @return - the URL for the JavascriptLibrary
+ * @see org.melati.MelatiConfig#getJavascriptLibraryURL
+ */  
   public String getJavascriptLibraryURL() {
     return config.getJavascriptLibraryURL();
   }
 
+/**
+ * get a HTMLMarkupLanguage for use when generating HTML in templates
+ *
+ * @return - a HTMLMarkupLanguage
+ * @see org.melati.template.TempletLoader
+ * @see org.melati.util.Locale
+ */  
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    return new HTMLMarkupLanguage 
-                    (this,
-                     config.getTempletLoader(),
-                     config.getLocale());
+    return new HTMLMarkupLanguage(this,
+    config.getTempletLoader(),
+    config.getLocale());
   }
 
+/**
+ * get a WMLMarkupLanguage for use when generating WML in templates
+ *
+ * @return - a WMLMarkupLanguage
+ * @see org.melati.template.TempletLoader
+ * @see org.melati.util.Locale
+ */  
   public WMLMarkupLanguage getWMLMarkupLanguage() {
     return new WMLMarkupLanguage 
                     (this,
@@ -243,32 +404,85 @@ public class Melati {
                      config.getLocale());
   }
 
-  public String sameURLWith (String field, String value) {
+/**
+ * FIXME - what is the purpose of this?
+ *
+ * @return - a string
+ * @param field - ?
+ * @param value - ?
+ * @see org.melati.util.MelatiUtil
+ */  
+  public String sameURLWith(String field, String value) {
     return MelatiUtil.sameURLWith(getRequest(), field, value);
   }
 
-  public String sameURLWith (String field) {
+/**
+ * FIXME - what is the purpose of this?
+ *
+ * @return - a string
+ * @param field - ?
+ */  
+  public String sameURLWith(String field) {
     return sameURLWith(field, "1");
   }
 
+/**
+ * FIXME - what is the purpose of this?
+ *
+ * @return - a string
+ */  
   public String getSameURL() {
     String qs = getRequest().getQueryString();
     return getRequest().getRequestURI() + (qs == null ? "" : '?' + qs);
   }
 
-  // turn off buffering
-  // the stop paramter allow you flush the output and stop when cancelled
+/**
+ * turn off buffering of the output stream.
+ *
+ * by default, melati will buffer the output, which will not be written
+ * to the output stream until you call melati.write();
+ *
+ * buffering allows us to catch AccessPoemExceptions and redirect the user
+ * to the login page.  This could not be done if any bytes have been written
+ * to the client
+ *
+ * @param stop - if TRUE, the output will be flushed every 2 seconds, and
+ * the user will be allows to interrupt the request
+ * @see org.melati.test.FlushingServletTest
+ */  
+  // FIXME - need to stop people changing the Writer after they have got one
   public void setBufferingOff(boolean stop) {
     buffered = false;
     stopping = stop;
   }
 
+/**
+ * have we asked to access the Writer for this request?
+ *
+ * if you have not accessed the Writer, it is reasonable to assume that
+ * nothing has been written to the output stream.
+ *
+ * @return - have we sucessfully called getWriter()?
+ */  
   public boolean gotWriter() {
     return gotwriter;
   }
 
-  // gets the writer
-  // if we are buffering and stopping, this writer will be a ThrowingPrintWriter
+
+/**
+ * get a Writer for this request
+ *
+ * if you have not accessed the Writer, it is reasonable to assume that
+ * nothing has been written to the output stream.
+ *
+ * @return - one of:
+ *
+ * - the Writer that was used to construct the Melati
+ * - the Writer associated with the Servlet Response
+ * - a buffered Writer
+ * - a ThrowingPrintWriter
+ * @throws IOException if there is a problem with the writer
+ */  
   public Writer getWriter() throws IOException {
     // if we don't yet have a writer, get it from the servlet resonse
     if (output == null && response != null) output = response.getWriter();
@@ -278,6 +492,7 @@ public class Melati {
       return bufferedOutput;
     } else {
       if (stopping) {
+        // FIXME - cache this instance
         Writer throwingOutput = 
                new ThrowingPrintWriter(new PrintWriter(output),
                                        "servlet response stream");
@@ -290,9 +505,14 @@ public class Melati {
     }
   }
 
-  // writes the buffered output to the servlet writer
-  // we also need to stop the flusher if it has started
-  public void write () throws IOException {
+
+/**
+ * write the buffered output to the Writer
+ * we also need to stop the flusher if it has started
+ *
+ * @throws IOException if there is a problem with the writer
+ */  
+  public void write() throws IOException {
     // only write stuff if we have previously got a writer
     if (gotwriter) {
       if (buffered) bufferedOutput.writeTo(output);
@@ -300,12 +520,28 @@ public class Melati {
     }
   }
 
+/**
+ * get a PassbackVariableExceptionHandler for the TemplateEngine.
+ * this allows an Exception to be handled inline during Template expansion
+ *
+ * for example, if you would like to render AccessPoemExceptions to a
+ * String to be displayed on the page that is eturned to the client.
+ *
+ * @return - PassbackVariableExceptionHandler specific to the 
+ * template engine
+ *
+ * @see org.melati.template.MarkupLanguage#rendered(Exception e)
+ */  
   // FIXME - returning untyped object is not nice
   public Object getPassbackVariableExceptionHandler() {
     return templateEngine.getPassbackVariableExceptionHandler();
   }
 
-  // get the current user for this session (if he is there)
+/**
+ * get a User for this request (if they are logged in)
+ *
+ * @return - a User for this request
+ */  
   public User getUser() {
     // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
     // an AccessToken

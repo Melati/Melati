@@ -72,6 +72,10 @@ This page last updated: $Date$ $Author$
   src="images/odmg.gif" alt="ODMG 3.0 compliant" border=0 
   width=134 height=32></a>
   </td>
+  <td align=center><a href="http://maven.apache.org/"><img
+  src="images/maven.png" alt="Checked with Maven" border=0 
+  width=90 height=30></a>
+  </td>
  </tr>
  <tr>
   <td align=center><a href="http://www.postgres.org/"><img

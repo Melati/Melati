@@ -1271,13 +1271,14 @@ public class Table implements Selectable {
    * possibly including those flagged as deleted.  
    * The results are returned in 'pages'.
    *
-   * If the orderByClause is null, then the default order by clause is applied.
-   * If the orderByClause is an empty string, ie "" then no ordering is applied
+   * @param orderByClause  the DBMS name of the field to order by
+   *                       if null, then the default order by clause is 
+   *                       applied, if it is an empty string, 
+   *                       ie "" then no ordering is applied
    *
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
    *                            <TT>deleted</TT> column)
-   *
    * @see #selection(java.lang.String)
    */
   public PageEnumeration selection(String whereClause, String orderByClause, 

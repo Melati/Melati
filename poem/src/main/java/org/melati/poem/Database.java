@@ -146,6 +146,10 @@ abstract public class Database {
                                       Integer troid, Data data) {
               userCapabilities.invalidateVersion(session);
             }
+
+            public void notifyUncached(Table table) {
+              userCapabilities.uncacheContents();
+            }
           };
 
       getGroupCapabilityTable().addListener(capabilityCacheInvalidator);

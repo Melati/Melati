@@ -48,8 +48,11 @@
 
 package org.melati.util;
 
-import java.io.*;
-import java.util.*;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Enumeration;
 
 /**
  * Representation of occurences of an HTTP header field.
@@ -61,7 +64,7 @@ import java.util.*;
  * a message are concatenated with comma separators.
  *
  * @author  Jim Wright
- * @version $Version$
+ * @version $Version: $
  */
 public class HttpHeader {
 

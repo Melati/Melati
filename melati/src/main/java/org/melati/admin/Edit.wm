@@ -77,7 +77,7 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
     <TR>
      <TD><FONT SIZE="-1" FACE="Arial, Helvetica">
        <B>
-       #if (!$field.Type.Nullable) #begin
+        #if (!$field.Type.Nullable) #begin
          <font color=red>
          *
          </font>

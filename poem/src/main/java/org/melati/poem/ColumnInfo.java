@@ -116,6 +116,10 @@ public class ColumnInfo extends ColumnInfoBase {
         (!(column().getType() instanceof SizedAtomPoemType))) {}
       else if (n.equals("integrityfix") && 
         (!(column().getType() instanceof ReferencePoemType))) {}
+	  else if (n.equals("precision") && 
+		(!(column().getType() instanceof FixedPointAtomPoemType))) {}
+	  else if (n.equals("scale") && 
+		(!(column().getType() instanceof FixedPointAtomPoemType))) {}
       else v.addElement(f);
     }
     return v.elements();

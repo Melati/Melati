@@ -24,6 +24,8 @@ import org.melati.poem.ValueInfoTable;
  *   size
  *   width
  *   height
+ *   precision
+ *   scale
  *   renderinfo
  *   rangelow_string
  *   rangelimit_string
@@ -51,6 +53,8 @@ public abstract class ValueInfoBase extends Persistent {
   protected Integer size;
   protected Integer width;
   protected Integer height;
+  protected Integer precision;
+  protected Integer scale;
   protected String renderinfo;
   protected String rangelow_string;
   protected String rangelimit_string;
@@ -297,6 +301,68 @@ public abstract class ValueInfoBase extends Persistent {
 
   public Field getHeightField() throws AccessPoemException {
     Column c = _getValueInfoTable().getHeightColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Integer getPrecision_unsafe() {
+    return precision;
+  }
+
+  public void setPrecision_unsafe(Integer cooked) {
+    precision = cooked;
+  }
+
+  public Integer getPrecision()
+      throws AccessPoemException {
+    readLock();
+    return getPrecision_unsafe();
+  }
+
+  public void setPrecision(Integer cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getValueInfoTable().getPrecisionColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setPrecision_unsafe(cooked);
+  }
+
+  public final void setPrecision(int cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setPrecision(new Integer(cooked));
+  }
+
+  public Field getPrecisionField() throws AccessPoemException {
+    Column c = _getValueInfoTable().getPrecisionColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+  public Integer getScale_unsafe() {
+    return scale;
+  }
+
+  public void setScale_unsafe(Integer cooked) {
+    scale = cooked;
+  }
+
+  public Integer getScale()
+      throws AccessPoemException {
+    readLock();
+    return getScale_unsafe();
+  }
+
+  public void setScale(Integer cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getValueInfoTable().getScaleColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setScale_unsafe(cooked);
+  }
+
+  public final void setScale(int cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setScale(new Integer(cooked));
+  }
+
+  public Field getScaleField() throws AccessPoemException {
+    Column c = _getValueInfoTable().getScaleColumn();
     return new Field(c.getRaw(this), c);
   }
 

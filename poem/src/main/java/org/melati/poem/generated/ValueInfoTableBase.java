@@ -33,6 +33,8 @@ import org.melati.poem.ValueInfo;
  *   size
  *   width
  *   height
+ *   precision
+ *   scale
  *   renderinfo
  *   rangelow_string
  *   rangelimit_string
@@ -49,6 +51,8 @@ public class ValueInfoTableBase extends Table {
   private Column col_size = null;
   private Column col_width = null;
   private Column col_height = null;
+  private Column col_precision = null;
+  private Column col_scale = null;
   private Column col_renderinfo = null;
   private Column col_rangelow_string = null;
   private Column col_rangelimit_string = null;
@@ -542,6 +546,132 @@ public class ValueInfoTableBase extends Table {
           }
         });
 
+    defineColumn(col_precision =
+        new Column(this, "precision",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ValueInfo)g).getPrecision();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ValueInfo)g).setPrecision((Integer)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((ValueInfo)g).getPrecisionField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
+          }
+
+          protected String defaultDisplayName() {
+            return "Precision";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 206;
+          }
+
+          protected String defaultDescription() {
+            return "Precision (total number of digits) for fixed-point numbers";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ValueInfo)g).getPrecision_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ValueInfo)g).setPrecision_unsafe((Integer)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ValueInfo)g).getPrecision();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ValueInfo)g).setPrecision((Integer)raw);
+          }
+        });
+
+    defineColumn(col_scale =
+        new Column(this, "scale",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ValueInfo)g).getScale();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ValueInfo)g).setScale((Integer)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((ValueInfo)g).getScaleField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
+          }
+
+          protected String defaultDisplayName() {
+            return "Scale";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 207;
+          }
+
+          protected String defaultDescription() {
+            return "Scale (number of digits after the decimal) for fixed-point numbers";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ValueInfo)g).getScale_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ValueInfo)g).setScale_unsafe((Integer)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ValueInfo)g).getScale();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ValueInfo)g).setScale((Integer)raw);
+          }
+        });
+
     defineColumn(col_renderinfo =
         new Column(this, "renderinfo",
                    new StringPoemType(true, -1),
@@ -573,7 +703,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 206;
+            return 208;
           }
 
           protected String defaultDescription() {
@@ -632,7 +762,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 207;
+            return 209;
           }
 
           protected String defaultDescription() {
@@ -691,7 +821,7 @@ public class ValueInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 208;
+            return 210;
           }
 
           protected String defaultDescription() {
@@ -750,6 +880,14 @@ public class ValueInfoTableBase extends Table {
 
   public final Column getHeightColumn() {
     return col_height;
+  }
+
+  public final Column getPrecisionColumn() {
+    return col_precision;
+  }
+
+  public final Column getScaleColumn() {
+    return col_scale;
   }
 
   public final Column getRenderinfoColumn() {

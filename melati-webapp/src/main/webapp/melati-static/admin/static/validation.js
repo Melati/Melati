@@ -157,6 +157,12 @@ function add_number(name, heading, mandatory) {
   add_rule(name, heading, mandatory, "^-?\\d*(\\.\\d*)?\\s*$");
 }
 
+// Fixed Point Number - an integer with a dot and a fixed number of digits
+function add_fixed_number(name, heading, mandatory, fixed) {
+  add_rule(name, heading, mandatory, "^-?\\d*(\\.\\d{"+fixed+"})?\\s*$");
+}
+
+
 // Email           - "@" symbol and no spaces - one or more good 
 // characters before and after "@" - .xx country code or .xxx (.xxxx) tld to end
 function add_email(name, heading, mandatory) {

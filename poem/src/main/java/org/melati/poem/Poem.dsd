@@ -305,6 +305,16 @@ abstract table ValueInfo {
       (description = "A sensible height for text boxes used for entering the field, where appropriate")
       (displaylevel = record) (searchability = no);
 
+  Integer precision
+      (displayname = "Precision")
+      (description = "Precision (total number of digits) for fixed-point numbers")
+      (displaylevel = record) (searchability = no) (uneditable);
+
+  Integer scale
+      (displayname = "Scale")
+      (description = "Scale (number of digits after the decimal) for fixed-point numbers")
+      (displaylevel = record) (searchability = no) (uneditable);
+
   String renderinfo (size = unlimited) (nullable)
       (displayname = "Rendering information")
       (description = "The name of the Melati templet (if not the default) to use for input controls for the field")

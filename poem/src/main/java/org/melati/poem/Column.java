@@ -178,6 +178,14 @@ public abstract class Column implements FieldAttributes {
     return 1;
   }
 
+  protected int defaultPrecision() {
+	return 22;
+  }
+
+  protected int defaultScale() {
+	return 2;
+  }
+
   protected String defaultRenderinfo() {
     return null;
   }
@@ -206,6 +214,8 @@ public abstract class Column implements FieldAttributes {
                   i.setHeight(defaultHeight());
                   i.setRenderinfo(defaultRenderinfo());
                   i.setIntegrityfix(defaultIntegrityFix());
+                  i.setPrecision(defaultPrecision());
+				  i.setScale(defaultScale());
                   getType().saveColumnInfo(i);
                 }
               });

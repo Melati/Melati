@@ -132,6 +132,8 @@ public class SettingTable extends SettingTableBase {
 
       setting.setWidth(20);
       setting.setHeight(1);
+      setting.setPrecision(22);
+      setting.setScale(2);
 
       setting.setNullable(true);
       setting.setSize(-1);

@@ -173,6 +173,8 @@ public abstract class FieldDef {
       return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("IntegrityFix"))
       return new IntegrityFixFieldDef(table, name, displayOrder, qualifiers);
+	  else if (type.equals("BigDecimal"))
+		return new BigDecimalFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("byte[]"))
       return new BinaryFieldDef(table, name, displayOrder, qualifiers);
     else

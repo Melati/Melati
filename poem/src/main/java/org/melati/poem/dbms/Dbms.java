@@ -74,6 +74,8 @@ public interface Dbms {
   String getStringSqlDefinition(int size) throws SQLException;
 
   String getBinarySqlDefinition(int size) throws SQLException;
+  
+  String getFixedPtSqlDefinition(int scale, int precision) throws SQLException;
 
   PoemType canRepresent(PoemType storage, PoemType type);
 

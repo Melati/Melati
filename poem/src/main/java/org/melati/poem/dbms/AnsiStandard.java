@@ -75,6 +75,7 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.DatePoemType;
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.BigDecimalPoemType;
 import org.melati.util.StringUtils;
 
  /**
@@ -193,6 +194,15 @@ public class AnsiStandard implements Dbms {
     return "LONGVARBINARY(" + size + ")";
   }
 
+  public String getFixedPtSqlDefinition(int scale, int precision) throws SQLException {
+	if (scale < 0 || precision <= 0)
+	  throw new SQLException(
+		  "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
+
+	return "DECIMAL(" + precision + ","+ scale + ")";
+  }
+
+
   public PoemType canRepresent(PoemType storage, PoemType type) {
     return storage.canRepresent(type);
   }
@@ -224,7 +234,8 @@ public class AnsiStandard implements Dbms {
     boolean nullable =
         md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
     int width = md.getInt("COLUMN_SIZE");
-
+	int scale = md.getInt("DECIMAL_DIGITS");
+	
     switch (typeCode) {
       case Types.BIT            : return new BooleanPoemType(nullable);
       case Types.TINYINT        : return unsupported("TINYINT", md);
@@ -236,8 +247,8 @@ public class AnsiStandard implements Dbms {
       case Types.REAL           : return new DoublePoemType(nullable);
       case Types.DOUBLE         : return new DoublePoemType(nullable);
 
-      case Types.NUMERIC        : return unsupported("NUMERIC", md);
-      case Types.DECIMAL        : return unsupported("DECIMAL", md);
+      case Types.NUMERIC        : return new BigDecimalPoemType(nullable, width, scale);
+      case Types.DECIMAL        : return new BigDecimalPoemType(nullable, width, scale);
 
       case Types.CHAR           : return unsupported("CHAR", md);
       case Types.VARCHAR        : return new StringPoemType(nullable, width);

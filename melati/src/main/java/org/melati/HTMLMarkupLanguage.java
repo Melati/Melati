@@ -1,5 +1,6 @@
 package org.melati;
 
+import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
 import org.melati.util.*;
 import org.melati.poem.*;
@@ -50,5 +51,23 @@ public class HTMLMarkupLanguage extends MarkupLanguage {
 
   public String rendered(Integer i) {
     return i == null ? "" : i.toString();
+  }
+
+  public String rendered(AccessPoemException e) {
+    return "<TABLE><TR><TD BGCOLOR=red>" + 
+             "[Access denied to " + rendered(e.token) + "]" +
+           "</TD></TR></TABLE>";
+  }
+
+  public String rendered(Exception e) {
+    return "[" + rendered(e.toString()) + "]";
+  }
+
+  public String renderedVALUE(String s) {
+    return rendered(s);
+  }
+
+  public String renderedVALUE(AccessPoemException e) {
+    return "[Access denied to " + rendered(e.token) + "]";
   }
 }

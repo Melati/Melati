@@ -24,8 +24,31 @@ public abstract class MarkupLanguage {
 
   public abstract String rendered(String s);
 
+  public abstract String rendered(AccessPoemException e);
+
+  public abstract String rendered(Exception e);
+
+  public String rendered(Object o) {
+    if (o instanceof AccessPoemException)
+      return rendered((AccessPoemException)o);
+    if (o instanceof Exception)
+      return rendered((Exception)o);
+    else
+      return rendered(o.toString());
+  }
+
   public String rendered(Field field) {
-    return rendered(field.getValueString());
+    try {
+      return rendered(field.getValueString());
+    }
+    catch (AccessPoemException e) {
+      VariableExceptionHandler handler =
+          (VariableExceptionHandler)webContext.get(Variable.EXCEPTION_HANDLER);
+      if (handler != null)
+        return rendered(handler.handle(null, webContext, e));
+      else
+        throw e;
+    }
   }
 
   //
@@ -97,6 +120,19 @@ public abstract class MarkupLanguage {
     Template templet =
         (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
                                                   templetPath(field));
+
+    try {
+      field.getIdent();
+    }
+    catch (AccessPoemException e) {
+      VariableExceptionHandler handler =
+          (VariableExceptionHandler)webContext.get(Variable.EXCEPTION_HANDLER);
+      if (handler != null)
+        return rendered(handler.handle(null, webContext, e));
+      else
+        throw e;
+    }
+
     webContext.put("field", field);
     try {
       return (String)templet.evaluate(webContext);

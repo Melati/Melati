@@ -5,6 +5,7 @@ import java.io.*;
 import org.melati.util.*;
 import org.melati.poem.*;
 import org.webmacro.servlet.*;
+import org.webmacro.engine.*;
 
 public class Melati {
 
@@ -16,5 +17,21 @@ public class Melati {
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
     return new HTMLMarkupLanguage(webContext);
+  }
+
+  public VariableExceptionHandler getPassbackVariableExceptionHandler() {
+    return
+        new VariableExceptionHandler() {
+          public Object handle(Variable variable, Object context,
+                               Exception problem) {
+            Exception underlying =
+                problem instanceof VariableException ?
+                  ((VariableException)problem).subException : problem;
+
+            return
+                underlying != null && underlying instanceof AccessPoemException ?
+                    underlying : problem;
+          }
+        };
   }
 }

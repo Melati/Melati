@@ -14,12 +14,15 @@ import javax.servlet.http.*;
 public abstract class MelatiServlet extends MelatiWMServlet {
 
   /**
-  * You must use a hacked version of <TT>org.melati.engine.Variable</TT> with
-  * Melati.  Sorry this has to go into <TT>org.melati.engine</TT>: lobby Justin
-  * to stop making everything final or package-private or static!  It will not
-  * break your existing webmacro code if you put it in your <TT>CLASSPATH</TT>
-  * since its semantics are only different when configured so to be.  You can
-  * get the hacked version by anonymous CVS from melati.org (see the <A
+  * <A NAME=hackedVariable>You must use a hacked version of
+  * <TT>org.melati.engine.Variable</TT> with Melati.</A> Sorry this has to go
+  * into <TT>org.melati.engine</TT>: lobby Justin to stop making everything
+  * final or package-private or static!  It may slightly break your existing
+  * webmacro code if you put it in your <TT>CLASSPATH</TT> since its semantics
+  * are slightly different: the effect is that variables for which resolution
+  * triggers an exception will interpolate as the <TT>toString</TT> text of the
+  * exception, not as an HTML comment.  You can get the hacked version by
+  * anonymous CVS from melati.org (see the <A
   * HREF=http://paneris.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
   * guide</A>).
   */
@@ -103,6 +106,32 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     return url.toString();
   }
+
+  /**
+   * Handle an exception that occurs during the execution of
+   * <TT>melatiHandle</TT> or during the expansion of the template it returns.
+   * The base version returns the standard WebMacro error template as defined
+   * in your <TT>WebMacro.properties</TT>, except if the problem was an access
+   * failure (<TT>AccessPoemException</TT>), in which case the client is
+   * redirected to the login page.
+   *
+   * @param context     the <TT>WebContext</TT> of the original template
+   *
+   * @param exception   what went wrong: for problems expanding template
+   *                    variables when variable error propagation is enabled,
+   *                    you will see a <TT>VariableException</TT> (available in
+   *                    the <A HREF=#hackedVariable>Melati-hacked version of
+   *                    WebMacro againt which you must compile Melati) whose
+   *                    <TT>subException</TT> is what you are interested in
+   *
+   * @return a template to expand, or <TT>null</TT> if you have already
+   *         sent something (like a redirect) back to the client
+   *
+   * @see #melatiHandle
+   * @see org.melati.poem.AccessPoemException
+   * @see #loginPageURL
+   * @see org.webmacro.util.VariableException
+   */
 
   protected Template handleException(WebContext context, Exception exception)
       throws Exception {

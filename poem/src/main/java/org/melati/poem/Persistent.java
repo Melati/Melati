@@ -492,9 +492,11 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public void assertCanCreate(AccessToken token) {
-    Capability canCreate = getTable().getCanCreate();
-    if (canCreate != null && !token.givesCapability(canCreate))
-      throw new CreationAccessPoemException(getTable(), token, canCreate);
+    if (getTable != null {
+      Capability canCreate = getTable().getCanCreate();
+      if (canCreate != null && !token.givesCapability(canCreate))
+        throw new CreationAccessPoemException(getTable(), token, canCreate);
+    }
   }
 
   public final void assertCanCreate() throws AccessPoemException {

@@ -52,22 +52,41 @@ public class JSStaticTree extends Tree {
     private String nodeLabelTemplet = 
            "org/melati/template/webmacro/templets/html/StaticNode.wm";
     private String backgroundColour = "FFFFFF";
-    private String verticalLinkImage = "/melati-static/admin/vertline.gif";
-    private String spacerImage = "/melati-static/admin/spacer.gif";
-    private String openedFolderImage = "/melati-static/admin/openfolder.gif";
-    private String closedFolderImage = "/melati-static/admin/closedfolder.gif";
-    private String openedTImage = "/melati-static/admin/node_minus.gif";
-    private String closedTImage = "/melati-static/admin/node_plus.gif";
-    private String openedLImage = "/melati-static/admin/lastnode_minus.gif";
-    private String closedLImage = "/melati-static/admin/lastnode_plus.gif";
-    private String leafTImage = "/melati-static/admin/node.gif";
-    private String leafLImage = "/melati-static/admin/last_node.gif";
-    private String leafImage = "/melati-static/admin/file.gif";
-    private String imageBaseRef = "/melati-static/admin";
     private Integer depthPerDownload = new Integer(-1);
+    private String verticalLinkImage;
+    private String spacerImage;
+    private String openedFolderImage;
+    private String closedFolderImage;
+    private String openedTImage;
+    private String closedTImage;
+    private String openedLImage;
+    private String closedLImage;
+    private String leafTImage;
+    private String leafLImage;
+    private String leafImage;
+    private String imageBaseRef;
 
+    /**
+     * @deprecated Use {@link #JSStaticTree(Tree, String)}
+     */
     public JSStaticTree(Tree tree) {
+      this(tree, "/melati-static/admin");
+    }
+
+    public JSStaticTree(Tree tree, String staticURL) {
         super(tree.getTreeableRoots(), tree.getDepth());
+        verticalLinkImage = staticURL + "/vertline.gif";
+        spacerImage = staticURL + "/spacer.gif";
+        openedFolderImage = staticURL + "/openfolder.gif";
+        closedFolderImage = staticURL + "/closedfolder.gif";
+        openedTImage = staticURL + "/node_minus.gif";
+        closedTImage = staticURL + "/node_plus.gif";
+        openedLImage = staticURL + "/lastnode_minus.gif";
+        closedLImage = staticURL + "/lastnode_plus.gif";
+        leafTImage = staticURL + "/node.gif";
+        leafLImage = staticURL + "/last_node.gif";
+        leafImage = staticURL + "/file.gif";
+        imageBaseRef = staticURL;
     }
 
     public String getNodeLabelTemplet() {

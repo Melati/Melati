@@ -41,7 +41,7 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setDisplayorderpriority(value);
     Column column = column();
     if (column != null)
-      column.getTable().invalidateDisplayColumns();
+      column.getTable().notifyDisplayOrderPriorities();
   }
 
   public String displayString() throws AccessPoemException {

@@ -7,6 +7,7 @@ import org.melati.util.*;
 public abstract class Column {
   private Table table = null;
   private String name;
+  private String quotedName;
   private PoemType type;
   private DefinitionSource definitionSource;
   private ColumnInfo info = null;
@@ -15,6 +16,7 @@ public abstract class Column {
                 DefinitionSource definitionSource) {
     this.table = table;
     this.name = name;
+    this.quotedName = table.getDatabase().quotedName(name);
     this.type = type;
     this.definitionSource = definitionSource;
   }
@@ -48,6 +50,7 @@ public abstract class Column {
     if (columnInfo.getPrimarydisplay().booleanValue())
       table.setDisplayColumn(this);
     info = columnInfo;
+    table.notifyDisplayOrderPriorities();
   }
 
   protected boolean defaultPrimaryDisplay() {
@@ -140,6 +143,10 @@ public abstract class Column {
     return name;
   }
 
+  final String quotedName() {
+    return quotedName;
+  }
+
   public final String getDisplayName() {
     return info.getDisplayname();
   }
@@ -201,7 +208,7 @@ public abstract class Column {
   }
 
   public final Integer getDisplayOrderPriority() {
-    return info.getDisplayorderpriority();
+    return info == null ? null : info.getDisplayorderpriority();
   }
 
   // 
@@ -220,13 +227,9 @@ public abstract class Column {
     System.out.println(toString());
   }
 
-  private String _quotedName(String name) {
-    return getDatabase()._quotedName(name);
-  }
-
   Enumeration selectionWhereEq(Object ident, boolean resolved) {
     try {
-      String clause = _quotedName(name) + " = " + type.quotedIdent(ident);
+      String clause = quotedName + " = " + type.quotedIdent(ident);
       return resolved ? getTable().selection(clause) :
                         getTable().troidSelection(clause, null, false);
     }

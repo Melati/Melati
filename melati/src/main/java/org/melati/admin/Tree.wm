@@ -1,0 +1,11 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+#set $onVariableException = $melati.PassbackVariableExceptionHandler
+<HTML>
+<frameset border=0 frameborder=0 framespacing=0 rows=100%,*>
+ <frame name=treedisplay src="/blank.html" scrolling=yes>
+ <frame name=treecontrol src="$admin.TreeControlURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
+  scrolling=yes>
+</frameset>
+</HTML>
+

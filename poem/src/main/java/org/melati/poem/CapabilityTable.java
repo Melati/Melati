@@ -102,7 +102,7 @@ public class CapabilityTable extends CapabilityTableBase {
   }
 
  /**
-  * Ensure that the <tt>_administer</tt> {@link Capability} 
+  * Ensure that the <tt>_administer_</tt> {@link Capability} 
   * exists and apply it to this table.
   *
   * @param colDescs the {@link Column} descriptions 

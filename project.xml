@@ -129,6 +129,7 @@ subscribe.melati@messageboards.paneris.org
       <name>William Chesters</name>
       <id>williamc</id>
       <email>williamc@paneris.org</email>
+      <organization>PanEris</organization>
       <roles>
         <role>Original author</role>
       </roles>
@@ -138,11 +139,11 @@ subscribe.melati@messageboards.paneris.org
       <name>Tim Pizey</name>
       <id>timp</id>
       <email>timp@paneris.org</email>
-      <organization>Context Computing</organization>
+      <organization>PanEris</organization>
       <roles>
         <role>Maintainer</role>
         <role>Maven maven</role>
-        <role>Lurker</role>
+        <role>Developer</role>
       </roles>
       <timezone>0</timezone>
     </developer>
@@ -150,6 +151,7 @@ subscribe.melati@messageboards.paneris.org
       <name>Tim Joyce</name>
       <id>timj</id>
       <email>timj@paneris.org</email>
+      <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
       </roles>
@@ -294,6 +296,11 @@ subscribe.melati@messageboards.paneris.org
       <id>odmg</id>
       <version>3.0</version>
       <url>http://www.odmg.org/</url>
+    </dependency>
+    <dependency>
+      <id>mockobjects</id>
+      <version>core-0.09</version>
+      <url>http://www.mockobjects.com/</url>
     </dependency>
   </dependencies>
 

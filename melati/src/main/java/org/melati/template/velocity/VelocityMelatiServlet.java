@@ -44,7 +44,7 @@
  * contact me!
  */
 
-package org.melati.template.webmacro;
+package org.melati.template.velocity;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -53,11 +53,8 @@ import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 
-import org.webmacro.servlet.WebContext;
-import org.webmacro.WebMacroException;
-
 /**
- * Base class to use Melati with WebMacro.
+ * Base class to use Melati with Velocity.
  * Simply extend this class, override the handle method
  * 
  * @author Tim Joyce
@@ -66,10 +63,12 @@ import org.webmacro.WebMacroException;
 public abstract class VelocityMelatiServlet extends TemplateServlet
 {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext templateContext) 
+  protected String doTemplateRequest(Melati melati, 
+                                     TemplateContext templateContext) 
    throws Exception {
-     WebContext webContext = (WebContext)templateContext.getContext();
-    return handle(melati, webContext);
+     VelocityTemplateContext context = 
+                 (VelocityTemplateContext)templateContext.getContext();
+    return handle(melati, context);
   }
   
   /*
@@ -79,7 +78,8 @@ public abstract class VelocityMelatiServlet extends TemplateServlet
     return templateName;
   }
 
-  protected abstract String handle(Melati melati, WebContext webContext) 
+  protected abstract String handle(Melati melati, 
+                                   VelocityTemplateContext context) 
    throws Exception ;
   
 }

@@ -55,7 +55,7 @@ import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.app.event.EventHandler;
 
 /**
- * Implements a template context for Melati / Webmacro
+ * Implements a template context for Melati / Velocity
  * 
  * @author Tim Joyce
  * $Revision$

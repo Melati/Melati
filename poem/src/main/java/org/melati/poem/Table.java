@@ -95,7 +95,7 @@ public class Table {
     serial = new TransactionedSerial(database);
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     database.getColumnInfoTable().addListener(
         new TableListener() {
           public void notifyTouched(PoemTransaction transaction, Table table,
@@ -919,7 +919,10 @@ public class Table {
       throws SQLPoemException {
     PreparedSelection allTroids = this.allTroids;
     if (allTroids != null &&
-        whereClause == null && orderByClause == null && !includeDeleted)
+        (whereClause == null || whereClause.equals("")) &&
+	(orderByClause == null || orderByClause.equals("") ||
+	   orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
+	!includeDeleted)
       return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,

@@ -80,14 +80,13 @@ import org.melati.poem.UnsupportedTypePoemException;
 import org.melati.util.StringUtils;
 
 /**
- * An SQL 92 compliant Database Management System.
- * Should there ever be such a thing then you wouldn't 
- * need to extend this, but all DBs used with Melati 
- * so far have needed to extend the standard with their 
- * own variations.
- *
+ * An SQL 92 compliant Database Management System. Should there ever be such a
+ * thing then you wouldn't need to extend this, but all DBs used with Melati so
+ * far have needed to extend the standard with their own variations.
+ *  
  */
 public class AnsiStandard implements Dbms {
+  
   private boolean driverLoaded = false;
   private String driverClassName = null;
   private Driver driver = null;
@@ -106,6 +105,9 @@ public class AnsiStandard implements Dbms {
     return driverLoaded;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
+   */
   public boolean canDropColumns(Connection con) throws SQLException {
     return false;
   }
@@ -130,19 +132,21 @@ public class AnsiStandard implements Dbms {
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
+   */
   public Connection getConnection(String url, String user, String password)
-    throws ConnectionFailurePoemException {
+      throws ConnectionFailurePoemException {
     synchronized (driverClassName) {
       if (!getDriverLoaded()) {
         if (getDriverClassName() == null) {
-          throw new ConnectionFailurePoemException(
-            new SQLException("No Driver Classname set in dbms specific class"));
+          throw new ConnectionFailurePoemException(new SQLException(
+              "No Driver Classname set in dbms specific class"));
         }
         loadDriver();
       }
       if (!getDriverLoaded()) {
-        throw new ConnectionFailurePoemException(
-          new SQLException(
+        throw new ConnectionFailurePoemException(new SQLException(
             "The Driver class " + getDriverClassName() + " failed to load"));
       }
     }
@@ -155,68 +159,104 @@ public class AnsiStandard implements Dbms {
         info.put("password", password);
 
       try {
-        return driver.connect(url, info);
+        Connection c = driver.connect(url, info);
+        if (c == null) 
+          throw new SQLException(
+                        "Null connection from driver using url: " + 
+                        url + 
+                        "user: " + 
+                        user + 
+                        "password: " + password);
+        return c;
       } catch (SQLException e) {
         throw new ConnectionFailurePoemException(e);
       }
     }
 
     try {
-      return DriverManager.getConnection(url, user, password);
+      Connection c = DriverManager.getConnection(url, user, password);
+      if (c == null) 
+        throw new SQLException(
+                      "Null connection from DriverManager using url: " + 
+                      url + 
+                      "user: " + 
+                      user + 
+                      "password: " + password);
+      return c;
     } catch (java.sql.SQLException e) {
       throw new ConnectionFailurePoemException(e);
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
+   */
   public String preparedStatementPlaceholder(PoemType type) {
     return "?";
   }
 
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
+   */
+  public String getSqlDefinition(String sqlTypeName) {
     return sqlTypeName;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0)
-      throw new SQLException("unlimited length not supported in AnsiStandard STRINGs");
+      throw new SQLException(
+          "unlimited length not supported in AnsiStandard STRINGs");
 
     return "VARCHAR(" + size + ")";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
+   */
   public String getLongSqlDefinition() {
     return "INT8";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
-      throw new SQLException("unlimited length not supported in AnsiStandard BINARYs");
+      throw new SQLException(
+          "unlimited length not supported in AnsiStandard BINARYs");
 
     return "LONGVARBINARY(" + size + ")";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getFixedPtSqlDefinition(int, int)
+   */
   public String getFixedPtSqlDefinition(int scale, int precision)
-    throws SQLException {
+      throws SQLException {
     if (scale < 0 || precision <= 0)
-      throw new SQLException("negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
+      throw new SQLException(
+          "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
 
     return "DECIMAL(" + precision + "," + scale + ")";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+   */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     return storage.canRepresent(type);
   }
 
   private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
-    throws UnsupportedTypePoemException {
+      throws UnsupportedTypePoemException {
     UnsupportedTypePoemException e;
     try {
-      e =
-        new UnsupportedTypePoemException(
-          md.getString("TABLE_NAME"),
-          md.getString("COLUMN_NAME"),
-          md.getShort("DATA_TYPE"),
-          sqlTypeName,
-          md.getString("TYPE_NAME"));
+      e = new UnsupportedTypePoemException(md.getString("TABLE_NAME"), md
+          .getString("COLUMN_NAME"), md.getShort("DATA_TYPE"), sqlTypeName, md
+          .getString("TYPE_NAME"));
     } catch (SQLException ee) {
       throw new UnsupportedTypePoemException(sqlTypeName);
     }
@@ -224,13 +264,11 @@ public class AnsiStandard implements Dbms {
     throw e;
   }
 
-  /**
-   * The simplest POEM type corresponding to a JDBC description from the
-   * database.
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-    throws SQLException {
+      throws SQLException {
     int typeCode = md.getShort("DATA_TYPE");
     boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
     int width = md.getInt("COLUMN_SIZE");
@@ -261,7 +299,7 @@ public class AnsiStandard implements Dbms {
         return new BigDecimalPoemType(nullable, width, scale);
 
       case Types.CHAR :
-         return unsupported("CHAR", md);
+        return unsupported("CHAR", md);
       case Types.VARCHAR :
         return new StringPoemType(nullable, width);
       case Types.LONGVARCHAR :
@@ -292,26 +330,26 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  public SQLPoemException exceptionForUpdate(
-    Table table,
-    String sql,
-    boolean insert,
-    SQLException e) {
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
+   */
+  public SQLPoemException exceptionForUpdate(Table table, String sql,
+      boolean insert, SQLException e) {
     return new ExecutingSQLPoemException(sql, e);
   }
 
-  public SQLPoemException exceptionForUpdate(
-    Table table,
-    PreparedStatement ps,
-    boolean insert,
-    SQLException e) {
-    return exceptionForUpdate(
-      table,
-      ps == null ? null : ps.toString(),
-      insert,
-      e);
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, boolean, java.sql.SQLException)
+   */
+  public SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
+      boolean insert, SQLException e) {
+    return exceptionForUpdate(table, ps == null ? null : ps.toString(), insert,
+        e);
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getQuotedName(java.lang.String)
+   */
   public String getQuotedName(String name) {
     StringBuffer b = new StringBuffer();
     StringUtils.appendQuoted(b, unreservedName(name), '"');
@@ -319,85 +357,69 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-  * A pair of functions for getting around 
-  * keywords which make your JDBC driver barf, as 
-  * 'group' does for MySQL.
-  *
-  * @see MySQL#unreservedName
-  * @see MySQL#melatiName
-  */
-
+   * A pair of functions for getting around keywords which make your JDBC driver
+   * barf, as 'group' does for MySQL.
+   * 
+   * @see MySQL#unreservedName
+   * @see MySQL#melatiName
+   */
   public String unreservedName(String name) {
     return name;
   }
+  
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
+   */
   public String melatiName(String name) {
     return name;
   }
 
- /**
-  * MySQL requires a length argument when creating
-  * an index on a BLOB or TEXT column.
-  *
-  * @see MySQL#getIndexLength
-  */
+  /**
+   * MySQL requires a length argument when creating an index on a BLOB or TEXT
+   * column.
+   * 
+   * @see MySQL#getIndexLength
+   */
   public String getIndexLength(Column column) {
     return "";
   }
 
- /**
-  * MSSQL cannot index a TEXT column.
-  * But neither can it compare them so we don't use it, 
-  * we use VARCHAR(255).
-  *
-  */
-   public boolean canBeIndexed(Column column) {
-     return true;
-   }
-
-
   /**
-  * MySQL has no EXISTS keyword.
-  *
-  * @see MySQL#givesCapabilitySQL
-  */
-  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
-    return "SELECT * FROM "
-      + getQuotedName("groupmembership")
-      + " WHERE "
-      + getQuotedName("user")
-      + " = "
-      + user.getTroid()
-      + " AND "
-      + "EXISTS ( "
-      + "SELECT "
-      + getQuotedName("groupcapability")
-      + "."
-      + getQuotedName("group")
-      + " "
-      + "FROM "
-      + getQuotedName("groupcapability")
-      + " WHERE "
-      + getQuotedName("groupcapability")
-      + "."
-      + getQuotedName("group")
-      + " = "
-      + getQuotedName("groupmembership")
-      + "."
-      + getQuotedName("group")
-      + " AND "
-      + getQuotedName("capability")
-      + " = "
-      + capabilityExpr
-      + ")";
+   * MSSQL cannot index a TEXT column. But neither can it compare them so we
+   * don't use it, we use VARCHAR(255).
+   *  
+   */
+  public boolean canBeIndexed(Column column) {
+    return true;
   }
 
- /**
-  * This is the MySQL syntax
-  */
+  /**
+   * MySQL has no EXISTS keyword.
+   * 
+   * @see MySQL#givesCapabilitySQL
+   */
+  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
+    return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
+        + getQuotedName("user") + " = " + user.getTroid() + " AND "
+        + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
+        + getQuotedName("group") + " " + "FROM "
+        + getQuotedName("groupcapability") + " WHERE "
+        + getQuotedName("groupcapability") + "." + getQuotedName("group")
+        + " = " + getQuotedName("groupmembership") + "."
+        + getQuotedName("group") + " AND " + getQuotedName("capability")
+        + " = " + capabilityExpr + ")";
+  }
+
+  /**
+   * This is the MySQL syntax
+   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;
   }
 
+  /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return this.getClass().getName();
   }

@@ -1,3 +1,6 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+
 ##
 ## $Source$
 ## $Revision$
@@ -42,8 +45,7 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-#set $Response.ContentType = "text/html"
-#set $ml = $melati.HTMLMarkupLanguage
+
 <HTML>
 <HEAD>
 #if ($continuationURL) #begin
@@ -52,7 +54,9 @@
 </HEAD>
 <BODY BGCOLOR=white>
 <H1 align=center>You have logged in</H1>
+#if ($continuationURL) #begin
 <p align=center>Transferring you <a href=$ml.escaped($continuationURL)>here</a>.</p>
+#end
 </BODY>
 </HTML>
 

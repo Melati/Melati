@@ -1,3 +1,5 @@
+#set $Response.ContentType = "text/html"
+
 ##
 ## $Source$
 ## $Revision$
@@ -43,7 +45,6 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-#set $Response.ContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>

@@ -1,3 +1,5 @@
+#set $Response.ContentType = "text/html"
+
 ##
 ## $Source$
 ## $Revision$
@@ -44,7 +46,6 @@
 ##
 
 #set $ml = $melati.HTMLMarkupLanguage
-#set $Response.ContentType = "text/html"
 <html>
 <head>
 <title>Select a $ml.rendered($table.DisplayName)</title>

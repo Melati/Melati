@@ -173,6 +173,10 @@ public class Field implements FieldAttributes, Cloneable {
     return new Field(raw, new BaseFieldAttributes(attrs, nullable));
   }
 
+  public Field withName(String name) {
+    return new Field(raw, new BaseFieldAttributes(attrs, name));
+  }
+
   public Enumeration getPossibilities() {
     final Field _this = this;
     return

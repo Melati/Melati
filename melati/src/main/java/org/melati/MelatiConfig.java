@@ -296,8 +296,6 @@ public class MelatiConfig {
       
       String lowerTag = tag.trim().toLowerCase();
       
-      System.err.println(tag);
-      
       // try our cache
       ml = (MelatiLocale) localeHash.get(lowerTag);
       if (ml != null)
@@ -307,7 +305,6 @@ public class MelatiConfig {
       ml = MelatiLocale.fromLanguageTag(lowerTag);
       if (ml != null)
       {
-        System.err.println("Selected: "+tag);
         localeHash.put(lowerTag, ml);
         return ml;        
       }

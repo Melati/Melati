@@ -54,10 +54,12 @@ import org.melati.util.*;
 public class PreparedStatementFactory extends CachedIndexFactory {
 
   private Database database;
+  private long structureSerial;
   private String sql;
 
   public PreparedStatementFactory(Database database, String sql) {
     this.database = database;
+    this.structureSerial = database.structureSerial();
     this.sql = sql;
   }
 
@@ -74,6 +76,15 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     catch (SQLException e) {
       throw new SQLPoemException(e);
     }
+  }
+
+  public Object get(int index) {
+    if (structureSerial != database.structureSerial()) {
+      invalidate();
+      structureSerial = database.structureSerial();
+    }
+
+    return super.get(index);
   }
 
   public PreparedStatement forTransaction(PoemTransaction transaction) {

@@ -412,26 +412,30 @@ public class Table implements Selectable {
         them.addElement(column);
     }
 
-    Column[] columns = new Column[them.size()];
-    them.copyInto(columns);
-    return columns;
+    Column[] columnsLocal = new Column[them.size()];
+    them.copyInto(columnsLocal);
+    return columnsLocal;
   }
 
   /**
    * Return columns at a display level in display order.
+   *
+   * @param level the {@link DisplayLevel} to select
    */ 
   public final Enumeration displayColumns(DisplayLevel level) {
-    Column[] columns = displayColumns[level.index.intValue()];
+    Column[] columnsLocal = displayColumns[level.index.intValue()];
 
-    if (columns == null)
-      displayColumns[level.index.intValue()] = columns =
+    if (columnsLocal == null) {
+      columnsLocal =
         columnsWhere(database.quotedName("displaylevel") + " <= " + 
                                                          level.index);
-
-    return new ArrayEnumeration(columns);
+      displayColumns[level.index.intValue()] = columnsLocal;
+    }
+    return new ArrayEnumeration(columnsLocal);
   }
 
   /**
+   * @param level the {@link DisplayLevel} to select
    * @return the number of columns at a display level.
    */ 
   public final int displayColumnsCount(DisplayLevel level) {
@@ -502,13 +506,14 @@ public class Table implements Selectable {
    * @see Column
    */
   public final Enumeration getSearchCriterionColumns() {
-    Column[] columns = searchColumns;
+    Column[] columnsLocal = searchColumns;
 
-    if (columns == null)
-      searchColumns = columns = 
+    if (columnsLocal == null) {
+      columnsLocal = 
          columnsWhere(database.quotedName("searchability") + " <= " +
                                           Searchability.yes.index);
-
+      searchColumns = columnsLocal;
+    }
     return new ArrayEnumeration(searchColumns);
   }
 

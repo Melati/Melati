@@ -205,7 +205,7 @@ public class EverythingNormalTableBase extends Table {
           }
 
           protected Searchability defaultSearchability() {
-            return Searchability.yes;
+            return Searchability.no;
           }
 
           protected String defaultDisplayName() {

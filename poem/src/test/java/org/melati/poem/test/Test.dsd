@@ -46,7 +46,7 @@ table Athing
       (displayorder = 1)
       (uncreateable)
       (displaylevel = summary)
-      (searchability = yes)
+      (searchability = no)
       // (displayorderpriority = null)
       // Not sortdescending
       // Not indexed
@@ -115,7 +115,7 @@ table EverythingNormal
       (displayorder = 1)
       (uncreateable)
       (displaylevel = summary)
-      (searchability = yes)
+      (searchability = no)
       // (displayorderpriority = null)
       // Not sortdescending
       // Not indexed
@@ -325,7 +325,7 @@ table ENExtended extends EverythingNormal
       (displayorder = 11)
       (uncreateable)
       (displaylevel = summary)
-      (searchability = yes)
+      (searchability = no)
       // (displayorderpriority = null)
       // Not sortdescending
       // Not indexed
@@ -537,7 +537,7 @@ abstract table EverythingAbstract
       (displayorder = 1)
       (uncreateable)
       (displaylevel = summary)
-      (searchability = yes)
+      (searchability = no)
       // (displayorderpriority = null)
       // Not sortdescending
       // Not indexed
@@ -767,7 +767,7 @@ table EAExtended extends EverythingAbstract
       (displayorder = 11)
       (uncreateable)
       (displaylevel = summary)
-      (searchability = yes)
+      (searchability = no)
       // (displayorderpriority = null)
       // Not sortdescending
       // Not indexed

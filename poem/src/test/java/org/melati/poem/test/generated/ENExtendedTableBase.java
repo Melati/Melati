@@ -124,7 +124,7 @@ public class ENExtendedTableBase extends EverythingNormalTable {
           }
 
           protected Searchability defaultSearchability() {
-            return Searchability.yes;
+            return Searchability.no;
           }
 
           protected String defaultDisplayName() {

@@ -78,7 +78,8 @@ public class PoemTransaction extends Transaction {
   protected void backingCommit() {
     try {
       connection.commit();
-      database.log(new CommitLogEvent(this));
+      if (database.logSQL)
+	database.log(new CommitLogEvent(this));
     }
     catch (SQLException e) {
       throw new CommitFailedPoemException(e);
@@ -88,7 +89,8 @@ public class PoemTransaction extends Transaction {
   protected void backingRollback() {
     try {
       connection.rollback();
-      database.log(new RollbackLogEvent(this));
+      if (database.logSQL)
+	database.log(new RollbackLogEvent(this));
     }
     catch (SQLException e) {
       throw new RollbackFailedPoemException(e);

@@ -303,8 +303,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
         exception instanceof VariableException ?
           ((VariableException)exception).problem : exception;
 
-    if (underlying == null || !(underlying instanceof AccessPoemException))
-      throw exception;
+    if (underlying == null || !(underlying instanceof AccessPoemException)) {
+      context.put("error", exception);
+      return getTemplate("error.wm");
+    }
     else
       return accessHandler().handleAccessException(
                                  melatiContext(context), context,

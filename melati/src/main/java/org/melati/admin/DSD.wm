@@ -38,7 +38,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timpc@paneris.org>
+##     Tim Pizey <timp@paneris.org>
 ##
 #set $Response.ContentType = "text/plain"
 ## We don't have a TextMarkupLanguage as yet
@@ -48,6 +48,14 @@
  * 
  *  Generated for $melati.getUser()
  * 
+ * WARNING
+ * This export is not necessarily information preserving.
+ * 1) if you have used a capitalisation regime other than first 
+ *    letter capital then the case  will not be preserved.
+ * 2) Abstract tables are not preserved; the tables are 'de-normalised'.
+ * 3) Importing another DSD, such as messageboards, is 
+ *    not preserved, all tables are in a single package namespace.
+ *    
  */
 
 #if ($Form.comments) #begin

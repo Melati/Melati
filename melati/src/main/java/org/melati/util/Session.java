@@ -96,4 +96,8 @@ public abstract class Session {
       unSee();
     }
   }
+
+  public String toString() {
+    return "session" + index;
+  }
 }

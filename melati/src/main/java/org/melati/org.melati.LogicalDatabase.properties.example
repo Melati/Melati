@@ -10,7 +10,7 @@
 #
 # Given the example URL
 #
-#   http://zippy.com/<zone>/org.melati.admin.Admin/<logical db>/View
+#   http://zippy.com/<zone>/org.melati.admin.Admin/<logical db>/Main
 #
 # the entries examined are:
 #

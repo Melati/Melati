@@ -47,38 +47,32 @@
        VALUE="org.melati.templets.YMDHMSTimestampAdaptor">
 
 #set $yearField = $melati.YMDHMSTimestampAdaptor.yearField($field)
-#set $yearFieldName = "field_$ml.rendered($yearField.Name)"
 #set $monthField = $melati.YMDHMSTimestampAdaptor.monthField($field)
-#set $monthFieldName = "field_$ml.rendered($monthField.Name)"
 #set $dayField = $melati.YMDHMSTimestampAdaptor.dayField($field)
-#set $dayFieldName = "field_$ml.rendered($dayField.Name)"
 #set $hourField = $melati.YMDHMSTimestampAdaptor.hourField($field)
-#set $hourFieldName = "field_$ml.rendered($hourField.Name)"
 #set $minuteField = $melati.YMDHMSTimestampAdaptor.minuteField($field)
-#set $minuteFieldName = "field_$ml.rendered($minuteField.Name)"
 #set $secondField = $melati.YMDHMSTimestampAdaptor.secondField($field)
-#set $secondFieldName = "field_$ml.rendered($secondField.Name)"
 
-<SELECT NAME="$dayFieldName"
+<SELECT NAME="field_$ml.rendered($dayField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$hourFieldName'].selectedIndex = 0;
-		form['$minuteFieldName'].selectedIndex = 0;
-		form['$secondFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($secondField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$hourFieldName'].selectedIndex == 0)
-		  form['$hourFieldName'].selectedIndex = 1;
-		if (form['$minuteFieldName'].selectedIndex == 0)
-		  form['$minuteFieldName'].selectedIndex = 1;
-		if (form['$secondFieldName'].selectedIndex == 0)
-		  form['$secondFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($hourField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($hourField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($minuteField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($secondField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($secondField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -98,26 +92,26 @@
 </SELECT>
 
 
-<SELECT NAME="$monthFieldName"
+<SELECT NAME="field_$ml.rendered($monthField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
-		form['$hourFieldName'].selectedIndex = 0;
-		form['$minuteFieldName'].selectedIndex = 0;
-		form['$secondFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($secondField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
-		if (form['$hourFieldName'].selectedIndex == 0)
-		  form['$hourFieldName'].selectedIndex = 1;
-		if (form['$minuteFieldName'].selectedIndex == 0)
-		  form['$minuteFieldName'].selectedIndex = 1;
-		if (form['$secondFieldName'].selectedIndex == 0)
-		  form['$secondFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($hourField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($hourField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($minuteField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($secondField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($secondField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -136,26 +130,26 @@
   #end
 </SELECT>
 
-<SELECT NAME="$yearFieldName"
+<SELECT NAME="field_$ml.rendered($yearField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
-		form['$hourFieldName'].selectedIndex = 0;
-		form['$minuteFieldName'].selectedIndex = 0;
-		form['$secondFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($secondField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
-		if (form['$hourFieldName'].selectedIndex == 0)
-		  form['$hourFieldName'].selectedIndex = 1;
-		if (form['$minuteFieldName'].selectedIndex == 0)
-		  form['$minuteFieldName'].selectedIndex = 1;
-		if (form['$secondFieldName'].selectedIndex == 0)
-		  form['$secondFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($hourField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($hourField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($minuteField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($secondField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($secondField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -177,26 +171,26 @@
 
 
 
-<SELECT NAME="$hourFieldName"
+<SELECT NAME="field_$ml.rendered($hourField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
-		form['$minuteFieldName'].selectedIndex = 0;
-		form['$secondFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($secondField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
-		if (form['$minuteFieldName'].selectedIndex == 0)
-		  form['$minuteFieldName'].selectedIndex = 1;
-		if (form['$secondFieldName'].selectedIndex == 0)
-		  form['$secondFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($minuteField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($secondField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($secondField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -215,26 +209,26 @@
   #end
 </SELECT>
 :
-<SELECT NAME="$minuteFieldName"
+<SELECT NAME="field_$ml.rendered($minuteField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
-		form['$hourFieldName'].selectedIndex = 0;
-		form['$secondFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($secondField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
-		if (form['$hourFieldName'].selectedIndex == 0)
-		  form['$hourFieldName'].selectedIndex = 1;
-		if (form['$secondFieldName'].selectedIndex == 0)
-		  form['$secondFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($hourField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($hourField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($secondField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($secondField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -253,26 +247,26 @@
   #end
 </SELECT>
 :
-<SELECT NAME="$secondFieldName"
+<SELECT NAME="field_$ml.rendered($secondField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
-		form['$hourFieldName'].selectedIndex = 0;
-		form['$minuteFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
-		if (form['$hourFieldName'].selectedIndex == 0)
-		  form['$hourFieldName'].selectedIndex = 1;
-		if (form['$minuteFieldName'].selectedIndex == 0)
-		  form['$minuteFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($hourField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($hourField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($minuteField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($minuteField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >

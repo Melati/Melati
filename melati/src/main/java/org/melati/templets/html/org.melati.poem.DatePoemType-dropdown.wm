@@ -47,23 +47,20 @@
        VALUE="org.melati.templets.YMDDateAdaptor">
 
 #set $yearField = $melati.YMDDateAdaptor.yearField($field)
-#set $yearFieldName = "field_$ml.rendered($yearField.Name)"
 #set $monthField = $melati.YMDDateAdaptor.monthField($field)
-#set $monthFieldName = "field_$ml.rendered($monthField.Name)"
 #set $dayField = $melati.YMDDateAdaptor.dayField($field)
-#set $dayFieldName = "field_$ml.rendered($dayField.Name)"
 
-<SELECT NAME="$dayFieldName"
+<SELECT NAME="field_$ml.rendered($dayField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$monthFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -82,17 +79,17 @@
   #end
 </SELECT>
 
-<SELECT NAME="$monthFieldName"
+<SELECT NAME="field_$ml.rendered($monthField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$yearFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$yearFieldName'].selectedIndex == 0)
-		  form['$yearFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($yearField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($yearField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >
@@ -111,17 +108,17 @@
   #end
 </SELECT>
 
-<SELECT NAME="$yearFieldName"
+<SELECT NAME="field_$ml.rendered($yearField.Name)"
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
-		form['$monthFieldName'].selectedIndex = 0;
-		form['$dayFieldName'].selectedIndex = 0;
+		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
+		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 	      \}
 	      else \{
-		if (form['$monthFieldName'].selectedIndex == 0)
-		  form['$monthFieldName'].selectedIndex = 1;
-		if (form['$dayFieldName'].selectedIndex == 0)
-		  form['$dayFieldName'].selectedIndex = 1;
+		if (form['field_$ml.rendered($monthField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($monthField.Name)'].selectedIndex = 1;
+		if (form['field_$ml.rendered($dayField.Name)'].selectedIndex == 0)
+		  form['field_$ml.rendered($dayField.Name)'].selectedIndex = 1;
 	      \}"
   #end
 >

@@ -53,6 +53,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletConfig;
 
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
@@ -64,12 +65,7 @@ import org.webmacro.WM;
 import org.webmacro.InitException;
 import org.webmacro.FastWriter;
 import org.webmacro.servlet.WebContext;
-import org.webmacro.engine.CrankyEvaluationExceptionHandler;
 import org.webmacro.PropertyException;
-//import org.webmacro.engine.Variable;
-//import org.webmacro.engine.VariableException;
-//import org.webmacro.engine.PropagateVariableExceptionHandler;
-//import org.webmacro.engine.PassbackVariableExceptionHandler;
 
 
 /**
@@ -88,7 +84,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * Inititialise the Engine
    */
-  public void init(ServletConfig config) throws TemplateEngineException {
+  public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
       wm = new WM ();
       _webContext = new WebContext(wm.getBroker());
@@ -103,19 +99,11 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public TemplateContext getTemplateContext(Melati melati) {
     _webContext.clear();
     WebContext wc = _webContext.newInstance(melati.getRequest(),melati.getResponse());
-    // always put a PropagateVariableExceptionHandler in otherwise
-    // we never get our errors out!
-    wc.setEvaluationExceptionHandler(new CrankyEvaluationExceptionHandler());
-    // place the context in the context so that we can get at the EvaluationExceptionHandlers
-    wc.put("PassbackEvaluationExceptionHandler", new PassbackEvaluationExceptionHandler());
-    wc.put("context", wc);
-//    wc.put(Variable.EXCEPTION_HANDLER, PropagateVariableExceptionHandler.it);
     return new WebmacroTemplateContext(wc);
   }
   
   public Object getPassbackVariableExceptionHandler() {
-    return null;
-//    return PassbackVariableExceptionHandler.it;
+    return new PassbackEvaluationExceptionHandler();
   }
 
   /**
@@ -164,12 +152,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       try {                                  
         org.webmacro.Template template = wm.getTemplate (templateName);
         return new WebmacroTemplate (template);
-      } catch (org.webmacro.NotFoundException e) {
-        throw new NotFoundException("I couldn't find the template: " + 
-            templateName + " because: " + e);
-      } catch (org.webmacro.ResourceException f) {
-        throw new NotFoundException("I couldn't find the template: " + 
-            templateName + " because: " + f);
+      } catch (Exception e) {
+        throw new NotFoundException(e);
       }
   }
 
@@ -199,7 +183,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof PropertyException) {
-        Throwable caught = ((PropertyException)underlying).caught;
+        Throwable caught = ((PropertyException)underlying).getCaught();
         if (caught instanceof AccessPoemException) {
           throw (AccessPoemException)caught;
         }

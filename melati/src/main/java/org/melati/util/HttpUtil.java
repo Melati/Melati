@@ -36,7 +36,7 @@ public class HttpUtil {
     StringBuffer url = new StringBuffer();
     url.append(HttpServletRequestCompat.getContextPath(request));
     if (request.getServletPath() != null) url.append(request.getServletPath());
-    url.append(request.getPathInfo());
+    if (request.getPathInfo() != null) url.append(request.getPathInfo());
     return url.toString();
   }
 }

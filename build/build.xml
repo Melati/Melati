@@ -18,13 +18,15 @@
   <property name="this.root"          value=".."/>
   <property name="src"                value="../src"/>
   <property name="site"               value="../site"/>
-  <property name="build.lib"          value="./lib"/>
+  <property name="build.lib"          value="../lib"/>
   <property name="built"              value="dist"/>
   <property name="built.root"         value="./${built}"/>
   <property name="compiled.root"      value="${built.root}/compiled"/>
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
+  <property name="built.build"          value="${built.dir}/build"/>
+  <property name="built.site"          value="${built.dir}/site"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
@@ -99,6 +101,7 @@ usage:
     <!-- ================================================================= -->
     <target name="clean">
         <delete dir="${built.root}"/>
+        <delete dir="${javadoc.dir}"/>
     </target>
 
     <!-- ================================================================= -->
@@ -287,24 +290,50 @@ usage:
     <!-- Package as .zip and .tgz                                          -->
     <!-- ================================================================= -->
     <target name="package" >
-       <mkdir dir="${packaged}"/>
-       <zip  basedir="${built.root}" 
-             excludes="${compiled.root},${packaged},**/*.zip"
-             zipfile="${packaged}/${project}_${version}.zip" />
-       <tar  basedir="${built.root}" 
-             excludes="${compiled.root},${packaged},**/*.zip"
-             tarfile="${packaged}/${project}_${version}.tar" />
-       <gzip src="${packaged}/${project}_${version}.tar"
-             zipfile="${packaged}/${project}_${version}.tar.gz" />
-       <zip  basedir="${javadoc.dir}"
-             zipfile="${packaged}/${project}_${version}_doc.zip" />
-       <tar  basedir="${javadoc.dir}"
-             tarfile="${packaged}/${project}_${version}_doc.tar" />
-       <gzip src="${packaged}/${project}_${version}_doc.tar"
-             zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
-       <delete>
-        <fileset dir="${packaged}" includes="*.tar"/>
-       </delete>
+      <mkdir dir="${packaged}"/>
+      <copy todir="${built.lib}">
+        <fileset dir="${build.lib}">
+          <patternset>
+            <include name="**/*.jar"/>
+          </patternset>
+        </fileset>
+      </copy>
+      <mkdir dir="${built.build}"/>
+      <copy todir="${built.build}">
+        <fileset dir=".">
+          <patternset>
+            <include name="**/*.xml"/>
+            <exclude name="${built.root}/**/*.*"/>
+          </patternset>
+        </fileset>
+      </copy>
+      <mkdir dir="${built.site}"/>
+      <copy todir="${built.site}">
+        <fileset dir="${site}">
+          <patternset>
+            <exclude name="**/javadoc/**/*.*"/>
+            <include name="**/*.*"/>
+          </patternset>
+        </fileset>
+      </copy>
+
+      <zip  basedir="${built.root}" 
+            excludes="${compiled.root},${packaged},**/*.zip"
+            zipfile="${packaged}/${project}_${version}.zip" />
+      <tar  basedir="${built.root}" 
+            excludes="${compiled.root},${packaged},**/*.zip"
+            tarfile="${packaged}/${project}_${version}.tar" />
+      <gzip src="${packaged}/${project}_${version}.tar"
+            zipfile="${packaged}/${project}_${version}.tar.gz" />
+      <zip  basedir="${javadoc.dir}"
+            zipfile="${packaged}/${project}_${version}_doc.zip" />
+      <tar  basedir="${javadoc.dir}"
+            tarfile="${packaged}/${project}_${version}_doc.tar" />
+      <gzip src="${packaged}/${project}_${version}_doc.tar"
+            zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
+      <delete>
+       <fileset dir="${packaged}" includes="*.tar"/>
+      </delete>
     </target>
     
     

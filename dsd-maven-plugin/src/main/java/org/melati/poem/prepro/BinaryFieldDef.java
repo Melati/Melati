@@ -45,34 +45,20 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.util.*;
 
-public class SizeFieldQualifier extends FieldQualifier {
+public class BinaryFieldDef extends AtomFieldDef {
 
-  private int size;
+  int size;
 
-  public SizeFieldQualifier(StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
-    DSD.expect(tokens, '=');
-    tokens.nextToken();
-    if (tokens.ttype == StreamTokenizer.TT_WORD &&
-        tokens.sval.equals("unlimited"))
-      size = -1;
-    else {
-      if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval <= 0)
-        throw new ParsingDSDException("<positive size number>", tokens);
-      size = (int)tokens.nval;
-    }
-    tokens.nextToken();
+  public BinaryFieldDef(TableDef table, String name, int displayOrder,
+                        Vector qualifiers)
+      throws IllegalityException {
+    super(table, name, "byte[]", displayOrder, qualifiers);
+    if (size == 0) throw new BinarySizeZeroException(this);
   }
 
-  public void apply(FieldDef field) throws SizeApplicationException {
-    // FIXME check for duplication
-    if (field instanceof StringFieldDef)
-       ((StringFieldDef)field).size = size;
-    else if (field instanceof BinaryFieldDef)
-       ((BinaryFieldDef)field).size = size;
-    else
-      throw new SizeApplicationException(field);
+  public String poemTypeJava() {
+    return "new BinaryPoemType(" + isNullable + ", " + size + ")";
   }
 }

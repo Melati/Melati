@@ -124,6 +124,14 @@ public abstract class FieldDef {
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field type>", tokens);
     String type = tokens.sval;
+    // FIXME as a hack we allow "byte[]"
+    if (type.equals("byte")) {
+      if (tokens.nextToken() != '[' ||
+          tokens.nextToken() != ']')
+        throw new ParsingDSDException("[", tokens);
+      type = "byte[]";
+    }
+
     if (tokens.nextToken() != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field name>", tokens);
     String name = tokens.sval;
@@ -151,6 +159,8 @@ public abstract class FieldDef {
       return new DisplayLevelFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("Searchability"))
       return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("byte[]"))
+      return new BinaryFieldDef(table, name, displayOrder, qualifiers);
     else
       return new ReferenceFieldDef(table, name, displayOrder, type,
                                    qualifiers);

@@ -57,6 +57,7 @@ import org.melati.poem.StringPoemType;
 
  /**
   * A Database Management System from http://www.mckoi.com/.
+  * 
   **/
 public class Mckoi extends AnsiStandard {
 
@@ -88,6 +89,9 @@ public class Mckoi extends AnsiStandard {
       return name;
     }
 
+   /**
+    * @todo Check against modern McKoi 
+    */
     public String getSqlDefinition(String sqlTypeName) throws SQLException {
         if (sqlTypeName.equals("INT")) {
             return ("INTEGER");

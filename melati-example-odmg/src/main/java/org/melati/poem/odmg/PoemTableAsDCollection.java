@@ -54,60 +54,54 @@ import org.melati.poem.Persistent;
  * Wrapper class to present a Poem Table as a Collection.
  */
 
-class PoemTableAsDCollection implements org.odmg.DCollection
-{
-  public static final String cvs = "$Id$";
+class PoemTableAsDCollection implements org.odmg.DCollection {
+  public static final String cvs = 
+    "$Id$";
 
   private Table _wrappedTable = null;
 
-  PoemTableAsDCollection(Table aTable)
-  {
+  PoemTableAsDCollection(Table aTable) {
     _wrappedTable = aTable;
   }
 
   public boolean isEmpty() { return size() == 0; }
   public int size() { return _wrappedTable.count(""); }
 
-  public boolean add(Object obj) 
-  { 
+  public boolean add(Object obj) { 
     _wrappedTable.create((Persistent)obj);
-	 return true;
+    return true;
   }
 
-  public boolean removeAll(Collection coll) 
-  {  
+  public boolean removeAll(Collection coll) {  
     Iterator iter = coll.iterator();
-    while (iter.hasNext()) 
-    {
+    while (iter.hasNext()) {
        if (!remove(iter.next()))
          return false;
     }
     return true;
   }
 
- /** removes the specified object from the collection.
+ /** 
+  * removes the specified object from the collection.
   *
   * WARNING - this removes and commits it immediately!
   * WARNING2 - it also deletes entries from tables that reference this object 
   * - this means you CANNOT have circular references
   */
-  public boolean remove(Object obj) 
-  {  
+  public boolean remove(Object obj) {  
     Persistent p = (Persistent)obj;
-	 // delete all refs first
-	 Enumeration refs = _wrappedTable.getDatabase().referencesTo(p);
-	 while (refs.hasMoreElements())
-	 {
-	   Persistent q = (Persistent)refs.nextElement();
-		q.deleteAndCommit();
-	 }
-	 
+    // delete all refs first
+     Enumeration refs = _wrappedTable.getDatabase().referencesTo(p);
+      while (refs.hasMoreElements()) {
+        Persistent q = (Persistent)refs.nextElement();
+        q.deleteAndCommit();
+      }
+
     p.deleteAndCommit();
     return true;
   }
 
-  public Iterator iterator() 
-  { 
+  public Iterator iterator() { 
     return new EnumerationIterator(_wrappedTable.selection());
   }
 
@@ -116,8 +110,7 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   * NOTE: The query string is split into the where-clause and 
   * the order-by-clause and passed to poem.
   */
-  public Iterator select(String queryString) 
-  {
+  public Iterator select(String queryString) {
     String lowerCaseQueryString = queryString.toLowerCase();
     int whereStart = lowerCaseQueryString.indexOf("where ");
     if (whereStart<0) 
@@ -129,13 +122,11 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     int whereEnd = 0;
     if (orderByStart<0)
       whereEnd = queryString.length();
-    else if (orderByStart==0)
-    {
+    else if (orderByStart==0) {
       whereStart = -1; // no where clause
       orderByStart += 9;
     }
-    else
-    {
+    else {
       whereEnd = orderByStart;
       orderByStart += 9;
     }
@@ -159,8 +150,7 @@ class PoemTableAsDCollection implements org.odmg.DCollection
         _wrappedTable.selection(whereClause,orderByClause,true));
   }
 
-  public Object selectElement(String queryString) 
-  {
+  public Object selectElement(String queryString) {
     Iterator iter = select(queryString);
     if (iter.hasNext())
       return iter.next();
@@ -197,11 +187,9 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   }
 
 /** utility class for converting enumerations into iterators */
-private class EnumerationIterator implements Iterator
-{
+private class EnumerationIterator implements Iterator {
   private Enumeration _enum = null;
-  EnumerationIterator(Enumeration enum)
-  {
+  EnumerationIterator(Enumeration enum) {
     _enum = enum;
   }
 

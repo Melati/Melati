@@ -1,4 +1,6 @@
 /*
+ * $Source$
+ * $Revision$
  *
  * Copyright (C) 2002 Peter Kehl
  * 
@@ -121,6 +123,8 @@ import org.melati.poem.SQLPoemException;
 
  /**
   * A Driver for MySQL (http://www.mysql.com)
+  *
+  * @todo Needs more work, see FIXMEs.
   **/
 public class MySQL extends AnsiStandard {
 
@@ -291,41 +295,40 @@ public class MySQL extends AnsiStandard {
   // we search 4th unique field = we loop over columns, skip first 3 that
   // are unique and return 4th unique.
 
-  try { //Try parsing error message.
+        try { //Try parsing error message.
 
-      int preIndex, postIndex; //Places of apostrophes around index value
-      int preColumn; //Place of "key ", which is in front of column number
+          int preIndex, postIndex; //Places of apostrophes around index value
+          int preColumn; //Place of "key ", which is in front of column number
     
-      preIndex= m.indexOf('\'');
-      postIndex= m.lastIndexOf('\'');
-      preColumn= m.indexOf("key ");
+          preIndex= m.indexOf('\'');
+          postIndex= m.lastIndexOf('\'');
+          preColumn= m.indexOf("key ");
   
-      String indexValue= m.substring(preIndex+1,postIndex);
-      String indexColumn= m.substring(preColumn+4);
+          String indexValue= m.substring(preIndex+1,postIndex);
+          String indexColumn= m.substring(preColumn+4);
 
-      System.err.println("Duplicated value "+indexValue+
-        " of "+indexColumn+"th unique field."); 
+          System.err.println("Duplicated value "+indexValue+
+              " of "+indexColumn+"th unique field."); 
   
-      int indexNum= Integer.parseInt(indexColumn);
-      Column column= table.troidColumn(); //Just to satisfy compiler.
-      //At the end, it will (should) be our column anyway.
+          int indexNum= Integer.parseInt(indexColumn);
+          Column column= table.troidColumn(); //Just to satisfy compiler.
+          //At the end, it will (should) be our column anyway.
       
-      for( Enumeration columns= table.columns();
-           columns.hasMoreElements();)
-      {
-        column= (Column)columns.nextElement();
-        if( column.getUnique())
-            if( --indexNum==0)
-        break; //We found it!
-      }
-      //Now, it's found & indexNum==0.
-      if(indexNum==0)
-        return new DuplicateKeySQLPoemException( column, sql, insert, e);
-  }
-  catch( NumberFormatException f) {}
+          for(Enumeration columns=table.columns(); 
+              columns.hasMoreElements();) {
+            column= (Column)columns.nextElement();
+            if(column.getUnique())
+              if(--indexNum==0)
+                break; //We found it!
+          }
+          //Now, it's found & indexNum==0.
+          if(indexNum==0)
+            return new DuplicateKeySQLPoemException(column, sql, insert, e);
+        } catch(NumberFormatException f) {
+         //FIXME
+        }
         return new DuplicateKeySQLPoemException(table, sql, insert, e);
-  }
-
+      }
       return super.exceptionForUpdate(table, sql, insert, e);
   }
 
@@ -346,7 +349,8 @@ public class MySQL extends AnsiStandard {
 
   public String getIndexLength(Column column) {
     PoemType t = column.getType();
-    if (t instanceof StringPoemType && ((StringPoemType)t).getSize() < 0) return "(30)";
+    if (t instanceof StringPoemType && 
+        ((StringPoemType)t).getSize() < 0) return "(30)";
     if (t instanceof BlobPoemType) return "(30)";
     return "";
   }  

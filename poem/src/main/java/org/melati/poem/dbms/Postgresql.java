@@ -55,17 +55,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.melati.poem.Table;
+
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.DoublePoemType;
-import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
+
+import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.NoSuchColumnPoemException;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemException;
-import org.melati.poem.SQLPoemType;
 import org.melati.poem.SeriousPoemException;
-import org.melati.poem.Table;
+import org.melati.poem.SQLPoemException;
+
 
  /**
   * A Driver for Postgresql (http://www.postgresql.org/)
@@ -79,7 +82,8 @@ public class Postgresql extends AnsiStandard {
 
   public boolean canDropColumns(Connection con) throws SQLException {
     if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
-      return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).haveMinimumServerVersion("7.3");
+      return ((org.postgresql.jdbc1.AbstractJdbc1Connection)con).
+                   haveMinimumServerVersion("7.3");
     }
     return false;
   }
@@ -159,7 +163,7 @@ public class Postgresql extends AnsiStandard {
                                                   sql, insert, e);
         }
         catch (NoSuchColumnPoemException f) {
-	    throw new SeriousPoemException(
+          throw new SeriousPoemException(
                "Duplicate Key exception thrown on a non-existant column",f);
         }
       }

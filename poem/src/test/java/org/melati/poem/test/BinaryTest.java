@@ -45,7 +45,9 @@
 
 package org.melati.poem.test;
 
-import org.melati.poem.*;
+import org.melati.poem.AccessToken;
+import org.melati.poem.PoemTask;
+import org.melati.poem.UnexpectedExceptionPoemException;
 
 public class BinaryTest {
   public static void main(final String[] args) {
@@ -53,7 +55,7 @@ public class BinaryTest {
     db.connect("org.melati.poem.dbms.Postgresql", args[0], args[1], args[2], 2);
 
     db.inSession(
-        AccessToken.root,       // FIXME
+        AccessToken.root,       // HACK
         new PoemTask() {
           public void run() {
             try {

@@ -100,7 +100,7 @@ public class CSVTable {
    */
 
   public void addColumn(String csvName, String poemName, boolean isPrimaryKey)
-                               throws CSVPrimaryKeyColumnAlreadySetException {
+      throws CSVPrimaryKeyColumnAlreadySetException {
     if (isPrimaryKey && primaryKey != null)
       throw new CSVPrimaryKeyColumnAlreadySetException(table.getName());
     CSVColumn col = new CSVColumn(poemName, isPrimaryKey);
@@ -114,7 +114,8 @@ public class CSVTable {
    * Add column definitions for foreign keys to this table
    */
 
-  public void addColumn(String csvName, String poemName, CSVTable foreignTable) {
+  public void addColumn(String csvName, String poemName, 
+                        CSVTable foreignTable) {
     columns.put(csvName, new CSVColumn(poemName, foreignTable));
   }
 
@@ -191,14 +192,16 @@ public class CSVTable {
       return record;
     }
     catch (IllegalArgumentException e) {
-       throw new CSVParseException("Failed to read data field no. " + (i+1) + " in " +
+       throw new CSVParseException("Failed to read data field no. " + 
+                                    (i+1) + " in " +
                                     fileName + ": " + e.toString());
     }
     catch (NoSuchElementException f) {
       if (value == null) {
         throw new CSVParseException("Problem with data field no. " + (i+1) + 
                                    " in " + fileName + 
-                                   " (Check last line of file) : " + f.toString());
+                                   " (Check last line of file) : " + 
+                                   f.toString());
       } else {
         throw new CSVParseException("Problem with data field no. " + (i+1) + 
                                    " in " + fileName + 

@@ -132,7 +132,7 @@ public class AnsiStandard implements Dbms {
   public Connection getConnection(String url, String user, String password) 
       throws ConnectionFailurePoemException {
     synchronized (driverClassName) {
-      if ( !getDriverLoaded() ) {
+      if (!getDriverLoaded()) {
         if (getDriverClassName() == null) {
           throw new ConnectionFailurePoemException(
               new SQLException(
@@ -140,7 +140,7 @@ public class AnsiStandard implements Dbms {
         }
         loadDriver();
       }
-      if ( !getDriverLoaded() ) {
+      if (!getDriverLoaded()) {
         throw new ConnectionFailurePoemException(
             new SQLException(
                 "The Driver class " 

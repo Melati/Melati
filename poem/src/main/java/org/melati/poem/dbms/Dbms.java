@@ -97,7 +97,7 @@ public interface Dbms {
    * @param e         The raw SQL exception: the routine is meant to
    *                  try to interpret <TT>e.getMessage</TT> if it can
    *
-   * @see Postgresql#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
+   * @see Postgresql#exceptionForUpdate
    */
 
   SQLPoemException exceptionForUpdate(Table table, String sql, boolean insert,
@@ -109,19 +109,19 @@ public interface Dbms {
    * invokes <TT>PreparedStatement.toString()</TT> and calls the
    * <TT>String</TT> version.
    *
-   * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, boolean, java.sql.SQLException)
+   * @see AnsiStandard#exceptionForUpdate
    */
 
   SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
                                       boolean insert, SQLException e);
 
-  public String unreservedName(String name);
-  public String melatiName(String name);
+  String unreservedName(String name);
+  String melatiName(String name);
 
-  public String getIndexLength(Column column);
+  String getIndexLength(Column column);
 
-  public String givesCapabilitySQL(User user, String capabilityExpr);
+  String givesCapabilitySQL(User user, String capabilityExpr);
 
-  public String caseInsensitiveRegExpSQL(String term1, String term2);
+  String caseInsensitiveRegExpSQL(String term1, String term2);
 
 }

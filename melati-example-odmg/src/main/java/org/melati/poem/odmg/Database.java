@@ -50,33 +50,32 @@ import org.melati.LogicalDatabase;
 import org.melati.util.DatabaseInitException;
 
 /** POEM implementation of the ODMG Database API **/
-class Database implements org.odmg.Database
-{
+class Database implements org.odmg.Database {
   public static final String cvs = "$Id";
 
   /** hide this from general use **/
   private Database() {}
   /** provide a package factory method 
       so we could return a different type if needed **/
-  static final Database getNewDatabase() { return new Database(); }
+  static final Database getNewDatabase() { 
+    return new Database(); 
+  }
 
   private org.melati.poem.Database _poemDB = null;
   private String _logicalDB = null;
 
   org.melati.poem.Database getPoemDatabase() 
-    throws org.odmg.ODMGException
-  { 
+    throws org.odmg.ODMGException { 
     if (_poemDB == null) throw new org.odmg.DatabaseClosedException(
           "org.melati.poem.odmg.Database::getPoemDatabase - POEM DB not set");
     return _poemDB; 
   }
 
-  /** Opens a connection to the db
-    @param openParameters the Poem logical db name
-  **/
+ /** Opens a connection to the db
+  * @param openParameters the Poem logical db name
+  */
   public void open(String openParameters, int openType) 
-    throws org.odmg.ODMGException
-  {
+    throws org.odmg.ODMGException {
     _logicalDB = openParameters;
     try {
       _poemDB = LogicalDatabase.getDatabase(_logicalDB);
@@ -87,8 +86,7 @@ class Database implements org.odmg.Database
     }
   }
 
-  public void close() 
-  { 
+  public void close() { 
     _poemDB.disconnect();
     _poemDB = null;
     _cachedTables = null;
@@ -97,18 +95,17 @@ class Database implements org.odmg.Database
 
   private Map _cachedTables = null;
 
-  /** Retrieves a collection wrapper for the selected table.
-   *
-   * @param objectIdentifier the name of the table for which a collection 
-   *                         is required
+ /** 
+  * Retrieves a collection wrapper for the selected table.
+  *
+  * @param objectIdentifier the name of the table for which a collection 
+  *                         is required
   **/
   public Object lookup(String objectIdentifier) 
-    throws org.odmg.ObjectNameNotFoundException
-  { 
+    throws org.odmg.ObjectNameNotFoundException { 
     if (_poemDB == null) throw new org.odmg.DatabaseClosedException();
     Object theObject = _cachedTables.get(objectIdentifier);
-    if (theObject == null)
-    {
+    if (theObject == null) {
       theObject = new PoemTableAsDCollection(_poemDB.
                                                getTable(objectIdentifier));
       _cachedTables.put(objectIdentifier,theObject);

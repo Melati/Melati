@@ -45,6 +45,10 @@
 
 package org.melati.servlet;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
 
@@ -152,13 +156,42 @@ public abstract class TemplateServlet extends PoemServlet {
     if (val == null) return null;
     return val.equals("")?null:val;
   }
+  
+  
+  /**
+   * Send an error message
+   */
+  public void error(Melati melati, Exception e ) throws IOException {
+    // has it been trapped already, if so, we don't need to relog it here
+    if (!(e instanceof TrappedException)) {
+      // log it
+      e.printStackTrace(System.err);
+      // and put it on the page
+      TemplateContext templateContext = melati.getTemplateContext();
+      templateContext.put("melati",melati);
+      StringWriter sw = new StringWriter();
+      e.printStackTrace(new PrintWriter(sw));
+      templateContext.put("error",sw);
+      templateContext.put("SysAdminName",getSysAdminName());
+      templateContext.put("SysAdminEmail",getSysAdminEmail());
+      String templateName = addExtension("error");
+      try {
+        templateEngine.expandTemplate(melati.getWriter(), 
+                                      templateName,
+                                      templateContext);
+        melati.write();
+      } catch (Exception f) {
+        super.error(melati,e);
+      }
+    }
+  }
+
 
   /**
    * Override the method to build up your output
    * @param melatiContext
    * @return an object with all you need to do the template expansion
    */
-
   protected abstract String doTemplateRequest(Melati melati, 
                                               TemplateContext templateContext)
       throws Exception ;

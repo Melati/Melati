@@ -1,0 +1,7 @@
+package org.melati.poem.test;
+
+table AThing {
+  (primary) Integer id;
+
+  (nullable) byte[] binaryfield (size = 13);
+}

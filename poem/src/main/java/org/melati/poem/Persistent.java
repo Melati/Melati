@@ -492,6 +492,7 @@ public class Persistent extends Transactioned implements Cloneable {
    */
 
   public void assertCanCreate(AccessToken token) {
+    // FIXME URGENTLY  - why would we not have a table for this persistent?
     if (getTable() != null) {
       Capability canCreate = getTable().getCanCreate();
       if (canCreate != null && !token.givesCapability(canCreate))

@@ -186,9 +186,13 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   }
 
   public final PoemType withNullable(boolean nullable) {
-    BasePoemType it = (BasePoemType)clone();
-    it.nullable = nullable;
-    return it;
+    if (this.nullable == nullable)
+      return this;
+    else {
+      BasePoemType it = (BasePoemType)clone();
+      it.nullable = nullable;
+      return it;
+    }
   }
 
   protected abstract void _saveColumnInfo(ColumnInfo info)

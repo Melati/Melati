@@ -669,6 +669,7 @@ public class Table {
       if (database.logSQL)
         database.log(new SQLLogEvent(modify.toString()));
     }
+   persistent.postModify();
   }
 
   private void insert(PoemTransaction transaction, Persistent persistent) {
@@ -686,6 +687,7 @@ public class Table {
       if (database.logSQL)
         database.log(new SQLLogEvent(insert.toString()));
     }
+   persistent.postInsert();
   }
 
   void delete(Integer troid, PoemTransaction transaction) {
@@ -1170,6 +1172,17 @@ public class Table {
           }
         });
   }
+
+// All the columns in the table which refer to a given table.
+  public Enumeration referencesTo(final Table table) {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(columns()) {
+          public Object mapped(Object column) {
+            return ((Column)column).referencesTo(table);
+          }
+        });
+  }
+
 
   // 
   // ----------

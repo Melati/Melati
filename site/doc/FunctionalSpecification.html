@@ -953,55 +953,68 @@ invoice.apply(new InvoiceUpdater {
 
 <UL>
 <LI>
-  <TT><A HREF=javadoc/org.melati.Type.html>Type</A></TT>&nbsp;&nbsp;
+  <TT><A HREF=javadoc/org/melati/poem/BasePoemType.html>Type</A></TT>&nbsp;&nbsp;
   Base of all types
 
   <UL>
   <LI>
-    <TT><A HREF=javadoc/org.melati.AtomType.html>AtomType</A></TT> &nbsp;&nbsp;
+    <TT><A HREF=javadoc/org/melati/poem/AtomPoemType.html>AtomType</A></TT> &nbsp;&nbsp;
     Base of all fundmental, non-reference types
 
     <UL>
     <LI>
-      <TT><A HREF=javadoc/org.melati.NumberType.html>NumberType</A></TT>
-      &nbsp;&nbsp;
-      Base of all numeric types
-
-      <UL>
-      <LI>
-	<TT><A HREF=javadoc/org.melati.IntegerType.html>IntegerType</A></TT>
+	<TT><A HREF=javadoc/org/melati/poem/IntegerPoemType.html>IntegerType</A></TT>
 	&nbsp;&nbsp;
 
 	Plain old integers, the range being contingent on the
-	underlying SQL type and on 
+	underlying SQL type. 
+
+      <UL>
 
       <LI>
-	<TT><A HREF=javadoc/org.melati.FixedType.html>FixedType</A></TT>
+	<TT><A HREF=javadoc/org/melati/poem/TroidPoemType.html>TroidType</A></TT>
 	&nbsp;&nbsp;
-	Fixed point number, useful for currency fields
+        Table Row Ids
 
       <LI>
-	<TT><A HREF=javadoc/org.melati.RealType.html>RealType</A></TT>
+	<TT><A HREF=javadoc/org/melati/poem/ReferncePoemType.html>ReferenceType</A></TT>
 	&nbsp;&nbsp;
-	By the way, we shouldn't really be using these for absolutely
-	everything as we do now, but we may need them sometimes.
+        Table Row Ids
+
       </UL>
-
     <LI>
-      <TT><A HREF=javadoc/org.melati.StringType.html>StringType</A></TT>
+	<TT><A HREF=javadoc/org/melati/poem/DoublePoemType.html>DoubleType</A></TT>
+	&nbsp;&nbsp;
+
+        Normal doubles, dependant upon the databse/SQL implementation.
+    <LI>
+      <TT><A HREF=javadoc/org/melati/poem/StringPoemType.html>StringType</A></TT>
       &nbsp;&nbsp;
       Base of all character sequence types
 
       <UL>
       <LI>
-	<TT><A HREF=javadoc/org.melati.TextType.html>TextType</A></TT>
+	<TT><A HREF=javadoc/org/melati/poem/PasswordPoemType.html>PasswordType</A></TT>
 	&nbsp;&nbsp;
 	For multiline text area-type things
       </UL>
+    <LI>
+      <TT><A HREF=javadoc/org/melati/poem/DatePoemType.html>DateType</A></TT>
+      &nbsp;&nbsp;
+      Normal dates
+    <LI>
+      <TT><A HREF=javadoc/org/melati/poem/TimestampPoemType.html>TimestampType</A></TT>
+      &nbsp;&nbsp;
+      Time stamps
+    <LI>
+      <TT><A HREF=javadoc/org/melati/poem/BooleanPoemType.html>BooleanType</A></TT>
+      &nbsp;&nbsp;
+      Booleans
+
     </UL>
 
   <LI>
-    <TT><A HREF=javadoc/org.melati.ReferenceType.html>ReferenceType</A></TT>
+    <TT><A HREF=javadoc/org/melati/poem/ReferencePoemType.html>ReferenceType</A></TT>
     &nbsp;&nbsp;
     For object references
 
@@ -1675,6 +1688,9 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.12  2000/07/27 18:39:45  timp
+  <BR>Make CVS links work
+  <BR>
   <BR>Revision 1.11  2000/02/29 09:53:02  williamc
   <BR>Finish recovering from disaster; point out in the docs that you can 'add methods to table rows'
   <BR>

@@ -7,12 +7,14 @@
     <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
+  <property name="version"            value="0.6.1"/>
+  <property name="year"               value="2002"/>
+  <property name="date"               value="11-06-2002"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="ant.home"           value="."/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="jikes"/>
-  <property name="version"            value="0.6.1"/>
   <property name="this.root"          value="../../../"/>
   <property name="build.lib"          value="./lib"/>
   <property name="built"              value="dist"/>
@@ -21,15 +23,16 @@
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
-  <property name="war"                value="${built}/${project}.war"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
   <property name="doc.dir"            value="../qa/javadoc"/>
-  <property name="packaged.root"      value="${built.root}/packaged/"/>
-  <property name="year"               value="2002"/>
+  <property name="packaged"           value="${built.root}/packaged/"/>
+  <property name="war"                value="${packaged}/${project}.war"/>
   <property name="debug"              value="on"/>
   <property name="optimize"           value="off"/>
-  <property name="deprecation"        value="on"/>        
+  <!-- We still use javax.servlet.HttpSession.getValue etc 
+   for Servlet 2.0 compatibility -->
+  <property name="deprecation"        value="off"/>
   <property name="poemODMGDSD"        value="${this.root}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
 
@@ -121,46 +124,46 @@ example:
     <!-- Copies the other files                                            -->
     <!-- ================================================================= -->
     <target name="sources">
-        <copy todir="${built.src}">
-          <fileset dir="${this.root}">
-            <patternset>
-              <include name="**/*.wm"/>
-              <include name="**/*.js"/>
-              <include name="**/*.html"/>
-              <include name="**/*.gif"/>
-              <exclude name="**/doc/example/**/*.wm"/>
-              <exclude name="**/playing/**/*.wm"/>
-              <exclude name="**/README.html"/>
-              <exclude name="**/RELEASE-NOTES.html"/>
-            </patternset>
-          </fileset>
-        </copy>
+      <mkdir dir="${doc.dir}"/>
+      <copy todir="${built.src}">
+        <fileset dir="${this.root}">
+          <patternset>
+            <include name="**/*.wm"/>
+            <include name="**/*.js"/>
+            <include name="**/*.html"/>
+            <include name="**/*.gif"/>
+            <exclude name="**/doc/example/**/*.wm"/>
+            <exclude name="**/playing/**/*.wm"/>
+            <exclude name="**/README.html"/>
+            <exclude name="**/RELEASE-NOTES.html"/>
+          </patternset>
+        </fileset>
+      </copy>
 
-        <copy todir="${built.dir}">
-          <fileset dir="${this.root}/org/melati">
-            <patternset>
-              <include name="*.txt"/>
-              <include name="*.html"/>
-            </patternset>
-          </fileset>
-        </copy>
+      <copy todir="${built.dir}">
+        <fileset dir="${this.root}/org/melati">
+          <patternset>
+            <include name="*.txt"/>
+            <include name="*.html"/>
+          </patternset>
+        </fileset>
+      </copy>
 
-        <copy todir="${built.src}">
-          <fileset dir="${this.root}">
-            <patternset>
-              <include name="**/*.properties.example"/>
-            </patternset>
-          </fileset>
-          <mapper type="glob" from="*.properties.example" to="*.properties"/>
-        </copy>
-
+      <copy todir="${built.src}">
+        <fileset dir="${this.root}">
+          <patternset>
+            <include name="**/*.properties.example"/>
+          </patternset>
+        </fileset>
+        <mapper type="glob" from="*.properties.example" to="*.properties"/>
+      </copy>
     </target>
   
     <!-- ================================================================= -->
     <!-- Creates .jar and the .zip files                                   -->
     <!-- ================================================================= -->
     <!-- don't include properties and wm files in jar -->
-    <target name="jar" depends="compile">
+    <target name="jar">
         <mkdir dir="${built.lib}"/>
         <jar jarfile="${built.lib}/${project}.jar"
             basedir="${compiled.root}"
@@ -182,7 +185,6 @@ example:
        <java classname="org.melati.poem.prepro.DSD"
              fork="yes"
              args="${poemODMGDSD}"
-             jvmargs=""
        />
     </target>
 
@@ -208,14 +210,12 @@ example:
       />
     </target>
     
-    <!-- =============================================================== == -->
-    <!-- Runs the pre-processor to generate the ODMG poem support classes   -->
-    <!-- ================================================================== -->
+    <!-- =========================================================== -->
+    <!-- Run ODMG PlayingTest                                        -->
+    <!-- =========================================================== -->
     <target name="runODMGPlaying" depends="jarODMGPlaying">
        <java classname="org.melati.poem.odmg.playing.PlayingTest"
              fork="yes"
-             args=""
-             jvmargs=""
        />
     </target>
 
@@ -224,16 +224,20 @@ example:
     <!-- ============================================================= -->
   <target name="site"
           description="build site documentation">
-
     <delete>
        <fileset dir="${site}" includes="*.html"/>
     </delete>
     <loadfile property="header" srcFile="${site.src}/header.html"/>
     <loadfile property="footer" srcFile="${site.src}/footer.html"/>
     <loadfile property="menu" srcFile="${site.src}/menu.html"/>
-    <filter token="header" value="${header}"/>
-    <filter token="footer" value="${footer}"/>
-    <filter token="menu" value="${menu}"/>
+    <filter token="header"   value="${header}"/>
+    <filter token="footer"   value="${footer}"/>
+    <filter token="menu"     value="${menu}"/>
+    <filter token="version"  value="${version}"/>
+    <filter token="project"  value="${project}"/>
+    <filter token="name"     value="${name}"/>
+    <filter token="date"     value="${date}"/>
+    <filter token="filename" value="${project}_${version}"/>
     <copy todir="${site}" filtering="true">
        <fileset dir="${site.src}"/>
        <mapper type="glob" from="*.ahtml" to="*.html"/>
@@ -245,10 +249,12 @@ example:
     <!-- Creates the API documentation                                    -->
     <!-- ================================================================ -->
     <target name="javadocs">
-      <mkdir dir="${doc.dir}"/>
+      <delete>
+       <fileset dir="${doc.dir}" includes="*.html"/>
+      </delete>
       <filter token="year"     value="${year}"/>
       <filter token="version"  value="${version}"/>
-      <filter token="date"     value="${TODAY}"/>        
+      <filter token="date"     value="${date}"/>        
       <javadoc
           sourcepath="${this.root}"
           sourcefiles=""
@@ -259,29 +265,31 @@ example:
           private="true"
           version="true"
           use="true"
+          header="a header"
+          footer="a footer"
           windowtitle="${name} ${version} API"
           doctitle="${name} ${version} API"
-          bottom="Copyright &#169; ${year} &lt;i&gt;${project}&lt;/i&gt;. All Rights Reserved."
+          bottom="Copyright &#169; ${year} &lt;i&gt;${name}&lt;/i&gt;. All Rights Reserved."
         />
     </target>
     
     <!-- ================================================================= -->
-    <!-- Package as .zip and .tgz depends="jar,javadocs,sources">                                          -->
+    <!-- Package as .zip and .tgz                                          -->
     <!-- ================================================================= -->
     <target name="package" >
-       <mkdir dir="${packaged.root}"/>
+       <mkdir dir="${packaged}"/>
        <zip  basedir="${this.root}" excludes="**/${built}/**"
-             zipfile="${packaged.root}/${project}_${version}.zip" />
+             zipfile="${packaged}/${project}_${version}.zip" />
        <tar  basedir="${this.root}" excludes="**/${built}/**"
-             tarfile="${packaged.root}/${project}_${version}.tar" />
-       <gzip src="${packaged.root}/${project}_${version}.tar"
-             zipfile="${packaged.root}/${project}_${version}.tar.gz" />
+             tarfile="${packaged}/${project}_${version}.tar" />
+       <gzip src="${packaged}/${project}_${version}.tar"
+             zipfile="${packaged}/${project}_${version}.tar.gz" />
        <zip  basedir="${doc.dir}"
-             zipfile="${packaged.root}/${project}_${version}_doc.zip" />
+             zipfile="${packaged}/${project}_${version}_doc.zip" />
        <tar  basedir="${doc.dir}"
-             tarfile="${packaged.root}/${project}_${version}_doc.tar" />
-       <gzip src="${packaged.root}/${project}_${version}_doc.tar"
-             zipfile="${packaged.root}/${project}_${version}_doc.tar.gz" />
+             tarfile="${packaged}/${project}_${version}_doc.tar" />
+       <gzip src="${packaged}/${project}_${version}_doc.tar"
+             zipfile="${packaged}/${project}_${version}_doc.tar.gz" />
     </target>
     
     
@@ -289,28 +297,75 @@ example:
     <!-- ================================================================= -->
     <!-- Build the .war                                                    -->
     <!-- ================================================================= -->
-  <target name="war" depends="jar">
+  <target name="war">
+    <delete file="${war}"/>
     <war warfile="${war}" webxml="web.xml">
-      <fileset dir="${this.root}/org/melati/site"/>
-      <fileset dir="${this.root}/org/melati">
+      <!-- The site HTML -->
+      <fileset dir="${this.root}/org/melati/site">
+          <exclude name="**/src/**"/>
+      </fileset>
+      <!-- Readme and License -->
+      <zipfileset dir="${this.root}/org/melati"
+                  prefix="melati-static">
           <include name="*.html"/>
           <include name="*.txt"/>
-      </fileset>
+      </zipfileset>
+      <!-- Individual java files referenced -->
+      <zipfileset dir="${this.root}/org/melati/poem"
+                  prefix="melati-static/poem">
+          <include name="PoemDatabase.java"/>
+      </zipfileset>
+<!--   Javadocs 
+      <zipfileset dir="${this.root}/org/melati/qa/javadoc" 
+                  prefix="javadoc">
+          <include name="**/*.html"/>
+          <include name="**/*.css"/>
+          <exclude name="**/CVS/**"/>
+      </zipfileset>
+-->
+      <!-- Source for Admin is referenced in site --> 
+      <zipfileset dir="${this.root}/org/melati/admin" 
+                  prefix="melati-static/admin">
+          <exclude name="**/CVS/**"/>
+          <exclude name="**/*.class"/>
+      </zipfileset>
+      <!-- Documentation  --> 
+      <zipfileset dir="${this.root}/org/melati/doc" 
+                  prefix="melati-static/doc">
+          <exclude name="**/CVS/**"/>
+          <exclude name="**/*.class"/>
+      </zipfileset>
+      <!-- Project documents -->
+      <zipfileset dir="${this.root}/org/melati/qa" 
+                  prefix="melati-static/qa">
+          <exclude name="**/CVS/**"/>
+          <exclude name="**/javadoc/**"/>
+          <exclude name="**/*.class"/>
+      </zipfileset>
+      <!-- Poem user guides -->
+      <zipfileset dir="${this.root}/org/melati/poem/doc" 
+                  prefix="melati-static/poem/doc">
+          <exclude name="**/CVS/**"/>
+      </zipfileset>
+      <!-- Poem preprocessor user guide -->
+      <zipfileset dir="${this.root}/org/melati/poem/prepro/doc" 
+                  prefix="melati-static/poem/prepro/doc">
+          <exclude name="**/CVS/**"/>
+      </zipfileset>
+      <!-- Templets and properties files -->
       <fileset dir="${this.root}">
         <patternset>
           <include name="**/*.properties"/>
           <include name="**/*.wm"/>
-          <include name="**/*.js"/>
-          <include name="**/*.html"/>
-          <include name="**/*.gif"/>
-          <exclude name="**/site/**"/>
-          <exclude name="**/melati/*.html"/>
-          <exclude name="**/melati/*.html"/>
+          <exclude name="**/dist/**"/>
         </patternset>
       </fileset>
+      <!-- Third party jars -->
       <lib dir="${build.lib}">
-        <include name="*.jar"/>
+        <include name="webmacro-1.0.jar"/>
+        <include name="hsqldb.jar"/>
       </lib>
+      <!-- Melati jar -->
       <lib dir="${built.lib}">
         <include name="${project}.jar"/>
       </lib>
@@ -333,12 +388,12 @@ example:
 
   <target name="test" 
           description="build (excluding javadoc) and run"
-          depends="compile, jar, site, war, run">
+          depends="site, war, run">
   </target>
 
   <target name="all" 
           description="build from scratch and run"
-          depends="clean, compile, site, package, war, run">
+          depends="clean, compile, jar, javadocs, site, sources, package, war, run">
   </target>
 
 </project>

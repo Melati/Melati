@@ -35,10 +35,21 @@
 
   <Call name="addWebApplication">
     <Arg>/</Arg>
-    <Arg>./dist/melati.war</Arg>
+    <Arg>./dist/packaged/melati.war</Arg>
     <Set name="extractWAR">false</Set>
   </Call>
 
+<!-- Can't put the war inside itself;
+     Hence these links will only work 
+     if running using ant all in the build directory.
+-->
+  <Call name="addContext">
+    <Arg>/download</Arg>
+    <Set name="ResourceBase">dist/packaged</Set>
+    <Set name="ServingResources">TRUE</Set>
+  </Call>
+<!--
+  These are now in the .war
   <Call name="addContext">
     <Arg>/melati-static</Arg>
     <Set name="ResourceBase">../</Set>
@@ -49,7 +60,7 @@
     <Set name="ResourceBase">../qa/javadoc</Set>
     <Set name="ServingResources">TRUE</Set>
   </Call>
-
+-->
 
 </Configure>
 

@@ -7,8 +7,7 @@ The original ant script was written by kimptoc@techie.com.
 
 HOW TO USE
 
-You need the latest version of ant (1.5.1), but this is included, 
-you may need to define $ANT_HOME as this directory. 
+You need the latest version of ant (1.5.1).
 
 If you just type ant you will be given a list of available options. 
 
@@ -16,28 +15,19 @@ To build a distributable copy of Melati just type:
 
 ant all
 
-
-It will create a directory
-   .../built/ in which the distribution is created.
-
 To build a jar file of all Melati code, under unix, just use 
    ant jar
 
 Assuming you have melati installed in a directory like 
-    .../src/org/melati/...
+    ..inst/melati/org/melati/...
 
 It will create a directory
-   .../dist/
+   .../dist/ in which the distribution is created.
 
 Which will contain all the compiled classes, and additional files (*.wm, *.html, *.gif and *.js)
-
-And a directory
-   .../built/
-
-Which will contain the melati jar file, the javadocs, 
+the melati jar file, the javadocs, 
 a zip file of the sources,
 and additional files (*.wm, *.html, *.gif and *.js)
-
 
 
 To just compile the code, but not generate the jar file
@@ -51,10 +41,6 @@ To generate the javadoc report
 To remove all the compiled code and generated jar files
    sh build-melati.sh clean
 
-
-NOTE
-The above assumed you were working on unix... 
-There is a also a build-melati.bat script that works on NT - although it has not been tested (VOLUNTEERS?)
 
 
 MAKING A RELEASE
@@ -71,7 +57,7 @@ to create a release:
 5.  Replace Release paragraph with one above in
     melati/site/Download.html
 6.  CVS commit all of the above
-7.  CVS tag this release
+7.  CVS tag this release (cvs tag 0.6.1)
 8.  Build melati (again)
 9.  Upload jars and zips to http://www.melati.org/
     scp *.zip www.melati.org:/home/apache/share/htdocs/melati/download/

@@ -51,8 +51,8 @@ import javax.servlet.http.HttpSession;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.MultipartFormField;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.context.EventCartridge;
-import org.apache.velocity.context.EventHandler;
+import org.apache.velocity.app.event.EventCartridge;
+import org.apache.velocity.app.event.EventHandler;
 
 /**
  * Implements a template context for Melati / Webmacro

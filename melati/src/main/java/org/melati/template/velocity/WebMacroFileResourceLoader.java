@@ -66,12 +66,12 @@ import java.util.Map;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import org.apache.oro.text.perl.Perl5Util;
 import org.apache.velocity.util.StringUtils;
-import org.apache.velocity.runtime.configuration.Configuration;
+import org.apache.commons.collections.ExtendedProperties;
 import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.runtime.resource.loader.ResourceLoader;
-import org.apache.oro.text.perl.Perl5Util;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
 
@@ -159,7 +159,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
      */
     private Hashtable templatePaths = new Hashtable();
 
-    public void init(Configuration configuration)
+    public void init(ExtendedProperties configuration)
     {
         Runtime.info("FileResourceLoader : initialization starting.");
         

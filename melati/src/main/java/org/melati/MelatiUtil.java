@@ -47,7 +47,6 @@ package org.melati;
 
 import java.util.Enumeration;
 
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -58,6 +57,7 @@ import org.melati.template.TempletAdaptor;
 import org.melati.template.TempletAdaptorConstructionMelatiException;
 import org.melati.util.Tree;
 import org.melati.util.JSDynamicTree;
+import org.melati.util.UTF8URLEncoder;
 
 /**
  * An object to hold useful static methods for inclusion in a 
@@ -203,6 +203,7 @@ public class MelatiUtil {
    * Modify or add a form parameter setting (query string component) in a query
    * string.
    *
+   * @todo add default encoding
    * @param qs      A query string
    * @param field   The parameter's name
    * @param value   The new value for the parameter (unencoded)
@@ -212,9 +213,10 @@ public class MelatiUtil {
    */
 
   public static String sameQueryWith(String qs, String field, String value) {
-    String fenc = URLEncoder.encode(field);
+    
+    String fenc = UTF8URLEncoder.encode(field);
     String fenceq = fenc + '=';
-    String fev = fenceq + URLEncoder.encode(value);
+    String fev = fenceq + UTF8URLEncoder.encode(value);
 
     if (qs == null || qs.equals("")) return fev;
 

@@ -102,7 +102,7 @@ public class Melati {
 
   private static String DEFAULT_ENCODING = "UTF8";
   private MelatiConfig config;
-  private MelatiContext context;
+  private PoemContext context;
   private HttpServletRequest request;
   private HttpServletResponse response;
   private Database database = null;
@@ -197,7 +197,7 @@ public class Melati {
    * @see org.melati.servlet.PoemServlet
    */
 
-  public void setContext(MelatiContext context) throws DatabaseInitException {
+  public void setContext(PoemContext context) throws DatabaseInitException {
     this.context = context;
     if (context.getLogicalDatabase() != null)
       database = LogicalDatabase.getDatabase(context.getLogicalDatabase());
@@ -223,10 +223,21 @@ public class Melati {
   /**
    * Get the MelatiContext for this Request.
    *
+   * @deprecated use getPoemContext 
    * @return - the MelatiContext for this Request
    */
 
   public MelatiContext getContext() {
+    return (MelatiContext)context;
+  }
+
+  /**
+   * Get the PoemContext for this Request.
+   *
+   * @return - the MelatiContext for this Request
+   */
+
+  public PoemContext getPoemContext() {
     return context;
   }
 
@@ -267,11 +278,10 @@ public class Melati {
    * Get the Method (if any) that has been set for this Request.
    *
    * @return the Method for this Request
-   * @see org.melati.servlet.MelatiContext
+   * @see org.melati.PoemContext
    * @see org.melati.servlet.ConfigServlet#melatiContext
    * @see org.melati.servlet.PoemServlet#melatiContext
    */
-
   public String getMethod() {
     return context.getMethod();
   }

@@ -69,6 +69,7 @@ import org.melati.util.EnumUtils;
 import org.melati.util.HttpHeader;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
+import org.melati.util.MelatiWriter;
 import org.melati.util.PropertiesUtils;
 import org.melati.util.StringUtils;
 
@@ -219,17 +220,27 @@ public class MelatiConfig {
   }
  
 
- /**
-  * Creates a melati context.
-  *
-  * @param request the incoming <code>HttpServletRequest</code>
-  * @param response the outgoing <code>HttpServletResponse</code>
-  * @return a new {@link Melati}
-  */
-  public Melati getMelati(HttpServletRequest request,
-                          HttpServletResponse response) {
-    return new Melati(this, request, response);
-  }
+  /**
+   * Creates a melati context.
+   *
+   * @param request the incoming <code>HttpServletRequest</code>
+   * @param response the outgoing <code>HttpServletResponse</code>
+   * @return a new {@link Melati}
+   */
+   public Melati getMelati(HttpServletRequest request,
+                           HttpServletResponse response) {
+     return new Melati(this, request, response);
+   }
+   
+   /**
+    * Creates a melati context.
+    *
+    * @param writer to write output to  
+    * @return a new {@link Melati}
+    */
+    public Melati getMelati(MelatiWriter writer) {
+      return new Melati(this, writer);
+    }
 
  /** 
   * @return template engine in use.

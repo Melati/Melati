@@ -49,31 +49,21 @@ package org.melati.poem.prepro;
 
 import java.io.*;
 
-public abstract class TableQualifier {
+public class TableDisplayOrderQualifier extends TableQualifier {
 
-  public abstract void apply(TableDef table) throws IllegalityException;
+  private int priority;
 
-  public static TableQualifier from(StreamTokenizer tokens)
+  public TableDisplayOrderQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
-    if (tokens.ttype != StreamTokenizer.TT_WORD)
-      throw new ParsingDSDException("<table qualifier>", tokens);
-    TableQualifier it;
-    String kind = tokens.sval;
+    DSD.expect(tokens, '=');
     tokens.nextToken();
-    if (kind.equals("displayname"))
-      it = new DisplayNameTableQualifier(tokens);
-    else if (kind.equals("description"))
-      it = new DescriptionTableQualifier(tokens);
-    else if (kind.equals("cachelimit"))
-      it = new CacheSizeTableQualifier(tokens);
-    else if (kind.equals("seqcached"))
-      it = new SeqCachedTableQualifier(tokens);
-    else if (kind.equals("category"))
-      it = new CategoryTableQualifier(tokens);
-    else if (kind.equals("displayorder"))
-      it = new TableDisplayOrderQualifier(tokens);
-    else
-      throw new ParsingDSDException("<table qualifier>", kind, tokens);
-    return it;
+    if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval < 0)
+      throw new ParsingDSDException("<positive priority number>", tokens);
+    priority = (int)tokens.nval;
+    tokens.nextToken();
+  }
+
+  public void apply(TableDef table) {
+    table.displayOrder = priority;
   }
 }

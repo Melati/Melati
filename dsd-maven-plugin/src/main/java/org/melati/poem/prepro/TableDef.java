@@ -60,6 +60,7 @@ public class TableDef {
   String displayName;
   String description;
   String category;
+  int displayOrder;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
   final String baseClass;
@@ -67,7 +68,6 @@ public class TableDef {
   final String tableBaseClass;
   final String tableMainClass;
   final String tableAccessorMethod;
-  final int displayOrder;
   private Vector data = new Vector();
 
   public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder)

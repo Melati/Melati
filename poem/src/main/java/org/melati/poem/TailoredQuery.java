@@ -173,10 +173,6 @@ public class TailoredQuery {
   /**
    * Same as without the first argument except that it is inserted 
    * between <code>SELECT</code> and the column list.
-   * <p>
-   * This was apparently a hack.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
    *
    * @see #TailoredQuery(Column[], Table[], String, String)
    */

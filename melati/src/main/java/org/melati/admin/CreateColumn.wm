@@ -8,14 +8,16 @@
 
 <SCRIPT src="/validation.js"></SCRIPT>
 
-<FORM METHOD=post ACTION=Create_doit>
+<FORM METHOD=post ACTION=CreateColumn_doit>
 
 <CENTER>
 
-<H1>Create a new table</H1>
+<H1>Create a new column</H1>
+
+<P>Owning table: $ml.rendered($melati.Table.DisplayName)</P>
 
 <TABLE CELLSPACING=0>
-  #foreach $field in $tableInfoFields #begin
+  #foreach $field in $columnInfoFields #begin
     #if ($field.UserCreateable) #begin
       #if ($field.Description) #begin
 	<TR>
@@ -37,21 +39,14 @@
       <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     #end
   #end
-  <TR>
-    <TD></TD><TD></TD>
-    <TD>
-      <FONT SIZE=1>The name of the table's TROID (primary key) column</FONT>
-    </TD>
-  </TR>
-  <TR>
-    <TD><B>TROID column name</B></TD>
-    <TD><FONT SIZE=1>&nbsp;</FONT></TD>
-    <TD>$ml.input($troidNameField)</TD>
-  </TR>
 </TABLE>
 
-<INPUT NAME=action VALUE="Create the table" TYPE=submit
+<INPUT NAME=action VALUE="Create the column" TYPE=submit
        ONCLICK="return validate(this.form);">
+
+<P><FONT SIZE=-1>
+  (Be aware that deleting a column once it's been created is rather difficult!)
+</FONT></P>
 
 </CENTER>
 

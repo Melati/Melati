@@ -112,6 +112,10 @@
 
 </FORM>
 
+<P>
+  <A HREF=CreateColumn>Add a column to this table</A>
+</P>
+
 </CENTER>
 
 </BODY>

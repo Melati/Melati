@@ -42,24 +42,40 @@ public class Admin extends MelatiServlet {
 
   protected Template tableCreateTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
-    Table tit = PoemThread.database().getTableInfoTable();
-    Enumeration fields =
-        new MappedEnumeration(tit.columns()) {
-          public Object mapped(Object column) {
-            return new ColumnField((Object)null, (Column)column);
-          }
-        };
-    context.put("fields", fields);
+    Database database = melati.getDatabase();
+
+    // Compose field for naming the TROID column: the display name and
+    // description are redundant, since they not used in the template
+
+    Field troidNameField = new Field(
+        "id",
+        new BaseFieldAttributes(
+            "troidName", "Troid column", "Name of TROID column",
+	    database.getColumnInfoTable().getNameColumn().getType(), null));
+
+    context.put("troidNameField", troidNameField);
+
+    Table tit = database.getTableInfoTable();
+    Enumeration tableInfoFields =
+	new MappedEnumeration(tit.columns()) {
+	  public Object mapped(Object column) {
+	    return new Field((Object)null, (Column)column);
+	  }
+	};
+
+    context.put("tableInfoFields", tableInfoFields);
+
     return adminTemplate(context, "CreateTable.wm");
   }
 
   protected Template tableCreate_doitTemplate(WebContext context,
                                               Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
+    Database database = melati.getDatabase();
+    database.addTableAndCommit(
+        (TableInfo)create(database.getTableInfoTable(), context),
+        context.getForm("field-troidName"));
 
-    Database database = PoemThread.database();
-    //    database.addTable(
-    //        (TableInfo)create(database.getTableInfoTable(), context));
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
@@ -89,7 +105,7 @@ public class Admin extends MelatiServlet {
                     final PoemType nullable =
                         column.getType().withNullable(true);
                     return
-                        new ColumnField(column.getIdent(data), column) {
+                        new Field(column.getIdent(data), column) {
                           public PoemType getType() {
                             return nullable;
                           }
@@ -153,6 +169,50 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Select.wm");
   }
 
+  protected Template columnCreateTemplate(WebContext context,
+					  Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    
+    final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
+    final Column tic = cit.getTableinfoColumn();
+
+    Enumeration columnInfoFields =
+	new MappedEnumeration(cit.columns()) {
+	  public Object mapped(Object column) {
+	    if (column == tic)
+	      column = new BaseFieldAttributes(
+                  tic.getName(), tic.getDisplayName(), tic.getDescription(),
+		  tic.getType(), tic.getRenderInfo());
+
+	    return new Field((Object)null, (FieldAttributes)column);
+	  }
+	};
+
+    context.put("columnInfoFields", columnInfoFields);
+
+    return adminTemplate(context, "CreateColumn.wm");
+  }
+
+  protected Template columnCreate_doitTemplate(final WebContext context,
+					       final Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+
+    ColumnInfo columnInfo =
+        (ColumnInfo)melati.getDatabase().getColumnInfoTable().create (
+	    new Initialiser() {
+	      public void init(Persistent object)
+		  throws AccessPoemException, ValidationPoemException {
+		((ColumnInfo)object).setTableinfoTroid(
+                    melati.getTable().tableInfoID());
+		copyFields(context, object);
+	      }
+	    });
+
+    melati.getTable().addColumnAndCommit(columnInfo);
+
+    return adminTemplate(context, "CreateTable_doit.wm");
+  }
+
   protected Template editTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     melati.getObject().assertCanRead();
@@ -168,7 +228,7 @@ public class Admin extends MelatiServlet {
     Enumeration fields =
         new MappedEnumeration(melati.getTable().columns()) {
           public Object mapped(Object column) {
-            return new ColumnField((Object)null, (Column)column);
+            return new Field((Object)null, (Column)column);
           }
         };
     context.put("fields", fields);
@@ -262,6 +322,10 @@ public class Admin extends MelatiServlet {
           return addTemplate(context, melati);
         else if (melati.getMethod().equals("AddUpdate"))
           return addUpdateTemplate(context, melati);
+        else if (melati.getMethod().equals("CreateColumn"))
+          return columnCreateTemplate(context, melati);
+        else if (melati.getMethod().equals("CreateColumn_doit"))
+          return columnCreate_doitTemplate(context, melati);
       }
       else {
         if (melati.getMethod().equals("View"))

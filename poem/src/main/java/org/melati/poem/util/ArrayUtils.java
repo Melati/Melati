@@ -71,6 +71,15 @@ public class ArrayUtils {
     return xsx;
   }
 
+  public static Object[] concatenated(Object[] xs, Object[] ys) {
+    Object[] xsys =
+        (Object[])java.lang.reflect.Array.newInstance(
+            xs.getClass().getComponentType(), xs.length + ys.length);
+    System.arraycopy(xs, 0, xsys, 0, xs.length);
+    System.arraycopy(ys, 0, xsys, xs.length, ys.length);
+    return xsys;
+  }
+
   public static int indexOf(Object[] xs, Object x) {
     for (int i = 0; i < xs.length; ++i)
       if (xs[i].equals(x)) return i;

@@ -764,6 +764,10 @@ public class Table {
     return serial.current(transaction);
   }
 
+  public void readLock() {
+    serial(PoemThread.transaction());
+  }
+
   // 
   // ----------
   //  Fetching
@@ -1138,16 +1142,10 @@ public class Table {
 
   private int nextTroid = -1;
 
-  synchronized private Integer nextTroid() {
+  protected synchronized Integer troidFor(Persistent persistent) {
     if (nextTroid == -1)
       throw new PoemBugPoemException();
     return new Integer(nextTroid++);
-  }
-
-  final int troidBound() {
-    if (nextTroid == -1)
-      throw new PoemBugPoemException();
-    return nextTroid;
   }
 
   public void create(Persistent persistent)
@@ -1162,7 +1160,7 @@ public class Table {
       throw new CreationAccessPoemException(this, sessionToken.accessToken,
                                             canCreate);
 
-    claim(persistent, nextTroid());
+    claim(persistent, troidFor(persistent));
 
     persistent.setStatusNonexistent();
 

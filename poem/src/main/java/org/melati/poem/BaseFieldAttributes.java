@@ -95,6 +95,13 @@ public class BaseFieldAttributes implements FieldAttributes {
          other.getUserCreateable());
   }
 
+  public BaseFieldAttributes(FieldAttributes other, String name) {
+    this(name, other.getDisplayName(), other.getDescription(),
+	 other.getType(), other.getWidth(), other.getHeight(), other.getRenderInfo(),
+         other.getIndexed(), other.getUserEditable(),
+         other.getUserCreateable());
+  }
+
   public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
     this(other, other.getType().withNullable(nullable));
   }

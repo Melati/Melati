@@ -384,7 +384,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, test, zip, javadoc, site, sources, package, war">
+          depends="clean, compile, unittest, zip, javadoc, site, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"
@@ -396,7 +396,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc) and run"
-          depends="clean, compile, zip, sources, package, war, run">
+          depends="clean, compile, unittest, zip, sources, package, war, run">
   </target>
     <!-- ============================================================== -->
     <!-- Edit, compile, test cycle                                      -->

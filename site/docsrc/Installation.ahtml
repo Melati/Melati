@@ -31,7 +31,7 @@ This page last updated: $Date$ $Author$
   To get a complete replica of the Melati website:
   <pre><code>
 cd org/melati/build
-ant run </code></pre>
+ant go </code></pre>
 </p>
 <p>
   <i>Note that you need the very latest version (1.5) of <a

@@ -122,9 +122,11 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected void writeDown(Transaction transaction) {
-    assertNormalPersistent();
-    table.writeDown((PoemTransaction)transaction, this);
-    // table will clear our dirty flag
+    if (status != DELETED) {
+      assertNormalPersistent();
+      table.writeDown((PoemTransaction)transaction, this);
+      // table will clear our dirty flag
+    }
   }
 
   protected void writeLock(Transaction transaction) {
@@ -148,13 +150,17 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected void commit(Transaction transaction) {
-    assertNormalPersistent();
-    super.commit(transaction);
+    if (status != DELETED) {
+      assertNormalPersistent();
+      super.commit(transaction);
+    }
   }
 
   protected void rollback(Transaction transaction) {
-    assertNormalPersistent();
-    super.rollback(transaction);
+    if (status != DELETED) {
+      assertNormalPersistent();
+      super.rollback(transaction);
+    }
   }
 
   // 
@@ -166,7 +172,7 @@ public class Persistent extends Transactioned implements Cloneable {
   /** a shortcut method to mark this object as persistent */
   public final void makePersistent()
   {
-      getTable().create(this);
+    getTable().create(this);
   }
   
   synchronized Object[] extras() {
@@ -948,6 +954,7 @@ public class Persistent extends Transactioned implements Cloneable {
     SessionToken sessionToken = PoemThread.sessionToken();
     deleteLock(sessionToken);
     table.delete(troid(), sessionToken.transaction);    
+    status = DELETED;
   }
 
   public Field getPrimaryDisplayField() {
@@ -1004,14 +1011,7 @@ public class Persistent extends Transactioned implements Cloneable {
 
   public Persistent duplicated() throws AccessPoemException {
     assertNormalPersistent();
-
-    Persistent it = (Persistent)clone();
-//
-//  we can't write this object yet as we need to populate it with new info, otherwise
-//  when we write it is likely cause problems with unique indexes.  so you need to call
-//  getTable().create(it) yourself
-//  getTable().create(it);
-    return it;
+    return (Persistent)clone();
   }
 
   // 
@@ -1078,8 +1078,7 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected Object clone() {
-
-//  to clone it you have to be able to read it
+    // to clone it you have to be able to read it
     assertCanRead();
     Persistent it;
     try {
@@ -1106,7 +1105,7 @@ public class Persistent extends Transactioned implements Cloneable {
     }
   }
 
-  // override it to provide functionality sussequent to writes (or inserts), 
+  // override it to provide functionality subsequent to writes (or inserts), 
   // your persistent will have a Troid at this stage
   // this method is only called once!
 
@@ -1132,5 +1131,4 @@ public class Persistent extends Transactioned implements Cloneable {
    */
   public void postModify() {
   }
-
 }

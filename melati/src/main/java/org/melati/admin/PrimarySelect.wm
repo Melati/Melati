@@ -81,7 +81,6 @@ return false;
   #if ($admin.isReferencePoemType($primaryCriterion)) #begin
     <a href='$admin.addURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
   </td><td>
-
 <SELECT NAME="field-$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
   #foreach $poss in $primaryCriterion.First1000Possibilities #begin
     <OPTION VALUE="$admin.SelectionURL($table)?field-$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"
@@ -89,8 +88,8 @@ return false;
         SELECTED
       #end
     >
-      #if ($poss.RawString.equals("") && $nullValue) #begin
-        $ml.rendered($nullValue)
+      #if ($poss.RawString.equals("")) #begin
+        All
       #end #else #begin
         $ml.renderedString($poss)
       #end

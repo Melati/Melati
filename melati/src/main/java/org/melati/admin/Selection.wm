@@ -81,7 +81,7 @@ $results.TotalCount</b></font>
 	#set $color = $color1;
     #foreach $result in $results #begin
       <TR>
-	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.editURL($result)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0></a>&nbsp;</font></TD>
+	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.editURL($result)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0 hspace=2></a>&nbsp;</font></TD>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.renderedStart($field)&nbsp;</font></TD>
 	#end

@@ -146,8 +146,8 @@ public final class Cache {
       if (n == theLRU) theLRU = n.prevMRU;
       if (n == theMRU) theMRU = n.nextMRU;
       n.putBefore(null);
-      table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
       --heldNodes;
+      table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
       n = nn;
     }
   }
@@ -158,19 +158,23 @@ public final class Cache {
 
     trim(maxSize);
 
-    HeldNode node = new HeldNode(key, value);
+    if (maxSize == 0)
+      table.put(key, new DroppedNode(key, value, collectedValuesQueue));
+    else {
+      HeldNode node = new HeldNode(key, value);
 
-    Object previous = table.put(key, node);
-    if (previous != null) {
-      table.put(key, previous);
-      throw new CacheDuplicationException();
+      Object previous = table.put(key, node);
+      if (previous != null) {
+	table.put(key, previous);
+	throw new CacheDuplicationException();
+      }
+
+      node.putBefore(theMRU);
+      theMRU = node;
+      if (theLRU == null) theLRU = node;
+
+      ++heldNodes;
     }
-
-    node.putBefore(theMRU);
-    theMRU = node;
-    if (theLRU == null) theLRU = node;
-
-    ++heldNodes;
   }
 
   public synchronized Object get(Object key) {

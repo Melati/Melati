@@ -87,9 +87,16 @@ $nonexistant
 <b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
 #end
 
-You can test how the PropagateVariableExceptionHandler handles "normal" template expansion exceptions by clicking <a href=?nonexistant=true>?nonexistant=true</a>.<br>
-You can test how the PassbackVariableExceptionHandler handles AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.<br>
-You can test how the PropagateVariableExceptionHandler handles AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.<br>
+You can test how the PropagateVariableExceptionHandler handles 
+"normal" template expansion exceptions by clicking 
+<a href=?nonexistant=true>?nonexistant=true</a>.
+<br>
+You can test how the PropagateVariableExceptionHandler handles 
+AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.
+<br>
+You can test how the PassbackVariableExceptionHandler handles 
+AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.
+<br>
 
 
 <h3>Further Testing</h3>

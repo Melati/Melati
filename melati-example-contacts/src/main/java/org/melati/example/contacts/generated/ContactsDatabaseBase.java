@@ -18,7 +18,7 @@ import org.melati.example.contacts.CategoryTable;
 import org.melati.example.contacts.ContactCategoryTable;
 
 /**
- * Melati POEM generated base class
+ * Melati POEM generated Database base class.
  */
 public class ContactsDatabaseBase extends PoemDatabase {
 
@@ -50,51 +50,135 @@ public class ContactsDatabaseBase extends PoemDatabase {
     redefineTable(tab_contactcategory = new ContactCategoryTable(this, "contactcategory", DefinitionSource.dsd));
   }
 
+
+ /**
+  * Retrieves the UserTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the UserTable from this database
+  */
   public UserTable getUserTable() {
     return tab_user;
   }
 
+
+ /**
+  * Retrieves the GroupTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupTable from this database
+  */
   public GroupTable getGroupTable() {
     return tab_group;
   }
 
+
+ /**
+  * Retrieves the CapabilityTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the CapabilityTable from this database
+  */
   public CapabilityTable getCapabilityTable() {
     return tab_capability;
   }
 
+
+ /**
+  * Retrieves the GroupMembershipTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupMembershipTable from this database
+  */
   public GroupMembershipTable getGroupMembershipTable() {
     return tab_groupmembership;
   }
 
+
+ /**
+  * Retrieves the GroupCapabilityTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupCapabilityTable from this database
+  */
   public GroupCapabilityTable getGroupCapabilityTable() {
     return tab_groupcapability;
   }
 
+
+ /**
+  * Retrieves the TableCategoryTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the TableCategoryTable from this database
+  */
   public TableCategoryTable getTableCategoryTable() {
     return tab_tablecategory;
   }
 
+
+ /**
+  * Retrieves the TableInfoTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the TableInfoTable from this database
+  */
   public TableInfoTable getTableInfoTable() {
     return tab_tableinfo;
   }
 
 
+
+ /**
+  * Retrieves the ColumnInfoTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the ColumnInfoTable from this database
+  */
   public ColumnInfoTable getColumnInfoTable() {
     return tab_columninfo;
   }
 
+
+ /**
+  * Retrieves the SettingTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the SettingTable from this database
+  */
   public SettingTable getSettingTable() {
     return tab_setting;
   }
 
+
+ /**
+  * Retrieves the ContactTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the ContactTable from this database
+  */
   public ContactTable getContactTable() {
     return tab_contact;
   }
 
+
+ /**
+  * Retrieves the CategoryTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the CategoryTable from this database
+  */
   public CategoryTable getCategoryTable() {
     return tab_category;
   }
 
+
+ /**
+  * Retrieves the ContactCategoryTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the ContactCategoryTable from this database
+  */
   public ContactCategoryTable getContactCategoryTable() {
     return tab_contactcategory;
   }

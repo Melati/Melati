@@ -17,23 +17,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent Contact.
- * Field summary for SQL table contact:
- *   id
- *   name
- *   owner
- *   address
- *   updates
- *   lastupdated
- *   lastupdateuser
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>Contact</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class ContactBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public ContactsDatabaseTables getContactsDatabaseTables() {
     return (ContactsDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>ContactTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the ContactTable
+  */
   public ContactTable getContactTable() {
     return (ContactTable)getTable();
   }
@@ -42,21 +51,71 @@ public abstract class ContactBase extends Persistent {
     return (ContactTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id 
+  */
   protected Integer id;
+ /**
+  * name - Contact Name 
+  */
   protected String name;
+ /**
+  * owner - Contact who owns this contact 
+  */
   protected Integer owner;
+ /**
+  * address - Contact Address 
+  */
   protected String address;
+ /**
+  * updates - How many times has this record been updated? 
+  */
   protected Integer updates;
+ /**
+  * lastupdated - When was this last updated? 
+  */
   protected Date lastupdated;
+ /**
+  * lastupdateuser - Who last updated this? 
+  */
   protected Integer lastupdateuser;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>Contact</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -64,30 +123,98 @@ public abstract class ContactBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getContactTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getContactTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String name
+  */
   public String getName_unsafe() {
     return name;
   }
 
+
+ /**
+  * Sets the <code>Name</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setName_unsafe(String cooked) {
     name = cooked;
   }
+
+ /**
+  * Retrieves the Name value, with locking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   Contact Name 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Name</code> for this 
+  *         <code>Contact</code> <code>Persistent</code>  
+  */
 
   public String getName()
       throws AccessPoemException {
@@ -95,25 +222,78 @@ public abstract class ContactBase extends Persistent {
     return getName_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Name</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   Contact Name 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getContactTable().getNameColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String name
+  */
   public Field getNameField() throws AccessPoemException {
     Column c = _getContactTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Owner</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer owner
+  */
   public Integer getOwner_unsafe() {
     return owner;
   }
 
+
+ /**
+  * Sets the <code>Owner</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setOwner_unsafe(Integer cooked) {
     owner = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getOwnerTroid()
       throws AccessPoemException {
@@ -121,12 +301,34 @@ public abstract class ContactBase extends Persistent {
     return getOwner_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setOwnerTroid(Integer raw)
       throws AccessPoemException {
     setOwner(raw == null ? null : 
         getContactsDatabaseTables().getContactTable().getContactObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Owner</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Owner</code> as a <code>Contact</code> 
+  */
   public Contact getOwner()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getOwnerTroid();
@@ -134,9 +336,21 @@ public abstract class ContactBase extends Persistent {
         getContactsDatabaseTables().getContactTable().getContactObject(troid);
   }
 
+
+ /**
+  * Set the Owner.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Contact</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setOwner(Contact cooked)
       throws AccessPoemException {
-    _getContactTable().getOwnerColumn().getType().assertValidCooked(cooked);
+    _getContactTable().
+      getOwnerColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setOwner_unsafe(null);
@@ -146,18 +360,59 @@ public abstract class ContactBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Owner</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer owner
+  */
   public Field getOwnerField() throws AccessPoemException {
     Column c = _getContactTable().getOwnerColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Address</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String address
+  */
   public String getAddress_unsafe() {
     return address;
   }
 
+
+ /**
+  * Sets the <code>Address</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setAddress_unsafe(String cooked) {
     address = cooked;
   }
+
+ /**
+  * Retrieves the Address value, with locking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   Contact Address 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Address</code> for this 
+  *         <code>Contact</code> <code>Persistent</code>  
+  */
 
   public String getAddress()
       throws AccessPoemException {
@@ -165,25 +420,82 @@ public abstract class ContactBase extends Persistent {
     return getAddress_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Address</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   Contact Address 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setAddress(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactTable().getAddressColumn().getType().assertValidCooked(cooked);
+    _getContactTable().getAddressColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setAddress_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Address</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String address
+  */
   public Field getAddressField() throws AccessPoemException {
     Column c = _getContactTable().getAddressColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Updates</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer updates
+  */
   public Integer getUpdates_unsafe() {
     return updates;
   }
 
+
+ /**
+  * Sets the <code>Updates</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setUpdates_unsafe(Integer cooked) {
     updates = cooked;
   }
+
+ /**
+  * Retrieves the Updates value, with locking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   How many times has this record been updated? 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Updates</code> for this 
+  *         <code>Contact</code> <code>Persistent</code>  
+  */
 
   public Integer getUpdates()
       throws AccessPoemException {
@@ -191,30 +503,103 @@ public abstract class ContactBase extends Persistent {
     return getUpdates_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Updates</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   How many times has this record been updated? 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setUpdates(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactTable().getUpdatesColumn().getType().assertValidCooked(cooked);
+    _getContactTable().getUpdatesColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setUpdates_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Updates</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   How many times has this record been updated? 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setUpdates(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setUpdates(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Updates</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer updates
+  */
   public Field getUpdatesField() throws AccessPoemException {
     Column c = _getContactTable().getUpdatesColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdated</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Date lastupdated
+  */
   public Date getLastupdated_unsafe() {
     return lastupdated;
   }
 
+
+ /**
+  * Sets the <code>Lastupdated</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setLastupdated_unsafe(Date cooked) {
     lastupdated = cooked;
   }
+
+ /**
+  * Retrieves the Lastupdated value, with locking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   When was this last updated? 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Lastupdated</code> for this 
+  *         <code>Contact</code> <code>Persistent</code>  
+  */
 
   public Date getLastupdated()
       throws AccessPoemException {
@@ -222,25 +607,78 @@ public abstract class ContactBase extends Persistent {
     return getLastupdated_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Lastupdated</code> value, with checking, for this 
+  * <code>Contact</code> <code>Persistent</code>.
+  * Field description: 
+  *   When was this last updated? 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setLastupdated(Date cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactTable().getLastupdatedColumn().getType().assertValidCooked(cooked);
+    _getContactTable().getLastupdatedColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setLastupdated_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdated</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Date lastupdated
+  */
   public Field getLastupdatedField() throws AccessPoemException {
     Column c = _getContactTable().getLastupdatedColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdateuser</code> value, without locking, 
+  * for this <code>Contact</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer lastupdateuser
+  */
   public Integer getLastupdateuser_unsafe() {
     return lastupdateuser;
   }
 
+
+ /**
+  * Sets the <code>Lastupdateuser</code> value directly, without checking, 
+  * for this Contact <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setLastupdateuser_unsafe(Integer cooked) {
     lastupdateuser = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getLastupdateuserTroid()
       throws AccessPoemException {
@@ -248,12 +686,34 @@ public abstract class ContactBase extends Persistent {
     return getLastupdateuser_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setLastupdateuserTroid(Integer raw)
       throws AccessPoemException {
     setLastupdateuser(raw == null ? null : 
         getContactsDatabaseTables().getUserTable().getUserObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdateuser</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Lastupdateuser</code> as a <code>User</code> 
+  */
   public User getLastupdateuser()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getLastupdateuserTroid();
@@ -261,9 +721,21 @@ public abstract class ContactBase extends Persistent {
         getContactsDatabaseTables().getUserTable().getUserObject(troid);
   }
 
+
+ /**
+  * Set the Lastupdateuser.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>User</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setLastupdateuser(User cooked)
       throws AccessPoemException {
-    _getContactTable().getLastupdateuserColumn().getType().assertValidCooked(cooked);
+    _getContactTable().
+      getLastupdateuserColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setLastupdateuser_unsafe(null);
@@ -273,6 +745,17 @@ public abstract class ContactBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdateuser</code> value as a <code>Field</code>
+  * from this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer lastupdateuser
+  */
   public Field getLastupdateuserField() throws AccessPoemException {
     Column c = _getContactTable().getLastupdateuserColumn();
     return new Field(c.getRaw(this), c);

@@ -20,12 +20,10 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for table Child.
- * Field summary for SQL table child:
- *   id
- *   name
- *   parent
+ * Melati POEM generated base class for 
+<code>Table</code> <code>Child</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ChildTableBase extends Table {
@@ -34,17 +32,43 @@ public class ChildTableBase extends Table {
   private Column col_name = null;
   private Column col_parent = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public ChildTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public ChildTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public OdmgDatabaseTables getOdmgDatabaseTables() {
     return (OdmgDatabaseTables)getDatabase();
   }
@@ -91,11 +115,32 @@ public class ChildTableBase extends Table {
             ((Child)g).setId_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Id value, 
+  * without checking, of this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Child)g).getId();
           }
 
+
+ /**
+  * Sets the Id value, without checking, for this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Child)g).setId((Integer)raw);
@@ -134,11 +179,32 @@ public class ChildTableBase extends Table {
             ((Child)g).setName_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Name value, 
+  * without checking, of this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Child)g).getName();
           }
 
+
+ /**
+  * Sets the Name value, without checking, for this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Child)g).setName((String)raw);
@@ -190,22 +256,62 @@ public class ChildTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> <code>Column</code> for this 
+  * <code>Child</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the id <code>Column</code>
+  */
   public final Column getIdColumn() {
     return col_id;
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> <code>Column</code> for this 
+  * <code>Child</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the name <code>Column</code>
+  */
   public final Column getNameColumn() {
     return col_name;
   }
 
+
+ /**
+  * Retrieves the <code>Parent</code> <code>Column</code> for this 
+  * <code>Child</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the parent <code>Column</code>
+  */
   public final Column getParentColumn() {
     return col_parent;
   }
 
+
+ /**
+  * Retrieve the <code>Child</code> as a <code>Child</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public Child getChildObject(Integer troid) {
     return (Child)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>Child</code> 
+  * as a <code>Child</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public Child getChildObject(int troid) {
     return (Child)getObject(troid);
   }

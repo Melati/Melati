@@ -14,29 +14,32 @@ import org.melati.poem.ValueInfoTable;
 
 
 /**
- * Melati POEM generated base class for persistent ValueInfo.
- * Field summary for SQL table valueinfo:
- *   displayname
- *   description
- *   usereditable
- *   typefactory
- *   nullable
- *   size
- *   width
- *   height
- *   precision
- *   scale
- *   renderinfo
- *   rangelow_string
- *   rangelimit_string
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>ValueInfo</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class ValueInfoBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>ValueInfoTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the ValueInfoTable
+  */
   public ValueInfoTable getValueInfoTable() {
     return (ValueInfoTable)getTable();
   }
@@ -45,27 +48,103 @@ public abstract class ValueInfoBase extends Persistent {
     return (ValueInfoTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * Display name - A user-friendly name for the field 
+  */
   protected String displayname;
+ /**
+  * description - A brief description of the field's function 
+  */
   protected String description;
+ /**
+  * User-editable - Whether it makes sense for the user to update the field's 
+  * value 
+  */
   protected Boolean usereditable;
+ /**
+  * Type - The field's Melati type 
+  */
   protected Integer typefactory;
+ /**
+  * nullable - Whether the field can be empty 
+  */
   protected Boolean nullable;
+ /**
+  * size - For character fields, the maximum number of characters that can be 
+  * stored, (-1 for unlimited) 
+  */
   protected Integer size;
+ /**
+  * Input-box width - A sensible width for text boxes used for entering the 
+  * field, where appropriate 
+  */
   protected Integer width;
+ /**
+  * Input-box height - A sensible height for text boxes used for entering the 
+  * field, where appropriate 
+  */
   protected Integer height;
+ /**
+  * Precision - Precision (total number of digits) for fixed-point numbers 
+  */
   protected Integer precision;
+ /**
+  * Scale - Scale (number of digits after the decimal) for fixed-point numbers 
+  */
   protected Integer scale;
+ /**
+  * Rendering information - The name of the Melati templet (if not the default) 
+  * to use for input controls for the field 
+  */
   protected String renderinfo;
+ /**
+  * Range: low - The low end of the range of permissible values for the field 
+  */
   protected String rangelow_string;
+ /**
+  * Range: limit - The (exclusive) limit of the range of permissible values for 
+  * the field 
+  */
   protected String rangelimit_string;
 
+
+ /**
+  * Retrieves the <code>Displayname</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String displayname
+  */
   public String getDisplayname_unsafe() {
     return displayname;
   }
 
+
+ /**
+  * Sets the <code>Displayname</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDisplayname_unsafe(String cooked) {
     displayname = cooked;
   }
+
+ /**
+  * Retrieves the Displayname value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A user-friendly name for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Displayname</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public String getDisplayname()
       throws AccessPoemException {
@@ -73,25 +152,82 @@ public abstract class ValueInfoBase extends Persistent {
     return getDisplayname_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Displayname</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A user-friendly name for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setDisplayname(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getDisplaynameColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getDisplaynameColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setDisplayname_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Displayname</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String displayname
+  */
   public Field getDisplaynameField() throws AccessPoemException {
     Column c = _getValueInfoTable().getDisplaynameColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Description</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String description
+  */
   public String getDescription_unsafe() {
     return description;
   }
 
+
+ /**
+  * Sets the <code>Description</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDescription_unsafe(String cooked) {
     description = cooked;
   }
+
+ /**
+  * Retrieves the Description value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A brief description of the field's function 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Description</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public String getDescription()
       throws AccessPoemException {
@@ -99,25 +235,82 @@ public abstract class ValueInfoBase extends Persistent {
     return getDescription_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Description</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A brief description of the field's function 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setDescription(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getDescriptionColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getDescriptionColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setDescription_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Description</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String description
+  */
   public Field getDescriptionField() throws AccessPoemException {
     Column c = _getValueInfoTable().getDescriptionColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Usereditable</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Boolean usereditable
+  */
   public Boolean getUsereditable_unsafe() {
     return usereditable;
   }
 
+
+ /**
+  * Sets the <code>Usereditable</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setUsereditable_unsafe(Boolean cooked) {
     usereditable = cooked;
   }
+
+ /**
+  * Retrieves the Usereditable value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether it makes sense for the user to update the field's value 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Usereditable</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Boolean getUsereditable()
       throws AccessPoemException {
@@ -125,36 +318,122 @@ public abstract class ValueInfoBase extends Persistent {
     return getUsereditable_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Usereditable</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether it makes sense for the user to update the field's value 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setUsereditable(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getUsereditableColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getUsereditableColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setUsereditable_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Usereditable</code> value, with checking, 
+  * from a <code>boolean</code>, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether it makes sense for the user to update the field's value 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.BooleanFieldDef#generateBaseMethods 
+  * @param cooked  a <code>boolean</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setUsereditable(boolean cooked)
       throws AccessPoemException, ValidationPoemException {
     setUsereditable(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
+
+ /**
+  * Retrieves the <code>Usereditable</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Boolean usereditable
+  */
   public Field getUsereditableField() throws AccessPoemException {
     Column c = _getValueInfoTable().getUsereditableColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Typefactory</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer typefactory
+  */
   public Integer getTypefactory_unsafe() {
     return typefactory;
   }
 
+
+ /**
+  * Sets the <code>Typefactory</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setTypefactory_unsafe(Integer cooked) {
     typefactory = cooked;
   }
+
+ /**
+  * Retrieves the <code>Typefactory</code> value as an <code>Integer</code> for this <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
+  * Field description: 
+  *   The field's Melati type 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights
+  * @return the <code>Typefactory</code> value of this <code>Column</code>
+  */
 
   public Integer getTypefactoryCode()
       throws AccessPoemException {
     readLock();
     return getTypefactory_unsafe();
   }
+
+ /**
+  * Sets the <code>Integer</code> <code>Typefactory</code> value  for this <code>ValueInfo</code> <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
+  * Field description: 
+  *   The field's Melati type 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
+  * @param raw the value to set 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
 
   public void setTypefactoryCode(Integer raw)
       throws AccessPoemException {
@@ -163,6 +442,19 @@ public abstract class ValueInfoBase extends Persistent {
     setTypefactory_unsafe(raw);
   }
 
+
+ /**
+  * Retrieves the <code>Typefactory</code> value as an <code>PoemTypeFactory</code> for this <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
+  * Field description: 
+  *   The field's Melati type 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights
+  * @return the <code>Typefactory</code> value of this <code>Column</code>
+  */
   public PoemTypeFactory getTypefactory()
       throws AccessPoemException {
     Integer code = getTypefactoryCode();
@@ -170,23 +462,77 @@ public abstract class ValueInfoBase extends Persistent {
         PoemTypeFactory.forCode(getDatabase(), code.intValue());
   }
 
+
+ /**
+  * Sets the <code>PoemTypeFactory</code> <code>Typefactory</code> value  for this <code>ValueInfo</code> <code>Column</code> of the <code>ValueInfo</code> <code>Table</code>.
+  * Field description: 
+  *   The field's Melati type 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.ColumnTypeFieldDef#generateBaseMethods 
+  * @param cooked the value to set 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setTypefactory(PoemTypeFactory cooked)
       throws AccessPoemException {
     setTypefactoryCode(cooked == null ? null : cooked.getCode());
   }
 
+
+ /**
+  * Retrieves the <code>Typefactory</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer typefactory
+  */
   public Field getTypefactoryField() throws AccessPoemException {
     Column c = _getValueInfoTable().getTypefactoryColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Nullable</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Boolean nullable
+  */
   public Boolean getNullable_unsafe() {
     return nullable;
   }
 
+
+ /**
+  * Sets the <code>Nullable</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setNullable_unsafe(Boolean cooked) {
     nullable = cooked;
   }
+
+ /**
+  * Retrieves the Nullable value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the field can be empty 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Nullable</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Boolean getNullable()
       throws AccessPoemException {
@@ -194,30 +540,105 @@ public abstract class ValueInfoBase extends Persistent {
     return getNullable_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Nullable</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the field can be empty 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setNullable(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getNullableColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getNullableColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setNullable_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Nullable</code> value, with checking, 
+  * from a <code>boolean</code>, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the field can be empty 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.BooleanFieldDef#generateBaseMethods 
+  * @param cooked  a <code>boolean</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setNullable(boolean cooked)
       throws AccessPoemException, ValidationPoemException {
     setNullable(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
+
+ /**
+  * Retrieves the <code>Nullable</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Boolean nullable
+  */
   public Field getNullableField() throws AccessPoemException {
     Column c = _getValueInfoTable().getNullableColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Size</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer size
+  */
   public Integer getSize_unsafe() {
     return size;
   }
 
+
+ /**
+  * Sets the <code>Size</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setSize_unsafe(Integer cooked) {
     size = cooked;
   }
+
+ /**
+  * Retrieves the Size value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   For character fields, the maximum number of characters that can be 
+  *   stored, (-1 for unlimited) 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Size</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getSize()
       throws AccessPoemException {
@@ -225,30 +646,106 @@ public abstract class ValueInfoBase extends Persistent {
     return getSize_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Size</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   For character fields, the maximum number of characters that can be 
+  *   stored, (-1 for unlimited) 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setSize(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getSizeColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getSizeColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setSize_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Size</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   For character fields, the maximum number of characters that can be 
+  *   stored, (-1 for unlimited) 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setSize(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setSize(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Size</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer size
+  */
   public Field getSizeField() throws AccessPoemException {
     Column c = _getValueInfoTable().getSizeColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Width</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer width
+  */
   public Integer getWidth_unsafe() {
     return width;
   }
 
+
+ /**
+  * Sets the <code>Width</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setWidth_unsafe(Integer cooked) {
     width = cooked;
   }
+
+ /**
+  * Retrieves the Width value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible width for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Width</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getWidth()
       throws AccessPoemException {
@@ -256,30 +753,106 @@ public abstract class ValueInfoBase extends Persistent {
     return getWidth_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Width</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible width for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setWidth(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getWidthColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getWidthColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setWidth_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Width</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible width for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setWidth(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setWidth(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Width</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer width
+  */
   public Field getWidthField() throws AccessPoemException {
     Column c = _getValueInfoTable().getWidthColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Height</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer height
+  */
   public Integer getHeight_unsafe() {
     return height;
   }
 
+
+ /**
+  * Sets the <code>Height</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setHeight_unsafe(Integer cooked) {
     height = cooked;
   }
+
+ /**
+  * Retrieves the Height value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible height for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Height</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getHeight()
       throws AccessPoemException {
@@ -287,30 +860,105 @@ public abstract class ValueInfoBase extends Persistent {
     return getHeight_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Height</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible height for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setHeight(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getHeightColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getHeightColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setHeight_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Height</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A sensible height for text boxes used for entering the field, where 
+  *   appropriate 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setHeight(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setHeight(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Height</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer height
+  */
   public Field getHeightField() throws AccessPoemException {
     Column c = _getValueInfoTable().getHeightColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Precision</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer precision
+  */
   public Integer getPrecision_unsafe() {
     return precision;
   }
 
+
+ /**
+  * Sets the <code>Precision</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setPrecision_unsafe(Integer cooked) {
     precision = cooked;
   }
+
+ /**
+  * Retrieves the Precision value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Precision (total number of digits) for fixed-point numbers 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Precision</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getPrecision()
       throws AccessPoemException {
@@ -318,30 +966,103 @@ public abstract class ValueInfoBase extends Persistent {
     return getPrecision_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Precision</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Precision (total number of digits) for fixed-point numbers 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setPrecision(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getPrecisionColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getPrecisionColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setPrecision_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Precision</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Precision (total number of digits) for fixed-point numbers 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setPrecision(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setPrecision(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Precision</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer precision
+  */
   public Field getPrecisionField() throws AccessPoemException {
     Column c = _getValueInfoTable().getPrecisionColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Scale</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer scale
+  */
   public Integer getScale_unsafe() {
     return scale;
   }
 
+
+ /**
+  * Sets the <code>Scale</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setScale_unsafe(Integer cooked) {
     scale = cooked;
   }
+
+ /**
+  * Retrieves the Scale value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Scale (number of digits after the decimal) for fixed-point numbers 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Scale</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getScale()
       throws AccessPoemException {
@@ -349,30 +1070,104 @@ public abstract class ValueInfoBase extends Persistent {
     return getScale_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Scale</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Scale (number of digits after the decimal) for fixed-point numbers 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setScale(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getScaleColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getScaleColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setScale_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Scale</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Scale (number of digits after the decimal) for fixed-point numbers 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setScale(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setScale(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Scale</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer scale
+  */
   public Field getScaleField() throws AccessPoemException {
     Column c = _getValueInfoTable().getScaleColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Renderinfo</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String renderinfo
+  */
   public String getRenderinfo_unsafe() {
     return renderinfo;
   }
 
+
+ /**
+  * Sets the <code>Renderinfo</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setRenderinfo_unsafe(String cooked) {
     renderinfo = cooked;
   }
+
+ /**
+  * Retrieves the Renderinfo value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The name of the Melati templet (if not the default) to use for input 
+  *   controls for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Renderinfo</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public String getRenderinfo()
       throws AccessPoemException {
@@ -380,25 +1175,83 @@ public abstract class ValueInfoBase extends Persistent {
     return getRenderinfo_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Renderinfo</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The name of the Melati templet (if not the default) to use for input 
+  *   controls for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setRenderinfo(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getRenderinfoColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getRenderinfoColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setRenderinfo_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Renderinfo</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String renderinfo
+  */
   public Field getRenderinfoField() throws AccessPoemException {
     Column c = _getValueInfoTable().getRenderinfoColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Rangelow_string</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String rangelow_string
+  */
   public String getRangelow_string_unsafe() {
     return rangelow_string;
   }
 
+
+ /**
+  * Sets the <code>Rangelow_string</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setRangelow_string_unsafe(String cooked) {
     rangelow_string = cooked;
   }
+
+ /**
+  * Retrieves the Rangelow_string value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The low end of the range of permissible values for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Rangelow_string</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public String getRangelow_string()
       throws AccessPoemException {
@@ -406,25 +1259,82 @@ public abstract class ValueInfoBase extends Persistent {
     return getRangelow_string_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Rangelow_string</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The low end of the range of permissible values for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setRangelow_string(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getRangelow_stringColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getRangelow_stringColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setRangelow_string_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Rangelow_string</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String rangelow_string
+  */
   public Field getRangelow_stringField() throws AccessPoemException {
     Column c = _getValueInfoTable().getRangelow_stringColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Rangelimit_string</code> value, without locking, 
+  * for this <code>ValueInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String rangelimit_string
+  */
   public String getRangelimit_string_unsafe() {
     return rangelimit_string;
   }
 
+
+ /**
+  * Sets the <code>Rangelimit_string</code> value directly, without checking, 
+  * for this ValueInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setRangelimit_string_unsafe(String cooked) {
     rangelimit_string = cooked;
   }
+
+ /**
+  * Retrieves the Rangelimit_string value, with locking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The (exclusive) limit of the range of permissible values for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Rangelimit_string</code> for this 
+  *         <code>ValueInfo</code> <code>Persistent</code>  
+  */
 
   public String getRangelimit_string()
       throws AccessPoemException {
@@ -432,13 +1342,40 @@ public abstract class ValueInfoBase extends Persistent {
     return getRangelimit_string_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Rangelimit_string</code> value, with checking, for this 
+  * <code>ValueInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The (exclusive) limit of the range of permissible values for the field 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setRangelimit_string(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getValueInfoTable().getRangelimit_stringColumn().getType().assertValidCooked(cooked);
+    _getValueInfoTable().getRangelimit_stringColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setRangelimit_string_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Rangelimit_string</code> value as a <code>Field</code>
+  * from this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String rangelimit_string
+  */
   public Field getRangelimit_stringField() throws AccessPoemException {
     Column c = _getValueInfoTable().getRangelimit_stringColumn();
     return new Field(c.getRaw(this), c);

@@ -2,22 +2,24 @@
 
 package org.melati.poem.test.generated;
 
-
-import org.melati.poem.CapabilityTable;
-import org.melati.poem.ColumnInfoTable;
-import org.melati.poem.DefinitionSource;
-import org.melati.poem.GroupCapabilityTable;
-import org.melati.poem.GroupMembershipTable;
-import org.melati.poem.GroupTable;
 import org.melati.poem.PoemDatabase;
-import org.melati.poem.SettingTable;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.UserTable;
+import org.melati.poem.GroupTable;
+import org.melati.poem.CapabilityTable;
+import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupCapabilityTable;
 import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
-import org.melati.poem.UserTable;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.SettingTable;
 import org.melati.poem.test.AthingTable;
+import org.melati.poem.test.EverythingNormalTable;
+import org.melati.poem.test.EverythingNormalExtendedTable;
+import org.melati.poem.test.EverythingAbstractExtendedTable;
 
 /**
- * Melati POEM generated base class
+ * Melati POEM generated Database base class.
  */
 public class TestDatabaseBase extends PoemDatabase {
 
@@ -31,6 +33,9 @@ public class TestDatabaseBase extends PoemDatabase {
   private ColumnInfoTable tab_columninfo = null;
   private SettingTable tab_setting = null;
   private AthingTable tab_athing = null;
+  private EverythingNormalTable tab_everythingnormal = null;
+  private EverythingNormalExtendedTable tab_everythingnormalextended = null;
+  private EverythingAbstractExtendedTable tab_everythingabstractextended = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -43,46 +48,154 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
     redefineTable(tab_athing = new AthingTable(this, "athing", DefinitionSource.dsd));
+    redefineTable(tab_everythingnormal = new EverythingNormalTable(this, "everythingnormal", DefinitionSource.dsd));
+    redefineTable(tab_everythingnormalextended = new EverythingNormalExtendedTable(this, "everythingnormalextended", DefinitionSource.dsd));
+    redefineTable(tab_everythingabstractextended = new EverythingAbstractExtendedTable(this, "everythingabstractextended", DefinitionSource.dsd));
   }
 
+
+ /**
+  * Retrieves the UserTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the UserTable from this database
+  */
   public UserTable getUserTable() {
     return tab_user;
   }
 
+
+ /**
+  * Retrieves the GroupTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupTable from this database
+  */
   public GroupTable getGroupTable() {
     return tab_group;
   }
 
+
+ /**
+  * Retrieves the CapabilityTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the CapabilityTable from this database
+  */
   public CapabilityTable getCapabilityTable() {
     return tab_capability;
   }
 
+
+ /**
+  * Retrieves the GroupMembershipTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupMembershipTable from this database
+  */
   public GroupMembershipTable getGroupMembershipTable() {
     return tab_groupmembership;
   }
 
+
+ /**
+  * Retrieves the GroupCapabilityTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the GroupCapabilityTable from this database
+  */
   public GroupCapabilityTable getGroupCapabilityTable() {
     return tab_groupcapability;
   }
 
+
+ /**
+  * Retrieves the TableCategoryTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the TableCategoryTable from this database
+  */
   public TableCategoryTable getTableCategoryTable() {
     return tab_tablecategory;
   }
 
+
+ /**
+  * Retrieves the TableInfoTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the TableInfoTable from this database
+  */
   public TableInfoTable getTableInfoTable() {
     return tab_tableinfo;
   }
 
 
+
+ /**
+  * Retrieves the ColumnInfoTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the ColumnInfoTable from this database
+  */
   public ColumnInfoTable getColumnInfoTable() {
     return tab_columninfo;
   }
 
+
+ /**
+  * Retrieves the SettingTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the SettingTable from this database
+  */
   public SettingTable getSettingTable() {
     return tab_setting;
   }
 
+
+ /**
+  * Retrieves the AthingTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the AthingTable from this database
+  */
   public AthingTable getAthingTable() {
     return tab_athing;
+  }
+
+
+
+ /**
+  * Retrieves the EverythingNormalTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the EverythingNormalTable from this database
+  */
+  public EverythingNormalTable getEverythingNormalTable() {
+    return tab_everythingnormal;
+  }
+
+
+ /**
+  * Retrieves the EverythingNormalExtendedTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the EverythingNormalExtendedTable from this database
+  */
+  public EverythingNormalExtendedTable getEverythingNormalExtendedTable() {
+    return tab_everythingnormalextended;
+  }
+
+
+
+ /**
+  * Retrieves the EverythingAbstractExtendedTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the EverythingAbstractExtendedTable from this database
+  */
+  public EverythingAbstractExtendedTable getEverythingAbstractExtendedTable() {
+    return tab_everythingabstractextended;
   }
 }

@@ -25,16 +25,10 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for table Contact.
- * Field summary for SQL table contact:
- *   id
- *   name
- *   owner
- *   address
- *   updates
- *   lastupdated
- *   lastupdateuser
+ * Melati POEM generated base class for 
+<code>Table</code> <code>Contact</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ContactTableBase extends Table {
@@ -47,17 +41,43 @@ public class ContactTableBase extends Table {
   private Column col_lastupdated = null;
   private Column col_lastupdateuser = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public ContactTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public ContactTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public ContactsDatabaseTables getContactsDatabaseTables() {
     return (ContactsDatabaseTables)getDatabase();
   }
@@ -112,11 +132,32 @@ public class ContactTableBase extends Table {
             ((Contact)g).setId_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Id value, 
+  * without checking, of this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getId();
           }
 
+
+ /**
+  * Sets the Id value, without checking, for this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setId((Integer)raw);
@@ -175,11 +216,32 @@ public class ContactTableBase extends Table {
             ((Contact)g).setName_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Name value, 
+  * without checking, of this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getName();
           }
 
+
+ /**
+  * Sets the Name value, without checking, for this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setName((String)raw);
@@ -298,11 +360,32 @@ public class ContactTableBase extends Table {
             ((Contact)g).setAddress_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Address value, 
+  * without checking, of this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getAddress();
           }
 
+
+ /**
+  * Sets the Address value, without checking, for this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setAddress((String)raw);
@@ -361,11 +444,32 @@ public class ContactTableBase extends Table {
             ((Contact)g).setUpdates_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Updates value, 
+  * without checking, of this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getUpdates();
           }
 
+
+ /**
+  * Sets the Updates value, without checking, for this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setUpdates((Integer)raw);
@@ -424,11 +528,32 @@ public class ContactTableBase extends Table {
             ((Contact)g).setLastupdated_unsafe((Date)raw);
           }
 
+ /**
+  * Retrieves the Lastupdated value, 
+  * without checking, of this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getLastupdated();
           }
 
+
+ /**
+  * Sets the Lastupdated value, without checking, for this <code>Contact</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setLastupdated((Date)raw);
@@ -496,38 +621,110 @@ public class ContactTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the id <code>Column</code>
+  */
   public final Column getIdColumn() {
     return col_id;
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the name <code>Column</code>
+  */
   public final Column getNameColumn() {
     return col_name;
   }
 
+
+ /**
+  * Retrieves the <code>Owner</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the owner <code>Column</code>
+  */
   public final Column getOwnerColumn() {
     return col_owner;
   }
 
+
+ /**
+  * Retrieves the <code>Address</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the address <code>Column</code>
+  */
   public final Column getAddressColumn() {
     return col_address;
   }
 
+
+ /**
+  * Retrieves the <code>Updates</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the updates <code>Column</code>
+  */
   public final Column getUpdatesColumn() {
     return col_updates;
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdated</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the lastupdated <code>Column</code>
+  */
   public final Column getLastupdatedColumn() {
     return col_lastupdated;
   }
 
+
+ /**
+  * Retrieves the <code>Lastupdateuser</code> <code>Column</code> for this 
+  * <code>Contact</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the lastupdateuser <code>Column</code>
+  */
   public final Column getLastupdateuserColumn() {
     return col_lastupdateuser;
   }
 
+
+ /**
+  * Retrieve the <code>Contact</code> as a <code>Contact</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public Contact getContactObject(Integer troid) {
     return (Contact)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>Contact</code> 
+  * as a <code>Contact</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public Contact getContactObject(int troid) {
     return (Contact)getObject(troid);
   }

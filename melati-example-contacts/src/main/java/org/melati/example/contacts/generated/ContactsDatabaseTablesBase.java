@@ -17,20 +17,105 @@ import org.melati.example.contacts.CategoryTable;
 import org.melati.example.contacts.ContactCategoryTable;
 
 /**
- * Melati POEM generated interface
+ * Melati POEM generated base interface to the tables in 
+ * org.melati.example.contacts.
  */
 public interface ContactsDatabaseTablesBase {
 
+
+ /**
+  * Retrieves the <code>UserTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the UserTable from this database
+  */
   UserTable getUserTable();
+
+ /**
+  * Retrieves the <code>GroupTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the GroupTable from this database
+  */
   GroupTable getGroupTable();
+
+ /**
+  * Retrieves the <code>CapabilityTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the CapabilityTable from this database
+  */
   CapabilityTable getCapabilityTable();
+
+ /**
+  * Retrieves the <code>GroupMembershipTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the GroupMembershipTable from this database
+  */
   GroupMembershipTable getGroupMembershipTable();
+
+ /**
+  * Retrieves the <code>GroupCapabilityTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the GroupCapabilityTable from this database
+  */
   GroupCapabilityTable getGroupCapabilityTable();
+
+ /**
+  * Retrieves the <code>TableCategoryTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the TableCategoryTable from this database
+  */
   TableCategoryTable getTableCategoryTable();
+
+ /**
+  * Retrieves the <code>TableInfoTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the TableInfoTable from this database
+  */
   TableInfoTable getTableInfoTable();
+
+ /**
+  * Retrieves the <code>ColumnInfoTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the ColumnInfoTable from this database
+  */
   ColumnInfoTable getColumnInfoTable();
+
+ /**
+  * Retrieves the <code>SettingTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the SettingTable from this database
+  */
   SettingTable getSettingTable();
+
+ /**
+  * Retrieves the <code>ContactTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the ContactTable from this database
+  */
   ContactTable getContactTable();
+
+ /**
+  * Retrieves the <code>CategoryTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the CategoryTable from this database
+  */
   CategoryTable getCategoryTable();
+
+ /**
+  * Retrieves the <code>ContactCategoryTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the ContactCategoryTable from this database
+  */
   ContactCategoryTable getContactCategoryTable();
 }

@@ -21,13 +21,10 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for table User.
- * Field summary for SQL table user:
- *   id
- *   name
- *   login
- *   password
+ * Melati POEM generated base class for 
+<code>Table</code> <code>User</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class UserTableBase extends Table {
@@ -37,17 +34,43 @@ public class UserTableBase extends Table {
   private Column col_login = null;
   private Column col_password = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public UserTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public UserTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
@@ -88,6 +111,10 @@ public class UserTableBase extends Table {
             return 10;
           }
 
+          protected String defaultDescription() {
+            return "The Table Row Object ID";
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId_unsafe();
@@ -98,11 +125,32 @@ public class UserTableBase extends Table {
             ((User)g).setId_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Id value, 
+  * without checking, of this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId();
           }
 
+
+ /**
+  * Sets the Id value, without checking, for this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((User)g).setId((Integer)raw);
@@ -165,11 +213,32 @@ public class UserTableBase extends Table {
             ((User)g).setName_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Name value, 
+  * without checking, of this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getName();
           }
 
+
+ /**
+  * Sets the Name value, without checking, for this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((User)g).setName((String)raw);
@@ -220,11 +289,32 @@ public class UserTableBase extends Table {
             ((User)g).setLogin_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Login value, 
+  * without checking, of this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin();
           }
 
+
+ /**
+  * Sets the Login value, without checking, for this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((User)g).setLogin((String)raw);
@@ -279,11 +369,32 @@ public class UserTableBase extends Table {
             ((User)g).setPassword_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Password value, 
+  * without checking, of this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((User)g).getPassword();
           }
 
+
+ /**
+  * Sets the Password value, without checking, for this <code>User</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((User)g).setPassword((String)raw);
@@ -291,26 +402,74 @@ public class UserTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> <code>Column</code> for this 
+  * <code>User</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the id <code>Column</code>
+  */
   public final Column getIdColumn() {
     return col_id;
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> <code>Column</code> for this 
+  * <code>User</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the name <code>Column</code>
+  */
   public final Column getNameColumn() {
     return col_name;
   }
 
+
+ /**
+  * Retrieves the <code>Login</code> <code>Column</code> for this 
+  * <code>User</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the login <code>Column</code>
+  */
   public final Column getLoginColumn() {
     return col_login;
   }
 
+
+ /**
+  * Retrieves the <code>Password</code> <code>Column</code> for this 
+  * <code>User</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the password <code>Column</code>
+  */
   public final Column getPasswordColumn() {
     return col_password;
   }
 
+
+ /**
+  * Retrieve the <code>User</code> as a <code>User</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public User getUserObject(Integer troid) {
     return (User)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>User</code> 
+  * as a <code>User</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public User getUserObject(int troid) {
     return (User)getObject(troid);
   }

@@ -16,19 +16,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent GroupCapability.
- * Field summary for SQL table groupcapability:
- *   id
- *   group
- *   capability
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>GroupCapability</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class GroupCapabilityBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>GroupCapabilityTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the GroupCapabilityTable
+  */
   public GroupCapabilityTable getGroupCapabilityTable() {
     return (GroupCapabilityTable)getTable();
   }
@@ -37,17 +50,57 @@ public abstract class GroupCapabilityBase extends Persistent {
     return (GroupCapabilityTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id - The Table Row Object ID 
+  */
   protected Integer id;
+ /**
+  * group - The user-group which has the capability 
+  */
   protected Integer group;
+ /**
+  * capability - The capability 
+  */
   protected Integer capability;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>GroupCapability</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this GroupCapability <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>GroupCapability</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>GroupCapability</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -55,30 +108,99 @@ public abstract class GroupCapabilityBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>GroupCapability</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getGroupCapabilityTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getGroupCapabilityTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>GroupCapability</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>GroupCapability</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getGroupCapabilityTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> value, without locking, 
+  * for this <code>GroupCapability</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer group
+  */
   public Integer getGroup_unsafe() {
     return group;
   }
 
+
+ /**
+  * Sets the <code>Group</code> value directly, without checking, 
+  * for this GroupCapability <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setGroup_unsafe(Integer cooked) {
     group = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getGroupTroid()
       throws AccessPoemException {
@@ -86,12 +208,34 @@ public abstract class GroupCapabilityBase extends Persistent {
     return getGroup_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
     setGroup(raw == null ? null : 
         getPoemDatabaseTables().getGroupTable().getGroupObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Group</code> as a <code>Group</code> 
+  */
   public Group getGroup()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
@@ -99,9 +243,21 @@ public abstract class GroupCapabilityBase extends Persistent {
         getPoemDatabaseTables().getGroupTable().getGroupObject(troid);
   }
 
+
+ /**
+  * Set the Group.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Group</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setGroup(Group cooked)
       throws AccessPoemException {
-    _getGroupCapabilityTable().getGroupColumn().getType().assertValidCooked(cooked);
+    _getGroupCapabilityTable().
+      getGroupColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setGroup_unsafe(null);
@@ -111,18 +267,55 @@ public abstract class GroupCapabilityBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> value as a <code>Field</code>
+  * from this <code>GroupCapability</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer group
+  */
   public Field getGroupField() throws AccessPoemException {
     Column c = _getGroupCapabilityTable().getGroupColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Capability</code> value, without locking, 
+  * for this <code>GroupCapability</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer capability
+  */
   public Integer getCapability_unsafe() {
     return capability;
   }
 
+
+ /**
+  * Sets the <code>Capability</code> value directly, without checking, 
+  * for this GroupCapability <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setCapability_unsafe(Integer cooked) {
     capability = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getCapabilityTroid()
       throws AccessPoemException {
@@ -130,12 +323,34 @@ public abstract class GroupCapabilityBase extends Persistent {
     return getCapability_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setCapabilityTroid(Integer raw)
       throws AccessPoemException {
     setCapability(raw == null ? null : 
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Capability</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Capability</code> as a <code>Capability</code> 
+  */
   public Capability getCapability()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCapabilityTroid();
@@ -143,9 +358,21 @@ public abstract class GroupCapabilityBase extends Persistent {
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
+
+ /**
+  * Set the Capability.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Capability</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setCapability(Capability cooked)
       throws AccessPoemException {
-    _getGroupCapabilityTable().getCapabilityColumn().getType().assertValidCooked(cooked);
+    _getGroupCapabilityTable().
+      getCapabilityColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setCapability_unsafe(null);
@@ -155,6 +382,17 @@ public abstract class GroupCapabilityBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Capability</code> value as a <code>Field</code>
+  * from this <code>GroupCapability</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer capability
+  */
   public Field getCapabilityField() throws AccessPoemException {
     Column c = _getGroupCapabilityTable().getCapabilityColumn();
     return new Field(c.getRaw(this), c);

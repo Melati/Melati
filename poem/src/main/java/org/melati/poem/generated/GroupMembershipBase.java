@@ -16,19 +16,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent GroupMembership.
- * Field summary for SQL table groupmembership:
- *   id
- *   user
- *   group
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>GroupMembership</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class GroupMembershipBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>GroupMembershipTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the GroupMembershipTable
+  */
   public GroupMembershipTable getGroupMembershipTable() {
     return (GroupMembershipTable)getTable();
   }
@@ -37,17 +50,57 @@ public abstract class GroupMembershipBase extends Persistent {
     return (GroupMembershipTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id - The Table Row Object ID 
+  */
   protected Integer id;
+ /**
+  * User - The user who belongs to the group 
+  */
   protected Integer user;
+ /**
+  * Group - The group to which the user belongs 
+  */
   protected Integer group;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>GroupMembership</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this GroupMembership <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>GroupMembership</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>GroupMembership</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -55,30 +108,99 @@ public abstract class GroupMembershipBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>GroupMembership</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getGroupMembershipTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getGroupMembershipTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>GroupMembership</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>GroupMembership</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getGroupMembershipTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>User</code> value, without locking, 
+  * for this <code>GroupMembership</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer user
+  */
   public Integer getUser_unsafe() {
     return user;
   }
 
+
+ /**
+  * Sets the <code>User</code> value directly, without checking, 
+  * for this GroupMembership <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setUser_unsafe(Integer cooked) {
     user = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getUserTroid()
       throws AccessPoemException {
@@ -86,12 +208,34 @@ public abstract class GroupMembershipBase extends Persistent {
     return getUser_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setUserTroid(Integer raw)
       throws AccessPoemException {
     setUser(raw == null ? null : 
         getPoemDatabaseTables().getUserTable().getUserObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>User</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>User</code> as a <code>User</code> 
+  */
   public User getUser()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getUserTroid();
@@ -99,9 +243,21 @@ public abstract class GroupMembershipBase extends Persistent {
         getPoemDatabaseTables().getUserTable().getUserObject(troid);
   }
 
+
+ /**
+  * Set the User.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>User</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setUser(User cooked)
       throws AccessPoemException {
-    _getGroupMembershipTable().getUserColumn().getType().assertValidCooked(cooked);
+    _getGroupMembershipTable().
+      getUserColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setUser_unsafe(null);
@@ -111,18 +267,55 @@ public abstract class GroupMembershipBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>User</code> value as a <code>Field</code>
+  * from this <code>GroupMembership</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer user
+  */
   public Field getUserField() throws AccessPoemException {
     Column c = _getGroupMembershipTable().getUserColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> value, without locking, 
+  * for this <code>GroupMembership</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer group
+  */
   public Integer getGroup_unsafe() {
     return group;
   }
 
+
+ /**
+  * Sets the <code>Group</code> value directly, without checking, 
+  * for this GroupMembership <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setGroup_unsafe(Integer cooked) {
     group = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getGroupTroid()
       throws AccessPoemException {
@@ -130,12 +323,34 @@ public abstract class GroupMembershipBase extends Persistent {
     return getGroup_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setGroupTroid(Integer raw)
       throws AccessPoemException {
     setGroup(raw == null ? null : 
         getPoemDatabaseTables().getGroupTable().getGroupObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Group</code> as a <code>Group</code> 
+  */
   public Group getGroup()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
@@ -143,9 +358,21 @@ public abstract class GroupMembershipBase extends Persistent {
         getPoemDatabaseTables().getGroupTable().getGroupObject(troid);
   }
 
+
+ /**
+  * Set the Group.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Group</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setGroup(Group cooked)
       throws AccessPoemException {
-    _getGroupMembershipTable().getGroupColumn().getType().assertValidCooked(cooked);
+    _getGroupMembershipTable().
+      getGroupColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setGroup_unsafe(null);
@@ -155,6 +382,17 @@ public abstract class GroupMembershipBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> value as a <code>Field</code>
+  * from this <code>GroupMembership</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer group
+  */
   public Field getGroupField() throws AccessPoemException {
     Column c = _getGroupMembershipTable().getGroupColumn();
     return new Field(c.getRaw(this), c);

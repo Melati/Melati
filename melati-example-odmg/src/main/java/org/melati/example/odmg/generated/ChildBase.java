@@ -15,19 +15,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent Child.
- * Field summary for SQL table child:
- *   id
- *   name
- *   parent
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>Child</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class ChildBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public OdmgDatabaseTables getOdmgDatabaseTables() {
     return (OdmgDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>ChildTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the ChildTable
+  */
   public ChildTable getChildTable() {
     return (ChildTable)getTable();
   }
@@ -36,17 +49,55 @@ public abstract class ChildBase extends Persistent {
     return (ChildTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id 
+  */
   protected Integer id;
+ /**
+  * name 
+  */
   protected String name;
+ /**
+  * parent 
+  */
   protected Integer parent;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>Child</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this Child <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>Child</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -54,30 +105,96 @@ public abstract class ChildBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getChildTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getChildTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getChildTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value, without locking, 
+  * for this <code>Child</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String name
+  */
   public String getName_unsafe() {
     return name;
   }
 
+
+ /**
+  * Sets the <code>Name</code> value directly, without checking, 
+  * for this Child <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setName_unsafe(String cooked) {
     name = cooked;
   }
+
+ /**
+  * Retrieves the Name value, with locking, for this 
+  * <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Name</code> for this 
+  *         <code>Child</code> <code>Persistent</code>  
+  */
 
   public String getName()
       throws AccessPoemException {
@@ -85,25 +202,76 @@ public abstract class ChildBase extends Persistent {
     return getName_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Name</code> value, with checking, for this 
+  * <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getChildTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getChildTable().getNameColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value as a <code>Field</code>
+  * from this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String name
+  */
   public Field getNameField() throws AccessPoemException {
     Column c = _getChildTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Parent</code> value, without locking, 
+  * for this <code>Child</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer parent
+  */
   public Integer getParent_unsafe() {
     return parent;
   }
 
+
+ /**
+  * Sets the <code>Parent</code> value directly, without checking, 
+  * for this Child <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setParent_unsafe(Integer cooked) {
     parent = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getParentTroid()
       throws AccessPoemException {
@@ -111,12 +279,34 @@ public abstract class ChildBase extends Persistent {
     return getParent_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setParentTroid(Integer raw)
       throws AccessPoemException {
     setParent(raw == null ? null : 
         getOdmgDatabaseTables().getParentTable().getParentObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Parent</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Parent</code> as a <code>Parent</code> 
+  */
   public Parent getParent()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getParentTroid();
@@ -124,9 +314,21 @@ public abstract class ChildBase extends Persistent {
         getOdmgDatabaseTables().getParentTable().getParentObject(troid);
   }
 
+
+ /**
+  * Set the Parent.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Parent</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setParent(Parent cooked)
       throws AccessPoemException {
-    _getChildTable().getParentColumn().getType().assertValidCooked(cooked);
+    _getChildTable().
+      getParentColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setParent_unsafe(null);
@@ -136,6 +338,17 @@ public abstract class ChildBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Parent</code> value as a <code>Field</code>
+  * from this <code>Child</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer parent
+  */
   public Field getParentField() throws AccessPoemException {
     Column c = _getChildTable().getParentColumn();
     return new Field(c.getRaw(this), c);

@@ -3,7 +3,7 @@ package org.melati.poem.test;
 import org.melati.poem.test.generated.TestDatabaseBase;
 
 /**
- * Melati POEM generated stub
+ * Melati POEM generated, programmer modifyable stub.
  */
 public class TestDatabase extends TestDatabaseBase
                             implements TestDatabaseTables {

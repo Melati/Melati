@@ -23,22 +23,10 @@ import org.melati.poem.ValueInfo;
 
 
 /**
- * Melati POEM generated base class for table ValueInfo.
- * Field summary for SQL table valueinfo:
- *   displayname
- *   description
- *   usereditable
- *   typefactory
- *   nullable
- *   size
- *   width
- *   height
- *   precision
- *   scale
- *   renderinfo
- *   rangelow_string
- *   rangelimit_string
+ * Melati POEM generated base class for 
+<code>Table</code> <code>ValueInfo</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class ValueInfoTableBase extends Table {
@@ -57,17 +45,43 @@ public class ValueInfoTableBase extends Table {
   private Column col_rangelow_string = null;
   private Column col_rangelimit_string = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public ValueInfoTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public ValueInfoTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
@@ -122,11 +136,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setDisplayname_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Displayname value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getDisplayname();
           }
 
+
+ /**
+  * Sets the Displayname value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setDisplayname((String)raw);
@@ -177,11 +212,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setDescription_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Description value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getDescription();
           }
 
+
+ /**
+  * Sets the Description value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setDescription((String)raw);
@@ -236,11 +292,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setUsereditable_unsafe((Boolean)raw);
           }
 
+ /**
+  * Retrieves the Usereditable value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getUsereditable();
           }
 
+
+ /**
+  * Sets the Usereditable value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setUsereditable((Boolean)raw);
@@ -358,11 +435,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setNullable_unsafe((Boolean)raw);
           }
 
+ /**
+  * Retrieves the Nullable value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getNullable();
           }
 
+
+ /**
+  * Sets the Nullable value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setNullable((Boolean)raw);
@@ -417,11 +515,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setSize_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Size value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getSize();
           }
 
+
+ /**
+  * Sets the Size value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setSize((Integer)raw);
@@ -476,11 +595,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setWidth_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Width value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getWidth();
           }
 
+
+ /**
+  * Sets the Width value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setWidth((Integer)raw);
@@ -535,11 +675,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setHeight_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Height value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getHeight();
           }
 
+
+ /**
+  * Sets the Height value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setHeight((Integer)raw);
@@ -598,11 +759,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setPrecision_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Precision value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getPrecision();
           }
 
+
+ /**
+  * Sets the Precision value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setPrecision((Integer)raw);
@@ -661,11 +843,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setScale_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Scale value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getScale();
           }
 
+
+ /**
+  * Sets the Scale value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setScale((Integer)raw);
@@ -720,11 +923,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setRenderinfo_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Renderinfo value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getRenderinfo();
           }
 
+
+ /**
+  * Sets the Renderinfo value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setRenderinfo((String)raw);
@@ -779,11 +1003,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setRangelow_string_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Rangelow_string value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getRangelow_string();
           }
 
+
+ /**
+  * Sets the Rangelow_string value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setRangelow_string((String)raw);
@@ -838,11 +1083,32 @@ public class ValueInfoTableBase extends Table {
             ((ValueInfo)g).setRangelimit_string_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Rangelimit_string value, 
+  * without checking, of this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ValueInfo)g).getRangelimit_string();
           }
 
+
+ /**
+  * Sets the Rangelimit_string value, without checking, for this <code>ValueInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ValueInfo)g).setRangelimit_string((String)raw);
@@ -850,62 +1116,182 @@ public class ValueInfoTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Displayname</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the displayname <code>Column</code>
+  */
   public final Column getDisplaynameColumn() {
     return col_displayname;
   }
 
+
+ /**
+  * Retrieves the <code>Description</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the description <code>Column</code>
+  */
   public final Column getDescriptionColumn() {
     return col_description;
   }
 
+
+ /**
+  * Retrieves the <code>Usereditable</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the usereditable <code>Column</code>
+  */
   public final Column getUsereditableColumn() {
     return col_usereditable;
   }
 
+
+ /**
+  * Retrieves the <code>Typefactory</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the typefactory <code>Column</code>
+  */
   public final Column getTypefactoryColumn() {
     return col_typefactory;
   }
 
+
+ /**
+  * Retrieves the <code>Nullable</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the nullable <code>Column</code>
+  */
   public final Column getNullableColumn() {
     return col_nullable;
   }
 
+
+ /**
+  * Retrieves the <code>Size</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the size <code>Column</code>
+  */
   public final Column getSizeColumn() {
     return col_size;
   }
 
+
+ /**
+  * Retrieves the <code>Width</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the width <code>Column</code>
+  */
   public final Column getWidthColumn() {
     return col_width;
   }
 
+
+ /**
+  * Retrieves the <code>Height</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the height <code>Column</code>
+  */
   public final Column getHeightColumn() {
     return col_height;
   }
 
+
+ /**
+  * Retrieves the <code>Precision</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the precision <code>Column</code>
+  */
   public final Column getPrecisionColumn() {
     return col_precision;
   }
 
+
+ /**
+  * Retrieves the <code>Scale</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the scale <code>Column</code>
+  */
   public final Column getScaleColumn() {
     return col_scale;
   }
 
+
+ /**
+  * Retrieves the <code>Renderinfo</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the renderinfo <code>Column</code>
+  */
   public final Column getRenderinfoColumn() {
     return col_renderinfo;
   }
 
+
+ /**
+  * Retrieves the <code>Rangelow_string</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the rangelow_string <code>Column</code>
+  */
   public final Column getRangelow_stringColumn() {
     return col_rangelow_string;
   }
 
+
+ /**
+  * Retrieves the <code>Rangelimit_string</code> <code>Column</code> for this 
+  * <code>ValueInfo</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the rangelimit_string <code>Column</code>
+  */
   public final Column getRangelimit_stringColumn() {
     return col_rangelimit_string;
   }
 
+
+ /**
+  * Retrieve the <code>ValueInfo</code> as a <code>ValueInfo</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public ValueInfo getValueInfoObject(Integer troid) {
     return (ValueInfo)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>ValueInfo</code> 
+  * as a <code>ValueInfo</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public ValueInfo getValueInfoObject(int troid) {
     return (ValueInfo)getObject(troid);
   }

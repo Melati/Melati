@@ -20,11 +20,10 @@ import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
- * Melati POEM generated base class for table Athing.
- * Field summary for SQL table athing:
- *   id
- *   binaryfield
+ * Melati POEM generated base class for 
+<code>Table</code> <code>Athing</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class AthingTableBase extends Table {
@@ -32,17 +31,43 @@ public class AthingTableBase extends Table {
   private Column col_id = null;
   private Column col_binaryfield = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public AthingTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public AthingTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public TestDatabaseTables getTestDatabaseTables() {
     return (TestDatabaseTables)getDatabase();
   }
@@ -117,11 +142,32 @@ public class AthingTableBase extends Table {
             ((Athing)g).setId_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Id value, 
+  * without checking, of this <code>Athing</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Athing)g).getId();
           }
 
+
+ /**
+  * Sets the Id value, without checking, for this <code>Athing</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Athing)g).setId((Integer)raw);
@@ -188,11 +234,32 @@ public class AthingTableBase extends Table {
             ((Athing)g).setBinaryfield_unsafe((byte[])raw);
           }
 
+ /**
+  * Retrieves the Binaryfield value, 
+  * without checking, of this <code>Athing</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Athing)g).getBinaryfield();
           }
 
+
+ /**
+  * Sets the Binaryfield value, without checking, for this <code>Athing</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Athing)g).setBinaryfield((byte[])raw);
@@ -200,18 +267,50 @@ public class AthingTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> <code>Column</code> for this 
+  * <code>Athing</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the id <code>Column</code>
+  */
   public final Column getIdColumn() {
     return col_id;
   }
 
+
+ /**
+  * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
+  * <code>Athing</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the binaryfield <code>Column</code>
+  */
   public final Column getBinaryfieldColumn() {
     return col_binaryfield;
   }
 
+
+ /**
+  * Retrieve the <code>Athing</code> as a <code>Athing</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public Athing getAthingObject(Integer troid) {
     return (Athing)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>Athing</code> 
+  * as a <code>Athing</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public Athing getAthingObject(int troid) {
     return (Athing)getObject(troid);
   }

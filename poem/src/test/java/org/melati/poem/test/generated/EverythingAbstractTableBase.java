@@ -31,19 +31,10 @@ import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
- * Melati POEM generated base class for table EverythingAbstract.
- * Field summary for SQL table everythingabstract:
- *   binaryfield
- *   stringfield
- *   passwordfield
- *   booleanfield
- *   datefield
- *   doublefield
- *   integerfield
- *   longfield
- *   bigdecimalfield
- *   timestampfield
+ * Melati POEM generated base class for 
+<code>Table</code> <code>EverythingAbstract</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class EverythingAbstractTableBase extends Table {
@@ -59,17 +50,43 @@ public class EverythingAbstractTableBase extends Table {
   private Column col_bigdecimalfield = null;
   private Column col_timestampfield = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public EverythingAbstractTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public EverythingAbstractTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public TestDatabaseTables getTestDatabaseTables() {
     return (TestDatabaseTables)getDatabase();
   }
@@ -136,11 +153,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setBinaryfield_unsafe((byte[])raw);
           }
 
+ /**
+  * Retrieves the Binaryfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getBinaryfield();
           }
 
+
+ /**
+  * Sets the Binaryfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setBinaryfield((byte[])raw);
@@ -199,11 +237,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setStringfield_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Stringfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getStringfield();
           }
 
+
+ /**
+  * Sets the Stringfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setStringfield((String)raw);
@@ -262,11 +321,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setPasswordfield_unsafe((String)raw);
           }
 
+ /**
+  * Retrieves the Passwordfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getPasswordfield();
           }
 
+
+ /**
+  * Sets the Passwordfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setPasswordfield((String)raw);
@@ -325,11 +405,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setBooleanfield_unsafe((Boolean)raw);
           }
 
+ /**
+  * Retrieves the Booleanfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getBooleanfield();
           }
 
+
+ /**
+  * Sets the Booleanfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setBooleanfield((Boolean)raw);
@@ -388,11 +489,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setDatefield_unsafe((Date)raw);
           }
 
+ /**
+  * Retrieves the Datefield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getDatefield();
           }
 
+
+ /**
+  * Sets the Datefield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setDatefield((Date)raw);
@@ -451,11 +573,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setDoublefield_unsafe((Double)raw);
           }
 
+ /**
+  * Retrieves the Doublefield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getDoublefield();
           }
 
+
+ /**
+  * Sets the Doublefield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setDoublefield((Double)raw);
@@ -514,11 +657,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setIntegerfield_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Integerfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getIntegerfield();
           }
 
+
+ /**
+  * Sets the Integerfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setIntegerfield((Integer)raw);
@@ -577,11 +741,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setLongfield_unsafe((Long)raw);
           }
 
+ /**
+  * Retrieves the Longfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getLongfield();
           }
 
+
+ /**
+  * Sets the Longfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setLongfield((Long)raw);
@@ -640,11 +825,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setBigdecimalfield_unsafe((BigDecimal)raw);
           }
 
+ /**
+  * Retrieves the Bigdecimalfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getBigdecimalfield();
           }
 
+
+ /**
+  * Sets the Bigdecimalfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setBigdecimalfield((BigDecimal)raw);
@@ -703,11 +909,32 @@ public class EverythingAbstractTableBase extends Table {
             ((EverythingAbstract)g).setTimestampfield_unsafe((Timestamp)raw);
           }
 
+ /**
+  * Retrieves the Timestampfield value, 
+  * without checking, of this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((EverythingAbstract)g).getTimestampfield();
           }
 
+
+ /**
+  * Sets the Timestampfield value, without checking, for this <code>EverythingAbstract</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((EverythingAbstract)g).setTimestampfield((Timestamp)raw);
@@ -715,50 +942,146 @@ public class EverythingAbstractTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the binaryfield <code>Column</code>
+  */
   public final Column getBinaryfieldColumn() {
     return col_binaryfield;
   }
 
+
+ /**
+  * Retrieves the <code>Stringfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the stringfield <code>Column</code>
+  */
   public final Column getStringfieldColumn() {
     return col_stringfield;
   }
 
+
+ /**
+  * Retrieves the <code>Passwordfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the passwordfield <code>Column</code>
+  */
   public final Column getPasswordfieldColumn() {
     return col_passwordfield;
   }
 
+
+ /**
+  * Retrieves the <code>Booleanfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the booleanfield <code>Column</code>
+  */
   public final Column getBooleanfieldColumn() {
     return col_booleanfield;
   }
 
+
+ /**
+  * Retrieves the <code>Datefield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the datefield <code>Column</code>
+  */
   public final Column getDatefieldColumn() {
     return col_datefield;
   }
 
+
+ /**
+  * Retrieves the <code>Doublefield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the doublefield <code>Column</code>
+  */
   public final Column getDoublefieldColumn() {
     return col_doublefield;
   }
 
+
+ /**
+  * Retrieves the <code>Integerfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the integerfield <code>Column</code>
+  */
   public final Column getIntegerfieldColumn() {
     return col_integerfield;
   }
 
+
+ /**
+  * Retrieves the <code>Longfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the longfield <code>Column</code>
+  */
   public final Column getLongfieldColumn() {
     return col_longfield;
   }
 
+
+ /**
+  * Retrieves the <code>Bigdecimalfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the bigdecimalfield <code>Column</code>
+  */
   public final Column getBigdecimalfieldColumn() {
     return col_bigdecimalfield;
   }
 
+
+ /**
+  * Retrieves the <code>Timestampfield</code> <code>Column</code> for this 
+  * <code>EverythingAbstract</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the timestampfield <code>Column</code>
+  */
   public final Column getTimestampfieldColumn() {
     return col_timestampfield;
   }
 
+
+ /**
+  * Retrieve the <code>EverythingAbstract</code> as a <code>EverythingAbstract</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public EverythingAbstract getEverythingAbstractObject(Integer troid) {
     return (EverythingAbstract)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>EverythingAbstract</code> 
+  * as a <code>EverythingAbstract</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public EverythingAbstract getEverythingAbstractObject(int troid) {
     return (EverythingAbstract)getObject(troid);
   }

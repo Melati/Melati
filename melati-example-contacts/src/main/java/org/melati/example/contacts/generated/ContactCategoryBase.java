@@ -16,19 +16,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent ContactCategory.
- * Field summary for SQL table contactcategory:
- *   id
- *   category
- *   contact
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>ContactCategory</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class ContactCategoryBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public ContactsDatabaseTables getContactsDatabaseTables() {
     return (ContactsDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>ContactCategoryTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the ContactCategoryTable
+  */
   public ContactCategoryTable getContactCategoryTable() {
     return (ContactCategoryTable)getTable();
   }
@@ -37,17 +50,55 @@ public abstract class ContactCategoryBase extends Persistent {
     return (ContactCategoryTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id 
+  */
   protected Integer id;
+ /**
+  * category - Category 
+  */
   protected Integer category;
+ /**
+  * contact - Contact 
+  */
   protected Integer contact;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>ContactCategory</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this ContactCategory <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>ContactCategory</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -55,30 +106,94 @@ public abstract class ContactCategoryBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getContactCategoryTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getContactCategoryTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getContactCategoryTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> value, without locking, 
+  * for this <code>ContactCategory</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer category
+  */
   public Integer getCategory_unsafe() {
     return category;
   }
 
+
+ /**
+  * Sets the <code>Category</code> value directly, without checking, 
+  * for this ContactCategory <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setCategory_unsafe(Integer cooked) {
     category = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getCategoryTroid()
       throws AccessPoemException {
@@ -86,12 +201,34 @@ public abstract class ContactCategoryBase extends Persistent {
     return getCategory_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
     setCategory(raw == null ? null : 
         getContactsDatabaseTables().getCategoryTable().getCategoryObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Category</code> as a <code>Category</code> 
+  */
   public Category getCategory()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCategoryTroid();
@@ -99,9 +236,21 @@ public abstract class ContactCategoryBase extends Persistent {
         getContactsDatabaseTables().getCategoryTable().getCategoryObject(troid);
   }
 
+
+ /**
+  * Set the Category.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Category</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setCategory(Category cooked)
       throws AccessPoemException {
-    _getContactCategoryTable().getCategoryColumn().getType().assertValidCooked(cooked);
+    _getContactCategoryTable().
+      getCategoryColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setCategory_unsafe(null);
@@ -111,18 +260,55 @@ public abstract class ContactCategoryBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> value as a <code>Field</code>
+  * from this <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer category
+  */
   public Field getCategoryField() throws AccessPoemException {
     Column c = _getContactCategoryTable().getCategoryColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Contact</code> value, without locking, 
+  * for this <code>ContactCategory</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer contact
+  */
   public Integer getContact_unsafe() {
     return contact;
   }
 
+
+ /**
+  * Sets the <code>Contact</code> value directly, without checking, 
+  * for this ContactCategory <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setContact_unsafe(Integer cooked) {
     contact = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getContactTroid()
       throws AccessPoemException {
@@ -130,12 +316,34 @@ public abstract class ContactCategoryBase extends Persistent {
     return getContact_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setContactTroid(Integer raw)
       throws AccessPoemException {
     setContact(raw == null ? null : 
         getContactsDatabaseTables().getContactTable().getContactObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Contact</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Contact</code> as a <code>Contact</code> 
+  */
   public Contact getContact()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getContactTroid();
@@ -143,9 +351,21 @@ public abstract class ContactCategoryBase extends Persistent {
         getContactsDatabaseTables().getContactTable().getContactObject(troid);
   }
 
+
+ /**
+  * Set the Contact.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Contact</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setContact(Contact cooked)
       throws AccessPoemException {
-    _getContactCategoryTable().getContactColumn().getType().assertValidCooked(cooked);
+    _getContactCategoryTable().
+      getContactColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setContact_unsafe(null);
@@ -155,6 +375,17 @@ public abstract class ContactCategoryBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Contact</code> value as a <code>Field</code>
+  * from this <code>ContactCategory</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer contact
+  */
   public Field getContactField() throws AccessPoemException {
     Column c = _getContactCategoryTable().getContactColumn();
     return new Field(c.getRaw(this), c);

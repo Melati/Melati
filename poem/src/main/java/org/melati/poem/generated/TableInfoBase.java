@@ -16,28 +16,32 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for persistent TableInfo.
- * Field summary for SQL table tableinfo:
- *   id
- *   name
- *   displayname
- *   description
- *   displayorder
- *   defaultcanread
- *   defaultcanwrite
- *   defaultcandelete
- *   cancreate
- *   cachelimit
- *   seqcached
- *   category
+ * Melati POEM generated abstract base class for a <code>Persistent</code> 
+ * <code>TableInfo</code> Object.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
 public abstract class TableInfoBase extends Persistent {
 
+
+ /**
+  * Retrieves the Database object.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the database
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
 
+
+ /**
+  * Retrieves the  <code>TableInfoTable</code> table 
+  * which this <code>Persistent</code> is from.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @return the TableInfoTable
+  */
   public TableInfoTable getTableInfoTable() {
     return (TableInfoTable)getTable();
   }
@@ -46,26 +50,100 @@ public abstract class TableInfoBase extends Persistent {
     return (TableInfoTable)getTable();
   }
 
+  // Fields in this table 
+ /**
+  * id - The Table Row Object ID 
+  */
   protected Integer id;
+ /**
+  * name - A code-name for the table 
+  */
   protected String name;
+ /**
+  * Display name - A user-friendly name for the table 
+  */
   protected String displayname;
+ /**
+  * description - A brief description of the table's function 
+  */
   protected String description;
+ /**
+  * Display order - A rank determining where the table appears in the list of 
+  * all tables 
+  */
   protected Integer displayorder;
+ /**
+  * Default `read' capability - The capability required, by default, for 
+  * reading the table's records 
+  */
   protected Integer defaultcanread;
+ /**
+  * Default `write' capability - The capability required, by default, for 
+  * updating the table's records 
+  */
   protected Integer defaultcanwrite;
+ /**
+  * Default `delete' capability - The capability required, by default, for 
+  * deleting the table's records 
+  */
   protected Integer defaultcandelete;
+ /**
+  * Default `create' capability - The capability required, by default, for 
+  * creating records in the table 
+  */
   protected Integer cancreate;
+ /**
+  * Cache size limit - The maximum number of records from the table to keep in 
+  * the cache 
+  */
   protected Integer cachelimit;
+ /**
+  * Record sequence cached - Whether the display sequence for the table's 
+  * records is cached 
+  */
   protected Boolean seqcached;
+ /**
+  * category - Which category the table falls into 
+  */
   protected Integer category;
 
+
+ /**
+  * Retrieves the <code>Id</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer id
+  */
   public Integer getId_unsafe() {
     return id;
   }
 
+
+ /**
+  * Sets the <code>Id</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setId_unsafe(Integer cooked) {
     id = cooked;
   }
+
+ /**
+  * Retrieves the Id value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Id</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getId()
       throws AccessPoemException {
@@ -73,30 +151,103 @@ public abstract class TableInfoBase extends Persistent {
     return getId_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getIdColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Id</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The Table Row Object ID 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setId(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setId(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer id
+  */
   public Field getIdField() throws AccessPoemException {
     Column c = _getTableInfoTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String name
+  */
   public String getName_unsafe() {
     return name;
   }
 
+
+ /**
+  * Sets the <code>Name</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setName_unsafe(String cooked) {
     name = cooked;
   }
+
+ /**
+  * Retrieves the Name value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A code-name for the table 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Name</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public String getName()
       throws AccessPoemException {
@@ -104,25 +255,82 @@ public abstract class TableInfoBase extends Persistent {
     return getName_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Name</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A code-name for the table 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getNameColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Name</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String name
+  */
   public Field getNameField() throws AccessPoemException {
     Column c = _getTableInfoTable().getNameColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Displayname</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String displayname
+  */
   public String getDisplayname_unsafe() {
     return displayname;
   }
 
+
+ /**
+  * Sets the <code>Displayname</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDisplayname_unsafe(String cooked) {
     displayname = cooked;
   }
+
+ /**
+  * Retrieves the Displayname value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A user-friendly name for the table 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Displayname</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public String getDisplayname()
       throws AccessPoemException {
@@ -130,25 +338,82 @@ public abstract class TableInfoBase extends Persistent {
     return getDisplayname_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Displayname</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A user-friendly name for the table 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setDisplayname(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getDisplaynameColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getDisplaynameColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setDisplayname_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Displayname</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String displayname
+  */
   public Field getDisplaynameField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDisplaynameColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Description</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String description
+  */
   public String getDescription_unsafe() {
     return description;
   }
 
+
+ /**
+  * Sets the <code>Description</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDescription_unsafe(String cooked) {
     description = cooked;
   }
+
+ /**
+  * Retrieves the Description value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A brief description of the table's function 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Description</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public String getDescription()
       throws AccessPoemException {
@@ -156,25 +421,82 @@ public abstract class TableInfoBase extends Persistent {
     return getDescription_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Description</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A brief description of the table's function 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setDescription(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getDescriptionColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getDescriptionColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setDescription_unsafe(cooked);
   }
 
+
+ /**
+  * Retrieves the <code>Description</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String description
+  */
   public Field getDescriptionField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDescriptionColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Displayorder</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer displayorder
+  */
   public Integer getDisplayorder_unsafe() {
     return displayorder;
   }
 
+
+ /**
+  * Sets the <code>Displayorder</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDisplayorder_unsafe(Integer cooked) {
     displayorder = cooked;
   }
+
+ /**
+  * Retrieves the Displayorder value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A rank determining where the table appears in the list of all tables 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Displayorder</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getDisplayorder()
       throws AccessPoemException {
@@ -182,30 +504,99 @@ public abstract class TableInfoBase extends Persistent {
     return getDisplayorder_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Displayorder</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A rank determining where the table appears in the list of all tables 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setDisplayorder(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getDisplayorderColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getDisplayorderColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setDisplayorder_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Displayorder</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   A rank determining where the table appears in the list of all tables 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setDisplayorder(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setDisplayorder(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Displayorder</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer displayorder
+  */
   public Field getDisplayorderField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDisplayorderColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanread</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer defaultcanread
+  */
   public Integer getDefaultcanread_unsafe() {
     return defaultcanread;
   }
 
+
+ /**
+  * Sets the <code>Defaultcanread</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDefaultcanread_unsafe(Integer cooked) {
     defaultcanread = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getDefaultcanreadTroid()
       throws AccessPoemException {
@@ -213,12 +604,34 @@ public abstract class TableInfoBase extends Persistent {
     return getDefaultcanread_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setDefaultcanreadTroid(Integer raw)
       throws AccessPoemException {
     setDefaultcanread(raw == null ? null : 
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanread</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Defaultcanread</code> as a <code>Capability</code> 
+  */
   public Capability getDefaultcanread()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanreadTroid();
@@ -226,9 +639,21 @@ public abstract class TableInfoBase extends Persistent {
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
+
+ /**
+  * Set the Defaultcanread.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Capability</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setDefaultcanread(Capability cooked)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcanreadColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().
+      getDefaultcanreadColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setDefaultcanread_unsafe(null);
@@ -238,18 +663,55 @@ public abstract class TableInfoBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanread</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer defaultcanread
+  */
   public Field getDefaultcanreadField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDefaultcanreadColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanwrite</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer defaultcanwrite
+  */
   public Integer getDefaultcanwrite_unsafe() {
     return defaultcanwrite;
   }
 
+
+ /**
+  * Sets the <code>Defaultcanwrite</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDefaultcanwrite_unsafe(Integer cooked) {
     defaultcanwrite = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getDefaultcanwriteTroid()
       throws AccessPoemException {
@@ -257,12 +719,34 @@ public abstract class TableInfoBase extends Persistent {
     return getDefaultcanwrite_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setDefaultcanwriteTroid(Integer raw)
       throws AccessPoemException {
     setDefaultcanwrite(raw == null ? null : 
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanwrite</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Defaultcanwrite</code> as a <code>Capability</code> 
+  */
   public Capability getDefaultcanwrite()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanwriteTroid();
@@ -270,9 +754,21 @@ public abstract class TableInfoBase extends Persistent {
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
+
+ /**
+  * Set the Defaultcanwrite.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Capability</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setDefaultcanwrite(Capability cooked)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcanwriteColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().
+      getDefaultcanwriteColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setDefaultcanwrite_unsafe(null);
@@ -282,18 +778,55 @@ public abstract class TableInfoBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcanwrite</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer defaultcanwrite
+  */
   public Field getDefaultcanwriteField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDefaultcanwriteColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcandelete</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer defaultcandelete
+  */
   public Integer getDefaultcandelete_unsafe() {
     return defaultcandelete;
   }
 
+
+ /**
+  * Sets the <code>Defaultcandelete</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setDefaultcandelete_unsafe(Integer cooked) {
     defaultcandelete = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getDefaultcandeleteTroid()
       throws AccessPoemException {
@@ -301,12 +834,34 @@ public abstract class TableInfoBase extends Persistent {
     return getDefaultcandelete_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setDefaultcandeleteTroid(Integer raw)
       throws AccessPoemException {
     setDefaultcandelete(raw == null ? null : 
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcandelete</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Defaultcandelete</code> as a <code>Capability</code> 
+  */
   public Capability getDefaultcandelete()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcandeleteTroid();
@@ -314,9 +869,21 @@ public abstract class TableInfoBase extends Persistent {
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
+
+ /**
+  * Set the Defaultcandelete.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Capability</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setDefaultcandelete(Capability cooked)
       throws AccessPoemException {
-    _getTableInfoTable().getDefaultcandeleteColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().
+      getDefaultcandeleteColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setDefaultcandelete_unsafe(null);
@@ -326,18 +893,55 @@ public abstract class TableInfoBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Defaultcandelete</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer defaultcandelete
+  */
   public Field getDefaultcandeleteField() throws AccessPoemException {
     Column c = _getTableInfoTable().getDefaultcandeleteColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Cancreate</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer cancreate
+  */
   public Integer getCancreate_unsafe() {
     return cancreate;
   }
 
+
+ /**
+  * Sets the <code>Cancreate</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setCancreate_unsafe(Integer cooked) {
     cancreate = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getCancreateTroid()
       throws AccessPoemException {
@@ -345,12 +949,34 @@ public abstract class TableInfoBase extends Persistent {
     return getCancreate_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setCancreateTroid(Integer raw)
       throws AccessPoemException {
     setCancreate(raw == null ? null : 
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Cancreate</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Cancreate</code> as a <code>Capability</code> 
+  */
   public Capability getCancreate()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCancreateTroid();
@@ -358,9 +984,21 @@ public abstract class TableInfoBase extends Persistent {
         getPoemDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
+
+ /**
+  * Set the Cancreate.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>Capability</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setCancreate(Capability cooked)
       throws AccessPoemException {
-    _getTableInfoTable().getCancreateColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().
+      getCancreateColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setCancreate_unsafe(null);
@@ -370,18 +1008,59 @@ public abstract class TableInfoBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Cancreate</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer cancreate
+  */
   public Field getCancreateField() throws AccessPoemException {
     Column c = _getTableInfoTable().getCancreateColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Cachelimit</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer cachelimit
+  */
   public Integer getCachelimit_unsafe() {
     return cachelimit;
   }
 
+
+ /**
+  * Sets the <code>Cachelimit</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setCachelimit_unsafe(Integer cooked) {
     cachelimit = cooked;
   }
+
+ /**
+  * Retrieves the Cachelimit value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The maximum number of records from the table to keep in the cache 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Cachelimit</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public Integer getCachelimit()
       throws AccessPoemException {
@@ -389,30 +1068,103 @@ public abstract class TableInfoBase extends Persistent {
     return getCachelimit_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Cachelimit</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The maximum number of records from the table to keep in the cache 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setCachelimit(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getCachelimitColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getCachelimitColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setCachelimit_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Cachelimit</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   The maximum number of records from the table to keep in the cache 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>int</code>
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setCachelimit(int cooked)
       throws AccessPoemException, ValidationPoemException {
     setCachelimit(new Integer(cooked));
   }
 
+
+ /**
+  * Retrieves the <code>Cachelimit</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer cachelimit
+  */
   public Field getCachelimitField() throws AccessPoemException {
     Column c = _getTableInfoTable().getCachelimitColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Seqcached</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Boolean seqcached
+  */
   public Boolean getSeqcached_unsafe() {
     return seqcached;
   }
 
+
+ /**
+  * Sets the <code>Seqcached</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setSeqcached_unsafe(Boolean cooked) {
     seqcached = cooked;
   }
+
+ /**
+  * Retrieves the Seqcached value, with locking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the display sequence for the table's records is cached 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Seqcached</code> for this 
+  *         <code>TableInfo</code> <code>Persistent</code>  
+  */
 
   public Boolean getSeqcached()
       throws AccessPoemException {
@@ -420,30 +1172,100 @@ public abstract class TableInfoBase extends Persistent {
     return getSeqcached_unsafe();
   }
 
+
+ /**
+  * Sets the <code>Seqcached</code> value, with checking, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the display sequence for the table's records is cached 
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
   public void setSeqcached(Boolean cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getTableInfoTable().getSeqcachedColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().getSeqcachedColumn().
+      getType().assertValidCooked(cooked);
     writeLock();
     setSeqcached_unsafe(cooked);
   }
+
+ /**
+  * Sets the <code>Seqcached</code> value, with checking, 
+  * from a <code>boolean</code>, for this 
+  * <code>TableInfo</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether the display sequence for the table's records is cached 
+  * 
+  * 
+  * @generator org.melati.poem.prepro.BooleanFieldDef#generateBaseMethods 
+  * @param cooked  a <code>boolean</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
 
   public final void setSeqcached(boolean cooked)
       throws AccessPoemException, ValidationPoemException {
     setSeqcached(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
+
+ /**
+  * Retrieves the <code>Seqcached</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Boolean seqcached
+  */
   public Field getSeqcachedField() throws AccessPoemException {
     Column c = _getTableInfoTable().getSeqcachedColumn();
     return new Field(c.getRaw(this), c);
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> value, without locking, 
+  * for this <code>TableInfo</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Integer category
+  */
   public Integer getCategory_unsafe() {
     return category;
   }
 
+
+ /**
+  * Sets the <code>Category</code> value directly, without checking, 
+  * for this TableInfo <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
   public void setCategory_unsafe(Integer cooked) {
     category = cooked;
   }
+
+ /**
+  * Retrieves the Table Row Object ID. 
+  *
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @return the TROID as an <code>Integer</code> 
+  */
 
   public Integer getCategoryTroid()
       throws AccessPoemException {
@@ -451,12 +1273,34 @@ public abstract class TableInfoBase extends Persistent {
     return getCategory_unsafe();
   }
 
+
+ /**
+  * Sets the Table Row Object ID. 
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param raw  a Table Row Object Id 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
   public void setCategoryTroid(Integer raw)
       throws AccessPoemException {
     setCategory(raw == null ? null : 
         getPoemDatabaseTables().getTableCategoryTable().getTableCategoryObject(raw));
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> object reffered to.
+  *  
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer read access rights 
+  * @throws NoSuchRowPoemException  
+  *         if the <Persistent</code> has yet to be allocated a TROID 
+  * @return the <code>Category</code> as a <code>TableCategory</code> 
+  */
   public TableCategory getCategory()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCategoryTroid();
@@ -464,9 +1308,21 @@ public abstract class TableInfoBase extends Persistent {
         getPoemDatabaseTables().getTableCategoryTable().getTableCategoryObject(troid);
   }
 
+
+ /**
+  * Set the Category.
+  * 
+  * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
+  * @param cooked  a validated <code>TableCategory</code>
+  * @throws AccessPoemException  
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  */
   public void setCategory(TableCategory cooked)
       throws AccessPoemException {
-    _getTableInfoTable().getCategoryColumn().getType().assertValidCooked(cooked);
+    _getTableInfoTable().
+      getCategoryColumn().
+        getType().assertValidCooked(cooked);
     writeLock();
     if (cooked == null)
       setCategory_unsafe(null);
@@ -476,6 +1332,17 @@ public abstract class TableInfoBase extends Persistent {
     }
   }
 
+
+ /**
+  * Retrieves the <code>Category</code> value as a <code>Field</code>
+  * from this <code>TableInfo</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Integer category
+  */
   public Field getCategoryField() throws AccessPoemException {
     Column c = _getTableInfoTable().getCategoryColumn();
     return new Field(c.getRaw(this), c);

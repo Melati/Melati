@@ -22,12 +22,10 @@ import org.melati.poem.ValidationPoemException;
 
 
 /**
- * Melati POEM generated base class for table GroupCapability.
- * Field summary for SQL table groupcapability:
- *   id
- *   group
- *   capability
+ * Melati POEM generated base class for 
+<code>Table</code> <code>GroupCapability</code>.
  *
+ * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
 public class GroupCapabilityTableBase extends Table {
@@ -36,17 +34,43 @@ public class GroupCapabilityTableBase extends Table {
   private Column col_group = null;
   private Column col_capability = null;
 
+ /**
+  * Constructor. 
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @param definitionSource  which definition is being used
+  * @throws PoemException    if anything goes wrong
+  */
+
   public GroupCapabilityTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
+
+ /**
+  * Constructor.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param database          the POEM database we are using
+  * @param name              the name of this <code>Table</code>
+  * @throws PoemException    if anything goes wrong
+  */
   public GroupCapabilityTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
 
+
+ /**
+  * Get the database tables.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @return the database tables
+  */
   public PoemDatabaseTables getPoemDatabaseTables() {
     return (PoemDatabaseTables)getDatabase();
   }
@@ -87,6 +111,10 @@ public class GroupCapabilityTableBase extends Table {
             return 0;
           }
 
+          protected String defaultDescription() {
+            return "The Table Row Object ID";
+          }
+
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId_unsafe();
@@ -97,11 +125,32 @@ public class GroupCapabilityTableBase extends Table {
             ((GroupCapability)g).setId_unsafe((Integer)raw);
           }
 
+ /**
+  * Retrieves the Id value, 
+  * without checking, of this <code>GroupCapability</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to get the value from
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
+
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId();
           }
 
+
+ /**
+  * Sets the Id value, without checking, for this <code>GroupCapability</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
+  * @param g  the <code>Persistent</code> to modify
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((GroupCapability)g).setId((Integer)raw);
@@ -217,22 +266,62 @@ public class GroupCapabilityTableBase extends Table {
         });
   }
 
+
+ /**
+  * Retrieves the <code>Id</code> <code>Column</code> for this 
+  * <code>GroupCapability</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the id <code>Column</code>
+  */
   public final Column getIdColumn() {
     return col_id;
   }
 
+
+ /**
+  * Retrieves the <code>Group</code> <code>Column</code> for this 
+  * <code>GroupCapability</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the group <code>Column</code>
+  */
   public final Column getGroupColumn() {
     return col_group;
   }
 
+
+ /**
+  * Retrieves the <code>Capability</code> <code>Column</code> for this 
+  * <code>GroupCapability</code> <code>Table</code>
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the capability <code>Column</code>
+  */
   public final Column getCapabilityColumn() {
     return col_capability;
   }
 
+
+ /**
+  * Retrieve the <code>GroupCapability</code> as a <code>GroupCapability</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Oject ID
+  * @return the <code>Persistent</code> identified by the <code>troid</code>
+  */
   public GroupCapability getGroupCapabilityObject(Integer troid) {
     return (GroupCapability)getObject(troid);
   }
 
+
+ /**
+  * Retrieve the <code>GroupCapability</code> 
+  * as a <code>GroupCapability</code>.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @param troid a Table Row Object ID
+  * @return the <code>Persistent</code> identified   */
   public GroupCapability getGroupCapabilityObject(int troid) {
     return (GroupCapability)getObject(troid);
   }

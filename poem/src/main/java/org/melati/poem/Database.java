@@ -542,6 +542,31 @@ abstract public class Database implements TransactionPool {
     perform(accessToken, task, false);
   }
 
+  /** start a db session
+  * This is the very manual way of doing db work - not reccomended - use inSession 
+  */
+  public void beginSession(AccessToken accessToken) {
+    try {
+      lock.readLock();
+    }
+    catch (InterruptedException e) {
+      throw new InterruptedPoemException(e);
+    }
+
+    PoemThread.beginSession(accessToken,openTransaction());
+  }
+
+  /** end a db session
+  * This is the very manual way of doing db work - not reccomended - use inSession 
+  */
+  public void endSession() {
+    PoemTransaction tx = PoemThread.sessionToken().transaction;
+    PoemThread.endSession();
+    tx.close(true);
+    lock.readUnlock();
+	 
+  }
+
   /**
    * Perform a task with the database, but not in an insulated transaction.  The
    * effect is the same as <TT>inSession</TT>, except that the task will see

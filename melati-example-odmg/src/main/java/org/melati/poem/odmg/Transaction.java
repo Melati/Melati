@@ -12,7 +12,8 @@ class Transaction implements org.odmg.Transaction
     _db = (Database)db;
   }
 
-  private org.melati.util.Transaction _tx = null;
+  //private org.melati.util.Transaction _tx = null;
+  private Object _tx = null;
 
   public void begin() 
     throws org.odmg.ODMGRuntimeException
@@ -20,7 +21,8 @@ class Transaction implements org.odmg.Transaction
     if (_tx != null) throw new org.odmg.TransactionInProgressException();
 
     try { 
-      _tx = _db.getPoemDatabase().transaction(1);  // any issues with always using 1?
+      _tx = new Object();
+		_db.getPoemDatabase().beginSession(org.melati.poem.AccessToken.root);  // any issues with always using 1?
     } catch (org.odmg.ODMGException exc) 
     { 
       throw new org.odmg.ODMGRuntimeException(exc.getMessage());

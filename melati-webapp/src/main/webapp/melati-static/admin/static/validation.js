@@ -81,11 +81,18 @@ function validate (form, allowSubmit) {
     for(i=0;i<rulecount;i++) {
       name       = rules[i].name;
       heading    = rules[i].heading;
-      snippet    = rules[i].snippet;
-      pattern    = rules[i].pattern;
       mandatory  = Boolean(rules[i].mandatory);
+      pattern    = rules[i].pattern;
+      snippet    = rules[i].snippet;
+
+//      alert("Evaluating rule:" + name + 
+//            "\n Heading:" + heading + 
+//            "\n Mandatory:" + mandatory +
+//            "\n pattern:" + pattern +
+//            "\n Snippet:" + snippet );
+
       if (!form[name]) {
-       //     alert(name + " is not defined for this form");
+        alert(name + " is not defined for this form");
       }
       else {
         // If this is a select box (but not a multiple select)...
@@ -179,6 +186,22 @@ function add_timestamp(name, heading, mandatory) {
            "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 || RegExp.$5>59 )?'The value \"'+value+'\" is not allowed':'';"
           );
 }
+
+// Useful in an onChange attriobute, eg:
+// <SELECT NAME="trolley_sponsored" onChange="sponsored = !sponsored; flipMandatory('trolley_sponsor|trolley_company');">
+
+function flipMandatory(fieldList) {
+  arrayOfFieldNames = fieldList.split("|");
+  for (var i=0; i < arrayOfFieldNames.length; i++) { 
+    for(var j=0;j<rulecount;j++) {
+      if (arrayOfFieldNames[i] == rules[j].name) {
+        rules[j].mandatory = !rules[j].mandatory;
+        // alert(arrayOfFieldNames[i] + " is now " + rules[j].mandatory);
+      }
+    }
+  }
+}
+
 
 function trim(str) {
   var whitespace = new String(" \t\n\r");

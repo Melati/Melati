@@ -75,7 +75,9 @@
         <module name="LocalFinalVariableName">
          <property name="format" value="^[\_]?[a-zA-Z0-9\_]*$"/>
         </module>
-        <module name="LocalVariableName"/>
+        <module name="LocalVariableName">
+         <property name="format" value="^[\_]?[a-zA-Z0-9\_]*$"/>
+        </module>
         <module name="MethodName">
          <property name="format" value="^[\_]?[a-zA-Z0-9\_]*$"/>
         </module>

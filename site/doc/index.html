@@ -47,8 +47,7 @@
 	 It also adds Javascript triggers for validating input values on the
 	 client side before submission, according to the fields' types.  Links
 	 between related fields are resolved transparently, so that they seem
-	 like Java references.  <FONT COLOR=red>Alpha-ready, but we need to
-	 port JAL's nifty system of date dropdowns.</FONT>
+	 like Java references.  <FONT COLOR=red>Alpha-ready.</FONT>
        </P>
 
   <LI> <B>Administering database content</B>
@@ -58,10 +57,7 @@
 	 the structure of any part of the database, without the need for
 	 customised admin pages: data entry and editing &quot;out of the
 	 box&quot;, just like you get with desktop database packages.  <FONT
-	 COLOR=red>Close to alpha-ready; it's just a matter of working up the
-	 missing screens and making it prettier.  E.g. one of the other Paneris
-	 people who contributed to JAL will be able to help me on this
-	 one.</FONT>
+	 COLOR=red>Alpha-ready.</FONT>
        </P>
 
   <LI> <B>Managing users and their access permissions</B>
@@ -99,6 +95,14 @@
 	 Intensively-used tables can be transparently cached on a
 	 least-recently-used basis (and the cache behaves correctly with
 	 respect to transactions).  <FONT COLOR=red>Alpha-ready.</FONT>
+       </P>
+
+  <LI> <B>Cacheing standard queries and other database-dependent objects.</B>
+       <P>
+         Standard queries (including simple joins) can be transparently cached
+         so that an up-to-date result is recomputed on demand.  It's easy to
+         make automatically-refreshing higher-level database-dependent objects
+         as well.  This cacheing mechanism is also transaction-safe!
        </P>
 </UL>
 
@@ -344,7 +348,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   <TR VALIGN=TOP>
     <TD>
       <!-- A HREF=../poem/prepro/doc/UserGuide.html --><TT>org.melati.poem.prepro</TT><!-- /A -->
-      <BR><FONT COLOR=red>(not yet)</FONT>
+      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
@@ -358,7 +362,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   <TR VALIGN=TOP>
     <TD>
       <!-- A HREF=Templating.html --><TT>org.melati</TT><!-- /A -->
-      <BR><FONT COLOR=red>(not yet)</FONT>
+      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
@@ -371,7 +375,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   <TR VALIGN=TOP>
     <TD>
       <!-- A HREF=../admin/doc/UserGuide.html --><TT>org.melati.admin</TT><!-- /A -->
-      <BR><FONT COLOR=red>(not yet)</FONT>
+      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>

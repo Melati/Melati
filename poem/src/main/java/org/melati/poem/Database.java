@@ -630,7 +630,7 @@ abstract public class Database {
    * <TT>java.sql.Statement.executeUpdate</TT>, intended for fiddly updates for
    * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
    * that it bypasses the access control mechanism.  Furthermore, the cache
-   * will be left in out of sync with the database and must be cleared out
+   * will be left out of sync with the database and must be cleared out
    * (explicitly, manually) after the currently session has been committed or
    * completed.
    *

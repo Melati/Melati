@@ -65,7 +65,7 @@ public class HttpServletRequestParameters {
       parameters.put(name, request.getParameterValues(name));
     }
 
-    requestURL = HttpUtils.getRequestURL(request).toString();
+    requestURL = HttpUtil.getRelativeRequestURL(request);
     queryString = request.getQueryString();
     method = request.getMethod();
     HttpSession session = request.getSession(true);

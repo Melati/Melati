@@ -64,11 +64,10 @@ public class ReconstructedHttpServletRequest
     this.oldParams = oldParams;
 
     HttpSession session = newRequest.getSession(false);
-    if (!oldParams.requestURL.equals(
-            HttpUtils.getRequestURL(newRequest).toString()) ||
-        !(oldParams.queryString == null ?
-            newRequest.getQueryString() == null :
-            oldParams.queryString.equals(newRequest.getQueryString())) ||
+    if (!oldParams.requestURL.equals(HttpUtil.getRelativeRequestURL(newRequest))
+     || !(oldParams.queryString == null ?
+          newRequest.getQueryString() == null :
+          oldParams.queryString.equals(newRequest.getQueryString())) ||
         !(session != null && session.getId() != null &&
           session.getId().equals(oldParams.sessionID)))
       throw new ReconstructedHttpServletRequestMismatchException(oldParams,

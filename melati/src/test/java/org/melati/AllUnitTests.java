@@ -58,7 +58,7 @@ import org.melati.util.test.AcceptCharsetTest;
  *
  * @author timj@paneris.org
  */
-public class AllUnitTests {
+public final class AllUnitTests {
 
  /**
   * Don't want people instantiating this Utility Class.

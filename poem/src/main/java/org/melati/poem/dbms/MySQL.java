@@ -103,7 +103,6 @@ package org.melati.poem.dbms;
 
 import java.util.Enumeration;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -171,7 +170,7 @@ public class MySQL extends AnsiStandard {
       return
         other instanceof StringPoemType &&
               (getSize()<0 || getSize()==65535 ||
-               getSize()>=((StringPoemType)other).getSize() );
+               getSize()>=((StringPoemType)other).getSize());
     }
 
     public PoemType canRepresent(PoemType other) {
@@ -209,7 +208,7 @@ public class MySQL extends AnsiStandard {
 
       protected void _setRaw(PreparedStatement ps, int col, Object bool)
       throws SQLException {
-        ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
+        ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0);
       }
         /*
         protected void _setRaw(PreparedStatement ps, int col, Object bool)
@@ -268,25 +267,25 @@ public class MySQL extends AnsiStandard {
         throws SQLException {
       //ResultSetMetaData rsmd= md.getMetaData();
 
-      if( md.getString("TYPE_NAME").equals("blob") )
+      if(md.getString("TYPE_NAME").equals("blob"))
         return new BlobPoemType(
                     md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                     md.getInt("COLUMN_SIZE"));
-      else if( md.getString("TYPE_NAME").equals("text") )
-        return new MySQLStringPoemType( md.getInt("NULLABLE")==
-            DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE") );
+      else if(md.getString("TYPE_NAME").equals("text"))
+        return new MySQLStringPoemType(md.getInt("NULLABLE")==
+            DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE"));
       // Get it working hack
-      else if( md.getString("TYPE_NAME").equals("smallint") )
-        return new IntegerPoemType( md.getInt("NULLABLE") ==
-              DatabaseMetaData.columnNullable );
+      else if(md.getString("TYPE_NAME").equals("smallint"))
+        return new IntegerPoemType(md.getInt("NULLABLE") ==
+              DatabaseMetaData.columnNullable);
       // Get it working hack
-      else if( md.getString("TYPE_NAME").equals("char") )
-        return new StringPoemType( md.getInt("NULLABLE") ==
+      else if(md.getString("TYPE_NAME").equals("char"))
+        return new StringPoemType(md.getInt("NULLABLE") ==
               DatabaseMetaData.columnNullable, 1);
   // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
-      else if( md.getString("TYPE_NAME").equals("tinyint") )
-        return new MySQLBooleanPoemType( md.getInt("NULLABLE")==
-              DatabaseMetaData.columnNullable );
+      else if(md.getString("TYPE_NAME").equals("tinyint"))
+        return new MySQLBooleanPoemType(md.getInt("NULLABLE")==
+              DatabaseMetaData.columnNullable);
       else
         return super.defaultPoemTypeOfColumnMetaData(md);
     }
@@ -322,11 +321,11 @@ public class MySQL extends AnsiStandard {
           postIndex= m.lastIndexOf('\'');
           preColumn= m.indexOf("key ");
   
-          String indexValue= m.substring(preIndex+1,postIndex);
+          String indexValue= m.substring(preIndex+1, postIndex);
           String indexColumn= m.substring(preColumn+4);
 
-          System.err.println("Duplicated value "+indexValue+
-              " of "+indexColumn+"th unique field."); 
+          System.err.println("Duplicated value " + indexValue +
+              " of " + indexColumn + "th unique field."); 
   
           int indexNum= Integer.parseInt(indexColumn);
           Column column= table.troidColumn(); //Just to satisfy compiler.

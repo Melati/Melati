@@ -22,7 +22,7 @@ return false;
 
 <BODY bgcolor="#dddddd" onLoad="goto_page(0)">
 
-<TABLE cellpadding="0" cellspacing="0" border="0" width="600">
+<TABLE cellpadding="0" cellspacing="0" border="0" width=100%>
 <TR>
 <TH align="left">
 <FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
@@ -50,11 +50,15 @@ return false;
 #set $selected = true
 > $ml.rendered($tab.DisplayName)</option>
 #end
-<OPTION value="$melati.LogoutURL"> Logout</option>
 </SELECT>
 <input type=button value=" Go " onclick="goto_page(0)">
 </td>
-</TR>
+<td align=right>
+<input type=button value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL';">
+#if ($database.SettingTable.homepageurl) {
+<input type=button value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
+}
+</td></TR>
 </TABLE>
 
 </FORM>

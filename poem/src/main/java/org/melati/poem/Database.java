@@ -91,7 +91,7 @@ public abstract class Database implements TransactionPool {
   private Table[] displayTables = null;
 
   private Dbms dbms;
-  private boolean logSQL;
+  private boolean logSQL = true;
   private int transactionsMax;
 
   private String connectionUrl;
@@ -385,10 +385,12 @@ public abstract class Database implements TransactionPool {
     DatabaseMetaData m = committedConnection.getMetaData();
     ResultSet tableDescs = m.getTables(null, null, null, normalTables);
     while (tableDescs.next()) {
+    // System.err.println("Table:" + tableDescs.getString("TABLE_NAME") +
+    //                    " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
-      Table table = (Table)tablesByName.get(tableName);
-//      System.err.println("tableDescs:" + tableName);
-
+      if (tableName == null) break; //dbms returning grotty table name
+      Table table = tableName == null ? null : 
+                                          (Table)tablesByName.get(tableName);
       if (table == null) {
 //      System.err.println("table null but named:" + tableName);
         // but we only want to include them if they have a plausible troid:

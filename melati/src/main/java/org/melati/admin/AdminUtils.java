@@ -47,7 +47,9 @@
 
 package org.melati.admin;
 
+import org.webmacro.WebMacroException;
 import org.melati.poem.*;
+import org.melati.*;
 
 public class AdminUtils {
 
@@ -98,5 +100,15 @@ public class AdminUtils {
 
   public String getStaticURL() {
     return adminStaticURL;
+  }
+
+  public String specialFacilities(Melati melati, MarkupLanguage ml,
+				  Persistent object)
+      throws WebMacroException {
+    if (!(object instanceof AdminSpecialised))
+      return "";
+    else
+      return ml.templetExpansion(
+          ((AdminSpecialised)object).adminSpecialFacilities(melati, ml));
   }
 }

@@ -544,7 +544,7 @@ public class Table implements Selectable {
   // -----------
   // 
 
-  void dbModifyStructure(String sql)
+  protected void (String sql)
       throws StructuralModificationFailedPoemException {
     // We have to do this to avoid blocking
 

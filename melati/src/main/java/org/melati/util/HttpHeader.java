@@ -521,7 +521,6 @@ public class HttpHeader {
     protected TokenAndQValue readTokenAndQValue(TokenAndQValue result)
           throws HttpHeaderException {
       result.token = readSVal();
-      float q;
       switch (ttype) {
       case TT_EOF :
       case ',' :

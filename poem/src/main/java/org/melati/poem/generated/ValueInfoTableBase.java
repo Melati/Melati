@@ -2,10 +2,41 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.ColumnTypePoemType;
+import org.melati.poem.PoemTypeFactory;
+
+
+/**
+ * Melati POEM generated base class for table ValueInfo.
+ * Field summary for SQL table valueinfo:
+ *   displayname
+ *   description
+ *   usereditable
+ *   typefactory
+ *   nullable
+ *   size
+ *   width
+ *   height
+ *   renderinfo
+ *   rangelow_string
+ *   rangelimit_string
+ *
+ */
 public class ValueInfoTableBase extends Table {
 
   private Column col_displayname = null;
@@ -38,7 +69,9 @@ public class ValueInfoTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_displayname =
-        new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "displayname",
+                   new StringPoemType(false, 60),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getDisplayname();
@@ -95,7 +128,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_description =
-        new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "description",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getDescription();
@@ -148,7 +183,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_usereditable =
-        new Column(this, "usereditable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "usereditable",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getUsereditable();
@@ -205,7 +242,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_typefactory =
-        new Column(this, "typefactory", new ColumnTypePoemType(getDatabase()), DefinitionSource.dsd) { 
+        new Column(this, "typefactory",
+                   new ColumnTypePoemType(getDatabase()),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getTypefactory();
@@ -266,7 +305,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_nullable =
-        new Column(this, "nullable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "nullable",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getNullable();
@@ -323,7 +364,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_size =
-        new Column(this, "size", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "size",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getSize();
@@ -380,7 +423,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_width =
-        new Column(this, "width", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "width",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getWidth();
@@ -437,7 +482,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_height =
-        new Column(this, "height", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "height",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getHeight();
@@ -494,7 +541,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_renderinfo =
-        new Column(this, "renderinfo", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "renderinfo",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRenderinfo();
@@ -551,7 +600,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_rangelow_string =
-        new Column(this, "rangelow_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "rangelow_string",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRangelow_string();
@@ -608,7 +659,9 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_rangelimit_string =
-        new Column(this, "rangelimit_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "rangelimit_string",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRangelimit_string();
@@ -717,6 +770,6 @@ public class ValueInfoTableBase extends Table {
     return (ValueInfo)getObject(troid);
   }
   protected int defaultDisplayOrder() {
-    return 6;
+    return 7;
   }
 }

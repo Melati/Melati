@@ -2,10 +2,49 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.ValueInfoTable;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.IntegrityFixPoemType;
+import org.melati.poem.TableInfo;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.SearchabilityPoemType;
+import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Searchability;
+import org.melati.poem.DisplayLevelPoemType;
+import org.melati.poem.DisplayLevel;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.IntegerPoemType;
+
+
+/**
+ * Melati POEM generated base class for table ColumnInfo.
+ * Field summary for SQL table columninfo:
+ *   id
+ *   tableinfo
+ *   name
+ *   displayorder
+ *   usercreateable
+ *   displaylevel
+ *   searchability
+ *   displayorderpriority
+ *   sortdescending
+ *   indexed
+ *   unique
+ *   integrityfix
+ *
+ */
 public class ColumnInfoTableBase extends ValueInfoTable {
 
   private Column col_id = null;
@@ -39,7 +78,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getId();
@@ -88,7 +129,10 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo", new ReferencePoemType(getPoemDatabaseTables().getTableInfoTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "tableinfo",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getTableInfoTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getTableinfo();
@@ -149,7 +193,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, 50),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getName();
@@ -210,7 +256,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "displayorder",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorder();
@@ -271,7 +319,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_usercreateable =
-        new Column(this, "usercreateable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "usercreateable",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUsercreateable();
@@ -328,7 +378,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displaylevel =
-        new Column(this, "displaylevel", new DisplayLevelPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "displaylevel",
+                   new DisplayLevelPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplaylevel();
@@ -377,7 +429,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_searchability =
-        new Column(this, "searchability", new SearchabilityPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "searchability",
+                   new SearchabilityPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSearchability();
@@ -426,7 +480,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorderpriority =
-        new Column(this, "displayorderpriority", new IntegerPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "displayorderpriority",
+                   new IntegerPoemType(true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorderpriority();
@@ -479,7 +535,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_sortdescending =
-        new Column(this, "sortdescending", new BooleanPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "sortdescending",
+                   new BooleanPoemType(true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSortdescending();
@@ -536,7 +594,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_indexed =
-        new Column(this, "indexed", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "indexed",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getIndexed();
@@ -593,7 +653,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_unique =
-        new Column(this, "unique", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "unique",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUnique();
@@ -650,7 +712,9 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_integrityfix =
-        new Column(this, "integrityfix", new IntegrityFixPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "integrityfix",
+                   new IntegrityFixPoemType(true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getIntegrityfix();

@@ -2,15 +2,95 @@
 
 package org.melati.poem.odmg.playing.generated;
 
-import org.melati.poem.odmg.playing.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.PoemDatabase;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.UserTable;
+import org.melati.poem.GroupTable;
+import org.melati.poem.CapabilityTable;
+import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfoTable;
+import org.melati.poem.ValueInfoTable;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.SettingTable;
+import org.melati.poem.odmg.playing.ParentTable;
+import org.melati.poem.odmg.playing.ChildTable;
+
+/**
+ * Melati POEM generated base class
+ */
 public class PlayingDatabaseBase extends PoemDatabase {
 
+  private UserTable tab_user = null;
+  private GroupTable tab_group = null;
+  private CapabilityTable tab_capability = null;
+  private GroupMembershipTable tab_groupmembership = null;
+  private GroupCapabilityTable tab_groupcapability = null;
+  private TableCategoryTable tab_tablecategory = null;
+  private TableInfoTable tab_tableinfo = null;
+  private ColumnInfoTable tab_columninfo = null;
+  private SettingTable tab_setting = null;
+  private ParentTable tab_parent = null;
+  private ChildTable tab_child = null;
 
   protected PlayingDatabaseBase() {
+    redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
+    redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
+    redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));
+    redefineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership", DefinitionSource.dsd));
+    redefineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability", DefinitionSource.dsd));
+    redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
+    redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
+    redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
+    redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
+    redefineTable(tab_parent = new ParentTable(this, "parent", DefinitionSource.dsd));
+    redefineTable(tab_child = new ChildTable(this, "child", DefinitionSource.dsd));
+  }
+
+  public UserTable getUserTable() {
+    return tab_user;
+  }
+
+  public GroupTable getGroupTable() {
+    return tab_group;
+  }
+
+  public CapabilityTable getCapabilityTable() {
+    return tab_capability;
+  }
+
+  public GroupMembershipTable getGroupMembershipTable() {
+    return tab_groupmembership;
+  }
+
+  public GroupCapabilityTable getGroupCapabilityTable() {
+    return tab_groupcapability;
+  }
+
+  public TableCategoryTable getTableCategoryTable() {
+    return tab_tablecategory;
+  }
+
+  public TableInfoTable getTableInfoTable() {
+    return tab_tableinfo;
+  }
+
+
+  public ColumnInfoTable getColumnInfoTable() {
+    return tab_columninfo;
+  }
+
+  public SettingTable getSettingTable() {
+    return tab_setting;
+  }
+
+  public ParentTable getParentTable() {
+    return tab_parent;
+  }
+
+  public ChildTable getChildTable() {
+    return tab_child;
   }
 }

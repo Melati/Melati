@@ -2,12 +2,29 @@
 
 package org.melati.poem.test.generated;
 
-import org.melati.poem.test.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.test.TestDatabaseTables;
+
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.BinaryPoemType;
+
+
+/**
+ * Melati POEM generated base class for table AThing.
+ * Field summary for SQL table athing:
+ *   id
+ *   binaryfield
+ *
+ */
 public class AThingTableBase extends Table {
 
   private Column col_id = null;
@@ -24,13 +41,16 @@ public class AThingTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public TestDatabase getTestDatabase() {
-    return (TestDatabase)getDatabase();  }
+  public TestDatabaseTables getTestDatabaseTables() {
+    return (TestDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((AThing)g).getId();
@@ -79,7 +99,9 @@ public class AThingTableBase extends Table {
         });
 
     defineColumn(col_binaryfield =
-        new Column(this, "binaryfield", new BinaryPoemType(true, 13), DefinitionSource.dsd) { 
+        new Column(this, "binaryfield",
+                   new BinaryPoemType(true, 13),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((AThing)g).getBinaryfield();

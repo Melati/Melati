@@ -2,10 +2,30 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.ValueInfoTable;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.StringPoemType;
+import org.melati.poem.TroidPoemType;
+
+
+/**
+ * Melati POEM generated base class for table Setting.
+ * Field summary for SQL table setting:
+ *   id
+ *   name
+ *   value
+ *
+ */
 public class SettingTableBase extends ValueInfoTable {
 
   private Column col_id = null;
@@ -30,7 +50,9 @@ public class SettingTableBase extends ValueInfoTable {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getId();
@@ -79,7 +101,9 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 200), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, 200),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getName();
@@ -132,7 +156,9 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_value =
-        new Column(this, "value", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "value",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getValue();

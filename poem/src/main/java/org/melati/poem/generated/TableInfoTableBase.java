@@ -2,10 +2,44 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.poem.TableCategory;
+import org.melati.poem.Capability;
+
+
+/**
+ * Melati POEM generated base class for table TableInfo.
+ * Field summary for SQL table tableinfo:
+ *   id
+ *   name
+ *   displayname
+ *   description
+ *   displayorder
+ *   defaultcanread
+ *   defaultcanwrite
+ *   defaultcandelete
+ *   cancreate
+ *   cachelimit
+ *   seqcached
+ *   category
+ *
+ */
 public class TableInfoTableBase extends Table {
 
   private Column col_id = null;
@@ -39,7 +73,9 @@ public class TableInfoTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getId();
@@ -92,7 +128,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, 50),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getName();
@@ -153,7 +191,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_displayname =
-        new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "displayname",
+                   new StringPoemType(false, 60),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayname();
@@ -210,7 +250,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_description =
-        new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "description",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDescription();
@@ -263,7 +305,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "displayorder",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayorder();
@@ -320,7 +364,10 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanread =
-        new Column(this, "defaultcanread", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanread",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getCapabilityTable(), true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanread();
@@ -377,7 +424,10 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanwrite =
-        new Column(this, "defaultcanwrite", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanwrite",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getCapabilityTable(), true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanwrite();
@@ -434,7 +484,10 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcandelete =
-        new Column(this, "defaultcandelete", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "defaultcandelete",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getCapabilityTable(), true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcandelete();
@@ -491,7 +544,10 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_cancreate =
-        new Column(this, "cancreate", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "cancreate",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getCapabilityTable(), true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCancreate();
@@ -548,7 +604,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_cachelimit =
-        new Column(this, "cachelimit", new IntegerPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "cachelimit",
+                   new IntegerPoemType(true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCachelimit();
@@ -605,7 +663,9 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_seqcached =
-        new Column(this, "seqcached", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "seqcached",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getSeqcached();
@@ -662,7 +722,10 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_category =
-        new Column(this, "category", new ReferencePoemType(getPoemDatabaseTables().getTableCategoryTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "category",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getTableCategoryTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCategory();

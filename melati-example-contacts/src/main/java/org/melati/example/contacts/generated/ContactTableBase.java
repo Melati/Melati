@@ -2,11 +2,40 @@
 
 package org.melati.example.contacts.generated;
 
-import org.melati.example.contacts.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.example.contacts.ContactsDatabaseTables;
+
+import org.melati.example.contacts.Contact;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.DatePoemType;
+import java.sql.Date;
+import org.melati.poem.User;
+
+
+/**
+ * Melati POEM generated base class for table Contact.
+ * Field summary for SQL table contact:
+ *   id
+ *   name
+ *   owner
+ *   address
+ *   updates
+ *   lastupdated
+ *   lastupdateuser
+ *
+ */
 public class ContactTableBase extends Table {
 
   private Column col_id = null;
@@ -35,7 +64,9 @@ public class ContactTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getId();
@@ -92,7 +123,9 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getName();
@@ -153,7 +186,10 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_owner =
-        new Column(this, "owner", new ReferencePoemType(getContactsDatabaseTables().getContactTable(), true), DefinitionSource.dsd) { 
+        new Column(this, "owner",
+                   new ReferencePoemType(getContactsDatabaseTables().
+                                             getContactTable(), true),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getOwner();
@@ -210,7 +246,9 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_address =
-        new Column(this, "address", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+        new Column(this, "address",
+                   new StringPoemType(false, -1),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getAddress();
@@ -271,7 +309,9 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_updates =
-        new Column(this, "updates", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "updates",
+                   new IntegerPoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getUpdates();
@@ -332,7 +372,9 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_lastupdated =
-        new Column(this, "lastupdated", new DatePoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "lastupdated",
+                   new DatePoemType(false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getLastupdated();
@@ -393,7 +435,10 @@ public class ContactTableBase extends Table {
         });
 
     defineColumn(col_lastupdateuser =
-        new Column(this, "lastupdateuser", new ReferencePoemType(getContactsDatabaseTables().getUserTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "lastupdateuser",
+                   new ReferencePoemType(getContactsDatabaseTables().
+                                             getUserTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Contact)g).getLastupdateuser();

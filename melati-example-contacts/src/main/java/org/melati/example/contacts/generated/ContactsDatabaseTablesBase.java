@@ -2,23 +2,36 @@
 
 package org.melati.example.contacts.generated;
 
-import org.melati.example.contacts.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+// 13 tables in database
+import org.melati.poem.UserTable;
+import org.melati.poem.GroupTable;
+import org.melati.poem.CapabilityTable;
+import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfoTable;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.SettingTable;
+import org.melati.example.contacts.ContactTable;
+import org.melati.example.contacts.CategoryTable;
+import org.melati.example.contacts.ContactCategoryTable;
+
+/**
+ * Melati POEM generated interface
+ */
 public interface ContactsDatabaseTablesBase {
 
-  public UserTable getUserTable();
-  public GroupTable getGroupTable();
-  public CapabilityTable getCapabilityTable();
-  public GroupMembershipTable getGroupMembershipTable();
-  public GroupCapabilityTable getGroupCapabilityTable();
-  public TableInfoTable getTableInfoTable();
-  public ColumnInfoTable getColumnInfoTable();
-  public TableCategoryTable getTableCategoryTable();
-  public SettingTable getSettingTable();
-  public ContactTable getContactTable();
-  public CategoryTable getCategoryTable();
-  public ContactCategoryTable getContactCategoryTable();
+UserTable getUserTable();
+GroupTable getGroupTable();
+CapabilityTable getCapabilityTable();
+GroupMembershipTable getGroupMembershipTable();
+GroupCapabilityTable getGroupCapabilityTable();
+TableCategoryTable getTableCategoryTable();
+TableInfoTable getTableInfoTable();
+ColumnInfoTable getColumnInfoTable();
+SettingTable getSettingTable();
+ContactTable getContactTable();
+CategoryTable getCategoryTable();
+ContactCategoryTable getContactCategoryTable();
 }

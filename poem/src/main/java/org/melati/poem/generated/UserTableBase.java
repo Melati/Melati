@@ -2,10 +2,32 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.StringPoemType;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.PasswordPoemType;
+
+
+/**
+ * Melati POEM generated base class for table User.
+ * Field summary for SQL table user:
+ *   id
+ *   name
+ *   login
+ *   password
+ *
+ */
 public class UserTableBase extends Table {
 
   private Column col_id = null;
@@ -31,7 +53,9 @@ public class UserTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getId();
@@ -84,7 +108,9 @@ public class UserTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, 60),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getName();
@@ -149,7 +175,9 @@ public class UserTableBase extends Table {
         });
 
     defineColumn(col_login =
-        new Column(this, "login", new StringPoemType(false, 255), DefinitionSource.dsd) { 
+        new Column(this, "login",
+                   new StringPoemType(false, 255),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getLogin();
@@ -202,7 +230,9 @@ public class UserTableBase extends Table {
         });
 
     defineColumn(col_password =
-        new Column(this, "password", new PasswordPoemType(false, 20), DefinitionSource.dsd) { 
+        new Column(this, "password",
+                   new PasswordPoemType(false, 20),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getPassword();

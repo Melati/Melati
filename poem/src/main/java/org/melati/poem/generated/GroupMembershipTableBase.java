@@ -2,10 +2,33 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.Group;
+import org.melati.poem.User;
+
+
+/**
+ * Melati POEM generated base class for table GroupMembership.
+ * Field summary for SQL table groupmembership:
+ *   id
+ *   user
+ *   group
+ *
+ */
 public class GroupMembershipTableBase extends Table {
 
   private Column col_id = null;
@@ -30,7 +53,9 @@ public class GroupMembershipTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getId();
@@ -83,7 +108,10 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_user =
-        new Column(this, "user", new ReferencePoemType(getPoemDatabaseTables().getUserTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "user",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getUserTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getUser();
@@ -144,7 +172,10 @@ public class GroupMembershipTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(getPoemDatabaseTables().getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getGroupTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getGroup();

@@ -2,11 +2,33 @@
 
 package org.melati.example.contacts.generated;
 
-import org.melati.example.contacts.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.Persistent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+import org.melati.example.contacts.Contact;
+import org.melati.poem.NoSuchRowPoemException;
+import java.sql.Date;
+import org.melati.poem.User;
+
+import org.melati.example.contacts.ContactTable;
+import org.melati.example.contacts.ContactsDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent Contact.
+ * Field summary for SQL table contact:
+ *   id
+ *   name
+ *   owner
+ *   address
+ *   updates
+ *   lastupdated
+ *   lastupdateuser
+ *
+ */
 public abstract class ContactBase extends Persistent {
 
   public ContactsDatabaseTables getContactsDatabaseTables() {

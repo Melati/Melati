@@ -1,10 +1,11 @@
 package org.melati.example.contacts;
 
-import org.melati.example.contacts.generated.*;
-import org.melati.poem.*;
 
+import org.melati.example.contacts.generated.ContactsDatabaseTablesBase;
+
+/**
+ * Melati POEM generated stub
+ */
 public interface ContactsDatabaseTables extends ContactsDatabaseTablesBase {
-
   // programmer's domain-specific code here
-
 }

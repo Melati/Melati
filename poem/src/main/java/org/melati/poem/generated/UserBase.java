@@ -2,10 +2,26 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.Persistent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+
+import org.melati.poem.UserTable;
+import org.melati.poem.PoemDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent User.
+ * Field summary for SQL table user:
+ *   id
+ *   name
+ *   login
+ *   password
+ *
+ */
 public abstract class UserBase extends Persistent {
 
   public PoemDatabaseTables getPoemDatabaseTables() {

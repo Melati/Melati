@@ -2,10 +2,39 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.ValueInfo;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+import org.melati.poem.TableInfo;
+import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.NoSuchRowPoemException;
+import org.melati.poem.Searchability;
+import org.melati.poem.DisplayLevel;
+
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.PoemDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent ColumnInfo.
+ * Field summary for SQL table columninfo:
+ *   id
+ *   tableinfo
+ *   name
+ *   displayorder
+ *   usercreateable
+ *   displaylevel
+ *   searchability
+ *   displayorderpriority
+ *   sortdescending
+ *   indexed
+ *   unique
+ *   integrityfix
+ *
+ */
 public abstract class ColumnInfoBase extends ValueInfo {
 
   public PoemDatabaseTables getPoemDatabaseTables() {

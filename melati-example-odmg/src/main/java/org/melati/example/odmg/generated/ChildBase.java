@@ -2,12 +2,27 @@
 
 package org.melati.poem.odmg.playing.generated;
 
-import org.melati.poem.odmg.playing.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.Persistent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+import org.melati.poem.odmg.playing.Parent;
+import org.melati.poem.NoSuchRowPoemException;
+
+import org.melati.poem.odmg.playing.ChildTable;
+import org.melati.poem.odmg.playing.PlayingDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent Child.
+ * Field summary for SQL table child:
+ *   id
+ *   name
+ *   parent
+ *
+ */
 public abstract class ChildBase extends Persistent {
 
   public PlayingDatabaseTables getPlayingDatabaseTables() {

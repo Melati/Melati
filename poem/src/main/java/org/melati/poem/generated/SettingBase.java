@@ -2,10 +2,25 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.ValueInfo;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+
+import org.melati.poem.SettingTable;
+import org.melati.poem.PoemDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent Setting.
+ * Field summary for SQL table setting:
+ *   id
+ *   name
+ *   value
+ *
+ */
 public abstract class SettingBase extends ValueInfo {
 
   public PoemDatabaseTables getPoemDatabaseTables() {

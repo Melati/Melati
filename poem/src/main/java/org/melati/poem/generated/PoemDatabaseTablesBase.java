@@ -2,19 +2,30 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+// 10 tables in database
+import org.melati.poem.UserTable;
+import org.melati.poem.GroupTable;
+import org.melati.poem.CapabilityTable;
+import org.melati.poem.GroupMembershipTable;
+import org.melati.poem.GroupCapabilityTable;
+import org.melati.poem.TableCategoryTable;
+import org.melati.poem.TableInfoTable;
+import org.melati.poem.ColumnInfoTable;
+import org.melati.poem.SettingTable;
+
+/**
+ * Melati POEM generated interface
+ */
 public interface PoemDatabaseTablesBase {
 
-  public UserTable getUserTable();
-  public GroupTable getGroupTable();
-  public CapabilityTable getCapabilityTable();
-  public GroupMembershipTable getGroupMembershipTable();
-  public GroupCapabilityTable getGroupCapabilityTable();
-  public TableInfoTable getTableInfoTable();
-  public ColumnInfoTable getColumnInfoTable();
-  public TableCategoryTable getTableCategoryTable();
-  public SettingTable getSettingTable();
+UserTable getUserTable();
+GroupTable getGroupTable();
+CapabilityTable getCapabilityTable();
+GroupMembershipTable getGroupMembershipTable();
+GroupCapabilityTable getGroupCapabilityTable();
+TableCategoryTable getTableCategoryTable();
+TableInfoTable getTableInfoTable();
+ColumnInfoTable getColumnInfoTable();
+SettingTable getSettingTable();
 }

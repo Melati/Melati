@@ -2,10 +2,32 @@
 
 package org.melati.poem.generated;
 
-import org.melati.poem.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.PoemDatabaseTables;
+
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.TroidPoemType;
+import org.melati.poem.Capability;
+import org.melati.poem.Group;
+
+
+/**
+ * Melati POEM generated base class for table GroupCapability.
+ * Field summary for SQL table groupcapability:
+ *   id
+ *   group
+ *   capability
+ *
+ */
 public class GroupCapabilityTableBase extends Table {
 
   private Column col_id = null;
@@ -30,7 +52,9 @@ public class GroupCapabilityTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getId();
@@ -83,7 +107,10 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(getPoemDatabaseTables().getGroupTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "group",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getGroupTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getGroup();
@@ -136,7 +163,10 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_capability =
-        new Column(this, "capability", new ReferencePoemType(getPoemDatabaseTables().getCapabilityTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "capability",
+                   new ReferencePoemType(getPoemDatabaseTables().
+                                             getCapabilityTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getCapability();

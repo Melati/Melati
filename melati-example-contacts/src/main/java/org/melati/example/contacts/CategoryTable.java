@@ -1,8 +1,14 @@
 package org.melati.example.contacts;
 
-import org.melati.example.contacts.generated.*;
-import org.melati.poem.*;
 
+import org.melati.example.contacts.generated.CategoryTableBase;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Database;
+import org.melati.poem.PoemException;
+
+/**
+ * Melati POEM generated stub
+ */
 public class CategoryTable extends CategoryTableBase {
 
   public CategoryTable(

@@ -2,16 +2,28 @@
 
 package org.melati.poem.test.generated;
 
-import org.melati.poem.test.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Column;
+import org.melati.poem.Field;
+import org.melati.poem.Persistent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+
+
+import org.melati.poem.test.AThingTable;
+import org.melati.poem.test.TestDatabaseTables;
+
+/**
+ * Melati POEM generated base class for persistent AThing.
+ * Field summary for SQL table athing:
+ *   id
+ *   binaryfield
+ *
+ */
 public abstract class AThingBase extends Persistent {
 
-  public TestDatabase getTestDatabase() {
-    return (TestDatabase)getDatabase();
+  public TestDatabaseTables getTestDatabaseTables() {
+    return (TestDatabaseTables)getDatabase();
   }
 
   public AThingTable getAThingTable() {

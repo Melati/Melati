@@ -2,12 +2,32 @@
 
 package org.melati.poem.odmg.playing.generated;
 
-import org.melati.poem.odmg.playing.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
 
+import org.melati.poem.Database;
+import org.melati.poem.DefinitionSource;
+import org.melati.poem.Column;
+import org.melati.poem.Persistent;
+import org.melati.poem.Field;
+import org.melati.poem.PoemException;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.ValidationPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.odmg.playing.PlayingDatabaseTables;
+
+import org.melati.poem.odmg.playing.Parent;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.ReferencePoemType;
+import org.melati.poem.TroidPoemType;
+
+
+/**
+ * Melati POEM generated base class for table Child.
+ * Field summary for SQL table child:
+ *   id
+ *   name
+ *   parent
+ *
+ */
 public class ChildTableBase extends Table {
 
   private Column col_id = null;
@@ -32,7 +52,9 @@ public class ChildTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", new TroidPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "id",
+                   new TroidPoemType(),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Child)g).getId();
@@ -81,7 +103,9 @@ public class ChildTableBase extends Table {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "name",
+                   new StringPoemType(false, 60),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Child)g).getName();
@@ -122,7 +146,10 @@ public class ChildTableBase extends Table {
         });
 
     defineColumn(col_parent =
-        new Column(this, "parent", new ReferencePoemType(getPlayingDatabaseTables().getParentTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "parent",
+                   new ReferencePoemType(getPlayingDatabaseTables().
+                                             getParentTable(), false),
+                   DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Child)g).getParent();

@@ -66,16 +66,29 @@ public class TableNamingInfo {
       Persistent) */
   public TableNamingInfo superclass = null;
 
-  /** Does this Table have the same name as another table "higher up" in our
-      hierarchy (that is a table already dealt with by DSD). */
-  // If so, we must import the tableFQName before the DSD's package and
-  // before melati in our java source
+  /** 
+   * Does this Table have the same name as another table "higher up" in our
+   * hierarchy (that is a table already dealt with by DSD). 
+   *
+   * If so, we must import the tableFQName before the DSD's package and
+   * before melati in our java source.
+   *
+   * For example <TT>org.paneris.melati.boards.model.UserTable</TT> hides 
+   * <TT>org.melati.poem.UserTable</TT> and so has <TT>hidesOther</TT> true.
+   */
   public boolean hidesOther = false;
 
-  /** Does this Table have the same name as another table "lower down" in our
-      hierarchy. */
-  // If so, we must use the tableFQName as the return type in the DatabaseBase
-  // source file, and any tables with ReferenceTypes to this table
+  /** 
+   *  Does this Table have the same name as another table "lower down" in our
+   *  hierarchy. 
+   *
+   * If so, we must use the tableFQName as the return type in the DatabaseBase
+   * source file, and any tables with ReferenceTypes to this table.
+   * 
+   * For example <TT>org.melati.poem.UserTable</TT> is hidden by 
+   * <TT>org.paneris.melati.boards.model.UserTable</TT> and so has 
+   * <TT>hidden</TT> true.
+   */
   public boolean hidden = false;
 
   public TableNamingInfo(String packageNameIn, String name) {
@@ -98,6 +111,12 @@ public class TableNamingInfo {
             ? "org.melati.poem.Persistent"
             : superclass.mainClassFQName();
   }
+  /** Calculate the type for objects in this Table */
+  public String superclassMainShortName() {
+    return (superclass == null)
+            ? "Persistent"
+            : superclass.mainClassShortName();
+  }
 
   /** Calculate the type for this Table */
   public String superclassTableUnambiguous() {
@@ -109,6 +128,11 @@ public class TableNamingInfo {
     return (superclass == null)
             ? "org.melati.poem.Table"
             : superclass.tableMainClassFQName();
+  }
+  public String superclassTableShortName() {
+    return (superclass == null)
+            ? "Table"
+            : superclass.tableMainClassShortName();
   }
 
   public String importMainString() {

@@ -250,8 +250,6 @@ public class DSD {
                 "\n");
       }
 
-      w.write("\n");
-
       proc.process(w);
     } catch (IOException e) {
       try {

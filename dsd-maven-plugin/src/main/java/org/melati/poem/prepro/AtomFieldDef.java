@@ -55,6 +55,8 @@ public class AtomFieldDef extends FieldDef {
                       String type, int displayOrder, Vector qualifiers)
        throws IllegalityException {
     super(table, name, type, type, displayOrder, qualifiers);
+    table.addImport("org.melati.poem.ValidationPoemException", 
+                    "persistent");
   }
 
  /**

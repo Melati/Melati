@@ -48,6 +48,7 @@ package org.melati.poem.prepro;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Hashtable;
+import java.util.Arrays;
 import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.io.IOException;
@@ -77,8 +78,8 @@ public class TableDef {
   // Note we have to store the imports and process them at 
   // the end to avoid referring to a table that has yet to be processed.
   private final Hashtable imports = new Hashtable();
-  private final Hashtable tableBaseImports = new Hashtable();
-  private final Hashtable persistentBaseImports = new Hashtable();
+  private final Vector tableBaseImports = new Vector();
+  private final Vector persistentBaseImports = new Vector();
 
   public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder,
                   boolean isAbstract, TableNamingStore nameStore)
@@ -127,9 +128,11 @@ public class TableDef {
 
   void addImport(String importName, String destination) {
     if (!destination.equals("table") &&
-        !destination.equals("persistent"))
+        !destination.equals("persistent") &&
+        !destination.equals("both"))
       throw new RuntimeException(
-         "Destination other than 'table' or 'persistent' used:" + destination);
+         "Destination other than 'table', 'persistent' or 'both' used:" + 
+         destination);
 
       String existing = null;
       existing = (String)imports.put(importName, destination);
@@ -195,8 +198,9 @@ public class TableDef {
   public void generateBaseJava(Writer w) throws IOException {
     
     w.write("\n");
-    for (Enumeration i = persistentBaseImports.keys(); i.hasMoreElements();) {
-      w.write("import " + i.nextElement() + ";\n");
+    for (Enumeration e = persistentBaseImports.elements(); 
+         e.hasMoreElements();) {
+      w.write("import " + e.nextElement() + ";\n");
     }
     w.write("\n");
 
@@ -220,7 +224,7 @@ public class TableDef {
     w.write(" */\n");
     w.write("public abstract class " + naming.baseClassShortName() + 
             " extends " +
-                naming.superclassMainUnambiguous() + " {\n" +
+                naming.superclassMainShortName() + " {\n" +
             "\n" +
             "  public " + dsd.databaseTablesClass + 
             " get" + dsd.databaseTablesClass +
@@ -283,32 +287,10 @@ public class TableDef {
   */
   public void generateTableBaseJava(Writer w) throws IOException {
 
-    w.write("import org.melati.poem.Database;\n");
-    w.write("import org.melati.poem.DefinitionSource;\n");
-    w.write("import org.melati.poem.PoemException;\n");
-    w.write("import org.melati.poem.Persistent;\n");
-    // Have we actually added any columns
-    if (fields != null && fields.size() > 0 ) {
-      w.write("import org.melati.poem.Column;\n");
-      w.write("import org.melati.poem.Field;\n");
-      w.write("import org.melati.poem.AccessPoemException;\n");
-      w.write("import org.melati.poem.ValidationPoemException;\n");
-    }
-
-    if (naming.superclassTableUnambiguous().equals("Table")) {
-        w.write("import org.melati.poem.Table;\n");
-    } else {
-      w.write("import " + naming.superclassTableFQName() + ";\n");
-    }
-    w.write("import " + dsd.packageName + "." + 
-            dsd.databaseTablesClass + ";\n");
+    for (Enumeration e = tableBaseImports.elements(); e.hasMoreElements();) 
+      w.write("import " + e.nextElement() + ";\n");
 
     w.write("\n");
-    for (Enumeration i = tableBaseImports.keys(); i.hasMoreElements();) {
-      w.write("import " + i.nextElement() + ";\n");
-    }
-    w.write("\n");
-
     w.write("\n" +
             "/**\n" +
             " * Melati POEM generated base class for table " +  
@@ -321,9 +303,9 @@ public class TableDef {
       w.write("\n");
     }
     w.write(" *\n" +
-            " */\n");
+            " */\n\n");
     w.write("public class " + naming.tableBaseClassShortName() + " extends " +
-                naming.superclassTableUnambiguous() + " {\n" +
+                naming.superclassTableShortName() + " {\n" +
             "\n");
 
     for (Enumeration f = fields.elements(); f.hasMoreElements();) {
@@ -480,10 +462,8 @@ public class TableDef {
       addImport("org.melati.poem.Searchability", "table");
     addImport(naming.tableFQName, "table");
     if (definesColumns) {
-      addImport("org.melati.poem.Column", "persistent");
-      addImport("org.melati.poem.Field", "persistent");
-      addImport("org.melati.poem.AccessPoemException", "persistent");
-      addImport("org.melati.poem.ValidationPoemException", "persistent");
+      addImport("org.melati.poem.Column", "both");
+      addImport("org.melati.poem.Field", "both");
     }
     if (naming.superclassMainUnambiguous().equals("Persistent")) {
        addImport("org.melati.poem.Persistent", "persistent");
@@ -495,10 +475,37 @@ public class TableDef {
     addImport(dsd.packageName + "." + 
               dsd.databaseTablesClass, "persistent");
 
+    addImport("org.melati.poem.Database", "table");
+    addImport("org.melati.poem.DefinitionSource", "table");
+    addImport("org.melati.poem.PoemException", "table");
+
+    if (!isAbstract) addImport("org.melati.poem.Persistent", "table");
+
+    if (naming.superclassTableUnambiguous().equals("Table")) {
+       addImport("org.melati.poem.Table", "table");
+    } else {
+       addImport(naming.superclassTableFQName(), "table");
+    }
+    addImport(dsd.packageName + "." + 
+            dsd.databaseTablesClass, "table");
+
     // Sort out the imports
     for (Enumeration i = imports.keys(); i.hasMoreElements();) { 
       String fqKey;
       String key = (String)i.nextElement();
+      if (key.indexOf(".") == -1) {
+        TableNamingInfo targetTable =
+            (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
+        fqKey = targetTable.tableFQName;
+        String destination = (String)imports.get(key);
+        imports.remove(key);
+        addImport(fqKey, destination);
+      } 
+    }
+    for (Enumeration i = imports.keys(); i.hasMoreElements();) { 
+      String fqKey;
+      String key = (String)i.nextElement();
+   
       if (key.indexOf(".") == -1) {
         TableNamingInfo targetTable =
             (TableNamingInfo)dsd.nameStore.tablesByShortName.get(key);
@@ -508,14 +515,25 @@ public class TableDef {
       }
       String destination = (String)imports.get(key);
       if (destination == "table") {
-        tableBaseImports.put(fqKey,"used");
+        tableBaseImports.addElement(fqKey);
       } else if (destination == "persistent") {
-        persistentBaseImports.put(fqKey,"used");
+        persistentBaseImports.addElement(fqKey);
       } else {
-        tableBaseImports.put(fqKey,"used");
-        persistentBaseImports.put(fqKey,"used");
+        tableBaseImports.addElement(fqKey);
+        persistentBaseImports.addElement(fqKey);
       }
     }
+    Object[] t = tableBaseImports.toArray();
+    Object[] p = persistentBaseImports.toArray();
+    Arrays.sort(t);
+    Arrays.sort(p);
+    tableBaseImports.removeAllElements();
+    persistentBaseImports.removeAllElements();
+    for (int i = 0; i < t.length; i++) 
+      tableBaseImports.addElement((String)t[i]);
+    for (int i = 0; i < p.length; i++) 
+      persistentBaseImports.addElement((String)p[i]);
+
     dsd.createJava(naming.baseClassShortName(),
                    new Generator() {
                      public void process(Writer w) throws IOException {

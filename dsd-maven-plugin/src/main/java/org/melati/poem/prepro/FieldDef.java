@@ -117,6 +117,12 @@ public abstract class FieldDef {
   public static FieldDef from(TableDef table, StreamTokenizer tokens,
                               int displayOrder)
       throws ParsingDSDException, IOException, IllegalityException {
+    table.addImport("org.melati.poem.AccessPoemException", 
+                      "both");
+    table.addImport("org.melati.poem.ValidationPoemException", 
+                    "table");
+    table.addImport("org.melati.poem.Persistent","table");
+
     table.definesColumns = true;
     Vector qualifiers = new Vector();
     fieldQualifiers(qualifiers, tokens);

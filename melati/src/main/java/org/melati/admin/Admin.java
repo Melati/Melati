@@ -482,6 +482,16 @@ public class Admin extends TemplateServlet {
     return adminTemplate(editingTemplate(context, melati), "Edit");
   }
 
+  protected String treeTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
+    return adminTemplate(editingTemplate(context, melati), "Tree");
+  }
+
+  protected String treeControlTemplate(TemplateContext context, Melati melati)
+      throws PoemException {
+    return adminTemplate(editingTemplate(context, melati), "TreeControl");
+  }
+
   protected String addTemplate(TemplateContext context, Melati melati)
       throws PoemException {
 
@@ -608,6 +618,10 @@ public class Admin extends TemplateServlet {
         return rightTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
         return editHeaderTemplate(context, melati);
+      if (melati.getMethod().equals("Tree"))
+        return treeTemplate(context, melati);
+      if (melati.getMethod().equals("TreeControl"))
+        return treeControlTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
         return editTemplate(context, melati);
       else

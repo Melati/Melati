@@ -109,7 +109,7 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#maxFieldLength()
    */
   public int maxFieldLength() {
-    return 32;
+    return 31;
   }
 
   /* (non-Javadoc)

@@ -362,6 +362,10 @@ table ColumnInfo extends org.melati.poem.ValueInfo
       (description = "Whether the field is unique (implies that it's `indexed')")
       (displaylevel = record) (searchability = no) (uneditable);
 
+  (nullable) IntegrityFix integrityfix
+      (displayname = "Integrity fix")
+      (description = "How referential integrity for the field is maintained")
+      (displaylevel = detail) (searchability = no);
 }
 
 table TableCategory

@@ -73,24 +73,25 @@ public class DSD {
   final Vector importedDSDs = new Vector();
 
   static void expect(StreamTokenizer tokens, String what)
-  throws ParsingDSDException, IOException {
+                                      throws ParsingDSDException, IOException {
     if (tokens.ttype != StreamTokenizer.TT_WORD || !tokens.sval.equals(what))
       throw new ParsingDSDException(what, tokens);
   }
 
   static void expect(StreamTokenizer tokens, char what)
-  throws ParsingDSDException, IOException {
+                                      throws ParsingDSDException, IOException {
     if (tokens.ttype != what)
       throw new ParsingDSDException("" + what, tokens);
   }
 
-  public DSD(String file)
-  throws IOException, ParsingDSDException, IllegalityException {
+  public DSD(String file) throws IOException, ParsingDSDException,
+                            IllegalityException, ResourceNotFoundException {
     this(file, new TableNamingStore(), true);
   }
 
   public DSD(String file, TableNamingStore names, boolean includeMelati)
-  throws IOException, ParsingDSDException, IllegalityException {
+                      throws IOException, ParsingDSDException,
+                             IllegalityException, ResourceNotFoundException {
     nameStore = names;
     dsdFile = new File(file);
     String dsdFileName = dsdFile.getName();
@@ -103,11 +104,13 @@ public class DSD {
     databaseTablesClass = nAme + "DatabaseTables";
     databaseTablesBaseClass = nAme + "DatabaseTablesBase";
     dsdDir = new File(new File(dsdFile.getAbsolutePath()).getParent());
-    dsdDirGen = new File(dsdDir.getAbsolutePath() + File.separator + "generated");
+    dsdDirGen = new File(
+                  dsdDir.getAbsolutePath() + File.separator + "generated");
 
     /* Read in the default Poem tables, if appropriate */
     if (includeMelati && !"Poem".equals(nAme)) {
-      DSD melatiDSD = new DSD(filePath("org.melati.poem.Poem.dsd"), nameStore, false);
+      DSD melatiDSD = new DSD(filePath("org.melati.poem.Poem.dsd"),
+                              nameStore, false);
       Vector melatiTables = melatiDSD.tablesInPackage;
       for(int i = 0; i < melatiTables.size(); i++)
         tablesInDatabase.addElement(melatiTables.elementAt(i));
@@ -184,8 +187,8 @@ public class DSD {
     }
   }
 
-  void createJava(String name, Generator proc,
-                  boolean overwrite) throws IOException {
+  void createJava(String name, Generator proc, boolean overwrite)
+                                                         throws IOException {
     if (!dsdDirGen.exists()) {
       dsdDirGen.mkdir();
     }
@@ -247,7 +250,7 @@ public class DSD {
   }
 
   void writeImports(Writer w, String name, boolean generated)
-      throws IOException {
+                                                          throws IOException {
 
     for (int i = 0; i < tablesInDatabase.size(); i++) {
       TableDef def = (TableDef)tablesInDatabase.elementAt(i);
@@ -289,7 +292,8 @@ public class DSD {
       TableDef td = ((TableDef)t.nextElement());
       if (!td.naming.hidden &&
           (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-           (packageName.equals("org.melati.poem") && name.equalsIgnoreCase("Poem"))))
+           (packageName.equals("org.melati.poem") &&
+            name.equalsIgnoreCase("Poem"))))
         td.generateTableDeclJava(w);
     }
 
@@ -300,7 +304,8 @@ public class DSD {
       TableDef td = ((TableDef)t.nextElement());
       if (!td.naming.hidden &&
           (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-           (packageName.equals("org.melati.poem") && name.equalsIgnoreCase("Poem"))))
+           (packageName.equals("org.melati.poem") &&
+            name.equalsIgnoreCase("Poem"))))
         td.generateTableDefnJava(w);
     }
 
@@ -310,7 +315,8 @@ public class DSD {
       TableDef td = ((TableDef)t.nextElement());
       if (!td.naming.hidden &&
           (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-           (packageName.equals("org.melati.poem") && name.equalsIgnoreCase("Poem")))) {
+           (packageName.equals("org.melati.poem") &&
+            name.equalsIgnoreCase("Poem")))) {
         w.write('\n');
         td.generateTableAccessorJava(w);
       }
@@ -345,7 +351,8 @@ public class DSD {
       TableDef td = ((TableDef)t.nextElement());
       if (!td.naming.hidden &&
           (!td.naming.tableFQName.startsWith("org.melati.poem") ||
-           (packageName.equals("org.melati.poem") && name.equalsIgnoreCase("Poem"))))
+           (packageName.equals("org.melati.poem") &&
+            name.equalsIgnoreCase("Poem"))))
         td.generateTableAccessorDefnJava(w);
     }
     w.write("}\n");
@@ -395,32 +402,40 @@ public class DSD {
       ((TableDef)t.nextElement()).generateJava();
   }
 
-  String filePath(String resource) {
+  /**
+   * This returns the path to a file (which we assume is a DSD) by
+   * finding the Database class it generated and which the user has
+   * compiled.
+   */
+  String filePath(String resource) throws ResourceNotFoundException {
     int ext = resource.lastIndexOf('.');
     if (ext == -1)
-      return null;
+      throw new ResourceNotFoundException(resource,
+        "I can't find the type of this resource (i.e. the file's extension)");
     int file = resource.lastIndexOf('.', ext - 1);
     if (file == -1)
-      return null;
+      throw new ResourceNotFoundException(resource,
+                  "I can't find a package name for this resource");
     String packageName = resource.substring(0, file);
-//    System.out.println("packageName = "+packageName);
     String fileName = resource.substring(file + 1, ext);
-//    System.out.println("fileName = "+fileName);
     String extension = resource.substring(ext + 1);
-//    System.out.println("extension = "+extension);
     String fileToLookFor = fileName + "." + extension;
-//    System.out.println("fileToLookFor = "+fileToLookFor);
-    String databaseName = StringUtils.capitalised(fileName.toLowerCase()) + "Database";
-//    System.out.println("databaseName = "+databaseName);
+    String databaseName = StringUtils.capitalised(fileName.toLowerCase()) +
+                            "Database";
     Class database;
     try {
       database = Class.forName(packageName + "." + databaseName);
     } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+      throw new ResourceNotFoundException(resource,
+                  "I can't find the database class associated with this "+
+                  "resource (" + packageName + "." + databaseName + "). " +
+                  "Is it in your classpath?");
     }
     java.net.URL url = database.getResource(fileToLookFor);
-//    System.out.println("url = "+url);
+    if (url == null || url.getFile() == null || url.getFile().equals(""))
+      throw new ResourceNotFoundException(resource,
+                  "I can't find the resource from the database class file. "+
+                  "Is the resource in your classpath?");
     return url.getFile();
   }
 

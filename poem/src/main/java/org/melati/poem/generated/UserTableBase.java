@@ -149,7 +149,7 @@ public class UserTableBase extends Table {
         });
 
     defineColumn(col_login =
-        new Column(this, "login", new StringPoemType(false, 20), DefinitionSource.dsd) { 
+        new Column(this, "login", new StringPoemType(false, 255), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getLogin();

@@ -66,7 +66,7 @@ public final class DbmsFactory {
 
     // FIXME
     // What horrible exception handling. We need a non SQL Exception here
-    public static final Dbms getDbms(String dbmsClass) 
+    public static Dbms getDbms(String dbmsClass) 
         throws ConnectionFailurePoemException {
       synchronized (dbmsObjects) {
         try {

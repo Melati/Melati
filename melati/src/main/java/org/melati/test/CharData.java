@@ -70,7 +70,7 @@ public final class CharData {
 
         int i = 0;
 
-        public final boolean hasNext() {
+        public boolean hasNext() {
           return i < charData.length;
         }
 

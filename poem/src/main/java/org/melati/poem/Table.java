@@ -2442,21 +2442,27 @@ public class Table implements Selectable {
       // if (logSQL()) log("Getting indexes for "+ 
       //    dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       ResultSet index =
-          getDatabase().getCommittedConnection().getMetaData().
-          // null, "" means ignore catalog, 
-          // only retrieve those without a schema
-          // null, null means ignore both
-              getIndexInfo(null, dbms().getSchema(), 
-                  dbms().getJdbcMetadataName(dbms().unreservedName(getName())), 
-                           false, true);
+        getDatabase().getCommittedConnection().getMetaData().
+        // null, "" means ignore catalog, 
+        // only retrieve those without a schema
+        // null, null means ignore both
+            getIndexInfo(null, dbms().getSchema(), 
+                dbms().getJdbcMetadataName(dbms().unreservedName(getName())), 
+                         false, true);
       while (index.next()) {
         try {
+          String mdIndexName = index.getString("INDEX_NAME");
           String mdColName = index.getString("COLUMN_NAME");
           if (mdColName != null) { // which MSSQL and Oracle seems to return sometimes
             String columnName = dbms().melatiName(mdColName);
             Column column = getColumn(columnName);
-            column.unifyWithIndex(index);
-            dbHasIndexForColumn.put(column, Boolean.TRUE);
+            // Don't want to take account of non-melati indices
+            String expectedIndex = getName().toUpperCase() + "_" + 
+                                   columnName.toUpperCase() + "_INDEX";
+            if (mdIndexName.toUpperCase().equals(expectedIndex)) {
+              column.unifyWithIndex(index);
+              dbHasIndexForColumn.put(column, Boolean.TRUE);
+            }
           } 
           // else it is a compound index ??
           

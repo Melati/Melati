@@ -2,7 +2,8 @@ package org.melati.poem;
 
 public class GroupCapabilityTable extends GroupCapabilityTableBase {
 
-  public GroupCapabilityTable(Database database, String name) throws PoemException {
+  public GroupCapabilityTable(Database database, String name)
+      throws PoemException {
     super(database, name);
   }
 

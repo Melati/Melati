@@ -873,7 +873,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * @see Database#referencesTo
    */
 
-  public final void deleteAndCommit()
+  public void deleteAndCommit()
       throws AccessPoemException, DeletionIntegrityPoemException {
 
     assertNormalPersistent();
@@ -1004,5 +1004,12 @@ public class Persistent extends Transactioned implements Cloneable {
       ((Field)f.nextElement()).dump(p);
       p.println();
     }
+  }
+
+  // this method is called directly following a record being written
+  // override it to provide functionality sussequent to writes (or inserts), 
+  // your persistent will have a Troid at this stage
+  // this method is only called once!
+  public void postWrite() {
   }
 }

@@ -1,0 +1,12 @@
+<html><head><title>ERROR!</title></head>
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+
+<body bgcolor="white">
+<h1><font color="green">ERROR!</font></h1>
+
+<PRE>
+$ml.rendered($error)
+</PRE>
+
+</body></html>

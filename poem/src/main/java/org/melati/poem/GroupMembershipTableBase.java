@@ -184,7 +184,11 @@ public class GroupMembershipTableBase extends Table {
     return "A record that a given user is a member of a given group";
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 5;
+    return 6;
   }
 }

@@ -28,6 +28,8 @@ public class ColumnInfoBase extends Persistent {
   Integer width;
   Integer height;
   String renderinfo;
+  String rangelow_string;
+  String rangelimit_string;
 
   public Integer getId_unsafe() {
     return id;
@@ -621,5 +623,55 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getRenderinfoField() throws AccessPoemException {
     return getColumnInfoTable().getRenderinfoColumn().asField(this);
+  }
+
+  public String getRangelow_string_unsafe() {
+    return rangelow_string;
+  }
+
+  public void setRangelow_string_unsafe(String cooked) {
+    rangelow_string = cooked;
+  }
+
+  public String getRangelow_string()
+      throws AccessPoemException {
+    readLock();
+    return getRangelow_string_unsafe();
+  }
+
+  public void setRangelow_string(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getRangelow_stringColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setRangelow_string_unsafe(cooked);
+  }
+
+  public final Field getRangelow_stringField() throws AccessPoemException {
+    return getColumnInfoTable().getRangelow_stringColumn().asField(this);
+  }
+
+  public String getRangelimit_string_unsafe() {
+    return rangelimit_string;
+  }
+
+  public void setRangelimit_string_unsafe(String cooked) {
+    rangelimit_string = cooked;
+  }
+
+  public String getRangelimit_string()
+      throws AccessPoemException {
+    readLock();
+    return getRangelimit_string_unsafe();
+  }
+
+  public void setRangelimit_string(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getRangelimit_stringColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setRangelimit_string_unsafe(cooked);
+  }
+
+  public final Field getRangelimit_stringField() throws AccessPoemException {
+    return getColumnInfoTable().getRangelimit_stringColumn().asField(this);
   }
 }

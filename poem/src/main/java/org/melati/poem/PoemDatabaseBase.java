@@ -4,6 +4,7 @@ package org.melati.poem;
 
 public class PoemDatabaseBase extends Database {
 
+  private TableCategoryTable tab_tablecategory = null;
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;
   private CapabilityTable tab_capability = null;
@@ -14,6 +15,7 @@ public class PoemDatabaseBase extends Database {
 
   public PoemDatabaseBase() {
     try {
+      defineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory"));
       defineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo"));
       defineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo"));
       defineTable(tab_capability = new CapabilityTable(this, "capability"));
@@ -21,6 +23,7 @@ public class PoemDatabaseBase extends Database {
       defineTable(tab_group = new GroupTable(this, "group"));
       defineTable(tab_groupmembership = new GroupMembershipTable(this, "groupmembership"));
       defineTable(tab_groupcapability = new GroupCapabilityTable(this, "groupcapability"));
+      tab_tablecategory.init();
       tab_tableinfo.init();
       tab_columninfo.init();
       tab_capability.init();
@@ -32,6 +35,10 @@ public class PoemDatabaseBase extends Database {
     catch (PoemException e) {
       throw new UnexpectedExceptionPoemException(e);
     }
+  }
+
+  public TableCategoryTable getTableCategoryTable() {
+    return tab_tablecategory;
   }
 
   public TableInfoTable getTableInfoTable() {

@@ -2,12 +2,12 @@
 
 package org.melati.poem;
 
-public class GroupTableBase extends Table {
+public class TableCategoryTableBase extends Table {
 
   private Column col_id = null;
   private Column col_name = null;
 
-  public GroupTableBase(Database database, String name) throws PoemException {
+  public TableCategoryTableBase(Database database, String name) throws PoemException {
     super(database, name, DefinitionSource.dsd);
   }
 
@@ -16,12 +16,12 @@ public class GroupTableBase extends Table {
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Group)g).getId();
+            return ((TableCategory)g).getId();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Group)g).setId((Integer)cooked);
+            ((TableCategory)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -34,22 +34,22 @@ public class GroupTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Group)g).getId_unsafe();
+            return ((TableCategory)g).getId_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setId_unsafe((Integer)raw);
+            ((TableCategory)g).setId_unsafe((Integer)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Group)g).getId();
+            return ((TableCategory)g).getId();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setId((Integer)raw);
+            ((TableCategory)g).setId((Integer)raw);
           }
         });
 
@@ -57,12 +57,12 @@ public class GroupTableBase extends Table {
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Group)g).getName();
+            return ((TableCategory)g).getName();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Group)g).setName((String)cooked);
+            ((TableCategory)g).setName((String)cooked);
           }
 
           protected boolean defaultPrimaryDisplay() {
@@ -78,7 +78,7 @@ public class GroupTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "A human-readable name for the group";
+            return "A human-readable name for the category";
           }
 
           protected boolean defaultUnique() {
@@ -87,22 +87,22 @@ public class GroupTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Group)g).getName_unsafe();
+            return ((TableCategory)g).getName_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setName_unsafe((String)raw);
+            ((TableCategory)g).setName_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Group)g).getName();
+            return ((TableCategory)g).getName();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Group)g).setName((String)raw);
+            ((TableCategory)g).setName((String)raw);
           }
         });
   }
@@ -115,23 +115,31 @@ public class GroupTableBase extends Table {
     return col_name;
   }
 
-  public Group getGroupObject(Integer troid) {
-    return (Group)getObject(troid);
+  public TableCategory getTableCategoryObject(Integer troid) {
+    return (TableCategory)getObject(troid);
   }
 
-  public Group getGroupObject(int troid) {
-    return (Group)getObject(troid);
+  public TableCategory getTableCategoryObject(int troid) {
+    return (TableCategory)getObject(troid);
   }
 
   protected Persistent _newPersistent() {
-    return new Group();
+    return new TableCategory();
   }
+  protected String defaultDisplayName() {
+    return "Table type";
+  }
+
   protected String defaultDescription() {
-    return "A group to which registered users of the database can belong";
+    return "A category under which a table can be classified";
   }
 
   protected boolean defaultRememberAllTroids() {
     return true;
+  }
+
+  protected Integer defaultCacheLimit() {
+    return null;
   }
 
   protected String defaultCategory() {
@@ -139,6 +147,6 @@ public class GroupTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 5;
+    return 0;
   }
 }

@@ -24,6 +24,8 @@ public class ColumnInfoTableBase extends Table {
   private Column col_width = null;
   private Column col_height = null;
   private Column col_renderinfo = null;
+  private Column col_rangelow_string = null;
+  private Column col_rangelimit_string = null;
 
   public ColumnInfoTableBase(Database database, String name) throws PoemException {
     super(database, name, DefinitionSource.dsd);
@@ -1065,6 +1067,112 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setRenderinfo((String)raw);
           }
         });
+
+    defineColumn(col_rangelow_string =
+        new Column(this, "rangelow_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getRangelow_string();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setRangelow_string((String)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "Range: low";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 20;
+          }
+
+          protected String defaultDescription() {
+            return "The low end of the range of permissible values for the field";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getRangelow_string_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setRangelow_string_unsafe((String)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getRangelow_string();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setRangelow_string((String)raw);
+          }
+        });
+
+    defineColumn(col_rangelimit_string =
+        new Column(this, "rangelimit_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getRangelimit_string();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setRangelimit_string((String)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "Range: limit";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 21;
+          }
+
+          protected String defaultDescription() {
+            return "The (exclusive) limit of the range of permissible values for the field";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getRangelimit_string_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setRangelimit_string_unsafe((String)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getRangelimit_string();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setRangelimit_string((String)raw);
+          }
+        });
   }
 
   public final Column getIdColumn() {
@@ -1147,6 +1255,14 @@ public class ColumnInfoTableBase extends Table {
     return col_renderinfo;
   }
 
+  public final Column getRangelow_stringColumn() {
+    return col_rangelow_string;
+  }
+
+  public final Column getRangelimit_stringColumn() {
+    return col_rangelimit_string;
+  }
+
   public ColumnInfo getColumnInfoObject(Integer troid) {
     return (ColumnInfo)getObject(troid);
   }
@@ -1174,7 +1290,11 @@ public class ColumnInfoTableBase extends Table {
     return null;
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 1;
+    return 2;
   }
 }

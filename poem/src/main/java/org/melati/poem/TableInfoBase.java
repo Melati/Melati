@@ -18,6 +18,7 @@ public class TableInfoBase extends Persistent {
   Integer cancreate;
   Integer cachelimit;
   Boolean seqcached;
+  Integer category;
 
   public Integer getId_unsafe() {
     return id;
@@ -323,5 +324,42 @@ public class TableInfoBase extends Persistent {
 
   public final Field getSeqcachedField() throws AccessPoemException {
     return getTableInfoTable().getSeqcachedColumn().asField(this);
+  }
+
+  public Integer getCategory_unsafe() {
+    return category;
+  }
+
+  public void setCategory_unsafe(Integer cooked) {
+    category = cooked;
+  }
+
+  public Integer getCategoryTroid()
+      throws AccessPoemException {
+    readLock();
+    return getCategory_unsafe();
+  }
+
+  public void setCategoryTroid(Integer raw)
+      throws AccessPoemException {
+    getTableInfoTable().getCategoryColumn().getType().assertValidRaw(raw);
+    writeLock();
+    setCategory_unsafe(raw);
+  }
+
+  public TableCategory getCategory()
+      throws AccessPoemException, NoSuchRowPoemException {
+    Integer troid = getCategoryTroid();
+    return troid == null ? null :
+        ((PoemDatabase)getDatabase()).getTableCategoryTable().getTableCategoryObject(troid);
+  }
+
+  public void setCategory(TableCategory cooked)
+      throws AccessPoemException {
+    setCategoryTroid(cooked == null ? null : cooked.troid());
+  }
+
+  public final Field getCategoryField() throws AccessPoemException {
+    return getTableInfoTable().getCategoryColumn().asField(this);
   }
 }

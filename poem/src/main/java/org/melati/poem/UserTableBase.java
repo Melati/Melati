@@ -234,7 +234,11 @@ public class UserTableBase extends Table {
     return true;
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 3;
+    return 4;
   }
 }

@@ -176,7 +176,11 @@ public class GroupCapabilityTableBase extends Table {
     return "A record that users belonging to a given group possess a given capability";
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 6;
+    return 7;
   }
 }

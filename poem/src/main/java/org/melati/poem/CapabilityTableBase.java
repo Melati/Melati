@@ -73,10 +73,6 @@ public class CapabilityTableBase extends Table {
             return new Integer(0);
           }
 
-          protected String defaultDisplayName() {
-            return "Name";
-          }
-
           protected int defaultDisplayOrder() {
             return 1;
           }
@@ -138,7 +134,11 @@ public class CapabilityTableBase extends Table {
     return true;
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 2;
+    return 3;
   }
 }

@@ -14,6 +14,7 @@ public class TableInfoTableBase extends Table {
   private Column col_cancreate = null;
   private Column col_cachelimit = null;
   private Column col_seqcached = null;
+  private Column col_category = null;
 
   public TableInfoTableBase(Database database, String name) throws PoemException {
     super(database, name, DefinitionSource.dsd);
@@ -541,6 +542,51 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setSeqcached((Boolean)raw);
           }
         });
+
+    defineColumn(col_category =
+        new Column(this, "category", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableCategoryTable(), false), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getCategory();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setCategory((TableCategory)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected int defaultDisplayOrder() {
+            return 10;
+          }
+
+          protected String defaultDescription() {
+            return "Which category the table falls into";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCategory_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((TableInfo)g).setCategory_unsafe((Integer)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCategoryTroid();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((TableInfo)g).setCategoryTroid((Integer)raw);
+          }
+        });
   }
 
   public final Column getIdColumn() {
@@ -583,6 +629,10 @@ public class TableInfoTableBase extends Table {
     return col_seqcached;
   }
 
+  public final Column getCategoryColumn() {
+    return col_category;
+  }
+
   public TableInfo getTableInfoObject(Integer troid) {
     return (TableInfo)getObject(troid);
   }
@@ -610,7 +660,11 @@ public class TableInfoTableBase extends Table {
     return null;
   }
 
+  protected String defaultCategory() {
+    return "System";
+  }
+
   protected int defaultDisplayOrder() {
-    return 0;
+    return 1;
   }
 }

@@ -2505,7 +2505,8 @@ public class Table implements Selectable {
             // Don't want to take account of non-melati indices
             String expectedIndex = getName().toUpperCase() + "_" + 
                                    columnName.toUpperCase() + "_INDEX";
-            expectedIndex = expectedIndex.substring(0,dbms().maxFieldLength());
+            if (expectedIndex.length() > dbms().maxFieldLength()) 
+              expectedIndex = expectedIndex.substring(0,dbms().maxFieldLength());
             if (mdIndexName.toUpperCase().equals(expectedIndex)) {
               column.unifyWithIndex(index);
               dbHasIndexForColumn.put(column, Boolean.TRUE);

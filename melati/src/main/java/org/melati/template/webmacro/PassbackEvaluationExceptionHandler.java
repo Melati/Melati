@@ -49,8 +49,10 @@ import org.melati.template.MarkupLanguage;
 
 import org.webmacro.PropertyException;
 import org.webmacro.Context;
+import org.webmacro.Broker;
 import org.webmacro.engine.EvaluationExceptionHandler;
 import org.webmacro.engine.Variable;
+import org.webmacro.util.Settings;
 
 /**
  * PassbackEvaluationExceptionHandler
@@ -63,19 +65,17 @@ import org.webmacro.engine.Variable;
 public class PassbackEvaluationExceptionHandler 
   implements EvaluationExceptionHandler {
 
-   public void evaluate(Variable variable, 
+    public void init(Broker b, Settings config) {};
+
+  public void evaluate(Variable variable, 
                         Context context, 
                         Exception problem) 
    throws PropertyException {
-     if (problem instanceof PropertyException)
-       throw (PropertyException) problem;
-     else 
-       throw new PropertyException("Error evaluating variable " 
-                                   + variable.getVariableName() + ": " 
-                                   + problem, problem);
+     throw new PropertyException("Failed to evaluate " + 
+     variable.getVariableName() + ": " + problem,problem);
    }
 
-   public String expand(Variable variable, 
+  public String expand(Variable variable, 
                         Context context, 
                         Exception problem) 
    throws PropertyException {
@@ -87,7 +87,7 @@ public class PassbackEvaluationExceptionHandler
      Throwable underlying = problem;
      if (problem instanceof PropertyException) {
        PropertyException prob = (PropertyException)problem;
-       if (prob.caught != null) underlying = prob.caught;
+       if (prob.getCaught() != null) underlying = prob.getCaught();
      }
      try {
        return ml.rendered(underlying);
@@ -98,11 +98,9 @@ public class PassbackEvaluationExceptionHandler
      }
    }
 
-
    public String warningString(String warningText) throws PropertyException {
       throw new PropertyException("Evaluation warning: " + warningText);
    }
-
 
    public String errorString(String errorText) throws PropertyException {
       throw new PropertyException("Evaluation error: " + errorText);

@@ -138,16 +138,19 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
     // First off, is the user continuing after a login?  If so, we want to
     // recover any POSTed fields from the request that triggered it.
+
     synchronized (session) {
       HttpServletRequestParameters oldParams =
-      (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
+          (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
+
       if (oldParams != null) {
         session.removeValue(OVERLAY_PARAMETERS);
-        /* we don't want to create a new object here, rather we are simply 
-           going to set up the old request parameters
-        */
-        melati.setRequest(new ReconstructedHttpServletRequest(oldParams,
-                                                          melati.getRequest()));
+
+        // we don't want to create a new object here, rather we are simply 
+        // going to set up the old request parameters
+
+        melati.setRequest(
+            new ReconstructedHttpServletRequest(oldParams, melati.getRequest()));
       }
     }
   }

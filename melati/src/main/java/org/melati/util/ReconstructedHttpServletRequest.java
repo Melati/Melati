@@ -57,16 +57,16 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   private HttpServletRequest newRequest;
 
   public ReconstructedHttpServletRequest(
-  HttpServletRequestParameters oldParams, HttpServletRequest newRequest)
-  throws ReconstructedHttpServletRequestMismatchException {
+      HttpServletRequestParameters oldParams, HttpServletRequest newRequest)
+          throws ReconstructedHttpServletRequestMismatchException {
     if (!oldParams.requestURL.equals(
-    HttpUtils.getRequestURL(newRequest).toString()) ||
-    !(oldParams.queryString == null ?
-    newRequest.getQueryString() == null :
-    oldParams.queryString.equals(newRequest.getQueryString())) ||
-    oldParams.session != newRequest.getSession(false))
-    throw new ReconstructedHttpServletRequestMismatchException(oldParams,
-    newRequest);
+            HttpUtils.getRequestURL(newRequest).toString()) ||
+        !(oldParams.queryString == null ?
+            newRequest.getQueryString() == null :
+            oldParams.queryString.equals(newRequest.getQueryString())) ||
+        oldParams.session != newRequest.getSession(false))
+      throw new ReconstructedHttpServletRequestMismatchException(oldParams,
+                                                                 newRequest);
 
     this.oldParams = oldParams;
     this.newRequest = newRequest;
@@ -293,5 +293,4 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   public void setAttribute(String arg1, Object arg2) {
     throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
-
 }

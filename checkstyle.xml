@@ -81,7 +81,9 @@
         </module>
         <module name="PackageName"/>
         <module name="ParameterName"/>
-        <module name="StaticVariableName"/>
+        <module name="StaticVariableName">
+         <property name="format" value="^[\_]?[a-zA-Z0-9\_]*$"/>
+        </module>
         <module name="TypeName"/>
 
 

@@ -8,9 +8,9 @@
     <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
-  <property name="version"            value="0.7.3"/>
+  <property name="version"            value="0.7.4"/>
   <property name="year"               value="2004"/>
-  <property name="date"               value="22-12-2004"/>
+  <property name="date"               value="10-01-2005"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
@@ -49,6 +49,7 @@
 
   <property name="servletJar"       value="javax.servlet.jar"/>
   <property name="postgresqlJar"    value="pg73jdbc3.jar"/>
+  <property name="oracleJar"        value="ojdbc14-1.0.jar"/>
   <property name="hsqldbJar"        value="hsqldb-1.7.1.jar"/>
   <property name="mysqlJar"         value="mm.mysql-2.0.11-bin.jar" />
   <property name="sqlserverJar"     value="mssqlserver.jar" />
@@ -70,6 +71,7 @@
   <path id="classpath.compile">
     <pathelement path="${build.lib}/${servletJar}"/>
     <pathelement path="${build.lib}/${postgresqlJar}"/>
+    <pathelement path="${build.lib}/${orqacleJar}"/>
     <pathelement path="${build.lib}/${webmacroJar}"/>
     <pathelement path="${build.lib}/${velocityJar}" />
     <pathelement path="${build.lib}/${oroJar}" />
@@ -504,6 +506,7 @@ usage:
         <include name="${concurrentJar}"/>
         <include name="${oroJar}" />
         <include name="${collectionsJar}" />
+        <include name="${oracleJar}"/>
 
 <!-- other possible libraries
         <include name="${postgresqlJar}"/>
@@ -587,7 +590,7 @@ usage:
     <!-- ============================================================== -->
   <target name="test" 
           description="build (excluding javadoc but without clean) and run"
-          depends="compile, unittest, zip, sources, package, war, run">
+          depends="compile, unittest, war, run">
   </target>
   <target name="compileJar" 
           description="Compile changed sources, test and build jar"

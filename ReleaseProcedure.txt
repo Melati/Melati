@@ -71,7 +71,7 @@ to create a release:
     Review melati/site/docsrc/Roadmap.ahtml
 5.  CVS commit all of the above
     except project.xml
-6.  CVS tag this release (cvs tag Melati-0-7-3)
+6.  CVS tag this release (cvs tag Melati-0-7-4)
 7.  Build melati (again) locally
     cd build
     ant go

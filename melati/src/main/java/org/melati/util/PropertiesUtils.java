@@ -48,11 +48,24 @@
 package org.melati.util;
 
 import java.util.Properties;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 public class PropertiesUtils {
+
+  public static Properties fromFile(File path) throws IOException {
+    InputStream data = new FileInputStream(path);
+    Properties them = new Properties();
+    try {
+      them.load(data);
+    }
+    catch (IOException e) {
+      throw new IOException("Corrupt properties file `" + path + "': " +
+                            e.getMessage());
+    }
+
+    return them;
+  }
+
   public static Properties fromResource(Class clazz, String name)
       throws IOException {
     InputStream is = clazz.getResourceAsStream(name);
@@ -78,6 +91,18 @@ public class PropertiesUtils {
     if (value == null)
       throw new NoSuchPropertyException(properties, propertyName);
     return value;
+  }
+
+  public static int getOrDie_int(Properties properties, String propertyName)
+      throws NoSuchPropertyException, FormatPropertyException {
+    String string = getOrDie(properties, propertyName);
+    try {
+      return Integer.parseInt(string);
+    }
+    catch (NumberFormatException e) {
+      throw new FormatPropertyException(properties, propertyName, string,
+					"an integer", e);
+    }
   }
 
   public static Object instanceOfNamedClass(

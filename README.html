@@ -63,15 +63,14 @@
   <h2 id="Release" name="Release"> Release Notes</h2>
   </a> 
   <p>See the <a href="RELEASE-NOTES.html">release notes</a> for detailed documentation 
-    about what has changed. This is the 22nd beta release of Melati, offering 
+    about what has changed. This is the 23rd beta release of Melati, offering 
     the following improvements over Alpha versions of Melati:</p>
   <ul>
     <li>Support for MySQL, MckoiDB, HSQLDB</li>
     <li>Support for JSDK 2.0, 2.1, 2.2, 2.3 (Tomcat)</li>
     <li>Support for <a href="http://jakarta.apache.org/velocity/">Velocity</a></li>
-    <li>DSDs can now be imported into other DSDs giving some level of modularisation 
-      for Melati applications</li>
-    <li>Support for Webmacro 1.0</li>
+    <li>DSDs can now be imported into other DSDs</li>
+    <li>Support for Webmacro 1.1</li>
     <li>Cascading deletion in POEM</li>
     <li>Cleaner servlet API</li>
     <li>File upload</li>
@@ -83,15 +82,41 @@
     <li>Mailing list hosted on SourceForge</li>
     <li>More documentation (this document).</li>
     <li>Support for <a href="http://eclipse.org/">Eclipse</a></li>
-    <li>Maven validation and <a href="http://maven.mealti.org/">site</a> generation </li>
-    <li>Revised licensing - Dual ASF / GPL licensing.</li>
+    <li>Maven validation and <a href="http://maven.melati.org/">site</a> generation </li>
+    <li>Dual ASF / GPL licensing.</li>
   </ul>
   <p>&nbsp; </p>
   <p> 
   <a name="Upgrading"> 
   <h2 id="Upgrading" name="Upgrading">Upgrading</h2>
   </a> 
-  <h3>To upgrade from Melati 0.6.* to Melati 0.7.*</h3>
+
+  <h3>To upgrade from Melati 0.7.0 to Melati 0.7.1</h3>
+  <ol>
+    <li> 
+      <p>
+       This release adds support for BigDecimal types.
+       This requires the addition of two fields to the field 
+       meta data: <tt>scale</tt> and <tt>precision</tt>.
+       Consequently existing <tt>columninfo</tt> and <tt>setting</tt> 
+       tables need to be altered. 
+       The easiest way is just to drop these tables and allow Melati to
+       recreate them.
+       Unless your settings are <tt>ensure</tt>d you will have to reenter them.
+
+       If you are running postgresql 7.3 or higher you should be able to 
+       do the following instead:
+<pre>
+ALTER TABLE setting ADD COLUMN scale int;
+ALTER TABLE setting ADD COLUMN precision  int;
+ALTER TABLE setting ALTER COLUMN scale SET NOT NULL;
+ALTER TABLE setting ALTER COLUMN precision SET NOT NULL;
+</pre>
+
+      </p>
+    </li>
+  </ol>
+  <h3>To upgrade from Melati 0.6.* to Melati 0.7.0</h3>
   <ol>
     <li> 
       <p>
@@ -114,7 +139,8 @@
   <h3>To upgrade from Melati 0.54.* to Melati 0.55.*</h3>
   <ol>
     <li> 
-      <p>You should upgrade to WebMacro 0.98p1. This has improvements to whitespace 
+      <p>
+       You should upgrade to WebMacro 0.98p1. This has improvements to whitespace 
         handling, and fixes a bug where some Parse Exceptions where thrown as 
         Errors, causing Internal Server Errors, and not tidying up Poem Transaction</p>
     </li>
@@ -208,7 +234,7 @@
     <li><a href="http://www.sourceforge.net/projects/melati">Melati SourceForge 
       Page</a> 
   </ul>
-  <p>The <a href="/docs/">Java Doc API's</a>, is included with this release.</p>
+  <p>The <a href="/javadoc/">Java Doc API's</a>, is included with this release.</p>
   <p>We strongly recommend joining the <a href="http://lists.sourceforge.net/mailman/listinfo/melati-users">Melati 
     Users mailing list</a></p>
   <p>If you are interested in contributing code to Melati, please also join the 
@@ -606,7 +632,6 @@ $ cvs update
   <h3>&nbsp; </h3>
   <p> 
   <h2 id="Started" name="Started">Getting Started </h2>
-  <p>Umm, this is where the docs run out.</p>
   <p>For the time being, please read the Poem User Guide and Preprocessor User 
     Guide on <a href="http://melati.org">http://melati.org</a>. You can also find 
     a simple example application in /lib/example.zip. You can see this application 

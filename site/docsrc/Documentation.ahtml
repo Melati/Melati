@@ -13,9 +13,9 @@ This page last updated: $Date$ $Author$
  <LI><A HREF="doc/index.html">Overview of Melati</A>  </LI>
  <LI><A HREF="/melati-static/README.html">README</A>  </LI>
  <LI><A HREF="/melati-static/RELEASE-NOTES.html">RELEASE-NOTES</A>  </LI>
- <LI><A HREF="doc/PoemInternals.html">Poem Internals</A> </LI>
  <LI><A HREF="doc/PoemUserGuide.html">Poem User Guide</A> </LI>
  <LI><A HREF="doc/PoemPreproUserGuide.html">Preprocessor User Guide</A> </LI>
+ <LI><A HREF="doc/ODMGPoemUserGuide.html">ODMG Poem User Guide</A> </LI>
  <LI><A HREF="/javadoc/">Java Docs</A>.  
      Also available for <A href="Download.html">download</A>. </LI>
  <LI><A href="http://maven.apache.org">Maven</A> generated 

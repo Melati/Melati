@@ -16,6 +16,14 @@ This page last updated: $Date$ $Author$
     <td align="center"><b>Template Engine</b></td>
   </tr>
   <tr>
+    <td>Melati Beta 0.7.1 - 11/07/2003</td>
+    <td><a href="/download/melati_0.7.1.tar.gz">Unix</a><br />
+        <a href="/download/melati_0.7.1.zip">Windows</a></td>
+    <td><a href="/download/melati_0.7.1_doc.tar.gz">Unix</a><br />
+        <a href="/download/melati_0.7.1_doc.zip">Windows </a></td>
+    <td>WebMacro 1.1, Velocity 1.3rc1 bundled</td>
+  </tr>
+  <tr>
     <td>Melati Beta 0.7.0 - 04/06/2003</td>
     <td><a href="/download/melati_0.7.0.tar.gz">Unix</a><br />
         <a href="/download/melati_0.7.0.zip">Windows</a></td>

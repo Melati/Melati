@@ -28,20 +28,47 @@ or to do both just type:
 
 ant go
 
+RELATIONSHIP to MAVEN
+
+In parallel with the above we are migrating to the use of
+http://maven.apache.org/. 
+
+Maven is a useful tool for running automated checks, 
+unit tests and creating distributions etc. 
+
+However the existing script in this directory works well, 
+creates the distribution in a tried and tested manner and 
+runs jetty. 
+
+So for the time being both are being used in parallel.
+
+The site src docs are processed to accomodate both: 
+ant site creates the xHTML docs, 
+ant xdocs creates the maven xdocs
+
+The maven generated site can be viewed at 
+http://maven.melati.org/
+the normal site at http://www.melati.org/
+
+The scripts in this directory generate the official distributions, 
+maven creates the SNAPSHOT distributions.
+
 
 MAKING A RELEASE
 
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1.  Change the version number in build.xml
+1.  Change the version number and date in build.xml
+1a. Remove SNAPSHOT from currentVersion in ../project.xml 
+    and increment it. 
 2.  If your change requires upgrade action by the user make a note
     in the Upgrading section of melati/README.html
 3.  Change Last Updated and Updated By and add a new paragraph to 
     melati/RELEASE-NOTES.html
-4.  Add a paragraph about this release to melati/site/src/Releases.ahtml
+4.  Add a paragraph about this release to melati/site/docsrc/Releases.ahtml
 5.  CVS commit all of the above
-6.  CVS tag this release (cvs tag Melati-0-7-0)
+6.  CVS tag this release (cvs tag Melati-0-7-1)
 7.  Build melati (again) locally
 8.  Test everything
 9.  Update ganesh
@@ -73,6 +100,9 @@ to create a release:
        apw@messageboards.paneris.org
        gtl@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
+14. Add SNAPSHOT to currentVersion in ../project.xml
+
+
 
 $Id$
 

@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7.0</currentVersion>
+  <currentVersion>0.7.1</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -357,10 +357,10 @@ subscribe.melati@messageboards.paneris.org
     <report>maven-jdepend-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-javadoc-plugin</report>
+    <report>maven-linkcheck-plugin</report>
 <!--
     <report>maven-junit-report-plugin</report>
     <report>maven-jellydoc-plugin</report>
-    <report>maven-linkcheck-plugin</report>
 -->
   </reports>
 

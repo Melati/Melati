@@ -8,17 +8,15 @@
     <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
-  <property name="version"            value="0.7.0"/>
+  <property name="version"            value="0.7.1"/>
   <property name="year"               value="2003"/>
-  <property name="date"               value="04-06-2003"/>
+  <property name="date"               value="11-07-2003"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="modern"/>
   <property name="this.root"          value=".."/>
   <property name="src"                value="../src"/>
-  <property name="site"               value="../site"/>
-  <property name="xdocs"              value="../xdocs"/>
   <property name="build.lib"          value="../lib"/>
   <property name="built"              value="dist"/>
   <property name="built.root"         value="./${built}"/>
@@ -29,7 +27,8 @@
   <property name="built.build"        value="${built.dir}/build"/>
   <property name="built.site"         value="${built.dir}/site"/>
   <property name="site"               value="../site"/>
-  <property name="site.src"           value="../site/src"/>
+  <property name="site.src"           value="../site/docsrc"/>
+  <property name="xdocs"              value="../xdocs"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
   <property name="doc.dir"            value="${site}/doc"/>
   <property name="packaged"           value="${built.root}/packaged/"/>
@@ -273,34 +272,33 @@ usage:
     <!-- ============================================================= -->
   <target name="xdocs"
           description="build maven xdocs">
-    <mkdir dir="${xdocs}/org"/>
-    <mkdir dir="${xdocs}/org/images"/>
     <delete>
-       <fileset dir="${xdocs}/org" includes="*.xml"/>
+       <fileset dir="${xdocs}" includes="*.xml" excludes="navigation.xml"/>
     </delete>
-    <loadfile property="header" srcFile="${site.src}/header.xml"/>
-    <loadfile property="footer" srcFile="${site.src}/footer.xml"/>
-    <loadfile property="menu" srcFile="${site.src}/menu.xml"/>
-    <loadfile property="sectionStartTagStart" 
+    <mkdir dir="${xdocs}/images"/>
+    <loadfile property="Xheader" srcFile="${site.src}/header.xml"/>
+    <loadfile property="Xfooter" srcFile="${site.src}/footer.xml"/>
+    <loadfile property="Xmenu" srcFile="${site.src}/menu.xml"/>
+    <loadfile property="XsectionStartTagStart" 
               srcFile="${site.src}/xMLSectionStartTagStart.tag"/>
-    <loadfile property="sectionStartTagEnd" 
+    <loadfile property="XsectionStartTagEnd" 
               srcFile="${site.src}/xMLSectionStartTagEnd.tag"/>
-    <loadfile property="sectionEndTag" 
+    <loadfile property="XsectionEndTag" 
               srcFile="${site.src}/xMLSectionEndTag.tag"/>
     <copy todir="${xdocs}">
       <fileset dir="${site.src}" includes="*.ahtml" excludes="MailingList.html"/>
       <filterset>
-        <filter token="header"   value="${header}"/>
-        <filter token="footer"   value="${footer}"/>
-        <filter token="menu"     value="${menu}"/>
-        <filter token="version"  value="${version}"/>
+        <filter token="header"   value="${Xheader}"/>
+        <filter token="footer"   value="${Xfooter}"/>
+        <filter token="menu"     value="${Xmenu}"/>
+        <filter token="version"  value="${Xversion}"/>
         <filter token="project"  value="${project}"/>
         <filter token="name"     value="${name}"/>
         <filter token="date"     value="${date}"/>
         <filter token="filename" value="${project}_${version}"/>
-        <filter token="sectionStartTagStart" value="${sectionStartTagStart}"/>
-        <filter token="sectionStartTagEnd" value="${sectionStartTagEnd}"/>
-        <filter token="sectionEndTag" value="${sectionEndTag}"/>
+        <filter token="sectionStartTagStart" value="${XsectionStartTagStart}"/>
+        <filter token="sectionStartTagEnd" value="${XsectionStartTagEnd}"/>
+        <filter token="sectionEndTag" value="${XsectionEndTag}"/>
       </filterset>
       <mapper type="glob" from="*.ahtml" to="*.xml"/>
     </copy>
@@ -405,7 +403,7 @@ usage:
     <war warfile="${war}" webxml="${site}/WEB-INF/web.xml">
       <!-- The site HTML -->
       <fileset dir="${site}">
-          <exclude name="**/src/**"/>
+          <exclude name="**/docsrc/**"/>
           <exclude name="**/WEB-INF/web.xml"/>
       </fileset>
       <!-- Readme and License -->

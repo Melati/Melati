@@ -70,8 +70,13 @@ would be nice to have before a 1.0 release.
     <td><b>done</b></td>
   </tr>
   <tr> 
-    <td>0.71</td>
-    <td>Completion JavaDocs.</td>
+    <td>0.72</td>
+    <td>Additional support for joins, access filtering and rollback bugfix.</td>
+    <td></td>
+  </tr>
+  <tr> 
+    <td>0.73</td>
+    <td>Completion of JavaDocs.</td>
     <td></td>
   </tr>
   <tr> 

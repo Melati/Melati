@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2003 Samuel Goldstein
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,9 +38,9 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *	   Samuel Goldstein <samuel@1969.ws>
+ *     http://www.1969.ws
+ *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
 
 package org.melati.poem;

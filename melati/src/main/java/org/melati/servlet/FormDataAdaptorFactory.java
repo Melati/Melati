@@ -52,17 +52,21 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
 
 /**
- * A way to implement policies about how to save uploaded files
+ * A way to implement policies about how to save uploaded files.
  */
 public abstract class FormDataAdaptorFactory {
   
   /**
-   * we need to establish the user and set up any request specific melati stuff
+   * We need to establish the user and set up any request specific melati stuff
    * so that we can verify the user has permission for this task, and use
-   * melati Table / Objects to manipulate what the FormDataAdaptor does
+   * melati Table / Objects to manipulate what the FormDataAdaptor does.
    *
-   * please note that when uploading a file for a record that has not yet been
-   * inserted (ie whilst adding), melati.getObject will return null
+   * Please note that when uploading a file for a record that has not yet been
+   * inserted (ie whilst adding), melati.getObject will return null.
+   *
+   * @param melati the {@link Melati}
+   * @param field  a {@link MultipartFormField} to process
+   * @return a new {@link FormDataAdaptor}
    */
   
   public FormDataAdaptor get(final Melati melati, 
@@ -87,7 +91,7 @@ public abstract class FormDataAdaptorFactory {
   
   /**
    * Implements different policies for saving uploaded files depending
-   * on the details of the file and the state of the application
+   * on the details of the file and the state of the application.
    *
    * @param     melati  the state of (this call to) the application
    * @param     field   details of the uploaded file

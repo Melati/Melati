@@ -55,10 +55,9 @@ import org.melati.Melati;
 import org.melati.util.DelimitedBufferedInputStream;
 
 /**
- * Parses a multipart/form-data request into it different
- * fields, saving any files it finds along the way
+ * Parses a multipart/form-data request into its different
+ * fields, saving any files it finds along the way.
  */
-
 public class MultipartDataDecoder {
 
   private int maxSize = 2048;
@@ -75,28 +74,54 @@ public class MultipartDataDecoder {
 
   private int state = FIELD_START;
 
+  /**
+   * Constructor with default maximum size.
+   *
+   * @param melati      The {@link Melati}
+   * @param in          An {@link InputStream} from which to read the data
+   * @param contentType A valid MIME type
+   * @param factory     A {@link FormDataAdaptorFactory} to determine how to 
+   *                    store the object's data
+   */
   public MultipartDataDecoder(Melati melati,
                               InputStream in,
                               String contentType,
                               FormDataAdaptorFactory factory) {
     this.melati = melati;
-    this.in=new DelimitedBufferedInputStream(in, maxSize);
-    this.contentType=contentType;
+    this.in = new DelimitedBufferedInputStream(in, maxSize);
+    this.contentType = contentType;
     this.factory = factory;
   }
 
+  /**
+   * Constructor specifying maximum size.
+   *
+   * @param melati      The {@link Melati}
+   * @param in          An {@link InputStream} from which to read the data
+   * @param contentType A valid MIME type
+   * @param factory     A {@link FormDataAdaptorFactory} to determine how to 
+   *                    store the object's data
+   * @param maxSize     The maximum size of the data
+   */
   public MultipartDataDecoder(Melati melati,
                               InputStream in,
                               String contentType,
                               FormDataAdaptorFactory factory,
                               int maxSize) {
     this.melati = melati;
-    this.in=new DelimitedBufferedInputStream(in, maxSize);
-    this.contentType=contentType;
+    this.in = new DelimitedBufferedInputStream(in, maxSize);
+    this.contentType = contentType;
     this.factory = factory;
-    this.maxSize=maxSize;
+    this.maxSize = maxSize;
   }
 
+ /**
+  * Parse the uploaded data into its constituents. 
+  * 
+  * @return a <code>Hashtable</code> of the constituents
+  * @throws IOException
+  *         if an error occurs reading the input stream
+  */
   public Hashtable parseData() throws IOException {
     try {
       return parseData(in, contentType, maxSize);
@@ -112,7 +137,8 @@ public class MultipartDataDecoder {
 
   private Hashtable parseData(DelimitedBufferedInputStream in,
                               String contentType,
-                              int maxSize)           throws IOException {
+                              int maxSize)
+      throws IOException {
     String boundary = getBoundary(new byte[0], contentType);
     String line;
     String header = "";
@@ -123,9 +149,7 @@ public class MultipartDataDecoder {
 
     while (state != STOP) {
 
-      /*
-       * Look for the start of a field (a boundary)
-       */
+       // Look for the start of a field (a boundary)
       if (state == FIELD_START) {
         count = in.readToDelimiter(buff, 0, buff.length, boundary.getBytes());
         if (count == buff.length) {
@@ -151,9 +175,7 @@ public class MultipartDataDecoder {
               "Didn't find the boundary I was expecting before a field");
       }
       
-      /*
-       * Read headers (i.e. until the first blank line)
-       */
+       // Read headers (i.e. until the first blank line)
       if (state == IN_FIELD_HEADER) {
         count = in.readToDelimiter(buff, 0, buff.length, CRLF);
         if (count != 0)     // a header line
@@ -169,13 +191,11 @@ public class MultipartDataDecoder {
               "Header line wasn't followed by 2 bytes (\\r\\n)");
       } 
 
-      /*
-       * Read data (i.e. until the next boundary);
-       */
+       // Read data (i.e. until the next boundary);
       if (state == IN_FIELD_DATA) {
         String dataBoundary = "\r\n" + boundary;
 
-        /* get an adaptor to save the field data */
+        // get an adaptor to save the field data 
         FormDataAdaptor adaptor = null;
         if (field.getUploadedFileName().equals("")) { // no file uploaded
           adaptor = new MemoryDataAdaptor(); // store data in memory
@@ -195,19 +215,23 @@ public class MultipartDataDecoder {
   private void readField(MultipartFormField field, String header) {
     field.setContentDisposition(extractField(header, 
                                              "content-disposition:", ";"));
-    String fieldName=extractField(header, "name=",";");
+    String fieldName = extractField(header, "name=",";");
     try {
-      if(fieldName.charAt(0)=='\"')
-        fieldName=fieldName.substring(1,fieldName.length()-1);
+      if(fieldName.charAt(0) == '\"')
+        fieldName = fieldName.substring(1, fieldName.length() - 1);
     }
-    catch (Exception e) { }
+    catch (Exception e) { 
+      ; // this should only be a NullPointerException
+    }
     field.setFieldName(fieldName);
-    String fileName=extractField(header, "filename=", ";");
+    String fileName = extractField(header, "filename=", ";");
     try {
-      if(fileName.charAt(0)=='\"')
-        fileName=fileName.substring(1,fileName.length()-1);
+      if(fileName.charAt(0) == '\"')
+        fileName = fileName.substring(1, fileName.length()-1);
     }
-    catch (Exception e) { }
+    catch (Exception e) { 
+      ; // this should only be a NullPointerException
+    }
     field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));
   }
@@ -215,49 +239,57 @@ public class MultipartDataDecoder {
  /**
   * Extract a String from header bounded by lBound and either: 
   * rBound or a "\r\n"
-  * or the end of the String
+  * or the end of the String.
+  *
+  * @param header The field metadata to read
+  * @param lBound Where to start reading from 
+  * @param rBound where to stop reading
+  * @return The substring required
   */
   protected String extractField(String header, String lBound, 
-                                  String rBound) {
-    String lheader=header.toLowerCase();
-    int begin=0, end=0;
-    begin=lheader.indexOf(lBound);
-    if(begin==-1)
+                                String rBound) {
+    String lheader = header.toLowerCase();
+    int begin = 0, end = 0;
+    begin = lheader.indexOf(lBound);
+    if(begin == -1)
       return "";
-     begin=begin+lBound.length();
-     end=lheader.indexOf(rBound, begin);
-     if(end==-1)
-       end=lheader.indexOf("\r\n", begin);
-     if(end==-1)
-       end=lheader.length();
-     return header.substring(begin, end).trim();
+    begin = begin + lBound.length();
+    end = lheader.indexOf(rBound, begin);
+    if(end == -1)
+      end = lheader.indexOf("\r\n", begin);
+    if(end == -1)
+      end = lheader.length();
+    return header.substring(begin, end).trim();
   }
 
  /**
-  * extract boundary from header or from data
+  * Extract boundary from the header or from the data.
   */
-  private String getBoundary(byte[] data, String header) throws IOException {
+  private String getBoundary(byte[] data, String header) 
+      throws IOException {
     String boundary="";
     int index;
     // 9 - number of symbols in "boundary="
-    if ((index=header.lastIndexOf("boundary="))!=-1) {
+    if ((index=header.lastIndexOf("boundary=")) != -1) {
        boundary = header.substring(index + 9);
        // as since real boundary two chars '-' longer 
        // than written in CONTENT_TYPE header
        boundary = "--" + boundary;
     } else {
 
-/**
+/*
        // HotJava does not send boundary within CONTENT_TYPE header:
-       // and as I seen HotJava have errors with sending binary data
+       // and as I seen HotJava has errors with sending binary data.
        int begin = 0, end = 0;
-       byte[] str1={45,45}, str2={13,10};
-       begin=indexOf(data, str1, 0);
-       end=indexOf(data, str2, begin);
+       byte[] str1 = {45, 45}, str2 = {13, 10};
+       begin = indexOf(data, str1, 0);
+       end = indexOf(data, str2, begin);
 
        // Boundary length should be in reasonable limits
-       if (begin!=-1 && end!=-1 && ((end - begin)>5 && (end - begin) < 100)) {
-         byte[] buf=new byte[end - begin];
+       if (begin != -1 && end != -1 && 
+           ((end - begin) > 5 && 
+           (end - begin) < 100)) {
+         byte[] buf = new byte[end - begin];
          System.arraycopy(data, begin, buf, 0, end - begin);
          boundary = new String(buf);
        } else {

@@ -48,10 +48,19 @@ package org.melati.servlet;
 import org.melati.Melati;
 
 /**
- * Save uploaded files in a byte[] in memory
+ * Save uploaded files as a <code>byte[]</code> in memory.
  */
 public class MemoryDataAdaptorFactory extends FormDataAdaptorFactory {
+
+  /**
+   * Return the right {@link FormDataAdaptor}.
+   *
+   * @param melati the {@link Melati}
+   * @param field  a {@link MultipartFormField}
+   * @return the {@link FormDataAdaptor}
+   */
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new MemoryDataAdaptor();
   }
+
 }

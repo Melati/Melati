@@ -49,31 +49,49 @@ import org.melati.Melati;
 
 /**
  * Save the uploaded file to disk in a particular directory
- * which has a particular URL
+ * with a particular URL.
  */
 public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  /** The directory to save files in */
   protected String uploadDir = null;
 
+  /** Return the directory to save files in.
+   * @return the directory as a <code>String</code>
+   */
   public String getUploadDir() {
     return uploadDir;
   }
+
+  /** Set the directory to save files in. 
+   *
+   * @param dir The value to set it to
+   */
 
   public void setUploadDir(String dir) {
     uploadDir = dir;
   }
 
-  /** A URL the uploadDir */
   protected String uploadURL = null;
 
+  /** @return the URL to the uploadDir */
   public String getUploadURL() {
     return uploadURL;
   }
+  /** Set the URL to the uploadDir 
+   *
+   * @param url The value to set it to
+   */
   public void setUploadURL(String url) {
     uploadURL = url;
   }
 
+  /** 
+   * Get the {@link FormDataAdaptor}.
+   *
+   * @param melati The {@link Melati}
+   * @param field  A {@link MultipartFormField}
+   * @return The {@link FormDataAdaptor}. 
+   */
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }

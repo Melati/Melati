@@ -51,15 +51,24 @@ import org.melati.poem.Database;
 
 /**
  * Save the uploaded file to disk in a particular directory
- * which has a particular URL. We get these values from the
- * values of <code>UploadDir</code> and <code>UploadURL</code>
- * in the Setting table of the current Database.
+ * which has a particular URL. 
+ *
+ * We get these values from the values of <code>UploadDir</code> 
+ * and <code>UploadURL</code> in the Setting table of the current Database.
  */
 public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
   private static final Hashtable dirByDatabase = new Hashtable();
   private static final Hashtable urlByDatabase = new Hashtable();
 
+  /**
+   * Get the parameters for the adaptor from the database and 
+   * create it.
+   *
+   * @param melati the {@link Melati}
+   * @param field  a {@link MultipartFormField}
+   * @return a {@link FormDataAdaptor}
+   */
   public synchronized FormDataAdaptor getIt(Melati melati,
                                             MultipartFormField field) {
 

@@ -64,37 +64,42 @@ public interface FormDataAdaptor {
 
   /**
    * Return the data as a byte array.
+   * @return the <code>byte[]</code>
    */
-
   byte[] getData();
 
   /**
    * Return the size of the data.
+   * @return the size as a <code>long</code>
    */
-
   long getSize();
 
   /**
    * Return a File object pointing to the saved data or null
    * if none exists.
+   * @return the <code>File</code>
    */
-
   File getFile();
 
   /**
    * Return a url to the object or null if none exists.
+   * @return the url as a <code>String</code> or <code>null</code>
    */
-
   String getURL();
 
   /**
    * Read data from <code>in</code> until the delim is found and
    * save the data so that we can access it again.
+   *
+   * @param field   a {@link MultipartFormField} to be read
+   * @param in      a {@link DelimitedBufferedInputStream} to read from
+   * @param delim   the delimitor to differentiate elements
+   * @throws IOException if there is a problem reading the input 
    */
-
   void readData(MultipartFormField field,
                 DelimitedBufferedInputStream in,
-                byte[] delim) throws IOException;
+                byte[] delim) 
+      throws IOException;
 }
 
 

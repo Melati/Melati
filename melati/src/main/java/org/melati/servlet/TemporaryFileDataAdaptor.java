@@ -50,9 +50,8 @@ import java.io.IOException;
 
 /**
  * Save uploaded files in a temporary file which is deleted when
- * the JVM exits
+ * the JVM exits.
  */
-
 public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
 
   protected File calculateLocalFile() {

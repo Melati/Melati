@@ -48,10 +48,16 @@ package org.melati.servlet;
 import org.melati.util.MelatiRuntimeException;
 
 /**
- * Some sort of problem with saving or reading an uploaded file.
+ * Thrown when there is a problem with saving or reading an uploaded file.
  */
-
 public class FormDataAdaptorException extends MelatiRuntimeException {
+
+/**
+ * Thrown when there is a problem with a {@link FormDataAdaptor}.
+ *
+ * @param message an explanatory message
+ * @param subException the <code>Exception</code> to report
+ */
   public FormDataAdaptorException(String message, Exception subException) {
     super(message, subException);
   }

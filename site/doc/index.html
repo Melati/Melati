@@ -53,22 +53,25 @@
 
   <LI> <B>Administering database content</B>
        <P>
-	 Melati offers a generic database admin system which allows editing of
-	 both the contents and (soon) the structure of any part of the
-	 database, without the need for customised admin pages: data entry and
-	 editing &quot;out of the box&quot;, just like you get with desktop
-	 database packages.  <FONT COLOR=red>Close to alpha-ready; it's just a
-	 matter of working up the missing screens and making it prettier.
-	 E.g. one of the other Paneris people who contributed to JAL will be
-	 able to help me on this one.</FONT>
+	 Melati offers a generic database admin system which allows
+	 searching/browsing of any table, and editing of both the contents and
+	 the structure of any part of the database, without the need for
+	 customised admin pages: data entry and editing &quot;out of the
+	 box&quot;, just like you get with desktop database packages.  <FONT
+	 COLOR=red>Close to alpha-ready; it's just a matter of working up the
+	 missing screens and making it prettier.  E.g. one of the other Paneris
+	 people who contributed to JAL will be able to help me on this
+	 one.</FONT>
        </P>
 
   <LI> <B>Managing users and their access permissions</B>
        <P>
 	 All database accesses made through Melati are subjected to low-level
 	 checks via a user/group/capability mechanism, configurable by the
-	 administrator.  <FONT COLOR=red>Alpha-ready, but not yet integrated
-	 into the servlet user-session system.</FONT>
+	 administrator.  Either cookies or HTTP Basic Authentication (the
+	 mechanism commonly used for password protection of static pages) can
+	 be used to maintain the user ID in a session.  <FONT
+	 COLOR=red>Alpha-ready.</FONT>
        </P>
 
   <LI> <B>Expressing business logic cleanly</B>
@@ -109,47 +112,37 @@
 
 <P>
   The entry points to a Melati application are a set of one or more servlets
-  derived from
-  <A HREF=../qa/javadoc/org.melati.MelatiServlet.html><TT>MelatiServlet</TT></A>
-  (<A HREF=../MelatiServlet.java><TT>MelatiServlet.java</TT></A>),
-  itself a subclass of WebMacro's <TT>WMServlet</TT>.  <TT>MelatiServlet</TT>
-  takes care of determining the Melati username associated with the client,
-  handling the login process if necessary <FONT COLOR=red>(or it will when I
-  get round to implementing it!)</FONT>; it also looks at the first component
-  of the pathinfo to determine the `logical name' of the database in the
-  context of which the request is to be interpreted.
-
-<BLOCKQUOTE><FONT COLOR=green>
-  <P>
-    Current thinking is to use the remainder of the pathinfo to encode the
-    `object' with which the request is primarily concerned and the
-    (servlet-specific) operation to be performed, so that the URL
-  </P>
+  derived from <A
+  HREF=../qa/javadoc/org/melati/MelatiServlet.html><TT>MelatiServlet</TT></A>
+  (<A HREF=../MelatiServlet.java><TT>MelatiServlet.java</TT></A>).
+  <TT>MelatiServlet</TT> is drop-in compatible with WebMacro's
+  <TT>WMServlet</TT>.  It takes care of determining the Melati username
+  associated with the client, and the `logical database' on which the servlet
+  should operate from the path info: for instance, the URL
 
 <BLOCKQUOTE><PRE>
 http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 </PRE></BLOCKQUOTE>
 
-  <P>
-    asks the
-    <A HREF=../qa/javadoc/org.melati.admin.Admin.html><TT>Admin</TT></A>
-    servlet (<A HREF=../Admin.java><TT>Admin.java</TT></A>) to &quot;view the
-    <TT>user</TT> table of the <TT>melatitest</TT> database&quot;.  This scheme
-    has the (admittedly minor) advantage that it makes possible the use of
-    concise relative URLs for many purposes.
-  </P>
-</FONT></BLOCKQUOTE>
+<P>
+  asks the
+  <A HREF=../qa/javadoc/org/melati/admin/Admin.html><TT>Admin</TT></A>
+  servlet (<A HREF=../Admin.java><TT>Admin.java</TT></A>) to &quot;view the
+  <TT>user</TT> table of the <TT>melatitest</TT> database&quot;.  This scheme
+  has the (admittedly minor) advantage that it makes possible the use of
+  concise relative URLs for many purposes.
+</P>
 
 <P>
-  If it has not already been encountered by the running virtual machine,
-  the logical database name is mapped to JDBC connection details via the config
-  file
-  <A HREF=../org.melati.LogicalDatabase.properties><TT>org.melati.LogicalDatabase.properties</TT></A>.
+  If it has not already been encountered by the running virtual machine, the
+  logical database name is mapped to JDBC connection details via the config
+  file <A
+  HREF=../org.melati.LogicalDatabase.properties.example><TT>org.melati.LogicalDatabase.properties</TT></A>.
   When a the first JDBC connection has been established (<I>i.e.</I> once per
   JVM), a picture is built up of how the structure database ought to look,
-  drawing on the programmer's compile-time
-  <A HREF=../poem/doc/UserGuide.html#DSD>Data Structure Definition</A> (DSD),
-  if any, and on the type-rich metadata set up by the administrator using the
+  drawing on the programmer's compile-time <A
+  HREF=../poem/doc/UserGuide.html#DSD>Data Structure Definition</A> (DSD), if
+  any, and on the type-rich metadata set up by the administrator using the
   generic admin interface.  This picture is then unified, or reconciled, with
   the actual database structure reported by JDBC's <TT>DatabaseMetadata</TT>.
   In effect, the structures specified by the three sources are added together
@@ -165,11 +158,11 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   The end result of all this as far as the Java code is concerned is a natural
   and convenient representation of the database in terms of
-  <A HREF=../qa/javadoc/org.melati.poem.Database.html><TT>Database</TT></A>,
-  <A HREF=../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A> and
-  <A HREF=../qa/javadoc/org.melati.poem.Column.html><TT>Column</TT></A>
+  <A HREF=../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>,
+  <A HREF=../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A> and
+  <A HREF=../qa/javadoc/org/melati/poem/Column.html><TT>Column</TT></A>
   objects.  Columns have rich
-  <A HREF=../qa/javadoc/org.melati.poem.PoemType.html><TT>PoemType</TT></A>
+  <A HREF=../qa/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>
   types which include information such as the target of a reference (link)
   or the default height of a text field; but in general one works directly in
   terms of <TT>Persistent</TT> objects representing the rows in the database.
@@ -183,8 +176,9 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 </P>
 
 <P>
-  Template writers can simply ask for the appropriate field value and let the 
-  <A HREF=../qa/javadoc/org.melati.MarkupLanguage.html><TT>MarkupLanguage</TT></A> 
+  Template writers can simply ask for the appropriate field value and let the
+  <A
+  HREF=../qa/javadoc/org/melati/MarkupLanguage.html><TT>MarkupLanguage</TT></A>
   of their choice render it appropriately.  For instance, assuming that an
   application servlet has set <TT>$product</TT> to refer to some
   <TT>Persistent</TT> object, one could say

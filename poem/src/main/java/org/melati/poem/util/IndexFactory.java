@@ -46,13 +46,8 @@
 package org.melati.util;
 
 /**
- * Trivial interface only used in one implementing class and
- * with ambiguous/misleading name.
+ * Manufactured objects are identified by a numeric index.
  * 
- * What the name means is that the manufactured objects are
- * identified by a numeric index.
- * 
- * @todo Suggest we might move the details to the subtype and delete. JimW
  */
 public interface IndexFactory {
   Object get(int i) throws Exception;

@@ -91,7 +91,7 @@ public interface Dbms {
    * @param name entity name such as <tt>tableinfo</tt>
    * @return the (un)quoted name
    */
-  public String getJdbcMetadataName(String name);
+  String getJdbcMetadataName(String name);
 
   /**
    * Accomodate casting in placeholders.

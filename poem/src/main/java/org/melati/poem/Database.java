@@ -83,6 +83,8 @@ abstract public class Database implements TransactionPool {
   private boolean logSQL;
   private int transactionsMax;
 
+  private String connectionUrl;
+
   // 
   // ================
   //  Initialisation
@@ -169,6 +171,9 @@ abstract public class Database implements TransactionPool {
   public void connect(String dbmsclass, String url,
                       String username, String password,
                       int transactionsMax) throws PoemException {
+
+    connectionUrl = url; 
+
 
     synchronized (connecting) {
       if (connecting[0])
@@ -1053,6 +1058,14 @@ abstract public class Database implements TransactionPool {
   // =====================
   // 
 
+
+    public String toString() {
+      if (connectionUrl == null) 
+        return "unconnected database";
+      else 
+	return connectionUrl;
+    }
+
   /**
    * <TT>quotedName</TT>, but don't expect anything to go wrong (cheesy or
    * what).
@@ -1102,3 +1115,4 @@ abstract public class Database implements TransactionPool {
     return structureSerial;
   }
 }
+

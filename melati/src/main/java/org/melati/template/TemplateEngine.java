@@ -51,6 +51,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -162,6 +163,8 @@ public interface TemplateEngine {
    * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
+   * @deprecated The best possible {@link MelatiWriter} that is like a
+   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
    */
   MelatiWriter getStringWriter(String encoding) throws IOException;
 

@@ -210,6 +210,9 @@ public class NoTemplateEngine implements TemplateEngine {
    * @throws IOException if there is a problem with the filesystem.
    * @return a {@link MelatiWriter} 
    *         configured for this engine.
+   * @deprecated The best possible {@link MelatiWriter} that is like a
+   * <code>StringWriter</code> is a {@link MelatiStringWriter} -
+   * use directly.
    */
   public MelatiWriter getStringWriter(String encoding) 
       throws IOException {

@@ -55,87 +55,87 @@ import org.melati.poem.DoublePoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.StringPoemType;
 
- /**
-  * A Driver for Mckoidb (http://www.mckoi.com/).
-  * 
-  **/
+/**
+ * A Driver for Mckoidb (http://www.mckoi.com/).
+ * 
+ **/
 public class Mckoi extends AnsiStandard {
 
-    public Mckoi() {
-        setDriverClassName("com.mckoi.JDBCDriver");
+  public Mckoi() {
+    setDriverClassName("com.mckoi.JDBCDriver");
+  }
+
+  public boolean supportsIndex() {
+    return false;
+  }
+
+  public String getBinarySqlDefinition(int size) throws SQLException {
+      // BLOBs in Postgres are represented as OIDs pointing to the data
+    return "LONGVARBINARY";
+  }
+
+  public String getStringSqlDefinition(int size) throws SQLException {
+    if (size < 0) { 
+      return "TEXT";
     }
+    return super.getStringSqlDefinition(size);
+  }
 
+  public String getQuotedName (String name) {
+    //McKoi doesn't quote names
+    if (name.equals("unique")) return super.getQuotedName(name);
+    if (name.equals("from")) return super.getQuotedName(name);
+    return name;
+  }
 
-    public boolean supportsIndex() {
-      return false;
+ /**
+  * @todo Check against modern McKoi 
+  */
+  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+    if (sqlTypeName.equals("INT")) {
+      return ("INTEGER");
     }
-
-    public String getBinarySqlDefinition(int size) throws SQLException {
-        // BLOBs in Postgres are represented as OIDs pointing to the data
-        return "LONGVARBINARY";
+    /*
+    if (sqlTypeName.equals("DOUBLE PRECISION")) {
+      return ("DOUBLE");
     }
-
-    public String getStringSqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            return "TEXT";
-        }
-        return super.getStringSqlDefinition(size);
-    }
-
-    public String getQuotedName (String name) {
-     //McKoi doesn't quote names
-      if (name.equals("unique")) return super.getQuotedName(name);
-      if (name.equals("from")) return super.getQuotedName(name);
-      return name;
-    }
-
-   /**
-    * @todo Check against modern McKoi 
     */
-    public String getSqlDefinition(String sqlTypeName) throws SQLException {
-        if (sqlTypeName.equals("INT")) {
-            return ("INTEGER");
-        }
-        // FIXME - FLOAT8 hardcoded in poem/DoublePoemType
-        if (sqlTypeName.equals("FLOAT8")) {
-            return ("DOUBLE");
-        }
-        return super.getSqlDefinition(sqlTypeName);
-    }
+    return super.getSqlDefinition(sqlTypeName);
+  }
 
-    public PoemType canRepresent(PoemType storage, PoemType type) {
-      if (storage instanceof StringPoemType &&
-          type instanceof StringPoemType) {
+  public PoemType canRepresent(PoemType storage, PoemType type) {
+    if (storage instanceof StringPoemType &&
+      type instanceof StringPoemType) {
 
-        if (((StringPoemType)storage).getSize() == 2147483647 &&
-              ((StringPoemType)type).getSize() == -1) {
-             return type;
-          } else {
-             return storage.canRepresent(type);
-          }
-      } else if (storage instanceof BinaryPoemType &&
-                 type instanceof BinaryPoemType) {
-        if (((BinaryPoemType)storage).getSize() == 2147483647 &&
-             ((BinaryPoemType)type).getSize() == -1) {
-          return type;
-        } else {
-             return storage.canRepresent(type);
-          }
+      if (((StringPoemType)storage).getSize() == 2147483647 &&
+          ((StringPoemType)type).getSize() == -1) {
+           return type;
       } else {
         return storage.canRepresent(type);
       }
+    } else if (storage instanceof BinaryPoemType &&
+               type instanceof BinaryPoemType) {
+      if (((BinaryPoemType)storage).getSize() == 2147483647 &&
+          ((BinaryPoemType)type).getSize() == -1) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else {
+      return storage.canRepresent(type);
     }
+  }
 
-    public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-        throws SQLException {
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+      throws SQLException {
 //      ResultSetMetaData rsmd= md.getMetaData();
 
-      if( md.getString("TYPE_NAME").equals("NUMERIC") )
-        return new DoublePoemType(md.getInt("NULLABLE")==
-            DatabaseMetaData.columnNullable );
-      else
-        return super.defaultPoemTypeOfColumnMetaData(md);
-    }
+    if( md.getString("TYPE_NAME").equals("NUMERIC") )
+      return new DoublePoemType(md.getInt("NULLABLE")==
+                                DatabaseMetaData.columnNullable );
+    else
+      return super.defaultPoemTypeOfColumnMetaData(md);
+  }
 
 
   public String givesCapabilitySQL(User user, String capabilityExpr) {
@@ -148,9 +148,6 @@ public class Mckoi extends AnsiStandard {
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
-
-
-
 }
 
 

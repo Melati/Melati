@@ -2298,19 +2298,25 @@ public class Table implements Selectable {
       Hashtable dbHasIndexForColumn = new Hashtable();
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().
-              getIndexInfo(null, "", dbms().
+	  // null, "" means ignore catalog, 
+          // only retrieve those without a schema
+          // null, null means ignore both
+              getIndexInfo(null, null, dbms().
                                unreservedName(getName()), false, true);
 
       while (index.next()) {
         try {
           String columnName = dbms().
                                melatiName(index.getString("COLUMN_NAME"));
-          Column column = getColumn(columnName);
-          column.unifyWithIndex(index);
-          dbHasIndexForColumn.put(column, Boolean.TRUE);
+          if (columnName != null) { // which MSSQL seems to return sometimes
+            Column column = getColumn(columnName);
+            column.unifyWithIndex(index);
+            dbHasIndexForColumn.put(column, Boolean.TRUE);
+          }
         }
         catch (NoSuchColumnPoemException e) {
-          // hmm, let's just ignore this since it will never happen
+          // will never happen
+	    throw new UnexpectedExceptionPoemException(e);
         }
       }
 

@@ -163,6 +163,6 @@ public class TableCategoryTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 0;
+    return 3030;
   }
 }

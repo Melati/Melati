@@ -193,10 +193,10 @@ public class GroupCapabilityTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 7;
+    return 2050;
   }
 }

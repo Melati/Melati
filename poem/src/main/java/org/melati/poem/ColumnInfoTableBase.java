@@ -1369,6 +1369,6 @@ public class ColumnInfoTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 2;
+    return 3020;
   }
 }

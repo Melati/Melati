@@ -151,10 +151,10 @@ public class CapabilityTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 3;
+    return 2030;
   }
 }

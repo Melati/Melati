@@ -151,10 +151,10 @@ public class GroupTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 5;
+    return 2020;
   }
 }

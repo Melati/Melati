@@ -201,10 +201,10 @@ public class GroupMembershipTableBase extends Table {
   }
 
   protected String defaultCategory() {
-    return "System";
+    return "User";
   }
 
   protected int defaultDisplayOrder() {
-    return 6;
+    return 2040;
   }
 }

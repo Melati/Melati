@@ -681,6 +681,6 @@ public class TableInfoTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 1;
+    return 3010;
   }
 }

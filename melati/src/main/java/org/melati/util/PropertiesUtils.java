@@ -57,9 +57,15 @@ import java.io.FileNotFoundException;
  */
 public final class PropertiesUtils {
 
-
   private PropertiesUtils() {}
 
+  /**
+   * Get a {@link Properties} object from a file.
+   * 
+   * @param path a {@link File} path name
+   * @return a {@link Properties} object
+   * @throws IOException if there is a problem loading the file
+   */
   public static Properties fromFile(File path) throws IOException {
     InputStream data = new FileInputStream(path);
     Properties them = new Properties();
@@ -73,6 +79,15 @@ public final class PropertiesUtils {
     return them;
   }
 
+  /**
+   * Get a {@link Properties} object from a {@link Class}.
+   * 
+   * 
+   * @param clazz the {@link Class} to look up
+   * @param name the property file name
+   * @return a {@Properties} object
+   * @throws IOException if the file cannot load or is not found
+   */
   public static Properties fromResource(Class clazz, String name)
       throws IOException {
     InputStream is = clazz.getResourceAsStream(name);
@@ -91,6 +106,14 @@ public final class PropertiesUtils {
     return them;
   }
 
+  /**
+   * Return a property.
+   * 
+   * @param properties the {@Properties} object to look in 
+   * @param propertyName the property to get 
+   * @return the property value
+   * @throws NoSuchPropertyException if the property is not set
+   */
   public static String getOrDie(Properties properties, String propertyName)
       throws NoSuchPropertyException {
     String value = properties.getProperty(propertyName);
@@ -99,14 +122,30 @@ public final class PropertiesUtils {
     return value;
   }
 
+  /**
+   * Get a property or return the supplied default.
+   * 
+   * @param properties the {@Properties} object to look in 
+   * @param propertyName the property to get 
+   * @param def the default to return if not found
+   * @return the property value
+   */
   public static String getOrDefault(Properties properties, 
-                                    String propertyName, String def)
-      throws NoSuchPropertyException {
+                                    String propertyName, String def) {
     String value = properties.getProperty(propertyName);
     if (value == null) return def;
     return value;
   }
 
+  /**
+   * Get an Integer property.
+   * 
+   * @param properties the {@Properties} object to look in 
+   * @param propertyName the property to get 
+   * @return the int property value 
+   * @throws NoSuchPropertyException if it is not found
+   * @throws FormatPropertyException if it is not an Integer 
+   */
   public static int getOrDie_int(Properties properties, String propertyName)
       throws NoSuchPropertyException, FormatPropertyException {
     String string = getOrDie(properties, propertyName);
@@ -119,6 +158,16 @@ public final class PropertiesUtils {
     }
   }
 
+  /**
+   * Get an Integer property from a {@link Properties} object or make a fuss. 
+   * 
+   * @param properties a {@link Properties} 
+   * @param propertyName the name of the property
+   * @param def cater for multiple definitions, with increment numbers
+   * @return the property as an int 
+   * @throws NoSuchPropertyException if it is not found
+   * @throws FormatPropertyException if it is not an Integer 
+   */
   public static int getOrDefault_int(Properties properties, 
                                      String propertyName, int def)
       throws NoSuchPropertyException, FormatPropertyException {
@@ -132,6 +181,17 @@ public final class PropertiesUtils {
     }
   }
 
+  /**
+   * Instantiate an interface.
+   * 
+   * @param properties a {@link Properties} 
+   * @param propertyName the name of the property
+   * @param base the interface Class
+   * @param defaulT the default Class
+   * @return a new object
+   * @throws InstantiationPropertyException if the named class does not descend from 
+   *         the interface
+   */
   public static Object instanceOfNamedClass(Properties properties, 
                            String propertyName, Class base, Class defaulT)
       throws InstantiationPropertyException {
@@ -157,9 +217,20 @@ public final class PropertiesUtils {
     }
   }
 
-  public static Object instanceOfNamedClass(
-  Properties properties, String propertyName,
-  String baseName, String defaultName)
+  /**
+   * Instantiate an interface.
+   * 
+   * @param properties a {@link Properties} 
+   * @param propertyName the name of the property
+   * @param baseName     the interface 
+   * @param defaultName  a default concrete class if the property is undefined
+   * @return a new Object
+   * @throws InstantiationPropertyException if there is a problem
+   */
+  public static Object instanceOfNamedClass(Properties properties, 
+                                            String propertyName,
+                                            String baseName, 
+                                            String defaultName)
   throws InstantiationPropertyException {
     Class base, defaulT;
     try {

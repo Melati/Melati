@@ -133,6 +133,7 @@ class DayPoemType extends IntegerPoemType {
 
 /**
  * An adaptor for a string date in YMD format.
+ * See for example org.melati.poem.DatePoemType-dropdown.wm
  *
  * @todo Improve javadoc
  */

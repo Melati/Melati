@@ -52,6 +52,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import org.melati.util.PageEnumeration;
 import org.melati.util.CountedDumbPageEnumeration;
@@ -1496,6 +1497,10 @@ public class Table implements Selectable {
             dbms().caseInsensitiveRegExpSQL(
                   columnSQL,
                   column.getSQLType().quotedRaw(raw)));
+        } if (column.getType() instanceof BooleanPoemType) {
+          clause.append(columnSQL);
+          clause.append(" = ");
+          clause.append(dbms().sqlBooleanValueOfRaw(raw));
         } else {
           clause.append(columnSQL);
           clause.append(" = ");
@@ -2252,7 +2257,6 @@ public class Table implements Selectable {
 
       for (; colDescs.next(); ++dbIndex) {
         String colName = colDescs.getString("COLUMN_NAME");
-//        System.err.println("Table.unifyWithDB.colDescs:" + colName);
         Column column = (Column)columnsByName.get(
                           dbms().melatiName(colName));
 
@@ -2323,6 +2327,8 @@ public class Table implements Selectable {
       // Check indices are unique
 
       Hashtable dbHasIndexForColumn = new Hashtable();
+      // System.err.println("Getting indexes for "+ 
+      //    dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().
           // null, "" means ignore catalog, 
@@ -2331,18 +2337,17 @@ public class Table implements Selectable {
               getIndexInfo(null, dbms().getSchema(), 
                   dbms().getJdbcMetadataName(dbms().unreservedName(getName())), 
                            false, true);
-      System.err.println("Getting indexes for "+ 
-          dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
       while (index.next()) {
         try {
-          String columnName = dbms().
-                               melatiName(index.getString("COLUMN_NAME"));
-          System.err.println("Column " + columnName);
-          if (columnName != null) { // which MSSQL seems to return sometimes
+          String mdColName = index.getString("COLUMN_NAME");
+          if (mdColName != null) { // which MSSQL and Oracle seems to return sometimes
+            String columnName = dbms().melatiName(mdColName);
             Column column = getColumn(columnName);
             column.unifyWithIndex(index);
             dbHasIndexForColumn.put(column, Boolean.TRUE);
-          }
+          } 
+          // else it is a compound index ??
+          
         }
         catch (NoSuchColumnPoemException e) {
           // will never happen

@@ -54,13 +54,17 @@ to create a release:
 11. Generate Maven site
     cd /inst/melati
     maven site:generate
-12. Email webmacro@webmacro.org, 
-       velocity-user@lists.apache.org, 
+12. Email 
+       melati-announce@lists.sourceforge.net,
+       melati-developers@lists.sourceforge.net,
+       webmacro-user@lists.sourceforge.net,
+       velocity-user@jakarta.apache.org, 
        pgsql-jdbc@postgresql.org,
        java@lists.mysql.com, 
-       mckoi@mckoi.com,
+       mckoidb@mckoi.com,
        hsqldb-developers@lists.sourceforge.net
        jetty-discuss@yahoogroups.com
+       users@maven.apache.org
 
 13. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org

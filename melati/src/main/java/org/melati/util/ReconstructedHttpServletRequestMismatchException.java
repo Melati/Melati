@@ -62,9 +62,9 @@ public class ReconstructedHttpServletRequestMismatchException
   public String getMessage() {
     return
         "New HttpServletRequest " +
-        HttpUtils.getRequestURL(newRequest).toString() + "/session " +
-        newRequest.getSession(false) +
-        " is incompatible with stored request " + stored.requestURL +
-        "/session" + stored.session;
+        HttpUtils.getRequestURL(newRequest).toString() + " " +
+        "(session " + newRequest.getSession(false) + ") " +
+        "is incompatible with stored request " + stored.requestURL +
+        "(session " + stored.session + ")";
   }
 }

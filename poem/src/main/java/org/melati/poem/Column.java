@@ -95,6 +95,8 @@ public abstract class Column implements FieldAttributes {
     columnInfo.setColumn(this);
     if (columnInfo.getPrimarydisplay().booleanValue())
       table.setDisplayColumn(this);
+    if (columnInfo.getPrimarycriterion().booleanValue())
+      table.setPrimaryCriterionColumn(this);
     info = columnInfo;
     table.notifyColumnInfo(info);
   }
@@ -196,6 +198,8 @@ public abstract class Column implements FieldAttributes {
 
       if (defaultPrimaryDisplay())
         table.setDisplayColumn(this);
+    if (defaultPrimaryCriterion())
+      table.setPrimaryCriterionColumn(this);
     }
   }
 

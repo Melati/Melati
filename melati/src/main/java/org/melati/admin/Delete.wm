@@ -50,6 +50,16 @@
 <HTML>
 <HEAD>
 </HEAD>
+<script>
+#use 'text' until "--The End--"
+function reloadframes() {
+--The End--
+$Form.returnTarget;.location.href="$Form.returnURL";
+$Form.returnTarget;.focus();
+#use 'text' until "--The End--"
+}
+--The End--
+</script>
 
 <BODY BGCOLOR=white>
 

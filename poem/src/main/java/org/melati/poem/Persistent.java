@@ -789,7 +789,7 @@ public class Persistent extends Transactioned implements Cloneable {
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).asField(this);
   }
-
+  
   private Enumeration fieldsOfColumns(Enumeration columns) {
     final Persistent _this = this;
     return
@@ -798,6 +798,11 @@ public class Persistent extends Transactioned implements Cloneable {
             return ((Column)column).asField(_this);
           }
         };
+  }
+
+  private Field fieldOfColumn(Column column) {
+    final Persistent _this = this;
+    return column.asField(_this);
   }
 
   /**
@@ -829,6 +834,10 @@ public class Persistent extends Transactioned implements Cloneable {
 
   public Enumeration getSearchCriterionFields() {
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
+  }
+
+  public Field getPrimaryDisplayField() {
+    return fieldOfColumn(getTable().displayColumn());
   }
 
   // 

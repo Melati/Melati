@@ -54,7 +54,8 @@
 #use 'text' until "--The End--"
 function reloadframes() {
 --The End--
-top.sub_menu.file_browser.location.href="$Form.returnURL";
+$Form.returnTarget;.location.href="$Form.returnURL";
+$Form.returnTarget;.focus();
 #use 'text' until "--The End--"
 }
 --The End--

@@ -49,52 +49,35 @@
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
-<title>Search $ml.rendered($table.DisplayName) Table</title>
 <HEAD>
 </HEAD>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
-
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-
+<form>
 <script TYPE="text/javascript">
 <!--
+var remoteWin = null;
+var height = 30 * $table.SearchCriterionColumnsCount; + 60;
+var sizeString = "WIDTH=450,HEIGHT="+height;
 #use 'text' until "--The End--"
-function checkAndClose(object) {
-  success = validate(object);
-  this.close();
-  return success;
+
+function openWindow() {
+   remoteWin = window.open("", "search", sizeString, 'scrollbars=yes');
+   if (remoteWin != null) {
+--The End--
+     remoteWin.location = '$admin.PopupURL($table)';
+#use 'text' until "--The End--"
+     remoteWin.focus();
+   }
+   return false;
 }
+
 --The End--
 //-->
 </script>
 
-<center>
-<FORM METHOD=get action=$admin.SelectionURL($table) target=admin_selection>
-<TABLE CELLPADDING=1 CELLSPACING=0 border=0>
-#foreach $field in $criteria #begin
-    <TR>
-      <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
-	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)</TD>
-    </TR>
-#end
-<tr><td><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
-<td><FONT face="Arial, Helvetica" size=-2>
-#foreach $field in $orderings #begin
-    $ml.input($field)
-    &nbsp;
-#end
-</font></td>
-</tr>
-<tr>
-<td></td><td>
-<FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE="Search" TYPE=submit
-       ONCLICK="return checkAndClose(this.form);"></font>
-</td></tr>
-</table>
-</FORM>
-
+<input type=button value="Search" onClick ="openWindow();"><br><br>
+<A HREF='$admin.addURL($table)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)")' target=admin_record><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a></td>
 </CENTER>
-
 </BODY>
 </HTML>

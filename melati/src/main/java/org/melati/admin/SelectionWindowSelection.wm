@@ -50,60 +50,32 @@
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
+#use 'text' until '--END--'
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<!--
+function popupupdate (returnfield,id,value) {
+parent.opener.popupupdate(parent,returnfield,id,value)
+}
+-->
+</SCRIPT>
+--END--
 </HEAD>
 
+<center>
+
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
-<form>
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-#use 'text' until "--The End--"
-<script TYPE="text/javascript">
-<!--
-var remoteWin = null;
-
-function openWindow() {
-   remoteWin = window.open("", "search", 'WIDTH=300,HEIGHT=250,scrollbars=yes');
-   if (remoteWin != null) {
---The End--
-     remoteWin.location = '$admin.popupTableURL($table)';
-#use 'text' until "--The End--"
-     remoteWin.focus();
-   }
-   return false;
-}
-
---The End--
-//-->
-</script>
-
-#set $crit=""
-#foreach $field in $criteria #begin
-#set $crit="$crit&field-$ml.rendered($field.Name)=$ml.rendered($field.RawString)"
-#end
-
-#set $ord=""
-#foreach $field in $orderings #begin
-#set $ord="$ord&field-$ml.rendered($field.Name)=$ml.rendered($field.RawString)"
-#end
-
-<table width=100%><tr>
-<td><input type=button value="Search" onClick ="openWindow();"></td>
-<td align=center>
-#if ($objects.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='View?start=$objects.PrevPageStart$crit&$ord'"></font>
-#end
-<b><FONT face="Arial, Helvetica" size=-1>Records $objects.PageStart to $objects.PageEnd of
-#if ($objects.TotalCountIsMinimum) #begin
+#if ($results) #begin
+#if ($results.PrevPageStart) #begin
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>#end
+<b><FONT face="Arial, Helvetica" size=-1>Records $results.PageStart to $results.PageEnd of
+#if ($results.TotalCountIsMinimum) #begin
   at least
 #end
-$objects.TotalCount</b>
-#if ($objects.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='View?start=$objects.NextPageStart$crit#foreach $field in $orderings #begin &field-$ml.rendered($field.Name)=$ml.rendered($field.RawString) #end'"></font>
+$results.TotalCount</b>
+#if ($results.NextPageStart) #begin
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
-	   </font></td>
-<td align=right><A HREF='$admin.addURL($table)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.TotalCount")' target=edit_space><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=3></a></td>
-</tr></TABLE>
-<br>
-#if ($objects) #begin
+
   <TABLE CELLSPACING=0 cellpadding=0 border=0 width=100%>
     <TR>
 	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
@@ -117,12 +89,12 @@ $objects.TotalCount</b>
 	#set $color1 = "#E9EDFD"
 	#set $color2 = "#FFFFFF"
 	#set $color = $color1;
-    #foreach $object in $objects #begin
+    #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href='$admin.editURL($object)?target=top.sub_menu.file_browser&returnURL=$ml.encoded("$admin.tableURL($table)?start=$objects.PageStart&$crit&$ord")' target=edit_space><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0></a></TD>
+	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$result.PrimaryDisplayField.Cooked')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" vspace=0></a></TD>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	#foreach $field in $object.SummaryDisplayFields #begin
+	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field)</font></TD>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
 	#end
@@ -136,8 +108,6 @@ $objects.TotalCount</b>
   </TABLE>
 
 #end
-
-</FORM>
 
 </CENTER>
 

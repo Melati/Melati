@@ -49,52 +49,37 @@
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
-<title>Search $ml.rendered($table.DisplayName) Table</title>
 <HEAD>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+<SCRIPT Language="JavaScript">
+<!--
+var newURL = "$admin.SelectionURL($table)";
+#use 'text' until "--The End--"
+function get_list() {
+parent.admin_selection.location.href = newURL;
+return false;
+}
+// -->
+--The End--
+</SCRIPT>
 </HEAD>
 
-<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
-
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-
-<script TYPE="text/javascript">
-<!--
-#use 'text' until "--The End--"
-function checkAndClose(object) {
-  success = validate(object);
-  this.close();
-  return success;
+<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="get_list()">
+<FORM METHOD=GET action=$admin.SelectionURL($table) target=admin_selection>
+#if ($primaryCriterion) {
+<table cellspacing=0 cellpadding=0><tr>
+<td></td>
+<td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</td>
+</tr><tr><td>
+#if ($admin.isReferencePoemType($primaryCriterion)) #begin
+<a href='$admin.addURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
+#end
+</td><td>
+$ml.input($primaryCriterion)
+<INPUT NAME=action VALUE=" Go " TYPE=submit></font>
+</td></tr></table>
 }
---The End--
-//-->
-</script>
-
-<center>
-<FORM METHOD=get action=$admin.SelectionURL($table) target=admin_selection>
-<TABLE CELLPADDING=1 CELLSPACING=0 border=0>
-#foreach $field in $criteria #begin
-    <TR>
-      <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
-	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)</TD>
-    </TR>
-#end
-<tr><td><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
-<td><FONT face="Arial, Helvetica" size=-2>
-#foreach $field in $orderings #begin
-    $ml.input($field)
-    &nbsp;
-#end
-</font></td>
-</tr>
-<tr>
-<td></td><td>
-<FONT face="Arial, Helvetica" size=-2><INPUT NAME=action VALUE="Search" TYPE=submit
-       ONCLICK="return checkAndClose(this.form);"></font>
-</td></tr>
-</table>
 </FORM>
-
-</CENTER>
 
 </BODY>
 </HTML>

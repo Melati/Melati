@@ -11,7 +11,7 @@ function goto_page() {
 var selector;
 selector = document.forms[0].mainmenu;
 var option = selector.options[document.forms[0].elements[0].selectedIndex].value;
-if (option != "null") parent["sub_menu"].location = option;
+if (option != "null") parent["admin_bottom"].location = option;
 return false;
 }
 
@@ -28,7 +28,7 @@ return false;
 <FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
 </TH>
 
-<FORM method="get" action="index2.html" target="sub_menu">
+<FORM method="get" action="index2.html" target="admin_bottom">
 <TD align="centre">
 <FONT SIZE="1" FACE="Arial, Helvetica">
 <SELECT name="mainmenu" OnChange="return(goto_page(0));">
@@ -43,7 +43,7 @@ return false;
   #end
   #set $lasttype = $tab.Category
 
-<OPTION value="$admin.lowerFrameTableURL($tab)"
+<OPTION value="$admin.BottomURL($tab)"
 #if (!$selected) #begin
     selected
 #end

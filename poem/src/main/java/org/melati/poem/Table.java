@@ -74,7 +74,7 @@ public class Table {
   private Column canReadColumn = null;
   private Column canWriteColumn = null;
   private Column displayColumn = null;
-  private Column criterionColumn = null;
+  private Column primaryCriterionColumn = null;
 
   private String defaultOrderByClause = null;
   private Column[] recordDisplayColumns = null;
@@ -280,12 +280,16 @@ public class Table {
     displayColumn = column;
   }
 
-  public final Column criterionColumn() {
-    return criterionColumn;
+/**
+* in a similar manner to the primary display column, each table can have a 
+* primary criterion column
+*/
+  public final Column primaryCriterionColumn() {
+    return primaryCriterionColumn;
   }
 
-  final void setCriterionColumn(Column column) {
-    criterionColumn = column;
+  final void setPrimaryCriterionColumn(Column column) {
+    primaryCriterionColumn = column;
   }
 
   String defaultOrderByClause() {
@@ -388,7 +392,7 @@ public class Table {
 
     return new ArrayEnumeration(columns);
   }
-
+  
   /**
    * The table's columns designated for use as search criteria, in display
    * order.
@@ -405,6 +409,14 @@ public class Table {
 
     return new ArrayEnumeration(columns);
   }
+
+  public final int getSearchCriterionColumnsCount() {
+    if (searchCriterionColumns == null) {
+	    Enumeration a = getSearchCriterionColumns();
+    }
+	return searchCriterionColumns.length;
+  }
+
 
   // 
   // =========================
@@ -1055,7 +1067,12 @@ public class Table {
           hadOne = true;
 
         clause.append(column.quotedName());
-        clause.append(" = ");
+	    if (column.getType() instanceof StringPoemType) {
+			// FIXME Postgres specific
+            clause.append(" ~* ");
+		} else {
+            clause.append(" = ");
+        }			
         clause.append(column.getType().quotedRaw(raw));
       }
     }

@@ -55,7 +55,21 @@
 
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
+#use 'text' until '--END--'
+<script TYPE="text/javascript">
+<!--
+function popupupdate(popupwin,returnfield,id,value) {
+    var returnfieldummy = returnfield + "_dummy";
+    document.forms[0].elements[returnfield].value = id;
+    document.forms[0].elements[returnfieldummy].value = value;
+    popupwin.close();
+}
+//-->
+</script>
+--END--
+
 <FORM METHOD=post ACTION=AddUpdate>
+<H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>
 
 <TABLE CELLSPACING=0 cellpadding=0>
   #foreach $field in $fields #begin
@@ -82,9 +96,12 @@
   #end
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
 </TABLE>
+#if ($Form.returnURL) {
 <input type=hidden name=returnURL value='$Form.returnURL'>
-<input type=hidden name=target value='$Form.target'>
-
+}
+#if ($Form.returnTarget) {
+<input type=hidden name=returnTarget value='$Form.returnTarget'>
+}
 <INPUT NAME=action VALUE=Update TYPE=submit
        ONCLICK="return validate(this.form);">
 

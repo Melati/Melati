@@ -64,6 +64,30 @@ public class AdminUtils {
     this.logicalDatabase = logicalDatabase;
   }
 
+  public String TopURL() {
+    return adminURL + "/" + logicalDatabase + "/Top";
+  }
+  
+  public String BottomURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/Bottom";
+  }
+  
+  public String PrimarySelectURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/PrimarySelect";
+  }
+
+  public String SelectionURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/Selection";
+  }
+
+  public String NavigationURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/Navigation";
+  }
+
   public String editURL(Persistent object) throws AccessPoemException {
     return
         adminURL + "/" + logicalDatabase + "/" +
@@ -76,21 +100,20 @@ public class AdminUtils {
         table.getAddURL();
   }
 
-  public String lowerFrameTableURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-           "/LowerFrame";
-  }
-  
-  public String tableURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/View";
-  }
-
-  public String popupTableURL(Table table) {
+  public String PopupURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
 
-  public String tablesURL() {
-    return adminURL + "/" + logicalDatabase + "/View";
+  public String SelectionWindowURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindow";
+  }
+  
+  public String SelectionWindowPrimarySelectURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowPrimarySelect";
+  }
+  
+  public String SelectionWindowSelectionURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/SelectionWindowSelection";
   }
   
   // establish if this is a reference poem type field

@@ -1,0 +1,16 @@
+#set $ml = $melati.HTMLMarkupLanguage
+#set $Response.ContentType = "text/html"
+<html>
+<head>
+<title>Select a $ml.rendered($table.DisplayName)</title>
+</head>
+
+  <frameset frameborder="0" framespacing="0" border="0" rows="45,*">
+    <frame src="$admin.SelectionWindowPrimarySelectURL($table)?returnfield=$Form.returnfield" marginwidth="0" marginheight="5" noresize="noresize" name="selectionwindow_primaryselect" border="0" scrolling="no">
+    <frame src="$admin.StaticURL/blank.html" marginwidth="-0" marginheight="-0" noresize="noresize" name="selectionwindow_selection" border="0" scrolling="auto">
+  </frameset>
+
+<noframes>
+</noframes>
+
+</html>

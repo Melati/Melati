@@ -98,10 +98,10 @@ public class ColumnInfo extends ColumnInfoBase {
       Column column = column();
       if (column != null) {
         Table table = column.getTable();
-        Column previous = table.criterionColumn();
+        Column previous = table.primaryCriterionColumn();
         if (previous != null && previous != column) {
           previous.setPrimaryCriterion(false);
-	  table.setCriterionColumn(column);
+	  table.setPrimaryCriterionColumn(column);
 	}
       }
     }

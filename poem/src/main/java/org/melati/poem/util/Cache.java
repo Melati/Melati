@@ -52,7 +52,7 @@ import java.util.*;
 
 public final class Cache {
 
-  private static interface Node {
+  private interface Node {
     Object key();
     Object value();
   }
@@ -110,7 +110,7 @@ public final class Cache {
     }
 
     public Object value() {
-      return this.get();
+      return get();
     }
   }
 
@@ -181,30 +181,26 @@ public final class Cache {
 
     gc();
 
-    if (table.isEmpty())
+    Node node = (Node)table.get(key);
+    if (node == null)
       return null;
     else {
-      Node node = (Node)table.get(key);
-      if (node == null)
-	return null;
+      HeldNode held;
+      if (node instanceof HeldNode)
+	held = (HeldNode)node;
       else {
-	HeldNode held;
-	if (node instanceof HeldNode)
-	  held = (HeldNode)node;
-	else {
-	  if (node.value() == null)
-	    // This probably doesn't happen
-	    return null;
+	if (node.value() == null)
+	  // This probably doesn't happen
+	  return null;
 
-	  held = new HeldNode(key, node.value());
-	  table.put(key, held);
-	}
-
-        held.putBefore(theMRU);
-        theMRU = held;
-        if (theLRU == null) theLRU = held;
-        return held.value;
+	held = new HeldNode(key, node.value());
+	table.put(key, held);
       }
+
+      held.putBefore(theMRU);
+      theMRU = held;
+      if (theLRU == null) theLRU = held;
+      return held.value;
     }
   }
 

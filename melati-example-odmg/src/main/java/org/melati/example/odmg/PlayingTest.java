@@ -19,7 +19,8 @@ public class PlayingTest
 
     DCollection parents = (DCollection) db.lookup("parent");
 
-    Parent p = new Parent();
+    //Parent p = new Parent();
+	 Parent p = (Parent)org.melati.poem.odmg.ODMGFactory.getPoemDatabase().getTable("parent").newPersistent();
     p.setName("parent-"+parents.size());
     System.out.println("Adding parent: "+p.getName());
     

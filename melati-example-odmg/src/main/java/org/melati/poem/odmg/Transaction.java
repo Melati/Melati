@@ -29,7 +29,19 @@ class Transaction implements org.odmg.Transaction
     }
   }
 
-  public void commit() { throw new org.odmg.NotImplementedException(); }
+  public void commit() 
+  { 
+    if (_tx == null) throw new org.odmg.TransactionNotInProgressException();
+	 
+    try { 
+  	   _db.getPoemDatabase().endSession();
+	   _tx = null;
+    } catch (org.odmg.ODMGException exc) 
+    { 
+      throw new org.odmg.ODMGRuntimeException(exc.getMessage());
+    }
+  }
+  
   public void join() { throw new org.odmg.NotImplementedException(); }
   public void abort() { throw new org.odmg.NotImplementedException(); }
   public void checkpoint() { throw new org.odmg.NotImplementedException(); }

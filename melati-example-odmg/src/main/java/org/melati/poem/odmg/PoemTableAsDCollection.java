@@ -19,6 +19,13 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   public boolean isEmpty() { return size() == 0; }
   public int size() { return _wrappedTable.count(""); }
 
+  public boolean add(Object obj) 
+  { 
+    _wrappedTable.create((Persistent)obj);
+	 return true;
+  }
+
+
   public org.odmg.DCollection query(String queryString) { throw new org.odmg.NotImplementedException(); }
   public Object[] toArray(Object[] obj) { throw new org.odmg.NotImplementedException(); }
   public Object[] toArray() { throw new org.odmg.NotImplementedException(); }
@@ -26,7 +33,6 @@ class PoemTableAsDCollection implements org.odmg.DCollection
   public Object selectElement(String queryString) { throw new org.odmg.NotImplementedException(); }
   public boolean remove(Object obj) { throw new org.odmg.NotImplementedException(); }
   public boolean contains(Object obj) { throw new org.odmg.NotImplementedException(); }
-  public boolean add(Object obj) { throw new org.odmg.NotImplementedException(); }
   public boolean addAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
   public boolean containsAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
   public boolean retainAll(Collection coll) { throw new org.odmg.NotImplementedException(); }

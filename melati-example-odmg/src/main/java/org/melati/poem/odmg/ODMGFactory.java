@@ -5,7 +5,13 @@ public class ODMGFactory
 {
   private ODMGFactory() {}
 
-  public static final org.odmg.Database getNewDatabase() { return Database.getNewDatabase(); }
+  private static final Database _db = Database.getNewDatabase();
+  
+  public static final org.odmg.Database getNewDatabase() { return _db; }
+  
+  public static final org.melati.poem.Database getPoemDatabase() 
+    throws org.odmg.ODMGException
+  { return _db.getPoemDatabase(); }
 
   public static final org.odmg.Transaction getNewTransaction(org.odmg.Database db) { return Transaction.getNewTransaction(db); }
 

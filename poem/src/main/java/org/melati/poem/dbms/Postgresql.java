@@ -49,21 +49,23 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Types;
-import org.melati.poem.Table;
-import org.melati.poem.SQLPoemException;
-import org.melati.poem.NoSuchColumnPoemException;
-import org.melati.poem.DuplicateKeySQLPoemException;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemType;
+
 import org.melati.poem.BinaryPoemType;
-import org.melati.poem.LongPoemType;
-import org.melati.poem.IntegerPoemType;
 import org.melati.poem.DoublePoemType;
+import org.melati.poem.DuplicateKeySQLPoemException;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.NoSuchColumnPoemException;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.SeriousPoemException;
+import org.melati.poem.Table;
 
  /**
   * A Driver for Postgresql (http://www.postgresql.org/)

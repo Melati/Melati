@@ -228,11 +228,6 @@ public abstract class PoemServlet extends ConfigServlet
 
     // Set up a POEM session and call the application code
 
-    // dearie me, what a lot of hoops to jump through
-    // at the end of the day Java is terribly poorly suited to this kind of
-    // lambda idiom :(
-
-
     // Do something outside of the PoemSession
     try {
       prePoemSession(melatiIn);
@@ -247,7 +242,6 @@ public abstract class PoemServlet extends ConfigServlet
         throw new TrappedException(f.toString());
       }
     }
-     
 
     final PoemServlet _this = this;
 

@@ -98,11 +98,15 @@ public class Melati {
   }
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    return new HTMLMarkupLanguage(webContext, templetLoader, locale);
+    return new HTMLMarkupLanguage(getWebContext(),
+                                  getTempletLoader(),
+                                  getLocale());
   }
 
   public WMLMarkupLanguage getWMLMarkupLanguage() {
-    return new WMLMarkupLanguage(webContext, templetLoader, locale);
+    return new WMLMarkupLanguage(getWebContext(),
+                                 getTempletLoader(),
+                                 getLocale());
   }
 
   public YMDDateAdaptor getYMDDateAdaptor() {
@@ -121,7 +125,7 @@ public class Melati {
     public Object handle(Variable variable, Object context, Exception problem) {
       Exception underlying =
 	  problem instanceof VariableException ?
-	    ((VariableException)problem).subException : problem;
+	    ((VariableException)problem).problem : problem;
 
       return underlying != null &&
 	     underlying instanceof AccessPoemException ?
@@ -167,12 +171,20 @@ public class Melati {
     return object;
   }
 
-  public MelatiContext getContext() {
+  public final WebContext getWebContext() {
+    return webContext;
+  }
+
+  public final MelatiContext getContext() {
     return melatiContext;
   }
 
   public MelatiLocale getLocale() {
     return locale;
+  }
+
+  TempletLoader getTempletLoader() {
+    return templetLoader;
   }
 
   public String getMethod() {
@@ -257,7 +269,8 @@ public class Melati {
                       adaptorFieldName, adaptorName, e);
         }
         column.setRaw(object, adaptor.rawFrom(context, formFieldName));
-	  } else {
+      }
+      else {
         if (rawString != null) {
           if (rawString.equals("")) {
             if (column.getType().getNullable())

@@ -215,7 +215,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
      */
    public WebContext initWebContext() throws InitException
    {
-      return new WC(_broker);
+      return new WebContext(_broker);
    }
 
   protected void start() throws ServletException { }
@@ -287,7 +287,13 @@ public abstract class MelatiWMServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    doRequest(_wc.clone(req,resp));
+    WebContext wc = _wc.clone(req,resp);
+    try {
+      doRequest(wc);
+    }
+    finally {
+      wc.clear();
+    }
   }
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -437,7 +443,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
       final PrintWriter out =
 	  unroll.equals("stopWhenCancelled") ?
 	    new ThrowingPrintWriter(context.getResponse().getWriter(),
-				        "servlet response stream") :
+                                    "servlet response stream") :
             context.getResponse().getWriter();
 
       Flusher flusher = new Flusher(out);

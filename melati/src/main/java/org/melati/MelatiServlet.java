@@ -301,7 +301,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
     Exception underlying =
         exception instanceof VariableException ?
-          ((VariableException)exception).subException : exception;
+          ((VariableException)exception).problem : exception;
 
     if (underlying == null || !(underlying instanceof AccessPoemException))
       throw exception;

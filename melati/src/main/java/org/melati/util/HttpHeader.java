@@ -300,51 +300,49 @@ public class HttpHeader {
      */
     public Tokenizer(String fields) throws HttpHeaderException {
       super(new StringReader(fields == null ? "" : fields));
-      if (fields != null) {
-        resetSyntax();
-        // Initially make all non-control characters token
-        // characters
-        wordChars('\u0020', '\u007E');
-        // Now change separators back. Tab is not
-        // necessary and there are some ranges but let's
-        // not try and be clever.
-        String separator = "()<>@,;:\\\"/[]?={} \t";
-        for (int i = 0; i < separator.length(); i++) {
-          ordinaryChar(separator.charAt(i));
-          // System.err.println("Tested 34");
-        }
 
-        // Resetting effectively did this to whitespace chars
-        // ordinaryChars('\u0000', '\u0020');
-        // Set space and table characters as whitespace
-        whitespaceChars(' ', ' ');
-        whitespaceChars('\t', '\t');
+      if (fields != null && fields.length() == 0) {
+        // System.err.println("Tested 35");
+        throw new HttpHeaderException("Empty sequence of HTTP header fields");        
+      }
+      resetSyntax();
+      // Initially make all non-control characters token
+      // characters
+      wordChars('\u0020', '\u007E');
+      // Now change separators back. Tab is not
+      // necessary and there are some ranges but let's
+      // not try and be clever.
+      String separator = "()<>@,;:\\\"/[]?={} \t";
+      for (int i = 0; i < separator.length(); i++) {
+        ordinaryChar(separator.charAt(i));
+        // System.err.println("Tested 34");
+      }
 
-        quoteChar('"');
+      // Resetting effectively did this to whitespace chars
+      // ordinaryChars('\u0000', '\u0020');
+      // Set space and table characters as whitespace
+      whitespaceChars(' ', ' ');
+      whitespaceChars('\t', '\t');
 
-        parseNumbers();
+      quoteChar('"');
 
-        // Here are some things we have effectively done by resetting
-        // ordinaryChar('/');
-        // ordinaryChar('\'');
+      parseNumbers();
 
-        // Do not do any other special processing
-        eolIsSignificant(false);
-        lowerCaseMode(false);
-        slashSlashComments(false);
-        slashStarComments(false);
+      // Here are some things we have effectively done by resetting
+      // ordinaryChar('/');
+      // ordinaryChar('\'');
 
-        // Read the first token
-        nextLToken();
-        if (ttype == StreamTokenizer.TT_EOF) {
-          // System.err.println("Tested 35");
-          throw new HttpHeaderException("Empty sequence of HTTP header fields");
-        }
-        if (ttype == ',') {
-          // System.err.println("Tested 36");
-          throw new HttpHeaderException("HTTP header fields starts with comma separator");
-        }
-        // System.err.println("Tested 37");
+      // Do not do any other special processing
+      eolIsSignificant(false);
+      lowerCaseMode(false);
+      slashSlashComments(false);
+      slashStarComments(false);
+
+      // Read the first token
+      nextLToken();
+      if (ttype == ',') {
+        // System.err.println("Tested 36");
+        throw new HttpHeaderException("HTTP header fields starts with comma separator");
       }
     }
 

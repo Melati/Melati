@@ -46,7 +46,7 @@
 ##
 
 #set $ml = $melati.HTMLMarkupLanguage
-#set $onVariableException = $melati.PassbackVariableExceptionHandler
+$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <HTML>
 <HEAD>
 </HEAD>

@@ -123,6 +123,13 @@ public class Table {
   }
 
   /**
+   * The PathInfo used in order to add a record.
+   */
+  public String getAddURL() {
+    return getName() + "/Add";
+  }
+
+  /**
    * The table's programmatic name.  Identical with its name in the DSD (if the
    * table was defined there), in its <TT>tableinfo</TT> entry, and in the
    * RDBMS itself.

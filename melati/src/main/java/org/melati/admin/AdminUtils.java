@@ -65,6 +65,16 @@ public class AdminUtils {
         object.getTable().getName() + "/" + object.troid() + "/Edit";
   }
 
+  public String addURL(Table table) throws AccessPoemException {
+    return
+        adminURL + "/" + logicalDatabase + "/" +
+        table.getAddURL();
+  }
+
+  public String lowerFrameTableURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/LowerFrame";
+  }
+
   public String tableURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/View";
   }

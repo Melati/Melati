@@ -66,4 +66,13 @@ public class TableInfoTable extends TableInfoTableBase {
     if (info.getCancreate() == null)
       info.setCancreate(getDatabase().administerCapability());
   }
+  
+  
+  /**
+   * The PathInfo used in order to add a record.
+   */
+  public String getAddURL() {
+    return "Create";
+  }
+
 }

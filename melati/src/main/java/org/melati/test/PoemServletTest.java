@@ -102,7 +102,7 @@ public class PoemServletTest extends PoemServlet {
     output.write("<table>");
 
     for (Enumeration e = melati.getDatabase().getDisplayTables(); 
-         e.hasMoreElements(); ) {
+         e.hasMoreElements();) {
       output.write(new StringBuffer("<br>").
       append(((Table)e.nextElement()).getDisplayName()).toString());
     }

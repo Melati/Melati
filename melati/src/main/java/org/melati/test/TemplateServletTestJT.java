@@ -59,9 +59,8 @@ import org.melati.template.TemplateContext;
  */
 public class TemplateServletTestJT extends TemplateServlet {
 
-  protected String doTemplateRequest( 
-  Melati melati, TemplateContext templateContext) 
-  throws Exception {
+  protected String doTemplateRequest(Melati melati, TemplateContext templateContext) 
+      throws Exception {
 
     return("org/melati/test/TemplateServletTestJT");
   }

@@ -178,7 +178,7 @@ public abstract class TemplateServlet extends PoemServlet {
    * @param e      the {@link Exception} to report
    * @throws IOException if anything goes wrong with the file system
    */
-  public void error(Melati melati, Exception e ) throws IOException {
+  public void error(Melati melati, Exception e) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (!(e instanceof TrappedException)) {
       try {
@@ -237,5 +237,5 @@ public abstract class TemplateServlet extends PoemServlet {
    */
   protected abstract String doTemplateRequest(Melati melati, 
                                               TemplateContext templateContext)
-      throws Exception ;
+      throws Exception;
 }

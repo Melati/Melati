@@ -92,7 +92,7 @@ public class CharsetServletTest extends ConfigServlet {
     w.println("<thead><tr><th>Description</th><th>Character Reference</th>" +
               "<th>Character</th><th>Entitied</th><th>Encoding Test</th></tr></thead>");
     w.println("<tbody>");
-    for (Iterator i = CharData.getItems(); i.hasNext(); ) {
+    for (Iterator i = CharData.getItems(); i.hasNext();) {
       CharData.Item cd = (CharData.Item)i.next();
       w.println("<tr>");
       w.println("<td>" + cd.getDescription() + "</td>");

@@ -65,7 +65,7 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
 /**
  * Main entry point.
  */
-  public String handle( Melati melati, WebContext context ) 
+  public String handle(Melati melati, WebContext context) 
       throws Exception {
     melati.setBufferingOff();
     if (melati.getMethod() != null && 

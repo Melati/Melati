@@ -88,7 +88,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
   public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
       Properties props = loadConfiguration(melatiConfig);
-      Velocity.init( props );
+      Velocity.init(props);
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }

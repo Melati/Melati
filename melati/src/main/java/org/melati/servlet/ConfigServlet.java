@@ -196,7 +196,7 @@ public abstract class ConfigServlet extends HttpServlet {
    * @param e      the {@link Exception} to report
    * @throws IOException if anything goes wrong with the file system
    */
-  public void error(Melati melati, Exception e ) throws IOException {
+  public void error(Melati melati, Exception e) throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
       // log it
@@ -235,7 +235,7 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("that runs this website, please contact <a href='mailto:");
     out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
     out.println(", with the information given below.</p>");
-    out.println("<h4><font color=red><pre>" );
+    out.println("<h4><font color=red><pre>");
     e.printStackTrace(out);
     out.println("</pre></font></h4></body></html>");
   }    
@@ -260,7 +260,7 @@ public abstract class ConfigServlet extends HttpServlet {
     out.println("so you should be able to use the site in a moment.");
     out.println("<p>This page will refresh in 30 seconds, ");
     out.println("and you will be able to continue.</p>");
-    out.println("<!--" );
+    out.println("<!--");
     e.printStackTrace(out);
     out.println("--></center></body></html>");
   }    

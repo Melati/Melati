@@ -62,6 +62,11 @@ public class ArrayUtils {
     return arr;
   }
 
+  public static Object[] arrayOf(Enumeration e) {
+    Vector v = EnumUtils.vectorOf(e);
+    return arrayOf(v);
+  }
+
   public static Object[] added(Object[] xs, Object y) {
     Object[] xsx = (Object[])java.lang.reflect.Array.newInstance(
                        xs.getClass().getComponentType(), xs.length + 1);

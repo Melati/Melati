@@ -52,34 +52,30 @@
 </P>
 
 <UL>
-  <LI> Linux 2.0.34/i586 with glibc 2.0.7.  Probably noncritical.
-  <LI> Apache 1.3.3, with JServ 1.0b2.  Note that RedHat 5.x Apache RPMs make it
-       hard for you to get JServ working.
-  <LI> Sun's JDK 1.2 (Borland's JIT seems to work fine).  Melati will no longer work
-       with 1.1 (it uses <TT>SoftReference</TT>s in its cache).
+  <LI> Linux 2.2.12 with glibc 2.1.1, 2.0.34/i586 with glibc 2.0.7.
+       Probably noncritical.
+  <LI> Apache 1.3.12 with JServ 1.1 and 1.3.3 with JServ 1.0b2.
+  <LI> Sun's JDK 1.2 (Borland's JIT seems to work fine).
+       Melati will no longer work with 1.1 (it uses <TT>SoftReference</TT>s in
+       its cache).
   <LI> JSDK (servlet development kit) 2.0 
   <LI> <A HREF=http://webmacro.org/Download.html>WebMacro</A> Snapshot
        1999-12-22
 </UL>
 
 <P>
-  Everything up to here could be summarised as: a working webmacro
+  Everything up to here could be summarised as: a working WebMacro
   installation with Java 1.2.  Finally,
 </P>
 
 <UL>
-  <LI> Postgresql 6.5.2, 6.5.3.  There is at least one known
-       problem with 6.4.2: it silently ignores <TT>NOT NULL</TT> in
-       <TT>ALTER</TT> <TT>TABLE</TT> <TT>ADD</TT> <TT>COLUMN</TT>, which tends
-       to confuse Melati.  For that reason, we haven't maintained 6.4.2
-       support.  [Actually it turns out that this problem is STILL present in 6.5.3
-       but 6.4.2 is getting old anyway.]
+  <LI> Postgresql 7.0, 6.5.3, 6.5.2.
 </UL>
 
 <P>
   The JDBC facilities used by Melati are pretty simple, and we are aiming for
-  compatibility with any DBMS which supports JDBC and transactions, but you
-  know how it is ...
+  compatibility with any DBMS which supports JDBC and transactions, but for
+  now Postgresql is what we use, even though it is imperfect.
 </P>
 
 
@@ -306,6 +302,28 @@ wrapper.classpath=/usr/local/melati
   </tr>
   <tr> 
     <td valign="top">7.</td>
+    <td  valign=top>
+      <p>Arrange for Melati's statically served pages to be accessible via
+         your web server.</p>
+      </p>
+        <p>
+          By default, Melati will expect to find its JavaScript, images and
+          static HTML under <TT>http://your.server/melati-static</TT>.
+          To set this up with Apache, one typically does something like
+        </p>
+        <blockquote> 
+          <pre>
+ln -s /usr/local/melati/org/melati /usr/local/apache/htdocs/melati-static
+</pre>
+        </blockquote>
+       <p>
+         An alternate URL can be specified in the configuration file
+         <tt>org/melati/org.melati.MelatiServlet.properties</tt>.
+       </p>
+    </td>
+  </tr>
+  <tr> 
+    <td valign="top">8.</td>
     <td  valign=top>Get Melati's Webmacro templates into Webmacro's template 
       path. Melati looks for its templates relative to <tt>org/melati</tt> in 
       its source tree, so you should edit your <tt>WebMacro.properties</tt> to 
@@ -316,7 +334,7 @@ wrapper.classpath=/usr/local/melati
     </td>
   </tr>
   <tr> 
-    <td valign="top">8.</td>
+    <td valign="top">9.</td>
     <td  valign=top>
       <P>
         <a name=config>Edit Melati's database config file</a>, found in 
@@ -339,25 +357,21 @@ wrapper.classpath=/usr/local/melati
     </td>
   </tr>
   <tr> 
-    <td valign="top">9.</td>
+    <td valign="top">10.</td>
     <td  valign=top>Restart your Servlet Runner, typically you will need to kick 
       apache using <tt>apachectl restart</tt>.</td>
   </tr>
   <tr>
-    <td valign="top">10.</td>
+    <td valign="top">11.</td>
     <td  valign=top>
       <p>To check that Melati is working, try looking at </p>
       <blockquote> 
         <pre>
-http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
+http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
 </pre>
       </blockquote>
-      <p> After a long pause (up to twenty seconds on my 100MHz Pentium with too 
-        little memory), you should see a list of tables in the <tt>melatitest</tt> 
-        database. </p>
-
-
-
+      <p> After a few seconds, you should see the generic admin screens for
+          the <tt>melatitest</tt> database. </p>
 </td>
   </tr>
 </table>
@@ -475,6 +489,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.20  2000/05/27 09:45:14  williamc
+  <BR>Add instructions for setting up pointer to static content
+  <BR>
   <BR>Revision 1.19  2000/04/15 18:39:36  williamc
   <BR>postgresql.jar is still called exactly that in the actual postgres sources
   <BR>

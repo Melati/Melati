@@ -69,15 +69,14 @@ return false;
 #if ($primaryCriterion) {
 <table cellspacing=0 cellpadding=0><tr>
 <td></td>
-<td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</td>
-</tr><tr><td>
+<td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</font></td>
+</tr><tr><td><FONT face="Arial, Helvetica" size=-1>
 #if ($admin.isReferencePoemType($primaryCriterion)) #begin
 <a href='$admin.addURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
 #end
 </td><td>
-$ml.input($primaryCriterion)
-<INPUT NAME=action VALUE=" Go " TYPE=submit></font>
-</td></tr></table>
+<FONT face="Arial, Helvetica" size=-1>$ml.input($primaryCriterion)
+<INPUT NAME=action VALUE=" Go " TYPE=submit></font></td></tr></table>
 }
 </FORM>
 

@@ -173,12 +173,12 @@ public class NoTemplateEngine implements TemplateEngine {
   /** 
    * Expand the Template against the context.
    *
-   * @param melatiName      the name of the template to expand
+   * @param melatiTemplate  the {@link Template} to expand
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked
    */
-  public String expandTemplate(Template melatiTemplate,
+  public String expandedTemplate(Template melatiTemplate,
                              TemplateContext templateContext)
       throws TemplateEngineException {
     throw new TemplateEngineException(message);

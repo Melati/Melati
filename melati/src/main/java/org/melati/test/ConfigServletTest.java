@@ -127,8 +127,12 @@ public class ConfigServletTest extends ConfigServlet {
     "melati.getMethod()): " + 
     melati.getMethod() + 
     "</h4><h4>Further Testing:</h4>You can test melati Exception handling by " +
-    "clicking <a href=Exception>Exception</a><br>You can test melati Redirect " +
-    "handling by clicking <a href=Redirect>Redirect</a><br>You can test your " +
+    "clicking <a href=" + 
+    melati.getSameURL() + 
+    "/Exception>Exception</a><br>You can test melati Redirect " +
+    "handling by clicking <a href=" +
+    melati.getSameURL() + 
+    "/Redirect>Redirect</a><br>You can test your " +
     "POEM setup (connecting to logical database <tt>melatitest</tt>) by " +
     "clicking <a href=" + 
     melati.getZoneURL() + 

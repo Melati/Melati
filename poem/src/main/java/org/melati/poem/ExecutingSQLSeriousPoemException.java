@@ -54,12 +54,20 @@ import java.sql.SQLException;
   * @author WilliamC@paneris.org
   */
 public class ExecutingSQLSeriousPoemException extends SQLSeriousPoemException {
-  public String sql;
+
+  /**
+   * Constructor.
+   * 
+   * @param sql the SQL statement that provoked the problem
+   * @param e the JDBC driver exception caught
+   */
   public ExecutingSQLSeriousPoemException(String sql, SQLException e) {
-    super(e);
-    this.sql = sql;
+    super(e,sql);
   }
 
+  /* (non-Javadoc)
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "Executing SQL ...\n" + sql + "\n" + super.getMessage();

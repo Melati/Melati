@@ -376,8 +376,8 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * A pair of functions for getting around keywords which make your JDBC driver
-   * barf, as 'group' does for MySQL.
+   * A pair of functions for getting around keywords which make your 
+   * JDBC driver barf, as 'group' does for MySQL.
    * 
    * @see MySQL#unreservedName
    * @see MySQL#melatiName

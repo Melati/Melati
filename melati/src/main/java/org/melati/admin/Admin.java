@@ -101,10 +101,23 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template tableListTemplate(WebContext context, MethodRef ref)
-      throws NotFoundException, InvalidTypeException, PoemException {
+      throws NotFoundException, InvalidTypeException, PoemException,
+             HandlerException {
+    int start = 0;
+    String startString = context.getForm("start");
+    if (startString != null) {
+      try {
+        start = Math.max(0, Integer.parseInt(startString));
+      }
+      catch (NumberFormatException e) {
+        throw new HandlerException("`start' param to `List' must be a number");
+      }
+    }
+
     Table table = tableFromPathInfo(ref);
     context.put("table", table);
-    context.put("objects", table.selection());
+    context.put("objects", table.selection(null, false, start, 20));
+
     return adminTemplate(context, "List.wm");
   }
 

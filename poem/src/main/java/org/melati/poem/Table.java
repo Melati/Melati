@@ -546,6 +546,8 @@ public class Table {
     if (deletedColumn != null && !includeDeleted)
       whereClause = (whereClause == null ? "" : whereClause + " AND ") +
                     "NOT " + deletedColumn.getName();
+
+    // FIXME must work in some kind of limit
       
     String sql =
         "SELECT " + _quotedName(troidColumn.getName()) +
@@ -602,7 +604,7 @@ public class Table {
    * @see #selection(java.lang.String, boolean)
    */
 
-  final Enumeration troidSelection(String whereClause, boolean includeDeleted)
+  Enumeration troidSelection(String whereClause, boolean includeDeleted)
       throws SQLPoemException {
     PoemSession session = PoemThread.session();
     PoemFloatingVersionedObject allTroids = this.allTroids;
@@ -625,7 +627,7 @@ public class Table {
    *         be passed over.
    */
 
-  public final Enumeration selection() throws SQLPoemException {
+  public Enumeration selection() throws SQLPoemException {
     return selection(null, false);
   }
 
@@ -674,6 +676,14 @@ public class Table {
             return getObject((Integer)troid);
           }
         };
+  }
+
+  public PageEnumeration selection(String whereClause, boolean includeDeleted,
+                                   int pageStart, int pageSize)
+      throws SQLPoemException {
+    // FIXME do this more sensibly where SQL permits
+    return new DumbPageEnumeration(selection(whereClause, includeDeleted),
+                                   pageStart, pageSize, 200);
   }
 
   /**

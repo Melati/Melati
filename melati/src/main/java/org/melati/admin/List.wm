@@ -18,6 +18,16 @@
   <A HREF=Add>Add a new $ml.rendered($table.DisplayName)</A>
 </P>
 
+<P><FONT SIZE=1>&nbsp;</FONT></P>
+
+<P><B>
+  Records $objects.PageStart to $objects.PageEnd of
+  #if ($objects.TotalCountIsMinimum) #begin
+    at least
+  #end
+  $objects.TotalCount
+</B></P>
+
 <TABLE CELLSPACING=0>
   <TR>
     <TH></TH>
@@ -37,6 +47,24 @@
     </TR>
   }
 </TABLE>
+
+<P>
+  #if ($objects.PrevPageStart) #begin
+    <A HREF="List?start=$objects.PrevPageStart">&lt;&lt;</A>
+  #end
+  #else #begin
+    &lt;&lt;
+  #end
+
+  &nbsp;&nbsp;
+
+  #if ($objects.NextPageStart) #begin
+    <A HREF="List?start=$objects.NextPageStart">&gt;&gt;</A>
+  #end
+  #else #begin
+    &lt;&lt;
+  #end
+</P>
 
 </CENTER>
 

@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Tim Joyce
+ * Copyright (C) 2001 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -129,13 +129,15 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @return a template
    */
   public org.melati.template.Template template(String templateName)
-                                      throws NotFoundException {
-      try {                                  
-        org.webmacro.Template template = wm.getTemplate (templateName);
-        return new WebmacroTemplate (template);
-      } catch (Exception e) {
-        throw new NotFoundException(e);
-      }
+      throws TemplateEngineException {
+    try {                                  
+      org.webmacro.Template template = wm.getTemplate (templateName);
+      return new WebmacroTemplate (template);
+    } catch (org.webmacro.NotFoundException e) {
+      throw new NotFoundException("Could not find template " + templateName);
+    } catch (Exception e) {
+      throw new TemplateEngineException(e);
+    }
   }
 
   /** 
@@ -146,7 +148,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @return a template
    */
   public org.melati.template.Template template(Class clazz)
-      throws NotFoundException {
+      throws TemplateEngineException {
 
     String templateName = StringUtils.tr(clazz.getName(),
                                          ".", 
@@ -168,7 +170,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public void expandTemplate(MelatiWriter out, 
                              String templateName, 
                              TemplateContext templateContext)
-              throws TemplateEngineException {
+      throws TemplateEngineException {
     try {
       expandTemplate (out, template (templateName), templateContext);
     } catch (NotFoundException e) {
@@ -192,7 +194,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
                              TemplateContext templateContext)
               throws TemplateEngineException {
     try {
-      template.write (out, templateContext, this);
+      template.write(out, templateContext, this);
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
       if (underlying instanceof PropertyException) {
@@ -215,7 +217,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    */
   public String expandedTemplate(org.melati.template.Template template,  
                                 TemplateContext templateContext)
-              throws TemplateEngineException {
+      throws TemplateEngineException {
     try {
       MelatiStringWriter s = new MelatiWebmacroStringWriter();
       template.write (s, templateContext, this);
@@ -230,7 +232,6 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       }
       throw problem;
     }
-
   }
 
   /** 

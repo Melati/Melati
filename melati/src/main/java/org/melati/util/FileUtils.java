@@ -87,4 +87,22 @@ public class FileUtils {
     os.close();
     return file;
   }
+
+  /**
+   * Mark a file as executable.  Does <TT>chmod +x <I>file</I></TT> on
+   * Unix, else does nothing.
+   */
+
+  public static void makeExecutable(File file) throws IOException {
+    if (File.separatorChar == '/')
+      // we're unix
+      try {
+        if (Runtime.getRuntime().exec(
+                new String[] { "chmod", "+x", file.getPath() } ).waitFor() != 0)
+          throw new IOException("chmod +x " + file + " failed");
+      }
+      catch (InterruptedException e) {
+        throw new IOException("Interrupted waiting for chmod +x " + file);
+      }
+  }
 }

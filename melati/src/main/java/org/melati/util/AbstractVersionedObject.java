@@ -2,6 +2,8 @@ package org.melati.util;
 
 public abstract class AbstractVersionedObject
     extends CacheNode           // well, this IS what it's going to be used for
+                                // (funny how you want to use
+                                // multip. inher. more in Java than in C++)
     implements CachedVersionedObject {
 
   private static final Version unknown =
@@ -284,9 +286,12 @@ public abstract class AbstractVersionedObject
   // ===========
   // 
 
-  public void uncacheContents() {
-    // we just drop the commited version
-    uncacheVersion(null);
+  public synchronized void uncacheContents() {
+    committedVersion = unknown;
+    if (versions != null)
+      for (int v = 0; v < versions.length; ++v)
+        if (versions[v] != null)
+          versions[v] = unknown;
   }
 
   public synchronized boolean drop() {

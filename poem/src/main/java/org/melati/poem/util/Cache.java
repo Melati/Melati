@@ -110,7 +110,7 @@ public final class Cache {
     }
 
     public Object value() {
-      return get();
+      return this.get();
     }
   }
 

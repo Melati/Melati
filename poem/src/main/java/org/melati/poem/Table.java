@@ -1630,7 +1630,7 @@ public class Table {
   /**
    * Write a new row containing the given object.
    * <p>
-   * The given object will be assigned the next troid.and its internal
+   * The given object will be assigned the next troid and its internal
    * state will also be modified.
    *
    * @exception InitialisationPoemException The object failed validation

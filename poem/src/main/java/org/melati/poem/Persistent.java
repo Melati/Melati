@@ -70,7 +70,7 @@ import org.melati.util.MelatiLocale;
 
 public class Persistent extends Transactioned implements Cloneable {
   private Table table;
-  private Integer troid;        // or null if a floating object
+  private Integer troid;        // null if a floating object
   private AccessToken clearedToken;
   private boolean
       knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
@@ -324,8 +324,8 @@ public class Persistent extends Transactioned implements Cloneable {
    * <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    *
-   * @return the capability specified by the record's <TT>canread</TT> field, or
-   *         <TT>null</TT> if it doesn't have one or its value is SQL
+   * @return the capability specified by the record's <TT>canread</TT> field, 
+   *         or <TT>null</TT> if it doesn't have one or its value is SQL
    *         <TT>NULL</TT>
    *
    * @see #assertCanRead
@@ -354,8 +354,8 @@ public class Persistent extends Transactioned implements Cloneable {
    *
    * Although this check can in theory be quite time-consuming, in practice
    * this isn't a problem, because the most recent access token for which the
-   * check succeeded is cached; repeat accesses from within the same transaction
-   * are therefore quick.
+   * check succeeded is cached; repeat accesses from within the same 
+   * transaction are therefore quick.
    *
    * <P>
    *
@@ -421,8 +421,8 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * The capability required for writing the object's field values.  This is
-   * used by <TT>assertCanWrite</TT> (unless that's been overridden) to obtain a
-   * <TT>Capability</TT> for comparison against the caller's
+   * used by <TT>assertCanWrite</TT> (unless that's been overridden) to obtain 
+   * a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    *
    * @return the capability specified by the record's <TT>canwrite</TT> field,
@@ -630,9 +630,9 @@ public class Persistent extends Transactioned implements Cloneable {
    *         <TT>Date</TT> as appropriate.  If the field is a reference field,
    *         the result is an <TT>Integer</TT> giving the troid of the referee.
    *         If you want references to be resolved transparently to
-   *         <TT>Persistent</TT>s, use <TT>getCooked</TT>.  If you want a string
-   *         representation of the field, use <TT>getRawString</TT> or
-   *         <TT>getCookedString</TT>.
+   *         <TT>Persistent</TT>s, use <TT>getCooked</TT>.  
+   *         If you want a string representation of the field, 
+   *         use <TT>getRawString</TT> or <TT>getCookedString</TT>.
    *
    * @exception NoSuchColumnPoemException
    *                if the field named doesn't exist

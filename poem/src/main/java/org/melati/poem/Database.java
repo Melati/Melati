@@ -169,6 +169,10 @@ public abstract class Database implements TransactionPool {
    *        transaction subsequently rolled back.
    * </UL>
    *
+   * @param dbmsclass   The Melati DBMS class (see org/melati/poem/dbms) 
+   *                    to use, usually specified in 
+   *                    org.melati.LogicalDatabase.properties.
+   * 
    * @param url         The JDBC URL for the database; for instance
    *                    <TT>jdbc:postgresql:williamc</TT>.  It is the
    *                    programmer's responsibility to make sure that an
@@ -180,6 +184,11 @@ public abstract class Database implements TransactionPool {
    *                    Melati.
    *
    * @param password    The password to go with the username.
+   *
+   * @param transactionsMax 
+   *                    The maximum number of concurrent Transactions allowed,
+   *                    usually specified in 
+   *                    org.melati.LogicalDatabase.properties.
    *
    * @see #transactionsMax()
    */
@@ -982,7 +991,13 @@ public abstract class Database implements TransactionPool {
     return getCapabilityTable().administer();
   }
 
-  // by default, anyone can administer a database
+  /** 
+   * By default, anyone can administer a database.
+   *
+   * @return the required {@link Capability} to administer the db 
+   * (<tt>null</tt> unless overridden)
+   * @see org.melati.admin.Admin
+   */
   public Capability getCanAdminister() {
     return null;
   }
@@ -1094,12 +1109,12 @@ public abstract class Database implements TransactionPool {
   // 
 
 
-    public String toString() {
-      if (connectionUrl == null) 
-        return "unconnected database";
-      else 
-        return connectionUrl;
-    }
+  public String toString() {
+    if (connectionUrl == null) 
+      return "unconnected database";
+    else 
+      return connectionUrl;
+  }
 
   Connection getCommittedConnection() {
     return committedConnection;

@@ -57,6 +57,11 @@ import org.melati.util.MelatiLocale;
  */
 public class DatePoemType extends AtomPoemType {
 
+ /**
+  * Constructor.
+  * 
+  * @param nullable whether this type may contain <code>null</code>.
+  */
   public DatePoemType(boolean nullable) {
     super(Types.DATE, "DATE", nullable);
   }
@@ -88,7 +93,7 @@ public class DatePoemType extends AtomPoemType {
     return other instanceof DatePoemType;
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {

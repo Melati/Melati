@@ -55,7 +55,7 @@ import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
 /**
- * Interface for a Template engine for use with Melati
+ * Interface for a Template engine for use with Melati.
  *
  * @author Tim Joyce
  * $Revision$
@@ -99,7 +99,8 @@ public interface TemplateEngine {
    * @throws NotFoundException if the template is not found by the engine
    * @return a template
    */
-  Template template(String templateName) throws NotFoundException;
+  Template template(String templateName) 
+      throws TemplateEngineException;
 
   /** 
    * Get a template for a given class.
@@ -108,7 +109,8 @@ public interface TemplateEngine {
    * @throws NotFoundException if the template is not found by the engine
    * @return a template
    */
-  Template template(Class clazz) throws NotFoundException;
+  Template template(Class clazz) 
+      throws TemplateEngineException;
   
   /** 
    * Expand the Template against the context.

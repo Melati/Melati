@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7.1-SNAPSHOT</currentVersion>
+  <currentVersion>0.7.2</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -97,26 +97,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </mailingList>
     <mailingList>
       <name>PanEris Melati board <b>(Closed)</b></name>
-      <subscribe>
-subscribe.melati@messageboards.paneris.org
+      <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=214
       </subscribe>
-      <unsubscribe>
-subscribe.melati@messageboards.paneris.org
+      <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=214
       </unsubscribe>
-      <archive>
-       http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;messageboard=214
+      <archive>http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;amp;messageboard=214
       </archive>
     </mailingList>
     <mailingList>
       <name>PanEris Melati Project board <b>(Closed)</b></name>
-      <subscribe>
-subscribe.melati@messageboards.paneris.org
-      </subscribe>
-      <unsubscribe>
-subscribe.melati@messageboards.paneris.org
+      <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=231</subscribe>
+      <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=231
       </unsubscribe>
-      <archive>
-       http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;messageboard=231
+      <archive>http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;amp;messageboard=231
       </archive>
     </mailingList>
 
@@ -249,12 +242,24 @@ subscribe.melati@messageboards.paneris.org
     </developer>
 
   </developers>
+  <contributors>
+    <contributor>
+      <name>Brian Goetz</name>
+      <id>brianc</id>
+      <email>brianc@paneris.org</email>
+      <organization>quiotix</organization>
+      <roles>
+        <role>WebMacro help</role>
+      </roles>
+      <timezone>-7</timezone>
+    </contributor>
+  </contributors>
 
 
   <dependencies>
     <dependency>
-      <id>webmacro</id>
-      <version>1.0</version>
+      <id>webmacro-classic</id>
+      <version>2.0b1</version>
       <url>http://www.webmacro.org/</url>
     </dependency>
     <dependency>
@@ -263,9 +268,14 @@ subscribe.melati@messageboards.paneris.org
       <url>http://jakarta.apache.org/velocity/</url>
     </dependency>
     <dependency>
-      <id>velocity-dep</id>
-      <version>1.3-rc1</version>
-      <url>http://jakarta.apache.org/velocity/</url>
+      <id>oro</id>
+      <version>2.0.8</version>
+      <url>http://jakarta.apache.org/oro/</url>
+    </dependency>
+    <dependency>
+      <id>commons-collections</id>
+      <version>3.0</version>
+      <url>http://jakarta.apache.org/commons/</url>
     </dependency>
     <dependency>
       <id>postgresql</id>

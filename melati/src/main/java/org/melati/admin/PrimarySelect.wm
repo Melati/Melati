@@ -114,7 +114,7 @@
     </FONT>
     <FONT face="Arial, Helvetica" size=-1><input type=button value=" Go " onclick="goto_page2()"></font>
     #end #else #begin
-    <FONT face="Arial, Helvetica">
+    <FONT face="Arial, Helvetica" size=-1>
         <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
         #foreach $poss in $primaryCriterion.First1000Possibilities #begin
           <OPTION VALUE="$admin.SelectionURL($table)?field_$ml.rendered($primaryCriterion.Name)=$ml.Attr.rendered($poss.RawString)"

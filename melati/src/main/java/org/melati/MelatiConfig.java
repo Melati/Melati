@@ -79,7 +79,7 @@ import org.melati.util.StringUtils;
  * melati.  These are held in <TT>org.melati.MelatiServlet.properties</TT>.
  *
  * After configuration, you can then get a Melati, using
- * <TT>getMelati()</T>.
+ * <TT>getMelati()</TT>.
  *
  * @see #getMelati(HttpServletRequest, HttpServletResponse) 
  *
@@ -223,8 +223,8 @@ public class MelatiConfig {
   /**
    * Creates a melati context.
    *
-   * @param request the incoming <code>HttpServletRequest</code>
-   * @param response the outgoing <code>HttpServletResponse</code>
+   * @param request the incoming {@link HttpServletRequest}
+   * @param response the outgoing {@link HttpServletResponse}
    * @return a new {@link Melati}
    */
    public Melati getMelati(HttpServletRequest request,
@@ -233,9 +233,9 @@ public class MelatiConfig {
    }
    
    /**
-    * Creates a melati context.
+    * Creates a new {@link Melati}.
     *
-    * @param writer to write output to  
+    * @param writer a {@link MelatiWriter} to write output to  
     * @return a new {@link Melati}
     */
     public Melati getMelati(MelatiWriter writer) {
@@ -243,14 +243,14 @@ public class MelatiConfig {
     }
 
  /** 
-  * @return template engine in use.
+  * @return {@link TemplateEngine} in use.
   */
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
   
  /** 
-  * Set the template engine to use.
+  * Set the {@link TemplateEngine} to use.
   * 
   * @param templateEngine a {@link TemplateEngine} 
   */
@@ -259,7 +259,7 @@ public class MelatiConfig {
   }
 
  /** 
-  * @return the configured <code>AccessHandler</code>
+  * @return the configured {@link AccessHandler}
   */
   public AccessHandler getAccessHandler() {
     return accessHandler;
@@ -275,14 +275,14 @@ public class MelatiConfig {
   }
 
  /** 
-  * @return the configured <code>TempletLoader</code>
+  * @return the configured {@link TempletLoader}
   */
   public TempletLoader getTempletLoader() {
     return templetLoader;
   }
 
  /** 
-  * Set the <code>TempletLoader</code> for use by this Melati.
+  * Set the {@link TempletLoader} for use by this Melati.
   *
   * @param templetLoader a {@link TempletLoader}
   */
@@ -291,14 +291,14 @@ public class MelatiConfig {
   }
 
  /** 
-  * @return the configured <code>FormDataAdaptorFactory</code>
+  * @return the configured {@link FormDataAdaptorFactory}
   */
   public FormDataAdaptorFactory getFormDataAdaptorFactory() {
     return fdaFactory;
   }
 
  /** 
-  * Set the <code>FormDataAdaptorFactory</code> for use by this Melati.
+  * Set the {@link FormDataAdaptorFactory} for use by this Melati.
   *
   * @param fdaf a {@link FormDataAdaptorFactory}
   */
@@ -323,6 +323,8 @@ public class MelatiConfig {
   }
 
  /** 
+  * Normally set to <code>melati-static</code>.
+  * 
   * @return the location of static content for this site.
   */
   public String getStaticURL() {

@@ -52,6 +52,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemException;
 import org.melati.poem.PoemThread;
@@ -61,6 +63,7 @@ import org.melati.util.HttpUtil;
 import org.melati.util.HttpServletRequestParameters;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 import org.melati.util.ReconstructedHttpServletRequest;
+import org.melati.util.MD5Util;
 
 public class HttpSessionAccessHandler implements AccessHandler {
 
@@ -105,7 +108,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
   public void handleAccessException(Melati melati, 
                          AccessPoemException accessException) throws Exception {
     // cut down unnecessary messages in logs.
-    // accessException.printStackTrace();
+    accessException.printStackTrace();
     HttpServletRequest request = melati.getRequest();
     HttpServletResponse response = melati.getResponse();
     HttpSession session = request.getSession(true);
@@ -117,20 +120,46 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
   /**
-   * @return the <TT>WebContext</TT> to use in processing the request; can
-   *         just be <TT>context</TT>, or something derived from
-   *         <TT>context</TT>, or <TT>null</TT> if the routine has already
-   *         handled the request (<I>e.g.</I> by sending back an error)
+   * set the Access token to be used for this request.  This is eithier picked
+   * up from the session, or from a cookie.  The cookie is keyed on the logical 
+   * database, this retrieves the user's login.  The login
+   * is used (with the logical database name) to retrieve an encoded
+   * password which is then checked.
+   *
+   * @see org.melati.login.LoginHandler
    */
-
   public Melati establishUser(Melati melati) {
+    String ldb = melati.getContext().getLogicalDatabase();
     HttpSession session = melati.getSession();
     synchronized (session) {
       User user = (User)session.getValue(USER);
+      if (user == null) {
+        user = getUserFromCookie(melati,ldb);
+        if (user != null && 
+            !getCookieValue(melati,ldb+user.getLogin()).equals(
+             MD5Util.encode(user.getPassword()))) user = null;
+      }
       PoemThread.setAccessToken(
         user == null ? melati.getDatabase().guestAccessToken() : user);
     }
     return melati;
+  }
+
+  
+  public User getUserFromCookie(Melati melati,String key) {
+    String login = getCookieValue(melati,key);
+    if (login == null) return null;
+    return (User)melati.getDatabase().getUserTable().getLoginColumn().firstWhereEq(login);
+  }
+
+  public String getCookieValue(Melati melati,String key) {
+    // try and get from cookie
+    Cookie[] cookies = melati.getRequest().getCookies();
+    for (int i=0;i<cookies.length;i++) {
+      Cookie c = cookies[i];
+      if (c.getName().equals(key)) return c.getValue();
+    }
+    return null;
   }
 
   public void buildRequest(Melati melati) 

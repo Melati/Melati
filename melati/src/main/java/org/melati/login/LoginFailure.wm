@@ -73,6 +73,12 @@
     <TD>&nbsp;</TD>
     <TD>$ml.inputAs($password, "passwordForChecking")</TD>
   </TR>
+  <TR>
+    <TD>Remember me?</TD>
+    <TD>&nbsp;</TD>
+    <TD><input type=checkbox name=rememberme  
+	#if ($Form.rememberme) #begin checked #end></TD>
+  </TR>
 </TABLE>
 
 <INPUT NAME=action VALUE="Log in" TYPE=submit

@@ -1,6 +1,7 @@
 package org.melati.login;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
@@ -12,8 +13,11 @@ import org.melati.poem.User;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Field;
 import org.melati.util.HttpServletRequestParameters;
+import org.melati.util.MD5Util;
 
 public class LoginHandler {
+
+  public static int ONEYEARINSECONDS = 60 * 60 * 24 * 365;
 
   protected TemplateServlet servlet;
 
@@ -68,12 +72,21 @@ public class LoginHandler {
     context.put("passwordWrong", Boolean.FALSE);
   }
 
-  public String loginSuccessfullyAs (Melati melati, TemplateContext templateContext, User user) {
+  public String loginSuccessfullyAs (Melati melati, 
+                                  TemplateContext templateContext, User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
     // request into a GET that the browser will repeat on reload with giving
     // any warning).
+    
+    // if we have asked that our password be remembered, set the cookies
+    if (MelatiUtil.getFormNulled(templateContext,"rememberme") != null) {
+      String ldb = melati.getContext().getLogicalDatabase();
+      melati.getResponse().addCookie(makeCookie(ldb, user.getLogin_unsafe()));
+      melati.getResponse().addCookie(makeCookie(ldb+user.getLogin_unsafe(), 
+                           MD5Util.encode(user.getPassword_unsafe())));
+    }
 
     HttpSession session = templateContext.getSession();
 
@@ -98,6 +111,16 @@ public class LoginHandler {
 
     return loginSuccessTemplate();
   }
+  
+  private Cookie makeCookie(String key, String value) {
+    Cookie c = new Cookie(key, value);
+    c.setPath("/");
+    c.setMaxAge(ONEYEARINSECONDS);
+    c.setComment("This cookie is used to automatically log you back into " +
+                 "this site when you return.");
+    return c;
+  }
+    
 
   public String getLogin(TemplateContext context) {
     return context.getForm("field_login");

@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7.4</currentVersion>
+  <currentVersion>0.7.4-SNAPSHOT</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>

@@ -101,6 +101,10 @@ public class Melati {
     return new HTMLMarkupLanguage(webContext, templetLoader, locale);
   }
 
+  public WMLMarkupLanguage getWMLMarkupLanguage() {
+    return new WMLMarkupLanguage(webContext, templetLoader, locale);
+  }
+
   public YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
@@ -189,6 +193,15 @@ public class Melati {
     return url.toString();
   }
 
+// determin if this site is a wap site
+// currently, this is done by searching the domain name to see if it contains the word wap,
+// but it may be more appropiate to check http-headers of some sort
+  public boolean isWAP() {
+    String server = webContext.getRequest().getServerName();
+	if (server.toUpperCase().indexOf("WAP") > -1) return true;
+	return false;
+  }
+
   public String getZoneURL() {
     return HttpUtil.zoneURL(webContext.getRequest());
   }
@@ -229,7 +242,7 @@ public class Melati {
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      String formFieldName = "field-" + column.getName();
+      String formFieldName = "field_" + column.getName();
       String rawString = context.getForm(formFieldName);
 
       String adaptorFieldName = formFieldName + "-adaptor";

@@ -147,9 +147,6 @@ public class WebMacroFileResourceLoader extends ResourceLoader
         "\\${(_[^}]+)}", // within a formal reference
         "${l$1}",
             
-        // Change extensions when seen.
-        "\\.wm",
-        ".vm"
     };
 
     /**

@@ -103,7 +103,10 @@
   #end
 #end
 #if ($Form.returnTarget) #begin
-<input type=hidden name=returnTarget value='$Form.returnTarget'>
+  <input type=hidden name=returnTarget value='$Form.returnTarget'>
+#end
+#if ($Form.returnfield) #begin
+  <input type=hidden name=returnfield value='$Form.returnfield'>
 #end
 <FONT SIZE="-1" FACE="Arial, Helvetica">
  <INPUT NAME=action VALUE=Update TYPE=submit

@@ -81,6 +81,13 @@ public class EnumUtils {
     return v;
   }
 
+  public static Enumeration join(Enumeration a, Enumeration b) {
+    Vector aVector =  vectorOf(a);
+    while (b.hasMoreElements())
+      aVector.addElement(b.nextElement());
+    return aVector.elements();
+  }
+
   public static Vector vectorOf(Enumeration e, int roughSize) {
     Vector v = new Vector(roughSize);
 

@@ -1,19 +1,8 @@
 #set $Response.ContentType = "text/html"
 <HTML>
-<body>
+<body onload="init();">
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage
-##$tree.setOpenedTImage("/trees/node_minus.gif")
-##$tree.setOpenedLImage("/trees/lastnode_minus.gif")
-##$tree.setClosedTImage("/trees/node_plus.gif")
-##$tree.setClosedLImage("/trees/lastnode_plus.gif")
-##$tree.setLeafTImage("/trees/end.gif")
-##$tree.setLeafLImage("/trees/last_node.gif")
-##$tree.setOpenedFolderImage("/trees/openfolder.gif")
-##$tree.setClosedFolderImage("/trees/closedfolder.gif")
-##$tree.setLeafImage("/trees/file.gif")
-##$tree.setImageBaseRef("/trees")
-##$tree.setNodeLabelTemplet("template/webmacro/templets/html/StaticNode.wm")
 #if ($tree) #begin
 $ml.rendered($tree)
 #end #else #begin

@@ -135,13 +135,16 @@ public class Admin extends TemplateServlet {
    */
   protected Persistent create(Table table, final TemplateContext context, 
                               final Melati melati) {
-    return table.create(
+    Persistent result =
+      table.create(
         new Initialiser() {
           public void init(Persistent object)
             throws AccessPoemException, ValidationPoemException {
               MelatiUtil.extractFields(context, object);
             }
         });
+    result.postEdit(true);
+    return result;
   }
 
   /**
@@ -683,6 +686,7 @@ public class Admin extends TemplateServlet {
   protected String updateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     MelatiUtil.extractFields(context, melati.getObject());
+    melati.getObject().postEdit(false);
     return adminTemplate(context, "Update");
   }
 

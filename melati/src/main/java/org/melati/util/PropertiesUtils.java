@@ -32,4 +32,50 @@ public class PropertiesUtils {
       throw new NoSuchPropertyException(properties, propertyName);
     return value;
   }
+
+  public static Object instanceOfNamedClass(
+      Properties properties, String propertyName, Class base, Class defaulT)
+         throws InstantiationPropertyException {
+    String className = (String)properties.get(propertyName);
+    if (className == null)
+      try {
+	return defaulT.newInstance();
+      }
+      catch (Exception e) {
+	// FIXME grrrr
+	throw new RuntimeException(e.toString());
+      }
+    else {
+      try {
+        Class clazz = Class.forName(className);
+        if (!base.isAssignableFrom(clazz))
+          throw new ClassCastException(clazz + " is not descended from " +
+                                       base);
+        return clazz.newInstance();
+      }
+      catch (Exception e) {
+        throw new InstantiationPropertyException(properties, propertyName, e);
+      }
+    }
+  }
+
+  public static Object instanceOfNamedClass(
+      Properties properties, String propertyName,
+      String baseName, String defaultName)
+          throws InstantiationPropertyException {
+    Class base, defaulT;
+    try {
+      base = Class.forName(baseName);
+      defaulT = Class.forName(defaultName);
+    }
+    catch (Exception e) {
+      // FIXME grrrr
+      throw new RuntimeException(e.toString());
+    }
+
+
+    return instanceOfNamedClass(properties, propertyName,
+				// FIXME improve error-checking
+				base, defaulT);
+  }
 }

@@ -27,6 +27,16 @@ org.melati.MelatiServlet.accessHandler=org.melati.login.HttpSessionAccessHandler
 #org.melati.MelatiServlet.templateEngine=org.melati.template.NoTemplateEngine
 org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
 #org.melati.MelatiServlet.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
+#org.melati.MelatiServlet.templateEngine=org.melati.template.velocity.VelocityTemplateEngine
+
+#
+# --------------------------------------------
+#  Where to look for Templates (only used by Velocity - if using WebMacro, set the template path 
+#  conventionally
+# --------------------------------------------
+# 
+
+org.melati.MelatiServlet.templatePath=/usr/local/packages/melati/org/melati/
 
 #
 # --------------------------------------------

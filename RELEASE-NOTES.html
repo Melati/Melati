@@ -1,14 +1,76 @@
 <html><head>
+
 <title>Melati Release Notes</title>
+
 </head>
+
+
 
 <body bgcolor="white">
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 23/03/2001 - mylesc@paneris.org</h4>
+  <h4 align="center">last updated 14/05/2001 - timj@paneris.org</h4>
+  <h2>Release 0.54</h2>
+  <h4>14/05/2001 </h4>
+  <ul>
+    <li>support for Webmacro 0.97a1. Previous versions of webmacro are no longer 
+      supported. </li>
+    <li>support for Velocity 1.1</li>
+    <li>changes to Upload System</li>
+  </ul>
+  <h3>WebMacro 0.97a1</h3>
+  <ol>
+    <li><b>Cleaning up.</b> We have removed all 'hacked' webmacro classes from 
+      Melati. If you have any org.webmacro.* classes hanging arround, please ensure 
+      you delete them.</li>
+    <li><b>FastWriter. </b>FastWriter is now constructed with a Broker. So, you 
+      will need to replace any construction (eg):<br>
+      <tt>MelatiFastWriter(OutputStream output, String encoding)</tt> with<br>
+      <tt>MelatiFastWriter(Broker broker, OutputStream output, String encoding) 
+      </tt></li>
+    <li><b>Exception Handling in Templates.</b> Melati sets a <tt>PassbackExceptionHandler</tt> 
+      by default (forcing a logon page on encountering a <tt>AccessPoemException. 
+      </tt>If you want to use a <tt>PassbackExceptionHandler</tt>, you <b>must</b> 
+      set it in your template: <br>
+      <tt>$melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler). 
+      </tt>Please ensure you check your Templates.</li>
+  </ol>
+  <h3>Velocity</h3>
+  <p>Melati now supports Velocity. You must use the version in CVS (or a nightly 
+    build). Items to note:</p>
+  <ol>
+    <li>At this stage, we don't ship any Velocity specific templates, instead 
+      we translate the webmacro templates 'on the fly'. To do this, we override 
+      the Velocity <tt>file.resource.loader.class </tt>with our own <tt>org.melati.template.velocity.WebMacroFileResourceLoader. 
+      </tt>If a .vm template with the correct name is found it will be used, otherwise, 
+      the .wm template will be loaded and translated.</li>
+    <li>The template path for Velocity is set in <tt>org.melati.MelatiServlet.properties. 
+      </tt>It may be agood idea to do this for WebMAcro as well, but it wasn't 
+      obvious how to do this, so it has been left for the time being.</li>
+  </ol>
+  <h3>Upload System</h3>
+  <p>The upload system is being changed to do user permission checking before 
+    an upload is allowed, and also to properly construct the Melati so that POEM 
+    Table and Object information is available to the developer. This work is still 
+    in progress.</p>
+  <p>&nbsp;</p>
+  <hr>
+  <p>&nbsp;</p>
+  <h2>Release 0.53.6</h2>
+  <h4>09/04/2001 </h4>
+  <ul>
+    <li> 
+      <p>Minor housekeeping release.</p>
+    </li>
+  </ul>
+  <p>&nbsp;</p>
+  <hr>
+  <p>&nbsp;</p>
   <h2>Release 0.53.5</h2>
   <h4>23/03/2001 </h4>
+  <p></p>
+  <p></p>
   <p>0.53.5 introduces the following changes.</p>
   <ul>
     <li>DSDs can now be imported into other DSDs</li>
@@ -41,13 +103,17 @@
     getDatabase(), or you can add the old function into your non-generated files: 
     e.g. in MyTable.java add:</p>
   <pre> XxxxDatabase getXxxxDatabase() { 
+
     (XxxxDatabase)getDatabase();
+
  }</pre>
   <p> 2) I have tested this on several databases and although I am fairly confident 
     that it should work, IF YOU RE-RUN DSD ON YOUR OWN DATABASES YOU MAY EXPERIENCE 
     PROBLEMS.</p>
   <p> 3) Your .dsd file must live in the same directory as your compiled code 
     because it is loaded as a Resource. </p>
+  <p>&nbsp;</p>
+  <hr>
   <p>&nbsp;</p>
   <h2>Release 0.53.4</h2>
   <h4>13/03/2001 </h4>
@@ -58,6 +124,8 @@
     <li>Improved support for MS SQLServer</li>
   </ul>
   <p>This release patches the memory problems experienced with Webmacro previously.</p>
+  <p>&nbsp;</p>
+  <hr>
   <p>&nbsp;</p>
   <h2></h2>
   <h2>Release 0.53.3</h2>
@@ -71,6 +139,8 @@
   </ul>
   <p>Please note, this is an experimental release. we have found problems with 
     Webmacro 2000-12-06 eating memory.</p>
+  <p>&nbsp;</p>
+  <hr>
   <p>&nbsp;</p>
   <h2></h2>
   <h2>Release 0.53.2.1</h2>
@@ -129,11 +199,17 @@
     (which can be set in org.melati.MelatiServlet.properties). You can override 
     the default in your TemplateServlet by doing something like: </p>
   <pre> protected MelatiConfig melatiConfig() throws MelatiException { 
+
      MelatiConfig config = super.melatiConfig(); 
+
      DefaultFileDataAdaptorFactory factory = new DefaultFileDataAdaptorFactory();      
+
      factory.setUploadDir("/tmp"); 
+
      config.setFormDataAdaptorFactory(factory); 
+
      return config; 
+
  } </pre>
   <p>For an example of how to parse an uploaded file manually, see org.melati.test.ConfigServletTest. 
     org.melati.test.TemplateServletTestWM also allows you to upload files. </p>
@@ -471,5 +547,8 @@
   <p>&nbsp; 
 </blockquote>
 </body></html>
+
+
+
 
 

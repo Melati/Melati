@@ -71,7 +71,7 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
       melati.setBufferingOff(true);
     }
     context.put("waiter", new Waiter());
-    return "test/FlushingServletTest.wm";
+    return "test/FlushingServletTest";
   }
 
 /*

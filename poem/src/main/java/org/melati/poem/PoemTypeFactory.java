@@ -6,7 +6,7 @@ package org.melati.poem;
  */
 
 public abstract class PoemTypeFactory {
-  final Integer code;
+  Integer code;
 
   public PoemTypeFactory(int c) {
     this.code = new Integer(c);

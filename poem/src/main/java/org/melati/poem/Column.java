@@ -175,6 +175,10 @@ public abstract class Column implements FieldAttributes {
     return info == null ? null : info.troid();
   }
 
+  public final ColumnInfo getColumnInfo() {
+    return info;
+  }
+
   public final boolean getPrimaryDisplay() {
     return info == null ? false : info.getPrimarydisplay().booleanValue();
   }

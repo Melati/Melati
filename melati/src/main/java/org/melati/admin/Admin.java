@@ -103,8 +103,12 @@ public class Admin extends MelatiServlet {
   protected Template tableListTemplate(WebContext context, MethodRef ref)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
-    Table table = tableFromPathInfo(ref);
+    final Table table = tableFromPathInfo(ref);
     context.put("table", table);
+
+    final Database database = table.getDatabase();
+
+    // sort out search criteria
 
     final Data data = table.newData();
 
@@ -130,6 +134,45 @@ public class Admin extends MelatiServlet {
                   }
                 });
 
+    // sort out ordering (FIXME this is a bit out of control)
+
+    PoemType searchColumnsType =
+        new ReferencePoemType(database.getColumnInfoTable(), true) {
+          protected Enumeration _possibleIdents() {
+            return
+                new MappedEnumeration(table.getSearchCriterionColumns()) {
+                  public Object mapped(Object column) {
+                    return ((Column)column).getColumnInfo().getTroid();
+                  }
+                };
+          }
+        };
+
+    Vector orderingNames = new Vector();
+    Vector orderings = new Vector();
+
+    for (int o = 1; o <= 3; ++o) {
+      String name = "order-" + o;
+      String orderColumnIDString = context.getForm("field-" + name);
+      Integer orderColumnID = null;
+      if (orderColumnIDString != null && !orderColumnIDString.equals("")) {
+        orderColumnID =
+            (Integer)searchColumnsType.identOfString(orderColumnIDString);
+        ColumnInfo info =
+            (ColumnInfo)searchColumnsType.valueOfIdent(orderColumnID);
+        orderingNames.addElement(database.quotedName(info.getName()));
+      }
+
+      orderings.addElement(
+          new Field(orderColumnID,
+                    new BaseFieldAttributes(name, searchColumnsType)));
+    }
+
+    context.put("orderings", orderings);
+
+    String orderByClause = EnumUtils.concatenated(", ",
+                                                  orderingNames.elements());
+
     int start = 0;
     String startString = context.getForm("start");
     if (startString != null) {
@@ -142,7 +185,7 @@ public class Admin extends MelatiServlet {
     }
 
     context.put("objects", table.selection(table.whereClause(data),
-                                           null, false, start, 20));
+                                           orderByClause, false, start, 20));
 
     return adminTemplate(context, "Select.wm");
   }

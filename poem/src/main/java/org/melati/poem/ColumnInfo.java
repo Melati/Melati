@@ -43,8 +43,4 @@ public class ColumnInfo extends ColumnInfoBase {
       }
     }
   }
-
-  public String displayString() throws AccessPoemException {
-    return getTableinfo().getDisplayname() + " . " + getDisplayname();
-  }
 }

@@ -44,6 +44,11 @@
 <P><B>Ordering</B></P>
 
 <P>
+  #foreach $field in $orderings #begin
+    &nbsp;&nbsp;
+    $ml.input($field)
+  #end
+  &nbsp;&nbsp;
 </P>
 
 <INPUT NAME=action VALUE=Search TYPE=submit

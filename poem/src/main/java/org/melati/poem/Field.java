@@ -3,20 +3,82 @@ package org.melati.poem;
 import java.util.*;
 import org.melati.util.*;
 
-public abstract class Field implements FieldAttributes, Cloneable {
+public class Field implements FieldAttributes, Cloneable {
 
   private AccessPoemException accessException;
   private Object ident;
+  private FieldAttributes attrs;
 
-  protected Field(Object ident) {
+  public Field(Object ident, FieldAttributes attrs) {
     this.ident = ident;
+    this.attrs = attrs;
     accessException = null;
   }
 
-  protected Field(AccessPoemException accessException) {
+  public Field(AccessPoemException accessException, FieldAttributes attrs) {
     this.accessException = accessException;
+    this.attrs = attrs;
     ident = null;
   }
+
+  // 
+  // -----------
+  //  Cloneable
+  // -----------
+  // 
+
+  public Object clone() {
+    try {
+      return super.clone();
+    }
+    catch (CloneNotSupportedException e) {
+      throw new PoemBugPoemException();
+    }
+  }
+
+  // 
+  // -----------------
+  //  FieldAttributes
+  // -----------------
+  // 
+
+  public String getName() {
+    return attrs.getName();
+  }
+
+  public String getDisplayName() {
+    return attrs.getDisplayName();
+  }
+
+  public String getDescription() {
+    return attrs.getDescription();
+  }
+
+  public PoemType getType() {
+    return attrs.getType();
+  }
+
+  public boolean getIndexed() {
+    return attrs.getIndexed();
+  }
+
+  public boolean getUserEditable() {
+    return attrs.getUserEditable();
+  }
+
+  public boolean getUserCreateable() {
+    return attrs.getUserCreateable();
+  }
+
+  public String getRenderInfo() {
+    return attrs.getRenderInfo();
+  }
+
+  // 
+  // -------
+  //  Field
+  // -------
+  // 
 
   public final Object getIdent() throws AccessPoemException {
     if (accessException != null)
@@ -71,14 +133,5 @@ public abstract class Field implements FieldAttributes, Cloneable {
     if (accessException != null)
       throw accessException;
     return ident == null ? other.ident == null : ident.equals(other.ident);
-  }
-
-  public Object clone() {
-    try {
-      return super.clone();
-    }
-    catch (CloneNotSupportedException e) {
-      throw new PoemBugPoemException();
-    }
   }
 }

@@ -903,7 +903,10 @@ abstract public class Database {
   // 
 
   /**
-   * Ditto, but don't expect anything to go wrong (cheesy or what).
+   * <TT>quotedName</TT>, but don't expect anything to go wrong (cheesy or
+   * what).
+   *
+   * @see #quotedName
    */
 
   String _quotedName(String name) {

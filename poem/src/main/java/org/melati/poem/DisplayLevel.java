@@ -40,8 +40,7 @@ public class DisplayLevel {
     return displayLevels.length;
   }
 
-  public static class NameUnrecognisedException
-      extends MelatiRuntimeException {
+  public static class NameUnrecognisedException extends PoemException {
     public String name;
 
     public NameUnrecognisedException(String name) {

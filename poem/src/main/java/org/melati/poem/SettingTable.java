@@ -19,7 +19,7 @@ public class SettingTable extends SettingTableBase {
   private Hashtable cache = null;
   private long cacheSerial = 0L;
 
-  public String get(String name) {
+  public Object getCooked(String name) {
     if (cache == null || cacheSerial != serial(PoemThread.transaction()))
       cache = new Hashtable();
     Object value = cache.get(name);
@@ -35,11 +35,16 @@ public class SettingTable extends SettingTableBase {
 	return null;
       }
       else {
-	String propValue = prop.getValue();
+	Object propValue = prop.getCooked();
 	cache.put(name, propValue == null ? nullEntry : propValue);
 	return propValue;
       }
     }
+  }
+
+  public String get(String name) {
+    Object it = getCooked(name);
+    return it == null ? null : it.toString();
   }
 
   public static class UnsetException extends PoemException {
@@ -55,10 +60,38 @@ public class SettingTable extends SettingTableBase {
     }
   }
 
-  public String getOrDie(String name) {
-    String it = get(name);
+  public Object getOrDie(String name) {
+    Object it = get(name);
     if (it == null)
       throw new UnsetException(name);
     return it;
+  }
+
+  public Setting ensure(String name, PoemTypeFactory typefactory, Object value,
+			String displayname, String description) {
+    Setting setting = (Setting)getNameColumn().firstWhereEq(name);
+    if (setting != null)
+      return setting;
+    else {
+      setting = (Setting)newPersistent();
+      setting.setName(name);
+      setting.setTypefactory(typefactory);
+      setting.setRaw(value);
+      setting.setDisplayname(displayname);
+      setting.setDescription(description);
+      return (Setting)getNameColumn().ensure(setting);
+    }
+  }
+
+  public Setting ensure(String name, String value,
+			String displayname, String description) {
+    return ensure(name, PoemTypeFactory.STRING, value,
+		  displayname, description);
+  }
+
+  public Setting ensure(String name, int value,
+			String displayname, String description) {
+    return ensure(name, PoemTypeFactory.INTEGER, new Integer(value),
+		  displayname, description);
   }
 }

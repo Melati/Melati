@@ -330,10 +330,18 @@ table Setting
 
   (primary) Integer id;
 
+  ColumnType typefactory
+      (displayname = "Type")
+      (description = "The setting's Melati type")
+      (summaryhidden) (criterionhidden) (uneditable);
+      // In fact this is a reference into TableInfo.id, or, if negative, the code for an atomic type.
+      // see BasePoemType.ofColumnInfo
+
   (unique) String name (size = unlimited)
       (description = "A code name for this setting");
 
-  String value (size = unlimited)
+  String rawstring (size = unlimited)
+      (displayname = "Value")
       (description = "The value of this setting");
 
   (unique) String displayname (size = unlimited)

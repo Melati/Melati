@@ -1,0 +1,380 @@
+<HTML>
+<HEAD>
+<TITLE> org.melati Internals Description
+        (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1><TT>org.melati</TT> Internals Description
+    (document $Revision$)</H1>
+
+<P>
+  This document provides a description of anything noteworthy in the
+  workings of the system.  See also the system's
+  <A HREF=QA.html>master QA document</A>.
+</P>
+
+
+
+
+<H2>
+<!-- ************* -->
+      Foundations
+<!-- ************* -->
+</H2>
+
+
+
+<H3>
+<!-- ================================== -->
+      Global data structure and format
+<!-- ================================== -->
+</H3>
+
+<P>
+  The fundamental data structures used in the system are:
+</P>
+
+<P>
+  database tables for field links and display preferences
+  core: table rows
+        table shapes
+        tables
+        
+
+  <I> ... data dictionary; content management of static web pages;
+  admin configuration</I>
+</P>
+
+
+
+<H3>
+<!-- ============= -->
+      Data access
+<!-- ============= -->
+</H3>
+
+<P>
+  The interface through which the code accesses the data is:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H3>
+<!-- ===================== -->
+      Pervasive libraries
+<!-- ===================== -->
+</H3>
+
+<P>
+  The libraries that underpin large parts of the project are:
+</P>
+
+<P>
+  ... <I>the litmus test is ``Will I have to change vast
+  amounts of other code if I change this?''</I>
+</P>
+
+
+
+<H3>
+<!-- =========================== -->
+      Pervasive graphic designs
+<!-- =========================== -->
+</H3>
+
+<P>
+  The graphic designs that have wide implications for the
+  layout of the system's interfaces are:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H2><A NAME=sub-parts>
+<!-- *********** -->
+      Sub-parts
+<!-- *********** -->
+</A></H2>
+
+<P>
+  The parts into which the system naturally falls are:
+</P>
+
+<P>
+  ... <I>minimise the ``surface'' area of interface; make each piece
+  doable by at most two developers; describe the interface it offers
+  and the other parts it relies on; include graphics designs</I>
+</P>
+
+
+
+<H3>
+<!-- ===================================== -->
+      Data structure definition processor
+<!-- ===================================== -->
+</H3>
+
+<P>
+  This involves a parser.
+</P>
+
+
+
+<H3>
+<!-- ================================= -->
+      Runtime of the persistent store
+<!-- ================================= -->
+</H3>
+
+
+<H4>
+<!-- ---------------- -->
+      Representation
+<!-- ---------------- -->
+</H4>
+
+<P>
+  Persistent objects are always represented to the user by the same
+  <TT>Record</TT>, whatever the current (thread-relative) access token and
+  transaction.  This means that <TT>==</TT> tests between <TT>Record</TT>s will
+  work as expected, and minimises the consequences of programmers storing
+  references in data structures of their own which carry over between sessions
+  or adding data members when the extend the auto-generated base classes.  The
+  object's fields array is, however, obtained by a method call, because it
+  depends on the current transaction.  It's optimised for case in which the
+  default auto-commit transaction is being used.
+</P>
+
+
+
+<H4>
+<!-- ----------- -->
+      The cache
+<!-- ----------- -->
+</H4>
+
+<P>
+  What happens if the administrator changes the database while a write is being
+  prepared?  It needs to fail.  E.g. enumeration of generic fields can produce
+  odd results in this case.
+</P>
+
+<P>
+  We know everything that can possibly have changed in a session, since it's
+  only doable by setter methods.  Other things that come in can go into the
+  committed cache.
+</P>
+
+
+<H4>
+<!-- --------- -->
+      Subsets
+<!-- --------- -->
+</H4>
+
+<P>
+  Need to be able to: select themselves out of the db with a prepared
+  statement; trigger to be changed when a field of a record is changed.
+</P>
+
+
+
+
+<H2>
+<!-- ****************** -->
+      Important issues
+<!-- ****************** -->
+</H2>
+
+
+
+<H3>
+<!-- ============= -->
+      Performance
+<!-- ============= -->
+</H3>
+
+<P>
+  The system meets its performance requirements because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#performance>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- ========== -->
+      Security
+<!-- ========== -->
+</H3>
+
+<P>
+  The system is secure because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#security>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- ============ -->
+      Robustness
+<!-- ============ -->
+</H3>
+
+<P>
+  The system is robust because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#robustness>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- =========== -->
+      Stability
+<!-- =========== -->
+</H3>
+
+<P>
+  The system is stable because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#stability>requirements analysis</A></I>
+</P>
+
+
+
+
+<H2>
+<!-- *************** -->
+      Risk analysis
+<!-- *************** -->
+</H2>
+
+<P>
+  The obvious ways in which this scheme might be flawed are:
+</P>
+
+<P>
+  ...
+</P>
+
+
+<HR>
+
+
+
+
+<H2>
+<!-- ********************* -->
+      About this document
+<!-- ********************* -->
+</H2>
+
+
+
+<H3>
+<!-- ========= -->
+      Authors
+<!-- ========= -->
+</H3>
+
+<P>
+  ... <I>the project leader</I>
+</P>
+
+<P>
+  Most recent CVS $Author$ @paneris.org
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      Quality
+<!-- ========= -->
+</H3>
+
+<P>
+  The current quality level of this document (including any
+  computer-generated documentation, such as javadoc, which belongs
+  with it) is: ...
+  <!-- Waived Personal Alpha Beta Release -->
+</P>
+
+<P>
+  Explanation, if needed: ...
+</P>
+
+
+
+<H3>
+<!-- ======================== -->
+      Readership and purpose
+<!-- ======================== -->
+</H3>
+
+<P>
+  <UL>
+    <LI> The <B>project leader</B> should feel happy about
+	 how the system will be implemented.
+    <LI> The <B>developers</B> should know as far as possible what
+	 they are going to do.
+    <LI> <B>Future maintainers</B> should be able to understand
+	 any non-obvious details about how the system works.
+  </UL>
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      History
+<!-- ========= -->
+</H3>
+
+<P>
+  The important points in the life of this document are listed
+  below (for everyday update information, consult its CVS log).
+</P>
+
+<TABLE>
+  <TR><TH>Date</TH><TH>Event</TH></TR>
+  <TR>
+    <TD>(not yet)</TD>
+    <TD>Approved at release quality level by ...</TD>
+  </TR>
+</TABLE>
+
+<P>
+  <BR>$Log$
+  <BR>Revision 1.1  2000/02/04 11:51:59  williamc
+  <BR>Rename from JAL2 to Melati
+  <BR>
+  <BR>
+</P>
+
+
+</BODY>
+</HTML>

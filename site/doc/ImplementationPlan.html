@@ -1,0 +1,416 @@
+<HTML>
+<HEAD>
+<TITLE> org.melati Implementation Plan
+        (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1><TT>org.melati</TT> Implementation Plan
+    (document $Revision$)</H1>
+
+<P>
+  This document sets out the time and resources available and how they
+  are to be deployed in completing the system.  See also the system's
+  <A HREF=QA.html>master QA document</A>.
+</P>
+
+
+
+
+<H2>
+<!-- ************************* -->
+      Phasing of deliverables
+<!-- ************************* -->
+</H2>
+
+<P>
+  The implementation will be divided into the following phases:
+</P>
+
+<TABLE>
+  <TR><TH>Deliverables</TH><TH>Completion date</TH></TR>
+  <TR>
+    <TD>
+      Working prototype for integration tests/final appraisal
+    </TD>
+    <TD>
+      ...
+    </TD>
+  </TR>
+  <TR>
+    <TD>
+      Deployment of phase one
+    </TD>
+    <TD>
+      ...
+    </TD>
+  </TR>
+  <TR>
+    <TD>
+      Final deployment
+    </TD>
+    <TD>
+      some time in the future
+    </TD>
+  </TR>
+</TABLE>
+
+
+
+
+<H2>
+<!-- ********** -->
+      Platform
+<!-- ********** -->
+</H2>
+
+<P>
+  The hardware and software used in the system will be:
+</P>
+
+<P>
+  ... <I>computer, OS, database, middleware (refer to the
+  <A HREF=Requirements.html#platform>requirements analysis</A></I>
+</P>
+
+
+
+
+<H2>
+<!-- **************** -->
+      Task breakdown
+<!-- **************** -->
+</H2>
+
+<P>
+  The implementation of the system is divided into the following
+  bite-sized tasks (see the
+  <A HREF=Internals.html#sub-parts>internals description</A>):
+</P>
+
+
+
+<H3>
+<!-- =============== -->
+      Core software
+<!-- =============== -->
+</H3>
+
+
+
+<H4>
+<!-- ----------------------------------------- -->
+      Processor for data structure definition
+<!-- ----------------------------------------- -->
+</H4>
+
+<P>
+  Parsing definition file, and generating Java code for the base classes and
+  for the database structure the app expects to find.
+</P>
+
+
+<H4>
+<!-- -------------------------------------- -->
+      Database structure inspector/creator
+<!-- -------------------------------------- -->
+</H4>
+
+<P>
+  Looking at the <TT>DatabaseMetaData</TT> to make sure that it has a minimum
+  set of tables and fields consistent with the data structure definition,
+  create any that are missing, and find out what other (generic) tables and
+  fields it contains.
+</P>
+
+
+<H4>
+<!-- ---------------- -->
+      Cacheing logic
+<!-- ---------------- -->
+</H4>
+
+<P>
+  Storing table rows that come in (in full), up to a certain maximum number per
+  table.  (What's the heuristic for flushing them?)  Adding extra cache rows
+  per non-committing session (no limit, or at least need some way to record
+  that the row has been changed without ever forgetting), and moving them to
+  the committed cache at the end.
+</P>
+
+
+<H4>
+<!-- --------------------- -->
+      Searching/retrieval
+<!-- --------------------- -->
+</H4>
+
+<P>
+  Retrieval by TROID from table, <TT>SELECT</TT> within a table, non-object
+  non-cached <TT>SELECT</TT> on whole database.
+</P>
+
+
+<H4>
+<!-- --------- -->
+      Subsets
+<!-- --------- -->
+</H4>
+
+<P>
+  Triggering update of subset's list when table is changed (or, at least,
+  marking it dirty).  Vice versa.
+</P>
+
+
+
+<H3>
+<!-- ======================== -->
+      `Application' software
+<!-- ======================== -->
+</H3>
+
+
+<H4>
+<!-- -------------- -->
+      Admin system
+<!-- -------------- -->
+</H4>
+
+<P>
+  Port the current JAL admin system to Melati.
+</P>
+
+
+<H4>
+<!-- ---------------------- -->
+      User self-management
+<!-- ---------------------- -->
+</H4>
+
+<P>
+  Port the current JAL login and password change system to Melati.
+</P>
+
+
+
+
+<H2>
+<!-- *********** -->
+      Timetable
+<!-- *********** -->
+</H2>
+
+
+
+<H3><A NAME=timings>
+<!-- ========= -->
+      Timings
+<!-- ========= -->
+</A></H3>
+
+<P>
+  The tasks involved in the implementation will be carried out as
+  follows:
+</P>
+
+<P>
+  <TABLE>
+    <TR>
+      <TH>Task</TH>
+      <TH>Developers</TH>
+      <TH>Time needed</TH>
+      <TH>Target date</TH>
+      <TH>Depends on</TH>
+    </TR>
+    <TR>
+      <TD>... <I>remember user/third party tasks!</I></TD>
+      <TD>...</TD>
+      <TD>...</TD>
+      <TD>...</TD>
+      <TD>...</TD>
+    </TR>
+  </TABLE>
+</P>
+
+
+
+<H3>
+<!-- ================================================== -->
+      Critical dependencies and fallback possibilities
+<!-- ================================================== -->
+</H3>
+
+<P>
+  ...
+</P>
+
+
+
+
+<H2>
+<!-- *********************** -->
+      Development resources
+<!-- *********************** -->
+</H2>
+
+
+
+<H3>
+<!-- ============ -->
+      Developers
+<!-- ============ -->
+</H3>
+
+<P>
+  The developers and designers required are:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H3>
+<!-- ========== -->
+      Hardware
+<!-- ========== -->
+</H3>
+
+<P>
+  The hardware which must be in place for development to proceed are: 
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H3>
+<!-- ========== -->
+      Software
+<!-- ========== -->
+</H3>
+
+<P>
+  The software which must be bought for development to process is:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+
+<H2>
+<!-- *************** -->
+      Risk analysis
+<!-- *************** -->
+</H2>
+
+<P>
+  The obvious ways in which the system might end up being late are:
+</P>
+
+<P>
+  ... <I>contingency plans?</I>
+</P>
+
+
+
+
+<H2>
+<!-- ********************* -->
+      About this document
+<!-- ********************* -->
+</H2>
+
+
+
+<H3>
+<!-- ========= -->
+      Authors
+<!-- ========= -->
+</H3>
+
+<P>
+  ... <I>the project leader</I>
+</P>
+
+<P>
+  Most recent CVS $Author$ @paneris.org
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      Quality
+<!-- ========= -->
+</H3>
+
+<P>
+  The current quality level of this document is:
+  <!-- Waived Personal Alpha Beta Release -->
+</P>
+
+<P>
+  Explanation, if needed: ...
+</P>
+
+
+
+<H3>
+<!-- ======================== -->
+      Readership and purpose
+<!-- ======================== -->
+</H3>
+
+<P>
+  <UL>
+    <LI> The <B>project leader</B> should at least be confident
+	 that the developers believe the timescales are achievable.
+    <LI> The <B>developers</B> should understand what they are being
+	 asked to do.
+    <LI> The <b>customer</b> is welcome to peruse the plan but isn't
+	 required to---except that their attention is drawn to any
+	 tasks assigned, as it were, to them.
+  </UL>
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      History
+<!-- ========= -->
+</H3>
+
+<P>
+  The important points in the life of this document are listed
+  below (for everyday update information, consult its CVS log).
+</P>
+
+<TABLE>
+  <TR><TH>Date</TH><TH>Event</TH></TR>
+  <TR>
+    <TD>(not yet)</TD>
+    <TD>Approved at release quality level by ...</TD>
+  </TR>
+</TABLE>
+
+<P>
+  <BR>$Log$
+  <BR>Revision 1.1  2000/02/04 11:51:59  williamc
+  <BR>Rename from JAL2 to Melati
+  <BR>
+  <BR>
+</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,14 @@
+table Invoice {
+  (primary) int id;
+  (indexed, unique with issuer) String number (maxlength = 10);
+  (indexed) Party.id issuer;
+  (indexed) Party.id receiver;
+  InvoiceLine.invoice Enumeration lines;
+  Textarea notes (width = 50, height = 5);
+}
+
+table InvoiceLine {
+  (primary) int id;
+  (indexed) Product product;
+  (indexed) Invoice invoice;
+}

@@ -1,0 +1,51 @@
+table Field {
+  (primary) int id;
+  (indexed) TableAttributes table;
+  (indexed, unique with table) String name (or int ordinalPos??);
+  (indexed) Field link (or null);
+  Phrase description;
+  DisplayStyleUnion displayStyleUnion;
+}
+
+table DisplayStyleUnion {
+  (primary) int id;
+
+  // for basic types
+
+    // for numeric types
+
+      double min;
+      double max;
+
+    // for character types
+
+      int cols;
+      boolean allowsExtraLineBreaks;
+
+      // for text
+
+      int rows;
+
+  // for object types
+
+    Field representativeField;
+}
+
+table TableProperties {
+  (primary) int id;
+  (indexed, unique) String name;
+  Phrase description;
+  int displayOrder;
+}
+
+table Phrase {
+  (primary) int id;
+  PhraseTranslation.phrase Subset translations;
+}
+
+table PhraseTranslation {
+  (primary) int id;
+  Phrase phrase;
+  Language language;
+  String text;
+}

@@ -138,7 +138,7 @@ public class CSVRecord extends Vector {
           }
         } else { 
           Persistent lookup = col.foreignTable.getRecordWithID(csvValue);
-          if (lookup == null ) {
+          if (lookup == null) {
             throw new RuntimeException("No persistent found with primary key " + 
                 csvValue +
                 " for column " + 

@@ -51,7 +51,6 @@ import javax.servlet.http.HttpSession;
 import org.melati.template.TemplateContext;
 import org.melati.servlet.MultipartFormField;
 import org.webmacro.servlet.WebContext;
-import org.webmacro.engine.CrankyEvaluationExceptionHandler;
 import org.webmacro.engine.EvaluationExceptionHandler;
 
 /**
@@ -69,7 +68,7 @@ public class WebmacroTemplateContext implements TemplateContext {
     webContext = wc;
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
-    webContext.setEvaluationExceptionHandler(new CrankyEvaluationExceptionHandler());
+    webContext.setEvaluationExceptionHandler(new PropagateEvaluationExceptionHandler());
   }
 
   public void put(String s, Object o) {

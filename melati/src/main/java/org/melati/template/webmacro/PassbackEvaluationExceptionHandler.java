@@ -71,6 +71,10 @@ public class PassbackEvaluationExceptionHandler
                         Context context, 
                         Exception problem) 
    throws PropertyException {
+     if (problem instanceof PropertyException.NoSuchVariableException
+      || problem instanceof PropertyException.NullValueException
+      || problem instanceof PropertyException.NullToStringException) 
+       return;
      throw new PropertyException("Failed to evaluate " + 
      variable.getVariableName() + ": " + problem,problem);
    }

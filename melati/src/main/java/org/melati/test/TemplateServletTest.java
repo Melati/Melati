@@ -101,7 +101,10 @@ public class TemplateServletTest extends TemplateServlet {
  */
   protected MelatiContext melatiContext(Melati melati)
   throws PathInfoException {
-    return melatiContextWithLDB(melati,"melatitest");
+    MelatiContext mc = super.melatiContext(melati);
+    if (mc.getLogicalDatabase().equals("")) 
+      mc = melatiContextWithLDB(melati,"melatitest");
+    return mc;
   }
   
 }

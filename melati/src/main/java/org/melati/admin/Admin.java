@@ -73,7 +73,7 @@ public class Admin extends MelatiServlet {
 
   protected Template tablesViewTemplate(WebContext context, MethodRef ref)
       throws NotFoundException, InvalidTypeException, PoemException {
-    context.put("tables", PoemThread.database().tables());
+    context.put("database", PoemThread.database());
     return adminTemplate(context, "Tables.wm");
   }
 
@@ -116,7 +116,7 @@ public class Admin extends MelatiServlet {
 
     Table table = tableFromPathInfo(ref);
     context.put("table", table);
-    context.put("objects", table.selection(null, false, start, 20));
+    context.put("objects", table.selection(null, null, false, start, 20));
 
     return adminTemplate(context, "List.wm");
   }

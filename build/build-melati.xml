@@ -7,7 +7,7 @@
 
     <target name="init">
         <property name="Name" value="melati"/>
-        <property name="version" value="0.50"/>
+        <property name="version" value="0.52"/>
         <property name="project" value="melati"/>
         <property name="build.compiler" value="${JAVAC}"/>
         <property name="build.root" value="../../.."/>
@@ -53,7 +53,7 @@
             replace="true"/>
         <copydir src="${build.root}" dest="${build.dist.src}"
             includes="**/*.wm"
-            excludes="**/doc/**/*.wm **/playing/**/*.wm"
+            excludes="**/doc/example/*.wm **/playing/**/*.wm"
             filtering="on"/>
         <copydir src="${build.root}" dest="${build.dist.src}"
             includes="**/*.js"
@@ -80,7 +80,7 @@
         <javac srcdir="${build.root}"
             destdir="${build.dist.src}"
             includes="**/*.java"
-            excludes="**/playing/**/*.java **/doc/example/**/*.java **/test/**/*.java **/template/**/*.java"
+            excludes="**/playing/**/*.java"
             debug="${debug}"
             deprecation="${deprecation}"
             optimize="${optimize}"/>
@@ -90,13 +90,6 @@
     <!-- Compiles the source directory and creates a .jar file               -->
     <!-- =================================================================== -->
 <!-- don't include properties and wm files in jar -->
-<!--
-    <target name="jar" depends="compile">
-        <jar jarfile="${build.jar.dir}/${project}.jar"
-            basedir="${build.dist.src}"
-            includes="**/*.class **/*.properties **/*.wm"
-        />
--->
     <target name="jar" depends="compile">
         <mkdir dir="${build.lib}"/>
         <jar jarfile="${build.lib}/${project}.jar"

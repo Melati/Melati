@@ -5,8 +5,8 @@
 <body bgcolor="white">
 <blockquote> 
   <h1 align="center">The Melati Project</h1>
-  <h3 align="center"> Release 0.50 </h3>
-  <h4 align="center"> last updated 15/11/2000 - tim@hoop.co.uk</h4>
+  <h3 align="center"> Release 0.52 </h3>
+  <h4 align="center"> last updated 18/01/2001 - tim@hoop.co.uk</h4>
   <!-- -----------------------------------------------------
         This document is fairly readable as text, but looks 
         real ugly. It'll be more fun reading it in a browser.
@@ -42,19 +42,23 @@
       easy interface with persistent objects. 
     <li>close integration with the <a href=http://www.webmacro.org>Webmacro</a> 
       templating engine. </li>
+    <li>built in file upload </li>
   </ul>
   <p> Melati's design builds on our experience with previous systems we have deployed 
     successfully on a number of commercial sites: we feel that it enables a particularly 
     elegant and productive way of working. </p>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
-  <a name="Release">
-<h2> Release Notes</h2>
+  <a name="Release"> 
+  <h2> Release Notes</h2>
   </a> 
   <p>See the <a href="RELEASE-NOTES.html">release notes</a> for detailed documentation 
-    about what has changed. This is the 1st beta release of Melati, offering the 
+    about what has changed. This is the 2nd beta release of Melati, offering the 
     following improvements over Alpha versions of Melati:</p>
   <ul>
+    <li>Cleaner servlet API</li>
+    <li>File upload</li>
+    <li>Melati Test suite</li>
     <li>Testing and numerous bug fixes</li>
     <li>Now available as a downloadable zip / tar.gz. </li>
     <li>Precompiled melati-snapshot.jar</li>
@@ -68,6 +72,25 @@
   <a name="Upgrading"> 
   <h2>Upgrading</h2>
   </a> 
+  <h3>To upgrade from Melati 0.50 to Melati 0.52</h3>
+  <ul>
+    <li>your Webmacro based servlets should now extend org.melati.template.webmacro.WebmacroTemplateServlet, 
+      and return a String represtation of the Template name, not the actual template.</li>
+  </ul>
+  <ul>
+    <li> 
+      <p>You will need to add the following line to<tt> org.melati.Melatiservlet.properties</tt></p>
+      <p><tt>org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine 
+        </tt></p>
+      <p>Also, if you have an entry for TempletLoader, it should now read:</p>
+      <p><tt>org.melati.MelatiServlet.templetLoader=org.melati.template.ClassNameTempletLoader 
+        </tt></p>
+      <p>And javascriptLibraryURL should read</p>
+      <p><tt>org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/template/webmacro/templets/html</tt></p>
+    </li>
+  </ul>
+  <p>&nbsp;</p>
+  <h3>To upgrade from Melati Alpha Releases to Melati 0.50</h3>
   <p>As this is the 1st beta release, please follow the <a href="README.html#Installation">Installation 
     instructions</a>.</p>
   <p></p>
@@ -127,31 +150,63 @@
   <h3> Prerequisites </h3>
   <h4> Hardware</h4>
   <p> Since Melati is written entirely in Java, it is portable relatively easily 
-    to any machine which supports the JVMs mentioned below. However, at the moment 
-    you probably need a Linux/Pentium box. You'll probably need at least 64Mb 
-    of memory to run Postgres, Apache, Java for Webmacro/Melati, X and Netscape 
-    all at the same time. </p>
+    to any machine which supports the JVMs mentioned below. </p>
   <h4> Software</h4>
-  <p> Melati has been developed against the following software: </p>
-  <ul>
-    <li> Linux 2.2.12 with glibc 2.1.1, 2.0.34/i586 with glibc 2.0.7. Probably 
-      noncritical. 
-    <li> Apache 1.3.12 with JServ 1.1 and 1.3.3 with JServ 1.0b2. 
-    <li> Sun's JDK 1.2 (Borland's JIT seems to work fine). Melati will no longer 
-      work with 1.1 (it uses <tt>SoftReference</tt>s in its cache). 
-    <li> JSDK (servlet development kit) 2.0 
-    <li> <a href=http://webmacro.org/Download.html>WebMacro</a> Snapshot July 
-      19, 2000. Download the <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
-      or <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.tgz">tgz</a>.
-  </ul>
-  <p> Everything up to here could be summarised as: a working WebMacro installation 
-    with Java 1.2. Finally, </p>
-  <ul>
-    <li> Postgresql 7.0, 6.5.3, 6.5.2. 
-  </ul>
-  <p> The JDBC facilities used by Melati are pretty simple, and we are aiming 
-    for compatibility with any DBMS which supports JDBC and transactions, but 
-    for now Postgresql is what we use, even though it is imperfect. </p>
+  <p> Melati has been proved to work in the following environments:</p>
+  <table width="75%" border="1" cellspacing="0" cellpadding="5">
+    <tr> 
+      <td>Operating System</td>
+      <td> 
+        <ul>
+          <li>Linux 2.2.12 with glibc 2.1.1, 2.0.34/i586 with glibc 2.0.7. </li>
+          <li> Win2000 | WinNT/i586 </li>
+        </ul>
+      </td>
+    </tr>
+    <tr> 
+      <td>Web Server / Servlet Engine</td>
+      <td> 
+        <ul>
+          <li>Apache 1.3.12 / JServ 1.1</li>
+          <li>MS IIS 4.0 / Apache Tomcat 3.1 </li>
+        </ul>
+      </td>
+    </tr>
+    <tr> 
+      <td>JDK</td>
+      <td> 
+        <blockquote> 
+          <p>1.2, 1.3 </p>
+        </blockquote>
+      </td>
+    </tr>
+    <tr> 
+      <td>JSDK</td>
+      <td> 
+        <blockquote>2.0, 2.2</blockquote>
+      </td>
+    </tr>
+    <tr> 
+      <td>Database</td>
+      <td> 
+        <blockquote>PostgreSQL 7.0 (and up)</blockquote>
+      </td>
+    </tr>
+    <tr>
+      <td>Template Engine</td>
+      <td>
+        <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> Snapshot 
+          July 19, 2000. Available for download as <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
+          or <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.tgz">tgz</a>. 
+        </blockquote>
+      </td>
+    </tr>
+  </table>
+  <p>The JDBC facilities used by Melati are pretty simple, and we are aiming for 
+    compatibility with any DBMS which supports JDBC and transactions, but for 
+    now Postgresql is what we use, even though it is imperfect. </p>
+  <p>We expect Melati to run in most Servlet Environments (we just havn't tested 
+    them all yet :)</p>
   <h2>&nbsp; </h2>
   <h3><!-- ============== --> Step by step Installation<!-- ============== --> 
   </h3>
@@ -185,14 +240,14 @@
           <li>Unix users type: 
             <ul>
               <li><tt>cd /usr/local/</tt></li>
-              <li> <tt>tar -xzf melati_0.50.tar.gz</tt></li>
-              <li>for convenience, create a soft link: <tt>ln -s melati_0.50 melati 
+              <li> <tt>tar -xzf melati_0.52.tar.gz</tt></li>
+              <li>for convenience, create a soft link: <tt>ln -s melati_0.52 melati 
                 </tt></li>
             </ul>
           </li>
           <li>Windows users should use WinZip</li>
         </ul>
-        </td>
+      </td>
     </tr>
     <tr> 
       <td valign="top">4.</td>
@@ -213,7 +268,7 @@ wrapper.classpath=/usr/local/melati/lib/melati.jar</pre>
         </blockquote>
         <p>to the line beginning <tt>repositories=</tt></p>
         <p><b>Note:</b> These should be placed before references to webmacro.jar.</p>
-        </td>
+      </td>
     </tr>
     <tr> 
       <td valign="top">5.</td>
@@ -269,11 +324,12 @@ ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
         <p>To check that Melati is working, try looking at </p>
         <blockquote> 
           <pre>
-http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
+http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
 </pre>
         </blockquote>
-        <p> After a few seconds, you should see the generic admin screens for 
-          the <tt>melatitest</tt> database. </p>
+        <p> This is the 1st servlet in the Melati Test suite. the test suite demonstrates 
+          all teh features of melati, and gives you access to examples. It will 
+          also help yopu debug yoiur installation</p>
       </td>
     </tr>
   </table>
@@ -283,7 +339,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
   <p>Umm, this is where the docs run out.</p>
   <p>For the time being, please read the Poem User Guide and Preprocessor User 
     Guide on <a href="http://melati.org">http://melati.org</a>. You can also find 
-    a simple example application in /lib/example.zip.</p>
+    a simple example application in /lib/example.zip. You can see this application 
+    working as pat of the Melati Test suite:</p>
+  <pre>http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/</pre>
   <p>Please ask for help on the mailing lists..</p>
   <p>&nbsp;</p>
   <p> 
@@ -295,7 +353,7 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/Main
     file. If you would like to join the Melati Project you are more than welcome. 
     Please join the Developers Mailing list. Anyone demonstrating reasonable ability 
     will be granted write access to the CVS repository. 
-  <p>&nbsp;
+  <p>&nbsp; 
 </blockquote>
 </body></html>
 

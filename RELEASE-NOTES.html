@@ -6,9 +6,9 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 04/12/2000 - tim@hoop.co.uk</h4>
-  <h2>Release 0.51.1</h2>
-  <h4>12/12/2000 </h4>
+  <h4 align="center">last updated 18/01/2001 - tim@hoop.co.uk</h4>
+  <h2>Release 0.51.2</h2>
+  <h4>18/01/2001 </h4>
   <h3>Introduction</h3>
   <p>This release involves a major overhaul of the Melati servlet API and templet 
     API. </p>
@@ -22,13 +22,16 @@
       WebMacro snapshot. </li>
   </ul>
   <p>This release does not introduce any significant new functionality, but does 
-    provide an API against which this can be done.</p>
+    provide an API against which this can be done. Some minor new functaionality 
+    has been added:</p>
+  <ul>
+    <li>File upload</li>
+    <li>Melati Test suite</li>
+  </ul>
   <p>&nbsp;</p>
   <h3>Warning</h3>
   <ul>
     <li>You existing 0.50 applications will not work with this release</li>
-    <li>This code is experimental, do not use it in production systems. Instead, 
-      use the 0.50 release</li>
   </ul>
   <p>&nbsp;</p>
   <h3>The new Servlet API</h3>
@@ -78,7 +81,7 @@
     with WebMacro. This API is a little different from the 0.50 <tt>MelatiServlet</tt> 
     API. to use </p>
   <p> <tt>public abstract String handle( Melati melati, WebContext webContext 
-    ) throws WebMacroException; </tt></p>
+    ) throws Exception; </tt></p>
   <p>So, instead of returning a template, simply return the template name (including 
     the extension).</p>
   <p>&nbsp;</p>
@@ -180,25 +183,17 @@
   </p>
   <h3>What has not been done</h3>
   <ul>
-    <li> source code documentation (sorry, but &quot;release early, release often&quot; 
-      won the day) </li>
-    <li>code review (very important, please volenteer)</li>
+    <li> source code documentation (some has been done) </li>
     <li>complete seperation from WebMacro (we are still using the hacked Variable 
       stuff), but this should be possible when we introduce WebMacro 0.95</li>
-    <li>Full JTemplater integration, this should come soon.</li>
-    <li>changes to compile.sh</li>
-    <li>enough testing </li>
-    <li>changes to Ant build script </li>
-    <li>javadoc 
-      <p>&nbsp;</p>
-    </li>
   </ul>
+  <p>&nbsp;</p>
   <h3>Installation Instructions</h3>
   <p>Follow the <a href="README.html#Installation">usual instructions</a> and 
     then open:</p>
   <p><tt>http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServletTest/</tt></p>
   <p>This should lead you through testing Melati and allow you to debug your installation 
-    more easily.<br>
+    easily.<br>
     <br>
     <br>
   </p>
@@ -233,12 +228,11 @@
     <li>More documentation</li>
     <li>Revised licensing - Dual ASF / GPL licensing.</li>
   </ul>
-  <p> See the LICENSE.txt file for details about your rights 
-    and obligations with respect to the software, plus legal disclaimers, and 
-    so forth. 
+  <p> See the LICENSE.txt file for details about your rights and obligations with 
+    respect to the software, plus legal disclaimers, and so forth. 
   <h4>Upgrading from Melati Alpha Software</h4>
   <p>Please follow the <a href="README.html#Installation">Installation instructions</a>. 
-  <p>&nbsp;
+  <p>&nbsp; 
 </blockquote>
 </body></html>
 

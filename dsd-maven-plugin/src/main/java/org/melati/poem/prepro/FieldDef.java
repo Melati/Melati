@@ -55,7 +55,7 @@ public abstract class FieldDef {
   protected final TableDef table;
   protected final String name;
   protected final String suffix;
-  protected final int displayOrder;
+  protected int displayOrder;
   String displayName;
   String description;
   protected final String type;
@@ -66,17 +66,14 @@ public abstract class FieldDef {
   final String mainClass;
   final String tableMainClass;
   final String tableAccessorMethod;
+  org.melati.poem.DisplayLevel displayLevel = null;
+  org.melati.poem.Searchability searchability = null;
   boolean isNullable;
   boolean isTroidColumn;
   boolean isDeletedColumn;
-  boolean isPrimaryDisplayColumn;
-  boolean isPrimaryCriterionColumn;
   int displayOrderPriority = -1;
   boolean isEditable = true;
   boolean isCreateable = true;
-  boolean recorddisplay = true;
-  boolean summarydisplay = true;
-  boolean searchcriterion = true;
   boolean isIndexed = false;
   boolean isUnique = false;
   boolean isCompareOnly = false;
@@ -151,6 +148,10 @@ public abstract class FieldDef {
       return new TimestampFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("ColumnType"))
       return new ColumnTypeFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("DisplayLevel"))
+      return new DisplayLevelFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("Searchability"))
+      return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
     else
       return new ReferenceFieldDef(table, name, displayOrder, type,
                                    qualifiers);
@@ -167,10 +168,10 @@ public abstract class FieldDef {
   }
 
   public void generateFieldCreator(Writer w) throws IOException {
-    w.write("  public final Field get" + suffix + "Field() " +
+    w.write("  public Field get" + suffix + "Field() " +
                   "throws AccessPoemException {\n" +
-            "    return _" + tableAccessorMethod + "()." +
-                    "get" + suffix + "Column().asField(this);\n" +
+            "    return Field.of(this, _" + tableAccessorMethod + "()." +
+                                         "get" + suffix + "Column());\n" +
             "  }\n");
   }
 
@@ -217,6 +218,10 @@ public abstract class FieldDef {
       "            ((" + mainClass + ")g).set" + suffix + "((" +
                        type + ")cooked);\n" +
       "          }\n" +
+      "\n" +
+      "          public Field asField(Persistent g) {\n" +
+      "            return ((" + mainClass + ")g).get" + suffix + "Field();\n" +
+      "          }\n" +
       "\n");
 
     if (isTroidColumn || !isEditable)
@@ -231,33 +236,15 @@ public abstract class FieldDef {
               "          }\n" +
               "\n");
 
-    if (!recorddisplay)
-      w.write("          protected boolean defaultRecordDisplay() {\n" +
-              "            return false;\n" +
+    if (displayLevel != null)
+      w.write("          protected DisplayLevel defaultDisplayLevel() {\n" +
+              "            return DisplayLevel." + displayLevel.name + ";\n" +
               "          }\n" +
               "\n");
 
-    if (!summarydisplay)
-      w.write("          protected boolean defaultSummaryDisplay() {\n" +
-              "            return false;\n" +
-              "          }\n" +
-              "\n");
-
-    if (!searchcriterion)
-      w.write("          protected boolean defaultSearchCriterion() {\n" +
-              "            return false;\n" +
-              "          }\n" +
-              "\n");
-
-    if (isPrimaryDisplayColumn)
-      w.write("          protected boolean defaultPrimaryDisplay() {\n" +
-              "            return true;\n" +
-              "          }\n" +
-              "\n");
-
-    if (isPrimaryCriterionColumn)
-      w.write("          protected boolean defaultPrimaryCriterion() {\n" +
-              "            return true;\n" +
+    if (searchability != null)
+      w.write("          protected Searchability defaultSearchability() {\n" +
+              "            return Searchability." + searchability.name + ";\n" +
               "          }\n" +
               "\n");
 

@@ -34,7 +34,7 @@ public class Login extends MelatiServlet {
     return getTemplate("LoginSuccess.wm");
   }
 
-  protected Template melatiHandle(WebContext context)
+  protected Template handle(WebContext context)
       throws PoemException, WebMacroException {
 
     HttpSession session = context.getSession();

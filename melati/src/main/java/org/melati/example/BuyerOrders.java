@@ -15,7 +15,7 @@ import org.webmacro.broker.*;
 
 public class BuyerOrders extends MelatiServlet {
 
-  protected Template melatiHandle(WebContext context)
+  protected Template handle(WebContext context)
       throws PoemException, HandlerException {
     int start = 0;
     String startString = context.getForm("start");

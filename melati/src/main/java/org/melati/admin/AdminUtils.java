@@ -147,16 +147,24 @@ public class AdminUtils {
                "/SelectionWindowSelection";
   }
 
-  public String UploadURL(Persistent object, Field field) {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
-                    + "/" + object.troid() +  "/Upload?field="
-                    + field.getName();
+  /*
+   * in an insert situation, we will not have a Troid, so cannot pass it through
+   * if your upload handler depends on haviung a persistent, then you should 
+   * override your upload template so that it prevents uploading in an insert
+   * situation
+   */
+  public String UploadURL(Table table, Persistent object, Field field) {
+    return upload(table,object) + "/Upload?field=" + field.getName();
   }
 
-  public String UploadHandlerURL(Persistent object, String field) {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
-                    + "/" + object.troid() +  "/UploadDone?field="
-                    + field;
+  public String UploadHandlerURL(Table table, Persistent object, String field) {
+    return upload(table,object) + "/UploadDone?field=" + field;
+  }
+  
+  private String upload(Table table,Persistent object) {
+    String url = adminURL + "/" + logicalDatabase + "/" + table.getName();
+    if (object != null) url += "/" + object.troid();
+    return url;
   }
 
   // establish if this is a reference poem type field

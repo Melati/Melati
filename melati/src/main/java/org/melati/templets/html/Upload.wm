@@ -42,6 +42,7 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
 	    COLS=$field.Width
@@ -62,7 +63,7 @@
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
-    = window.open('$melati.AdminUtils.UploadURL($melati.Object,$field)',
+    = window.open('$melati.AdminUtils.UploadURL($melati.Table,$melati.Object,$field)',
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }
@@ -72,6 +73,3 @@ function update_$ml.escaped($field.Name) (url) {
   uploadwin_$(ml.escaped($field.Name)).close();
 }
 </SCRIPT>
-
-
-

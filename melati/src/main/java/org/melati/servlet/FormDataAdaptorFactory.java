@@ -62,6 +62,9 @@ public abstract class FormDataAdaptorFactory
    * we need to establish the user and set up any request specific melati stuff
    * so that we can verify the user has permission for this task, and use
    * melati Table / Objects to manipulate what the FormDataAdaptor does
+   *
+   * please note that when uploading a file for a record that has not yet been
+   * inserted (ie whilst adding), melati.getObject will return null
    */
   
   public FormDataAdaptor get(final Melati melati, final MultipartFormField field) {

@@ -595,15 +595,19 @@ public class Admin extends TemplateServlet {
       throw new AccessPoemException(token, admin);
 
     context.put("admin", melati.getAdminUtils());
+    
+    /* upload can take place without an object
+     */
+    if (melati.getMethod().equals("Upload"))
+      return uploadTemplate(context);
+    if (melati.getMethod().equals("UploadDone"))
+      return uploadDoneTemplate(context, melati);
+    
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
         return rightTemplate(context, melati);
       if (melati.getMethod().equals("EditHeader"))
         return editHeaderTemplate(context, melati);
-      if (melati.getMethod().equals("Upload"))
-        return uploadTemplate(context);
-      if (melati.getMethod().equals("UploadDone"))
-        return uploadDoneTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
         return editTemplate(context, melati);
       else

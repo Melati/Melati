@@ -372,8 +372,8 @@ public abstract class Column implements FieldAttributes {
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
   
-  public PreparedSelection preparedSelectionWhereEq(Object raw) {
-    return new PreparedSelection(getTable(), eqClause(raw), null);
+  public CachedSelection cachedSelectionWhereEq(Object raw) {
+    return new CachedSelection(getTable(), eqClause(raw), null);
   }
 
   // 

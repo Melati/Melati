@@ -57,9 +57,9 @@ import org.melati.poem.dbms.*;
 
 public class RestrictedReferencePoemType extends ReferencePoemType {
 
-  private final PreparedSelection selection;
+  private final CachedSelection selection;
 
-  public RestrictedReferencePoemType(PreparedSelection selection,
+  public RestrictedReferencePoemType(CachedSelection selection,
 				     boolean nullable) {
     super(selection.getTable(), nullable);
     this.selection = selection;

@@ -50,25 +50,21 @@ import org.melati.util.*;
 import java.sql.*;
 import java.util.*;
 
-public class CachedCount extends CachedQuery {
+public class CachedExists extends CachedCount {
 
-  public CachedCount(final Table table,
-                       final String whereClause,
-                       final Table otherTables[]) {
-    super(table, table.countSQL(whereClause), otherTables);
+  public CachedExists(final Table table,
+                           final String whereClause,
+                           final Table otherTables[]) {
+    super(table, whereClause, otherTables);
   }
 
-  public CachedCount(final Table table, final String query) {
-    this(table, query, null);
+  public CachedExists(final Table table, final String whereClause) {
+    this(table, whereClause, null);
   }
 
-  final protected Object extract(ResultSet rs) throws SQLException {
-    return new Integer(rs.getInt(1));
-  }
-
-  public int count() {
+  public boolean exists() {
     compute();
-    return ((Integer)this.rows.elementAt(0)).intValue();
+    return ((Integer)this.rows.elementAt(0)).intValue() > 0;
   }
 
 }

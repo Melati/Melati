@@ -84,8 +84,10 @@ public class Table {
 
   private TransactionedSerial serial;
 
-  private PreparedSelection allTroids = null;
+  private CachedSelection allTroids = null;
   private Hashtable cachedSelections = new Hashtable();
+  private Hashtable cachedCounts = new Hashtable();
+  private Hashtable cachedExists = new Hashtable();
 
   public Table(Database database, String name,
                DefinitionSource definitionSource) {
@@ -689,7 +691,8 @@ public class Table {
       if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));
     }
-   persistent.postInsert();
+
+    persistent.postInsert();
   }
 
   void delete(Integer troid, PoemTransaction transaction) {
@@ -946,7 +949,7 @@ public class Table {
   protected void rememberAllTroids(boolean flag) {
     if (flag) {
       if (allTroids == null)
-	allTroids = new PreparedSelection(this, null, null);
+	allTroids = new CachedSelection(this, null, null);
     }
     else
       allTroids = null;
@@ -975,7 +978,7 @@ public class Table {
   public Enumeration troidSelection(String whereClause, String orderByClause,
                              boolean includeDeleted)
       throws SQLPoemException {
-    PreparedSelection allTroids = this.allTroids;
+    CachedSelection allTroids = this.allTroids;
     if (allTroids != null &&
         (whereClause == null || whereClause.equals("")) &&
 	(orderByClause == null || orderByClause.equals("") ||
@@ -1085,12 +1088,16 @@ public class Table {
         pageStart, pageSize, 200);
   }
 
-  public int count(String whereClause)
-      throws SQLPoemException {
-    String sql =
-        "SELECT count(*) FROM " + quotedName() +
+  String countSQL(String whereClause) {
+    return "SELECT count(*) FROM " + quotedName() +
         (whereClause == null || whereClause.equals("") ? "" :
              " WHERE " + whereClause);
+  }
+
+  public int count(String whereClause)
+      throws SQLPoemException {
+
+    String sql = countSQL(whereClause);
 
     try {
       PoemTransaction transaction = PoemThread.transaction();
@@ -1115,7 +1122,6 @@ public class Table {
   }
 
   public boolean exists(String whereClause) throws SQLPoemException {
-    // FIXME use EXISTS
     return count(whereClause) > 0;
   }
 
@@ -1521,20 +1527,48 @@ public class Table {
    * FIXME to be documented.
    */
 
-  public PreparedSelection cachedSelection(String whereClause,
+  public CachedSelection cachedSelection(String whereClause,
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
-    PreparedSelection them = (PreparedSelection)cachedSelections.get(key);
+    CachedSelection them = (CachedSelection)cachedSelections.get(key);
     if (them == null) {
-      PreparedSelection newThem =
-          new PreparedSelection(this, whereClause, orderByClause);
+      CachedSelection newThem =
+          new CachedSelection(this, whereClause, orderByClause);
       synchronized (cachedSelections) {
-        them = (PreparedSelection)cachedSelections.get(key);
+        them = (CachedSelection)cachedSelections.get(key);
         if (them == null)
           cachedSelections.put(key, them = newThem);
       }
     }
     return them;
+  }
+
+  public CachedCount cachedCount(String whereClause) {
+    CachedCount it = (CachedCount)cachedCounts.get(whereClause);
+    if (it == null) {
+      CachedCount newIt =
+          new CachedCount(this, whereClause);
+      synchronized (cachedCounts) {
+        it = (CachedCount)cachedCounts.get(whereClause);
+        if (it == null)
+          cachedCounts.put(whereClause, it = newIt);
+      }
+    }
+    return it;
+  }
+
+  public CachedExists cachedExists(String whereClause) {
+    CachedExists it = (CachedExists)cachedExists.get(whereClause);
+    if (it == null) {
+      CachedExists newIt =
+          new CachedExists(this, whereClause);
+      synchronized (cachedExists) {
+        it = (CachedExists)cachedExists.get(whereClause);
+        if (it == null)
+          cachedExists.put(whereClause, it = newIt);
+      }
+    }
+    return it;
   }
 
   public RestrictedReferencePoemType cachedSelectionType(

@@ -98,8 +98,9 @@ public class PreparedStatementFactory extends CachedIndexFactory {
                                 PreparedStatement statement) {
     try {
       if (database.logSQL())
-	database.log(new SQLLogEvent(statement.toString()));
+        database.log(new SQLLogEvent(statement.toString()));
       
+      token.transaction.writeDown();
       ResultSet rs = statement.executeQuery();
       token.toTidy().add(rs);
       return rs;

@@ -14,11 +14,13 @@
 
 <P>
   You can log out by FIXME.
-  <A HREF="$ml.escaped($continuationURL)">Continue where you left off</A>
+  #if ($continuationURL) #begin
+    <A HREF="$ml.escaped($continuationURL)">Continue where you left off</A>
 </P>
 
 <P>
   <TT>$ml.escaped($continuationURL)</TT>
+  #end
 </P>
 
 </CENTER>

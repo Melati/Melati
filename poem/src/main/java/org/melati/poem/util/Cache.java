@@ -240,6 +240,21 @@ public final class Cache {
     assertInvariant();
   }
 
+  public synchronized void delete(Object key) {
+    Node n = (Node)table.get(key);
+    if (n == null)
+      return;
+
+    if (n instanceof HeldNode) {
+      ((HeldNode)n).putBefore(null);
+      --heldNodes;
+    }
+
+    table.remove(key);
+
+    assertInvariant();
+  }
+
   public synchronized void put(Object key, Object value) {
     if (key == null || value == null)
       throw new NullPointerException();

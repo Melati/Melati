@@ -107,20 +107,24 @@ public class Melati {
     return SimpleDateAdaptor.it;
   }
 
-  public VariableExceptionHandler getPassbackVariableExceptionHandler() {
-    return
-        new VariableExceptionHandler() {
-          public Object handle(Variable variable, Object context,
-                               Exception problem) {
-            Exception underlying =
-                problem instanceof VariableException ?
-                  ((VariableException)problem).subException : problem;
+  public static class PassbackVariableExceptionHandler
+      implements VariableExceptionHandler {
+    public static final PassbackVariableExceptionHandler it =
+        new PassbackVariableExceptionHandler();
 
-            return underlying != null &&
-                   underlying instanceof AccessPoemException ?
-                     underlying : problem;
-          }
-        };
+    public Object handle(Variable variable, Object context, Exception problem) {
+      Exception underlying =
+	  problem instanceof VariableException ?
+	    ((VariableException)problem).subException : problem;
+
+      return underlying != null &&
+	     underlying instanceof AccessPoemException ?
+	       underlying : problem;
+    }
+  }
+
+  public VariableExceptionHandler getPassbackVariableExceptionHandler() {
+    return PassbackVariableExceptionHandler.it;
   }
 
   public User getUser() {
@@ -176,12 +180,16 @@ public class Melati {
   public String getLogoutURL() {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendZoneURL(url, webContext.getRequest());
+    url.append('/');
     url.append(logoutPageServletClassName());
     url.append('/');
     url.append(getLogicalDatabaseName());
     return url.toString();
   }
 
+  public String getZoneURL() {
+    return HttpUtil.zoneURL(webContext.getRequest());
+  }
 
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {

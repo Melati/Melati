@@ -57,7 +57,8 @@ public class CountedDumbPageEnumeration extends PageEnumerationBase {
   
   public CountedDumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int totalCount) {
-    this.pageStart = pageStart = Math.max(pageStart, 1);
+    pageStart = Math.max(pageStart, 1);
+    this.pageStart = pageStart;
     this.pageSize = pageSize;
     this.totalCount = totalCount;
     // This is the bit that makes it dumb!

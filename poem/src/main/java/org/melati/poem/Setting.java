@@ -52,7 +52,6 @@ import org.melati.util.*;
 public class Setting extends SettingBase {
   public Setting() {}
 
-  private PoemType poemType = null;
   private FieldAttributes valueAttributes = null;
   private Object raw = null;
   private Object cooked = null;
@@ -64,16 +63,6 @@ public class Setting extends SettingBase {
     setValue_unsafe(value);
     setDisplayname_unsafe(displayname);
     setDescription_unsafe(description);
-  }
-
-  public PoemType getType() {
-    if (poemType == null) {
-      PoemTypeFactory f = getTypefactory();
-      if (f == null)
-        return new StringPoemType(true, -1);
-      poemType = getTypefactory().typeOf(getDatabase(), toTypeParameter());
-    }
-    return poemType;
   }
 
   public static class SettingValidationException extends PoemException {
@@ -172,15 +161,9 @@ public class Setting extends SettingBase {
   }
 
   private FieldAttributes valueAttributes() {
-    if (valueAttributes == null) {
-      Column c = getSettingTable().getValueColumn();
+    if (valueAttributes == null)
       valueAttributes =
-      new BaseFieldAttributes(
-                             c.getName(), c.getDisplayName(), c.getDescription(), getType(),
-                             getWidth_unsafe() == null ? 12 : getWidth_unsafe().intValue(),
-                             getHeight_unsafe() == null ? 1 : getHeight_unsafe().intValue(),
-                             getRenderinfo_unsafe());
-    }
+          fieldAttributesRenamedAs(getSettingTable().getValueColumn());
 
     return valueAttributes;
   }

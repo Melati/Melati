@@ -324,6 +324,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </properties>
     </dependency>
     <dependency>
+      <id>log4j</id>
+      <version>1.2.9</version>
+      <url>http://logging.apache.org/</url>
+      <properties>
+         <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
       <id>hsqldb</id>
       <version>1.7.1</version>
       <url>http://www.hsqldb.org/</url>
@@ -409,22 +417,30 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
     <sourceDirectory>src</sourceDirectory>
 
-    <!-- unitTestSourceDirectory>src</unitTestSourceDirectory -->
+    <unitTestSourceDirectory>src</unitTestSourceDirectory>
     <!--integrationUnitTestSourceDirectory></integrationUnitTestSourceDirectory-->
 
     <!--aspectSourceDirectory/-->
 
     <!-- Unit test cases -->
-<!--
     <unitTest>
       <includes>
         <include>**/*Test.java</include>
       </includes>
       <excludes>
-        <exclude>**/RepositoryTest.java</exclude>
+        <exclude>**/OdmgTest.java</exclude>
+        <exclude>**/BinaryTest.java</exclude>
+        <exclude>**/CachedSelectionTest.java</exclude>
+        <exclude>**/CharsetServletTest.java</exclude>
+        <exclude>**/CharsetTemplateServletTest.java</exclude>
+        <exclude>**/ConfigServletTest.java</exclude>
+        <exclude>**/FlushingServletTest.java</exclude>
+        <exclude>**/PoemServletTest.java</exclude>
+        <exclude>**/ServletTest.java</exclude>
+        <exclude>**/TemplateServletTest.java</exclude>
+        <exclude>**/WebmacroMelatiServletTest.java</exclude>
       </excludes>
     </unitTest>
--->
     <!-- J A R  R E S O U R C E S -->
     <!-- Resources that are packaged up inside the JAR file -->
     <resources>
@@ -432,17 +448,18 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <directory>src</directory>
       <includes>
         <include>**/*.wm</include>
-        <include>**/*.properties</include>
         <include>**/*.DSD</include>
       </includes>
+      <excludes>
+        <exclude>**/*.properties</exclude>
+      </excludes>
      </resource>
      <resource>
-        <directory>site/properties</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
+      <directory>site/properties</directory>
+      <excludes>
+        <exclude>**/*.properties</exclude>
+      </excludes>
       </resource>
-
     </resources>
     <!-- Integration unit test cases -->
     <!--
@@ -459,18 +476,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      | Each report plugin with it's POM and plugin.jelly logic should
      | contain everything needed to produced the report.
      |
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-javadoc-plugin</report>
     <report>maven-changes-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-changelog-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
-    <report>maven-checkstyle-plugin</report>
-    <report>maven-jdepend-plugin</report>
-    <report>maven-jxr-plugin</report>
-    <report>maven-javadoc-plugin</report>
-<!--
     <report>maven-linkcheck-plugin</report>
-    <report>maven-junit-report-plugin</report>
+<!--
+    <report>maven-jcoverage-plugin</report>
     <report>maven-jellydoc-plugin</report>
 -->
   </reports>

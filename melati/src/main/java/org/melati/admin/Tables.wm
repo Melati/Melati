@@ -12,10 +12,17 @@
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
   #foreach $table in $tables {
-    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
-    <TR><TD>
-      <!-- FIXME need a thing to render URLs -->
-      <A HREF="$admin.tableURL($table)">$ml.rendered($table.DisplayName)</A>
+    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+    <TR>
+      <TD>
+        <A HREF="$admin.tableURL($table)">$ml.rendered($table.DisplayName)</A>
+      </TD>
+      <TD>&nbsp;&nbsp;</TD>
+      <TD>
+        #if ($table.Description) {
+          $ml.rendered($table.Description)
+        }
+      </TD>
     </TD></TR>
   }
 </TABLE>

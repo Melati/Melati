@@ -2,6 +2,7 @@ package org.melati.poem.prepro;
 
 import java.util.*;
 import java.io.*;
+import org.melati.util.*;
 
 public class DSD {
 
@@ -28,12 +29,6 @@ public class DSD {
       throw new ParsingDSDException("" + what, tokens);
   }
 
-  public static String capitalise(String name) {
-    char suffix[] = name.toCharArray();
-    suffix[0] = Character.toUpperCase(suffix[0]);
-    return new String(suffix);
-  }
-
   public DSD(String file)
         throws IOException, ParsingDSDException, IllegalityException {
     dsdFile = new File(file);
@@ -41,7 +36,7 @@ public class DSD {
     int dot = dsdFileName.lastIndexOf('.');
     name = dot == -1 ? dsdFileName : dsdFileName.substring(0, dot);
 
-    String nAme = capitalise(name);
+    String nAme = StringUtils.capitalised(name);
     databaseClass = nAme + "Database";
     databaseBaseClass = nAme + "DatabaseBase";
 

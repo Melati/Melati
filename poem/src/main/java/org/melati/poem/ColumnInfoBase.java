@@ -99,6 +99,21 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getDisplaynameColumn().asField(this);
   }
 
+  public String getDescription()
+      throws AccessPoemException {
+    return dataForReading().description;
+  }
+
+  public void setDescription(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getDescriptionColumn().getType().assertValidValue(value);
+    dataForWriting().description = value;
+  }
+
+  public final Field getDescriptionField() throws AccessPoemException {
+    return getColumnInfoTable().getDescriptionColumn().asField(this);
+  }
+
   public Integer getDisplayorder()
       throws AccessPoemException {
     return dataForReading().displayorder;
@@ -119,6 +134,46 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getDisplayorderColumn().asField(this);
   }
 
+  public Boolean getUsereditable()
+      throws AccessPoemException {
+    return dataForReading().usereditable;
+  }
+
+  public void setUsereditable(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getUsereditableColumn().getType().assertValidValue(value);
+    dataForWriting().usereditable = value;
+  }
+
+  public final void setUsereditable(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setUsereditable(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getUsereditableField() throws AccessPoemException {
+    return getColumnInfoTable().getUsereditableColumn().asField(this);
+  }
+
+  public Boolean getDisplayable()
+      throws AccessPoemException {
+    return dataForReading().displayable;
+  }
+
+  public void setDisplayable(Boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getDisplayableColumn().getType().assertValidValue(value);
+    dataForWriting().displayable = value;
+  }
+
+  public final void setDisplayable(boolean value)
+      throws AccessPoemException, ValidationPoemException {
+    setDisplayable(value ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getDisplayableField() throws AccessPoemException {
+    return getColumnInfoTable().getDisplayableColumn().asField(this);
+  }
+
   public Boolean getPrimarydisplay()
       throws AccessPoemException {
     return dataForReading().primarydisplay;
@@ -137,6 +192,26 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getPrimarydisplayField() throws AccessPoemException {
     return getColumnInfoTable().getPrimarydisplayColumn().asField(this);
+  }
+
+  public Integer getDisplayorderpriority()
+      throws AccessPoemException {
+    return dataForReading().displayorderpriority;
+  }
+
+  public void setDisplayorderpriority(Integer value)
+      throws AccessPoemException, ValidationPoemException {
+    getColumnInfoTable().getDisplayorderpriorityColumn().getType().assertValidValue(value);
+    dataForWriting().displayorderpriority = value;
+  }
+
+  public final void setDisplayorderpriority(int value)
+      throws AccessPoemException, ValidationPoemException {
+    setDisplayorderpriority(new Integer(value));
+  }
+
+  public final Field getDisplayorderpriorityField() throws AccessPoemException {
+    return getColumnInfoTable().getDisplayorderpriorityColumn().asField(this);
   }
 
   public Integer getTypecode()

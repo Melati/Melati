@@ -92,4 +92,10 @@ public class StringUtils {
 
     return s;
   }
+
+  public static String capitalised(String name) {
+    char suffix[] = name.toCharArray();
+    suffix[0] = Character.toUpperCase(suffix[0]);
+    return new String(suffix);
+  }
 }

@@ -7,6 +7,7 @@ public class TableInfoTableBase extends Table {
   private Column col_id = null;
   private Column col_name = null;
   private Column col_displayname = null;
+  private Column col_description = null;
   private Column col_displayorder = null;
   private Column col_defaultcanread = null;
   private Column col_defaultcanwrite = null;
@@ -68,6 +69,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setName((String)value);
           }
 
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected String defaultDescription() {
+            return "A code-name for the table";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName();
@@ -99,6 +108,22 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDisplayname((String)value);
           }
 
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(1);
+          }
+
+          protected String defaultDisplayName() {
+            return "Display name";
+          }
+
+          protected String defaultDescription() {
+            return "A user-friendly name for the table";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayname();
@@ -107,6 +132,41 @@ public class TableInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((TableInfo)g).setDisplayname((String)ident);
+          }
+        });
+
+    defineColumn(col_description =
+        new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (String)((TableInfoData)data).description;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((TableInfoData)data).description = (String)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((TableInfo)g).getDescription();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((TableInfo)g).setDescription((String)value);
+          }
+
+          protected String defaultDescription() {
+            return "A brief description of the table's function";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDescription();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDescription((String)ident);
           }
         });
 
@@ -128,6 +188,18 @@ public class TableInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setDisplayorder((Integer)value);
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Display order";
+          }
+
+          protected String defaultDescription() {
+            return "A rank determining where the table appears in the list of all tables";
           }
 
           public Object getIdent(Persistent g)
@@ -161,6 +233,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setDefaultcanread((Capability)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Default `read' capability";
+          }
+
+          protected String defaultDescription() {
+            return "The capability required, by default, for reading the table's records";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanreadTroid();
@@ -190,6 +270,14 @@ public class TableInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((TableInfo)g).setDefaultcanwrite((Capability)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Default `write' capability";
+          }
+
+          protected String defaultDescription() {
+            return "The capability required, by default, for updating the table's records";
           }
 
           public Object getIdent(Persistent g)
@@ -223,6 +311,14 @@ public class TableInfoTableBase extends Table {
             ((TableInfo)g).setCancreate((Capability)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Default `create' capability";
+          }
+
+          protected String defaultDescription() {
+            return "The capability required, by default, for creating records in the table";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCancreateTroid();
@@ -245,6 +341,10 @@ public class TableInfoTableBase extends Table {
 
   public final Column getDisplaynameColumn() {
     return col_displayname;
+  }
+
+  public final Column getDescriptionColumn() {
+    return col_description;
   }
 
   public final Column getDisplayorderColumn() {
@@ -278,4 +378,12 @@ public class TableInfoTableBase extends Table {
   protected Data _newData() {
     return new TableInfoData();
   }
+  protected String defaultDisplayName() {
+    return "Table";
+  }
+
+  protected String defaultDescription() {
+    return "Configuration information about a table in the database";
+  }
+
 }

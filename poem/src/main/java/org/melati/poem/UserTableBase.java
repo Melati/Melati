@@ -65,6 +65,10 @@ public class UserTableBase extends Table {
             ((User)g).setLogin((String)value);
           }
 
+          protected String defaultDescription() {
+            return "The user's login name";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin();
@@ -96,6 +100,10 @@ public class UserTableBase extends Table {
             ((User)g).setPassword((String)value);
           }
 
+          protected String defaultDescription() {
+            return "The user's password";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getPassword();
@@ -125,6 +133,22 @@ public class UserTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((User)g).setName((String)value);
+          }
+
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Full name";
+          }
+
+          protected String defaultDescription() {
+            return "The user's real name";
           }
 
           public Object getIdent(Persistent g)
@@ -170,4 +194,8 @@ public class UserTableBase extends Table {
   protected Data _newData() {
     return new UserData();
   }
+  protected String defaultDescription() {
+    return "A registered user of the database";
+  }
+
 }

@@ -2,12 +2,15 @@ package org.melati.poem.prepro;
 
 import java.util.*;
 import java.io.*;
+import org.melati.util.*;
 
 public class TableDef {
 
   DSD dsd;
   final String name;
   final String suffix;
+  String displayName;
+  String description;
   final String dataBaseClass;
   final String dataMainClass;
   final String baseClass;
@@ -20,6 +23,8 @@ public class TableDef {
   public TableDef(DSD dsd, StreamTokenizer tokens)
       throws ParsingDSDException, IOException, IllegalityException {
     this.dsd = dsd;
+    if (tokens.ttype != StreamTokenizer.TT_WORD)
+      throw new ParsingDSDException("<table name>", tokens);
     suffix = tokens.sval;
     name = suffix.toLowerCase();
     dataBaseClass = suffix + "DataBase";
@@ -30,9 +35,12 @@ public class TableDef {
     tableMainClass = suffix + "Table";
     tableAccessorMethod = "get" + tableMainClass;
 
-    if (tokens.ttype != StreamTokenizer.TT_WORD)
-      throw new ParsingDSDException("<table name>", tokens);
-    tokens.nextToken();
+    while (tokens.nextToken() == '(') {
+      tokens.nextToken();
+      TableQualifier.from(tokens).apply(this);
+      DSD.expect(tokens, ')');
+    }
+
     DSD.expect(tokens, '{');
     while (tokens.nextToken() != '}')
       data.addElement(FieldDef.from(this, tokens, data.size()));
@@ -163,8 +171,22 @@ public class TableDef {
             "\n" +
             "  protected Data _newData() {\n" +
             "    return new " + dataMainClass + "();\n" +
-            "  }\n" +
-            "}\n");
+            "  }\n");
+
+
+    if (displayName != null)
+      w.write("  protected String defaultDisplayName() {\n" +
+              "    return " + StringUtils.quoted(displayName, '"') + ";\n" +
+              "  }\n" +
+              "\n");
+
+    if (description != null)
+      w.write("  protected String defaultDescription() {\n" +
+              "    return " + StringUtils.quoted(description, '"') + ";\n" +
+              "  }\n" +
+              "\n");
+
+    w.write("}\n");
   }
 
   public void generateTableMainJava(Writer w) throws IOException { 

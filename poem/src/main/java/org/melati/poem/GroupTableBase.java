@@ -63,6 +63,10 @@ public class GroupTableBase extends Table {
             ((Group)g).setName((String)value);
           }
 
+          protected String defaultDescription() {
+            return "A human-readable name for the group";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getName();
@@ -98,4 +102,8 @@ public class GroupTableBase extends Table {
   protected Data _newData() {
     return new GroupData();
   }
+  protected String defaultDescription() {
+    return "A group to which registered users of the database can belong";
+  }
+
 }

@@ -7,8 +7,12 @@ public class ColumnInfoDataBase extends Data {
   Integer tableinfo;
   String name;
   String displayname;
+  String description;
   Integer displayorder;
+  Boolean usereditable;
+  Boolean displayable;
   Boolean primarydisplay;
+  Integer displayorderpriority;
   Integer typecode;
   Boolean nullable;
   Integer size;

@@ -63,6 +63,22 @@ public class CapabilityTableBase extends Table {
             ((Capability)g).setName((String)value);
           }
 
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Name";
+          }
+
+          protected String defaultDescription() {
+            return "A human-readable name for the capability";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getName();
@@ -98,4 +114,8 @@ public class CapabilityTableBase extends Table {
   protected Data _newData() {
     return new CapabilityData();
   }
+  protected String defaultDescription() {
+    return "A capability which users can be required to possess before accessing data";
+  }
+
 }

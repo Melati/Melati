@@ -2,11 +2,14 @@ package org.melati.poem.prepro;
 
 import java.util.*;
 import java.io.*;
+import org.melati.util.*;
 
 public abstract class FieldDef {
   protected final TableDef table;
   protected final String name;
   protected final String suffix;
+  String displayName;
+  String description;
   protected final String type;
   protected final String identType;
   protected final int index;
@@ -21,6 +24,10 @@ public abstract class FieldDef {
   boolean isNullable;
   boolean isTroidColumn;
   boolean isDeletedColumn;
+  boolean isPrimaryDisplayColumn;
+  int displayOrderPriority = -1;
+  boolean isEditable = true;
+  boolean isDisplayable = true;
 
   public FieldDef(TableDef table, int index, String name,
                   String type, String identType, Vector qualifiers)
@@ -28,7 +35,7 @@ public abstract class FieldDef {
     this.table = table;
     this.index = index;
     this.name = name;
-    this.suffix = DSD.capitalise(name);
+    this.suffix = StringUtils.capitalised(name);
     this.type = type;
     this.identType = identType;
     this.qualifiers = qualifiers;
@@ -136,6 +143,44 @@ public abstract class FieldDef {
                        type + ")value);\n" +
       "          }\n" +
       "\n");
+
+    if (isTroidColumn || !isEditable)
+      w.write("          protected boolean defaultUserEditable() {\n" +
+              "            return false;\n" +
+              "          }\n" +
+              "\n");
+
+    if (!isDisplayable)
+      w.write("          protected boolean defaultDisplayable() {\n" +
+              "            return false;\n" +
+              "          }\n" +
+              "\n");
+
+    if (isPrimaryDisplayColumn)
+      w.write("          protected boolean defaultPrimaryDisplay() {\n" +
+              "            return true;\n" +
+              "          }\n" +
+              "\n");
+
+    if (displayOrderPriority != -1)
+      w.write("          protected Integer defaultDisplayOrderPriority() {\n" +
+              "            return new Integer(" + displayOrderPriority + ");\n" +
+              "          }\n" +
+              "\n");
+
+    if (displayName != null)
+      w.write("          protected String defaultDisplayName() {\n" +
+              "            return " +
+                               StringUtils.quoted(displayName, '"') + ";\n" +
+              "          }\n" +
+              "\n");
+
+    if (description != null)
+      w.write("          protected String defaultDescription() {\n" +
+              "            return " +
+                               StringUtils.quoted(description, '"') + ";\n" +
+              "          }\n" +
+              "\n");
 
     generateColIdentAccessors(w);
 

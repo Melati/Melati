@@ -1,60 +1,172 @@
 package org.melati.poem;
 
-table TableInfo {
+table TableInfo
+    (displayname = "Table")
+    (description = "Configuration information about a table in the database") {
+
   (primary) Integer id;
-  String name (size = 50);
 
-  String displayname (size = 60);
-  Integer displayorder (nullable);
+  (unique) String name (size = 50)
+      (description = "A code-name for the table")
+      (uneditable);
 
-  Capability defaultcanread (nullable);
-  Capability defaultcanwrite (nullable);
-  Capability cancreate (nullable);
+  String displayname (size = 60)
+      (displayname = "Display name")
+      (description = "A user-friendly name for the table")
+      (displayorderpriority = 1) (primarydisplay);
+
+  String description (size = unlimited) (nullable)
+      (description = "A brief description of the table's function");
+
+  Integer displayorder (nullable)
+      (displayname = "Display order")
+      (description = "A rank determining where the table appears in the list of all tables")
+      (displayorderpriority = 0);
+
+  Capability defaultcanread (nullable)
+      (displayname = "Default `read' capability")
+      (description = "The capability required, by default, for reading the table's records");
+
+  Capability defaultcanwrite (nullable)
+      (displayname = "Default `write' capability")
+      (description = "The capability required, by default, for updating the table's records");
+
+  Capability cancreate (nullable)
+      (displayname = "Default `create' capability")
+      (description = "The capability required, by default, for creating records in the table");
 }
 
-table ColumnInfo {
+table ColumnInfo
+    (displayname = "Column")
+    (description = "Configuration information about a column in the database") {
+
   (primary) Integer id;
-  TableInfo tableinfo;
-  String name (size = 50);
 
-  String displayname (size = 60);
-  Integer displayorder (nullable);
-  Boolean primarydisplay;
+  TableInfo tableinfo
+      (displayname = "Owning table")
+      (description = "The table to which the field belongs");
 
-  Integer typecode;
-  Boolean nullable;
-  Integer size;
-  Integer width;
-  Integer height;
-  TableInfo targettable (nullable);
-  String renderinfo (size = unlimited) (nullable);
+  (unique with tableinfo) String name (size = 50)
+      (description = "A code-name for the field")
+      (uneditable);
+
+  String displayname (size = 60)
+      (displayname = "Display name")
+      (description = "A user-friendly name for the field")
+      (displayorderpriority = 1) (primarydisplay);
+
+  String description (size = unlimited) (nullable)
+      (description = "A brief description of the field's function");
+
+  Integer displayorder (nullable)
+      (displayname = "Display order")
+      (description = "A rank determining where the field appears in lists")
+      (displayorderpriority = 0);
+
+  Boolean usereditable
+      (displayname = "User-editable")
+      (description = "Whether it makes sense for the user to update the field's value");
+      
+  Boolean displayable
+      (displayname = "User-viewable")
+      (description = "Whether it makes sense for the user to the field's value");
+
+  Boolean primarydisplay
+      (displayname = "Primary display field")
+      (description = "Whether the field is used as a short representation of the whole record");
+
+  Integer displayorderpriority (nullable)
+      (displayname = "Display order priority")
+      (description = "If present, the level at which lists of records are sorted by the field");
+
+  Integer typecode
+      (displayname = "Type code")
+      (description = "The Melati POEM code for the field's type");
+
+  Boolean nullable
+      (description = "Whether the field can be empty");
+
+  Integer size
+      (description = "For character fields, the maximum number of characters that can be stored");
+
+  Integer width
+      (displayname = "Input-box width")
+      (description = "A sensible width for text boxes used for entering the field, where appropriate");
+
+  Integer height
+      (displayname = "Input-box height")
+      (description = "A sensible height for text boxes used for entering the field, where appropriate");
+
+  TableInfo targettable (nullable)
+      (displayname = "Target table")
+      (description = "For link fields, the table containing the referenced record");
+
+  String renderinfo (size = unlimited) (nullable)
+      (displayname = "Rendering information")
+      (description = "The name of the Melati templet (if not the default) to use for input controls for the field");
 }
 
-table Capability {
+table Capability
+    (description = "A capability which users can be required to possess before accessing data") {
+
   (primary) Integer id;
-  String name (size = 60);
+
+  (unique) String name (size = 60)
+      (displayname = "Name")
+      (description = "A human-readable name for the capability")
+      (displayorderpriority = 0) (primarydisplay);
 }
 
-table User {
+table User
+    (description = "A registered user of the database") {
+
   (primary) Integer id;
-  String login (size = 20);
-  String password (size = 20);
-  String name (size = 60);
+
+  (unique) String login (size = 20)
+      (description = "The user's login name");
+
+  String password (size = 20)
+      (description = "The user's password");
+
+  String name (size = 60)
+      (displayname = "Full name")
+      (description = "The user's real name")
+      (displayorderpriority = 0) (primarydisplay);
 }
 
-table Group {
+table Group
+    (description = "A group to which registered users of the database can belong") {
+
   (primary) Integer id;
-  String name (size = 60);
+
+  (unique) String name (size = 60)
+      (description = "A human-readable name for the group");
 }
 
-table GroupMembership {
+table GroupMembership
+    (displayname = "Group membership")
+    (description = "A record that a given user is a member of a given group") {
+
   (primary) Integer id;
-  User user;
-  Group group;
+
+  User user (displayorderpriority = 0)
+      (displayname = "User")
+      (description = "The user who belongs to the group");
+
+  Group group (displayorderpriority = 1)
+      (displayname = "Group")
+      (description = "The group to which the user belongs");
 }
 
-table GroupCapability {
+table GroupCapability
+    (displayname = "Group capability")
+    (description = "A record that users belonging to a given group possess a given capability") {
+
   (primary) Integer id;
-  Group group;
-  Capability capability;
+
+  Group group (displayorderpriority = 0)
+      (displayname = "Group")
+      (description = "The user-group which has the capability");
+
+  Capability capability (displayorderpriority = 1);
 }

@@ -40,32 +40,53 @@ public abstract class Column {
                                                 DefinitionSource.sqlMetaData);
   }
 
-  void readColumnInfo(ColumnInfo info) {
-    refineType(BasePoemType.ofColumnInfo(getDatabase(),
-                                         info.dataSnapshot()),
-               DefinitionSource.infoTables);
-  }
-
   void setColumnInfo(ColumnInfo columnInfo) {
+    refineType(BasePoemType.ofColumnInfo(getDatabase(),
+                                         columnInfo.dataSnapshot()),
+               DefinitionSource.infoTables);
     info = columnInfo;
   }
 
-  void writeColumnInfo(ColumnInfo info) {
-    info.setName(getName());
-    info.setDisplayname(getName());
-    info.setPrimarydisplay(false);
-    info.setTableinfoTroid(table.tableInfoID());
-    getType().saveColumnInfo(info);
+  protected boolean defaultPrimaryDisplay() {
+    return false;
+  }
+
+  protected Integer defaultDisplayOrderPriority() {
+    return null;
+  }
+
+  protected String defaultDisplayName() {
+    return StringUtils.capitalised(getName());
+  }
+
+  protected String defaultDescription() {
+    return null;
+  }
+
+  protected boolean defaultUserEditable() {
+    return true;
+  }
+
+  protected boolean defaultDisplayable() {
+    return true;
   }
 
   void createColumnInfo() throws PoemException {
     if (info == null) {
-      final Column _this = this; 
       info =
           (ColumnInfo)getDatabase().getColumnInfoTable().create(
               new Initialiser() {
                 public void init(Persistent g) throws AccessPoemException {
-                  _this.writeColumnInfo((ColumnInfo)g);
+                  ColumnInfo i = (ColumnInfo)g;
+                  i.setName(getName());
+                  i.setDisplayname(defaultDisplayName());
+                  i.setDescription(defaultDescription());
+                  i.setPrimarydisplay(defaultPrimaryDisplay());
+                  i.setDisplayorderpriority(defaultDisplayOrderPriority());
+                  i.setTableinfoTroid(table.tableInfoID());
+                  i.setUsereditable(defaultUserEditable());
+                  i.setDisplayable(defaultDisplayable());
+                  getType().saveColumnInfo(i);
                 }
               });
     }
@@ -97,8 +118,21 @@ public abstract class Column {
     return info.getDisplayname();
   }
 
+  public final String getDescription() {
+    return info.getDescription();
+  }
+
   public final boolean isPrimaryDisplay() {
     return info == null ? false : info.getPrimarydisplay().booleanValue();
+  }
+
+  public final boolean isUserEditable() {
+    return !isTroidColumn() &&
+           (info == null ? true : info.getUsereditable().booleanValue());
+  }
+
+  public final boolean isUserCreateable() {
+    return !isTroidColumn();
   }
 
   public final PoemType getType() {
@@ -111,10 +145,6 @@ public abstract class Column {
 
   public final boolean isDeletedColumn() {
     return getType() instanceof DeletedPoemType;
-  }
-
-  public final boolean isNormal() {
-    return !isTroidColumn() && !isDeletedColumn();
   }
 
   public final String getRenderInfo() {

@@ -8,12 +8,26 @@
 
 <SCRIPT src="/validation.js"></SCRIPT>
 
-<FORM METHOD=post ACTION=Update><CENTER>
+<FORM METHOD=post ACTION=Update>
+
+<CENTER>
+
+<H1>Edit a record</H1>
+
+<P>Table: $ml.rendered($object.Table.DisplayName)</P>
+#if ($object.Table.Description) {
+  <P>Purpose: $ml.rendered($object.Table.Description)</P>
+}
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  <TR><TD>Troid</TD><TD>&nbsp;&nbsp;</TD><TD>$object.Troid</TD></TR>
   #foreach $field in $object {
-    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD>
+    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+    #if ($field.Description) {
+      <TR>
+	<TD></TD><TD></TD>
+	<TD><FONT SIZE=1>$ml.rendered($field.Description)</TD>
+      </TR>
+    }
     <TR>
       <TD>
         #if ($field.Nullable) {
@@ -22,7 +36,11 @@
           <B>$ml.rendered($field.DisplayName)</B>
         }
       </TD><TD></TD><TD>
-        $ml.input($field)
+        #if ($field.UserEditable) {
+          $ml.input($field)
+        } #else {
+	  $ml.rendered($field)
+        }
       </TD>
     </TR>
   }
@@ -38,7 +56,9 @@
 <INPUT NAME=action VALUE=Duplicate TYPE=submit
        ONCLICK="return validate(this.form);">
 
-</CENTER></FORM>
+</CENTER>
+
+</FORM>
 
 </BODY>
 </HTML>

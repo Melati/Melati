@@ -25,12 +25,24 @@ public final class Field {
     return column.getDisplayName();
   }
 
+  public String getDescription() {
+    return column.getDescription();
+  }
+
   public PoemType getType() {
     return column.getType();
   }
 
   public boolean getNullable() {
     return getType().isNullable();
+  }
+
+  public boolean getUserEditable() {
+    return column.isUserEditable();
+  }
+
+  public boolean getUserCreateable() {
+    return column.isUserCreateable();
   }
 
   public String getRenderInfo() {

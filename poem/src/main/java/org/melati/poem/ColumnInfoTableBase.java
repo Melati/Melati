@@ -8,8 +8,12 @@ public class ColumnInfoTableBase extends Table {
   private Column col_tableinfo = null;
   private Column col_name = null;
   private Column col_displayname = null;
+  private Column col_description = null;
   private Column col_displayorder = null;
+  private Column col_usereditable = null;
+  private Column col_displayable = null;
   private Column col_primarydisplay = null;
+  private Column col_displayorderpriority = null;
   private Column col_typecode = null;
   private Column col_nullable = null;
   private Column col_size = null;
@@ -74,6 +78,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setTableinfo((TableInfo)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Owning table";
+          }
+
+          protected String defaultDescription() {
+            return "The table to which the field belongs";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTableinfoTroid();
@@ -103,6 +115,14 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setName((String)value);
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected String defaultDescription() {
+            return "A code-name for the field";
           }
 
           public Object getIdent(Persistent g)
@@ -136,6 +156,22 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setDisplayname((String)value);
           }
 
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(1);
+          }
+
+          protected String defaultDisplayName() {
+            return "Display name";
+          }
+
+          protected String defaultDescription() {
+            return "A user-friendly name for the field";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayname();
@@ -144,6 +180,41 @@ public class ColumnInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((ColumnInfo)g).setDisplayname((String)ident);
+          }
+        });
+
+    defineColumn(col_description =
+        new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (String)((ColumnInfoData)data).description;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).description = (String)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getDescription();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setDescription((String)value);
+          }
+
+          protected String defaultDescription() {
+            return "A brief description of the field's function";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getDescription();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setDescription((String)ident);
           }
         });
 
@@ -167,6 +238,18 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setDisplayorder((Integer)value);
           }
 
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Display order";
+          }
+
+          protected String defaultDescription() {
+            return "A rank determining where the field appears in lists";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getDisplayorder();
@@ -175,6 +258,84 @@ public class ColumnInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((ColumnInfo)g).setDisplayorder((Integer)ident);
+          }
+        });
+
+    defineColumn(col_usereditable =
+        new Column(this, "usereditable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).usereditable;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).usereditable = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getUsereditable();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setUsereditable((Boolean)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "User-editable";
+          }
+
+          protected String defaultDescription() {
+            return "Whether it makes sense for the user to update the field's value";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getUsereditable();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setUsereditable((Boolean)ident);
+          }
+        });
+
+    defineColumn(col_displayable =
+        new Column(this, "displayable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Boolean)((ColumnInfoData)data).displayable;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).displayable = (Boolean)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getDisplayable();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setDisplayable((Boolean)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "User-viewable";
+          }
+
+          protected String defaultDescription() {
+            return "Whether it makes sense for the user to the field's value";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getDisplayable();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setDisplayable((Boolean)ident);
           }
         });
 
@@ -198,6 +359,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setPrimarydisplay((Boolean)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Primary display field";
+          }
+
+          protected String defaultDescription() {
+            return "Whether the field is used as a short representation of the whole record";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getPrimarydisplay();
@@ -206,6 +375,45 @@ public class ColumnInfoTableBase extends Table {
           public void setIdent(Persistent g, Object ident)
               throws AccessPoemException {
             ((ColumnInfo)g).setPrimarydisplay((Boolean)ident);
+          }
+        });
+
+    defineColumn(col_displayorderpriority =
+        new Column(this, "displayorderpriority", new IntegerPoemType(true), DefinitionSource.dsd) { 
+          public Object getIdent(Data data) {
+            return (Integer)((ColumnInfoData)data).displayorderpriority;
+          }
+
+          public void setIdent(Data data, Object ident) {
+            ((ColumnInfoData)data).displayorderpriority = (Integer)ident;
+          }
+
+          public Object getValue(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getDisplayorderpriority();
+          }
+
+          public void setValue(Persistent g, Object value)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setDisplayorderpriority((Integer)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Display order priority";
+          }
+
+          protected String defaultDescription() {
+            return "If present, the level at which lists of records are sorted by the field";
+          }
+
+          public Object getIdent(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getDisplayorderpriority();
+          }
+
+          public void setIdent(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setDisplayorderpriority((Integer)ident);
           }
         });
 
@@ -227,6 +435,14 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setTypecode((Integer)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Type code";
+          }
+
+          protected String defaultDescription() {
+            return "The Melati POEM code for the field's type";
           }
 
           public Object getIdent(Persistent g)
@@ -260,6 +476,10 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setNullable((Boolean)value);
           }
 
+          protected String defaultDescription() {
+            return "Whether the field can be empty";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getNullable();
@@ -289,6 +509,10 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setSize((Integer)value);
+          }
+
+          protected String defaultDescription() {
+            return "For character fields, the maximum number of characters that can be stored";
           }
 
           public Object getIdent(Persistent g)
@@ -322,6 +546,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setWidth((Integer)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Input-box width";
+          }
+
+          protected String defaultDescription() {
+            return "A sensible width for text boxes used for entering the field, where appropriate";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getWidth();
@@ -351,6 +583,14 @@ public class ColumnInfoTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((ColumnInfo)g).setHeight((Integer)value);
+          }
+
+          protected String defaultDisplayName() {
+            return "Input-box height";
+          }
+
+          protected String defaultDescription() {
+            return "A sensible height for text boxes used for entering the field, where appropriate";
           }
 
           public Object getIdent(Persistent g)
@@ -384,6 +624,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setTargettable((TableInfo)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Target table";
+          }
+
+          protected String defaultDescription() {
+            return "For link fields, the table containing the referenced record";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getTargettableTroid();
@@ -415,6 +663,14 @@ public class ColumnInfoTableBase extends Table {
             ((ColumnInfo)g).setRenderinfo((String)value);
           }
 
+          protected String defaultDisplayName() {
+            return "Rendering information";
+          }
+
+          protected String defaultDescription() {
+            return "The name of the Melati templet (if not the default) to use for input controls for the field";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((ColumnInfo)g).getRenderinfo();
@@ -443,12 +699,28 @@ public class ColumnInfoTableBase extends Table {
     return col_displayname;
   }
 
+  public final Column getDescriptionColumn() {
+    return col_description;
+  }
+
   public final Column getDisplayorderColumn() {
     return col_displayorder;
   }
 
+  public final Column getUsereditableColumn() {
+    return col_usereditable;
+  }
+
+  public final Column getDisplayableColumn() {
+    return col_displayable;
+  }
+
   public final Column getPrimarydisplayColumn() {
     return col_primarydisplay;
+  }
+
+  public final Column getDisplayorderpriorityColumn() {
+    return col_displayorderpriority;
   }
 
   public final Column getTypecodeColumn() {
@@ -494,4 +766,12 @@ public class ColumnInfoTableBase extends Table {
   protected Data _newData() {
     return new ColumnInfoData();
   }
+  protected String defaultDisplayName() {
+    return "Column";
+  }
+
+  protected String defaultDescription() {
+    return "Configuration information about the columns in the database";
+  }
+
 }

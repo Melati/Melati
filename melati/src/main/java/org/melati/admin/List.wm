@@ -8,7 +8,13 @@
 
 <CENTER>
 
-<H1>Table $ml.rendered($table.DisplayName)</H1>
+<H1>Table: $ml.rendered($table.DisplayName)</H1>
+
+#if ($table.Description) {
+  <P>Purpose: $ml.rendered($table.Description)</P>
+}
+
+<A HREF=/notimpl>Add a new $ml.rendered($table.DisplayName)</A>
 
 <TABLE CELLSPACING=0>
   <TR>

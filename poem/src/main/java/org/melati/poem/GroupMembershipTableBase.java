@@ -64,6 +64,18 @@ public class GroupMembershipTableBase extends Table {
             ((GroupMembership)g).setUser((User)value);
           }
 
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "User";
+          }
+
+          protected String defaultDescription() {
+            return "The user who belongs to the group";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupMembership)g).getUserTroid();
@@ -93,6 +105,18 @@ public class GroupMembershipTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((GroupMembership)g).setGroup((Group)value);
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(1);
+          }
+
+          protected String defaultDisplayName() {
+            return "Group";
+          }
+
+          protected String defaultDescription() {
+            return "The group to which the user belongs";
           }
 
           public Object getIdent(Persistent g)
@@ -134,4 +158,12 @@ public class GroupMembershipTableBase extends Table {
   protected Data _newData() {
     return new GroupMembershipData();
   }
+  protected String defaultDisplayName() {
+    return "Group membership";
+  }
+
+  protected String defaultDescription() {
+    return "A record that a given user is a member of a given group";
+  }
+
 }

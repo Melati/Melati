@@ -24,7 +24,6 @@ public class Table {
   private TableInfo info = null;
 
   private Vector columns = new Vector();
-  private Vector normalColumns = null;
   private Hashtable columnsByName = new Hashtable();
 
   private Column troidColumn = null;
@@ -67,13 +66,23 @@ public class Table {
   }
 
   /**
-   * The descriptive name of the table.  POEM itself doesn't use this, but it's
-   * available to applications and Melati's generic admin system as a default
-   * label for the table and caption for its records.
+   * The human-readable name of the table.  POEM itself doesn't use this, but
+   * it's available to applications and Melati's generic admin system as a
+   * default label for the table and caption for its records.
    */
 
   public final String getDisplayName() {
     return info.getDisplayname();
+  }
+
+  /**
+   * A brief description of the table's function.  POEM itself doesn't use
+   * this, but it's available to applications and Melati's generic admin system
+   * as a default label for the table and caption for its records.
+   */
+
+  public final String getDescription() {
+    return info.getDescription();
   }
 
   /**
@@ -104,7 +113,7 @@ public class Table {
    */
 
   public final Enumeration columns() {
-    return normalColumns.elements();
+    return columns.elements();
   }
 
   final int getColumnsCount() {
@@ -1035,9 +1044,18 @@ public class Table {
     info = tableInfo;
   }
 
+  protected String defaultDisplayName() {
+    return StringUtils.capitalised(getName());
+  }
+
+  protected String defaultDescription() {
+    return null;
+  }
+
   void createTableInfo() throws PoemException {
     if (info == null) {
-      TableInfoData tid = new TableInfoData(getName());
+      TableInfoData tid = new TableInfoData(getName(), defaultDisplayName(),
+                                            defaultDescription());
       info = (TableInfo)getDatabase().getTableInfoTable().create(tid);
     }
   }
@@ -1145,13 +1163,6 @@ public class Table {
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
-    }
-
-    normalColumns = new Vector();
-    for (int c = 0; c < columns.size(); ++c) {
-      Column column = (Column)columns.elementAt(c);
-      if (column.isNormal())
-        normalColumns.addElement(column);
     }
   }
 }

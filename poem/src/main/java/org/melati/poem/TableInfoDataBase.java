@@ -6,6 +6,7 @@ public class TableInfoDataBase extends Data {
   Integer id;
   String name;
   String displayname;
+  String description;
   Integer displayorder;
   Integer defaultcanread;
   Integer defaultcanwrite;

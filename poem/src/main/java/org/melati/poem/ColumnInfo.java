@@ -5,7 +5,7 @@ public class ColumnInfo extends ColumnInfoBase {
 
   public void setName(String name) {
     String current = getName();
-    if (current != null && current != name)
+    if (current != null && !current.equals(name))
       throw new ColumnRenamePoemException(name);
     super.setName(name);
   }

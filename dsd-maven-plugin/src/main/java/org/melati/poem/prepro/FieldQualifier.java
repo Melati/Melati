@@ -26,6 +26,16 @@ public abstract class FieldQualifier {
       it = new SizeFieldQualifier(tokens);
     else if (kind.equals("deleted"))
       it = new DeletedFieldQualifier(tokens);
+    else if (kind.equals("primarydisplay"))
+      it = new PrimaryDisplayFieldQualifier(tokens);
+    else if (kind.equals("displayorderpriority"))
+      it = new DisplayOrderPriorityFieldQualifier(tokens);
+    else if (kind.equals("uneditable"))
+      it = new UneditableFieldQualifier(tokens);
+    else if (kind.equals("displayname"))
+      it = new DisplayNameFieldQualifier(tokens);
+    else if (kind.equals("description"))
+      it = new DescriptionFieldQualifier(tokens);
     else
       throw new ParsingDSDException("<field qualifier>", tokens);
     return it;

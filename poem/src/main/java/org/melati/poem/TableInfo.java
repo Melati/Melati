@@ -5,7 +5,7 @@ public class TableInfo extends TableInfoBase {
 
   public void setName(String name) {
     String current = getName();
-    if (current != null && current != name)
+    if (current != null && !current.equals(name))
       throw new TableRenamePoemException(name);
     super.setName(name);
   }

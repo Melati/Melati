@@ -64,6 +64,18 @@ public class GroupCapabilityTableBase extends Table {
             ((GroupCapability)g).setGroup((Group)value);
           }
 
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(0);
+          }
+
+          protected String defaultDisplayName() {
+            return "Group";
+          }
+
+          protected String defaultDescription() {
+            return "The user-group which has the capability";
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getGroupTroid();
@@ -93,6 +105,10 @@ public class GroupCapabilityTableBase extends Table {
           public void setValue(Persistent g, Object value)
               throws AccessPoemException, ValidationPoemException {
             ((GroupCapability)g).setCapability((Capability)value);
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(1);
           }
 
           public Object getIdent(Persistent g)
@@ -134,4 +150,12 @@ public class GroupCapabilityTableBase extends Table {
   protected Data _newData() {
     return new GroupCapabilityData();
   }
+  protected String defaultDisplayName() {
+    return "Group capability";
+  }
+
+  protected String defaultDescription() {
+    return "A record that users belonging to a given group possess a given capability";
+  }
+
 }

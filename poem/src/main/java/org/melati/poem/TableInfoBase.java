@@ -73,6 +73,21 @@ public class TableInfoBase extends Persistent {
     return getTableInfoTable().getDisplaynameColumn().asField(this);
   }
 
+  public String getDescription()
+      throws AccessPoemException {
+    return dataForReading().description;
+  }
+
+  public void setDescription(String value)
+      throws AccessPoemException, ValidationPoemException {
+    getTableInfoTable().getDescriptionColumn().getType().assertValidValue(value);
+    dataForWriting().description = value;
+  }
+
+  public final Field getDescriptionField() throws AccessPoemException {
+    return getTableInfoTable().getDescriptionColumn().asField(this);
+  }
+
   public Integer getDisplayorder()
       throws AccessPoemException {
     return dataForReading().displayorder;

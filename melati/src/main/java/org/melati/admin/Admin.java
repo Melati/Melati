@@ -26,7 +26,9 @@ class MethodRef {
 
       switch (parts.length - 1) {
         case 4:
-          troid = new Integer(parts[3]);
+          troid =
+              parts[3].equals("new") ? // see Add.wm
+                  new Integer(-1) : new Integer(parts[3]);
         case 3:
           table = parts[2];
         default:
@@ -79,23 +81,41 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "Edit.wm");
   }
 
-  protected Template updateTemplate(WebContext context, MethodRef ref)
+  protected Template addTemplate(WebContext context, MethodRef ref)
       throws ResourceUnavailableException, PoemException {
-    Persistent object = objectFromPathInfo(ref);
-    HttpServletRequest request = context.getRequest();
+    return adminTemplate(context, "Add.wm");
+  }
 
+  private void copyFields(HttpServletRequest request, Persistent object)
+      throws PoemException {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String value = request.getParameter("field-" + column.getName());
       if (value != null)
         if (value.equals(""))
-          column.setIdent(object, null);
+          if (column.getType().isNullable())
+            column.setIdent(object, null);
+          else
+            column.setIdentString(object, "");
         else
           column.setIdentString(object, value);
-      else
-        // FIXME gross hack
-        column.setIdent(object, Boolean.FALSE);
     }
+  }
+
+  protected Template updateTemplate(WebContext context, MethodRef ref)
+      throws ResourceUnavailableException, PoemException {
+    final HttpServletRequest request = context.getRequest();
+
+    if (ref.troid.intValue() == -1)
+      tableFromPathInfo(ref).create(
+          new Initialiser() {
+            public void init(Persistent object)
+                throws AccessPoemException, ValidationPoemException {
+              copyFields(request, object);
+            }
+          });
+    else
+      copyFields(request, objectFromPathInfo(ref));
 
     return adminTemplate(context, "Update.wm");
   }
@@ -149,6 +169,8 @@ public class Admin extends MelatiServlet {
       else if (ref.table != null) {
         if (ref.method.equals("View"))
           return tableListTemplate(context, ref);
+        else if (ref.method.equals("Add"))
+          return addTemplate(context, ref);
       }
       else {
         if (ref.method.equals("View"))

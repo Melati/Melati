@@ -73,12 +73,16 @@ final class CachedVersionedRow extends AbstractVersionedObject
     return troid;
   }
 
-  public void setVersion(Session session, Version data) {
+  void versionKnownToBe(Session session, Version data) {
     super.setVersion(session, data);
-    if (data != nonexistent)
-      ((Data)data).dirty = true;
     table.notifyTouched((PoemSession)session, troid,
                         data == nonexistent ? null : (Data)data);
+  }
+
+  public void setVersion(Session session, Version data) {
+    versionKnownToBe(session, data);
+    if (data != nonexistent)
+      ((Data)data).dirty = true;
   }
 
   protected boolean upToDate(Session session, Version data) {

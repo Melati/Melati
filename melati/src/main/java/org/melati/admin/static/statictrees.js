@@ -111,19 +111,19 @@ var theTree = null;
 // displayFrame      - the (javascript object) frame to write the tree to
 // controlFrameName  - the (string) name of the frame in which this
 //                     script is, _relative to the displayFrame_
-var globalImageBaseRef = null;
 
 function StaticTree(displayFrame, controlFrameName,
                     roots, 
                     selectNodes,
                     selectLeaves,
-                    imageBaseRef,
+                    backgroundColour,
+                    verticalLinkImage,
+                    spacerImage,
                     openedTImage, openedLImage,
                     closedTImage, closedLImage,
                     leafTImage, leafLImage,
                     openedFolderImage, closedFolderImage, leafImage) {
 
- if (globalImageBaseRef == null) globalImageBaseRef = imageBaseRef;
   // *******************
   // StaticTree members
   // *******************
@@ -133,6 +133,8 @@ function StaticTree(displayFrame, controlFrameName,
   this.controlName = controlFrameName;
   this.selectNodes = selectNodes;
   this.selectLeaves = selectLeaves;
+  this.backgroundColour = backgroundColour;
+  this.spacerImage = spacerImage;  // needed in nodes and in tree
 
   theTree = this;
 
@@ -143,6 +145,8 @@ function StaticTree(displayFrame, controlFrameName,
   TreeNode.prototype.isOpen = false;
   TreeNode.prototype.chosen = false;
   TreeNode.prototype.selected = false;
+  TreeNode.prototype.spacerImage = spacerImage;
+  TreeNode.prototype.verticalLinkImage = verticalLinkImage;
   TreeNode.prototype.openedTImage = openedTImage;
   TreeNode.prototype.openedLImage = openedLImage;
   TreeNode.prototype.closedTImage = closedTImage;
@@ -180,10 +184,10 @@ function StaticTree(displayFrame, controlFrameName,
     for(var i=0; i<aboves.length; i++)
     {
         if (aboves[i] == true) {
-           str += "<IMG align='absmiddle' SRC='" + globalImageBaseRef + "/vertline.gif' border='0' HEIGHT='22' WIDTH='16'>";
+           str += "<IMG align='absmiddle' SRC='" + this.verticalLinkimage + "' border='0' HEIGHT='22' WIDTH='16'>";
         }
         else {
-           str += "<IMG align='absmiddle' SRC='" + globalImageBaseRef + "/spacer.gif' border='0' HEIGHT='22' WIDTH='16'>";
+           str += "<IMG align='absmiddle' SRC='" + this.spacerImage + "' border='0' HEIGHT='22' WIDTH='16'>";
         }
     }
     
@@ -266,7 +270,9 @@ StaticTree.prototype.display = function () {
   }
 
   var doc = this.frame.document.open();
-  doc.write("<html><head><STYLE>FONT {font-family:verdana; font-size:10px;}\n</STYLE></head><body bgcolor=#ffffff><form>\n");
+  doc.write("<html><head>");
+  doc.write("<STYLE>FONT {font-family:verdana; font-size:10px;}\n</STYLE>");
+  doc.write("</head><body bgcolor='#" + this.backgroundColour + "'><form>\n");
 
   for(i=0; i<this.roots.length; i++) {
 
@@ -274,7 +280,7 @@ StaticTree.prototype.display = function () {
    }
 // Appended by ColinR: scrollSpacer is added for browsers which do not allow JavaScript 
 // to scroll the window beyond the document length
-  doc.write("<IMG src=" + globalImageBaseRef + "/spacer.gif height=100% width=1 name=scrollSpacer border=0></form></body></html>\n");
+  doc.write("<IMG src='" + this.spacerImage + "' height=100% width=1 name=scrollSpacer border=0></form></body></html>\n");
   doc.close();
     
 }

@@ -102,7 +102,11 @@ public abstract class CachedQuery {
             rows.addElement(extract(rs));
         }
         finally {
-          try { rs.close(); } catch (Exception e) {}
+          try { 
+                rs.close(); 
+              } catch (Exception e) {
+                ; // Report the real problem above
+              }
         }
       }
       catch (SQLException e) {

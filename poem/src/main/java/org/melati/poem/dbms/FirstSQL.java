@@ -92,7 +92,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 public class FirstSQL extends AnsiStandard {
 
-  static public java.io.PrintStream logStream= System.err;
+  public static java.io.PrintStream logStream = System.err;
 
   public FirstSQL() {
     setDriverClassName("COM.FirstSQL.Dbcp.DbcpDriver");  

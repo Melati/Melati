@@ -91,7 +91,7 @@ public class CachedSelection extends CachedQuery {
     return statements;
   }
   
-  final protected Object extract(ResultSet rs) throws SQLException {
+  protected final Object extract(ResultSet rs) throws SQLException {
     return new Integer(rs.getInt(1));
   }
 

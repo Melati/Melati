@@ -68,10 +68,10 @@ public class MultipartDataDecoder {
   FormDataAdaptorFactory factory;
   Hashtable fields = new Hashtable();
 
-  private final static int FIELD_START = 0;
-  private final static int IN_FIELD_HEADER = 1;
-  private final static int IN_FIELD_DATA = 2;
-  private final static int STOP = 3;
+  private static final int FIELD_START = 0;
+  private static final int IN_FIELD_HEADER = 1;
+  private static final int IN_FIELD_DATA = 2;
+  private static final int STOP = 3;
 
   private int state = FIELD_START;
 

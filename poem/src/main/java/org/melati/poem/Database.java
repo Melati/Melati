@@ -75,7 +75,7 @@ import org.melati.poem.dbms.DbmsFactory;
  * @see PoemDatabase 
  */
 
-abstract public class Database implements TransactionPool {
+public abstract class Database implements TransactionPool {
 
   final Database _this = this;
 

@@ -63,12 +63,12 @@ public class SimpleDateAdaptor implements TempletAdaptor {
 
   public static final SimpleDateAdaptor it = new SimpleDateAdaptor();
 
-  static private SimpleDateFormat dateFormatter1 = 
+  private static SimpleDateFormat dateFormatter1 = 
       new SimpleDateFormat("dd/MM/yyyy");
 
   // allow other forms of date - this one yyyyMMdd
 
-  static private SimpleDateFormat dateFormatter2 =
+  private static SimpleDateFormat dateFormatter2 =
       new SimpleDateFormat("yyyyMMdd");
 
   public Object rawFrom(TemplateContext context, String fieldName) {

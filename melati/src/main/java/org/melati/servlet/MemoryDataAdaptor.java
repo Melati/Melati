@@ -118,7 +118,9 @@ public class MemoryDataAdaptor implements FormDataAdaptor {
         out.close();
         out = null;
       }
-      catch (Exception e) {}
+      catch (Exception e) {
+        ;// Thrown above
+      }
     }
   }
 }

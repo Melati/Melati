@@ -58,7 +58,7 @@ import java.net.URL;
 
 public class IoUtils {
 
-  // not sure this is really optimal ...
+  // not sure this is really optimal 
 
   public static byte[] slurp(InputStream i, int estimate, int limit)
       throws IOException {
@@ -87,7 +87,9 @@ public class IoUtils {
       }
     }
     finally {
-      try { i.close(); } catch (Exception e) {}
+      try { i.close(); } catch (Exception e) {
+         ; // Ignore
+        }
     }
   }
 
@@ -135,7 +137,9 @@ public class IoUtils {
       }
     }
     finally {
-      try { i.close(); } catch (Exception e) {}
+      try { i.close(); } catch (Exception e) {
+          ;//Ignore
+        }
     }
   }
 
@@ -206,11 +210,15 @@ public class IoUtils {
         copy(i, buf, o);
       }
       finally {
-        try { o.close(); } catch (Exception e) {}
+        try { o.close(); } catch (Exception e) {
+            ;//Ignore
+          }
       }
     }
     finally {
-      try { i.close(); } catch (Exception e) {}
+      try { i.close(); } catch (Exception e) {
+          ;//Ignore
+        }
     }
   }
 }

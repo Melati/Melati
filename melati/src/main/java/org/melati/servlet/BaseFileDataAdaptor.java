@@ -63,7 +63,7 @@ import org.melati.util.DelimitedBufferedInputStream;
  * We store the data uploaded from a multipart form by saving it to
  * a file on disk and, optionally, give it an associated URL.
  */
-abstract public class BaseFileDataAdaptor implements FormDataAdaptor {
+public abstract class BaseFileDataAdaptor implements FormDataAdaptor {
   /** Size for byte buffers */
   protected int BUFSIZE = 2048;
 
@@ -79,12 +79,12 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor {
   /**
    * @return The file in which to save the data
    */
-  abstract protected File calculateLocalFile();
+  protected abstract File calculateLocalFile();
 
   /**
    * @return A URL to the saved file, null if not appropriate
    */
-  abstract protected String calculateURL();
+  protected abstract String calculateURL();
 
 
   /**
@@ -121,7 +121,9 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor {
           out.close();
           out = null;
         }
-      } catch (Exception e) {}
+      } catch (Exception e) {
+        ;//Cause already thrown
+      }
     }
   }
 
@@ -181,7 +183,9 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor {
           out.close();
           out = null;
         }
-      } catch (Exception e) {}
+      } catch (Exception e) {
+        ; //Cause already thrown
+      }
     }
   }
 

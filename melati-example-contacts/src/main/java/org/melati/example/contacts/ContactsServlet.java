@@ -2,7 +2,7 @@ package org.melati.example.contacts;
 
 import org.melati.servlet.TemplateServlet;
 
-abstract public class ContactsServlet extends TemplateServlet {
+public abstract class ContactsServlet extends TemplateServlet {
 
   public String getSysAdminName () {
     return "Melati Webmaster";

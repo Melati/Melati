@@ -45,8 +45,8 @@
 
 package org.melati.util;
 
- /*
-  * just allows us to slow things down
+ /**
+  * Allows us to slow things down.
   */
 public class Waiter {
 

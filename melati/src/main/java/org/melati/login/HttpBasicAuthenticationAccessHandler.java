@@ -200,9 +200,10 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         firstWhereEq(auth.username);
       }
       catch (NoSuchRowPoemException e) {
+        ; // user will still be null
       }
       catch (AccessPoemException e) {
-        // paranoia
+        ; // paranoia
       }
       else
         user = sessionUser;

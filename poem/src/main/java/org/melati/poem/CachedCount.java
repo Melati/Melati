@@ -60,7 +60,7 @@ public class CachedCount extends CachedQuery {
     this(table, query, null);
   }
 
-  final protected Object extract(ResultSet rs) throws SQLException {
+  protected final Object extract(ResultSet rs) throws SQLException {
     return new Integer(rs.getInt(1));
   }
 

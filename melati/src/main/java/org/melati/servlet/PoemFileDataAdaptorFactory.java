@@ -57,10 +57,10 @@ import org.melati.poem.Database;
  */
 public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  final static private Hashtable dirByDatabase = new Hashtable();
-  final static private Hashtable urlByDatabase = new Hashtable();
+  private static final Hashtable dirByDatabase = new Hashtable();
+  private static final Hashtable urlByDatabase = new Hashtable();
 
-  synchronized public FormDataAdaptor getIt(Melati melati,
+  public synchronized FormDataAdaptor getIt(Melati melati,
                                             MultipartFormField field) {
 
     Database db = melati.getDatabase();

@@ -83,7 +83,7 @@ public class Metaphone {
 
     static final int maxCodeLen = 4 ;
 
-    static public String pronunciation(String txt){
+    public static String pronunciation(String txt){
       int mtsz = 0  ;
       boolean hard = false ;
       if(( txt == null ) ||

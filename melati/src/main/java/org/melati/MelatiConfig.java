@@ -50,7 +50,6 @@ package org.melati;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -166,11 +165,14 @@ public class MelatiConfig {
                            "org.melati.template.NoTemplateEngine");
                            
       String languageTag = PropertiesUtils.getOrDefault(configuration,
-	  	    melatiLocaleProp , "en-gb");
-	  	
+                                                        melatiLocaleProp,
+                                                        "en-gb");
+
       melatiLocale = MelatiLocale.fromLanguageTag(languageTag);
       if (melatiLocale == null)
-          throw new Exception(languageTag + " is not a valid language tag for " + melatiLocaleProp); 
+          throw new Exception(languageTag + 
+                              " is not a valid language tag for " + 
+                              melatiLocaleProp); 
 
       javascriptLibraryURL = PropertiesUtils.getOrDie(
                                                   configuration,
@@ -284,8 +286,7 @@ public class MelatiConfig {
     MelatiLocale ml = null; 
 
     // loop through until we find a tag we like         
-    for (int i=0; i<tags.length; i++)
-    {
+    for (int i=0; i<tags.length; i++) {
       String tag = tags[i]; 
       
       // remove quality value if it exists.
@@ -303,8 +304,7 @@ public class MelatiConfig {
 
       // try creating a locale from this tag
       ml = MelatiLocale.fromLanguageTag(lowerTag);
-      if (ml != null)
-      {
+      if (ml != null) {
         localeHash.put(lowerTag, ml);
         return ml;        
       }

@@ -191,6 +191,7 @@ public abstract class Transaction {
         finish(false);
       }
       catch (Exception ignore) {
+        ; // Ignore 
       }
       throw e;
     }

@@ -135,7 +135,9 @@ public class ClassNameTempletLoader implements TempletLoader {
           templet = templet(templateEngine, markupLanguage,
                             purpose, clazz.getName());
           break;
-        } catch (NotFoundException e) {}
+        } catch (NotFoundException e) {
+          ; // try the next one up
+        }
         clazz = clazz.getSuperclass();
       }
       if (templet == null) throw new 

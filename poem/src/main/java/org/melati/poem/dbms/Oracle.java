@@ -55,19 +55,22 @@ import java.sql.SQLException;
 //import org.melati.poem.Table;
 
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.DoublePoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 //import org.melati.poem.BinaryPoemType;
 //import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
-//import org.melati.poem.LongPoemType;
+import org.melati.poem.LongPoemType;
 import org.melati.poem.StringPoemType;
 
 //import org.melati.poem.DuplicateKeySQLPoemException;
 //import org.melati.poem.NoSuchColumnPoemException;
 //import org.melati.poem.SeriousPoemException;
 //import org.melati.poem.SQLPoemException;
-
+import org.melati.util.StringUtils;
 
  /**
   * A Driver for Oracle (http://www.oracle.com/)
@@ -80,7 +83,7 @@ public class Oracle extends AnsiStandard {
    * datatype, so we use an arbetary value in a 
    * <code>VARCHAR</code>.
    */
-  public static int oracleTextHack = 2333;
+  public static int oracleTextHack = 266;
 
   public Oracle() {
     setDriverClassName("oracle.jdbc.OracleDriver");
@@ -112,6 +115,10 @@ public class Oracle extends AnsiStandard {
       return "?";
   }
 */
+  
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
        return "VARCHAR(" + oracleTextHack + ")";
@@ -127,11 +134,24 @@ public class Oracle extends AnsiStandard {
     return "NUMBER";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
+   */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("CHAR(1)");
     }
     return super.getSqlDefinition(sqlTypeName);
+  }
+
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
+   */
+  public String sqlBooleanValueOfRaw(Object raw) {
+    if (((Boolean)raw).booleanValue()) 
+      return "1";
+    else 
+      return "0";
   }
 
   /**
@@ -166,11 +186,15 @@ public class Oracle extends AnsiStandard {
       }
 
       protected boolean _canRepresent(SQLPoemType other) {
-        return (getSize() == oracleTextHack && ((StringPoemType)other).getSize() == -1)
+        return (getSize() == oracleTextHack && 
+                ((StringPoemType)other).getSize() == -1)
                ||
                (getSize() >= ((StringPoemType)other).getSize());
       }
 
+      /* (non-Javadoc)
+       * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
+       */
       public PoemType canRepresent(PoemType other) {
         System.err.println("Creating an OracleStringPoemType");
         return other instanceof StringPoemType &&
@@ -181,8 +205,40 @@ public class Oracle extends AnsiStandard {
 
     }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "BLOB";
+  }
+
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+   */
+  public String unreservedName(String name) {
+    if(name.equalsIgnoreCase("user")) name = "melati_" + name;
+    if(name.equalsIgnoreCase("group")) name = "melati_" + name;
+    return name.toUpperCase();
+  }
+
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
+   */
+  public String melatiName(String name) {
+    if(name.equalsIgnoreCase("melati_user")) name = "user";
+    if(name.equalsIgnoreCase("melati_group")) name = "group";
+    return name.toLowerCase();
+  }
+
+  /**
+   * It seems that you need 
+   * to use an unquoted string to get index info but a quoted name 
+   * to enable use of lowercase names. 
+   * 
+   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
+   **/
+  public String getJdbcMetadataName(String name) {
+    return name;
   }
 
   /**
@@ -206,7 +262,29 @@ public class Oracle extends AnsiStandard {
       }
   }
 */
-   
+
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+   */
+  public PoemType canRepresent(PoemType storage, PoemType type) {
+    // FIXME - I don't think this is right
+    if ((storage instanceof IntegerPoemType &&
+        type instanceof BigDecimalPoemType) && 
+        (storage.getNullable() == type.getNullable())){
+      return type;
+    }
+    if ((storage instanceof IntegerPoemType &&
+          type instanceof LongPoemType) && 
+          (storage.getNullable() == type.getNullable())) {
+        return type;
+    } else {
+      return storage.canRepresent(type);
+    }
+  }
+
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     System.err.println("Type:"+md.getString("TYPE_NAME"));
@@ -237,6 +315,13 @@ public class Oracle extends AnsiStandard {
       return 
           new OracleBooleanPoemType(md.getInt("NULLABLE")==
                                       DatabaseMetaData.columnNullable);
+    if(md.getString("TYPE_NAME").equals("BLOB"))
+      return new BinaryPoemType(
+                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
+                    md.getInt("COLUMN_SIZE"));
+    if(md.getString("TYPE_NAME").equals("FLOAT"))
+      return new DoublePoemType(
+                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     SQLPoemType t = 
       md.getString("TYPE_NAME").equals("NUMBER") ?
           new IntegerPoemType(md.getInt("NULLABLE") ==
@@ -245,38 +330,20 @@ public class Oracle extends AnsiStandard {
     System.err.println("SQLType:"+t);
     return t;
   }
-/*
-if(md.getString("TYPE_NAME").equals("char"))
-  return 
-      new StringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
-              md.getInt("COLUMN_SIZE"));
-if(md.getString("TYPE_NAME").equals("datetime"))
-  return 
-      new MSSQLDatePoemType(
-              md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
-return super.defaultPoemTypeOfColumnMetaData(md);
-}
-
-*/  
   
   /**
-   * Note that this is case sensitive.
+   * Note that this is NOT case insensitive.
+   * Term2 has its quotes stripped.
    * 
    * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    return term2 + " LIKE '%" + term1 + "%'";
-  }
-
-  public String unreservedName(String name) {
-    if(name.equalsIgnoreCase("user")) name = "melati_" + name;
-    return name;
-  }
-
-  public String melatiName(String name) {
-    if(name.equalsIgnoreCase("melati_user")) name = "user";
-    return name;
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    } 
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+    
+    return term1 + " LIKE " + term2;
   }
 
 

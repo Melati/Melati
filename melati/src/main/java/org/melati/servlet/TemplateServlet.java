@@ -58,6 +58,8 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.MultipartTemplateContext;
 import org.melati.template.TemplateEngineException;
+import org.melati.template.Template;
+import org.melati.template.NotFoundException;
 
 /**
  * Base class to use Melati with a Template Engine.
@@ -167,7 +169,7 @@ public abstract class TemplateServlet extends PoemServlet {
     // has it been trapped already, if so, we don't need to relog it here
     if (!(e instanceof TrappedException)) {
       try {
-      // log it
+        // log it
         e.printStackTrace(System.err);
         // and put it on the page
         MelatiWriter mw =  melati.getWriter();
@@ -175,17 +177,32 @@ public abstract class TemplateServlet extends PoemServlet {
         mw.reset();
         TemplateContext templateContext = melati.getTemplateContext();
         templateContext.put("melati",melati);
+        templateContext.put("exceptionObject", e);
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         templateContext.put("error",sw);
         templateContext.put("SysAdminName",getSysAdminName());
         templateContext.put("SysAdminEmail",getSysAdminEmail());
-        String templateName = addExtension("error");
-        templateEngine.expandTemplate(mw, 
-                                      templateName,
-                                      templateContext);
+
+        // FIXME we always search in the HTML directory for the error
+        // template: this should be configurable
+
+        Template errorTemplate;
+
+        try {
+          errorTemplate = melati.getHTMLMarkupLanguage().templet("error",
+                                                                 e.getClass());
+        }
+        catch (NotFoundException f) {
+          errorTemplate = templateEngine.template(
+              "error" + templateEngine.templateExtension());
+        }
+
+        templateEngine.expandTemplate(mw, errorTemplate, templateContext);
         melati.write();
       } catch (Exception f) {
+        System.err.println("Error finding/writing error template:");
+        f.printStackTrace();
         super.error(melati,e);
       }
     }

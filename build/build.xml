@@ -62,6 +62,17 @@
     <pathelement path="${build.lib}/org.apache.crimson.jar"/>
     <pathelement path="${build.lib}/org.apache.jasper.jar"/>
     <pathelement path="${build.lib}/org.mortbay.jetty.jar"/>
+    <pathelement path="${build.lib}/javax.servlet.jar"/>
+    <pathelement path="${build.lib}/pg73jdbc3.jar"/>
+    <pathelement path="${build.lib}/webmacro-1.1.jar"/>
+    <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
+    <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
+    <pathelement path="${build.lib}/odmg3.jar" />
+    <pathelement path="${build.lib}/junit.jar" />
+    <pathelement path="${build.lib}/hsqldb.jar"/>
+    <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
+    <pathelement path="${build.lib}/tools.jar"/>
+    <pathelement path="${built.lib}/melati.jar"/>
   </path>
   <path id="classpath.drivers">
     <pathelement path="${build.lib}/hsqldb.jar"/>
@@ -158,7 +169,6 @@ usage:
         <fileset dir="${src}">
           <patternset>
             <include name="**/*.properties.example"/>
-            <exclude name="**/dist/**"/>
           </patternset>
         </fileset>
       </copy>
@@ -167,17 +177,26 @@ usage:
     <!-- ================================================================= -->
     <!-- Creates .jar and the .zip files                                   -->
     <!-- ================================================================= -->
-    <!-- don't include properties and wm files in jar -->
     <target name="jar">
-        <mkdir dir="${built.lib}"/>
+      <mkdir dir="${built.lib}"/>
 
-        <!-- The **/*.dsd currently does nothing because of a resource -->
-        <!-- loader bug such that Poem.dsd must be a real file on the -->
-        <!-- classpath. -->
-        <jar jarfile="${built.lib}/${project}.jar"
-            basedir="${compiled.root}"
-            includes="**/*.class, **/*.dsd"
-        />
+      <!-- Do include the DSD and WM files in the jar -->
+      <copy todir="${compiled.root}">
+        <fileset dir="${src}">
+          <patternset>
+            <include name="**/*.wm"/>
+            <include name="**/*.dsd"/>
+          </patternset>
+        </fileset>
+      </copy>
+      <!-- The **/*.dsd currently does nothing because of a resource -->
+      <!-- loader bug such that Poem.dsd must be a real file on the -->
+      <!-- classpath. -->
+      <!-- Not sure the above is true anymore, as the DSD wasn't in the jar -->
+      <jar jarfile="${built.lib}/${project}.jar"
+           basedir="${compiled.root}"
+           includes="**/*.class, **/*.dsd, **/*.wm"
+       />
     </target>
     <target name="zip" depends="jar">
         <zip zipfile="${built.lib}/src.zip" 

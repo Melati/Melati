@@ -553,13 +553,18 @@ public class Table implements Selectable {
   }
 
   private void dbCreateIndex(Column column) {
-    if (column.getIndexed())
-      dbModifyStructure(
-          "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
-          database.quotedName(name + "_" + column.getName() + "_index") +
-          " ON " + quotedName() + " " +
-          "(" + column.quotedName() + 
-           dbms().getIndexLength(column) + ")");
+    if (column.getIndexed()) {
+      if (!dbms().canBeIndexed(column)) {
+        database.log(new UnindexableLogEvent(column));
+      } else {
+        dbModifyStructure(
+            "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
+            database.quotedName(name + "_" + column.getName() + "_index") +
+            " ON " + quotedName() + " " +
+            "(" + column.quotedName() + 
+             dbms().getIndexLength(column) + ")");
+      }
+    }
   }
 
   // 
@@ -1906,7 +1911,11 @@ public class Table implements Selectable {
   }
 
   /**
-   * FIXME to be documented.
+   * A mechanism for caching a selection of records.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @param orderByClause which field to order by or null
+   * @return the results
    */
 
   public CachedSelection cachedSelection(String whereClause,
@@ -1916,6 +1925,8 @@ public class Table implements Selectable {
     if (them == null) {
       CachedSelection newThem =
           new CachedSelection(this, whereClause, orderByClause);
+      // synchronise in case someone else has performed the query whilst 
+      // we were performing it.
       synchronized (cachedSelections) {
         them = (CachedSelection)cachedSelections.get(key);
         if (them == null)
@@ -2298,7 +2309,7 @@ public class Table implements Selectable {
       Hashtable dbHasIndexForColumn = new Hashtable();
       ResultSet index =
           getDatabase().getCommittedConnection().getMetaData().
-	  // null, "" means ignore catalog, 
+          // null, "" means ignore catalog, 
           // only retrieve those without a schema
           // null, null means ignore both
               getIndexInfo(null, null, dbms().
@@ -2316,7 +2327,7 @@ public class Table implements Selectable {
         }
         catch (NoSuchColumnPoemException e) {
           // will never happen
-	    throw new UnexpectedExceptionPoemException(e);
+          throw new UnexpectedExceptionPoemException(e);
         }
       }
 

@@ -342,7 +342,7 @@ public class MySQL extends AnsiStandard {
           if(indexNum==0)
             return new DuplicateKeySQLPoemException(column, sql, insert, e);
         } catch(NumberFormatException f) {
-         //FIXME
+          throw new RuntimeException("Number format exception parsing dbms error.");  
         }
         return new DuplicateKeySQLPoemException(table, sql, insert, e);
       }

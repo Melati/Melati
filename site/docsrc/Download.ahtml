@@ -51,9 +51,7 @@ $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout melati
 
 <p>
  You will need a CVS client to perform the above procedure.  
- Every Linux distribution comes with command line cvs, or you can get a
- variety of other interfaces from 
- <a href="http://www.sourcegear.com/CVS">www.sourcegear.com</a>.
+ Every Linux distribution comes with command line CVS.
 </p>
 <p>
 If you are using <a href="http://www.eclipse.org/">Eclipse</a> then

@@ -7,8 +7,13 @@ import java.sql.Timestamp;
 import org.melati.util.*;
 import org.melati.poem.*;
 
-public class BuyerType extends BuyerTypeBase {
-  public BuyerType() {}
+public class OrderTable extends OrderTableBase {
+
+  public OrderTable(
+      Database database, String name,
+      DefinitionSource definitionSource) throws PoemException {
+    super(database, name, definitionSource);
+  }
 
   // programmer's domain-specific code here
 }

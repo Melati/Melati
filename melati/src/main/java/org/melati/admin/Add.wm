@@ -76,15 +76,16 @@
       <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
 	  #if ($field.Type.Nullable) #begin
-	    <b>$ml.rendered($field.DisplayName)</B>
+	    <B>$ml.rendered($field.DisplayName)</B>
 	  #end #else #begin
 	    <B><font color=red>$ml.rendered($field.DisplayName)</font></B>
 	  #end
       </font><FONT SIZE="-2" FACE="Arial, Helvetica">
 	  #if ($field.Description) #begin
 	  ($ml.rendered($field.Description))
-      #end
-	</font></TD><TR></TR><TD>
+          #end
+	</font></TD>
+     </TR><TR><TD>
 	  <FONT SIZE="-1" FACE="Arial, Helvetica">
 	  $ml.input($field)
 	  </FONT>

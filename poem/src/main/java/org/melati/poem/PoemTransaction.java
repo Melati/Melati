@@ -45,9 +45,9 @@
 
 package org.melati.poem;
 
-import java.sql.*;
-import java.util.*;
-import org.melati.util.*;
+import java.sql.SQLException;
+import java.sql.Connection;
+import org.melati.util.Transaction;
 
 public class PoemTransaction extends Transaction {
   private Database database;
@@ -105,3 +105,5 @@ public class PoemTransaction extends Transaction {
     }
   }
 }
+
+

@@ -49,6 +49,11 @@
 package org.melati.poem.dbms;
 
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.DatabaseMetaData;
+
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.StringPoemType;
 
 /**
  * A Driver for the Microsoft SQL server.
@@ -61,7 +66,9 @@ public class SQLServer extends AnsiStandard {
     //setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); //does not work
     //setDriverClassName("com.ashna.jturbo.driver.Driver"); //works
     //setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
-    setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); //works
+    // does not return indices without schema name
+    //setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
+    setDriverClassName("com.inet.tds.TdsDriver"); 
     //FreeTDS driver now have many unimplemented features and => does not work.
   }
 
@@ -93,6 +100,51 @@ public class SQLServer extends AnsiStandard {
     return super.getStringSqlDefinition(size);
   }
 
+
+ /**
+  * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
+  */ 
+  public static class MSSQLStringPoemType extends StringPoemType {
+
+    public MSSQLStringPoemType(boolean nullable, int size) {
+      super(nullable, size);
+    }
+
+    //_assertValidRow(Object) is defined OK in StringPoemType
+
+    //MSSQL returns metadata info size 2147483647 for TEXT type
+    protected boolean _canRepresent(SQLPoemType other) {
+      return
+        other instanceof StringPoemType &&
+              (getSize() < 0 || getSize() == 2147483647 ||
+               getSize() >= ((StringPoemType)other).getSize() );
+    }
+
+  }
+
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+      throws SQLException {
+
+    if( md.getString("TYPE_NAME").equals("text"))
+      return 
+          new MSSQLStringPoemType(md.getInt("NULLABLE")==
+                                      DatabaseMetaData.columnNullable, 
+                                  md.getInt("COLUMN_SIZE"));
+      else
+        return super.defaultPoemTypeOfColumnMetaData(md);
+  }
+
+ /**  
+  * Ignore <TT>dtproperties</TT> as it is a 'System' table 
+  * used to store Entity Relationship 
+  * diagrams which has  a jdbc type of TABLE
+  * when it should probably have a jdbc type of 'SYSTEM TABLE'
+  */
+  public String melatiName(String name) {
+    if(name == null) return null;
+    if(name.equalsIgnoreCase("dtproperties")) return null;
+    return name;
+  }
 }
 
 

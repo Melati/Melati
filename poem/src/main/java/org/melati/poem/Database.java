@@ -367,7 +367,7 @@ abstract public class Database implements TransactionPool {
    */
 
   public final int transactionsMax() {
-    return 2;
+    return 3;
   }
 
   // 
@@ -688,6 +688,8 @@ abstract public class Database implements TransactionPool {
    */
 
   public abstract GroupCapabilityTable getGroupCapabilityTable();
+
+  public abstract SettingTable getSettingTable();
 
   // 
   // ========================

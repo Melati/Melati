@@ -16,7 +16,7 @@
 
 <HTML>
 <head>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </head>
 <frameset border=0 frameborder=0 framespacing=0 rows=100%,*>
  <frame name=treedisplay src="$admin.StaticURL/blank.html" scrolling=yes>

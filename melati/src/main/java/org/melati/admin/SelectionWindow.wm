@@ -49,7 +49,7 @@
 <html>
 <head>
 <title>Select a $ml.rendered($table.DisplayName)</title>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </head>
 
   <frameset frameborder="0" framespacing="0" border="0" rows="45,*">

@@ -48,13 +48,13 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
- <meta name="CVS Id" content="$Id$">
-</HEAD>
+ <meta name="CVS Id" content="\$Id$">
 <script>
   function reloadframes() {
     top.location.href="Main";
   }
 </script>
+</HEAD>
 <BODY bgcolor="#cccccc" onLoad="reloadframes()">
 <br><br><br><br>
 <h3 align=center><FONT FACE="Arial, Helvetica">Done</font></h3>

@@ -49,7 +49,7 @@
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </HEAD>
 
 <BODY>

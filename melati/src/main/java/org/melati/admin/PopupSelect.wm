@@ -50,7 +50,7 @@
 <HTML>
 <title>Search $ml.rendered($table.DisplayName) Table</title>
 <HEAD>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </HEAD>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">

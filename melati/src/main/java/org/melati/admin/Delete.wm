@@ -48,8 +48,7 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
- <meta name="CVS Id" content="$Id$">
-</HEAD>
+ <meta name="CVS Id" content="\$Id$">
 <script>
 function reloadframes() {
   #if ($Form.returnTarget) #begin
@@ -59,7 +58,8 @@ function reloadframes() {
 }
 </script>
 ## FIXME - why no onload?
-<BODY BGCOLOR=white>
+</HEAD>
+<BODY BGCOLOR="white">
 
 Done
 

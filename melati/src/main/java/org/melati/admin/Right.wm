@@ -50,7 +50,7 @@
 <html>
 <head>
 <title>Website Admin Suite</title>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </head>
 #set $returns = ""
 #if ($Form.returnTarget) #begin

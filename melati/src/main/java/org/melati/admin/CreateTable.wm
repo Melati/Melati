@@ -48,14 +48,12 @@
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </HEAD>
-
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 <BODY bgcolor="#cccccc">
 
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-
-<FORM METHOD=post ACTION=Create_doit>
+<FORM METHOD="post" ACTION="Create_doit">
 
 <H1>Create a new table</H1>
 

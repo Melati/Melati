@@ -48,7 +48,7 @@
 <html>
 <head>
 <title>File has been uploaded</title>
- <meta name="CVS Id" content="$Id$">
+ <meta name="CVS Id" content="\$Id$">
 </head>
 <body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')">
 Your file has been saved at <a href='$url'>$url</a>.

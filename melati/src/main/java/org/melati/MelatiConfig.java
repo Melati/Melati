@@ -92,6 +92,8 @@ public class MelatiConfig {
   private String staticURL = null;
   private String templatePath = null;
   private String defaultPropertiesName = "org.melati.MelatiServlet";
+  /** The properties file name in use */
+  public String propertiesName;
 
  /**
   * Allows creation of a <code>MelatiConfig</code> with default config params.
@@ -114,6 +116,7 @@ public class MelatiConfig {
   }
   
   void init(String propertiesName) throws MelatiException {
+    this.propertiesName = propertiesName;
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
     String fdaFactoryProp = pref + "formDataAdaptorFactory";
@@ -126,7 +129,7 @@ public class MelatiConfig {
     
     try {
       configuration =
-      PropertiesUtils.fromResource(getClass(), pref + "properties");
+        PropertiesUtils.fromResource(getClass(), pref + "properties");
     }
     catch (FileNotFoundException e) {
       // i think that if we don't have a properties file, it is pretty fatal

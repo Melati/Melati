@@ -43,15 +43,16 @@
 </H3>
 
 <P>
-  See also the <A HREF=../../qa/javadoc/packages.html>javadoc documentation</A>
+  See also the <A HREF=../../qa/javadoc/index.html>javadoc documentation</A>
   for Melati's classes.  The key classes which have been (roughly) documented
   to date are
 </P>
 
 <UL>
-  <LI> <A HREF=../../qa/javadoc/org.melati.poem.Database.html><TT>Database</TT></A>
-  <LI> <A HREF=../../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A>
-  <LI> <A HREF=../../qa/javadoc/org.melati.poem.Persistent.html><TT>Persistent</TT></A>
+  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
+  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>
+  <LI> <A HREF=../../qa/javadoc/org/melati/poem/Persistent.html><TT>Persistent</TT></A>
+  <LI> <A HREF=../../qa/javadoc/org/melati/poem/TailoredQuery.html><TT>TailoredQuery</TT></A>
 </UL>
 
 <P>
@@ -75,7 +76,7 @@
 <P>
   The following fragment (see <A HREF=Trivial.java><TT>Trivial.java</TT></A>)
   shows the general pattern in which POEM is used.  First, the
-  <A HREF=../../qa/javadoc/org.melati.poem.Database.html><TT>Database</TT></A>
+  <A HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
   object is created and connected to the RDBMS using the standard JDBC
   &quot;URL&quot;, username, and password:
 </P>
@@ -109,20 +110,20 @@ database.inSession(
 <P>
   <I>Why the <TT>new</TT> <TT>PoemTask</TT> business?</I> Every access to a
   Melati database must be made from inside a
-  <A HREF=../../qa/javadoc/org.melati.poem.PoemTask.html><TT>PoemTask</TT></A>
+  <A HREF=../../qa/javadoc/org/melati/poem/PoemTask.html><TT>PoemTask</TT></A>
   passed to the database's
-  <A HREF=../../qa/javadoc/org.melati.poem.Database.html#inSession><TT>inSession</TT></A>
+  <A HREF=../../qa/javadoc/org/melati/poem/Database.html#inSession><TT>inSession</TT></A>
   method.  This is because everything done by the <TT>run()</TT> method you
   provide is carried out
 </P>
 
 <OL TYPE=a>
   <LI> with a specific set of access
-       <A HREF=../../qa/javadoc/org.melati.poem.Capability.html><TT>Capability</TT></A>s
+       <A HREF=../../qa/javadoc/org/melati/poem/Capability.html><TT>Capability</TT></A>s
        determined by your session's
-       <A HREF=../../qa/javadoc/org.melati.poem.AccessToken.html><TT>AccessToken</TT></A>---the
+       <A HREF=../../qa/javadoc/org/melati/poem/AccessToken.html><TT>AccessToken</TT></A>---the
        first argument to 
-       <A HREF=../../qa/javadoc/org.melati.poem.Database.html#inSession><TT>Database.inSession</TT></A>,
+       <A HREF=../../qa/javadoc/org/melati/poem/Database.html#inSession><TT>Database.inSession</TT></A>,
        and
   <LI> in the context of a single database transaction, which is implicitly
        committed at the end or rolled back if an exception is thrown.
@@ -130,17 +131,17 @@ database.inSession(
 
 <P>
   In this example, the access token used is
-  <A HREF=../../qa/javadoc/org.melati.poem.AccessToken.html#root><TT>root</TT></A>,
+  <A HREF=../../qa/javadoc/org/melati/poem/AccessToken.html#root><TT>root</TT></A>,
   which simply allows you to do anything; but most often the token will
   correspond to a particular
-  <A HREF=../../qa/javadoc/org.melati.poem.User.html><TT>User</TT></A>, and
+  <A HREF=../../qa/javadoc/org/melati/poem/User.html><TT>User</TT></A>, and
   Melati will make sure that your task cannot see/change any data to which the
   administrator has denied the user read/write access.  Furthermore, it will
   not see any changes to the database made by other tasks which may be running
   at the same time, unless it does an explicit
-  <A HREF=../../qa/javadoc/org.melati.poem.PoemThread.html#commit><TT>commit</TT></A>
+  <A HREF=../../qa/javadoc/org/melati/poem/PoemThread.html#commit><TT>commit</TT></A>
   or
-  <A HREF=../../qa/javadoc/org.melati.poem.PoemThread.html#commit><TT>rollback</TT></A>.
+  <A HREF=../../qa/javadoc/org/melati/poem/PoemThread.html#commit><TT>rollback</TT></A>.
   The upshot is that once you have set your task running, you do not
   have worry about or even mention permissions or transactions at all.
 </P>
@@ -148,7 +149,7 @@ database.inSession(
 <P>
   Of course, when POEM is used as part of Melati, sessions are started
   automatically (by
-  <A HREF=../../qa/javadoc/org.melati.MelatiServlet.html#service><TT>MelatiServlet.service</TT></A>)
+  <A HREF=../../qa/javadoc/org/melati/MelatiServlet.html#service><TT>MelatiServlet.service</TT></A>)
   with an appropriate access token, so Melati programmers never normally
   have to call <TT>inSession</TT>.
 </P>
@@ -241,10 +242,10 @@ table User {
 
 <P>
   Each <A
-  HREF=../../qa/javadoc/org.melati.poem.Database.html><TT>Database</TT></A>
+  HREF=../../qa/javadoc/org/melati/poem/Database.html><TT>Database</TT></A>
   object corresponds to a single database (<I>i.e.</I> collection of tables) in
   the DBMS.  Its function is to act as a container for <A
-  HREF=../../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A>s and as
+  HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>s and as
   the carrier of POEM's top-level APIs.
 </P>
 
@@ -268,7 +269,7 @@ table User {
 </H4>
 
 <P>
-  Each <A HREF=../../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A>
+  Each <A HREF=../../qa/javadoc/org/melati/poem/Table.html><TT>Table</TT></A>
   object represents a single table in the DBMS.  It acts as a container for the
   table's columns and provides methods for searching over and retrieval of the
   records in the table.
@@ -363,7 +364,7 @@ table User {
   database (including itself): its programmatic <TT>name</TT>, its
   <TT>displayname</TT> and <TT>displayorder</TT> (used by the Melati admin
   system), and the
-  <A HREF=../../qa/javadoc/org.melati.poem.Capability.html><TT>Capability</TT></A>s
+  <A HREF=../../qa/javadoc/org/melati/poem/Capability.html><TT>Capability</TT></A>s
   required for reading and writing its rows (where not overridden in the rows
   themselves, or in the application Java code---see the
   <A HREF=#accessControl>discussion</A> of POEM's access control mechanism).
@@ -374,7 +375,7 @@ table User {
   database (including its own).  Like <TT>tableinfo</TT>s, <TT>columninfo</TT>s
   define a programmatic and a display name and a display order; in addition,
   they carry fields which jointly define the column's
-  <A HREF=../../qa/javadoc/org.melati.poem.PoemType.html><TT>PoemType</TT></A>.
+  <A HREF=../../qa/javadoc/org/melati/poem/PoemType.html><TT>PoemType</TT></A>.
 </P>
 
 <P>
@@ -507,6 +508,9 @@ table User {
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.9  2000/03/25 16:03:40  williamc
+  <BR>Fix javadoc links for javadoc 1.2 and add reference to TailoredQuery
+  <BR>
   <BR>Revision 1.8  2000/03/18 10:34:11  williamc
   <BR>Start sketching in Database section
   <BR>

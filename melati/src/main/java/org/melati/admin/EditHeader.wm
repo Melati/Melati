@@ -52,7 +52,7 @@
 </HEAD>
 
 <BODY  bgcolor="#cccccc">
-<table cellpadding=0 cellspacing=0 width=100%><tr><td><FONT FACE="Arial, Helvetica" size=4>$table.DisplayName: <a href="JavaScript:void(0);" onClick="return(parent[1].location=('$admin.RightURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL');>$ml.rendered($object)</a></font></td>#set $references = $database.referencesTo($table)
+<table cellpadding=0 cellspacing=0 width=100%><tr><td><FONT FACE="Arial, Helvetica" size=4>$table.DisplayName: <a href="JavaScript:void(0);" onClick="return(parent[1].location=('$admin.RightURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL');">$ml.rendered($object)</a></font></td>#set $references = $database.referencesTo($table)
 #if ($references.hasMoreElements()) #begin
 <td align=right valign=bottom><p><FONT FACE="Arial, Helvetica" size=-1>for this record you can edit:<br>
 #foreach $column in $references #begin

@@ -19,6 +19,16 @@ org.melati.MelatiServlet.accessHandler=org.melati.login.HttpSessionAccessHandler
 # org.melati.MelatiServlet.accessHandler=org.melati.login.HttpBasicAuthenticationAccessHandler
 
 #
+# -------------------------------
+#  Which template engine to use?
+# -------------------------------
+#
+
+#org.melati.MelatiServlet.templateEngine=org.melati.template.NoTemplateEngine
+org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
+#org.melati.MelatiServlet.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
+
+#
 # --------------------------------------------
 #  Where to look for Melati's static content?
 # --------------------------------------------
@@ -27,16 +37,9 @@ org.melati.MelatiServlet.accessHandler=org.melati.login.HttpSessionAccessHandler
 # This should point, relative to your server's http root, to this directory.
 # e.g. ln -s /usr/local/melati/org/melati /usr/local/apache/htdocs/melati-static
 
-org.melati.MelatiServlet.staticURL=/melati-static
+org.melati.MelatiServlet.staticURL=/melati-static/templets/html
 
 # This should point, relative to your server's http root, to templets/html
 # (will be achieved by the ln -s suggested above)
 
 org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/template/webmacro/templets/html
-
-# This defines your TemplateEngine
-
-#org.melati.MelatiServlet.templateEngine=org.melati.template.NoTemplateEngine
-org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine
-#org.melati.MelatiServlet.templateEngine=org.melati.template.jtemplater.JTemplaterTemplateEngine
-

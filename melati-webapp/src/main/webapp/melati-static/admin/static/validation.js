@@ -96,25 +96,28 @@ function validate (form, allowSubmit) {
         }
 
         // Check that a mandatory field isn't empty
-        if (value == "") {
+        if (trim(value) == "") {
             if (mandatory == true)
                 display += "* "+heading+" must be filled in\n";
         }
         // Check if we match the pattern
-        else if (value.search(pattern) != -1) {
-          if (snippet) {
-              // If we have a code snippet 
-              // turn it into a function and call it on value
-              var func = new Function("value", "form", snippet);
-              func_result = func(value, form);
-              if (func_result)
-                display += "* "+heading+": "+func_result+"\n";
-          }
-        }
-        else {        // failed to match pattern
-          if (pattern)
-            display += "* "+heading+": The value '"+value+"' is not allowed\n";
-        }
+        else 
+          if (RegExp) {
+            if (value.search(pattern) != -1 ) {
+              if (snippet) {
+                // If we have a code snippet 
+                // turn it into a function and call it on value
+                var func = new Function("value", "form", snippet);
+                func_result = func(value, form);
+                if (func_result)
+                  display += "* "+heading+": "+func_result+"\n";
+              }
+            }
+            else {        // failed to match pattern
+              if (pattern)
+                display += "* "+heading+": The value '"+value+"' is not allowed\n";
+            }
+          } //else alert("No RegExp");
       }
     }       // end of loop through rules
     // Loop through our extras, evaluating each one
@@ -177,3 +180,17 @@ function add_timestamp(name, heading, mandatory) {
            "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 || RegExp.$5>59 )?'The value \"'+value+'\" is not allowed':'';"
           );
 }
+
+function trim(str) {
+  var whitespace = new String(" \t\n\r");
+  var s = new String(str);
+  if (whitespace.indexOf(s.charAt(s.length-1)) != -1) {
+    var i = s.length - 1;       // Get length of string
+    while (i >= 0 && whitespace.indexOf(s.charAt(i)) != -1)
+       i--;
+    s = s.substring(0, i+1);
+  }
+  return s;
+}
+
+

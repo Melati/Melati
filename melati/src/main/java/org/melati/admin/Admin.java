@@ -92,6 +92,11 @@ import org.melati.util.StringUtils;
 
 public class Admin extends TemplateServlet {
 
+  /**
+   * Creates a row for a table using field data in a template context.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   protected Persistent create(Table table, final TemplateContext context, 
                               final Melati melati) {
     return table.create(
@@ -218,6 +223,32 @@ public class Admin extends TemplateServlet {
     "SelectionRight");
   }
 
+  /**
+   * Modifies the context in preparation for serving a template to view a
+   * selection of rows.
+   * <p>
+   * The table and database are added to the context.
+   * <p>
+   * Any form fields in the context with names starting &quot;field_&quot;
+   * are assumed to hold values that must be matched in selected rows
+   * (if not null - or does that mean there is no such field? FIXME).
+   * These contribute to the where clause for SQL SELECT.
+   * <p>
+   * An encoding of the resulting where clause is added to the context.
+   * AND is replaced by an & separator.
+   * <p>
+   * There's some stuff that needs sorting out (FIXME) regarding ordering,
+   * presumably of selected rows. The resulting orderClause is added to
+   * the context.
+   * <p>
+   * A form field with name &quot;start&quot; is assumed to hold the number
+   * of the start row in the result set. The default is zero.
+   * The next 20 rows are selected and added as to the context as
+   * &quot;results&quot;.
+   *
+   * @return The modified context.
+   * @see #adminTemplate(TemplateContext, String)
+   */
   protected TemplateContext selection(TemplateContext context, Melati melati)
       throws FormParameterException {
     final Table table = melati.getTable();
@@ -248,7 +279,8 @@ public class Admin extends TemplateServlet {
     context.put("whereClause",
                 EnumUtils.concatenated("&", whereClause.elements()));
 
-    // sort out ordering (FIXME this is a bit out of control)
+    // sort out ordering (FIXME this is a bit out of control and is mostly
+    // duplicated in popup())
 
     PoemType searchColumnsType =
         new ReferencePoemType(database.getColumnInfoTable(), true) {
@@ -342,7 +374,8 @@ public class Admin extends TemplateServlet {
 
     context.put("criteria", EnumUtils.vectorOf(criterias));
 
-    // sort out ordering (FIXME this is a bit out of control)
+    // sort out ordering (FIXME this is a bit out of control and is mostly
+    // duplicated in popup())
 
     PoemType searchColumnsType =
         new ReferencePoemType(database.getColumnInfoTable(), true) {
@@ -531,6 +564,13 @@ public class Admin extends TemplateServlet {
     return adminTemplate(editingTemplate(context, melati), "TreeControl");
   }
 
+  /**
+   * Returns the Add template after placing the table and fields for
+   * the new row in the context using any field values already in
+   * the context.
+   * <p>
+   * (Please review this description and delete this line. JimW)
+   */
   protected String addTemplate(TemplateContext context, Melati melati)
       throws PoemException {
 
@@ -551,12 +591,30 @@ public class Admin extends TemplateServlet {
     return adminTemplate(context, "Add");
   }
 
+  /**
+   * Returns the Update template after modifying the current
+   * row according to field values in the context.
+   * <p>
+   * If successful the template will say so while reloading according
+   * to the returnTarget and returnURL values from the Form in context.
+   * <p>
+   * (Please review this description and delete this line. JimW)
+   */
   protected String updateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     MelatiUtil.extractFields(context, melati.getObject());
     return adminTemplate(context, "Update");
   }
 
+  /**
+   * Returns the Update template after creating a new row using field
+   * data in the context.
+   * <p>
+   * If successful the template will say so while reloading according
+   * to the returnTarget and returnURL values from the Form in context.
+   * <p>
+   * (Please review this description and delete this line. JimW)
+   */
   protected String addUpdateTemplate(TemplateContext context, Melati melati)
       throws PoemException {
     create(melati.getTable(), context, melati);

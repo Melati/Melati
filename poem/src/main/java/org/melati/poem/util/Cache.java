@@ -264,9 +264,10 @@ public final class Cache {
       n = nn;
     }
 
-    if (n == null)
-      theLRU = theMRU = null;
-    else
+    if (n == null) {
+      theLRU = null;
+      theMRU = null;
+    } else
       theLRU = n;
 
     assertInvariant();
@@ -379,7 +380,7 @@ public final class Cache {
   /**
    * A class which enables reporting upon the state of the <code>Cache</code>.
    */
-  public class Info {
+  public final class Info {
 
     private Info() {}
 

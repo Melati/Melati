@@ -45,9 +45,11 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
-import org.melati.util.*;
+import java.util.Vector;
+import java.io.StreamTokenizer;
+import java.io.Writer;
+import java.io.IOException;
+import org.melati.util.StringUtils;
 
 public abstract class FieldDef {
   protected final TableDef table;
@@ -166,16 +168,23 @@ public abstract class FieldDef {
                                    qualifiers);
   }
 
+ /**
+  * @param w Persistent Base
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n" +
             "    return " + name + ";\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "_unsafe(" + rawType + " cooked) {\n" +
+            "  public void set" + suffix + "_unsafe(" + rawType + 
+            " cooked) {\n" +
             "    " + name + " = cooked;\n" +
             "  }\n");
   }
 
+ /**
+  * @param w Persistent Base
+  */   
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public Field get" + suffix + "Field() " +
                   "throws AccessPoemException {\n" +
@@ -187,16 +196,25 @@ public abstract class FieldDef {
 
   public abstract void generateJavaDeclaration(Writer w) throws IOException;
 
+ /**
+  * @param w TableBase
+  */   
   public void generateColDecl(Writer w) throws IOException {
     w.write("Column col_" + name);
   }
 
+ /**
+  * @param w TableBase
+  */   
   public void generateColAccessor(Writer w) throws IOException {
     w.write("  public final Column get" + suffix + "Column() {\n" +
             "    return col_" + name + ";\n" +
             "  }\n");
   }
 
+ /**
+  * @param w TableBase
+  */   
   protected void generateColRawAccessors(Writer w)
       throws IOException {
     w.write(
@@ -213,11 +231,15 @@ public abstract class FieldDef {
       "          }\n");
   }
 
+ /**
+  * @param w TableBase
+  */   
   public void generateColDefinition(Writer w) throws IOException {
     w.write(
       "    defineColumn(col_" + name + " =\n" +
-      "        new Column(this, \"" + name + "\", " + poemTypeJava() + ", " +
-                    "DefinitionSource.dsd) { \n" +
+      "        new Column(this, \"" + name + "\",\n" + 
+      "                   " + poemTypeJava() + ",\n" +
+      "                   DefinitionSource.dsd) { \n" +
       "          public Object getCooked(Persistent g)\n" +
       "              throws AccessPoemException, PoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
@@ -254,13 +276,15 @@ public abstract class FieldDef {
 
     if (searchability != null)
       w.write("          protected Searchability defaultSearchability() {\n" +
-              "            return Searchability." + searchability.name + ";\n" +
+              "            return Searchability." + searchability.name + 
+              ";\n" +
               "          }\n" +
               "\n");
 
     if (displayOrderPriority != -1)
       w.write("          protected Integer defaultDisplayOrderPriority() {\n" +
-              "            return new Integer(" + displayOrderPriority + ");\n" +
+              "            return new Integer(" + displayOrderPriority + 
+              ");\n" +
               "          }\n" +
               "\n");
 

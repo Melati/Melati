@@ -45,17 +45,35 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.Writer;
+import java.io.IOException;
 
+/**
+ * A definition of an <tt>IntegrityFixPoemType</tt> from the DSD.
+ * An <tt>IntegrityFix</tt> is a metadata field used in the 
+ * <tt>ColumnInfo</tt> table.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class IntegrityFixFieldDef extends FieldDef {
 
   public IntegrityFixFieldDef(TableDef table, String name, int displayOrder,
-			      Vector qualifiers) throws IllegalityException {
+                              Vector qualifiers) throws IllegalityException {
     super(table, name, "StandardIntegrityFix", "Integer", displayOrder,
           qualifiers);
+    table.addImport("org.melati.poem.IntegrityFixPoemType", 
+                    "table");
+    table.addImport("org.melati.poem.StandardIntegrityFix", 
+                    "table");
+    table.addImport("org.melati.poem.StandardIntegrityFix", 
+                    "persistent");
   }
 
+ /**
+  * @param w The base table java file.
+  */   
   protected void generateColRawAccessors(Writer w) throws IOException {
     super.generateColRawAccessors(w);
 
@@ -73,17 +91,19 @@ public class IntegrityFixFieldDef extends FieldDef {
       "          }\n");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
-    // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
     w.write("\n" +
-	    "  public Integer get" + suffix + "Index()\n" +
+            "  public Integer get" + suffix + "Index()\n" +
             "      throws AccessPoemException {\n" +
-	    "    readLock();\n" +
+            "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
@@ -91,8 +111,8 @@ public class IntegrityFixFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
                      "getType().assertValidRaw(raw);\n" +
-	    "    writeLock();\n" +
-	    "    set" + suffix + "_unsafe(raw);\n" +
+            "    writeLock();\n" +
+            "    set" + suffix + "_unsafe(raw);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +
@@ -104,7 +124,8 @@ public class IntegrityFixFieldDef extends FieldDef {
             "\n" +
             "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "Index(cooked == null ? null : cooked.index);\n" +
+            "    set" + suffix + 
+            "Index(cooked == null ? null : cooked.index);\n" +
             "  }\n");
   }
 

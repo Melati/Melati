@@ -45,27 +45,34 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
+import java.util.Hashtable;
 
 
 public class TableNamingStore {
 
   Hashtable tablesByShortName = new Hashtable();
   Hashtable tablesByFQName = new Hashtable();
+    boolean debug = false;
 
-  public TableNamingInfo add(String packageName, String name, String superclass)
-                                                   throws HiddenTableException {
+  /**
+   * @param superclass not null if table extends another
+   */
+  public TableNamingInfo add(String packageName, String name, 
+                             String superclass)
+      throws HiddenTableException {
+
     TableNamingInfo info = new TableNamingInfo(packageName, name);
 
-    // superclass could be FQ (e.g. 'org.melati.poem.User') or not (e.g. 'User')
+    // superclass could be FQ (e.g. 'org.melati.poem.User') 
+    // or not (e.g. 'User')
     // We make sure it ends up FQ
     if (superclass != null) {
       if (superclass.indexOf('.') == -1) {
-        TableNamingInfo sup = (TableNamingInfo)tablesByShortName.get(superclass);
+        TableNamingInfo sup = (TableNamingInfo)tablesByShortName.
+                                                   get(superclass);
         if (sup != null) {
           superclass = sup.tableFQName;
-        }
-        else {
+        } else {
           superclass = packageName + "." + superclass;
         }
       }
@@ -73,8 +80,7 @@ public class TableNamingStore {
       TableNamingInfo sup = (TableNamingInfo)tablesByFQName.get(superclass);
       if (sup != null) {
         info.superclass = sup;
-      }
-      else {
+      } else {
         String pack = superclass.substring(0, superclass.lastIndexOf("."));
         String nam = superclass.substring(superclass.lastIndexOf(".")+1);
         info.superclass = add(pack, nam, null);
@@ -85,7 +91,8 @@ public class TableNamingStore {
     Object old = tablesByShortName.put(info.tableShortName, info);
     if (old != null) {
       if (old != info.superclass) {
-        throw new HiddenTableException(name, ((TableNamingInfo)old).tableFQName);
+        throw new HiddenTableException(name, 
+                                       ((TableNamingInfo)old).tableFQName);
       }
       ((TableNamingInfo)old).hidden = true;
       info.hidesOther = true;

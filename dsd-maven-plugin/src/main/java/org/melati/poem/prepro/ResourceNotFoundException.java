@@ -45,9 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
-
 public class ResourceNotFoundException extends Exception {
 
   public String resource, message;

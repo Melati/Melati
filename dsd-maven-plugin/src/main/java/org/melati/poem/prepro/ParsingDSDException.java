@@ -45,8 +45,7 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.io.StreamTokenizer;
 
 public class ParsingDSDException extends Exception {
 

@@ -45,13 +45,24 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
 
+/**
+ * A definition of a <tt>DatePoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class DateFieldDef extends AtomFieldDef {
 
   public DateFieldDef(TableDef table, String name, int displayOrder,
-		      Vector qualifiers) throws IllegalityException {
+                      Vector qualifiers) throws IllegalityException {
     super(table, name, "Date", displayOrder, qualifiers);
+    table.addImport("org.melati.poem.DatePoemType", 
+                    "table");
+    table.addImport("java.sql.Date", 
+                    "table");
+    table.addImport("java.sql.Date", 
+                    "persistent");
   }
 }

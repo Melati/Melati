@@ -45,14 +45,22 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
+import java.util.Vector;
 
+/**
+ * A definition of a <tt>PasswordPoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class PasswordFieldDef extends StringFieldDef {
 
   public PasswordFieldDef(TableDef table, String name, int displayOrder,
-			  Vector qualifiers)
+                          Vector qualifiers)
       throws IllegalityException {
     super(table, name, displayOrder, qualifiers);
+    table.addImport("org.melati.poem.PasswordPoemType", 
+                    "table");
   }
 
   public String poemTypeJava() {

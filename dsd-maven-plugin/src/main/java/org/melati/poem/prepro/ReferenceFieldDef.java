@@ -45,10 +45,17 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.Writer;
+import java.io.IOException;
 import org.melati.poem.StandardIntegrityFix;
 
+/**
+ * A definition of a <tt>ReferencePoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class ReferenceFieldDef extends FieldDef {
 
   StandardIntegrityFix integrityfix;
@@ -57,8 +64,25 @@ public class ReferenceFieldDef extends FieldDef {
                            String type, Vector qualifiers)
       throws IllegalityException {
     super(table, name, type, "Integer", displayOrder, qualifiers);
+    table.addImport("org.melati.poem.ReferencePoemType", 
+                      "table");
+    table.addImport("org.melati.poem.NoSuchRowPoemException", 
+                      "persistent");
+    if (integrityfix != null) {
+      table.addImport("org.melati.poem.StandardIntegrityFix", 
+                        "table");
+    }
+    // Note these do not have a '.' in and are 
+    // looked up once all tables have been processed
+    // to enable forward reference within the DSD
+    table.addImport(type,"table");
+    table.addImport(type,"persistent");
+        
   }
 
+ /**
+  * @param w The base table java file.
+  */   
   protected void generateColRawAccessors(Writer w) throws IOException {
     super.generateColRawAccessors(w);
 
@@ -75,12 +99,14 @@ public class ReferenceFieldDef extends FieldDef {
                        rawType + ")raw);\n" +
       "          }\n");
 
-    if (integrityfix != null)
+    if (integrityfix != null) {
       w.write(
         "\n" +
         "          public StandardIntegrityFix defaultIntegrityFix() {\n" +
-        "            return StandardIntegrityFix." + integrityfix.name + ";\n" +
+        "            return StandardIntegrityFix." + 
+        integrityfix.name + ";\n" +
         "          }\n");
+    }
   }
 
   private String targetCast() {
@@ -90,19 +116,21 @@ public class ReferenceFieldDef extends FieldDef {
              "" : "(" + type + ")";
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
-    // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
     String db = "get" + table.dsd.databaseTablesClass + "()";
 
     w.write("\n" +
-    	    "  public Integer get" + suffix + "Troid()\n" +
+            "  public Integer get" + suffix + "Troid()\n" +
             "      throws AccessPoemException {\n" +
-	        "    readLock();\n" +
+            "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
@@ -110,9 +138,9 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    set" + suffix + "(" +
                      "raw == null ? null : \n" +
-	                 // This cast is necessary when the target table is
-	                 // an "extends"
-	    "        " + targetCast() +
+                 // This cast is necessary when the target table is
+                 // an "extends"
+            "        " + targetCast() +
                        db + "." + targetTableAccessorMethod + "()." +
                        "get" + targetSuffix + "Object(raw));\n" +
             "  }\n" +
@@ -121,9 +149,9 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException, NoSuchRowPoemException {\n" +
             "    Integer troid = get" + suffix + "Troid();\n" +
             "    return troid == null ? null :\n" +
-	                 // This cast is necessary when the target table is
-	                 // an "extends"
-    	    "        " + targetCast() +
+                 // This cast is necessary when the target table is
+                 // an "extends"
+            "        " + targetCast() +
                          db + "." +
                          targetTableAccessorMethod + "()." +
                          "get" + targetSuffix + "Object(troid);\n" +
@@ -133,7 +161,7 @@ public class ReferenceFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
                     "getType().assertValidCooked(cooked);\n" +
-	        "    writeLock();\n" +
+            "    writeLock();\n" +
             "    if (cooked == null)\n" +
             "      set" + suffix + "_unsafe(null);\n" +
             "    else {\n" +
@@ -143,17 +171,20 @@ public class ReferenceFieldDef extends FieldDef {
             "  }\n");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateJavaDeclaration(Writer w) throws IOException {
     w.write("Integer " + name);
   }
 
   public String poemTypeJava() {
-    // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String db = "get" + table.dsd.databaseTablesClass + "()";
 
     return
-        "new ReferencePoemType(" + db + "." +
+        "new ReferencePoemType(" + db + ".\n" + 
+        "                                             " +
         targetTableAccessorMethod + "(), " + isNullable + ")";
   }
 }

@@ -45,8 +45,14 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
+import java.util.Vector;
 
+/**
+ * A definition of a <tt>StringPoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class StringFieldDef extends AtomFieldDef {
 
   int size;
@@ -56,6 +62,9 @@ public class StringFieldDef extends AtomFieldDef {
       throws IllegalityException {
     super(table, name, "String", displayOrder, qualifiers);
     if (size == 0) throw new StringSizeZeroException(this);
+    table.addImport("org.melati.poem.StringPoemType", 
+                    "table");
+
   }
 
   public String poemTypeJava() {

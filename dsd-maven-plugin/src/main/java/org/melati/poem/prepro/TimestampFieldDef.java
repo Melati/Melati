@@ -45,13 +45,24 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
 
+/**
+ * A definition of a <tt>TimestampPoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class TimestampFieldDef extends AtomFieldDef {
 
   public TimestampFieldDef(TableDef table, String name, int displayOrder,
-			   Vector qualifiers) throws IllegalityException {
+                           Vector qualifiers) throws IllegalityException {
     super(table, name, "Timestamp", displayOrder, qualifiers);
+    table.addImport("org.melati.poem.TimestampPoemType", 
+                    "table");
+    table.addImport("java.sql.Timestamp", 
+                    "table");
+    table.addImport("java.sql.Timestamp", 
+                    "persistent");
   }
 }

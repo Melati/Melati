@@ -45,18 +45,36 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.Writer;
+import java.io.IOException;
 
+/**
+ * A definition of an <tt>IntegerPoemType</tt> from the DSD.
+ * This type is the base for all the metadata field types.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class IntegerFieldDef extends AtomFieldDef {
 
   public IntegerFieldDef(TableDef table, String name, int displayOrder,
                          Vector qualifiers) throws IllegalityException {
     super(table, name, "Integer", displayOrder, qualifiers);
+    if (isTroidColumn)
+      table.addImport("org.melati.poem.TroidPoemType", 
+                      "table");
+    else
+      table.addImport("org.melati.poem.IntegerPoemType", 
+                      "table");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
+
     w.write("\n" +
             "  public final void set" + suffix + "(int cooked)\n" +
             "      throws AccessPoemException, ValidationPoemException {\n" +

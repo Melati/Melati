@@ -45,7 +45,8 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.File;
 
 public class TargetExistsDSDException extends IOException {
   public File target;

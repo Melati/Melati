@@ -45,8 +45,9 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.IOException;
+import java.io.Writer;
 
 public class AtomFieldDef extends FieldDef {
 
@@ -56,6 +57,9 @@ public class AtomFieldDef extends FieldDef {
     super(table, name, type, type, displayOrder, qualifiers);
   }
 
+ /**
+  * @param w The base table java file.
+  */   
   protected void generateColRawAccessors(Writer w) throws IOException {
     super.generateColRawAccessors(w);
 
@@ -73,13 +77,16 @@ public class AtomFieldDef extends FieldDef {
       "          }\n");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
     w.write("\n" +
-	    "  public " + type + " get" + suffix + "()\n" +
+            "  public " + type + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
-	    "    readLock();\n" +
+            "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
@@ -87,11 +94,14 @@ public class AtomFieldDef extends FieldDef {
             "      throws AccessPoemException, ValidationPoemException {\n" +
             "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
                      "getType().assertValidCooked(cooked);\n" +
-	    "    writeLock();\n" +
-	    "    set" + suffix + "_unsafe(cooked);\n" +
+            "    writeLock();\n" +
+            "    set" + suffix + "_unsafe(cooked);\n" +
             "  }\n");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateJavaDeclaration(Writer w) throws IOException {
     w.write(type + " " + name);
   }

@@ -45,7 +45,7 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.io.StreamTokenizer;
 
 public class NullableFieldQualifier extends FieldQualifier {
 

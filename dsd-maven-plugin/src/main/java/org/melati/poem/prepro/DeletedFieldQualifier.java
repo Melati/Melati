@@ -45,8 +45,10 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
-
+import java.io.StreamTokenizer;
+/**
+ * @todo Check for duplication
+ */
 public class DeletedFieldQualifier extends FieldQualifier {
 
   public DeletedFieldQualifier(StreamTokenizer tokens) {

@@ -45,7 +45,8 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.io.StreamTokenizer;
+import java.io.IOException;
 import org.melati.poem.DisplayLevel;
 
 public class DisplayLevelFieldQualifier extends FieldQualifier {

@@ -45,7 +45,8 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.io.Writer;
+import java.io.IOException;
 
 public interface Generator {
   void process(Writer w) throws IOException;

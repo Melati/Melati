@@ -45,8 +45,8 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.io.StreamTokenizer;
+import java.io.IOException;
 
 public abstract class FieldQualifier {
 

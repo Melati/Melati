@@ -45,8 +45,15 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
+import java.io.StreamTokenizer;
+import java.io.IOException;
 
+/**
+ * A <tt>FieldQualifier</TT> which enables the size of 
+ * strings to be specified.
+ *
+ * @todo Ensure that one field cannot have more than one size qualifier
+ */
 public class SizeFieldQualifier extends FieldQualifier {
 
   private int size;

@@ -45,8 +45,9 @@
 
 package org.melati.poem.prepro;
 
-import java.io.*;
-import java.util.*;
+import java.io.StreamTokenizer;
+import java.io.IOException;
+import java.util.Vector;
 
 public class IndexedFieldQualifier extends FieldQualifier {
 

@@ -45,16 +45,32 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector;
+import java.io.Writer;
+import java.io.IOException;
 
+/**
+ * A definition of a <tt>ColumnTypePoemType</tt>.
+ * 
+ * A <tt>ColumnType</tt> is a metadata field, is used in <tt>Poem.dsd</tt> 
+ * and is not usually used in normal DSD files.
+ */ 
 public class ColumnTypeFieldDef extends FieldDef {
 
   public ColumnTypeFieldDef(TableDef table, String name, int displayOrder,
                             Vector qualifiers) throws IllegalityException {
     super(table, name, "PoemTypeFactory", "Integer", displayOrder, qualifiers);
+    table.addImport("org.melati.poem.PoemTypeFactory", 
+                    "persistent");
+    table.addImport("org.melati.poem.PoemTypeFactory", 
+                    "table");
+    table.addImport("org.melati.poem.ColumnTypePoemType", 
+                    "table");
   }
 
+ /**
+  * @param w The base table java file.
+  */   
   protected void generateColRawAccessors(Writer w) throws IOException {
     super.generateColRawAccessors(w);
 
@@ -72,17 +88,19 @@ public class ColumnTypeFieldDef extends FieldDef {
       "          }\n");
   }
 
+ /**
+  * @param w The base persistent java file.
+  */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
-    // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
     w.write("\n" +
-	    "  public Integer get" + suffix + "Code()\n" +
+            "  public Integer get" + suffix + "Code()\n" +
             "      throws AccessPoemException {\n" +
-	    "    readLock();\n" +
+            "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
@@ -90,20 +108,22 @@ public class ColumnTypeFieldDef extends FieldDef {
             "      throws AccessPoemException {\n" +
             "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
                      "getType().assertValidRaw(raw);\n" +
-	    "    writeLock();\n" +
-	    "    set" + suffix + "_unsafe(raw);\n" +
+            "    writeLock();\n" +
+            "    set" + suffix + "_unsafe(raw);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +
             "      throws AccessPoemException {\n" +
             "    Integer code = get" + suffix + "Code();\n" +
             "    return code == null ? null :\n" +
-            "        PoemTypeFactory.forCode(getDatabase(), code.intValue());\n" +
+            "        PoemTypeFactory.forCode(getDatabase(), " + 
+            "code.intValue());\n" +
             "  }\n" +
             "\n" +
             "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "Code(cooked == null ? null : cooked.getCode());\n" +
+            "    set" + suffix + "Code(cooked == null ? null : " +
+            "cooked.getCode());\n" +
             "  }\n");
   }
 

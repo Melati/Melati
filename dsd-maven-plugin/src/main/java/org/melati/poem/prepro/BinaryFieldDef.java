@@ -45,8 +45,14 @@
 
 package org.melati.poem.prepro;
 
-import java.util.*;
+import java.util.Vector;
 
+/**
+ * A definition of a <tt>BinaryPoemType</tt> from the DSD.
+ * 
+ * Its member variables are populated from the DSD or defaults.
+ * Its methods are used to generate the java code.
+ */ 
 public class BinaryFieldDef extends AtomFieldDef {
 
   int size;
@@ -56,6 +62,8 @@ public class BinaryFieldDef extends AtomFieldDef {
       throws IllegalityException {
     super(table, name, "byte[]", displayOrder, qualifiers);
     if (size == 0) throw new BinarySizeZeroException(this);
+    table.addImport("org.melati.poem.BinaryPoemType", 
+                               "table");
   }
 
   public String poemTypeJava() {

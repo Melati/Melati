@@ -53,6 +53,9 @@ public class TableNamingInfo {
 
   public final static String POEM = "org.melati.poem";
 
+  /** This package eg org.melati.example.contacts */
+  public String packageName = null;
+
   /** The fully qualified name of the table (e.g. `org.melati.poem.User') */
   public String tableFQName = null;
 
@@ -75,7 +78,8 @@ public class TableNamingInfo {
   // source file, and any tables with ReferenceTypes to this table
   public boolean hidden = false;
 
-  public TableNamingInfo(String packageName, String name) {
+  public TableNamingInfo(String packageNameIn, String name) {
+    packageName = packageNameIn;
     tableShortName = name;
     tableFQName = packageName + "." + name;
     superclass = null;
@@ -89,6 +93,11 @@ public class TableNamingInfo {
             ? "Persistent"
             : superclass.mainClassUnambiguous();
   }
+  public String superclassMainFQName() {
+    return (superclass == null)
+            ? "org.melati.poem.Persistent"
+            : superclass.mainClassFQName();
+  }
 
   /** Calculate the type for this Table */
   public String superclassTableUnambiguous() {
@@ -96,18 +105,29 @@ public class TableNamingInfo {
             ? "Table"
             : superclass.tableMainClassUnambiguous();
   }
-
-  public String includeMainString() {
-    return (hidesOther && !hidden) ? "import " + mainClassFQName() + ";\n" : "";
+  public String superclassTableFQName() {
+    return (superclass == null)
+            ? "org.melati.poem.Table"
+            : superclass.tableMainClassFQName();
   }
 
-  public String includeTableString() {
-    return (hidesOther && !hidden) ? "import " + tableMainClassFQName() + ";\n" : "";
+  public String importMainString() {
+//    return (hidesOther && !hidden) ? "import " + mainClassFQName() + ";\n" 
+//                                   : "";
+      return "import " + mainClassFQName() + ";\n";
+  }
+
+  public String importTableString() {
+//    return (hidesOther && !hidden) ? "import " + tableMainClassFQName() + 
+//                             ";\n" : "";
+      return "import " + tableMainClassFQName() + ";\n"; 
+
   }
 
   public String baseClassFQName() {
-    return tableFQName + "Base";
+    return packageName + ".generated." + tableShortName + "Base";
   }
+
   public String baseClassShortName() {
     return tableShortName + "Base";
   }
@@ -148,8 +168,6 @@ public class TableNamingInfo {
    * same class as that returned by the root superclass of the same
    * name because you cannot override a function and change its
    * return type.
-   * <p>
-   * NB if the superclass is abstract then we
    */
   public String mainClassRootReturnClass() {
     TableNamingInfo root = getRootSameNamedSuperclass();
@@ -159,7 +177,7 @@ public class TableNamingInfo {
   }
 
   public String tableBaseClassFQName() {
-    return tableFQName + "TableBase";
+    return packageName + ".generated." + tableShortName + "TableBase";
   }
   public String tableBaseClassShortName() {
     return tableShortName + "TableBase";
@@ -195,8 +213,8 @@ public class TableNamingInfo {
    */
   public String tableMainClassRootReturnClass() {
     TableNamingInfo root = getRootSameNamedSuperclass();
-    return (root != null)
-              ? root.tableMainClassUnambiguous() // should always be tableMainClassFQName
+    return (root != null) // should always be tableMainClassFQName
+              ? root.tableMainClassUnambiguous() 
               : tableMainClassUnambiguous();
   }
 

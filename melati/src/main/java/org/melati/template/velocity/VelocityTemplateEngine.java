@@ -180,7 +180,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
   }
 
   /**
-   * get a template given it's name
+   * Get a template given it's name.
    */
   public org.melati.template.Template template(String templateName)
                              throws NotFoundException {

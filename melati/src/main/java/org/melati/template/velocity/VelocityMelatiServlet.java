@@ -63,31 +63,23 @@ import org.melati.template.TemplateContext;
 public abstract class VelocityMelatiServlet extends TemplateServlet
 {
 
-  protected String doTemplateRequest(Melati melati, 
-                                     TemplateContext templateContext) 
+  protected String doTemplateRequest(Melati m, TemplateContext c) 
    throws Exception {
-     VelocityTemplateContext context = 
-                 (VelocityTemplateContext)templateContext.getContext();
-    return handle(melati, context);
+    return handle(m, (VelocityTemplateContext)c.getContext());
   }
   
   /*
-  * adding the extension is left up to the application developer
-  */
+   * Adding the extension is left up to the application developer.
+   * <p>
+   * FIXME. Suggest we fix the overridden method to add the
+   * template extension if there is no "." and delete this. JimW
+   */
   protected String addExtension(String templateName) {
     return templateName;
   }
 
-  protected abstract String handle(Melati melati, 
-                                   VelocityTemplateContext context) 
-   throws Exception ;
+  protected abstract String handle(Melati m, VelocityTemplateContext c)
+   throws Exception;
   
 }
-
-
-
-
-
-
-
 

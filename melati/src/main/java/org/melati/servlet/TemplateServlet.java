@@ -75,7 +75,7 @@ public abstract class TemplateServlet extends PoemServlet {
   protected TemplateEngine templateEngine;
 
   /**
-   * Inititialise WebMacro.
+   * Inititialise the template engine.
    *
    * @param ServletConfig
    */
@@ -138,6 +138,15 @@ public abstract class TemplateServlet extends PoemServlet {
    * The template extension is added in an overridable method
    * to allow the application developer to specify their own template
    * extensions.
+   * <p>
+   * FIXME In some subtypes this does nothing (strangely) and in others
+   * it adds the template engine extension as here, but only if there
+   * is no ".". We need a contract. Checking for a "." assumes that
+   * if there is one then we have the full filename. I think this is
+   * reasonable and unlikely to break anything that is not already
+   * stupid. Can copy code in
+   * org.paneris.ftc.servlet.FtcMelatiServlet.addExtension()
+   * JimW.
    */
 
   protected String addExtension(String templateName) {
@@ -213,7 +222,7 @@ public abstract class TemplateServlet extends PoemServlet {
    * Override this method to build up your own output.
    *
    * @param melatiContext
-   * @return an object with all you need to do the template expansion
+   * @return Template name, possibly excluding extension.
    */
   protected abstract String doTemplateRequest(Melati melati, 
                                               TemplateContext templateContext)

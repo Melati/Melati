@@ -66,21 +66,23 @@ import org.webmacro.WebMacroException;
 public abstract class WebmacroMelatiServlet extends TemplateServlet
 {
 
-  protected String doTemplateRequest(Melati melati, TemplateContext templateContext) 
+  protected String doTemplateRequest(Melati m, TemplateContext c) 
    throws Exception {
-     WebContext webContext = (WebContext)templateContext.getContext();
-    return handle(melati, webContext);
+    return handle(m, (WebContext)c.getContext());
   }
   
   /*
-  * adding the extension is left up to the application developer
-  */
+   * Adding the extension is left up to the application developer.
+   * <p>
+   * FIXME. Suggest we fix the overridden method to add the
+   * template extension if there is no "." and delete this. JimW
+   */
   protected String addExtension(String templateName) {
     return templateName;
   }
 
-  protected abstract String handle(Melati melati, WebContext webContext) 
-   throws Exception ;
+  protected abstract String handle(Melati m, WebContext c) 
+   throws Exception;
   
 }
 

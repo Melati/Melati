@@ -1,5 +1,6 @@
 package org.melati;
 
+import org.webmacro.*;
 import org.webmacro.engine.*;
 import org.webmacro.resource.*;
 import org.webmacro.servlet.*;
@@ -92,7 +93,7 @@ public abstract class MarkupLanguage {
   }
 
   public String input(Field field)
-      throws InvalidTypeException, UnsupportedTypeException, NotFoundException {
+      throws InvalidTypeException, InvalidContextException, UnsupportedTypeException, NotFoundException {
     Template templet =
         (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
                                                   templetPath(field));

@@ -49,7 +49,7 @@ package org.melati.util;
 
 import java.util.*;
 
-public class ConsEnumeration implements Enumeration {
+public class ConsEnumeration implements SkipEnumeration {
   private boolean hadHd = false;
   private Object hd;
   private Enumeration tl;
@@ -73,5 +73,14 @@ public class ConsEnumeration implements Enumeration {
       }
     else
       return tl.nextElement();
+  }
+
+  public synchronized void skip() {
+    if (!hadHd)
+      hadHd = true;
+    else if (tl instanceof SkipEnumeration)
+      ((SkipEnumeration)tl).skip();
+    else
+      tl.nextElement();
   }
 }

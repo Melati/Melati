@@ -53,18 +53,9 @@
 
 <BODY BGCOLOR=white>
 
-<SCRIPT src="/validation.js"></SCRIPT>
-
-<CENTER>
-
-<H1>You have logged in</H1>
-
-#if ($continuationURL) {
 <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
-} #else {
-<META HTTP-EQUIV="Refresh" CONTENT="1; URL=/">
-}
-
+<CENTER>
+<H1>Logging you out...</H1>
 </CENTER>
 
 </BODY>

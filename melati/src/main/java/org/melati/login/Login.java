@@ -66,20 +66,25 @@ public class Login extends MelatiServlet {
       TRIGGERING_EXCEPTION =
           "org.melati.Login.triggeringException";
 
-  protected Template loginTemplate() throws WebMacroException {
-    return getTemplate("Login.wm");
+
+  protected Template loginTemplate(String name) throws WebMacroException {
+        return getTemplate("login/" + name);
+  }
+
+  protected Template loginPageTemplate() throws WebMacroException {
+    return loginTemplate("Login.wm");
   }
 
   protected Template usernameUnknownTemplate() throws WebMacroException {
-    return getTemplate("LoginFailure.wm");
+    return loginTemplate("LoginFailure.wm");
   }
 
   protected Template passwordIncorrectTemplate() throws WebMacroException {
-    return getTemplate("LoginFailure.wm");
+    return loginTemplate("LoginFailure.wm");
   }
 
   protected Template loginSuccessTemplate() throws WebMacroException {
-    return getTemplate("LoginSuccess.wm");
+    return loginTemplate("LoginSuccess.wm");
   }
 
   protected Template handle(WebContext context)
@@ -102,7 +107,7 @@ public class Login extends MelatiServlet {
                 new Field(password, users.getPasswordColumn()));
 
     if (username == null)
-      return loginTemplate();
+      return loginPageTemplate();
 
     User user = (User)PoemThread.database().getUserTable().getLoginColumn().
                     firstWhereEq(username);

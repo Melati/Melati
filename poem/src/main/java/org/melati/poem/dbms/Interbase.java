@@ -57,34 +57,34 @@ import java.sql.SQLException;
  * Untested.
  */
 public class Interbase extends AnsiStandard {
-    public Interbase() {
-        setDriverClassName("interbase.interclient.Driver");
-    }
+  public Interbase() {
+    setDriverClassName("interbase.interclient.Driver");
+  }
 
-    public String getQuotedName(String name) {
-        return "q" + name;
-    }
+  public String getQuotedName(String name) {
+    return "q" + name;
+  }
 
-    public String getSqlDefinition(String sqlTypeName) throws SQLException {
-        if (sqlTypeName.equals("BOOLEAN")) {
-            return ("INT");
-        }
-        return super.getSqlDefinition(sqlTypeName);
+  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+    if (sqlTypeName.equals("BOOLEAN")) {
+      return ("INT");
     }
+    return super.getSqlDefinition(sqlTypeName);
+  }
     
-    public String getStringSqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            return "blob sub_type 1";
-        }
-        return super.getStringSqlDefinition(size);
-    }
+  public String getStringSqlDefinition(int size) throws SQLException {
+    if (size < 0) { 
+      return "blob sub_type 1";
+     }
+     return super.getStringSqlDefinition(size);
+  }
 
-    public String getBinarySqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            throw new SQLException(
-              "FIXME don't know what to call unlimited length binary in " +
-              "Interbase: someone find out?");
-        }
-        return super.getBinarySqlDefinition(size);
-    }
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    if (size < 0) { 
+      throw new SQLException(
+        "FIXME don't know what to call unlimited length binary in " +
+        "Interbase: someone find out?");
+      }
+      return super.getBinarySqlDefinition(size);
+  }
 }

@@ -70,6 +70,16 @@ public interface Dbms {
 
   String preparedStatementPlaceholder(PoemType type);
 
+ /**
+  * Retrieve a SQL type keyword used by the DBMS 
+  * for the given Melati type name.
+  *
+  * Override this in non-Ansi standard dbms to handle 
+  * variants.
+  *
+  * @param sqlTypeName the Melati internal type name
+  * @return this dbms specific type keyword
+  */
   String getSqlDefinition(String sqlTypeName) throws SQLException;
 
   String getStringSqlDefinition(int size) throws SQLException;

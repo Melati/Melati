@@ -36,7 +36,7 @@ run throuigh the <a href="Testing.html">tests</a>.
 <p>
   To get a complete replica of the Melati website:
   <pre><code>
-cd org/melati/build
+cd build
 ant go </code></pre>
 </p>
 <p>

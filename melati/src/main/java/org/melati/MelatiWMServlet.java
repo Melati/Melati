@@ -2,18 +2,79 @@ package org.melati;
 
 import java.util.*;
 import java.io.*;
-import org.melati.util.*;
-import org.melati.poem.*;
 import org.webmacro.*;
 import org.webmacro.util.*;
 import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
+import org.webmacro.resource.TemplateProvider;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
 * FIXME this it not pretty (I blame Jason ;) )
 */
+
+/**
+  * This handler gets called if a normal handler could not 
+  * be constructed--it writes out an error message 
+  * explaining what went wrong.
+  */
+
+final class ErrorHandler implements Handler
+{
+
+   private Template _errorTmpl = null;
+
+   /**
+     * The default error handler simply returns its template
+     * @see TemplateStore
+     * @exception HandlerException if you don't want to handle the connect
+     * @return A Template which can be used to interpret the connection
+     */
+   public Template accept(WebContext c)
+      throws HandlerException 
+   {
+
+      if (_errorTmpl == null) {
+         try {
+            String name = (String) c.getBroker().getValue(
+                  Broker.CONFIG_TYPE, MelatiWMServlet.ERROR_TEMPLATE);
+            _errorTmpl = (Template) c.getBroker().getValue(
+                  TemplateProvider.TYPE, name);
+         } catch (Exception e) { } 
+         finally {
+            if (_errorTmpl == null) {
+               try {
+                  _errorTmpl = (Template) c.getBroker().getValue(
+                     TemplateProvider.TYPE, MelatiWMServlet.ERROR_TEMPLATE_DEFAULT);
+               } catch (Exception e) {
+                  throw new HandlerException("Could not load error handler");
+               }
+            }
+         }
+      }
+      return _errorTmpl;
+   }
+
+   /**
+     * Does nothing
+     */
+   public void destroy() { }
+
+   /**
+     * Does nothing
+     */
+   public void init() { }
+
+
+   /**
+     * Return the name of this handler
+     */
+   final public String toString()
+   {
+      return "WebMacro ErrorHandler";
+   }
+}
 
 public abstract class MelatiWMServlet extends HttpServlet {
 
@@ -165,14 +226,16 @@ public abstract class MelatiWMServlet extends HttpServlet {
        }
        try {
          /* context.getRequest().setContentType("text/html"); */
-         Template t = handle(context);
-         if (t != null)
-           try {
+         try {
+           Template t = handle(context);
+           if (t != null)
              expand(t, context);
-           }
-           catch (AccessPoemException e) {
-             handleAccessFailure(context, e);
-           }
+         }
+         catch (Exception e) {
+           Template t = handleException(context, e);
+           if (t != null)
+             expand(t, context);
+         }
        } catch (HandlerException e) {
           _log.exception(e);
           Template tmpl = error(context, 
@@ -311,7 +374,9 @@ public abstract class MelatiWMServlet extends HttpServlet {
   protected abstract Template handle(WebContext context)
       throws WebMacroException;
 
-  protected abstract Template handleAccessFailure(
-      WebContext context, AccessPoemException accessException)
-          throws HandlerException;
+  protected Template handleException(
+      WebContext context, Exception exception)
+          throws Exception {
+    throw exception;
+  }
 }

@@ -13,6 +13,9 @@ import javax.servlet.http.*;
 
 public abstract class MelatiServlet extends MelatiWMServlet {
 
+  private static final Object check =
+      org.melati.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
+
   static final String
       OVERLAY_PARAMETERS = "org.melati.MelatiServlet.overlayParameters",
       USER = "org.melati.MelatiServlet.user";
@@ -25,7 +28,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * <LI>
    *
    * The `logical name' of the Melati POEM database to which the servlet should
-   * connect is determined from the first component of the pathinfo.
+   * connect is determined from the first component of the pathinfo.  It is
+   * mapped onto JDBC connection details via the config file
+   * <TT>org.melati.LogicalDatabase.properties</TT>, of which there is an
+   * example in the source tree.
    *
    * <LI>
    *
@@ -87,9 +93,18 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     return url.toString();
   }
 
-  protected Template handleAccessFailure(WebContext context,
-                                         AccessPoemException accessException)
-      throws HandlerException {
+  protected Template handleException(WebContext context, Exception exception)
+      throws Exception {
+
+    Exception underlying =
+        exception instanceof VariableException ?
+          ((VariableException)exception).problem : exception;
+
+    if (underlying == null || !(underlying instanceof AccessPoemException))
+      super.handleException(context, exception);
+
+    AccessPoemException accessException = (AccessPoemException)underlying;
+
     HttpServletRequest request = context.getRequest();
     HttpServletResponse response = context.getResponse();
 
@@ -123,6 +138,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
   protected Template handle(WebContext context) throws WebMacroException {
     context.put("melati", new Melati(context));
+    context.put(Variable.EXCEPTION_HANDLER,
+                PropagateVariableExceptionHandler.it);
 
     HttpSession session = context.getSession();
     User user = (User)session.getValue(USER);

@@ -12,15 +12,23 @@ import org.melati.*;
  * @see Invoice
  */
 
-public abstract class InvoiceBase extends Record {
+public abstract class InvoiceBase extends Persistent {
+
+  public Object getObject(int column) {
+    switch (column) {
+    case number_column:
+      return getNumber();
+    case 2
+      return etc;
+    }
+  }
 
   /**
    * The invoice's number.
    */
 
   public String getNumber() {
-    return null;
-    // actually something like fields[1]
+    return _getString(number_column);
   }
 
   /**
@@ -29,18 +37,23 @@ public abstract class InvoiceBase extends Record {
    */
 
   public Field getNumberField() {
-    return null;
-    // actually something like new Field(fields[1], table.fieldType(1))
+    return new StringField(getNumber(), table.getNumberType());
   }
 
   /**
    * Set the invoice's number.
    */
 
-  public void setNumber(String number) {}
+  public void setNumber(String number) {
+    return _setString(number_column, number);
+  }
 
   public Party getIssuer() {
-    return null;
+    return _getObject(issuer_column);
+  }
+
+  public void setIssuer(Party issuer) {
+    return _setObject(issuer_column, issuer);
   }
 
   public Field getIssuerField() {

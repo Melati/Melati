@@ -2,6 +2,7 @@ package org.melati.login;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
+import java.net.URLEncoder;
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
@@ -113,7 +114,7 @@ public class LoginHandler {
   }
   
   private Cookie makeCookie(String key, String value) {
-    Cookie c = new Cookie(key, value);
+    Cookie c = new Cookie(URLEncoder.encode(key), URLEncoder.encode(value));
     c.setPath("/");
     c.setMaxAge(ONEYEARINSECONDS);
     c.setComment("This cookie is used to automatically log you back into " +

@@ -47,6 +47,8 @@ package org.melati.login;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -128,6 +130,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *
    * @see org.melati.login.LoginHandler
    */
+  
+  // now if we establish a user, we must also set this frigging cookie
   public Melati establishUser(Melati melati) {
     String ldb = melati.getContext().getLogicalDatabase();
     HttpSession session = melati.getSession();
@@ -139,10 +143,14 @@ public class HttpSessionAccessHandler implements AccessHandler {
             !getCookieValue(melati,ldb+user.getLogin()).equals(
              MD5Util.encode(user.getPassword()))) user = null;
       }
-      PoemThread.setAccessToken(
-        user == null ? melati.getDatabase().guestAccessToken() : user);
+      logUsIn(melati,user);
     }
     return melati;
+  }
+  
+  public void logUsIn(Melati melati, User user) {
+    PoemThread.setAccessToken(
+      user == null ? melati.getDatabase().guestAccessToken() : user);
   }
 
   
@@ -154,10 +162,11 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
   public String getCookieValue(Melati melati,String key) {
     // try and get from cookie
+    key = URLEncoder.encode(key);
     Cookie[] cookies = melati.getRequest().getCookies();
     for (int i=0;i<cookies.length;i++) {
       Cookie c = cookies[i];
-      if (c.getName().equals(key)) return c.getValue();
+      if (c.getName().equals(key)) return URLDecoder.decode(c.getValue());
     }
     return null;
   }

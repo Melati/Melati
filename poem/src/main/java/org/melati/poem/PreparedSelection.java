@@ -97,8 +97,8 @@ public class PreparedSelection {
 
     return statements;
   }
-  
-  public Enumeration troids() {
+
+  private void compute() {
     Vector selection = this.selection;
     PoemTransaction transaction = PoemThread.transaction();
     if (selection == null || somethingHasChanged(transaction)) {
@@ -119,7 +119,10 @@ public class PreparedSelection {
       this.selection = selection;
       updateSerials(transaction);
     }
-
+  }
+  
+  public Enumeration troids() {
+    compute();
     return selection.elements();
   }
 
@@ -157,5 +160,13 @@ public class PreparedSelection {
             return table.getObject((Integer)troid);
           }
         };
+  }
+
+  public Persistent firstObject() {
+    compute();
+    Vector selection = this.selection;
+    return selection.isEmpty() ?
+               null :
+               table.getObject((Integer)selection.elementAt(0));
   }
 }

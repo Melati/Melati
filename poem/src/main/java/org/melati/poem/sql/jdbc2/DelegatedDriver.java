@@ -1,4 +1,4 @@
-package org.melati.poem.sql;
+package org.melati.poem.sql.jdbc2;
 
 import java.sql.*;
 

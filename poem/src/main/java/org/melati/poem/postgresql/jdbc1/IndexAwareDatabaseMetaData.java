@@ -1,15 +1,18 @@
-package org.melati.poem.postgresql;
+package org.melati.poem.postgresql.jdbc1;
 
 import postgresql.*;
-import postgresql.jdbc2.*;
-import postgresql.jdbc2.Connection;
+import postgresql.jdbc1.*;
+import postgresql.jdbc1.Connection;
 import org.melati.util.*;
 
 public class IndexAwareDatabaseMetaData
-    extends org.melati.poem.sql.DelegatedDatabaseMetaData {
+    extends postgresql.jdbc1.DatabaseMetaData {
 
-  public IndexAwareDatabaseMetaData(java.sql.DatabaseMetaData metadata) {
-    super(metadata);
+  protected Connection connection;
+
+  public IndexAwareDatabaseMetaData(Connection connection) {
+    super(connection);
+    this.connection = connection;
   }
 
   public java.sql.ResultSet getIndexInfo(String catalog, String schema,
@@ -17,7 +20,7 @@ public class IndexAwareDatabaseMetaData
                                          boolean approximate)
       throws java.sql.SQLException {
 
-    return ((Connection)getConnection()).ExecSQL(
+    return connection.ExecSQL(
         "SELECT " +
           "null AS TABLE_CAT, null AS TABLE_SCHEMA, t.relname AS TABLE_NAME, " +
           "NOT i.indisunique AS NON_UNIQUE, null AS INDEX_QUALIFIER, " +

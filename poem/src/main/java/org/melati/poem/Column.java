@@ -93,20 +93,20 @@ public abstract class Column implements FieldAttributes {
     refineType(BasePoemType.ofColumnInfo(getDatabase(), columnInfo),
                DefinitionSource.infoTables);
     columnInfo.setColumn(this);
-    if (columnInfo.getPrimarydisplay().booleanValue())
+    if (columnInfo.getDisplaylevel() == DisplayLevel.primary)
       table.setDisplayColumn(this);
-    if (columnInfo.getPrimarycriterion().booleanValue())
-      table.setPrimaryCriterionColumn(this);
+    if (columnInfo.getSearchability() == Searchability.primary)
+      table.setSearchColumn(this);
     info = columnInfo;
     table.notifyColumnInfo(info);
   }
 
-  protected boolean defaultPrimaryDisplay() {
-    return false;
+  protected DisplayLevel defaultDisplayLevel() {
+    return DisplayLevel.summary;
   }
 
-  protected boolean defaultPrimaryCriterion() {
-    return false;
+  protected Searchability defaultSearchability() {
+    return Searchability.yes;
   }
 
   protected Integer defaultDisplayOrderPriority() {
@@ -131,18 +131,6 @@ public abstract class Column implements FieldAttributes {
 
   protected boolean defaultUserCreateable() {
     return true;
-  }
-
-  protected boolean defaultRecordDisplay() {
-    return true;
-  }
-
-  protected boolean defaultSummaryDisplay() {
-    return !isTroidColumn();
-  }
-
-  protected boolean defaultSearchCriterion() {
-    return !isTroidColumn();
   }
 
   protected boolean defaultIndexed() {
@@ -176,15 +164,12 @@ public abstract class Column implements FieldAttributes {
                   i.setDisplayname(defaultDisplayName());
                   i.setDisplayorder(defaultDisplayOrder());
                   i.setDescription(defaultDescription());
-                  i.setPrimarydisplay(defaultPrimaryDisplay());
-                  i.setPrimarycriterion(defaultPrimaryCriterion());
+                  i.setDisplaylevel(defaultDisplayLevel());
+                  i.setSearchability(defaultSearchability());
                   i.setDisplayorderpriority(defaultDisplayOrderPriority());
                   i.setTableinfoTroid(table.tableInfoID());
                   i.setUsereditable(defaultUserEditable());
                   i.setUsercreateable(defaultUserCreateable());
-                  i.setRecorddisplay(defaultRecordDisplay());
-                  i.setSummarydisplay(defaultSummaryDisplay());
-                  i.setSearchcriterion(defaultSearchCriterion());
                   i.setIndexed(defaultIndexed());
                   i.setUnique(defaultUnique());
 		  i.setWidth(defaultWidth());
@@ -196,10 +181,10 @@ public abstract class Column implements FieldAttributes {
 
       // FIXME repeating this in several places is a bad sign
 
-      if (defaultPrimaryDisplay())
+      if (defaultDisplayLevel() == DisplayLevel.primary)
         table.setDisplayColumn(this);
-    if (defaultPrimaryCriterion())
-      table.setPrimaryCriterionColumn(this);
+      if (defaultSearchability() == Searchability.primary)
+        table.setSearchColumn(this);
     }
   }
 
@@ -259,22 +244,22 @@ public abstract class Column implements FieldAttributes {
     return info;
   }
 
-  public final boolean getPrimaryDisplay() {
-    return info == null ? false : info.getPrimarydisplay().booleanValue();
+  public DisplayLevel getDisplayLevel() {
+    return info == null ? defaultDisplayLevel() : info.getDisplaylevel();
   }
 
-  public final void setPrimaryDisplay(boolean flag) {
+  public void setDisplayLevel(DisplayLevel level) {
     if (info != null)
-      info.setPrimarydisplay(flag);
+      info.setDisplaylevel(level);
   }
 
-  public final boolean getPrimaryCriterion() {
-    return info == null ? false : info.getPrimarycriterion().booleanValue();
+  public Searchability getSearchability() {
+    return info == null ? defaultSearchability() : info.getSearchability();
   }
 
-  public final void setPrimaryCriterion(boolean flag) {
+  public void setSearchability(Searchability searchability) {
     if (info != null)
-      info.setPrimarydisplay(flag);
+      info.setSearchability(searchability);
   }
 
   public final boolean getUserEditable() {
@@ -421,9 +406,7 @@ public abstract class Column implements FieldAttributes {
   // ============
   // 
 
-  public Field asField(Persistent g) {
-    return Field.of(g, this);
-  }
+  public abstract Field asField(Persistent g);
 
   public Field asEmptyField() {
     return new Field((Object)null, this);

@@ -77,31 +77,16 @@ public class ColumnInfo extends ColumnInfoBase {
     super.setTableinfoTroid(raw);
   }
 
-  public void setPrimarydisplay(Boolean value) {
-    super.setPrimarydisplay(value);
-    if (value.booleanValue()) {
+  public void setDisplaylevelIndex(Integer index) {
+    super.setDisplaylevelIndex(index);
+    if (index.equals(DisplayLevel.primary.index)) {
       Column column = column();
       if (column != null) {
         Table table = column.getTable();
         Column previous = table.displayColumn();
         if (previous != null && previous != column) {
-          previous.setPrimaryDisplay(false);
+          previous.setDisplayLevel(DisplayLevel.summary);
 	  table.setDisplayColumn(column);
-	}
-      }
-    }
-  }
-
-  public void setPrimarycriterion(Boolean value) {
-    super.setPrimarycriterion(value);
-    if (value.booleanValue()) {
-      Column column = column();
-      if (column != null) {
-        Table table = column.getTable();
-        Column previous = table.primaryCriterionColumn();
-        if (previous != null && previous != column) {
-          previous.setPrimaryCriterion(false);
-	  table.setPrimaryCriterionColumn(column);
 	}
       }
     }

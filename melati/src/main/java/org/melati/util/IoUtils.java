@@ -48,6 +48,7 @@
 package org.melati.util;
 
 import java.io.*;
+import java.net.*;
 
 public class IoUtils {
 
@@ -86,6 +87,19 @@ public class IoUtils {
 
   public static byte[] slurp(InputStream i, int estimate) throws IOException {
     return slurp(i, estimate, Integer.MAX_VALUE);
+  }
+
+  public static byte[] slurp(URL url, int estimate) throws IOException {
+    return slurp(url.openStream(), estimate);
+  }
+
+  public static byte[] slurp(URL url, int estimate, int max)
+      throws IOException {
+    return slurp(url.openStream(), estimate, max);
+  }
+
+  public static byte[] slurp(File f, int estimate) throws IOException {
+    return slurp(new FileInputStream(f), estimate);
   }
 
   public static char[] slurp(Reader i, int estimate, int limit)

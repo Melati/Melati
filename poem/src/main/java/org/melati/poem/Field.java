@@ -134,4 +134,13 @@ public class Field implements FieldAttributes, Cloneable {
       throw accessException;
     return ident == null ? other.ident == null : ident.equals(other.ident);
   }
+
+  public static Field of(Persistent persistent, Column column) {
+    try {
+      return new Field(column.getIdent(persistent), column);
+    }
+    catch (AccessPoemException accessException) {
+      return new Field(accessException, column);
+    }
+  }
 }

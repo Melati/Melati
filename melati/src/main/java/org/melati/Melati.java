@@ -46,10 +46,13 @@
 package org.melati;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.ServletException;
 
 import org.melati.admin.AdminUtils;
 import org.melati.poem.Database;
@@ -64,8 +67,10 @@ import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.WMLMarkupLanguage;
+import org.melati.util.AcceptCharset;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.HttpUtil;
+import org.melati.util.HttpHeader;
 import org.melati.util.MelatiBufferedWriter;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiSimpleWriter;
@@ -133,6 +138,7 @@ public class Melati {
     this.request = request;
     this.response = response;
     this.config = config;
+    
   }
 
   /**
@@ -420,6 +426,92 @@ public class Melati {
     return config.getLocale(acceptLanguage);
   }
 
+  /**
+   * Suggest a response character encoding and if necessary choose a
+   * request encoding.
+   * <p>
+   * If the request encoding is provided then we choose a response
+   * encoding to meet our preferences on the assumption that the
+   * client will also indicate next time what its request
+   * encoding is.
+   * The result can optionally be set in code or possibly in
+   * templates using {@link #setResponseContentType(String)}.
+   * <p>
+   * Otherwise we tread carefully. We assume that the encoding is
+   * the first supported encoding of the client's preferences for
+   * responses, as indicated by Accept-Charsets, and avoid giving
+   * it any reason to change.
+   * <p>
+   * Actually, the server preference is a bit dodgy for
+   * the response because if it does persuade the client to
+   * change encodings and future requests include query strings
+   * that we are providing now then we may end up with the
+   * query strings being automatically decoded using the wrong
+   * encoding by request.getParameter(). But by the time we
+   * end up with values in such parameters the client and
+   * server will probably have settled on particular encodings.
+   */
+  public void establishCharsets() throws ServletException {
+
+    AcceptCharset ac;
+    try {
+      ac = new AcceptCharset(request.getHeader("Accept-Charset"),
+                             config.getPreferredCharsets());
+    }
+    catch (HttpHeader.HttpHeaderException e) {
+      ServletException t = new ServletException(
+          "An error was apparently detected in your HTTP request header " +
+          " worthy of response code: " + HttpServletResponse.SC_BAD_REQUEST);
+      t.initCause(e);
+      throw t;
+    }
+    if (request.getCharacterEncoding() == null) {
+      responseCharset = ac.clientChoice();
+      try {
+        request.setCharacterEncoding(responseCharset);
+      }
+      catch (UnsupportedEncodingException e) {
+        assert false : "This has already been checked by AcceptCharset";
+      }
+    } else {
+      responseCharset = ac.serverChoice();
+    }
+  }
+
+  /**
+   * Suggested character encoding for use in responses.
+   */
+  protected String responseCharset = null;
+
+  /**
+   * Sets the content type for use in the response.
+   * <p>
+   * Use of this method is optional and does not work in standalone
+   * mode.
+   * <p>
+   * If the type starts with "text/" and does not contain a semicolon
+   * and a good response character set has been established based on
+   * the request Accept-Charset header and server preferences, then this
+   * and semicolon separator are automatically appended to the type.
+   * I am guessing that this makes sense.
+   * <p>
+   * Whether this function should be called at all may depend on 
+   * the application and templates.
+   * <p>
+   * It should be called before any calls to {@link #getEncoding()}
+   * and before writing the response.
+   *
+   * @see #establishCharsets()
+   * @todo Test this out in applications then change the admin templates.
+   */
+  public void setResponseContentType(String type) {
+    if (responseCharset != null && type.startsWith("text/")
+        && type.indexOf(";") == -1) {
+      type += "; charset=" + responseCharset;
+    }
+    // System.err.println("Setting content type to: " + type);
+    response.setContentType(type);
+  }
 
   /**
    * Get a HTMLMarkupLanguage for use when generating HTML in templates.
@@ -534,13 +626,85 @@ public class Melati {
   }
 
   /**
-   * @return the encoding in use
+   * Return the encoding that is used for URL encoded query
+   * strings.
+   * <p>
+   * The requirement here is that parameters can be encoded in
+   * query strings included in URLs in the body of responses.
+   * User interaction may result in subsequent requests with such
+   * a URL. The HTML spec. describes encoding of non-alphanumeric
+   * ASCII using % and ASCII hex codes and, in the case of forms.
+   * says the client may use the response encoding by default.
+   * Sun's javadoc for <code>java.net.URLEncoder</code>
+   * recommends UTF-8 but the default is the Java platform
+   * encoding. Most significantly perhaps,
+   * org.mortbay.http.HttpRequest uses the request encoding.
+   * We should check that this is correct in the servlet specs.
+   * <p>
+   * So we assume that the servlet runner may dictate the
+   * encoding that will work for multi-national characters in
+   * field values encoded in URL's (but not necessarily forms).
+   * <p>
+   * If the request encoding is used then we have to try and
+   * predict it. It will be the same for a session unless a client
+   * has some reason to change it. E.g. if we respond to a request
+   * in a different encoding and the client is influenced.
+   * (See {@link #establishCharsets()}.
+   * But that is only a problem if the first or second request
+   * in a session includes field values encoded in the URL and
+   * user options include manually entering the same in a form
+   * or changing their browser configuration.
+   * Or we can change the server configuration.
+   * <p>
+   * It would be better if we had control over what encoding
+   * the servlet runner used to decode parameters.
+   * Perhaps one day we will.
+   * <p>
+   * So this method implements the current policy and currently
+   * returns the current request encoding.
+   * It assumes {@link #establishCharsets()} has been called to
+   * set the request encoding if necessary.
+   *
+   * @todo Someone other than JimW should review this requirements
+   * analysis.
+   * @see #establishCharsets()
+   * @see org.melati.admin.Admin#selection(TemplateContext, Melati)
+   */
+  public String getURLQueryEncoding() {
+    return request.getCharacterEncoding();
+  }
+
+  /**
+   * Convenience method to URL encode a URL query string.
+   * <p>
+   * These is here because it uses knownledge of this object and
+   * other methods.
+   *
+   * @see org.melati.admin.Admin#selection(TemplateContext, Melati)
+   */
+  public String urlEncode(String string) {
+    try {
+      return URLEncoder.encode(string, getURLQueryEncoding());
+    }
+    catch (UnsupportedEncodingException e) {
+      assert false : "The URL query encoding is supported";
+      return string;
+    }
+  }
+
+  /**
+   * Return the encoding that is used for writing.
+   * <p>
+   * This should always return an encoding and it should be the same
+   * for duration of use of an instance.
+   *
+   * @return Response encoding or a default in stand alone mode
+   * @see #setResponseContentType(String)
    */
   public String getEncoding() {
     if (encoding == null)
       encoding = response == null ? DEFAULT_ENCODING :
                                     response.getCharacterEncoding();
-
     return encoding;
   }
 
@@ -568,20 +732,16 @@ public class Melati {
 
   /**
    * Get a StringWriter.
-   *
-   * @return - one of:
-   *
-   * - a StringWriter from the template engine
-   * - a new StringWriter
+   * <p>
+   * Provided the possibility of getting a string writer from
+   * the template engine.
    *
    * @throws IOException if there is a problem with the writer
+   * @deprecated The best possible {@link MelatiWriter} that is like a
+   * <code>StringWriter</code> is a {@link MelatiStringWriter}.
    */
   public MelatiWriter getStringWriter() throws IOException {
-    if (templateEngine != null) {
-      return templateEngine.getStringWriter(getEncoding());
-    } else {
-      return new MelatiStringWriter();
-    }
+    return new MelatiStringWriter();
   }
 
 

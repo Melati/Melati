@@ -33,12 +33,22 @@
 <UL>
   <LI> <B>Separating design from logic</B>
        <P>
-         Melati is based on the popular <A
+         Melati was influenced in its development by the ground-breaking 
+         <A
          HREF=http://webmacro.org>Webmacro</A> templating system, which allows
          for a clean divide between the HTML (WML, ...) page design and the
          program.
        </P>
-
+       <P>
+         Since <a hre="http://jakarta.apache.org/velocity/">Velocity</a> 
+         has arrived Melati has become template engine agnostic.
+         It works with all versions of Velocity and was shown to work with a 
+         home grown templating engine (Jtemplater).
+       </P>
+       <p>
+         Melati fits into and encourages an Model / Controller / View (MVC) 
+         approach to systems design, as do 
+       </p>
   <LI> <B>Getting database fields on and off web pages</B>
        
     <P> Melati can render both field values and input controls such as <TT>&lt;INPUT&gt;</TT>s 
@@ -84,7 +94,7 @@
        <P>
 	 Intensively-used tables can be transparently cached on a
 	 least-recently-used basis (and the cache behaves correctly with
-	 respect to transactions).  <FONT COLOR=red>Alpha-ready.</FONT>
+	 respect to transactions). 
        </P>
 
   <LI> <B>Cacheing standard queries and other database-dependent objects.</B>
@@ -132,8 +142,8 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   logical database name is mapped to JDBC connection details via the config
   file <A
   HREF=../org.melati.LogicalDatabase.properties.example><TT>org.melati.LogicalDatabase.properties</TT></A>.
-  When a the first JDBC connection has been established (<I>i.e.</I> once per
-  JVM), a picture is built up of how the structure database ought to look,
+  When the first JDBC connection has been established (<I>i.e.</I> once per
+  JVM), a picture is built up of how the structure-database ought to look,
   drawing on the programmer's compile-time <A
   HREF=../poem/doc/UserGuide.html#DSD>Data Structure Definition</A> (DSD), if
   any, and on the type-rich metadata set up by the administrator using the
@@ -205,8 +215,8 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 <P>
   Generating input controls for objects' fields is just as easy.  The following
   simplified fragment of a template from the generic admin system
-  (<A HREF=../admin/Edit.wm>Edit.wm</A>, <FONT COLOR=red>currently a sketchy
-  skeleton</FONT>) also illustrates how you can iterate over all the fields in
+  (<A HREF=../admin/Edit.wm>Edit.wm</A>, also illustrates how you can iterate 
+  over all the fields in
   an object without having to know their names:
 </P>
 
@@ -243,17 +253,21 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   Part of the point of having type-specific templates is that they can carry
   JavaScript (VBScript, ...) routines for client-side validation of the values
   entered or otherwise selected by the user.  For instance, this is
-  <A HREF=../templets/html/textfield-Integer.wm><TT>templets/html/textfield-Integer.wm</TT></A>:
+  <A
+  HREF=../template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm>
+<TT>
+template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
+</TT></A>:
 </P>
 
 <BLOCKQUOTE><PRE>
-&lt;INPUT NAME="field-$ml.rendered($field.Name)" SIZE=$field.Width
-       VALUE="$ml.rendered($field.ValueString)"&gt;
+&lt;INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+       VALUE="$ml.Attr.rendered($field.RawString)"&gt;
 
 &lt;SCRIPT LANGUAGE=JavaScript1.2&gt;
-  add_integer("field-$ml.escaped($field.Name)",
+  add_integer("field_$ml.escaped($field.Name)",
               "$ml.escaped($field.DisplayName)",
-	      !$field.Nullable)
+	      !$field.Type.Nullable)
 &lt;/SCRIPT&gt;
 </PRE></BLOCKQUOTE>
 
@@ -294,7 +308,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 </H3>
 
 <P>
-  <I>Ought to have one ...</I>
+  See the <A href="/Examples.html">Examples</a>.
 </P>
 
 
@@ -306,8 +320,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 </H3>
 
 <P>
-  A brief first draft of the <A HREF=../qa/Installation.html>Installation
-  Guide</A> is available.
+  The <a href=../README.html>REAME</a> has installation details.
 </P>
 
 
@@ -322,7 +335,6 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
   <TR VALIGN=TOP>
     <TD>
       <A HREF=../poem/doc/UserGuide.html><TT>org.melati.poem</TT></A>
-      <BR><FONT COLOR=red>(in progress)</FONT>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
@@ -337,8 +349,7 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 
   <TR VALIGN=TOP>
     <TD>
-      <!-- A HREF=../poem/prepro/doc/UserGuide.html --><TT>org.melati.poem.prepro</TT><!-- /A -->
-      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
+      <A HREF=../poem/prepro/doc/UserGuide.html><TT>org.melati.poem.prepro</TT></A>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
@@ -351,14 +362,23 @@ http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
 
   <TR VALIGN=TOP>
     <TD>
-      <!-- A HREF=Templating.html --><TT>org.melati</TT><!-- /A -->
-      <BR><FONT COLOR=red>(doc not yet ready)</FONT>
+      <A HREF=Templating.html><TT>org.melati.template</TT></A>
     </TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
-      Melati's interface with Webmacro exploits the rationalised view of the
-      RDBMS offered by POEM to automate the process of generating views and
-      inputs for fields and rows.  Of interest to page authors.
+      <p>
+      Melati's API is Template Engine agnostic. Melati can be used with 
+      Webmacro or Velocity or both, as Webmacro templates are converted 
+      on-the-fly to Velocity templates.
+      </p>
+      <p>
+      Melati comes with default templets for rendering fields for 
+      input and output in HTML or WML.
+      The templets can be overridden or added to.
+      </p>
+      <p>
+      Of interest to page authors.
+      </p>
     </TD>
   </TR>
 

@@ -117,6 +117,16 @@ public abstract class MarkupLanguage {
 
   public String input(Field field)
       throws UnsupportedTypeException, WebMacroException {
+        return input(field, "", false);
+  }
+
+  public String searchInput(Field field, String nullValue)
+      throws UnsupportedTypeException, WebMacroException {
+        return input(field, nullValue, true);
+  }
+
+  protected String input(Field field, String nullValue, boolean overrideNullable) 
+      throws UnsupportedTypeException, WebMacroException {
     Template templet =
         (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
                                                   templetPath(field));
@@ -133,12 +143,27 @@ public abstract class MarkupLanguage {
         throw e;
     }
 
+    if (overrideNullable) {
+        final PoemType nullable =
+            field.getType().withNullable(true);
+        field =
+            new Field(field.getIdent(), field) {
+                 public PoemType getType() {
+                     return nullable;
+                 }
+            };
+        webContext.put("nullValue", nullValue);
+    }
+
     webContext.put("field", field);
     try {
       return (String)templet.evaluate(webContext);
     }
     finally {
       webContext.remove("field");
+      if (overrideNullable)
+          webContext.remove("nullValue");
     }
   }
+
 }

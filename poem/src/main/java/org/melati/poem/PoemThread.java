@@ -133,6 +133,10 @@ public class PoemThread {
     return _sessionToken() != null;
   }
 
+  /**
+   * The access token under which your thread is running.
+   */
+
   public static AccessToken accessToken()
       throws NotInSessionPoemException, NoAccessTokenPoemException {
     AccessToken it = sessionToken().accessToken;

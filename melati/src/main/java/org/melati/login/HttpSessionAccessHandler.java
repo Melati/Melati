@@ -114,9 +114,9 @@ public class HttpSessionAccessHandler implements AccessHandler {
     HttpServletRequest request = melati.getRequest();
     HttpServletResponse response = melati.getResponse();
     HttpSession session = request.getSession(true);
-    session.setAttribute(Login.TRIGGERING_REQUEST_PARAMETERS,
+    session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
                      new HttpServletRequestParameters(request));
-    session.setAttribute(Login.TRIGGERING_EXCEPTION, accessException);
+    session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
     melati.getWriter().reset();
     response.sendRedirect(loginPageURL(melati, request));
   }
@@ -136,7 +136,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     String ldb = melati.getContext().getLogicalDatabase();
     HttpSession session = melati.getSession();
     synchronized (session) {
-      User user = (User)session.getAttribute(USER);
+      User user = (User)session.getValue(USER);
       if (user == null) {
         user = getUserFromCookie(melati,ldb);
         if (user != null) {
@@ -187,10 +187,10 @@ public class HttpSessionAccessHandler implements AccessHandler {
 
     synchronized (session) {
       HttpServletRequestParameters oldParams =
-          (HttpServletRequestParameters)session.getAttribute(OVERLAY_PARAMETERS);
+          (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
 
       if (oldParams != null) {
-        session.removeAttribute(OVERLAY_PARAMETERS);
+        session.removeValue(OVERLAY_PARAMETERS);
 
         // we don't want to create a new object here, rather we are simply 
         // going to set up the old request parameters

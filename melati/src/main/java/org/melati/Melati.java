@@ -274,20 +274,34 @@ public class Melati {
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      Object raw = extractField(context, "field_" + column.getName());
+      String formFieldName = "field_" + column.getName();
+      String rawString = context.getForm(formFieldName);
 
-      if (raw instanceof String)
-      {
-        if (raw == null)
-          return;
-
-        if (raw.equals("") && column.getType().getNullable())
-            column.setRaw(object, null);
-        else
-          column.setRawString(object, (String)raw);
+      String adaptorFieldName = formFieldName + "-adaptor";
+      String adaptorName = context.getForm(adaptorFieldName);
+      if (adaptorName != null) {
+        TempletAdaptor adaptor;
+        try {
+          // FIXME cache this instantiation
+          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
+        } catch (Exception e) {
+          throw new TempletAdaptorConstructionMelatiException(
+                      adaptorFieldName, adaptorName, e);
+        }
+        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
       }
-      else
-        column.setRaw(object, raw);
+      else {
+        if (rawString != null) {
+          if (rawString.equals("")) {
+            if (column.getType().getNullable())
+              column.setRaw(object, null);
+            else
+              column.setRawString(object, "");
+          }
+          else
+            column.setRawString(object, rawString);
+        }
+      }
     }
   }
 
@@ -299,6 +313,7 @@ public class Melati {
 
     String adaptorFieldName = fieldName + "-adaptor";
     String adaptorName = context.getForm(adaptorFieldName);
+
     if (adaptorName != null) {
       TempletAdaptor adaptor;
       try {

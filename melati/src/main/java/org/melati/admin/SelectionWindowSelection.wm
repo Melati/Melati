@@ -92,7 +92,7 @@ $results.TotalCount</b>
     #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$result.PrimaryDisplayField.Cooked')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" vspace=0></a></TD>
+	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.rendered($result.PrimaryDisplayField.Cooked)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" vspace=0></a></TD>
 	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field)</font></TD>

@@ -4,8 +4,13 @@ public abstract class MelatiRuntimeException extends RuntimeException {
 
   public Exception subException;
 
-  public MelatiRuntimeException(Exception subException) {
+  public MelatiRuntimeException(String message, Exception subException) {
+    super(message);
     this.subException = subException;
+  }
+
+  public MelatiRuntimeException(Exception subException) {
+    this(null, subException);
   }
 
   public MelatiRuntimeException() {

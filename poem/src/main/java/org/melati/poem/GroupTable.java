@@ -67,7 +67,7 @@ public class GroupTable extends GroupTableBase {
 
   void postInitialise() {
     super.postInitialise();
-    getNameColumn().ensure(administratorsGroup);
+    administratorsGroup = (Group)getNameColumn().ensure(administratorsGroup);
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)

@@ -77,7 +77,7 @@ public class UserTable extends UserTableBase {
     administratorUser.setName_unsafe("Melati database administrator");
   }
 
-  User guestUser() {
+  public User guestUser() {
     return guestUser;
   }
 

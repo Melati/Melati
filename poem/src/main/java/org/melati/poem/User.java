@@ -107,4 +107,8 @@ public class User extends UserBase implements AccessToken {
   public String toString() {
     return getLogin_unsafe() == null ? super.toString() : getLogin_unsafe();
   }
+
+  public boolean isGuest() {
+    return (this == ((UserTable)getTable()).guestUser()) ? true: false;
+  }
 }

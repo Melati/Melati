@@ -1,4 +1,13 @@
 #!/bin/bash
+#
+# $Source$
+# $Revision$
+#
+# Goes with Melati (http://melati.org), a framework for the rapid
+# development of clean, maintainable web applications.  You may do
+# whatever you like with the contents of this file, but Melati itself
+# is copyrighted, and released under the GNU General Public License.
+#
 
 set -e
 

@@ -145,6 +145,18 @@ public class Admin extends MelatiServlet {
   protected Template tableListTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
+    return adminTemplate(tableList(context,melati), "ResultsSelect.wm");
+  }
+
+  protected Template popupTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException,
+             HandlerException {
+    return adminTemplate(tableList(context,melati), "PopupSelect.wm");
+  }
+  
+  protected WebContext tableList(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException,
+             HandlerException {
     final Table table = melati.getTable();
     context.put("table", table);
 
@@ -162,8 +174,7 @@ public class Admin extends MelatiServlet {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
     }
 
-    context.put("criteria",
-                new MappedEnumeration(table.getSearchCriterionColumns()) {
+    MappedEnumeration criter = new MappedEnumeration(table.getSearchCriterionColumns()) {
                   public Object mapped(Object c) {
                     Column column = (Column)c;
                     final PoemType nullable =
@@ -175,7 +186,14 @@ public class Admin extends MelatiServlet {
                           }
                         };
                   }
-                });
+                };
+
+	Vector criteriaVector = new Vector();
+    while (criter.hasMoreElements()) {
+      criteriaVector.add(criter.nextElement());
+    }
+
+    context.put("criteria",criteriaVector);
 
     // sort out ordering (FIXME this is a bit out of control)
 
@@ -230,7 +248,7 @@ public class Admin extends MelatiServlet {
     context.put("objects", table.selection(table.whereClause(criteria),
                                            orderByClause, false, start, 20));
 
-    return adminTemplate(context, "Select.wm");
+    return context;
   }
 
   protected Template columnCreateTemplate(WebContext context,
@@ -378,6 +396,8 @@ public class Admin extends MelatiServlet {
           return tableListTemplate(context, melati);
         if (melati.getMethod().equals("LowerFrame"))
           return lowerFrameTemplate(context, melati);
+        if (melati.getMethod().equals("PopUp"))
+          return popupTemplate(context, melati);
         else if (melati.getMethod().equals("Add"))
           return addTemplate(context, melati);
         else if (melati.getMethod().equals("AddUpdate"))

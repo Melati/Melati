@@ -74,12 +74,23 @@ public class AdminUtils {
   public String lowerFrameTableURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/LowerFrame";
   }
-
+  
   public String tableURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/View";
+  }
+
+  public String popupTableURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
 
   public String tablesURL() {
     return adminURL + "/" + logicalDatabase + "/View";
   }
+  
+  // establish if this is a reference poem type field
+  public boolean isReferencePoemType(Field field) {
+	  return field.getType() instanceof ReferencePoemType;
+  }
+
+
 }

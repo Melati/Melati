@@ -60,13 +60,24 @@ public class PreparedSelection {
   private String whereClause;
   private String orderByClause;
   private String tableDefaultOrderByClause = null;
+  private Table otherTables[];
+  private long otherTablesSerial[];
+
+  public PreparedSelection(final Table table,
+                           final String whereClause,
+                           final String orderByClause,
+						   final Table otherTables[]) {
+    this.table = table;
+    this.whereClause = whereClause;
+    this.orderByClause = orderByClause;
+    this.otherTables = otherTables;
+    if (otherTables != null) otherTablesSerial = new long[otherTables.length];
+  }
 
   public PreparedSelection(final Table table,
                            final String whereClause,
                            final String orderByClause) {
-    this.table = table;
-    this.whereClause = whereClause;
-    this.orderByClause = orderByClause;
+    this(table,whereClause,orderByClause,null);
   }
 
   private PreparedStatementFactory statements() {
@@ -85,12 +96,11 @@ public class PreparedSelection {
 
     return statements;
   }
-
+  
   public Enumeration troids() {
     Vector selection = this.selection;
     PoemTransaction transaction = PoemThread.transaction();
-    long currentTableSerial = table.serial(transaction); 
-    if (selection == null || currentTableSerial != tableSerial) {
+    if (selection == null || somethingHasChanged(transaction)) {
       selection = new Vector();
       try {
 	ResultSet rs = statements().resultSet(transaction);
@@ -103,14 +113,32 @@ public class PreparedSelection {
 	}
       }
       catch (SQLException e) {
-	throw new SQLSeriousPoemException(e);
+	    throw new SQLSeriousPoemException(e);
       }
-
       this.selection = selection;
-      tableSerial = currentTableSerial;
+      updateSerials(transaction);
     }
 
     return selection.elements();
+  }
+
+  private boolean somethingHasChanged(PoemTransaction transaction) {
+    if (table.serial(transaction) != tableSerial) return true;
+    if (otherTables != null) {
+      for (int i=0; i<otherTables.length; i++) {
+		if (otherTables[i].serial(transaction) != otherTablesSerial[i]) return true;
+	  }
+	}
+	return false;
+  }
+
+  private void updateSerials(PoemTransaction transaction) {
+    tableSerial = table.serial(transaction);
+    if (otherTables != null) {
+      for (int i=0; i<otherTables.length; i++) {
+        otherTablesSerial[i] = otherTables[i].serial(transaction);
+      }
+	}
   }
 
   public Table getTable() {

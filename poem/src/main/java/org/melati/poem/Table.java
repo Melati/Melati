@@ -74,12 +74,12 @@ public class Table {
   private Column canReadColumn = null;
   private Column canWriteColumn = null;
   private Column displayColumn = null;
-  private Column primaryCriterionColumn = null;
+  private Column searchColumn = null;
 
   private String defaultOrderByClause = null;
-  private Column[] recordDisplayColumns = null;
-  private Column[] summaryDisplayColumns = null;
-  private Column[] searchCriterionColumns = null;
+
+  private Column[][] displayColumns = new Column[DisplayLevel.count()][];
+  private Column[] searchColumns = null;
 
   private TransactionedSerial serial;
 
@@ -96,6 +96,7 @@ public class Table {
   }
 
   protected void postInitialise() {
+    clearColumnInfoCaches();
     database.getColumnInfoTable().addListener(
         new TableListener() {
           public void notifyTouched(PoemTransaction transaction, Table table,
@@ -224,7 +225,7 @@ public class Table {
     return new ArrayEnumeration(columns);
   }
 
-  final int getColumnsCount() {
+  public final int getColumnsCount() {
     return columns.length;
   }
 
@@ -280,16 +281,17 @@ public class Table {
     displayColumn = column;
   }
 
-/**
-* in a similar manner to the primary display column, each table can have a 
-* primary criterion column
-*/
+  /**
+  * in a similar manner to the primary display column, each table can have a 
+  * primary criterion column
+  */
+
   public final Column primaryCriterionColumn() {
-    return primaryCriterionColumn;
+    return searchColumn;
   }
 
-  final void setPrimaryCriterionColumn(Column column) {
-    primaryCriterionColumn = column;
+  void setSearchColumn(Column column) {
+    searchColumn = column;
   }
 
   String defaultOrderByClause() {
@@ -327,9 +329,8 @@ public class Table {
 
   private void clearColumnInfoCaches() {
     defaultOrderByClause = null;
-    recordDisplayColumns = null;
-    summaryDisplayColumns = null;
-    searchCriterionColumns = null;
+    for (int i = 0; i < displayColumns.length; ++i)
+      displayColumns[i] = null;
   }
 
   void notifyColumnInfo(ColumnInfo info) {
@@ -360,6 +361,33 @@ public class Table {
     return columns;
   }
 
+  public final Enumeration displayColumns(DisplayLevel level) {
+    Column[] columns = displayColumns[level.index.intValue()];
+
+    if (columns == null)
+      displayColumns[level.index.intValue()] = columns =
+	  columnsWhere("displaylevel <= " + level.index);
+
+    return new ArrayEnumeration(columns);
+  }
+
+  public final int displayColumnsCount(DisplayLevel level) {
+    int l = level.index.intValue();
+    if (displayColumns[l] == null)
+      // FIXME race
+      displayColumns(level);
+
+    return displayColumns[l].length;
+  }
+
+  public final Enumeration getDetailDisplayColumns() {
+    return displayColumns(DisplayLevel.detail);
+  }
+
+  public final int getDetailDisplayColumnsCount() {
+    return displayColumnsCount(DisplayLevel.detail);
+  }
+
   /**
    * The table's columns designated for display in a record, in display order.
    *
@@ -368,12 +396,11 @@ public class Table {
    */
 
   public final Enumeration getRecordDisplayColumns() {
-    Column[] columns = recordDisplayColumns;
+    return displayColumns(DisplayLevel.record);
+  }
 
-    if (columns == null)
-      recordDisplayColumns = columns = columnsWhere("recorddisplay");
-
-    return new ArrayEnumeration(columns);
+  public final int getRecordDisplayColumnsCount() {
+    return displayColumnsCount(DisplayLevel.record);
   }
 
   /**
@@ -385,12 +412,7 @@ public class Table {
    */
 
   public final Enumeration getSummaryDisplayColumns() {
-    Column[] columns = summaryDisplayColumns;
-
-    if (columns == null)
-      summaryDisplayColumns = columns = columnsWhere("summarydisplay");
-
-    return new ArrayEnumeration(columns);
+    return displayColumns(DisplayLevel.summary);
   }
   
   /**
@@ -402,19 +424,21 @@ public class Table {
    */
 
   public final Enumeration getSearchCriterionColumns() {
-    Column[] columns = searchCriterionColumns;
+    Column[] columns = searchColumns;
 
     if (columns == null)
-      searchCriterionColumns = columns = columnsWhere("searchcriterion");
+      searchColumns = columns = columnsWhere("searchability <= " +
+					     Searchability.yes.index);
 
-    return new ArrayEnumeration(columns);
+    return new ArrayEnumeration(searchColumns);
   }
 
   public final int getSearchCriterionColumnsCount() {
-    if (searchCriterionColumns == null) {
-	    Enumeration a = getSearchCriterionColumns();
-    }
-	return searchCriterionColumns.length;
+    if (searchColumns == null)
+      // FIXME race
+      getSearchCriterionColumns();
+      
+    return searchColumns.length;
   }
 
 

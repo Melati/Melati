@@ -169,15 +169,10 @@ public abstract class JspServlet
   */
   public final void service(final HttpServletRequest request, 
                             final HttpServletResponse response) 
-      throws ServletException, IOException 
+      throws ServletException 
   {
     final Melati melati;
-    try {
-      melati = melatiConfig.getMelati(request, response);
-    } catch (MelatiException e) {
-        e.printStackTrace(System.err);
-        throw new ServletException(e.toString());
-    }
+    melati = melatiConfig.getMelati(request, response);
     MelatiContext mc = getMelatiContext();
     try {
       melati.setContext(mc);

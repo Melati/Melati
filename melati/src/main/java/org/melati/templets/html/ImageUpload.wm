@@ -42,6 +42,7 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
+<a name="anchor_$ml.escaped($field.Name)"></a>
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
             COLS=$field.Width
@@ -51,16 +52,18 @@
          VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 <br>
-<a href="#" onClick="popup = window.open('$field.RawString','Zoom','scrollbars=yes,width=650,height=450');popup.focus()"><img src="$field.RawString" width=40 height=40 name=$ml.escaped($field.Name) align=top border=0></a>
-<a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
-
-
 
 <SCRIPT LANGUAGE=JavaScript1.2>
+  var imagename_$ml.escaped($field.Name) = '$field.RawString';
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
                !$field.Type.Nullable)
 </SCRIPT>
+
+<a href="#anchor_$ml.escaped($field.Name)" onClick="popup = window.open('imagename_$ml.escaped($field.Name)','Zoom','scrollbars=yes,width=650,height=450');popup.focus()"><img src="$field.RawString" width=40 height=40 name=$ml.escaped($field.Name) align=top border=0></a>
+<a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
+
+
 <SCRIPT>
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
@@ -71,6 +74,7 @@ function upload_$ml.escaped($field.Name) () {
 }
 function update_$ml.escaped($field.Name) (url) {
   document.images.$(ml.escaped($field.Name)).src = url;
+  imagename_$ml.escaped($field.Name) = url;
   document.forms[0].field_$(ml.rendered($field.Name)).value = url;
   uploadwin_$(ml.escaped($field.Name)).close();
 }

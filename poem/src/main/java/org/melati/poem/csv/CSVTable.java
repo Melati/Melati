@@ -218,7 +218,8 @@ public class CSVTable {
                                     ": " + e.toString());
     }
     catch (NoSuchElementException f) {
-      String message = "Problem with data field no. " + (i+1) + 
+      String message = "Problem with data field no. " + (i+1) +
+      " of " + columnsInUploadOrder.size() +
       " in " + fileName +
       " line " + lineNo;
       

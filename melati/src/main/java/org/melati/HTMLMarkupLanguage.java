@@ -4,6 +4,7 @@ import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
 import org.melati.util.*;
 import org.melati.poem.*;
+import java.net.URLEncoder;
 
 public class HTMLMarkupLanguage extends MarkupLanguage {
 
@@ -69,5 +70,9 @@ public class HTMLMarkupLanguage extends MarkupLanguage {
 
   public String renderedVALUE(AccessPoemException e) {
     return "[Access denied to " + rendered(e.token) + "]";
+  }
+
+  public String encoded(String s) {
+    return URLEncoder.encode(s);
   }
 }

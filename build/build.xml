@@ -159,6 +159,10 @@ usage:
     <!-- don't include properties and wm files in jar -->
     <target name="jar">
         <mkdir dir="${built.lib}"/>
+
+        <!-- The **/*.dsd currently does nothing because of a resource -->
+        <!-- loader bug such that Poem.dsd must be a real file on the -->
+        <!-- classpath. -->
         <jar jarfile="${built.lib}/${project}.jar"
             basedir="${compiled.root}"
             includes="**/*.class, **/*.dsd"

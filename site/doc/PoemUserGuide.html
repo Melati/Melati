@@ -232,6 +232,57 @@ table User {
   representing the database itself, its tables, and their columns and rows.
 </P>
 
+
+<H4>
+<!-- -------------- -->
+      The database
+<!-- -------------- -->
+</H4>
+
+<P>
+  Each <A
+  HREF=../../qa/javadoc/org.melati.poem.Database.html><TT>Database</TT></A>
+  object corresponds to a single database (<I>i.e.</I> collection of tables) in
+  the DBMS.  Its function is to act as a container for <A
+  HREF=../../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A>s and as
+  the carrier of POEM's top-level APIs.
+</P>
+
+<P>
+  <TT>Database</TT> itself is an abstract class.  Each data structure
+  definition file <TT><I>Bar</I>.dsd</TT> gives rise to an extension of
+  <TT>Database</TT> called <TT><I>Bar</I>DatabaseBase</TT> containing
+  boilerplate code for accessing the tables declared in the DSD in a type-safe
+  way, and a blank subclass of that called <TT><I>Bar</I>Database</TT> to which
+  you can add methods of your own.  It is <TT><I>Bar</I>Database</TT> that you
+  should instantiate.  Or, if you are not working with a DSD-defined schema,
+  you should instantiate <TT>PoemDatabase</TT> (which is actually derived from
+  a DSD file called <A HREF=../Poem.dsd><TT>Poem.dsd</TT></A>).
+</P>
+
+
+<H4>
+<!-- -------- -->
+      Tables
+<!-- -------- -->
+</H4>
+
+<P>
+  Each <A HREF=../../qa/javadoc/org.melati.poem.Table.html><TT>Table</TT></A>
+  object represents a single table in the DBMS.  It acts as a container for the
+  table's columns and provides methods for searching over and retrieval of the
+  records in the table.
+</P>
+
+<P>
+  Each declaration <TT>table</TT> <TT><I>Foo</I></TT> in the DSD gives rise to
+  an extension of <TT>Table</TT> called <TT><I>Foo</I>TableBase</TT> containing
+  boilerplate code to express the application-specific schema of the table in a
+  type-safe way.
+</P>
+
+
+
 <P>
   Blah ... must point out somewhere how to cache facts about the database in a
   session-safe way, as is done for user-capabilities.
@@ -456,6 +507,9 @@ table User {
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.8  2000/03/18 10:34:11  williamc
+  <BR>Start sketching in Database section
+  <BR>
   <BR>Revision 1.7  2000/03/01 21:20:05  williamc
   <BR>Fix a couple of typos
   <BR>

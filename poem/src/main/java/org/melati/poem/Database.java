@@ -674,6 +674,13 @@ abstract public class Database implements TransactionPool {
     return tables.elements();
   }
 
+  /**
+   * Currently all the tables in the database in DisplayOrder
+   * order.
+   * 
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Table</TT>s 
+   */
   public Enumeration getDisplayTables() {
     Table[] displayTables = this.displayTables;
 

@@ -45,6 +45,8 @@
 
 package org.melati.poem;
 
+import org.melati.util.StringUtils;
+
 public class BaseFieldAttributes implements FieldAttributes {
 
   private String name;
@@ -83,20 +85,21 @@ public class BaseFieldAttributes implements FieldAttributes {
   */
 
   public BaseFieldAttributes(String name, PoemType type) {
-    this(name, name, null, type, 0, 0, null, false, true, true);
+    this(name, StringUtils.capitalised(name), null, type, 0, 0, null, 
+         false, true, true);
   }
 
   public BaseFieldAttributes(FieldAttributes other, PoemType type) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
-	 type, other.getWidth(), other.getHeight(), other.getRenderInfo(),
+         type, other.getWidth(), other.getHeight(), other.getRenderInfo(),
          other.getIndexed(), other.getUserEditable(),
          other.getUserCreateable());
   }
 
   public BaseFieldAttributes(FieldAttributes other, String name) {
     this(name, other.getDisplayName(), other.getDescription(),
-	 other.getType(), other.getWidth(), other.getHeight(), other.getRenderInfo(),
-         other.getIndexed(), other.getUserEditable(),
+         other.getType(), other.getWidth(), other.getHeight(), 
+         other.getRenderInfo(),other.getIndexed(), other.getUserEditable(),
          other.getUserCreateable());
   }
 
@@ -104,7 +107,8 @@ public class BaseFieldAttributes implements FieldAttributes {
    */
   public BaseFieldAttributes(FieldAttributes other, String name, String description) {
     this(name, other.getDisplayName(), description,
-	 other.getType(), other.getWidth(), other.getHeight(), other.getRenderInfo(),
+         other.getType(), other.getWidth(), other.getHeight(), 
+         other.getRenderInfo(),
          other.getIndexed(), other.getUserEditable(),
          other.getUserCreateable());
   }

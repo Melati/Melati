@@ -58,7 +58,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.FileInputStream;
-import java.io.StringBufferInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 
@@ -288,7 +288,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader
                     }
                 }
 //                System.err.println(contents);
-                return new StringBufferInputStream(contents);
+                return new ByteArrayInputStream(contents.getBytes());
               } else {
                 return new BufferedInputStream(
                     new FileInputStream(file.getAbsolutePath()));

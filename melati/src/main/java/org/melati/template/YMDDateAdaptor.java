@@ -71,10 +71,6 @@ class YearPoemType extends IntegerPoemType {
 
 class MonthPoemType extends IntegerPoemType {
 
-//  public static final MonthPoemType
-//      nullable = new MonthPoemType(true),
-//      nonNullable = new MonthPoemType(false);
-
   public MonthPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(1), new Integer(13));
@@ -104,10 +100,6 @@ class MonthPoemType extends IntegerPoemType {
 
 class DayPoemType extends IntegerPoemType {
 
-//  public static final DayPoemType
-//      nullable = new DayPoemType(true),
-//      nonNullable = new DayPoemType(false);
-
   public DayPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(1), new Integer(32));
@@ -123,6 +115,7 @@ class DayPoemType extends IntegerPoemType {
 }
 
 public class YMDDateAdaptor implements TempletAdaptor {
+
   protected static final String
       yearSuffix = "-year",
       monthSuffix = "-month",
@@ -212,5 +205,4 @@ public class YMDDateAdaptor implements TempletAdaptor {
 	    2, 1,
             null, false, true, true));
   }
-
 }

@@ -56,63 +56,68 @@ import org.melati.util.MelatiWriter;
  * @author Tim Joyce
  * $Revision$
  */
-public interface TemplateEngine
-{
+
+public interface TemplateEngine {
 
   /**
    * Construct a new Engine
    */
+
   public void init() throws TemplateEngineException;
 
   /**
    * get the generic parameters for this engine
    */
+
   public TemplateContext getTemplateContext(Melati melati)
-                         throws TemplateEngineException;
+      throws TemplateEngineException;
 
   /**
-  * the name of the template engine (used to find the templets)
-  */
+   * The name of the template engine (used to find the templets)
+   */
+
   public String getName();
 
   /**
-  * the extension of the templates used by this template engine)
-  */
+   * The extension of the templates used by this template engine)
+   */
+
   public String templateExtension();
   
   /** 
-   * get a template given it's name
-  */
+   * Get a template given it's name
+   */
+
   public Template template(String templateName) throws NotFoundException;
   
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(MelatiWriter out, 
-                             String templateName, 
+
+  public void expandTemplate(MelatiWriter out, String templateName, 
                              TemplateContext templateContext) 
-              throws TemplateEngineException;
+      throws TemplateEngineException;
   
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(MelatiWriter out, 
-                             Template template, 
+
+  public void expandTemplate(MelatiWriter out, Template template, 
                              TemplateContext templateContext) 
-              throws TemplateEngineException;
+      throws TemplateEngineException;
 
     
   public Object getPassbackVariableExceptionHandler();
   
   public MelatiWriter getServletWriter(HttpServletResponse response, 
                                        boolean buffered)
-          throws IOException;
+      throws IOException;
   
-  public MelatiWriter getStringWriter(String encoding)
-          throws IOException;
-  /** 
-   * get the underlying engine
-   */
-  public Object getEngine();
+  public MelatiWriter getStringWriter(String encoding) throws IOException;
 
+  /** 
+   * Get the underlying engine
+   */
+
+  public Object getEngine();
 }

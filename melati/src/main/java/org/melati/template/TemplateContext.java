@@ -52,8 +52,7 @@ package org.melati.template;
 import javax.servlet.http.HttpSession;
 import org.melati.servlet.MultipartFormField;
 
-public interface TemplateContext 
-{
+public interface TemplateContext {
 
   public void put(String s, Object o);
 
@@ -66,11 +65,4 @@ public interface TemplateContext
   public HttpSession getSession();
 
   public Object getContext();
-
 }
-
-
-
-
-
-

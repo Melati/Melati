@@ -66,5 +66,4 @@ public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
       attributeML = new AttributeWMLMarkupLanguage(this);
     return attributeML;
   }
-
 }

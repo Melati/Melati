@@ -184,5 +184,4 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
 	    2, 1,
             null, false, true, true));
   }
-
 }

@@ -51,7 +51,7 @@ public class TemplateEngineException extends MelatiException {
 
   String message;
   
-  public TemplateEngineException(Exception  underlying) {
+  public TemplateEngineException(Exception underlying) {
     super(underlying);
   }
 
@@ -63,5 +63,4 @@ public class TemplateEngineException extends MelatiException {
     if (message == null) return super.getMessage();
     return message;
   }
-
 }

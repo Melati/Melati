@@ -82,7 +82,8 @@ class HttpAuthorization {
   private HttpAuthorization() {
     ; // Utility classes should not have a public or default constructor
   }
-  HttpAuthorization(String type, String username, String password) {
+  
+  private HttpAuthorization(String type, String username, String password) {
     this.type = type;
     this.username = username;
     this.password = password;

@@ -819,7 +819,7 @@ abstract public class Database implements TransactionPool {
         return does;
       }
     }
-  };
+  }
 
   private UserCapabilityCache capabilityCache = new UserCapabilityCache();
 
@@ -926,7 +926,8 @@ abstract public class Database implements TransactionPool {
 
   public void appendQuotedName(StringBuffer buffer, String name)
       throws InvalidNamePoemException {
-    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
+    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '''');
+    //StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
   }
 
   /**

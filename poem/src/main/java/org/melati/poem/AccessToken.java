@@ -60,5 +60,5 @@ class RootAccessToken implements AccessToken {
 public interface AccessToken {
   boolean givesCapability(Capability capability);
 
-  public static final AccessToken root = new RootAccessToken();
+  AccessToken root = new RootAccessToken();
 }

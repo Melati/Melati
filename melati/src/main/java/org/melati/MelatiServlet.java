@@ -482,7 +482,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * <TT>super.init()</TT>.
    */
 
-  protected void init() throws ServletException {
+  public void init() throws ServletException {
     super.init();
 
     // Load org.melati.MelatiServlet.properties, or set blank configuration

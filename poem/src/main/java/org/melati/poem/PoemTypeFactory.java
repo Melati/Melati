@@ -59,7 +59,7 @@ public abstract class PoemTypeFactory {
     this.code = new Integer(c);
   }
 
-  public static interface Parameter {
+  public interface Parameter {
     boolean getNullable();
     int getSize();
   }

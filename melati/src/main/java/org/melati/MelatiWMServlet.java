@@ -124,6 +124,41 @@ final class ErrorHandler implements Handler
    }
 }
 
+
+/**
+  * Flusher replaces need for Thread.stop
+*/
+final class Flusher extends Thread {
+    private PrintWriter out = null;
+    private boolean stopTask = false;
+
+    private int getPauseLength() {
+        return 2000;
+    }
+
+    public Flusher(PrintWriter aOut) {
+        out = aOut;
+    }
+
+    public synchronized boolean getStopTask() {
+        return stopTask;
+    }
+
+    public synchronized void setStopTask(boolean aStopTask) {
+        stopTask = aStopTask;
+    }
+
+    public void run() {
+      try {
+        while (!getStopTask()) {
+          Thread.sleep( getPauseLength() );
+          out.flush();
+        }
+      }
+      catch (Exception e) {}
+    }
+}
+
 public abstract class MelatiWMServlet extends HttpServlet {
 
    private WebMacro _wm = null;
@@ -190,7 +225,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
     init();
   }
 
-  protected void init() throws ServletException {
+  public void init() throws ServletException {
     // locate a Broker
 
     if (_wm == null) {
@@ -398,6 +433,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
       throws WebMacroException, IOException {
     if (context.get(UNROLL) != null) {
       final PrintWriter out = context.getResponse().getWriter();
+/*      
       Thread flusher =
 	  new Thread() {
 	    public void run() {
@@ -410,12 +446,16 @@ public abstract class MelatiWMServlet extends HttpServlet {
 	      catch (Exception e) {}
 	    }
           };
+*/
+      Flusher flusher = new Flusher(out);
+
       flusher.start();
       try {
 	tmpl.write(out, context);
       }
       finally {
-	flusher.stop();
+//	flusher.stop();
+        flusher.setStopTask(true);
       }
     }
     else {

@@ -6,7 +6,7 @@
  * development of clean, maintainable web applications.
  *
  * -------------------------------------
- *  Copyright (C) 2000 William Chesters
+ *  Copyright (C) 2000 Sundayta Ltd
  * -------------------------------------
  *
  * This program is free software; you can redistribute it and/or modify
@@ -28,42 +28,23 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     David Warnock (david@sundayta.co.uk)
+ *     Sundayta Ltd
+ *     International House, 174 Three Bridges Road, Crawley, West Sussex RH10 1LE, UK
  *
- *
- * ------
- *  Note
- * ------
- *
- * I will assign copyright to PanEris (http://paneris.org) as soon as
- * we have sorted out what sort of legal existence we need to have for
- * that to make sense.  When WebMacro's "Simple Public License" is
- * finalised, we'll offer it as an alternative license for Melati.
- * In the meantime, if you want to use Melati on non-GPL terms,
- * contact me!
  */
 
-package org.melati.poem;
+package org.melati.poem.dbms;
 
 import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.dbms.*;
 
-public class PasswordPoemType extends StringPoemType {
+public class Postgresql extends AnsiStandard {
 
-  public PasswordPoemType(boolean nullable, Dbms dbms, int size) {
-    super(nullable, dbms, size);
-  }
+    public String getStringSqlDefinition(int size) throws SQLException {
+        if (size < 0) { 
+            return "TEXT";
+        }
+        return super.getStringSqlDefinition(size);
+    }
 
-  public String toString() {
-    return (getNullable() ? "nullable " : "") + "Password(" + super.size + ")";
-  }
-
-  protected void _saveColumnInfo(ColumnInfo columnInfo)
-      throws AccessPoemException {
-    columnInfo.setTypefactory(PoemTypeFactory.PASSWORD);
-    columnInfo.setSize(size);
-  }
 }

@@ -38,7 +38,7 @@ public class ValueInfoTableBase extends Table {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_displayname =
-        new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "displayname", new StringPoemType(false,getDatabase().getDbms(), 60), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getDisplayname();
@@ -95,7 +95,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_description =
-        new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "description", new StringPoemType(true,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getDescription();
@@ -148,7 +148,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_usereditable =
-        new Column(this, "usereditable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "usereditable", new BooleanPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getUsereditable();
@@ -266,7 +266,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_nullable =
-        new Column(this, "nullable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "nullable", new BooleanPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getNullable();
@@ -323,7 +323,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_size =
-        new Column(this, "size", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "size", new IntegerPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getSize();
@@ -380,7 +380,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_width =
-        new Column(this, "width", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "width", new IntegerPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getWidth();
@@ -437,7 +437,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_height =
-        new Column(this, "height", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "height", new IntegerPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getHeight();
@@ -494,7 +494,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_renderinfo =
-        new Column(this, "renderinfo", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "renderinfo", new StringPoemType(true,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRenderinfo();
@@ -551,7 +551,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_rangelow_string =
-        new Column(this, "rangelow_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "rangelow_string", new StringPoemType(true,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRangelow_string();
@@ -608,7 +608,7 @@ public class ValueInfoTableBase extends Table {
         });
 
     defineColumn(col_rangelimit_string =
-        new Column(this, "rangelimit_string", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "rangelimit_string", new StringPoemType(true,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ValueInfo)g).getRangelimit_string();

@@ -49,11 +49,12 @@ package org.melati.poem;
 
 import java.sql.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class DatePoemType extends AtomPoemType {
 
-  public DatePoemType(boolean nullable) {
-    super(Types.DATE, "DATE", nullable);
+  public DatePoemType(boolean nullable, Dbms dbms) {
+    super(Types.DATE, "DATE", nullable, dbms);
   }
 
   protected void _assertValidRaw(Object raw) {

@@ -114,6 +114,6 @@ public class ColumnTypeFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    return "new ColumnTypePoemType(getDatabase())";
+      return "new ColumnTypePoemType(getDatabase())";
   }
 }

@@ -50,14 +50,15 @@ package org.melati.poem;
 import java.sql.*;
 import java.text.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class TimestampPoemType extends AtomPoemType {
 
   public static final DateFormat format =
       new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-  public TimestampPoemType(boolean nullable) {
-    super(Types.TIMESTAMP, "TIMESTAMP", nullable);
+  public TimestampPoemType(boolean nullable, Dbms dbms) {
+    super(Types.TIMESTAMP, "TIMESTAMP", nullable, dbms);
   }
 
   protected void _assertValidRaw(Object raw) {

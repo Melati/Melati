@@ -48,13 +48,15 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.poem.dbms.*;
 
 public class TroidPoemType extends IntegerPoemType {
 
-  public static final TroidPoemType it = new TroidPoemType();
+// Cannot use as we need to pass the Dbms parameter
+//  public static final TroidPoemType it = new TroidPoemType();
 
-  private TroidPoemType() {
-    super(false);
+  public TroidPoemType(Dbms dbms) {
+    super(false, dbms);
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

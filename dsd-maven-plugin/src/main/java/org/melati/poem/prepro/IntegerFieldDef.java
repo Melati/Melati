@@ -67,6 +67,6 @@ public class IntegerFieldDef extends AtomFieldDef {
   }
 
   public String poemTypeJava() {
-    return isTroidColumn ? "TroidPoemType.it" : super.poemTypeJava();
+    return isTroidColumn ? "new TroidPoemType(getDatabase().getDbms())" : super.poemTypeJava();
   }
 }

@@ -49,11 +49,12 @@ package org.melati.poem;
 
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class DisplayLevelPoemType extends IntegerPoemType {
 
-  public DisplayLevelPoemType() {
-    super(false);
+  public DisplayLevelPoemType(Dbms dbms) {
+    super(false, dbms);
   }
 
   public Enumeration possibleRaws() {

@@ -48,16 +48,17 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.poem.dbms.*;
 
 public class StringPoemType extends AtomPoemType {
 
-  public static final StringPoemType nullable =
-      new StringPoemType(true, -1);
+//  public static final StringPoemType nullable =
+//      new StringPoemType(true, -1);
 
   protected int size;             // or, < 0 for "unlimited"
 
-  public StringPoemType(boolean nullable, int size) {
-    super(Types.VARCHAR, "VARCHAR", nullable);
+  public StringPoemType(boolean nullable, Dbms dbms, int size) {
+    super(Types.VARCHAR, "VARCHAR", nullable, dbms);
     this.size = size;
   }
 
@@ -90,7 +91,11 @@ public class StringPoemType extends AtomPoemType {
 
   protected String _sqlDefinition() {
     // FIXME Postgres-specific---aargh (have PostgresStringPoemType etc.)
-    return size < 0 ? "TEXT" : "VARCHAR(" + size + ")";
+    try {
+      return getDbms().getStringSqlDefinition(size);
+    } catch (SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
   }
 
   protected boolean _canBe(PoemType other) {

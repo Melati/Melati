@@ -44,7 +44,8 @@
 #     access policy, `*' may well work fine.
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
+org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
-org.melati.LogicalDatabase.melatitest.driver=org.melati.poem.postgresql.jdbc2.Driver
+#org.melati.LogicalDatabase.melatitest.driver=org.melati.poem.postgresql.jdbc2.Driver
 org.melati.LogicalDatabase.melatitest.user=postgres
 org.melati.LogicalDatabase.melatitest.pass=*

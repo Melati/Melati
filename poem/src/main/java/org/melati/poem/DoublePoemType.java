@@ -48,11 +48,12 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.poem.dbms.*;
 
 public class DoublePoemType extends AtomPoemType {
 
-  public DoublePoemType(boolean nullable) {
-    super(Types.DOUBLE, "FLOAT8", nullable);
+  public DoublePoemType(boolean nullable, Dbms dbms) {
+    super(Types.DOUBLE, "FLOAT8", nullable, dbms);
   }
 
   protected void _assertValidRaw(Object raw) {

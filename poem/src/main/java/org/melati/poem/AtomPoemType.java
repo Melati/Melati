@@ -48,15 +48,26 @@
 package org.melati.poem;
 
 import java.util.*;
+import java.sql.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public abstract class AtomPoemType extends BasePoemType {
 
   private String sqlTypeName;
+  private Dbms dbms;
 
-  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
+  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable, Dbms aDbms) {
     super(sqlTypeCode, nullable);
     this.sqlTypeName = sqlTypeName;
+    setDbms(aDbms);
+  }
+
+  public Dbms getDbms() {
+      return dbms;
+  }
+  private void setDbms(Dbms aDbms) {
+      dbms = aDbms;
   }
 
   protected String _stringOfRaw(Object raw) {
@@ -82,6 +93,10 @@ public abstract class AtomPoemType extends BasePoemType {
   }
 
   protected String _sqlDefinition() {
-    return sqlTypeName;
+      try {
+        return getDbms().getSqlDefinition(sqlTypeName);
+      } catch (SQLException e) {
+        throw new SQLSeriousPoemException(e);
+      }
   }
 }

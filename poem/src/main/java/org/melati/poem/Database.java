@@ -51,6 +51,7 @@ import org.apache.java.lang.Lock;
 import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 /**
  * An RDBMS database.  Don't instantiate (or subclass) this class, but rather
@@ -79,6 +80,8 @@ abstract public class Database implements TransactionPool {
   private Vector tables = new Vector();
   private Hashtable tablesByName = new Hashtable();
   private Table[] displayTables = null;
+
+  private Dbms dbms;
 
   // 
   // ================
@@ -154,6 +157,7 @@ abstract public class Database implements TransactionPool {
    * @see #transactionsMax()
    */
 
+  /*
   public void connect(String url, String username, String password)
       throws PoemException {
     try {
@@ -164,35 +168,42 @@ abstract public class Database implements TransactionPool {
       throw new ConnectionFailurePoemException(e);
     }
   }
+  */
 
-  public void connect(Driver driver, String url,
+
+//  public void connect(Driver driver, String url,
+//                      String username, String password) throws PoemException {
+  public void connect(String dbmsclass, String url,
                       String username, String password) throws PoemException {
+      setDbms( DbmsFactory.getDbms(dbmsclass) );
+
     if (committedConnection != null)
       throw new ReconnectionPoemException();
 
-    init();
+    // move to ensure that there is a connection
+    //init();
 
-    Properties info = new Properties();
-    if (username != null) info.put("user", username);
-    if (password != null) info.put("password", password);
 
-    try {
-      committedConnection = driver.connect(url, info);
+    //Properties info = new Properties();
+    //if (username != null) info.put("user", username);
+    //if (password != null) info.put("password", password);
+
+      //committedConnection = driver.connect(url, info);
+      committedConnection = getDbms().getConnection(url, username, password);
       transactions = new Vector();
-      for (int s = 0; s < transactionsMax(); ++s)
-        transactions.addElement(
+      for (int s = 0; s < transactionsMax(); ++s) {
             new PoemTransaction(
                 this,
-                driver.connect(url, info),
-                s));
+                getDbms().getConnection(url, username, password),                
+                //driver.connect(url, info),
+                s);
+      }
       freeTransactions = (Vector)transactions.clone();
-    }
-    catch (SQLException e) {
-      throw new ConnectionFailurePoemException(e);
-    }
 
     try {
       // Bootstrap: set up the tableinfo and columninfo tables
+
+        init();
 
       DatabaseMetaData m = committedConnection.getMetaData();
       getTableInfoTable().unifyWithDB(
@@ -265,7 +276,9 @@ abstract public class Database implements TransactionPool {
     Table table = new Table(this, info.getName(),
                             DefinitionSource.infoTables);
     table.setTableInfo(info);
-    table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
+    table.defineColumn(new ExtraColumn(table, troidName, 
+                                       //TroidPoemType.it,
+                                       new TroidPoemType(getDbms()),
                                        DefinitionSource.infoTables,
                                        table.extrasIndex++));
     table.unifyWithColumnInfo();
@@ -322,7 +335,8 @@ abstract public class Database implements TransactionPool {
 
 	ResultSet idCol = m.getColumns(null, null, tableName, "id");
 	if (idCol.next() &&
-	    defaultPoemTypeOfColumnMetaData(idCol).canBe(TroidPoemType.it)) {
+	    //defaultPoemTypeOfColumnMetaData(idCol).canBe(TroidPoemType.it)) {
+	    defaultPoemTypeOfColumnMetaData(idCol).canBe( new TroidPoemType( getDbms() ))) {
 	  try {
 	    defineTable(table = new Table(this, tableName,
 					  DefinitionSource.sqlMetaData));
@@ -367,7 +381,7 @@ abstract public class Database implements TransactionPool {
    */
 
   public final int transactionsMax() {
-    return 3;
+    return 15;
   }
 
   // 
@@ -765,13 +779,14 @@ abstract public class Database implements TransactionPool {
   private boolean dbGivesCapability(User user, Capability capability) {
 
     // FIXME use a prepared statement
+    // FIXME use the quotedName
 
     String sql = 
         "SELECT count(*) FROM groupmembership " +
-        "WHERE \"user\" = " + user.troid() + " AND " +
+        "WHERE " + quotedName("user") + " = " + user.troid() + " AND " +
         "EXISTS (" +
-          "SELECT \"group\", capability FROM groupcapability " +
-          "WHERE groupcapability.\"group\" = groupmembership.\"group\" AND " +
+          "SELECT " + quotedName("group") + ", capability FROM groupcapability " +
+          "WHERE groupcapability." + quotedName("group") + " = groupmembership." + quotedName("group") + " AND " +
                 "capability = " + capability.troid() + ")";
 
     try {
@@ -913,7 +928,7 @@ abstract public class Database implements TransactionPool {
   // =========================
   // 
 
-  /**
+  /* Now in dbms*
    * Quote a name for use as an identifier in an SQL statement.  FIXME this is
    * DBMS-specific and we need a <TT>DatabasePecularities</TT> class to
    * which this is delegated.
@@ -924,26 +939,35 @@ abstract public class Database implements TransactionPool {
    *             letters)
    */
 
-  public void appendQuotedName(StringBuffer buffer, String name)
-      throws InvalidNamePoemException {
-    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
-  }
+//  public void appendQuotedName(StringBuffer buffer, String name)
+//      throws InvalidNamePoemException {
+//    StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
+//  }
 
-  /**
+  /* NOW IN Dbms *
    * Quote a name for use as an identifier in an SQL statement.  FIXME this is
    * DBMS-specific and we need a <TT>DatabasePecularities</TT> class to
    * which this is delegated.
-   *
+   */
+
+  /*
+   I have taken out the exception for the moment. The dbms should give a SQL error 
+   if there is a problem and will be much more thorough than we can be
    * @exception InvalidNamePoemException
+
    *             if the name simply cannot be used with the DBMS (e.g. FIXME
    *             Postgres will have to throw this if there are any upper case
    *             letters)
    */
-
+  /*
   public final String quotedName(String name) throws InvalidNamePoemException {
     StringBuffer b = new StringBuffer();
     appendQuotedName(b, name);
     return b.toString();
+  }
+  */
+  public final String quotedName(String name) {
+      return getDbms().getQuotedName(name);
   }
 
   private PoemType unsupported(String sqlTypeName, ResultSet md)
@@ -975,26 +999,26 @@ abstract public class Database implements TransactionPool {
         md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
     int width = md.getInt("COLUMN_SIZE");
     switch (typeCode) {
-      case Types.BIT            : return new BooleanPoemType(nullable);
+      case Types.BIT            : return new BooleanPoemType(nullable, getDbms() );
       case Types.TINYINT        : return unsupported("TINYINT", md);
       case Types.SMALLINT       : return unsupported("SMALLINT", md);
-      case Types.INTEGER        : return new IntegerPoemType(nullable);
+      case Types.INTEGER        : return new IntegerPoemType(nullable, getDbms() );
       case Types.BIGINT         : return unsupported("BIGINT", md);
 
       case Types.FLOAT          : return unsupported("FLOAT", md);
-      case Types.REAL           : return new DoublePoemType(nullable);
-      case Types.DOUBLE         : return new DoublePoemType(nullable);
+      case Types.REAL           : return new DoublePoemType(nullable, getDbms() );
+      case Types.DOUBLE         : return new DoublePoemType(nullable, getDbms() );
 
       case Types.NUMERIC        : return unsupported("NUMERIC", md);
       case Types.DECIMAL        : return unsupported("DECIMAL", md);
 
       case Types.CHAR           : return unsupported("CHAR", md);
-      case Types.VARCHAR        : return new StringPoemType(nullable, width);
-      case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
+      case Types.VARCHAR        : return new StringPoemType(nullable, getDbms(), width);
+      case Types.LONGVARCHAR    : return new StringPoemType(nullable, getDbms(), width);
 
-      case Types.DATE           : return new DatePoemType(nullable);
+      case Types.DATE           : return new DatePoemType(nullable, getDbms());
       case Types.TIME           : return unsupported("TIME", md);
-      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
+      case Types.TIMESTAMP      : return new TimestampPoemType(nullable, getDbms());
 
       case Types.BINARY         : return unsupported("BINARY", md);
       case Types.VARBINARY      : return unsupported("VARBINARY", md);
@@ -1006,6 +1030,17 @@ abstract public class Database implements TransactionPool {
 
       default: return unsupported("<code not in Types.java!>", md);
     }
+  }
+
+  public Dbms getDbms() {
+      if (dbms == null) {
+          System.out.println("************************** NULL dbms");
+      }
+      return dbms;
+  }
+  
+  private void setDbms(Dbms aDbms) {
+      dbms = aDbms;
   }
 
   // 

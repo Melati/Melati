@@ -87,7 +87,6 @@ public class DSD {
     String nAme = StringUtils.capitalised(name);
     databaseClass = nAme + "Database";
     databaseBaseClass = nAme + "DatabaseBase";
-
     dsdDir = new File(new File(dsdFile.getAbsolutePath()).getParent());
     Reader reader = new BufferedReader(new FileReader(file));
     try {
@@ -137,6 +136,7 @@ public class DSD {
     finally {
       reader.close();
     }
+    
   }
 
   void createJava(String name, Generator proc,
@@ -250,7 +250,9 @@ public class DSD {
       ((TableDef)t.nextElement()).generateJava();
   }
 
+
   public static void main(String[] args) throws Exception {
-    new DSD(args[0]).generateJava();
+    DSD dsd = new DSD(args[0]);
+    dsd.generateJava();
   }
 }

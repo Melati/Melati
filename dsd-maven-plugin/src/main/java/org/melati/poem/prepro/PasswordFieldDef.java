@@ -58,6 +58,6 @@ public class PasswordFieldDef extends StringFieldDef {
   }
 
   public String poemTypeJava() {
-    return "new PasswordPoemType(" + isNullable + ", " + size + ")";
+    return "new PasswordPoemType(" + isNullable + ", getDatabase().getDbms(), " + size + ")";
   }
 }

@@ -49,13 +49,14 @@ package org.melati.poem;
 
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class ReferencePoemType extends IntegerPoemType {
 
   private Table targetTable;
 
-  public ReferencePoemType(Table targetTable, boolean nullable) {
-    super(nullable);
+  public ReferencePoemType(Table targetTable, boolean nullable, Dbms dbms) {
+    super(nullable, dbms);
     if (targetTable == null)
       throw new NullPointerException();
     this.targetTable = targetTable;

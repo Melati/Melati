@@ -75,7 +75,14 @@ public class LogicalDatabase {
 
   private static final Hashtable databases = new Hashtable();
 
+  /**
+  @deprecated
+  */
   public static Database named(String name) throws DatabaseInitException {
+      return getDatabase(name);
+  }
+
+  public static Database getDatabase(String name) throws DatabaseInitException {
     if (name == null)
       name = "default";
     
@@ -89,6 +96,12 @@ public class LogicalDatabase {
           String user = PropertiesUtils.getOrDie(defs, pref + "user");
           String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
           String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
+          String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+          
+          /*
+           The driver is now initialized and checked by the dbms class as we
+           have one dbms class for each jdbc driver.
+
           String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
 
 	  Object driverObject = Class.forName(driverName).newInstance();
@@ -99,19 +112,26 @@ public class LogicalDatabase {
                 driverObject.getClass() + ", which is not a java.sql.Driver");
 
 	  Driver driver = (Driver)driverObject;
+          */
 
 	  Object databaseObject = Class.forName(clazz).newInstance();
 
 	  if (!(databaseObject instanceof Database))
 	    throw new ClassCastException(
-                "The .class=" + driverName + " entry named a class of type " +
+                "The .class=" + clazz + " entry named a class of type " +
                 databaseObject.getClass() + ", " +
                 "which is not an org.melati.poem.Database");
+            // above used DriverName which was surely wrong
 
           database = (Database)databaseObject;
-          database.connect(driver, url, user, pass);
+
+          // Changed to use dbmsclass not driver, it will throw and exception 
+          // if that is not correct
+          //database.connect(driver, url, user, pass);
+          database.connect(dbmsclass, url, user, pass);
         }
         catch (Exception e) {
+            e.printStackTrace();
           throw new DatabaseInitException(databaseDefsName, name, e);
         }
 

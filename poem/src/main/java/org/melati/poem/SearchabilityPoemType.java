@@ -49,11 +49,12 @@ package org.melati.poem;
 
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public class SearchabilityPoemType extends IntegerPoemType {
 
-  public SearchabilityPoemType() {
-    super(false);
+  public SearchabilityPoemType(Dbms dbms) {
+    super(false, dbms);
   }
 
   public Enumeration possibleRaws() {

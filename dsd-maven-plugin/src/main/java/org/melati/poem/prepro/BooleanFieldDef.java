@@ -67,6 +67,6 @@ public class BooleanFieldDef extends AtomFieldDef {
   }
 
   public String poemTypeJava() {
-    return isDeletedColumn ? "DeletedPoemType.it" : super.poemTypeJava();
+    return isDeletedColumn ? "new DeletedPoemType(getDatabase().getDbms())" : super.poemTypeJava();
   }
 }

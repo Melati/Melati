@@ -184,7 +184,7 @@ public class Admin extends MelatiServlet {
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true) {
+        new ReferencePoemType(database.getColumnInfoTable(), true, database.getDbms()) {
           protected Enumeration _possibleRaws() {
             return
                 new MappedEnumeration(table.getSearchCriterionColumns()) {
@@ -278,7 +278,7 @@ public class Admin extends MelatiServlet {
     // sort out ordering (FIXME this is a bit out of control)
 
     PoemType searchColumnsType =
-        new ReferencePoemType(database.getColumnInfoTable(), true) {
+        new ReferencePoemType(database.getColumnInfoTable(), true, database.getDbms()) {
           protected Enumeration _possibleRaws() {
             return
                 new MappedEnumeration(table.getSearchCriterionColumns()) {

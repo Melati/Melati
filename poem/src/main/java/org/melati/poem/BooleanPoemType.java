@@ -49,6 +49,7 @@ package org.melati.poem;
 
 import java.sql.*;
 import java.util.*;
+import org.melati.poem.dbms.*;
 
 class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
@@ -67,8 +68,8 @@ class BooleanPossibleRawEnumeration implements Enumeration {
 
 public class BooleanPoemType extends AtomPoemType {
 
-  public BooleanPoemType(boolean nullable) {
-    super(Types.BIT, "BOOLEAN", nullable);
+  public BooleanPoemType(boolean nullable, Dbms dbms) {
+    super(Types.BIT, "BOOLEAN", nullable, dbms);
   }
 
   protected Enumeration _possibleRaws() {

@@ -37,7 +37,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
+        new Column(this, "id", new TroidPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getId();
@@ -86,7 +86,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getTableinfo();
@@ -147,7 +147,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false,getDatabase().getDbms(), 50), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getName();
@@ -208,7 +208,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorder =
-        new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "displayorder", new IntegerPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorder();
@@ -269,7 +269,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_usercreateable =
-        new Column(this, "usercreateable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "usercreateable", new BooleanPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUsercreateable();
@@ -326,7 +326,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displaylevel =
-        new Column(this, "displaylevel", new DisplayLevelPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "displaylevel", new DisplayLevelPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplaylevel();
@@ -375,7 +375,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_searchability =
-        new Column(this, "searchability", new SearchabilityPoemType(), DefinitionSource.dsd) { 
+        new Column(this, "searchability", new SearchabilityPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getSearchability();
@@ -424,7 +424,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_displayorderpriority =
-        new Column(this, "displayorderpriority", new IntegerPoemType(true), DefinitionSource.dsd) { 
+        new Column(this, "displayorderpriority", new IntegerPoemType(true, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getDisplayorderpriority();
@@ -477,7 +477,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_indexed =
-        new Column(this, "indexed", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "indexed", new BooleanPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getIndexed();
@@ -534,7 +534,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_unique =
-        new Column(this, "unique", new BooleanPoemType(false), DefinitionSource.dsd) { 
+        new Column(this, "unique", new BooleanPoemType(false, getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getUnique();

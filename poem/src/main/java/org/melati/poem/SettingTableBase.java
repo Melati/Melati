@@ -30,7 +30,7 @@ public class SettingTableBase extends ValueInfoTable {
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =
-        new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
+        new Column(this, "id", new TroidPoemType(getDatabase().getDbms()), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getId();
@@ -79,7 +79,7 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getName();
@@ -132,7 +132,7 @@ public class SettingTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_value =
-        new Column(this, "value", new StringPoemType(true, -1), DefinitionSource.dsd) { 
+        new Column(this, "value", new StringPoemType(true,getDatabase().getDbms(), -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Setting)g).getValue();

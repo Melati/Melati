@@ -90,7 +90,8 @@ public class Table {
                DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
-    this.quotedName = database.quotedName(name);
+//    Don't do this here as the database does not know about the dbms yet
+//    this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
     serial = new TransactionedSerial(database);
   }
@@ -142,6 +143,8 @@ public class Table {
   }
 
   final String quotedName() {
+
+    if (quotedName == null) quotedName = database.quotedName(name);
     return quotedName;
   }
 
@@ -472,7 +475,7 @@ public class Table {
 
   private void dbCreateTable() {
     StringBuffer sqb = new StringBuffer();
-    sqb.append("CREATE TABLE " + quotedName + " (");
+    sqb.append("CREATE TABLE " + quotedName() + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
       sqb.append(columns[c].quotedName() + " " +
@@ -486,7 +489,7 @@ public class Table {
 
   private void dbAddColumn(Column column) {
     dbModifyStructure(
-        "ALTER TABLE " + quotedName +
+        "ALTER TABLE " + quotedName() +
         " ADD COLUMN " + column.quotedName() +
         " " + column.getType().sqlDefinition());
   }
@@ -496,7 +499,7 @@ public class Table {
       dbModifyStructure(
           "CREATE " + (column.getUnique() ? "UNIQUE " : "") + "INDEX " +
           database._quotedName(name + "_" + column.getName() + "_index") +
-          " ON " + quotedName + " " +
+          " ON " + quotedName() + " " +
           "(" + column.quotedName() + ")");
   }
 
@@ -508,7 +511,7 @@ public class Table {
 
   private PreparedStatement simpleInsert(Connection connection) {
     StringBuffer sql = new StringBuffer();
-    sql.append("INSERT INTO " + quotedName + " (");
+    sql.append("INSERT INTO " + quotedName() + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
       sql.append(columns[c].quotedName());
@@ -536,7 +539,7 @@ public class Table {
       if (c > 0) sql.append(", ");
       sql.append(columns[c].quotedName());
     }
-    sql.append(" FROM " + quotedName +
+    sql.append(" FROM " + quotedName() +
                " WHERE " + troidColumn.quotedName() + " = ?");
 
     try {
@@ -550,7 +553,7 @@ public class Table {
   private PreparedStatement simpleModify(Connection connection) {
     // FIXME synchronize this too
     StringBuffer sql = new StringBuffer();
-    sql.append("UPDATE " + quotedName + " SET ");
+    sql.append("UPDATE " + quotedName() + " SET ");
     for (int c = 0; c < columns.length; ++c) {
       if (c > 0) sql.append(", ");
       sql.append(columns[c].quotedName());
@@ -686,7 +689,7 @@ public class Table {
 
   void delete(Integer troid, PoemTransaction transaction) {
     String sql =
-        "DELETE FROM " + quotedName +
+        "DELETE FROM " + quotedName() +
         " WHERE " + troidColumn.quotedName() + " = " +
         troid.toString();
 
@@ -882,7 +885,7 @@ public class Table {
       
     return
         "SELECT " + troidColumn.quotedName() +
-        " FROM " + quotedName +
+        " FROM " + quotedName() +
         (whereClause == null || whereClause.equals("") ?
              "" : " WHERE " + whereClause) +
         // actually orderByClause is never null (since fallback is id)
@@ -1049,7 +1052,7 @@ public class Table {
   public int count(String whereClause)
       throws SQLPoemException {
     String sql =
-        "SELECT count(*) FROM " + quotedName +
+        "SELECT count(*) FROM " + quotedName() +
         (whereClause == null || whereClause.equals("") ? "" :
              " WHERE " + whereClause);
 
@@ -1464,7 +1467,7 @@ public class Table {
   public RestrictedReferencePoemType cachedSelectionType(
       String whereClause, String orderByClause, boolean nullable) {
     return new RestrictedReferencePoemType(
-               cachedSelection(whereClause, orderByClause), nullable);
+               cachedSelection(whereClause, orderByClause), nullable, getDatabase().getDbms());
   }
 
   /**
@@ -1711,12 +1714,18 @@ public class Table {
           // FIXME this may not be a good idea
 
           if (troidColumn == null && colName.equals("id") &&
-              colType.canBe(TroidPoemType.it))
-            colType = TroidPoemType.it;
+              //colType.canBe(TroidPoemType.it))
+              colType.canBe( new TroidPoemType( getDatabase().getDbms() ))) {
+            //colType = TroidPoemType.it;
+            colType = new TroidPoemType( getDatabase().getDbms() );
+          }
 
           if (deletedColumn == null && colName.equals("deleted") &&
-              colType.canBe(DeletedPoemType.it))
-            colType = DeletedPoemType.it;
+              //colType.canBe(DeletedPoemType.it)) {
+              colType.canBe( new DeletedPoemType( getDatabase().getDbms() ))) {
+            //colType = DeletedPoemType.it;
+            colType = new DeletedPoemType( getDatabase().getDbms() );
+          }
 
           column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),
                                    colType, DefinitionSource.sqlMetaData,
@@ -1791,7 +1800,7 @@ public class Table {
 
     String sql = 
         "SELECT " + troidColumn.quotedName() +
-        " FROM " + quotedName +
+        " FROM " + quotedName() +
         " ORDER BY " + troidColumn.quotedName() + " DESC";
     try {
       ResultSet maxTroid =

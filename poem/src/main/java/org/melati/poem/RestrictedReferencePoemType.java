@@ -49,6 +49,7 @@ package org.melati.poem;
 
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 /**
  * FIXME this doesn't do quite what you'd expect, and can't unless it parses
@@ -60,8 +61,9 @@ public class RestrictedReferencePoemType extends ReferencePoemType {
   private final PreparedSelection selection;
 
   public RestrictedReferencePoemType(PreparedSelection selection,
-				     boolean nullable) {
-    super(selection.getTable(), nullable);
+				     boolean nullable,
+                                     Dbms dbms) {
+    super(selection.getTable(), nullable, dbms);
     this.selection = selection;
   }
 

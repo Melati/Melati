@@ -99,6 +99,6 @@ public class AtomFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    return "new " + type + "PoemType(" + isNullable + ")"; // FIXME :)
+    return "new " + type + "PoemType(" + isNullable + ", getDatabase().getDbms())"; // FIXME :)
   }
 }

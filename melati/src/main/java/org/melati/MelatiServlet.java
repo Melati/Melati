@@ -407,7 +407,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
       final Database database;
       try {
-        database = LogicalDatabase.named(melatiContext.logicalDatabase);
+        database = LogicalDatabase.getDatabase(melatiContext.logicalDatabase);
       }
       catch (DatabaseInitException e) {
         e.printStackTrace();

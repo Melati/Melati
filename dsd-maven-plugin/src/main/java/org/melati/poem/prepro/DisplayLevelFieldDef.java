@@ -114,6 +114,6 @@ public class DisplayLevelFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    return "new DisplayLevelPoemType()";
+    return "new DisplayLevelPoemType(getDatabase().getDbms())";
   }
 }

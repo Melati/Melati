@@ -48,13 +48,15 @@
 package org.melati.poem;
 
 import java.sql.*;
+import org.melati.poem.dbms.*;
 
 public class DeletedPoemType extends BooleanPoemType {
 
-  public static final DeletedPoemType it = new DeletedPoemType();
+  // Cannot use due to need to pass Dbms in
+  //public static final DeletedPoemType it = new DeletedPoemType();
 
-  private DeletedPoemType() {
-    super(false);
+  public DeletedPoemType(Dbms dbms) {
+    super(false, dbms);
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

@@ -1,57 +1,13 @@
-/*
- * $Source$
- * $Revision$
- *
- * Part of Melati (http://melati.org), a framework for the rapid
- * development of clean, maintainable web applications.
- *
- * -------------------------------------
- *  Copyright (C) 2000 William Chesters
- * -------------------------------------
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * Contact details for copyright holder:
- *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
- *
- *
- * ------
- *  Note
- * ------
- *
- * I will assign copyright to PanEris (http://paneris.org) as soon as
- * we have sorted out what sort of legal existence we need to have for
- * that to make sense.  When WebMacro's "Simple Public License" is
- * finalised, we'll offer it as an alternative license for Melati.
- * In the meantime, if you want to use Melati on non-GPL terms,
- * contact me!
- */
-
 package org.melati.poem;
 
 table User
     (displayorder = 2010)
     (description = "A registered user of the database")
     (category = "User")
-    (seqcached) {
+    (seqcached) {  
 
   (primary) Integer id;
-
+                         
   (unique) String login (size = 20)
       (description = "The user's login name");
 
@@ -212,7 +168,7 @@ abstract table ValueInfo {
       (description = "Whether the field can be empty")
       (displaylevel = detail) (searchability = no) (uneditable);
 
-  Integer size
+  Integer valuesize
       (description = "For character fields, the maximum number of characters that can be stored")
       (displaylevel = detail) (searchability = no) (uneditable);
 

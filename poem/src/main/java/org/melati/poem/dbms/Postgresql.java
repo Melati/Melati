@@ -40,6 +40,10 @@ import java.sql.*;
 
 public class Postgresql extends AnsiStandard {
 
+    public Postgresql() {
+        setDriverClassName("org.melati.poem.postgresql.jdbc2.Driver");
+    }
+
     public String getStringSqlDefinition(int size) throws SQLException {
         if (size < 0) { 
             return "TEXT";

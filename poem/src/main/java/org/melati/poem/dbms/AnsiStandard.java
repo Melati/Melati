@@ -35,15 +35,16 @@
  */
 
 package org.melati.poem.dbms;
-import java.sql.*;
 
-import org.melati.poem.ConnectionFailurePoemException;
-import org.melati.util.StringUtils;
+import java.util.*;
 import java.sql.*;
+import org.melati.poem.*;
+import org.melati.util.*;
 
 public class AnsiStandard implements Dbms {
     private boolean driverLoaded = false;
     private String driverClassName = null;
+    private Driver driver = null;
 
     protected synchronized void setDriverClassName(String name) {
         driverClassName = name;
@@ -60,14 +61,23 @@ public class AnsiStandard implements Dbms {
     }
 
     protected synchronized void loadDriver() {
+        Class driverClass;
         try {
-            Class.forName (getDriverClassName());
+            driverClass = Class.forName (getDriverClassName());
             setDriverLoaded(true);
         } catch (java.lang.ClassNotFoundException e) {
             // A call to Class.forName() forces us to consider this exception :-)...
             setDriverLoaded(false);
+            return;
         }
 
+        try {
+            driver = (Driver)driverClass.newInstance();
+        } catch (java.lang.Exception e) {
+            // ... otherwise, "something went wrong" and I don't here care what
+            // or have the wherewithal to do anything about it :)
+            throw new UnexpectedExceptionPoemException(e);
+        }
     }
 
     public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
@@ -80,6 +90,19 @@ public class AnsiStandard implements Dbms {
             }
             if ( !getDriverLoaded() ) {
                 throw new ConnectionFailurePoemException(new SQLException("The Driver class " + getDriverClassName() + " failed to load"));
+            }
+        }
+
+
+        if (driver != null) {
+            Properties info = new Properties();
+            if (user != null) info.put("user", user);
+            if (password != null) info.put("password", password);
+
+            try {
+                return driver.connect(url, info);
+            } catch (SQLException e) {
+                throw new ConnectionFailurePoemException(e);
             }
         }
 

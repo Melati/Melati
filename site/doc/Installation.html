@@ -225,15 +225,15 @@ $ cvs update
         <li>Java (<TT>jre/lib/rt.jar</TT>, remember, in JDK 1.2---not
             <TT>classes.zip</TT>)
         <li><TT>ApacheJServ.jar</TT>
-        <li><TT>jdbc6.5-1.2.jar</TT> from the Postgresql distribution; the Red Hat
-            RPMS put these in <TT>/usr/lib/pgsql</TT>.  You need this even
-            though Melati has its own Postgresql-specific classes which
-            add some functionality to the standard drivers in order to overcome
-            one of their shortcomings.
+        <li><TT>postgresql.jar</TT> from the Postgresql distribution; the Red
+            Hat RPMS call this <TT>/usr/lib/pgsql/jdbc6.5-1.2.jar</TT>.  You
+            need this even though Melati has its own Postgresql-specific
+            classes which add some functionality to the standard drivers in
+            order to overcome one of their shortcomings.
         <li><TT>jsdk.jar</TT>
-        <li>the melati install directory, <b>before</b> the webmacro install directory 
-          (because of the <a
-      href=#hackedVariable>hacked version of <tt>Variable</tt></a> you must use) 
+        <li>the melati install directory, <b>before</b> the webmacro install
+            directory (because of the <a href=#hackedVariable>hacked version of
+            <tt>Variable</tt></a> you must use)
         <li>the webmacro install directory 
       </ul>
       <p>For example (on Linux boxes running a bash shell) this can be done by 
@@ -475,6 +475,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.19  2000/04/15 18:39:36  williamc
+  <BR>postgresql.jar is still called exactly that in the actual postgres sources
+  <BR>
   <BR>Revision 1.18  2000/03/29 16:01:54  williamc
   <BR>Update for removal of JDK1.1 support
   <BR>

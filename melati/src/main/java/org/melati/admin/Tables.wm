@@ -78,7 +78,7 @@
   <A HREF=Create>Create a new table</A>
 </P>
 
-</CENTER>
+<P>&nbsp;</P>
 
 ##
 ## Do not remove the following copyright notice.  It will be removed by myself
@@ -86,6 +86,7 @@
 ## link.
 ##
 
+<TABLE ALIGN=CENTER><TR><TD>
 <FONT SIZE=-1><PRE>
 The web application you are using was developed using Melati
 (<A HREF=http://melati.org>http://melati.org</A>), a framework for the rapid development of clean,
@@ -107,10 +108,10 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA A copy of the GPL should be in the file org/melati/COPYING in this tree.
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA Or see http://melati.org/License.html.
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+A copy of the GPL should be in the file org/melati/COPYING in this tree.
+Or see http://melati.org/License.html.
 
 Contact details for copyright holder:
 
@@ -130,6 +131,9 @@ finalised, we'll offer it as an alternative license for Melati.
 In the meantime, if you want to use Melati on non-GPL terms,
 contact me!
 </PRE></FONT>
+</TD></TR></TABLE>
+
+</CENTER>
 
 </BODY>
 </HTML>

@@ -40,7 +40,8 @@ import java.sql.*;
 import org.melati.poem.ConnectionFailurePoemException;
 
 public interface Dbms {
-    Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException;
+    Connection getConnection(String url, String user, String password)
+        throws ConnectionFailurePoemException;
     String getQuotedName(String name);
     String getSqlDefinition(String sqlTypeName) throws SQLException;
     String getStringSqlDefinition(int size) throws SQLException;

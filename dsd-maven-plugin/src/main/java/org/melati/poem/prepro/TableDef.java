@@ -138,8 +138,9 @@ public class TableDef {
             "\n" +
 	    "  public " + dsd.databaseClass + " get" + dsd.databaseClass +
                    "() {\n" +
-	    "    return (" + dsd.databaseClass + ")getDatabase();" +
-            "}\n");
+	    "    return (" + dsd.databaseClass + ")getDatabase();\n" +
+            "  }\n" +
+	    "\n");
 
     // FIXME hack
 

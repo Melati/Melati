@@ -107,6 +107,15 @@ abstract public class Database implements TransactionPool {
     }
   }
 
+  private final boolean[] connecting = new boolean[1];
+
+  public class ConnectingException extends PoemException {
+    public String toString() {
+      return "Connection to the database is currently in progress; " +
+             "please try again in a moment";
+    }
+  }
+
   /**
    * Connect to an RDBMS database.  This should be called once when the
    * application starts up; it will
@@ -157,86 +166,73 @@ abstract public class Database implements TransactionPool {
    * @see #transactionsMax()
    */
 
-  /*
-  public void connect(String url, String username, String password)
-      throws PoemException {
-    try {
-      // FIXME this isn't quite as good as DriverManager.getConnection
-      connect(DriverManager.getDriver(url), url, username, password);
-    }
-    catch (SQLException e) {
-      throw new ConnectionFailurePoemException(e);
-    }
-  }
-  */
-
-
-//  public void connect(Driver driver, String url,
-//                      String username, String password) throws PoemException {
   public void connect(String dbmsclass, String url,
                       String username, String password) throws PoemException {
-      setDbms( DbmsFactory.getDbms(dbmsclass) );
 
-    if (committedConnection != null)
-      throw new ReconnectionPoemException();
-
-    // move to ensure that there is a connection
-    //init();
-
-
-    //Properties info = new Properties();
-    //if (username != null) info.put("user", username);
-    //if (password != null) info.put("password", password);
-
-      //committedConnection = driver.connect(url, info);
-      committedConnection = getDbms().getConnection(url, username, password);
-      transactions = new Vector();
-      for (int s = 0; s < transactionsMax(); ++s) {
-          transactions.add(
-            new PoemTransaction(
-                this,
-                getDbms().getConnection(url, username, password),                
-                //driver.connect(url, info),
-                s));
-      }
-      freeTransactions = (Vector)transactions.clone();
+    synchronized (connecting) {
+      if (connecting[0])
+        throw new ConnectingException();
+      connecting[0] = true;
+    }
 
     try {
-      // Bootstrap: set up the tableinfo and columninfo tables
+      setDbms(DbmsFactory.getDbms(dbmsclass));
+
+      if (committedConnection != null)
+        throw new ReconnectionPoemException();
+
+        committedConnection = getDbms().getConnection(url, username, password);
+        transactions = new Vector();
+        for (int s = 0; s < transactionsMax(); ++s) {
+            transactions.add(
+              new PoemTransaction(
+                  this,
+                  getDbms().getConnection(url, username, password),
+                  s));
+        }
+        freeTransactions = (Vector)transactions.clone();
+
+      try {
+        // Bootstrap: set up the tableinfo and columninfo tables
 
         init();
 
-      DatabaseMetaData m = committedConnection.getMetaData();
-      getTableInfoTable().unifyWithDB(
-          m.getColumns(null, null, getTableInfoTable().getName(), null));
-      getColumnInfoTable().unifyWithDB(
-          m.getColumns(null, null, getColumnInfoTable().getName(), null));
-      getTableCategoryTable().unifyWithDB(
-          m.getColumns(null, null, getTableCategoryTable().getName(), null));
+        DatabaseMetaData m = committedConnection.getMetaData();
+        getTableInfoTable().unifyWithDB(
+            m.getColumns(null, null, getTableInfoTable().getName(), null));
+        getColumnInfoTable().unifyWithDB(
+            m.getColumns(null, null, getColumnInfoTable().getName(), null));
+        getTableCategoryTable().unifyWithDB(
+            m.getColumns(null, null, getTableCategoryTable().getName(), null));
 
-      inSession(AccessToken.root,
-                new PoemTask() {
-                  public void run() throws PoemException {
-                    try {
-                      _this.unifyWithDB();
+        inSession(AccessToken.root,
+                  new PoemTask() {
+                    public void run() throws PoemException {
+                      try {
+                        _this.unifyWithDB();
+                      }
+                      catch (SQLException e) {
+                        throw new SQLPoemException(e);
+                      }
                     }
-                    catch (SQLException e) {
-                      throw new SQLPoemException(e);
-                    }
-                  }
-                });
+                  });
+      }
+      catch (SQLException e) {
+        throw new UnificationPoemException(e);
+      }
     }
-    catch (SQLException e) {
-      throw new UnificationPoemException(e);
+    finally {
+      synchronized (connecting) {
+        connecting[0] = false;
+      }
     }
   }
 
   /**
    * Releases database connections
    **/
-  public void disconnect()
-    throws PoemException
-  {
+
+  public void disconnect() throws PoemException {
     if (committedConnection == null)
       throw new ReconnectionPoemException();
 
@@ -255,6 +251,7 @@ abstract public class Database implements TransactionPool {
     }
     committedConnection = null;
   }
+
   /**
    * Don't call this.  Tables should be defined either in the DSD (in which
    * case the boilerplate code generated by the preprocessor will call this

@@ -137,7 +137,7 @@ public class CSVFileParser {
 
     if (p >= line.length()) throw new NoSuchElementException();
 
-    if (inUnclosedQuotes || (line.charAt(p) == '"' && (++p>0)) ) {
+    if (inUnclosedQuotes || (line.charAt(p) == '"' && (++p>0))) {
 
       // we need to allow for quotes inside quoted fields, so now test for ",
       int q = line.indexOf("\",", p);

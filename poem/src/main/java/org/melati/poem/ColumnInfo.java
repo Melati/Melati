@@ -84,9 +84,25 @@ public class ColumnInfo extends ColumnInfoBase {
       if (column != null) {
         Table table = column.getTable();
         Column previous = table.displayColumn();
-        if (previous != null && previous != column)
+        if (previous != null && previous != column) {
           previous.setPrimaryDisplay(false);
-        table.setDisplayColumn(column);
+	  table.setDisplayColumn(column);
+	}
+      }
+    }
+  }
+
+  public void setPrimarycriterion(Boolean value) {
+    super.setPrimarycriterion(value);
+    if (value.booleanValue()) {
+      Column column = column();
+      if (column != null) {
+        Table table = column.getTable();
+        Column previous = table.criterionColumn();
+        if (previous != null && previous != column) {
+          previous.setPrimaryCriterion(false);
+	  table.setCriterionColumn(column);
+	}
       }
     }
   }

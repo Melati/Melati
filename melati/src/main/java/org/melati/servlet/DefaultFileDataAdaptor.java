@@ -56,11 +56,11 @@ import org.melati.util.*;
 
 /**
  * The default way to save an uploaded file to disk - we tell
- * it what directory to save it in and what the base URL to that
- * directory is.
+ * it what directory to save it in and the base URL to that
+ * directory
  * 
  * @param uploadDir The directory to save this file in
- * @param uploadURL The URL to 
+ * @param uploadURL The URL to uploadDir
  */
 public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
 {
@@ -72,7 +72,8 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
    * Constructor
    * 
    * @param uploadDir The directory to save this file in
-   * @param uploadURL A URL pointing to this directory
+   * @param uploadURL A URL pointing to this directory (null if there
+   *                  isn't an appropriate URL)
    */
   public DefaultFileDataAdaptor(String uploadDir, String uploadURL) {
     this.uploadDir = uploadDir;
@@ -83,9 +84,10 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
    * Constructor
    * 
    * @param uploadDir The directory to save this file in
-   * @param uploadURL A URL pointing to this directory
+   * @param uploadURL A URL pointing to this directory  (null if there
+   *                  isn't an appropriate URL)
    * @param makeUnique Whether we should make sure the new file has a unique
-   *                   name within the UploadDir
+   *                   name within the <code>uploadDir</code> directory
    */
   public DefaultFileDataAdaptor(String uploadDir, String uploadURL,
                                 boolean makeUnique) {
@@ -94,12 +96,14 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor
     this.makeUnique = makeUnique;
   }
 
-  protected File calculateLocalFile() throws Exception {
+  protected File calculateLocalFile() {
     File f = new File(uploadDir, URLEncoder.encode(field.getUploadedFileName()));
-    return (makeUnique) ? FileUtils.withUniqueName(f) : f;
+    return (makeUnique)
+           ? FileUtils.withUniqueName(f)
+           : f;
   }
 
-  protected String calculateURL() throws Exception {
+  protected String calculateURL() {
     return (uploadURL != null && getFile() != null)
              ? uploadURL + File.separatorChar + file.getName()
              : null;

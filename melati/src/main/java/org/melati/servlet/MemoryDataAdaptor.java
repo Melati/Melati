@@ -53,14 +53,13 @@ import java.io.*;
 import org.melati.util.*;
 
 /**
- * An interface to the data portion of a MultipartFormField.
- * <p>
- * This data might be stored in memory or saved to file. Therefore
- * we provide a number of ways to access the data.
+ * Store the uploaded data in a byte array
  */
 public class MemoryDataAdaptor implements FormDataAdaptor
 {
-  protected int BUFSIZE = 2048;
+  /** Size for byte buffers */
+  protected int BUFSIZE = 512;
+
   private byte[] data = new byte[0];
 
   /**
@@ -71,13 +70,6 @@ public class MemoryDataAdaptor implements FormDataAdaptor
   }
 
   /**
-   * return a File object pointing to the saved data (if one exists)
-   */
-  public File getFile() throws Exception {
-    return null;
-  }
-
-  /**
    * return the size of the data
    */
   public long getSize() {
@@ -85,9 +77,16 @@ public class MemoryDataAdaptor implements FormDataAdaptor
   }
 
   /**
+   * return a File object pointing to the saved data (if one exists)
+   */
+  public File getFile() {
+    return null;
+  }
+
+  /**
    * return a url to the object (if one exists)
    */
-  public String getURL() throws Exception {
+  public String getURL() {
     return null;
   }
 
@@ -96,8 +95,8 @@ public class MemoryDataAdaptor implements FormDataAdaptor
    * in an internal buffer for later use
    */
   public void readData(MultipartFormField field,
-                  DelimitedBufferedInputStream in,
-                  byte[] delim) throws Exception {
+                       DelimitedBufferedInputStream in,
+                       byte[] delim) throws IOException {
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     byte[] buff = new byte[BUFSIZE];

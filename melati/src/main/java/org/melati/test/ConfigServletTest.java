@@ -45,26 +45,67 @@
 
 package org.melati.test;
 
-import java.io.Writer;
-import java.io.IOException;
+import java.io.*;
+import java.util.Hashtable;
 
 import javax.servlet.ServletException;
 
-import org.melati.servlet.ConfigServlet;
-import org.melati.servlet.MelatiContext;
+import org.melati.servlet.*;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
+import org.melati.util.MelatiException;
+import org.melati.util.ExceptionUtils;
 
 public class ConfigServletTest extends ConfigServlet {
 
   protected void doConfiguredRequest(Melati melati)
   throws ServletException, IOException {
 
+    String method = melati.getMethod();
+    if (method != null) {
+      if (method.equals("Exception")) 
+        throw new MelatiBugMelatiException("It got caught!");
+      if (method.equals("Redirect")) {
+        melati.getResponse().sendRedirect("http://www.melati.org");
+        return;
+      }
+      if (method.equals("Upload")) {
+        Hashtable fields = null;
+        try {
+          InputStream in = melati.getRequest().getInputStream();
+          MultipartDataDecoder decoder=
+            new MultipartDataDecoder(melati,
+                                     in,
+                                     melati.getRequest().getContentType(),
+                                     melati.getConfig().getFormDataAdaptorFactory());
+          fields = decoder.parseData();
+        }
+        catch (IOException e) {
+          melati.getWriter().write(
+            "There was some error uploading your file:" +
+              ExceptionUtils.stackTrace(e));
+          return;
+        }
+        MultipartFormField field = (MultipartFormField)fields.get("file");
+        if (field == null) {
+          melati.getWriter().write("No file was uploaded");
+          return;
+        }
+        byte[] data = field.getData();
+        melati.getResponse().setContentType(field.getContentType());
+        OutputStream output = melati.getResponse().getOutputStream();
+        output.write(data);
+        output.close();
+        return;
+      }
+    }
+
     MelatiConfig config = melati.getConfig();
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
+
     output.write(
     "<html><head><title>ConfigServlet Test</title></head><body><h2> " +
     "ConfigServlet Test</h2><p>This servlet tests your basic melati " +
@@ -98,18 +139,30 @@ public class ConfigServletTest extends ConfigServlet {
     "clicking <a href=" + 
     melati.getZoneURL() + 
     "/org.melati.test.PoemServletTest/melatitest/>" +
-    "org.melati.test.PoemServletTest/melatitest/</a><br>");
-
-    String method = melati.getMethod();
-    if (method != null) {
-      if (method.equals("Exception")) 
-        throw new MelatiBugMelatiException("It got caught!");
-      if (method.equals("Redirect")) 
-        melati.getResponse().sendRedirect("http://www.melati.org");
-    }
-
+    "org.melati.test.PoemServletTest/melatitest/</a><br>" +
+    "<form method=\"post\" action=\"Upload\" enctype=\"multipart/form-data\" target=_blank>" +
+    "You can upload a file here:<br>" +
+    "<input type=hidden name=upload value=yes>" +
+    "<input type=\"file\" name=\"file\" enctype=\"multipart/form-data\">" +
+    "<input type=\"submit\" name=\"Submit\" value=\"Upload file\"><br>" +
+    getUploadMessage(melati) +
+    "</form>");
   }
 
+/**
+ * this simply demonstrates how to use a different melati configuration
+ */
+  protected MelatiConfig melatiConfig() throws MelatiException {
+    MelatiConfig config = super.melatiConfig();
+    config.setFormDataAdaptorFactory(new MemoryDataAdaptorFactory());
+    return config;
+  }
+
+  protected String getUploadMessage(Melati melati) {
+    return "This will save your file in memory. Try saving a file in your " +
+           "/tmp directory <a href='" + melati.getZoneURL() +
+           "/org.melati.test.ConfigServletTestOverride/'>here</a>.";
+  }
 
 }
 

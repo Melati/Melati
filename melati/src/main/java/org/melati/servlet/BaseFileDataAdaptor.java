@@ -54,82 +54,93 @@ import org.melati.util.*;
 
 /**
  * We store the data uploaded from a multipart form by saving it to
- * disk.
+ * a file on disk and, optionally, give it an associated URL
  */
 abstract public class BaseFileDataAdaptor implements FormDataAdaptor
 {
-  protected File file = null;
-  protected String url = null;
+  /** Size for byte buffers */
   protected int BUFSIZE = 2048;
+
+  /** The file in which to save the data */
+  protected File file = null;
+
+  /** A URL to the data */
+  protected String url = null;
+
+  /** Information about the uploaded file */
   MultipartFormField field = null;
 
   /**
-   * return the data as a byte array
-   * <p>
-   * This could take up a lot of memory if the file is large!
+   * @return The file in which to save the data
+   */
+  abstract protected File calculateLocalFile();
+
+  /**
+   * @return A URL to the saved file, null if not appropriate
+   */
+  abstract protected String calculateURL();
+
+
+  /**
+   * return the data in the file as a byte array
    */
   public byte[] getData() {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    InputStream in = null;
-    try {
-      in = new FileInputStream(getFile());
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      return new byte[0];
-    }
-    byte[] buff = new byte[BUFSIZE];
-    int count;
 
+    File file = getFile();
+    if (file == null)
+      return new byte[0];
+
+    InputStream in = null;
+    ByteArrayOutputStream out = null;
     try {
+      in = new BufferedInputStream(new FileInputStream(file));
+      out = new ByteArrayOutputStream();
+      byte[] buff = new byte[BUFSIZE];
+      int count;
       while ((count = in.read(buff, 0, buff.length)) > 0)
         out.write(buff, 0, count);
       return out.toByteArray();
     }
     catch (IOException e) {
-      e.printStackTrace();
-      return new byte[0];
+      throw new FormDataAdaptorException(
+                  "Couldn't retreive the data from the file", e);
     }
     finally {
       try {
-        in.close();
-        in = null;
-        out.close();
-        out = null;
-      }
-      catch (Exception e) {}
+        if (in != null) {
+          in.close();
+          in = null;
+        }
+        if (out != null) {
+          out.close();
+          out = null;
+        }
+      } catch (Exception e) {}
     }
-  }
-
-  /**
-   * return a File object pointing to the saved data (if one exists)
-   */
-  public File getFile() throws Exception {
-    if (file == null)
-      file = calculateLocalFile();
-    return file;
   }
 
   /**
    * return the size of the data
    */
   public long getSize() {
-    try {
-      return (getFile() != null) ? getFile().length() : -1;
-    }
-    catch (Exception e) {
-      System.err.println("Error getting file length:");
-      e.printStackTrace();
-      return 0;
-    }
+    return (getFile() != null) ? getFile().length() : 0;
   }
 
   /**
-   * return a url to the object (if one exists)
+   * return a File object pointing to the saved data
    */
-  public String getURL() throws Exception {
+  public File getFile() {
+    if (file == null)
+      file = calculateLocalFile();
+    return file;
+  }
+
+  /**
+   * @return Url to the data, null if there isn't an appropriate one
+   */
+  public String getURL() {
     if (url == null)
-        url = calculateURL();
+      url = calculateURL();
     return url;
   }
 
@@ -139,7 +150,7 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor
    */
   public void readData(MultipartFormField field,
                        DelimitedBufferedInputStream in,
-                       byte[] delim) throws Exception {
+                       byte[] delim) throws IOException {
 
     this.field = field;
     OutputStream out = null;
@@ -147,31 +158,27 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor
     int count;
 
     try {
-      out = new FileOutputStream(getFile());
+      // This should be the first call to get file, so hopefully we get any
+      // exceptions here
+      out = new BufferedOutputStream(new FileOutputStream(getFile()));
       while ((count = in.readToDelimiter(buff, 0, buff.length, delim)) > 0)
         out.write(buff, 0, count);
       if (count == -1)
         throw new IOException("Didn't find boundary whilst reading field data");
     }
-    catch (Exception e) {
+    catch (IOException e) {
       throw e;
     }
     finally {
       try {
-        out.close();
-        out = null;
-      }
-      catch (Exception e) {}
+        if (out != null) {
+          out.close();
+          out = null;
+        }
+      } catch (Exception e) {}
     }
   }
 
-  /* Provide implementations for these 2 functions to provide your
-     own policy for saving uploaded files to disk and associating
-     URLs with them */
-
-  abstract protected File calculateLocalFile() throws Exception;
-
-  abstract protected String calculateURL() throws Exception;
 
 }
 

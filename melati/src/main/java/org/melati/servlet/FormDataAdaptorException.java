@@ -45,22 +45,15 @@
 
 package org.melati.servlet;
 
-import org.melati.*;
+import org.melati.util.*;
 
 /**
- * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * Some sort of problem with saving or reading an uploaded file.
  */
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
+public class FormDataAdaptorException extends MelatiRuntimeException
 {
-
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
-    return new TemporaryFileDataAdaptor();
+  public FormDataAdaptorException(String message, Exception subException) {
+    super(message, subException);
   }
 }
-
-
-
-
-
 

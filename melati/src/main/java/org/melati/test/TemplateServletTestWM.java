@@ -80,24 +80,7 @@ public class TemplateServletTestWM extends TemplateServlet {
       if (melati.getMethod().equals("Upload")) {
         MultipartFormField field = templateContext.getMultipartForm("file");
         byte[] data = field.getData();
-
-        // NB!!! Even though we attempt to set the MimeType below,
-        // some browsers will not display the file correctly unless
-        // the "name" of the file (which here will be ``Upload'')
-        // has the appropriate extension.
-        // To acheive this you might want to save the file (file.write())
-        // and then have a url of the form
-        // <code>DownloadServlet/db/table/0/Upload/Filename.ext</code>
-        // to actually do the downloading (use
-        // InputStream fileIS = new FileInputStream(file.getLocalPath())
-        // and a byte[] buffer rather than file.getDataArray())
-
-        String mimetype = getServletConfig().getServletContext().getMimeType(
-                            field.getUploadedFileName());
-        if (mimetype != null)
-          melati.getResponse().setContentType(mimetype);
-        else
-          melati.getResponse().setContentType("application/octet-stream");
+        melati.getResponse().setContentType(field.getContentType());
         OutputStream output = melati.getResponse().getOutputStream();
         output.write(data);
         output.close();

@@ -43,10 +43,6 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
-
 package org.melati.servlet;
 
 import java.io.*;
@@ -55,8 +51,12 @@ import org.melati.util.*;
 /**
  * An interface to the data portion of a MultipartFormField.
  * <p>
- * This data might be stored in memory or saved to file. Therefore
- * we provide a number of ways to access the data.
+ * This data is read in by <code>readData</code> and stored
+ * somewhere for later access by the other functions.
+ * <p>
+ * A class implementing FormDataAdaptor needs to implement at least
+ * the <code>getData()</code> and <code>getSize()</code> functions
+ * but need not provide a URL or a File for its data.
  */
 public interface FormDataAdaptor
 {
@@ -66,27 +66,28 @@ public interface FormDataAdaptor
   public byte[] getData();
 
   /**
-   * return a File object pointing to the saved data (if one exists)
-   */
-  public File getFile() throws Exception;
-
-  /**
    * return the size of the data
    */
   public long getSize();
 
   /**
-   * return a url to the object (if one exists)
+   * return a File object pointing to the saved data or null
+   * if none exists
    */
-  public String getURL() throws Exception;
+  public File getFile();
 
   /**
-   * read data from in until the delim and somehow save it
-   * for later use
+   * return a url to the object or null if non exists
+   */
+  public String getURL();
+
+  /**
+   * Read data from <code>in</code> until the delim is found and
+   * save the data so that we can access it again
    */
   public void readData(MultipartFormField field,
                        DelimitedBufferedInputStream in,
-                       byte[] delim) throws Exception;
+                       byte[] delim) throws IOException;
 }
 
 

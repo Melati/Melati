@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 Myles Chippendale
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,25 +38,45 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Tim Joyce <timj@paneris.org>
  *     http://paneris.org/
- *     29 Stanley Road, Oxford, OX4 1QY, UK
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati.servlet;
+package org.melati.test;
 
-import org.melati.*;
+import java.io.*;
+import java.util.Hashtable;
+
+import javax.servlet.ServletException;
+
+import org.melati.servlet.*;
+import org.melati.Melati;
+import org.melati.MelatiConfig;
+import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.MelatiWriter;
+import org.melati.util.MelatiException;
+import org.melati.util.ExceptionUtils;
+
+public class ConfigServletTestOverride extends ConfigServletTest {
 
 /**
- * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * this simply demonstrates how to use a different melati configuration
  */
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
-{
-
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
-    return new TemporaryFileDataAdaptor();
+  protected MelatiConfig melatiConfig() throws MelatiException {
+    MelatiConfig config = super.melatiConfig();
+    DefaultFileDataAdaptorFactory factory = new DefaultFileDataAdaptorFactory();
+    factory.setUploadDir("/tmp");
+    config.setFormDataAdaptorFactory(factory);
+    return config;
   }
+  
+  protected String getUploadMessage(Melati melati) {
+    return "This will save your file in your /tmp directory. Try saving a file in "+
+           "memory <a href='" + melati.getZoneURL() +
+           "/org.melati.test.ConfigServletTest/'>here</a>.";
+  }
+
 }
 
 

@@ -65,7 +65,8 @@
     <td>Template Engine</td>
     <td> 
       <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> Snapshot 
-        July 19, 2000. Available for download as <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
+        July 19, 2000 (Melati 0.51) or release 0.94 (with Melati 0.52).
+        Available for download as <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
         or <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.tgz">tgz</a>. 
       </blockquote>
     </td>
@@ -189,8 +190,6 @@
       </ul>
       <p>Follow the Installation instructions in the file README.html in the snapshot. 
       </p>
-      <p>&nbsp; </p>
-      <hr align=left width=50%>
       <h3>Or</h3>
       <p><a name=hackedVariable> Using anonymous CVS, install the Melati source 
         tree somewhere. You also have to install a specially hacked version of 
@@ -435,6 +434,29 @@ http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
         also help you debug yoiur installation</p>
       </td>
   </tr>
+  <tr>
+    <td valign="top">12.</td>
+    <td  valign=top> 
+      <p>If you are going to upload files using a form something like this: </p>
+      <blockquote> 
+<pre>
+&lt;form method="post" enctype="multipart/form-data">
+&lt;input type="file" name="file" enctype="multipart/form-data">
+&lt;input type="submit" name="Submit" value="Upload file">
+&lt;/form>
+</pre>
+      </blockquote>
+      <p>then you should make sure that you store uploaded files in an appropriate way. Set
+         <code>org.melati.MelatiServlet.formDataAdaptorFactory</code>
+         in <code>org.melati.MelatiServlet.properties</code> appropriately. In particular, if
+         you use <code>UploadURLPoemType.wm</code> as the renderinfo for a file (so that you
+         can upload files using the Admin system) then you should probably set your
+         <code>formDataAdaptorFactory</code> to <code>org.melati.servlet.PoemFileDataAdaptorFactory</code>
+         and add <code>UploadDir</code> and <code>UploadURL</code> to your database's Setting
+         table. This will upload files into the directory named by <code>UploadDir</code> and
+         associate it with a URL of the form <code>UploadURL/<i>filename.ext</i></code></p>
+      </td>
+  </tr>
 </table>
 
 <H3>
@@ -550,6 +572,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.30  2001/02/06 12:22:45  mylesc
+  <BR>Rejigging of file upload code
+  <BR>
   <BR>Revision 1.29  2001/01/20 08:16:20  timj
   <BR>revisions for 0.52
   <BR>

@@ -148,23 +148,53 @@ public class MultipartFormField
       this.adaptor = adaptor;
     }
 
-    public byte[] getData() throws Exception {
+    /**
+     * @return the saved data as a byte array
+     */
+    public byte[] getData() {
       return (adaptor != null) ? adaptor.getData() : new byte[0];
     }
 
-    public String getDataString() throws Exception {
+    /**
+     * @return the saved data as a string
+     */
+    public String getDataString() {
       return new String(getData());
     }
 
-    public File getDataFile() throws Exception {
+    /**
+     * @return the saved data as a string using the encoding supplied
+     */
+    public String getDataString(String enc) {
+      if (enc == null || enc.equals(""))
+        return getDataString();
+      try {
+        return new String(getData(), enc);
+      }
+      catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+        return getDataString();
+      }
+    }
+
+    /**
+     * @return the length of the data
+     */
+    public long getDataSize() {
+      return (adaptor != null) ? adaptor.getSize() : 0;
+    }
+
+    /**
+     * @return The data saved as a file (or null if it is not saved)
+     */
+    public File getDataFile() {
       return (adaptor != null) ? adaptor.getFile() : null;
     }
 
-    public long getDataSize() {
-      return (adaptor != null) ? adaptor.getSize() : -1;
-    }
-
-    public String getDataURL() throws Exception {
+    /**
+     * @return A URL to the saved data (or null if no such URL exists)
+     */
+    public String getDataURL() {
       return (adaptor != null) ? adaptor.getURL() : null;
     }
 

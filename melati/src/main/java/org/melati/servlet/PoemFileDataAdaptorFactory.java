@@ -45,22 +45,48 @@
 
 package org.melati.servlet;
 
+import java.io.*;
+import java.util.Hashtable;
 import org.melati.*;
+import org.melati.poem.*;
 
 /**
- * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * Save the uploaded file to disk in a particular directory
+ * which has a particular URL. We get these values from the
+ * values of <code>UploadDir</code> and <code>UploadURL</code>
+ * in the Setting table of the current Database
  */
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
+public class PoemFileDataAdaptorFactory implements FormDataAdaptorFactory
 {
+  final static private Hashtable dirByDatabase = new Hashtable();
+  final static private Hashtable urlByDatabase = new Hashtable();
 
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
-    return new TemporaryFileDataAdaptor();
+  synchronized public FormDataAdaptor get(final Melati melati,
+                                          MultipartFormField field) {
+
+    final Database db = melati.getDatabase();
+    String uploadDir = (String)dirByDatabase.get(db);
+    String uploadURL = (String)urlByDatabase.get(db);
+
+    if (uploadDir == null && uploadURL == null) {
+
+      melati.getDatabase().inSession(AccessToken.root,
+        new PoemTask() {
+          public void run() throws PoemException {
+            dirByDatabase.put(db, (String)db.getSettingTable().
+                                    getOrDie("UploadDir"));
+            urlByDatabase.put(db, (String)db.getSettingTable().
+                                    getOrDie("UploadURL"));
+          }
+          public String toString() {
+            return "Getting UploadDir and UploadURL settings";
+          }
+        });
+      uploadDir = (String)dirByDatabase.get(melati.getDatabase());
+      uploadURL = (String)urlByDatabase.get(melati.getDatabase());
+    }
+
+    return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }
 }
-
-
-
-
-
 

@@ -45,17 +45,41 @@
 
 package org.melati.servlet;
 
+import java.io.*;
 import org.melati.*;
+import org.melati.poem.*;
 
 /**
- * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * Save the uploaded file to disk in a particular directory
+ * which has a particular URL
  */
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory
+public class DefaultFileDataAdaptorFactory implements FormDataAdaptorFactory
 {
 
+  /* The directory to save files in */
+  protected String uploadDir = null;
+
+  public String getUploadDir() {
+    return uploadDir;
+  }
+
+  public void setUploadDir(String dir) {
+    uploadDir = dir;
+  }
+
+  /* A URL the uploadDir */
+  protected String uploadURL = null;
+
+  public String getUploadURL() {
+    return uploadURL;
+  }
+  public void setUploadURL(String url) {
+    uploadURL = url;
+  }
+
   public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
-    return new TemporaryFileDataAdaptor();
+    System.err.println("About to get an adaptor. I have the settings (dir,url): ("+uploadDir+","+uploadURL+")");
+    return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }
 }
 

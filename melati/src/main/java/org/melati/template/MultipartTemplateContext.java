@@ -74,7 +74,7 @@ public class MultipartTemplateContext implements TemplateContext
   Melati melati;
 
   public MultipartTemplateContext(Melati melati, TemplateContext context)
-                                                               throws Exception {
+                                                               throws IOException {
     peer = context;
     this.melati = melati;
     try {
@@ -86,7 +86,7 @@ public class MultipartTemplateContext implements TemplateContext
                                  melati.getConfig().getFormDataAdaptorFactory());
       fields = decoder.parseData();
     }
-    catch (Exception e) {
+    catch (IOException e) {
       fields = new Hashtable();
       throw e;
     }
@@ -100,12 +100,7 @@ public class MultipartTemplateContext implements TemplateContext
     MultipartFormField field = (MultipartFormField)fields.get(s);
     if (field == null)
       return peer.getForm(s);
-    try {
-      return field.getDataString();
-    }
-    catch (Exception e) {
-      return null;
-    }
+    return field.getDataString(melati.getResponse().getCharacterEncoding());
   }
 
   public MultipartFormField getMultipartForm(String s) {

@@ -43,10 +43,6 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
-
 package org.melati.servlet;
 
 import java.io.*;
@@ -54,11 +50,18 @@ import java.io.*;
 import org.melati.*;
 
 /**
- * An Interface to create a FormDataAdaptor from a melati and
- * the field which was upload
+ * A way to implement policies about how to save uploaded files
  */
 public interface FormDataAdaptorFactory
 {
+  /**
+   * Implements different policies for saving uploaded files depending
+   * on the details of the file and the state of the application
+   *
+   * @param     melati  the state of (this call to) the application
+   * @param     field   details of the uploaded file
+   * @return    an adaptor which will save the contents of the file
+   */
   public FormDataAdaptor get(Melati melati, MultipartFormField field);
 }
 

@@ -96,11 +96,11 @@ public class MultipartDataDecoder {
     this.maxSize=maxSize;
   }
 
-  public Hashtable parseData() throws Exception {
+  public Hashtable parseData() throws IOException {
     try {
       return parseData(in, contentType, maxSize);
     }
-    catch (Exception e) {
+    catch (IOException e) {
       throw e;
     }
     finally {
@@ -111,8 +111,7 @@ public class MultipartDataDecoder {
 
   private Hashtable parseData(DelimitedBufferedInputStream in,
                               String contentType,
-                              int maxSize)
-                                            	    throws Exception {
+                              int maxSize)           throws IOException {
     String boundary = getBoundary(new byte[0], contentType);
     String line;
     String header = "";
@@ -169,9 +168,17 @@ public class MultipartDataDecoder {
        */
       if (state == IN_FIELD_DATA) {
         String dataBoundary = "\r\n" + boundary;
-        FormDataAdaptor data = factory.get(melati, field);
-        data.readData(field, in, dataBoundary.getBytes());
-        field.setFormDataAdaptor(data);
+
+        /* get an adaptor to save the field data */
+        FormDataAdaptor adaptor = null;
+        if (field.getUploadedFileName().equals("")) { // no file uploaded
+          adaptor = new MemoryDataAdaptor(); // store data in memory
+        }
+        else {
+          adaptor = factory.get(melati, field); 
+        }
+        adaptor.readData(field, in, dataBoundary.getBytes());
+        field.setFormDataAdaptor(adaptor);
         state = FIELD_START;
       }
 

@@ -43,31 +43,33 @@
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
 
-/**
- * Interface for a file uploaded from a HTML form 
- */
-
 package org.melati.servlet;
 
 import java.io.*;
 
+import org.melati.util.*;
+
 /**
- * The default way to save an uploaded file to disk - we save it
- * in the directory named by the database setting ``UploadDir`.
- * <p>
- * We calculate the URL in a similar way but look for the
- * ``UploadURL'' setting.
+ * Save uploaded files in a temporary file which is deleted when
+ * the JVM exits
  */
 public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor
 {
 
-  protected File calculateLocalFile() throws Exception {
-    File file = File.createTempFile("melati", null);
-    file.deleteOnExit();
-    return file;
+  protected File calculateLocalFile() {
+    File file = null;
+    try {
+      file = File.createTempFile("melati", null);
+      file.deleteOnExit();
+      return file;
+    }
+    catch (IOException ioe) {
+      throw new FormDataAdaptorException(
+        "Couldn't save the uploaded file in a temporary file", ioe);
+    }
   }
 
-  protected String calculateURL() throws Exception {
+  protected String calculateURL() {
     return null;
   }
 

@@ -1,5 +1,7 @@
 #set $Response.ContentType = "text/html"
+
 #set $ml = $melati.HTMLMarkupLanguage
+
 #if ($Form.passback) #begin
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #end
@@ -53,16 +55,22 @@ You can test that you are able to override your AccessHandler mode by clicking
 This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
 is configured by default in your org.melati.MelatiServlet.properties file).<br>
 
-#if ($melati.Method == "StandAlone") #begin
-$StandAlone
-#end
-
 <form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
 You can upload a file here:<br>
 <input type=hidden name=upload value=yes>
 <input type="file" name="file" enctype="multipart/form-data">
 <input type="submit" name="Submit" value="Upload file">
+<br>
+Your file will be saved in different ways depending on your setting of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):<br>
+org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory<br>
+org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file<br>
+org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the directory named in the database's ``UploadDir'' setting
+(and you will have to set ``UploadURL'' too).<br>
 </form>
+
+#if ($melati.Method == "StandAlone") #begin
+$StandAlone
+#end
 
 <h3>Your Database has the following tables:</h3>
 #foreach $tab in $melati.Database.DisplayTables #begin

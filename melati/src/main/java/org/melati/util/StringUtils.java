@@ -98,4 +98,36 @@ public class StringUtils {
     suffix[0] = Character.toUpperCase(suffix[0]);
     return new String(suffix);
   }
+
+  public static String tr(String s, String from, String to) {
+    StringBuffer sNew = null;
+
+    for (int i = 0; i < s.length(); ++i) {
+      int t = from.indexOf(s.charAt(i));
+      if (t != -1) {
+	if (sNew == null) sNew = new StringBuffer(s);
+	sNew.setCharAt(i, to.charAt(t));
+      }
+    }
+
+    return sNew == null ? s : sNew.toString();
+  }
+
+  public static String tr(String s, char from, char to) {
+    StringBuffer sNew = null;
+
+    for (int i = 0; i < s.length(); ++i) {
+      if (s.charAt(i) == from) {
+	if (sNew == null) sNew = new StringBuffer(s);
+	sNew.setCharAt(i, to);
+      }
+    }
+
+    return sNew == null ? s : sNew.toString();
+  }
+
+  public static void main(String[] args) {
+    System.out.println(tr(args[0], "abc", "123"));
+    System.out.println(tr(args[0], "a", "1"));
+  }
 }

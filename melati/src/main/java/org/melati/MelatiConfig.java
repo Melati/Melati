@@ -80,15 +80,15 @@ import org.melati.util.PropertiesUtils;
 import org.melati.util.MelatiLocale;
 
 
-/*
-<p>
-A MelatiConfig loads and provides access to the configuration
-parameters for melati.  These are held in org.melati.MelatiServlet.properties
-</p>
-<p>
-After configuration, you can then get a Melati, using Melati.getMelati()
-</p>
-*/
+/**
+ * A MelatiConfig loads and provides access to the configuration parameters for
+ * melati.  These are held in <TT>org.melati.MelatiServlet.properties</TT>.
+ *
+ * After configuration, you can then get a Melati, using
+ * <TT>Melati.getMelati()</T>.
+ *
+ * @see Melati.getMelati()
+ */
 
 public class MelatiConfig {
 
@@ -102,13 +102,15 @@ public class MelatiConfig {
   private String defaultPropertiesName = "org.melati.MelatiServlet";
 
   // allows creation of a melaticonfig with default config params
+
   public MelatiConfig() throws MelatiException {
-    init (defaultPropertiesName);
+    init(defaultPropertiesName);
   }
 
   // allows creation of a melaticonfig with a specified properties file
+
   public MelatiConfig(String propertiesName) throws MelatiException {
-    init (propertiesName);
+    init(propertiesName);
   }
   
   public void init(String propertiesName) throws MelatiException {
@@ -121,7 +123,7 @@ public class MelatiConfig {
     String staticURLProp = pref + "staticURL";
     try {
       configuration =
-      PropertiesUtils.fromResource(getClass (), pref + "properties");
+      PropertiesUtils.fromResource(getClass(), pref + "properties");
     }
     catch (FileNotFoundException e) {
       // i think that if we don't have a properties file, it is pretty fatal
@@ -129,26 +131,27 @@ public class MelatiConfig {
       throw new ConfigException("The file " + pref + "properties" +
                                 " could not be found." +
                                 " Is it in your CLASSPATH?  Full Error: " +
-                                e.toString ());
+                                e.toString());
     }
     catch (IOException e) {
-      throw new ConfigException ("The file " + pref + "properties" +
-                                 " could not be read." +
-                                 " Full Error: " + e.toString ());
+      throw new ConfigException("The file " + pref + "properties" +
+                                " could not be read." +
+                                " Full Error: " + e.toString());
     }
 
     try {
-      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
-                         configuration, 
-                         accessHandlerProp,
-                         "org.melati.login.AccessHandler",
-                         "org.melati.login.HttpBasicAuthenticationAccessHandler");
+      accessHandler =
+          (AccessHandler)PropertiesUtils.instanceOfNamedClass(
+              configuration, 
+              accessHandlerProp,
+              "org.melati.login.AccessHandler",
+              "org.melati.login.HttpBasicAuthenticationAccessHandler");
 
       fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.instanceOfNamedClass(
-                         configuration, 
-                         fdaFactoryProp,
-                         "org.melati.servlet.FormDataAdaptorFactory",
-                         "org.melati.servlet.MemoryDataAdaptorFactory");
+                       configuration, 
+                       fdaFactoryProp,
+                       "org.melati.servlet.FormDataAdaptorFactory",
+                       "org.melati.servlet.MemoryDataAdaptorFactory");
 
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
                           configuration,
@@ -157,19 +160,19 @@ public class MelatiConfig {
                           "org.melati.template.ClassNameTempletLoader");
 
       templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass(
-                          configuration,
-                          templateEngineProp,
-                          "org.melati.template.TemplateEngine",
-                          "org.melati.template.NoTemplateEngine");
+                           configuration,
+                           templateEngineProp,
+                           "org.melati.template.TemplateEngine",
+                           "org.melati.template.NoTemplateEngine");
 
       javascriptLibraryURL = PropertiesUtils.getOrDie(configuration,
                                                       javascriptLibraryURLProp);
 
-      staticURL = PropertiesUtils.getOrDie (configuration, staticURLProp);
+      staticURL = PropertiesUtils.getOrDie(configuration, staticURLProp);
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +
-                                e.toString ());
+                                e.toString());
     }
 
   }
@@ -177,7 +180,7 @@ public class MelatiConfig {
   // creates a melati context
   public Melati getMelati(HttpServletRequest request,
                           HttpServletResponse response) 
-   throws MelatiException {
+      throws MelatiException {
     return new Melati(this, request, response);
   }
 
@@ -236,7 +239,7 @@ public class MelatiConfig {
     return "org.melati.login.Logout";
   }
 
-  public static MelatiLocale getMelatiLocale () {
+  public static MelatiLocale getMelatiLocale() {
     return MelatiLocale.here;
   }
 
@@ -253,5 +256,4 @@ public class MelatiConfig {
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }
-
 }

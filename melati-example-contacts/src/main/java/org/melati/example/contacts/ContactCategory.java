@@ -6,8 +6,10 @@ import org.melati.example.contacts.generated.ContactCategoryBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>ContactCategory</code> object.
  * 
+ * <p> 
  * Description: 
- *   Contacts Categories 
+ *   Contacts Categories. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -19,15 +21,17 @@ import org.melati.example.contacts.generated.ContactCategoryBase;
  * <tr><td> contact </td><td> Contact </td><td> Contact </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class ContactCategory extends ContactCategoryBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>ContactCategory</code> object.
+  * <p>
   * Description: 
   *   Contacts Categories. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

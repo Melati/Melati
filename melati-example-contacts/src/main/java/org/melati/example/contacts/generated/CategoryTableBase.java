@@ -122,32 +122,11 @@ public class CategoryTableBase extends Table {
             ((Category)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>Category</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Category)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>Category</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Category)g).setId((Integer)raw);
@@ -206,32 +185,11 @@ public class CategoryTableBase extends Table {
             ((Category)g).setName_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Name value, 
-  * without checking, of this <code>Category</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Category)g).getName();
           }
 
-
- /**
-  * Sets the Name value, without checking, for this <code>Category</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Category)g).setName((String)raw);

@@ -126,32 +126,11 @@ public class ContactCategoryTableBase extends Table {
             ((ContactCategory)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>ContactCategory</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((ContactCategory)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>ContactCategory</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((ContactCategory)g).setId((Integer)raw);

@@ -8,8 +8,10 @@ import org.melati.poem.PoemException;
 /**
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>CategoryTable</code> object.
+ * <p>
  * Description: 
- *   A Category for Contacts 
+ *   A Category for Contacts. 
+ * </p>
  *
  * 
  * <table> 

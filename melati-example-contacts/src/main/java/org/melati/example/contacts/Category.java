@@ -6,8 +6,10 @@ import org.melati.example.contacts.generated.CategoryBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>Category</code> object.
  * 
+ * <p> 
  * Description: 
- *   A Category for Contacts 
+ *   A Category for Contacts. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -18,15 +20,17 @@ import org.melati.example.contacts.generated.CategoryBase;
  * <tr><td> name </td><td> String </td><td> Category Name </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Category extends CategoryBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>Category</code> object.
+  * <p>
   * Description: 
   *   A Category for Contacts. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

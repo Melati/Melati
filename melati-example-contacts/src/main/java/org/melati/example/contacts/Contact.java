@@ -6,8 +6,10 @@ import org.melati.example.contacts.generated.ContactBase;
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>Persistent</code> <code>Contact</code> object.
  * 
+ * <p> 
  * Description: 
- *   A Contact 
+ *   A Contact. 
+ * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
@@ -19,23 +21,25 @@ import org.melati.example.contacts.generated.ContactBase;
  * <tr><td> owner </td><td> Contact </td><td> Contact who owns this contact 
  * </td></tr> 
  * <tr><td> address </td><td> String </td><td> Contact Address </td></tr> 
- * <tr><td> updates </td><td> Integer </td><td> How many times has this record 
- * been updated? </td></tr> 
+ * <tr><td> updates </td><td> Integer </td><td> How many times has this 
+ * record been updated? </td></tr> 
  * <tr><td> lastupdated </td><td> Date </td><td> When was this last updated? 
  * </td></tr> 
  * <tr><td> lastupdateuser </td><td> User </td><td> Who last updated this? 
  * </td></tr> 
  * </table> 
  * 
-  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
+ * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
 public class Contact extends ContactBase {
 
  /**
   * Constructor 
   * for a <code>Persistent</code> <code>Contact</code> object.
+  * <p>
   * Description: 
   *   A Contact. 
+  * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */

@@ -132,32 +132,11 @@ public class ContactTableBase extends Table {
             ((Contact)g).setId_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Id value, 
-  * without checking, of this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getId();
           }
 
-
- /**
-  * Sets the Id value, without checking, for this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setId((Integer)raw);
@@ -216,32 +195,11 @@ public class ContactTableBase extends Table {
             ((Contact)g).setName_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Name value, 
-  * without checking, of this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getName();
           }
 
-
- /**
-  * Sets the Name value, without checking, for this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setName((String)raw);
@@ -360,32 +318,11 @@ public class ContactTableBase extends Table {
             ((Contact)g).setAddress_unsafe((String)raw);
           }
 
- /**
-  * Retrieves the Address value, 
-  * without checking, of this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getAddress();
           }
 
-
- /**
-  * Sets the Address value, without checking, for this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setAddress((String)raw);
@@ -444,32 +381,11 @@ public class ContactTableBase extends Table {
             ((Contact)g).setUpdates_unsafe((Integer)raw);
           }
 
- /**
-  * Retrieves the Updates value, 
-  * without checking, of this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getUpdates();
           }
 
-
- /**
-  * Sets the Updates value, without checking, for this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setUpdates((Integer)raw);
@@ -528,32 +444,11 @@ public class ContactTableBase extends Table {
             ((Contact)g).setLastupdated_unsafe((Date)raw);
           }
 
- /**
-  * Retrieves the Lastupdated value, 
-  * without checking, of this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to get the value from
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
-
           public Object getRaw(Persistent g)
               throws AccessPoemException {
             return ((Contact)g).getLastupdated();
           }
 
-
- /**
-  * Sets the Lastupdated value, without checking, for this <code>Contact</code> <code>Persistent</code>.
-  * 
-  * @generator org.melati.poem.prepro.AtomFieldDef#generateColRawAccessors 
-  * @param g  the <code>Persistent</code> to modify
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  */
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((Contact)g).setLastupdated((Date)raw);

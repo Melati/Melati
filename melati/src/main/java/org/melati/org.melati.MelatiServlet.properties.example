@@ -74,3 +74,11 @@ org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.MemoryDataAda
 
 #org.melati.MelatiServlet.formDataAdaptorFactory=org.melati.servlet.TemporaryFileDataAdaptorFactory
 
+#
+# ------------------------------------------
+#  What to configure for the default locale?
+# ------------------------------------------
+# 
+
+org.melati.MelatiServlet.locale=en-gb
+#org.melati.MelatiServlet.locale=en-us

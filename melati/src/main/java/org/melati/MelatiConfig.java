@@ -49,6 +49,8 @@ package org.melati;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,7 @@ import org.melati.util.ConfigException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
+import org.melati.util.StringUtils;
 
 
 /**
@@ -85,6 +88,8 @@ public class MelatiConfig {
   private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
+  private MelatiLocale melatiLocale = null;
+  private Hashtable localeHash = new Hashtable(10);
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;
@@ -111,6 +116,8 @@ public class MelatiConfig {
     String templatePathProp = pref + "templatePath";
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
     String staticURLProp = pref + "staticURL";
+    String melatiLocaleProp = pref + "locale";    
+    
     try {
       configuration =
       PropertiesUtils.fromResource(getClass(), pref + "properties");
@@ -157,6 +164,13 @@ public class MelatiConfig {
                            templateEngineProp,
                            "org.melati.template.TemplateEngine",
                            "org.melati.template.NoTemplateEngine");
+                           
+      String languageTag = PropertiesUtils.getOrDefault(configuration,
+	  	    melatiLocaleProp , "en-gb");
+	  	
+      melatiLocale = MelatiLocale.fromLanguageTag(languageTag);
+      if (melatiLocale == null)
+          throw new Exception(languageTag + " is not a valid language tag for " + melatiLocaleProp); 
 
       javascriptLibraryURL = PropertiesUtils.getOrDie(
                                                   configuration,
@@ -172,6 +186,7 @@ public class MelatiConfig {
     }
 
   }
+ 
 
   // creates a melati context
   public Melati getMelati(HttpServletRequest request,
@@ -240,13 +255,67 @@ public class MelatiConfig {
     return "org.melati.login.Logout";
   }
 
+  /**
+   * @deprecated Use getLocale if possible, otherwise you might as well use MelatiLocale.here.
+   * @return Brittish English melati locale.  
+   */
   public static MelatiLocale getMelatiLocale() {
     return MelatiLocale.here;
   }
 
+  /**
+   * Get the default MelatiLocale from the configuration file
+   * @return The default MelatiLocale
+   */
   public MelatiLocale getLocale() {
-    return MelatiLocale.here;
+    return melatiLocale;
   }
+
+  /**
+   * Returns a MelatiLocale based on a language tag.  Locales
+   * are cached for future use.
+   * @param languageHeader A language header from RFC 3282
+   * @return a MelatiLocale based on a language tag.
+   */
+  public MelatiLocale getLocale(String languageHeader) {
+    
+    // language headers may have multiple language tags sperated by ,
+    String tags[] = StringUtils.split(languageHeader, ',');   
+    MelatiLocale ml = null; 
+
+    // loop through until we find a tag we like         
+    for (int i=0; i<tags.length; i++)
+    {
+      String tag = tags[i]; 
+      
+      // remove quality value if it exists.
+      // we'll just try them in order
+      int indexSemicolon = tag.indexOf(';');
+      if (indexSemicolon != -1)
+        tag = tag.substring(0, indexSemicolon);       
+      
+      String lowerTag = tag.trim().toLowerCase();
+      
+      System.err.println(tag);
+      
+      // try our cache
+      ml = (MelatiLocale) localeHash.get(lowerTag);
+      if (ml != null)
+        return ml;
+
+      // try creating a locale from this tag
+      ml = MelatiLocale.fromLanguageTag(lowerTag);
+      if (ml != null)
+      {
+        System.err.println("Selected: "+tag);
+        localeHash.put(lowerTag, ml);
+        return ml;        
+      }
+    }
+           
+    // return our default locale
+    return melatiLocale;
+  }   
 
   // get the adaptor for rendering dates as drop-downs
   public static YMDDateAdaptor getYMDDateAdaptor() {

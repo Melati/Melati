@@ -53,24 +53,25 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.admin.AdminUtils;
 import org.melati.poem.Database;
-import org.melati.poem.Table;
-import org.melati.poem.User;
+import org.melati.poem.NoAccessTokenPoemException;
+import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
-import org.melati.poem.NotInSessionPoemException;
-import org.melati.poem.NoAccessTokenPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.User;
 import org.melati.servlet.MelatiContext;
-import org.melati.template.TemplateContext;
 import org.melati.template.HTMLMarkupLanguage;
-import org.melati.template.WMLMarkupLanguage;
+import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.util.HttpUtil;
+import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.DatabaseInitException;
-import org.melati.util.StringUtils;
-import org.melati.util.MelatiWriter;
+import org.melati.util.HttpUtil;
+import org.melati.util.MelatiBufferedWriter;
+import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
-import org.melati.util.MelatiBufferedWriter;
+import org.melati.util.MelatiWriter;
+import org.melati.util.StringUtils;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 /**
@@ -412,6 +413,20 @@ public class Melati {
   }
 
   /**
+   * Returns a MelatiLocale object based on the Accept-Language header
+   * of this request.
+   * 
+   * @return a MelatiLocale object
+   */
+  public MelatiLocale getMelatiLocale() {
+    String acceptLanguage = getRequest().getHeader("Accept-Language");
+    if (acceptLanguage == null)
+      return config.getLocale();
+    return config.getLocale(acceptLanguage);
+  }
+
+
+  /**
    * Get a HTMLMarkupLanguage for use when generating HTML in templates
    *
    * @return - a HTMLMarkupLanguage
@@ -422,7 +437,7 @@ public class Melati {
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
     return new HTMLMarkupLanguage(this,
                                   config.getTempletLoader(),
-                                  config.getLocale());
+                                  getMelatiLocale());
   }
 
   /**
@@ -437,7 +452,7 @@ public class Melati {
     return new WMLMarkupLanguage
                     (this,
                      config.getTempletLoader(),
-                     config.getLocale());
+                     getMelatiLocale());
   }
 
   /**

@@ -59,6 +59,27 @@ public class MelatiLocale {
   private final String[] months, shortMonths;
   private final DateFormat[] dateFormats;
   private final DateFormat[] timestampFormats;
+  
+  /**
+   * Creates a melati locale from a language tag as defined in RFC3066
+   * @param tag A language tag, for example, "en-gb"
+   * @return A melati locale from the tag if we can parse it, otherwise null
+   */
+  public static MelatiLocale fromLanguageTag(String tag) {
+    String subtags[] = StringUtils.split(tag, '-');
+
+    // if 1st subtag is 2 letters, then it's a 2 letter language code
+    if (subtags.length > 0 && subtags[0].length() == 2) {
+      Locale locale = null;
+      // if 2nd subtag exists and is 2 letters, then it's a 2 letter county code
+      if (subtags.length > 1 && subtags[1].length() == 2)
+        locale = new Locale(subtags[0], subtags[1]);
+      else
+        locale = new Locale(subtags[0], "");
+      return new MelatiLocale(locale);
+    }
+    return null;
+  } 
 
   public MelatiLocale(Locale locale) {
     if (locale == null)

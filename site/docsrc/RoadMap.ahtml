@@ -81,15 +81,16 @@ would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.72</td>
-    <td>Additional support for joins, access filtering.
-        Upgrade to Velocity.
+    <td>Additional support for joins, access filtering. <br />
+        Upgrade to Velocity. <br />
+        Handling of Chinese and other encodings.
     </td>
     <td><b>done</b></td>
   </tr>
   <tr> 
     <td>0.73</td>
     <td>Velocity version of admin system</td>
-    <td>&nbsp;</td>
+    <td></td>
   </tr>
   <tr> 
     <td>0.74</td>
@@ -104,7 +105,7 @@ would be nice to have before a 1.0 release.
   <tr> 
     <td>0.80</td>
     <td>Templets are used to render everything.</td>
-    <td></td>
+    <td>In Progress</td>
   </tr>
   <tr> 
     <td>0.90</td>

@@ -1511,10 +1511,15 @@ public class Table {
     return false;
   }
 
+  protected String defaultCategory() {
+    return "Normal";
+  }
+
   TableInfo defaultTableInfo() {
     return new TableInfo(
         getName(), defaultDisplayName(), defaultDisplayOrder(),
-        defaultDescription(), defaultCacheLimit(), defaultRememberAllTroids());
+        defaultDescription(), defaultCacheLimit(), defaultRememberAllTroids(),
+        database.getTableCategoryTable().ensure(defaultCategory()));
   }
 
   void createTableInfo() throws PoemException {

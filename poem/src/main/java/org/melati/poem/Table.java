@@ -102,6 +102,21 @@ public class Table {
     serial = new TransactionedSerial(database);
   }
 
+  /**
+   * Do stuff immediately after table initialisation.
+   * <p>
+   * This base method clears the column info caches and adds a listener
+   * to the column info table to maintain the caches.
+   * <p>
+   * It may be overridden to perform other actions. For example to
+   * ensure required rows exist in tables that define numeric ID's for
+   * codes.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   *
+   * @see #notifyColumnInfo(ColumnInfo)
+   * @see #clearColumnInfoCaches()
+   */
   protected void postInitialise() {
     clearColumnInfoCaches();
     database.getColumnInfoTable().addListener(
@@ -270,6 +285,7 @@ public class Table {
    *
    * @see Column#setColumnInfo
    * @see ReferencePoemType#_stringOfCooked
+   * @see DisplayLevel#primary
    */
 
   public final Column displayColumn() {
@@ -363,6 +379,9 @@ public class Table {
     return columns;
   }
 
+  /**
+   * Return columns at a display level in display order.
+   */ 
   public final Enumeration displayColumns(DisplayLevel level) {
     Column[] columns = displayColumns[level.index.intValue()];
 
@@ -383,6 +402,14 @@ public class Table {
     return displayColumns[l].length;
   }
 
+  /**
+   * The table's columns for detailed display in display order.
+   *
+   * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
+   * @see Column
+   * @see #displayColumns(DisplayLevel)
+   * @see DisplayLevel#detail
+   */
   public final Enumeration getDetailDisplayColumns() {
     return displayColumns(DisplayLevel.detail);
   }
@@ -396,6 +423,8 @@ public class Table {
    *
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
+   * @see #displayColumns(DisplayLevel)
+   * @see DisplayLevel#record
    */
 
   public final Enumeration getRecordDisplayColumns() {
@@ -412,6 +441,8 @@ public class Table {
    *
    * @return an <TT>Enumeration</TT> of <TT>Column</TT>s
    * @see Column
+   * @see #displayColumns(DisplayLevel)
+   * @see DisplayLevel#summary
    */
 
   public final Enumeration getSummaryDisplayColumns() {
@@ -1142,7 +1173,15 @@ public class Table {
   }
 
   /**
+   * Append an SQL logical expression to the given buffer to match rows
+   * according to the non-null fields of the given object.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   * <p>
    * FIXME you can't search for NULLs ...
+   *
+   * @see #notifyColumnInfo(ColumnInfo)
+   * @see #clearColumnInfoCaches()
    */
 
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
@@ -1274,6 +1313,14 @@ public class Table {
     }
   }
 
+  /**
+   * Write a new row containing the given object.
+   * <p>
+   * The given object will be assigned the next troid.and its internal
+   * state will also be modified.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   */
   public void create(Persistent persistent)
       throws AccessPoemException, ValidationPoemException,
              InitialisationPoemException {

@@ -63,8 +63,8 @@ public class CacheSizeTableQualifier extends TableQualifier {
         tokens.sval.equals("unlimited"))
       size = CacheSizeTableQualifier.UNLIMITED;
     else {
-      if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval <= 0)
-        throw new ParsingDSDException("<positive size number>", tokens);
+      if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval < 0)
+        throw new ParsingDSDException("<nonnegative size number>", tokens);
       size = (int)tokens.nval;
     }
 

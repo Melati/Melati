@@ -1,15 +1,29 @@
 package org.melati;
 
+import java.net.URLEncoder;
 import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
 import org.melati.util.*;
 import org.melati.poem.*;
-import java.net.URLEncoder;
+import org.melati.templets.*;
 
 public class HTMLMarkupLanguage extends MarkupLanguage {
 
-  public HTMLMarkupLanguage(WebContext webContext) {
-    super("html", webContext);
+  private AttributeHTMLMarkupLanguage attributeML = null;
+
+  public HTMLMarkupLanguage(WebContext webContext,
+			    TempletLoader templetLoader, MelatiLocale locale) {
+    super("html", webContext, templetLoader, locale);
+  }
+
+  protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {
+    super(name, other);
+  }
+
+  public AttributeHTMLMarkupLanguage getAttr() {
+    if (attributeML == null)
+      attributeML = new AttributeHTMLMarkupLanguage(this);
+    return attributeML;
   }
 
   public final String elementFor(char c) {
@@ -50,10 +64,6 @@ public class HTMLMarkupLanguage extends MarkupLanguage {
     return StringUtils.escaped(s, '"');
   }
 
-  public String rendered(Integer i) {
-    return i == null ? "" : i.toString();
-  }
-
   public String rendered(AccessPoemException e) {
     return "<TABLE><TR><TD BGCOLOR=red>" + 
              "[Access denied to " + rendered(e.token) + "]" +
@@ -62,14 +72,6 @@ public class HTMLMarkupLanguage extends MarkupLanguage {
 
   public String rendered(Exception e) {
     return "[" + rendered(e.toString()) + "]";
-  }
-
-  public String renderedVALUE(String s) {
-    return rendered(s);
-  }
-
-  public String renderedVALUE(AccessPoemException e) {
-    return "[Access denied to " + rendered(e.token) + "]";
   }
 
   public String encoded(String s) {

@@ -71,6 +71,7 @@
 <P><B>Criteria</B></P>
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
+#set $crit=""
   #foreach $field in $criteria #begin
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     #if ($field.Description) #begin
@@ -86,7 +87,8 @@
         $ml.input($field)
       </TD>
     </TR>
-  #end
+#set $crit="$crit&field-$ml.rendered($field.Name)=$ml.rendered($field.RawString)"
+#end
 </TABLE>
 
 <P><B>Ordering</B></P>
@@ -140,7 +142,7 @@
 
   <P>
     #if ($objects.PrevPageStart) #begin
-      <A HREF="View?start=$objects.PrevPageStart">&lt;&lt;</A>
+      <A HREF="View?start=$objects.PrevPageStart$crit#foreach $field in $orderings #begin &field-$ml.rendered($field.Name)=$ml.rendered($field.RawString) #end">&lt;&lt;</A>
     #end
     #else #begin
       &lt;&lt;
@@ -149,7 +151,7 @@
     &nbsp;&nbsp;
 
     #if ($objects.NextPageStart) #begin
-      <A HREF="View?start=$objects.NextPageStart">&gt;&gt;</A>
+      <A HREF="View?start=$objects.NextPageStart$crit#foreach $field in $orderings #begin &field-$ml.rendered($field.Name)=$ml.rendered($field.RawString) #end">&gt;&gt;</A>
     #end
     #else #begin
       &gt;&gt;

@@ -178,7 +178,7 @@ public abstract class ConfigServlet extends HttpServlet
   /**
    * Send an error message
    */
-  protected void error(Melati melati, Exception e )
+  public void error(Melati melati, Exception e )
    throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {

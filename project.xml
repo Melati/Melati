@@ -135,22 +135,23 @@ subscribe.melati@messageboards.paneris.org
       <timezone>0</timezone>
     </developer>
     <developer>
-      <name>Tim Joyce</name>
-      <id>timj</id>
-      <email>timj@paneris.org</email>
-      <roles>
-        <role>Original author</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
       <name>Tim Pizey</name>
       <id>timp</id>
       <email>timp@paneris.org</email>
       <organization>Context Computing</organization>
       <roles>
-        <role>Lurker</role>
+        <role>Maintainer</role>
         <role>Maven maven</role>
+        <role>Lurker</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Tim Joyce</name>
+      <id>timj</id>
+      <email>timj@paneris.org</email>
+      <roles>
+        <role>Developer</role>
       </roles>
       <timezone>0</timezone>
     </developer>

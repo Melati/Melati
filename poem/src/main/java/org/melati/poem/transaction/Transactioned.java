@@ -140,22 +140,31 @@ public abstract class Transactioned {
     for (;;) {
       Transaction blocker = null;
       synchronized (this) {
-	if (touchedBy == transaction) {
-	  // System.err.println("already " + this + ".touchedBy == " + transaction);
+	if (touchedBy == transaction)
+	  // There's a writer, but it's us
 	  break;
-	}
+
 	else if (touchedBy != null)
+	  // There's a writer, and it's not us
 	  blocker = touchedBy;
+
 	else {
 	  int othersSeenMask = seenMask & transaction.negMask;
 	  if (othersSeenMask == 0) {
+	    // There are no readers besides us
+
 	    touchedBy = transaction;
-	    // System.err.println("calling " + transaction + ".notifyTouched(" + this + ")");
 	    transaction.notifyTouched(this);
 	    break;
 	  }
           else {
-	    // System.err.println("othersSeenMask is " + othersSeenMask);
+	    // There are other readers
+
+	    // We block not on the chronologically first reader but on the one
+	    // with the lowest index, i.e. essentially on an arbitrary
+	    // one---not perfect, but doing it any other way would be
+	    // expensive.
+
 	    int m = transactionPool().transactionsMax();
 	    int t, mask;
 	    for (t = 0, mask = 1;
@@ -164,14 +173,14 @@ public abstract class Transactioned {
 	      ;
 
 	    if (t == m)
-	      break;
+	      throw new MelatiBugMelatiException(
+                  "Thought there was a blocking transaction, " +
+                  "but didn't find it");
+
 	    blocker = transactionPool().transaction(t);
-	    // System.err.println("it's " + (othersSeenMask & mask) + "; " + "transaction(" + t + ") -> " + blocker);
 	  }
 	}
       }
-
-      // System.err.println(this + " blocking " + transaction + " on " + blocker);
 
       blocker.block(transaction);
     }

@@ -65,35 +65,41 @@ function popupupdate(popupwin,returnfield,id,value) {
 //-->
 </script>
 
-<center>
-<table cellpadding=8 cellspacing=0><tr><td>
+<table align=center cellpadding=8 cellspacing=0>
+ <tr>
+  <td>
 <FORM METHOD=get action=$admin.SelectionURL($table) target=admin_selection>
-<TABLE CELLPADDING=1 CELLSPACING=0 border=0>
+   <TABLE CELLPADDING=1 CELLSPACING=0 border=0>
 #foreach $field in $criteria #begin
     <TR>
-      <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
+     <TD><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field.DisplayName)</font></TD>
 	  <TD><FONT face="Arial, Helvetica" size=-2>$ml.input($field)</TD>
     </TR>
 #end
-<tr><td valign=top><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
-<td><FONT face="Arial, Helvetica" size=-2>
+    <tr>
+     <td valign=top><FONT face="Arial, Helvetica" size=-1>Ordering</font></td>
+     <td><FONT face="Arial, Helvetica" size=-2>
 #foreach $field in $orderings #begin
     $ml.input($field)<br>
 #end
 </font></td>
-</tr>
-<tr>
-<td></td><td>
-  <FONT face="Arial, Helvetica" size=-1>
-    <INPUT NAME=action VALUE="Search" TYPE=submit border="0" alt="Search $table.DisplayName" 
+    </tr>
+    <tr>
+     <td></td><td>
+      <font face="Arial, Helvetica" size=-1>
+       <INPUT NAME=action VALUE="Search" TYPE=submit border="0" alt="Search $table.DisplayName" 
            ONCLICK="return validate(this.form);">
-  </font>
-</td></tr>
+      </font>
+     </td>
+    </tr>
+   </table>
+  </td>
+ </tr>
 </table>
-</td></tr></table>
 </FORM>
-
-</CENTER>
-
 </BODY>
 </HTML>
+
+
+
+

@@ -77,6 +77,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
 
   /** The WebMacro. */
   public WM wm;
+  private WebContext _webContext;
 
   /**
    * Construct a new Engine.
@@ -87,6 +88,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
       wm = new WM ();
+      _webContext = new WebContext(wm.getBroker());
     } catch (InitException e) {
       throw new TemplateEngineException(e);
     }
@@ -99,8 +101,9 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @return a {@link TemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati) {
-    WebContext wc = new WebContext(wm.getBroker(), 
-                                   melati.getRequest(), melati.getResponse());
+    _webContext.clear();
+    WebContext wc = _webContext.newInstance(melati.getRequest(),
+                                            melati.getResponse());
     return new WebmacroTemplateContext(wc);
   }
   

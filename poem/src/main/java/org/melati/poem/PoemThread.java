@@ -92,7 +92,7 @@ public class PoemThread {
     }
     finally {
       synchronized (freeSessionTokenIndices) {
-        ((SessionToken)sessionTokens.elementAt(token.intValue())).invalidate();
+        ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
         sessionTokens.setElementAt(null, token.intValue());
         freeSessionTokenIndices.addElement(token);
       }
@@ -119,6 +119,10 @@ public class PoemThread {
     if (it == null)
       throw new NotInSessionPoemException();
     return it;
+  }
+
+  public static ToTidyList toTidy() throws NotInSessionPoemException {
+    return sessionToken().toTidy();
   }
 
   public static PoemTransaction transaction() {

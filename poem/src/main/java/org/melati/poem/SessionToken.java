@@ -53,6 +53,7 @@ class SessionToken {
   Thread thread;
   PoemTransaction transaction;
   AccessToken accessToken;
+  private ToTidyList toTidy = null;
 
   SessionToken(Thread thread, PoemTransaction transaction, AccessToken accessToken) {
     this.thread = thread;
@@ -60,9 +61,17 @@ class SessionToken {
     this.accessToken = accessToken;
   }
 
-  void invalidate() {
+  void close() {
     thread = null;
     transaction = null;
     accessToken = null;
+    if (toTidy != null)
+      toTidy.close();
+  }
+
+  synchronized ToTidyList toTidy() {
+    if (toTidy == null)
+      toTidy = new ToTidyList();
+    return toTidy;
   }
 }

@@ -275,11 +275,11 @@ public class ReconstructedHttpServletRequest implements HttpServletRequest {
   public Enumeration getLocales() {
     throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
-  /*
+
   public RequestDispatcher getRequestDispatcher(String arg) {
-  throw new RuntimeException("Unsupported call to Servlet 2.2 API");
+    throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }
-   */
+
   public boolean isSecure() {
     throw new RuntimeException("Unsupported call to Servlet 2.2 API");
   }

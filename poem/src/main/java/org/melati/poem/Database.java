@@ -777,29 +777,40 @@ abstract public class Database implements TransactionPool {
   // =======
   // 
 
+  public String givesCapabilitySQL(User user, String capabilityExpr) {
+    return
+        "SELECT * FROM groupmembership " +
+        "WHERE " + quotedName("user") + " = " + user.troid() + " AND " +
+        "EXISTS (" +
+          "SELECT " + quotedName("group") + ", capability FROM groupcapability " +
+          "WHERE groupcapability." + quotedName("group") + " = groupmembership." + quotedName("group") + " AND " +
+                "capability = " + capabilityExpr + ")";
+
+  }
+
+  public String givesCapabilitySQL(User user, Capability capability) {
+    return givesCapabilitySQL(user, capability.troid().toString());
+  }
+
   private boolean dbGivesCapability(User user, Capability capability) {
 
     // FIXME use a prepared statement
     // FIXME use the quotedName
 
-    String sql = 
-        "SELECT count(*) FROM groupmembership " +
-        "WHERE " + quotedName("user") + " = " + user.troid() + " AND " +
-        "EXISTS (" +
-          "SELECT " + quotedName("group") + ", capability FROM groupcapability " +
-          "WHERE groupcapability." + quotedName("group") + " = groupmembership." + quotedName("group") + " AND " +
-                "capability = " + capability.troid() + ")";
-
+    String sql = givesCapabilitySQL(user, capability);
+    ResultSet rs = null;
     try {
-      ResultSet rs = sqlQuery(sql);
-      rs.next();
-      return rs.getInt(1) > 0;
+      rs = sqlQuery(sql);
+      return rs.next();
     }
     catch (SQLPoemException e) {
       throw new UnexpectedExceptionPoemException(e);
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e, sql);
+    }
+    finally {
+      try { rs.close(); } catch (Exception e) {}
     }
   }
 

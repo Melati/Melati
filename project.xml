@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7.2.2</currentVersion>
+  <currentVersion>0.7.3</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -25,14 +25,14 @@ Melati Java Web Development Suite
 
   <url>http://www.melati.org/</url>
   <siteAddress>maven.melati.org</siteAddress>
-  <siteDirectory>/inst/melati/target/docs/</siteDirectory>
+  <siteDirectory>/dist/melati/target/docs/</siteDirectory>
   <issueTrackingUrl>
 <!-- http://nagoya.apache.org/scarab/servlet/scarab/ -->
        
 http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </issueTrackingUrl>
   <distributionDirectory>
-    /inst/melati/target/distributions/
+    /dist/melati/target/distributions/
   </distributionDirectory>
 
   <repository>
@@ -415,9 +415,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       timp@paneris.org
     </nagEmailAddress>
 
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main</sourceDirectory>
 
-    <unitTestSourceDirectory>src</unitTestSourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
     <!--integrationUnitTestSourceDirectory></integrationUnitTestSourceDirectory-->
 
     <!--aspectSourceDirectory/-->
@@ -444,6 +444,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <!-- J A R  R E S O U R C E S -->
     <!-- Resources that are packaged up inside the JAR file -->
     <resources>
+      <resource>
+        <directory>${basedir}</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE.txt</include>
+        </includes>
+      </resource>
      <resource>
       <directory>src</directory>
       <includes>
@@ -476,9 +483,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      | Each report plugin with it's POM and plugin.jelly logic should
      | contain everything needed to produced the report.
      |
-    <report>maven-checkstyle-plugin</report>
-    <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
+    <report>maven-license-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-linkcheck-plugin</report>
     <report>maven-jdepend-plugin</report>
     <report>maven-javadoc-plugin</report>
     <report>maven-changes-plugin</report>
@@ -486,7 +498,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-changelog-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
-    <report>maven-linkcheck-plugin</report>
 <!--
     <report>maven-jcoverage-plugin</report>
     <report>maven-jellydoc-plugin</report>

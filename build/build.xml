@@ -36,6 +36,9 @@
   <!-- We still use javax.servlet.HttpSession.getValue etc 
    for Servlet 2.0 compatibility -->
   <property name="deprecation"        value="off"/>
+  <!-- This may cause problems with old versions of Jikes. -->
+  <!-- 1.4 (instead of 1.3) enables assert to be used for debugging. -->
+  <property name="javac.source"       value="1.3"/>
   <property name="poemODMGDSD"        value="${src}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
 
@@ -108,6 +111,7 @@ usage:
              destdir="${compiled.root}"
              excludes="**/playing/**/*.java,**/site/**/*.java"
              includes="**/*.java"
+	     source="${javac.source}"
              debug="${debug}"
              deprecation="${deprecation}"
              optimize="${optimize}"
@@ -195,6 +199,7 @@ usage:
       <javac srcdir      = "${src}"
              destdir     = "${built.src}"
              includes    = "org/melati/poem/odmg/playing/**/*.java"
+	     source="${javac.source}"
              debug       = "${debug}"
              deprecation = "${deprecation}"
              optimize    = "${optimize}"/>
@@ -265,6 +270,7 @@ usage:
           classpathref="classpath.compile" 
           packagenames="org.*"
           destdir="${javadoc.dir}"
+	  source="${javac.source}"
           author="true"
           private="true"
           version="true"

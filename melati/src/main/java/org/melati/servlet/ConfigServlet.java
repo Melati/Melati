@@ -106,6 +106,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
@@ -192,19 +193,39 @@ public abstract class ConfigServlet extends HttpServlet {
       // get rid of anything that has been written so far
       mw.reset();
       PrintWriter out = mw.getPrintWriter();
-      out.println("<html><head><title>Melati Error</title></head>");
-      out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
-      out.println("<body><h2>Melati Error</h2>");
-      out.println("<p>An error has occured in the application"); 
-      out.println("that runs this website, please contact <a href='mailto:");
-      out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
-      out.println(", with the information given below.</p>");
-      out.println("<h4><font color=red><pre>" );
-      e.printStackTrace(out);
-      out.println("</pre></font></h4></body></html>");
+      if (e instanceof ConnectionPendingException) {
+        writeConnectionPendingException(out,e);
+      } else {
+        writeError(out,e);
+      }
       melati.write();
     }
   }
+  
+  public void writeError(PrintWriter out, Exception e) {
+    out.println("<html><head><title>Melati Error</title></head>");
+    out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
+    out.println("<body><h2>Melati Error</h2>");
+    out.println("<p>An error has occured in the application"); 
+    out.println("that runs this website, please contact <a href='mailto:");
+    out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
+    out.println(", with the information given below.</p>");
+    out.println("<h4><font color=red><pre>" );
+    e.printStackTrace(out);
+    out.println("</pre></font></h4></body></html>");
+  }    
+  
+  public void writeConnectionPendingException(PrintWriter out, Exception e) {
+    out.println("<html><head><title>Database Initialising</title><META HTTP-EQUIV='Refresh' CONTENT='30'></head>");
+    out.println("<!-- HTML generated in org.melati.servlet.ConfigServlet.java -->");
+    out.println("<body><center><h2>Database Initialising</h2><p>&nbsp;</p>");
+    out.println("<p>Sorry, but the database that runs this website is just starting up.");
+    out.println("This takes a few seconds, so you should be able to use the site in a moment.");
+    out.println("<p>This page will refresh in 30 seconds, and you will be able to continue.</p>");
+    out.println("<!--" );
+    e.printStackTrace(out);
+    out.println("--></center></body></html>");
+  }    
 
   /*
    * Please override these settings.

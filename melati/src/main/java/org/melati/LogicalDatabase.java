@@ -53,6 +53,7 @@ import java.util.Properties;
 
 import org.melati.poem.Database;
 import org.melati.util.MelatiRuntimeException;
+import org.melati.util.ConnectionPendingException;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.PropertiesUtils;
 
@@ -100,21 +101,6 @@ public class LogicalDatabase {
   }
 
   private static final Object pending = new Object();
-
-  public static class ConnectionPendingException
-      extends MelatiRuntimeException {
-
-    public String name;
-
-    public ConnectionPendingException(String name) {
-      this.name = name;
-    }
-
-    public String getMessage() {
-      return "The database `" + name + "' is in the process of being " +
-             "initialized; please try again in a moment";
-    }
-  }
 
   public static Database getDatabase(String name) throws DatabaseInitException {
     if (name == null)

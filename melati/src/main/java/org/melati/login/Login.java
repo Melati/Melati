@@ -135,7 +135,11 @@ public class Login extends MelatiServlet {
       session.removeValue(TRIGGERING_REQUEST_PARAMETERS);
       session.removeValue(TRIGGERING_EXCEPTION);
       context.put("continuationURL", triggeringParams.continuationURL());
-    }
+    } else {
+      if (context.getForm("continuationURL") != null) {
+		  context.put("continuationURL",context.getForm("continuationURL"));
+	  }
+	}
 
     session.putValue(HttpSessionAccessHandler.USER, user);
 

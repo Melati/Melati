@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *	   Samuel Goldstein <samuel@1969.ws>
+ *     Samuel Goldstein <samuel@1969.ws>
  *     http://www.1969.ws
  *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
@@ -54,36 +54,45 @@ import java.io.IOException;
  * 
  * Its member variables are populated from the DSD or defaults.
  * Its methods are used to generate the java code.
- */ 
+ */
 public class BigDecimalFieldDef extends AtomFieldDef {
 
   int scale;
   int precision;
-  
-  public BigDecimalFieldDef(TableDef table, String name, int displayOrder,
-                        Vector qualifiers) throws IllegalityException {
+
+  public BigDecimalFieldDef(
+    TableDef table,
+    String name,
+    int displayOrder,
+    Vector qualifiers)
+    throws IllegalityException {
     super(table, name, "BigDecimal", displayOrder, qualifiers);
-    table.addImport("org.melati.poem.BigDecimalPoemType", 
-                    "table");
-	table.addImport("java.math.BigDecimal", "table");
-	table.addImport("java.math.BigDecimal", "persistent");
+    table.addImport("org.melati.poem.BigDecimalPoemType", "table");
+    table.addImport("java.math.BigDecimal", "table");
+    table.addImport("java.math.BigDecimal", "persistent");
   }
 
- /**
-  * @param w The base persistent java file.
-  */   
+  /**
+   * @param w The base persistent java file.
+   */
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
-/*    w.write("\n" +
-            "  public final void set" + suffix + "(double cooked)\n" +
-            "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(new Double(cooked));\n" +
-            "  }\n");
-*/
-   }
+    /*    w.write("\n" +
+                "  public final void set" + suffix + "(double cooked)\n" +
+                "      throws AccessPoemException, ValidationPoemException {\n" +
+                "    set" + suffix + "(new Double(cooked));\n" +
+                "  }\n");
+    */
+  }
 
-   public String poemTypeJava() {
-	 return "new BigDecimalPoemType(" + isNullable + ", " + precision + ", " + scale +")";
-   }
- 
+  public String poemTypeJava() {
+    return "new BigDecimalPoemType("
+      + isNullable
+      + ", "
+      + precision
+      + ", "
+      + scale
+      + ")";
+  }
+
 }

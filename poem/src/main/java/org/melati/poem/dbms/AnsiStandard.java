@@ -78,14 +78,14 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.util.StringUtils;
 
- /**
-  * An SQL 92 compliant Database Management System.
-  * Should there ever be such a thing then you wouldn't 
-  * need to extend this, but all DBs used with Melati 
-  * so far have needed to extend the standard with their 
-  * own variations.
-  *
-  */
+/**
+ * An SQL 92 compliant Database Management System.
+ * Should there ever be such a thing then you wouldn't 
+ * need to extend this, but all DBs used with Melati 
+ * so far have needed to extend the standard with their 
+ * own variations.
+ *
+ */
 public class AnsiStandard implements Dbms {
   private boolean driverLoaded = false;
   private String driverClassName = null;
@@ -112,7 +112,7 @@ public class AnsiStandard implements Dbms {
   protected synchronized void loadDriver() {
     Class driverClass;
     try {
-      driverClass = Class.forName (getDriverClassName());
+      driverClass = Class.forName(getDriverClassName());
       setDriverLoaded(true);
     } catch (java.lang.ClassNotFoundException e) {
       // A call to Class.forName() forces us to consider this exception :-)...
@@ -121,7 +121,7 @@ public class AnsiStandard implements Dbms {
     }
 
     try {
-      driver = (Driver)driverClass.newInstance();
+      driver = (Driver) driverClass.newInstance();
     } catch (java.lang.Exception e) {
       // ... otherwise, "something went wrong" and I don't here care what
       // or have the wherewithal to do anything about it :)
@@ -129,49 +129,46 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  public Connection getConnection(String url, String user, String password) 
-      throws ConnectionFailurePoemException {
+  public Connection getConnection(String url, String user, String password)
+    throws ConnectionFailurePoemException {
     synchronized (driverClassName) {
       if (!getDriverLoaded()) {
         if (getDriverClassName() == null) {
           throw new ConnectionFailurePoemException(
-              new SQLException(
-                  "No Driver Classname set in dbms specific class"));
+            new SQLException("No Driver Classname set in dbms specific class"));
         }
         loadDriver();
       }
       if (!getDriverLoaded()) {
         throw new ConnectionFailurePoemException(
-            new SQLException(
-                "The Driver class " 
-                    + getDriverClassName() + " failed to load"));
+          new SQLException(
+            "The Driver class " + getDriverClassName() + " failed to load"));
       }
     }
 
-
     if (driver != null) {
       Properties info = new Properties();
-      if (user != null) info.put("user", user);
-      if (password != null) info.put("password", password);
-      
+      if (user != null)
+        info.put("user", user);
+      if (password != null)
+        info.put("password", password);
+
       try {
         return driver.connect(url, info);
       } catch (SQLException e) {
         throw new ConnectionFailurePoemException(e);
       }
     }
-    
 
     try {
-      return DriverManager.getConnection (url, user, password);
+      return DriverManager.getConnection(url, user, password);
     } catch (java.sql.SQLException e) {
       throw new ConnectionFailurePoemException(e);
     }
   }
 
-
   public String preparedStatementPlaceholder(PoemType type) {
-      return "?";
+    return "?";
   }
 
   public String getSqlDefinition(String sqlTypeName) throws SQLException {
@@ -180,8 +177,7 @@ public class AnsiStandard implements Dbms {
 
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0)
-      throw new SQLException(
-          "unlimited length not supported in AnsiStandard STRINGs");
+      throw new SQLException("unlimited length not supported in AnsiStandard STRINGs");
 
     return "VARCHAR(" + size + ")";
   }
@@ -192,35 +188,35 @@ public class AnsiStandard implements Dbms {
 
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
-      throw new SQLException(
-          "unlimited length not supported in AnsiStandard BINARYs");
+      throw new SQLException("unlimited length not supported in AnsiStandard BINARYs");
 
     return "LONGVARBINARY(" + size + ")";
   }
 
-  public String getFixedPtSqlDefinition(int scale, int precision) throws SQLException {
-	if (scale < 0 || precision <= 0)
-	  throw new SQLException(
-		  "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
+  public String getFixedPtSqlDefinition(int scale, int precision)
+    throws SQLException {
+    if (scale < 0 || precision <= 0)
+      throw new SQLException("negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
 
-	return "DECIMAL(" + precision + ","+ scale + ")";
+    return "DECIMAL(" + precision + "," + scale + ")";
   }
-
 
   public PoemType canRepresent(PoemType storage, PoemType type) {
     return storage.canRepresent(type);
   }
 
   private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
-      throws UnsupportedTypePoemException {
+    throws UnsupportedTypePoemException {
     UnsupportedTypePoemException e;
     try {
-      e = new UnsupportedTypePoemException(
-              md.getString("TABLE_NAME"), md.getString("COLUMN_NAME"),
-              md.getShort("DATA_TYPE"), sqlTypeName,
-              md.getString("TYPE_NAME"));
-    }
-    catch (SQLException ee) {
+      e =
+        new UnsupportedTypePoemException(
+          md.getString("TABLE_NAME"),
+          md.getString("COLUMN_NAME"),
+          md.getShort("DATA_TYPE"),
+          sqlTypeName,
+          md.getString("TYPE_NAME"));
+    } catch (SQLException ee) {
       throw new UnsupportedTypePoemException(sqlTypeName);
     }
 
@@ -233,56 +229,86 @@ public class AnsiStandard implements Dbms {
    */
 
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-      throws SQLException {
+    throws SQLException {
     int typeCode = md.getShort("DATA_TYPE");
-    boolean nullable =
-        md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+    boolean nullable = md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
     int width = md.getInt("COLUMN_SIZE");
-	int scale = md.getInt("DECIMAL_DIGITS");
-	
+    int scale = md.getInt("DECIMAL_DIGITS");
+
     switch (typeCode) {
-      case Types.BIT            : return new BooleanPoemType(nullable);
-      case Types.TINYINT        : return unsupported("TINYINT", md);
-      case Types.SMALLINT       : return unsupported("SMALLINT", md);
-      case Types.INTEGER        : return new IntegerPoemType(nullable);
-      case Types.BIGINT         : return new LongPoemType(nullable);
+      case Types.BIT :
+        return new BooleanPoemType(nullable);
+      case Types.TINYINT :
+        return unsupported("TINYINT", md);
+      case Types.SMALLINT :
+        return unsupported("SMALLINT", md);
+      case Types.INTEGER :
+        return new IntegerPoemType(nullable);
+      case Types.BIGINT :
+        return new LongPoemType(nullable);
 
-      case Types.FLOAT          : return unsupported("FLOAT", md);
-      case Types.REAL           : return new DoublePoemType(nullable);
-      case Types.DOUBLE         : return new DoublePoemType(nullable);
+      case Types.FLOAT :
+        return unsupported("FLOAT", md);
+      case Types.REAL :
+        return new DoublePoemType(nullable);
+      case Types.DOUBLE :
+        return new DoublePoemType(nullable);
 
-      case Types.NUMERIC        : return new BigDecimalPoemType(nullable, width, scale);
-      case Types.DECIMAL        : return new BigDecimalPoemType(nullable, width, scale);
+      case Types.NUMERIC :
+        return new BigDecimalPoemType(nullable, width, scale);
+      case Types.DECIMAL :
+        return new BigDecimalPoemType(nullable, width, scale);
 
-      case Types.CHAR           : return unsupported("CHAR", md);
-      case Types.VARCHAR        : return new StringPoemType(nullable, width);
-      case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
+      case Types.CHAR :
+        return unsupported("CHAR", md);
+      case Types.VARCHAR :
+        return new StringPoemType(nullable, width);
+      case Types.LONGVARCHAR :
+        return new StringPoemType(nullable, width);
 
-      case Types.DATE           : return new DatePoemType(nullable);
-      case Types.TIME           : return unsupported("TIME", md);
-      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
+      case Types.DATE :
+        return new DatePoemType(nullable);
+      case Types.TIME :
+        return unsupported("TIME", md);
+      case Types.TIMESTAMP :
+        return new TimestampPoemType(nullable);
 
-      case Types.BINARY         : return unsupported("BINARY", md);
-      case Types.VARBINARY      : return new BinaryPoemType(nullable, width);
-      case Types.LONGVARBINARY  : return new BinaryPoemType(nullable, width);
+      case Types.BINARY :
+        return unsupported("BINARY", md);
+      case Types.VARBINARY :
+        return new BinaryPoemType(nullable, width);
+      case Types.LONGVARBINARY :
+        return new BinaryPoemType(nullable, width);
 
-      case Types.NULL           : return unsupported("NULL", md);
+      case Types.NULL :
+        return unsupported("NULL", md);
 
-      case Types.OTHER          : return unsupported("OTHER", md);
+      case Types.OTHER :
+        return unsupported("OTHER", md);
 
-      default: return unsupported("<code not in Types.java!>", md);
+      default :
+        return unsupported("<code not in Types.java!>", md);
     }
   }
 
-  public SQLPoemException exceptionForUpdate(Table table, String sql,
-                                             boolean insert, SQLException e) {
+  public SQLPoemException exceptionForUpdate(
+    Table table,
+    String sql,
+    boolean insert,
+    SQLException e) {
     return new ExecutingSQLPoemException(sql, e);
   }
 
-  public SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
-                                             boolean insert, SQLException e) {
-    return exceptionForUpdate(table, ps == null ? null : ps.toString(),
-                              insert, e);
+  public SQLPoemException exceptionForUpdate(
+    Table table,
+    PreparedStatement ps,
+    boolean insert,
+    SQLException e) {
+    return exceptionForUpdate(
+      table,
+      ps == null ? null : ps.toString(),
+      insert,
+      e);
   }
 
   public String getQuotedName(String name) {
@@ -316,7 +342,7 @@ public class AnsiStandard implements Dbms {
 
   public String getIndexLength(Column column) {
     return "";
-  }  
+  }
 
   /**
   * MySQL has no EXISTS keyword.
@@ -324,33 +350,43 @@ public class AnsiStandard implements Dbms {
   * @see MySQL#givesCapabilitySQL
   */
   public String givesCapabilitySQL(User user, String capabilityExpr) {
-    return
-        "SELECT * FROM " + getQuotedName("groupmembership") +
-        " WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
-        "EXISTS ( " +
-        "SELECT " + getQuotedName("groupcapability") + "." + 
-           getQuotedName("group") + " " +
-          "FROM " + getQuotedName("groupcapability") + ", " + 
-                   getQuotedName("groupmembership") +
-          " WHERE " + getQuotedName("groupcapability") + "." + 
-           getQuotedName("group") +" = " + 
-          getQuotedName("groupmembership") + "." + getQuotedName("group") + 
-          " AND " + getQuotedName("capability") + " = " + capabilityExpr + ")";
+    return "SELECT * FROM "
+      + getQuotedName("groupmembership")
+      + " WHERE "
+      + getQuotedName("user")
+      + " = "
+      + user.troid()
+      + " AND "
+      + "EXISTS ( "
+      + "SELECT "
+      + getQuotedName("groupcapability")
+      + "."
+      + getQuotedName("group")
+      + " "
+      + "FROM "
+      + getQuotedName("groupcapability")
+      + ", "
+      + getQuotedName("groupmembership")
+      + " WHERE "
+      + getQuotedName("groupcapability")
+      + "."
+      + getQuotedName("group")
+      + " = "
+      + getQuotedName("groupmembership")
+      + "."
+      + getQuotedName("group")
+      + " AND "
+      + getQuotedName("capability")
+      + " = "
+      + capabilityExpr
+      + ")";
   }
 
   /**
   * This is the MySQL syntax
   **/
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    return  term1 + " REGEXP " + term2 ;
+    return term1 + " REGEXP " + term2;
   }
 
 }
-
-
-
-
-
-
-
-

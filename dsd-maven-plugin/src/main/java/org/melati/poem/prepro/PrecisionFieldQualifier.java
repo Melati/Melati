@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *	   Samuel Goldstein <samuel@1969.ws>
+ *     Samuel Goldstein <samuel@1969.ws>
  *     http://www.1969.ws
  *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
@@ -59,19 +59,19 @@ public class PrecisionFieldQualifier extends FieldQualifier {
   private int precision;
 
   public PrecisionFieldQualifier(StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
+    throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
     tokens.nextToken();
-    if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval <= 0)
-        throw new ParsingDSDException("<positive precision number>", tokens);
-    precision = (int)tokens.nval;
+    if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int) tokens.nval <= 0)
+      throw new ParsingDSDException("<positive precision number>", tokens);
+    precision = (int) tokens.nval;
     tokens.nextToken();
   }
 
   public void apply(FieldDef field) throws SizeApplicationException {
     // FIXME check for duplication
     if (field instanceof BigDecimalFieldDef)
-       ((BigDecimalFieldDef)field).precision = precision;
+       ((BigDecimalFieldDef) field).precision = precision;
     else
       throw new SizeApplicationException(field);
   }

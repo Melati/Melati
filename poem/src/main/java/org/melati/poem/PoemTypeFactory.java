@@ -71,10 +71,10 @@ public abstract class PoemTypeFactory {
     this.code = new Integer(c);
   }
 
- /** 
-  * A Parameter object which knows whether a {@link PoemType} 
-  * is <tt>nullable</tt> and its <tt>size</tt>.
-  */
+  /** 
+   * A Parameter object which knows whether a {@link PoemType} 
+   * is <tt>nullable</tt> and its <tt>size</tt>.
+   */
   public interface Parameter {
     boolean getNullable();
     int getSize();
@@ -94,26 +94,41 @@ public abstract class PoemTypeFactory {
 
   public abstract String getDescription();
 
-  public static final PoemTypeFactory
-      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD,
-      TIMESTAMP, DISPLAYLEVEL, SEARCHABILITY, BINARY, LONG, INTEGRITYFIX, BIGDECIMAL;
+  public static final PoemTypeFactory TROID,
+    DELETED,
+    TYPE,
+    BOOLEAN,
+    INTEGER,
+    DOUBLE,
+    STRING,
+    DATE,
+    PASSWORD,
+    TIMESTAMP,
+    DISPLAYLEVEL,
+    SEARCHABILITY,
+    BINARY,
+    LONG,
+    INTEGRITYFIX,
+    BIGDECIMAL;
 
   private static int n = -1;
 
-//   private static final void extractRange(Parameter info, BasePoemType type) {
-//     try {
-//       type.setRawRange(type.rawOfString(info.getRangelow_string()),
-//                        type.rawOfString(into.getRangehigh_string()));
-//     }
-//     catch (ValidationPoemException e) {
-//       throw new RangeExtractionException(info, type, e);
-//     }
-//   }
+  //   private static final void extractRange(Parameter info, BasePoemType type) {
+  //     try {
+  //       type.setRawRange(type.rawOfString(info.getRangelow_string()),
+  //                        type.rawOfString(into.getRangehigh_string()));
+  //     }
+  //     catch (ValidationPoemException e) {
+  //       throw new RangeExtractionException(info, type, e);
+  //     }
+  //   }
 
-  static final PoemTypeFactory[] atomTypeFactories = {
-    TROID = new PoemTypeFactory(n--) {
-      public SQLPoemType typeOf(Database database, Parameter info) {
-        return TroidPoemType.it;
+  static final PoemTypeFactory[] atomTypeFactories =
+    {
+      TROID =
+      new PoemTypeFactory(
+        n--) {public SQLPoemType typeOf(Database database, Parameter info) {
+          return TroidPoemType.it;
       }
 
       public String getName() {
@@ -123,9 +138,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    DELETED = new PoemTypeFactory(n--) {
+    }, DELETED = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return DeletedPoemType.it;
       }
@@ -137,9 +150,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    TYPE = new PoemTypeFactory(n--) {
+    }, TYPE = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new ColumnTypePoemType(database);
       }
@@ -151,9 +162,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    BOOLEAN = new PoemTypeFactory(n--) {
+    }, BOOLEAN = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new BooleanPoemType(info.getNullable());
       }
@@ -165,9 +174,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    INTEGER = new PoemTypeFactory(n--) {
+    }, INTEGER = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new IntegerPoemType(info.getNullable());
       }
@@ -179,9 +186,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    DOUBLE = new PoemTypeFactory(n--) {
+    }, DOUBLE = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DoublePoemType(info.getNullable());
       }
@@ -193,9 +198,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    STRING = new PoemTypeFactory(n--) {
+    }, STRING = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new StringPoemType(info.getNullable(), info.getSize());
       }
@@ -207,9 +210,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    DATE = new PoemTypeFactory(n--) {
+    }, DATE = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DatePoemType(info.getNullable());
       }
@@ -221,9 +222,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    PASSWORD = new PoemTypeFactory(n--) {
+    }, PASSWORD = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new PasswordPoemType(info.getNullable(), info.getSize());
       }
@@ -235,9 +234,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    TIMESTAMP = new PoemTypeFactory(n--) {
+    }, TIMESTAMP = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new TimestampPoemType(info.getNullable());
       }
@@ -249,9 +246,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    DISPLAYLEVEL = new PoemTypeFactory(n--) {
+    }, DISPLAYLEVEL = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DisplayLevelPoemType();
       }
@@ -263,9 +258,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    SEARCHABILITY = new PoemTypeFactory(n--) {
+    }, SEARCHABILITY = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new SearchabilityPoemType();
       }
@@ -277,9 +270,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    BINARY = new PoemTypeFactory(n--) {
+    }, BINARY = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new BinaryPoemType(info.getNullable(), info.getSize());
       }
@@ -291,9 +282,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    LONG = new PoemTypeFactory(n--) {
+    }, LONG = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new LongPoemType(info.getNullable());
       }
@@ -305,9 +294,7 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-
-    INTEGRITYFIX = new PoemTypeFactory(n--) {
+    }, INTEGRITYFIX = new PoemTypeFactory(n--) {
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new IntegrityFixPoemType(info.getNullable());
       }
@@ -319,23 +306,19 @@ public abstract class PoemTypeFactory {
       public String getDescription() {
         return "...";
       }
-    },
-    
-	BIGDECIMAL = new PoemTypeFactory(n--) {
-	  public SQLPoemType typeOf(Database database, Parameter info) {
-		return new BigDecimalPoemType(info.getNullable());
-	  }
+    }, BIGDECIMAL = new PoemTypeFactory(n--) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
+        return new BigDecimalPoemType(info.getNullable());
+      }
 
-	  public String getName() {
-		return "BIGDECIMAL";
-	  }
+      public String getName() {
+        return "BIGDECIMAL";
+      }
 
-	  public String getDescription() {
-		return "...";
-	  }
-	},
-   
-  };
+      public String getDescription() {
+        return "...";
+      }
+    }, };
 
   /**
    * Returns an instance given a database and the integer code for
@@ -343,27 +326,26 @@ public abstract class PoemTypeFactory {
    */
   public static PoemTypeFactory forCode(Database database, int code) {
     if (code < 0)
-      return atomTypeFactories[(-code)-1];
+      return atomTypeFactories[(-code) - 1];
     else {
       final Table table = database.tableWithTableInfoID(code);
-      return
-          new PoemTypeFactory(code) {
-            public SQLPoemType typeOf(Database db, Parameter info) {
-              return new ReferencePoemType(table, info.getNullable());
-            }
+      return new PoemTypeFactory(code) {
+        public SQLPoemType typeOf(Database db, Parameter info) {
+          return new ReferencePoemType(table, info.getNullable());
+        }
 
-            public String getName() {
-              return table.getName();
-            }
+        public String getName() {
+          return table.getName();
+        }
 
-            public String getDisplayName() {
-              return table.getDisplayName();
-            }
+        public String getDisplayName() {
+          return table.getDisplayName();
+        }
 
-            public String getDescription() {
-              return table.getDescription();
-            }
-          };
+        public String getDescription() {
+          return table.getDescription();
+        }
+      };
     }
   }
 }

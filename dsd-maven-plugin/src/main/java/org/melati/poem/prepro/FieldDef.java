@@ -84,10 +84,14 @@ public abstract class FieldDef {
   int width = -1, height = -1;
   String renderinfo = null;
 
-  public FieldDef(TableDef table, String name,
-                  String type, String rawType,
-                  int displayOrder, Vector qualifiers)
-      throws IllegalityException {
+  public FieldDef(
+    TableDef table,
+    String name,
+    String type,
+    String rawType,
+    int displayOrder,
+    Vector qualifiers)
+    throws IllegalityException {
     this.table = table;
     this.name = name;
     this.displayOrder = displayOrder;
@@ -100,17 +104,23 @@ public abstract class FieldDef {
     this.tableAccessorMethod = table.naming.tableAccessorMethod();
 
     for (int q = 0; q < qualifiers.size(); ++q)
-      ((FieldQualifier)qualifiers.elementAt(q)).apply(this);
+       ((FieldQualifier) qualifiers.elementAt(q)).apply(this);
   }
 
   public String toString() {
-    return
-        table.name + "." + name +
-        " (" + (isNullable ? "nullable " : "") + type + ")";
+    return table.name
+      + "."
+      + name
+      + " ("
+      + (isNullable ? "nullable " : "")
+      + type
+      + ")";
   }
 
-  private static void fieldQualifiers(Vector qualifiers, StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
+  private static void fieldQualifiers(
+    Vector qualifiers,
+    StreamTokenizer tokens)
+    throws ParsingDSDException, IOException {
     while (tokens.ttype == '(') {
       tokens.nextToken();
       qualifiers.addElement(FieldQualifier.from(tokens));
@@ -119,14 +129,14 @@ public abstract class FieldDef {
     }
   }
 
-  public static FieldDef from(TableDef table, StreamTokenizer tokens,
-                              int displayOrder)
-      throws ParsingDSDException, IOException, IllegalityException {
-    table.addImport("org.melati.poem.AccessPoemException", 
-                      "both");
-    table.addImport("org.melati.poem.ValidationPoemException", 
-                    "table");
-    table.addImport("org.melati.poem.Persistent","table");
+  public static FieldDef from(
+    TableDef table,
+    StreamTokenizer tokens,
+    int displayOrder)
+    throws ParsingDSDException, IOException, IllegalityException {
+    table.addImport("org.melati.poem.AccessPoemException", "both");
+    table.addImport("org.melati.poem.ValidationPoemException", "table");
+    table.addImport("org.melati.poem.Persistent", "table");
 
     table.definesColumns = true;
     Vector qualifiers = new Vector();
@@ -136,8 +146,7 @@ public abstract class FieldDef {
     String type = tokens.sval;
     // FIXME as a hack we allow "byte[]"
     if (type.equals("byte")) {
-      if (tokens.nextToken() != '[' ||
-          tokens.nextToken() != ']')
+      if (tokens.nextToken() != '[' || tokens.nextToken() != ']')
         throw new ParsingDSDException("[", tokens);
       type = "byte[]";
     }
@@ -173,195 +182,271 @@ public abstract class FieldDef {
       return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("IntegrityFix"))
       return new IntegrityFixFieldDef(table, name, displayOrder, qualifiers);
-	  else if (type.equals("BigDecimal"))
-		return new BigDecimalFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("BigDecimal"))
+      return new BigDecimalFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("byte[]"))
       return new BinaryFieldDef(table, name, displayOrder, qualifiers);
     else
-      return new ReferenceFieldDef(table, name, displayOrder, type,
-                                   qualifiers);
+      return new ReferenceFieldDef(table, name, displayOrder, type, qualifiers);
   }
 
- /**
-  * @param w Persistent Base
-  */   
+  /**
+   * @param w Persistent Base
+   */
   public void generateBaseMethods(Writer w) throws IOException {
-    w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n" +
-            "    return " + name + ";\n" +
-            "  }\n" +
-            "\n" +
-            "  public void set" + suffix + "_unsafe(" + rawType + 
-            " cooked) {\n" +
-            "    " + name + " = cooked;\n" +
-            "  }\n");
+    w.write(
+      "  public "
+        + rawType
+        + " get"
+        + suffix
+        + "_unsafe() {\n"
+        + "    return "
+        + name
+        + ";\n"
+        + "  }\n"
+        + "\n"
+        + "  public void set"
+        + suffix
+        + "_unsafe("
+        + rawType
+        + " cooked) {\n"
+        + "    "
+        + name
+        + " = cooked;\n"
+        + "  }\n");
   }
 
- /**
-  * @param w Persistent Base
-  */   
+  /**
+   * @param w Persistent Base
+   */
   public void generateFieldCreator(Writer w) throws IOException {
-    w.write("  public Field get" + suffix + "Field() " +
-                  "throws AccessPoemException {\n" +
-            "    Column c = _" + tableAccessorMethod + "()." +
-                     "get" + suffix + "Column();\n" +
-            "    return new Field(c.getRaw(this), c);\n" +
-            "  }\n");
+    w.write(
+      "  public Field get"
+        + suffix
+        + "Field() "
+        + "throws AccessPoemException {\n"
+        + "    Column c = _"
+        + tableAccessorMethod
+        + "()."
+        + "get"
+        + suffix
+        + "Column();\n"
+        + "    return new Field(c.getRaw(this), c);\n"
+        + "  }\n");
   }
 
   public abstract void generateJavaDeclaration(Writer w) throws IOException;
 
- /**
-  * @param w TableBase
-  */   
+  /**
+   * @param w TableBase
+   */
   public void generateColDecl(Writer w) throws IOException {
     w.write("Column col_" + name);
   }
 
- /**
-  * @param w TableBase
-  */   
+  /**
+   * @param w TableBase
+   */
   public void generateColAccessor(Writer w) throws IOException {
-    w.write("  public final Column get" + suffix + "Column() {\n" +
-            "    return col_" + name + ";\n" +
-            "  }\n");
-  }
-
- /**
-  * @param w TableBase
-  */   
-  protected void generateColRawAccessors(Writer w)
-      throws IOException {
     w.write(
-      "          public Object getRaw_unsafe(Persistent g)\n" +
-      "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g)." +
-                      "get" + suffix + "_unsafe();\n" +
-      "          }\n" +
-      "\n" +
-      "          public void setRaw_unsafe(Persistent g, Object raw)\n" +
-      "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "_unsafe((" +
-                       rawType + ")raw);\n" +
-      "          }\n");
+      "  public final Column get"
+        + suffix
+        + "Column() {\n"
+        + "    return col_"
+        + name
+        + ";\n"
+        + "  }\n");
   }
 
- /**
-  * @param w TableBase
-  */   
+  /**
+   * @param w TableBase
+   */
+  protected void generateColRawAccessors(Writer w) throws IOException {
+    w.write(
+      "          public Object getRaw_unsafe(Persistent g)\n"
+        + "              throws AccessPoemException {\n"
+        + "            return (("
+        + mainClass
+        + ")g)."
+        + "get"
+        + suffix
+        + "_unsafe();\n"
+        + "          }\n"
+        + "\n"
+        + "          public void setRaw_unsafe(Persistent g, Object raw)\n"
+        + "              throws AccessPoemException {\n"
+        + "            (("
+        + mainClass
+        + ")g).set"
+        + suffix
+        + "_unsafe(("
+        + rawType
+        + ")raw);\n"
+        + "          }\n");
+  }
+
+  /**
+   * @param w TableBase
+   */
   public void generateColDefinition(Writer w) throws IOException {
     w.write(
-      "    defineColumn(col_" + name + " =\n" +
-      "        new Column(this, \"" + name + "\",\n" + 
-      "                   " + poemTypeJava() + ",\n" +
-      "                   DefinitionSource.dsd) { \n" +
-      "          public Object getCooked(Persistent g)\n" +
-      "              throws AccessPoemException, PoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
-      "          }\n" +
-      "\n" +
-      "          public void setCooked(Persistent g, Object cooked)\n" +
-      "              throws AccessPoemException, ValidationPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "((" +
-                       type + ")cooked);\n" +
-      "          }\n" +
-      "\n" +
-      "          public Field asField(Persistent g) {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "Field();\n" +
-      "          }\n" +
-      "\n");
+      "    defineColumn(col_"
+        + name
+        + " =\n"
+        + "        new Column(this, \""
+        + name
+        + "\",\n"
+        + "                   "
+        + poemTypeJava()
+        + ",\n"
+        + "                   DefinitionSource.dsd) { \n"
+        + "          public Object getCooked(Persistent g)\n"
+        + "              throws AccessPoemException, PoemException {\n"
+        + "            return (("
+        + mainClass
+        + ")g).get"
+        + suffix
+        + "();\n"
+        + "          }\n"
+        + "\n"
+        + "          public void setCooked(Persistent g, Object cooked)\n"
+        + "              throws AccessPoemException, ValidationPoemException {\n"
+        + "            (("
+        + mainClass
+        + ")g).set"
+        + suffix
+        + "(("
+        + type
+        + ")cooked);\n"
+        + "          }\n"
+        + "\n"
+        + "          public Field asField(Persistent g) {\n"
+        + "            return (("
+        + mainClass
+        + ")g).get"
+        + suffix
+        + "Field();\n"
+        + "          }\n"
+        + "\n");
 
     if (isTroidColumn || !isEditable)
-      w.write("          protected boolean defaultUserEditable() {\n" +
-              "            return false;\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected boolean defaultUserEditable() {\n"
+          + "            return false;\n"
+          + "          }\n"
+          + "\n");
 
     if (isTroidColumn || !isCreateable)
-      w.write("          protected boolean defaultUserCreateable() {\n" +
-              "            return false;\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected boolean defaultUserCreateable() {\n"
+          + "            return false;\n"
+          + "          }\n"
+          + "\n");
 
     if (displayLevel != null)
-      w.write("          protected DisplayLevel defaultDisplayLevel() {\n" +
-              "            return DisplayLevel." + displayLevel.name + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected DisplayLevel defaultDisplayLevel() {\n"
+          + "            return DisplayLevel."
+          + displayLevel.name
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     if (searchability != null)
-      w.write("          protected Searchability defaultSearchability() {\n" +
-              "            return Searchability." + searchability.name + 
-              ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected Searchability defaultSearchability() {\n"
+          + "            return Searchability."
+          + searchability.name
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     if (displayOrderPriority != -1)
-      w.write("          protected Integer defaultDisplayOrderPriority() {\n" +
-              "            return new Integer(" + displayOrderPriority + 
-              ");\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected Integer defaultDisplayOrderPriority() {\n"
+          + "            return new Integer("
+          + displayOrderPriority
+          + ");\n"
+          + "          }\n"
+          + "\n");
 
     if (sortDescending)
-      w.write("          protected boolean defaultSortDescending() {\n" +
-              "            return true;\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected boolean defaultSortDescending() {\n"
+          + "            return true;\n"
+          + "          }\n"
+          + "\n");
 
     if (displayName != null)
-      w.write("          protected String defaultDisplayName() {\n" +
-              "            return " +
-                               StringUtils.quoted(displayName, '"') + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected String defaultDisplayName() {\n"
+          + "            return "
+          + StringUtils.quoted(displayName, '"')
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
-    w.write("          protected int defaultDisplayOrder() {\n" +
-            "            return " + displayOrder + ";\n" +
-            "          }\n" +
-            "\n");
+    w.write(
+      "          protected int defaultDisplayOrder() {\n"
+        + "            return "
+        + displayOrder
+        + ";\n"
+        + "          }\n"
+        + "\n");
 
     if (description != null)
-      w.write("          protected String defaultDescription() {\n" +
-              "            return " +
-                               StringUtils.quoted(description, '"') + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected String defaultDescription() {\n"
+          + "            return "
+          + StringUtils.quoted(description, '"')
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     if (isIndexed)
-      w.write("          protected boolean defaultIndexed() {\n" +
-              "            return true;\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected boolean defaultIndexed() {\n"
+          + "            return true;\n"
+          + "          }\n"
+          + "\n");
 
     if (isUnique)
-      w.write("          protected boolean defaultUnique() {\n" +
-              "            return true;\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected boolean defaultUnique() {\n"
+          + "            return true;\n"
+          + "          }\n"
+          + "\n");
 
     if (width != -1)
-      w.write("          protected int defaultWidth() {\n" +
-              "            return " + width + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected int defaultWidth() {\n"
+          + "            return "
+          + width
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     if (height != -1)
-      w.write("          protected int defaultHeight() {\n" +
-              "            return " + height + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected int defaultHeight() {\n"
+          + "            return "
+          + height
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     if (renderinfo != null)
-      w.write("          protected String defaultRenderinfo() {\n" +
-              "            return " +
-                               StringUtils.quoted(renderinfo, '"') + ";\n" +
-              "          }\n" +
-              "\n");
+      w.write(
+        "          protected String defaultRenderinfo() {\n"
+          + "            return "
+          + StringUtils.quoted(renderinfo, '"')
+          + ";\n"
+          + "          }\n"
+          + "\n");
 
     generateColRawAccessors(w);
 
-    w.write(
-      "        });\n");
+    w.write("        });\n");
   }
 
   public abstract String poemTypeJava();

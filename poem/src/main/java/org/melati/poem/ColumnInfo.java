@@ -55,7 +55,8 @@ import org.melati.poem.generated.ColumnInfoBase;
  */
 public class ColumnInfo extends ColumnInfoBase {
 
-  public void assertCanRead(AccessToken token) {}
+  public void assertCanRead(AccessToken token) {
+  }
 
   private Column _column = null;
 
@@ -98,32 +99,35 @@ public class ColumnInfo extends ColumnInfoBase {
     }
   }
 
-/**
- * Only those fields which are relevant to this column 
- * and legal as a field qualifier in the DSD.
- */ 
+  /**
+   * Only those fields which are relevant to this column 
+   * and legal as a field qualifier in the DSD.
+   */
   public Enumeration getDsdQualifiers() {
     Vector v = new Vector();
     Enumeration allFields = getFields();
     while (allFields.hasMoreElements()) {
-      Field f = (Field)allFields.nextElement();
+      Field f = (Field) allFields.nextElement();
       String n = f.getName();
-      if (f.getType() instanceof TroidPoemType) {}
-      else if (n.equals("name")) {}
-      else if (n.equals("typefactory")) {}
-      else if (n.equals("tableinfo")) {}
-      else if (n.equals("size") && 
-        (!(column().getType() instanceof SizedAtomPoemType))) {}
-      else if (n.equals("integrityfix") && 
-        (!(column().getType() instanceof ReferencePoemType))) {}
-	  else if (n.equals("precision") && 
-		(!(column().getType() instanceof FixedPointAtomPoemType))) {}
-	  else if (n.equals("scale") && 
-		(!(column().getType() instanceof FixedPointAtomPoemType))) {}
-      else v.addElement(f);
+      if (f.getType() instanceof TroidPoemType) {
+      } else if (n.equals("name")) {
+      } else if (n.equals("typefactory")) {
+      } else if (n.equals("tableinfo")) {
+      } else if (
+        n.equals("size")
+          && (!(column().getType() instanceof SizedAtomPoemType))) {
+      } else if (
+        n.equals("integrityfix")
+          && (!(column().getType() instanceof ReferencePoemType))) {
+      } else if (
+        n.equals("precision")
+          && (!(column().getType() instanceof FixedPointAtomPoemType))) {
+      } else if (
+        n.equals("scale")
+          && (!(column().getType() instanceof FixedPointAtomPoemType))) {
+      } else
+        v.addElement(f);
     }
     return v.elements();
   }
 }
-
-

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *	   Samuel Goldstein <samuel@1969.ws>
+ *     Samuel Goldstein <samuel@1969.ws>
  *     http://www.1969.ws
  *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
@@ -64,21 +64,17 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
     super(Types.DECIMAL, "Big Decimal", nullable, 22, 2);
   }
 
-
   public BigDecimalPoemType(boolean nullable, int precision, int scale) {
-	super(Types.DECIMAL, "Big Decimal", nullable, precision, scale);
-	// because a newly added column of this type won't have valid 
-	// numbers, we fix that here...
-	if (scale < 0)
-		{
-		setScale(2);	
-		}
-	if (precision <= 0)
-		{
-		setPrecision(22);
-		}
+    super(Types.DECIMAL, "Big Decimal", nullable, precision, scale);
+    // because a newly added column of this type won't have valid 
+    // numbers, we fix that here...
+    if (scale < 0) {
+      setScale(2);
+    }
+    if (precision <= 0) {
+      setPrecision(22);
+    }
   }
-
 
   protected void _assertValidRaw(Object raw) {
     if (raw != null && !(raw instanceof BigDecimal))
@@ -93,34 +89,30 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object real)
-      throws SQLException {
-    ps.setBigDecimal(col, ((BigDecimal)real));
+    throws SQLException {
+    ps.setBigDecimal(col, ((BigDecimal) real));
   }
 
-  protected Object _rawOfString(String rawString)
-      throws ParsingPoemException {
+  protected Object _rawOfString(String rawString) throws ParsingPoemException {
     try {
       return new BigDecimal(rawString);
-    }
-    catch (NumberFormatException e) {
+    } catch (NumberFormatException e) {
       throw new ParsingPoemException(this, rawString, e);
     }
   }
 
   protected String _sqlDefinition(Dbms dbms) {
-	try {
-	  return dbms.getFixedPtSqlDefinition(getScale(), getPrecision());
-	} catch (SQLException e) {
-	  throw new SQLSeriousPoemException(e);
-	}
+    try {
+      return dbms.getFixedPtSqlDefinition(getScale(), getPrecision());
+    } catch (SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
   }
-
 
   protected boolean _canRepresent(SQLPoemType other) {
     //return other instanceof DoublePoemType;
     return other instanceof BigDecimalPoemType;
   }
-
 
   /**
    * The field type used in the Data Structure Definition language.
@@ -130,7 +122,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
-      throws AccessPoemException {
+    throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.BIGDECIMAL);
   }
 }

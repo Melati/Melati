@@ -56,7 +56,7 @@ public abstract class FieldQualifier {
   public abstract void apply(FieldDef field) throws IllegalityException;
 
   public static FieldQualifier from(StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
+    throws ParsingDSDException, IOException {
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field qualifier>", tokens);
     FieldQualifier it;
@@ -102,10 +102,10 @@ public abstract class FieldQualifier {
       it = new RenderinfoFieldQualifier(tokens);
     else if (kind.equals("integrityfix"))
       it = new IntegrityfixFieldQualifier(tokens);
-	else if (kind.equals("precision"))
-	  it = new PrecisionFieldQualifier(tokens);
-	else if (kind.equals("scale"))
-	  it = new ScaleFieldQualifier(tokens);
+    else if (kind.equals("precision"))
+      it = new PrecisionFieldQualifier(tokens);
+    else if (kind.equals("scale"))
+      it = new ScaleFieldQualifier(tokens);
 
     else
       throw new ParsingDSDException("<field qualifier>", tokens);

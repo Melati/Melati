@@ -69,8 +69,11 @@ public abstract class Column implements FieldAttributes {
   private DefinitionSource definitionSource;
   private ColumnInfo info = null;
 
-  public Column(Table table, String name, SQLPoemType type,
-                DefinitionSource definitionSource) {
+  public Column(
+    Table table,
+    String name,
+    SQLPoemType type,
+    DefinitionSource definitionSource) {
     this.table = table;
     this.name = name;
     this.quotedName = table.getDatabase().quotedName(name);
@@ -93,16 +96,18 @@ public abstract class Column implements FieldAttributes {
     if (unified == null || !(unified instanceof SQLPoemType))
       throw new TypeDefinitionMismatchException(this, storeType, source);
 
-    type = (SQLPoemType)unified;
+    type = (SQLPoemType) unified;
   }
 
   void assertMatches(ResultSet colDesc)
-      throws SQLException, TypeDefinitionMismatchException {
+    throws SQLException, TypeDefinitionMismatchException {
     PoemType dbType = getDatabase().defaultPoemTypeOfColumnMetaData(colDesc);
 
     if (dbms().canRepresent(dbType, type) == null)
-      throw new TypeDefinitionMismatchException(this, dbType,
-                                                DefinitionSource.sqlMetaData);
+      throw new TypeDefinitionMismatchException(
+        this,
+        dbType,
+        DefinitionSource.sqlMetaData);
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
@@ -115,10 +120,10 @@ public abstract class Column implements FieldAttributes {
         table.setSearchColumn(this);
       info = columnInfo;
       table.notifyColumnInfo(info);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new UnexpectedExceptionPoemException(
-          e, "Setting column info for " + name + " to " + columnInfo);
+        e,
+        "Setting column info for " + name + " to " + columnInfo);
     }
   }
 
@@ -179,11 +184,11 @@ public abstract class Column implements FieldAttributes {
   }
 
   protected int defaultPrecision() {
-	return 22;
+    return 22;
   }
 
   protected int defaultScale() {
-	return 2;
+    return 2;
   }
 
   protected String defaultRenderinfo() {
@@ -193,32 +198,33 @@ public abstract class Column implements FieldAttributes {
   void createColumnInfo() throws PoemException {
     if (info == null) {
       info =
-          (ColumnInfo)getDatabase().getColumnInfoTable().create(
-              new Initialiser() {
-                public void init(Persistent g) throws AccessPoemException {
-                  ColumnInfo i = (ColumnInfo)g;
-                  i.setName(getName());
-                  i.setDisplayname(defaultDisplayName());
-                  i.setDisplayorder(defaultDisplayOrder());
-                  i.setDescription(defaultDescription());
-                  i.setDisplaylevel(defaultDisplayLevel());
-                  i.setSearchability(defaultSearchability());
-                  i.setSortdescending(defaultSortDescending());
-                  i.setDisplayorderpriority(defaultDisplayOrderPriority());
-                  i.setTableinfoTroid(table.tableInfoID());
-                  i.setUsereditable(defaultUserEditable());
-                  i.setUsercreateable(defaultUserCreateable());
-                  i.setIndexed(defaultIndexed());
-                  i.setUnique(defaultUnique());
-                  i.setWidth(defaultWidth());
-                  i.setHeight(defaultHeight());
-                  i.setRenderinfo(defaultRenderinfo());
-                  i.setIntegrityfix(defaultIntegrityFix());
-                  i.setPrecision(defaultPrecision());
-				  i.setScale(defaultScale());
-                  getType().saveColumnInfo(i);
-                }
-              });
+        (ColumnInfo) getDatabase()
+          .getColumnInfoTable()
+          .create(new Initialiser() {
+        public void init(Persistent g) throws AccessPoemException {
+          ColumnInfo i = (ColumnInfo) g;
+          i.setName(getName());
+          i.setDisplayname(defaultDisplayName());
+          i.setDisplayorder(defaultDisplayOrder());
+          i.setDescription(defaultDescription());
+          i.setDisplaylevel(defaultDisplayLevel());
+          i.setSearchability(defaultSearchability());
+          i.setSortdescending(defaultSortDescending());
+          i.setDisplayorderpriority(defaultDisplayOrderPriority());
+          i.setTableinfoTroid(table.tableInfoID());
+          i.setUsereditable(defaultUserEditable());
+          i.setUsercreateable(defaultUserCreateable());
+          i.setIndexed(defaultIndexed());
+          i.setUnique(defaultUnique());
+          i.setWidth(defaultWidth());
+          i.setHeight(defaultHeight());
+          i.setRenderinfo(defaultRenderinfo());
+          i.setIntegrityfix(defaultIntegrityFix());
+          i.setPrecision(defaultPrecision());
+          i.setScale(defaultScale());
+          getType().saveColumnInfo(i);
+        }
+      });
 
       // FIXME repeating this in several places is a bad sign
 
@@ -230,11 +236,13 @@ public abstract class Column implements FieldAttributes {
   }
 
   void unifyWithIndex(ResultSet index)
-      throws SQLException, IndexUniquenessPoemException {
+    throws SQLException, IndexUniquenessPoemException {
     boolean indexUnique = !index.getBoolean("NON_UNIQUE");
     if (indexUnique != getUnique())
       throw new IndexUniquenessPoemException(
-          this, index.getString("INDEX_NAME"), getUnique());
+        this,
+        index.getString("INDEX_NAME"),
+        getUnique());
   }
 
   // 
@@ -308,13 +316,13 @@ public abstract class Column implements FieldAttributes {
   }
 
   public final boolean getUserEditable() {
-    return !isTroidColumn() &&
-           (info == null || info.getUsereditable().booleanValue());
+    return !isTroidColumn()
+      && (info == null || info.getUsereditable().booleanValue());
   }
 
   public final boolean getUserCreateable() {
-    return !isTroidColumn() &&
-           (info == null || info.getUsercreateable().booleanValue());
+    return !isTroidColumn()
+      && (info == null || info.getUsercreateable().booleanValue());
   }
 
   public final SQLPoemType getSQLType() {
@@ -367,8 +375,9 @@ public abstract class Column implements FieldAttributes {
   }
 
   public final boolean getSortDescending() {
-    return info.getSortdescending() == null ? false : 
-      info.getSortdescending().booleanValue();
+    return info.getSortdescending() == null
+      ? false
+      : info.getSortdescending().booleanValue();
   }
 
   // 
@@ -378,9 +387,14 @@ public abstract class Column implements FieldAttributes {
   // 
 
   public String toString() {
-    return
-        table.getName() + "." + name + ": " + getType().toString() +
-        " (from " + definitionSource + ")";
+    return table.getName()
+      + "."
+      + name
+      + ": "
+      + getType().toString()
+      + " (from "
+      + definitionSource
+      + ")";
   }
 
   public void dump() {
@@ -388,21 +402,25 @@ public abstract class Column implements FieldAttributes {
   }
 
   public String eqClause(Object raw) {
-    return fullQuotedName() + (raw == null ? " IS NULL" 
-                                     :  " = " + type.quotedRaw(raw));
+    return fullQuotedName()
+      + (raw == null ? " IS NULL" : " = " + type.quotedRaw(raw));
   }
 
   private PreparedStatementFactory selectionWhereEq = null;
 
   private PreparedStatementFactory statementWhereEq() {
     if (selectionWhereEq == null)
-      selectionWhereEq = new PreparedStatementFactory(
+      selectionWhereEq =
+        new PreparedStatementFactory(
           getDatabase(),
           getTable().selectionSQL(
-              null,
-              fullQuotedName() + " = " +
-              dbms().preparedStatementPlaceholder(getType()), 
-              null, false, true));
+            null,
+            fullQuotedName()
+              + " = "
+              + dbms().preparedStatementPlaceholder(getType()),
+            null,
+            false,
+            true));
 
     return selectionWhereEq;
   }
@@ -410,32 +428,30 @@ public abstract class Column implements FieldAttributes {
   ResultSet resultSetWhereEq(Object raw) {
     SessionToken token = PoemThread.sessionToken();
     PreparedStatement ps =
-        statementWhereEq().preparedStatement(token.transaction);
+      statementWhereEq().preparedStatement(token.transaction);
     type.setRaw(ps, 1, raw);
     return statementWhereEq().resultSet(token, ps);
   }
 
   Enumeration troidSelectionWhereEq(Object raw) {
-    return
-        new ResultSetEnumeration(resultSetWhereEq(raw)) {
-          public Object mapped(ResultSet rs) throws SQLException {
-            return new Integer(rs.getInt(1));
-          }
-        };
+    return new ResultSetEnumeration(resultSetWhereEq(raw)) {
+      public Object mapped(ResultSet rs) throws SQLException {
+        return new Integer(rs.getInt(1));
+      }
+    };
   }
 
   public Enumeration selectionWhereEq(Object raw) {
-    return
-        new ResultSetEnumeration(resultSetWhereEq(raw)) {
-          public Object mapped(ResultSet rs) throws SQLException {
-            return getTable().getObject(rs.getInt(1));
-          }
-        };
+    return new ResultSetEnumeration(resultSetWhereEq(raw)) {
+      public Object mapped(ResultSet rs) throws SQLException {
+        return getTable().getObject(rs.getInt(1));
+      }
+    };
   }
 
   public Persistent firstWhereEq(Object raw) {
     Enumeration them = selectionWhereEq(raw);
-    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
+    return them.hasMoreElements() ? (Persistent) them.nextElement() : null;
   }
 
   public CachedSelection cachedSelectionWhereEq(Object raw) {
@@ -448,20 +464,19 @@ public abstract class Column implements FieldAttributes {
   // =======================================
   // 
 
-  public abstract Object getRaw(Persistent g)
-      throws AccessPoemException;
+  public abstract Object getRaw(Persistent g) throws AccessPoemException;
   public abstract Object getRaw_unsafe(Persistent g);
   public abstract void setRaw(Persistent g, Object raw)
-      throws AccessPoemException, ValidationPoemException;
+    throws AccessPoemException, ValidationPoemException;
   public abstract void setRaw_unsafe(Persistent g, Object raw);
   public abstract Object getCooked(Persistent g)
-      throws AccessPoemException, PoemException;
+    throws AccessPoemException, PoemException;
   public abstract void setCooked(Persistent g, Object cooked)
-      throws AccessPoemException, ValidationPoemException;
+    throws AccessPoemException, ValidationPoemException;
 
- /**
-  * Thrown when any unforseen problem arises loading a {@link Column}.
-  */
+  /**
+   * Thrown when any unforseen problem arises loading a {@link Column}.
+   */
   public static class LoadException extends UnexpectedExceptionPoemException {
     public Column column;
 
@@ -471,21 +486,23 @@ public abstract class Column implements FieldAttributes {
     }
 
     public String getMessage() {
-      return "An unexpected problem arose loading " + column + " from the " +
-             "database:\n" + subException;
+      return "An unexpected problem arose loading "
+        + column
+        + " from the "
+        + "database:\n"
+        + subException;
     }
   }
 
-    /**
-     * @todo Double validation
-     */
+  /**
+   * @todo Double validation
+   */
   public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
-      throws LoadException {
+    throws LoadException {
     // FIXME double validation
     try {
       setRaw_unsafe(g, type.getRaw(rs, rsCol));
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new LoadException(this, e);
     }
   }
@@ -504,27 +521,33 @@ public abstract class Column implements FieldAttributes {
   public abstract Field asField(Persistent g);
 
   public Field asEmptyField() {
-    return new Field((Object)null, this);
+    return new Field((Object) null, this);
   }
 
- /**
-  * Thrown when any unforseen problem arises setting the value 
-  * of a {@link Column}.
-  */
+  /**
+   * Thrown when any unforseen problem arises setting the value 
+   * of a {@link Column}.
+   */
   public static class SettingException extends NormalPoemException {
     public Persistent persistent;
     public Column column;
     public String columnDesc;
 
-    public SettingException(Persistent persistent, Column column,
-                            Exception trouble) {
+    public SettingException(
+      Persistent persistent,
+      Column column,
+      Exception trouble) {
       super(trouble);
       this.persistent = persistent;
       this.column = column;
       columnDesc =
-          "field `" + column.getDisplayName() + "' in object `" +
-          persistent.displayString(MelatiLocale.here, DateFormat.MEDIUM) +
-          "' of type `" + column.getTable().getDisplayName() + "'";
+        "field `"
+          + column.getDisplayName()
+          + "' in object `"
+          + persistent.displayString(MelatiLocale.here, DateFormat.MEDIUM)
+          + "' of type `"
+          + column.getTable().getDisplayName()
+          + "'";
     }
 
     public String getMessage() {
@@ -536,8 +559,7 @@ public abstract class Column implements FieldAttributes {
     Object raw;
     try {
       raw = getType().rawOfString(rawString);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new SettingException(g, this, e);
     }
 
@@ -545,11 +567,10 @@ public abstract class Column implements FieldAttributes {
   }
 
   public Enumeration referencesTo(Persistent object) {
-    return
-        getType() instanceof ReferencePoemType &&
-            ((ReferencePoemType)getType()).targetTable() == object.getTable() ?
-          selectionWhereEq(object.troid()) :
-          EmptyEnumeration.it;
+    return getType() instanceof ReferencePoemType
+      && ((ReferencePoemType) getType()).targetTable() == object.getTable()
+        ? selectionWhereEq(object.troid())
+        : EmptyEnumeration.it;
   }
 
   /**
@@ -567,8 +588,7 @@ public abstract class Column implements FieldAttributes {
     if (there == null) {
       getTable().create(orCreate);
       return orCreate;
-    }
-    else
+    } else
       return there;
   }
 
@@ -576,25 +596,34 @@ public abstract class Column implements FieldAttributes {
     if (whereClause != null && whereClause.trim().equals(""))
       whereClause = null;
     getTable().readLock();
-    ResultSet results = getDatabase().sqlQuery(
-        "SELECT " + quotedName + " + 1 " +
-        "FROM " + getTable().quotedName() + " AS t1 " +
-        "WHERE " +
-            (whereClause == null ? "" : "(t1." + whereClause + ") AND ") +
-            "NOT EXISTS (" +
-                "SELECT * FROM " + getTable().quotedName() + " AS t2 " +
-                "WHERE " +
-                    (whereClause == null ?
-                      "" : "(t2." + whereClause + ") AND ") +
-                      "t2." + quotedName + " = t1." + quotedName + " + 1) " +
-        "LIMIT 1");
+    ResultSet results =
+      getDatabase().sqlQuery(
+        "SELECT "
+          + quotedName
+          + " + 1 "
+          + "FROM "
+          + getTable().quotedName()
+          + " AS t1 "
+          + "WHERE "
+          + (whereClause == null ? "" : "(t1." + whereClause + ") AND ")
+          + "NOT EXISTS ("
+          + "SELECT * FROM "
+          + getTable().quotedName()
+          + " AS t2 "
+          + "WHERE "
+          + (whereClause == null ? "" : "(t2." + whereClause + ") AND ")
+          + "t2."
+          + quotedName
+          + " = t1."
+          + quotedName
+          + " + 1) "
+          + "LIMIT 1");
     try {
       if (results.next())
         return results.getInt(1);
       else
         return 0;
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
   }

@@ -51,13 +51,12 @@ import org.melati.poem.csv.CSVParseException;
 import org.melati.poem.csv.CSVWriteDownException;
 import org.melati.poem.csv.NoPrimaryKeyInCSVTableException;
 
-
 /**
- * A class to define a sequence of {@link CSVTable}s and  process them 
- * by parsing the files and writing the data to the database.
- *
+ * A class to define a sequence of {@link CSVTable}s and process them by
+ * parsing the files and writing the data to the database.
+ * 
  * @author MylesC@paneris.org
- *
+ *  
  */
 public class CSVFilesProcessor {
 
@@ -75,7 +74,7 @@ public class CSVFilesProcessor {
 
   /**
    * Convenience method.
-   *  
+   * 
    * @param tablename the name of a POEM table
    * @param file a CSV file, with first line containing field names
    * @return a new CSVTable
@@ -92,7 +91,7 @@ public class CSVFilesProcessor {
    * @return a new CSVTable
    */
   public CSVTable addTable(Table tab, File file) {
-    if (!file.exists()) 
+    if (!file.exists())
       throw new RuntimeException("File not found: " + file.getPath());
     CSVTable table = new CSVTable(tab, file);
     tables.addElement(table);
@@ -100,16 +99,16 @@ public class CSVFilesProcessor {
   }
 
   /**
-   * Load all the data from the files, empty the tables if
-   * necessary and then write the new data into the tables.
+   * Load all the data from the files, empty the tables if necessary and then
+   * write the new data into the tables.
    * <p>
    * Write a report of the progress to the Writer.
-   *
-   * @param writeOnFly flag whether to write down to db when all files read in 
-   *        if set then it is the programmers responsibility to ensure that 
-   *        there are no references to yet to be created fields 
+   * 
+   * @param writeOnFly flag whether to write down to db when all files read in
+   *          if set then it is the programmers responsibility to ensure that
+   *          there are no references to yet to be created fields
    * @param emptyTables flag whether to remove remains from last run
-   * @param recordDetails flag passed in to table.report 
+   * @param recordDetails flag passed in to table.report
    * @param fieldDetails flag passed in to table.report
    * @param output tio write report to
    * @throws IOException if file stuff goes wrong
@@ -117,13 +116,10 @@ public class CSVFilesProcessor {
    * @throws NoPrimaryKeyInCSVTableException not thrown
    * @throws CSVWriteDownException thrown when a persistent cannot be created
    */
-  public void process(boolean writeOnFly, 
-                      boolean emptyTables,
-                      boolean recordDetails,
-                      boolean fieldDetails,
-                      Writer output)
-      throws IOException, CSVParseException,
-      NoPrimaryKeyInCSVTableException, CSVWriteDownException {
+  public void process(boolean writeOnFly, boolean emptyTables,
+      boolean recordDetails, boolean fieldDetails, Writer output)
+      throws IOException, CSVParseException, NoPrimaryKeyInCSVTableException,
+      CSVWriteDownException {
 
     output.write("Trying to get exclusive lock on the database\n");
     db.beginExclusiveLock();
@@ -131,11 +127,11 @@ public class CSVFilesProcessor {
 
     // Delete all records from the tables, if necessary
     if (emptyTables) {
-      for(int i = 0; i < tables.size(); i++) {
-        CSVTable t = (CSVTable)tables.elementAt(i);
+      for (int i = 0; i < tables.size(); i++) {
+        CSVTable t = (CSVTable) tables.elementAt(i);
         t.emptyTable();
         output.write("Emptied table :" + t.getName() + "\n");
-        System.err.println("Emptied table :" +  t.getName());
+        System.err.println("Emptied table :" + t.getName());
       }
       PoemThread.writeDown();
     }
@@ -143,21 +139,19 @@ public class CSVFilesProcessor {
     output.write("Emptied all tables\n");
     System.err.println("Emptied all tables");
 
-
     // Load in data
-    for(int i = 0; i < tables.size(); i++) {
-      CSVTable t = ((CSVTable)tables.elementAt(i));
+    for (int i = 0; i < tables.size(); i++) {
+      CSVTable t = ((CSVTable) tables.elementAt(i));
       t.load(writeOnFly);
       output.write("Loaded table :" + t.getName() + "\n");
-      System.err.println("Loaded table :" +  t.getName());
+      System.err.println("Loaded table :" + t.getName());
     }
     output.write("Loaded files\n");
-    
-    
+
     // We must have loaded in all the data before we
     // try writing records, otherwise Foreign Key lookups
     // defined in this set of CSVs won't work
-    if (! writeOnFly) {
+    if (!writeOnFly) {
       writeData(output);
       output.write("Written records\n");
     }
@@ -168,19 +162,24 @@ public class CSVFilesProcessor {
     output.write("***** REPORT ******\n");
 
     // Write a report about how many records are in each table
-    for(int i = 0; i < tables.size(); i++)
-      ((CSVTable)tables.elementAt(i)).
-            report(recordDetails, fieldDetails, output);
-  
+    for (int i = 0; i < tables.size(); i++)
+      ((CSVTable) tables.elementAt(i)).report(recordDetails, fieldDetails,
+          output);
+
+  }
+  public void process(boolean emptyTables, boolean recordDetails,
+      boolean fieldDetails, Writer output) throws IOException,
+      CSVParseException, NoPrimaryKeyInCSVTableException, CSVWriteDownException {
+    process(false, emptyTables, recordDetails, fieldDetails, output);
   }
 
   /**
    * @throws NoPrimaryKeyInCSVTableException
    */
-  protected void writeData(Writer o) 
-      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
-    for(int i = 0; i < tables.size(); i++)
-      ((CSVTable)tables.elementAt(i)).writeRecords();
+  protected void writeData(Writer o) throws NoPrimaryKeyInCSVTableException,
+      CSVWriteDownException {
+    for (int i = 0; i < tables.size(); i++)
+      ((CSVTable) tables.elementAt(i)).writeRecords();
   }
 
 }

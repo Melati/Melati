@@ -47,6 +47,15 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
+#set $returnTarget = $Form.returnTarget
+#if ($returnTarget == null) #begin
+#set $returnTarget = ""
+#end
+#set $returnURL = $Form.returnURL
+#if ($returnURL == null) #begin
+#set $returnURL = ""
+#end
+
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
@@ -57,12 +66,12 @@
  <tr>
   <td valign="top">
 #if ($admin.isTreeable($object)) #begin
-   <a href=$admin.TreeURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL
+   <a href=$admin.TreeURL($object)?returnTarget=$returnTarget&returnURL=$returnURL
 target=admin_edit$object.Table.Name$object.troid()>tree</a>
 #end
    <IMG src="$admin.StaticURL/file.gif">
    <FONT FACE="Arial, Helvetica" size=2>&nbsp;$table.DisplayName:
-<a href= "$admin.EditURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
+<a href= "$admin.EditURL($object)?returnTarget=$returnTarget&returnURL=$returnURL"
 target=admin_edit$object.Table.Name$object.troid()>
 $ml.rendered($object)</a>
    </font>

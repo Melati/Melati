@@ -1440,7 +1440,7 @@ public class Table implements Selectable {
       whereClause += "NOT " + deletedColumn.getName();
     }
 
-    if (excludeUnselectable{
+    if (excludeUnselectable){
       String s = canSelectClause();
       if (s != null) {
         if (whereClause.length() >  0) {

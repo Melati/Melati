@@ -81,6 +81,10 @@ final class CachedVersionedRow extends AbstractVersionedObject
                         data == nonexistent ? null : (Data)data);
   }
 
+  protected boolean upToDate(Session session, Version data) {
+    return true;
+  }
+
   protected Version backingVersion(Session session) {
     Data data = table.dbData((PoemSession)session, troid);
     return data == null ? nonexistent : data; 
@@ -91,19 +95,35 @@ final class CachedVersionedRow extends AbstractVersionedObject
   }
 
   /**
-   * @return the row, or <TT>nonexistent</TT> if it doesn't exist
+   * Obtain a <TT>Data</TT> object corresponding to the value of the table row
+   * in a given session, in which it is safe for you to make changes which will
+   * eventually find their way into the database.  The row is marked to be
+   * written out to the database (with <TT>UPDATE</TT>, or <TT>INSERT</TT> if
+   * it's a new one) at the next <TT>session.writeDown()</TT>, for instance
+   * when the session is committed.
+   *
+   * @param session	The session (transaction) in which the writes are
+   *                    to be made.  The session associated with the running
+   *                    thread can be obtained from
+   *                    <TT>PoemThread.session()</TT>.
+   *
+   * @return a <TT>Data</TT> representing the row's fields, or
+   *         <TT>nonexistent</TT> if it doesn't exist in <TT>session</TT>
+   *
+   * @throw WriteCommittedVersionException if <TT>session</TT> is null: 
+   *            you are not allowed to change a POEM database outside an
+   *            insulated transaction.  This is partly a matter of policy,
+   *            and FIXME partly an oversight!
+   *
+   * @see PoemThread#session()
+   * @see WriteCommittedVersionException
    */
 
-  public Version versionForReading(Session session) {
-    return super.versionForReading(session);
-  }
+  public Version versionForWriting(Session session)
+      throws WriteCommittedVersionException {
+    if (session == null)
+      throw new WriteCommittedVersionException(this);
 
-  /**
-   * @return an unaliased copy of the row, or <TT>nonexistent</TT>
-   *         if it doesn't exist
-   */
-
-  public Version versionForWriting(Session session) {
     Data data = (Data)super.versionForWriting(session);
     table.notifyTouched((PoemSession)session, troid, data);
     if (data != nonexistent)
@@ -117,9 +137,13 @@ final class CachedVersionedRow extends AbstractVersionedObject
     setVersion(session, nonexistent);
   }
 
-  protected void writeDown(Session session, Version version) {
-    Data data = (Data)version;
-    if (data != nonexistent && data.dirty)
+  /**
+   * Write a version down into the backing store.
+   */
+
+  public void writeDown(Session session) {
+    Data data = (Data)touchedVersion(session);
+    if (data != null && data != nonexistent && data.dirty)
       table.writeDown((PoemSession)session, troid, data);
   }
 

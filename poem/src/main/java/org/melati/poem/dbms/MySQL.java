@@ -179,8 +179,8 @@ public class MySQL extends AnsiStandard {
              _canRepresent((StringPoemType)other) &&
              !(!getNullable() && ((StringPoemType)other).getNullable()) ?
                other : null;
-      }
     }
+  }
 
  /**
   * Translates a MySQL Boolean into a Poem <code>BooleanType</code>.
@@ -360,11 +360,12 @@ public class MySQL extends AnsiStandard {
     return name;
   }
 
-/*
- MySQL requires TEXT and BLOB field indices to have an 
- explicit length, 30 should be fine.
- */
-
+ /**
+  *MySQL requires TEXT and BLOB field indices to have an 
+  * explicit length, 30 should be fine.
+  *
+  * @return a snippet of sql to insert into an SQL statement.
+  */
   public String getIndexLength(Column column) {
     PoemType t = column.getType();
     if (t instanceof StringPoemType && 

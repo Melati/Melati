@@ -267,8 +267,8 @@ public abstract class MarkupLanguage {
       render((JSDynamicTree)o, writer);
     else if (o instanceof Persistent) 
       render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
-    else if (o instanceof Exception) 
-      render((Exception)o, writer);
+    else if (o instanceof Throwable) 
+      render((Throwable)o, writer);
     else
       render(o.toString(), writer);
   }
@@ -509,17 +509,17 @@ public abstract class MarkupLanguage {
     render(field, DateFormat.MEDIUM, 50, writer);
   }
 
-  public String rendered(Exception e) throws IOException {
+  public String rendered(Throwable e) throws IOException {
     MelatiWriter sw = getStringWriter();
     render(e, sw);
     return sw.asString();
   }
 
-  public void render(Exception e) throws IOException {
+  public void render(Throwable e) throws IOException {
     render(e, melati.getWriter());
   }
 
-  public void render(Exception e, MelatiWriter writer)
+  public void render(Throwable e, MelatiWriter writer)
       throws IOException {
     try {
       TemplateContext vars =

@@ -49,6 +49,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Hashtable;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -532,7 +533,11 @@ public class Table implements Selectable {
 
     try {
       System.err.println("about to execute:" + sql);
-      database.getCommittedConnection().createStatement().executeUpdate(sql);
+
+      Statement updateStatement = database.getCommittedConnection().createStatement();
+      updateStatement.executeUpdate(sql);
+      updateStatement.close();
+      database.getCommittedConnection().commit();
       database.log(new StructuralModificationLogEvent(sql));
     }
     catch (SQLException e) {
@@ -789,7 +794,9 @@ public class Table implements Selectable {
         connection = transaction.getConnection();
       }
 
-      connection.createStatement().executeUpdate(sql);
+      Statement deleteStatement = connection.createStatement();
+      deleteStatement.executeUpdate(sql);
+      deleteStatement.close();
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
 

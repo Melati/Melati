@@ -57,6 +57,7 @@ package org.melati.poem.csv;
 import java.util.Vector;
 import org.melati.poem.Table;
 import org.melati.poem.Persistent;
+import org.melati.poem.PoemThread;
 
 /**
  * A record within a CSV File.
@@ -140,6 +141,9 @@ public class CSVRecord extends Vector {
       }
     }
     newObj.makePersistent();
+    if (PoemThread.inSession())
+      PoemThread.writeDown();
+    PoemThread.commit();
     poemRecord = newObj;
   }
   

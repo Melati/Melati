@@ -135,13 +135,15 @@ public abstract class MelatiWMServlet extends HttpServlet {
       return new WC(_broker);
    }
 
-   protected void init() throws ServletException {}
-   protected void start() throws ServletException { }
-   protected void stop() {}
+  protected void start() throws ServletException { }
+  protected void stop() {}
 
   public synchronized void init(ServletConfig sc) throws ServletException {
     super.init(sc);
+    init();
+  }
 
+  protected void init() throws ServletException {
     // locate a Broker
 
     if (_wm == null) {
@@ -155,6 +157,7 @@ public abstract class MelatiWMServlet extends HttpServlet {
                 + "*** classpath, in a similar place to webmacro.jar \n"
                 + "*** and that all values were set correctly.\n");
           _problem = e.getMessage(); 
+	  e.printStackTrace();
           return;
        }
     }
@@ -206,6 +209,8 @@ public abstract class MelatiWMServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    if (_wc == null)
+      init();
     doRequest(_wc.clone(req,resp));
   }
 

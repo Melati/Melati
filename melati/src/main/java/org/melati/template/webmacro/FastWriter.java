@@ -23,22 +23,17 @@
 
 package org.melati.template.webmacro;
 
-import java.io.*;
-
-//import org.webmacro.util.ByteBufferOutputStream;
 import java.io.BufferedOutputStream;
-import org.webmacro.util.Encoder;
-import org.webmacro.util.EncoderProvider;
-import org.webmacro.WebMacro;
-import org.webmacro.servlet.WebContext;
-import org.webmacro.WebMacro;
-import org.webmacro.WM;
-import org.webmacro.Context;
-import org.webmacro.Template;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+
 import org.webmacro.Broker;
 import org.webmacro.ResourceException;
-
-
+import org.webmacro.util.Encoder;
+import org.webmacro.util.EncoderProvider;
 
 
 /**

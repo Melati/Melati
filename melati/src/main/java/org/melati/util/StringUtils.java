@@ -195,7 +195,7 @@ public class StringUtils {
   private static String allowableChars = 
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
 
-  public static String getRandomString(int i) {
+  public static String randomString(int i) {
     String result = "";
     int j = allowableChars.length();
     for (int a=0;a<i;a++) {

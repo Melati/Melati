@@ -52,7 +52,7 @@ import java.sql.*;
 public class ExtraColumn extends Column {
   private final int extrasIndex;
 
-  public ExtraColumn(Table table, String name, PoemType type,
+  public ExtraColumn(Table table, String name, SQLPoemType type,
                      DefinitionSource definitionSource,
                      int extrasIndex) {
     super(table, name, type, definitionSource);

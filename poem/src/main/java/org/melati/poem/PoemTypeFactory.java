@@ -64,7 +64,7 @@ public abstract class PoemTypeFactory {
     int getSize();
   }
 
-  abstract PoemType typeOf(Database database, Parameter info);
+  abstract SQLPoemType typeOf(Database database, Parameter info);
 
   public Integer getCode() {
     return code;
@@ -96,7 +96,7 @@ public abstract class PoemTypeFactory {
 
   static final PoemTypeFactory[] atomTypeFactories = {
     TROID = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return TroidPoemType.it;
       }
 
@@ -110,7 +110,7 @@ public abstract class PoemTypeFactory {
     },
 
     DELETED = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return DeletedPoemType.it;
       }
 
@@ -124,7 +124,7 @@ public abstract class PoemTypeFactory {
     },
 
     TYPE = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new ColumnTypePoemType(database);
       }
 
@@ -138,7 +138,7 @@ public abstract class PoemTypeFactory {
     },
 
     BOOLEAN = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new BooleanPoemType(info.getNullable());
       }
 
@@ -152,7 +152,7 @@ public abstract class PoemTypeFactory {
     },
 
     INTEGER = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new IntegerPoemType(info.getNullable());
       }
 
@@ -166,7 +166,7 @@ public abstract class PoemTypeFactory {
     },
 
     DOUBLE = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new DoublePoemType(info.getNullable());
       }
 
@@ -180,7 +180,7 @@ public abstract class PoemTypeFactory {
     },
 
     STRING = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new StringPoemType(info.getNullable(), info.getSize());
       }
 
@@ -194,7 +194,7 @@ public abstract class PoemTypeFactory {
     },
 
     DATE = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new DatePoemType(info.getNullable());
       }
 
@@ -208,7 +208,7 @@ public abstract class PoemTypeFactory {
     },
 
     PASSWORD = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new PasswordPoemType(info.getNullable(), info.getSize());
       }
 
@@ -222,7 +222,7 @@ public abstract class PoemTypeFactory {
     },
 
     TIMESTAMP = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new TimestampPoemType(info.getNullable());
       }
 
@@ -236,7 +236,7 @@ public abstract class PoemTypeFactory {
     },
 
     DISPLAYLEVEL = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new DisplayLevelPoemType();
       }
 
@@ -250,7 +250,7 @@ public abstract class PoemTypeFactory {
     },
 
     SEARCHABILITY = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, Parameter info) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
         return new SearchabilityPoemType();
       }
 
@@ -271,7 +271,7 @@ public abstract class PoemTypeFactory {
       final Table table = database.tableWithTableInfoID(code);
       return
           new PoemTypeFactory(code) {
-            public PoemType typeOf(Database db, Parameter info) {
+            public SQLPoemType typeOf(Database db, Parameter info) {
               return new ReferencePoemType(table, info.getNullable());
             }
 

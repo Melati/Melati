@@ -52,7 +52,7 @@ import java.sql.*;
 import org.melati.util.*;
 import org.melati.poem.dbms.*;
 
-public abstract class BasePoemType implements PoemType, Cloneable {
+public abstract class BasePoemType implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
   private boolean nullable;
 
@@ -258,13 +258,19 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   public final boolean canBe(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
+    if (!(other instanceof SQLPoemType))
+      return false;
+    else {
+      SQLPoemType q = (SQLPoemType)other;
     return
-        other.sqlTypeCode() == sqlTypeCode &&
+        q instanceof SQLPoemType &&
+        q.sqlTypeCode() == sqlTypeCode &&
         // FIXME we weaken the nullability test so that ADD COLUMN can work with
         // postgres
         // other.getNullable() == nullable &&
-        !(other.getNullable() && !nullable) &&
-        _canBe(other);
+        !(q.getNullable() && !nullable) &&
+        _canBe(q);
+    }
   }
 
   public final PoemType withNullable(boolean nullable) {
@@ -306,7 +312,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return (nullable ? "nullable " : "") + _toString();
   }
 
-  public static PoemType ofColumnInfo(Database database,
+  public static SQLPoemType ofColumnInfo(Database database,
 				      final ColumnInfo info) {
     return
         PoemTypeFactory.forCode(database,

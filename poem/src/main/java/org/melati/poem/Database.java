@@ -981,7 +981,7 @@ abstract public class Database implements TransactionPool {
       return getDbms().getQuotedName(name);
   }
 
-  private PoemType unsupported(String sqlTypeName, ResultSet md)
+  private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
       throws UnsupportedTypePoemException {
     UnsupportedTypePoemException e;
     try {
@@ -1003,7 +1003,7 @@ abstract public class Database implements TransactionPool {
    * be delegated to a <TT>DatabasePecularities</TT> class.
    */
 
-  public PoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     int typeCode = md.getShort("DATA_TYPE");
     boolean nullable =

@@ -72,7 +72,7 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 
   Object column(ResultSet them, int c) {
     Column column = query.columns[c];
-    Object raw = column.getType().getRaw(them, c + 1);
+    Object raw = column.getSQLType().getRaw(them, c + 1);
 
     if (query.isCanReadColumn[c]) {
       Capability canRead = (Capability)column.getType().cookedOfRaw(raw);

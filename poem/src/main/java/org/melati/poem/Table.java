@@ -481,7 +481,7 @@ public class Table {
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
       sqb.append(columns[c].quotedName() + " " +
-                 columns[c].getType().sqlDefinition(dbms));
+                 columns[c].getSQLType().sqlDefinition(dbms));
     }
 
     sqb.append(")");
@@ -493,7 +493,7 @@ public class Table {
     dbModifyStructure(
         "ALTER TABLE " + quotedName() +
         " ADD COLUMN " + column.quotedName() +
-        " " + column.getType().sqlDefinition(getDatabase().getDbms()));
+        " " + column.getSQLType().sqlDefinition(getDatabase().getDbms()));
   }
 
   private void dbCreateIndex(Column column) {
@@ -1114,7 +1114,7 @@ public class Table {
 		} else {
             clause.append(" = ");
         }			
-        clause.append(column.getType().quotedRaw(raw));
+        clause.append(column.getSQLType().quotedRaw(raw));
       }
     }
   }
@@ -1743,7 +1743,7 @@ public class Table {
         Column column = (Column)columnsByName.get(colName);
 
         if (column == null) {
-          PoemType colType =
+          SQLPoemType colType =
               database.defaultPoemTypeOfColumnMetaData(colDescs);
 
           // magically make eligible columns called "id" and "deleted"

@@ -56,11 +56,11 @@ public abstract class Column implements FieldAttributes {
   private Table table = null;
   private String name;
   private String quotedName;
-  private PoemType type;
+  private SQLPoemType type;
   private DefinitionSource definitionSource;
   private ColumnInfo info = null;
 
-  public Column(Table table, String name, PoemType type,
+  public Column(Table table, String name, SQLPoemType type,
                 DefinitionSource definitionSource) {
     this.table = table;
     this.name = name;
@@ -75,7 +75,7 @@ public abstract class Column implements FieldAttributes {
   // ================
   // 
 
-  void refineType(PoemType refined, DefinitionSource source) {
+  void refineType(SQLPoemType refined, DefinitionSource source) {
     if (type.canBe(refined))
       type = refined;
     else
@@ -271,6 +271,10 @@ public abstract class Column implements FieldAttributes {
   public final boolean getUserCreateable() {
     return !isTroidColumn() &&
            (info == null || info.getUsercreateable().booleanValue());
+  }
+
+  public final SQLPoemType getSQLType() {
+    return type;
   }
 
   public final PoemType getType() {

@@ -48,6 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.melati.template.TemplateEngine;
 import org.melati.util.MelatiWriter;
 
 import org.webmacro.FastWriter;
@@ -57,7 +58,8 @@ import org.webmacro.Broker;
  * Writes to an output object.
  */
 
-public class MelatiFastWriter extends MelatiWriter {
+public class MelatiFastWriter extends MelatiWriter
+    implements MelatiWebmacroWriter {
 
   protected OutputStream outputStream;
   
@@ -90,6 +92,25 @@ public class MelatiFastWriter extends MelatiWriter {
     // so we should start it here
     startFlushing();
     return (FastWriter)out;
+  }
+
+  /**
+   * Return a <code>FastWriter</code> that can be used for a while instead.
+   *
+   * @see #stopUsingFastWriter(FastWriter)
+   */
+  public FastWriter getFastWriter(TemplateEngine engine) {
+    return getPeer();
+  }
+
+  /**
+   * Stop using the given <code>FastWriter</code> obtained from
+   * this object.
+   *
+   * @see #getFastWriter(TemplateEngine)
+   */
+  public void stopUsingFastWriter(FastWriter fw) throws IOException {
+    // Do nothing
   }
 
 }

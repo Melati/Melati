@@ -44,6 +44,8 @@ public class DSD {
     Reader reader = new BufferedReader(new FileReader(file));
     try {
       StreamTokenizer tokens = new StreamTokenizer(reader);
+      tokens.slashSlashComments(true);
+      tokens.slashStarComments(true);
       tokens.nextToken();
       expect(tokens, "package");
 
@@ -61,10 +63,10 @@ public class DSD {
       expect(tokens, ';');
       tokens.nextToken();
 
-      while (tokens.ttype != StreamTokenizer.TT_EOF) {
+      for (int t = 0; tokens.ttype != StreamTokenizer.TT_EOF; ++t) {
         expect(tokens, "table");
         tokens.nextToken();
-        tables.addElement(new TableDef(this, tokens));
+        tables.addElement(new TableDef(this, tokens, t));
       }
     }
     finally {

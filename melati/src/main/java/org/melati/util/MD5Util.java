@@ -58,8 +58,7 @@ public class MD5Util {
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
       byte[] digest = md.digest(in.getBytes());
-      // and URLEncode so that this can be used in cookies etc
-      return URLEncoder.encode(new String(digest));
+      return new String(digest);
     } catch (Exception e) {
       throw new MelatiBugMelatiException("For some reason I couldn't encode the password!", e);
     }

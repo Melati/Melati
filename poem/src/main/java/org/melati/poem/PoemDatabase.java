@@ -19,18 +19,10 @@ public class PoemDatabase extends PoemDatabaseBase {
 
       database.logSQL = true;
 
-      database.inSession(
-          AccessToken.root,
-          new PoemTask() {
-            public void run() {
-              william = database.getUserTable().getUserObject(0);
-            }
-          });
-
       // final Table t = database.getTable("foo");
 
       database.inSession(
-          william,
+          database.getUserTable().administratorUser(),
           new PoemTask() {
             public void run() {
               try {
@@ -40,17 +32,24 @@ public class PoemDatabase extends PoemDatabaseBase {
 		};
 		Table[] tables = { database.getGroupMembershipTable() };
 
-		TailoredQuery q =
-		    new TailoredQuery(
+		CachedTailoredQuery q =
+		    new CachedTailoredQuery(
 			columns, tables,
 			"\"user\" = \"user\".id AND \"group\" = \"group\".id",
 			null);
 
-		for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
-		  FieldSet fs = (FieldSet)ms.nextElement();
-		  System.out.println(fs.get("user_name").getValueString() +
-				     ", " +
-				     fs.get("group_name").getValueString());
+		for (int i = 0; i < 4; ++i) {
+		  if (i == 2)
+		    database.getGroupMembershipTable().create(
+                        new GroupMembershipData(new Integer(0),
+						new Integer(1)));
+
+		  for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
+		    FieldSet fs = (FieldSet)ms.nextElement();
+		    System.out.println(fs.get("user_name").getValueString() +
+				       " is a member of " +
+				       fs.get("group_name").getValueString());
+		  }
 		}
 
 				  
@@ -92,7 +91,7 @@ public class PoemDatabase extends PoemDatabaseBase {
             }
           });
 
-      database.dump();
+      //      database.dump();
     }
     catch (Exception e) {
       try {

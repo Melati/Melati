@@ -44,92 +44,87 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import org.melati.poem.User;
+import java.sql.SQLException;
+
+import org.melati.poem.BooleanPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
-import org.melati.poem.BooleanPoemType;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.User;
+import org.melati.util.StringUtils;
 
- /**
-  *
-  * A driver for the http://www.hsqldb.org/ database.
-  *
-  * Note that HSQLDB uppercases any name that isn't quoted, 
-  * this strictness uncovered a few loopholes,
-  * now all names in Melati should be quoted.
-  *
-  **/
+/**
+ *
+ * A driver for the http://www.hsqldb.org/ database.
+ *
+ * Note that HSQLDB uppercases any name that isn't quoted, 
+ * this strictness uncovered a few loopholes,
+ * now all names in Melati should be quoted.
+ *
+ **/
 
 public class Hsqldb extends AnsiStandard {
 
   public Hsqldb() {
-     setDriverClassName("org.hsqldb.jdbcDriver");
+    setDriverClassName("org.hsqldb.jdbcDriver");
   }
-
 
   public String getSqlDefinition(String sqlTypeName) throws SQLException {
     if (sqlTypeName.equals("BOOLEAN")) {
-          return ("BIT");
+      return ("BIT");
     }
     return super.getSqlDefinition(sqlTypeName);
   }
 
-
   public String getStringSqlDefinition(int size) throws SQLException {
-    if (size < 0) return "VARCHAR(2500)";
+    if (size < 0)
+      return "VARCHAR(2500)";
     return "VARCHAR(" + size + ")";
   }
 
   public PoemType canRepresent(PoemType storage, PoemType type) {
-    if (storage instanceof StringPoemType &&
-        type instanceof StringPoemType) {
+    if (storage instanceof StringPoemType && type instanceof StringPoemType) {
 
-        if (((StringPoemType)storage).getSize() == 2500 &&
-            ((StringPoemType)type).getSize() == -1) {
-           return type;
-        } else {
-           return storage.canRepresent(type);
-        }
+      if (((StringPoemType) storage).getSize() == 2500
+        && ((StringPoemType) type).getSize() == -1) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
     } else {
       return storage.canRepresent(type);
     }
   }
 
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) throws SQLException {
+    ResultSetMetaData rsmd = md.getMetaData();
 
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-     throws SQLException {
-    ResultSetMetaData rsmd= md.getMetaData();
-
-    if( md.getString("TYPE_NAME").equals("BIT") )
-       return new HsqldbBooleanPoemType( md.getInt("NULLABLE")==
-           DatabaseMetaData.columnNullable );
-     else
-       return super.defaultPoemTypeOfColumnMetaData(md);
+    if (md.getString("TYPE_NAME").equals("BIT"))
+      return new HsqldbBooleanPoemType(md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+    else
+      return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
   public static class HsqldbBooleanPoemType extends BooleanPoemType {
-      public HsqldbBooleanPoemType(boolean nullable) {
-          super(nullable);
-      }
+    public HsqldbBooleanPoemType(boolean nullable) {
+      super(nullable);
+    }
 
-      protected Object _getRaw(ResultSet rs, int col) throws SQLException {
-        synchronized (rs) {
-          int i = rs.getInt(col);
-          return rs.wasNull() ? null :
-                   (i==1 ? Boolean.TRUE : Boolean.FALSE);
-        }
+    protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+      synchronized (rs) {
+        int i = rs.getInt(col);
+        return rs.wasNull() ? null : (i == 1 ? Boolean.TRUE : Boolean.FALSE);
       }
+    }
 
-      protected void _setRaw(PreparedStatement ps, int col, Object bool)
-          throws SQLException {
-        ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0 );
-      }
-        
+    protected void _setRaw(PreparedStatement ps, int col, Object bool) throws SQLException {
+      ps.setInt(col, ((Boolean) bool).booleanValue() ? 1 : 0);
+    }
+
   }
 
   /**
@@ -138,27 +133,46 @@ public class Hsqldb extends AnsiStandard {
    * @see MySQL#givesCapabilitySQL
    */
   public String givesCapabilitySQL(User user, String capabilityExpr) {
-    return
-        "SELECT * FROM " + getQuotedName("groupmembership") +
-        " WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
-        "EXISTS ( " +
-        "SELECT " + getQuotedName("groupcapability") + "." + 
-           getQuotedName("group") + " " +
-          "FROM " + getQuotedName("groupcapability") + ", " + 
-                   getQuotedName("groupmembership") + " AS GM2" + 
-          " WHERE " + getQuotedName("groupcapability") + "." + 
-           getQuotedName("group") +" = " + 
-          "GM2." + getQuotedName("group") + 
-          " AND " + getQuotedName("capability") + " = " + capabilityExpr + ")";
+    return "SELECT * FROM "
+      + getQuotedName("groupmembership")
+      + " WHERE "
+      + getQuotedName("user")
+      + " = "
+      + user.troid()
+      + " AND "
+      + "EXISTS ( "
+      + "SELECT "
+      + getQuotedName("groupcapability")
+      + "."
+      + getQuotedName("group")
+      + " "
+      + "FROM "
+      + getQuotedName("groupcapability")
+      + ", "
+      + getQuotedName("groupmembership")
+      + " AS GM2"
+      + " WHERE "
+      + getQuotedName("groupcapability")
+      + "."
+      + getQuotedName("group")
+      + " = "
+      + "GM2."
+      + getQuotedName("group")
+      + " AND "
+      + getQuotedName("capability")
+      + " = "
+      + capabilityExpr
+      + ")";
   }
 
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+      term2 = getQuotedName(StringUtils.quoted(term2, '%'));
+    } else {
+      term2 = StringUtils.quoted(term2, '%');
+    }
+    return term1 + " LIKE " + term2;
+  }
 
 }
-
-
-
-
-
-
-
-

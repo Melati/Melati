@@ -74,6 +74,8 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     TableInfo info = ((Table)this).info;
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());
+    if (info.getDefaultcandelete() == null)
+      info.setDefaultcandelete(getDatabase().administerCapability());
     if (info.getCancreate() == null)
       info.setCancreate(getDatabase().administerCapability());
   }

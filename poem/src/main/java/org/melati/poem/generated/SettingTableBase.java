@@ -94,8 +94,8 @@ public class SettingTableBase extends ValueInfoTable {
             return ((Setting)g).getNameField();
           }
 
-          protected Searchability defaultSearchability() {
-            return Searchability.primary;
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
           }
 
           protected int defaultDisplayOrder() {

@@ -716,6 +716,7 @@ abstract public class Database implements TransactionPool {
    *
    * @see Persistent#getCanRead
    * @see Persistent#getCanWrite
+   * @see Persistent#getCanDelete
    * @see Table#getDefaultCanRead
    * @see Table#getDefaultCanWrite
    * @see User

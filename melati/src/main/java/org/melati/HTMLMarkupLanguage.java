@@ -81,12 +81,13 @@ public class HTMLMarkupLanguage extends MarkupLanguage {
     return StringUtils.escaped(s, '"');
   }
 
+/*
   public String rendered(AccessPoemException e) {
     return "<TABLE><TR><TD BGCOLOR=red>" + 
              "[Access denied to " + rendered(e.token) + "]" +
            "</TD></TR></TABLE>";
   }
-
+*/
   public String rendered(Exception e) {
     return "[" + rendered(e.toString()) + "]";
   }

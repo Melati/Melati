@@ -83,11 +83,11 @@ public abstract class MarkupLanguage {
 
   public abstract String rendered(String s);
 
-  public abstract String rendered(AccessPoemException e);
+  //public abstract String rendered(AccessPoemException e);
 
   public abstract String rendered(Exception e);
 
-  public String rendered(Object o) {
+  public String rendered(Object o) throws WebMacroException {
     if (o instanceof Persistent)
       return rendered(((Persistent)o).displayString(locale, DateFormat.MEDIUM));
     if (o instanceof AccessPoemException)
@@ -98,7 +98,7 @@ public abstract class MarkupLanguage {
     return rendered(o.toString());
   }
 
-  public String rendered(Field field, int style) {
+  public String rendered(Field field, int style) throws WebMacroException {
     try {
       return rendered(field.getCookedString(locale, style));
     }
@@ -112,23 +112,23 @@ public abstract class MarkupLanguage {
     }
   }
 
-  public String renderedShort(Field field) {
+  public String renderedShort(Field field) throws WebMacroException {
     return rendered(field, DateFormat.SHORT);
   }
 
-  public String renderedMedium(Field field) {
+  public String renderedMedium(Field field) throws WebMacroException {
     return rendered(field, DateFormat.MEDIUM);
   }
 
-  public String renderedLong(Field field) {
+  public String renderedLong(Field field) throws WebMacroException {
     return rendered(field, DateFormat.LONG);
   }
 
-  public String renderedFull(Field field) {
+  public String renderedFull(Field field) throws WebMacroException {
     return rendered(field, DateFormat.FULL);
   }
 
-  public String rendered(Field field) {
+  public String rendered(Field field) throws WebMacroException {
     return renderedMedium(field);
   }
 
@@ -139,7 +139,7 @@ public abstract class MarkupLanguage {
    * <TT>rendered</TT> might not.
    */
 
-  public String renderedString(Field field) {
+  public String renderedString(Field field) throws WebMacroException {
     return rendered(field);
   }
 
@@ -216,4 +216,14 @@ public abstract class MarkupLanguage {
 	  webContext.put("nullValue", previousNullValue);
     }
   }
+
+
+  public String rendered(AccessPoemException e) throws WebMacroException {
+
+    String templetName = "AccessPoemException";
+    Template templet =  templetLoader.templet(webContext.getBroker(), this, templetName);
+    webContext.put("denieduser", e.token);
+    return (String)templet.evaluate(webContext);
+  }
+
 }

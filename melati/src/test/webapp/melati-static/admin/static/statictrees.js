@@ -318,9 +318,9 @@ function selectLeaf(index) {
   lastChosen = node;
   if (!node.selected && node.parent.selected) {
     node.parent.selected = false;
+    theTree.display();  
   }
 
-  theTree.display();  
 }
 
 function selectNode(index) {

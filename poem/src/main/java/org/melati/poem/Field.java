@@ -4,8 +4,8 @@ import org.melati.util.*;
 import java.util.*;
 
 public final class Field {
-  private final Object ident;
-  private final Column column;
+  private Object ident;
+  private Column column;
 
   public Field(Object ident, Column column) {
     this.ident = ident;
@@ -74,6 +74,7 @@ public final class Field {
   }
 
   public Enumeration getPossibilities() {
+    final Column column = this.column;
     return
         new MappedEnumeration(getType().possibleIdents()) {
           protected Object mapped(Object ident) {

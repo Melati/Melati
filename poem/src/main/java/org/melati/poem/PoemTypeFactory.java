@@ -6,7 +6,7 @@ package org.melati.poem;
  */
 
 public abstract class PoemTypeFactory {
-  final Integer code;
+  Integer code;		// javac won't let this be final though jikes will
 
   public PoemTypeFactory(int code) {
     this.code = new Integer(code);

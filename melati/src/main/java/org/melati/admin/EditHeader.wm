@@ -55,7 +55,12 @@
 <table cellpadding=0 cellspacing=0 width=100%>
  <tr>
   <td valign="top">
-   <FONT FACE="Arial, Helvetica" size=2><IMG src="/melati-static/admin/file.gif">&nbsp;$table.DisplayName:
+#if ($object.Children != null)
+   <a href=$admin.TreeURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL
+target=admin_edit$object.Table.Name$object.troid()>tree</a>
+#end
+   <IMG src="/melati-static/admin/file.gif">
+   <FONT FACE="Arial, Helvetica" size=2>&nbsp;$table.DisplayName:
 <a href= "$admin.EditURL($object)?returnTarget=$Form.returnTarget&returnURL=$Form.returnURL"
 target=admin_edit$object.Table.Name$object.troid()>
 $ml.rendered($object)</a>

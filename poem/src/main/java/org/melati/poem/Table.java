@@ -2055,7 +2055,7 @@ public class Table {
   /**
    * Ensure tables can be used as hashtable keys.
    * <p>
-   * {@link Persistent#hashcode()} is defined in terms of this
+   * {@link Persistent#hashCode()} is defined in terms of this
    * but not used at the time of writing.
    */
   public final int hashCode() {

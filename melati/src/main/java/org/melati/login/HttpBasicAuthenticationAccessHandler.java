@@ -74,7 +74,7 @@ class HttpAuthorizationMelatiException extends MelatiRuntimeException {
  * The information contained in an HTTP authorization.
  */
 
-class HttpAuthorization {
+final class HttpAuthorization {
   public String type;
   public String username;
   public String password;

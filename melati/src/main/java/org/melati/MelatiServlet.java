@@ -292,17 +292,18 @@ public abstract class MelatiServlet extends MelatiWMServlet {
 
   protected MelatiContext melatiContext(WebContext context)
       throws MelatiException {
+
+    String pathInfo = context.getRequest().getPathInfo();
+    String[] parts = StringUtils.split(pathInfo, '/');
+
+    if (parts.length < 2)
+      // FIXME make this nicer since users will see it if they play around
+      // with URLs
+      throw new PathInfoException(
+	  "The servlet expects to see pathinfo in the form " +
+	  "/db/, /db/method, /db/table/method or /db/table/troid/method");
+
     try {
-      String[] parts = StringUtils.split(context.getRequest().getPathInfo(),
-					 '/');
-
-      if (parts.length < 2)
-	// FIXME make this nicer since users will see it if they play around
-	// with URLs
-	throw new HandlerException(
-            "The servlet expects to see pathinfo in the form " +
-	    "/db/, /db/method, /db/table/method or /db/table/troid/method");
-
       MelatiContext it = new MelatiContext();
 
       it.method = parts[parts.length - 1];
@@ -321,7 +322,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
       return it;
     }
     catch (Exception e) {
-      throw new PathInfoException(null);
+      throw new PathInfoException(pathInfo, e);
     }
   }
 

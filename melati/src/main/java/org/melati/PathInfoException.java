@@ -5,8 +5,13 @@ import org.melati.util.*;
 public class PathInfoException extends MelatiException {
   public String pathInfo;
 
-  public PathInfoException(String pathInfo) {
+  public PathInfoException(String pathInfo, Exception problem) {
+    super(problem);
     this.pathInfo = pathInfo;
+  }
+
+  public PathInfoException(String pathInfo) {
+    this(pathInfo, null);
   }
 
   public String getMessage() {

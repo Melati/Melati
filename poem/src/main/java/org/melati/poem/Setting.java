@@ -66,8 +66,12 @@ public class Setting extends SettingBase {
   }
 
   public PoemType getType() {
-    if (poemType == null)
+    if (poemType == null) {
+      PoemTypeFactory f = getTypefactory();
+      if (f == null)
+	return StringPoemType.nullable;
       poemType = getTypefactory().typeOf(getDatabase(), toTypeParameter());
+    }
     return poemType;
   }
 
@@ -175,7 +179,9 @@ public class Setting extends SettingBase {
       valueAttributes =
 	  new BaseFieldAttributes(
               c.getName(), c.getDisplayName(), c.getDescription(), getType(),
-              width.intValue(), height.intValue(), renderinfo);
+	      width == null ? 12 : width.intValue(),
+	      height == null ? 1 : height.intValue(),
+	      renderinfo);
     }
 
     return valueAttributes;

@@ -1063,8 +1063,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *            how referential integrity is to be maintained for each column
    *            that can refer to the object being deleted.  May be
    *            <TT>null</TT> to mean `empty'.  If a column isn't mentioned,
-   *            the default behaviour for the column is used.  (The default
-   *            default is {@link StandardIntegrityFix#prevent}.)
+   *            the default behaviour for the column is used.  (The default 
+   *            is {@link StandardIntegrityFix#prevent}.)
    *
    * @todo Reassure list that issues around postWrite are fixed.
    */

@@ -48,13 +48,19 @@
 package org.melati.util;
 
 public class UnexpectedExceptionException extends MelatiRuntimeException {
-  public UnexpectedExceptionException(Exception exception) {
+  public String context;
+
+  public UnexpectedExceptionException(String context, Exception exception) {
     super(exception);
+    this.context = context;
+  }
+
+  public UnexpectedExceptionException(Exception exception) {
+    this("in a context where it was very unexpected", exception);
   }
 
   public String getMessage() {
     return
-        "An exception occurred in a context where it was very unexpected:\n" +
-        subException;
+        "An exception occurred " + context + ":\n" + subException.getMessage();
   }
 }

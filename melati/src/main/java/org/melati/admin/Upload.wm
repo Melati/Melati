@@ -48,6 +48,7 @@
 <html>
 <head>
 <title>Upload a file</title>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 </head>
 
 <body bgcolor='#ffffff' onLoad="window.focus()">
@@ -56,9 +57,10 @@
 <b>File to upload:</b>
 <br>
 <input name="file" type="file" size=30 onchange="window.focus()">
+<SCRIPT language="JavaScript1.2">add_rule("file", "File to upload", !false)</SCRIPT>
 <input name="field" type="hidden" value="$field">
 <p>
-<input type="submit" value=" Upload ">
+<input type="submit" value=" Upload " ONCLICK="return validate(this.form);">
 <input type="button" value=" Cancel " onclick="window.close()">
 </div>
 </form>

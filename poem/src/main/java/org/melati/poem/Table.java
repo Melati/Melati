@@ -1545,6 +1545,14 @@ public class Table implements Selectable {
     }
   }
 
+  /**
+   * @return the number records in this table.
+   */ 
+  public int count()
+      throws SQLPoemException {
+    return count(null);
+  }
+
 
   /**
    * @param whereClause the SQL criteria

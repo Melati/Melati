@@ -92,9 +92,9 @@ public class DatePoemType extends AtomPoemType {
    */
   protected Object _rawOfString(String raw) {
     if (raw.length() == 8)
-      return Date.valueOf(raw.substring(5,8)+ "-" + 
-                          raw.substring(3,4) + "-" +
-                          raw.substring(1,2));
+      return Date.valueOf(raw.substring(4,8)+ "-" + 
+                          raw.substring(2,4) + "-" +
+                          raw.substring(0,2));
     return Date.valueOf(raw);
   }
 

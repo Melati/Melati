@@ -74,8 +74,6 @@ public abstract class FieldQualifier {
       it = new DeletedFieldQualifier(tokens);
     else if (kind.equals("displayorderpriority"))
       it = new DisplayOrderPriorityFieldQualifier(tokens);
-    else if (kind.equals("sortdescending"))
-      it = new SortDescendingFieldQualifier(tokens);
     else if (kind.equals("uneditable"))
       it = new UneditableFieldQualifier(tokens);
     else if (kind.equals("uncreateable"))

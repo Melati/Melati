@@ -144,9 +144,10 @@ public class Setting extends SettingBase {
     if (cooked == null)
       return null;
     else if (cooked instanceof Integer)
-      return(Integer)cooked;
+      return (Integer)cooked;
     else
-      throw new SettingTypeMismatchException(getName_unsafe(), getTypefactory(), "Integer");
+      throw new SettingTypeMismatchException(getName_unsafe(),
+                                             getTypefactory(), "Integer");
   }
 
   public String getStringCooked() {
@@ -154,9 +155,21 @@ public class Setting extends SettingBase {
     if (cooked == null)
       return null;
     else if (cooked instanceof String)
-      return(String)cooked;
+      return (String)cooked;
     else
-      throw new SettingTypeMismatchException(getName_unsafe(), getTypefactory(), "String");
+      throw new SettingTypeMismatchException(getName_unsafe(),
+                                             getTypefactory(), "String");
+  }
+
+  public Boolean getBooleanCooked() {
+    Object cooked = getCooked();
+    if (cooked == null)
+      return null;
+    else if (cooked instanceof Boolean)
+      return (Boolean)cooked;
+    else
+      throw new SettingTypeMismatchException(getName_unsafe(),
+                                             getTypefactory(), "Boolean");
   }
 
   private FieldAttributes valueAttributes() {

@@ -16,7 +16,6 @@ public class TableInfoTableBase extends Table {
   private Column col_displayorder = null;
   private Column col_defaultcanread = null;
   private Column col_defaultcanwrite = null;
-  private Column col_defaultcandelete = null;
   private Column col_cancreate = null;
   private Column col_cachelimit = null;
   private Column col_seqcached = null;
@@ -433,63 +432,6 @@ public class TableInfoTableBase extends Table {
           }
         });
 
-    defineColumn(col_defaultcandelete =
-        new Column(this, "defaultcandelete", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getCooked(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((TableInfo)g).getDefaultcandelete();
-          }
-
-          public void setCooked(Persistent g, Object cooked)
-              throws AccessPoemException, ValidationPoemException {
-            ((TableInfo)g).setDefaultcandelete((Capability)cooked);
-          }
-
-          public Field asField(Persistent g) {
-            return ((TableInfo)g).getDefaultcandeleteField();
-          }
-
-          protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.record;
-          }
-
-          protected Searchability defaultSearchability() {
-            return Searchability.no;
-          }
-
-          protected String defaultDisplayName() {
-            return "Default `delete' capability";
-          }
-
-          protected int defaultDisplayOrder() {
-            return 7;
-          }
-
-          protected String defaultDescription() {
-            return "The capability required, by default, for deleting the table's records";
-          }
-
-          public Object getRaw_unsafe(Persistent g)
-              throws AccessPoemException {
-            return ((TableInfo)g).getDefaultcandelete_unsafe();
-          }
-
-          public void setRaw_unsafe(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((TableInfo)g).setDefaultcandelete_unsafe((Integer)raw);
-          }
-
-          public Object getRaw(Persistent g)
-              throws AccessPoemException {
-            return ((TableInfo)g).getDefaultcandeleteTroid();
-          }
-
-          public void setRaw(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((TableInfo)g).setDefaultcandeleteTroid((Integer)raw);
-          }
-        });
-
     defineColumn(col_cancreate =
         new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -519,7 +461,7 @@ public class TableInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 8;
+            return 7;
           }
 
           protected String defaultDescription() {
@@ -576,7 +518,7 @@ public class TableInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 9;
+            return 8;
           }
 
           protected String defaultDescription() {
@@ -633,7 +575,7 @@ public class TableInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 10;
+            return 9;
           }
 
           protected String defaultDescription() {
@@ -686,7 +628,7 @@ public class TableInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 11;
+            return 10;
           }
 
           protected String defaultDescription() {
@@ -741,10 +683,6 @@ public class TableInfoTableBase extends Table {
 
   public final Column getDefaultcanwriteColumn() {
     return col_defaultcanwrite;
-  }
-
-  public final Column getDefaultcandeleteColumn() {
-    return col_defaultcandelete;
   }
 
   public final Column getCancreateColumn() {

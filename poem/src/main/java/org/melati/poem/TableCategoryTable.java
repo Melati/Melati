@@ -19,8 +19,6 @@ public class TableCategoryTable extends TableCategoryTableBase {
   
   protected void postInitialise() {
     super.postInitialise();
-    if (getTableInfo().getDefaultcandelete() == null)
-      getTableInfo().setDefaultcandelete(getDatabase().administerCapability());
     if (getTableInfo().getDefaultcanwrite() == null)
       getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
     if (getTableInfo().getCancreate() == null)

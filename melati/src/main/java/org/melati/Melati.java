@@ -141,7 +141,7 @@ public class Melati {
    * access to servlet related stuff (eg sessions)
    *
    * @param config - the MelatiConfig
-   * @param output - the Writer that all output is written to
+   * @param writer - the Writer that all output is written to
    */
 
   public Melati(MelatiConfig config, MelatiWriter writer) {
@@ -519,6 +519,9 @@ public class Melati {
     buffered = false;
   }
 
+  /**
+   * Turn on flushing of the output stream.
+   */
   public void setFlushingOn() throws IOException {
     if (gotwriter)
       throw new IOException("You have already requested a Writer, " +
@@ -539,6 +542,9 @@ public class Melati {
     return gotwriter;
   }
 
+  /**
+   * @return the encoding in use
+   */
   public String getEncoding() throws IOException {
     if (encoding == null)
       encoding = response == null ? DEFAULT_ENCODING :
@@ -620,7 +626,7 @@ public class Melati {
   }
 
   /**
-   * get a PassbackVariableExceptionHandler for the TemplateEngine.
+   * Get a PassbackVariableExceptionHandler for the TemplateEngine.
    * This allows an Exception to be handled inline during Template expansion
    * for example, if you would like to render AccessPoemExceptions to a
    * String to be displayed on the page that is returned to the client.
@@ -636,6 +642,12 @@ public class Melati {
     return templateEngine.getPassbackVariableExceptionHandler();
   }
 
+  /**
+   * Set the <code>VariableExceptionHandler</code> to the 
+   * passed in parameter.
+   * 
+   * @param veh a <code>VariableExceptionHandler</code>.
+   */
   public void setVariableExceptionHandler(Object veh) {
     templateContext.setVariableExceptionHandler(veh);
   }

@@ -47,6 +47,8 @@ package org.melati.admin;
 
 import java.net.URLEncoder;
 
+import java.io.File;
+
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -101,7 +103,10 @@ public class Admin extends TemplateServlet {
   }
 
   protected final String adminTemplate(TemplateContext context, String name) {
-    return ("admin/" + name);
+    return "org" + File.separatorChar + 
+           "melati" + File.separatorChar + 
+           "admin" + File.separatorChar + 
+           name;
   }
 
   // return the 'Main' admin frame

@@ -424,7 +424,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     (searchability = no);
 
   Boolean sortdescending
-    (displayname = "Sort Descending?")
+    (displayname = "Sort Descending")
     (description = "Whether when sorting by this column, the sort order should be reversed")
     (nullable)
     (displaylevel = record)

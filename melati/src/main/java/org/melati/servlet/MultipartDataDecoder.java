@@ -1,4 +1,4 @@
-/*
+/**
  * $Source$
  * $Revision$
  *
@@ -205,7 +205,7 @@ public class MultipartDataDecoder {
     field.setContentType(extractField(header, "content-type:", ";"));
   }
 
-  /**
+ /**
    * extract a String from header bounded by lBound and either: rBound or a "\r\n"
    * or the end of the String
    */
@@ -238,7 +238,7 @@ public class MultipartDataDecoder {
        boundary = "--" + boundary;
     } else {
 
-/*
+/**
        // HotJava does not send boundary within CONTENT_TYPE header:
        // and as I seen HotJava have errors with sending binary data
        int begin = 0, end = 0;
@@ -255,12 +255,16 @@ public class MultipartDataDecoder {
          throw new IOException("Boundary not found");
        }
 */
-       throw new IOException("Boundary not found in header");
-     }
+      throw new IOException("Boundary not found in header");
+    }
      return boundary;
   }
 
 }
 
+
+
     
+
+
 

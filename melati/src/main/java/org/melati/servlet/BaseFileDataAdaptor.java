@@ -68,7 +68,7 @@ abstract public class BaseFileDataAdaptor implements FormDataAdaptor
   protected String url = null;
 
   /** Information about the uploaded file */
-  MultipartFormField field = null;
+  public MultipartFormField field = null;
 
   /**
    * @return The file in which to save the data

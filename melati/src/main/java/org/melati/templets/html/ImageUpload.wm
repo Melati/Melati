@@ -42,7 +42,6 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
             COLS=$field.Width
@@ -71,9 +70,9 @@ function upload_$ml.escaped($field.Name) () {
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }
 function update_$ml.escaped($field.Name) (url) {
-  document.images.$ml.escaped($field.Name)\.src = url;
-  document.forms[0].field_$ml.rendered($field.Name);.value = url;
-  uploadwin_$ml.escaped($field.Name);.close();
+  document.images.$(ml.escaped($field.Name)).src = url;
+  document.forms[0].field_$(ml.rendered($field.Name)).value = url;
+  uploadwin_$(ml.escaped($field.Name)).close();
 }
 </SCRIPT>
 

@@ -56,9 +56,9 @@ import org.melati.poem.*;
 /**
  * Save uploaded files in a byte[] in memory
  */
-public class MemoryDataAdaptorFactory implements FormDataAdaptorFactory
+public class MemoryDataAdaptorFactory extends FormDataAdaptorFactory
 {
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
+  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new MemoryDataAdaptor();
   }
 }

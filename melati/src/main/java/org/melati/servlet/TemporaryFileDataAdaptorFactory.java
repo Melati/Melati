@@ -52,9 +52,9 @@ import org.melati.*;
  * the field which was upload
  */
 
-public class TemporaryFileDataAdaptorFactory implements FormDataAdaptorFactory {
+public class TemporaryFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
+  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new TemporaryFileDataAdaptor();
   }
 }

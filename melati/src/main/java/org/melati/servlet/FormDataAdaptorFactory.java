@@ -45,15 +45,44 @@
 
 package org.melati.servlet;
 
-import java.io.*;
+import java.io.IOException;
+import java.util.Hashtable;
 
-import org.melati.*;
+import org.melati.Melati;
+import org.melati.poem.AccessToken;
+import org.melati.poem.PoemTask;
 
 /**
  * A way to implement policies about how to save uploaded files
  */
-public interface FormDataAdaptorFactory
+public abstract class FormDataAdaptorFactory
 {
+  
+  /**
+   * we need to establish the user and set up any request specific melati stuff
+   * so that we can verify the user has permission for this task, and use
+   * melati Table / Objects to manipulate what the FormDataAdaptor does
+   */
+  
+  public FormDataAdaptor get(final Melati melati, final MultipartFormField field) {
+
+    final Hashtable holder = new Hashtable();
+    if (melati.getDatabase() == null) {
+      holder.put("hereiam",getIt(melati,field));
+    } else {
+      melati.getDatabase().inSession (
+        AccessToken.root, new PoemTask() {
+          public void run () {
+            melati.getConfig().getAccessHandler().establishUser(melati);
+            melati.loadTableAndObject();
+            holder.put("hereiam",getIt(melati,field));
+          }
+        }
+      );
+    }
+    return (FormDataAdaptor)holder.get("hereiam");
+  }
+  
   /**
    * Implements different policies for saving uploaded files depending
    * on the details of the file and the state of the application
@@ -62,11 +91,6 @@ public interface FormDataAdaptorFactory
    * @param     field   details of the uploaded file
    * @return    an adaptor which will save the contents of the file
    */
-  public FormDataAdaptor get(Melati melati, MultipartFormField field);
+  public abstract FormDataAdaptor getIt(Melati melati, MultipartFormField field);
 }
-
-
-
-
-
 

@@ -42,7 +42,6 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
 	    COLS=$field.Width
@@ -54,7 +53,6 @@
 <br>
 <a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
 
-
 <SCRIPT LANGUAGE=JavaScript1.2>
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
@@ -64,13 +62,14 @@
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
-    = window.open('$melati.AdminUtils.UploadURL($field)',
+    = window.open('$melati.AdminUtils.UploadURL($melati.Object,$field)',
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }
+
 function update_$ml.escaped($field.Name) (url) {
-  document.forms[0].field_$ml.rendered($field.Name);.value = url;
-  uploadwin_$ml.escaped($field.Name);.close();
+  document.forms[0].field_$(ml.rendered($field.Name)).value = url;
+  uploadwin_$(ml.escaped($field.Name)).close();
 }
 </SCRIPT>
 

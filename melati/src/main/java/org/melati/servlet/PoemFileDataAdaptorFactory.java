@@ -56,35 +56,19 @@ import org.melati.poem.*;
  * values of <code>UploadDir</code> and <code>UploadURL</code>
  * in the Setting table of the current Database
  */
-public class PoemFileDataAdaptorFactory implements FormDataAdaptorFactory
+public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory
 {
   final static private Hashtable dirByDatabase = new Hashtable();
   final static private Hashtable urlByDatabase = new Hashtable();
 
-  synchronized public FormDataAdaptor get(final Melati melati,
-                                          MultipartFormField field) {
+  synchronized public FormDataAdaptor getIt(Melati melati,
+                                            MultipartFormField field) {
 
-    final Database db = melati.getDatabase();
-    String uploadDir = (String)dirByDatabase.get(db);
-    String uploadURL = (String)urlByDatabase.get(db);
-
-    if (uploadDir == null && uploadURL == null) {
-
-      melati.getDatabase().inSession(AccessToken.root,
-        new PoemTask() {
-          public void run() throws PoemException {
-            dirByDatabase.put(db, (String)db.getSettingTable().
-                                    getOrDie("UploadDir"));
-            urlByDatabase.put(db, (String)db.getSettingTable().
-                                    getOrDie("UploadURL"));
-          }
-          public String toString() {
-            return "Getting UploadDir and UploadURL settings";
-          }
-        });
-      uploadDir = (String)dirByDatabase.get(melati.getDatabase());
-      uploadURL = (String)urlByDatabase.get(melati.getDatabase());
-    }
+    Database db = melati.getDatabase();
+    String uploadDir = (String)db.getSettingTable().
+                                  getOrDie("UploadDir");
+    String uploadURL = (String)db.getSettingTable().
+                                  getOrDie("UploadURL");
 
     return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }

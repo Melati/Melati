@@ -53,7 +53,7 @@ import org.melati.poem.*;
  * Save the uploaded file to disk in a particular directory
  * which has a particular URL
  */
-public class DefaultFileDataAdaptorFactory implements FormDataAdaptorFactory
+public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory
 {
 
   /* The directory to save files in */
@@ -77,7 +77,7 @@ public class DefaultFileDataAdaptorFactory implements FormDataAdaptorFactory
     uploadURL = url;
   }
 
-  public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
+  public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }
 }

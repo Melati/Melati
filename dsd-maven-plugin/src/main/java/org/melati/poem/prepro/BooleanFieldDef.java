@@ -61,8 +61,8 @@ public class BooleanFieldDef extends AtomFieldDef {
                          Vector qualifiers) throws IllegalityException {
     super(table, name, "Boolean", displayOrder, qualifiers);
     if (isDeletedColumn)
-      table.imports.put("org.melati.poem.DeletedPoemType", 
-                                   "table");
+      table.addImport("org.melati.poem.DeletedPoemType", 
+                      "table");
     else
       table.addImport("org.melati.poem.BooleanPoemType", 
                       "table");

@@ -73,6 +73,8 @@ public interface Dbms {
 
   String getStringSqlDefinition(int size) throws SQLException;
 
+  String getLongSqlDefinition();
+
   String getBinarySqlDefinition(int size) throws SQLException;
   
   String getFixedPtSqlDefinition(int scale, int precision) throws SQLException;

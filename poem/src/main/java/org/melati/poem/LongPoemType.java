@@ -51,6 +51,7 @@ import java.sql.Types;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import org.melati.util.LongEnumeration;
+import org.melati.poem.dbms.Dbms;
 
 /**
  * Normal longs: <code>INT8</code>.
@@ -109,6 +110,11 @@ public class LongPoemType extends AtomPoemType {
       throw new ParsingPoemException(this, rawString, e);
     }
   }
+
+  protected String _sqlDefinition(Dbms dbms) {
+      return dbms.getLongSqlDefinition();
+  }
+
 
   protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof LongPoemType;

@@ -186,6 +186,10 @@ public class AnsiStandard implements Dbms {
     return "VARCHAR(" + size + ")";
   }
 
+  public String getLongSqlDefinition() {
+    return "INT8";
+  }
+
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
       throw new SQLException(

@@ -85,6 +85,10 @@ public class Hsqldb extends AnsiStandard {
     return "VARCHAR(" + size + ")";
   }
 
+  public String getLongSqlDefinition() {
+    return "BIGINT";
+  }
+
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
 

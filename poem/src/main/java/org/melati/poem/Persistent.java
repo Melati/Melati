@@ -73,12 +73,12 @@ public class Persistent {
   }
 
   /**
-   * This isn't public because we don't in principle want people to know even
-   * the troid of an object they aren't allowed to read.  However, I think this
-   * information may leak out elsewhere.
+   * FIXME This shouldn't be public because we don't in principle want people
+   * to know even the troid of an object they aren't allowed to read.  However,
+   * I think this information may leak out elsewhere.
    */
 
-  final Integer troid() {
+  public final Integer troid() {
     return versionedRow.getTroid();
   }
 

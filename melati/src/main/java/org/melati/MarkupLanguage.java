@@ -23,6 +23,10 @@ public abstract class MarkupLanguage {
 
   public abstract String rendered(String s);
 
+  public String rendered(Field field) {
+    return rendered(field.getValueString());
+  }
+
   // 
   // =========
   //  Widgets

@@ -9,7 +9,7 @@
 <body bgcolor="white">
 <blockquote> 
   <h1 align="center">The Melati Project</h1>
-  <h4 align="center"> last updated 03/07/2001 - timj@paneris.org</h4>
+  <h4 align="center"> last change $Date$, $Author$ @melati.org</h4>
   <!-- -----------------------------------------------------
 
         This document is fairly readable as text, but looks 
@@ -464,6 +464,19 @@ javac `find -name '*.java'`
   </p>
 
   <p>
+    If you change <A HREF=poem/Poem.dsd ><TT>Poem.dsd</TT></A> (you
+    probably shouldn't), don't forget to rerun the <A
+    HREF=poem/prepro/doc/UserGuide.html >DSD preprocessor</A>:
+  </p>
+
+  <blockquote><pre>
+cd src/org/melati/poem
+java org.melati.poem.prepro.DSD Poem.dsd
+cd src/org/melati
+javac `find -name '*.java'`
+  </pre></blockquote>
+
+  <p>
     <A NAME=compdeps>The full list of compilation dependencies</A> is
   </p>
 
@@ -584,4 +597,3 @@ $ cvs update
 
 </body>
 </html>
-

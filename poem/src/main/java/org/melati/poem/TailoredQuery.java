@@ -55,7 +55,21 @@ import java.sql.*;
  * <TT>Table.selection</TT> on the one hand, and the low-level
  * <TT>ResultSet</TT> on the other.
  *
- * <P>
+ * <p><quote>
+ * 
+ * TailoredQuery is specifically for when you want a few fields back
+ * (possibly joined from several tables) rather than whole objects.
+ * Suppose you want to do
+ * 
+ *   SELECT a.foo, b.bar FROM a, b WHERE a.something AND b.id = a.b
+ * 
+ * There is nothing to stop you doing this with a good old ResultSet =
+ * Database.sqlQuery("SELECT ...").  However if you want to get the same
+ * effect, without forgoing the nice features offered by
+ * POEM---e.g. access control, rich metadata that makes rendering
+ * trivial---you can use a TailoredQuery.
+ *
+ * </quote><P>
  *
  * If Postgresql's <TT>ResultSetMetaData</TT> supported <TT>getTableName</TT>
  * even approximately, this would all be "even simpler" to use and somewhat

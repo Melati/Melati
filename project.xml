@@ -37,9 +37,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <repository>
     <connection>
-      scm:cvs:pserver:anon@melati.org:/usr/cvsroot:melati
+      scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
     </connection>
-    <developerConnection>scm:cvs:ext:anon@melati.org:/usr/cvsroot:melati</developerConnection>
+    <developerConnection>scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati</developerConnection>
 
     <url>
       http://melati.org/cgi-bin/cvsweb.cgi/melati/

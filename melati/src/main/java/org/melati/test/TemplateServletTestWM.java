@@ -45,11 +45,14 @@
 
 package org.melati.test;
 
+import java.io.StringWriter;
+
 import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
 import org.melati.template.Template;
+import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 
 /**
@@ -66,8 +69,31 @@ public class TemplateServletTestWM extends TemplateServlet {
   throws Exception {
     
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
-    if (melati.getMethod() != null && melati.getMethod().equals("Redirect")) 
+    if (melati.getMethod() != null) {
+      if (melati.getMethod().equals("Redirect"))
         melati.getResponse().sendRedirect("http://www.melati.org");
+      // test melati in standalone mode (outside of using the servlet API)
+      // by expanding a template
+      // to a string and then include it within this template
+      // you would not normally do this this way, a much better approach would
+      // be to use templets
+      if (melati.getMethod().equals("StandAlone")) {
+        StringWriter out = new StringWriter();
+        // construct a Melati with a StringWriter instead of a servlet
+        // request and response
+        Melati melati2 = new Melati(melati.getConfig(),out);
+        TemplateContext templateContext2 = 
+                        templateEngine.getTemplateContext(melati2);
+        templateContext2.put("melati",melati2);
+        templateEngine.expandTemplate(melati2.getWriter(), 
+                                      "test/StandAlone.wm",
+                                      templateContext2);
+        // write to the StringWriter
+        melati2.write();
+        // finally, put what we have into the original templateContext
+        templateContext.put("StandAlone",out);
+      }
+    }      
     return("test/TemplateServletTestWM");
   }
 

@@ -47,6 +47,12 @@ You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
+You can test Melati in 'Stand Alone' mode by clicking <a href=StandAlone>StandAlone</a>.<br>
+
+#if ($melati.Method == "StandAlone") #begin
+$StandAlone
+#end
+
 <h3>Your Database has the following tables:</h3>
 #foreach $tab in $melati.Database.DisplayTables #begin
   $tab.DisplayName<br>

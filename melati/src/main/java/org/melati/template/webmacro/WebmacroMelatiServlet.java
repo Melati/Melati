@@ -47,6 +47,7 @@
 package org.melati.template.webmacro;
 
 import java.io.IOException;
+import javax.servlet.ServletException;
 
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;

@@ -46,6 +46,7 @@
 package org.melati;
 
 import java.io.CharArrayWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.io.IOException;
 
@@ -92,15 +93,29 @@ public class Melati {
   private boolean stopping = true;
   // the flusher send output to the client ever two seconds
   private Flusher flusher;
-  // what the servlet's output is buffered into
-  private CharArrayWriter output = new CharArrayWriter (2000);
+  // what we write to
+  private Writer output = null;
+  // the output is buffered
+  private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
 
-  public Melati (MelatiConfig config, HttpServletRequest request,
-  HttpServletResponse response) {
-
+  /* 
+   *   construct a melati for use with servlets
+   */
+  public Melati(MelatiConfig config, 
+                HttpServletRequest request,
+                HttpServletResponse response) {
     this.request = request;
     this.response = response;
     this.config = config;
+  }
+
+  /* 
+   *   construct a melati for use in 'stand alone' mode
+   *   NB: you will not have access to servlet related stuff (eg sessions)
+   */
+  public Melati(MelatiConfig config, Writer output) {
+    this.config = config;
+    this.output = output;
   }
 
   public HttpServletRequest getRequest () {
@@ -250,21 +265,25 @@ public class Melati {
     return gotwriter;
   }
 
-  // gets a writer
+  // gets the writer
   // if we are buffering and stopping, this writer will be a ThrowingPrintWriter
-  public Writer getWriter () throws IOException {
-    gotwriter = true;
+  public Writer getWriter() throws IOException {
+    // if we don't yet have a writer, get it from the servlet resonse
+    if (output == null && response != null) output = response.getWriter();
+    // if we have it, remember that fact
+    if (output != null) gotwriter = true;
     if (buffered) {
-      return output;
+      return bufferedOutput;
     } else {
       if (stopping) {
-        Writer out = new ThrowingPrintWriter (getResponse ().getWriter (),
-        "servlet response stream");
-        flusher = new Flusher (out);
-        flusher.start ();
-        return out;
+        Writer throwingOutput = 
+               new ThrowingPrintWriter(new PrintWriter(output),
+                                       "servlet response stream");
+        flusher = new Flusher(throwingOutput);
+        flusher.start();
+        return throwingOutput;
       } else {
-        return getResponse ().getWriter ();
+        return output;
       }
     }
   }
@@ -274,8 +293,8 @@ public class Melati {
   public void write () throws IOException {
     // only write stuff if we have previously got a writer
     if (gotwriter) {
-      if (buffered) output.writeTo (getResponse ().getWriter ());
-      if (flusher != null) flusher.setStopTask (true);
+      if (buffered) bufferedOutput.writeTo(output);
+      if (flusher != null) flusher.setStopTask(true);
     }
   }
 

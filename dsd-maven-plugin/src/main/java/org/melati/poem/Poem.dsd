@@ -337,7 +337,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
       (displaylevel = detail) (searchability = no);
 
   DisplayLevel displaylevel
-      (displaylevel = detail) (searchability = no);
+      (displaylevel = record) (searchability = no);
 
   Searchability searchability
       (displaylevel = detail) (searchability = no);

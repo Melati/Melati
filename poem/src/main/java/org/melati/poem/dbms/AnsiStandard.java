@@ -46,10 +46,34 @@
 
 package org.melati.poem.dbms;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.poem.*;
-import org.melati.util.*;
+import java.util.Properties;
+import java.sql.Types;
+import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Driver;
+import org.melati.poem.Table;
+import org.melati.poem.Column;
+import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.UnsupportedTypePoemException;
+import org.melati.poem.ConnectionFailurePoemException;
+import org.melati.poem.SQLPoemException;
+import org.melati.poem.UnexpectedExceptionPoemException;
+import org.melati.poem.User;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.TimestampPoemType;
+import org.melati.poem.DatePoemType;
+import org.melati.poem.BooleanPoemType;
+import org.melati.util.StringUtils;
 
  /**
   * An SQL 92 compliant Database Management System.
@@ -76,6 +100,10 @@ public class AnsiStandard implements Dbms {
   }
   protected synchronized boolean getDriverLoaded() {
     return driverLoaded;
+  }
+
+  public boolean canDropColumns(Connection con) throws SQLException {
+    return false;
   }
 
   protected synchronized void loadDriver() {
@@ -276,8 +304,8 @@ public class AnsiStandard implements Dbms {
     return
         "SELECT * FROM " + getQuotedName("groupmembership") +
         " WHERE " + getQuotedName("user") + " = " + user.troid() + " AND " +
-	"EXISTS ( " +
-	  "SELECT " + getQuotedName("groupcapability") + "." + 
+        "EXISTS ( " +
+        "SELECT " + getQuotedName("groupcapability") + "." + 
            getQuotedName("group") + " " +
           "FROM " + getQuotedName("groupcapability") + ", " + 
                    getQuotedName("groupmembership") +

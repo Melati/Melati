@@ -441,6 +441,12 @@ public abstract class Column implements FieldAttributes {
     };
   }
 
+  /**
+   * Get rows where column equal to value.
+   * 
+   * @param raw a raw value such as a String
+   * @return an enumeration of persistents
+   */
   public Enumeration selectionWhereEq(Object raw) {
     return new ResultSetEnumeration(resultSetWhereEq(raw)) {
       public Object mapped(ResultSet rs) throws SQLException {

@@ -41,4 +41,24 @@ public class SettingTable extends SettingTableBase {
       }
     }
   }
+
+  public static class UnsetException extends PoemException {
+    public String name;
+
+    public UnsetException(String name) {
+      this.name = name;
+    }
+
+    public String getMessage() {
+      return "The application's `" + name + "' parameter has not been set";
+      // FIXME include an URL
+    }
+  }
+
+  public String getOrDie(String name) {
+    String it = get(name);
+    if (it == null)
+      throw new UnsetException(name);
+    return it;
+  }
 }

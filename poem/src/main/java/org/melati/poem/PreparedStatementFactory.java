@@ -45,9 +45,11 @@
 
 package org.melati.poem;
 
-import java.util.*;
-import java.sql.*;
-import org.melati.util.*;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import org.melati.util.CachedIndexFactory;
 
 /**
  * Maintains a cache of <code>PreparedStatement</code>s for an SQL
@@ -63,11 +65,10 @@ import org.melati.util.*;
  * The supertype dictates that connections can be indentified
  * by index, but this is slightly complicated and the additional
  * methods rely on transactions instead.
- * <p>
- * (Please review this description and delete this line. JimW.)
  *
- * @author williamc@paneris.org (not javadocs)
+ * @author williamc@paneris.org
  */
+
 public class PreparedStatementFactory extends CachedIndexFactory {
 
   private Database database;
@@ -86,17 +87,14 @@ public class PreparedStatementFactory extends CachedIndexFactory {
    * <p>
    * The index is zero for the commited connection and the
    * transaction index plus 1 for current transactions.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
    */
   protected Object reallyGet(int index) {
     try {
       Connection c =
-	index == 0 ? database.getCommittedConnection()
-	           : database.poemTransaction(index - 1).getConnection();
+        index == 0 ? database.getCommittedConnection()
+                   : database.poemTransaction(index - 1).getConnection();
       return c.prepareStatement(sql);
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new SQLPoemException(e);
     }
   }
@@ -112,7 +110,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
 
   public PreparedStatement preparedStatement(PoemTransaction transaction) {
     return (PreparedStatement)get(transaction == null ?
-				    0 : transaction.index + 1);
+                                          0 : transaction.index + 1);
   }
 
   public final PreparedStatement preparedStatement() {
@@ -129,8 +127,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
       ResultSet rs = statement.executeQuery();
       token.toTidy().add(rs);
       return rs;
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
       throw new PreparedSQLSeriousPoemException(statement, e);
     }
   }

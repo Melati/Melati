@@ -146,24 +146,24 @@ public abstract class TemplateServlet extends PoemServlet {
    * to allow the application developer to specify their own template
    * extensions.
    * <p>
-   * FIXME In some subtypes this does nothing (strangely) and in others
-   * it adds the template engine extension as here, but only if there
-   * is no ".". We need a contract. Checking for a "." assumes that
-   * if there is one then we have the full filename. I think this is
+   * Cope with heterogenous naming convention :)
+   * Checking for a "." assumes that if there is one then we have 
+   * the full filename. I think this is
    * reasonable and unlikely to break anything that is not already
-   * stupid. Can copy code in
-   * org.paneris.ftc.servlet.FtcMelatiServlet.addExtension()
-   * JimW.
+   * stupid. 
    */
 
   protected String addExtension(String templateName) {
-    return templateName + templateEngine.templateExtension();
+    int index = templateName.indexOf(".");
+    if (index == -1) 
+      templateName = templateName + templateEngine.templateExtension();
+    return templateName;
   }
 
   
  /**
-  * a useful utility method that gets a value from the Form.  It will return
-  * null if the value is "" or not present
+  * A useful utility method that gets a value from the Form.  
+  * It will return null if the value is "" or not present.
   *
   * @param melati - the melati for this request
   * @param field - the name of the field to get

@@ -44,6 +44,7 @@
 package org.melati.template.webmacro;
 
 import java.io.IOException;
+import java.io.File;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,6 +56,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiWriter;
+import org.melati.util.StringUtils;
 
 import org.webmacro.WM;
 import org.webmacro.InitException;
@@ -63,7 +65,7 @@ import org.webmacro.PropertyException;
 
 
 /**
- * Template engine for use of WebMacro with Melati.
+ * Wrapper for the WebMacro Template Engine for use with Melati.
  */
 public class WebmacroTemplateEngine implements TemplateEngine {
 
@@ -72,12 +74,15 @@ public class WebmacroTemplateEngine implements TemplateEngine {
 //  org.webmacro.engine.Variable.
 //       youNeedToBeUsingAVersionOfVariableHackedForMelati;
 
-  // the webmacro
+  /** The WebMacro. */
   public WM wm;
   private WebContext _webContext;
 
   /**
-   * Inititialise the Engine
+   * Construct a new Engine.
+   *
+   * @param melatiConfig a {@link MelatiConfig}
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
@@ -89,7 +94,10 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   }
 
   /**
-   * get the generic parameters for webmacro
+   * Get the generic parameters for WebMacro.
+   *
+   * @param melati the {@link Melati}
+   * @return a {@link TemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati) {
     _webContext.clear();
@@ -98,51 +106,27 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     return new WebmacroTemplateContext(wc);
   }
   
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackEvaluationExceptionHandler();
-  }
-
   /**
-   * the name of the template engine (used to find the templets)
+   * The name of the template engine (used to find the templets).
+   * @return the name of the current configured template engine
    */
   public String getName () {
     return "webmacro";
   }
 
   /**
-  * the extension of the templates used by this template engine)
-  */
+   * @return the extension of the templates used by this template engine
+   */
   public String templateExtension() {
     return ".wm";
   }
 
-  /**
-   * the underlying engine
-   */
-  public Object getEngine() {
-    return wm;
-  }
-
-  public MelatiWriter getServletWriter(HttpServletResponse response, 
-                                       boolean buffered) 
-      throws IOException {
-    if (buffered) {
-//      return new MelatiBufferedFastWriter(response);
-      return new MelatiBufferedFastWriter(wm.getBroker(),response);
-    } else {
-//      return new MelatiFastWriter(response);
-      return new MelatiFastWriter(wm.getBroker(),response);
-    }
-  }
-
-  public MelatiWriter getStringWriter(String encoding) 
-          throws IOException {
-//    return new MelatiBufferedFastWriter(encoding);
-    return new MelatiBufferedFastWriter(wm.getBroker(),encoding);
-  }
-
-  /**
-   * get a template given it's name
+  /** 
+   * Get a template given it's name.
+   * 
+   * @param templateName the name of the template to find
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
    */
   public org.melati.template.Template template(String templateName)
                                       throws NotFoundException {
@@ -154,8 +138,32 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       }
   }
 
-  /**
+  /** 
+   * Get a template for a given class.
+   *
+   * @param clazz the class name to translate into a template name 
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
+   */
+  public org.melati.template.Template template(Class clazz)
+      throws NotFoundException {
+
+    String templateName = StringUtils.tr(clazz.getName(),
+                                         ".", 
+                                         new String(
+                                           new char[] {File.separatorChar})) 
+                          + templateExtension();
+    return template(templateName);
+  }
+
+  /** 
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param templateName    the name of the template to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void expandTemplate(MelatiWriter out, 
                              String templateName, 
@@ -170,6 +178,12 @@ public class WebmacroTemplateEngine implements TemplateEngine {
 
   /**
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param template        the {@link org.melati.template.Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void expandTemplate(MelatiWriter out,
                              org.melati.template.Template template, 
@@ -197,4 +211,59 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     }
 */
   }
+
+  /** 
+   * Get a variable exception handler for use if there is 
+   * a problem accessing a variable.
+   *
+   * @return a <code>PassbackVariableExceptionHandler</code> 
+   *         appropriate for this engine.
+   */
+  public Object getPassbackVariableExceptionHandler() {
+    return new PassbackEvaluationExceptionHandler();
+  }
+
+  /** 
+   * @param response the <code>HttpServletResponse</code> that this 
+   *                 writer will be part of
+   * @param buffered whether the writer should be buffered
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         appropriate for this engine.
+   */
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+                                       boolean buffered) 
+      throws IOException {
+    if (buffered) {
+//      return new MelatiBufferedFastWriter(response);
+      return new MelatiBufferedFastWriter(wm.getBroker(),response);
+    } else {
+//      return new MelatiFastWriter(response);
+      return new MelatiFastWriter(wm.getBroker(),response);
+    }
+  }
+
+  /** 
+   * @param encoding the character encoding to associate with this writer
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         configured for this engine.
+   */
+  public MelatiWriter getStringWriter(String encoding) 
+          throws IOException {
+//    return new MelatiBufferedFastWriter(encoding);
+    return new MelatiBufferedFastWriter(wm.getBroker(),encoding);
+  }
+
+  /**
+   * Get the underlying engine.
+   *
+   * @return the configured template engine
+   */
+  public Object getEngine() {
+    return wm;
+  }
+
+
+
 }

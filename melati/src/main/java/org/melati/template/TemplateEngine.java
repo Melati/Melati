@@ -63,63 +63,112 @@ import org.melati.util.MelatiWriter;
 public interface TemplateEngine {
 
   /**
-   * Construct a new Engine
+   * Construct a new Engine.
+   *
+   * @param melatiConfig a {@link MelatiConfig}
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
-
   void init(MelatiConfig melatiConfig) throws TemplateEngineException;
 
   /**
-   * get the generic parameters for this engine
+   * Get the generic parameters for this engine.
+   *
+   * @param melati the {@link Melati}
+   * @throws TemplateEngineException if any problem occurs with the engine
+   * @return a {@link TemplateContext}
    */
-
   TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException;
 
   /**
-   * The name of the template engine (used to find the templets)
+   * The name of the template engine (used to find the templets).
+   * @return the name of the current configured template engine
    */
-
   String getName();
 
   /**
-   * The extension of the templates used by this template engine)
+   * @return the extension of the templates used by this template engine
    */
-
   String templateExtension();
   
   /** 
-   * Get a template given it's name
+   * Get a template given it's name.
+   * 
+   * @param templateName the name of the template to find
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
    */
-
   Template template(String templateName) throws NotFoundException;
+
+  /** 
+   * Get a template for a given class.
+   *
+   * @param clazz the class name to translate into a template name 
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
+   */
+  Template template(Class clazz) throws NotFoundException;
   
   /** 
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param templateName    the name of the template to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
-
   void expandTemplate(MelatiWriter out, String templateName, 
                              TemplateContext templateContext) 
       throws TemplateEngineException;
   
   /** 
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param template        the {@link Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
-
   void expandTemplate(MelatiWriter out, Template template, 
                              TemplateContext templateContext) 
       throws TemplateEngineException;
 
     
+  /** 
+   * Get a variable exception handler for use if there is 
+   * a problem accessing a variable.
+   *
+   * @return a <code>PassbackVariableExceptionHandler</code> 
+   *         appropriate for this engine.
+   */
   Object getPassbackVariableExceptionHandler();
   
+  /** 
+   * @param response the <code>HttpServletResponse</code> that this 
+   *                 writer will be part of
+   * @param buffered whether the writer should be buffered
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         appropriate for this engine.
+   */
   MelatiWriter getServletWriter(HttpServletResponse response, 
-                                       boolean buffered)
+                                boolean buffered)
       throws IOException;
   
+  /** 
+   * @param encoding the character encoding to associate with this writer
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         configured for this engine.
+   */
   MelatiWriter getStringWriter(String encoding) throws IOException;
 
   /** 
-   * Get the underlying engine
+   * Get the underlying engine.
+   *
+   * @return the configured template engine
    */
   Object getEngine();
   

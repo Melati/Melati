@@ -45,6 +45,7 @@ package org.melati.template.velocity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.File;
 
 import java.util.Properties;
 
@@ -58,6 +59,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiWriter;
+import org.melati.util.StringUtils;
 
 import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.VelocityContext;
@@ -66,7 +68,7 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
- * Interface for a Template engine for use with Melati
+ * Wrapper for the Velocity Template Engine for use with Melati.
  */
 public class VelocityTemplateEngine implements TemplateEngine {
 
@@ -75,10 +77,12 @@ public class VelocityTemplateEngine implements TemplateEngine {
    * called.
    */
   private static final String INIT_PROPS_KEY = "velocity.properties";
-  public static final String FORM = "Form";
 
   /**
-   * Inititialise the Engine
+   * Construct a new Engine.
+   *
+   * @param melatiConfig a {@link MelatiConfig}
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
@@ -118,8 +122,14 @@ public class VelocityTemplateEngine implements TemplateEngine {
     return p;
   }
 
+  /** A special variable that Velocity is expecting, I think.*/
+  public static final String FORM = "Form";
+
   /**
-   * get the template context for velocity
+   * Get the template context for Velocity.
+   *
+   * @param melati the {@link Melati}
+   * @return a {@link TemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati) {
     VelocityContext context = new VelocityContext();
@@ -133,48 +143,32 @@ public class VelocityTemplateEngine implements TemplateEngine {
     return new VelocityTemplateContext(context);
   }
   
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackMethodExceptionEventHandler();
-  }
-
   /**
-   * the name of the template engine (used to find the templets)
+   * The name of the template engine (used to find the templets).
+   *
+   * Note that we have yet to write Velocity specific templates, 
+   * so we dynamically convert the WebMacro ones. 
+   * Hence this returns 'webmacro'.
+   *
+   * @return the name of the current configured template engine
    */
   public String getName() {
     return "webmacro";
   }
 
   /**
-  * the extension of the templates used by this template engine)
-  */
+   * @return the extension of the templates used by this template engine
+   */
   public String templateExtension() {
     return ".vm";
   }
 
-  /**
-   * the underlying engine - for velocity there is none!
-   */
-  public Object getEngine() {
-    return null;
-  }
-
-  public MelatiWriter getServletWriter(HttpServletResponse response, 
-                                       boolean buffered) 
-      throws IOException {
-    if (buffered) {
-      return new MelatiBufferedVelocityWriter(response);
-    } else {
-      return new MelatiVelocityWriter(response);
-    }
-  }
-
-  public MelatiWriter getStringWriter(String encoding) 
-          throws IOException {
-    return new MelatiBufferedVelocityWriter(encoding);
-  }
-
-  /**
+  /** 
    * Get a template given it's name.
+   * 
+   * @param templateName the name of the template to find
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
    */
   public org.melati.template.Template template(String templateName)
                              throws NotFoundException {
@@ -198,13 +192,38 @@ public class VelocityTemplateEngine implements TemplateEngine {
       }
   }
 
-  /**
+  /** 
+   * Get a template for a given class.
+   *
+   * @param clazz the class name to translate into a template name 
+   * @throws NotFoundException if the template is not found by the engine
+   * @return a template
+   */
+  public org.melati.template.Template template(Class clazz)
+      throws NotFoundException {
+
+    String templateName = StringUtils.tr(clazz.getName(),
+                                         ".", 
+                                         new String(
+                                           new char[] {File.separatorChar})) 
+                          + templateExtension();
+    return template(templateName);
+  }
+
+
+  /** 
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param templateName    the name of the template to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void expandTemplate(MelatiWriter out, 
                              String templateName, 
                              TemplateContext templateContext)
-              throws TemplateEngineException {
+      throws TemplateEngineException {
     try {
       expandTemplate (out, template (templateName), templateContext);
     } catch (NotFoundException e) {
@@ -212,8 +231,14 @@ public class VelocityTemplateEngine implements TemplateEngine {
     }
   }
 
-  /**
+  /** 
    * Expand the Template against the context.
+   *
+   * @param out             a {@link MelatiWriter} to output on
+   * @param template        the {@link org.melati.template.Template} to expand
+   * @param templateContext the {@link TemplateContext} to expand 
+   *                        the template against
+   * @throws TemplateEngineException if any problem occurs with the engine
    */
   public void expandTemplate(MelatiWriter out,
                              org.melati.template.Template template, 
@@ -236,4 +261,55 @@ public class VelocityTemplateEngine implements TemplateEngine {
       throw problem;
     }
   }
+
+  /** 
+   * Get a variable exception handler for use if there is 
+   * a problem accessing a variable.
+   *
+   * @return a <code>PassbackVariableExceptionHandler</code> 
+   *         appropriate for this engine.
+   */
+  public Object getPassbackVariableExceptionHandler() {
+    return new PassbackMethodExceptionEventHandler();
+  }
+
+
+  /** 
+   * @param response the <code>HttpServletResponse</code> that this 
+   *                 writer will be part of
+   * @param buffered whether the writer should be buffered
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         appropriate for this engine.
+   */
+  public MelatiWriter getServletWriter(HttpServletResponse response, 
+                                       boolean buffered) 
+      throws IOException {
+    if (buffered) {
+      return new MelatiBufferedVelocityWriter(response);
+    } else {
+      return new MelatiVelocityWriter(response);
+    }
+  }
+
+  /** 
+   * @param encoding the character encoding to associate with this writer
+   * @throws IOException if there is a problem with the filesystem.
+   * @return a {@link MelatiWriter} 
+   *         configured for this engine.
+   */
+  public MelatiWriter getStringWriter(String encoding) 
+          throws IOException {
+    return new MelatiBufferedVelocityWriter(encoding);
+  }
+
+  /** 
+   * Get the underlying engine.
+   *
+   * @return null - for velocity there is none.
+   */
+  public Object getEngine() {
+    return null;
+  }
+
 }

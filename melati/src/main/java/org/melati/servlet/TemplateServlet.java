@@ -210,14 +210,20 @@ public abstract class TemplateServlet extends PoemServlet {
         Template errorTemplate;
 
         try {
-          errorTemplate = melati.getHTMLMarkupLanguage().templet("error",
-                                                                 e.getClass());
+          errorTemplate = templateEngine.template(e.getClass());
         }
         catch (NotFoundException f) {
-          errorTemplate = templateEngine.template(
-              "error" + templateEngine.templateExtension());
+          try {
+            errorTemplate = melati.getHTMLMarkupLanguage().templet("error",
+                                                                 e.getClass());
+          }
+          catch (NotFoundException g) {
+            // This should never be reached 
+            // as the above should always find java.lang.Exception.wm
+            errorTemplate = templateEngine.template(
+                "error" + templateEngine.templateExtension());
+          }
         }
-
         templateEngine.expandTemplate(mw, errorTemplate, templateContext);
         melati.write();
       } catch (Exception f) {

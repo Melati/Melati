@@ -53,8 +53,6 @@
 </HEAD>
 
 <BODY  bgcolor="#cccccc">
-<H3><FONT FACE="Arial, Helvetica">Edit a $ml.rendered($table.DisplayName) record</font></H3>
-
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
 
 <script TYPE="text/javascript">

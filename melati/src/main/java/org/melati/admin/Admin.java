@@ -155,6 +155,13 @@ public class Admin extends MelatiServlet {
     return adminTemplate(selection(context,melati), "Selection.wm");
   }
 
+  // return select template (a selection of records from a table)
+  protected Template selectionRightTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException,
+             HandlerException {
+    return adminTemplate(selection(context,melati), "SelectionRight.wm");
+  }
+
   protected WebContext selection(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
@@ -417,14 +424,29 @@ public class Admin extends MelatiServlet {
     return adminTemplate(context, "CreateTable_doit.wm");
   }
 
-  protected Template editTemplate(WebContext context, Melati melati)
+  protected WebContext editingTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException {
     melati.getObject().assertCanRead();
     context.put("object", melati.getObject());
     Database database = melati.getDatabase();
     context.put("database", database);
     context.put("table", melati.getTable());
-    return adminTemplate(context, "Edit.wm");
+    return context;
+  }
+
+  protected Template rightTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    return adminTemplate(editingTemplate(context,melati), "Right.wm");
+  }
+
+  protected Template editHeaderTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    return adminTemplate(editingTemplate(context,melati), "EditHeader.wm");
+  }
+
+  protected Template editTemplate(WebContext context, Melati melati)
+      throws NotFoundException, InvalidTypeException, PoemException {
+    return adminTemplate(editingTemplate(context,melati), "Edit.wm");
   }
 
   protected Template addTemplate(WebContext context, Melati melati)
@@ -516,6 +538,10 @@ public class Admin extends MelatiServlet {
                                melati.getLogicalDatabaseName()));
 
     if (melati.getObject() != null) {
+      if (melati.getMethod().equals("Right"))
+        return rightTemplate(context, melati);
+      if (melati.getMethod().equals("EditHeader"))
+        return editHeaderTemplate(context, melati);
       if (melati.getMethod().equals("Edit"))
         return editTemplate(context, melati);
       else if (melati.getMethod().equals("Update"))
@@ -536,6 +562,8 @@ public class Admin extends MelatiServlet {
         return primarySelectTemplate(context, melati);
       if (melati.getMethod().equals("Selection"))
         return selectionTemplate(context, melati);
+      if (melati.getMethod().equals("SelectionRight"))
+        return selectionRightTemplate(context, melati);
       if (melati.getMethod().equals("Navigation"))
         return navigationTemplate(context, melati);
       if (melati.getMethod().equals("PopUp"))

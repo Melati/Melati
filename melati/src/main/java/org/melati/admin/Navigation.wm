@@ -82,7 +82,7 @@ alert("1");
 <table cellpadding=0 cellspacing=0 border=0><tr>
 <td><A HREF='#' onClick ="openWindow();"><IMG src="$admin.StaticURL/search.gif" border="0" alt="Search $table.DisplayName" vspace=1></a></td>
 </tr><tr>
-<td><A HREF='$admin.addURL($table)?returnTarget=top.admin_bottom.admin_left.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)")' target=admin_record><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=1></a></td>
+<td><A HREF='$admin.AddURL($table)?returnTarget=top.admin_bottom.admin_left.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)")' target=admin_record><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" vspace=1></a></td>
 </tr></table>
 </CENTER>
 </BODY>

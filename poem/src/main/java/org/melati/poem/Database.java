@@ -909,6 +909,15 @@ abstract public class Database implements TransactionPool {
         });
   }
 
+  public Enumeration referencesTo(final Table tablein) {
+    return new FlattenedEnumeration(
+        new MappedEnumeration(tables.elements()) {
+          public Object mapped(Object table) {
+            return ((Table)table).referencesTo(tablein);
+          }
+        });
+  }
+
   /**
    * Print some diagnostic information about the contents and consistency of
    * POEM's cache to stderr.

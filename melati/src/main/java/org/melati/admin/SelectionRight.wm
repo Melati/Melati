@@ -68,6 +68,7 @@ $results.TotalCount</b></font>
 #if ($results.NextPageStart) #begin
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next &gt;&gt;" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
+<td align=right><A HREF='$admin.AddURL($table)?$whereClause'><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName"></a></td>
 </td></tr></table>
 
   <TABLE CELLSPACING=0 cellpadding=1 border=0 width=100%>
@@ -82,7 +83,7 @@ $results.TotalCount</b></font>
 	#set $color = $color1;
     #foreach $result in $results #begin
       <TR>
-	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.RightURL($result)?returnTarget=top.admin_bottom.admin_left.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0 hspace=2></a>&nbsp;</font></TD>
+	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.RightURL($result)?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&$orderClause&$whereClause")'><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0 hspace=2></a>&nbsp;</font></TD>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.renderedStart($field)&nbsp;</font></TD>
 	#end

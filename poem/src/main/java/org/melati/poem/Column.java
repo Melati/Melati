@@ -467,6 +467,20 @@ public abstract class Column implements FieldAttributes {
           EmptyEnumeration.it;
   }
 
+// similar to the above method, but returns true or false depending on weather this
+// column is a reference type that refers to the passed in table
+  public Enumeration referencesTo(Table table) {
+    if (getType() instanceof ReferencePoemType &&
+        ((ReferencePoemType)getType()).targetTable() == table) {
+          // have to return this as an enumeration so that it can be flatterened
+      Vector t = new Vector();
+      t.add(this);
+      return t.elements();
+    } else {
+      return EmptyEnumeration.it;
+    }
+  }
+
   public Persistent ensure(Persistent orCreate) {
     Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
     if (there == null) {

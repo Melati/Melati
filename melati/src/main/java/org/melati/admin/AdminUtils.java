@@ -88,18 +88,35 @@ public class AdminUtils {
            "/Selection";
   }
 
+  public String SelectionRightURL(Table table) {
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
+           "/SelectionRight";
+  }
+
   public String NavigationURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() +
            "/Navigation";
   }
 
-  public String editURL(Persistent object) throws AccessPoemException {
+  public String RightURL(Persistent object) throws AccessPoemException {
+    return
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/Right";
+  }
+
+  public String EditHeaderURL(Persistent object) throws AccessPoemException {
+    return
+        adminURL + "/" + logicalDatabase + "/" +
+        object.getTable().getName() + "/" + object.troid() + "/EditHeader";
+  }
+
+  public String EditURL(Persistent object) throws AccessPoemException {
     return
         adminURL + "/" + logicalDatabase + "/" +
         object.getTable().getName() + "/" + object.troid() + "/Edit";
   }
 
-  public String addURL(Table table) throws AccessPoemException {
+  public String AddURL(Table table) throws AccessPoemException {
     return
         adminURL + "/" + logicalDatabase + "/" +
         table.getAddURL();

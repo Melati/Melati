@@ -77,7 +77,7 @@ function goto_page() {
   <td><FONT face="Arial, Helvetica" size=-1>$ml.rendered($primaryCriterion.DisplayName)</font></td>
   </tr><tr><td><FONT face="Arial, Helvetica" size=-1>
   #if ($admin.isReferencePoemType($primaryCriterion)) #begin
-    <a href='$admin.addURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
+    <a href='$admin.AddURL($primaryCriterion.getType().targetTable())' target=admin_record><IMG src="$admin.StaticURL/new_dir.gif" border="0" alt="New $primaryCriterion.DisplayName" hspace=2></a>
   </td><td>
 <SELECT NAME="_$ml.rendered($primaryCriterion.Name)" OnChange="return(goto_page(0));">
   #foreach $poss in $primaryCriterion.First1000Possibilities #begin

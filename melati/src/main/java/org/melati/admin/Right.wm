@@ -1,0 +1,26 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+
+<html>
+<head>
+<title>Website Admin Suite</title>
+</head>
+#set $returns = ""
+#if ($Form.returnTarget) #begin
+#set $returns = "$returns;returnTarget=$Form.returnTarget"
+#end
+#if ($Form.returnURL) #begin
+#set $returns = "$returns;&returnURL=$ml.encoded($Form.returnURL)"
+#end
+
+  <frameset frameborder="0" framespacing="0" border="0" rows="45,*">
+    <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="-0" marginheight="-0" noresize="noresize" name="admin_edit_header" border="0" scrolling="auto">
+    <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object" border="0" scrolling="yes">
+  </frameset>
+
+
+<noframes>
+$returns
+</noframes>
+
+</html>

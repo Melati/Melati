@@ -62,7 +62,7 @@ public class CachedSelection extends CachedQuery {
                          final String orderByClause,
                          final Table otherTables[]) {
     super(table,
-          table.selectionSQL(whereClause, orderByClause, false),
+          table.selectionSQL(null, whereClause, orderByClause, false, false),
           otherTables);
     this.whereClause = whereClause;
     this.orderByClause = orderByClause;
@@ -86,7 +86,7 @@ public class CachedSelection extends CachedQuery {
     if (statements == null)
       statements = new PreparedStatementFactory(
                        table.getDatabase(),
-                       table.selectionSQL(whereClause, orderByClause, false));
+                       table.selectionSQL(null, whereClause, orderByClause, false, false));
 
     return statements;
   }

@@ -46,11 +46,14 @@
 package org.melati.test;
 
 import java.io.StringWriter;
+import java.io.OutputStream;
+
 
 import org.melati.servlet.TemplateServlet;
 import org.melati.Melati;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.MelatiContext;
+import org.melati.template.FormFile;
 import org.melati.template.Template;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
@@ -64,14 +67,42 @@ import org.melati.template.TemplateContext;
  */
 public class TemplateServletTestWM extends TemplateServlet {
 
-  protected String doTemplateRequest( 
-  Melati melati, TemplateContext templateContext) 
-  throws Exception {
-    
+  protected String doTemplateRequest(Melati melati,
+                                     TemplateContext templateContext) 
+                                                          throws Exception {
+
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
+
+
     if (melati.getMethod() != null) {
+
+      if (melati.getMethod().equals("Upload")) {
+        FormFile file = templateContext.getFormFile("file");
+        byte[] data = file.getDataArray();
+
+        // NB!!! Even though we attempt to set the MimeType below,
+        // some browsers will not display the file correctly unless
+        // the "name" of the file (which here will be ``Upload'')
+        // has the appropriate extension.
+        // To acheive this you might want to save the file (file.write())
+        // and then have a url of the form
+        // <code>DownloadServlet/db/table/0/Upload/Filename.ext</code>
+        // to actually do the downloading (use
+        // InputStream fileIS = new FileInputStream(file.getLocalPath())
+        // and a byte[] buffer rather than file.getDataArray())
+
+        melati.getResponse().setContentType(
+            getServletConfig().getServletContext().getMimeType(
+                file.getUploadedFilename()));
+        OutputStream output = melati.getResponse().getOutputStream();
+        output.write(data);
+        output.close();
+        return null;
+      }
+
       if (melati.getMethod().equals("Redirect"))
         melati.getResponse().sendRedirect("http://www.melati.org");
+
       // test melati in standalone mode (outside of using the servlet API)
       // by expanding a template
       // to a string and then include it within this template

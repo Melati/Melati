@@ -17,7 +17,7 @@ and loaded the WebMacro Template Engine.<p>
 #if ($Form.test) #begin
 <p><b>$Form.test</b> was passed in the parameter <b>test</b>.
 #end
-<p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
+<p>To test Form parameter passing, <a href="$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest/?test=HelloWorld">click here</a></p>
 
 <h3>Further Testing</h3>
 You can test a flushing output by clicking <a href=$melati.ZoneURL/org.melati.test.FlushingServletTest/>FlushingServletTest</a><br>

@@ -53,6 +53,13 @@ You can test Melati in 'Stand Alone' mode by clicking <a href=StandAlone>StandAl
 $StandAlone
 #end
 
+<form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
+You can upload a file here:<br>
+<input type=hidden name=upload value=yes>
+<input type="file" name="file" enctype="multipart/form-data">
+<input type="submit" name="Submit" value="Upload file">
+</form>
+
 <h3>Your Database has the following tables:</h3>
 #foreach $tab in $melati.Database.DisplayTables #begin
   $tab.DisplayName<br>

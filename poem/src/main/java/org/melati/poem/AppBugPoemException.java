@@ -45,5 +45,16 @@
 
 package org.melati.poem;
 
-public abstract class AppBugPoemException extends SeriousPoemException {
+public class AppBugPoemException extends SeriousPoemException {
+
+  public AppBugPoemException(String message, Exception subException) {
+    super(message, subException);
+  }
+
+  public AppBugPoemException(Exception subException) {
+    super(subException);
+  }
+
+  public AppBugPoemException() {
+  }
 }

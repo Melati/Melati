@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Melati">
+
+  <title>Melati</title>
+
+  <body>
+    <menu name="Overview">
+      <item name="Download"                href="/download.html"/>
+    </menu>
+  </body>
+</project>

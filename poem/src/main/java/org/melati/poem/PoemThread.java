@@ -87,29 +87,28 @@ public class PoemThread {
   
   /** this method does the processing to start a db session */
   static void beginSession(AccessToken accessToken,
-                        PoemTransaction transaction) throws PoemException {
+                           PoemTransaction transaction) throws PoemException {
     Integer token = allocatedSessionToken(accessToken, transaction);
     String oldname = Thread.currentThread().getName();
     Thread.currentThread().setName("" + (char)token.intValue());
-	 // Save the old thread name for later use
-	 threadOldNames.put(token,oldname);
+    // Save the old thread name for later use
+    threadOldNames.put(token,oldname);
   }
 
   /** this method does the processing to end a db session */
   static void endSession() throws PoemException {
-      char tokenChar = Thread.currentThread().
-                                                getName().charAt(0);
-		
-      Integer token = new Integer(tokenChar);
-		String oldname = (String)threadOldNames.get(token);
-		if (oldname == null) throw new NotInSessionPoemException();
-		
-      Thread.currentThread().setName(oldname);
-      synchronized (freeSessionTokenIndices) {
-        ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
-        sessionTokens.setElementAt(null, token.intValue());
-        freeSessionTokenIndices.addElement(token);
-      }
+    char tokenChar = Thread.currentThread().getName().charAt(0);
+
+    Integer token = new Integer(tokenChar);
+    String oldname = (String)threadOldNames.get(token);
+    if (oldname == null) throw new NotInSessionPoemException();
+
+    Thread.currentThread().setName(oldname);
+    synchronized (freeSessionTokenIndices) {
+      ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
+      sessionTokens.setElementAt(null, token.intValue());
+      freeSessionTokenIndices.addElement(token);
+    }
   }
 
   /** performs the specified task in the current thread session */
@@ -120,7 +119,7 @@ public class PoemThread {
       task.run();
     }
     finally {
-	   endSession();
+      endSession();
     }
   }
 

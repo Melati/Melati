@@ -12,11 +12,11 @@ public class ValueInfo extends ValueInfoBase {
     return
         new PoemTypeFactory.Parameter() {
           public boolean getNullable() {
-	    return nullable.booleanValue();
+	    return nullable == null || nullable.booleanValue();
 	  }
 
 	  public int getSize() {
-	    return size.intValue();
+	    return size == null ? -1 : size.intValue();
 	  }
         };
   }

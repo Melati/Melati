@@ -71,18 +71,15 @@ public class NoTemplateEngine implements TemplateEngine {
       "org.melati.MelatiServlet.properties";
 
   /**
-   * Construct a new Engine.
+   * Construct a null Engine.
    *
    * @param config a {@link MelatiConfig}
-   * @throws TemplateEngineException if any problem occurs with the engine
    */
-  public void init(MelatiConfig config) throws TemplateEngineException {
+  public void init(MelatiConfig config) {
     // we don't throw an exception here as it gets hidden away, rather
     // it is better to wait until expandTemplate or getParameters, as
     // that produces a nice
     // exception to the browser
-
-    return;
   }
 
   /**

@@ -90,6 +90,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendZoneURL(url, request);
 
+    url.append('/');
     url.append(loginPageServletClassName());
     url.append('/');
     url.append(melati.logicalDatabase);
@@ -97,12 +98,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     return url.toString();
   }
 
-  public String getDBName(HttpServletRequest request) {
-    // FIXME cut the front off the pathinfo to retrieve the DB name
-    String pathInfo = request.getPathInfo();
-    return pathInfo.substring(1, pathInfo.indexOf('/', 1) + 1);
-  }
-
+  
   public Template handleAccessException(MelatiContext melati, WebContext context,
 					AccessPoemException accessException)
       throws Exception {

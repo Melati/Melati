@@ -291,6 +291,7 @@ usage:
     <!-- ============================================================= -->
   <target name="xdocs"
           description="build maven xdocs">
+    <mkdir dir="${xdocs}"/>
     <delete>
        <fileset dir="${xdocs}" includes="*.xml" excludes="navigation.xml"/>
     </delete>

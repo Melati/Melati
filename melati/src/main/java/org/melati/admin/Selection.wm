@@ -54,27 +54,24 @@
 
 <center>
 
-<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<BODY BGCOLOR="#eeeeee" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
 #if ($results) #begin
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>#end
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="&lt;&lt; Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>#end
 <b><FONT face="Arial, Helvetica" size=-1>Records $results.PageStart to $results.PageEnd of
 #if ($results.TotalCountIsMinimum) #begin
   at least
 #end
 $results.TotalCount</b>
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next &gt;&gt;" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
 
-  <TABLE CELLSPACING=0 cellpadding=0 border=0 width=100%>
+  <TABLE CELLSPACING=0 cellpadding=1 border=0 width=100%>
     <TR>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
+	  <th><FONT SIZE-1>&nbsp;</FONT></th>
       #foreach $column in $table.SummaryDisplayColumns #begin
-	<TH align=left valign=bottom><FONT face="Arial, Helvetica" size=-1>$ml.rendered($column.DisplayName)</font></TH>
-	  <th><FONT SIZE=1>&nbsp;</FONT></th>
+	<TH align=left valign=bottom><FONT face="Arial, Helvetica" size=-1>$ml.rendered($column.DisplayName)&nbsp;</font></TH>
       #end
     </TR>
 	#set $color1 = "#E9EDFD"
@@ -82,12 +79,9 @@ $results.TotalCount</b>
 	#set $color = $color1;
     #foreach $result in $results #begin
       <TR>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href='$admin.editURL($result)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0></a></TD>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
+	<TD bgcolor="$color"><FONT SIZE=-1><a href='$admin.editURL($result)?returnTarget=top.admin_bottom.admin_selection&returnURL=$ml.encoded("$admin.SelectionURL($table)?start=$results.PageStart&$whereClause&$orderClause")' target=admin_record><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" vspace=0></a>&nbsp;</font></TD>
 	#foreach $field in $result.SummaryDisplayFields #begin
-	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.renderedStart($field)</font></TD>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
+	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.renderedStart($field)&nbsp;</font></TD>
 	#end
       </TR>
 	  #if ($color == $color1) #begin

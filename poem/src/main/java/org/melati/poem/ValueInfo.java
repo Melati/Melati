@@ -63,7 +63,7 @@ public class ValueInfo extends ValueInfoBase {
         c.getName(), c.getDisplayName(), c.getDescription(), type,
         width == null ? 12 : width.intValue(),
         height == null ? 1 : height.intValue(),
-        null, // renderinfo
+        renderinfo,
         false, // indexed
         usereditable == null ? true : usereditable.booleanValue(),
         true // usercreateable

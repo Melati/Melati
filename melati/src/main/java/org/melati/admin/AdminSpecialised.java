@@ -49,9 +49,18 @@ import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 
 public interface AdminSpecialised {
+
+  /**
+   * Perform the specialised function and return the name of the
+   * template presenting the results
+   */
   String adminHandle (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;
   
+  /**
+   * Returns the name of a template which provides access to the
+   * specialised functionality
+   */
   String adminSpecialFacilities (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;
 }

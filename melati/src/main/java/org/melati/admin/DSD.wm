@@ -43,6 +43,16 @@
 #set $Response.ContentType = "text/plain"
 ## We don't have a TextMarkupLanguage as yet
 #set $ml = $melati.HTMLMarkupLanguage
+
+## Add comments if user requests them
+#if ($Form.comments) #begin
+#set $c = true
+#end
+## Add system, dynamically created and inherited tables if user requests them
+#if ($Form.all) #begin
+#set $all = true
+#end
+
 /*
  * DSD for $database ($database.Class.Name)
  * 
@@ -56,17 +66,27 @@
  * 3) Importing another DSD, such as messageboards, is 
  *    not preserved, all tables are in a single package namespace.
  *    
+
+#if (!$c) #begin
+ * NOTE
+ * This template can include comments for defaulted items
+ * (add comments=true to URL)
+#end
+
+#if (!$all) #begin
+ * NOTE
+ * This template can include all System, dynamically created and 
+ * inherited tables, but should then NOT be used to replace an existing DSD.
+ * (add comments=true to URL)
+#end
+ *    
  */
 
-#if ($Form.comments) #begin
-#set $c = true
-#end
 package $(package);
 
 
 #foreach $table in $database.getDisplayTables()
-#if ($table.Class.Name.indexOf($package) == 0) #begin
-
+#if ($table.Class.Name.indexOf($package) || $all) #begin
 #if ($c) #begin
 //   $table
 //   $table.Class.Name

@@ -25,8 +25,9 @@ public class ChildTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PlayingDatabase getPlayingDatabase() {
-    return (PlayingDatabase)getDatabase();  }
+  public PlayingDatabaseTables getPlayingDatabaseTables() {
+    return (PlayingDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();
@@ -121,7 +122,7 @@ public class ChildTableBase extends Table {
         });
 
     defineColumn(col_parent =
-        new Column(this, "parent", new ReferencePoemType(((PlayingDatabase)getDatabase()).getParentTable(), false), DefinitionSource.dsd) { 
+        new Column(this, "parent", new ReferencePoemType(getPlayingDatabaseTables().getParentTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Child)g).getParent();

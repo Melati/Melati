@@ -10,8 +10,8 @@ import org.melati.poem.*;
 
 public abstract class ParentBase extends Persistent {
 
-  public PlayingDatabase getPlayingDatabase() {
-    return (PlayingDatabase)getDatabase();
+  public PlayingDatabaseTables getPlayingDatabaseTables() {
+    return (PlayingDatabaseTables)getDatabase();
   }
 
   public ParentTable getParentTable() {

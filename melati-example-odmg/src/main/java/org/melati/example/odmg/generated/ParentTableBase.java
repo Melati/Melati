@@ -24,8 +24,9 @@ public class ParentTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
-  public PlayingDatabase getPlayingDatabase() {
-    return (PlayingDatabase)getDatabase();  }
+  public PlayingDatabaseTables getPlayingDatabaseTables() {
+    return (PlayingDatabaseTables)getDatabase();
+  }
 
   protected void init() throws PoemException {
     super.init();

@@ -10,19 +10,7 @@ import org.melati.poem.*;
 
 public class PlayingDatabaseBase extends PoemDatabase {
 
-  private ParentTable tab_parent = null;
-  private ChildTable tab_child = null;
 
   protected PlayingDatabaseBase() {
-    redefineTable(tab_parent = new ParentTable(this, "parent", DefinitionSource.dsd));
-    redefineTable(tab_child = new ChildTable(this, "child", DefinitionSource.dsd));
-  }
-
-  public ParentTable getParentTable() {
-    return tab_parent;
-  }
-
-  public ChildTable getChildTable() {
-    return tab_child;
   }
 }

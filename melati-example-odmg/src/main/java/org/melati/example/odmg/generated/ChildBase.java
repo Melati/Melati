@@ -10,8 +10,8 @@ import org.melati.poem.*;
 
 public abstract class ChildBase extends Persistent {
 
-  public PlayingDatabase getPlayingDatabase() {
-    return (PlayingDatabase)getDatabase();
+  public PlayingDatabaseTables getPlayingDatabaseTables() {
+    return (PlayingDatabaseTables)getDatabase();
   }
 
   public ChildTable getChildTable() {
@@ -99,21 +99,27 @@ public abstract class ChildBase extends Persistent {
 
   public void setParentTroid(Integer raw)
       throws AccessPoemException {
-    _getChildTable().getParentColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setParent_unsafe(raw);
+    setParent(raw == null ? null : 
+        getPlayingDatabaseTables().getParentTable().getParentObject(raw));
   }
 
   public Parent getParent()
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getParentTroid();
     return troid == null ? null :
-        getPlayingDatabase().getParentTable().getParentObject(troid);
+        getPlayingDatabaseTables().getParentTable().getParentObject(troid);
   }
 
   public void setParent(Parent cooked)
       throws AccessPoemException {
-    setParentTroid(cooked == null ? null : cooked.troid());
+    _getChildTable().getParentColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    if (cooked == null)
+      setParent_unsafe(null);
+    else {
+      cooked.existenceLock();
+      setParent_unsafe(cooked.troid());
+    }
   }
 
   public Field getParentField() throws AccessPoemException {

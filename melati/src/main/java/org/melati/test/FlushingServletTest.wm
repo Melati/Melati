@@ -1,5 +1,4 @@
-$melati.setBufferingOff(true)
-#set $Response.Header.Content-Type = "text/html"
+#set $Response.Content-Type = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 <HTML>
 <HEAD>

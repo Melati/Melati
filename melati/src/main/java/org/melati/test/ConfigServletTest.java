@@ -51,47 +51,61 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 
 import org.melati.servlet.ConfigServlet;
-import org.melati.MelatiContext;
+import org.melati.servlet.MelatiContext;
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.util.MelatiBugMelatiException;
 
 public class ConfigServletTest extends ConfigServlet {
 
-    protected void doConfiguredRequest(MelatiContext melatiContext) 
-      throws ServletException, IOException {
+  protected void doConfiguredRequest(Melati melati)
+  throws ServletException, IOException {
 
-        Melati melati = melatiContext.getMelati();
-        melatiContext.getResponse().setContentType("text/html");
-        Writer output = melatiContext.getWriter();
-        output.write("<html><head><title>ConfigServlet Test</title></head><body><h2>ConfigServlet Test</h2>");
-        output.write("<p>This servlet tests your basic melati configuration. ");
-        output.write("If you can read this message, it means that you have successfully ");
-        output.write("created a Melati and a MelatiContext, using the configuration given in ");
-        output.write("org.melati.MelatiServlet.properties.  Please note that this servlet does not ");
-        output.write("construct a POEM session or initialise a template engine.</p>");
-        
-        output.write("<h4>Your Melati is configured with the following parameters:</h4><table>");
-        output.write("<tr><td>TemplateEngine</td><td>" + melati.getTemplateEngine().getClass().getName() + "</td></tr>");
-        output.write("<tr><td>AccessHandler</td><td>" + melati.getAccessHandler().getClass().getName() + "</td></tr>");
-        output.write("<tr><td>Locale</td><td>" + melati.getLocale().getClass().getName() + "</td></tr>");
-        output.write("<tr><td>TempletLoader</td><td>" + melati.getTempletLoader().getClass().getName() + "</td></tr>");
-        output.write("<tr><td>JavascriptLibraryURL</td><td>" + melati.getJavascriptLibraryURL() + "</td></tr>");
-        output.write("<tr><td>StaticURL</td><td>" + melati.getStaticURL() + "</td></tr></table>");
+    MelatiConfig config = melati.getConfig();
+    melati.getResponse().setContentType("text/html");
+    Writer output = melati.getWriter();
+    output.write(
+    "<html><head><title>ConfigServlet Test</title></head><body><h2> " +
+    "ConfigServlet Test</h2><p>This servlet tests your basic melati " +
+    "configuration. If you can read this message, it means that you have " +
+    "successfully created a Melati and a Melati, using the configuration " +
+    "given in org.melati.MelatiServlet.properties.  Please note that this " +
+    "servlet does not construct a POEM session or initialise a template " +
+    "engine.</p><h4>Your Melati is configured with the following parameters: " +
+    "</h4><table><tr><td>TemplateEngine</td><td>" +
+    config.getTemplateEngine().getClass().getName() +
+    "</td></tr><tr><td>AccessHandler</td><td>" +
+    config.getAccessHandler().getClass().getName() +
+    "</td></tr><tr><td>Locale</td><td>" +
+    config.getLocale().getClass().getName() +
+    "</td></tr><tr><td>TempletLoader</td><td>" +
+    config.getTempletLoader().getClass().getName() +
+    "</td></tr><tr><td>JavascriptLibraryURL</td><td>" +
+    config.getJavascriptLibraryURL() +
+    "</td></tr><tr><td>StaticURL</td><td>" +
+    config.getStaticURL() + "</td></tr></table>" +
 
-        output.write("<h4>This servlet was called with the following Method (taken from melatiContext.getMethod()): " + melatiContext.getMethod() + "</h4>");
-        
-        output.write("<h4>Further Testing:</h4>");
-        output.write("You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>");
-        output.write("You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>");
-        output.write("You can test your POEM setup (connecting to logical database <tt>melatitest</tt>) by clicking <a href=" + melatiContext.getZoneURL() + "/org.melati.test.PoemServletTest/>org.melati.test.PoemServletTest/</a><br>");
-        
-        String method = melatiContext.getMethod();
-        if (method != null) {
-          if (method.equals("Exception")) throw new MelatiBugMelatiException("It got caught!");
-          if (method.equals("Redirect")) melatiContext.getResponse().sendRedirect("http://www.melati.org");
-        }
-        
+    "<h4>This servlet was called with the following Method (taken from " +
+    "melati.getMethod()): " + 
+    melati.getMethod() + 
+    "</h4><h4>Further Testing:</h4>You can test melati Exception handling by " +
+    "clicking <a href=Exception>Exception</a><br>You can test melati Redirect " +
+    "handling by clicking <a href=Redirect>Redirect</a><br>You can test your " +
+    "POEM setup (connecting to logical database <tt>melatitest</tt>) by " +
+    "clicking <a href=" + 
+    melati.getZoneURL() + 
+    "/org.melati.test.PoemServletTest/melatitest/>" +
+    "org.melati.test.PoemServletTest/melatitest/</a><br>");
+
+    String method = melati.getMethod();
+    if (method != null) {
+      if (method.equals("Exception")) 
+      throw new MelatiBugMelatiException("It got caught!");
+      if (method.equals("Redirect")) 
+      melati.getResponse().sendRedirect("http://www.melati.org");
     }
+
+  }
 
 
 }

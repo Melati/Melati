@@ -43,39 +43,24 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import java.io.IOException;
-import java.net.URLEncoder;
+import org.melati.poem.PoemType;
+import org.melati.util.MelatiException;
 
-import org.melati.template.TempletLoader;
-import org.melati.util.MelatiLocale;
-import org.melati.util.HTMLUtils;
+public class UnsupportedTypeException extends MelatiException {
+  public MarkupLanguage markupLanguage;
+  public PoemType type;
 
-public class HTMLLikeMarkupLanguage extends MarkupLanguage {
-
-  public HTMLLikeMarkupLanguage(String name, MelatiContext melatiContext,
-                                TempletLoader templetLoader,
-                                MelatiLocale locale) {
-    super(name, melatiContext, templetLoader, locale);
-  }
-  
-  protected HTMLLikeMarkupLanguage(String name, MarkupLanguage other) {
-    super(name, other);
+  public UnsupportedTypeException(MarkupLanguage markupLanguage,
+                                  PoemType type) {
+    this.markupLanguage = markupLanguage;
+    this.type = type;
   }
 
-/* FIXME: webmacro unfortunately won't call methods with void returns
-*/
-  public String rendered(String s) throws IOException {
-    super.melatiContext.getWriter().write(HTMLUtils.entitied(s));
-    return "";
-  }
-
-  public String escaped(String s) {
-    return HTMLUtils.jsEscaped(s);
-  }
-
-  public String encoded(String s) {
-    return URLEncoder.encode(s);
+  public String getMessage() {
+    return
+        "The type " + type + " is not supported " +
+        "by the markup language `" + markupLanguage + "'";
   }
 }

@@ -1,4 +1,4 @@
-#set $Response.Header.Content-Type = "text/html"
+#set $Response.Content-Type = "text/html"
 #if ($Form.passback) #begin
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #end
@@ -12,7 +12,9 @@
 If you can read this message, it means that you have successfully created a POEM session 
 and loaded a Template Engine (in this case WebMacro).<p>
 
-<p>This servlet was called with the following Method: $melati <b>$melati.Method</b></p></p>
+<p>Your <b>MelatiContext</b> is set up as: $melati.Context
+<br>, try playing with the PathInfo to see the results (or click 
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/user/1/View">user/1/View</a>).</p>
 
 #if ($Form.test) #begin
 <p><b>$Form.test</b> was passed in the parameter <b>test</b>.
@@ -27,7 +29,7 @@ You have tried to access a RestrictedAccessObject but:
 <h3>Further Testing</h3>
 You can test your interface for writing Melati servlets using
 the Webmacro template engine by clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
-You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.LogicalDatabaseName/Main>org.melati.admin.Admin/$melati.LogicalDatabaseName/Main</a>.<br>
+You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
 You can test the PassbackVariableExceptionHandler by clicking <a href=?passback=true>?passback=true</a>.<br>
 
 <h3>Your Database has the following tables:</h3>

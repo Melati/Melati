@@ -43,25 +43,24 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import java.io.IOException;
-import org.melati.poem.AccessPoemException;
+import org.melati.util.MelatiRuntimeException;
 
-public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
+public class TempletAdaptorConstructionMelatiException
+    extends MelatiRuntimeException {
+  public String adaptorFieldName, adaptorName;
 
-  public AttributeHTMLMarkupLanguage(HTMLMarkupLanguage html) {
-    super("html_attr", html);
+  public TempletAdaptorConstructionMelatiException(
+      String adaptorFieldName, String adaptorName, Exception problem) {
+    super(problem);
+    this.adaptorFieldName = adaptorFieldName;
+    this.adaptorName = adaptorName;
   }
 
-  public String rendered(AccessPoemException e) throws IOException {
-    try {
-      melatiContext.getWriter().write("[Access denied to ");
-      rendered(e.token);
-      melatiContext.getWriter().write("]");
-    } catch (Exception g) {
-      melatiContext.getWriter().write("[UNRENDERABLE EXCEPTION!]");
-    }
-    return "";
+  public String getMessage() {
+    return "There was a problem with the adaptor `" + adaptorName + "' " +
+           "named in the field `" + adaptorFieldName + "'\n" +
+           subException.getMessage();
   }
 }

@@ -1,4 +1,4 @@
-#set $Response.Header.Content-Type = "text/html"
+#set $Response.Content-Type = "text/html"
 <HTML>
 <HEAD>
 <TITLE>WebmacroMelatiServlet Test</TITLE>

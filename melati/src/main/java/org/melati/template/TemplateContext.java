@@ -64,16 +64,6 @@ public interface TemplateContext
 
   public Object getContext();
 
-  /** 
-   * set the template name
-   */
-  public void setTemplateName(String name);
-    
-  /** 
-   * get the template name
-   */
-  public String getTemplateName();
-
 }
 
 

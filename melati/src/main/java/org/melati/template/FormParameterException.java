@@ -48,8 +48,8 @@ package org.melati.template;
 import org.melati.util.MelatiException;
 
 /**
-  * something is wrong with this parameter.
-  */
+ * something is wrong with this parameter.
+ */
 public class FormParameterException extends MelatiException {
 
   String error;
@@ -60,6 +60,7 @@ public class FormParameterException extends MelatiException {
   }
 
   public String getMessage() {
-    return "I couldn't parse the form parameter: " + param + " because: " + error;
+    return "I couldn't parse the form parameter: " + param + " because: " +
+    error;
   }
 }

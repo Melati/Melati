@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
 import java.text.DateFormat;
 
@@ -53,11 +53,7 @@ import java.io.IOException;
 import org.webmacro.engine.VariableExceptionHandler;
 import org.webmacro.engine.Variable;
 
-import org.melati.template.TemplateContext;
-import org.melati.template.TemplateEngineException;
-import org.melati.template.NotFoundException;
-import org.melati.template.TempletLoader;
-import org.melati.template.Template;
+import org.melati.Melati;
 import org.melati.util.MelatiLocale;
 import org.melati.util.JSDynamicTree;
 import org.melati.poem.Persistent;
@@ -67,24 +63,23 @@ import org.melati.poem.AccessPoemException;
 public abstract class MarkupLanguage {
 
   private String name;
-  protected MelatiContext melatiContext;
+  protected Melati melati;
   private TemplateContext templateContext;
   private TempletLoader templetLoader;
   private MelatiLocale locale;
-  private Melati melati;
 
-  public MarkupLanguage(String name, MelatiContext melatiContext,
+  public MarkupLanguage(String name, Melati melati,
   TempletLoader templetLoader, MelatiLocale locale) {
     this.name = name;
-    this.melatiContext = melatiContext;
-    this.templateContext = melatiContext.getTemplateContext();
+    this.melati = melati;
+    this.templateContext = melati.getTemplateContext();
     this.templetLoader = templetLoader;
     this.locale = locale;
-    melati = melatiContext.getMelati();
+    this.melati = melati;
   }
 
   protected MarkupLanguage(String name, MarkupLanguage other) {
-    this(name, other.melatiContext, other.templetLoader, other.locale);
+    this(name, other.melati, other.templetLoader, other.locale);
   }
 
   public String getName() {
@@ -110,15 +105,16 @@ public abstract class MarkupLanguage {
 
   public String rendered(JSDynamicTree tree)
   throws TemplateEngineException, IOException {
-    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
+    TemplateContext vars = melati.getTemplateEngine().getTemplateContext(melati);
     vars.put("tree",tree);
     String templetName = "org.melati.util.JSDynamicTree";
     try {
       return expandedTemplet(
-      templetLoader.templet(melatiContext.getTemplateEngine(), 
+      templetLoader.templet(melati.getTemplateEngine(),
       this, templetName), vars);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException("I couldn't find the templet: " + templetName + " because: " +e.toString());
+      throw new TemplateEngineException("I couldn't find the templet: " +
+      templetName + " because: " +e.toString());
     }
   }
 
@@ -180,7 +176,7 @@ public abstract class MarkupLanguage {
    * <TT>rendered</TT> might not.
    */
 
-  public String renderedString(Field field)  
+  public String renderedString(Field field)
   throws TemplateEngineException, IOException {
     return rendered(field);
   }
@@ -217,12 +213,12 @@ public abstract class MarkupLanguage {
   }
 
   public Template templet(String templetName) throws NotFoundException {
-    return templetLoader.templet(melatiContext.getTemplateEngine(), this, templetName);
+    return templetLoader.templet(melati.getTemplateEngine(), this, templetName);
   }
 
   protected String expandedTemplet(Template templet, TemplateContext tc)
   throws TemplateEngineException, IOException {
-    melatiContext.getTemplateEngine().expandTemplate(melatiContext.getWriter(),templet,tc);
+    melati.getTemplateEngine().expandTemplate(melati.getWriter(),templet,tc);
     return "";
   }
 
@@ -237,23 +233,25 @@ public abstract class MarkupLanguage {
       VariableExceptionHandler handler =
       (VariableExceptionHandler)templateContext.get(Variable.EXCEPTION_HANDLER);
       if (handler != null)
-        rendered(handler.handle(null, melatiContext, e));
+      rendered(handler.handle(null, melati, e));
       else
       throw e;
     }
 
     Template templet;
     try {
-      templet = 
+      templet =
       templetName == null ?
-        templetLoader.templet(melatiContext.getTemplateEngine(), this, field) :
-        templetLoader.templet(melatiContext.getTemplateEngine(), this, templetName);
+      templetLoader.templet(melati.getTemplateEngine(), this, field) :
+      templetLoader.templet(melati.getTemplateEngine(), this, templetName);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException("I couldn't find the templet: " + templetName + " because: " +e.toString());
+      throw new TemplateEngineException("I couldn't find the templet: " +
+      templetName + " because: " +e.toString());
     }
 
 
-    TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
+    TemplateContext vars =
+    melati.getTemplateEngine().getTemplateContext(melati);
 
     if (overrideNullable) {
       field = field.withNullable(true);
@@ -262,15 +260,17 @@ public abstract class MarkupLanguage {
 
     vars.put("field", field);
     vars.put("ml", this);
-    vars.put("melati", melatiContext);
+    vars.put("melati", melati);
 
     return expandedTemplet(templet, vars);
   }
 
   public final String rendered(Exception e) throws IOException {
     try {
-      TemplateContext vars = melatiContext.getTemplateEngine().getTemplateContext(melatiContext);
-      Template templet = templetLoader.templet(melatiContext.getTemplateEngine(), this, e.getClass());
+      TemplateContext vars =
+      melati.getTemplateEngine().getTemplateContext(melati);
+      Template templet =
+      templetLoader.templet(melati.getTemplateEngine(), this, e.getClass());
       vars.put("exception", e);
       return expandedTemplet(templet,templateContext);
     }
@@ -278,13 +278,13 @@ public abstract class MarkupLanguage {
       try {
         System.err.println("MarkupLanguage failed to render an exception:");
         f.printStackTrace();
-        melatiContext.getWriter().write("[");
+        melati.getWriter().write("[");
         rendered(e.toString());
-        melatiContext.getWriter().write("]");
+        melati.getWriter().write("]");
         return "";
       }
       catch (Exception g) {
-        melatiContext.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+        melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
         return "";
       }
     }

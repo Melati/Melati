@@ -48,7 +48,6 @@ package org.melati.template;
 import java.util.Hashtable;
 import java.io.File;
 
-import org.melati.MarkupLanguage;
 import org.melati.poem.FieldAttributes;
 
 public class ClassNameTempletLoader implements TempletLoader {
@@ -72,9 +71,9 @@ public class ClassNameTempletLoader implements TempletLoader {
 
   protected String templetPath
   (TemplateEngine templateEngine, MarkupLanguage markupLanguage, String name) {
-    return "template" + File.separatorChar +templateEngine.getName() + 
-    File.separatorChar + 
-    templetsPath(markupLanguage) + File.separatorChar + name + ".wm";
+    return "template" + File.separatorChar + templateEngine.getName() + 
+    File.separatorChar + templetsPath(markupLanguage) + 
+    File.separatorChar + name + templateEngine.templateExtension();
   }
 
   public Template templet(TemplateEngine templateEngine,
@@ -98,7 +97,8 @@ public class ClassNameTempletLoader implements TempletLoader {
         String specialTemplateName =
         (String) specialTemplateNames.get(clazz.getName());
         if (specialTemplateName != null) {
-          templet = templet(templateEngine, markupLanguage, specialTemplateName);
+          templet = 
+          templet(templateEngine, markupLanguage, specialTemplateName);
           break;
         }
         clazz = clazz.getSuperclass();

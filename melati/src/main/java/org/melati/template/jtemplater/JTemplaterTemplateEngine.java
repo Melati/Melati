@@ -49,7 +49,7 @@ package org.melati.template.jtemplater;
 import java.io.Writer;
 import java.io.IOException;
 
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -83,33 +83,37 @@ public class JTemplaterTemplateEngine implements TemplateEngine
   }
 
   /**
-  * the name of the template engine (used to find the templets)
-  */
+   * the name of the template engine (used to find the templets)
+   */
   public String getName() {
     return "jtemplater";
   }
-  
+
+  /**
+  * the extension of the templates used by this template engine)
+  */
+  public String templateExtension() {
+    return ".jt";
+  }
+
   public Object getEngine() {
     return jt;
   }
 
-  public TemplateContext getTemplateContext(MelatiContext melatiContext)
+  public TemplateContext getTemplateContext(Melati melati)
   throws TemplateEngineException {
-    return new JTemplaterTemplateContext(melatiContext);
+    return new JTemplaterTemplateContext(melati);
   }
 
   public org.melati.template.Template template(String templateName)
   throws NotFoundException {
     try {
-      return new JTemplaterTemplate(jt.getTemplate(templateName,JTemplaterTemplateContext.getClazz()));
+      return new JTemplaterTemplate
+      (jt.getTemplate(templateName,JTemplaterTemplateContext.getClazz()));
     } catch (Exception e) {
-      throw new NotFoundException("I couldn't get the template: " + templateName + " because: " +e.toString());
+      throw new NotFoundException("I couldn't get the template: " +
+      templateName + " because: " +e.toString());
     }
-  }
-
-  public void expandTemplate(Writer out, TemplateContext templateContext)
-  throws TemplateEngineException {
-    expandTemplate(out, templateContext.getTemplateName(), templateContext);
   }
 
   public void expandTemplate
@@ -118,14 +122,15 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     try {
       expandTemplate(out, template(templateName), templateContext);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException("I couldn't find the template: " + templateName + " because: " +e.toString());
+      throw new TemplateEngineException("I couldn't find the template: " +
+      templateName + " because: " +e.toString());
     }
   }
 
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, org.melati.template.Template template, 
+  public void expandTemplate(Writer out, org.melati.template.Template template,
   TemplateContext templateContext) throws TemplateEngineException {
     template.write(out, templateContext, this);
   }

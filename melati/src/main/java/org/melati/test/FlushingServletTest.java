@@ -54,33 +54,35 @@ package org.melati.test;
  */
 
 import org.melati.template.webmacro.WebmacroMelatiServlet;
-import org.melati.MelatiContext;
+import org.melati.servlet.MelatiContext;
+import org.melati.Melati;
 import org.melati.util.Waiter;
+import org.melati.servlet.PathInfoException;
 import org.webmacro.WebMacroException;
 import org.webmacro.servlet.WebContext;
 
 public class FlushingServletTest extends WebmacroMelatiServlet {
 
-  public String handle( MelatiContext melatiContext, WebContext context ) 
+  public String handle( Melati melati, WebContext context ) 
   throws WebMacroException {
-    if (melatiContext.getMethod().equals("unflushed")) {
-      melatiContext.setBufferingOff(false);
+    if (melati.getMethod().equals("unflushed")) {
+      melati.setBufferingOff(false);
     } else {
-      melatiContext.setBufferingOff(true);
+      melati.setBufferingOff(true);
     }
     context.put("waiter", new Waiter());
     return "test/FlushingServletTest.wm";
   }
 
-  public String getLogicalDatabase
-  (MelatiContext melatiContext, String logicalDatabase) {
-    return "melatitest";
-  }
-
-  public String getMethod
-  (MelatiContext melatiContext, String method) {
-    if (method == null) return "";
-    return method;
+/*
+ * set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  this is a very good idea when
+ * writing your appications where you are typically only accessing
+ * a single database
+ */
+  protected MelatiContext melatiContext(Melati melati)
+  throws PathInfoException {
+    return melatiContextWithLDB(melati,"melatitest");
   }
 
 }

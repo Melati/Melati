@@ -43,25 +43,39 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
 import java.io.IOException;
-import org.melati.poem.AccessPoemException;
+import java.net.URLEncoder;
 
-public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
+import org.melati.Melati;
+import org.melati.util.MelatiLocale;
+import org.melati.util.HTMLUtils;
 
-  public AttributeWMLMarkupLanguage(WMLMarkupLanguage html) {
-    super("wml_attr", html);
+public class HTMLLikeMarkupLanguage extends MarkupLanguage {
+
+  public HTMLLikeMarkupLanguage(String name, Melati melati,
+                                TempletLoader templetLoader,
+                                MelatiLocale locale) {
+    super(name, melati, templetLoader, locale);
+  }
+  
+  protected HTMLLikeMarkupLanguage(String name, MarkupLanguage other) {
+    super(name, other);
   }
 
-  public String rendered(AccessPoemException e) throws IOException {
-    try {
-      melatiContext.getWriter().write("[Access denied to ");
-      rendered(e.token);
-      melatiContext.getWriter().write("]");
-    } catch (Exception g) {
-      melatiContext.getWriter().write("[UNRENDERABLE EXCEPTION!]");
-    }
+/* FIXME: webmacro unfortunately won't call methods with void returns
+*/
+  public String rendered(String s) throws IOException {
+    super.melati.getWriter().write(HTMLUtils.entitied(s));
     return "";
+  }
+
+  public String escaped(String s) {
+    return HTMLUtils.jsEscaped(s);
+  }
+
+  public String encoded(String s) {
+    return URLEncoder.encode(s);
   }
 }

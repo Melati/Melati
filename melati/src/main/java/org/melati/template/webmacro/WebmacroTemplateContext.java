@@ -61,7 +61,6 @@ public class WebmacroTemplateContext implements TemplateContext {
 
   // the webcontext
   public WebContext webContext;
-  public String templateName;
 
   public WebmacroTemplateContext(WebContext wc) {
     webContext = wc;
@@ -85,20 +84,6 @@ public class WebmacroTemplateContext implements TemplateContext {
 
   public HttpSession getSession() {
     return webContext.getSession();
-  }
-
-  /** 
-   * set the template name
-   */
-  public void setTemplateName(String name) {
-    templateName = name;
-  }
-    
-  /** 
-   * get the template name
-   */
-  public String getTemplateName() {
-    return templateName;
   }
 
 }

@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2000 Tim Joyce
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,29 +38,21 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Joyce <timj@paneris.org>
+ *     http://paneris.org/
+ *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
-package org.melati;
+package org.melati.util;
 
-import org.melati.util.*;
+public class ConfigException extends MelatiException {
 
-public class DatabaseInitException extends MelatiException {
-
-  public String databaseDefsName;
-  public String name;
-
-  public DatabaseInitException(String databaseDefsName, String name, Exception problem) {
-    super(problem);
-    this.databaseDefsName = databaseDefsName;
-    this.name = name;
+  String error;
+  public ConfigException(String error) {
+    this.error = error;
   }
 
   public String getMessage() {
-    return
-        "Something went wrong trying to open the logical database `" +
-        name + "' using the config file `" + databaseDefsName + "'\n" + subException;
+    return error;
   }
 }

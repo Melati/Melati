@@ -43,18 +43,18 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import org.melati.template.TempletLoader;
+import org.melati.Melati;
 import org.melati.util.MelatiLocale;
 
 public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
   private AttributeHTMLMarkupLanguage attributeML = null;
 
-  public HTMLMarkupLanguage(MelatiContext melatiContext,
+  public HTMLMarkupLanguage(Melati melati,
 			    TempletLoader templetLoader, MelatiLocale locale) {
-    super("html", melatiContext, templetLoader, locale);
+    super("html", melati, templetLoader, locale);
   }
 
   protected HTMLMarkupLanguage(String name, HTMLMarkupLanguage other) {

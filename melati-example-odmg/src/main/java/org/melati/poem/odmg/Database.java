@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.melati.poem.*;
 import org.melati.*;
+import org.melati.util.DatabaseInitException;
 
 /** POEM implementation of the ODMG Database API **/
 class Database implements org.odmg.Database

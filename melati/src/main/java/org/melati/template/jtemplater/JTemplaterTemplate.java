@@ -66,13 +66,14 @@ public class JTemplaterTemplate implements Template
   public JTemplaterTemplate(org.melati.jtemplater.Template t) {
     template = t;
   }
-  
-  public void write(Writer out, TemplateContext templateContext, 
+
+  public void write(Writer out, TemplateContext templateContext,
   TemplateEngine engine) throws TemplateEngineException {
     try {
       template.expand(templateContext, out, (JTemplater)engine.getEngine());
     } catch (Exception e) {
-      throw new TemplateEngineException("I couldn't expand the template because: " +e.toString());
+      throw new TemplateEngineException
+      ("I couldn't expand the template because: " +e.toString());
     }
   }
 

@@ -55,6 +55,7 @@ public class BugException extends MelatiRuntimeException {
   }
 
   public String getMessage() {
-    return "An unexpected condition occurred in the software\n" + getCoreMessage();
+    return "An unexpected condition occurred in the software\n" + 
+    getCoreMessage();
   }
 }

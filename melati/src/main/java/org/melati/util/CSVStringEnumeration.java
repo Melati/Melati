@@ -60,7 +60,8 @@ public class CSVStringEnumeration implements Enumeration {
       // we need to allow for quotes inside quoted fields, so now test for ",
       int q = line.indexOf("\",", p);
       // if it is not there, we are (hopefully) at the end of a line
-      if (q == -1 && (line.indexOf('"', p) == line.length()-1)) q = line.length()-1;
+      if (q == -1 && (line.indexOf('"', p) == line.length()-1)) 
+      q = line.length()-1;
         
       if (q == -1) {
 	      p = line.length();

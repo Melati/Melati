@@ -74,9 +74,11 @@ public class WebmacroTemplate implements Template
     try {
       template.write(out, (WebContext) templateContext.getContext());
     } catch (ContextException e) {
-      throw new TemplateEngineException("I couldn't use the context because: " +e.toString());
+      throw new TemplateEngineException
+      ("I couldn't use the context because: " + e.toString());
     } catch (IOException e) {
-      throw new TemplateEngineException("I couldn't expand the template because: " +e.toString());
+      throw new TemplateEngineException
+      ("I couldn't expand the template because: " +e.toString());
     }
   }
 

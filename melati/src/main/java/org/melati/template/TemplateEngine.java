@@ -46,7 +46,7 @@
 package org.melati.template;
 
 import java.io.Writer;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -65,13 +65,18 @@ public interface TemplateEngine
   /**
    * get the generic parameters for this engine
    */
-  public TemplateContext getTemplateContext(MelatiContext melatiContext)
+  public TemplateContext getTemplateContext(Melati melati)
   throws TemplateEngineException;
 
   /**
   * the name of the template engine (used to find the templets)
   */
   public String getName();
+
+  /**
+  * the extension of the templates used by this template engine)
+  */
+  public String templateExtension();
   
   /** 
    * get a template given it's name
@@ -81,17 +86,16 @@ public interface TemplateEngine
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, TemplateContext templateContext) throws TemplateEngineException;
+  public void expandTemplate
+  (Writer out, String templateName, TemplateContext templateContext) 
+  throws TemplateEngineException;
   
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, String templateName, TemplateContext templateContext) throws TemplateEngineException;
-  
-  /** 
-   * Expand the Template against the context.
-   */
-  public void expandTemplate(Writer out, Template template, TemplateContext templateContext) throws TemplateEngineException;
+  public void expandTemplate
+  (Writer out, Template template, TemplateContext templateContext) 
+  throws TemplateEngineException;
 
     
   /** 

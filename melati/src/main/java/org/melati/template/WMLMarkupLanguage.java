@@ -43,23 +43,28 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import org.melati.util.MelatiException;
-import javax.servlet.http.HttpServlet;
+import org.melati.Melati;
+import org.melati.util.MelatiLocale;
 
-public class InvalidUsageException extends MelatiException {
+public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
-  HttpServlet servlet;
-  MelatiContext context;
+  private AttributeWMLMarkupLanguage attributeML = null;
 
-  public InvalidUsageException(HttpServlet servlet, MelatiContext context) {
-    this.servlet = servlet;
-    this.context = context;
+  public WMLMarkupLanguage(Melati melati,
+                           TempletLoader templetLoader, MelatiLocale locale) {
+    super("wml", melati, templetLoader, locale);
+  }
+  
+  protected WMLMarkupLanguage(String name, WMLMarkupLanguage other) {
+    super(name, other);
   }
 
-  public String getMessage() {
-    return "The servlet " + servlet.getClass().getName() + " was invoked " +
-	  "with invalid parameters " + context;
+  public AttributeWMLMarkupLanguage getAttr() {
+    if (attributeML == null)
+      attributeML = new AttributeWMLMarkupLanguage(this);
+    return attributeML;
   }
+
 }

@@ -47,7 +47,7 @@ package org.melati.template;
 
 import java.io.Writer;
 import java.io.IOException;
-import org.melati.MelatiContext;
+import org.melati.Melati;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -59,7 +59,8 @@ public class NoTemplateEngine implements TemplateEngine
 {
 
   private String exceptiion =
-  "No Template engine is Configured, please specify an engine in org.melati.MelatiServlet.properties";
+  "No Template engine is Configured, please specify an engine in " +
+  "org.melati.MelatiServlet.properties";
 
   /**
    * Inititialise the Engine
@@ -73,15 +74,15 @@ public class NoTemplateEngine implements TemplateEngine
   }
 
   /**
-  * the name of the template engine (used to find the templets)
-  */
+   * the name of the template engine (used to find the templets)
+   */
   public String getName() {
     return "none";
   }
 
   /**
-  * the underlying engine
-  */
+   * the underlying engine
+   */
   public Object getEngine() {
     return "none";
   }
@@ -89,7 +90,7 @@ public class NoTemplateEngine implements TemplateEngine
   /**
    * get the generic parameters for this engine
    */
-  public TemplateContext getTemplateContext(MelatiContext melatiContext)
+  public TemplateContext getTemplateContext(Melati melati)
   throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }
@@ -98,8 +99,8 @@ public class NoTemplateEngine implements TemplateEngine
    * get a template given it's name
    */
   public Template template(String templateName) throws NotFoundException {
-    throw new NotFoundException("I couldn't find the template: " + templateName +
-    " because you have not configured a template engine.");
+    throw new NotFoundException("I couldn't find the template: " +
+    templateName + " because you have not configured a template engine.");
   }
 
   /**
@@ -109,7 +110,7 @@ public class NoTemplateEngine implements TemplateEngine
   throws TemplateEngineException {
     throw new TemplateEngineException(exceptiion);
   }
-  
+
   /**
    * Expand the Template against the context.
    */

@@ -7,8 +7,8 @@
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
   <h4 align="center">last updated 04/12/2000 - tim@hoop.co.uk</h4>
-  <h2>Release 0.51</h2>
-  <h4>04/12/2000 </h4>
+  <h2>Release 0.51.1</h2>
+  <h4>12/12/2000 </h4>
   <h3>Introduction</h3>
   <p>This release involves a major overhaul of the Melati servlet API and templet 
     API. </p>
@@ -18,8 +18,8 @@
       notable the ability to use Melati outside of a POEM Session</li>
     <li>a cleaner relationship with Webmacro, allowing us to plug in other Template 
       Engines, and to prepare the code to provide support the latest WebMacro 
-      release (0.95). Note, this release still only supports the 17/08/2000 WebMacro 
-      snapshot. </li>
+      release (0.95). Note, this release still only supports the July 19, 2000 
+      WebMacro snapshot. </li>
   </ul>
   <p>This release does not introduce any significant new functionality, but does 
     provide an API against which this can be done.</p>
@@ -43,81 +43,53 @@
   <h4>&nbsp;</h4>
   <h4><tt>org.melati.servlet.ConfigServlet</tt></h4>
   <p>This simply creates a <tt>Melati</tt> using the configuration given in <tt>org.melati.MelatiServlet.properties</tt>, 
-    and a <tt>MelatiContext.</tt> The PathInfo is also parsed to provide a 'Method'. 
+    and a <tt>MelatiContext.</tt> The PathInfo is parsed to provide a 'Method'. 
     Extending ConfigServlet is useful when writing servlets that do no want to 
     run entirely within a POEM Session. Eg, a servlet that does a lengthy task 
     nor associated with POEM (like streaming a download) could tie up POEM Transactions 
     for a long time unnecessarily.</p>
   <p>To use ConfigServlet, implement:</p>
-  <p> <tt>protected abstract void doConfiguredRequest(MelatiContext melatiContext) 
-    throws Exception; </tt></p>
-  <p>Please note that the PathInfo parsing has changed, now if you only supply 
-    one argument on the pathinfo, it is now considered to be the Method and not 
-    the logicaldatabase. This makes more sense when writing Melati Applications. 
-  </p>
+  <p> <tt>protected abstract void doConfiguredRequest(Melati melati) throws Exception; 
+    </tt></p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.servlet.PoemServlet</b></tt></p>
-  <p>This does further parsing of the PathInfo in order to provide a <tt>LogicalDatabase</tt>, 
-    <tt>Table</tt> and <tt>Troid</tt>. It then sets up a POEM Session (using the 
-    configuration given in <tt>org.melati.LogicalDatabase.properties</tt>.). PoemServlet 
-    is useful when you want to do build servlets without a Template Engine getting 
-    in the way. Eg, you want direct access to the Servlet Request, or want control 
-    over the response (using say Response.OutputStream).</p>
+  <p>This does further parsing of the PathInfo into MelatiContext in order to 
+    provide a <tt>LogicalDatabase</tt>, <tt>Table</tt> and <tt>Troid</tt>. It 
+    then sets up a POEM Session (using the configuration given in <tt>org.melati.LogicalDatabase.properties</tt>.). 
+    PoemServlet is useful when you want to do build servlets without a Template 
+    Engine getting in the way. Eg, you want direct access to the Servlet Request, 
+    or want control over the response (using say Response.OutputStream).</p>
   <p>To use PoemServlet, implement:</p>
-  <p> <tt>protected abstract void doPoemRequest(MelatiContext melatiContext) throws 
-    Exception; </tt></p>
+  <p> <tt>protected abstract void doPoemRequest(Melati melati) throws Exception; 
+    </tt></p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.servlet.TemplateServlet</b></tt></p>
   <p>This initialises the Template Engine (given in <tt>org.melati.MelatiServlet.properties). 
     </tt>TemplateServlet is used as the base servlet for generic Melati Servlets 
     eg Admin, Login.</p>
-  <p>To use PoemServlet, implement:</p>
-  <p> <tt> protected abstract TemplateContext doTemplateRequest(MelatiContext 
-    melatiContext, TemplateContext templateContext) throws Exception; </tt></p>
+  <p>To use TemplateServlet, implement:</p>
+  <p> <tt> protected abstract String doTemplateRequest(Melati melati, TemplateContext 
+    context) throws Exception; </tt></p>
+  <p>You should return the template name without the extension which is added 
+    by the <tt><b>TemplateServlet</b></tt></p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.template.webmacro.WebmacroTemplateServlet</b></tt></p>
   <p>This is provided for convenience. It simply provides an API for using melati 
     with WebMacro. This API is a little different from the 0.50 <tt>MelatiServlet</tt> 
     API. to use </p>
-  <p> <tt>public abstract String handle( MelatiContext melatiContext, WebContext 
-    webContext ) throws WebMacroException; </tt></p>
-  <p>So, instead of returning a template, simply return the template name.</p>
-  <p>The other point to note is that we commonly used to specify the LogicalDatabase 
-    for a given project by doing something like:</p>
-  <p><tt>public abstract class FiveMelatiServlet extends MelatiServlet { </tt></p>
-  <blockquote> 
-    <p><tt> protected MelatiContext melatiContext(WebContext context) throws MelatiException 
-      {</tt></p>
-    <blockquote> 
-      <p><tt> this.context = context; <br>
-        MelatiContext it = new MelatiContext(); <br>
-        it.logicalDatabase = "five"; <br>
-        return it;</tt></p>
-    </blockquote>
-    <p><tt> } </tt></p>
-  </blockquote>
-  <p><tt>}</tt></p>
-  <p>Which trashed your PathInfo stuff. The same result can now be achieved by:</p>
-  <p><tt>public abstract class FiveMelatiServlet extends WebmacroMelatiServlet 
-    { </tt></p>
-  <blockquote> 
-    <p><tt> public String getLogicalDatabase (MelatiContext melatiContext, String 
-      logicalDatabase) {</tt></p>
-    <blockquote> 
-      <p><tt> return "five"; </tt></p>
-    </blockquote>
-    <p><tt>} </tt></p>
-  </blockquote>
-  <p><tt>}</tt></p>
-  <p>Which still gives you <tt>getMethod(), getTable() and getTroid()</tt> from 
-    the PathInfo. </p>
+  <p> <tt>public abstract String handle( Melati melati, WebContext webContext 
+    ) throws WebMacroException; </tt></p>
+  <p>So, instead of returning a template, simply return the template name (including 
+    the extension).</p>
   <p>&nbsp;</p>
   <h3>Changes to the Packages</h3>
   <p>Some stuff has been moved, and new packages have been created:</p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.template</b></tt></p>
   <p>This now contains the Template Engine Interface code (see below). It also 
-    contains <tt><b>org.melati.template.webmacro</b> and <b>org.melati.template.jtemplater</b></tt></p>
+    contains <tt><b>org.melati.template.webmacro</b> and <b>org.melati.template.jtemplater. 
+    </b></tt>Package<b> </b><tt><b>org.melati.template</b></tt> also now contains 
+    <b> <tt>MarkupLanguage</tt></b> and associated classes.</p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.templet</b></tt></p>
   <p>Has gone. Everything has been moved to <tt><b>org.melati.template</b></tt>. 
@@ -125,7 +97,8 @@
     they are very intertwined anyway.</p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.servlet</b></tt></p>
-  <p>Has the generic classes that implement <tt>HttpServlet</tt></p>
+  <p>Has the generic classes that implement <tt><b>HttpServlet</b></tt>. Also 
+    now contains <tt><b>MelatiContext</b></tt>.</p>
   <p></p>
   <p></p>
   <p>&nbsp;</p>
@@ -137,7 +110,10 @@
   <p>The objects used by Melati have changed a bit, here are the important ones</p>
   <p>&nbsp;</p>
   <p><tt><b>org.melati.MelatiConfig</b></tt></p>
-  <p>This loads in <tt>org.melati.Melatiservlet.properties</tt></p>
+  <p>This loads in <tt>org.melati.Melatiservlet.properties. </tt> Importantly 
+    it allows you to get a <tt><b>Melati</b></tt> ;</p>
+  <p> <tt>public Melati getContext(HttpServletRequest request, HttpServletResponse 
+    response) throws MelatiException </tt></p>
   <p>&nbsp;</p>
   <p></p>
   <p></p>
@@ -145,17 +121,6 @@
   <p></p>
   <p></p>
   <p><tt><b>org.melati.Melati</b></tt></p>
-  <p>This can now be called <tt>Melati m = new Melati(); </tt>This loads the config 
-    and provies you with a Melati to mess about with. Importantly it allows you 
-    to get a <tt>MelatiContext</tt> ;</p>
-  <p> <tt>public MelatiContext getContext(HttpServletRequest request, HttpServletResponse 
-    response) throws MelatiException </tt></p>
-  <p>It also provides access to the config parameters. There is a fair chance 
-    that Melati should be ststic (but it isn't for now).</p>
-  <p>&nbsp;</p>
-  <p><tt><b>org.melati.MelatiContext</b></tt></p>
-  <p></p>
-  <p></p>
   <p>This is where everything happens, it does all the usual stuff (access to 
     the servlet API) and much of what was in <tt>org.melati.Melati</tt><tt>. </tt> 
     Importantly, is also has:</p>
@@ -166,9 +131,12 @@
     is fully buffered, but you can turn this off completely or use a <tt>ThrowingPrintWriter</tt> 
     which periodically flushes. Templets are now expanded directly to the output 
     stream without haveing to be buffered in strings first.</p>
+  <p>&nbsp;</p>
   <p></p>
-  <p><br>
-  </p>
+  <p></p>
+  <p><tt><b>org.melati.MelatiContext</b></tt></p>
+  <p>This is unchanged.</p>
+  <p>&nbsp; </p>
   <p> </p>
   <p></p>
   <p><tt><b>org.melati.template.TemplateContext</b></tt></p>
@@ -200,6 +168,7 @@
   <p>And javascriptLibraryURL should read</p>
   <p><tt>org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/template/webmacro/templets/html</tt></p>
   <p>(although it is not clear that it belongs here)</p>
+  <p>&nbsp;</p>
   <h3>Exception Handling</h3>
   <p>I believe that exceptions are now presented better. Any exception that is 
     not part of the Initialisation process should now be presented with a full 

@@ -46,7 +46,9 @@
 package org.melati.test;
 
 import org.melati.template.webmacro.WebmacroMelatiServlet;
-import org.melati.MelatiContext;
+import org.melati.Melati;
+import org.melati.servlet.PathInfoException;
+import org.melati.servlet.MelatiContext;
 import org.webmacro.WebMacroException;
 import org.webmacro.servlet.WebContext;
 
@@ -59,14 +61,20 @@ import org.webmacro.servlet.WebContext;
  */
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
-  public String handle( MelatiContext melatiContext, WebContext context ) 
+  public String handle( Melati melati, WebContext context ) 
   throws WebMacroException {
     return "test/WebmacroMelatiServletTest.wm";
   }
 
-  public String getLogicalDatabase
-  (MelatiContext melatiContext, String logicalDatabase) {
-    return "melatitest";
+/*
+ * set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  this is a very good idea when
+ * writing your appications where you are typically only accessing
+ * a single database
+ */
+  protected MelatiContext melatiContext(Melati melati)
+  throws PathInfoException {
+    return melatiContextWithLDB(melati,"melatitest");
   }
 
 }

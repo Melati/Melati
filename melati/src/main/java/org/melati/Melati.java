@@ -41,91 +41,254 @@
  *     William Chesters <williamc@paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
- *
  */
 
 package org.melati;
 
-import java.util.Enumeration;
+import java.io.CharArrayWriter;
+import java.io.Writer;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.melati.login.AccessHandler;
+import org.melati.admin.AdminUtils;
+import org.melati.poem.Database;
+import org.melati.poem.Table;
 import org.melati.poem.User;
-import org.melati.poem.PoemThread;
 import org.melati.poem.Persistent;
-import org.melati.poem.Column;
+import org.melati.poem.PoemThread;
 import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.NoAccessTokenPoemException;
-import org.melati.template.TemplateEngine;
+import org.melati.servlet.Flusher;
+import org.melati.servlet.MelatiContext;
 import org.melati.template.TemplateContext;
-import org.melati.template.TempletAdaptor;
-import org.melati.template.YMDDateAdaptor;
-import org.melati.template.SimpleDateAdaptor;
-import org.melati.template.TempletLoader;
-import org.melati.util.JSDynamicTree;
-import org.melati.util.MelatiException;
-import org.melati.util.MelatiLocale;
-import org.melati.util.Tree;
+import org.melati.template.HTMLMarkupLanguage;
+import org.melati.template.WMLMarkupLanguage;
+import org.melati.template.TemplateEngine;
+import org.melati.util.HttpUtil;
+import org.melati.util.ThrowingPrintWriter;
+import org.melati.util.UnexpectedExceptionException;
+import org.melati.util.DatabaseInitException;
+import org.melati.util.StringUtils;
 
-/*
-<p>A melati is the main entry point for using Melati. </p>
-<p>Parameters are loaded when it is 1st requested</p>
- */
+import org.webmacro.engine.VariableExceptionHandler;
+
 
 public class Melati {
 
-  private MelatiConfig config = null;
-  private TemplateEngine templateEngine = null;
+  private MelatiConfig config;
+  private MelatiContext context;
+  private HttpServletRequest request;
+  private HttpServletResponse response;
+  private Database database = null;
+  private Table table = null;
+  private Persistent object = null;
+  private TemplateEngine templateEngine;
+  private TemplateContext templateContext;
+  // most of the time we buffer the output
+  private boolean buffered = true;
+  // check to see if we have got the writer
+  private boolean gotwriter = false;
+  // if we don't buffer, we can allow the output to be interrupted
+  private boolean stopping = true;
+  // the flusher send output to the client ever two seconds
+  private Flusher flusher;
+  // what the servlet's output is buffered into
+  private CharArrayWriter output = new CharArrayWriter (2000);
 
-  // allows creation of a melati with default config params
-  public Melati() throws MelatiException {
-    this(new MelatiConfig());
-  }
+  public Melati (MelatiConfig config, HttpServletRequest request,
+  HttpServletResponse response) {
 
-  // allows creation of a melati with a configuration
-  public Melati(MelatiConfig config) throws MelatiException {
+    this.request = request;
+    this.response = response;
     this.config = config;
   }
 
-  // creates a melati context
-  public MelatiContext getContext(HttpServletRequest request,
-  HttpServletResponse response) throws MelatiException {
-    return new MelatiContext(this, request, response);
+  public HttpServletRequest getRequest () {
+    return request;
   }
 
-  // the template engine in use
-  public TemplateEngine getTemplateEngine() {
-    return config.getTemplateEngine();
+  public void setRequest (HttpServletRequest request) {
+    this.request = request;
   }
 
-  // get the adaptor for rendering dates as drop-downs
-  public YMDDateAdaptor getYMDDateAdaptor() {
-    return YMDDateAdaptor.it;
+  public HttpServletResponse getResponse () {
+    return response;
+  }
+  
+  public void setContext(MelatiContext context) throws DatabaseInitException {
+    this.context = context;
+    if (context.logicalDatabase != null) 
+      database = LogicalDatabase.getDatabase(context.logicalDatabase);
+    if (context.table != null && database != null) 
+      table = database.getTable(context.table);
+    if (context.troid != null && table != null) 
+      object = table.getObject(context.troid.intValue());
+  }
+  
+  public MelatiContext getContext() {
+    return context;
   }
 
-  // get the adaptor for rendering dates as normal
-  public SimpleDateAdaptor getSimpleDateAdaptor() {
-    return SimpleDateAdaptor.it;
+  // get the database
+  public Database getDatabase () {
+    return database;
   }
 
-  // get a tree object
-  public JSDynamicTree getJSDynamicTree(Tree tree) {
-    return new JSDynamicTree(tree);
+  // get the table
+  public Table getTable () {
+    return table;
   }
 
-  public AccessHandler getAccessHandler() {
-    return config.getAccessHandler();
+  // get the object
+  public Persistent getObject () {
+    return object;
+  }
+
+  public String getMethod () {
+    return context.method;
+  }
+
+  public void setTemplateEngine (TemplateEngine te) {
+    templateEngine = te;
+  }
+
+  public TemplateEngine getTemplateEngine () {
+    return templateEngine;
+  }
+
+
+  public void setTemplateContext (TemplateContext tc) {
+    templateContext = tc;
+  }
+
+  public TemplateContext getTemplateContext () {
+    return templateContext;
+  }
+
+  public MelatiConfig getConfig () {
+    return config;
+  }
+
+  /* get the pathinf, split into bits
+   */
+  public String[] getPathInfoParts () {
+    String pathInfo = request.getPathInfo ();
+    if (pathInfo == null || pathInfo.length () < 1) return new String[0];
+    pathInfo = pathInfo.substring (1);
+    if (pathInfo.endsWith ("/")) 
+    pathInfo = pathInfo.substring(0,pathInfo.length()-1);
+    return StringUtils.split (pathInfo, '/');
+  }
+
+
+  public HttpSession getSession () {
+    return getRequest ().getSession (true);
+  }
+
+  // get the admin utils object
+  public AdminUtils getAdminUtils () {
+    return new AdminUtils (getRequest ().getServletPath (),
+    config.getStaticURL () + "/admin",
+    context.logicalDatabase);
+  }
+
+  public String getLogoutURL () {
+    StringBuffer url = new StringBuffer ();
+    HttpUtil.appendZoneURL (url, getRequest ());
+    url.append ('/');
+    url.append (config.logoutPageServletClassName ());
+    url.append ('/');
+    url.append (context.logicalDatabase);
+    return url.toString ();
+  }
+
+  public String getZoneURL () {
+    return HttpUtil.zoneURL (getRequest ());
+  }
+
+  // location of javascript for this site
+  public String getJavascriptLibraryURL () {
+    return config.getJavascriptLibraryURL ();
+  }
+
+  public HTMLMarkupLanguage getHTMLMarkupLanguage () {
+    return new HTMLMarkupLanguage (this,
+    config.getTempletLoader (),
+    config.getLocale ());
+  }
+
+  public WMLMarkupLanguage getWMLMarkupLanguage () {
+    return new WMLMarkupLanguage (this,
+    config.getTempletLoader (),
+    config.getLocale ());
+  }
+
+  public String sameURLWith (String field, String value) {
+    return MelatiUtil.sameURLWith (getRequest (), field, value);
+  }
+
+  public String sameURLWith (String field) {
+    return sameURLWith (field, "1");
+  }
+
+  public String getSameURL () {
+    String qs = getRequest ().getQueryString ();
+    return getRequest ().getRequestURI () + (qs == null ? "" : '?' + qs);
+  }
+
+  // turn off buffering
+  // the stop paramter allow you flush the output and stop when cancelled
+  public void setBufferingOff (boolean stop) {
+    buffered = false;
+    stopping = stop;
+  }
+
+  public boolean gotWriter () {
+    return gotwriter;
+  }
+
+  // gets a writer
+  // if we are buffering and stopping, this writer will be a ThrowingPrintWriter
+  public Writer getWriter () throws IOException {
+    gotwriter = true;
+    if (buffered) {
+      return output;
+    } else {
+      if (stopping) {
+        Writer out = new ThrowingPrintWriter (getResponse ().getWriter (),
+        "servlet response stream");
+        flusher = new Flusher (out);
+        flusher.start ();
+        return out;
+      } else {
+        return getResponse ().getWriter ();
+      }
+    }
+  }
+
+  // writes the buffered output to the servlet writer
+  // we also need to stop the flusher if it has started
+  public void write () throws IOException {
+    // only write stuff if we have previously got a writer
+    if (gotwriter) {
+      if (buffered) output.writeTo (getResponse ().getWriter ());
+      if (flusher != null) flusher.setStopTask (true);
+    }
+  }
+
+  public VariableExceptionHandler getPassbackVariableExceptionHandler () {
+    return PassbackVariableExceptionHandler.it;
   }
 
   // get the current user for this session (if he is there)
-  public User getUser() {
+  public User getUser () {
     // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
     // an AccessToken
-
     try {
-      return (User)PoemThread.accessToken();
+      return (User)PoemThread.accessToken ();
     }
     catch (NotInSessionPoemException e) {
       return null;
@@ -135,62 +298,6 @@ public class Melati {
     }
     catch (ClassCastException e) {
       return null;
-    }
-  }
-
-  public MelatiLocale getLocale() {
-    return config.getMelatiLocale();
-  }
-
-  public TempletLoader getTempletLoader() {
-    return config.getTempletLoader();
-  }
-
-  // location of javascript for this site
-  public String getJavascriptLibraryURL() {
-    return config.getJavascriptLibraryURL();
-  }
-
-  // location of static content for this site
-  public String getStaticURL() {
-    return config.getStaticURL();
-  }
-
-  protected String logoutPageServletClassName() {
-    return "org.melati.login.Logout";
-  }
-
-  public static void extractFields(TemplateContext context, Persistent object) {
-    for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
-      Column column = (Column)c.nextElement();
-      String formFieldName = "field_" + column.getName();
-      String rawString = context.getForm(formFieldName);
-
-      String adaptorFieldName = formFieldName + "-adaptor";
-      String adaptorName = context.getForm(adaptorFieldName);
-      if (adaptorName != null) {
-        TempletAdaptor adaptor;
-        try {
-          // FIXME cache this instantiation
-          adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
-        } catch (Exception e) {
-          throw new TempletAdaptorConstructionMelatiException(
-          adaptorFieldName, adaptorName, e);
-        }
-        column.setRaw(object, adaptor.rawFrom(context, formFieldName));
-      }
-      else {
-        if (rawString != null) {
-          if (rawString.equals("")) {
-            if (column.getType().getNullable())
-            column.setRaw(object, null);
-            else
-            column.setRawString(object, "");
-          }
-          else
-          column.setRawString(object, rawString);
-        }
-      }
     }
   }
 

@@ -43,24 +43,25 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import org.melati.util.*;
+import java.io.IOException;
+import org.melati.poem.AccessPoemException;
 
-public class TempletAdaptorConstructionMelatiException
-    extends MelatiRuntimeException {
-  public String adaptorFieldName, adaptorName;
+public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
 
-  public TempletAdaptorConstructionMelatiException(
-      String adaptorFieldName, String adaptorName, Exception problem) {
-    super(problem);
-    this.adaptorFieldName = adaptorFieldName;
-    this.adaptorName = adaptorName;
+  public AttributeWMLMarkupLanguage(WMLMarkupLanguage html) {
+    super("wml_attr", html);
   }
 
-  public String getMessage() {
-    return "There was a problem with the adaptor `" + adaptorName + "' " +
-           "named in the field `" + adaptorFieldName + "'\n" +
-           subException.getMessage();
+  public String rendered(AccessPoemException e) throws IOException {
+    try {
+      melati.getWriter().write("[Access denied to ");
+      rendered(e.token);
+      melati.getWriter().write("]");
+    } catch (Exception g) {
+      melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+    }
+    return "";
   }
 }

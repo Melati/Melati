@@ -45,11 +45,14 @@
 
 package org.melati;
 
-import java.util.*;
-import java.io.*;
-import java.sql.*;
-import org.melati.util.*;
-import org.melati.poem.*;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Properties;
+
+import org.melati.poem.Database;
+import org.melati.util.MelatiRuntimeException;
+import org.melati.util.DatabaseInitException;
+import org.melati.util.PropertiesUtils;
 
 public class LogicalDatabase {
 
@@ -123,7 +126,8 @@ public class LogicalDatabase {
       String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
       String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
       // max transactions default to 8 if not set
-      int maxTrans = PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
+      int maxTrans = 
+      PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
 
       /*
        The driver is now initialized and checked by the dbms class as we

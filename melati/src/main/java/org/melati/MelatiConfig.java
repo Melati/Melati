@@ -43,19 +43,47 @@
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
 
+
+  /**
+   * <A NAME=hackedVariable>You must use a hacked version of
+   * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
+   * into <TT>org.webmacro.engine</TT>: lobby Justin to stop making everything
+   * final or package-private or static!  It will probably not break your
+   * existing WebMacro code if you put it in your <TT>CLASSPATH</TT> since its
+   * semantics are essentially the same as the traditional ones until configured
+   * otherwise.  You can get the hacked version by anonymous CVS from melati.org
+   * (see the <A
+   * HREF=http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/org/melati/qa/Installation.html>Installation
+   * guide</A>).
+   */
+
 package org.melati;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.melati.login.AccessHandler;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TempletLoader;
+import org.melati.template.SimpleDateAdaptor;
+import org.melati.template.YMDDateAdaptor;
+import org.melati.util.ConfigException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.PropertiesUtils;
+import org.melati.util.MelatiLocale;
+
+
+/*
+<p>A MelatiConfig loads and provides access to the configuration
+parameters for melati.  These are held in org.melati.MelatiServlet.properties</p>
+<p>After configuration, you can then get a Melati, using getMelati()</p>
+ */
 
 public class MelatiConfig {
 
@@ -65,88 +93,116 @@ public class MelatiConfig {
   private TemplateEngine templateEngine = null;
   private String javascriptLibraryURL = null;
   private String staticURL = null;
-  private static Class clazz;
-  private static String propertiesName = "org.melati.MelatiServlet";
+  private String defaultPropertiesName = "org.melati.MelatiServlet";
 
-  static {
-    try {
-      clazz = Class.forName("org.melati.MelatiConfig");
-    }
-    catch (ClassNotFoundException e) {
-      throw new MelatiBugMelatiException("Out of date Class.forName", e);
-    }
+  // allows creation of a melaticonfig with default config params
+  public MelatiConfig () throws MelatiException {
+    init (defaultPropertiesName);
   }
 
-  public MelatiConfig() throws ConfigException {
-
-    // Load org.melati.MelatiServlet.properties, or set blank configuration
+  // allows creation of a melaticonfig with a specified properties file
+  public MelatiConfig (String propertiesName) throws MelatiException {
+    init (propertiesName);
+  }
+  
+  public void init(String propertiesName) throws MelatiException {
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
     String templetLoaderProp = pref + "templetLoader";
     String templateEngineProp = pref + "templateEngine";
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
     String staticURLProp = pref + "staticURL";
-
     try {
       configuration =
-          PropertiesUtils.fromResource(clazz, pref + "properties");
+      PropertiesUtils.fromResource (getClass (), pref + "properties");
     }
     catch (FileNotFoundException e) {
       // i think that if we don't have a properties file, it is pretty fatal
       // configuration = new Properties();
-      throw new ConfigException("The file " + pref + "properties could not be found.  Is it in your CLASSPATH?  Full Error: " + e.toString());
+      throw new ConfigException ("The file " + pref +
+      "properties could not be found.  Is it in your CLASSPATH?  Full Error: " +
+      e.toString ());
     }
     catch (IOException e) {
-      throw new ConfigException("The file " + pref + "properties could not be read.  Full Error: " + e.toString());
+      throw new ConfigException ("The file " + pref +
+      "properties could not be read.  Full Error: " + e.toString ());
     }
 
     try {
-      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
-	    configuration, accessHandlerProp, "org.melati.login.AccessHandler",
-	    "org.melati.login.HttpBasicAuthenticationAccessHandler");
+      accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass (
+      configuration, accessHandlerProp, "org.melati.login.AccessHandler",
+      "org.melati.login.HttpBasicAuthenticationAccessHandler");
 
-      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
-	  configuration, templetLoaderProp, "org.melati.template.TempletLoader",
-	  "org.melati.template.ClassNameTempletLoader");
+      templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass (
+      configuration, templetLoaderProp, "org.melati.template.TempletLoader",
+      "org.melati.template.ClassNameTempletLoader");
 
-      templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass(
-	  configuration, templateEngineProp, "org.melati.template.TemplateEngine",
-	  "org.melati.template.NoTemplateEngine");
+      templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass (
+      configuration, templateEngineProp, "org.melati.template.TemplateEngine",
+      "org.melati.template.NoTemplateEngine");
 
-      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration,
-						      javascriptLibraryURLProp);
+      javascriptLibraryURL = PropertiesUtils.getOrDie (configuration,
+      javascriptLibraryURLProp);
 
-      staticURL = PropertiesUtils.getOrDie(configuration,
-					   staticURLProp);
+      staticURL = PropertiesUtils.getOrDie (configuration,
+      staticURLProp);
     }
     catch (Exception e) {
-      throw new ConfigException("Melati could not be configured because: " + e.toString());
+      throw new ConfigException ("Melati could not be configured because: " +
+      e.toString ());
     }
 
   }
-  
-  public String getJavascriptLibraryURL() {
-    return javascriptLibraryURL;
+
+  // creates a melati context
+  public Melati getMelati (HttpServletRequest request,
+  HttpServletResponse response) throws MelatiException {
+    return new Melati (this, request, response);
   }
 
-  public String getStaticURL() {
-    return staticURL;
-  }
-
-  public AccessHandler getAccessHandler() {
-    return accessHandler;
-  }
-
-  public TempletLoader getTempletLoader() {
-    return templetLoader;
-  }
-
-  public TemplateEngine getTemplateEngine() {
+  // the template engine in use
+  public TemplateEngine getTemplateEngine () {
     return templateEngine;
   }
 
-  public MelatiLocale getMelatiLocale() {
+  public AccessHandler getAccessHandler () {
+    return accessHandler;
+  }
+
+  public MelatiLocale getLocale () {
     return MelatiLocale.here;
+  }
+
+  public TempletLoader getTempletLoader () {
+    return templetLoader;
+  }
+
+  // location of javascript for this site
+  public String getJavascriptLibraryURL () {
+    return javascriptLibraryURL;
+  }
+
+  // location of static content for this site
+  public String getStaticURL () {
+    return staticURL;
+  }
+
+  public static String logoutPageServletClassName () {
+    return "org.melati.login.Logout";
+  }
+
+  public static MelatiLocale getMelatiLocale () {
+    return MelatiLocale.here;
+  }
+
+  // get the adaptor for rendering dates as drop-downs
+  public static YMDDateAdaptor getYMDDateAdaptor () {
+    return YMDDateAdaptor.it;
+  }
+
+  // get the adaptor for rendering dates as normal
+  public static SimpleDateAdaptor getSimpleDateAdaptor () {
+    return SimpleDateAdaptor.it;
   }
 
 }

@@ -39,7 +39,7 @@ import java.util.Hashtable;
 
 import javax.servlet.http.HttpSession;
 
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.template.TemplateContext;
 
 /*
@@ -49,11 +49,10 @@ import org.melati.template.TemplateContext;
 
 public class JTemplaterTemplateContext implements TemplateContext {
 
-  public MelatiContext melati;
-  public String templateName;
+  public Melati melati;
   public Hashtable vars = new Hashtable();
 
-  public JTemplaterTemplateContext(MelatiContext m) {
+  public JTemplaterTemplateContext(Melati m) {
     melati = m;
   }
 
@@ -80,19 +79,6 @@ public class JTemplaterTemplateContext implements TemplateContext {
     return melati;
   }
 
-  /** 
-   * set the template name
-   */
-  public void setTemplateName(String name) {
-    templateName = name;
-  }
-    
-  /** 
-   * get the template name
-   */
-  public String getTemplateName() {
-    return templateName;
-  }
   
   public static Class getClazz() {
     JTemplaterTemplateContext c = new JTemplaterTemplateContext();

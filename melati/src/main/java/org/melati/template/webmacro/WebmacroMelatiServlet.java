@@ -48,10 +48,9 @@ package org.melati.template.webmacro;
 
 import java.io.IOException;
 
+import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
-import org.melati.Melati;
-import org.melati.MelatiContext;
 
 import org.webmacro.servlet.WebContext;
 import org.webmacro.WebMacroException;
@@ -66,13 +65,21 @@ import org.webmacro.WebMacroException;
 public abstract class WebmacroMelatiServlet extends TemplateServlet
 {
 
-  public TemplateContext doTemplateRequest( MelatiContext melatiContext, TemplateContext templateContext) throws Exception {
+  public String doTemplateRequest
+  (Melati melati, TemplateContext templateContext) throws Exception {
     WebContext webContext = (WebContext)templateContext.getContext();
-    templateContext.setTemplateName(handle(melatiContext, webContext));
-    return templateContext;
+    return handle(melati, webContext);
   }
-      
-  public abstract String handle( MelatiContext melatiContext, WebContext webContext ) throws WebMacroException ;
+  
+  /*
+  * adding the extension is left up to the application developer
+  */
+  public String addExtension(String templateName) {
+    return templateName;
+  }
+
+  public abstract String handle(Melati melati, WebContext webContext) 
+  throws WebMacroException ;
   
 }
 

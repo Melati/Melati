@@ -77,6 +77,8 @@ public class DbmsFactory {
                 dbmsObjects.put(dbmsClass, dbms);
                 return dbms;
             } catch (Exception e) {
+              // get the stack trace
+              e.printStackTrace(System.err);
                 throw new ConnectionFailurePoemException( new SQLException(e.getMessage()));
             }
         }

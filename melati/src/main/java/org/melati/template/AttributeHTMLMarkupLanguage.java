@@ -43,24 +43,27 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.template;
 
-import org.melati.util.*;
-import org.melati.poem.*;
+import java.io.IOException;
 
-public class UnsupportedTypeException extends MelatiException {
-  public MarkupLanguage markupLanguage;
-  public PoemType type;
+import org.melati.Melati;
+import org.melati.poem.AccessPoemException;
 
-  public UnsupportedTypeException(MarkupLanguage markupLanguage,
-                                  PoemType type) {
-    this.markupLanguage = markupLanguage;
-    this.type = type;
+public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
+
+  public AttributeHTMLMarkupLanguage(HTMLMarkupLanguage html) {
+    super("html_attr", html);
   }
 
-  public String getMessage() {
-    return
-        "The type " + type + " is not supported " +
-        "by the markup language `" + markupLanguage + "'";
+  public String rendered(AccessPoemException e) throws IOException {
+    try {
+      melati.getWriter().write("[Access denied to ");
+      rendered(e.token);
+      melati.getWriter().write("]");
+    } catch (Exception g) {
+      melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
+    }
+    return "";
   }
 }

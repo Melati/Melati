@@ -204,6 +204,12 @@ public class StringUtils {
     return result;
   }
 
+    // null a string
+  public static String nulled (String s) {
+    if (s.equals ("")) return null;
+    return s;
+  }
+
   public static void main(String[] args) {
     System.out.println(tr(args[0], "abc", "123"));
     System.out.println(tr(args[0], "a", "1"));

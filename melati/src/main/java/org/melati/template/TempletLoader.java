@@ -45,7 +45,6 @@
 
 package org.melati.template;
 
-import org.melati.MarkupLanguage;
 import org.melati.poem.FieldAttributes;
 
 public interface TempletLoader {

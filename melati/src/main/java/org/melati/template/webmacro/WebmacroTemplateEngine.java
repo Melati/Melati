@@ -39,7 +39,7 @@
  *
  * I will assign copyright to PanEris (http://paneris.org) as soon as
  * we have sorted out what sort of legal existence we need to have for
- * that to make sense. 
+ * that to make sense.
  * In the meantime, if you want to use Melati on non-GPL terms,
  * contact me!
  */
@@ -48,7 +48,7 @@ package org.melati.template.webmacro;
 
 import java.io.Writer;
 
-import org.melati.MelatiContext;
+import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -57,90 +57,99 @@ import org.melati.template.NotFoundException;
 import org.webmacro.WM;
 import org.webmacro.InitException;
 
+
 /**
  * Interface for a Template engine for use with Melati
- * 
+ *
  * @author Tim Joyce
  * $Revision$
  */
 public class WebmacroTemplateEngine implements TemplateEngine {
 
+
+  public static final Object check =
+  org.webmacro.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
+
   // the webmacro
   public WM wm;
 
-  /** 
+  /**
    * Inititialise the Engine
    */
-  public void init() throws TemplateEngineException {
+  public void init () throws TemplateEngineException {
     try {
-      wm = new WM();
+      wm = new WM ();
     } catch (InitException e) {
       // ensure we get the full error
-      e.printStackTrace(System.err);
-      throw new TemplateEngineException(e.toString());
+      e.printStackTrace (System.err);
+      throw new TemplateEngineException (e.toString ());
     }
-  }
-  
-  /**
-  * get the generic parameters for webmacro
-  */
-  public TemplateContext getTemplateContext(MelatiContext melatiContext) {
-    return new WebmacroTemplateContext(wm.getWebContext(melatiContext.getRequest(),melatiContext.getResponse()));
   }
 
   /**
-  * the name of the template engine (used to find the templets)
-  */
-  public String getName() {
+   * get the generic parameters for webmacro
+   */
+  public TemplateContext getTemplateContext (Melati melati) {
+    return new WebmacroTemplateContext
+    (wm.getWebContext(melati.getRequest(),melati.getResponse()));
+  }
+
+  /**
+   * the name of the template engine (used to find the templets)
+   */
+  public String getName () {
     return "webmacro";
   }
 
   /**
-  * the underlying engine
+  * the extension of the templates used by this template engine)
   */
-  public Object getEngine() {
+  public String templateExtension() {
+    return ".wm";
+  }
+
+  /**
+   * the underlying engine
+   */
+  public Object getEngine () {
     return wm;
   }
-  
-  /** 
+
+  /**
    * get a template given it's name
-  */
-  public org.melati.template.Template template(String templateName) 
-   throws NotFoundException {
+   */
+  public org.melati.template.Template template (String templateName)
+  throws NotFoundException {
     try {
-      return new WebmacroTemplate(wm.getTemplate(templateName));
+      return new WebmacroTemplate (wm.getTemplate (templateName));
     } catch (org.webmacro.NotFoundException e) {
-      throw new NotFoundException("I couldn't find the template: " + templateName + " because: " +e.toString());
+      throw new NotFoundException ("I couldn't find the template: " +
+      templateName + " because: " +e.toString ());
     }
   }
-  
-  /** 
+
+  /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, TemplateContext templateContext) 
-   throws TemplateEngineException {
-    expandTemplate(out, templateContext.getTemplateName(), templateContext);
-  }
-  
-  /** 
-   * Expand the Template against the context.
-   */
-  public void expandTemplate(Writer out, String templateName, TemplateContext templateContext) 
-   throws TemplateEngineException {
+  public void expandTemplate
+  (Writer out, String templateName, TemplateContext templateContext)
+  throws TemplateEngineException {
     try {
-      expandTemplate(out, template(templateName), templateContext); 
+      expandTemplate (out, template (templateName), templateContext);
     } catch (NotFoundException e) {
-      throw new TemplateEngineException("I couldn't find the template: " + templateName + " because: " +e.toString());
+      throw new TemplateEngineException ("I couldn't find the template: " +
+      templateName + " because: " +e.toString ());
     }
   }
-  
-  /** 
+
+  /**
    * Expand the Template against the context.
    */
-  public void expandTemplate(Writer out, org.melati.template.Template template, TemplateContext templateContext) 
-   throws TemplateEngineException {
-      template.write(out, templateContext, this);
+  public void expandTemplate(Writer out,
+  org.melati.template.Template template, TemplateContext templateContext)
+  throws TemplateEngineException {
+    template.write (out, templateContext, this);
   }
-  
+
 
 }

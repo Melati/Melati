@@ -43,28 +43,22 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati;
+package org.melati.util;
 
-import org.melati.template.TempletLoader;
-import org.melati.util.MelatiLocale;
+public class DatabaseInitException extends MelatiException {
 
-public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
+  public String databaseDefsName;
+  public String name;
 
-  private AttributeWMLMarkupLanguage attributeML = null;
-
-  public WMLMarkupLanguage(MelatiContext melatiContext,
-                           TempletLoader templetLoader, MelatiLocale locale) {
-    super("wml", melatiContext, templetLoader, locale);
-  }
-  
-  protected WMLMarkupLanguage(String name, WMLMarkupLanguage other) {
-    super(name, other);
+  public DatabaseInitException(String databaseDefsName, String name, Exception problem) {
+    super(problem);
+    this.databaseDefsName = databaseDefsName;
+    this.name = name;
   }
 
-  public AttributeWMLMarkupLanguage getAttr() {
-    if (attributeML == null)
-      attributeML = new AttributeWMLMarkupLanguage(this);
-    return attributeML;
+  public String getMessage() {
+    return
+        "Something went wrong trying to open the logical database `" +
+        name + "' using the config file `" + databaseDefsName + "'\n" + subException;
   }
-
 }

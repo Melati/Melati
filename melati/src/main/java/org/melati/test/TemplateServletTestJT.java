@@ -46,7 +46,9 @@
 package org.melati.test;
 
 import org.melati.servlet.TemplateServlet;
-import org.melati.MelatiContext;
+import org.melati.Melati;
+import org.melati.servlet.PathInfoException;
+import org.melati.servlet.MelatiContext;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 
@@ -59,17 +61,22 @@ import org.melati.template.TemplateContext;
  */
 public class TemplateServletTestJT extends TemplateServlet {
 
-  protected TemplateContext doTemplateRequest( 
-  MelatiContext melatiContext, TemplateContext templateContext) 
+  protected String doTemplateRequest( 
+  Melati melati, TemplateContext templateContext) 
   throws Exception {
 
-    templateContext.setTemplateName("test/TemplateServletTestJT.jt");
-    return templateContext;
+    return("test/TemplateServletTestJT.jt");
   }
-
-  public String getLogicalDatabase
-  (MelatiContext melatiContext, String logicalDatabase) {
-    return "melatitest";
+  
+/*
+ * set up the melati context so we don't have to specify the 
+ * logicaldatabase on the pathinfo.  this is a very good idea when
+ * writing your appications where you are typically only accessing
+ * a single database
+ */
+  protected MelatiContext melatiContext(Melati melati)
+  throws PathInfoException {
+    return melatiContextWithLDB(melati,"melatitest");
   }
 
 }

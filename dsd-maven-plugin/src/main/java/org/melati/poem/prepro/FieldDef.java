@@ -70,6 +70,7 @@ public abstract class FieldDef {
   boolean isTroidColumn;
   boolean isDeletedColumn;
   boolean isPrimaryDisplayColumn;
+  boolean isPrimaryCriterionColumn;
   int displayOrderPriority = -1;
   boolean isEditable = true;
   boolean isCreateable = true;
@@ -245,6 +246,12 @@ public abstract class FieldDef {
 
     if (isPrimaryDisplayColumn)
       w.write("          protected boolean defaultPrimaryDisplay() {\n" +
+              "            return true;\n" +
+              "          }\n" +
+              "\n");
+
+    if (isPrimaryCriterionColumn)
+      w.write("          protected boolean defaultPrimaryCriterion() {\n" +
               "            return true;\n" +
               "          }\n" +
               "\n");

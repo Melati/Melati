@@ -75,6 +75,8 @@ public abstract class FieldQualifier {
       it = new DeletedFieldQualifier(tokens);
     else if (kind.equals("primarydisplay"))
       it = new PrimaryDisplayFieldQualifier(tokens);
+    else if (kind.equals("primarycriterion"))
+      it = new PrimaryCriterionFieldQualifier(tokens);
     else if (kind.equals("displayorderpriority"))
       it = new DisplayOrderPriorityFieldQualifier(tokens);
     else if (kind.equals("uneditable"))

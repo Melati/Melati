@@ -82,6 +82,7 @@ abstract public class Database implements TransactionPool {
 
   private Dbms dbms;
   private boolean logSQL;
+  private int transactionsMax;
 
   // 
   // ================
@@ -167,7 +168,8 @@ abstract public class Database implements TransactionPool {
    */
 
   public void connect(String dbmsclass, String url,
-                      String username, String password) throws PoemException {
+                      String username, String password,
+                      int transactionsMax) throws PoemException {
 
     synchronized (connecting) {
       if (connecting[0])
@@ -181,6 +183,7 @@ abstract public class Database implements TransactionPool {
       if (committedConnection != null)
         throw new ReconnectionPoemException();
 
+        setTransactionsMax(transactionsMax);
         committedConnection = getDbms().getConnection(url, username, password);
         transactions = new Vector();
         for (int s = 0; s < transactionsMax(); ++s) {
@@ -396,13 +399,16 @@ abstract public class Database implements TransactionPool {
   /**
    * The number of transactions available for concurrent use on the database.
    * This is the number of JDBC <TT>Connection</TT>s opened when the database
-   * was <TT>connect</TT>ed, currently simply fixed at eight [in order to
-   * avoid generating too many Postgresql connections until we have really
-   * understood what needs to be done w.r.t. shm/sem resource ...].
+   * was <TT>connect</TT>ed, this can be set via LogicalDatabase.properties,
+   * but defaults to 8 if not set.
    */
 
   public final int transactionsMax() {
-    return 8;
+    return transactionsMax;
+  }
+  
+  public final void setTransactionsMax(int t) {
+    transactionsMax = t;
   }
 
   // 

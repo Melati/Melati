@@ -123,6 +123,8 @@ public class LogicalDatabase {
       String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
       String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
       String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+      // max transactions default to 8 if not set
+      int maxTrans = PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
 
       /*
        The driver is now initialized and checked by the dbms class as we
@@ -153,7 +155,7 @@ public class LogicalDatabase {
       // Changed to use dbmsclass not driver, it will throw and exception 
       // if that is not correct
 
-      database.connect(dbmsclass, url, user, pass);
+      database.connect(dbmsclass, url, user, pass, maxTrans);
 
       databases.put(name, database);
 

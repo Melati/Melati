@@ -92,9 +92,28 @@ public class PropertiesUtils {
     return value;
   }
 
+  public static String getOrDefault(Properties properties, String propertyName, String def)
+      throws NoSuchPropertyException {
+    String value = properties.getProperty(propertyName);
+    if (value == null) return def;
+    return value;
+  }
+
   public static int getOrDie_int(Properties properties, String propertyName)
       throws NoSuchPropertyException, FormatPropertyException {
     String string = getOrDie(properties, propertyName);
+    try {
+      return Integer.parseInt(string);
+    }
+    catch (NumberFormatException e) {
+      throw new FormatPropertyException(properties, propertyName, string,
+					"an integer", e);
+    }
+  }
+
+  public static int getOrDefault_int(Properties properties, String propertyName, int def)
+      throws NoSuchPropertyException, FormatPropertyException {
+    String string = getOrDefault(properties, propertyName, ""+def);
     try {
       return Integer.parseInt(string);
     }

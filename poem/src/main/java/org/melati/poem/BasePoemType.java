@@ -183,7 +183,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
 
   public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
-    Object raw = _rawOfString(string);
+    Object raw = string == null ? null : _rawOfString(string);
     assertValidRaw(raw);
     return raw;
   }

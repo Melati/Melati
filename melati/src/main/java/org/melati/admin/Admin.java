@@ -374,56 +374,51 @@ public class Admin extends MelatiServlet {
   }
 
   protected Template handle(WebContext context, Melati melati)
-      throws PoemException, HandlerException {
-    try {
-      context.put("admin",
-                  new AdminUtils(context.getRequest().getServletPath(),
-				 melati.getStaticURL() + "/admin",
-                                 melati.getLogicalDatabaseName()));
+      throws Exception {
+    context.put("admin",
+		new AdminUtils(context.getRequest().getServletPath(),
+			       melati.getStaticURL() + "/admin",
+			       melati.getLogicalDatabaseName()));
 
-      if (melati.getObject() != null) {
-        if (melati.getMethod().equals("Edit"))
-          return editTemplate(context, melati);
-        else if (melati.getMethod().equals("Update"))
-          return modifyTemplate(context, melati);
+    if (melati.getObject() != null) {
+      if (melati.getMethod().equals("Edit"))
+	return editTemplate(context, melati);
+      else if (melati.getMethod().equals("Update"))
+	return modifyTemplate(context, melati);
+      else if (melati.getObject() instanceof AdminSpecialised) {
+	Template it =
+	    ((AdminSpecialised)melati.getObject()).adminHandle(
+                melati, melati.getHTMLMarkupLanguage());
+	if (it != null) return it;
       }
-      else if (melati.getTable() != null) {
-        if (melati.getMethod().equals("View"))
-          return tableListTemplate(context, melati);
-        if (melati.getMethod().equals("LowerFrame"))
-          return lowerFrameTemplate(context, melati);
-        if (melati.getMethod().equals("PopUp"))
-          return popupTemplate(context, melati);
-        else if (melati.getMethod().equals("Add"))
-          return addTemplate(context, melati);
-        else if (melati.getMethod().equals("AddUpdate"))
-          return addUpdateTemplate(context, melati);
-        else if (melati.getMethod().equals("CreateColumn"))
-          return columnCreateTemplate(context, melati);
-        else if (melati.getMethod().equals("CreateColumn_doit"))
-          return columnCreate_doitTemplate(context, melati);
-      }
-      else {
-        if (melati.getMethod().equals("Main"))
-          return mainTemplate(context, melati);
-        if (melati.getMethod().equals("View"))
-          return tablesViewTemplate(context, melati);
-        else if (melati.getMethod().equals("Create"))
-          return tableCreateTemplate(context, melati);
-        else if (melati.getMethod().equals("Create_doit"))
-          return tableCreate_doitTemplate(context, melati);
-      }
+    }
+    else if (melati.getTable() != null) {
+      if (melati.getMethod().equals("View"))
+	return tableListTemplate(context, melati);
+      if (melati.getMethod().equals("LowerFrame"))
+	return lowerFrameTemplate(context, melati);
+      if (melati.getMethod().equals("PopUp"))
+	return popupTemplate(context, melati);
+      else if (melati.getMethod().equals("Add"))
+	return addTemplate(context, melati);
+      else if (melati.getMethod().equals("AddUpdate"))
+	return addUpdateTemplate(context, melati);
+      else if (melati.getMethod().equals("CreateColumn"))
+	return columnCreateTemplate(context, melati);
+      else if (melati.getMethod().equals("CreateColumn_doit"))
+	return columnCreate_doitTemplate(context, melati);
+    }
+    else {
+      if (melati.getMethod().equals("Main"))
+	return mainTemplate(context, melati);
+      if (melati.getMethod().equals("View"))
+	return tablesViewTemplate(context, melati);
+      else if (melati.getMethod().equals("Create"))
+	return tableCreateTemplate(context, melati);
+      else if (melati.getMethod().equals("Create_doit"))
+	return tableCreate_doitTemplate(context, melati);
+    }
 
-      throw new InvalidUsageException(this, melati.getContext());
-    }
-    catch (PoemException e) {
-      // we want to let these through untouched, since MelatiServlet handles
-      // AccessPoemException specially ...
-      throw e;
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-      throw new HandlerException("Bollocks: " + e);
-    }
+    throw new InvalidUsageException(this, melati.getContext());
   }
 }

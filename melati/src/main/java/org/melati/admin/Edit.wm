@@ -72,7 +72,12 @@ function popupupdate(popupwin,returnfield,id,value) {
 
 <FORM METHOD=post ACTION=Update>
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $field in $object.RecordDisplayFields #begin
+  #if ($Form.detailed) #begin
+    #set $fields = $object.DetailDisplayFields
+  #end #else #begin
+    #set $fields = $object.RecordDisplayFields
+  #end
+  #foreach $field in $fields #begin
     <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
     <TR>
 	<TD><FONT SIZE="-1" FACE="Arial, Helvetica">
@@ -82,22 +87,22 @@ function popupupdate(popupwin,returnfield,id,value) {
           <B>$ml.rendered($field.DisplayName)</B>
         #end
       </font><FONT SIZE="-2" FACE="Arial, Helvetica">
-    #if ($field.Description) #begin
-	  ($ml.rendered($field.Description))
-    #end
-    </font></TD>
-	</TR>
-    <TR><td>
+      #if ($field.Description) #begin
+	($ml.rendered($field.Description))
+      #end
+      </font></TD>
+    </TR>
+    <TR><TD>
       <FONT SIZE="-1" FACE="Arial, Helvetica">
         #if ($field.UserEditable) #begin
           $ml.input($field)
         #end #else #begin
 	  $ml.rendered($field)
         #end
-      </font></TD>
-    </TR>
+      </font>
+    </TD></TR>
   #end
-    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+  <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
 <tr><td align=center>
 <INPUT NAME=action VALUE=Update TYPE=submit
        ONCLICK="return validate(this.form);">
@@ -118,6 +123,12 @@ function popupupdate(popupwin,returnfield,id,value) {
 </TABLE>
 
 </FORM>
+
+<P>
+#if (!($Form.detailed || $object.Table.DetailDisplayColumnsCount == $object.Table.RecordDisplayColumnsCount)) #begin
+  <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>
+#end
+</P>
 
 $admin.specialFacilities($melati, $ml, $object)
 

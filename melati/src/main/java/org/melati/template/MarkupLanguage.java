@@ -623,7 +623,7 @@ public abstract class MarkupLanguage {
    * @return a Template
    * @throws NotFoundException if not on template path or classpath
    */
-  public Template templet(String templetName) throws NotFoundException {
+  public Template templet(String templetName) throws TemplateEngineException {
     return templetLoader.templet(melati.getTemplateEngine(), this,
                                  templetName);
   }
@@ -638,7 +638,7 @@ public abstract class MarkupLanguage {
    * @throws NotFoundException if not on template path or classpath
    */
   public Template templet(String purpose, Class clazz)
-      throws NotFoundException {
+      throws TemplateEngineException {
     return templetLoader.templet(melati.getTemplateEngine(), this, 
                                  purpose,clazz);
   }

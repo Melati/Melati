@@ -172,7 +172,7 @@ public class MelatiConfig {
                                                       javascriptLibraryURLProp);
 
       staticURL = PropertiesUtils.getOrDie(configuration, staticURLProp);
-      templatePath = PropertiesUtils.getOrDie(configuration, templatePathProp);
+      templatePath = PropertiesUtils.getOrDefault(configuration, templatePathProp, ".");
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +

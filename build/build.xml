@@ -462,6 +462,10 @@ usage:
           description="build (excluding javadoc) and run"
           depends="clean, compile, unittest, zip, sources, package, war, run">
   </target>
+  <target name="compileJar" 
+          description="Compile changed sources, test and build jar"
+          depends="compile, unittest, zip">
+  </target>
 
     <!-- ============================================================== -->
     <!-- Edit a template and test cycle                                 -->

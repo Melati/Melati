@@ -145,7 +145,7 @@ public class Admin extends MelatiServlet {
   protected Template tableListTemplate(WebContext context, Melati melati)
       throws NotFoundException, InvalidTypeException, PoemException,
              HandlerException {
-    return adminTemplate(tableList(context,melati), "ResultsSelect.wm");
+    return adminTemplate(tableList(context,melati), "Select.wm");
   }
 
   protected Template popupTemplate(WebContext context, Melati melati)

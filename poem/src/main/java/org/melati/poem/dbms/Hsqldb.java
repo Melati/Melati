@@ -79,6 +79,17 @@ public class Hsqldb extends AnsiStandard {
     setDriverClassName("org.hsqldb.jdbcDriver");
   }
 
+  /**
+   * HSQLDB does not impose a "known" limit. 
+   * The hard limit is the maximum length of a java.lang.String 
+   * (java.lang.Integer.MAX_VALUE);
+   * 
+   * @see org.melati.poem.dbms.Dbms#maxFieldLength()
+   */
+  public int maxFieldLength() {
+    return Integer.MAX_VALUE;
+  }
+
   /** 
    * The default is to keep everything in memory.
    * This allows for the db to be written to the disk.

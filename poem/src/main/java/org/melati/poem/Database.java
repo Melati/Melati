@@ -91,7 +91,8 @@ public abstract class Database implements TransactionPool {
   private Table[] displayTables = null;
 
   private Dbms dbms;
-  private boolean logSQL = true;
+  private boolean logSQL = false;
+  private boolean logCommits = false;
   private int transactionsMax;
 
   private String connectionUrl;
@@ -364,7 +365,7 @@ public abstract class Database implements TransactionPool {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
       Table table = (Table)tablesByName.get(tableInfo.getName());
       if (table == null) {
-        System.err.println("Defining table:" + tableInfo.getName());
+        if (logSQL()) log("Defining table:" + tableInfo.getName());
         table = new Table(this, tableInfo.getName(),
                           DefinitionSource.infoTables);
         defineTable(table);
@@ -390,21 +391,21 @@ public abstract class Database implements TransactionPool {
     ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null, 
                                        normalTables);
     while (tableDescs.next()) {
-     System.err.println("Table:" + tableDescs.getString("TABLE_NAME") +
+      if (logSQL()) log("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       if (tableName == null) break; //dbms returning grotty table name
       Table table = tableName == null ? null : 
                                           (Table)tablesByName.get(tableName);
       if (table == null) {
-        System.err.println("table null but named:" + tableName);
+        if (logSQL()) log("table null but named:" + tableName);
 
         // but we only want to include them if they have a plausible troid:
         ResultSet idCol = m.getColumns(null, dbms.getSchema(), tableName, "id");
         if (idCol.next() &&
             dbms.canRepresent(defaultPoemTypeOfColumnMetaData(idCol),
                               TroidPoemType.it) != null) {
-          System.err.println("Got an ID col");
+          if (logSQL()) log("Got an ID col");
           try {
             table = new Table(this, tableName,
                               DefinitionSource.sqlMetaData);
@@ -426,7 +427,7 @@ public abstract class Database implements TransactionPool {
               if (keyCol.next() &&
                   dbms.canRepresent(defaultPoemTypeOfColumnMetaData(keyCol),
                                     TroidPoemType.it) != null) {
-                System.err.println("Got a unique primary key");
+                if (logSQL()) log("Got a unique primary key");
                 try {
                   defineTable(table = new Table(this, tableName,
                                                 DefinitionSource.sqlMetaData));
@@ -439,12 +440,12 @@ public abstract class Database implements TransactionPool {
             }
           }
         } */
-      }// else System.err.println("table not null:" + tableName);
+      }// else if (logSQL()) log("table not null:" + tableName);
 
 
       if (table != null) {
-//         System.err.println("table not null now:" + tableName);
-//         System.err.println("columnsMetadata(m, tableName):" 
+//         if (logSQL()) log("table not null now:" + tableName);
+//         if (logSQL()) log("columnsMetadata(m, tableName):" 
 //                              + columnsMetadata(m, tableName));
          // Create the table if it has no metadata
          // unify with it either way
@@ -460,8 +461,8 @@ public abstract class Database implements TransactionPool {
       ResultSet colDescs = columnsMetadata(m, 
                                dbms.unreservedName(table.getName()));
       if (!colDescs.next()) {
-        System.err.println("Table has no columns in dbms:" + 
-                            dbms.unreservedName(table.getName()));
+        // System.err.println("Table has no columns in dbms:" + 
+        //                    dbms.unreservedName(table.getName()));
         table.unifyWithDB(null);
       }
     }
@@ -930,6 +931,8 @@ public abstract class Database implements TransactionPool {
       int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
+      if (logSQL())
+        log("Still set wrong");
       return n;
     }
     catch (SQLException e) {
@@ -1165,10 +1168,20 @@ public abstract class Database implements TransactionPool {
     logSQL = value;
   }
 
-  public boolean logCommits = false;
+
+  public boolean logCommits() {
+    return logCommits;
+  }
+
+  public void setLogCommits(boolean value) {
+    logCommits = value;
+  }
 
   void log(PoemLogEvent e) {
     System.err.println("---\n" + e.toString());
+  }
+  void log(String s) {
+    System.err.println(s);
   }
 
   void beginStructuralModification() {

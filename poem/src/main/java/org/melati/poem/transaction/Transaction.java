@@ -86,8 +86,6 @@ public abstract class Transaction {
   protected abstract void backingRollback();
 
   synchronized void block(Transaction blockee) {
-    // System.err.println("*** " + this + ".block(" + blockee + ")");
-
     blockees.addElement(blockee);
     blockee.blockedOn = this;
     blockee.propagateBlockage();
@@ -125,9 +123,7 @@ public abstract class Transaction {
     seen.addElement(persistent);
   }
 
-
   public void writeDown() {
-    // System.err.println(this + ".writeDown()");
     synchronized (touched) {
       for (Enumeration p = touched.elements(); p.hasMoreElements();)
         ((Transactioned)p.nextElement()).writeDown(this);
@@ -165,19 +161,19 @@ public abstract class Transaction {
 	  persistent.rollback(this);
       }
 
+    }
+    finally {
       if (touched.size() > touchedCapacityMax)
         touched = new Vector(touchedCapacityMin);
       else
         touched.setSize(0);
-    }
-    finally {
+
       unSee();
 
       // notifyAll will wake too many threads if some of them are writers, but
       // this is really the best we can do without using heavy Lock-ish objects
 
       synchronized (this) {
-	// System.err.println(this + ".notifyAll() after commit = " + commit);
 	notifyAll();
       }
     }

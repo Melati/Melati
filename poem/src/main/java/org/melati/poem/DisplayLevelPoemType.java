@@ -55,7 +55,7 @@ public class DisplayLevelPoemType extends IntegerPoemType {
     super(false);
   }
 
-  public Enumeration possibleRaws() {
+  protected Enumeration _possibleRaws() {
     return new IntegerEnumeration(0, DisplayLevel.count());
   }
 

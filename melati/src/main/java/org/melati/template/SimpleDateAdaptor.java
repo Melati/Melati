@@ -51,20 +51,24 @@ import java.text.ParsePosition;
 
 import org.melati.poem.Field;
 
-/*
-a SimpleDateAdaptor is used to format a date field into dd/mm/yyyy format for
-display. it also adapts the input (given in dd/mm/yyyy or yyyyMMdd) back to a
-java.sql.date
+/**
+ *
+ * A SimpleDateAdaptor is used to format a date field into dd/mm/yyyy format *
+ * to a for display. it also adapts the input (given in dd/mm/yyyy or yyyyMMdd)
+ * to a back java.sql.Date.
  */
 
 public class SimpleDateAdaptor implements TempletAdaptor {
 
   public static final SimpleDateAdaptor it = new SimpleDateAdaptor();
+
   static private SimpleDateFormat dateFormatter1 = 
-  new SimpleDateFormat("dd/MM/yyyy");
+      new SimpleDateFormat("dd/MM/yyyy");
+
   // allow other forms of date - this one yyyyMMdd
+
   static private SimpleDateFormat dateFormatter2 =
-  new SimpleDateFormat("yyyyMMdd");
+      new SimpleDateFormat("yyyyMMdd");
 
   public Object rawFrom(TemplateContext context, String fieldName) {
     String value = context.getForm(fieldName);
@@ -72,16 +76,13 @@ public class SimpleDateAdaptor implements TempletAdaptor {
     java.util.Date date = dateFormatter1.parse(value, new ParsePosition(0));
     // give it another go using a different format
     if (date == null)
-    date = dateFormatter2.parse(value, new ParsePosition(0));
+      date = dateFormatter2.parse(value, new ParsePosition(0));
     return new Date(date.getTime());
   }
 
   public String rendered(Field dateField) {
-    if (dateField.getRaw() == null ) {
-      return "";
-    } else {
-      return new String(dateFormatter1.format((java.util.Date)dateField.getRaw()));
-    }
+    return dateField.getRaw() == null ?
+               "" :
+               dateFormatter1.format((java.util.Date)dateField.getRaw());
   }
-
 }

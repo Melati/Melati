@@ -50,9 +50,11 @@ import org.melati.util.MelatiException;
 /**
   * You asked for something that is not currently available.
   */
+
 public class NotFoundException extends MelatiException {
 
   String error;
+
   public NotFoundException(String error) {
     this.error = error;
   }

@@ -119,8 +119,11 @@ public class PoemServletTest extends PoemServlet {
     output.write("You can test your Template Engine working with " +
     "Melati by clicking <a href=" + 
     melati.getZoneURL() + 
-    "/org.melati.test.TemplateServletTest/>" + 
-    "org.melati.test.TemplateServletTest/</a>");
+    "/org.melati.test.TemplateServletTest/" + 
+    melati.getContext().logicalDatabase + 
+    ">" + 
+    "org.melati.test.TemplateServletTest/" + 
+    melati.getContext().logicalDatabase + "</a><br/>\n");
 
     String method = melati.getMethod();
     if (method != null) {

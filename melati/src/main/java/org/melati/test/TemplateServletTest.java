@@ -99,8 +99,12 @@ public class TemplateServletTest extends TemplateServlet {
  * a single database.
  */
   protected MelatiContext melatiContext(Melati melati)
-      throws PathInfoException {
-    return melatiContextWithLDB(melati,"melatitest");
+  throws PathInfoException {
+    String[] parts = melati.getPathInfoParts();
+    if (parts.length == 0) 
+      return melatiContextWithLDB(melati,"melatitest");
+    else 
+      return super.melatiContext(melati);
   }
   
 }

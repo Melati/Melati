@@ -926,7 +926,6 @@ abstract public class Database implements TransactionPool {
 
   public void appendQuotedName(StringBuffer buffer, String name)
       throws InvalidNamePoemException {
-    //StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '''');
     StringUtils.appendQuoted(buffer, name/*.toLowerCase()*/, '"');
   }
 

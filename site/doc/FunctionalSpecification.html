@@ -25,7 +25,7 @@
 
 <P>
   For an incomplete sketch of part of the API, look at the <A
-  HREF=javadoc/packages.html><TT>javadoc</TT></A> documentation.
+  HREF="../javadoc/overview-summary.html"><TT>javadoc</TT></A> documentation.
 </P>
 
 
@@ -91,7 +91,7 @@ table Invoice {
   (indexed) Party issuer;	     // a reference
   (unique) String number (maxlength = 10);
   (indexed) Party receiver;
-  InvoiceLine.invoice Subset lines;  // an owned list
+  InvoiceLine.invoice Subset lines;  // proposed for an owned list
   Textarea notes (width = 50, height = 5);
 }
 
@@ -101,7 +101,7 @@ table InvoiceLine {
   (indexed) Invoice.id invoice;
 }
 
-(maxcached = 1000) table Party {
+(cachelimit = 1000) table Party {
   (primary) int id;
   (unique) String name;
 }
@@ -221,6 +221,8 @@ table InvoiceLine {
     <TD>owned lists</TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
+      <FONT COLOR=red>FIXME:I think this is history but there is a way of
+      specifying how you want to maintain data integrity when a row is deleted. JimW</FONT>
       Owned lists of objects, similar to Java <TT>Vector</TT>s and expressed in
       RDBs as `one-to-many' relationships between records, are specified in the
       form
@@ -245,7 +247,7 @@ table InvoiceLine {
   <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
 
   <TR VALIGN=TOP>
-    <TD><TT>(maxcached = </TT>...<TT>)</TT></TD>
+    <TD><TT>(cachelimit = </TT>...<TT>)</TT></TD>
     <TD>&nbsp;&nbsp;</TD>
     <TD>
       A limit can be placed on the number of records from each table which will
@@ -384,9 +386,8 @@ table InvoiceLine {
   <LI> The programmer can override the access-assertion methods for a
        persistent class if she wants to implement a consistent policy (provided
        that the class is defined in the <A HREF=#data-def>data structure
-       definition</A>).	 For instance, the following fragment <A
-       HREF=javadoc/org.melati.example.Invoice.html>from the example
-       database</A> would make invoices (though not their lines) readable by
+       definition</A>).	 For instance, the following fragment from the example
+       database would make invoices (though not their lines) readable by
        their issuer as well as by anyone with an explicit
        <TT>readCapability</TT>:
 
@@ -799,7 +800,7 @@ Implicit.inSession(otherSession,
 
 <P>
   It's possible to ask for a <TT>SELECT</TT>ion of objects from a table via its
-  <A HREF=javadoc/org.melati.Table.html#selection>selection</A> method.
+  <A HREF=../javadoc/org/melati/poem/Table.html#selection(java.lang.String)>selection</A> method.
   We may eventually want to support some minimally complicated way of
   constructing these queries without embedding literal SQL in the code; for
   instance:
@@ -935,80 +936,9 @@ invoice.apply(new InvoiceUpdater {
   encapsulated in an object representing the markup language).	Another
   possible cut is between types strictly so defined and display preferences,
   but it's not clear what would be gained by separating them into two, so it is
-  proposed that the both should be encoded in the following set of classes
-  (try the links to the javadoc API spec):
+  proposed that the both should be encoded in a single hierarchy
+  (now in <A HREF=../javadoc/org/melati/poem/package-tree.html>org.melati.poem</A>).
 </P>
-
-<UL>
-<LI>
-  <TT><A HREF=javadoc/org/melati/poem/BasePoemType.html>Type</A></TT>&nbsp;&nbsp;
-  Base of all types
-
-  <UL>
-  <LI>
-    <TT><A HREF=javadoc/org/melati/poem/AtomPoemType.html>AtomType</A></TT> &nbsp;&nbsp;
-    Base of all fundmental, non-reference types
-
-    <UL>
-    <LI>
-	<TT><A HREF=javadoc/org/melati/poem/IntegerPoemType.html>IntegerType</A></TT>
-	&nbsp;&nbsp;
-
-	Plain old integers, the range being contingent on the
-	underlying SQL type. 
-
-      <UL>
-
-      <LI>
-	<TT><A HREF=javadoc/org/melati/poem/TroidPoemType.html>TroidType</A></TT>
-	&nbsp;&nbsp;
-        Table Row Ids
-
-      <LI>
-	<TT><A HREF=javadoc/org/melati/poem/ReferncePoemType.html>ReferenceType</A></TT>
-	&nbsp;&nbsp;
-        Table Row Ids
-
-      </UL>
-    <LI>
-	<TT><A HREF=javadoc/org/melati/poem/DoublePoemType.html>DoubleType</A></TT>
-	&nbsp;&nbsp;
-
-        Normal doubles, dependant upon the databse/SQL implementation.
-    <LI>
-      <TT><A HREF=javadoc/org/melati/poem/StringPoemType.html>StringType</A></TT>
-      &nbsp;&nbsp;
-      Base of all character sequence types
-
-      <UL>
-      <LI>
-	<TT><A HREF=javadoc/org/melati/poem/PasswordPoemType.html>PasswordType</A></TT>
-	&nbsp;&nbsp;
-	For multiline text area-type things
-      </UL>
-    <LI>
-      <TT><A HREF=javadoc/org/melati/poem/DatePoemType.html>DateType</A></TT>
-      &nbsp;&nbsp;
-      Normal dates
-    <LI>
-      <TT><A HREF=javadoc/org/melati/poem/TimestampPoemType.html>TimestampType</A></TT>
-      &nbsp;&nbsp;
-      Time stamps
-    <LI>
-      <TT><A HREF=javadoc/org/melati/poem/BooleanPoemType.html>BooleanType</A></TT>
-      &nbsp;&nbsp;
-      Booleans
-
-    </UL>
-
-  <LI>
-    <TT><A HREF=javadoc/org/melati/poem/ReferencePoemType.html>ReferenceType</A></TT>
-    &nbsp;&nbsp;
-    For object references
-
-  </UL>
-</UL>
-
 
 <H4><A NAME=valuesVsTypes>
 <!-- ------------------------- -->
@@ -1676,6 +1606,9 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.15  2003/03/04 22:01:47  jimw
+  <BR>Removed some broken links and a few misleading historical details.
+  <BR>
   <BR>Revision 1.14  2002/12/29 09:23:55  jimw
   <BR>Removed doc from doc/examples
   <BR>

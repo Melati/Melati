@@ -55,7 +55,9 @@ import org.melati.poem.*;
 public class Postgresql extends AnsiStandard {
 
   public Postgresql() {
-    setDriverClassName("org.melati.poem.postgresql.jdbc2.Driver");
+    setDriverClassName("org.postgresql.Driver");
+
+
   }
 
   public String preparedStatementPlaceholder(PoemType type) {

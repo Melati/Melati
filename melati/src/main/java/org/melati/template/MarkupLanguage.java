@@ -47,6 +47,7 @@ package org.melati.template;
 
 import java.text.DateFormat;
 
+import java.io.Writer;
 import java.io.IOException;
 
 import org.melati.Melati;
@@ -114,7 +115,7 @@ public abstract class MarkupLanguage {
         vars);
     } catch (NotFoundException e) {
       throw new TemplateEngineException("I couldn't find the templet: " +
-      templetName + " because: " +e.toString());
+      templetName + " because: " + e.toString());
     }
   }
 

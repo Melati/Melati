@@ -5,6 +5,10 @@ import java.io.*;
 
 public class ToTidyList {
 
+  public interface Closeable {
+    public void close();
+  }
+
   private Vector objects = new Vector();
 
   private static void tidy(Object o) {
@@ -17,6 +21,8 @@ public class ToTidyList {
         ((InputStream)o).close();
       else if (o instanceof OutputStream)
         ((OutputStream)o).close();
+      else if (o instanceof Closeable)
+        ((Closeable)o).close();
     }
     catch (Exception e) {}
   }
@@ -45,6 +51,10 @@ public class ToTidyList {
   } 
 
   public void add(OutputStream o) {
+    addObject(o);
+  } 
+
+  public void add(Closeable o) {
     addObject(o);
   } 
 }

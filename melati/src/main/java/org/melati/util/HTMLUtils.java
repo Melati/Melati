@@ -86,6 +86,7 @@ public class HTMLUtils {
 
   public static String entityFor(char c) {
     switch (c) {
+      case '\n': return "<BR>\n";
       case '<': return "&lt;";
       case '>': return "&gt;";
       case '&': return "&amp;";

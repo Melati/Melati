@@ -1,7 +1,7 @@
-package org.melati.poem.example.odmg;
+package org.melati.example.odmg;
 
 
-import org.melati.poem.example.odmg.generated.ChildTableBase;
+import org.melati.example.odmg.generated.ChildTableBase;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.Database;
 import org.melati.poem.PoemException;

@@ -1,4 +1,4 @@
-package org.melati.poem.example.odmg;
+package org.melati.example.odmg;
 
 import org.odmg.Database;
 import org.odmg.Transaction;

@@ -1,7 +1,7 @@
-package org.melati.poem.example.odmg;
+package org.melati.example.odmg;
 
 
-import org.melati.poem.example.odmg.generated.OdmgDatabaseBase;
+import org.melati.example.odmg.generated.OdmgDatabaseBase;
 
 /**
  * Melati POEM generated stub

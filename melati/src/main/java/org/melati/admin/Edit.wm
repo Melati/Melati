@@ -98,7 +98,9 @@ function popupupdate(popupwin,returnfield,id,value) {
     </TD></TR>
   #end
   <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
-<tr><td align=center>
+  <tr>
+   <td align=center>
+    <FONT SIZE="-1" FACE="Arial, Helvetica">
 <INPUT NAME=action VALUE=Update TYPE=submit
        ONCLICK="return validate(this.form);">
 &nbsp;&nbsp;
@@ -118,7 +120,9 @@ function popupupdate(popupwin,returnfield,id,value) {
 #end
 <INPUT NAME=action VALUE=Duplicate TYPE=submit
        ONCLICK="return validate(this.form);">
-</td></tr>
+    </font>
+   </td>
+  </tr>
 </TABLE>
 
 </FORM>

@@ -81,7 +81,7 @@ public abstract class WebmacroMelatiServlet extends TemplateServlet
   }
 
   protected abstract String handle(Melati melati, WebContext webContext) 
-   throws WebMacroException ;
+   throws Exception ;
   
 }
 

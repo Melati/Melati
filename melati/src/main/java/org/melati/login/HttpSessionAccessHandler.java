@@ -103,16 +103,17 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
 
-  public void handleAccessException(Melati context, 
+  public void handleAccessException(Melati melati, 
                          AccessPoemException accessException) throws Exception {
     accessException.printStackTrace();
-    HttpServletRequest request = context.getRequest();
-    HttpServletResponse response = context.getResponse();
+    HttpServletRequest request = melati.getRequest();
+    HttpServletResponse response = melati.getResponse();
     HttpSession session = request.getSession(true);
     session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
                      new HttpServletRequestParameters(request));
     session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
-    response.sendRedirect(loginPageURL(context, request));
+    melati.getWriter().reset();
+    response.sendRedirect(loginPageURL(melati, request));
   }
 
   /**

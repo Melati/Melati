@@ -49,6 +49,7 @@ import java.sql.*;
 import java.util.*;
 import java.text.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
 public abstract class Column implements FieldAttributes {
   private Table table = null;
@@ -73,24 +74,30 @@ public abstract class Column implements FieldAttributes {
   // ================
   // 
 
-  void refineType(SQLPoemType refined, DefinitionSource source) {
-    if (type.canBe(refined))
-      type = refined;
-    else
-      throw new TypeDefinitionMismatchException(this, refined, source);
+  Dbms dbms() {
+    return getDatabase().getDbms();
+  }
+
+  void unifyType(SQLPoemType storeType, DefinitionSource source) {
+    PoemType unified = dbms().canRepresent(storeType, type);
+    if (unified == null || !(unified instanceof SQLPoemType))
+      throw new TypeDefinitionMismatchException(this, storeType, source);
+
+    type = (SQLPoemType)unified;
   }
 
   void assertMatches(ResultSet colDesc)
       throws SQLException, TypeDefinitionMismatchException {
     PoemType dbType = getDatabase().defaultPoemTypeOfColumnMetaData(colDesc);
-    if (!dbType.canBe(type))
+
+    if (dbms().canRepresent(dbType, type) == null)
       throw new TypeDefinitionMismatchException(this, dbType,
                                                 DefinitionSource.sqlMetaData);
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
     try {
-      refineType(columnInfo.getType(), DefinitionSource.infoTables);
+      unifyType(columnInfo.getType(), DefinitionSource.infoTables);
       columnInfo.setColumn(this);
       if (columnInfo.getDisplaylevel() == DisplayLevel.primary)
         table.setDisplayColumn(this);

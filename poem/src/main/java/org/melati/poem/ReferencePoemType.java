@@ -91,7 +91,7 @@ public class ReferencePoemType extends IntegerPoemType {
     return ((Persistent)cooked).displayString(locale, style);
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return
         other instanceof ReferencePoemType &&
         ((ReferencePoemType)other).targetTable == targetTable;

@@ -447,6 +447,9 @@ public class Table {
     return searchColumns.length;
   }
 
+  private Dbms dbms() {
+    return getDatabase().getDbms();
+  }
 
   // 
   // =========================
@@ -477,13 +480,12 @@ public class Table {
   }
 
   private void dbCreateTable() {
-    Dbms dbms = getDatabase().getDbms();
     StringBuffer sqb = new StringBuffer();
     sqb.append("CREATE TABLE " + quotedName() + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
       sqb.append(columns[c].quotedName() + " " +
-                 columns[c].getSQLType().sqlDefinition(dbms));
+                 columns[c].getSQLType().sqlDefinition(dbms()));
     }
 
     sqb.append(")");
@@ -1832,11 +1834,11 @@ public class Table {
           // FIXME this may not be a good idea
 
           if (troidColumn == null && colName.equals("id") &&
-              colType.canBe(TroidPoemType.it))
+              dbms().canRepresent(colType, TroidPoemType.it) != null)
             colType = TroidPoemType.it;
 
           if (deletedColumn == null && colName.equals("deleted") &&
-              colType.canBe(DeletedPoemType.it))
+              dbms().canRepresent(colType, DeletedPoemType.it) != null)
             colType = DeletedPoemType.it;
 
           column = new ExtraColumn(this, colDescs.getString("COLUMN_NAME"),

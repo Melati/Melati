@@ -75,7 +75,7 @@ public interface PoemType {
 
   boolean getNullable();
 
-  boolean canBe(PoemType other);
+  PoemType canRepresent(PoemType other);
 
   PoemType withNullable(boolean nullable);
 

@@ -78,7 +78,7 @@ public class DatePoemType extends AtomPoemType {
     return locale.dateFormat(style).format((Date)cooked);
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof DatePoemType;
   }
 

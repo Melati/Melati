@@ -61,8 +61,8 @@ public class DeletedPoemType extends BooleanPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.DELETED);
   }
 
-  protected boolean _canBe(PoemType other) {
-    return other instanceof DeletedPoemType;
+  protected boolean _canRepresent(PoemType other) {
+    return other instanceof BooleanPoemType;
   }
 
   public String toString() {

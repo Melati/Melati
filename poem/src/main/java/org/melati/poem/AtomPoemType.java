@@ -59,6 +59,10 @@ public abstract class AtomPoemType extends BasePoemType {
     this.sqlTypeName = sqlTypeName;
   }
 
+  protected String _quotedRaw(Object raw) {
+    return _stringOfRaw(raw);
+  }
+
   protected String _stringOfRaw(Object raw) {
     return raw.toString();
   }

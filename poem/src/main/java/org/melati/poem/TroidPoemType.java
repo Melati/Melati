@@ -61,8 +61,8 @@ public class TroidPoemType extends IntegerPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.TROID);
   }
 
-  protected boolean _canBe(PoemType other) {
-    return other instanceof TroidPoemType;
+  protected boolean _canRepresent(PoemType other) {
+    return other instanceof IntegerPoemType;
   }
 
   public String toString() {

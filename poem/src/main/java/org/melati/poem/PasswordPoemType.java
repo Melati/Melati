@@ -56,12 +56,13 @@ public class PasswordPoemType extends StringPoemType {
   }
 
   public String toString() {
-    return (getNullable() ? "nullable " : "") + "Password(" + super.size + ")";
+    return (getNullable() ? "nullable " : "") +
+           "Password(" + super.getSize() + ")";
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.PASSWORD);
-    columnInfo.setSize(size);
+    columnInfo.setSize(getSize());
   }
 }

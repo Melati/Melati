@@ -79,7 +79,7 @@ public class DisplayLevelPoemType extends IntegerPoemType {
     return ((DisplayLevel)cooked).name;
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(PoemType other) {
     return other instanceof DisplayLevelPoemType;
   }
 

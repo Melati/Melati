@@ -251,23 +251,20 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     return _sqlDefinition(dbms) + (nullable ? "" : " NOT NULL");
   }
 
-  protected abstract boolean _canBe(PoemType other);
+  protected abstract boolean _canRepresent(SQLPoemType other);
 
-  public final boolean canBe(PoemType other) {
+  public PoemType canRepresent(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
     if (!(other instanceof SQLPoemType))
-      return false;
+      return null;
     else {
       SQLPoemType q = (SQLPoemType)other;
-    return
-        q instanceof SQLPoemType &&
-        q.sqlTypeCode() == sqlTypeCode &&
-        // FIXME we weaken the nullability test so that ADD COLUMN can work with
-        // postgres
-        // other.getNullable() == nullable &&
-        !(q.getNullable() && !nullable) &&
-        _canBe(q);
+      return
+          q.sqlTypeCode() == sqlTypeCode &&
+          !(!nullable && q.getNullable()) &&
+          _canRepresent(q) ?
+              q : null;
     }
   }
 
@@ -295,9 +292,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     _saveColumnInfo(info);
   }
 
-  protected String _quotedRaw(Object raw) {
-    return raw.toString();
-  }
+  protected abstract String _quotedRaw(Object raw);
 
   public String quotedRaw(Object raw) throws ValidationPoemException {
     assertValidRaw(raw);

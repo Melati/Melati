@@ -91,7 +91,7 @@ public class TimestampPoemType extends AtomPoemType {
     return locale.timestampFormat(style).format((Timestamp)cooked);
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof TimestampPoemType;
   }
 

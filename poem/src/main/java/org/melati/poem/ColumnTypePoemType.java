@@ -89,7 +89,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(PoemType other) {
     return other instanceof ColumnTypePoemType;
   }
 

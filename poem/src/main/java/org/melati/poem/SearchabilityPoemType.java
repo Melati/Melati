@@ -79,7 +79,7 @@ public class SearchabilityPoemType extends IntegerPoemType {
     return ((Searchability)cooked).name;
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(PoemType other) {
     return other instanceof SearchabilityPoemType;
   }
 

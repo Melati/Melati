@@ -58,6 +58,11 @@ public class IntegerPoemType extends AtomPoemType {
     super(Types.INTEGER, "INT", nullable);
   }
 
+  protected IntegerPoemType(int sqlTypeCode, String sqlTypeName,
+                            boolean nullable) {
+    super(sqlTypeCode, sqlTypeName, nullable);
+  }
+
   /**
    * FIXME do down-counting??
    */
@@ -99,7 +104,7 @@ public class IntegerPoemType extends AtomPoemType {
     }
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof IntegerPoemType;
   }
 

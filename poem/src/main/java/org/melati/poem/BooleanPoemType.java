@@ -113,7 +113,7 @@ public class BooleanPoemType extends AtomPoemType {
       throw new ParsingPoemException(this, rawString);
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof BooleanPoemType;
   }
 

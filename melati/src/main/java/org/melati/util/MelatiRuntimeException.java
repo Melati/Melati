@@ -52,30 +52,24 @@ public abstract class MelatiRuntimeException extends RuntimeException {
 
   /**
    * Pre-java 1.4 initial cause.
-   *
-   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
    */
   public Exception subException;
 
   /**
    * Pre-java 1.4 initial cause.
-   *
-   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
    */
   public MelatiRuntimeException(String message, Exception subException) {
     this(message);
     initCause(subException);
   }
 
-  /**
-   * Pre-java 1.4 initial cause.
-   *
-   * @deprecated Use <code>Throwable.getCause()/initCause()</code>.
-   */
   public MelatiRuntimeException(String message) {
     super(message);
   }
 
+  /**
+   * Pre-java 1.4 initial cause.
+   */
   public MelatiRuntimeException(Exception subException) {
     this(null, subException);
   }

@@ -135,6 +135,10 @@ public abstract class MarkupLanguage {
     return name;
   }
 
+  private MelatiStringWriter getStringWriter() throws IOException {
+    return (MelatiStringWriter)melati.getStringWriter();
+  }
+
   /**
    * Render a String in a MarkupLanguage specific way.  Return a string.
    *
@@ -144,7 +148,7 @@ public abstract class MarkupLanguage {
    */
 
   public String rendered(String s) throws IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(s,sw);
     return sw.toString();
   }
@@ -183,7 +187,7 @@ public abstract class MarkupLanguage {
    */
 
   public String rendered(String s, int limit) throws IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(s,limit,sw);
     return sw.toString();
   }
@@ -228,7 +232,7 @@ public abstract class MarkupLanguage {
 
   public String rendered(Object o)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(o,sw);
     return sw.toString();
   }
@@ -284,14 +288,14 @@ public abstract class MarkupLanguage {
 
   public String rendered(JSDynamicTree tree)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(tree,sw);
     return sw.toString();
   }
 
   public String rendered(JSStaticTree tree)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(tree,sw);
     return sw.toString();
   }
@@ -377,7 +381,7 @@ public abstract class MarkupLanguage {
 
   public String rendered(Field field, int style, int limit)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(field, style, limit, sw);
     return sw.toString();
   }
@@ -423,7 +427,7 @@ public abstract class MarkupLanguage {
 
   public String rendered(Field field, int style)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(field, style, sw);
     return sw.toString();
   }
@@ -440,7 +444,7 @@ public abstract class MarkupLanguage {
 
   public String renderedShort(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     renderShort(field, sw);
     return sw.toString();
   }
@@ -457,7 +461,7 @@ public abstract class MarkupLanguage {
 
   public String renderedMedium(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     renderMedium(field, sw);
     return sw.toString();
   }
@@ -474,7 +478,7 @@ public abstract class MarkupLanguage {
 
   public String renderedLong(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     renderLong(field, sw);
     return sw.toString();
   }
@@ -491,7 +495,7 @@ public abstract class MarkupLanguage {
 
   public String renderedFull(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     renderFull(field, sw);
     return sw.toString();
   }
@@ -508,7 +512,7 @@ public abstract class MarkupLanguage {
 
   public String rendered(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(field, sw);
     return sw.toString();
   }
@@ -525,7 +529,7 @@ public abstract class MarkupLanguage {
 
   public String renderedStart(Field field)
       throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     renderStart(field, sw);
     return sw.toString();
   }
@@ -541,7 +545,7 @@ public abstract class MarkupLanguage {
   }
 
   public String rendered(Throwable e) throws IOException {
-    MelatiStringWriter sw = new MelatiStringWriter();
+    MelatiStringWriter sw = getStringWriter();
     render(e, sw);
     return sw.toString();
   }

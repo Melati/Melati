@@ -156,6 +156,10 @@ public abstract class Column implements FieldAttributes {
     return isTroidColumn();
   }
 
+  protected StandardIntegrityFix defaultIntegrityFix() {
+    return StandardIntegrityFix.prevent;
+  }
+
   protected int defaultWidth() {
     return 20;
   }
@@ -310,6 +314,11 @@ public abstract class Column implements FieldAttributes {
 
   public final boolean getUnique() {
     return isTroidColumn() || info.getUnique().booleanValue();
+  }
+
+  public IntegrityFix getIntegrityFix() {
+    IntegrityFix it = info.getIntegrityfix();
+    return it == null ? defaultIntegrityFix() : it;
   }
 
   public final String getRenderInfo() {

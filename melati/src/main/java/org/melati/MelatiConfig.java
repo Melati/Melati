@@ -123,29 +123,38 @@ public class MelatiConfig {
     catch (FileNotFoundException e) {
       // i think that if we don't have a properties file, it is pretty fatal
       // configuration = new Properties();
-      throw new ConfigException("The file " + pref + "properties could not be found." +
+      throw new ConfigException("The file " + pref + "properties" +
+                                " could not be found." +
                                 " Is it in your CLASSPATH?  Full Error: " +
                                 e.toString ());
     }
     catch (IOException e) {
-      throw new ConfigException ("The file " + pref + "properties could not be read." +
+      throw new ConfigException ("The file " + pref + "properties" +
+                                 " could not be read." +
                                  " Full Error: " + e.toString ());
     }
 
     try {
       accessHandler = (AccessHandler)PropertiesUtils.instanceOfNamedClass(
-                         configuration, accessHandlerProp, "org.melati.login.AccessHandler",
+                         configuration, 
+                         accessHandlerProp,
+                         "org.melati.login.AccessHandler",
                          "org.melati.login.HttpBasicAuthenticationAccessHandler");
 
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
-                          configuration, templetLoaderProp, "org.melati.template.TempletLoader",
+                          configuration,
+                          templetLoaderProp,
+                          "org.melati.template.TempletLoader",
                           "org.melati.template.ClassNameTempletLoader");
 
       templateEngine = (TemplateEngine)PropertiesUtils.instanceOfNamedClass(
-                          configuration, templateEngineProp, "org.melati.template.TemplateEngine",
+                          configuration,
+                          templateEngineProp,
+                          "org.melati.template.TemplateEngine",
                           "org.melati.template.NoTemplateEngine");
 
-      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration, javascriptLibraryURLProp);
+      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration,
+                                                      javascriptLibraryURLProp);
 
       staticURL = PropertiesUtils.getOrDie (configuration, staticURLProp);
     }
@@ -157,7 +166,8 @@ public class MelatiConfig {
   }
 
   // creates a melati context
-  public Melati getMelati(HttpServletRequest request, HttpServletResponse response) 
+  public Melati getMelati(HttpServletRequest request,
+                          HttpServletResponse response) 
    throws MelatiException {
     return new Melati(this, request, response);
   }

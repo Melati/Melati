@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.util.*;
 
-public class SettingBase extends Persistent {
+public class SettingBase extends ValueInfo {
 
   public PoemDatabase getPoemDatabase() {
     return (PoemDatabase)getDatabase();
@@ -22,11 +22,8 @@ public class SettingBase extends Persistent {
   }
 
   Integer id;
-  Integer typefactory;
   String name;
-  String rawstring;
-  String displayname;
-  String description;
+  String value;
 
   public Integer getId_unsafe() {
     return id;
@@ -54,45 +51,8 @@ public class SettingBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getSettingTable().getIdColumn().asField(this);
-  }
-
-  public Integer getTypefactory_unsafe() {
-    return typefactory;
-  }
-
-  public void setTypefactory_unsafe(Integer cooked) {
-    typefactory = cooked;
-  }
-
-  public Integer getTypefactoryCode()
-      throws AccessPoemException {
-    readLock();
-    return getTypefactory_unsafe();
-  }
-
-  public void setTypefactoryCode(Integer raw)
-      throws AccessPoemException {
-    getSettingTable().getTypefactoryColumn().getType().assertValidRaw(raw);
-    writeLock();
-    setTypefactory_unsafe(raw);
-  }
-
-  public PoemTypeFactory getTypefactory()
-      throws AccessPoemException {
-    Integer code = getTypefactoryCode();
-    return code == null ? null :
-        PoemTypeFactory.forCode(getDatabase(), code.intValue());
-  }
-
-  public void setTypefactory(PoemTypeFactory cooked)
-      throws AccessPoemException {
-    setTypefactoryCode(cooked == null ? null : cooked.code);
-  }
-
-  public final Field getTypefactoryField() throws AccessPoemException {
-    return _getSettingTable().getTypefactoryColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getSettingTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -116,82 +76,32 @@ public class SettingBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getSettingTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getSettingTable().getNameColumn());
   }
 
-  public String getRawstring_unsafe() {
-    return rawstring;
+  public String getValue_unsafe() {
+    return value;
   }
 
-  public void setRawstring_unsafe(String cooked) {
-    rawstring = cooked;
+  public void setValue_unsafe(String cooked) {
+    value = cooked;
   }
 
-  public String getRawstring()
+  public String getValue()
       throws AccessPoemException {
     readLock();
-    return getRawstring_unsafe();
+    return getValue_unsafe();
   }
 
-  public void setRawstring(String cooked)
+  public void setValue(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSettingTable().getRawstringColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getValueColumn().getType().assertValidCooked(cooked);
     writeLock();
-    setRawstring_unsafe(cooked);
+    setValue_unsafe(cooked);
   }
 
-  public final Field getRawstringField() throws AccessPoemException {
-    return _getSettingTable().getRawstringColumn().asField(this);
-  }
-
-  public String getDisplayname_unsafe() {
-    return displayname;
-  }
-
-  public void setDisplayname_unsafe(String cooked) {
-    displayname = cooked;
-  }
-
-  public String getDisplayname()
-      throws AccessPoemException {
-    readLock();
-    return getDisplayname_unsafe();
-  }
-
-  public void setDisplayname(String cooked)
-      throws AccessPoemException, ValidationPoemException {
-    _getSettingTable().getDisplaynameColumn().getType().assertValidCooked(cooked);
-    writeLock();
-    setDisplayname_unsafe(cooked);
-  }
-
-  public final Field getDisplaynameField() throws AccessPoemException {
-    return _getSettingTable().getDisplaynameColumn().asField(this);
-  }
-
-  public String getDescription_unsafe() {
-    return description;
-  }
-
-  public void setDescription_unsafe(String cooked) {
-    description = cooked;
-  }
-
-  public String getDescription()
-      throws AccessPoemException {
-    readLock();
-    return getDescription_unsafe();
-  }
-
-  public void setDescription(String cooked)
-      throws AccessPoemException, ValidationPoemException {
-    _getSettingTable().getDescriptionColumn().getType().assertValidCooked(cooked);
-    writeLock();
-    setDescription_unsafe(cooked);
-  }
-
-  public final Field getDescriptionField() throws AccessPoemException {
-    return _getSettingTable().getDescriptionColumn().asField(this);
+  public Field getValueField() throws AccessPoemException {
+    return Field.of(this, _getSettingTable().getValueColumn());
   }
 }

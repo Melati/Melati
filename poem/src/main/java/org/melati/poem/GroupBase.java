@@ -50,8 +50,8 @@ public class GroupBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getGroupTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getGroupTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -75,7 +75,7 @@ public class GroupBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getGroupTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getGroupTable().getNameColumn());
   }
 }

@@ -40,6 +40,10 @@ public class GroupTableBase extends Table {
             ((Group)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Group)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
             return false;
           }
@@ -85,8 +89,16 @@ public class GroupTableBase extends Table {
             ((Group)g).setName((String)cooked);
           }
 
-          protected boolean defaultPrimaryDisplay() {
-            return true;
+          public Field asField(Persistent g) {
+            return ((Group)g).getNameField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.primary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
           }
 
           protected Integer defaultDisplayOrderPriority() {

@@ -50,8 +50,8 @@ public class TableCategoryBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getTableCategoryTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getTableCategoryTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -75,7 +75,7 @@ public class TableCategoryBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getTableCategoryTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getTableCategoryTable().getNameColumn());
   }
 }

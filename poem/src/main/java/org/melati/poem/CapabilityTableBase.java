@@ -40,6 +40,10 @@ public class CapabilityTableBase extends Table {
             ((Capability)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Capability)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
             return false;
           }
@@ -85,8 +89,16 @@ public class CapabilityTableBase extends Table {
             ((Capability)g).setName((String)cooked);
           }
 
-          protected boolean defaultPrimaryDisplay() {
-            return true;
+          public Field asField(Persistent g) {
+            return ((Capability)g).getNameField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.primary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
           }
 
           protected Integer defaultDisplayOrderPriority() {

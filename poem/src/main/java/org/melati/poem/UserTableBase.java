@@ -42,6 +42,10 @@ public class UserTableBase extends Table {
             ((User)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((User)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
             return false;
           }
@@ -85,6 +89,10 @@ public class UserTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((User)g).setLogin((String)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((User)g).getLoginField();
           }
 
           protected int defaultDisplayOrder() {
@@ -132,12 +140,16 @@ public class UserTableBase extends Table {
             ((User)g).setPassword((String)cooked);
           }
 
-          protected boolean defaultSummaryDisplay() {
-            return false;
+          public Field asField(Persistent g) {
+            return ((User)g).getPasswordField();
           }
 
-          protected boolean defaultSearchCriterion() {
-            return false;
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
           }
 
           protected int defaultDisplayOrder() {
@@ -181,8 +193,16 @@ public class UserTableBase extends Table {
             ((User)g).setName((String)cooked);
           }
 
-          protected boolean defaultPrimaryDisplay() {
-            return true;
+          public Field asField(Persistent g) {
+            return ((User)g).getNameField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.primary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
           }
 
           protected Integer defaultDisplayOrderPriority() {

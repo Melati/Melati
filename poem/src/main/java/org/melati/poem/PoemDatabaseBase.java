@@ -55,6 +55,7 @@ public class PoemDatabaseBase extends Database {
     return tab_tableinfo;
   }
 
+
   public ColumnInfoTable getColumnInfoTable() {
     return tab_columninfo;
   }

@@ -41,6 +41,10 @@ public class GroupMembershipTableBase extends Table {
             ((GroupMembership)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((GroupMembership)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
             return false;
           }
@@ -84,6 +88,10 @@ public class GroupMembershipTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((GroupMembership)g).setUser((User)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((GroupMembership)g).getUserField();
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -133,6 +141,14 @@ public class GroupMembershipTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((GroupMembership)g).setGroup((Group)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((GroupMembership)g).getGroupField();
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
           }
 
           protected Integer defaultDisplayOrderPriority() {

@@ -7,14 +7,11 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import org.melati.util.*;
 
-public class SettingTableBase extends Table {
+public class SettingTableBase extends ValueInfoTable {
 
   private Column col_id = null;
-  private Column col_typefactory = null;
   private Column col_name = null;
-  private Column col_rawstring = null;
-  private Column col_displayname = null;
-  private Column col_description = null;
+  private Column col_value = null;
 
   public SettingTableBase(
       Database database, String name,
@@ -42,6 +39,10 @@ public class SettingTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((Setting)g).setId((Integer)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((Setting)g).getIdField();
           }
 
           protected boolean defaultUserEditable() {
@@ -77,63 +78,6 @@ public class SettingTableBase extends Table {
           }
         });
 
-    defineColumn(col_typefactory =
-        new Column(this, "typefactory", new ColumnTypePoemType(getDatabase()), DefinitionSource.dsd) { 
-          public Object getCooked(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((Setting)g).getTypefactory();
-          }
-
-          public void setCooked(Persistent g, Object cooked)
-              throws AccessPoemException, ValidationPoemException {
-            ((Setting)g).setTypefactory((PoemTypeFactory)cooked);
-          }
-
-          protected boolean defaultUserEditable() {
-            return false;
-          }
-
-          protected boolean defaultSummaryDisplay() {
-            return false;
-          }
-
-          protected boolean defaultSearchCriterion() {
-            return false;
-          }
-
-          protected String defaultDisplayName() {
-            return "Type";
-          }
-
-          protected int defaultDisplayOrder() {
-            return 1;
-          }
-
-          protected String defaultDescription() {
-            return "The setting's Melati type";
-          }
-
-          public Object getRaw_unsafe(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getTypefactory_unsafe();
-          }
-
-          public void setRaw_unsafe(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setTypefactory_unsafe((Integer)raw);
-          }
-
-          public Object getRaw(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getTypefactoryCode();
-          }
-
-          public void setRaw(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setTypefactoryCode((Integer)raw);
-          }
-        });
-
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -146,8 +90,16 @@ public class SettingTableBase extends Table {
             ((Setting)g).setName((String)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((Setting)g).getNameField();
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
+          }
+
           protected int defaultDisplayOrder() {
-            return 2;
+            return 1;
           }
 
           protected String defaultDescription() {
@@ -179,24 +131,24 @@ public class SettingTableBase extends Table {
           }
         });
 
-    defineColumn(col_rawstring =
-        new Column(this, "rawstring", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+    defineColumn(col_value =
+        new Column(this, "value", new StringPoemType(true, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Setting)g).getRawstring();
+            return ((Setting)g).getValue();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Setting)g).setRawstring((String)cooked);
+            ((Setting)g).setValue((String)cooked);
           }
 
-          protected String defaultDisplayName() {
-            return "Value";
+          public Field asField(Persistent g) {
+            return ((Setting)g).getValueField();
           }
 
           protected int defaultDisplayOrder() {
-            return 3;
+            return 150;
           }
 
           protected String defaultDescription() {
@@ -205,128 +157,22 @@ public class SettingTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Setting)g).getRawstring_unsafe();
+            return ((Setting)g).getValue_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Setting)g).setRawstring_unsafe((String)raw);
+            ((Setting)g).setValue_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Setting)g).getRawstring();
+            return ((Setting)g).getValue();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Setting)g).setRawstring((String)raw);
-          }
-        });
-
-    defineColumn(col_displayname =
-        new Column(this, "displayname", new StringPoemType(false, -1), DefinitionSource.dsd) { 
-          public Object getCooked(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((Setting)g).getDisplayname();
-          }
-
-          public void setCooked(Persistent g, Object cooked)
-              throws AccessPoemException, ValidationPoemException {
-            ((Setting)g).setDisplayname((String)cooked);
-          }
-
-          protected boolean defaultSummaryDisplay() {
-            return false;
-          }
-
-          protected boolean defaultPrimaryDisplay() {
-            return true;
-          }
-
-          protected Integer defaultDisplayOrderPriority() {
-            return new Integer(0);
-          }
-
-          protected int defaultDisplayOrder() {
-            return 4;
-          }
-
-          protected String defaultDescription() {
-            return "A human-readable name for this setting";
-          }
-
-          protected boolean defaultUnique() {
-            return true;
-          }
-
-          public Object getRaw_unsafe(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getDisplayname_unsafe();
-          }
-
-          public void setRaw_unsafe(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setDisplayname_unsafe((String)raw);
-          }
-
-          public Object getRaw(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getDisplayname();
-          }
-
-          public void setRaw(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setDisplayname((String)raw);
-          }
-        });
-
-    defineColumn(col_description =
-        new Column(this, "description", new StringPoemType(false, -1), DefinitionSource.dsd) { 
-          public Object getCooked(Persistent g)
-              throws AccessPoemException, PoemException {
-            return ((Setting)g).getDescription();
-          }
-
-          public void setCooked(Persistent g, Object cooked)
-              throws AccessPoemException, ValidationPoemException {
-            ((Setting)g).setDescription((String)cooked);
-          }
-
-          protected boolean defaultSummaryDisplay() {
-            return false;
-          }
-
-          protected boolean defaultSearchCriterion() {
-            return false;
-          }
-
-          protected int defaultDisplayOrder() {
-            return 5;
-          }
-
-          protected String defaultDescription() {
-            return "A description for this setting";
-          }
-
-          public Object getRaw_unsafe(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getDescription_unsafe();
-          }
-
-          public void setRaw_unsafe(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setDescription_unsafe((String)raw);
-          }
-
-          public Object getRaw(Persistent g)
-              throws AccessPoemException {
-            return ((Setting)g).getDescription();
-          }
-
-          public void setRaw(Persistent g, Object raw)
-              throws AccessPoemException {
-            ((Setting)g).setDescription((String)raw);
+            ((Setting)g).setValue((String)raw);
           }
         });
   }
@@ -335,24 +181,12 @@ public class SettingTableBase extends Table {
     return col_id;
   }
 
-  public final Column getTypefactoryColumn() {
-    return col_typefactory;
-  }
-
   public final Column getNameColumn() {
     return col_name;
   }
 
-  public final Column getRawstringColumn() {
-    return col_rawstring;
-  }
-
-  public final Column getDisplaynameColumn() {
-    return col_displayname;
-  }
-
-  public final Column getDescriptionColumn() {
-    return col_description;
+  public final Column getValueColumn() {
+    return col_value;
   }
 
   public Setting getSettingObject(Integer troid) {

@@ -59,8 +59,8 @@ public class TableInfoBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getTableInfoTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -84,8 +84,8 @@ public class TableInfoBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getTableInfoTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getNameColumn());
   }
 
   public String getDisplayname_unsafe() {
@@ -109,8 +109,8 @@ public class TableInfoBase extends Persistent {
     setDisplayname_unsafe(cooked);
   }
 
-  public final Field getDisplaynameField() throws AccessPoemException {
-    return _getTableInfoTable().getDisplaynameColumn().asField(this);
+  public Field getDisplaynameField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getDisplaynameColumn());
   }
 
   public String getDescription_unsafe() {
@@ -134,8 +134,8 @@ public class TableInfoBase extends Persistent {
     setDescription_unsafe(cooked);
   }
 
-  public final Field getDescriptionField() throws AccessPoemException {
-    return _getTableInfoTable().getDescriptionColumn().asField(this);
+  public Field getDescriptionField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getDescriptionColumn());
   }
 
   public Integer getDisplayorder_unsafe() {
@@ -164,8 +164,8 @@ public class TableInfoBase extends Persistent {
     setDisplayorder(new Integer(cooked));
   }
 
-  public final Field getDisplayorderField() throws AccessPoemException {
-    return _getTableInfoTable().getDisplayorderColumn().asField(this);
+  public Field getDisplayorderField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getDisplayorderColumn());
   }
 
   public Integer getDefaultcanread_unsafe() {
@@ -201,8 +201,8 @@ public class TableInfoBase extends Persistent {
     setDefaultcanreadTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getDefaultcanreadField() throws AccessPoemException {
-    return _getTableInfoTable().getDefaultcanreadColumn().asField(this);
+  public Field getDefaultcanreadField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getDefaultcanreadColumn());
   }
 
   public Integer getDefaultcanwrite_unsafe() {
@@ -238,8 +238,8 @@ public class TableInfoBase extends Persistent {
     setDefaultcanwriteTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getDefaultcanwriteField() throws AccessPoemException {
-    return _getTableInfoTable().getDefaultcanwriteColumn().asField(this);
+  public Field getDefaultcanwriteField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getDefaultcanwriteColumn());
   }
 
   public Integer getCancreate_unsafe() {
@@ -275,8 +275,8 @@ public class TableInfoBase extends Persistent {
     setCancreateTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getCancreateField() throws AccessPoemException {
-    return _getTableInfoTable().getCancreateColumn().asField(this);
+  public Field getCancreateField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getCancreateColumn());
   }
 
   public Integer getCachelimit_unsafe() {
@@ -305,8 +305,8 @@ public class TableInfoBase extends Persistent {
     setCachelimit(new Integer(cooked));
   }
 
-  public final Field getCachelimitField() throws AccessPoemException {
-    return _getTableInfoTable().getCachelimitColumn().asField(this);
+  public Field getCachelimitField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getCachelimitColumn());
   }
 
   public Boolean getSeqcached_unsafe() {
@@ -335,8 +335,8 @@ public class TableInfoBase extends Persistent {
     setSeqcached(cooked ? Boolean.TRUE : Boolean.FALSE);
   }
 
-  public final Field getSeqcachedField() throws AccessPoemException {
-    return _getTableInfoTable().getSeqcachedColumn().asField(this);
+  public Field getSeqcachedField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getSeqcachedColumn());
   }
 
   public Integer getCategory_unsafe() {
@@ -372,7 +372,7 @@ public class TableInfoBase extends Persistent {
     setCategoryTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getCategoryField() throws AccessPoemException {
-    return _getTableInfoTable().getCategoryColumn().asField(this);
+  public Field getCategoryField() throws AccessPoemException {
+    return Field.of(this, _getTableInfoTable().getCategoryColumn());
   }
 }

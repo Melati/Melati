@@ -41,6 +41,10 @@ public class GroupCapabilityTableBase extends Table {
             ((GroupCapability)g).setId((Integer)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((GroupCapability)g).getIdField();
+          }
+
           protected boolean defaultUserEditable() {
             return false;
           }
@@ -86,6 +90,14 @@ public class GroupCapabilityTableBase extends Table {
             ((GroupCapability)g).setGroup((Group)cooked);
           }
 
+          public Field asField(Persistent g) {
+            return ((GroupCapability)g).getGroupField();
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.primary;
+          }
+
           protected Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
@@ -129,6 +141,10 @@ public class GroupCapabilityTableBase extends Table {
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
             ((GroupCapability)g).setCapability((Capability)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((GroupCapability)g).getCapabilityField();
           }
 
           protected Integer defaultDisplayOrderPriority() {

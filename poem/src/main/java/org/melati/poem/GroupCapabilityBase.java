@@ -51,8 +51,8 @@ public class GroupCapabilityBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getGroupCapabilityTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getGroupCapabilityTable().getIdColumn());
   }
 
   public Integer getGroup_unsafe() {
@@ -88,8 +88,8 @@ public class GroupCapabilityBase extends Persistent {
     setGroupTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getGroupField() throws AccessPoemException {
-    return _getGroupCapabilityTable().getGroupColumn().asField(this);
+  public Field getGroupField() throws AccessPoemException {
+    return Field.of(this, _getGroupCapabilityTable().getGroupColumn());
   }
 
   public Integer getCapability_unsafe() {
@@ -125,7 +125,7 @@ public class GroupCapabilityBase extends Persistent {
     setCapabilityTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getCapabilityField() throws AccessPoemException {
-    return _getGroupCapabilityTable().getCapabilityColumn().asField(this);
+  public Field getCapabilityField() throws AccessPoemException {
+    return Field.of(this, _getGroupCapabilityTable().getCapabilityColumn());
   }
 }

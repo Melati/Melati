@@ -50,8 +50,8 @@ public class CapabilityBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getCapabilityTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getCapabilityTable().getIdColumn());
   }
 
   public String getName_unsafe() {
@@ -75,7 +75,7 @@ public class CapabilityBase extends Persistent {
     setName_unsafe(cooked);
   }
 
-  public final Field getNameField() throws AccessPoemException {
-    return _getCapabilityTable().getNameColumn().asField(this);
+  public Field getNameField() throws AccessPoemException {
+    return Field.of(this, _getCapabilityTable().getNameColumn());
   }
 }

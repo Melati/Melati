@@ -51,8 +51,8 @@ public class GroupMembershipBase extends Persistent {
     setId(new Integer(cooked));
   }
 
-  public final Field getIdField() throws AccessPoemException {
-    return _getGroupMembershipTable().getIdColumn().asField(this);
+  public Field getIdField() throws AccessPoemException {
+    return Field.of(this, _getGroupMembershipTable().getIdColumn());
   }
 
   public Integer getUser_unsafe() {
@@ -88,8 +88,8 @@ public class GroupMembershipBase extends Persistent {
     setUserTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getUserField() throws AccessPoemException {
-    return _getGroupMembershipTable().getUserColumn().asField(this);
+  public Field getUserField() throws AccessPoemException {
+    return Field.of(this, _getGroupMembershipTable().getUserColumn());
   }
 
   public Integer getGroup_unsafe() {
@@ -125,7 +125,7 @@ public class GroupMembershipBase extends Persistent {
     setGroupTroid(cooked == null ? null : cooked.troid());
   }
 
-  public final Field getGroupField() throws AccessPoemException {
-    return _getGroupMembershipTable().getGroupColumn().asField(this);
+  public Field getGroupField() throws AccessPoemException {
+    return Field.of(this, _getGroupMembershipTable().getGroupColumn());
   }
 }

@@ -62,7 +62,6 @@ import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
 import org.melati.poem.User;
-import org.melati.servlet.MelatiContext;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
@@ -221,17 +220,7 @@ public class Melati {
       object = table.getObject(poemContext.getTroid().intValue());
   }
 
-  /**
-   * Get the MelatiContext for this Request.
-   *
-   * @deprecated use getPoemContext 
-   * @return - the MelatiContext for this Request
-   */
-
-  public MelatiContext getContext() {
-    return (MelatiContext)poemContext;
-  }
-
+  
   /**
    * Get the PoemContext for this Request.
    *

@@ -116,8 +116,8 @@ public class LogicalDatabase {
 
 	  Object databaseObject = Class.forName(clazz).newInstance();
 
-	  if (!(databaseObject instanceof Database))
-	    throw new ClassCastException(
+	  if (!(databaseObject instanceof Database)) 
+ 	    throw new ClassCastException(
                 "The .class=" + clazz + " entry named a class of type " +
                 databaseObject.getClass() + ", " +
                 "which is not an org.melati.poem.Database");

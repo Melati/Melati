@@ -10,7 +10,7 @@ This page last updated: $Date$ $Author$
 @sectionStartTagStart@ Documentation @sectionStartTagEnd@
 <h3>Current Documentation.</h3>
 <ul>
- <LI><A HREF="doc/index.html">Overview of Melati</A>  </LI>
+ <LI><A HREF="doc/Overview.html">Overview of Melati</A>  </LI>
  <LI><A HREF="/melati-static/README.html">README</A>  </LI>
  <LI><A HREF="/melati-static/RELEASE-NOTES.html">RELEASE-NOTES</A>  </LI>
  <LI><A HREF="doc/PoemUserGuide.html">Poem User Guide</A> </LI>

@@ -62,6 +62,12 @@ public class TransactionedSerial extends Transactioned {
     ++serial;
   }
 
+  /**
+   * @todo This is what Persistent did but that was
+   * wrong. Check. If it should return false then
+   * replace both methods by an implementation in
+   * Transactioned or completely remove.
+   */
   protected boolean upToDate(Transaction transaction) {
     return true;
   }

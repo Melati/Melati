@@ -1,3 +1,4 @@
+<!-- start org/melati/admin/Tree.wm -->
 #set $melati.ResponseContentType = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
@@ -8,4 +9,5 @@
   scrolling=yes>
 </frameset>
 </HTML>
+<!-- end org/melati/admin/Tree.wm -->
 

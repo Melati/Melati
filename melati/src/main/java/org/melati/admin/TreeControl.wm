@@ -1,11 +1,14 @@
 #set $melati.ResponseContentType = "text/html"
+<!-- start org/melati/admin/TreeControl.wm -->
 <HTML>
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage
 #if ($tree) #begin
  #if ($tree.flattened().size() < 2000) #begin
-<body onload="init();">
+<!-- start -->
 $ml.rendered($tree)
+<!-- end -->
+<body onload="init();">
  #end #else #begin
 <body>
 <SCRIPT LANGUAGE="JavaScript1.2">
@@ -23,6 +26,7 @@ Tree is null.
 
 </body>
 </html>
+<!-- end org/melati/admin/TreeControl.wm -->
 
 
 

@@ -66,23 +66,29 @@ public class ClassNameTempletLoader implements TempletLoader {
     specialTemplateNames.put("org.melati.poem.IntegrityFixPoemType", "select");
   }
 
-  protected String templetsPath(MarkupLanguage markupLanguage) {
-    return "templets" + File.separatorChar + markupLanguage.getName();
+  protected String templetsPath(TemplateEngine templateEngine, 
+                                MarkupLanguage markupLanguage) {
+    return "org" + File.separatorChar + 
+           "melati" + File.separatorChar + 
+           "template" + File.separatorChar + 
+            templateEngine.getName() + File.separatorChar + 
+           "templets" + File.separatorChar +
+            markupLanguage.getName() + File.separatorChar;
   }
 
   protected String templetPath(TemplateEngine templateEngine,
                                MarkupLanguage markupLanguage,
                                String purpose, String name) {
     if (purpose == null)
-      return "template" + File.separatorChar + templateEngine.getName() + 
-                 File.separatorChar + templetsPath(markupLanguage) + 
-                 File.separatorChar + name +
+      return 
+                 templetsPath(templateEngine, markupLanguage) + 
+                 name +
                  templateEngine.templateExtension();
     else
-      return "template" + File.separatorChar + templateEngine.getName() + 
-                 File.separatorChar + templetsPath(markupLanguage) + 
-                 File.separatorChar + purpose +
-                 File.separatorChar + name +
+      return 
+                 templetsPath(templateEngine, markupLanguage) + 
+                 purpose + File.separatorChar + 
+                 name +
                  templateEngine.templateExtension();
   }
 
@@ -162,3 +168,13 @@ public class ClassNameTempletLoader implements TempletLoader {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+

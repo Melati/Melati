@@ -6,7 +6,6 @@ import org.melati.poem.*;
 import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import org.melati.util.*;
 
 public class TableInfoTableBase extends Table {
 
@@ -316,7 +315,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanread =
-        new Column(this, "defaultcanread", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanread", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanread();
@@ -373,7 +372,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_defaultcanwrite =
-        new Column(this, "defaultcanwrite", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "defaultcanwrite", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanwrite();
@@ -430,7 +429,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_cancreate =
-        new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCancreate();
@@ -601,7 +600,7 @@ public class TableInfoTableBase extends Table {
         });
 
     defineColumn(col_category =
-        new Column(this, "category", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableCategoryTable(), false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "category", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableCategoryTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCategory();

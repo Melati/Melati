@@ -1467,7 +1467,7 @@ public class Table {
   public RestrictedReferencePoemType cachedSelectionType(
       String whereClause, String orderByClause, boolean nullable) {
     return new RestrictedReferencePoemType(
-               cachedSelection(whereClause, orderByClause), nullable, getDatabase().getDbms());
+               cachedSelection(whereClause, orderByClause), nullable);
   }
 
   /**

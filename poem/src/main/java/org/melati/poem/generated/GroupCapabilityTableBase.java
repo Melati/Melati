@@ -6,7 +6,6 @@ import org.melati.poem.*;
 import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import org.melati.util.*;
 
 public class GroupCapabilityTableBase extends Table {
 
@@ -80,7 +79,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_group =
-        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getGroup();
@@ -133,7 +132,7 @@ public class GroupCapabilityTableBase extends Table {
         });
 
     defineColumn(col_capability =
-        new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getCapability();

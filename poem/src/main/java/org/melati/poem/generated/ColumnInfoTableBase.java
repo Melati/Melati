@@ -6,7 +6,6 @@ import org.melati.poem.*;
 import java.util.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import org.melati.util.*;
 
 public class ColumnInfoTableBase extends ValueInfoTable {
 
@@ -87,7 +86,7 @@ public class ColumnInfoTableBase extends ValueInfoTable {
         });
 
     defineColumn(col_tableinfo =
-        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false, getDatabase().getDbms()), DefinitionSource.dsd) { 
+        new Column(this, "tableinfo", new ReferencePoemType(((PoemDatabase)getDatabase()).getTableInfoTable(), false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((ColumnInfo)g).getTableinfo();

@@ -61,9 +61,8 @@ public class RestrictedReferencePoemType extends ReferencePoemType {
   private final PreparedSelection selection;
 
   public RestrictedReferencePoemType(PreparedSelection selection,
-				     boolean nullable,
-                                     Dbms dbms) {
-    super(selection.getTable(), nullable, dbms);
+				     boolean nullable) {
+    super(selection.getTable(), nullable);
     this.selection = selection;
   }
 

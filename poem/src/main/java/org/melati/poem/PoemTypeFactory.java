@@ -274,7 +274,7 @@ public abstract class PoemTypeFactory {
       return
           new PoemTypeFactory(code) {
             public PoemType typeOf(Database db, Parameter info) {
-              return new ReferencePoemType(table, info.getNullable(), db.getDbms());
+              return new ReferencePoemType(table, info.getNullable());
             }
 
             public String getName() {

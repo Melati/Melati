@@ -130,6 +130,6 @@ public class ReferenceFieldDef extends FieldDef {
     String targetTableAccessorMethod = "get" + type + "Table";
     return
         "new ReferencePoemType(((" + table.dsd.databaseClass + ")getDatabase())." +
-        targetTableAccessorMethod + "(), " + isNullable + ", getDatabase().getDbms())";
+        targetTableAccessorMethod + "(), " + isNullable + ")";
   }
 }

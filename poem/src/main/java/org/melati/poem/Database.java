@@ -192,11 +192,12 @@ abstract public class Database implements TransactionPool {
       committedConnection = getDbms().getConnection(url, username, password);
       transactions = new Vector();
       for (int s = 0; s < transactionsMax(); ++s) {
+          transactions.add(
             new PoemTransaction(
                 this,
                 getDbms().getConnection(url, username, password),                
                 //driver.connect(url, info),
-                s);
+                s));
       }
       freeTransactions = (Vector)transactions.clone();
 

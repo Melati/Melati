@@ -47,6 +47,25 @@ package org.melati.util;
 
 import java.util.Vector;
 
+/**
+ * Supply and cache objects identified by a numeric index.
+ * <p>
+ * Subtypes define how the object for a given index is obtained,
+ * and hence the mapping of indexes to objects used in the
+ * caller.
+ * <p>
+ * The name is a touch misleading - the objects returned are
+ * not (necessarily) indexes.
+ * <p>
+ * <code>null</code> object references can be cached and returned.
+ * <p>
+ * Individual elements can be removed from the cache, or all of
+ * them.
+ * <p>
+ * (Please review this description and delete this line. JimW.)
+ * 
+ * @author williamc@paneris.org (not javadocs)
+ */
 public abstract class CachedIndexFactory implements IndexFactory {
   private Vector cache = new Vector();
   private static final Object nullFromFactory = new Object();

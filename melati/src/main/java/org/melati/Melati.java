@@ -77,14 +77,14 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 /**
  * This is the main entry point for using Melati.
- *
- * You will need to have create a MelatiConfig in order to construct a Melati
- *
+ * <p>
+ * You will need to create a MelatiConfig in order to construct a Melati.
+ * <p>
  * If you are using servlets, you will want to construct a melati with 
  * a request and response object.  Otherwise, simply pass in a Writer.
- *
+ * <p>
  * A Melati exists once per request.
- *
+ * <p>
  * Melati is typically used with Servlets, POEM (Persistent Object Engine for
  * Melati) and a Template Engine
  *
@@ -183,7 +183,7 @@ public class Melati {
   }
 
   /**
-   * Set the MelatiContext for this requrest.  If the Context has a
+   * Set the MelatiContext for this request.  If the Context has a
    * LogicalDatabase set, this will be used to establish a connection
    * to the database.
    *

@@ -1352,6 +1352,9 @@ public class Table {
    * state will also be modified.
    * <p>
    * (Please review this description and delete this line. JimW.)
+   *
+   * @exception InitialisationPoemException The object failed internal validation
+   *   (currently one of its field values failed).
    */
   public void create(Persistent persistent)
       throws AccessPoemException, ValidationPoemException,

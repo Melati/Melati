@@ -65,6 +65,18 @@ import org.melati.util.JSDynamicTree;
 
 public class MelatiUtil {
 
+  /**
+   * Retrieve updated persistent fields from a context modified in a template.
+   * <p>
+   * The context can specify an adaptor for each field using another HTML
+   * field
+   * with name suffix &quot;-adaptor&quot; and value the classname of
+   * a <code>TempletAdaptor</code>.
+   * Hence presumably the templet that renders the field can specify how
+   * the result is parsed. This is used for dates.
+   * <p>
+   * (Please review this description and delete this line. JimW)
+   */
   public static void extractFields(TemplateContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();

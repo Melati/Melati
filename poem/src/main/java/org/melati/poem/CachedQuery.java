@@ -49,6 +49,14 @@ import org.melati.util.*;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Object to return the results of a query with caching.
+ * <p>
+ * Cached results will be returned unless the relevant tables
+ * have been updated since the query was last executed.
+ * <p>
+ * (Please review this description and delete this line. JimW.)
+ */
 public abstract class CachedQuery {
 
   protected PreparedStatementFactory statements = null;

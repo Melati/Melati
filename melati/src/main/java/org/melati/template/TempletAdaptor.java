@@ -45,6 +45,11 @@
 
 package org.melati.template;
 
+/**
+ * Object to read fields from a context modified in a templet.
+ * <p>
+ * (Please review this description and delete this line. JimW)
+ */
 public interface TempletAdaptor {
   Object rawFrom(TemplateContext context, String fieldName);
 }

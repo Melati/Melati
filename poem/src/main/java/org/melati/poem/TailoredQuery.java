@@ -170,6 +170,16 @@ public class TailoredQuery {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
+  /**
+   * Same as without the first argument except that it is inserted 
+   * between <code>SELECT</code> and the column list.
+   * <p>
+   * This was apparently a hack.
+   * <p>
+   * (Please review this description and delete this line. JimW.)
+   *
+   * @see #TailoredQuery(Column[], Table[], String, String)
+   */
   public TailoredQuery(String modifier, // FIXME hack
                        Column[] selectedColumns, Table[] otherTables,
                        String whereClause, String orderByClause) {
@@ -322,8 +332,9 @@ public class TailoredQuery {
    * <TT>selectedColumns</TT> and <TT>otherTables</TT> arguments given at
    * construct time.  If the checks fail for a given row, all the fields in the
    * corresponding <TT>FieldSet</TT> are booby-trapped to throw the relevant
-   * <TT>AccessPoemException</TT> (<I>all</I> of them, because there's no way
-   * for POEM to know without parsing your <TT>whereClause</TT> to know which
+   * <TT>AccessPoemException</TT> (<I>all</I> of them, because,
+   * without parsing your <TT>whereClause</TT>, there's no way for POEM to
+   * know which
    * columns are `tainted'; note that it's probably possible for you to bypass
    * access checks by using sub-SELECTs).
    *

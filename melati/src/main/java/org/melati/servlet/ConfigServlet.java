@@ -46,13 +46,13 @@
 /*
  * Config Servlet is the simplest way to use Melati.
  *
- * All a ComboServlet does is to configure a melati and combine the
+ * All a ConfigServlet does is to configure a melati and combine the
  * doGet and doPost methods.  Importantly it does not establish a poem session
  * leaving you to do this for yourself.
  *
  * if you want a poem session established, please extend PoemServlet
  *
- * <A NAME=pathinfoscan>ComboServlet does set up a basic
+ * <A NAME=pathinfoscan>ConfigServlet does set up a basic
  * MelatiContext with the Method set,
  * but not the POEM logicaldatabase, table or troid
  *
@@ -118,16 +118,16 @@ public abstract class ConfigServlet extends HttpServlet
    * Inititialise Melati
    * @param ServletConfig
    */
-  public void init ( ServletConfig config ) throws ServletException
+  public void init(ServletConfig config) throws ServletException
   {
-    super.init ( config );
+    super.init(config);
     try {
       melatiConfig = new MelatiConfig ();
     } catch (MelatiException e) {
       // log it to system.err as ServletExceptions go to the
       // servlet runner log (eg jserv.log), and don't have a stack trace!
-      e.printStackTrace (System.err);
-      throw new ServletException (e.toString ());
+      e.printStackTrace(System.err);
+      throw new ServletException(e.toString ());
     }
   }
 
@@ -135,54 +135,53 @@ public abstract class ConfigServlet extends HttpServlet
    * Handles GET
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-  throws ServletException, IOException
+   throws ServletException, IOException
   {
-    doGetPostRequest (request, response);
+    doGetPostRequest(request, response);
   }
 
   /**
    * Handle a POST
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
-  throws ServletException, IOException
+   throws ServletException, IOException
   {
-    doGetPostRequest (request, response);
+    doGetPostRequest(request, response);
   }
 
   /**
    * Process the request.
    */
-  private void doGetPostRequest
-  (final HttpServletRequest request, final HttpServletResponse response)
-  throws IOException {
-
+  private void doGetPostRequest(final HttpServletRequest request, final HttpServletResponse response)
+   throws IOException {
     try {
-      Melati melati = melatiConfig.getMelati (request, response);
+      Melati melati = melatiConfig.getMelati(request, response);
       MelatiContext melatiContext = melatiContext(melati);
       melati.setContext(melatiContext);
 
-      doConfiguredRequest (melati);
+      doConfiguredRequest(melati);
       // send the output to the client
-      melati.write ();
+      melati.write();
     } catch (Exception e) {
-      error (response,e);
+      error(response,e);
     }
   }
 
   /**
    * Send an error message
    */
-  protected void error ( HttpServletResponse response, Exception e )
-  throws IOException {
+  protected void error(HttpServletResponse response, Exception e )
+   throws IOException {
     // has it been trapped already, if so, we don't need to relog it here
     if (! (e instanceof TrappedException)) {
       // log it
-      e.printStackTrace (System.err);
+      e.printStackTrace(System.err);
       // and put it on the page
       response.setContentType ("text/html");
       PrintWriter out = response.getWriter ();
-      out.println("<html><head><title>Melati Error</title></head><body><h2>");
-      out.println("Melati Error</h2><p>An error has occured in the application"); 
+      out.println("<html><head><title>Melati Error</title></head>");
+      out.println("<body><h2>Melati Error</h2>");
+      out.println("<p>An error has occured in the application"); 
       out.println("that runs this website, please contact <a href='mailto:");
       out.println(getSysAdminEmail() + "'>" + getSysAdminName() + "</a>");
       out.println(", with the information given below.</p>");
@@ -203,16 +202,16 @@ public abstract class ConfigServlet extends HttpServlet
   }
 
   protected MelatiContext melatiContext(Melati melati) 
-  throws PathInfoException {
-    MelatiContext it = new MelatiContext();
-    String[] parts = melati.getPathInfoParts();
-    if (parts.length > 0)
-    it.method = StringUtils.nulled(parts[parts.length - 1]);
+   throws PathInfoException {
+     MelatiContext it = new MelatiContext();
+     String[] parts = melati.getPathInfoParts();
+     if (parts.length > 0)
+      it.method = StringUtils.nulled(parts[parts.length - 1]);
     return it;
   }
 
   /**
-   * Override the method to build up your output
+   * Override this method to build up your output
    * @param melati
    */
   protected abstract void doConfiguredRequest (Melati melati)

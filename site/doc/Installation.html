@@ -80,6 +80,10 @@
   <li>IBM 1.1.8 JIT</li>
   <li>IBM Jikes Compiler</li>
 </ul>
+
+
+
+
 <H2>
 <!-- ****************** -->
       Obtaining Melati
@@ -190,6 +194,22 @@ $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/webm
 </PRE>
     </BLOCKQUOTE>
 
+    Thereafter you will be able to get an updated snapshot by <TT>cd</TT>ing to
+    the Melati source tree and doing
+
+<BLOCKQUOTE><PRE>
+$ cvs update
+</PRE></BLOCKQUOTE>
+
+    (CVS remembers the server from which the tree came in the control files in
+    the <TT>CVS</TT> subdirectories it creates, and the login/password you gave
+    in a file <TT>.cvspass</TT> in your home directory.)  If you are working
+    over a slow link, you might find the <A
+    HREF=http://rsync.samba.org/rsync/><TT>rsync</TT></A> program useful: it
+    uses clever checksum tricks, compression and pipelining to perform file
+    comparison and update quicker than you would think possible.  Let us know
+    if you would like &quot;anonymous rsync&quot; access.
+
   <LI> Ensure that the following is in your classpath 
     <ul>
       <li>ApacheJServ.jar 
@@ -267,7 +287,8 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
 
 <P>
   If something doesn't work, sorry!  Drop us an email at
-  <A HREF=mailto:melati@messageboards.paneris.org>melati@messageboards.paneris.org</A>.
+  <A HREF=mailto:melati@messageboards.paneris.org>melati@messageboards.paneris.org</A>
+  or <A HREF=mailto:williamc@paneris.org>williamc@paneris.org</A>.
 </P>
 
 
@@ -370,6 +391,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.11  2000/03/20 17:13:34  williamc
+  <BR>Add comments about what to do after cvs checkout
+  <BR>
   <BR>Revision 1.10  2000/03/08 11:44:36  williamc
   <BR>Add comments about hacked version of Variable
   <BR>

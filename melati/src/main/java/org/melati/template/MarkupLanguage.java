@@ -357,12 +357,13 @@ public abstract class MarkupLanguage {
    * Render a Field Object in a MarkupLanguage specific way, 
    * returning a String.
    *
-   * @return - the Field rendered as a String in a MarkupLanguage specific way.
+   * see org.melati.poem.DatePoemType#_stringOfCooked
+   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   * 
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
-   * @see org.melati.poem.DatePoemType#_stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
    * @param limit - the length to trim the rendered string to
+   * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
    *                                   TemplateEngine

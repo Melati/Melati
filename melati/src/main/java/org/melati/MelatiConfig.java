@@ -176,17 +176,25 @@ public class MelatiConfig {
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
+  
+  public void setTemplateEngine(TemplateEngine templateEngine) {
+    this.templateEngine = templateEngine;
+  }
 
   public AccessHandler getAccessHandler() {
     return accessHandler;
   }
 
-  public MelatiLocale getLocale() {
-    return MelatiLocale.here;
+  public void setAccessHandler(AccessHandler accessHandler) {
+    this.accessHandler = accessHandler;
   }
 
   public TempletLoader getTempletLoader() {
     return templetLoader;
+  }
+
+  public void setTempletLoader(TempletLoader templetLoader) {
+    this.templetLoader = templetLoader;
   }
 
   // location of javascript for this site
@@ -194,9 +202,17 @@ public class MelatiConfig {
     return javascriptLibraryURL;
   }
 
+  public void setJavascriptLibraryURL(String url) {
+    this.javascriptLibraryURL = url;
+  }
+
   // location of static content for this site
   public String getStaticURL() {
     return staticURL;
+  }
+
+  public void setStaticURL(String url) {
+    this.staticURL = url;
   }
 
   public static String logoutPageServletClassName() {
@@ -204,6 +220,10 @@ public class MelatiConfig {
   }
 
   public static MelatiLocale getMelatiLocale () {
+    return MelatiLocale.here;
+  }
+
+  public MelatiLocale getLocale() {
     return MelatiLocale.here;
   }
 
@@ -218,13 +238,3 @@ public class MelatiConfig {
   }
 
 }
-
-
-
-
-
-
-
-
-
-

@@ -105,7 +105,7 @@ public abstract class TemplateServlet extends PoemServlet
   * to allow the application developer to specify their own template
   * extensions
   */
-  private String addExtension(String templateName) {
+  protected String addExtension(String templateName) {
     return templateName + templateEngine.templateExtension();
   }
 

@@ -46,6 +46,7 @@
 package org.melati.admin;
 
 import org.melati.servlet.TemplateServlet;
+import org.melati.servlet.InvalidUsageException;
 import org.melati.template.TemplateContext;
 import org.melati.Melati;
 
@@ -53,6 +54,8 @@ import org.melati.Melati;
  * Display an object using the Template specified.
  *
  * Invoked with:
+ * http://localhost/zone/org.melati.admin.Display/db/table/troid/Template
+ * or 
  * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=t
  */
 public class Display extends TemplateServlet {
@@ -67,6 +70,11 @@ public class Display extends TemplateServlet {
       context.put("object", melati.getObject());
     }
 
-    return context.getForm("template");
+    if (context.getForm("template") != null) 
+      return context.getForm("template");
+    if (melati.getMethod() != null) 
+      return melati.getMethod();
+    else 
+      throw new InvalidUsageException(this, melati.getContext());
   }
 }

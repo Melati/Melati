@@ -58,15 +58,25 @@ import org.melati.util.JSStaticTree;
 
 public class AdminUtils {
 
+  private String contextPath;
   private String adminURL;
   private String adminStaticURL;
   private String logicalDatabase;
 
-  public AdminUtils(String adminURL, String adminStaticURL,
+  public AdminUtils(String contextPath, 
+                    String servlet,
+                    String adminStaticURL,
                     String logicalDatabase) {
-    this.adminURL = adminURL;
+    this.contextPath = contextPath;
+    this.adminURL = contextPath + servlet;
     this.adminStaticURL = adminStaticURL;
     this.logicalDatabase = logicalDatabase;
+    //HACK 
+    // if we are using 2.0 Servlet API then zone is 
+    // included in servlet and contextPath is null
+    if (contextPath == "") {
+      this.contextPath = servlet.substring(0, servlet.lastIndexOf("/"));
+    }
   }
 
   public String TopURL() {
@@ -160,6 +170,10 @@ public class AdminUtils {
   public String SelectionWindowSelectionURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
                "/SelectionWindowSelection";
+  }
+
+  public String StatusURL() {
+    return contextPath + "/org.melati.admin.Status/" + logicalDatabase;
   }
 
   /*

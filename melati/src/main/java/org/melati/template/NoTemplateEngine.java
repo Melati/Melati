@@ -62,41 +62,46 @@ import org.melati.util.MelatiBufferedWriter;
  * @author Tim Joyce
  * $Revision$
  */
-public class NoTemplateEngine implements TemplateEngine
-{
 
-  private String exceptiion =
-  "No Template engine is Configured, please specify an engine in " +
-  "org.melati.MelatiServlet.properties";
+public class NoTemplateEngine implements TemplateEngine {
+
+  private String message =
+      "No Template engine is Configured, please specify an engine in " +
+      "org.melati.MelatiServlet.properties";
 
   /**
    * Inititialise the Engine
    */
+
   public void init() throws TemplateEngineException {
     // we don't throw an exception here as it gets hidden away, rather
     // it is better to wait until expandTemplate or getParameters, as
     // that produces a nice
     // exception to the browser
+
     return;
   }
 
   /**
-   * the name of the template engine (used to find the templets)
+   * The name of the template engine (used to find the templets)
    */
+
   public String getName() {
     return "none";
   }
 
   /**
-  * the extension of the templates used by this template engine)
-  */
+   * The extension of the templates used by this template engine)
+   */
+
   public String templateExtension() {
     return "none";
   }
 
   /**
-   * the underlying engine
+   * The underlying engine
    */
+
   public Object getEngine() {
     return "none";
   }
@@ -106,63 +111,63 @@ public class NoTemplateEngine implements TemplateEngine
   }
 
   /**
-   * get the generic parameters for this engine
+   * Get the generic parameters for this engine
    */
+
   public TemplateContext getTemplateContext(Melati melati)
-  throws TemplateEngineException {
-    throw new TemplateEngineException(exceptiion);
+      throws TemplateEngineException {
+    throw new TemplateEngineException(message);
   }
 
   /**
-   * get a template given it's name
+   * Get a template given its name
    */
+
   public Template template(String templateName) throws NotFoundException {
-    throw new NotFoundException("I couldn't find the template: " +
-    templateName + " because you have not configured a template engine.");
+    throw new NotFoundException(
+        "I couldn't find the template: " +
+        templateName + " because you have not configured a template engine.");
   }
 
   /**
    * Expand the Template against the context.
    */
+
   public void expandTemplate(MelatiWriter out, TemplateContext templateContext)
-  throws TemplateEngineException {
-    throw new TemplateEngineException(exceptiion);
+      throws TemplateEngineException {
+    throw new TemplateEngineException(message);
   }
 
   /**
    * Expand the Template against the context.
    */
+
   public void expandTemplate(MelatiWriter out, String templateName,
-  TemplateContext templateContext) throws TemplateEngineException {
-    throw new TemplateEngineException(exceptiion);
+                             TemplateContext templateContext)
+      throws TemplateEngineException {
+    throw new TemplateEngineException(message);
   }
 
   /**
    * Expand the Template against the context.
    */
+
   public void expandTemplate(MelatiWriter out, Template melatiTemplate,
-  TemplateContext templateContext) throws TemplateEngineException {
-    throw new TemplateEngineException(exceptiion);
+                             TemplateContext templateContext)
+      throws TemplateEngineException {
+    throw new TemplateEngineException(message);
   }
 
   public MelatiWriter getServletWriter(HttpServletResponse response, 
-      boolean buffered) throws IOException {
-    if (buffered) {
+                                       boolean buffered) throws IOException {
+    if (buffered)
       return new MelatiBufferedWriter(response.getWriter());
-    } else {
+    else
       return new MelatiSimpleWriter(response.getWriter());
-    }
   }
 
   public MelatiWriter getStringWriter(String encoding) 
-          throws IOException {
+      throws IOException {
     return new MelatiStringWriter();
   }
-
 }
-
-
-
-
-
-

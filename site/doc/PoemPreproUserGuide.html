@@ -26,7 +26,7 @@
 </H3>
 
 <P>
-  <A HREF=../../../../doc/index.html>Melati</A> is an open source, Java-based
+  <A HREF=../../../doc/index.html>Melati</A> is an open source, Java-based
   infrastructure for the rapid and convenient development of web-based database
   applications.  This guide describes a preprocessor facility which forms part
   of <A HREF=../../doc/UserGuide.html>Melati POEM</A> (Persistent Object Engine
@@ -120,12 +120,27 @@
 </H2>
 </A>
 
+
 <P>
   Attributes are &quot;factory defaults&quot; and are not applied to existing
   tables/columns.  DSD is not exclusive.
 </P>
+<P>
+  You might like to look at <a href=../../Poem.dsd>POEM's own DSD</a>.
+</P>
+<P>
+  The <tt>package</tt> statement should be changed to the name of your
+  package eg <tt>org.paneris.myproj.model</tt>.
+  <br>
+  <strong>Note</strong> that this should also be reflected in
+  <tt>LogicalDatabase.Properties</tt>
+<pre>
+<tt>
+org.melati.LogicalDatabase.myproj.class=org.paneris.myproj.model.MyprojDatabase
+</tt>
+</pre>
 
-
+</P>
 
 
 
@@ -138,13 +153,15 @@
 </A>
 
 <P>
-  It will only overwrite files with a tag at the top, and it doesn't try to
+  It will only overwrite files with a tag at
+the top, and it doesn't try to
   overwrite stubs.
 </P>
-
-
-
-
+<pre>
+<tt>
+java org.melati.poem.prepro.DSD myproj.dsd
+</tt>
+</pre>
 
 
 <A NAME=compile>
@@ -154,6 +171,11 @@
 <!-- **************************** -->
 </H2>
 </A>
+<pre>
+<tt>
+javac -d /usr/local/packages/inst/paneris `find . -path .*java`
+</tt>
+</pre>
 
 
 
@@ -254,6 +276,9 @@
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.10  2000/07/04 16:13:31  timp
+  <BR>Add examples
+  <BR>
   <BR>Revision 1.9  2000/03/18 10:29:46  williamc
   <BR>Beginnings of some text (not clear where it's going)
   <BR>

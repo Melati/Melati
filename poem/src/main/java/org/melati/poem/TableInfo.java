@@ -7,14 +7,15 @@ public class TableInfo extends TableInfoBase {
   }
 
   public TableInfo(String name, String displayName, int displayOrder,
-		   String description, Integer cacheLimit,
-		   boolean rememberAllTroids) {
+                   String description, Integer cacheLimit,
+                   boolean rememberAllTroids, TableCategory category) {
     this.name = name;
     this.displayname = displayName;
     this.displayorder = new Integer(displayOrder);
     this.description = description;
     this.cachelimit = cacheLimit;
     this.seqcached = rememberAllTroids ? Boolean.TRUE : Boolean.FALSE;
+    this.category = category.troid();
   }
 
   public void setName(String name) {

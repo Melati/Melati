@@ -126,13 +126,16 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
 #if ($Form.returnURL) #begin
+
   <input type=hidden name=returnURL value='$Form.returnURL'>
 #end #else #begin
   #if ($CGI.HTTP_REFERER) #begin
+
     <input type=hidden name=returnURL value='$CGI.HTTP_REFERER'>
   #end
 #end
 #if ($Form.returnTarget) #begin
+
   <input type=hidden name=returnTarget value='$Form.returnTarget'>
 #end
 <INPUT NAME=action VALUE=Duplicate TYPE=submit
@@ -144,11 +147,11 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 
 </FORM>
 
-<P>
 #if (!($Form.detailed || $object.Table.DetailDisplayColumnsCount == $object.Table.RecordDisplayColumnsCount)) #begin
+<P>
   <A HREF='$melati.sameURLWith("detailed")'>More&nbsp;...</A>
-#end
 </P>
+#end
 
 $admin.specialFacilities($melati, $ml, $object)
 

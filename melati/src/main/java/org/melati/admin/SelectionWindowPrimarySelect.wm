@@ -80,7 +80,7 @@ function popupupdate(popupwin,returnfield,id,value) {
     <FONT face="Arial, Helvetica" size=-1>
      $ml.input($primaryCriterion)
      <input type=hidden name=returnfield value="$Form.returnfield">
-     <INPUT NAME=action VALUE=" Go " TYPE=submit></font>
+     <INPUT NAME=action VALUE=" Go " TYPE=submit>
     </font>
    </td>
   </tr>

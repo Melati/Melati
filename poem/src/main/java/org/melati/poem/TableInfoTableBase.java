@@ -22,14 +22,6 @@ public class TableInfoTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getId();
@@ -48,6 +40,16 @@ public class TableInfoTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getId();
@@ -61,14 +63,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 50), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((TableInfoData)data).name;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).name = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getName();
@@ -103,6 +97,16 @@ public class TableInfoTableBase extends Table {
             return true;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getName_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setName_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getName();
@@ -116,14 +120,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_displayname =
         new Column(this, "displayname", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((TableInfoData)data).displayname;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).displayname = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayname();
@@ -154,6 +150,16 @@ public class TableInfoTableBase extends Table {
             return "A user-friendly name for the table";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDisplayname_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDisplayname_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayname();
@@ -167,14 +173,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_description =
         new Column(this, "description", new StringPoemType(true, -1), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((TableInfoData)data).description;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).description = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDescription();
@@ -201,6 +199,16 @@ public class TableInfoTableBase extends Table {
             return "A brief description of the table's function";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDescription_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDescription_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDescription();
@@ -214,14 +222,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_displayorder =
         new Column(this, "displayorder", new IntegerPoemType(false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).displayorder;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).displayorder = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDisplayorder();
@@ -256,6 +256,16 @@ public class TableInfoTableBase extends Table {
             return "A rank determining where the table appears in the list of all tables";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDisplayorder_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDisplayorder_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDisplayorder();
@@ -269,14 +279,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_defaultcanread =
         new Column(this, "defaultcanread", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).defaultcanread;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).defaultcanread = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanread();
@@ -307,6 +309,16 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for reading the table's records";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDefaultcanread_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDefaultcanread_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanreadTroid();
@@ -320,14 +332,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_defaultcanwrite =
         new Column(this, "defaultcanwrite", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).defaultcanwrite;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).defaultcanwrite = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getDefaultcanwrite();
@@ -358,6 +362,16 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for updating the table's records";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getDefaultcanwrite_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setDefaultcanwrite_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getDefaultcanwriteTroid();
@@ -371,14 +385,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_cancreate =
         new Column(this, "cancreate", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), true), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).cancreate;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).cancreate = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCancreate();
@@ -409,6 +415,16 @@ public class TableInfoTableBase extends Table {
             return "The capability required, by default, for creating records in the table";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCancreate_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setCancreate_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCancreateTroid();
@@ -422,14 +438,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_cachelimit =
         new Column(this, "cachelimit", new IntegerPoemType(true), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((TableInfoData)data).cachelimit;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).cachelimit = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getCachelimit();
@@ -460,6 +468,16 @@ public class TableInfoTableBase extends Table {
             return "The maximum number of records from the table to keep in the cache";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getCachelimit_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setCachelimit_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((TableInfo)g).getCachelimit();
@@ -473,14 +491,6 @@ public class TableInfoTableBase extends Table {
 
     defineColumn(col_seqcached =
         new Column(this, "seqcached", new BooleanPoemType(false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Boolean)((TableInfoData)data).seqcached;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((TableInfoData)data).seqcached = (Boolean)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((TableInfo)g).getSeqcached();
@@ -509,6 +519,16 @@ public class TableInfoTableBase extends Table {
 
           protected String defaultDescription() {
             return "Whether the display sequence for the table's records is cached";
+          }
+
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((TableInfo)g).getSeqcached_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((TableInfo)g).setSeqcached_unsafe((Boolean)ident);
           }
 
           public Object getIdent(Persistent g)
@@ -571,12 +591,8 @@ public class TableInfoTableBase extends Table {
     return (TableInfo)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new TableInfo();
-  }
-
-  protected Data _newData() {
-    return new TableInfoData();
   }
   protected String defaultDisplayName() {
     return "Table";

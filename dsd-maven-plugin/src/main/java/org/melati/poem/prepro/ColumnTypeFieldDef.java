@@ -11,7 +11,10 @@ public class ColumnTypeFieldDef extends FieldDef {
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {
+    super.generateColIdentAccessors(w);
+
     w.write(
+      "\n" +
       "          public Object getIdent(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "Code();\n" +
@@ -25,18 +28,25 @@ public class ColumnTypeFieldDef extends FieldDef {
   }
 
   public void generateBaseMethods(Writer w) throws IOException {
+    super.generateBaseMethods(w);
+
     // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    w.write("  public Integer get" + suffix + "Code()\n" +
+    w.write("\n" +
+	    "  public Integer get" + suffix + "Code()\n" +
             "      throws AccessPoemException {\n" +
-            "    return dataForReading()." + name + ";\n" +
+	    "    readLock();\n" +
+            "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
             "  public void set" + suffix + "Code(Integer ident)\n" +
             "      throws AccessPoemException {\n" +
-            "    dataForWriting()." + name + " = ident;\n" +
+            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+                     "getType().assertValidIdent(ident);\n" +
+	    "    writeLock();\n" +
+	    "    set" + suffix + "_unsafe(ident);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +

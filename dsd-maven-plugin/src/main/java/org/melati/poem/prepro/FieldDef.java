@@ -15,8 +15,6 @@ public abstract class FieldDef {
   protected final String identType;
   protected final Vector qualifiers;
 
-  final String dataBaseClass;
-  final String dataMainClass;
   final String baseClass;
   final String mainClass;
   final String tableMainClass;
@@ -46,8 +44,6 @@ public abstract class FieldDef {
     this.identType = identType;
     this.qualifiers = qualifiers;
 
-    this.dataBaseClass = table.dataBaseClass;
-    this.dataMainClass = table.dataMainClass;
     this.baseClass = table.baseClass;
     this.mainClass = table.mainClass;
     this.tableMainClass = table.tableMainClass;
@@ -103,7 +99,15 @@ public abstract class FieldDef {
                                    qualifiers);
   }
 
-  public abstract void generateBaseMethods(Writer w) throws IOException;
+  public void generateBaseMethods(Writer w) throws IOException {
+    w.write("  public " + identType + " get" + suffix + "_unsafe() {\n" +
+            "    return " + name + ";\n" +
+            "  }\n" +
+            "\n" +
+            "  public void set" + suffix + "_unsafe(" + identType + " value) {\n" +
+            "    " + name + " = value;\n" +
+            "  }\n");
+  }
 
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public final Field get" + suffix + "Field() " +
@@ -125,24 +129,27 @@ public abstract class FieldDef {
             "  }\n");
   }
 
-  protected abstract void generateColIdentAccessors(Writer w)
-      throws IOException;
+  protected void generateColIdentAccessors(Writer w)
+      throws IOException {
+    w.write(
+      "          public Object getIdent_unsafe(Persistent g)\n" +
+      "              throws AccessPoemException {\n" +
+      "            return ((" + mainClass + ")g)." +
+                      "get" + suffix + "_unsafe();\n" +
+      "          }\n" +
+      "\n" +
+      "          public void setIdent_unsafe(Persistent g, Object ident)\n" +
+      "              throws AccessPoemException {\n" +
+      "            ((" + mainClass + ")g).set" + suffix + "_unsafe((" +
+                       identType + ")ident);\n" +
+      "          }\n");
+  }
 
   public void generateColDefinition(Writer w) throws IOException {
     w.write(
       "    defineColumn(col_" + name + " =\n" +
       "        new Column(this, \"" + name + "\", " + poemTypeJava() + ", " +
                     "DefinitionSource.dsd) { \n" +
-      "          public Object getIdent(Data data) {\n" +
-      "            return (" + identType + ")((" + dataMainClass + ")data)." +
-                       name + ";\n" +
-      "          }\n" +
-      "\n" +
-      "          public void setIdent(Data data, Object ident) {\n" +
-      "            ((" + dataMainClass + ")data)." + name +
-                       " = (" + identType + ")ident;\n" +
-      "          }\n" +
-      "\n" +
       "          public Object getValue(Persistent g)\n" +
       "              throws AccessPoemException, PoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "();\n" +

@@ -1,5 +1,13 @@
 package org.melati.poem;
 
 public class Group extends GroupBase {
-  protected void assertCanRead(Data data, AccessToken token) {}
+
+  public Group() {
+  }
+
+  public Group(String name) {
+    this.name = name;
+  }
+
+  protected void assertCanRead(AccessToken token) {}
 }

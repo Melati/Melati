@@ -6,14 +6,11 @@ import java.sql.*;
 
 public class CapabilityTable extends CapabilityTableBase {
 
-  static final CapabilityData administerData =
-      new CapabilityData("_administer_");
-
   public CapabilityTable(Database database, String name) throws PoemException {
     super(database, name);
   }
 
-  private Capability administer;
+  private Capability administer = new Capability("_administer_");
 
   Capability administer() {
     return administer;
@@ -23,10 +20,7 @@ public class CapabilityTable extends CapabilityTableBase {
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
 
-    administer =
-        (Capability)getNameColumn().firstWhereEq(administerData.name);
-    if (administer == null)
-      administer = (Capability)create(administerData);
+    administer = (Capability)getNameColumn().ensure(administer);
 
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(administer);

@@ -233,12 +233,12 @@ public abstract class MelatiWMServlet extends HttpServlet {
        try {
          /* context.getRequest().setContentType("text/html"); */
          try {
-           Template t = handle(context);
+           Template t = _handle(context);
            if (t != null)
              expand(t, context);
          }
          catch (Exception e) {
-           Template t = handleException(context, e);
+           Template t = _handleException(context, e);
            if (t != null)
              expand(t, context);
          }
@@ -377,12 +377,10 @@ public abstract class MelatiWMServlet extends HttpServlet {
     }
   }
 
-  protected abstract Template handle(WebContext context)
-      throws WebMacroException;
+  protected abstract Template _handle(WebContext context)
+      throws Exception;
 
-  protected Template handleException(
+  protected abstract Template _handleException(
       WebContext context, Exception exception)
-          throws Exception {
-    throw exception;
-  }
+          throws Exception;
 }

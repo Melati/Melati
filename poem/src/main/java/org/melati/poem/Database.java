@@ -18,12 +18,12 @@ import org.melati.util.*;
  * @see PoemDatabase 
  */
 
-abstract public class Database {
+abstract public class Database implements TransactionPool {
 
   final Database _this = this;
 
-  private Vector sessions = null; // FIXME make this more explicit
-  private Vector freeSessions = null;
+  private Vector transactions = null; // FIXME make this more explicit
+  private Vector freeTransactions = null;
 
   private Connection committedConnection;
   private final Lock lock = new Lock();
@@ -51,7 +51,7 @@ abstract public class Database {
    * application starts up; it will
    *
    * <UL>
-   *   <LI> Open <TT>this.sessionsMax()</TT> JDBC <TT>Connection</TT>s to the
+   *   <LI> Open <TT>this.transactionsMax()</TT> JDBC <TT>Connection</TT>s to the
    *        database for subsequent `pooling'
    *
    *   <LI> Unify (reconcile) the structural information about the database
@@ -93,7 +93,7 @@ abstract public class Database {
    *
    * @param password    The password to go with the username.
    *
-   * @see #sessionsMax()
+   * @see #transactionsMax()
    */
 
   public void connect(String url, String username, String password)
@@ -118,14 +118,14 @@ abstract public class Database {
 
     try {
       committedConnection = driver.connect(url, info);
-      sessions = new Vector();
-      for (int s = 0; s < sessionsMax(); ++s)
-        sessions.addElement(
-            new PoemSession(
+      transactions = new Vector();
+      for (int s = 0; s < transactionsMax(); ++s)
+        transactions.addElement(
+            new PoemTransaction(
                 this,
                 driver.connect(url, info),
                 s));
-      freeSessions = (Vector)sessions.clone();
+      freeTransactions = (Vector)transactions.clone();
     }
     catch (SQLException e) {
       throw new ConnectionFailurePoemException(e);
@@ -151,21 +151,6 @@ abstract public class Database {
                     }
                   }
                 });
-
-      TableListener capabilityCacheInvalidator =
-          new TableListener() {
-            public void notifyTouched(PoemSession session, Table table,
-                                      Integer troid, Data data) {
-              userCapabilities.invalidateVersion(session);
-            }
-
-            public void notifyUncached(Table table) {
-              userCapabilities.uncacheContents();
-            }
-          };
-
-      getGroupCapabilityTable().addListener(capabilityCacheInvalidator);
-      getGroupMembershipTable().addListener(capabilityCacheInvalidator);
     }
     catch (SQLException e) {
       throw new UnificationPoemException(e);
@@ -189,6 +174,7 @@ abstract public class Database {
 
     tables.addElement(table);
     tablesByName.put(table.getName(), table);
+    displayTables = null;
   }
 
   private ResultSet columnsMetadata(DatabaseMetaData m, String tableName)
@@ -247,9 +233,9 @@ abstract public class Database {
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((Table)t.nextElement()).unifyWithColumnInfo();
 
-    String[] normalTables = { "TABLE" };
-
     // Finally, check tables against the actual JDBC metadata
+
+    String[] normalTables = { "TABLE" };
 
     DatabaseMetaData m = committedConnection.getMetaData();
     ResultSet tableDescs = m.getTables(null, null, null, normalTables);
@@ -287,12 +273,12 @@ abstract public class Database {
 
   // 
   // ==========
-  //  Sessions
+  //  Transactions
   // ==========
   // 
 
   /**
-   * The number of sessions available for concurrent use on the database.  This
+   * The number of transactions available for concurrent use on the database.  This
    * is the number of JDBC <TT>Connection</TT>s opened when the database was
    * <TT>connect</TT>ed, currently simply fixed at five.
    */
@@ -300,7 +286,7 @@ abstract public class Database {
   // ¡AbstractVersionedObject depends on this staying constant!, because overflows
   // of its `versions' array are not trapped
 
-  public final int sessionsMax() {
+  public final int transactionsMax() {
     return 5;
   }
 
@@ -311,35 +297,39 @@ abstract public class Database {
   // 
 
   /**
-   * Get a session for exclusive use.  It's simply taken off the freelist, to
+   * Get a transaction for exclusive use.  It's simply taken off the freelist, to
    * be put back later.
    */
 
-  private PoemSession openSession() {
-    synchronized (freeSessions) {
-      if (freeSessions.size() == 0)
-        throw new NoMoreSessionsException();
-      PoemSession session = (PoemSession)freeSessions.lastElement();
-      freeSessions.setSize(freeSessions.size() - 1);
-      return session;
+  private PoemTransaction openTransaction() {
+    synchronized (freeTransactions) {
+      if (freeTransactions.size() == 0)
+        throw new NoMoreTransactionsException();
+      PoemTransaction transaction = (PoemTransaction)freeTransactions.lastElement();
+      freeTransactions.setSize(freeTransactions.size() - 1);
+      return transaction;
     }
   }
 
   /**
-   * Finish using a session.  It's put back on the freelist.
+   * Finish using a transaction.  It's put back on the freelist.
    */
 
-  void notifyClosed(PoemSession session) {
-    freeSessions.addElement(session);
+  void notifyClosed(PoemTransaction transaction) {
+    freeTransactions.addElement(transaction);
   }
 
   /**
-   * Find a session by its index.
-   * session(i).index() == i
+   * Find a transaction by its index.
+   * transaction(i).index() == i
    */
 
-  PoemSession session(int index) {
-    return (PoemSession)sessions.elementAt(index);
+  public PoemTransaction poemTransaction(int index) {
+    return (PoemTransaction)transactions.elementAt(index);
+  }
+
+  public final Transaction transaction(int index) {
+    return poemTransaction(index);
   }
 
   void beginExclusiveLock() {
@@ -377,7 +367,7 @@ abstract public class Database {
   // 
 
   private void perform(AccessToken accessToken, final PoemTask task,
-                       boolean committedSession) throws PoemException {
+                       boolean committedTransaction) throws PoemException {
     try {
       lock.readLock();
     }
@@ -386,28 +376,29 @@ abstract public class Database {
     }
 
     try {
-      final PoemSession session = committedSession ? null : openSession();
+      final PoemTransaction transaction =
+	  committedTransaction ? null : openTransaction();
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                try {
                                  task.run();
-                                 if (session != null)
-                                   session.close(true);
+                                 if (transaction != null)
+                                   transaction.close(true);
                                }
                                catch (PoemException e) {
-                                 if (session != null)
-                                   session.close(false);
+                                 if (transaction != null)
+                                   transaction.close(false);
                                  throw e;
                                }
                                catch (RuntimeException e) {
-                                 if (session != null)
-                                   session.close(false);
+                                 if (transaction != null)
+                                   transaction.close(false);
                                  throw e;
                                }
                              }
                            },
                            accessToken,
-                           session);
+                           transaction);
     }
     finally {
       lock.readUnlock();
@@ -416,7 +407,7 @@ abstract public class Database {
 
   /**
    * Perform a task with the database.  Every access to a POEM database must be
-   * made in the context of a `session' established using this method (note
+   * made in the context of a `transaction' established using this method (note
    * that Melati programmers don't have to worry about this, because the
    * <TT>MelatiServlet</TT> will have done this by the time they get control).
    *
@@ -433,7 +424,7 @@ abstract public class Database {
    *                            are taken to be performed with the capabilities
    *                            given by <TT>accessToken</TT>, and in a private
    *                            transaction.  No changes made to the database
-   *                            by other sessions will be visible to it (in the
+   *                            by other transactions will be visible to it (in the
    *                            sense that once it has seen a particular
    *                            version of a record, it will always
    *                            subsequently see the same one), and its own
@@ -457,9 +448,9 @@ abstract public class Database {
   }
 
   /**
-   * Perform a task with the database, but not in an insulated session.  The
+   * Perform a task with the database, but not in an insulated transaction.  The
    * effect is the same as <TT>inSession</TT>, except that the task will see
-   * changes to the database made by other sessions as they are committed, and
+   * changes to the database made by other transactions as they are committed, and
    * it is not allowed to make any changes of its own.  (If it tries, it will
    * currently trigger a <TT>NullPointerException</TT>---FIXME!)  Not
    * recommended.
@@ -467,7 +458,7 @@ abstract public class Database {
    * @see #inSession
    */
 
-  public void inCommittedSession(AccessToken accessToken, final PoemTask task) {
+  public void inCommittedTransaction(AccessToken accessToken, final PoemTask task) {
     perform(accessToken, task, true);
   }
 
@@ -508,6 +499,8 @@ abstract public class Database {
   }
 
   public final Enumeration getDisplayTables() {
+    Table[] displayTables = this.displayTables;
+
     if (displayTables == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
           null /* "displayable" */, "displayorder, name", false, null);
@@ -631,11 +624,11 @@ abstract public class Database {
    */
 
   public ResultSet sqlQuery(String sql) throws SQLPoemException {
-    PoemSession session = PoemThread.session();
-    session.writeDown();
+    PoemTransaction transaction = PoemThread.transaction();
+    transaction.writeDown();
     try {
       ResultSet rs =
-          session.getConnection().createStatement().executeQuery(sql);
+          transaction.getConnection().createStatement().executeQuery(sql);
       if (logSQL)
         log(new SQLLogEvent(sql));
       return rs;
@@ -651,7 +644,7 @@ abstract public class Database {
    * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
    * that it bypasses the access control mechanism.  Furthermore, the cache
    * will be left out of sync with the database and must be cleared out
-   * (explicitly, manually) after the currently session has been committed or
+   * (explicitly, manually) after the currently transaction has been committed or
    * completed.
    *
    * @see Table#selection()
@@ -661,14 +654,14 @@ abstract public class Database {
    */
 
   public int sqlUpdate(String sql) throws SQLPoemException {
-    // FIXME this relies on the one-thread-per-session thing, else needs more
+    // FIXME this relies on the one-thread-per-transaction thing, else needs more
     // syncing
 
-    PoemSession session = PoemThread.session();
-    session.writeDown();
+    PoemTransaction transaction = PoemThread.transaction();
+    transaction.writeDown();
 
     try {
-      int n = session.getConnection().createStatement().executeUpdate(sql);
+      int n = transaction.getConnection().createStatement().executeUpdate(sql);
       if (logSQL)
         log(new SQLLogEvent(sql));
       return n;
@@ -683,17 +676,6 @@ abstract public class Database {
   //  Users
   // =======
   // 
-
-  private final PoemFloatingVersionedObject userCapabilities =
-      new PoemFloatingVersionedObject(_this) {
-        protected Version backingVersion(Session session) {
-          return new VersionHashtable();
-        }
-
-	protected boolean upToDate(Session session, Version version) {
-	  return true;
-	}
-      };
 
   private boolean dbGivesCapability(User user, Capability capability) {
     String sql = 
@@ -717,26 +699,44 @@ abstract public class Database {
     }
   }
 
-  boolean hasCapability(User user, Capability capability) {
+  private class UserCapabilityCache {
+    private Hashtable userCapabilities = null;
+    private long groupMembershipSerial;
+    private long groupCapabilitySerial;
 
-    // `versionForReading' is right here rather than `versionForWriting',
-    // because as soon as there is any question of things being different in
-    // this session, `invalidateVersion' is called (below)
+    boolean hasCapability(User user, Capability capability) {
+      PoemTransaction transaction = PoemThread.transaction();
+      long currentGroupMembershipSerial =
+	  getGroupMembershipTable().serial(transaction);
+      long currentGroupCapabilitySerial =
+	  getGroupCapabilityTable().serial(transaction);
+	  
+      if (userCapabilities == null ||
+	  groupMembershipSerial != currentGroupMembershipSerial ||
+	  groupCapabilitySerial != currentGroupCapabilitySerial) {
+	userCapabilities = new Hashtable();
+	groupMembershipSerial = currentGroupMembershipSerial;
+	groupCapabilitySerial = currentGroupCapabilitySerial;
+      }
 
-    Hashtable caps =
-        (Hashtable)userCapabilities.versionForReading(PoemThread.session());
+      Long pair = new Long(
+	  (user.troid().longValue() << 32) | (capability.troid().longValue()));
+      Boolean known = (Boolean)userCapabilities.get(pair);
 
-    Long pair = new Long(
-        (user.troid().longValue() << 32) | (capability.troid().longValue()));
-    Boolean known = (Boolean)caps.get(pair);
-
-    if (known != null)
-      return known.booleanValue();
-    else {
-      boolean does = dbGivesCapability(user, capability);
-      caps.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
-      return does;
+      if (known != null)
+	return known.booleanValue();
+      else {
+	boolean does = dbGivesCapability(user, capability);
+	userCapabilities.put(pair, does ? Boolean.TRUE : Boolean.FALSE);
+	return does;
+      }
     }
+  };
+
+  private UserCapabilityCache capabilityCache = new UserCapabilityCache();
+
+  boolean hasCapability(User user, Capability capability) {
+    return capabilityCache.hasCapability(user, capability);
   }
 
   public AccessToken guestAccessToken() {
@@ -759,8 +759,8 @@ abstract public class Database {
    * @param maxSize     The data for all but this many records per table will
    *                    be dropped from POEM's cache, on a least-recently-used
    *                    basis, with the exception of private copies made by
-   *                    currently running sessions of records which they or
-   *                    another session have changed will remain in memory.
+   *                    currently running transactions of records which they or
+   *                    another transaction have changed will remain in memory.
    */
 
   public void trimCache(int maxSize) {
@@ -771,8 +771,8 @@ abstract public class Database {
   /**
    * Dump all the contents of the cache.  Actually only the `committed'
    * versions of the records stored in the cache are dropped, which means that
-   * some private copies made by currently running sessions of records which
-   * they or another session have changed may remain in memory.
+   * some private copies made by currently running transactions of records which
+   * they or another transaction have changed may remain in memory.
    */
 
   public void uncacheContents() {
@@ -815,8 +815,8 @@ abstract public class Database {
       ((Table)tables.elementAt(t)).dump();
     }
 
-    System.err.println("there are " + sessions.size() + " sessions " +
-                       "of which " + freeSessions.size() + " are free");
+    System.err.println("there are " + transactions.size() + " transactions " +
+                       "of which " + freeTransactions.size() + " are free");
   }
 
   // 
@@ -962,3 +962,4 @@ abstract public class Database {
     endExclusiveLock();
   }
 }
+

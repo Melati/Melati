@@ -43,14 +43,13 @@ public abstract class Column implements FieldAttributes {
   }
 
   void setColumnInfo(ColumnInfo columnInfo) {
-    ColumnInfoData snap = columnInfo.dataSnapshot();
-    refineType(BasePoemType.ofColumnInfo(getDatabase(), snap),
+    refineType(BasePoemType.ofColumnInfo(getDatabase(), columnInfo),
                DefinitionSource.infoTables);
     columnInfo.setColumn(this);
     if (columnInfo.getPrimarydisplay().booleanValue())
       table.setDisplayColumn(this);
     info = columnInfo;
-    table.notifyColumnInfo(snap);
+    table.notifyColumnInfo(info);
   }
 
   protected boolean defaultPrimaryDisplay() {
@@ -276,31 +275,26 @@ public abstract class Column implements FieldAttributes {
   // =======================================
   // 
 
-  public abstract Object getIdent(Data data);
-  protected abstract void setIdent(Data data, Object ident);
-
-  public Object getValue(Data data) throws PoemException {
-    return type.valueOfIdent(getIdent(data));
-  }
-
   public abstract Object getIdent(Persistent g)
       throws AccessPoemException;
+  public abstract Object getIdent_unsafe(Persistent g);
   public abstract void setIdent(Persistent g, Object ident)
       throws AccessPoemException, ValidationPoemException;
+  public abstract void setIdent_unsafe(Persistent g, Object ident);
   public abstract Object getValue(Persistent g)
       throws AccessPoemException, PoemException;
   public abstract void setValue(Persistent g, Object value)
       throws AccessPoemException, ValidationPoemException;
 
-  public void load(ResultSet rs, int rsCol, Data data)
+  public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
       throws ParsingPoemException, ValidationPoemException {
     // FIXME double validation
-    setIdent(data, type.getIdent(rs, rsCol));
+    setIdent_unsafe(g, type.getIdent(rs, rsCol));
   }
 
-  public void save(Data data, PreparedStatement ps, int psCol) {
+  public void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
     // FIXME double validation
-    type.setIdent(ps, psCol, getIdent(data));
+    type.setIdent(ps, psCol, getIdent_unsafe(g));
   }
 
   // 
@@ -313,10 +307,6 @@ public abstract class Column implements FieldAttributes {
     return Field.of(g, this);
   }
 
-  public Field asField(Data data) {
-    return new Field(getIdent(data), this);
-  }
-
   public Field asEmptyField() {
     return new Field((Object)null, this);
   }
@@ -327,17 +317,21 @@ public abstract class Column implements FieldAttributes {
     setIdent(g, getType().identOfString(identString));
   }
 
-  public void setIdentString(Data data, String identString)
-      throws ParsingPoemException, ValidationPoemException,
-             AccessPoemException {
-    setIdent(data, getType().identOfString(identString));
-  }
-
   public Enumeration referencesTo(Persistent object) {
     return
         getType() instanceof ReferencePoemType &&
             ((ReferencePoemType)getType()).targetTable() == object.getTable() ?
           selectionWhereEq(object.troid()) :
           EmptyEnumeration.it;
+  }
+
+  Persistent ensure(Persistent orCreate) {
+    Persistent there = firstWhereEq(getIdent_unsafe(orCreate));
+    if (there == null) {
+      getTable().create(orCreate);
+      return orCreate;
+    }
+    else
+      return there;
   }
 }

@@ -6,16 +6,11 @@ import java.sql.*;
 
 public class UserTable extends UserTableBase {
 
-  static final UserData guestData =
-      new UserData("_guest_", "", "Melati guest user");
+  private User guestUser =
+      new User("_guest_", "", "Melati guest user");
 
-  private User guestUser = null;
-
-  static final UserData administratorData =
-      new UserData("_administrator_", "FIXME",
-                   "Melati database administrator");
-
-  private User administratorUser = null;
+  private User administratorUser =
+      new User("_administrator_", "FIXME", "Melati database administrator");
 
   public UserTable(Database database, String name) throws PoemException {
     super(database, name);
@@ -25,22 +20,15 @@ public class UserTable extends UserTableBase {
     return guestUser;
   }
 
-  User administratorUser() {
+  public User administratorUser() {
     return administratorUser;
-  }
-
-  private User ensureUser(UserData userData) {
-    User user = (User)getLoginColumn().firstWhereEq(userData.login);
-    if (user == null)
-      user = (User)create(userData);
-    return user;
   }
 
   synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
-    guestUser = ensureUser(guestData);
-    administratorUser = ensureUser(administratorData);
+    guestUser = (User)getLoginColumn().ensure(guestUser);
+    administratorUser = (User)getLoginColumn().ensure(administratorUser);
   }
 
   void postInitialise() {

@@ -15,14 +15,6 @@ public class GroupMembershipTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupMembershipData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupMembershipData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getId();
@@ -41,6 +33,16 @@ public class GroupMembershipTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupMembership)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupMembership)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupMembership)g).getId();
@@ -54,14 +56,6 @@ public class GroupMembershipTableBase extends Table {
 
     defineColumn(col_user =
         new Column(this, "user", new ReferencePoemType(((PoemDatabase)getDatabase()).getUserTable(), false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupMembershipData)data).user;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupMembershipData)data).user = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getUser();
@@ -88,6 +82,16 @@ public class GroupMembershipTableBase extends Table {
             return "The user who belongs to the group";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupMembership)g).getUser_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupMembership)g).setUser_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupMembership)g).getUserTroid();
@@ -101,14 +105,6 @@ public class GroupMembershipTableBase extends Table {
 
     defineColumn(col_group =
         new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupMembershipData)data).group;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupMembershipData)data).group = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupMembership)g).getGroup();
@@ -133,6 +129,16 @@ public class GroupMembershipTableBase extends Table {
 
           protected String defaultDescription() {
             return "The group to which the user belongs";
+          }
+
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupMembership)g).getGroup_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupMembership)g).setGroup_unsafe((Integer)ident);
           }
 
           public Object getIdent(Persistent g)
@@ -167,12 +173,8 @@ public class GroupMembershipTableBase extends Table {
     return (GroupMembership)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new GroupMembership();
-  }
-
-  protected Data _newData() {
-    return new GroupMembershipData();
   }
   protected String defaultDisplayName() {
     return "Group membership";

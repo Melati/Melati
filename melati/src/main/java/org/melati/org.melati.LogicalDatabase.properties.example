@@ -26,18 +26,14 @@
 #
 #  org.melati.LogicalDatabase.<logical db>.driver
 #
-#     The JDBC Driver class to use to connect to the database; do not use
-#     postgresql.Driver, but rather org.melati.poem.postgresql.jdbc2.Driver
-#     (for Java 1.2) or ...jdbc1.Driver (for Java 1.1).  Postgresql's
-#     driver has a problem with getIndexInfo which will make Melati attempt
+#     The JDBC Driver class to use to connect to the database; do not
+#     use postgresql.Driver, but rather
+#     org.melati.poem.postgresql.jdbc2.Driver.  Postgresql's driver
+#     has a problem with getIndexInfo which will make Melati attempt
 #     to recreate already existing indexes.
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
-
-# IMPORTANT change me depending on whether you are using Java 1.1 or 1.2
-
 org.melati.LogicalDatabase.melatitest.driver=org.melati.poem.postgresql.jdbc2.Driver
-
 org.melati.LogicalDatabase.melatitest.user=postgres
 org.melati.LogicalDatabase.melatitest.pass=*

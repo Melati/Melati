@@ -16,14 +16,6 @@ public class UserTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((UserData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((UserData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getId();
@@ -42,6 +34,16 @@ public class UserTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getId();
@@ -55,14 +57,6 @@ public class UserTableBase extends Table {
 
     defineColumn(col_login =
         new Column(this, "login", new StringPoemType(false, 20), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((UserData)data).login;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((UserData)data).login = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getLogin();
@@ -85,6 +79,16 @@ public class UserTableBase extends Table {
             return true;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getLogin_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setLogin_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getLogin();
@@ -98,14 +102,6 @@ public class UserTableBase extends Table {
 
     defineColumn(col_password =
         new Column(this, "password", new StringPoemType(false, 20), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((UserData)data).password;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((UserData)data).password = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getPassword();
@@ -124,6 +120,16 @@ public class UserTableBase extends Table {
             return "The user's password";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getPassword_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setPassword_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((User)g).getPassword();
@@ -137,14 +143,6 @@ public class UserTableBase extends Table {
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((UserData)data).name;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((UserData)data).name = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getName();
@@ -177,6 +175,16 @@ public class UserTableBase extends Table {
 
           protected boolean defaultIndexed() {
             return true;
+          }
+
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((User)g).getName_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((User)g).setName_unsafe((String)ident);
           }
 
           public Object getIdent(Persistent g)
@@ -215,12 +223,8 @@ public class UserTableBase extends Table {
     return (User)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new User();
-  }
-
-  protected Data _newData() {
-    return new UserData();
   }
   protected String defaultDescription() {
     return "A registered user of the database";

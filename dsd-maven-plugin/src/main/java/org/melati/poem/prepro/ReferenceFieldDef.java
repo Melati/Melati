@@ -12,7 +12,10 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   protected void generateColIdentAccessors(Writer w) throws IOException {
+    super.generateColIdentAccessors(w);
+
     w.write(
+      "\n" +
       "          public Object getIdent(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "Troid();\n" +
@@ -26,18 +29,25 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   public void generateBaseMethods(Writer w) throws IOException {
+    super.generateBaseMethods(w);
+
     // FIXME the definition of these is duplicated from TableDef
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    w.write("  public Integer get" + suffix + "Troid()\n" +
+    w.write("\n" +
+	    "  public Integer get" + suffix + "Troid()\n" +
             "      throws AccessPoemException {\n" +
-            "    return dataForReading()." + name + ";\n" +
+	    "    readLock();\n" +
+            "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
             "  public void set" + suffix + "Troid(Integer ident)\n" +
             "      throws AccessPoemException {\n" +
-            "    dataForWriting()." + name + " = ident;\n" +
+            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+                     "getType().assertValidIdent(ident);\n" +
+	    "    writeLock();\n" +
+            "    set" + suffix + "_unsafe(ident);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +

@@ -89,13 +89,13 @@ public class Admin extends MelatiServlet {
 
     // sort out search criteria
 
-    final Data data = table.newData();
+    final Persistent criteria = table.newPersistent();
 
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
-      String value = context.getForm("field-" + column.getName());
-      if (value != null && !value.equals(""))
-        column.setIdentString(data, value);
+      String string = context.getForm("field-" + column.getName());
+      if (string != null && !string.equals(""))
+        column.setIdent_unsafe(criteria, column.getType().identOfString(string));
     }
 
     context.put("criteria",
@@ -105,7 +105,7 @@ public class Admin extends MelatiServlet {
                     final PoemType nullable =
                         column.getType().withNullable(true);
                     return
-                        new Field(column.getIdent(data), column) {
+                        new Field(column.getIdent(criteria), column) {
                           public PoemType getType() {
                             return nullable;
                           }
@@ -163,7 +163,7 @@ public class Admin extends MelatiServlet {
       }
     }
 
-    context.put("objects", table.selection(table.whereClause(data),
+    context.put("objects", table.selection(table.whereClause(criteria),
                                            orderByClause, false, start, 20));
 
     return adminTemplate(context, "Select.wm");

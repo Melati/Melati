@@ -14,14 +14,6 @@ public class GroupTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Group)g).getId();
@@ -40,6 +32,16 @@ public class GroupTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Group)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((Group)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getId();
@@ -53,14 +55,6 @@ public class GroupTableBase extends Table {
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((GroupData)data).name;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupData)data).name = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Group)g).getName();
@@ -91,6 +85,16 @@ public class GroupTableBase extends Table {
             return true;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Group)g).getName_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((Group)g).setName_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Group)g).getName();
@@ -119,12 +123,8 @@ public class GroupTableBase extends Table {
     return (Group)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new Group();
-  }
-
-  protected Data _newData() {
-    return new GroupData();
   }
   protected String defaultDescription() {
     return "A group to which registered users of the database can belong";

@@ -44,13 +44,28 @@ public class LogicalDatabase {
           String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
           String driverName = PropertiesUtils.getOrDie(defs, pref + "driver");
 
-	  Driver driver = (Driver)Class.forName(driverName).newInstance();
+	  Object driverObject = Class.forName(driverName).newInstance();
 
-          database = (Database)Class.forName(clazz).newInstance();
+	  if (!(driverObject instanceof Driver))
+	    throw new ClassCastException(
+                "The .driver=" + driverName + " entry named a class of type " +
+                driverObject.getClass() + ", which is not a java.sql.Driver");
+
+	  Driver driver = (Driver)driverObject;
+
+	  Object databaseObject = Class.forName(clazz).newInstance();
+
+	  if (!(databaseObject instanceof Database))
+	    throw new ClassCastException(
+                "The .class=" + driverName + " entry named a class of type " +
+                databaseObject.getClass() + ", " +
+                "which is not an org.melati.poem.Database");
+
+          database = (Database)databaseObject;
           database.connect(driver, url, user, pass);
         }
         catch (Exception e) {
-          throw new DatabaseInitException(name, e);
+          throw new DatabaseInitException(databaseDefsName, name, e);
         }
 
         databases.put(name, database);

@@ -12,7 +12,7 @@ public abstract class PoemTypeFactory {
     this.code = new Integer(c);
   }
 
-  abstract PoemType typeOf(Database database, ColumnInfoData info);
+  abstract PoemType typeOf(Database database, ColumnInfo info);
 
   public abstract String getName();
 
@@ -29,7 +29,7 @@ public abstract class PoemTypeFactory {
 
   static final PoemTypeFactory[] atomTypeFactories = {
     TROID = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return TroidPoemType.it;
       }
 
@@ -43,7 +43,7 @@ public abstract class PoemTypeFactory {
     },
 
     DELETED = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return DeletedPoemType.it;
       }
 
@@ -57,7 +57,7 @@ public abstract class PoemTypeFactory {
     },
 
     TYPE = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return new ColumnTypePoemType(database);
       }
 
@@ -71,7 +71,7 @@ public abstract class PoemTypeFactory {
     },
 
     BOOLEAN = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return new BooleanPoemType(info.nullable.booleanValue());
       }
 
@@ -85,7 +85,7 @@ public abstract class PoemTypeFactory {
     },
 
     INTEGER = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return new IntegerPoemType(info.nullable.booleanValue(),
                                    info.size.intValue());
       }
@@ -100,7 +100,7 @@ public abstract class PoemTypeFactory {
     },
 
     DOUBLE = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return new DoublePoemType(info.nullable.booleanValue(),
                                    info.size.intValue());
       }
@@ -115,7 +115,7 @@ public abstract class PoemTypeFactory {
     },
 
     STRING = new PoemTypeFactory(n--) {
-      public PoemType typeOf(Database database, ColumnInfoData info) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
         return new StringPoemType(info.nullable.booleanValue(),
                                   info.size.intValue(),
                                   info.width.intValue(),
@@ -139,7 +139,7 @@ public abstract class PoemTypeFactory {
       final Table table = database.tableWithTableInfoID(code);
       return
           new PoemTypeFactory(code) {
-            public PoemType typeOf(Database db, ColumnInfoData info) {
+            public PoemType typeOf(Database db, ColumnInfo info) {
               return new ReferencePoemType(table,
                                            info.nullable.booleanValue());
             }

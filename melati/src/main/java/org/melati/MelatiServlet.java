@@ -203,6 +203,18 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     return handle(context, (Melati)context.get("melati"));
   }
 
+  protected final Template _handle(WebContext context)
+      throws Exception {
+    try {
+      return handle(context);
+    }
+    catch (Exception e) {
+      PoemThread.rollback();
+      e.printStackTrace();
+      throw e;
+    }
+  }
+
   /**
    * Handle an exception that occurs during the execution of <TT>handle</TT> or
    * during the expansion of the template it returns.  The base version returns
@@ -238,13 +250,23 @@ public abstract class MelatiServlet extends MelatiWMServlet {
         exception instanceof VariableException ?
           ((VariableException)exception).subException : exception;
 
-    if (underlying == null || !(underlying instanceof AccessPoemException)) {
-      super.handleException(context, exception);
-      return null;
-    }
+    if (underlying == null || !(underlying instanceof AccessPoemException))
+      throw exception;
     else
       return accessHandler().handleAccessException(
                  context, (AccessPoemException)underlying);
+  }
+
+  protected final Template _handleException(WebContext context, Exception exception)
+      throws Exception {
+    try {
+      return handleException(context, exception);
+    }
+    catch (Exception e) {
+      PoemThread.rollback();
+      e.printStackTrace();
+      throw e;
+    }
   }
 
   private void superDoRequest(WebContext context)

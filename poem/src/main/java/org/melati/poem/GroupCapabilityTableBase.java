@@ -15,14 +15,6 @@ public class GroupCapabilityTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupCapabilityData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupCapabilityData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getId();
@@ -41,6 +33,16 @@ public class GroupCapabilityTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupCapability)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupCapability)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getId();
@@ -54,14 +56,6 @@ public class GroupCapabilityTableBase extends Table {
 
     defineColumn(col_group =
         new Column(this, "group", new ReferencePoemType(((PoemDatabase)getDatabase()).getGroupTable(), false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupCapabilityData)data).group;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupCapabilityData)data).group = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getGroup();
@@ -84,6 +78,16 @@ public class GroupCapabilityTableBase extends Table {
             return "The user-group which has the capability";
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupCapability)g).getGroup_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupCapability)g).setGroup_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((GroupCapability)g).getGroupTroid();
@@ -97,14 +101,6 @@ public class GroupCapabilityTableBase extends Table {
 
     defineColumn(col_capability =
         new Column(this, "capability", new ReferencePoemType(((PoemDatabase)getDatabase()).getCapabilityTable(), false), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((GroupCapabilityData)data).capability;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((GroupCapabilityData)data).capability = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((GroupCapability)g).getCapability();
@@ -125,6 +121,16 @@ public class GroupCapabilityTableBase extends Table {
 
           protected String defaultDescription() {
             return "The capability";
+          }
+
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((GroupCapability)g).getCapability_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((GroupCapability)g).setCapability_unsafe((Integer)ident);
           }
 
           public Object getIdent(Persistent g)
@@ -159,12 +165,8 @@ public class GroupCapabilityTableBase extends Table {
     return (GroupCapability)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new GroupCapability();
-  }
-
-  protected Data _newData() {
-    return new GroupCapabilityData();
   }
   protected String defaultDisplayName() {
     return "Group capability";

@@ -1,12 +1,77 @@
 package org.melati.util;
 
+import java.lang.ref.*;
 import java.util.*;
 
 public final class Cache {
 
+  private static interface Node {
+    Object key();
+    Object value();
+  }
+
+  private static class HeldNode implements Node {
+    Object key;
+    Object value;
+    HeldNode nextMRU = null;
+    HeldNode prevMRU = null;
+
+    HeldNode(Object key, Object value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    synchronized void putBefore(HeldNode nextMRU) {
+      if (this.nextMRU != null)
+	this.nextMRU.prevMRU = prevMRU;
+
+      if (prevMRU != null)
+	prevMRU.nextMRU = this.nextMRU;
+
+      if (nextMRU != null) {
+	if (nextMRU.prevMRU != null)
+	  nextMRU.prevMRU.nextMRU = this;
+	prevMRU = nextMRU.prevMRU;
+	nextMRU.prevMRU = this;
+      }
+      else
+	prevMRU = null;
+
+      this.nextMRU = nextMRU;
+    }
+
+    public Object key() {
+      return key;
+    }
+
+    public Object value() {
+      return value;
+    }
+  }
+
+  private static class DroppedNode extends SoftReference implements Node {
+
+    Object key;
+
+    DroppedNode(Object key, Object value, ReferenceQueue queue) {
+      super(value, queue);
+      this.key = key;
+    }
+
+    public Object key() {
+      return key;
+    }
+
+    public Object value() {
+      return get();
+    }
+  }
+
   private Hashtable table = new Hashtable();
-  private CacheNode theMRU = null, theLRU = null;
+  private HeldNode theMRU = null, theLRU = null;
   private int maxSize;
+
+  private ReferenceQueue collectedValuesQueue = new ReferenceQueue();
 
   public Cache(int maxSize) {
     setSize(maxSize);
@@ -18,61 +83,96 @@ public final class Cache {
     this.maxSize = maxSize;
   }
 
-  public synchronized void put(CacheNode value) {
-    if (value == null)
-      throw new NullPointerException();
-
-    trim(maxSize);
-
-    Object previous = table.put(value.getKey(), value);
-    if (previous != null) {
-      table.put(value.getKey(), previous);
-      throw new CacheDuplicationException();
-    }
-
-    value.putBefore(theMRU);
-    theMRU = value;
-    if (theLRU == null) theLRU = value;
+  private synchronized void gc() {
+    DroppedNode dropped;
+    while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null)
+      table.remove(dropped.key);
   }
 
   public synchronized void trim(int maxSize) {
-    CacheNode n = theLRU;
+    gc();
+
+    HeldNode n = theLRU;
     while (n != null && table.size() > maxSize) {
-      CacheNode nn = n.prevMRU;
-      if (n.drop()) {
-        if (n == theLRU) theLRU = n.prevMRU;
-        if (n == theMRU) theMRU = n.nextMRU;
-        n.putBefore(null);
-        table.remove(n.getKey());
-      }
-      else
-        n.uncacheContents();
+      HeldNode nn = n.prevMRU;
+      if (n == theLRU) theLRU = n.prevMRU;
+      if (n == theMRU) theMRU = n.nextMRU;
+      n.putBefore(null);
+      table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));
       n = nn;
     }
   }
 
-  public synchronized void uncacheContents() {
-    for (Enumeration e = table.elements(); e.hasMoreElements();)
-      ((CacheNode)e.nextElement()).uncacheContents();
-  }
+  public synchronized void put(Object key, Object value) {
+    if (key == null || value == null)
+      throw new NullPointerException();
 
-  public synchronized CacheNode get(Object key) {
-    if (table.size() > 0) {
-      CacheNode value = (CacheNode)table.get(key);
-      if (value != null) {
-        value.putBefore(theMRU);
-        theMRU = value;
-        if (theLRU == null) theLRU = value;
-        return value;
-      }
+    trim(maxSize);
+
+    HeldNode node = new HeldNode(key, value);
+
+    Object previous = table.put(key, node);
+    if (previous != null) {
+      table.put(key, previous);
+      throw new CacheDuplicationException();
     }
 
-    return null;
+    System.err.println("put " + key + " -> " + value);
+
+    node.putBefore(theMRU);
+    theMRU = node;
+    if (theLRU == null) theLRU = node;
+  }
+
+  public synchronized Object get(Object key) {
+
+    gc();
+
+    if (table.isEmpty()) {
+      System.err.println("get " + key + ": empty");
+      return null;
+    }
+    else {
+      Node node = (Node)table.get(key);
+      if (node == null) {
+	System.err.println("get " + key + ": no entry");
+	return null;
+      }
+      else {
+	HeldNode held;
+	if (node instanceof HeldNode) {
+	  System.err.println("get " + key + ": held");
+	  held = (HeldNode)node;
+	}
+	else {
+	  if (node.value() == null) {
+	    System.err.println("get " + key + ": dropped, null!");
+	    // This probably doesn't happen
+	    return null;
+	  }
+
+	  held = new HeldNode(key, node.value());
+	  table.put(key, held);
+	  
+	  System.err.println("get " + key + ": dropped -> held");
+	}
+
+        held.putBefore(theMRU);
+        theMRU = held;
+        if (theLRU == null) theLRU = held;
+	System.err.println("get " + key + ": value " + held.value);
+        return held.value;
+      }
+    }
   }
 
   public synchronized void iterate(Procedure f) {
-    for (CacheNode n = theLRU; n != null; n = n.prevMRU)
-      f.apply(n);
+    gc();
+    for (Enumeration n = table.elements(); n.hasMoreElements();) {
+      Object value = ((Node)n.nextElement()).value();
+      if (value != null)
+	f.apply(value);
+    }
   }
 
   public synchronized void dumpAnalysis() {
@@ -81,14 +181,14 @@ public final class Cache {
 
     // System.err.println("-- LRU->MRU");
 
-    for (CacheNode n = theLRU; n != null; n = n.prevMRU) {
+    for (HeldNode n = theLRU; n != null; n = n.prevMRU) {
       // System.err.println("[" + n + "]");
       ++numFromLRU;
-      if (!table.containsKey(n.getKey()))
+      if (!table.containsKey(n.key()))
         System.err.println("*** ERROR " + n + " is not in the table");
-      if (inLRU.containsKey(n.getKey()))
+      if (inLRU.containsKey(n.key()))
         System.err.println("*** ERROR " + n + " is in LRU->MRU twice");
-      inLRU.put(n.getKey(), n);
+      inLRU.put(n.key(), n);
     }
 
     Hashtable inMRU = new Hashtable();
@@ -97,18 +197,17 @@ public final class Cache {
 
     // System.err.println("-- MRU->LRU");
 
-    for (CacheNode n = theMRU; n != null; n = n.nextMRU) {
+    for (HeldNode n = theMRU; n != null; n = n.nextMRU) {
       // System.err.println("[" + n + "]");
       ++numFromMRU;
-      if (!table.containsKey(n.getKey()))
+      if (!table.containsKey(n.key()))
         System.err.println("*** ERROR " + n + " is not in the table");
-      if (inMRU.containsKey(n.getKey()))
+      if (inMRU.containsKey(n.key()))
         System.err.println("*** ERROR " + n + " is in MRU->LRU twice");
-      inMRU.put(n.getKey(), n);
-      if (!inLRU.containsKey(n.getKey()))
+      inMRU.put(n.key(), n);
+      if (!inLRU.containsKey(n.key()))
         System.err.println("*** ERROR " + n + " is in LRU->MRU " +
                            "but not MRU->LRU");
-      contentsSize += n.analyseContents();
     }
 
     if (numFromMRU != numFromMRU && numFromMRU != table.size())

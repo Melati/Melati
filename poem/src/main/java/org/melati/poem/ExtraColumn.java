@@ -12,25 +12,28 @@ public class ExtraColumn extends Column {
     this.extrasIndex = extrasIndex;
   }
 
-  public Object getIdent(Data data) {
-    return data.extras[extrasIndex];
-  }
-
-  protected void setIdent(Data data, Object ident) {
-    data.extras[extrasIndex] = ident;
-  }
-
   public Object getIdent(Persistent g) throws AccessPoemException {
-    return getIdent(g._dataForReading());
+    g.readLock();
+    return getIdent_unsafe(g);
+  }
+
+  public Object getIdent_unsafe(Persistent g) {
+    return g.extras()[extrasIndex];
   }
 
   public void setIdent(Persistent g, Object ident)
       throws AccessPoemException, ValidationPoemException {
     getType().assertValidIdent(ident);
-    setIdent(g._dataForWriting(), ident);
+    g.writeLock();
+    setIdent_unsafe(g, ident);
   }
 
-  public Object getValue(Persistent g) throws AccessPoemException, PoemException {
+  public void setIdent_unsafe(Persistent g, Object ident) {
+    g.extras()[extrasIndex] = ident;
+  }
+
+  public Object getValue(Persistent g)
+      throws AccessPoemException, PoemException {
     // FIXME revalidation
     return getType().valueOfIdent(getIdent(g));
   }
@@ -47,8 +50,7 @@ public class ExtraColumn extends Column {
     return new ExtraColumn(
         table,
         columnInfo.getName(),
-        BasePoemType.ofColumnInfo(table.getDatabase(),
-                                  columnInfo.dataSnapshot()),
+        BasePoemType.ofColumnInfo(table.getDatabase(), columnInfo),
         source,
         extrasIndex);
   }

@@ -1,25 +1,14 @@
 package org.melati.poem;
 
-import org.melati.util.*;
-import java.sql.*;
 import java.util.*;
-
-/**
- * A table in a POEM database.  This is the minimal set of methods available;
- * if the table is defined in the data structure definition under the name
- * <TT><I>foo</I></TT>, there will be an application-specialised
- * <TT>Table</TT> subclass, called <TT><I>Foo</I>Table</TT> (and available as
- * <TT>get<I>Foo</I>Table</TT> from the application-specialised
- * <TT>Database</TT> subclass) which has extra, typed methods for retrieving
- * the application-specialised objects in the table, and methods for accessing
- * the table's predefined <TT>Column</TT>s.
- */
+import java.sql.*;
+import org.melati.util.*;
 
 public class Table {
 
   public static final int CACHE_LIMIT_DEFAULT = 100;
 
-  private final Table _this = this;
+  private Table _this = this;
 
   private Database database;
   private String name;
@@ -44,57 +33,32 @@ public class Table {
   private Column[] summaryDisplayColumns = null;
   private Column[] searchCriterionColumns = null;
 
-  private long nextSerial = 0L;
-  private PoemFloatingVersionedObject serial;
+  private TransactionedSerial serial;
 
   private PreparedSelection allTroids = null;
   private Hashtable cachedSelections = null;
 
   public Table(Database database, String name,
-               DefinitionSource definitionSource)
-      throws InvalidNamePoemException {
+	       DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
     this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
-    serial =
-        new PoemFloatingVersionedObject(database) {
-          protected boolean upToDate(Session session, Version version) {
-	    return true;
-	  }
-
-	  protected Version backingVersion(Session session) {
-	    return new SerialledVersion(nextSerial++);
-	  }
-        };
+    serial = new TransactionedSerial(database);
   }
 
   void postInitialise() {
     database.getColumnInfoTable().addListener(
         new TableListener() {
-          public void notifyTouched(PoemSession session, Table table,
-                                    Integer troid, Data data) {
-            _this.notifyColumnInfo((ColumnInfoData)data);
+          public void notifyTouched(PoemTransaction transaction, Table table,
+                                    Persistent persistent) {
+            _this.notifyColumnInfo((ColumnInfo)persistent);
           }
 
           public void notifyUncached(Table table) {
             _this.clearColumnInfoCaches();
           }
         });
-  }
-
-  private void clearColumnInfoCaches() {
-    defaultOrderByClause = null;
-    recordDisplayColumns = null;
-    summaryDisplayColumns = null;
-    searchCriterionColumns = null;
-  }
-
-  void notifyColumnInfo(ColumnInfoData data) {
-    // FIXME data == null means deleted: effect is too broad really
-    if (data == null ||
-        ((ColumnInfoData)data).tableinfo.equals(tableInfoID()))
-      clearColumnInfoCaches();
   }
 
   // 
@@ -146,6 +110,16 @@ public class Table {
   }
 
   /**
+   * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
+   * table.  It will always have one (except during initialisation, which the
+   * application programmer will never see).
+   */
+
+  public final Integer tableInfoID() {
+    return info == null ? null : info.troid();
+  }
+
+  /**
    * The table's column with a given name.  If the table is defined in the DSD
    * under the name <TT><I>foo</I></TT>, there will be an
    * application-specialised <TT>Table</TT> subclass, called
@@ -190,7 +164,48 @@ public class Table {
     return null;
   }
 
-  private String defaultOrderByClause() {
+  /**
+   * The table's troid column.  Every table in a POEM database must have a
+   * troid (table row ID, or table-unique non-nullable integer primary key),
+   * often but not necessarily called <TT>id</TT>, so that it can be
+   * conveniently `named'.
+   *
+   * @see #getObject(java.lang.Integer)
+   */
+
+  public final Column troidColumn() {
+    return troidColumn;
+  }
+
+  /**
+   * The table's deleted-flag column, if any.  FIXME.
+   */
+
+  public final Column deletedColumn() {
+    return deletedColumn;
+  }
+
+  /**
+   * The table's primary display column, if any.  This is the column used to
+   * represent records from the table concisely in reports or whatever.  It is
+   * determined at initialisation time by examining the <TT>Column</TT>s
+   * <TT>getPrimaryDisplay()</TT> flags.
+   *
+   * @return the table's display column, or <TT>null</TT> if it hasn't got one
+   *
+   * @see Column#getPrimaryDisplay()
+   * @see ReferencePoemType#_stringOfValue(Object)
+   */
+
+  public final Column displayColumn() {
+    return displayColumn == null ? troidColumn : displayColumn;
+  }
+
+  final void setDisplayColumn(Column column) {
+    displayColumn = column;
+  }
+
+  String defaultOrderByClause() {
     String clause = defaultOrderByClause;
 
     if (clause == null) {
@@ -221,6 +236,19 @@ public class Table {
     }
 
     return clause;
+  }
+
+  private void clearColumnInfoCaches() {
+    defaultOrderByClause = null;
+    recordDisplayColumns = null;
+    summaryDisplayColumns = null;
+    searchCriterionColumns = null;
+  }
+
+  void notifyColumnInfo(ColumnInfo info) {
+    // FIXME info == null means deleted: effect is too broad really
+    if (info == null || info.tableinfo.equals(tableInfoID()))
+      clearColumnInfoCaches();
   }
 
   private Column[] columnsWhere(String whereClause) {
@@ -293,57 +321,6 @@ public class Table {
       searchCriterionColumns = columns = columnsWhere("searchcriterion");
 
     return new ArrayEnumeration(columns);
-  }
-
-  /**
-   * The table's troid column.  Every table in a POEM database must have a
-   * troid (table row ID, or table-unique non-nullable integer primary key),
-   * often but not necessarily called <TT>id</TT>, so that it can be
-   * conveniently `named'.
-   *
-   * @see #getObject(java.lang.Integer)
-   */
-
-  public final Column troidColumn() {
-    return troidColumn;
-  }
-
-  /**
-   * The table's deleted-flag column, if any.  FIXME.
-   */
-
-  public final Column deletedColumn() {
-    return deletedColumn;
-  }
-
-  /**
-   * The table's primary display column, if any.  This is the column used to
-   * represent records from the table concisely in reports or whatever.  It is
-   * determined at initialisation time by examining the <TT>Column</TT>s
-   * <TT>getPrimaryDisplay()</TT> flags.
-   *
-   * @return the table's display column, or <TT>null</TT> if it hasn't got one
-   *
-   * @see Column#getPrimaryDisplay()
-   * @see ReferencePoemType#_stringOfValue(Object)
-   */
-
-  public final Column displayColumn() {
-    return displayColumn == null ? troidColumn : displayColumn;
-  }
-
-  final void setDisplayColumn(Column column) {
-    displayColumn = column;
-  }
-
-  /**
-   * The troid (<TT>id</TT>) of the table's entry in the <TT>tableinfo</TT>
-   * table.  It will always have one (except during initialisation, which the
-   * application programmer will never see).
-   */
-
-  public final Integer tableInfoID() {
-    return info == null ? null : info.troid();
   }
 
   // 
@@ -466,33 +443,34 @@ public class Table {
   }
 
   // 
-  // -------------------------
-  //  Session-specific things
-  // -------------------------
+  // -----------------------------
+  //  Transaction-specific things
+  // -----------------------------
   // 
 
-  private class SessionStuff {
+  private class TransactionStuff {
     PreparedStatement insert, modify, get;
-    SessionStuff(Connection connection) {
+    TransactionStuff(Connection connection) {
       insert = _this.simpleInsert(connection);
       modify = _this.simpleModify(connection);
       get = _this.simpleGet(connection);
     }
   }
 
-  private CachedIndexFactory sessionStuffs = new CachedIndexFactory() {
+  private CachedIndexFactory transactionStuffs = new CachedIndexFactory() {
     public Object reallyGet(int index) {
-      return new SessionStuff(database.session(index).getConnection());
+      return new TransactionStuff(
+          database.poemTransaction(index).getConnection());
     }
   };
 
-  private SessionStuff committedSessionStuff = null;
+  private TransactionStuff committedTransactionStuff = null;
 
-  private synchronized SessionStuff getCommittedSessionStuff() {
-    if (committedSessionStuff == null)
-      committedSessionStuff =
-          new SessionStuff(database.getCommittedConnection());
-    return committedSessionStuff;
+  private synchronized TransactionStuff getCommittedTransactionStuff() {
+    if (committedTransactionStuff == null)
+      committedTransactionStuff =
+          new TransactionStuff(database.getCommittedConnection());
+    return committedTransactionStuff;
   }
 
   // 
@@ -501,25 +479,27 @@ public class Table {
   // --------------------
   // 
 
-  private Data dbData(PreparedStatement select, Integer troid) {
+  private void load(PreparedStatement select, Persistent persistent) {
     try {
       synchronized (select) {
-        select.setInt(1, troid.intValue());
+        select.setInt(1, persistent.troid().intValue());
         ResultSet rs = select.executeQuery();
         if (database.logSQL)
           database.log(new SQLLogEvent(select.toString()));
 
         if (!rs.next())
-          return null;
+	  persistent.exists = false;
+	else {
+	  persistent.exists = true;
+	  for (int c = 0; c < columns.length; ++c)
+	    columns[c].load_unsafe(rs, c + 1, persistent);
+	}
 
-        Data data = newData();
-        for (int c = 0; c < columns.length; ++c)
-          columns[c].load(rs, c + 1, data);
+	persistent.dirty = false;
+	persistent.markValid();
 
         if (rs.next())
-          throw new DuplicateTroidPoemException(this, troid);
-
-        return data;
+          throw new DuplicateTroidPoemException(this, persistent.troid());
       }
     }
     catch (SQLException e) {
@@ -533,21 +513,21 @@ public class Table {
     }
   }
 
-  Data dbData(PoemSession session, Integer troid) {
-    return dbData(session == null ?
-                      getCommittedSessionStuff().get :
-                      ((SessionStuff)sessionStuffs.get(session.index())).get,
-                  troid);
+  void load(PoemTransaction transaction, Persistent persistent) {
+    load(transaction == null ?
+	    getCommittedTransactionStuff().get :
+	    ((TransactionStuff)transactionStuffs.get(transaction.index)).get,
+	 persistent);
   }
 
-  private void modify(PoemSession session, Integer troid, Data data) {
+  private void modify(PoemTransaction transaction, Persistent persistent) {
     PreparedStatement modify =
-        ((SessionStuff)sessionStuffs.get(session.index())).modify;
+        ((TransactionStuff)transactionStuffs.get(transaction.index)).modify;
     synchronized (modify) {
       for (int c = 0; c < columns.length; ++c)
-        columns[c].save(data, modify, c + 1);
+        columns[c].save_unsafe(persistent, modify, c + 1);
       try {
-        modify.setInt(columns.length + 1, troid.intValue());
+        modify.setInt(columns.length + 1, persistent.troid().intValue());
         modify.executeUpdate();
       }
       catch (SQLException e) {
@@ -558,12 +538,12 @@ public class Table {
     }
   }
 
-  private void insert(PoemSession session, Integer troid, Data data) {
+  private void insert(PoemTransaction transaction, Persistent persistent) {
     PreparedStatement insert =
-        ((SessionStuff)sessionStuffs.get(session.index())).insert;
+        ((TransactionStuff)transactionStuffs.get(transaction.index)).insert;
     synchronized (insert) {
       for (int c = 0; c < columns.length; ++c)
-        columns[c].save(data, insert, c + 1);
+        columns[c].save_unsafe(persistent, insert, c + 1);
       try {
         insert.executeUpdate();
       }
@@ -575,7 +555,7 @@ public class Table {
     }
   }
 
-  void delete(Integer troid, PoemSession session) {
+  void delete(Integer troid, PoemTransaction transaction) {
     String sql =
         "DELETE FROM " + quotedName +
         " WHERE " + troidColumn.quotedName() + " = " +
@@ -583,11 +563,11 @@ public class Table {
 
     try {
       Connection connection;
-      if (session == null)
+      if (transaction == null)
         connection = getDatabase().getCommittedConnection();
       else {
-        session.writeDown();
-        connection = session.getConnection();
+        transaction.writeDown();
+        connection = transaction.getConnection();
       }
 
       connection.createStatement().executeUpdate(sql);
@@ -599,20 +579,21 @@ public class Table {
     }
   }
 
-  void writeDown(PoemSession session, Integer troid, Data data) {
-    // no race, provided that the one-thread-per-session parity is maintained
+  void writeDown(PoemTransaction transaction, Persistent persistent) {
+    // no race, provided that the one-thread-per-transaction parity is
+    // maintained
 
-    if (data.dirty) {
-      troidColumn.setIdent(data, troid);
+    if (persistent.dirty) {
+      troidColumn.setIdent_unsafe(persistent, persistent.troid());
 
-      if (data.exists)
-	modify(session, troid, data);
+      if (persistent.exists)
+	modify(transaction, persistent);
       else {
-	insert(session, troid, data);
-	data.exists = true;
+	insert(transaction, persistent);
+	persistent.exists = true;
       }
 
-      data.dirty = false;
+      persistent.dirty = false;
     }
   }
 
@@ -630,9 +611,16 @@ public class Table {
 
   private Cache cache = new Cache(CACHE_LIMIT_DEFAULT);
 
+  private static final Procedure invalidator =
+      new Procedure() {
+        public void apply(Object arg) {
+	  ((Transactioned)arg).invalidate();
+	}
+      };
+
   void uncacheContents() {
-    cache.uncacheContents();
-    serial.uncacheContents();
+    cache.iterate(invalidator);
+    serial.invalidate();
     TableListener[] listeners = this.listeners;
     for (int l = 0; l < listeners.length; ++l)
       listeners[l].notifyUncached(this);
@@ -642,19 +630,40 @@ public class Table {
     cache.trim(maxSize);
   }
 
-  CachedVersionedRow versionedRow(Integer troid) {
-    synchronized (cache) {
-      CachedVersionedRow is = (CachedVersionedRow)cache.get(troid);
-      if (is == null) {
-        is = new CachedVersionedRow(this, troid);
-        cache.put(is);
-      }
-      return is;
-    }
+  void addListener(TableListener listener) {
+    listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
 
-  long serial(Session session) {
-    return ((SerialledVersion)serial.versionForReading(session)).serial;
+  /**
+   * Notify the table that one if its records is about to be changed in a
+   * transaction.  You can (with care) use this to support cacheing of
+   * frequently-used facts about the table's records.  For instance,
+   * <TT>GroupMembershipTable</TT> and <TT>GroupCapabilityTable</TT> override
+   * this to inform <TT>UserTable</TT> that its cache of users' capabilities
+   * has become invalid.
+   *
+   * @param transaction the transaction in which the change will be made
+   * @param persistent	the record to be changed
+   *
+   * @see GroupMembershipTable#notifyTouched
+   */
+
+  void notifyTouched(PoemTransaction transaction, Persistent persistent) {
+    // we use transaction == null in case of rollbacks, where we should be locked
+    // anyway and certainly don't want to block
+
+    if (transaction == null)
+      serial.increment_unlocked();
+    else
+      serial.increment(transaction);
+
+    TableListener[] listeners = this.listeners;
+    for (int l = 0; l < listeners.length; ++l)
+      listeners[l].notifyTouched(transaction, this, persistent);
+  }
+
+  long serial(PoemTransaction transaction) {
+    return serial.current(transaction);
   }
 
   // 
@@ -693,15 +702,26 @@ public class Table {
    */
 
   public Persistent getObject(Integer troid) throws NoSuchRowPoemException {
-    Persistent persistent = newPersistent();
-    persistent.init(versionedRow(troid));
+    Persistent persistent = (Persistent)cache.get(troid);
 
-    try {
-      persistent.dataUnchecked(PoemThread.session());
+    if (persistent == null) {
+      persistent = newPersistent();
+      claim(persistent, troid);
+      load(PoemThread.transaction(), persistent);
+      if (persistent.exists)
+	synchronized (cache) {
+	  Persistent tryAgain = (Persistent)cache.get(troid);
+	  if (tryAgain == null)
+	    cache.put(troid, persistent);
+	  else
+	    persistent = tryAgain;
+	}
     }
-    catch (RowDisappearedPoemException e) {
+    else
+      System.err.println("In the cache: " + persistent);
+
+    if (!persistent.exists)
       throw new NoSuchRowPoemException(this, troid);
-    }
 
     return persistent;
   }
@@ -747,18 +767,18 @@ public class Table {
 
   private ResultSet selectionResultSet(
       String whereClause, String orderByClause, boolean includeDeleted,
-      PoemSession session)
+      PoemTransaction transaction)
           throws SQLPoemException {
 
     String sql = selectionSQL(whereClause, orderByClause, includeDeleted);
             
     try {
       Connection connection;
-      if (session == null)
+      if (transaction == null)
         connection = getDatabase().getCommittedConnection();
       else {
-        session.writeDown();
-        connection = session.getConnection();
+        transaction.writeDown();
+        connection = transaction.getConnection();
       }
 
       ResultSet rs = connection.createStatement().executeQuery(sql);
@@ -773,9 +793,9 @@ public class Table {
 
   Enumeration troidSelection(
       String whereClause, String orderByClause,
-      boolean includeDeleted, PoemSession session) {
+      boolean includeDeleted, PoemTransaction transaction) {
     ResultSet them = selectionResultSet(whereClause, orderByClause,
-                                        includeDeleted, session);
+                                        includeDeleted, transaction);
     return
         new ResultSetEnumeration(them) {
           public Object mapped(ResultSet rs) throws SQLException {
@@ -817,7 +837,7 @@ public class Table {
       return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
-                            PoemThread.session());
+                            PoemThread.transaction());
   }
 
   /**
@@ -904,13 +924,13 @@ public class Table {
              " WHERE " + whereClause);
 
     try {
-      PoemSession session = PoemThread.session();
+      PoemTransaction transaction = PoemThread.transaction();
       Connection connection;
-      if (session == null)
+      if (transaction == null)
         connection = getDatabase().getCommittedConnection();
       else {
-        session.writeDown();
-        connection = session.getConnection();
+        transaction.writeDown();
+        connection = transaction.getConnection();
       }
 
       ResultSet rs = connection.createStatement().executeQuery(sql);
@@ -933,12 +953,12 @@ public class Table {
    * FIXME you can't search for NULLs ...
    */
 
-  public void appendWhereClause(StringBuffer clause, Data data) {
+  public void appendWhereClause(StringBuffer clause, Persistent persistent) {
     Column[] columns = this.columns;
     boolean hadOne = false;
     for (int c = 0; c < columns.length; ++c) {
       Column column = columns[c];
-      Object ident = column.getIdent(data);
+      Object ident = column.getIdent_unsafe(persistent);
       if (ident != null) {
         if (hadOne)
           clause.append(" AND ");
@@ -952,31 +972,31 @@ public class Table {
     }
   }
 
-  public String whereClause(Data data) {
+  public String whereClause(Persistent persistent) {
     StringBuffer clause = new StringBuffer();
-    appendWhereClause(clause, data);
+    appendWhereClause(clause, persistent);
     return clause.toString();
   }
 
-  public String cnfWhereClause(Enumeration datas) {
+  public String cnfWhereClause(Enumeration persistents) {
     StringBuffer clause = new StringBuffer();
 
     boolean hadOne = false;
-    while (datas.hasMoreElements()) {
+    while (persistents.hasMoreElements()) {
       if (hadOne)
         clause.append(" OR ");
       else
         hadOne = true;
       clause.append("(");
-      appendWhereClause(clause, (Data)datas.nextElement());
+      appendWhereClause(clause, (Persistent)persistents.nextElement());
       clause.append(")");
     }
 
     return clause.toString();
   }
 
-  public boolean exists(Data data) {
-    return exists(whereClause(data));
+  public boolean exists(Persistent persistent) {
+    return exists(whereClause(persistent));
   }
 
   /**
@@ -985,7 +1005,7 @@ public class Table {
    * returned will obviously be empty.  This is used by
    * <TT>Persistent.delete()</TT> to determine whether deleting an object would
    * destroy the integrity of any references.  It is not guaranteed to be
-   * particularly quick to execute!
+   * quick to execute!
    *
    * @return an <TT>Enumeration</TT> of <TT>Persistent</TT>s
    */
@@ -1005,11 +1025,12 @@ public class Table {
   // ----------
   // 
 
-  private void validate(Data data) throws FieldContentsPoemException {
+  private void validate(Persistent persistent)
+      throws FieldContentsPoemException {
     for (int c = 0; c < columns.length; ++c) {
       Column column = columns[c];
       try {
-        column.getType().assertValidIdent(column.getIdent(data));
+        column.getType().assertValidIdent(column.getIdent_unsafe(persistent));
       }
       catch (Exception e) {
         throw new FieldContentsPoemException(column, e);
@@ -1031,9 +1052,7 @@ public class Table {
     return nextTroid;
   }
 
-  // FIXME don't use the Data version 'cos it messes up triggers ...
-
-  private Persistent create(Object initOrData)
+  public void create(Persistent persistent)
       throws AccessPoemException, ValidationPoemException,
              InitialisationPoemException {
 
@@ -1045,61 +1064,40 @@ public class Table {
       throw new CreationAccessPoemException(this, sessionToken.accessToken,
                                             canCreate);
 
-    Integer troid = nextTroid();
+    claim(persistent, nextTroid());
 
-    Data data;
-    if (initOrData instanceof Data)
-      data = (Data)initOrData;
-    else
-      data = newData();
-
-    troidColumn.setIdent(data, troid);
-    if (deletedColumn != null)
-      deletedColumn.setIdent(data, Boolean.FALSE);
-    data.exists = false;
-
-    ConstructionVersionedRow dummyVersionedRow =
-        new ConstructionVersionedRow(this, troid, data, sessionToken.session);
-    Persistent object = newPersistent();
-    object.initForConstruct(dummyVersionedRow, sessionToken.accessToken);
-
-    if (initOrData instanceof Initialiser)
-      // Let the user do their worst.
-      ((Initialiser)initOrData).init(object);
+    persistent.exists = false;
 
     // Are the values they have put in legal; is the result something they
-    // could have created by writing into a record; does the DB pick up any
-    // inconsistencies like duplicated unique fields?
+    // could have created by writing into a record?
 
     try {
-      validate(data);
-      object.assertCanWrite(data, sessionToken.accessToken);
-      data.dirty = true;
-      writeDown(sessionToken.session, troid, data);
+      validate(persistent);
+      persistent.assertCanWrite(sessionToken.accessToken);
     }
     catch (Exception e) {
       throw new InitialisationPoemException(this, e);
     }
 
-    // OK, it worked.  Plug the object into the cache.  FIXME this will result
-    // in it getting writeDown-ed again but it will have been marked not dirty
-    // so it won't cause DB activity.
+    // Lock the cache while we try an initial write-down to see if the DB picks
+    // up any inconsistencies like duplicated unique fields
 
-    CachedVersionedRow versionedRow = versionedRow(troid);
-    versionedRow.versionKnownToBe(sessionToken.session, data);
-    object.init(versionedRow);
-    return object;
-  }
+    synchronized (cache) {
+      try {
+	persistent.dirty = true;
+	writeDown(sessionToken.transaction, persistent);
+      }
+      catch (Exception e) {
+	throw new InitialisationPoemException(this, e);
+      }
 
-  /**
-   * Create a new object (record) in the table.  FIXME don't use this because
-   * it bypasses any extra logic the programmer may have put on `set' methods.
-   */
+      // OK, it worked.  Plug the object into the cache.
 
-  Persistent create(Data data) 
-      throws AccessPoemException, ValidationPoemException,
-             InitialisationPoemException {
-    return create((Object)data);
+      persistent.readLock(sessionToken.transaction);
+      cache.put(persistent.troid(), persistent);
+    }
+
+    notifyTouched(sessionToken.transaction, persistent);
   }
 
   /**
@@ -1135,41 +1133,49 @@ public class Table {
    * @see #getCanCreate()
    */
 
-  public Persistent create(Initialiser initialiser) 
-      throws CreationAccessPoemException,
-             AccessPoemException, ValidationPoemException,
+  public Persistent create(Initialiser initialiser)
+      throws AccessPoemException, ValidationPoemException,
              InitialisationPoemException {
-    return create((Object)initialiser);
+    Persistent persistent = newPersistent();
+    initialiser.init(persistent);
+    create(persistent);
+    return persistent;
+  }
+
+  private void claim(Persistent persistent, Integer troid) {
+    // We don't want to end up with two of this object in the cache
+ 
+    if (cache.get(troid) != null)
+      throw new DuplicateTroidPoemException(this, troid);
+
+    if (persistent.troid() != null)
+      throw new DoubleCreatePoemException(persistent);
+
+    persistent.setTable(this, troid);
+
+    troidColumn.setIdent_unsafe(persistent, troid);
+    if (deletedColumn != null)
+      deletedColumn.setIdent_unsafe(persistent, Boolean.FALSE);
   }
 
   /**
-   * A freshly minted <TT>Data</TT> object for the table.  These represent the
-   * actual underlying field values of the objects in the table, but you don't
-   * in general have to worry about them.  This method is overridden in
-   * application-specialised <TT>Table</TT> subclasses derived from the Data
-   * Structure Definition.
-   *
-   * @see UserTableBase#_newData()
+   * A freshly minted <TT>Persistent</TT> object for the table.
    */
 
-  protected Data _newData() {
-    return new Data();
-  }
-
-  public final Data newData() {
-    Data them = _newData();
-    them.extras = new Object[getExtrasCount()];
-    return them;
+  public final Persistent newPersistent() {
+    Persistent it = _newPersistent();
+    it.setTable(this, null);
+    return it;
   }
 
   /**
-   * A freshly minted <TT>Persistent</TT> object for the table.  You don't ever
-   * have to call this and there is no point in doing so.  This method is
-   * overridden in application-specialised <TT>Table</TT> subclasses derived
-   * from the Data Structure Definition.
+   * A freshly minted, and uninitialised, <TT>Persistent</TT> object for the
+   * table.  You don't ever have to call this and there is no point in doing so
+   * This method is overridden in application-specialised <TT>Table</TT>
+   * subclasses derived from the Data Structure Definition.
    */
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new Persistent();
   }
 
@@ -1177,7 +1183,7 @@ public class Table {
    * The number of `extra' (non-DSD-defined) columns in the table.
    */
 
-  int getExtrasCount() {
+  int extrasCount() {
     return extrasIndex;
   }
 
@@ -1192,11 +1198,11 @@ public class Table {
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
    *
-   * @see Persistent#getCanRead(org.melati.poem.Data)
+   * @see Persistent#getCanRead()
    */
 
   public final Capability getDefaultCanRead() {
-    return info.getDefaultcanread();
+    return info == null ? null : info.getDefaultcanread();
   }
 
   /**
@@ -1204,11 +1210,11 @@ public class Table {
    * overridden in the record itself.  This simply comes from the table's
    * record in the <TT>tableinfo</TT> table.
    *
-   * @see Persistent#getCanWrite(org.melati.poem.Data)
+   * @see Persistent#getCanWrite()
    */
 
   public final Capability getDefaultCanWrite() {
-    return info.getDefaultcanwrite();
+    return info == null ? null : info.getDefaultcanwrite();
   }
 
   /**
@@ -1230,33 +1236,6 @@ public class Table {
     return canWriteColumn;
   }
 
-  /**
-   * Notify the table that one if its records is about to be changed in a
-   * session.  You can (with care) use this to support cacheing of
-   * frequently-used facts about the table's records.  For instance,
-   * <TT>GroupMembershipTable</TT> and <TT>GroupCapabilityTable</TT> override
-   * this to inform <TT>UserTable</TT> that its cache of users' capabilities
-   * has become invalid.
-   *
-   * @param session     the session in which the change will be made
-   * @param troid       the troid of the record which has been changed
-   * @param data        the new values of the record's fields
-   *
-   * @see GroupMembershipTable#notifyTouched
-   */
-
-  protected void notifyTouched(PoemSession session, Integer troid, Data data) {
-
-    // Because `serial' is itself an AbstractVersionedObject, the Right Thing
-    // will happen when the session is committed or rolled back.
-
-    ((SerialledVersion)serial.versionForWriting(session)).serial = nextSerial++;
-
-    TableListener[] listeners = this.listeners;
-    for (int l = 0; l < listeners.length; ++l)
-      listeners[l].notifyTouched(session, this, troid, data);
-  }
-
   // 
   // -----------
   //  Structure
@@ -1264,15 +1243,26 @@ public class Table {
   // 
 
   public Column addColumnAndCommit(ColumnInfo info) throws PoemException {
+
+    // Set the new column up
+
     Column column = ExtraColumn.from(this, info, extrasIndex++,
                                      DefinitionSource.runtime);
     column.setColumnInfo(info);
-    dbAddColumn(column);
+
+    // Do a dry run to make sure no problems (ALTER TABLE ADD COLUMN is
+    // well-nigh irrevocable in Postgres)
+
+    defineColumn(column, false);
+
+    // ALTER TABLE ADD COLUMN
+
     database.beginStructuralModification();
+    dbAddColumn(column);
     try {
       synchronized (cache) {    // belt and braces
         uncacheContents();
-        defineColumn(column);
+        defineColumn(column, true);
       }
       PoemThread.commit();
     }
@@ -1418,7 +1408,7 @@ public class Table {
    * will).
    */
 
-  protected synchronized void defineColumn(Column column)
+  protected synchronized void defineColumn(Column column, boolean reallyDoIt)
       throws DuplicateColumnNamePoemException,
              DuplicateTroidColumnPoemException,
              DuplicateDeletedColumnPoemException {
@@ -1431,28 +1421,41 @@ public class Table {
     if (column.isTroidColumn()) {
       if (troidColumn != null)
         throw new DuplicateTroidColumnPoemException(this, column);
-      troidColumn = column;
+      if (reallyDoIt)
+	troidColumn = column;
     }
     else if (column.isDeletedColumn()) {
       if (deletedColumn != null)
         throw new DuplicateDeletedColumnPoemException(this, column);
-      deletedColumn = column;
+      if (reallyDoIt)
+	deletedColumn = column;
     }
     else {
-      PoemType type = column.getType();
-      if (type instanceof ReferencePoemType &&
-          ((ReferencePoemType)type).targetTable() ==
-               database.getCapabilityTable()) {
-        if (column.getName().equals("canread"))
-          canReadColumn = column;
-        else if (column.getName().equals("canwrite"))
-          canWriteColumn = column;
+      if (reallyDoIt) {
+	PoemType type = column.getType();
+	if (type instanceof ReferencePoemType &&
+	    ((ReferencePoemType)type).targetTable() ==
+		 database.getCapabilityTable()) {
+	  if (column.getName().equals("canread"))
+	    canReadColumn = column;
+	  else if (column.getName().equals("canwrite"))
+	    canWriteColumn = column;
+	}
       }
     }
 
-    column.setTable(this);
-    columns = (Column[])ArrayUtils.added(columns, column);
-    columnsByName.put(column.getName(), column);
+    if (reallyDoIt) {
+      column.setTable(this);
+      columns = (Column[])ArrayUtils.added(columns, column);
+      columnsByName.put(column.getName(), column);
+    }
+  }
+
+  protected final void defineColumn(Column column)
+      throws DuplicateColumnNamePoemException,
+             DuplicateTroidColumnPoemException,
+             DuplicateDeletedColumnPoemException {
+    defineColumn(column, true);
   }
 
   private void _defineColumn(Column column) {
@@ -1511,17 +1514,18 @@ public class Table {
     return false;
   }
 
-  TableInfoData defaultTableInfoData() {
-    return new TableInfoData(
+  TableInfo defaultTableInfo() {
+    return new TableInfo(
         getName(), defaultDisplayName(), defaultDisplayOrder(),
         defaultDescription(), defaultCacheLimit(), defaultRememberAllTroids());
   }
 
   void createTableInfo() throws PoemException {
-    if (info == null)
-      setTableInfo(
-          info = (TableInfo)getDatabase().getTableInfoTable().
-                     create(defaultTableInfoData()));
+    if (info == null) {
+      info = defaultTableInfo();
+      getDatabase().getTableInfoTable().create(info);
+      setTableInfo(info);
+    }
   }
 
   synchronized void unifyWithColumnInfo() throws PoemException {
@@ -1668,9 +1672,5 @@ public class Table {
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
-  }
-
-  void addListener(TableListener listener) {
-    listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
 }

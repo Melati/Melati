@@ -4,14 +4,20 @@ import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
 
-public class PoemSession extends Session {
+public class PoemTransaction extends Transaction {
   private Database database;
   private Connection connection;
 
-  PoemSession(Database database, Connection connection, int index) {
+  PoemTransaction(Database database, Connection connection, int index) {
     super(index);
     this.database = database;
     this.connection = connection;
+    try {
+      connection.setAutoCommit(false);
+    }
+    catch (SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
   }
 
   final Database getDatabase() {
@@ -43,6 +49,7 @@ public class PoemSession extends Session {
   }
 
   public void close(boolean commit) {
+    System.err.println(this + ".close(" + commit + ")");
     try {
       if (commit)
         commit();

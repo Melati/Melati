@@ -13,7 +13,7 @@ public class PoemThread {
   public static final int threadsMax = 100; // must be < Char.MAX_VALUE = 64k
 
   static Integer allocatedSessionToken(AccessToken accessToken,
-                                       PoemSession session) {
+                                       PoemTransaction transaction) {
     synchronized (freeSessionTokenIndices) {
       Integer index;
       if (freeSessionTokenIndices.size() == 0) {
@@ -29,7 +29,7 @@ public class PoemThread {
       }
 
       SessionToken token = new SessionToken(
-          Thread.currentThread(), session, accessToken);
+          Thread.currentThread(), transaction, accessToken);
       sessionTokens.setElementAt(token, index.intValue());
       Thread.currentThread().setName("" + (char)index.intValue());
 
@@ -38,8 +38,8 @@ public class PoemThread {
   }
 
   static void inSession(PoemTask task, AccessToken accessToken,
-                        PoemSession session) throws PoemException {
-    Integer token = allocatedSessionToken(accessToken, session);
+                        PoemTransaction transaction) throws PoemException {
+    Integer token = allocatedSessionToken(accessToken, transaction);
     try {
       task.run();
     }
@@ -74,8 +74,8 @@ public class PoemThread {
     return it;
   }
 
-  public static PoemSession session() {
-    return sessionToken().session;
+  public static PoemTransaction transaction() {
+    return sessionToken().transaction;
   }
 
   public static boolean inSession() {
@@ -115,18 +115,18 @@ public class PoemThread {
   }
 
   public static Database database() throws NotInSessionPoemException {
-    return session().getDatabase();
+    return transaction().getDatabase();
   }
 
   public static void writeDown() {
-    session().writeDown();
+    transaction().writeDown();
   }
 
   public static void commit() {
-    session().commit();
+    transaction().commit();
   }
 
   public static void rollback() {
-    session().rollback();
+    transaction().rollback();
   }
 }

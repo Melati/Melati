@@ -4,13 +4,13 @@ import org.melati.util.*;
 
 public class CommitLogEvent extends PoemLogEvent {
 
-  public PoemSession session;
+  public PoemTransaction transaction;
 
-  public CommitLogEvent(PoemSession session) {
-    this.session = session;
+  public CommitLogEvent(PoemTransaction transaction) {
+    this.transaction = transaction;
   }
 
   public String toString() {
-    return "Committed session " + session.index();
+    return "Committed transaction " + transaction.index;
   }
 }

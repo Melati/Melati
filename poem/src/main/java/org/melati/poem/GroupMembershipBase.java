@@ -4,34 +4,33 @@ package org.melati.poem;
 
 public class GroupMembershipBase extends Persistent {
 
-  public final GroupMembershipData dataSnapshot()
-      throws AccessPoemException {
-    return (GroupMembershipData)_dataSnapshot();
-  }
-
-  protected final GroupMembershipData dataForReading()
-      throws AccessPoemException {
-    return (GroupMembershipData)_dataForReading();
-  }
-
-  protected final GroupMembershipData dataForWriting()
-      throws AccessPoemException {
-    return (GroupMembershipData)_dataForWriting();
-  }
-
   public GroupMembershipTable getGroupMembershipTable() {
     return (GroupMembershipTable)getTable();
   }
 
+  Integer id;
+  Integer user;
+  Integer group;
+
+  public Integer getId_unsafe() {
+    return id;
+  }
+
+  public void setId_unsafe(Integer value) {
+    id = value;
+  }
+
   public Integer getId()
       throws AccessPoemException {
-    return dataForReading().id;
+    readLock();
+    return getId_unsafe();
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getGroupMembershipTable().getIdColumn().getType().assertValidValue(value);
-    dataForWriting().id = value;
+    writeLock();
+    setId_unsafe(value);
   }
 
   public final void setId(int value)
@@ -43,14 +42,25 @@ public class GroupMembershipBase extends Persistent {
     return getGroupMembershipTable().getIdColumn().asField(this);
   }
 
+  public Integer getUser_unsafe() {
+    return user;
+  }
+
+  public void setUser_unsafe(Integer value) {
+    user = value;
+  }
+
   public Integer getUserTroid()
       throws AccessPoemException {
-    return dataForReading().user;
+    readLock();
+    return getUser_unsafe();
   }
 
   public void setUserTroid(Integer ident)
       throws AccessPoemException {
-    dataForWriting().user = ident;
+    getGroupMembershipTable().getUserColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setUser_unsafe(ident);
   }
 
   public User getUser()
@@ -69,14 +79,25 @@ public class GroupMembershipBase extends Persistent {
     return getGroupMembershipTable().getUserColumn().asField(this);
   }
 
+  public Integer getGroup_unsafe() {
+    return group;
+  }
+
+  public void setGroup_unsafe(Integer value) {
+    group = value;
+  }
+
   public Integer getGroupTroid()
       throws AccessPoemException {
-    return dataForReading().group;
+    readLock();
+    return getGroup_unsafe();
   }
 
   public void setGroupTroid(Integer ident)
       throws AccessPoemException {
-    dataForWriting().group = ident;
+    getGroupMembershipTable().getGroupColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setGroup_unsafe(ident);
   }
 
   public Group getGroup()

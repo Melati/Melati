@@ -4,34 +4,50 @@ package org.melati.poem;
 
 public class ColumnInfoBase extends Persistent {
 
-  public final ColumnInfoData dataSnapshot()
-      throws AccessPoemException {
-    return (ColumnInfoData)_dataSnapshot();
-  }
-
-  protected final ColumnInfoData dataForReading()
-      throws AccessPoemException {
-    return (ColumnInfoData)_dataForReading();
-  }
-
-  protected final ColumnInfoData dataForWriting()
-      throws AccessPoemException {
-    return (ColumnInfoData)_dataForWriting();
-  }
-
   public ColumnInfoTable getColumnInfoTable() {
     return (ColumnInfoTable)getTable();
   }
 
+  Integer id;
+  Integer tableinfo;
+  String name;
+  String displayname;
+  String description;
+  Integer displayorder;
+  Boolean usereditable;
+  Boolean recorddisplay;
+  Boolean summarydisplay;
+  Boolean primarydisplay;
+  Boolean searchcriterion;
+  Integer displayorderpriority;
+  Integer type;
+  Boolean nullable;
+  Boolean indexed;
+  Boolean unique;
+  Integer size;
+  Integer width;
+  Integer height;
+  String renderinfo;
+
+  public Integer getId_unsafe() {
+    return id;
+  }
+
+  public void setId_unsafe(Integer value) {
+    id = value;
+  }
+
   public Integer getId()
       throws AccessPoemException {
-    return dataForReading().id;
+    readLock();
+    return getId_unsafe();
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getIdColumn().getType().assertValidValue(value);
-    dataForWriting().id = value;
+    writeLock();
+    setId_unsafe(value);
   }
 
   public final void setId(int value)
@@ -43,14 +59,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getIdColumn().asField(this);
   }
 
+  public Integer getTableinfo_unsafe() {
+    return tableinfo;
+  }
+
+  public void setTableinfo_unsafe(Integer value) {
+    tableinfo = value;
+  }
+
   public Integer getTableinfoTroid()
       throws AccessPoemException {
-    return dataForReading().tableinfo;
+    readLock();
+    return getTableinfo_unsafe();
   }
 
   public void setTableinfoTroid(Integer ident)
       throws AccessPoemException {
-    dataForWriting().tableinfo = ident;
+    getColumnInfoTable().getTableinfoColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setTableinfo_unsafe(ident);
   }
 
   public TableInfo getTableinfo()
@@ -69,60 +96,100 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getTableinfoColumn().asField(this);
   }
 
+  public String getName_unsafe() {
+    return name;
+  }
+
+  public void setName_unsafe(String value) {
+    name = value;
+  }
+
   public String getName()
       throws AccessPoemException {
-    return dataForReading().name;
+    readLock();
+    return getName_unsafe();
   }
 
   public void setName(String value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getNameColumn().getType().assertValidValue(value);
-    dataForWriting().name = value;
+    writeLock();
+    setName_unsafe(value);
   }
 
   public final Field getNameField() throws AccessPoemException {
     return getColumnInfoTable().getNameColumn().asField(this);
   }
 
+  public String getDisplayname_unsafe() {
+    return displayname;
+  }
+
+  public void setDisplayname_unsafe(String value) {
+    displayname = value;
+  }
+
   public String getDisplayname()
       throws AccessPoemException {
-    return dataForReading().displayname;
+    readLock();
+    return getDisplayname_unsafe();
   }
 
   public void setDisplayname(String value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getDisplaynameColumn().getType().assertValidValue(value);
-    dataForWriting().displayname = value;
+    writeLock();
+    setDisplayname_unsafe(value);
   }
 
   public final Field getDisplaynameField() throws AccessPoemException {
     return getColumnInfoTable().getDisplaynameColumn().asField(this);
   }
 
+  public String getDescription_unsafe() {
+    return description;
+  }
+
+  public void setDescription_unsafe(String value) {
+    description = value;
+  }
+
   public String getDescription()
       throws AccessPoemException {
-    return dataForReading().description;
+    readLock();
+    return getDescription_unsafe();
   }
 
   public void setDescription(String value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getDescriptionColumn().getType().assertValidValue(value);
-    dataForWriting().description = value;
+    writeLock();
+    setDescription_unsafe(value);
   }
 
   public final Field getDescriptionField() throws AccessPoemException {
     return getColumnInfoTable().getDescriptionColumn().asField(this);
   }
 
+  public Integer getDisplayorder_unsafe() {
+    return displayorder;
+  }
+
+  public void setDisplayorder_unsafe(Integer value) {
+    displayorder = value;
+  }
+
   public Integer getDisplayorder()
       throws AccessPoemException {
-    return dataForReading().displayorder;
+    readLock();
+    return getDisplayorder_unsafe();
   }
 
   public void setDisplayorder(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getDisplayorderColumn().getType().assertValidValue(value);
-    dataForWriting().displayorder = value;
+    writeLock();
+    setDisplayorder_unsafe(value);
   }
 
   public final void setDisplayorder(int value)
@@ -134,15 +201,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getDisplayorderColumn().asField(this);
   }
 
+  public Boolean getUsereditable_unsafe() {
+    return usereditable;
+  }
+
+  public void setUsereditable_unsafe(Boolean value) {
+    usereditable = value;
+  }
+
   public Boolean getUsereditable()
       throws AccessPoemException {
-    return dataForReading().usereditable;
+    readLock();
+    return getUsereditable_unsafe();
   }
 
   public void setUsereditable(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getUsereditableColumn().getType().assertValidValue(value);
-    dataForWriting().usereditable = value;
+    writeLock();
+    setUsereditable_unsafe(value);
   }
 
   public final void setUsereditable(boolean value)
@@ -154,15 +231,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getUsereditableColumn().asField(this);
   }
 
+  public Boolean getRecorddisplay_unsafe() {
+    return recorddisplay;
+  }
+
+  public void setRecorddisplay_unsafe(Boolean value) {
+    recorddisplay = value;
+  }
+
   public Boolean getRecorddisplay()
       throws AccessPoemException {
-    return dataForReading().recorddisplay;
+    readLock();
+    return getRecorddisplay_unsafe();
   }
 
   public void setRecorddisplay(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getRecorddisplayColumn().getType().assertValidValue(value);
-    dataForWriting().recorddisplay = value;
+    writeLock();
+    setRecorddisplay_unsafe(value);
   }
 
   public final void setRecorddisplay(boolean value)
@@ -174,15 +261,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getRecorddisplayColumn().asField(this);
   }
 
+  public Boolean getSummarydisplay_unsafe() {
+    return summarydisplay;
+  }
+
+  public void setSummarydisplay_unsafe(Boolean value) {
+    summarydisplay = value;
+  }
+
   public Boolean getSummarydisplay()
       throws AccessPoemException {
-    return dataForReading().summarydisplay;
+    readLock();
+    return getSummarydisplay_unsafe();
   }
 
   public void setSummarydisplay(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getSummarydisplayColumn().getType().assertValidValue(value);
-    dataForWriting().summarydisplay = value;
+    writeLock();
+    setSummarydisplay_unsafe(value);
   }
 
   public final void setSummarydisplay(boolean value)
@@ -194,15 +291,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getSummarydisplayColumn().asField(this);
   }
 
+  public Boolean getPrimarydisplay_unsafe() {
+    return primarydisplay;
+  }
+
+  public void setPrimarydisplay_unsafe(Boolean value) {
+    primarydisplay = value;
+  }
+
   public Boolean getPrimarydisplay()
       throws AccessPoemException {
-    return dataForReading().primarydisplay;
+    readLock();
+    return getPrimarydisplay_unsafe();
   }
 
   public void setPrimarydisplay(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getPrimarydisplayColumn().getType().assertValidValue(value);
-    dataForWriting().primarydisplay = value;
+    writeLock();
+    setPrimarydisplay_unsafe(value);
   }
 
   public final void setPrimarydisplay(boolean value)
@@ -214,15 +321,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getPrimarydisplayColumn().asField(this);
   }
 
+  public Boolean getSearchcriterion_unsafe() {
+    return searchcriterion;
+  }
+
+  public void setSearchcriterion_unsafe(Boolean value) {
+    searchcriterion = value;
+  }
+
   public Boolean getSearchcriterion()
       throws AccessPoemException {
-    return dataForReading().searchcriterion;
+    readLock();
+    return getSearchcriterion_unsafe();
   }
 
   public void setSearchcriterion(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getSearchcriterionColumn().getType().assertValidValue(value);
-    dataForWriting().searchcriterion = value;
+    writeLock();
+    setSearchcriterion_unsafe(value);
   }
 
   public final void setSearchcriterion(boolean value)
@@ -234,15 +351,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getSearchcriterionColumn().asField(this);
   }
 
+  public Integer getDisplayorderpriority_unsafe() {
+    return displayorderpriority;
+  }
+
+  public void setDisplayorderpriority_unsafe(Integer value) {
+    displayorderpriority = value;
+  }
+
   public Integer getDisplayorderpriority()
       throws AccessPoemException {
-    return dataForReading().displayorderpriority;
+    readLock();
+    return getDisplayorderpriority_unsafe();
   }
 
   public void setDisplayorderpriority(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getDisplayorderpriorityColumn().getType().assertValidValue(value);
-    dataForWriting().displayorderpriority = value;
+    writeLock();
+    setDisplayorderpriority_unsafe(value);
   }
 
   public final void setDisplayorderpriority(int value)
@@ -254,14 +381,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getDisplayorderpriorityColumn().asField(this);
   }
 
+  public Integer getType_unsafe() {
+    return type;
+  }
+
+  public void setType_unsafe(Integer value) {
+    type = value;
+  }
+
   public Integer getTypeCode()
       throws AccessPoemException {
-    return dataForReading().type;
+    readLock();
+    return getType_unsafe();
   }
 
   public void setTypeCode(Integer ident)
       throws AccessPoemException {
-    dataForWriting().type = ident;
+    getColumnInfoTable().getTypeColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setType_unsafe(ident);
   }
 
   public PoemTypeFactory getType()
@@ -280,15 +418,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getTypeColumn().asField(this);
   }
 
+  public Boolean getNullable_unsafe() {
+    return nullable;
+  }
+
+  public void setNullable_unsafe(Boolean value) {
+    nullable = value;
+  }
+
   public Boolean getNullable()
       throws AccessPoemException {
-    return dataForReading().nullable;
+    readLock();
+    return getNullable_unsafe();
   }
 
   public void setNullable(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getNullableColumn().getType().assertValidValue(value);
-    dataForWriting().nullable = value;
+    writeLock();
+    setNullable_unsafe(value);
   }
 
   public final void setNullable(boolean value)
@@ -300,15 +448,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getNullableColumn().asField(this);
   }
 
+  public Boolean getIndexed_unsafe() {
+    return indexed;
+  }
+
+  public void setIndexed_unsafe(Boolean value) {
+    indexed = value;
+  }
+
   public Boolean getIndexed()
       throws AccessPoemException {
-    return dataForReading().indexed;
+    readLock();
+    return getIndexed_unsafe();
   }
 
   public void setIndexed(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getIndexedColumn().getType().assertValidValue(value);
-    dataForWriting().indexed = value;
+    writeLock();
+    setIndexed_unsafe(value);
   }
 
   public final void setIndexed(boolean value)
@@ -320,15 +478,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getIndexedColumn().asField(this);
   }
 
+  public Boolean getUnique_unsafe() {
+    return unique;
+  }
+
+  public void setUnique_unsafe(Boolean value) {
+    unique = value;
+  }
+
   public Boolean getUnique()
       throws AccessPoemException {
-    return dataForReading().unique;
+    readLock();
+    return getUnique_unsafe();
   }
 
   public void setUnique(Boolean value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getUniqueColumn().getType().assertValidValue(value);
-    dataForWriting().unique = value;
+    writeLock();
+    setUnique_unsafe(value);
   }
 
   public final void setUnique(boolean value)
@@ -340,15 +508,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getUniqueColumn().asField(this);
   }
 
+  public Integer getSize_unsafe() {
+    return size;
+  }
+
+  public void setSize_unsafe(Integer value) {
+    size = value;
+  }
+
   public Integer getSize()
       throws AccessPoemException {
-    return dataForReading().size;
+    readLock();
+    return getSize_unsafe();
   }
 
   public void setSize(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getSizeColumn().getType().assertValidValue(value);
-    dataForWriting().size = value;
+    writeLock();
+    setSize_unsafe(value);
   }
 
   public final void setSize(int value)
@@ -360,15 +538,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getSizeColumn().asField(this);
   }
 
+  public Integer getWidth_unsafe() {
+    return width;
+  }
+
+  public void setWidth_unsafe(Integer value) {
+    width = value;
+  }
+
   public Integer getWidth()
       throws AccessPoemException {
-    return dataForReading().width;
+    readLock();
+    return getWidth_unsafe();
   }
 
   public void setWidth(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getWidthColumn().getType().assertValidValue(value);
-    dataForWriting().width = value;
+    writeLock();
+    setWidth_unsafe(value);
   }
 
   public final void setWidth(int value)
@@ -380,15 +568,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getWidthColumn().asField(this);
   }
 
+  public Integer getHeight_unsafe() {
+    return height;
+  }
+
+  public void setHeight_unsafe(Integer value) {
+    height = value;
+  }
+
   public Integer getHeight()
       throws AccessPoemException {
-    return dataForReading().height;
+    readLock();
+    return getHeight_unsafe();
   }
 
   public void setHeight(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getHeightColumn().getType().assertValidValue(value);
-    dataForWriting().height = value;
+    writeLock();
+    setHeight_unsafe(value);
   }
 
   public final void setHeight(int value)
@@ -400,15 +598,25 @@ public class ColumnInfoBase extends Persistent {
     return getColumnInfoTable().getHeightColumn().asField(this);
   }
 
+  public String getRenderinfo_unsafe() {
+    return renderinfo;
+  }
+
+  public void setRenderinfo_unsafe(String value) {
+    renderinfo = value;
+  }
+
   public String getRenderinfo()
       throws AccessPoemException {
-    return dataForReading().renderinfo;
+    readLock();
+    return getRenderinfo_unsafe();
   }
 
   public void setRenderinfo(String value)
       throws AccessPoemException, ValidationPoemException {
     getColumnInfoTable().getRenderinfoColumn().getType().assertValidValue(value);
-    dataForWriting().renderinfo = value;
+    writeLock();
+    setRenderinfo_unsafe(value);
   }
 
   public final Field getRenderinfoField() throws AccessPoemException {

@@ -11,9 +11,9 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     super.postInitialise();
 
     Database d = getDatabase();
-    GroupCapabilityData admin =
-        new GroupCapabilityData(d.getGroupTable().administratorsGroup(),
-                                d.administerCapability());
+    GroupCapability admin =
+        new GroupCapability(d.getGroupTable().administratorsGroup(),
+			    d.administerCapability());
     if (!exists(admin))
       create(admin);
 

@@ -15,7 +15,7 @@ public class AdminUtils {
   public String editURL(Persistent object) throws AccessPoemException {
     return
         adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.getTroid() + "/Edit";
+        object.getTable().getName() + "/" + object.troid() + "/Edit";
   }
 
   public String tableURL(Table table) {

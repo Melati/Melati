@@ -4,34 +4,33 @@ package org.melati.poem;
 
 public class GroupCapabilityBase extends Persistent {
 
-  public final GroupCapabilityData dataSnapshot()
-      throws AccessPoemException {
-    return (GroupCapabilityData)_dataSnapshot();
-  }
-
-  protected final GroupCapabilityData dataForReading()
-      throws AccessPoemException {
-    return (GroupCapabilityData)_dataForReading();
-  }
-
-  protected final GroupCapabilityData dataForWriting()
-      throws AccessPoemException {
-    return (GroupCapabilityData)_dataForWriting();
-  }
-
   public GroupCapabilityTable getGroupCapabilityTable() {
     return (GroupCapabilityTable)getTable();
   }
 
+  Integer id;
+  Integer group;
+  Integer capability;
+
+  public Integer getId_unsafe() {
+    return id;
+  }
+
+  public void setId_unsafe(Integer value) {
+    id = value;
+  }
+
   public Integer getId()
       throws AccessPoemException {
-    return dataForReading().id;
+    readLock();
+    return getId_unsafe();
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getGroupCapabilityTable().getIdColumn().getType().assertValidValue(value);
-    dataForWriting().id = value;
+    writeLock();
+    setId_unsafe(value);
   }
 
   public final void setId(int value)
@@ -43,14 +42,25 @@ public class GroupCapabilityBase extends Persistent {
     return getGroupCapabilityTable().getIdColumn().asField(this);
   }
 
+  public Integer getGroup_unsafe() {
+    return group;
+  }
+
+  public void setGroup_unsafe(Integer value) {
+    group = value;
+  }
+
   public Integer getGroupTroid()
       throws AccessPoemException {
-    return dataForReading().group;
+    readLock();
+    return getGroup_unsafe();
   }
 
   public void setGroupTroid(Integer ident)
       throws AccessPoemException {
-    dataForWriting().group = ident;
+    getGroupCapabilityTable().getGroupColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setGroup_unsafe(ident);
   }
 
   public Group getGroup()
@@ -69,14 +79,25 @@ public class GroupCapabilityBase extends Persistent {
     return getGroupCapabilityTable().getGroupColumn().asField(this);
   }
 
+  public Integer getCapability_unsafe() {
+    return capability;
+  }
+
+  public void setCapability_unsafe(Integer value) {
+    capability = value;
+  }
+
   public Integer getCapabilityTroid()
       throws AccessPoemException {
-    return dataForReading().capability;
+    readLock();
+    return getCapability_unsafe();
   }
 
   public void setCapabilityTroid(Integer ident)
       throws AccessPoemException {
-    dataForWriting().capability = ident;
+    getGroupCapabilityTable().getCapabilityColumn().getType().assertValidIdent(ident);
+    writeLock();
+    setCapability_unsafe(ident);
   }
 
   public Capability getCapability()

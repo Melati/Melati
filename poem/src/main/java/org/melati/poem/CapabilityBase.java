@@ -4,34 +4,32 @@ package org.melati.poem;
 
 public class CapabilityBase extends Persistent {
 
-  public final CapabilityData dataSnapshot()
-      throws AccessPoemException {
-    return (CapabilityData)_dataSnapshot();
-  }
-
-  protected final CapabilityData dataForReading()
-      throws AccessPoemException {
-    return (CapabilityData)_dataForReading();
-  }
-
-  protected final CapabilityData dataForWriting()
-      throws AccessPoemException {
-    return (CapabilityData)_dataForWriting();
-  }
-
   public CapabilityTable getCapabilityTable() {
     return (CapabilityTable)getTable();
   }
 
+  Integer id;
+  String name;
+
+  public Integer getId_unsafe() {
+    return id;
+  }
+
+  public void setId_unsafe(Integer value) {
+    id = value;
+  }
+
   public Integer getId()
       throws AccessPoemException {
-    return dataForReading().id;
+    readLock();
+    return getId_unsafe();
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getCapabilityTable().getIdColumn().getType().assertValidValue(value);
-    dataForWriting().id = value;
+    writeLock();
+    setId_unsafe(value);
   }
 
   public final void setId(int value)
@@ -43,15 +41,25 @@ public class CapabilityBase extends Persistent {
     return getCapabilityTable().getIdColumn().asField(this);
   }
 
+  public String getName_unsafe() {
+    return name;
+  }
+
+  public void setName_unsafe(String value) {
+    name = value;
+  }
+
   public String getName()
       throws AccessPoemException {
-    return dataForReading().name;
+    readLock();
+    return getName_unsafe();
   }
 
   public void setName(String value)
       throws AccessPoemException, ValidationPoemException {
     getCapabilityTable().getNameColumn().getType().assertValidValue(value);
-    dataForWriting().name = value;
+    writeLock();
+    setName_unsafe(value);
   }
 
   public final Field getNameField() throws AccessPoemException {

@@ -4,34 +4,34 @@ package org.melati.poem;
 
 public class UserBase extends Persistent {
 
-  public final UserData dataSnapshot()
-      throws AccessPoemException {
-    return (UserData)_dataSnapshot();
-  }
-
-  protected final UserData dataForReading()
-      throws AccessPoemException {
-    return (UserData)_dataForReading();
-  }
-
-  protected final UserData dataForWriting()
-      throws AccessPoemException {
-    return (UserData)_dataForWriting();
-  }
-
   public UserTable getUserTable() {
     return (UserTable)getTable();
   }
 
+  Integer id;
+  String login;
+  String password;
+  String name;
+
+  public Integer getId_unsafe() {
+    return id;
+  }
+
+  public void setId_unsafe(Integer value) {
+    id = value;
+  }
+
   public Integer getId()
       throws AccessPoemException {
-    return dataForReading().id;
+    readLock();
+    return getId_unsafe();
   }
 
   public void setId(Integer value)
       throws AccessPoemException, ValidationPoemException {
     getUserTable().getIdColumn().getType().assertValidValue(value);
-    dataForWriting().id = value;
+    writeLock();
+    setId_unsafe(value);
   }
 
   public final void setId(int value)
@@ -43,45 +43,75 @@ public class UserBase extends Persistent {
     return getUserTable().getIdColumn().asField(this);
   }
 
+  public String getLogin_unsafe() {
+    return login;
+  }
+
+  public void setLogin_unsafe(String value) {
+    login = value;
+  }
+
   public String getLogin()
       throws AccessPoemException {
-    return dataForReading().login;
+    readLock();
+    return getLogin_unsafe();
   }
 
   public void setLogin(String value)
       throws AccessPoemException, ValidationPoemException {
     getUserTable().getLoginColumn().getType().assertValidValue(value);
-    dataForWriting().login = value;
+    writeLock();
+    setLogin_unsafe(value);
   }
 
   public final Field getLoginField() throws AccessPoemException {
     return getUserTable().getLoginColumn().asField(this);
   }
 
+  public String getPassword_unsafe() {
+    return password;
+  }
+
+  public void setPassword_unsafe(String value) {
+    password = value;
+  }
+
   public String getPassword()
       throws AccessPoemException {
-    return dataForReading().password;
+    readLock();
+    return getPassword_unsafe();
   }
 
   public void setPassword(String value)
       throws AccessPoemException, ValidationPoemException {
     getUserTable().getPasswordColumn().getType().assertValidValue(value);
-    dataForWriting().password = value;
+    writeLock();
+    setPassword_unsafe(value);
   }
 
   public final Field getPasswordField() throws AccessPoemException {
     return getUserTable().getPasswordColumn().asField(this);
   }
 
+  public String getName_unsafe() {
+    return name;
+  }
+
+  public void setName_unsafe(String value) {
+    name = value;
+  }
+
   public String getName()
       throws AccessPoemException {
-    return dataForReading().name;
+    readLock();
+    return getName_unsafe();
   }
 
   public void setName(String value)
       throws AccessPoemException, ValidationPoemException {
     getUserTable().getNameColumn().getType().assertValidValue(value);
-    dataForWriting().name = value;
+    writeLock();
+    setName_unsafe(value);
   }
 
   public final Field getNameField() throws AccessPoemException {

@@ -2,12 +2,12 @@ package org.melati.poem;
 
 public class ColumnInfo extends ColumnInfoBase {
   
-  protected void assertCanRead(Data data, AccessToken token) {}
+  protected void assertCanRead(AccessToken token) {}
 
   private Column _column = null;
 
   private Column column() {
-    if (_column == null)
+    if (_column == null && troid() != null)
       _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;
   }

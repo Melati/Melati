@@ -6,78 +6,62 @@ import java.util.*;
 
 public class PreparedSelection {
 
-  private static class SelectionVersion extends VersionVector {
-    long tableSerial;
-    SelectionVersion(long tableSerial) {
-      this.tableSerial = tableSerial;
-    }
-  }
-
-  private PoemFloatingVersionedObject cache;
-  private final Table table;
+  private PreparedStatementFactory statements = null;
+  private Vector selection = null;
+  private long tableSerial;
+  private Table table;
+  private String whereClause;
+  private String orderByClause;
+  private String tableDefaultOrderByClause = null;
 
   public PreparedSelection(final Table table,
                            final String whereClause,
                            final String orderByClause) {
     this.table = table;
-    final Database database = table.getDatabase();
+    this.whereClause = whereClause;
+    this.orderByClause = orderByClause;
+  }
 
-    // HACK we use 0 to mean "committed session", i + 1 to mean "noncommitted
-    // session i"
+  private PreparedStatementFactory statements() {
+    if (orderByClause == null) {
+      String defaultOrderByClause = table.defaultOrderByClause();
+      if (defaultOrderByClause != tableDefaultOrderByClause) {
+	statements = null;
+	tableDefaultOrderByClause = defaultOrderByClause;
+      }
+    }
 
-    final CachedIndexFactory statements =
-        new CachedIndexFactory() {
-          protected Object reallyGet(int index) {
-            String sql = table.selectionSQL(whereClause, orderByClause, false);
-            try {
-	      Connection c =
-		  index == 0 ? database.getCommittedConnection()
-		             : database.session(index - 1).getConnection();
-              return c.prepareStatement(sql);
-            }
-            catch (SQLException e) {
-              throw new SQLPoemException(e);
-            }
-          }
-        };
+    if (statements == null)
+      statements = new PreparedStatementFactory(
+		       table.getDatabase(),
+		       table.selectionSQL(whereClause, orderByClause, false));
 
-    cache =
-        new PoemFloatingVersionedObject(database) {
-          protected Version backingVersion(Session session) {
-            try {
-	      PreparedStatement statement =
-		  (PreparedStatement)statements.get(session == null ?
-						      0 :
-						      session.index() + 1);
+    return statements;
+  }
 
-              SelectionVersion store =
-		  new SelectionVersion(table.serial(session));
+  public Enumeration troids() {
+    Vector selection = this.selection;
+    PoemTransaction transaction = PoemThread.transaction();
+    long currentTableSerial = table.serial(transaction); 
+    if (selection == null || currentTableSerial != tableSerial) {
+      selection = new Vector();
+      try {
+	for (ResultSet rs = statements().resultSet(transaction); rs.next();)
+	  selection.addElement(new Integer(rs.getInt(1)));
+      }
+      catch (SQLException e) {
+	throw new SQLSeriousPoemException(e);
+      }
 
-              ResultSet them = statement.executeQuery();
+      this.selection = selection;
+      tableSerial = currentTableSerial;
+    }
 
-              while (them.next())
-                store.addElement(new Integer(them.getInt(1)));
-
-              return store;
-            }
-            catch (SQLException e) {
-              throw new SQLPoemException(e);
-            }
-          }
-
- 	  public boolean upToDate(Session session, Version current) {
- 	    return ((SelectionVersion)current).tableSerial ==
-	               table.serial(session);
- 	  }
-        };
+    return selection.elements();
   }
 
   public Table getTable() {
     return table;
-  }
-
-  public Enumeration troids() {
-    return ((Vector)cache.versionForReading(PoemThread.session())).elements();
   }
 
   public Enumeration objects() {
@@ -87,9 +71,5 @@ public class PreparedSelection {
             return table.getObject((Integer)troid);
           }
         };
-  }
-
-  public long serial(Session session) {
-    return ((SelectionVersion)cache.versionForReading(session)).tableSerial;
   }
 }

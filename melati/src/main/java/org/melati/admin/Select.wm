@@ -1,5 +1,6 @@
 #set $Response.Header.Content-Type = "text/html"
 #set $ml = $melati.HTMLMarkupLanguage
+#set $onVariableException = $melati.PassbackVariableExceptionHandler
 <HTML>
 <HEAD>
 </HEAD>

@@ -1,7 +1,21 @@
 package org.melati.poem;
 
 public class TableInfo extends TableInfoBase {
-  protected void assertCanRead(Data data, AccessToken token) {}
+  protected void assertCanRead(AccessToken token) {}
+
+  public TableInfo() {
+  }
+
+  public TableInfo(String name, String displayName, int displayOrder,
+		   String description, Integer cacheLimit,
+		   boolean rememberAllTroids) {
+    this.name = name;
+    this.displayname = displayName;
+    this.displayorder = new Integer(displayOrder);
+    this.description = description;
+    this.cachelimit = cacheLimit;
+    this.seqcached = rememberAllTroids ? Boolean.TRUE : Boolean.FALSE;
+  }
 
   public void setName(String name) {
     String current = getName();

@@ -277,7 +277,7 @@ public class TailoredQuery {
    * @see FieldSet#get(java.lang.String)
    * @see PoemThread#accessToken()
    * @see org.melati.HTMLMarkupLanguage#rendered(org.melati.poem.AccessPoemException)
-   * @see Persistent#assertCanRead(org.melati.poem.Data, org.melati.poem.AccessToken)
+   * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
    */
 
   public Enumeration selection() {

@@ -219,8 +219,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return sqlDefinition();
   }
 
-  public static PoemType ofColumnInfo(Database database,
-                                      ColumnInfoData info) {
+  public static PoemType ofColumnInfo(Database database, ColumnInfo info) {
     return
         PoemTypeFactory.forCode(database,
                                 info.type.intValue()).typeOf(database, info);

@@ -11,7 +11,7 @@ public class WrongSessionPoemException extends AppBugPoemException {
 
   public String getMessage() {
     return
-        "An object being constructed was accessed in a different session\n" +
+        "An object being constructed was accessed in a different transaction\n" +
         "Object is table `" + table.getName() + "', troid " + troid;
   }
 }

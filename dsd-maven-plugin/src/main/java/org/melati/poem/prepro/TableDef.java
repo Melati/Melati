@@ -13,8 +13,6 @@ public class TableDef {
   String description;
   boolean seqCached;
   int cacheSize = CacheSizeTableQualifier.DEFAULT;
-  final String dataBaseClass;
-  final String dataMainClass;
   final String baseClass;
   final String mainClass;
   final String tableBaseClass;
@@ -31,8 +29,6 @@ public class TableDef {
       throw new ParsingDSDException("<table name>", tokens);
     suffix = tokens.sval;
     name = suffix.toLowerCase();
-    dataBaseClass = suffix + "DataBase";
-    dataMainClass = suffix + "Data";
     baseClass = suffix + "Base";
     mainClass = suffix;
     tableBaseClass = suffix + "TableBase";
@@ -72,44 +68,20 @@ public class TableDef {
             "  }\n");
   }
 
-  public void generateDataBaseJava(Writer w) throws IOException {
-    w.write("public class " + dataBaseClass + " extends Data {\n");
+  public void generateBaseJava(Writer w) throws IOException {
+    w.write("public class " + baseClass + " extends Persistent {\n" +
+            "\n");
+
+    w.write("  public " + tableMainClass + " " + tableAccessorMethod +
+	           "() {\n" +
+            "    return (" + tableMainClass + ")getTable();\n" +
+            "  }\n\n");
+
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
       w.write("  ");
       ((FieldDef)f.nextElement()).generateJavaDeclaration(w);
       w.write(";\n");
     }
-    w.write("}\n");
-  }
-
-  public void generateDataMainJava(Writer w) throws IOException { 
-    w.write("public class " + dataMainClass +
-                " extends " + dataBaseClass + " {\n" +
-            "  // programmer's domain-specific code here\n" +
-            "}\n");
-  }
-
-  public void generateBaseJava(Writer w) throws IOException {
-    w.write("public class " + baseClass + " extends Persistent {\n" +
-            "\n" +
-            "  public final " + dataMainClass + " dataSnapshot()\n" +
-            "      throws AccessPoemException {\n" +
-            "    return (" + dataMainClass + ")_dataSnapshot();\n" +
-            "  }\n" +
-            "\n" +
-            "  protected final " + dataMainClass + " dataForReading()\n" +
-            "      throws AccessPoemException {\n" +
-            "    return (" + dataMainClass + ")_dataForReading();\n" +
-            "  }\n" +
-            "\n" +
-            "  protected final " + dataMainClass + " dataForWriting()\n" +
-            "      throws AccessPoemException {\n" +
-            "    return (" + dataMainClass + ")_dataForWriting();\n" +
-            "  }\n" +
-            "\n" +
-            "  public " + tableMainClass + " " + tableAccessorMethod + "() {\n" +
-            "    return (" + tableMainClass + ")getTable();\n" +
-            "  }\n");
 
     for (Enumeration f = data.elements(); f.hasMoreElements();) {
       FieldDef field = (FieldDef)f.nextElement();
@@ -169,13 +141,10 @@ public class TableDef {
             "    return (" + mainClass + ")getObject(troid);\n" +
             "  }\n" +
             "\n" +
-            "  protected Persistent newPersistent() {\n" +
+            "  protected Persistent _newPersistent() {\n" +
             "    return new " + mainClass + "();\n" +
-            "  }\n" +
-            "\n" +
-            "  protected Data _newData() {\n" +
-            "    return new " + dataMainClass + "();\n" +
-            "  }\n");
+            "  }" +
+	    "\n");
 
 
     if (displayName != null)
@@ -226,21 +195,6 @@ public class TableDef {
   }
 
   public void generateJava() throws IOException {
-
-    dsd.createJava(dataBaseClass,
-                   new Generator() {
-                     public void process(Writer w) throws IOException {
-                       this_.generateDataBaseJava(w);
-                     }
-                   });
-
-    dsd.createJava(dataMainClass,
-                   new Generator() {
-                     public void process(Writer w) throws IOException {
-                       this_.generateDataMainJava(w);
-                     }
-                   },
-                   false);
 
     dsd.createJava(baseClass,
                    new Generator() {

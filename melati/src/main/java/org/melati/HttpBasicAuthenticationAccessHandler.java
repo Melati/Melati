@@ -162,12 +162,14 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 	// attempt.  But do we know what "realm" (= POEM capability name) for
 	// which they were originally found not to be authorized?
 
-	if (useSession()) {
+	String storedRealm;
+	if (useSession() &&
+	    (storedRealm = (String)context.getSession().getValue(REALM)) !=
+	         null) {
 
 	  // The "realm" is stored in the session
 
-	  forceLogin(context.getResponse(),
-		     (String)context.getSession().getValue(REALM),
+	  forceLogin(context.getResponse(), storedRealm,
 		     "Login/password not recognised");
 	  return null;
 	}

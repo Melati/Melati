@@ -2,7 +2,8 @@ package org.melati.poem;
 
 public class GroupMembershipTable extends GroupMembershipTableBase {
 
-  public GroupMembershipTable(Database database, String name) throws PoemException {
+  public GroupMembershipTable(Database database, String name) throws
+      PoemException {
     super(database, name);
   }
 
@@ -10,9 +11,9 @@ public class GroupMembershipTable extends GroupMembershipTableBase {
     super.postInitialise();
 
     Database d = getDatabase();
-    GroupMembershipData admin =
-        new GroupMembershipData(d.getUserTable().administratorUser(),
-				d.getGroupTable().administratorsGroup());
+    GroupMembership admin =
+        new GroupMembership(d.getUserTable().administratorUser(),
+			    d.getGroupTable().administratorsGroup());
     if (!exists(admin))
       create(admin);
 

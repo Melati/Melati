@@ -14,14 +14,6 @@ public class CapabilityTableBase extends Table {
   protected void init() throws PoemException {
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (Integer)((CapabilityData)data).id;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((CapabilityData)data).id = (Integer)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Capability)g).getId();
@@ -40,6 +32,16 @@ public class CapabilityTableBase extends Table {
             return 0;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Capability)g).getId_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((Capability)g).setId_unsafe((Integer)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getId();
@@ -53,14 +55,6 @@ public class CapabilityTableBase extends Table {
 
     defineColumn(col_name =
         new Column(this, "name", new StringPoemType(false, 60), DefinitionSource.dsd) { 
-          public Object getIdent(Data data) {
-            return (String)((CapabilityData)data).name;
-          }
-
-          public void setIdent(Data data, Object ident) {
-            ((CapabilityData)data).name = (String)ident;
-          }
-
           public Object getValue(Persistent g)
               throws AccessPoemException, PoemException {
             return ((Capability)g).getName();
@@ -95,6 +89,16 @@ public class CapabilityTableBase extends Table {
             return true;
           }
 
+          public Object getIdent_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Capability)g).getName_unsafe();
+          }
+
+          public void setIdent_unsafe(Persistent g, Object ident)
+              throws AccessPoemException {
+            ((Capability)g).setName_unsafe((String)ident);
+          }
+
           public Object getIdent(Persistent g)
               throws AccessPoemException {
             return ((Capability)g).getName();
@@ -123,12 +127,8 @@ public class CapabilityTableBase extends Table {
     return (Capability)getObject(troid);
   }
 
-  protected Persistent newPersistent() {
+  protected Persistent _newPersistent() {
     return new Capability();
-  }
-
-  protected Data _newData() {
-    return new CapabilityData();
   }
   protected String defaultDescription() {
     return "A capability which users can be required to possess before accessing data";

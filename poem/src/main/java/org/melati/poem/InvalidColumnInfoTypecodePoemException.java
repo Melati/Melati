@@ -2,8 +2,8 @@ package org.melati.poem;
 
 public class InvalidColumnInfoTypecodePoemException
     extends SeriousPoemException {
-  public ColumnInfoData columnInfo;
-  public InvalidColumnInfoTypecodePoemException(ColumnInfoData columnInfo) {
+  public ColumnInfo columnInfo;
+  public InvalidColumnInfoTypecodePoemException(ColumnInfo columnInfo) {
     this.columnInfo = columnInfo;
   }
 

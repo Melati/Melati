@@ -1,7 +1,7 @@
 package org.melati.poem;
 
 public interface TableListener {
-  void notifyTouched(PoemSession session, Table table, Integer troid,
-                     Data data);
+  void notifyTouched(PoemTransaction transaction,
+		     Table table, Persistent persistent);
   void notifyUncached(Table table);
 }

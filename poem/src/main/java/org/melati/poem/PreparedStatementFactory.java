@@ -14,14 +14,14 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     this.sql = sql;
   }
 
-  // HACK we use 0 to mean "committed session", i + 1 to mean "noncommitted
-  // session i"
+  // HACK we use 0 to mean "committed transaction", i + 1 to mean "noncommitted
+  // transaction i"
 
   protected Object reallyGet(int index) {
     try {
       Connection c =
 	index == 0 ? database.getCommittedConnection()
-	: database.session(index - 1).getConnection();
+	           : database.poemTransaction(index - 1).getConnection();
       return c.prepareStatement(sql);
     }
     catch (SQLException e) {
@@ -29,12 +29,13 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     }
   }
 
-  public PreparedStatement forSession(Session session) {
-    return (PreparedStatement)get(session == null ? 0 : session.index() + 1);
+  public PreparedStatement forTransaction(PoemTransaction transaction) {
+    return (PreparedStatement)get(transaction == null ?
+				    0 : transaction.index + 1);
   }
 
-  public ResultSet resultSet() {
-    PreparedStatement statement = forSession(PoemThread.session());
+  public ResultSet resultSet(PoemTransaction transaction) {
+    PreparedStatement statement = forTransaction(transaction);
     try {
       if (database.logSQL)
 	database.log(new SQLLogEvent(statement.toString()));
@@ -43,5 +44,9 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     catch (SQLException e) {
       throw new PreparedSQLSeriousPoemException(statement, e);
     }
+  }
+
+  public ResultSet resultSet() {
+    return resultSet(PoemThread.transaction());
   }
 }

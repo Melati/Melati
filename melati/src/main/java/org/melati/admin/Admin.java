@@ -397,6 +397,10 @@ public class Admin extends MelatiServlet {
           return addTemplate(context, melati);
         else if (melati.getMethod().equals("AddUpdate"))
           return addUpdateTemplate(context, melati);
+        else if (melati.getMethod().equals("CreateColumn"))
+          return columnCreateTemplate(context, melati);
+        else if (melati.getMethod().equals("CreateColumn_doit"))
+          return columnCreate_doitTemplate(context, melati);
       }
       else {
         if (melati.getMethod().equals("Main"))
@@ -407,10 +411,6 @@ public class Admin extends MelatiServlet {
           return tableCreateTemplate(context, melati);
         else if (melati.getMethod().equals("Create_doit"))
           return tableCreate_doitTemplate(context, melati);
-        else if (melati.getMethod().equals("CreateColumn"))
-          return columnCreateTemplate(context, melati);
-        else if (melati.getMethod().equals("CreateColumn_doit"))
-          return columnCreate_doitTemplate(context, melati);
       }
 
       throw new InvalidUsageException(this, melati.getContext());

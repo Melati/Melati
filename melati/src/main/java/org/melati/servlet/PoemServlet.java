@@ -341,12 +341,21 @@ public abstract class PoemServlet extends ConfigServlet {
       }
       if (parts.length >= 4) {
         it.table = parts[1];
-        it.method = parts[3];
         try {
           it.troid = new Integer (parts[2]);
         }
         catch (NumberFormatException e) {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
+        }
+        if (parts.length == 4) {
+          it.method = parts[3];
+        } else {
+          String pathInfo = melati.getRequest().getPathInfo();
+          pathInfo = pathInfo.substring(1);
+          for (int i = 0; i< 3; i++) {
+            pathInfo = pathInfo.substring(pathInfo.indexOf("/") + 1);
+          }          
+          it.method = pathInfo;
         }
       }
     }
@@ -394,6 +403,17 @@ public abstract class PoemServlet extends ConfigServlet {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
         }
       }
+        if (parts.length == 3) {
+          it.method = parts[2];
+        } else {
+          String pathInfo = melati.getRequest().getPathInfo();
+          pathInfo = pathInfo.substring(1);
+          for (int i = 0; i< 2; i++) {
+            pathInfo = pathInfo.substring(pathInfo.indexOf("/") + 1);
+          }          
+          it.method = pathInfo;
+        }
+
     }
     return it;
   }

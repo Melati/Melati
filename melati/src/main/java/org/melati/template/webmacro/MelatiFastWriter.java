@@ -71,7 +71,8 @@ public class MelatiFastWriter extends MelatiWriter {
       throws IOException {
     // need to make this accessable to subcalsses
     outputStream = output;
-    out = new FastWriter(output, encoding);
+//    out = new FastWriter(output, encoding);
+    out = FastWriter.getInstance(output, encoding);
   }
 
   public FastWriter getPeer() {

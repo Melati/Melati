@@ -51,6 +51,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -77,7 +78,7 @@ public class JTemplaterTemplateEngine implements TemplateEngine
   /**
    * Inititialise the Engine
    */
-  public void init() throws TemplateEngineException {
+  public void init(MelatiConfig config) throws TemplateEngineException {
     try {
       jt = new JTemplater();
     } catch (Exception e) {
@@ -129,8 +130,7 @@ public class JTemplaterTemplateEngine implements TemplateEngine
       return new JTemplaterTemplate
       (jt.getTemplate(templateName,JTemplaterTemplateContext.getClazz()));
     } catch (Exception e) {
-      throw new NotFoundException("I couldn't get the template: " +
-      templateName + " because: " +e.toString());
+      throw new NotFoundException(e);
     }
   }
 

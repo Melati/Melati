@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE web-app
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+  "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+  <!-- ============================================================= -->
+  <!--  A simple Servlet 2.2 setup for Melati                        -->
+  <!--                                                               -->
+  <!-- $Date$                                  -->
+  <!-- $Author$                                               -->
+  <!--                                                               -->
+  <!-- ============================================================= -->
+<web-app>
+
+  <display-name>Melati</display-name>
+
+<!-- Register every servlet used in the site -->
+<!-- I don't like this -->
+
+  <servlet>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <servlet-class>org.melati.admin.Admin</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
+    <servlet-class>org.melati.poem.SessionAnalysisServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
+    <servlet-class>org.melati.test.ConfigServletTest</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <servlet-class>org.melati.test.ConfigServletTestOverride</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <servlet-class>org.melati.test.PoemServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.TemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <servlet-class>org.melati.test.FlushingServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <servlet-class>org.melati.test.WebmacroMelatiServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <servlet-class>org.melati.test.WebmacroStandalone</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <servlet-class>org.melati.login.Login</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <servlet-class>org.melati.login.Logout</servlet-class>
+  </servlet>
+  
+<!-- examples/contacts setup -->
+  <servlet>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <servlet-class>org.melati.example.contacts.Search</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <servlet-class>org.melati.example.contacts.ContactView</servlet-class>
+  </servlet>
+
+<!-- Now map them to URLs -->
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Admin/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Admin</servlet-name>
+    <url-pattern>/Admin/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.poem.SessionAnalysisServlet</servlet-name>
+    <url-pattern>/melati/org.melati.poem.SessionAnalysisServlet/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.ConfigServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.ConfigServletTestOverride</servlet-name>
+    <url-pattern>/melati/org.melati.test.ConfigServletTestOverride/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.PoemServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.TemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.FlushingServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.FlushingServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroMelatiServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroMelatiServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.test.WebmacroStandalone</servlet-name>
+    <url-pattern>/melati/org.melati.test.WebmacroStandalone/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Login</servlet-name>
+    <url-pattern>/melati/org.melati.login.Login/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.login.Logout</servlet-name>
+    <url-pattern>/melati/org.melati.login.Logout/*</url-pattern>
+  </servlet-mapping>
+
+<!-- examples/contacts setup -->
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.Search</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.Search/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>org.melati.example.contacts.ContactView</servlet-name>
+    <url-pattern>/melati/org.melati.example.contacts.ContactView/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
-  <property name="build.compiler"     value="jikes"/>
+  <property name="build.compiler"     value="modern"/>
   <property name="this.root"          value="../../../"/>
   <property name="build.lib"          value="./lib"/>
   <property name="built"              value="dist"/>

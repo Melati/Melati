@@ -870,9 +870,9 @@ public class Table implements Selectable {
   void uncacheContents() {
     cache.iterate(invalidator);
     serial.invalidate();
-    TableListener[] listeners = this.listeners;
-    for (int l = 0; l < listeners.length; ++l)
-      listeners[l].notifyUncached(this);
+    TableListener[] listenersLocal = this.listeners;
+    for (int l = 0; l < listenersLocal.length; ++l)
+      listenersLocal[l].notifyUncached(this);
   }
 
   void trimCache(int maxSize) {
@@ -909,9 +909,9 @@ public class Table implements Selectable {
   void notifyTouched(PoemTransaction transaction, Persistent persistent) {
     serial.increment(transaction);
 
-    TableListener[] listeners = this.listeners;
-    for (int l = 0; l < listeners.length; ++l)
-      listeners[l].notifyTouched(transaction, this, persistent);
+    TableListener[] listenersLocal = this.listeners;
+    for (int l = 0; l < listenersLocal.length; ++l)
+      listenersLocal[l].notifyTouched(transaction, this, persistent);
   }
 
   /**
@@ -1151,13 +1151,13 @@ public class Table implements Selectable {
   public Enumeration troidSelection(String whereClause, String orderByClause,
                                     boolean includeDeleted)
       throws SQLPoemException {
-    CachedSelection allTroids = this.allTroids;
-    if (allTroids != null &&
+    CachedSelection allTroidsLocal = this.allTroids;
+    if (allTroidsLocal != null &&
         (whereClause == null || whereClause.equals("")) &&
         (orderByClause == null || orderByClause.equals("") ||
         orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
         !includeDeleted)
-      return allTroids.troids();
+      return allTroidsLocal.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
                             PoemThread.transaction());
@@ -1534,10 +1534,10 @@ public class Table implements Selectable {
    * @see #clearColumnInfoCaches()
    */
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
-    Column[] columns = this.columns;
+    Column[] columnsLocal = this.columns;
     boolean hadOne = false;
-    for (int c = 0; c < columns.length; ++c) {
-      Column column = columns[c];
+    for (int c = 0; c < columnsLocal.length; ++c) {
+      Column column = columnsLocal[c];
       Object raw = column.getRaw_unsafe(persistent);
       if (raw != null) { //FIXME you can't search for NULLs ...
         if (hadOne)
@@ -1547,7 +1547,7 @@ public class Table implements Selectable {
 
         String columnSQL = column.fullQuotedName();
         if (column.getType() instanceof StringPoemType) {
-          clause.append( 
+          clause.append(
             dbms().caseInsensitiveRegExpSQL(
                   columnSQL,
                   column.getSQLType().quotedRaw(raw)));
@@ -2006,8 +2006,10 @@ public class Table implements Selectable {
       // we were performing it.
       synchronized (cachedSelections) {
         them = (CachedSelection)cachedSelections.get(key);
-        if (them == null)
-          cachedSelections.put(key, them = newThem);
+        if (them == null) {
+          cachedSelections.put(key, newThem);
+          them = newThem;
+        }
       }
     }
     return them;
@@ -2073,8 +2075,10 @@ public class Table implements Selectable {
       }
       synchronized (cachedCounts) {
         it = (CachedCount)cachedCounts.get(whereClause);
-        if (it == null)
-          cachedCounts.put(whereClause, it = newIt);
+        if (it == null) {
+          cachedCounts.put(whereClause, newIt);
+          it = newIt;
+        }
       }
     }
     return it;
@@ -2093,8 +2097,10 @@ public class Table implements Selectable {
           new CachedExists(this, whereClause);
       synchronized (cachedExists) {
         it = (CachedExists)cachedExists.get(whereClause);
-        if (it == null)
-          cachedExists.put(whereClause, it = newIt);
+        if (it == null) {
+          cachedExists.put(whereClause, newIt);
+          it = newIt;
+        }
       }
     }
     return it;

@@ -37,6 +37,10 @@
     <target name="prepare" depends="init">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.jar.dir}"/>
+        <copydir src="${src.java.dir}" dest="${build.dir}"
+            includes="**/*.properties"
+            filtering="on"/>
+
     </target>
 
     <!-- =================================================================== -->
@@ -58,7 +62,7 @@
     <target name="jar" depends="compile">
         <jar jarfile="${build.jar.dir}/${final.name}.jar"
             basedir="${build.dest}"
-            includes="**/*.class"
+            includes="**/*.class **/*.properties"
         />
     </target>
     
@@ -91,7 +95,7 @@
     <target name="jarODMGPlaying" depends="compileODMGPlaying">
         <jar jarfile="${build.jar.dir}/${final.name}.jar"
             basedir="${build.dest}"
-            includes="**/*.class"
+            includes="**/*.class **/*.properties"
         />
     </target>
     

@@ -17,7 +17,7 @@ public class PlayingTest
     Transaction tx = org.melati.poem.odmg.ODMGFactory.getNewTransaction(db);
     tx.begin();
 
-    DCollection parents = (DCollection) db.lookup("Parent");
+    DCollection parents = (DCollection) db.lookup("parent");
 
     Parent p = new Parent();
     p.setName("parent-"+parents.size());

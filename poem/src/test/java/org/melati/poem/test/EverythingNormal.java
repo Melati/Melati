@@ -47,3 +47,4 @@ public class EverythingNormal extends EverythingNormalBase {
 
   // programmer's domain-specific code here
 }
+

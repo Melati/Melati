@@ -1107,3 +1107,4 @@ public abstract class EAExtendedBase extends EverythingAbstract {
     return new Field(c.getRaw(this), c);
   }
 }
+

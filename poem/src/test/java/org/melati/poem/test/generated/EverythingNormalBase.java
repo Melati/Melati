@@ -1055,3 +1055,4 @@ public abstract class EverythingNormalBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

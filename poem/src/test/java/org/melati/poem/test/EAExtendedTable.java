@@ -61,3 +61,4 @@ public class EAExtendedTable extends EAExtendedTableBase {
 
   // programmer's domain-specific code here
 }
+

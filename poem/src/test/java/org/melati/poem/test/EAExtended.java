@@ -56,3 +56,4 @@ public class EAExtended extends EAExtendedBase {
 
   // programmer's domain-specific code here
 }
+

@@ -1040,3 +1040,4 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
     return 80;
   }
 }
+

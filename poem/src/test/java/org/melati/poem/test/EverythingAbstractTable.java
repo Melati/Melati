@@ -52,3 +52,4 @@ public class EverythingAbstractTable extends EverythingAbstractTableBase {
 
   // programmer's domain-specific code here
 }
+

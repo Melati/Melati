@@ -9,3 +9,4 @@ public interface TestDatabaseTables extends TestDatabaseTablesBase {
   // programmer's domain-specific code here
 }
 
+

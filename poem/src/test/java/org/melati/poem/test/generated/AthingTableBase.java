@@ -296,3 +296,4 @@ public class AthingTableBase extends Table {
     return 40;
   }
 }
+

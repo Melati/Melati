@@ -233,3 +233,4 @@ public abstract class AthingBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

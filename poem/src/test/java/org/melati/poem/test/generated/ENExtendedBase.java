@@ -1006,3 +1006,4 @@ public abstract class ENExtendedBase extends EverythingNormal {
     return new Field(c.getRaw(this), c);
   }
 }
+

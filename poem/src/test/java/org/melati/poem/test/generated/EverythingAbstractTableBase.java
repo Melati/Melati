@@ -895,3 +895,4 @@ public class EverythingAbstractTableBase extends Table {
     return 50;
   }
 }
+

@@ -36,3 +36,4 @@ public class EmptyAbstractTable extends EmptyAbstractTableBase {
 
   // programmer's domain-specific code here
 }
+

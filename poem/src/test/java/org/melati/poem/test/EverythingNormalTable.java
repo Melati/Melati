@@ -53,3 +53,4 @@ public class EverythingNormalTable extends EverythingNormalTableBase {
 
   // programmer's domain-specific code here
 }
+

@@ -45,3 +45,4 @@ public abstract class EmptyAbstractTableBase extends Persistent {
 
   // Fields in this table 
 }
+

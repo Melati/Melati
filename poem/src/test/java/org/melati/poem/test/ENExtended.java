@@ -54,3 +54,4 @@ public class ENExtended extends ENExtendedBase {
 
   // programmer's domain-specific code here
 }
+

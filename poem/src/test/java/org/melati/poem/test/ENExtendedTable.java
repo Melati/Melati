@@ -60,3 +60,4 @@ public class ENExtendedTable extends ENExtendedTableBase {
 
   // programmer's domain-specific code here
 }
+

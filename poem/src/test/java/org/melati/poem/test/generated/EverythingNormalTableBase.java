@@ -992,3 +992,4 @@ public class EverythingNormalTableBase extends Table {
     return 50;
   }
 }
+

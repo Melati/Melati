@@ -38,3 +38,4 @@ public class Athing extends AthingBase {
 
   // programmer's domain-specific code here
 }
+

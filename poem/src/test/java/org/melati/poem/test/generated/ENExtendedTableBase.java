@@ -943,3 +943,4 @@ public class ENExtendedTableBase extends EverythingNormalTable {
     return 70;
   }
 }
+

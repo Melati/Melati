@@ -108,3 +108,4 @@ public class EmptyAbstractTableTableBase extends Table {
     return 50;
   }
 }
+

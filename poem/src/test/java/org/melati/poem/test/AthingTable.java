@@ -44,3 +44,4 @@ public class AthingTable extends AthingTableBase {
 
   // programmer's domain-specific code here
 }
+

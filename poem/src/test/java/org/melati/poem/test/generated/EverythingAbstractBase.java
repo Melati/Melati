@@ -954,3 +954,4 @@ public abstract class EverythingAbstractBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

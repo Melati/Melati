@@ -46,3 +46,4 @@ public class EverythingAbstract extends EverythingAbstractBase {
 
   // programmer's domain-specific code here
 }
+

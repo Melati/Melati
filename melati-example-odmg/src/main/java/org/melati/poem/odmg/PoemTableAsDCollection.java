@@ -51,7 +51,34 @@ class PoemTableAsDCollection implements org.odmg.DCollection
     return new EnumerationIterator(_wrappedTable.selection());
   }
 
+  /** returns all objects that meet the query
+  * NOTE: Passes the query string directly to poem
+  */
+  public Iterator select(String queryString) 
+  {
+    return new EnumerationIterator(_wrappedTable.selection(queryString));
+  }
 
+  public Object selectElement(String queryString) 
+  {
+    Iterator iter = select(queryString);
+    if (iter.hasNext())
+      return iter.next();
+    return null;
+  }
+
+// the following have not been implemented - yet...
+  public org.odmg.DCollection query(String queryString) { throw new org.odmg.NotImplementedException(); }
+  public Object[] toArray(Object[] obj) { throw new org.odmg.NotImplementedException(); }
+  public Object[] toArray() { throw new org.odmg.NotImplementedException(); }
+  public boolean existsElement(String obj) { throw new org.odmg.NotImplementedException(); }
+  public boolean contains(Object obj) { throw new org.odmg.NotImplementedException(); }
+  public boolean addAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
+  public boolean containsAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
+  public boolean retainAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
+  public void clear() { throw new org.odmg.NotImplementedException(); }
+
+/** utility class for converting enumerations into iterators */
 private class EnumerationIterator implements Iterator
 {
   private Enumeration _enum = null;
@@ -65,16 +92,5 @@ private class EnumerationIterator implements Iterator
   public void remove() { throw new org.odmg.NotImplementedException(); }
 }
 
-// the following have not been implemented - yet...
-  public org.odmg.DCollection query(String queryString) { throw new org.odmg.NotImplementedException(); }
-  public Object[] toArray(Object[] obj) { throw new org.odmg.NotImplementedException(); }
-  public Object[] toArray() { throw new org.odmg.NotImplementedException(); }
-  public boolean existsElement(String obj) { throw new org.odmg.NotImplementedException(); }
-  public Object selectElement(String queryString) { throw new org.odmg.NotImplementedException(); }
-  public boolean contains(Object obj) { throw new org.odmg.NotImplementedException(); }
-  public boolean addAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public boolean containsAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public boolean retainAll(Collection coll) { throw new org.odmg.NotImplementedException(); }
-  public Iterator select(String queryString) { throw new org.odmg.NotImplementedException(); }
-  public void clear() { throw new org.odmg.NotImplementedException(); }
+
 }

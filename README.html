@@ -67,8 +67,8 @@
     the following improvements over Alpha versions of Melati:</p>
   <ul>
     <li>Integration with Maven</li>
-    <li>WebMacro templates bundled and readable from within teh .jar</li>    
-    <li>Support for MySQL, MckoiDB, HSQLDB, MSSQL</li>
+    <li>WebMacro templates bundled and readable from within the .jar</li>    
+    <li>Support for MySQL, MckoiDB, HSQLDB, MSSQL, Oracle</li>
     <li>Support for JSDK 2.0, 2.1, 2.2, 2.3 (Tomcat)</li>
     <li>Support for <a href="http://jakarta.apache.org/velocity/">Velocity</a></li>
     <li>DSDs can now be imported into other DSDs</li>
@@ -82,7 +82,7 @@
     <li>Precompiled (javac) melati.jar</li>
     <li>Ant build script</li>
     <li>Mailing list hosted on SourceForge</li>
-    <li>More documentation (this document).</li>
+    <li>More documentation.</li>
     <li>Support for <a href="http://eclipse.org/">Eclipse</a></li>
     <li>Maven validation and <a href="http://maven.melati.org/">site</a> generation </li>
     <li>Dual ASF / GPL licensing.</li>
@@ -93,6 +93,19 @@
   <h2 id="Upgrading" name="Upgrading">Upgrading</h2>
   </a> 
 
+  <h3>To upgrade from Melati 0.7.1 to Melati 0.7.3</h3>
+  <ol>
+    <li> 
+      <p>
+       This release refactors the source tree so you should change 
+       <tt>melati-static</tt> to point to <tt>...melati/src/main/org/melati</tt>
+      </p>
+      <p>
+       You can now use webmacro templates inside the Melati jar, so
+       have no need for a duplicate set of templates outside the jar.
+      </p>
+    </li>
+  </ol>
   <h3>To upgrade from Melati 0.7.0 to Melati 0.7.1</h3>
   <ol>
     <li> 

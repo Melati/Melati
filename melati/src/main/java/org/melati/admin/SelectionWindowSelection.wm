@@ -51,9 +51,9 @@
 <HEAD>
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 <!--
-function popupupdate (returnfield,id,value) {
-parent.opener.popupupdate(parent,returnfield,id,value)
-}
+	function popupupdate (returnfield,id,value) {
+	parent.opener.popupupdate(parent,returnfield,id,value)
+	}
 -->
 </SCRIPT>
 </HEAD>

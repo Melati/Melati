@@ -43,6 +43,13 @@
 #     The password associated with the username.  Depending on your
 #     access policy, `*' may well work fine.
 
+org.melati.LogicalDatabase.chippy.class=org.melati.playing.DSDImport.importboards.ImportboardsDatabase
+org.melati.LogicalDatabase.chippy.dbmsclass=org.melati.poem.dbms.Postgresql
+org.melati.LogicalDatabase.chippy.url=jdbc:postgresql:chippy
+org.melati.LogicalDatabase.chippy.user=postgres
+org.melati.LogicalDatabase.chippy.pass=*
+org.melati.LogicalDatabase.chippy.maxtransactions=4
+
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
 org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
@@ -56,4 +63,5 @@ org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
 org.melati.LogicalDatabase.contacts.user=postgres
 org.melati.LogicalDatabase.contacts.pass=*
 org.melati.LogicalDatabase.contacts.maxtransactions=4
+
 

@@ -75,6 +75,16 @@ public class Persistent extends Transactioned implements Cloneable {
   private boolean
       knownCanRead = false, knownCanWrite = false, knownCanDelete = false;
 
+  /**
+   * Might this object have as yet unsaved modifications?
+   * <p>
+   * This is set to true when a write lock is obtained and this
+   * happens when a value is assigned to a column, except when an
+   * "unsafe" method is used.
+   * <p>
+   * It is set to false when this is written to the database,
+   * even if not yet committed.
+   */
   boolean dirty = false;
 
   private static final int NONEXISTENT = 0, EXISTENT = 1, DELETED = 2;
@@ -142,9 +152,17 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   protected boolean upToDate(Transaction transaction) {
-    return true;
+    return false;
   }
 
+  /**
+   * Write the persistent to the database if this might be necessary.
+   * <p>
+   * It may be necessary if field values have been set since we last
+   * did a write i.e. this persistent is dirty.
+   * It will not be necessary if this persistent is deleted.
+   * An exception will occur if it does not exist in the database.
+   */
   protected void writeDown(Transaction transaction) {
     if (status != DELETED) {
       assertNotFloating();
@@ -1084,6 +1102,7 @@ public class Persistent extends Transactioned implements Cloneable {
       refEnumerations.addElement(
           fix.referencesTo(this, column, column.selectionWhereEq(troid()),
                            integrityFixOfColumn));
+
     }
 
     Enumeration refs = new FlattenedEnumeration(refEnumerations.elements());
@@ -1242,31 +1261,63 @@ public class Persistent extends Transactioned implements Cloneable {
     }
   }
 
-  // override it to provide functionality subsequent to writes (or inserts), 
-  // your persistent will have a Troid at this stage
-  // this method is only called once!
-
-  /*
+  /**
    * Called after this persistent is written to the database
-   * (i.e. after it is has created or modified and put into the db).
-   *
-   * It is called after postInsert() or postModify()
+   * on being inserted or modified.
+   * <p>
+   * This is called after postInsert() or postModify().
+   * <p>
+   * This is low level and there is a limit to what you can
+   * do here without causing infinitely recursive calls.
    */
   public void postWrite() {
   }
 
-  /*
-   * Called after this persistent is inserted, i.e. written to the database
-   * for the first time
+  /**
+   * Called after this persistent is written to the database
+   * for the first time.
+   * <p>
+   * This is low level and there is a limit to what you can
+   * do here without causing infinitely recursive calls.
    */
   public void postInsert() {
   }
 
-  /*
-   * Called after this persistent is modified, i.e. written to the database
-   * but _not_ for the first time
+  /**
+   * Called after this persistent is updated and written to the
+   * database replacing the existing record it represents.
+   * <p>
+   * Not called when it is written to the database for the
+   * first time.
+   * <p>
+   * This is low level and there is a limit to what you can
+   * do here without causing infinitely recursive calls.
    */
   public void postModify() {
+  }
+
+  /**
+   * Optionally called after this instance is edited by
+   * a user.
+   * <p>
+   * Unlike {@link #postModify()} and {@link #postInsert()} this
+   * is not called during
+   * {@link #writeDown(Transaction)} but can be called by
+   * applications such as {@link org.melati.admin#Admin} after
+   * individual field edits by the user have been reflected in
+   * the instance.
+   * <p>
+   * This is a higher level method than {@link #postModify()}
+   * so is less likely to lead to infinite recursion or other
+   * such problems.
+   * <p>
+   * Sorry for the lack of signature consistency with the
+   * lower level methods but I got tired of having to call
+   * my own application specific common method.
+   *
+   * @param creating Are we in the process of creating a new record?
+   */
+  public void postEdit(boolean creating) {
   }
 
   // 

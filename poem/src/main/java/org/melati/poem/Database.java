@@ -74,6 +74,7 @@ abstract public class Database implements TransactionPool {
 
   private Connection committedConnection;
   private final Lock lock = new Lock();
+  private long structureSerial = 0L;
 
   private Vector tables = new Vector();
   private Hashtable tablesByName = new Hashtable();
@@ -351,13 +352,13 @@ abstract public class Database implements TransactionPool {
   // 
 
   /**
-   * The number of transactions available for concurrent use on the database.  This
-   * is the number of JDBC <TT>Connection</TT>s opened when the database was
-   * <TT>connect</TT>ed, currently simply fixed at five.
+   * The number of transactions available for concurrent use on the database.
+   * This is the number of JDBC <TT>Connection</TT>s opened when the database
+   * was <TT>connect</TT>ed, currently simply fixed at five.
    */
 
-  // ¡AbstractVersionedObject depends on this staying constant!, because overflows
-  // of its `versions' array are not trapped
+  // ¡AbstractVersionedObject depends on this staying constant!, because
+  // overflows of its `versions' array are not trapped
 
   public final int transactionsMax() {
     return 5;
@@ -370,15 +371,16 @@ abstract public class Database implements TransactionPool {
   // 
 
   /**
-   * Get a transaction for exclusive use.  It's simply taken off the freelist, to
-   * be put back later.
+   * Get a transaction for exclusive use.  It's simply taken off the freelist,
+   * to be put back later.
    */
 
   private PoemTransaction openTransaction() {
     synchronized (freeTransactions) {
       if (freeTransactions.size() == 0)
         throw new NoMoreTransactionsException();
-      PoemTransaction transaction = (PoemTransaction)freeTransactions.lastElement();
+      PoemTransaction transaction =
+	  (PoemTransaction)freeTransactions.lastElement();
       freeTransactions.setSize(freeTransactions.size() - 1);
       return transaction;
     }
@@ -516,7 +518,7 @@ abstract public class Database implements TransactionPool {
    * @see User
    */
 
-  public void inSession(AccessToken accessToken, final PoemTask task) {
+  public void inSession(AccessToken accessToken, PoemTask task) {
     perform(accessToken, task, false);
   }
 
@@ -531,7 +533,7 @@ abstract public class Database implements TransactionPool {
    * @see #inSession
    */
 
-  public void inCommittedTransaction(AccessToken accessToken, final PoemTask task) {
+  public void inCommittedTransaction(AccessToken accessToken, PoemTask task) {
     perform(accessToken, task, true);
   }
 
@@ -564,14 +566,14 @@ abstract public class Database implements TransactionPool {
    * All the tables in the database.
    *
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s, in no particular
-   *         order.  FIXME it ought to be display order.
+   *         order.
    */
 
   public final Enumeration tables() {
     return tables.elements();
   }
 
-  public final Enumeration getDisplayTables() {
+  public Enumeration getDisplayTables() {
     Table[] displayTables = this.displayTables;
 
     if (displayTables == null) {
@@ -601,7 +603,7 @@ abstract public class Database implements TransactionPool {
    * @see #getTableInfoTable
    */
 
-  final Table tableWithTableInfoID(int tableInfoID) {
+  Table tableWithTableInfoID(int tableInfoID) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Table table = (Table)t.nextElement();
       Integer id = table.tableInfoID();
@@ -612,7 +614,7 @@ abstract public class Database implements TransactionPool {
     return null;
   }
 
-  final Column columnWithColumnInfoID(int columnInfoID) {
+  Column columnWithColumnInfoID(int columnInfoID) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Column column =
           ((Table)t.nextElement()).columnWithColumnInfoID(columnInfoID);
@@ -719,8 +721,8 @@ abstract public class Database implements TransactionPool {
    * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
    * that it bypasses the access control mechanism.  Furthermore, the cache
    * will be left out of sync with the database and must be cleared out
-   * (explicitly, manually) after the currently transaction has been committed or
-   * completed.
+   * (explicitly, manually) after the currently transaction has been committed
+   * or completed.
    *
    * @see Table#selection()
    * @see Table#selection(java.lang.String)
@@ -729,8 +731,8 @@ abstract public class Database implements TransactionPool {
    */
 
   public int sqlUpdate(String sql) throws SQLPoemException {
-    // FIXME this relies on the one-thread-per-transaction thing, else needs more
-    // syncing
+    // FIXME this relies on the one-thread-per-transaction thing, else needs
+    // more syncing
 
     PoemTransaction transaction = PoemThread.transaction();
     transaction.writeDown();
@@ -753,6 +755,9 @@ abstract public class Database implements TransactionPool {
   // 
 
   private boolean dbGivesCapability(User user, Capability capability) {
+
+    // FIXME use a prepared statement
+
     String sql = 
         "SELECT count(*) FROM groupmembership " +
         "WHERE \"user\" = " + user.troid() + " AND " +
@@ -1034,6 +1039,11 @@ abstract public class Database implements TransactionPool {
   void endStructuralModification() {
     for (int t = 0; t < tables.size(); ++t)
       ((Table)tables.elementAt(t)).uncacheContents();
+    ++structureSerial;
     endExclusiveLock();
+  }
+
+  long structureSerial() {
+    return structureSerial;
   }
 }

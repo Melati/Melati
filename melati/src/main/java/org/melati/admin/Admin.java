@@ -84,6 +84,7 @@ import org.melati.poem.ValidationPoemException;
 
 import org.melati.util.EnumUtils;
 import org.melati.util.MappedEnumeration;
+import org.melati.util.StringUtils;
 
 /**
  * FIXME getting a bit big, wants breaking up
@@ -114,6 +115,24 @@ public class Admin extends TemplateServlet {
   protected String mainTemplate(TemplateContext context) {
     context.put("database", PoemThread.database());
     return adminTemplate(context, "Main");
+  }
+
+  // return a DSD for the database
+
+  protected String dsdTemplate(TemplateContext context) {
+    context.put("database", PoemThread.database());
+    // Webmacro security prevents access from within template
+
+    // Note: getPackage() can return null dependant upon 
+    // the classloader so we have to chomp the class name
+
+    String  c = PoemThread.database().getClass().getName();
+    int dot = c.lastIndexOf('.');
+    String p = c.substring(0,dot);
+
+    context.put("package", p);
+    context.put("stringutils", new StringUtils());
+    return adminTemplate(context, "DSD");
   }
 
   // return top template
@@ -670,6 +689,8 @@ public class Admin extends TemplateServlet {
     else {
       if (melati.getMethod().equals("Main"))
         return mainTemplate(context);
+      if (melati.getMethod().equals("DSD"))
+        return dsdTemplate(context);
       if (melati.getMethod().equals("Top"))
         return topTemplate(context);
       if (melati.getMethod().equals(METHOD_CREATE_TABLE))
@@ -685,3 +706,6 @@ public class Admin extends TemplateServlet {
     throw new InvalidUsageException(this, melati.getContext());
   }
 }
+
+
+

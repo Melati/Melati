@@ -1,0 +1,154 @@
+##
+## $Source$
+## $Revision$
+##
+## Copyright (C) 2002 Tim Pizey
+##
+## Part of Melati (http://melati.org), a framework for the rapid
+## development of clean, maintainable web applications.
+##
+## Melati is free software; Permission is granted to copy, distribute
+## and/or modify this software under the terms either:
+##
+## (a) the GNU General Public License as published by the Free Software
+##    Foundation; either version 2 of the License, or (at your option)
+##    any later version,
+##
+##    or
+##
+## (b) any version of the Melati Software License, as published
+##    at http://melati.org
+##
+## You should have received a copy of the GNU General Public License and
+## the Melati Software License along with this program;
+## if not, write to the Free Software Foundation, Inc.,
+## 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+## GNU General Public License and visit http://melati.org to obtain the
+## Melati Software License.
+##
+## Feel free to contact the Developers of Melati (http://melati.org),
+## if you would like to work out a different arrangement than the options
+## outlined here.  It is our intention to allow Melati to be used by as
+## wide an audience as possible.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## Contact details for copyright holder:
+##
+##     Tim Pizey <timpc@paneris.org>
+##
+#set $Response.ContentType = "text/plain"
+## We don't have a TextMarkupLanguage as yet
+#set $ml = $melati.HTMLMarkupLanguage
+/*
+ * DSD for $database ($database.Class.Name)
+ * 
+ *  Generated for $melati.getUser()
+ * 
+ */
+
+package $(package);
+
+#foreach $table in $database.getDisplayTables()
+ #if ($table.Class.Name.indexOf($package) == 0) #begin
+
+//   $table
+//   $table.Class.Name
+table $stringutils.capitalised($table.Name)
+
+
+#foreach $field in $table.getInfo().getFields()
+#set $infoFieldClass = $field.getType().getClass().getName()
+#if($field.getRaw() == null) #begin
+  // ($field.getName() = null)
+#end #else #begin
+#if ($field.getName() == "id") #begin #end
+#else #begin
+#if ($field.getName() == "name") #begin #end
+#else #begin
+#if($infoFieldClass.equals("org.melati.poem.StringPoemType")) #begin
+  ($field.getName() = "$field.getCooked()")
+#end #else #begin
+#if($field.getName().equals("category")) #begin
+  ($field.getName() = "$ml.rendered($field)")
+#end #else #begin
+#if($infoFieldClass.equals("org.melati.poem.BooleanPoemType")) #begin
+#if ($field.getRaw().toString().equals("true")) #begin 
+  ($field.getName())
+#end #else #begin
+  // Not $field.getName()
+#end 
+#end #else #begin
+  ($field.getName() = $ml.rendered($field))
+#end
+#end
+#end
+#end
+#end
+#end
+#end
+{
+
+  #foreach $column in $table.columns()
+
+    //$column 
+    $column.getType().toDsdType() $column.getName()
+
+#if ($column.isTroidColumn()) #begin
+          (primary)
+#end
+#foreach $field in $column.getColumnInfo().getDsdQualifiers()
+#set $infoFieldClass = $field.getType().getClass().getName()
+#if($field.getRaw() == null) #begin
+      // ($field.getName() = null)
+#end #else #begin
+#if ($field.getName() == "size") #begin 
+#if ($field.getRaw() == -1) #begin
+      ($field.getName() = unlimited)
+#end #else #begin
+      ($field.getName() = $ml.rendered($field))
+#end
+#end #else #begin
+#if($infoFieldClass.equals("org.melati.poem.StringPoemType")) #begin
+      ($field.getName() = "$field.getCooked()")
+#end #else #begin
+#if($infoFieldClass.equals("org.melati.poem.BooleanPoemType")) #begin
+#if ($field.getName().equals("usereditable")) #begin
+#if ($field.getRaw().toString().equals("true")) #begin 
+      // $field.getName()
+#end #else #begin
+      (uneditable)
+#end 
+#end #else #begin
+#if ($field.getName().equals("usercreateable")) #begin
+#if ($field.getRaw().toString().equals("true")) #begin 
+      // $field.getName()
+#end #else #begin
+      (uncreateable)
+#end 
+#end #else #begin
+#if ($field.getRaw().toString().equals("true")) #begin 
+      ($field.getName())
+#end #else #begin
+      // Not $field.getName()
+#end 
+#end
+#end
+#end #else #begin
+      ($field.getName() = $ml.rendered($field))
+#end
+#end
+#end
+#end
+#end
+      ;
+#end
+}
+
+#end
+#end
+
+

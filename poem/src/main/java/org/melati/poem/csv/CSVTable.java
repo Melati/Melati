@@ -127,8 +127,12 @@ public class CSVTable {
 
  /**
   * Parse the CSV data file and store the data for saving later.
-  */
-  public void load() throws IOException, CSVParseException {
+  * 
+   * @param writeOnFly whether to commit each line to db as we go
+   * @throws IOException if there is a file system problem
+   * @throws CSVParseException if the is a malformed field in the CSV
+   */
+  public void load(boolean writeOnFly) throws IOException, CSVParseException {
 
     BufferedReader reader = new BufferedReader(new FileReader(data));
     CSVFileParser parser = new CSVFileParser(reader);
@@ -157,7 +161,10 @@ public class CSVTable {
       while(null != (record = parseRecord(parser, data.getPath()))) {
         record.lineNo = lineNo++;
         record.recordNo = recordNo++;
-        records.addElement(record);
+        if (writeOnFly)
+          record.makePersistent();
+        else 
+          records.addElement(record);
       }
 
     }
@@ -238,21 +245,16 @@ public class CSVTable {
   }
 
  /**
-  * Write the records to the database.
+  * Write the records to the database, 
+  * called if we are not writing each record to db as we go.
   */
   public void writeRecords() 
       throws NoPrimaryKeyInCSVTableException,  CSVWriteDownException {
     for (int i = 0; i < records.size(); i++) {
-      try {
       ((CSVRecord)records.elementAt(i)).makePersistent();
-      } catch (NoPrimaryKeyInCSVTableException e1) {
-        throw e1;
-      } catch (Exception e) {
-        e.printStackTrace(System.err);
-        throw new CSVWriteDownException (table.getName(),i+2,e);
-      }
     }
   }
+  
 
   /**
    * Lookup the Persistent corresponding to the CSV record

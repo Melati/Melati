@@ -117,7 +117,8 @@ public class CSVRecord extends Vector {
             throw new RuntimeException("Problem processing column " + 
                 col.poemName + 
                 " of table " + 
-                table.getName() + 
+                table.getName() +
+                " on line " + lineNo + 
                 " value :" + csvValue + 
                 ": " + e.toString());
           }
@@ -131,7 +132,9 @@ public class CSVRecord extends Vector {
               " for column " + 
               col.poemName + 
               " of table " + 
-              table.getName() );
+              table.getName() +
+              " on line " + lineNo 
+              );
         }
         newObj.setCooked(col.poemName, lookup);
       }

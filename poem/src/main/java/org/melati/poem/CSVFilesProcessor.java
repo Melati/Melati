@@ -105,6 +105,9 @@ public class CSVFilesProcessor {
    * <p>
    * Write a report of the progress to the Writer.
    *
+   * @param writeOnFly flag whether to write down to db when all files read in 
+   *        if set then it is the programmers responsibility to ensure that 
+   *        there are no references to yet to be created fields 
    * @param emptyTables flag whether to remove remains from last run
    * @param recordDetails flag passed in to table.report 
    * @param fieldDetails flag passed in to table.report
@@ -114,26 +117,16 @@ public class CSVFilesProcessor {
    * @throws NoPrimaryKeyInCSVTableException not thrown
    * @throws CSVWriteDownException thrown when a persistent cannot be created
    */
-  public void process(boolean emptyTables,
+  public void process(boolean writeOnFly, 
+                      boolean emptyTables,
                       boolean recordDetails,
                       boolean fieldDetails,
                       Writer output)
       throws IOException, CSVParseException,
       NoPrimaryKeyInCSVTableException, CSVWriteDownException {
 
-    // Load in data
-    for(int i = 0; i < tables.size(); i++) {
-      CSVTable t = ((CSVTable)tables.elementAt(i));
-      t.load();
-      output.write("Loaded table :" + t.getName() + "\n");
-      System.err.println("Loaded table :" +  t.getName());
-    }
-
-    output.write("Loaded files\n");
     output.write("Trying to get exclusive lock on the database\n");
-
     db.beginExclusiveLock();
-
     output.write("Got exclusive lock on the database!!!\n");
 
     // Delete all records from the tables, if necessary
@@ -150,12 +143,24 @@ public class CSVFilesProcessor {
     output.write("Emptied all tables\n");
     System.err.println("Emptied all tables");
 
+
+    // Load in data
+    for(int i = 0; i < tables.size(); i++) {
+      CSVTable t = ((CSVTable)tables.elementAt(i));
+      t.load(writeOnFly);
+      output.write("Loaded table :" + t.getName() + "\n");
+      System.err.println("Loaded table :" +  t.getName());
+    }
+    output.write("Loaded files\n");
+    
+    
     // We must have loaded in all the data before we
     // try writing records, otherwise Foreign Key lookups
     // defined in this set of CSVs won't work
-    writeData(output);
-
-    output.write("Written records\n");
+    if (! writeOnFly) {
+      writeData(output);
+      output.write("Written records\n");
+    }
 
     db.endExclusiveLock();
 

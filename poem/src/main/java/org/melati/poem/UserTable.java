@@ -112,7 +112,7 @@ public class UserTable extends UserTableBase {
 
     guestUser = (User)newPersistent();
     guestUser.setLogin_unsafe("_guest_");
-    guestUser.setPassword_unsafe("");
+    guestUser.setPassword_unsafe("guest"); //Oracle bug means '' is null
     guestUser.setName_unsafe("Melati guest user");
 
     administratorUser = (User)newPersistent();

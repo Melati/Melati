@@ -63,7 +63,7 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
 
   public String handle( Melati melati, WebContext context ) 
   throws WebMacroException {
-    return "test/WebmacroMelatiServletTest";
+    return "test/WebmacroMelatiServletTest.wm";
   }
 
 /*

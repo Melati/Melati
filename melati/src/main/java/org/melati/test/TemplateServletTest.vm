@@ -1,7 +1,7 @@
 #set( $Response.ContentType = "text/html" )
 #set( $ml = $melati.HTMLMarkupLanguage )
 #if( $Form.passback )
-#set( $onVariableException = $melati.PassbackVariableExceptionHandler )
+ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 #end
 <HTML>
 <HEAD>
@@ -36,9 +36,9 @@ $nonexistant
 </p>
 #end
 
-#if( $Form.passback || $Form.propagate )
+#if ( $Form.passback || $Form.propagate )
 <p>You have tried to access a RestrictedAccessObject but:<br>
-<p>$RestrictedAccessObject.getAccessPoemException()</p>
+<p>$ml.rendered($RestrictedAccessObject.AccessPoemException)</p>
 #end
 
 You can test how the PropagateVariableExceptionHandler handles "normal" template expansion exceptions by clicking <a href=?nonexistant=true>?nonexistant=true</a>.<br>

@@ -62,6 +62,7 @@ parent.opener.popupupdate(parent,returnfield,id,value)
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
 #if ($results) #begin
+<form>
 #if ($results.PrevPageStart) #begin
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="<< Prev" ONCLICK="location.href='SelectionWindowSelection?start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>#end
 <b><FONT face="Arial, Helvetica" size=-1>Records $results.PageStart to $results.PageEnd of
@@ -72,7 +73,7 @@ $results.TotalCount</b>
 #if ($results.NextPageStart) #begin
 <FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
 #end
-
+</form>
   <TABLE CELLSPACING=0 cellpadding=0 border=0 width=100%>
     <TR>
 	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>

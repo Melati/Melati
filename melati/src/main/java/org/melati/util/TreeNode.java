@@ -56,7 +56,6 @@ public class TreeNode {
     int depth;
     protected TreeNode parent = null;
     private TreeNode[] children = null;
-    private boolean checkedForParent = false;
     private boolean checkedForChildren = false;
     
     public TreeNode(Treeable n, int d) {

@@ -95,7 +95,6 @@ public class CapabilityTable extends CapabilityTableBase {
 
   // programmer's domain-specific code here
 
-  private static final Object nullEntry = new Object();
   private Capability administer;
 
   Capability administer() {

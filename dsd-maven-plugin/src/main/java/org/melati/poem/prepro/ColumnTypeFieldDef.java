@@ -110,8 +110,8 @@ public class ColumnTypeFieldDef extends FieldDef {
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
 
-    String targetTableAccessorMethod = "get" + type + "Table";
-    String targetSuffix = type;
+    //String targetTableAccessorMethod = "get" + type + "Table";
+    //String targetSuffix = type;
 
     w.write(
       "\n /**\n"

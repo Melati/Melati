@@ -458,8 +458,8 @@ public class Admin extends TemplateServlet {
         orderColumnID =
             (Integer)searchColumnsType.rawOfString(orderColumnIDString);
         // This is not used but 
-        ColumnInfo info =
-            (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
+        //ColumnInfo info =
+        //    (ColumnInfo)searchColumnsType.cookedOfRaw(orderColumnID);
       }
 
       orderings.addElement(
@@ -510,7 +510,6 @@ public class Admin extends TemplateServlet {
       throws PoemException {
 
     final ColumnInfoTable cit = melati.getDatabase().getColumnInfoTable();
-    final Column tic = cit.getTableinfoColumn();
     final Column typeColumn = cit.getTypefactoryColumn();
 
     Enumeration columnInfoFields =

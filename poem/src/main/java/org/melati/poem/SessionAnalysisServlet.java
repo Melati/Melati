@@ -55,7 +55,6 @@ import javax.servlet.ServletException;
 
 import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
-import org.melati.MelatiConfig;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -74,7 +73,6 @@ public class SessionAnalysisServlet extends ConfigServlet {
   protected void doConfiguredRequest(Melati melati)
                               throws ServletException, IOException {
 
-    MelatiConfig config = melati.getConfig();
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
     Date now = new Date();

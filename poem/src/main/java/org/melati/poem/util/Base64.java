@@ -140,7 +140,7 @@ public final class Base64 {
       byte ptext;
       byte sixbits;
       int ppos = 0; 
-      int epos = 0;
+//      int epos = 0;
       boolean cutShort = false;
       while (ppos < plain.length) {
          // first char: upper 6 bytes

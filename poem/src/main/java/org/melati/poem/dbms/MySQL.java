@@ -107,7 +107,7 @@ import java.sql.Types;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import org.melati.poem.User;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
@@ -261,7 +261,7 @@ public class MySQL extends AnsiStandard {
 
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
-      ResultSetMetaData rsmd= md.getMetaData();
+      //ResultSetMetaData rsmd= md.getMetaData();
 
       //I leave case as Postgres driver has it.
 

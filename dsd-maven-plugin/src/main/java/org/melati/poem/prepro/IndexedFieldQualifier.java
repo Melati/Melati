@@ -47,7 +47,6 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 import java.io.IOException;
-import java.util.Vector;
 
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
@@ -58,7 +57,7 @@ import java.util.Vector;
 public class IndexedFieldQualifier extends FieldQualifier {
 
   protected boolean unique = false;
-  private Vector withs = new Vector();
+//  private Vector withs = new Vector();
 
  /**
   * Constructor.

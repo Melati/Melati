@@ -47,7 +47,7 @@ package org.melati.poem.dbms;
 import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import org.melati.poem.User;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
@@ -128,7 +128,7 @@ public class Mckoi extends AnsiStandard {
 
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
-      ResultSetMetaData rsmd= md.getMetaData();
+//      ResultSetMetaData rsmd= md.getMetaData();
 
       if( md.getString("TYPE_NAME").equals("NUMERIC") )
         return new DoublePoemType(md.getInt("NULLABLE")==

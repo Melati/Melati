@@ -73,7 +73,7 @@ public class MultipartFormField {
   public static final long GIGABYTE = 1024 * 1024 * 1024;
 
   /** The path to a local file */
-  private File localFile = null;
+  //private File localFile = null;
 
   /** The url to this file */
   String url = null;

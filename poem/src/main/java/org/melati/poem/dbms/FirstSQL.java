@@ -127,7 +127,7 @@ public class FirstSQL extends AnsiStandard {
 */
     try {
       Class.forName("COM.FirstSQL.Dbcp.DbcpDriver");
-      java.sql.Connection connect1, connect2;
+      java.sql.Connection connect1;
       java.util.Properties info;
       info = new java.util.Properties();
       //info.put("user", "demo");

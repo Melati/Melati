@@ -47,7 +47,7 @@ package org.melati.poem.dbms;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
+//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import org.melati.poem.BooleanPoemType;
@@ -105,7 +105,7 @@ public class Hsqldb extends AnsiStandard {
 
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) 
       throws SQLException {
-    ResultSetMetaData rsmd = md.getMetaData();
+    //ResultSetMetaData rsmd = md.getMetaData();
 
     if (md.getString("TYPE_NAME").equals("BIT"))
       return new HsqldbBooleanPoemType(

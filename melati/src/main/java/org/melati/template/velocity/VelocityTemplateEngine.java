@@ -76,7 +76,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
    * This is the string that is looked for when getInitParameter is
    * called.
    */
-  private static final String INIT_PROPS_KEY = "velocity.properties";
+//  private static final String INIT_PROPS_KEY = "velocity.properties";
 
   /**
    * Construct a new Engine.

@@ -93,6 +93,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   private AccessHandler accessHandler = null;
   private TempletLoader templetLoader = null;
   private String javascriptLibraryURL = null;
+  private String staticURL = null;
   private MelatiLocale locale = MelatiLocale.here;
 
   /**
@@ -426,7 +427,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
                   context.put("melati",
                               new Melati(context, database, melatiContext,
                                          locale(), templetLoader(),
-					 javascriptLibraryURL()));
+					 javascriptLibraryURL(), staticURL()));
                   context.put(Variable.EXCEPTION_HANDLER,
                               PropagateVariableExceptionHandler.it);
                   _this.superDoRequest(context);
@@ -465,6 +466,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     return javascriptLibraryURL;
   }
 
+  protected String staticURL() {
+    return staticURL;
+  }
+
   protected MelatiLocale locale() {
     return locale;
   }
@@ -486,6 +491,7 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     String accessHandlerProp = pref + "accessHandler";
     String templetLoaderProp = pref + "templetLoader";
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
+    String staticURLProp = pref + "staticURL";
 
     try {
       configuration =
@@ -506,13 +512,15 @@ public abstract class MelatiServlet extends MelatiWMServlet {
       templetLoader = (TempletLoader)PropertiesUtils.instanceOfNamedClass(
 	  configuration, templetLoaderProp, "org.melati.templets.TempletLoader",
 	  "org.melati.templets.ClassNameTempletLoader");
+
+      javascriptLibraryURL = PropertiesUtils.getOrDie(configuration,
+						      javascriptLibraryURLProp);
+
+      staticURL = PropertiesUtils.getOrDie(configuration,
+					   staticURLProp);
     }
     catch (Exception e) {
       throw new ServletException(e.toString());
     }
-
-    javascriptLibraryURL = (String)configuration.get(javascriptLibraryURLProp);
-    if (javascriptLibraryURL == null)
-      javascriptLibraryURL = "";
   }
 }

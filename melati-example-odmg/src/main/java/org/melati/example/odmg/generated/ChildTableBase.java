@@ -2,23 +2,21 @@
 
 package org.melati.example.odmg.generated;
 
-
+import org.melati.example.odmg.Child;
+import org.melati.example.odmg.OdmgDatabaseTables;
+import org.melati.example.odmg.Parent;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Column;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
-import org.melati.poem.Column;
-import org.melati.poem.Persistent;
 import org.melati.poem.Field;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.ValidationPoemException;
-import org.melati.poem.Table;
-import org.melati.example.odmg.OdmgDatabaseTables;
-
-import org.melati.example.odmg.Child;
-import org.melati.example.odmg.Parent;
-import org.melati.poem.StringPoemType;
 import org.melati.poem.ReferencePoemType;
+import org.melati.poem.StringPoemType;
+import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
+import org.melati.poem.ValidationPoemException;
 
 
 /**
@@ -29,6 +27,7 @@ import org.melati.poem.TroidPoemType;
  *   parent
  *
  */
+
 public class ChildTableBase extends Table {
 
   private Column col_id = null;

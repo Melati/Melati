@@ -3,15 +3,14 @@
 package org.melati.example.odmg.generated;
 
 
+import org.melati.example.odmg.OdmgDatabaseTables;
+import org.melati.example.odmg.ParentTable;
+import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
-import org.melati.poem.AccessPoemException;
 import org.melati.poem.ValidationPoemException;
 
-
-import org.melati.example.odmg.ParentTable;
-import org.melati.example.odmg.OdmgDatabaseTables;
 
 /**
  * Melati POEM generated base class for persistent Parent.

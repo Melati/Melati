@@ -2,7 +2,6 @@
 
 package org.melati.example.odmg.generated;
 
-
 // 12 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;
@@ -21,15 +20,15 @@ import org.melati.example.odmg.ChildTable;
  */
 public interface OdmgDatabaseTablesBase {
 
-UserTable getUserTable();
-GroupTable getGroupTable();
-CapabilityTable getCapabilityTable();
-GroupMembershipTable getGroupMembershipTable();
-GroupCapabilityTable getGroupCapabilityTable();
-TableCategoryTable getTableCategoryTable();
-TableInfoTable getTableInfoTable();
-ColumnInfoTable getColumnInfoTable();
-SettingTable getSettingTable();
-ParentTable getParentTable();
-ChildTable getChildTable();
+  UserTable getUserTable();
+  GroupTable getGroupTable();
+  CapabilityTable getCapabilityTable();
+  GroupMembershipTable getGroupMembershipTable();
+  GroupCapabilityTable getGroupCapabilityTable();
+  TableCategoryTable getTableCategoryTable();
+  TableInfoTable getTableInfoTable();
+  ColumnInfoTable getColumnInfoTable();
+  SettingTable getSettingTable();
+  ParentTable getParentTable();
+  ChildTable getChildTable();
 }

@@ -77,6 +77,7 @@ usage:
    ant compile        compile all sources
    ant jar            build the melati.jar
    ant war            build the melati.war
+   ant zip            build the melati zips
    ant javadoc        create javadoc for the distribution package
    ant site           create website http://www.melati.org/
    ant run            run Jetty

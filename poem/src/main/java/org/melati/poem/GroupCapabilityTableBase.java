@@ -3,6 +3,7 @@
 package org.melati.poem;
 
 import java.util.*;
+import java.sql.Date;
 import org.melati.util.*;
 
 public class GroupCapabilityTableBase extends Table {
@@ -23,6 +24,7 @@ public class GroupCapabilityTableBase extends Table {
   }
 
   protected void init() throws PoemException {
+    super.init();
     defineColumn(col_id =
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)

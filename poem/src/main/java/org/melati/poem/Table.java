@@ -1751,6 +1751,6 @@ public class Table {
     }
   }
 
-  void init() {
+  protected void init() {
   }
 }

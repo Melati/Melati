@@ -52,7 +52,7 @@ import org.melati.poem.Capability;
 
 public class RestrictedAccessObject {
 
-public RestrictedAccessObject(){};
+  public RestrictedAccessObject() {}
 
   public String getAccessPoemException() throws AccessPoemException {
     Capability admin = PoemThread.database().administerCapability();

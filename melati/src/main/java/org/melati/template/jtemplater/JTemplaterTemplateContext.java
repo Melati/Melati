@@ -90,8 +90,7 @@ public class JTemplaterTemplateContext implements TemplateContext {
     return c.getClass();
   }
 
-  public void setVariableExceptionHandler(Object veh) {};
-
+  public void setVariableExceptionHandler(Object veh) {}
 }
 
 

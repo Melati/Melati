@@ -65,7 +65,7 @@ import org.webmacro.util.Settings;
 public class PassbackEvaluationExceptionHandler 
   implements EvaluationExceptionHandler {
 
-    public void init(Broker b, Settings config) {};
+  public void init(Broker b, Settings config) {}
 
   public void evaluate(Variable variable, 
                         Context context, 

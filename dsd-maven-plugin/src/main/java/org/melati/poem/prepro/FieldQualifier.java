@@ -42,6 +42,8 @@ public abstract class FieldQualifier {
       it = new SummaryHiddenFieldQualifier(tokens);
     else if (kind.equals("criterionhidden"))
       it = new CriterionHiddenFieldQualifier(tokens);
+    else if (kind.equals("compareonly"))
+      it = new CompareOnlyFieldQualifier(tokens);
     else
       throw new ParsingDSDException("<field qualifier>", tokens);
     return it;

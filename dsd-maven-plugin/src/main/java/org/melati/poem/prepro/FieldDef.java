@@ -32,6 +32,7 @@ public abstract class FieldDef {
   boolean searchcriterion = true;
   boolean isIndexed = false;
   boolean isUnique = false;
+  boolean isCompareOnly = false;
 
   public FieldDef(TableDef table, String name,
                   String type, String identType,
@@ -106,10 +107,10 @@ public abstract class FieldDef {
 
   public void generateFieldCreator(Writer w) throws IOException {
     w.write("  public final Field get" + suffix + "Field() " +
-                  "throws AccessPoemException {\n" +
-            "    return " + tableAccessorMethod + "()." +
-                    "get" + suffix + "Column().asField(this);\n" +
-            "  }\n");
+		  "throws AccessPoemException {\n" +
+	    "    return " + tableAccessorMethod + "()." +
+		    "get" + suffix + "Column().asField(this);\n" +
+	    "  }\n");
   }
 
   public abstract void generateJavaDeclaration(Writer w) throws IOException;

@@ -371,7 +371,7 @@ public class Melati {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendRelativeZoneURL(url, getRequest());
     url.append('/');
-    url.append(config.logoutPageServletClassName());
+    url.append(MelatiConfig.logoutPageServletClassName());
     url.append('/');
     url.append(context.getLogicalDatabase());
     return url.toString();

@@ -303,6 +303,11 @@ public class HttpServletRequestCompat {
 
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
+   *
+   * If you get compile errors for this method, it's probably because (a) you
+   * are compiling against the 2.0 servlet API and (b) you have not obtained
+   * our stub <TT>RequestDispatcher.java</TT> along with the Melati
+   * distribution, which is provided to help you out here.
    */
 
   public static RequestDispatcher getRequestDispatcher(HttpServletRequest it, String arg) {

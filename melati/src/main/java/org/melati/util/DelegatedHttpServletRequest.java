@@ -196,6 +196,14 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   public Enumeration getLocales() {
     return HttpServletRequestCompat.getLocales(peer);
   }
+
+  /**
+   * If you get compile errors for this method, it's probably because (a) you
+   * are compiling against the 2.0 servlet API and (b) you have not obtained
+   * our stub <TT>RequestDispatcher.java</TT> along with the Melati
+   * distribution, which is provided to help you out here.
+   */
+
   public RequestDispatcher getRequestDispatcher(String arg) {
     return HttpServletRequestCompat.getRequestDispatcher(peer, arg);
   }

@@ -38,7 +38,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##	   Samuel Goldstein <samuel@1969.ws>
+##     Samuel Goldstein <samuel@1969.ws>
 ##     http://www.1969.ws
 ##     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
 ##
@@ -49,5 +49,5 @@
 <SCRIPT LANGUAGE=JavaScript1.2>
   add_fixed_number("field_$ml.escaped($field.Name)",
              "$ml.escaped($field.DisplayName)",
-	     !$field.Type.Nullable,2)
+             !$field.Type.Nullable,2)
 </SCRIPT>

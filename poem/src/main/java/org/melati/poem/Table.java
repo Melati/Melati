@@ -71,7 +71,7 @@ import org.melati.util.CachedIndexFactory;
 import org.melati.poem.dbms.Dbms;
 
 /**
- *  A Table.
+ * A Table.
  *
  * @todo Allow selection based on null fields
  * @todo See FIXMEs
@@ -98,6 +98,7 @@ public class Table {
   private Column troidColumn = null;
   private Column deletedColumn = null;
   private Column canReadColumn = null;
+  private Column canSelectColumn = null;
   private Column canWriteColumn = null;
   private Column canDeleteColumn = null;
   private Column displayColumn = null;
@@ -350,14 +351,14 @@ public class Table {
                 }
               }))) {
             public Object mapped(Object column) {
-              String sort = ((Column)column).quotedName();
+              String sort = ((Column)column).fullQuotedName();
               if (((Column)column).getSortDescending()) sort += " desc";
               return sort;
             }
           });
 
       if (clause.equals(""))
-        clause = displayColumn().quotedName();
+        clause = displayColumn().fullQuotedName();
 
       defaultOrderByClause = clause;
     }
@@ -948,36 +949,57 @@ public class Table {
   // -----------
   // 
 
+  /**
+   * Return an SQL SELECT statement put together from the arguments,
+   * and the default from and order by clauses. 
+   * 
+   * @deprecated Your app cannot call this but conceivably overrides
+   * it, in which case it may not work with this release!
+   */
   String selectionSQL(String whereClause, String orderByClause,
                       boolean includeDeleted) {
-    if (deletedColumn != null && !includeDeleted)
-      whereClause =
-          (whereClause == null || whereClause.equals("") ?
-               "" : "(" + whereClause + ") AND ") +
-          "NOT " + deletedColumn.getName();
-
-    if (orderByClause == null) 
-      orderByClause = defaultOrderByClause();
-
-    // FIXME must work in some kind of limit
-      
-    return
-        "SELECT " + troidColumn.quotedName() +
-        " FROM " + quotedName() +
-        (whereClause == null || whereClause.equals("") ?
-             "" : " WHERE " + whereClause) +
-        // actually orderByClause is never null (since fallback is id)
-        (orderByClause == null || orderByClause.equals("") ?
-             "" : " ORDER BY " + orderByClause);
+    return selectionSQL(null, whereClause, orderByClause,
+                        includeDeleted, true);
   }
 
+  /**
+   * Return an SQL SELECT statement put together from the arguments and
+   * default order by clause.
+   * <p>
+   * The from clause has been added as an argument because it is
+   * inextricably linked to the when clause, but the default is 
+   * {@link #quotedName()}.
+   * <p>
+   * This is public for debugging purposes (delete this line if you use it).
+   *
+   * @param fromClause Comma separated list of table names or null for default.
+   * @todo Should work within some kind of limit
+   */
+  public String selectionSQL(
+      String fromClause, String whereClause, String orderByClause,
+      boolean includeDeleted, boolean cannotSelect) {
+    return selectOrCountSQL(troidColumn().fullQuotedName(),
+                            fromClause, whereClause, orderByClause,
+                            includeDeleted, cannotSelect);
+  }
+
+  /**
+   * @param transaction null now defaults to {@link PoemThread#transaction()} but
+   * we do not rely on this much yet.
+   */
   private ResultSet selectionResultSet(
-      String whereClause, String orderByClause, boolean includeDeleted,
+      String fromClause, String whereClause, String orderByClause,
+      boolean includeDeleted, boolean cannotDelete,
       PoemTransaction transaction)
           throws SQLPoemException {
 
-    String sql = selectionSQL(whereClause, orderByClause, includeDeleted);
-            
+    String sql = selectionSQL(fromClause, whereClause, orderByClause,
+                              includeDeleted, cannotDelete);
+
+    if (transaction == null) {
+      transaction = PoemThread.transaction();
+    }
+
     try {
       Connection connection;
       if (transaction == null)
@@ -1005,14 +1027,36 @@ public class Table {
   public Enumeration troidSelection(
       String whereClause, String orderByClause,
       boolean includeDeleted, PoemTransaction transaction) {
-    ResultSet them = selectionResultSet(whereClause, orderByClause,
-                                        includeDeleted, transaction);
-    return
-        new ResultSetEnumeration(them) {
-          public Object mapped(ResultSet rs) throws SQLException {
-            return new Integer(rs.getInt(1));
-          }
-        };
+    return troidsFrom(selectionResultSet(null, whereClause, orderByClause,
+                                         includeDeleted, true,
+                                         transaction));
+  }
+
+  /**
+   * Return a selection of troids given arguments specifying a query.
+   *
+   * @see #troidSelection(String, String, boolean, PoemTransaction)
+   * @param criteria Represents selection criteria possibly on joined tables
+   * @param transaction A transaction or null for {@link PoemThread#transaction()}
+   */
+  public Enumeration troidSelection(Persistent criteria, String orderByClause,
+                                    boolean includeDeleted, boolean cannotSelect,
+                                    PoemTransaction transaction) {
+    return troidsFrom(selectionResultSet(criteria.fromClause(), whereClause(criteria),
+                                         orderByClause,
+                                         includeDeleted, cannotSelect,
+                                         transaction));
+  }
+
+  /**
+   * Return an enumeration of troids given a result set.
+   */
+  private Enumeration troidsFrom(ResultSet them) {
+    return new ResultSetEnumeration(them) {
+        public Object mapped(ResultSet rs) throws SQLException {
+          return new Integer(rs.getInt(1));
+        }
+      };
   }
 
   protected void rememberAllTroids(boolean flag) {
@@ -1072,7 +1116,7 @@ public class Table {
    */
 
   public Enumeration selection() throws SQLPoemException {
-    return selection(null, null, false);
+    return selection((String)null, (String)null, false);
   }
 
   /**
@@ -1124,13 +1168,32 @@ public class Table {
    public Enumeration selection(String whereClause, String orderByClause,
                                 boolean includeDeleted)
       throws SQLPoemException {
-    return
-        new MappedEnumeration(troidSelection(whereClause, orderByClause,
-                                             includeDeleted)) {
-          public Object mapped(Object troid) {
-            return getObject((Integer)troid);
-          }
-        };
+     return objectsFromTroids(troidSelection(whereClause, orderByClause,
+                                             includeDeleted));
+  }
+
+  /**
+   * Return a selection of rows given arguments specifying a query.
+   *
+   * @see #selection(String, String, boolean)
+   * @param criteria Represents selection criteria possibly on joined tables
+   */
+   public Enumeration selection(Persistent criteria, String orderByClause,
+                                boolean includeDeleted, boolean cannotSelect)
+     throws SQLPoemException {
+     return objectsFromTroids(troidSelection(criteria, orderByClause,
+                                             includeDeleted, cannotSelect, null));
+   }
+
+  /**
+   * Return an enumeration of objects given an enumeration of troids.
+   */
+  private Enumeration objectsFromTroids(Enumeration troids) {
+    return new MappedEnumeration(troids) {
+        public Object mapped(Object troid) {
+          return getObject((Integer)troid);
+        }
+      };
   }
 
   /**
@@ -1155,22 +1218,177 @@ public class Table {
         pageStart, pageSize, cachedCount(whereClause, includeDeleted).count());
   }
 
-  String countSQL(String whereClause) {
-    return "SELECT count(*) FROM " + quotedName() +
-        (whereClause == null || whereClause.equals("") ? "" :
-             " WHERE " + whereClause);
+  /**
+   * Return pages of selected rows given arguments specifying a query.
+   *
+   * @see #selection(String, String, boolean, int, int)
+   * @param criteria Represents selection criteria possibly on joined tables
+   */
+  public PageEnumeration selection(Persistent criteria, String orderByClause, 
+      boolean includeDeleted, boolean cannotSelect, int pageStart, int pageSize)
+          throws SQLPoemException {
+    return new CountedDumbPageEnumeration(
+        selection(criteria, orderByClause, includeDeleted, cannotSelect),
+        pageStart, pageSize,
+        cachedCount(criteria, includeDeleted, cannotSelect).count());
   }
 
+  String countSQL(String whereClause) {
+    return countSQL(null, whereClause, false, true);
+  }
+
+  /**
+   * Return an SQL statement to count rows put together from the arguments.
+   * <p>
+   * This is consistent with
+   * {@link #selectionSQL(String, String, String, boolean, boolean)}.
+   * <p>
+   * Temporarily public for debugging purposes.
+   *
+   * @param fromClause Comma separated list of table names or null just this
+   * table.
+   */
+  public String countSQL(String fromClause, String whereClause,
+                         boolean includeDeleted, boolean cannotSelect) {
+    return selectOrCountSQL("count(*)", fromClause, whereClause, "",
+                            includeDeleted, cannotSelect);
+  }
+
+  /**
+   * Return an SQL SELECT statement for selecting or counting rows.
+   *
+   * @param fromClause Comma separated list of table names or null for default.
+   * @param orderByClause null for default, can be empty for counts
+   */
+  private String selectOrCountSQL(
+      String selectClause,
+      String fromClause,
+      String whereClause,
+      String orderByClause,
+      boolean includeDeleted,
+      boolean cannotSelect) {
+
+    if (fromClause == null) {
+      fromClause = quotedName();
+    }
+
+    String result = "SELECT " + selectClause + " FROM " + fromClause;
+
+    whereClause = appendWhereClauseFilters(whereClause, includeDeleted, cannotSelect);
+
+    if (whereClause.length() > 0) {
+      result += " WHERE " + whereClause;
+    }
+
+    if (orderByClause == null) {
+      orderByClause = defaultOrderByClause();
+    }
+
+    // assert orderByClause != null : "Default orderByClause is ID";
+    if (orderByClause.trim().length() > 0) {
+      result += " ORDER BY " + orderByClause;
+    }
+
+    return result;
+  }
+
+  /**
+   * Optionally add where clause expressions to filter out deleted/
+   * unselectable rows and ensure an "empty" where clause is
+   * indeed an empty string.
+   * <p>
+   * This is an attempt to treat "delete" and "can select" columns
+   * consistently. But I believe that there is an important difference
+   * in that unselectable rows must be considered when ensuring integrity.
+   * So <code>cannotSelect</code> should default to <code>true</code>
+   * and is only specified when selecting rows.
+   * <p>
+   * Despite the name this does not user a <code>StringBuffer</code>.
+   * in the belief that the costs outweigh the benefits here.
+   */
+  private String appendWhereClauseFilters(String whereClause,
+                                          boolean includeDeleted,
+                                          boolean cannotSelect) {
+    if (whereClause == null || whereClause.trim().length() == 0) {
+      whereClause = "";
+    } else {
+      // We could skip this if both the flags are true, or in
+      // more complicated circumstances, but what for?
+      whereClause = "(" + whereClause + ")";
+    }
+
+    if (deletedColumn != null && ! includeDeleted) {
+      if (whereClause.length() > 0) {
+        whereClause += " AND ";
+      }
+      whereClause += "NOT " + deletedColumn.getName();
+    }
+
+    if (! cannotSelect) {
+      String s = whereCanSelectClause();
+      if (s != null) {
+        if (whereClause.length() >  0) {
+          whereClause += " AND ";
+        }
+        whereClause += s;
+      }
+    }
+
+    return whereClause;
+  }
+
+  /**
+   * Return a where clause suffix that filters out rows that cannot
+   * be selected, or null.
+   * <p>
+   * By default the result is null unless there is a canselect column.
+   * But in that case an SQL EXISTS() expression is used, which will
+   * not yet work for all dbmses - sorry.
+   *
+   * @return null or a non-empty boolean SQL expression that can be
+   * appended with AND to a parenthesised prefix.
+   */
+  private String whereCanSelectClause() {
+    Column canSelect = canSelectColumn();
+    AccessToken accessToken = PoemThread.sessionToken().accessToken;
+    if (canSelect == null || accessToken instanceof RootAccessToken) {
+      return null;
+    } else if (accessToken instanceof User) {
+      return "(" +
+        canSelect.fullQuotedName() + " IS NULL OR EXISTS( SELECT 1 FROM " +
+        quotedName() +
+        ", " +
+        database.getGroupCapabilityTable().quotedName() +
+        ", " +
+        database.getGroupMembershipTable().quotedName() +
+        " WHERE " +
+        database.getGroupMembershipTable().getUserColumn().fullQuotedName() +
+        " = " +
+        ((User)accessToken).getId() +
+        " AND " +
+        database.getGroupMembershipTable().getGroupColumn().fullQuotedName() +
+        " = " +
+        database.getGroupCapabilityTable().getGroupColumn().fullQuotedName() +
+        " AND " +
+        database.getGroupCapabilityTable().getCapabilityColumn().fullQuotedName() +
+        " = " +
+        canSelect.fullQuotedName() +
+        "))";
+    } else {
+      return canSelect.fullQuotedName() + " IS NULL";
+    }
+  }
+
+  public int count(String whereClause,
+                   boolean includeDeleted, boolean cannotSelect)
+      throws SQLPoemException {
+    return count(appendWhereClauseFilters(whereClause,
+                                          includeDeleted, cannotSelect));
+  }
 
   public int count(String whereClause, boolean includeDeleted)
       throws SQLPoemException {
-
-    if (deletedColumn != null && !includeDeleted)
-      whereClause =
-          (whereClause == null || whereClause.equals("") ?
-               "" : "(" + whereClause + ") AND ") +
-          "NOT " + deletedColumn.getName();
-    return count(whereClause);
+    return count(whereClause, includeDeleted, true);
   }
 
   public int count(String whereClause)
@@ -1208,12 +1426,19 @@ public class Table {
 
   /**
    * Append an SQL logical expression to the given buffer to match rows
-   * according to the non-null fields of the given object.
+   * according to criteria represented by the given object.
+   * <p>
+   * This default selects rows for which the non-null fields in the
+   * given object match, but subtypes may add other criteria.
    * <p>
    * The column names are now qualified with the table name so that
-   * subtypes can append elements of a join.
+   * subtypes can append elements of a join but there is no filtering
+   * by canselect columns.
    * 
-   * @todo Add mechanism for searching for Nulls
+   * @todo Add mechanism for searching for Nulls (that would be query
+   * constructs as per SQL parse tree, but efferent not afferent JimW)
+   * @todo Decide whether this and similar should be here or in
+   * {@link Persistent} then deprecate etc.
    *
    * @see #notifyColumnInfo(ColumnInfo)
    * @see #clearColumnInfoCaches()
@@ -1246,13 +1471,49 @@ public class Table {
     }
   }
 
-  public String whereClause(Persistent persistent) {
-    StringBuffer clause = new StringBuffer();
-    appendWhereClause(clause, persistent);
-    return clause.toString();
+  /**
+   * Return an SQL WHERE clause to select rows that match the non-null
+   * fields of the given object.
+   * <p>
+   * This does not filters out any rows with a capability the user
+   * does not have in a canselect column, nor did it ever filter
+   * out rows deleted according to a "deleted" column.
+   * But the caller usually gets a second chance to do both.
+   */
+  public String whereClause(Persistent criteria) {
+    return whereClause(criteria, true, true);
   }
 
+  /**
+   * Return an SQL WHERE clause to select rows using the given object
+   * as as selection criteria and optionally deleted rows or those
+   * include rows the user is not capable of selecting.
+   * <p>
+   * This is currently implemented in terms of
+   * {@link Table#appendWhereClause(StringBuffer, Persistent)}.
+   */
+  public String whereClause(Persistent criteria,
+                            boolean includeDeleted, boolean cannotSelect) {
+    StringBuffer clause = new StringBuffer();
+    appendWhereClause(clause, criteria);
+    return appendWhereClauseFilters(clause.toString(),
+                                    includeDeleted, cannotSelect);
+  }
+
+  /**
+   * @see #cnfWhereClause(Enumeration, boolean, boolean)
+   * @see #whereClause(Persistent)
+   */
   public String cnfWhereClause(Enumeration persistents) {
+    return cnfWhereClause(persistents, false, true);
+  }
+
+  /**
+   * @todo Document this, particularly "cnf" and the fact that it does
+   * not work if any of the persistents produces an empty where clause.
+   */
+  public String cnfWhereClause(Enumeration persistents,
+                               boolean includeDeleted, boolean cannotSelect) {
     StringBuffer clause = new StringBuffer();
 
     boolean hadOne = false;
@@ -1266,7 +1527,8 @@ public class Table {
       clause.append(")");
     }
 
-    return clause.toString();
+    return appendWhereClauseFilters(clause.toString(),
+                                    includeDeleted, cannotSelect);
   }
 
   public boolean exists(Persistent persistent) {
@@ -1537,7 +1799,11 @@ public class Table {
   }
 
   final Column canReadColumn() {
-    return canReadColumn;
+    return canReadColumn == null ? canSelectColumn() : canReadColumn;
+  }
+
+  final Column canSelectColumn() {
+    return canSelectColumn;
   }
 
   final Column canWriteColumn() {
@@ -1644,20 +1910,34 @@ public class Table {
   }
 
   public CachedCount cachedCount(String whereClause, boolean includeDeleted) {
+    return cachedCount(whereClause, includeDeleted, true);
+  }
 
-    if (deletedColumn != null && !includeDeleted)
-      whereClause =
-          (whereClause == null || whereClause.equals("") ?
-               "" : "(" + whereClause + ") AND ") +
-          "NOT " + deletedColumn.getName();
-    return cachedCount(whereClause);
+  public CachedCount cachedCount(String whereClause,
+                                 boolean includeDeleted, boolean cannotSelect) {
+    return cachedCount(appendWhereClauseFilters(whereClause,
+                                                includeDeleted, cannotSelect));
+  }
+
+  public CachedCount cachedCount(Persistent criteria,
+                                 boolean includeDeleted, boolean cannotSelect) {
+    return cachedCount(whereClause(criteria, includeDeleted, cannotSelect),
+                       criteria);
   }
 
   public CachedCount cachedCount(String whereClause) {
+    return cachedCount(whereClause, (Persistent)null);
+  }
+
+  private CachedCount cachedCount(String whereClause, Persistent criteria) {
     CachedCount it = (CachedCount)cachedCounts.get(whereClause);
     if (it == null) {
-      CachedCount newIt =
-          new CachedCount(this, whereClause);
+      CachedCount newIt;
+      if (criteria == null) {
+        newIt = new CachedCount(this, whereClause);
+      } else {
+        newIt = new CachedCount(criteria, false, true);
+      }
       synchronized (cachedCounts) {
         it = (CachedCount)cachedCounts.get(whereClause);
         if (it == null)
@@ -1792,6 +2072,8 @@ public class Table {
             canWriteColumn = column;
           else if (column.getName().equals("candelete"))
             canDeleteColumn = column;
+          else if (column.getName().equals("canselect"))
+            canSelectColumn = column;
         }
       }
     }

@@ -152,7 +152,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
    */
 
   protected void forceLogin(HttpServletResponse resp,
-  String realm, String message) {
+                            String realm, String message) {
     String desc = realm == null ? "<unknown>" 
                                 : StringUtils.tr(realm, '"', ' ');
     resp.setHeader("WWW-Authenticate", "Basic realm=\"" + desc + "\"");
@@ -166,6 +166,12 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     }
   }
 
+ /**
+  * Called when an AccessPoemException is trapped.
+  * @param melati the Melati 
+  * @param accessException the particular access exception to handle
+  * @throws Exception if anything goes wrong
+  */
   public void handleAccessException(Melati melati, 
                                     AccessPoemException accessException)
       throws Exception {
@@ -199,7 +205,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
           !sessionUser.getLogin().equals(auth.username))
       try {
         user = (User)melati.getDatabase().getUserTable().getLoginColumn().
-        firstWhereEq(auth.username);
+                   firstWhereEq(auth.username);
       }
       catch (NoSuchRowPoemException e) {
         ; // user will still be null

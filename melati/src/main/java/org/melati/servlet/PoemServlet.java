@@ -79,6 +79,7 @@ import org.melati.util.StringUtils;
  * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>meth</I>
  * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>meth</I>
  * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>
+ * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>/<I>other</I>
  * </TT></BLOCKQUOTE>
  *
  * and the following components are broken out of the path info and passed to
@@ -131,6 +132,17 @@ import org.melati.util.StringUtils;
  *       A freeform string telling your servlet what it is meant to do.  This
  *       is automatically made available in templates as
  *       <TT>$melati.Method</TT>.
+ *     </TD>
+ *   </TR>
+ *   <TR>
+ *     <TD><TT><I>other</I></TT></TD>
+ *     <TD>
+ *       Any other information you wish to put in the pathinfo. This is useful,
+ *       for instance, if you wish to specify the &quot;filename&quot; of your
+ *       servlet. For instance, if you call
+ *       <TT>/db/myfiles/0/Download/afile.html</TT> and return a stream with
+ *       a content-type of <tt>application/octet-stream</tt> most browsers
+ *       will prompt you to save the &quot;file&quot; as <tt>afile.html</tt>
  *     </TD>
  *   </TR>
  * </TABLE>
@@ -277,7 +289,7 @@ public abstract class PoemServlet extends ConfigServlet
         it.table = parts[1];
         it.method = parts[2];
       }
-      if (parts.length == 4) {
+      if (parts.length >= 4) {
         it.table = parts[1];
         it.method = parts[3];
         try {
@@ -317,7 +329,7 @@ public abstract class PoemServlet extends ConfigServlet
         it.table = parts[0];
         it.method = parts[1];
       }
-      if (parts.length == 3) {
+      if (parts.length >= 3) {
         it.table = parts[0];
         it.method = parts[2];
         try {

@@ -54,7 +54,7 @@ import java.io.UnsupportedEncodingException;
  * for uploading files in multipart/form-data.
  * Tested on IE 5.0, HotJava 3.0, Netscape Navigator 4.x
  * @see <a href="http://www.ietf.org/rfc/rfc1867.txt">rfc1867</a>
- * @Author Vasily Pozhidaev <vasilyp@paneris.org>
+ * @author Vasily Pozhidaev <vasilyp@paneris.org>
  */
 public class MultipartFormField {
     private String contentDisposition="";

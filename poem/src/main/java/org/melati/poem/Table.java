@@ -370,7 +370,8 @@ public class Table {
 
     if (columns == null)
       displayColumns[level.index.intValue()] = columns =
-	  columnsWhere(database.quotedName("displaylevel") + " <= " + level.index);
+        columnsWhere(database.quotedName("displaylevel") + " <= " + 
+                                                         level.index);
 
     return new ArrayEnumeration(columns);
   }
@@ -431,7 +432,8 @@ public class Table {
     Column[] columns = searchColumns;
 
     if (columns == null)
-      searchColumns = columns = columnsWhere("searchability <= " +
+      searchColumns = columns = 
+         columnsWhere(database.quotedName("searchability") + " <= " +
 					     Searchability.yes.index);
 
     return new ArrayEnumeration(searchColumns);

@@ -61,7 +61,7 @@ public class Regression {
 
     final Database database = new PoemDatabase();
 
-    database.connect(new org.melati.poem.postgresql.jdbc2.Driver(),
+    database.connect("org.melati.poem.dbms.Postgresql",
 		     "jdbc:postgresql:" + dbName, "postgres", "*");
 
     // to test:

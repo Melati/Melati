@@ -1167,7 +1167,7 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   /**
-   * Create a new persistent like this one
+   * Create a new persistent like this one.
    * <p>
    * No assumptions are made about this object, so it could be
    * floating (i.e. NONEXISTENT meaning not in the database?).

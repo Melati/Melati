@@ -119,9 +119,12 @@ public class AdminUtils {
   }
 
   public String AddURL(Table table) throws AccessPoemException {
-    return
-    adminURL + "/" + logicalDatabase + "/" +
-    table.getAddURL();
+    String url = adminURL + "/" + logicalDatabase + "/";
+    if (table instanceof org.melati.poem.ColumnInfoTable) {
+      return url + "CreateColumn";
+    } else {
+      return url + table.getName() + "/Add";
+    }
   }
 
   public String PopupURL(Table table) {

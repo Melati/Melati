@@ -67,6 +67,13 @@ import org.melati.poem.TimestampPoemType;
  */
 public class SQLServer extends AnsiStandard {
   
+  /**
+   * SQL Server does not have a pleasant <code>TEXT</code> 
+   * datatype, so we use an arbetary value in a 
+   * <code>VARCHAR</code>.
+   */
+  public static final int sqlServerTextHack = 2333;
+
   public SQLServer() {
   //buggy
   //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
@@ -93,7 +100,7 @@ public class SQLServer extends AnsiStandard {
     return super.getQuotedName(name);
   }
 
-  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+  public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
     }
@@ -109,7 +116,7 @@ public class SQLServer extends AnsiStandard {
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { // Don't use TEXT as it doesn't support 
                       //indexing or comparison
-      return "VARCHAR(255)";
+      return "VARCHAR("+ sqlServerTextHack + ")";
     }
     return super.getStringSqlDefinition(size);
   }
@@ -125,13 +132,11 @@ public class SQLServer extends AnsiStandard {
     }
 
     // MSSQL returns metadata info size 2147483647 for its TEXT type
-    // We set size to 255 for our Text type
+    // We set size to sqlServerTextHack for our Text type
     protected boolean _canRepresent(SQLPoemType other) {
-      return
-        other instanceof StringPoemType &&
-              (getSize() < 0 || 
+      return  (getSize() < 0 || 
                getSize() == 2147483647 ||
-               getSize() == 255 || // HACK
+               getSize() == sqlServerTextHack || 
                getSize() >= ((StringPoemType)other).getSize());
     }
 
@@ -168,57 +173,57 @@ public class SQLServer extends AnsiStandard {
 
 
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-      throws SQLException {
+  throws SQLException {
 
-      /*
-    ResultSetMetaData rsmd = md.getMetaData();
-    int cols = rsmd.getColumnCount();
-    for (int i = 1; i <= cols; i++) {
-      String table = rsmd.getTableName(i);
-      System.err.println("table name: " + table);
-      String column = rsmd.getColumnName(i);
-      System.err.println("column name: " + column);
-      int type = rsmd.getColumnType(i);
-      System.err.println("type: " + type);
-      String typeName = rsmd.getColumnTypeName(i);
-      System.err.println("type Name: " + typeName);
-      String className = rsmd.getColumnClassName(i);
-      System.err.println("class Name: " + className);
-      System.err.println("String val: " + md.getString(i));
-      System.err.println("");
-    }
-      */
-    if(md.getString("TYPE_NAME").equals("text"))
-      return 
-          new MSSQLStringPoemType(md.getInt("NULLABLE")==
-                                      DatabaseMetaData.columnNullable, 
-                                  md.getInt("COLUMN_SIZE"));
-    // We use 255 as a magic number for text fields    
-    if(md.getString("TYPE_NAME").equals("varchar") && 
-        md.getInt("COLUMN_SIZE") == 255)
-      return 
-          new MSSQLStringPoemType(
-                  md.getInt("NULLABLE")== DatabaseMetaData.columnNullable, 
-                  md.getInt("COLUMN_SIZE"));
-    if(md.getString("TYPE_NAME").equals("char"))
-      return 
-          new StringPoemType(
-                  md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
-                  md.getInt("COLUMN_SIZE"));
-    if(md.getString("TYPE_NAME").equals("datetime"))
-      return 
-          new MSSQLDatePoemType(
-                  md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
-    /*
-    // MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP)
-    They don't mean what we mean by timestamp
-    if( md.getString("TYPE_NAME").equals("timestamp"))
-      return 
-          new TimestampPoemType(md.getInt("NULLABLE")==
-                                  DatabaseMetaData.columnNullable);
-    */
-    return super.defaultPoemTypeOfColumnMetaData(md);
-  }
+  /*
+ResultSetMetaData rsmd = md.getMetaData();
+int cols = rsmd.getColumnCount();
+for (int i = 1; i <= cols; i++) {
+  String table = rsmd.getTableName(i);
+  System.err.println("table name: " + table);
+  String column = rsmd.getColumnName(i);
+  System.err.println("column name: " + column);
+  int type = rsmd.getColumnType(i);
+  System.err.println("type: " + type);s
+  String typeName = rsmd.getColumnTypeName(i);
+  System.err.println("type Name: " + typeName);
+  String className = rsmd.getColumnClassName(i);
+  System.err.println("class Name: " + className);
+  System.err.println("String val: " + md.getString(i));
+  System.err.println("");
+}
+  */
+if(md.getString("TYPE_NAME").equals("text"))
+  return 
+      new MSSQLStringPoemType(md.getInt("NULLABLE")==
+                                  DatabaseMetaData.columnNullable, 
+                              md.getInt("COLUMN_SIZE"));
+// We use a magic number for text fields    
+if(md.getString("TYPE_NAME").equals("varchar") && 
+    md.getInt("COLUMN_SIZE") == sqlServerTextHack)
+  return 
+      new MSSQLStringPoemType(
+              md.getInt("NULLABLE")== DatabaseMetaData.columnNullable, 
+              md.getInt("COLUMN_SIZE"));
+if(md.getString("TYPE_NAME").equals("char"))
+  return 
+      new StringPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
+              md.getInt("COLUMN_SIZE"));
+if(md.getString("TYPE_NAME").equals("datetime"))
+  return 
+      new MSSQLDatePoemType(
+              md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
+/*
+// MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP)
+They don't mean what we mean by timestamp
+if( md.getString("TYPE_NAME").equals("timestamp"))
+  return 
+      new TimestampPoemType(md.getInt("NULLABLE")==
+                              DatabaseMetaData.columnNullable);
+*/
+return super.defaultPoemTypeOfColumnMetaData(md);
+}
 
  /**  
   * Ignore <TT>dtproperties</TT> as it is a 'System' table 
@@ -237,7 +242,7 @@ public class SQLServer extends AnsiStandard {
   * Probably means that if you are serious about using MSSQL 
   * you should use a varchar.
   * 
-  * If a field is defined as Text in the DSD we use VARCHAR(255).
+  * If a field is defined as Text in the DSD we use a VARCHAR.
   * Not sure what happens if a legacy db really uses TEXT.
   *
   * @return whether it is allowed.

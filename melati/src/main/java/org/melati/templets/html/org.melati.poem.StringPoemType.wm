@@ -46,7 +46,7 @@
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
 	    COLS=$field.Width
-            ROWS=$field.Height>$ml.rendered($field.RawString)</TEXTAREA>
+            ROWS=$field.Height>$ml.Attr.rendered($field.RawString)</TEXTAREA>
 #end #else #begin
   <INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
 	 VALUE="$ml.Attr.rendered($field.RawString)">

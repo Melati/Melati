@@ -49,6 +49,8 @@ import java.io.IOException;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
+import org.melati.util.MelatiWriter;
+import org.melati.util.HTMLUtils;
 
 public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
 
@@ -67,5 +69,9 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
     }
 
     return "";
+  }
+
+  public void render(String s, MelatiWriter writer) throws IOException {
+    writer.write(HTMLUtils.entitiedWithoutBRSubstitution(s));
   }
 }

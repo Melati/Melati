@@ -86,9 +86,7 @@ public class HTMLUtils {
 
   public static String entityFor(char c) {
     switch (c) {
-/* remove this whilst we think it through in more depth       
       case '\n': return "<BR>\n";
-*/
       case '<': return "&lt;";
       case '>': return "&gt;";
       case '&': return "&amp;";
@@ -115,6 +113,41 @@ public class HTMLUtils {
     char c;
     for (++i; i < l; ++i)
       if ((entity = entityFor(c = s.charAt(i))) != null)
+        b.append(entity);
+      else
+        b.append(c);
+
+    return b.toString();
+  }
+
+  public static String entityForWithoutBRSubstitution(char c) {
+    switch (c) {
+      case '<': return "&lt;";
+      case '>': return "&gt;";
+      case '&': return "&amp;";
+      case '"': return "&quot;";
+      case '\'': return "&#39;";
+      default: return null;
+    }
+  } 
+
+  public static String entitiedWithoutBRSubstitution(String s) {
+    int l = s.length();
+    int i = 0;
+    String entity = null;
+    for (i = 0; i < l && (entity = entityForWithoutBRSubstitution(s.charAt(i))) == null; ++i);
+
+    if (entity == null) return s;
+
+    StringBuffer b = new StringBuffer(l * 2);
+    for (int j = 0; j < i; ++j)
+      b.append(s.charAt(j));
+
+    b.append(entity);
+
+    char c;
+    for (++i; i < l; ++i)
+      if ((entity = entityForWithoutBRSubstitution(c = s.charAt(i))) != null)
         b.append(entity);
       else
         b.append(c);

@@ -47,7 +47,9 @@
 
 package org.melati;
 
-public class MelatiContext {
+import org.melati.util.*;
+
+public class MelatiContext implements Cloneable {
   public String logicalDatabase;
   public String table;
   public Integer troid;
@@ -68,5 +70,14 @@ public class MelatiContext {
            "table = " + table + ", " +
            "troid = " + troid + ", " +
            "method = " + method;
+  }
+
+  public Object clone() {
+    try {
+      return super.clone();
+    }
+    catch (CloneNotSupportedException e) {
+      throw new UnexpectedExceptionException(e);
+    }
   }
 }

@@ -114,9 +114,22 @@ public class DSD {
       tokens.nextToken();
 
       for (int t = 0; tokens.ttype != StreamTokenizer.TT_EOF; ++t) {
-        expect(tokens, "table");
+	boolean isAbstract;
+
+	if (tokens.ttype != StreamTokenizer.TT_WORD)
+	  throw new ParsingDSDException("table", tokens);
+
+	if (tokens.sval.equals("abstract")) {
+	  isAbstract = true;
+	  tokens.nextToken();
+	}
+	else
+	  isAbstract = false;
+	  
+	expect(tokens, "table");
+
         tokens.nextToken();
-	TableDef table = new TableDef(this, tokens, t);
+	TableDef table = new TableDef(this, tokens, t, isAbstract);
         tables.addElement(table);
 	tableOfClass.put(table.mainClass, table);
       }

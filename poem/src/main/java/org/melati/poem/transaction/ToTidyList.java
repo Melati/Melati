@@ -45,6 +45,7 @@
 package org.melati.util;
 
 import java.util.Vector;
+import java.util.Enumeration;
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.Reader;
@@ -125,4 +126,8 @@ public class ToTidyList {
   public void add(Closeable o) {
     addObject(o);
   } 
+
+  public Enumeration elements() {
+    return objects.elements();
+  }
 }

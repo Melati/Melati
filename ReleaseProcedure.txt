@@ -2,6 +2,7 @@ Hello,
 
 The scripts in this directory provide a means of building melati 
 and poem using Ant. 
+Whilst this works, Melati is normally built using Maven. 
 
 The original ant script was written by kimptoc@techie.com.
 

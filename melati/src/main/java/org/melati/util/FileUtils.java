@@ -54,6 +54,8 @@ import java.io.FileOutputStream;
  */
 public class FileUtils {
 
+  private FileUtils() {}
+  
   /**
    * Returns a File in the given <code>directory</code> which does
    * not already exist. 
@@ -105,7 +107,7 @@ public class FileUtils {
       // we're unix
       try {
         if (Runtime.getRuntime().exec(
-                new String[] { "chmod", "+x", file.getPath() } ).waitFor() != 0)
+                new String[] { "chmod", "+x", file.getPath() }).waitFor() != 0)
           throw new IOException("chmod +x " + file + " failed");
       }
       catch (InterruptedException e) {

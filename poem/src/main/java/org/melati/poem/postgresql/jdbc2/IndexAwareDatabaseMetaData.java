@@ -47,9 +47,9 @@
 
 package org.melati.poem.postgresql.jdbc2;
 
-import postgresql.*;
-import postgresql.jdbc2.*;
-import postgresql.jdbc2.Connection;
+import org.postgresql.*;
+import org.postgresql.jdbc2.*;
+import org.postgresql.jdbc2.Connection;
 import org.melati.util.*;
 
 public class IndexAwareDatabaseMetaData

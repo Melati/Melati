@@ -54,6 +54,9 @@ import java.sql.*;
 public class UserTable extends UserTableBase {
 
   private User guestUser, administratorUser;
+  // see below
+  // private Capability canReadPasswords = new Capability("ReadPasswords");
+  // private Capability canWritePasswords = new Capability("WritePasswords");
 
   public UserTable(Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
@@ -82,6 +85,16 @@ public class UserTable extends UserTableBase {
     return administratorUser;
   }
 
+  public Capability canReadPasswords() {
+    return getDatabase().administerCapability();
+    // return canReadPasswords;
+  }
+
+  public Capability canWritePasswords() {
+    return getDatabase().administerCapability();
+    // return canWritePasswords;
+  }
+
   synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
@@ -95,5 +108,14 @@ public class UserTable extends UserTableBase {
       info.setDefaultcanwrite(getDatabase().administerCapability());
     if (info.getCancreate() == null)
       info.setCancreate(getDatabase().administerCapability());
+
+    // see above
+
+//     canReadPasswords =
+//         (Capability)getDatabase().getCapabilityTable().getNameColumn().
+//             ensure(canReadPasswords);
+//     canWritePasswords =
+//         (Capability)getDatabase().getCapabilityTable().getNameColumn().
+//             ensure(canWritePasswords);
   }
 }

@@ -70,14 +70,14 @@ import org.melati.util.MD5Util;
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
-     OVERLAY_PARAMETERS = "org.melati.HttpSessionAccessHandler.overlayParameters",
-     USER = "org.melati.HttpSessionAccessHandler.user";
+     OVERLAY_PARAMETERS = "org.melati.login.HttpSessionAccessHandler.overlayParameters",
+     USER = "org.melati.login.HttpSessionAccessHandler.user";
 
   /**
    * The class name of the class implementing the login servlet.  Unless
-   * overridden, this is <TT>org.melati.Login</TT>.
+   * overridden, this is <TT>org.melati.login.Login</TT>.
    *
-   * @see org.melati.Login
+   * @see org.melati.login.Login
    */
 
   protected String loginPageServletClassName() {

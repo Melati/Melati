@@ -69,12 +69,14 @@ function add_extra(expression) {
 // and allowSubmit is "yes" then the user will be presented with a
 // confirm dialog box (with "OK" and "Cancel" options) which will
 // submit the form anyway if OK is clicked.
-
+// 
+// Previously this function had a test for the presence of 
+// the RegExp object, but this is now taken for granted, as it has 
+// been implemented since Netscape 4.0
+// 
 function validate (form, allowSubmit) {
-  if (window.RegExp) {
     var display = "";
     var name,heading,snippet,mandatory,value,re,func_result;
-
     // Loop through our rules, doing the appropriate checks
     for(i=0;i<rulecount;i++) {
       name       = rules[i].name;
@@ -83,7 +85,7 @@ function validate (form, allowSubmit) {
       pattern    = rules[i].pattern;
       mandatory  = Boolean(rules[i].mandatory);
       if (!form[name]) {
-      //      alert(name + " is not defined for this form");
+       //     alert(name + " is not defined for this form");
       }
       else {
         // If this is a select box (but not a multiple select)...
@@ -94,16 +96,17 @@ function validate (form, allowSubmit) {
         }
 
         // Check that a mandatory field isn't empty
-        if (value.search(".") == -1) {
+        if (value == "") {
             if (mandatory == true)
                 display += "* "+heading+" must be filled in\n";
         }
         // Check if we match the pattern
         else if (value.search(pattern) != -1) {
           if (snippet) {
-              // If we have a code snippet, turn it into a function and call it on value
+              // If we have a code snippet 
+              // turn it into a function and call it on value
               var func = new Function("value", "form", snippet);
-              func_result = func(value, form)
+              func_result = func(value, form);
               if (func_result)
                 display += "* "+heading+": "+func_result+"\n";
           }
@@ -129,9 +132,6 @@ function validate (form, allowSubmit) {
       }
     }
     return true;
-  } else {    // no RegExp object - exit
-    return true;
-  }
 }
 
 //

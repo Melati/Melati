@@ -49,7 +49,8 @@ public class LoginHandler {
   public void setupContext(TemplateContext context) {
     HttpSession session = context.getSession();
 
-    AccessPoemException triggeringException =
+    AccessPoemException triggeringException = null;
+    if (session != null) triggeringException = 
         (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)

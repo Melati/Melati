@@ -337,6 +337,11 @@ public class Table {
 
   private void dbModifyStructure(String sql)
       throws StructuralModificationFailedPoemException {
+    // We have to do this to avoid blocking
+
+    if (PoemThread.inSession())
+      PoemThread.commit();
+
     try {
       database.getCommittedConnection().createStatement().executeUpdate(sql);
       database.log(new StructuralModificationLogEvent(sql));
@@ -649,13 +654,7 @@ public class Table {
    */
 
   void notifyTouched(PoemTransaction transaction, Persistent persistent) {
-    // we use transaction == null in case of rollbacks, where we should be
-    // locked anyway and certainly don't want to block
-
-    if (transaction == null)
-      serial.increment_unlocked();
-    else
-      serial.increment(transaction);
+    serial.increment(transaction);
 
     TableListener[] listeners = this.listeners;
     for (int l = 0; l < listeners.length; ++l)
@@ -717,8 +716,6 @@ public class Table {
 	    persistent = tryAgain;
 	}
     }
-    else
-      System.err.println("In the cache: " + persistent);
 
     if (!persistent.exists)
       throw new NoSuchRowPoemException(this, troid);

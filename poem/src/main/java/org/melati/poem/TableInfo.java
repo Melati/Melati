@@ -53,7 +53,7 @@ public class TableInfo extends TableInfoBase {
 
   private Table _actualTable = null;
 
-  private Table actualTable() {
+  public Table actualTable() {
     if (_actualTable == null && troid() != null)
       _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
     return _actualTable;

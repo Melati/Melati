@@ -91,4 +91,11 @@ public class SearchabilityPoemType extends IntegerPoemType {
   public String toString() {
     return "searchability (" + super.toString() + ")";
   }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Searchability";
+  }
 }

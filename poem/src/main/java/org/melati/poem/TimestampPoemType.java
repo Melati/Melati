@@ -95,6 +95,13 @@ public class TimestampPoemType extends AtomPoemType {
     return other instanceof TimestampPoemType;
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Timestamp";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);

@@ -108,6 +108,13 @@ public class IntegerPoemType extends AtomPoemType {
     return other instanceof IntegerPoemType;
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Integer";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.INTEGER);

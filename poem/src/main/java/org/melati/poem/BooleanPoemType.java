@@ -117,6 +117,13 @@ public class BooleanPoemType extends AtomPoemType {
     return other instanceof BooleanPoemType;
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Boolean";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);

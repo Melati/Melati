@@ -100,6 +100,13 @@ public class BinaryPoemType extends SizedAtomPoemType {
     return (getNullable() ? "nullable " : "") + "binary(" + getSize() + ")";
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "byte[]";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.BINARY);
@@ -110,3 +117,4 @@ public class BinaryPoemType extends SizedAtomPoemType {
     return StringUtils.quoted(_stringOfRaw(raw), '\'');
   }
 }
+

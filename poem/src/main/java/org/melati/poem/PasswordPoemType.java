@@ -60,6 +60,13 @@ public class PasswordPoemType extends StringPoemType {
            "Password(" + super.getSize() + ")";
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Password";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.PASSWORD);

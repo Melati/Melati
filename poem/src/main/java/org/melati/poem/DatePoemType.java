@@ -82,6 +82,13 @@ public class DatePoemType extends AtomPoemType {
     return other instanceof DatePoemType;
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Date";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.DATE);

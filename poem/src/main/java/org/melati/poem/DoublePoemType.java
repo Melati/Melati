@@ -51,7 +51,7 @@ import org.melati.poem.dbms.*;
 public class DoublePoemType extends AtomPoemType {
 
   public DoublePoemType(boolean nullable) {
-    super(Types.DOUBLE, "FLOAT8", nullable);
+    super(Types.DOUBLE, "DOUBLE PRECISION", nullable);
   }
 
   protected void _assertValidRaw(Object raw) {
@@ -83,6 +83,13 @@ public class DoublePoemType extends AtomPoemType {
 
   protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof DoublePoemType;
+  }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Double";
   }
 
   protected void _saveColumnInfo(ColumnInfo columnInfo)

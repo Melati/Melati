@@ -108,6 +108,13 @@ public class LongPoemType extends AtomPoemType {
     return other instanceof LongPoemType;
   }
 
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "Long";
+  }
+
   protected void _saveColumnInfo(ColumnInfo columnInfo)
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.LONG);

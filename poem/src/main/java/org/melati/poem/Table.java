@@ -180,6 +180,7 @@ public class Table {
 
   /**
    * FIXME not sure we really want people using this directly?
+   * <tpp>Comes in handy in admin/DSD.wm</tpp>
    */
 
   public final TableInfo getInfo() {
@@ -1378,7 +1379,7 @@ public class Table {
    * A freshly minted <TT>Persistent</TT> object for the table.
    */
 
-  public final Persistent newPersistent() {
+  public Persistent newPersistent() {
     Persistent it = _newPersistent();
     it.setTable(this, null);
     return it;

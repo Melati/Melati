@@ -68,4 +68,12 @@ public class TroidPoemType extends IntegerPoemType {
   public String toString() {
     return "troid (" + super.toString() + ")";
   }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  //FIXME: might be nicer as 'Troid' ?
+  public String toDsdType() {
+    return "Integer";
+  }
 }

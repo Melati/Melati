@@ -46,7 +46,8 @@
 package org.melati.poem;
 
 import java.util.*;
-import org.melati.util.*;
+import org.melati.util.StringUtils;
+import org.melati.util.MelatiLocale;
 import org.melati.poem.dbms.*;
 
 public class ReferencePoemType extends IntegerPoemType {
@@ -108,5 +109,12 @@ public class ReferencePoemType extends IntegerPoemType {
   public String toString() {
     return
         "reference to " + targetTable.getName() + " (" + super.toString() + ")";
+  }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return StringUtils.capitalised(targetTable.getName());
   }
 }

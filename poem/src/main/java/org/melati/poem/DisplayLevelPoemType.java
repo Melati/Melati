@@ -91,4 +91,11 @@ public class DisplayLevelPoemType extends IntegerPoemType {
   public String toString() {
     return "display level (" + super.toString() + ")";
   }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "DisplayLevel";
+  }
 }

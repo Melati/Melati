@@ -91,4 +91,11 @@ public class IntegrityFixPoemType extends IntegerPoemType {
   public String toString() {
     return "integrity fix (" + super.toString() + ")";
   }
+
+  /*
+   * The field type used in the Data Structure Definition language.
+   */
+  public String toDsdType() {
+    return "IntegrityFix";
+  }
 }

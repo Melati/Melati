@@ -232,7 +232,7 @@
   <ul>
     <li> /doc - contains the API documentation</li>
     <li> /lib - contains melati.jar, compiled using JDK 1.2 JAVAC </li>
-    <li>/src - contains the melati sources (in src.zip), and additional files 
+    <li> /src - contains the melati sources (in src.zip), and additional files 
       (*.wm, *.html, *.gif and *.js) in the org/melati/* tree.</li>
   </ul>
   <p>&nbsp;</p>
@@ -278,39 +278,56 @@
       <td>JSDK</td>
       <td> 
         <blockquote> 2.0, 2.2 <i>(thanks to a slight hack you can run, and recompile, 
-          Melati against either version interchangeably)</i> </blockquote>
+          Melati against either version interchangeably)</i>, 2.3 
+        </blockquote>
       </td>
     </tr>
     <tr> 
       <td>Database</td>
       <td> 
-        <blockquote>PostgreSQL 7.0 (and up)</blockquote>
+        <blockquote>
+          <ul>
+            <li>PostgreSQL 7.0 (and up)</li>
+            <li>MySQL</li>
+            <li>HSQLDB</li>
+            <li>McKoiDB</li>
+          </ul>
+        </blockquote>
       </td>
     </tr>
     <tr> 
       <td>Template Engine</td>
       <td> 
-        <blockquote><a href=http://webmacro.org/Download.html> </a><a href=http://www.webmacro.org>Webmacro</a> 
-          <a href="http://jakarta.apache.org/velocity/"></a> 0.98p1 and up, <a href="http://jakarta.apache.org/velocity/">Velocity</a> 
+        <blockquote>
+          <a href=http://www.webmacro.org>Webmacro</a> 
+          0.98p1 and up, <a href="http://jakarta.apache.org/velocity/">Velocity</a> 
           1.1 and up</blockquote>
       </td>
     </tr>
   </table>
-  <p>The JDBC facilities used by Melati are pretty simple, and we are aiming for 
+  <p>
+    The JDBC facilities used by Melati are pretty simple, and we are aiming for 
     compatibility with any DBMS which supports JDBC and transactions, but for 
-    now Postgresql is what we use.</p>
-  <p>We expect Melati to run in most Servlet Environments (we just havn't tested 
-    them all yet :)</p>
+    now Postgresql is what we use.
+  </p>
+  <p>
+    We expect Melati to run in most Servlet Environments (we just havn't tested 
+    them all yet :)
+   </p>
   <h2>&nbsp; </h2>
-  <h3><!-- ============== --> Step by step Installation<!-- ============== --> 
+  <h3><!-- ============== --> Step by step Installation <!-- ============== --> 
   </h3>
-  <p> It is assumed that you already have a working installation of <a href="http;//www.webmacro.org">Webmacro</a> 
+  <p>
+    It is assumed that you already have a working installation of <a href="http;//www.webmacro.org">Webmacro</a> 
     (<i>i.e.</i> web server, servlet runner, and Webmacro classes), and a working 
     installation of <a href="http://www.postgresql.org">Postgres</a> or, presuming 
     compatibility, another RDBMS. </p>
-  <p>It is assumed you are installing from the Melati snapshot. If you would like 
+  <p>
+    It is assumed you are installing from the Melati Package. If you would like 
     to build melati yourself from the CVS sources, please use the installation 
-    doc available from <a href="http://melati.org">http://melati.org</a>.</p>
+    doc available from <a
+    href="http://melati.org">http://melati.org</a>.
+  </p>
   <table width="0%" border="0" cellpadding="10" cellspacing="0">
     <tr> 
       <td valign="top">1.</td>
@@ -328,7 +345,9 @@
     </tr>
     <tr> 
       <td valign="top">3.</td>
-      <td> Download the latest Melati snapshot from <a href="http;//www.melati.org">www.melati.org</a>, 
+      <td>
+        Download the latest Melati snapshot from 
+        <a href="http;//www.melati.org">www.melati.org</a>, 
         and unzip or untar it. eg: 
         <ul>
           <li>Unix users type: 
@@ -588,11 +607,13 @@ $ cvs update
   <h2>Credits</h2>
   </a> Melati it the 3rd iteration of similar software developed by Paneris <a href="(http://www.paneris.org">(http://www.paneris.org</a>), 
   and was largely written by William Chesters. 
-  <p> The core developers are listed in the <a href="CREDITS.txt">CREDITS</a> 
-    file. If you would like to join the Melati Project you are more than welcome. 
-    Please join the Developers Mailing list. Anyone demonstrating reasonable ability 
+  <p> 
+    The core developers are listed in the <a href="CREDITS.txt">CREDITS</a> 
+    file. If you would like to join the Melati Project you are more 
+    than welcome. 
+    Please join the Developers Mailing list. 
+    Anyone demonstrating reasonable ability 
     will be granted write access to the CVS repository. 
-  <p>&nbsp; 
 </blockquote>
 
 </body>

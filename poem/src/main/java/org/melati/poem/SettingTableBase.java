@@ -87,16 +87,12 @@ public class SettingTableBase extends Table {
             ((Setting)g).setName((String)cooked);
           }
 
-          protected Integer defaultDisplayOrderPriority() {
-            return new Integer(0);
-          }
-
           protected int defaultDisplayOrder() {
             return 1;
           }
 
           protected String defaultDescription() {
-            return "A code name for this parameter";
+            return "A code name for this setting";
           }
 
           protected boolean defaultUnique() {
@@ -136,16 +132,12 @@ public class SettingTableBase extends Table {
             ((Setting)g).setValue((String)cooked);
           }
 
-          protected Integer defaultDisplayOrderPriority() {
-            return new Integer(5);
-          }
-
           protected int defaultDisplayOrder() {
             return 2;
           }
 
           protected String defaultDescription() {
-            return "The value of this parameter";
+            return "The value of this setting";
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -190,7 +182,7 @@ public class SettingTableBase extends Table {
           }
 
           protected Integer defaultDisplayOrderPriority() {
-            return new Integer(10);
+            return new Integer(0);
           }
 
           protected int defaultDisplayOrder() {
@@ -198,7 +190,7 @@ public class SettingTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "A human-readable name for this parameter";
+            return "A human-readable name for this setting";
           }
 
           protected boolean defaultUnique() {
@@ -246,24 +238,12 @@ public class SettingTableBase extends Table {
             return false;
           }
 
-          protected boolean defaultPrimaryDisplay() {
-            return true;
-          }
-
-          protected Integer defaultDisplayOrderPriority() {
-            return new Integer(10);
-          }
-
           protected int defaultDisplayOrder() {
             return 4;
           }
 
           protected String defaultDescription() {
-            return "A description for this parameter";
-          }
-
-          protected boolean defaultUnique() {
-            return true;
+            return "A description for this setting";
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -319,12 +299,8 @@ public class SettingTableBase extends Table {
   protected Persistent _newPersistent() {
     return new Setting();
   }
-  protected String defaultDisplayName() {
-    return "Application wide parameters";
-  }
-
   protected String defaultDescription() {
-    return "Name-Value parameters wich it is nice to store in the database";
+    return "A configurable setting for the application";
   }
 
   protected boolean defaultRememberAllTroids() {

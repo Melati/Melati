@@ -30,6 +30,7 @@ public class ColumnInfoBase extends Persistent {
   Boolean summarydisplay;
   Boolean primarydisplay;
   Boolean searchcriterion;
+  Boolean primarycriterion;
   Integer displayorderpriority;
   Integer type;
   Boolean nullable;
@@ -392,6 +393,36 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getSearchcriterionField() throws AccessPoemException {
     return _getColumnInfoTable().getSearchcriterionColumn().asField(this);
+  }
+
+  public Boolean getPrimarycriterion_unsafe() {
+    return primarycriterion;
+  }
+
+  public void setPrimarycriterion_unsafe(Boolean cooked) {
+    primarycriterion = cooked;
+  }
+
+  public Boolean getPrimarycriterion()
+      throws AccessPoemException {
+    readLock();
+    return getPrimarycriterion_unsafe();
+  }
+
+  public void setPrimarycriterion(Boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getColumnInfoTable().getPrimarycriterionColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setPrimarycriterion_unsafe(cooked);
+  }
+
+  public final void setPrimarycriterion(boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setPrimarycriterion(cooked ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getPrimarycriterionField() throws AccessPoemException {
+    return _getColumnInfoTable().getPrimarycriterionColumn().asField(this);
   }
 
   public Integer getDisplayorderpriority_unsafe() {

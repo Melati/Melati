@@ -20,6 +20,7 @@ public class ColumnInfoTableBase extends Table {
   private Column col_summarydisplay = null;
   private Column col_primarydisplay = null;
   private Column col_searchcriterion = null;
+  private Column col_primarycriterion = null;
   private Column col_displayorderpriority = null;
   private Column col_type = null;
   private Column col_nullable = null;
@@ -676,6 +677,59 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
+    defineColumn(col_primarycriterion =
+        new Column(this, "primarycriterion", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getPrimarycriterion();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setPrimarycriterion((Boolean)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "Primary search criterion";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 12;
+          }
+
+          protected String defaultDescription() {
+            return "Whether the field is used as the main criterion in searches";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getPrimarycriterion_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setPrimarycriterion_unsafe((Boolean)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getPrimarycriterion();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setPrimarycriterion((Boolean)raw);
+          }
+        });
+
     defineColumn(col_displayorderpriority =
         new Column(this, "displayorderpriority", new IntegerPoemType(true), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -697,7 +751,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 12;
+            return 13;
           }
 
           protected String defaultDescription() {
@@ -746,7 +800,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 13;
+            return 14;
           }
 
           protected String defaultDescription() {
@@ -795,7 +849,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 14;
+            return 15;
           }
 
           protected String defaultDescription() {
@@ -848,7 +902,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 15;
+            return 16;
           }
 
           protected String defaultDescription() {
@@ -901,7 +955,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 16;
+            return 17;
           }
 
           protected String defaultDescription() {
@@ -954,7 +1008,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 17;
+            return 18;
           }
 
           protected String defaultDescription() {
@@ -1007,7 +1061,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 18;
+            return 19;
           }
 
           protected String defaultDescription() {
@@ -1060,7 +1114,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 19;
+            return 20;
           }
 
           protected String defaultDescription() {
@@ -1113,7 +1167,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 20;
+            return 21;
           }
 
           protected String defaultDescription() {
@@ -1166,7 +1220,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 21;
+            return 22;
           }
 
           protected String defaultDescription() {
@@ -1219,7 +1273,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 22;
+            return 23;
           }
 
           protected String defaultDescription() {
@@ -1294,6 +1348,10 @@ public class ColumnInfoTableBase extends Table {
 
   public final Column getSearchcriterionColumn() {
     return col_searchcriterion;
+  }
+
+  public final Column getPrimarycriterionColumn() {
+    return col_primarycriterion;
   }
 
   public final Column getDisplayorderpriorityColumn() {

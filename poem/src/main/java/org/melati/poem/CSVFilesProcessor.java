@@ -48,6 +48,7 @@ import java.io.Writer;
 import java.io.IOException;
 import org.melati.poem.csv.CSVTable;
 import org.melati.poem.csv.CSVParseException;
+import org.melati.poem.csv.CSVWriteDownException;
 import org.melati.poem.csv.NoPrimaryKeyInCSVTableException;
 
 
@@ -60,7 +61,7 @@ import org.melati.poem.csv.NoPrimaryKeyInCSVTableException;
  */
 public class CSVFilesProcessor {
 
-  Vector tables = new Vector();
+  protected Vector tables = new Vector();
   Database db = null;
 
   /**
@@ -109,13 +110,14 @@ public class CSVFilesProcessor {
    * @throws IOException if file stuff goes wrong
    * @throws CSVParseException if csv file has an error
    * @throws NoPrimaryKeyInCSVTableException not thrown
+   * @throws CSVWriteDownException thrown when a persistent cannot be created
    */
   public void process(boolean emptyTables,
                       boolean recordDetails,
                       boolean fieldDetails,
                       Writer output)
-                            throws IOException, CSVParseException,
-                                     NoPrimaryKeyInCSVTableException {
+      throws IOException, CSVParseException,
+      NoPrimaryKeyInCSVTableException, CSVWriteDownException {
 
     // Load in data
     for(int i = 0; i < tables.size(); i++)
@@ -142,8 +144,7 @@ public class CSVFilesProcessor {
     // We must have loaded in all the data before we
     // try writing records, otherwise Foreign Key lookups
     // won't work
-    for(int i = 0; i < tables.size(); i++)
-      ((CSVTable)tables.elementAt(i)).writeRecords();
+    writeData(output);
 
     output.write("Written records\n");
 
@@ -157,6 +158,15 @@ public class CSVFilesProcessor {
       ((CSVTable)tables.elementAt(i)).
             report(recordDetails, fieldDetails, output);
   
+  }
+
+  /**
+   * @throws NoPrimaryKeyInCSVTableException
+   */
+  protected void writeData(Writer o) 
+      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
+    for(int i = 0; i < tables.size(); i++)
+      ((CSVTable)tables.elementAt(i)).writeRecords();
   }
 
 }

@@ -517,6 +517,16 @@ public abstract class Column implements FieldAttributes {
           EmptyEnumeration.it;
   }
 
+  /**
+   * Ensures a row exists for which this column matches when compared with
+   * the given <code>Persistent</code>.
+   * <p>
+   * The given object is used to create a new row if
+   * necessary, in which case it will be assigned the next troid.and
+   * cached.
+   * <p>
+   * (Please review this description and delete this line. JimW)
+   */
   public Persistent ensure(Persistent orCreate) {
     Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
     if (there == null) {

@@ -49,6 +49,8 @@ package org.melati;
 
 import java.util.*;
 import java.io.*;
+import java.net.*;
+import javax.servlet.http.*;
 import org.melati.util.*;
 import org.melati.poem.*;
 import org.melati.templets.*;
@@ -189,6 +191,19 @@ public class Melati {
 
   public String getZoneURL() {
     return HttpUtil.zoneURL(webContext.getRequest());
+  }
+
+  public String sameURLWith(String field, String value) {
+    HttpServletRequest request = webContext.getRequest();
+    return
+	request.getRequestURI() + "?" +
+        (request.getQueryString() == null ?
+           "" : request.getQueryString() + "&" ) +
+        URLEncoder.encode(field) + "=" + URLEncoder.encode(value);
+  }
+
+  public String sameURLWith(String field) {
+    return sameURLWith(field, "1");
   }
 
   public static void extractFields(WebContext context, Persistent object) {

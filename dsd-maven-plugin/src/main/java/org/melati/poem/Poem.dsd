@@ -156,6 +156,11 @@ table ColumnInfo
       (description = "Whether it makes sense for the user to update the field's value")
       (summaryhidden) (criterionhidden);
       
+  Boolean usercreateable
+      (displayname = "User-createable")
+      (description = "Whether it makes sense for the user to initialise the field's value")
+      (summaryhidden) (criterionhidden);
+      
   Boolean recorddisplay
       (displayname = "Record display")
       (description = "Whether to show the field in full displays of a record")

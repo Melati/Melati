@@ -23,6 +23,7 @@ public class ColumnInfoBase extends Persistent {
   String description;
   Integer displayorder;
   Boolean usereditable;
+  Boolean usercreateable;
   Boolean recorddisplay;
   Boolean summarydisplay;
   Boolean primarydisplay;
@@ -239,6 +240,36 @@ public class ColumnInfoBase extends Persistent {
 
   public final Field getUsereditableField() throws AccessPoemException {
     return _getColumnInfoTable().getUsereditableColumn().asField(this);
+  }
+
+  public Boolean getUsercreateable_unsafe() {
+    return usercreateable;
+  }
+
+  public void setUsercreateable_unsafe(Boolean cooked) {
+    usercreateable = cooked;
+  }
+
+  public Boolean getUsercreateable()
+      throws AccessPoemException {
+    readLock();
+    return getUsercreateable_unsafe();
+  }
+
+  public void setUsercreateable(Boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getColumnInfoTable().getUsercreateableColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setUsercreateable_unsafe(cooked);
+  }
+
+  public final void setUsercreateable(boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setUsercreateable(cooked ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+  public final Field getUsercreateableField() throws AccessPoemException {
+    return _getColumnInfoTable().getUsercreateableColumn().asField(this);
   }
 
   public Boolean getRecorddisplay_unsafe() {

@@ -40,6 +40,10 @@ public class GroupTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultUserCreateable() {
+            return false;
+          }
+
           protected int defaultDisplayOrder() {
             return 0;
           }

@@ -15,6 +15,7 @@ public class ColumnInfoTableBase extends Table {
   private Column col_description = null;
   private Column col_displayorder = null;
   private Column col_usereditable = null;
+  private Column col_usercreateable = null;
   private Column col_recorddisplay = null;
   private Column col_summarydisplay = null;
   private Column col_primarydisplay = null;
@@ -57,6 +58,10 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
             return false;
           }
 
@@ -407,6 +412,59 @@ public class ColumnInfoTableBase extends Table {
           }
         });
 
+    defineColumn(col_usercreateable =
+        new Column(this, "usercreateable", new BooleanPoemType(false), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((ColumnInfo)g).getUsercreateable();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((ColumnInfo)g).setUsercreateable((Boolean)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected String defaultDisplayName() {
+            return "User-createable";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 7;
+          }
+
+          protected String defaultDescription() {
+            return "Whether it makes sense for the user to initialise the field's value";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getUsercreateable_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setUsercreateable_unsafe((Boolean)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((ColumnInfo)g).getUsercreateable();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((ColumnInfo)g).setUsercreateable((Boolean)raw);
+          }
+        });
+
     defineColumn(col_recorddisplay =
         new Column(this, "recorddisplay", new BooleanPoemType(false), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -432,7 +490,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 7;
+            return 8;
           }
 
           protected String defaultDescription() {
@@ -485,7 +543,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 8;
+            return 9;
           }
 
           protected String defaultDescription() {
@@ -534,7 +592,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 9;
+            return 10;
           }
 
           protected String defaultDescription() {
@@ -587,7 +645,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 10;
+            return 11;
           }
 
           protected String defaultDescription() {
@@ -636,7 +694,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 11;
+            return 12;
           }
 
           protected String defaultDescription() {
@@ -685,7 +743,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 12;
+            return 13;
           }
 
           protected String defaultDescription() {
@@ -734,7 +792,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 13;
+            return 14;
           }
 
           protected String defaultDescription() {
@@ -787,7 +845,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 14;
+            return 15;
           }
 
           protected String defaultDescription() {
@@ -840,7 +898,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 15;
+            return 16;
           }
 
           protected String defaultDescription() {
@@ -893,7 +951,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 16;
+            return 17;
           }
 
           protected String defaultDescription() {
@@ -946,7 +1004,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 17;
+            return 18;
           }
 
           protected String defaultDescription() {
@@ -999,7 +1057,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 18;
+            return 19;
           }
 
           protected String defaultDescription() {
@@ -1052,7 +1110,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 19;
+            return 20;
           }
 
           protected String defaultDescription() {
@@ -1105,7 +1163,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 20;
+            return 21;
           }
 
           protected String defaultDescription() {
@@ -1158,7 +1216,7 @@ public class ColumnInfoTableBase extends Table {
           }
 
           protected int defaultDisplayOrder() {
-            return 21;
+            return 22;
           }
 
           protected String defaultDescription() {
@@ -1213,6 +1271,10 @@ public class ColumnInfoTableBase extends Table {
 
   public final Column getUsereditableColumn() {
     return col_usereditable;
+  }
+
+  public final Column getUsercreateableColumn() {
+    return col_usercreateable;
   }
 
   public final Column getRecorddisplayColumn() {

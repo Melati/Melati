@@ -98,11 +98,10 @@ public class Melati {
   }
   
   public AdminUtils getAdminUtils() {
-    return new AdminUtils(getWebContext().getRequest().getServletPath(), 
-                          getStaticURL() + "/admin",
-                          getLogicalDatabaseName());
-  }
-
+   return new AdminUtils(getWebContext().getRequest().getServletPath(),
+                         getStaticURL() + "/admin",  
+                         getLogicalDatabaseName());
+  }    
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
     return new HTMLMarkupLanguage(getWebContext(),

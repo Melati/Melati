@@ -55,7 +55,7 @@ package org.melati.poem;
  *
  * @see Database#unifyWithDB
  * @see Table#unifyWithDB
- * @see Column#unifyWithDB
+ * @see Column#unifyWithIndex
  *
  */ 
 public class DefinitionSource {

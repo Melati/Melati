@@ -99,6 +99,7 @@
 <td align=right>
 <FONT SIZE="-2" FACE="Arial, Helvetica">
 #if ($melati.User.isAdministrator()) #begin
+<a href=$admin.SessionURL() target=admin_bottom>Sessions</a>
 <a href=$admin.StatusURL() target=admin_bottom>Cache</a>
 #end
 &nbsp;

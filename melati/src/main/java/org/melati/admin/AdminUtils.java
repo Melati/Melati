@@ -179,17 +179,23 @@ public class AdminUtils {
     return contextPath + "/org.melati.admin.Status/" + logicalDatabase;
   }
 
+  public String SessionURL() {
+    return contextPath + "/org.melati.poem.SessionAnalysisServlet";
+  }
+
   /*
-   * in an insert situation, we will not have a Troid, so cannot pass it through
-   * if your upload handler depends on haviung a persistent, then you should 
+   * In an insert situation we will not have a Troid, 
+   * so cannot pass it through.
+   * If your upload handler depends on having a persistent, then you should 
    * override your upload template so that it prevents uploading in an insert
-   * situation
+   * situation.
    */
   public String UploadURL(Table table, Persistent object, Field field) {
     return upload(table,object) + "/Upload?field=" + field.getName();
   }
 
-  public String UploadHandlerURL(Table table, Persistent object, String field) {
+  public String 
+    UploadHandlerURL(Table table, Persistent object, String field) {
     return upload(table,object) + "/UploadDone?field=" + field;
   }
   

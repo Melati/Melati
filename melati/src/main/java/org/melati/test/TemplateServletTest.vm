@@ -1,0 +1,92 @@
+#set( $Response.ContentType = "text/html" )
+#set( $ml = $melati.HTMLMarkupLanguage )
+#if( $Form.passback )
+#set( $onVariableException = $melati.PassbackVariableExceptionHandler )
+#end
+<HTML>
+<HEAD>
+<TITLE>TemplateServlet Test with Velocity</TITLE>
+</head>
+<body>
+<h2>TemplateServlet Test with Velocity</h2>
+<p>This servlet tests your basic melati/poem/template engine configuration. 
+If you can read this message, it means that you have successfully created a POEM session 
+and loaded a Template Engine (in this case Velocity).<p>
+
+<p>Your <b>MelatiContext</b> is set up as: $melati.Context
+<br>, try playing with the PathInfo to see the results (or click 
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/user/1/View">user/1/View</a>).</p>
+
+#if( $thisisnull )
+<p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!
+the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
+#end
+#if( $Form.test )
+<p><b>$Form.test</b> was passed in the parameter <b>test</b>.
+#end
+<p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
+
+<h3>Exception Testing</h3>
+
+#if( $Form.nonexistant )
+<p>Here is an object that doesn't exist<br>
+<textarea cols=60 rows=5>
+$nonexistant
+</textarea>
+</p>
+#end
+
+#if( $Form.passback || $Form.propagate )
+<p>You have tried to access a RestrictedAccessObject but:<br>
+<p>$RestrictedAccessObject.getAccessPoemException()</p>
+#end
+
+You can test how the PropagateVariableExceptionHandler handles "normal" template expansion exceptions by clicking <a href=?nonexistant=true>?nonexistant=true</a>.<br>
+You can test how the PassbackVariableExceptionHandler handles AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.<br>
+You can test how the PropagateVariableExceptionHandler handles AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.<br>
+
+
+<h3>Further Testing</h3>
+You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>
+You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>
+You can test your interface for writing Melati servlets using the Webmacro template engine by 
+clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
+You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.LogicalDatabase/Main</a>.<br>
+You can test that you are able to override your AccessHandler mode by clicking 
+<a href=$melati.ZoneURL/org.melati.test.TemplateServletTestOverride>override your AccessHandler</a>.
+This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which
+is configured by default in your org.melati.MelatiServlet.properties file).<br>
+
+<form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
+You can upload a file here:<br>
+<input type=hidden name=upload value=yes>
+<input type="file" name="file" enctype="multipart/form-data">
+<input type="submit" name="Submit" value="Upload file">
+<br>
+Your file will be saved in different ways depending on your setting of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):<br>
+org.melati.servlet.MemoryDataAdaptorFactory - your file will be held in memory<br>
+org.melati.servlet.TemporyFileDataAdaptorFactory - your file will be saved in a temporary file<br>
+org.melati.servlet.PoemFileDataAdaptorFactory - your file will be saved in the directory named in the database's ``UploadDir'' setting
+(and you will have to set ``UploadURL'' too).<br>
+</form>
+
+<h3>Your Database has the following tables:</h3>
+#foreach( $tab in $melati.Database.DisplayTables )
+  $tab.DisplayName<br>
+#end
+
+
+<h3>Example Application</h3>
+<p>You run the example application by clicking <a href=$melati.ZoneURL/org.melati.doc.example.contacts.Search>org.melati.doc.example.contacts.Search</a>.</p>
+<p><b>Please Note:</b> you will need (something very similar to) the following in your LogicalDatabase.properties file, and to have created a database called <tt>contacts</tt></p>
+<pre>
+org.melati.LogicalDatabase.contacts.class=org.melati.doc.example.contacts.ContactsDatabase
+org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
+org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
+org.melati.LogicalDatabase.contacts.user=postgres
+org.melati.LogicalDatabase.contacts.pass=*
+org.melati.LogicalDatabase.contacts.maxtransactions=4
+</pre>
+
+</body>
+</html>

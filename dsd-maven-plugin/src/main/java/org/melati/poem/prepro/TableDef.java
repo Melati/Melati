@@ -69,11 +69,17 @@ public class TableDef {
   final String tableMainClass;
   final String tableAccessorMethod;
   private Vector data = new Vector();
+  boolean isAbstract;
+  boolean hidesSuperclass = false;
 
-  public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder)
+  int nextFieldDisplayOrder = 0;
+
+  public TableDef(DSD dsd, StreamTokenizer tokens, int displayOrder,
+		  boolean isAbstract)
       throws ParsingDSDException, IOException, IllegalityException {
     this.dsd = dsd;
     this.displayOrder = displayOrder;
+    this.isAbstract = isAbstract;
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<table name>", tokens);
     suffix = tokens.sval;
@@ -96,6 +102,10 @@ public class TableDef {
         tokens.ordinaryChar('.');
       }
       superclass = tokens.sval;
+
+      hidesSuperclass =
+	  superclass.substring(superclass.lastIndexOf('.') + 1).
+              equals(mainClass);
     }
     else
       tokens.pushBack();
@@ -107,29 +117,33 @@ public class TableDef {
     }
 
     DSD.expect(tokens, '{');
-    for (int f = 0; tokens.nextToken() != '}'; ++f)
-      data.addElement(FieldDef.from(this, tokens, f));
+    while (tokens.nextToken() != '}')
+      data.addElement(FieldDef.from(this, tokens, nextFieldDisplayOrder++));
     tokens.nextToken();
   }
 
   private final TableDef this_ = this;
 
   public void generateTableDeclJava(Writer w) throws IOException {
-    w.write("  private " + tableMainClass + " tab_" + name + " = null;\n");
+    if (!isAbstract)
+      w.write("  private " + tableMainClass + " tab_" + name + " = null;\n");
   }
 
   public void generateTableDefnJava(Writer w) throws IOException {
-    w.write("    redefineTable(tab_" + name + " = " +
-	             "new " + tableMainClass + "(this, \"" + name + "\", DefinitionSource.dsd));\n");
+    if (!isAbstract)
+      w.write("    redefineTable(tab_" + name + " = " +
+	               "new " + tableMainClass + "(this, \"" + name + "\", " +
+                                                   "DefinitionSource.dsd));\n");
   }
 
   public void generateTableAccessorJava(Writer w) throws IOException {
     // FIXME hack
-    w.write("  public " + (superclass == null ? tableMainClass :
-			                        superclass + "Table") +
-                " get" + tableMainClass + "() {\n" +
-            "    return tab_" + name + ";\n" +
-            "  }\n");
+    if (!isAbstract)
+      w.write("  public " + (hidesSuperclass ? superclass + "Table" :
+			                       tableMainClass) +
+		  " get" + tableMainClass + "() {\n" +
+	      "    return tab_" + name + ";\n" +
+	      "  }\n");
   }
 
   public void generateBaseJava(Writer w) throws IOException {
@@ -145,7 +159,7 @@ public class TableDef {
     // FIXME hack
 
     String tableRetClass =
-        superclass == null ? tableMainClass : superclass + "Table";
+        hidesSuperclass ? superclass + "Table" : tableMainClass;
 
     w.write("  public " + tableRetClass + " " + tableAccessorMethod +
                    "() {\n" +
@@ -228,7 +242,7 @@ public class TableDef {
       w.write('\n');
     }
 
-    String retMainClass = superclass == null ? mainClass : superclass;
+    String retMainClass = hidesSuperclass ? superclass : mainClass;
 
     w.write("  public " + retMainClass + " get" + mainClass + "Object(" +
                   "Integer troid) {\n" +

@@ -72,6 +72,8 @@ import org.melati.util.DatabaseInitException;
 import org.melati.util.StringUtils;
 import org.melati.util.MelatiWriter;
 import org.melati.util.SimpleMelatiWriter;
+import org.melati.util.StringMelatiWriter;
+import org.melati.util.SimpleStringMelatiWriter;
 import org.melati.util.BufferedMelatiWriter;
 
 /**
@@ -500,6 +502,25 @@ public class Melati {
     // if we have it, remember that fact
     if (writer != null) gotwriter = true;
     return writer;
+  }
+
+/**
+ * get a StringWriter
+ *
+ * @return - one of:
+ *
+ * - a StringWriter from the template engine
+ * - a new StringWriter
+ *
+ * @throws IOException if there is a problem with the writer
+ */  
+  public StringMelatiWriter getStringWriter() throws IOException {
+
+    if (templateEngine != null) {
+      return templateEngine.getStringWriter(getEncoding());
+    } else {
+      return new SimpleStringMelatiWriter();
+    }
   }
 
 

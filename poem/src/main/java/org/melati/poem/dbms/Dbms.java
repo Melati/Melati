@@ -47,18 +47,17 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Connection;
+import java.sql.SQLException;
 
-import org.melati.poem.Persistable;
-import org.melati.poem.Table;
 import org.melati.poem.Column;
-import org.melati.poem.SQLPoemException;
-import org.melati.poem.User;
+import org.melati.poem.Persistable;
 import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.Table;
 
 /**
  * A Database Management System.

@@ -58,8 +58,8 @@ import org.melati.util.MelatiLocale;
 /**
  * The object representing a single table row; this is the <B>PO</B> in POEM!
  * <p>
- * Instances are also used to represent selection criteria snd as
- * such constructs in the DBMS dialect of SQL.
+ * Instances are also used to represent selection criteria  
+ * in the dialect of SQL of this DBMS.
  * Features have now been added specifically to support this but
  * this functionality might later be factored out into separate
  * types specifically for that purpose.

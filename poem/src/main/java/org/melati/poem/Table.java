@@ -319,9 +319,9 @@ public class Table implements Selectable {
     displayColumn = column;
   }
 
-  /**
-  * in a similar manner to the primary display column, each table can have a 
-  * primary criterion column
+ /**
+  * In a similar manner to the primary display column, each table can have a 
+  * primary criterion column.
   */
 
   public final Column primaryCriterionColumn() {

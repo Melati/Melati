@@ -54,7 +54,7 @@ public class TableNamingStore {
 
   Hashtable tablesByShortName = new Hashtable();
   Hashtable tablesByFQName = new Hashtable();
-    boolean debug = false;
+  boolean debug = false;
 
   /**
    * @param packageName fully qualified java package name

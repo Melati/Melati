@@ -381,7 +381,7 @@ public class AnsiStandard implements Dbms {
       + ")";
   }
 
-  /**
+ /**
   * This is the MySQL syntax
   **/
   public String caseInsensitiveRegExpSQL(String term1, String term2) {

@@ -78,7 +78,7 @@ public abstract class PoemTypeFactory {
 
   public static final PoemTypeFactory
       TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD,
-      TIMESTAMP, DISPLAYLEVEL, SEARCHABILITY, BINARY, LONG;
+      TIMESTAMP, DISPLAYLEVEL, SEARCHABILITY, BINARY, LONG, INTEGRITYFIX;
 
   private static int n = -1;
 
@@ -282,6 +282,20 @@ public abstract class PoemTypeFactory {
 
       public String getName() {
         return "LONG";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    INTEGRITYFIX = new PoemTypeFactory(n--) {
+      public SQLPoemType typeOf(Database database, Parameter info) {
+        return new IntegrityFixPoemType(info.getNullable());
+      }
+
+      public String getName() {
+        return "INTEGRITYFIX";
       }
 
       public String getDescription() {

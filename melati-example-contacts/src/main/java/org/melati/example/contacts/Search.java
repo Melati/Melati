@@ -2,7 +2,7 @@ package org.melati.example.contacts;
 
 import org.melati.Melati;
 import org.melati.template.TemplateContext;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.poem.Field;
 import org.melati.MelatiUtil;
@@ -43,8 +43,8 @@ public class Search extends ContactsServlet {
     return "org/melati/example/contacts/Search";
   }
   
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
   throws PathInfoException {
-    return melatiContextWithLDB(melati,"contacts");
+    return poemContextWithLDB(melati,"contacts");
   }
 }

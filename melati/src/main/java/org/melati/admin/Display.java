@@ -75,6 +75,6 @@ public class Display extends TemplateServlet {
     if (melati.getMethod() != null) 
       return melati.getMethod();
     else 
-      throw new InvalidUsageException(this, melati.getContext());
+      throw new InvalidUsageException(this, melati.getPoemContext());
   }
 }

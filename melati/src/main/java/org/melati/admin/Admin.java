@@ -888,6 +888,6 @@ public class Admin extends TemplateServlet {
         return columnCreate_doitTemplate(context, melati);
     }
 
-    throw new InvalidUsageException(this, melati.getContext());
+    throw new InvalidUsageException(this, melati.getPoemContext());
   }
 }

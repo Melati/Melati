@@ -3,7 +3,7 @@ package org.melati.example.contacts;
 import org.melati.example.contacts.generated.ContactBase;
 import java.util.Vector;
 import java.util.Enumeration;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.poem.User;
 import org.melati.poem.PoemThread;
 import org.melati.util.Treeable;
@@ -71,7 +71,7 @@ public class Contact extends ContactBase implements Treeable {
   }
     
 
-  public String getLogicalDatabase (MelatiContext melatiContext, String logicalDatabase) {
+  public String getLogicalDatabase (PoemContext melatiContext, String logicalDatabase) {
     return "contacts";
   }
     

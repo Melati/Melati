@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.template.TemplateContext;
 
@@ -92,9 +92,9 @@ public class ContactView extends TemplateServlet {
                  contact.getTroid());
   }
 
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
-    return melatiContextWithLDB(melati,"contacts");
+    return (PoemContext)poemContextWithLDB(melati,"contacts");
   }
 
 }

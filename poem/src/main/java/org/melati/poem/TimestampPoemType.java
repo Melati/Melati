@@ -48,9 +48,13 @@
 package org.melati.poem;
 
 import java.sql.*;
+import java.text.*;
 import org.melati.util.*;
 
 public class TimestampPoemType extends AtomPoemType {
+
+  public static final DateFormat format =
+      new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
   public TimestampPoemType(boolean nullable) {
     super(Types.TIMESTAMP, "TIMESTAMP", nullable);
@@ -70,8 +74,17 @@ public class TimestampPoemType extends AtomPoemType {
     ps.setTimestamp(col, (Timestamp)raw);
   }
 
+  protected String _stringOfRaw(Object raw) {
+    return format.format((java.util.Date)raw);
+  }
+
   protected Object _rawOfString(String raw) {
-    return Timestamp.valueOf(raw);
+    try {
+      return new Timestamp(format.parse(raw).getTime());
+    }
+    catch (ParseException e) {
+      throw new ParsingPoemException(this, raw, e);
+    }
   }
 
   protected String _stringOfCooked(Object cooked,

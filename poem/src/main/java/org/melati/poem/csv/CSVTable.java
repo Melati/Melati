@@ -78,6 +78,12 @@ public class CSVTable {
   protected Vector columnsInUploadOrder = new Vector();
   protected CSVColumn primaryKey = null;
   protected Vector records = new Vector();
+  /** The line number of the CSV file */
+  private int lineNo;
+  
+  /** The record number of the CSV file */
+  private int recordNo;
+
 
  /**
   * Constructor.
@@ -131,6 +137,8 @@ public class CSVTable {
     // validated againsed expected values, and the order of
     // the fields established
     parser.nextRecord();
+    lineNo = 1;
+    recordNo = 0;
 
     try {
       while (parser.recordHasMoreFields()) {
@@ -147,17 +155,23 @@ public class CSVTable {
       // Suck in all the data
       CSVRecord record;
       while(null != (record = parseRecord(parser, data.getPath()))) {
+        record.lineNo = lineNo++;
+        record.recordNo = recordNo++;
         records.addElement(record);
       }
 
     }
     catch (IllegalArgumentException e) {
        throw new CSVParseException("Failed to read column header in " +
-                                    data.getPath() + ": " + e.toString());
+                                    data.getPath() + 
+                                    " line " + lineNo +
+                                    ": " + e.toString());
     }
     catch (NoSuchElementException f) {
        throw new CSVParseException("Failed to read column header in " +
-                                    data.getPath() + ": " + f.toString());
+                                    data.getPath() + 
+                                    " line " + lineNo +
+                                    ": " + f.toString());
     }
     finally {
       reader.close();
@@ -190,12 +204,17 @@ public class CSVTable {
     }
     catch (IllegalArgumentException e) {
        throw new CSVParseException("Failed to read data field no. " + 
-                                    (i+1) + " in " +
-                                    fileName + ": " + e.toString());
+                                    (i+1) + 
+                                    " in " +
+                                    fileName + 
+                                    " line " + lineNo +
+                                    ": " + e.toString());
     }
     catch (NoSuchElementException f) {
       String message = "Problem with data field no. " + (i+1) + 
-      " in " + fileName;
+      " in " + fileName +
+      " line " + lineNo;
+      
       if (value == null) {
         message += " (Check last line of file) : " + 
                     f.toString();
@@ -221,9 +240,17 @@ public class CSVTable {
  /**
   * Write the records to the database.
   */
-  public void writeRecords() throws NoPrimaryKeyInCSVTableException {
+  public void writeRecords() 
+      throws NoPrimaryKeyInCSVTableException,  CSVWriteDownException {
     for (int i = 0; i < records.size(); i++) {
+      try {
       ((CSVRecord)records.elementAt(i)).makePersistent();
+      } catch (NoPrimaryKeyInCSVTableException e1) {
+        throw e1;
+      } catch (Exception e) {
+        e.printStackTrace(System.err);
+        throw new CSVWriteDownException (table.getName(),i+2,e);
+      }
     }
   }
 

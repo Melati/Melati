@@ -47,8 +47,10 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
+
 public class ColumnInfo extends ColumnInfoBase {
-  
+
   protected void assertCanRead(AccessToken token) {}
 
   private Column _column = null;
@@ -86,8 +88,8 @@ public class ColumnInfo extends ColumnInfoBase {
         Column previous = table.displayColumn();
         if (previous != null && previous != column) {
           previous.setDisplayLevel(DisplayLevel.summary);
-	  table.setDisplayColumn(column);
-	}
+          table.setDisplayColumn(column);
+        }
       }
     }
   }

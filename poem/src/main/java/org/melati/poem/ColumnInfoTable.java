@@ -47,6 +47,8 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
+
 public class ColumnInfoTable extends ColumnInfoTableBase {
 
   public ColumnInfoTable(Database database, String name) throws PoemException {
@@ -61,10 +63,10 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
 
   protected void postInitialise() {
     super.postInitialise();
-    if (info.getDefaultcanwrite() == null)
-      info.setDefaultcanwrite(getDatabase().administerCapability());
-    if (info.getCancreate() == null)
-      info.setCancreate(getDatabase().administerCapability());
+    if (getTableInfo().getDefaultcanwrite() == null)
+      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
+    if (getTableInfo().getCancreate() == null)
+      getTableInfo().setCancreate(getDatabase().administerCapability());
   }
   
   /**

@@ -168,7 +168,7 @@ abstract table ValueInfo {
       (description = "Whether the field can be empty")
       (displaylevel = detail) (searchability = no) (uneditable);
 
-  Integer valuesize
+  Integer size
       (description = "For character fields, the maximum number of characters that can be stored")
       (displaylevel = detail) (searchability = no) (uneditable);
 

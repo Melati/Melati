@@ -47,9 +47,11 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
+
 public class TableCategory extends TableCategoryBase {
   public TableCategory(String name) {
-    this.name = name;
+    setName_unsafe(name);
   }
 
   public TableCategory() {

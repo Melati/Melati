@@ -44,6 +44,7 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
 import java.util.*;
 import java.sql.Date;
 import org.melati.util.*;
@@ -57,19 +58,19 @@ public class Setting extends SettingBase {
   private Object cooked = null;
 
   public Setting(Integer typefactory, String name, String value,
-		 String displayname, String description) {
-    this.typefactory = typefactory;
-    this.name = name;
-    this.value = value;
-    this.displayname = displayname;
-    this.description = description;
+                 String displayname, String description) {
+    setTypefactory_unsafe(typefactory);
+    setName_unsafe(name);
+    setValue_unsafe(value);
+    setDisplayname_unsafe(displayname);
+    setDescription_unsafe(description);
   }
 
   public PoemType getType() {
     if (poemType == null) {
       PoemTypeFactory f = getTypefactory();
       if (f == null)
-	return new StringPoemType(true, getDatabase().getDbms(), -1);
+        return new StringPoemType(true, getDatabase().getDbms(), -1);
       poemType = getTypefactory().typeOf(getDatabase(), toTypeParameter());
     }
     return poemType;
@@ -85,7 +86,7 @@ public class Setting extends SettingBase {
 
     public String getMessage() {
       return "A problem arose updating the value of the `" + name +
-             "' setting:\n" + subException.getMessage();
+      "' setting:\n" + subException.getMessage();
     }
   }
 
@@ -93,9 +94,8 @@ public class Setting extends SettingBase {
     Object raw;
     try {
       raw = getType().rawOfString(value);
-    }
-    catch (Exception e) {
-      throw new SettingValidationException(name, e);
+    } catch (Exception e) {
+      throw new SettingValidationException(getName_unsafe(), e);
     }
 
     super.setValue(value);
@@ -107,9 +107,8 @@ public class Setting extends SettingBase {
     String string;
     try {
       string = getType().stringOfRaw(raw);
-    }
-    catch (Exception e) {
-      throw new SettingValidationException(name, e);
+    } catch (Exception e) {
+      throw new SettingValidationException(getName_unsafe(), e);
     }
 
     super.setValue(string);
@@ -120,10 +119,9 @@ public class Setting extends SettingBase {
   public Object getRaw() {
     if (raw == null)
       try {
-	raw = getType().rawOfString(getValue());
-      }
-      catch (Exception e) {
-	throw new SettingValidationException(name, e);
+        raw = getType().rawOfString(getValue());
+      } catch (Exception e) {
+        throw new SettingValidationException(getName_unsafe(), e);
       }
 
     return raw;
@@ -149,7 +147,7 @@ public class Setting extends SettingBase {
 
     public String getMessage() {
       return "The setting `" + name + "' has type `" + type + "' but " +
-	     "the application asked for a value of type " + reqType;
+      "the application asked for a value of type " + reqType;
     }
   }
 
@@ -158,9 +156,9 @@ public class Setting extends SettingBase {
     if (cooked == null)
       return null;
     else if (cooked instanceof Integer)
-      return (Integer)cooked;
+      return(Integer)cooked;
     else
-      throw new SettingTypeMismatchException(name, getTypefactory(), "Integer");
+      throw new SettingTypeMismatchException(getName_unsafe(), getTypefactory(), "Integer");
   }
 
   public String getStringCooked() {
@@ -168,20 +166,20 @@ public class Setting extends SettingBase {
     if (cooked == null)
       return null;
     else if (cooked instanceof String)
-      return (String)cooked;
+      return(String)cooked;
     else
-      throw new SettingTypeMismatchException(name, getTypefactory(), "String");
+      throw new SettingTypeMismatchException(getName_unsafe(), getTypefactory(), "String");
   }
 
   private FieldAttributes valueAttributes() {
     if (valueAttributes == null) {
       Column c = getSettingTable().getValueColumn();
       valueAttributes =
-	  new BaseFieldAttributes(
-              c.getName(), c.getDisplayName(), c.getDescription(), getType(),
-	      width == null ? 12 : width.intValue(),
-	      height == null ? 1 : height.intValue(),
-	      renderinfo);
+      new BaseFieldAttributes(
+                             c.getName(), c.getDisplayName(), c.getDescription(), getType(),
+                             getWidth_unsafe() == null ? 12 : getWidth_unsafe().intValue(),
+                             getHeight_unsafe() == null ? 1 : getHeight_unsafe().intValue(),
+                             getRenderinfo_unsafe());
     }
 
     return valueAttributes;
@@ -190,8 +188,7 @@ public class Setting extends SettingBase {
   public Field getValueField() {
     try {
       return new Field(getRaw(), valueAttributes());
-    }
-    catch (AccessPoemException accessException) {
+    } catch (AccessPoemException accessException) {
       return new Field(accessException, valueAttributes());
     }
   }

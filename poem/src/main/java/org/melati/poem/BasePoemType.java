@@ -307,7 +307,7 @@ public abstract class BasePoemType implements PoemType, Cloneable {
 				      final ColumnInfo info) {
     return
         PoemTypeFactory.forCode(database,
-                                info.typefactory.intValue()).typeOf(
+                                info.getTypefactory_unsafe().intValue()).typeOf(
                                     database, info.toTypeParameter());
   }
 

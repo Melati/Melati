@@ -94,7 +94,7 @@ abstract public class Database implements TransactionPool {
    * @see PoemDatabase
    */
 
-  Database() {
+  public Database() {
   }
 
   private boolean initialised = false;

@@ -105,7 +105,7 @@ public class ColumnTypeFieldDef extends FieldDef {
             "\n" +
             "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "Code(cooked == null ? null : cooked.code);\n" +
+            "    set" + suffix + "Code(cooked == null ? null : cooked.getCode());\n" +
             "  }\n");
   }
 

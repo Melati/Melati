@@ -47,6 +47,7 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
 import java.util.*;
 import java.sql.*;
 import org.melati.util.*;
@@ -61,9 +62,9 @@ public class User extends UserBase implements AccessToken {
   }
 
   public User(String login, String password, String name) {
-    this.login = login;
-    this.password = password;
-    this.name = name;
+    setLogin_unsafe(login);
+    setPassword_unsafe(password);
+    setName_unsafe(name);
   }
 
   public boolean givesCapability(Capability capability) {

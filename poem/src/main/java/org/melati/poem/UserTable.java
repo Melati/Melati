@@ -47,6 +47,7 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
 import java.util.*;
 import org.melati.util.*;
 import java.sql.*;
@@ -95,7 +96,7 @@ public class UserTable extends UserTableBase {
     // return canWritePasswords;
   }
 
-  synchronized void unifyWithDB(ResultSet colDescs)
+  public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
     guestUser = (User)getLoginColumn().ensure(guestUser);
@@ -104,10 +105,10 @@ public class UserTable extends UserTableBase {
 
   protected void postInitialise() {
     super.postInitialise();
-    if (info.getDefaultcanwrite() == null)
-      info.setDefaultcanwrite(getDatabase().administerCapability());
-    if (info.getCancreate() == null)
-      info.setCancreate(getDatabase().administerCapability());
+    if (getTableInfo().getDefaultcanwrite() == null)
+      getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
+    if (getTableInfo().getCancreate() == null)
+      getTableInfo().setCancreate(getDatabase().administerCapability());
 
     // see above
 

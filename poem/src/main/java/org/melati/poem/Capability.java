@@ -47,13 +47,15 @@
 
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
+
 public class Capability extends CapabilityBase {
 
   public Capability() {
   }
 
   public Capability(String name) {
-    this.name = name;
+    setName_unsafe(name);
   }
 
   protected void assertCanRead(AccessToken token) {}

@@ -266,7 +266,7 @@ public abstract class PoemTypeFactory {
     }
   };
 
-  static PoemTypeFactory forCode(Database database, int code) {
+  public static PoemTypeFactory forCode(Database database, int code) {
     if (code < 0)
       return atomTypeFactories[(-code)-1];
     else {

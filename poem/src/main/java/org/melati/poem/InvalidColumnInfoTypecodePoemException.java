@@ -56,7 +56,7 @@ public class InvalidColumnInfoTypecodePoemException
 
   public String getMessage() {
     return
-        "The info for column " + columnInfo.name +
-        " had an invalid typecode " + columnInfo.typefactory;
+        "The info for column " + columnInfo.getName_unsafe() +
+        " had an invalid typecode " + columnInfo.getTypefactory_unsafe();
   }
 }

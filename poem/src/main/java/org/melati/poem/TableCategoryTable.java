@@ -1,5 +1,6 @@
 package org.melati.poem;
 
+import org.melati.poem.generated.*;
 import java.util.*;
 import org.melati.util.*;
 

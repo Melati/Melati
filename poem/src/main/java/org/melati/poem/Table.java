@@ -338,7 +338,7 @@ public class Table {
 
   void notifyColumnInfo(ColumnInfo info) {
     // FIXME info == null means deleted: effect is too broad really
-    if (info == null || info.tableinfo.equals(tableInfoID()))
+    if (info == null || info.getTableinfo_unsafe().equals(tableInfoID()))
       clearColumnInfoCaches();
   }
 
@@ -762,7 +762,7 @@ public class Table {
     cache.trim(maxSize);
   }
 
-  void addListener(TableListener listener) {
+  public void addListener(TableListener listener) {
     listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
 
@@ -788,7 +788,7 @@ public class Table {
       listeners[l].notifyTouched(transaction, this, persistent);
   }
 
-  long serial(PoemTransaction transaction) {
+  public long serial(PoemTransaction transaction) {
     return serial.current(transaction);
   }
 
@@ -919,7 +919,7 @@ public class Table {
     }
   }
 
-  Enumeration troidSelection(
+  public Enumeration troidSelection(
       String whereClause, String orderByClause,
       boolean includeDeleted, PoemTransaction transaction) {
     ResultSet them = selectionResultSet(whereClause, orderByClause,
@@ -958,7 +958,7 @@ public class Table {
    * @see #selection(java.lang.String, boolean)
    */
 
-  Enumeration troidSelection(String whereClause, String orderByClause,
+  public Enumeration troidSelection(String whereClause, String orderByClause,
                              boolean includeDeleted)
       throws SQLPoemException {
     PreparedSelection allTroids = this.allTroids;
@@ -1610,6 +1610,10 @@ public class Table {
     rememberAllTroids(tableInfo.getSeqcached().booleanValue());
     setCacheLimit(tableInfo.getCachelimit());
   }
+  
+  public TableInfo getTableInfo() {
+    return info;
+  }
 
   /**
    * The `factory-default' display name for the table.  By default this is the
@@ -1694,7 +1698,7 @@ public class Table {
       ((Column)c.nextElement()).createColumnInfo();
   }
 
-  synchronized void unifyWithDB(ResultSet colDescs)
+  public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
 
     Hashtable dbColumns = new Hashtable();

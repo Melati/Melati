@@ -6,7 +6,7 @@
 
 # This file says how Melati should map the "logical database name"
 # which it expects to see as the first element of the pathinfo in each
-# incoming HTTP request should be mapped to JDBC connection details.
+# incoming HTTP request to JDBC connection details.
 #
 # Given the example URL
 #

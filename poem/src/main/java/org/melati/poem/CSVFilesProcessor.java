@@ -122,8 +122,12 @@ public class CSVFilesProcessor {
       NoPrimaryKeyInCSVTableException, CSVWriteDownException {
 
     // Load in data
-    for(int i = 0; i < tables.size(); i++)
-      ((CSVTable)tables.elementAt(i)).load();
+    for(int i = 0; i < tables.size(); i++) {
+      CSVTable t = ((CSVTable)tables.elementAt(i));
+      t.load();
+      output.write("Loaded table :" + t.getName() + "\n");
+      System.err.println("Loaded table :" +  t.getName());
+    }
 
     output.write("Loaded files\n");
     output.write("Trying to get exclusive lock on the database\n");
@@ -148,7 +152,7 @@ public class CSVFilesProcessor {
 
     // We must have loaded in all the data before we
     // try writing records, otherwise Foreign Key lookups
-    // won't work
+    // defined in this set of CSVs won't work
     writeData(output);
 
     output.write("Written records\n");

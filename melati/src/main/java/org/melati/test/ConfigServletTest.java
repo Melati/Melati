@@ -106,7 +106,7 @@ public class ConfigServletTest extends ConfigServlet {
     }
 
     MelatiConfig config = melati.getConfig();
-    melati.getResponse().setContentType("text/html");
+    melati.setResponseContentType("text/html");
     MelatiWriter output = melati.getWriter();
 
     output.write(

@@ -117,7 +117,14 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
       minuteSuffix = "-minute",
       secondSuffix = "-second";
 
-  public static final YMDHMSTimestampAdaptor it = new YMDHMSTimestampAdaptor();
+  private static final YMDHMSTimestampAdaptor it = new YMDHMSTimestampAdaptor();
+
+  /**
+   * @return Returns the it.
+   */
+  public static YMDHMSTimestampAdaptor getIt() {
+    return it;
+  }
 
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);

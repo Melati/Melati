@@ -8,9 +8,9 @@
     <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
-  <property name="version"            value="0.7.1"/>
-  <property name="year"               value="2003"/>
-  <property name="date"               value="11-07-2003"/>
+  <property name="version"            value="0.7.2"/>
+  <property name="year"               value="2004"/>
+  <property name="date"               value="26-04-2004"/>
   <property name="project"            value="melati"/>
   <property name="name"               value="Melati"/>
   <property name="build.sysclasspath" value="ignore"/>
@@ -41,42 +41,59 @@
   <!-- We now assume Java 1.4. -->
   <property name="javac.source"       value="1.4"/>
   <property name="javadoc.source"     value="1.4"/>
-  <property name="poemODMGDSD"        value="${src}/org/melati/poem/odmg/playing/Playing.dsd"/>
+  <property name="poemODMGDSD"        value="${src}/org/melati/example/odmg/odmg.dsd"/>
 
+  <property name="servletJar"      value="${build.lib}/javax.servlet.jar"/>
+  <property name="postgresqlJar"   value="${build.lib}/pg73jdbc3.jar"/>
+  <property name="hsqldbJar"       value="${build.lib}/hsqldb.jar"/>
+  <property name="mysqlJar"        value="${build.lib}/mm.mysql-2.0.11-bin.jar" />
+  <property name="mckoiJar"        value="${build.lib}/mkjdbc.jar}" />
+
+  <property name="webmacroJar"     value="${build.lib}/webmacro-minimal-2.0b1.jar"/>
+  <property name="velocityJar"     value="${build.lib}/velocity-1.3.1.jar" />
+  <property name="oroJar"          value="${build.lib}/jakarta-oro-2.0.8.jar" />
+  <property name="collectionsJar"  value="${build.lib}/commons-collections-3.0.jar" />
+  <property name="odmgJar"         value="${build.lib}/odmg3.jar" />
+
+  <property name="junitJar"        value="${build.lib}/junit.jar" />
+  <property name="mockobjectsJar"  value="${build.lib}/mockobjects-core-0.09.jar" />
 
   <path id="classpath.compile">
-    <pathelement path="${build.lib}/javax.servlet.jar"/>
-    <pathelement path="${build.lib}/pg73jdbc3.jar"/>
-    <pathelement path="${build.lib}/webmacro-1.1.jar"/>
-    <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
-    <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
-    <pathelement path="${build.lib}/odmg3.jar" />
-    <pathelement path="${build.lib}/junit.jar" />
-    <pathelement path="${build.lib}/mockobjects-core-0.09.jar" />
+    <pathelement path="${servletJar}"/>
+    <pathelement path="${postgresqlJar}"/>
+    <pathelement path="${webmacroJar}"/>
+    <pathelement path="${velocityJar}" />
+    <pathelement path="${oroJar}" />
+    <pathelement path="${collectionsJar}" />
+    <pathelement path="${odmgJar}" />
+    <pathelement path="${junitJar}" />
+    <pathelement path="${mockobjectsJar}" />
   </path>
 
   <path id="classpath.jetty">
-    <pathelement path="${build.lib}/javax.servlet.jar"/>
+    <pathelement path="${servletJar}"/>
     <pathelement path="${build.lib}/javax.xml.jaxp.jar"/>
     <pathelement path="${build.lib}/org.apache.crimson.jar"/>
     <pathelement path="${build.lib}/org.apache.jasper.jar"/>
     <pathelement path="${build.lib}/org.mortbay.jetty.jar"/>
-    <pathelement path="${build.lib}/javax.servlet.jar"/>
-    <pathelement path="${build.lib}/pg73jdbc3.jar"/>
-    <pathelement path="${build.lib}/webmacro-1.1.jar"/>
-    <pathelement path="${build.lib}/velocity-1.3-rc1.jar" />
-    <pathelement path="${build.lib}/velocity-dep-1.3-rc1.jar" />
-    <pathelement path="${build.lib}/odmg3.jar" />
-    <pathelement path="${build.lib}/junit.jar" />
-    <pathelement path="${build.lib}/hsqldb.jar"/>
-    <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
     <pathelement path="${build.lib}/tools.jar"/>
+
+    <pathelement path="${postgresqlJar}"/>
+    <pathelement path="${webmacroJar}"/>
+    <pathelement path="${velocityJar}" />
+    <pathelement path="${oroJar}" />
+    <pathelement path="${collectionsJar}" />
+    <pathelement path="${odmgJar}" />
+    <pathelement path="${junit}" />
+    <pathelement path="${hsqldbJar}"/>
+    <pathelement path="${mysqlJar}" />
     <pathelement path="${built.lib}/melati.jar"/>
   </path>
   <path id="classpath.drivers">
-    <pathelement path="${build.lib}/hsqldb.jar"/>
-    <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
-    <pathelement path="${build.lib}/mkjdbc.jar"/>
+    <pathelement path="${postgresqlJar}"/>
+    <pathelement path="${hsqldbJar}"/>
+    <pathelement path="${mysqlJar}" />
+    <pathelement path="${mckoiJar}"/>
   </path>
 
 
@@ -477,8 +494,8 @@ usage:
       </classes>
       <!-- Third party jars -->
       <lib dir="${build.lib}">
-        <include name="webmacro-1.1.jar"/>
-        <include name="hsqldb.jar"/>
+        <include name="${webmacroJar}"/>
+        <include name="${hsqldbJar}"/>
       </lib>
       <!-- Melati jar -->
       <lib dir="${built.lib}">
@@ -534,7 +551,7 @@ usage:
       <formatter type="plain"/>
       <classpath>
         <pathelement path="${compiled.root}"/>
-		<pathelement path="${build.lib}/mockobjects-core-0.09.jar" />
+		<pathelement path="${build.lib}/${mockobjectsJar}" />
       </classpath>
       <test name="org.melati.AllUnitTests"/>
       <formatter type="plain"/>

@@ -46,7 +46,6 @@
 package org.melati.util;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpUtils;
 import javax.servlet.http.HttpSession;
 
 public class ReconstructedHttpServletRequestMismatchException
@@ -65,9 +64,9 @@ public class ReconstructedHttpServletRequestMismatchException
     HttpSession session = newRequest.getSession(false);
     return
         "New HttpServletRequest " +
-        HttpUtils.getRequestURL(newRequest).toString() + " " +
-        "(session " + (session == null ? null : session.getId()) + ") " +
+        HttpUtil.getRelativeRequestURL(newRequest) + 
+        " (session " + (session == null ? null : session.getId()) + ") " +
         "is incompatible with stored request " + stored.requestURL +
-        "(session " + stored.sessionID + ")";
+        " (session " + stored.sessionID + ")";
   }
 }

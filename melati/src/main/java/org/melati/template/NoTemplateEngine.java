@@ -81,6 +81,13 @@ public class NoTemplateEngine implements TemplateEngine
   }
 
   /**
+  * the extension of the templates used by this template engine)
+  */
+  public String templateExtension() {
+    return "none";
+  }
+
+  /**
    * the underlying engine
    */
   public Object getEngine() {

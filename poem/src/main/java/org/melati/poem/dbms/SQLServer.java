@@ -61,32 +61,31 @@ import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 
-
 /**
  * A Driver for the Microsoft SQL server.
  */
 public class SQLServer extends AnsiStandard {
-  
+
   /**
-   * SQL Server does not have a pleasant <code>TEXT</code> 
-   * datatype, so we use an arbetary value in a 
-   * <code>VARCHAR</code>.
+   * SQL Server does not have a pleasant <code>TEXT</code> datatype, so we use
+   * an arbetary value in a <code>VARCHAR</code>.
    */
   public static final int sqlServerTextHack = 2333;
 
   public SQLServer() {
-  //buggy
-  //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
+    //buggy
+    //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
     //setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); //does not work
     //setDriverClassName("com.ashna.jturbo.driver.Driver"); //works
     //setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
     // does not return indices without schema name
-    //setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver"); 
-    setDriverClassName("com.inet.tds.TdsDriver"); 
+    //setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
+    setDriverClassName("com.inet.tds.TdsDriver");
     //FreeTDS driver now have many unimplemented features and => does not work.
   }
 
-  /* Get the user we are connected as and return that as the schema.
+  /*
+   * Get the user we are connected as and return that as the schema.
    * 
    * @see org.melati.poem.dbms.Dbms#getSchema()
    * @see org.melati.poem.dbms.Ansistandard#getConnection()
@@ -95,16 +94,16 @@ public class SQLServer extends AnsiStandard {
     return schema;
   }
 
-
   public String getQuotedName(String name) {
     //if you don't want to set 'use ANSI quoted identifiers' database property
     //to 'true' (on SQL Server)
-    
-    /*if(name.equalsIgnoreCase("nullable")) return "\"" + name+"\"";
-    if(name.equalsIgnoreCase("unique")) return "\"" + name+"\"";
-    if(name.equalsIgnoreCase("user")) return "q" + name;
-    if(name.equalsIgnoreCase("group")) return "q" + name;
-    return name;*/
+
+    /*
+     * if(name.equalsIgnoreCase("nullable")) return "\"" + name+"\"";
+     * if(name.equalsIgnoreCase("unique")) return "\"" + name+"\"";
+     * if(name.equalsIgnoreCase("user")) return "q" + name;
+     * if(name.equalsIgnoreCase("group")) return "q" + name; return name;
+     */
 
     //if you already set 'use ANSI quoted identifiers' property to 'true'
     return super.getQuotedName(name);
@@ -124,17 +123,16 @@ public class SQLServer extends AnsiStandard {
   }
 
   public String getStringSqlDefinition(int size) throws SQLException {
-    if (size < 0) { // Don't use TEXT as it doesn't support 
-                      //indexing or comparison
-      return "VARCHAR("+ sqlServerTextHack + ")";
+    if (size < 0) { // Don't use TEXT as it doesn't support
+      //indexing or comparison
+      return "VARCHAR(" + sqlServerTextHack + ")";
     }
     return super.getStringSqlDefinition(size);
   }
 
-
- /**
-  * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
-  */ 
+  /**
+   * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
+   */
   public static class MSSQLStringPoemType extends StringPoemType {
 
     public MSSQLStringPoemType(boolean nullable, int size) {
@@ -144,24 +142,24 @@ public class SQLServer extends AnsiStandard {
     // MSSQL returns metadata info size 2147483647 for its TEXT type
     // We set size to sqlServerTextHack for our Text type
     protected boolean _canRepresent(SQLPoemType other) {
-      return  (getSize() < 0 || 
-               getSize() == 2147483647 ||
-               getSize() == sqlServerTextHack || 
-               getSize() >= ((StringPoemType)other).getSize());
+      return (getSize() < 0 || getSize() == 2147483647
+          || getSize() == sqlServerTextHack || getSize() >= ((StringPoemType) other)
+          .getSize());
     }
 
     public PoemType canRepresent(PoemType other) {
-      return other instanceof StringPoemType &&
-             _canRepresent((StringPoemType)other) &&
-             !(!getNullable() && ((StringPoemType)other).getNullable()) ?
-               other : null;
+      return other instanceof StringPoemType
+          && _canRepresent((StringPoemType) other)
+          && !(!getNullable() && ((StringPoemType) other).getNullable())
+          ? other
+          : null;
     }
 
   }
 
- /**
-  * Translates a MSSQL Date into a Poem <code>DatePoemType</code>.
-  */ 
+  /**
+   * Translates a MSSQL Date into a Poem <code>DatePoemType</code>.
+   */
   public static class MSSQLDatePoemType extends DatePoemType {
 
     public MSSQLDatePoemType(boolean nullable) {
@@ -170,9 +168,9 @@ public class SQLServer extends AnsiStandard {
 
   }
 
- /**
-  * Translates a MSSQL Date into a Poem <code>TimestampPoemType</code>.
-  */ 
+  /**
+   * Translates a MSSQL Date into a Poem <code>TimestampPoemType</code>.
+   */
   public static class MSSQLTimestampPoemType extends TimestampPoemType {
 
     public MSSQLTimestampPoemType(boolean nullable) {
@@ -181,97 +179,75 @@ public class SQLServer extends AnsiStandard {
 
   }
 
-
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-  throws SQLException {
+      throws SQLException {
 
-  /*
-ResultSetMetaData rsmd = md.getMetaData();
-int cols = rsmd.getColumnCount();
-for (int i = 1; i <= cols; i++) {
-  String table = rsmd.getTableName(i);
-  System.err.println("table name: " + table);
-  String column = rsmd.getColumnName(i);
-  System.err.println("column name: " + column);
-  int type = rsmd.getColumnType(i);
-  System.err.println("type: " + type);s
-  String typeName = rsmd.getColumnTypeName(i);
-  System.err.println("type Name: " + typeName);
-  String className = rsmd.getColumnClassName(i);
-  System.err.println("class Name: " + className);
-  System.err.println("String val: " + md.getString(i));
-  System.err.println("");
-}
-  */
-if(md.getString("TYPE_NAME").equals("text"))
-  return 
-      new MSSQLStringPoemType(md.getInt("NULLABLE")==
-                                  DatabaseMetaData.columnNullable, 
-                              md.getInt("COLUMN_SIZE"));
-// We use a magic number for text fields    
-if(md.getString("TYPE_NAME").equals("varchar") && 
-    md.getInt("COLUMN_SIZE") == sqlServerTextHack)
-  return 
-      new MSSQLStringPoemType(
-              md.getInt("NULLABLE")== DatabaseMetaData.columnNullable, 
-              md.getInt("COLUMN_SIZE"));
-if(md.getString("TYPE_NAME").equals("char"))
-  return 
-      new StringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
-              md.getInt("COLUMN_SIZE"));
-if(md.getString("TYPE_NAME").equals("datetime"))
-  return 
-      new MSSQLDatePoemType(
-              md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
-/*
-// MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP)
-They don't mean what we mean by timestamp
-if( md.getString("TYPE_NAME").equals("timestamp"))
-  return 
-      new TimestampPoemType(md.getInt("NULLABLE")==
-                              DatabaseMetaData.columnNullable);
-*/
-return super.defaultPoemTypeOfColumnMetaData(md);
-}
+    /*
+     * ResultSetMetaData rsmd = md.getMetaData(); int cols =
+     * rsmd.getColumnCount(); for (int i = 1; i <= cols; i++) { String table =
+     * rsmd.getTableName(i); System.err.println("table name: " + table); String
+     * column = rsmd.getColumnName(i); System.err.println("column name: " +
+     * column); int type = rsmd.getColumnType(i); System.err.println("type: " +
+     * type);s String typeName = rsmd.getColumnTypeName(i);
+     * System.err.println("type Name: " + typeName); String className =
+     * rsmd.getColumnClassName(i); System.err.println("class Name: " +
+     * className); System.err.println("String val: " + md.getString(i));
+     * System.err.println(""); }
+     */
+    if (md.getString("TYPE_NAME").equals("text"))
+      return new MSSQLStringPoemType(
+          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+              .getInt("COLUMN_SIZE"));
+    // We use a magic number for text fields
+    if (md.getString("TYPE_NAME").equals("varchar")
+        && md.getInt("COLUMN_SIZE") == sqlServerTextHack)
+      return new MSSQLStringPoemType(
+          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+              .getInt("COLUMN_SIZE"));
+    if (md.getString("TYPE_NAME").equals("char"))
+      return new StringPoemType(
+          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+              .getInt("COLUMN_SIZE"));
+    if (md.getString("TYPE_NAME").equals("datetime"))
+      return new MSSQLDatePoemType(
+          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+    /*
+     * // MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP) They don't mean what
+     * we mean by timestamp if( md.getString("TYPE_NAME").equals("timestamp"))
+     * return new TimestampPoemType(md.getInt("NULLABLE")==
+     * DatabaseMetaData.columnNullable);
+     */
+    return super.defaultPoemTypeOfColumnMetaData(md);
+  }
 
- /**  
-  * Ignore <TT>dtproperties</TT> as it is a 'System' table 
-  * used to store Entity Relationship 
-  * diagrams which has  a jdbc type of TABLE
-  * when it should probably have a jdbc type of 'SYSTEM TABLE'
-  */
+  /**
+   * Ignore <TT>dtproperties</TT> as it is a 'System' table used to store
+   * Entity Relationship diagrams which has a jdbc type of TABLE when it should
+   * probably have a jdbc type of 'SYSTEM TABLE'
+   */
   public String melatiName(String name) {
-    if(name == null) return null;
-    if(name.equalsIgnoreCase("dtproperties")) return null;
+    if (name == null)
+      return null;
+    if (name.equalsIgnoreCase("dtproperties"))
+      return null;
     return name;
   }
 
- /**
-  * MSSQL cannot index TEXT fields.
-  * Probably means that if you are serious about using MSSQL 
-  * you should use a varchar.
-  * 
-  * If a field is defined as Text in the DSD we use a VARCHAR.
-  * Not sure what happens if a legacy db really uses TEXT.
-  *
-  * @return whether it is allowed.
-  */
+  /**
+   * MSSQL cannot index TEXT fields. Probably means that if you are serious
+   * about using MSSQL you should use a varchar.
+   * 
+   * If a field is defined as Text in the DSD we use a VARCHAR. Not sure what
+   * happens if a legacy db really uses TEXT.
+   * 
+   * @return whether it is allowed.
+   */
   public boolean canBeIndexed(Column column) {
     PoemType t = column.getType();
-    if (t instanceof StringPoemType && 
-        ((StringPoemType)t).getSize() < 0) return false;
+    if (t instanceof StringPoemType && ((StringPoemType) t).getSize() < 0)
+      return false;
     return true;
-   }
+  }
 
 }
-
-
-
-
-
-
-
-
-
 

@@ -19,9 +19,10 @@ This page last updated: $Date$ $Author$
   <li>Support for Velocity 1.2 and 1.3RC1</li>
   <li>Support for Webmacro 1.0</li>
   <li>Support for <a href="http://www.postgresql.org">Postgresql</a> (version 6 to current)</li>
-  <li>Support for <a href="http://www.mysql.com">MySQL</a> (only recent versions)</li>
   <li>Support for <a href="http://www.hsqldb.org">HSQLDB</a>, 
       which is included.</li>
+  <li>Support for <a href="http://www.oracle.com">Oracle</a></li>
+  <li>Support for <a href="http://www.mysql.com">MySQL</a> (only recent versions)</li>
   <li>Support for <a href="http://www.mckoi.com">MckoiDB</a></li>
   <li>Melati is available as a zip, tar or war
       <a href="Download.html">download</a>.

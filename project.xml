@@ -126,6 +126,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Original author</role>
       </roles>
       <timezone>0</timezone>
+      <url>http://paneris.org/~williamc</url>
     </developer>
     <developer>
       <name>Tim Pizey</name>
@@ -138,6 +139,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
+      <url>http://paneris.org/~timp</url>
     </developer>
     <developer>
       <name>Tim Joyce</name>
@@ -148,6 +150,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
+      <url>http://paneris.org/~timj</url>
     </developer>
     <developer>
       <name>Myles Chippendale</name>
@@ -158,6 +161,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
+      <url>http://paneris.org/~mylesc</url>
     </developer>
     <developer>
       <name>Colin Rainsforth</name>
@@ -168,6 +172,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Graphics Designer</role>
       </roles>
       <timezone>0</timezone>
+      <url>http://paneris.org/~colinr</url>
     </developer>
     <developer>
       <name>Jim Wright</name>
@@ -178,6 +183,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>+3</timezone>
+      <url>http://paneris.org/~jimw</url>
     </developer>
     <developer>
       <name>Chris Kimpton</name>
@@ -188,6 +194,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
+      <!-- url>http://paneris.org/~chrisk</url -->
     </developer>
     <developer>
       <name>David Warnock</name>
@@ -198,6 +205,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>0</timezone>
+      <!-- url>http://paneris.org/~davidw</url -->
     </developer>
     <developer>
       <name>Karl Zilles</name>
@@ -208,6 +216,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>-8</timezone>
+      <!-- url>http://paneris.org/~karlz</url -->
     </developer>
     <developer>
       <name>Samuel Goldstein</name>
@@ -218,6 +227,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>-8</timezone>
+      <!-- url>http://paneris.org/~samuelg</url -->
     </developer>
     <developer>
       <name>Vasily Pozhidaev</name>
@@ -228,6 +238,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>+11</timezone>
+      <url>http://paneris.org/~vasilyp</url>
     </developer>
     <developer>
       <name>Peter Kehl</name>
@@ -238,6 +249,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>+1</timezone>
+      <url>http://paneris.org/~peterk</url>
     </developer>
     <developer>
       <name>Lane Sharman</name>
@@ -248,9 +260,35 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <role>Developer</role>
       </roles>
       <timezone>-7</timezone>
+      <url>http://www.opendoors.com/</url>
     </developer>
 
   </developers>
+
+  <licenses>
+   <license>
+    <name>Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/gpl.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Lesser Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/lesser.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>
+     http://cvs.apache.org/viewcvs.cgi/*checkout*/maven/LICENSE.txt
+    </url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Melati Software License</name>
+     <url>http://www.melati.org/Licence.html</url>
+     <distribution>repo</distribution>
+   </license>
+  </licenses>
 
   <dependencies>
     <dependency>
@@ -310,14 +348,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
          <war.bundle>false</war.bundle>
       </properties>
     </dependency>
-    <dependency>
+    <!-- dependency>
       <id>javamail</id>
       <version>1.2</version>
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
       </properties>
-    </dependency>
+    </dependency -->
     <dependency>
       <id>odmg</id>
       <version>3.0</version>
@@ -345,22 +383,22 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </properties>
     </dependency>
 
-    <dependency>
+    <!-- dependency>
       <id>servlet</id>
       <version>2.2</version>
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
       </properties>
-    </dependency>
-    <dependency>
+    </dependency -->
+    <!-- dependency>
       <id>activation</id>
       <version>1.0</version>
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
       </properties>
-    </dependency>
+    </dependency -->
 
   </dependencies>
 

@@ -61,7 +61,8 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
       melati.getWriter().write("[Access denied to ");
       rendered(e.token);
       melati.getWriter().write("]");
-    } catch (Exception g) {
+    }
+    catch (Exception g) {
       melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
     }
     return "";

@@ -59,9 +59,11 @@ public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
       melati.getWriter().write("[Access denied to ");
       rendered(e.token);
       melati.getWriter().write("]");
-    } catch (Exception g) {
+    }
+    catch (Exception g) {
       melati.getWriter().write("[UNRENDERABLE EXCEPTION!]");
     }
+
     return "";
   }
 }

@@ -68,16 +68,17 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
     super(name, other);
   }
 
-/* 
- <b>Note</b>
- <p>
-   To avoid the unnecessary overhead of writing to a string and then writing that 
-   string to the output stream we render directly to the output stream, however 
-   this means that you cannot use rendered other than where you want the output 
-   to occur, ie use renderedString if you want to assign the rendered value to 
-   a variable.
- </p>
-*/
+  /* 
+   <b>Note</b>
+   <p>
+     To avoid the unnecessary overhead of writing to a string and then writing
+     that string to the output stream we render directly to the output stream,
+     however this means that you cannot use rendered other than where you want
+     the output to occur, ie use renderedString if you want to assign the
+     rendered value to a variable.
+   </p>
+  */
+
   public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s));
   }

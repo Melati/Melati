@@ -15,33 +15,33 @@
 <H1>Create a new record</H1>
 
 <P>Table: $ml.rendered($table.DisplayName)</P>
-#if ($table.Description) {
+#if ($table.Description) #begin
   <P>Purpose: $ml.rendered($table.Description)</P>
-}
+#end
 
 <TABLE CELLSPACING=0>
-  #foreach $field in $fields {
-    #if ($field.UserCreateable) {
+  #foreach $field in $fields #begin
+    #if ($field.UserCreateable) #begin
       <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
-      #if ($field.Description) {
+      #if ($field.Description) #begin
 	<TR>
 	  <TD></TD><TD></TD>
 	  <TD><FONT SIZE=1>$ml.rendered($field.Description)</FONT></TD>
 	</TR>
-      }
+      #end
       <TR>
 	<TD>
-	  #if ($field.Type.Nullable) {
+	  #if ($field.Type.Nullable) #begin
 	    $ml.rendered($field.DisplayName)
-	  } #else {
+	  #end #else #begin
 	    <B>$ml.rendered($field.DisplayName)</B>
-	  }
+	  #end
 	</TD><TD></TD><TD>
 	  $ml.input($field)
 	</TD>
       </TR>
-    }
-  }
+    #end
+  #end
 </TABLE>
 
 <INPUT NAME=action VALUE=Update TYPE=submit

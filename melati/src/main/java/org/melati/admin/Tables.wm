@@ -11,7 +11,7 @@
 <P>The available tables are:</P>
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $table in $database.DisplayTables {
+  #foreach $table in $database.DisplayTables #begin
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
     <TR>
       <TD>
@@ -19,12 +19,12 @@
       </TD>
       <TD>&nbsp;&nbsp;</TD>
       <TD>
-        #if ($table.Description) {
+        #if ($table.Description) #begin
           $ml.rendered($table.Description)
-        }
+        #end
       </TD>
     </TD></TR>
-  }
+  #end
 </TABLE>
 
 <P>

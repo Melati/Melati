@@ -16,19 +16,19 @@
 <H1>Edit a record</H1>
 
 <P>Table: $ml.rendered($object.Table.DisplayName)</P>
-#if ($object.Table.Description) {
+#if ($object.Table.Description) #begin
   <P>Purpose: $ml.rendered($object.Table.Description)</P>
-}
+#end
 
 <TABLE CELLPADDING=0 CELLSPACING=0>
-  #foreach $field in $object.RecordDisplayFields {
+  #foreach $field in $object.RecordDisplayFields #begin
     <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
-    #if ($field.Description) {
+    #if ($field.Description) #begin
       <TR>
 	<TD></TD><TD></TD>
 	<TD><FONT SIZE=1>$ml.rendered($field.Description)</TD>
       </TR>
-    }
+    #end
     <TR>
       <TD>
         #if ($field.Type.Nullable) #begin
@@ -44,7 +44,7 @@
         #end
       </TD>
     </TR>
-  }
+  #end
 </TABLE>
 
 <INPUT NAME=action VALUE=Update TYPE=submit

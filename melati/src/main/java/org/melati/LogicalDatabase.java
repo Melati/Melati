@@ -146,17 +146,19 @@ public class LogicalDatabase {
         String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
         // max transactions default to 8 if not set
         int maxTrans = 
-        PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions",8);
+            PropertiesUtils.getOrDefault_int(defs, pref + "maxtransactions", 8);
 
-		//Object databaseObject=Class.forName(clazz).newInstance();
+        //Object databaseObject=Class.forName(clazz).newInstance();
 
         Object databaseObject = null;
 		
-		try {
-			databaseObject=Thread.currentThread().getContextClassLoader().loadClass(clazz).newInstance();
-		} catch (Exception e) {
-			databaseObject=Class.forName(clazz).newInstance();
-		}
+        try {
+          databaseObject = Thread.currentThread().getContextClassLoader().
+                               loadClass(clazz).newInstance();
+        }
+        catch (Exception e) {
+          databaseObject = Class.forName(clazz).newInstance();
+        }
 		
         if (!(databaseObject instanceof Database)) 
           throw new ClassCastException(

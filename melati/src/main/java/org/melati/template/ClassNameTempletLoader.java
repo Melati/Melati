@@ -59,6 +59,7 @@ public class ClassNameTempletLoader implements TempletLoader {
   private Hashtable specialTemplateNames = new Hashtable();
 
   public ClassNameTempletLoader() {
+      // These templates cannot be overridden
     specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", "select");
     specialTemplateNames.put("org.melati.poem.ReferencePoemType", "select");
     specialTemplateNames.put("org.melati.poem.DisplayLevelPoemType", "select");
@@ -113,31 +114,25 @@ public class ClassNameTempletLoader implements TempletLoader {
     String cacheKey = clazz + "/" + purpose + "/" + markupLanguage;
     Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
 
+    if (templet == null && purpose == null) {
+      String specialTemplateName =
+          (String)specialTemplateNames.get(clazz.getName());
+      if (specialTemplateName != null) {
+        templet =
+            templet(templateEngine, markupLanguage, specialTemplateName);
+      }
+    }
     if (templet == null) {
       while (clazz != null) {
         try {
           templet = templet(templateEngine, markupLanguage,
                             purpose, clazz.getName());
           break;
-        }
-        catch (NotFoundException e) {}
-
-        if (purpose == null) {
-          String specialTemplateName =
-              (String)specialTemplateNames.get(clazz.getName());
-
-          if (specialTemplateName != null) {
-            templet =
-                templet(templateEngine, markupLanguage, specialTemplateName);
-            break;
-          }
-        }
-
+        } catch (NotFoundException e) {}
         clazz = clazz.getSuperclass();
       }
-
-      if (templet == null) throw new ClassTempletNotFoundException(this, clazz);
-
+      if (templet == null) throw new 
+                             ClassTempletNotFoundException(this, clazz);
       defaultTempletOfPoemType.put(cacheKey, templet);
     }
 

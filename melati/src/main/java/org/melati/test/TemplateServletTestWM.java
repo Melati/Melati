@@ -66,6 +66,8 @@ public class TemplateServletTestWM extends TemplateServlet {
   throws Exception {
     
     templateContext.put("RestrictedAccessObject", new RestrictedAccessObject());
+    if (melati.getMethod() != null && melati.getMethod().equals("Redirect")) 
+        melati.getResponse().sendRedirect("http://www.melati.org");
     return("test/TemplateServletTestWM");
   }
 

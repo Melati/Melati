@@ -79,8 +79,10 @@ to create a release:
 10. Copy downloadable  jars and zips to 
     cp dist/packaged/*.* /home/apache/share/htdocs/melati/download/
 11. Generate Maven site
-    cd /inst/melati
-    maven site:generate
+    cd /dist/melati
+    maven site
+    maven dist
+
 12. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,

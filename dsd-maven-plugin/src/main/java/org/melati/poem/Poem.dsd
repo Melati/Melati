@@ -316,27 +316,34 @@ table TableCategory
       (displayorderpriority = 0) (primarydisplay);
 }
 
-table SystemProperties
+table Setting
     (displayorder = 3040)
-    (displayname = "System Properties")
-    (description = "Arbitary properties for this system")
+    (displayname = "Application wide parameters")
+    (description = "Name-Value parameters wich it is nice to store in the database")
     (category = "System")
     (cachelimit = unlimited)
     (seqcached) {
 
   (primary) Integer id;
 
-  (unique) String name (size = 10)
-      (description = "The system-readable name for this property")
+  (unique) String name (size = unlimited)
+      (description = "A code name for this parameter")
       (displayorderpriority = 0);
 
-  String value (size = 60)
-      (description = "The value of this property")
+  String value (size = unlimited)
+      (description = "The value of this parameter")
       (displayorderpriority = 5);
 
-  (unique) String description (size = 60)
-      (description = "A human-readable name for this property")
+  (unique) String displayname (size = unlimited)
+      (description = "A human-readable name for this parameter")
       (displayorderpriority = 10) 
       (primarydisplay)
+      (summaryhidden);
+
+  (unique) String description (size = unlimited)
+      (description = "A description for this parameter")
+      (displayorderpriority = 10) 
+      (primarydisplay)
+      (criterionhidden)
       (summaryhidden);
 }

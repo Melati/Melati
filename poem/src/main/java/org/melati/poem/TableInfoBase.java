@@ -8,6 +8,8 @@ import org.melati.util.*;
 
 public class TableInfoBase extends Persistent {
 
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();}
   public TableInfoTable getTableInfoTable() {
     return (TableInfoTable)getTable();
   }
@@ -188,7 +190,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanreadTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanread(Capability cooked)
@@ -225,7 +227,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getDefaultcanwriteTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setDefaultcanwrite(Capability cooked)
@@ -262,7 +264,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCancreateTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCancreate(Capability cooked)
@@ -359,7 +361,7 @@ public class TableInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCategoryTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getTableCategoryTable().getTableCategoryObject(troid);
+        getPoemDatabase().getTableCategoryTable().getTableCategoryObject(troid);
   }
 
   public void setCategory(TableCategory cooked)

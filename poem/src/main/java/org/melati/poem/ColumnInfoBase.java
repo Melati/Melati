@@ -8,6 +8,8 @@ import org.melati.util.*;
 
 public class ColumnInfoBase extends Persistent {
 
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();}
   public ColumnInfoTable getColumnInfoTable() {
     return (ColumnInfoTable)getTable();
   }
@@ -95,7 +97,7 @@ public class ColumnInfoBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getTableinfoTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getTableInfoTable().getTableInfoObject(troid);
+        getPoemDatabase().getTableInfoTable().getTableInfoObject(troid);
   }
 
   public void setTableinfo(TableInfo cooked)

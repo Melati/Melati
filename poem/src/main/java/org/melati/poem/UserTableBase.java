@@ -24,6 +24,9 @@ public class UserTableBase extends Table {
     this(database, name, DefinitionSource.dsd);
   }
 
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();  }
+
   protected void init() throws PoemException {
     super.init();
     defineColumn(col_id =

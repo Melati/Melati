@@ -16,7 +16,7 @@ public class PoemDatabaseBase extends Database {
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;
   private TableCategoryTable tab_tablecategory = null;
-  private SystemPropertiesTable tab_systemproperties = null;
+  private SettingTable tab_setting = null;
 
   protected PoemDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -27,7 +27,7 @@ public class PoemDatabaseBase extends Database {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
     redefineTable(tab_tablecategory = new TableCategoryTable(this, "tablecategory", DefinitionSource.dsd));
-    redefineTable(tab_systemproperties = new SystemPropertiesTable(this, "systemproperties", DefinitionSource.dsd));
+    redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
   }
 
   public UserTable getUserTable() {
@@ -62,7 +62,7 @@ public class PoemDatabaseBase extends Database {
     return tab_tablecategory;
   }
 
-  public SystemPropertiesTable getSystemPropertiesTable() {
-    return tab_systemproperties;
+  public SettingTable getSettingTable() {
+    return tab_setting;
   }
 }

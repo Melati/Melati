@@ -6,23 +6,27 @@ import java.util.*;
 import java.sql.Date;
 import org.melati.util.*;
 
-public class SystemPropertiesTableBase extends Table {
+public class SettingTableBase extends Table {
 
   private Column col_id = null;
   private Column col_name = null;
   private Column col_value = null;
+  private Column col_displayname = null;
   private Column col_description = null;
 
-  public SystemPropertiesTableBase(
+  public SettingTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
   }
 
-  public SystemPropertiesTableBase(
+  public SettingTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
+
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();  }
 
   protected void init() throws PoemException {
     super.init();
@@ -30,12 +34,12 @@ public class SystemPropertiesTableBase extends Table {
         new Column(this, "id", TroidPoemType.it, DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((SystemProperties)g).getId();
+            return ((Setting)g).getId();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((SystemProperties)g).setId((Integer)cooked);
+            ((Setting)g).setId((Integer)cooked);
           }
 
           protected boolean defaultUserEditable() {
@@ -52,35 +56,35 @@ public class SystemPropertiesTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getId_unsafe();
+            return ((Setting)g).getId_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setId_unsafe((Integer)raw);
+            ((Setting)g).setId_unsafe((Integer)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getId();
+            return ((Setting)g).getId();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setId((Integer)raw);
+            ((Setting)g).setId((Integer)raw);
           }
         });
 
     defineColumn(col_name =
-        new Column(this, "name", new StringPoemType(false, 10), DefinitionSource.dsd) { 
+        new Column(this, "name", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((SystemProperties)g).getName();
+            return ((Setting)g).getName();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((SystemProperties)g).setName((String)cooked);
+            ((Setting)g).setName((String)cooked);
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -92,7 +96,7 @@ public class SystemPropertiesTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "The system-readable name for this property";
+            return "A code name for this parameter";
           }
 
           protected boolean defaultUnique() {
@@ -101,35 +105,35 @@ public class SystemPropertiesTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getName_unsafe();
+            return ((Setting)g).getName_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setName_unsafe((String)raw);
+            ((Setting)g).setName_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getName();
+            return ((Setting)g).getName();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setName((String)raw);
+            ((Setting)g).setName((String)raw);
           }
         });
 
     defineColumn(col_value =
-        new Column(this, "value", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+        new Column(this, "value", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((SystemProperties)g).getValue();
+            return ((Setting)g).getValue();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((SystemProperties)g).setValue((String)cooked);
+            ((Setting)g).setValue((String)cooked);
           }
 
           protected Integer defaultDisplayOrderPriority() {
@@ -141,40 +145,40 @@ public class SystemPropertiesTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "The value of this property";
+            return "The value of this parameter";
           }
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getValue_unsafe();
+            return ((Setting)g).getValue_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setValue_unsafe((String)raw);
+            ((Setting)g).setValue_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getValue();
+            return ((Setting)g).getValue();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setValue((String)raw);
+            ((Setting)g).setValue((String)raw);
           }
         });
 
-    defineColumn(col_description =
-        new Column(this, "description", new StringPoemType(false, 60), DefinitionSource.dsd) { 
+    defineColumn(col_displayname =
+        new Column(this, "displayname", new StringPoemType(false, -1), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((SystemProperties)g).getDescription();
+            return ((Setting)g).getDisplayname();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((SystemProperties)g).setDescription((String)cooked);
+            ((Setting)g).setDisplayname((String)cooked);
           }
 
           protected boolean defaultSummaryDisplay() {
@@ -194,7 +198,7 @@ public class SystemPropertiesTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "A human-readable name for this property";
+            return "A human-readable name for this parameter";
           }
 
           protected boolean defaultUnique() {
@@ -203,22 +207,83 @@ public class SystemPropertiesTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getDescription_unsafe();
+            return ((Setting)g).getDisplayname_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setDescription_unsafe((String)raw);
+            ((Setting)g).setDisplayname_unsafe((String)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((SystemProperties)g).getDescription();
+            return ((Setting)g).getDisplayname();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((SystemProperties)g).setDescription((String)raw);
+            ((Setting)g).setDisplayname((String)raw);
+          }
+        });
+
+    defineColumn(col_description =
+        new Column(this, "description", new StringPoemType(false, -1), DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((Setting)g).getDescription();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((Setting)g).setDescription((String)cooked);
+          }
+
+          protected boolean defaultSummaryDisplay() {
+            return false;
+          }
+
+          protected boolean defaultSearchCriterion() {
+            return false;
+          }
+
+          protected boolean defaultPrimaryDisplay() {
+            return true;
+          }
+
+          protected Integer defaultDisplayOrderPriority() {
+            return new Integer(10);
+          }
+
+          protected int defaultDisplayOrder() {
+            return 4;
+          }
+
+          protected String defaultDescription() {
+            return "A description for this parameter";
+          }
+
+          protected boolean defaultUnique() {
+            return true;
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Setting)g).getDescription_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Setting)g).setDescription_unsafe((String)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((Setting)g).getDescription();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Setting)g).setDescription((String)raw);
           }
         });
   }
@@ -235,27 +300,31 @@ public class SystemPropertiesTableBase extends Table {
     return col_value;
   }
 
+  public final Column getDisplaynameColumn() {
+    return col_displayname;
+  }
+
   public final Column getDescriptionColumn() {
     return col_description;
   }
 
-  public SystemProperties getSystemPropertiesObject(Integer troid) {
-    return (SystemProperties)getObject(troid);
+  public Setting getSettingObject(Integer troid) {
+    return (Setting)getObject(troid);
   }
 
-  public SystemProperties getSystemPropertiesObject(int troid) {
-    return (SystemProperties)getObject(troid);
+  public Setting getSettingObject(int troid) {
+    return (Setting)getObject(troid);
   }
 
   protected Persistent _newPersistent() {
-    return new SystemProperties();
+    return new Setting();
   }
   protected String defaultDisplayName() {
-    return "System Properties";
+    return "Application wide parameters";
   }
 
   protected String defaultDescription() {
-    return "Arbitary properties for this system";
+    return "Name-Value parameters wich it is nice to store in the database";
   }
 
   protected boolean defaultRememberAllTroids() {

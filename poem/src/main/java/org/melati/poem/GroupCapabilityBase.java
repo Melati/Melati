@@ -8,6 +8,8 @@ import org.melati.util.*;
 
 public class GroupCapabilityBase extends Persistent {
 
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();}
   public GroupCapabilityTable getGroupCapabilityTable() {
     return (GroupCapabilityTable)getTable();
   }
@@ -75,7 +77,7 @@ public class GroupCapabilityBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getGroupTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getGroupTable().getGroupObject(troid);
+        getPoemDatabase().getGroupTable().getGroupObject(troid);
   }
 
   public void setGroup(Group cooked)
@@ -112,7 +114,7 @@ public class GroupCapabilityBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCapabilityTroid();
     return troid == null ? null :
-        ((PoemDatabase)getDatabase()).getCapabilityTable().getCapabilityObject(troid);
+        getPoemDatabase().getCapabilityTable().getCapabilityObject(troid);
   }
 
   public void setCapability(Capability cooked)

@@ -6,19 +6,22 @@ import java.util.*;
 import java.sql.Date;
 import org.melati.util.*;
 
-public class SystemPropertiesBase extends Persistent {
+public class SettingBase extends Persistent {
 
-  public SystemPropertiesTable getSystemPropertiesTable() {
-    return (SystemPropertiesTable)getTable();
+  public PoemDatabase getPoemDatabase() {
+    return (PoemDatabase)getDatabase();}
+  public SettingTable getSettingTable() {
+    return (SettingTable)getTable();
   }
 
-  private SystemPropertiesTable _getSystemPropertiesTable() {
-    return (SystemPropertiesTable)getTable();
+  private SettingTable _getSettingTable() {
+    return (SettingTable)getTable();
   }
 
   Integer id;
   String name;
   String value;
+  String displayname;
   String description;
 
   public Integer getId_unsafe() {
@@ -37,7 +40,7 @@ public class SystemPropertiesBase extends Persistent {
 
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSystemPropertiesTable().getIdColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getIdColumn().getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
   }
@@ -48,7 +51,7 @@ public class SystemPropertiesBase extends Persistent {
   }
 
   public final Field getIdField() throws AccessPoemException {
-    return _getSystemPropertiesTable().getIdColumn().asField(this);
+    return _getSettingTable().getIdColumn().asField(this);
   }
 
   public String getName_unsafe() {
@@ -67,13 +70,13 @@ public class SystemPropertiesBase extends Persistent {
 
   public void setName(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSystemPropertiesTable().getNameColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getNameColumn().getType().assertValidCooked(cooked);
     writeLock();
     setName_unsafe(cooked);
   }
 
   public final Field getNameField() throws AccessPoemException {
-    return _getSystemPropertiesTable().getNameColumn().asField(this);
+    return _getSettingTable().getNameColumn().asField(this);
   }
 
   public String getValue_unsafe() {
@@ -92,13 +95,38 @@ public class SystemPropertiesBase extends Persistent {
 
   public void setValue(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSystemPropertiesTable().getValueColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getValueColumn().getType().assertValidCooked(cooked);
     writeLock();
     setValue_unsafe(cooked);
   }
 
   public final Field getValueField() throws AccessPoemException {
-    return _getSystemPropertiesTable().getValueColumn().asField(this);
+    return _getSettingTable().getValueColumn().asField(this);
+  }
+
+  public String getDisplayname_unsafe() {
+    return displayname;
+  }
+
+  public void setDisplayname_unsafe(String cooked) {
+    displayname = cooked;
+  }
+
+  public String getDisplayname()
+      throws AccessPoemException {
+    readLock();
+    return getDisplayname_unsafe();
+  }
+
+  public void setDisplayname(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getSettingTable().getDisplaynameColumn().getType().assertValidCooked(cooked);
+    writeLock();
+    setDisplayname_unsafe(cooked);
+  }
+
+  public final Field getDisplaynameField() throws AccessPoemException {
+    return _getSettingTable().getDisplaynameColumn().asField(this);
   }
 
   public String getDescription_unsafe() {
@@ -117,12 +145,12 @@ public class SystemPropertiesBase extends Persistent {
 
   public void setDescription(String cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getSystemPropertiesTable().getDescriptionColumn().getType().assertValidCooked(cooked);
+    _getSettingTable().getDescriptionColumn().getType().assertValidCooked(cooked);
     writeLock();
     setDescription_unsafe(cooked);
   }
 
   public final Field getDescriptionField() throws AccessPoemException {
-    return _getSystemPropertiesTable().getDescriptionColumn().asField(this);
+    return _getSettingTable().getDescriptionColumn().asField(this);
   }
 }

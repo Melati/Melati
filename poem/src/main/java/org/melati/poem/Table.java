@@ -1499,8 +1499,8 @@ public class Table implements Selectable {
 
   /**
    * Return an SQL WHERE clause to select rows using the given object
-   * as as selection criteria and optionally deleted rows or those
-   * include rows the user is not capable of selecting.
+   * as a selection criteria and optionally deleted rows or those
+   * included rows the user is not capable of selecting.
    * <p>
    * This is currently implemented in terms of
    * {@link Table#appendWhereClause(StringBuffer, Persistent)}.

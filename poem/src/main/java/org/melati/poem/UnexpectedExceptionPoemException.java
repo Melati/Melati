@@ -48,13 +48,21 @@
 package org.melati.poem;
 
 public class UnexpectedExceptionPoemException extends SeriousPoemException {
-  public UnexpectedExceptionPoemException(Exception exception) {
+  public String info;
+
+  public UnexpectedExceptionPoemException(Exception exception, String info) {
     super(exception);
+    this.info = info;
+  }
+
+  public UnexpectedExceptionPoemException(Exception exception) {
+    this(exception, null);
   }
 
   public String getMessage() {
     return
         "An exception occurred in a context where it was very unexpected:\n" +
+        info + "\n" +
         subException;
   }
 }

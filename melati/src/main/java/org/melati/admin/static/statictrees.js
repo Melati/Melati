@@ -50,7 +50,7 @@ function TreeNode(nodeLabel, depth, isLeaf, id, table, troid) {
   this.troid = troid; 
 
   this.parent = null;
-  this.children = [];
+  this.children = new Array();
 }
 
 TreeNode.prototype.setParent = function (parent) {
@@ -90,11 +90,17 @@ TreeNode.prototype.flatten = function (depthFirst, depth, dontload) {
 
     if (this.depth < depth || depth < 0) {
       kids = current.getChildren(dontload);
-      if (depthFirst)
-        agenda = kids.concat(agenda);
-      else
-        agenda = agenda.concat(kids);
-    }
+      if (depthFirst) {
+        if (kids.length != 0 ) // Konqueror bug 
+          agenda = kids.concat(agenda);
+      }
+      else {
+        if (agenda.length != 0)  // Konqueror bug 
+          agenda = agenda.concat(kids);
+        else 
+          agenda = kids;
+      }
+    } 
   }
   return results;
 }
@@ -168,7 +174,7 @@ function StaticTree(displayFrame, controlFrameName,
     this.writeNode(doc,lastChild,aboves);
     if (this.isOpen) {
       var kids = this.getChildren(true);
-      var newAboves = [];
+      var newAboves = new Array();
       for (var i=0; i<aboves.length; i++)
         newAboves[i] = aboves[i];
       newAboves[newAboves.length] = !lastChild;
@@ -284,7 +290,7 @@ StaticTree.prototype.display = function () {
 
   for(i=0; i<this.roots.length; i++) {
 
-    y = this.roots[i].writeTree(doc, (i == (this.roots.length -1)), []);
+    y = this.roots[i].writeTree(doc, (i == (this.roots.length -1)), new Array());
    }
 // Appended by ColinR: 
 // scrollSpacer is added for browsers which do not allow JavaScript 
@@ -321,7 +327,7 @@ function expand(index) {
 
   var node = theTree.flattened[index];
   node.isOpen = !node.isOpen;
-  theTree.display(false); //FIXME ? no need for false here?
+  theTree.display();
   
   theTree.frame.scrollTo(pageX,pageY);
   

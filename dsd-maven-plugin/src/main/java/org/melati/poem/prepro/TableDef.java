@@ -125,7 +125,6 @@ public class TableDef {
   }
 
   void addImport(String importName, String destination) {
-      System.err.println("Adding " + importName + " to " + name + " for " + destination);
     if (!destination.equals("table") &&
         !destination.equals("persistent"))
       throw new RuntimeException(
@@ -313,7 +312,7 @@ public class TableDef {
 
     w.write("\n");
     for (Enumeration i = tableBaseImports.keys(); i.hasMoreElements();) {
-	w.write("import " + i.nextElement() + ";\n");
+      w.write("import " + i.nextElement() + ";\n");
     }
     w.write("\n");
 
@@ -473,12 +472,19 @@ public class TableDef {
   */
   public void generateJava() throws IOException {
 
-    // Avoid duplicate import in ColumnInfo*
-    addImport("org.melati.poem.DisplayLevel", "table");
-    addImport("org.melati.poem.Searchability", "table");
-    // These may already be used, if table contains reference to 
-    // an item of its own type eg a contact in a contact table 
-    // as a parent or child
+    boolean hasDisplayLevel = false;
+    boolean hasSearchability = false;
+    for (Enumeration e = fields.elements(); e.hasMoreElements();) {
+      FieldDef f = (FieldDef)e.nextElement();
+      if (f.displayLevel != null)
+        hasDisplayLevel = true;
+      if (f.searchability != null)
+        hasSearchability = true;
+    }
+    if (hasDisplayLevel)
+      addImport("org.melati.poem.DisplayLevel", "table");
+    if (hasSearchability)
+      addImport("org.melati.poem.Searchability", "table");
     addImport(naming.tableFQName, "table");
     // Sort out the imports
     for (Enumeration i = imports.keys(); i.hasMoreElements();) { 

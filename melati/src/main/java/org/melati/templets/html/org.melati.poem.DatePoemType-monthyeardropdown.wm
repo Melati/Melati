@@ -46,9 +46,9 @@
 <INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
        VALUE="org.melati.template.YMDDateAdaptor">
 
-#set $yearField = $melati.YMDDateAdaptor.yearField($field)
-#set $monthField = $melati.YMDDateAdaptor.monthField($field)
-#set $dayField = $melati.YMDDateAdaptor.dayField($field)
+#set $yearField = $melati.Config.YMDDateAdaptor.yearField($field)
+#set $monthField = $melati.Config.YMDDateAdaptor.monthField($field)
+#set $dayField = $melati.Config.YMDDateAdaptor.dayField($field)
 
 <INPUT TYPE="hidden" NAME="field_$ml.rendered($dayField.Name)" value="1">
 

@@ -46,12 +46,12 @@
 <INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
        VALUE="org.melati.template.YMDHMSTimestampAdaptor">
 
-#set $yearField = $melati.YMDHMSTimestampAdaptor.yearField($field)
-#set $monthField = $melati.YMDHMSTimestampAdaptor.monthField($field)
-#set $dayField = $melati.YMDHMSTimestampAdaptor.dayField($field)
-#set $hourField = $melati.YMDHMSTimestampAdaptor.hourField($field)
-#set $minuteField = $melati.YMDHMSTimestampAdaptor.minuteField($field)
-#set $secondField = $melati.YMDHMSTimestampAdaptor.secondField($field)
+#set $yearField = $melati.Config.YMDHMSTimestampAdaptor.yearField($field)
+#set $monthField = $melati.Config.YMDHMSTimestampAdaptor.monthField($field)
+#set $dayField = $melati.Config.YMDHMSTimestampAdaptor.dayField($field)
+#set $hourField = $melati.Config.YMDHMSTimestampAdaptor.hourField($field)
+#set $minuteField = $melati.Config.YMDHMSTimestampAdaptor.minuteField($field)
+#set $secondField = $melati.Config.YMDHMSTimestampAdaptor.secondField($field)
 
 <SELECT NAME="field_$ml.rendered($dayField.Name)"
   #if ($field.Type.Nullable) #begin

@@ -63,9 +63,18 @@ import org.melati.poem.Table;
  * A Database Management System.
  */
 public interface Dbms {
+  
   Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException;
 
+  /**
+   * The db schema name to use, if any.
+   * This is typically the JDBC connection URL User string.
+   * 
+   * @return the schema to use or null if not required
+   */
+  String getSchema();
+  
   /**
    * Accomodate different quoting strategies.
    * 

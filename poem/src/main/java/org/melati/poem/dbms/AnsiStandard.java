@@ -106,6 +106,13 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getSchema()
+   */
+  public String getSchema() {
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
    */
   public boolean canDropColumns(Connection con) throws SQLException {
@@ -132,11 +139,13 @@ public class AnsiStandard implements Dbms {
     }
   }
 
+  protected String schema;
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
    */
   public Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException {
+    schema = user;
     synchronized (driverClassName) {
       if (!getDriverLoaded()) {
         if (getDriverClassName() == null) {

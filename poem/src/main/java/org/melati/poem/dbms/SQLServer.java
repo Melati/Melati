@@ -86,6 +86,16 @@ public class SQLServer extends AnsiStandard {
     //FreeTDS driver now have many unimplemented features and => does not work.
   }
 
+  /* Get the user we are connected as and return that as the schema.
+   * 
+   * @see org.melati.poem.dbms.Dbms#getSchema()
+   * @see org.melati.poem.dbms.Ansistandard#getConnection()
+   */
+  public String getSchema() {
+    return schema;
+  }
+
+
   public String getQuotedName(String name) {
     //if you don't want to set 'use ANSI quoted identifiers' database property
     //to 'true' (on SQL Server)

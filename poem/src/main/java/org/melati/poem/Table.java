@@ -2317,8 +2317,9 @@ public class Table implements Selectable {
           // null, "" means ignore catalog, 
           // only retrieve those without a schema
           // null, null means ignore both
-              getIndexInfo(null, null, dbms().getQuotedName(dbms().
-                               unreservedName(getName())), false, true);
+              getIndexInfo(null, dbms().getSchema(), 
+                           dbms().getQuotedName(dbms().unreservedName(getName())), 
+                           false, true);
 
       while (index.next()) {
         try {

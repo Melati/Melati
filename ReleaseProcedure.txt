@@ -34,7 +34,7 @@ MAKING A RELEASE
 Once you have the scripts working there are a few things you should do
 to create a release:
 
-1.  Change the version number in build-melati.xml
+1.  Change the version number in build.xml
 2.  If your change requires upgrade action by the user make a note
     in the Upgrading section of melati/README.html
 3.  Change Last Updated and Updated By and add a new paragraph to 

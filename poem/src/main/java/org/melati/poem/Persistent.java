@@ -1306,8 +1306,21 @@ public class Persistent extends Transactioned implements Cloneable {
   }
 
   /**
-   * Optionally called after this instance is edited by
-   * a user.
+   * Optionally called before an instance is edited by the user.
+   * <p>
+   * Used in conjunction with {@link #postEdit(boolean)} and a
+   * {@link Persistent.Saved} this helps enforce data model
+   * constraints based on the columns that have changed.
+   * <p>
+   * See {@link #postEdit(boolean)} for additional comments.
+   * However, it is not called when a newly created row is
+   * edited.
+   */
+  public void preEdit() {
+  }
+
+  /**
+   * Optionally called after this instance is edited by a user.
    * <p>
    * Unlike {@link #postModify()} and {@link #postInsert()} this
    * is not called during
@@ -1315,6 +1328,10 @@ public class Persistent extends Transactioned implements Cloneable {
    * applications such as {@link org.melati.admin#Admin} after
    * individual field edits by the user have been reflected in
    * the instance.
+   * <p>
+   * It can be be overridden to enforce data model constraints
+   * such as validity of columns relative to other columns.
+   * These will be enforced when the admin system is used.
    * <p>
    * This is a higher level method than {@link #postModify()}
    * so is less likely to lead to infinite recursion or other
@@ -1376,6 +1393,93 @@ public class Persistent extends Transactioned implements Cloneable {
    */
   public Table[] otherMatchTables() {
     return new Table[0];
+  }
+
+  /**
+   * Member object for saving a copy of this object and comparing
+   * it with the original.
+   * <p>
+   * Consider this subject to review.
+   * JimW re-uses it but there is the possibility that something
+   * similar can be implemented in terms of lower level
+   * functionality.
+   * <p>
+   * Typical usage is that you save the object before updating
+   * it to reflect user edits and then ensure integrity of the
+   * data model by performing model specific actions based on
+   * the differences.
+   * <p>
+   * Used in conjunction with {@link #preEdit()} and
+   * {@link #postEdit(boolean)} it is possible to ensure that
+   * details of the data model defined in this way are
+   * respected by Melati admin and other apps.
+   *
+   * @todo Consider requirements for locking and avoiding
+   * deadlock here and generally when updating one row as a
+   * result of edits to another.
+   */
+  public class Saved {
+
+    Persistent copy = null;
+
+    /**
+     * Save a copy of the persistent.
+     * <p>
+     * It is an bug if there is already one saved.
+     */
+    public void save() {
+      if (copy != null) {
+        throw new IllegalStateException("Bug in caller");
+      }
+      ensureSaved();
+    }
+
+    /**
+     * Save a copy of the persistent if this has not been done.
+     */
+    public final void ensureSaved() {
+      if (copy == null) {
+        copy = (Persistent)Persistent.this.clone();
+      }
+    }
+
+    /**
+     * Substitute a brand new instance for a saved one.
+     * <p>
+     * This is possibly a way of simplifying
+     * {@link #postEdit(boolean)}
+     * when a new object has been created and edited.
+     * Call this and from then on much of the processing will be the
+     * same as when an existing object is edited.
+     */
+    public void substituteNew() {
+      if (copy != null) {
+        throw new IllegalStateException("Bug in caller");
+      }
+      copy = getTable().newPersistent();
+    }
+
+    /**
+     * Discard any saved copy.
+     */
+    public void discard() {
+      copy = null;
+    }
+
+    /**
+     * Return a reference to the saved copy or null.
+     */
+    public Persistent get() {
+      return copy;
+    }
+
+    /**
+     * Has the given column been changed?
+     */
+    public boolean isDifferent(Column column) {
+      return ! column.asField(Persistent.this).sameRawAs(column.asField(copy));
+    }
+
   }
 
 }

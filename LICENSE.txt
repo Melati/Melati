@@ -1,0 +1,21 @@
+/* 
+ * Melati is free software; Permission is granted to copy, distribute and/or 
+ * modify this software under the terms either:<br>
+ *
+ * a) the GNU General Public License as published by the Free Software Foundation; 
+ *    either version 2 of the License, or (at your option) any later version.
+ *
+ * or
+ *
+ * b) any version of the Melati Software License.
+ *
+ *
+ * The GNU General Public License version 2 is included 
+ * in this release, please read the file LICENCE-GPL.txt. It is also available at
+ * http://www.gnu.org/copyleft/gpl.txt
+ *
+ * The Melati Software License is compatible with the Apache Software Foundation's 
+ * Apache Software Licence, please read the file LICENCE-ASF.txt
+ *
+ */  
+

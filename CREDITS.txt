@@ -1,0 +1,18 @@
+
+Melati was primarily designed and developed by William Chesters. 
+
+Melati is an opensource community development effort. The 
+current team is:
+
+      William Chesters        Core Developer 
+      Tim Joyce               Core Developer 
+      Myles Chippendale       Core Developer 
+      Tim Pizey               Core Developer 
+      Dave Warnock            Core Developer 
+      Colin Rainsforth        Core Developer 
+
+If you would like to contribute to the Melati project please 
+join the developers mailing list at
+
+http://lists.sourceforge.net/mailman/listinfo/melati-developers
+

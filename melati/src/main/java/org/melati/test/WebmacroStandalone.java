@@ -147,7 +147,7 @@ public class WebmacroStandalone extends HttpServlet {
                                            resp.getOutputStream(),
                                            resp.getCharacterEncoding());
             // write the template to the output, using our context
-            t.write(fw.getOutputStream(), (Context) c);
+            t.write(fw.getOutputStream(), c);
             fw.close();
          } catch (org.webmacro.NotFoundException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),

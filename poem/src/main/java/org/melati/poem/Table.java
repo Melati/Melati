@@ -93,8 +93,8 @@ public class Table {
                DefinitionSource definitionSource) {
     this.database = database;
     this.name = name;
-//    Don't do this here as the database does not know about the dbms yet
-//    this.quotedName = database.quotedName(name);
+    // Don't do this here as the database does not know about the dbms yet
+    // this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
     serial = new TransactionedSerial(database);
   }
@@ -713,6 +713,8 @@ public class Table {
       connection.createStatement().executeUpdate(sql);
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
+
+      cache.delete(troid);
     }
     catch (SQLException e) {
       throw new ExecutingSQLPoemException(sql, e);
@@ -980,7 +982,7 @@ public class Table {
    */
 
   public Enumeration troidSelection(String whereClause, String orderByClause,
-                             boolean includeDeleted)
+                                    boolean includeDeleted)
       throws SQLPoemException {
     CachedSelection allTroids = this.allTroids;
     if (allTroids != null &&
@@ -1146,11 +1148,11 @@ public class Table {
           hadOne = true;
 
         clause.append(column.quotedName());
-	    if (column.getType() instanceof StringPoemType) {
-			// FIXME Postgres specific
-            clause.append(" ~* ");
-		} else {
-            clause.append(" = ");
+        if (column.getType() instanceof StringPoemType) {
+          // FIXME Postgres specific
+          clause.append(" ~* ");
+        } else {
+          clause.append(" = ");
         }			
         clause.append(column.getSQLType().quotedRaw(raw));
       }

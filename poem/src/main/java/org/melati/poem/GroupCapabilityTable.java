@@ -60,7 +60,7 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     super(database, name, definitionSource);
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     super.postInitialise();
 
     Database d = getDatabase();

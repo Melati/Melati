@@ -59,7 +59,7 @@ public class TableInfoTable extends TableInfoTableBase {
     super(database, name, definitionSource);
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());

@@ -65,7 +65,7 @@ public class GroupTable extends GroupTableBase {
     return administratorsGroup;
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     super.postInitialise();
     administratorsGroup = (Group)getNameColumn().ensure(administratorsGroup);
     if (info.getDefaultcanwrite() == null)

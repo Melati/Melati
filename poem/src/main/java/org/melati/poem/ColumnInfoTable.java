@@ -59,7 +59,7 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
     super(database, name, definitionSource);
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());

@@ -10,7 +10,9 @@ import org.melati.util.*;
 public class SettingBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();}
+    return (PoemDatabase)getDatabase();
+  }
+
   public SettingTable getSettingTable() {
     return (SettingTable)getTable();
   }

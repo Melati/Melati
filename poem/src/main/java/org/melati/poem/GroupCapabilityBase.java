@@ -10,7 +10,9 @@ import org.melati.util.*;
 public class GroupCapabilityBase extends Persistent {
 
   public PoemDatabase getPoemDatabase() {
-    return (PoemDatabase)getDatabase();}
+    return (PoemDatabase)getDatabase();
+  }
+
   public GroupCapabilityTable getGroupCapabilityTable() {
     return (GroupCapabilityTable)getTable();
   }

@@ -102,7 +102,7 @@ public class UserTable extends UserTableBase {
     administratorUser = (User)getLoginColumn().ensure(administratorUser);
   }
 
-  void postInitialise() {
+  protected void postInitialise() {
     super.postInitialise();
     if (info.getDefaultcanwrite() == null)
       info.setDefaultcanwrite(getDatabase().administerCapability());

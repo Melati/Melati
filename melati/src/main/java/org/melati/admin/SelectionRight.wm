@@ -57,7 +57,7 @@
 #if ($results) #begin
 <table cellpadding=0 cellpsacing=0 width=100%><tr><td align=center>
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="&lt;&lt; Prev" ONCLICK="location.href='Selection?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="&lt;&lt; Prev" ONCLICK="location.href='SelectionRight?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
 #end
 <b><FONT face="Arial, Helvetica" size=-1>Records $results.PageStart to $results.PageEnd of
 #if ($results.TotalCountIsMinimum) #begin
@@ -65,7 +65,7 @@
 #end
 $results.TotalCount</b></font>
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next &gt;&gt;" ONCLICK="location.href='Selection?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next &gt;&gt;" ONCLICK="location.href='SelectionRight?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
 <td align=right><A HREF='$admin.AddURL($table)?$whereClause'><IMG src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName"></a></td>
 </td></tr></table>

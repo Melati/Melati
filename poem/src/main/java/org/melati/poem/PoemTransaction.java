@@ -49,7 +49,6 @@ public class PoemTransaction extends Transaction {
   }
 
   public void close(boolean commit) {
-    System.err.println(this + ".close(" + commit + ")");
     try {
       if (commit)
         commit();

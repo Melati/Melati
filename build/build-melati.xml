@@ -7,7 +7,7 @@
 
     <target name="init">
         <property name="Name" value="melati"/>
-        <property name="version" value="1.0"/>
+        <property name="version" value="snapshot"/>
         <property name="project" value="melati"/>
         <property name="src.java.dir" value="../../.."/>
         <property name="build.compiler" value="${JAVAC}"/>
@@ -40,6 +40,18 @@
         <copydir src="${src.java.dir}" dest="${build.dir}"
             includes="**/*.properties"
             filtering="on"/>
+        <copydir src="${src.java.dir}" dest="${build.dir}"
+            includes="**/*.wm"
+            filtering="on"/>
+        <copydir src="${src.java.dir}" dest="${build.dir}"
+            includes="**/*.js"
+            filtering="on"/>
+        <copydir src="${src.java.dir}" dest="${build.dir}"
+            includes="org/melati/admin/**/*.html"
+            filtering="on"/>
+        <copydir src="${src.java.dir}" dest="${build.dir}"
+            includes="org/melati/admin/**/*.gif"
+            filtering="on"/>
 
     </target>
 
@@ -62,8 +74,17 @@
     <target name="jar" depends="compile">
         <jar jarfile="${build.jar.dir}/${final.name}.jar"
             basedir="${build.dest}"
-            includes="**/*.class **/*.properties"
+            includes="**/*.class **/*.properties **/*.wm"
         />
+        <copydir src="${build.dir}" dest="${build.jar.dir}"
+            includes="**/*.js"
+            filtering="on"/>
+        <copydir src="${build.dir}" dest="${build.jar.dir}"
+            includes="**/*.html"
+            filtering="on"/>
+        <copydir src="${build.dir}" dest="${build.jar.dir}"
+            includes="**/*.gif"
+            filtering="on"/>
     </target>
     
     <!-- =================================================================== -->

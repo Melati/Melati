@@ -966,7 +966,9 @@ public abstract class Database implements TransactionPool {
       throw new SQLSeriousPoemException(e, sql);
     }
     finally {
-      try { rs.close(); } catch (Exception e) {}
+      try { rs.close(); } catch (Exception e) {
+        System.err.println("Cannot close resultset after exception.");  
+      }
     }
   }
 

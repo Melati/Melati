@@ -114,11 +114,9 @@ var theTree = null;
 
 function StaticTree(displayFrame, controlFrameName,
                     roots, 
-                    selectNodes,
-                    selectLeaves,
-                    backgroundColour,
-                    verticalLinkImage,
-                    spacerImage,
+                    selectNodes, selectLeaves,
+                    backgroundColour, stylesheet,
+                    verticalLinkImage, spacerImage,
                     openedTImage, openedLImage,
                     closedTImage, closedLImage,
                     leafTImage, leafLImage,
@@ -134,6 +132,7 @@ function StaticTree(displayFrame, controlFrameName,
   this.selectNodes = selectNodes;
   this.selectLeaves = selectLeaves;
   this.backgroundColour = backgroundColour;
+  this.stylesheet = stylesheet;
   this.spacerImage = spacerImage;  // needed in nodes and in tree
 
   theTree = this;
@@ -271,7 +270,9 @@ StaticTree.prototype.display = function () {
 
   var doc = this.frame.document.open();
   doc.write("<html><head>");
-  doc.write("<STYLE>FONT {font-family:verdana; font-size:10px;}\n</STYLE>");
+  if (this.stylesheet != null) {
+    doc.write("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"" + this.stylesheet + "\">");
+  }
   doc.write("</head><body bgcolor='#" + this.backgroundColour + "'><form>\n");
 
   for(i=0; i<this.roots.length; i++) {

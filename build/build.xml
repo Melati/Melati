@@ -226,16 +226,18 @@ usage:
     <loadfile property="header" srcFile="${site.src}/header.html"/>
     <loadfile property="footer" srcFile="${site.src}/footer.html"/>
     <loadfile property="menu" srcFile="${site.src}/menu.html"/>
-    <filter token="header"   value="${header}"/>
-    <filter token="footer"   value="${footer}"/>
-    <filter token="menu"     value="${menu}"/>
-    <filter token="version"  value="${version}"/>
-    <filter token="project"  value="${project}"/>
-    <filter token="name"     value="${name}"/>
-    <filter token="date"     value="${date}"/>
-    <filter token="filename" value="${project}_${version}"/>
-    <copy todir="${site}" filtering="true">
+    <copy todir="${site}">
        <fileset dir="${site.src}"/>
+       <filterset>
+          <filter token="header"   value="${header}"/>
+          <filter token="footer"   value="${footer}"/>
+          <filter token="menu"     value="${menu}"/>
+          <filter token="version"  value="${version}"/>
+          <filter token="project"  value="${project}"/>
+          <filter token="name"     value="${name}"/>
+          <filter token="date"     value="${date}"/>
+          <filter token="filename" value="${project}_${version}"/>
+       </filterset>
        <mapper type="glob" from="*.ahtml" to="*.html"/>
     </copy>
     
@@ -316,9 +318,10 @@ usage:
       </zipfileset>
       <!-- Individual java files referenced -->
       <zipfileset dir="${src}/org/melati/poem"
-                  prefix="melati-static/poem">
-          <include name="PoemDatabase.java"/>
-      </zipfileset>
+                  prefix="melati-static/poem"
+                  includes="
+                   PoemDatabase.java,
+                   Poem.dsd"/>
       <zipfileset dir="${src}/org/melati/example/contacts"
                   prefix="melati-static/example/contacts">
           <include name="Search.java"/>

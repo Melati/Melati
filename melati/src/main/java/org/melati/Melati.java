@@ -152,6 +152,20 @@ public class Melati {
     return getContext().method;
   }
 
+   protected String logoutPageServletClassName() {
+    return "org.melati.login.Logout";
+  }
+
+  public String getLogoutURL() {
+    StringBuffer url = new StringBuffer();
+    HttpUtil.appendZoneURL(url, webContext.getRequest());
+    url.append(logoutPageServletClassName());
+    url.append('/');
+    url.append(getLogicalDatabaseName());
+    return url.toString();
+  }
+
+
   public static void extractFields(WebContext context, Persistent object) {
     for (Enumeration c = object.getTable().columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();

@@ -48,7 +48,7 @@ public class PlayingTest
       System.out.println("Parent:"+p.getName());
     }
 
-    System.out.println("PARENTS UNDER 3 BARE");
+    System.out.println("PARENTS UNDER 3 NO SORTING");
     iter = parents.select("name<'parent-3'");
     while (iter.hasNext())
     {
@@ -56,7 +56,7 @@ public class PlayingTest
       System.out.println("Parent:"+p.getName());
     }
 
-    System.out.println("PARENTS UNDER 2 WITH WHERE KEYWORD");
+    System.out.println("PARENTS UNDER 2 WITH WHERE KEYWORD NO SORTING");
     iter = parents.select("where name<'parent-2'");
     while (iter.hasNext())
     {
@@ -64,7 +64,7 @@ public class PlayingTest
       System.out.println("Parent:"+p.getName());
     }
 
-    System.out.println("ALL PARENTS");
+    System.out.println("ALL PARENTS NO SORTING");
     iter = parents.select("");
     while (iter.hasNext())
     {

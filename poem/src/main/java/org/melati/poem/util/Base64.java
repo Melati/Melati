@@ -21,8 +21,6 @@ package org.melati.util;
 /**
  * A representation of the Base64 encoding scheme.
  *
- * @todo Delete me.
- * @deprecated Unused in Melati or the PanEris tree.
  */
 
 public final class Base64 {

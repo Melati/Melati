@@ -48,6 +48,7 @@
 package org.melati;
 
 import java.net.URLEncoder;
+import org.webmacro.*;
 import org.webmacro.engine.*;
 import org.webmacro.servlet.*;
 import org.melati.util.*;
@@ -58,8 +59,8 @@ public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
   private AttributeWMLMarkupLanguage attributeML = null;
 
-  public WMLMarkupLanguage(WebContext webContext,
-			    TempletLoader templetLoader, MelatiLocale locale) {
+  public WMLMarkupLanguage(Context webContext,
+                           TempletLoader templetLoader, MelatiLocale locale) {
     super("wml", webContext, templetLoader, locale);
   }
   

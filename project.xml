@@ -175,16 +175,6 @@ subscribe.melati@messageboards.paneris.org
       <timezone>0</timezone>
     </developer>
     <developer>
-      <name>Chris Kimpton</name>
-      <id>kimptoc</id>
-      <email>chris@kimptoc.net</email>
-      <organization>Kimptoc</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
       <name>Jim Wright</name>
       <id>jimw</id>
       <email>jimw@paneris.org</email>
@@ -193,6 +183,16 @@ subscribe.melati@messageboards.paneris.org
         <role>Developer</role>
       </roles>
       <timezone>+3</timezone>
+    </developer>
+    <developer>
+      <name>Chris Kimpton</name>
+      <id>kimptoc</id>
+      <email>chris@kimptoc.net</email>
+      <organization>Kimptoc</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>David Warnock</name>

@@ -95,8 +95,8 @@ public class Admin extends MelatiServlet {
       throws ResourceUnavailableException, PoemException {
 
     Database database = PoemThread.database();
-    database.addTable(
-        (TableInfo)create(database.getTableInfoTable(), context));
+    //    database.addTable(
+    //        (TableInfo)create(database.getTableInfoTable(), context));
 
     return adminTemplate(context, "CreateTable_doit.wm");
   }

@@ -1,0 +1,700 @@
+<HTML>
+<HEAD>
+<TITLE> org.melati Internals Description
+        (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1><TT>org.melati</TT> Internals Description
+    (document $Revision$)</H1>
+
+<P>
+  This document provides a description of anything noteworthy in the
+  workings of the system.  See also the system's
+  <A HREF=QA.html>master QA document</A>.
+</P>
+
+
+
+
+<H2>
+<!-- ************* -->
+      Foundations
+<!-- ************* -->
+</H2>
+
+
+
+<H3>
+<!-- ================================== -->
+      Global data structure and format
+<!-- ================================== -->
+</H3>
+
+<P>
+  The fundamental data structures used in the system are:
+</P>
+
+<P>
+  <I> ... data dictionary; content management of static web pages;
+  admin configuration</I>
+</P>
+
+
+
+<H3>
+<!-- ============= -->
+      Data access
+<!-- ============= -->
+</H3>
+
+<P>
+  The interface through which the code accesses the data is:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H3>
+<!-- ===================== -->
+      Pervasive libraries
+<!-- ===================== -->
+</H3>
+
+<P>
+  The libraries that underpin large parts of the project are:
+</P>
+
+<P>
+  ... <I>the litmus test is ``Will I have to change vast
+  amounts of other code if I change this?''</I>
+</P>
+
+
+
+<H3>
+<!-- =========================== -->
+      Pervasive graphic designs
+<!-- =========================== -->
+</H3>
+
+<P>
+  The graphic designs that have wide implications for the
+  layout of the system's interfaces are:
+</P>
+
+<P>
+  ...
+</P>
+
+
+
+<H2><A NAME=sub-parts>
+<!-- *********** -->
+      Sub-parts
+<!-- *********** -->
+</A></H2>
+
+<P>
+  The parts into which the system naturally falls are:
+</P>
+
+<P>
+  ... <I>minimise the ``surface'' area of interface; make each piece
+  doable by at most two developers; describe the interface it offers
+  and the other parts it relies on; include graphics designs</I>
+</P>
+
+
+
+<H3><A NAME=dsd-proc>
+<!-- ===================================== -->
+      Data structure definition processor
+<!-- ===================================== -->
+</A></H3>
+
+
+<H4>
+<!-- -------- -->
+      Parser
+<!-- -------- -->
+</H4>
+
+<P>
+  The <A HREF=FunctionalSpecification.html#dsd-example>language</A> is simple.
+  The only wrinkle is that the definitions are recursive.  So we use a simple
+  custom top-down parser (with, obviously, Java's library tokenizer).
+</P>
+
+
+<H4>
+<!-- ----------------------- -->
+      Base class generation
+<!-- ----------------------- -->
+</H4>
+
+<P>
+  The auto-generated base classes for the business objects wrapping the table
+  rows are quite simple, because most of the logic of fetching and interpreting
+  table rows sits in the <TT>Table</TT> itself (including invalidation of
+  cached rows when the schema is changed).
+</P>
+
+<P>
+  It probably doesn't matter if the programmer is allowed to provide their own
+  <TT>getCanRead</TT>, <TT>getCanWrite</TT> methods?
+</P>
+
+
+<H4>
+<!-- ------------------------------- -->
+      Database structure generation
+<!-- ------------------------------- -->
+</H4>
+
+<P>
+  Some more auto-generated code needs to describe the minimum database scheme
+  the app expects to find, including indexes.
+</P>
+
+
+
+<H3>
+<!-- =========================== -->
+      Transactions and cacheing
+<!-- =========================== -->
+</H3>
+
+<P>
+  Transactions and cacheing are handled at the level of the raw data,
+  underneath the access control and object logic layer (for which see <A
+  HREF=record-layer>below</A>).
+</P>
+
+
+
+<H3>
+<!-- ================================= -->
+      Access control and object logic
+<!-- ================================= -->
+</H3>
+
+<P>
+  Every object handle is authenticated for a given user.
+</P>
+
+
+
+<H3>
+<!-- ================================= -->
+      Runtime of the persistent store
+<!-- ================================= -->
+</H3>
+
+
+<H4>
+<!-- ---------------- -->
+      Representation
+<!-- ---------------- -->
+</H4>
+
+<P>
+  Each table row is meant to be represented by a single <TT>Record</TT> object;
+  contextual information which can affect the results of accesses to its
+  fields, such as the user's access token and the transaction relative to which
+  she is working, are encoded in the running thread.
+</P>
+
+<P>
+  The actual data can very between different concurrent transactions if one is
+  uncommitted.  Each version could be stored most cheaply as an
+  <TT>Object[]</TT>, but we choose instead to wrap them up in a <TT>Row</TT>
+  object for the reasons explained in <TT>Row.java</TT>.
+</P>
+
+
+<H4>
+<!-- ------------------------------------ -->
+    Non-uniqueness of <TT>Record</TT>s
+<!-- ------------------------------------ -->
+</H4>
+
+<P>
+  However, it's not quite quite possible in Java 1.1 to guarantee that a row
+  won't sometimes get two <TT>Record</TT> handles.  After the following
+  sequence of events&nbsp;...
+</P>
+
+<UL>
+  <LI> some application code <I>c</I> asks for a certain row
+  <LI> the row is loaded into the cache and a <TT>Record</TT> <I>r</I> created
+       for it
+  <LI> <I>r</I> is passed back to <I>c</I>
+  <LI> <I>r</I> is deleted from the cache because of some other activity
+  <LI> <I>c</I> asks for the same row again
+  <LI> because the row is now absent from the cache again, it is loaded once
+       more and a new <TT>Record</TT> <I>r'</I> is created for it
+  <LI> <I>r'</I> is passed back to <I>c</I>
+</UL>
+
+<P>
+  ...&nbsp;<I>c</I> has two different references to the same object.  Of this
+  situation is going to be uncommon, but the only way to avoid it would be to
+  use weak pointers (oh, alright then, `<TT>SoftReference</TT>s') to allow
+  objects to be marked as purgeable from the cache but still stay alive until
+  there were known to be no references to them left.
+</P>
+
+
+<H4>
+<!-- ----------- -->
+      The cache
+<!-- ----------- -->
+</H4>
+
+<P>
+  <FONT COLOR=red>What happens if the administrator changes the database while
+  a write is being prepared?  It needs to fail.  E.g. enumeration of generic
+  fields can produce odd results in this case.</FONT>
+</P>
+
+<P>
+  We know everything that can possibly have changed in a session, since we
+  forbid SQL <TT>UPDATE</TT>s which are not mediated through setter methods.
+  So everything that comes in from the database and is not already in the
+  session cache can go straight into the committed cache.  NB---just bear in
+  mind that new <TT>Row</TT>s mustn't exist in the committed cache until the
+  session in which they are created is committed.
+</P>
+
+
+<H4>
+<!-- --------------- -->
+      Access checks
+<!-- --------------- -->
+</H4>
+
+<P>
+  Hmmm, it's necessary that the programmer's overriding <TT>assertReadable</TT>
+  / <TT>assertWriteable</TT> should be run with maximal permissions.
+  Alternatively, we could provide <TT>protected</TT> check-free versions of
+  the getter methods---but then the programmer's utility methods would have to
+  come in check-free versions as well.
+</P>
+
+<UL>
+  <LI> application code calls <TT>getObject("foo")</TT>
+  <LI> the name is mapped: <TT>getObject(7)</TT>
+  <LI> the number is mapped: <TT>getFoo()</TT>
+  <LI> the programmer's one calls <TT>super.getFoo()</TT>
+  <LI> it calls: <TT>_getObject(7)</TT>
+    <UL>
+      <LI> that calls: <TT>assertReadable()</TT>
+      <LI> which determines the access token
+      <LI> and calls <TT>assertReadable(token)</TT> as root
+      <LI> the programmer's one calls <TT>super.assertReadable(token)</TT>
+      <LI> it determines the <TT>canRead</TT> capability (which doesn't
+	   recursively trigger access checks because it's running as root)
+      <LI> and checks that <TT>accessToken</TT> carries <TT>canRead</TT> 
+    </UL>
+  <LI> and then <TT>rowUnprotected</TT>
+  <LI> which retrieves the row from the session or the committed cache
+  <LI> field 7 is extracted and converted
+</UL>
+
+<P>
+  This all begins to put the potential inefficiency of
+  <TT>token.givesCapability(canRead)</TT> into perspective.
+</P>
+
+<P>
+  There is the option, for the future, of providing a `handle' which doesn't
+  have to do an access check for every single `read'.  Or, we go back to the
+  idea of providing <TT>getFoo_opaque</TT>, <TT>getFoo_write</TT> and
+  <TT>getFoo</TT> (for read access).  Can we alternatively cache one or two
+  access tokens which are known to have the appropriate capabilities?
+</P>
+
+<P>
+  Alternative: specialise every handle you pass out specialised to a particular
+  <TT>AccessToken</TT>.  Mark it with the permissions (on first need?).  Check
+  that the thread is carrying that token, and that it hasn't been revoked (if
+  indeed that's possible), but no more is required.  Have the handle carry its
+  own values (when they're changed), and add a <TT>commit</TT> and an
+  <TT>update</TT>.  Consequences:
+</P>
+
+<UL>
+  <LI> more garbage collection
+  <LI> less checking (in fact very little)
+  <LI> no problem with batching writes, since that's done explicitly---ACTUALLY
+       we can put off all writes until a (non-committed) session is committed
+       if we like?
+  <LI> loss of equality testing/simple <TT>synchroniz</TT>ation (might be
+       sensible to check for that, actually, and warn---easy at runtime using
+       reflection)
+</UL>
+
+<P>
+  Perhaps we offer this as a possibility?  If people want to do a number of
+  batched writes, or they want to read a lot of fields from a snapshot of a
+  record, they say
+
+  <BLOCKQUOTE><PRE>
+// Whatever fields the template reads (from the invoice as such),
+// no further (expensive) access or session checks will be done.
+
+template.context.put("invoice", invoice.snapshotRead());
+  </PRE></BLOCKQUOTE>
+
+  or
+
+  <BLOCKQUOTE><PRE>
+InvoiceSnapshot invoiceSnapshot = invoice.snapshotReadWrite();
+invoiceSnapshot.setTaxDate(inputs.get("taxDate"));
+invoiceSnapshot.setReceiver(inputs.get("receiver"));
+invoiceSnapshot.fixate();
+  </PRE></BLOCKQUOTE>
+</P>
+
+<P>
+  One problem is that any method on a programmer-subclassed object can have
+  unpredictable side effects, including for instance reads and/or writes on
+  linked objects.  This means that a snapshot `set' method may have an effect
+  on non-snapshots, unless we say that snapshot objects call up their own
+  snapshots when links are followed.  Perhaps it's better to say: we simply
+  don't write down changes made in a non-committing session unless asked.  We
+  simply leave all the changes in the cache until commit time.  But it's still
+  nice to use snapshot objects to avoid doing endless access checks.
+</P>
+
+<P>
+  The master <TT>Record</TT> caches the session information.  The slave
+  <TT>Record</TT>s cache the authentication information for a single
+  <TT>AccessToken</TT>.
+</P>
+
+
+<H4>
+<!-- --------- -->
+      Subsets
+<!-- --------- -->
+</H4>
+
+<P>
+  Need to be able to: select themselves out of the db with a prepared
+  statement; trigger to be changed when a field of a record is changed.
+</P>
+
+
+
+<H3>
+<!-- ============== -->
+      Admin system
+<!-- ============== -->
+</H3>
+
+
+<H4>
+<!-- ---------------------------------------------- -->
+      How does <TT>Admin.java</TT> work currently?
+<!-- ---------------------------------------------- -->
+</H4>
+
+<TABLE>
+  <TR>
+    <TH>`Action'</TH>
+    <TH>Incoming <TT>.wm</TT></TH>
+    <TH>Function</TH>
+    <TH>Outgoing <TT>.wm</TT></TH>
+  </TR>
+
+  <TR>
+    <TD><TT>tables</TT></TD>
+    <TD>various</TD>
+    <TD>
+      list tables in database
+    </TD>
+    <TD><TT>AdministrationTables1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>select</TT></TD>
+    <TD>various</TD>
+    <TD>
+      ``Get all relevant drop boxes to SELECT a set of records and perhaps LIST
+      them or LISTEDIT them'' [yeah right, as you do].  I think this means: the
+      screen where you choose the criteria by which you want a report of
+      records from a table.
+    </TD>
+    <TD><TT>AdministrationEditList1</TT>, <TT>AdministrationList1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>briefselect</TT></TD>
+    <TD><TT>select_frameset2.wm</TT></TD>
+    <TD>
+      ``Get one drop boxes to BRIEFSELECT a set of records (the "first" select
+      box)''.  I have no idea what this does.
+    </TD>
+    <TD><TT>select2.wm</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>display</TT></TD>
+    <TD>none, apparently</TD>
+    <TD>
+      ``DISPLAY one record.''  Dead simple.
+    </TD>
+    <TD><TT>AdministrationDisplay1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>edit</TT></TD>
+    <TD>various</TD>
+    <TD>
+      ``EDIT one record.''  I don't understand <TT>UploadURL</TT>.
+    </TD>
+    <TD>
+       <TT>AdministrationEdit1</TT>; <TT>AdministrationEditPageContents1</TT>
+    </TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update</TT></TD>
+    <TD>
+      <TT>AdministrationEdit1</TT>; <TT>AdministrationEditPageContents1</TT>;
+      <TT>edit2</TT>; <TT>editadd2</TT>
+    </TD>
+    <TD>
+      ``UPDATE one record.''  Handles incoming add/edit/delete.
+    </TD>
+    <TD><TT>AdministrationUpdate1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update multiple</TT> when not <TT>add_button</TT></TD>
+    <TD><TT><TT>AdministrationEdit1.wm</TT>; <TT>editlist2.wm</TT></TD>
+    <TD>
+      ``UPDATE MULTIPLE records.''  Apparently handles incoming
+      `add/edit/delete all'.  Don't understand.
+    </TD>
+    <TD><TT>AdministrationMultipleUpdate1</TT></TD>
+  </TR>
+
+  <TR>
+    <TD><TT>update multiple</TT> when <TT>add_button</TT></TD>
+    <TD><TT><TT>AdministrationEdit1.wm</TT>; <TT>editlist2.wm</TT></TD>
+    <TD>
+      ``ADD a new record to a MULTIPLE records list.''  Apparently handles
+      incoming `add'.  Don't understand.
+    </TD>
+    <TD><TT>AdministrationEditList1</TT></TD>
+  </TR>
+</TABLE>
+
+
+
+
+<H2>
+<!-- ****************** -->
+      Important issues
+<!-- ****************** -->
+</H2>
+
+
+
+<H3>
+<!-- ============= -->
+      Performance
+<!-- ============= -->
+</H3>
+
+<P>
+  The system meets its performance requirements because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#performance>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- ========== -->
+      Security
+<!-- ========== -->
+</H3>
+
+<P>
+  The system is secure because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#security>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- ============ -->
+      Robustness
+<!-- ============ -->
+</H3>
+
+<P>
+  The system is robust because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#robustness>requirements analysis</A></I>
+</P>
+
+
+
+<H3>
+<!-- =========== -->
+      Stability
+<!-- =========== -->
+</H3>
+
+<P>
+  The system is stable because:
+</P>
+
+<P>
+  ... <I>refer to the
+  <A HREF=Requirements.html#stability>requirements analysis</A></I>
+</P>
+
+
+
+
+<H2>
+<!-- *************** -->
+      Risk analysis
+<!-- *************** -->
+</H2>
+
+<P>
+  The obvious ways in which this scheme might be flawed are:
+</P>
+
+<P>
+  ...
+</P>
+
+
+<HR>
+
+
+
+
+<H2>
+<!-- ********************* -->
+      About this document
+<!-- ********************* -->
+</H2>
+
+
+
+<H3>
+<!-- ========= -->
+      Authors
+<!-- ========= -->
+</H3>
+
+<P>
+  <A HREF=mailto:williamc@paneris.org>William Chesters
+  &lt;williamc@paneris.org&gt;</A>
+</P>
+
+<P>
+  Most recent CVS $Author$ @paneris.org
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      Quality
+<!-- ========= -->
+</H3>
+
+<P>
+  The current quality level of this document (including any
+  computer-generated documentation, such as javadoc, which belongs
+  with it) is: <B>Personal</B>.
+  <!-- Waived Personal Alpha Beta Release -->
+</P>
+
+<P>
+  These are simply my scrappy working notes.  I justify this by saying that
+  it's only me developing the core code, and that will be its own best
+  documentation (along with a <I>post hoc</I> description of the mechanisms).
+</P>
+
+
+
+<H3>
+<!-- ======================== -->
+      Readership and purpose
+<!-- ======================== -->
+</H3>
+
+<P>
+  <UL>
+    <LI> The <B>project leader</B> should feel happy about
+	 how the system will be implemented.
+    <LI> The <B>developers</B> should know as far as possible what
+	 they are going to do.
+    <LI> <B>Future maintainers</B> should be able to understand
+	 any non-obvious details about how the system works.
+  </UL>
+</P>
+
+
+
+<H3>
+<!-- ========= -->
+      History
+<!-- ========= -->
+</H3>
+
+<P>
+  The important points in the life of this document are listed
+  below (for everyday update information, consult its CVS log).
+</P>
+
+<TABLE>
+  <TR><TH>Date</TH><TH>Event</TH></TR>
+  <TR>
+    <TD>(not yet)</TD>
+    <TD>Approved at release quality level by ...</TD>
+  </TR>
+</TABLE>
+
+<P>
+  <BR>$Log$
+  <BR>Revision 1.5  2000/02/27 14:34:00  williamc
+  <BR>*** empty log message ***
+  <BR>
+  <BR>Revision 1.1  2000/02/08 15:45:08  williamc
+  <BR>Initial revision
+  <BR>
+  <BR>Revision 1.2  2000/02/04 18:28:34  williamc
+  <BR>Add QA stub; explain DSD-admin interactino a little better
+  <BR>
+  <BR>
+</P>
+
+
+</BODY>
+</HTML>

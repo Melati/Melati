@@ -8,7 +8,9 @@
 
 <CENTER>
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<H1>Table $ml.rendered($table.DisplayName)</H1>
+
+<TABLE CELLSPACING=0>
   <TR>
     <TH></TH>
     #foreach $column in $table.columns() {
@@ -22,7 +24,7 @@
       <TD><A HREF="$admin.editURL($object)">Edit</A></TD>
       #foreach $field in $object {
         <TD></TD>
-        <TD BGCOLOR=yellow>$ml.rendered($field.ValueString)</TD>
+        <TD BGCOLOR=yellow>$ml.rendered($field)</TD>
       }
     </TR>
   }

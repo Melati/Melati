@@ -21,9 +21,9 @@
         } #else {
           <B>$ml.rendered($field.DisplayName)</B>
         }
+      </TD><TD></TD><TD>
+        $ml.input($field)
       </TD>
-      <TD></TD>
-      <TD>$ml.input($field)</TD>
     </TR>
   }
 </TABLE>

@@ -22,18 +22,31 @@ and loaded a Template Engine (in this case WebMacro).<p>
 #end
 <p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
 
-#if ($Form.passback || $Form.propagate) #begin
-You have tried to access a RestrictedAccessObject but:
-<b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b><br>
+<h3>Exception Testing</h3>
+
+#if ($Form.nonexistant) #begin
+<p>Here is an object that doesn't exist<br>
+<textarea cols=60 rows=5>
+$nonexistant
+</textarea>
+</p>
 #end
+
+#if ($Form.passback || $Form.propagate) #begin
+<p>You have tried to access a RestrictedAccessObject but:<br>
+<b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
+#end
+
+You can test how the PropagateVariableExceptionHandler handles "normal" template expansion exceptions by clicking <a href=?nonexistant=true>?nonexistant=true</a>.<br>
+You can test how the PassbackVariableExceptionHandler handles AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.<br>
+You can test how the PropagateVariableExceptionHandler handles AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.<br>
+
 
 <h3>Further Testing</h3>
 You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
-You can test the PassbackVariableExceptionHandler by clicking <a href=?passback=true>?passback=true</a>.<br>
-You can test the PropagateVariableExceptionHandler by clicking <a href=?propagate=true>?propagate=true</a>.<br>
 <h3>Your Database has the following tables:</h3>
 #foreach $tab in $melati.Database.DisplayTables #begin
   $tab.DisplayName<br>

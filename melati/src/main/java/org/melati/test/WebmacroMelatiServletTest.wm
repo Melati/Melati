@@ -10,7 +10,9 @@ the Webmacro template engine.
 If you can read this message, it means that you have successfully created a POEM session 
 and loaded the WebMacro Template Engine.<p>
 
+#if ($melati.Method) #begin
 <p>This servlet was called with the following Method: <b>$melati.Method</b></p></p>
+#end
 
 #if ($Form.test) #begin
 <p><b>$Form.test</b> was passed in the parameter <b>test</b>.

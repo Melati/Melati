@@ -61,8 +61,7 @@ import org.melati.template.TemplateEngineException;
  * @author Tim Joyce
  * $Revision$
  */
-public abstract class TemplateServlet extends PoemServlet
-{
+public abstract class TemplateServlet extends PoemServlet {
 
   // the template engine
   protected TemplateEngine templateEngine;
@@ -71,10 +70,8 @@ public abstract class TemplateServlet extends PoemServlet
    * Inititialise WebMacro
    * @param ServletConfig
    */
-  public void init( ServletConfig config )
-  throws ServletException
-  {
-    super.init( config );
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
     try {
       templateEngine = melatiConfig.getTemplateEngine();
       if (templateEngine != null) templateEngine.init();
@@ -91,7 +88,6 @@ public abstract class TemplateServlet extends PoemServlet
     melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext = templateEngine.getTemplateContext(melati);
 
-
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
     String contentType = melati.getRequest().getHeader("content-type");
@@ -100,14 +96,14 @@ public abstract class TemplateServlet extends PoemServlet
       templateContext =
         new MultipartTemplateContext(melati, templateContext);
 
-
     templateContext.put("melati",melati);
     melati.setTemplateContext(templateContext);
     String templateName = doTemplateRequest(melati,templateContext);
     // only expand a template if we have one (it could be a redirect)
     if (templateName != null) {
       templateName = addExtension(templateName);
-      templateEngine.expandTemplate(melati.getWriter(), templateName,
+      templateEngine.expandTemplate(melati.getWriter(), 
+                                    templateName,
                                     templateContext);
     }
   }
@@ -126,14 +122,8 @@ public abstract class TemplateServlet extends PoemServlet
    * @param melatiContext
    * @return an object with all you need to do the template expansion
    */
-  protected abstract String doTemplateRequest(
-  Melati melati, TemplateContext templateContext)
-  throws Exception ;
+  protected abstract String doTemplateRequest(Melati melati, 
+                                              TemplateContext templateContext)
+                            throws Exception ;
 
 }
-
-
-
-
-
-

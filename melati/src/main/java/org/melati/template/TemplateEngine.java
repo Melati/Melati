@@ -47,7 +47,6 @@ package org.melati.template;
 
 import java.io.Writer;
 import org.melati.Melati;
-import org.melati.poem.AccessPoemException;
 
 /**
  * Interface for a Template engine for use with Melati
@@ -67,7 +66,7 @@ public interface TemplateEngine
    * get the generic parameters for this engine
    */
   public TemplateContext getTemplateContext(Melati melati)
-  throws TemplateEngineException;
+                         throws TemplateEngineException;
 
   /**
   * the name of the template engine (used to find the templets)
@@ -87,16 +86,18 @@ public interface TemplateEngine
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate
-  (Writer out, String templateName, TemplateContext templateContext) 
-  throws TemplateEngineException, AccessPoemException;
+  public void expandTemplate(Writer out, 
+                             String templateName, 
+                             TemplateContext templateContext) 
+              throws TemplateEngineException;
   
   /** 
    * Expand the Template against the context.
    */
-  public void expandTemplate
-  (Writer out, Template template, TemplateContext templateContext) 
-  throws TemplateEngineException, AccessPoemException;
+  public void expandTemplate(Writer out, 
+                             Template template, 
+                             TemplateContext templateContext) 
+              throws TemplateEngineException;
 
     
   public Object getPassbackVariableExceptionHandler();
@@ -107,9 +108,3 @@ public interface TemplateEngine
   public Object getEngine();
 
 }
-
-
-
-
-
-

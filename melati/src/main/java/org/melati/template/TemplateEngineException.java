@@ -55,6 +55,6 @@ public class TemplateEngineException extends MelatiException {
   }
 
   public String getMessage() {
-    return "I couldn't use the Template engine because: " + error;
+    return "I couldn't use the Template engine because: \n" + error;
   }
 }

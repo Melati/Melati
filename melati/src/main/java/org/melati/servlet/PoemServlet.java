@@ -215,8 +215,8 @@ public abstract class PoemServlet extends ConfigServlet
   /**
    * Process the request.
    */
-  protected void doConfiguredRequest (final Melati melatiIn)
-  throws ServletException, IOException {
+  protected void doConfiguredRequest(final Melati melatiIn)
+                 throws ServletException, IOException{
 
     // Set up a POEM session and call the application code
 
@@ -227,45 +227,43 @@ public abstract class PoemServlet extends ConfigServlet
     final PoemServlet _this = this;
 
     melatiIn.getDatabase().inSession (
-    AccessToken.root, new PoemTask() {
-      public void run () {
-        try {
-          Melati melati =
-          melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
-          melati.loadTableAndObject();
+      AccessToken.root, new PoemTask() {
+        public void run () {
           try {
-            _this.doPoemRequest(melatiIn);
-          }
-          catch (Exception e) {
-            _handleException (melatiIn,e);
-          }
-        } catch (Exception e) {
-          try {
-            // we have to log this here, otherwise we loose the stacktrace
-            error(melatiIn.getResponse(),e);
-            throw new TrappedException(e.toString ());
-          } catch (IOException f) {
-            throw new TrappedException(f.toString ());
+            Melati melati =
+            melatiIn.getConfig().getAccessHandler().establishUser(melatiIn);
+            melati.loadTableAndObject();
+            try {
+              _this.doPoemRequest(melatiIn);
+            } catch (Exception e) {
+              _handleException (melatiIn,e);
+            }
+          } catch (Exception e) {
+            try {
+              // we have to log this here, otherwise we loose the stacktrace
+              error(melatiIn.getResponse(),e);
+              throw new TrappedException(e.toString ());
+            } catch (IOException f) {
+              throw new TrappedException(f.toString ());
+            }
           }
         }
       }
-    }
     );
   }
 
   // default method to handle an exception withut a template engine
   protected void handleException (Melati melati, Exception exception)
-  throws Exception {
+                 throws Exception {
 
     if (exception instanceof AccessPoemException) {
-      melati.getConfig().getAccessHandler().handleAccessException
-      (melati,(AccessPoemException)exception);
-    }
-    else throw exception;
+      melati.getConfig().getAccessHandler()
+        .handleAccessException(melati,(AccessPoemException)exception);
+    } else throw exception;
   }
 
   protected final void _handleException(Melati melati, Exception exception) 
-  throws Exception {
+                       throws Exception {
     try {
       handleException(melati, exception);
     }
@@ -276,7 +274,7 @@ public abstract class PoemServlet extends ConfigServlet
   }
 
   protected MelatiContext melatiContext(Melati melati)
-  throws PathInfoException {
+                          throws PathInfoException {
     MelatiContext it = new MelatiContext();
     String[] parts = melati.getPathInfoParts();
 
@@ -316,8 +314,9 @@ public abstract class PoemServlet extends ConfigServlet
  * }
  *
  */
-  protected MelatiContext melatiContextWithLDB
-  (Melati melati, String logicalDatabase) throws PathInfoException {
+  protected MelatiContext melatiContextWithLDB (Melati melati, 
+                                                String logicalDatabase) 
+                          throws PathInfoException {
     MelatiContext it = new MelatiContext();
     String[] parts = melati.getPathInfoParts();
 
@@ -350,8 +349,3 @@ public abstract class PoemServlet extends ConfigServlet
   protected abstract void doPoemRequest(Melati melati) throws Exception;
 
 }
-
-
-
-
-

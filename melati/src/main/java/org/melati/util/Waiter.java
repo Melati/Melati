@@ -50,9 +50,10 @@ package org.melati.util;
 */
 public class Waiter {
 
-  public void wait(Integer length) {
+  public String wait(Integer length) {
     try {
       java.lang.Thread.sleep(length.intValue());
     } catch (Exception e){}
+    return "";
   }
 }

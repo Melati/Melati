@@ -64,8 +64,10 @@ public abstract class MarkupLanguage {
   private TempletLoader templetLoader;
   private MelatiLocale locale;
 
-  public MarkupLanguage(String name, Melati melati,
-  TempletLoader templetLoader, MelatiLocale locale) {
+  public MarkupLanguage(String name, 
+                        Melati melati,
+                        TempletLoader templetLoader, 
+                        MelatiLocale locale) {
     this.name = name;
     this.melati = melati;
     this.templateContext = melati.getTemplateContext();
@@ -89,7 +91,7 @@ public abstract class MarkupLanguage {
   }
 
   public String rendered(Object o)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     if (o instanceof JSDynamicTree)
     return rendered((JSDynamicTree)o);
     if (o instanceof Persistent)
@@ -100,15 +102,16 @@ public abstract class MarkupLanguage {
   }
 
   public String rendered(JSDynamicTree tree)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     TemplateContext vars = melati.getTemplateEngine().getTemplateContext(melati);
     vars.put("tree",tree);
     vars.put("melati", melati);
     String templetName = "org.melati.util.JSDynamicTree";
     try {
       return expandedTemplet(
-      templetLoader.templet(melati.getTemplateEngine(),
-      this, templetName), vars);
+        templetLoader.templet(melati.getTemplateEngine(),
+                              this, templetName), 
+        vars);
     } catch (NotFoundException e) {
       throw new TemplateEngineException("I couldn't find the templet: " +
       templetName + " because: " +e.toString());
@@ -116,42 +119,42 @@ public abstract class MarkupLanguage {
   }
 
   public String rendered(Field field, int style, int limit)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field.getCookedString(locale, style), limit);
   }
 
   public String rendered(Field field, int style)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, style, 10000000);
   }
 
   public String renderedShort(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.SHORT);
   }
 
   public String renderedMedium(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.MEDIUM);
   }
 
   public String renderedLong(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.LONG);
   }
 
   public String renderedFull(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.FULL);
   }
 
   public String rendered(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return renderedMedium(field);
   }
 
   public String renderedStart(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field, DateFormat.MEDIUM, 50);
   }
 
@@ -163,7 +166,7 @@ public abstract class MarkupLanguage {
    */
 
   public String renderedString(Field field)
-  throws TemplateEngineException, IOException {
+                throws TemplateEngineException, IOException {
     return rendered(field);
   }
 
@@ -175,17 +178,23 @@ public abstract class MarkupLanguage {
   //
 
   public String input(Field field)
-  throws TemplateEngineException, IOException, UnsupportedTypeException {
+                throws TemplateEngineException, 
+                       IOException, 
+                       UnsupportedTypeException {
     return input(field, null, "", false);
   }
 
   public String inputAs(Field field, String templetName)
-  throws TemplateEngineException, IOException, UnsupportedTypeException {
+                throws TemplateEngineException, 
+                       IOException, 
+                       UnsupportedTypeException {
     return input(field, templetName, "", false);
   }
 
   public String searchInput(Field field, String nullValue)
-  throws TemplateEngineException, IOException, UnsupportedTypeException {
+                throws TemplateEngineException, 
+                       IOException, 
+                       UnsupportedTypeException {
     return input(field, null, nullValue, true);
   }
 
@@ -194,15 +203,18 @@ public abstract class MarkupLanguage {
   }
 
   protected String expandedTemplet(Template templet, TemplateContext tc)
-  throws TemplateEngineException, IOException {
+                   throws TemplateEngineException, IOException {
     melati.getTemplateEngine().expandTemplate(melati.getWriter(),templet,tc);
     return "";
   }
 
-  protected String input(Field field, String templetName,
-  String nullValue, boolean overrideNullable)
-  throws UnsupportedTypeException, TemplateEngineException, IOException {
-
+  protected String input(Field field, 
+                         String templetName,
+                         String nullValue, 
+                         boolean overrideNullable)
+                   throws UnsupportedTypeException, 
+                          TemplateEngineException, 
+                          IOException {
     Template templet;
     try {
       templet =
@@ -213,7 +225,6 @@ public abstract class MarkupLanguage {
       throw new TemplateEngineException("I couldn't find the templet: " +
       templetName + " because: " +e.toString());
     }
-
 
     TemplateContext vars =
     melati.getTemplateEngine().getTemplateContext(melati);

@@ -95,7 +95,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * get the generic parameters for webmacro
    */
-  public TemplateContext getTemplateContext (Melati melati) {
+  public TemplateContext getTemplateContext(Melati melati) {
     WebContext wc = wm.getWebContext(melati.getRequest(),melati.getResponse());
     // always put a PropagateVariableExceptionHandler in otherwise
     // we never get our errors out!
@@ -124,7 +124,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * the underlying engine
    */
-  public Object getEngine () {
+  public Object getEngine() {
     return wm;
   }
 
@@ -132,7 +132,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * get a template given it's name
    */
   public org.melati.template.Template template (String templateName)
-  throws NotFoundException {
+                                      throws NotFoundException {
     try {
       return new WebmacroTemplate (wm.getTemplate (templateName));
     } catch (org.webmacro.NotFoundException e) {
@@ -144,15 +144,12 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   /**
    * Expand the Template against the context.
    */
-  public void expandTemplate
-  (Writer out, String templateName, TemplateContext templateContext)
-  throws TemplateEngineException, AccessPoemException {
+  public void expandTemplate(Writer out, 
+                             String templateName, 
+                             TemplateContext templateContext)
+              throws TemplateEngineException {
     try {
       expandTemplate (out, template (templateName), templateContext);
-    } catch (VariableException problem) {
-      Exception underlying = problem.innermostException();
-      if (underlying instanceof AccessPoemException) 
-        throw (AccessPoemException)underlying;
     } catch (NotFoundException e) {
       throw new TemplateEngineException ("I couldn't find the template: " +
       templateName + " because: " +e.toString ());
@@ -163,10 +160,20 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * Expand the Template against the context.
    */
   public void expandTemplate(Writer out,
-  org.melati.template.Template template, TemplateContext templateContext)
-  throws TemplateEngineException, AccessPoemException {
-    template.write (out, templateContext, this);
+                             org.melati.template.Template template, 
+                             TemplateContext templateContext)
+              throws TemplateEngineException {
+    try {
+      template.write (out, templateContext, this);
+    } catch (VariableException problem) {
+      Exception underlying = problem.innermostException();
+      if (underlying instanceof AccessPoemException) {
+        throw (AccessPoemException)underlying;
+      } else {
+        throw new TemplateEngineException(
+                  "The template could not be expanded because:\n" + 
+                  underlying.toString());
+      }
+    }
   }
-
-
 }

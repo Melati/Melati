@@ -169,37 +169,50 @@
   <LI> Set up a database for use by Melati. With Postgres this involves typing, 
     for example, <TT>createdb melatitest</TT> at the Linux prompt, as a user who 
     is allowed to create databases. 
-  <LI> Arrange for the user in whose name your httpd runs---often, `<TT>nobody</TT>'---to 
-    be able to connect to the test database and create tables in it. With Postgres 
-    this is a no-op under the default `security' setup, assuming that your postmaster 
-    is running on the same machine as your web server. 
-  <LI> Using anonymous CVS, install the Melati source tree somewhere. For instance, 
-    <BLOCKQUOTE> 
+
+  <LI> Arrange for the user in whose name your httpd runs---often,
+    `<TT>nobody</TT>'---to be able to connect to the test database and create
+    tables in it. With Postgres this is a no-op under the default `security'
+    setup, assuming that your postmaster is running on the same machine as your
+    web server.
+
+  <LI> <A NAME=hackedVariable>Using anonymous CVS, install the Melati source
+    tree somewhere. You also have to install a specially hacked version of
+    <TT>org.webmacro.engine.Variable</TT>.  We are very sorry about this, but
+    there really is no alternative---lobby Justin to stop making everything
+    <TT>final</TT> and/or package-private!</A> For instance,
+    <BLOCKQUOTE>
       <PRE>
 $ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
 (Logging in to anonymous@melati.org)
 CVS password: anonymous
-$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati
-</pre>
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout org/melati org/webmacro
+</PRE>
     </BLOCKQUOTE>
+
   <LI> Ensure that the following is in your classpath 
     <ul>
       <li>ApacheJServ.jar 
       <li>jsdk.jar 
+      <li>the melati install directory, <B>before</B> the webmacro install
+      directory (because of the <A
+      HREF=#hackedVariable>hacked version of <TT>Variable</TT></A> you must use)
       <li>the webmacro install directory
-      <li>the melati install directory 
     </ul>
     <p>&nbsp;</p>
+
   <li>Compile melati. For instance, 
     <BLOCKQUOTE> 
       <PRE>
-cd /usr/local/packages/inst/melati/melati-0.0.x/org/melati
-javac admin/Admin.java poem/prepro/DSD.java poem/PoemDatabase.java </PRE>
+cd /usr/local/packages/inst/melati-0.0.x/org/melati
+javac admin/Admin.java poem/prepro/DSD.java poem/PoemDatabase.java</PRE>
     </BLOCKQUOTE>
-    ---those three files being entry points to respectively the admin system and 
-    the DSD preprocessor, which should cause everything to get compiled (except 
-    for a few sources not currently in use). 
+    ---those three files being entry points to respectively the admin system,
+    and the DSD preprocessor and a class named in the <A
+    HREF=#config>config</A> file---which should cause everything to get
+    compiled (except for a few sources not currently in use).
 </UL>
+
 <UL>
   <LI> Arrange for Melati's classes to be accessible to your servlet runner, for 
     instance by adding a line 
@@ -219,8 +232,9 @@ wrapper.classpath=/usr/local/packages/inst/melati-0.0.x
     </blockquote>
 </UL>
 <UL>
-  <li> Edit Melati's own config file, found in the source tree as <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, 
-    which describes the mapping from &quot;logical database names&quot; to JDBC 
+  <li> <A NAME=config>Edit Melati's own config file</A>, found in the source
+    tree as <TT>org/melati/org.melati.LogicalDatabase.properties</TT>, which
+    describes the mapping from &quot;logical database names&quot; to JDBC
     connection details. You may not have to change anything.</li>
 </UL>
 <UL>
@@ -356,6 +370,9 @@ http://localhost/&lt;servlet zone&gt;/org.melati.admin.Admin/melatitest/View
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.10  2000/03/08 11:44:36  williamc
+  <BR>Add comments about hacked version of Variable
+  <BR>
   <BR>Revision 1.9  2000/03/06 08:35:47  timj
   <BR>stop refering to webmacro.jar
   <BR>

@@ -66,7 +66,6 @@ function popupupdate(popupwin,returnfield,id,value) {
 
 <FORM METHOD=post ACTION=AddUpdate>
 <H3><FONT FACE="Arial, Helvetica">Create a new $ml.rendered($table.DisplayName) record</font></H3>
-
 <TABLE CELLSPACING=0 cellpadding=0>
   #foreach $field in $fields #begin
     #if ($field.UserCreateable) #begin

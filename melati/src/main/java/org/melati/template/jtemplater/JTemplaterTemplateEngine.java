@@ -127,6 +127,10 @@ public class JTemplaterTemplateEngine implements TemplateEngine
     }
   }
 
+  public Object getPassbackVariableExceptionHandler() {
+    return null;
+  }
+
   /**
    * Expand the Template against the context.
    */

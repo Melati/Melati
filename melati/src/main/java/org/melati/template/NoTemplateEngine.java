@@ -94,6 +94,10 @@ public class NoTemplateEngine implements TemplateEngine
     return "none";
   }
 
+  public Object getPassbackVariableExceptionHandler() {
+    return null;
+  }
+
   /**
    * get the generic parameters for this engine
    */

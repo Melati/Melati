@@ -1,4 +1,5 @@
 #set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
 #if ($Form.passback) #begin
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #end
@@ -21,9 +22,9 @@ and loaded a Template Engine (in this case WebMacro).<p>
 #end
 <p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
 
-#if ($Form.passback) #begin
+#if ($Form.passback || $Form.propagate) #begin
 You have tried to access a RestrictedAccessObject but:
-<b>$RestrictedAccessObject.AccessPoemException</b>
+<b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b><br>
 #end
 
 <h3>Further Testing</h3>
@@ -32,7 +33,7 @@ You can test your interface for writing Melati servlets using the Webmacro templ
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
 You can test the PassbackVariableExceptionHandler by clicking <a href=?passback=true>?passback=true</a>.<br>
-
+You can test the PropagateVariableExceptionHandler by clicking <a href=?propagate=true>?propagate=true</a>.<br>
 <h3>Your Database has the following tables:</h3>
 #foreach $tab in $melati.Database.DisplayTables #begin
   $tab.DisplayName<br>

@@ -49,6 +49,7 @@ package org.melati.template.webmacro;
 import java.io.Writer;
 
 import org.melati.Melati;
+import org.melati.poem.AccessPoemException;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
@@ -56,6 +57,11 @@ import org.melati.template.NotFoundException;
 
 import org.webmacro.WM;
 import org.webmacro.InitException;
+import org.webmacro.servlet.WebContext;
+import org.webmacro.engine.Variable;
+import org.webmacro.engine.VariableException;
+import org.webmacro.engine.PropagateVariableExceptionHandler;
+import org.webmacro.engine.PassbackVariableExceptionHandler;
 
 
 /**
@@ -90,8 +96,15 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * get the generic parameters for webmacro
    */
   public TemplateContext getTemplateContext (Melati melati) {
-    return new WebmacroTemplateContext
-    (wm.getWebContext(melati.getRequest(),melati.getResponse()));
+    WebContext wc = wm.getWebContext(melati.getRequest(),melati.getResponse());
+    // always put a PropagateVariableExceptionHandler in otherwise
+    // we never get our errors out!
+    wc.put(Variable.EXCEPTION_HANDLER, PropagateVariableExceptionHandler.it);
+    return new WebmacroTemplateContext(wc);
+  }
+  
+  public Object getPassbackVariableExceptionHandler() {
+    return PassbackVariableExceptionHandler.it;
   }
 
   /**
@@ -133,9 +146,13 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    */
   public void expandTemplate
   (Writer out, String templateName, TemplateContext templateContext)
-  throws TemplateEngineException {
+  throws TemplateEngineException, AccessPoemException {
     try {
       expandTemplate (out, template (templateName), templateContext);
+    } catch (VariableException problem) {
+      Exception underlying = problem.innermostException();
+      if (underlying instanceof AccessPoemException) 
+        throw (AccessPoemException)underlying;
     } catch (NotFoundException e) {
       throw new TemplateEngineException ("I couldn't find the template: " +
       templateName + " because: " +e.toString ());
@@ -147,7 +164,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    */
   public void expandTemplate(Writer out,
   org.melati.template.Template template, TemplateContext templateContext)
-  throws TemplateEngineException {
+  throws TemplateEngineException, AccessPoemException {
     template.write (out, templateContext, this);
   }
 

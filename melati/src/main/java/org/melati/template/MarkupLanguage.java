@@ -49,10 +49,6 @@ import java.text.DateFormat;
 
 import java.io.IOException;
 
-// fixme - these should not be here! - need to use a newer WebMacro
-import org.webmacro.engine.VariableExceptionHandler;
-import org.webmacro.engine.Variable;
-
 import org.melati.Melati;
 import org.melati.util.MelatiLocale;
 import org.melati.util.JSDynamicTree;
@@ -107,6 +103,7 @@ public abstract class MarkupLanguage {
   throws TemplateEngineException, IOException {
     TemplateContext vars = melati.getTemplateEngine().getTemplateContext(melati);
     vars.put("tree",tree);
+    vars.put("melati", melati);
     String templetName = "org.melati.util.JSDynamicTree";
     try {
       return expandedTemplet(
@@ -120,18 +117,7 @@ public abstract class MarkupLanguage {
 
   public String rendered(Field field, int style, int limit)
   throws TemplateEngineException, IOException {
-
-    try {
-      return rendered(field.getCookedString(locale, style), limit);
-    }
-    catch (AccessPoemException e) {
-      VariableExceptionHandler handler =
-      (VariableExceptionHandler)templateContext.get(Variable.EXCEPTION_HANDLER);
-      if (handler != null)
-      return rendered(handler.handle(null, templateContext, e));
-      else
-      throw e;
-    }
+    return rendered(field.getCookedString(locale, style), limit);
   }
 
   public String rendered(Field field, int style)
@@ -181,15 +167,6 @@ public abstract class MarkupLanguage {
     return rendered(field);
   }
 
-  /*
-  public Template templet(String templetName) {
-  return templetLoader.templet(templateContext.getBroker(), this, templetName);
-  }
-
-  public String templetExpansion(Template template)  {
-  return (String)template.evaluate(melaitContext);
-  }
-   */
 
   //
   // =========
@@ -226,18 +203,6 @@ public abstract class MarkupLanguage {
   String nullValue, boolean overrideNullable)
   throws UnsupportedTypeException, TemplateEngineException, IOException {
 
-    try {
-      field.getRaw();
-    }
-    catch (AccessPoemException e) {
-      VariableExceptionHandler handler =
-      (VariableExceptionHandler)templateContext.get(Variable.EXCEPTION_HANDLER);
-      if (handler != null)
-      rendered(handler.handle(null, melati, e));
-      else
-      throw e;
-    }
-
     Template templet;
     try {
       templet =
@@ -272,7 +237,9 @@ public abstract class MarkupLanguage {
       Template templet =
       templetLoader.templet(melati.getTemplateEngine(), this, e.getClass());
       vars.put("exception", e);
-      return expandedTemplet(templet,templateContext);
+      vars.put("melati", melati);
+      vars.put("ml", this);
+      return expandedTemplet(templet,vars);
     }
     catch (Exception f) {
       try {

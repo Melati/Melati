@@ -131,3 +131,4 @@ public interface TestDatabaseTablesBase {
   */
   EAExtendedTable getEAExtendedTable();
 }
+

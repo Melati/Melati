@@ -8,3 +8,4 @@ import org.melati.poem.test.generated.TestDatabaseTablesBase;
 public interface TestDatabaseTables extends TestDatabaseTablesBase {
   // programmer's domain-specific code here
 }
+

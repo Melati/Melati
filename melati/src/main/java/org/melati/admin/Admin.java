@@ -45,8 +45,6 @@
 
 package org.melati.admin;
 
-import java.net.URLEncoder;
-
 import java.io.File;
 
 import java.util.Vector;
@@ -323,7 +321,7 @@ public class Admin extends TemplateServlet {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
 
         // FIXME needs to work for dates?
-        whereClause.addElement(name + "=" + URLEncoder.encode(string));
+        whereClause.addElement(name + "=" + melati.urlEncode(string));
       }
     }
 
@@ -803,6 +801,9 @@ public class Admin extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, TemplateContext context)
       throws Exception {
+
+    melati.setResponseContentType("text/html");
+
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin))

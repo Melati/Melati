@@ -59,6 +59,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletOutputStream;
 
 import org.melati.Melati;
+import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
@@ -73,6 +74,8 @@ import org.apache.velocity.io.VelocityWriter;
 import org.apache.velocity.app.HttpServletResponseWrap;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+
 /**
  * Interface for a Template engine for use with Melati
  */
@@ -88,19 +91,19 @@ public class VelocityTemplateEngine implements TemplateEngine {
   /**
    * Inititialise the Engine
    */
-  public void init(ServletConfig config) throws TemplateEngineException {
+  public void init(MelatiConfig melatiConfig) throws TemplateEngineException {
     try {
-      Properties props = loadConfiguration(config);
+      Properties props = loadConfiguration(melatiConfig);
       Velocity.init( props );
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
   }
 
-  protected Properties loadConfiguration(ServletConfig config)
-                                   throws IOException, FileNotFoundException {
+  protected Properties loadConfiguration(MelatiConfig melatiConfig) 
+                               throws IOException, FileNotFoundException {
         
-    String propsFile = config.getInitParameter(INIT_PROPS_KEY);
+//    String propsFile = config.getInitParameter(INIT_PROPS_KEY);
     /*
      * This will attempt to find the location of the properties
      * file from the relative path to the WAR archive (ie:
@@ -110,14 +113,17 @@ public class VelocityTemplateEngine implements TemplateEngine {
      * if this will break other servlet engines, but it probably
      * shouldn't since WAR files are the future anyways.
      */
-    Properties p = new Properties();
+                                     /*
     if (propsFile != null) {
       String realPath = config.getServletContext().getRealPath(propsFile);
       if ( realPath != null ) propsFile = realPath;
       p.load( new FileInputStream(propsFile) );
     }
     // fixme, work out how to set this some other way
-    p.setProperty("file.resource.loader.path", "/usr/local/packages/melati/org/melati/");
+ */
+    Properties p = new Properties();
+    p.setProperty("file.resource.loader.path", melatiConfig.getTemplatePath());
+    p.setProperty("file.resource.loader.class", "org.melati.template.velocity.WebMacroFileResourceLoader");
     return p;
   }
 
@@ -132,19 +138,18 @@ public class VelocityTemplateEngine implements TemplateEngine {
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, 
                              new HttpServletResponseWrap(melati.getResponse()));
-
     return new VelocityTemplateContext(context);
   }
   
   public Object getPassbackVariableExceptionHandler() {
-    return null;
+    return new PassbackMethodExceptionEventHandler();
   }
 
   /**
    * the name of the template engine (used to find the templets)
    */
   public String getName() {
-    return "velocity";
+    return "webmacro";
   }
 
   /**
@@ -179,11 +184,24 @@ public class VelocityTemplateEngine implements TemplateEngine {
    * get a template given it's name
    */
   public org.melati.template.Template template(String templateName)
-                             throws NotFoundException, TemplateEngineException {
+                             throws NotFoundException {
       try {                                  
         return new VelocityTemplate(Runtime.getTemplate(templateName));
+      } catch (ResourceNotFoundException e) {
+        if (templateName.endsWith(templateExtension())) {
+          // have a go at loading the webmacro template, and converting it!
+          templateName = templateName.substring(0,templateName.lastIndexOf
+                                                (templateExtension())) + ".wm";
+          try {                                  
+            return new VelocityTemplate(Runtime.getTemplate(templateName));
+          } catch (Exception f) {
+            throw new NotFoundException(f);
+          }
+        } else {
+          throw new NotFoundException(e);
+        }
       } catch (Exception e) {
-        throw new TemplateEngineException(e);
+        throw new NotFoundException(e);
       }
   }
 
@@ -212,6 +230,9 @@ public class VelocityTemplateEngine implements TemplateEngine {
       template.write (out, templateContext, this);
     } catch (TemplateEngineException problem) {
       Exception underlying = problem.subException;
+      if (underlying instanceof AccessPoemException) {
+        throw (AccessPoemException)underlying;
+      }
       if (underlying instanceof MethodInvocationException) {
         Throwable caught = ((MethodInvocationException)underlying).getWrappedThrowable();
         if (caught instanceof AccessPoemException) {

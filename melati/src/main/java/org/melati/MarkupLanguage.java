@@ -1,21 +1,33 @@
 package org.melati;
 
+import java.io.*;
+import java.text.*;
 import org.webmacro.*;
 import org.webmacro.engine.*;
 import org.webmacro.resource.*;
 import org.webmacro.servlet.*;
 import org.webmacro.broker.*;
+import org.melati.util.*;
 import org.melati.poem.*;
-import java.io.*;
+import org.melati.templets.*;
 
 public abstract class MarkupLanguage {
 
   private String name;
   private WebContext webContext;
+  private TempletLoader templetLoader;
+  private MelatiLocale locale;
 
-  public MarkupLanguage(String name, WebContext webContext) {
+  public MarkupLanguage(String name, WebContext webContext,
+                        TempletLoader templetLoader, MelatiLocale locale) {
     this.name = name;
     this.webContext = webContext;
+    this.templetLoader = templetLoader;
+    this.locale = locale;
+  }
+
+  protected MarkupLanguage(String name, MarkupLanguage other) {
+    this(name, other.webContext, other.templetLoader, other.locale);
   }
 
   public String getName() {
@@ -37,9 +49,9 @@ public abstract class MarkupLanguage {
       return rendered(o.toString());
   }
 
-  public String rendered(Field field) {
+  public String rendered(Field field, int style) {
     try {
-      return rendered(field.getValueString());
+      return rendered(field.getCookedString(locale, style));
     }
     catch (AccessPoemException e) {
       VariableExceptionHandler handler =
@@ -49,6 +61,37 @@ public abstract class MarkupLanguage {
       else
         throw e;
     }
+  }
+
+  public String renderedShort(Field field) {
+    return rendered(field, DateFormat.SHORT);
+  }
+
+  public String renderedMedium(Field field) {
+    return rendered(field, DateFormat.MEDIUM);
+  }
+
+  public String renderedLong(Field field) {
+    return rendered(field, DateFormat.LONG);
+  }
+
+  public String renderedFull(Field field) {
+    return rendered(field, DateFormat.FULL);
+  }
+
+  public String rendered(Field field) {
+    return renderedMedium(field);
+  }
+
+  /**
+   * This is just <TT>rendered</TT> for now, but it is guaranteed
+   * always to evaluate to a plain old string suitable for
+   * (<I>e.g.</I>) putting in a <TT>&lt;TEXTAREA&gt;</TT>, which
+   * <TT>rendered</TT> might not.
+   */
+
+  public String renderedString(Field field) {
+    return rendered(field);
   }
 
   //
@@ -57,82 +100,27 @@ public abstract class MarkupLanguage {
   // =========
   //
 
-  protected String defaultTempletName(BooleanPoemType type) {
-    return type.getNullable() ? "select.wm" : "tickbox.wm";
-  }
-
-  protected String defaultTempletName(StringPoemType type) {
-    return type.getHeight() > 1 ? "textarea-String.wm" : "textfield-String.wm";
-  }
-
-  protected String defaultTempletName(IntegerPoemType type) {
-    return "textfield-Integer.wm";
-  }
-
-  protected String defaultTempletName(DoublePoemType type) {
-    return "textfield-Double.wm";
-  }
-
-  protected String defaultTempletName(ReferencePoemType type) {
-    return "select.wm";
-  }
-
-  protected String defaultTempletName(ColumnTypePoemType type) {
-    return "columntype.wm";
-  }
-
-  protected String defaultTempletName(PoemType type)
-      throws UnsupportedTypeException {
-    // FIXME do something more OO, or would that be a bit laboured?
-    if (type instanceof TroidPoemType)
-      return defaultTempletName((TroidPoemType)type);
-    else if (type instanceof ReferencePoemType)
-      return defaultTempletName((ReferencePoemType)type);
-    else if (type instanceof ColumnTypePoemType)
-      return defaultTempletName((ColumnTypePoemType)type);
-    else if (type instanceof BooleanPoemType)
-      return defaultTempletName((BooleanPoemType)type);
-    else if (type instanceof IntegerPoemType)
-      return defaultTempletName((IntegerPoemType)type);
-    else if (type instanceof StringPoemType)
-      return defaultTempletName((StringPoemType)type);
-    else if (type instanceof DoublePoemType)
-      return defaultTempletName((DoublePoemType)type);
-    else
-      throw new UnsupportedTypeException(this, type);
-  }
-
-  protected String templetsPath() {
-    return "templets" + File.separatorChar + getName();
-  }
-
-  protected String templetPath(Field field)
-      throws UnsupportedTypeException {
-    return
-        templetsPath() + File.separatorChar +
-            (field.getRenderInfo() == null
-               ? defaultTempletName(field.getType())
-               : field.getRenderInfo());
-  }
-
   public String input(Field field)
       throws UnsupportedTypeException, WebMacroException {
-        return input(field, "", false);
+    return input(field, null, "", false);
+  }
+
+  public String inputAs(Field field, String templetName)
+      throws UnsupportedTypeException, WebMacroException {
+    return input(field, templetName, "", false);
   }
 
   public String searchInput(Field field, String nullValue)
       throws UnsupportedTypeException, WebMacroException {
-        return input(field, nullValue, true);
+    return input(field, null, nullValue, true);
   }
 
-  protected String input(Field field, String nullValue, boolean overrideNullable) 
+  protected String input(Field field, String templetName,
+			 String nullValue, boolean overrideNullable) 
       throws UnsupportedTypeException, WebMacroException {
-    Template templet =
-        (Template)webContext.getBroker().getValue(TemplateProvider.TYPE,
-                                                  templetPath(field));
 
     try {
-      field.getIdent();
+      field.getRaw();
     }
     catch (AccessPoemException e) {
       VariableExceptionHandler handler =
@@ -143,27 +131,39 @@ public abstract class MarkupLanguage {
         throw e;
     }
 
+    Object previousNullValue = null;
     if (overrideNullable) {
-        final PoemType nullable =
-            field.getType().withNullable(true);
-        field =
-            new Field(field.getIdent(), field) {
-                 public PoemType getType() {
-                     return nullable;
-                 }
-            };
-        webContext.put("nullValue", nullValue);
+      final PoemType nullable =
+	  field.getType().withNullable(true);
+      field = field.withNullable(true);
+	  new Field(field.getRaw(), field) {
+	    public PoemType getType() {
+	      return nullable;
+	    }
+	  };
+      previousNullValue = webContext.put("nullValue", nullValue);
     }
 
-    webContext.put("field", field);
+    Template templet =
+        templetName == null ?
+          templetLoader.templet(webContext.getBroker(), this, field) :
+          templetLoader.templet(webContext.getBroker(), this, templetName);
+
+    Object previous = webContext.put("field", field);
     try {
       return (String)templet.evaluate(webContext);
     }
     finally {
-      webContext.remove("field");
+      if (previous == null)
+        webContext.remove("field");
+      else
+        webContext.put("field", previous);
+
       if (overrideNullable)
+	if (previousNullValue == null)
           webContext.remove("nullValue");
+	else
+	  webContext.put("nullValue", previousNullValue);
     }
   }
-
 }

@@ -114,7 +114,7 @@ public class Login extends MelatiServlet {
     if (user == null)
       return usernameUnknownTemplate();
 
-    if (!user.getPassword().equals(context.getForm("field-password")))
+    if (!user.getPassword_unsafe().equals(context.getForm("field-password")))
       return passwordIncorrectTemplate();
 
     // Authenticated successfully.

@@ -203,7 +203,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
       else
 	user = sessionUser;
 
-      if (user == null || !user.getPassword().equals(auth.password)) {
+      if (user == null || !user.getPassword_unsafe().equals(auth.password)) {
 
 	// Login/password authentication failed; we must trigger another
 	// attempt.  But do we know the "realm" (= POEM capability name) for

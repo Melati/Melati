@@ -443,7 +443,8 @@ javac `find -name '*.java'`
 
   <p>
     For a typical installation using webmacro rather than Velocity or
-    JTemplater, try this:
+    JTemplater, install <A HREF=#postgresql.jar>our postgresql jar</A> and try
+    this:
   </p>
 
   <blockquote><pre>
@@ -503,31 +504,40 @@ javac `find -name '*.java'`
     </P></LI>
     <LI><P>
       The Velocity template engine, <I>e.g.</I> <TT>velocity-<I>#</I>.jar</TT>
-      from the appropriate distribution.  If you do not intend to use Velocity,
-      you can just delete <A HREF=template/velocity/
-      ><TT>org/melati/template/velocity/</TT></A> from the Melati source tree.
+      from the appropriate distribution. 
+      </P><P>
+      If you do not intend to use Velocity, you can just delete <A
+      HREF=template/velocity/ ><TT>org/melati/template/velocity/</TT></A> from
+      the Melati source tree.
     </P></LI>
     <LI><P>
-      The JTemplater template engine.  If you do not intend to use JTemplater
-      (you probably don't), you can just delete <A HREF=template/jtemplater/
-      ><TT>org/melati/template/jtemplater/</TT></A> from the Melati source tree.
-    </P></LI>
-    <LI><P>
-      The Postgresql JDBC driver, <I>e.g.</I> <TT>postgresql.jar</TT> from the
-      appropriate distribution.  If you are do not intend to use Postgresql,
-      you can just delete <A HREF=poem/postgresql/
-      ><TT>org/melati/poem/postgresql</TT></A> and <A
-      HREF=poem/dbms/Postgresql.java
-      ><TT>org/melati/poem/dbms/Postgresql.java</TT></A> from the Melati source
+      The JTemplater template engine.
+      </P><P>
+      If you do not intend to use JTemplater (you probably don't), you can just
+      delete <A HREF=template/jtemplater/
+      ><TT>org/melati/template/jtemplater/</TT></A> from the Melati source
       tree.
     </P></LI>
     <LI><P>
-      The ODMG library included in the Melati sources as <A
-      HREF=poem/odmg/required-libs/odmg3.jar
-      ><TT>org/melati/poem/odmg/required-libs/odmg3.jar</TT></A>.  If you do
-      not intend to use the ODMG interface, you can just delete
-      <A HREF=poem/odmg/ ><TT>org/melati/poem/odmg</TT></A> from the Melati
-      source tree.
+      <A NAME=postgresql.jar>The Postgresql JDBC driver</A>, <I>e.g.</I> <A
+      HREF=poem/postgresql/required-libs/postgresql-7.0-fixedTimestampAndReceiveString.jar
+      ><TT>org/melati/poem/postgresql/required-libs/postgresql-7.0-fixedTimestampAndReceiveString.jar</TT></A>,
+      or <TT>postgresql.jar</TT> from the appropriate distribution.  The former
+      has some performance fixes which greatly reduce the time taken for Melati
+      to start up, as well as fixes to the way "<TT>TIMESTAMP</TT>" fields are
+      marshalled which may be required under some circumstances.
+      </P><P>
+      If you do not intend to use Postgresql, you can just delete <A
+      HREF=poem/postgresql/ ><TT>org/melati/poem/postgresql</TT></A> and <A
+      HREF=poem/dbms/Postgresql.java
+      ><TT>org/melati/poem/dbms/Postgresql.java</TT></A> from the Melati source
+      tree.  </P></LI> <LI><P> The ODMG library included in the Melati sources
+      as <A HREF=poem/odmg/required-libs/odmg3.jar
+      ><TT>org/melati/poem/odmg/required-libs/odmg3.jar</TT></A>.
+      </P><P>
+      If you do not intend to use the ODMG interface, you can just delete <A
+      HREF=poem/odmg/ ><TT>org/melati/poem/odmg</TT></A> from the Melati source
+      tree.
     </P></LI>
   </UL>
 

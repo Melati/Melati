@@ -403,13 +403,18 @@ public class TableDef {
       + "</code> object.\n");
     w.write(
        " * \n"
-      + (description != null ? " * Description: \n" + 
-                               DSD.javadocFormat(1, 3, description)
+      + (description != null ? " * <p> \n" +
+                               " * Description: \n" + 
+            DSD.javadocFormat(1, 3, (description + 
+                 ((description.lastIndexOf(".") != description.length() -1) 
+                   ? "." 
+                   : ""))) +
+                               " * </p>\n"
                              : ""));
     w.write(fieldSummaryTable());
     w.write(
        " * \n"
-       + "  * @generator " 
+       + " * @generator " 
        + "org.melati.poem.prepro.TableDef" 
        + "#generateMainJava \n"
        + " */\n");
@@ -427,13 +432,13 @@ public class TableDef {
       + naming.mainClassShortName()
       + "</code> object.\n"
       + (description != null ? (
-             "  * Description: \n"
-           + "  *   "
-           + description
-           + ((description.lastIndexOf(".") != description.length() -1) ?
-               "." 
-             : "")
-           + " \n") : "")
+             "  * <p>\n"
+           + "  * Description: \n"
+           + DSD.javadocFormat(2, 3, (description + 
+                 ((description.lastIndexOf(".") != description.length() -1) 
+                   ? "." 
+                   : "")))
+           + "  * </p>\n" ) : "")
       + "  * \n"
       + "  * @generator " 
       + "org.melati.poem.prepro.TableDef" 
@@ -705,8 +710,13 @@ public class TableDef {
       + " * for a <code>"
       + naming.tableMainClassShortName()
       + "</code> object.\n"
-      + (description != null ? " * Description: \n" + 
-                               DSD.javadocFormat(1, 3, description)
+      + (description != null ? " * <p>\n" +
+                               " * Description: \n" + 
+            DSD.javadocFormat(1, 3, (description + 
+                 ((description.lastIndexOf(".") != description.length() -1) 
+                   ? "." 
+                   : ""))) +
+                               " * </p>\n" 
                              : "")
       + " *\n");
     w.write(fieldSummaryTable());

@@ -47,8 +47,6 @@ package org.melati.login;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
-import java.io.UnsupportedEncodingException;
-
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.TemplateContext;
 import org.melati.Melati;

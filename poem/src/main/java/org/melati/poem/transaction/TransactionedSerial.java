@@ -66,6 +66,9 @@ public class TransactionedSerial extends Transactioned {
     return true;
   }
 
+  /**
+   * This implementation does nothing.
+   */
   protected void writeDown(Transaction transaction) {
   }
 

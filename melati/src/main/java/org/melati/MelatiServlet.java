@@ -13,6 +13,17 @@ import javax.servlet.http.*;
 
 public abstract class MelatiServlet extends MelatiWMServlet {
 
+  private static Class clazz;
+
+  static {
+    try {
+      clazz = Class.forName("org.melati.MelatiServlet");
+    }
+    catch (ClassNotFoundException e) {
+      throw new MelatiBugMelatiException("Out of date Class.forName", e);
+    }
+  }
+
   /**
   * <A NAME=hackedVariable>You must use a hacked version of
   * <TT>org.webmacro.engine.Variable</TT> with Melati.</A> Sorry this has to go
@@ -29,9 +40,8 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   public static final Object check =
       org.webmacro.engine.Variable.youNeedToBeUsingAVersionOfVariableHackedForMelati;
 
-  static final String
-      OVERLAY_PARAMETERS = "org.melati.MelatiServlet.overlayParameters",
-      USER = "org.melati.MelatiServlet.user";
+  private Properties configuration = null;
+  private AccessHandler accessHandler = null;
 
   /**
    * Melati's main entry point.  Override this to do WebMacro-like things and
@@ -132,6 +142,28 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * it terminates with an exception or you issue a
    * <TT>PoemThread.rollback()</TT>, your changes will be lost.
    *
+   * <LI>
+   *
+   * <A NAME=loginmechanism>It's possible to configure how your
+   * <TT>MelatiServlet</TT>-derived servlets implement user login.</A> If the
+   * properties file <TT>org.melati.MelatiServlet.properties</TT> exists and
+   * contains a setting
+   * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then
+   * <TT><I>foo</I></TT> is taken to be the name of a class implementing the
+   * <TT>AccessHandler</TT> interface.  The default is
+   * <TT>HttpSessionAccessHandler</TT>, which stores the user id in the servlet
+   * session, and redirects to the <TT>Login</TT> servlet to throw up
+   * WebMacro-templated login screens.  If instead you specify
+   * <TT>HttpBasicAuthenticationAccessHandler</TT>, the user id is maintained
+   * using HTTP Basic Authentication (RFC2068 §11.1, the mechanism commonly
+   * used to password-protect static pages), and the task of popping up login
+   * dialogs is delegated to the browser.  The advantage of the former method
+   * is that the user gets a more informative interface which is more under the
+   * designer's control; the advantage of the latter method is that no cookies
+   * or URL rewriting are required---for instance it is probably more
+   * appropriate for WAP phones.  Both methods involve sending the user's
+   * password in plain text across the public network.
+   *
    * </UL>
    *
    * @param context	a WebMacro `context' object, representing the
@@ -147,6 +179,10 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * @see org.melati.poem.PoemThread#rollback
    * @see org.webmacro.servlet.WMServlet#handle
    * @see #melatiContext
+   * @see AccessHandler
+   * @see HttpSessionAccessHandler
+   * @see Login
+   * @see HttpBasicAuthenticationAccessHandler
    */
 
   protected Template handle(WebContext context, Melati melati)
@@ -168,57 +204,12 @@ public abstract class MelatiServlet extends MelatiWMServlet {
   }
 
   /**
-   * The class name of the class implementing the login servlet.  Unless
-   * overridden, this is <TT>org.melati.Login</TT>.
-   *
-   * @see org.melati.Login
-   */
-
-  protected String loginPageServletClassName() {
-    return "org.melati.Login";
-  }
-
-  /**
-   * The URL of the login servlet.  Unless overridden, this is computed by
-   * substituting <TT>loginPageServletClassName()</TT> into the URL of the
-   * request being serviced.
-   *
-   * @param request	the request currently being serviced
-   *
-   * @see #loginPageServletClassName
-   */
-
-  protected String loginPageURL(HttpServletRequest request) {
-    StringBuffer url = new StringBuffer();
-    url.append(request.getScheme());
-    url.append("://");
-    url.append(request.getServerName());
-    if (request.getScheme().equals("http") && request.getServerPort() != 80 ||
-        request.getScheme().equals("https") && request.getServerPort() != 443) {
-      url.append(':');
-      url.append(request.getServerPort());
-    }
-
-    String servlet = request.getServletPath();
-    if (servlet != null)
-      url.append(servlet.substring(0, servlet.lastIndexOf('/') + 1));
-
-    url.append(loginPageServletClassName());
-    url.append('/');
-    // FIXME cut the front off the pathinfo to retrieve the DB name
-    String pathInfo = request.getPathInfo();
-    url.append(pathInfo.substring(1, pathInfo.indexOf('/', 1) + 1));
-
-    return url.toString();
-  }
-
-  /**
-   * Handle an exception that occurs during the execution of
-   * <TT>melatiHandle</TT> or during the expansion of the template it returns.
-   * The base version returns the standard WebMacro error template as defined
-   * in your <TT>WebMacro.properties</TT>, except if the problem was an access
-   * failure (<TT>AccessPoemException</TT>), in which case the client is
-   * redirected to the login page.
+   * Handle an exception that occurs during the execution of <TT>handle</TT> or
+   * during the expansion of the template it returns.  The base version returns
+   * the standard WebMacro error template as defined in your
+   * <TT>WebMacro.properties</TT>, except if the problem was an access failure
+   * (<TT>AccessPoemException</TT>), in which case
+   * <TT>accessHandler().handleAccessException</TT> is invoked instead.
    *
    * @param context     the <TT>WebContext</TT> of the original template
    *
@@ -233,10 +224,12 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * @return a template to expand, or <TT>null</TT> if you have already
    *         sent something (like a redirect) back to the client
    *
-   * @see #melatiHandle
+   * @see #handle(org.webmacro.servlet.WebContext)
+   * @see #handle(org.webmacro.servlet.WebContext, org.melati.Melati)
    * @see org.melati.poem.AccessPoemException
    * @see #loginPageURL
    * @see org.webmacro.util.VariableException
+   * @see #handleAccessException
    */
 
   protected Template handleException(WebContext context, Exception exception)
@@ -246,32 +239,13 @@ public abstract class MelatiServlet extends MelatiWMServlet {
         exception instanceof VariableException ?
           ((VariableException)exception).subException : exception;
 
-    if (underlying == null || !(underlying instanceof AccessPoemException))
+    if (underlying == null || !(underlying instanceof AccessPoemException)) {
       super.handleException(context, exception);
-    else {
-
-      AccessPoemException accessException = (AccessPoemException)underlying;
-
-      accessException.printStackTrace();
-
-      HttpServletRequest request = context.getRequest();
-      HttpServletResponse response = context.getResponse();
-
-      HttpSession session = request.getSession(true);
-
-      session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
-                       new HttpServletRequestParameters(request));
-      session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
-
-      try {
-        response.sendRedirect(loginPageURL(request));
-      }
-      catch (IOException e) {
-        throw new HandlerException(e.toString());
-      }
+      return null;
     }
-
-    return null;
+    else
+      return accessHandler().handleAccessException(
+                 context, (AccessPoemException)underlying);
   }
 
   private void superDoRequest(WebContext context)
@@ -336,43 +310,19 @@ public abstract class MelatiServlet extends MelatiWMServlet {
    * early, since the POEM database session must be wrapped around the whole
    * WebMacro logic: the session must be active while the template is expanded.
    * NB the application programmer's entry point to Melati is
-   * <TT>melatiHandle</TT>, above.
+   * <TT>handle</TT>, above.
    *
-   * @see #melatiHandle
+   * @see #handle(org.webmacro.servlet.WebContext)
+   * @see #handle(org.webmacro.servlet.WebContext, org.melati.Melati)
    */
 
-  protected void doRequest(WebContext contextIn)
+  protected void doRequest(final WebContext contextIn)
       throws ServletException, IOException {
 
-    final HttpSession session = contextIn.getSession();
-
-    // First off, is the user continuing after a login?  If so, we want to
-    // recover any POSTed fields from the request that triggered it.
-
-    WebContext newContext = null;
-
-    synchronized (session) {
-      HttpServletRequestParameters oldParams =
-          (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
-      if (oldParams != null) {
-        session.removeValue(OVERLAY_PARAMETERS);
-        try {
-          newContext = contextIn.clone(
-              new ReconstructedHttpServletRequest(oldParams,
-                                                  contextIn.getRequest()),
-              contextIn.getResponse());
-        }
-        catch (ReconstructedHttpServletRequestMismatchException e) {
-        }
-      }
-    }
-
-    final WebContext context = newContext == null ? contextIn : newContext;
-
     try {
-      final MelatiContext melatiContext = melatiContext(context);
-
       // Set up a POEM session and call the application code
+
+      final MelatiContext melatiContext = melatiContext(contextIn);
 
       // dearie me, what a lot of hoops to jump through
       // at the end of the day Java is terribly poorly suited to this kind of
@@ -396,14 +346,15 @@ public abstract class MelatiServlet extends MelatiWMServlet {
           new PoemTask() {
             public void run() {
               try {
-                context.put("melati", new Melati(context, database,
-						 melatiContext));
-		context.put(Variable.EXCEPTION_HANDLER,
-			    PropagateVariableExceptionHandler.it);
-		User user = (User)session.getValue(USER);
-		PoemThread.setAccessToken(
-		    user == null ? database.guestAccessToken() : user);
-                _this.superDoRequest(context);
+		WebContext context =
+		    accessHandler().establishUser(contextIn, database);
+		if (context != null) {
+		  context.put("melati", new Melati(context, database,
+						   melatiContext));
+		  context.put(Variable.EXCEPTION_HANDLER,
+			      PropagateVariableExceptionHandler.it);
+		  _this.superDoRequest(context);
+		}
               }
               catch (Exception e) {
                 // FIXME oops we have to do this in-session!  This is because
@@ -423,6 +374,63 @@ public abstract class MelatiServlet extends MelatiWMServlet {
     }
     catch (MelatiException e) {
       throw new ServletException(e.getMessage());
+    }
+  }
+
+  protected AccessHandler accessHandler() {
+    return accessHandler;
+  }
+
+  /**
+   * Initialise a <TT>MelatiServlet</TT>.  Loads
+   * <TT>org.melati.MelatiServlet.properties</TT> and reads the access handler
+   * setting out.  If you override this method to do application-specific
+   * initialisation in a subclass servlet, you must make sure to call
+   * <TT>super.init()</TT>.
+   */
+
+  protected void init() throws ServletException {
+    super.init();
+
+    // Load org.melati.MelatiServlet.properties, or set blank configuration
+
+    String pref = clazz.getName() + ".";
+    String accessHandlerProp = pref + "accessHandler";
+
+    try {
+      configuration =
+	  PropertiesUtils.fromResource(clazz, pref + "properties");
+    }
+    catch (FileNotFoundException e) {
+      configuration = new Properties();
+    }
+    catch (IOException e) {
+      throw new ServletException(e.toString());
+    }
+
+    // Is the access handler defined, or should we use the default?
+
+    String accessHandlerName =
+        (String)configuration.get(accessHandlerProp);
+
+    if (accessHandlerName == null)
+      accessHandler = new HttpSessionAccessHandler();
+    else {
+      Object ah;
+
+      try {
+	ah = Class.forName(accessHandlerName).newInstance();
+      }
+      catch (Exception e) {
+	throw new ServletException(e.toString());
+      }
+
+      if (!(ah instanceof AccessHandler))
+	throw new ServletException("The property `" + accessHandlerProp + "' " +
+				   "named a class which does not implement " +
+				   "`org.melati.AccessHandler'");
+      else
+	accessHandler = (AccessHandler)ah;
     }
   }
 }

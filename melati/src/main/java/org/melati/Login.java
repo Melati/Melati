@@ -77,13 +77,14 @@ public class Login extends MelatiServlet {
             TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
-      session.putValue(MelatiServlet.OVERLAY_PARAMETERS, triggeringParams);
+      session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
+		       triggeringParams);
       session.removeValue(TRIGGERING_REQUEST_PARAMETERS);
       session.removeValue(TRIGGERING_EXCEPTION);
       context.put("continuationURL", triggeringParams.continuationURL());
     }
 
-    session.putValue(MelatiServlet.USER, user);
+    session.putValue(HttpSessionAccessHandler.USER, user);
 
     return loginSuccessTemplate();
   }

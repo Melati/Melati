@@ -702,9 +702,9 @@ public abstract class Database implements TransactionPool {
 
     if (displayTables == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
-          null /* "displayable" */, 
-            quotedName("displayorder") + ", " + quotedName("name"), 
-              false, null);
+        (String)null /* "displayable" */, 
+        quotedName("displayorder") + ", " + quotedName("name"), 
+        false, null);
 
       Vector them = new Vector();
       while (tableIDs.hasMoreElements()) {

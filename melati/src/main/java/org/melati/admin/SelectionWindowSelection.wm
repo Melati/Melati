@@ -58,9 +58,10 @@ parent.opener.popupupdate(parent,returnfield,id,value)
 </SCRIPT>
 </HEAD>
 
-<center>
 
 <BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+<DIV align=center>
+
 #if ($results) #begin
 <form>
 
@@ -112,7 +113,7 @@ $results.TotalCount</b>
 
 #end
 
-</CENTER>
+</DIV>
 
 </BODY>
 </HTML>

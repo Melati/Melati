@@ -53,6 +53,7 @@ public class Contact extends ContactBase implements Treeable {
   public Contact() { }
 
   // programmer's domain-specific code here
+  
   public boolean isIn(Category category) {
      ContactsDatabase db = (ContactsDatabase)getContactsDatabaseTables();
      String sql = db.quotedName("contact") + " = " + getTroid() + " AND " +
@@ -60,24 +61,23 @@ public class Contact extends ContactBase implements Treeable {
      return db.getContactCategoryTable().exists(sql);
   }
   
-    protected void writeLock() {
-      super.writeLock();
-      setLastupdated_unsafe(new java.sql.Date(new java.util.Date().getTime()));
-      setLastupdateuser_unsafe(((User)PoemThread.accessToken()).getTroid());
-      Integer count = getUpdates();
-      if (count == null) count = new Integer(0);
-      setUpdates_unsafe(new Integer(count.intValue()+1));
-    }
+  protected void writeLock() {
+    super.writeLock();
+    setLastupdated_unsafe(new java.sql.Date(new java.util.Date().getTime()));
+    setLastupdateuser_unsafe(((User)PoemThread.accessToken()).getTroid());
+    Integer count = getUpdates();
+    if (count == null) count = new Integer(0);
+    setUpdates_unsafe(new Integer(count.intValue()+1));
+  }
     
 
-  public String getLogicalDatabase
-  (MelatiContext melatiContext, String logicalDatabase) {
+  public String getLogicalDatabase (MelatiContext melatiContext, String logicalDatabase) {
     return "contacts";
   }
     
   public Treeable[] getChildren() {
     return (Contact.arrayOf(getContactTable().getOwnerColumn().
-                                                   selectionWhereEq(troid())));
+               selectionWhereEq(troid())));
   }
   
   public static Treeable[] arrayOf(Vector v) {

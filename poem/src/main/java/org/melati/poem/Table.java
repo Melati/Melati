@@ -1016,6 +1016,12 @@ public class Table {
     return selection(whereClause, null, false);
   }
 
+
+  public Persistent firstSelection(String whereClause) {
+    Enumeration them = selection(whereClause);
+    return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
+  }
+
   /**
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
    * possibly including those flagged as deleted.
@@ -1026,8 +1032,8 @@ public class Table {
    *
    * @see #selection(java.lang.String)
    */
-
-  public Enumeration selection(String whereClause, String orderByClause,
+   
+   public Enumeration selection(String whereClause, String orderByClause,
                                boolean includeDeleted)
       throws SQLPoemException {
     return

@@ -141,6 +141,8 @@ public abstract class FieldDef {
 
     if (type.equals("Integer"))
       return new IntegerFieldDef(table, name, displayOrder, qualifiers);
+    if (type.equals("Long"))
+      return new LongFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("Double"))
       return new DoubleFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("Boolean"))

@@ -56,9 +56,9 @@ public class CachedSelection extends CachedQuery {
   private String tableDefaultOrderByClause = null;
 
   public CachedSelection(final Table table,
-                           final String whereClause,
-                           final String orderByClause,
-                           final Table otherTables[]) {
+                         final String whereClause,
+                         final String orderByClause,
+                         final Table otherTables[]) {
     super(table,
           table.selectionSQL(whereClause, orderByClause, false),
           otherTables);
@@ -67,8 +67,8 @@ public class CachedSelection extends CachedQuery {
   }
 
   public CachedSelection(final Table table,
-                           final String whereClause,
-                           final String orderByClause) {
+                         final String whereClause,
+                         final String orderByClause) {
     this(table,whereClause,orderByClause,null);
   }
 

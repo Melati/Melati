@@ -43,20 +43,24 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.poem;
+package org.melati.poem.prepro;
 
 import java.util.*;
+import java.io.*;
 
-public class TableProjection {
-  private Column column;
-  private Object raw;
+public class LongFieldDef extends AtomFieldDef {
 
-  public TableProjection(Column column, Object raw) {
-    this.column = column;
-    this.raw = raw;
+  public LongFieldDef(TableDef table, String name, int displayOrder,
+                      Vector qualifiers) throws IllegalityException {
+    super(table, name, "Long", displayOrder, qualifiers);
   }
 
-  public Table getTable() {
-    return column.getTable();
+  public void generateBaseMethods(Writer w) throws IOException {
+    super.generateBaseMethods(w);
+    w.write("\n" +
+            "  public final void set" + suffix + "(long cooked)\n" +
+            "      throws AccessPoemException, ValidationPoemException {\n" +
+            "    set" + suffix + "(new Long(cooked));\n" +
+            "  }\n");
   }
 }

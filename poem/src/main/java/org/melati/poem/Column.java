@@ -354,30 +354,48 @@ public abstract class Column implements FieldAttributes {
 			               " = " + type.quotedRaw(raw));
   }
 
-  Enumeration selectionWhereEq(Object raw, boolean resolved) {
-    try {
-      String clause = eqClause(raw);
-      return resolved ? getTable().selection(clause) :
-                        getTable().troidSelection(clause, null, false);
-    }
-    catch (SQLPoemException e) {
-      throw new UnexpectedExceptionPoemException(e);
-    }
+  private PreparedStatementFactory selectionWhereEq = null;
+
+  private PreparedStatementFactory statementWhereEq() {
+    if (selectionWhereEq == null)
+      selectionWhereEq = new PreparedStatementFactory(
+          getDatabase(),
+          getTable().selectionSQL(quotedName + " = ?", null, false));
+
+    return selectionWhereEq;
   }
 
-  public Enumeration selectionWhereEq(Object raw) {
-    return selectionWhereEq(raw, true);
+  ResultSet resultSetWhereEq(Object raw) {
+    SessionToken token = PoemThread.sessionToken();
+    PreparedStatement ps =
+        statementWhereEq().preparedStatement(token.transaction);
+    type.setRaw(ps, 1, raw);
+    return statementWhereEq().resultSet(token, ps);
   }
 
   Enumeration troidSelectionWhereEq(Object raw) {
-    return selectionWhereEq(raw, false);
+    return
+        new ResultSetEnumeration(resultSetWhereEq(raw)) {
+          public Object mapped(ResultSet rs) throws SQLException {
+            return new Integer(rs.getInt(1));
+          }
+        };
+  }
+
+  public Enumeration selectionWhereEq(Object raw) {
+    return
+        new ResultSetEnumeration(resultSetWhereEq(raw)) {
+          public Object mapped(ResultSet rs) throws SQLException {
+            return getTable().getObject(rs.getInt(1));
+          }
+        };
   }
 
   public Persistent firstWhereEq(Object raw) {
     Enumeration them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent)them.nextElement() : null;
   }
-  
+
   public CachedSelection cachedSelectionWhereEq(Object raw) {
     return new CachedSelection(getTable(), eqClause(raw), null);
   }
@@ -480,20 +498,6 @@ public abstract class Column implements FieldAttributes {
             ((ReferencePoemType)getType()).targetTable() == object.getTable() ?
           selectionWhereEq(object.troid()) :
           EmptyEnumeration.it;
-  }
-
-// similar to the above method, but returns true or false depending on weather this
-// column is a reference type that refers to the passed in table
-  public Enumeration referencesTo(Table table) {
-    if (getType() instanceof ReferencePoemType &&
-        ((ReferencePoemType)getType()).targetTable() == table) {
-          // have to return this as an enumeration so that it can be flatterened
-      Vector t = new Vector();
-      t.add(this);
-      return t.elements();
-    } else {
-      return EmptyEnumeration.it;
-    }
   }
 
   public Persistent ensure(Persistent orCreate) {

@@ -60,8 +60,8 @@ public abstract class CachedQuery {
   private long otherTablesSerial[];
 
   public CachedQuery(final Table table,
-                       final String query,
-                       final Table otherTables[]) {
+                     final String query,
+                     final Table otherTables[]) {
     this.table = table;
     this.query = query;
     this.otherTables = otherTables;
@@ -69,8 +69,7 @@ public abstract class CachedQuery {
       otherTablesSerial = new long[otherTables.length];
   }
 
-  public CachedQuery(final Table table,
-                       final String query) {
+  public CachedQuery(final Table table, final String query) {
     this(table,query,null);
   }
 
@@ -87,11 +86,11 @@ public abstract class CachedQuery {
 
   protected void compute() {
     Vector rows = this.rows;
-    PoemTransaction transaction = PoemThread.transaction();
-    if (rows == null || somethingHasChanged(transaction)) {
+    SessionToken token = PoemThread.sessionToken();
+    if (rows == null || somethingHasChanged(token.transaction)) {
       rows = new Vector();
       try {
-        ResultSet rs = statements().resultSet(transaction);
+        ResultSet rs = statements().resultSet(token);
         try {
           while (rs.next())
             rows.addElement(extract(rs));
@@ -104,7 +103,7 @@ public abstract class CachedQuery {
             throw new SQLSeriousPoemException(e);
       }
       this.rows = rows;
-      updateSerials(transaction);
+      updateSerials(token.transaction);
     }
   }
   

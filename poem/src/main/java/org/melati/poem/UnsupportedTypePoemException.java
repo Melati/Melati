@@ -71,6 +71,6 @@ public class UnsupportedTypePoemException extends SeriousPoemException {
         "Column `" + columnName + "' of table `" + tableName + "'" +
         " has the unsupported type " + sqlTypeName +
         " (SQL code " + sqlTypeCode +
-        ", db-specific name `" + dbTypeName + "'";
+        ", db-specific name `" + dbTypeName + "')";
   }
 }

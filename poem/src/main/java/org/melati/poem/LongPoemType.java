@@ -48,66 +48,68 @@ package org.melati.poem;
 import java.sql.*;
 import java.util.*;
 import org.melati.util.*;
+import org.melati.poem.dbms.*;
 
-public class PoemTransaction extends Transaction {
-  private Database database;
-  private Connection connection;
-  private ToTidyList toTidy = new ToTidyList();
+public class LongPoemType extends AtomPoemType {
 
-  PoemTransaction(Database database, Connection connection, int index) {
-    super(index);
-    this.database = database;
-    this.connection = connection;
+  public static final LongPoemType nullable = new LongPoemType(true);
+
+  public LongPoemType(boolean nullable) {
+    super(Types.BIGINT, "INT8", nullable);
+  }
+
+  protected LongPoemType(int sqlTypeCode, String sqlTypeName,
+                         boolean nullable) {
+    super(sqlTypeCode, sqlTypeName, nullable);
+  }
+
+  /**
+   * FIXME do down-counting??
+   */
+
+  protected Enumeration _possibleRaws() {
+    Long low = (Long)getLowRaw();
+    Long limit = (Long)getLimitRaw();
+    return low == null ?
+        null :
+        new LongEnumeration(low.longValue(),
+                            limit == null ?
+                                Long.MAX_VALUE : limit.longValue());
+  }
+
+  protected void _assertValidRaw(Object raw) {
+    if (raw != null && !(raw instanceof Long))
+      throw new TypeMismatchPoemException(raw, this);
+  }
+
+  protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+    synchronized (rs) {
+      long i = rs.getLong(col);
+      return i == 0 && rs.wasNull() ? null : new Long(i);
+    }
+  }
+
+  protected void _setRaw(PreparedStatement ps, int col, Object integer)
+      throws SQLException {
+    ps.setLong(col, ((Long)integer).longValue());
+  }
+
+  protected Object _rawOfString(String rawString)
+      throws ParsingPoemException {
     try {
-      connection.setAutoCommit(false);
+      return new Long(rawString);
     }
-    catch (SQLException e) {
-      throw new SQLSeriousPoemException(e);
-    }
-  }
-
-  final Database getDatabase() {
-    return database;
-  }
-
-  final Connection getConnection() {
-    return connection;
-  }
-
-  protected void backingCommit() {
-    try {
-      connection.commit();
-      if (database.logCommits) database.log(new CommitLogEvent(this));
-    }
-    catch (SQLException e) {
-      throw new CommitFailedPoemException(e);
+    catch (NumberFormatException e) {
+      throw new ParsingPoemException(this, rawString, e);
     }
   }
 
-  protected void backingRollback() {
-    try {
-      connection.rollback();
-      if (database.logCommits) database.log(new RollbackLogEvent(this));
-    }
-    catch (SQLException e) {
-      throw new RollbackFailedPoemException(e);
-    }
+  protected boolean _canRepresent(SQLPoemType other) {
+    return other instanceof LongPoemType;
   }
 
-  public void close(boolean commit) {
-    try {
-      if (commit)
-        commit();
-      else
-        rollback();
-    }
-    finally {
-      try {
-        toTidy.close();
-      }
-      finally {
-        database.notifyClosed(this);
-      }
-    }
+  protected void _saveColumnInfo(ColumnInfo columnInfo)
+      throws AccessPoemException {
+    columnInfo.setTypefactory(PoemTypeFactory.LONG);
   }
 }

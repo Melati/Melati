@@ -85,24 +85,35 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     return super.get(index);
   }
 
-  public PreparedStatement forTransaction(PoemTransaction transaction) {
+  public PreparedStatement preparedStatement(PoemTransaction transaction) {
     return (PreparedStatement)get(transaction == null ?
 				    0 : transaction.index + 1);
   }
 
-  public ResultSet resultSet(PoemTransaction transaction) {
-    PreparedStatement statement = forTransaction(transaction);
+  public final PreparedStatement preparedStatement() {
+    return preparedStatement(PoemThread.transaction());
+  }
+
+  protected ResultSet resultSet(SessionToken token,
+                                PreparedStatement statement) {
     try {
       if (database.logSQL())
 	database.log(new SQLLogEvent(statement.toString()));
-      return statement.executeQuery();
+      
+      ResultSet rs = statement.executeQuery();
+      token.toTidy().add(rs);
+      return rs;
     }
     catch (SQLException e) {
       throw new PreparedSQLSeriousPoemException(statement, e);
     }
   }
 
-  public ResultSet resultSet() {
-    return resultSet(PoemThread.transaction());
+  protected final ResultSet resultSet(SessionToken token) {
+    return resultSet(token, preparedStatement(token.transaction));
+  }
+
+  public final ResultSet resultSet() {
+    return resultSet(PoemThread.sessionToken());
   }
 }

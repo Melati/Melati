@@ -180,9 +180,7 @@ public class Table {
   }
 
   /**
-   * The info of this table.  POEM itself doesn't use
-   * this, but it's available to applications and Melati's generic admin system
-   * as a default label for the table and caption for its records.
+   * FIXME not sure we really want people using this directly?
    */
 
   public final TableInfo getInfo() {
@@ -1207,14 +1205,17 @@ public class Table {
         });
   }
 
-// All the columns in the table which refer to a given table.
+  // All the columns in the table which refer to a given table.
+
   public Enumeration referencesTo(final Table table) {
-    return new FlattenedEnumeration(
-        new MappedEnumeration(columns()) {
-          public Object mapped(Object column) {
-            return ((Column)column).referencesTo(table);
-          }
-        });
+    return
+      new FilteredEnumeration(columns()) {
+        public boolean isIncluded(Object column) {
+          PoemType type = ((Column)column).getType();
+          return type instanceof ReferencePoemType &&
+                 ((ReferencePoemType)type).targetTable() == table;
+        }
+      };
   }
 
 

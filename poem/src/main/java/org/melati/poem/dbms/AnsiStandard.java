@@ -172,8 +172,7 @@ public class AnsiStandard implements Dbms {
 
   /**
    * The simplest POEM type corresponding to a JDBC description from the
-   * database.  FIXME this is meant to be customised per-database, and needs to
-   * be delegated to a <TT>DatabasePecularities</TT> class.
+   * database.
    */
 
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
@@ -188,7 +187,7 @@ public class AnsiStandard implements Dbms {
       case Types.TINYINT        : return unsupported("TINYINT", md);
       case Types.SMALLINT       : return unsupported("SMALLINT", md);
       case Types.INTEGER        : return new IntegerPoemType(nullable);
-      case Types.BIGINT         : return unsupported("BIGINT", md);
+      case Types.BIGINT         : return new LongPoemType(nullable);
 
       case Types.FLOAT          : return unsupported("FLOAT", md);
       case Types.REAL           : return new DoublePoemType(nullable);

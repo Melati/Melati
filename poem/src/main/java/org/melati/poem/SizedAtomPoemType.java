@@ -71,7 +71,15 @@ public abstract class SizedAtomPoemType extends AtomPoemType {
     return it;
   }
 
+ /**
+  * Compare sizes, taking into account magic value -1.
+  * 
+  * @param sizeA  the size of first field
+  * @param sizeB  the size of second field
+  * @return whether it should be considered bigger
+  */
   public static boolean sizeGreaterEqual(int sizeA, int sizeB) {
-    return sizeA < 0 || (sizeB >= 0 && sizeA >= sizeB);
+    return sizeA < 0 ||           // Text fields have size -1
+           (sizeB >= 0 && sizeA >= sizeB);
   }
 }

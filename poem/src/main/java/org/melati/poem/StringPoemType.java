@@ -104,7 +104,7 @@ public class StringPoemType extends SizedAtomPoemType {
     return (getNullable() ? "nullable " : "") + "String(" + getSize() + ")";
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {

@@ -136,6 +136,19 @@ public class Hsqldb extends AnsiStandard {
 
   }
 
+
+  /**
+   * Work around a feature in HSQLDB where it seems that you need 
+   * to use an unquoted string to get index info but a quoted name 
+   * to enable use of lowercase names. 
+   * 
+   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
+   **/
+  public String getJdbcMetadataName(String name) {
+    return name;
+  }
+
+  
   /**
    * Hsqldb gets its scope confused unless inner table is aliased.
    *

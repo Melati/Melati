@@ -368,6 +368,13 @@ public class AnsiStandard implements Dbms {
     return b.toString();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
+   */
+  public String getJdbcMetadataName(String name) {
+    return getQuotedName(name);
+  }
+
   /**
    * A pair of functions for getting around keywords which make your JDBC driver
    * barf, as 'group' does for MySQL.

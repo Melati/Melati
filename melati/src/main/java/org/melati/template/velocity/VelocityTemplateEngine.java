@@ -71,7 +71,6 @@ import org.melati.util.MelatiWriter;
 import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.io.VelocityWriter;
-import org.apache.velocity.app.HttpServletResponseWrap;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -137,7 +136,7 @@ public class VelocityTemplateEngine implements TemplateEngine {
     context.put(VelocityTemplateContext.REQUEST, req);
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, 
-                             new HttpServletResponseWrap(melati.getResponse()));
+                             melati.getResponse());
     return new VelocityTemplateContext(context);
   }
   

@@ -78,7 +78,6 @@ public class CapabilityTable extends CapabilityTableBase {
   }
 
   public Capability get(String name) {
-      return (Capability) getNameColumn().firstWhereEq(name);
+    return (Capability)getNameColumn().firstWhereEq(name);
   }
-
 }

@@ -39,6 +39,7 @@
     <!-- WebMacro doesn't seem to be able to read templates
          Under windows unless "extractWAR" is set to true -->
     <Set name="extractWAR">true</Set>
+    <Set name="ServingResources">TRUE</Set>
   </Call>
 
 <!-- Can't put the war inside itself;

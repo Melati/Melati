@@ -71,4 +71,12 @@ public class Interbase extends AnsiStandard {
         return super.getStringSqlDefinition(size);
     }
 
+    public String getBinarySqlDefinition(int size) throws SQLException {
+        if (size < 0) { 
+            throw new SQLException(
+              "FIXME don't know what to call unlimited length binary in " +
+              "Interbase: someone find out?");
+        }
+        return super.getBinarySqlDefinition(size);
+    }
 }

@@ -52,94 +52,168 @@ import org.melati.poem.*;
 import org.melati.util.*;
 
 public class AnsiStandard implements Dbms {
-    private boolean driverLoaded = false;
-    private String driverClassName = null;
-    private Driver driver = null;
+  private boolean driverLoaded = false;
+  private String driverClassName = null;
+  private Driver driver = null;
 
-    protected synchronized void setDriverClassName(String name) {
-        driverClassName = name;
-    }
-    protected synchronized String getDriverClassName() {
-        return driverClassName;
+  protected synchronized void setDriverClassName(String name) {
+    driverClassName = name;
+  }
+  protected synchronized String getDriverClassName() {
+    return driverClassName;
+  }
+
+  protected synchronized void setDriverLoaded(boolean loaded) {
+    driverLoaded = loaded;
+  }
+  protected synchronized boolean getDriverLoaded() {
+    return driverLoaded;
+  }
+
+  protected synchronized void loadDriver() {
+    Class driverClass;
+    try {
+      driverClass = Class.forName (getDriverClassName());
+      setDriverLoaded(true);
+    } catch (java.lang.ClassNotFoundException e) {
+      // A call to Class.forName() forces us to consider this exception :-)...
+      setDriverLoaded(false);
+      return;
     }
 
-    protected synchronized void setDriverLoaded(boolean loaded) {
-        driverLoaded = loaded;
+    try {
+      driver = (Driver)driverClass.newInstance();
+    } catch (java.lang.Exception e) {
+      // ... otherwise, "something went wrong" and I don't here care what
+      // or have the wherewithal to do anything about it :)
+      throw new UnexpectedExceptionPoemException(e);
     }
-    protected synchronized boolean getDriverLoaded() {
-        return driverLoaded;
-    }
+  }
 
-    protected synchronized void loadDriver() {
-        Class driverClass;
-        try {
-            driverClass = Class.forName (getDriverClassName());
-            setDriverLoaded(true);
-        } catch (java.lang.ClassNotFoundException e) {
-            // A call to Class.forName() forces us to consider this exception :-)...
-            setDriverLoaded(false);
-            return;
+  public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
+    synchronized (driverClassName) {
+      if ( !getDriverLoaded() ) {
+        if (getDriverClassName() == null) {
+          throw new ConnectionFailurePoemException(new SQLException("No Driver Classname set in dbms specific class"));
         }
-
-        try {
-            driver = (Driver)driverClass.newInstance();
-        } catch (java.lang.Exception e) {
-            // ... otherwise, "something went wrong" and I don't here care what
-            // or have the wherewithal to do anything about it :)
-            throw new UnexpectedExceptionPoemException(e);
-        }
-    }
-
-    public Connection getConnection(String url, String user, String password) throws ConnectionFailurePoemException {
-        synchronized (driverClassName) {
-            if ( !getDriverLoaded() ) {
-                if (getDriverClassName() == null) {
-                    throw new ConnectionFailurePoemException(new SQLException("No Driver Classname set in dbms specific class"));
-                }
-                loadDriver();
-            }
-            if ( !getDriverLoaded() ) {
-                throw new ConnectionFailurePoemException(new SQLException("The Driver class " + getDriverClassName() + " failed to load"));
-            }
-        }
-
-
-        if (driver != null) {
-            Properties info = new Properties();
-            if (user != null) info.put("user", user);
-            if (password != null) info.put("password", password);
-
-            try {
-                return driver.connect(url, info);
-            } catch (SQLException e) {
-                throw new ConnectionFailurePoemException(e);
-            }
-        }
-
-
-        try {
-            return DriverManager.getConnection (url, user, password);
-        } catch (java.sql.SQLException e) {
-            throw new ConnectionFailurePoemException(e);
-        }
-    }
-
-    public String getQuotedName(String name) {
-      StringBuffer b = new StringBuffer();
-      StringUtils.appendQuoted(b, name, '"');
-      return b.toString();
-    }
-
-    public String getSqlDefinition(String sqlTypeName) throws SQLException {
-        return sqlTypeName;
-    }
-
-    public String getStringSqlDefinition(int size) throws SQLException {
-        if (size < 0) { 
-            throw new SQLException("0 length not supported in AnsiStandard Strings");
-        }
-        return "VARCHAR(" + size + ")";
+        loadDriver();
+      }
+      if ( !getDriverLoaded() ) {
+        throw new ConnectionFailurePoemException(new SQLException("The Driver class " + getDriverClassName() + " failed to load"));
+      }
     }
 
 
+    if (driver != null) {
+      Properties info = new Properties();
+      if (user != null) info.put("user", user);
+      if (password != null) info.put("password", password);
+      
+      try {
+        return driver.connect(url, info);
+      } catch (SQLException e) {
+        throw new ConnectionFailurePoemException(e);
+      }
+    }
+    
+
+    try {
+      return DriverManager.getConnection (url, user, password);
+    } catch (java.sql.SQLException e) {
+      throw new ConnectionFailurePoemException(e);
+    }
+  }
+
+  public String getQuotedName(String name) {
+    StringBuffer b = new StringBuffer();
+    StringUtils.appendQuoted(b, name, '"');
+    return b.toString();
+  }
+
+  public String getSqlDefinition(String sqlTypeName) throws SQLException {
+    return sqlTypeName;
+  }
+
+  public String getStringSqlDefinition(int size) throws SQLException {
+    if (size < 0)
+      throw new SQLException(
+          "unlimited length not supported in AnsiStandard STRINGs");
+
+    return "VARCHAR(" + size + ")";
+  }
+
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    if (size < 0)
+      throw new SQLException(
+          "unlimited length not supported in AnsiStandard BINARYs");
+
+    return "LONGVARBINARY(" + size + ")";
+  }
+
+  public PoemType canRepresent(PoemType storage, PoemType type) {
+    return storage.canRepresent(type);
+  }
+
+  private SQLPoemType unsupported(String sqlTypeName, ResultSet md)
+      throws UnsupportedTypePoemException {
+    UnsupportedTypePoemException e;
+    try {
+      e = new UnsupportedTypePoemException(
+              md.getString("TABLE_NAME"), md.getString("COLUMN_NAME"),
+              md.getShort("DATA_TYPE"), sqlTypeName,
+              md.getString("TYPE_NAME"));
+    }
+    catch (SQLException ee) {
+      throw new UnsupportedTypePoemException(sqlTypeName);
+    }
+
+    throw e;
+  }
+
+  /**
+   * The simplest POEM type corresponding to a JDBC description from the
+   * database.  FIXME this is meant to be customised per-database, and needs to
+   * be delegated to a <TT>DatabasePecularities</TT> class.
+   */
+
+  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+      throws SQLException {
+    int typeCode = md.getShort("DATA_TYPE");
+    boolean nullable =
+        md.getInt("NULLABLE") == DatabaseMetaData.columnNullable;
+    int width = md.getInt("COLUMN_SIZE");
+
+    switch (typeCode) {
+      case Types.BIT            : return new BooleanPoemType(nullable);
+      case Types.TINYINT        : return unsupported("TINYINT", md);
+      case Types.SMALLINT       : return unsupported("SMALLINT", md);
+      case Types.INTEGER        : return new IntegerPoemType(nullable);
+      case Types.BIGINT         : return unsupported("BIGINT", md);
+
+      case Types.FLOAT          : return unsupported("FLOAT", md);
+      case Types.REAL           : return new DoublePoemType(nullable);
+      case Types.DOUBLE         : return new DoublePoemType(nullable);
+
+      case Types.NUMERIC        : return unsupported("NUMERIC", md);
+      case Types.DECIMAL        : return unsupported("DECIMAL", md);
+
+      case Types.CHAR           : return unsupported("CHAR", md);
+      case Types.VARCHAR        : return new StringPoemType(nullable, width);
+      case Types.LONGVARCHAR    : return new StringPoemType(nullable, width);
+
+      case Types.DATE           : return new DatePoemType(nullable);
+      case Types.TIME           : return unsupported("TIME", md);
+      case Types.TIMESTAMP      : return new TimestampPoemType(nullable);
+
+      case Types.BINARY         : return unsupported("BINARY", md);
+      case Types.VARBINARY      : return new BinaryPoemType(nullable, width);
+      case Types.LONGVARBINARY  : return new BinaryPoemType(nullable, width);
+
+      case Types.NULL           : return unsupported("NULL", md);
+
+      case Types.OTHER          : return unsupported("OTHER", md);
+
+      default: return unsupported("<code not in Types.java!>", md);
+    }
+  }
 }

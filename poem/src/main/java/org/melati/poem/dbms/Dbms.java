@@ -47,13 +47,22 @@
 package org.melati.poem.dbms;
 
 import java.sql.*;
-import org.melati.poem.ConnectionFailurePoemException;
+import org.melati.poem.*;
 
 public interface Dbms {
     Connection getConnection(String url, String user, String password)
         throws ConnectionFailurePoemException;
+
     String getQuotedName(String name);
+
     String getSqlDefinition(String sqlTypeName) throws SQLException;
+
     String getStringSqlDefinition(int size) throws SQLException;
 
+    String getBinarySqlDefinition(int size) throws SQLException;
+
+    PoemType canRepresent(PoemType storage, PoemType type);
+
+    SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
+        throws SQLException;
 }

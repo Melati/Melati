@@ -47,6 +47,7 @@
 package org.melati.poem.dbms;
 
 import java.sql.*;
+import org.melati.poem.*;
 
 public class Postgresql extends AnsiStandard {
 
@@ -61,4 +62,33 @@ public class Postgresql extends AnsiStandard {
         return super.getStringSqlDefinition(size);
     }
 
+    public String getBinarySqlDefinition(int size) throws SQLException {
+        // BLOBs in Postgres are represented as OIDs pointing to the data
+        return "OID";
+    }
+
+    public static class OidPoemType extends IntegerPoemType {
+        public OidPoemType(boolean nullable) {
+            super(Types.INTEGER, "OID", nullable);
+        }
+
+        protected boolean _canRepresent(SQLPoemType other) {
+            return other instanceof BinaryPoemType;
+        }
+
+        public PoemType canRepresent(PoemType other) {
+            return other instanceof BinaryPoemType &&
+                   !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
+                       other : null;
+        }
+    }
+
+    public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
+        throws SQLException {
+      return
+          md.getString("TYPE_NAME").equals("oid") ?
+              new OidPoemType(md.getInt("NULLABLE") ==
+                                  DatabaseMetaData.columnNullable) :
+              super.defaultPoemTypeOfColumnMetaData(md);
+    }
 }

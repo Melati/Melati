@@ -65,7 +65,7 @@
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
-    = window.open('$melati.AdminUtils.UploadURL($field)',
+    = window.open('$melati.AdminUtils.UploadURL($melati.Table,$melati.Object,$field)',
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }

@@ -4,31 +4,32 @@
 
     <!-- ============================================= -->
     <description> Ant Build file for Melati </description>
-    <!-- cvs="$Revision$"                            -->
+    <!-- cvs="$Revision$"                        -->
     <!-- ============================================= -->
 
   <property name="project"            value="melati"/>
+  <property name="name"               value="Melati"/>
   <property name="ant.home"           value="."/>
   <property name="build.sysclasspath" value="ignore"/>
   <property name="build.compiler"     value="jikes"/>
   <property name="version"            value="0.6.0"/>
   <property name="this.root"          value="../../../"/>
-  <property name="build.root"         value="${this.root}/build"/>
   <property name="build.lib"          value="./lib"/>
-  <property name="compiled.root"      value="${build.root}/compiled"/>
-  <property name="built.root"         value="./built"/>
+  <property name="built"              value="dist"/>
+  <property name="built.root"         value="./${built}"/>
+  <property name="compiled.root"      value="${built.root}/compiled"/>
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
   <property name="doc.dir"            value="../qa/javadoc"/>
-  <property name="packaged.root"      value="${build.root}/packaged/"/>
+  <property name="packaged.root"      value="${built.root}/packaged/"/>
   <property name="year"               value="2002"/>
   <property name="debug"              value="on"/>
   <property name="optimize"           value="off"/>
   <property name="deprecation"        value="on"/>        
-  <property name="poemODMGDSD"        value="${build.root}/org/melati/poem/odmg/playing/Playing.dsd"/>
+  <property name="poemODMGDSD"        value="${this.root}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
 
   <path id="classpath.compile">
@@ -82,6 +83,13 @@ example:
       </echo>      
    </target>
 
+
+    <!-- ================================================================= -->
+    <!-- Clean up the build directory                                      -->
+    <!-- ================================================================= -->
+    <target name="clean">
+        <delete dir="${built.root}"/>
+    </target>
 
     <!-- ================================================================= -->
     <!-- Compiles the source directory                                     -->
@@ -173,8 +181,8 @@ example:
     <!-- Compile the ODMG source                                           -->
     <!-- ================================================================= -->
     <target name="compileODMGPlaying" depends="preproODMGPlaying">
-      <javac srcdir      = "${build.root}"
-             destdir     = "${build.dist.src}"
+      <javac srcdir      = "${this.root}"
+             destdir     = "${built.src}"
              includes    = "org/melati/poem/odmg/playing/**/*.java"
              debug       = "${debug}"
              deprecation = "${deprecation}"
@@ -185,8 +193,8 @@ example:
     <!-- Create the ODMG .jar file                                       -->
     <!-- =============================================================== -->
     <target name="jarODMGPlaying" depends="compileODMGPlaying">
-      <jar jarfile  ="${build.built}/${project}.ODMGPlaying.jar"
-           basedir  = "${build.dist.src}"
+      <jar jarfile  ="${built}/${project}.ODMGPlaying.jar"
+           basedir  = "${built.src}"
            includes = "**/*.class **/*.properties"
       />
     </target>
@@ -202,6 +210,9 @@ example:
        />
     </target>
 
+    <!-- ============================================================= -->
+    <!-- Generate Melati.org website                                   -->
+    <!-- ============================================================= -->
   <target name="site"
           description="build site documentation">
 
@@ -239,20 +250,20 @@ example:
           private="true"
           version="true"
           use="true"
-          windowtitle="${project} ${version} API"
-          doctitle="${project} ${version} API"
+          windowtitle="${name} ${version} API"
+          doctitle="${name} ${version} API"
           bottom="Copyright &#169; ${year} &lt;i&gt;${project}&lt;/i&gt;. All Rights Reserved."
         />
     </target>
     
     <!-- ================================================================= -->
-    <!-- Package as .zip and .tgz                                          -->
+    <!-- Package as .zip and .tgz depends="jar,javadocs,sources">                                          -->
     <!-- ================================================================= -->
-    <target name="package" depends="jar,javadocs,sources">
+    <target name="package" >
        <mkdir dir="${packaged.root}"/>
-       <zip  basedir="${built.root}"
+       <zip  basedir="${this.root}" excludes="**/${built}/**"
              zipfile="${packaged.root}/${project}_${version}.zip" />
-       <tar  basedir="${built.root}" 
+       <tar  basedir="${this.root}" excludes="**/${built}/**"
              tarfile="${packaged.root}/${project}_${version}.tar" />
        <gzip src="${packaged.root}/${project}_${version}.tar"
              zipfile="${packaged.root}/${project}_${version}.tar.gz" />
@@ -265,22 +276,12 @@ example:
     </target>
     
     
-    <!-- ================================================================= -->
-    <!-- Clean up the build directory                                      -->
-    <!-- ================================================================= -->
-    <target name="clean">
-        <delete dir="${build.root}"/>
-    </target>
-
 
     <!-- ================================================================= -->
     <!-- Build the .war                                                    -->
     <!-- ================================================================= -->
   <target name="war" depends="jar">
-    <mkdir dir="dist"/>
-    <echo>${built.lib}/${project}.jar</echo>
-
-    <war warfile="dist/${project}.war" webxml="web.xml">
+    <war warfile="${built}/${project}.war" webxml="web.xml">
 
       <fileset dir="${this.root}/org/melati/site"/>
       <lib dir="${build.lib}">

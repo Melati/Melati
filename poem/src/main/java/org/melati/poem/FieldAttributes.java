@@ -57,5 +57,7 @@ public interface FieldAttributes {
   boolean getIndexed();
   boolean getUserEditable();
   boolean getUserCreateable();
+  int getWidth();
+  int getHeight();
   String getRenderInfo();
 }

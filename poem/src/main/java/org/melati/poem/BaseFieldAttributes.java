@@ -54,24 +54,28 @@ public class BaseFieldAttributes implements FieldAttributes {
   private String description;
   private PoemType type;
   private String renderInfo;
+  private int width, height;
 
   public BaseFieldAttributes(String name, String displayName,
                              String description, PoemType type,
-                             String renderInfo) {
+                             int width, int height, String renderInfo) {
     this.name = name;
     this.displayName = displayName;
     this.description = description;
     this.type = type;
+    this.width = width;
+    this.height = height;
     this.renderInfo = renderInfo;
   }
 
   public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
-	 other.getType().withNullable(nullable), other.getRenderInfo());
+	 other.getType().withNullable(nullable),
+	 other.getWidth(), other.getHeight(), other.getRenderInfo());
   }
 
   public BaseFieldAttributes(String name, PoemType type) {
-    this(name, name, null, type, null);
+    this(name, name, null, type, 0, 0, null);
   }
 
   public String getName() {
@@ -100,6 +104,14 @@ public class BaseFieldAttributes implements FieldAttributes {
 
   public boolean getUserCreateable() {
     return false;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
   }
 
   public String getRenderInfo() {

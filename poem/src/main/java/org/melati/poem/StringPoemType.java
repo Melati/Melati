@@ -53,13 +53,9 @@ public class StringPoemType extends AtomPoemType {
 
   protected int size;             // or, < 0 for "unlimited"
 
-  public StringPoemType(boolean nullable, int size, int width, int height) {
-    super(Types.VARCHAR, "VARCHAR", nullable, width, height);
-    this.size = size;
-  }
-
   public StringPoemType(boolean nullable, int size) {
-    this(nullable, size, size < 0 ? 40 : size, 1);
+    super(Types.VARCHAR, "VARCHAR", nullable);
+    this.size = size;
   }
 
   public int getSize() {

@@ -53,12 +53,8 @@ import org.melati.util.*;
 
 public class IntegerPoemType extends AtomPoemType {
 
-  public IntegerPoemType(boolean nullable, int width) {
-    super(Types.INTEGER, "INT", nullable, width);
-  }
-
   public IntegerPoemType(boolean nullable) {
-    this(nullable, 9);
+    super(Types.INTEGER, "INT", nullable);
   }
 
   /**

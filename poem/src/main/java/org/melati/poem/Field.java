@@ -117,6 +117,14 @@ public class Field implements FieldAttributes, Cloneable {
     return attrs.getUserCreateable();
   }
 
+  public int getWidth() {
+    return attrs.getWidth();
+  }
+
+  public int getHeight() {
+    return attrs.getHeight();
+  }
+
   public String getRenderInfo() {
     return attrs.getRenderInfo();
   }
@@ -151,14 +159,6 @@ public class Field implements FieldAttributes, Cloneable {
       throw accessException;
     return raw == null ? "" :
                          getType().stringOfCooked(getCooked(), locale, style);
-  }
-
-  public int getWidth() {
-    return getType().getWidth();
-  }
-
-  public int getHeight() {
-    return getType().getHeight();
   }
 
   public Field withRaw(Object raw) {

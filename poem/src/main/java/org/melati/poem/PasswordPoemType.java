@@ -52,12 +52,8 @@ import org.melati.util.*;
 
 public class PasswordPoemType extends StringPoemType {
 
-  public PasswordPoemType(boolean nullable, int size, int width) {
-    super(nullable, size, width, 1);
-  }
-
   public PasswordPoemType(boolean nullable, int size) {
-    this(nullable, size, size < 0 ? 10 : size);
+    super(nullable, size);
   }
 
   public String toString() {

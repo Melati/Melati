@@ -82,8 +82,6 @@ public interface PoemType {
       throws TypeMismatchPoemException, PoemException;
 
   boolean getNullable();
-  int getWidth();
-  int getHeight();
 
   int sqlTypeCode();
   String sqlDefinition();

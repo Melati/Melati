@@ -54,24 +54,12 @@ import org.melati.util.*;
 public abstract class BasePoemType implements PoemType, Cloneable {
   private int sqlTypeCode;
   private boolean nullable;
-  private int width;
-  private int height;
 
   private Comparable low = null, limit = null;
 
-  BasePoemType(int sqlTypeCode, boolean nullable, int width, int height) {
+  BasePoemType(int sqlTypeCode, boolean nullable) {
     this.sqlTypeCode = sqlTypeCode;
     this.nullable = nullable;
-    this.width = width;
-    this.height = height;
-  }
-
-  BasePoemType(int sqlTypeCode, boolean nullable, int width) {
-    this(sqlTypeCode, nullable, width, 1);
-  }
-
-  BasePoemType(int sqlTypeCode, boolean nullable) {
-    this(sqlTypeCode, nullable, 8);
   }
 
   protected void setRawRange(Comparable low, Comparable limit) {
@@ -258,14 +246,6 @@ public abstract class BasePoemType implements PoemType, Cloneable {
     return sqlTypeCode;
   }
 
-  public final int getWidth() {
-    return width;
-  }
-
-  public final int getHeight() {
-    return height;
-  }
-
   protected abstract String _sqlDefinition();
 
   public final String sqlDefinition() {
@@ -302,8 +282,6 @@ public abstract class BasePoemType implements PoemType, Cloneable {
   public void saveColumnInfo(ColumnInfo info) throws AccessPoemException {
     info.setNullable(nullable);
     info.setSize(0);
-    info.setWidth(width);
-    info.setHeight(height);
     info.setRangelow_string(
         getLowRaw() == null ? null : stringOfRaw(getLowRaw()));
     // this _won't_ throw an OutsideRangePoemException since it doesn't check

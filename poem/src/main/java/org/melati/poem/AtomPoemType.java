@@ -54,15 +54,9 @@ public abstract class AtomPoemType extends BasePoemType {
 
   private String sqlTypeName;
 
-  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable,
-                      int width, int height) {
-    super(sqlTypeCode, nullable, width, height);
+  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
+    super(sqlTypeCode, nullable);
     this.sqlTypeName = sqlTypeName;
-  }
-
-  public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable,
-                      int width) {
-    this(sqlTypeCode, sqlTypeName, nullable, width, 1);
   }
 
   protected String _stringOfRaw(Object raw) {

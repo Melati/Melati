@@ -51,12 +51,8 @@ import java.sql.*;
 
 public class DoublePoemType extends AtomPoemType {
 
-  public DoublePoemType(boolean nullable, int width) {
-    super(Types.DOUBLE, "FLOAT8", nullable, width);
-  }
-
   public DoublePoemType(boolean nullable) {
-    this(nullable, 9);
+    super(Types.DOUBLE, "FLOAT8", nullable);
   }
 
   protected void _assertValidRaw(Object raw) {

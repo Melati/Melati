@@ -74,7 +74,8 @@ public abstract class PoemTypeFactory {
   public abstract String getDescription();
 
   public static final PoemTypeFactory
-      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD;
+      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD,
+      TIMESTAMP;
 
   private static int n = -1;
 
@@ -147,8 +148,7 @@ public abstract class PoemTypeFactory {
 
     INTEGER = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
-        return new IntegerPoemType(info.nullable.booleanValue(),
-                                   info.width.intValue());
+        return new IntegerPoemType(info.nullable.booleanValue());
       }
 
       public String getName() {
@@ -162,8 +162,7 @@ public abstract class PoemTypeFactory {
 
     DOUBLE = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
-        return new DoublePoemType(info.nullable.booleanValue(),
-                                  info.size.intValue());
+        return new DoublePoemType(info.nullable.booleanValue());
       }
 
       public String getName() {
@@ -178,9 +177,7 @@ public abstract class PoemTypeFactory {
     STRING = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
         return new StringPoemType(info.nullable.booleanValue(),
-                                  info.size.intValue(),
-                                  info.width.intValue(),
-                                  info.height.intValue());
+                                  info.size.intValue());
       }
 
       public String getName() {
@@ -209,12 +206,25 @@ public abstract class PoemTypeFactory {
     PASSWORD = new PoemTypeFactory(n--) {
       public PoemType typeOf(Database database, ColumnInfo info) {
         return new PasswordPoemType(info.nullable.booleanValue(),
-                                  info.size.intValue(),
-                                  info.width.intValue());
+				    info.size.intValue());
       }
 
       public String getName() {
         return "PASSWORD";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    TIMESTAMP = new PoemTypeFactory(n--) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
+        return new TimestampPoemType(info.nullable.booleanValue());
+      }
+
+      public String getName() {
+        return "TIMESTAMP";
       }
 
       public String getDescription() {

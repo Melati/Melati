@@ -48,6 +48,7 @@ package org.melati.servlet;
 import javax.servlet.http.HttpServlet;
 
 import org.melati.util.MelatiException;
+import org.melati.PoemContext;
 
 /**
  * Servlet was called with missing or invalid parameters.
@@ -55,7 +56,7 @@ import org.melati.util.MelatiException;
 public class InvalidUsageException extends MelatiException {
 
   HttpServlet servlet;
-  MelatiContext context;
+  PoemContext context;
 
   /**
    * Constructor.
@@ -63,7 +64,7 @@ public class InvalidUsageException extends MelatiException {
    * @param servlet the servlet misused
    * @param context the <code>MelatiContext</code> of the request
    */
-  public InvalidUsageException(HttpServlet servlet, MelatiContext context) {
+  public InvalidUsageException(HttpServlet servlet, PoemContext context) {
     this.servlet = servlet;
     this.context = context;
   }

@@ -55,6 +55,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
+import org.melati.PoemContext;
 import org.melati.MelatiConfig;
 import org.melati.util.ConnectionPendingException;
 import org.melati.util.MelatiException;
@@ -112,7 +113,7 @@ import org.melati.util.MelatiWriter;
 
 public abstract class ConfigServlet extends HttpServlet {
 
-  // the melati
+  // The melati
   protected MelatiConfig melatiConfig;
 
   /**
@@ -173,8 +174,8 @@ public abstract class ConfigServlet extends HttpServlet {
       Melati melati = melatiConfig.getMelati(request, response);
       try {
         melati.establishCharsets();
-        MelatiContext melatiContext = melatiContext(melati);
-        melati.setContext(melatiContext);
+        PoemContext poemContext = poemContext(melati);
+        melati.setContext(poemContext);
         doConfiguredRequest(melati);
         // send the output to the client
         melati.write();
@@ -281,14 +282,22 @@ public abstract class ConfigServlet extends HttpServlet {
     return "nobody@nobody.com";
   }
 
+  /** 
+   * @deprecated use poemContext
+   */
   protected MelatiContext melatiContext(Melati melati) 
-   throws PathInfoException {
-     MelatiContext it = new MelatiContext();
-     String[] parts = melati.getPathInfoParts();
-     if (parts.length > 0)
-      it.method = StringUtils.nulled(parts[parts.length - 1]);
-    return it;
-  }
+  throws PathInfoException {
+   return (MelatiContext)poemContext(melati);
+ }
+
+  protected PoemContext poemContext(Melati melati) 
+  throws PathInfoException {
+    PoemContext it = new PoemContext();
+    String[] parts = melati.getPathInfoParts();
+    if (parts.length > 0)
+     it.setMethod(StringUtils.nulled(parts[parts.length - 1]));
+   return it;
+ }
   
   /** 
    * To override any setting from MelatiServlet.properties,

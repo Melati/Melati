@@ -52,6 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.HttpJspPage;
 
 import org.melati.Melati;
+import org.melati.PoemContext;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Database;
@@ -158,7 +159,7 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
       final HttpServletResponse response) throws ServletException {
     final Melati melati;
     melati = melatiConfig.getMelati(request, response);
-    MelatiContext mc = getMelatiContext();
+    PoemContext mc = getMelatiContext();
     try {
       melati.setContext(mc);
     } catch (DatabaseInitException e) {
@@ -196,35 +197,35 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
    * 
    * @return a new context
    */
-  protected MelatiContext getMelatiContext() {
-    return new MelatiContext();
+  protected PoemContext getMelatiContext() {
+    return new PoemContext();
   }
 
-  protected MelatiContext getMelatiContext(String logicalDatabase) {
-    MelatiContext it = new MelatiContext();
-    it.logicalDatabase = logicalDatabase;
+  protected PoemContext getMelatiContext(String logicalDatabase) {
+    PoemContext it = new PoemContext();
+    it.setLogicalDatabase(logicalDatabase);
     return it;
   }
 
-  protected MelatiContext getMelatiContext(String logicalDatabase,
+  protected PoemContext getPoemContext(String logicalDatabase,
       String pathInfo) throws PathInfoException {
-    MelatiContext it = getMelatiContext(logicalDatabase);
+    PoemContext it = getMelatiContext(logicalDatabase);
     String[] pathInfoParts = StringUtils.split(pathInfo, '/');
     if (pathInfoParts.length > 0) {
       if (pathInfoParts.length == 1)
-        it.method = pathInfoParts[0];
+        it.setMethod(pathInfoParts[0]);
       if (pathInfoParts.length == 2) {
-        it.table = pathInfoParts[0];
-        it.method = pathInfoParts[1];
+        it.setTable(pathInfoParts[0]);
+        it.setMethod(pathInfoParts[1]);
       }
       if (pathInfoParts.length >= 3) {
-        it.table = pathInfoParts[0];
+        it.setTable(pathInfoParts[0]);
         try {
-          it.troid = new Integer(pathInfoParts[1]);
+          it.setTroid(new Integer(pathInfoParts[1]));
         } catch (NumberFormatException e) {
           throw new PathInfoException(pathInfo, e);
         }
-        it.method = pathInfoParts[2];
+        it.setMethod(pathInfoParts[2]);
       }
     }
     return it;

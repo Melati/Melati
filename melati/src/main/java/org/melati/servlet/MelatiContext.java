@@ -45,13 +45,18 @@
 
 package org.melati.servlet;
 
-import org.melati.util.UnexpectedExceptionException;
+import org.melati.PoemContext;
+
 
 /**
- * An object to hold the information a Melati object knows about itself.
+ * An object to hold the information Melati needs to access POEM.
+ * 
+ * @deprecated use org.melati.PoemContext
  */
 
-public class MelatiContext implements Cloneable {
+public class MelatiContext extends PoemContext implements Cloneable {
+
+  // FIXME these should not be public
   /** the database in use */
   public String logicalDatabase;
   /** the table in use */
@@ -61,77 +66,4 @@ public class MelatiContext implements Cloneable {
   /** the method in use */
   public String method;
 
- /**
-  * Empty constructor.
-  * If you use this then you have to populate the object by hand.
-  */
-  public MelatiContext() {  }
-
- /**
-  * Constructor.
-  * @param logicalDatabase the name of a logical database
-  * @param table           the name of the table we are dealing with table
-  * @param troid           the Table Row Object ID we are dealing with
-  * @param method          what we are doing to this object
-  */
-  public MelatiContext(String logicalDatabase, String table, Integer troid,
-                       String method) {
-    this.logicalDatabase = logicalDatabase;
-    this.table = table;
-    this.troid = troid;
-    this.method = method;
-  }
-
-  
- /**
-  * @return a string representation of the state of this class
-  */
-  public String toString() {
-    return "logicalDatabase = " + logicalDatabase + ", " +
-           "table = " + table + ", " +
-           "troid = " + troid + ", " +
-           "method = " + method;
-  }
-
- /**
-  * Clone me.
-  * @return a duplicate of this
-  */
-  public Object clone() {
-    try {
-      return super.clone();
-    }
-    catch (CloneNotSupportedException e) {
-      throw new UnexpectedExceptionException(e);
-    }
-  }
-  
-
- /**
-  * @return the logical database name.
-  */
-  public String getLogicalDatabase() {
-    return logicalDatabase;
-  }
-  
- /**
-  * @return the table name.
-  */
-  public String getTable() {
-    return table;
-  }
-  
- /**
-  * @return the TROID.
-  */
-  public Integer getTroid() {
-    return troid;
-  }
-  
- /**
-  * @return the method.
-  */
-  public String getMethod() {
-    return method;
-  }
 }

@@ -52,6 +52,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.melati.Melati;
+import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
@@ -332,31 +333,31 @@ public abstract class PoemServlet extends ConfigServlet {
     String[] parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
-    it.logicalDatabase = "";
+    it.setLogicalDatabase("");
     if (parts.length > 0) {
-      it.logicalDatabase = parts[0];
-      if (parts.length == 2) it.method = parts[1];
+      it.setLogicalDatabase(parts[0]);
+      if (parts.length == 2) it.setMethod(parts[1]);
       if (parts.length == 3) {
-        it.table = parts[1];
-        it.method = parts[2];
+        it.setTable(parts[1]);
+        it.setMethod(parts[2]);
       }
       if (parts.length >= 4) {
-        it.table = parts[1];
+        it.setTable(parts[1]);
         try {
-          it.troid = new Integer (parts[2]);
+          it.setTroid(new Integer (parts[2]));
         }
         catch (NumberFormatException e) {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
         }
         if (parts.length == 4) {
-          it.method = parts[3];
+          it.setMethod(parts[3]);
         } else {
           String pathInfo = melati.getRequest().getPathInfo();
           pathInfo = pathInfo.substring(1);
           for (int i = 0; i< 3; i++) {
             pathInfo = pathInfo.substring(pathInfo.indexOf("/") + 1);
           }          
-          it.method = pathInfo;
+          it.setMethod(pathInfo);
         }
       }
     }
@@ -379,44 +380,48 @@ public abstract class PoemServlet extends ConfigServlet {
    * </PRE>
    *
    */
-
-  protected MelatiContext melatiContextWithLDB (Melati melati, 
-                                                String logicalDatabase) 
-      throws PathInfoException {
+    protected MelatiContext melatiContextWithLDB (Melati melati, 
+                                                  String logicalDatabase) 
+        throws PathInfoException {
     MelatiContext it = new MelatiContext();
     String[] parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
-    it.logicalDatabase = logicalDatabase;
+    it.setLogicalDatabase(logicalDatabase);
     if (parts.length > 0) {
-      if (parts.length == 1) it.method = parts[0];
+      if (parts.length == 1) it.setMethod(parts[0]);
       if (parts.length == 2) {
-        it.table = parts[0];
-        it.method = parts[1];
+        it.setTable(parts[0]);
+        it.setMethod(parts[1]);
       }
       if (parts.length >= 3) {
-        it.table = parts[0];
-        it.method = parts[2];
+        it.setTable(parts[0]);
+        it.setMethod(parts[2]);
         try {
-          it.troid = new Integer (parts[1]);
+          it.setTroid(new Integer (parts[1]));
         }
         catch (NumberFormatException e) {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
         }
       }
         if (parts.length == 3) {
-          it.method = parts[2];
+          it.setMethod(parts[2]);
         } else {
           String pathInfo = melati.getRequest().getPathInfo();
           pathInfo = pathInfo.substring(1);
           for (int i = 0; i< 2; i++) {
             pathInfo = pathInfo.substring(pathInfo.indexOf("/") + 1);
           }          
-          it.method = pathInfo;
+          it.setMethod(pathInfo);
         }
 
     }
     return it;
+  }
+
+  protected PoemContext poemContextWithLDB (Melati melati, String logicalDatabase) 
+    throws PathInfoException {
+    return (PoemContext)melatiContextWithLDB(melati, logicalDatabase);
   }
 
   /**

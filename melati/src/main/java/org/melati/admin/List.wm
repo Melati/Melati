@@ -50,7 +50,7 @@
 
 <P>
   #if ($objects.PrevPageStart) #begin
-    <A HREF="List?start=$objects.PrevPageStart">&lt;&lt;</A>
+    <A HREF="View?start=$objects.PrevPageStart">&lt;&lt;</A>
   #end
   #else #begin
     &lt;&lt;
@@ -59,10 +59,10 @@
   &nbsp;&nbsp;
 
   #if ($objects.NextPageStart) #begin
-    <A HREF="List?start=$objects.NextPageStart">&gt;&gt;</A>
+    <A HREF="View?start=$objects.NextPageStart">&gt;&gt;</A>
   #end
   #else #begin
-    &lt;&lt;
+    &gt;&gt;
   #end
 </P>
 

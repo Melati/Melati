@@ -41,6 +41,8 @@
   <!-- This may cause problems with old versions of Jikes. -->
   <!-- 1.4 (instead of 1.3) enables assert to be used for debugging. -->
   <property name="javac.source"       value="1.3"/>
+  <!-- need 1.4 for todo tag -->
+  <property name="javadoc.source"     value="1.4"/>
   <property name="poemODMGDSD"        value="${src}/org/melati/poem/odmg/playing/Playing.dsd"/>
 
 
@@ -285,7 +287,9 @@ usage:
           windowtitle="${name} ${version} API"
           doctitle="${name} ${version} API"
           bottom="Copyright &#169; ${year} &lt;i&gt;${name}&lt;/i&gt;. All Rights Reserved."
-        />
+        >
+        <tag name="todo" description="To Do:"/>
+      </javadoc>  
     </target>
     
     <!-- ================================================================= -->

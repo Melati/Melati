@@ -1,4 +1,4 @@
-package org.melati.doc.example.contacts;
+package org.melati.example.contacts;
 
 table Contact
   (displayorder = 10)

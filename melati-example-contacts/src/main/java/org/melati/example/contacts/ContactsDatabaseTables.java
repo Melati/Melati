@@ -1,9 +1,6 @@
-package org.melati.doc.example.contacts;
+package org.melati.example.contacts;
 
-import org.melati.doc.example.contacts.generated.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
+import org.melati.example.contacts.generated.*;
 import org.melati.poem.*;
 
 public interface ContactsDatabaseTables extends ContactsDatabaseTablesBase {

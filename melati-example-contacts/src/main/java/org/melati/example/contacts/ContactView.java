@@ -1,4 +1,4 @@
-package org.melati.doc.example.contacts;
+package org.melati.example.contacts;
 
 import java.io.IOException;
 

@@ -1,10 +1,6 @@
-package org.melati.doc.example.contacts;
+package org.melati.example.contacts;
 
-import org.melati.doc.example.contacts.generated.*;
-import java.util.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import org.melati.poem.*;
+import org.melati.example.contacts.generated.*;
 
 public class Category extends CategoryBase {
   public Category() {}

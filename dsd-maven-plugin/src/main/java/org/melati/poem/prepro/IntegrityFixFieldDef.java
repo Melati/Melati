@@ -47,16 +47,13 @@ package org.melati.poem.prepro;
 
 import java.util.*;
 import java.io.*;
-import org.melati.poem.StandardIntegrityFix;
 
-public class ReferenceFieldDef extends FieldDef {
+public class IntegrityFixFieldDef extends FieldDef {
 
-  StandardIntegrityFix integrityfix;
-
-  public ReferenceFieldDef(TableDef table, String name, int displayOrder,
-                           String type, Vector qualifiers)
-      throws IllegalityException {
-    super(table, name, type, "Integer", displayOrder, qualifiers);
+  public IntegrityFixFieldDef(TableDef table, String name, int displayOrder,
+			      Vector qualifiers) throws IllegalityException {
+    super(table, name, "StandardIntegrityFix", "Integer", displayOrder,
+          qualifiers);
   }
 
   protected void generateColRawAccessors(Writer w) throws IOException {
@@ -66,27 +63,14 @@ public class ReferenceFieldDef extends FieldDef {
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
-      "            return ((" + mainClass + ")g).get" + suffix + "Troid();\n" +
+      "            return ((" + mainClass + ")g).get" + suffix + "Index();\n" +
       "          }\n" +
       "\n" +
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +
-      "            ((" + mainClass + ")g).set" + suffix + "Troid((" +
+      "            ((" + mainClass + ")g).set" + suffix + "Index((" +
                        rawType + ")raw);\n" +
       "          }\n");
-
-    if (integrityfix != null)
-      w.write(
-        "\n" +
-        "          public StandardIntegrityFix defaultIntegrityFix() {\n" +
-        "            return StandardIntegrityFix." + integrityfix.name + ";\n" +
-        "          }\n");
-  }
-
-  private String targetCast() {
-    TableDef targetTable = (TableDef)table.dsd.tableOfClass.get(type);
-    return targetTable == null || targetTable.superclass == null ?
-             "" : "(" + type + ")";
   }
 
   public void generateBaseMethods(Writer w) throws IOException {
@@ -96,46 +80,31 @@ public class ReferenceFieldDef extends FieldDef {
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    String db = "get" + table.dsd.databaseClass + "()";
-
     w.write("\n" +
-	    "  public Integer get" + suffix + "Troid()\n" +
+	    "  public Integer get" + suffix + "Index()\n" +
             "      throws AccessPoemException {\n" +
 	    "    readLock();\n" +
             "    return get" + suffix + "_unsafe();\n" +
             "  }\n" +
             "\n" +
-            "  public void set" + suffix + "Troid(Integer raw)\n" +
+            "  public void set" + suffix + "Index(Integer raw)\n" +
             "      throws AccessPoemException {\n" +
-            "    set" + suffix + "(" +
-                     "raw == null ? null : " +
-                       db + "." + targetTableAccessorMethod + "()." +
-                       "get" + targetSuffix + "Object(raw));\n" +
+            "    " + tableAccessorMethod + "().get" + suffix + "Column()." +
+                     "getType().assertValidRaw(raw);\n" +
+	    "    writeLock();\n" +
+	    "    set" + suffix + "_unsafe(raw);\n" +
             "  }\n" +
             "\n" +
             "  public " + type + " get" + suffix + "()\n" +
-            "      throws AccessPoemException, NoSuchRowPoemException {\n" +
-            "    Integer troid = get" + suffix + "Troid();\n" +
-            "    return troid == null ? null :\n" +
-	                 // This cast is necessary when the target table is
-	                 // an "extends"
-	    "        " + targetCast() +
-                         db + "." +
-                         targetTableAccessorMethod + "()." +
-                         "get" + targetSuffix + "Object(troid);\n" +
+            "      throws AccessPoemException {\n" +
+            "    Integer index = get" + suffix + "Index();\n" +
+            "    return index == null ? null :\n" +
+            "        StandardIntegrityFix.forIndex(index.intValue());\n" +
             "  }\n" +
             "\n" +
             "  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
-            "    _" + tableAccessorMethod + "().get" + suffix + "Column()." +
-                    "getType().assertValidCooked(cooked);\n" +
-	    "    writeLock();\n" +
-            "    if (cooked == null)\n" +
-            "      set" + suffix + "_unsafe(null);\n" +
-            "    else {\n" +
-            "      cooked.existenceLock();\n" +
-            "      set" + suffix + "_unsafe(cooked.troid());\n" +
-            "    }\n" +
+            "    set" + suffix + "Index(cooked == null ? null : cooked.index);\n" +
             "  }\n");
   }
 
@@ -144,10 +113,6 @@ public class ReferenceFieldDef extends FieldDef {
   }
 
   public String poemTypeJava() {
-    // FIXME the definition of these is duplicated from TableDef
-    String targetTableAccessorMethod = "get" + type + "Table";
-    return
-        "new ReferencePoemType(((" + table.dsd.databaseClass + ")getDatabase())." +
-        targetTableAccessorMethod + "(), " + isNullable + ")";
+    return "new IntegrityFixPoemType(" + isNullable + ")";
   }
 }

@@ -97,6 +97,8 @@ public abstract class FieldQualifier {
       it = new HeightFieldQualifier(tokens);
     else if (kind.equals("renderinfo"))
       it = new RenderinfoFieldQualifier(tokens);
+    else if (kind.equals("integrityfix"))
+      it = new IntegrityfixFieldQualifier(tokens);
     else
       throw new ParsingDSDException("<field qualifier>", tokens);
     return it;

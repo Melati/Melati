@@ -161,6 +161,8 @@ public abstract class FieldDef {
       return new DisplayLevelFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("Searchability"))
       return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
+    else if (type.equals("IntegrityFix"))
+      return new IntegrityFixFieldDef(table, name, displayOrder, qualifiers);
     else if (type.equals("byte[]"))
       return new BinaryFieldDef(table, name, displayOrder, qualifiers);
     else

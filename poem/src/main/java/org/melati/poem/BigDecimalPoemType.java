@@ -53,7 +53,7 @@ import java.math.BigDecimal;
 import org.melati.poem.dbms.Dbms;
 
 /**
- * Java "BigDecimal", dependant upon the databse/SQL implementation.
+ * Java "BigDecimal", dependant upon the database/SQL implementation.
  *
  * By default, this is a 22 digit number, with 2 digits after the
  * decimal.

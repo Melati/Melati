@@ -48,7 +48,11 @@ package org.melati.util;
 public abstract class Transactioned {
 
   private boolean valid = true;
+
+  /* The transactions which have read us */
   private int seenMask = 0;
+
+  /* The transaction which is writing to us */
   private Transaction touchedBy = null;
   private TransactionPool transactionPool = null;
 
@@ -90,10 +94,10 @@ public abstract class Transactioned {
   private void ensureValid(Transaction transaction) {
     if (!valid) {
       if (transaction == null)
-	transaction = touchedBy;
+        transaction = touchedBy;
 
       if (!upToDate(transaction))
-	load(transaction);
+        load(transaction);
 
       valid = true;
     }
@@ -105,21 +109,20 @@ public abstract class Transactioned {
       // Block on writers until there aren't any
 
       for (;;) {
-	Transaction blocker;
-	synchronized (this) {
-	  if (touchedBy != null && touchedBy != transaction)
-	    blocker = touchedBy;
-	  else {
-	    if ((seenMask & transaction.mask) == 0) {
-	      seenMask |= transaction.mask;
-	      transaction.notifySeen(this);
-	    }
+        Transaction blocker;
+        synchronized (this) {
+          if (touchedBy != null && touchedBy != transaction)
+            blocker = touchedBy;
+          else {
+            if ((seenMask & transaction.mask) == 0) {
+              seenMask |= transaction.mask;
+              transaction.notifySeen(this);
+            }
+            break;
+          }
+        }
 
-	    break;
-	  }
-	}
-
-	blocker.block(transaction);
+        blocker.block(transaction);
       }
     }
 
@@ -136,46 +139,46 @@ public abstract class Transactioned {
     for (;;) {
       Transaction blocker = null;
       synchronized (this) {
-	if (touchedBy == transaction)
-	  // There's a writer, but it's us
-	  break;
+        if (touchedBy == transaction)
+          // There's a writer, but it's us
+          break;
 
-	else if (touchedBy != null)
-	  // There's a writer, and it's not us
-	  blocker = touchedBy;
+        else if (touchedBy != null)
+          // There's a writer, and it's not us
+          blocker = touchedBy;
 
-	else {
-	  int othersSeenMask = seenMask & transaction.negMask;
-	  if (othersSeenMask == 0) {
-	    // There are no readers besides us
+        else {
+          int othersSeenMask = seenMask & transaction.negMask;
+          if (othersSeenMask == 0) {
+            // There are no readers besides us
 
-	    touchedBy = transaction;
-	    transaction.notifyTouched(this);
-	    break;
-	  }
+            touchedBy = transaction;
+            transaction.notifyTouched(this);
+            break;
+          }
           else {
-	    // There are other readers
+            // There are other readers
 
-	    // We block not on the chronologically first reader but on the one
-	    // with the lowest index, i.e. essentially on an arbitrary
-	    // one---not perfect, but doing it any other way would be
-	    // expensive.
+            // We block not on the chronologically first reader but on the one
+            // with the lowest index, i.e. essentially on an arbitrary
+            // one---not perfect, but doing it any other way would be
+            // expensive.
 
-	    int m = transactionPool().transactionsMax();
-	    int t, mask;
-	    for (t = 0, mask = 1;
-		 t < m && (othersSeenMask & mask) == 0;
-		 ++t, mask <<= 1)
-	      ;
+            int m = transactionPool().transactionsMax();
+            int t, mask;
+            for (t = 0, mask = 1;
+                 t < m && (othersSeenMask & mask) == 0;
+                 ++t, mask <<= 1)
+              ;
 
-	    if (t == m)
-	      throw new MelatiBugMelatiException(
+            if (t == m)
+              throw new MelatiBugMelatiException(
                   "Thought there was a blocking transaction, " +
                   "but didn't find it");
 
-	    blocker = transactionPool().transaction(t);
-	  }
-	}
+            blocker = transactionPool().transaction(t);
+          }
+        }
       }
 
       blocker.block(transaction);

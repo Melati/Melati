@@ -54,14 +54,13 @@ public abstract class Transaction {
   public final int mask;
   public final int negMask;
 
+  /* The transaction we are waiting on */
   private Transaction blockedOn = null;
 
-  // The transactions that are directly waiting on us
-
+  /* The transactions that are directly waiting on us */
   private Vector blockees = new Vector();
 
-  // The transitive closure of the transactions we are waiting on
-
+  /* The transitive closure of the transactions we are waiting on */
   private int blockedOnMask;
 
   private int seenCapacityMin = 50;
@@ -84,6 +83,10 @@ public abstract class Transaction {
   protected abstract void backingCommit();
   protected abstract void backingRollback();
 
+  /**
+   * The thread calling block will have to wait
+   * until (another thread) calls finish and calls notifyAll
+   */
   synchronized void block(Transaction blockee) {
     blockees.addElement(blockee);
     blockee.blockedOn = this;
@@ -103,10 +106,10 @@ public abstract class Transaction {
 
   private synchronized void propagateBlockage() {
     if (blockedOn == null)
-      blockedOnMask = mask;
+      blockedOnMask = mask;  // we are only waiting on ourself
     else {
       if ((blockedOn.blockedOnMask & mask) != 0)
-	throw new WouldDeadlockException();
+        throw new WouldDeadlockException();
       blockedOnMask = blockedOn.blockedOnMask | mask;
     }
 
@@ -146,18 +149,18 @@ public abstract class Transaction {
   private void finish(boolean commit) {
     try {
       if (commit) {
-	writeDown();
-	backingCommit();
+        writeDown();
+        backingCommit();
       }
       else
-	backingRollback();
+        backingRollback();
 
       for (Enumeration p = touched.elements(); p.hasMoreElements();) {
-	Transactioned persistent = (Transactioned)p.nextElement();
-	if (commit)
-	  persistent.commit(this);
-	else
-	  persistent.rollback(this);
+        Transactioned persistent = (Transactioned)p.nextElement();
+        if (commit)
+          persistent.commit(this);
+        else
+          persistent.rollback(this);
       }
 
     }
@@ -173,7 +176,7 @@ public abstract class Transaction {
       // this is really the best we can do without using heavy Lock-ish objects
 
       synchronized (this) {
-	notifyAll();
+        notifyAll();
       }
     }
   }
@@ -184,11 +187,10 @@ public abstract class Transaction {
     }
     catch (RuntimeException e) {
       try {
-	finish(false);
+        finish(false);
       }
       catch (Exception ignore) {
       }
-
       throw e;
     }
   }

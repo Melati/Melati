@@ -141,7 +141,6 @@ public class DSD {
     } finally {
       reader.close();
     }
-
   }
 
   void createJava(String name, Generator proc,
@@ -177,12 +176,12 @@ public class DSD {
                 "\n");
         w.write("package " + packageName + ".generated;\n" +
                 "\n");
-        writeImports(w, false);
+        writeImports(w, name, false);
 
       } else {
         w.write("package " + packageName + ";\n" +
                 "\n");
-        writeImports(w, true);
+        writeImports(w, name, true);
       }
 
       w.write("\n");
@@ -203,14 +202,17 @@ public class DSD {
     w.close();
   }
 
-  void writeImports(Writer w, boolean generated) throws IOException {
+  void writeImports(Writer w, String name, boolean generated)
+      throws IOException {
 
     for (Enumeration t = overridenPoemTables.elements(); t.hasMoreElements();) {
       TableDef overridenTable = (TableDef)t.nextElement();
-      w.write("import " + packageName + "." +
-              overridenTable.mainClass + ";\n");
-      w.write("import " + packageName + "." +
-              overridenTable.tableMainClass + ";\n");
+      if (!overridenTable.mainClass.equals(name))
+        w.write("import " + packageName + "." +
+                overridenTable.mainClass + ";\n");
+      if (!overridenTable.tableMainClass.equals(name))
+        w.write("import " + packageName + "." +
+                overridenTable.tableMainClass + ";\n");
     }
 
     w.write("import " + packageName +
@@ -231,8 +233,9 @@ public class DSD {
 
   public void generateDatabaseBaseJava(Writer w) throws IOException {
     w.write("public class " + databaseBaseClass + " extends " +
-            (packageName.equals("org.melati.poem") && name.equalsIgnoreCase("Poem") ?
-             "Database" : "PoemDatabase") + " {\n" +
+            (packageName.equals("org.melati.poem") &&
+                 name.equalsIgnoreCase("Poem") ?
+               "Database" : "PoemDatabase") + " {\n" +
             "\n");
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)

@@ -92,9 +92,9 @@ public abstract class TemplateServlet extends PoemServlet
     templateContext.put("melati",melati);
     melati.setTemplateContext(templateContext);
     String templateName = doTemplateRequest(melati,templateContext);
-    templateName = addExtension(templateName);
     // only expand a template if we have one (it could be a redirect)
     if (templateName != null) {
+      templateName = addExtension(templateName);
       templateEngine.expandTemplate
       (melati.getWriter(), templateName, templateContext);
     }

@@ -85,45 +85,12 @@ public class AtomFieldDef extends FieldDef {
     super.generateColRawAccessors(w);
 
     w.write(
-      "\n /**\n"
-      + "  * Retrieves the " 
-      + suffix 
-      + " value, \n"
-      + "  * without checking, of this <code>" 
-      + table.suffix 
-      + "</code> <code>Persistent</code>.\n"
-      + "  * \n"
-      + "  * @generator " 
-      + "org.melati.poem.prepro.AtomFieldDef" 
-      + "#generateColRawAccessors \n"
-      + "  * @param g  the <code>Persistent</code> to get the value from\n"
-      + "  * @throws AccessPoemException \n"
-      + "  *         if the current <code>AccessToken</code> \n"
-      + "  *         does not confer write access rights\n"
-      + "  */\n");
-    w.write(
       "\n" +
       "          public Object getRaw(Persistent g)\n" +
       "              throws AccessPoemException {\n" +
       "            return ((" + mainClass + ")g).get" + suffix + "();\n" +
       "          }\n" +
       "\n");
-    w.write(
-      "\n /**\n"
-      + "  * Sets the " 
-      + suffix 
-      + " value, without checking, for this <code>" 
-      + table.suffix 
-      + "</code> <code>Persistent</code>.\n"
-      + "  * \n"
-      + "  * @generator "
-      + "org.melati.poem.prepro.AtomFieldDef" 
-      + "#generateColRawAccessors \n"
-      + "  * @param g  the <code>Persistent</code> to modify\n"
-      + "  * @throws AccessPoemException \n"
-      + "  *         if the current <code>AccessToken</code> \n"
-      + "  *         does not confer write access rights\n"
-      + "  */\n");
     w.write(
       "          public void setRaw(Persistent g, Object raw)\n" +
       "              throws AccessPoemException {\n" +

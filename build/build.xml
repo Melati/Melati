@@ -58,10 +58,6 @@
     <pathelement path="${build.lib}/mm.mysql-2.0.11-bin.jar" />
     <pathelement path="${build.lib}/mkjdbc.jar"/>
   </path>
-  <path id="classpath.run">
-    <path refid="classpath.jetty"/>
-    <pathelement path="${war}"/>
-  </path>
 
 
     <!-- ================================================================= -->
@@ -342,12 +338,12 @@ usage:
           <exclude name="**/*.class"/>
       </zipfileset>
       <!-- Templets and properties files -->
-      <fileset dir="${built.src}">
+      <classes dir="${built.src}">
         <patternset>
           <include name="**/*.properties"/>
           <include name="**/*.wm"/>
         </patternset>
-      </fileset>
+      </classes>
       <!-- Third party jars -->
       <lib dir="${build.lib}">
         <include name="webmacro-1.0.jar"/>
@@ -367,7 +363,7 @@ usage:
 
   <target name="run" description="Launch Jetty">
     <java classname="org.mortbay.jetty.Server"
-          classpathref="classpath.run"
+          classpathref="classpath.jetty"
           fork="yes"
           failonerror="yes">
       <arg line="jetty.xml"/>

@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <!DOCTYPE suppressions PUBLIC
     "-//Puppy Crawl//DTD Suppressions 1.0//EN"
     "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
@@ -28,6 +27,9 @@
     <!-- Name deliberately chosen -->
     <suppress checks="LocalVariableName"
               files="FieldSet.java" />
+    <!-- Name deliberately chosen -->
+    <suppress checks="LocalVariableName"
+              files="MultipartDataDecoder.java" />
 
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"

@@ -52,7 +52,6 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.ServletException;
 
 import org.melati.admin.AdminUtils;
 import org.melati.poem.Database;
@@ -68,6 +67,7 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.AcceptCharset;
 import org.melati.util.DatabaseInitException;
+import org.melati.util.CharsetException;
 import org.melati.util.HttpUtil;
 import org.melati.util.HttpHeader;
 import org.melati.util.MelatiBufferedWriter;
@@ -108,6 +108,8 @@ public class Melati {
   private Table table = null;
   private Persistent object = null;
 
+  private String[] arguments;
+  
   // the template engine that is in use (if any)
   private TemplateEngine templateEngine;
   // the object that is used by the template engine to expand the template
@@ -332,7 +334,6 @@ public class Melati {
    *
    * @return - an array of the parts found on the PathInfo
    */
-
   public String[] getPathInfoParts() {
     String pathInfo = request.getPathInfo();
     if (pathInfo == null || pathInfo.length() < 1) return new String[0];
@@ -341,11 +342,28 @@ public class Melati {
   }
 
   /**
+   * Set the aruments array from the commandline.
+   * 
+   * @param args
+   */
+  public void setArguments(String[] args) {
+    arguments = args;
+  }
+  
+  /**
+   * Get the Arguments array.
+   * 
+   * @return the arguments array
+   */
+  public String[] getArguments() {
+    return arguments;
+  }
+  
+  /**
    * Get the Session for this Request.
    *
    * @return - the Session for this Request
    */
-
   public HttpSession getSession() {
     return getRequest().getSession(true);
   }
@@ -455,7 +473,7 @@ public class Melati {
    * end up with values in such parameters the client and
    * server will probably have settled on particular encodings.
    */
-  public void establishCharsets() throws ServletException {
+  public void establishCharsets() throws CharsetException {
 
     AcceptCharset ac;
     String acs = request.getHeader("Accept-Charset");
@@ -469,7 +487,7 @@ public class Melati {
       ac = new AcceptCharset(acs, config.getPreferredCharsets());
     }
     catch (HttpHeader.HttpHeaderException e) {
-      ServletException t = new ServletException(
+      CharsetException t = new CharsetException(
           "An error was apparently detected in your HTTP request header " +
           " worthy of response code: " +
           HttpServletResponse.SC_BAD_REQUEST +

@@ -197,6 +197,8 @@ public class MelatiConfig {
       // This is a fancy way of splitting, trimming and checking for
       // errors such as spaces within fields. Also, it reflects the
       // fact that the config file format is like a q-less header field.
+      // FIXME - if field contains quotes then melati initialisation 
+      // dies with OutOfMemory exception
       preferredCharset = 
         EnumUtils.vectorOf(new HttpHeader(preferredCharsets).wordIterator());
 

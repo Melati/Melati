@@ -89,17 +89,21 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
   }
 
   public Enumeration selection() {
-    Vector results = this.results;
-    if (!upToDate() || results == null)
-      results = this.results = EnumUtils.vectorOf(super.selection());
-    return results.elements();
+    Vector resultsLocal = this.results;
+    if (!upToDate() || resultsLocal == null) {
+      this.results = EnumUtils.vectorOf(super.selection());
+      resultsLocal = this.results;
+    }
+    return resultsLocal.elements();
   }
 
   public Enumeration selection_firstRaw()  {
-    Vector firstRawResults = this.firstRawResults;
-    if (!upToDate() || firstRawResults == null)
-      firstRawResults = this.firstRawResults =
+    Vector firstRawResultsLocal = this.firstRawResults;
+    if (!upToDate() || firstRawResultsLocal == null) {
+      this.firstRawResults =
         EnumUtils.vectorOf(super.selection_firstRaw());
-    return firstRawResults.elements();
+      firstRawResultsLocal = this.firstRawResults;
+    }
+    return firstRawResultsLocal.elements();
   }
 }

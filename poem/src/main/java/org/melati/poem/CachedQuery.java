@@ -91,15 +91,15 @@ public abstract class CachedQuery {
   protected abstract Object extract(ResultSet rs) throws SQLException;
 
   protected void compute() {
-    Vector rows = this.rows;
+    Vector rowsLocal = this.rows;
     SessionToken token = PoemThread.sessionToken();
-    if (rows == null || somethingHasChanged(token.transaction)) {
-      rows = new Vector();
+    if (rowsLocal == null || somethingHasChanged(token.transaction)) {
+      rowsLocal = new Vector();
       try {
         ResultSet rs = statements().resultSet(token);
         try {
           while (rs.next())
-            rows.addElement(extract(rs));
+            rowsLocal.addElement(extract(rs));
         }
         finally {
           try { 
@@ -112,7 +112,7 @@ public abstract class CachedQuery {
       catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
-      this.rows = rows;
+      this.rows = rowsLocal;
       updateSerials(token.transaction);
     }
   }

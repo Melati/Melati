@@ -64,7 +64,7 @@ $ml.rendered($object)</a></font>
 #if ($references.hasMoreElements()) #begin
 <td align=right valign=top><p><FONT FACE="Arial, Helvetica" size=-1>for this record you can edit:<br>
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object">$column.Table.DisplayName</a>,&nbsp;]
+[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object">$column.Table.DisplayName</a>&nbsp;]
 #end</font></p>
 </td>
 #end 

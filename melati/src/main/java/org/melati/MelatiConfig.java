@@ -92,7 +92,8 @@ public class MelatiConfig {
   private TemplateEngine templateEngine = null;
   private MelatiLocale melatiLocale = null;
   private Vector preferredCharset = null;
-  private Hashtable localeHash = new Hashtable(10);
+  private int maxLocales = 10;
+  private Hashtable localeHash = new Hashtable(maxLocales);
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;
@@ -120,8 +121,8 @@ public class MelatiConfig {
     init(propertiesName);
   }
   
-  void init(String propertiesName) throws MelatiException {
-    this.propertiesName = propertiesName;
+  void init(String propertiesNameIn) throws MelatiException {
+    this.propertiesName = propertiesNameIn;
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
     String fdaFactoryProp = pref + "formDataAdaptorFactory";

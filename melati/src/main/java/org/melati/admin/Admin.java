@@ -45,8 +45,6 @@
 
 package org.melati.admin;
 
-import java.io.File;
-
 import java.util.Vector;
 import java.util.Enumeration;
 
@@ -386,8 +384,9 @@ public class Admin extends TemplateServlet {
       }
     }
 
+    final int resultsPerPage = 20;
     context.put("results", table.selection(table.whereClause(criteria),
-                orderBySQL, false, start, 20));
+                orderBySQL, false, start, resultsPerPage));
 
     return context;
   }
@@ -544,12 +543,14 @@ public class Admin extends TemplateServlet {
     // Compose field for naming the TROID column: the display name and
     // description are redundant, since they not used in the template
 
+    final int troidHeight = 1;
+    final int troidWidth = 20;
     Field troidNameField = new Field(
         "id",
         new BaseFieldAttributes(
             "troidName", "Troid column", "Name of TROID column",
             database.getColumnInfoTable().getNameColumn().getType(),
-            20, 1, null, false, true, true));
+            troidWidth, troidHeight, null, false, true, true));
 
     context.put("troidNameField", troidNameField);
 

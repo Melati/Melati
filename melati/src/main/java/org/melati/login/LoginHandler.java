@@ -44,8 +44,6 @@
  */
 package org.melati.login;
 
-import java.io.File;
-
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import java.net.URLEncoder;
@@ -68,7 +66,7 @@ import org.melati.util.MD5Util;
  */
 public class LoginHandler {
 
-  public static int ONEYEARINSECONDS = 60 * 60 * 24 * 365;
+  static int ONEYEARINSECONDS = 60 * 60 * 24 * 365;
 
   protected TemplateServlet servlet;
 
@@ -187,7 +185,7 @@ public class LoginHandler {
   }
 
   public String doTemplateRequest(Melati melati, 
-                                  TemplateContext templateContext )
+                                  TemplateContext templateContext)
      throws Exception {
 
     setupContext(templateContext);

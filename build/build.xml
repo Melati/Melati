@@ -18,6 +18,7 @@
   <property name="this.root"          value=".."/>
   <property name="src"                value="../src"/>
   <property name="site"               value="../site"/>
+  <property name="xdocs"              value="../xdocs"/>
   <property name="build.lib"          value="../lib"/>
   <property name="built"              value="dist"/>
   <property name="built.root"         value="./${built}"/>
@@ -25,8 +26,8 @@
   <property name="built.dir"          value="${built.root}/${project}_${version}"/>
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
-  <property name="built.build"          value="${built.dir}/build"/>
-  <property name="built.site"          value="${built.dir}/site"/>
+  <property name="built.build"        value="${built.dir}/build"/>
+  <property name="built.site"         value="${built.dir}/site"/>
   <property name="site"               value="../site"/>
   <property name="site.src"           value="../site/src"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
@@ -242,8 +243,13 @@ usage:
     <loadfile property="header" srcFile="${site.src}/header.html"/>
     <loadfile property="footer" srcFile="${site.src}/footer.html"/>
     <loadfile property="menu" srcFile="${site.src}/menu.html"/>
+    <loadfile property="sectionStartTagStart" 
+              srcFile="${site.src}/xHTMLSectionStartTagStart.tag"/>
+    <loadfile property="sectionStartTagEnd" 
+              srcFile="${site.src}/xHTMLSectionStartTagEnd.tag"/>
+    <property name="sectionEndTag" value=''/>
     <copy todir="${site}">
-       <fileset dir="${site.src}"/>
+       <fileset dir="${site.src}" includes="*.ahtml"/>
        <filterset>
           <filter token="header"   value="${header}"/>
           <filter token="footer"   value="${footer}"/>
@@ -253,8 +259,53 @@ usage:
           <filter token="name"     value="${name}"/>
           <filter token="date"     value="${date}"/>
           <filter token="filename" value="${project}_${version}"/>
+          <filter token="sectionStartTagStart" value="${sectionStartTagStart}"/>
+          <filter token="sectionStartTagEnd" value="${sectionStartTagEnd}"/>
+          <filter token="sectionEndTag" value="${sectionEndTag}"/>
        </filterset>
        <mapper type="glob" from="*.ahtml" to="*.html"/>
+    </copy>
+    
+  </target>
+
+    <!-- ============================================================= -->
+    <!-- Generate maven.melati.org xdocs                               -->
+    <!-- ============================================================= -->
+  <target name="xdocs"
+          description="build maven xdocs">
+    <mkdir dir="${xdocs}/org"/>
+    <mkdir dir="${xdocs}/org/images"/>
+    <delete>
+       <fileset dir="${xdocs}/org" includes="*.xml"/>
+    </delete>
+    <loadfile property="header" srcFile="${site.src}/header.xml"/>
+    <loadfile property="footer" srcFile="${site.src}/footer.xml"/>
+    <loadfile property="menu" srcFile="${site.src}/menu.xml"/>
+    <loadfile property="sectionStartTagStart" 
+              srcFile="${site.src}/xMLSectionStartTagStart.tag"/>
+    <loadfile property="sectionStartTagEnd" 
+              srcFile="${site.src}/xMLSectionStartTagEnd.tag"/>
+    <loadfile property="sectionEndTag" 
+              srcFile="${site.src}/xMLSectionEndTag.tag"/>
+    <copy todir="${xdocs}">
+      <fileset dir="${site.src}" includes="*.ahtml" excludes="MailingList.html"/>
+      <filterset>
+        <filter token="header"   value="${header}"/>
+        <filter token="footer"   value="${footer}"/>
+        <filter token="menu"     value="${menu}"/>
+        <filter token="version"  value="${version}"/>
+        <filter token="project"  value="${project}"/>
+        <filter token="name"     value="${name}"/>
+        <filter token="date"     value="${date}"/>
+        <filter token="filename" value="${project}_${version}"/>
+        <filter token="sectionStartTagStart" value="${sectionStartTagStart}"/>
+        <filter token="sectionStartTagEnd" value="${sectionStartTagEnd}"/>
+        <filter token="sectionEndTag" value="${sectionEndTag}"/>
+      </filterset>
+      <mapper type="glob" from="*.ahtml" to="*.xml"/>
+    </copy>
+    <copy todir="${xdocs}/images">
+      <fileset dir="${site}/images" />
     </copy>
     
   </target>
@@ -488,7 +539,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, unittest, zip, javadoc, site, sources, package, war">
+          depends="clean, compile, unittest, zip, javadoc, site, xdocs, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"

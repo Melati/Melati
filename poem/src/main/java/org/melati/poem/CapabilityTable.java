@@ -79,28 +79,18 @@ public class CapabilityTable extends CapabilityTableBase {
       info.setCancreate(administer);
   }
   
-
-  private Hashtable cache = null;
-  private long cacheSerial = 0L;
-
   public Capability get(String name) {
-    if (cache == null || cacheSerial != serial(PoemThread.transaction()))
-      cache = new Hashtable();
-    Object value = cache.get(name);
-    if (value == nullEntry)
-      return null;
-    else if (value != null)
-      return (Capability)value;
+      return (Capability) getNameColumn().firstWhereEq(name);
+  }
+
+  public Capability ensure(String name) {
+    Capability capability = get(name);
+    if (capability != null)
+      return capability;
     else {
-      Capability cap = (Capability)getNameColumn().firstWhereEq(name);
-      if (cap == null) {
-	cache.put(name, nullEntry);
-	return null;
-      }
-      else {
-	cache.put(name, cap == null ? nullEntry : cap);
-	return cap;
-      }
+      capability = (Capability) newPersistent();
+      capability.setName(name);
+      return (Capability)getNameColumn().ensure(capability);
     }
   }
 

@@ -54,8 +54,7 @@ import org.melati.servlet.TemplateServlet;
 
 public class Logout extends TemplateServlet {
 
-  protected String logoutTemplate
-  (String name) {
+  protected String logoutTemplate(String name) {
     return "login/" + name;
   }
 

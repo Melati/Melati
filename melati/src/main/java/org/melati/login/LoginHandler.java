@@ -90,7 +90,7 @@ public class LoginHandler {
     } else {
       if (MelatiUtil.getFormNulled(templateContext,"continuationURL") != null) {
         templateContext.put("continuationURL",
-        templateContext.getForm("continuationURL"));
+                            templateContext.getForm("continuationURL"));
       }
     }
 

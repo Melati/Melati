@@ -53,26 +53,28 @@ import org.melati.poem.*;
 
 public class Email {
 
-  public static void send(
-  Database database,
-  String from,
-  String to,
-  String replyto,
-  String subject,
-  String message) throws EmailException, IOException {
+  static SimpleDateFormat formatter = 
+                       new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
 
-  String[] toList = {to};
-    sendToList(database,from,toList,to,replyto,subject,message);
+  public static void send(Database database,
+                          String from,
+                          String to,
+                          String replyto,
+                          String subject,
+                          String message) throws EmailException, IOException {
+
+    String[] toList = {to};
+    sendToList(database, from, toList, to, replyto, subject, message);
   }
 
-  public static void sendToList(
-  Database database,
-  String from,
-  String[] toList,
-  String apparentlyTo,
-  String replyto,
-  String subject,
-  String message) throws EmailException, IOException {
+  public static void sendToList(Database database,
+                                String from,
+                                String[] toList,
+                                String apparentlyTo,
+                                String replyto,
+                                String subject,
+                                String message) throws EmailException,
+                                                       IOException {
 
     SmtpClient smtp;
     String smtpserver = database.getSettingTable().get("smtpserver");
@@ -80,23 +82,23 @@ public class Email {
       smtp = new SmtpClient(smtpserver);
     } catch (Exception e) {
       throw new EmailException("Couldn't create smtp client " + 
-      smtpserver + ", " + e.toString());
+                               smtpserver + ", " + e.toString());
     }
 
     // construct the data
     Date now = new Date();
-    SimpleDateFormat formatter = 
-    new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
     String nowString = formatter.format(now);
     smtp.from(from);
     for (int i=0; i<toList.length; i++)
-    smtp.to(toList[i]);
+      smtp.to(toList[i]);
+
     PrintStream msg = smtp.startMessage();
     msg.println("Date: " + nowString);
     msg.println("From: " + from);
     msg.println("To: " + apparentlyTo);
     msg.println("Subject: " + subject);
-    if (!replyto.equals("")) msg.println("Reply-to: " + replyto);
+    if (!replyto.equals(""))
+      msg.println("Reply-to: " + replyto);
     msg.println();
     msg.println(message);
     smtp.closeServer();

@@ -97,25 +97,25 @@ class HttpAuthorization {
 
       if (colon == -1)
       throw new HttpAuthorizationMelatiException(
-      "The browser sent Basic Authorization credentials with no colon " +
-      "(that's not legal)");
+        "The browser sent Basic Authorization credentials with no colon " +
+        "(that's not legal)");
 
       return new HttpAuthorization("Basic",
-      logpas.substring(0, colon).trim(),
-      logpas.substring(colon + 1).trim());
+                                   logpas.substring(0, colon).trim(),
+                                   logpas.substring(colon + 1).trim());
     }
     else {
       int space = authHeader.indexOf(' ');
       if (space == -1)
-      throw new HttpAuthorizationMelatiException(
-      "The browser sent an Authorization header without a space, " +
-      "so it can't be anything Melati understands: " +
-      authHeader);
+        throw new HttpAuthorizationMelatiException(
+            "The browser sent an Authorization header without a space, " +
+            "so it can't be anything Melati understands: " +
+            authHeader);
 
       String type = authHeader.substring(0, space);
-      throw new HttpAuthorizationMelatiException(
-      "The browser tried to authenticate using an authorization type " +
-      "`" + type + "' which Melati doesn't understand");
+        throw new HttpAuthorizationMelatiException(
+            "The browser tried to authenticate using an authorization type " +
+            "`" + type + "' which Melati doesn't understand");
     }
   }
 
@@ -135,7 +135,7 @@ class HttpAuthorization {
 
 public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   private static final String className =
-  new HttpBasicAuthenticationAccessHandler().getClass().getName();
+          new HttpBasicAuthenticationAccessHandler().getClass().getName();
 
   public final String REALM = className + ".realm";
   public final String USER = className + ".user";
@@ -157,10 +157,8 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, message);
   }
 
-  public void handleAccessException(Melati melati,
-  AccessPoemException accessException)
-  throws Exception {
-
+  public void handleAccessException(Melati melati, AccessPoemException accessException)
+                                                                      throws Exception {
     String capName = "melati";
     if (useSession())
     melati.getSession().putValue(REALM, capName);
@@ -209,13 +207,13 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
         String storedRealm;
         if (useSession() &&
-        (storedRealm = (String)melati.getSession().getValue(REALM)) !=
-        null) {
+            (storedRealm = (String)melati.getSession().getValue(REALM))
+                 != null) {
 
           // The "realm" is stored in the session
 
           forceLogin(melati.getResponse(), storedRealm,
-          "Login/password not recognised");
+                     "Login/password not recognised");
           return null;
         }
         else {

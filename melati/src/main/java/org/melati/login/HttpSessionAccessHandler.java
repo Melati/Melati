@@ -65,9 +65,8 @@ import org.melati.util.ReconstructedHttpServletRequest;
 public class HttpSessionAccessHandler implements AccessHandler {
 
   public static final String
-  OVERLAY_PARAMETERS =
-  "org.melati.HttpSessionAccessHandler.overlayParameters",
-  USER = "org.melati.HttpSessionAccessHandler.user";
+     OVERLAY_PARAMETERS = "org.melati.HttpSessionAccessHandler.overlayParameters",
+     USER = "org.melati.HttpSessionAccessHandler.user";
 
   /**
    * The class name of the class implementing the login servlet.  Unless
@@ -128,7 +127,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
     synchronized (session) {
       User user = (User)session.getValue(USER);
       PoemThread.setAccessToken(
-      user == null ? melati.getDatabase().guestAccessToken() : user);
+        user == null ? melati.getDatabase().guestAccessToken() : user);
     }
     return melati;
   }

@@ -53,9 +53,10 @@ import org.melati.Melati;
 import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 
 public interface AccessHandler {
+
   void handleAccessException(Melati melati, 
                              AccessPoemException accessException)
-    throws Exception;
+                        throws Exception;
 
   /**
    * @return the <TT>WebContext</TT> to use in processing the request; can

@@ -1,379 +1,780 @@
 <html><head>
+
 <title>Melati Readme Documentation</title>
+
 </head>
 
+
+
 <body bgcolor="white">
+
 <blockquote> 
+
   <h1 align="center">The Melati Project</h1>
+
   <h3 align="center"> last updated 23/03/2001 - mylesc@paneris.org</h3>
+
   <!-- -----------------------------------------------------
+
         This document is fairly readable as text, but looks 
+
         real ugly. It'll be more fun reading it in a browser.
+
         ----------------------------------------------------- --> 
+
   <h4>Contents: </h4>
+
   <ul>
+
     <li><a href="#About">About Melati</a> 
+
     <li><a href="#Release">Release Notes</a> 
+
     <li><a href="#Upgrading">Upgrading</a> 
+
     <li><a href="#Documentation">Documentation</a> 
+
     <li><a href="#Licensing">Licensing</a> 
+
     <li><a href="#Anatomy">Anatomy of this Release</a> 
+
     <li><a href="#Installing">Installing</a> 
+
     <li><a href="#Started">Getting Started</a> 
+
     <li><a href="#Credits">Credits</a> 
+
   </ul>
+
   <h2><a name="About">About Melati</a></h2>
+
   <p> Melati is a tool for building Java-programmed websites backed by a database. 
+
     It provides the following features:</p>
+
   <ul>
+
     <li> a generic <b>database admin system</b>, allowing the site manager to 
+
       edit both the contents and the structure of the database through a simple 
+
       web based interface.</li>
+
     <li>an object layer where the database is seen as a collection of Java objects, 
+
       via a (genuinely!) easy-to-use<b> transparent persistence layer</b> on top 
+
       of JDBC. </li>
+
     <li>a <b>low level security model</b> allowing restrictions to be placed on 
+
       tables, rows and fields.</li>
+
     <li>cookie-based or HTTP-based login provoked automatically by access control 
+
       failure.</li>
+
     <li>rapid templating mechanism, using "templets" (sub-templates) for rendering 
+
       interface elements (e.g. HTML input boxes, dropdowns), and providing an 
+
       easy interface with persistent objects. 
+
     <li>close integration with the <a href=http://www.webmacro.org>Webmacro</a> 
+
       templating engine. </li>
+
     <li>built in file upload </li>
+
   </ul>
+
   <p> Melati's design builds on our experience with previous systems we have deployed 
+
     successfully on a number of commercial sites: we feel that it enables a particularly 
+
     elegant and productive way of working. </p>
+
   <p>&nbsp;</p>
+
   <p>&nbsp;</p>
+
   <a name="Release"> 
+
   <h2> Release Notes</h2>
+
   </a> 
+
   <p>See the <a href="RELEASE-NOTES.html">release notes</a> for detailed documentation 
+
     about what has changed. This is the 3rd beta release of Melati, offering the 
+
     following improvements over Alpha versions of Melati:</p>
+
   <ul>
+
     <li>DSDs can now be imported into other DSDs giving some level of modularisation 
+
       for Melati applications</li>
+
     <li>Support for Webmacro 0.95b3 </li>
+
     <li>Cascading deletion in POEM</li>
+
     <li>Cleaner servlet API</li>
+
     <li>File upload</li>
+
     <li>Melati Test suite</li>
+
     <li>Testing and numerous bug fixes</li>
+
     <li>Now available as a downloadable zip / tar.gz. </li>
+
     <li>Precompiled (javac) melati.jar</li>
+
     <li>Ant build script</li>
+
     <li>Mailing list hosted on SourceForge</li>
+
     <li>More documentation (this document).</li>
+
     <li>Revised licensing - Dual ASF / GPL licensing.</li>
+
   </ul>
+
   <p>&nbsp; </p>
+
   <p> 
+
   <a name="Upgrading"> 
+
   <h2>Upgrading</h2>
+
   </a> 
+  <h3>To upgrade from Melati 0.53.4 to Melati 0.53.5</h3>
+  <p> You will probably not need to make any changes, but you should be aware 
+    of the following:</p>
+  <p>1) We no longer provide a getXxxxDatabase() function in each Table and Persistent. 
+    Instead you should either just use getDatabase() or you can use getXxxxDatabaseTables() 
+    to access tables specific to your project. In particular, getPoemDatabase() 
+    is no longer available in the Poem tables/persisents. So if you call getPoemDatabase() 
+    in your code, you should change it one of getDatabase() or getPoemDatabaseTables(). 
+    Similarly, if you re-run DSD on your project Xxxx then you will need to handle 
+    any calls to getXxxxDatabase(). You can either change them to getXxxxDatabaseTables(), 
+    getDatabase(), or you can add the old function into your non-generated files: 
+    e.g. in MyTable.java add:</p>
+  <pre> XxxxDatabase getXxxxDatabase() { 
+
+    (XxxxDatabase)getDatabase();
+
+ }</pre>
+  <p> 2) I have tested this on several databases and although I am fairly confident 
+    that it should work, IF YOU RE-RUN DSD ON YOUR OWN DATABASES YOU MAY EXPERIENCE 
+    PROBLEMS.</p>
+  <p> 3) Your .dsd file must live in the same directory as your compiled code 
+    because it is loaded as a Resource. </p>
+  <p>&nbsp;</p>
   <h3>To upgrade from Melati 0.53.3 to Melati 0.53.4</h3>
+
   <ul>
+
     <li>you must install the 0.95b3 webmacro snapshot</li>
+
   </ul>
+
   <h3>&nbsp;</h3>
+
   <h3>To upgrade from Melati 0.53.2.1 to Melati 0.53.3</h3>
+
   <ul>
+
     <li>you must install the 2000-12-06 webmacro snapshot</li>
+
   </ul>
+
   <p>&nbsp;</p>
+
   <h3>To upgrade from Melati 0.52 to Melati 0.53</h3>
+
   <ul>
+
     <li>you must install version 0.94 (at least) of webmacro</li>
+
     <li> if your code overrides `Persistent.deleteAndCommit(), please read the 
+
       <a href="RELEASE-NOTES.html">Release Notes</a>.</li>
+
   </ul>
+
   <h3>&nbsp;</h3>
+
   <h3>To upgrade from Melati 0.50 to Melati 0.52</h3>
+
   <ul>
+
     <li>your Webmacro based servlets should now extend org.melati.template.webmacro.WebmacroTemplateServlet, 
+
       and return a String represtation of the Template name, not the actual template. 
+
     </li>
+
     <li>If you override any templets, they will need to move to the /template/webmacro/templets 
+
       directory. </li>
+
     <li> 
+
       <p>You will need to add the following line to<tt> org.melati.Melatiservlet.properties</tt></p>
+
       <p><tt>org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine 
+
         </tt></p>
+
       <p>Also, if you have an entry for TempletLoader, it should now read:</p>
+
       <p><tt>org.melati.MelatiServlet.templetLoader=org.melati.template.ClassNameTempletLoader 
+
         </tt></p>
+
       <p>And javascriptLibraryURL should read</p>
+
       <p><tt>org.melati.MelatiServlet.javascriptLibraryURL=/melati-static/template/webmacro/templets/html</tt></p>
+
     </li>
+
   </ul>
+
   <p>&nbsp;</p>
+
   <h3>To upgrade from Melati Alpha Releases to Melati 0.50</h3>
+
   <p>As this is the 1st beta release, please follow the <a href="README.html#Installation">Installation 
+
     instructions</a>.</p>
+
   <p></p>
+
   <p>&nbsp;</p>
+
   <h2><a name="Documentation">Documentation</a></h2>
+
   Documentation for Melati can be found on the website, and on the Melati page 
+
   at SourceForge. This README is just an overview. 
+
   <p> 
+
   <ul>
+
     <li><a href="http://www.melati.org">Melati Website</a> 
+
     <li><a href="http://www.sourceforge.net/projects/melati">Melati SourceForge 
+
       Page</a> 
+
   </ul>
+
   <p>The <a href="/docs/">Java Doc API's</a>, is included with this release.</p>
+
   <p>We strongly recommend joining the <a href="http://lists.sourceforge.net/mailman/listinfo/melati-users">Melati 
+
     Users mailing list</a></p>
+
   <p>If you are interested in contributing code to Melati, please also join the 
+
     <a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">Melati 
+
     Developers mailing list</a>.</p>
+
   <p>If you simply want to be kept up-to-date with announcements, please join 
+
     the low traffic <a href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">Melati 
+
     Announcements mailing list.</a></p>
+
   <p> If you are looking for support, found a bug, have a suggestion, or just 
+
     want to chat with the developers, use the Melati developers or Melati Users 
+
     mailing list. 
+
   <p>&nbsp; 
+
   <h2><a name="Licensing"></a>Licensing</h2>
+
   <p> Melati is free software; Permission is granted to copy, distribute and/or 
+
     modify this software under the terms either:<br>
+
   </p>
+
   <p> a) the GNU General Public License as published by the Free Software Foundation; 
+
     either version 2 of the License, or (at your option) any later version.</p>
+
   <p> or<br>
+
     <br>
+
     b) any version of the Melati Software License.</p>
+
   <p>&nbsp;</p>
+
   <p>The GNU General Public License version 2 is <a href="LICENSE-GPL.txt">included 
+
     in this snapshot</a>, and is available <a href="http://www.gnu.org/copyleft/gpl.txt">online</a>.</p>
+
   <p>The Melati Software License is compatible with the <a href="http://www.apache.org/LICENSE.txt">Apache 
+
     Software Foundation's</a> <a href="http://www.apache.org/LICENSE.txt">Apache 
+
     Software License.</a> It is <a href="LICENSE-MSL.txt">included in this snapshot</a> 
+
     , and is available online at <a href="http://melati.org">http://melati.org.</a></p>
+
   <p><br>
+
   </p>
+
   <a name="Anatomy"> 
+
   <h2>Anatomy of this Release</h2>
+
   </a> 
+
   <ul>
+
     <li> /doc - contains the API documentation</li>
+
     <li> /lib - contains melati.jar, compiled using JDK 1.2 JAVAC </li>
+
     <li>/src - contains the melati sources (in src.zip), and additional files 
+
       (*.wm, *.html, *.gif and *.js) in the org/melati/* tree.</li>
+
   </ul>
+
   <p>&nbsp;</p>
+
   <h2><a name="Installing"></a>Installation</h2>
+
   <p> This document describes how to install the system on a new machine. </p>
+
   <h3> Prerequisites </h3>
+
   <h4> Hardware</h4>
+
   <p> Since Melati is written entirely in Java, it is portable relatively easily 
+
     to any machine which supports the JVMs mentioned below. </p>
+
   <h4> Software</h4>
+
   <p> Melati has been proved to work in the following environments:</p>
+
   <table width="75%" border="1" cellspacing="0" cellpadding="5">
+
     <tr> 
+
       <td>Operating System</td>
+
       <td> 
+
         <ul>
+
           <li>Linux 2.2.12 with glibc 2.1.1, 2.0.34/i586 with glibc 2.0.7. </li>
+
           <li> Win2000 | WinNT/i586 </li>
+
         </ul>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td>Web Server / Servlet Engine</td>
+
       <td> 
+
         <ul>
+
           <li>Apache 1.3.12 / JServ 1.1</li>
+
           <li>MS IIS 4.0 / Apache Tomcat 3.1 </li>
+
         </ul>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td>JDK</td>
+
       <td> 
+
         <blockquote> 
+
           <p>1.2, 1.3 </p>
+
         </blockquote>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td>JSDK</td>
+
       <td> 
+
         <blockquote>2.0, 2.2</blockquote>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td>Database</td>
+
       <td> 
+
         <blockquote>PostgreSQL 7.0 (and up)</blockquote>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td>Template Engine</td>
+
       <td> 
+
         <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> snapshot 
+
           0.95b3</blockquote>
+
       </td>
+
     </tr>
+
   </table>
+
   <p>The JDBC facilities used by Melati are pretty simple, and we are aiming for 
+
     compatibility with any DBMS which supports JDBC and transactions, but for 
+
     now Postgresql is what we use, even though it is imperfect. </p>
+
   <p>We expect Melati to run in most Servlet Environments (we just havn't tested 
+
     them all yet :)</p>
+
   <h2>&nbsp; </h2>
+
   <h3><!-- ============== --> Step by step Installation<!-- ============== --> 
+
   </h3>
+
   <p> It is assumed that you already have a working installation of <a href="http;//www.webmacro.org">Webmacro</a> 
+
     (<i>i.e.</i> web server, servlet runner, and Webmacro classes), and a working 
+
     installation of <a href="http://www.postgresql.org">Postgres</a> or, presuming 
+
     compatibility, another RDBMS. </p>
+
   <p>It is assumed you are installing from the Melati snapshot. If you would like 
+
     to build melati yourself from the CVS sources, please use the installation 
+
     doc available from <a href="http://melati.org">http://melati.org</a>.</p>
+
   <table width="0%" border="0" cellpadding="10" cellspacing="0">
+
     <tr> 
+
       <td valign="top">1.</td>
+
       <td>Set up a database for use by Melati. With Postgres this involves typing, 
+
         for example, <tt>createdb melatitest</tt> at the Linux prompt, as a user 
+
         who is allowed to create databases. </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">2.</td>
+
       <td>Arrange for the user in whose name your httpd runs---often, `<tt>nobody</tt>'---to 
+
         be able to connect to the test database and create tables in it. With 
+
         Postgres this is a no-op under the default `security' setup, assuming 
+
         that your postmaster is running on the same machine as your web server. 
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">3.</td>
+
       <td> Download the latest Melati snapshot from <a href="http;//www.melati.org">www.melati.org</a>, 
+
         and unzip or untar it. eg: 
+
         <ul>
+
           <li>Unix users type: 
+
             <ul>
+
               <li><tt>cd /usr/local/</tt></li>
+
               <li> <tt>tar -xzf melati_0.53.tar.gz</tt></li>
+
               <li>for convenience, create a soft link: <tt>ln -s melati_0.53 melati 
+
                 </tt></li>
+
             </ul>
+
           </li>
+
           <li>Windows users should use WinZip</li>
+
         </ul>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">4.</td>
+
       <td  valign=top> 
+
         <p><a name="6"></a>Arrange for Melati's classes and properties files to 
+
           be accessible to your servlet runner. </p>
+
         <p>For Apache Jserv, this can be done either in the <tt>jserv.properties</tt> 
+
           file, by adding a lines</p>
+
         <blockquote> 
+
           <pre>
+
 wrapper.classpath=/usr/local/melati/src
 
+
+
 wrapper.classpath=/usr/local/melati/lib/melati.jar</pre>
+
         </blockquote>
+
         <p>or in your <tt>&lt;zone&gt;.properties</tt> file by adding </p>
+
         <blockquote> 
+
           <pre>/usr/local/melati/src,/usr/local/melati/lib/melati.jar</pre>
+
         </blockquote>
+
         <p>to the line beginning <tt>repositories=</tt></p>
+
         <p><b>Note:</b> These should be placed before references to webmacro.jar.</p>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">5.</td>
+
       <td  valign=top> 
+
         <p>Arrange for Melati's statically served pages to be accessible via your 
+
           web server.</p>
+
         <p></p>
+
         <p> By default, Melati will expect to find its JavaScript, images and 
+
           static HTML under <tt>http://your.server/melati-static</tt>. To set 
+
           this up with Apache, one typically does something like </p>
+
         <blockquote> 
+
           <pre>
+
 ln -s /usr/local/melati/src/org/melati /usr/local/apache/htdocs/melati-static
+
 </pre>
+
         </blockquote>
+
         <p> An alternate URL can be specified in the configuration file <tt>src/org/melati/org.melati.MelatiServlet.properties</tt>. 
+
         </p>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">6.</td>
+
       <td  valign=top>Get Melati's Webmacro templates into Webmacro's template 
+
         path. Melati looks for its templates relative to <tt>org/melati</tt> in 
+
         its source tree, so you should edit your <tt>WebMacro.properties</tt> 
+
         to say something like 
+
         <blockquote> 
+
           <pre>TemplatePath = /usr/local/melati/src/org/melati:/home/me/templates</pre>
+
         </blockquote>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">7.</td>
+
       <td  valign=top> 
+
         <p> <a name=config>Edit Melati's database config file</a>, found in the 
+
           source tree as <tt>org/melati/org.melati.LogicalDatabase.properties</tt>, 
+
           which describes the mapping from &quot;logical database names&quot; 
+
           to JDBC connection details. You may not have to change anything. </p>
+
         <p> If you wish, you can also edit <tt>org.melati.MelatiServlet.properties</tt> 
+
           (in the same directory) to choose between a login mechanism based on 
+
           servlet sessions (<i>i.e.</i> cookies, which is the default) and one 
+
           based on HTTP Basic Authorization (commonly used for password-protecting 
+
           static pages).</p>
+
       </td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">8.</td>
+
       <td  valign=top>Restart your Servlet Runner, typically you will need to 
+
         kick apache using <tt>apachectl restart</tt>.</td>
+
     </tr>
+
     <tr> 
+
       <td valign="top">9.</td>
+
       <td  valign=top> 
+
         <p>To check that Melati is working, try looking at </p>
+
         <blockquote> 
+
           <pre>
+
 http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/
+
 </pre>
+
         </blockquote>
+
         <p> This is the 1st servlet in the Melati Test suite. the test suite demonstrates 
+
           all the features of melati, and gives you access to examples. It will 
+
           also help you debug your installation</p>
+
       </td>
+
     </tr>
+
   </table>
+
   <h3>&nbsp; </h3>
+
   <p> 
+
   <h2>Getting Started </h2>
+
   <p>Umm, this is where the docs run out.</p>
+
   <p>For the time being, please read the Poem User Guide and Preprocessor User 
+
     Guide on <a href="http://melati.org">http://melati.org</a>. You can also find 
+
     a simple example application in /lib/example.zip. You can see this application 
+
     working as part of the Melati Test suite:</p>
+
   <pre>http://localhost/&lt;servlet zone&gt;/org.melati.test.ConfigServlet/</pre>
+
   <p>Please ask for help on the mailing lists..</p>
+
   <p>&nbsp;</p>
+
   <p> 
+
   <a name="Credits"> 
+
   <h2>Credits</h2>
+
   </a> Melati it the 3rd iteration of similar software developed by Paneris <a href="(http://www.paneris.org">(http://www.paneris.org</a>), 
+
   and was largely written by William Chesters. 
+
   <p> The core developers are listed in the <a href="CREDITS.txt">CREDITS</a> 
+
     file. If you would like to join the Melati Project you are more than welcome. 
+
     Please join the Developers Mailing list. Anyone demonstrating reasonable ability 
+
     will be granted write access to the CVS repository. 
+
   <p>&nbsp; 
+
 </blockquote>
+
 </body></html>
+
+
+
 
 

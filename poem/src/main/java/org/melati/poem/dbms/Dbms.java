@@ -68,4 +68,39 @@ public interface Dbms {
 
   SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet rs)
       throws SQLException;
+
+  /**
+   * An exception appropriate for expressing what really went wrong
+   * during a write to the db.  This gives the opportunity to
+   * try to interpret the <TT>getMessage</TT> text returned by
+   * the underlying driver, so that a more friendly error page
+   * can be put together for the user.
+   *
+   * Canonically, this is used to separate out "duplicate key"
+   * errors from more serious problems.
+   *
+   * @param table     The table on which the update was affected
+   * @param sql       The operation attempted, or possibly <TT>null</TT>
+   * @param insert    Whether the operation was an <TT>INSERT</TT> as
+   *                  opposed to an <TT>UPDATE</TT>
+   * @param e         The raw SQL exception: the routine is meant to
+   *                  try to interpret <TT>e.getMessage</TT> if it can
+   *
+   * @see Postgresql#exceptionForUpdate(org.melati.poem.Table, java.lang.String, bool, java.sql.SQLException)
+   */
+
+  SQLPoemException exceptionForUpdate(Table table, String sql, boolean insert,
+                                      SQLException e);
+
+  /**
+   * Version of previous method for <TT>PreparedStatement</TT>s.  By default
+   * (in the <TT>AnsiStandard</TT> implementation of <TT>Dbms</TT>) this simply
+   * invokes <TT>PreparedStatement.toString()</TT> and calls the
+   * <TT>String</TT> version.
+   *
+   * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, bool, java.sql.SQLException)
+   */
+
+  SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
+                                      boolean insert, SQLException e);
 }

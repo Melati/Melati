@@ -840,7 +840,10 @@ abstract public class Database implements TransactionPool {
       return n;
     }
     catch (SQLException e) {
-      throw new ExecutingSQLPoemException(sql, e);
+      throw dbms.exceptionForUpdate(null, sql,
+                                    sql.indexOf("INSERT") >= 0 ||
+                                      sql.indexOf("insert") >= 0,
+                                    e);
     }
   }
 

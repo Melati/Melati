@@ -226,4 +226,15 @@ public class AnsiStandard implements Dbms {
       default: return unsupported("<code not in Types.java!>", md);
     }
   }
+
+  public SQLPoemException exceptionForUpdate(Table table, String sql,
+                                             boolean insert, SQLException e) {
+    return new ExecutingSQLPoemException(sql, e);
+  }
+
+  public SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,
+                                             boolean insert, SQLException e) {
+    return exceptionForUpdate(table, ps == null ? null : ps.toString(),
+                              insert, e);
+  }
 }

@@ -91,4 +91,36 @@ public class Postgresql extends AnsiStandard {
                                   DatabaseMetaData.columnNullable) :
               super.defaultPoemTypeOfColumnMetaData(md);
     }
+
+    public SQLPoemException exceptionForUpdate(Table table, String sql,
+                                               boolean insert, SQLException e) {
+
+      String m = e.getMessage();
+
+      // Postgres's duplicate key message is:
+      // "Cannot insert a duplicate key into unique index user_login_index"
+
+      int s, u;
+      if (m != null &&
+          m.indexOf("duplicate key") >= 0) {
+
+        // We call POEM's own indexes <table>_<column>_index:
+        // see Table.dbCreateIndex
+
+        if (m.endsWith("_index\n") &&
+            (s = m.lastIndexOf(' ')) >= 0 && (u = m.indexOf('_', s+1)) >= 0) {
+          String colname = m.substring(u+1, m.length() - 7);
+          try {
+            return new DuplicateKeySQLPoemException(table.getColumn(colname),
+                                                    sql, insert, e);
+          }
+          catch (NoSuchColumnPoemException f) {
+          }
+        }
+
+        return new DuplicateKeySQLPoemException(table, sql, insert, e);
+      }
+      else
+        return super.exceptionForUpdate(table, sql, insert, e);
+    }
 }

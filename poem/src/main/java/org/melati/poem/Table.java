@@ -656,13 +656,21 @@ public class Table {
     synchronized (modify) {
       for (int c = 0; c < columns.length; ++c)
         columns[c].save_unsafe(persistent, modify, c + 1);
+
       try {
         modify.setInt(columns.length + 1, persistent.troid().intValue());
-        modify.executeUpdate();
       }
       catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
+
+      try {
+        modify.executeUpdate();
+      }
+      catch (SQLException e) {
+        throw dbms().exceptionForUpdate(this, modify, false, e);
+      }
+
       if (database.logSQL())
         database.log(new SQLLogEvent(modify.toString()));
     }
@@ -679,7 +687,7 @@ public class Table {
         insert.executeUpdate();
       }
       catch (SQLException e) {
-        throw new PreparedSQLSeriousPoemException(insert, e);
+        throw dbms().exceptionForUpdate(this, insert, true, e);
       }
       if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));

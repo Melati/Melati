@@ -19,15 +19,25 @@ public class PlayingTest
 
     DCollection parents = (DCollection) db.lookup("parent");
 
-    //Parent p = new Parent();
-	 Parent p = (Parent)org.melati.poem.odmg.ODMGFactory.getPoemDatabase().getTable("parent").newPersistent();
-    p.setName("parent-"+parents.size());
-    System.out.println("Adding parent: "+p.getName());
-    
-    parents.add(p);
+    //clear out old crap
+    parents.removeAll(parents);
+
+    for (int i=0; i<10; i++)
+    {
+      Parent p = newParent();
+      p.setName("parent-"+parents.size());
+      System.out.println("Adding parent: "+p.getName()); 
+      parents.add(p);
+    }
 
     tx.commit();
     
     System.out.println("PlayingTest done:");
   }
+
+  private static final Parent newParent()
+  {
+    return (Parent)org.melati.poem.odmg.ODMGFactory.getPoemDatabase().getTable("parent").newPersistent();
+  }
+
 }

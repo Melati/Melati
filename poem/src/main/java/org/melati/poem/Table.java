@@ -39,13 +39,16 @@ public class Table {
   private Column canWriteColumn = null;
   private Column displayColumn = null;
 
-  private PreparedSelection allTroids = null;
-  private Hashtable cachedSelections = null;
-
   private String defaultOrderByClause = null;
   private Column[] recordDisplayColumns = null;
   private Column[] summaryDisplayColumns = null;
   private Column[] searchCriterionColumns = null;
+
+  private long nextSerial = 0L;
+  private PoemFloatingVersionedObject serial;
+
+  private PreparedSelection allTroids = null;
+  private Hashtable cachedSelections = null;
 
   public Table(Database database, String name,
                DefinitionSource definitionSource)
@@ -54,6 +57,16 @@ public class Table {
     this.name = name;
     this.quotedName = database.quotedName(name);
     this.definitionSource = definitionSource;
+    serial =
+        new PoemFloatingVersionedObject(database) {
+          protected boolean upToDate(Session session, Version version) {
+	    return true;
+	  }
+
+	  protected Version backingVersion(Session session) {
+	    return new SerialledVersion(nextSerial++);
+	  }
+        };
   }
 
   void postInitialise() {
@@ -587,18 +600,20 @@ public class Table {
   }
 
   void writeDown(PoemSession session, Integer troid, Data data) {
-    troidColumn.setIdent(data, troid);
-
     // no race, provided that the one-thread-per-session parity is maintained
 
-    if (data.exists)
-      modify(session, troid, data);
-    else {
-      insert(session, troid, data);
-      data.exists = true;
-    }
+    if (data.dirty) {
+      troidColumn.setIdent(data, troid);
 
-    data.dirty = false;
+      if (data.exists)
+	modify(session, troid, data);
+      else {
+	insert(session, troid, data);
+	data.exists = true;
+      }
+
+      data.dirty = false;
+    }
   }
 
   // 
@@ -617,6 +632,7 @@ public class Table {
 
   void uncacheContents() {
     cache.uncacheContents();
+    serial.uncacheContents();
     TableListener[] listeners = this.listeners;
     for (int l = 0; l < listeners.length; ++l)
       listeners[l].notifyUncached(this);
@@ -635,6 +651,10 @@ public class Table {
       }
       return is;
     }
+  }
+
+  long serial(Session session) {
+    return ((SerialledVersion)serial.versionForReading(session)).serial;
   }
 
   // 
@@ -1225,6 +1245,12 @@ public class Table {
    */
 
   protected void notifyTouched(PoemSession session, Integer troid, Data data) {
+
+    // Because `serial' is itself an AbstractVersionedObject, the Right Thing
+    // will happen when the session is committed or rolled back.
+
+    ((SerialledVersion)serial.versionForWriting(session)).serial = nextSerial++;
+
     TableListener[] listeners = this.listeners;
     for (int l = 0; l < listeners.length; ++l)
       listeners[l].notifyTouched(session, this, troid, data);
@@ -1643,7 +1669,7 @@ public class Table {
     }
   }
 
-  public void addListener(TableListener listener) {
+  void addListener(TableListener listener) {
     listeners = (TableListener[])ArrayUtils.added(listeners, listener);
   }
 }

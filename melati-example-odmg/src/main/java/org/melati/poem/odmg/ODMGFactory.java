@@ -46,7 +46,7 @@ package org.melati.poem.odmg;
 /** 
  * Factory object for getting new ODMG/poem related objects 
  **/
-public class ODMGFactory {
+public final class ODMGFactory {
   private ODMGFactory() {}
 
   private static Database _db = Database.getNewDatabase();
@@ -66,7 +66,7 @@ public class ODMGFactory {
     _db = null;
   }
 
-  private static final Database getDb() {
+  private static Database getDb() {
     if (_db == null) {
       synchronized (ODMGFactory.class) {
         if (_db == null) {

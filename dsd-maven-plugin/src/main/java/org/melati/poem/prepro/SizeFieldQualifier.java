@@ -70,14 +70,9 @@ public class SizeFieldQualifier extends FieldQualifier {
 
   public void apply(FieldDef field) throws SizeApplicationException {
     // FIXME check for duplication
-    if (field instanceof StringFieldDef) {
+    if (field instanceof StringFieldDef)
        ((StringFieldDef)field).size = size;
-       return;
-   }
-    if (field instanceof PasswordFieldDef) {
-       ((PasswordFieldDef)field).size = size;
-       return;
-   }
-   throw new SizeApplicationException(field);
+    else
+      throw new SizeApplicationException(field);
   }
 }

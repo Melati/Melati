@@ -39,8 +39,7 @@
  *
  * I will assign copyright to PanEris (http://paneris.org) as soon as
  * we have sorted out what sort of legal existence we need to have for
- * that to make sense.  When WebMacro's "Simple Public License" is
- * finalised, we'll offer it as an alternative license for Melati.
+ * that to make sense. 
  * In the meantime, if you want to use Melati on non-GPL terms,
  * contact me!
  */
@@ -532,11 +531,7 @@ public class Admin extends MelatiServlet {
 
   protected Template handle(WebContext context, Melati melati)
       throws Exception {
-    context.put("admin",
-                new AdminUtils(context.getRequest().getServletPath(),
-                               melati.getStaticURL() + "/admin",
-                               melati.getLogicalDatabaseName()));
-
+    context.put("admin", melati.getAdminUtils());
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
         return rightTemplate(context, melati);

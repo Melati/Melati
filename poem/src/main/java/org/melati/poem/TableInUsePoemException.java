@@ -39,8 +39,7 @@
  *
  * I will assign copyright to PanEris (http://paneris.org) as soon as
  * we have sorted out what sort of legal existence we need to have for
- * that to make sense.  When WebMacro's "Simple Public License" is
- * finalised, we'll offer it as an alternative license for Melati.
+ * that to make sense. 
  * In the meantime, if you want to use Melati on non-GPL terms,
  * contact me!
  */

@@ -48,12 +48,17 @@ package org.melati.poem;
 public class AccessPoemException extends PoemException {
   public AccessToken token;
   public Capability capability;
+  // This is required to report the exception outside of the session
+  // JUnit does it.
+  private String capabilityString;
 
   public AccessPoemException(Exception problem,
                              AccessToken token, Capability capability) {
     super(problem);
     this.token = token;
     this.capability = capability;
+    this.capabilityString = (capability == null ?
+                             null : capability.toString());
   }
 
   public AccessPoemException(AccessToken token, Capability capability) {
@@ -74,8 +79,12 @@ public class AccessPoemException extends PoemException {
 
   public String getMessage() {
     String ad = getActionDescription();
+    // Not sure what the rules are here.
+    if (capability != null && PoemThread.inSession()) {
+      capabilityString = capability.toString();
+    }
     return
-        "You need the capability " + capability +
+        "You need the capability " + capabilityString +
         (ad == null ? "" : " to " + ad) + " but your access token " +
         token + " doesn't confer it";
   }

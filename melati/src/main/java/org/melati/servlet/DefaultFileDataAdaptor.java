@@ -59,8 +59,6 @@ import org.melati.util.*;
  * it what directory to save it in and the base URL to that
  * directory
  * 
- * @param uploadDir The directory to save this file in
- * @param uploadURL The URL to uploadDir
  */
 
 public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {

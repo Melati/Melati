@@ -199,24 +199,25 @@ import org.melati.util.MelatiWriter;
  *
  * </UL>
  *
- * @param melati      a source of information about the Melati database
- *                    context (database, table, object) and utility objects
- *                    like error handlers
  *
  * @see org.melati.poem.Database#guestAccessToken
  * @see org.melati.poem.PoemThread#commit
  * @see org.melati.poem.PoemThread#rollback
  * @see #melatiContext
- * @see AccessHandler
- * @see HttpSessionAccessHandler
- * @see Login
- * @see HttpBasicAuthenticationAccessHandler
+ * @see org.melati.login.AccessHandler
+ * @see org.melati.login.HttpSessionAccessHandler
+ * @see org.melati.login.Login
+ * @see org.melati.login.HttpBasicAuthenticationAccessHandler
  */
 
 public abstract class PoemServlet extends ConfigServlet {
 
   /**
    * Overriden in TemplateServlet
+   * @param org.melati.Melati  
+   *                    A source of information about the Melati database
+   *                    context (database, table, object) and utility objects
+   *                    such as error handlers.
    */
 
   protected void prePoemSession(Melati melati) throws Exception {

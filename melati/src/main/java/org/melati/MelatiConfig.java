@@ -86,9 +86,10 @@ import org.melati.util.MelatiLocale;
  * melati.  These are held in <TT>org.melati.MelatiServlet.properties</TT>.
  *
  * After configuration, you can then get a Melati, using
- * <TT>Melati.getMelati()</T>.
+ * <TT>getMelati()</T>.
  *
- * @see Melati.getMelati()
+ * @see #getMelati(HttpServletRequest, HttpServletResponse) 
+ *
  */
 
 public class MelatiConfig {

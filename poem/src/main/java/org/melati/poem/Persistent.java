@@ -896,7 +896,7 @@ public class Persistent extends Transactioned implements Cloneable {
    * by an application-specialised subclass of <TT>Persistent</TT> called
    * <TT><I>Foo</I></TT> which provides a <TT>get<I>Baz</I>Field</TT> method.
    *
-   * @see org.melati.MarkupLanguage#input(org.melati.poem.Field)
+   * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
 
   public final Field getField(String name)
@@ -987,7 +987,7 @@ public class Persistent extends Transactioned implements Cloneable {
    *            that can refer to the object being deleted.  May be
    *            <TT>null</TT> to mean `empty'.  If a column isn't mentioned,
    *            the default behaviour for the column is used.  (The default
-   *            default is {@link IntegrityFix#prevent}.)
+   *            default is {@link StandardIntegrityFix#prevent}.)
    */
 
   public void delete(Map integrityFixOfColumn) {
@@ -1037,14 +1037,14 @@ public class Persistent extends Transactioned implements Cloneable {
 
   /**
    * Delete the object, with even more safety checks for referential integrity.
-   * As {@link delete(java.util.Map)}, but waits for exclusive access to the
+   * As {@link #delete(java.util.Map)}, but waits for exclusive access to the
    * database before doing the delete, and commits the session immediately
    * afterwards.  This used to be the only deletion entry point allowed, but
    * now we (think we) ensure that the possible race condition involving new
    * pointers to the deleted object created during the deletion process is
    * covered.
    *
-   * @deprecated Use {@link delete(java.util.Map)}
+   * @deprecated Use {@link #delete(java.util.Map)}
    */
 
   public void deleteAndCommit(Map integrityFixOfColumn)

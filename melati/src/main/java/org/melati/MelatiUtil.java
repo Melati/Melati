@@ -139,7 +139,6 @@ public class MelatiUtil {
    * @return        <TT><I>uri</I>?<I>query</I></TT> with <TT>field=value</TT>.
    *                If there is already a binding for <TT>field</TT> in the
    *                query string it is replaced, not duplicated.
-   * @see org.melati.util.MelatiUtil
    */
 
   public static String sameURLWith(String uri, String query,
@@ -158,7 +157,6 @@ public class MelatiUtil {
    *                already a binding for <TT>field</TT> in the query string
    *                it is replaced, not duplicated.  If there is no query
    *                string, one is added.
-   * @see org.melati.util.MelatiUtil
    */
 
   public static String sameURLWith(HttpServletRequest request,
@@ -177,7 +175,6 @@ public class MelatiUtil {
    * @return        <TT>qs</TT> with <TT>field=value</TT>.
    *                If there is already a binding for <TT>field</TT> in the
    *                query string it is replaced, not duplicated.
-   * @see org.melati.util.MelatiUtil
    */
 
   public static String sameQueryWith(String qs, String field, String value) {

@@ -371,7 +371,8 @@ public abstract class MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
-   * @see org.melati.poem.DatePoemType._stringOfCooked()
+   * @see org.melati.poem.DatePoemType#_stringOfCooked
+   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
    * @param limit - the lenght to trim the rendered string to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
@@ -391,7 +392,8 @@ public abstract class MarkupLanguage {
    *
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
-   * @see org.melati.poem.DatePoemType._stringOfCooked()
+   * @see org.melati.poem.DatePoemType#_stringOfCooked
+   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
    * @param limit - the lenght to trim the rendered string to
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
@@ -409,7 +411,8 @@ public abstract class MarkupLanguage {
    *
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
-   * @see org.melati.poem.DatePoemType._stringOfCooked()
+   * @see org.melati.poem.DatePoemType#_stringOfCooked
+   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
    * @param limit - the lenght to trim the rendered string to
    * @param writer - the MelatiWriter to render this Object to
    * @throws IOException - if there is a problem during rendering

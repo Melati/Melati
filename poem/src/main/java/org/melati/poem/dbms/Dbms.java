@@ -86,7 +86,7 @@ public interface Dbms {
    * @param e         The raw SQL exception: the routine is meant to
    *                  try to interpret <TT>e.getMessage</TT> if it can
    *
-   * @see Postgresql#exceptionForUpdate(org.melati.poem.Table, java.lang.String, bool, java.sql.SQLException)
+   * @see Postgresql#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
    */
 
   SQLPoemException exceptionForUpdate(Table table, String sql, boolean insert,
@@ -98,7 +98,7 @@ public interface Dbms {
    * invokes <TT>PreparedStatement.toString()</TT> and calls the
    * <TT>String</TT> version.
    *
-   * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, bool, java.sql.SQLException)
+   * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.sql.PreparedStatement, boolean, java.sql.SQLException)
    */
 
   SQLPoemException exceptionForUpdate(Table table, PreparedStatement ps,

@@ -148,7 +148,7 @@ public class TailoredQuery {
    *
    * @see #selection
    * @see Column#quotedName()
-   * @see PoemType#quotedRaw(java.lang.Object)
+   * @see BasePoemType#quotedRaw(java.lang.Object)
    */
 
   public TailoredQuery(Column[] selectedColumns, Table[] otherTables,
@@ -332,7 +332,7 @@ public class TailoredQuery {
    * @see FieldSet#elements()
    * @see FieldSet#get(java.lang.String)
    * @see PoemThread#accessToken()
-   * @see org.melati.HTMLMarkupLanguage#rendered(org.melati.poem.AccessPoemException)
+   * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable)
    * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
    */
 

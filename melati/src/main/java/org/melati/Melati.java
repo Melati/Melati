@@ -190,7 +190,7 @@ public class Melati {
    * @param context - a MelatiContext
    * @throws DatabaseInitException - if the database fails to initialise for
    *                                 some reason
-   * @see org.melati.poem.LogicalDatabase
+   * @see org.melati.LogicalDatabase
    * @see org.melati.servlet.PoemServlet
    */
 
@@ -407,7 +407,7 @@ public class Melati {
    *
    * @return - a HTMLMarkupLanguage
    * @see org.melati.template.TempletLoader
-   * @see org.melati.util.Locale
+   * @see org.melati.util.MelatiLocale
    */
 
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
@@ -421,7 +421,7 @@ public class Melati {
    *
    * @return - a WMLMarkupLanguage
    * @see org.melati.template.TempletLoader
-   * @see org.melati.util.Locale
+   * @see org.melati.util.MelatiLocale
    */
 
   public WMLMarkupLanguage getWMLMarkupLanguage() {
@@ -441,7 +441,7 @@ public class Melati {
    *                already a binding for <TT>field</TT> in the query string
    *                it is replaced, not duplicated.  If there is no query
    *                string, one is added.
-   * @see org.melati.util.MelatiUtil
+   * @see org.melati.MelatiUtil
    */
 
   public String sameURLWith(String field, String value) {
@@ -457,7 +457,7 @@ public class Melati {
    *                already a binding for <TT>field</TT> in the query string
    *                it is replaced, not duplicated.  If there is no query
    *                string, one is added.
-   * @see org.melati.util.MelatiUtil
+   * @see org.melati.MelatiUtil
    */
 
   public String sameURLWith(String field) {
@@ -605,7 +605,7 @@ public class Melati {
    * @return - PassbackVariableExceptionHandler specific to the
    * template engine
    *
-   * @see org.melati.template.MarkupLanguage#rendered(Exception e)
+   * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable e)
    */
 
   public Object getPassbackVariableExceptionHandler() {

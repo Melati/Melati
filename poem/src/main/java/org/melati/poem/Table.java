@@ -979,9 +979,8 @@ public class Table {
    *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
    *         or you can just use <TT>selection</TT>
    *
-   * @see #select(java.lang.String, boolean)
    * @see #getObject(java.lang.Integer)
-   * @see #selection(java.lang.String, boolean)
+   * @see #selection(java.lang.String, java.lang.String, boolean)
    */
 
   public Enumeration troidSelection(String whereClause, String orderByClause,

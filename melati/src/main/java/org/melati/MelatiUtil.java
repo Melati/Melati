@@ -84,17 +84,17 @@ public class MelatiUtil {
               adaptorFieldName, adaptorName, e);
         }
         column.setRaw(object, adaptor.rawFrom(context, formFieldName));
-      }
-      else {
+      } else {
         if (rawString != null) {
+          rawString = rawString.trim();
           if (rawString.equals("")) {
             if (column.getType().getNullable())
               column.setRaw(object, null);
             else
               column.setRawString(object, "");
+          } else {
+            column.setRawString(object, rawString);
           }
-          else
-          column.setRawString(object, rawString);
         }
       }
     }

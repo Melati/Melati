@@ -60,6 +60,13 @@ public class IndexedFieldQualifier extends FieldQualifier {
   protected boolean unique = false;
   private Vector withs = new Vector();
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws IOException if something goes wrong with the file system
+  */
   public IndexedFieldQualifier(StreamTokenizer tokens) throws IOException {
     /*
     The difficulty in implementing (unique with) it is that it's
@@ -74,6 +81,13 @@ public class IndexedFieldQualifier extends FieldQualifier {
     */
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     field.isIndexed = true;
   }

@@ -55,9 +55,21 @@ import java.io.StreamTokenizer;
  */
 public class SortDescendingFieldQualifier extends FieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  */
   public SortDescendingFieldQualifier(StreamTokenizer tokens) {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     field.sortDescending = true;
   }

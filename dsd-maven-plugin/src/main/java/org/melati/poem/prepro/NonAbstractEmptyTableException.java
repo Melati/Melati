@@ -48,13 +48,14 @@ package org.melati.poem.prepro;
  *
  * @author TimP@paneris.org
  */
-public class NonAbstractEmptyTableException extends IllegalityException {
-  public String name;
+class NonAbstractEmptyTableException extends IllegalityException {
+  String name;
 
-  public NonAbstractEmptyTableException(String name) {
+  NonAbstractEmptyTableException(String name) {
     this.name = name;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "The table " + name + " contains no fields but is not 'abstract';" +
            " only abstract tables may be empty.";

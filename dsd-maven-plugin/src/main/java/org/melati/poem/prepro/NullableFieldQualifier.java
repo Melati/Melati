@@ -54,9 +54,22 @@ import java.io.StreamTokenizer;
  */
 public class NullableFieldQualifier extends FieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  */
   public NullableFieldQualifier(StreamTokenizer tokens) {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws NullTroidException if the field is a <tt>TROID</tt>
+  * @throws NullDeletedException if the field is a <tt>Deleted</tt>
+  */
   public void apply(FieldDef field)
       throws NullTroidException, NullDeletedException {
     // oops this isn't terribly OO

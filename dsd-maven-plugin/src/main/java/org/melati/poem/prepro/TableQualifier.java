@@ -54,8 +54,24 @@ import java.io.IOException;
  */
 public abstract class TableQualifier {
 
+ /**
+  * Update the model.
+  *
+  * @param table the {@link TableDef} to update
+  * @throws IllegalityException if there is a semantic error
+  */
   public abstract void apply(TableDef table) throws IllegalityException;
 
+ /**
+  * Creates the appropriate type of <code>TableQualifier</code> 
+  * from the input stream.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  * @return the required sub type 
+  */
   public static TableQualifier from(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     if (tokens.ttype != StreamTokenizer.TT_WORD)

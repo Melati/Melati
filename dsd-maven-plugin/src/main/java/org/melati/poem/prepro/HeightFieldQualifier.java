@@ -58,6 +58,14 @@ public class HeightFieldQualifier extends FieldQualifier {
 
   private int height;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public HeightFieldQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -68,6 +76,11 @@ public class HeightFieldQualifier extends FieldQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  */
   public void apply(FieldDef field) {
     field.height = height;
   }

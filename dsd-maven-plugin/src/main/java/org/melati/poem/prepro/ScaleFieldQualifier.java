@@ -58,6 +58,14 @@ public class ScaleFieldQualifier extends FieldQualifier {
 
   private int scale;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public ScaleFieldQualifier(StreamTokenizer tokens)
     throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -68,6 +76,14 @@ public class ScaleFieldQualifier extends FieldQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws SizeApplicationException 
+  *           if this is a non-sizable field
+  */
   public void apply(FieldDef field) throws SizeApplicationException {
     // FIXME check for duplication
     if (field instanceof BigDecimalFieldDef)

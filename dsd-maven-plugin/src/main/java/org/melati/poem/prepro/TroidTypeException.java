@@ -49,13 +49,14 @@ package org.melati.poem.prepro;
  * Thrown when a field does not meet the criteria for being a 
  * Table Row Object Id field.
  */
-public class TroidTypeException extends IllegalityException {
-  public FieldDef field;
+class TroidTypeException extends IllegalityException {
+  FieldDef field;
 
-  public TroidTypeException(FieldDef field) {
+  TroidTypeException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String toString() {
     return
         "The field " + field + " cannot be a troid: " +

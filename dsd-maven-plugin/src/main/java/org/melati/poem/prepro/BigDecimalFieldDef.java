@@ -60,21 +60,31 @@ public class BigDecimalFieldDef extends AtomFieldDef {
   int scale;
   int precision;
 
-  public BigDecimalFieldDef(
-    TableDef table,
-    String name,
-    int displayOrder,
-    Vector qualifiers)
-    throws IllegalityException {
+ /**
+  * Constructor.
+  *
+  * @param table        the {@link TableDef} that this <code>Field</code> is 
+  *                     part of 
+  * @param name         the name of this field
+  * @param displayOrder where to place this field in a list
+  * @param qualifiers   all the qualifiers of this field
+  * 
+  * @throws IllegalityException if a semantic inconsistency is detected
+  */
+  public BigDecimalFieldDef(TableDef table, String name, int displayOrder,
+                            Vector qualifiers)
+      throws IllegalityException {
     super(table, name, "BigDecimal", displayOrder, qualifiers);
     table.addImport("org.melati.poem.BigDecimalPoemType", "table");
     table.addImport("java.math.BigDecimal", "table");
     table.addImport("java.math.BigDecimal", "persistent");
   }
 
-  /**
-   * @param w The base persistent java file.
-   */
+ /**
+  * @param w The base persistent java file.
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
     /*    w.write("\n" +
@@ -85,6 +95,7 @@ public class BigDecimalFieldDef extends AtomFieldDef {
     */
   }
 
+ /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
     return "new BigDecimalPoemType("
       + isNullable

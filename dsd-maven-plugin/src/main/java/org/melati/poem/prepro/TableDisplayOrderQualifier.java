@@ -58,6 +58,14 @@ public class TableDisplayOrderQualifier extends TableQualifier {
 
   private int priority;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public TableDisplayOrderQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -68,6 +76,11 @@ public class TableDisplayOrderQualifier extends TableQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param table the {@link TableDef} to update
+  */
   public void apply(TableDef table) {
     table.displayOrder = priority;
   }

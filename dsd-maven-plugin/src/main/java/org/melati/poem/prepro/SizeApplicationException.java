@@ -50,12 +50,13 @@ package org.melati.poem.prepro;
  * an inappropriate field.
  */
 public class SizeApplicationException extends IllegalityException {
-  public FieldDef field;
+  FieldDef field;
 
-  public SizeApplicationException(FieldDef field) {
+  SizeApplicationException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String getMessage() {
     return
         "The column " + field + " cannot have a `size' " +

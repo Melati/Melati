@@ -55,12 +55,23 @@ import java.io.IOException;
  */
 public class UniqueFieldQualifier extends IndexedFieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  * @throws IOException if something goes wrong with the file system
+  */
   public UniqueFieldQualifier(StreamTokenizer tokens) throws IOException {
     super(tokens);
     unique = true;
   }
 
-  public void apply(FieldDef field) throws IllegalityException {
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  */
+  public void apply(FieldDef field) {
     field.isUnique = true;
   }
 }

@@ -53,10 +53,27 @@ import java.io.IOException;
  */
 public abstract class FieldQualifier {
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public abstract void apply(FieldDef field) throws IllegalityException;
 
+ /**
+  * Creates the appropriate type of <code>FieldQualifier</code> 
+  * from the input stream.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  * @return a new <code>FieldQualifier</code> of the appropriate type
+  */
   public static FieldQualifier from(StreamTokenizer tokens)
-    throws ParsingDSDException, IOException {
+      throws ParsingDSDException, IOException {
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<field qualifier>", tokens);
     FieldQualifier it;

@@ -57,6 +57,14 @@ public class DisplayOrderPriorityFieldQualifier extends FieldQualifier {
 
   private int priority;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public DisplayOrderPriorityFieldQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -67,6 +75,13 @@ public class DisplayOrderPriorityFieldQualifier extends FieldQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     field.displayOrderPriority = priority;
   }

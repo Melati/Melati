@@ -49,13 +49,14 @@ package org.melati.poem.prepro;
  * Thrown when a <tt>NullableFieldQualifier</tt> is applied to a 
  * <tt>DeletedFieldDef</tt>.
  */
-public class NullDeletedException extends IllegalityException {
-  public FieldDef field;
+class NullDeletedException extends IllegalityException {
+  FieldDef field;
 
-  public NullDeletedException(FieldDef field) {
+  NullDeletedException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "You may not make the deleted-flag column " + field + " nullable";
   }

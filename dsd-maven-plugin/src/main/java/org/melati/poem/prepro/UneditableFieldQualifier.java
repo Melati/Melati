@@ -54,9 +54,19 @@ import java.io.StreamTokenizer;
  */
 public class UneditableFieldQualifier extends FieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  */
   public UneditableFieldQualifier(StreamTokenizer tokens) {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  */
   public void apply(FieldDef field) {
     field.isEditable = false;
   }

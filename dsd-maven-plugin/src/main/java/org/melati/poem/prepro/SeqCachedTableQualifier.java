@@ -46,7 +46,6 @@
 package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
-import java.io.IOException;
 
 /**
  * A <tt>TableQualifier</tt> which defines whether the 
@@ -55,10 +54,19 @@ import java.io.IOException;
  */
 public class SeqCachedTableQualifier extends TableQualifier {
 
-  public SeqCachedTableQualifier(StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  */
+    public SeqCachedTableQualifier(StreamTokenizer tokens) {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param table the {@link TableDef} to update
+  */
   public void apply(TableDef table) {
     table.seqCached = true;
   }

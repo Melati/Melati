@@ -48,13 +48,13 @@ package org.melati.poem.prepro;
 /**
  * Superclass of all illegal syntax exceptions.
  */ 
-public class IllegalityException extends Exception {
+class IllegalityException extends Exception {
 
-  public IllegalityException() {
+  IllegalityException() {
     super();
   }
 
-  public IllegalityException(String s) {
+  IllegalityException(String s) {
     super(s);
   }
   

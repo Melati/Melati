@@ -57,6 +57,17 @@ public class BinaryFieldDef extends AtomFieldDef {
 
   int size;
 
+ /**
+  * Constructor.
+  *
+  * @param table        the {@link TableDef} that this <code>Field</code> is 
+  *                     part of 
+  * @param name         the name of this field
+  * @param displayOrder where to place this field in a list
+  * @param qualifiers   all the qualifiers of this field
+  * 
+  * @throws IllegalityException if a semantic inconsistency is detected
+  */
   public BinaryFieldDef(TableDef table, String name, int displayOrder,
                         Vector qualifiers)
       throws IllegalityException {
@@ -66,6 +77,7 @@ public class BinaryFieldDef extends AtomFieldDef {
                                "table");
   }
 
+ /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
     return "new BinaryPoemType(" + isNullable + ", " + size + ")";
   }

@@ -57,6 +57,17 @@ import java.io.IOException;
  */ 
 public class DoubleFieldDef extends AtomFieldDef {
 
+ /**
+  * Constructor.
+  *
+  * @param table        the {@link TableDef} that this <code>Field</code> is 
+  *                     part of 
+  * @param name         the name of this field
+  * @param displayOrder where to place this field in a list
+  * @param qualifiers   all the qualifiers of this field
+  * 
+  * @throws IllegalityException if a semantic inconsistency is detected
+  */
   public DoubleFieldDef(TableDef table, String name, int displayOrder,
                         Vector qualifiers) throws IllegalityException {
     super(table, name, "Double", displayOrder, qualifiers);
@@ -66,13 +77,38 @@ public class DoubleFieldDef extends AtomFieldDef {
 
  /**
   * @param w The base persistent java file.
+  * @throws IOException 
+  *           if something goes wrong with the file system
   */   
   public void generateBaseMethods(Writer w) throws IOException {
     super.generateBaseMethods(w);
-    w.write("\n" +
-            "  public final void set" + suffix + "(double cooked)\n" +
-            "      throws AccessPoemException, ValidationPoemException {\n" +
-            "    set" + suffix + "(new Double(cooked));\n" +
-            "  }\n");
+    w.write(
+      "\n /**\n"
+      + "  * Sets the <code>" 
+      + suffix 
+      + "</code> value, with checking, for this <code>" 
+      + table.suffix 
+      + "</code> <code>Persistent</code>.\n"
+      + ((description != null) ? "  * Field description: \n" 
+                                 + DSD.javadocFormat(2, 3, description)
+                                 + "  * \n"
+                               : "")
+      + "  * \n"
+      + "  * @generator " 
+      + "org.melati.poem.prepro.DoubleFieldDef" 
+      + "#generateBaseMethods \n"
+      + "  * @param cooked  a validated <code>int</code> \n"
+      + "  * @throws AccessPoemException \n"
+      + "  *         if the current <code>AccessToken</code> \n"
+      + "  *         does not confer write access rights\n"
+      + "  * @throws ValidationPoemException \n"
+      + "  *         if the value is not valid\n"
+      + "  */\n");
+    w.write(
+      "\n" +
+      "  public final void set" + suffix + "(double cooked)\n" +
+      "      throws AccessPoemException, ValidationPoemException {\n" +
+      "    set" + suffix + "(new Double(cooked));\n" +
+      "  }\n");
   }
 }

@@ -48,7 +48,7 @@ package org.melati.poem.prepro;
 import java.util.Hashtable;
 
 /**
- * A store of naming information for a <tt>Table</tt>.
+ * A store of naming information for a <code>Table</code>.
  */
 public class TableNamingStore {
 
@@ -57,7 +57,12 @@ public class TableNamingStore {
     boolean debug = false;
 
   /**
-   * @param superclass not null if table extends another
+   * @param packageName fully qualified java package name
+   * @param name        the name of this table
+   * @param superclass  not null if table extends another
+   * @throws HiddenTableException if this table has the same name as 
+   *                    one already encountered but does not extend it 
+   * @return a newly created <code>TableNamingInfo</code> 
    */
   public TableNamingInfo add(String packageName, String name, 
                              String superclass)

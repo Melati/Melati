@@ -55,9 +55,23 @@ import java.io.IOException;
  */
 public class CompareOnlyFieldQualifier extends FieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws IOException if something goes wrong with the file system
+  */
   public CompareOnlyFieldQualifier(StreamTokenizer tokens) throws IOException {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     field.isCompareOnly = true;
   }

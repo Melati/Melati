@@ -49,13 +49,14 @@ package org.melati.poem.prepro;
  * Thrown when a <tt>StringFieldDef</tt> does not have a 
  * <tt>SizeFieldQualifier</tt>. 
  */
-public class StringSizeZeroException extends IllegalityException {
-  public FieldDef field;
+class StringSizeZeroException extends IllegalityException {
+  FieldDef field;
 
-  public StringSizeZeroException(FieldDef field) {
+  StringSizeZeroException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "The column " + field + " is has no defined size";
   }

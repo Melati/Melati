@@ -50,13 +50,14 @@ package org.melati.poem.prepro;
  * non-<tt>Boolean</tt> field.
  *
  */
-public class DeletedTypeException extends IllegalityException {
-  public FieldDef field;
+class DeletedTypeException extends IllegalityException {
+  FieldDef field;
 
-  public DeletedTypeException(FieldDef field) {
+  DeletedTypeException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String toString() {
     return
         "The field " + field + " cannot be a deleted flag: " +

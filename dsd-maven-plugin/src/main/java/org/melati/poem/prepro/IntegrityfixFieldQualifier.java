@@ -58,6 +58,14 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
 
   private StandardIntegrityFix integrityfix;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public IntegrityfixFieldQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -74,14 +82,19 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Thrown when an attempt is made to apply an <code>IntegrityFix</code>
+  * to a field which is not a <code>ReferencePoemType</code>.
+  */
   public static class ApplicationException extends IllegalityException {
 
-    public FieldDef field;
+    FieldDef field;
 
-    public ApplicationException(FieldDef field) {
+    ApplicationException(FieldDef field) {
       this.field = field;
     }
 
+    /** @return the message */
     public String getMessage() {
       return
           "The column " + field + " cannot have an `integrityfix' " +
@@ -89,6 +102,13 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
     }
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     if (field instanceof ReferenceFieldDef)
       ((ReferenceFieldDef)field).integrityfix = integrityfix;

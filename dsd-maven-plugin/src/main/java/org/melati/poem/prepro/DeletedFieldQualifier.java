@@ -59,9 +59,22 @@ import java.io.StreamTokenizer;
  */
 public class DeletedFieldQualifier extends FieldQualifier {
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  */
   public DeletedFieldQualifier(StreamTokenizer tokens) {
   }
 
+ /**
+  * Update the model.
+  *
+  * @param field the {@link FieldDef} to update
+  *
+  * @throws IllegalityException if there is a semantic contractiction
+  */
   public void apply(FieldDef field) throws IllegalityException {
     // FIXME check for duplication
     if (!field.type.equals("Boolean") || field.isNullable)

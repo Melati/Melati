@@ -55,6 +55,17 @@ import java.util.Vector;
  */ 
 public class DateFieldDef extends AtomFieldDef {
 
+ /**
+  * Constructor.
+  *
+  * @param table        the {@link TableDef} that this <code>Field</code> is 
+  *                     part of 
+  * @param name         the name of this field
+  * @param displayOrder where to place this field in a list
+  * @param qualifiers   all the qualifiers of this field
+  * 
+  * @throws IllegalityException if a semantic inconsistency is detected
+  */
   public DateFieldDef(TableDef table, String name, int displayOrder,
                       Vector qualifiers) throws IllegalityException {
     super(table, name, "Date", displayOrder, qualifiers);

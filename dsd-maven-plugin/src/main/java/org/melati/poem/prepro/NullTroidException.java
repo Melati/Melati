@@ -49,13 +49,14 @@ package org.melati.poem.prepro;
  * Thrown when a <tt>NullableFieldQualifier</tt> is applied to a 
  * <tt>TroidFieldDef</tt>.
  */
-public class NullTroidException extends IllegalityException {
-  public FieldDef field;
+class NullTroidException extends IllegalityException {
+  FieldDef field;
 
-  public NullTroidException(FieldDef field) {
+  NullTroidException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "You may not make the troid column " + field + " nullable";
   }

@@ -48,10 +48,9 @@ package org.melati.poem.prepro;
 /** 
  * A store for Table Name information extracted from the DSD.
  */
-
 public class TableNamingInfo {
 
-  public static final String POEM = "org.melati.poem";
+  static final String POEM = "org.melati.poem";
 
   /** This package eg org.melati.example.contacts */
   public String packageName = null;
@@ -91,6 +90,11 @@ public class TableNamingInfo {
    */
   public boolean hidden = false;
 
+  /**
+   * Constructor.
+   * @param packageNameIn  the fully qualified java name of this package
+   * @param name           the name of this table
+   */
   public TableNamingInfo(String packageNameIn, String name) {
     packageName = packageNameIn;
     tableShortName = name;
@@ -100,84 +104,114 @@ public class TableNamingInfo {
     hidden = false;
   }
 
-  /** Calculate the type for objects in this Table */
+  /** 
+   * Calculate the type for objects in this Table.
+   *
+   * @return the name for the Persistent class
+   */
   public String superclassMainUnambiguous() {
     return (superclass == null)
             ? "Persistent"
             : superclass.mainClassUnambiguous();
   }
+
+  /** 
+   * Calculate the full type for the superclass of the Persistent.
+   *
+   * @return the fully qualified name for the superclass
+   */
   public String superclassMainFQName() {
     return (superclass == null)
             ? "org.melati.poem.Persistent"
             : superclass.mainClassFQName();
   }
-  /** Calculate the type for objects in this Table */
+
+  /** 
+   * Calculate the name of the superclass of the Persistent.
+   *
+   * @return the short name for the superclass
+   */
   public String superclassMainShortName() {
     return (superclass == null)
             ? "Persistent"
             : superclass.mainClassShortName();
   }
 
-  /** Calculate the type for this Table */
+  /** 
+   * Calculate the type for this Table.
+   * 
+   * @return the unambiguous name
+   */
   public String superclassTableUnambiguous() {
     return (superclass == null)
             ? "Table"
             : superclass.tableMainClassUnambiguous();
   }
+
+  /** 
+   * Calculate the full type for the superclass of this  Table.
+   * 
+   * @return the superclass fully qualified name
+   */
   public String superclassTableFQName() {
     return (superclass == null)
             ? "org.melati.poem.Table"
             : superclass.tableMainClassFQName();
   }
+  /** 
+   * Calculate the type for the superclass of this  Table.
+   * 
+   * @return the superclass short name
+   */
   public String superclassTableShortName() {
     return (superclass == null)
             ? "Table"
             : superclass.tableMainClassShortName();
   }
 
-  public String importMainString() {
+  String importMainString() {
 //    return (hidesOther && !hidden) ? "import " + mainClassFQName() + ";\n" 
 //                                   : "";
       return "import " + mainClassFQName() + ";\n";
   }
 
-  public String importTableString() {
+  String importTableString() {
 //    return (hidesOther && !hidden) ? "import " + tableMainClassFQName() + 
 //                             ";\n" : "";
       return "import " + tableMainClassFQName() + ";\n"; 
 
   }
 
-  public String baseClassFQName() {
+  String baseClassFQName() {
     return packageName + ".generated." + tableShortName + "Base";
   }
 
-  public String baseClassShortName() {
+  String baseClassShortName() {
     return tableShortName + "Base";
   }
 
-  public String baseClassUnambiguous() {
+  String baseClassUnambiguous() {
     return (hidden)
               ? baseClassFQName()
               : baseClassShortName();
   }
 
   /**
-   * Return the fully qualified name of the main class for this table
+   * @return the fully qualified name of the main class for this table
    */
   public String mainClassFQName() {
     return tableFQName;
   }
 
   /**
-   * Return the name of the main class for this table
+   * @return the name of the main class for this table
    */
   public String mainClassShortName() {
     return tableShortName;
   }
 
   /**
-   * Return a name for this class which will properly refer to this table
+   * @return a name for this class which will properly refer to this table
    * given the import lines we put in all our generated flies
    */
   public String mainClassUnambiguous() {
@@ -187,11 +221,12 @@ public class TableNamingInfo {
   }
 
   /**
-   * Find the return type we should use when calling getXxxxTable().
    * We need to make sure that this is the
    * same class as that returned by the root superclass of the same
    * name because you cannot override a function and change its
    * return type.
+   *
+   * @return type we should use when calling getXxxxTable().
    */
   public String mainClassRootReturnClass() {
     TableNamingInfo root = getRootSameNamedSuperclass();
@@ -200,27 +235,27 @@ public class TableNamingInfo {
               : mainClassUnambiguous();
   }
 
-  public String tableBaseClassFQName() {
+  String tableBaseClassFQName() {
     return packageName + ".generated." + tableShortName + "TableBase";
   }
-  public String tableBaseClassShortName() {
+  String tableBaseClassShortName() {
     return tableShortName + "TableBase";
   }
 
-  public String tableBaseClassUnambiguous() {
+  String tableBaseClassUnambiguous() {
     return (hidden)
               ? tableBaseClassFQName()
               : tableBaseClassShortName();
   }
 
-  public String tableMainClassFQName() {
+  String tableMainClassFQName() {
     return tableFQName + "Table";
   }
-  public String tableMainClassShortName() {
+  String tableMainClassShortName() {
     return tableShortName + "Table";
   }
 
-  public String tableMainClassUnambiguous() {
+  String tableMainClassUnambiguous() {
     return (hidden)
                ? tableMainClassFQName()
                : tableMainClassShortName();
@@ -234,6 +269,8 @@ public class TableNamingInfo {
    * return type.
    * <p>
    * NB if the superclass is abstract then we
+   *
+   * @return the root return class 
    */
   public String tableMainClassRootReturnClass() {
     TableNamingInfo root = getRootSameNamedSuperclass();
@@ -242,7 +279,7 @@ public class TableNamingInfo {
               : tableMainClassUnambiguous();
   }
 
-  public String tableAccessorMethod() {
+  String tableAccessorMethod() {
     return "get" + tableMainClassShortName();
   }
 

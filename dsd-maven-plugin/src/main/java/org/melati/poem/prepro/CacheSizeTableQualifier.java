@@ -56,10 +56,18 @@ import java.io.IOException;
  */
 public class CacheSizeTableQualifier extends TableQualifier {
 
-  public static final int DEFAULT = -1, UNLIMITED = -2;
+  static final int DEFAULT = -1, UNLIMITED = -2;
 
   private int size;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public CacheSizeTableQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -76,6 +84,11 @@ public class CacheSizeTableQualifier extends TableQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param table the {@link TableDef} to update
+  */
   public void apply(TableDef table) {
     table.cacheSize = size;
   }

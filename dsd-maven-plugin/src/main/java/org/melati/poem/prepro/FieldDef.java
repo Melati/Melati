@@ -84,14 +84,22 @@ public abstract class FieldDef {
   int width = -1, height = -1;
   String renderinfo = null;
 
-  public FieldDef(
-    TableDef table,
-    String name,
-    String type,
-    String rawType,
-    int displayOrder,
-    Vector qualifiers)
-    throws IllegalityException {
+ /**
+  * Constructor.
+  *
+  * @param table        the {@link TableDef} that this <code>Field</code> is 
+  *                     part of 
+  * @param name         the name of this field
+  * @param type         the POEM type of this field
+  * @param rawType      the underlying java type of this field
+  * @param displayOrder where to place this field in a list
+  * @param qualifiers   all the qualifiers of this field
+  * 
+  * @throws IllegalityException if a semantic inconsistency is detected
+  */
+  public FieldDef(TableDef table, String name, String type, String rawType,
+                  int displayOrder, Vector qualifiers)
+      throws IllegalityException {
     this.table = table;
     this.name = name;
     this.displayOrder = displayOrder;
@@ -107,6 +115,7 @@ public abstract class FieldDef {
        ((FieldQualifier) qualifiers.elementAt(q)).apply(this);
   }
 
+  /** @return a name for this class*/ 
   public String toString() {
     return table.name
       + "."
@@ -117,10 +126,9 @@ public abstract class FieldDef {
       + ")";
   }
 
-  private static void fieldQualifiers(
-    Vector qualifiers,
-    StreamTokenizer tokens)
-    throws ParsingDSDException, IOException {
+  private static void fieldQualifiers(Vector qualifiers, 
+                                      StreamTokenizer tokens)
+      throws ParsingDSDException, IOException {
     while (tokens.ttype == '(') {
       tokens.nextToken();
       qualifiers.addElement(FieldQualifier.from(tokens));
@@ -129,11 +137,25 @@ public abstract class FieldDef {
     }
   }
 
-  public static FieldDef from(
-    TableDef table,
-    StreamTokenizer tokens,
-    int displayOrder)
-    throws ParsingDSDException, IOException, IllegalityException {
+ /**
+  * Creates the appropriate type of <code>FieldDef</code> 
+  * from the input stream.
+  *
+  * @param table        the {@link TableDef} we are dealing with
+  * @param tokens       the <code>StreamTokenizer</code> to get tokens from
+  * @param displayOrder the ranking of this <code>Field</code>
+  *
+  * @throws ParsingDSDException 
+  *           if an unexpected token is encountered
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  * @throws IllegalityException
+  *           if a semantic incoherence is detected
+  * @return a new <code>FieldDef</code> of the appropriate type
+  */
+  public static FieldDef from(TableDef table, StreamTokenizer tokens,
+                              int displayOrder)
+      throws ParsingDSDException, IOException, IllegalityException {
     table.addImport("org.melati.poem.AccessPoemException", "both");
     table.addImport("org.melati.poem.ValidationPoemException", "table");
     table.addImport("org.melati.poem.Persistent", "table");
@@ -187,83 +209,173 @@ public abstract class FieldDef {
     else if (type.equals("byte[]"))
       return new BinaryFieldDef(table, name, displayOrder, qualifiers);
     else
-      return new ReferenceFieldDef(table, name, displayOrder, type, qualifiers);
+      return new ReferenceFieldDef(table, name, displayOrder, 
+                                   type, qualifiers);
   }
 
-  /**
-   * @param w Persistent Base
-   */
+ /**
+  * Write out this <code>Column</code>'s base methods.
+  *
+  * @param w Persistent Base
+  * 
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateBaseMethods(Writer w) throws IOException {
     w.write(
+      "\n /**\n"
+      + "  * Retrieves the <code>" 
+      + suffix 
+      + "</code> value, without locking, \n"
+      + "  * for this <code>" 
+      + table.suffix
+      + "</code> <code>Persistent</code>.\n"
+      + "  *\n"
+      + "  * @generator " 
+      + "org.melati.poem.prepro.FieldDef" 
+      + "#generateBaseMethods \n"
+      + "  * @return the " + rawType + " " + name + "\n"
+      + "  */\n");
+    w.write(
       "  public "
-        + rawType
-        + " get"
-        + suffix
-        + "_unsafe() {\n"
-        + "    return "
-        + name
-        + ";\n"
-        + "  }\n"
-        + "\n"
-        + "  public void set"
-        + suffix
-        + "_unsafe("
-        + rawType
-        + " cooked) {\n"
-        + "    "
-        + name
-        + " = cooked;\n"
-        + "  }\n");
+      + rawType
+      + " get"
+      + suffix
+      + "_unsafe() {\n"
+      + "    return "
+      + name
+      + ";\n"
+      + "  }\n"
+      + "\n");
+    w.write(
+      "\n /**\n"
+      + "  * Sets the <code>" 
+      + suffix 
+      + "</code> value directly, without checking, \n"
+      + "  * for this " 
+      + table.suffix
+      + " <code>Persistent</code>.\n"
+      + "  * \n"
+      + "  * @generator " 
+      + "org.melati.poem.prepro.FieldDef" 
+      + "#generateBaseMethods \n"
+      + "  * @param cooked  the pre-validated value to set\n"
+      + "  */\n");
+    w.write(
+      "  public void set"
+      + suffix
+      + "_unsafe("
+      + rawType
+      + " cooked) {\n"
+      + "    "
+      + name
+      + " = cooked;\n"
+      + "  }\n");
   }
 
-  /**
-   * @param w Persistent Base
-   */
+ /**
+  * Write out this <code>Column</code>'s field creators. 
+  *
+  * @param w Persistent Base
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateFieldCreator(Writer w) throws IOException {
     w.write(
+      "\n /**\n"
+      + "  * Retrieves the <code>" 
+      + suffix 
+      + "</code> value as a <code>Field</code>\n"
+      + "  * from this <code>" 
+      + table.suffix
+      + "</code> <code>Persistent</code>.\n"
+      + "  * \n"
+      + "  * @generator " 
+      + "org.melati.poem.prepro.FieldDef" 
+      + "#generateFieldCreator \n"
+      + "  * @throws AccessPoemException \n"
+      + "  *         if the current <code>AccessToken</code> \n"
+      + "  *         does not confer write access rights\n"
+      + "  * @return the " + rawType + " " + name + "\n"
+      + "  */\n");
+    w.write(
       "  public Field get"
-        + suffix
-        + "Field() "
-        + "throws AccessPoemException {\n"
-        + "    Column c = _"
-        + tableAccessorMethod
-        + "()."
-        + "get"
-        + suffix
-        + "Column();\n"
-        + "    return new Field(c.getRaw(this), c);\n"
-        + "  }\n");
+      + suffix
+      + "Field() "
+      + "throws AccessPoemException {\n"
+      + "    Column c = _"
+      + tableAccessorMethod
+      + "()."
+      + "get"
+      + suffix
+      + "Column();\n"
+      + "    return new Field(c.getRaw(this), c);\n"
+      + "  }\n");
   }
 
+ /**
+  * Write out this <code>Field</code>'s java declaration string.
+  *
+  * @param w PersistentBase
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public abstract void generateJavaDeclaration(Writer w) throws IOException;
 
-  /**
-   * @param w TableBase
-   */
+ /**
+  * Write out this <code>Column</code>'s java declaration string.
+  *
+  * @param w TableBase
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateColDecl(Writer w) throws IOException {
     w.write("Column col_" + name);
   }
 
-  /**
-   * @param w TableBase
-   */
+ /**
+  * Write out this <code>Column</code>'s accessors. 
+  *
+  * @param w TableBase
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateColAccessor(Writer w) throws IOException {
     w.write(
+      "\n /**\n"
+      + "  * Retrieves the <code>" 
+      + suffix 
+      + "</code> <code>Column</code> for this \n"
+      + "  * <code>" 
+      + table.suffix
+      + "</code> <code>Table</code>\n"
+      + "  * \n"
+      + "  * @generator " 
+      + "org.melati.poem.prepro.FieldDef" 
+      + "#generateColAccessor \n"
+      + "  * @return the " + name + " <code>Column</code>\n"
+      + "  */\n");
+    w.write(
       "  public final Column get"
-        + suffix
-        + "Column() {\n"
-        + "    return col_"
-        + name
-        + ";\n"
-        + "  }\n");
+      + suffix
+      + "Column() {\n"
+      + "    return col_"
+      + name
+      + ";\n"
+      + "  }\n");
   }
 
-  /**
-   * @param w TableBase
-   */
+ /**
+  * Write out this <code>Column</code>'s field accessors as 
+  * part of the anonymous definition of the <code>Column</code>.
+  *
+  * @param w TableBase
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   protected void generateColRawAccessors(Writer w) throws IOException {
     w.write(
-      "          public Object getRaw_unsafe(Persistent g)\n"
+          "          public Object getRaw_unsafe(Persistent g)\n"
         + "              throws AccessPoemException {\n"
         + "            return (("
         + mainClass
@@ -272,22 +384,29 @@ public abstract class FieldDef {
         + suffix
         + "_unsafe();\n"
         + "          }\n"
-        + "\n"
-        + "          public void setRaw_unsafe(Persistent g, Object raw)\n"
-        + "              throws AccessPoemException {\n"
-        + "            (("
-        + mainClass
-        + ")g).set"
-        + suffix
-        + "_unsafe(("
-        + rawType
-        + ")raw);\n"
-        + "          }\n");
+        + "\n");
+
+    w.write(
+      "          public void setRaw_unsafe(Persistent g, Object raw)\n"
+      + "              throws AccessPoemException {\n"
+      + "            (("
+      + mainClass
+      + ")g).set"
+      + suffix
+      + "_unsafe(("
+      + rawType
+      + ")raw);\n"
+      + "          }\n");
   }
 
-  /**
-   * @param w TableBase
-   */
+ /**
+  * Write out this <code>Column</code>'s definition 
+  * using an anonymous class. 
+  *
+  * @param w TableBase
+  * @throws IOException 
+  *           if something goes wrong with the file system
+  */
   public void generateColDefinition(Writer w) throws IOException {
     w.write(
       "    defineColumn(col_"
@@ -449,5 +568,6 @@ public abstract class FieldDef {
     w.write("        });\n");
   }
 
+ /** @return the Java string for this <code>PoemType</code>. */
   public abstract String poemTypeJava();
 }

@@ -48,15 +48,16 @@ package org.melati.poem.prepro;
 /**
  * Thrown when an imported DSD cannot be read.
  */
-public class ResourceNotFoundException extends Exception {
+class ResourceNotFoundException extends Exception {
 
-  public String resource, message;
+  String resource, message;
 
-  public ResourceNotFoundException(String resource, String message) {
+  ResourceNotFoundException(String resource, String message) {
     this.resource = resource;
     this.message = message;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "Problems reading `" + resource + "': " + message;
   }

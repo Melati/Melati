@@ -51,13 +51,14 @@ import java.io.File;
 /**
  * Thrown when a file does not meet the overwriting criteria.
  */
-public class TargetExistsDSDException extends IOException {
-  public File target;
+class TargetExistsDSDException extends IOException {
+  File target;
 
-  public TargetExistsDSDException(File target) {
+  TargetExistsDSDException(File target) {
     this.target = target;
   }
 
+  /** @return the message */
   public String getMessage() {
     return
         "The target file `" + target + "' exists " +

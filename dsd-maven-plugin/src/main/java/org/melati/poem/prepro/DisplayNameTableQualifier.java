@@ -57,6 +57,14 @@ public class DisplayNameTableQualifier extends TableQualifier {
 
   private String displayName;
 
+ /**
+  * Constructor.
+  *
+  * @param tokens the <code>StreamTokenizer</code> to get tokens from
+  *
+  * @throws ParsingDSDException if an unexpected token is encountered
+  * @throws IOException if something goes wrong with the file system
+  */
   public DisplayNameTableQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
@@ -66,6 +74,11 @@ public class DisplayNameTableQualifier extends TableQualifier {
     tokens.nextToken();
   }
 
+ /**
+  * Update the model.
+  *
+  * @param table the {@link TableDef} to update
+  */
   public void apply(TableDef table) {
     table.displayName = displayName;
   }

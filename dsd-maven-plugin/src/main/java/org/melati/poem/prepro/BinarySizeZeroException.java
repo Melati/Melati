@@ -49,13 +49,14 @@ package org.melati.poem.prepro;
  * Thrown if a <tt>BinaryFieldDef</TT> does not have size greater than zero.
  *
  */
-public class BinarySizeZeroException extends IllegalityException {
-  public FieldDef field;
+class BinarySizeZeroException extends IllegalityException {
+  FieldDef field;
 
-  public BinarySizeZeroException(FieldDef field) {
+  BinarySizeZeroException(FieldDef field) {
     this.field = field;
   }
 
+  /** @return the message */
   public String getMessage() {
     return "The column " + field + " is has no defined size";
   }

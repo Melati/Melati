@@ -52,5 +52,11 @@ import java.io.IOException;
  * An interface which defines a process method on a <tt>Writer</tt>.
  */
 public interface Generator {
+  /** 
+   * Do the do.
+   * @param w the <code>Writer</code> to output to 
+   * @throws IOException if a problem occurs with the file system
+   */
   void process(Writer w) throws IOException;
+
 }

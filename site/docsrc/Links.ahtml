@@ -78,7 +78,7 @@ This page last updated: $Date$ $Author$
  <li><a href="http://www.eclipse.org/">Eclipse</a> 
   is an IDE used by some Melati developers, which Melati works well with.
  </li>
- <li><a href="http://www.wincvs.org">WinCVS</a> CVS client for Windows. 
+ <li><a href="http://www.tortoisecvs.org">TortoiseCVS</a> CVS client for Windows. 
  </li>
 </ul>
 @sectionEndTag@

@@ -45,39 +45,28 @@
  * contact me!
  */
 
-package org.melati.poem.prepro;
+package org.melati.poem;
 
-import java.io.*;
+import java.sql.*;
 
-public class SizeFieldQualifier extends FieldQualifier {
+public class PasswordPoemType extends StringPoemType {
 
-  private int size;
-
-  public SizeFieldQualifier(StreamTokenizer tokens)
-      throws ParsingDSDException, IOException {
-    DSD.expect(tokens, '=');
-    tokens.nextToken();
-    if (tokens.ttype == StreamTokenizer.TT_WORD &&
-        tokens.sval.equals("unlimited"))
-      size = -1;
-    else {
-      if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int)tokens.nval <= 0)
-        throw new ParsingDSDException("<positive size number>", tokens);
-      size = (int)tokens.nval;
-    }
-    tokens.nextToken();
+  public PasswordPoemType(boolean nullable, int size, int width) {
+    super(nullable, size, width, 1);
   }
 
-  public void apply(FieldDef field) throws SizeApplicationException {
-    // FIXME check for duplication
-    if (field instanceof StringFieldDef) {
-       ((StringFieldDef)field).size = size;
-       return;
-   }
-    if (field instanceof PasswordFieldDef) {
-       ((PasswordFieldDef)field).size = size;
-       return;
-   }
-   throw new SizeApplicationException(field);
+  public PasswordPoemType(boolean nullable, int size) {
+    this(nullable, size, size < 0 ? 10 : size);
   }
+
+  public String toString() {
+    return (getNullable() ? "nullable " : "") + "Password(" + super.size + ")";
+  }
+
+  protected void _saveColumnInfo(ColumnInfo columnInfo)
+      throws AccessPoemException {
+    columnInfo.setType(PoemTypeFactory.PASSWORD);
+    columnInfo.setSize(size);
+  }
+
 }

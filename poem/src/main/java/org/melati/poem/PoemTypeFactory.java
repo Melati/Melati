@@ -74,7 +74,7 @@ public abstract class PoemTypeFactory {
   public abstract String getDescription();
 
   public static final PoemTypeFactory
-      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE;
+      TROID, DELETED, TYPE, BOOLEAN, INTEGER, DOUBLE, STRING, DATE, PASSWORD;
 
   private static int n = -1;
 
@@ -199,6 +199,22 @@ public abstract class PoemTypeFactory {
 
       public String getName() {
         return "DATE";
+      }
+
+      public String getDescription() {
+        return "...";
+      }
+    },
+
+    PASSWORD = new PoemTypeFactory(n--) {
+      public PoemType typeOf(Database database, ColumnInfo info) {
+        return new PasswordPoemType(info.nullable.booleanValue(),
+                                  info.size.intValue(),
+                                  info.width.intValue());
+      }
+
+      public String getName() {
+        return "PASSWORD";
       }
 
       public String getDescription() {

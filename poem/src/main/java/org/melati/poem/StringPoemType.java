@@ -51,7 +51,7 @@ import java.sql.*;
 
 public class StringPoemType extends AtomPoemType {
 
-  private int size;             // or, < 0 for "unlimited"
+  protected int size;             // or, < 0 for "unlimited"
 
   public StringPoemType(boolean nullable, int size, int width, int height) {
     super(Types.VARCHAR, "VARCHAR", nullable, width, height);

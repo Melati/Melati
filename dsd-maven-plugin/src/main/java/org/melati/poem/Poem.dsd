@@ -55,7 +55,7 @@ table User
   (unique) String login (size = 20)
       (description = "The user's login name");
 
-  String password (size = 20)
+  Password password (size = 20)
       (compareonly) // FIXME at the moment this is a noop
       (description = "The user's password");
 

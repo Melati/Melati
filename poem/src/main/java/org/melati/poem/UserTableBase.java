@@ -120,7 +120,7 @@ public class UserTableBase extends Table {
         });
 
     defineColumn(col_password =
-        new Column(this, "password", new StringPoemType(false, 20), DefinitionSource.dsd) { 
+        new Column(this, "password", new PasswordPoemType(false, 20), DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
             return ((User)g).getPassword();

@@ -89,7 +89,7 @@ table Invoice {
   (primary) int id;
   Date taxDate;
   (indexed) Party issuer;	     // a reference
-  (unique with issuer) String number (maxlength = 10);
+  (unique) String number (maxlength = 10);
   (indexed) Party receiver;
   InvoiceLine.invoice Subset lines;  // an owned list
   Textarea notes (width = 50, height = 5);
@@ -165,18 +165,6 @@ table InvoiceLine {
       It's also possible to specify that every record in the table must have a
       different value for a particular field.  <TT>unique</TT> implies
       <TT>indexed</TT>.
-    </TD>
-  </TR>
-
-  <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
-
-  <TR VALIGN=TOP>
-    <TD><TT>(</TT>...<TT> with <I>field</I>)</TT></TD>
-    <TD>&nbsp;&nbsp;</TD>
-    <TD>
-      Fields can be indexed or made unique jointly with each other.  <FONT
-      COLOR=red>FIXME: This feature is perhaps not a priority but would seem to
-      be required for some purposes.</FONT>
     </TD>
   </TR>
 
@@ -1688,6 +1676,9 @@ $ml.BodyInclusions  &lt;!-- get the javascript header in --&gt;
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.13  2000/10/26 05:53:46  timj
+  <BR>remove documentation of unique with
+  <BR>
   <BR>Revision 1.12  2000/07/27 18:39:45  timp
   <BR>Make CVS links work
   <BR>

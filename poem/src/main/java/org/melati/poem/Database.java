@@ -354,14 +354,13 @@ abstract public class Database implements TransactionPool {
   /**
    * The number of transactions available for concurrent use on the database.
    * This is the number of JDBC <TT>Connection</TT>s opened when the database
-   * was <TT>connect</TT>ed, currently simply fixed at five.
+   * was <TT>connect</TT>ed, currently simply fixed at two [in order to
+   * avoid generating too many Postgresql connections until we have really
+   * understood what needs to be done w.r.t. shm/sem resource ...].
    */
 
-  // ¡AbstractVersionedObject depends on this staying constant!, because
-  // overflows of its `versions' array are not trapped
-
   public final int transactionsMax() {
-    return 5;
+    return 2;
   }
 
   // 

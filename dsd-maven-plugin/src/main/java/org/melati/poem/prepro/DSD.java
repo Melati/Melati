@@ -275,7 +275,7 @@ public class DSD {
                 "\n");
       } else {
         w.write("package " + packageName + ";\n" +
-                "\n");
+        "\n");
       }
 
       proc.process(w);
@@ -292,7 +292,7 @@ public class DSD {
       }
       throw e;
     }
-
+    w.write("\n");
     w.close();
   }
 

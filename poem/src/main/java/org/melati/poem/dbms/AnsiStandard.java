@@ -164,9 +164,9 @@ public class AnsiStandard implements Dbms {
           throw new SQLException(
                         "Null connection from driver using url: " + 
                         url + 
-                        "user: " + 
+                        " user: " + 
                         user + 
-                        "password: " + password);
+                        " password: " + password);
         return c;
       } catch (SQLException e) {
         throw new ConnectionFailurePoemException(e);
@@ -179,9 +179,9 @@ public class AnsiStandard implements Dbms {
         throw new SQLException(
                       "Null connection from DriverManager using url: " + 
                       url + 
-                      "user: " + 
+                      " user: " + 
                       user + 
-                      "password: " + password);
+                      " password: " + password);
       return c;
     } catch (java.sql.SQLException e) {
       throw new ConnectionFailurePoemException(e);

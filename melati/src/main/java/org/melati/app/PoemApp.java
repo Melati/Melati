@@ -176,7 +176,7 @@ import org.melati.util.MelatiSimpleWriter;
  * @todo work out non-http access control
  */
 
-public abstract class PoemApp  {
+public abstract class PoemApp implements PoemTask {
 
   protected static MelatiConfig melatiConfig;
 
@@ -185,11 +185,7 @@ public abstract class PoemApp  {
    *
    * @throws MelatiException is anything goes wrong
    */
-  protected final Object _this;
-  
   public void init() throws MelatiException {
-     _this = Class.forName(Class.getName()).newInstance();
-     melatiConfig = melatiConfig();
   }
 
   /**
@@ -199,8 +195,9 @@ public abstract class PoemApp  {
    * @param response the outgoing <code>HttpServletResponse</code>
    * @throws IOException if anything goes wrong with the file system
    */
-  private static void doRequest() {
+  public void run() {
     try {
+      melatiConfig = melatiConfig();
       MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(System.out));
       final Melati melati = melatiConfig.getMelati(out);
       PoemContext poemContext = poemContext(melati);
@@ -219,9 +216,9 @@ public abstract class PoemApp  {
             melati.loadTableAndObject();
             try {
               try {
-                _this.doPoemRequest(melati);
+                doPoemRequest(melati);
               } catch (Exception e) {
-                _this._handleException (melati, e);
+                _handleException (melati, e);
               }
             } catch (Exception e) {
               throw new UnexpectedExceptionException(e);
@@ -354,7 +351,7 @@ public abstract class PoemApp  {
   protected static PoemContext poemContext(Melati melati) 
       throws InvalidArgumentsException {
 
-    String[] args = melati.getArguments();
+    String[] args = new String[0];//melati.getArguments();
     
     PoemContext it = new PoemContext();
 
@@ -403,7 +400,7 @@ public abstract class PoemApp  {
                                             String logicalDatabase) 
       throws InvalidArgumentsException {
 
-    String[] args = melati.getArguments();
+    String[] args = new String[0];// melati.getArguments();
     
     PoemContext it = new PoemContext();
 
@@ -433,16 +430,7 @@ public abstract class PoemApp  {
   }
 
   
-  /**
-   * The command line entry point. 
-   *
-   * @param args the argument array
-   */
-   public static void main(final String[] args) {
-     doRequest();
-   }
-
-
+   
   /**
    * Override this method to build up your own output.
    *

@@ -203,6 +203,14 @@ public class AnsiStandard implements Dbms {
   public String preparedStatementPlaceholder(PoemType type) {
     return "?";
   }
+  
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#createTableSql()
+   */
+  public String createTableSql() {
+    return "CREATE TABLE ";
+  }
+
 
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)

@@ -102,6 +102,13 @@ public interface Dbms {
    */
   String preparedStatementPlaceholder(PoemType type);
 
+  /**
+   * Allow hsqldb to have a different create tbale syntax.
+   * 
+   * @return "CREATE TABLE " normally 
+   */
+  String createTableSql();
+   
  /**
   * Retrieve a SQL type keyword used by the DBMS 
   * for the given Melati type name.

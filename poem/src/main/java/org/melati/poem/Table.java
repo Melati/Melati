@@ -548,7 +548,7 @@ public class Table implements Selectable {
 
   private void dbCreateTable() {
     StringBuffer sqb = new StringBuffer();
-    sqb.append("CREATE TABLE " + quotedName() + " (");
+    sqb.append(dbms().createTableSql() + quotedName() + " (");
     for (int c = 0; c < columns.length; ++c) {
       if (c != 0) sqb.append(", ");
       sqb.append(columns[c].quotedName() + " " +
@@ -2309,8 +2309,10 @@ public class Table implements Selectable {
     } else {
       // silently create any missing columns
       for (int c = 0; c < columns.length; ++c) {
-        if (dbColumns.get(columns[c]) == null)
+        if (dbColumns.get(columns[c]) == null) {
+          System.err.println("About to add missing column" + columns[c]);
           dbAddColumn(columns[c]);
+        }
       }
     }
 

@@ -79,6 +79,17 @@ public class Hsqldb extends AnsiStandard {
     setDriverClassName("org.hsqldb.jdbcDriver");
   }
 
+  /** 
+   * The default is to keep everything in memory.
+   * This allows for the db to be written to the disk.
+   * 
+   * @see org.melati.poem.dbms.Dbms#createTableSql()
+   */
+  public String createTableSql() {
+    return "CREATE CACHED TABLE ";
+  }
+
+
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
@@ -161,11 +172,13 @@ public class Hsqldb extends AnsiStandard {
 
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
+    if(name.equalsIgnoreCase("CONSTRAINT")) name = "MELATI_" + name.toUpperCase();
     return name.toUpperCase();
   }
 
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
+    if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "constraint";
     return name.toLowerCase();
   }
 

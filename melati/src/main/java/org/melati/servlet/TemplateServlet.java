@@ -64,7 +64,7 @@ public abstract class TemplateServlet extends PoemServlet
 {
 
   // the template engine
-  public TemplateEngine templateEngine;
+  protected TemplateEngine templateEngine;
 
   /**
    * Inititialise WebMacro
@@ -105,7 +105,7 @@ public abstract class TemplateServlet extends PoemServlet
   * to allow the application developer to specify their own template
   * extensions
   */
-  public String addExtension(String templateName) {
+  private String addExtension(String templateName) {
     return templateName + templateEngine.templateExtension();
   }
 

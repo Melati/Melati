@@ -112,7 +112,7 @@ public abstract class ConfigServlet extends HttpServlet
 {
 
   // the melati
-  public MelatiConfig melatiConfig;
+  protected MelatiConfig melatiConfig;
 
   /**
    * Inititialise Melati

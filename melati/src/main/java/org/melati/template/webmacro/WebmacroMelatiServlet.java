@@ -65,7 +65,7 @@ import org.webmacro.WebMacroException;
 public abstract class WebmacroMelatiServlet extends TemplateServlet
 {
 
-  public String doTemplateRequest
+  protected String doTemplateRequest
   (Melati melati, TemplateContext templateContext) throws Exception {
     WebContext webContext = (WebContext)templateContext.getContext();
     return handle(melati, webContext);
@@ -74,11 +74,11 @@ public abstract class WebmacroMelatiServlet extends TemplateServlet
   /*
   * adding the extension is left up to the application developer
   */
-  public String addExtension(String templateName) {
+  protected String addExtension(String templateName) {
     return templateName;
   }
 
-  public abstract String handle(Melati melati, WebContext webContext) 
+  protected abstract String handle(Melati melati, WebContext webContext) 
   throws WebMacroException ;
   
 }

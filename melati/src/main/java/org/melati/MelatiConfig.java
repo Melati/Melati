@@ -257,7 +257,7 @@ public class MelatiConfig {
 
   /**
    * @deprecated Use getLocale if possible, otherwise you might as well use MelatiLocale.here.
-   * @return Brittish English melati locale.  
+   * @return British English melati locale.  
    */
   public static MelatiLocale getMelatiLocale() {
     return MelatiLocale.here;

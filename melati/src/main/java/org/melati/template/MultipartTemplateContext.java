@@ -92,6 +92,27 @@ public class MultipartTemplateContext implements TemplateContext
     }
   }
 
+  public MultipartTemplateContext(Melati melati, TemplateContext context,
+                                  int maxSize)
+                                                               throws IOException {
+    peer = context;
+    this.melati = melati;
+    try {
+      InputStream in = melati.getRequest().getInputStream();
+      MultipartDataDecoder decoder=
+        new MultipartDataDecoder(melati,
+                                 in,
+                                 melati.getRequest().getContentType(),
+                                 melati.getConfig().getFormDataAdaptorFactory(),
+                                 maxSize);
+      fields = decoder.parseData();
+    }
+    catch (IOException e) {
+      fields = new Hashtable();
+      throw e;
+    }
+  }
+
   public void put(String s, Object o) {
     peer.put(s,o);
   }

@@ -79,6 +79,8 @@ public abstract class FieldQualifier {
       it = new DisplayOrderPriorityFieldQualifier(tokens);
     else if (kind.equals("uneditable"))
       it = new UneditableFieldQualifier(tokens);
+    else if (kind.equals("uncreateable"))
+      it = new UncreateableFieldQualifier(tokens);
     else if (kind.equals("displayname"))
       it = new DisplayNameFieldQualifier(tokens);
     else if (kind.equals("description"))

@@ -55,7 +55,7 @@ import org.melati.util.MelatiLocale;
  * A metadata type which defines the type of another column.
  *
  * Used in the <tt>ColumnInfo</tt> table it can take 
- * positive values to indicate a refernce to a type defined 
+ * positive values to indicate a reference to a type defined 
  * in the <tt>TableInfo</tt> table or a negative value to 
  * point to a fundamental type.
  *

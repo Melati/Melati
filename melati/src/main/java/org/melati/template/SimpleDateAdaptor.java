@@ -72,11 +72,12 @@ public class SimpleDateAdaptor implements TempletAdaptor {
 
   public Object rawFrom(TemplateContext context, String fieldName) {
     String value = context.getForm(fieldName);
-    if (value == null || value.equals("")) return null;
+    if (value == null || value.equals(""))
+      return null;
     java.util.Date date = dateFormatter1.parse(value, new ParsePosition(0));
     // give it another go using a different format
     if (date == null)
-    date = dateFormatter2.parse(value, new ParsePosition(0));
+      date = dateFormatter2.parse(value, new ParsePosition(0));
     return new Date(date.getTime());
   }
 

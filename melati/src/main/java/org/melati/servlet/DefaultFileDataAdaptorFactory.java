@@ -78,7 +78,6 @@ public class DefaultFileDataAdaptorFactory implements FormDataAdaptorFactory
   }
 
   public FormDataAdaptor get(final Melati melati, MultipartFormField field) {
-    System.err.println("About to get an adaptor. I have the settings (dir,url): ("+uploadDir+","+uploadURL+")");
     return new DefaultFileDataAdaptor(uploadDir, uploadURL);
   }
 }

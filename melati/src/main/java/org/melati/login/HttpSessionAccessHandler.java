@@ -41,20 +41,6 @@
  *     William Chesters <williamc@paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
-<<<<<<< HttpSessionAccessHandler.java
- *
- *
- * ------
- *  Note
- * ------
- *
- * I will assign copyright to PanEris (http://paneris.org) as soon as
- * we have sorted out what sort of legal existence we need to have for
- * that to make sense.
- * In the meantime, if you want to use Melati on non-GPL terms,
- * contact me!
-=======
->>>>>>> 1.12
  */
 
 package org.melati.login;
@@ -117,18 +103,14 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
 
-  public void handleAccessException(Melati context,
-  AccessPoemException accessException)
-  throws Exception {
+  public void handleAccessException(Melati context, 
+                         AccessPoemException accessException) throws Exception {
     accessException.printStackTrace();
-
     HttpServletRequest request = context.getRequest();
     HttpServletResponse response = context.getResponse();
-
     HttpSession session = request.getSession(true);
-
     session.putValue(Login.TRIGGERING_REQUEST_PARAMETERS,
-    new HttpServletRequestParameters(request));
+                     new HttpServletRequestParameters(request));
     session.putValue(Login.TRIGGERING_EXCEPTION, accessException);
     response.sendRedirect(loginPageURL(context, request));
   }
@@ -140,13 +122,22 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  public Melati establishUser(Melati melati) 
-  throws ReconstructedHttpServletRequestMismatchException, IOException {
+  public Melati establishUser(Melati melati) throws IOException {
+    HttpSession session = melati.getSession();
+    synchronized (session) {
+      User user = (User)session.getValue(USER);
+      PoemThread.setAccessToken(
+      user == null ? melati.getDatabase().guestAccessToken() : user);
+    }
+    return melati;
+  }
+
+  public void buildRequest(Melati melati) 
+      throws ReconstructedHttpServletRequestMismatchException {
     HttpSession session = melati.getSession();
 
     // First off, is the user continuing after a login?  If so, we want to
     // recover any POSTed fields from the request that triggered it.
-
     synchronized (session) {
       HttpServletRequestParameters oldParams =
       (HttpServletRequestParameters)session.getValue(OVERLAY_PARAMETERS);
@@ -155,23 +146,9 @@ public class HttpSessionAccessHandler implements AccessHandler {
         /* we don't want to create a new object here, rather we are simply 
            going to set up the old request parameters
         */
-        melati.setRequest(
-        new ReconstructedHttpServletRequest(oldParams,
-        melati.getRequest()));
-        /*
-        melati = melati.newInstance(
-        new ReconstructedHttpServletRequest(oldParams,
-        melati.getRequest()),
-        melati.getResponse());
-//        melati.getWriter().write("donePoemRequest context: " + melati );
-        */
+        melati.setRequest(new ReconstructedHttpServletRequest(oldParams,
+                                                          melati.getRequest()));
       }
-
-      User user = (User)session.getValue(USER);
-      PoemThread.setAccessToken(
-      user == null ? melati.getDatabase().guestAccessToken() : user);
     }
-
-    return melati;
   }
 }

@@ -50,18 +50,17 @@ public class LoginHandler {
     HttpSession session = context.getSession();
 
     AccessPoemException triggeringException =
-    (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
+        (AccessPoemException)session.getValue(Login.TRIGGERING_EXCEPTION);
 
     if (triggeringException != null)
-    context.put("triggeringException", triggeringException);
+      context.put("triggeringException", triggeringException);
 
     String username = context.getForm("field_login");
     String password = context.getForm("field_password");
     UserTable users = PoemThread.database().getUserTable();
 
     context.put("login", new Field(username, users.getLoginColumn()));
-    context.put("password",
-    new Field(password, users.getPasswordColumn()));
+    context.put("password", new Field(password, users.getPasswordColumn()));
 
     context.put("loginUnknown", Boolean.FALSE);
     context.put("passwordWrong", Boolean.FALSE);
@@ -77,12 +76,12 @@ public class LoginHandler {
     HttpSession session = templateContext.getSession();
 
     HttpServletRequestParameters triggeringParams =
-    (HttpServletRequestParameters)session.getValue(
-    Login.TRIGGERING_REQUEST_PARAMETERS);
+        (HttpServletRequestParameters)session.getValue(
+                                          Login.TRIGGERING_REQUEST_PARAMETERS);
 
     if (triggeringParams != null) {
       session.putValue(HttpSessionAccessHandler.OVERLAY_PARAMETERS,
-      triggeringParams);
+                       triggeringParams);
       session.removeValue(Login.TRIGGERING_REQUEST_PARAMETERS);
       session.removeValue(Login.TRIGGERING_EXCEPTION);
       templateContext.put("continuationURL", triggeringParams.continuationURL());

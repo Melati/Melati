@@ -218,7 +218,8 @@ public abstract class PoemServlet extends ConfigServlet
   /**
    * Overriden in TemplateServlet
    */
-  protected void prePoemSession(Melati melati) throws Exception {}
+  protected void prePoemSession(Melati melati) throws Exception {
+  }
 
   /**
    * Process the request.
@@ -230,6 +231,7 @@ public abstract class PoemServlet extends ConfigServlet
 
     // Do something outside of the PoemSession
     try {
+      melatiIn.getConfig().getAccessHandler().buildRequest(melatiIn);
       prePoemSession(melatiIn);
     }
     catch (Exception e) {

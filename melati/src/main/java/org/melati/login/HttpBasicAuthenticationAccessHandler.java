@@ -167,8 +167,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
-  public Melati establishUser(Melati melati)
-  throws ReconstructedHttpServletRequestMismatchException, IOException {
+  public Melati establishUser(Melati melati) throws IOException {
 
     HttpAuthorization auth = HttpAuthorization.from(melati.getRequest());
 
@@ -242,5 +241,10 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
         return melati;
       }
     }
+  }
+
+  public void buildRequest(Melati melati) 
+      throws ReconstructedHttpServletRequestMismatchException, IOException {
+    return;
   }
 }

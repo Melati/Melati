@@ -64,6 +64,8 @@ public interface AccessHandler {
    *         handled the request (<I>e.g.</I> by sending back an error)
    */
 
-  Melati establishUser(Melati melati)
-    throws ReconstructedHttpServletRequestMismatchException, IOException;
+  Melati establishUser(Melati melati) throws IOException;
+
+  void buildRequest(Melati melati) 
+      throws ReconstructedHttpServletRequestMismatchException, IOException;
 }

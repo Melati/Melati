@@ -68,6 +68,13 @@ import org.melati.util.StringUtils;
 
 public class Hsqldb extends AnsiStandard {
 
+  /**
+   * HSQLDB does not have a pleasant <code>TEXT</code> 
+   * datatype, so we use an arbetary value in a 
+   * <code>VARCHAR</code>.
+   */
+  public static int hsqldbTextHack = 266;
+
   public Hsqldb() {
     setDriverClassName("org.hsqldb.jdbcDriver");
   }
@@ -81,7 +88,7 @@ public class Hsqldb extends AnsiStandard {
 
   public String getStringSqlDefinition(int size) {
     if (size < 0)
-      return "VARCHAR(2500)";
+      return "VARCHAR(" + hsqldbTextHack + ")";
     return "VARCHAR(" + size + ")";
   }
 
@@ -89,10 +96,17 @@ public class Hsqldb extends AnsiStandard {
     return "BIGINT";
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+   */
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    return "LONGVARBINARY";
+  }
+
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
 
-      if (((StringPoemType) storage).getSize() == 2500
+      if (((StringPoemType) storage).getSize() == hsqldbTextHack
         && ((StringPoemType) type).getSize() == -1) {
         return type;
       } else {
@@ -106,7 +120,10 @@ public class Hsqldb extends AnsiStandard {
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) 
       throws SQLException {
     //ResultSetMetaData rsmd = md.getMetaData();
-
+    // 1.7.3 introduces a Boolean type, which a Bit is inferred to be 
+    if (md.getString("TYPE_NAME").equals("BOOLEAN"))
+      return new HsqldbBooleanPoemType(
+                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     if (md.getString("TYPE_NAME").equals("BIT"))
       return new HsqldbBooleanPoemType(
                     md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
@@ -136,6 +153,21 @@ public class Hsqldb extends AnsiStandard {
 
   }
 
+  public String getQuotedName(String name) {
+    StringBuffer b = new StringBuffer();
+    StringUtils.appendQuoted(b, unreservedName(name), '"');
+    return b.toString();
+  }
+
+  public String unreservedName(String name) {
+    if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
+    return name.toUpperCase();
+  }
+
+  public String melatiName(String name) {
+    if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
+    return name.toLowerCase();
+  }
 
   /**
    * Work around a feature in HSQLDB where it seems that you need 
@@ -147,7 +179,6 @@ public class Hsqldb extends AnsiStandard {
   public String getJdbcMetadataName(String name) {
     return name;
   }
-
   
   /**
    * Hsqldb gets its scope confused unless inner table is aliased.
@@ -189,13 +220,17 @@ public class Hsqldb extends AnsiStandard {
       + ")";
   }
 
+  /** 
+   * Note that this is NOT case insensitive.
+   * 
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
-      term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
-    } else {
-      term2 = StringUtils.quoted(term2, '%');
-    }
+    } 
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+    
     return term1 + " LIKE " + term2;
   }
 

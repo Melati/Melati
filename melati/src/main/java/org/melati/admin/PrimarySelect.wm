@@ -87,7 +87,7 @@ function goto_page() {
       #if ($poss.RawString.equals("")) #begin
         All
       #end #else #begin
-        $ml.renderedString($poss)
+        $ml.rendered($poss)
       #end
     </OPTION>
   #end

@@ -75,9 +75,10 @@
   <h3>To upgrade from Melati 0.50 to Melati 0.52</h3>
   <ul>
     <li>your Webmacro based servlets should now extend org.melati.template.webmacro.WebmacroTemplateServlet, 
-      and return a String represtation of the Template name, not the actual template.</li>
-  </ul>
-  <ul>
+      and return a String represtation of the Template name, not the actual template. 
+    </li>
+    <li>If you override any templets, they will need to move to the /template/webmacro/templets 
+      directory. </li>
     <li> 
       <p>You will need to add the following line to<tt> org.melati.Melatiservlet.properties</tt></p>
       <p><tt>org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTemplateEngine 
@@ -192,9 +193,9 @@
         <blockquote>PostgreSQL 7.0 (and up)</blockquote>
       </td>
     </tr>
-    <tr>
+    <tr> 
       <td>Template Engine</td>
-      <td>
+      <td> 
         <blockquote><a href=http://webmacro.org/Download.html>WebMacro</a> Snapshot 
           July 19, 2000. Available for download as <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.zip">zip</a> 
           or <a href="http://germ.semiotek.com/wm/webmacro.19-07-2000.tgz">tgz</a>. 

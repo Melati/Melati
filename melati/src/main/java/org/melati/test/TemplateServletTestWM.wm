@@ -50,6 +50,7 @@ You can test how the PropagateVariableExceptionHandler handles AccessPoemExcepti
 
 
 <h3>Further Testing</h3>
+You can test melati Exception handling by clicking <a href=Exception>Exception</a><br>
 You can test melati Redirect handling by clicking <a href=Redirect>Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>

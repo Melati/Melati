@@ -62,6 +62,7 @@ import org.melati.servlet.MultipartFormField;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.webmacro.MelatiFastWriter;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 
 /**
@@ -116,6 +117,8 @@ public class TemplateServletTestWM extends TemplateServlet {
         // finally, put what we have into the original templateContext
         templateContext.put("StandAlone",out);
       }
+      if (melati.getMethod().equals("Exception")) 
+        throw new MelatiBugMelatiException("It got caught!");
     }      
     System.err.println("completed doTemplateRequest");
     return("test/TemplateServletTestWM");

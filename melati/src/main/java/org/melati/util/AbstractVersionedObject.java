@@ -179,8 +179,15 @@ public abstract class AbstractVersionedObject
     if (committedVersion == unknown || !upToDate(null, committedVersion))
       committedVersion = backingVersion(null);
 
-    if (session != null)
+    if (session != null) {
+      if (!upToDate(session, committedVersion)) {
+	if (versions == null)
+	  versions = new Version[sessionsMax()];
+	versions[session.index()] = backingVersion(session);
+      }
+	
       notifySeen(session);
+    }
 
     return committedVersion;
   }

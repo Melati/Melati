@@ -54,4 +54,9 @@ public class NoSuchColumnPoemException extends NormalPoemException {
     this.table = table;
     this.name = name;
   }
+  
+  public String getMessage() {
+    return "There is no Column on the table " + table + " with a name of " + name;
+  }
+
 }

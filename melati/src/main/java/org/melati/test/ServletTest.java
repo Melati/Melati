@@ -46,6 +46,7 @@ package org.melati.test;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.File;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +62,11 @@ public class ServletTest extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws ServletException, IOException {
     OutputStream os = response.getOutputStream();
-    os.write("Simple servlet working".getBytes());
+    os.write("Simple servlet working.\n".getBytes());
+    String path = new File("").getAbsolutePath();
+    os.write("Default file path:".getBytes());
+    os.write(path.getBytes());
+
   }
 
 }

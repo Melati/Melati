@@ -58,9 +58,10 @@ if(!isNav4) parent.loadframe.document.location = "blank.html";
 
 function init() {
 // Go through nodes adding items and lists
+
 #foreach $node in $tree.flattened($tree.DepthPerDownload) #begin
   Node$node.UniqueName = new TreeNode(
-#parse $tree.NodeLabelTemplet, $node.Depth, $node.isLeaf(), "$node.UniqueName");
+#parse "$tree.NodeLabelTemplet", $node.Depth, $node.isLeaf(), "$node.UniqueName");
   #if ($node.Parent) #begin
   Node$(node.UniqueName).setParent(Node$node.Parent.UniqueName;)
   #end

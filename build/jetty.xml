@@ -38,13 +38,13 @@
     <Arg>./dist/packaged/melati.war</Arg>
     <!-- WebMacro doesn't seem to be able to read templates
          Under windows unless "extractWAR" is set to true -->
-    <Set name="extractWAR">true</Set>
+    <Set name="extractWAR">TRUE</Set>
     <Set name="ServingResources">TRUE</Set>
   </Call>
 
 <!-- Can't put the war inside itself;
      Hence these links will only work 
-     if running using ant all in the build directory.
+     if running using 'ant go' in the build directory.
 -->
   <Call name="addContext">
     <Arg>/download</Arg>

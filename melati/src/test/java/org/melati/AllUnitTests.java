@@ -49,6 +49,8 @@ import junit.framework.TestSuite;
 
 import org.melati.poem.dbms.test.TestCaseDbms;
 import org.melati.util.test.StringUtilsTest;
+import org.melati.util.test.HttpHeaderTest;
+import org.melati.util.test.AcceptCharsetTest;
 
 /**
  * The top level test suite for Melati.
@@ -66,6 +68,8 @@ public class AllUnitTests {
     TestSuite suite = new TestSuite("Test for Melati");
     suite.addTestSuite(TestCaseDbms.class);
     suite.addTestSuite(StringUtilsTest.class);
+    suite.addTestSuite(HttpHeaderTest.class);
+    suite.addTestSuite(AcceptCharsetTest.class);
     return suite;
   }
 }

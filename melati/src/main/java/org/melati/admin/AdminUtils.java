@@ -60,7 +60,7 @@ public class AdminUtils {
   private String logicalDatabase;
 
   public AdminUtils(String adminURL, String adminStaticURL,
-  String logicalDatabase) {
+                    String logicalDatabase) {
     this.adminURL = adminURL;
     this.adminStaticURL = adminStaticURL;
     this.logicalDatabase = logicalDatabase;
@@ -162,13 +162,13 @@ public class AdminUtils {
     return adminStaticURL;
   }
 
-  public String specialFacilities(Melati melati, MarkupLanguage ml,
-  Persistent object)
-  throws Exception {
+  public String specialFacilities(Melati melati, MarkupLanguage ml, Persistent object)
+   throws Exception {
     if (object instanceof AdminSpecialised)
-    melati.getTemplateEngine().expandTemplate(melati.getWriter(),
-    ((AdminSpecialised)object).adminSpecialFacilities(melati, ml),
-    melati.getTemplateContext());
+      melati.getTemplateEngine().expandTemplate(
+               melati.getWriter(),
+               ((AdminSpecialised)object).adminSpecialFacilities(melati, ml),
+               melati.getTemplateContext());
     return "";
   }
 }

@@ -49,11 +49,9 @@ import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 
 public interface AdminSpecialised {
-  String adminHandle
-  (Melati melati, MarkupLanguage markupLanguage)
+  String adminHandle (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;
   
-  String adminSpecialFacilities
-  (Melati melati, MarkupLanguage markupLanguage)
+  String adminSpecialFacilities (Melati melati, MarkupLanguage markupLanguage)
       throws Exception;
 }

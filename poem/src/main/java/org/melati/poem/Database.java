@@ -182,17 +182,17 @@ abstract public class Database implements TransactionPool {
       if (committedConnection != null)
         throw new ReconnectionPoemException();
 
-        setTransactionsMax(transactionsMax);
-        committedConnection = getDbms().getConnection(url, username, password);
-        transactions = new Vector();
-        for (int s = 0; s < transactionsMax(); ++s) {
-            transactions.add(
-              new PoemTransaction(
-                  this,
-                  getDbms().getConnection(url, username, password),
-                  s));
-        }
-        freeTransactions = (Vector)transactions.clone();
+      setTransactionsMax(transactionsMax);
+      committedConnection = getDbms().getConnection(url, username, password);
+      transactions = new Vector();
+      for (int s = 0; s < transactionsMax(); ++s)
+        transactions.add(
+          new PoemTransaction(
+              this,
+              getDbms().getConnection(url, username, password),
+              s));
+
+      freeTransactions = (Vector)transactions.clone();
 
       try {
         // Bootstrap: set up the tableinfo and columninfo tables

@@ -65,9 +65,13 @@ public class FastMelatiWriter implements MelatiWriter {
   private ByteArrayOutputStream buffer;
   
   public FastMelatiWriter(HttpServletResponse response) throws IOException {
+    this (response.getOutputStream(), response.getCharacterEncoding());
+  }
+  
+  public FastMelatiWriter(OutputStream output, String encoding) throws IOException {
     buffer = new ByteArrayOutputStream();
-    peer = new FastWriter(buffer, response.getCharacterEncoding());
-    underlying = response.getOutputStream();
+    peer = new FastWriter(buffer, encoding);
+    underlying = output;
   }
   
 /**

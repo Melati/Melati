@@ -25,11 +25,11 @@ if echo "$javaversion" | grep -q '[^0-9.]1\.1' ; then
   exit 1
 fi
 
-here=`dirname $0`
-if [ "$here" = . ] ; then
+hereRaw=`dirname $0`
+if [ "$hereRaw" = . ] ; then
   here=
 else
-  here="$here/"
+  here="$hereRaw/"
 fi
 
 echo -e "Compiling Melati using $JAVAC\n"
@@ -49,4 +49,4 @@ fi
               "in the following lines:\n\n$wronglines\n\n" \
               "You must use JDK1.2 with Melati now, so you should change them to jdbc2."
 
-$JAVAC "$here"{,admin/,poem/{,prepro/,postgresql/jdbc2/},util/}*.java
+find "$hereRaw" -name '*.java' -print0 | xargs -0 $JAVAC

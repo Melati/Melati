@@ -213,19 +213,21 @@ import org.melati.util.MelatiWriter;
  * @see HttpBasicAuthenticationAccessHandler
  */
 
-public abstract class PoemServlet extends ConfigServlet
-{
+public abstract class PoemServlet extends ConfigServlet {
+
   /**
    * Overriden in TemplateServlet
    */
+
   protected void prePoemSession(Melati melati) throws Exception {
   }
 
   /**
    * Process the request.
    */
+
   protected void doConfiguredRequest(final Melati melatiIn)
-                 throws ServletException, IOException {
+      throws ServletException, IOException {
 
     // Set up a POEM session and call the application code
 
@@ -281,8 +283,9 @@ public abstract class PoemServlet extends ConfigServlet
   }
 
   // default method to handle an exception withut a template engine
+
   protected void handleException(Melati melati, Exception exception)
-                 throws Exception {
+      throws Exception {
 
     if (exception instanceof AccessPoemException) {
       melati.getConfig().getAccessHandler()
@@ -297,7 +300,7 @@ public abstract class PoemServlet extends ConfigServlet
   }
 
   protected final void _handleException(Melati melati, Exception exception) 
-                       throws Exception {
+       throws Exception {
     try {
       handleException(melati, exception);
     }
@@ -321,7 +324,8 @@ public abstract class PoemServlet extends ConfigServlet
   }
 
   protected MelatiContext melatiContext(Melati melati)
-                          throws PathInfoException {
+      throws PathInfoException {
+
     MelatiContext it = new MelatiContext();
     String[] parts = melati.getPathInfoParts();
 
@@ -339,7 +343,8 @@ public abstract class PoemServlet extends ConfigServlet
         it.method = parts[3];
         try {
           it.troid = new Integer (parts[2]);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
         }
       }
@@ -347,23 +352,26 @@ public abstract class PoemServlet extends ConfigServlet
     return it;
   }
 
-/*
- * this is provided for convenience, so you don't have to specify the 
- * logicaldatabase on the pathinfo.  this is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
- *
- * simply override melatiContext(Melati melati) thus:
- *
- * protected MelatiContext melatiContext(Melati melati)
- * throws PathInfoException {
- *   return melatiContextWithLDB(melati,"<your logical database name>");
- * }
- *
- */
+  /*
+   * This is provided for convenience, so you don't have to specify the 
+   * logicaldatabase on the pathinfo.  This is a very good idea when
+   * writing your appications where you are typically only accessing
+   * a single database.
+   *
+   * Simply override melatiContext(Melati melati) thus:
+   *
+   * <PRE>
+   * protected MelatiContext melatiContext(Melati melati)
+   *     throws PathInfoException {
+   *   return melatiContextWithLDB(melati,"<your logical database name>");
+   * }
+   * </PRE>
+   *
+   */
+
   protected MelatiContext melatiContextWithLDB (Melati melati, 
                                                 String logicalDatabase) 
-                          throws PathInfoException {
+      throws PathInfoException {
     MelatiContext it = new MelatiContext();
     String[] parts = melati.getPathInfoParts();
 
@@ -380,7 +388,8 @@ public abstract class PoemServlet extends ConfigServlet
         it.method = parts[2];
         try {
           it.troid = new Integer (parts[1]);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
           throw new PathInfoException (melati.getRequest().getPathInfo(),e);
         }
       }
@@ -390,9 +399,10 @@ public abstract class PoemServlet extends ConfigServlet
 
   /**
    * Override the method to build up your output
+   *
    * @param melati
    * @return String
    */
-  protected abstract void doPoemRequest(Melati melati) throws Exception;
 
+  protected abstract void doPoemRequest(Melati melati) throws Exception;
 }

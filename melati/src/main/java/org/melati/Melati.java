@@ -99,7 +99,7 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 public class Melati {
 
-  private static String DEFAULT_ENCODING = "UTF8";
+  private static String DEFAULT_ENCODING = "UTF8"; // FIXME UTF-8 ??
   private MelatiConfig config;
   private PoemContext poemContext;
   private HttpServletRequest request;

@@ -61,6 +61,8 @@ public class MelatiContext {
     this.method = method;
   }
 
+  public MelatiContext() {  }
+
   public String toString() {
     return "logicalDatabase = " + logicalDatabase + ", " +
            "table = " + table + ", " +

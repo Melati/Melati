@@ -52,4 +52,20 @@ public class ContactTable extends ContactTableBase {
   }
 
   // programmer's domain-specific code here
+
+  public Contact ensure(String name, Contact owner, String address) {
+    Contact contact = (Contact)getNameColumn().firstWhereEq(name);
+    if (contact != null)
+      return contact;
+    else {
+      contact = (Contact)newPersistent();
+      contact.setName(name);
+      contact.setOwner(owner);
+      contact.setAddress(address);
+
+      return (Contact)getNameColumn().ensure(contact);
+    }
+  }
+
+
 }

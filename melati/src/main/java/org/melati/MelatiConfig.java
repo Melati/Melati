@@ -50,7 +50,9 @@ package org.melati;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +65,8 @@ import org.melati.template.SimpleDateAdaptor;
 import org.melati.template.YMDDateAdaptor;
 import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
+import org.melati.util.EnumUtils;
+import org.melati.util.HttpHeader;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
@@ -87,6 +91,7 @@ public class MelatiConfig {
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
   private MelatiLocale melatiLocale = null;
+  private Vector preferredCharset = null;
   private Hashtable localeHash = new Hashtable(10);
   private String javascriptLibraryURL = null;
   private String staticURL = null;
@@ -98,7 +103,7 @@ public class MelatiConfig {
  /**
   * Allows creation of a <code>MelatiConfig</code> with default config params.
   *
-  * @throws MelatiException is anything goes wrong.
+  * @throws MelatiException if anything goes wrong.
   */
   public MelatiConfig() throws MelatiException {
     init(defaultPropertiesName);
@@ -109,7 +114,7 @@ public class MelatiConfig {
   * a specified properties file.
   *
   * @param propertiesName the name of a properties file
-  * @throws MelatiException is anything goes wrong.
+  * @throws MelatiException if anything goes wrong.
   */
   public MelatiConfig(String propertiesName) throws MelatiException {
     init(propertiesName);
@@ -126,6 +131,7 @@ public class MelatiConfig {
     String javascriptLibraryURLProp = pref + "javascriptLibraryURL";
     String staticURLProp = pref + "staticURL";
     String melatiLocaleProp = pref + "locale";    
+    String preferredCharsetsProp = pref + "preferredCharsets";    
     
     try {
       configuration =
@@ -183,6 +189,16 @@ public class MelatiConfig {
           throw new Exception(languageTag + 
                               " is not a valid language tag for " + 
                               melatiLocaleProp); 
+
+      String preferredCharsets = PropertiesUtils.getOrDefault(
+          configuration,
+          preferredCharsetsProp,
+          "ISO-8859-1, UTF-8, UTF-16");
+      // This is a fancy way of splitting, trimming and checking for
+      // errors such as spaces within fields. Also, it reflects the
+      // fact that the config file format is like a q-less header field.
+      preferredCharset = 
+        EnumUtils.vectorOf(new HttpHeader(preferredCharsets).wordIterator());
 
       javascriptLibraryURL = PropertiesUtils.getOrDie(
                                                   configuration,
@@ -384,6 +400,15 @@ public class MelatiConfig {
     // return our default locale
     return melatiLocale;
   }   
+
+  /**
+   * Return the set encodings that the server prefers and supports.
+   *
+   * @return Array of encoding names or aliases.
+   */
+  public List getPreferredCharsets() {
+    return preferredCharset;
+  }
 
  /**
   * @return the adaptor for rendering dates as drop-downs.

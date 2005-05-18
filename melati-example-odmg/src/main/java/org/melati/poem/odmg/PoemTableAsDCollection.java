@@ -189,8 +189,8 @@ class PoemTableAsDCollection implements org.odmg.DCollection {
 /** utility class for converting enumerations into iterators */
 private class EnumerationIterator implements Iterator {
   private Enumeration _enum = null;
-  EnumerationIterator(Enumeration enum) {
-    _enum = enum;
+  EnumerationIterator(Enumeration en) {
+    _enum = en;
   }
 
   public boolean hasNext() { return _enum.hasMoreElements(); }

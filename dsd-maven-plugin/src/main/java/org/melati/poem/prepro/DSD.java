@@ -548,8 +548,16 @@ public class DSD {
   * @throws Exception if an exception occurs
   */
   public static void main(String[] args) throws Exception {
-    DSD dsd = new DSD(args[0]);
-    dsd.generateJava();
+    if (args.length == 1) {
+      DSD dsd = new DSD(args[0]);
+      dsd.generateJava();
+    } else if (args.length == 2) {
+      DSD dsd = new DSD(args[0], new TableNamingStore(), false);
+      dsd.generateJava();
+    } else {
+       System.err.println(
+          "Usage: java org.melati.poem.prepro.DSD <dsd file> [false]");
+    }
   }
 
 }

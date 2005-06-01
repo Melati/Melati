@@ -181,7 +181,7 @@ public final class PoemThread {
  /**
   * Retrieve the {@link ToTidyList} for this session.
   *
-  * @return the {@link ToTidyList} for this {@PoemThread}.
+  * @return the {@link ToTidyList} for this {@link PoemThread}.
   */
   public static ToTidyList toTidy() throws NotInSessionPoemException {
     return sessionToken().toTidy();
@@ -190,7 +190,7 @@ public final class PoemThread {
  /**
   * Retrieve the {@link PoemTransaction} for this PoemThread.
   *
-  * @return the {@link PoemTransaction} for this {@PoemThread}.
+  * @return the {@link PoemTransaction} for this {@link PoemThread}.
   */
   public static PoemTransaction transaction() {
     return sessionToken().transaction;

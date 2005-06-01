@@ -51,7 +51,9 @@
   <property name="postgresqlJar"    value="pg73jdbc3.jar"/>
   <property name="oracleJar"        value="ojdbc14-1.0.jar"/>
   <property name="hsqldbJar"        value="hsqldb-1.7.3.1.jar"/>
-  <property name="mysqlJar"         value="mm.mysql-2.0.11-bin.jar" />
+  <!-- property name="mysqlJar"         value="mm.mysql-2.0.11-bin.jar" /-->
+  <property name="mysqlJar"         value="mysql-connector-java-3.0.15-ga-bin.jar" />
+
   <property name="sqlserverJar"     value="mssqlserver.jar" />
   <property name="msBaseJar"        value="msbase.jar" />
   <property name="msUtilJar"        value="msutil.jar" />
@@ -288,6 +290,11 @@ usage:
     <loadfile property="sectionStartTagEnd" 
               srcFile="${site.src}/xHTMLSectionStartTagEnd.tag"/>
     <property name="sectionEndTag" value=''/>
+    <loadfile property="subSectionStartTagStart" 
+              srcFile="${site.src}/xHTMLSubSectionStartTagStart.tag"/>
+    <loadfile property="subSectionStartTagEnd" 
+              srcFile="${site.src}/xHTMLSubSectionStartTagEnd.tag"/>
+    <property name="subSectionEndTag" value=''/>
     <copy todir="${site}">
        <fileset dir="${site.src}" includes="*.ahtml"/>
        <filterset>
@@ -302,6 +309,9 @@ usage:
           <filter token="sectionStartTagStart" value="${sectionStartTagStart}"/>
           <filter token="sectionStartTagEnd" value="${sectionStartTagEnd}"/>
           <filter token="sectionEndTag" value="${sectionEndTag}"/>
+          <filter token="subSectionStartTagStart" value="${subSectionStartTagStart}"/>
+          <filter token="subSectionStartTagEnd" value="${subSectionStartTagEnd}"/>
+          <filter token="subSectionEndTag" value="${subSectionEndTag}"/>
        </filterset>
        <mapper type="glob" from="*.ahtml" to="*.html"/>
     </copy>
@@ -327,6 +337,12 @@ usage:
               srcFile="${site.src}/xMLSectionStartTagEnd.tag"/>
     <loadfile property="XsectionEndTag" 
               srcFile="${site.src}/xMLSectionEndTag.tag"/>
+    <loadfile property="XsubSectionStartTagStart" 
+              srcFile="${site.src}/xMLSubSectionStartTagStart.tag"/>
+    <loadfile property="XsubSectionStartTagEnd" 
+              srcFile="${site.src}/xMLSubSectionStartTagEnd.tag"/>
+    <loadfile property="XsubSectionEndTag" 
+              srcFile="${site.src}/xMLSubSectionEndTag.tag"/>
     <copy todir="${xdocs}">
       <fileset dir="${site.src}" includes="*.ahtml" excludes="MailingList.html"/>
       <filterset>
@@ -341,6 +357,9 @@ usage:
         <filter token="sectionStartTagStart" value="${XsectionStartTagStart}"/>
         <filter token="sectionStartTagEnd" value="${XsectionStartTagEnd}"/>
         <filter token="sectionEndTag" value="${XsectionEndTag}"/>
+        <filter token="subSectionStartTagStart" value="${XsubSectionStartTagStart}"/>
+        <filter token="subSectionStartTagEnd" value="${XsubSectionStartTagEnd}"/>
+        <filter token="subSectionEndTag" value="${XsubSectionEndTag}"/>
       </filterset>
       <mapper type="glob" from="*.ahtml" to="*.xml"/>
     </copy>
@@ -506,14 +525,15 @@ usage:
         <include name="${concurrentJar}"/>
         <include name="${oroJar}" />
         <include name="${collectionsJar}" />
-        <include name="${oracleJar}"/>
+
+        <include name="${mysqlJar}" />
 
 <!-- other possible libraries
+        <include name="${oracleJar}"/>
         <include name="${postgresqlJar}"/>
         <include name="${velocityJar}" />
         <include name="${odmgJar}" />
         <include name="${junit}" />
-        <include name="${mysqlJar}" />
         <include name="${sqlserverJar}" />
         <include name="${msBaseJar}" />
         <include name="${msUtilJar}" />

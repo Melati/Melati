@@ -39,69 +39,11 @@
  *
  */
 
-/*
-Important notes - maybe to be added to org.melati.LogicalDatabases.properties,
-because end users don't read sources.
-
-0. Working with MySQL 3.23.24, MM.MySQL 2.0.11 JDBC driver (GPL)
-   from http://mmmysql.sourceforge.net
-
-1. Use JDBC URL of type jdbc:mysql://[host][:port]/dbname[?param=value[...]]
-   ie. the simpliest one has 3 slashes: jdbc:mysql:///melatitest
-
-2. Don't use asterix * for password, leave it empty (end of line), as:
-   org.Melati.LogicalDatabase.melatitest.pass=
-
-2a. or use explicit username and password and 
-   GRANT ALL PRIVILEGES ON <dbname> 
-   TO <username>@localhost IDENTIFIED BY '<password>';
-3. Start MySQL in ANSI mode, for quoting names - ANSI.getQuotedName(String name)
-   FIXME: Or change quotedName(), so MySQL runs in faster no-ANSI?
-   
-4. Start MySQL with transactioned tables as default. InnoDB is stable,
-   BDB about being stable.
-
-   BDB tables of MySQL-Max 3.23.49 don't support full transactions
-   - they lock whole table instead, until commit/rollback is called.
-   According to MySQL 4.0.2-alpha doc, interface between MySQL and
-   BDB tables is still improved.
-
-   As I tested MySQL-Max 3.23.49, InnoDB has correct transactions,
-   however database size must be specified & reserved in advance
-   in one file, that is share by all InnoDB tables.
-   Set in /etc/my.cnf by line like:
-       innodb_data_file_path=ibdata1:30M
-
-   run
-   safe_mysqld --user=mysql --ansi --default-table-type=InnoDB
-
-   After it created and initialised dB file /var/lib/mysql/ibdata1
-   of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
-   and ib_logfile1, both of size 5MB.
-
-   InnoDB provides ACID compliancy (does it help us?)
-
-   Works for Timp:
-   safe_mysqld --user=mysql --ansi --default-table-type=BDB 
-
-5. FIXME: Allow TCP connections, as JDBC can't use unix ports.
-
-6. FIXME: I tried to get the MySQL BOOL type to work, but it was 
-   set to tinyint ....
-
-6a. boolean type works (both applications melatitest and contacts).
-    Because MySQL returns metainfo about BOOL as TINYINT, it's
-    recommended not to use TINYINT in DSD definitions (is it allowed type?).
-    Mapping:
-
-     Melati:boolean --> MySQL:BOOL
-     Melati:boolean <-- TINYINT <--MySQL:BOOL
-
-*/
 
 package org.melati.poem.dbms;
 
 import java.util.Enumeration;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -118,18 +60,104 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLSeriousPoemException;
+import org.melati.util.StringUtils;
 
  /**
   * A Driver for MySQL (http://www.mysql.com)
   *
+  * <b>Notes</b>
+  * <ol>
+  * <li>
+  *  Working with MySQL 3.23.24, MM.MySQL 2.0.11 JDBC driver (GPL)
+  *  from http://mmmysql.sourceforge.net
+  *  Also with 4.0.24-nt and driver mysql-connector-java-3.0.15-ga-bin.jar
+  * </li>
+  * <li>
+  *  Use JDBC URL of type jdbc:mysql://[host][:port]/dbname[?param=value[...]]
+  *  ie. the simpliest one has 3 slashes: jdbc:mysql:///melatitest
+  * </li>
+  * <li>
+  *  Don't use asterix * for password, leave it empty (end of line), as:
+  * <pre>
+  *  org.Melati.LogicalDatabase.melatitest.pass=
+  * </pre>
+  * 
+  * or use explicit username and password and 
+  * <pre>
+  *   GRANT ALL PRIVILEGES ON dbname
+  *  TO username@localhost IDENTIFIED BY 'password';
+  * </pre> 
+  * </li>
+  * <li>
+  * If you want to use double quotes to delimit table and column names then 
+  * start MySQL in ANSI mode and modify getQuotedName(String name).
+  * </li>
+  * <li>   
+  * Start MySQL with transactioned tables as default. InnoDB is stable,
+  *  BDB nearly stable.
+  *  <code>getConnection</code> now returns a <code>Connection</code> 
+  *  with <code>autocommit</code> truned off through JDBC.
+  * 
+  *  BDB tables of MySQL-Max 3.23.49 don't support full transactions
+  *  - they lock whole table instead, until commit/rollback is called.
+  *  According to MySQL 4.0.2-alpha doc, interface between MySQL and
+  *  BDB tables is still improved.
+  *
+  *  As I tested MySQL-Max 3.23.49, InnoDB has correct transactions,
+  *  however database size must be specified & reserved in advance
+  *  in one file, that is share by all InnoDB tables.
+  *  Set in /etc/my.cnf by line like:
+  *     innodb_data_file_path=ibdata1:30M
+  * <pre>
+  *  run
+  *  safe_mysqld --user=mysql --ansi --default-table-type=InnoDB
+  * </pre>
+  * After it created and initialised dB file /var/lib/mysql/ibdata1
+  * of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
+  * and ib_logfile1, both of size 5MB.
+  * <br/>
+  *   InnoDB provides ACID compliancy (does it help us?)
+  *
+  * Works for Timp:
+  *  safe_mysqld --user=mysql --ansi --default-table-type=BDB 
+  * </li>
+  * <li>
+  *  <tt>boolean</tt> type works (both applications melatitest and contacts).
+  *  Because MySQL returns metainfo about BOOL as TINYINT.
+  * </li>
+  * </ol>
   * @todo Needs more work, see FIXMEs.
   **/
+
 public class MySQL extends AnsiStandard {
 
 
   public MySQL() {
     setDriverClassName("org.gjt.mm.mysql.Driver");
   }
+
+
+  /** 
+   * The default windows installation of MySQL has autocommit set true, 
+   * which throws an SQLException when one issues a commit.
+   * This could conceivably be moved up to AnsiStandard.
+   *
+   * @see org.melati.poem.dbms.Dbms#getConnection
+   *         (java.lang.String, java.lang.String, java.lang.String)
+   */
+  public Connection getConnection(String url, String user, String password)
+      throws ConnectionFailurePoemException {
+    Connection c = super.getConnection(url, user, password);
+    try {
+      c.setAutoCommit(false);
+    }
+    catch (SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
+    return c;
+  }
+
 
  /**
   * Retrieve a SQL type keyword used by the DBMS 
@@ -152,6 +180,11 @@ public class MySQL extends AnsiStandard {
 
   public String getBinarySqlDefinition(int size) {
     return "BLOB"; //How to define BLOB of limited size?
+  }
+
+
+  public String getQuotedName(String name) {
+    return unreservedName(name);
   }
 
  /**
@@ -282,7 +315,7 @@ public class MySQL extends AnsiStandard {
       else if(md.getString("TYPE_NAME").equals("char"))
         return new StringPoemType(md.getInt("NULLABLE") ==
               DatabaseMetaData.columnNullable, 1);
-  // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
+      // MySQL:BOOL --> MySQL:TINYINT --> Melati:boolean backward mapping
       else if(md.getString("TYPE_NAME").equals("tinyint"))
         return new MySQLBooleanPoemType(md.getInt("NULLABLE")==
               DatabaseMetaData.columnNullable);
@@ -342,7 +375,8 @@ public class MySQL extends AnsiStandard {
           if(indexNum==0)
             return new DuplicateKeySQLPoemException(column, sql, insert, e);
         } catch(NumberFormatException f) {
-          throw new RuntimeException("Number format exception parsing dbms error.");  
+          throw new RuntimeException(
+              "Number format exception parsing dbms error.");  
         }
         return new DuplicateKeySQLPoemException(table, sql, insert, e);
       }
@@ -351,11 +385,15 @@ public class MySQL extends AnsiStandard {
 
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("group")) name = "melati_" + name;
+    if(name.equalsIgnoreCase("precision")) name = "melati_" + name;
+    if(name.equalsIgnoreCase("unique")) name = "melati_" + name;
     return name;
   }
 
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("melati_group")) name = "group";
+    if(name.equalsIgnoreCase("melati_precision")) name = "precision";
+    if(name.equalsIgnoreCase("melati_unique")) name = "unique";
     return name;
   }
 

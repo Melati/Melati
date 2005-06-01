@@ -49,7 +49,6 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.melati.template.TemplateEngine;
-import org.melati.template.ServletTemplateEngine;
 import org.melati.util.MelatiWriter;
 import org.webmacro.Broker;
 

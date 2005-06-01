@@ -61,7 +61,6 @@ import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLSeriousPoemException;
-import org.melati.util.StringUtils;
 
  /**
   * A Driver for MySQL (http://www.mysql.com)

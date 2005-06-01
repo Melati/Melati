@@ -115,7 +115,7 @@ public class MelatiFastWriter extends MelatiWriter
    * Stop using the given <code>FastWriter</code> obtained from
    * this object.
    *
-   * @see #getFastWriter(ServletTemplateEngine)
+   * @see #getFastWriter(TemplateEngine)
    */
   public void stopUsingFastWriter(FastWriter fw) throws IOException {
     // Do nothing

@@ -552,7 +552,7 @@ public class Table implements Selectable {
       PoemThread.commit();
 
     try {
-      // if (logSQL()) log("about to execute:" + sql);
+      if (database.logSQL()) database.log("about to execute:" + sql);
 
       Statement updateStatement = database.getCommittedConnection().createStatement();
       updateStatement.executeUpdate(sql);
@@ -1370,7 +1370,6 @@ public class Table implements Selectable {
    *
    * @param selectClause the columns to return
    * @param fromClause Comma separated list of table names or null for default.
-   * @param orderByClause null for default, can be empty for counts
    * @param whereClause SQL fragment
    * @param orderByClause Comma separated list
    * @param includeDeleted Flag as to whether to include soft deleted records
@@ -2408,7 +2407,7 @@ public class Table implements Selectable {
 
   /**
    * Unify the JDBC description of this table with the 
-   * meta data held in the {@linkTableInfo}
+   * meta data held in the {@link TableInfo}
    *
    * @param colDescs a JDBC {@link ResultSet} describing the columns
    */

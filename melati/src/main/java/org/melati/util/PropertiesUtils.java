@@ -85,7 +85,7 @@ public final class PropertiesUtils {
    * 
    * @param clazz the {@link Class} to look up
    * @param name the property file name
-   * @return a {@Properties} object
+   * @return a {@link Properties} object
    * @throws IOException if the file cannot load or is not found
    */
   public static Properties fromResource(Class clazz, String name)
@@ -109,7 +109,7 @@ public final class PropertiesUtils {
   /**
    * Return a property.
    * 
-   * @param properties the {@Properties} object to look in 
+   * @param properties the {@link Properties} object to look in 
    * @param propertyName the property to get 
    * @return the property value
    * @throws NoSuchPropertyException if the property is not set
@@ -125,7 +125,7 @@ public final class PropertiesUtils {
   /**
    * Get a property or return the supplied default.
    * 
-   * @param properties the {@Properties} object to look in 
+   * @param properties the {@link Properties} object to look in 
    * @param propertyName the property to get 
    * @param def the default to return if not found
    * @return the property value
@@ -140,7 +140,7 @@ public final class PropertiesUtils {
   /**
    * Get an Integer property.
    * 
-   * @param properties the {@Properties} object to look in 
+   * @param properties the {@link Properties} object to look in 
    * @param propertyName the property to get 
    * @return the int property value 
    * @throws NoSuchPropertyException if it is not found
@@ -189,8 +189,8 @@ public final class PropertiesUtils {
    * @param base the interface Class
    * @param defaulT the default Class
    * @return a new object
-   * @throws InstantiationPropertyException if the named class does not descend from 
-   *         the interface
+   * @throws InstantiationPropertyException 
+   *   if the named class does not descend from the interface
    */
   public static Object instanceOfNamedClass(Properties properties, 
                            String propertyName, Class base, Class defaulT)

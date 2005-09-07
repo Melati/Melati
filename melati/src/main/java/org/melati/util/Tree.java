@@ -88,7 +88,7 @@ public class Tree {
         return depth;
     }
 
-    public Vector flattened(int depth, boolean depthFirst) {
+    public Vector flattened(int depthP, boolean depthFirst) {
 
         Vector results = new Vector();
         Vector agenda = new Vector();
@@ -101,7 +101,7 @@ public class Tree {
             agenda.removeElementAt(0);
             results.addElement(current);
 
-            if (depth < 0 || current.depth < depth) {
+            if (depthP < 0 || current.depth < depthP) {
                 TreeNode[] kids = current.getChildren();
 
                 if (kids != null) {
@@ -118,8 +118,8 @@ public class Tree {
         return results;
     }
 
-    public Vector flattened(int depth) {
-        return flattened(depth, true);
+    public Vector flattened(int depthP) {
+        return flattened(depthP, true);
     }
 
     public Vector flattened() {
@@ -135,8 +135,8 @@ public class Tree {
      * @param depthFirst If true, traverse the tree depth-first, otherwise
      *                   traverse it breadth-first
      **/
-    public Vector apply(Function func, int depth, boolean depthFirst) {
-        Vector flattened = flattened(depth, depthFirst);
+    public Vector apply(Function func, int depthP, boolean depthFirst) {
+        Vector flattened = flattened(depthP, depthFirst);
         for(int i=0; i<flattened.size(); i++) {
             flattened.setElementAt(func.apply(flattened.elementAt(i)), i);
         }
@@ -147,20 +147,20 @@ public class Tree {
         return apply(func, -1, true);
     }
 
-    public Vector applyDepthFirst(Function func, int depth) {
-        return apply(func, depth, true);
+    public Vector applyDepthFirst(Function func, int depthP) {
+        return apply(func, depthP, true);
     }
 
     public Vector applyBreadthFirst(Function func) {
         return apply(func, -1, false);
     }
 
-    public Vector applyBreadthFirst(Function func, int depth) {
-        return apply(func, depth, false);
+    public Vector applyBreadthFirst(Function func, int depthP) {
+        return apply(func, depthP, false);
     }
 
-    public Vector sorted(Order cmp, int depth) {
-        Vector flattened = flattened(depth);
+    public Vector sorted(Order cmp, int depthP) {
+        Vector flattened = flattened(depthP);
         Object[] sorted = SortUtils.sorted(cmp, flattened);
         System.arraycopy(sorted, 0, flattened, 0, sorted.length);
         return flattened;

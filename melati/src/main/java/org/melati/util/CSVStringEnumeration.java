@@ -67,9 +67,8 @@ public class CSVStringEnumeration implements Enumeration {
   /**
    * Look at a new string.
    */
-
-  public void reset(String line) {
-    this.line = line;
+  public void reset(String lineP) {
+    this.line = lineP;
     p = 0;
   }
 

@@ -166,9 +166,9 @@ public class Field implements FieldAttributes, Cloneable {
                          getType().stringOfCooked(getCooked(), locale, style);
   }
 
-  public Field withRaw(Object raw) {
+  public Field withRaw(Object rawP) {
     Field it = (Field)clone();
-    it.raw = raw;
+    it.raw = rawP;
     return it;
   }
 
@@ -189,8 +189,8 @@ public class Field implements FieldAttributes, Cloneable {
     final Field _this = this;
     return
         new MappedEnumeration(getType().possibleRaws()) {
-          protected Object mapped(Object raw) {
-            return _this.withRaw(raw);
+          protected Object mapped(Object rawP) {
+            return _this.withRaw(rawP);
           }
         };
   }

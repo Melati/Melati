@@ -55,11 +55,11 @@ import java.io.IOException;
 public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
 
   protected File calculateLocalFile() {
-    File file = null;
+    File fileL = null;
     try {
-      file = File.createTempFile("melati", null);
-      file.deleteOnExit();
-      return file;
+      fileL = File.createTempFile("melati", null);
+      fileL.deleteOnExit();
+      return fileL;
     }
     catch (IOException ioe) {
       throw new FormDataAdaptorException(

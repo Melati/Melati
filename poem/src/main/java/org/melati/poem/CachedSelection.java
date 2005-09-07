@@ -48,7 +48,6 @@ package org.melati.poem;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Enumeration;
-import java.util.Vector;
 import org.melati.util.MappedEnumeration;
 
 /**
@@ -65,7 +64,7 @@ public class CachedSelection extends CachedQuery {
                          final String orderByClause,
                          final Table otherTables[]) {
     super(table,
-          table.selectionSQL(null, whereClause, orderByClause, false, false),
+          table.selectionSQL(null, whereClause, orderByClause, false, true),
           otherTables);
     this.whereClause = whereClause;
     this.orderByClause = orderByClause;
@@ -90,7 +89,7 @@ public class CachedSelection extends CachedQuery {
       statements = new PreparedStatementFactory(
                        table.getDatabase(),
                        table.selectionSQL(null, whereClause, 
-                                          orderByClause, false, false));
+                                          orderByClause, false, true));
 
     return statements;
   }
@@ -119,7 +118,6 @@ public class CachedSelection extends CachedQuery {
 
   public Persistent nth(int n) {
     compute();
-    Vector rows = this.rows;
     return rows.size() <= n ?
                null :
                table.getObject((Integer)rows.elementAt(n));

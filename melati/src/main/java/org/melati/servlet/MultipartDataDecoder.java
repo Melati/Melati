@@ -135,35 +135,35 @@ public class MultipartDataDecoder {
     }
   }
 
-  private Hashtable parseData(DelimitedBufferedInputStream in,
-                              String contentType,
-                              int maxSize)
+  private Hashtable parseData(DelimitedBufferedInputStream inP,
+                              String contentTypeP,
+                              int maxSizeP)
       throws IOException {
-    String boundary = getBoundary(new byte[0], contentType);
+    String boundary = getBoundary(new byte[0], contentTypeP);
     String line;
     String header = "";
     MultipartFormField field = null;
     byte[] CRLF = {13,10};
-    byte[] buff = new byte[maxSize];
+    byte[] buff = new byte[maxSizeP];
     int count;
 
     while (state != STOP) {
 
        // Look for the start of a field (a boundary)
       if (state == FIELD_START) {
-        count = in.readToDelimiter(buff, 0, buff.length, boundary.getBytes());
+        count = inP.readToDelimiter(buff, 0, buff.length, boundary.getBytes());
         if (count == buff.length) {
           throw new IOException(
               "Didn't find a boundary in the first " 
               + buff.length + " bytes");
         }
-        count = in.readToDelimiter(buff, 0, buff.length, CRLF);
+        count = inP.readToDelimiter(buff, 0, buff.length, CRLF);
         line = new String(buff, 0, count);
 
         if (line.equals(boundary)) {
           state = IN_FIELD_HEADER;
           header = "";
-          if (in.read(buff, 0, 2) != 2) // snarf the crlf
+          if (inP.read(buff, 0, 2) != 2) // snarf the crlf
             throw new IOException(
                 "Boundary wasn't followed by 2 bytes (\\r\\n)");
         }
@@ -177,7 +177,7 @@ public class MultipartDataDecoder {
       
        // Read headers (i.e. until the first blank line)
       if (state == IN_FIELD_HEADER) {
-        count = in.readToDelimiter(buff, 0, buff.length, CRLF);
+        count = inP.readToDelimiter(buff, 0, buff.length, CRLF);
         if (count != 0)     // a header line
           header += new String(buff, 0, count) + "\r\n";
         else {              // end of headers
@@ -186,7 +186,7 @@ public class MultipartDataDecoder {
           readField(field, header);
           fields.put(field.getFieldName(), field);
         }
-        if (in.read(buff, 0, 2) != 2) // snarf the crlf
+        if (inP.read(buff, 0, 2) != 2) // snarf the crlf
           throw new IOException(
               "Header line wasn't followed by 2 bytes (\\r\\n)");
       } 
@@ -203,7 +203,7 @@ public class MultipartDataDecoder {
         else {
           adaptor = factory.get(melati, field); 
         }
-        adaptor.readData(field, in, dataBoundary.getBytes());
+        adaptor.readData(field, inP, dataBoundary.getBytes());
         field.setFormDataAdaptor(adaptor);
         state = FIELD_START;
       }

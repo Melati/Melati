@@ -249,15 +249,15 @@ public class Table implements Selectable {
    *
    * @exception NoSuchColumnPoemException if there is no column with that name
    */
-  public final Column getColumn(String name) throws NoSuchColumnPoemException {
-    Column column = _getColumn(name); 
+  public final Column getColumn(String nameP) throws NoSuchColumnPoemException {
+    Column column = _getColumn(nameP); 
     if (column == null)
-      throw new NoSuchColumnPoemException(this, name);
+      throw new NoSuchColumnPoemException(this, nameP);
     else
       return column;
   }
-  protected final Column _getColumn(String name) {
-    Column column = (Column)columnsByName.get(name.toLowerCase());    
+  protected final Column _getColumn(String nameP) {
+    Column column = (Column)columnsByName.get(nameP.toLowerCase());    
     return column;
   }
   
@@ -388,9 +388,9 @@ public class Table implements Selectable {
       displayColumns[i] = null;
   }
 
-  void notifyColumnInfo(ColumnInfo info) {
+  void notifyColumnInfo(ColumnInfo infoP) {
     // FIXME info == null means deleted: effect is too broad really
-    if (info == null || info.getTableinfo_unsafe().equals(tableInfoID()))
+    if (infoP == null || infoP.getTableinfo_unsafe().equals(tableInfoID()))
       clearColumnInfoCaches();
   }
 
@@ -1973,16 +1973,16 @@ public class Table implements Selectable {
   /**
    * Add a {@link Column} to the database and the {@link TableInfo} table.
    *
-   * @param info the meta data about the {@link Column} 
+   * @param infoP the meta data about the {@link Column} 
    * @return the newly added column
    */
-  public Column addColumnAndCommit(ColumnInfo info) throws PoemException {
+  public Column addColumnAndCommit(ColumnInfo infoP) throws PoemException {
 
     // Set the new column up
 
-    Column column = ExtraColumn.from(this, info, extrasIndex++,
+    Column column = ExtraColumn.from(this, infoP, extrasIndex++,
                                      DefinitionSource.runtime);
-    column.setColumnInfo(info);
+    column.setColumnInfo(infoP);
 
     // Do a dry run to make sure no problems (ALTER TABLE ADD COLUMN is
     // well-nigh irrevocable in Postgres)
@@ -2217,16 +2217,16 @@ public class Table implements Selectable {
    * @param selectedTroid       the troid of the record to which the
    *                            <TT>SELECT</TT> field should initially be set
    *
-   * @param name                the HTML name attribute of the field,
+   * @param nameP               the HTML name attribute of the field,
    *                            <I>i.e.</I>
    *                            <TT>&lt;SELECT NAME=<I>name</I>&gt;</TT>
    */
   public Field cachedSelectionField(
       String whereClause, String orderByClause, boolean nullable,
-      Integer selectedTroid, String name) {
+      Integer selectedTroid, String nameP) {
     return new Field(
         selectedTroid,
-        new BaseFieldAttributes(name,
+        new BaseFieldAttributes(nameP,
                                 cachedSelectionType(whereClause,
                                                     orderByClause, nullable)));
   }

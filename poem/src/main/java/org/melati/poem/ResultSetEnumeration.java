@@ -88,7 +88,7 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
     }
   }
 
-  protected abstract Object mapped(ResultSet resultSet)
+  protected abstract Object mapped(ResultSet resultSetP)
       throws SQLException, NoSuchRowPoemException;
 
   /**

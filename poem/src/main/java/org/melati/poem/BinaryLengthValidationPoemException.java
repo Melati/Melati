@@ -54,16 +54,17 @@ import org.melati.util.StringUtils;
 
 public class BinaryLengthValidationPoemException
     extends ValidationPoemException {
+  
   public BinaryLengthValidationPoemException(PoemType type, byte[] value) {
     super(type, value);
   }
 
   public String getMessage() {
-    byte[] value = (byte[])super.value;
+    byte[] valueL = (byte[])super.value;
     return
         "The binary value \"" +
-        (value.length > 15 ?
-             "<long>" : StringUtils.hexEncoding(value)) + "\" " +
-        "is too long, at " + value.length + " bytes, for " + type;
+        (valueL.length > 15 ?
+             "<long>" : StringUtils.hexEncoding(valueL)) + "\" " +
+        "is too long, at " + valueL.length + " bytes, for " + type;
   }
 }

@@ -161,16 +161,16 @@ public abstract class BaseFileDataAdaptor implements FormDataAdaptor {
    * Read data from in until the delim, work out which file to
    * save it in, and save it.
    * 
-   * @param field  a {@link MultipartFormField}
+   * @param fieldP  a {@link MultipartFormField}
    * @param in     a {@link DelimitedBufferedInputStream}
    * @param delim  the delimiter used to denote elements
    * @throws IOException if there is a problem reading the input 
    */
-  public void readData(MultipartFormField field,
+  public void readData(MultipartFormField fieldP,
                        DelimitedBufferedInputStream in,
                        byte[] delim) throws IOException {
 
-    this.field = field;
+    this.field = fieldP;
     OutputStream out = null;
     byte[] buff = new byte[BUFSIZE];
     int count;

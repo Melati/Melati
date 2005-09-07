@@ -320,12 +320,12 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
-  public final PoemType withNullable(boolean nullable) {
-    if (this.nullable == nullable)
+  public final PoemType withNullable(boolean nullableP) {
+    if (this.nullable == nullableP)
       return this;
     else {
       BasePoemType it = (BasePoemType)clone();
-      it.nullable = nullable;
+      it.nullable = nullableP;
       return it;
     }
   }

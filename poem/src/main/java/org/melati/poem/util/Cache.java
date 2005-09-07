@@ -75,7 +75,7 @@ public final class Cache {
       this.value = value;
     }
 
-    synchronized void putBefore(HeldNode nextMRU) {
+    synchronized void putBefore(HeldNode nextMRUP) {
 
       //
       // Before:
@@ -104,15 +104,15 @@ public final class Cache {
       if (prevMRU != null)                      // 1 exists
         prevMRU.nextMRU = this.nextMRU;         // A => G using B
 
-      if (nextMRU != null) {                    // 4 exists
-        if (nextMRU.prevMRU != null)            // 3 exists
-          nextMRU.prevMRU.nextMRU = this;       // E => I
-        prevMRU = nextMRU.prevMRU;              // C => K using F
-        nextMRU.prevMRU = this;                 // F => L
+      if (nextMRUP != null) {                    // 4 exists
+        if (nextMRUP.prevMRU != null)            // 3 exists
+          nextMRUP.prevMRU.nextMRU = this;       // E => I
+        prevMRU = nextMRUP.prevMRU;              // C => K using F
+        nextMRUP.prevMRU = this;                 // F => L
       }
       else
-        prevMRU = null;                         // C => K
-      this.nextMRU = nextMRU;                   // B => J
+        prevMRU = null;                          // C => K
+      this.nextMRU = nextMRUP;                   // B => J
     }
 
     public Object key() {
@@ -252,11 +252,11 @@ public final class Cache {
     }
   }
 
-  public synchronized void trim(int maxSize) {
+  public synchronized void trim(int maxSizeP) {
     gc();
 
     HeldNode n = theLRU;
-    while (n != null && heldNodes > maxSize) {
+    while (n != null && heldNodes > maxSizeP) {
       HeldNode nn = n.prevMRU;
       n.putBefore(null);
       table.put(n.key, new DroppedNode(n.key, n.value, collectedValuesQueue));

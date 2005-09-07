@@ -64,11 +64,11 @@ public class FictionalNotifyingDocumentParser extends DocumentParser {
   }
 
   public void parse(Reader in,
-                    FictionalNotifiableParserCallback callback,
+                    FictionalNotifiableParserCallback callbackP,
                     boolean ignoreCharSet) throws IOException {
-    this.callback = callback;
+    this.callback = callbackP;
     try {
-      super.parse(in, callback, ignoreCharSet);
+      super.parse(in, callbackP, ignoreCharSet);
     }
     finally {
       this.callback = null;

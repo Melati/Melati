@@ -237,16 +237,16 @@ public class DSD {
 
   }
 
-  void createJava(String name, Generator proc, boolean overwrite)
+  void createJava(String nameP, Generator proc, boolean overwrite)
       throws IOException {
     if (!dsdDirGen.exists()) {
       dsdDirGen.mkdir();
     }
     File f = null;
     if (overwrite) {
-      f = new File(dsdDirGen, name + ".java");
+      f = new File(dsdDirGen, nameP + ".java");
     } else {
-      f = new File(dsdDir, name + ".java");
+      f = new File(dsdDir, nameP + ".java");
     }
     if (f.exists())
       if (overwrite) {

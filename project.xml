@@ -92,7 +92,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </archive>
     </mailingList>
     <mailingList>
-      <name>PanEris Melati board <b>(Closed)</b></name>
+      <name>PanEris Melati board (Closed)</name>
       <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=214
       </subscribe>
       <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=214
@@ -101,7 +101,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </archive>
     </mailingList>
     <mailingList>
-      <name>PanEris Melati Project board <b>(Closed)</b></name>
+      <name>PanEris Melati Project board (Closed)</name>
       <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=231</subscribe>
       <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=231
       </unsubscribe>
@@ -424,7 +424,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <sourceDirectory>src/main</sourceDirectory>
 
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <!--integrationUnitTestSourceDirectory></integrationUnitTestSourceDirectory-->
 
     <!--aspectSourceDirectory/-->
 
@@ -474,11 +473,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </excludes>
       </resource>
     </resources>
-    <integrationUnitTest/>
   </build>
   <reports>
-    <report>maven-junit-report-plugin</report>
     <report>maven-license-plugin</report>
+    <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-pmd-plugin</report>
     <report>maven-faq-plugin</report>
@@ -488,14 +486,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-javadoc-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-changes-plugin</report>
-
-<!--
     <report>maven-statcvs-plugin</report>
     <report>maven-changelog-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
-    <report>maven-linkcheck-plugin</report>
     <report>maven-jcoverage-plugin</report>
+<!--
+    <report>maven-linkcheck-plugin</report>
     <report>maven-jellydoc-plugin</report>
 -->
   </reports>

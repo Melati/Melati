@@ -90,13 +90,21 @@ public class Hsqldb extends AnsiStandard {
   }
 
 
-  public String getSqlDefinition(String sqlTypeName) {
+  /*
+   *  0.7.2 and earlier did not have a Boolean type; 
+   *  there is one in 0.7.3 onwards. 
+   *   
+   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
+   */
+  
+  /*
+   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
     }
     return super.getSqlDefinition(sqlTypeName);
   }
-
+  */
   public String getStringSqlDefinition(int size) {
     if (size < 0)
       return "VARCHAR(" + hsqldbTextHack + ")";

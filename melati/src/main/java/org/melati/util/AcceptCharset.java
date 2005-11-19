@@ -299,7 +299,7 @@ public class AcceptCharset extends HttpHeader {
         return 1;
       } else {
         // System.err.println("Tested 17");
-        assert one.q < two.q : "Only this possibility";
+        //assert one.q < two.q : "Only this possibility";
         return -1;
       }
     }
@@ -382,6 +382,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.5  2005/11/19 11:13:22  timp
+ * Comment out assert
+ *
  * Revision 1.4  2005/01/14 13:15:51  timp
  * Stop barfing about empty catch blocks
  *

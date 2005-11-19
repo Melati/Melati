@@ -367,7 +367,7 @@ public class HttpHeader {
         return result;
       }
       catch (IOException e) {
-        assert false : "We are reading from a string";
+        //assert false : "We are reading from a string";
         return 0;
       }
     }

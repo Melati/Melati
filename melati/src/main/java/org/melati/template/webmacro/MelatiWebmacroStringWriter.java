@@ -78,7 +78,7 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
       return FastWriter.getInstance(wm.getBroker(), "UTF-16BE");
     }
     catch (UnsupportedEncodingException e) {
-      assert false : "All Java platforms & webmacro support UTF-16BE";
+     // assert false : "All Java platforms & webmacro support UTF-16BE";
       return null;
     }
   }

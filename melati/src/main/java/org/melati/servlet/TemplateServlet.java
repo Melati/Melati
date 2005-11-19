@@ -176,6 +176,14 @@ public abstract class TemplateServlet extends PoemServlet {
    * @throws IOException if anything goes wrong with the file system
    */
   public void error(Melati melati, Exception e) throws IOException {
+    ServletTemplateContext templateContext = melati.getServletTemplateContext();
+    // If this a DB error which has occurred prior to 
+    // the establishment of a template context
+    if (templateContext == null) {
+      super.error(melati, e);
+      return;
+    } 
+
     // has it been trapped already, if so, we don't need to relog it here
     if (!(e instanceof TrappedException)) {
       try {
@@ -185,7 +193,6 @@ public abstract class TemplateServlet extends PoemServlet {
         MelatiWriter mw =  melati.getWriter();
         // get rid of anything that has been written so far
         mw.reset();
-        ServletTemplateContext templateContext = melati.getServletTemplateContext();
         templateContext.put("melati",melati);
         templateContext.put("exceptionObject", e);
         StringWriter sw = new StringWriter();
@@ -198,7 +205,6 @@ public abstract class TemplateServlet extends PoemServlet {
         // template: this should be configurable
 
         Template errorTemplate;
-
         try {
           errorTemplate = templateEngine.template(e.getClass());
         }

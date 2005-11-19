@@ -488,8 +488,8 @@ public class Melati {
 
     AcceptCharset ac;
     String acs = request.getHeader("Accept-Charset");
-    assert acs == null || acs.trim().length() > 0 :
-      "Accept-Charset should not be empty but can be absent";
+    //assert acs == null || acs.trim().length() > 0 :
+    //  "Accept-Charset should not be empty but can be absent";
     // Having said that we don't want to split hairs once debugged
     if (acs != null && acs.trim().length() == 0) {
       acs = null;
@@ -512,7 +512,7 @@ public class Melati {
         request.setCharacterEncoding(responseCharset);
       }
       catch (UnsupportedEncodingException e) {
-        assert false : "This has already been checked by AcceptCharset";
+        //assert false : "This has already been checked by AcceptCharset";
       }
     } else {
       responseCharset = ac.serverChoice();
@@ -726,7 +726,7 @@ public class Melati {
       return URLEncoder.encode(string, getURLQueryEncoding());
     }
     catch (UnsupportedEncodingException e) {
-      assert false : "The URL query encoding is supported";
+     // assert false : "The URL query encoding is supported";
       return string;
     }
   }

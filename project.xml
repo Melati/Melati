@@ -274,7 +274,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
    <license>
     <name>The Apache Software License, Version 2.0</name>
     <url>
-     http://cvs.apache.org/viewcvs.cgi/*checkout*/maven/LICENSE.txt
+http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
     </url>
     <distribution>repo</distribution>
    </license>
@@ -292,6 +292,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.webmacro.org/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>runtime</scope>
       </properties>
     </dependency>
     <dependency>
@@ -300,6 +301,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.webmacro.org/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>runtime</scope>
       </properties>
     </dependency>
     <dependency>
@@ -308,6 +310,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://jakarta.apache.org/oro/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>runtime</scope>
       </properties>
     </dependency>
     <dependency>
@@ -316,6 +319,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://jakarta.apache.org/commons/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>runtime</scope>
       </properties>
     </dependency>
     <dependency>
@@ -324,6 +328,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://logging.apache.org/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>test</scope>
       </properties>
     </dependency>
     <dependency>
@@ -332,6 +337,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.hsqldb.org/</url>
       <properties>
          <war.bundle>true</war.bundle>
+         <scope>test</scope>
       </properties>
     </dependency>
 
@@ -341,6 +347,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://jdbc.postgresql.org/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>runtime</scope>
       </properties>
     </dependency>
 <!--
@@ -362,6 +369,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
          <war.bundle>false</war.bundle>
       </properties>
     </dependency>
+
     <!-- dependency>
       <id>javamail</id>
       <version>1.2</version>
@@ -370,12 +378,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
          <war.bundle>false</war.bundle>
       </properties>
     </dependency -->
+
     <dependency>
       <id>odmg</id>
       <version>3.0</version>
       <url>http://www.odmg.org/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>test</scope>
       </properties>
     </dependency>
 
@@ -385,6 +395,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.junit.org/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>test</scope>
       </properties>
     </dependency>
     <dependency>
@@ -394,6 +405,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://www.mockobjects.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>test</scope>
       </properties>
     </dependency>
 
@@ -403,6 +415,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>compile</scope>
       </properties>
     </dependency>
     <!-- dependency>
@@ -411,6 +424,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>
+         <scope>compile</scope>
       </properties>
     </dependency -->
 

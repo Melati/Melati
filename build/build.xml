@@ -28,8 +28,6 @@
   <property name="built.build"        value="${built.dir}/build"/>
   <property name="built.site"         value="${built.dir}/site"/>
   <property name="site"               value="../site"/>
-  <property name="site.src"           value="../site/docsrc"/>
-  <property name="xdocs"              value="../xdocs"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
   <property name="doc.dir"            value="${site}/doc"/>
   <property name="packaged.dir"           value="${built.root}/packaged"/>
@@ -111,7 +109,6 @@ usage:
    ant war            build the melati.war
    ant zip            build the melati zips
    ant javadoc        create javadoc for the distribution package
-   ant site           create website http://www.melati.org/
    ant run            run Jetty
 
    ant build         build everything from scratch 
@@ -273,50 +270,6 @@ usage:
              fork="yes"
        />
     </target>
-
-    <!-- ============================================================= -->
-    <!-- Generate Melati.org website                                   -->
-    <!-- ============================================================= -->
-  <target name="site"
-          description="build site documentation">
-    <delete>
-       <fileset dir="${site}" includes="*.html"/>
-    </delete>
-    <loadfile property="header" srcFile="${site.src}/header.html"/>
-    <loadfile property="footer" srcFile="${site.src}/footer.html"/>
-    <loadfile property="menu" srcFile="${site.src}/menu.html"/>
-    <loadfile property="sectionStartTagStart" 
-              srcFile="${site.src}/xHTMLSectionStartTagStart.tag"/>
-    <loadfile property="sectionStartTagEnd" 
-              srcFile="${site.src}/xHTMLSectionStartTagEnd.tag"/>
-    <property name="sectionEndTag" value=''/>
-    <loadfile property="subSectionStartTagStart" 
-              srcFile="${site.src}/xHTMLSubSectionStartTagStart.tag"/>
-    <loadfile property="subSectionStartTagEnd" 
-              srcFile="${site.src}/xHTMLSubSectionStartTagEnd.tag"/>
-    <property name="subSectionEndTag" value=''/>
-    <copy todir="${site}">
-       <fileset dir="${site.src}" includes="*.ahtml"/>
-       <filterset>
-          <filter token="header"   value="${header}"/>
-          <filter token="footer"   value="${footer}"/>
-          <filter token="menu"     value="${menu}"/>
-          <filter token="version"  value="${version}"/>
-          <filter token="project"  value="${project}"/>
-          <filter token="name"     value="${name}"/>
-          <filter token="date"     value="${date}"/>
-          <filter token="filename" value="${project}_${version}"/>
-          <filter token="sectionStartTagStart" value="${sectionStartTagStart}"/>
-          <filter token="sectionStartTagEnd" value="${sectionStartTagEnd}"/>
-          <filter token="sectionEndTag" value="${sectionEndTag}"/>
-          <filter token="subSectionStartTagStart" value="${subSectionStartTagStart}"/>
-          <filter token="subSectionStartTagEnd" value="${subSectionStartTagEnd}"/>
-          <filter token="subSectionEndTag" value="${subSectionEndTag}"/>
-       </filterset>
-       <mapper type="glob" from="*.ahtml" to="*.html"/>
-    </copy>
-    
-  </target>
 
     <!-- ================================================================ -->
     <!-- Creates the API documentation                                    -->
@@ -579,7 +532,7 @@ usage:
     <!-- ============================================================== -->
   <target name="build" 
           description="build from scratch"
-          depends="clean, compile, unittest, zip, javadoc, site, xdocs, sources, package, war">
+          depends="clean, compile, unittest, zip, javadoc, sources, package, war">
   </target>
   <target name="go" 
           description="build from scratch and run"

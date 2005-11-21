@@ -40,7 +40,7 @@
 ##
 ##     Tim Pizey <timp@paneris.org>
 ##
-#set $Response.ContentType = "text/plain"
+#set $melati.ResponseContentType = "text/html"
 
 ## We don't have a TextMarkupLanguage as yet
 #set $ml = $melati.HTMLMarkupLanguage

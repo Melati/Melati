@@ -1,5 +1,4 @@
-#set $Response.ContentType = "text/html"
-#set $ml = $melati.HTMLMarkupLanguage
+#set $melati.ResponseContentType = "text/html"
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
 <html>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+  <p align="center">
+   <font size="-1"><i>
+This page last updated: $Date$ $Author$
+   </i></font>
+  </p>
+-->
+  
+<!-- menu -->
+
+<section name=" Download Latest Release ">
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <td><b>Release</b></td>
+    <td align="center"><b>Jar and Source</b></td>
+    <td align="center"><b>Javadoc</b></td>
+    <td align="center"><b>War</b></td>
+  </tr>
+  <tr>
+    <td>Melati 0.7.4 (10-01-2005)</td>
+    <td><a href="/download/melati_0.7.4.tar.gz">Unix</a><br />
+        <a href="/download/melati_0.7.4.zip">Windows</a></td>
+    <td><a href="/download/melati_0.7.4_doc.tar.gz">Unix</a><br />
+        <a href="/download/melati_0.7.4_doc.zip">Windows </a></td>
+    <td><a href="/download/melati.war">war</a>
+    </td>
+  </tr>
+</table>
+
+</section>
+<section name=" Download Current Snapshot ">
+
+      <p>
+        The latest snapshot build can be found at 
+        <a href="http://maven.melati.org/distributions/">here</a>.
+      </p>
+      
+</section>
+<section name=" CVS Access ">
+
+<p>Melati is available via anonymous CVS, which also has a 
+<A HREF="http://melati.org/cgi-bin/cvsweb.cgi/~checkout~/melati/">web interface</A>. 
+</p>
+<p>With the command-line CVS client, you do:
+<pre>
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot login
+(Logging in to anonymous@melati.org)
+CVS password: anonymous
+$ cvs -d :pserver:anonymous@melati.org:/usr/cvsroot checkout melati
+</pre>
+</p>
+
+<p>
+ You will need a CVS client to perform the above procedure.  
+ Every Linux distribution comes with command line CVS.
+</p>
+<p>
+If you are using <a href="http://www.eclipse.org/">Eclipse</a> then
+ you can just point to the above repository and checkout as project.
+</p>
+<p>If you want a Windows CVS client, check out <a
+ href="http://www.tortoisecvs.org">www.tortoisecvs.org</a>
+</p>
+</section>
+</body>
+</document>
+
+

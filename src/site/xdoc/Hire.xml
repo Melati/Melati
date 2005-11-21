@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Hire a Melati Developer ">
+<p>
+Melati has been primarily developed by members of <a href="http://www.paneris.org/">PanEris</a>.
+</p>
+<p>
+Some of the Melati Developers are currently available for hire.
+</p>
+
+<table border="1" cellspacing="0" cellpadding="10">
+  <tr> 
+    <td><b>Developer</b></td>
+    <td><b>Roles</b></td>
+    <td><b>Contact</b></td>
+  </tr>
+  <tr> 
+    <td>Tim Pizey</td>
+    <td>Developer and Maven maven</td>
+    <td><a href="http://paneris.org/~timp/">http://paneris.org/~timp/</a></td>
+  </tr>
+  <tr> 
+    <td>Jim Wright</td>
+    <td>Developer</td>
+    <td><a href="http://paneris.org/~jimw/">http://paneris.org/~jimw/</a></td>
+  </tr>
+  <tr> 
+    <td>Vasily Pozhidaev</td>
+    <td>Developer</td>
+    <td><a href="http://paneris.org/~vasilyp/">http://paneris.org/~vasilyp/</a></td>
+  </tr>
+  <tr> 
+    <td>Peter Kehl</td>
+    <td>Developer</td>
+    <td><a href="http://paneris.org/~peterk/">http://paneris.org/~peterk/</a></td>
+  </tr>
+</table>
+</section>
+</body>
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

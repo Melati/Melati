@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align=center>
+ <font size=-1><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Melati Mailing List ">
+<p>
+
+  We have the following lists hosted on 
+  <a href="http://www.sourceforge.net/projects/melati">SourceForge</a>. 
+<ul>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-developers">development 
+    mailing list</a></li>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-users">melati 
+    users mailing list</a></li>
+  <li><a href="http://lists.sourceforge.net/mailman/listinfo/melati-announce">announcements 
+    mailing list</a></li>
+  <li><a
+  href="http://lists.sourceforge.net/mailman/listinfo/melati-cvs">CVS commits</a></li>
+</ul>
+Or <a href="mailto:timp@melati.org">email me</a>.
+</p>
+</section>
+</body>
+</document>
+
+
+
+
+

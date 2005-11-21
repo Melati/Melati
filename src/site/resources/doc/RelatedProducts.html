@@ -1,0 +1,573 @@
+<HTML>
+<HEAD>
+<TITLE>org.melati Related Products Report (document $Revision$)</TITLE>
+</HEAD>
+<BODY>
+
+<H1>org.melati Related Products Report (document $Revision$)</H1>
+
+<P>
+  This document describes products related to the one proposed, with a view to
+  identifying libraries it could reuse and/or usefully interoperate with,
+  threats to its marketability, and wheels in which it is in danger of
+  reinventing.  See also the system's <A HREF=QA.html>master QA document</A>.
+</P>
+
+
+<H2>
+<!-- ******* -->
+      Scope
+<!-- ******* -->
+</H2>
+
+<P>
+  No claim of exhaustiveness or even accuracy is made for this review in its
+  current form, which is based on about six hours' work summarising what we
+  (believe we) know about products we happen to have noticed over time, the
+  contents of some likely looking freshmeat categories, and the current state
+  of the <TT>java.apache.org</TT> projects.  It's also a bit scrappy, but I
+  don't want to spend too much time on this unless we find it raises serious
+  questions about the way we are going.
+</P>
+
+
+<H2>
+<!-- ********************* -->
+      Products considered
+<!-- ********************* -->
+</H2>
+
+
+<H3>
+<!-- ========================================= -->
+      The <TT>java.apache.org</TT> collection
+<!-- ========================================= -->
+</H3>
+
+<P>
+  There is a suite of open-source Java web-publishing frameworks taking shape
+  around the Apache web server.
+</P>
+
+
+<H4><A NAME=Turbine>
+<!-- --------- -->
+      Turbine
+<!-- --------- -->
+</A></H4>
+
+<P>
+  <A HREF=http://java.apache.org/turbine/index.html>Turbine</A> appears to
+  help with the following things:
+
+  <UL>
+    <LI> URL-independent `actions', specified by CGI fields
+    <LI> high-level page layout, with `navigation' panels
+    <LI> user and access control list management, with user objects stored in
+         a database via the <A HREF=#OPL>OPL</A> persistence mechanism
+    <LI> utilities (basically, database connection pooling)
+  </UL>
+</P>
+
+<P>
+  It's intended basically to work with <A HREF=#ECS>ECS</A>:
+</P>
+
+<BLOCKQUOTE>
+  The design of Turbine is based around the idea that a developer can remain in
+  the Java language without having to learn or switch to XML/XSL/XSP or other
+  template languages (ie: WebMacro and FreeMarker) in order to achieve the Html
+  and Logic abstraction that template based web application websites require.
+  [<TT>java.apache.org/turbine/index.html</TT>]
+</BLOCKQUOTE>
+
+<P>
+  But you can write your own `Screen' module, which could involve instantiating
+  a webmacro template.
+</P>
+
+<P>
+  There is also a suggestion that you might like to use <A HREF=#OPL>OPL</A>
+  in order to
+</P>
+
+<BLOCKQUOTE>
+  abstract the database accesses so that all you need to do is pass in a
+  Criteria object and execute <TT>doInsert()</TT>, <TT>doSelect()</TT>,
+  <TT>doUpdate()</TT> or <TT>doDelete()</TT>
+</BLOCKQUOTE>
+
+<P>
+  However, OPL is not a necessary or tightly-integrated part of Turbine.
+</P>
+
+<P>
+  The main points of interest in Turbine are
+</P>
+
+<UL>
+  <LI> its facilities for user management/access control: each user is
+       assigned a `role' (such as `Administrator', `User Level 2' <I>etc.</I>)
+       which carries a set of permissions (such as `can upload file of size
+       ...'); this is not very different from the Unix user/group/permission
+       system, but is less flexible than what is proposed for Melati, and
+       appears not to support low-level guards on data access in any convenient
+       way
+  <LI> its use of a persistent store; but see the <A HREF=#OPL>comments about
+       OPL, below</A>
+</UL>
+
+<P>
+  Its other features are not of interest to us, since they conflict with our
+  philosophy of thoroughgoing templating.  The URL-independent `actions' would
+  seem not to carry any particular benefit: as timj points out, ``If common
+  funcationality (get a db connection etc) is required between servelts, then
+  we should subclass the base servlet.''
+</P>
+
+
+<H4><A NAME=ECS>
+<!-- ----- -->
+      ECS
+<!-- ----- -->
+</A></H4>
+
+<P>
+  To quote from <A HREF=http://java.apache.org/ecs>ECS</A>'s documentation:
+</P>
+
+<BLOCKQUOTE>
+  The Element Construction Set is designed from the bottom up to be an object 
+  oriented abstraction of tag generation.
+</BLOCKQUOTE>
+
+<P>
+  It means everything from the <TT>&lt;HTML&gt;</TT> tag down, which sets most
+  of it squarely at odds with our philosophy that HTML isn't all that difficult
+  and templating is a better way to go.  Even with tags that Melati must know
+  how to generate, such as form fields, it's not clear how much effort we will
+  save by reusing or adapting the relevant parts of ECS, especially when one
+  considers that part of the point of Melati is to support persistent default
+  field rendering preferences.
+</P>
+
+
+<H4><A NAME=OPL>
+<!-- ----- -->
+      OPL
+<!-- ----- -->
+</A></H4>
+
+<P>
+  OPL is an object/RDBMS interface patterned after a
+  `<A HREF=http://www.ambysoft.com/persistenceLayer.html>white paper</A>' by
+  someone called Scott W. Ambler of Ambysoft, and included as
+  <TT>java.org.apache.turbine.opl</TT> in the Turbine distribution.
+</P>
+
+<P>
+  Turbine uses OPL for persistent storage of user information, via
+  <TT>org.apache.turbine.util.TurbineUser</TT> and <TT>.TurbineUserPeer</TT>.
+</P>
+
+<P>
+  From a brief examination of the source for those classes and of the white
+  paper and OPL sources, it appears that OPL is substantially more complex for
+  the programmer than it is envisaged that Melati should be: It does not go
+  all-out for the illusion of being an ODMS built into the language, so that
+  table rows appear as similar as possible to other objects.  The programmer
+  must explicitly define a <TT>retrieveFromStorage</TT>/<TT>saveToStorage</TT>
+  pair---and call them as necessary; the examples that follow are taken from
+  Turbine's <TT>User</TT> object:
+</P>
+
+<PRE>
+    public User retrieveFromStorage( Integer visitorid ) throws Exception
+    {
+        Criteria criteria = new Criteria(); 
+        criteria.put( TurbineUserPeer.VISITOR_ID, visitorid );
+        Vector users = TurbineUserPeer.doSelect(criteria);
+        if ( users.size() &gt; 1 ) 
+        {
+            throw new Exception("Multiple Users with same visitorid");
+        }
+        if ( users.size() == 1 ) 
+        {
+            return (User) users.firstElement();
+        }
+        return null;
+    }
+
+    public void saveToStorage() throws Exception
+    {
+        // this is where we should save the permStorage hashtable
+        // to the database if we can get a connection to the database
+        // First any hashtable entries which have a column assigned
+        // are placed for storage in their respective column.
+            Hashtable permData = (Hashtable) getPermStorage().clone();
+            Criteria criteria = new Criteria();
+            criteria.add( TurbineUserPeer.VISITOR_ID, getId() );                 
+
+            for (int i=1; i&lt;TurbineUserPeer.columnNames.length; i++ )
+            {
+                if ( permData.containsKey(TurbineUserPeer.criteriaKeys[i]) )
+                {
+                    criteria.add( TurbineUserPeer.criteriaKeys[i], 
+                        permData.remove(TurbineUserPeer.criteriaKeys[i]) );
+                }
+            }
+            criteria.add( TurbineUserPeer.OBJECT_DATA, permData );            
+            TurbineUserPeer.doUpdate(criteria);
+    }
+</PRE>
+
+<P>
+  See also <TT>TurbineUserPeer</TT>, which is a little under 300 lines long
+  (its superclass <TT>org.apache.turbine.util.db.BasePeer</TT>, while not part
+  of the OPL package, appears to be non-Turbine-specific generic code).  In
+  <TT>org.apache.turbine.opl.examples.EmployeeClassMap</TT> the following
+  comment is made: ``in the future all map info will be read from an XML file
+  or a Database.  this area needs alot more work.''
+</P>
+
+<P>
+  In Melati, by contrast, the intention is that the programmer need only provide
+  a high-level description of the database structure, the details of
+  marshalling and unmarshalling being hidden in automatically generated code
+  (and/or introspection).  As in the <A HREF=#GJD>Groovy Java Database</A>
+  ODBMS, she can treat persistent objects as objects which happen to persist
+  from session to session.
+</P>
+
+<P>
+  Another source of complexity in OPL is that it provides an abstraction layer
+  over SQL, in the form of <TT>PersistentCriteria</TT> objects, which map
+  pretty straightforwardly onto SQL <TT>WHERE</TT> clauses, and
+  <TT>PersistentTransaction</TT> objects, which reify an SQL transaction as a
+  list of tasks to be performed.  These features offer some benefits: it is
+  possible to embed <TT>WHERE</TT> clauses in Java in a way which avoids most
+  of the danger of making typos in literal SQL, and it is possible to write a
+  backend for the system from scratch without it having to understand SQL.  A
+  `abstract SQL' notation is under consideration for Melati, but we may well
+  conclude that the extra complexity and computational overhead it adds
+  outweigh its advantages.  And Melati is designed to follow the SQL model of
+  transactions---<I>i.e.</I> leaving them implicit, associated with a
+  <TT>Connection</TT> (which could also be called a `session')---which is
+  arguably less intrusive and more intuitive.
+</P>
+
+<P>
+  Note that OPL's reification of SQL <TT>UPDATE</TT> and <TT>DELETE</TT>
+  operations does not, in fact, offer any performance benefit over a more
+  transparent ODBMS-style `select objects, then modify each in turn' idiom when
+  dealing with large numbers of table rows, because, as Ambler points out in
+  his `white paper', it's necessary to instantiate each row as a Java object
+  before it is modified in case a Java method has been defined which does
+  something special on update.
+</P>
+
+<P>
+  OPL appears not to be capable of cacheing data.  Cacheing of very frequently
+  used data such as metadata, `enumeration type' lookup tables and localisation
+  phrases is considered a requirement for Melati.
+</P>
+
+
+<H4>
+<!-- -------- -->
+      Cocoon
+<!-- -------- -->
+</H4>
+
+<P>
+  <A HREF=http://xml.apache.org/cocoon>Cocoon</A> is a framework for flexible
+  server-side XML-to-HTML, WML, <I>etc.</I> instantiation.  It can be
+  integrated with an arbitrary XML-generating backend by plugging in
+  programmer-defined `Producer' (as defined in the <A
+  HREF=http://xml.apache.org/cocoon/guide.html>user guide</A>).  However, we
+  seem more keen to go with the idea of relatively pure (webmacro) templates
+  written directly to use the target markup language, rather than XML plus XSL.
+</P>
+
+
+<H4><A NAME=SPFC>
+<!-- ------ -->
+      SPFC
+<!-- ------ -->
+</A></H4>
+
+<P>
+  <A HREF=http://java.apache.org/spfc/index.html>SPFC</A> (Server Pages
+  Foundation Classes) has two aims.
+</P>
+
+<P>
+  The first, more mundane, goal is to help programmers avoid writing literal
+  HTML in Java by providing the obvious kind of objects representing forms
+  <I>etc.</I> which can be rendered into HTML once their properties have been
+  set.  This is clearly something Melati needs, but only at the level of the
+  individual widgets---since everything else is implemented through templating.
+  Melati also has quite particular requirements for implementing persistent
+  default display preferences for fields and widgets, which will be supported
+  most cleanly by binding them quite tightly with the persistence mechanism, so
+  it isn't clear that this part of SPFC has much to offer.  (<I>Cf.</I> the <A
+  HREF=#ECS>remarks above about ECS</A>---the two projects apparently do not
+  fit together or share code.)
+</P>
+
+<P>
+  The second facility SPFC provides is potentially much more interesting: it
+  helps turn the transactional, stateless logic of multi-page browser-server
+  interation around and allow you to program in a more natural manner.  More
+  evaluation will be required before we can decide whether this is really
+  useful, and compatible with our wish to use templates intensively.
+</P>
+
+<P>
+  SPFC is currently very much in early development (see the <A
+  HREF=http://java.apache.org/spfc/dist>download page</A>).
+</P>
+
+
+<H3><A NAME=GJD>
+<!-- ====================== -->
+      Groovy Java Database
+<!-- ====================== -->
+</A></H3>
+
+<P>
+  <A HREF=http://www.linuxstart.com/~groovyjava/Database>Groovy Java
+  Database</A> is a true ODBMS for Java.  It works very much in the way
+  envisaged for Melati, except that it uses a flat file for storing all data in
+  (by default) Java's native serialisation format, and keeps indexes in memory
+  as Java data structures.  You write simple and elegant code and get
+  persistence almost for free: it is a good demonstration of how much more
+  straightforward persistence can seem to the programmer than it does in the
+  model apparently adopted by <A HREF=#OPL>OPL</A>.  However, the difference in
+  the form of the backing store and the fact that GJB doesn't support access
+  control or (yet, it seems) transactions means that there is little to be
+  gained by taking anything from it except ideas.
+</P>
+
+
+<H3>
+<!-- ========================== -->
+      Application servers, etc.
+<!-- ========================== -->
+</H3>
+
+<P>
+  This stuff is VERY brief.  I (williamc) would appreciate people expanding on
+  it where they think important things are missing.  I haven't bothered with
+  commercial application servers.
+</P>
+
+
+<H4>
+<!-- ---------- -->
+      Webmacro
+<!-- ---------- -->
+</H4>
+
+<P>
+  Webmacro, which we have used a lot and like, could almost be considered as an
+  application server and is certainly one of the more widely used Java
+  templating systems.
+</P>
+
+
+<H4><A NAME=Zope>
+<!-- ------ -->
+      Zope
+<!-- ------ -->
+</A></H4>
+
+<P>
+  Zope is an application server with considerable mindshare at least on the
+  Linux news sites.  But it has various apparent disadvantages, such as a
+  deviant programming language (Python), a strange templating system, and
+  remarkably profuse and obscure hype/documentation.  We could look more
+  closely at it to see if there are any good ideas we should learn from.
+</P>
+
+
+<H4>
+<!-- ------------- -->
+      PHP/Midgard
+<!-- ------------- -->
+</H4>
+
+<P>
+  PHP suffers, IIRC, from you having to put all the code in the templates in a
+  vaguly Perlish scripting language, which suggests that it is targeted at
+  people with different requirements from us who don't want to treat pages as
+  views onto OO-modelled data (`business objects').
+</P>
+
+<P>
+  <A HREF=http://www.midgard-project.org/article/884.html>Midgard</A> is built
+  on PHP and seems to be aimed at helping to administer large tree-structured
+  sites with relatively uncomplicated DB requirements.  Its handling of user
+  accounts/access control may deserve a closer look.  Currently you have to use
+  MySQL, implying that it doesn't support transactions.
+</P>
+
+
+<H4>
+<!-- ---------- -->
+      ASP, JSP
+<!-- ---------- -->
+</H4>
+
+<P>
+  Noone with any taste seems to like these, but I (williamc) don't know
+  anything about them really.
+</P>
+
+
+<H3>
+<!-- ================ -->
+      Places to look
+<!-- ================ -->
+</H3>
+
+<P>
+  <A HREF=http://freshmeat.net>Freshmeat</A> is probably the most comprehensive
+  free software directory; all the products mentioned in this document, and
+  many more, can be found in the following sections:
+</P>
+
+<UL>
+  <LI> <A HREF=http://freshmeat.net/appindex/web/database.html>web/database</A>
+  <LI> <A HREF=http://freshmeat.net/appindex/web/development.html>web/development</A>
+  <LI> <A HREF=http://freshmeat.net/appindex/web/pre-processors.html>web/preprocessors</A>
+</UL>
+
+<P>
+  Webmacro's Justin Wells has put together an interesting compare/contrast
+  document at <TT><A
+  HREF=http://www.webmacro.org/OtherTech.html>http://www.webmacro.org/OtherTech.html</A></TT>.
+</P>
+
+
+<H2>
+<!-- ************ -->
+      Discussion
+<!-- ************ -->
+</H2>
+
+<P>
+  My (williamc's) tentative conclusions after a brief run through
+  <TT>java.apache.org</TT> are:
+</P>
+
+<UL>
+  <LI> There are one or two nice ideas floating around, such as <A
+       HREF=#SPFC>SPFC</A>'s rationalisation of navigation logic.
+
+  <LI> Some of the projects might be useful if we shared their aim of not
+       writing any HTML---but we have decided that templating in the target
+       markup language is a good way to go.
+
+  <LI> The <A HREF=#OPL>OPL</A> persistence mechanism associated with <A
+       HREF=#Turbine>Turbine</A> appears not to have been done very well.
+       I think I would rather use raw <TT>ResultSet</TT>s.
+
+  <LI> Otherwise, nothing is on offer which we don't get from webmacro or
+       haven't done better in JAL already.
+</UL>
+
+<P>
+  In short, I can perceive no benefit even in aiming for compatibility with any
+  <TT>java.apache.org</TT> products.  Perhaps this assessment is too cruel:
+  it's open to revision!
+</P>
+
+<P>
+  Looking more broadly, I couldn't see anything which offers anything
+  approximating the combination of features present in JAL and proposed for
+  Melati, namely
+</P>
+
+<UL>
+  <LI> Java programming
+  <LI> generic DB administration, with field display preferences
+  <LI> convenient semi-ODBMS view of the database, with cacheing
+  <LI> immediate and convenient templating
+</UL>
+
+
+<HR>
+
+
+<H2 align=center>About this document</H2>
+
+  <H3>Authors</H3>
+
+    <P>
+      <A HREF=mailto:williamc@paneris.org>William Chesters
+      &lt;williamc@paneris.org&gt;</A>
+    </P>
+
+    <P>
+      Most recent CVS $Author$ @paneris.org
+    </P>
+
+  <H3>Quality</H3>
+
+    <P>
+      The current quality level of this document is: <B>Personal</B>.  It's not
+      exhaustive and contributions are welcome.
+    </P>
+
+  <H3>Readership and purpose</H3>
+
+    <P>
+      <UL>
+	<LI> The <B>project leader</B> should feel confident that no obvious
+	     wheels are being reinvented.
+      </UL>
+
+      This document is also intended to give the wider <B>open source
+      community</B> an insight into the intended placement of Melati, so that
+      they can give us feedback pre-release and understand the finished
+      product.
+    </P>
+
+  <H3>History</H3>
+
+    <P>
+      The important points in the life of this document are listed
+      below (for everyday update information, consult its CVS log).
+    </P>
+
+    <TABLE>
+      <TR><TH>Date</TH><TH>Event</TH></TR>
+      <TR>
+        <TD>(not yet)</TD>
+        <TD>Certified at release quality level by ...</TD>
+      </TR>
+    </TABLE>
+
+    <P>
+      The CVS log for this document is:
+      <BR>
+      <BR>$Log$
+      <BR>Revision 1.1  2005/11/21 22:01:49  timp
+      <BR>Moved from site/doc
+      <BR>
+      <BR>Revision 1.13  2001/11/10 01:26:16  timp
+      <BR>Typo in anchor
+      <BR>
+      <BR>Revision 1.12  2000/02/29 09:53:02  williamc
+      <BR>Finish recovering from disaster; point out in the docs that you can 'add methods to table rows'
+      <BR>
+      <BR>Revision 1.2  2000/02/04 18:28:34  williamc
+      <BR>Add QA stub; explain DSD-admin interactino a little better
+      <BR>
+      <BR>
+    </P>
+
+
+</BODY>
+</HTML>

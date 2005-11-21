@@ -1,0 +1,449 @@
+<HTML>
+<HEAD>
+<TITLE> Overview of Melati (document $Revision$) </TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<H1>Overview of Melati (document $Revision$)</H1>
+
+
+
+
+<H2>
+<!-- ************** -->
+      Introduction
+<!-- ************** -->
+</H2>
+
+
+
+<H3>
+<!-- ===================== -->
+      What is Melati for?
+<!-- ===================== -->
+</H3>
+
+<P>
+  Melati is an open source, Java-based infrastructure for the rapid and
+  convenient development of web-based database applications.  It addresses the
+  following problems typically encountered in the development of complex sites:
+</P>
+
+<UL>
+  <LI> <B>Separating design from logic</B>
+       <P>
+         Melati was influenced in its development by the ground-breaking 
+         <A
+         HREF="http://webmacro.org">Webmacro</A> templating system, which allows
+         for a clean divide between the HTML (WML, ...) page design and the
+         program.
+       </P>
+       <P>
+         Since <a hre="http://jakarta.apache.org/velocity/">Velocity</a> 
+         has arrived Melati has become template engine agnostic.
+         It works with all versions of Velocity and was shown to work with a 
+         home grown templating engine (Jtemplater).
+       </P>
+       <p>
+         Melati fits into and encourages a Model / Controller / View (MVC) 
+         approach to systems design. 
+       </p>
+  <LI> <B>Getting database fields on and off web pages</B>
+       
+    <P> Melati can render both field values and input controls such as <TT>&lt;INPUT&gt;</TT>s 
+      and <TT>&lt;SELECT&gt;</TT>s automatically, using JDBC field information 
+      enriched with web-settable preferences. It also adds Javascript triggers 
+      for validating input values on the client side before submission, according 
+      to the fields' types. Links between related fields are resolved transparently, 
+      so that they seem like Java references. </P>
+
+  <LI> <B>Administering database content</B>
+       
+    <P> Melati offers a generic database admin system which allows searching/browsing 
+      of any table, and editing of both the contents and the structure of any 
+      part of the database, without the need for customised admin pages: data 
+      entry and editing &quot;out of the box&quot;, just like you get with desktop 
+      database packages. </P>
+
+  <LI> <B>Managing users and their access permissions</B>
+       
+    <P> All database accesses made through Melati are subjected to low-level checks 
+      via a user/group/capability mechanism, configurable by the administrator. 
+      Either cookies or HTTP Basic Authentication (the mechanism commonly used 
+      for password protection of static pages) can be used to maintain the user 
+      ID in a session. </P>
+
+  <LI> <B>Expressing business logic cleanly</B>
+       
+    <P> Melati's easy-to-use persistence mechanism can present a predefined subset 
+      of the database to the programmer as a collection of Java objects, with 
+      statically typed <TT>set</TT>/<TT>get</TT> methods, which happen to store 
+      their state in the database. She can add Java methods to these objects (table 
+      rows), and express the application logic in a much more natural way than 
+      she could using JDBC directly. </P>
+
+  <LI> <B>Implicit transactions</B>
+       
+    <P> Each Java thread (such as that processing a single servlet request) is 
+      associated with a different concurrent database transaction, and runs with 
+      different access permissions depending on the user on whose behalf it is 
+      working. </P>
+
+  <LI> <B>Cacheing frequently-used table rows</B>
+       <P>
+	 Intensively-used tables can be transparently cached on a
+	 least-recently-used basis (and the cache behaves correctly with
+	 respect to transactions). 
+       </P>
+
+  <LI> <B>Cacheing standard queries and other database-dependent objects.</B>
+       <P>
+         Standard queries (including simple joins) can be transparently cached
+         so that an up-to-date result is recomputed on demand.  It's easy to
+         make automatically-refreshing higher-level database-dependent objects
+         as well.  This cacheing mechanism is also transaction-safe!
+       </P>
+</UL>
+
+
+
+<H3><A NAME=howworks>
+<!-- ======================= -->
+      How does Melati work?
+<!-- ======================= -->
+</A></H3>
+
+<P>
+  The entry points to a Melati application are a set of one or more servlets
+  derived from <A
+  HREF="/javadoc/org/melati/servlet/TemplateServlet.html"><TT>TemplateServlet</TT></A>.
+  There are subtypes for different template engines.
+  It takes care of determining the Melati username
+  associated with the client, and the `logical database' on which the servlet
+  should operate from the path info: for instance, the URL
+
+<BLOCKQUOTE><PRE>
+http://melati.org/webmacro/org.melati.admin.Admin/melatitest/user/View
+</PRE></BLOCKQUOTE>
+
+<P>
+  asks the
+  <A HREF="/javadoc/org/melati/admin/Admin.html"><TT>Admin</TT></A>
+  servlet (<A HREF="/src/org/melati//Admin.java"><TT>Admin.java</TT></A>) to
+  &quot; <tt>View</tt> the
+  <TT>user</TT> table of the <TT>melatitest</TT> database&quot;.  This scheme
+  has the (admittedly minor) advantage that it makes possible the use of
+  concise relative URLs for many purposes.
+</P>
+
+<P>
+  If it has not already been encountered by the running virtual machine, the
+  logical database name is mapped to JDBC connection details via the config
+  file <A
+  HREF="/properties/org/melati/org.melati.LogicalDatabase.properties"><TT>org.melati.LogicalDatabase.properties</TT></A>.
+  When the first JDBC connection has been established (<I>i.e.</I> once per
+  JVM), a picture is built up of how the structure-database ought to look,
+  drawing on the programmer's compile-time <A
+  HREF="PoemUserGuide.html#DSD">Data Structure Definition</A> (DSD), if
+  any, and on the type-rich metadata set up by the administrator using the
+  generic admin interface.  This picture is then unified, or reconciled, with
+  the actual database structure reported by JDBC's <TT>DatabaseMetadata</TT>.
+  In effect, the structures specified by the three sources are added together
+  and merged; any tables or columns present in the underlying DBMS but not
+  specified by the programmer or administrator are incorporated (and have
+  default metadata records created for them), while conversely any tables or
+  columns specified by the programmer or administrator but not present in the
+  DBMS are created.  If the unification cannot be completed consistently
+  (<I>e.g.</I> if the underlying database has been incompatibly altered), the
+  connection is aborted.
+</P>
+
+<P>
+  The end result of all this as far as the Java code is concerned is a natural
+  and convenient representation of the database in terms of
+  <A HREF="/javadoc/org/melati/poem/Database.html"><TT>Database</TT></A>,
+  <A HREF="/javadoc/org/melati/poem/Table.html"><TT>Table</TT></A> and
+  <A HREF="/javadoc/org/melati/poem/Column.html"><TT>Column</TT></A>
+  objects.  Columns have rich
+  <A HREF="/javadoc/org/melati/poem/PoemType.html"><TT>PoemType</TT></A>
+  types which include information such as the target of a reference (link)
+  or the default height of a text field; but in general one works directly in
+  terms of 
+  <A HREF="/javadoc/org/melati/poem/Persistent.html"><TT>Persistent</TT></A> 
+  objects representing the rows in the database.
+</P>
+
+<P>
+  In coding up the application logic, the programmer accesses the rows' fields
+  using statically named and typed methods autogenerated at compile time from
+  the Data Structure Definition.  For more on this, see the
+  <A HREF="PoemUserGuide.html">Melati POEM User Guide</A>.
+</P>
+
+<P>
+  Template writers can simply ask for the appropriate field value and let the
+  <A
+  HREF="/javadoc/org/melati/template/MarkupLanguage.html"><TT>MarkupLanguage</TT></A>
+  of their choice render it appropriately.  For instance, assuming that an
+  application servlet has set <TT>$product</TT> to refer to some
+  <TT>Persistent</TT> object, one could say
+</P>
+
+<BLOCKQUOTE><PRE>
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+&lt;HTML&gt;
+&lt;BODY&gt;
+
+&lt;P&gt;
+  You have asked for a $ml.rendered($product.NameField),
+  which has to come from $ml.rendered($product.CountryField)
+  at a cost of $ml.rendered($product.Country.PriceField).
+&lt;P&gt;
+
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</PRE></BLOCKQUOTE>
+
+<P>
+  The <TT>...Field</TT> idiom returns a value wrapped up with a
+  <TT>PoemType</TT> which the markup language <TT>$ml</TT> (set to HTML at the
+  top of the template) knows how to render.  Note the phrase
+  <TT>$product.Country.PriceField</TT>, in which a reference (link) to a record
+  in the <TT>country</TT> table is transparently followed.
+</P>
+
+<P>
+  Generating input controls for objects' fields is just as easy.  The following
+  simplified fragment of a template from the generic admin system
+  (<A HREF="/src/org/melati/admin/Edit.wm">Edit.wm</A>, 
+  also illustrates how you can iterate 
+  over all the fields in
+  an object without having to know their names:
+</P>
+
+<BLOCKQUOTE><PRE>
+&lt;TABLE&gt;
+  #foreach $field in $object {
+    &lt;TR&gt;
+      &lt;TD&gt;
+        $ml.rendered($field.DisplayName)
+      &lt;/TD&gt;&lt;TD&gt;
+        $ml.input($field)
+      &lt;/TD&gt;
+    &lt;/TR&gt;
+  }
+&lt;/TABLE&gt;
+</PRE></BLOCKQUOTE>
+
+<P>
+  Behind the simple phrase <TT>$ml.input($field)</TT>, Melati is
+</P>
+
+<UL>
+  <LI> Inspecting the field's <TT>PoemType</TT>.
+  <LI> Loading a `templet', or WebMacro mini-template, which contains the
+       HTML (WML, ...) markup necessary for generating an input control for
+       values of the type.  The administrator can override this and give an
+       explicit name of a templet which should be used for any given field's
+       values, if she wants to be able to customise it wherever it appears.
+  <LI> Expanding the templet against the field.
+  <LI> Interpolating it into the main template.
+</UL>
+
+<P>
+  Part of the point of having type-specific templates is that they can carry
+  JavaScript (VBScript, ...) routines for client-side validation of the values
+  entered or otherwise selected by the user.  For instance, this is
+  <A
+  HREF="/src/org/melati/template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm">
+<TT>
+template/webmacro/templets/html/org.melati.poem.IntegerPoemType.wm
+</TT></A>:
+</P>
+
+<BLOCKQUOTE><PRE>
+&lt;INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+       VALUE="$ml.Attr.rendered($field.RawString)"&gt;
+
+&lt;SCRIPT LANGUAGE=JavaScript1.2&gt;
+  add_integer("field_$ml.escaped($field.Name)",
+              "$ml.escaped($field.DisplayName)",
+	      !$field.Type.Nullable)
+&lt;/SCRIPT&gt;
+</PRE></BLOCKQUOTE>
+
+<P>
+  You can see at the top and bottom of <A
+	  HREF="/src/org/melati/admin/Edit.wm">Edit.wm</A> 
+  how
+  these JavaScript fragments fit into the overall template.
+</P>
+
+
+
+
+<H2>
+<!-- ************************ -->
+      Where to go from here?
+<!-- ************************ -->
+</H2>
+
+
+
+<H3>
+<!-- =========== -->
+      Resources
+<!-- =========== -->
+</H3>
+
+<P>
+  Melati's home on the web,
+  <A HREF=http://melati.org><TT>http://melati.org</TT></A> and 
+  its <a href="http://maven.apache.org/">Maven</a> variant at 
+  <a href="http://maven.melati.org/">http://maven.melati.org/</a>, provide
+  information, mailing lists  and CVS access.
+</P>
+
+
+
+<H3>
+<!-- ================== -->
+      A simple example
+<!-- ================== -->
+</H3>
+
+<P>
+  See the <A href="/Example.html">Example</a>.
+</P>
+
+
+
+<H3>
+<!-- =================== -->
+      Installing Melati
+<!-- =================== -->
+</H3>
+
+<P>
+  The <a href="http://melati.org/melati-static/README.html">README</a> has installation details.
+</P>
+
+
+
+<H3>
+<!-- ===================================== -->
+      Guides to Melati's component parts
+<!-- ===================================== -->
+</H3>
+
+<TABLE CELLSPACING=0>
+  <TR VALIGN=TOP>
+    <TH>Document</TH>
+    <TH>&nbsp;&nbsp;</TH>
+    <TH>Description</TH>
+
+  </TR>
+  <TR VALIGN=TOP>
+    <TD>
+      <A HREF="PoemUserGuide.html"><TT>org.melati.poem</TT></A>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      <P><em>
+      Of interest to programmers.
+      </em></P>
+      <P>
+      Melati POEM (Persistent Object Engine for Melati) is what gives Melati
+      its object-oriented view of the underlying relational database.  It
+      maintains type information about database fields, and handles connection
+      pooling, cacheing and access control.  POEM is independent of the rest of
+      Melati and could be used for non-web applications.  
+      <P>
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <A HREF="PoemPreproUserGuide.html"><TT>org.melati.poem.prepro</TT></A>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      <P><em>
+      Of interest to programmers.
+      </em></P>
+      <P>
+      POEM's preprocessor is responsible for turning concise, Java-style
+      &quot;Data Structure Definitions&quot; into boilerplate code for creating
+      a corresponding relational database and representing it as a collection
+      of typed objects.
+      <P>
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <A HREF=Templating.html><TT>org.melati.template</TT></A>
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      <P><em>
+      Of interest to page authors.
+      </em></P>
+      <p>
+      Melati's API is Template Engine agnostic. Melati can be used with 
+      Webmacro or Velocity or both, as Webmacro templates are converted 
+      on-the-fly to Velocity templates.
+      <br />
+      Melati comes with default templets for rendering fields for 
+      input and output in HTML or WML.
+      The templets can be overridden or added to.
+      </p>
+    </TD>
+  </TR>
+
+  <TR VALIGN=TOP>
+    <TD>
+      <!-- A HREF="AdminUserGuide.html" --><TT>org.melati.admin</TT><!-- /A -->
+      <BR><!--(doc not yet ready)-->
+    </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      <P><em>
+      Of interest to most users.
+      </em></P>
+      The generic database administration system supports &quot;out of the
+      box&quot; content editing.  
+    </TD>
+  </TR>
+</TABLE>
+
+
+
+<H3>
+<!-- ================ -->
+<!--      How do I ... ? -->
+<!-- ================ -->
+</H3>
+
+<!--
+<P>
+  <I>How to do typical tasks ...</I>
+</P>
+-->
+
+
+<H3>
+<!-- ============================ -->
+      Frequently asked questions 
+<!-- ============================ -->
+</H3>
+
+<P>
+  <I>Go on, ask a question on the <a href="http://melati.org/MailingList.html">Mailing Lists</a>!</I>
+</P>
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,412 @@
+<HTML>
+<HEAD>
+  <TITLE>Melati and JTemplater</TITLE>
+</HEAD>
+<BODY>
+
+<H1>Melati and JTemplater</H1>
+
+
+
+
+<H2>
+<!-- ************** -->
+      Introduction
+<!-- ************** -->
+</H2>
+
+<P>
+  At present, Melati <I>qua</I> web application library is quite closely tied
+  to WebMacro (although POEM is not).  In future, however, we want to use
+  JTemplater.  The changeover seems a good opportunity to reassess the
+  interaction between Melati, POEM and the templating subsystem, and to make it
+  a little more abstract so that we can allow people to change between (say)
+  WebMacro and JTemplater with as little fuss as possible.
+</P>
+
+
+
+
+<H2>
+<!-- *********** -->
+      Inventory
+<!-- *********** -->
+</H2>
+
+<P>
+  Melati currently does the following jobs relating to WebMacro:
+</P>
+
+
+
+<H3>
+<!-- =================================== -->
+      Enhancement of <TT>WMServlet</TT>
+<!-- =================================== -->
+</H3>
+
+<P>
+  This is what <TT>MelatiServlet</TT> and its parent <TT>MelatiWMServlet</TT>
+  do: (There is no real point to the separation; it's just that the latter is
+  a hacked version of <TT>WMServlet</TT>.)
+</P>
+
+<UL>
+  <LI>
+    <P>
+      Optional buffering of template expansion in <TT>expand</TT>, in order to
+      make sense of
+    </P>
+  <LI>
+    <P>
+      Configurable <TT>handleException</TT>, providing by default
+    </P>
+  <LI>
+    <P>
+      Automatic user login on <TT>AccessException</TT>, via a
+    </P>
+  <LI>
+    <P>
+      Configurable <TT>accessHandler</TT>, which interacts with the initial
+    </P>
+  <LI>
+    <P>
+      Connection to POEM <TT>Database</TT> and establishment of POEM session
+    </P>
+</UL>
+
+<P>
+  These are all things we will still want to provide, but independently of
+  WebMacro.  <FONT COLOR=red>What should <TT>MelatiServlet</TT> look like,
+  then?</FONT>
+</P>
+
+
+
+<H3>
+<!-- =============================== -->
+      Extraction of current object 
+<!-- =============================== -->
+</H3>
+
+<P>
+  This is done between <TT>Melati</TT> and
+  <TT>MelatiServlet.melatiContext</TT>.  It's useful to structure many web
+  applications around the notion of "the object on which the present HTTP
+  request is operating, and the action we want to do with it".
+</P>
+
+
+
+<H3>
+<!-- =================================== -->
+      Enhancement of variable expansion
+<!-- =================================== -->
+</H3>
+
+<P>
+  This is what our hacked <TT>org.webmacro.engine.Variable</TT> does.
+</P>
+
+<P>
+  <FONT COLOR=red>How does this relate to JTemplater?  Probably we want to
+  provide two behaviours for JTemplater, at the level of the
+  <TT>$(</TT>...<TT>)</TT> expression in which the exception occurs: just
+  terminate expansion and throw the exception, or interpolate a representation
+  the exception instead of the result of the expression.  But it would be nice
+  if the latter could do some context-sensitive escaping.</FONT>
+</P>
+
+<BLOCKQUOTE><PRE>
+$renderBody(obj.getFoo())
+</PRE></BLOCKQUOTE>
+
+
+
+<H3>
+<!-- ========================= -->
+      Markup language support
+<!-- ========================= -->
+</H3>
+
+<P>
+  This is what the <TT>*MarkupLanguage</TT> classes do:
+</P>
+
+
+<H4>
+<!-- --------------- -->
+      Text escaping
+<!-- --------------- -->
+</H4>
+
+<P>
+  Escaping ("rendering") of text according to the conventions of the
+  language.  In fact there are several different kinds of escaping to
+  be done in HTML, depending on the context:
+</P>
+
+<P>
+  <TABLE BORDER=1 CELLPADDING=5>
+    <TR>
+      <TD>Doc body, attribute value</TD>
+      <TD><TT>&amp;quot;</TT></TD>
+    </TR>
+    <TR>
+      <TD>Javascript value</TD><TD><TT>\042</TT></TD>
+    </TR>
+    <TR>
+      <TD>URL</TD><TD><TT>=22</TT></TD>
+    </TR>
+  </TABLE>
+ </P>
+
+
+
+<H4>
+<!-- --------------------- -->
+      Exception rendering
+<!-- --------------------- -->
+</H4>
+
+<P>
+  Rendering of exceptions for display to the user, where the
+  <TT>VariableExceptionHandler</TT> returns them to be displayed rather than
+  simply throwing them out to terminate expansion.  Again, this is
+  context-dependent:
+</P>
+
+<P>
+  <TABLE BORDER=1 CELLPADDING=5>
+    <TR>
+      <TD>Doc body</TD>
+      <TD><TT>&lt;I&gt;error!&lt;/I&gt;</TT></TD>
+    </TR>
+    <TR>
+      <TD>Attribute value (<I>e.g.</I>&nbsp;input box content)</TD>
+      <TD><TT>[error!]</TT></TD>
+    </TR>
+  </TABLE>
+</P>
+
+<P>
+  As of 21/07/2000, the representation of the exception is determined from a
+  sub-template or &quot;templet&quot;.  The <TT>MarkupLanguage</TT> tries to
+  load a WebMacro template (through the servlet's <TT>Broker</TT>) from a
+  directory named after the markup language.  The filename of the template is
+  taken at first to be the package-qualified class name of the exception with
+  <TT>.wm</TT> appended; if that doesn't exist, it tries the superclass, and so
+  on until it finds <TT>java.lang.Exception.wm</TT>, which just does
+</P>
+
+<BLOCKQUOTE><PRE>
+[$ml.rendered($exception.toString())]
+</PRE></BLOCKQUOTE>
+
+<P>
+  The templet is expanded to a string against a specially constructed
+  <TT>Context</TT>, and the string is returned to WebMacro for interpolation
+  into the parent template.  <FONT COLOR=red>It would obviously be nice if the
+  templet could be expanded directly to the output stream, so that the extra
+  buffering could be avoided.</FONT>
+</P>
+
+
+
+<H3>
+<!-- ====================== -->
+      Smart field handling
+<!-- ====================== -->
+</H3>
+
+
+<H4>
+<!-- -------------------------- -->
+      <TT>Field</TT> rendering
+<!-- -------------------------- -->
+</H4>
+
+<P>
+  Rendering of POEM <TT>Field</TT>s, <I>i.e.</I>&nbsp;values wrapped up with
+  <TT>PoemType</TT>s, for display.  <FONT COLOR=red>(N.B.&nbsp;do we need a
+  <TT>PoemTypedValue</TT> which is like a <TT>Field</TT> but doesn't have a
+  name?  The name isn't needed here, only for rendering input controls.)</FONT>
+</P>
+
+<P>
+  The functionality is: compute the field's localised &#145;cooked string&#146;
+  representation; size-limit it; escape it for the doc-body context.
+</P>
+
+<UL>
+  <LI>
+    <P>
+      Exceptions are caught and passed to <TT>VariableExceptionHandler</TT> set
+      up in the expansion context, which can throw them out or return them to
+      be rendered for the doc-body context as above.
+    </P>
+  <LI>
+    <P>
+      The locale is set up when the <TT>MarkupLanguage</TT> is constructed:
+      at present it's always &#145;UK&#146;.
+    </P>
+  <LI>
+    <P>
+      There are different variants for calling up <TT>SHORT</TT>,
+      <TT>MEDIUM</TT>, <TT>LONG</TT> and <TT>FULL</TT> styles.  This is really
+      intended for use on dates.
+    </P>
+  <LI>
+    <P>
+      The size limit is generally 10M, and is only meant to prevent
+      out-of-memory errors.  There is a variant which limits to 50&nbsp;chars,
+      for &#145;short displays&#146; such as the admin system browse lists.
+    </P>
+</UL>
+
+
+<H4>
+<!-- ------------------------------- -->
+      <TT>Persistent</TT> rendering
+<!-- ------------------------------- -->
+</H4>
+
+<P>
+  Rendering of POEM <TT>Persistent</TT>s, which just means calling up their
+  localised <TT>displayString</TT> and rendering that in the doc-body context.
+</P>
+
+
+<H4>
+<!-- ------------------------- -->
+      Input control rendering
+<!-- ------------------------- -->
+</H4>
+
+<P>
+  Rendering of an input box, dropdown, <I>etc.</I> appropriate for entering the
+  value of a POEM <TT>Field</TT>.  This has always used a &#145;templet&#146;
+  mechanism similar to that used for exceptions: a markup language-specific
+  directory is searched for a templet named after the <TT>PoemType</TT> of the
+  field, except that the templet name can also be set explicitly in the field's
+  <TT>getRenderInfo</TT> property (ultimately, in the admin interface).
+</P>
+
+<P>
+  The name of the field is prefixed with <TT>field_</TT><FONT COLOR=red> (the
+  prefixing is done in each templet individually, which doesn't seem
+  right)</FONT>.  When the returning form is interpreted,
+  <TT>Melati.extractFields</TT> knows to put that prefix on the field names of
+  the <TT>Persistent</TT> into which things are going.
+</P>
+
+
+<H4>
+<!-- ---------------------- -->
+      General observations
+<!-- ---------------------- -->
+</H4>
+
+<UL>
+  <LI>
+    <P>
+      The decision as to how to render a given object is done in a strangely
+      mixed way.  <TT>rendered(Field)</TT> is chosen by WebMacro's
+      introspection mechanism, but everything else falls into
+      <TT>rendered(Object)</TT>, where an <TT>instanceof</TT> dispatch decides
+      what to do.  Probably it's best to do everything by the former mechanism
+      (or even better by static method selection according to signature in the
+      case of JTemplater), and disallow the rendering of arbitrary
+      <TT>Object</TT>s using <TT>toString</TT>.
+    </P>
+  <LI>
+    <P>
+      Probably the display of everything should be delegated to markup
+      language-specific templets, not just <TT>Exception</TT>s and
+      <TT>Field</TT>s.
+    </P>
+  <LI>
+    <P>
+      &#145;What are we rendering&#146; and &#145;what context are we rendering
+      in&#146; are essentially orthogonal considerations.  This is actually
+      handled quite well in the current implementation, where
+      <TT>HTMLMarkupLanguage</TT> will give you an
+      <TT>AttributeHTMLMarkupLanguage</TT> as one of its properties.  However,
+      the most tricky situations, such as that in which one is rendering a
+      JavaScript expression containing a value in quotes will which eventually
+      become part of the document body, may not be adequately covered.
+    </P>
+</UL>
+
+
+
+
+<H2>
+<!-- **************************************** -->
+      Desirable features for cleaner version
+<!-- **************************************** -->
+</H2>
+
+<P>
+  The idea of making &#145;Melati&#146; essentially a utility object
+  (<TT>$melati</TT>) accessible within templates still seems a good one.
+  However,
+</P>
+
+<UL>
+  <LI>
+    <P>
+      It shouldn't care which templating mechanism is being used.  The same
+      abstract logic should work with WebMacro and JTemplater.
+    </P>
+  <LI>
+    <P>
+      It should be capable, where possible, of rendering complex objects
+      directly to the output stream rather than returning a string for
+      interpolation.
+    </P>
+  <LI>
+    <P>
+      It should be simpler.  There are rather a lot of &#145;here's one I
+      found handy once&#146; methods floating around.
+    </P>
+  <LI>
+    <P>
+      It should make it more obvious how to create a <TT>$melati</TT> object
+      from outside a <TT>MelatiServlet</TT>.
+    </P>
+  <LI>
+    <P>
+      It should bring out more clearly the notions of expansion context and
+      raw/cooked representation.
+    </P>
+  <LI>
+    <P>
+      It should make the &#145;current object&#146; feature a bit more
+      optional.  In particular the logical database should probably be
+      configurable in a <TT>.properties</TT> file.
+    </P>
+  <LI>
+    <P>
+      It should make it easy to say &#145;make me a dropdown&#146; without
+      having to know what a <TT>Field</TT> is.
+    </P>
+</UL>
+
+<P>
+  Generalising from that last point,
+</P>
+
+<UL>
+  <LI>
+    <P>
+      It should have a three-level stack of methods for value and input-control
+      rendering, operating at the level of the <TT>Persistent</TT>, the
+      <TT>Field</TT> and entirely non-POEM objects.  These should be isolated
+      into separate classes so that the templets mechanism can be compiled
+      independently of POEM.
+    </P>
+</UL>
+
+</BODY>
+</HTML>

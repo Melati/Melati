@@ -481,7 +481,7 @@ http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
       </excludes>
      </resource>
      <resource>
-      <directory>site/properties</directory>
+      <directory>src/properties</directory>
       <excludes>
         <exclude>**/*.properties</exclude>
       </excludes>

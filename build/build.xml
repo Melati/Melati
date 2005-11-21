@@ -318,57 +318,6 @@ usage:
     
   </target>
 
-    <!-- ============================================================= -->
-    <!-- Generate maven.melati.org xdocs                               -->
-    <!-- ============================================================= -->
-  <target name="xdocs"
-          description="build maven xdocs">
-    <mkdir dir="${xdocs}"/>
-    <delete>
-       <fileset dir="${xdocs}" includes="*.xml" excludes="navigation.xml"/>
-    </delete>
-    <mkdir dir="${xdocs}/images"/>
-    <loadfile property="Xheader" srcFile="${site.src}/header.xml"/>
-    <loadfile property="Xfooter" srcFile="${site.src}/footer.xml"/>
-    <loadfile property="Xmenu" srcFile="${site.src}/menu.xml"/>
-    <loadfile property="XsectionStartTagStart" 
-              srcFile="${site.src}/xMLSectionStartTagStart.tag"/>
-    <loadfile property="XsectionStartTagEnd" 
-              srcFile="${site.src}/xMLSectionStartTagEnd.tag"/>
-    <loadfile property="XsectionEndTag" 
-              srcFile="${site.src}/xMLSectionEndTag.tag"/>
-    <loadfile property="XsubSectionStartTagStart" 
-              srcFile="${site.src}/xMLSubSectionStartTagStart.tag"/>
-    <loadfile property="XsubSectionStartTagEnd" 
-              srcFile="${site.src}/xMLSubSectionStartTagEnd.tag"/>
-    <loadfile property="XsubSectionEndTag" 
-              srcFile="${site.src}/xMLSubSectionEndTag.tag"/>
-    <copy todir="${xdocs}">
-      <fileset dir="${site.src}" includes="*.ahtml" excludes="MailingList.html"/>
-      <filterset>
-        <filter token="header"   value="${Xheader}"/>
-        <filter token="footer"   value="${Xfooter}"/>
-        <filter token="menu"     value="${Xmenu}"/>
-        <filter token="version"  value="${version}"/>
-        <filter token="project"  value="${project}"/>
-        <filter token="name"     value="${name}"/>
-        <filter token="date"     value="${date}"/>
-        <filter token="filename" value="${project}_${version}"/>
-        <filter token="sectionStartTagStart" value="${XsectionStartTagStart}"/>
-        <filter token="sectionStartTagEnd" value="${XsectionStartTagEnd}"/>
-        <filter token="sectionEndTag" value="${XsectionEndTag}"/>
-        <filter token="subSectionStartTagStart" value="${XsubSectionStartTagStart}"/>
-        <filter token="subSectionStartTagEnd" value="${XsubSectionStartTagEnd}"/>
-        <filter token="subSectionEndTag" value="${XsubSectionEndTag}"/>
-      </filterset>
-      <mapper type="glob" from="*.ahtml" to="*.xml"/>
-    </copy>
-    <copy todir="${xdocs}/images">
-      <fileset dir="${site}/images" />
-    </copy>
-    
-  </target>
-
     <!-- ================================================================ -->
     <!-- Creates the API documentation                                    -->
     <!-- ================================================================ -->

@@ -31,27 +31,13 @@ ant go
 
 RELATIONSHIP to MAVEN
 
-In parallel with the above we are migrating to the use of
-http://maven.apache.org/. 
-
-Maven is a useful tool for running automated checks, 
-unit tests and creating distributions etc. 
-
-However the existing script in this directory works well, 
-creates the distribution in a tried and tested manner and 
-runs jetty. 
-
-So for the time being both are being used in parallel.
-
-The site src docs are processed to accomodate both: 
-ant site creates the xHTML docs, 
-ant xdocs creates the maven xdocs
+We now use Maven http://maven.apache.org/ though are currently still 
+using V1.
 
 The public versions of the site are all pointing to the 
 Maven generated site. 
-
-The scripts in this directory generate the official distributions, 
-maven creates the SNAPSHOT distributions.
+These scripts are left here for the convenience of those who use them, 
+but they are deprecated and not what drives http://melati.org
 
 
 MAKING A RELEASE
@@ -71,32 +57,22 @@ to create a release:
     Review melati/site/docsrc/Roadmap.ahtml
 5.  CVS commit all of the above
     except project.xml
-6.  CVS tag this release (cvs tag Melati-0-7-4)
-7.  Build melati (again) locally
-    cd build
-    ant go
-    cd ..
-    maven clean
-    maven site
-8.  Test everything
-9.  Commit project.xml to initiate a maven build on the server
-    Update rama
+6.  CVS tag this release (cvs tag Melati-0-7-5)
+9.  Test everything
+10. Commit project.xml to initiate a maven build on the server
+11. On rama:
     cd /dist/melati
     cvs update
     cd build 
     ant build
-10. Copy downloadable  jars and zips to 
+12. Copy downloadable  jars and zips to 
     cp dist/packaged/*.* /dist/melati/download/
-11. Generate Maven site
-    cd /dist/melati
-    maven site
-    maven dist
-12. Update sourceforge
+13. Update sourceforge
 cvs -z3 -d:ext:developername@cvs.sourceforge.net:/cvsroot/melati co melati
 cvs -d:ext:developername@melati.org:/usr/cvsroot export melati
 cvs commit
 
-13. Email 
+14. Email 
        melati-announce@lists.sourceforge.net,
        melati-developers@lists.sourceforge.net,
        melati-users@lists.sourceforge.net,
@@ -110,14 +86,14 @@ cvs commit
        hsqldb-developers@lists.sourceforge.net,
        wafer-developer@lists.sourceforge.net
 
-14. Notify Melati project boards:
+15. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
        pol@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
        begbroke@messageboards.paneris.org
-15. Add an item to the Sourceforge news
+16. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
-16. Add SNAPSHOT to currentVersion in ../project.xml
+17. Add SNAPSHOT to currentVersion in ../project.xml
 
 
 

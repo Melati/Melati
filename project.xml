@@ -482,9 +482,9 @@ http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
      </resource>
      <resource>
       <directory>src/properties</directory>
-      <excludes>
-        <exclude>**/*.properties</exclude>
-      </excludes>
+      <includes>
+        <include>**/*.properties</include>
+      </includes>
       </resource>
     </resources>
   </build>

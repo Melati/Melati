@@ -21,7 +21,8 @@
   </a>
 </p>
 <p>
-  The database can also be viewed using the <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.logicalDatabase/Main>Admin System</a>.
+  The database can also be viewed using the
+<a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>Admin System</a>.
 </p>
 <hr>
 <table border=1 cellpadding=5 width="60%">

@@ -107,7 +107,7 @@ You can test melati Exception handling by clicking <a href=./Exception>Exception
 You can test melati Redirect handling by clicking <a href=./Redirect>Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
-You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.Context.LogicalDatabase/Main>org.melati.admin.Admin/$melati.Context.logicalDatabase/Main</a>.<br>
+You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main</a>.<br>
 You can test that you are able to override your AccessHandler mode by clicking 
 <a href=$melati.ZoneURL/org.melati.test.TemplateServletTestOverride>override your AccessHandler</a>.
 This will use a HttpBasicAuthenticationAccessHandler instead of a HttpSessionAccessHandler (which

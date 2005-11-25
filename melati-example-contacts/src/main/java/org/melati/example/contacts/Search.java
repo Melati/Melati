@@ -4,6 +4,7 @@ import org.melati.Melati;
 import org.melati.template.ServletTemplateContext;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
+import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.MelatiUtil;
 
@@ -24,17 +25,23 @@ public class Search extends ContactsServlet {
                                                 "field_category");
     String submit = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
                                               "submit");
-    context.put("name",new Field(name, db.getContactTable().getNameColumn()));
+    Column nameColumn = db.getContactTable().getNameColumn();
+    Column contactColumn = db.getContactCategoryTable().getContactColumn();
+    Column categoryColumn = db.getContactCategoryTable().getCategoryColumn();
+    context.put("name",new Field(name, nameColumn));
     context.put("category", new Field
-               (category, db.getContactCategoryTable().getCategoryColumn()));
+               (category, categoryColumn));
 
     String where = "";
-    if (name != null) where += "\"name\" = '" + name + "' ";
+    if (name != null) where += nameColumn.quotedName() + " = '" + name + "' ";
     if (category != null) {
       if (!where.equals("")) where += " AND ";
-      where += "exists (SELECT \"id\" FROM \"contactcategory\" " + 
-               "WHERE \"category\" = " + category.toString() + 
-               " AND \"contact\" = \"contact\".\"id\")";
+      where += "exists (SELECT " + 
+               db.getContactTable().troidColumn().quotedName() + // "id"
+          " FROM " +  db.getContactCategoryTable().quotedName() +   // "contactcategory " +
+               " WHERE " + categoryColumn.quotedName() + " = " + category.toString() + 
+               " AND "  + contactColumn.quotedName() + " =  " + 
+                   db.getContactTable().quotedName() + "." + db.getContactTable().troidColumn().quotedName() +")";
     }
     if (submit != null) {
       context.put("results", db.getContactTable().selection(where));

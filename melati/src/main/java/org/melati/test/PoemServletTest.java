@@ -145,11 +145,11 @@ public class PoemServletTest extends PoemServlet {
       Capability admin = PoemThread.database().getCanAdminister();
       AccessToken token = PoemThread.accessToken();
       if (method.equals("AccessPoemException")) 
-      throw new AccessPoemException(token, admin);
+        throw new AccessPoemException(token, admin);
       if (method.equals("Exception")) 
-      throw new MelatiBugMelatiException("It got caught!");
+        throw new MelatiBugMelatiException("It got caught!");
       if (method.equals("Redirect")) 
-      melati.getResponse().sendRedirect("http://www.melati.org");
+        melati.getResponse().sendRedirect("http://www.melati.org");
     }
   }
   

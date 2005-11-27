@@ -27,6 +27,8 @@ import org.melati.template.webmacro.FastWriter;
 import org.webmacro.Template;
 import org.webmacro.InitException;
 import org.webmacro.servlet.WebContext;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -167,6 +169,7 @@ public class WebmacroStandalone extends HttpServlet {
 //                                             resp.getCharacterEncoding());
              out.write("ERROR! " + 
                        "Could not locate required data in the TemplateContext.");
+             e.printStackTrace();
              out.close();
          } catch (org.webmacro.ResourceException e) {
             FastWriter out = new FastWriter(_wm.getBroker(),
@@ -175,13 +178,15 @@ public class WebmacroStandalone extends HttpServlet {
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
              out.write("ERROR! " + 
-                       "Could not locate required data in the TemplateContext.");
+                       "Could not locate required Resource in the TemplateContext.");
+             e.printStackTrace();
              out.close();
          }
       } catch (java.io.IOException e) {
           // what else can we do?
           System.out.println("ERROR: " + 
                              "IOException writing to servlet output stream.");
+          e.printStackTrace();
       }
    }
 

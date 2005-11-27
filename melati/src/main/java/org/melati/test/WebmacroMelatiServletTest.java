@@ -95,7 +95,8 @@ public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
         // finally, put what we have into the original templateContext
         context.put("StandAlone",out);
       }
-    return "org/melati/test/WebmacroMelatiServletTest.wm";
+      // Note we assume .wm extension
+    return "org/melati/test/WebmacroMelatiServletTest";
   }
 
 /**

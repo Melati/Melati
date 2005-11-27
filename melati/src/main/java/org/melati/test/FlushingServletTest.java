@@ -71,7 +71,7 @@ public class FlushingServletTest extends WebmacroMelatiServlet {
     if (melati.getMethod() != null && 
         !melati.getMethod().equals("unflushed")) melati.setFlushingOn();
     context.put("waiter", new Waiter());
-    return "org/melati/test/FlushingServletTest.wm";
+    return "org/melati/test/FlushingServletTest";
   }
 
 /**

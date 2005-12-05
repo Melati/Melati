@@ -63,7 +63,7 @@ and loaded a Template Engine (in this case WebMacro).
 
 <p>Your <b>PoemContext</b> is set up as: $melati.PoemContext
 <br>, try playing with the PathInfo to see the results (or click 
-<a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/user/1/View">user/1/View</a>).</p>
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTest/melatitest/user/1/View">melatitest/user/1/View</a>).</p>
 
 #if ($thisisnull) #begin
 <p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!
@@ -73,38 +73,38 @@ the contents of \$thisisnull are <h4>$thisisnull</h4></font></p>
 #if ($Form.test) #begin
 <p><b>$Form.test</b> was passed in the parameter <b>test</b>.
 #end
-<p>To test Form parameter passing, <a href=?test=HelloWorld>click here</a></p>
+<p>To test Form parameter passing, <a href="?test=HelloWorld">click here</a></p>
 
 <h3>Exception Testing</h3>
 
-#if ($Form && $Form.nonexistant) #begin
-<p>Here is an object that doesn't exist<br>
-<textarea cols=60 rows=5>
+You can test how the PropagateVariableExceptionHandler handles 
+"normal" template expansion exceptions by clicking 
+<a href="?nonexistant=true">?nonexistant=true</a> (expect Melati Error Template).
+<br>
+#if ($Form != null && $Form.nonexistant != null) #begin
+<p>Here is an object that doesn't exist (if you see this things are broken)<br>
+<textarea cols="60" rows="5">
 $nonexistant
 </textarea>
 </p>
 #end
 
-#if ($Form.passback || $Form.propagate) #begin
+#if ($Form.passback != null || $Form.propagate != null) #begin
 <p>You have tried to access a RestrictedAccessObject but:<br>
 <b>$ml.rendered($RestrictedAccessObject.AccessPoemException)</b></p>
 #end
 
 You can test how the PropagateVariableExceptionHandler handles 
-"normal" template expansion exceptions by clicking 
-<a href=?nonexistant=true>?nonexistant=true</a>.
-<br>
-You can test how the PropagateVariableExceptionHandler handles 
-AccessPoemException by clicking <a href=?propagate=true>?propagate=true</a>.
+AccessPoemException by clicking <a href="?propagate=true">?propagate=true</a>.
 <br>
 You can test how the PassbackVariableExceptionHandler handles 
-AccessPoemException by clicking <a href=?passback=true>?passback=true</a>.
+AccessPoemException by clicking <a href="?passback=true">?passback=true</a>.
 <br>
 
 
 <h3>Further Testing</h3>
-You can test melati Exception handling by clicking <a href=./Exception>Exception</a><br>
-You can test melati Redirect handling by clicking <a href=./Redirect>Redirect</a><br>
+You can test melati Exception handling by clicking <a href="./Exception">Exception</a><br>
+You can test melati Redirect handling by clicking <a href="./Redirect">Redirect</a><br>
 You can test your interface for writing Melati servlets using the Webmacro template engine by 
 clicking <a href=$melati.ZoneURL/org.melati.test.WebmacroMelatiServletTest>WebmacroMelatiServletTest</a><br>
 You can test your administration interface  by clicking <a href=$melati.ZoneURL/org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main>org.melati.admin.Admin/$melati.PoemContext.LogicalDatabase/Main</a>.<br>

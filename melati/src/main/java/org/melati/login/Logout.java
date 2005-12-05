@@ -67,7 +67,7 @@ public class Logout extends TemplateServlet {
            "login" + File.separatorChar + 
            name;
     */
-    return "org/melati/login" + name;
+    return "org/melati/login/" + name;
     }
 
   protected String logoutSuccessTemplate() {

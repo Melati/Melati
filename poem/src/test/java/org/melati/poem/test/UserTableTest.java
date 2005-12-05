@@ -1,6 +1,3 @@
-//
-// (C) 2005, CSW Health.  A CSW Group Company.
-//
 package org.melati.poem.test;
 
 import org.melati.poem.AccessToken;
@@ -26,8 +23,9 @@ public class UserTableTest extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:melatijunit", "sa",
-        "", 4);
+    db.connect("org.melati.poem.dbms.Hsqldb", 
+               "jdbc:hsqldb:/dist/melati/db/melatijunit", "sa",
+               "", 4);
     ut = db.getUserTable();
 
   }

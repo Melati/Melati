@@ -1,5 +1,5 @@
 <html><head><title>WebMacro "Standalone" example!</title></head>
-#set $melati.ResponseContentType = "text/html"
+#set $Response.ContentType = "text/html"
 <body>
 <h1><font color="red">WebMacro "standalone" example!</font></h1>
 $hello and $Form.other

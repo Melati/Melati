@@ -15,7 +15,7 @@ and loaded a Template Engine (in this case Velocity).<p>
 
 <p>Your <b>MelatiContext</b> is set up as: $melati.Context
 <br>, try playing with the PathInfo to see the results (or click 
-<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/user/1/View">user/1/View</a>).</p>
+<a href="$melati.ZoneURL/org.melati.test.TemplateServletTestWM/melatitest/user/1/View">user/1/View</a>).</p>
 
 #if( $thisisnull )
 <p><font color=red>i tried an \#if (\$thisisnull) \#begin check where \$thisisnull is null, and it returned true.  this is a problem!

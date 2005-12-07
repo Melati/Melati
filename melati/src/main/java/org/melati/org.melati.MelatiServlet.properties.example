@@ -44,6 +44,13 @@ org.melati.MelatiServlet.templateEngine=org.melati.template.webmacro.WebmacroTem
 
 #
 # --------------------------------------------
+#  How to load Templets
+#
+# eg create templet java.lang.String.wm in org/melati/template/webmacro/templets/html
+#org.melati.template.TempletLoader=org.melati.template.ClassNameTempletLoader
+
+#
+# --------------------------------------------
 #  Where to look for Melati's static content?
 # --------------------------------------------
 # 

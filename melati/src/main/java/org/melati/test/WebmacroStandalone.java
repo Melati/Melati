@@ -27,8 +27,6 @@ import org.melati.template.webmacro.FastWriter;
 import org.webmacro.Template;
 import org.webmacro.InitException;
 import org.webmacro.servlet.WebContext;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;

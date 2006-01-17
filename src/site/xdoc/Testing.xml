@@ -62,6 +62,11 @@ Test display of various characters without using a Template Engine.
 Test display of various characters using a Template Engine.
 </td></tr>
 <tr><td>
+<a href="/melati/org.melati.test.EmailTemplateServletTest">EmailTemplateServletTest</a>
+</td><td>
+Test Email sending utility, using a Template Engine.
+</td></tr>
+<tr><td>
 <a href="/melati/org.melati.test.FlushingServletTest">FlushingServletTest</a>
 </td><td>
 Illustrate the difference between flushing and not flushing 

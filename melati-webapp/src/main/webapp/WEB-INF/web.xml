@@ -49,11 +49,6 @@
   </servlet>
   
   <servlet>
-    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
-    <servlet-class>org.melati.test.PoemServletTest</servlet-class>
-  </servlet>
-
-  <servlet>
     <servlet-name>org.melati.test.CharsetServletTest</servlet-name>
     <servlet-class>org.melati.test.CharsetServletTest</servlet-class>
   </servlet>
@@ -61,6 +56,16 @@
   <servlet>
     <servlet-name>org.melati.test.CharsetTemplateServletTest</servlet-name>
     <servlet-class>org.melati.test.CharsetTemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <servlet-class>org.melati.test.EmailTemplateServletTest</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>org.melati.test.PoemServletTest</servlet-name>
+    <servlet-class>org.melati.test.PoemServletTest</servlet-class>
   </servlet>
 
   <servlet>
@@ -198,6 +203,20 @@
     <url-pattern>/org.melati.test.CharsetTemplateServletTest/*</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <url-pattern>/melati/org.melati.test.EmailTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.test.EmailTemplateServletTest</servlet-name>
+    <url-pattern>/org.melati.test.EmailTemplateServletTest/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name></servlet-name>
+    <servlet-class>org.melati.test.EmailTemplateServletTest</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
     <url-pattern>/melati/org.melati.test.TemplateServletTest/*</url-pattern>

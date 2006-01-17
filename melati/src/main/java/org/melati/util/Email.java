@@ -2,7 +2,7 @@
  * $Source$
  * $Revision$
  *
- * Copyright (C) 2000 William Chesters
+ * Copyright (C) 2006 Tim Pizey
  *
  * Part of Melati (http://melati.org), a framework for the rapid
  * development of clean, maintainable web applications.
@@ -38,81 +38,132 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp@paneris.org>
+ *     http://paneris.org/~timp
  */
-
 package org.melati.util;
 
-import sun.net.smtp.SmtpClient;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Date;
-import java.text.SimpleDateFormat;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import org.melati.poem.Database;
 
-/** 
- * Send an email to one or more recipients.
- *
- * @todo replace with org.paneris.ftc.controller.Email
- * @deprecated Uses Sun class
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+
+/**
+ * Send an email to one or more recipients with or without attachments.
  */
 public final class Email {
 
   public static String SMTPSERVER = "SMTPServer";
 
-  static SimpleDateFormat formatter = 
-                       new SimpleDateFormat("dd MMM yyyy hh:mm:ss zzz");
-
-  private Email() {}
-
-  public static void send(Database database,
-                          String from,
-                          String to,
-                          String replyto,
-                          String subject,
-                          String message) throws EmailException, IOException {
-
-    String[] toList = {to};
-    sendToList(database, from, toList, to, replyto, subject, message);
+  private Email() {
   }
 
-  public static void sendToList(Database database,
-                                String from,
-                                String[] toList,
-                                String apparentlyTo,
-                                String replyto,
-                                String subject,
-                                String message) throws EmailException,
-                                                       IOException {
+  /**
+   * @deprecated try to disentangle poem and utils
+   */
+  public static void send(Database database, String from, String to,
+                          String replyto, String subject, String text) 
+      throws EmailException, IOException {
+    File[] empty = {};
+    String smtpServer = database.getSettingTable().get(SMTPSERVER);
+    sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
+  }
 
-    SmtpClient smtp;
-    String smtpserver = database.getSettingTable().get(SMTPSERVER);
+  public static void send(String smtpServer, String from, String to,
+                          String replyto, String subject, String text) 
+      throws EmailException, IOException {
+    File[] empty = {};
+    sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
+  }
+
+  /**
+   * @deprecated apparentlyTo ignored
+   */
+  public static void sendToList(Database database, String from,
+          String[] toList, String apparentlyTo, String replyto, String subject,
+          String message) throws EmailException, IOException {
+    File [] empty = {};
+
+    String smtpServer = database.getSettingTable().get(SMTPSERVER);
+    for (int i = 0; i < toList.length; i++)
+      sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
+  }
+
+  /**
+   * @deprecated try to disentangle poem and utils
+   */
+  public static void sendWithAttachments(Database database, String from,
+                                         String to, String replyto, 
+                                         String subject, String text, 
+                                         File[] files)
+       throws EmailException, IOException {
+    // Get our smtp server from the database
+    String smtpServer = database.getSettingTable().get(SMTPSERVER);
+    sendWithAttachments(smtpServer, from, to, replyto, subject, text, files);
+  }
+
+
+  public static void sendWithAttachments(String smtpServer, String from, 
+                                         String to, String replyto, 
+                                         String subject, String text, 
+                                         File[] files)
+      throws EmailException, IOException {
+    
+    // Create the JavaMail session
+    // The properties for the whole system, sufficient to send a mail
+    // and much more besides.
+    java.util.Properties properties = System.getProperties();
+    properties.put("mail.smtp.host", smtpServer);
+    Session session = Session.getInstance(properties, null);
+    
+    // Construct the message
+    MimeMessage message = new MimeMessage(session);
     try {
-      smtp = new SmtpClient(smtpserver);
+      // Set the from address
+      Address fromAddress = new InternetAddress(from);
+      message.setFrom(fromAddress);
+      // Parse and set the recipient addresses
+      Address[] toAddresses = InternetAddress.parse(to);
+      message.setRecipients(Message.RecipientType.TO, toAddresses);
+      /*
+       * Address[] ccAddresses = InternetAddress.parse(cc);
+       * message.setRecipients(Message.RecipientType.CC,ccAddresses);
+       * 
+       * Address[] bccAddresses = InternetAddress.parse(bcc);
+       * message.setRecipients(Message.RecipientType.BCC,bccAddresses);
+       */
+      message.setSubject(subject);
+      // create and fill the first, text message part
+      MimeBodyPart mbp1 = new MimeBodyPart();
+      mbp1.setText(text);
+      Multipart mp = new MimeMultipart();
+      mp.addBodyPart(mbp1);
+      for (int i = 0; i < files.length; i++) {
+        // create the second message part
+        MimeBodyPart mbp2 = new MimeBodyPart();
+        // attach the file to the message
+        FileDataSource fds = new FileDataSource(files[i].getPath());
+        mbp2.setDataHandler(new DataHandler(fds));
+        mbp2.setFileName(fds.getName());
+        mp.addBodyPart(mbp2);
+      }
+      // add the Multipart to the message
+      message.setContent(mp);
+      // send the message
+      Transport.send(message);
     } catch (Exception e) {
-      throw new EmailException("Couldn't create smtp client " + 
-                               smtpserver + ", " + e.toString());
+      throw new EmailException("Problem creating message: " + e.toString());
     }
-
-    // construct the data
-    Date now = new Date();
-    String nowString = formatter.format(now);
-    smtp.from(from);
-    for (int i=0; i<toList.length; i++)
-      smtp.to(toList[i]);
-
-    PrintStream msg = smtp.startMessage();
-    msg.println("Date: " + nowString);
-    msg.println("From: " + from);
-    msg.println("To: " + apparentlyTo);
-    msg.println("Subject: " + subject);
-    if (!replyto.equals(""))
-      msg.println("Reply-to: " + replyto);
-    msg.println();
-    msg.println(message);
-    smtp.closeServer();
   }
-
 }

@@ -45,6 +45,7 @@
 package org.melati.test;
 
 import org.melati.Melati;
+import org.melati.MelatiUtil;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
@@ -57,43 +58,52 @@ import org.melati.util.Email;
 public class EmailTemplateServletTest extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati,
-                                     ServletTemplateContext context)
-      throws Exception {
+          ServletTemplateContext context) throws Exception {
 
     context.put("servlet", this);
     melati.setResponseContentType("text/html");
+
+    String smtpServer = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "SMTPServer");
+    String from = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "from");
+    String to = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "to");
+    String replyTo = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "replyTo");
+    String subject = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "subject");
+    String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    "message");
     
-    if (context.get("to") != null) {
-      Email.send((String)context.get("SMTPServer"),
-                 (String)context.get("from"),
-                 (String)context.get("to"),
-                 (String)context.get("replyTo"),
-                 (String)context.get("subject"),
-                 (String)context.get("message"));
-      context.put("done",Boolean.TRUE);
+    if (smtpServer != null) {
+        Email.send(smtpServer,
+                   from, 
+                   to, 
+                   replyTo, 
+                   subject,
+                   message);
+        context.put("done", Boolean.TRUE);
     }
-    
 
     return "org/melati/test/EmailTemplateServletTest";
   }
 
   public String getServletName() {
-      return "org.melati.test.EmailTemplateServletTest";
+    return "org.melati.test.EmailTemplateServletTest";
   }
 
   /**
-   * Set up the melati context so we don't have to specify the 
-   * logicaldatabase on the pathinfo.  
-   *
-   * Useful when writing appications where you are typically only accessing
-   * a single database.
+   * Set up the melati context so we don't have to specify the logicaldatabase
+   * on the pathinfo.
+   * 
+   * Useful when writing appications where you are typically only accessing a
+   * single database.
    */
-  protected PoemContext poemContext(Melati melati)
-      throws PathInfoException {
+  protected PoemContext poemContext(Melati melati) throws PathInfoException {
     PoemContext pc = super.poemContext(melati);
-    if (pc.getLogicalDatabase().equals("")) 
-      pc = poemContextWithLDB(melati,"melatitest");
+    if (pc.getLogicalDatabase().equals(""))
+      pc = poemContextWithLDB(melati, "melatitest");
     return pc;
   }
 }
-

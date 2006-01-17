@@ -22,7 +22,7 @@
 Check your email.
 </p>
 #end
-<form method="post" action="Send" >
+<form method="post">
   <input type="text" name="SMTPServer" value="rama.paneris.org" />
 <br />
   <input type="text" name="to" value="to@paneris.co.uk" />

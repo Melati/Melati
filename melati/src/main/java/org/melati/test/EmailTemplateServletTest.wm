@@ -16,6 +16,11 @@
 </head>
 <body>
 <h1>Test Email sending</h1>
+#if ($error) #begin
+<font color="red">
+$error
+</font>
+#end
 #if ($done) #begin
 <h2>Sent</h2>
 <p>

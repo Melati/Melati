@@ -44,13 +44,21 @@
 
 package org.melati.test;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
+import org.melati.template.TemplateContext;
 import org.melati.util.Email;
+import org.melati.util.MelatiStringWriter;
+
+
 
 /**
  * Test display of various characters using a Template Engine.
@@ -83,6 +91,33 @@ public class EmailTemplateServletTest extends TemplateServlet {
                    replyTo, 
                    subject,
                    message);
+        try {
+          TemplateContext templateContext = melati.getTemplateContext();
+          String templateName = "Email.wm";
+          MelatiStringWriter sw = 
+              templateEngine.getStringWriter();
+          templateEngine.expandTemplate(sw, 
+                                        templateName,
+                                        templateContext);
+          String htmlString = sw.toString();
+          File f = new File("tmp");
+          FileOutputStream fos = new FileOutputStream(f);
+          PrintWriter pw = new PrintWriter(fos);
+          pw.print(htmlString);
+          pw.close();
+          fos.close();
+          
+       
+          File[] files = {f};
+          Email.sendWithAttachments(smtpServer, from, 
+                     to, replyTo, 
+                     subject, 
+                     message, files);
+        } catch (Exception e) {
+          e.printStackTrace(System.err);
+          context.put("error",
+                      "Unexpected error: " + e);
+        }
         context.put("done", Boolean.TRUE);
     }
 

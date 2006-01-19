@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.mail.Address;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -93,7 +94,7 @@ public final class Email {
   public static void sendToList(Database database, String from,
           String[] toList, String apparentlyTo, String replyto, String subject,
           String message) throws EmailException, IOException {
-    File [] empty = {};
+    File[] empty = {};
 
     String smtpServer = database.getSettingTable().get(SMTPSERVER);
     for (int i = 0; i < toList.length; i++)
@@ -106,32 +107,91 @@ public final class Email {
   public static void sendWithAttachments(Database database, String from,
                                          String to, String replyto, 
                                          String subject, String text, 
-                                         File[] files)
+                                         File[] attachments)
        throws EmailException, IOException {
     // Get our smtp server from the database
     String smtpServer = database.getSettingTable().get(SMTPSERVER);
-    sendWithAttachments(smtpServer, from, to, replyto, subject, text, files);
+    sendWithAttachments(smtpServer, from, to, replyto, subject, text, attachments);
   }
 
 
-  public static void sendWithAttachments(String smtpServer, String from, 
-                                         String to, String replyto, 
-                                         String subject, String text, 
-                                         File[] files)
-      throws EmailException, IOException {
-    
+  public static void sendWithAttachments(String smtpServer, String from,
+          String to, String replyto, String subject, String text, File[] attachments)
+          throws EmailException, IOException {
+
+    // Construct the message
+    Message message = initialiseMessage(smtpServer, from, to, replyto, subject);
+    try {
+      // create and fill the first, text message part
+      MimeBodyPart mbp1 = new MimeBodyPart();
+      mbp1.setText(text);
+      Multipart mp = new MimeMultipart();
+      mp.addBodyPart(mbp1);
+      for (int i = 0; i < attachments.length; i++) {
+        // create the second message part
+        MimeBodyPart mbp2 = new MimeBodyPart();
+        // attach the file to the message
+        FileDataSource fds = new FileDataSource(attachments[i].getPath());
+        mbp2.setDataHandler(new DataHandler(fds));
+        mbp2.setFileName(fds.getName());
+        mp.addBodyPart(mbp2);
+      }
+      // add the Multipart to the message
+      message.setContent(mp);
+    } catch (Exception e) {
+      throw new EmailException("Problem creating message: " + e.toString());
+    }
+    // send the message
+    post(message);
+  }
+  public static void sendAsHtmlWithAttachments(String smtpServer, String from,
+          String to, String replyto, String subject, String htmlText, 
+          File[] referenced, File[] attachments)
+          throws EmailException, IOException {
+
+    // Construct the message
+    Message message = initialiseMessage(smtpServer, from, to, replyto, subject);
+    try {
+      Multipart mp = new MimeMultipart("related");
+      MimeBodyPart mbp1 = new MimeBodyPart();
+      mbp1.setContent(htmlText, "text/html");
+      mp.addBodyPart(mbp1);
+      for (int i = 0; i < referenced.length; i++) {
+        MimeBodyPart mbp2 = new MimeBodyPart();
+        FileDataSource fds = new FileDataSource(referenced[i].getPath());
+        mbp2.setDataHandler(new DataHandler(fds));
+        mbp2.setFileName(fds.getName());
+        mp.addBodyPart(mbp2);
+      }
+      for (int i = 0; i < attachments.length; i++) {
+        MimeBodyPart mbp2 = new MimeBodyPart();
+        FileDataSource fds = new FileDataSource(attachments[i].getPath());
+        mbp2.setDataHandler(new DataHandler(fds));
+        mbp2.setFileName(fds.getName());
+        mp.addBodyPart(mbp2);
+      }
+      // add the Multipart to the message
+      message.setContent(mp);
+    } catch (Exception e) {
+      throw new EmailException("Problem creating message: " + e.toString());
+    }
+    // send the message
+    post(message);
+  }
+
+  private static Message initialiseMessage(String smtpServer, String from,
+          String to, String replyto, String subject) throws EmailException {
     // Create the JavaMail session
     // The properties for the whole system, sufficient to send a mail
     // and much more besides.
     java.util.Properties properties = System.getProperties();
     properties.put("mail.smtp.host", smtpServer);
     Session session = Session.getInstance(properties, null);
-    
-    // Construct the message
     MimeMessage message = new MimeMessage(session);
+    // Set the from address
+    Address fromAddress;
     try {
-      // Set the from address
-      Address fromAddress = new InternetAddress(from);
+      fromAddress = new InternetAddress(from);
       message.setFrom(fromAddress);
       // Parse and set the recipient addresses
       Address[] toAddresses = InternetAddress.parse(to);
@@ -144,26 +204,22 @@ public final class Email {
        * message.setRecipients(Message.RecipientType.BCC,bccAddresses);
        */
       message.setSubject(subject);
-      // create and fill the first, text message part
-      MimeBodyPart mbp1 = new MimeBodyPart();
-      mbp1.setText(text);
-      Multipart mp = new MimeMultipart();
-      mp.addBodyPart(mbp1);
-      for (int i = 0; i < files.length; i++) {
-        // create the second message part
-        MimeBodyPart mbp2 = new MimeBodyPart();
-        // attach the file to the message
-        FileDataSource fds = new FileDataSource(files[i].getPath());
-        mbp2.setDataHandler(new DataHandler(fds));
-        mbp2.setFileName(fds.getName());
-        mp.addBodyPart(mbp2);
-      }
-      // add the Multipart to the message
-      message.setContent(mp);
-      // send the message
-      Transport.send(message);
     } catch (Exception e) {
-      throw new EmailException("Problem creating message: " + e.toString());
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      throw new EmailException("Problem sending message: " + e.toString());
     }
+    return message;
   }
+  
+  private static void post(Message message) throws EmailException {
+    try {
+      Transport.send(message);
+    } catch (MessagingException e) {
+      e.printStackTrace();
+      throw new EmailException("Problem sending message: " + e.toString());
+    }
+    
+  }
+
 }

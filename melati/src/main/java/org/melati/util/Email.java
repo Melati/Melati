@@ -139,6 +139,7 @@ public final class Email {
       // add the Multipart to the message
       message.setContent(mp);
     } catch (Exception e) {
+      e.printStackTrace();
       throw new EmailException("Problem creating message: " + e.toString());
     }
     // send the message
@@ -173,6 +174,7 @@ public final class Email {
       // add the Multipart to the message
       message.setContent(mp);
     } catch (Exception e) {
+      e.printStackTrace();
       throw new EmailException("Problem creating message: " + e.toString());
     }
     // send the message

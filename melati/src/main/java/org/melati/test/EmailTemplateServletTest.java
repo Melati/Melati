@@ -85,6 +85,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
     "message");
     
     if (smtpServer != null) {
+        // TODO send a message to me to catch abuse
         Email.send(smtpServer,
                    from, 
                    to, 
@@ -93,14 +94,20 @@ public class EmailTemplateServletTest extends TemplateServlet {
                    message);
         try {
           TemplateContext templateContext = melati.getTemplateContext();
-          String templateName = "Email.wm";
+          templateContext.put("servlet",this);
+          templateContext.put("from",from);
+          templateContext.put("to",to);
+          templateContext.put("replyTo",replyTo);
+          templateContext.put("subject",subject);
+          templateContext.put("message",message);
+          String templateName = "org/melati/test/Email.wm";
           MelatiStringWriter sw = 
               templateEngine.getStringWriter();
           templateEngine.expandTemplate(sw, 
                                         templateName,
                                         templateContext);
           String htmlString = sw.toString();
-          File f = new File("tmp");
+          File f = new File("tmp.html");
           FileOutputStream fos = new FileOutputStream(f);
           PrintWriter pw = new PrintWriter(fos);
           pw.print(htmlString);

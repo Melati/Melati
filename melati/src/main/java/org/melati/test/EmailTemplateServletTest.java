@@ -74,24 +74,24 @@ public class EmailTemplateServletTest extends TemplateServlet {
 
     String smtpServer = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
     "SMTPServer");
-    String from = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
-    "from");
-    String to = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
-    "to");
-    String replyTo = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
-    "replyTo");
-    String subject = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
-    "subject");
-    String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
-    "message");
-    MultipartFormField referencedField = context.getMultipartForm("referencedFile");
-    File referencedFile = referencedField.getDataFile();
-    MultipartFormField attachedField = context.getMultipartForm("attachedFile");
-    File attachedFile = attachedField.getDataFile();
     
     if (smtpServer != null) {
-        // TODO send a message to me to catch abuse
-        Email.send(smtpServer,
+      String from = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      "from");
+      String to = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      "to");
+      String replyTo = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      "replyTo");
+      String subject = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      "subject");
+      String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      "message");
+      MultipartFormField referencedField = context.getMultipartForm("referencedFile");
+      File referencedFile = referencedField.getDataFile();
+      MultipartFormField attachedField = context.getMultipartForm("attachedFile");
+      File attachedFile = attachedField.getDataFile();
+      // TODO send a message to me to catch abuse
+      Email.send(smtpServer,
                    from, 
                    to, 
                    replyTo, 

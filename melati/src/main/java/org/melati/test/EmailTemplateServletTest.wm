@@ -64,14 +64,14 @@ Check your email.
  <tr>
   <th>Referenced File</th>
   <td>
-<input type="file" name="referencedFile" enctype="multipart/form-data">
+<input type="file" name="referencedFile">
   </td>
  </tr>
  <tr>
  <tr>
   <th>Attachment</th>
   <td>
-<input type="file" name="attachedFile" enctype="multipart/form-data">
+<input type="file" name="attachedFile">
   </td>
  </tr>
  <tr>

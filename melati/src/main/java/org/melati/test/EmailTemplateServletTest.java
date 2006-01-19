@@ -51,6 +51,7 @@ import java.io.PrintWriter;
 import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.PoemContext;
+import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
@@ -83,6 +84,10 @@ public class EmailTemplateServletTest extends TemplateServlet {
     "subject");
     String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
     "message");
+    MultipartFormField referencedField = context.getMultipartForm("referencedFile");
+    File referencedFile = referencedField.getDataFile();
+    MultipartFormField attachedField = context.getMultipartForm("attachededFile");
+    File attachedFile = attachedField.getDataFile();
     
     if (smtpServer != null) {
         // TODO send a message to me to catch abuse
@@ -115,11 +120,18 @@ public class EmailTemplateServletTest extends TemplateServlet {
           fos.close();
           
        
-          File[] files = {f};
+          File[] both = {f, referencedFile, attachedFile};
           Email.sendWithAttachments(smtpServer, from, 
-                     to, replyTo, 
-                     subject, 
-                     message, files);
+                  to, replyTo, 
+                  subject + ".sendWithAttachments", 
+                  message, both);
+
+          File[] referenced = {referencedFile};
+          File[] attached = {f, attachedFile};
+          Email.sendAsHtmlWithAttachments(smtpServer, from, 
+                  to, replyTo, 
+                  subject + ".sendAsHtmlWithAttachments", 
+                  message, referenced, attached);
         } catch (Exception e) {
           e.printStackTrace(System.err);
           context.put("error",

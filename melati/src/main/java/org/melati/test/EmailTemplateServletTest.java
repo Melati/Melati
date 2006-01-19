@@ -86,7 +86,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
     "message");
     MultipartFormField referencedField = context.getMultipartForm("referencedFile");
     File referencedFile = referencedField.getDataFile();
-    MultipartFormField attachedField = context.getMultipartForm("attachededFile");
+    MultipartFormField attachedField = context.getMultipartForm("attachedFile");
     File attachedFile = attachedField.getDataFile();
     
     if (smtpServer != null) {

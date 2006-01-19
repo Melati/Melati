@@ -27,7 +27,7 @@ $error
 Check your email.
 </p>
 #end
-<form method="post">
+<form method="post" enctype="multipart/form-data" >
 <table>
  <tr>
   <th>Smtp Server</th>
@@ -56,9 +56,22 @@ Check your email.
  <tr>
   <th>Message</th>
   <td>
-   <textarea name="message" >
+   <textarea rows="10" cols="30" name="message" >
   Test of org.melati.util.Email
    </textarea>
+  </td>
+ </tr>
+ <tr>
+  <th>Referenced File</th>
+  <td>
+<input type="file" name="referencedFile" enctype="multipart/form-data">
+  </td>
+ </tr>
+ <tr>
+ <tr>
+  <th>Attachment</th>
+  <td>
+<input type="file" name="attachedFile" enctype="multipart/form-data">
   </td>
  </tr>
  <tr>

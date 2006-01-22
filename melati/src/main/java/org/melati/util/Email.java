@@ -162,18 +162,19 @@ public final class Email {
       //mbp1.setText(plainText);
       mbp1.setContent(plainText, "text/plain");
       mp.addBodyPart(mbp1);
-      mbp1.setContent(htmlText, "text/html");
-      mp.addBodyPart(mbp1);
+      MimeBodyPart mbp2 = new MimeBodyPart();
+      mbp2.setContent(htmlText, "text/html");
+      mp.addBodyPart(mbp2);
 
       if (referenced != null) {
         for (int i = 0; i < referenced.length; i++) {
           File f = referenced[i];
           if (f != null) {
-            MimeBodyPart mbp2 = new MimeBodyPart();
+            MimeBodyPart mbp3 = new MimeBodyPart();
             FileDataSource fds = new FileDataSource(f);
-            mbp2.setDataHandler(new DataHandler(fds));
-            mbp2.setFileName(fds.getName());
-            mp.addBodyPart(mbp2);
+            mbp3.setDataHandler(new DataHandler(fds));
+            mbp3.setFileName(fds.getName());
+            mp.addBodyPart(mbp3);
           }
         }
       }

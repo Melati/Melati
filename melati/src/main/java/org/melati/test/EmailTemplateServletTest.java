@@ -155,7 +155,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
           Email.sendAsHtmlWithAttachments(smtpServer, from, 
                   to, replyTo, 
                   subject + ".sendAsHtmlWithAttachments", 
-                  message, referenced, attached);
+                  message, htmlString, referenced, attached);
         } catch (Exception e) {
           e.printStackTrace(System.err);
           context.put("error",

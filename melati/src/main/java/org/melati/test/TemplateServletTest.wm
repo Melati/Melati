@@ -116,7 +116,7 @@ is configured by default in your org.melati.MelatiServlet.properties file).<br>
 <form method="post" action="Upload" enctype="multipart/form-data" target=_blank>
 You can upload a file here:<br>
 <input type=hidden name=upload value=yes>
-<input type="file" name="file" enctype="multipart/form-data">
+<input type="file" name="file">
 <input type="submit" name="Submit" value="Upload file">
 <br>
 Your file will be saved in different ways depending on your setting of FormDataAdapatorFactory (currently $melati.Config.FormDataAdaptorFactory.Class.Name):<br>

@@ -182,14 +182,14 @@ public final class Email {
         for (int i = 0; i < attachments.length; i++) {
           File f = attachments[i];
           if (f != null) {
-            MimeBodyPart mbp2 = new MimeBodyPart();
+            MimeBodyPart mbp4 = new MimeBodyPart();
             if (f.getName() == null) {
               System.out.println("name is null");
             }
             FileDataSource fds = new FileDataSource(f);
-            mbp2.setDataHandler(new DataHandler(fds));
-            mbp2.setFileName(fds.getName());
-            mp.addBodyPart(mbp2);
+            mbp4.setDataHandler(new DataHandler(fds));
+            mbp4.setFileName(fds.getName());
+            mp.addBodyPart(mbp4);
           }
         }
       }

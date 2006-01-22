@@ -148,9 +148,10 @@ public final class Email {
     // send the message
     post(message);
   }
+  
   public static void sendAsHtmlWithAttachments(String smtpServer, String from,
-          String to, String replyto, String subject, String plainText, String htmlText, 
-          File[] referenced, File[] attachments)
+          String to, String replyto, String subject, String plainText,
+          String htmlText, File[] referenced, File[] attachments)
           throws EmailException, IOException {
 
     // Construct the message
@@ -158,33 +159,37 @@ public final class Email {
     try {
       Multipart mp = new MimeMultipart("related");
       MimeBodyPart mbp1 = new MimeBodyPart();
-      mbp1.setText(plainText);
+      //mbp1.setText(plainText);
+      mbp1.setContent(plainText, "text/plain");
       mp.addBodyPart(mbp1);
       mbp1.setContent(htmlText, "text/html");
       mp.addBodyPart(mbp1);
 
-      
-      for (int i = 0; i < referenced.length; i++) {
-        File f = referenced[i];
-        if (f != null) {
-          MimeBodyPart mbp2 = new MimeBodyPart();
-          FileDataSource fds = new FileDataSource(f);
-          mbp2.setDataHandler(new DataHandler(fds));
-          mbp2.setFileName(fds.getName());
-          mp.addBodyPart(mbp2);
+      if (referenced != null) {
+        for (int i = 0; i < referenced.length; i++) {
+          File f = referenced[i];
+          if (f != null) {
+            MimeBodyPart mbp2 = new MimeBodyPart();
+            FileDataSource fds = new FileDataSource(f);
+            mbp2.setDataHandler(new DataHandler(fds));
+            mbp2.setFileName(fds.getName());
+            mp.addBodyPart(mbp2);
+          }
         }
       }
-      for (int i = 0; i < attachments.length; i++) {
-        File f = attachments[i];
-        if (f != null) {
-          MimeBodyPart mbp2 = new MimeBodyPart();
-          if (f.getName() == null){
-            System.out.println("name is null");
-          } 
-          FileDataSource fds = new FileDataSource(f);
-          mbp2.setDataHandler(new DataHandler(fds));
-          mbp2.setFileName(fds.getName());
-          mp.addBodyPart(mbp2);
+      if (attachments != null) {
+        for (int i = 0; i < attachments.length; i++) {
+          File f = attachments[i];
+          if (f != null) {
+            MimeBodyPart mbp2 = new MimeBodyPart();
+            if (f.getName() == null) {
+              System.out.println("name is null");
+            }
+            FileDataSource fds = new FileDataSource(f);
+            mbp2.setDataHandler(new DataHandler(fds));
+            mbp2.setFileName(fds.getName());
+            mp.addBodyPart(mbp2);
+          }
         }
       }
       // add the Multipart to the message

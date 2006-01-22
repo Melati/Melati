@@ -149,7 +149,7 @@ public final class Email {
     post(message);
   }
   public static void sendAsHtmlWithAttachments(String smtpServer, String from,
-          String to, String replyto, String subject, String htmlText, 
+          String to, String replyto, String subject, String plainText, String htmlText, 
           File[] referenced, File[] attachments)
           throws EmailException, IOException {
 
@@ -158,8 +158,12 @@ public final class Email {
     try {
       Multipart mp = new MimeMultipart("related");
       MimeBodyPart mbp1 = new MimeBodyPart();
+      mbp1.setText(plainText);
+      mp.addBodyPart(mbp1);
       mbp1.setContent(htmlText, "text/html");
       mp.addBodyPart(mbp1);
+
+      
       for (int i = 0; i < referenced.length; i++) {
         File f = referenced[i];
         if (f != null) {

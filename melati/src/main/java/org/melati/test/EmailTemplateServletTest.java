@@ -48,24 +48,34 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+
 import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.PoemContext;
+import org.melati.servlet.FormDataAdaptorFactory;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
+import org.melati.servlet.TemporaryFileDataAdaptorFactory;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
 import org.melati.util.Email;
 import org.melati.util.MelatiStringWriter;
 
-
-
 /**
  * Test display of various characters using a Template Engine.
  */
 public class EmailTemplateServletTest extends TemplateServlet {
+  
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    FormDataAdaptorFactory fdaFactory = new TemporaryFileDataAdaptorFactory();
 
+    melatiConfig.setFormDataAdaptorFactory(fdaFactory);
+  }
+  
   protected String doTemplateRequest(Melati melati,
           ServletTemplateContext context) throws Exception {
 
@@ -86,8 +96,22 @@ public class EmailTemplateServletTest extends TemplateServlet {
       "subject");
       String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
       "message");
+      System.err.println("Context=" + context.getClass().getName());
       MultipartFormField referencedField = context.getMultipartForm("referencedFile");
+      if (referencedField == null ){
+        System.err.println("is null");
+        
+      }else{
+        System.err.println("not null:" + referencedField);
+      }
       File referencedFile = referencedField.getDataFile();
+      if (referencedFile == null ){
+        System.err.println("file is null");
+        
+      }else{
+        System.err.println("file not null");
+      }
+      
       MultipartFormField attachedField = context.getMultipartForm("attachedFile");
       File attachedFile = attachedField.getDataFile();
       // TODO send a message to me to catch abuse

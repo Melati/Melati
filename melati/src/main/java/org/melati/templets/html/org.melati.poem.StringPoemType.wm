@@ -45,14 +45,14 @@
 
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
-	    COLS=$field.Width
-            ROWS=$field.Height>$ml.Attr.rendered($field.RawString)</TEXTAREA>
+	    COLS="$field.Width"
+            ROWS="$field.Height">$ml.Attr.rendered($field.RawString)</TEXTAREA>
 #end #else #begin
-  <INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+  <INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
 	 VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)

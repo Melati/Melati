@@ -43,5 +43,5 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 <TABLE><TR>
-  <TD BGCOLOR=cyan>[Access denied to $ml.rendered($exception.token)]</TD>
+  <TD BGCOLOR="cyan">[Access denied to $ml.rendered($exception.token)]</TD>
 </TR></TABLE>

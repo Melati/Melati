@@ -45,15 +45,11 @@
 ##
 <!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
 
-<SCRIPT LANGUAGE="JavaScript1.2" src="$melati.JavascriptLibraryURL/statictrees.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript" 
+        src="$melati.JavascriptLibraryURL/statictrees.js"></SCRIPT>
 
 
-
-
-
-
-
-<script LANGUAGE="JavaScript">
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   function init() {
   // Go through nodes adding items and lists
 

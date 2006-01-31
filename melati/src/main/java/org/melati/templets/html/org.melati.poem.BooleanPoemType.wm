@@ -72,6 +72,6 @@
 >
 
 ## FIXME will this always work?  It does with Apache/JServ
-<INPUT TYPE=hidden NAME="field_$ml.escaped($field.Name)" VALUE=false>
+<INPUT TYPE="hidden" NAME="field_$ml.escaped($field.Name)" VALUE="false">
 
 #end

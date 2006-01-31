@@ -43,10 +43,10 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+<INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
        VALUE="$ml.Attr.rendered($field.RawString)">  (dd/mm/yyyy hh:mm:ss)
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_timestamp("field_$ml.escaped($field.Name)",
                 "$ml.escaped($field.DisplayName)",
 	        !$field.Type.Nullable)

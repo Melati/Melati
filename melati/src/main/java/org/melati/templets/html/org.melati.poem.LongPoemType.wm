@@ -41,10 +41,11 @@
 ##     Tim Pizey <timp@paneris.org>
 ##
 
-<INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+<INPUT NAME="field_$ml.rendered($field.Name)" 
+       SIZE="$field.Width"
        VALUE="$ml.Attr.rendered($field.RawString)">
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_integer("field_$ml.escaped($field.Name)",
               "$ml.escaped($field.DisplayName)",
 	      !$field.Type.Nullable)

@@ -43,7 +43,8 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
+<INPUT TYPE="hidden" 
+       NAME="field_$ml.rendered($field.Name)-adaptor"
        VALUE="org.melati.template.YMDDateAdaptor">
 
 #set $yearField = $melati.Config.YMDDateAdaptor.yearField($field)

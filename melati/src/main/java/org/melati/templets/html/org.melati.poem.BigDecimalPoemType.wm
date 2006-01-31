@@ -43,10 +43,11 @@
 ##     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
 ##
 
-<INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+<INPUT NAME="field_$ml.rendered($field.Name)" 
+       SIZE="$field.Width"
        VALUE="$ml.Attr.rendered($field.RawString)">
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_fixed_number("field_$ml.escaped($field.Name)",
              "$ml.escaped($field.DisplayName)",
              !$field.Type.Nullable,2)

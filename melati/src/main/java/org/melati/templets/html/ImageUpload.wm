@@ -47,15 +47,16 @@
 <a name="anchor_$ml.escaped($field.Name)"></a>
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
-            COLS=$field.Width
-            ROWS=$field.Height>$ml.rendered($field.RawString)</TEXTAREA>
+            COLS="$field.Width"
+            ROWS="$field.Height">$ml.rendered($field.RawString)</TEXTAREA>
 #end #else #begin
-  <INPUT NAME="field_$ml.rendered($field.Name)" SIZE=$field.Width
+  <INPUT NAME="field_$ml.rendered($field.Name)" 
+         SIZE="$field.Width"
          VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 <br>
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   var imagename_$ml.escaped($field.Name) = '$field.RawString';
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
@@ -66,7 +67,7 @@
 <a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
 
 
-<SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)

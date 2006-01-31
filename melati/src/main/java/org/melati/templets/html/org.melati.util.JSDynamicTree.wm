@@ -43,7 +43,8 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<SCRIPT LANGUAGE="JavaScript1.2" src="$melati.JavascriptLibraryURL/trees.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javscript" 
+        src="$melati.JavascriptLibraryURL/trees.js"></SCRIPT>
 
 #foreach $node in $tree.flattened() #begin
 <DIV ID="Layer$node.UniqueName" style="position:absolute" name="Layer$node.UniqueName"></DIV>
@@ -52,7 +53,8 @@
 <DIV ID="loadbuffer" style="position:absolute; visibility:hidden;" name="loadbuffer"></DIV>
 <IFRAME name="loadframe" height=0 width=0></IFRAME>
 
-<script LANGUAGE="JavaScript">
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+
 // IE remebers the last contents of the IFrame :-(
 if(!isNav4) parent.loadframe.document.location = "blank.html";
 

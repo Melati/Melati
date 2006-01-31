@@ -55,12 +55,12 @@
 <br>
 <a href="javascript:void()" onclick="upload_$ml.escaped($field.Name)();return false">Upload new file</a>
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
            !$field.Type.Nullable)
 </SCRIPT>
-<SCRIPT>
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)

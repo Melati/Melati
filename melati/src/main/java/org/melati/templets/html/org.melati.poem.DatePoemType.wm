@@ -43,13 +43,15 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
+<INPUT TYPE="hidden" 
+       NAME="field_$ml.rendered($field.Name)-adaptor"
        VALUE="org.melati.template.SimpleDateAdaptor">
 
-<INPUT NAME="field_$ml.rendered($field.Name)" SIZE=10
-	 VALUE="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))"> (dd/mm/yyyy)
+<INPUT NAME="field_$ml.rendered($field.Name)" 
+       SIZE="10"
+       VALUE="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))"> (dd/mm/yyyy)
 
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_date("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)

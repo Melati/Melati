@@ -44,21 +44,23 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 #set $admin = $melati.AdminUtils
-<input type=hidden name="field_$ml.rendered($field.Name)" value='$ml.rendered($field.RawString)'>
-<input type=text name="field_$ml.rendered($field.Name)_dummy" 
+<input type="hidden" 
+       name="field_$ml.rendered($field.Name)" 
+       value='$ml.rendered($field.RawString)'>
+<input type="text" name="field_$ml.rendered($field.Name)_dummy" 
 #if ($field.Raw) #begin
-value='$ml.rendered($field.Cooked)'
+value="$ml.rendered($field.Cooked)"
 #end
 size=30 onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()">
-<input type=button value="Choose" name=$ml.rendered($field.Name)_button 
+<input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
 onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
 <input type=button value="Create" 
 onClick ="createwindow = window.open('$admin.AddURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
 #if ($field.Type.Nullable) #begin
-  <input type=button value="Clear" 
+  <input type="button" value="Clear" 
   onClick="document.forms[0].field_$(ml.rendered($field.Name)).value = ''; document.forms[0].field_$ml.rendered($field.Name)_dummy.value = ''; return false;">
 #end
-<SCRIPT LANGUAGE=JavaScript1.2>
+<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)

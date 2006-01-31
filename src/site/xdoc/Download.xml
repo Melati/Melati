@@ -47,8 +47,10 @@ This page last updated: $Date$ $Author$
 <section name=" Download Current Snapshot ">
 
       <p>
-        The latest snapshot build can be found at 
-        <a href="http://maven.melati.org/distributions/">here</a>.
+        The latest snapshot build can be found in our local <a
+	href="http://maven.apache.org/">Maven</a> 
+        repository
+        <a href="http://maven.melati.org/maven/melati/">here</a>.
       </p>
       
 </section>

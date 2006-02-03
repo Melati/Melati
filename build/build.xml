@@ -26,9 +26,10 @@
   <property name="built.lib"          value="${built.dir}/lib"/>
   <property name="built.src"          value="${built.dir}/src"/>
   <property name="built.build"        value="${built.dir}/build"/>
-  <property name="built.site"         value="${built.dir}/site"/>
-  <property name="site"               value="../site"/>
+  <property name="built.site"         value="${built.dir}/src/webapp"/>
+  <property name="site"               value="../src/webapp"/>
   <property name="javadoc.dir"        value="${site}/javadoc"/>
+  <property name="xdoc.dir"           value="../xdocs"/>
   <property name="doc.dir"            value="${site}/doc"/>
   <property name="packaged.dir"           value="${built.root}/packaged"/>
   <property name="war"                value="${packaged.dir}/${project}-${version}.war"/>
@@ -64,6 +65,8 @@
   <property name="oroJar"           value="jakarta-oro-2.0.8.jar" />
   <property name="collectionsJar"   value="commons-collections-3.0.jar" />
   <property name="odmgJar"          value="odmg3.jar" />
+  <property name="javaMailJar"      value="javamail-1.2.jar" />
+  <property name="activationJar"    value="activation-1.0.jar" />
 
   <property name="junitJar"         value="junit.jar" />
   <property name="mockobjectsJar"   value="mockobjects-core-0.09.jar" />
@@ -79,6 +82,8 @@
     <pathelement path="${build.lib}/${odmgJar}" />
     <pathelement path="${build.lib}/${junitJar}" />
     <pathelement path="${build.lib}/${mockobjectsJar}" />
+    <pathelement path="${build.lib}/${javaMailJar}" />
+    <pathelement path="${build.lib}/${activationJar}" />
   </path>
 
   <path id="classpath.jetty">
@@ -415,7 +420,7 @@ usage:
         </patternset>
       </classes>
       <!-- properties files -->
-      <classes dir="${site}/properties">
+      <classes dir="${site}/WEB-INF/classes">
         <patternset>
           <include name="**/*.properties"/>
         </patternset>
@@ -439,8 +444,11 @@ usage:
         <include name="${sqlserverJar}" />
         <include name="${msBaseJar}" />
         <include name="${msUtilJar}" />
--->
         <include name="${Sprinta2000Jar}" />
+-->
+        <include name="$activationJar}" />
+        <include name="$javaMailJar}" />
+
         <include name="${melatiJar}"/>
       </lib>
     </war>

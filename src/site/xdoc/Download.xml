@@ -42,7 +42,10 @@ This page last updated: $Date$ $Author$
     </td>
   </tr>
 </table>
-
+<p>
+The above are built with <a href='http://ant.apache.org/'>Ant</a>, whereas the rest of the site 
+is more regularly bult with Maven. You are best off using Maven. 
+</p>
 </section>
 <section name=" Download Current Snapshot ">
 

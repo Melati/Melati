@@ -50,6 +50,8 @@
 <head>
 <title>File has been uploaded</title>
  <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 </head>
 <body bgcolor='#ffffff' onLoad="opener.update_$(field)('$url')">
 Your file has been saved at <a href='$url'>$url</a>.

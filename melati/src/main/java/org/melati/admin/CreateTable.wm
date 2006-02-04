@@ -52,6 +52,8 @@
  <meta name="CVS Id" content="\$Id$">
 </HEAD>
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
+<link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 <BODY bgcolor="#cccccc">
 
 <FORM METHOD="post" ACTION="Create_doit">

@@ -46,9 +46,12 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 <TITLE>Options</TITLE>
 
 <SCRIPT Language="JavaScript" type="text/javascript">
@@ -71,7 +74,7 @@
 <FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
 </TH>
 
-<FORM method="get" action="index2.html" target="admin_bottom">
+<FORM method="get" target="admin_bottom">
 <TD align="centre">
 <FONT SIZE="-1" FACE="Arial, Helvetica">
 <SELECT name="mainmenu" OnChange="return(goto_page(0));">

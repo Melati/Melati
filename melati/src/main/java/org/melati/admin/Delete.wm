@@ -50,6 +50,8 @@
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
+<link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 <script type="text/javascript">
 function reloadframes() {
   #if ($Form.returnTarget) #begin

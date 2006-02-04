@@ -51,6 +51,8 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
 <script TYPE="text/javascript">

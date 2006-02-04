@@ -46,12 +46,13 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
 </HEAD>
 #if ($Form.returnTarget) #begin
-  <script>
+  <script type="text/javascript">
     function reloadframes() {
       $(Form.returnTarget).location.href="$Form.returnURL";
       $(Form.returnTarget).focus();
@@ -60,7 +61,7 @@
   <BODY bgcolor="#cccccc" onLoad="reloadframes()">
 #end #else #begin
   #if ($Form.returnURL) #begin
-    <script>
+    <script type="text/javascript">
     function reloadframe() {
       location.href="$Form.returnURL";
     }
@@ -80,7 +81,7 @@
   #end
 #end
 <br><br><br><br>
-<h3 align="center"><FONT SIZE="" FACE="Arial, Helvetica">Done</font></h3>
+<h3 align="center"><FONT FACE="Arial, Helvetica">Done</font></h3>
 
 </BODY>
 </HTML>

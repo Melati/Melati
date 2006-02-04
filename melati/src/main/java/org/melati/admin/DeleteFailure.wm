@@ -46,27 +46,28 @@
 ##
 
 #set $ml = $melati.HTMLMarkupLanguage
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
 </HEAD>
 
 <BODY bgcolor="#cccccc">
-<P align=center>
+<P align="center">
   You can't delete this record, because it is referred to by other records:
 </P>
 
-<TABLE CELLPADDING=0 CELLSPACING=0 ALIGN=center>
-  <TR><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Table</font></I></TD><TD>&nbsp;&nbsp;</TD><TD><I><FONT SIZE=-1 FACE="Arial, Helvetica">Troid</font></I></TD>
+<TABLE CELLPADDING="0" CELLSPACING="0" ALIGN="center">
+  <TR><TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Table</font></I></TD><TD>&nbsp;&nbsp;</TD><TD><I><FONT SIZE="-1" FACE="Arial, Helvetica">Troid</font></I></TD>
   #foreach $ref in $references #begin
-    <TR><TD></TD><TD><FONT SIZE=0>&nbsp;</FONT></TD><TD></TD></TR>
+    <TR><TD></TD><TD><FONT SIZE="0">&nbsp;</FONT></TD><TD></TD></TR>
     <TR>
-      <TD><FONT SIZE=-1 FACE="Arial, Helvetica">$ml.rendered($ref.Table.Name)</font></TD>
+      <TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.rendered($ref.Table.Name)</font></TD>
       <TD></TD>
       #if ($ref.getReadable()) #begin
-        <TD><FONT SIZE=-1 FACE="Arial, Helvetica"><A HREF="$admin.EditURL($ref)?returnURL=$Form.returnURL">$ref.Troid</A></font></TD>
+        <TD><FONT SIZE="-1" FACE="Arial, Helvetica"><A HREF="$admin.EditURL($ref)?returnURL=$Form.returnURL">$ref.Troid</A></font></TD>
       #end #else #begin
-        <TD><FONT SIZE=-1 FACE="Arial, Helvetica">(read access denied)</font></TD>
+        <TD><FONT SIZE="-1" FACE="Arial, Helvetica">(read access denied)</font></TD>
       #end
     </TR>
   #end

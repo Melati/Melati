@@ -45,6 +45,7 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
  <title>Upload a file</title>
@@ -53,12 +54,14 @@
 </head>
 
 <body bgcolor='#ffffff' onLoad="window.focus()">
-<form ENCTYPE="multipart/form-data" METHOD=POST action="$admin.UploadHandlerURL($melati.Table,$melati.Object,$field)">
-<div align=center>
+<form ENCTYPE="multipart/form-data" METHOD="POST" action="$admin.UploadHandlerURL($melati.Table,$melati.Object,$field)">
+<div align="center">
 <b>File to upload:</b>
 <br>
-<input name="file" type="file" size=30 onchange="window.focus()">
-<SCRIPT language="JavaScript1.2">add_rule("file", "File to upload", !false)</SCRIPT>
+<input name="file" type="file" size="30" onchange="window.focus()">
+<SCRIPT language="JavaScript1.2" type="text/javascript">
+  add_rule("file", "File to upload", !false)
+</SCRIPT>
 <input name="field" type="hidden" value="$field">
 <p>
 <input type="submit" value=" Upload " ONCLICK="return validate(this.form);">

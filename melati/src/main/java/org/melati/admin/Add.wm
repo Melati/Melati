@@ -46,13 +46,14 @@
 ##
 
 #set $ml = $melati.HTMLMarkupLanguage
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
 
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
-<script TYPE="text/javascript">
+<script TYPE="text/javascript" type="text/javascript">
 <!--
   function popupupdate(popupwin,returnfield,id,value) {
     var returnfieldummy = returnfield + "_dummy";

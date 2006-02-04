@@ -47,10 +47,11 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
 <script TYPE="text/javascript">
 <!--
@@ -66,20 +67,20 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 
 <BODY  bgcolor="#cccccc">
 
-<FORM METHOD=post ACTION=Update>
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<FORM METHOD="post" ACTION="Update">
+<TABLE CELLPADDING="0" CELLSPACING="0">
   #if ($Form.detailed) #begin
     #set $fields = $object.DetailDisplayFields
   #end #else #begin
     #set $fields = $object.RecordDisplayFields
   #end
   #foreach $field in $fields #begin
-    <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+    <TR><TD>&nbsp;</TD></TR>
     <TR>
      <TD><FONT SIZE="-1" FACE="Arial, Helvetica">
        <B>
         #if (!$field.Type.Nullable) #begin
-         <font color=red>
+         <font color="red">
          *
          </font>
         #end
@@ -115,31 +116,31 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
       </font>
     </TD></TR>
   #end
-  <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+  <TR><TD>&nbsp;</TD></TR>
   <tr>
-   <td align=center>
+   <td align="center">
     <FONT SIZE="-1" FACE="Arial, Helvetica">
-<INPUT NAME=action VALUE=Update TYPE=submit
+<INPUT NAME="action" VALUE="Update" TYPE="submit"
        ONCLICK="return validate(this.form);">
 &nbsp;&nbsp;
-<INPUT NAME=action VALUE=Delete TYPE=submit
+<INPUT NAME="action" VALUE="Delete" TYPE="submit"
        ONCLICK="return confirm(
                     'Please confirm that you want to delete this record')">
 &nbsp;&nbsp;
 #if ($Form.returnURL) #begin
 
-  <input type=hidden name=returnURL value='$Form.returnURL'>
+  <input type="hidden" name="returnURL" value='$Form.returnURL'>
 #end #else #begin
   #if ($CGI.HTTP_REFERER) #begin
 
-    <input type=hidden name=returnURL value='$CGI.HTTP_REFERER'>
+    <input type="hidden" name="returnURL" value='$CGI.HTTP_REFERER'>
   #end
 #end
 #if ($Form.returnTarget) #begin
 
-  <input type=hidden name=returnTarget value='$Form.returnTarget'>
+  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
 #end
-<INPUT NAME=action VALUE=Duplicate TYPE=submit
+<INPUT NAME="action" VALUE="Duplicate" TYPE="submit"
        ONCLICK="return validate(this.form);">
     </font>
    </td>

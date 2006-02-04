@@ -47,6 +47,7 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
@@ -57,7 +58,7 @@
 <TABLE>
   #foreach $table in $melati.Database.tables() #begin
     <TR>
-      <TD VALIGN=top>$ml.rendered($table.Name)</TD> 
+      <TD VALIGN="top">$ml.rendered($table.Name)</TD> 
       <TD>
         #foreach $obj in $table.CacheInfo.HeldElements #begin
           $obj.troid()

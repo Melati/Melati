@@ -1,5 +1,6 @@
 #set $melati.ResponseContentType = "text/html"
 <!-- start org/melati/admin/TreeControl.wm -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <head>
  <meta name="CVS Id" content="\$Id$">
@@ -14,14 +15,14 @@ $ml.rendered($tree)
 <body onload="init();">
  #end #else #begin
 <body>
-<SCRIPT LANGUAGE="JavaScript1.2">
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
  alert("Tree size is greater than limit of 2000: " + $tree.flattened().size());
 </SCRIPT>
 Tree size is greater than limit of 2000: " + $tree.flattened().size()
  #end
 #end #else #begin
 <body>
-<SCRIPT LANGUAGE="JavaScript1.2">
+<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
  alert("Tree is null.");
 </SCRIPT>
 Tree is null.

@@ -13,14 +13,16 @@
   #set $treeControllUrl = "$(treeControllUrl)?returnURL=$Form.returnURL"
  #end
 #end
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+            "http://www.w3.org/TR/html4/frameset.dtd">
 
 <HTML>
 <head>
  <meta name="CVS Id" content="\$Id$">
 </head>
-<frameset border=0 frameborder=0 framespacing=0 rows=100%,*>
- <frame name=treedisplay src="$admin.StaticURL/blank.html" scrolling=yes>
- <frame name=treecontrol src="$treeControllUrl"  scrolling=yes>
+<frameset border="0" frameborder="0" framespacing="0" rows="100%,*">
+ <frame name="treedisplay" src="$admin.StaticURL/blank.html" scrolling="yes">
+ <frame name="treecontrol" src="$treeControllUrl"  scrolling="yes">
 </frameset>
 </HTML>
 <!-- end org/melati/admin/Tree.wm -->

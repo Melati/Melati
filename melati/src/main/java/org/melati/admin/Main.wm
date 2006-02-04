@@ -45,13 +45,15 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+            "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
 <title>Website Admin Suite</title>
  <meta name="CVS Id" content="\$Id$">
 </head>
 
-<frameset frameborder=0 framespacing=0 border=0 rows="36,*">
+<frameset frameborder="0" framespacing="0" border="0" rows="36,*">
 <frame src="$admin.TopURL()" marginwidth="10" marginheight="8" noresize="noresize" name="admin_top" border="0" scrolling="no">
 <frame src="$admin.StaticURL/blank.html" marginwidth="6" marginheight="2" noresize="noresize" name="admin_bottom" border="0" scrolling="no">
 </frameset>

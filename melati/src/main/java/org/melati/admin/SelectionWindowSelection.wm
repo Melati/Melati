@@ -47,6 +47,7 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
@@ -61,35 +62,35 @@
 
 
 <BODY BGCOLOR="#FFFFFF" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
-<DIV align=center>
+<DIV align="center">
 
 #if ($results) #begin
 <form>
 
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2>
- <input type=button name=Prev value="<< Prev"
+<FONT face="Arial, Helvetica" size="-2">
+ <input type="button" name="Prev" value="<< Prev"
         ONCLICK="location.href='SelectionWindowSelection?start=$results.PrevPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'">
 </font>
 #end
-<b><FONT face="Arial, Helvetica" size=-1>
+<b><FONT face="Arial, Helvetica" size="-1">
 Records $results.PageStart to $results.PageEnd of $results.TotalCount
 </FONT>
 </b>
 
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size=-2><input type=button name=Add value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
+<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="Next >>" ONCLICK="location.href='SelectionWindowSelection?start=$results.NextPageStart&$whereClause&$orderClause&returnfield=$Form.returnfield'"></font>
 #end
 
 </form>
-  <TABLE CELLSPACING=0 cellpadding=0 border=0 width=100%>
+  <TABLE CELLSPACING="0" cellpadding="0" border="0" width="100%">
     <TR>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
-	  <th><FONT SIZE=1>&nbsp;&nbsp;</FONT></th>
+	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
+	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
+	  <th><FONT SIZE="1">&nbsp;&nbsp;</FONT></th>
       #foreach $column in $table.SummaryDisplayColumns #begin
-	<TH align=left valign=bottom><FONT face="Arial, Helvetica" size=-1>$ml.rendered($column.DisplayName)</font></TH>
-	  <th><FONT SIZE=1>&nbsp;</FONT></th>
+	<TH align="left" valign="bottom"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($column.DisplayName)</font></TH>
+	  <th><FONT SIZE="1">&nbsp;</FONT></th>
       #end
     </TR>
 	#set $color1 = "#E9EDFD"
@@ -97,12 +98,12 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
 	#set $color = $color1
     #foreach $result in $results #begin
       <TR>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" vspace=0></a></TD>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
+	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
+	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
+	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $result.SummaryDisplayFields #begin
-	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size=-1>$ml.rendered($field)</font></TD>
-	  <td bgcolor="$color"><FONT SIZE=1>&nbsp;&nbsp;</FONT></td>
+	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field)</font></TD>
+	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#end
       </TR>
 	  #if ($color == $color1) #begin

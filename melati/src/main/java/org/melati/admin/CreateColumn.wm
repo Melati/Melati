@@ -46,6 +46,7 @@
 ##
 
 #set $ml = $melati.HTMLMarkupLanguage
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
  <meta name="CVS Id" content="\$Id$">
@@ -53,13 +54,13 @@
 
 <BODY bgcolor="#cccccc">
 
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
-<FORM METHOD=post ACTION=CreateColumn_doit>
+<FORM METHOD="post" ACTION="CreateColumn_doit">
 
 <H2><FONT FACE="Arial, Helvetica">Create a new column</font></H2>
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<TABLE CELLPADDING="0" CELLSPACING="0">
   #foreach $field in $columnInfoFields #begin
     #if ($field.UserCreateable) #begin
       <TR>
@@ -75,21 +76,21 @@
       #end
 </FONT></TD></TR><TR><TD><FONT SIZE="-1" FACE="Arial, Helvetica">$ml.input($field)</font></TD>
       </TR>
-      <TR><TD><FONT SIZE=0>&nbsp;</FONT></TD></TR>
+      <TR><TD><FONT SIZE="0">&nbsp;</FONT></TD></TR>
     #end
   #end
 </TABLE>
 
 #if ($Form.returnURL) #begin
-  <input type=hidden name=returnURL value='$Form.returnURL'>
+  <input type="hidden" name="returnURL" value='$Form.returnURL'>
 #end
 #if ($Form.returnTarget) #begin
-  <input type=hidden name=returnTarget value='$Form.returnTarget'>
+  <input type="hidden" name="returnTarget" value='$Form.returnTarget'>
 #end
-<INPUT NAME=action VALUE="Create the column" TYPE=submit
+<INPUT NAME="action" VALUE="Create the column" TYPE="submit"
        ONCLICK="return validate(this.form);">
 
-<P><FONT SIZE=-1>
+<P><FONT SIZE="-1">
   (Be aware that deleting a column once it's been created is rather difficult!)
 </FONT></P>
 

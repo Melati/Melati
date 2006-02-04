@@ -47,6 +47,8 @@
 
 #set $ml = $melati.HTMLMarkupLanguage
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+            "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
 <title>Website Admin Suite</title>
@@ -64,7 +66,6 @@
     <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="-0" marginheight="-0" noresize="noresize" name="admin_edit_header" border="0" scrolling="auto">
     <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object.Table.Name$object.troid()" border="0" scrolling="auto">
   </frameset>
-
 
 <noframes>
 $returns

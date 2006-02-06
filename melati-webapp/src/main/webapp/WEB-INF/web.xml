@@ -29,6 +29,11 @@
   </servlet>
   
   <servlet>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <servlet-class>org.melati.admin.Status</servlet-class>
+  </servlet>
+  
+  <servlet>
     <servlet-name>org.melati.test.SessionAnalysisServlet</servlet-name>
     <servlet-class>org.melati.test.SessionAnalysisServlet</servlet-class>
   </servlet>
@@ -138,6 +143,19 @@
   <servlet-mapping>
     <servlet-name>org.melati.admin.Display</servlet-name>
     <url-pattern>/Display/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/melati/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/org.melati.admin.Status/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>org.melati.admin.Status</servlet-name>
+    <url-pattern>/Status/*</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

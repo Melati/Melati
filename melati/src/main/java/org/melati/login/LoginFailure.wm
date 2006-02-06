@@ -46,22 +46,24 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
- <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+ <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"
+         type="text/javascript"></SCRIPT>
 </HEAD>
-<BODY BGCOLOR=white>
+<BODY BGCOLOR="white">
 
-<DIV ALIGN=CENTER>
+<DIV ALIGN="CENTER">
 
-<FORM METHOD=post>
+<FORM METHOD="post">
 
 
 <H1>Login</H1>
 
 <P>The username and password you gave were not recognised. Try again.</P>
 
-<TABLE CELLPADDING=0 CELLSPACING=0>
+<TABLE CELLPADDING="0" CELLSPACING="0">
   <TR>
     <TD>Login name</TD>
     <TD>&nbsp;</TD>
@@ -76,12 +78,12 @@
   <TR>
     <TD>Remember me?</TD>
     <TD>&nbsp;</TD>
-    <TD><input type=checkbox name=rememberme  
+    <TD><input type="checkbox" name="rememberme"  
 	#if ($Form.rememberme) #begin checked #end></TD>
   </TR>
 </TABLE>
 
-<INPUT NAME=action VALUE="Log in" TYPE=submit
+<INPUT NAME="action" VALUE="Log in" TYPE="submit"
        ONCLICK="return validate(this.form);">
 
 

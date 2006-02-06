@@ -44,20 +44,22 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 #set $ml = $melati.HTMLMarkupLanguage
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
 </HEAD>
-<BODY BGCOLOR=white>
-<DIV ALIGN=center>
-<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
-<FORM METHOD=post>
-<H1 ALIGN=center>Login</H1>
+<BODY BGCOLOR="white">
+<DIV ALIGN="center">
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"
+        type="text/javascript"></SCRIPT>
+<FORM METHOD="post">
+<H1 ALIGN="center">Login</H1>
 #if ($triggeringException) #begin
   <P>You need to log in.</P>
   <P>$ml.rendered($triggeringException.Message)</P>
 #end
 
-<TABLE CELLPADDING=0 CELLSPACING=0 ALIGN=center>
+<TABLE CELLPADDING="0" CELLSPACING="0" ALIGN="center">
   <TR>
     <TD>Login name</TD>
     <TD>&nbsp;</TD>
@@ -77,7 +79,7 @@
   </TR>
 </TABLE>
 
-<INPUT NAME=action VALUE="Log in" TYPE=submit
+<INPUT NAME="action" VALUE="Log in" TYPE="submit"
        ONCLICK="return validate(this.form);">
 
 </FORM>

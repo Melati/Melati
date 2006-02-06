@@ -46,15 +46,16 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
 <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
 </HEAD>
-<BODY BGCOLOR=white>
-<DIV ALIGN=CENTER>
+<BODY BGCOLOR="white">
+<DIV ALIGN="CENTER">
 
 <h1>Logging you out...</h1>
-<p>Transferrng you <a href=$ml.escaped($continuationURL)>here</a>.</p>
+<p>Transferrng you <a href="$ml.escaped($continuationURL)">here</a>.</p>
 
 </DIV>
 </BODY>

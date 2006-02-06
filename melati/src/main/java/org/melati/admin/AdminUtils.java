@@ -180,7 +180,7 @@ public class AdminUtils {
   }
 
   public String SessionURL() {
-    return contextPath + "/org.melati.poem.SessionAnalysisServlet";
+    return contextPath + "/org.melati.test.SessionAnalysisServlet";
   }
 
   /*

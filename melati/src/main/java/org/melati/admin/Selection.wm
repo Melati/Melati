@@ -50,12 +50,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
+ <title>$ml.rendered($table.DisplayName) Table Record Selection</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
 
-<BODY BGCOLOR="#eeeeee" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onload="this.focus();">
+<BODY BGCOLOR="#eeeeee" onload="this.focus();">
 <form>
 #if ($results) #begin
 <table cellpadding="0" cellspacing="0" width="100%">

@@ -49,13 +49,13 @@
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
-<title>Search $ml.rendered($table.DisplayName) Table</title>
 <HEAD>
+ <title>Search $ml.rendered($table.DisplayName) Table</title>
  <meta name="CVS Id" content="\$Id$">
-</HEAD>
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
-<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0">
+</HEAD>
+<BODY BGCOLOR="#dddddd">
 <SCRIPT src="$melati.JavascriptLibraryURL/validation.js" type="text/javascript"></SCRIPT>
 
 <script TYPE="text/javascript">
@@ -77,7 +77,7 @@
 #foreach $field in $criteria #begin
     <TR>
      <TD><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field.DisplayName)</font></TD>
-	  <TD><FONT face="Arial, Helvetica" size="-2">$ml.input($field)</TD>
+     <TD><FONT face="Arial, Helvetica" size="-2">$ml.input($field)</FONT></TD>
     </TR>
 #end
     <tr>
@@ -106,10 +106,10 @@
      </td>
     </tr>
    </table>
+  </FORM>
   </td>
  </tr>
 </table>
-</FORM>
 </BODY>
 </HTML>
 

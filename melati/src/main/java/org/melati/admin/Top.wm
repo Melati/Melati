@@ -56,34 +56,32 @@
 
 <SCRIPT Language="JavaScript" type="text/javascript">
   function goto_page() {
-  var selector;
-  selector = document.forms[0].mainmenu;
-  var option = selector.options[selector.selectedIndex].value;
-  if (option != "null") parent["admin_bottom"].location = option;
-  return false;
+   var selector;
+   selector = document.forms[0].mainmenu;
+   var option = selector.options[selector.selectedIndex].value;
+   if (option != "null") parent["admin_bottom"].location = option;
+   return false;
   }
 </SCRIPT>
 
 </HEAD>
 
-<BODY bgcolor="#dddddd" onLoad="goto_page(0)">
-
+<BODY bgcolor="#dddddd" onLoad="goto_page()">
+<FORM method="get" target="admin_bottom">
 <TABLE cellpadding="0" cellspacing="0" border="0" width="100%">
 <TR>
 <TH align="left">
 <FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
 </TH>
-
-<FORM method="get" target="admin_bottom">
 <TD align="centre">
 <FONT SIZE="-1" FACE="Arial, Helvetica">
-<SELECT name="mainmenu" OnChange="return(goto_page(0));">
+<SELECT name="mainmenu" OnChange="return(goto_page());">
 
 #set $lasttype = ""
 #set $selected = false
 #foreach $tab in $database.DisplayTables #begin
   #if (!$tab.Category.equals($lasttype)) #begin
-    <option value="null"></option>
+    <option value="null">&nbsp;</option>
     <option value="null">$tab.Category.Name</option>
     <option value="null">============</option>
   #end
@@ -91,14 +89,20 @@
 
 <OPTION value="$admin.BottomURL($tab)"
 #if (!$selected) #begin
+  #if ($melati.Table != null) #begin 
+   #if ($melati.Table.equals($tab) #begin  
     selected
-#end
 #set $selected = true
+  #end #else #begin
+    selected
+#set $selected = true
+  #end
+#end
 > $ml.rendered($tab.DisplayName)</option>
 #end
 </SELECT>
 </font><FONT SIZE="-2" FACE="Arial, Helvetica">
-<input type=button value=" Go " onclick="goto_page(0)">
+<input type=button value=" Go " onclick="goto_page()">
 </font></td>
 <td align=right>
 <FONT SIZE="-2" FACE="Arial, Helvetica">
@@ -107,10 +111,12 @@
 <a href="$admin.StatusURL()" target="admin_bottom">Cache</a>
 #end
 &nbsp;
-<input type="button" value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
-#if ($database.SettingTable.homepageurl) #begin
-<input type="button" value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
-#end 
+#if (!$melati.User.isGuest()) #begin
+ <input type="button" value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
+#end
+ #if ($database.SettingTable.homepageurl) #begin
+ <input type="button" value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
+ #end 
 </font></td></TR>
 </TABLE>
 

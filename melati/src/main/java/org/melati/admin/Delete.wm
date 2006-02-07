@@ -49,20 +49,22 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
+ <title>Deleted</title>
  <meta name="CVS Id" content="\$Id$">
-<link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
 <script type="text/javascript">
 function reloadframes() {
   #if ($Form.returnTarget) #begin
+    #if ($Form.returnURL) #begin
     $(Form.returnTarget).location.href="$Form.returnURL";
     $(Form.returnTarget).focus();
+    #end
   #end
 }
 </script>
-## FIXME - why no onload?
 </HEAD>
-<BODY BGCOLOR="white">
+<BODY BGCOLOR="white" ONLOAD="reloadframes();">
 <p align="center">
 <b>Done</b>
 </p>

@@ -50,6 +50,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
+ <title>Selection Window Primary Select</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
@@ -70,7 +71,7 @@
 //-->
 </script>
 </HEAD>
-<BODY BGCOLOR="#dddddd" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onLoad="get_list()">
+<BODY BGCOLOR="#dddddd" onLoad="get_list()">
  <table cellspacing="0" cellpadding="0" width="100%">
   <tr>
    <td></td>

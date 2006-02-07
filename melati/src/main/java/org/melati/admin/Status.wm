@@ -50,13 +50,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
+ <title>Database Cache Status</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
 
-<BODY>
-
+<BODY bgcolor="#DDDDDD">
+<h1>Database Cache Status</h1>
 <TABLE>
   #foreach $table in $melati.Database.tables() #begin
     <TR>
@@ -73,7 +74,7 @@
         </I>
 
         #foreach $line in $table.CacheInfo.Report #begin
-          <BR>$line
+          <BR/>$line
         #end
       </TD>
    </TR>

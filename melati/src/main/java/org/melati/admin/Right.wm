@@ -51,7 +51,7 @@
             "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 <head>
-<title>Website Admin Suite</title>
+ <title>Website Admin Suite</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">

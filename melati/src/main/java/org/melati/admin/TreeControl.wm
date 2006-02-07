@@ -4,6 +4,7 @@
 <HTML>
 <head>
  <meta name="CVS Id" content="\$Id$">
+ <title>Tree</title>
 </head>
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage

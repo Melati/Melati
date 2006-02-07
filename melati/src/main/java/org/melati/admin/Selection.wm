@@ -58,7 +58,7 @@
 <BODY BGCOLOR="#eeeeee" TOPMARGIN="0" LEFTMARGIN="0" MARGINWIDTH="0" MARGINHEIGHT="0" onload="this.focus();">
 <form>
 #if ($results) #begin
-<table cellpadding="0" cellpsacing="0" width="100%">
+<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td align="center">
 #if ($results.PrevPageStart) #begin

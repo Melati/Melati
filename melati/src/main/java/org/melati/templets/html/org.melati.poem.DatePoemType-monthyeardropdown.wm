@@ -78,7 +78,7 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    </OPTION>
+    &nbsp;</OPTION>
   #end
 </SELECT>
 
@@ -107,7 +107,7 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    </OPTION>
+    &nbsp;</OPTION>
   #end
 </SELECT>
 

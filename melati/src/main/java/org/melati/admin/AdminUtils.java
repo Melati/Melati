@@ -82,8 +82,13 @@ public class AdminUtils {
     }
   }
 
-  public String TopURL() {
-    return adminURL + "/" + logicalDatabase + "/Top";
+  public String TopURL(Melati melati) {
+      String url =  adminURL + "/" + logicalDatabase;
+    if (melati.getTable() != null) 
+      url += "/" + melati.getTable().getName();
+    if (melati.getObject() != null) 
+      url += "/" + melati.getObject().getTroid();
+    return url + "/Top";
   }
 
   public String BottomURL(Table table) {

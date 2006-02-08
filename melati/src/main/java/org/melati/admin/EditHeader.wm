@@ -70,12 +70,12 @@
  <tr>
   <td valign="top">
 #if ($admin.isTreeable($object)) #begin
-   <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&returnURL=$returnURL"
+   <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()">tree</a>
 #end
    <IMG src="$admin.StaticURL/file.gif" alt="Tree">
    <FONT FACE="Arial, Helvetica" size="2">&nbsp;$table.DisplayName:
-<a href= "$admin.EditURL($object)?returnTarget=$returnTarget&returnURL=$returnURL"
+<a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()">
 $ml.rendered($object)</a>
    </font>

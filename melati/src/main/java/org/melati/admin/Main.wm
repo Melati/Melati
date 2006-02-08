@@ -53,9 +53,9 @@
  <meta name="CVS Id" content="\$Id$">
 </head>
 
-<frameset frameborder="0" framespacing="0" border="0" rows="36,*">
-<frame src="$admin.TopURL()" marginwidth="10" marginheight="8" noresize="noresize" name="admin_top" border="0" scrolling="no">
-<frame src="$admin.StaticURL/blank.html" marginwidth="6" marginheight="2" noresize="noresize" name="admin_bottom" border="0" scrolling="no">
+<frameset rows="36,*">
+<frame src="$admin.TopURL($melati)" noresize="noresize" name="admin_top" scrolling="no">
+<frame src="$admin.StaticURL/blank.html" marginwidth="6" marginheight="2" noresize="noresize" name="admin_bottom" scrolling="no">
 </frameset>
 
 <noframes>

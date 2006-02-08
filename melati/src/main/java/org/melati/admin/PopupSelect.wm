@@ -100,7 +100,7 @@
     <tr>
      <td></td><td>
       <font face="Arial, Helvetica" size="-1">
-       <INPUT NAME="action" VALUE="Search" TYPE="submit" border="0" alt="Search $table.DisplayName" 
+       <INPUT NAME="action" VALUE="Search" TYPE="submit" alt="Search $table.DisplayName" 
            ONCLICK="return validate(this.form);">
       </font>
      </td>

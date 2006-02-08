@@ -53,15 +53,16 @@
  <meta name="CVS Id" content="\$Id$">
 </head>
 
-  <frameset frameborder="0" framespacing="0" border="0" rows="45,*">
-    <frame src="$admin.PrimarySelectURL($table)" marginwidth="0" marginheight="5" noresize="noresize" name="admin_primaryselect" border="0" scrolling="no">
-    <frameset frameborder="0" framespacing="0" border="0" cols="*,28">
-        <frame src="$admin.StaticURL/blank.html" marginwidth="-0" marginheight="-0" noresize="noresize" name="admin_selection" border="0" scrolling="auto">
-        <frame src="$admin.NavigationURL($table)" marginwidth="0" marginheight="0" noresize="noresize" name="admin_navigation" border="0" scrolling="no">
+  <frameset rows="45,*">
+    <frame src="$admin.PrimarySelectURL($table)" marginwidth="0" marginheight="5" noresize="noresize" name="admin_primaryselect" scrolling="no">
+    <frameset cols="*,28">
+        <frame src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" noresize="noresize" name="admin_selection" scrolling="auto">
+        <frame src="$admin.NavigationURL($table)" marginwidth="0" marginheight="0" noresize="noresize" name="admin_navigation" scrolling="no">
     </frameset>
   </frameset>
 
 <noframes>
+No frames?
 </noframes>
 
 </html>

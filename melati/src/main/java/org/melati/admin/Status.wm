@@ -66,13 +66,9 @@
         #foreach $obj in $table.CacheInfo.HeldElements #begin
           $obj.troid()
         #end
-
-        <I>
-          #foreach $obj in $table.CacheInfo.DroppedElements #begin
-            $obj.troid()
-          #end
-        </I>
-
+        #foreach $obj in $table.CacheInfo.DroppedElements #begin
+          <I>$obj.troid()</I>
+        #end
         #foreach $line in $table.CacheInfo.Report #begin
           <BR/>$line
         #end

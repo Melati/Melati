@@ -821,6 +821,10 @@ public class Admin extends TemplateServlet {
       return uploadTemplate(context);
     if (melati.getMethod().equals("UploadDone"))
       return uploadDoneTemplate(context, melati);
+    if (melati.getMethod().equals("Main"))
+      return mainTemplate(context);
+    if (melati.getMethod().equals("Top"))
+      return topTemplate(context);
     
     if (melati.getObject() != null) {
       if (melati.getMethod().equals("Right"))
@@ -870,12 +874,8 @@ public class Admin extends TemplateServlet {
         return addUpdateTemplate(context, melati);
     }
     else {
-      if (melati.getMethod().equals("Main"))
-        return mainTemplate(context);
       if (melati.getMethod().equals("DSD"))
         return dsdTemplate(context);
-      if (melati.getMethod().equals("Top"))
-        return topTemplate(context);
       if (melati.getMethod().equals(METHOD_CREATE_TABLE))
         return tableCreateTemplate(context, melati);
       if (melati.getMethod().equals("Create_doit"))

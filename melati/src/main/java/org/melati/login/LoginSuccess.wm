@@ -52,6 +52,9 @@
 #if ($continuationURL) #begin
   <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
 #end
+ <title>Login Success</title>
+ <link rel="stylesheet" title="Default" href="$melati.AdminUtils.StaticURL/admin.css"
+      type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="white">
 <H1 align="center">You have logged in</H1>

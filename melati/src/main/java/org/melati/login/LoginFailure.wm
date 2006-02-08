@@ -51,12 +51,15 @@
 <HEAD>
  <SCRIPT src="$melati.JavascriptLibraryURL/validation.js"
          type="text/javascript"></SCRIPT>
+ <title>Login Failure</title>
+ <link rel="stylesheet" title="Default" href="$melati.AdminUtils.StaticURL/admin.css"
+      type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="white">
 
 <DIV ALIGN="CENTER">
 
-<FORM METHOD="post">
+<FORM METHOD="post" action="">
 
 
 <H1>Login</H1>

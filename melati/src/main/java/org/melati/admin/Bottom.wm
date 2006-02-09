@@ -51,11 +51,13 @@
 <head>
  <title>Website Admin Suite</title>
  <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 </head>
 
-<frameset cols="40%,60%">
-  <frame src="$admin.LeftURL($table)" marginwidth="5" marginheight="0" name="admin_left" scrolling="auto">
-  <frame src="$admin.StaticURL/blank.html" marginwidth="5" marginheight="0" name="admin_record" scrolling="auto">
+<frameset frameborder="no" cols="40%,60%">
+  <frame src="$admin.LeftURL($table)" marginwidth="5" marginheight="0" name="admin_left" scrolling="auto" frameborder="0">
+  <frame src="$admin.StaticURL/blank.html" marginwidth="5" marginheight="0" name="admin_record" scrolling="auto" frameborder="0">
 </frameset>
 
 <noframes>

@@ -51,13 +51,15 @@
 <head>
  <title>Website Admin Suite</title>
  <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 </head>
 
-  <frameset rows="45,*">
-    <frame src="$admin.PrimarySelectURL($table)" marginwidth="0" marginheight="5" noresize="noresize" name="admin_primaryselect" scrolling="no">
-    <frameset cols="*,28">
-        <frame src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" noresize="noresize" name="admin_selection" scrolling="auto">
-        <frame src="$admin.NavigationURL($table)" marginwidth="0" marginheight="0" noresize="noresize" name="admin_navigation" scrolling="no">
+  <frameset frameborder="no" rows="56,*">
+    <frame src="$admin.PrimarySelectURL($table)" marginwidth="0" marginheight="5" frameborder="0" name="admin_primaryselect" scrolling="no">
+    <frameset frameborder="no" cols="*,28">
+        <frame src="$admin.StaticURL/blank.html" marginwidth="0" marginheight="0" frameborder="0" name="admin_selection" scrolling="auto">
+        <frame src="$admin.NavigationURL($table)" marginwidth="0" marginheight="0" frameborder="0" name="admin_navigation" scrolling="no">
     </frameset>
   </frameset>
 

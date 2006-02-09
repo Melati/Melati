@@ -49,8 +49,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>Options</TITLE>
-
+ <TITLE>Options</TITLE>
+ <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 <SCRIPT Language="JavaScript" type="text/javascript">
   function goto_page() {
    var selector;
@@ -65,12 +67,12 @@
 
 <BODY bgcolor="#dddddd" onLoad="goto_page()">
 <FORM method="get" target="admin_bottom" action="notused">
-<TABLE cellpadding="0" cellspacing="0" border="0" width="100%">
+<TABLE cellpadding="2" cellspacing="2" border="0" width="100%">
 <TR>
-<TH align="left">
+<TH align="left" valign="middle">
 <FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
 </TH>
-<TD align="left">
+<TD align="left" valign="middle">
 <FONT SIZE="-1" FACE="Arial, Helvetica">
 <SELECT name="mainmenu" OnChange="return(goto_page());">
 
@@ -102,7 +104,7 @@
 </font><FONT SIZE="-2" FACE="Arial, Helvetica">
 <input type=button value=" Go " onclick="goto_page()">
 </font></td>
-<td align="right">
+<td align="right" valign="middle">
 <FONT SIZE="-2" FACE="Arial, Helvetica">
 #if ($melati.User.isAdministrator()) #begin
 <a href="$admin.SessionURL()" target="admin_bottom">Sessions</a>
@@ -115,9 +117,4 @@
  #if ($database.SettingTable.homepageurl) #begin
  <input type="button" value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
  #end 
-</font></td></TR>
-</TABLE>
-
-</FORM>
-</BODY>
-</HTML>
+</font></td></TR></TABLE></FORM></BODY></HTML>

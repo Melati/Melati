@@ -61,12 +61,12 @@
 #set $returns = "returnTarget=$Form.returnTarget"
 #end
 #if ($Form.returnURL) #begin
-#set $returns = "$returns&returnURL=$ml.encoded($Form.returnURL)"
+#set $returns = "$returns&amp;returnURL=$ml.encoded($Form.returnURL)"
 #end
 
-  <frameset frameborder="0" framespacing="0" border="0" rows="45,*">
-    <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="-0" marginheight="-0" noresize="noresize" name="admin_edit_header" border="0" scrolling="auto">
-    <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object.Table.Name$object.troid()" border="0" scrolling="auto">
+  <frameset frameborder="no" rows="45,*">
+    <frame src='$admin.EditHeaderURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit_header" frameborder="0" scrolling="auto">
+    <frame src='$admin.EditURL($object)?$returns' marginwidth="0" marginheight="0" name="admin_edit$object.Table.Name$object.troid()" frameborder="0" scrolling="auto">
   </frameset>
 
 <noframes>

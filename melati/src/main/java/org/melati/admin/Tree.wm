@@ -18,13 +18,18 @@
 
 <HTML>
 <head>
- <meta name="CVS Id" content="\$Id$">
  <title>Tree</title>
+ <meta name="CVS Id" content="\$Id$">
+ <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
+      type="text/css" media="screen">
 </head>
-<frameset border="0" frameborder="0" framespacing="0" rows="100%,*">
- <frame name="treedisplay" src="$admin.StaticURL/blank.html" scrolling="yes">
- <frame name="treecontrol" src="$treeControllUrl"  scrolling="yes">
+<frameset frameborder="no" rows="100%,*">
+ <frame name="treedisplay" src="$admin.StaticURL/blank.html" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0">
+ <frame name="treecontrol" src="$treeControllUrl"  scrolling="yes" frameborder="0" marginwidth="0" marginheight="0">
 </frameset>
+<noframes>
+No frames?
+</noframes>
 </HTML>
 <!-- end org/melati/admin/Tree.wm -->
 

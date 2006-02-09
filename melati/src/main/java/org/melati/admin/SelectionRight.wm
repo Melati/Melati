@@ -57,9 +57,9 @@
 </HEAD>
 
 <BODY BGCOLOR="#eeeeee" onload="this.focus();">
-<form>
+<form action="">
 #if ($results) #begin
-<table cellpadding="0" cellpsacing="0 width="100%">
+<table cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td align="center">
 #if ($results.PrevPageStart) #begin
@@ -72,8 +72,9 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
 #if ($results.NextPageStart) #begin
 <FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="Next &gt;&gt;" ONCLICK="location.href='SelectionRight?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
+</td>
 <td align=right><A HREF='$admin.AddURL($table)?$whereClause'><IMG
-  src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a></td>
+  src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a>
 </td></tr></table>
 
   <TABLE CELLSPACING="0" cellpadding="1" border="0" width="100%">

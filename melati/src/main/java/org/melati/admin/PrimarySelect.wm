@@ -88,16 +88,16 @@
 // -->
 </SCRIPT>
 </HEAD>
-
 <BODY BGCOLOR="#dddddd" onLoad="get_list()">
 #if ($primaryCriterion) #begin
 <FORM METHOD="GET" action="$admin.SelectionURL($table)" target="admin_selection">
- <table cellspacing="0" cellpadding="0" border="0">
+ <table cellspacing="2" cellpadding="2" border="0">
   <tr>
-   <td></td>
+   <td>&nbsp;</td>
    <td><FONT face="Arial, Helvetica" size="-1">$ml.rendered($primaryCriterion.DisplayName)</font></td>
   </tr>
   <tr>
+   <td>&nbsp;</td>
    <td>
   #if ($admin.isReferencePoemType($primaryCriterion)) #begin
     <FONT face="Arial, Helvetica" size="-1">

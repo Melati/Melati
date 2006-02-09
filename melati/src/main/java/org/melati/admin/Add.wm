@@ -81,12 +81,13 @@
 	  #end #else #begin
 	    <B><font color="red">$ml.rendered($field.DisplayName)</font></B>
 	  #end
-      </font><FONT SIZE="-2" FACE="Arial, Helvetica">
+            </font>
 	  #if ($field.Description) #begin
+            <FONT SIZE="-2" FACE="Arial, Helvetica">
 	  ($ml.rendered($field.Description))
+            </font>
           #end
-	</font></TD>
-     </TR><TR><TD>
+       </TD></TR><TR><TD>
 	  <FONT SIZE="-1" FACE="Arial, Helvetica">
 	  $ml.input($field)
 	  </FONT>

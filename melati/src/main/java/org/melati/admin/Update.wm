@@ -53,7 +53,6 @@
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
-</HEAD>
 #if ($Form.returnTarget) #begin
   <script type="text/javascript">
     function reloadframes() {
@@ -61,7 +60,8 @@
       $(Form.returnTarget).focus();
     }
   </script>
-  <BODY bgcolor="#cccccc" onLoad="reloadframes()">
+</HEAD>
+<BODY bgcolor="#cccccc" onLoad="reloadframes()">
 #end #else #begin
   #if ($Form.returnURL) #begin
     <script type="text/javascript">
@@ -69,7 +69,8 @@
       location.href="$Form.returnURL";
     }
     </script>
-    <BODY bgcolor="#cccccc" onLoad="reloadframe()">
+</HEAD>
+<BODY bgcolor="#cccccc" onLoad="reloadframe()">
   #end #else #begin
     #if ($Form.returnfield) #begin
       <script language="JavaScript" TYPE="text/javascript">
@@ -77,13 +78,15 @@
           opener.popupupdate(parent, returnfield, id, value)
         }
       </script>
-      <BODY bgcolor="#cccccc" onLoad="popupupdate('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
+</HEAD>
+<BODY bgcolor="#cccccc" onLoad="popupupdate('$Form.returnfield',$object.Troid,'$ml.escaped($object)')">
     #end #else #begin
-      <BODY bgcolor="#cccccc">
+</HEAD>
+<BODY bgcolor="#cccccc">
     #end
   #end
 #end
-<br><br><br><br>
+<br/><br/><br/><br/>
 <h3 align="center"><FONT FACE="Arial, Helvetica">Done</font></h3>
 
 </BODY>

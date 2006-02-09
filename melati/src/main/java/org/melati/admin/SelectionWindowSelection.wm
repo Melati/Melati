@@ -64,11 +64,11 @@
 </HEAD>
 
 
-<BODY BGCOLOR="#FFFFFF">
+<BODY BGCOLOR="#DDDDDD">
 <DIV align="center">
 
 #if ($results) #begin
-<form>
+<form action="">
 
 #if ($results.PrevPageStart) #begin
 <FONT face="Arial, Helvetica" size="-2">
@@ -102,7 +102,7 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
     #foreach $result in $results #begin
       <TR>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
-	<TD bgcolor="$color"><a href="" onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
+	<TD bgcolor="$color"><a onClick ="popupupdate('$Form.returnfield',$result.Troid,'$ml.escaped($result)')"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Select" /></a></TD>
 	  <td bgcolor="$color"><FONT SIZE="1">&nbsp;&nbsp;</FONT></td>
 	#foreach $field in $result.SummaryDisplayFields #begin
 	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.rendered($field)</font></TD>

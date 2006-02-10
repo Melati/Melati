@@ -103,6 +103,11 @@ public final class EnumUtils {
     return vectorOf(e, 20);
   }
 
+  /**
+   * @param sep Seperator string 
+   * @param e Enumeration to be concatenated
+   * @return A String represenation of the Enumeration
+   */
   public static String concatenated(String sep, Enumeration e) {
     StringBuffer b = new StringBuffer();
 

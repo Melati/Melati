@@ -101,20 +101,6 @@ public final class Email {
       sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
   }
 
-  /**
-   * @deprecated try to disentangle poem and utils
-   */
-  public static void sendWithAttachments(Database database, String from,
-                                         String to, String replyto, 
-                                         String subject, String text, 
-                                         File[] attachments)
-       throws EmailException, IOException {
-    // Get our smtp server from the database
-    String smtpServer = database.getSettingTable().get(SMTPSERVER);
-    sendWithAttachments(smtpServer, from, to, replyto, subject, text, attachments);
-  }
-
-
   public static void sendWithAttachments(String smtpServer, String from,
           String to, String replyto, String subject, String text, File[] attachments)
           throws EmailException, IOException {
@@ -244,6 +230,12 @@ public final class Email {
       throw new EmailException("Problem sending message: " + e.toString());
     }
     
+  }
+  /**
+   * @return a fancy email address
+   */
+  public static String mailAddress(String name, String email) {
+    return name + " <" + email + ">";
   }
 
 }

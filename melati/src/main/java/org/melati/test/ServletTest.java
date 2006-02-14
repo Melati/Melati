@@ -64,7 +64,8 @@ public class ServletTest extends HttpServlet {
     OutputStream os = response.getOutputStream();
     os.write("Simple servlet working.\n".getBytes());
     String path = new File("").getAbsolutePath();
-    os.write("Default file path:".getBytes());
+    os.write("Default file path (where servlet container was started from):"
+             .getBytes());
     os.write(path.getBytes());
 
   }

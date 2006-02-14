@@ -81,6 +81,8 @@ public class SessionAnalysisServlet extends ConfigServlet {
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
     Date now = new Date();
+    output.write("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD " 
+                 + "HTML 4.01 Transitional//EN\">\n");
     output.write("<html>\n"
                   + "<head>\n"
                   + "<title>Transaction Analysis</title>\n");
@@ -103,8 +105,9 @@ public class SessionAnalysisServlet extends ConfigServlet {
                   + "<p>JVM Total memory: " +
    NumberFormat.getInstance().format(Runtime.getRuntime().totalMemory())
                   + "</p>\n"
-                  + "<form>Reload every <input name=repeat size=5 value="
-                  + repeat + "> seconds <input type=submit></form>\n"
+                  + "<form action=''>Reload every "  
+                  + "<input name='repeat' size='5' value='"
+                  + repeat + "'> seconds <input type=submit></form>\n"
                   + "<h2>Poem sessions in use</h2>\n");
 
     Enumeration e = PoemThread.openSessions().elements();

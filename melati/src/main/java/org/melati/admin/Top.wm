@@ -111,10 +111,13 @@
 <a href="$admin.StatusURL()" target="admin_bottom">Cache</a>
 #end
 &nbsp;
-#if (!$melati.User.isGuest()) #begin
+ #if (!$melati.User.isGuest()) #begin
  <input type="button" value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
-#end
- #if ($database.SettingTable.homepageurl) #begin
- <input type="button" value=" Home " onclick="parent['admin_bottom'].location = '$database.SettingTable.homepageurl';">
- #end 
+ #end
+ <input type="button" value=" Home " 
+ #if ($database.SettingTable.get("HomepageUrl")) #begin
+        onclick="parent['admin_bottom'].location = '$database.SettingTable.get("HomepageUrl")';">
+ #end #else #begin
+        onclick="parent['admin_bottom'].location = 'http://www.melati.net';">
+ #end
 </font></td></TR></TABLE></FORM></BODY></HTML>

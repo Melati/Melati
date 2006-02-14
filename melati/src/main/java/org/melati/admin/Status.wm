@@ -59,9 +59,10 @@
 <BODY bgcolor="#DDDDDD">
 <h1>Database Cache Status</h1>
 <TABLE>
+    <TR><TH>Table</TH><TH>Table Row IDs</TH></TR>
   #foreach $table in $melati.Database.tables() #begin
     <TR>
-      <TD VALIGN="top">$ml.rendered($table.Name)</TD> 
+      <TH VALIGN="top">$ml.rendered($table.Name)</TH> 
       <TD>
         #foreach $obj in $table.CacheInfo.HeldElements #begin
           $obj.troid()

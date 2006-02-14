@@ -5,7 +5,6 @@
 <head>
  <meta name="CVS Id" content="\$Id$">
  <title>Tree</title>
-</head>
 #set $tree=$admin.createTree($object)
 #set $ml=$melati.HTMLMarkupLanguage
 #if ($tree) #begin
@@ -13,8 +12,10 @@
 <!-- start -->
 $ml.rendered($tree)
 <!-- end -->
+</head>
 <body onload="init();">
  #end #else #begin
+</head>
 <body>
 <SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
  alert("Tree size is greater than limit of 2000: " + $tree.flattened().size());
@@ -22,6 +23,7 @@ $ml.rendered($tree)
 Tree size is greater than limit of 2000: " + $tree.flattened().size()
  #end
 #end #else #begin
+</head>
 <body>
 <SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
  alert("Tree is null.");

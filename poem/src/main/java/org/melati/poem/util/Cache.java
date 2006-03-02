@@ -163,6 +163,8 @@ public final class Cache {
    * Thrown if one or more problems are discovered with cache consistency.
    */
   public class InconsistencyException extends MelatiRuntimeException {
+    private static final long serialVersionUID = 1L;
+
     public Vector probs;
 
     public InconsistencyException(Vector probs) {

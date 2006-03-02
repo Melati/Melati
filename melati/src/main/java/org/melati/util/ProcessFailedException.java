@@ -53,6 +53,8 @@ import java.io.IOException;
  * 
  */
 public class ProcessFailedException extends IOException {
+  private static final long serialVersionUID = 1L;
+
   public String stderr;
   public ProcessFailedException(String message, String stderr) {
     super(message);

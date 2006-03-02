@@ -53,6 +53,8 @@ package org.melati.poem;
   *
   */
 public class UnificationPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public UnificationPoemException(Exception e) {
     super(e);
   }

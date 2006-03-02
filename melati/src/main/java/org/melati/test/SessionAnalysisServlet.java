@@ -74,6 +74,7 @@ import org.melati.poem.Database;
  */
 
 public class SessionAnalysisServlet extends ConfigServlet {
+  private static final long serialVersionUID = 1L;
 
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {

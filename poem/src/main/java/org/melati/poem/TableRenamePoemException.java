@@ -53,6 +53,8 @@ package org.melati.poem;
  * 
  */
 public class TableRenamePoemException extends AccessPoemException {
+  private static final long serialVersionUID = 1L;
+
   public String tableName;
   public String newName;
 

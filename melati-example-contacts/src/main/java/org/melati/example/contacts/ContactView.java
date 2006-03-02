@@ -15,6 +15,7 @@ import org.melati.template.ServletTemplateContext;
   *
   */
 public class ContactView extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {

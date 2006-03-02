@@ -53,6 +53,7 @@ package org.melati.poem;
   *
   */
 public class DuplicateColumnNamePoemException extends NormalPoemException {
+  private static final long serialVersionUID = 1L;
   public Table table;
   public Column column;
   public DuplicateColumnNamePoemException(Table table, Column column) {

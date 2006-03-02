@@ -52,6 +52,7 @@ package org.melati.util;
  *
  */ 
 public class ConfigException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   String error;
   public ConfigException(String error) {

@@ -52,4 +52,5 @@ package org.melati.poem;
  * 
  */
 public class ReconnectionPoemException extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
 }

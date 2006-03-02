@@ -50,6 +50,8 @@ package org.melati.poem.prepro;
  *
  */
 class BinarySizeZeroException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   BinarySizeZeroException(FieldDef field) {

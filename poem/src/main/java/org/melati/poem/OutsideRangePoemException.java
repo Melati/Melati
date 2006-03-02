@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class OutsideRangePoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
+
   public Object low, limit, value;
 
   public OutsideRangePoemException(Object low, Object limit, Object value) {

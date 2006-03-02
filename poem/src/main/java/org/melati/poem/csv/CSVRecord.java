@@ -63,6 +63,7 @@ import org.melati.poem.PoemThread;
  * A record within a CSV File.
  */
 public class CSVRecord extends Vector {
+  private static final long serialVersionUID = 1L;
 
   /* The value of the primary key of this record, from the csv file */
   String primaryKeyValue = null;

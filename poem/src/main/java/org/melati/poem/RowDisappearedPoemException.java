@@ -53,6 +53,7 @@ package org.melati.poem;
  * 
  */
 public class RowDisappearedPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
 
   public Table table;
   public Integer troid;

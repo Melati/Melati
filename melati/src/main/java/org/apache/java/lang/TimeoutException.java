@@ -63,6 +63,7 @@ package org.apache.java.lang;
  * @version $Revision$ $Date$
  */
 public class TimeoutException extends Exception {
+  private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor.

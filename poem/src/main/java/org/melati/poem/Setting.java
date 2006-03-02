@@ -106,6 +106,8 @@ public class Setting extends SettingBase {
   * Thrown when a {@link Setting} value fails validation.
   */
   public static class SettingValidationException extends PoemException {
+    private static final long serialVersionUID = 1L;
+
     public String name;
 
     public SettingValidationException(String name, Exception problem) {
@@ -167,6 +169,8 @@ public class Setting extends SettingBase {
   */
   public static class 
       SettingTypeMismatchException extends AppBugPoemException {
+    private static final long serialVersionUID = 1L;
+
     public String name;
     public PoemTypeFactory type;
     public String reqType;

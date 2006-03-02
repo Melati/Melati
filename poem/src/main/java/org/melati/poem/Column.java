@@ -551,6 +551,8 @@ public abstract class Column implements FieldAttributes {
    * Thrown when any unforseen problem arises loading a {@link Column}.
    */
   public static class LoadException extends UnexpectedExceptionPoemException {
+    private static final long serialVersionUID = 1L;
+
     public Column column;
 
     public LoadException(Column column, Exception problem) {
@@ -619,6 +621,8 @@ public abstract class Column implements FieldAttributes {
    * of a {@link Column}.
    */
   public static class SettingException extends NormalPoemException {
+    private static final long serialVersionUID = 1L;
+
     public Persistent persistent;
     public Column column;
     public String columnDesc;

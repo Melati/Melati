@@ -53,6 +53,8 @@ import java.sql.SQLException;
   * @author WilliamC@paneris.org
   */
 public class SQLPoemException extends NormalPoemException {
+  private static final long serialVersionUID = 1L;
+
   public SQLPoemException(SQLException sqlException) {
     super(sqlException);
   }

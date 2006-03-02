@@ -68,6 +68,7 @@ import org.melati.util.ExceptionUtils;
  * Test a Melati configuration without using a Template Engine.
  */
 public class ConfigServletTest extends ConfigServlet {
+  private static final long serialVersionUID = 1L;
 
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {

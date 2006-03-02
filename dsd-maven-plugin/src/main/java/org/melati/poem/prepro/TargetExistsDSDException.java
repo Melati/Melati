@@ -52,6 +52,8 @@ import java.io.File;
  * Thrown when a file does not meet the overwriting criteria.
  */
 class TargetExistsDSDException extends IOException {
+  private static final long serialVersionUID = 1L;
+
   File target;
 
   TargetExistsDSDException(File target) {

@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NoSuchRowPoemException extends NormalPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Table table;
   public Integer troid;
   public NoSuchRowPoemException(Table table, Integer troid) {

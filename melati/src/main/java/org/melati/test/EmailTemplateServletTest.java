@@ -68,6 +68,7 @@ import org.melati.util.MelatiStringWriter;
  * Test display of various characters using a Template Engine.
  */
 public class EmailTemplateServletTest extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
   
   public void init(ServletConfig config) throws ServletException {
     super.init(config);

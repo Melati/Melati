@@ -117,6 +117,8 @@ public final class Searchability {
   */
   public static class NameUnrecognisedException
       extends MelatiRuntimeException {
+    private static final long serialVersionUID = 1L;
+
     public String name;
 
     public NameUnrecognisedException(String name) {

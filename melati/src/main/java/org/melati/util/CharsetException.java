@@ -52,6 +52,7 @@ package org.melati.util;
  * 
  */
 public class CharsetException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   private String message;
   

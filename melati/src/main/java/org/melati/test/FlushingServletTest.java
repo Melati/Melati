@@ -61,6 +61,7 @@ import org.webmacro.servlet.WebContext;
  * $Revision$
  */
 public class FlushingServletTest extends WebmacroMelatiServlet {
+  private static final long serialVersionUID = 1L;
 
 /**
  * Main entry point.

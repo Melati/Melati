@@ -58,6 +58,7 @@ import org.melati.template.ServletTemplateContext;
  * Test display of various characters using a Template Engine.
  */
 public class CharsetTemplateServletTest extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati,
                                      ServletTemplateContext context)

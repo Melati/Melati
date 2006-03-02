@@ -54,6 +54,8 @@ import java.util.Properties;
  * 
  */
 public class PropertyException extends MelatiException {
+  private static final long serialVersionUID = 1L;
+
   public Properties properties;
   public String propertyName;
 

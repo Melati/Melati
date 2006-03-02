@@ -52,6 +52,8 @@ package org.melati.poem;
   */
 public class InvalidColumnInfoTypecodePoemException
     extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public ColumnInfo columnInfo;
   public InvalidColumnInfoTypecodePoemException(ColumnInfo columnInfo) {
     this.columnInfo = columnInfo;

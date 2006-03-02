@@ -52,6 +52,8 @@ package org.melati.poem;
   * @todo Move to dbms.
   */
 public class UnsupportedTypePoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public String tableName;
   public String columnName;
   public short sqlTypeCode;

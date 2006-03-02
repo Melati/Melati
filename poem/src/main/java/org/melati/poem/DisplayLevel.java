@@ -134,6 +134,7 @@ public final class DisplayLevel {
   * by misspelling for example.
   */
   public static class NameUnrecognisedException extends PoemException {
+    private static final long serialVersionUID = 1L;
     public String name;
 
     public NameUnrecognisedException(String name) {

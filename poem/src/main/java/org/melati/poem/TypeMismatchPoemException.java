@@ -52,6 +52,8 @@ package org.melati.poem;
  * 
  */
 public class TypeMismatchPoemException extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Object value;
   public PoemType type;
 

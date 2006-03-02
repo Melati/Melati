@@ -58,6 +58,7 @@ import org.melati.servlet.TemplateServlet;
  *
  */
 public class Logout extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String logoutTemplate(String name) {
     /*

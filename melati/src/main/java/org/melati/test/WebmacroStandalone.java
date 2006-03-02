@@ -54,6 +54,7 @@ import javax.servlet.ServletException;
  * used by this servlet, "standalone.wm", is available on that path.
  */
 public class WebmacroStandalone extends HttpServlet {
+  private static final long serialVersionUID = 1L;
 
    /**
      * This is the core WebMacro interface which we use to create Contexts, 

@@ -55,4 +55,5 @@ import org.melati.poem.PoemException;
  * 
  */
 public class WouldDeadlockException extends PoemException {
+  private static final long serialVersionUID = 1L;
 }

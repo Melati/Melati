@@ -52,6 +52,7 @@ import org.melati.util.MelatiException;
  * <code>Exception</code>.
  */
 public class TemplateEngineException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   String message;
   

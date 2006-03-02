@@ -52,6 +52,7 @@ import java.io.StreamTokenizer;
  *
  */
 class ParsingDSDException extends Exception {
+  private static final long serialVersionUID = 1L;
 
   String expected, got;
 

@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NoSuchTablePoemException extends NormalPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Database database;
   public String name;
 

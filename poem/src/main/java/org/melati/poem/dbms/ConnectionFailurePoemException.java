@@ -52,6 +52,8 @@ import org.melati.poem.SQLPoemException;
  * Thrown if there is a problem connecting to the underlying database.
  */
 public class ConnectionFailurePoemException extends SQLPoemException {
+  private static final long serialVersionUID = 1L;
+
   public ConnectionFailurePoemException(SQLException e) {
     super(e);
   }

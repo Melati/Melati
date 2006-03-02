@@ -49,6 +49,7 @@ package org.melati.poem.prepro;
  * Superclass of all illegal syntax exceptions.
  */ 
 class IllegalityException extends Exception {
+  private static final long serialVersionUID = 1L;
 
   IllegalityException() {
     super();

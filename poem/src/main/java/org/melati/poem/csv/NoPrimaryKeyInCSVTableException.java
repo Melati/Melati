@@ -56,16 +56,19 @@ package org.melati.poem.csv;
 
 /**
  * Thrown when no primary key is set.
- *
+ * 
  */
 public class NoPrimaryKeyInCSVTableException extends RuntimeException {
 
+  private static final long serialVersionUID = 1L;
   String tableName = null;
   String cvsValue = null;
 
   /**
-   * @param tableName name of table missing primary key
-   * @param cvsValue value of field
+   * @param tableName
+   *          name of table missing primary key
+   * @param cvsValue
+   *          value of field
    */
   public NoPrimaryKeyInCSVTableException(String tableName, String cvsValue) {
     this.tableName = tableName;
@@ -76,10 +79,8 @@ public class NoPrimaryKeyInCSVTableException extends RuntimeException {
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {
-    return "A foreign key points to the value " + cvsValue +
-           " in this table (" + tableName + ") but no record with that " +
-           "value was found";
+    return "A foreign key points to the value " + cvsValue + " in this table ("
+            + tableName + ") but no record with that " + "value was found";
   }
 
 }
-

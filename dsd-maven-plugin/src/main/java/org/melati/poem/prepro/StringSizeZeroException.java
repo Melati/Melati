@@ -50,6 +50,8 @@ package org.melati.poem.prepro;
  * <tt>SizeFieldQualifier</tt>. 
  */
 class StringSizeZeroException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   StringSizeZeroException(FieldDef field) {

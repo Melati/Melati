@@ -50,6 +50,8 @@ package org.melati.poem.prepro;
  * Table Row Object Id field.
  */
 class TroidTypeException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   TroidTypeException(FieldDef field) {

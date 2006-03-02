@@ -87,6 +87,7 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
   * to a field which is not a <code>ReferencePoemType</code>.
   */
   public static class ApplicationException extends IllegalityException {
+    private static final long serialVersionUID = 1L;
 
     FieldDef field;
 

@@ -51,6 +51,7 @@ import org.melati.util.MelatiException;
  * Something is wrong with this parameter.
  */
 public class FormParameterException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   String error;
   String param;

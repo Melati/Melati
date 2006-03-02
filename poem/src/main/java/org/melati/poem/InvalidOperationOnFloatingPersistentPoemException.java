@@ -54,6 +54,7 @@ package org.melati.poem;
   */
 public class InvalidOperationOnFloatingPersistentPoemException
     extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
 
   public Persistent floating;
 

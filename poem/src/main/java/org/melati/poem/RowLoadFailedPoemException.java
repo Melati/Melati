@@ -52,4 +52,5 @@ package org.melati.poem;
  * 
  */
 public class RowLoadFailedPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
 }

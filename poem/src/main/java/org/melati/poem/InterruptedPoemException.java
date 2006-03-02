@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class InterruptedPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public InterruptedPoemException(InterruptedException exception) {
     super(exception);
   }

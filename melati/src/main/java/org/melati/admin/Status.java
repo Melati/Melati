@@ -54,6 +54,7 @@ import org.melati.template.ServletTemplateContext;
  * Invoked with http://localhost/zone/org.melati.admin.Status/db
  */
 public class Status extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {

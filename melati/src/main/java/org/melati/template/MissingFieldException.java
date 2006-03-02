@@ -52,6 +52,7 @@ import org.melati.util.MelatiRuntimeException;
  * in a templet.
  */
 public class MissingFieldException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
   TempletAdaptor adaptor;
   String name;

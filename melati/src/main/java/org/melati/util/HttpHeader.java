@@ -563,6 +563,7 @@ public class HttpHeader {
    * instead.
    */
   public static class HttpHeaderException extends java.lang.Exception {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Create an instance with message.

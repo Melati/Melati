@@ -52,6 +52,7 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class InitialisationPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
 
   public Table table;
 

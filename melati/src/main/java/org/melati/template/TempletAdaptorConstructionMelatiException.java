@@ -52,6 +52,8 @@ import org.melati.util.MelatiRuntimeException;
  */
 public class TempletAdaptorConstructionMelatiException
     extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
+
   public String adaptorFieldName, adaptorName;
 
   public TempletAdaptorConstructionMelatiException(

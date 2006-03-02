@@ -55,6 +55,7 @@ import java.util.Properties;
  * 
  */
 public class InstantiationPropertyException extends PropertyException {
+  private static final long serialVersionUID = 1L;
 
   public InstantiationPropertyException(
       Properties properties, String propertyName, Exception problem) {

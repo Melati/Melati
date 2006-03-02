@@ -53,6 +53,8 @@ package org.melati.poem;
  * 
  */
 public class TypeDefinitionMismatchException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Column column;
   public PoemType newType;
   public DefinitionSource newTypeSource;

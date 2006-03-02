@@ -49,6 +49,7 @@ package org.melati.poem;
  * Thrown when a <code>commit</code> fails.
  */
 public class CommitFailedPoemException extends SQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
   public CommitFailedPoemException(java.sql.SQLException e) {
     super(e);
   }

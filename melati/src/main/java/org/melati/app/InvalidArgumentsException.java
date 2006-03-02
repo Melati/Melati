@@ -50,6 +50,7 @@ import org.melati.util.MelatiException;
  * Thrown when an application was called with unexpected arguments.
  */
 public class InvalidArgumentsException extends MelatiException {
+  private static final long serialVersionUID = 1L;
   
   String[] args = null;
 

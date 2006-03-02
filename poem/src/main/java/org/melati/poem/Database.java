@@ -128,6 +128,7 @@ public abstract class Database implements TransactionPool {
   * the underlying database is still in progress.
   */
   public class ConnectingException extends PoemException {
+    private static final long serialVersionUID = 1L;
     public String toString() {
       return "Connection to the database is currently in progress; " +
              "please try again in a moment";

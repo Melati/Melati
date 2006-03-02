@@ -55,6 +55,7 @@ import org.melati.util.MelatiException;
  * programmatically.
  */
 public class ConfigServletTestOverride extends ConfigServletTest {
+  private static final long serialVersionUID = 1L;
 
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();

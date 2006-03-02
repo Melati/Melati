@@ -126,6 +126,7 @@ import org.melati.util.MelatiRuntimeException;
  */
 
 public class Admin extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   /**
    * Creates a row for a table using field data in a template context.
@@ -792,6 +793,7 @@ public class Admin extends TemplateServlet {
   }
 
   static class NullUrlDataAdaptorException extends MelatiRuntimeException {
+    private static final long serialVersionUID = 1L;
     /** @return the message */
     public String getMessage() {
       return  "The configured FormDataAdaptor returns a null URL.";

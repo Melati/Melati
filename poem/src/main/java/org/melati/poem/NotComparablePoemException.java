@@ -52,6 +52,7 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NotComparablePoemException extends TypeMismatchPoemException {
+  private static final long serialVersionUID = 1L;
 
   public NotComparablePoemException(Object value, PoemType type) {
     super(value, type);

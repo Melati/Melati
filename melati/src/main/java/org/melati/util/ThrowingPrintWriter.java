@@ -59,6 +59,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
   * Thrown when a programmer attempts to use <code>super.out</code>.
   */
   public static class SuperUseException extends BugException {
+    private static final long serialVersionUID = 1L;
     public SuperUseException() {
       super("ThrowingPrintWriter tried to use super.out");
     }
@@ -75,6 +76,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
    * <code>ThowingPrintWriter</code>.
    */
   public class TroubleException extends MelatiRuntimeException {
+    private static final long serialVersionUID = 1L;
     public String getMessage() {
       return "An exception condition occurred writing to " +
              (description == null ? "a PrintWriter" : description);

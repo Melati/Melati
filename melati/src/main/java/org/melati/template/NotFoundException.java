@@ -50,7 +50,7 @@ package org.melati.template;
  * You asked for something that is not currently available.
  */
 public class NotFoundException extends TemplateEngineException {
-
+  private static final long serialVersionUID = 1L;
 
  /**
   * Construct this decorator.

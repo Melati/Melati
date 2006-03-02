@@ -50,6 +50,8 @@ package org.melati.util;
  * is possible but wrong.
  */
 public class BugException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
+
   public BugException(String message) {
     super(message, null);
   }

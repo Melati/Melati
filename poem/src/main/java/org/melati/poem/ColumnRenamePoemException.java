@@ -51,6 +51,7 @@ package org.melati.poem;
  * @todo Allow column renaming for those dbms which allow it.
  */
 public class ColumnRenamePoemException extends AccessPoemException {
+  private static final long serialVersionUID = 1L;
   public String columnName;
   public String newName;
 

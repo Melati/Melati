@@ -65,6 +65,7 @@ import org.melati.util.UnexpectedExceptionException;
  */
 
 class HttpAuthorizationMelatiException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
   public HttpAuthorizationMelatiException(String message) {
     super(message, null);
   }

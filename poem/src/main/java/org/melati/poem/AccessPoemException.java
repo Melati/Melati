@@ -52,6 +52,7 @@ package org.melati.poem;
  * to access a restricted object.
  */
 public class AccessPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
   public AccessToken token;
   public Capability capability;
   // This is required to report the exception outside of the session

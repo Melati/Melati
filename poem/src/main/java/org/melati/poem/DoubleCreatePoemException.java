@@ -53,6 +53,7 @@ package org.melati.poem;
   *
   */
 public class DoubleCreatePoemException extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
   public Persistent persistent;
 
   public DoubleCreatePoemException(Persistent persistent) {

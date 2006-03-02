@@ -51,6 +51,7 @@ import org.melati.util.MelatiRuntimeException;
  * Thrown when there is a problem with saving or reading an uploaded file.
  */
 public class FormDataAdaptorException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
 /**
  * Thrown when there is a problem with a {@link FormDataAdaptor}.

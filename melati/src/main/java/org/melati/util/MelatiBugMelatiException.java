@@ -52,6 +52,7 @@ package org.melati.util;
  * 
  */
 public class MelatiBugMelatiException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
   public String bug;
 

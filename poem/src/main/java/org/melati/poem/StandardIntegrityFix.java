@@ -156,6 +156,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   * by a typing mistake in the DSD for example.
   */
   public static class NameUnrecognisedException extends PoemException {
+    private static final long serialVersionUID = 1L;
+
     public String name;
 
     public NameUnrecognisedException(String name) {

@@ -52,6 +52,8 @@ import org.melati.util.MelatiRuntimeException;
  * have been filled in.
  */
 public class PartlyNullException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
+
   public String name;
 
   public PartlyNullException(String name) {

@@ -52,6 +52,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NullTypeMismatchPoemException extends TypeMismatchPoemException {
+  private static final long serialVersionUID = 1L;
+
   public NullTypeMismatchPoemException(PoemType type) {
     super(null, type);
   }

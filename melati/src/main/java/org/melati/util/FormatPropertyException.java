@@ -55,6 +55,7 @@ import java.util.Properties;
  * 
  */
 public class FormatPropertyException extends PropertyException {
+  private static final long serialVersionUID = 1L;
 
   public String value;
   public String expected;

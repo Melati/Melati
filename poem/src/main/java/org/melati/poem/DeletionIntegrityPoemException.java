@@ -56,6 +56,7 @@ import java.util.Enumeration;
   *
   */
 public class DeletionIntegrityPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
   public Persistent object;
   public Enumeration references;
 

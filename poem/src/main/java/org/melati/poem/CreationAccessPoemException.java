@@ -49,6 +49,7 @@ package org.melati.poem;
  * Thrown when unauthorised creation of a new object is attempted.
  */
 public class CreationAccessPoemException extends AccessPoemException {
+  private static final long serialVersionUID = 1L;
 
   public Table table;
 

@@ -52,6 +52,7 @@ package org.melati.util;
  * @see MelatiBugMelatiException
  */
 public class UnexpectedExceptionException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
   public String context;
 
   public UnexpectedExceptionException(String context, Exception exception) {

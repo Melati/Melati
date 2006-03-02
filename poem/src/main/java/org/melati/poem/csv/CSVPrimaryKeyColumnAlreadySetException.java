@@ -59,6 +59,7 @@ package org.melati.poem.csv;
  *
  */
 public class CSVPrimaryKeyColumnAlreadySetException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
 
   String tableName = null;
 

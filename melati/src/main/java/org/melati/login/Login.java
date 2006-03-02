@@ -55,6 +55,7 @@ import org.melati.template.ServletTemplateContext;
  */
 
 public class Login extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
   public static final String
      TRIGGERING_REQUEST_PARAMETERS = 
        "org.melati.login.Login.triggeringRequestParameters",

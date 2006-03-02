@@ -50,6 +50,8 @@ package org.melati.poem.prepro;
  * <tt>TroidFieldDef</tt>.
  */
 class NullTroidException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   NullTroidException(FieldDef field) {

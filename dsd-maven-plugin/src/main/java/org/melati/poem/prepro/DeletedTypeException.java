@@ -51,6 +51,8 @@ package org.melati.poem.prepro;
  *
  */
 class DeletedTypeException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   DeletedTypeException(FieldDef field) {

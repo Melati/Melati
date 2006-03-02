@@ -54,6 +54,7 @@ import org.melati.util.StringUtils;
 
 public class BinaryLengthValidationPoemException
     extends ValidationPoemException {
+  private static final long serialVersionUID = 1L;
   
   public BinaryLengthValidationPoemException(PoemType type, byte[] value) {
     super(type, value);

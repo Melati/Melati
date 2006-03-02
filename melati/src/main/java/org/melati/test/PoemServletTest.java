@@ -68,6 +68,7 @@ import org.melati.util.MelatiException;
  * without using a Template Engine.
  */
 public class PoemServletTest extends PoemServlet {
+  private static final long serialVersionUID = 1L;
 
   protected void doPoemRequest(Melati melati)
       throws ServletException, IOException {

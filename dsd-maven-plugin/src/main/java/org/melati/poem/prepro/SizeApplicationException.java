@@ -50,6 +50,8 @@ package org.melati.poem.prepro;
  * an inappropriate field.
  */
 public class SizeApplicationException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   FieldDef field;
 
   SizeApplicationException(FieldDef field) {

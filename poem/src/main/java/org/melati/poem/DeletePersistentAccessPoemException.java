@@ -46,14 +46,17 @@
 package org.melati.poem;
 
 /**
- * Thrown when an unauthorised <tt>delete</tt> of a {@link Persistent} 
- * is attempted.
+ * Thrown when an unauthorised <tt>delete</tt> of a {@link Persistent} is
+ * attempted.
  * 
  */
-public class DeletePersistentAccessPoemException
-    extends PersistentAccessPoemException {
-  public DeletePersistentAccessPoemException(
-      Persistent object, AccessToken token, Capability capability) {
+public class DeletePersistentAccessPoemException extends
+        PersistentAccessPoemException {
+  private static final long serialVersionUID = 1L;
+
+  public DeletePersistentAccessPoemException(Persistent object,
+                                             AccessToken token,
+                                             Capability capability) {
     super(object, token, capability);
   }
 

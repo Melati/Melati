@@ -54,6 +54,8 @@ import java.sql.SQLException;
   * @author WilliamC@paneris.org
   */
 public class PreparedSQLSeriousPoemException extends SQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public PreparedStatement statement;
   public PreparedSQLSeriousPoemException(PreparedStatement statement,
                                          SQLException e) {

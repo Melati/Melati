@@ -59,6 +59,7 @@ package org.melati.poem.csv;
  *
  */
 public class CSVParseException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
 
   /**
    * @param s the error message.

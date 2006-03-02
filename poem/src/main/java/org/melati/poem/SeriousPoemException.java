@@ -54,6 +54,7 @@ import org.melati.util.MelatiRuntimeException;
   * @author WilliamC@paneris.org
   */
 public class SeriousPoemException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
   /**
    * This should probably be deprecated as from Java 1.4.

@@ -62,6 +62,7 @@ import org.melati.Melati;
  * Test display of various characters without using a Template Engine.
  */
 public class CharsetServletTest extends ConfigServlet {
+  private static final long serialVersionUID = 1L;
 
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {

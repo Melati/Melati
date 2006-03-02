@@ -53,6 +53,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NonRootSetAccessTokenPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
+
   public AccessToken token;
 
   public NonRootSetAccessTokenPoemException(AccessToken token) {

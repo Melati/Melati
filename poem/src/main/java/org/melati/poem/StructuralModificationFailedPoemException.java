@@ -56,6 +56,7 @@ import java.sql.SQLException;
  */
 public class StructuralModificationFailedPoemException
     extends ExecutingSQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
 
   public StructuralModificationFailedPoemException(String sql,
                                                    SQLException e) {

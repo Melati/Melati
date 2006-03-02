@@ -45,12 +45,13 @@
 
 package org.melati.poem;
 
- /**
-  * Thrown when a {@link Field} fails its content validation.
-  *
-  * @author WilliamC@paneris.org
-  */
+/**
+ * Thrown when a {@link Field} fails its content validation.
+ * 
+ * @author WilliamC@paneris.org
+ */
 public class FieldContentsPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
 
   public Column column;
 
@@ -60,8 +61,7 @@ public class FieldContentsPoemException extends PoemException {
   }
 
   public String getMessage() {
-    return
-        "The field " + column + " had an illegal value\n" +
-        subException.getMessage();
+    return "The field " + column + " had an illegal value\n"
+            + subException.getMessage();
   }
 }

@@ -47,17 +47,17 @@ package org.melati.util;
 
 /**
  * Thrown when any <code>Transaction</code> related problem occurs.
- *
+ * 
  * @deprecated Unused in Melati.
  * @author WilliamC@paneris.org
  * @todo Delete me
  * 
  */
 public class TransactionException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
   public TransactionException(String message) {
-    super(message,null);
+    super(message, null);
   }
-
 
 }

@@ -54,6 +54,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class DuplicateTroidPoemException extends DBConsistencyPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Table table;
   public Integer troid;
 

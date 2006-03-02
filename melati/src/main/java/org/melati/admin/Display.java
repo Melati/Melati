@@ -59,6 +59,7 @@ import org.melati.Melati;
  * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=t
  */
 public class Display extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {

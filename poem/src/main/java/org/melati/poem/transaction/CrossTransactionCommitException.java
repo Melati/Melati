@@ -53,6 +53,7 @@ package org.melati.util;
  * 
  */
 public class CrossTransactionCommitException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
 
   public Transactioned object;
 

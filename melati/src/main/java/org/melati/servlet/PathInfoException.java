@@ -51,6 +51,8 @@ import org.melati.util.MelatiException;
  * Servlet was called with unexpected PathInfo.
  */
 public class PathInfoException extends MelatiException {
+  private static final long serialVersionUID = 1L;
+
   String pathInfo;
 
   /**

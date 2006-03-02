@@ -49,6 +49,8 @@ package org.melati.poem.prepro;
  * @author TimP@paneris.org
  */
 class NonAbstractEmptyTableException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   String name;
 
   NonAbstractEmptyTableException(String name) {

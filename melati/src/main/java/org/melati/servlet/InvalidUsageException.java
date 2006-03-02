@@ -54,6 +54,7 @@ import org.melati.PoemContext;
  * Servlet was called with missing or invalid parameters.
  */
 public class InvalidUsageException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   HttpServlet servlet;
   PoemContext context;

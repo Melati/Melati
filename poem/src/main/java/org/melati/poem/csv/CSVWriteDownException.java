@@ -51,6 +51,7 @@ package org.melati.poem.csv;
  *
  */
 public class CSVWriteDownException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
 
   String tableName = null;
   int lineNo;

@@ -71,7 +71,7 @@ import org.webmacro.Template;
  * $Revision$
  */
 public class WebmacroMelatiServletTest extends WebmacroMelatiServlet {
-
+  private static final long serialVersionUID = 1L;
 
   public String handle(Melati melati, WebContext context) 
       throws Exception {

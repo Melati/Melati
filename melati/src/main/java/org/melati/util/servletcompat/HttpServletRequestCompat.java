@@ -56,39 +56,32 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import org.melati.util.UnexpectedExceptionException;
 
-
 /**
- * The <code>HttpServletRequestCompat</code> class enables 
- * Melati to compile, without warnings, with the Servlet API 
- * versions 2.0, 2.1, 2.2 and 2.3.
- * However, if you use a method which is not in your version 
- * of the API then you will get a runtime exception.
- *
- * @see   org.melati.util.DelegatedHttpServletRequest
+ * The <code>HttpServletRequestCompat</code> class enables Melati to compile,
+ * without warnings, with the Servlet API versions 2.0, 2.1, 2.2 and 2.3.
+ * However, if you use a method which is not in your version of the API then you
+ * will get a runtime exception.
+ * 
+ * @see org.melati.util.DelegatedHttpServletRequest
  */
 
-
 public final class HttpServletRequestCompat {
+  private static final long serialVersionUID = 1L;
 
-  private HttpServletRequestCompat() {}
+  private HttpServletRequestCompat() {
+  }
 
   // Deprecated in Servlet 2.2
-  private static Method
-      isRequestedSessionIdFromUrl, getRealPath;
+  private static Method isRequestedSessionIdFromUrl, getRealPath;
 
   // New in Servlet 2.2
-  private static Method
-      getUserPrincipal, getContextPath, getHeaders, getSession,
-      isRequestedSessionIdFromURL, isUserInRole, getAttributeNames, getLocale,
-      getLocales, getRequestDispatcher, isSecure, removeAttribute,
-      setAttribute;
+  private static Method getUserPrincipal, getContextPath, getHeaders,
+          getSession, isRequestedSessionIdFromURL, isUserInRole,
+          getAttributeNames, getLocale, getLocales, getRequestDispatcher,
+          isSecure, removeAttribute, setAttribute;
 
   // New in Servlet 2.3
-  private static Method
-      getRequestURL,
-      setCharacterEncoding,
-      getParameterMap;
-
+  private static Method getRequestURL, setCharacterEncoding, getParameterMap;
 
   private static Method methodOrNull(Class c, String n, String[] pn) {
     try {
@@ -96,11 +89,9 @@ public final class HttpServletRequestCompat {
       for (int i = 0; i < pn.length; ++i)
         p[i] = Class.forName(pn[i]);
       return c.getMethod(n, p);
-    }
-    catch (NoSuchMethodException e) {
+    } catch (NoSuchMethodException e) {
       return null;
-    }
-    catch (ClassNotFoundException e) {
+    } catch (ClassNotFoundException e) {
       return null;
     }
   }
@@ -112,78 +103,89 @@ public final class HttpServletRequestCompat {
       Class hsr = Class.forName("javax.servlet.http.HttpServletRequest");
       getUserPrincipal = methodOrNull(hsr, "getUserPrincipal", noparams);
       getContextPath = methodOrNull(hsr, "getContextPath", noparams);
-      getHeaders = methodOrNull(hsr, "getHeaders", 
-                                new String[] { "java.lang.String" });
+      getHeaders = methodOrNull(hsr, "getHeaders",
+              new String[] { "java.lang.String" });
       getSession = methodOrNull(hsr, "getSession", noparams);
-      isRequestedSessionIdFromURL = methodOrNull(hsr, 
-                                   "isRequestedSessionIdFromURL", noparams);
-      isUserInRole = methodOrNull(hsr, "isUserInRole", 
-                                  new String[] { "java.lang.String" });
+      isRequestedSessionIdFromURL = methodOrNull(hsr,
+              "isRequestedSessionIdFromURL", noparams);
+      isUserInRole = methodOrNull(hsr, "isUserInRole",
+              new String[] { "java.lang.String" });
       getAttributeNames = methodOrNull(hsr, "getAttributeNames", noparams);
       getLocale = methodOrNull(hsr, "getLocale", noparams);
       getLocales = methodOrNull(hsr, "getLocales", noparams);
       getRequestDispatcher = methodOrNull(hsr, "getRequestDispatcher",
-                                        new String[] { "java.lang.String" });
+              new String[] { "java.lang.String" });
       isSecure = methodOrNull(hsr, "isSecure", noparams);
       removeAttribute = methodOrNull(hsr, "removeAttribute",
-                                     new String[] { "java.lang.String" });
-      setAttribute = methodOrNull(hsr, "setAttribute",
-                    new String[] { "java.lang.String", "java.lang.Object" });
-    }
-    catch (Exception e) {
+              new String[] { "java.lang.String" });
+      setAttribute = methodOrNull(hsr, "setAttribute", new String[] {
+          "java.lang.String", "java.lang.Object" });
+    } catch (Exception e) {
       e.printStackTrace();
-      throw new Error(
-          "org.melati.util.servletcompat.HttpServletRequestCompat" +
-          "failed to initialize; contact the Melati developers");
+      throw new Error("org.melati.util.servletcompat.HttpServletRequestCompat"
+              + "failed to initialize; contact the Melati developers");
     }
   }
 
   public static String getAuthType(HttpServletRequest it) {
     return it.getAuthType();
   }
+
   public static Cookie[] getCookies(HttpServletRequest it) {
     return it.getCookies();
   }
+
   public static long getDateHeader(HttpServletRequest it, String a) {
     return it.getDateHeader(a);
   }
+
   public static String getHeader(HttpServletRequest it, String a) {
     return it.getHeader(a);
   }
+
   public static Enumeration getHeaderNames(HttpServletRequest it) {
     return it.getHeaderNames();
   }
+
   public static int getIntHeader(HttpServletRequest it, String a) {
     return it.getIntHeader(a);
   }
+
   public static String getMethod(HttpServletRequest it) {
     return it.getMethod();
   }
+
   public static String getPathInfo(HttpServletRequest it) {
     return it.getPathInfo();
   }
+
   public static String getPathTranslated(HttpServletRequest it) {
     return it.getPathTranslated();
   }
+
   public static String getQueryString(HttpServletRequest it) {
     return it.getQueryString();
   }
+
   public static String getRemoteUser(HttpServletRequest it) {
     return it.getRemoteUser();
   }
+
   public static String getRequestURI(HttpServletRequest it) {
     return it.getRequestURI();
   }
+
   public static String getRequestedSessionId(HttpServletRequest it) {
     return it.getRequestedSessionId();
   }
+
   public static String getServletPath(HttpServletRequest it) {
     return it.getServletPath();
   }
+
   public static HttpSession getSession(HttpServletRequest it, boolean a) {
     return it.getSession(a);
   }
-
 
   public static boolean isRequestedSessionIdValid(HttpServletRequest it) {
     return it.isRequestedSessionIdValid();
@@ -199,7 +201,7 @@ public final class HttpServletRequestCompat {
 
   // 
   // ============================
-  //  Servlet API 2.2 extensions
+  // Servlet API 2.2 extensions
   // ============================
   // 
 
@@ -207,43 +209,42 @@ public final class HttpServletRequestCompat {
    * Thrown when a method that is not available is invoked.
    */
   public static class MissingMethodError extends NoSuchMethodError {
+    private static final long serialVersionUID = 1L;
+
     public String getMessage() {
-      return "The application tried to use a method from the " +
-             "Servlet API 2.2, but was running against the 2.0 " +
-             "API.";
+      return "The application tried to use a method from the "
+              + "Servlet API 2.2, but was running against the 2.0 " + "API.";
     }
   }
 
   private static Object invoke(Method method, HttpServletRequest it,
-                               Object[] args) {
+          Object[] args) {
     if (method == null)
       throw new MissingMethodError();
     else {
       try {
         return method.invoke(it, args);
-      }
-      catch (InvocationTargetException e) {
+      } catch (InvocationTargetException e) {
         Throwable f = e.getTargetException();
         if (f instanceof RuntimeException) // they all should be
-          throw (RuntimeException)f;
+          throw (RuntimeException) f;
         else if (f instanceof Exception)
           throw new UnexpectedExceptionException(
-              "while invoking a Servlet API method", (Exception)f);
+                                                 "while invoking a Servlet API method",
+                                                 (Exception) f);
         else if (f instanceof Error)
-          throw (Error)f;
+          throw (Error) f;
         else {
           f.printStackTrace();
-          throw new Error(
-               "totally unexpected kind of throwable in " +
-               "org.melati.util.servletcompat.HttpServletRequestCompat");
+          throw new Error("totally unexpected kind of throwable in "
+                  + "org.melati.util.servletcompat.HttpServletRequestCompat");
         }
-      }
-      catch (IllegalAccessException e) {
+      } catch (IllegalAccessException e) {
         e.printStackTrace();
         throw new Error(
-            "org.melati.util.servletcompat.HttpServletRequestCompat" +
-            "got an unexpected IllegalAccessException trying to " +
-            "invoke a method; contact the Melati developers");
+                        "org.melati.util.servletcompat.HttpServletRequestCompat"
+                                + "got an unexpected IllegalAccessException trying to "
+                                + "invoke a method; contact the Melati developers");
       }
     }
   }
@@ -255,17 +256,18 @@ public final class HttpServletRequestCompat {
    */
 
   public static String getContextPath(HttpServletRequest it) {
-    if (getContextPath == null) return "";
-    else return (String)invoke(getContextPath, it, noargs);
+    if (getContextPath == null)
+      return "";
+    else
+      return (String) invoke(getContextPath, it, noargs);
     // return it.getContextPath();
   }
 
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
-  public static java.security.Principal getUserPrincipal(
-                                                       HttpServletRequest it) {
-    return (java.security.Principal)invoke(getUserPrincipal, it, noargs);
+  public static java.security.Principal getUserPrincipal(HttpServletRequest it) {
+    return (java.security.Principal) invoke(getUserPrincipal, it, noargs);
     // return it.getUserPrincipal();
   }
 
@@ -274,7 +276,7 @@ public final class HttpServletRequestCompat {
    */
 
   public static Enumeration getHeaders(HttpServletRequest it, String arg) {
-    return (Enumeration)invoke(getHeaders, it, new Object[] { arg });
+    return (Enumeration) invoke(getHeaders, it, new Object[] { arg });
     // return it.getHeaders(arg);
   }
 
@@ -283,7 +285,7 @@ public final class HttpServletRequestCompat {
    */
 
   public static HttpSession getSession(HttpServletRequest it) {
-    return (HttpSession)invoke(getSession, it, noargs);
+    return (HttpSession) invoke(getSession, it, noargs);
     // return it.getSession();
   }
 
@@ -292,8 +294,8 @@ public final class HttpServletRequestCompat {
    */
 
   public static boolean isRequestedSessionIdFromURL(HttpServletRequest it) {
-    return ((Boolean)invoke(isRequestedSessionIdFromURL, it, noargs)).
-        booleanValue();
+    return ((Boolean) invoke(isRequestedSessionIdFromURL, it, noargs))
+            .booleanValue();
     // return it.isRequestedSessionIdFromURL();
   }
 
@@ -302,8 +304,8 @@ public final class HttpServletRequestCompat {
    */
 
   public static boolean isUserInRole(HttpServletRequest it, String arg) {
-    return ((Boolean)invoke(isUserInRole, it, new Object[] { arg })).
-        booleanValue();
+    return ((Boolean) invoke(isUserInRole, it, new Object[] { arg }))
+            .booleanValue();
     // return it.isUserInRole(arg);
   }
 
@@ -312,7 +314,7 @@ public final class HttpServletRequestCompat {
    */
 
   public static Enumeration getAttributeNames(HttpServletRequest it) {
-    return (Enumeration)invoke(getAttributeNames, it, noargs);
+    return (Enumeration) invoke(getAttributeNames, it, noargs);
     // return it.getAttributeNames();
   }
 
@@ -320,8 +322,8 @@ public final class HttpServletRequestCompat {
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
 
-  public static Locale getLocale(HttpServletRequest it)  {
-    return (Locale)invoke(getLocale, it, noargs);
+  public static Locale getLocale(HttpServletRequest it) {
+    return (Locale) invoke(getLocale, it, noargs);
     // return it.getLocale();
   }
 
@@ -330,23 +332,23 @@ public final class HttpServletRequestCompat {
    */
 
   public static Enumeration getLocales(HttpServletRequest it) {
-    return (Enumeration)invoke(getLocales, it, noargs);
+    return (Enumeration) invoke(getLocales, it, noargs);
     // return it.getLocales();
   }
 
   /**
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
-   *
+   * 
    * If you get compile errors for this method, it's probably because (a) you
-   * are compiling against the 2.0 servlet API and (b) you have not obtained
-   * our stub <TT>RequestDispatcher.java</TT> along with the Melati
-   * distribution, which is provided to help you out here.
+   * are compiling against the 2.0 servlet API and (b) you have not obtained our
+   * stub <TT>RequestDispatcher.java</TT> along with the Melati distribution,
+   * which is provided to help you out here.
    */
 
-  public static RequestDispatcher getRequestDispatcher(
-                          HttpServletRequest it, String arg) {
-    return (RequestDispatcher)invoke(getRequestDispatcher, it, 
-                                     new Object[] { arg });
+  public static RequestDispatcher getRequestDispatcher(HttpServletRequest it,
+          String arg) {
+    return (RequestDispatcher) invoke(getRequestDispatcher, it,
+            new Object[] { arg });
     // return it.getRequestDispatcher(arg);
   }
 
@@ -355,7 +357,7 @@ public final class HttpServletRequestCompat {
    */
 
   public static boolean isSecure(HttpServletRequest it) {
-    return ((Boolean)invoke(isSecure, it, noargs)).booleanValue();
+    return ((Boolean) invoke(isSecure, it, noargs)).booleanValue();
     // return it.isSecure();
   }
 
@@ -372,15 +374,15 @@ public final class HttpServletRequestCompat {
    * Throws <TT>MissingMethodError</TT> when run against 2.0 API.
    */
 
-  public static void setAttribute(HttpServletRequest it, String arg1, 
-                                  Object arg2) {
+  public static void setAttribute(HttpServletRequest it, String arg1,
+          Object arg2) {
     invoke(setAttribute, it, new Object[] { arg1, arg2 });
     // it.setAttribute(arg1, arg2);
   }
 
   // 
   // ============================
-  //  Servlet API 2.3 extensions
+  // Servlet API 2.3 extensions
   // ============================
   // 
 
@@ -389,7 +391,7 @@ public final class HttpServletRequestCompat {
    */
 
   public static StringBuffer getRequestURL(HttpServletRequest it) {
-    return (StringBuffer)invoke(getRequestURL, it, noargs);
+    return (StringBuffer) invoke(getRequestURL, it, noargs);
     // it.getRequestURL();
   }
 
@@ -407,8 +409,8 @@ public final class HttpServletRequestCompat {
    */
 
   public static Map getParameterMap(HttpServletRequest it) {
-    return (Map)invoke(getParameterMap, it, noargs);
-    //return  it.getParameterMap();
+    return (Map) invoke(getParameterMap, it, noargs);
+    // return it.getParameterMap();
   }
 
   /**
@@ -416,41 +418,19 @@ public final class HttpServletRequestCompat {
    */
 
   public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
-    return ((Boolean)invoke(isRequestedSessionIdFromUrl, 
-                            it, noargs)).booleanValue();
-    //return it.isRequestedSessionIdFromUrl();
+    return ((Boolean) invoke(isRequestedSessionIdFromUrl, it, noargs))
+            .booleanValue();
+    // return it.isRequestedSessionIdFromUrl();
   }
 
   /**
-   * Deprecated in Servlet API 2.1
-   * Throws <TT>MissingMethodError</TT> when run against 2.3 API.
+   * Deprecated in Servlet API 2.1 Throws <TT>MissingMethodError</TT> when run
+   * against 2.3 API.
    */
 
   public static String getRealPath(HttpServletRequest it, String arg) {
-    return (String)invoke(getRealPath, it, new Object[] { arg });
-    //return it.getRealPath(rg);
+    return (String) invoke(getRealPath, it, new Object[] { arg });
+    // return it.getRealPath(rg);
   }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

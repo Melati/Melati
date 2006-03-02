@@ -52,6 +52,7 @@ package org.melati.util;
  * 
  */
 public class DatabaseInitException extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   public String databaseDefsName;
   public String name;

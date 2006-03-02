@@ -45,13 +45,14 @@
 
 package org.melati.poem;
 
- /**
-  * Thrown when there is a mismatch over the uniqueness of an index in 
-  * the Poem metadata and the jdbc metadata.
-  *
-  * @author WilliamC@paneris.org
-  */
+/**
+ * Thrown when there is a mismatch over the uniqueness of an index in the Poem
+ * metadata and the jdbc metadata.
+ * 
+ * @author WilliamC@paneris.org
+ */
 public class IndexUniquenessPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
 
   public Column column;
   public String indexName;
@@ -65,10 +66,8 @@ public class IndexUniquenessPoemException extends SeriousPoemException {
   }
 
   public String getMessage() {
-    return
-        "The column " + column + " is " +
-        (meantToBeUnique ? "" : "not ") + "meant to be unique, " +
-        "but its index `" + indexName + "' is " +
-        (meantToBeUnique ? " not " : "") + "a unique index";
+    return "The column " + column + " is " + (meantToBeUnique ? "" : "not ")
+            + "meant to be unique, " + "but its index `" + indexName + "' is "
+            + (meantToBeUnique ? " not " : "") + "a unique index";
   }
 }

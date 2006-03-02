@@ -52,6 +52,8 @@ package org.melati.poem;
   */
 public class SimpleRetrievalFailedPoemException
     extends SQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public SimpleRetrievalFailedPoemException(java.sql.SQLException e) {
     super(e);
   }

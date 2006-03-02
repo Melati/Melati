@@ -54,7 +54,9 @@ import java.io.IOException;
  * 
  */
 public class EmailException extends IOException {
-    public EmailException() {
+  private static final long serialVersionUID = 1L;
+
+  public EmailException() {
        super();
     }
 

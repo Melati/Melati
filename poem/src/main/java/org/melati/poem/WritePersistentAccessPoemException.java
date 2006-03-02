@@ -52,6 +52,8 @@ package org.melati.poem;
  */
 public class WritePersistentAccessPoemException
     extends PersistentAccessPoemException {
+  private static final long serialVersionUID = 1L;
+
   public WritePersistentAccessPoemException(
       Persistent object, AccessToken token, Capability capability) {
     super(object, token, capability);

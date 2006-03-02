@@ -1743,6 +1743,8 @@ public class Table implements Selectable {
   * Thrown when an unauthorised attempt to create an object is made.
   */
   public static class AccessibleCreationException extends AccessPoemException {
+    private static final long serialVersionUID = 1L;
+
     public AccessibleCreationException(AccessPoemException e) {
       super(e);
     }

@@ -54,6 +54,7 @@ import java.sql.SQLException;
   * @author WilliamC@paneris.org
   */
 public class SQLSeriousPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
 
   /**
    * The SQL string that was being executed when the error occurred.

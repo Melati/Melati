@@ -57,6 +57,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ReconstructedHttpServletRequestMismatchException
     extends MelatiException {
+  private static final long serialVersionUID = 1L;
 
   public HttpServletRequestParameters stored;
   public HttpServletRequest newRequest;

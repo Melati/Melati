@@ -52,6 +52,7 @@ import java.sql.SQLException;
  */
 public class DatabaseMetaDataFailurePoemException
     extends SQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
 
   public DatabaseMetaDataFailurePoemException(SQLException e) {
     super(e);

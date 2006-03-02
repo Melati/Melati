@@ -56,6 +56,8 @@ import org.melati.util.MelatiException;
  * @todo Delete me.
  */
 public class UnsupportedTypeException extends MelatiException {
+  private static final long serialVersionUID = 1L;
+
   public MarkupLanguage markupLanguage;
   public PoemType type;
 

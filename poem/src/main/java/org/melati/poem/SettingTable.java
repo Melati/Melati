@@ -130,6 +130,8 @@ public class SettingTable extends SettingTableBase {
   * Thrown when a {@link Setting} requested has not been set. 
   */
   public static class UnsetException extends PoemException {
+    private static final long serialVersionUID = 1L;
+
     public String name;
 
     public UnsetException(String name) {

@@ -49,4 +49,5 @@ package org.melati.poem;
  * @deprecated Not used in Melati
  */
 public class CannotBeInTransactionPoemException extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
 }

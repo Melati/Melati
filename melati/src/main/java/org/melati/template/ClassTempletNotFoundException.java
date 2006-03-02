@@ -51,6 +51,8 @@ import org.melati.util.MelatiRuntimeException;
  * Thrown when a templet cannot be found for a class.
  */
 public class ClassTempletNotFoundException extends MelatiRuntimeException {
+  private static final long serialVersionUID = 1L;
+
   public TempletLoader loader;
   public Class clazz;
 

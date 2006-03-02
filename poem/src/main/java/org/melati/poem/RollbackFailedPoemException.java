@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class RollbackFailedPoemException extends SQLSeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public RollbackFailedPoemException(java.sql.SQLException e) {
     super(e);
   }

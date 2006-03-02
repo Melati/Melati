@@ -53,6 +53,8 @@ package org.melati.poem;
  * 
  */
 public class ReadFieldAccessPoemException extends FieldAccessPoemException {
+  private static final long serialVersionUID = 1L;
+
   public ReadFieldAccessPoemException(
       Persistent object, Column column,
       AccessToken token, Capability capability) {

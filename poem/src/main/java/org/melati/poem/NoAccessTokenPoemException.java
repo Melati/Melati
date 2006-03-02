@@ -52,4 +52,5 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NoAccessTokenPoemException extends AppBugPoemException {
+  private static final long serialVersionUID = 1L;
 }

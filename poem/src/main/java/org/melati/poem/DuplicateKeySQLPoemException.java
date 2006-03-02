@@ -55,6 +55,7 @@ import java.sql.SQLException;
   * @todo Move to dbms
   */
 public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
+  private static final long serialVersionUID = 1L;
 
   public String table;
   public String column;

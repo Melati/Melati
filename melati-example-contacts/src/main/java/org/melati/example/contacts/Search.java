@@ -14,6 +14,7 @@ import org.melati.MelatiUtil;
   *
   **/
 public class Search extends ContactsServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
      throws Exception {

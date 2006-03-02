@@ -54,6 +54,8 @@ package org.melati.poem;
  * 
  */
 public class TableMismatchPoemException extends PoemException {
+  private static final long serialVersionUID = 1L;
+
   public Persistent value;
   public Table table;
 

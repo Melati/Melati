@@ -49,6 +49,7 @@ package org.melati.poem.prepro;
  * Thrown when an imported DSD cannot be read.
  */
 class ResourceNotFoundException extends Exception {
+  private static final long serialVersionUID = 1L;
 
   String resource, message;
 

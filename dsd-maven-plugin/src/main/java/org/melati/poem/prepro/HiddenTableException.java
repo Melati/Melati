@@ -53,6 +53,8 @@ package org.melati.poem.prepro;
  * <tt>extends</tt> keyword before it is defined (FIXME?).
  */
 class HiddenTableException extends IllegalityException {
+  private static final long serialVersionUID = 1L;
+
   String name;
   String table;
 

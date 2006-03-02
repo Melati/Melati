@@ -62,6 +62,7 @@ import org.melati.util.MelatiBugMelatiException;
  * $Revision$
  */
 public class TemplateServletTest extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati,
                                      ServletTemplateContext templateContext) 

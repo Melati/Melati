@@ -46,15 +46,17 @@
 package org.melati.poem;
 
 /**
- * Thrown when an unauthorised <tt>read</tt> of a <code>password</code> 
+ * Thrown when an unauthorised <tt>read</tt> of a <code>password</code>
  * {@link Field} of a protected {@link Persistent} is attempted.
  * 
  */
-public class ReadPasswordAccessPoemException
-    extends ReadFieldAccessPoemException {
-  public ReadPasswordAccessPoemException(
-      Persistent object, Column column,
-      AccessToken token, Capability capability) {
+public class ReadPasswordAccessPoemException extends
+        ReadFieldAccessPoemException {
+  private static final long serialVersionUID = 1L;
+
+  public ReadPasswordAccessPoemException(Persistent object, Column column,
+                                         AccessToken token,
+                                         Capability capability) {
     super(object, column, token, capability);
   }
 }

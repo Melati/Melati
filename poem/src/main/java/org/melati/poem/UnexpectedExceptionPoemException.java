@@ -52,6 +52,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class UnexpectedExceptionPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public String info;
 
   public UnexpectedExceptionPoemException(Exception exception, String info) {

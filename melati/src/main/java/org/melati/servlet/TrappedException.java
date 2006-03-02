@@ -50,6 +50,7 @@ package org.melati.servlet;
  * TrappedException.
  */
 public class TrappedException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
 
   /**
    * Constructor.

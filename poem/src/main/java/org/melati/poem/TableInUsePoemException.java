@@ -53,6 +53,8 @@ package org.melati.poem;
  * 
  */
 public class TableInUsePoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Database database;
   public Table table;
 

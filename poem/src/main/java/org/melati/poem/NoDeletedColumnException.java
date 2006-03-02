@@ -51,6 +51,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class NoDeletedColumnException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
+
   public Table table;
 
   public NoDeletedColumnException(Table table) {

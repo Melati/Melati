@@ -52,6 +52,8 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public class ParsingPoemException extends NormalPoemException {
+  private static final long serialVersionUID = 1L;
+
   public PoemType type;
   public String string;
 

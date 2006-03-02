@@ -49,6 +49,7 @@ package org.melati.poem;
  * A bug has been trapped!
  */
 public class AppBugPoemException extends SeriousPoemException {
+  private static final long serialVersionUID = 1L;
 
   public AppBugPoemException(String message, Exception subException) {
     super(message, subException);

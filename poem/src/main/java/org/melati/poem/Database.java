@@ -583,9 +583,9 @@ public abstract class Database implements TransactionPool {
       throw new InterruptedPoemException(e);
     }
 
+    final PoemTransaction transaction =
+        committedTransaction ? null : openTransaction();
     try {
-      final PoemTransaction transaction =
-          committedTransaction ? null : openTransaction();
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                try {
@@ -613,7 +613,13 @@ public abstract class Database implements TransactionPool {
                            transaction);
     }
     finally {
-      lock.readUnlock();
+      try {
+        if (transaction != null) {
+          transaction.close(false);
+        }
+      } finally {
+         lock.readUnlock();
+      }
     }
   }
 

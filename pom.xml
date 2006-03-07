@@ -1,0 +1,522 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <!--pomVersion>3</pomVersion-->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.melati</groupId>
+  <artifactId>melati</artifactId>
+  <packaging>jar</packaging>
+  <name>Melati</name>
+  <version>0.7.4-SNAPSHOT</version>
+  <description>
+Melati Java Web Development Suite
+  </description>
+  <url>http://www.melati.org/</url>
+
+    <issueManagement>
+     <system>SF List</system>
+     <url>       
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+     </url>
+  </issueManagement>
+
+  <inceptionYear>2000</inceptionYear>
+
+  <organization>
+    <name>PanEris</name>
+    <url>http://www.paneris.org/</url>
+  </organization>
+
+
+<distributionManagement>
+  <site>
+    <id>website</id>
+    <url>scp://localhost/www/docs/melati/</url>
+  </site>
+</distributionManagement>  
+
+<!--distributionDirectory>
+    /dist/melati/target/distributions/
+  </distributionDirectory-->
+
+  <!--repository>
+    <connection>
+      scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
+    </connection>
+    <developerConnection>
+scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
+    </developerConnection>
+
+    <url>
+      http://melati.org/cgi-bin/cvsweb.cgi/melati/
+    </url>
+  </repository-->
+
+  <mailingLists>
+    <mailingList>
+      <name>Melati Announce</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-announce
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Developers</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-developers
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Users</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-users
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati CVS</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>PanEris Melati board (Closed)</name>
+      <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=214
+      </subscribe>
+      <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=214
+      </unsubscribe>
+      <archive>http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;amp;messageboard=214
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>PanEris Melati Project board (Closed)</name>
+      <subscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=true&amp;amp;board=231</subscribe>
+      <unsubscribe>http://www.paneris.org/webmacro/org.paneris.messageboard.controller.Subscribe?db=paneris&amp;amp;subscribe=false&amp;amp;board=231
+      </unsubscribe>
+      <archive>http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;amp;messageboard=231
+      </archive>
+    </mailingList>
+
+  </mailingLists>
+
+  <developers>
+
+    <developer>
+      <name>William Chesters</name>
+      <id>williamc</id>
+      <email>williamc@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Original author</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~williamc</url>
+    </developer>
+    <developer>
+      <name>Tim Pizey</name>
+      <id>timp</id>
+      <email>timp@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Maintainer</role>
+        <role>Maven maven</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~timp</url>
+    </developer>
+    <developer>
+      <name>Tim Joyce</name>
+      <id>timj</id>
+      <email>timj@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~timj</url>
+    </developer>
+    <developer>
+      <name>Myles Chippendale</name>
+      <id>mylesc</id>
+      <email>mylesc@paneris.org</email>
+      <organization>MJC Solutions</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~mylesc</url>
+    </developer>
+    <developer>
+      <name>Colin Rainsforth</name>
+      <id>colinr</id>
+      <email>colinr@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Graphics Designer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~colinr</url>
+    </developer>
+    <developer>
+      <name>Jim Wright</name>
+      <id>jimw</id>
+      <email>jimw@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+3</timezone>
+      <url>http://paneris.org/~jimw</url>
+    </developer>
+    <developer>
+      <name>Chris Kimpton</name>
+      <id>kimptoc</id>
+      <email>chris@kimptoc.net</email>
+      <organization>Kimptoc</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <!-- url>http://paneris.org/~chrisk</url -->
+    </developer>
+    <developer>
+      <name>David Warnock</name>
+      <id>davew</id>
+      <email>david@sundayta.com</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <!-- url>http://paneris.org/~davidw</url -->
+    </developer>
+    <developer>
+      <name>Karl Zilles</name>
+      <id>karlz</id>
+      <email>karlz@paneris.org</email>
+      <organization>1969 Communications Inc</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+      <!-- url>http://paneris.org/~karlz</url -->
+    </developer>
+    <developer>
+      <name>Samuel Goldstein</name>
+      <id>samuelg</id>
+      <email>samuelg@paneris.org</email>
+      <organization>1969 Communications Inc</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+      <!-- url>http://paneris.org/~samuelg</url -->
+    </developer>
+    <developer>
+      <name>Vasily Pozhidaev</name>
+      <id>vasilyp</id>
+      <email>vasilyp@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+11</timezone>
+      <url>http://paneris.org/~vasilyp</url>
+    </developer>
+    <developer>
+      <name>Peter Kehl</name>
+      <id>peterk</id>
+      <email>peterk@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+      <url>http://paneris.org/~peterk</url>
+    </developer>
+    <developer>
+      <name>Lane Sharman</name>
+      <id>lanes</id>
+      <email>lanes@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-7</timezone>
+      <url>http://www.opendoors.com/</url>
+    </developer>
+  </developers>
+
+  <licenses>
+   <license>
+    <name>Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/gpl.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Lesser Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/lesser.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>
+     http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
+    </url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Melati Software License</name>
+     <url>http://www.melati.org/Licence.html</url>
+     <distribution>repo</distribution>
+   </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>webmacro</groupId>
+      <artifactId>webmacro-classic</artifactId>
+      <version>2.0b1</version>
+      <scope>compile</scope>
+      <!--systemPath>./lib/webmacro-classic-2.0b1.jar</systemPath-->
+      <!-- url>http://www.webmacro.org/</url -->
+    </dependency>
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <version>1.0</version>
+      <!--url>http://www.webmacro.org/</url-->
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>oro</groupId>
+      <artifactId>oro</artifactId>
+      <version>2.0.8</version>
+      <!--url>http://jakarta.apache.org/oro/</url-->
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.0</version>
+      <!--url>http://jakarta.apache.org/commons/</url-->
+         <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.9</version>
+      <!--url>http://logging.apache.org/</url-->
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>1.7.3.3</version>
+      <!--url>http://www.hsqldb.org/</url-->
+      <scope>test</scope>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>7.4</version>
+      <classifier>jdbc3</classifier>
+      <!--url>http://jdbc.postgresql.org/</url-->
+      <scope>compile</scope>
+    </dependency>
+<!--
+    <dependency>
+      <groupId>oracle</groupId>
+      <artifactId>ojdbc14</artifactId>
+      <version>1.0</version>
+      <url>http://www.oracle.com/</url>
+      <scope>compile</scope>
+    </dependency>
+-->
+    <dependency>
+      <groupId>velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.3.1</version>
+      <!--url>http://jakarta.apache.org/velocity/</url-->
+      <scope>compile</scope>
+    </dependency>
+
+<!--
+    <dependency>
+      <groupId>javamail</groupId>
+      <artifactId>javamail</artifactId>
+      <version>1.2</version>
+      <url>http://java.sun.com/</url>
+      <scope>compile</scope>
+    </dependency>
+-->
+    <dependency>
+      <groupId>odmg</groupId>
+      <artifactId>odmg</artifactId>
+      <version>3.0</version>
+      <!--url>http://www.odmg.org/</url-->
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <!--url>http://www.junit.org/</url-->
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>mockobjects</groupId>
+      <artifactId>mockobjects-core</artifactId>
+      <version>0.09</version>
+      <!--url>http://www.mockobjects.com/</url-->
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+      <!--url>http://java.sun.com/</url-->
+      <scope>provided</scope>
+    </dependency>
+<!--
+    <dependency>
+      <artifactId>activation</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
+    </dependency>
+-->
+
+  </dependencies>
+
+  <build>
+   <plugins>
+    <plugin>
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-compiler-plugin</artifactId>
+     <configuration>
+       <source>1.4</source>
+       <target>1.4</target>
+     </configuration>
+    </plugin>
+    <plugin>
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-site-plugin</artifactId>
+    </plugin>
+   </plugins>
+
+    <!--nagEmailAddress>
+      timp@paneris.org
+    </nagEmailAddress-->
+
+    <sourceDirectory>src/main</sourceDirectory>
+
+    <testSourceDirectory>src/test</testSourceDirectory>
+    <defaultGoal>jar</defaultGoal>
+
+    <!--aspectSourceDirectory/-->
+
+    <!-- Unit test cases -->
+    <!--unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+      <excludes>
+        <exclude>**/OdmgTest.java</exclude>
+        <exclude>**/BinaryTest.java</exclude>
+        <exclude>**/CachedSelectionTest.java</exclude>
+        <exclude>**/CharsetServletTest.java</exclude>
+        <exclude>**/CharsetTemplateServletTest.java</exclude>
+        <exclude>**/ConfigServletTest.java</exclude>
+        <exclude>**/FlushingServletTest.java</exclude>
+        <exclude>**/PoemServletTest.java</exclude>
+        <exclude>**/ServletTest.java</exclude>
+        <exclude>**/TemplateServletTest.java</exclude>
+        <exclude>**/WebmacroMelatiServletTest.java</exclude>
+      </excludes>
+    </unitTest-->
+    <!-- J A R  R E S O U R C E S -->
+    <!-- Resources that are packaged up inside the JAR file -->
+    <resources>
+      <resource>
+        <directory>${basedir}</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE.txt</include>
+        </includes>
+      </resource>
+     <resource>
+      <directory>src/main</directory>
+      <includes>
+        <include>**/*.wm</include>
+        <include>**/*.DSD</include>
+      </includes>
+      <excludes>
+        <exclude>**/*.properties</exclude>
+      </excludes>
+     </resource>
+     <resource>
+      <directory>site/properties</directory>
+      <excludes>
+        <exclude>**/*.properties</exclude>
+      </excludes>
+      </resource>
+    </resources>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+    </plugins>
+<!--    <report>maven-license-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-statcvs-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-jcoverage-plugin</report>
+
+    <report>maven-linkcheck-plugin</report>
+    <report>maven-jellydoc-plugin</report>
+-->
+  </reporting>
+</project>
+

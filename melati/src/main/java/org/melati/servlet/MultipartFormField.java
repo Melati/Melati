@@ -289,4 +289,14 @@ public class MultipartFormField {
     return sizeString;
   }
 
+  public String toString() {
+    String returnString =  "contentDisposition=" + contentDisposition;
+    returnString += "; fieldName=" + fieldName;
+    returnString += "; filePath=" + filePath;
+    returnString += "; contentType=" + contentType;
+    returnString += "; adaptor=" + adaptor;
+    returnString += "; url=" + url;
+    return returnString;
+  }
+  
 }

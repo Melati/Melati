@@ -54,10 +54,19 @@ import java.io.IOException;
  */
 public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
 
+  private String temporaryFileName;
+  
+  public TemporaryFileDataAdaptor() {
+    temporaryFileName = "melati";
+  }
+  public TemporaryFileDataAdaptor(String temporaryFileName) {
+    this.temporaryFileName = temporaryFileName;
+  }
+  
   protected File calculateLocalFile() {
     File fileL = null;
     try {
-      fileL = File.createTempFile("melati", null);
+      fileL = File.createTempFile(temporaryFileName, null);
       fileL.deleteOnExit();
       return fileL;
     }

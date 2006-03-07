@@ -233,29 +233,36 @@ public class MelatiConfig {
      return new Melati(this, request, response);
    }
    
-   /**
-    * Creates a new {@link Melati}.
-    *
-    * @param writer a {@link MelatiWriter} to write output to  
-    * @return a new {@link Melati}
-    */
-    public Melati getMelati(MelatiWriter writer) {
-      return new Melati(this, writer);
-    }
+  /**
+   * Creates a new {@link Melati}.
+   *
+   * @param writer a {@link MelatiWriter} to write output to  
+   * @return a new {@link Melati}
+   */
+   public Melati getMelati(MelatiWriter writer) {
+     return new Melati(this, writer);
+   }
 
- /** 
-  * @return {@link ServletTemplateEngine} in use.
-  */
-  public ServletTemplateEngine getTemplateEngine() {
-    return (ServletTemplateEngine)templateEngine;
-  }
+  /** 
+   * @return {@link ServletTemplateEngine} in use.
+   */
+   public ServletTemplateEngine getServletTemplateEngine() {
+     return (ServletTemplateEngine)templateEngine;
+   }
+   
+  /** 
+   * @return {@link ServletTemplateEngine} in use.
+   */
+   public TemplateEngine getTemplateEngine() {
+     return templateEngine;
+   }
   
  /** 
-  * Set the {@link ServletTemplateEngine} to use.
+  * Set the {@link TemplateEngine} to use.
   * 
-  * @param templateEngine a {@link ServletTemplateEngine} 
+  * @param templateEngine a {@link TemplateEngine} 
   */
-  public void setTemplateEngine(ServletTemplateEngine templateEngine) {
+  public void setTemplateEngine(TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 

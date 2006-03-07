@@ -83,7 +83,7 @@ public abstract class TemplateServlet extends PoemServlet {
   public void init(ServletConfig config) throws ServletException {
     super.init(config);
     try {
-      templateEngine = melatiConfig.getTemplateEngine();
+      templateEngine = melatiConfig.getServletTemplateEngine();
       if (templateEngine != null)
         templateEngine.init(melatiConfig, this);
     } catch (TemplateEngineException e) {

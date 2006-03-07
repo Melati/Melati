@@ -67,16 +67,16 @@ public final class LogicalDatabase {
   public static final String className =
       new LogicalDatabase().getClass().getName();
 
-  private static final String databaseDefsName =
+  private static final String defaultPropertiesName =
       "org.melati.LogicalDatabase.properties";
 
-  private static Properties databaseDefs = null;
+  public static Properties databaseDefs = null;
 
   private static synchronized Properties databaseDefs() throws IOException {
     if (databaseDefs == null)
       databaseDefs =
           PropertiesUtils.fromResource(new LogicalDatabase().getClass(),
-                                       databaseDefsName);
+                                       defaultPropertiesName);
     return databaseDefs;
   }
 
@@ -179,8 +179,22 @@ public final class LogicalDatabase {
       return database;
     }
     catch (Exception e) {
-      throw new DatabaseInitException(databaseDefsName, name, e);
+      throw new DatabaseInitException(defaultPropertiesName, name, e);
     }
+  }
+
+  /**
+   * Set the databaseDefs.
+   */
+  public static void setDatabaseDefs(Properties databaseDefsIn) {
+    databaseDefs = databaseDefsIn;
+  }
+
+  /**
+   * @return Returns the defaultPropertiesName.
+   */
+  public static String getDefaultPropertiesName() {
+    return defaultPropertiesName;
   }
 }
 

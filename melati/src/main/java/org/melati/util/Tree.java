@@ -129,7 +129,7 @@ public class Tree {
     /**
      * Apply the Function to each node in the tree.
      *
-     * @param depth  Only apply the function to nodes at or above
+     * @param depthP Only apply the function to nodes at or above
      *               this depth. A negative depth means apply this
      *               to all nodes in the tree
      * @param depthFirst If true, traverse the tree depth-first, otherwise

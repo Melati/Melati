@@ -1770,8 +1770,8 @@ public class Table implements Selectable {
    *   (currently one of its field values failed).
    */
   public void create(Persistent persistent)
-      throws AccessPoemException, ValidationPoemException,
-             InitialisationPoemException {
+  throws AccessPoemException, ValidationPoemException,
+         InitialisationPoemException {
 
     SessionToken sessionToken = PoemThread.sessionToken();
 

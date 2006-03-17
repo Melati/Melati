@@ -892,7 +892,7 @@ public class EverythingAbstractTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 50;
+    return 55;
   }
 }
 

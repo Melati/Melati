@@ -211,10 +211,10 @@ public final class CachedSelectionTest {
             try {
               db.setLogSQL(true);
 
-              Setter setter = new Setter(db.getAthingTable());
+              Setter setter = new Setter(db.getBinaryFieldTable());
               setter.start();
 
-              Getter getter = new Getter(db.getAthingTable());
+              Getter getter = new Getter(db.getBinaryFieldTable());
               getter.start();
 
               Thread.sleep(1000);

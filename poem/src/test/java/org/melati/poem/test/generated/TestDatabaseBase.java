@@ -13,10 +13,19 @@ import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
-import org.melati.poem.test.AthingTable;
 import org.melati.poem.test.EverythingNormalTable;
 import org.melati.poem.test.ENExtendedTable;
 import org.melati.poem.test.EAExtendedTable;
+import org.melati.poem.test.BinaryFieldTable;
+import org.melati.poem.test.StringFieldTable;
+import org.melati.poem.test.PasswordFieldTable;
+import org.melati.poem.test.BooleanFieldTable;
+import org.melati.poem.test.DateFieldTable;
+import org.melati.poem.test.DoubleFieldTable;
+import org.melati.poem.test.IntegerFieldTable;
+import org.melati.poem.test.LongFieldTable;
+import org.melati.poem.test.BigdecimalFieldTable;
+import org.melati.poem.test.TimestampFieldTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -32,10 +41,19 @@ public class TestDatabaseBase extends PoemDatabase {
   private TableInfoTable tab_tableinfo = null;
   private ColumnInfoTable tab_columninfo = null;
   private SettingTable tab_setting = null;
-  private AthingTable tab_athing = null;
   private EverythingNormalTable tab_everythingnormal = null;
   private ENExtendedTable tab_enextended = null;
   private EAExtendedTable tab_eaextended = null;
+  private BinaryFieldTable tab_binaryfield = null;
+  private StringFieldTable tab_stringfield = null;
+  private PasswordFieldTable tab_passwordfield = null;
+  private BooleanFieldTable tab_booleanfield = null;
+  private DateFieldTable tab_datefield = null;
+  private DoubleFieldTable tab_doublefield = null;
+  private IntegerFieldTable tab_integerfield = null;
+  private LongFieldTable tab_longfield = null;
+  private BigdecimalFieldTable tab_bigdecimalfield = null;
+  private TimestampFieldTable tab_timestampfield = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -47,10 +65,19 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_tableinfo = new TableInfoTable(this, "tableinfo", DefinitionSource.dsd));
     redefineTable(tab_columninfo = new ColumnInfoTable(this, "columninfo", DefinitionSource.dsd));
     redefineTable(tab_setting = new SettingTable(this, "setting", DefinitionSource.dsd));
-    redefineTable(tab_athing = new AthingTable(this, "athing", DefinitionSource.dsd));
     redefineTable(tab_everythingnormal = new EverythingNormalTable(this, "everythingnormal", DefinitionSource.dsd));
     redefineTable(tab_enextended = new ENExtendedTable(this, "enextended", DefinitionSource.dsd));
     redefineTable(tab_eaextended = new EAExtendedTable(this, "eaextended", DefinitionSource.dsd));
+    redefineTable(tab_binaryfield = new BinaryFieldTable(this, "binaryfield", DefinitionSource.dsd));
+    redefineTable(tab_stringfield = new StringFieldTable(this, "stringfield", DefinitionSource.dsd));
+    redefineTable(tab_passwordfield = new PasswordFieldTable(this, "passwordfield", DefinitionSource.dsd));
+    redefineTable(tab_booleanfield = new BooleanFieldTable(this, "booleanfield", DefinitionSource.dsd));
+    redefineTable(tab_datefield = new DateFieldTable(this, "datefield", DefinitionSource.dsd));
+    redefineTable(tab_doublefield = new DoubleFieldTable(this, "doublefield", DefinitionSource.dsd));
+    redefineTable(tab_integerfield = new IntegerFieldTable(this, "integerfield", DefinitionSource.dsd));
+    redefineTable(tab_longfield = new LongFieldTable(this, "longfield", DefinitionSource.dsd));
+    redefineTable(tab_bigdecimalfield = new BigdecimalFieldTable(this, "bigdecimalfield", DefinitionSource.dsd));
+    redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampfield", DefinitionSource.dsd));
   }
 
 
@@ -154,17 +181,6 @@ public class TestDatabaseBase extends PoemDatabase {
   }
 
 
- /**
-  * Retrieves the AthingTable table.
-  *
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
-  * @return the AthingTable from this database
-  */
-  public AthingTable getAthingTable() {
-    return tab_athing;
-  }
-
-
 
  /**
   * Retrieves the EverythingNormalTable table.
@@ -197,6 +213,116 @@ public class TestDatabaseBase extends PoemDatabase {
   */
   public EAExtendedTable getEAExtendedTable() {
     return tab_eaextended;
+  }
+
+
+ /**
+  * Retrieves the BinaryFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the BinaryFieldTable from this database
+  */
+  public BinaryFieldTable getBinaryFieldTable() {
+    return tab_binaryfield;
+  }
+
+
+ /**
+  * Retrieves the StringFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the StringFieldTable from this database
+  */
+  public StringFieldTable getStringFieldTable() {
+    return tab_stringfield;
+  }
+
+
+ /**
+  * Retrieves the PasswordFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the PasswordFieldTable from this database
+  */
+  public PasswordFieldTable getPasswordFieldTable() {
+    return tab_passwordfield;
+  }
+
+
+ /**
+  * Retrieves the BooleanFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the BooleanFieldTable from this database
+  */
+  public BooleanFieldTable getBooleanFieldTable() {
+    return tab_booleanfield;
+  }
+
+
+ /**
+  * Retrieves the DateFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the DateFieldTable from this database
+  */
+  public DateFieldTable getDateFieldTable() {
+    return tab_datefield;
+  }
+
+
+ /**
+  * Retrieves the DoubleFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the DoubleFieldTable from this database
+  */
+  public DoubleFieldTable getDoubleFieldTable() {
+    return tab_doublefield;
+  }
+
+
+ /**
+  * Retrieves the IntegerFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the IntegerFieldTable from this database
+  */
+  public IntegerFieldTable getIntegerFieldTable() {
+    return tab_integerfield;
+  }
+
+
+ /**
+  * Retrieves the LongFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the LongFieldTable from this database
+  */
+  public LongFieldTable getLongFieldTable() {
+    return tab_longfield;
+  }
+
+
+ /**
+  * Retrieves the BigdecimalFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the BigdecimalFieldTable from this database
+  */
+  public BigdecimalFieldTable getBigdecimalFieldTable() {
+    return tab_bigdecimalfield;
+  }
+
+
+ /**
+  * Retrieves the TimestampFieldTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the TimestampFieldTable from this database
+  */
+  public TimestampFieldTable getTimestampFieldTable() {
+    return tab_timestampfield;
   }
 }
 

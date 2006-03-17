@@ -15,18 +15,18 @@ import org.melati.poem.Searchability;
 import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.test.Athing;
+import org.melati.poem.test.BinaryField;
 import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
  * Melati POEM generated base class for 
-<code>Table</code> <code>Athing</code>.
+<code>Table</code> <code>BinaryField</code>.
  *
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class AthingTableBase extends Table {
+public class BinaryFieldTableBase extends Table {
 
   private Column col_id = null;
   private Column col_binaryfield = null;
@@ -41,7 +41,7 @@ public class AthingTableBase extends Table {
   * @throws PoemException    if anything goes wrong
   */
 
-  public AthingTableBase(
+  public BinaryFieldTableBase(
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
@@ -56,7 +56,7 @@ public class AthingTableBase extends Table {
   * @param name              the name of this <code>Table</code>
   * @throws PoemException    if anything goes wrong
   */
-  public AthingTableBase(
+  public BinaryFieldTableBase(
       Database database, String name) throws PoemException {
     this(database, name, DefinitionSource.dsd);
   }
@@ -80,16 +80,16 @@ public class AthingTableBase extends Table {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Athing)g).getId();
+            return ((BinaryField)g).getId();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Athing)g).setId((Integer)cooked);
+            ((BinaryField)g).setId((Integer)cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((Athing)g).getIdField();
+            return ((BinaryField)g).getIdField();
           }
 
           protected boolean defaultUserEditable() {
@@ -134,22 +134,22 @@ public class AthingTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Athing)g).getId_unsafe();
+            return ((BinaryField)g).getId_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Athing)g).setId_unsafe((Integer)raw);
+            ((BinaryField)g).setId_unsafe((Integer)raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Athing)g).getId();
+            return ((BinaryField)g).getId();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Athing)g).setId((Integer)raw);
+            ((BinaryField)g).setId((Integer)raw);
           }
         });
 
@@ -159,16 +159,16 @@ public class AthingTableBase extends Table {
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {
-            return ((Athing)g).getBinaryfield();
+            return ((BinaryField)g).getBinaryfield();
           }
 
           public void setCooked(Persistent g, Object cooked)
               throws AccessPoemException, ValidationPoemException {
-            ((Athing)g).setBinaryfield((byte[])cooked);
+            ((BinaryField)g).setBinaryfield((byte[])cooked);
           }
 
           public Field asField(Persistent g) {
-            return ((Athing)g).getBinaryfieldField();
+            return ((BinaryField)g).getBinaryfieldField();
           }
 
           protected boolean defaultUserEditable() {
@@ -205,22 +205,22 @@ public class AthingTableBase extends Table {
 
           public Object getRaw_unsafe(Persistent g)
               throws AccessPoemException {
-            return ((Athing)g).getBinaryfield_unsafe();
+            return ((BinaryField)g).getBinaryfield_unsafe();
           }
 
           public void setRaw_unsafe(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Athing)g).setBinaryfield_unsafe((byte[])raw);
+            ((BinaryField)g).setBinaryfield_unsafe((byte[])raw);
           }
 
           public Object getRaw(Persistent g)
               throws AccessPoemException {
-            return ((Athing)g).getBinaryfield();
+            return ((BinaryField)g).getBinaryfield();
           }
 
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
-            ((Athing)g).setBinaryfield((byte[])raw);
+            ((BinaryField)g).setBinaryfield((byte[])raw);
           }
         });
   }
@@ -228,7 +228,7 @@ public class AthingTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>Athing</code> <code>Table</code>
+  * <code>BinaryField</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -240,7 +240,7 @@ public class AthingTableBase extends Table {
 
  /**
   * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
-  * <code>Athing</code> <code>Table</code>
+  * <code>BinaryField</code> <code>Table</code>
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
@@ -251,37 +251,37 @@ public class AthingTableBase extends Table {
 
 
  /**
-  * Retrieve the <code>Athing</code> as a <code>Athing</code>.
+  * Retrieve the <code>BinaryField</code> as a <code>BinaryField</code>.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Oject ID
   * @return the <code>Persistent</code> identified by the <code>troid</code>
   */
-  public Athing getAthingObject(Integer troid) {
-    return (Athing)getObject(troid);
+  public BinaryField getBinaryFieldObject(Integer troid) {
+    return (BinaryField)getObject(troid);
   }
 
 
  /**
-  * Retrieve the <code>Athing</code> 
-  * as a <code>Athing</code>.
+  * Retrieve the <code>BinaryField</code> 
+  * as a <code>BinaryField</code>.
   *
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @param troid a Table Row Object ID
   * @return the <code>Persistent</code> identified   */
-  public Athing getAthingObject(int troid) {
-    return (Athing)getObject(troid);
+  public BinaryField getBinaryFieldObject(int troid) {
+    return (BinaryField)getObject(troid);
   }
 
   protected Persistent _newPersistent() {
-    return new Athing();
+    return new BinaryField();
   }
   protected String defaultDisplayName() {
-    return "Thing";
+    return "Binary Field";
   }
 
   protected String defaultDescription() {
-    return "A thing ";
+    return "A table with only a binary field in it";
   }
 
   protected Integer defaultCacheLimit() {
@@ -293,7 +293,7 @@ public class AthingTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 40;
+    return 10;
   }
 }
 

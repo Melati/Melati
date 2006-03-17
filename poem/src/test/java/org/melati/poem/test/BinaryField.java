@@ -1,19 +1,19 @@
 package org.melati.poem.test;
 
-import org.melati.poem.test.generated.AthingBase;
+import org.melati.poem.test.generated.BinaryFieldBase;
 
 /**
  * Melati POEM generated, programmer modifiable stub 
- * for a <code>Persistent</code> <code>Athing</code> object.
+ * for a <code>Persistent</code> <code>BinaryField</code> object.
  * 
  * <p> 
  * Description: 
- *   A thing . 
+ *   A table with only a binary field in it. 
  * </p>
  * 
  * <table> 
  * <tr><th colspan='3'>
- * Field summary for SQL table <code>Athing</code>
+ * Field summary for SQL table <code>BinaryField</code>
  * </th></tr>
  * <tr><th>Name</th><th>Type</th><th>Description</th></tr>
  * <tr><td> id </td><td> Integer </td><td> &nbsp; </td></tr> 
@@ -22,19 +22,19 @@ import org.melati.poem.test.generated.AthingBase;
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
  */
-public class Athing extends AthingBase {
+public class BinaryField extends BinaryFieldBase {
 
  /**
   * Constructor 
-  * for a <code>Persistent</code> <code>Athing</code> object.
+  * for a <code>Persistent</code> <code>BinaryField</code> object.
   * <p>
   * Description: 
-  *   A thing . 
+  *   A table with only a binary field in it. 
   * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */
-  public Athing() { }
+  public BinaryField() { }
 
   // programmer's domain-specific code here
 }

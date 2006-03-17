@@ -1025,7 +1025,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
   }
 
   protected String defaultDescription() {
-    return "Every datatype inheritted from an abstract table and a normally defined";
+    return "Every datatype inheritted from an abstract table and normally defined";
   }
 
   protected Integer defaultCacheLimit() {

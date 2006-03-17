@@ -989,7 +989,7 @@ public class EverythingNormalTableBase extends Table {
   }
 
   protected int defaultDisplayOrder() {
-    return 50;
+    return 60;
   }
 }
 

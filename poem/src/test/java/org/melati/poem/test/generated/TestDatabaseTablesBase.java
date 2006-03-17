@@ -2,7 +2,7 @@
 
 package org.melati.poem.test.generated;
 
-// 16 tables in database
+// 25 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;
 import org.melati.poem.CapabilityTable;
@@ -13,12 +13,21 @@ import org.melati.poem.TableInfoTable;
 // abstract import org.melati.poem.ValueInfoTable;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
-import org.melati.poem.test.AthingTable;
 // abstract import org.melati.poem.test.EmptyAbstractTableTable;
 import org.melati.poem.test.EverythingNormalTable;
 import org.melati.poem.test.ENExtendedTable;
 // abstract import org.melati.poem.test.EverythingAbstractTable;
 import org.melati.poem.test.EAExtendedTable;
+import org.melati.poem.test.BinaryFieldTable;
+import org.melati.poem.test.StringFieldTable;
+import org.melati.poem.test.PasswordFieldTable;
+import org.melati.poem.test.BooleanFieldTable;
+import org.melati.poem.test.DateFieldTable;
+import org.melati.poem.test.DoubleFieldTable;
+import org.melati.poem.test.IntegerFieldTable;
+import org.melati.poem.test.LongFieldTable;
+import org.melati.poem.test.BigdecimalFieldTable;
+import org.melati.poem.test.TimestampFieldTable;
 
 /**
  * Melati POEM generated base interface to the tables in 
@@ -100,14 +109,6 @@ public interface TestDatabaseTablesBase {
   SettingTable getSettingTable();
 
  /**
-  * Retrieves the <code>AthingTable</code> table.
-  * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
-  * @return the AthingTable from this database
-  */
-  AthingTable getAthingTable();
-
- /**
   * Retrieves the <code>EverythingNormalTable</code> table.
   * 
   * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
@@ -130,6 +131,86 @@ public interface TestDatabaseTablesBase {
   * @return the EAExtendedTable from this database
   */
   EAExtendedTable getEAExtendedTable();
+
+ /**
+  * Retrieves the <code>BinaryFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the BinaryFieldTable from this database
+  */
+  BinaryFieldTable getBinaryFieldTable();
+
+ /**
+  * Retrieves the <code>StringFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the StringFieldTable from this database
+  */
+  StringFieldTable getStringFieldTable();
+
+ /**
+  * Retrieves the <code>PasswordFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the PasswordFieldTable from this database
+  */
+  PasswordFieldTable getPasswordFieldTable();
+
+ /**
+  * Retrieves the <code>BooleanFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the BooleanFieldTable from this database
+  */
+  BooleanFieldTable getBooleanFieldTable();
+
+ /**
+  * Retrieves the <code>DateFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the DateFieldTable from this database
+  */
+  DateFieldTable getDateFieldTable();
+
+ /**
+  * Retrieves the <code>DoubleFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the DoubleFieldTable from this database
+  */
+  DoubleFieldTable getDoubleFieldTable();
+
+ /**
+  * Retrieves the <code>IntegerFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the IntegerFieldTable from this database
+  */
+  IntegerFieldTable getIntegerFieldTable();
+
+ /**
+  * Retrieves the <code>LongFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the LongFieldTable from this database
+  */
+  LongFieldTable getLongFieldTable();
+
+ /**
+  * Retrieves the <code>BigdecimalFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the BigdecimalFieldTable from this database
+  */
+  BigdecimalFieldTable getBigdecimalFieldTable();
+
+ /**
+  * Retrieves the <code>TimestampFieldTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the TimestampFieldTable from this database
+  */
+  TimestampFieldTable getTimestampFieldTable();
 }
 
 

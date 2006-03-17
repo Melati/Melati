@@ -8,17 +8,17 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.test.AthingTable;
+import org.melati.poem.test.BinaryFieldTable;
 import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
- * <code>Athing</code> Object.
+ * <code>BinaryField</code> Object.
  *
  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
  */
-public abstract class AthingBase extends Persistent {
+public abstract class BinaryFieldBase extends Persistent {
 
 
  /**
@@ -33,18 +33,18 @@ public abstract class AthingBase extends Persistent {
 
 
  /**
-  * Retrieves the  <code>AthingTable</code> table 
+  * Retrieves the  <code>BinaryFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
-  * @return the AthingTable
+  * @return the BinaryFieldTable
   */
-  public AthingTable getAthingTable() {
-    return (AthingTable)getTable();
+  public BinaryFieldTable getBinaryFieldTable() {
+    return (BinaryFieldTable)getTable();
   }
 
-  private AthingTable _getAthingTable() {
-    return (AthingTable)getTable();
+  private BinaryFieldTable _getBinaryFieldTable() {
+    return (BinaryFieldTable)getTable();
   }
 
   // Fields in this table 
@@ -60,7 +60,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Retrieves the <code>Id</code> value, without locking, 
-  * for this <code>Athing</code> <code>Persistent</code>.
+  * for this <code>BinaryField</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the Integer id
@@ -72,7 +72,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Sets the <code>Id</code> value directly, without checking, 
-  * for this Athing <code>Persistent</code>.
+  * for this BinaryField <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -83,14 +83,14 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Retrieves the Id value, with locking, for this 
-  * <code>Athing</code> <code>Persistent</code>.
+  * <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Id</code> for this 
-  *         <code>Athing</code> <code>Persistent</code>  
+  *         <code>BinaryField</code> <code>Persistent</code>  
   */
 
   public Integer getId()
@@ -102,7 +102,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Sets the <code>Id</code> value, with checking, for this 
-  * <code>Athing</code> <code>Persistent</code>.
+  * <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
   * @param cooked  a validated <code>int</code> 
@@ -114,7 +114,7 @@ public abstract class AthingBase extends Persistent {
   */
   public void setId(Integer cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getAthingTable().getIdColumn().
+    _getBinaryFieldTable().getIdColumn().
       getType().assertValidCooked(cooked);
     writeLock();
     setId_unsafe(cooked);
@@ -122,7 +122,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Sets the <code>Id</code> value, with checking, for this 
-  * <code>Athing</code> <code>Persistent</code>.
+  * <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.IntegerFieldDef#generateBaseMethods 
   * @param cooked  a validated <code>int</code>
@@ -141,7 +141,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Retrieves the <code>Id</code> value as a <code>Field</code>
-  * from this <code>Athing</code> <code>Persistent</code>.
+  * from this <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -150,14 +150,14 @@ public abstract class AthingBase extends Persistent {
   * @return the Integer id
   */
   public Field getIdField() throws AccessPoemException {
-    Column c = _getAthingTable().getIdColumn();
+    Column c = _getBinaryFieldTable().getIdColumn();
     return new Field(c.getRaw(this), c);
   }
 
 
  /**
   * Retrieves the <code>Binaryfield</code> value, without locking, 
-  * for this <code>Athing</code> <code>Persistent</code>.
+  * for this <code>BinaryField</code> <code>Persistent</code>.
   *
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @return the byte[] binaryfield
@@ -169,7 +169,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Sets the <code>Binaryfield</code> value directly, without checking, 
-  * for this Athing <code>Persistent</code>.
+  * for this BinaryField <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
   * @param cooked  the pre-validated value to set
@@ -180,14 +180,14 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Retrieves the Binaryfield value, with locking, for this 
-  * <code>Athing</code> <code>Persistent</code>.
+  * <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer write access rights 
   * @return the value of the field <code>Binaryfield</code> for this 
-  *         <code>Athing</code> <code>Persistent</code>  
+  *         <code>BinaryField</code> <code>Persistent</code>  
   */
 
   public byte[] getBinaryfield()
@@ -199,7 +199,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Sets the <code>Binaryfield</code> value, with checking, for this 
-  * <code>Athing</code> <code>Persistent</code>.
+  * <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
   * @param cooked  a validated <code>int</code> 
@@ -211,7 +211,7 @@ public abstract class AthingBase extends Persistent {
   */
   public void setBinaryfield(byte[] cooked)
       throws AccessPoemException, ValidationPoemException {
-    _getAthingTable().getBinaryfieldColumn().
+    _getBinaryFieldTable().getBinaryfieldColumn().
       getType().assertValidCooked(cooked);
     writeLock();
     setBinaryfield_unsafe(cooked);
@@ -220,7 +220,7 @@ public abstract class AthingBase extends Persistent {
 
  /**
   * Retrieves the <code>Binaryfield</code> value as a <code>Field</code>
-  * from this <code>Athing</code> <code>Persistent</code>.
+  * from this <code>BinaryField</code> <code>Persistent</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
   * @throws AccessPoemException 
@@ -229,7 +229,7 @@ public abstract class AthingBase extends Persistent {
   * @return the byte[] binaryfield
   */
   public Field getBinaryfieldField() throws AccessPoemException {
-    Column c = _getAthingTable().getBinaryfieldColumn();
+    Column c = _getBinaryFieldTable().getBinaryfieldColumn();
     return new Field(c.getRaw(this), c);
   }
 }

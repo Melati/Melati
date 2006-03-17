@@ -45,9 +45,14 @@ package org.melati.poem.dbms;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.DatePoemType;
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.LongPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
@@ -148,6 +153,10 @@ public class MSAccess extends AnsiStandard {
     } else if (storage instanceof BooleanPoemType && type instanceof BooleanPoemType) {
       // ignore nullability
       return type;
+    } else if (storage instanceof DoublePoemType && type instanceof BigDecimalPoemType) {
+      return type;
+    } else if (storage instanceof IntegerPoemType && type instanceof LongPoemType) {
+      return type;
     } else {
       return storage.canRepresent(type);
     }
@@ -204,19 +213,24 @@ public class MSAccess extends AnsiStandard {
                                      md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                                      md.getInt("COLUMN_SIZE"));
     // We use a magic number for text fields
-    if (md.getString("TYPE_NAME").equals("varchar")
+/*
+    if (md.getString("TYPE_NAME").equals("VARCHAR")
             && md.getInt("COLUMN_SIZE") == msAccessTextHack)
       return new MSAccessStringPoemType(
       md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
               .getInt("COLUMN_SIZE"));
-    if (md.getString("TYPE_NAME").equals("char"))
+    if (md.getString("TYPE_NAME").equals("CHAR"))
       return new StringPoemType(
                                 md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                                 md.getInt("COLUMN_SIZE"));
+*/                               
     if (md.getString("TYPE_NAME").equals("BINARY"))
       return new BinaryPoemType(
                                 md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
                                 md.getInt("COLUMN_SIZE"));
+    if (md.getString("TYPE_NAME").equals("INT"))
+      return new LongPoemType(
+                                md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
 }

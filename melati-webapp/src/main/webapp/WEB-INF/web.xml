@@ -230,11 +230,6 @@
     <url-pattern>/org.melati.test.EmailTemplateServletTest/*</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name></servlet-name>
-    <servlet-class>org.melati.test.EmailTemplateServletTest</servlet-class>
-  </servlet>
-
   <servlet-mapping>
     <servlet-name>org.melati.test.TemplateServletTest</servlet-name>
     <url-pattern>/melati/org.melati.test.TemplateServletTest/*</url-pattern>

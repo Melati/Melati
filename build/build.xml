@@ -49,7 +49,8 @@
   <property name="servletJar"       value="javax.servlet.jar"/>
   <property name="postgresqlJar"    value="pg73jdbc3.jar"/>
   <property name="oracleJar"        value="ojdbc14-1.0.jar"/>
-  <property name="hsqldbJar"        value="hsqldb-1.7.3.1.jar"/>
+  <property name="hsqldbJar"        value="hsqldb-1.8.0.1.jar"/>
+  <property name="accessJar"        value="EJOB.jar"/>
   <!-- property name="mysqlJar"         value="mm.mysql-2.0.11-bin.jar" /-->
   <property name="mysqlJar"         value="mysql-connector-java-3.0.15-ga-bin.jar" />
 
@@ -68,7 +69,7 @@
   <property name="javaMailJar"      value="javamail-1.2.jar" />
   <property name="activationJar"    value="activation-1.0.jar" />
 
-  <property name="junitJar"         value="junit.jar" />
+  <property name="junitJar"         value="junit-3.8.1.jar" />
   <property name="mockobjectsJar"   value="mockobjects-core-0.09.jar" />
 
   <path id="classpath.compile">
@@ -116,6 +117,7 @@ usage:
    ant javadoc        create javadoc for the distribution package
    ant run            run Jetty
 
+   ant template      build war and run jetty
    ant build         build everything from scratch 
    ant go            build everything from scratch and run it
    ant unittest       run unit tests
@@ -433,7 +435,8 @@ usage:
         <include name="${oroJar}" />
         <include name="${collectionsJar}" />
 
-        <include name="${mysqlJar}" />
+        <include name="${hsqldbJar}" />
+        <include name="${accessJar}" />
 
 <!-- other possible libraries
         <include name="${oracleJar}"/>
@@ -445,6 +448,7 @@ usage:
         <include name="${msBaseJar}" />
         <include name="${msUtilJar}" />
         <include name="${Sprinta2000Jar}" />
+        <include name="${mysqlJar}" />
 -->
         <include name="$activationJar}" />
         <include name="$javaMailJar}" />

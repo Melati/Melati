@@ -178,27 +178,22 @@ public class Hsqldb extends AnsiStandard {
     return b.toString();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+   */
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
     if(name.equalsIgnoreCase("CONSTRAINT")) name = "MELATI_" + name.toUpperCase();
     return name.toUpperCase();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
+   */
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
     if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "constraint";
     return name.toLowerCase();
-  }
-
-  /**
-   * Work around a feature in HSQLDB where it seems that you need 
-   * to use an unquoted string to get index info but a quoted name 
-   * to enable use of lowercase names. 
-   * 
-   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
-   **/
-  public String getJdbcMetadataName(String name) {
-    return name;
   }
   
   /**

@@ -81,16 +81,6 @@ public class Postgresql extends AnsiStandard {
   }
 
 
-  /**
-   * Don't quote, let postgres uppercase it. 
-   * 
-   * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
-   */
-  public String getJdbcMetadataName(String name) {
-    return name;
-  }
-
-
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
    */

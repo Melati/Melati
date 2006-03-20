@@ -387,7 +387,7 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
    */
   public String getJdbcMetadataName(String name) {
-    return getQuotedName(name);
+    return name;
   }
 
   /**

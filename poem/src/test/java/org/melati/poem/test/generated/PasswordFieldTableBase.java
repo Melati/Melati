@@ -12,7 +12,6 @@ import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
-import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;

@@ -1169,7 +1169,7 @@ public class Table implements Selectable {
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
                             PoemThread.transaction());
-  }
+    }
 
   /**
    * All the objects in the table.
@@ -2494,15 +2494,16 @@ public class Table implements Selectable {
       // Check indices are unique
 
       Hashtable dbHasIndexForColumn = new Hashtable();
-      System.err.println("Getting indexes for "+ 
-          dbms().getJdbcMetadataName(dbms().unreservedName(getName())));
+      String unreservedName = dbms().getJdbcMetadataName(
+                                  dbms().unreservedName(getName()));
+      System.err.println("Getting indexes for " + unreservedName);
       ResultSet index =
         getDatabase().getCommittedConnection().getMetaData().
         // null, "" means ignore catalog, 
         // only retrieve those without a schema
         // null, null means ignore both
             getIndexInfo(null, dbms().getSchema(), 
-                dbms().getJdbcMetadataName(dbms().unreservedName(getName())), 
+                         unreservedName, 
                          false, true);
       while (index.next()) {
         try {
@@ -2514,12 +2515,13 @@ public class Table implements Selectable {
             // Don't want to take account of non-melati indices
             String expectedIndex = getName().toUpperCase() + "_" + 
                                    columnName.toUpperCase() + "_INDEX";
-            // Old Postgresql version truncate name at 31 chars
+            // Old Postgresql version truncated name at 31 chars
             if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
+              System.err.println("Found Expected Index:" + expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
               column.unifyWithIndex(index);
               dbHasIndexForColumn.put(column, Boolean.TRUE);
             } else {
-              System.err.println("Not creating index because " + 
+              System.err.println("Not creating index because one exists with different name:" + 
                   mdIndexName.toUpperCase() + " != " + expectedIndex);
             }
           } 
@@ -2536,7 +2538,7 @@ public class Table implements Selectable {
 
       for (int c = 0; c < columns.length; ++c) {
         if (dbHasIndexForColumn.get(columns[c]) != Boolean.TRUE)
-          dbCreateIndex(columns[c]);
+            dbCreateIndex(columns[c]);
       }
     }
 

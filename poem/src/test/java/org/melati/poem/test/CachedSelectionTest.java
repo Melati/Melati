@@ -110,7 +110,7 @@ public final class CachedSelectionTest {
         }
 
         if (theSignal[0] == set) {
-          Athing t = (Athing)table.firstSelection(null);
+          BinaryField t = (BinaryField)table.firstSelection(null);
           if (t == null)
             System.err.println("\n*** setter: nothing to set\n");
           else {
@@ -121,13 +121,13 @@ public final class CachedSelectionTest {
         }
         else if (theSignal[0] == add) {
           System.err.println("\n*** setter: adding\n");
-          Athing t = (Athing)table.newPersistent();
+          BinaryField t = (BinaryField)table.newPersistent();
             // FIXME - line removed by ttj to allow melati to compile
 //          t.setWhatsit("whatsit" + (serial++));
           t.makePersistent();
         }
         else if (theSignal[0] == delete) {
-          Athing t = (Athing)table.firstSelection(null);
+          BinaryField t = (BinaryField)table.firstSelection(null);
           if (t == null)
             System.err.println("\n*** setter: nothing to delete\n");
           else {

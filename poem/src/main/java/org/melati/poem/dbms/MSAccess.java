@@ -60,6 +60,7 @@ import org.melati.poem.TimestampPoemType;
 /**
  * A Driver for the Microsoft Access database server.
  * http://www.tobychampion.co.uk/Access2000Dialect.java.txt
+ * 
  */
 public class MSAccess extends AnsiStandard {
   public static final int msAccessTextHack = 250;
@@ -84,6 +85,28 @@ public class MSAccess extends AnsiStandard {
   public String getQuotedName(String name) {
     return super.getQuotedName(name);
   }
+
+  /**
+   * Ignore tables starting with '~', which should 
+   * probably have a jdbc type of 'SYSTEM TABLE'.
+   */
+  public String melatiName(String name) {
+    if (name == null)
+      return null;
+    if (name.startsWith("~"))
+      return null;
+    return name;
+  }
+  
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+   */
+  public String unreservedName(String name) {
+    return name;
+  }
+
+
+
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
    */
@@ -226,11 +249,14 @@ public class MSAccess extends AnsiStandard {
 */                               
     if (md.getString("TYPE_NAME").equals("BINARY"))
       return new BinaryPoemType(
-                                md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
-                                md.getInt("COLUMN_SIZE"));
+                   md.getInt("NULLABLE") == DatabaseMetaData.columnNullable,
+                   md.getInt("COLUMN_SIZE"));
     if (md.getString("TYPE_NAME").equals("INT"))
       return new LongPoemType(
-                                md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+                   md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+    if (md.getString("TYPE_NAME").equals("SMALLINT"))
+      return new IntegerPoemType(
+                   md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
 }

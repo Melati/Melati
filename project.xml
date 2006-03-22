@@ -473,7 +473,7 @@ http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
       <directory>src/main</directory>
       <includes>
         <include>**/*.wm</include>
-        <include>**/*.DSD</include>
+        <include>**/*.dsd</include>
       </includes>
       <excludes>
         <exclude>**/*.properties</exclude>

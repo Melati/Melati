@@ -2333,7 +2333,7 @@ public class Table implements Selectable {
    * in the DSD.  This is only ever used at startup time when creating
    * <TT>columninfo</TT> records for tables that don't have them.
    */
-  protected String defaultDisplayName() {
+  public String defaultDisplayName() {
     return StringUtils.capitalised(getName());
   }
 

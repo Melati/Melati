@@ -50,6 +50,7 @@ import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
@@ -124,9 +125,14 @@ public class Hsqldb extends AnsiStandard {
 
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
-
-      if (((StringPoemType) storage).getSize() == hsqldbTextHack
-        && ((StringPoemType) type).getSize() == -1) {
+      if (((StringPoemType)storage).getSize() == hsqldbTextHack
+              && ((StringPoemType)type).getSize() == -1) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else if (storage instanceof BinaryPoemType && type instanceof BinaryPoemType) {
+      if (((BinaryPoemType)storage).getSize() == 0) {
         return type;
       } else {
         return storage.canRepresent(type);

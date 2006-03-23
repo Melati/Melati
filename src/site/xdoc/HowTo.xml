@@ -28,6 +28,93 @@ This page last updated: $Date$ $Author$
 <p>
 Some of the things you might wish to do with Melati.
 </p>
+
+<subsection name=" Generate java objects from a database ">
+<ol>
+ <li>Ensure your database conforms to POEM's expectations
+  <ul>
+    <li>Every table has a unique, meaningless, unchanging key called <tt>id</tt></li>
+    <li>Cross reference fields use the <tt>id</tt> field as the foreign key into referenced table</li>
+    <li>Your database should not include tables with the following names
+     <ul>
+       <li><tt>table</tt></li>
+       <li><tt>column</tt></li>
+       <li><tt>type</tt></li>
+       <li><tt>setting</tt></li>
+       <li><tt>user</tt></li>
+       <li><tt>group</tt></li>
+       <li><tt>capability</tt></li>
+       <li><tt>membership</tt></li>
+       <li><tt>capability</tt></li>
+     </ul>
+     if they do consider renaming or extending the POEM tables.
+    </li>
+    <li>Table and field names should ideally be lowercase to get pretty java code.</li>
+  </ul>
+ </li>
+ <li>
+   Set up  your <code>org.melati.LogicalDatabase.properties</code> file.
+ </li>
+ <li>
+   Check all is well by pointing at <tt>http://127.0.0.1:8081/Admin/&lt;yourdbname&gt;/Main</tt>
+ </li>
+ <li>
+   Generate a Data Structure Definition (DSD) by pointing at 
+        <tt>http://127.0.0.1:8081/Admin/&lt;yourdbname&gt;/DSD?comments=true</tt>
+ </li>
+ <li>
+   Save resultant DSD to your model directory (eg <tt> org.yourorg.yourproject.model</tt>)
+ </li>
+ <li>
+   Edit DSD to reflect your package name (eg <tt> org.yourorg.yourproject.model</tt>) 
+   instead of <tt>org.melati.poem</tt>
+ </li>
+ <li>Note that as the default database is <tt>org.melati.poem.PoemDatabase</tt>, from which 
+     all POEM databases inherit, this DSD will include the system tables 
+     <ul>
+       <li><tt>Table</tt></li>
+       <li><tt>Column</tt></li>
+       <li><tt>Table type</tt></li>
+       <li><tt>Setting</tt></li>
+     </ul>
+     and the User tables 
+     <ul>
+       <li><tt>User</tt></li>
+       <li><tt>Group</tt></li>
+       <li><tt>Capability</tt></li>
+       <li><tt>Group Membership</tt></li>
+       <li><tt>Group Capability</tt></li>
+     </ul>
+     You should delete these definitions unless you intend to extend these tables.
+     These tables are created for all POEM databases, so they do not need to be in your DSD.
+ </li>
+ <li>
+   The generated DSD shows, commented out, the defaults and whatever default descriptions and 
+   display names that could be generated. You should try to make them more meaningful.
+ </li>
+ <li>
+   When you are happy with the DSD:
+   <pre>
+   cd &lt;model directory&gt;
+   java -cp c:\melati\src\main;c:\melati\target\melati.jar org.melati.poem.prepro.DSD &lt;yourproject&gt;.dsd
+   </pre>
+   This will generate your java files, the getters and setters are in a subdirectory called <tt>generated</tt>, 
+   the files you should elaborate are in your model directory.
+ </li>
+ <li>
+   Compile the java files, modify your <code>org.melati.LogicalDatabase.properties</code> file 
+   to reflect the new class name of your database.
+ </li>
+ <li>
+   You can iterate this process, by recreating the DSD, 
+   but this time you will not need to delete the poem table definitions. 
+ </li>
+ <li>
+   More details of the preprocessor can be found in the 
+   <a href="/doc/PoemPreproUserGuide.html">Poem Prepro User Guide</a>.
+ </li>
+</ol>
+</subsection>
 <subsection name=" Use an Access database ">
 <ol>
  <li>Register with <a href="http://www.easysoft.com/">EasySoft</a> </li>

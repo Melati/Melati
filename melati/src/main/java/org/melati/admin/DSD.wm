@@ -40,7 +40,7 @@
 ##
 ##     Tim Pizey <timp@paneris.org>
 ##
-#set $melati.ResponseContentType = "text/html"
+#set $melati.ResponseContentType = "text/plain"
 
 ## We don't have a TextMarkupLanguage as yet
 #set $ml = $melati.HTMLMarkupLanguage
@@ -97,7 +97,7 @@ package $(package);
 //   $table
 //   $table.Class.Name
 #end
-table $table.defaultDisplayName()
+table $table.DefaultDisplayName()
 
 
 #foreach $field in $table.getInfo().getFields()

@@ -601,8 +601,6 @@ public abstract class Database implements TransactionPool {
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                  task.run();
-                                 if (transaction != null)
-                                   transaction.close(true);
                              }
 
                              public String toString() {

@@ -601,6 +601,7 @@ public abstract class Database implements TransactionPool {
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                  task.run();
+                                 transaction.close(true);
                              }
 
                              public String toString() {
@@ -612,7 +613,7 @@ public abstract class Database implements TransactionPool {
     }
     finally {
       try {
-        if (transaction != null) {
+        if (transaction != null && !isFree(transaction) ) {
           transaction.close(false);
         }
       } finally {

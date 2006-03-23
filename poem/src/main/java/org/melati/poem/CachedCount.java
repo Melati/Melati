@@ -69,11 +69,16 @@ public class CachedCount extends CachedQuery {
    * <p>
    * We could have passed the whole query in the meantime but for
    * potential signature confusion.
+   *
+   *
+   * @param criteria
+   * @param includeDeleted
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
   public CachedCount(final Persistent criteria,
-                     boolean includeDeleted, boolean cannotSelect) {
+                     boolean includeDeleted, boolean excludeUnselectable) {
     super(criteria.getTable(),
-          criteria.countMatchSQL(includeDeleted, cannotSelect),
+          criteria.countMatchSQL(includeDeleted, excludeUnselectable),
           criteria.otherMatchTables());
   }
 

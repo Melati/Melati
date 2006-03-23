@@ -484,13 +484,26 @@ public abstract class Database implements TransactionPool {
    * was <TT>connect</TT>ed, this can be set via LogicalDatabase.properties,
    * but defaults to 8 if not set.
    */
-
   public final int transactionsMax() {
     return transactionsMax;
   }
   
   public final void setTransactionsMax(int t) {
     transactionsMax = t;
+  }
+
+  /**
+   * @return Returns the total number of transactions.
+   */
+  public int getTransactionsCount() {
+    return transactions.size();
+  }
+  
+  /**
+   * @return Returns the number of free transactions.
+   */
+  public int getFreeTransactionsCount() {
+    return freeTransactions.size();
   }
 
   // 
@@ -503,7 +516,6 @@ public abstract class Database implements TransactionPool {
    * Get a transaction for exclusive use.  It's simply taken off the freelist,
    * to be put back later.
    */
-
   private PoemTransaction openTransaction() {
     synchronized (freeTransactions) {
       if (freeTransactions.size() == 0)
@@ -1110,8 +1122,8 @@ public abstract class Database implements TransactionPool {
       ((Table)tables.elementAt(t)).dump();
     }
 
-    System.err.println("there are " + transactions.size() + " transactions " +
-                       "of which " + freeTransactions.size() + " are free");
+    System.err.println("there are " + getTransactionsCount() + " transactions " +
+                       "of which " + getFreeTransactionsCount() + " are free");
   }
 
   // 
@@ -1193,5 +1205,6 @@ public abstract class Database implements TransactionPool {
   long structureSerial() {
     return structureSerial;
   }
+
 }
 

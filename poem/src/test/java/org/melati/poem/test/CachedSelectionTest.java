@@ -45,6 +45,10 @@
 package org.melati.poem.test;
 
 import java.util.Enumeration;
+
+import junit.framework.TestCase;
+
+import org.melati.LogicalDatabase;
 import org.melati.poem.Table;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
@@ -52,10 +56,28 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
-public final class CachedSelectionTest {
+public class CachedSelectionTest extends TestCase {
 
-  private CachedSelectionTest() {}
+  private TestDatabase db;
+  private static final String dbName = "poemtest";
+  
+  /**
+   * Constructor for BinaryTest.
+   * @param arg0
+   */
+  public CachedSelectionTest(String arg0) {
+    super(arg0);
+  }
 
+  /*
+   * @see TestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+    db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
+  }
+
+  
   abstract static class PoemTaskThread extends Thread {
 
     Table table;
@@ -191,18 +213,7 @@ public final class CachedSelectionTest {
     }
   }
 
-  public static void main(final String[] args) throws Exception {
-    final TestDatabase db = new TestDatabase();
-    try {
-      db.connect("org.melati.poem.dbms.Postgresql", "jdbc:postgresql:test",
-                 "postgres", "*", 3);
-    }
-    catch (Exception e) {
-      System.err.println("Is postgres running?\n" +
-                         "Did you create database test?\n" +
-                         "Is user `postgres', password `*' valid?\n");
-      throw e;
-    }
+  public void testThem() {
 
     db.inSession(
         AccessToken.root,       // FIXME

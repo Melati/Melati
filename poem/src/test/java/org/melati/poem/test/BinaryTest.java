@@ -45,17 +45,35 @@
 
 package org.melati.poem.test;
 
+import junit.framework.TestCase;
+
+import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
-public final class BinaryTest {
+public class BinaryTest extends TestCase {
 
-  private BinaryTest() {}
+  private TestDatabase db;
+  private static final String dbName = "poemtest";
+  
+  /**
+   * Constructor for BinaryTest.
+   * @param arg0
+   */
+  public BinaryTest(String arg0) {
+    super(arg0);
+  }
+  /*
+   * @see TestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+    db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
+  }
 
-  public static void main(final String[] args) {
-    final TestDatabase db = new TestDatabase();
-    db.connect("org.melati.poem.dbms.Postgresql", args[0], args[1], args[2], 2);
+
+  public void testCreate() {
 
     db.inSession(
         AccessToken.root,       // HACK

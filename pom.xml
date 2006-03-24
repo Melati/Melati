@@ -425,6 +425,18 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-site-plugin</artifactId>
     </plugin>
+     <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <configuration>
+       <includes>
+         <include>**/*Test.java</include>
+       </includes>
+       <excludes>
+         <exclude>**/TestDatabaseBase.java</exclude>
+       </excludes>
+      </configuration>
+     </plugin>
    </plugins>
 
     <!--nagEmailAddress>
@@ -432,31 +444,20 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </nagEmailAddress-->
 
     <sourceDirectory>src/main</sourceDirectory>
-
     <testSourceDirectory>src/test</testSourceDirectory>
+
     <defaultGoal>jar</defaultGoal>
 
     <!--aspectSourceDirectory/-->
 
-    <!-- Unit test cases -->
-    <!--unitTest>
-      <includes>
-        <include>**/*Test.java</include>
-      </includes>
-      <excludes>
-        <exclude>**/OdmgTest.java</exclude>
-        <exclude>**/BinaryTest.java</exclude>
-        <exclude>**/CachedSelectionTest.java</exclude>
-        <exclude>**/CharsetServletTest.java</exclude>
-        <exclude>**/CharsetTemplateServletTest.java</exclude>
-        <exclude>**/ConfigServletTest.java</exclude>
-        <exclude>**/FlushingServletTest.java</exclude>
-        <exclude>**/PoemServletTest.java</exclude>
-        <exclude>**/ServletTest.java</exclude>
-        <exclude>**/TemplateServletTest.java</exclude>
-        <exclude>**/WebmacroMelatiServletTest.java</exclude>
-      </excludes>
-    </unitTest-->
+      <testResources>
+        <testResource>
+          <directory>src/webapp/WEB-INF/classes</directory>
+          <includes>
+            <include>**/*.properties</include>
+          </includes>
+        </testResource>
+      </testResources>
     <!-- J A R  R E S O U R C E S -->
     <!-- Resources that are packaged up inside the JAR file -->
     <resources>
@@ -486,13 +487,26 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </resources>
   </build>
   <reporting>
-<!--
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
+     <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>surefire-report-maven-plugin</artifactId>
+      <version>2.0-beta-1</version>
+      <configuration>
+       <includes>
+         <include>**/*Test.java</include>
+       </includes>
+       <excludes>
+         <exclude>**/TestDatabaseBase.java</exclude>
+       </excludes>
+      </configuration>
+     </plugin>
     </plugins>
+<!--
     <report>maven-license-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>

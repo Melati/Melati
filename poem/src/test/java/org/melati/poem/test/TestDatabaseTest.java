@@ -16,6 +16,7 @@ import org.melati.poem.UserTable;
  */
 public class TestDatabaseTest extends TestCase {
   private TestDatabase db;
+  private static final String dbName = "poemtest";
   
   /**
    * Constructor for PoemTest.
@@ -30,7 +31,7 @@ public class TestDatabaseTest extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    db = (TestDatabase)LogicalDatabase.getDatabase("champion"); 
+    db = (TestDatabase)LogicalDatabase.getDatabase(dbName); 
   }
 
   /*

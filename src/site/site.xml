@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Melati">
+  <bannerLeft>
+    <name>Melati</name>
+    <src>http://www.melati.org/images/logo.jpg</src> 
+    <href>http://www.melati.org/</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Melati</name>
+    <src>http://www.melati.org/images/logo.jpg</src> 
+    <href>http://www.melati.org/</href>
+  </bannerRight>
+
+  <body>
+    <links>
+      <item name="PanEris.org"           href="http://www.paneris.org" />
+      <item name="PanEris.net"           href="http://www.paneris.net" />
+    </links>
+    <menu name="Melati">
+        <item name="Home" href="./index.html"/>
+        <item name="Features" href="./Features.html"/>
+        <item name="Show Case" href="./ShowCase.html"/>
+        <item name="Example" href="./Example.html"/>
+        <item name="Download" href="./Download.html"/>
+        <item name="Installation" href="./Installation.html"/>
+        <item name="Testing" href="./Testing.html"/>
+        <item name="Documentation" href="./Documentation.html"/>
+        <item name="HowTo" href="./HowTo.html"/>
+        <item name="Status" href="./Status.html"/>
+        <item name="Road Map" href="./RoadMap.html"/>
+        <item name="Contribute" href="./Contribute.html"/>
+        <item name="Hire" href="./Hire.html"/>
+        <item name="Licence" href="./Licence.html"/>
+        <item name="Release History" href="./Releases.html"/>
+        <item name="Links" href="./Links.html"/>
+        <item name="Logos" href="./Logos.html"/>
+    </menu>
+${reports}
+  </body>
+</project>

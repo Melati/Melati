@@ -613,7 +613,7 @@ public abstract class Database implements TransactionPool {
     }
     finally {
       try {
-        if (transaction != null && !isFree(transaction) ) {
+        if (transaction != null && !isFree(transaction)) {
           transaction.close(false);
         }
       } finally {

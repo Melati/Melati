@@ -355,7 +355,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   public String toString() {
     return (nullable ? "nullable " : "") + _toString() + 
-    " (" + this.getClass().getName() + ")" ;
+    " (" + this.getClass().getName() + ")";
   }
 
   // 

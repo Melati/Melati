@@ -56,6 +56,8 @@ import org.melati.Melati;
  */
 public class ExitServlet extends ConfigServlet {
 
+  private static final long serialVersionUID = 1L;
+
   protected void doConfiguredRequest(Melati melati)
       throws ServletException, IOException {
 

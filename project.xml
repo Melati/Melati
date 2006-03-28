@@ -274,7 +274,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
    <license>
     <name>The Apache Software License, Version 2.0</name>
     <url>
-http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
+     http://www.apache.org/licenses/LICENSE-2.0.txt
     </url>
     <distribution>repo</distribution>
    </license>
@@ -297,10 +297,10 @@ http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
     </dependency>
     <dependency>
       <id>concurrent</id>
-      <version>1.0</version>
+      <version>1.3.4</version>
       <url>http://www.webmacro.org/</url>
       <properties>
-         <war.bundle>false</war.bundle>
+         <war.bundle>true</war.bundle>
          <scope>runtime</scope>
       </properties>
     </dependency>
@@ -453,19 +453,6 @@ http://cvs.apache.org/viewcvs.cgi/apache-1.3/LICENSE?view=markup
       <includes>
         <include>**/*Test.java</include>
       </includes>
-      <excludes>
-        <exclude>**/OdmgTest.java</exclude>
-        <exclude>**/BinaryTest.java</exclude>
-        <exclude>**/CachedSelectionTest.java</exclude>
-        <exclude>**/CharsetServletTest.java</exclude>
-        <exclude>**/CharsetTemplateServletTest.java</exclude>
-        <exclude>**/ConfigServletTest.java</exclude>
-        <exclude>**/FlushingServletTest.java</exclude>
-        <exclude>**/PoemServletTest.java</exclude>
-        <exclude>**/ServletTest.java</exclude>
-        <exclude>**/TemplateServletTest.java</exclude>
-        <exclude>**/WebmacroMelatiServletTest.java</exclude>
-      </excludes>
       <resources>
         <resource>
           <directory>src/webapp/WEB-INF/classes</directory>

@@ -60,9 +60,10 @@ public class CachedSelectionTest extends TestCase {
 
   private TestDatabase db;
   private static final String dbName = "poemtest";
+  private static String result;
   
   /**
-   * Constructor for BinaryTest.
+   * Constructor for CachedSelectionTest.
    * @param arg0
    */
   public CachedSelectionTest(String arg0) {
@@ -132,34 +133,49 @@ public class CachedSelectionTest extends TestCase {
         }
 
         if (theSignal[0] == set) {
-          BinaryField t = (BinaryField)table.firstSelection(null);
-          if (t == null)
+          String fieldContent = "setWhatsit" + (serial++);
+          StringField t = (StringField)table.firstSelection(null);
+          if (t == null){
             System.err.println("\n*** setter: nothing to set\n");
-          else {
-            System.err.println("\n*** setter: setting\n");
-            // FIXME - line removed by ttj to allow melait to compile
-//            t.setWhatsit("whatsit" + (serial++));
+            synchronized(result) {
+              result += "|NULL" + fieldContent;            
+            }
+          } else {
+            System.err.println("\n*** setter: setting " + fieldContent);
+            t.setStringfield(fieldContent);
+            synchronized(result) {
+              result += "|" + fieldContent;
+            }
           }
         }
         else if (theSignal[0] == add) {
-          System.err.println("\n*** setter: adding\n");
-          BinaryField t = (BinaryField)table.newPersistent();
-            // FIXME - line removed by ttj to allow melati to compile
-//          t.setWhatsit("whatsit" + (serial++));
+          String fieldContent = "addedWhatsit" + (serial++);
+          System.err.println("*** setter: adding " + fieldContent);
+          StringField t = (StringField)table.newPersistent();
+          t.setStringfield(fieldContent);
           t.makePersistent();
+          synchronized(result) {
+            result += "|" + fieldContent;
+          }
         }
         else if (theSignal[0] == delete) {
-          BinaryField t = (BinaryField)table.firstSelection(null);
-          if (t == null)
-            System.err.println("\n*** setter: nothing to delete\n");
-          else {
-            System.err.println("\n*** setter: deleting\n");
+          StringField t = (StringField)table.firstSelection(null);
+          if (t == null) {
+            System.err.println("\n*** setter: nothing to delete");
+            synchronized(result) {
+              result += "|empty delete";
+            }
+          } else {
+            System.err.println("*** setter: deleting");
             t.delete_unsafe();
-            System.err.println("\n*** setter: done deleting\n");
+            System.err.println("*** setter: done deleting");
+            synchronized(result) {
+              result += "|delete";
+            }
           }
         }
         else if (theSignal[0] == null) {
-          System.err.println("\n*** setter done\n");
+          System.err.println("\n*** setter done");
           break;
         }
 
@@ -196,15 +212,19 @@ public class CachedSelectionTest extends TestCase {
           break;
         }
         else {
-          System.err.println("\n*** getter:\n");
+          System.err.println("\n*** getter:");
           Enumeration them = cachedSelection.objects();
 
-          System.err.print("\n*** got");
+          System.err.print("** got\n");
+          synchronized(result) {
+            result += "|got";
+          }
 
-          while (them.hasMoreElements())
-            // FIXME - line removed by ttj to allow melati to compile
-//            System.err.print(" " + ((AThing)them.nextElement()).getWhatsit());
-
+          synchronized(result) {
+            while (them.hasMoreElements()) {
+              result += " " + ((StringField)them.nextElement()).getStringfield();
+            }
+          }
           System.err.println("\n");
         }
 
@@ -215,50 +235,53 @@ public class CachedSelectionTest extends TestCase {
 
   public void testThem() {
 
+    result = "";
     db.inSession(
         AccessToken.root,       // FIXME
         new PoemTask() {
           public void run() {
             try {
-              db.setLogSQL(true);
+              //db.setLogSQL(true);
 
-              Setter setter = new Setter(db.getBinaryFieldTable());
+              Setter setter = new Setter(db.getStringFieldTable());
               setter.start();
 
-              Getter getter = new Getter(db.getBinaryFieldTable());
+              Getter getter = new Getter(db.getStringFieldTable());
               getter.start();
 
-              Thread.sleep(1000);
+              // fails at a nap of 18ms!!!
+              int nap = 100;
+              Thread.sleep(nap);
               setter.signal(Setter.add);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               setter.signal(Setter.set);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               setter.signal(Setter.add);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               setter.signal(Setter.delete);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               setter.signal(Setter.delete);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
               getter.signal(Boolean.TRUE);
-              Thread.sleep(1000);
+              Thread.sleep(nap);
 
               setter.signal(null);
               getter.signal(null);
@@ -268,5 +291,7 @@ public class CachedSelectionTest extends TestCase {
             }
           }
         });
+    System.err.println(result);
+    assertEquals("|addedWhatsit0|got addedWhatsit0|got addedWhatsit0|setWhatsit1|got setWhatsit1|got setWhatsit1|addedWhatsit2|got setWhatsit1 addedWhatsit2|got setWhatsit1 addedWhatsit2|delete|got addedWhatsit2|got addedWhatsit2|delete|got|got",result);
   }
 }

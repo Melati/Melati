@@ -125,19 +125,25 @@ would be nice to have before a 1.0 release.
     <td>0.7.5</td>
     <td>
      Separation of Melati from servlets. <br />
-     Improved support for HSQLDB, Oracle.
+     Improved support for HSQLDB, Oracle.<br />
+     Support for MS Access.<br />
+     Unit test coverage extended to canonical Poem database.
     </td>
     <td><b>done</b></td>
   </tr>
   <tr> 
     <td>0.7.6</td>
+    <td>
+    <a href="/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.<br />
+    Support for Maven 2. <br />
+    Add default properties file.
+    </td>
+    <td></td>
+  </tr>
+  <tr> 
+    <td>0.7.7</td>
     <td>Completion of JavaDocs.</td>
     <td>All public classes done</td>
-  </tr>
-  <tr>
-    <td>0.7.7</td>
-    <td>Integration with Hibernate.</td>
-    <td></td>
   </tr>
   <tr> 
     <td>0.7.8</td>
@@ -146,7 +152,7 @@ would be nice to have before a 1.0 release.
   </tr>
   <tr> 
     <td>0.8.0</td>
-    <td>Templets are used to render everything.</td>
+    <td>Templets used to render everything.</td>
     <td>In Progress</td>
   </tr>
   <tr> 
@@ -157,11 +163,6 @@ would be nice to have before a 1.0 release.
   <tr> 
     <td>0.8.2</td>
     <td>Support for XML</td>
-    <td></td>
-  </tr>
-  <tr> 
-    <td>0.9.0</td>
-    <td><a href="/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.</td>
     <td></td>
   </tr>
   <tr>

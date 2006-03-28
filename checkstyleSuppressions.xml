@@ -18,6 +18,13 @@
               files="example" />
     <suppress checks="Header"
               files="test" />
+    <suppress checks="Header"
+              files="prepro" />
+    <suppress checks="Header"
+              files="PassbackMethodExceptionEventHandler" />
+    <suppress checks="Header"
+              files="ConfigAppExample" />
+
     <suppress checks="ParameterNumber"
               files="BaseFieldAttributes.java" />
     <suppress checks="MagicNumber"
@@ -32,6 +39,16 @@
     <!-- Name deliberately chosen -->
     <suppress checks="LocalVariableName"
               files="MultipartDataDecoder.java" />
+
+    <!-- Quite elegant really -->
+    <suppress checks="InnerAssignment"
+              files="Searchability.java" />
+    <suppress checks="InnerAssignment"
+              files="PoemTypeFactory.java" />
+    <suppress checks="InnerAssignment"
+              files="DisplayLevel.java" />
+    <suppress checks="InnerAssignment"
+              files="StandardIntegrityFix.java" />
 
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"

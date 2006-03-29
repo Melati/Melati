@@ -490,6 +490,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <includes>
             <include>**/*Test.java</include>
           </includes>
+          <excludes>
+            <exclude>**/CachedSelectionTest.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -508,7 +511,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <maxmemory>512</maxmemory>
         </configuration>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
@@ -526,11 +529,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
         </configuration>
-      </plugin>
-      <plugin>
+      </plugin-->
+      <!-- plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
-      </plugin>
+      </plugin -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jxr-maven-plugin</artifactId>

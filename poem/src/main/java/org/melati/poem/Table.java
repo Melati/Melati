@@ -2342,7 +2342,7 @@ public class Table implements Selectable {
    * 
    * @return the capitalised name
    */
-  public String getDefaultDisplayNAme() {
+  public String getDefaultDisplayName() {
     return defaultDisplayName();
   }
 

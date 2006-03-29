@@ -52,6 +52,12 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
+/**
+ * Test the handling of binary data field type.
+ * 
+ * @see org.melati.poem.BinaryPoemType
+ * @author williamc/timp
+ */
 public class BinaryTest extends TestCase {
 
   private TestDatabase db;
@@ -72,6 +78,24 @@ public class BinaryTest extends TestCase {
     db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
   }
 
+  /*
+   * @see TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    db.inSession(AccessToken.root, // HACK
+            new PoemTask() {
+              public void run() {
+                try {
+                  if (db.getDbms().toString().endsWith("Hsqldb"))
+                    db.sqlQuery("SHUTDOWN");
+                } catch (Exception e) {
+                  throw new UnexpectedExceptionPoemException(e);
+                }
+              }
+            });
+    //db.disconnect();
+    super.tearDown();
+  }
 
   public void testCreate() {
 

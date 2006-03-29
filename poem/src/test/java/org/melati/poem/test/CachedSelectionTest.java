@@ -56,6 +56,12 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
+/**
+ * Test the behaviour of CachedSelections in a multithreaded setup.
+ * 
+ * @see org.melati.poem.CachedSelection
+ * @author williamc/timp
+ */
 public class CachedSelectionTest extends TestCase {
 
   private TestDatabase db;
@@ -78,7 +84,26 @@ public class CachedSelectionTest extends TestCase {
     db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
   }
 
-  
+  /*
+   * @see TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    db.inSession(AccessToken.root, // HACK
+            new PoemTask() {
+              public void run() {
+                try {
+                  if (db.getDbms().toString().endsWith("Hsqldb")) {
+                    //db.sqlQuery("SHUTDOWN");
+                  }
+                } catch (Exception e) {
+                  throw new UnexpectedExceptionPoemException(e);
+                }
+              }
+            });
+    //db.disconnect();
+    super.tearDown();
+  }
+
   abstract static class PoemTaskThread extends Thread {
 
     Table table;
@@ -138,13 +163,13 @@ public class CachedSelectionTest extends TestCase {
           if (t == null){
             System.err.println("\n*** setter: nothing to set\n");
             synchronized(result) {
-              result += "|NULL" + fieldContent;            
+              result += "\nNULL" + fieldContent;            
             }
           } else {
             System.err.println("\n*** setter: setting " + fieldContent);
             t.setStringfield(fieldContent);
             synchronized(result) {
-              result += "|" + fieldContent;
+              result += "\n" + fieldContent;
             }
           }
         }
@@ -155,7 +180,7 @@ public class CachedSelectionTest extends TestCase {
           t.setStringfield(fieldContent);
           t.makePersistent();
           synchronized(result) {
-            result += "|" + fieldContent;
+            result += "\n" + fieldContent;
           }
         }
         else if (theSignal[0] == delete) {
@@ -163,14 +188,14 @@ public class CachedSelectionTest extends TestCase {
           if (t == null) {
             System.err.println("\n*** setter: nothing to delete");
             synchronized(result) {
-              result += "|empty delete";
+              result += "\nempty delete";
             }
           } else {
             System.err.println("*** setter: deleting");
             t.delete_unsafe();
             System.err.println("*** setter: done deleting");
             synchronized(result) {
-              result += "|delete";
+              result += "\ndelete";
             }
           }
         }
@@ -217,12 +242,14 @@ public class CachedSelectionTest extends TestCase {
 
           System.err.print("** got\n");
           synchronized(result) {
-            result += "|got";
+            result += "\ngot";
           }
 
           synchronized(result) {
             while (them.hasMoreElements()) {
-              result += " " + ((StringField)them.nextElement()).getStringfield();
+              String s = " " + ((StringField)them.nextElement()).getStringfield();
+              result += s;
+              System.err.print(s);
             }
           }
           System.err.println("\n");
@@ -233,11 +260,14 @@ public class CachedSelectionTest extends TestCase {
     }
   }
 
+  /**
+   * Setup threads and test them. 
+   */
   public void testThem() {
 
     result = "";
     db.inSession(
-        AccessToken.root,       // FIXME
+        AccessToken.root,       // HACK
         new PoemTask() {
           public void run() {
             try {
@@ -249,8 +279,9 @@ public class CachedSelectionTest extends TestCase {
               Getter getter = new Getter(db.getStringFieldTable());
               getter.start();
 
-              // fails at a nap of 18ms!!!
-              int nap = 100;
+              // fails at a nap of 18ms for postgresl and hsqldb
+              // fails at a nap of 700ms for Acess
+              int nap = 1500;
               Thread.sleep(nap);
               setter.signal(Setter.add);
               Thread.sleep(nap);
@@ -292,6 +323,11 @@ public class CachedSelectionTest extends TestCase {
           }
         });
     System.err.println(result);
-    assertEquals("|addedWhatsit0|got addedWhatsit0|got addedWhatsit0|setWhatsit1|got setWhatsit1|got setWhatsit1|addedWhatsit2|got setWhatsit1 addedWhatsit2|got setWhatsit1 addedWhatsit2|delete|got addedWhatsit2|got addedWhatsit2|delete|got|got",result);
+    assertEquals("\naddedWhatsit0\ngot addedWhatsit0\ngot addedWhatsit0" + 
+                 "\nsetWhatsit1\ngot setWhatsit1\ngot setWhatsit1" + 
+                 "\naddedWhatsit2\ngot setWhatsit1 addedWhatsit2" + 
+                 "\ngot setWhatsit1 addedWhatsit2\ndelete" + 
+                 "\ngot addedWhatsit2\ngot addedWhatsit2\ndelete" + 
+                 "\ngot\ngot",result);
   }
 }

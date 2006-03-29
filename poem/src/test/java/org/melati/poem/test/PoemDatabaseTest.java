@@ -10,12 +10,14 @@ import org.melati.poem.Capability;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.UnexpectedExceptionPoemException;
+import org.melati.poem.User;
 import org.melati.poem.UserTable;
 import org.melati.poem.dbms.Dbms;
 
 /**
+ * Test the features of all Poem databases. 
+ * 
  * @author timp
- *
  */
 public class PoemDatabaseTest extends TestCase {
   private PoemDatabase db;
@@ -41,21 +43,24 @@ public class PoemDatabaseTest extends TestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
-           //       db.sqlQuery("SHUTDOWN");
+                  if (db.getDbms().toString().endsWith("Hsqldb"))
+                    db.sqlQuery("SHUTDOWN");
                 } catch (Exception e) {
                   throw new UnexpectedExceptionPoemException(e);
                 }
               }
             });
-        //db.disconnect();
-        super.tearDown();
+    // FIXME - Do not understand why disconnecting here 
+    // causes NoMoreTransactionsException
+    //db.disconnect();
+    super.tearDown();
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.generated.PoemDatabaseBase.getUserTable()'
    * Test method for 'org.melati.poem.Database.getTable(String)'
    */
@@ -65,14 +70,14 @@ public class PoemDatabaseTest extends TestCase {
       assertEquals(ut1, ut2);
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.transactionsMax()'
    */
   public void testTransactionsMax() {
     assertEquals(4, db.transactionsMax());
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.getDisplayTables()'
    */
   public void testGetDisplayTables() {
@@ -86,7 +91,7 @@ public class PoemDatabaseTest extends TestCase {
     "columninfo (from the data structure definition)" +
     "tablecategory (from the data structure definition)" +
     "setting (from the data structure definition)";
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
@@ -105,11 +110,11 @@ public class PoemDatabaseTest extends TestCase {
             });
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.sqlQuery(String)'
    */
   public void testSqlQuery() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
@@ -127,11 +132,11 @@ public class PoemDatabaseTest extends TestCase {
 
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.hasCapability(User, Capability)'
    */
   public void testHasCapability() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HJACK
             new PoemTask() {
               public void run() {
                 try {
@@ -143,11 +148,11 @@ public class PoemDatabaseTest extends TestCase {
             });
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.administerCapability()'
    */
   public void testAdministerCapability() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
@@ -160,11 +165,11 @@ public class PoemDatabaseTest extends TestCase {
             });
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.getCanAdminister()'
    */
   public void testGetCanAdminister() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
@@ -176,11 +181,44 @@ public class PoemDatabaseTest extends TestCase {
             });
   }
 
-  /*
+  /**
+   * @see org.melati.poem.UserTable#guestUser()
+   */
+  public final void testGuestUser() {
+    db.inSession(AccessToken.root, // HACK
+            new PoemTask() {
+              public void run() {
+                try {
+                  User u = db.getUserTable().guestUser();
+                  assertEquals(u.getLogin(), "_guest_");
+                } catch (Exception e) {
+                  throw new UnexpectedExceptionPoemException(e);
+                }
+              }
+            });
+  }
+
+  public final void testAdministratorUser() {
+    db.inSession(AccessToken.root, // HACK
+            new PoemTask() {
+              public void run() {
+                try {
+                  User u = db.getUserTable().administratorUser();
+                  assertEquals(u.getPassword(), "FIXME");
+                } catch (Exception e) {
+                  throw new UnexpectedExceptionPoemException(e);
+                }
+              }
+            });
+    //TODO Implement administratorUser().
+  }
+
+  
+  /**
    * Test method for 'org.melati.poem.Database.referencesTo(Table)'
    */
   public void testReferencesToTable() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
                 try {
@@ -197,7 +235,7 @@ public class PoemDatabaseTest extends TestCase {
             });
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.getDbms()'
    */
   public void testGetDbms() {
@@ -206,7 +244,7 @@ public class PoemDatabaseTest extends TestCase {
   }
 
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.toString()'
    */
   public void testToString() {
@@ -215,14 +253,14 @@ public class PoemDatabaseTest extends TestCase {
     assertTrue(name.endsWith(dbName));
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.logSQL()'
    */
   public void testLogSQL() {
     assertFalse(db.logSQL());
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.setLogSQL(boolean)'
    */
   public void testSetLogSQL() {

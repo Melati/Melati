@@ -11,9 +11,13 @@ import junit.framework.TestCase;
 
 /**
  * Test the User Table.
- * Extend this to test yours. 
  * 
- * @author tim.pizey
+ * This test is duplicated in PoemDatabaseTest, 
+ * but is left in here as ait is a useful template for 
+ * a simple, single dbms test.
+ * 
+ * @author timp
+ * @see PoemDatabaseTest
  */
 public class UserTableTest extends TestCase {
 
@@ -42,17 +46,18 @@ public class UserTableTest extends TestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
         new PoemTask() {
           public void run() {
             try {
-              db.sqlQuery("SHUTDOWN");
+              if (db.getDbms().toString().endsWith("Hsqldb"))
+                db.sqlQuery("SHUTDOWN");
             } catch (Exception e) {
               throw new UnexpectedExceptionPoemException(e);
             }
           }
         });
-    db.disconnect();
+    //db.disconnect();
     super.tearDown();
   }
 
@@ -68,7 +73,7 @@ public class UserTableTest extends TestCase {
    * @see org.melati.poem.UserTable#guestUser()
    */
   public final void testGuestUser() {
-    db.inSession(AccessToken.root, // FIXME
+    db.inSession(AccessToken.root, // HACK
         new PoemTask() {
           public void run() {
             try {
@@ -79,19 +84,7 @@ public class UserTableTest extends TestCase {
             }
           }
         });
-
   }
 
-  public final void testAdministratorUser() {
-    //TODO Implement administratorUser().
-  }
-
-  
-  /**
-   * @param dbUrl The dbUrl to set.
-   */
-  protected static void setDbUrl(String dbUrl) {
-    UserTableTest.dbUrl = dbUrl;
-  }
 
 }

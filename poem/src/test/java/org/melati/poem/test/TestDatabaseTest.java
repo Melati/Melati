@@ -11,8 +11,8 @@ import org.melati.poem.UserTable;
 
 /**
  * A test of the example database which excercises every datatype and table type. 
+ * 
  * @author timp
- *
  */
 public class TestDatabaseTest extends TestCase {
   private TestDatabase db;
@@ -42,7 +42,8 @@ public class TestDatabaseTest extends TestCase {
             new PoemTask() {
               public void run() {
                 try {
-           //       db.sqlQuery("SHUTDOWN");
+                  if (db.getDbms().toString().endsWith("Hsqldb"))
+                    db.sqlQuery("SHUTDOWN");
                 } catch (Exception e) {
                   throw new UnexpectedExceptionPoemException(e);
                 }
@@ -52,7 +53,7 @@ public class TestDatabaseTest extends TestCase {
         super.tearDown();
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.test.generated.TestDatabaseBase.getUserTable()'
    * Test method for 'org.melati.poem.Database.getTable(String)'
    */
@@ -62,7 +63,7 @@ public class TestDatabaseTest extends TestCase {
       assertEquals(ut1, ut2);
   }
 
-  /*
+  /**
    * Test method for 'org.melati.poem.Database.getDisplayTables()'
    */
   public void testGetDisplayTables() {

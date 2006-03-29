@@ -85,7 +85,7 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
  * <p>
  * You will need to create a MelatiConfig in order to construct a Melati.
  * <p>
- * If you are using servlets, you will want to construct a melati with 
+ * If you are using servlets, you will want to construct a melati with
  * a request and response object.  Otherwise, simply pass in a Writer.
  * <p>
  * A Melati exists once per request.
@@ -111,7 +111,7 @@ public class Melati {
   private Persistent object = null;
 
   private String[] arguments;
-  
+
   // the template engine that is in use (if any)
   private TemplateEngine templateEngine;
   // the object that is used by the template engine to expand the template
@@ -200,7 +200,7 @@ public class Melati {
    * @see org.melati.servlet.PoemServlet
    */
 
-  public void setPoemContext(PoemContext context) 
+  public void setPoemContext(PoemContext context)
       throws DatabaseInitException {
     this.poemContext = context;
     if (poemContext.getLogicalDatabase() != null)
@@ -224,7 +224,7 @@ public class Melati {
       object = table.getObject(poemContext.getTroid().intValue());
   }
 
-  
+
   /**
    * Get the PoemContext for this Request.
    *
@@ -354,22 +354,22 @@ public class Melati {
 
   /**
    * Set the aruments array from the commandline.
-   * 
+   *
    * @param args
    */
   public void setArguments(String[] args) {
     arguments = args;
   }
-  
+
   /**
    * Get the Arguments array.
-   * 
+   *
    * @return the arguments array
    */
   public String[] getArguments() {
     return arguments;
   }
-  
+
   /**
    * Get the Session for this Request.
    *
@@ -411,6 +411,22 @@ public class Melati {
   }
 
   /**
+   * Get the URL for the Login Page.
+   *
+   * @return - the URL for the Login Page
+   * @see org.melati.login.Login
+   */
+  public String getLoginURL() {
+    StringBuffer url = new StringBuffer();
+    HttpUtil.appendRelativeZoneURL(url, getRequest());
+    url.append('/');
+    url.append(MelatiConfig.loginPageServletClassName());
+    url.append('/');
+    url.append(poemContext.getLogicalDatabase());
+    return url.toString();
+  }
+
+  /**
    * Get the URL for this Servlet Zone.
    *
    * @return - the URL for this Servlet Zone
@@ -444,15 +460,15 @@ public class Melati {
    * Returns a MelatiLocale object based on the Accept-Language header
    * of this request.
    *
-   * If we are using Melati outside of a servlet context then the 
-   * configured locale is returned. 
-   * 
+   * If we are using Melati outside of a servlet context then the
+   * configured locale is returned.
+   *
    * @return a MelatiLocale object
    */
   public MelatiLocale getMelatiLocale() {
     HttpServletRequest r = getRequest();
     String acceptLanguage = null;
-    if (r != null) 
+    if (r != null)
       acceptLanguage = r.getHeader("Accept-Language");
     if (acceptLanguage == null)
       return config.getLocale();
@@ -536,7 +552,7 @@ public class Melati {
    * and semicolon separator are automatically appended to the type.
    * I am guessing that this makes sense.
    * <p>
-   * Whether this function should be called at all may depend on 
+   * Whether this function should be called at all may depend on
    * the application and templates.
    * <p>
    * It should be called before any calls to {@link #getEncoding()}
@@ -781,7 +797,7 @@ public class Melati {
   public MelatiWriter getStringWriter() {
     if (templateEngine == null) {
       return new MelatiStringWriter();
-    } 
+    }
     return templateEngine.getStringWriter();
   }
 
@@ -831,9 +847,9 @@ public class Melati {
   }
 
   /**
-   * Set the <code>VariableExceptionHandler</code> to the 
+   * Set the <code>VariableExceptionHandler</code> to the
    * passed in parameter.
-   * 
+   *
    * @param veh a <code>VariableExceptionHandler</code>.
    */
   public void setVariableExceptionHandler(Object veh) {

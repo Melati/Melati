@@ -42,9 +42,7 @@
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
-
 package org.melati.admin;
-
 import org.melati.poem.Table;
 import org.melati.poem.Persistent;
 import org.melati.poem.AccessPoemException;
@@ -55,193 +53,158 @@ import org.melati.template.MarkupLanguage;
 import org.melati.util.Tree;
 import org.melati.util.Treeable;
 import org.melati.util.JSStaticTree;
-
 /**
  * A utility object for placing in a <code>ServletTemplateContext</code>.
  */
 public class AdminUtils {
-
   private String contextPath;
   private String adminURL;
   private String adminStaticURL;
   private String logicalDatabase;
-
-  public AdminUtils(String contextPath, 
-                    String servlet,
-                    String adminStaticURL,
+  public AdminUtils(String contextPath, String servlet, String adminStaticURL,
                     String logicalDatabase) {
     this.contextPath = contextPath;
     this.adminURL = contextPath + servlet;
     this.adminStaticURL = adminStaticURL;
     this.logicalDatabase = logicalDatabase;
-    //HACK 
-    // if we are using 2.0 Servlet API then zone is 
+    // HACK
+    // if we are using 2.0 Servlet API then zone is
     // included in servlet and contextPath is null
     if (contextPath == "") {
       this.contextPath = servlet.substring(0, servlet.lastIndexOf("/"));
     }
   }
-
   public String TopURL(Melati melati) {
-      String url =  adminURL + "/" + logicalDatabase;
-    if (melati.getTable() != null) 
+    String url = adminURL + "/" + logicalDatabase;
+    if (melati.getTable() != null)
       url += "/" + melati.getTable().getName();
-    if (melati.getObject() != null) 
+    if (melati.getObject() != null)
       url += "/" + melati.getObject().getTroid();
     return url + "/Top";
   }
-
   public String BottomURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/Bottom";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Bottom";
   }
-
   public String LeftURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/Left";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Left";
   }
-
   public String PrimarySelectURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/PrimarySelect";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/PrimarySelect";
   }
-
   public String SelectionURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/Selection";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/Selection";
   }
-
   public String SelectionRightURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/SelectionRight";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/SelectionRight";
   }
-
   public String NavigationURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() +
-               "/Navigation";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/Navigation";
   }
-
   public String RightURL(Persistent object) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/Right";
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/Right";
   }
-
   public String EditHeaderURL(Persistent object) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/EditHeader";
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/EditHeader";
   }
-
   public String EditURL(Persistent object) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/Edit";
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/Edit";
   }
-
   public String TreeURL(Persistent object) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/Tree";
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/Tree";
   }
-
   public String TreeControlURL(Persistent object) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-        object.getTable().getName() + "/" + object.troid() + "/TreeControl";
+    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+            + "/" + object.troid() + "/TreeControl";
   }
-
   public String AddURL(Table table) throws AccessPoemException {
-    return
-        adminURL + "/" + logicalDatabase + "/" +
-            (table instanceof org.melati.poem.ColumnInfoTable ?
-               Admin.METHOD_CREATE_COLUMN :
-             table instanceof org.melati.poem.TableInfoTable ?
-               Admin.METHOD_CREATE_TABLE :
-               table.getName() + "/" + Admin.METHOD_ADD_RECORD);
+    return adminURL
+            + "/"
+            + logicalDatabase
+            + "/"
+            + (table instanceof org.melati.poem.ColumnInfoTable ? Admin.METHOD_CREATE_COLUMN
+                    : table instanceof org.melati.poem.TableInfoTable ? Admin.METHOD_CREATE_TABLE
+                            : table.getName() + "/" + Admin.METHOD_ADD_RECORD);
   }
-
   public String PopupURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
-
   public String SelectionWindowURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + 
-               table.getName() + "/SelectionWindow";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/SelectionWindow";
   }
-
   public String SelectionWindowPrimarySelectURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
-               "/SelectionWindowPrimarySelect";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/SelectionWindowPrimarySelect";
   }
-
   public String SelectionWindowSelectionURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + 
-               "/SelectionWindowSelection";
+    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+            + "/SelectionWindowSelection";
   }
-
   public String StatusURL() {
     return contextPath + "/org.melati.admin.Status/" + logicalDatabase;
   }
-
   public String SessionURL() {
     return contextPath + "/org.melati.test.SessionAnalysisServlet";
   }
-
-  /*
-   * In an insert situation we will not have a Troid, 
-   * so cannot pass it through.
-   * If your upload handler depends on having a persistent, then you should 
+  public String DsdURL() {
+    return adminURL + "/" + logicalDatabase + "/DSD";
+  }
+  /**
+   * In an insert situation we will not have a Troid, so cannot pass it through.
+   * If your upload handler depends on having a persistent, then you should
    * override your upload template so that it prevents uploading in an insert
    * situation.
    */
   public String UploadURL(Table table, Persistent object, Field field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
-
-  public String 
-    UploadHandlerURL(Table table, Persistent object, String field) {
+  public String UploadHandlerURL(Table table, Persistent object, String field) {
     return upload(table, object) + "/UploadDone?field=" + field;
   }
-  
   private String upload(Table table, Persistent object) {
     String url = adminURL + "/" + logicalDatabase + "/" + table.getName();
-    if (object != null) url += "/" + object.troid();
+    if (object != null)
+      url += "/" + object.troid();
     return url;
   }
-
-  // establish if this is a reference poem type field
-
+  /**
+   * Establish if this is a ReferencePoemType field.
+   * 
+   * @param field
+   *          the field to check
+   * @return whether it is a reference poem type
+   */
   public boolean isReferencePoemType(Field field) {
     return field.getType() instanceof ReferencePoemType;
   }
-
   public String getStaticURL() {
     return adminStaticURL;
   }
-
   public String specialFacilities(Melati melati, MarkupLanguage ml,
-                                  Persistent object)
-      throws Exception {
+          Persistent object) throws Exception {
     if (object instanceof AdminSpecialised)
-      melati.getTemplateEngine().expandTemplate(
-               melati.getWriter(),
-               ((AdminSpecialised)object).adminSpecialFacilities(melati, ml),
-               melati.getTemplateContext());
+      melati.getTemplateEngine().expandTemplate(melati.getWriter(),
+              ((AdminSpecialised) object).adminSpecialFacilities(melati, ml),
+              melati.getTemplateContext());
     return "";
   }
-
   public JSStaticTree createTree(Treeable node) {
     return new JSStaticTree(new Tree(node), getStaticURL());
   }
-
-  // You can no longer (as of 1.0) 
-  // look at an object's methods in WebMacro
-  
+  /**
+   * Whether the object is a Treeable. 
+   * You can no longer (as of 1.0) look at an object's methods
+   * in WebMacro.
+   */
   public boolean isTreeable(Persistent object) {
     return object instanceof Treeable;
   }
- 
 }
-
-

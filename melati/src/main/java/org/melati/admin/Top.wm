@@ -109,9 +109,12 @@
 #if ($melati.User.isAdministrator()) #begin
 <a href="$admin.SessionURL()" target="admin_bottom">Sessions</a>
 <a href="$admin.StatusURL()" target="admin_bottom">Cache</a>
+<a href="$admin.DsdURL()" target="admin_bottom">Dsd</a>
 #end
 &nbsp;
- #if (!$melati.User.isGuest()) #begin
+ #if ($melati.User.isGuest()) #begin
+ <input type="button" value=" Login " onclick="parent['admin_bottom'].location = '$melati.LoginURL?returnURL='+parent['admin_bottom'].location.href;">
+ #end #else #begin
  <input type="button" value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
  #end
  <input type="button" value=" Home " 

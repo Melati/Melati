@@ -76,7 +76,7 @@ public class CSVFileParser {
 
   private BufferedReader reader = null;
 
-  int line_no = 0;      // The first line will be line '1'
+  int lineNo = 0;      // The first line will be line '1'
   private String line = "";
   private boolean emptyLastField = false;
   int p = 0;
@@ -94,6 +94,9 @@ public class CSVFileParser {
   }
 
   private boolean nextLine() throws IOException {
+    // Not confident about this
+    // but we need to return false if we have reached end and closed the file
+    if (!reader.ready()) return false;
     line = reader.readLine();
     // This should be false anyway if we're called from nextToken()
     emptyLastField = false;
@@ -102,10 +105,19 @@ public class CSVFileParser {
       reader.close();
       return false;
     }
-    line_no++;
+    lineNo++;
     return true;
   }
 
+  /**
+   * Return the line number.
+   * 
+   * @return the current lineNo
+   */
+  public int getLineNo() {
+    return lineNo;
+  }
+  
   /**
    * Are there any more tokens to come?
    */
@@ -151,7 +163,7 @@ public class CSVFileParser {
         String sofar = line.substring(p, line.length());
         if (!nextLine())
           throw new IllegalArgumentException("Unclosed quotes on line "
-                                             + line_no);
+                                             + lineNo);
         return sofar + "\n" + nextToken(true);
       }
 
@@ -163,7 +175,7 @@ public class CSVFileParser {
         if (line.charAt(q) != ',') {
           p = line.length();
           throw new IllegalArgumentException("No comma after quotes on line "
-                                            + line_no);
+                                            + lineNo);
         }
         else if (q == line.length() - 1)
           emptyLastField = true;

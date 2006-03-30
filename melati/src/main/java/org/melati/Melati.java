@@ -77,6 +77,7 @@ import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.StringUtils;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
@@ -129,7 +130,7 @@ public class Melati {
   private String encoding;
 
   /**
-   * Construct a Melati for use with Servlets
+   * Construct a Melati for use with Servlets.
    *
    * @param config - the MelatiConfig
    * @param request - the Servlet Request
@@ -144,8 +145,8 @@ public class Melati {
   }
 
   /**
-   * Construct a melati for use in 'stand alone' mode NB: you will not have
-   * access to servlet related stuff (eg sessions)
+   * Construct a melati for use in 'stand alone' mode.
+   * NB: you will not have access to servlet related stuff (eg sessions)
    *
    * @param config - the MelatiConfig
    * @param writer - the Writer that all output is written to
@@ -157,7 +158,7 @@ public class Melati {
   }
 
   /**
-   * Get the servlet request object
+   * Get the servlet request object.
    *
    * @return the Servlet Request
    */
@@ -179,7 +180,7 @@ public class Melati {
   }
 
   /**
-   * Get the servlet response object
+   * Get the servlet response object.
    *
    * @return - the Servlet Response
    */
@@ -199,7 +200,6 @@ public class Melati {
    * @see org.melati.LogicalDatabase
    * @see org.melati.servlet.PoemServlet
    */
-
   public void setPoemContext(PoemContext context)
       throws DatabaseInitException {
     this.poemContext = context;
@@ -216,7 +216,6 @@ public class Melati {
    * @see org.melati.admin.Admin
    * @see org.melati.servlet.PoemServlet
    */
-
   public void loadTableAndObject() {
     if (poemContext.getTable() != null && database != null)
       table = database.getTable(poemContext.getTable());
@@ -230,7 +229,6 @@ public class Melati {
    *
    * @return - the PoemContext for this Request
    */
-
   public PoemContext getPoemContext() {
     return poemContext;
   }
@@ -251,7 +249,6 @@ public class Melati {
    * @return the POEM Table for this Request
    * @see #loadTableAndObject
    */
-
   public Table getTable() {
     return table;
   }
@@ -262,7 +259,6 @@ public class Melati {
    * @return the POEM Object for this Request
    * @see #loadTableAndObject
    */
-
   public Persistent getObject() {
     return object;
   }
@@ -285,7 +281,6 @@ public class Melati {
    * @param te - the template engine to be used
    * @see org.melati.servlet.TemplateServlet
    */
-
   public void setTemplateEngine(TemplateEngine te) {
     templateEngine = te;
   }
@@ -295,7 +290,6 @@ public class Melati {
    *
    * @return - the template engine to be used
    */
-
   public TemplateEngine getTemplateEngine() {
     return templateEngine;
   }
@@ -306,7 +300,6 @@ public class Melati {
    * @param tc - the template context to be used
    * @see org.melati.servlet.TemplateServlet
    */
-
   public void setTemplateContext(TemplateContext tc) {
     templateContext = tc;
   }
@@ -316,16 +309,15 @@ public class Melati {
    *
    * @return - the template context being used
    */
-
   public TemplateContext getTemplateContext() {
     return templateContext;
   }
+  
   /**
    * Get the TemplateContext used for this Request.
    *
    * @return - the template context being used
    */
-
   public ServletTemplateContext getServletTemplateContext() {
     return (ServletTemplateContext)templateContext;
   }
@@ -335,7 +327,6 @@ public class Melati {
    *
    * @return - the template context being used
    */
-
   public MelatiConfig getConfig() {
     return config;
   }
@@ -385,7 +376,6 @@ public class Melati {
    * @return - the AdminUtils
    * @see org.melati.admin.Admin
    */
-
   public AdminUtils getAdminUtils() {
     return new AdminUtils(
         HttpServletRequestCompat.getContextPath(getRequest()),
@@ -528,7 +518,7 @@ public class Melati {
         request.setCharacterEncoding(responseCharset);
       }
       catch (UnsupportedEncodingException e) {
-        //assert false : "This has already been checked by AcceptCharset";
+        throw new MelatiBugMelatiException("This should already have been checked by AcceptCharset", e);
       }
     } else {
       responseCharset = ac.serverChoice();
@@ -777,7 +767,6 @@ public class Melati {
    * - a ThrowingPrintWriter
    * @throws IOException if there is a problem with the writer
    */
-
   public MelatiWriter getWriter() throws IOException {
     if (writer == null) writer = createWriter();
     // if we have it, remember that fact

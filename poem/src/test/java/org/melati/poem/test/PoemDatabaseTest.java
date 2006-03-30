@@ -47,8 +47,8 @@ public class PoemDatabaseTest extends TestCase {
             new PoemTask() {
               public void run() {
                 try {
-                  if (db.getDbms().toString().endsWith("Hsqldb"))
-                    db.sqlQuery("SHUTDOWN");
+                  //if (db.getDbms().toString().endsWith("Hsqldb"))
+                  //  db.sqlQuery("SHUTDOWN");
                 } catch (Exception e) {
                   throw new UnexpectedExceptionPoemException(e);
                 }

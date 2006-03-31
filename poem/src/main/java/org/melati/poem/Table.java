@@ -1735,7 +1735,7 @@ public class Table implements Selectable {
 
   protected synchronized Integer troidFor(Persistent persistent) {
     if (nextTroid == -1)
-      throw new PoemBugPoemException();
+      throw new PoemBugPoemException("Troid still unitialised in " + name);
     return new Integer(nextTroid++);
   }
 
@@ -2477,8 +2477,7 @@ public class Table implements Selectable {
     if (dbIndex == 0) {
       // OK, we simply don't exist ...
       // ie the Database MetaData  Result Set passed in was empty or null
-//      if (logSQL()) log(
-//        "Table.UnifyWithDB called with null or empty ResultsSet");
+      //System.err.println("Table.UnifyWithDB called with null or empty ResultsSet");
       dbCreateTable();
     } else {
       // silently create any missing columns

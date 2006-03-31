@@ -47,6 +47,11 @@ package org.melati.poem.prepro;
 
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.jar.JarInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Writer;
 import java.io.File;
 import java.io.FileWriter;
@@ -159,13 +164,21 @@ public class DSD {
     /* Read in the default Poem tables, if appropriate */
     if (includePoem && !"Poem".equals(nAme)) {
       DSD poemDSD = new DSD(filePath("org.melati.poem.Poem.dsd"),
-                              nameStore, false);
+                            nameStore, false);
       Vector poemTables = poemDSD.tablesInPackage;
       for(int i = 0; i < poemTables.size(); i++)
         tablesInDatabase.addElement(poemTables.elementAt(i));
     }
-
-    Reader reader = new BufferedReader(new FileReader(file));
+    Reader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader(file));
+    } catch (FileNotFoundException e) {
+      String resourceName = file.substring(file.indexOf("!") + 2);
+      reader = new BufferedReader(
+                   new InputStreamReader(Thread.currentThread()
+                        .getContextClassLoader()
+                          .getResourceAsStream(resourceName)));
+    }
     try {
       StreamTokenizer tokens = new StreamTokenizer(reader);
       tokens.slashSlashComments(true);

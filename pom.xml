@@ -43,7 +43,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <scm>
     <connection>
-      scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
+      scm:cvs:pserver:anonymous:@melati.org:/usr/cvsroot:melati
     </connection>
     <developerConnection>
 scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati

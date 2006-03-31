@@ -64,6 +64,10 @@ This page last updated: $Date$ $Author$
     a <b>low level security model</b> allowing restrictions to be 
     placed on tables, rows and fields.
     </li>
+    <li>
+    a <a href='Unification.html'>three way unification</a> of 
+    jdbc, sql and java meta data.
+    </li>
    </ul>
   </li> 
 </ul>

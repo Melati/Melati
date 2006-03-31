@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      ORM, Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Unification ">
+<p>
+One of the Unique Selling Points of Melati is that it does a three way 
+unification of the data definition held in the meta data table in the database
+itself with the meta data from the JDBC and the meta data hardcoded in the
+getters and setters of your Java objects.
+</p>
+
+<subsection name=" What is Unification ">
+<p>
+We are talking about <a href='http://en.wikipedia.org/wiki/Unification'>Unification</a> 
+as in Prolog not <a href='http://www.unification.org/'>Unification</a> as in
+Church!
+</p>
+<p>
+If you have two lists of assigned variables then all those that occur in both
+unify, any which only occur in one are copied to the other, any which occur in
+both are compared to see if they can unify.
+</p>
+</subsection>
+<subsection name=" Meta Data ">
+<p>
+A PoemDatabase has an <a
+href='http://en.wikipedia.org/wiki/Codd's_twelve_rules' title="Codd's 12
+rules">Active online catalog based on the relational model</a> that is to say 
+it has System tables called <a
+href="/melati/Admin/contact/table/Main">tableInfo</a> and 
+href="/melati/Admin/contact/column/Main">columnInfo</a> to store meta data
+about the tables and fields in the database.
+</p>
+<p>
+All JDBC databases contain and can supply meta data about their contents
+through the <a
+href="http://java.sun.com/j2se/1.3/docs/api/java/sql/DatabaseMetaData.html">DatabaseMetaData</a>
+class of the <a
+href="http://java.sun.com/j2se/1.3/docs/guide/jdbc/index.html">JDBC API</a>.
+</p>
+<p>
+A Poem Table can support all SQL datatypes as columns, but Poem holds more
+meta data about a column than does SQL, for instance how to display the 
+field.
+</p>
+</subsection>
+<subsection name=" Unification Rules ">
+<p>
+In the abstract, Prolog, sense unification between two trees is bi
+directional, 
+with no precedence, but our case is limited:
+</p>
+<ol>
+<li>
+A design choice was that meta data in the database tables takes precedence
+over meta data in the java code.
+</li>
+<li>The java code is compiled so cannot change, however see Iterating below</li>
+<li>The existing jdbc meta data cannot be changed but can be added to</li>
+</ol>
+</subsection>
+<subsection name=" Use case - Generating classes from a database ">
+<p>
+You have a database, which is normalised and has a numeric primary key called
+<tt>id</tt> 
+in each table and you want to represent this in java.
+</p>
+<p>
+The unification process takes the following steps:
+<ol>
+<li>
+Look for databse meta data tables - not found, so created
+</li>
+<li>
+Use the java definitions of a PoemDatabase to create tables 
+tableinfo, columninfo, tablecategory (also the user management and settings
+table) and populate tableinfo and columninfo with details of these tables.
+</li>
+<li>
+Read the JDBC meta data to populate tableinfo and columninfo with details of 
+your tables.
+</li>
+</ol>
+You can now view your database in the Admin system.
+</p>
+</subsection>
+<subsection name=" Use case - Generating a database from a data definition">
+<p>
+You have defined the database structure you want in a DSD file.
+</p>
+<p>
+Depending upon your DBMS you may need to create an empty database, then point 
+Melati at that databse and the unification process will create the tables
+themselves and populate the tableinfo and columninfo tables for you.
+</p>
+</subsection>
+<subsection name=" Iterating ">
+<p>
+Once you have a functioning Poem database you can create a DSD using the 
+Admin system <a href="/melati/Admin/contacts/DSD?comments=true">DSD Report</a>.
+</p>
+<p>
+This can be fed back into the start of the process, enabling you to add meta
+data, such as verbose descriptions of fields and tables, using the Admin
+interface, and then recreate your data definition and hence your java source.
+</p>
+<p>
+This feature is particularly powerful in a situation where you are capturing
+requirements 
+with a customer, as you can add and delete tables and columns, reorder them 
+and change their characteristics on teh fly in real time, then export your DSD
+and capture the meta data in your java files.
+</p>
+</subsection>
+</section>
+</body>
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

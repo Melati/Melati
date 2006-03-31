@@ -64,6 +64,7 @@ import org.melati.poem.TimestampPoemType;
  */
 public class MSAccess extends AnsiStandard {
   public static final int msAccessTextHack = 250;
+  public static final int msAccessMemoSize = 1073741823;
   public MSAccess() {
     //  does not work as it does not implement getColumns !!
     // setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
@@ -131,6 +132,7 @@ public class MSAccess extends AnsiStandard {
   public String getLongSqlDefinition() {
     return "INTEGER";
   }
+  
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
    */
@@ -165,9 +167,12 @@ public class MSAccess extends AnsiStandard {
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
-      if (((StringPoemType) storage).getSize() == msAccessTextHack
-        && ((StringPoemType) type).getSize() == -1) {
+      if (((StringPoemType)storage).getSize() == msAccessTextHack
+              && ((StringPoemType) type).getSize() == -1) {
         return type;
+      } else if (((StringPoemType)storage).getSize() == msAccessMemoSize
+                 && ((StringPoemType)type).getSize() == -1) {
+              return type;
       } else {
         return storage.canRepresent(type);
       }

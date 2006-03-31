@@ -121,10 +121,37 @@ public class PreparedStatementFactory extends CachedIndexFactory {
                                 PreparedStatement statement) {
     try {
       if (database.logSQL())
-        database.log(new SQLLogEvent(statement.toString() + "(" + sql + ")"));
+        database.log(new SQLLogEvent("PS about to:" + statement.toString() + "(" + sql + ")"));
 
       token.transaction.writeDown();
-      ResultSet rs = statement.executeQuery();
+
+      ResultSet rs = null;
+      if (database.getDbms().toString()
+              .equals("org.melati.poem.dbms.MSAccess")){
+        // This is due to some uncontrollable 
+        // lazy write caching.
+        // On my machine it is taking 4s to 
+        // sync
+        boolean notDone = true;
+        int failCount = 0;
+        while (notDone) {
+          try {
+            rs = statement.executeQuery();
+            notDone = false;
+          } catch (SQLException e) {
+            try {
+              Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+              throw new PoemBugPoemException("Sleep interrupted");
+            }
+            if (failCount > 8 ) {
+              throw new PreparedSQLSeriousPoemException(
+                      statement, e);              
+            }
+          }
+        }
+      } else 
+        rs = statement.executeQuery();
       token.toTidy().add(rs);
       return rs;
     } catch (SQLException e) {

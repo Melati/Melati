@@ -197,12 +197,10 @@ public abstract class Column implements FieldAttributes {
 
   void createColumnInfo() throws PoemException {
     if (info == null) {
-      info =
-        (ColumnInfo) getDatabase()
-          .getColumnInfoTable()
-          .create(new Initialiser() {
+      info = (ColumnInfo)getDatabase().
+          getColumnInfoTable().create(new Initialiser() {
         public void init(Persistent g) throws AccessPoemException {
-          ColumnInfo i = (ColumnInfo) g;
+          ColumnInfo i = (ColumnInfo)g;
           i.setName(getName());
           i.setDisplayname(defaultDisplayName());
           i.setDisplayorder(defaultDisplayOrder());

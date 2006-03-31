@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<faqs id="General FAQ">
+  <part id="General">
+    <faq id="AccessTableNotFound">
+      <question>Why do I get Table Not Found errors when using an Access Database?</question>
+      <answer>
+        <p>
+        <tt>
+        [Microsoft][ODBC Microsoft Access Driver] The Microsoft Jet database engine cannot find the input table or query 'tableinfo'.  Make sure it exists and that its name is spelled correctly.
+        </tt>
+        </p>
+        <p>
+        By default MS Access Databases are created with <tt>UserCommitSync</tt> set to <tt>no</tt>, 
+        use the ODBC Datasource Administrator or Registry Editor to set this to <tt>yes</tt>.
+        </p>
+        <p>
+        If that does not work, then run the test or application again, it should work on 
+        the second occasion.
+        </p>
+        <p>
+        This problem was particularly acute for PreparedStatements, which now wait and 
+        try again up to 10 times until the Jet Cache resyncs.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

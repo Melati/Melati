@@ -47,9 +47,10 @@ both are compared to see if they can unify.
 <subsection name=" Meta Data ">
 <p>
 A PoemDatabase has an <a
-href='http://en.wikipedia.org/wiki/Codd's_twelve_rules' title="Codd's 12
-rules">Active online catalog based on the relational model</a> that is to say 
-it has System tables called <a
+href='http://en.wikipedia.org/wiki/Codds_twelve_rules' 
+title="Codd's 12 rules">
+Active online catalog based on the relationalmodel</a> 
+that is to say it has System tables called <a
 href="/melati/Admin/contact/table/Main">tableInfo</a> and 
 href="/melati/Admin/contact/column/Main">columnInfo</a> to store meta data
 about the tables and fields in the database.

@@ -52,7 +52,8 @@ import org.melati.poem.generated.TableInfoTableBase;
  * the Database.
  *
  * If a database does not contain a table called <tt>tableinfo</tt> 
- * it will be created.
+ * it will be created during the unification phase of startup.
+ * @see Databse#unifyWithDB
  * 
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>TableInfoTable</code> object.

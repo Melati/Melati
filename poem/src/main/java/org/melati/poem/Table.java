@@ -2339,11 +2339,13 @@ public class Table implements Selectable {
   
   /**
    * Public method used in DSD.wm.
+   * Duplicated because <code>defaultDisplayName()</code>
+   * above is overwritten. 
    * 
    * @return the capitalised name
    */
-  public String getDefaultDisplayName() {
-    return defaultDisplayName();
+  public String getDsdName() {
+    return StringUtils.capitalised(getName());
   }
 
   protected int defaultDisplayOrder() {

@@ -21,7 +21,7 @@ import org.melati.poem.dbms.Dbms;
  */
 public class PoemDatabaseTest extends TestCase {
   private PoemDatabase db;
-  private static final String dbName = "melatitest";
+  private static final String dbName = "melatijunit";
   
   /**
    * Constructor for PoemTest.

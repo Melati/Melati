@@ -57,6 +57,7 @@ import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
+import org.melati.util.StringUtils;
 /**
  * A Driver for the Microsoft Access database server.
  * http://www.tobychampion.co.uk/Access2000Dialect.java.txt
@@ -264,4 +265,19 @@ public class MSAccess extends AnsiStandard {
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
+
+  /** 
+   * 
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   */
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    } 
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+    
+    return term1 + " LIKE " + term2;
+  }
+
+
 }

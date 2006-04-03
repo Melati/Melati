@@ -33,7 +33,7 @@ This page last updated: $Date$ $Author$
  <LI><A HREF="doc/PoemUserGuide.html">Poem User Guide</A> </LI>
  <LI><A HREF="doc/PoemPreproUserGuide.html">Preprocessor User Guide</A> </LI>
  <LI><A HREF="doc/ODMGPoemUserGuide.html">ODMG Poem User Guide</A> </LI>
- <LI><A HREF="/javadoc/">Java Docs</A>.  
+ <LI><A HREF="/apidocs/index.html">Java Docs</A>.  
      Also available for <A href="Download.html">download</A>. </LI>
  <LI><A href="http://maven.apache.org">Maven</A> generated 
      <A href="http://maven.melati.org">site</A>. </LI>

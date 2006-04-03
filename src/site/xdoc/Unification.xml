@@ -35,23 +35,22 @@ getters and setters of your Java objects.
 <subsection name=" What is Unification ">
 <p>
 We are talking about <a href='http://en.wikipedia.org/wiki/Unification'>Unification</a> 
-as in Prolog not <a href='http://www.unification.org/'>Unification</a> as in
-Church!
+as in Prologm, ie a procedure for making sets of variables with attribues equivalent.
 </p>
 <p>
 If you have two lists of assigned variables then all those that occur in both
-unify, any which only occur in one are copied to the other, any which occur in
-both are compared to see if they can unify.
+and are equivalent unify, any which only occur in one are copied to the other
+and so unify.
 </p>
 </subsection>
 <subsection name=" Meta Data ">
 <p>
 A PoemDatabase has an <a href='http://en.wikipedia.org/wiki/Codds_twelve_rules' 
 title="Codd's 12 rules">
-Active online catalog based on the relationalmodel</a> 
-that is to say it has System tables called <a
-href="/melati/Admin/contact/table/Main">tableInfo</a> and <a 
-href="/melati/Admin/contact/column/Main">columnInfo</a> to store meta data
+Active online catalog based on the relational model</a> 
+that is to say it has system tables called <a
+href="/melati/Admin/contacts/tableinfo/Main">tableInfo</a> and <a 
+href="/melati/Admin/contacts/columninfo/Main">columnInfo</a> to store meta data
 about the tables and fields in the database.
 </p>
 <p>
@@ -75,12 +74,134 @@ with no precedence, but our case is limited:
 </p>
 <ol>
 <li>
-A design choice was that meta data in the database tables takes precedence
-over meta data in the java code.
+Meta data in the database tables takes precedence over meta data in the java code.
 </li>
-<li>The java code is compiled so cannot change, however see Iterating below</li>
-<li>The existing jdbc meta data cannot be changed but can be added to</li>
+<li>The java code is compiled so cannot change, however see Iterating below.</li>
+<li>The existing jdbc meta data cannot be changed but can be added to.</li>
 </ol>
+<p>
+The equivalence function between Poem's datatypes and SQL datatypes (called 
+<a 
+href="/apidocs/org/melati/poem/dbms/AnsiStandard.html#canRepresent(org.melati.poem.PoemType,
+org.melati.poem.PoemType)">canRepresent</a>) determines whether a JDBC column 
+is allowed to unify with a columnn in the <tt>columnInfo</tt> table.
+</p>
+</subsection>
+<subsection name=" Example ">
+<p>
+If you point melati at an empty database it will unify with a 
+<a href="/apidocs/org/melati/poem/PoemDatabse.html">PoemDatabase</a> 
+creating tables and populating the meta data tables with results shown below:
+</p>
+<table>
+<caption>Unifying with empty database</caption>
+<tr>
+<th>
+Poem
+</th>
+<th>
+Info
+</th>
+<th>
+JDBC
+</th>
+</tr>
+<tr>
+<td bgcolor="lime">
+<a href="/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
+</td>
+<td  bgcolor="cyan">
+tableinfo
+</td>
+<td bgcolor="cyan">
+TABLEINFO
+</td>
+</tr>
+<tr>
+<td  bgcolor="lime">
+<a href="/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
+</td>
+<td bgcolor="cyan">
+columninfo
+</td>
+<td bgcolor="cyan">
+COLUMNINFO
+</td>
+</tr>
+<tr>
+<td  bgcolor="lime">
+<a href="/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
+</td>
+<td bgcolor="cyan">
+tablecategory
+</td>
+<td bgcolor="cyan">
+TABLECATEGORY
+</td>
+</tr>
+</table>
+<p>
+If you point it at your database, then the Poem meta data tables are still
+created and the information regarding them and your table is stored in them. 
+</p>
+<table>
+<caption>Unifying with populated database</caption>
+<tr>
+<th>
+Poem
+</th>
+<th>
+Info
+</th>
+<th>
+JDBC
+</th>
+</tr>
+<tr>
+<td bgcolor="cyan">
+ 
+</td>
+<td  bgcolor="cyan">
+yourtable
+</td>
+<td bgcolor="lime">
+YOURTABLE
+</td>
+</tr>
+<tr>
+<td bgcolor="cyan">
+<a href="/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
+</td>
+<td  bgcolor="cyan">
+tableinfo
+</td>
+<td bgcolor="cyan">
+TABLEINFO
+</td>
+</tr>
+<tr>
+<td  bgcolor="cyan">
+<a href="/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
+</td>
+<td bgcolor="cyan">
+columninfo
+</td>
+<td bgcolor="cyan">
+COLUMNINFO
+</td>
+</tr>
+<tr>
+<td  bgcolor="cyan">
+<a href="/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
+</td>
+<td bgcolor="cyan">
+tablecategory
+</td>
+<td bgcolor="cyan">
+TABLECATEGORY
+</td>
+</tr>
+</table>
 </subsection>
 <subsection name=" Use case - Generating classes from a database ">
 <p>
@@ -92,7 +213,7 @@ in each table and you want to represent this in java.
 The unification process takes the following steps:
 <ol>
 <li>
-Look for databse meta data tables - not found, so created
+Look for database meta data tables - not found, so created
 </li>
 <li>
 Use the java definitions of a PoemDatabase to create tables 
@@ -105,6 +226,8 @@ your tables.
 </li>
 </ol>
 You can now view your database in the Admin system.
+You can generate a Data Structure Definition file using the Admin system 
+from which you can generate your java files.
 </p>
 </subsection>
 <subsection name=" Use case - Generating a database from a data definition">
@@ -113,8 +236,11 @@ You have defined the database structure you want in a DSD file.
 </p>
 <p>
 Depending upon your DBMS you may need to create an empty database, then point 
-Melati at that databse and the unification process will create the tables
-themselves and populate the tableinfo and columninfo tables for you.
+Melati at that database and the unification process will create the tables
+themselves and populate the tableinfo and columninfo tables for you; 
+if your application requires that some tables are populated with default
+values, type tables for example, then you can add an <tt>ensure</tt> method to 
+your table initialisation method to create these values if absent.
 </p>
 </subsection>
 <subsection name=" Iterating ">
@@ -131,7 +257,7 @@ interface, and then recreate your data definition and hence your java source.
 This feature is particularly powerful in a situation where you are capturing
 requirements 
 with a customer, as you can add and delete tables and columns, reorder them 
-and change their characteristics on teh fly in real time, then export your DSD
+and change their characteristics on the fly in real time, then export your DSD
 and capture the meta data in your java files.
 </p>
 </subsection>

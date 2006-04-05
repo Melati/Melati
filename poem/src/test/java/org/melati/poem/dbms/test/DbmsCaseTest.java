@@ -104,6 +104,28 @@ public class DbmsCaseTest extends TestCase {
     assertEquals(expected, actual);
   }
 
+  public void testMSAccess() {
+    String expected = "a LIKE '%b%'";
+    Hsqldb db = new Hsqldb();
+    String actual = db.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
+  }
+
+  public void testMSAccessQuoted() {
+    String expected = "a LIKE \'%b%\'";
+    Hsqldb db = new Hsqldb();
+    String actual = db.caseInsensitiveRegExpSQL("a", "\"b\"");
+    assertEquals(expected, actual);
+  }
+
+  public void testMSAccessBlank() {
+    String expected = " LIKE '%%'";
+    Hsqldb db = new Hsqldb();
+    String actual = db.caseInsensitiveRegExpSQL("", "");
+    assertEquals(expected, actual);
+  }
+
+
   public void testAnsiStandard() {
     String expected = "a REGEXP b";
     AnsiStandard db = new AnsiStandard();

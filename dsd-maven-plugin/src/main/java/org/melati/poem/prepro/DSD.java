@@ -47,10 +47,7 @@ package org.melati.poem.prepro;
 
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.jar.JarInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
 import java.io.File;

@@ -48,10 +48,11 @@ then unification fails.
 </p>
 <p>
 In a three way unification one needs in theory to unify 
-<b><tt>A</tt></b> with <b><tt>B</tt></b>, unify the resulting <b><tt>B</tt></b> with 
+<b><tt>A</tt></b> with <b><tt>B</tt></b>, unify the resultant 
+(<b><tt>A</tt></b> or <b><tt>B</tt></b>) with 
 <b><tt>C</tt></b> and then unify the resultant (<b><tt>B</tt></b> or <b><tt>C</tt></b>) 
-with <b><tt>A</tt></b> again, though we will see below that this last step in not 
-possible or equired in our case.
+with <b><tt>A</tt></b> again, though we will see below that this last step is not 
+required in our case.
 </p>
 </subsection>
 <subsection name=" Metadata ">

@@ -285,7 +285,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>org.melati.login.Login</servlet-name>
-    <url-pattern>Login/*</url-pattern>
+    <url-pattern>/Login/*</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
@@ -298,7 +298,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>org.melati.login.Logout</servlet-name>
-    <url-pattern>Logout/*</url-pattern>
+    <url-pattern>/Logout/*</url-pattern>
   </servlet-mapping>
 
 <!-- examples/contacts setup -->

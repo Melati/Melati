@@ -26,35 +26,46 @@ This page last updated: $Date$ $Author$
 
 <section name=" Unification ">
 <p>
-One of the Unique Selling Points of Melati is that it does a three way 
-unification of the data definition held in the meta data table in the database
-itself with the meta data from the JDBC and the meta data hardcoded in the
-getters and setters of your Java objects.
+Melati is based upon holding rich metadata about database objects.
+This metadata is held in three locations and three different formats:
+the databse metadata tables, the JDBC metadata and generated java files.
+</p>
+<p>
+The unique feature of Melati is that it does a three way 
+unification between these three potentially conflicting sets of metadata.
 </p>
 
 <subsection name=" What is Unification ">
 <p>
 We are talking about <a href='http://en.wikipedia.org/wiki/Unification'>Unification</a> 
-as in Prologm, ie a procedure for making sets of variables with attribues equivalent.
+as in Prolog, ie a procedure for making sets of variables with attribues equivalent.
 </p>
 <p>
 If you have two lists of assigned variables then all those that occur in both
 and are equivalent unify, any which only occur in one are copied to the other
-and so unify.
+and so unify. If a variable occurs in both but does not have equivalent attributes 
+then unification fails.
+</p>
+<p>
+In a three way unification one needs in theory to unify 
+<b><tt>A</tt></b> with <b><tt>B</tt></b>, unify the resulting <b><tt>B</tt></b> with 
+<b><tt>C</tt></b> and then unify the resultant (<b><tt>B</tt></b> or <b><tt>C</tt></b>) 
+with <b><tt>A</tt></b> again, though we will see below that this last step in not 
+possible or equired in our case.
 </p>
 </subsection>
-<subsection name=" Meta Data ">
+<subsection name=" Metadata ">
 <p>
 A PoemDatabase has an <a href='http://en.wikipedia.org/wiki/Codds_twelve_rules' 
 title="Codd's 12 rules">
 Active online catalog based on the relational model</a> 
 that is to say it has system tables called <a
 href="/melati/Admin/contacts/tableinfo/Main">tableInfo</a> and <a 
-href="/melati/Admin/contacts/columninfo/Main">columnInfo</a> to store meta data
-about the tables and fields in the database.
+href="/melati/Admin/contacts/columninfo/Main">columnInfo</a> which are used to store 
+metadata about the tables and fields in the database.
 </p>
 <p>
-All JDBC databases contain and can supply meta data about their contents
+All JDBC databases contain and can supply metadata about their contents
 through the <a
 href="http://java.sun.com/j2se/1.3/docs/api/java/sql/DatabaseMetaData.html">DatabaseMetaData</a>
 class of the <a
@@ -62,22 +73,21 @@ href="http://java.sun.com/j2se/1.3/docs/guide/jdbc/index.html">JDBC API</a>.
 </p>
 <p>
 A Poem Table can support all SQL datatypes as columns, but Poem holds more
-meta data about a column than does SQL, for instance how to display the 
+metadata about a column than SQL does, for instance how to display the 
 field.
 </p>
 </subsection>
 <subsection name=" Unification Rules ">
 <p>
-In the abstract, Prolog, sense unification between two trees is bi
-directional, 
-with no precedence, but our case is limited:
+In the abstract, Prolog, sense unification between two trees is 
+bi-directional, with no precedence, but our case is limited:
 </p>
 <ol>
 <li>
-Meta data in the database tables takes precedence over meta data in the java code.
+Metadata in the database tables takes precedence over metadata in the java code.
 </li>
 <li>The java code is compiled so cannot change, however see Iterating below.</li>
-<li>The existing jdbc meta data cannot be changed but can be added to.</li>
+<li>The existing jdbc metadata cannot be changed only added to.</li>
 </ol>
 <p>
 The equivalence function between Poem's datatypes and SQL datatypes (called 
@@ -91,7 +101,7 @@ is allowed to unify with a columnn in the <tt>columnInfo</tt> table.
 <p>
 If you point melati at an empty database it will unify with a 
 <a href="/apidocs/org/melati/poem/PoemDatabse.html">PoemDatabase</a> 
-creating tables and populating the meta data tables with results shown below:
+creating tables and populating the metadata tables with results shown below:
 </p>
 <table>
 <caption>Unifying with empty database</caption>
@@ -141,8 +151,9 @@ TABLECATEGORY
 </tr>
 </table>
 <p>
-If you point it at your database, then the Poem meta data tables are still
-created and the information regarding them and your table is stored in them. 
+If you point it at your database, then the Poem metadata tables are 
+created and the information about them and your table is stored in them
+(the metadata tables hold information about themselves as per Codd's rule).
 </p>
 <table>
 <caption>Unifying with populated database</caption>
@@ -213,21 +224,21 @@ in each table and you want to represent this in java.
 The unification process takes the following steps:
 <ol>
 <li>
-Look for database meta data tables - not found, so created
+Look for database metadata tables (tableinfo, columninfo, tablecategory) - not found, so created
 </li>
 <li>
-Use the java definitions of a PoemDatabase to create tables 
-tableinfo, columninfo, tablecategory (also the user management and settings
-table) and populate tableinfo and columninfo with details of these tables.
+Use the java definitions of a PoemDatabase to create tables the user management 
+and settings table and populate tableinfo and columninfo with details of these tables.
 </li>
 <li>
-Read the JDBC meta data to populate tableinfo and columninfo with details of 
+Read the JDBC metadata to populate tableinfo and columninfo with details of 
 your tables.
 </li>
 </ol>
 You can now view your database in the Admin system.
 You can generate a Data Structure Definition file using the Admin system 
-from which you can generate your java files.
+<a href="/melati/Admin/melatitest/DSD?comments=true">DSD Report</a> from which 
+you can generate your java files.
 </p>
 </subsection>
 <subsection name=" Use case - Generating a database from a data definition">
@@ -237,8 +248,8 @@ You have defined the database structure you want in a DSD file.
 <p>
 Depending upon your DBMS you may need to create an empty database, then point 
 Melati at that database and the unification process will create the tables
-themselves and populate the tableinfo and columninfo tables for you; 
-if your application requires that some tables are populated with default
+themselves and populate the tableinfo and columninfo tables for you.
+If your application requires that some tables are populated with default
 values, type tables for example, then you can add an <tt>ensure</tt> method to 
 your table initialisation method to create these values if absent.
 </p>
@@ -255,10 +266,9 @@ interface, and then recreate your data definition and hence your java source.
 </p>
 <p>
 This feature is particularly powerful in a situation where you are capturing
-requirements 
-with a customer, as you can add and delete tables and columns, reorder them 
-and change their characteristics on the fly in real time, then export your DSD
-and capture the meta data in your java files.
+requirements with a customer, as you can add and delete tables and columns, 
+reorder them and change their characteristics on the fly in real time, 
+then export your DSD and capture the metadata in your java files.
 </p>
 </subsection>
 </section>

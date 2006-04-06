@@ -27,7 +27,7 @@ This page last updated: $Date$ $Author$
 <section name=" Testing ">
 <p>
 <a href="http://junit.org/">JUnit</a> tests are incorporated into the
-build. 
+build, see the <a href="junit-report.html">JUnit Report</a>.
 </p>
 <p>
 The tests below enable you to ensure that your installation 

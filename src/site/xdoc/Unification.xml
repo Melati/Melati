@@ -28,7 +28,7 @@ This page last updated: $Date$ $Author$
 <p>
 Melati is based upon holding rich metadata about database objects.
 This metadata is held in three locations and three different formats:
-the databse metadata tables, the JDBC metadata and generated java files.
+the database metadata tables, the JDBC metadata and generated java files.
 </p>
 <p>
 The unique feature of Melati is that it does a three way 
@@ -38,7 +38,7 @@ unification between these three potentially conflicting sets of metadata.
 <subsection name=" What is Unification ">
 <p>
 We are talking about <a href='http://en.wikipedia.org/wiki/Unification'>Unification</a> 
-as in Prolog, ie a procedure for making sets of variables with attribues equivalent.
+as in Prolog, ie a procedure for making sets of variables with attributes equivalent.
 </p>
 <p>
 If you have two lists of assigned variables then all those that occur in both

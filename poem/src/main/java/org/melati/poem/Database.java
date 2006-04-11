@@ -72,7 +72,7 @@ import org.melati.poem.dbms.DbmsFactory;
  * provides named methods for accessing application-specialised objects
  * representing the predefined tables.
  *
- * @see PoemDatabase 
+ * @see PoemDatabase
  */
 
 public abstract class Database implements TransactionPool {
@@ -97,11 +97,11 @@ public abstract class Database implements TransactionPool {
 
   private String connectionUrl;
 
-  // 
+  //
   // ================
   //  Initialisation
   // ================
-  // 
+  //
 
   /**
    * Don't subclass this, subclass <TT>PoemDatabase</TT>.
@@ -124,7 +124,7 @@ public abstract class Database implements TransactionPool {
   private final boolean[] connecting = new boolean[1];
 
  /**
-  * Thrown when a request is made whilst the connection to 
+  * Thrown when a request is made whilst the connection to
   * the underlying database is still in progress.
   */
   public class ConnectingException extends PoemException {
@@ -156,10 +156,11 @@ public abstract class Database implements TransactionPool {
    *        </OL>
    *
    *        Any tables or columns defined in the DSD or the metadata tables,
-   *        but not present in the actual database, will be created.  
+   *        but not present in the actual database, will be created.
    *        FIXME
-   *        This doesn't work with Postgres 6.4.2 because <TT>ALTER TABLE ADD
-   *        COLUMN</TT> does not respect the <TT>NOT NULL</TT> attribute.
+   *         This doesn't work with Postgres 6.4.2 because <TT>ALTER TABLE ADD
+   *         COLUMN</TT> does not respect the <TT>NOT NULL</TT> attribute.
+   *
    *        Conversely, entries will be created in the metadata tables for
    *        tables and columns that don't have them.  If an inconsistency is
    *        detected between any of the three information sources (such as a
@@ -171,14 +172,14 @@ public abstract class Database implements TransactionPool {
    *        transaction subsequently rolled back.
    * </UL>
    *
-   * @param dbmsclass   The Melati DBMS class (see org/melati/poem/dbms) 
-   *                    to use, usually specified in 
+   * @param dbmsclass   The Melati DBMS class (see org/melati/poem/dbms)
+   *                    to use, usually specified in
    *                    org.melati.LogicalDatabase.properties.
-   * 
+   *
    * @param url         The JDBC URL for the database; for instance
    *                    <TT>jdbc:postgresql:williamc</TT>.  It is the
    *                    programmer's responsibility to make sure that an
-   *                    appropriate driver has been loaded.  
+   *                    appropriate driver has been loaded.
    *
    * @param username    The username under which to establish JDBC connections
    *                    to the database.  This has nothing to do with the
@@ -187,9 +188,9 @@ public abstract class Database implements TransactionPool {
    *
    * @param password    The password to go with the username.
    *
-   * @param transactionsMaxP 
+   * @param transactionsMaxP
    *                    The maximum number of concurrent Transactions allowed,
-   *                    usually specified in 
+   *                    usually specified in
    *                    org.melati.LogicalDatabase.properties.
    *
    * @see #transactionsMax()
@@ -199,7 +200,7 @@ public abstract class Database implements TransactionPool {
                       String username, String password,
                       int transactionsMaxP) throws PoemException {
 
-    connectionUrl = url; 
+    connectionUrl = url;
 
 
     synchronized (connecting) {
@@ -233,13 +234,13 @@ public abstract class Database implements TransactionPool {
 
         DatabaseMetaData m = committedConnection.getMetaData();
         getTableInfoTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(), 
+            m.getColumns(null, dbms.getSchema(),
                          dbms.unreservedName(getTableInfoTable().getName()), null));
         getColumnInfoTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(), 
+            m.getColumns(null, dbms.getSchema(),
                          dbms.unreservedName(getColumnInfoTable().getName()), null));
         getTableCategoryTable().unifyWithDB(
-            m.getColumns(null, dbms.getSchema(), 
+            m.getColumns(null, dbms.getSchema(),
                          dbms.unreservedName(getTableCategoryTable().getName()), null));
 
         inSession(AccessToken.root,
@@ -338,7 +339,7 @@ public abstract class Database implements TransactionPool {
     Table table = new Table(this, info.getName(),
                             DefinitionSource.infoTables);
     table.setTableInfo(info);
-    table.defineColumn(new ExtraColumn(table, troidName, 
+    table.defineColumn(new ExtraColumn(table, troidName,
                                        TroidPoemType.it,
                                        DefinitionSource.infoTables,
                                        table.extrasIndex++));
@@ -389,14 +390,14 @@ public abstract class Database implements TransactionPool {
     String[] normalTables = { "TABLE" };
 
     DatabaseMetaData m = committedConnection.getMetaData();
-    ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null, 
+    ResultSet tableDescs = m.getTables(null, dbms.getSchema(), null,
                                        normalTables);
     while (tableDescs.next()) {
       if (logSQL()) log("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       if (tableName == null) break; //dbms returning grotty table name
-      Table table = tableName == null ? null : 
+      Table table = tableName == null ? null :
                                           (Table)tablesByName.get(tableName);
       if (table == null) {
         if (logSQL()) log("table null but named:" + tableName);
@@ -416,14 +417,14 @@ public abstract class Database implements TransactionPool {
             throw new UnexpectedExceptionPoemException(e);
           }
           table.createTableInfo();
-        } /** 
+        } /**
         // Try to promote the primary key to a troid
         else {
           ResultSet pKeys = m.getPrimaryKeys(null, dbms.getSchema(), tableName);
           if (pKeys.next()) {
             String keyName = pKeys.getString("COLUMN_NAME");
             if (!pKeys.next()) {
-              ResultSet keyCol = m.getColumns(null, dbms.getSchema(), 
+              ResultSet keyCol = m.getColumns(null, dbms.getSchema(),
                                               tableName, keyName);
               if (keyCol.next() &&
                   dbms.canRepresent(defaultPoemTypeOfColumnMetaData(keyCol),
@@ -446,12 +447,13 @@ public abstract class Database implements TransactionPool {
 
       if (table != null) {
 //         if (logSQL()) log("table not null now:" + tableName);
-//         if (logSQL()) log("columnsMetadata(m, tableName):" 
+//         if (logSQL()) log("columnsMetadata(m, tableName):"
 //                              + columnsMetadata(m, tableName));
          // Create the table if it has no metadata
          // unify with it either way
         table.unifyWithDB(columnsMetadata(m, tableName));
-      }
+      } // else if (logSQL()) log("table still null, probably doesn't have a troid:" + tableName);
+
     }
 
     // ... and create any that simply don't exist
@@ -459,10 +461,10 @@ public abstract class Database implements TransactionPool {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Table table = (Table)t.nextElement();
       // bit yukky using getColumns ...
-      ResultSet colDescs = columnsMetadata(m, 
+      ResultSet colDescs = columnsMetadata(m,
                                dbms.unreservedName(table.getName()));
       if (!colDescs.next()) {
-        // System.err.println("Table has no columns in dbms:" + 
+        // System.err.println("Table has no columns in dbms:" +
         //                    dbms.unreservedName(table.getName()));
         table.unifyWithDB(null);
       }
@@ -472,11 +474,11 @@ public abstract class Database implements TransactionPool {
       ((Table)t.nextElement()).postInitialise();
   }
 
-  // 
+  //
   // ==============
   //  Transactions
   // ==============
-  // 
+  //
 
   /**
    * The number of transactions available for concurrent use on the database.
@@ -487,7 +489,7 @@ public abstract class Database implements TransactionPool {
   public final int transactionsMax() {
     return transactionsMax;
   }
-  
+
   public final void setTransactionsMax(int t) {
     transactionsMax = t;
   }
@@ -498,7 +500,7 @@ public abstract class Database implements TransactionPool {
   public int getTransactionsCount() {
     return transactions.size();
   }
-  
+
   /**
    * @return Returns the number of free transactions.
    */
@@ -506,11 +508,11 @@ public abstract class Database implements TransactionPool {
     return freeTransactions.size();
   }
 
-  // 
+  //
   // -----------------------
   //  Keeping track of them
   // -----------------------
-  // 
+  //
 
   /**
    * Get a transaction for exclusive use.  It's simply taken off the freelist,
@@ -580,11 +582,11 @@ public abstract class Database implements TransactionPool {
       }
   }
 
-  // 
+  //
   // ---------------
   //  Starting them
   // ---------------
-  // 
+  //
 
   private void perform(AccessToken accessToken, final PoemTask task,
                        boolean committedTransaction) throws PoemException {
@@ -664,9 +666,9 @@ public abstract class Database implements TransactionPool {
     perform(accessToken, task, false);
   }
 
-  /** 
+  /**
    * Start a db session.
-   * This is the very manual way of doing db work - not reccomended - 
+   * This is the very manual way of doing db work - not reccomended -
    * use inSession.
    */
   public void beginSession(AccessToken accessToken) {
@@ -680,9 +682,9 @@ public abstract class Database implements TransactionPool {
     PoemThread.beginSession(accessToken,openTransaction());
   }
 
-  /** 
+  /**
    * End a db session.
-   * This is the very manual way of doing db work - not reccomended - 
+   * This is the very manual way of doing db work - not reccomended -
    * use inSession.
    */
   public void endSession() {
@@ -690,16 +692,16 @@ public abstract class Database implements TransactionPool {
     PoemThread.endSession();
     tx.close(true);
     lock.readUnlock();
-         
+
   }
 
   /**
-   * Perform a task with the database, but not in an insulated transaction.  
-   * The effect is the same as <TT>inSession</TT>, except that the task will 
-   * see changes to the database made by other transactions as they are 
-   * committed, and it is not allowed to make any changes of its own.  
+   * Perform a task with the database, but not in an insulated transaction.
+   * The effect is the same as <TT>inSession</TT>, except that the task will
+   * see changes to the database made by other transactions as they are
+   * committed, and it is not allowed to make any changes of its own.
    * (If it tries, it will
-   * currently trigger a <TT>NullPointerException</TT>---FIXME!)  
+   * currently trigger a <TT>NullPointerException</TT>---FIXME!)
    * Not recommended.
    *
    * @see #inSession
@@ -709,11 +711,11 @@ public abstract class Database implements TransactionPool {
     perform(accessToken, task, true);
   }
 
-  // 
+  //
   // ==================
   //  Accessing tables
   // ==================
-  // 
+  //
 
   /**
    * The table with a given name.
@@ -749,15 +751,15 @@ public abstract class Database implements TransactionPool {
    * Currently all the tables in the database in DisplayOrder
    * order.
    *
-   * @return an <TT>Enumeration</TT> of <TT>Table</TT>s 
+   * @return an <TT>Enumeration</TT> of <TT>Table</TT>s
    */
   public Enumeration getDisplayTables() {
     Table[] displayTablesL = this.displayTables;
 
     if (displayTablesL == null) {
       Enumeration tableIDs = getTableInfoTable().troidSelection(
-        (String)null /* "displayable" */, 
-        quotedName("displayorder") + ", " + quotedName("name"), 
+        (String)null /* "displayable" */,
+        quotedName("displayorder") + ", " + quotedName("name"),
         false, null);
 
       Vector them = new Vector();
@@ -796,7 +798,7 @@ public abstract class Database implements TransactionPool {
 
  /**
   * All the {@link Column}s in the whole {@link Database}.
-  */  
+  */
   public Enumeration columns() {
     return new FlattenedEnumeration(
         new MappedEnumeration(tables()) {
@@ -878,11 +880,11 @@ public abstract class Database implements TransactionPool {
 
   public abstract SettingTable getSettingTable();
 
-  // 
+  //
   // ========================
-  //  Running arbitrary SQL 
+  //  Running arbitrary SQL
   // ========================
-  // 
+  //
 
   /**
    * Run an arbitrary SQL query against the database.  This is a low-level
@@ -949,11 +951,11 @@ public abstract class Database implements TransactionPool {
     }
   }
 
-  // 
+  //
   // =======
   //  Users
   // =======
-  // 
+  //
 
 
   public String givesCapabilitySQL(User user, Capability capability) {
@@ -981,7 +983,7 @@ public abstract class Database implements TransactionPool {
     }
     finally {
       try { rs.close(); } catch (Exception e) {
-        System.err.println("Cannot close resultset after exception.");  
+        System.err.println("Cannot close resultset after exception.");
       }
     }
   }
@@ -997,7 +999,7 @@ public abstract class Database implements TransactionPool {
           getGroupMembershipTable().serial(transaction);
       long currentGroupCapabilitySerial =
           getGroupCapabilityTable().serial(transaction);
-          
+
       if (userCapabilities == null ||
           groupMembershipSerial != currentGroupMembershipSerial ||
           groupCapabilitySerial != currentGroupCapabilitySerial) {
@@ -1037,10 +1039,10 @@ public abstract class Database implements TransactionPool {
     return getCapabilityTable().administer();
   }
 
-  /** 
+  /**
    * By default, anyone can administer a database.
    *
-   * @return the required {@link Capability} to administer the db 
+   * @return the required {@link Capability} to administer the db
    * (<tt>null</tt> unless overridden)
    * @see org.melati.admin.Admin
    */
@@ -1049,11 +1051,11 @@ public abstract class Database implements TransactionPool {
   }
 
 
-  // 
+  //
   // ==========
   //  Cacheing
   // ==========
-  // 
+  //
 
   /**
    * Trim POEM's cache to a given size.
@@ -1077,11 +1079,11 @@ public abstract class Database implements TransactionPool {
       ((Table)tables.elementAt(t)).uncacheContents();
   }
 
-  // 
+  //
   // ===========
   //  Utilities
   // ===========
-  // 
+  //
 
   public Enumeration referencesTo(final Persistent object) {
     return new FlattenedEnumeration(
@@ -1125,16 +1127,16 @@ public abstract class Database implements TransactionPool {
                        "of which " + getFreeTransactionsCount() + " are free");
   }
 
-  // 
+  //
   // =========================
   //  Database-specific stuff
   // =========================
-  // 
+  //
 
   public Dbms getDbms() {
       return dbms;
   }
-  
+
   private void setDbms(Dbms aDbms) {
       dbms = aDbms;
   }
@@ -1148,17 +1150,17 @@ public abstract class Database implements TransactionPool {
     return getDbms().defaultPoemTypeOfColumnMetaData(md);
   }
 
-  // 
+  //
   // =====================
   //  Technical utilities
   // =====================
-  // 
+  //
 
 
   public String toString() {
-    if (connectionUrl == null) 
+    if (connectionUrl == null)
       return "unconnected database";
-    else 
+    else
       return connectionUrl;
   }
 

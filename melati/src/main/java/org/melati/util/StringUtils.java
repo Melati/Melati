@@ -48,7 +48,6 @@ package org.melati.util;
 /**
  * An assortment of useful operations on <code>String</code>s.
  * 
- * @todo Javadoc voodoo
  */
 public final class StringUtils {
 
@@ -109,12 +108,28 @@ public final class StringUtils {
     b.append(q);
   }
 
+  /**
+   * Surround a string in quotes.
+   * 
+   * @param i the string to quote
+   * @param q The quote character to use
+   * @return the quoted string
+   */
   public static String quoted(String i, char q) {
     StringBuffer b = new StringBuffer();
     appendQuoted(b, i, q);
     return b.toString();
   }
 
+  /**
+   * Insert an escape character in front of a character.
+   *  
+   * @param s the String which may contain characters to escape
+   * @param e the character to escape
+   * @return the escaped string
+   * @todo Delete - not used in Melati.
+   * @deprecated not in use in Melati, cannot be used twice.
+   */
   public static String escaped(String s, char e) {
     int l = s.length();
     for (int i = 0; i < l; ++i) {
@@ -145,6 +160,12 @@ public final class StringUtils {
     return s;
   }
 
+  /**
+   * Captialise the first character of the input string.
+   * 
+   * @param name
+   * @return the capitalised string
+   */
   public static String capitalised(String name) {
     char suffix[] = name.toCharArray();
     suffix[0] = Character.toUpperCase(suffix[0]);
@@ -198,7 +219,15 @@ public final class StringUtils {
     return sNew == null ? s : sNew.toString();
   }
 
+  /**
+   * Concatenate an array of Strings with a separator. 
+   * 
+   * @param sep The separator String to use, may be null.
+   * @param xs An array of Strings to concatenate.
+   * @return the concatenated String.
+   */
   public static String concatenated(String sep, String[] xs) {
+    if (sep == null) sep = "";
     if (xs.length == 0)
       return "";
     else {
@@ -231,13 +260,18 @@ public final class StringUtils {
     return result;
   }
 
-  // null a string
+  /**
+   *  Turn an empty String into a null.
+   */
   public static String nulled(String s) {
     if (s.equals(""))
       return null;
     return s;
   }
 
+  /**
+   *  Turn a null into an empty String.
+   */
   public static String unNulled(String in) {
     if (in == null)
       return "";
@@ -288,10 +322,20 @@ public final class StringUtils {
     return it;
   }
 
+  /**
+   * Test hex encoding and decoding.
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
     System.out.println(hexEncoding(hexDecoding(args[0])));
   }
 
+  /**
+   * Determine whether a String is quoted, with either quoting character.
+   * @param in String to examine
+   * @return whether String is quoted
+   */
   public static boolean isQuoted(String in) {
     if (in == null)
       return false;

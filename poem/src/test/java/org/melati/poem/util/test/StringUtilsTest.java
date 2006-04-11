@@ -95,4 +95,8 @@ public class StringUtilsTest extends TestCase {
     assertEquals(expected, actual);
   }
 
+  public void testCapitalised() {
+    assertEquals("Capitalised", StringUtils.capitalised("capitalised"));
+  }
+
 }

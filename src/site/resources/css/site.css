@@ -1,0 +1,19 @@
+/******************************Change Log********************************
+/ $Revision$
+/************************************************************************/
+/* Built in HTML Elements */
+
+BODY {
+  COLOR: #006400; /* DarkGreen */
+  background-color: #b7e8e3;
+  text-align: center;
+}
+
+.created {
+  bgcolor: lime;
+}
+
+.given {
+
+  bgcolor: cyan;
+}

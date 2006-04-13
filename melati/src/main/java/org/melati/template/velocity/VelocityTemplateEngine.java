@@ -59,6 +59,7 @@ import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
@@ -67,6 +68,7 @@ import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
@@ -179,7 +181,7 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   }
 
   /** 
-   * Get a template given it's name.
+   * Get a template by name.
    * 
    * @param templateName the name of the template to find
    * @throws NotFoundException if the template is not found by the engine
@@ -194,8 +196,11 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
           // have a go at loading the webmacro template, and converting it!
           templateName = templateName.substring(0,templateName.lastIndexOf
                                                 (templateExtension())) + ".wm";
-          try {                                  
+          try {                         
             return new VelocityTemplate(Runtime.getTemplate(templateName));
+          } catch (ParseErrorException p) {
+            throw new MelatiBugMelatiException(
+                "Problem converting Velocity to WebMacro template", p);
           } catch (Exception f) {
             throw new NotFoundException(f);
           }
@@ -227,7 +232,7 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
 
 
   /** 
-   * Expand the Template against the context.
+   * Get a Template by name and expand it against a context.
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param templateName    the name of the template to expand
@@ -240,14 +245,14 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
                              TemplateContext templateContext)
       throws TemplateEngineException {
     try {
-      expandTemplate (out, template (templateName), templateContext);
+      expandTemplate(out, template(templateName), templateContext);
     } catch (NotFoundException e) {
       throw new TemplateEngineException(e);
     }
   }
 
   /** 
-   * Expand the Template against the context.
+   * Expand a {@link org.melati.template.Template} against the context.
    *
    * @param out             a {@link MelatiWriter} to output on
    * @param template        the {@link org.melati.template.Template} to expand
@@ -278,7 +283,7 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   }
 
   /** 
-   * Not Implemented. Expand the Template against the context.
+   * Expand the Template against the context to a String.
    *
    * @param template        the {@link org.melati.template.Template} to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
@@ -288,7 +293,9 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   public String expandedTemplate(org.melati.template.Template template, 
                                  TemplateContext templateContext)
               throws TemplateEngineException {
-    throw new TemplateEngineException("Not Implemented.");
+    MelatiStringWriter s = new MelatiStringWriter();
+    expandTemplate(s, template, templateContext);
+    return s.toString();
   }
 
   /** 

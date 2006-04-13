@@ -85,12 +85,12 @@ cvs commit
        mckoidb@mckoi.com,
        hsqldb-developers@lists.sourceforge.net,
        wafer-developer@lists.sourceforge.net
+       post to news://easysoft.public.da2k.jdbc-odbc-bridge
 
 15. Notify Melati project boards:
        bibliomania_tech@messageboards.paneris.org
-       pol@messageboards.paneris.org
        jammyjoes@messageboards.paneris.org
-       begbroke@messageboards.paneris.org
+       wvm@messageboards.paneris.org
 16. Add an item to the Sourceforge news
     https://sourceforge.net/news/submit.php?group_id=11389
 17. Add SNAPSHOT to currentVersion in ../project.xml

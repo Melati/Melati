@@ -75,10 +75,14 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
  * This is a simple template file loader.
- * Currently it only supports a  single path to templates.
- * That'll change once we decide how we want to do configuration
+ * Currently it only supports a  single path to templates,
+ * that'll change once we decide how we want to do configuration.
+ * 
+ * Not that this does not allow modern WebMacro syntax with 
+ * optionional #begin in #foreach. 
  * 
  * @author <a href="mailto:jvanzyl@periapt.com">Jason van Zyl</a>
+ * Also messed with by Tim Pizey.
  */
 public class WebMacroFileResourceLoader extends ResourceLoader {
     /**
@@ -104,6 +108,17 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
         "#else#**#$3", // avoid touching a followup word with embedded comment
         "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?",
         "#else",
+        
+        // Mess with sane null handling in webmacro :(
+        // This converts 
+        // #if ($var != null) 
+        // to 
+        // #if ($var != "null")
+        // which null is not so behaves as expected
+        // Have not thought through other scenarios, 
+        // but this works for the Admin system
+        "null(\\s*[)])",
+        "\"null\"$1",
 
         // Convert WM style #foreach to Velocity directive style.
         "#foreach\\s+(\\$\\w+)\\s+in\\s+(\\$[^\\s#]+)\\s*(#begin|{)[ \\t]?",
@@ -283,8 +298,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
                 return new BufferedInputStream(
                     new FileInputStream(file.getAbsolutePath()));
               }
-            }
-            else {                
+            } else {                
                 return null;
             }                
         }
@@ -305,8 +319,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
         if (file.canRead()) {
             if (file.lastModified() != resource.getLastModified()) {
                 return true;
-            }                
-            else {
+            } else {
                 return false;
             }                
         }
@@ -328,8 +341,7 @@ public class WebMacroFileResourceLoader extends ResourceLoader {
 
         if (file.canRead()) {
             return file.lastModified();
-        }            
-        else {
+        } else {
             return 0;
         }            
     }

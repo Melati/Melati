@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      ORM, Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Database Design ">
+<p>
+Melati makes some assumptions about database design best practice.
+</p>
+<subsection name=" Table and Field Naming ">
+<p>
+Ideally database table names are all lowercase, the java class name 
+will be all lowercase with first letter capitalised.
+</p>
+<p>
+Whatever case you use in the DSD will be respected and reflected in the 
+java class names, method names and database table names created.
+</p>
+<p>
+Names cannot start with a number.
+</p>
+</subsection>
+<subsection name=" Keys ">
+<p>
+All tables are expected to have a unique field called <tt>id</tt>, it is this field 
+that is used when this record is referred to in another record.
+</p>
+</subsection>
+<subsection name=" Indexing ">
+<p>
+All fields designated as searchable have an index created on them if they do not already have one. 
+Melati assumes that the dbms will plan queries effectively using whatever keys it has available.
+</p>
+</subsection>
+</section>
+</body>
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

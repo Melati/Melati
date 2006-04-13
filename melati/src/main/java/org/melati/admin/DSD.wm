@@ -100,17 +100,15 @@ package $(package);
 table $table.DsdName
 
 
-#foreach $field in $table.getInfo().getFields()
+#foreach $field in $table.getInfo().getFields() #begin
 #set $infoFieldClass = $field.getType().getClass().getName()
 #if($field.getRaw() == null) #begin
 #if ($c) #begin
   // ($field.getName() = null)
 #end
 #end #else #begin
-#if ($field.getName() == "id") #begin #end
-#else #begin
-#if ($field.getName() == "name") #begin #end
-#else #begin
+#if ($field.getName() != "id") #begin
+#if ($field.getName() != "name") #begin
 #if($infoFieldClass.equals("org.melati.poem.StringPoemType")) #begin
   ($field.getName() = "$field.getCooked()")
 #end #else #begin
@@ -136,7 +134,7 @@ table $table.DsdName
 #end
 {
 
-  #foreach $column in $table.columns()
+#foreach $column in $table.columns() #begin
 
 #if ($c) #begin
     //$column 
@@ -146,7 +144,7 @@ table $table.DsdName
 #if ($column.isTroidColumn()) #begin
       (primary)
 #end
-#foreach $field in $column.getColumnInfo().getDsdQualifiers()
+#foreach $field in $column.getColumnInfo().getDsdQualifiers() #begin
 #set $infoFieldClass = $field.getType().getClass().getName()
 #if($field.getRaw() == null) #begin
 #if ($c) #begin

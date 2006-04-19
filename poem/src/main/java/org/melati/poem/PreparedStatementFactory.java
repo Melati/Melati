@@ -144,7 +144,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
             } catch (InterruptedException e1) {
               throw new PoemBugPoemException("Sleep interrupted");
             }
-            if (failCount > 8 ) {
+            if (failCount > 8) {
               throw new PreparedSQLSeriousPoemException(
                       statement, e);              
             }

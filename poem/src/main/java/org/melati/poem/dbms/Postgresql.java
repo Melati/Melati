@@ -94,7 +94,7 @@ public class Postgresql extends AnsiStandard {
 
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
+   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder
    */
   public String preparedStatementPlaceholder(PoemType type) {
     if (type instanceof IntegerPoemType)
@@ -145,7 +145,7 @@ public class Postgresql extends AnsiStandard {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -157,7 +157,7 @@ public class Postgresql extends AnsiStandard {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, boolean, java.sql.SQLException)
+   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate
    */
   public SQLPoemException exceptionForUpdate(
       Table table, String sql, boolean insert, SQLException e) {
@@ -193,7 +193,7 @@ public class Postgresql extends AnsiStandard {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " ~* " + term2;

@@ -24,4 +24,25 @@
       </answer>
     </faq>
   </part>
+  <part id="Template Engines">
+    <faq id="Velocity">
+      <question>How do I use Velocity?</question>
+      <answer>
+        <p>
+        Set <code>org.melati.MelatiServlet.templateEngine=org.melati.template.velocity.VelocityTemplateEngine</code>.
+        </p>
+        <p>
+        This will set Melati to use <a href="http://jakarta.apache.org/velocity/">Velocity</a> as it's 
+        Template Engine. The resource loader used is an extended <code>ClasspathResourceLoader</code> 
+        which will do on-the-fly translations of simple webmacro templates as well as handling 
+        Velocity templates. This enables you to use the Melati Admin system as well as your velocity 
+        templates.
+        </p>
+        <p>
+        Note that you will have to change the code in <code>VelocityTemplateEngine</code> if 
+        you wish to use a <code>FileResourceLoader</code>, but the code is availabel and tested.
+        </p>
+      </answer>
+    </faq>
+  </part>
 </faqs>

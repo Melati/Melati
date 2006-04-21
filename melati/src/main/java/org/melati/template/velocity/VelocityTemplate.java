@@ -45,23 +45,35 @@
 
 package org.melati.template.velocity;
 
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngineException;
 
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+import org.apache.velocity.runtime.RuntimeSingleton;
 
 /**
  * A Velocity Template for use with Melati.
- *
  */
 
 public class VelocityTemplate implements org.melati.template.Template {
   private org.apache.velocity.Template template;
 
-  public VelocityTemplate(org.apache.velocity.Template t) {
-    template = t;
+  public VelocityTemplate(String templateName) 
+      throws ParseErrorException, ResourceNotFoundException {
+    try {
+      template = RuntimeSingleton.getTemplate(templateName);
+    } catch (ResourceNotFoundException e) {
+      throw e;
+    } catch (ParseErrorException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new MelatiBugMelatiException("Velocity template problem", e);
+    }
   }
   
   public void write(MelatiWriter out, TemplateContext templateContext, 

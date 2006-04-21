@@ -371,7 +371,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </dependency>
     <dependency>
       <id>velocity</id>
-      <version>1.3.1</version>
+      <version>1.4</version>
       <url>http://jakarta.apache.org/velocity/</url>
       <properties>
          <war.bundle>false</war.bundle>

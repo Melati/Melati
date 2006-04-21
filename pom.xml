@@ -337,7 +337,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <groupId>easysoft</groupId>
       <artifactId>EJOB</artifactId>
       <version>1.3</version>
-      <scope>compile</scope>
+      <scope>runtime</scope>
     </dependency>
 
     <dependency>
@@ -345,26 +345,20 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <artifactId>postgresql</artifactId>
       <version>7.4</version>
       <classifier>jdbc3</classifier>
-      <scope>compile</scope>
+      <scope>runtime</scope>
     </dependency>
 <!--
     <dependency>
       <groupId>oracle</groupId>
       <artifactId>ojdbc14</artifactId>
       <version>1.0</version>
-      <scope>compile</scope>
+      <scope>runtime</scope>
     </dependency>
 -->
     <dependency>
       <groupId>velocity</groupId>
       <artifactId>velocity</artifactId>
-      <version>1.3.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>velocity</groupId>
-      <artifactId>velocity-dep</artifactId>
-      <version>1.3.1</version>
+      <version>1.4</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

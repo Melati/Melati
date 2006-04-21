@@ -42,17 +42,27 @@
  */
 package org.melati.template.velocity;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.oro.text.perl.Perl5Util;
+import org.melati.util.MelatiBugMelatiException;
+
 /**
- * Constants for use in conversion.
+ * Converter from WebMacro templates to Velocity templates.
  * 
- * Note that this does not allow modern WebMacro syntax with
- * optionional #begin in #foreach.
+ * Note that this does not succeed for modern WebMacro syntax 
+ * which uses optionional #begin in #foreach.
  * 
  * @author Tim Pizey based on work by Jason van Zyl and Tim Joyce.
  *
  */
-public interface WebMacroConverter {
+public final class WebMacroConverter {
 
+  /** Regular expression tool */
+  private static Perl5Util perl;
+  
   /**
    * The regexes to use for substition. The regexes come
    * in pairs. The first is the string to match, the
@@ -130,4 +140,30 @@ public interface WebMacroConverter {
 
   };
 
+  /**
+   * Do the conversion.
+   * 
+   * @param in
+   * @return the InputStream with substitutions applied
+   */
+  public static InputStream convert(InputStream in) {
+    byte[] ca;
+    try {
+      ca = new byte[in.available()];
+      in.read(ca);
+      String contents = new String(ca);
+      perl = new Perl5Util();
+      for (int i = 0; i < regExps.length; i += 2) {
+        while (perl.match("/" + regExps[i] + "/", contents)) {
+          contents = perl.substitute(
+              "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
+        }
+      }
+      //System.err.println(contents);
+      return new ByteArrayInputStream(contents.getBytes());
+    } catch (IOException e) {
+      throw new MelatiBugMelatiException(
+              "Problem loading WebMacro template as a VelocityTemplate", e);
+    }
+  }
 }

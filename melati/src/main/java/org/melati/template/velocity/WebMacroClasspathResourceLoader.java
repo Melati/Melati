@@ -3,14 +3,10 @@
  */
 package org.melati.template.velocity;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.oro.text.perl.Perl5Util;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
-import org.melati.util.MelatiBugMelatiException;
 
 /**
  * Loads templates from the classpath, mungs them if they are WM 
@@ -24,11 +20,7 @@ import org.melati.util.MelatiBugMelatiException;
  * @see WebMacroFileResourceLoader
  */
 public class WebMacroClasspathResourceLoader 
-    extends ClasspathResourceLoader 
-    implements WebMacroConverter {
-
-  /** Regular expression tool */
-  private Perl5Util perl;
+    extends ClasspathResourceLoader {
   
   /**
    * Get an InputStream so that the Runtime can build a
@@ -38,34 +30,16 @@ public class WebMacroClasspathResourceLoader
    * @return InputStream containing the template
    * @throws ResourceNotFoundException if template not found
    *         in the file template path.
-   * @see org.apache.velocity.runtime.resource.loader.ResourceLoader#getResourceStream(java.lang.String)
+   * @see org.apache.velocity.runtime.resource.loader.ResourceLoader
    */
   public InputStream getResourceStream(String templateName)
       throws ResourceNotFoundException
   {
-    if (templateName.endsWith(".wm")) { 
-      InputStream bis = super.getResourceStream(templateName);
-      byte[] ca;
-      try {
-        ca = new byte[bis.available()];
-        bis.read(ca);
-        String contents = new String(ca);
-        perl = new Perl5Util();
-        for (int i = 0; i < regExps.length; i += 2) {
-          while (perl.match("/" + regExps[i] + "/", contents)) {
-            contents = perl.substitute(
-                "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
-          }
-        }
-        //System.err.println(contents);
-        return new ByteArrayInputStream(contents.getBytes());
-      } catch (IOException e) {
-        throw new MelatiBugMelatiException("Problem loading template", e);
-      }
+    if (templateName.endsWith(".wm") || templateName.endsWith(".wmm")) { 
+      return WebMacroConverter.convert(super.getResourceStream(templateName));
     } else {
       return super.getResourceStream(templateName);
     }
-     
   }
 
 }

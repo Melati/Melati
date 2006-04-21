@@ -64,7 +64,6 @@ import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
 
-import org.apache.velocity.runtime.Runtime;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.MethodInvocationException;
@@ -132,10 +131,17 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
     // FIXME work out how to set this some other way
  */
     Properties p = new Properties();
+
+/*
+    p.setProperty("resource.loader","file");
     p.setProperty("file.resource.loader.path", 
                   melatiConfig.getTemplatePath());
     p.setProperty("file.resource.loader.class", 
-                  "org.melati.template.velocity.WebMacroFileResourceLoader");
+    "org.melati.template.velocity.WebMacroFileResourceLoader");
+*/
+    p.setProperty("resource.loader","class");
+    p.setProperty("class.resource.loader.class", 
+          "org.melati.template.velocity.WebMacroClasspathResourceLoader");
     return p;
   }
 
@@ -190,14 +196,14 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   public org.melati.template.Template template(String templateName)
                              throws NotFoundException {
       try {                                  
-        return new VelocityTemplate(Runtime.getTemplate(templateName));
+        return new VelocityTemplate(templateName);
       } catch (ResourceNotFoundException e) {
         if (templateName.endsWith(templateExtension())) {
           // have a go at loading the webmacro template, and converting it!
           templateName = templateName.substring(0,templateName.lastIndexOf
                                                 (templateExtension())) + ".wm";
           try {                         
-            return new VelocityTemplate(Runtime.getTemplate(templateName));
+            return new VelocityTemplate(templateName);
           } catch (ParseErrorException p) {
             throw new MelatiBugMelatiException(
                 "Problem converting Velocity to WebMacro template", p);

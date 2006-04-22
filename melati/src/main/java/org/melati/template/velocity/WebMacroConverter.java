@@ -60,9 +60,6 @@ import org.melati.util.MelatiBugMelatiException;
  */
 public final class WebMacroConverter {
 
-  /** Regular expression tool */
-  private static Perl5Util perl;
-  
   /**
    * The regexes to use for substition. The regexes come
    * in pairs. The first is the string to match, the
@@ -79,7 +76,7 @@ public final class WebMacroConverter {
         "[ \\t]?(#end|})\\s*#else\\s*(#begin|{)[ \\t]?",
         "#else",
 
-        // Mess with sane null handling in webmacro :(
+        // Convert nulls.
         // This converts
         // #if ($var != null)
         // to
@@ -152,7 +149,8 @@ public final class WebMacroConverter {
       ca = new byte[in.available()];
       in.read(ca);
       String contents = new String(ca);
-      perl = new Perl5Util();
+      /* Regular expression tool */
+      final Perl5Util perl = new Perl5Util();
       for (int i = 0; i < regExps.length; i += 2) {
         while (perl.match("/" + regExps[i] + "/", contents)) {
           contents = perl.substitute(

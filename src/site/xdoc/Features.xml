@@ -43,7 +43,7 @@ This page last updated: $Date$ $Author$
   </LI>
   <LI> Support for <A
        HREF="doc/FunctionalSpecification.html#transactions"><B>transactions</B></A>,
-       either explicitly, or transparently with a simple default pattern
+       either explicitly or transparently, with a simple default pattern
        appropriate for servicing typical HTTP requests; and behind that, of
        course, `connection pooling'.
 
@@ -74,7 +74,7 @@ This page last updated: $Date$ $Author$
 	 <LI> upload files </LI>
 	 <LI> cascading deletes </LI>
          <LI> Javascript form validation </LI>
-         <LI> Javascript client side Tree browsing </LI>
+         <LI> Javascript client side tree browsing </LI>
        </UL>
   </LI>
 </UL>
@@ -85,11 +85,11 @@ This page last updated: $Date$ $Author$
   are also available.
 </p>
 
-<P>
+<!--P>
   For a comparison of Melati with J2EE see 
   <A href="http://www.geocrawler.com/lists/3/SourceForge/6358/0/6594474/">
   MylesC's post to melati-developers</A>.
-</P>
+</P -->
 </section>
 </body>
 </document>

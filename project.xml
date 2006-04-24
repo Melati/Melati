@@ -374,7 +374,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <version>1.4</version>
       <url>http://jakarta.apache.org/velocity/</url>
       <properties>
-         <war.bundle>false</war.bundle>
+         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
 
@@ -453,6 +453,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <includes>
         <include>**/*Test.java</include>
       </includes>
+      <excludes>
+        <exclude>**/CachedSelectionTest.java</exclude>
+      </excludes>
       <resources>
         <resource>
           <directory>src/webapp/WEB-INF/classes</directory>

@@ -53,7 +53,9 @@ import org.melati.poem.generated.TableInfoTableBase;
  *
  * If a database does not contain a table called <tt>tableinfo</tt> 
  * it will be created during the unification phase of startup.
- * @see Databse#unifyWithDB
+ * @see Database#unifyWithDB
+ * 
+ * Note that when overriding you need to override defaultTableInfoFor.
  * 
  * Melati POEM generated, programmer modifiable stub 
  * for a <code>TableInfoTable</code> object.
@@ -115,6 +117,11 @@ public class TableInfoTable extends TableInfoTableBase {
 
   // programmer's domain-specific code here
 
+  /**
+   * Setup default capabilities required to read and write.
+   *  
+   * @see org.melati.poem.Table#postInitialise()
+   */
   protected void postInitialise() {
     super.postInitialise();
     TableInfo info = ((Table)this).info;
@@ -123,4 +130,15 @@ public class TableInfoTable extends TableInfoTableBase {
     if (info.getCancreate() == null)
       info.setCancreate(getDatabase().administerCapability());
   }
+
+  /**
+   * Create a {@link TableInfo} based upon a {@link Table}.
+   * 
+   * @param table the Table to get metadata from.
+   * @return a new TableInfo Persistent
+   */
+  protected TableInfo defaultTableInfoFor(Table table) {
+    return new TableInfo(table);
+  }
+  
 }

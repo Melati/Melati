@@ -134,6 +134,66 @@ Some of the things you might wish to do with Melati.
  </li>
 </ol>
 </subsection>
+<subsection name=" Extend Melati's metadata ">
+<p>
+In your DSD extend the <tt>TableInfo</tt> and/or <tt>ColumnInfo</tt> tables. 
+</p>
+<p>
+For example to add a <tt>FileNumber</tt> to every table and a <tt>FieldNumber</tt> to every column:
+</p>
+<pre>
+// ===========================
+// Extend Poem metadata tables
+// ===========================
+
+
+table TableInfo extends org.melati.poem.TableInfo 
+  (displayorder = 3010)
+{
+    Integer fileNumber
+      (displayname = "File Number")
+      (description = "My File Number")
+      (nullable)
+      ;
+}
+
+table ColumnInfo extends org.melati.poem.ColumnInfo 
+  (displayorder = 3020)
+{
+    Integer fieldNumber
+      (displayname = "Field Number")
+      (description = "My Field Number")
+      (nullable)
+      ;
+}
+</pre>
+<p>
+Note that you need to specify the <tt>displayorder</tt> or the table will be given a sequential 
+<tt>displayorder</tt>.
+</p>
+<p>
+You will need to add something like the following to your generated files
+</p>
+<p><b><tt>TableInfo</tt></b></p>
+<pre>
+  public TableInfo(Table table) {
+    org.melati.poem.TableInfo poemTableInfo = new org.melati.poem.TableInfo(table);
+    setName_unsafe(poemTableInfo.getName());
+    setDisplayname_unsafe(poemTableInfo.getDisplayname());
+    setDisplayorder_unsafe(poemTableInfo.getDisplayorder());
+    setDescription_unsafe(poemTableInfo.getDescription());
+    setCachelimit_unsafe(poemTableInfo.getCachelimit());
+    setSeqcached_unsafe(poemTableInfo.getSeqcached());
+    setCategory_unsafe(poemTableInfo.getCategory_unsafe());
+  }
+</pre>
+<p><b><tt>TableInfoTable</tt></b></p>
+<pre>
+  protected org.melati.poem.TableInfo defaultTableInfoFor(Table table) {
+    return new TableInfo(table);
+  }
+</pre>
+</subsection>
 </section>
 </body>
 </document>

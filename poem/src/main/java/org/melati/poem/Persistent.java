@@ -211,9 +211,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   // ************
   // 
 
-  /** a shortcut method to mark this object as persistent */
-
-  public final void makePersistent() {
+ /** 
+  * A convenience method to mark this object as persistent.
+  */
+  public void makePersistent() {
     getTable().create(this);
   }
   
@@ -223,10 +224,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return extras;
   }
 
-  /**
-   * The table from which the object comes.
-   */
-
+ /**
+  * The table from which the object comes.
+  */
   public final Table getTable() {
     return table;
   }
@@ -238,16 +238,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
 
-  /**
-   * The database from which the object comes.  <I>I.e.</I>
-   * <TT>getTable().getDatabase()</TT>.
-   */
-
+ /**
+  * The database from which the object comes.  <I>I.e.</I>
+  * <TT>getTable().getDatabase()</TT>.
+  */
   public final Database getDatabase() {
     return table.getDatabase();
   }
 
   /**
+   * The Table Row Object Id for this Persistent.
+   * 
    * FIXME This shouldn't be public because we don't in principle want people
    * to know even the troid of an object they aren't allowed to read.  However,
    * I think this information may leak out elsewhere.
@@ -555,7 +556,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * running thread confers the <TT>Capability</TT> required for creating the
    * object. The capability is determined solely by <TT>getCanCreate<TT>
    * from the table. Unlike <TT>assertCanRead</TT> and <TT>assertCanWrite</TT>
-   * there is no idea of having a default <TT>Capability</TT> defined in
+   * there is no idea of having a default <TT>Capability</TT> defined 
    * in the table which could be overriden by a <TT>canwrite</TT> field
    * in the persistent (since the persisent has not yet been been written).
    *
@@ -1358,13 +1359,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * Return a SELECT query to count rows matching criteria represented
    * by this object.
+   *
+   * @param includeDeleted whether to include soft deleted records
+   * @param excludeUnselectable Whether to append unselectable exclusion SQL 
+   * @return an SQL query string
    */
   public String countMatchSQL(boolean includeDeleted,
-                              boolean cannotSelect) {
+                              boolean excludeUnselectable) {
     return getTable().countSQL(
       fromClause(),
       getTable().whereClause(this),
-      includeDeleted, cannotSelect);
+      includeDeleted, excludeUnselectable);
   }
 
   /**

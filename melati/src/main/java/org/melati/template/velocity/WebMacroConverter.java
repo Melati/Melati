@@ -78,17 +78,17 @@ public final class WebMacroConverter {
 
         // Convert nulls.
         // This converts
-        // #if ($var != null)
+        // $var != null
         // to
-        // #if ($var)
-        "#if\\s*[(]\\s*(\\$[^\\s\\!]+)\\s*!=\\s*null\\s*[)]",
-        "#if( $1 )",
+        // $var
+        "\\s*(\\$[^\\s\\!]+)\\s*!=\\s*null\\s*",
+        " $1 ",
         // This converts
-        // #if ($var == null)
+        // $var == null
         // to
-        // #if (!$var)
-        "#if\\s*[(]\\s*(\\$[^\\s\\!]+)\\s*==\\s*null\\s*[)]",
-        "#if( !$1 )",
+        // !$var
+        "\\s*(\\$[^\\s\\!]+)\\s*==\\s*null\\s*",
+        " !$1 ",
 
         // Convert WM style #foreach to Velocity directive style.
         "#foreach\\s+(\\$\\w+)\\s+in\\s+(\\$[^\\s#]+)\\s*(#begin|{)[ \\t]?",

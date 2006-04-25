@@ -2375,16 +2375,14 @@ public class Table implements Selectable {
     return "Normal";
   }
 
-  TableInfo defaultTableInfo() {
-    return new TableInfo(
-        getName(), defaultDisplayName(), defaultDisplayOrder(),
-        defaultDescription(), defaultCacheLimit(), defaultRememberAllTroids(),
-        database.getTableCategoryTable().ensure(defaultCategory()));
-  }
-
+  /**
+   * Create the (possibly overridden) TableInfo if it has not yet been created.
+   * 
+   * @throws PoemException
+   */
   void createTableInfo() throws PoemException {
     if (info == null) {
-      info = defaultTableInfo();
+      info = getDatabase().getTableInfoTable().defaultTableInfoFor(this);
       getDatabase().getTableInfoTable().create(info);
       setTableInfo(info);
     }

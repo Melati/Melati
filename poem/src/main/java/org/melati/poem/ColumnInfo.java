@@ -158,6 +158,7 @@ public class ColumnInfo extends ColumnInfoBase {
   /**
    * Only those fields which are relevant to this column 
    * and legal as a field qualifier in the DSD.
+   * Used in org.melati.admin.DSD.wm.
    * 
    * @return an Enumeration of {@link Field}s 
    */

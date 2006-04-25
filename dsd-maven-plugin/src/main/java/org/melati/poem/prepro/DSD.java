@@ -170,11 +170,14 @@ public class DSD {
     try {
       reader = new BufferedReader(new FileReader(file));
     } catch (FileNotFoundException e) {
-      String resourceName = file.substring(file.indexOf("!") + 2);
-      reader = new BufferedReader(
+      if (file.indexOf("!") != -1) {
+        String resourceName = file.substring(file.indexOf("!") + 2);
+        reader = new BufferedReader(
                    new InputStreamReader(Thread.currentThread()
                         .getContextClassLoader()
                           .getResourceAsStream(resourceName)));
+      } else 
+        throw e;
     }
     try {
       StreamTokenizer tokens = new StreamTokenizer(reader);

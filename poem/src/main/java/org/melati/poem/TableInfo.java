@@ -107,8 +107,14 @@ public class TableInfo extends TableInfoBase {
   public TableInfo() { }
 
   // programmer's domain-specific code here
+
   private Table _actualTable = null;
 
+  /**
+   * Get the {@link Table} this is about.
+   * 
+   * @return The table this object represents.
+   */
   public Table actualTable() {
     if (_actualTable == null && troid() != null)
       _actualTable = getDatabase().tableWithTableInfoID(troid().intValue());
@@ -122,18 +128,29 @@ public class TableInfo extends TableInfoBase {
   */
   public void assertCanRead(AccessToken token) {}
 
-  public TableInfo(String name, String displayName, int displayOrder,
-                   String description, Integer cacheLimit,
-                   boolean rememberAllTroids, TableCategory category) {
-    setName_unsafe(name);
-    setDisplayname_unsafe(displayName);
-    setDisplayorder_unsafe(new Integer(displayOrder));
-    setDescription_unsafe(description);
-    setCachelimit_unsafe(cacheLimit);
-    setSeqcached_unsafe(rememberAllTroids ? Boolean.TRUE : Boolean.FALSE);
-    setCategory_unsafe(category.troid());
+  /**
+   * Constructor creates a {@link TableInfo} from a {@link Table}.
+   * Note This must be overridded if you extend TableInfo in your DSD.
+   * 
+   * @param table from which to get metadata
+   */
+  public TableInfo(Table table) {
+    setName_unsafe(table.getName());
+    setDisplayname_unsafe(table.defaultDisplayName());
+    setDisplayorder_unsafe(new Integer(table.defaultDisplayOrder()));
+    setDescription_unsafe(table.defaultDescription());
+    setCachelimit_unsafe(table.defaultCacheLimit());
+    setSeqcached_unsafe(table.defaultRememberAllTroids() ? 
+                            Boolean.TRUE : Boolean.FALSE);
+    setCategory_unsafe(table.getDatabase().getTableCategoryTable().
+                           ensure(table.defaultCategory()).troid());
   }
-
+  
+  /**
+   * Overridden to disallow table renaming.
+   * 
+   * @see org.melati.poem.generated.TableInfoBase#setName(java.lang.String)
+   */
   public void setName(String name) {
     String current = getName();
     if (current != null && !current.equals(name))
@@ -141,19 +158,26 @@ public class TableInfo extends TableInfoBase {
     super.setName(name);
   }
 
-  public String displayString() throws AccessPoemException {
-    return getDisplayname();
-  }
-
+  /**
+   * Set here and in table we represent. 
+   * 
+   * @see org.melati.poem.generated.TableInfoBase#setSeqcached(java.lang.Boolean)
+   */
   public void setSeqcached(Boolean b) throws AccessPoemException {
     super.setSeqcached(b);
     Table t = actualTable();
     if (t != null) t.rememberAllTroids(b.booleanValue());
   }
 
+  /**
+   * Set here and in table we represent. 
+   * 
+   * @see org.melati.poem.generated.TableInfoBase#setCachelimit(java.lang.Integer)
+   */
   public void setCachelimit(Integer limit) throws AccessPoemException {
     super.setCachelimit(limit);
     Table t = actualTable();
     if (t != null) t.setCacheLimit(limit);
   }
+
 }

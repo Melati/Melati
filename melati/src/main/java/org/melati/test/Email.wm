@@ -4,6 +4,9 @@
 <!--
 ******************************Change Log********************************
   \$Log$
+  \Revision 1.2  2006/04/25 21:15:53  timp
+  \hack around velocity translator
+  \
   \Revision 1.1  2006/01/19 19:49:47  timp
   \Initial version
   \
@@ -14,7 +17,7 @@
 body {
 BACKGROUND-COLOR: \#FFFFFF;
 text-align: center;
-}
+ }
 \#page {
  margin-top: 0 auto;
  margin-bottom: 0 auto;
@@ -25,7 +28,7 @@ text-align: center;
  padding-left: 2em;
  padding-right: 2em;
  padding-bottom: 1em;
-}
+ }
 \#pagetitle {
 FONT-SIZE: 11px;
 COLOR: \#000000;
@@ -38,7 +41,7 @@ padding: 0.5em;
 margin-top: 1em;
 margin-bottom: 2em;
 border: solid 1px black;
-}
+ }
 \#toptext {
 FONT-SIZE: 11px;
 COLOR: \#000000;
@@ -48,7 +51,7 @@ width: auto;
 display:compact;
 text-align: left;
 margin-bottom: 2em;
-}
+ }
 \#content {
 FONT-SIZE: 11px;
 COLOR: \#000000;
@@ -57,7 +60,7 @@ FONT-WEIGHT: normal;
 width: auto;
 display:compact;
 text-align: left;
-}
+ }
 \#footer {
 FONT-SIZE: 11px;
 COLOR: \#000000;
@@ -67,11 +70,11 @@ width: auto;
 background-color: DarkCyan;
 text-align: center;
 margin-top: 4em;
-}
+ }
 A {
 display:compact;
 color: blue;
-}
+ }
 </style>
 <title>$servlet output</title>
 </head>

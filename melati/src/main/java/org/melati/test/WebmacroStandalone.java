@@ -118,11 +118,11 @@ public class WebmacroStandalone extends HttpServlet {
      * the network connection back to the client.
      */
    public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-
+      String templateName = "org/melati/test/WebmacroStandalone.wm";
       try {
          try {
 
-            WebContext c = new WebContext(_wm.getBroker(),req,resp);
+            WebContext c = new WebContext(_wm.getBroker(), req, resp);
 
             // fill up the context with our data
             c.put("Today", new Date());
@@ -137,8 +137,7 @@ public class WebmacroStandalone extends HttpServlet {
             }
 
             // get the template we intend to execute
-            Template t = _wm.getTemplate(
-                                   "org/melati/test/WebmacroStandalone.wm");
+            Template t = _wm.getTemplate(templateName);
 
             // Create FastWriter for fast output encoding
 //            FastWriter fw = new FastWriter(resp.getOutputStream(),
@@ -156,8 +155,9 @@ public class WebmacroStandalone extends HttpServlet {
 //             FastWriter out = new FastWriter(resp.getOutputStream(),
 //                                             resp.getCharacterEncoding());
              
-             out.write("ERROR!  Could not locate template standalone.wm, " + 
-                       "check that your template path is set " +
+             out.write("ERROR!  Could not locate template " +
+                       templateName + 
+                       ", check that your template path is set " +
                        "properly in WebMacro.properties");
              out.close();
          } catch (org.webmacro.ContextException e) {

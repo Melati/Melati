@@ -46,6 +46,7 @@ package org.melati.template.webmacro;
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
+import org.melati.util.MelatiConfigurationException;
 
 import org.webmacro.servlet.WebContext;
 
@@ -60,6 +61,10 @@ public abstract class WebmacroMelatiServlet extends TemplateServlet {
 
   protected String doTemplateRequest(Melati m, ServletTemplateContext c) 
    throws Exception {
+    if (m.getTemplateEngine().getName().equals(WebmacroTemplateEngine.NAME))
+      throw new MelatiConfigurationException("Configured TemplateEngine ("+ 
+                    m.getTemplateEngine().getName() + ") " + 
+                    "is not the required one (" + WebmacroTemplateEngine.NAME + ")");
     return handle(m, (WebContext)c.getContext());
   }
   

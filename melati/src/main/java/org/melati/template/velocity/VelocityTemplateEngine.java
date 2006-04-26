@@ -75,6 +75,8 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  */
 public class VelocityTemplateEngine implements ServletTemplateEngine {
 
+  public static final String NAME = "velocity";
+
   /**
    * This is the string that is looked for when getInitParameter is
    * called.
@@ -169,14 +171,10 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   /**
    * The name of the template engine (used to find the templets).
    *
-   * Note that we have yet to write Velocity specific templates, 
-   * so we dynamically convert the WebMacro ones. 
-   * Hence this returns 'webmacro'.
-   *
    * @return the name of the current configured template engine
    */
   public String getName() {
-    return "webmacro";
+    return NAME;
   }
 
   /**

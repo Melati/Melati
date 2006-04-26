@@ -66,6 +66,7 @@ import org.webmacro.Context;
  */
 public class WebmacroTemplateEngine implements TemplateEngine {
 
+  public static final String NAME = "webmacro";
 
 //  public static final Object check =
 //  org.webmacro.engine.Variable.
@@ -106,7 +107,7 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * @return the name of the current configured template engine
    */
   public String getName () {
-    return "webmacro";
+    return NAME;
   }
 
   /**

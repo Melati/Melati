@@ -111,7 +111,9 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   }
 
   /**
-   * @return the extension of the templates used by this template engine
+   * @return the extension of the templates used by 
+   * WebMacro, including the dot. 
+   * 
    */
   public String templateExtension() {
     return ".wm";

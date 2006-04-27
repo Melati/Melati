@@ -178,7 +178,8 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   }
 
   /**
-   * @return the extension of the templates used by this template engine
+   * @return the extension of the templates used by 
+   * Velocity, including the dot.
    */
   public String templateExtension() {
     return ".vm";

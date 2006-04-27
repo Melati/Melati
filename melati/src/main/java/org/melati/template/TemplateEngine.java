@@ -80,7 +80,8 @@ public interface TemplateEngine {
   String getName();
 
   /**
-   * @return the extension of the templates used by this template engine
+   * @return the extension of the templates used by this template engine,
+   * including the dot.
    */
   String templateExtension();
 

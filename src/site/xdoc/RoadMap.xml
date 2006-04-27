@@ -127,7 +127,10 @@ would be nice to have before a 1.0 release.
      Separation of Melati from servlets. <br />
      Improved support for HSQLDB, Oracle.<br />
      Support for MS Access.<br />
-     Unit test coverage extended to canonical Poem database.
+     Unit test coverage extended to canonical Poem database.<br />
+     Velocity/WebMacro version of admin system. <br />
+     Templets used to render everything.<br />
+     Metadata extensible.<br />
     </td>
     <td><b>done</b></td>
   </tr>
@@ -149,21 +152,6 @@ would be nice to have before a 1.0 release.
     <td>0.7.8</td>
     <td>Completion of Documentation - Manual, Howto's.</td>
     <td>In progess</td>
-  </tr>
-  <tr> 
-    <td>0.8.0</td>
-    <td>Templets used to render everything.</td>
-    <td>In Progress</td>
-  </tr>
-  <tr> 
-    <td>0.8.1</td>
-    <td>Velocity version of admin system</td>
-    <td></td>
-  </tr>
-  <tr> 
-    <td>0.8.2</td>
-    <td>Support for XML</td>
-    <td></td>
   </tr>
   <tr>
     <td>1.0</td>

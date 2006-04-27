@@ -42,4 +42,4 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-[$ml.rendered($exception.toString())]
+[$ml.rendered($object.toString())]

@@ -38,11 +38,13 @@
 ##     Mylesc Chippendale <mylesc@paneris.org>
 ##     http://paneris.org/
 ##     29 Stanley Road, Oxford, OX4 1QY, UK
-
 ##
 ## 
 ##
 ##
+
+#set $tree = $object
+
 <!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
 
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript" 

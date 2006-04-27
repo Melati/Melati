@@ -38,10 +38,12 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Mylesc Chippendale <mylesc@paneris.org>
+##     http://paneris.org/
+##     29 Stanley Road, Oxford, OX4 1QY, UK
 ##
+
+#set $tree = $object
 
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javscript" 
         src="$melati.JavascriptLibraryURL/trees.js"></SCRIPT>

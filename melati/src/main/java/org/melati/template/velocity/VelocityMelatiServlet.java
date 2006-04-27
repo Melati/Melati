@@ -46,30 +46,25 @@ package org.melati.template.velocity;
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
+import org.melati.util.MelatiConfigurationException;
 
 /**
  * Base class to use Melati with Velocity.
  * Simply extend this class, override the handle method
  * 
  * @author Tim Joyce
- * $Revision$
  */
 public abstract class VelocityMelatiServlet extends TemplateServlet {
 
   protected String doTemplateRequest(Melati m, ServletTemplateContext c) 
    throws Exception {
+    if (!m.getTemplateEngine().getName().equals(VelocityTemplateEngine.NAME)) 
+      throw new MelatiConfigurationException("Configured TemplateEngine ("+ 
+                    m.getTemplateEngine().getName() + ") " + 
+                    "is not the required one (" + VelocityTemplateEngine.NAME + ").");
     return handle(m, (VelocityTemplateContext)c.getContext());
   }
   
-  /*
-   * Adding the extension is left up to the application developer.
-   * <p>
-   * FIXME. Suggest we fix the overridden method to add the
-   * template extension if there is no "." and delete this. JimW
-   */
-  protected String addExtension(String templateName) {
-    return templateName;
-  }
 
   protected abstract String handle(Melati m, VelocityTemplateContext c)
    throws Exception;

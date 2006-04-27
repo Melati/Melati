@@ -146,8 +146,10 @@ public abstract class TemplateServlet extends PoemServlet {
    * <code>servlet/db/table/troid/method.html</code>.
    */
   protected String addExtension(String templateName) {
-      
-    return templateName + templateEngine.templateExtension();
+    if (!templateName.endsWith(templateEngine.templateExtension()))  
+      return templateName + templateEngine.templateExtension();
+    else
+      return templateName;      
   }
 
   

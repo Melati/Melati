@@ -139,15 +139,16 @@ public class ClassNameTempletLoader implements TempletLoader {
       }
     }
     if (templet == null) {
-      while (clazz != null) {
+      Class lookupClass = clazz;
+      while (lookupClass != null) {
         try {
           templet = templet(templateEngine, markupLanguage,
-                            purpose, clazz.getName());
+                            purpose, lookupClass.getName());
           break;
         } catch (NotFoundException e) {
           ; // try the next one up
         }
-        clazz = clazz.getSuperclass();
+        lookupClass = lookupClass.getSuperclass();
       }
       if (templet == null) throw new 
                              ClassTempletNotFoundException(this, clazz);

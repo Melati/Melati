@@ -45,18 +45,15 @@
 
 package org.melati.template;
 
+import java.io.IOException;
 import java.text.DateFormat;
 
-import java.io.IOException;
-
 import org.melati.Melati;
-import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiStringWriter;
-import org.melati.util.MelatiLocale;
-import org.melati.util.JSDynamicTree;
-import org.melati.util.JSStaticTree;
-import org.melati.poem.Persistent;
 import org.melati.poem.Field;
+import org.melati.poem.Persistent;
+import org.melati.util.MelatiLocale;
+import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiWriter;
 
 /**
  * MarkupLanguage provides a variety of methods for rendering objects in a
@@ -68,7 +65,7 @@ import org.melati.poem.Field;
  * 3 - void render(Object o, MelatiWriter w) - render the object to w.
  *
  * When this class was written it was thought that for maximum 
- * efficiency, render the object direct to the output stream using
+ * efficiency one should render the object direct to the output stream using
  * method (2) above.  
  * However now all but (1) is deprecated. 
  */
@@ -81,7 +78,6 @@ public abstract class MarkupLanguage {
    * The melati currently being used.
    */
   protected Melati melati;
-//  private ServletTemplateContext templateContext;
   private TempletLoader templetLoader;
   protected MelatiLocale locale;
 
@@ -106,7 +102,6 @@ public abstract class MarkupLanguage {
     this.melati = melati;
     this.templetLoader = templetLoader;
     this.locale = locale;
-//    this.templateContext = melati.getTemplateContext();
   }
 
   /**
@@ -137,15 +132,25 @@ public abstract class MarkupLanguage {
   }
 
   /**
-   * Render a String in a MarkupLanguage specific way.  Return a string.
+   * Render an Object in a MarkupLanguage specific way, returning a String.
    *
-   * @param s - the string to be rendered
+   * @return - the object rendered as a String in a MarkupLanguage specific way.
+   * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
-   * @return - the String having been rendered in a MarkupLanguage specific way.
+   * @throws TemplateEngineException - if there is a problem with the
+   *                                   ServletTemplateEngine
    */
-  public String rendered(String s) throws IOException {
+  public String rendered(Object o)
+      throws IOException {
     MelatiStringWriter sw = getStringWriter();
-    render(s,sw);
+    if (o instanceof String)
+      render((String)o, sw);
+    else if (o instanceof Field) 
+      render((Field)o, sw);
+    else if (o instanceof Persistent) 
+      render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), sw);
+    else
+      render(o, sw);
     return sw.toString();
   }
 
@@ -172,7 +177,6 @@ public abstract class MarkupLanguage {
 
   /**
    * Render a String in a MarkupLanguage specific way, limiting it's length.
-   * Return a String
    *
    * @param s - the string to be rendered
    * @param limit - the lenght to trim the string to
@@ -189,7 +193,6 @@ public abstract class MarkupLanguage {
    * Render a String in a MarkupLanguage specific way, limiting it's length.
    * Rendering to <code>melati.getWriter()</code>.
    *
-   *
    * @param s - the string to be rendered
    * @param limit - the lenght to trim the string to
    * @throws IOException - if there is a problem during rendering
@@ -202,7 +205,6 @@ public abstract class MarkupLanguage {
    * Render a String in a MarkupLanguage specific way, limiting it's length.
    * Render to a supplied MelatiWriter.
    *
-   * @deprecated  
    * @param s - the string to be rendered
    * @param writer - the MelatiWriter to render this String to
    * @param limit - the lenght to trim the string to
@@ -211,22 +213,6 @@ public abstract class MarkupLanguage {
   protected void render(String s, int limit, MelatiWriter writer)
       throws IOException {
     render(s.length() < limit + 3 ? s : s.substring(0, limit) + "...", writer);
-  }
-
-  /**
-   * Render an Object in a MarkupLanguage specific way, returning a String.
-   *
-   * @return - the object rendered as a String in a MarkupLanguage specific way.
-   * @param o - the Object to be rendered
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  public String rendered(Object o)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(o,sw);
-    return sw.toString();
   }
 
   /**
@@ -239,118 +225,15 @@ public abstract class MarkupLanguage {
    *                                   ServletTemplateEngine
    */
   protected void render(Object o) throws TemplateEngineException, IOException {
-    render(o,melati.getWriter());
-  }
-
-  /**
-   * Render an Object in a MarkupLanguage specific way, rendering to a supplied
-   * <code>MelatiWriter</code>.
-   *
-   * @param o - the Object to be rendered
-   * @param writer - the MelatiWriter to render this Object to
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  protected void render(Object o, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
-    if (o instanceof JSDynamicTree)
-      render((JSDynamicTree)o, writer);
-    else if (o instanceof JSStaticTree)
-      render((JSStaticTree)o, writer);
+    MelatiWriter writer = melati.getWriter();
+    if (o instanceof String)
+      render((String)o, writer);
+    else if (o instanceof Field) 
+      render((Field)o, writer);
     else if (o instanceof Persistent) 
       render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
-    else if (o instanceof Throwable) 
-      render((Throwable)o, writer);
     else
-      render(o.toString(), writer);
-  }
-
-  /**
-   * Render a Tree Object in a MarkupLanguage specific way, returning a String.
-   *
-   * @return - the Tree rendered as a String in a MarkupLanguage specific way.
-   * @param tree - the Tree to be rendered
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  public String rendered(JSDynamicTree tree)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(tree,sw);
-    return sw.toString();
-  }
-
-  public String rendered(JSStaticTree tree)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(tree,sw);
-    return sw.toString();
-  }
-
-  /**
-   * Render a Tree Object in a MarkupLanguage specific way, rendering to
-   * melati.getWriter()
-   *
-   * @param tree - the Tree to be rendered
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-  protected void render(JSDynamicTree tree)
-      throws TemplateEngineException, IOException {
-    render(tree, melati.getWriter());
-  }
-
-  protected void render(JSStaticTree tree)
-      throws TemplateEngineException, IOException {
-    render(tree, melati.getWriter());
-  }
-
-  /**
-   * Render a Tree Object in a MarkupLanguage specific way, rendering to
-   * a supplied Writer
-   *
-   * @param tree - the Tree to be rendered
-   * @param writer - the MelatiWriter to render this Object to
-   * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
-   */
-
-  protected void render(JSDynamicTree tree, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
-    TemplateContext vars =
-        melati.getTemplateEngine().getTemplateContext(melati);
-    vars.put("tree",tree);
-    vars.put("melati", melati);
-    String templetName = "org.melati.util.JSDynamicTree";
-    try {
-      expandTemplet(
-          templetLoader.templet(melati.getTemplateEngine(), this, templetName),
-          vars, writer);
-    }
-    catch (NotFoundException e) {
-      throw new TemplateEngineException(e);
-    }
-  }
-
-  protected void render(JSStaticTree tree, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
-    TemplateContext vars =
-        melati.getTemplateEngine().getTemplateContext(melati);
-    vars.put("tree",tree);
-    vars.put("melati", melati);
-    String templetName = "org.melati.util.JSStaticTree";
-    try {
-      expandTemplet(
-          templetLoader.templet(melati.getTemplateEngine(), this, templetName),
-          vars, writer);
-    }
-    catch (NotFoundException e) {
-      throw new TemplateEngineException(e);
-    }
+      render(o, writer);
   }
 
   /**
@@ -408,7 +291,7 @@ public abstract class MarkupLanguage {
    *                                   ServletTemplateEngine
    */
   protected void render(Field field, int style, int limit, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     render(field.getCookedString(locale, style), limit, writer);
   }
 
@@ -419,13 +302,14 @@ public abstract class MarkupLanguage {
     return sw.toString();
   }
 
+
   protected void render(Field field, int style)
       throws TemplateEngineException, IOException {
     render(field, style, melati.getWriter());
   }
 
   protected void render(Field field, int style, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     render(field, style, 10000000, writer);
   }
 
@@ -459,24 +343,24 @@ public abstract class MarkupLanguage {
   }
 
   protected void renderMedium(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     render(field, DateFormat.MEDIUM, writer);
   }
 
   public String renderedLong(Field field)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     MelatiStringWriter sw = getStringWriter();
     renderLong(field, sw);
     return sw.toString();
   }
 
   protected void renderLong(Field field)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     renderLong(field, melati.getWriter());
   }
 
   protected void renderLong(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     render(field, DateFormat.LONG, writer);
   }
 
@@ -497,12 +381,6 @@ public abstract class MarkupLanguage {
     render(field, DateFormat.FULL, writer);
   }
 
-  public String rendered(Field field)
-      throws TemplateEngineException, IOException {
-    MelatiStringWriter sw = getStringWriter();
-    render(field, sw);
-    return sw.toString();
-  }
 
   protected void render(Field field)
       throws TemplateEngineException, IOException {
@@ -510,7 +388,7 @@ public abstract class MarkupLanguage {
   }
 
   protected void render(Field field, MelatiWriter writer)
-      throws TemplateEngineException, IOException {
+      throws IOException {
     renderMedium(field, writer);
   }
 
@@ -531,35 +409,45 @@ public abstract class MarkupLanguage {
     render(field, DateFormat.MEDIUM, 50, writer);
   }
 
+/*
   public String rendered(Throwable e) throws IOException {
     MelatiStringWriter sw = getStringWriter();
     render(e, sw);
     return sw.toString();
   }
-
   protected void render(Throwable e) throws IOException {
     render(e, melati.getWriter());
   }
+*/
 
-  protected void render(Throwable e, MelatiWriter writer)
+  /**
+   * Render an Object in a MarkupLanguage specific way, rendering to
+   * a supplied Writer.
+   *
+   * @param tree - the Object to be rendered
+   * @param writer - the MelatiWriter to render this Object to
+   * @throws IOException - if there is a problem during rendering
+   * @throws TemplateEngineException - if there is a problem with the
+   *                                   ServletTemplateEngine
+   */
+  protected void render(Object o, MelatiWriter writer)
       throws IOException {
     try {
       TemplateContext vars =
-          melati.getTemplateEngine().getTemplateContext(melati);
+        melati.getTemplateEngine().getTemplateContext(melati);
       Template templet =
-          templetLoader.templet(melati.getTemplateEngine(), this, e.getClass());
-      vars.put("exception", e);
+        templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
+      vars.put("object", o);
       vars.put("melati", melati);
       vars.put("ml", this);
       expandTemplet(templet, vars, writer);
     }
     catch (Exception f) {
-      System.err.println("MarkupLanguage failed to render an exception:");
+      System.err.println("MarkupLanguage failed to render an object:");
       f.printStackTrace();
-      render("[" + e.toString() + "]",writer);
+      render("*Problem[" + o.toString() + "]*",writer);
     }
   }
-
 
 
   //

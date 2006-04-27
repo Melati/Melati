@@ -63,7 +63,7 @@ public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
   public String rendered(AccessPoemException e) throws IOException {
     try {
       melati.getWriter().write("[Access denied to ");
-      rendered(e.token);
+      render(e.token);
       melati.getWriter().write("]");
     }
     catch (Exception g) {

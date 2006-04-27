@@ -125,15 +125,15 @@ public final class WebMacroConverter {
 
         // Convert WM formal reference to VL syntax.
         "\\$\\(([^\\)]+)\\)",
-        "\\${$1}",
+        "${$1}",
         "\\${([^}\\(]+)\\(([^}]+)}\\)", // fix encapsulated brakets: {(})
-        "\\${$1($2)}",
+        "${$1($2)}",
 
         // Velocity currently does not permit leading underscore.
         "\\$_",
         "$l_",
         "\\${(_[^}]+)}", // within a formal reference
-        "\\${l$1}",
+        "${l$1}",
 
   };
 
@@ -144,6 +144,8 @@ public final class WebMacroConverter {
    * @return the InputStream with substitutions applied
    */
   public static InputStream convert(InputStream in) {
+    if (in == null)
+      throw new NullPointerException();
     byte[] ca;
     try {
       ca = new byte[in.available()];
@@ -157,7 +159,7 @@ public final class WebMacroConverter {
               "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
         }
       }
-      //System.err.println(contents);
+      System.err.println(contents);
       return new ByteArrayInputStream(contents.getBytes());
     } catch (IOException e) {
       throw new MelatiBugMelatiException(

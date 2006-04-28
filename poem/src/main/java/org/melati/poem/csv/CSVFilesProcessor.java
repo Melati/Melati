@@ -40,16 +40,16 @@
  *
  *     Myles Chippendale <mylesc@paneris.org>
  */
-package org.melati.poem;
+package org.melati.poem.csv;
 
 import java.util.Vector;
 import java.io.File;
 import java.io.Writer;
 import java.io.IOException;
-import org.melati.poem.csv.CSVTable;
-import org.melati.poem.csv.CSVParseException;
-import org.melati.poem.csv.CSVWriteDownException;
-import org.melati.poem.csv.NoPrimaryKeyInCSVTableException;
+
+import org.melati.poem.Database;
+import org.melati.poem.PoemThread;
+import org.melati.poem.Table;
 
 /**
  * A class to define a sequence of {@link CSVTable}s and process them by
@@ -136,8 +136,6 @@ public class CSVFilesProcessor {
       PoemThread.writeDown();
     }
 
-    output.write("Emptied all tables\n");
-    System.err.println("Emptied all tables");
 
     // Load in data
     for (int i = 0; i < tables.size(); i++) {
@@ -146,7 +144,6 @@ public class CSVFilesProcessor {
       output.write("Loaded table :" + t.getName() + "\n");
       System.err.println("Loaded table :" + t.getName());
     }
-    output.write("Loaded files\n");
 
     // We must have loaded in all the data before we
     // try writing records, otherwise Foreign Key lookups
@@ -168,7 +165,8 @@ public class CSVFilesProcessor {
 
   }
   public void process(boolean emptyTables, boolean recordDetails,
-      boolean fieldDetails, Writer output) throws IOException,
+                      boolean fieldDetails, Writer output) 
+      throws IOException,
       CSVParseException, NoPrimaryKeyInCSVTableException, CSVWriteDownException {
     process(false, emptyTables, recordDetails, fieldDetails, output);
   }

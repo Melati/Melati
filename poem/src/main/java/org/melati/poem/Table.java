@@ -1699,8 +1699,13 @@ public class Table implements Selectable {
         });
   }
 
-  // All the columns in the table which refer to a given table.
 
+  /**
+   * All the columns in the table which refer to the given table.
+   * 
+   * @param table
+   * @return an Enumeration of Columns referring to the specified Table
+   */
   public Enumeration referencesTo(final Table table) {
     return
       new FilteredEnumeration(columns()) {

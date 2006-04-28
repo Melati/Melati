@@ -43,13 +43,14 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.poem;
+package org.melati.poem.dbms;
+
+import org.melati.poem.SeriousPoemException;
 
  /**
   * Thrown when a dbms contains a type not supported by Poem.
   *
   * @author WilliamC@paneris.org
-  * @todo Move to dbms.
   */
 public class UnsupportedTypePoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;

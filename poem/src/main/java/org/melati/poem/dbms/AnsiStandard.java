@@ -76,7 +76,6 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.UnexpectedExceptionPoemException;
-import org.melati.poem.UnsupportedTypePoemException;
 import org.melati.util.StringUtils;
 
 /**

@@ -79,7 +79,7 @@ public abstract class Database implements TransactionPool {
 
   final Database _this = this;
 
-  private Vector transactions = null; // FIXME make this more explicit
+  private Vector transactions = null; 
   private Vector freeTransactions = null;
 
   private Connection committedConnection;
@@ -195,13 +195,11 @@ public abstract class Database implements TransactionPool {
    *
    * @see #transactionsMax()
    */
-
   public void connect(String dbmsclass, String url,
                       String username, String password,
                       int transactionsMaxP) throws PoemException {
 
     connectionUrl = url;
-
 
     synchronized (connecting) {
       if (connecting[0])
@@ -272,8 +270,7 @@ public abstract class Database implements TransactionPool {
 
   /**
    * Releases database connections
-   **/
-
+   */
   public void disconnect() throws PoemException {
     if (committedConnection == null)
       throw new ReconnectionPoemException();
@@ -301,7 +298,6 @@ public abstract class Database implements TransactionPool {
    *
    * @see #addTableAndCommit
    */
-
   protected synchronized void defineTable(Table table)
       throws DuplicateTableNamePoemException {
     if (tablesByName.get(table.getName()) != null)
@@ -330,11 +326,17 @@ public abstract class Database implements TransactionPool {
     return m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), null);
   }
 
+  /**
+   * @param info Table metadata object
+   * @param troidName name of troidColumn
+   * @return new minted {@link Table} 
+   * @throws PoemException
+   */
   public Table addTableAndCommit(TableInfo info, String troidName)
       throws PoemException {
 
     // For permission control we rely on them having successfully created a
-    // TableInfo---FIXME this may not be enough!
+    // TableInfo
 
     Table table = new Table(this, info.getName(),
                             DefinitionSource.infoTables);
@@ -490,6 +492,9 @@ public abstract class Database implements TransactionPool {
     return transactionsMax;
   }
 
+  /**
+   * Set the maximum number of transactions.
+   */
   public final void setTransactionsMax(int t) {
     transactionsMax = t;
   }
@@ -532,7 +537,6 @@ public abstract class Database implements TransactionPool {
   /**
    * Finish using a transaction.  It's put back on the freelist.
    */
-
   void notifyClosed(PoemTransaction transaction) {
     freeTransactions.addElement(transaction);
   }
@@ -541,7 +545,6 @@ public abstract class Database implements TransactionPool {
    * Find a transaction by its index.
    * transaction(i).index() == i
    */
-
   public PoemTransaction poemTransaction(int index) {
     return (PoemTransaction)transactions.elementAt(index);
   }
@@ -554,7 +557,10 @@ public abstract class Database implements TransactionPool {
     return freeTransactions.contains(trans);
   }
 
-  void beginExclusiveLock() {
+  /**
+   * Aquire a lock on the database.
+   */
+  public void beginExclusiveLock() {
     // FIXME yuk
 
     if (PoemThread.inSession())
@@ -568,7 +574,10 @@ public abstract class Database implements TransactionPool {
     }
   }
 
-  void endExclusiveLock() {
+  /**
+   * Release lock.
+   */
+  public void endExclusiveLock() {
     lock.writeUnlock();
 
     // FIXME yuk, see above
@@ -661,7 +670,6 @@ public abstract class Database implements TransactionPool {
    * @see PoemThread#rollback
    * @see User
    */
-
   public void inSession(AccessToken accessToken, PoemTask task) {
     perform(accessToken, task, false);
   }
@@ -729,7 +737,6 @@ public abstract class Database implements TransactionPool {
    * @exception NoSuchTablePoemException
    *             if no table with the given name exists in the RDBMS
    */
-
   public final Table getTable(String name) throws NoSuchTablePoemException {
     Table table = (Table)tablesByName.get(name);
     if (table == null) throw new NoSuchTablePoemException(this, name);
@@ -742,7 +749,6 @@ public abstract class Database implements TransactionPool {
    * @return an <TT>Enumeration</TT> of <TT>Table</TT>s, in no particular
    *         order.
    */
-
   public final Enumeration tables() {
     return tables.elements();
   }
@@ -784,7 +790,6 @@ public abstract class Database implements TransactionPool {
    *
    * @see #getTableInfoTable
    */
-
   Table tableWithTableInfoID(int tableInfoID) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Table table = (Table)t.nextElement();
@@ -822,16 +827,17 @@ public abstract class Database implements TransactionPool {
   /**
    * The metadata table with information about all tables in the database.
    */
-
   public abstract TableInfoTable getTableInfoTable();
 
+  /**
+   * The Table Category Table.
+   */
   public abstract TableCategoryTable getTableCategoryTable();
 
   /**
    * The metadata table with information about all columns in all tables in the
    * database.
    */
-
   public abstract ColumnInfoTable getColumnInfoTable();
 
   /**
@@ -849,35 +855,33 @@ public abstract class Database implements TransactionPool {
    * @see Group
    * @see #getGroupTable
    */
-
   public abstract CapabilityTable getCapabilityTable();
 
   /**
    * The table of known users of the database.
    */
-
   public abstract UserTable getUserTable();
 
   /**
    * The table of defined user groups for the database.
    */
-
   public abstract GroupTable getGroupTable();
 
   /**
    * The table containing group-membership records.  A user is a member of a
    * group iff there is a record in this table to say so.
    */
-
   public abstract GroupMembershipTable getGroupMembershipTable();
 
   /**
    * The table containing group-capability records.  A group has a certain
    * capability iff there is a record in this table to say so.
    */
-
   public abstract GroupCapabilityTable getGroupCapabilityTable();
 
+  /**
+   * The Setting Table.
+   */
   public abstract SettingTable getSettingTable();
 
   //
@@ -896,7 +900,6 @@ public abstract class Database implements TransactionPool {
    * @see Table#selection(java.lang.String)
    * @see Column#selectionWhereEq(java.lang.Object)
    */
-
   public ResultSet sqlQuery(String sql) throws SQLPoemException {
     SessionToken token = PoemThread.sessionToken();
     token.transaction.writeDown();
@@ -928,7 +931,6 @@ public abstract class Database implements TransactionPool {
    * @see Column#selectionWhereEq(java.lang.Object)
    * @see #uncacheContents
    */
-
   public int sqlUpdate(String sql) throws SQLPoemException {
     SessionToken token = PoemThread.sessionToken();
     token.transaction.writeDown();
@@ -957,7 +959,13 @@ public abstract class Database implements TransactionPool {
   // =======
   //
 
-
+  /**
+   * Get the raw SQL statement for this database's DBMS for Capability 
+   * check for a User.
+   * @param user
+   * @param capability
+   * @return the raw SQL appropriate for this db
+   */
   public String givesCapabilitySQL(User user, Capability capability) {
     return dbms.givesCapabilitySQL(user, capability.troid().toString());
   }
@@ -966,8 +974,6 @@ public abstract class Database implements TransactionPool {
   * @todo Use a prepared statement to get Capabilities
   */
   private boolean dbGivesCapability(User user, Capability capability) {
-
-    // FIXME use a prepared statement
 
     String sql = givesCapabilitySQL(user, capability);
     ResultSet rs = null;
@@ -1024,6 +1030,9 @@ public abstract class Database implements TransactionPool {
 
   private UserCapabilityCache capabilityCache = new UserCapabilityCache();
 
+  /**
+   * Check if a user has the specified Capability.
+   */
   public boolean hasCapability(User user, Capability capability) {
     // no capability means that we always have access
     if (capability == null) return true;
@@ -1031,10 +1040,16 @@ public abstract class Database implements TransactionPool {
     return capabilityCache.hasCapability(user, capability);
   }
 
+  /**
+   * @return the guest token.
+   */
   public AccessToken guestAccessToken() {
     return getUserTable().guestUser();
   }
 
+  /**
+   * @return the Capability required to administer this db.
+   */
   public Capability administerCapability() {
     return getCapabilityTable().administer();
   }
@@ -1064,7 +1079,6 @@ public abstract class Database implements TransactionPool {
    *                    be dropped from POEM's cache, on a least-recently-used
    *                    basis.
    */
-
   public void trimCache(int maxSize) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((Table)t.nextElement()).trimCache(maxSize);
@@ -1073,7 +1087,6 @@ public abstract class Database implements TransactionPool {
   /**
    * Dump all the contents of the cache.
    */
-
   public void uncacheContents() {
     for (int t = 0; t < tables.size(); ++t)
       ((Table)tables.elementAt(t)).uncacheContents();
@@ -1085,6 +1098,12 @@ public abstract class Database implements TransactionPool {
   // ===========
   //
 
+  /**
+   * Find all references to specified object in all tables. 
+   * 
+   * @param object the object being refered to 
+   * @return an Enumeration of Persistents
+   */
   public Enumeration referencesTo(final Persistent object) {
     return new FlattenedEnumeration(
         new MappedEnumeration(tables()) {
@@ -1094,11 +1113,14 @@ public abstract class Database implements TransactionPool {
         });
   }
 
-  public Enumeration referencesTo(final Table tablein) {
+  /**
+   * @return An Enumeration of Columns referring to the specified Table. 
+   */
+  public Enumeration referencesTo(final Table tableIn) {
     return new FlattenedEnumeration(
         new MappedEnumeration(tables()) {
           public Object mapped(Object table) {
-            return ((Table)table).referencesTo(tablein);
+            return ((Table)table).referencesTo(tableIn);
           }
         });
   }
@@ -1107,7 +1129,6 @@ public abstract class Database implements TransactionPool {
    * Print some diagnostic information about the contents and consistency of
    * POEM's cache to stderr.
    */
-
   public void dumpCacheAnalysis() {
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((Table)t.nextElement()).dumpCacheAnalysis();
@@ -1116,7 +1137,6 @@ public abstract class Database implements TransactionPool {
   /**
    * Print information about the structure of the database to stdout.
    */
-
   public void dump() {
     for (int t = 0; t < tables.size(); ++t) {
       System.out.println();
@@ -1133,18 +1153,36 @@ public abstract class Database implements TransactionPool {
   // =========================
   //
 
+  /**
+   * @return the Database Management System class of this db
+   */
   public Dbms getDbms() {
       return dbms;
   }
 
+  /**
+   * Set the DBMS.
+   * 
+   * @param aDbms
+   */
   private void setDbms(Dbms aDbms) {
       dbms = aDbms;
   }
 
+  /**
+   * Quote a name in the DBMS' specific dialect.
+   * @param name
+   * @return
+   */
   public final String quotedName(String name) {
       return getDbms().getQuotedName(name);
   }
 
+  /**
+   * The default {@link PoemType} corresponding to a JDBC metadata ResultSet. 
+   * @param md the JDBC metadata
+   * @return The appropriatePoemType
+   */
   final SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return getDbms().defaultPoemTypeOfColumnMetaData(md);
@@ -1157,6 +1195,10 @@ public abstract class Database implements TransactionPool {
   //
 
 
+  /**
+   * Returns the connection url.
+   * If you want a simple name see LogicalDatabase.
+   */
   public String toString() {
     if (connectionUrl == null)
       return "unconnected database";
@@ -1164,23 +1206,37 @@ public abstract class Database implements TransactionPool {
       return connectionUrl;
   }
 
+  /**
+   * @return the jdbc Connection
+   */
   public Connection getCommittedConnection() {
     return committedConnection;
   }
 
+  /**
+   * @return whether logging is switched on
+   */
   public boolean logSQL() {
     return logSQL;
   }
 
+  /**
+   * Toggle logging.
+   */
   public void setLogSQL(boolean value) {
     logSQL = value;
   }
 
-
+  /**
+   * @return whether database commits should be logged
+   */
   public boolean logCommits() {
     return logCommits;
   }
 
+  /**
+   * Toggle commit logging.
+   */
   public void setLogCommits(boolean value) {
     logCommits = value;
   }

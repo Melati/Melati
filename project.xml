@@ -3,7 +3,7 @@
   <pomVersion>3</pomVersion>
   <id>melati</id>
   <name>Melati</name>
-  <currentVersion>0.7.5-RC1</currentVersion>
+  <currentVersion>0.7.5-RC2</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -346,7 +346,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <version>74.214.jdbc3</version>
       <url>http://jdbc.postgresql.org/</url>
       <properties>
-         <war.bundle>false</war.bundle>
+         <war.bundle>true</war.bundle>
          <scope>runtime</scope>
       </properties>
     </dependency>

@@ -54,7 +54,6 @@ import java.util.Vector;
 /**
  * A store of known objects.
  */
-
 public final class Cache {
 
  /** A <code>key:value</code> pair */
@@ -298,6 +297,12 @@ public final class Cache {
     assertInvariant();
   }
 
+  /**
+   * Add an Object to the cache. 
+   * 
+   * @param key the Object to use as a lookup
+   * @param value the Object to p[ut in the cache
+   */
   public synchronized void put(Object key, Object value) {
     if (key == null || value == null)
       throw new NullPointerException();
@@ -311,7 +316,7 @@ public final class Cache {
 
       Object previous = table.put(key, node);
       if (previous != null) {
-        // FIXME why if we are going to throw and Exception?
+        // Return cache to previous state
         table.put(key, previous);
         throw new CacheDuplicationException();
       }

@@ -62,7 +62,7 @@
 
   <property name="webmacroJar"      value="webmacro-classic-2.0b1.jar"/>
   <property name="concurrentJar"    value="concurrent.jar"/>
-  <property name="velocityJar"      value="velocity-1.3.1.jar" />
+  <property name="velocityJar"      value="velocity-1.4.jar" />
   <property name="oroJar"           value="jakarta-oro-2.0.8.jar" />
   <property name="collectionsJar"   value="commons-collections-3.0.jar" />
   <property name="odmgJar"          value="odmg3.jar" />
@@ -75,7 +75,7 @@
   <path id="classpath.compile">
     <pathelement path="${build.lib}/${servletJar}"/>
     <pathelement path="${build.lib}/${postgresqlJar}"/>
-    <pathelement path="${build.lib}/${orqacleJar}"/>
+    <!-- pathelement path="${build.lib}/${oracleJar}"/ -->
     <pathelement path="${build.lib}/${webmacroJar}"/>
     <pathelement path="${build.lib}/${velocityJar}" />
     <pathelement path="${build.lib}/${oroJar}" />
@@ -370,7 +370,7 @@ usage:
   <target name="war" depends="sources">
     <mkdir dir="${packaged.dir}"/>
     <delete file="${war}"/>
-    <copy todir="${build.lib}" file="${jar}"/>
+    <!-- copy todir="${build.lib}" file="${jar}"/ -->
     <war warfile="${war}" webxml="${site}/WEB-INF/web.xml">
       <!-- The site HTML -->
       <fileset dir="${site}">
@@ -470,7 +470,7 @@ usage:
           classpathref="classpath.jetty"
           fork="yes"
           failonerror="yes">
-      <jvmarg value="-Xmx256M"/>
+      <jvmarg value="-Xmx256m"/>
       <arg line="jetty.xml"/>
     </java>
   </target>

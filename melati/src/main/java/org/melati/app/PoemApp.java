@@ -144,13 +144,24 @@ import org.melati.util.UnexpectedExceptionException;
  * <LI>
  * <A NAME=loginmechanism></A>It is possible to configure how your
  * <TT>PoemApp</TT>-derived applications implement user login. If the
- * properties file <TT>org.melati.MelatiServlet.properties</TT>
+ * properties file <TT>org.melati.MelatiApp.properties</TT>
  * exists and contains a setting
- * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then
+ * <TT>org.melati.MelatiApp.accessHandler=<I>foo</I></TT>, then
  * <TT><I>foo</I></TT> is taken to be the name of a class implementing the
  * <TT>AccessHandler</TT> interface.  
- * FIXME - this needs to be thoughtout for non-http access.
  * </UL>
+ * 
+ * If you do not need access handling then set your accessHandler to 
+ * <tt>org.melati.login.OpenAccessHandler</tt>.
+ * If you do need access handling then set your accessHandler to 
+ * <tt>org.melati.login.CommandLineAccessHandler</tt>.
+ * However this is not extremely secure, as the user could potentially 
+ * change this seting to <tt>OpenAccessHandler</tt> as they are on the same machine.
+ * 
+ * You can specify the username and password to use by adding command line parameters:
+ * <pre>
+ * <tt>-username user -password password</tt>
+ * </pre>
  *
  *
  * @see org.melati.poem.Database#guestAccessToken
@@ -160,11 +171,13 @@ import org.melati.util.UnexpectedExceptionException;
  * @see org.melati.login.AccessHandler
  * @see org.melati.login.HttpSessionAccessHandler
  * @see org.melati.login.Login
- * @see org.melati.login.HttpBasicAuthenticationAccessHandler
- * @todo work out non-http access control
+ * @see org.melati.login.OpenAccessHandler
+ * @see org.melati.login.CommandLineAccessHandler
  */
 
 public abstract class PoemApp extends ConfigApp implements  App {
+
+  static boolean done = false;
 
   /**
    * Initialise.
@@ -200,6 +213,7 @@ public abstract class PoemApp extends ConfigApp implements  App {
       doConfiguredRequest(melati);
       // send the output to the client
       melati.write();
+      melati.getDatabase().disconnect();
     }
     catch (Exception e) {
       throw new UnexpectedExceptionException(e);
@@ -215,33 +229,38 @@ public abstract class PoemApp extends ConfigApp implements  App {
       throw new UnexpectedExceptionException(e);
     }
     
-    melati.getDatabase().inSession (
-      AccessToken.root, new PoemTask() {
-        public void run () {
-          melati.getConfig().getAccessHandler().establishUser(melati);
-          melati.loadTableAndObject();
-          try {
+    while (!done) {
+      melati.getDatabase().inSession (
+        AccessToken.root, new PoemTask() {
+          public void run () {
+            melati.getConfig().getAccessHandler().establishUser(melati);
+            melati.loadTableAndObject();
             try {
-              doPoemRequest(melati);
+              try {
+                doPoemRequest(melati);
+                done = true;
+              } catch (AccessPoemException ape) {
+                _handleException (melati, ape);
+              } catch (Exception e) {
+                _handleException (melati, e);
+              }
             } catch (Exception e) {
-              _handleException (melati, e);
+              throw new UnexpectedExceptionException(e);
             }
-          } catch (Exception e) {
-            throw new UnexpectedExceptionException(e);
+          }
+
+          public String toString() {
+            return "PoemApp";
           }
         }
-
-        public String toString() {
-          return "PoemApp";
-        }
-      }
-    );
+      );
+    }
 
   }
  
   
  /**
-  * Default method to handle an exception without a template engine.
+  * Default method to handle an exception.
   *
   * @param melati the Melati
   * @param exception the exception to handle
@@ -289,17 +308,28 @@ public abstract class PoemApp extends ConfigApp implements  App {
     PoemContext pc = new PoemContext();
     if (args.length > 0) {
       pc.setLogicalDatabase(args[0]);
+      String[] munched = (String[])ArrayUtils.section(args,  1,  args.length);
+      String[] withoutParams = new String[]{};
+      boolean ignoreNext = false;
+      for (int i = 0; i < munched.length; i++) {
+        if (munched[i].startsWith("-")) {
+          ignoreNext = true;
+        } else if (ignoreNext) {
+          ignoreNext = false;
+        } else {
+          withoutParams = (String[])ArrayUtils.added(withoutParams, munched[i]);
+        }
+      }
+      setTableTroidMethod(pc, withoutParams);
     }
-    String[] munched = (String[])ArrayUtils.section(args,  1,  args.length);
-    setTableTroidMethod(pc, munched);
 
     return pc;
   }
 
   /**
    * This is provided for convenience, so you don't have to specify the 
-   * logicaldatabase in the arguments.  This is useful when
-   * writing appications where you are only accessing a single database.
+   * logical database in the arguments.  This is useful when
+   * writing applications where you are only accessing a single database.
    *
    * Simply override {@link #poemContext(Melati melati)} thus:
    *

@@ -69,10 +69,16 @@ public class PoemAppExample extends PoemApp {
    * @see org.melati.app.PoemApp#doPoemRequest(org.melati.Melati)
    */
   protected void doPoemRequest(Melati melati) throws Exception {
-    System.err.println("Hello World");
+    // test logging in if necessary
+    if (melati.getConfig().getAccessHandler() 
+         instanceof  org.melati.login.CommandLineAccessHandler)
+      melati.getDatabase().getUserTable().
+                             getTableInfo().setDefaultcanread(
+                                 melati.getDatabase().administerCapability());
     System.out.println("Your Database was: " + melati.getDatabase());
     System.out.println("Your Table was   : " + melati.getTable());
-    System.out.println("Your Troid was   : " + melati.getObject().getTroid());
+    if (melati.getObject() != null)
+     System.out.println("Your Troid was   : " + melati.getObject().getTroid());
     System.out.println("Your Method was  : " + melati.getMethod());
     System.out.println("System Users");
     System.out.println("============");

@@ -47,7 +47,7 @@ import org.melati.Melati;
 import org.melati.template.TemplateContext;
 
 /**
- * An example of how to use a Template Engine with a poem database 
+ * An example of how to use a Template Engine with a Poem database 
  * from the command line. 
  * 
  * Invoke: 
@@ -56,6 +56,8 @@ import org.melati.template.TemplateContext;
  *  lib\webmacro.jar:lib\servlet.jar \
  *  org.melati.app.PoemTemplateExample poemtest user 0 \
  *  org/melati/app/TemplateAppExample
+ * 
+ * Where poemtest is your database, user is your tabel and 0 is the record id.
  * 
  */
 public class TemplateAppExample extends TemplateApp {
@@ -72,8 +74,12 @@ public class TemplateAppExample extends TemplateApp {
    */
   protected String doTemplateRequest(Melati melati,
       TemplateContext templateContext) throws Exception {
-    if (melati.getMethod() == null)
-      melati.getPoemContext().setMethod("org/melati/app/TemplateAppExample");
+    // test logging in if necessary
+    if (melati.getConfig().getAccessHandler() 
+         instanceof  org.melati.login.CommandLineAccessHandler)
+      melati.getDatabase().getUserTable().
+                             getTableInfo().setDefaultcanread(
+                                 melati.getDatabase().administerCapability());
     return melati.getMethod();
   }
 

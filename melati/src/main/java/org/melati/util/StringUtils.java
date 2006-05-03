@@ -53,6 +53,14 @@ public final class StringUtils {
 
   private StringUtils() {}
 
+  /**
+   * As Perl, create an Array from a String by using a 
+   * character as the Array delimiter. 
+   * 
+   * @param s the String to split
+   * @param c the Array delimiter
+   * @return an Array
+   */
   public static String[] split(String s, char c) {
     int n = 0;
     for (int i = s.indexOf(c); i >= 0; i = s.indexOf(c, i + 1))
@@ -74,6 +82,14 @@ public final class StringUtils {
     return them;
   }
 
+  /**
+   * Append a String to a StringBuffer, and escaping any occurances 
+   * of the char in the String.
+   * 
+   * @param b the buffer to append to 
+   * @param s the String to append
+   * @param e the character to escape
+   */
   public static void appendEscaped(StringBuffer b, String s, char e) {
     int l = s.length();
     for (int i = 0; i < l; ++i) {
@@ -102,6 +118,14 @@ public final class StringUtils {
     b.append(s);
   }
 
+  /**
+   * Append a String to a StringBuffer, first quoting it with a quote 
+   * character and escaping any occurances of the quote char in the String.
+   * 
+   * @param b the buffer to append to 
+   * @param s the String to append
+   * @param q the quote character
+   */
   public static void appendQuoted(StringBuffer b, String s, char q) {
     b.append(q);
     appendEscaped(b, s, q);
@@ -127,7 +151,6 @@ public final class StringUtils {
    * @param s the String which may contain characters to escape
    * @param e the character to escape
    * @return the escaped string
-   * @todo Delete - not used in Melati.
    * @deprecated not in use in Melati, cannot be used twice.
    */
   public static String escaped(String s, char e) {
@@ -156,7 +179,6 @@ public final class StringUtils {
         return t.toString();
       }
     }
-
     return s;
   }
 
@@ -250,10 +272,16 @@ public final class StringUtils {
   private static String allowableChars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz0123456789";
 
-  public static String randomString(int i) {
+  /**
+   * Generate a random String.
+   * 
+   * @param length the required length of the String returned
+   * @return a random String of upper and lowercase letters and digits
+   */
+  public static String randomString(int length) {
     String result = "";
     int j = allowableChars.length();
-    for (int a = 0; a < i; a++) {
+    for (int a = 0; a < length; a++) {
       int index = new Double(Math.random() * j).intValue();
       result += allowableChars.charAt(index);
     }
@@ -282,11 +310,16 @@ public final class StringUtils {
     { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
       'A', 'B', 'C', 'D', 'E', 'F' };
 
-  public static String hexEncoding(byte[] bs) {
-    StringBuffer it = new StringBuffer(bs.length * 2);
+  /**
+   * Hex encode an Array of bytes.
+   * @param bytes the byte Array
+   * @return the hex representation
+   */
+  public static String hexEncoding(byte[] bytes) {
+    StringBuffer it = new StringBuffer(bytes.length * 2);
 
-    for (int i = 0; i < bs.length; ++i) {
-      int b = bs[i];
+    for (int i = 0; i < bytes.length; ++i) {
+      int b = bytes[i];
       it.append(hexDigits[b >> 4 & 0xF]);
       it.append(hexDigits[b & 0xF]);
     }
@@ -294,6 +327,11 @@ public final class StringUtils {
     return it.toString();
   }
 
+  /**
+   * Decode a hex char to a byte.
+   * @param c the char
+   * @return a byte
+   */
   public static byte hexDecoding(char c) {
     if ('0' <= c && c <= '9')
       return (byte) (c - '0');
@@ -305,6 +343,11 @@ public final class StringUtils {
       throw new IllegalArgumentException("Invalid hex digit in string");
   }
 
+  /**
+   * Decode a hex String into a byte Array.
+   * @param digits the hex String
+   * @return a byte Array
+   */
   public static byte[] hexDecoding(String digits) {
 
     int l = digits.length() / 2;

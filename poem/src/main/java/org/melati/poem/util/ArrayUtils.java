@@ -55,21 +55,37 @@ public final class ArrayUtils {
 
   private ArrayUtils() {}
 
+  /**
+   * Create an Array from a Vector.
+   * @param v the Vector
+   * @return the Array
+   */
   public static Object[] arrayOf(Vector v) {
     Object[] arr;
     synchronized (v) {
       arr = new Object[v.size()];
       v.copyInto(arr);
     }
-
     return arr;
   }
 
+  /**
+   * Create an Array from an Enumeration.
+   * @param v the Enumeration
+   * @return the Array
+   */
   public static Object[] arrayOf(Enumeration e) {
     Vector v = EnumUtils.vectorOf(e);
     return arrayOf(v);
   }
 
+  /**
+   * Add an Object to an Array.
+   * 
+   * @param xs the array to add to
+   * @param y  the object to add
+   * @return the enlarged array
+   */
   public static Object[] added(Object[] xs, Object y) {
     Object[] xsx = (Object[])java.lang.reflect.Array.newInstance(
                        xs.getClass().getComponentType(), xs.length + 1);
@@ -78,6 +94,12 @@ public final class ArrayUtils {
     return xsx;
   }
 
+  /**
+   * Create a new Array from two Arrays.
+   * @param xs  first Array 
+   * @param ys  second Array
+   * @return a new Array with the elements of the second appended to the first
+   */
   public static Object[] concatenated(Object[] xs, Object[] ys) {
     Object[] xsys =
         (Object[])java.lang.reflect.Array.newInstance(
@@ -87,6 +109,14 @@ public final class ArrayUtils {
     return xsys;
   }
 
+  /**
+   * Extract a subsection of an Array.
+   * 
+   * @param xs the input Array
+   * @param start where to start our section, inclusive
+   * @param limit where to stop, inclusive
+   * @return the new Array
+   */
   public static Object[] section(Object[] xs, int start, int limit) {
     Object[] xs_ = (Object[])java.lang.reflect.Array.newInstance(
                        xs.getClass().getComponentType(), limit - start);
@@ -94,12 +124,26 @@ public final class ArrayUtils {
     return xs_;
   }
 
+  /**
+   * Lookup the first instance of an Object in an Array.
+   * 
+   * @param xs the Array to search
+   * @param x the Object to check
+   * @return the index of the first <code>equal</code> object
+   */
   public static int indexOf(Object[] xs, Object x) {
     for (int i = 0; i < xs.length; ++i)
       if (xs[i].equals(x)) return i;
     return -1;
   }
 
+  /**
+   * Whether an Array contains an Object.
+   * 
+   * @param xs the Array to search
+   * @param x the Object to check
+   * @return whether it is there or not
+   */
   public static boolean contains(Object[] xs, Object x) {
     return indexOf(xs, x) != -1;
   }

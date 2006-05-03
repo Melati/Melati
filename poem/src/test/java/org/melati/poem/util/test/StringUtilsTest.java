@@ -63,6 +63,20 @@ public class StringUtilsTest extends TestCase {
     super(arg0);
   }
 
+  /**
+   * Test hex encoding and decoding.
+   * 
+   * @param args
+   */
+  public void testHexEncoding() {
+    String[] strings = {"01234567", "abcdef", "f1234bcd"};
+    for (int i = 0; i<strings.length; i++){
+      assertEquals(new String(StringUtils.hexDecoding(
+          StringUtils.hexEncoding(strings[i].getBytes()))), 
+                   strings[i]);
+    }
+  }
+
   public void testIsQuotedNull() {
     assertTrue(!StringUtils.isQuoted(null));
   }

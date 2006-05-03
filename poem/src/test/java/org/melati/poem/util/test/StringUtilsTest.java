@@ -41,12 +41,11 @@
  * Tim Joyce <timj@paneris.org>
  *
  */
-
 package org.melati.util.test;
 
-import org.melati.util.StringUtils;
-
 import junit.framework.TestCase;
+
+import org.melati.util.StringUtils;
 
 /**
  * A test for the org.melati.util.StringUtil class.
@@ -55,26 +54,152 @@ import junit.framework.TestCase;
  */
 public class StringUtilsTest extends TestCase {
 
-  /**
-   * Constructor for StringUtil.
-   * @param arg0
+  /*
+   * Test method for 'org.melati.util.StringUtils.split(String, char)'
    */
-  public StringUtilsTest(String arg0) {
-    super(arg0);
+  public void testSplit() {
+    String them = "one,two,three";
+    assertEquals(3, StringUtils.split(them, ',').length); 
+    assertEquals("two", StringUtils.split(them, ',')[1]); 
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.appendEscaped(StringBuffer, String, char)'
+   */
+  public void testAppendEscaped() {
+    StringBuffer buff = new StringBuffer();
+    assertEquals("",buff.toString());
+    StringUtils.appendEscaped(buff, "a$b", '$');
+    assertEquals("a\\$b",buff.toString());
+    StringUtils.appendEscaped(buff, "c\\d", '$');
+    assertEquals("a\\$bc\\\\d",buff.toString());
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.appendQuoted(StringBuffer, String, char)'
+   */
+  public void testAppendQuoted() {
+    StringBuffer buff = new StringBuffer();
+    assertEquals("",buff.toString());
+    StringUtils.appendQuoted(buff, "a$b", '$');
+    assertEquals("$a\\$b$",buff.toString());
+    StringUtils.appendQuoted(buff, "c\\d", '$');
+    assertEquals("$a\\$b$$c\\\\d$",buff.toString());
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.quoted(String, char)'
+   */
+  public void testQuoted() {
+    assertEquals("\"a\"", StringUtils.quoted("a",'"'));
+    assertEquals("'a'", StringUtils.quoted("a",'\''));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.escaped(String, char)'
+   */
+  public void testEscaped() {
+ // deprecated
+ //   assertEquals("Eureka\\!", StringUtils.escaped("Eureka!",'!'));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.capitalised(String)'
+   */
+  public void testCapitalised() {
+    assertEquals("Capitalised", StringUtils.capitalised("capitalised"));
+  }
+
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.tr(String, String, String)'
+   */
+  public void testTrStringStringString() {
+    assertEquals("Muther", StringUtils.tr("Mother","o","u"));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.tr(String, char, char)'
+   */
+  public void testTrStringCharChar() {
+    assertEquals("Muther", StringUtils.tr("Mother",'o','u'));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.concatenated(String, String[])'
+   */
+  public void testConcatenated() {
+    String[] them = {"one", "two", "three"};
+    assertEquals("one,two,three", StringUtils.concatenated(",",them));
+    assertEquals("onetwothree", StringUtils.concatenated(null,them));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.randomString(int)'
+   */
+  public void testRandomString() {
+    assertEquals(5, StringUtils.randomString(5).length());
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.nulled(String)'
+   */
+  public void testNulled() {
+    assertEquals(null, StringUtils.nulled(""));
+    assertEquals("null", StringUtils.nulled("null"));
+  }
+
+  
+  /*
+   * Test method for 'org.melati.util.StringUtils.unNulled(String)'
+   */
+  public void testUnNulled() {
+    String expected = "a";
+    String actual = StringUtils.unNulled("a");
+    assertEquals(expected, actual);
+  }
+
+  public void testUnNulledNull() {
+    String expected = "";
+    String actual = StringUtils.unNulled(null);
+    assertEquals(expected, actual);
   }
 
   /**
    * Test hex encoding and decoding.
-   * 
+   * Test method for 'org.melati.util.StringUtils.hexEncoding(byte[])'
+   *
    * @param args
    */
   public void testHexEncoding() {
     String[] strings = {"01234567", "abcdef", "f1234bcd"};
     for (int i = 0; i<strings.length; i++){
       assertEquals(new String(StringUtils.hexDecoding(
-          StringUtils.hexEncoding(strings[i].getBytes()))), 
+          StringUtils.hexEncoding(strings[i].getBytes()))),
                    strings[i]);
     }
+  }
+
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.hexDecoding(char)'
+   */
+  public void testHexDecodingChar() {
+    assertEquals(new Integer(10), new Integer(StringUtils.hexDecoding('A')));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.hexDecoding(String)'
+   */
+  public void testHexDecodingString() {
+    assertEquals("A", new String(StringUtils.hexDecoding("41")));
+  }
+
+  /*
+   * Test method for 'org.melati.util.StringUtils.isQuoted(String)'
+   */
+  public void testIsQuoted() {
+    assertTrue(StringUtils.isQuoted("\"a\""));
   }
 
   public void testIsQuotedNull() {
@@ -97,20 +222,6 @@ public class StringUtilsTest extends TestCase {
     assertTrue(StringUtils.isQuoted("\'a\'"));
   }
 
-  public void testUnNulled() {
-    String expected = "a";
-    String actual = StringUtils.unNulled("a");
-    assertEquals(expected, actual);
-  }
 
-  public void testUnNulledNull() {
-    String expected = "";
-    String actual = StringUtils.unNulled(null);
-    assertEquals(expected, actual);
-  }
-
-  public void testCapitalised() {
-    assertEquals("Capitalised", StringUtils.capitalised("capitalised"));
-  }
 
 }

@@ -49,7 +49,8 @@ import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
 
 /**
- * Base class to use Melati with a Template Engine as an application.
+ * Base class to use Melati as an application with a Template Engine.
+ * 
  * To create your own application simply extend this class, 
  * overriding the {@link #doTemplateRequest} method.
  */
@@ -67,7 +68,7 @@ public abstract class TemplateApp extends PoemApp implements App {
   }
 
   /**
-   * Fullfil {@link PoemApp}'s promises.
+   * Fulfill {@link PoemApp}'s promises.
    * 
    * @param melati the {@link Melati} 
    * @throws Exception if anything goes wrong 
@@ -96,7 +97,10 @@ public abstract class TemplateApp extends PoemApp implements App {
    * extensions.
    */
   protected String addExtension(String templateName) {
-    return templateName + templateEngine.templateExtension();
+    if (!templateName.endsWith(templateEngine.templateExtension()))  
+      return templateName + templateEngine.templateExtension();
+    else
+      return templateName;      
   }
  
   /**

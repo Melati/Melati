@@ -269,7 +269,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * Releases database connections
+   * Releases database connections.
    */
   public void disconnect() throws PoemException {
     if (committedConnection == null)
@@ -1047,6 +1047,8 @@ public abstract class Database implements TransactionPool {
     return getUserTable().guestUser();
   }
 
+  private Capability canAdminister = null;
+  
   /**
    * @return the Capability required to administer this db.
    */
@@ -1062,9 +1064,15 @@ public abstract class Database implements TransactionPool {
    * @see org.melati.admin.Admin
    */
   public Capability getCanAdminister() {
-    return null;
+    return canAdminister;
   }
-
+  
+  public void setCanAdminister() {
+    canAdminister = administerCapability();
+  }
+  public void setCanAdminister(String capabilityName) {
+    canAdminister = getCapabilityTable().ensure(capabilityName);
+  }
 
   //
   // ==========

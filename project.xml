@@ -455,6 +455,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </includes>
       <excludes>
         <exclude>**/CachedSelectionTest.java</exclude>
+        <exclude>**/UserTableTest.java</exclude>
       </excludes>
       <resources>
         <resource>

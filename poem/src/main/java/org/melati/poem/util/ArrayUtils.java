@@ -113,8 +113,8 @@ public final class ArrayUtils {
    * Extract a subsection of an Array.
    * 
    * @param xs the input Array
-   * @param start where to start our section, inclusive
-   * @param limit where to stop, inclusive
+   * @param start the index in the original array to start our section, inclusive
+   * @param limit the index in the original array to stop at, inclusive
    * @return the new Array
    */
   public static Object[] section(Object[] xs, int start, int limit) {

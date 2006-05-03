@@ -329,6 +329,7 @@ public final class StringUtils {
 
   /**
    * Decode a hex char to a byte.
+   * 
    * @param c the char
    * @return a byte
    */
@@ -363,15 +364,6 @@ public final class StringUtils {
                 hexDecoding(digits.charAt(i * 2 + 1)));
 
     return it;
-  }
-
-  /**
-   * Test hex encoding and decoding.
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
-    System.out.println(hexEncoding(hexDecoding(args[0])));
   }
 
   /**

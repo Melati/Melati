@@ -44,7 +44,7 @@
 ## We don't have a TextMarkupLanguage as yet
 #set $ml = $melati.HTMLMarkupLanguage
 
-Hello World.
+Hello $melati.User
 
 You have expanded template org/melati/app/TemplateAppExample.wm 
 

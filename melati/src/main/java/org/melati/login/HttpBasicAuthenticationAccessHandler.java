@@ -56,16 +56,21 @@ import org.melati.Melati;
 import org.melati.util.MelatiRuntimeException;
 import org.melati.util.Base64;
 import org.melati.util.StringUtils;
-import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 import org.melati.util.UnexpectedExceptionException;
 
 /**
  * Flags up when something was illegal or not supported about an incoming HTTP
  * authorization.
  */
-
 class HttpAuthorizationMelatiException extends MelatiRuntimeException {
+  
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * Constructor.
+   *
+   * @param message the message to pass up to super constructor
+   */
   public HttpAuthorizationMelatiException(String message) {
     super(message, null);
   }
@@ -74,22 +79,33 @@ class HttpAuthorizationMelatiException extends MelatiRuntimeException {
 /**
  * The information contained in an HTTP authorization.
  */
-
 final class HttpAuthorization {
   public String type;
   public String username;
   public String password;
 
   private HttpAuthorization() {
-    ; // Utility classes should not have a public or default constructor
+    // Utility classes should not have a public or default constructor
   }
   
+  /**
+   * Private constructor.
+   * 
+   * @param type Authorization type - assumed to be "Basic"
+   * @param username user name to check 
+   * @param password user password
+   */
   private HttpAuthorization(String type, String username, String password) {
     this.type = type;
     this.username = username;
     this.password = password;
   }
 
+  /**
+   * Create an Authorization from an HTTP Authorization header.
+   * @param authHeader
+   * @return a new Authorization or null
+   */
   static HttpAuthorization from(String authHeader) {
     // FIXME single space probably not only valid separator
 
@@ -117,12 +133,18 @@ final class HttpAuthorization {
             authHeader);
 
       String type = authHeader.substring(0, space);
-        throw new HttpAuthorizationMelatiException(
+      throw new HttpAuthorizationMelatiException(
             "The browser tried to authenticate using an authorization type " +
             "`" + type + "' which Melati doesn't understand");
     }
   }
 
+  /**
+   * Create an Authorization from a request.
+   * 
+   * @param request to extract Authorization header from
+   * @return a new Authorization or null
+   */
   static HttpAuthorization from(HttpServletRequest request) {
     String header = request.getHeader("Authorization");
     return header == null ? null : from(header);
@@ -138,7 +160,6 @@ final class HttpAuthorization {
  * do URL rewriting.
  *
  */
-
 public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   private static final String className =
           new HttpBasicAuthenticationAccessHandler().getClass().getName();
@@ -146,16 +167,20 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   public final String REALM = className + ".realm";
   public final String USER = className + ".user";
 
+  /**
+   * Change here to use session, if that makes sense.
+   * @return false
+   */
   protected boolean useSession() {
     return false;
   }
 
   /**
-   * Force a login by sending a 401 error back to the browser.  FIXME
+   * Force a login by sending a 401 error back to the browser.  
+   * FIXME
    * Apache/Netscape appear not to do anything with <TT>message</TT>, which is
    * why it's just left as a <TT>String</TT>.
    */
-
   protected void forceLogin(HttpServletResponse resp,
                             String realm, String message) {
     String desc = realm == null ? "<unknown>" 
@@ -173,6 +198,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
  /**
   * Called when an AccessPoemException is trapped.
+  * 
   * @param melati the Melati 
   * @param accessException the particular access exception to handle
   * @throws Exception if anything goes wrong
@@ -186,6 +212,11 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     forceLogin(melati.getResponse(), capName, accessException.getMessage());
   }
 
+  /**
+   * Get the users details.
+   * 
+   * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
+   */
   public Melati establishUser(Melati melati) {
 
     HttpAuthorization auth = HttpAuthorization.from(melati.getRequest());
@@ -213,10 +244,10 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
                    firstWhereEq(auth.username);
       }
       catch (NoSuchRowPoemException e) {
-        ; // user will still be null
+        // user will still be null
       }
       catch (AccessPoemException e) {
-        ; // paranoia
+        // paranoia
       }
       else
         user = sessionUser;
@@ -263,7 +294,12 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
     }
   }
 
+  /**
+   * If we are allowed in then no need to change request.
+   * 
+   * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
+   */
   public void buildRequest(Melati melati) 
-      throws ReconstructedHttpServletRequestMismatchException, IOException {
+      throws IOException {
   }
 }

@@ -48,10 +48,10 @@ package org.melati.login;
 import java.io.IOException;
 import org.melati.poem.AccessPoemException;
 import org.melati.Melati;
-import org.melati.util.ReconstructedHttpServletRequestMismatchException;
+import org.melati.util.MelatiException;
 
 /**
- * A Object invoked when an {@link AccessPoemException} occurs.
+ * A handler invoked when an {@link AccessPoemException} occurs.
  *
  * The actions required are to offer the user the opportunity to 
  * login and then return the user to the same point as they were before 
@@ -64,11 +64,19 @@ public interface AccessHandler {
                         throws Exception;
 
   /**
+   * Called when a @link PoemTask} is initiated.
+   * 
    * @return A {@link Melati} with the appropriate fields filled.
+   * @see org.melati.servlet.PoemServlet#doConfiguredRequest
+   * @see org.melati.app.PoemApp#doConfiguredRequest
    */
-
   Melati establishUser(Melati melati);
 
+  /**
+   * Rebuild request having gained authorisation.
+   * 
+   * @param melati used to store original request
+   */
   void buildRequest(Melati melati) 
-      throws ReconstructedHttpServletRequestMismatchException, IOException;
+      throws MelatiException, IOException;
 }

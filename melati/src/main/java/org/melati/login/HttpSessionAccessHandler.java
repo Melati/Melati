@@ -81,7 +81,6 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *
    * @see org.melati.login.Login
    */
-
   protected String loginPageServletClassName() {
     return "org.melati.login.Login";
   }
@@ -95,7 +94,6 @@ public class HttpSessionAccessHandler implements AccessHandler {
    *
    * @see #loginPageServletClassName
    */
-
   public String loginPageURL(Melati melati, HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendRelativeZoneURL(url, request);
@@ -109,6 +107,11 @@ public class HttpSessionAccessHandler implements AccessHandler {
   }
 
 
+  /**
+   * Store the current request and redirect to the login page. 
+   * 
+   * @see org.melati.login.AccessHandler#handleAccessException
+   */
   public void handleAccessException(Melati melati, 
                                     AccessPoemException accessException) 
       throws Exception {
@@ -136,8 +139,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * @see org.melati.login.LoginHandler
    */
   
-  // now if we establish a user, we must also set this frigging cookie
   public Melati establishUser(Melati melati) {
+    // now when we establish a user, we must also set the cookie
     String ldb = melati.getPoemContext().getLogicalDatabase();
     HttpSession session = melati.getSession();
     synchronized (session) {
@@ -155,20 +158,40 @@ public class HttpSessionAccessHandler implements AccessHandler {
     return melati;
   }
   
-  public void logUsIn(Melati melati, User user) {
+  /**
+   * Set our AccessToken.
+   * Remember a User isa Token.
+   * 
+   * @param melati the Melati to get our database from
+   * @param user the token to set
+   */
+  void logUsIn(Melati melati, User user) {
     PoemThread.setAccessToken(
-      user == null ? melati.getDatabase().guestAccessToken() : user);
+        user == null ? melati.getDatabase().guestAccessToken() : user);
   }
 
   
-  public User getUserFromCookie(Melati melati,String key) {
+  /**
+   * Extract User via the cookie.
+   * @param melati
+   * @param key
+   * @return the found User or null
+   */
+  User getUserFromCookie(Melati melati,String key) {
     String login = getCookieValue(melati,key);
     if (login == null) return null;
     return (User)melati.getDatabase().getUserTable().getLoginColumn().
               firstWhereEq(login);
   }
 
-  public String getCookieValue(Melati melati,String key) {
+  /**
+   * Extract a value from the cookies.
+   * 
+   * @param melati the Melati in which the Request and its cookies are stored
+   * @param key the key we need the value of
+   * @return teh cookie value or null
+   */
+  String getCookieValue(Melati melati,String key) {
     // try and get from cookie
     key = UTF8URLEncoder.encode(key);
     Cookie[] cookies = melati.getRequest().getCookies();
@@ -180,6 +203,12 @@ public class HttpSessionAccessHandler implements AccessHandler {
     return null;
   }
 
+  /**
+   * If we are returning from a login rebuild the original request,
+   * otherwise do nothing.
+   *  
+   * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
+   */
   public void buildRequest(Melati melati) 
       throws ReconstructedHttpServletRequestMismatchException {
     HttpSession session = melati.getSession();

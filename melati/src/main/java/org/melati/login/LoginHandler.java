@@ -70,6 +70,11 @@ public class LoginHandler {
 
   protected TemplateServlet servlet;
 
+  /**
+   * Constructor.
+   * 
+   * @param servlet to set
+   */
   public LoginHandler(TemplateServlet servlet) {
     this.servlet = servlet;
   }
@@ -101,12 +106,11 @@ public class LoginHandler {
     return loginTemplate("LoginSuccess");
   }
 
-  /*
-  protected Field loginField(Field standard) {
-  return standard;
-  }
+  /**
+   * Extract current values from context and add fields to context.
+   * 
+   * @param context the ServletTemplateContext to modify 
    */
-
   public void setupContext(ServletTemplateContext context) {
     HttpSession session = context.getSession();
 
@@ -128,12 +132,22 @@ public class LoginHandler {
     context.put("passwordWrong", Boolean.FALSE);
   }
 
+  /**
+   * Set cookies if requested, remove any leftovers from any 
+   * triggering {@link AccessPoemException}.
+   * 
+   * @param melati the melati
+   * @param templateContext context to augment  
+   * @param user the established User
+   * @return the name of the success template
+   */
   public String loginSuccessfullyAs (Melati melati, 
-                                  ServletTemplateContext templateContext, User user) {
+                                     ServletTemplateContext templateContext, 
+                                     User user) {
     // Arrange for the original parameters from the request that triggered the
     // login to be overlaid on the next request that comes in if it's a match
     // (this allows POSTed fields to be recovered without converting the
-    // request into a GET that the browser will repeat on reload with giving
+    // request into a GET that the browser will repeat on reload without giving
     // any warning).
     
     // if we have asked that our password be remembered, set the cookies
@@ -180,18 +194,21 @@ public class LoginHandler {
     return c;
   }
     
-
-  public String getLogin(ServletTemplateContext context) {
-    return context.getForm("field_login");
-  }
-
+  /**
+   * Action the login.
+   * 
+   * @param melati the Melati
+   * @param templateContext
+   * @return a template name
+   * @throws Exception
+   */
   public String doTemplateRequest(Melati melati, 
                                   ServletTemplateContext templateContext)
      throws Exception {
 
     setupContext(templateContext);
 
-    String username = getLogin(templateContext);
+    String username = templateContext.getForm("field_login");
     String password = templateContext.getForm("field_password");
 
     if (username == null)

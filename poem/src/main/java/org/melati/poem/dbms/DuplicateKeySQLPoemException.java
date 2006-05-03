@@ -43,16 +43,19 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.poem;
+package org.melati.poem.dbms;
 
 import java.sql.SQLException;
+
+import org.melati.poem.Column;
+import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.Table;
 
  /**
   * Thrown when an attempt to insert a value which is already present 
   * in a column with a unique index is made.
   *
   * @author WilliamC@paneris.org
-  * @todo Move to dbms
   */
 public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
   private static final long serialVersionUID = 1L;

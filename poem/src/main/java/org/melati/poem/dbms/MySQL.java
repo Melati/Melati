@@ -57,7 +57,6 @@ import org.melati.poem.IntegerPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLSeriousPoemException;

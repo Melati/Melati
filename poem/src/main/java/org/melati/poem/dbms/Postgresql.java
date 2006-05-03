@@ -64,7 +64,6 @@ import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
 
-import org.melati.poem.DuplicateKeySQLPoemException;
 import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.SeriousPoemException;
 import org.melati.poem.SQLPoemException;

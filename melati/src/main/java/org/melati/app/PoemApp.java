@@ -300,7 +300,7 @@ public abstract class PoemApp extends ConfigApp implements  App {
     melati.write();
   }
 
-  protected static PoemContext poemContext(Melati melati) 
+  protected PoemContext poemContext(Melati melati) 
       throws InvalidArgumentsException {
 
     String[] args = melati.getArguments();

@@ -165,7 +165,7 @@ public abstract class ConfigApp implements App {
    * @return a partially configured {@link PoemContext}
    * @throws MelatiException
    */
-  protected static PoemContext poemContext(Melati melati) throws MelatiException { 
+  protected PoemContext poemContext(Melati melati) throws MelatiException { 
     PoemContext it = new PoemContext();
     String[] arguments = melati.getArguments();
     if (arguments.length > 0)

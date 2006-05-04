@@ -62,8 +62,6 @@ import org.melati.util.UTF8URLEncoder;
 /**
  * An object to hold useful static methods for inclusion in a 
  * {@link ServletTemplateContext}.
- *
- * @todo Cache adaptor templet
  */
 
 public class MelatiUtil {
@@ -202,8 +200,8 @@ public class MelatiUtil {
   /**
    * Modify or add a form parameter setting (query string component) in a query
    * string.
-   *
-   * @todo add default encoding
+   * @todo move to Melati so we can use non-default encoding 
+   * 
    * @param qs      A query string
    * @param field   The parameter's name
    * @param value   The new value for the parameter (unencoded)
@@ -211,7 +209,6 @@ public class MelatiUtil {
    *                If there is already a binding for <TT>field</TT> in the
    *                query string it is replaced, not duplicated.
    */
-
   public static String sameQueryWith(String qs, String field, String value) {
     
     String fenc = UTF8URLEncoder.encode(field);

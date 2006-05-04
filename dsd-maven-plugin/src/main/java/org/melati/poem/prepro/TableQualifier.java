@@ -90,7 +90,7 @@ public abstract class TableQualifier {
     else if (kind.equals("category"))
       it = new CategoryTableQualifier(tokens);
     else if (kind.equals("displayorder"))
-      it = new TableDisplayOrderQualifier(tokens);
+      it = new DisplayOrderTableQualifier(tokens);
     else
       throw new ParsingDSDException("<table qualifier>", kind, tokens);
     return it;

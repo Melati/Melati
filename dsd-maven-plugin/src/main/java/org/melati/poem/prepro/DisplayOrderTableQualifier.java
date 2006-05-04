@@ -51,10 +51,8 @@ import java.io.IOException;
 /**
  * A <tt>TableQualifier</tt> which defines the <tt>DisplayOrder</tt> 
  * of a <tt>Table</tt>.
- * 
- * @todo Rename to DisplayOrderTableQualifier
  */
-public class TableDisplayOrderQualifier extends TableQualifier {
+public class DisplayOrderTableQualifier extends TableQualifier {
 
   private int priority;
 
@@ -66,7 +64,7 @@ public class TableDisplayOrderQualifier extends TableQualifier {
   * @throws ParsingDSDException if an unexpected token is encountered
   * @throws IOException if something goes wrong with the file system
   */
-  public TableDisplayOrderQualifier(StreamTokenizer tokens)
+  public DisplayOrderTableQualifier(StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     DSD.expect(tokens, '=');
     tokens.nextToken();

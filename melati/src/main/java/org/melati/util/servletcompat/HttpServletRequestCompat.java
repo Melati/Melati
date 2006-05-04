@@ -54,7 +54,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
-import org.melati.util.UnexpectedExceptionException;
 
 /**
  * The <code>HttpServletRequestCompat</code> class enables Melati to compile,
@@ -229,9 +228,8 @@ public final class HttpServletRequestCompat {
         if (f instanceof RuntimeException) // they all should be
           throw (RuntimeException) f;
         else if (f instanceof Exception)
-          throw new UnexpectedExceptionException(
-                                                 "while invoking a Servlet API method",
-                                                 (Exception) f);
+          throw new RuntimeException("while invoking a Servlet API method",
+                                     (Exception) f);
         else if (f instanceof Error)
           throw (Error) f;
         else {

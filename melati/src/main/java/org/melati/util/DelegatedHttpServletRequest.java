@@ -50,7 +50,6 @@ import java.util.Enumeration;
 import java.util.Locale;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import org.melati.util.servletcompat.HttpServletRequestCompat;
 
  /**
   * Enables Melati to compile, without warnings, with the Servlet API 
@@ -58,7 +57,7 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
   * However, unless you use one of the core methods you will 
   * get warnings.
   *
-  * @see   org.melati.util.servletcompat.HttpServletRequestCompat
+  * @see   org.melati.util.HttpServletRequestCompat
   */
 
 public class DelegatedHttpServletRequest implements HttpServletRequest {

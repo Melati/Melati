@@ -69,6 +69,7 @@ import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.AcceptCharset;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.CharsetException;
+import org.melati.util.HttpServletRequestCompat;
 import org.melati.util.HttpUtil;
 import org.melati.util.HttpHeader;
 import org.melati.util.MelatiBufferedWriter;
@@ -80,7 +81,6 @@ import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.StringUtils;
 import org.melati.util.UTF8URLEncoder;
 import org.melati.util.UnexpectedExceptionException;
-import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 /**
  * This is the main entry point for using Melati.

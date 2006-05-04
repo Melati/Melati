@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util.servletcompat;
+package org.melati.util;
 
 import java.util.Map;
 import java.util.Enumeration;

@@ -125,8 +125,6 @@ public class BooleanPoemType extends AtomPoemType {
 
 /**
  * The possible raw values of a {@link BooleanPoemType}.
- * 
- * @todo If this works rewrite so it doesn't look as though it has a bug.
  */
 class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
@@ -135,10 +133,29 @@ class BooleanPossibleRawEnumeration implements Enumeration {
     return state < 2;
   }
 
+  /*
+  // Left in as an example of wierd code.
+  // It works, but should not according to 
+  // http://java.sun.com/docs/books/tutorial/java/nutsandbolts/expressions.html
+  // 
   public synchronized Object nextElement() {
     if (state == 2)
       throw new NoSuchElementException();
     else //FIXME surely never returns FALSE ?
       return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
+  }
+  */
+
+  public synchronized Object nextElement() {
+    if (state == 2)
+      throw new NoSuchElementException();
+    else {
+      if (state == 0) {
+        state++;
+        return Boolean.FALSE;
+      }
+      state++;
+      return Boolean.TRUE;
+    }
   }
 }

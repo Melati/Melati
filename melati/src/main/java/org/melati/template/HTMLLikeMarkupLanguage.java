@@ -91,7 +91,7 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
   }
 
   public String encoded(String s) {
-    return UTF8URLEncoder.encode(s);
+    return UTF8URLEncoder.encode(s, melati.getEncoding());
   }
 }
 

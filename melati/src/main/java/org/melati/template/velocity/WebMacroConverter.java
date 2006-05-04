@@ -60,6 +60,7 @@ import org.melati.util.MelatiBugMelatiException;
  */
 public final class WebMacroConverter {
 
+  private WebMacroConverter() {}
   /**
    * The regexes to use for substition. The regexes come
    * in pairs. The first is the string to match, the

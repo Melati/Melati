@@ -239,16 +239,18 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
 
       if (sessionUser == null ||
           !sessionUser.getLogin().equals(auth.username))
-      try {
-        user = (User)melati.getDatabase().getUserTable().getLoginColumn().
+        try {
+          user = (User)melati.getDatabase().getUserTable().getLoginColumn().
                    firstWhereEq(auth.username);
-      }
-      catch (NoSuchRowPoemException e) {
-        // user will still be null
-      }
-      catch (AccessPoemException e) {
-        // paranoia
-      }
+        }
+        catch (NoSuchRowPoemException e) {
+          // user will still be null
+          user = null; // shut checkstyle up
+        }
+        catch (AccessPoemException e) {
+          // paranoia
+          user = null; // shut checkstyle up
+        }
       else
         user = sessionUser;
 

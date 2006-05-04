@@ -99,14 +99,14 @@ public class EmailTemplateServletTest extends TemplateServlet {
       "message");
       System.err.println("Context=" + context.getClass().getName());
       MultipartFormField referencedField = context.getMultipartForm("referencedFile");
-      if (referencedField == null ){
+      if (referencedField == null){
         System.err.println("is null");
         
       }else{
         System.err.println("not null:" + referencedField);
       }
       File referencedFile = referencedField.getDataFile();
-      if (referencedFile == null ){
+      if (referencedFile == null){
         System.err.println("file is null");
         
       }else{

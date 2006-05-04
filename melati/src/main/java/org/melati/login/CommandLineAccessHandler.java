@@ -194,10 +194,12 @@ public class CommandLineAccessHandler implements AccessHandler {
                    firstWhereEq(auth.username);
       }
       catch (NoSuchRowPoemException e) {
-        ; // user will still be null
+        // user will still be null
+        user = null; // shut checkstyle up
       }
       catch (AccessPoemException e) {
-        ; // paranoia
+        // paranoia
+        user = null; // shut checkstyle up
       }
 
       if (user != null && user.getPassword_unsafe().equals(auth.password)) {

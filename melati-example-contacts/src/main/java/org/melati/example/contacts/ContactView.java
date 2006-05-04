@@ -69,7 +69,7 @@ public class ContactView extends TemplateServlet {
       return null;
     }
     else if (melati.getMethod().equals("View")) {
-      ; //  view an existing record
+      return "org/melati/example/contacts/ContactView";
     }
     else { 
        throw new Exception("Invalid Method");

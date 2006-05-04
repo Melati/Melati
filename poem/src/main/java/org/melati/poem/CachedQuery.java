@@ -65,6 +65,13 @@ public abstract class CachedQuery {
   private Table otherTables[];
   private long otherTablesSerial[];
 
+  /**
+   * Constructor.
+   * 
+   * @param table the table to select from 
+   * @param query the SQL query string 
+   * @param otherTables an array of other tables involved in teh query
+   */
   public CachedQuery(final Table table,
                      final String query,
                      final Table otherTables[]) {
@@ -105,7 +112,8 @@ public abstract class CachedQuery {
           try { 
                 rs.close(); 
               } catch (Exception e) {
-                ; // Report the real problem above
+                // Report the real problem above
+                e = null; // shut Checkstyle up!
               }
         }
       }

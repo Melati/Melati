@@ -47,7 +47,6 @@ package org.melati;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,6 +78,8 @@ import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.StringUtils;
+import org.melati.util.UTF8URLEncoder;
+import org.melati.util.UnexpectedExceptionException;
 import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 /**
@@ -102,7 +103,7 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 public class Melati {
 
-  private static String DEFAULT_ENCODING = "UTF-8"; 
+  public static final String DEFAULT_ENCODING = "UTF-8"; 
   private MelatiConfig config;
   private PoemContext poemContext;
   private HttpServletRequest request;
@@ -719,18 +720,15 @@ public class Melati {
 
   /**
    * Convenience method to URL encode a URL query string.
-   * <p>
-   * These is here because it uses knownledge of this object and
-   * other methods.
    *
-   * see also org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
+   * @see org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
    */
   public String urlEncode(String string) {
     try {
-      return URLEncoder.encode(string, getURLQueryEncoding());
+      return UTF8URLEncoder.encode(string, getURLQueryEncoding());
     }
-    catch (UnsupportedEncodingException e) {
-     // assert false : "The URL query encoding is supported";
+    catch (UnexpectedExceptionException e) {
+      // Thrown if the encoding is not supported
       return string;
     }
   }

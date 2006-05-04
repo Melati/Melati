@@ -2172,7 +2172,7 @@ public class Table implements Selectable {
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param orderByClause raw SQL order clause appropriate for this DBMS
-   * @param nullable whether thit is nullable
+   * @param nullable whether the ReferencePoemType is nullable
    * @return a {@link RestrictedReferencePoemType}
    */
   public RestrictedReferencePoemType cachedSelectionType(String whereClause, 
@@ -2445,7 +2445,6 @@ public class Table implements Selectable {
 
           // magically make eligible columns called "id" and "deleted"
           // into designed troid and soft-deleted-flag columns
-          // FIXME this may not be a good idea
 
           if (troidColumn == null && colName.equals("id") &&
               dbms().canRepresent(colType, TroidPoemType.it) != null)

@@ -184,6 +184,10 @@ public class LoginHandler {
     return loginSuccessTemplate();
   }
   
+  /**
+   * Make a cookie, using default (UTF-8) encoding, regardless of user's 
+   * encoding. 
+   */
   private Cookie makeCookie(String key, String value) {
     Cookie c =  new Cookie(UTF8URLEncoder.encode(key), UTF8URLEncoder.encode(value));
 

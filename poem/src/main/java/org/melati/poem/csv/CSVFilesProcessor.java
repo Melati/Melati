@@ -110,7 +110,7 @@ public class CSVFilesProcessor {
    * @param emptyTables flag whether to remove remains from last run
    * @param recordDetails flag passed in to table.report
    * @param fieldDetails flag passed in to table.report
-   * @param output tio write report to
+   * @param output to write report to
    * @throws IOException if file stuff goes wrong
    * @throws CSVParseException if csv file has an error
    * @throws NoPrimaryKeyInCSVTableException not thrown

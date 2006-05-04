@@ -92,7 +92,8 @@ public class BooleanPoemType extends AtomPoemType {
           return Boolean.TRUE;
         case 'f': case 'F': case 'n': case 'N': case '0':
           return Boolean.FALSE;
-        default:;
+        default:
+          throw new ParsingPoemException(this, rawString);
       }
 
     if (rawString.regionMatches(0, "true", 0, 4) ||

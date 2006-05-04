@@ -169,7 +169,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
 
     Calendar when = when(field);
     int firstYear = 2000; // FIXME put these in ColumnInfo
-    int limitYear = 2005;
+    int limitYear = 2015;
 
     // This isn't meant to be used, so we don't try to localize it
 

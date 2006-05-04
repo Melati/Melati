@@ -102,7 +102,7 @@ import org.melati.util.servletcompat.HttpServletRequestCompat;
 
 public class Melati {
 
-  private static String DEFAULT_ENCODING = "UTF8"; // FIXME UTF-8 ??
+  private static String DEFAULT_ENCODING = "UTF-8"; 
   private MelatiConfig config;
   private PoemContext poemContext;
   private HttpServletRequest request;
@@ -549,14 +549,12 @@ public class Melati {
    * and before writing the response.
    *
    * @see #establishCharsets()
-   * @todo Test this out in applications then change the admin templates.
    */
   public void setResponseContentType(String type) {
     if (responseCharset != null && type.startsWith("text/")
         && type.indexOf(";") == -1) {
       type += "; charset=" + responseCharset;
     }
-    // System.err.println("Setting content type to: " + type);
     response.setContentType(type);
   }
 

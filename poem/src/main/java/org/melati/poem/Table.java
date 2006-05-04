@@ -76,7 +76,6 @@ import org.melati.poem.dbms.Dbms;
  *
  * @author WilliamC@paneris.org
  * @todo Allow selection based on null fields
- * @todo Write equals method
  * @todo See FIXMEs
  **/
 
@@ -2592,4 +2591,14 @@ public class Table implements Selectable {
     return name.hashCode();
   }
 
+  /**
+   * Make sure that two equal table objects have the same name.
+   * 
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  public boolean equals(Object t) {
+    return (t instanceof Table &&
+            ((Table)t).getName().equals(name));
+    
+  }
 }

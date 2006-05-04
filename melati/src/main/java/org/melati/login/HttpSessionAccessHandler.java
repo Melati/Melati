@@ -193,12 +193,14 @@ public class HttpSessionAccessHandler implements AccessHandler {
    */
   String getCookieValue(Melati melati,String key) {
     // try and get from cookie
+    // Use default encoding, regardless of user's encoding
     key = UTF8URLEncoder.encode(key);
     Cookie[] cookies = melati.getRequest().getCookies();
     if(cookies == null) return null;
     for (int i=0; i<cookies.length; i++) {
       Cookie c = cookies[i];
-        if (c.getName().equals(key)) return UTF8URLEncoder.decode(c.getValue());
+        if (c.getName().equals(key)) 
+          return UTF8URLEncoder.decode(c.getValue());
     }
     return null;
   }

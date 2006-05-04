@@ -50,10 +50,9 @@ import java.util.Enumeration;
 /**
  * A pointer to a subset of a {@link Table}.
  *
- * FIXME this doesn't do quite what you'd expect, and can't unless it parses
+ * Note this doesn't do quite what you'd expect, and can't unless it parses
  * the selection's <code>whereClause</code> in order to determine what a 
- * valid value is ...
- * @todo Clarify FIXME ;)
+ * valid value is, so use a simple where clause.
  */
 
 public class RestrictedReferencePoemType extends ReferencePoemType {

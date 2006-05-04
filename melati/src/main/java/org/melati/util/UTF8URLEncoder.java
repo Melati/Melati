@@ -47,6 +47,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.net.URLDecoder;
 
+import org.melati.Melati;
+
 /**
  * A utility class to work around need for catch block.
  */
@@ -55,9 +57,13 @@ public final class UTF8URLEncoder {
   private UTF8URLEncoder() {}
 
   public static String encode(String s) {
+    return encode(s, Melati.DEFAULT_ENCODING);
+  }
+
+  public static String encode(String s, String encoding) {
     String encoded = null;
     try {
-      encoded = URLEncoder.encode(s, "UTF-8");
+      encoded = URLEncoder.encode(s, encoding);
     } catch (UnsupportedEncodingException e) {
       throw new UnexpectedExceptionException(e);
     }
@@ -65,9 +71,13 @@ public final class UTF8URLEncoder {
   }
 
   public static String decode(String s) {
+    return decode(s, Melati.DEFAULT_ENCODING);
+  }
+  
+  public static String decode(String s, String encoding) {
     String decoded = null;
     try {
-      decoded = URLDecoder.decode(s, "UTF-8");
+      decoded = URLDecoder.decode(s, encoding);
     } catch (UnsupportedEncodingException e) {
       throw new UnexpectedExceptionException(e);
     }

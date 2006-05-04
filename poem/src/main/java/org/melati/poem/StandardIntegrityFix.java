@@ -53,8 +53,6 @@ import org.melati.util.EmptyEnumeration;
 /**
  * A class which defines the three standard integrity fixes of 
  * <tt>delete</tt>, <tt>clear</tt> and <tt>fix</tt>.
- *
- * @todo More javadoc please.
  */
 public abstract class StandardIntegrityFix implements IntegrityFix {
 
@@ -96,6 +94,9 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
                                    Enumeration refs,
                                    Map referenceFixOfColumn);
   
+  /**
+   * Create the fixes.
+   */
   private static final StandardIntegrityFix[] fixes = { 
     delete = new StandardIntegrityFix(0, "delete") {
       public Enumeration referencesTo(Persistent referee, Column column,
@@ -136,10 +137,19 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     }
   };
 
+  /**
+   * Get a fix by its index.
+   * 
+   * @param i the index
+   * @return the fix at that index
+   */
   public static StandardIntegrityFix forIndex(int i) {
     return fixes[i];
   }
 
+  /**
+   * @return the number of fixes
+   */
   public static int count() {
     return fixes.length;
   }
@@ -169,6 +179,12 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     }
   }
 
+  /**
+   * Find by name.
+   * 
+   * @param name the name
+   * @return the named fix
+   */
   public static StandardIntegrityFix named(String name) {
     StandardIntegrityFix it = (StandardIntegrityFix)fixOfName.get(name);
     if (it == null)

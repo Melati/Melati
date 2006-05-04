@@ -47,7 +47,6 @@ package org.melati.util;
 
 import java.util.Vector;
 import java.util.Enumeration;
-import org.melati.poem.UnexpectedExceptionPoemException;
 
 /**
  * A Transaction.
@@ -101,7 +100,7 @@ public abstract class Transaction {
       wait();
     }
     catch (InterruptedException e) {
-      throw new UnexpectedExceptionPoemException(e);
+      throw new UnexpectedExceptionException(e);
     }
     finally {
       blockees.removeElement(blockee);

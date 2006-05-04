@@ -45,8 +45,6 @@
 
 package org.melati.util;
 
-import org.melati.poem.SeriousPoemException;
-
 /**
  * Thrown when the number of {@link Transaction}s exceeds the limit.
  * 
@@ -54,7 +52,7 @@ import org.melati.poem.SeriousPoemException;
  * @todo Maybe this should extend TransactionException?
  * 
  */
-public class TransactionIndexTooLargeException extends SeriousPoemException {
+public class TransactionIndexTooLargeException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
 }

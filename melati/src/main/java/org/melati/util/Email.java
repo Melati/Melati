@@ -55,7 +55,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import org.melati.poem.Database;
+//import org.melati.poem.Database;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -71,8 +71,9 @@ public final class Email {
   }
 
   /**
-   * @deprecated try to disentangle poem and utils
+   * deprecated try to disentangle poem and utils
    */
+/*  
   public static void send(Database database, String from, String to,
                           String replyto, String subject, String text) 
       throws EmailException, IOException {
@@ -80,7 +81,7 @@ public final class Email {
     String smtpServer = database.getSettingTable().get(SMTPSERVER);
     sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
   }
-
+*/
   public static void send(String smtpServer, String from, String to,
                           String replyto, String subject, String text) 
       throws EmailException, IOException {
@@ -89,8 +90,9 @@ public final class Email {
   }
 
   /**
-   * @deprecated apparentlyTo ignored
+   * deprecated apparentlyTo ignored
    */
+ /*
   public static void sendToList(Database database, String from,
           String[] toList, String apparentlyTo, String replyto, String subject,
           String message) throws EmailException, IOException {
@@ -100,7 +102,7 @@ public final class Email {
     for (int i = 0; i < toList.length; i++)
       sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
   }
-
+*/
   public static void sendWithAttachments(String smtpServer, String from,
           String to, String replyto, String subject, String text, File[] attachments)
           throws EmailException, IOException {

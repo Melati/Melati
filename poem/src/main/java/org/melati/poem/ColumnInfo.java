@@ -168,27 +168,18 @@ public class ColumnInfo extends ColumnInfoBase {
     while (allFields.hasMoreElements()) {
       Field f = (Field) allFields.nextElement();
       String n = f.getName();
-      if (f.getType() instanceof TroidPoemType) { 
-        ; // Do nothing
-      } else if (n.equals("name")) { 
-        ; // Do nothing
-      } else if (n.equals("typefactory")) { 
-        ; // Do nothing
-      } else if (n.equals("tableinfo")) { 
-        ; // Do nothing
-      } else if (n.equals("size")
-          && (!(column().getType() instanceof SizedAtomPoemType))) { 
-        ; // Do nothing
-      } else if (n.equals("integrityfix")
-          && (!(column().getType() instanceof ReferencePoemType))) { 
-        ; // Do nothing
-      } else if (n.equals("precision")
-          && (!(column().getType() instanceof FixedPointAtomPoemType))) {
-        ; // Do nothing
-      } else if (n.equals("scale")
-          && (!(column().getType() instanceof FixedPointAtomPoemType))) {
-        ; // Do nothing
-      } else
+      if (!(f.getType() instanceof TroidPoemType) 
+          && !n.equals("name") 
+          && !n.equals("typefactory") 
+          && !n.equals("tableinfo") 
+          && !(n.equals("size")
+               && !(column().getType() instanceof SizedAtomPoemType)) 
+          && !(n.equals("integrityfix")
+               && !(column().getType() instanceof ReferencePoemType)) 
+          && !(n.equals("precision")
+               && !(column().getType() instanceof FixedPointAtomPoemType))
+          && !(n.equals("scale")
+               && !(column().getType() instanceof FixedPointAtomPoemType)))
         v.addElement(f);
     }
     return v.elements();

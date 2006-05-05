@@ -78,6 +78,9 @@ public class CSVTable {
   protected Vector columnsInUploadOrder = new Vector();
   protected CSVColumn primaryKey = null;
   protected Vector records = new Vector();
+  protected BufferedReader reader = null;
+  protected CSVFileParser parser = null;
+  
   /** The line number of the CSV file. */
   private int lineNo;
   
@@ -94,7 +97,37 @@ public class CSVTable {
   public CSVTable(Table table, File data) {
     this.table = table;
     this.data = data;
+    try {
+      reader = new BufferedReader(new FileReader(this.data));
+      parser = new CSVFileParser(this.reader);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
+
+  /**
+   * Process the first line to defien columns. 
+   * 1st line contains the field names - this needs to be
+   * validated againsed expected values, and the order of
+   * the fields established.
+   * 
+   * @throws IOException
+   */
+  public void define() throws IOException  {
+      parser.nextRecord();
+      lineNo = 1;
+      recordNo = 0;
+
+      while (parser.recordHasMoreFields()) {
+        String key = parser.nextField();
+        Object col = columns.get(key);
+        if (col == null)
+          throw new CSVParseException(
+            "I don't know what to do with the column in " + data.getPath() +
+            " called " + key); 
+        columnsInUploadOrder.addElement(col);
+      }
+  }  
 
  /**
   * Add column definitions to this table.
@@ -116,51 +149,43 @@ public class CSVTable {
       primaryKey = col;
   }
 
- /**
-  * Add column definitions for foreign keys to this table.
-  */
-  public void addColumn(String csvName, String poemName, 
-                        CSVTable foreignTable) {
-    columns.put(csvName, new CSVColumn(poemName, foreignTable));
-  }
+  /**
+   * Add column definitions for foreign keys to this table.
+   */
+   public void addColumn(String csvName, String poemName, 
+                         CSVTable foreignTable) {
+     columns.put(csvName, new CSVColumn(poemName, foreignTable));
+   }
+
+   /**
+    * Add column definitions for foreign keys to this table.
+    */
+    public void addColumn(String csvName, String thisPoemName, 
+                          String foreignPoemName, CSVTable foreignTable) {
+      columns.put(csvName, new CSVColumn(foreignPoemName, foreignTable));
+    }
 
 
  /**
   * Parse the CSV data file and store the data for saving later.
   * 
-   * @param writeOnFly whether to commit each line to db as we go
-   * @throws IOException if there is a file system problem
-   * @throws CSVParseException if the is a malformed field in the CSV
-   */
-  public void load(boolean writeOnFly) throws IOException, CSVParseException {
-
-    BufferedReader reader = new BufferedReader(new FileReader(data));
-    CSVFileParser parser = new CSVFileParser(reader);
-
-    // 1st line contains the field names - this needs to be
-    // validated againsed expected values, and the order of
-    // the fields established
-    parser.nextRecord();
-    lineNo = 1;
-    recordNo = 0;
+  * @param writeOnFly whether to commit each line to db as we go
+  * @throws IOException if there is a file system problem
+  * @throws CSVParseException if the is a malformed field in the CSV
+  * @throws CSVWriteDownException
+  * @throws NoPrimaryKeyInCSVTableException
+  */
+  public void load(boolean writeOnFly) 
+      throws IOException, CSVParseException, NoPrimaryKeyInCSVTableException, 
+             CSVWriteDownException {
 
     try {
-      while (parser.recordHasMoreFields()) {
-
-        String key = parser.nextField();
-        Object col = columns.get(key);
-        if (col == null)
-          throw new CSVParseException(
-            "I don't know what to do with the column in " + data.getPath() +
-            " called " + key); 
-        columnsInUploadOrder.addElement(col);
-      }
-
+      define();
       // Suck in all the data
       CSVRecord record;
-      while(null != (record = parseRecord(parser, data.getPath()))) {
-        record.lineNo = lineNo++;
-        record.recordNo = recordNo++;
+      while(null != (record = parseRecord())) {
+        record.setLineNo(lineNo++);
+        record.setRecordNo(recordNo++);
         if (writeOnFly)
           record.makePersistent();
         else 
@@ -192,8 +217,7 @@ public class CSVTable {
   * with '$') which it returns in a hashtable (null if there are
   * no field values).
   */
-  private CSVRecord parseRecord(CSVFileParser parser, String fileName)
-                                    throws IOException, CSVParseException {
+  public CSVRecord parseRecord() throws IOException, CSVParseException {
     if (!parser.nextRecord())
       return null;
 
@@ -206,21 +230,21 @@ public class CSVTable {
         CSVColumn col = (CSVColumn)columnsInUploadOrder.elementAt(i);
         record.addField(new CSVField(col, value));
       }
-
+      record.setLineNo(parser.getLineNo());
       return record;
     }
     catch (IllegalArgumentException e) {
        throw new CSVParseException("Failed to read data field no. " + 
                                     (i+1) + 
                                     " in " +
-                                    fileName + 
+                                    data + 
                                     " line " + lineNo +
                                     ": " + e.toString());
     }
     catch (NoSuchElementException f) {
       String message = "Problem with data field no. " + (i+1) +
       " of " + columnsInUploadOrder.size() +
-      " in " + fileName +
+      " in " + data +
       " line " + lineNo;
       
       if (value == null) {
@@ -260,9 +284,11 @@ public class CSVTable {
   /**
    * Lookup the Persistent corresponding to the CSV record
    * with the given value for the CSV table's primary key.
+   * @throws NoPrimaryKeyInCSVTableException
+   * @throws CSVWriteDownException
    */
   protected Persistent getRecordWithID(String csvValue)
-                                     throws NoPrimaryKeyInCSVTableException {
+      throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {
     if (primaryKey == null)
       throw new NoPrimaryKeyInCSVTableException(table.getName(), csvValue);
 

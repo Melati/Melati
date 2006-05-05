@@ -182,7 +182,6 @@ public final class IoUtils {
   /**
    * FIXME warn about potential inefficiency
    */
-
   public static String slurpOutputOf(String[] command, int estimate, int limit)
       throws IOException {
     return new String(slurpOutputOf_bytes(command, estimate, limit));
@@ -217,14 +216,16 @@ public final class IoUtils {
       }
       finally {
         try { o.close(); } catch (Exception e) {
-            ;//Ignore
-          }
+          //Ignore
+          e = null; // shut PMD up
+        }
       }
     }
     finally {
       try { i.close(); } catch (Exception e) {
-          ;//Ignore
-        }
+        //Ignore
+        e = null; // shut PMD up    
+      }
     }
   }
 }

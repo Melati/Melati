@@ -197,7 +197,8 @@ public abstract class BaseFileDataAdaptor implements FormDataAdaptor {
           out = null;
         }
       } catch (Exception e) {
-        ; //Cause already thrown
+        //Cause already thrown
+        e = null; // shut PMD up
       }
     }
   }

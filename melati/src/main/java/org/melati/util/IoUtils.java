@@ -94,8 +94,9 @@ public final class IoUtils {
     }
     finally {
       try { i.close(); } catch (Exception e) {
-         ; // Ignore
-        }
+        // Ignore
+        e = null; // shut PMD up
+      }
     }
   }
 
@@ -144,8 +145,9 @@ public final class IoUtils {
     }
     finally {
       try { i.close(); } catch (Exception e) {
-          ;//Ignore
-        }
+        //Ignore
+        e = null; // shut PMD up
+      }
     }
   }
 

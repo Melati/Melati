@@ -365,8 +365,7 @@ public class MySQL extends AnsiStandard {
           for(Enumeration columns=table.columns(); 
               columns.hasMoreElements();) {
             column= (Column)columns.nextElement();
-            if(column.getUnique())
-              if(--indexNum==0)
+            if(column.getUnique() && (--indexNum == 0))
                 break; //We found it!
           }
           //Now, it's found & indexNum==0.

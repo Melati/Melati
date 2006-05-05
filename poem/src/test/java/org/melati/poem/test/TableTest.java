@@ -8,7 +8,7 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
-import org.melati.poem.UnexpectedExceptionPoemException;
+//import org.melati.poem.UnexpectedExceptionPoemException;
 
 import junit.framework.TestCase;
 

@@ -95,6 +95,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (UnsupportedOperationException e) {
+      e = null; // shut PMD up
     }
 
     assertTrue(taqvi.hasMoreElements());
@@ -111,10 +112,12 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
     catch (AssertionError e) {
       // This is the current policy. "" is treated as null if
       // assertions are switched off.
+      e = null; // shut PMD up
     }
       
     try {
@@ -122,6 +125,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -131,6 +135,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -140,6 +145,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -149,6 +155,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -158,6 +165,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
       
     try {
@@ -167,6 +175,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -176,6 +185,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
     try {
@@ -185,6 +195,7 @@ public class HttpHeaderTest extends TestCase {
       assertTrue(false);
     }
     catch (HttpHeader.HttpHeaderException e) {
+      e = null; // shut PMD up
     }
 
 /* tokenizer is protected

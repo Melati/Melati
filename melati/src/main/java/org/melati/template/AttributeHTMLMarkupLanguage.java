@@ -52,10 +52,11 @@ import org.melati.util.MelatiWriter;
 import org.melati.util.HTMLUtils;
 
 /**
- * An HTML based markup language which has attributes.
- *
- * @todo Javadoc review.
- *
+ * An HTML based markup language suitable for markup within an 
+ * attribute tag.
+ * 
+ * The significant difference is that newlines are not translated into break 
+ * tags.
  */
 public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
 
@@ -63,6 +64,14 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
     super("html_attr", html);
   }
 
+  /**
+   * AccessPoemException is treated differently in an Atribute than 
+   * in the main body of a page.
+   * 
+   * @param e
+   * @return
+   * @throws IOException
+   */
   public String rendered(AccessPoemException e) throws IOException {
     try {
       melati.getWriter().write("[Access denied to ");
@@ -76,6 +85,11 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
     return "";
   }
 
+  /**
+   * Render, not translating line ends to BR tags.
+   * 
+   * @see org.melati.template.MarkupLanguage#render
+   */
   public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s, false, melati.getEncoding()));
   }

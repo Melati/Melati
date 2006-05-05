@@ -50,13 +50,15 @@ import org.melati.util.MelatiLocale;
 
 /**
  * A representation of HTML.
- *
- * @todo Improve javadoc
  */
 public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
 
+  /** The MarkupLanguage to use for Attributes */
   private AttributeHTMLMarkupLanguage attributeML = null;
 
+  /**
+   * Constructor.
+   */
   public HTMLMarkupLanguage(Melati melati,
                             TempletLoader templetLoader, MelatiLocale locale) {
     super("html", melati, templetLoader, locale);
@@ -66,6 +68,11 @@ public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage {
     super(name, other);
   }
 
+  /**
+   * See org/melati/admin/EditHeader.wm
+   * See org/melati/admin/PrimarySelect.wm
+   * @return the AttributeMarkupLanguage to use for rendering attributes.
+   */
   public AttributeHTMLMarkupLanguage getAttr() {
     if (attributeML == null)
       attributeML = new AttributeHTMLMarkupLanguage(this);

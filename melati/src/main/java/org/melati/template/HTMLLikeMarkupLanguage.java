@@ -57,11 +57,12 @@ import org.melati.util.UTF8URLEncoder;
 
 /**
  * A Markup language with syntax similar to HTML.
- *
- * @todo Improve javadoc
  */
 public class HTMLLikeMarkupLanguage extends MarkupLanguage {
 
+  /**
+   * Constructor.
+   */
   public HTMLLikeMarkupLanguage(String name, Melati melati,
                                 TempletLoader templetLoader,
                                 MelatiLocale locale) {
@@ -73,23 +74,44 @@ public class HTMLLikeMarkupLanguage extends MarkupLanguage {
   }
 
  /** 
-  * <p>
-  *   To avoid the unnecessary overhead of writing to a string and then writing
-  *   that string to the output stream we render directly to the output stream.
-  * </p>
+  * Render, directly to the output stream, substituting entities for 
+  * high value ASCII characters and new line characters.
+  * To avoid the unnecessary overhead of writing to a string and then writing
+  * that string to the output stream we render directly to the output stream.
   */
   public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s, true, melati.getEncoding()));
   }
 
+  /**
+   * Escape a String.
+   * 
+   * @param s the String to escape
+   * @return the escaped String
+   */
   public String escaped(String s) {
     return HTMLUtils.jsEscaped(s);
   }
 
+  /**
+   * Get the DsiplayString of a <code>Persistent</code> and 
+   * escape that using the current locale and a MEDIUM DateFormat.
+   * 
+   * See org/melati/admin/SelectionWindowSelection.wm
+   * See org/melati/admin/Update.wm
+   * @param o
+   * @return the escaped DisplayString
+   */
   public String escaped(Persistent o) {
     return escaped(o.displayString(locale, DateFormat.MEDIUM));
   }
 
+  /**
+   * Encode a String using the User's encoding. 
+   * 
+   * @param s the String to encode
+   * @return the encoded String
+   */
   public String encoded(String s) {
     return UTF8URLEncoder.encode(s, melati.getEncoding());
   }

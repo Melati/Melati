@@ -49,17 +49,25 @@ import java.io.IOException;
 import org.melati.poem.AccessPoemException;
 
 /**
- * A WML based markup language which has attributes.
- *
- * @todo Javadoc review.
- *
+ * A WML based markup language suitable for markup within an attribute tag.
+ * @todo Delete this, it should be identical to AttributeHTMLMarkupLanguage, 
+ * WML has same entities as HTML.
+ * 
  */
 public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
 
-  public AttributeWMLMarkupLanguage(WMLMarkupLanguage html) {
-    super("wml_attr", html);
+  public AttributeWMLMarkupLanguage(WMLMarkupLanguage wml) {
+    super("wml_attr", wml);
   }
 
+  /**
+   * AccessPoemException is handled differently in an Attribute 
+   * than it is in the main body of a page.
+   *  
+   * @param e
+   * @return
+   * @throws IOException
+   */
   public String rendered(AccessPoemException e) throws IOException {
     try {
       melati.getWriter().write("[Access denied to ");

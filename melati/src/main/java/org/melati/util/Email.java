@@ -215,6 +215,10 @@ public final class Email {
        * Address[] bccAddresses = InternetAddress.parse(bcc);
        * message.setRecipients(Message.RecipientType.BCC,bccAddresses);
        */
+      if (replyto != null) {
+        Address[] replyTos = InternetAddress.parse(replyto);
+        message.setReplyTo(replyTos);
+      }
       message.setSubject(subject);
     } catch (Exception e) {
       // TODO Auto-generated catch block

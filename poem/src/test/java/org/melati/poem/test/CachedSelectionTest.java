@@ -91,13 +91,15 @@ public class CachedSelectionTest extends TestCase {
     db.inSession(AccessToken.root, // HACK
             new PoemTask() {
               public void run() {
+/*
                 try {
                   if (db.getDbms().toString().endsWith("Hsqldb")) {
-                    //db.sqlQuery("SHUTDOWN");
+                    db.sqlQuery("SHUTDOWN");
                   }
                 } catch (Exception e) {
                   throw new UnexpectedExceptionPoemException(e);
                 }
+*/
               }
             });
     //db.disconnect();

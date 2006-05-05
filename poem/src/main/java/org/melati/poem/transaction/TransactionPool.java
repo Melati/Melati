@@ -50,6 +50,17 @@ package org.melati.util;
  *
  */
 public interface TransactionPool {
+
+  /**
+   * @return the maximum number of Transactions we can store. 
+   */
   int transactionsMax();
+
+  /**
+   * Get a {@link Transaction} by its index.
+   * 
+   * @param index the Transaction index to retrieve
+   * @return the found Transaction
+   */
   Transaction transaction(int index);
 }

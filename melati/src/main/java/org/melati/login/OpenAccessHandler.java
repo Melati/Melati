@@ -47,6 +47,7 @@ import java.io.IOException;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.PoemThread;
 import org.melati.util.MelatiException;
 
 /**
@@ -74,10 +75,13 @@ public class OpenAccessHandler implements AccessHandler {
   }
 
   /**
-   * Retain existing {@link AccessToken}, which is often <code>root</code>.
+   * Set to guest if not set, remains null if we have no database.
+   *  
    * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
   public Melati establishUser(Melati melati) {
+    if (melati.getUser() == null && melati.getDatabase() != null)
+      PoemThread.setAccessToken(melati.getDatabase().guestAccessToken());
     return melati;
   }
 

@@ -64,7 +64,7 @@ public class UnsupportedTypePoemException extends SeriousPoemException {
   public UnsupportedTypePoemException(String tableName, String columnName,
                                       short sqlTypeCode, String sqlTypeName,
                                       String dbTypeName) {
-    this.tableName = tableName;;
+    this.tableName = tableName;
     this.columnName = columnName;
     this.sqlTypeCode = sqlTypeCode;
     this.sqlTypeName = sqlTypeName;

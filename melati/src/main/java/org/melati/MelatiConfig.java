@@ -160,7 +160,7 @@ public class MelatiConfig {
               configuration,
               accessHandlerProp,
               "org.melati.login.AccessHandler",
-              "org.melati.login.HttpBasicAuthenticationAccessHandler");
+              "org.melati.login.OpenAccessHandler");
 
       fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.
           instanceOfNamedClass(

@@ -85,8 +85,9 @@ public abstract class ConfigApp implements App {
    * Initialise.
    *
    * @param args the command line arguments
+   * @throws MelatiException 
    */
-  public Melati init(String[] args)  {
+  public Melati init(String[] args) throws MelatiException  {
     try {
       melatiConfig = melatiConfig();
     } catch (MelatiException e) {
@@ -95,8 +96,20 @@ public abstract class ConfigApp implements App {
     MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(System.out));
     Melati melati = melatiConfig.getMelati(out);
     melati.setArguments(args);
+    PoemContext poemContext;
+    poemContext = poemContext(melati);
+    melati.setPoemContext(poemContext);
     
     return melati;
+  }
+  
+  /**
+   * Clean up at end of run.
+   * Place holder overridden in PoemApp.
+   * 
+   * @param melati the melati 
+   */
+  public void term(Melati melati) throws MelatiException  {
   }
 
   /** 
@@ -127,17 +140,10 @@ public abstract class ConfigApp implements App {
   public void run(String[] args) {
     try {
       final Melati melati = init(args);
-      try {
-        PoemContext poemContext = poemContext(melati);
-        melati.setPoemContext(poemContext);
-      } catch (MelatiException e) {
-        throw new UnexpectedExceptionException(e);
-      }
       doConfiguredRequest(melati);
-      // send the output to the client
       melati.write();
-    }
-    catch (Exception e) {
+      term(melati);
+    } catch (Exception e) {
       throw new UnexpectedExceptionException(e);
     }
   }

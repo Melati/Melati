@@ -47,6 +47,7 @@ package org.melati.app;
 import org.melati.Melati;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateContext;
+import org.melati.util.StringUtils;
 
 /**
  * Base class to use Melati as an application with a Template Engine.
@@ -59,15 +60,6 @@ public abstract class TemplateApp extends PoemApp implements App {
   protected TemplateEngine templateEngine;
 
   /**
-   * Initialise.
-   * 
-   * @param args the command line arguments
-   */
-  public Melati init(String[] args)  {
-    return super.init(args);
-  }
-
-  /**
    * Fulfill {@link PoemApp}'s promises.
    * 
    * @param melati the {@link Melati} 
@@ -76,8 +68,7 @@ public abstract class TemplateApp extends PoemApp implements App {
    */
   protected void doPoemRequest(Melati melati) throws Exception {
     templateEngine = melatiConfig.getTemplateEngine();
-    if (templateEngine != null)
-      templateEngine.init(melatiConfig);
+    templateEngine.init(melatiConfig);
     melati.setTemplateEngine(templateEngine);
     TemplateContext templateContext = templateEngine.getTemplateContext(melati); 
     melati.setTemplateContext(templateContext);
@@ -85,6 +76,8 @@ public abstract class TemplateApp extends PoemApp implements App {
 
     String templateName = doTemplateRequest(melati,templateContext);
 
+    if (templateName == null)
+      templateName = StringUtils.tr(this.getClass().getName(), '.', '/');
     templateName = addExtension(templateName);
     templateEngine.expandTemplate(melati.getWriter(), 
                                   templateName,

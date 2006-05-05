@@ -146,7 +146,8 @@ public class ClassNameTempletLoader implements TempletLoader {
                             purpose, lookupClass.getName());
           break;
         } catch (NotFoundException e) {
-          ; // try the next one up
+          // try the next one up
+          e = null; // shut PMD up          
         }
         lookupClass = lookupClass.getSuperclass();
       }

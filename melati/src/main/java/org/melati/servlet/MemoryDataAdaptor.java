@@ -126,7 +126,8 @@ public class MemoryDataAdaptor implements FormDataAdaptor {
         out = null;
       }
       catch (Exception e) {
-        ;// Thrown above
+        // Thrown above
+        e = null; // shut PMD up
       }
     }
   }

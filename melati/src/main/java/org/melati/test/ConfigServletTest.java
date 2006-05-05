@@ -74,36 +74,34 @@ public class ConfigServletTest extends ConfigServlet {
       throws ServletException, IOException {
 
     String method = melati.getMethod();
-    if (method != null) {
-      if (method.equals("Upload")) {
-        Hashtable fields = null;
-        try {
-          InputStream in = melati.getRequest().getInputStream();
-          MultipartDataDecoder decoder=
-            new MultipartDataDecoder(melati,
-                  in,
-                  melati.getRequest().getContentType(),
-                  melati.getConfig().getFormDataAdaptorFactory());
-          fields = decoder.parseData();
-        }
-        catch (IOException e) {
-          melati.getWriter().write(
-            "There was some error uploading your file:" +
-              ExceptionUtils.stackTrace(e));
-          return;
-        }
-        MultipartFormField field = (MultipartFormField)fields.get("file");
-        if (field == null) {
-          melati.getWriter().write("No file was uploaded");
-          return;
-        }
-        byte[] data = field.getData();
-        melati.getResponse().setContentType(field.getContentType());
-        OutputStream output = melati.getResponse().getOutputStream();
-        output.write(data);
-        output.close();
+    if (method != null && method.equals("Upload")) {
+      Hashtable fields = null;
+      try {
+        InputStream in = melati.getRequest().getInputStream();
+        MultipartDataDecoder decoder=
+          new MultipartDataDecoder(melati,
+                in,
+                melati.getRequest().getContentType(),
+                melati.getConfig().getFormDataAdaptorFactory());
+        fields = decoder.parseData();
+      }
+      catch (IOException e) {
+        melati.getWriter().write(
+          "There was some error uploading your file:" +
+            ExceptionUtils.stackTrace(e));
         return;
       }
+      MultipartFormField field = (MultipartFormField)fields.get("file");
+      if (field == null) {
+        melati.getWriter().write("No file was uploaded");
+        return;
+      }
+      byte[] data = field.getData();
+      melati.getResponse().setContentType(field.getContentType());
+      OutputStream output = melati.getResponse().getOutputStream();
+      output.write(data);
+      output.close();
+      return;
     }
 
     MelatiConfig config = melati.getConfig();

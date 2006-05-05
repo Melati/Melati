@@ -220,8 +220,8 @@ public class MultipartDataDecoder {
       if(fieldName.charAt(0) == '\"')
         fieldName = fieldName.substring(1, fieldName.length() - 1);
     }
-    catch (Exception e) { 
-      ; // this should only be a NullPointerException
+    catch (NullPointerException e) { 
+      e = null; // shut PMD up
     }
     field.setFieldName(fieldName);
     String fileName = extractField(header, "filename=", ";");
@@ -229,8 +229,8 @@ public class MultipartDataDecoder {
       if(fileName.charAt(0) == '\"')
         fileName = fileName.substring(1, fileName.length()-1);
     }
-    catch (Exception e) { 
-      ; // this should only be a NullPointerException
+    catch (NullPointerException e) { 
+      e = null; // shut PMD up
     }
     field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));

@@ -296,12 +296,14 @@ public class DSD {
       try {
         w.close();
       } catch (Exception ee) {
-        ; // If we fail here the cause is reported below
+        // If we fail here the cause is reported below
+        ee = null; // shut PMD up
       }
       try {
         f.delete();
       } catch (Exception ee) {
-        ; // If we fail here the cause is reported below
+        // If we fail here the cause is reported below
+        ee = null; // shut PMD up
       }
       throw e;
     }

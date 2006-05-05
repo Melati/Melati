@@ -229,8 +229,8 @@ public class MultipartDataDecoder {
       if(fileName.charAt(0) == '\"')
         fileName = fileName.substring(1, fileName.length()-1);
     }
-    catch (NullPointerException e) { 
-      e = null; // shut PMD up
+    catch (Exception e) { 
+      ; // this should only be a NullPointerException
     }
     field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));

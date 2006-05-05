@@ -55,6 +55,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
 import org.melati.util.ArrayUtils;
+import org.melati.util.ConfigException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;
 import org.melati.util.UnexpectedExceptionException;
@@ -184,10 +185,23 @@ public abstract class PoemApp extends ConfigApp implements  App {
    * 
    * @param args the command line arguments
    */
-  public Melati init(String[] args)  {
-    return super.init(args);
+  public Melati init(String[] args)  throws MelatiException {
+    Melati m = super.init(args);
+    if (m.getDatabase() == null)
+      throw new ConfigException("No database configured");
+    return m;
   }
 
+  /**
+   * Clean up at end of run.
+   * 
+   * @param melati the melati 
+   */
+  public void term(Melati melati) throws MelatiException  {
+    super.term(melati);
+    melati.getDatabase().disconnect();
+  }
+  
   /**
    * A place holder for things you might want to do before 
    * setting up a <code>PoemSession</code>.
@@ -196,28 +210,6 @@ public abstract class PoemApp extends ConfigApp implements  App {
    * @throws Exception if anything goes wrong
    */
   protected void prePoemSession(Melati melati) throws Exception {
-  }
-
-  /**
-   * Process the request.
-   */
-  public void run(String[] args) {
-    try {
-      final Melati melati = init(args);
-      try {
-        PoemContext poemContext = poemContext(melati);
-        melati.setPoemContext(poemContext);
-      } catch (MelatiException e) {
-        throw new UnexpectedExceptionException(e);
-      }
-      doConfiguredRequest(melati);
-      // send the output to the client
-      melati.write();
-      melati.getDatabase().disconnect();
-    }
-    catch (Exception e) {
-      throw new UnexpectedExceptionException(e);
-    }
   }
 
   protected void doConfiguredRequest(final Melati melati) {
@@ -258,7 +250,6 @@ public abstract class PoemApp extends ConfigApp implements  App {
 
   }
  
-  
  /**
   * Default method to handle an exception.
   *
@@ -326,6 +317,33 @@ public abstract class PoemApp extends ConfigApp implements  App {
     return pc;
   }
 
+  protected void setTableTroidMethod(PoemContext pc, String[] args){
+    if (args.length == 1) pc.setMethod(args[0]);
+    if (args.length == 2) {
+      pc.setTable(args[0]);
+      try {
+        pc.setTroid(new Integer (args[1]));
+      }
+      catch (NumberFormatException e) {
+        pc.setMethod(args[1]);
+      }
+    }
+    if (args.length == 3) {
+      pc.setTable(args[0]);
+      try {
+        pc.setTroid(new Integer (args[1]));
+      }
+      catch (NumberFormatException e) {
+        throw new UnexpectedExceptionException(new InvalidArgumentsException (args,e));
+      }
+      pc.setMethod(args[2]);
+    }
+    if (args.length > 3) {
+      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
+    }
+  }
+  
+   
   /**
    * This is provided for convenience, so you don't have to specify the 
    * logical database in the arguments.  This is useful when
@@ -350,28 +368,6 @@ public abstract class PoemApp extends ConfigApp implements  App {
     return pc;
   }
 
-  private static void setTableTroidMethod(PoemContext pc, String[] args){
-    if (args.length == 1) pc.setMethod(args[0]);
-    if (args.length == 2) {
-        pc.setTable(args[0]);
-        pc.setMethod(args[1]);
-    }
-    if (args.length == 3) {
-      pc.setTable(args[0]);
-      try {
-        pc.setTroid(new Integer (args[1]));
-      }
-      catch (NumberFormatException e) {
-        throw new UnexpectedExceptionException(new InvalidArgumentsException (args,e));
-      }
-      pc.setMethod(args[2]);
-    }
-    if (args.length > 3) {
-      throw new UnexpectedExceptionException(new InvalidArgumentsException(args));
-    }
-  }
-  
-   
   /**
    * Override this method to do your own thing.
    *

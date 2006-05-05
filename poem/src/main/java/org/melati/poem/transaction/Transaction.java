@@ -50,8 +50,6 @@ import java.util.Enumeration;
 
 /**
  * A Transaction.
- *
- * @todo Review javadoc
  */
 public abstract class Transaction {
 
@@ -76,8 +74,16 @@ public abstract class Transaction {
   private int touchedCapacityMax = 1000;
   private Vector touched = new Vector();
 
+  // FIXME this should be TransactionPool.transactionsMax()
+  public static final int MAX_INDEX = 30;
+  /**
+   * Constructor.
+   * 
+   * @param index 
+   * @todo figure out how to get a pointer to TransactionPool
+   */
   public Transaction(int index) {
-    if (index > 30)
+    if (index > MAX_INDEX)
       throw new TransactionIndexTooLargeException();
 
     this.index = index;
@@ -130,6 +136,9 @@ public abstract class Transaction {
     seen.addElement(persistent);
   }
 
+  /**
+   * Make persistent ie no loger able to be rolled back.
+   */
   public void writeDown() {
     synchronized (touched) {
       for (Enumeration p = touched.elements(); p.hasMoreElements();)
@@ -150,7 +159,6 @@ public abstract class Transaction {
   }
 
   // This doesn't have to be synchronized.
-
   private void finish(boolean commit) {
     try {
       if (commit) {
@@ -195,20 +203,30 @@ public abstract class Transaction {
         finish(false);
       }
       catch (Exception ignore) {
-        ; // Ignore 
+        // Ignore
+        ignore = null; // shut PMD up
       }
       throw e;
     }
   }
 
+  /**
+   * Finish without commit.
+   */
   public void rollback() {
     finish(false);
   }
 
+  /**
+   * @return the Transaction we are waiting for
+   */
   public Transaction getBlockedOn() {
     return blockedOn;
   }
 
+  /**
+   * The transaction index.
+   */
   public String toString() {
     return "transaction" + index;
   }

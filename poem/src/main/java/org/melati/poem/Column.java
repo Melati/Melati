@@ -49,9 +49,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import java.text.DateFormat;
 import org.melati.util.EmptyEnumeration;
-import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
 import org.melati.poem.dbms.Dbms;
 

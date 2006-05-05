@@ -45,6 +45,7 @@
 
 package org.melati.poem;
 
+import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Map;
@@ -1190,7 +1191,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * A string briefly describing the object for diagnostic purposes.  The name
    * of its table and its troid.
    */
-
   public String toString() {
     if (getTable() == null) {
        return "null/" + troid();      
@@ -1204,8 +1204,13 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * out by the designated `primary display column' of the table from which the
    * object comes.  If there is no such column, the object's troid is returned
    * (as a decimal string).
+   * 
+   * @param locale our locale
+   * @param style a DateFormat
+   * @return the String to display
+   * @throws AccessPoemException 
+   *         if current User does not have viewing {@link Capability}
    */
-
   public String displayString(MelatiLocale locale, int style)
       throws AccessPoemException {
     Column displayColumn = getTable().displayColumn();
@@ -1215,6 +1220,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       return
           displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
                                                  locale, style);
+  }
+
+  /**
+   * @return Default String for display.
+   * 
+   * @throws AccessPoemException 
+   *         if current User does not have viewing {@link Capability}
+   */
+  public String getDisplayString() 
+      throws AccessPoemException {
+    return displayString(MelatiLocale.here, DateFormat.MEDIUM);
   }
 
   // 

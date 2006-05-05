@@ -145,7 +145,8 @@ public class AcceptCharset extends HttpHeader {
           }
         }
         catch (UnsupportedCharsetException uce) {
-          ; // Continue with next one
+          // Continue with next one
+          uce = null; // shut PMD up          
         }
       }
     }
@@ -182,8 +183,9 @@ public class AcceptCharset extends HttpHeader {
         }
       }
       catch (UnsupportedCharsetException uce) {
-        ; // Ignore this charset
+        // Ignore this charset
         // System.err.println("Tested 7");
+        uce = null; // shut PMD up          
       }
       
     }
@@ -382,6 +384,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.6  2006/05/05 12:44:06  timp
+ * Shut PMD up
+ *
  * Revision 1.5  2005/11/19 11:13:22  timp
  * Comment out assert
  *

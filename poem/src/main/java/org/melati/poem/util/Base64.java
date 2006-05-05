@@ -37,21 +37,21 @@ public final class Base64 {
     * Get the plain text version of a base64 encoded string
     */
    
-   public static final String decode(String encoded) {
+   public static String decode(String encoded) {
       return decode(encoded.getBytes());
    }
 
    /*
     * Get the base64 encoded version of a plain text String
     */
-   public static final String encode(String plainText) {
+   public static String encode(String plainText) {
       return encode(plainText.getBytes());
    }
 
    /*
     * Get the plain text version of a base64 encoded byte array
     */
-   public static final String decode(byte[] encoded) {
+   public static String decode(byte[] encoded) {
       byte[] plain = new byte[(int) (encoded.length * 0.75) + 2];
 
       byte code, ptext;
@@ -124,7 +124,7 @@ public final class Base64 {
    /*
     * Get the base64 encoded version of a plain text byte array
     */
-   public static final String encode(byte[] plain) {
+   public static String encode(byte[] plain) {
 
       /*
        * base64 encoding: turn 3*8 bits into 4*6 bits via the pattern:

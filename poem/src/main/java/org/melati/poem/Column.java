@@ -636,7 +636,7 @@ public abstract class Column implements FieldAttributes {
         "field `"
           + column.getDisplayName()
           + "' in object `"
-          + persistent.displayString(MelatiLocale.here, DateFormat.MEDIUM)
+          + persistent.getDisplayString()
           + "' of type `"
           + column.getTable().getDisplayName()
           + "'";

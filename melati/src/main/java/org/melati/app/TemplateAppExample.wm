@@ -51,13 +51,29 @@ You have expanded template org/melati/app/TemplateAppExample.wm
 Your melati contains:
 
 Database : $melati.Database
-Table    : $melati.Table
-Troid    : $melati.Object.Troid
-Method   : $melati.Method
+Table    :\ #if ($melati.Table != null) #begin $melati.Table #end #else #begin null #end
+
+Object   :\ #if ($melati.Object != null) #begin $melati.Object #end #else #begin null #end 
+
+Troid    :\ #if ($melati.Object != null) #begin $melati.Object.Troid #end #else #begin null #end
+
+Method   :\ #if ($melati.Method != null) #begin $melati.Method #end #else #begin null #end
+
 
 System Users
 ============
 
-#foreach $user in $melati.Table.selection() #begin 
+#foreach $user in $melati.Database.UserTable.selection() #begin 
   $user.Name
 #end 
+
+#if ($melati.Table != null && !$melati.Table.equals($melati.Database.UserTable)) #begin
+
+$melati.Table.DisplayName Table
+
+#foreach $record in $melati.Table.selection() #begin 
+  $record.DisplayString
+#end 
+
+#end
+

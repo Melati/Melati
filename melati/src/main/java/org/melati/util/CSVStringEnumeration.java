@@ -75,7 +75,6 @@ public class CSVStringEnumeration implements Enumeration {
   /**
    * Are there any more tokens to come?
    */
-
   public boolean hasMoreElements() {
     return emptyLastField || p < line.length();
   }
@@ -83,7 +82,6 @@ public class CSVStringEnumeration implements Enumeration {
   /**
    * Return the next token as an <TT>Object</TT>.
    */
-
   public final Object nextElement() {
     return nextToken();
   }
@@ -91,7 +89,6 @@ public class CSVStringEnumeration implements Enumeration {
   /**
    * Return the next token as a <TT>String</TT>.
    */
-
   public String nextToken() {
 
     if (emptyLastField) {

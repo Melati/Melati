@@ -54,7 +54,6 @@ import org.melati.util.ToTidyList;
 /**
  * A Poem Thread.
  *
- * @todo Improve javadoc
  */
 public final class PoemThread {
 

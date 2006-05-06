@@ -70,6 +70,7 @@ public final class LogicalDatabase {
   private static final String defaultPropertiesName =
       "org.melati.LogicalDatabase.properties";
 
+  /** Properties, named for this class. */
   public static Properties databaseDefs = null;
 
   private static synchronized Properties databaseDefs() throws IOException {

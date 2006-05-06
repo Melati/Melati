@@ -50,11 +50,19 @@ import java.util.Enumeration;
 /**
  * A {@link TailoredQuery} which uses a <code>PreparedStatement</code>.
  *
- * @todo An example might be good
  */ 
 public class PreparedTailoredQuery extends TailoredQuery {
   private PreparedStatementFactory statements;
 
+  /**
+   * Full constructor.
+   * 
+   * @param modifier SQL modifier eg DISTINCT
+   * @param selectedColumns an array of columns we know we need
+   * @param otherTables tables other than the one we belong to
+   * @param whereClause raw SQL where clause
+   * @param orderByClause raw SQL order by clasue 
+   */
   public PreparedTailoredQuery(String modifier,
                                Column[] selectedColumns, Table[] otherTables,
                                String whereClause, String orderByClause) {
@@ -62,15 +70,32 @@ public class PreparedTailoredQuery extends TailoredQuery {
     statements = new PreparedStatementFactory(database, sql);
   }
 
+  /**
+   * Constructor with null modifier. 
+   * 
+   * @param selectedColumns an array of columns we know we need
+   * @param otherTables tables other than the one we belong to
+   * @param whereClause raw SQL where clause
+   * @param orderByClause raw SQL order by clasue 
+   */
   public PreparedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
                                String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
+  /**
+   * The results of the query.
+   * @return the results as an Enumeration.
+   * @see org.melati.poem.TailoredQuery#selection()
+   */
   public Enumeration selection() {
     return new TailoredResultSetEnumeration(this, statements.resultSet());
   }
 
+  /**
+   * Return an enumeration of the Columns in teh first row of a ResultSet.
+   * @see org.melati.poem.TailoredQuery#selection_firstRaw()
+   */
   public Enumeration selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
                                                     statements.resultSet());

@@ -80,9 +80,9 @@ class HttpAuthorizationMelatiException extends MelatiRuntimeException {
  * The information contained in an HTTP authorization.
  */
 final class HttpAuthorization {
-  public String type;
-  public String username;
-  public String password;
+  String type;
+  String username;
+  String password;
 
   private HttpAuthorization() {
     // Utility classes should not have a public or default constructor
@@ -164,8 +164,8 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   private static final String className =
           new HttpBasicAuthenticationAccessHandler().getClass().getName();
 
-  public final String REALM = className + ".realm";
-  public final String USER = className + ".user";
+  final String REALM = className + ".realm";
+  final String USER = className + ".user";
 
   /**
    * Change here to use session, if that makes sense.

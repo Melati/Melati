@@ -800,7 +800,7 @@ public class Admin extends TemplateServlet {
     }
   }
 
-  public static final String
+  static final String
       METHOD_CREATE_TABLE = "Create",
       METHOD_CREATE_COLUMN = "CreateColumn",
       METHOD_ADD_RECORD = "Add";

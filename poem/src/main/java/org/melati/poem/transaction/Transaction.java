@@ -53,8 +53,11 @@ import java.util.Enumeration;
  */
 public abstract class Transaction {
 
+  /** Index of the Transaction. */
   public final int index;
+  /** Mask. */
   public final int mask;
+  /** Negative mask. */
   public final int negMask;
 
   /* The transaction we are waiting on */
@@ -76,6 +79,7 @@ public abstract class Transaction {
 
   // FIXME this should be TransactionPool.transactionsMax()
   public static final int MAX_INDEX = 30;
+
   /**
    * Constructor.
    * 

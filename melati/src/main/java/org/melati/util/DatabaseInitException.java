@@ -67,7 +67,7 @@ public class DatabaseInitException extends MelatiException {
     this.name = name;
   }
 
-  /** @return The detail message. */
+  /** The detail message. */
   public String getMessage() {
     return
         "Something went wrong trying to open the logical database `" +

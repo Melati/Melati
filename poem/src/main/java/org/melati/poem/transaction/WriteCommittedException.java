@@ -51,12 +51,19 @@ package org.melati.util;
  */
 public class WriteCommittedException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
+
+  /** The committed Transaction */
   public Transactioned transactioned;
 
+  private WriteCommittedException() {
+  }
+  
+  /** Constructor. */
   public WriteCommittedException(Transactioned transactioned) {
     this.transactioned = transactioned;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return "An attempt was made to write to the object " + transactioned + " "
             + "in the committed transaction";

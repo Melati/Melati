@@ -52,18 +52,36 @@ package org.melati.poem;
  */
 public class ColumnRenamePoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;
+
+  /** The current name of the Column. */
   public String columnName;
+  /** The attempted rename. */ 
   public String newName;
 
+  /**
+   * Constructor. 
+   * 
+   * @param columnName The current name
+   * @param newName The new name
+   */
   public ColumnRenamePoemException(String columnName, String newName) {
     this.columnName = columnName;
     this.newName = newName;
   }
 
+  /**
+   * Constructor. 
+   * 
+   * @param newName The new name
+   */
   public ColumnRenamePoemException(String newName) {
     this(null, newName);
   }
 
+  /**
+   * The detail message.
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "You tried to rename a column " + // the column " + columnName + " " +

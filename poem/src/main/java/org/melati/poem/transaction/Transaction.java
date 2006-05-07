@@ -77,7 +77,10 @@ public abstract class Transaction {
   private int touchedCapacityMax = 1000;
   private Vector touched = new Vector();
 
-  // FIXME this should be TransactionPool.transactionsMax()
+  /**
+   * The maximum number of Transactions.
+   *FIXME this should be TransactionPool.transactionsMax()
+   */
   public static final int MAX_INDEX = 30;
 
   /**

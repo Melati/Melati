@@ -60,10 +60,14 @@ import org.melati.poem.Table;
 public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with. */
   public String table;
+  /** The Column we are dealing with. */
   public String column;
+  /** Whether this was an insert operation or not.*/
   public boolean insert;
 
+  /** Constructor. */
   public DuplicateKeySQLPoemException(Table table, String sql,
                                       boolean insert, SQLException e) {
     super(sql, e);
@@ -79,6 +83,7 @@ public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
     this.insert = insert;
   }
 
+  /** Constructor. */
   public DuplicateKeySQLPoemException(Column column, String sql,
                                       boolean insert, SQLException e) {
     super(sql, e);
@@ -101,18 +106,28 @@ public class DuplicateKeySQLPoemException extends ExecutingSQLPoemException {
     this.insert = insert;
   }
 
+  /**
+   * @return The table name.
+   */
   public final String getTable() {
     return table;
   }
 
+  /**
+   * @return The column name.
+   */
   public final String getColumn() {
     return column;
   }
 
+  /**
+   * @return whether operation was an insert
+   */
   public final boolean getWasInsert() {
     return insert;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     String quant = insert ? "an existing" : "another";
     if (column == null) {

@@ -142,7 +142,8 @@ public class PoemDatabaseTest extends TestCase {
             new PoemTask() {
               public void run() {
                 try {
-     assertTrue(db.hasCapability(db.getUserTable().administratorUser(), db.getCanAdminister()));
+     assertTrue(db.hasCapability(db.getUserTable().administratorUser(), 
+                db.getCanAdminister()));
                 } catch (Exception e) {
                   throw new UnexpectedExceptionPoemException(e);
                 }
@@ -224,7 +225,10 @@ public class PoemDatabaseTest extends TestCase {
             new PoemTask() {
               public void run() {
                 try {
-                  String expected = "groupmembership.user: reference to user (INT (org.melati.poem.ReferencePoemType)) (from the data structure definition)";
+                  String expected = 
+                    "groupmembership.user: reference to user " +
+                    "(INT (org.melati.poem.ReferencePoemType)) " + 
+                    "(from the data structure definition)";
                   String result = "";
                   Enumeration en = db.referencesTo(db.getUserTable());
                   while (en.hasMoreElements())

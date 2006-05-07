@@ -229,8 +229,8 @@ public class MultipartDataDecoder {
       if(fileName.charAt(0) == '\"')
         fileName = fileName.substring(1, fileName.length()-1);
     }
-    catch (Exception e) { 
-      ; // this should only be a NullPointerException
+    catch (NullPointerException e) { 
+      e = null; // shut PMD up
     }
     field.setUploadedFilePath(fileName);
     field.setContentType(extractField(header, "content-type:", ";"));
@@ -270,7 +270,7 @@ public class MultipartDataDecoder {
     String boundary="";
     int index;
     // 9 - number of symbols in "boundary="
-    if ((index=header.lastIndexOf("boundary=")) != -1) {
+    if ((index = header.lastIndexOf("boundary=")) != -1) {
        boundary = header.substring(index + 9);
        // as since real boundary two chars '-' longer 
        // than written in CONTENT_TYPE header

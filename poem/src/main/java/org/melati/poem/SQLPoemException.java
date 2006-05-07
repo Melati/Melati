@@ -55,10 +55,15 @@ import java.sql.SQLException;
 public class SQLPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public SQLPoemException(SQLException sqlException) {
     super(sqlException);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Error reported by jdbc driver\n" + subException.getMessage();
   }

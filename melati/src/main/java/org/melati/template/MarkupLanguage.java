@@ -137,8 +137,6 @@ public abstract class MarkupLanguage {
    * @return - the object rendered as a String in a MarkupLanguage specific way.
    * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
-   * @throws TemplateEngineException - if there is a problem with the
-   *                                   ServletTemplateEngine
    */
   public String rendered(Object o)
       throws IOException {
@@ -510,7 +508,8 @@ public abstract class MarkupLanguage {
    * 
    * @param templetName the string file name of the template
    * @return a Template
-   * @throws NotFoundException if not on template path or classpath
+   * @throws TemplateEngineException 
+   *         if not template not found on template path or classpath
    */
   public Template templet(String templetName) throws TemplateEngineException {
     return templetLoader.templet(melati.getTemplateEngine(), this,
@@ -524,7 +523,8 @@ public abstract class MarkupLanguage {
    * @param purpose for example 'error', 'input', 'display', '3d'
    * @param clazz the class we wish to render
    * @return a Template
-   * @throws NotFoundException if not on template path or classpath
+   * @throws TemplateEngineException 
+   *         if not template not found on template path or classpath
    */
   public Template templet(String purpose, Class clazz)
       throws TemplateEngineException {

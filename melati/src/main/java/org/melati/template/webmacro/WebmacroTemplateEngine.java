@@ -66,6 +66,7 @@ import org.webmacro.Context;
  */
 public class WebmacroTemplateEngine implements TemplateEngine {
 
+  /** The name of the engine */
   public static final String NAME = "webmacro";
 
 //  public static final Object check =
@@ -123,7 +124,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * Get a template given it's name.
    * 
    * @param templateName the name of the template to find
-   * @throws NotFoundException if the template is not found by the engine
+   * @throws TemplateEngineException 
+   *         if not template not found
    * @return a template
    */
   public org.melati.template.Template template(String templateName)
@@ -142,7 +144,8 @@ public class WebmacroTemplateEngine implements TemplateEngine {
    * Get a template for a given class.
    *
    * @param clazz the class name to translate into a template name 
-   * @throws NotFoundException if the template is not found by the engine
+   * @throws TemplateEngineException 
+   *         if not template not found
    * @return a template
    */
   public org.melati.template.Template template(Class clazz)

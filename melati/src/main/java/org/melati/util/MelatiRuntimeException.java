@@ -96,6 +96,10 @@ public abstract class MelatiRuntimeException extends RuntimeException {
     return super.getMessage();
   }
 
+  /** 
+   * The detail message which may be null.
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return this.getClass().getName() +
            (super.getMessage() == null ? "" : ": " + super.getMessage()) +

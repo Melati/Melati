@@ -63,10 +63,6 @@ public class AttributeWMLMarkupLanguage extends WMLMarkupLanguage {
   /**
    * AccessPoemException is handled differently in an Attribute 
    * than it is in the main body of a page.
-   *  
-   * @param e
-   * @return
-   * @throws IOException
    */
   public String rendered(AccessPoemException e) throws IOException {
     try {

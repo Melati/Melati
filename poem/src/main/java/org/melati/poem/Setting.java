@@ -108,13 +108,16 @@ public class Setting extends SettingBase {
   public static class SettingValidationException extends PoemException {
     private static final long serialVersionUID = 1L;
 
+    /** The name of the requested setting. */
     public String name;
 
+    /** Constructor. */
     public SettingValidationException(String name, Exception problem) {
       super(problem);
       this.name = name;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return "A problem arose updating the value of the `" + name +
       "' setting:\n" + subException.getMessage();
@@ -171,10 +174,14 @@ public class Setting extends SettingBase {
       SettingTypeMismatchException extends AppBugPoemException {
     private static final long serialVersionUID = 1L;
 
+    /** Name of the setting. */
     public String name;
+    /** The factory used. */
     public PoemTypeFactory type;
+    /** Required type. */
     public String reqType;
 
+    /** Constructor. */
     public SettingTypeMismatchException(String name, PoemTypeFactory type,
                                         String reqType) {
       this.name = name;
@@ -182,6 +189,7 @@ public class Setting extends SettingBase {
       this.reqType = reqType;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return "The setting `" + name + "' has type `" + type + "' but " +
       "the application asked for a value of type " + reqType;

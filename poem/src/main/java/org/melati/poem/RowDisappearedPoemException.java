@@ -55,22 +55,31 @@ package org.melati.poem;
 public class RowDisappearedPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with. */
   public Table table;
+  /** Its TROID*/
   public Integer troid;
 
+  /** Constructor. */
   public RowDisappearedPoemException(Table table, Integer troid) {
     this.table = table;
     this.troid = troid;
   }
 
+  /** Constructor. */
   public RowDisappearedPoemException(NoSuchRowPoemException e) {
     this(e.table, e.troid);
   }
 
+  /** Constructor. */
   public RowDisappearedPoemException(Persistent persistent) {
     this(persistent.getTable(), persistent.troid());
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The row " + table.getName() + "/" + troid + " has been deleted";
   }

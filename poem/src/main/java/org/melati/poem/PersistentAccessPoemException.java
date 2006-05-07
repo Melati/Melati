@@ -52,8 +52,10 @@ package org.melati.poem;
 public abstract class PersistentAccessPoemException
     extends AccessPoemException {
 
+  /** The Persistent that access is denied to.*/
   public Persistent object;
 
+  /** Constructor. */
   public PersistentAccessPoemException(Persistent object, AccessToken token,
                                        Capability capability) {
     super(token, capability);
@@ -62,6 +64,7 @@ public abstract class PersistentAccessPoemException
 
   abstract String modeDescription();
 
+  /** @return description of action */
   public String getActionDescription() {
     return modeDescription() + " the object " + object.toString();
   }

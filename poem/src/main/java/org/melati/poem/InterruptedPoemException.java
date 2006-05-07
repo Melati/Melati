@@ -53,10 +53,15 @@ package org.melati.poem;
 public class InterruptedPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public InterruptedPoemException(InterruptedException exception) {
     super(exception);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Received InterruptedException\n" + subException;
   }

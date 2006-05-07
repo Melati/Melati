@@ -61,6 +61,8 @@ public class AdminUtils {
   private String adminURL;
   private String adminStaticURL;
   private String logicalDatabase;
+  
+  /** Constructor. */
   public AdminUtils(String contextPath, String servlet, String adminStaticURL,
                     String logicalDatabase) {
     this.contextPath = contextPath;
@@ -74,6 +76,8 @@ public class AdminUtils {
       this.contextPath = servlet.substring(0, servlet.lastIndexOf("/"));
     }
   }
+  
+  /** @return The Top URL. */
   public String TopURL(Melati melati) {
     String url = adminURL + "/" + logicalDatabase;
     if (melati.getTable() != null)
@@ -82,12 +86,22 @@ public class AdminUtils {
       url += "/" + melati.getObject().getTroid();
     return url + "/Top";
   }
+  
+  /**
+   * @return The Bottom URL.
+   */
   public String BottomURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Bottom";
   }
+  /**
+   * @return The Left URL.
+   */
   public String LeftURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Left";
   }
+  /**
+   * @return The Primary Select URL.
+   */
   public String PrimarySelectURL(Table table) {
     return adminURL + "/" + logicalDatabase + "/" + table.getName()
             + "/PrimarySelect";
@@ -148,15 +162,28 @@ public class AdminUtils {
     return adminURL + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowSelection";
   }
+  
+  /**
+   * @return The Status URL.
+   */
   public String StatusURL() {
     return contextPath + "/org.melati.admin.Status/" + logicalDatabase;
   }
+  
+  /**
+   * @return The Session Analysis URL.
+   */
   public String SessionURL() {
     return contextPath + "/org.melati.test.SessionAnalysisServlet";
   }
+  
+  /**
+   * @return The URL for DSD generation. 
+   */
   public String DsdURL() {
     return adminURL + "/" + logicalDatabase + "/DSD";
   }
+  
   /**
    * In an insert situation we will not have a Troid, so cannot pass it through.
    * If your upload handler depends on having a persistent, then you should
@@ -166,6 +193,9 @@ public class AdminUtils {
   public String UploadURL(Table table, Persistent object, Field field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
+  /**
+   * @return Upload done URL
+   */
   public String UploadHandlerURL(Table table, Persistent object, String field) {
     return upload(table, object) + "/UploadDone?field=" + field;
   }
@@ -175,6 +205,7 @@ public class AdminUtils {
       url += "/" + object.troid();
     return url;
   }
+  
   /**
    * Establish if this is a ReferencePoemType field.
    * 
@@ -185,9 +216,23 @@ public class AdminUtils {
   public boolean isReferencePoemType(Field field) {
     return field.getType() instanceof ReferencePoemType;
   }
+  
+  /**
+   * @return Defaults to /MelatiStatic/admin/
+   */
   public String getStaticURL() {
     return adminStaticURL;
   }
+  
+  /**
+   * Render the specials directly to the output. 
+   * 
+   * @param melati the Melati
+   * @param ml The MarkupLanguage we are using
+   * @param object a Persistent to render the specials of 
+   * @return an empty String
+   * @throws Exception maybe
+   */
   public String specialFacilities(Melati melati, MarkupLanguage ml,
           Persistent object) throws Exception {
     if (object instanceof AdminSpecialised)
@@ -196,9 +241,12 @@ public class AdminUtils {
               melati.getTemplateContext());
     return "";
   }
+  
+  /** Create a tree. */
   public JSStaticTree createTree(Treeable node) {
     return new JSStaticTree(new Tree(node), getStaticURL());
   }
+  
   /**
    * Whether the object is a Treeable. 
    * You can no longer (as of 1.0) look at an object's methods

@@ -506,11 +506,6 @@ public abstract class Column implements FieldAttributes {
   * 
   * @param g  the <code>Persistent</code> to modify
   * @param raw the value to set the field to 
-  * @throws AccessPoemException 
-  *         if the current <code>AccessToken</code> 
-  *         does not confer write access rights
-  * @throws ValidationPoemException 
-  *         if the raw value is not valid
   */
   public abstract void setRaw_unsafe(Persistent g, Object raw);
 
@@ -630,7 +625,7 @@ public abstract class Column implements FieldAttributes {
     public Persistent persistent;
     /** The Column setting which caused the problem */
     public Column column;
-    /** The name of the Column */
+    /** The description of the Column */
     public String columnDesc;
 
     public SettingException(

@@ -54,9 +54,12 @@ import org.melati.util.MelatiRuntimeException;
  */
 public final class Searchability {
 
+  /** The Id of the Searchability. */
   public final Integer index;
+  /** Its name. */
   public final String name;
 
+  /** Constructor. */
   private Searchability(int index, String name) {
     this.index = new Integer(index);
     this.name = name;
@@ -119,12 +122,15 @@ public final class Searchability {
       extends MelatiRuntimeException {
     private static final long serialVersionUID = 1L;
 
+    /** The name of the requested Searchability. */
     public String name;
 
+    /** Constructor. */
     public NameUnrecognisedException(String name) {
       this.name = name;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return
         "No searchability level found which goes by the name `" + name + "'";

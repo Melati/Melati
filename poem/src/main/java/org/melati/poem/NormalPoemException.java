@@ -55,10 +55,12 @@ package org.melati.poem;
   * @author WilliamC@paneris.org
   */
 public abstract class NormalPoemException extends PoemException {
+  /** Constructor. */
   public NormalPoemException(Exception subException) {
     super(subException);
   }
 
+  /** Constructor. */
   public NormalPoemException() {
     super();
   }

@@ -51,6 +51,7 @@ package org.melati.poem;
  */
 public class TroidPoemType extends IntegerPoemType {
 
+  /** The instance. */
   public static final TroidPoemType it = new TroidPoemType();
 
   public TroidPoemType() {

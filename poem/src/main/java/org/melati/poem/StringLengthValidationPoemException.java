@@ -56,10 +56,15 @@ public class StringLengthValidationPoemException
     extends ValidationPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public StringLengthValidationPoemException(PoemType type, String value) {
     super(type, value);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     String valueL = (String)super.value;
     return

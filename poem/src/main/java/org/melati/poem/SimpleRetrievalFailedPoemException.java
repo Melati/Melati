@@ -54,6 +54,7 @@ public class SimpleRetrievalFailedPoemException
     extends SQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public SimpleRetrievalFailedPoemException(java.sql.SQLException e) {
     super(e);
   }

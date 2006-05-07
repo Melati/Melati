@@ -54,11 +54,13 @@ public class WritePersistentAccessPoemException
     extends PersistentAccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public WritePersistentAccessPoemException(
       Persistent object, AccessToken token, Capability capability) {
     super(object, token, capability);
   }
 
+  /** The mode String. */
   public String modeDescription() {
     return "write";
   }

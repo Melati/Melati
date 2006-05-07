@@ -103,7 +103,9 @@ import org.melati.util.UnexpectedExceptionException;
 
 public class Melati {
 
-  public static final String DEFAULT_ENCODING = "UTF-8"; 
+  /** UTF-8 */
+  public static final String DEFAULT_ENCODING = "UTF-8";
+  
   private MelatiConfig config;
   private PoemContext poemContext;
   private HttpServletRequest request;
@@ -721,7 +723,7 @@ public class Melati {
   /**
    * Convenience method to URL encode a URL query string.
    *
-   * @see org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
+   * See org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
    */
   public String urlEncode(String string) {
     try {

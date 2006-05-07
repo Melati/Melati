@@ -53,6 +53,7 @@ package org.melati.poem;
  */
 public class DeletedPoemType extends BooleanPoemType {
 
+  /** The instance. */
   public static final DeletedPoemType it = new DeletedPoemType();
 
   public DeletedPoemType() {

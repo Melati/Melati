@@ -54,14 +54,22 @@ package org.melati.poem;
 public class TypeMismatchPoemException extends AppBugPoemException {
   private static final long serialVersionUID = 1L;
 
+
+  /** The value we are trying to assign. */
   public Object value;
+  /** The type of the destination.*/
   public PoemType type;
 
+  /** Constructor. */
   public TypeMismatchPoemException(Object value, PoemType type) {
     this.value = value;
     this.type = type;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     String s;
     try {

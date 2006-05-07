@@ -61,6 +61,7 @@ package org.melati.poem;
 public class DefinitionSource {
   private String name;
 
+  /** Constructor. */
   public DefinitionSource(Object what) {
     this.name = what.toString();
   }
@@ -69,6 +70,7 @@ public class DefinitionSource {
     return name;
   }
 
+  /** Definition source */
   public static final DefinitionSource
       dsd = new DefinitionSource("the data structure definition"),
       infoTables = new DefinitionSource("the data dictionary"),

@@ -55,13 +55,16 @@ import java.sql.SQLException;
 public class ExecutingSQLPoemException extends SQLPoemException {
   private static final long serialVersionUID = 1L;
 
+    /** The raw SQL we were trying to execute. */
   public String sql;
 
+  /** Constructor. */
   public ExecutingSQLPoemException(String sql, SQLException e) {
     super(e);
     this.sql = sql;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return "Executing SQL ...\n" + sql + "\n" + super.getMessage();
   }

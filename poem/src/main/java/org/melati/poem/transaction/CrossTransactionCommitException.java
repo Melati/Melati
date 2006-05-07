@@ -55,12 +55,15 @@ package org.melati.util;
 public class CrossTransactionCommitException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /** The Transaction that has the problem. */
   public Transactioned object;
 
+  /*** Constructor */
   public CrossTransactionCommitException(Transactioned object) {
     this.object = object;
   }
 
+  /** The detail message. */
   public String getMessage() {
     return "An attempt was made to commit or roll back changes to an object " +
            object +

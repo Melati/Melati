@@ -1180,7 +1180,7 @@ public abstract class Database implements TransactionPool {
   /**
    * Quote a name in the DBMS' specific dialect.
    * @param name
-   * @return
+   * @return name quoted.
    */
   public final String quotedName(String name) {
       return getDbms().getQuotedName(name);

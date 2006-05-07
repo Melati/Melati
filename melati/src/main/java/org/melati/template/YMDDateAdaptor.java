@@ -136,6 +136,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
       monthSuffix = "-month",
       daySuffix = "-day";
 
+  /** The instance. */
   public static final YMDDateAdaptor it = new YMDDateAdaptor();
 
   protected String getFormOrDie(ServletTemplateContext context,

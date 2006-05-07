@@ -81,6 +81,7 @@ import org.melati.poem.dbms.Dbms;
 
 public class Table implements Selectable {
 
+  /** Default limit for row cache. */
   public static final int CACHE_LIMIT_DEFAULT = 100;
 
   private Table _this = this;
@@ -1824,9 +1825,6 @@ public class Table implements Selectable {
    *         an application-specialised subclass <TT><I>Foo</I></TT> of
    *         <TT>Persistent</TT>.
    *
-   * @exception CreationAccessPoemException
-   *                if the calling thread's <TT>AccessToken</TT> doesn't allow
-   *                you to create records in the table
    * @exception AccessPoemException
    *                if <TT>initialiser</TT> provokes one during its work (which
    *                is unlikely, since POEM's standard checks are disabled

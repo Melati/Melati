@@ -51,14 +51,17 @@ package org.melati.poem;
 public class AppBugPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public AppBugPoemException(String message, Exception subException) {
     super(message, subException);
   }
 
+  /** Constructor. */
   public AppBugPoemException(Exception subException) {
     super(subException);
   }
 
+  /** Constructor. */
   public AppBugPoemException() {
   }
 }

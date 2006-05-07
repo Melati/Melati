@@ -54,12 +54,14 @@ import org.melati.poem.FieldAttributes;
  */
 public class ClassNameTempletLoader implements TempletLoader {
 
+  /** The instance. */
   public static final ClassNameTempletLoader it = new ClassNameTempletLoader();
 
   private Hashtable defaultTempletOfPoemType = new Hashtable();
 
   private Hashtable specialTemplateNames = new Hashtable();
 
+  /** Constructor. */
   public ClassNameTempletLoader() {
       // These templates cannot be overridden
     specialTemplateNames.put("org.melati.poem.ColumnTypePoemType", 

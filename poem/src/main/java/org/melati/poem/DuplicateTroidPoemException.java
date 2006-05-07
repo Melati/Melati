@@ -56,9 +56,12 @@ package org.melati.poem;
 public class DuplicateTroidPoemException extends DBConsistencyPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with */
   public Table table;
+ /** the Table Row ID we are dealing with */
   public Integer troid;
 
+  /** Constructor. */
   public DuplicateTroidPoemException(Table table, Integer troid) {
     super("Troid " + troid + " duplicated in table " + table + ".");
     this.table = table;

@@ -50,12 +50,15 @@ package org.melati.poem;
  */
 public class RollbackLogEvent extends PoemLogEvent {
 
+  /** The Transaction we are in. */
   public PoemTransaction transaction;
 
+  /** Constructor. */
   public RollbackLogEvent(PoemTransaction transaction) {
     this.transaction = transaction;
   }
 
+  /** A description. */
   public String toString() {
     return "Cancelled transaction " + transaction.index;
   }

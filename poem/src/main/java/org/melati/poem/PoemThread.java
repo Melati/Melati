@@ -62,7 +62,11 @@ public final class PoemThread {
   private static Vector sessionTokens = new Vector();
   private static Vector freeSessionTokenIndices = new Vector();
 
-  public static final int threadsMax = 100; // must be < Char.MAX_VALUE = 64k
+  /**
+   * The maximum number of Threads.
+   * Must be < Char.MAX_VALUE = 64k 
+   */
+  public static final int threadsMax = 100; 
 
   static Integer allocatedSessionToken(AccessToken accessToken,
                                        PoemTransaction transaction,

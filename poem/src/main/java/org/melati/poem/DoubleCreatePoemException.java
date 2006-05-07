@@ -54,12 +54,18 @@ package org.melati.poem;
   */
 public class DoubleCreatePoemException extends AppBugPoemException {
   private static final long serialVersionUID = 1L;
+
+  /** The Persistent we have a problem with */
   public Persistent persistent;
 
+  /** Constructor. */
   public DoubleCreatePoemException(Persistent persistent) {
     this.persistent = persistent;
   }
 
+  /**
+   * @return The detail message.
+   */
   public String getMessage() {
     return "The application tried to create an already-existing " +
            "persistent object " +

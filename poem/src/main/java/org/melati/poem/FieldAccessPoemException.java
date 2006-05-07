@@ -53,8 +53,10 @@ package org.melati.poem;
 public abstract class FieldAccessPoemException
     extends PersistentAccessPoemException {
 
+  /** The Column we are dealing with */
   public Column column;
 
+  /** Constructor. */
   public FieldAccessPoemException(
       Persistent object, Column column,
       AccessToken token, Capability capability) {
@@ -64,6 +66,7 @@ public abstract class FieldAccessPoemException
 
   abstract String modeDescription();
 
+  /** @return A description. */
   public String getActionDescription() {
     return modeDescription() + " the field " + column.getName() +
            " of the object " + object.toString();

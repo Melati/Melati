@@ -51,14 +51,19 @@ package org.melati.poem;
 public class CreationAccessPoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we have a problem with. */
   public Table table;
 
+  /** Constructor. */
   public CreationAccessPoemException(Table table, AccessToken token,
                                      Capability capability) {
     super(token, capability);
     this.table = table;
   }
 
+  /**
+   * @return The detail message.
+   */
   public String getMessage() {
     return
         "Access denied trying to create a new object in the table " +

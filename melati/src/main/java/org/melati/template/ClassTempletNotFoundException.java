@@ -53,14 +53,18 @@ import org.melati.util.MelatiRuntimeException;
 public class ClassTempletNotFoundException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /** The TempletLoader we are using. */
   public TempletLoader loader;
+  /** The Class of the object which we are trying to geta template for. */
   public Class clazz;
 
+  /** Constructor. */
   public ClassTempletNotFoundException(TempletLoader loader, Class clazz) {
     this.loader = loader;
     this.clazz = clazz;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return "Templet loader `" + loader + "' failed to find a templet for " +
                "class `" + clazz + "'";

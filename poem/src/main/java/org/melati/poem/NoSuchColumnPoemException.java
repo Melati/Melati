@@ -53,13 +53,21 @@ package org.melati.poem;
 public class NoSuchColumnPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with. */
   public Table table;
+  /** Its name */
   public String name;
+
+  /** Constructor */
   public NoSuchColumnPoemException(Table table, String name) {
     this.table = table;
     this.name = name;
   }
   
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "There is no Column on the table " 
            + table + " with a name of " + name;

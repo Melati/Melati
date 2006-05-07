@@ -50,6 +50,8 @@ package org.melati.poem;
  */
 public class CommitFailedPoemException extends SQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
+
+  /** Constructor. */
   public CommitFailedPoemException(java.sql.SQLException e) {
     super(e);
   }

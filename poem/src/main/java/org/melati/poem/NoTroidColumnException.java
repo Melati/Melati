@@ -54,12 +54,18 @@ package org.melati.poem;
 public class NoTroidColumnException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealign with */
   public Table table;
 
+  /** Constructor.*/
   public NoTroidColumnException(Table table) {
     this.table = table;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Table " + table + " has no defined troid column";
   }

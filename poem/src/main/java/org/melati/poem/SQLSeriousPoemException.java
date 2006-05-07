@@ -81,7 +81,8 @@ public class SQLSeriousPoemException extends SeriousPoemException {
     this(sqlException, null);
   }
 
-  /* (non-Javadoc)
+  /**
+   * @return The detail message
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

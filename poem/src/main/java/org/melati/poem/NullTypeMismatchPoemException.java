@@ -54,10 +54,15 @@ package org.melati.poem;
 public class NullTypeMismatchPoemException extends TypeMismatchPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public NullTypeMismatchPoemException(PoemType type) {
     super(null, type);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "NULL is not an allowed value";
   }

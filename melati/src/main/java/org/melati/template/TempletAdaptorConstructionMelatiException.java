@@ -54,7 +54,10 @@ public class TempletAdaptorConstructionMelatiException
     extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
-  public String adaptorFieldName, adaptorName;
+  /** The name of the field. */
+  public String adaptorFieldName;
+  /** The name of the Adaptor. */
+  public String adaptorName;
 
   public TempletAdaptorConstructionMelatiException(
       String adaptorFieldName, String adaptorName, Exception problem) {

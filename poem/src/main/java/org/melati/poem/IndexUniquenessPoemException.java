@@ -54,10 +54,14 @@ package org.melati.poem;
 public class IndexUniquenessPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Column we are dealing with */
   public Column column;
+  /** The column's index */
   public String indexName;
+  /** Whether this Column shoudl eb unique. */
   public boolean meantToBeUnique;
 
+  /** Constructor. */
   public IndexUniquenessPoemException(Column column, String indexName,
                                       boolean meantToBeUnique) {
     this.column = column;
@@ -65,6 +69,10 @@ public class IndexUniquenessPoemException extends SeriousPoemException {
     this.meantToBeUnique = meantToBeUnique;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The column " + column + " is " + (meantToBeUnique ? "" : "not ")
             + "meant to be unique, " + "but its index `" + indexName + "' is "

@@ -54,17 +54,24 @@ package org.melati.poem;
 public class UnexpectedExceptionPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** A description of the problem. */
   public String info;
 
+  /** Constructor. */
   public UnexpectedExceptionPoemException(Exception exception, String info) {
     super(exception);
     this.info = info;
   }
 
+  /** Constructor. */
   public UnexpectedExceptionPoemException(Exception exception) {
     this(exception, null);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "An exception occurred in a context where it was very unexpected:\n" +

@@ -56,11 +56,25 @@ package org.melati.poem;
 public class TableMismatchPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Persistent */
   public Persistent value;
+    /** The Table it should have set */
   public Table table;
 
+  /** Constructor. */
   public TableMismatchPoemException(Persistent value, Table table) {
     this.value = value;
     this.table = table;
   }
+
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
+  public String getMessage() {
+    return
+        "Validation failed for " + value +
+        " as it has Table set to " + table;
+  }
+
 }

@@ -55,18 +55,26 @@ package org.melati.poem;
 public class TableRenamePoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The current name of the table. */
   public String tableName;
+  /** The name we failed to assign */
   public String newName;
 
+  /** Constructor. */
   public TableRenamePoemException(String tableName, String newName) {
     this.tableName = tableName;
     this.newName = newName;
   }
 
+  /** Constructor. */
   public TableRenamePoemException(String newName) {
     this(null, newName);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "You tried to rename a table " +

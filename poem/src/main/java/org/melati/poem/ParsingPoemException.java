@@ -54,9 +54,12 @@ package org.melati.poem;
 public class ParsingPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The PoemType of Field value. */
   public PoemType type;
+  /** The String that we failed to force into type. */
   public String string;
 
+  /** Constructor. */
   public ParsingPoemException(PoemType type, String string,
                               Exception exception) {
     super(exception);
@@ -64,10 +67,15 @@ public class ParsingPoemException extends NormalPoemException {
     this.string = string;
   }
 
+  /** Constructor. */
   public ParsingPoemException(PoemType type, String string) {
     this(type, string, null);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The value `" + string + "' is not legal for the type " + type +
            (subException == null ? "" : "\n" + subException);

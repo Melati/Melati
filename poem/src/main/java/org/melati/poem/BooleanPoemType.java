@@ -130,33 +130,23 @@ public class BooleanPoemType extends AtomPoemType {
 class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
 
+  /**
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return state < 2;
   }
 
-  /*
-  // Left in as an example of wierd code.
-  // It works, but should not according to 
-  // http://java.sun.com/docs/books/tutorial/java/nutsandbolts/expressions.html
-  // 
+  /**
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() {
     if (state == 2)
       throw new NoSuchElementException();
-    else //FIXME surely never returns FALSE ?
-      return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
+    else 
+      // Perfectly good, but the only usage I have ever seen.
+      // return state++ == 0 ? Boolean.FALSE : Boolean.TRUE;
+      return ++state == 1 ? Boolean.FALSE : Boolean.TRUE;
   }
-  */
 
-  public synchronized Object nextElement() {
-    if (state == 2)
-      throw new NoSuchElementException();
-    else {
-      if (state == 0) {
-        state++;
-        return Boolean.FALSE;
-      }
-      state++;
-      return Boolean.TRUE;
-    }
-  }
 }

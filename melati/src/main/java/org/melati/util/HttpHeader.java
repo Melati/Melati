@@ -502,7 +502,8 @@ public class HttpHeader {
      * @throws IllegalStateException Current token not semicolon.
      * @throws HttpHeaderException Error detected in the fields.
      */
-    public final float readQValue() throws HttpHeaderException {
+    public final float readQValue() 
+        throws IllegalStateException, HttpHeaderException {
       if (ttype != ';') {
         // System.err.println("Tested 52 by temporary hack");
         throw new IllegalStateException("Not at a semicolon");

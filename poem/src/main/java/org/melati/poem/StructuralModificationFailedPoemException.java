@@ -58,11 +58,16 @@ public class StructuralModificationFailedPoemException
     extends ExecutingSQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public StructuralModificationFailedPoemException(String sql,
                                                    SQLException e) {
     super(sql, e);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Structural modification of database failed\n" + super.getMessage();
   }

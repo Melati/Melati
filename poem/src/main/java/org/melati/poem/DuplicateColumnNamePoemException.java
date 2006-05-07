@@ -53,14 +53,21 @@ package org.melati.poem;
   *
   */
 public class DuplicateColumnNamePoemException extends NormalPoemException {
+
   private static final long serialVersionUID = 1L;
+
+  /** The Table we are dealing with. */
   public Table table;
+  /** The Column we are dealing with */
   public Column column;
+
+  /** Constructor. */
   public DuplicateColumnNamePoemException(Table table, Column column) {
     this.table = table;
     this.column = column;
   }
 
+  /** @return A description. */
   public String toString() {
     return "Can't add duplicate column " + column + " to " + table;
   }

@@ -53,13 +53,19 @@ package org.melati.poem;
 public class FieldContentsPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Column we are dealing with */
   public Column column;
 
+  /** Constructor. */
   public FieldContentsPoemException(Column column, Exception problem) {
     super(problem);
     this.column = column;
   }
 
+ /**
+  * @return The detail message
+  * @see java.lang.Throwable#getMessage()
+  */
   public String getMessage() {
     return "The field " + column + " had an illegal value\n"
             + subException.getMessage();

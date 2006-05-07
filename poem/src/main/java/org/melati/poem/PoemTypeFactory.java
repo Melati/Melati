@@ -94,6 +94,7 @@ public abstract class PoemTypeFactory {
 
   public abstract String getDescription();
 
+  /** The allowable factories */
   public static final PoemTypeFactory TROID,
     DELETED,
     TYPE,

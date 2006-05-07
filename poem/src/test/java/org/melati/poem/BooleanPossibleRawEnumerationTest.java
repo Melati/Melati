@@ -36,7 +36,7 @@ public class BooleanPossibleRawEnumerationTest extends TestCase {
       o = en.nextElement();
       fail("Should have thrown NoSuchElementException");      
     } catch (Exception e) {
-      assertTrue( e instanceof NoSuchElementException);
+      assertTrue(e instanceof NoSuchElementException);
     }
 
   }

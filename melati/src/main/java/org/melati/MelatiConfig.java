@@ -377,7 +377,7 @@ public class MelatiConfig {
   * @return British English melati locale.
   */
   public static MelatiLocale getMelatiLocale() {
-    return MelatiLocale.here;
+    return MelatiLocale.HERE;
   }
 
  /**

@@ -164,12 +164,15 @@ public final class Cache {
   public class InconsistencyException extends MelatiRuntimeException {
     private static final long serialVersionUID = 1L;
 
+    /** A Vector of problems. */
     public Vector probs;
 
+    /** Constructor. */
     public InconsistencyException(Vector probs) {
       this.probs = probs;
     }
 
+    /** The detail message. */
     public String getMessage() {
       return EnumUtils.concatenated("\n", probs.elements());
     }

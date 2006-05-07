@@ -95,6 +95,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 public class FirstSQL extends AnsiStandard {
 
+  /** Where to log to. */
   public static java.io.PrintStream logStream = System.err;
 
   public FirstSQL() {

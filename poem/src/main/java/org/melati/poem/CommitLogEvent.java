@@ -51,12 +51,15 @@ package org.melati.poem;
  */
 public class CommitLogEvent extends PoemLogEvent {
 
+  /** The Transaction we are in. */
   public PoemTransaction transaction;
 
+  /** Constructor. */
   public CommitLogEvent(PoemTransaction transaction) {
     this.transaction = transaction;
   }
 
+  /** A description. */
   public String toString() {
     return "Committed transaction " + transaction.index;
   }

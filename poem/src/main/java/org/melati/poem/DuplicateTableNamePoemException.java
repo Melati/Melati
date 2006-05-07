@@ -54,8 +54,12 @@ package org.melati.poem;
 public class DuplicateTableNamePoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Database we are dealing with */
   public Database database;
+  /** Its name */
   public String name;
+
+  /** Constructor. */
   public DuplicateTableNamePoemException(Database database, String name) {
     this.database = database;
     this.name = name;

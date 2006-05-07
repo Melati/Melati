@@ -748,9 +748,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @exception ValidationPoemException
    *                if <TT>raw</TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
-   * @exception TypeMismatchPoemException
-   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
-   *                DSD-derived typed versions of this method
    *
    * @see #setCooked
    * @see #setRawString
@@ -918,9 +915,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @exception AccessPoemException
    *                if the calling thread doesn't have write access to the
    *                object (see <TT>assertCanWrite</TT>)
-   * @exception TypeMismatchPoemException
-   *                if <TT>raw</TT> is of the wrong type; it's easiest to use
-   *                DSD-derived typed versions of this method
    * @exception ValidationPoemException
    *                if <TT>cooked<TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
@@ -1230,7 +1224,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    */
   public String getDisplayString() 
       throws AccessPoemException {
-    return displayString(MelatiLocale.here, DateFormat.MEDIUM);
+    return displayString(MelatiLocale.HERE, DateFormat.MEDIUM);
   }
 
   // 

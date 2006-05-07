@@ -93,7 +93,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#flush()
+   * @see java.io.PrintWriter#flush()
    */
   public void flush() {
     pw.flush();
@@ -102,7 +102,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#close()
+   * @see java.io.PrintWriter#close()
    */
   public void close() {
     pw.close();
@@ -111,7 +111,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#checkError()
+   * @see java.io.PrintWriter#checkError()
    */
   public boolean checkError() {
     return pw.checkError();
@@ -119,7 +119,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#write
+   * @see java.io.PrintWriter#write(int)
    */
   public void write(int c) {
     pw.write(c);
@@ -128,7 +128,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#write
+   * @see java.io.PrintWriter#write(char[], int, int)
    */
   public void write(char buf[], int off, int len) {
     pw.write(buf, off, len);
@@ -137,7 +137,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#write
+   * @see java.io.PrintWriter#write(String, int, int)
    */
   public void write(String buf, int off, int len) {
     pw.write(buf, off, len);
@@ -146,7 +146,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.Flushable#write
+   * @see java.io.PrintWriter#println()
    */
   public void println() {
     pw.println();

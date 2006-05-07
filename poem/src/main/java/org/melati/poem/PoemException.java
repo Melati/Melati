@@ -52,10 +52,12 @@ import org.melati.util.MelatiRuntimeException;
  */
 public abstract class PoemException extends MelatiRuntimeException {
 
+  /** Constructor. */
   public PoemException(Exception subException) {
     super(subException);
   }
 
+  /** Constructor. */
   public PoemException() {
     this(null);
   }

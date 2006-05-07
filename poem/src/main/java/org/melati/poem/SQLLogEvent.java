@@ -49,12 +49,15 @@ package org.melati.poem;
  * A record of any executed SQL statement.
  */
 public class SQLLogEvent extends PoemLogEvent {
+  /** The raw SQL. */
   public String sql;
 
+  /** Constructor. */
   public SQLLogEvent(String sql) {
     this.sql = sql;
   }
 
+  /** A description. */
   public String toString() {
     return "Executed SQL: " + sql.trim();
   }

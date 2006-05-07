@@ -364,7 +364,8 @@ public class TailoredQuery {
   }
 
   /**
-   * Extended class which only processes the first result.
+   * Retunr an Enumeration of the columns in the first row of 
+   * a ResultSet.
    */
   public class FirstRawTailoredResultSetEnumeration
       extends TailoredResultSetEnumeration {

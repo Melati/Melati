@@ -64,6 +64,7 @@ public class SeriousPoemException extends MelatiRuntimeException {
     initCause(subException);
   }
 
+  /** Constructor. */
   public SeriousPoemException(String message) {
     super(message);
   }
@@ -75,6 +76,7 @@ public class SeriousPoemException extends MelatiRuntimeException {
     initCause(subException);
   }
 
+  /** Constructor. */
   public SeriousPoemException() {
   }
 

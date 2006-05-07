@@ -53,14 +53,21 @@ package org.melati.poem;
 public class NoSuchTablePoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Database we are dealign with */
   public Database database;
+  /** Its name */
   public String name;
 
+  /** Constructor. */
   public NoSuchTablePoemException(Database database, String name) {
     this.database = database;
     this.name = name;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Table " + name + " not found in " + database + ".";
   }

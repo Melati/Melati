@@ -168,8 +168,6 @@ public class StringUtilsTest extends TestCase {
   /**
    * Test hex encoding and decoding.
    * Test method for 'org.melati.util.StringUtils.hexEncoding(byte[])'
-   *
-   * @param args
    */
   public void testHexEncoding() {
     String[] strings = {"01234567", "abcdef", "f1234bcd"};

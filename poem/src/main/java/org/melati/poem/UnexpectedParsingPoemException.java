@@ -54,6 +54,7 @@ package org.melati.poem;
 public class UnexpectedParsingPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public UnexpectedParsingPoemException(ParsingPoemException exception) {
     super(exception);
   }

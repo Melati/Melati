@@ -53,13 +53,21 @@ package org.melati.poem;
 public class NoSuchRowPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The table we are dealing with */
   public Table table;
+  /** Its TROID */
   public Integer troid;
+
+  /** Constructor. */
   public NoSuchRowPoemException(Table table, Integer troid) {
     this.table = table;
     this.troid = troid;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "No such row " + table.getName() + "/" + troid;
   }

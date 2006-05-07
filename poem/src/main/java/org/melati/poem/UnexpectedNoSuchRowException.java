@@ -54,6 +54,7 @@ package org.melati.poem;
 public class UnexpectedNoSuchRowException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public UnexpectedNoSuchRowException(NoSuchRowPoemException exception) {
     super(exception);
   }

@@ -54,13 +54,19 @@ package org.melati.poem;
 public class InitialisationPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with. */
   public Table table;
 
+  /** Constructor. */
   public InitialisationPoemException(Table table, Exception e) {
     super(e);
     this.table = table;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "You tried to create a record in the table " + table.getName() + "\n" +

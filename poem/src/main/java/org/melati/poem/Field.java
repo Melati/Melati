@@ -210,7 +210,7 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   public void dump(PrintStream p) {
-    p.print(getName() + ": " + getCookedString(MelatiLocale.here,
+    p.print(getName() + ": " + getCookedString(MelatiLocale.HERE,
                                                DateFormat.MEDIUM));
   }
 

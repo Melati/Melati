@@ -54,11 +54,13 @@ public class ReadPersistentAccessPoemException
     extends PersistentAccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public ReadPersistentAccessPoemException(
       Persistent object, AccessToken token, Capability capability) {
     super(object, token, capability);
   }
 
+    /** @return the mode String. */
   public String modeDescription() {
     return "read";
   }

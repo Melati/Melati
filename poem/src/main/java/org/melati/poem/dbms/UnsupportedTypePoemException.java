@@ -55,12 +55,18 @@ import org.melati.poem.SeriousPoemException;
 public class UnsupportedTypePoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The table name. */
   public String tableName;
+  /** The column name. */
   public String columnName;
+  /** The SQL type code. */
   public short sqlTypeCode;
+  /** The SQL type name. */
   public String sqlTypeName;
+  /** The Database type code. */
   public String dbTypeName;
 
+  /** Constructor. */
   public UnsupportedTypePoemException(String tableName, String columnName,
                                       short sqlTypeCode, String sqlTypeName,
                                       String dbTypeName) {
@@ -71,10 +77,12 @@ public class UnsupportedTypePoemException extends SeriousPoemException {
     this.dbTypeName = dbTypeName;
   }
 
+  /** Constructor. */
   public UnsupportedTypePoemException(String sqlTypeName) {
     this(null, null, (short)0, sqlTypeName, null);
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return
         "Column `" + columnName + "' of table `" + tableName + "'" +

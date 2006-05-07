@@ -56,13 +56,19 @@ public class InvalidOperationOnFloatingPersistentPoemException
     extends AppBugPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Persistent without a TROID.*/
   public Persistent floating;
 
+  /** Constructor. */
   public InvalidOperationOnFloatingPersistentPoemException(
                                                       Persistent floating) {
     this.floating = floating;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The application performed an operation on " + 
            "an unattached Persistent object" +

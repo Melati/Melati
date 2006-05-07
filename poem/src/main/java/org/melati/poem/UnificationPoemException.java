@@ -55,10 +55,15 @@ package org.melati.poem;
 public class UnificationPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public UnificationPoemException(Exception e) {
     super(e);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "Something went wrong while the DSD was being reconciled \n" + 

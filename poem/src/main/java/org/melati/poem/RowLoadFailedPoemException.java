@@ -47,6 +47,7 @@ package org.melati.poem;
 
 /**
  * @deprecated Not used in Melati.
+ * @todo delete me
  * 
  * @author WilliamC@paneris.org
  * 

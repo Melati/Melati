@@ -54,9 +54,12 @@ import java.util.Hashtable;
  */
 public final class DisplayLevel {
 
+  /** The numeric Id of the Level */
   public final Integer index;
+  /** The name of the level. */
   public final String name;
 
+  /** Constructor. */
   private DisplayLevel(int index, String name) {
     this.index = new Integer(index);
     this.name = name;
@@ -121,10 +124,19 @@ public final class DisplayLevel {
       levelOfName.put(displayLevels[i].name, displayLevels[i]);
   }
 
+  /**
+   * Get by numeric id. 
+   * 
+   * @param index the numeric Id of the level
+   * @return the level corresponding to the index
+   */
   public static DisplayLevel forIndex(int index) {
     return displayLevels[index];
   }
 
+  /**
+   * @return the number of levels. 
+   */
   public static int count() {
     return displayLevels.length;
   }
@@ -135,17 +147,26 @@ public final class DisplayLevel {
   */
   public static class NameUnrecognisedException extends PoemException {
     private static final long serialVersionUID = 1L;
+
+    /** The name we did not recognise. */
     public String name;
 
+    /** Constructor. */
     public NameUnrecognisedException(String name) {
       this.name = name;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return "No display level found which goes by the name `" + name + "'";
     }
   }
 
+  /**
+   * Get by name. 
+   * @param name The name of the required level
+   * @return the named level
+   */
   public static DisplayLevel named(String name) {
     DisplayLevel it = (DisplayLevel)levelOfName.get(name);
     if (it == null)

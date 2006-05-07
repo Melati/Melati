@@ -47,6 +47,7 @@ package org.melati.poem;
 
 /**
  * @deprecated Not used in Melati
+ * @todo delete me
  */
 public class AlterDSDAttemptPoemException extends PoemException {
   private static final long serialVersionUID = 1L;

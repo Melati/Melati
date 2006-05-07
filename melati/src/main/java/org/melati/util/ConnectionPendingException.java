@@ -54,12 +54,15 @@ package org.melati.util;
 public class ConnectionPendingException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /** The database name */
   public String name;
 
+  /** Constructor */
   public ConnectionPendingException(String name) {
     this.name = name;
   }
 
+  /** The detail message. */
   public String getMessage() {
     return "The database `" + name + "' is in the process of being " +
            "initialized; please try again in a moment";

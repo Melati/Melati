@@ -71,7 +71,7 @@ public class VelocityTemplateContext implements ServletTemplateContext {
     public static final String RESPONSE = "Response";    
     
     
-  // the webcontext    
+  /** The webcontext */    
   public VelocityContext velContext;    
     
   public VelocityTemplateContext(VelocityContext vc) {    

@@ -56,7 +56,9 @@ import org.melati.util.EmptyEnumeration;
  */
 public abstract class StandardIntegrityFix implements IntegrityFix {
 
+  /** The id for a fix. */
   public final Integer index;
+  /** The name for a fix. */
   public final String name;
 
   /* private -- makes Sun compiler barf ... 
@@ -67,6 +69,7 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     this.name = name;
   }
 
+  /** The fixes. */
   public static final StandardIntegrityFix delete, clear, prevent;
 
   /**
@@ -168,12 +171,14 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   public static class NameUnrecognisedException extends PoemException {
     private static final long serialVersionUID = 1L;
 
+    /** The name. */
     public String name;
 
     public NameUnrecognisedException(String name) {
       this.name = name;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return "No integrity fix found which goes by the name `" + name + "'";
     }

@@ -54,15 +54,19 @@ import org.melati.poem.FieldAttributes;
 public class DefaultTempletNotFoundException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /** The TempletLoader we are using. */
   public TempletLoader loader;
+  /** Attributes of the Field. */
   public FieldAttributes attributes;
 
+  /** Constructor. */
   public DefaultTempletNotFoundException(TempletLoader loader,
                                          FieldAttributes attributes) {
     this.loader = loader;
     this.attributes = attributes;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return "Templet loader `" + loader + "' failed to find a default " +
            "templet for field `" + attributes.getName() + "' " +

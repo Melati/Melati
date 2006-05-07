@@ -89,7 +89,8 @@ public interface TemplateEngine {
    * Get a template given it's name.
    * 
    * @param templateName the name of the template to find
-   * @throws NotFoundException if the template is not found by the engine
+   * @throws TemplateEngineException 
+   *         if not template not found
    * @return a template
    */
   Template template(String templateName) throws TemplateEngineException;
@@ -98,7 +99,8 @@ public interface TemplateEngine {
    * Get a template for a given class.
    *
    * @param clazz the class name to translate into a template name 
-   * @throws NotFoundException if the template is not found by the engine
+   * @throws TemplateEngineException 
+   *         if not template not found
    * @return a template
    */
   Template template(Class clazz) throws TemplateEngineException;

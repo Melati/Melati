@@ -57,6 +57,7 @@ public class ColumnInUsePoemException extends SeriousPoemException {
   public Column column;
 
   /**
+   * Constructor. 
    * @param table The Table the Column belongs to.
    * @param column The Column being defined a second time.
    */
@@ -65,7 +66,7 @@ public class ColumnInUsePoemException extends SeriousPoemException {
     this.column = column;
   }
   
-  /** @return the message */
+  /** @return The detail message */
   public String getMessage() {
     return "Unable to redefine field " + column.getDisplayName() + 
            " in " + table.getDisplayName();

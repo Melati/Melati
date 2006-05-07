@@ -71,7 +71,7 @@ public final class ArrayUtils {
 
   /**
    * Create an Array from an Enumeration.
-   * @param v the Enumeration
+   * @param e the Enumeration
    * @return the Array
    */
   public static Object[] arrayOf(Enumeration e) {

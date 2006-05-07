@@ -47,18 +47,24 @@ package org.melati.poem;
 
  /**
   * @deprecated Not used in Melati.
-  *
+  * @todo delete me
   * @author WilliamC@paneris.org
   */
 public class NoDeletedColumnException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The Table we are dealing with.*/
   public Table table;
 
+  /** Constructor. */
   public NoDeletedColumnException(Table table) {
     this.table = table;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "Table " + table + " has no defined deleted column";
   }

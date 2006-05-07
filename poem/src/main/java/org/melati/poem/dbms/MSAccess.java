@@ -64,8 +64,12 @@ import org.melati.util.StringUtils;
  * 
  */
 public class MSAccess extends AnsiStandard {
+  /** Size of text fields. */
   public static final int msAccessTextHack = 250;
+  /** Size of memo fields. */
   public static final int msAccessMemoSize = 1073741823;
+
+  /** Constructor. */
   public MSAccess() {
     //  does not work as it does not implement getColumns !!
     // setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
@@ -76,7 +80,7 @@ public class MSAccess extends AnsiStandard {
    * which tells jdbc not to filter on it. 
    * 
    * @see org.melati.poem.dbms.Dbms#getSchema()
-   * @see org.melati.poem.dbms.Ansistandard#getConnection()
+   * @see org.melati.poem.dbms.AnsiStandard#getConnection
    */
   public String getSchema() {
     return null;

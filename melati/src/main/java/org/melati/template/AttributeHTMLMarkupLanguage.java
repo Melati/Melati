@@ -67,10 +67,6 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
   /**
    * AccessPoemException is treated differently in an Atribute than 
    * in the main body of a page.
-   * 
-   * @param e
-   * @return
-   * @throws IOException
    */
   public String rendered(AccessPoemException e) throws IOException {
     try {
@@ -88,7 +84,7 @@ public class AttributeHTMLMarkupLanguage extends HTMLMarkupLanguage {
   /**
    * Render, not translating line ends to BR tags.
    * 
-   * @see org.melati.template.MarkupLanguage#render
+   * @see org.melati.template.MarkupLanguage#render(String, MelatiWriter)
    */
   public void render(String s, MelatiWriter writer) throws IOException {
     writer.write(HTMLUtils.entitied(s, false, melati.getEncoding()));

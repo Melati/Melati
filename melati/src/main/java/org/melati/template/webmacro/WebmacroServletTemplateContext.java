@@ -59,7 +59,7 @@ import org.webmacro.engine.EvaluationExceptionHandler;
  */
 public class WebmacroServletTemplateContext implements ServletTemplateContext {
 
-  // the webcontext
+  /** The webcontext */
   public WebContext webContext;
 
   public WebmacroServletTemplateContext(WebContext wc) {

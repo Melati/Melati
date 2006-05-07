@@ -53,14 +53,24 @@ package org.melati.poem;
 public class OutsideRangePoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
-  public Object low, limit, value;
+    /** Low limit */
+  public Object low;
+    /** High limit */
+  public Object limit;
+    /** Value */
+  public Object value;
 
+  /** Constructor. */
   public OutsideRangePoemException(Object low, Object limit, Object value) {
     this.low = low;
     this.limit = limit;
     this.value = value;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The value " + value +
            " is outside the range [" + low + ", " + limit + ")";

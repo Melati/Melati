@@ -55,12 +55,14 @@ package org.melati.poem;
 public class WriteFieldAccessPoemException extends FieldAccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public WriteFieldAccessPoemException(
       Persistent object, Column column,
       AccessToken token, Capability capability) {
     super(object, column, token, capability);
   }
 
+    /** @return The mode name. */
   public String modeDescription() {
     return "write";
   }

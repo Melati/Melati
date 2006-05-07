@@ -53,9 +53,13 @@ package org.melati.poem;
 public class DuplicateCacheingPoemException
     extends DBConsistencyPoemException {
   private static final long serialVersionUID = 1L;
+
+  /** The Table we are dealing with.*/
   public Table table;
+  /** The Table Row Id that is duplicated */
   public Integer troid;
 
+  /** Constructor. */
   public DuplicateCacheingPoemException(Table table, Integer troid) {
     this.table = table;
     this.troid = troid;

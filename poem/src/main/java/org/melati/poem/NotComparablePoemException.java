@@ -54,10 +54,15 @@ package org.melati.poem;
 public class NotComparablePoemException extends TypeMismatchPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public NotComparablePoemException(Object value, PoemType type) {
     super(value, type);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return super.getMessage() + "\n" +
            "--- The application was trying to use a non-Comparable type " +

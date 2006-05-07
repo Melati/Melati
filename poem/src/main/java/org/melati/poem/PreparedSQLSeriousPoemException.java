@@ -56,13 +56,20 @@ import java.sql.SQLException;
 public class PreparedSQLSeriousPoemException extends SQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Our PreparedStatement */
   public PreparedStatement statement;
+
+  /** Constructor. */
   public PreparedSQLSeriousPoemException(PreparedStatement statement,
                                          SQLException e) {
     super(e);
     this.statement = statement;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "Executing prepared SQL ...\n" + statement + "\n" + super.getMessage();

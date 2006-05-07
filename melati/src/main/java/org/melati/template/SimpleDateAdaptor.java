@@ -62,6 +62,7 @@ import org.melati.poem.Field;
 
 public class SimpleDateAdaptor implements TempletAdaptor {
 
+  /** The instance. */
   public static final SimpleDateAdaptor it = new SimpleDateAdaptor();
 
   private static SimpleDateFormat dateFormatter1 = 

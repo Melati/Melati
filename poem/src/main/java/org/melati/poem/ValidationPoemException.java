@@ -53,9 +53,12 @@ package org.melati.poem;
 public class ValidationPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Type we are trying to assign to. */
   public PoemType type;
+  /** Value that will not be coerced. */
   public Object value;
 
+  /** Constructor. */
   public ValidationPoemException(PoemType type, Object value,
                                  Exception exception) {
     super(exception);
@@ -63,10 +66,15 @@ public class ValidationPoemException extends NormalPoemException {
     this.value = value;
   }
 
+  /** Constructor. */
   public ValidationPoemException(PoemType type, Object value) {
     this(type, value, null);
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "The value `" + value + "' is not legal for the type " + type +
            (subException == null ? "" : "\n" + subException);

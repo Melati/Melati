@@ -58,9 +58,9 @@ import org.melati.poem.dbms.Dbms;
  */
 public class LongPoemType extends AtomPoemType {
 
+  /** Instance of a nullable LongPoemType. */
   public static final LongPoemType nullable = new LongPoemType(true);
 
-//FIXME we need to know the DBMS specific name here
   public LongPoemType(boolean nullable) {
     super(Types.BIGINT, "INT8", nullable); 
   }
@@ -73,7 +73,6 @@ public class LongPoemType extends AtomPoemType {
   /**
    * FIXME do down-counting??
    */
-
   protected Enumeration _possibleRaws() {
     Long low = (Long)getLowRaw();
     Long limit = (Long)getLimitRaw();

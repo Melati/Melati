@@ -53,13 +53,16 @@ import org.melati.util.MelatiRuntimeException;
  */
 public class PartlyNullException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
-
+  
+  /** The name of the field. */
   public String name;
 
+  /** Constructor. */
   public PartlyNullException(String name) {
     this.name = name;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return
         "Some parts of the `" + name + "' field were left blank " +

@@ -57,6 +57,7 @@ import org.melati.poem.dbms.Dbms;
  */
 public class StringPoemType extends SizedAtomPoemType {
 
+  /** The nullable instance. */
   public static final StringPoemType nullable = new StringPoemType(true, -1);
 
   public StringPoemType(boolean nullable, int size) {

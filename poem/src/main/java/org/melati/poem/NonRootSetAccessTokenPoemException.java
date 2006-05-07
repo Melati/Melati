@@ -55,12 +55,18 @@ package org.melati.poem;
 public class NonRootSetAccessTokenPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The User's current AccessToken.*/
   public AccessToken token;
 
+  /** Constructor. */
   public NonRootSetAccessTokenPoemException(AccessToken token) {
     this.token = token;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "You need to have the root access token to set a different " +

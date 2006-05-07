@@ -188,7 +188,7 @@ public final class HTMLUtils {
     return entitied(s, mapBR, null);
   }
   public static String entitied(String s, boolean mapBR, String encoding) {
-    int l = s.length();
+    int length = s.length();
     int i;
     String entity = null;
 
@@ -198,19 +198,19 @@ public final class HTMLUtils {
     }
 
     for (i = 0;
-         i < l && (entity = entityFor(s.charAt(i), mapBR, ce)) == null;
+         i < length && (entity = entityFor(s.charAt(i), mapBR, ce)) == null;
          ++i);
 
     if (entity == null) return s;
 
-    StringBuffer b = new StringBuffer(l * 2);
+    StringBuffer b = new StringBuffer(length * 2);
     for (int j = 0; j < i; ++j)
       b.append(s.charAt(j));
 
     b.append(entity);
 
     char c;
-    for (++i; i < l; ++i) {
+    for (++i; i < length; ++i) {
       c = s.charAt(i);
       entity = entityFor(c, mapBR, ce);
       if (entity != null)
@@ -244,21 +244,21 @@ public final class HTMLUtils {
   } 
 
   public static String jsEscaped(String s) {
-    int l = s.length();
+    int length = s.length();
     int i = 0;
     String escape = null;
-    for (i = 0; i < l && (escape = jsEscapeFor(s.charAt(i))) == null; ++i);
+    for (i = 0; i < length && (escape = jsEscapeFor(s.charAt(i))) == null; ++i);
 
     if (escape == null) return s;
 
-    StringBuffer b = new StringBuffer(l * 2);
+    StringBuffer b = new StringBuffer(length * 2);
     for (int j = 0; j < i; ++j)
       b.append(s.charAt(j));
 
     b.append(escape);
 
     char c;
-    for (++i; i < l; ++i) {
+    for (++i; i < length; ++i) {
       c = s.charAt(i);
       escape = jsEscapeFor(c);
       if (escape != null)
@@ -304,7 +304,9 @@ public final class HTMLUtils {
  * An Instance of a tag.
  */
   public static class TagInstance {
+    /** The tag*/
     public final HTML.Tag tag;
+    /** Its attribute */
     public final AttributeSet attributes;
 
     private TagInstance() {

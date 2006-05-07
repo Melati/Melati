@@ -47,6 +47,7 @@ package org.melati.poem;
 
  /**
   * @deprecated Not used in Melati
+  * @todo delete me
   *
   * @author WilliamC@paneris.org
   */
@@ -54,11 +55,18 @@ public class InvalidColumnInfoTypecodePoemException
     extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** The ColumnInfo we are dealing with */
   public ColumnInfo columnInfo;
+
+  /** Constructor. */
   public InvalidColumnInfoTypecodePoemException(ColumnInfo columnInfo) {
     this.columnInfo = columnInfo;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "The info for column " + columnInfo.getName_unsafe() +

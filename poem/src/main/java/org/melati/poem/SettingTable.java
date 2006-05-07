@@ -132,12 +132,15 @@ public class SettingTable extends SettingTableBase {
   public static class UnsetException extends PoemException {
     private static final long serialVersionUID = 1L;
 
+    /** The name of the requested setting. */
     public String name;
 
+    /** Constructor. */
     public UnsetException(String name) {
       this.name = name;
     }
 
+    /** @return The detail message. */
     public String getMessage() {
       return "The application's `" + name + "' parameter has not been set";
     }

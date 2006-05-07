@@ -50,12 +50,14 @@ package org.melati.poem;
  */
 public class UnindexableLogEvent extends PoemLogEvent {
 
+  /** The Column we are dealing with. */ 
   public Column column;
 
   public UnindexableLogEvent(Column column) {
     this.column = column;
   }
 
+  /** @return The detail message. */
   public String toString() {
     return "Column " + column.getName() + " of table " + 
            column.getTable().getName() + 

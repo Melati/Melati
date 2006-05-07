@@ -75,6 +75,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  */
 public class VelocityTemplateEngine implements ServletTemplateEngine {
 
+  /** The name of the engine */
   public static final String NAME = "velocity";
 
   /**

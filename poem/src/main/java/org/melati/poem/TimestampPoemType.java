@@ -61,6 +61,7 @@ import org.melati.util.MelatiLocale;
  */
 public class TimestampPoemType extends AtomPoemType {
 
+  /** Simple date format. */
   public static final DateFormat format =
       new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 

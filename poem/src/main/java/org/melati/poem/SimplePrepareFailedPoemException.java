@@ -56,6 +56,7 @@ public class SimplePrepareFailedPoemException
     extends ExecutingSQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public SimplePrepareFailedPoemException(String sql, SQLException e) {
     super(sql, e);
   }

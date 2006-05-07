@@ -54,6 +54,7 @@ public class ReadPasswordAccessPoemException extends
         ReadFieldAccessPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public ReadPasswordAccessPoemException(Persistent object, Column column,
                                          AccessToken token,
                                          Capability capability) {

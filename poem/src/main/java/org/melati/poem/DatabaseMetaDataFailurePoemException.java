@@ -49,11 +49,13 @@ import java.sql.SQLException;
 
 /**
  * @deprecated Not used in Melati
+ * @todo delete me 
  */
 public class DatabaseMetaDataFailurePoemException
     extends SQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Constructor. */
   public DatabaseMetaDataFailurePoemException(SQLException e) {
     super(e);
   }

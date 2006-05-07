@@ -53,17 +53,25 @@ package org.melati.util;
  */
 public class UnexpectedExceptionException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
+  
+  /** A descriptive String giving some context. */
   public String context;
 
+  /** Only way in is through the front door. */
+  private UnexpectedExceptionException() {}
+  
+  /** Constructor. */
   public UnexpectedExceptionException(String context, Exception exception) {
     super(exception);
     this.context = context;
   }
 
+  /** Constructor. */
   public UnexpectedExceptionException(Exception exception) {
     this("in a context where it was very unexpected", exception);
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return
         "An exception occurred " + context + ":\n" + subException.getMessage();

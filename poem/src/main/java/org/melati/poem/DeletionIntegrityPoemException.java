@@ -57,15 +57,20 @@ import java.util.Enumeration;
   */
 public class DeletionIntegrityPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
+
+  /** The Persistent that we are attempting to delete.*/
   public Persistent object;
+  /** References to our Persistent. */
   public Enumeration references;
 
+  /** Constructor. */
   public DeletionIntegrityPoemException(Persistent object,
                                         Enumeration references) {
     this.object = object;
     this.references = references;
   }
 
+  /** @return A description. */
   public String toString() {
     return "You can't delete " + object + " since there are references to it";
   }

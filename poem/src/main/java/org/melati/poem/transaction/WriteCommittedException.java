@@ -55,6 +55,7 @@ public class WriteCommittedException extends MelatiRuntimeException {
   /** The committed Transaction */
   public Transactioned transactioned;
 
+  /** Only way in is through the front door. */
   private WriteCommittedException() {
   }
   

@@ -57,7 +57,8 @@ public final class Regression {
 
   private Regression() {}
 
-  public static final String dbName = "melatiregression";
+  /** The name of the test db */
+  public static final String dbName = "poemtest";
 
   public static void main(String[] args) throws Exception {
     // ttj remove to allow it to compile

@@ -55,10 +55,14 @@ package org.melati.poem;
 public class TypeDefinitionMismatchException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
+  /** Column in which problem occurred. */
   public Column column;
+  /** Type we are trying to assign. */
   public PoemType newType;
+  /** Where the new type came from. */
   public DefinitionSource newTypeSource;
 
+  /** Constructor. */
   public TypeDefinitionMismatchException(Column column,
                                          PoemType newType,
                                          DefinitionSource newTypeSource) {
@@ -67,6 +71,10 @@ public class TypeDefinitionMismatchException extends SeriousPoemException {
     this.newTypeSource = newTypeSource;
   }
 
+  /**
+   * @return The detail message
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return
         "Column " + column + " has its type overridden " +

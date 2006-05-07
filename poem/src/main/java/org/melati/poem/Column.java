@@ -549,20 +549,28 @@ public abstract class Column implements FieldAttributes {
   public static class LoadException extends UnexpectedExceptionPoemException {
     private static final long serialVersionUID = 1L;
 
-    public Column column;
+    private Column column;
 
     public LoadException(Column column, Exception problem) {
       super(problem);
       this.column = column;
     }
 
-   /** @return the message */
+    /** @return Returns the message */
     public String getMessage() {
       return "An unexpected problem arose loading "
         + column
         + " from the "
         + "database:\n"
         + subException;
+    }
+
+  
+    /**
+     * @return Returns the column.
+     */
+     protected Column getColumn() {
+      return column;
     }
   }
 
@@ -618,9 +626,11 @@ public abstract class Column implements FieldAttributes {
    */
   public static class SettingException extends NormalPoemException {
     private static final long serialVersionUID = 1L;
-
+    /** The Persistent to which this Column belongs */
     public Persistent persistent;
+    /** The Column setting which caused the problem */
     public Column column;
+    /** The name of the Column */
     public String columnDesc;
 
     public SettingException(
@@ -640,7 +650,7 @@ public abstract class Column implements FieldAttributes {
           + "'";
     }
 
-   /** @return the message */
+    /** @return the message */
     public String getMessage() {
       return "Unable to set " + columnDesc + "\n" + subException;
     }

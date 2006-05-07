@@ -57,9 +57,12 @@ public class Login extends TemplateServlet {
 
   private static final long serialVersionUID = 1L;
 
+  /**Parameters,in GET format, of triggering request, so we can reconstruct it */
   public static final String
      TRIGGERING_REQUEST_PARAMETERS = 
-       "org.melati.login.Login.triggeringRequestParameters",
+       "org.melati.login.Login.triggeringRequestParameters";
+  /** The triggering exception */
+  public static final String
      TRIGGERING_EXCEPTION = 
        "org.melati.login.Login.triggeringException";
 

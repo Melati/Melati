@@ -54,21 +54,24 @@ package org.melati.util;
 public class MelatiBugMelatiException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /** A description of the bug. */
   public String bug;
 
+  private MelatiBugMelatiException() {
+  }
+  
+  /** Full constructor */
   public MelatiBugMelatiException(String bug, Exception e) {
     super(e);
     this.bug = bug;
   }
 
+  /** Constructor without sub-exception.*/
   public MelatiBugMelatiException(String bug) {
     this.bug = bug;
   }
 
-  public MelatiBugMelatiException() {
-    this(null);
-  }
-
+  /** @return The detail message */ 
   public String getMessage() {
     return "An apparent bug in Melati: " + bug;
   }

@@ -54,8 +54,10 @@ package org.melati.util;
  */
 public abstract class MelatiException extends Exception {
 
+  /** A sub-exception we may be wrapping, otherwise null */ 
   public Exception subException;
 
+  /** Constructor with sub-exception. */
   public MelatiException(Exception subException) {
     this.subException = subException;
   }

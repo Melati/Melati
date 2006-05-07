@@ -54,7 +54,8 @@ import java.text.DateFormatSymbols;
  */
 public class MelatiLocale {
 
-  public static final MelatiLocale here = new MelatiLocale(Locale.UK);
+  /** Default Locale: GB */
+  public static final MelatiLocale HERE = new MelatiLocale(Locale.UK);
 
   private final Locale locale;
 
@@ -84,6 +85,11 @@ public class MelatiLocale {
     return null;
   } 
 
+  /**
+   * Constructor given a non-null Locale. 
+   * 
+   * @param locale The Locale to base ours on.
+   */
   public MelatiLocale(Locale locale) {
     if (locale == null)
       throw new NullPointerException();
@@ -118,6 +124,9 @@ public class MelatiLocale {
                                        locale);
   }
 
+  /**
+   * @return the Locale
+   */
   public final Locale locale() {
     return locale;
   }

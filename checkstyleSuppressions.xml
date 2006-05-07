@@ -52,6 +52,14 @@
               files="DisplayLevel.java" />
     <suppress checks="InnerAssignment"
               files="StandardIntegrityFix.java" />
+    <suppress checks="InnerAssignment"
+              files="Postgresql.java" />
+    <suppress checks="InnerAssignment"
+              files="HTMLUtils.java" />
+    <suppress checks="InnerAssignment"
+              files="MultipartDataDecoder.java" />
+    <suppress checks="InnerAssignment"
+              files="HttpBasicAuthenticationAccessHandler.java" />
 
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"

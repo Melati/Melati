@@ -48,11 +48,11 @@ import java.io.PrintWriter;
 
 /**
  * A <code>PrintWriter</code> which can throw an <code>Exception</code>.
- *
- * @todo Revisit javadoc
  */
 public final class ThrowingPrintWriter extends PrintWriter {
   private PrintWriter pw;
+  
+  /** Description of this PrintWriter */
   public final String description;
 
  /**
@@ -83,40 +83,71 @@ public final class ThrowingPrintWriter extends PrintWriter {
     }
   }
 
+  /**
+   * Check for problem and throw it if found.
+   */
   public void throwOnTrouble() {
     if (pw.checkError())
       throw new TroubleException();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#flush()
+   */
   public void flush() {
     pw.flush();
     throwOnTrouble();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#close()
+   */
   public void close() {
     pw.close();
     throwOnTrouble();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#checkError()
+   */
   public boolean checkError() {
     return pw.checkError();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#write
+   */
   public void write(int c) {
     pw.write(c);
     throwOnTrouble();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#write
+   */
   public void write(char buf[], int off, int len) {
     pw.write(buf, off, len);
     throwOnTrouble();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#write
+   */
   public void write(String buf, int off, int len) {
     pw.write(buf, off, len);
     throwOnTrouble();
   }
 
+  /**
+   * Delegated method.
+   * @see java.io.Flushable#write
+   */
   public void println() {
     pw.println();
     throwOnTrouble();

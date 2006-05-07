@@ -56,9 +56,14 @@ import java.util.Properties;
 public class PropertyException extends MelatiException {
   private static final long serialVersionUID = 1L;
 
+  /** the Properties we have a problem with. */
   public Properties properties;
+  /** The specific Property we have a problem with, may be null. */
   public String propertyName;
 
+  private PropertyException() {}
+
+  /** Constructor. */
   public PropertyException(Properties properties, String propertyName,
                            Exception problem) {
     super(problem);
@@ -66,10 +71,15 @@ public class PropertyException extends MelatiException {
     this.propertyName = propertyName;
   }
 
+  /** Constructor. */
   public PropertyException(Properties properties, String propertyName) {
     this(properties, propertyName, null);
   }
 
+  /**
+   * @return The detailed message.
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "A problem arose with property `" + propertyName + "'";
   }

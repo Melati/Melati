@@ -55,7 +55,12 @@ import java.io.IOException;
 public class ProcessFailedException extends IOException {
   private static final long serialVersionUID = 1L;
 
+  /** The String that was printed to STDERR */
   public String stderr;
+  
+  private ProcessFailedException() {}
+
+  /** Constructor */
   public ProcessFailedException(String message, String stderr) {
     super(message);
     this.stderr = stderr;

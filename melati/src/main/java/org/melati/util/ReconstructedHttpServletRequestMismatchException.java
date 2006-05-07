@@ -59,15 +59,25 @@ public class ReconstructedHttpServletRequestMismatchException
     extends MelatiException {
   private static final long serialVersionUID = 1L;
 
+  /** The stored originating parameters. */
   public HttpServletRequestParameters stored;
+  /** The current request */
   public HttpServletRequest newRequest;
 
+  private ReconstructedHttpServletRequestMismatchException() {}
+  
+  /** Constructor */
   public ReconstructedHttpServletRequestMismatchException(
       HttpServletRequestParameters stored, HttpServletRequest newRequest) {
     this.stored = stored;
     this.newRequest = newRequest;
   }
 
+
+  /**
+   * @return The detailed message.
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     HttpSession session = newRequest.getSession(false);
     return

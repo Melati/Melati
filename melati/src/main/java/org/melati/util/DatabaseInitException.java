@@ -53,10 +53,13 @@ package org.melati.util;
  */
 public class DatabaseInitException extends MelatiException {
   private static final long serialVersionUID = 1L;
-
+  
+  /** The name of the definition file.*/
   public String databaseDefsName;
+  /** The name of the database. */
   public String name;
 
+  /** Constructor. */
   public DatabaseInitException(String databaseDefsName, String name, 
                                Exception problem) {
     super(problem);
@@ -64,6 +67,7 @@ public class DatabaseInitException extends MelatiException {
     this.name = name;
   }
 
+  /** @return The detail message. */
   public String getMessage() {
     return
         "Something went wrong trying to open the logical database `" +

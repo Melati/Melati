@@ -67,6 +67,7 @@ public final class HTMLUtils {
 
   private HTMLUtils() {}
 
+  /** The DTD name */
   public static final String dtdNameForHTMLParser = "html32.bdtd";
 
   private static DTD dtdForHTMLParser = null;
@@ -300,23 +301,31 @@ public final class HTMLUtils {
   }
 
 /**
- * An Instance of a tag?
- * 
- * @todo Javadoc
+ * An Instance of a tag.
  */
   public static class TagInstance {
     public final HTML.Tag tag;
     public final AttributeSet attributes;
 
+    private TagInstance() {
+      this.tag = null;
+      this.attributes = null;      
+    }
+    /** Constructor. */
     public TagInstance(HTML.Tag tag, AttributeSet attributes) {
       this.tag = tag;
       this.attributes = attributes;
     }
 
+    /**
+     * Write tag to specified Writer. 
+     * @param w The Writer to write to.
+     */
     public void write(Writer w) throws IOException {
       HTMLUtils.write(w, tag, attributes);
     }
 
+    /** A String representation. */
     public String toString() {
       return HTMLUtils.stringOf(tag, attributes);
     }

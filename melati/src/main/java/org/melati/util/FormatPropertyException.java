@@ -57,9 +57,12 @@ import java.util.Properties;
 public class FormatPropertyException extends PropertyException {
   private static final long serialVersionUID = 1L;
 
+  /** The actual value */
   public String value;
+  /** The expected value. */
   public String expected;
-
+ 
+  /** Full constructor. */
   public FormatPropertyException(
       Properties properties, String propertyName, String value,
       String expected, Exception problem) {
@@ -68,6 +71,7 @@ public class FormatPropertyException extends PropertyException {
     this.expected = expected;
   }
 
+  /** @return The detail message */
   public String getMessage() {
     return super.getMessage() + "\n" +
            "I was expecting " + expected + " but the value was " +

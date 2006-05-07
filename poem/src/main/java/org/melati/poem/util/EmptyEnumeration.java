@@ -53,6 +53,7 @@ import java.util.NoSuchElementException;
  */
 public class EmptyEnumeration implements Enumeration {
 
+  /** The instance. */
   public static final EmptyEnumeration it = new EmptyEnumeration();
 
   public boolean hasMoreElements() {

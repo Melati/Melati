@@ -51,6 +51,7 @@ package org.melati.util;
  */
 public class DictionaryOrder implements Order {
 
+  /** Standard ordering. */
   public static DictionaryOrder vanilla = new DictionaryOrder();
 
   public boolean lessOrEqual(Object a, Object b) {

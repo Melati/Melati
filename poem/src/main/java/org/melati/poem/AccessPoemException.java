@@ -53,10 +53,13 @@ package org.melati.poem;
  */
 public class AccessPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
+
+  /** The User's Token */
   public AccessToken token;
+  /** The required Capability */
   public Capability capability;
-  // This is required to report the exception outside of the session
-  // JUnit does it.
+
+  // This is required to report the exception outside of a session.
   private String capabilityString;
 
   public AccessPoemException(Exception problem,

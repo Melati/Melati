@@ -50,6 +50,10 @@ package org.melati.poem;
  *
  */
 class RootAccessToken implements AccessToken {
+  /**
+   * The RootAccessToken gives any Capability.
+   * @see org.melati.poem.AccessToken#givesCapability
+   */
   public boolean givesCapability(Capability capability) {
     return true;
   }
@@ -60,7 +64,13 @@ class RootAccessToken implements AccessToken {
  *
  */
 public interface AccessToken {
+  
+  /**
+   * @param capability the capability to check
+   * @return whether current AccessToken confers the Capability.
+   */
   boolean givesCapability(Capability capability);
 
+  /** The super user */
   AccessToken root = new RootAccessToken();
 }

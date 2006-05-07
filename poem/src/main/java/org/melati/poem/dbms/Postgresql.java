@@ -53,7 +53,6 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 import org.melati.poem.Table;
 
@@ -119,14 +118,22 @@ public class Postgresql extends AnsiStandard {
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
    */
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    return "BYTEA";
+  }
+
+/*
   public String getBinarySqlDefinition(int size) {
    // BLOBs in Postgres are represented as OIDs pointing to the data
     return "OID";
   }
+*/
 
   /**
    * An Object Id <code>PoemType</code>.
    */
+/*
+  
   public static class OidPoemType extends IntegerPoemType {
       public OidPoemType(boolean nullable) {
           super(Types.INTEGER, "OID", nullable);
@@ -142,17 +149,22 @@ public class Postgresql extends AnsiStandard {
        ((BinaryPoemType)other).getNullable()) ? other : null;
       }
   }
-
+*/
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData
    */
+
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
-    md.getString("TYPE_NAME").equals("oid") ?
-        new OidPoemType(md.getInt("NULLABLE") ==
-                            DatabaseMetaData.columnNullable) :
-        super.defaultPoemTypeOfColumnMetaData(md);
+    md.getString("TYPE_NAME").equals("bytea") ?
+            new BinaryPoemType(md.getInt("NULLABLE") ==
+                                DatabaseMetaData.columnNullable, -1) :
+            super.defaultPoemTypeOfColumnMetaData(md);
+//    md.getString("TYPE_NAME").equals("oid") ?
+//            new OidPoemType(md.getInt("NULLABLE") ==
+//                                DatabaseMetaData.columnNullable) :
+//           super.defaultPoemTypeOfColumnMetaData(md);
   }
 
   /* (non-Javadoc)

@@ -206,7 +206,7 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
             return new VelocityTemplate(templateName);
           } catch (ParseErrorException p) {
             throw new MelatiBugMelatiException(
-                "Problem converting Velocity to WebMacro template", p);
+                "Problem converting a WebMacro template to a Velocity template", p);
           } catch (Exception f) {
             throw new NotFoundException(f);
           }

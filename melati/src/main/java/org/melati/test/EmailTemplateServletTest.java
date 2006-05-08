@@ -52,9 +52,9 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.melati.Melati;
-import org.melati.MelatiUtil;
 import org.melati.PoemContext;
 import org.melati.servlet.FormDataAdaptorFactory;
+import org.melati.servlet.Form;
 import org.melati.servlet.MultipartFormField;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.TemplateServlet;
@@ -83,19 +83,19 @@ public class EmailTemplateServletTest extends TemplateServlet {
     context.put("servlet", this);
     melati.setResponseContentType("text/html");
 
-    String smtpServer = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    String smtpServer = Form.getFieldNulled(melati.getServletTemplateContext(),
     "SMTPServer");
     
     if (smtpServer != null) {
-      String from = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      String from = Form.getFieldNulled(melati.getServletTemplateContext(),
       "from");
-      String to = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      String to = Form.getFieldNulled(melati.getServletTemplateContext(),
       "to");
-      String replyTo = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      String replyTo = Form.getFieldNulled(melati.getServletTemplateContext(),
       "replyTo");
-      String subject = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      String subject = Form.getFieldNulled(melati.getServletTemplateContext(),
       "subject");
-      String message = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+      String message = Form.getFieldNulled(melati.getServletTemplateContext(),
       "message");
       System.err.println("Context=" + context.getClass().getName());
       MultipartFormField referencedField = context.getMultipartForm("referencedFile");

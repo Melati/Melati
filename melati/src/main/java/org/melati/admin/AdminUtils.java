@@ -43,30 +43,46 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 package org.melati.admin;
-import org.melati.poem.Table;
-import org.melati.poem.Persistent;
+
+import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
-import org.melati.Melati;
+import org.melati.poem.Persistent;
+import org.melati.poem.Table;
 import org.melati.template.MarkupLanguage;
+import org.melati.util.HttpServletRequestCompat;
+import org.melati.util.JSStaticTree;
 import org.melati.util.Tree;
 import org.melati.util.Treeable;
-import org.melati.util.JSStaticTree;
+
 /**
  * A utility object for placing in a <code>ServletTemplateContext</code>.
  */
 public class AdminUtils {
+  
   private String contextPath;
-  private String adminURL;
-  private String adminStaticURL;
+  private String servletUrl;
+  private String staticURL;
   private String logicalDatabase;
   
-  /** Constructor. */
-  public AdminUtils(String contextPath, String servlet, String adminStaticURL,
-                    String logicalDatabase) {
+  /**
+   *  Constructor. 
+   */
+  public AdminUtils(Melati melati) {
+    this(HttpServletRequestCompat.getContextPath(melati.getRequest()),
+         melati.getRequest().getServletPath(),
+         melati.getConfig().getStaticURL() + "/admin",
+         melati.getPoemContext().getLogicalDatabase());    
+  }
+
+  /**
+   *  Constructor. 
+   */
+  private AdminUtils(String contextPath, String servlet, 
+                    String staticURL, String logicalDatabase) {
     this.contextPath = contextPath;
-    this.adminURL = contextPath + servlet;
-    this.adminStaticURL = adminStaticURL;
+    this.servletUrl = contextPath + servlet;
+    this.staticURL = staticURL;
     this.logicalDatabase = logicalDatabase;
     // HACK
     // if we are using 2.0 Servlet API then zone is
@@ -78,7 +94,7 @@ public class AdminUtils {
   
   /** @return The Top URL. */
   public String TopURL(Melati melati) {
-    String url = adminURL + "/" + logicalDatabase;
+    String url = servletUrl + "/" + logicalDatabase;
     if (melati.getTable() != null)
       url += "/" + melati.getTable().getName();
     if (melati.getObject() != null)
@@ -90,55 +106,92 @@ public class AdminUtils {
    * @return The Bottom URL.
    */
   public String BottomURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Bottom";
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/Bottom";
   }
   /**
    * @return The Left URL.
    */
   public String LeftURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/Left";
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/Left";
   }
+  
   /**
    * @return The Primary Select URL.
    */
   public String PrimarySelectURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/PrimarySelect";
   }
+
+  /**
+   * @return The Selection URL.
+   */
   public String SelectionURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/Selection";
   }
+  
+  /**
+   * @return The Selection Right URL.
+   */
   public String SelectionRightURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionRight";
   }
+
+  /**
+   * @return The Navigation URL.
+   */
   public String NavigationURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/Navigation";
   }
+  
+  /**
+   * @return The Right URL.
+   */
   public String RightURL(Persistent object) throws AccessPoemException {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Right";
   }
+
+  /**
+   * @return The Edit Header URL.
+   */
   public String EditHeaderURL(Persistent object) throws AccessPoemException {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/EditHeader";
   }
+
+  /**
+   * @return The Edit URL.
+   */
   public String EditURL(Persistent object) throws AccessPoemException {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Edit";
   }
+
+  /**
+   * @return The Tree URL.
+   */
   public String TreeURL(Persistent object) throws AccessPoemException {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/Tree";
   }
+  
+  /**
+   * @return The Tree Control URL.
+   */
   public String TreeControlURL(Persistent object) throws AccessPoemException {
-    return adminURL + "/" + logicalDatabase + "/" + object.getTable().getName()
+    return servletUrl + "/" + logicalDatabase + "/" + object.getTable().getName()
             + "/" + object.troid() + "/TreeControl";
   }
+
+  /**
+   * @return The Add URL.
+   */
   public String AddURL(Table table) throws AccessPoemException {
-    return adminURL
+    return servletUrl
             + "/"
             + logicalDatabase
             + "/"
@@ -146,19 +199,35 @@ public class AdminUtils {
                     : table instanceof org.melati.poem.TableInfoTable ? Admin.METHOD_CREATE_TABLE
                             : table.getName() + "/" + Admin.METHOD_ADD_RECORD);
   }
+
+  /**
+   * @return The Popup URL.
+   */
   public String PopupURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
+  
+  /**
+   * @return The Selection Window URL.
+   */
   public String SelectionWindowURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindow";
   }
+
+  /**
+   * @return The Selection Window Primary Select URL.
+   */
   public String SelectionWindowPrimarySelectURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowPrimarySelect";
   }
+
+  /**
+   * @return The Selection Window Selection URL.
+   */
   public String SelectionWindowSelectionURL(Table table) {
-    return adminURL + "/" + logicalDatabase + "/" + table.getName()
+    return servletUrl + "/" + logicalDatabase + "/" + table.getName()
             + "/SelectionWindowSelection";
   }
   
@@ -180,7 +249,7 @@ public class AdminUtils {
    * @return The URL for DSD generation. 
    */
   public String DsdURL() {
-    return adminURL + "/" + logicalDatabase + "/DSD";
+    return servletUrl + "/" + logicalDatabase + "/DSD";
   }
   
   /**
@@ -192,6 +261,7 @@ public class AdminUtils {
   public String UploadURL(Table table, Persistent object, Field field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
+  
   /**
    * @return Upload done URL
    */
@@ -199,19 +269,13 @@ public class AdminUtils {
     return upload(table, object) + "/UploadDone?field=" + field;
   }
   private String upload(Table table, Persistent object) {
-    String url = adminURL + "/" + logicalDatabase + "/" + table.getName();
+    String url = servletUrl + "/" + logicalDatabase + "/" + table.getName();
     if (object != null)
       url += "/" + object.troid();
     return url;
   }
   
-  /**
-   * @return Defaults to /MelatiStatic/admin/
-   */
-  public String getStaticURL() {
-    return adminStaticURL;
-  }
-  
+ 
   /**
    * Render the specials directly to the output. 
    * 
@@ -230,6 +294,12 @@ public class AdminUtils {
     return "";
   }
 
+  /**
+   * @return Defaults to /MelatiStatic/admin/
+   */
+  public String getStaticURL() {
+    return staticURL;
+  }
 
   /** Create a tree. */
   public JSStaticTree createTree(Treeable node) {
@@ -245,4 +315,6 @@ public class AdminUtils {
     return object instanceof Treeable;
   }
     
+  
+
 }

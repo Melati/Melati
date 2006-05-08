@@ -49,8 +49,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParsePosition;
 
-import org.melati.MelatiUtil;
 import org.melati.poem.Field;
+import org.melati.servlet.Form;
 
 /**
  * A SimpleDateAdaptor is used to format a date field into 
@@ -74,7 +74,7 @@ public class SimpleDateAdaptor implements TempletAdaptor {
       new SimpleDateFormat("yyyyMMdd");
 
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
-    String value = MelatiUtil.getFormNulled(context,fieldName);
+    String value = Form.getFieldNulled(context,fieldName);
     if (value == null) return null;
     java.util.Date date = dateFormatter1.parse(value, new ParsePosition(0));
     // give it another go using a different format

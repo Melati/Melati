@@ -49,8 +49,8 @@ import java.util.Vector;
 import java.util.Enumeration;
 
 import org.melati.Melati;
-import org.melati.MelatiUtil;
 import org.melati.servlet.InvalidUsageException;
+import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.FormParameterException;
@@ -138,7 +138,7 @@ public class Admin extends TemplateServlet {
         new Initialiser() {
           public void init(Persistent object)
             throws AccessPoemException, ValidationPoemException {
-              MelatiUtil.extractFields(context, object);
+              Form.extractFields(context, object);
             }
         });
     result.postEdit(true);
@@ -318,7 +318,7 @@ public class Admin extends TemplateServlet {
     for (Enumeration c = table.columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
       String name = "field_" + column.getName();
-      String string = MelatiUtil.getFormNulled(context, name);
+      String string = Form.getFieldNulled(context, name);
       if (string != null) {
         column.setRaw_unsafe(criteria, column.getType().rawOfString(string));
 
@@ -350,7 +350,7 @@ public class Admin extends TemplateServlet {
 
     for (int o = 1; o <= 2; ++o) {
       String name = "field_order-" + o;
-      String orderColumnIDString = MelatiUtil.getFormNulled(context, name);
+      String orderColumnIDString = Form.getFieldNulled(context, name);
       Integer orderColumnID = null;
 
       if (orderColumnIDString != null) {
@@ -372,7 +372,7 @@ public class Admin extends TemplateServlet {
                 EnumUtils.concatenated("&", orderClause.elements()));
 
     int start = 0;
-    String startString = MelatiUtil.getFormNulled(context, "start");
+    String startString = Form.getFieldNulled(context, "start");
     if (startString != null) {
       try {
         start = Math.max(0, Integer.parseInt(startString));
@@ -453,7 +453,7 @@ public class Admin extends TemplateServlet {
     for (int o = 1; o <= 2; ++o) {
       String name = "order-" + o;
       String orderColumnIDString =
-          MelatiUtil.getFormNulled(context, "field_" + name);
+          Form.getFieldNulled(context, "field_" + name);
       Integer orderColumnID = null;
       if (orderColumnIDString != null) {
         orderColumnID =
@@ -602,7 +602,7 @@ public class Admin extends TemplateServlet {
         new Initialiser() {
           public void init(Persistent object)
               throws AccessPoemException, ValidationPoemException {
-            MelatiUtil.extractFields(context, object);
+            Form.extractFields(context, object);
           }
         });
 
@@ -691,7 +691,7 @@ public class Admin extends TemplateServlet {
       throws PoemException {
     Persistent object = melati.getObject();
     object.preEdit();
-    MelatiUtil.extractFields(context, object);
+    Form.extractFields(context, object);
     object.postEdit(false);
     return adminTemplate(context, "Update");
   }
@@ -730,7 +730,7 @@ public class Admin extends TemplateServlet {
     // the path info!
 
     Persistent dup = melati.getObject().duplicated();
-    MelatiUtil.extractFields(context, dup);
+    Form.extractFields(context, dup);
     dup.getTable().create(dup);
     context.put("object", dup);
     return adminTemplate(context, "Update");
@@ -815,7 +815,7 @@ public class Admin extends TemplateServlet {
     if (!token.givesCapability(admin))
       throw new AccessPoemException(token, admin);
 
-    context.put("admin", melati.getAdminUtils());
+    context.put("admin", new AdminUtils(melati));
     
     /* upload can take place without an object
      */

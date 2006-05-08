@@ -3,10 +3,10 @@ package org.melati.example.contacts;
 import org.melati.Melati;
 import org.melati.template.ServletTemplateContext;
 import org.melati.PoemContext;
+import org.melati.servlet.Form;
 import org.melati.servlet.PathInfoException;
 import org.melati.poem.Column;
 import org.melati.poem.Field;
-import org.melati.MelatiUtil;
 
 
  /**
@@ -20,11 +20,11 @@ public class Search extends ContactsServlet {
      throws Exception {
 
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
-    String name = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    String name = Form.getFieldNulled(melati.getServletTemplateContext(),
     "field_name");
-    Integer category = MelatiUtil.getFormInteger(melati.getServletTemplateContext(),
+    Integer category = Form.getFormInteger(melati.getServletTemplateContext(),
                                                 "field_category");
-    String submit = MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    String submit = Form.getFieldNulled(melati.getServletTemplateContext(),
                                               "submit");
     Column nameColumn = db.getContactTable().getNameColumn();
     Column contactColumn = db.getContactCategoryTable().getContactColumn();

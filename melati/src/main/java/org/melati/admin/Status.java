@@ -58,7 +58,7 @@ public class Status extends TemplateServlet {
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
-    context.put("admin", melati.getAdminUtils());
+    context.put("admin", new AdminUtils(melati));
     return "org/melati/admin/Status";
   }
 }

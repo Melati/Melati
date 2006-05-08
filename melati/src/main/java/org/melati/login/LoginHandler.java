@@ -47,10 +47,10 @@ package org.melati.login;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 
+import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
 import org.melati.Melati;
-import org.melati.MelatiUtil;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.UserTable;
 import org.melati.poem.User;
@@ -151,7 +151,7 @@ public class LoginHandler {
     // any warning).
     
     // if we have asked that our password be remembered, set the cookies
-    if (MelatiUtil.getFormNulled(templateContext,"rememberme") != null) {
+    if (Form.getFieldNulled(templateContext,"rememberme") != null) {
       String ldb = melati.getPoemContext().getLogicalDatabase();
       melati.getResponse().addCookie(makeCookie(ldb, user.getLogin_unsafe()));
       melati.getResponse().addCookie(makeCookie(ldb+user.getLogin_unsafe(), 
@@ -172,7 +172,7 @@ public class LoginHandler {
       templateContext.put("continuationURL", 
                           triggeringParams.continuationURL());
     } else {
-      if (MelatiUtil.getFormNulled(templateContext,"continuationURL") 
+      if (Form.getFieldNulled(templateContext,"continuationURL") 
           != null) {
         templateContext.put("continuationURL",
                             templateContext.getForm("continuationURL"));

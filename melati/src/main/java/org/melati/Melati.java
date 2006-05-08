@@ -62,24 +62,24 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Table;
 import org.melati.poem.User;
+import org.melati.servlet.Form;
 import org.melati.template.HTMLMarkupLanguage;
-import org.melati.template.TemplateEngine;
 import org.melati.template.ServletTemplateContext;
-import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateEngine;
+import org.melati.template.TemplateContext;
+import org.melati.template.TemplateEngine;
 import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.AcceptCharset;
-import org.melati.util.DatabaseInitException;
 import org.melati.util.CharsetException;
-import org.melati.util.HttpServletRequestCompat;
-import org.melati.util.HttpUtil;
+import org.melati.util.DatabaseInitException;
 import org.melati.util.HttpHeader;
+import org.melati.util.HttpUtil;
 import org.melati.util.MelatiBufferedWriter;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.StringUtils;
 import org.melati.util.UTF8URLEncoder;
 import org.melati.util.UnexpectedExceptionException;
@@ -382,11 +382,7 @@ public class Melati {
    * @see org.melati.admin.Admin
    */
   public AdminUtils getAdminUtils() {
-    return new AdminUtils(
-        HttpServletRequestCompat.getContextPath(getRequest()),
-        getRequest().getServletPath(),
-        config.getStaticURL() + "/admin",
-        poemContext.getLogicalDatabase());
+    return new AdminUtils(this);
   }
 
   /**
@@ -600,10 +596,10 @@ public class Melati {
    *                already a binding for <TT>field</TT> in the query string
    *                it is replaced, not duplicated.  If there is no query
    *                string, one is added.
-   * @see org.melati.MelatiUtil
+   * @see org.melati.servlet.Form
    */
   public String sameURLWith(String field, String value) {
-    return MelatiUtil.sameURLWith(getRequest(), field, value);
+    return Form.sameURLWith(getRequest(), field, value);
   }
 
   /**
@@ -615,7 +611,7 @@ public class Melati {
    *                already a binding for <TT>field</TT> in the query string
    *                it is replaced, not duplicated.  If there is no query
    *                string, one is added.
-   * @see org.melati.MelatiUtil
+   * @see org.melati.servlet.Form
    */
   public String sameURLWith(String field) {
     return sameURLWith(field, "1");

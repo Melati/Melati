@@ -3,7 +3,7 @@ package org.melati.example.contacts;
 import java.io.IOException;
 
 import org.melati.Melati;
-import org.melati.MelatiUtil;
+import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
@@ -30,10 +30,10 @@ public class ContactView extends TemplateServlet {
     else if (melati.getMethod().equals("Update")) {
       if (contact == null) {
         contact = (Contact) db.getContactTable().newPersistent();
-        MelatiUtil.extractFields(melati.getServletTemplateContext(),contact);
+        Form.extractFields(melati.getServletTemplateContext(),contact);
         db.getContactTable().create(contact);
       } else {
-        MelatiUtil.extractFields(melati.getServletTemplateContext(),contact);
+        Form.extractFields(melati.getServletTemplateContext(),contact);
       }
       deleteCategories(db,contact);
 

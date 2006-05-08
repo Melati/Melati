@@ -111,6 +111,11 @@ public class ClassNameTempletLoader implements TempletLoader {
                templateEngine.templateExtension();
   }
 
+  /**
+   * Get a templet by name, with optional purpose. 
+   * 
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, String, String)
+   */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
                           String name) throws TemplateEngineException {
@@ -118,12 +123,23 @@ public class ClassNameTempletLoader implements TempletLoader {
                                                purpose, name));
   }
 
+  /**
+   * Get a templet by its name. 
+   * 
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, String)
+   */
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, String name)
       throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, name);
   }
 
+  /**
+   * Get a templet based upon class name and optional purpose. 
+   * 
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, 
+   *                            String, Class)
+   */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage, String purpose,
                           Class clazz)
@@ -161,12 +177,23 @@ public class ClassNameTempletLoader implements TempletLoader {
     return templet;
   }
 
+  /**
+   * Get a templet name based upon class name.
+   * 
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)
+   */
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, Class clazz)
       throws TemplateEngineException {
     return templet(templateEngine, markupLanguage, null, clazz);
   }
 
+  /**
+   * Get a templet either from the FieldAttributes or 
+   * the class name.
+   * 
+   * @see TempletLoader#templet(TemplateEngine,MarkupLanguage,FieldAttributes)
+   */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage,
                           FieldAttributes attributes)

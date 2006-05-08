@@ -47,7 +47,6 @@ import org.melati.poem.Table;
 import org.melati.poem.Persistent;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
-import org.melati.poem.ReferencePoemType;
 import org.melati.Melati;
 import org.melati.template.MarkupLanguage;
 import org.melati.util.Tree;
@@ -207,17 +206,6 @@ public class AdminUtils {
   }
   
   /**
-   * Establish if this is a ReferencePoemType field.
-   * 
-   * @param field
-   *          the field to check
-   * @return whether it is a reference poem type
-   */
-  public boolean isReferencePoemType(Field field) {
-    return field.getType() instanceof ReferencePoemType;
-  }
-  
-  /**
    * @return Defaults to /MelatiStatic/admin/
    */
   public String getStaticURL() {
@@ -241,7 +229,8 @@ public class AdminUtils {
               melati.getTemplateContext());
     return "";
   }
-  
+
+
   /** Create a tree. */
   public JSStaticTree createTree(Treeable node) {
     return new JSStaticTree(new Tree(node), getStaticURL());
@@ -255,4 +244,5 @@ public class AdminUtils {
   public boolean isTreeable(Persistent object) {
     return object instanceof Treeable;
   }
+    
 }

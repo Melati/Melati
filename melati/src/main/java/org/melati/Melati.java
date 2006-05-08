@@ -54,10 +54,12 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.admin.AdminUtils;
 import org.melati.poem.Database;
+import org.melati.poem.Field;
 import org.melati.poem.NoAccessTokenPoemException;
 import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
+import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.template.HTMLMarkupLanguage;
@@ -864,4 +866,16 @@ public class Melati {
       return null;
     }
   }
+  
+  /**
+   * Establish if this is a ReferencePoemType field.
+   * 
+   * @param field
+   *          the field to check
+   * @return whether it is a reference poem type
+   */
+  public boolean isReferencePoemType(Field field) {
+    return field.getType() instanceof ReferencePoemType;
+  }
+  
 }

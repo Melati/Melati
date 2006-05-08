@@ -55,12 +55,10 @@ import org.melati.poem.Column;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.TempletAdaptor;
 import org.melati.template.TempletAdaptorConstructionMelatiException;
-import org.melati.util.Tree;
-import org.melati.util.JSDynamicTree;
 import org.melati.util.UTF8URLEncoder;
 
 /**
- * An object to hold useful static methods for inclusion in a 
+ * An object to hold useful static methods for manipulation of a 
  * {@link ServletTemplateContext}.
  */
 
@@ -149,86 +147,6 @@ public class MelatiUtil {
   }
 
 
-  /**
-   * Create a Java Script tree object from a Tree.
-   *
-   * @deprecated Not used anywhere in melati or paneris
-   *
-   * @param tree a {@link Tree}
-   * @return a JSDynamicTree
-   */
-  public JSDynamicTree getJSDynamicTree(Tree tree) {
-    return new JSDynamicTree(tree);
-  }
-
-  /**
-   * Modify or add a form parameter setting (query string component) in a URL.
-   *
-   * @param uri     A URI
-   * @param query   A query string
-   * @param field   The parameter's name
-   * @param value   The new value for the parameter (unencoded)
-   * @return        <TT><I>uri</I>?<I>query</I></TT> with <TT>field=value</TT>.
-   *                If there is already a binding for <TT>field</TT> in the
-   *                query string it is replaced, not duplicated.
-   */
-
-  public static String sameURLWith(String uri, String query,
-                                   String field, String value) {
-    return uri + "?" + sameQueryWith(query, field, value);
-  }
-
-  /**
-   * Modify or add a form parameter setting (query string component) in the URL
-   * for a servlet request.
-   *
-   * @param request A servlet request
-   * @param field   The parameter's name
-   * @param value   The new value for the parameter (unencoded)
-   * @return        The request's URL with <TT>field=value</TT>.  If there is
-   *                already a binding for <TT>field</TT> in the query string
-   *                it is replaced, not duplicated.  If there is no query
-   *                string, one is added.
-   */
-
-  public static String sameURLWith(HttpServletRequest request,
-                                   String field, String value) {
-    return sameURLWith(request.getRequestURI(), request.getQueryString(),
-                       field, value);
-  }
-
-  /**
-   * Modify or add a form parameter setting (query string component) in a query
-   * string.
-   * @todo move to Melati so we can use non-default encoding 
-   * 
-   * @param qs      A query string
-   * @param field   The parameter's name
-   * @param value   The new value for the parameter (unencoded)
-   * @return        <TT>qs</TT> with <TT>field=value</TT>.
-   *                If there is already a binding for <TT>field</TT> in the
-   *                query string it is replaced, not duplicated.
-   */
-  public static String sameQueryWith(String qs, String field, String value) {
-    
-    String fenc = UTF8URLEncoder.encode(field);
-    String fenceq = fenc + '=';
-    String fev = fenceq + UTF8URLEncoder.encode(value);
-
-    if (qs == null || qs.equals("")) return fev;
-
-    int i;
-    if (qs.startsWith(fenceq)) i = 0;
-    else {
-      i = qs.indexOf('&' + fenceq);
-      if (i == -1) return qs + '&' + fev;
-      ++i;
-    }
-
-    int a = qs.indexOf('&', i);
-    return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
-  }
-  
     
   /**
   * A utility method that gets a value from the Form.  It will return
@@ -303,6 +221,76 @@ public class MelatiUtil {
     return getFormNulled(context, field) ==  null ? 
                                              Boolean.FALSE : Boolean.TRUE;
   }
+  
+  /**
+   * Modify or add a form parameter setting (query string component) in a URL.
+   *
+   * @param uri     A URI
+   * @param query   A query string
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        <TT><I>uri</I>?<I>query</I></TT> with <TT>field=value</TT>.
+   *                If there is already a binding for <TT>field</TT> in the
+   *                query string it is replaced, not duplicated.
+   */
+
+  public static String sameURLWith(String uri, String query,
+                                   String field, String value) {
+    return uri + "?" + sameQueryWith(query, field, value);
+  }
+
+  /**
+   * Modify or add a form parameter setting (query string component) in the URL
+   * for a servlet request.
+   *
+   * @param request A servlet request
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        The request's URL with <TT>field=value</TT>.  If there is
+   *                already a binding for <TT>field</TT> in the query string
+   *                it is replaced, not duplicated.  If there is no query
+   *                string, one is added.
+   */
+
+  public static String sameURLWith(HttpServletRequest request,
+                                   String field, String value) {
+    return sameURLWith(request.getRequestURI(), request.getQueryString(),
+                       field, value);
+  }
+
+  /**
+   * Modify or add a form parameter setting (query string component) in a query
+   * string.
+   * @todo move to Melati so we can use non-default encoding 
+   * 
+   * @param qs      A query string
+   * @param field   The parameter's name
+   * @param value   The new value for the parameter (unencoded)
+   * @return        <TT>qs</TT> with <TT>field=value</TT>.
+   *                If there is already a binding for <TT>field</TT> in the
+   *                query string it is replaced, not duplicated.
+   */
+  public static String sameQueryWith(String qs, String field, String value) {
+    
+    String fenc = UTF8URLEncoder.encode(field);
+    String fenceq = fenc + '=';
+    String fev = fenceq + UTF8URLEncoder.encode(value);
+
+    if (qs == null || qs.equals("")) return fev;
+
+    int i;
+    if (qs.startsWith(fenceq)) i = 0;
+    else {
+      i = qs.indexOf('&' + fenceq);
+      if (i == -1) return qs + '&' + fev;
+      ++i;
+    }
+
+    int a = qs.indexOf('&', i);
+    return qs.substring(0, i) + fev + (a == -1 ? "" : qs.substring(a));
+  }
+  
+
 
 }
 

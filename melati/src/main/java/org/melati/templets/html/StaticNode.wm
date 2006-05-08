@@ -1,4 +1,4 @@
-#set $admin = $melati.AdminUtils
+#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
 #set $ml=$melati.HTMLMarkupLanguage
 
 ##   Static Node Label templet

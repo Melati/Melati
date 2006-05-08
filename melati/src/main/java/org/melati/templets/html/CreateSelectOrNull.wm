@@ -43,7 +43,7 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-#set $admin = $melati.AdminUtils
+#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
 <input type="hidden" 
        name="field_$ml.rendered($field.Name)" 
        value='$ml.rendered($field.RawString)'>

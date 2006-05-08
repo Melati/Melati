@@ -47,6 +47,8 @@ package org.melati;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -376,15 +378,23 @@ public class Melati {
   }
 
   /**
-   * Get the AdminUtils object for this Request.
-   *
-   * @return - the AdminUtils
-   * @see org.melati.admin.Admin
+   * Get a named context utility eg org.melati.admin.AdminUtils.
+   *  
+   * @param className Name of a class with a single argument Melati constructor 
+   * @return the instantiated class
    */
-  public AdminUtils getAdminUtils() {
-    return new AdminUtils(this);
+  public Object getContextUtil(String className) {
+    Object util;
+    try {
+      Constructor c  = Class.forName(className).getConstructor(new Class[] {this.getClass()});
+      util = c.newInstance(new Object[] {this});
+    } catch (Exception e) {
+      throw new MelatiBugMelatiException("Class " + className + 
+          " cannot be instantiated.", e);
+    }  
+    return util;
   }
-
+  
   /**
    * Get the URL for the Logout Page.
    *

@@ -44,6 +44,7 @@
 ##
 ## Upload an image file and display it in a thumbnail with a popup.
 ##
+#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
 <a name="anchor_$ml.escaped($field.Name)"></a>
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
@@ -71,7 +72,7 @@
 var uploadwin_$ml.escaped($field.Name);
 function upload_$ml.escaped($field.Name) () {
   uploadwin_$ml.escaped($field.Name)
-    = window.open('$melati.AdminUtils.UploadURL($melati.Table,$melati.Object,$field)',
+    = window.open('$admin.UploadURL($melati.Table,$melati.Object,$field)',
                   '$ml.escaped($field.Name)',
                   'width=400,height=100,resizable=yes,scrollbars=yes');
 }

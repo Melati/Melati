@@ -222,7 +222,7 @@ public class MelatiConfig {
 
 
   /**
-   * Creates a melati context.
+   * Creates a new {@link Melati}.
    *
    * @param request the incoming {@link HttpServletRequest}
    * @param response the outgoing {@link HttpServletResponse}

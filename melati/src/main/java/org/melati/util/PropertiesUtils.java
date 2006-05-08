@@ -218,7 +218,7 @@ public final class PropertiesUtils {
   }
 
   /**
-   * Instantiate an interface.
+   * Instantiate a Class.
    * 
    * @param properties a {@link Properties} 
    * @param propertyName the name of the property

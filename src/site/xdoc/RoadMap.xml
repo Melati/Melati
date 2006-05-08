@@ -146,7 +146,7 @@ would be nice to have before a 1.0 release.
   <tr> 
     <td>0.7.7</td>
     <td>Completion of JavaDocs.</td>
-    <td>All public classes done</td>
+    <td>All public types and members done</td>
   </tr>
   <tr> 
     <td>0.7.8</td>

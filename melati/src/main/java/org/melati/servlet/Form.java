@@ -206,7 +206,7 @@ public final class Form {
   *
   * @return - the value of the field requested
   */
-  public static Integer getFormInteger(ServletTemplateContext context, String field) {
+  public static Integer getIntegerField(ServletTemplateContext context, String field) {
     return getIntegerField(context, field, null);
   }
 
@@ -219,7 +219,7 @@ public final class Form {
   *
   * @return - TRUE or FALSE depending if the field is present
   */
-  public static Boolean getFormBoolean(ServletTemplateContext context, String field) {
+  public static Boolean getBooleanField(ServletTemplateContext context, String field) {
     return getFieldNulled(context, field) ==  null ? 
                                              Boolean.FALSE : Boolean.TRUE;
   }

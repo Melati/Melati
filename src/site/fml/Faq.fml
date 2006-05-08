@@ -45,4 +45,28 @@
       </answer>
     </faq>
   </part>
+  <part id="Rendering">
+    <faq id="Widgets">
+      <question>How are input widgets rendered?</question>
+      <answer>
+        <p>
+        Input widgets, such as select boxes and popup selections are either 
+        rendered using a templet named after their class or a templet named 
+        in their field attributes.
+        </p>
+      </answer>
+    </faq>
+    <faq id="ContextUtil">
+      <question>How do I supply a context utility class to my template?</question>
+      <answer>
+        <p>
+        Ensure your utility class has a constructore which takes a single argument of a Melati 
+        and then add something like this:
+        <pre>
+#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
+        </pre>
+        </p>
+      </answer>
+    </faq>
+  </part>
 </faqs>

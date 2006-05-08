@@ -64,6 +64,8 @@ import org.melati.util.UTF8URLEncoder;
 
 public final class Form {
 
+  private Form() {}
+  
   /**
    * Retrieve updated persistent fields from a context modified in a template.
    * <p>

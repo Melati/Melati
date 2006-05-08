@@ -22,7 +22,7 @@ public class Search extends ContactsServlet {
     ContactsDatabase db = (ContactsDatabase)melati.getDatabase();
     String name = Form.getFieldNulled(melati.getServletTemplateContext(),
     "field_name");
-    Integer category = Form.getFormInteger(melati.getServletTemplateContext(),
+    Integer category = Form.getIntegerField(melati.getServletTemplateContext(),
                                                 "field_category");
     String submit = Form.getFieldNulled(melati.getServletTemplateContext(),
                                               "submit");

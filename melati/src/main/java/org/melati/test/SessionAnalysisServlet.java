@@ -94,7 +94,7 @@ public class SessionAnalysisServlet extends ConfigServlet {
                     + melati.getRequest().getRequestURI() + "?repeat="
                     + repeat + "\">");
     output.write("  <link rel='stylesheet' title='Default' href='" + 
-                 melati.getAdminUtils().getStaticURL() + "/admin.css' \n" +
+                 melati.getConfig().getStaticURL() + "/admin.css' \n" +
                  "type='text/css' media='screen'>\n");
     output.write("</head>\n"
                   + "<body>\n"

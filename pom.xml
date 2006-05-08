@@ -7,7 +7,7 @@
   <artifactId>melati</artifactId>
   <packaging>jar</packaging>
   <name>Melati</name>
-  <version>0.7.5-RC1</version>
+  <version>0.7.5-RC3</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -345,7 +345,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <artifactId>postgresql</artifactId>
       <version>7.4</version>
       <classifier>jdbc3</classifier>
-      <scope>runtime</scope>
+      <scope>compile</scope>
     </dependency>
 <!--
     <dependency>

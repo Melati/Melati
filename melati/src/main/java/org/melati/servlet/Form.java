@@ -62,7 +62,7 @@ import org.melati.util.UTF8URLEncoder;
  * {@link ServletTemplateContext}.
  */
 
-public class Form {
+public final class Form {
 
   /**
    * Retrieve updated persistent fields from a context modified in a template.

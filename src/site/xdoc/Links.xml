@@ -34,9 +34,16 @@ This page last updated: $Date$ $Author$
   <a href="MailingList.html">Mailing Lists</a>.
  </li>
  <li>
-  <a href="http://www.paneris.org/">Paneris</a> is a community of 
-  web developers, 
-  with a wealth of example code to share.
+  <a href="http://www.paneris.org/">Paneris.org</a> is a community of 
+  developers with experience of Melati.
+ </li>
+ <li>
+  <a href="http://www.paneris.org/">Paneris.net</a> is the 
+  repository of Melati projects.
+ </li>
+ <li>
+  <a href="http://melati.org/maven">Melati Maven repository</a> is the 
+  mirrot repository of Maven and Melati projects.
  </li>
  <li>
   <a href="http://www.webmacro.org/">Webmacro</a> is a template engine 

@@ -60,8 +60,8 @@
       <question>How do I supply a context utility class to my template?</question>
       <answer>
         <p>
-        Ensure your utility class has a constructore which takes a single argument of a Melati 
-        and then add something like this:
+        Ensure your utility class has a constructor which takes a single argument of a Melati 
+        and then add something like this to your template:
         <pre>
 #set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
         </pre>

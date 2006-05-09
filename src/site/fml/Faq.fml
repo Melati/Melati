@@ -29,18 +29,19 @@
       <question>How do I use Velocity?</question>
       <answer>
         <p>
-        Set <code>org.melati.MelatiServlet.templateEngine=org.melati.template.velocity.VelocityTemplateEngine</code>.
+        In your <code>org.melati.MelatiServlet.properties</code> set <br/ >
+        <code>org.melati.MelatiServlet.templateEngine=org.melati.template.velocity.VelocityTemplateEngine</code>.
         </p>
         <p>
         This will set Melati to use <a href="http://jakarta.apache.org/velocity/">Velocity</a> as it's 
         Template Engine. The resource loader used is an extended <code>ClasspathResourceLoader</code> 
         which will do on-the-fly translations of simple webmacro templates as well as handling 
-        Velocity templates. This enables you to use the Melati Admin system as well as your velocity 
-        templates.
+        Velocity templates. This enables you to use the Melati Admin system in conjunction with 
+        your velocity templates.
         </p>
         <p>
         Note that you will have to change the code in <code>VelocityTemplateEngine</code> if 
-        you wish to use a <code>FileResourceLoader</code>, but the code is availabel and tested.
+        you wish to use a <code>FileResourceLoader</code>, but the code is available and tested.
         </p>
       </answer>
     </faq>
@@ -50,10 +51,34 @@
       <question>How are input widgets rendered?</question>
       <answer>
         <p>
-        Input widgets, such as select boxes and popup selections are either 
+        Input widgets, such as select boxes and popup selections, are either 
         rendered using a templet named after their class or a templet named 
         in their field attributes.
         </p>
+        <p>
+        Templets are found on the classpath in a sub directory of your configured template engine.
+        </p>
+      </answer>
+    </faq>
+    <faq id="TemplatePath">
+      <question>Where are templets located?</question>
+      <answer>
+        <p>
+        Templets are found on the classpath in a sub directory of your configured template engine.
+        </p>
+        <p>
+        The subdirectory is determined by your MarkupLanguage and an optional purpose. 
+        </p>
+        <table>
+        <tr><td>Default Object WebMacro templet for HTML </td>
+            <td><code>org/melati/template/webmacro/templets/html/java.lang.Object.wm</code></td></tr>
+        <tr><td>Default Object Velocity templet for HTML </td>
+            <td><code>org/melati/template/velocity/templets/html/java.lang.Object.wm</code></td></tr>
+        <tr><td>Error Exception Velocity templet for HTML </td>
+            <td><code>org/melati/template/velocity/templets/html/error/java.lang.Exception.wm</code></td></tr>
+        <tr><td>Error Exception Velocity templet for WML </td>
+            <td><code>org/melati/template/velocity/templets/wml/error/java.lang.Exception.wm</code></td></tr>
+        </table>
       </answer>
     </faq>
     <faq id="ContextUtil">

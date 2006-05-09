@@ -498,6 +498,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-license-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
+    <report>maven-faq-plugin</report>
     <report>maven-pmd-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-checkstyle-plugin</report>

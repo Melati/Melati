@@ -48,6 +48,7 @@ package org.melati.template;
 import java.util.Hashtable;
 
 import org.melati.poem.FieldAttributes;
+import org.melati.util.StringUtils;
 
 /**
  * Load a template to render an object based upon the object's class.
@@ -57,7 +58,7 @@ public class ClassNameTempletLoader implements TempletLoader {
   /** The instance. */
   public static final ClassNameTempletLoader it = new ClassNameTempletLoader();
 
-  private Hashtable defaultTempletOfPoemType = new Hashtable();
+  private Hashtable templetForClassCache = new Hashtable();
 
   private Hashtable specialTemplateNames = new Hashtable();
 
@@ -120,7 +121,7 @@ public class ClassNameTempletLoader implements TempletLoader {
                           MarkupLanguage markupLanguage, String purpose,
                           String name) throws TemplateEngineException {
     return templateEngine.template(templetPath(templateEngine, markupLanguage,
-                                               purpose, name));
+        purpose, name));
   }
 
   /**
@@ -146,7 +147,7 @@ public class ClassNameTempletLoader implements TempletLoader {
       throws TemplateEngineException {
 
     String cacheKey = clazz + "/" + purpose + "/" + markupLanguage;
-    Template templet = (Template)defaultTempletOfPoemType.get(cacheKey);
+    Template templet = (Template)templetForClassCache.get(cacheKey);
 
     if (templet == null && purpose == null) {
       String specialTemplateName =
@@ -160,8 +161,12 @@ public class ClassNameTempletLoader implements TempletLoader {
       Class lookupClass = clazz;
       while (lookupClass != null) {
         try {
+          // try and find one in templets directory
           templet = templet(templateEngine, markupLanguage,
                             purpose, lookupClass.getName());
+          // Try to find one in classpath
+          if (templet == null)
+            templet = templet(templateEngine, lookupClass);
           break;
         } catch (NotFoundException e) {
           // try the next one up
@@ -171,10 +176,23 @@ public class ClassNameTempletLoader implements TempletLoader {
       }
       if (templet == null) throw new 
                              ClassTempletNotFoundException(this, clazz);
-      defaultTempletOfPoemType.put(cacheKey, templet);
+      templetForClassCache.put(cacheKey, templet);
     }
 
     return templet;
+  }
+
+  /**
+   * Try to find a template in the same place as a class file. 
+   * 
+   * @param templateEngine Our configured TemplateEngine.
+   * @param clazz 
+   * @return A Template if found, otherwise throws exception
+   * @throws TemplateEngineException 
+   */
+  private Template templet(TemplateEngine templateEngine, Class clazz) 
+      throws TemplateEngineException {
+    return templateEngine.template(StringUtils.tr(clazz.getName(), '.', '/'));
   }
 
   /**

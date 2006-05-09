@@ -29,7 +29,7 @@
       <question>How do I use Velocity?</question>
       <answer>
         <p>
-        In your <code>org.melati.MelatiServlet.properties</code> set <br/ >
+        In your <code>org.melati.MelatiServlet.properties</code> set <br/>
         <code>org.melati.MelatiServlet.templateEngine=org.melati.template.velocity.VelocityTemplateEngine</code>.
         </p>
         <p>
@@ -79,6 +79,14 @@
         <tr><td>Error Exception Velocity templet for WML </td>
             <td><code>org/melati/template/velocity/templets/wml/error/java.lang.Exception.wm</code></td></tr>
         </table>
+        <p>
+        If a templet is not found then the templet loader looks for a templet with the same 
+        name as the class on the classpath.
+        </p>
+        <p>
+        If a templet is still not found then the process is repeated for each of the superclasses of your 
+        class until the default templet is reached. 
+        </p>
       </answer>
     </faq>
     <faq id="ContextUtil">

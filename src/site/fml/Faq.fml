@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<faqs id="General FAQ">
-  <part id="General">
+<faqs title="Frequently Asked Questions" id="General FAQ">
+  <part id="dbs">
+    <title>Database problems</title>
     <faq id="AccessTableNotFound">
       <question>Why do I get Table Not Found errors when using an Access Database?</question>
       <answer>
@@ -25,6 +26,7 @@
     </faq>
   </part>
   <part id="Template Engines">
+    <title>Template Engines</title>
     <faq id="Velocity">
       <question>How do I use Velocity?</question>
       <answer>
@@ -45,8 +47,6 @@
         </p>
       </answer>
     </faq>
-  </part>
-  <part id="Rendering">
     <faq id="Widgets">
       <question>How are input widgets rendered?</question>
       <answer>

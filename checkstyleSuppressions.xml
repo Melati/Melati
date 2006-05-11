@@ -4,8 +4,10 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <suppressions>
+    <!-- We do have a few -->
     <suppress checks="MagicNumber"
               files=".java" />
+    <!-- Narrative code is cool in tests -->
     <suppress checks="MagicNumber"
               files="Test.java" />
     <suppress checks="Javadoc"
@@ -13,27 +15,26 @@
     <suppress checks="EmptyBlock"
               files="Test.java" />
     <suppress checks="Header"
-              files="Base.java" />
+              files="/test/" />
+
     <suppress checks="Header"
               files="example" />
     <suppress checks="Header"
-              files="test" />
-    <suppress checks="Header"
               files="prepro" />
-    <suppress checks="Header"
-              files="PassbackMethodExceptionEventHandler" />
-    <suppress checks="Header"
-              files="ConfigAppExample" />
-
-    <suppress checks="ParameterNumber"
-              files="BaseFieldAttributes.java" />
+     
     <!-- There are that many things you need to pass in -->
     <suppress checks="ParameterNumber"
+              files="BaseFieldAttributes.java" />
+    <suppress checks="ParameterNumber"
               files="Email.java" />
+
     <suppress checks="MagicNumber"
               files="DatePoemtype.java" />
+
+    <!-- it is just a biggy, OK -->
     <suppress checks="FileLength"
               files="Table.java" />
+    <!-- OK proably needs fixing -->
     <suppress checks="LineLength"
               files="FirstSQL.java" />
     <!-- Name deliberately chosen -->
@@ -64,22 +65,24 @@
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"
               files="TableDef.java" />
+
     <!-- Generated files -->
     <suppress checks="MagicNumber"
-              files="Base.java" />
+              files="generated" />
     <suppress checks="MethodLength"
-              files="Base.java" />
+              files="generated" />
     <suppress checks="InnerAssignment"
-              files="Base.java" />
+              files="generated" />
     <suppress checks="RedundantThrows"
-              files="Base.java" />
+              files="generated" />
     <suppress checks="LineLength"
-              files="Base.java" />
+              files="generated" />
     <suppress checks="NewlineAtEndOfFile"
-              files="Base.java" />
+              files="generated" />
+    <suppress checks="Header"
+              files="generated" />
+
     <!-- Not ours -->
-    <suppress checks=""
-              files="WebMacroFileResourceLoader.java" />
     <suppress checks=""
               files="FastWriter.java" />
     <suppress checks=""
@@ -88,7 +91,8 @@
               files="Base64.java" />
     <suppress checks=""
               files="apache" />
+
     <!-- checkstyle wrong -->
     <suppress checks="DoubleCheckedLocking"
-              files="/table.java" />
+              files="/Table.java" />
 </suppressions>

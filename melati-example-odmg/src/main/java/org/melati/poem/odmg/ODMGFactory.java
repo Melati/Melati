@@ -66,13 +66,9 @@ public final class ODMGFactory {
     _db = null;
   }
 
-  private static Database getDb() {
+  private static synchronized Database getDb() {
     if (_db == null) {
-      synchronized (ODMGFactory.class) {
-        if (_db == null) {
           _db = Database.getNewDatabase();
-        }
-      }
     }
     return _db;
   }

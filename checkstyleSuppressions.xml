@@ -88,4 +88,7 @@
               files="Base64.java" />
     <suppress checks=""
               files="apache" />
+    <!-- checkstyle wrong -->
+    <suppress checks="DoubledCheckedLocking"
+              files="/table.java" />
 </suppressions>

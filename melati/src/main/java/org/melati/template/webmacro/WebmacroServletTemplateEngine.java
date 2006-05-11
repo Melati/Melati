@@ -66,17 +66,6 @@ public class WebmacroServletTemplateEngine
     extends WebmacroTemplateEngine implements ServletTemplateEngine {
 
   /**
-   * Construct a new Engine.
-   *
-   * @param melatiConfig a {@link MelatiConfig}
-   * @throws TemplateEngineException if any problem occurs with the engine
-   */
-  public void init(MelatiConfig melatiConfig) 
-      throws TemplateEngineException {
-    super.init(melatiConfig);
-  }
-
-  /**
    * Construct a new Engine for use in a servlet environment.
    *
    * @see org.melati.servlet.TemplateServlet

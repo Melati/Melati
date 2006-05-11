@@ -45,8 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-
 /**
  * A <tt>TableQualifier</tt> which defines whether the 
  * sequence of records in a <tt>Table</tt> is cached.
@@ -56,10 +54,8 @@ public class SeqCachedTableQualifier extends TableQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
   */
-    public SeqCachedTableQualifier(StreamTokenizer tokens) {
+    public SeqCachedTableQualifier() {
   }
 
  /**

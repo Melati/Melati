@@ -45,8 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is <tt>Uncreatable</tt>.
@@ -56,10 +54,8 @@ public class UncreateableFieldQualifier extends FieldQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
   */
-  public UncreateableFieldQualifier(StreamTokenizer tokens) {
+  public UncreateableFieldQualifier() {
   }
 
  /**

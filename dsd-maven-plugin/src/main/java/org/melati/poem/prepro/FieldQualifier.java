@@ -80,25 +80,25 @@ public abstract class FieldQualifier {
     String kind = tokens.sval;
     tokens.nextToken();
     if (kind.equals("indexed"))
-      it = new IndexedFieldQualifier(tokens);
+      it = new IndexedFieldQualifier();
     else if (kind.equals("unique"))
-      it = new UniqueFieldQualifier(tokens);
+      it = new UniqueFieldQualifier();
     else if (kind.equals("primary"))
-      it = new TroidFieldQualifier(tokens);
+      it = new TroidFieldQualifier();
     else if (kind.equals("nullable"))
-      it = new NullableFieldQualifier(tokens);
+      it = new NullableFieldQualifier();
     else if (kind.equals("size"))
       it = new SizeFieldQualifier(tokens);
     else if (kind.equals("deleted"))
-      it = new DeletedFieldQualifier(tokens);
+      it = new DeletedFieldQualifier();
     else if (kind.equals("displayorderpriority"))
       it = new DisplayOrderPriorityFieldQualifier(tokens);
     else if (kind.equals("sortdescending"))
-      it = new SortDescendingFieldQualifier(tokens);
+      it = new SortDescendingFieldQualifier();
     else if (kind.equals("uneditable"))
-      it = new UneditableFieldQualifier(tokens);
+      it = new UneditableFieldQualifier();
     else if (kind.equals("uncreateable"))
-      it = new UncreateableFieldQualifier(tokens);
+      it = new UncreateableFieldQualifier();
     else if (kind.equals("displayname"))
       it = new DisplayNameFieldQualifier(tokens);
     else if (kind.equals("displayorder"))
@@ -110,7 +110,7 @@ public abstract class FieldQualifier {
     else if (kind.equals("searchability"))
       it = new SearchabilityFieldQualifier(tokens);
     else if (kind.equals("compareonly"))
-      it = new CompareOnlyFieldQualifier(tokens);
+      it = new CompareOnlyFieldQualifier();
     else if (kind.equals("width"))
       it = new WidthFieldQualifier(tokens);
     else if (kind.equals("height"))

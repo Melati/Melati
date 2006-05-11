@@ -45,9 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-import java.io.IOException;
-
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is a <tt>CompareOnly</tt> field.
@@ -57,12 +54,8 @@ public class CompareOnlyFieldQualifier extends FieldQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
-  *
-  * @throws IOException if something goes wrong with the file system
   */
-  public CompareOnlyFieldQualifier(StreamTokenizer tokens) throws IOException {
+  public CompareOnlyFieldQualifier() {
   }
 
  /**

@@ -86,7 +86,7 @@ public abstract class TableQualifier {
     else if (kind.equals("cachelimit"))
       it = new CacheSizeTableQualifier(tokens);
     else if (kind.equals("seqcached"))
-      it = new SeqCachedTableQualifier(tokens);
+      it = new SeqCachedTableQualifier();
     else if (kind.equals("category"))
       it = new CategoryTableQualifier(tokens);
     else if (kind.equals("displayorder"))

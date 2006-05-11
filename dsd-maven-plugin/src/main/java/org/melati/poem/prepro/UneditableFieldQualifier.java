@@ -45,7 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
 
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
@@ -57,9 +56,8 @@ public class UneditableFieldQualifier extends FieldQualifier {
  /**
   * Constructor.
   *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
   */
-  public UneditableFieldQualifier(StreamTokenizer tokens) {
+  public UneditableFieldQualifier() {
   }
 
  /**

@@ -45,8 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is sorted in descending order.
@@ -57,10 +55,8 @@ public class SortDescendingFieldQualifier extends FieldQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
   */
-  public SortDescendingFieldQualifier(StreamTokenizer tokens) {
+  public SortDescendingFieldQualifier() {
   }
 
  /**

@@ -45,9 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-import java.io.IOException;
-
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is <tt>Unique</tt>.
@@ -57,12 +54,9 @@ public class UniqueFieldQualifier extends IndexedFieldQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
-  * @throws IOException if something goes wrong with the file system
   */
-  public UniqueFieldQualifier(StreamTokenizer tokens) throws IOException {
-    super(tokens);
+  public UniqueFieldQualifier() {
+    super();
     unique = true;
   }
 

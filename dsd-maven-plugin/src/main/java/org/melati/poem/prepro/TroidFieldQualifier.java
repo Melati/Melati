@@ -45,8 +45,6 @@
 
 package org.melati.poem.prepro;
 
-import java.io.StreamTokenizer;
-
 /**
  * A <tt>FieldQualifier</tt> which defines whether 
  * a <tt>Field</tt> is a <tt>TroidField</tt>.
@@ -61,10 +59,8 @@ public class TroidFieldQualifier extends FieldQualifier {
 
  /**
   * Constructor.
-  *
-  * @param tokens the <code>StreamTokenizer</code> to get tokens from
   */
-  public TroidFieldQualifier(StreamTokenizer tokens) {
+  public TroidFieldQualifier() {
   }
 
  /**

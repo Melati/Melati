@@ -46,8 +46,8 @@
 package org.melati.poem.prepro;
 
 import java.util.Vector;
-import java.io.Writer;
-import java.io.IOException;
+//import java.io.Writer;
+//import java.io.IOException;
 
 /**
  * A definition of a <tt>BigDecimalPoemType</tt> from the DSD.
@@ -85,15 +85,16 @@ public class BigDecimalFieldDef extends AtomFieldDef {
   * @throws IOException 
   *           if something goes wrong with the file system
   */
-  public void generateBaseMethods(Writer w) throws IOException {
-    super.generateBaseMethods(w);
+  // PMD objects to overriding methods which only call super
+  //public void generateBaseMethods(Writer w) throws IOException {
+  //  super.generateBaseMethods(w);
     /*    w.write("\n" +
                 "  public final void set" + suffix + "(double cooked)\n" +
                 "      throws AccessPoemException, ValidationPoemException {\n" +
                 "    set" + suffix + "(new Double(cooked));\n" +
                 "  }\n");
     */
-  }
+  //}
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {

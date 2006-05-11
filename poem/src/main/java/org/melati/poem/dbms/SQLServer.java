@@ -94,7 +94,9 @@ public class SQLServer extends AnsiStandard {
     return schema;
   }
 
-  public String getQuotedName(String name) {
+  // Commented out as PMD objects to over riding method which only call 
+  // super.
+  //public String getQuotedName(String name) {
     //if you don't want to set 'use ANSI quoted identifiers' database property
     //to 'true' (on SQL Server)
 
@@ -106,8 +108,8 @@ public class SQLServer extends AnsiStandard {
      */
 
     //if you already set 'use ANSI quoted identifiers' property to 'true'
-    return super.getQuotedName(name);
-  }
+    //return super.getQuotedName(name);
+  //}
 
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {

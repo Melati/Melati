@@ -85,12 +85,6 @@ public class MSAccess extends AnsiStandard {
   public String getSchema() {
     return null;
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getQuotedName(java.lang.String)
-   */
-  public String getQuotedName(String name) {
-    return super.getQuotedName(name);
-  }
 
   /**
    * Ignore tables starting with '~', which should 

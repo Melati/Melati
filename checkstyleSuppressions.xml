@@ -89,6 +89,6 @@
     <suppress checks=""
               files="apache" />
     <!-- checkstyle wrong -->
-    <suppress checks="DoubledCheckedLocking"
+    <suppress checks="DoubleCheckedLocking"
               files="/table.java" />
 </suppressions>

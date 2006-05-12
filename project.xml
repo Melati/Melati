@@ -34,7 +34,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
     </connection>
     <developerConnection>
-scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
+scm:cvs:pserver:${maven.username}@melati.org:/usr/cvsroot:melati
     </developerConnection>
 
     <url>

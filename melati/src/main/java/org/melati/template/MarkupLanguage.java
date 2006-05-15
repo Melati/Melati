@@ -440,6 +440,11 @@ public abstract class MarkupLanguage {
       vars.put("ml", this);
       expandTemplet(templet, vars, writer);
     }
+    catch (NotFoundException e) {
+      // This will happen for Integer in 
+      // an Attribute Markup Language for example
+      render(o.toString());
+    }
     catch (Exception f) {
       System.err.println("MarkupLanguage failed to render an object:");
       f.printStackTrace();

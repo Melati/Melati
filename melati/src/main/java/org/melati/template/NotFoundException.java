@@ -47,12 +47,17 @@ package org.melati.template;
 
 
 /**
- * You asked for something that is not currently available.
+ * A templet loader could not find a templet.
  */
 public class NotFoundException extends TemplateEngineException {
   private static final long serialVersionUID = 1L;
 
- /**
+  /** The TempletLoader we are using. */
+  public TempletLoader loader;
+  /** The Class of the object which we are trying to geta template for. */
+  public Class clazz;
+
+  /**
   * Construct this decorator.
   * 
   * @param underlying the exception we are decorating.
@@ -60,6 +65,14 @@ public class NotFoundException extends TemplateEngineException {
   public NotFoundException(Exception underlying) {
     super(underlying);
     message = underlying.toString();
+  }
+
+  /** Constructor. */
+  public NotFoundException(TempletLoader loader, Class clazz) {
+    super("Templet loader `" + loader + "' failed to find a templet for " +
+    "class `" + clazz + "'");
+    this.loader = loader;
+    this.clazz = clazz;
   }
 
  /**
@@ -71,12 +84,4 @@ public class NotFoundException extends TemplateEngineException {
     super(message);
   }
 
- /**
-  * Retrieve the object message. 
-  * 
-  * @return the message created when this object was constructed.
-  */
-  public String getMessage() {
-    return message;
-  }
 }

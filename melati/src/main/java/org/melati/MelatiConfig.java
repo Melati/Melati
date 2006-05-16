@@ -54,9 +54,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.melati.login.AccessHandler;
 import org.melati.servlet.FormDataAdaptorFactory;
 import org.melati.template.TemplateEngine;
@@ -70,7 +67,6 @@ import org.melati.util.EnumUtils;
 import org.melati.util.HttpHeader;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
-import org.melati.util.MelatiWriter;
 import org.melati.util.PropertiesUtils;
 import org.melati.util.StringUtils;
 
@@ -79,29 +75,29 @@ import org.melati.util.StringUtils;
  * A MelatiConfig loads and provides access to the configuration parameters for
  * melati.  These are held in <TT>org.melati.MelatiServlet.properties</TT>.
  *
- * After configuration, you can then get a Melati, using
- * <TT>getMelati()</TT>.
- *
- * @see #getMelati(HttpServletRequest, HttpServletResponse)
- *
  */
 public class MelatiConfig {
 
+  private int maxLocales = 10;
+  private Hashtable localeHash = new Hashtable(maxLocales);
+
   private Properties configuration = null;
+  private String defaultPropertiesName = "org.melati.MelatiServlet";
+  /** The properties file name in use */
+  private String propertiesName;
+
   private AccessHandler accessHandler = null;
   private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
-  private MelatiLocale melatiLocale = null;
-  private Vector preferredCharset = null;
-  private int maxLocales = 10;
-  private Hashtable localeHash = new Hashtable(maxLocales);
+  private static MelatiLocale melatiLocale = null;
+  private Vector preferredCharsets = null;
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;
-  private String defaultPropertiesName = "org.melati.MelatiServlet";
-  /** The properties file name in use */
-  public String propertiesName;
+  private static String loginPageServletClassName = "org.melati.login.Login"; 
+  private static String logoutPageServletClassName = "org.melati.login.Logout"; 
+
 
  /**
   * Allows creation of a <code>MelatiConfig</code> with default config params.
@@ -135,7 +131,8 @@ public class MelatiConfig {
     String staticURLProp = pref + "staticURL";
     String melatiLocaleProp = pref + "locale";
     String preferredCharsetsProp = pref + "preferredCharsets";
-
+    String loginPageServletClassNameProp = pref + "loginPageServletClassName";
+    String logoutPageServletClassNameProp = pref + "logoutPageServletClassName";
     try {
       configuration =
         PropertiesUtils.fromResource(getClass(), pref + "properties");
@@ -155,39 +152,39 @@ public class MelatiConfig {
     }
 
     try {
-      accessHandler = (AccessHandler)PropertiesUtils.
+      setAccessHandler((AccessHandler)PropertiesUtils.
           instanceOfNamedClass(
               configuration,
               accessHandlerProp,
               "org.melati.login.AccessHandler",
-              "org.melati.login.OpenAccessHandler");
+              "org.melati.login.OpenAccessHandler"));
 
-      fdaFactory = (FormDataAdaptorFactory)PropertiesUtils.
+      setFdaFactory((FormDataAdaptorFactory)PropertiesUtils.
           instanceOfNamedClass(
                        configuration,
                        fdaFactoryProp,
                        "org.melati.servlet.FormDataAdaptorFactory",
-                       "org.melati.servlet.MemoryDataAdaptorFactory");
+                       "org.melati.servlet.MemoryDataAdaptorFactory"));
 
-      templetLoader = (TempletLoader)PropertiesUtils.
+      setTempletLoader((TempletLoader)PropertiesUtils.
           instanceOfNamedClass(
                           configuration,
                           templetLoaderProp,
                           "org.melati.template.TempletLoader",
-                          "org.melati.template.ClassNameTempletLoader");
+                          "org.melati.template.ClassNameTempletLoader"));
 
-      templateEngine = (TemplateEngine)PropertiesUtils.
+      setTemplateEngine((TemplateEngine)PropertiesUtils.
           instanceOfNamedClass(
                            configuration,
                            templateEngineProp,
                            "org.melati.template.TemplateEngine",
-                           "org.melati.template.NoTemplateEngine");
+                           "org.melati.template.NoTemplateEngine"));
 
       String languageTag = PropertiesUtils.getOrDefault(configuration,
                                                         melatiLocaleProp,
                                                         "en-gb");
 
-      melatiLocale = MelatiLocale.fromLanguageTag(languageTag);
+      setMelatiLocale(MelatiLocale.fromLanguageTag(languageTag));
       if (melatiLocale == null)
           throw new Exception(languageTag +
                               " is not a valid language tag for " +
@@ -202,16 +199,23 @@ public class MelatiConfig {
       // fact that the config file format is like a q-less header field.
       // FIXME - if field contains quotes then melati initialisation
       // dies with OutOfMemory exception
-      preferredCharset =
-        EnumUtils.vectorOf(new HttpHeader(preferredCharsets).wordIterator());
+      setPreferredCharsets(
+        EnumUtils.vectorOf(new HttpHeader(preferredCharsets).wordIterator()));
 
-      javascriptLibraryURL = PropertiesUtils.getOrDie(
+      setJavascriptLibraryURL(PropertiesUtils.getOrDie(
                                                   configuration,
-                                                  javascriptLibraryURLProp);
+                                                  javascriptLibraryURLProp));
 
-      staticURL = PropertiesUtils.getOrDie(configuration, staticURLProp);
-      templatePath = PropertiesUtils.getOrDefault(configuration,
-                                                  templatePathProp, ".");
+      setStaticURL(PropertiesUtils.getOrDie(configuration, staticURLProp));
+      
+      setTemplatePath(PropertiesUtils.getOrDefault(configuration,
+          templatePathProp, "."));
+
+      setLoginPageServletClassName(PropertiesUtils.getOrDefault(configuration,
+          loginPageServletClassNameProp, loginPageServletClassName));
+
+      setLogoutPageServletClassName(PropertiesUtils.getOrDefault(configuration,
+          logoutPageServletClassNameProp, logoutPageServletClassName));
     }
     catch (Exception e) {
       throw new ConfigException("Melati could not be configured because: " +
@@ -220,28 +224,6 @@ public class MelatiConfig {
 
   }
 
-
-  /**
-   * Creates a new {@link Melati}.
-   *
-   * @param request the incoming {@link HttpServletRequest}
-   * @param response the outgoing {@link HttpServletResponse}
-   * @return a new {@link Melati}
-   */
-   public Melati getMelati(HttpServletRequest request,
-                           HttpServletResponse response) {
-     return new Melati(this, request, response);
-   }
-
-  /**
-   * Creates a new {@link Melati}.
-   *
-   * @param writer a {@link MelatiWriter} to write output to
-   * @return a new {@link Melati}
-   */
-   public Melati getMelati(MelatiWriter writer) {
-     return new Melati(this, writer);
-   }
 
   /**
    * @return {@link ServletTemplateEngine} in use.
@@ -355,40 +337,59 @@ public class MelatiConfig {
     return templatePath;
   }
 
+  /**
+   * @param templatePath The templatePath to set.
+   */
+  public void setTemplatePath(String templatePath) {
+    this.templatePath = templatePath;
+  }
+
  /**
-  * @todo make this configurable
   * @return the class name of the logout servlet
   */
-  public static String logoutPageServletClassName() {
-    return "org.melati.login.Logout";
+  public static String getLogoutPageServletClassName() {
+    return logoutPageServletClassName;
   }
 
+  /**
+   * @param logoutPageServletClassName The logoutPageServletClassName to set.
+   */
+  public static void 
+      setLogoutPageServletClassName(String logoutPageServletClassName) {
+    MelatiConfig.logoutPageServletClassName = logoutPageServletClassName;
+  }
+
+
  /**
-  * @todo make this configurable
   * @return the class name of the login servlet
   */
-  public static String loginPageServletClassName() {
-    return "org.melati.login.Login";
+  public static String getLoginPageServletClassName() {
+    return loginPageServletClassName;
+  }
+  
+ /**
+  * @param loginPageServletClassName The loginPageServletClassName to set.
+  */
+  public static void setLoginPageServletClassName(String loginPageServletClassName) {
+    MelatiConfig.loginPageServletClassName = loginPageServletClassName;
   }
 
  /**
-  * @deprecated Use getLocale if possible,
-  *             otherwise you might as well use MelatiLocale.here.
-  * @return British English melati locale.
+  * @return The configured locale, defaults to British English melati locale.
   */
   public static MelatiLocale getMelatiLocale() {
-    return MelatiLocale.HERE;
-  }
-
- /**
-  * Get the default MelatiLocale from the configuration file.
-  *
-  * @return The default MelatiLocale
-  */
-  public MelatiLocale getLocale() {
+    if (melatiLocale == null)
+      return MelatiLocale.HERE;
     return melatiLocale;
   }
 
+ /**
+  * @param melatiLocale The melatiLocale to set.
+  */
+  public void setMelatiLocale(MelatiLocale melatiLocale) {
+    MelatiConfig.melatiLocale = melatiLocale;
+  }
+  
   /**
    * Returns a MelatiLocale based on a language tag.  Locales
    * are cached for future use.
@@ -396,7 +397,7 @@ public class MelatiConfig {
    * @param languageHeader A language header from RFC 3282
    * @return a MelatiLocale based on a language tag.
    */
-  public MelatiLocale getLocale(String languageHeader) {
+  public MelatiLocale getMelatiLocale(String languageHeader) {
 
     // language headers may have multiple language tags sperated by ,
     String tags[] = StringUtils.split(languageHeader, ',');
@@ -428,18 +429,40 @@ public class MelatiConfig {
     }
 
     // return our default locale
-    return melatiLocale;
+    return getMelatiLocale();
   }
 
-  /**
-   * Return the set encodings that the server prefers and supports.
-   *
-   * @return Array of encoding names or aliases.
-   */
+ /**
+  * Return the set encodings that the server prefers and supports.
+  *
+  * @return List of encoding names or aliases.
+  */
   public List getPreferredCharsets() {
-    return preferredCharset;
+    return preferredCharsets;
   }
 
+ /**
+  * @param preferredCharsets The preferredCharsets to set.
+  */
+  public void setPreferredCharsets(Vector preferredCharset) {
+    this.preferredCharsets = preferredCharset;
+  }
+
+ /**
+  * @return Returns the fdaFactory.
+  */
+  public FormDataAdaptorFactory getFdaFactory() {
+    return fdaFactory;
+  }
+
+ /**
+  * @param fdaFactory The fdaFactory to set.
+  */
+  public void setFdaFactory(FormDataAdaptorFactory fdaFactory) {
+    this.fdaFactory = fdaFactory;
+  }
+
+  
  /**
   * @return the adaptor for rendering dates as drop-downs.
   */
@@ -460,6 +483,7 @@ public class MelatiConfig {
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }
+
 }
 
 

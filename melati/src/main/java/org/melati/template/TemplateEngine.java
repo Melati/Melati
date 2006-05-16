@@ -51,12 +51,17 @@ import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
 /**
- * @author tim.pizey
- *
+ * A TemplateEngine typically evaluates a template containing variables 
+ * against a context containing values for those variables.
+ * 
+ * The canonical java Template Engines are WebMacro and Velocity.
+ * 
+ * @author timp@paneris.org
  */
 public interface TemplateEngine {
+  
   /**
-   * Construct a new Engine.
+   * Initialise the Engine.
    *
    * @param melatiConfig a {@link MelatiConfig}
    * @throws TemplateEngineException if any problem occurs with the engine

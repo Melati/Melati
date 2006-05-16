@@ -122,7 +122,7 @@ Some of the things you might wish to do with Melati.
  <li>If you are not using an existing Access DB then create an empty one</li>
  <li>Register your DB as an ODBC Datasource with a System DSN</li>
  <li>Update your <code>org.melati.LogicalDatabase.properties</code> file to select the 
-     <code>MSAccess</code> <code>DmbsClass</code>
+     <code>MSAccess</code> <code>DbmsClass</code>
  </li>
  <li>In the <code>build</code> directory type
  <pre>

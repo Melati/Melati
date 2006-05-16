@@ -66,7 +66,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    *
    * @param clazz the class name to translate into a template name 
    * @return a template
-   * @throws NotFoundException, TemplateEngineException 
+   * @throws TemplateEngineException 
    */
   public org.melati.template.Template template(Class clazz)
       throws NotFoundException, TemplateEngineException {
@@ -83,17 +83,14 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   /**
    * @see org.melati.template.TemplateEngine#expandTemplate
    */
-  abstract public void expandTemplate(MelatiWriter out, Template template,
+  public abstract void expandTemplate(MelatiWriter out, Template template,
       TemplateContext templateContext) throws TemplateEngineException;
   
   /**
-   * @see org.melati.template.TemplateEngine#expandedTemplate(org.melati.template.Template, org.melati.template.TemplateContext)
+   * @see org.melati.template.TemplateEngine#expandedTemplate
    */
-  public String expandedTemplate(Template template,
-      TemplateContext templateContext) throws TemplateEngineException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+  abstract public String expandedTemplate(Template template,
+      TemplateContext templateContext) throws TemplateEngineException;
 
   /** 
    * Get a variable exception handler for use if there is 
@@ -119,11 +116,11 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   /**
    * @see org.melati.template.TemplateEngine#getStringWriter()
    */
-  abstract public MelatiStringWriter getStringWriter();
+  public abstract MelatiStringWriter getStringWriter();
 
   /**
    * @see org.melati.template.TemplateEngine#getEngine()
    */
-  abstract public Object getEngine();
+  public abstract Object getEngine();
 
 }

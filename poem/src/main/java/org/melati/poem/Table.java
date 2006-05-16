@@ -2424,7 +2424,7 @@ public class Table implements Selectable {
    *
    * @param colDescs a JDBC {@link ResultSet} describing the columns
    */
-  synchronized void unifyWithDB(ResultSet colDescs)
+  protected synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
 
     Hashtable dbColumns = new Hashtable();

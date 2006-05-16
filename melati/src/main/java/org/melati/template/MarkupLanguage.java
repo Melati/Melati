@@ -422,8 +422,9 @@ public abstract class MarkupLanguage {
    * Render an Object in a MarkupLanguage specific way, rendering to
    * a supplied Writer.
    *
-   * @param tree - the Object to be rendered
+   * @param o - the Object to be rendered
    * @param writer - the MelatiWriter to render this Object to
+   * 
    * @throws IOException - if there is a problem during rendering
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine

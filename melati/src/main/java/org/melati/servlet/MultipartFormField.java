@@ -144,7 +144,7 @@ public class MultipartFormField {
   /** 
    * Set the <code>FieldName</code>. 
    *
-   * @param fieldName  the name to set {@link #fieldName} to 
+   * @param fieldName  the name to set <code>fieldName</code> to 
    */
   public void setFieldName(String fieldName) {
     this.fieldName = fieldName;
@@ -162,7 +162,7 @@ public class MultipartFormField {
   /** 
    * Set the <code>UploadedFilePath</code>.
    *
-   * @param filePath  the name to set {@link #filePath} to 
+   * @param filePath  the name to set <code>filePath</code> to 
    */
   public void setUploadedFilePath(String filePath) {
     this.filePath = filePath;
@@ -198,7 +198,7 @@ public class MultipartFormField {
    * We can store uploaded files or values in different ways depending
    * on which adaptor we use.
    *
-   * @param adaptor  a {@link FormDataAdaptor} to set {@link #adaptor} to
+   * @param adaptor  a {@link FormDataAdaptor} to set <code>adaptor</code> to
    */
   public void setFormDataAdaptor(FormDataAdaptor adaptor) {
     this.adaptor = adaptor;

@@ -833,7 +833,7 @@ public class Melati {
    * @return - PassbackVariableExceptionHandler specific to the
    * template engine
    *
-   * @see org.melati.template.MarkupLanguage#rendered(java.lang.Throwable e)
+   * @see org.melati.template.MarkupLanguage#rendered
    * @see org.melati.poem.TailoredQuery
    */
   public Object getPassbackVariableExceptionHandler() {

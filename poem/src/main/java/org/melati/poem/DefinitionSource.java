@@ -53,9 +53,9 @@ package org.melati.poem;
  *
  * @author WilliamC@paneris.org
  *
- * @see Database#unifyWithDB
- * @see Table#unifyWithDB
- * @see Column#unifyWithIndex
+ * see Database#unifyWithIndex
+ * see Table#unifyWithDB
+ * see Column#unifyWithIndex
  *
  */ 
 public class DefinitionSource {

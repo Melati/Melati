@@ -94,7 +94,7 @@ public abstract class ConfigApp implements App {
       throw new UnexpectedExceptionException(e);
     }
     MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(System.out));
-    Melati melati = melatiConfig.getMelati(out);
+    Melati melati = new Melati(melatiConfig, out);
     melati.setArguments(args);
     PoemContext poemContext;
     poemContext = poemContext(melati);

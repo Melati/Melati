@@ -158,7 +158,7 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
   public final void service(final HttpServletRequest request,
       final HttpServletResponse response) throws ServletException {
     final Melati melati;
-    melati = melatiConfig.getMelati(request, response);
+    melati = new Melati(melatiConfig, request, response);
     PoemContext pc = getPoemContext();
     try {
       melati.setPoemContext(pc);

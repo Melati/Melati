@@ -171,7 +171,7 @@ public abstract class ConfigServlet extends HttpServlet {
                                 final HttpServletResponse response)
       throws IOException {
     try {
-      Melati melati = melatiConfig.getMelati(request, response);
+      Melati melati = new Melati(melatiConfig, request, response);
       try {
         melati.establishCharsets();
         PoemContext poemContext = poemContext(melati);

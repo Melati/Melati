@@ -99,7 +99,7 @@ public class CharsetServletTest extends ConfigServlet {
       w.println("<td>" + cd.getDescription() + "</td>");
       w.println("<td>" + cd.getReference() + "</td>");
       w.println("<td>" + cd.getChar() + "</td>");
-      w.println("<td>" + melati.getHTMLMarkupLanguage().rendered(
+      w.println("<td>" + melati.getMarkupLanguage().rendered(
                   cd.getChar()) + "</td>");
       w.println("<td>" + cd.encodingTest(melati) + "</td>");
       w.println("</tr>");

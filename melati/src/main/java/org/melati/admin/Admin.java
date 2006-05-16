@@ -844,7 +844,7 @@ public class Admin extends TemplateServlet {
       if (melati.getObject() instanceof AdminSpecialised) {
         String templateName =
           ((AdminSpecialised)melati.getObject()).adminHandle(
-            melati, melati.getHTMLMarkupLanguage());
+            melati, melati.getMarkupLanguage());
          if (templateName != null)
            return templateName;
       }

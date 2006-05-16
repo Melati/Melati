@@ -212,7 +212,7 @@ public abstract class TemplateServlet extends PoemServlet {
         }
         catch (NotFoundException f) {
           try {
-            errorTemplate = melati.getHTMLMarkupLanguage().templet("error",
+            errorTemplate = melati.getMarkupLanguage().templet("error",
                                                                  e.getClass());
           }
           catch (NotFoundException g) {

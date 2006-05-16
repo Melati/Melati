@@ -106,8 +106,8 @@ public class CSVTable {
   }
 
   /**
-   * Process the first line to defien columns. 
-   * 1st line contains the field names - this needs to be
+   * Process the first line to define columns. 
+   * The first line contains the field names - this needs to be
    * validated againsed expected values, and the order of
    * the fields established.
    * 

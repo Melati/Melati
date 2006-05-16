@@ -168,13 +168,13 @@ public class ClassNameTempletLoader implements TempletLoader {
         } catch (NotFoundException e) {
           // try the next one up
           e = null; // shut PMD up          
-          // Try to find one in classpath
-          try {
-            templet = templet(templateEngine, lookupClass);
-            break;
-          } catch (NotFoundException e2) {
-            e2 = null; // shut PMD up
-          }
+        }
+        // Try to find one in classpath
+        try {
+          templet = templet(templateEngine, lookupClass);
+          break;
+        } catch (NotFoundException e2) {
+          e2 = null; // shut PMD up
         }
         lookupClass = lookupClass.getSuperclass();
       }

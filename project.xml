@@ -419,7 +419,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
     <dependency>
       <id>servlet</id>
-      <version>2.2</version>
+      <version>2.3</version>
       <url>http://java.sun.com/</url>
       <properties>
          <war.bundle>false</war.bundle>

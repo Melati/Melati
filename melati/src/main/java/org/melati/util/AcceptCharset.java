@@ -256,7 +256,7 @@ public class AcceptCharset extends HttpHeader {
    * If there is none, return null, and the caller can either use an
    * unacceptable character set or generate a 406 error.
    *
-   * @see #firstOther
+   * see #firstOther
    */
   public String choice(Comparator comparator) {
     CharsetAndQValue best = null;
@@ -384,6 +384,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.7  2006/05/16 12:42:01  timp
+ * Javadoc - do not refer to private methods
+ *
  * Revision 1.6  2006/05/05 12:44:06  timp
  * Shut PMD up
  *

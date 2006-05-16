@@ -316,7 +316,7 @@ public class Table implements Selectable {
    *
    * @return the table's display column, or <TT>null</TT> if it hasn't got one
    *
-   * @see Column#setColumnInfo
+   * see Column#setColumnInfo
    * @see ReferencePoemType#_stringOfCooked
    * @see DisplayLevel#primary
    */
@@ -1584,8 +1584,8 @@ public class Table implements Selectable {
    * @todo Decide whether this and similar should be here or in
    * {@link Persistent} then deprecate etc.
    *
-   * @see #notifyColumnInfo(ColumnInfo)
-   * @see #clearColumnInfoCaches()
+   * see #notifyColumnInfo(ColumnInfo)
+   * see #clearColumnInfoCaches()
    */
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
     Column[] columnsLocal = this.columns;

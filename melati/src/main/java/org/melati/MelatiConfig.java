@@ -190,17 +190,17 @@ public class MelatiConfig {
                               " is not a valid language tag for " +
                               melatiLocaleProp);
 
-      String preferredCharsets = PropertiesUtils.getOrDefault(
-          configuration,
-          preferredCharsetsProp,
-          "ISO-8859-1, UTF-8, UTF-16");
       // This is a fancy way of splitting, trimming and checking for
       // errors such as spaces within fields. Also, it reflects the
       // fact that the config file format is like a q-less header field.
       // FIXME - if field contains quotes then melati initialisation
       // dies with OutOfMemory exception
       setPreferredCharsets(
-        EnumUtils.vectorOf(new HttpHeader(preferredCharsets).wordIterator()));
+        EnumUtils.vectorOf(
+            new HttpHeader(PropertiesUtils.getOrDefault(
+                               configuration,
+                               preferredCharsetsProp,
+                               "ISO-8859-1, UTF-8, UTF-16")).wordIterator()));
 
       setJavascriptLibraryURL(PropertiesUtils.getOrDie(
                                                   configuration,
@@ -444,8 +444,8 @@ public class MelatiConfig {
  /**
   * @param preferredCharsets The preferredCharsets to set.
   */
-  public void setPreferredCharsets(Vector preferredCharset) {
-    this.preferredCharsets = preferredCharset;
+  public void setPreferredCharsets(Vector preferredCharsets) {
+    this.preferredCharsets = preferredCharsets;
   }
 
  /**

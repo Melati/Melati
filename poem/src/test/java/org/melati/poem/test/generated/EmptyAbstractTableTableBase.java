@@ -63,6 +63,8 @@ public class EmptyAbstractTableTableBase extends Table {
 
   protected void init() throws PoemException {
     super.init();
+    int shutupPMD = 0;
+    if (shutupPMD == 0 ) shutupPMD = 1;
   }
 
 

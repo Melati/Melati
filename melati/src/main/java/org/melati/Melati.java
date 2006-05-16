@@ -64,11 +64,11 @@ import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.servlet.Form;
 import org.melati.template.HTMLMarkupLanguage;
+import org.melati.template.MarkupLanguage;
 import org.melati.template.ServletTemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.template.WMLMarkupLanguage;
 import org.melati.util.AcceptCharset;
 import org.melati.util.CharsetException;
 import org.melati.util.DatabaseInitException;
@@ -403,7 +403,7 @@ public class Melati {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendRelativeZoneURL(url, getRequest());
     url.append('/');
-    url.append(MelatiConfig.logoutPageServletClassName());
+    url.append(MelatiConfig.getLogoutPageServletClassName());
     url.append('/');
     url.append(poemContext.getLogicalDatabase());
     return url.toString();
@@ -419,7 +419,7 @@ public class Melati {
     StringBuffer url = new StringBuffer();
     HttpUtil.appendRelativeZoneURL(url, getRequest());
     url.append('/');
-    url.append(MelatiConfig.loginPageServletClassName());
+    url.append(MelatiConfig.getLoginPageServletClassName());
     url.append('/');
     url.append(poemContext.getLogicalDatabase());
     return url.toString();
@@ -466,12 +466,12 @@ public class Melati {
    */
   public MelatiLocale getMelatiLocale() {
     HttpServletRequest r = getRequest();
-    String acceptLanguage = null;
-    if (r != null)
-      acceptLanguage = r.getHeader("Accept-Language");
-    if (acceptLanguage == null)
-      return config.getLocale();
-    return config.getLocale(acceptLanguage);
+    if (r != null) {
+      String acceptLanguage = r.getHeader("Accept-Language");
+      if (acceptLanguage != null)
+        return config.getMelatiLocale(acceptLanguage);
+    }
+   return MelatiConfig.getMelatiLocale();
   }
 
   /**
@@ -567,31 +567,32 @@ public class Melati {
     response.setContentType(type);
   }
 
+  private MarkupLanguage ml = null;
+  
   /**
-   * Get a HTMLMarkupLanguage for use when generating HTML in templates.
+   * Use this method if you wish to use a different 
+   * MarkupLanguage, WMLMarkupLanguage for example. 
+   * 
+   * @param ml The ml to set.
+   */
+  public void setMl(MarkupLanguage ml) {
+    this.ml = ml;
+  }
+  
+  /**
+   * Get a {@link MarkupLanguage} for use generating output from templates.
+   * Defaults to HTMLMarkupLanguage.
    *
-   * @return - a HTMLMarkupLanguage
+   * @return - a MarkupLanguage, defaulting to HTMLMarkupLanguage
    * @see org.melati.template.TempletLoader
    * @see org.melati.util.MelatiLocale
    */
-  public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    return new HTMLMarkupLanguage(this,
+  public MarkupLanguage getMarkupLanguage() {
+    if (ml == null) 
+      ml = new HTMLMarkupLanguage(this,
                                   config.getTempletLoader(),
                                   getMelatiLocale());
-  }
-
-  /**
-   * Get a WMLMarkupLanguage for use when generating WML in templates.
-   *
-   * @return - a WMLMarkupLanguage
-   * @see org.melati.template.TempletLoader
-   * @see org.melati.util.MelatiLocale
-   */
-  public WMLMarkupLanguage getWMLMarkupLanguage() {
-    return new WMLMarkupLanguage
-                    (this,
-                     config.getTempletLoader(),
-                     getMelatiLocale());
+    return ml;
   }
 
   /**
@@ -881,5 +882,6 @@ public class Melati {
   public boolean isReferencePoemType(Field field) {
     return field.getType() instanceof ReferencePoemType;
   }
+
   
 }

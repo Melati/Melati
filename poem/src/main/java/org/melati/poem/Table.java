@@ -144,8 +144,8 @@ public class Table implements Selectable {
    * ensure required rows exist in tables that define numeric ID's for
    * codes.
    *
-   * @see #notifyColumnInfo(ColumnInfo)
-   * @see #clearColumnInfoCaches()
+   * see #notifyColumnInfo(ColumnInfo)
+   * see #clearColumnInfoCaches()
    */
   protected void postInitialise() {
     clearColumnInfoCaches();

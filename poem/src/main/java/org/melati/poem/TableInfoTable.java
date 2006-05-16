@@ -53,7 +53,7 @@ import org.melati.poem.generated.TableInfoTableBase;
  *
  * If a database does not contain a table called <tt>tableinfo</tt> 
  * it will be created during the unification phase of startup.
- * @see Database#unifyWithDB
+ * see Database#unifyWithDB
  * 
  * Note that when overriding you need to override defaultTableInfoFor.
  * 

@@ -87,7 +87,7 @@ public interface Dbms {
    * Some DBMSen (HSQLDB) use canonical uppercased names in the metadata but not 
    * in normal use. 
    * 
-   * @see org.melati.poem.Table#unifyWithDB
+   * see org.melati.poem.Table#unifyWithDB
    * @param name entity name such as <tt>tableinfo</tt>
    * @return the (un)quoted name
    */

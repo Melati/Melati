@@ -448,7 +448,7 @@ public abstract class MarkupLanguage {
     catch (Exception f) {
       System.err.println("MarkupLanguage failed to render an object:");
       f.printStackTrace();
-      render("*Problem[" + o.toString() + "]*",writer);
+      render("*Problem[" + o.toString() + "] " + f.toString()  + "*",writer);
     }
   }
 

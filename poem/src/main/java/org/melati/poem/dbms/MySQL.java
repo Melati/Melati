@@ -62,7 +62,8 @@ import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLSeriousPoemException;
 
  /**
-  * A Driver for MySQL (http://www.mysql.com)
+  * A Driver for MySQL.
+  * See http://www.mysql.com.
   *
   * <b>Notes</b>
   * <ol>
@@ -126,11 +127,10 @@ import org.melati.poem.SQLSeriousPoemException;
   * </li>
   * </ol>
   * @todo Needs more work, see FIXMEs.
-  **/
-
+  */
 public class MySQL extends AnsiStandard {
 
-
+  /** Constructor - sets driver. */
   public MySQL() {
     setDriverClassName("org.gjt.mm.mysql.Driver");
   }

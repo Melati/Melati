@@ -81,7 +81,7 @@ public abstract class Transactioned {
    * There is some confusion about the requirements.
    * See subtypes.
    * <p>
-   * {@link Transactioned#ensureValid(Transaction)} will
+   * Transactioned#ensureValid(Transaction) will
    * reload instances that are not up-to-date but it is not
    * clear what purpose this serves in cases where this
    * method is overridden e.g. org.paneris.bibliomania.
@@ -162,7 +162,7 @@ public abstract class Transactioned {
    * write locks on the object.before claiming the next write
    * lock. Then it will block until none have read locks.
    * <p>
-   * Finally it calls {@link #ensureValid(Transaction)}.
+   * Finally it calls ensureValid(Transaction).
    *
    * @todo Review Javadocs
    */

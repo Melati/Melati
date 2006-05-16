@@ -94,11 +94,14 @@ public interface TemplateEngine {
    * Get a template given it's name.
    * 
    * @param templateName the name of the template to find
+   * @throws NotFoundException 
+   *         if no template found
    * @throws TemplateEngineException 
-   *         if not template not found
+   *         if any other error occurs
    * @return a template
    */
-  Template template(String templateName) throws TemplateEngineException;
+  Template template(String templateName) 
+      throws NotFoundException, TemplateEngineException;
 
   /** 
    * Get a template for a given class.

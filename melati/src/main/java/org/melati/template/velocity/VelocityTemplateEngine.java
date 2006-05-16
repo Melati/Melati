@@ -197,32 +197,32 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements Se
    * Get a template by name.
    * 
    * @param templateName the name of the template to find
-   * @throws NotFoundException if the template is not found by the engine
    * @return a template
+   * @throws NotFoundException, TemplateEngineException 
    */
   public org.melati.template.Template template(String templateName)
-                             throws NotFoundException {
-      try {                                  
-        return new VelocityTemplate(templateName);
-      } catch (ResourceNotFoundException e) {
-        if (templateName.endsWith(templateExtension())) {
-          // have a go at loading the webmacro template, and converting it!
-          templateName = templateName.substring(0,templateName.lastIndexOf
-                                                (templateExtension())) + ".wm";
-          try {                         
-            return new VelocityTemplate(templateName);
-          } catch (ParseErrorException p) {
-            throw new MelatiBugMelatiException(
-                "Problem converting a WebMacro template to a Velocity template", p);
-          } catch (Exception f) {
-            throw new NotFoundException(f);
-          }
-        } else {
-          throw new NotFoundException(e);
+      throws NotFoundException, TemplateEngineException {
+    try {                                  
+      return new VelocityTemplate(templateName);
+    } catch (ResourceNotFoundException e) {
+      if (templateName.endsWith(templateExtension())) {
+        // have a go at loading the webmacro template, and converting it!
+        templateName = templateName.substring(0,templateName.lastIndexOf
+                                              (templateExtension())) + ".wm";
+        try {                         
+          return new VelocityTemplate(templateName);
+        } catch (ParseErrorException p) {
+          throw new MelatiBugMelatiException(
+              "Problem converting a WebMacro template to a Velocity template", p);
+        } catch (Exception f) {
+          throw new NotFoundException(f);
         }
-      } catch (Exception e) {
+      } else {
         throw new NotFoundException(e);
       }
+    } catch (Exception e) {
+      throw new TemplateEngineException(e);
+    }
   }
 
   /** 

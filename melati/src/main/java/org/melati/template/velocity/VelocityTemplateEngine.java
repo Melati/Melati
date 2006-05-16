@@ -54,6 +54,7 @@ import javax.servlet.http.HttpServlet;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
+import org.melati.template.AbstractTemplateEngine;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
@@ -62,7 +63,6 @@ import org.melati.template.NotFoundException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringUtils;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -73,7 +73,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 /**
  * Wrapper for the Velocity Template Engine for use with Melati.
  */
-public class VelocityTemplateEngine implements ServletTemplateEngine {
+public class VelocityTemplateEngine extends AbstractTemplateEngine implements ServletTemplateEngine {
 
   /** The name of the engine */
   public static final String NAME = "velocity";
@@ -84,6 +84,13 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
    */
 //  private static final String INIT_PROPS_KEY = "velocity.properties";
 
+  /**
+   * Constructor.
+   */
+  public VelocityTemplateEngine() {
+    super();
+  }
+  
   /**
    * Construct a new Engine.
    *
@@ -219,25 +226,6 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   }
 
   /** 
-   * Get a template for a given class.
-   *
-   * @param clazz the class name to translate into a template name 
-   * @throws NotFoundException if the template is not found by the engine
-   * @return a template
-   */
-  public org.melati.template.Template template(Class clazz)
-      throws NotFoundException {
-
-    // Note File.separator will not find templates in jars
-    // so we use forward slash
-    String templateName = StringUtils.tr(clazz.getName(),
-                                         ".", "/") 
-                          + templateExtension();
-    return template(templateName);
-  }
-
-
-  /** 
    * Get a Template by name and expand it against a context.
    *
    * @param out             a {@link MelatiWriter} to output on
@@ -305,18 +293,6 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
   }
 
   /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return a <code>PassbackVariableExceptionHandler</code> 
-   *         appropriate for this engine.
-   */
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackMethodExceptionEventHandler();
-  }
-
-
-  /** 
    * @param response the <code>HttpServletResponse</code> that this 
    *                 writer will be part of
    * @param buffered whether the writer should be buffered
@@ -332,14 +308,6 @@ public class VelocityTemplateEngine implements ServletTemplateEngine {
     } else {
       return new MelatiVelocityWriter(response);
     }
-  }
-
-  /** 
-   * @deprecated Use {@link #getStringWriter()}.
-   * @todo Delete this method. Suggest 2004.
-   */
-  public MelatiWriter getStringWriter(String encoding) {
-    return getStringWriter();
   }
 
   /** 

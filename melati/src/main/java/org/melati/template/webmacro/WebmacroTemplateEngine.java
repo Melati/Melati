@@ -48,13 +48,13 @@ package org.melati.template.webmacro;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.poem.AccessPoemException;
+import org.melati.template.AbstractTemplateEngine;
 import org.melati.template.NotFoundException;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringUtils;
 import org.webmacro.InitException;
 import org.webmacro.PropertyException;
 import org.webmacro.WM;
@@ -64,7 +64,7 @@ import org.webmacro.Context;
 /**
  * Wrapper for the WebMacro Template Engine for use with Melati.
  */
-public class WebmacroTemplateEngine implements TemplateEngine {
+public class WebmacroTemplateEngine extends AbstractTemplateEngine implements TemplateEngine {
 
   /** The name of the engine */
   public static final String NAME = "webmacro";
@@ -77,6 +77,13 @@ public class WebmacroTemplateEngine implements TemplateEngine {
   public WM wm;
   //private WebContext _webContext;
 
+  /**
+   * Constructor.
+   */
+  public WebmacroTemplateEngine() {
+    super();
+  }
+  
   /**
    * Construct a new Engine.
    *
@@ -138,25 +145,6 @@ public class WebmacroTemplateEngine implements TemplateEngine {
     } catch (Exception e) {
       throw new TemplateEngineException(e);
     }
-  }
-
-  /** 
-   * Get a template for a given class.
-   *
-   * @param clazz the class name to translate into a template name 
-   * @throws TemplateEngineException 
-   *         if not template not found
-   * @return a template
-   */
-  public org.melati.template.Template template(Class clazz)
-      throws TemplateEngineException {
-
-    // Note we don't use File.separator but hardcode "/" 
-    // as templates canmnot be found within jar files otherwise
-    String templateName = StringUtils.tr(clazz.getName(),
-                                         ".", "/")
-                          + templateExtension();
-    return template(templateName);
   }
 
   /** 
@@ -233,28 +221,6 @@ public class WebmacroTemplateEngine implements TemplateEngine {
       }
       throw problem;
     }
-  }
-
-  /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return a <code>PassbackVariableExceptionHandler</code> 
-   *         appropriate for this engine.
-   */
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackEvaluationExceptionHandler();
-  }
-
-
-  /** 
-   * @param encoding ignored
-   * @return a {@link MelatiWriter} for this engine.
-   * @deprecated Use {@link #getStringWriter()}.
-   * @todo Delete this method. Suggest 2004.
-   */
-  public final MelatiWriter getStringWriter(String encoding) {
-    return getStringWriter();
   }
 
   /** 

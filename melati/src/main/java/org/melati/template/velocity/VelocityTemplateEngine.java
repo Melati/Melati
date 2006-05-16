@@ -198,7 +198,6 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements Se
    * 
    * @param templateName the name of the template to find
    * @return a template
-   * @throws NotFoundException, TemplateEngineException 
    */
   public org.melati.template.Template template(String templateName)
       throws NotFoundException, TemplateEngineException {

@@ -89,7 +89,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   /**
    * @see org.melati.template.TemplateEngine#expandedTemplate
    */
-  abstract public String expandedTemplate(Template template,
+  public abstract String expandedTemplate(Template template,
       TemplateContext templateContext) throws TemplateEngineException;
 
   /** 

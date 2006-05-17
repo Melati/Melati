@@ -276,22 +276,89 @@ public class DSD {
       } else {
         System.err.println("Leaving existing " + f);
         return;
-      } else
-        System.err.println("Creating " + f);
+      }
+    else
+      System.err.println("Creating " + f);
 
     Writer w = new BufferedWriter(new FileWriter(f));
     try {
       if (overwrite) {
-        w.write(autogenStamp + "\n" +
-                "\n");
-        w.write("package " + packageName + ".generated;\n" +
-                "\n");
+        w.write(autogenStamp + "\n" + "\n");
+        w.write("package " + packageName + ".generated;\n" + "\n");
       } else {
-        w.write("package " + packageName + ";\n" +
-        "\n");
+        w.write("package " + packageName + ";\n" + "\n");
       }
 
       proc.process(w);
+    } catch (IOException e) {
+      try {
+        w.close();
+      } catch (Exception ee) {
+        // If we fail here the cause is reported below
+        ee = null; // shut PMD up
+      }
+      try {
+        f.delete();
+      } catch (Exception ee) {
+        // If we fail here the cause is reported below
+        ee = null; // shut PMD up
+      }
+      throw e;
+    }
+    w.write("\n");
+    w.close();
+  }
+  
+  void createPackageHTML(Generator proc, boolean overwrite)
+      throws IOException {
+    File f = null;
+    if (overwrite) {
+      f = new File(dsdDirGen, "package.html");
+    } else {
+      f = new File(dsdDir, "package.html");
+    }
+    if (f.exists()) {
+      if (overwrite) {
+        BufferedReader r = new BufferedReader(new FileReader(f));
+        try {
+          for( int i = 0; i < 9; i++) {r.readLine();}
+          String tenthLine = r.readLine();
+          if (tenthLine == null || tenthLine.indexOf(autogenStamp) != -1)
+            System.err.println("Replacing " + f);
+          else {
+            System.err.println(tenthLine); 
+            throw new TargetExistsDSDException(f);
+          }
+        } finally {
+          r.close();
+        }
+      } else {
+        System.err.println("Leaving existing " + f);
+        return;
+      }
+    } else
+      System.err.println("Creating " + f);
+
+    Writer w = new BufferedWriter(new FileWriter(f));
+    try {
+      w.write("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n" +
+              "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n" +
+              "   \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" + 
+              "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+              "<head>\n" +
+              " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\" />\n" +
+              " <title>" + packageName );
+      if (overwrite) 
+        w.write(".generated");
+      w.write("</title>\n" +
+              "</head>\n" +
+              "<body>\n" +
+              "<!-- " + autogenStamp + "-->\n");
+      proc.process(w);
+
+      w.write("</body>\n" + 
+              "</html>\n" + 
+              "\n");
     } catch (IOException e) {
       try {
         w.close();
@@ -462,12 +529,28 @@ public class DSD {
                true);
 
     createJava(databaseTablesClass,
-               new Generator() {
-                 public void process(Writer w) throws IOException {
-                   this_.generateDatabaseTablesJava(w);
-                 }
-               },
-               false);
+        new Generator() {
+          public void process(Writer w) throws IOException {
+            this_.generateDatabaseTablesJava(w);
+          }
+        },
+        false);
+
+    // Create a default package.html if it does not exist
+    createPackageHTML( new Generator() {
+      public void process(Writer w) throws IOException {
+        w.write("<p>The POEM-generated model classes for " + 
+        packageName + ".</p>\n");
+      }
+    }, false);
+
+    // Create a package.html for the generated files
+    createPackageHTML( new Generator() {
+      public void process(Writer w) throws IOException {
+        w.write("<p>The POEM-generated support classes for " + 
+        packageName + ".</p>\n");
+      }
+    }, true);
 
     for (Enumeration t = tablesInPackage.elements(); t.hasMoreElements();)
       ((TableDef)t.nextElement()).generateJava();

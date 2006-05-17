@@ -1,0 +1,22 @@
+<archetype>
+  <id>melati-archetype</id>
+  <allowPartial>false</allowPartial>
+  <sources>
+    <source>src/main/java/NOTICE.txt</source>
+    <source>src/main/java/AppServlet.java</source>
+    <source>src/main/java/model/App.dsd</source>
+  </sources>
+  <testSources>
+    <source>src/test/java/AppTest.java</source>
+  </testSources>
+  <siteResources>
+    <resource>src/site/site.xml</resource>
+    <resource>src/site/checkstyle.xml</resource>
+    <resource>src/site/checkstyleSuppressions.xml</resource>
+    <resource>src/site/xdoc/LICENSE.txt</resource>
+    <resource>src/site/xdoc/index.xml</resource>
+    <resource>src/site/xdoc/Usage.xml</resource>
+    <resource>src/site/xdoc/Download.xml</resource>
+    <!-- resource filtering="false">src/site/xdocs/favicon.ico</resource -->
+  </siteResources>
+</archetype>

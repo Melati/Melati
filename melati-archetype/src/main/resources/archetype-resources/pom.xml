@@ -43,5 +43,23 @@
      </includes>
     </resource>
    </resources>
+   <plugins>
+    <plugin>
+     <groupId>org.melati</groupId>
+     <artifactId>maven-dsd-plugin</artifactId>
+     <executions>
+       <execution>
+         <phase>generate-sources</phase>
+         <goals>
+           <goal>generate</goal>
+         </goals>
+       </execution>
+     </executions>
+     <configuration>
+       <dsdPackage>${groupId}.${artifactId}.model</dsdPackage>
+       <dsdFile>${artifactId}.dsd</dsdFile>
+     </configuration>
+    </plugin>
+   </plugins>
   </build>
 </project>

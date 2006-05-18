@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.melati</groupId>
+  <artifactId>maven-dsd-plugin</artifactId>
+  <parent>
+    <groupId>org.melati</groupId>
+    <artifactId>melati</artifactId>
+    <version>0.7.5-RC3</version>
+    <relativePath>../../</relativePath>
+  </parent>
+  <packaging>maven-plugin</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>Maven Melati Dsd Processor Mojo</name>
+  <url>http://melati.org/maven-dsd-plugin/</url>
+  <description>
+  A Maven MOJO plugin to run the POEM preprocessor during the generate-sources 
+  phase of a project.
+  </description>
+  <issueManagement>
+   <system>SF List</system>
+    <url>       
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+    </url>
+  </issueManagement>
+
+  <organization>
+    <name>PanEris</name>
+    <url>http://www.paneris.org/</url>
+  </organization>
+
+  <ciManagement/>
+
+  <distributionManagement>
+    <repository>
+      <id>default</id>
+      <name>Default Repository</name>
+      <url>scp://www.melati.org/data/www/m2/org.melati/</url>
+    </repository>
+    <site>
+      <id>website</id>
+      <url>scp://www.melati.org/dist/maven-dsd-plugin/</url>
+    </site>
+  </distributionManagement>  
+
+  <scm>
+    <connection>
+      scm:cvs:pserver:anonymous:@melati.org:/usr/cvsroot:melati/maven/maven-dsd-plugin
+    </connection>
+    <developerConnection>
+      scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati/maven/maven-dsd-plugin
+    </developerConnection>
+
+    <url>
+      http://melati.org/cgi-bin/cvsweb.cgi/melati/
+    </url>
+  </scm>
+  <mailingLists>
+    <mailingList>
+      <name>Melati Announce</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-announce
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Developers</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-developers
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Users</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-users
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati CVS</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-cvs
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
+      </archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <name>Tim Pizey</name>
+      <id>timp</id>
+      <email>timp@paneris.org</email>
+      <organization>PanEris</organization>
+      <organizationUrl>http://PanEris.org/</organizationUrl>
+      <roles>
+        <role>Maintainer</role>
+        <role>Maven maven</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~timp</url>
+    </developer>
+  </developers>
+
+  <licenses>
+   <license>
+    <name>Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/gpl.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Lesser Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/lesser.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>
+     http://www.apache.org/licenses/LICENSE-2.0.txt
+    </url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Melati Software License</name>
+     <url>http://www.melati.org/Licence.html</url>
+     <distribution>repo</distribution>
+   </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+     <groupId>org.melati</groupId>
+     <artifactId>melati</artifactId>
+     <version>0.7.5-RC3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

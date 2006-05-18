@@ -7,7 +7,7 @@
     <groupId>org.melati</groupId>
     <artifactId>melati</artifactId>
     <version>0.7.5-RC3</version>
-    <relativePath>../../</relativePath>
+    <relativePath>../</relativePath>
   </parent>
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>

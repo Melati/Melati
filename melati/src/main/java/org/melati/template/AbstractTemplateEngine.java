@@ -81,7 +81,7 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
 
 
   /**
-   * @see org.melati.template.TemplateEngine#expandTemplate(Template, TemplateContext)
+   * @see org.melati.template.TemplateEngine#expandTemplate(MelatiWriter,Template, TemplateContext)
    */
   public abstract void expandTemplate(MelatiWriter out, Template template,
       TemplateContext templateContext) throws TemplateEngineException;

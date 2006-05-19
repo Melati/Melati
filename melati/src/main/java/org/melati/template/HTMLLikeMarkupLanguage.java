@@ -58,7 +58,8 @@ import org.melati.util.UTF8URLEncoder;
 /**
  * A Markup language with syntax similar to HTML.
  */
-public class HTMLLikeMarkupLanguage extends MarkupLanguage {
+public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage 
+    implements MarkupLanguage {
 
   /**
    * Constructor.

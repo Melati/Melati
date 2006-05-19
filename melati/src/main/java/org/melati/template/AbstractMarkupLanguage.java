@@ -72,14 +72,12 @@ import org.melati.util.MelatiWriter;
 
 public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
-  private String name;
+  protected TempletLoader templetLoader = null;
+  protected Melati melati = null;
+  protected MelatiLocale locale = null;
 
-  /**
-   * The melati currently being used.
-   */
-  protected Melati melati;
-  private TempletLoader templetLoader;
-  protected MelatiLocale locale;
+
+  private String name;
 
   /**
    * Construct a Markup Language object.
@@ -102,9 +100,6 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     this.melati = melati;
     this.templetLoader = templetLoader;
     this.locale = locale;
-    if (this.melati.getTemplateEngine() == null) {
-      System.err.println("null in");
-    }
   }
 
   /**

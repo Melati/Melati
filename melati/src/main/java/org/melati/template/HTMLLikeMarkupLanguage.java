@@ -70,7 +70,7 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
     super(name, melati, templetLoader, locale);
   }
   
-  protected HTMLLikeMarkupLanguage(String name, MarkupLanguage other) {
+  protected HTMLLikeMarkupLanguage(String name, HTMLLikeMarkupLanguage other) {
     super(name, other);
   }
 

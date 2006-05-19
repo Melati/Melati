@@ -56,7 +56,7 @@ import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 
 /**
- * A numerioc year. 
+ * A numeric year. 
  */
 
 class YearPoemType extends IntegerPoemType {

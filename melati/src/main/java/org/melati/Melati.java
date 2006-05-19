@@ -575,7 +575,7 @@ public class Melati {
    * 
    * @param ml The ml to set.
    */
-  public void setMl(MarkupLanguage ml) {
+  public void setMarkupLanguage(MarkupLanguage ml) {
     this.ml = ml;
   }
   
@@ -833,7 +833,7 @@ public class Melati {
    * @return - PassbackVariableExceptionHandler specific to the
    * template engine
    *
-   * @see org.melati.template.MarkupLanguage#rendered
+   * @see org.melati.template.MarkupLanguage#rendered(Object)
    * @see org.melati.poem.TailoredQuery
    */
   public Object getPassbackVariableExceptionHandler() {

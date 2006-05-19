@@ -46,8 +46,6 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import junit.framework.TestCase;
-
 import org.melati.LogicalDatabase;
 import org.melati.poem.Table;
 import org.melati.poem.AccessToken;
@@ -62,11 +60,10 @@ import org.melati.poem.UnexpectedExceptionPoemException;
  * @see org.melati.poem.CachedSelection
  * @author williamc/timp
  */
-public class CachedSelectionTest extends TestCase {
+public class CachedSelectionTest extends PoemTestCase {
 
-  private TestDatabase db;
-  private static final String dbName = "poemtest";
   private static String result;
+  protected TestDatabase db;
   
   /**
    * Constructor for CachedSelectionTest.
@@ -74,37 +71,19 @@ public class CachedSelectionTest extends TestCase {
    */
   public CachedSelectionTest(String arg0) {
     super(arg0);
+    setDbName("poemtest");
   }
 
   /*
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName("poemtest");
+    if (db == null)
+      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
-    db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
   }
 
-  /*
-   * @see TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    db.inSession(AccessToken.root, // HACK
-            new PoemTask() {
-              public void run() {
-/*
-                try {
-                  if (db.getDbms().toString().endsWith("Hsqldb")) {
-                    db.sqlQuery("SHUTDOWN");
-                  }
-                } catch (Exception e) {
-                  throw new UnexpectedExceptionPoemException(e);
-                }
-*/
-              }
-            });
-    //db.disconnect();
-    super.tearDown();
-  }
 
   abstract static class PoemTaskThread extends Thread {
 
@@ -268,11 +247,6 @@ public class CachedSelectionTest extends TestCase {
   public void testThem() {
 
     result = "";
-    db.inSession(
-        AccessToken.root,       // HACK
-        new PoemTask() {
-          public void run() {
-            try {
               //db.setLogSQL(true);
 
               Setter setter = new Setter(db.getStringFieldTable());
@@ -284,6 +258,7 @@ public class CachedSelectionTest extends TestCase {
               // fails at a nap of 18ms for postgresl and hsqldb
               // fails at a nap of 700ms for Acess
               int nap = 1500;
+              try{
               Thread.sleep(nap);
               setter.signal(Setter.add);
               Thread.sleep(nap);
@@ -318,12 +293,11 @@ public class CachedSelectionTest extends TestCase {
 
               setter.signal(null);
               getter.signal(null);
-            }
-            catch (Exception e) {
-              throw new UnexpectedExceptionPoemException(e);
-            }
-          }
-        });
+              } catch (Exception e) {
+                e.printStackTrace();
+                fail();
+              }
+              
     System.err.println(result);
     assertEquals("\naddedWhatsit0\ngot addedWhatsit0\ngot addedWhatsit0" + 
                  "\nsetWhatsit1\ngot setWhatsit1\ngot setWhatsit1" + 

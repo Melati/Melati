@@ -2,11 +2,7 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import junit.framework.TestCase;
 import org.melati.LogicalDatabase;
-import org.melati.poem.AccessToken;
-import org.melati.poem.PoemTask;
-import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UserTable;
 
 /**
@@ -14,9 +10,9 @@ import org.melati.poem.UserTable;
  * 
  * @author timp
  */
-public class TestDatabaseTest extends TestCase {
-  private TestDatabase db;
-  private static final String dbName = "poemtest";
+public class TestDatabaseTest extends PoemTestCase {
+
+  protected TestDatabase db;
   
   /**
    * Constructor for PoemTest.
@@ -24,35 +20,17 @@ public class TestDatabaseTest extends TestCase {
    */
   public TestDatabaseTest(String arg0) {
     super(arg0);
+    setDbName("poemtest");
   }
 
   /*
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName("poemtest");
+    if (db == null)
+      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
-    db = (TestDatabase)LogicalDatabase.getDatabase(dbName); 
-  }
-
-  /*
-   * @see TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    db.inSession(AccessToken.root, // FIXME
-            new PoemTask() {
-              public void run() {
-/*
-                try {
-                  if (db.getDbms().toString().endsWith("Hsqldb"))
-                    db.sqlQuery("SHUTDOWN");
-                } catch (Exception e) {
-                  throw new UnexpectedExceptionPoemException(e);
-                }
-*/                
-              }
-            });
-        //db.disconnect();
-        super.tearDown();
   }
 
   /**
@@ -92,10 +70,7 @@ public class TestDatabaseTest extends TestCase {
     "columninfo (from the data structure definition)" + 
     "tablecategory (from the data structure definition)" +
     "setting (from the data structure definition)";
-    db.inSession(AccessToken.root, // FIXME
-            new PoemTask() {
-              public void run() {
-                try {
+
     Enumeration en = db.getDisplayTables();
     String result = "";
     while (en.hasMoreElements()) {
@@ -104,11 +79,6 @@ public class TestDatabaseTest extends TestCase {
     System.err.println(expected);
     System.err.println(result);
     assertEquals(expected, result);
-                } catch (Exception e) {
-                  throw new UnexpectedExceptionPoemException(e);
-                }
-              }
-            });
   }
 
 

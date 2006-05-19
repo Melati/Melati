@@ -42,11 +42,11 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-<SELECT NAME="field_$ml.rendered($field.Name)">
+<select name="field_$ml.rendered($field.Name)">
   #foreach $poss in $field.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($field)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -54,6 +54,6 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</selected>

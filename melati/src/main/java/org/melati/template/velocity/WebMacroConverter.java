@@ -160,7 +160,7 @@ public final class WebMacroConverter {
               "s/" + regExps[i] + "/" + regExps[i+1] + "/", contents);
         }
       }
-      System.err.println(contents);
+      // System.err.println(contents);
       return new ByteArrayInputStream(contents.getBytes());
     } catch (IOException e) {
       throw new MelatiBugMelatiException(

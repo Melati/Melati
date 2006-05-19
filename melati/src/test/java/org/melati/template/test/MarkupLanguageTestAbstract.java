@@ -415,7 +415,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       TemplateContext tc = m.getTemplateContext();
       tc.put("object", new Object());
       t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().indexOf("<select name=") != -1);
+      assertTrue(m.getWriter().toString().toLowerCase().indexOf("<select name=") != -1);
     } catch (Exception e) {
       e.printStackTrace();
       fail();

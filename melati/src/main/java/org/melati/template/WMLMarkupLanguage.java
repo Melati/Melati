@@ -50,25 +50,32 @@ import org.melati.util.MelatiLocale;
 
 /**
  * A representation of WML.
- *
- * @todo Improve javadoc
  */
-public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage {
+public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage 
+    implements MarkupLanguage {
 
-  private AttributeWMLMarkupLanguage attributeML = null;
+  // The ML to use for attributes
+  private WMLAttributeMarkupLanguage attributeML = null;
 
+  /** Constructor */
   public WMLMarkupLanguage(Melati melati,
                            TempletLoader templetLoader, MelatiLocale locale) {
     super("wml", melati, templetLoader, locale);
   }
   
+  /** Constructor given another ML. */
   protected WMLMarkupLanguage(String name, WMLMarkupLanguage other) {
     super(name, other);
   }
 
-  public AttributeWMLMarkupLanguage getAttr() {
+ /**
+  * Get the associated MarkupLaguage for rendering attributes.
+  * 
+  * @return the MarkupLanguage to use for attribute
+  */
+  public AttributeMarkupLanguage getAttr() {
     if (attributeML == null)
-      attributeML = new AttributeWMLMarkupLanguage(this);
+      attributeML = new WMLAttributeMarkupLanguage(this);
     return attributeML;
   }
 }

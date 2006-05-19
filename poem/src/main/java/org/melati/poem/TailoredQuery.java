@@ -346,7 +346,7 @@ public class TailoredQuery {
    * @see FieldSet#elements()
    * @see FieldSet#get(java.lang.String)
    * @see PoemThread#accessToken()
-   * @see org.melati.template.MarkupLanguage#rendered
+   * @see org.melati.template.MarkupLanguage#rendered(Object)
    * @see Persistent#assertCanRead(org.melati.poem.AccessToken)
    *
    * @return 

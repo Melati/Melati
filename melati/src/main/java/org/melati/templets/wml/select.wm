@@ -49,7 +49,7 @@
       #if ($poss.RawString.equals("") && $nullValue) #begin
         $ml.rendered($nullValue)
       #end #else #begin
-        $ml.renderedString($poss)
+        $ml.rendered($poss)
       #end
     </option>
   #end

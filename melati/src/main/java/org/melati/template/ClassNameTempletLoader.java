@@ -91,9 +91,9 @@ public class ClassNameTempletLoader implements TempletLoader {
             markupLanguage.getName() + File.separatorChar;
     */
     return "org/melati/template/" +  
-     templateEngine.getName() +  
-    "/templets/" + 
-     markupLanguage.getName() + "/";
+           templateEngine.getName() +  
+           "/templets/" + 
+           markupLanguage.getName() + "/";
     
     }
 
@@ -195,7 +195,9 @@ public class ClassNameTempletLoader implements TempletLoader {
    */
   private Template templet(TemplateEngine templateEngine, Class clazz) 
       throws TemplateEngineException {
-    return templateEngine.template(StringUtils.tr(clazz.getName(), '.', '/'));
+    return templateEngine.template(
+               clazz.getName().replace('.', '/') + 
+               templateEngine.templateExtension());
   }
 
   /**

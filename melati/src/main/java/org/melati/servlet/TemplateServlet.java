@@ -196,18 +196,17 @@ public abstract class TemplateServlet extends PoemServlet {
         // get rid of anything that has been written so far
         mw.reset();
         templateContext.put("melati",melati);
-        templateContext.put("exceptionObject", e);
+        templateContext.put("object", e);
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         templateContext.put("error",sw);
-        templateContext.put("SysAdminName",getSysAdminName());
-        templateContext.put("SysAdminEmail",getSysAdminEmail());
-
-        // FIXME we always search in the HTML directory for the error
-        // template: this should be configurable
+        templateContext.put("sysAdminName", getSysAdminName());
+        templateContext.put("sysAdminEmail", getSysAdminEmail());
 
         Template errorTemplate;
         try {
+          // Look on the classpath 
+          // FIXME - not sure this ever returns a result
           errorTemplate = templateEngine.template(e.getClass());
         }
         catch (NotFoundException f) {

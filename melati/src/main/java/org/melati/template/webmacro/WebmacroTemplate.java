@@ -56,7 +56,7 @@ import org.webmacro.ContextException;
 import org.webmacro.Context;
 
 /**
- * Interface for a Template for use with Melati
+ * A Template for use with Melati
  *
  */
 

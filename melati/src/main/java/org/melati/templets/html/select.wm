@@ -42,10 +42,11 @@
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-<select name="field_$ml.rendered($field.Name)">
-  #foreach $poss in $field.First1000Possibilities #begin
+## Expecting $object to be a Field
+<select name="field_$ml.rendered($object.Name)">
+  #foreach $poss in $object.First1000Possibilities #begin
     <option value="$ml.Attr.rendered($poss.RawString)"
-      #if ($poss.sameRawAs($field)) #begin
+      #if ($poss.sameRawAs($object)) #begin
         selected
       #end
     >

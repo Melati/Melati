@@ -6,7 +6,6 @@
  <meta name="CVS Id" content="\$Id$">
  <title>Tree</title>
 #set $tree=$admin.createTree($object)
-#set $ml=$melati.HTMLMarkupLanguage
 #if ($tree) #begin
  #if ($tree.flattened().size() < 2000) #begin
 <!-- start -->

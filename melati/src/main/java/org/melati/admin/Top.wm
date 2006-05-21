@@ -1,5 +1,4 @@
 #set $melati.ResponseContentType = "text/html"
-#set $ml = $melati.HTMLMarkupLanguage
 ##
 ## $Source$
 ## $Revision$

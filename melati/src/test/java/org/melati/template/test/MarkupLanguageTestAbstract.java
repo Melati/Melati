@@ -1,6 +1,3 @@
-/*
- * @since 14-May-2006
- */
 package org.melati.template.test;
 
 import java.io.IOException;
@@ -15,14 +12,19 @@ import org.melati.template.NotFoundException;
 import org.melati.template.Template;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
+import org.melati.template.TemplateEngineException;
+import org.melati.template.webmacro.WebmacroTemplateEngine;
+import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
 import junit.framework.TestCase;
 
 
 /**
+ * An abstract test which is run against most permutations of configuaration.
+ * 
  * @author timp
- *
+ * @since 14-May-2006
  */
 abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
 
@@ -38,7 +40,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   protected void setUp() throws Exception
   {
     super.setUp();
-    mc = new MelatiConfig();
+    melatiConfig();
     templateEngine = mc.getTemplateEngine();
     if (templateEngine != null)
       templateEngine.init(mc);
@@ -46,12 +48,17 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     m = new Melati(mc, new MelatiStringWriter());
     m.setTemplateEngine(templateEngine);
     assertNotNull(m.getTemplateEngine());
-    System.err.println(m.getTemplateEngine().getName());
     TemplateContext templateContext =
       templateEngine.getTemplateContext(m);
     m.setTemplateContext(templateContext);
   }
   
+  protected void melatiConfig() throws MelatiException {
+    mc = new MelatiConfig();
+    if(mc.getTemplateEngine().getName() != "webmacro") {
+      mc.setTemplateEngine(new WebmacroTemplateEngine());
+    }
+  }
   
   /**
    * @see TestCase#tearDown()
@@ -157,7 +164,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Object)
    */
   public void testRenderedObject() {
-    
     try {
       assertEquals("Fredd$", ml.rendered("Fredd$"));
     } catch (IOException e) {
@@ -165,7 +171,8 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       fail();
     }
     try {
-      assertEquals("[1]\n", ml.rendered(new Integer("1")));
+      // Note velocity seems to leave the line end on
+      assertEquals("[1]", ml.rendered(new Integer("1")).trim());
     } catch (IOException e) {
       e.printStackTrace();
       fail();
@@ -363,7 +370,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     }
     try {
       assertTrue(ml.inputAs(userName, "org.melati.poem.StringPoemType").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-      System.err.println(ml.inputAs(userName, "org.melati.poem.StringPoemType"));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -379,7 +385,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     Field userName = db.getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
-      System.err.println(ml.searchInput(userName, "org.melati.poem.StringPoemType"));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -396,6 +401,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       Template t = m.getMarkupLanguage().templet(new Integer("1").getClass().getName());
       if(t != null) t = null;
     } catch (NotFoundException e) {
+      // pass
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -403,9 +409,12 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     try {
       Template t = m.getMarkupLanguage().templet(new Object().getClass().getName());
       TemplateContext tc = m.getTemplateContext();
+      tc.put("melati", m);
+      tc.put("ml", ml);
       tc.put("object", new Object());
       t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertEquals("[$ml.rendered($object.toString())]\n", m.getWriter().toString());
+      // FIXME why is webmacro putting a line break at the front?
+      assertTrue(m.getWriter().toString().trim().startsWith("[java.lang.Object@"));
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -413,7 +422,11 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     try {
       Template t = m.getMarkupLanguage().templet("select");
       TemplateContext tc = m.getTemplateContext();
-      tc.put("object", new Object());
+      tc.put("melati", m);
+      tc.put("ml", ml);
+      Field nullable = db.getColumnInfoTable().
+                           getColumnInfoObject(0).getField("nullable");
+      tc.put("object", nullable);
       t.write(m.getWriter(),tc, m.getTemplateEngine());
       assertTrue(m.getWriter().toString().toLowerCase().indexOf("<select name=") != -1);
     } catch (Exception e) {
@@ -424,7 +437,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   }
 
   /**
-   * Test method for templet.
+   * Test method for templet(Class).
    * 
    * @see org.melati.template.MarkupLanguage#templet(Class)
    */
@@ -432,9 +445,12 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     try {
       Template t = m.getMarkupLanguage().templet(new Integer("1").getClass());
       TemplateContext tc = m.getTemplateContext();
-      tc.put("object",new Integer("1"));
+      tc.put("melati", m);
+      tc.put("ml", ml);
+      tc.put("object", new Integer("1"));
       t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertEquals("[$ml.rendered($object.toString())]\n", m.getWriter().toString());
+      // FIXME too much whitespace remaining
+      assertEquals("[1]", m.getWriter().toString().trim());
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -452,6 +468,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       if(t != null) t = null;
       fail();
     } catch (NotFoundException e) {
+      // Pass
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -467,11 +484,32 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     }
 
     try {
+      Template t = m.getMarkupLanguage().templet("error", new Exception().getClass());
+      TemplateContext tc = m.getTemplateContext();
+      tc.put("melati", m);
+      tc.put("ml", ml);
+      tc.put("object", new Integer("1"));
+      t.write(m.getWriter(),tc, m.getTemplateEngine());
+      System.err.println(m.getWriter().toString());
+      if (m.getTemplateEngine().getName().equals("webmacro")) 
+        // FIXME what is velocity doing
+        if (m.getMarkupLanguage().getName().startsWith("html")) 
+        fail();
+    } catch (TemplateEngineException e) {
+      // Pass - we should have passed in an exception as the object
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+
+    try {
       Template t = m.getMarkupLanguage().templet("error",new Exception().getClass());
       TemplateContext tc = m.getTemplateContext();
-      tc.put("object",new Integer("1"));
+      tc.put("melati", m);
+      tc.put("ml", ml);
+      tc.put("object",new Exception("A message"));
       t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().indexOf("$object") != -1);
+      assertTrue(m.getWriter().toString().indexOf("A message") != -1);
     } catch (Exception e) {
       e.printStackTrace();
       fail();
@@ -480,9 +518,11 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     try {
       Template t = m.getMarkupLanguage().templet("error",new AccessPoemException().getClass());
       TemplateContext tc = m.getTemplateContext();
-      tc.put("object",new Integer("1"));
+      tc.put("melati", m);
+      tc.put("ml", ml);
+      tc.put("object", new AccessPoemException());
       t.write(m.getWriter(),tc, m.getTemplateEngine());
-      assertTrue(m.getWriter().toString().indexOf("$object") != -1);
+      assertTrue(m.getWriter().toString().indexOf("You need the capability") != -1);
     } catch (Exception e) {
       e.printStackTrace();
       fail();

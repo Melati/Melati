@@ -1,6 +1,5 @@
 <!-- start org/melati/admin/Tree.wm -->
 #set $melati.ResponseContentType = "text/html"
-#set $ml = $melati.HTMLMarkupLanguage
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #set $treeControllUrl = $admin.TreeControlURL($object)
 #if ($Form.returnTarget != null) #begin

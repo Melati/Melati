@@ -1,5 +1,4 @@
 #set $melati.ResponseContentType = "text/html"
-
 ##
 ## $Source$
 ## $Revision$
@@ -43,8 +42,6 @@
 ##     Tim Pizey <timp@paneris.org>
 ##     http://paneris.org/~timp
 ##
-
-#set $ml = $melati.HTMLMarkupLanguage
 $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 $object
 <br>

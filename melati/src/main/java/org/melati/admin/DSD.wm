@@ -42,9 +42,6 @@
 ##
 #set $melati.ResponseContentType = "text/plain"
 
-## We don't have a TextMarkupLanguage as yet
-#set $ml = $melati.HTMLMarkupLanguage
-
 ## Add comments if user requests them
 #if ($Form.comments) #begin
 #set $c = true

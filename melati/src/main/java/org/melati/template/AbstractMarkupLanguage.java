@@ -473,7 +473,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   //  Widgets
   // =========
   //
-  /* (non-Javadoc)
+  
+  /**
    * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
   public String input(Field field)
@@ -482,7 +483,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     return input(field, null, "", false);
   }
 
-  /* (non-Javadoc)
+  /**
    * @see org.melati.template.MarkupLanguage#inputAs(org.melati.poem.Field, java.lang.String)
    */
   public String inputAs(Field field, String templetName)
@@ -491,7 +492,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     return input(field, templetName, "", false);
   }
 
-  /* (non-Javadoc)
+  /**
    * @see org.melati.template.MarkupLanguage#searchInput(org.melati.poem.Field, java.lang.String)
    */
   public String searchInput(Field field, String nullValue)
@@ -526,13 +527,13 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       vars.put("nullValue", nullValue);
     }
 
-    vars.put("field", field);
-    vars.put("ml", this);
     vars.put("melati", melati);
+    vars.put("ml", melati.getMarkupLanguage());
+    vars.put("object", field);
     return expandedTemplet(templet, vars);
   }
 
-  /* (non-Javadoc)
+  /**
    * @see org.melati.template.MarkupLanguage#templet(java.lang.String)
    */
   public Template templet(String templetName) throws TemplateEngineException {

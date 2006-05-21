@@ -495,7 +495,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </resources>
   </build>
   <reports>
-<!--
     <report>maven-checkstyle-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-license-plugin</report>
@@ -512,6 +511,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-jcoverage-plugin</report>
+<!--
     <report>maven-linkcheck-plugin</report>
     <report>maven-jellydoc-plugin</report>
 -->

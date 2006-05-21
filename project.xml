@@ -336,7 +336,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <version>1.8.0.1</version>
       <url>http://www.hsqldb.org/</url>
       <properties>
-         <war.bundle>false</war.bundle>
+         <war.bundle>true</war.bundle>
          <scope>test</scope>
       </properties>
     </dependency>
@@ -495,13 +495,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </resources>
   </build>
   <reports>
+<!--
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-simian-plugin</report>
     <report>maven-license-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-faq-plugin</report>
     <report>maven-pmd-plugin</report>
-    <report>maven-simian-plugin</report>
-    <report>maven-checkstyle-plugin</report>
     <report>maven-jdepend-plugin</report>
     <report>maven-javadoc-plugin</report>
     <report>maven-tasklist-plugin</report>
@@ -511,7 +512,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-jcoverage-plugin</report>
-<!--
     <report>maven-linkcheck-plugin</report>
     <report>maven-jellydoc-plugin</report>
 -->

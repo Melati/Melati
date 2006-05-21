@@ -353,6 +353,13 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       e.printStackTrace();
       fail();
     }
+    Field owningTable = db.getColumnInfoTable().getColumnInfoObject(0).getField("tableinfo");
+    try {
+      assertTrue(ml.input(owningTable).toLowerCase().indexOf("<select name=") != -1);
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
   }
 
   /**

@@ -452,7 +452,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
         templetLoader.templet(melati.getTemplateEngine(), this, o.getClass());
       vars.put("object", o);
       vars.put("melati", melati);
-      vars.put("ml", this);
+      vars.put("ml", melati.getMarkupLanguage());
       expandTemplet(templet, vars, writer);
     }
     catch (NotFoundException e) {
@@ -540,16 +540,15 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
                                  templetName);
   }
 
-  /* (non-Javadoc)
+  /**
    * @see org.melati.template.MarkupLanguage#templet(java.lang.String, java.lang.Class)
    */
   public Template templet(Class clazz)
       throws TemplateEngineException {
-    System.err.println(melati.getTemplateEngine());
     return templetLoader.templet(melati.getTemplateEngine(), this, 
                                  clazz);
   }
-  /* (non-Javadoc)
+  /**
    * @see org.melati.template.MarkupLanguage#templet(java.lang.String, java.lang.Class)
    */
   public Template templet(String purpose, Class clazz)

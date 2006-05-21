@@ -113,9 +113,10 @@ import org.melati.util.MelatiWriter;
 
 public abstract class ConfigServlet extends HttpServlet {
 
-  // The melati
   protected MelatiConfig melatiConfig;
-
+  protected String sysAdminName = "nobody";
+  protected String sysAdminEmail = "nobody@nobody.com";;
+  
   /**
    * Inititialise Melati.
    *
@@ -271,7 +272,7 @@ public abstract class ConfigServlet extends HttpServlet {
    * @return the System Administrators name.
    */
   public String getSysAdminName () {
-    return "nobody";
+    return sysAdminName;
   }
 
   /** 
@@ -279,11 +280,26 @@ public abstract class ConfigServlet extends HttpServlet {
    * @return the System Administrators email address.
    */
   public String getSysAdminEmail () {
-    return "nobody@nobody.com";
+    return sysAdminEmail;
+  }
+
+  /**
+   * @param sysAdminEmail The sysAdminEmail to set.
+   */
+  protected void setSysAdminEmail(String sysAdminEmail) {
+    this.sysAdminEmail = sysAdminEmail;
+  }
+
+  
+  /**
+   * @param sysAdminName The sysAdminName to set.
+   */
+  protected void setSysAdminName(String sysAdminName) {
+    this.sysAdminName = sysAdminName;
   }
 
   protected PoemContext poemContext(Melati melati) 
-  throws PathInfoException {
+      throws PathInfoException {
     PoemContext it = new PoemContext();
     String[] parts = melati.getPathInfoParts();
     if (parts.length > 0)
@@ -319,4 +335,6 @@ public abstract class ConfigServlet extends HttpServlet {
    */
   protected abstract void doConfiguredRequest (Melati melati)
       throws Exception;
+
+  
 }

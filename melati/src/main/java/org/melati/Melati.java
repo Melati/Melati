@@ -542,8 +542,8 @@ public class Melati {
   /**
    * Sets the content type for use in the response.
    * <p>
-   * Use of this method is optional and does not work in standalone
-   * mode.
+   * Use of this method is optional and only makes sense in a 
+   * Servlet context. If the response is null then this is a no-op.
    * <p>
    * If the type starts with "text/" and does not contain a semicolon
    * and a good response character set has been established based on
@@ -564,7 +564,8 @@ public class Melati {
         && type.indexOf(";") == -1) {
       type += "; charset=" + responseCharset;
     }
-    response.setContentType(type);
+    if (response != null)
+      response.setContentType(type);
   }
 
   private MarkupLanguage ml = null;

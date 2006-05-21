@@ -54,6 +54,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.Field;
+import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
@@ -210,6 +212,9 @@ import org.melati.util.MelatiWriter;
 
 public abstract class PoemServlet extends ConfigServlet {
 
+  protected static String poemAdministratorsName = null;
+  protected static String poemAdministratorsEmail = null;
+   
   /**
    * Overriden in TemplateServlet.
    *
@@ -256,6 +261,20 @@ public abstract class PoemServlet extends ConfigServlet {
           melati.loadTableAndObject();
           try {
             try {
+               if (poemAdministratorsName == null) {
+                 poemAdministratorsName = melati.getDatabase().
+                           getUserTable().administratorUser().getName();
+                 Field emailField = null;
+                 try {
+                   emailField = melati.getDatabase().
+                      getUserTable().administratorUser().getField("email");
+                   poemAdministratorsEmail = emailField.toString();
+                 } catch (NoSuchColumnPoemException e) {
+                   poemAdministratorsEmail = "noEmailDefined@nobody.com";                     
+                 }
+                 _this.setSysAdminName(poemAdministratorsName);
+                 _this.setSysAdminEmail(poemAdministratorsEmail);
+               }
               _this.doPoemRequest(melati);
             } catch (Exception e) {
               _handleException (melati, e);
@@ -279,6 +298,24 @@ public abstract class PoemServlet extends ConfigServlet {
         }
       }
     );
+  }
+
+  /** 
+   * Override this to provide a different administrator's 
+   * details to the database admin user. 
+   * @return the System Administrators name.
+   */
+  public String getSysAdminName () {
+    return sysAdminName;
+  }
+
+  /** 
+   * Override this to provide a different administrator's 
+   * details to the database admin user. 
+   * @return the System Administrators email address.
+   */
+  public String getSysAdminEmail () {
+    return sysAdminEmail;
   }
 
  /**

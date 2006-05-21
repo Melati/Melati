@@ -124,6 +124,7 @@ public abstract class TemplateServlet extends PoemServlet {
   protected void doPoemRequest(Melati melati) throws Exception {
     ServletTemplateContext templateContext = melati.getServletTemplateContext();
     templateContext.put("melati", melati);
+    templateContext.put("ml", melati.getMarkupLanguage());
 
     String templateName = doTemplateRequest(melati,templateContext);
 
@@ -196,6 +197,7 @@ public abstract class TemplateServlet extends PoemServlet {
         // get rid of anything that has been written so far
         mw.reset();
         templateContext.put("melati",melati);
+        templateContext.put("ml", melati.getMarkupLanguage());
         templateContext.put("object", e);
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));

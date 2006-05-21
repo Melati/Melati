@@ -48,7 +48,6 @@ package org.melati.template;
 import java.util.Hashtable;
 
 import org.melati.poem.FieldAttributes;
-import org.melati.util.StringUtils;
 
 /**
  * Load a template to render an object based upon the object's class.

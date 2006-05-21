@@ -41,6 +41,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @param name
    */
   public PoemTestCase(String name) {
+    super(name);
     fName= name;
   }
 

@@ -597,6 +597,20 @@ public class Melati {
   }
 
   /**
+   * Get a HTMLMarkupLanguage.
+   *
+   * @return - a HTMLMarkupLanguage
+   * @deprecated but we have a lot of them about
+   */
+  public HTMLMarkupLanguage getHTMLMarkupLanguage() {
+    if (ml == null) 
+      ml = new HTMLMarkupLanguage(this,
+                                  config.getTempletLoader(),
+                                  getMelatiLocale());
+    return (HTMLMarkupLanguage)ml;
+  }
+
+  /**
    * The URL of the servlet request associated with this <TT>Melati</TT>, with
    * a modified or added form parameter setting (query string component).
    *

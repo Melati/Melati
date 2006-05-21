@@ -138,8 +138,8 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   public org.melati.template.Template template(String templateName)
       throws NotFoundException, TemplateEngineException {
     try {                                  
-      org.webmacro.Template template = wm.getTemplate (templateName);
-      return new WebmacroTemplate (template);
+      org.webmacro.Template template = wm.getTemplate(templateName);
+      return new WebmacroTemplate(template);
     } catch (org.webmacro.NotFoundException e) {
       throw new NotFoundException("Could not find template " + templateName);
     } catch (Exception e) {

@@ -293,7 +293,7 @@ public interface MarkupLanguage {
    * @param clazz the class we wish to render
    * @return a Template
    * @throws TemplateEngineException 
-   *         if not template not found on template path or classpath
+   *         if no template found on template path or classpath
    */
   public abstract Template templet(String purpose, Class clazz)
           throws TemplateEngineException;

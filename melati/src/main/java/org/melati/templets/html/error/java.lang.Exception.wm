@@ -52,19 +52,19 @@
   org.melati.poem.DuplicateKeySQLPoemException.wm for an example.
  -->
 
-#set $ml = $melati.HTMLMarkupLanguage
-
 <html><head><title>Melati Error Template</title></head>
 
 <body bgcolor="white">
 <h1><font color="green">Melati Error Template</font></h1>
 <p>
-An error has occured in the application that runs this website.
+An error has occured in this application.
 </p>
+#if ($sysAdminEmail) #begin
 <p>
-Please contact <a href='mailto:$SysAdminEmail'>$SysAdminName</a>
+Please contact <a href='mailto:$sysAdminEmail'>$sysAdminName</a>
 giving the URL of this page and the information given below.
 </p>
+#end
 <font color="green">
 <PRE>
 $object.Message
@@ -72,10 +72,12 @@ $object.Message
 </font>
 
 <hr>
+#if ($error) #begin
 <font color="red">
 <PRE>
 $error
 </PRE>
 </font>
+#end
 </body>
 </html>

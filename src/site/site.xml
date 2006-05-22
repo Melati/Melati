@@ -37,6 +37,13 @@
         <item name="Links" href="Links.html"/>
         <item name="Logos" href="Logos.html"/>
     </menu>
+    <menu ref="modules" name="Modules" inherit="bottom">
+      <item name="melati" href="../../melati/target/site/index.html"/>
+      <item name="DSD plugin" href="../../maven-dsd-plugin/target/site/index.html"/>
+      <item name="Archetype" href="../../melati-archetype/target/site/index.html"/>
+      <item name="Example: contacts" href="../../melati-example-contacts/target/site/index.html"/>
+      <item name="Example: odmg" href="../../melati-example-odmg/target/site/index.html"/>
+    </menu>
 ${reports}
   </body>
 </project>

@@ -24,13 +24,70 @@ This page last updated: $Date$ $Author$
   
 <section name=" Usage ">
 <p>
+The DSD processor is used to generate java code from a Data Structure Definition file. 
 </p>
-
-<subsection name=" ">
+<subsection name=" Command line ">
 <p>
+At the command line type:
+<pre>
+mvn org.melati:maven-dsd-plugin:1.0-SNAPSHOT:generate
+</pre>
 </p>
 </subsection>
+<subsection name=" Shortening the Command Line ">
+<p>
+In order to shorten the amount of typing needed on the command line, 
+you need to add the plugin's group ID to the list of group IDs 
+searched by default. 
+</p>
+<p>
+To do this, you need to add the following to your 
+<tt>\${user.home}/.m2/settings.xml</tt> file:
+<pre>
+&lt;pluginGroups&gt;
+  &lt;pluginGroup>org.melati&lt;/pluginGroup&gt;
+&lt;/pluginGroups&gt;
+</pre>
+</p>
+<p>
+At this point, you can run the plugin with:
+<pre>
+mvn dsd:generate
+</pre>
+</p>
+</subsection>
+<subsection name=" Lifecycle Configuration ">
+<p>
+If you use the Melati archetype or wish to retrofit the 
+plugin then you need to add  it to the build section of your POM:
+<pre>
+   &lt;plugins&gt;
+    &lt;plugin&gt;
+     &lt;groupId&gt;org.melati&lt;/groupId&gt;
+     &lt;artifactId&gt;maven-dsd-plugin&lt;/artifactId&gt;
+     &lt;executions&gt;
+       &lt;execution&gt;
+         &lt;phase&gt;generate-sources&lt;/phase&gt;
+         &lt;goals&gt;
+           &lt;goal&gt;generate&lt;/goal&gt;
+         &lt;/goals&gt;
+       &lt;/execution&gt;
+     &lt;/executions&gt;
+     &lt;configuration&gt;
+       &lt;dsdPackage&gt;your-groupId.your-artifactId.model&lt;/dsdPackage&gt;
+       &lt;dsdFile&gt;your-artifactId.dsd&lt;/dsdFile&gt;
+     &lt;/configuration&gt;
+    &lt;/plugin&gt;
+   &lt;/plugins&gt;
+</pre>
+</p>
+The plugin will look for your DSD at the <tt>groupId</tt> level, 
+a directory called <tt>model</tt> or <tt>poem</tt> under that, at the <tt>artifactId</tt> 
+level or a directory called <tt>model</tt> or <tt>poem</tt> under that.
+Or, as above, you can configure it by giving the package name and/or the the file name of the 
+DSD.
 
+</subsection>
 </section>
 </body>
 </document>

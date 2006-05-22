@@ -260,3 +260,4 @@ public class CategoryTableBase extends Table {
     return 100;
   }
 }
+

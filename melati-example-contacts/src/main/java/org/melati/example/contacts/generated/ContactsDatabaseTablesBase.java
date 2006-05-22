@@ -10,6 +10,7 @@ import org.melati.poem.GroupMembershipTable;
 import org.melati.poem.GroupCapabilityTable;
 import org.melati.poem.TableCategoryTable;
 import org.melati.poem.TableInfoTable;
+// abstract import org.melati.poem.ValueInfoTable;
 import org.melati.poem.ColumnInfoTable;
 import org.melati.poem.SettingTable;
 import org.melati.example.contacts.ContactTable;
@@ -119,3 +120,5 @@ public interface ContactsDatabaseTablesBase {
   */
   ContactCategoryTable getContactCategoryTable();
 }
+
+

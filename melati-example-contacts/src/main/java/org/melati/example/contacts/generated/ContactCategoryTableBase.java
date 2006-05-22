@@ -341,3 +341,4 @@ public class ContactCategoryTableBase extends Table {
     return 10;
   }
 }
+

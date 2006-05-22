@@ -761,3 +761,4 @@ public abstract class ContactBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

@@ -183,3 +183,5 @@ public class ContactsDatabaseBase extends PoemDatabase {
     return tab_contactcategory;
   }
 }
+
+

@@ -351,6 +351,10 @@ public class ContactTableBase extends Table {
             return false;
           }
 
+          protected boolean defaultUserCreateable() {
+            return false;
+          }
+
           protected DisplayLevel defaultDisplayLevel() {
             return DisplayLevel.record;
           }
@@ -411,6 +415,10 @@ public class ContactTableBase extends Table {
           }
 
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
             return false;
           }
 
@@ -475,6 +483,10 @@ public class ContactTableBase extends Table {
           }
 
           protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
             return false;
           }
 
@@ -639,3 +651,4 @@ public class ContactTableBase extends Table {
     return 10;
   }
 }
+

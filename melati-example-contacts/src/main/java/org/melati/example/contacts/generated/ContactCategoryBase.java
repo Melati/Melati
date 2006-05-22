@@ -391,3 +391,4 @@ public abstract class ContactCategoryBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

@@ -237,3 +237,4 @@ public abstract class CategoryBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

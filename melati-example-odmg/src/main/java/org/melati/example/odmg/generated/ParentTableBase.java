@@ -222,3 +222,4 @@ public class ParentTableBase extends Table {
     return 0;
   }
 }
+

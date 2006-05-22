@@ -354,3 +354,4 @@ public abstract class ChildBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

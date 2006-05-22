@@ -281,3 +281,4 @@ public class ChildTableBase extends Table {
     return 1;
   }
 }
+

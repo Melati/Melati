@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Melati Archetype">
+  <bannerLeft>
+    <name>Melati</name>
+    <src>http://www.melati.org/images/logo.jpg</src> 
+    <href>http://www.melati.org/</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Melati</name>
+    <src>http://www.melati.org/images/logo.jpg</src> 
+    <href>http://www.melati.org/</href>
+  </bannerRight>
+
+  <body>
+    <links>
+      <item name="Melati"                href="http://www.melati.org" />
+      <item name="PanEris.org"           href="http://www.paneris.org" />
+      <item name="PanEris.net"           href="http://www.paneris.net" />
+    </links>
+${reports}
+  </body>
+</project>

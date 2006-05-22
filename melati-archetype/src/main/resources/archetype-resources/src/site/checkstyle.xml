@@ -17,7 +17,7 @@
 <module name="Checker">
 
     <module name="SuppressionFilter">
-      <property name="file" value="checkstyleSuppressions.xml" />
+      <property name="file" value="src/site/checkstyleSuppressions.xml" />
     </module>
 
     <!-- Checks that a package.html file exists for each package.     -->
@@ -98,7 +98,7 @@
         <!-- Checks for Headers                              -->
         <!-- See http://checkstyle.sf.net/config_header.html -->
         <module name="Header">
-            <property name="headerFile" value="./LICENSE.txt"/>
+            <property name="headerFile" value="src/site/LICENSE.txt"/>
             <property name="ignoreLines" value="1,2,3,4,5,6,7,8,9"/>
         </module>
 

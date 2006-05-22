@@ -155,13 +155,13 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       }
     } else {
       dsdFileName = dir + artifactId + ".dsd";
-      File dsdFile = new File(dsdFileName);
-      if (dsdFile == null || !dsdFile.exists()) {
+      File foundDsdFile = new File(dsdFileName);
+      if (foundDsdFile == null || !foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         dsdFileName = dir + capitalised(artifactId) + ".dsd";
-        dsdFile = new File(dsdFileName);
+        foundDsdFile = new File(dsdFileName);
       }
-      if (dsdFile == null || !dsdFile.exists()) {
+      if (foundDsdFile == null || !foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         return null;
       }

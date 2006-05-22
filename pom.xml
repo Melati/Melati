@@ -1,13 +1,19 @@
-<?xml version="1.0"  encoding="UTF-8" ?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
-  <artifactId>melati</artifactId>
-  <packaging>jar</packaging>
+  <artifactId>melati-parent</artifactId>
+  <packaging>pom</packaging>
   <name>Melati</name>
-  <version>0.7.5-RC3</version>
+  <version>0.7.5-RC4</version>
+  <modules>
+    <module>melati</module>
+    <module>maven-dsd-plugin</module>
+    <module>melati-archetype</module>
+    <module>melati-example-contacts</module>
+    <module>melati-example-odmg</module>
+  </modules>  
   <description>
 Melati Java Web Development Suite
   </description>
@@ -43,7 +49,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <scm>
     <connection>
-      scm:cvs:pserver:anonymous:@melati.org:/usr/cvsroot:melati
+      scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
     </connection>
     <developerConnection>
 scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
@@ -297,203 +303,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </licenses>
 
   <dependencies>
-    <dependency>
-      <groupId>webmacro</groupId>
-      <artifactId>webmacro-classic</artifactId>
-      <version>2.0b1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>concurrent</groupId>
-      <artifactId>concurrent</artifactId>
-      <version>1.3.4</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>oro</groupId>
-      <artifactId>oro</artifactId>
-      <version>2.0.8</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.0</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.9</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>hsqldb</groupId>
-      <artifactId>hsqldb</artifactId>
-      <version>1.8.0.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>easysoft</groupId>
-      <artifactId>EJOB</artifactId>
-      <version>1.3</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>7.4</version>
-      <classifier>jdbc3</classifier>
-      <scope>compile</scope>
-    </dependency>
-<!--
-    <dependency>
-      <groupId>oracle</groupId>
-      <artifactId>ojdbc14</artifactId>
-      <version>1.0</version>
-      <scope>runtime</scope>
-    </dependency>
--->
-    <dependency>
-      <groupId>velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>1.4</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.3.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>odmg</groupId>
-      <artifactId>odmg</artifactId>
-      <version>3.0</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>mockobjects</groupId>
-      <artifactId>mockobjects-core</artifactId>
-      <version>0.09</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
-    </dependency>
-<!--
-    <dependency>
-      <artifactId>activation</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
--->
-
   </dependencies>
 
-  <build>
-   <sourceDirectory>src/main</sourceDirectory>
-   <testSourceDirectory>src/test</testSourceDirectory>
-
-   <defaultGoal>jar</defaultGoal>
-
-   <plugins>
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-compiler-plugin</artifactId>
-     <configuration>
-      <source>1.4</source>
-      <target>1.4</target>
-     </configuration>
-    </plugin>
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-site-plugin</artifactId>
-     <configuration>
-      <locales>en</locales>
-     </configuration>
-    </plugin>
-    <plugin>
-     <groupId>org.apache.maven.plugins</groupId>
-     <artifactId>maven-surefire-plugin</artifactId>
-     <configuration>
-      <includes>
-       <include>**/*Test.java</include>
-      </includes>
-      <excludes>
-       <exclude>**/CachedSelectionTest.java</exclude>
-       <exclude>**/TestDatabaseTest.java</exclude>
-      </excludes>
-     </configuration>
-    </plugin>
-    <plugin>
-     <groupId>org.mortbay.jetty</groupId>
-     <artifactId>maven-jetty6-plugin</artifactId>
-     <version>6.0.0beta14</version>
-     <configuration>
-     </configuration>
-    </plugin>
-   </plugins>
-   
-   <testResources>
-    <testResource>
-     <directory>src/webapp/WEB-INF/classes</directory>
-     <includes>
-      <include>**/*.properties</include>
-     </includes>
-    </testResource>
-   </testResources>
-   
-   <!-- Resources that are packaged up inside the JAR file -->
-   <resources>
-    <resource>
-     <directory>${basedir}</directory>
-     <targetPath>META-INF</targetPath>
-     <includes>
-      <include>NOTICE.txt</include>
-     </includes>
-    </resource>
-    <resource>
-     <directory>src/main</directory>
-     <includes>
-      <include>**/*.wm</include>
-      <include>**/*.dsd</include>
-     </includes>
-     <excludes>
-      <exclude>**/*.properties</exclude>
-     </excludes>
-    </resource>
-    <resource>
-     <directory>site/properties</directory>
-     <excludes>
-      <exclude>**/*.properties</exclude>
-     </excludes>
-    </resource>
-   </resources>
-  </build>
   <reporting>
      <plugins>
-      <plugin>
+      <!-- plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-site-plugin</artifactId>
        <configuration>
-        <templateDirectory>file:/${basedir}/maven/template/</templateDirectory>
+        <templateDirectory>file:/melati/maven/template/</templateDirectory>
         <template>maven-site.vm</template>
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
-      </plugin>
+      </plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -519,7 +341,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>checkstyle.xml</configLocation>
+          <configLocation>./checkstyle.xml</configLocation>
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>
@@ -550,15 +372,18 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <minimumTokens>100</minimumTokens>
         </configuration>
       </plugin-->
+      <!--plugin>
+        <groupId>maven</groupId>
+        <artifactId>maven-jdepend-plugin</artifactId>
+      </plugin-->
       <!-- plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
+        <groupId>maven</groupId>
+        <artifactId>maven-jcoverage-plugin</artifactId>
       </plugin -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
 </project>
-

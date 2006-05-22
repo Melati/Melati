@@ -101,14 +101,26 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       getLog().info("Found DSD at " + foundDsdName + ":");
       dsdPath = foundDsdName;
     }
-    DSD dsd;
-    try {
-      dsd = new DSD(dsdPath);
-      dsd.generateJava();
-    } catch (Exception e) {
-      throw new MojoExecutionException(e.toString());
+    String modelDir = dsdPath.substring(0,dsdPath.lastIndexOf('/'));
+    String modelName = dsdPath.substring(dsdPath.lastIndexOf('/'),dsdPath.lastIndexOf('.'));
+    String databaseTablesFileName = modelDir + modelName + "DatabaseTables.java";
+    File databaseTablesFile = new File(databaseTablesFileName);
+    long dsdTimestamp = new File(dsdPath).lastModified(); 
+    long databaseTablesTimestamp = 1;
+    if (databaseTablesFile != null && databaseTablesFile.exists()) {
+      databaseTablesTimestamp = databaseTablesFile.lastModified(); 
     }
-
+    if (dsdTimestamp < databaseTablesTimestamp) {
+      getLog().info("Generated files are uptodate.");
+    } else {
+      DSD dsd;
+      try {
+        dsd = new DSD(dsdPath);
+        dsd.generateJava();
+      } catch (Exception e) {
+        throw new MojoExecutionException(e.toString());
+      }
+    }
   }
 
   private String existingDsdFileName(String dir, String dsdFileName)
@@ -136,8 +148,8 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       throws MojoExecutionException {
     if (dsdFileName != null) {
       dsdFileName = dir + dsdFileName;
-      File dsdFile = new File(dsdFileName);
-      if (dsdFile == null || !dsdFile.exists()) {
+      File foundDsdFile = new File(dsdFileName);
+      if (foundDsdFile == null || !foundDsdFile.exists()) {
         searchedLocations += " " + dsdFileName + "\n";
         return null;
       }

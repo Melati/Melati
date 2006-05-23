@@ -4,16 +4,10 @@
 /* Built in HTML Elements */
 
 BODY {
-  COLOR: #006400; /* DarkGreen */
-  background-color: #b7e8e3;
-  text-align: center;
+  COLOR: #EE64BB; 
 }
 
 .created {
   bgcolor: lime;
 }
 
-.given {
-
-  bgcolor: cyan;
-}

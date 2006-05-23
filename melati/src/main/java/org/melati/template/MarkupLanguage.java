@@ -69,7 +69,7 @@ public interface MarkupLanguage {
    * See org/melati/admin/PrimarySelect.wm
    * @return the AttributeMarkupLanguage to use for rendering attributes.
    */
-  public abstract AttributeMarkupLanguage getAttr();
+  abstract AttributeMarkupLanguage getAttr();
 
   /**
    * Get the name of this Markup Language.
@@ -79,7 +79,7 @@ public interface MarkupLanguage {
    *                templates from ie 'html' templates are
    *                found in the 'html' directory.
    */
-  public abstract String getName();
+  abstract String getName();
 
   /**
    * Render an Object in a MarkupLanguage specific way, returning a String.
@@ -88,7 +88,7 @@ public interface MarkupLanguage {
    * @param o - the Object to be rendered
    * @throws IOException - if there is a problem during rendering
    */
-  public abstract String rendered(Object o) throws IOException;
+  abstract String rendered(Object o) throws IOException;
 
 
   /**
@@ -99,7 +99,7 @@ public interface MarkupLanguage {
    * @throws IOException - if there is a problem during rendering
    * @return - the String having been rendered in a MarkupLanguage specific way.
    */
-  public abstract String rendered(String s, int limit) throws IOException;
+  abstract String rendered(String s, int limit) throws IOException;
 
   /**
    * Render a Date Field Object in a MarkupLanguage specific way, 
@@ -114,7 +114,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  public abstract String rendered(Field field)
+  abstract String rendered(Field field)
           throws TemplateEngineException, IOException;
 
   /**
@@ -132,7 +132,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  public abstract String rendered(Field field, int style)
+  abstract String rendered(Field field, int style)
           throws TemplateEngineException, IOException;
 
   /**
@@ -150,7 +150,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  public abstract String rendered(Field field, int style, int limit)
+  abstract String rendered(Field field, int style, int limit)
           throws TemplateEngineException, IOException;
 
   /**
@@ -166,7 +166,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  public abstract String renderedShort(Field field)
+  abstract String renderedShort(Field field)
           throws TemplateEngineException, IOException;
 
   /**
@@ -182,7 +182,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException - if there is a problem with the
    *                                   ServletTemplateEngine
    */
-  public abstract String renderedMedium(Field field)
+  abstract String renderedMedium(Field field)
           throws TemplateEngineException, IOException;
 
   /**
@@ -196,7 +196,7 @@ public interface MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    */
-  public abstract String renderedLong(Field field) throws IOException;
+  abstract String renderedLong(Field field) throws IOException;
 
   /**
    * Render a Date Field Object in a MarkupLanguage specific way, 
@@ -209,7 +209,7 @@ public interface MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    */
-  public abstract String renderedFull(Field field)
+  abstract String renderedFull(Field field)
           throws TemplateEngineException, IOException;
 
   /**
@@ -223,7 +223,7 @@ public interface MarkupLanguage {
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
    * @throws IOException - if there is a problem during rendering
    */
-  public abstract String renderedStart(Field field)
+  abstract String renderedStart(Field field)
           throws TemplateEngineException, IOException;
 
   
@@ -239,7 +239,7 @@ public interface MarkupLanguage {
    * @param field The Field
    * @return The default input widget for the Field type
    */
-  public abstract String input(Field field) throws TemplateEngineException,
+  abstract String input(Field field) throws TemplateEngineException,
           IOException;
 
   /**
@@ -249,7 +249,7 @@ public interface MarkupLanguage {
    * @param templetName the templet to use instead of the default
    * @return The specified input widget for the Field type
    */
-  public abstract String inputAs(Field field, String templetName)
+  abstract String inputAs(Field field, String templetName)
           throws TemplateEngineException, IOException;
 
   /**
@@ -259,7 +259,7 @@ public interface MarkupLanguage {
    * @param nullValue the value to use for null for example in a dropdown. 
    * @return The default input widget for the Field type with a specified null value
    */
-  public abstract String searchInput(Field field, String nullValue)
+  abstract String searchInput(Field field, String nullValue)
           throws TemplateEngineException, IOException;
 
   /**
@@ -270,7 +270,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException 
    *         if not template not found on template path or classpath
    */
-  public abstract Template templet(String templetName)
+  abstract Template templet(String templetName)
           throws TemplateEngineException;
 
   /**
@@ -282,7 +282,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException 
    *         if not template not found on template path or classpath
    */
-  public abstract Template templet(Class clazz)
+  abstract Template templet(Class clazz)
           throws TemplateEngineException;
 
   /**
@@ -295,7 +295,7 @@ public interface MarkupLanguage {
    * @throws TemplateEngineException 
    *         if no template found on template path or classpath
    */
-  public abstract Template templet(String purpose, Class clazz)
+  abstract Template templet(String purpose, Class clazz)
           throws TemplateEngineException;
 
 
@@ -305,7 +305,7 @@ public interface MarkupLanguage {
    * @param s the String to escape
    * @return the escaped String
    */
-  public abstract String escaped(String s);
+  abstract String escaped(String s);
 
   /**
    * Get the DisplayString of a <code>Persistent</code> and 
@@ -316,7 +316,7 @@ public interface MarkupLanguage {
    * @param o
    * @return the escaped DisplayString
    */
-  public abstract String escaped(Persistent o);
+  abstract String escaped(Persistent o);
 
   /**
    * Encode a String using the User's encoding. 
@@ -324,7 +324,9 @@ public interface MarkupLanguage {
    * @param s the String to encode
    * @return the encoded String
    */
-  public abstract String encoded(String s);
+  abstract String encoded(String s);
   
   
 }
+
+

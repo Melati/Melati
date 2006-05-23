@@ -321,7 +321,7 @@ public class DSD {
       if (overwrite) {
         BufferedReader r = new BufferedReader(new FileReader(f));
         try {
-          for( int i = 0; i < 9; i++) {r.readLine();}
+          for(int i = 0; i < 9; i++) {r.readLine(); }
           String tenthLine = r.readLine();
           if (tenthLine == null || tenthLine.indexOf(autogenStamp) != -1)
             System.err.println("Replacing " + f);
@@ -347,7 +347,7 @@ public class DSD {
               "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
               "<head>\n" +
               " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\" />\n" +
-              " <title>" + packageName );
+              " <title>" + packageName);
       if (overwrite) 
         w.write(".generated");
       w.write("</title>\n" +
@@ -537,7 +537,7 @@ public class DSD {
         false);
 
     // Create a default package.html if it does not exist
-    createPackageHTML( new Generator() {
+    createPackageHTML(new Generator() {
       public void process(Writer w) throws IOException {
         w.write("<p>The POEM-generated model classes for " + 
         packageName + ".</p>\n");
@@ -545,7 +545,7 @@ public class DSD {
     }, false);
 
     // Create a package.html for the generated files
-    createPackageHTML( new Generator() {
+    createPackageHTML(new Generator() {
       public void process(Writer w) throws IOException {
         w.write("<p>The POEM-generated support classes for " + 
         packageName + ".</p>\n");

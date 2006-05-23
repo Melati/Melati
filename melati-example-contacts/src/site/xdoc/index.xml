@@ -23,6 +23,36 @@ This page last updated: \$Date$ \$Author$
   
 <!-- menu -->
 
+<section name=" Simple Contacts Application ">
+<table border="12" align="center"><tr><td>
+  Please feel free to play about as much as you like. 
+  Note that you can add new tables and new fields to tables. 
+  <br />
+  If you attempt  to make changes to protected data, you will be 
+  challenged for a Username and Password. 
+  <br />
+  Use <tt>_administrator_</tt> and <tt>FIXME</tt>.
+</td></tr></table>
+<p>
+  Included in the distribution is a simple 
+  <a href="/melati/org.melati.example.contacts.Search">Contacts Database</a> application allowing 
+  addition, modification, deletion and search of Contact records.
+</p>
+<p>
+ The code is very simple:
+ <A HREF="/xref/org/melati/example/contacts/Search.java">Search.java</A>.
+</p>
+<p>
+  The data is stored in an SQL database, which is created from a 
+  <A HREF="/xref/org/melati/example/contacts/contacts.dsd">Data
+  Structure Definition</A> 
+  (DSD). The database is also accessible through the generic 
+  <a href="/melati/org.melati.admin.Admin/contacts/Main">Admin Interface</a>. 
+</p>
+<p>
+  The code for the Admin System can be viewed <A HREF="/xref/org/melati/admin/">here</A>.
+</p>
+</section>
 <section name=" Melati ">
 <P>
   <a href="http://melati.org/">Melati</a> is a tool for building websites backed by a

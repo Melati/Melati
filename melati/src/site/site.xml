@@ -17,6 +17,13 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
+    <menu ref="modules" name="Modules" inherit="bottom">
+      <item name="melati" href="/melati/index.html"/>
+      <item name="DSD plugin" href="/maven-dsd-plugin/index.html"/>
+      <item name="Archetype" href="/melati-archetype/index.html"/>
+      <item name="Example: contacts" href="/melati-example-contacts/index.html"/>
+      <item name="Example: odmg" href="/melati-example-odmg/index.html"/>
+    </menu>
     ${reports}
   </body>
 </project>

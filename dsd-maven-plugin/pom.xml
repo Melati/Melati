@@ -35,11 +35,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
       <id>default</id>
       <name>Default Repository</name>
-      <url>scp://www.melati.org/data/www/m2/org.melati/</url>
+      <url>scp://www.melati.org/data/www/maven2/</url>
     </repository>
     <site>
       <id>website</id>
-      <url>scp://www.melati.org/dist/maven-dsd-plugin/</url>
+      <url>scp://www.melati.org/data/www/melati/maven-dsd-plugin/</url>
     </site>
   </distributionManagement>  
 

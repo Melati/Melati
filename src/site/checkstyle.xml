@@ -17,7 +17,7 @@
 <module name="Checker">
 
     <module name="SuppressionFilter">
-      <property name="file" value="checkstyleSuppressions.xml" />
+      <property name="file" value="src/site/checkstyleSuppressions.xml" />
     </module>
 
     <!-- Checks that a package.html file exists for each package.     -->
@@ -47,7 +47,7 @@
         </module -->
         <module name="LineLength">
           <property name="max" value="120"/>
-          <property name="ignorePattern" value="$Source:"/>
+          <property name="ignorePattern" value="Source:"/>
         </module>
 
         <!-- Checks for Javadoc comments.                     -->

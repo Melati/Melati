@@ -61,13 +61,15 @@ public interface AttributeMarkupLanguage extends MarkupLanguage {
    * AccessPoemException is treated differently in an Atribute than 
    * in the main body of a page.
    */
-  abstract String rendered(AccessPoemException e) throws IOException;
+  String rendered(AccessPoemException e) throws IOException;
 
   /**
    * Render, not translating line ends to BR tags.
    * 
    * @see org.melati.template.AbstractMarkupLanguage#render(String, MelatiWriter)
    */
-  abstract void render(String s, MelatiWriter writer) throws IOException;
+  void render(String s, MelatiWriter writer) throws IOException;
 
 }
+
+

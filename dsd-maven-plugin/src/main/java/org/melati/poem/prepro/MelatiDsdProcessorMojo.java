@@ -27,6 +27,7 @@ import java.io.File;
  * @goal generate
  * @description Process a DSD file to generate java sources.
  * @phase generate-sources
+ * @todo Look in jar
  */
 public class MelatiDsdProcessorMojo extends AbstractMojo {
   /**
@@ -103,13 +104,15 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
     }
     String modelDir = dsdPath.substring(0,dsdPath.lastIndexOf('/'));
     String modelName = dsdPath.substring(dsdPath.lastIndexOf('/'),dsdPath.lastIndexOf('.'));
-    String databaseTablesFileName = modelDir + modelName + "DatabaseTables.java";
+    String databaseTablesFileName = modelDir + "/generated" + modelName + "DatabaseBase.java";
+    
     File databaseTablesFile = new File(databaseTablesFileName);
     long dsdTimestamp = new File(dsdPath).lastModified(); 
     long databaseTablesTimestamp = 1;
     if (databaseTablesFile != null && databaseTablesFile.exists()) {
       databaseTablesTimestamp = databaseTablesFile.lastModified(); 
     }
+    getLog().info(databaseTablesFileName);
     if (dsdTimestamp < databaseTablesTimestamp) {
       getLog().info("Generated files are uptodate.");
     } else {

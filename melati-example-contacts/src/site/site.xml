@@ -22,6 +22,6 @@
         <item name="Download" href="Download.html"/>
         <item name="Usage" href="Usage.html"/>
     </menu>
-    \${reports}
+    ${reports}
   </body>
 </project>

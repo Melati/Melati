@@ -46,6 +46,21 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>scp://www.melati.org/dist/melati-archetype/</url>
     </site>
   </distributionManagement>  
+  <repositories>
+   <!-- repository>
+     <id>m1</id>
+     <name>Maven 1 Repository</name>
+     <layout>legacy</layout>
+     <url>http://www.ibiblio.org/maven/</url>
+   </repository>
+   <repository>
+     <id>melati</id>
+     <name>Melati Maven 1 Repository</name>
+     <layout>legacy</layout>
+     <url>http://melati.org/maven/</url>
+   </repository -->
+  </repositories>
+
 
   <scm>
     <connection>
@@ -341,7 +356,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>./checkstyle.xml</configLocation>
+          <configLocation>src/site/checkstyle.xml</configLocation>
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>

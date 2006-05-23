@@ -84,6 +84,8 @@
 
     <!-- Not ours -->
     <suppress checks=""
+              files="WebmacroStandalone.java" />
+    <suppress checks=""
               files="FastWriter.java" />
     <suppress checks=""
               files="Metaphone.java" />

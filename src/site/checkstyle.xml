@@ -168,8 +168,7 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- module name="AvoidInlineConditionals"/ -->
         <module name="DoubleCheckedLocking"/>    <!-- MY FAVOURITE -->
-        <!-- Ignoring exceptions already dealt with -->
-        <!-- module name="EmptyStatement"/-->
+        <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <!-- done quite a bit -->
         <module name="HiddenField">

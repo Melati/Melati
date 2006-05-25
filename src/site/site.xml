@@ -16,6 +16,7 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
+    <menu ref="parent" name="parent" inherit="top"/>
     <menu name="Melati">
         <item name="Home" href="index.html"/>
         <item name="Features" href="Features.html"/>

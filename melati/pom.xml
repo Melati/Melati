@@ -9,7 +9,7 @@
   <artifactId>melati</artifactId>
   <name>Melati</name>
   <version>0.7.5-RC4</version>
-  <url>http://melati.org</url>
+  <url>http://melati.org/melati</url>
   <dependencies>
     <dependency>
       <groupId>webmacro</groupId>

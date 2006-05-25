@@ -17,6 +17,7 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
+    <menu ref="parent" inherit="top"/>
     <menu name="DSD Plugin">
         <item name="Usage" href="Usage.html"/>
     </menu>

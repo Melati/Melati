@@ -17,6 +17,9 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
-${reports}
+    <menu ref="parent" name="parent" inherit="top"/>
+    <menu ref="modules" name="Modules" inherit="bottom"/>
+
+  ${reports}
   </body>
 </project>

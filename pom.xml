@@ -64,7 +64,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <url>http://www.ibiblio.org/maven/</url>
    </repository>
    <repository>
-     <id>melati</id>
+     <id>melati1</id>
      <name>Melati Maven 1 Repository</name>
      <layout>legacy</layout>
      <url>http://melati.org/maven/</url>

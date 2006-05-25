@@ -26,7 +26,7 @@ import java.io.File;
  * 
  * @goal generate
  * @description Process a DSD file to generate java sources.
- * @phase generate-sources
+ * @phase process-sources
  * @todo Look in jar
  */
 public class MelatiDsdProcessorMojo extends AbstractMojo {
@@ -36,12 +36,14 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
    * @parameter expression=
    */
   private String dsdPackage;
+
   /**
    * DSD file name.
    * 
    * @parameter expression=
    */
   private String dsdFile;
+
   /**
    * Location of the source.
    * 
@@ -49,11 +51,13 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
    * @required
    */
   private File sourceDirectory;
+
   /**
    * @parameter expression="${project.groupId}"
    * @required
    */
   private String groupId;
+
   /**
    * @parameter expression="${project.artifactId}"
    * @required
@@ -62,7 +66,8 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
 
   private String searchedLocations = "";
 
-  public void execute() throws MojoExecutionException {
+  public void execute()
+      throws MojoExecutionException {
 
     File f = sourceDirectory;
     if (f == null || !f.exists()) {
@@ -71,20 +76,20 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
 
     String dsdPath = null;
     if (dsdPackage != null) {
-      String lookupDir = sourceDirectory.getPath() + "/" +
-                         dsdPackage.replace('.', '/') + "/";
+      String lookupDir = sourceDirectory.getPath() + "/"
+          + dsdPackage.replace('.', '/') + "/";
       dsdPath = dsdFileName(lookupDir, dsdFile);
       if (dsdPath == null) {
         if (dsdFile != null) {
-          throw new MojoExecutionException("Configured DSD file " + lookupDir + dsdFile +
-              " could not be found.");
+          throw new MojoExecutionException("Configured DSD file " + lookupDir
+              + dsdFile + " could not be found.");
         } else {
           throw new MojoExecutionException(
-               "DSD file could not be found on configured path " +
-               dsdPackage +
-               " in any of: \n" +
-               searchedLocations +
-               "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
+                                           "DSD file could not be found on configured path "
+                                               + dsdPackage
+                                               + " in any of: \n"
+                                               + searchedLocations
+                                               + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
 
         }
       }
@@ -93,24 +98,27 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       String sourceDir = sourceDirectory.getPath() + "/" + groupDir + "/";
       String foundDsdName = existingDsdFileName(sourceDir, dsdFile);
       if (foundDsdName == null)
-        foundDsdName = existingDsdFileName(sourceDir + artifactId + "/", dsdFile);
+        foundDsdName = existingDsdFileName(sourceDir + artifactId + "/",
+            dsdFile);
       if (foundDsdName == null)
         throw new MojoExecutionException(
-                      "DSD file could not be found in any of: \n" +
-                      searchedLocations +
-                      "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
+                                         "DSD file could not be found in any of: \n"
+                                             + searchedLocations
+                                             + "Add an explicit dsdPackage and/or dsdFile parameter to your configuration.");
       getLog().info("Found DSD at " + foundDsdName + ":");
       dsdPath = foundDsdName;
     }
-    String modelDir = dsdPath.substring(0,dsdPath.lastIndexOf('/'));
-    String modelName = dsdPath.substring(dsdPath.lastIndexOf('/'),dsdPath.lastIndexOf('.'));
-    String databaseTablesFileName = modelDir + "/generated" + modelName + "DatabaseBase.java";
-    
+    String modelDir = dsdPath.substring(0, dsdPath.lastIndexOf('/'));
+    String modelName = dsdPath.substring(dsdPath.lastIndexOf('/'), dsdPath
+        .lastIndexOf('.'));
+    String databaseTablesFileName = modelDir + "/generated" + modelName
+        + "DatabaseBase.java";
+
     File databaseTablesFile = new File(databaseTablesFileName);
-    long dsdTimestamp = new File(dsdPath).lastModified(); 
+    long dsdTimestamp = new File(dsdPath).lastModified();
     long databaseTablesTimestamp = 1;
     if (databaseTablesFile != null && databaseTablesFile.exists()) {
-      databaseTablesTimestamp = databaseTablesFile.lastModified(); 
+      databaseTablesTimestamp = databaseTablesFile.lastModified();
     }
     getLog().info(databaseTablesFileName);
     if (dsdTimestamp < databaseTablesTimestamp) {

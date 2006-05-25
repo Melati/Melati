@@ -5,7 +5,7 @@
   <groupId>org.melati</groupId>
   <artifactId>melati-parent</artifactId>
   <packaging>pom</packaging>
-  <name>Melati</name>
+  <name>Melati Home</name>
   <version>0.7.5-RC4</version>
   <modules>
     <module>melati</module>
@@ -70,7 +70,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
      <url>http://melati.org/maven/</url>
    </repository -->
   </repositories>
-
 
   <scm>
     <connection>
@@ -410,17 +409,22 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <minimumTokens>100</minimumTokens>
         </configuration>
       </plugin>
-      <!--plugin>
-        <groupId>maven</groupId>
-        <artifactId>maven-jdepend-plugin</artifactId>
-      </plugin-->
-      <!--plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>maven-jcoverage-plugin</artifactId>
-      </plugin-->
+        <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0-beta-1-SNAPSHOT</version>
+      </plugin>
+      <!-- plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jcoverage-maven-plugin</artifactId>
+      </plugin -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

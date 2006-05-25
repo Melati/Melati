@@ -15,138 +15,29 @@ ${artifactId}
   <body>
 
 
-<section name="Using the CMS to create pages">
-<p>
-The Melati CMS enables you to create and maintain pages of a website 
-through its database interface.
-</p>
+<section name="Using the Admin system pages">
 <p>
 The website can be viewed as a tree with the home page as the root.
 The tree view can be viewed by clicking the <b>tree</b> link on the top right  
 frame of a <b>Page</b> record within the 
 <a href="/db/Admin/wvm/Main">Admin System</a>.
 </p>
-<subsection name="Creating a new Page">
+<subsection name="Creating a new Record">
 <p>
-Before creating a new page you should have decided where you want 
-the page to  appear in the website tree.
-You should also have written the text, in notepad or similar text editor, 
-though you can use the system to edit on the fly it is better to 
-have written the text and reviewed it on paper before entering it 
-in the system.
-</p>
-<p>
-Access the <a href="/db/Admin/wvm/Main">Admin System</a>, where the 
-Page Table is the first screen presented to you. 
+Access the <a href="/${artifactId}/Admin/${artifactId}/Main">Admin System</a>, 
+where you can select Table you wish to add to from the dropdown. 
 </p>
 <ol>
 <li>Click the New Record icon <img src="/melati-static/admin/edit_file.gif"
 alt="New Record Icon"/>.
 </li>
-<li>Fill in at least the <font color="red">Name</font>,
-<font color="red">Display Name</font> and 
-<font color="red">Display Order</font>.
-For example <tt>example</tt>, <tt>Example</tt> and <tt>23</tt>.
+<li>Fill in at least the items marked with a red <font color="red">*</font>.
 [Leave the <font color="red">Deleted</font> box unchecked.]
 </li>
-
-<li>If you want the page to appear within the site then 
-select a parent for it. 
-</li>
-<li>Select <tt>Default</tt> as the style.</li>
-<li>Ignore the <tt>Template</tt> field.</li>
 <li>Press <tt>Update</tt></li>
 </ol>
 <p>
-You have created an empty page!
-It can be viewed at <a href="http://wvm.paneris.org/db/Display/page/Example.html">http://wvm.paneris.org/db/Display/page/Example.html</a>.
-</p>
-</subsection>
-<subsection name="Adding paragraphs (Divs)">
-<p>
-Use the Admin system to navigate to your newley created page.
-</p>
-<ol>
-<li>
-Press the <tt>Div</tt> link on the top right pane.
-</li>
-<li>Click the New Record icon <img src="/melati-static/admin/edit_file.gif"
-alt="New Record Icon"/>.
-</li>
-<li>
-Enter a pagagraph number.
-</li>
-<li>
-Select a Style (Default).
-</li>
-<li>
-Add the paragraph title.
-</li>
-<li>
-Enter the paragraph content.
-</li>
-<li>Press <tt>Update</tt></li>
-</ol>
-<p>
-Repeat for as many paragraphs as you have for this Page.
-</p>
-</subsection>
-<subsection name="Creating non-standard pages">
-<p>
-The pages that you can create using the CMS are deliberately 
-standardised, to give a uniform look and feel to the whole site which can be 
-easily changed. 
-However there is a requirement to be able to bypass 
-this mechanism.
-</p>
-<p>
-To create a page which does not fit into the standard framework 
-follow the procedure above to create basic page.
-Then save that page to your local disk and edit it with 
-your HTML editor of choice.
-</p>
-<p>
-Use the <a href="/db/Admin/wvm/Main">Admin System</a> to create a new 
-Uploaded File record and upload your editted file.
-</p>
-<p>
-This trick can be used to overwrite a page from the database, 
-if there is a requirement for a non standard page.
-</p>
-</subsection>
-<subsection name="Configuring contacts">
-<p>
-The emails sent by the system have the following configurable settings:
-</p>
-<table>
-<tr>
-<th>WebsiteFromName</th>
-<td>Ordinary name of sender</td>
-</tr>
-<tr>
-<th>WebsiteFromEmail</th>
-<td>Email of sender</td>
-</tr>
-<tr>
-<th>SalesAdminName</th>
-<td>Ordinary name of sales addressee</td>
-</tr>
-<tr>
-<th>SalesAdminEmail</th>
-<td>Email of sales addressee</td>
-</tr>
-<tr>
-<th>NewsAdminName</th>
-<td>Ordinary name of news addressee</td>
-</tr>
-<tr>
-<th>NewsAdminEmail</th>
-<td>Email of news addressee</td>
-</tr>
-</table>
-<p>
-Use the Admin System to modify the 
-<a href="/db/Admin/wvm/setting/Main">setting table</a>. 
+You have created a new record!
 </p>
 </subsection>
 </section>

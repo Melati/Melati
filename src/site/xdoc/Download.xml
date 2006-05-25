@@ -53,7 +53,7 @@ is more regularly bult with Maven. You are best off using Maven.
         The latest snapshot build can be found in our  
 	<a href="http://maven.melati.org/maven/melati/">Maven One
         repository</a> or our 
-	<a href="http://maven.melati.org/m2/org.melati/org/melati/">Maven Two
+	<a href="http://maven.melati.org/maven2/org.melati/org/melati/">Maven Two
         repository</a>.
       </p>
       

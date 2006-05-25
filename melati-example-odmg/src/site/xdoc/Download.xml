@@ -29,7 +29,7 @@ This page last updated: \$Date$ \$Author$
         The latest snapshot build can be found in our local <a
 	href="http://maven.apache.org/">Maven</a> 
         repository
-        <a href="http://maven.melati.org/maven/org.melati/melati-example-odmg">here</a>.
+        <a href="http://maven.melati.org/maven2/org/melati/melati-example-odmg">here</a>.
       </p>
       
 </section>

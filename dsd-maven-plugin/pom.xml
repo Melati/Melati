@@ -11,10 +11,10 @@
   </parent>
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Maven Melati Dsd Processor Mojo</name>
+  <name>DSD Mojo</name>
   <url>http://melati.org/maven-dsd-plugin/</url>
   <description>
-  A Maven MOJO plugin to run the POEM preprocessor during the generate-sources 
+  A Maven MOJO plugin to run the POEM preprocessor during the process-sources 
   phase of a project.
   </description>
   <issueManagement>

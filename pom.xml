@@ -368,7 +368,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <maxmemory>512</maxmemory>
         </configuration>
       </plugin>
-      <!--plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
@@ -386,15 +386,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
         </configuration>
-      </plugin-->
+      </plugin>
       <!--plugin>
         <groupId>maven</groupId>
         <artifactId>maven-jdepend-plugin</artifactId>
       </plugin-->
-      <!-- plugin>
-        <groupId>maven</groupId>
+      <!--plugin>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>maven-jcoverage-plugin</artifactId>
-      </plugin -->
+      </plugin-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>

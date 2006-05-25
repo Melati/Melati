@@ -332,8 +332,21 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        </configuration>
       </plugin -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-project-info-reports-plugin</artifactId>
+       <reportSets>
+        <reportSet>
+         <reports>
+          <report>dependencies</report>
+          <report>project-team</report>
+          <report>mailing-list</report>
+          <!-report>cim</report -->
+          <report>issue-tracking</report>
+          <report>license</report>
+          <report>scm</report>
+         </reports>
+        </reportSet>
+       </reportSets>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

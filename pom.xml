@@ -49,12 +49,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   <repositories>
     <repository>
       <id>melati</id>
-      <name>Default Repository</name>
+      <name>Melati M2 Repository</name>
       <url>scp://www.melati.org/data/www/maven2/</url>
     </repository>
     <snapshotRepository>
       <id>snapshots</id>
-      <name>Maven Snapshot Central Repository</name>
+      <name>Melati Snapshot Repository</name>
       <url>scp://www.melati.org/data/www/maven2/</url>
     </snapshotRepository>
    <!-- repository>

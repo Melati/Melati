@@ -37,9 +37,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <distributionManagement>
     <repository>
-      <id>default</id>
+      <id>melati</id>
       <name>Default Repository</name>
-      <url>scp://www.melati.org/data/www/maven2/org.melati/</url>
+      <url>scp://www.melati.org/data/www/maven2/</url>
     </repository>
     <site>
       <id>website</id>
@@ -340,7 +340,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <report>dependencies</report>
           <report>project-team</report>
           <report>mailing-list</report>
-          <!-report>cim</report -->
+          <!--report>cim</report -->
           <report>issue-tracking</report>
           <report>license</report>
           <report>scm</report>

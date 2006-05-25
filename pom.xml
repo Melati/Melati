@@ -50,13 +50,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
-      <url>scp://www.melati.org/data/www/maven2/</url>
+      <url>http://www.melati.org/data/www/maven2/</url>
     </repository>
-    <snapshotRepository>
+    <repository>
       <id>snapshots</id>
-      <name>Melati Snapshot Repository</name>
-      <url>scp://www.melati.org/data/www/maven2/</url>
-    </snapshotRepository>
+      <name>Codehaus snapshots</name>
+      <url>http://snapshots.maven.codehaus.org/maven2/</url>
+    </repository>
    <!-- repository>
      <id>m1</id>
      <name>Maven 1 Repository</name>

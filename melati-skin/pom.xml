@@ -7,10 +7,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>melati-skin</artifactId>
+  <packaging>jar</packaging>
   <name>Melati Skin</name>
   <version>1.0-SNAPSHOT</version>
   <url>http://melati.org/melati-skin/</url>
   <description>
 The website styling for Melati and derived projects.
   </description>
+  <reporting>
+     <plugins>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-site-plugin</artifactId>
+       <configuration>
+        <!--templateDirectory>file:/melati/maven/template/</templateDirectory>
+        <template>maven-site.vm</template-->
+        <outputEncoding>UTF-8</outputEncoding>
+       </configuration>
+      </plugin>
+     </plugins>
+    </reporting>
 </project>

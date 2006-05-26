@@ -27,17 +27,6 @@ This page last updated: \$Date$ \$Author$
 A Maven skin for Melati derived sites.
 </p>
 </section>
-<section name=" Melati ">
-<P>
-  <a href="http://melati.org/">Melati</a> is a tool for building websites backed by a
-  database or accessing a database over <tt>HTTP</tt>.
-</P>
-</section>
-<section name=" Maven ">
-<P>
-  <a href="http://maven.apache.org/">Maven</a> is a project tool.
-</P>
-</section>
 </body>
 </document>
 

@@ -32,7 +32,7 @@ This page last updated: $Date$ $Author$
 </P>
 <ul>
   <li>a generic 
-    <A href="/melati/org.melati.admin.Admin/contacts/Main">
+    <A href="/melati-webapp/org.melati.admin.Admin/contacts/Main">
     database administration system</A>, allowing the site manager to edit 
     both the contents and the structure of the database through 
     a simple web interface.

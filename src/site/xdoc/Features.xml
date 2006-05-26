@@ -61,7 +61,7 @@ This page last updated: $Date$ $Author$
 
   </LI>
   <LI> A comprehensive <A
-       HREF="/melati/org.melati.admin.Admin/contacts/Main"><B>administration
+       HREF="/melati-webapp/org.melati.admin.Admin/contacts/Main"><B>administration
        system</B></A>, supporting the following operations on any Melati
        database without requiring configuration:
 

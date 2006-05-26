@@ -36,55 +36,55 @@ where in an installation an ellusive bug is hiding.
 A default installation should not produce errors for any of them.
 <table>
 <tr><td>
-<a href="/melati/org.melati.test.ServletTest">ServletTest</a>
+<a href="/melati-webapp/org.melati.test.ServletTest">ServletTest</a>
 </td><td>
 Simplest possible <code>Hello World</code> test.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.ConfigServletTest">ConfigServletTest</a>
+<a href="/melati-webapp/org.melati.test.ConfigServletTest">ConfigServletTest</a>
 </td><td>
 Test that configuration (reading <code>.properties</code> files) 
 is working. 
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.ConfigServletTestOverride">ConfigServletTestOverride</a>
+<a href="/melati-webapp/org.melati.test.ConfigServletTestOverride">ConfigServletTestOverride</a>
 </td><td>
 Test overriding upload directory programmatically.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.CharsetServletTest">CharsetServletTest</a>
+<a href="/melati-webapp/org.melati.test.CharsetServletTest">CharsetServletTest</a>
 </td><td>
 Test display of various characters without using a Template Engine.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.CharsetTemplateServletTest">CharsetTemplateServletTest</a>
+<a href="/melati-webapp/org.melati.test.CharsetTemplateServletTest">CharsetTemplateServletTest</a>
 </td><td>
 Test display of various characters using a Template Engine.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.EmailTemplateServletTest">EmailTemplateServletTest</a>
+<a href="/melati-webapp/org.melati.test.EmailTemplateServletTest">EmailTemplateServletTest</a>
 </td><td>
 Test Email sending utility, using a Template Engine.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.FlushingServletTest">FlushingServletTest</a>
+<a href="/melati-webapp/org.melati.test.FlushingServletTest">FlushingServletTest</a>
 </td><td>
 Illustrate the difference between flushing and not flushing 
 your output buffer.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.PoemServletTest">PoemServletTest</a>
+<a href="/melati-webapp/org.melati.test.PoemServletTest">PoemServletTest</a>
 </td><td>
 Test a Melati configuration which accesses a POEM database 
 without using a Template Engine.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.TemplateServletTest">TemplateServletTest</a>
+<a href="/melati-webapp/org.melati.test.TemplateServletTest">TemplateServletTest</a>
 </td><td>
 Test a Melati configuration with a Template Engine.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.TemplateServletTestOverride">TemplateServletTestOverride</a>
+<a href="/melati-webapp/org.melati.test.TemplateServletTestOverride">TemplateServletTestOverride</a>
 </td><td>
 Illustrate
 <code>org.melati.login.HttpBasicAuthenticationAccessHandler</code> 
@@ -92,13 +92,13 @@ as opposed to
 <code>org.melati.login.HttpSessionAccessHandler</code>.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.WebmacroMelatiServletTest">WebmacroMelatiServletTest</a>
+<a href="/melati-webapp/org.melati.test.WebmacroMelatiServletTest">WebmacroMelatiServletTest</a>
 </td><td>
 Test Melati in standalone mode (outside the servlet API) by expanding 
 a template to a string and then including it within a template.
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.WebmacroStandalone">WebmacroStandalone</a>
+<a href="/melati-webapp/org.melati.test.WebmacroStandalone">WebmacroStandalone</a>
 </td><td>
 This example demonstrates using WebMacro in "standalone" mode. 
 Instead of subclassing from WMServlet you create and maintain 
@@ -107,7 +107,7 @@ and you are free to subclass from another servlet.
 (Copied from WebMacro dsitribution).
 </td></tr>
 <tr><td>
-<a href="/melati/org.melati.test.SessionAnalysisServlet">SessionAnalysisServlet</a>
+<a href="/melati-webapp/org.melati.test.SessionAnalysisServlet">SessionAnalysisServlet</a>
 </td><td>
 Shows current sessions and jvm memory usage.
 </td></tr>

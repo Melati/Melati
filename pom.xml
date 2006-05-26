@@ -9,10 +9,11 @@
   <version>0.7.5-RC4</version>
   <modules>
     <module>melati</module>
-    <module>maven-dsd-plugin</module>
-    <module>melati-archetype</module>
     <module>melati-example-contacts</module>
     <module>melati-example-odmg</module>
+    <module>maven-dsd-plugin</module>
+    <module>melati-archetype</module>
+    <module>melati-skin</module>
   </modules>  
   <description>
 Melati Java Web Development Suite
@@ -331,7 +332,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <reporting>
      <plugins>
-      <!-- plugin>
+      <!--plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-site-plugin</artifactId>
        <configuration>
@@ -339,7 +340,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <template>maven-site.vm</template>
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
-      </plugin -->
+      </plugin-->
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -364,15 +365,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-report-maven-plugin</artifactId>
-        <version>2.0-beta-1</version>
-        <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-          <excludes>
-            <exclude>**/CachedSelectionTest.java</exclude>
-          </excludes>
-        </configuration>
+        <!-- version>2.0-beta-1</version-->
+        <configuration />
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -432,4 +426,28 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </plugin>
     </plugins>
   </reporting>
+  <build>
+    <plugins>
+      <!--plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <locales>en</locales>
+        </configuration>
+        <version>2.0-beta-1</version>
+      </plugin-->
+      <!--plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-maven-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/CachedSelectionTest.java</exclude>
+          </excludes>
+        </configuration>
+        <version>2.0-beta-1</version>
+      </plugin-->
+    </plugins>
+  </build>
 </project>

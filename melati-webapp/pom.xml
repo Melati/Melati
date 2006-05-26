@@ -10,9 +10,24 @@
   <packaging>war</packaging>
   <name>Melati Webapp</name>
   <version>0.7.5-RC4</version>
-  <url>http://maven.apache.org</url>
+  <url>http://melati.org/webapp</url>
+  <distributionManagement>
+    <site>
+      <id>melati</id>
+      <url>scp://melati.org/data/www/melati/webapp</url>
+    </site>
+  </distributionManagement>  
   <build>
     <finalName>melati-webapp</finalName>
+     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <configuration>
+          <server>melati-tomcat</server>
+        </configuration>
+      </plugin>
+     </plugins>
   </build>
   <dependencies>
     <dependency>
@@ -40,4 +55,17 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <reporting>
+     <plugins>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-site-plugin</artifactId>
+       <configuration>
+        <!--templateDirectory>file:/melati/maven/template/</templateDirectory>
+        <template>maven-site.vm</template-->
+        <outputEncoding>UTF-8</outputEncoding>
+       </configuration>
+      </plugin>
+     </plugins>
+    </reporting>
 </project>

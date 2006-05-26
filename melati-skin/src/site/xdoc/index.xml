@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati Skin</title>
+    <author email="timp@paneris.org">Tim Pizey</author>
+    <keywords>
+site skin Maven Melati
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: \$Date$ \$Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+<section name="Melati Skin">
+<p>
+A Maven skin for Melati derived sites.
+</p>
+</section>
+<section name=" Melati ">
+<P>
+  <a href="http://melati.org/">Melati</a> is a tool for building websites backed by a
+  database or accessing a database over <tt>HTTP</tt>.
+</P>
+</section>
+<section name=" Maven ">
+<P>
+  <a href="http://maven.apache.org/">Maven</a> is a project tool.
+</P>
+</section>
+</body>
+</document>
+
+

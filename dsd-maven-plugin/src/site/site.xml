@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Melati DSD Processor">
+<project name="maven-dsd-plugin">
   <bannerLeft>
     <name>Melati</name>
     <src>http://www.melati.org/images/logo.jpg</src> 
@@ -19,6 +19,7 @@
     </links>
     <menu ref="parent" inherit="top"/>
     <menu name="DSD Plugin">
+        <item name="Home" href="index.html"/>
         <item name="Usage" href="Usage.html"/>
     </menu>
 ${reports}

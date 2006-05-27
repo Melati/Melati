@@ -10,6 +10,9 @@
   <name>Melati</name>
   <version>0.7.5-RC4</version>
   <url>http://melati.org/melati</url>
+  <description>
+  Melati Java Website Development Suite. 
+  </description>
   <dependencies>
     <dependency>
       <groupId>webmacro</groupId>

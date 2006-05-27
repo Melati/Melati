@@ -41,11 +41,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <repository>
       <id>melati</id>
       <name>Default Repository</name>
-      <url>scp://www.melati.org/data/www/maven2/</url>
+      <url>scp://melati.org/data/www/maven2/</url>
     </repository>
     <site>
-      <id>website</id>
-      <url>scp://www.melati.org/data/www/melati/</url>
+      <id>melati</id>
+      <url>scp://melati.org/data/www/melati/</url>
     </site>
   </distributionManagement>  
   <pluginRepositories>
@@ -53,6 +53,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>melati</id>
       <name>Melati M2 Repository</name>
       <url>http://www.melati.org/maven2/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>snapshots</id>
+      <name>Codehaus snapshots</name>
+      <url>http://snapshots.maven.codehaus.org/maven2/</url>
     </pluginRepository>
   </pluginRepositories>
   <repositories>
@@ -355,10 +360,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <reportSets>
         <reportSet>
          <reports>
+          <report>index</report>
           <report>dependencies</report>
           <report>project-team</report>
           <report>mailing-list</report>
-          <!--report>cim</report -->
+          <report>cim</report>
           <report>issue-tracking</report>
           <report>license</report>
           <report>scm</report>
@@ -366,10 +372,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         </reportSet>
        </reportSets>
       </plugin>
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-report-maven-plugin</artifactId>

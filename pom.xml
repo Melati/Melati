@@ -345,15 +345,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <reporting>
      <plugins>
-      <!--plugin>
+      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-site-plugin</artifactId>
        <configuration>
-        <templateDirectory>file:/melati/maven/template/</templateDirectory>
-        <template>maven-site.vm</template>
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
-      </plugin-->
+      </plugin>
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -442,13 +440,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </reporting>
   <build>
     <plugins>
-      <!--plugin>
+      <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <locales>en</locales>
+        <outputEncoding>UTF-8</outputEncoding>
         </configuration>
-        <version>2.0-beta-1</version>
-      </plugin-->
+      </plugin>
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-maven-plugin</artifactId>

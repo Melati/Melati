@@ -14,17 +14,4 @@
   <description>
 The website styling for Melati and derived projects.
   </description>
-  <reporting>
-     <plugins>
-      <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-site-plugin</artifactId>
-       <configuration>
-        <!--templateDirectory>file:/melati/maven/template/</templateDirectory>
-        <template>maven-site.vm</template-->
-        <outputEncoding>UTF-8</outputEncoding>
-       </configuration>
-      </plugin>
-     </plugins>
-    </reporting>
 </project>

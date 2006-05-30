@@ -31,7 +31,7 @@ This page last updated: $Date$ $Author$
   <LI> An easy-to-use transparent <B>persistence layer</B> over a JDBC
        relational database.  The programmer can <A
        HREF="doc/FunctionalSpecification.html#data-def">define</A>
-       table rows to be extensible Java `business objects', without having to
+       table rows to be extensible Java objects, without having to
        write any more code than she would for an equivalent non-persistent
        object.
   </LI>
@@ -49,12 +49,13 @@ This page last updated: $Date$ $Author$
 
   </LI>
   <LI> Transparent (and transaction-safe) <A
-       HREF="doc/FunctionalSpecification.html#cacheing"><B>cacheing</B></A> of rows from the most
-       intensively used tables, such as lookups or localisation phrases.
+       HREF="doc/FunctionalSpecification.html#cacheing"><B>cacheing</B></A> of rows 
+       from the most intensively used tables, such as lookups or localisation phrases.
 
   </LI>
   <LI> Convenient and flexible <A
-       HREF="doc/FunctionalSpecification.html#templating"><B>templating</B></A> of persistent objects.
+       HREF="doc/FunctionalSpecification.html#templating"><B>templating</B></A> 
+       of persistent objects.
 
   </LI>
   <LI> CSV utilities to initialise a database from CSV files.
@@ -80,9 +81,9 @@ This page last updated: $Date$ $Author$
 </UL>
 <p>
   Code for a generic 
-  <A HREF="http://boards.paneris.net">Messageboard System</A> 
-  and a generic <A HREF="http://shopping.paneris.net">Shopping Trolley</A> 
-  are also available.
+  <A HREF="http://boards.paneris.net/">Messageboard System</A>, 
+  a generic <A HREF="http://shopping.paneris.net/">Shopping Trolley</A> 
+  and a <A HREF="http://site.paneris.net/">CMS</A> are also available.
 </p>
 
 <!--P>

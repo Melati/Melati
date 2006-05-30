@@ -39,8 +39,7 @@ This page last updated: $Date$ $Author$
   Please review the <a href="RoadMap.html">RoadMap</a> 
   for things that need to be done. 
   Smaller tasks  can be found on the <a
-  href="http://maven.melati.org/task-list.html"><b>todo</b> list</a> on the 
-  <a href="http://maven.melati.org">Maven site</a>.
+  href="http://maven.melati.org/melati/taglist.html"><b>todo</b> list</a>. 
 </p>
 <p>
   In principle we give CVS write access to anyone who asks.
@@ -51,7 +50,7 @@ This page last updated: $Date$ $Author$
   the codebase meets minimal code standards as defined by 
   <a href="http://maven.apache.org/">Maven</a> 
   so please try not to add to the errors listed on the 
-  <a href="http://maven.melati.org/checkstyle-report.html">Checkstyle 
+  <a href="http://maven.melati.org/checkstyle.html">Checkstyle 
   Report</a>.<br />
   To make changes, please follow this procedure:
 </p>

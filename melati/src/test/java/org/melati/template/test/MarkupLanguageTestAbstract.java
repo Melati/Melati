@@ -2,11 +2,15 @@ package org.melati.template.test;
 
 import java.io.IOException;
 
+import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
+import org.melati.poem.test.Node;
 import org.melati.poem.test.PoemTestCase;
+import org.melati.poem.test.TestDatabase;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.NotFoundException;
 import org.melati.template.Template;
@@ -14,8 +18,10 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
+import org.melati.util.JSStaticTree;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
+import org.melati.util.Tree;
 
 import junit.framework.TestCase;
 
@@ -39,6 +45,9 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    */
   protected void setUp() throws Exception
   {
+    setDbName("poemtest");
+    if (db == null)
+      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
@@ -174,6 +183,31 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       // Note velocity seems to leave the line end on
       assertEquals("[1]", ml.rendered(new Integer("1")).trim());
     } catch (IOException e) {
+      e.printStackTrace();
+      fail();
+    }
+    
+    try {
+
+      Node parent = (Node)db.getTable("node").newPersistent();
+      parent.setName("Mum");
+      parent.makePersistent();
+      Node  kid1 = (Node)db.getTable("node").newPersistent();
+      kid1.setName("K1");
+      kid1.setParent(parent);
+      kid1.makePersistent();
+      Node  kid2 = (Node)db.getTable("node").newPersistent();
+      kid2.setName("K2");
+      kid2.setParent(parent);
+      kid2.makePersistent();
+      Tree testTree = new Tree(parent);
+      JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
+      m.setPoemContext(new PoemContext());
+      
+      String renderedTree = ml.rendered(tree);
+      System.err.println(renderedTree);
+      assertTrue(renderedTree.indexOf("init") != -1);
+    } catch (Exception e) {
       e.printStackTrace();
       fail();
     }

@@ -135,14 +135,25 @@
       <target>1.4</target>
      </configuration>
     </plugin>
-    <!-- plugin>
+    <plugin>
      <groupId>org.melati</groupId>
      <artifactId>maven-dsd-plugin</artifactId>
+     <executions>
+       <execution>
+         <phase>process-sources</phase>
+         <goals>
+           <goal>generate</goal>
+         </goals>
+       </execution>
+     </executions>
      <configuration>
-       <dsdPackage>org.melati.poem</dsdPackage>
-       <dsdFile>Poem.dsd</dsdFile>
+       <!--dsdPackage>org.melati.poem</dsdPackage>
+       <dsdFile>Poem.dsd</dsdFile -->
+       <sourceDirectory>src/test/java</sourceDirectory>
+       <dsdPackage>org.melati.poem.test</dsdPackage>
+       <dsdFile>Test.dsd</dsdFile>
      </configuration>
-    </plugin -->
+    </plugin>
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-site-plugin</artifactId>

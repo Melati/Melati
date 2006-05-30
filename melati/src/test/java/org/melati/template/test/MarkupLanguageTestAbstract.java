@@ -5,10 +5,8 @@ import java.io.IOException;
 import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
-import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
-import org.melati.poem.test.Node;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.poem.test.TestDatabase;
 import org.melati.template.MarkupLanguage;
@@ -18,10 +16,8 @@ import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.webmacro.WebmacroTemplateEngine;
-import org.melati.util.JSStaticTree;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
-import org.melati.util.Tree;
 
 import junit.framework.TestCase;
 

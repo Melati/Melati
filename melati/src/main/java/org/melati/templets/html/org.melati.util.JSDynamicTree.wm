@@ -57,7 +57,7 @@
 
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
 
-// IE remebers the last contents of the IFrame :-(
+// IE remembers the last contents of the IFrame :-(
 if(!isNav4) parent.loadframe.document.location = "blank.html";
 
 function init() {

@@ -69,8 +69,8 @@ public class AdminUtils {
    *  Constructor. 
    */
   public AdminUtils(Melati melati) {
-    this(HttpServletRequestCompat.getContextPath(melati.getRequest()),
-         melati.getRequest().getServletPath(),
+    this(melati.getRequest() == null ? null : HttpServletRequestCompat.getContextPath(melati.getRequest()),
+         melati.getRequest() == null ? null : melati.getRequest().getServletPath(),
          melati.getConfig().getStaticURL() + "/admin",
          melati.getPoemContext().getLogicalDatabase());    
   }

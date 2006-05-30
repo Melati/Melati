@@ -22,11 +22,11 @@ public abstract class PoemTestCase extends TestCase implements Test {
   /**
    * the name of the test case
    */
-  protected String fName;
+  private String fName;
 
   protected PoemDatabase db;
 
-  private static String dbName = "melatijunit";
+  private String dbName = "melatijunit";
 
   /**
    * Constructor.
@@ -100,21 +100,21 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @param name The name to set
    */
   public void setName(String name) {
-    fName= name;
+    fName = name;
   }
   
   /**
    * @return Returns the dbName.
    */
-  protected static String getDbName() {
+  protected String getDbName() {
     return dbName;
   }
   
   /**
    * @param dbName The dbName to set.
    */
-  protected static void setDbName(String dbName) {
-    PoemTestCase.dbName = dbName;
+  protected void setDbName(String dbName) {
+    this.dbName = dbName;
   }
 
   

@@ -26,6 +26,7 @@ import org.melati.poem.test.IntegerFieldTable;
 import org.melati.poem.test.LongFieldTable;
 import org.melati.poem.test.BigdecimalFieldTable;
 import org.melati.poem.test.TimestampFieldTable;
+import org.melati.poem.test.NodeTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -54,6 +55,7 @@ public class TestDatabaseBase extends PoemDatabase {
   private LongFieldTable tab_longfield = null;
   private BigdecimalFieldTable tab_bigdecimalfield = null;
   private TimestampFieldTable tab_timestampfield = null;
+  private NodeTable tab_node = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -78,6 +80,7 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_longfield = new LongFieldTable(this, "longfield", DefinitionSource.dsd));
     redefineTable(tab_bigdecimalfield = new BigdecimalFieldTable(this, "bigdecimalfield", DefinitionSource.dsd));
     redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampfield", DefinitionSource.dsd));
+    redefineTable(tab_node = new NodeTable(this, "node", DefinitionSource.dsd));
   }
 
 
@@ -323,6 +326,17 @@ public class TestDatabaseBase extends PoemDatabase {
   */
   public TimestampFieldTable getTimestampFieldTable() {
     return tab_timestampfield;
+  }
+
+
+ /**
+  * Retrieves the NodeTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the NodeTable from this database
+  */
+  public NodeTable getNodeTable() {
+    return tab_node;
   }
 }
 

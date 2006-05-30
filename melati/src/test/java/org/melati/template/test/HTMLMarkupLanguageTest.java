@@ -1,7 +1,5 @@
 package org.melati.template.test;
 
-import java.io.IOException;
-
 import org.melati.PoemContext;
 import org.melati.poem.test.Node;
 import org.melati.template.ClassNameTempletLoader;

@@ -6,7 +6,7 @@ import org.melati.LogicalDatabase;
 import org.melati.poem.UserTable;
 
 /**
- * A test of the example database which excercises every datatype and table type. 
+ * A test of the example database which exercises every datatype and table type. 
  * 
  * @author timp
  */
@@ -58,6 +58,7 @@ public class TestDatabaseTest extends PoemTestCase {
     "longfield (from the data structure definition)" + 
     "bigdecimalfield (from the data structure definition)" + 
     "timestampfield (from the data structure definition)" + 
+    "node (from the data structure definition)" + 
     "everythingnormal (from the data structure definition)" + 
     "enextended (from the data structure definition)" + 
     "eaextended (from the data structure definition)" + 

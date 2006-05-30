@@ -47,9 +47,9 @@ package org.melati.util;
  * Methods an object must have to be treated as a <code>Tree</code>.
  */
 public interface Treeable {
-    Treeable[] getChildren();
+  Treeable[] getChildren();
 
-    String getName();
+  String getName();
 }
 
 

@@ -90,9 +90,6 @@ public final class Email {
     sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
   }
 
-  /**
-   * deprecated apparentlyTo ignored
-   */
  /*
   public static void sendToList(Database database, String from,
           String[] toList, String apparentlyTo, String replyto, String subject,
@@ -104,6 +101,18 @@ public final class Email {
       sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
   }
 */
+  /**
+   * @param apparentlyTo ignored
+   */
+  public static void sendToList(String smtpServer, String from,
+          String[] toList, String apparentlyTo, String replyto, String subject,
+          String message) throws EmailException, IOException {
+    File[] empty = {};
+
+    for (int i = 0; i < toList.length; i++)
+      sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
+  }
+  
   public static void sendWithAttachments(String smtpServer, String from,
           String to, String replyto, String subject, String text, File[] attachments)
           throws EmailException, IOException {

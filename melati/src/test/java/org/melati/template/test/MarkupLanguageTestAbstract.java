@@ -187,31 +187,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       fail();
     }
     
-    try {
-
-      Node parent = (Node)db.getTable("node").newPersistent();
-      parent.setName("Mum");
-      parent.makePersistent();
-      Node  kid1 = (Node)db.getTable("node").newPersistent();
-      kid1.setName("K1");
-      kid1.setParent(parent);
-      kid1.makePersistent();
-      Node  kid2 = (Node)db.getTable("node").newPersistent();
-      kid2.setName("K2");
-      kid2.setParent(parent);
-      kid2.makePersistent();
-      Tree testTree = new Tree(parent);
-      JSStaticTree tree = new JSStaticTree(testTree, "/melati-static/admin");
-      m.setPoemContext(new PoemContext());
-      
-      String renderedTree = ml.rendered(tree);
-      System.err.println(renderedTree);
-      assertTrue(renderedTree.indexOf("init") != -1);
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    }
-    
     try { 
       assertEquals("1", ml.getAttr().rendered(new Integer("1")));
     } catch (IOException e) {

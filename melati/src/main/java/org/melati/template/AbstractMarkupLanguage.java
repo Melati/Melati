@@ -463,8 +463,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       render(o.toString(), writer);
     }
     catch (Exception f) {
-      //System.err.println("MarkupLanguage failed to render an object:");
-      //f.printStackTrace();
+      System.err.println("MarkupLanguage failed to render an object:");
+      f.printStackTrace();
       render(o.toString(),writer);
     }
   }

@@ -1,5 +1,5 @@
-#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
-#set $ml=$melati.HTMLMarkupLanguage
+#set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
+#set $ml=$melati.MarkupLanguage
 
 ##   Static Node Label templet
 ##  This templet is evaluated for every node in a StaticTree

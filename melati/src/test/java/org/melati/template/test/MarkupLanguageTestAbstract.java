@@ -7,10 +7,13 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.AccessToken;
+import org.melati.poem.Capability;
 import org.melati.poem.Field;
 import org.melati.poem.test.Node;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.poem.test.TestDatabase;
+import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.NotFoundException;
 import org.melati.template.Template;
@@ -35,7 +38,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   protected static MelatiConfig mc = null;
   protected static TemplateEngine templateEngine = null;
   protected static MarkupLanguage ml = null;
-  protected static MarkupLanguage aml = null;
+  protected static AttributeMarkupLanguage aml = null;
   protected static Melati m = null;
   
   /**
@@ -90,7 +93,23 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     }
 
     try {
-      assertTrue(aml.rendered(new AccessPoemException()).indexOf("You need the capability") != -1);
+      AccessPoemException ape = new AccessPoemException(
+          (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
+      assertEquals("[org.melati.poem.AccessPoemException: " + 
+          "You need the capability Cool but " + 
+          "your access token _guest_ doesn&#39;t confer it]", 
+          ml.rendered(ape).trim());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+
+    try {
+      AccessPoemException ape = new AccessPoemException(
+          (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
+      assertEquals("", aml.rendered(ape));
+      System.err.println(m.getWriter().toString());
+      assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
     } catch (Exception e) {
       e.printStackTrace();
       fail();

@@ -120,6 +120,15 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     return name;
   }
 
+  /**
+   * Name and locale.
+   * 
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    return getName() + "/" + locale.toString();
+  }
+  
   private MelatiStringWriter getStringWriter() throws IOException {
     return (MelatiStringWriter)melati.getStringWriter();
   }

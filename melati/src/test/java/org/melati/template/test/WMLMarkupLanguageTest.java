@@ -26,8 +26,7 @@ public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     aml = new WMLAttributeMarkupLanguage((WMLMarkupLanguage)ml);
     m.setMarkupLanguage(ml);
     assertEquals(ml, m.getMarkupLanguage());    
-    m.setMarkupLanguage(ml);
-    assertEquals(ml, m.getMarkupLanguage());    
+    assertEquals(aml.getClass(), m.getMarkupLanguage().getAttr().getClass());    
     }
 
   

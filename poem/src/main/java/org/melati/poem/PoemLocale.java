@@ -146,4 +146,19 @@ public class MelatiLocale {
   public DateFormat timestampFormat(int style) {
     return timestampFormats[style];
   }
+
+  /**
+   * Delegated to Locale.
+   * @see java.util.Locale#hashCode()
+   */
+  public int hashCode() {
+    return locale.hashCode();
+  }
+
+  /**
+   * Delegated to Locale.
+   */
+  public String toString() {
+    return locale.toString();
+  }
 }

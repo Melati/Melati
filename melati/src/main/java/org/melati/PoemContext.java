@@ -54,7 +54,6 @@ import org.melati.util.UnexpectedExceptionException;
 
 public class PoemContext implements Cloneable {
 
-  // FIXME these should not be public
   /** the database in use */
   String logicalDatabase;
   /** the table in use */

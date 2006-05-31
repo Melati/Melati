@@ -95,10 +95,10 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     try {
       AccessPoemException ape = new AccessPoemException(
           (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
-      assertEquals("[org.melati.poem.AccessPoemException: " + 
+      assertTrue(ml.rendered(ape).indexOf(
+          "org.melati.poem.AccessPoemException: " + 
           "You need the capability Cool but " + 
-          "your access token _guest_ doesn&#39;t confer it]", 
-          ml.rendered(ape).trim());
+          "your access token _guest_ doesn&#39;t confer it") != -1);
     } catch (Exception e) {
       e.printStackTrace();
       fail();

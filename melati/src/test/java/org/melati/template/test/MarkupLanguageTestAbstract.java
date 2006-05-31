@@ -5,8 +5,10 @@ import java.io.IOException;
 import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Field;
+import org.melati.poem.test.Node;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.poem.test.TestDatabase;
 import org.melati.template.MarkupLanguage;
@@ -189,9 +191,43 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       e.printStackTrace();
       fail();
     }
+    try { 
+      ml.getAttr().rendered(new Bomber());
+      fail("Should have bombed");
+    } catch (Exception e) {
+      e = null;
+    }
+    
+    try { 
+      ml.rendered(new Bomber());
+      fail("Should have bombed");
+    } catch (Exception e) {
+      e = null;
+    }
+    
+    try {
+
+      Node persistent = (Node)db.getTable("node").newPersistent();
+      persistent.setName("Mum");
+      persistent.makePersistent();
+      m.setPoemContext(new PoemContext());
+      
+      String renderedPersistent = ml.rendered(persistent);
+      assertEquals("Mum", renderedPersistent);
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
 
   }
 
+  class Bomber {
+    public Bomber() {}
+    public String toString() {
+      if (true == true) throw new RuntimeException("Bomber bombed.");
+      return "Did not bomb";
+    }
+  }
   /**
    * Test method for rendered(String).
    * 

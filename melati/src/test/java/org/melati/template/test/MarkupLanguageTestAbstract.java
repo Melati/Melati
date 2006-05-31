@@ -105,6 +105,15 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     }
 
     try {
+      AccessPoemException ape = new AccessPoemException();
+      assertEquals("", aml.rendered(ape));
+      System.err.println(m.getWriter().toString());
+      assertTrue(m.getWriter().toString().indexOf("[Access denied to [UNRENDERABLE EXCEPTION!]") != -1);
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+    try {
       AccessPoemException ape = new AccessPoemException(
           (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
       assertEquals("", aml.rendered(ape));

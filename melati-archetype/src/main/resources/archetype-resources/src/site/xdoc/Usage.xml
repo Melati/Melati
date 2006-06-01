@@ -15,7 +15,7 @@ ${artifactId}
   <body>
 
 
-<section name="Using the Admin system pages">
+<section name="Using the Admin System">
 <p>
 The website can be viewed as a tree with the home page as the root.
 The tree view can be viewed by clicking the <b>tree</b> link on the top right  

@@ -5,6 +5,7 @@
   <artifactId>${artifactId}</artifactId>
   <name>${artifactId}</name>
   <version>${version}</version>
+  <url>http://www.paneris.net/${artifactId}</url>
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>
@@ -67,19 +68,6 @@
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-project-info-reports-plugin</artifactId>
-       <reportSets>
-         <reportSet>
-           <reports>
-           <report>dependencies</report>
-           <report>project-team</report>
-           <report>mailing-list</report>
-           <!--report>cim</report -->
-           <report>issue-tracking</report>
-           <report>license</report>
-           <report>scm</report>
-           </reports>
-          </reportSet>
-        </reportSets>
       </plugin>
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
@@ -91,4 +79,30 @@
     </plugin>
    </plugins>
   </reporting>
+  <distributionManagement>
+    <repository>
+      <id>melati</id>
+      <name>Default Repository</name>
+      <url>scp://melati.org/data/www/maven2/</url>
+    </repository>
+    <site>
+      <id>live</id>
+      <name>Live Site</name>
+      <url>scp://www.paneris.net/data/www/${artifactId}/</url>
+    </site>
+  </distributionManagement>  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>melati</id>
+      <name>Melati M2 Repository</name>
+      <url>http://www.melati.org/maven2/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <repositories>
+    <repository>
+      <id>melati</id>
+      <name>Melati M2 Repository</name>
+      <url>http://www.melati.org/maven2/</url>
+    </repository>
+  </repositories>
 </project>

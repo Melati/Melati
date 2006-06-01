@@ -6,6 +6,99 @@
   <name>${artifactId}</name>
   <version>${version}</version>
   <url>http://www.paneris.net/${artifactId}</url>
+
+  <scm>
+    <connection>
+      scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:${artifactId}
+    </connection>
+    <developerConnection>
+scm:cvs:ext:timp@melati.org:/usr/cvsroot:${artifactId}
+    </developerConnection>
+
+    <url>
+      http://melati.org/cgi-bin/cvsweb.cgi/melati/
+    </url>
+  </scm>
+  <mailingLists>
+    <mailingList>
+      <name>Melati Announce</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-announce
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-announce
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Developers</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-developers
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-developers
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Melati Users</name>
+      <subscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </subscribe>
+      <unsubscribe>
+http://lists.sourceforge.net/lists/listinfo/melati-users
+      </unsubscribe>
+      <archive>
+http://sourceforge.net/mailarchive/forum.php?forum=melati-users
+      </archive>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <name>Tim Pizey</name>
+      <id>timp</id>
+      <email>timp@paneris.org</email>
+      <organization>PanEris</organization>
+      <roles>
+        <role>Maintainer</role>
+        <role>Maven maven</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+      <url>http://paneris.org/~timp</url>
+    </developer>
+  </developers>
+
+  <licenses>
+   <license>
+    <name>Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/gpl.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Lesser Gnu Public License</name>
+    <url>http://www.gnu.org/copyleft/lesser.html</url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>The Apache Software License, Version 2.0</name>
+    <url>
+     http://www.apache.org/licenses/LICENSE-2.0.txt
+    </url>
+    <distribution>repo</distribution>
+   </license>
+   <license>
+    <name>Melati Software License</name>
+     <url>http://www.melati.org/Licence.html</url>
+     <distribution>repo</distribution>
+   </license>
+  </licenses>
+
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>

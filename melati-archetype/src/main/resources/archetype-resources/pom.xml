@@ -16,7 +16,7 @@ scm:cvs:ext:timp@melati.org:/usr/cvsroot:${artifactId}
     </developerConnection>
 
     <url>
-      http://melati.org/cgi-bin/cvsweb.cgi/melati/
+      http://melati.org/cgi-bin/cvsweb.cgi/${artifactId}/
     </url>
   </scm>
   <mailingLists>

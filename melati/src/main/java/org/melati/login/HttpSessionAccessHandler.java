@@ -69,7 +69,7 @@ import org.melati.util.UTF8URLEncoder;
  */
 public class HttpSessionAccessHandler implements AccessHandler {
 
-  static final String
+  public static final String
      OVERLAY_PARAMETERS = 
        "org.melati.login.HttpSessionAccessHandler.overlayParameters",
      USER = 
@@ -165,7 +165,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * @param melati the Melati to get our database from
    * @param user the token to set
    */
-  void logUsIn(Melati melati, User user) {
+  protected void logUsIn(Melati melati, User user) {
     PoemThread.setAccessToken(
         user == null ? melati.getDatabase().guestAccessToken() : user);
   }

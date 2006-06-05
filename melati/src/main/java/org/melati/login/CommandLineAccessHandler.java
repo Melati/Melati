@@ -84,23 +84,23 @@ final class Authorization {
   }
 
   /**
-   * Interogate the user for thier details.
+   * Interrogate the user for thier details.
    * 
    * @param input notmally System.in
    * @return a new Authorisation object or null
    */
-  static Authorization from(InputStream input) {
+  static Authorization from(InputStream input, PrintStream output) {
     String username = null;
     String password = null;
 
-    System.out.print("Enter your username: ");
+    output.print("Enter your username: ");
     BufferedReader in = new BufferedReader(new InputStreamReader(input));
     try {
        username = in.readLine();
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
-    System.out.print("Enter your password: ");
+    output.print("Enter your password: ");
     in = new BufferedReader(new InputStreamReader(input));
     try {
        password = in.readLine();
@@ -188,7 +188,7 @@ public class CommandLineAccessHandler implements AccessHandler {
                                     AccessPoemException accessException)
       throws Exception {
     output.println(accessException.getMessage());
-    Authorization auth = Authorization.from(input);
+    Authorization auth = Authorization.from(input, output);
     if (auth != null) {
       // They have tried to log in
 

@@ -297,7 +297,7 @@ public class AdminUtils {
   /**
    * @return Defaults to /MelatiStatic/admin/
    */
-  private String getStaticURL() {
+  public String getStaticURL() {
     return staticURL;
   }
 

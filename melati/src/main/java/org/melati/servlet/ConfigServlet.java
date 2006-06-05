@@ -73,7 +73,7 @@ import org.melati.util.MelatiWriter;
  *
  * <A NAME=pathinfoscan>ConfigServlet does set up a basic
  * MelatiContext with the Method set,
- * but not the POEM logicaldatabase, table or troid
+ * but not the POEM logicaldatabase, table or troid.
  *
  * The URL is expected to take one of the following form:
  *
@@ -333,7 +333,7 @@ public abstract class ConfigServlet extends HttpServlet {
    * @param melati
    * @throws Exception if anything goes wrong
    */
-  protected abstract void doConfiguredRequest (Melati melati)
+  protected abstract void doConfiguredRequest(Melati melati)
       throws Exception;
 
   

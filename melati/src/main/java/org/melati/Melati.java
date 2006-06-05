@@ -450,6 +450,7 @@ public class Melati {
    *
    * @return - the URL for the JavascriptLibrary
    * @see org.melati.MelatiConfig#getJavascriptLibraryURL
+   * @deprecated use melati.getConfig.getJavascriptLibraryURL()
    */
   public String getJavascriptLibraryURL() {
     return config.getJavascriptLibraryURL();
@@ -575,6 +576,7 @@ public class Melati {
    * MarkupLanguage, WMLMarkupLanguage for example. 
    * 
    * @param ml The ml to set.
+   * @todo set in MelatiConfig
    */
   public void setMarkupLanguage(MarkupLanguage ml) {
     this.ml = ml;

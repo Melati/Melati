@@ -47,6 +47,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
@@ -168,6 +169,9 @@ final class Authorization {
  */
 public class CommandLineAccessHandler implements AccessHandler {
 
+  private PrintStream output = System.out;
+  private InputStream input = System.in;
+  
   /**
    * Constructor.
    */
@@ -183,8 +187,8 @@ public class CommandLineAccessHandler implements AccessHandler {
   public void handleAccessException(Melati melati,
                                     AccessPoemException accessException)
       throws Exception {
-    System.out.println(accessException.getMessage());
-    Authorization auth = Authorization.from(System.in);
+    output.println(accessException.getMessage());
+    Authorization auth = Authorization.from(input);
     if (auth != null) {
       // They have tried to log in
 
@@ -269,6 +273,20 @@ public class CommandLineAccessHandler implements AccessHandler {
    */
   public void buildRequest(Melati melati) throws MelatiException, IOException {
      // Nothing to do here
+  }
+
+  /**
+   * @param input The input to set.
+   */
+  public void setInput(InputStream input) {
+    this.input = input;
+  }
+
+  /**
+   * @param output The output to set.
+   */
+  public void setOutput(PrintStream output) {
+    this.output = output;
   }
 
 }

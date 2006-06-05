@@ -1,5 +1,5 @@
 #set $melati.ResponseContentType = "text/html"
-#set $ml = $melati.HTMLMarkupLanguage
+#set $ml = $melati.MarkupLanguage
 
 ##
 ## $Source$
@@ -53,7 +53,7 @@
   <META HTTP-EQUIV="Refresh" CONTENT="1; URL=$ml.escaped($continuationURL)">
 #end
  <title>Login Success</title>
- <link rel="stylesheet" title="Default" href="$melati.AdminUtils.StaticURL/admin.css"
+ <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin.css"
       type="text/css" media="screen">
 </HEAD>
 <BODY BGCOLOR="white">

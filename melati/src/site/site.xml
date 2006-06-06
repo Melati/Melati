@@ -18,8 +18,8 @@
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
     <menu ref="parent" inherit="top"/>
-    <menu name="Melati Skin">
-        <item name="Home" href="index.html"/>
+    <menu name="Melati">
+        <item name="About" href="index.html"/>
     </menu>
     ${reports}
   </body>

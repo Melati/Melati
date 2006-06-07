@@ -176,6 +176,9 @@
     #else
       #set ( $versionPosition = "left" )
     #end
+  #else
+    #set ( $version = "unset version" )
+    #set ( $versionPosition = "left" )
   #end
 
   #set ( $breadcrumbs = $decoration.body.breadcrumbs )

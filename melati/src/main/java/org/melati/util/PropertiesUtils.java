@@ -118,7 +118,7 @@ public final class PropertiesUtils {
       throws NoSuchPropertyException {
     String value = properties.getProperty(propertyName);
     if (value == null)
-    throw new NoSuchPropertyException(properties, propertyName);
+      throw new NoSuchPropertyException(properties, propertyName);
     return value;
   }
 

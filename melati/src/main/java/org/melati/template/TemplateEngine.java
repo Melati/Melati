@@ -43,8 +43,6 @@
  */
 package org.melati.template;
 
-import java.io.IOException;
-
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiStringWriter;
@@ -156,14 +154,6 @@ public interface TemplateEngine {
    *         appropriate for this engine.
    */
   Object getPassbackVariableExceptionHandler();
-
-  /** 
-   * @param encoding Ignored.
-   * @return a {@link MelatiStringWriter} for this engine.
-   * @deprecated Use {@link #getStringWriter()}.
-   * @todo Delete this method. Suggest 2004.
-   */
-  MelatiWriter getStringWriter(String encoding) throws IOException;
 
   /** 
    * Return a {@link MelatiStringWriter}.

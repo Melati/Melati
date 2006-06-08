@@ -58,6 +58,7 @@ import org.melati.template.AbstractTemplateEngine;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateContext;
+import org.melati.template.TemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.template.NotFoundException;
 import org.melati.util.MelatiBugMelatiException;
@@ -73,7 +74,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 /**
  * Wrapper for the Velocity Template Engine for use with Melati.
  */
-public class VelocityTemplateEngine extends AbstractTemplateEngine implements ServletTemplateEngine {
+public class VelocityTemplateEngine extends AbstractTemplateEngine implements TemplateEngine, ServletTemplateEngine {
 
   /** The name of the engine */
   public static final String NAME = "velocity";

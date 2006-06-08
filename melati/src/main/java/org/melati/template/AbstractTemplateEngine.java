@@ -104,15 +104,6 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
   }
 
 
-  /** 
-   * @deprecated Use {@link #getStringWriter()}.
-   * @todo Delete this method. Suggest 2004.
-   */
-  public MelatiWriter getStringWriter(String encoding) {
-    return getStringWriter();
-  }
-
-
   /**
    * @see org.melati.template.TemplateEngine#getStringWriter()
    */

@@ -106,7 +106,7 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletContext.expectAndReturn("hashCode", 17); 
     mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)", null);
     mockServletContext.expectAndReturn("hashCode", 17); 
-    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0", null);
+    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1", null);
 
     Mock mockSession = new Mock(HttpSession.class);
     mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());

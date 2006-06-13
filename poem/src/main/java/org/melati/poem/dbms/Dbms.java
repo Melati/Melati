@@ -76,6 +76,12 @@ public interface Dbms {
   String getSchema();
   
   /**
+   * A no-op for all but hsqldb, where the db needs to be shutdown 
+   * when the servlet container or jvm is destroyed.   
+   */
+  void shutdown(Connection connection) throws SQLException;
+  
+  /**
    * Accomodate different quoting strategies.
    * 
    * @param name the unquoted name

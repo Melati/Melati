@@ -44,9 +44,11 @@
 
 package org.melati.poem.dbms;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 //import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
@@ -78,6 +80,19 @@ public class Hsqldb extends AnsiStandard {
 
   public Hsqldb() {
     setDriverClassName("org.hsqldb.jdbcDriver");
+  }
+
+  /**
+   * Shut the db down nicely.
+   * 
+   * @see org.melati.poem.dbms.Dbms#disconnect()
+   */
+  public void shutdown(Connection connection)  throws SQLException { 
+    if (!connection.isClosed()) {
+      Statement st = connection.createStatement();
+      st.execute("SHUTDOWN SCRIPT"); 
+      st.close();
+    }
   }
 
   /** 

@@ -112,6 +112,13 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#disconnect()
+   */
+  public void shutdown(Connection connection)  
+    throws SQLException{    
+  }
+
+  /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
    */
   public boolean canDropColumns(Connection con) throws SQLException {
@@ -458,6 +465,7 @@ public class AnsiStandard implements Dbms {
   public String toString() {
     return this.getClass().getName();
   }
+  
 
 }
 

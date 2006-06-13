@@ -24,7 +24,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  protected PoemDatabase db;
+  protected PoemDatabase db = null;
 
   private String dbName = "melatijunit";
 
@@ -34,6 +34,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public PoemTestCase() {
     super();
     fName= null;
+    db = null;
   }
 
   /**
@@ -43,6 +44,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public PoemTestCase(String name) {
     super(name);
     fName= name;
+    db = null;
   }
 
   /**
@@ -50,10 +52,28 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    if (db == null)
-      db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
+    db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
   }
 
+  /**
+   * @see TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+/*    if (db != null && db.getCommittedConnection() != null)
+      db.inSession(AccessToken.root, // HACK
+              new PoemTask() {
+                public void run() {
+                  try {
+                    db.shutdown();
+                    } catch (Throwable  e) {
+                    e.fillInStackTrace();
+                    throw new RuntimeException(e);
+                  }
+        }});
+        */
+    db = null;
+  }
+  
   /**
    * Run the test in a session.
    * 

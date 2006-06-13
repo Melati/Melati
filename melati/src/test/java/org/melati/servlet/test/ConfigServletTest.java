@@ -69,7 +69,10 @@ public class ConfigServletTest extends TestCase {
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", null); 
+    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
+    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockContextPath"); 
     
     final StringWriter output = new StringWriter(); 
     final PrintWriter contentWriter = new PrintWriter(output); 
@@ -96,10 +99,12 @@ public class ConfigServletTest extends TestCase {
                    
     mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
     assertTrue(output.toString().indexOf("<h2>ConfigServlet Test</h2>") != -1); 
   }
 
-  /*
+  /**
    * Test method for 'org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)'
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
@@ -115,7 +120,10 @@ public class ConfigServletTest extends TestCase {
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", null); 
+    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
+    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockContextPath"); 
     
     final StringWriter output = new StringWriter(); 
     final PrintWriter contentWriter = new PrintWriter(output); 
@@ -142,6 +150,8 @@ public class ConfigServletTest extends TestCase {
                    
     mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
     assertTrue(output.toString().indexOf("<h2>ConfigServlet Test</h2>") != -1); 
 
   }
@@ -171,6 +181,28 @@ public class ConfigServletTest extends TestCase {
    * Test method for 'org.melati.servlet.ConfigServlet.getSysAdminName()'
    */
   public void testGetSysAdminName() {
+    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+                   
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    org.melati.test.ConfigServletTest aServlet = 
+          new org.melati.test.ConfigServletTest();
+    try {
+      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      assertEquals("nobody", aServlet.getSysAdminName());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    } 
+                   
+    mockHttpServletRequest.verify(); 
+    mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
 
   }
 
@@ -178,41 +210,29 @@ public class ConfigServletTest extends TestCase {
    * Test method for 'org.melati.servlet.ConfigServlet.getSysAdminEmail()'
    */
   public void testGetSysAdminEmail() {
+    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+                   
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    org.melati.test.ConfigServletTest aServlet = 
+          new org.melati.test.ConfigServletTest();
+    try {
+      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      assertEquals("nobody@nobody.com", aServlet.getSysAdminEmail());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    } 
+                   
+    mockHttpServletRequest.verify(); 
+    mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
 
-  }
-
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.setSysAdminEmail(String)'
-   */
-  public void testSetSysAdminEmail() {
-
-  }
-
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.setSysAdminName(String)'
-   */
-  public void testSetSysAdminName() {
-
-  }
-
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.poemContext(Melati)'
-   */
-  public void testPoemContext() {
-
-  }
-
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.melatiConfig()'
-   */
-  public void testMelatiConfig() {
-
-  }
-
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doConfiguredRequest(Melati)'
-   */
-  public void testDoConfiguredRequest() {
 
   }
 

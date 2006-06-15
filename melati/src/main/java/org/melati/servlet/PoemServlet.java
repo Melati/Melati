@@ -63,6 +63,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
 import org.melati.util.MelatiWriter;
+import org.melati.util.StringUtils;
 
 /**
  * Base class to use Poem with Servlets. <p> Simply extend this class and
@@ -313,8 +314,15 @@ public abstract class PoemServlet extends ConfigServlet {
       throws PathInfoException {
 
     PoemContext it = new PoemContext();
-    String[] parts = melati.getPathInfoParts();
 
+    String initParameterPathInfo = getInitParameter("pathInfo");
+    String[] parts;
+    if (initParameterPathInfo != null)
+      parts = StringUtils.split(initParameterPathInfo, '/');
+    else 
+      parts = melati.getPathInfoParts();
+
+    
     // set it to something in order to provoke meaningful error
     it.setLogicalDatabase("");
     if (parts.length > 0) {
@@ -350,15 +358,23 @@ public abstract class PoemServlet extends ConfigServlet {
   /*
    * This is provided for convenience, so you don't have to specify the
    * logicaldatabase on the pathinfo. This is a very good idea when writing your
-   * appications where you are typically only accessing a single database.
-   * Simply override poemContext(Melati melati) thus: <PRE> protected
-   * PoemContext poemContext(Melati melati) throws PathInfoException { return
-   * poemContextWithLDB(melati,"<your logical database name>"); } </PRE>
+   * applications where you are typically only accessing a single database.
+   * Simply override poemContext(Melati melati) thus: 
+   * <PRE> 
+   * protected PoemContext poemContext(Melati melati) throws PathInfoException { 
+   * return poemContextWithLDB(melati,"<your logical database name>"); 
+   * } 
+   * </PRE>
    */
   protected PoemContext poemContextWithLDB(Melati melati, String logicalDatabase)
       throws PathInfoException {
     PoemContext it = new PoemContext();
-    String[] parts = melati.getPathInfoParts();
+    String initParameterPathInfo = getInitParameter("pathInfo");
+    String[] parts;
+    if (initParameterPathInfo != null)
+      parts = StringUtils.split(initParameterPathInfo, '/');
+    else 
+      parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
     it.setLogicalDatabase(logicalDatabase);

@@ -451,11 +451,23 @@ public abstract class Column implements FieldAttributes {
     };
   }
 
+  /**
+   * Return the first one found or null if not found. 
+   * 
+   * @param raw Object of correct type for this Column
+   * @return the first one found based upon default ordering
+   */
   public Persistent firstWhereEq(Object raw) {
     Enumeration them = selectionWhereEq(raw);
     return them.hasMoreElements() ? (Persistent) them.nextElement() : null;
   }
 
+  /**
+   * Create a new CachedSelection of objects equal to this raw parameter. 
+   * 
+   * @param raw Object of correct type for this Column
+   * @return a new CachedSelection of objects equal to raw.
+   */
   public CachedSelection cachedSelectionWhereEq(Object raw) {
     return new CachedSelection(getTable(), eqClause(raw), null);
   }

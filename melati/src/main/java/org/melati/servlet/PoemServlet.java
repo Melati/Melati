@@ -170,8 +170,10 @@ public abstract class PoemServlet extends ConfigServlet {
         .elements();
     while (dbs.hasMoreElements()) {
       Database db = (Database) dbs.nextElement();
-      db.shutdown();
-      db.disconnect();
+      if (db.getCommittedConnection() != null) {
+        db.shutdown();
+        db.disconnect();
+      }
     }
     super.destroy();
   }

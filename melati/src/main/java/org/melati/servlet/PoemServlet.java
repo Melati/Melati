@@ -149,8 +149,8 @@ import org.melati.util.StringUtils;
 
 public abstract class PoemServlet extends ConfigServlet {
   // FIXME this does not take into account different dbs
-  protected static String poemAdministratorsName = null;
-  protected static String poemAdministratorsEmail = null;
+  protected static String poemAdministratorsName = "notDefined";
+  protected static String poemAdministratorsEmail = "notDefined";
 
   /**
    * Overriden in TemplateServlet.

@@ -153,6 +153,18 @@ public class SettingTable extends SettingTableBase {
     return it;
   }
 
+  /**
+   * Make sure that a setting with this name exists, if not then create it.
+   * Note that only the name is checked for existance, the other paramters 
+   * are only used for creation, so enabling the setting to be manually changed. 
+   * 
+   * @param name the name of the Setting to ensure
+   * @param typefactory what type to use
+   * @param value the value of this setting
+   * @param displayname a human readable name 
+   * @param description the purpose of the setting
+   * @return the existing or newly created Setting
+   */
   public Setting ensure(String name, PoemTypeFactory typefactory, Object value,
                         String displayname, String description) {
     Setting setting = (Setting)getNameColumn().firstWhereEq(name);

@@ -193,18 +193,30 @@ public class SettingTable extends SettingTableBase {
     }
   }
 
+  /**
+   * Convenience method. 
+   * @see ensure(String, PoemTypeFactory, String, String)
+   */
   public Setting ensure(String name, String value,
                         String displayname, String description) {
     return ensure(name, PoemTypeFactory.STRING, value,
                   displayname, description);
   }
 
+  /**
+   * Convenience method. 
+   * @see ensure(String, PoemTypeFactory, String, String)
+   */
   public Setting ensure(String name, int value,
                         String displayname, String description) {
     return ensure(name, PoemTypeFactory.INTEGER, new Integer(value),
                   displayname, description);
   }
   
+  /**
+   * Convenience method. 
+   * @see ensure(String, PoemTypeFactory, String, String)
+   */
   public Setting ensure(String name, boolean value, 
                            String displayname, String description) { 
        return ensure(name, PoemTypeFactory.BOOLEAN, 

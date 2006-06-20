@@ -132,7 +132,8 @@ public class TableInfoTable extends TableInfoTableBase {
   }
 
   /**
-   * Create a {@link TableInfo} based upon a {@link Table}.
+   * Create a {@link TableInfo} of the correct type for our DB.
+   * Note you should override this if you extend TableInfo in your own db.
    * 
    * @param table the Table to get metadata from.
    * @return a new TableInfo Persistent

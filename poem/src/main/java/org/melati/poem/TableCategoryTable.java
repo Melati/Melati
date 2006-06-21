@@ -92,7 +92,7 @@ public class TableCategoryTable extends TableCategoryTableBase {
  /**
   * Create an entry with the given name if it doesn't exist.
   */
-  TableCategory ensure(String name) {
+  public TableCategory ensure(String name) {
     TableCategory it = (TableCategory)newPersistent();
     it.setName(name);
     return (TableCategory)getNameColumn().ensure(it);

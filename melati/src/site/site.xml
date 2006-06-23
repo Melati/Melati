@@ -12,11 +12,6 @@
   </bannerRight>
 
   <body>
-    <links>
-      <item name="Melati"                href="http://www.melati.org" />
-      <item name="PanEris.org"           href="http://www.paneris.org" />
-      <item name="PanEris.net"           href="http://www.paneris.net" />
-    </links>
     <menu ref="parent" inherit="top"/>
     <menu name="Melati">
         <item name="About" href="index.html"/>

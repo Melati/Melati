@@ -1,9 +1,10 @@
 <?xml version="1.0"  encoding="UTF-8" ?>
 <project>
   <pomVersion>3</pomVersion>
-  <id>melati</id>
+  <groupId>melati</groupId>
+  <artifactId>melati-parent</artifactId>
   <name>Melati</name>
-  <currentVersion>0.7.5-RC3</currentVersion>
+  <currentVersion>0.7.5-RC4</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>

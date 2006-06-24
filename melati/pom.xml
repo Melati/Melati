@@ -173,6 +173,7 @@
       <excludes>
        <exclude>**/CachedSelectionTest.java</exclude>
        <exclude>**/TestDatabaseTest.java</exclude>
+       <exclude>**/PoemServletTest.java</exclude>
       </excludes>
      </configuration>
     </plugin>

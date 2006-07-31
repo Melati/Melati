@@ -23,15 +23,10 @@ This page last updated: \$Date$ \$Author$
   
 <!-- menu -->
 
-<section name=" Melati ">
+<section name=" ODMG Example ">
 <P>
-  <a href="http://melati.org/">Melati</a> is a tool for building websites backed by a
-  database or accessing a database over <tt>HTTP</tt>.
-</P>
-</section>
-<section name=" Maven ">
-<P>
-  <a href="http://maven.apache.org/">Maven</a> is a project tool.
+This example is a proff of concept for use of Melati with ODMG. 
+See the <a href="/doc/ODMGPoemUserGuide.html">POEM ODMG User Guide</a> for more details.
 </P>
 </section>
 </body>

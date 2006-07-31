@@ -15,13 +15,11 @@
     <links>
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
-      <item name="Melati"                href="http://www.melati.org" />
     </links>
     <menu ref="parent" inherit="top"/>
     <menu name="Melati Contacts Example">
         <item name="Home" href="index.html"/>
         <item name="Download" href="Download.html"/>
-        <item name="Usage" href="Usage.html"/>
     </menu>
     ${reports}
   </body>

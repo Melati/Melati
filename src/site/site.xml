@@ -15,7 +15,6 @@
     <src>http://www.melati.org/images/logo.jpg</src> 
     <href>http://www.melati.org/</href>
   </bannerRight>
-
   <body>
     <links>
       <item name="Maven1"                href="maven1/" />
@@ -23,7 +22,7 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
-    <menu ref="parent" inherit="top"/>
+    <menu ref="parent" inherit="top" />
     <menu name="Melati">
         <item name="Home" href="index.html"/>
         <item name="Features" href="Features.html"/>
@@ -45,6 +44,6 @@
         <item name="Logos" href="Logos.html"/>
     </menu>
     <menu ref="modules" name="Modules" inherit="bottom"/>
-${reports}
+    ${reports}
   </body>
 </project>

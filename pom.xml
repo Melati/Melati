@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>melati-parent</artifactId>
   <packaging>pom</packaging>
   <name>Melati Home</name>
-  <version>0.7.5-RC4</version>
   <modules>
     <module>melati</module>
     <module>melati-example-contacts</module>
     <module>melati-example-odmg</module>
     <module>maven-dsd-plugin</module>
+    <module>maven-melati-plugin</module>
+    <module>melati-webapp</module>
     <module>melati-archetype</module>
     <module>melati-skin</module>
-    <module>melati-webapp</module>
   </modules>  
+  <version>0.7.5-RC4</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -48,7 +48,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <url>scp://melati.org/data/www/melati/</url>
     </site>
   </distributionManagement>  
-  <pluginRepositories>
+  <!-- pluginRepositories>
     <pluginRepository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
@@ -59,19 +59,19 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <name>Codehaus snapshots</name>
       <url>http://snapshots.maven.codehaus.org/maven2/</url>
     </pluginRepository>
-  </pluginRepositories>
+  </pluginRepositories -->
   <repositories>
     <repository>
       <id>melati</id>
       <name>Melati M2 Repository</name>
       <url>http://www.melati.org/maven2/</url>
     </repository>
-    <repository>
+    <!--repository>
       <id>snapshots</id>
       <name>Codehaus snapshots</name>
       <url>http://snapshots.maven.codehaus.org/maven2/</url>
     </repository>
-   <!-- repository>
+   <repository>
      <id>m1</id>
      <name>Maven 1 Repository</name>
      <layout>legacy</layout>
@@ -346,11 +346,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   <reporting>
      <plugins>
       <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-site-plugin</artifactId>
-       <configuration>
-        <outputEncoding>UTF-8</outputEncoding>
-       </configuration>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <outputEncoding>UTF-8</outputEncoding>
+        </configuration>
+        <!-- version>2.0-beta-5</version -->
       </plugin>
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
@@ -377,7 +377,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-report-maven-plugin</artifactId>
-        <!-- version>2.0-beta-1</version-->
         <configuration/>
       </plugin>
       <plugin>
@@ -424,10 +423,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jcoverage-maven-plugin</artifactId>
       </plugin -->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>

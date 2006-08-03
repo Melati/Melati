@@ -44,7 +44,7 @@
 ##
 ## Upload an ordinary file.
 
-#set $admin = $melati.ContextUtil("org.melati.admin.AdminUtils")
+#set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"

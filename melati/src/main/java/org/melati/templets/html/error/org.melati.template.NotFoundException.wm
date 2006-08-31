@@ -59,7 +59,7 @@ giving the URL of this page and any details listed below:
 </p>
 <font color="green">
 <PRE>
-$exceptionObject.Message
+$object.Message
 </PRE>
 </font>
 <!-- 

@@ -54,7 +54,7 @@
 ## show the nice message 
 
 <P>
-  $exceptionObject.Message
+  $object.Message
 </P>
 
 ## let's have the stack trace, but commented out

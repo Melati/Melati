@@ -69,7 +69,7 @@ $error
 </PRE>
 -->
 <p>
-Please inform <a href='mailto:$SysAdminEmail'>$SysAdminName</a>.
+Please inform <a href='mailto:$sysAdminEmail'>$sysAdminName</a>.
 </p>
 </body>
 </html>

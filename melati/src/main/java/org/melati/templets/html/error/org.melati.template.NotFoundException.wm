@@ -54,7 +54,7 @@ A template cannot be found.
 </p>
 <p>
  Please contact 
-<a href="mailto:$SysAdminEmail">$SysAdminName</a>
+<a href="mailto:$sysAdminEmail">$sysAdminName</a>
 giving the URL of this page and any details listed below:
 </p>
 <font color="green">

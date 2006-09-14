@@ -141,6 +141,7 @@ public final class LogicalDatabase {
         String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
         String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
         String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+        String addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
         // max transactions default to 8 if not set
         int maxTrans = PropertiesUtils.
                            getOrDefault_int(defs, pref + "maxtransactions", 8);
@@ -169,6 +170,9 @@ public final class LogicalDatabase {
         // if that is not correct
 
         database.connect(dbmsclass, url, user, pass, maxTrans);
+
+        if (addConstraints.equalsIgnoreCase("true"))
+          database.addConstraints();
       }
       finally {
         // get it removed from the "initialising" state even if an Error, such

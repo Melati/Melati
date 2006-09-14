@@ -488,6 +488,38 @@ public abstract class Database implements TransactionPool {
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((Table)t.nextElement()).postInitialise();
+    
+  }
+
+  /**
+   * Add database constraints.
+   * The only constraints POEM expects are uniqueness and nullability.
+   * POEM assumes that the db will exploit indexes where present.
+   * However if you wish to export the db to a more DB oriented 
+   * application or wish to use schema interrogation or visualisation tools 
+   * then constraints can be added.
+   * Whether constraints are added is controlled in 
+   * org.melati.LogicalDatabase.properties. 
+   */
+  public void addConstraints() {
+    inSession(AccessToken.root,
+        new PoemTask() {
+          public void run() throws PoemException {
+            beginStructuralModification();
+            try {
+              for (Enumeration t = tables.elements(); t.hasMoreElements();)
+                ((Table)t.nextElement()).dbAddConstraints();
+              PoemThread.commit();
+            }
+            finally {
+              endStructuralModification();
+            }
+          }
+
+          public String toString() {
+            return "Adding constraints to DB";
+          }
+        });
   }
 
   //

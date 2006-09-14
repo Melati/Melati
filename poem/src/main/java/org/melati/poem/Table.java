@@ -573,10 +573,55 @@ public class Table implements Selectable {
       sqb.append(columns[c].quotedName() + " " +
                  columns[c].getSQLType().sqlDefinition(dbms()));
     }
-
     sqb.append(")");
 
     dbModifyStructure(sqb.toString());
+  }
+  
+  /**
+   * Constraints are not used in POEM, but you might want to use them if 
+   * exporting the db or using schema visualisation tools.
+   */
+  void dbAddConstraints() {
+    StringBuffer sqb = new StringBuffer();
+    for (int c = 0; c < columns.length; ++c) {
+      if (columns[c].getSQLType() instanceof TroidPoemType){
+        sqb.append("ALTER TABLE " + quotedName());
+        sqb.append(dbms().getPrimaryKeyDefinition(
+            columns[c].getName()));
+        try {
+          dbModifyStructure(sqb.toString());
+        } catch (StructuralModificationFailedPoemException e) {
+          // It is more expensive to only add constaints 
+          // if they are missing than to ignore exceptions.  
+          e = null;
+        }
+      }
+    }
+    for (int c = 0; c < columns.length; ++c) {
+      if (columns[c].getSQLType() instanceof ReferencePoemType){
+        IntegrityFix fix = columns[c].getIntegrityFix();
+        sqb = new StringBuffer();
+        sqb.append("ALTER TABLE " + quotedName());
+        sqb.append(dbms().getForeignKeyDefinition(
+                      getName(),
+                      columns[c].getName(),
+                      ((ReferencePoemType)columns[c].getSQLType()).
+                          targetTable().getName(),
+                      ((ReferencePoemType)columns[c].getSQLType()).
+                          targetTable().troidColumn().getName(),
+                       fix.getName()));
+        try {
+          dbModifyStructure(sqb.toString());
+        } catch (StructuralModificationFailedPoemException e) {
+          // It is more expensive to only add constaints 
+          // if they are missing than to ignore exceptions.  
+          e = null;          
+        }
+      }
+    }
+
+
   }
 
   private void dbAddColumn(Column column) {

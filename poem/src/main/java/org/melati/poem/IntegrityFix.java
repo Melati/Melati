@@ -94,4 +94,10 @@ public interface IntegrityFix {
 
   Enumeration referencesTo(Persistent referee, Column column,
                            Enumeration refs, Map referenceFixOfColumn);
+  
+  /**
+   * Integrity fixes are ste in the DSD by name. 
+   * @return the name
+   */
+  String getName();
 }

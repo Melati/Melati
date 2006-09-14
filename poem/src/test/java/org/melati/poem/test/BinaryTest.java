@@ -45,20 +45,14 @@
 
 package org.melati.poem.test;
 
-import junit.framework.TestCase;
-
 import org.melati.LogicalDatabase;
-import org.melati.poem.AccessToken;
-import org.melati.poem.PoemTask;
-import org.melati.poem.UnexpectedExceptionPoemException;
-
 /**
  * Test the handling of binary data field type.
  * 
  * @see org.melati.poem.BinaryPoemType
  * @author williamc/timp
  */
-public class BinaryTest extends TestCase {
+public class BinaryTest extends PoemTestCase {
 
   private TestDatabase db;
   private static final String dbName = "poemtest";
@@ -74,6 +68,7 @@ public class BinaryTest extends TestCase {
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName(dbName);
     super.setUp();
     db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
   }
@@ -82,42 +77,18 @@ public class BinaryTest extends TestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    db.inSession(AccessToken.root, // HACK
-            new PoemTask() {
-              public void run() {
-                try {
-                  if (db.getDbms().toString().endsWith("Hsqldb"))
-                    db.sqlQuery("SHUTDOWN");
-                } catch (Exception e) {
-                  throw new UnexpectedExceptionPoemException(e);
-                }
-              }
-            });
-    //db.disconnect();
     super.tearDown();
   }
 
   public void testCreate() {
+    BinaryField aThing = (BinaryField)db.getBinaryFieldTable().firstSelection(null);
+    System.out.println(
+               aThing == null ?
+                  "Nothing in there" :
+                  "Found " + new String(aThing.getBinaryfield()));
 
-    db.inSession(
-        AccessToken.root,       // HACK
-        new PoemTask() {
-          public void run() {
-            try {
-              BinaryField aThing = (BinaryField)db.getBinaryFieldTable().firstSelection(null);
-              System.out.println(
-                  aThing == null ?
-                      "Nothing in there" :
-                      "Found " + new String(aThing.getBinaryfield()));
-
-              BinaryField bThing = (BinaryField)db.getBinaryFieldTable().newPersistent();
-              bThing.setBinaryfield(new byte[] { 98, -3, -120 });
-              bThing.makePersistent();
-            }
-            catch (Exception e) {
-              throw new UnexpectedExceptionPoemException(e);
-            }
-          }
-        });
+    BinaryField bThing = (BinaryField)db.getBinaryFieldTable().newPersistent();
+    bThing.setBinaryfield(new byte[] { 98, -3, -120 });
+    bThing.makePersistent();
   }
 }

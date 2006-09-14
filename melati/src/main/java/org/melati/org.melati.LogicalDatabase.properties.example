@@ -93,6 +93,7 @@ org.melati.LogicalDatabase.melatitest.pass=
 #org.melati.LogicalDatabase.melatitest.pass=melati
 #org.melati.LogicalDatabase.melatitest.pass=test
 org.melati.LogicalDatabase.melatitest.maxtransactions=4
+org.melati.LogicalDatabase.melatitest.addconstraints=true
 
 # Used by the website for the example
 
@@ -115,6 +116,7 @@ org.melati.LogicalDatabase.contacts.pass=
 #org.melati.LogicalDatabase.contacts.pass=*
 #org.melati.LogicalDatabase.contacts.pass=test
 org.melati.LogicalDatabase.contacts.maxtransactions=4
+org.melati.LogicalDatabase.contacts.addconstraints=true
 
 # Used by the unit tests 
 
@@ -137,6 +139,7 @@ org.melati.LogicalDatabase.poemtest.pass=
 #org.melati.LogicalDatabase.poemtest.pass=*
 #org.melati.LogicalDatabase.poemtest.pass=test
 org.melati.LogicalDatabase.poemtest.maxtransactions=4
+org.melati.LogicalDatabase.poemtest.addconstraints=true
 
 # Used by the unit tests
 
@@ -161,6 +164,7 @@ org.melati.LogicalDatabase.melatijunit.pass=
 #org.melati.LogicalDatabase.melatijunit.pass=melati
 #org.melati.LogicalDatabase.melatijunit.pass=test
 org.melati.LogicalDatabase.melatijunit.maxtransactions=4
+org.melati.LogicalDatabase.melatijunit.addconstraints=true
 
 
 org.melati.LogicalDatabase.oracletest.class=org.melati.poem.test.TestDatabase
@@ -169,15 +173,16 @@ org.melati.LogicalDatabase.oracletest.url=jdbc:oracle:thin:@localhost:1521:poemt
 org.melati.LogicalDatabase.oracletest.user=MELATI
 org.melati.LogicalDatabase.oracletest.pass=MELATI
 org.melati.LogicalDatabase.oracletest.maxtransactions=4
+org.melati.LogicalDatabase.oracletest.addconstraints=true
 
 org.melati.LogicalDatabase.mssqltest.class=org.melati.poem.test.TestDatabase
 org.melati.LogicalDatabase.mssqltest.dbmsclass=org.melati.poem.dbms.SQLServer
-org.melati.LogicalDatabase.mssqltest.url=jdbc:oracle:thin:@csw-00534.cswgroup.local:1521:ct
 #org.melati.LogicalDatabase.mssql.url=jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=poemtest;SelectMethod=cursor
 org.melati.LogicalDatabase.mssqltest.url=jdbc:inetdae:localhost?database=poemtest
 org.melati.LogicalDatabase.mssqltest.user=MELATI
 org.melati.LogicalDatabase.mssqltest.pass=MELATI
 org.melati.LogicalDatabase.mssqltest.maxtransactions=4
+org.melati.LogicalDatabase.mssqltest.addconstraints=true
 
 org.melati.LogicalDatabase.champion.class=uk.co.champion.vms.model.VmsDatabase
 org.melati.LogicalDatabase.champion.dbmsclass=org.melati.poem.dbms.MSAccess
@@ -185,6 +190,7 @@ org.melati.LogicalDatabase.champion.url=jdbc:easysoft:champ
 org.melati.LogicalDatabase.champion.user=
 org.melati.LogicalDatabase.champion.pass=
 org.melati.LogicalDatabase.champion.maxtransactions=4
+org.melati.LogicalDatabase.champion.addconstraints=false
 
 org.melati.LogicalDatabase.bond.class=uk.co.champion.vms.model.VmsDatabase
 org.melati.LogicalDatabase.bond.dbmsclass=org.melati.poem.dbms.MSAccess
@@ -192,5 +198,6 @@ org.melati.LogicalDatabase.bond.url=jdbc:easysoft:bondm
 org.melati.LogicalDatabase.bond.user=
 org.melati.LogicalDatabase.bond.pass=
 org.melati.LogicalDatabase.bond.maxtransactions=4
+org.melati.LogicalDatabase.bond.addconstraints=false
 
 

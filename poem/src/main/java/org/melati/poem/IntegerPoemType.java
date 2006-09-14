@@ -58,7 +58,7 @@ import org.melati.util.IntegerEnumeration;
 public class IntegerPoemType extends AtomPoemType {
 
   /** Instance of a nullable IntegerPoemType. */
-  public static final IntegerPoemType nullable = new IntegerPoemType(true);
+  public static final IntegerPoemType nullableInstance = new IntegerPoemType(true);
 
   public IntegerPoemType(boolean nullable) {
     super(Types.INTEGER, "INT", nullable);

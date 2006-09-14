@@ -56,7 +56,7 @@ import org.melati.poem.dbms.Dbms;
  */
 public abstract class AtomPoemType extends BasePoemType {
 
-  private String sqlTypeName;
+  protected String sqlTypeName;
 
   public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
     super(sqlTypeCode, nullable);

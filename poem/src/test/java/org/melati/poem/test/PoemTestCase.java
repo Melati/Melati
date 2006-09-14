@@ -7,6 +7,7 @@ import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
+//import org.melati.poem.SQLPoemException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -65,7 +66,9 @@ public abstract class PoemTestCase extends TestCase implements Test {
                 public void run() {
                   try {
                     db.shutdown();
-                    } catch (Throwable  e) {
+                  } catch (SQLPoemException  e) {
+                    e = null; // Session already closed
+                  } catch (Throwable  e) {
                     e.fillInStackTrace();
                     throw new RuntimeException(e);
                   }

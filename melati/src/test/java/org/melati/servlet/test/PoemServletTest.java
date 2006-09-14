@@ -148,6 +148,7 @@ public class PoemServletTest extends PoemTestCase {
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", null);
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
@@ -216,6 +217,7 @@ public class PoemServletTest extends PoemTestCase {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", null);
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
     org.melati.test.PoemServletTest aServlet = 

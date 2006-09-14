@@ -61,6 +61,15 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   /** The name for a fix. */
   public final String name;
 
+  /**
+   * Even though it is public.
+   * 
+   * @return Returns the name.
+   */
+  public String getName() {
+    return name;
+  }
+
   /* private -- makes Sun compiler barf ... 
      An abstract class must be extended so cannot have a private constructor.
    */ 
@@ -196,4 +205,5 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
       throw new NameUnrecognisedException(name);
     return it;
   }
+
 }

@@ -290,4 +290,27 @@ public interface Dbms {
    * @return the class name.
    */
   String toString();
+
+  /**
+   * If Foreign key definitions are part of field definitions,
+   * otherwise blank (silently unsupported).
+   *  
+   * @param tableName the table that this column is in, unquoted
+   * @param fieldName often the name of the foreign table, unquoted
+   * @param targetTableName the table that this is a foreign key into, unquoted
+   * @param targetTableFieldName name of the primary key field of the foreign table, often id, unquoted
+   * @param fixName name of the {@link IntegrityFix} 
+   * 
+   * @return The definition string
+   */
+  public String getForeignKeyDefinition(String tableName, String fieldName, String targetTableName, String targetTableFieldName, String fixName);
+
+  /**
+   * Return the PRIMARY KEY definition string for this dbms. 
+   *
+   * @param fieldName the table Troid column, often <code>id</code>, unquoted
+   * 
+   * @return The definition string
+   */
+  public String getPrimaryKeyDefinition(String fieldName);
 }

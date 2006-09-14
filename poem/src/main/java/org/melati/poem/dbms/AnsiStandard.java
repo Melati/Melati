@@ -465,6 +465,19 @@ public class AnsiStandard implements Dbms {
   public String toString() {
     return this.getClass().getName();
   }
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition()
+   */
+  public String getForeignKeyDefinition(String tableName, String fieldName, String targetTableName, String targetTableFieldName, String fixName) {
+    return "";
+  }
+  
+  /* (non-Javadoc)
+   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition()
+   */
+  public String getPrimaryKeyDefinition(String fieldName) {
+    return "";
+  }
   
 
 }

@@ -260,7 +260,7 @@ public class Hsqldb extends AnsiStandard {
   /** 
    * Note that this is NOT case insensitive.
    * 
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
@@ -269,6 +269,35 @@ public class Hsqldb extends AnsiStandard {
     term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
     
     return term1 + " LIKE " + term2;
+  }
+  
+  /** 
+   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+   */
+  public String getForeignKeyDefinition(String tableName, String fieldName, 
+                                        String targetTableName, 
+                                        String targetTableFieldName, 
+                                        String fixName) {
+    StringBuffer sb = new StringBuffer();
+    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
+              getQuotedName(targetTableName) + 
+              "(" + getQuotedName(targetTableFieldName) + ")");
+    // Not currently implemented by hsqldb, 
+    //another reason for not using the DB to control these things
+    //if (fixName.equals("prevent"))
+    //  sb.append(" ON DELETE NO ACTION");
+    if (fixName.equals("delete"))
+      sb.append(" ON DELETE CASCADE");      
+    if (fixName.equals("clear"))
+      sb.append(" ON DELETE SET NULL");      
+    return sb.toString();
+  }
+
+  /** 
+   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+   */
+  public String getPrimaryKeyDefinition(String fieldName) {
+    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
 
 }

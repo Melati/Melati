@@ -91,6 +91,24 @@ public class Mimer extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
+  /** 
+   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+   * @todo find out foreign key syntax
+   */
+  public String getForeignKeyDefinition(String tableName, String fieldName, 
+      String targetTableName, String targetTableFieldName, String fixName) {
+    return "";
+  }
+
+
+  /** 
+   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+   * @todo find out primary key syntax
+   */
+  public String getPrimaryKeyDefinition(String fieldName) {
+    return "";
+  }
+
 
 }
 

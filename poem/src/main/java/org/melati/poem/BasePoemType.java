@@ -61,7 +61,7 @@ import org.melati.poem.dbms.Dbms;
  */
 public abstract class BasePoemType implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
-  private boolean nullable;
+  protected boolean nullable;
 
   private Comparable low = null, limit = null;
 
@@ -296,7 +296,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   protected abstract String _sqlDefinition(Dbms dbms);
 
-  public final String sqlDefinition(Dbms dbms) {
+  public String sqlDefinition(Dbms dbms) {
     return _sqlDefinition(dbms) + (nullable ? "" : " NOT NULL");
   }
 

@@ -256,7 +256,7 @@ public class CachedSelectionTest extends PoemTestCase {
               getter.start();
 
               // fails at a nap of 18ms for postgresl and hsqldb
-              // fails at a nap of 700ms for Acess
+              // fails at a nap of 700ms for Access
               int nap = 100;
               try{
               Thread.sleep(nap);

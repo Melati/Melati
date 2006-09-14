@@ -156,6 +156,10 @@ public class GroupMembershipTableBase extends Table {
             return ((GroupMembership)g).getUserField();
           }
 
+          protected Searchability defaultSearchability() {
+            return Searchability.yes;
+          }
+
           protected Integer defaultDisplayOrderPriority() {
             return new Integer(0);
           }
@@ -170,6 +174,10 @@ public class GroupMembershipTableBase extends Table {
 
           protected String defaultDescription() {
             return "The user who belongs to the group";
+          }
+
+          protected boolean defaultIndexed() {
+            return true;
           }
 
           protected String defaultRenderinfo() {
@@ -341,3 +349,4 @@ public class GroupMembershipTableBase extends Table {
     return 2040;
   }
 }
+

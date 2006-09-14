@@ -128,13 +128,14 @@ table GroupMembership
   Integer id
     (description = "The Table Row Object ID")
     (displaylevel = detail) 
-    (primary) ;
+    (primary);
 
-  User user 
+  (indexed)User user 
     (displayorderpriority = 0)
     (displayname = "User")
     (description = "The user who belongs to the group")
     (renderinfo = "SelectionWindow")
+    (searchability = yes)
     (integrityfix = delete);
 
   Group group 

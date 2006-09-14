@@ -53,12 +53,10 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
-    super.setUp();
     setAccessHandler();
     setDbName("poemtest");
     if (db == null)
       db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
-    super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
     if (templateEngine != null)
@@ -109,14 +107,6 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     }
   }
 
-  /*
-   * Test method for 'org.melati.login.AccessHandler.establishUser(Melati)'
-   */
-  public void testEstablishUser() {
-    System.err.println("MA:"+ m.getArguments());
-    it.establishUser(m);
-  }
-
   /**
    * Test method for buildRequest(Melati).
    * 
@@ -129,6 +119,14 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
       e.printStackTrace();
       fail();
     }
+  }
+
+  /*
+   * Test method for 'org.melati.login.AccessHandler.establishUser(Melati)'
+   */
+  public void testEstablishUser() {
+    System.err.println("MA:"+ m.getArguments());
+    it.establishUser(m);
   }
 
 }

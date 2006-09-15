@@ -304,7 +304,7 @@ public interface Dbms {
    * 
    * @return The definition string
    */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
+  String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName);
 
   /**
@@ -314,5 +314,5 @@ public interface Dbms {
    * 
    * @return The definition string
    */
-  public String getPrimaryKeyDefinition(String fieldName);
+  String getPrimaryKeyDefinition(String fieldName);
 }

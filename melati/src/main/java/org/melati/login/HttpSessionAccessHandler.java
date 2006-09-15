@@ -69,9 +69,12 @@ import org.melati.util.UTF8URLEncoder;
  */
 public class HttpSessionAccessHandler implements AccessHandler {
 
+  /** Class name */
   public static final String
      OVERLAY_PARAMETERS = 
-       "org.melati.login.HttpSessionAccessHandler.overlayParameters",
+       "org.melati.login.HttpSessionAccessHandler.overlayParameters";
+  /** Class name */
+  public static final String
      USER = 
        "org.melati.login.HttpSessionAccessHandler.user";
 

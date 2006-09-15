@@ -147,7 +147,7 @@ public class AnsiStandard implements Dbms {
 
   protected String schema;
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
+   * @see org.melati.poem.dbms.Dbms#getConnection(String, String, String)
    */
   public Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException {
@@ -261,7 +261,8 @@ public class AnsiStandard implements Dbms {
       throws SQLException {
     if (scale < 0 || precision <= 0)
       throw new SQLException(
-          "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
+          "negative scale or nonpositive precision not supported " + 
+          "in AnsiStandard DECIMALs");
 
     return "DECIMAL(" + precision + "," + scale + ")";
   }
@@ -274,7 +275,7 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+   * @see org.melati.poem.dbms.Dbms#canRepresent(PoemType, PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     return storage.canRepresent(type);
@@ -295,7 +296,7 @@ public class AnsiStandard implements Dbms {
   }
 
   /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(ResultSet)
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -453,7 +454,7 @@ public class AnsiStandard implements Dbms {
   /**
    * This is the MySQL syntax.
    *
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(String, String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;
@@ -468,7 +469,8 @@ public class AnsiStandard implements Dbms {
   /* (non-Javadoc)
    * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition()
    */
-  public String getForeignKeyDefinition(String tableName, String fieldName, String targetTableName, String targetTableFieldName, String fixName) {
+  public String getForeignKeyDefinition(String tableName, String fieldName, 
+      String targetTableName, String targetTableFieldName, String fixName) {
     return "";
   }
   

@@ -111,6 +111,7 @@ public class ConfigServletTest extends TestCase {
                    
     mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
     mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
+    //poemContext - melati.getPathInfoParts
     mockHttpServletRequest.expectAndReturn( "getPathInfo", "melatitest/user/1"); 
     mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
     mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 

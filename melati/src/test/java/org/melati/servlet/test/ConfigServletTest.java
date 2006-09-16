@@ -95,8 +95,7 @@ public class ConfigServletTest extends TestCase {
       fail();
     } 
                    
-    // Undiagnosed difference between rama build and home               
-    //mockHttpServletRequest.verify(); 
+    mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
@@ -146,8 +145,7 @@ public class ConfigServletTest extends TestCase {
       fail();
     } 
                    
-    // Undiagnosed difference between rama build and home               
-    //mockHttpServletRequest.verify(); 
+    mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
@@ -198,8 +196,7 @@ public class ConfigServletTest extends TestCase {
       fail();
     } 
                    
-    // Undiagnosed difference between rama build and home               
-    //mockHttpServletRequest.verify(); 
+    mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 

@@ -161,12 +161,11 @@ public class PoemServletTest extends PoemTestCase {
       e.printStackTrace();
       fail();
     } 
-    // Undiagnosed difference between rama build and home               
-    //mockHttpServletRequest.verify(); 
+    mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
-    assertTrue(output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
+    assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
 
   }
 

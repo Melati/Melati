@@ -111,12 +111,18 @@ public class PoemServletTest extends PoemTestCase {
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
                    
     mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
+    //poemContext - melati.getPathInfoParts
+    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1");
+    
     mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
+    // HttpUtil.appendZoneURL
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    // HttpUtil.appendRelativeZoneURL
     mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
+
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
     mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
+    
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
@@ -124,6 +130,7 @@ public class PoemServletTest extends PoemTestCase {
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
     mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
+    // melati.establishCharSets
     mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 

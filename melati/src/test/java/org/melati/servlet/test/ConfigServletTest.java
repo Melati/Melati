@@ -67,9 +67,7 @@ public class ConfigServletTest extends TestCase {
     mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockContextPath"); 
@@ -118,9 +116,7 @@ public class ConfigServletTest extends TestCase {
     mockHttpServletRequest.expectAndReturn( "getRequestURI", null); 
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
     mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockContextPath"); 

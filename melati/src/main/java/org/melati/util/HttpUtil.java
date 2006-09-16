@@ -54,14 +54,16 @@ public final class HttpUtil {
 
   public static void appendZoneURL(StringBuffer url, 
                                    HttpServletRequest request) {
-    url.append(request.getScheme());
+    String scheme = request.getScheme();
+    url.append(scheme);
     url.append("://");
     url.append(request.getServerName());
-    if (request.getScheme().equals("http") && 
-        request.getServerPort() != 80 
+    if ((scheme.equals("http") && 
+        request.getServerPort() != 80
+        )
         ||
-        request.getScheme().equals("https") && 
-        request.getServerPort() != 443) {
+        (scheme.equals("https") && 
+        request.getServerPort() != 443)) {
       url.append(':');
       url.append(request.getServerPort());
     }

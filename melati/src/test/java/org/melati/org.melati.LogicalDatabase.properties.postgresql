@@ -3,10 +3,9 @@
 #  Melati logical database definition file
 # =========================================
 # 
-
-# This file says how Melati should map the "logical database name"
+# This file specifies how Melati should map the "logical database name"
 # which it expects to see as the first element of the pathinfo in each
-# incoming HTTP request should be mapped to JDBC connection details.
+# incoming HTTP request to the JDBC connection details.
 #
 # Given the example URL
 #
@@ -17,7 +16,7 @@
 #   org.melati.LogicalDatabase.<logical db>.class
 #
 #     The Java class for the application-specific database schema, if one
-#     was defined in a Data Structure Definition file; or just
+#     was defined in a Data Structure Definition file or 
 #     org.melati.poem.PoemDatabase if not.
 #
 #  org.melati.LogicalDatabase.<logical db>.url
@@ -25,6 +24,7 @@
 #     The JDBC URL for the actual DBMS database
 #     A minimal, localhost URL might be: 
 #     jdbc:postgresql:melatitest
+#     jdbc:hsqldb:hsql://dist/melati/db/melatitest
 #     jdbc:mysql:///melatitest
 #
 #  org.melati.LogicalDatabase.<logical db>.user
@@ -41,6 +41,16 @@
 #     where user is 'melati' and so is the password.
 #     Mckoi:
 #     'test' works out of the box.
+#     HSQLDB: 
+#      sa is the default
+#     MS SQL: 
+#      Whatever user owns the db - must have create table rights
+#     Oracle: 
+#      Whatever user owns the db - suggest create a user called MELATI:
+#      CREATE USER MELATI IDENTIFIED BY MELATI;
+#      GRANT CREATE TABLE TO MELATI;
+#      GRANT RESOURCE to MELATI;
+#      GRANT CREATE SESSION TO MELATI;
 #
 #  org.melati.LogicalDatabase.<logical db>.pass
 #
@@ -51,6 +61,8 @@
 #     Use password defined above.
 #     Mckoi:
 #     'test' works out of the box.
+#     HSQLDB:
+#     null works out of the box.
 #
 #  org.melati.LogicalDatabase.<logical db>.maxtransactions
 #
@@ -58,58 +70,51 @@
 #
 #
 
+# Used by the web site for the interactive tests
 
 org.melati.LogicalDatabase.melatitest.class=org.melati.poem.PoemDatabase
-#org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Hsqldb
 org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Postgresql
-#org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.MySQL
-#org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.Mckoi
-#org.melati.LogicalDatabase.melatitest.url=jdbc:hsqldb:melatitest
 org.melati.LogicalDatabase.melatitest.url=jdbc:postgresql:melatitest
-#org.melati.LogicalDatabase.melatitest.url=jdbc:mysql:///melatitest
-#org.melati.LogicalDatabase.melatitest.url=jdbc:mckoi://localhost/melatitest
-#org.melati.LogicalDatabase.melatitest.user=sa
 org.melati.LogicalDatabase.melatitest.user=postgres
-#org.melati.LogicalDatabase.melatitest.user=melati
-#org.melati.LogicalDatabase.melatitest.user=test
-#org.melati.LogicalDatabase.melatitest.pass=
 org.melati.LogicalDatabase.melatitest.pass=*
-#org.melati.LogicalDatabase.melatitest.pass=melati
-#org.melati.LogicalDatabase.melatitest.pass=test
 org.melati.LogicalDatabase.melatitest.maxtransactions=4
+org.melati.LogicalDatabase.melatitest.addconstraints=true
+org.melati.LogicalDatabase.melatitest.logsql=false
+org.melati.LogicalDatabase.melatitest.logcommits=false
+
+# Used by the website for the example
 
 org.melati.LogicalDatabase.contacts.class=org.melati.example.contacts.ContactsDatabase
-#org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Hsqldb
 org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Postgresql
-#org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.MySQL
-#org.melati.LogicalDatabase.contacts.dbmsclass=org.melati.poem.dbms.Mckoi
-#org.melati.LogicalDatabase.contacts.url=jdbc:hsqldb:contacts
 org.melati.LogicalDatabase.contacts.url=jdbc:postgresql:contacts
-#org.melati.LogicalDatabase.contacts.url=jdbc:mysql:///contacts
-#org.melati.LogicalDatabase.contacts.url=jdbc:mckoi://localhost/contacts
-#org.melati.LogicalDatabase.contacts.user=sa
 org.melati.LogicalDatabase.contacts.user=postgres
-#org.melati.LogicalDatabase.contacts.user=test
-#org.melati.LogicalDatabase.contacts.pass=
 org.melati.LogicalDatabase.contacts.pass=*
-#org.melati.LogicalDatabase.contacts.pass=test
 org.melati.LogicalDatabase.contacts.maxtransactions=4
+org.melati.LogicalDatabase.contacts.addconstraints=true
+org.melati.LogicalDatabase.contacts.logsql=false
+org.melati.LogicalDatabase.contacts.logcommits=false
+
+# Used by the unit tests 
 
 org.melati.LogicalDatabase.poemtest.class=org.melati.poem.test.TestDatabase
-#org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.Hsqldb
 org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.Postgresql
-#org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.MySQL
-#org.melati.LogicalDatabase.poemtest.dbmsclass=org.melati.poem.dbms.Mckoi
-#org.melati.LogicalDatabase.poemtest.url=jdbc:hsqldb:poemtest
 org.melati.LogicalDatabase.poemtest.url=jdbc:postgresql:poemtest
-#org.melati.LogicalDatabase.poemtest.url=jdbc:mysql:///poemtest
-#org.melati.LogicalDatabase.poemtest.url=jdbc:mckoi://localhost/poemtest
-#org.melati.LogicalDatabase.poemtest.user=sa
 org.melati.LogicalDatabase.poemtest.user=postgres
-#org.melati.LogicalDatabase.poemtest.user=test
-#org.melati.LogicalDatabase.poemtest.pass=
 org.melati.LogicalDatabase.poemtest.pass=*
-#org.melati.LogicalDatabase.poemtest.pass=test
 org.melati.LogicalDatabase.poemtest.maxtransactions=4
+org.melati.LogicalDatabase.poemtest.addconstraints=true
+org.melati.LogicalDatabase.poemtest.logsql=false
+org.melati.LogicalDatabase.poemtest.logcommits=false
 
+# Used by the unit tests
+
+org.melati.LogicalDatabase.melatijunit.class=org.melati.poem.PoemDatabase
+org.melati.LogicalDatabase.melatijunit.dbmsclass=org.melati.poem.dbms.Hsqldb
+org.melati.LogicalDatabase.melatijunit.url=jdbc:hsqldb:/dist/melati/db/melatijunit
+org.melati.LogicalDatabase.melatijunit.user=sa
+org.melati.LogicalDatabase.melatijunit.pass=
+org.melati.LogicalDatabase.melatijunit.maxtransactions=4
+org.melati.LogicalDatabase.melatijunit.addconstraints=true
+org.melati.LogicalDatabase.melatijunit.logsql=false
+org.melati.LogicalDatabase.melatijunit.logcommits=false
 

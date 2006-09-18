@@ -3,7 +3,6 @@
  */
 package org.melati.login.test;
 
-import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -12,7 +11,6 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.test.PoemTestCase;
-import org.melati.poem.test.TestDatabase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
@@ -53,10 +51,8 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
+    super.setUp();
     setAccessHandler();
-    setDbName("poemtest");
-    if (db == null)
-      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
     if (templateEngine != null)
@@ -68,8 +64,7 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     TemplateContext templateContext =
       templateEngine.getTemplateContext(m);
     m.setTemplateContext(templateContext);
-    PoemContext poemContext;
-    poemContext = new PoemContext();
+    PoemContext poemContext = new PoemContext();
     poemContext.setLogicalDatabase("poemtest");
     m.setPoemContext(poemContext);
    
@@ -82,14 +77,6 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     }
   }
   
-  /*
-   * @see TestCase#tearDown()
-   */
-  protected void tearDown()
-      throws Exception {
-    super.tearDown();
-  }
-
   /**
    * Test method for handleAccessException(Melati, AccessPoemException).
    * 
@@ -98,7 +85,7 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
   public void testHandleAccessException() {
     try {
       AccessPoemException ape = new AccessPoemException(
-          (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
+          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
       System.err.println(m);
       it.handleAccessException(m, ape);
     } catch (Exception e) {
@@ -129,4 +116,5 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     it.establishUser(m);
   }
 
+  
 }

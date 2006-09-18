@@ -142,6 +142,8 @@ public final class LogicalDatabase {
         String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
         String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
         String addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
+        String logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
+        String logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
         // max transactions default to 8 if not set
         int maxTrans = PropertiesUtils.
                            getOrDefault_int(defs, pref + "maxtransactions", 8);
@@ -166,11 +168,13 @@ public final class LogicalDatabase {
 
         database = (Database)databaseObject;
 
-        // Changed to use dbmsclass not driver, it will throw an exception 
-        // if that is not correct
-
         database.connect(dbmsclass, url, user, pass, maxTrans);
 
+        // Set properties
+        if (logSQL.equalsIgnoreCase("true"))
+          database.setLogSQL(true);
+        if (logCommits.equalsIgnoreCase("true"))
+          database.setLogCommits(true);
         if (addConstraints.equalsIgnoreCase("true"))
           database.addConstraints();
       }

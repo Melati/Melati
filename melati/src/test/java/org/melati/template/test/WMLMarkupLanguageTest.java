@@ -15,6 +15,21 @@ import org.melati.util.MelatiLocale;
 public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
 
   /**
+   * Constructor for PoemTest.
+   * @param arg0
+   */
+  public WMLMarkupLanguageTest(String arg0) {
+    super(arg0);
+  }
+  /**
+   * Constructor.
+   */
+  public WMLMarkupLanguageTest() {
+    super();
+  }
+  
+
+  /**
    * @see MarkupLanguageAbstract#setUp()
    */
   protected void setUp() throws Exception {

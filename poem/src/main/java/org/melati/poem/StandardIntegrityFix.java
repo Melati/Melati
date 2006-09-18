@@ -52,7 +52,11 @@ import org.melati.util.EmptyEnumeration;
 
 /**
  * A class which defines the three standard integrity fixes of 
- * <tt>delete</tt>, <tt>clear</tt> and <tt>fix</tt>.
+ * <tt>delete</tt>, <tt>clear</tt> and <tt>prevent</tt>.
+ * <p>
+ * These correspond to the SQL ON DELETE CASCADE, ON DELETE SET NULL 
+ * and ON DELETE NO ACTION. 
+ * </p>
  */
 public abstract class StandardIntegrityFix implements IntegrityFix {
 

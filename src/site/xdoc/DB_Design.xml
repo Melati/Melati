@@ -98,7 +98,7 @@ the Table Row Id (TROID) column of all tables.
 <subsection name=" Foreign Key Constraints ">
 <p>
 POEM does not use the DBMS' Foreign Keys, as it maintains its own metadata in the 
-<tt>ColumnInfo</tt> table, but for schema export of reporting this metadata needs to be 
+<tt>ColumnInfo</tt> table, but for schema export or reporting this metadata needs to be 
 known by the DBMS.
 </p>
 <p>
@@ -134,6 +134,10 @@ POEM
 <td>SET NULL</td>
 </tr>
 </table>
+<p>
+Of course if you have written your own POEM <tt>IntegrityFix</tt> fix then 
+this will not be communicated to the DBMS.
+</p>
 <p>
 Note that POEM does not have an equivalent of <tt>ON UPDATE</tt> as POEM keys are 
 intended to be unchanging.

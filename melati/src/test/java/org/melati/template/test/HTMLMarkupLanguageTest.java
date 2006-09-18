@@ -50,14 +50,14 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
   public void testRenderedTreeable() {
     try {
 
-      Node parent = (Node)db.getTable("node").newPersistent();
+      Node parent = (Node)getDb().getTable("node").newPersistent();
       parent.setName("Mum");
       parent.makePersistent();
-      Node  kid1 = (Node)db.getTable("node").newPersistent();
+      Node  kid1 = (Node)getDb().getTable("node").newPersistent();
       kid1.setName("K1");
       kid1.setParent(parent);
       kid1.makePersistent();
-      Node  kid2 = (Node)db.getTable("node").newPersistent();
+      Node  kid2 = (Node)getDb().getTable("node").newPersistent();
       kid2.setName("K2");
       kid2.setParent(parent);
       kid2.makePersistent();

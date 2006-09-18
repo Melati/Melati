@@ -2,7 +2,6 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import org.melati.LogicalDatabase;
 import org.melati.poem.UserTable;
 
 /**
@@ -12,7 +11,6 @@ import org.melati.poem.UserTable;
  */
 public class TestDatabaseTest extends PoemTestCase {
 
-  protected TestDatabase db;
   
   /**
    * Constructor for PoemTest.
@@ -28,18 +26,15 @@ public class TestDatabaseTest extends PoemTestCase {
    */
   protected void setUp() throws Exception {
     setDbName("poemtest");
-    if (db == null)
-      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
   }
-
   /**
    * Test method for 'org.melati.poem.test.generated.TestDatabaseBase.getUserTable()'
    * Test method for 'org.melati.poem.Database.getTable(String)'
    */
   public void testGetUserTable() {
-      UserTable ut1 = db.getUserTable();
-      UserTable ut2 = (UserTable)db.getTable("user");
+      UserTable ut1 = getDb().getUserTable();
+      UserTable ut2 = (UserTable)getDb().getTable("user");
       assertEquals(ut1, ut2);
   }
 
@@ -72,7 +67,7 @@ public class TestDatabaseTest extends PoemTestCase {
     "tablecategory (from the data structure definition)" +
     "setting (from the data structure definition)";
 
-    Enumeration en = db.getDisplayTables();
+    Enumeration en = getDb().getDisplayTables();
     String result = "";
     while (en.hasMoreElements()) {
       result += en.nextElement().toString();

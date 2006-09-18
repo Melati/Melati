@@ -2,7 +2,6 @@ package org.melati.template.test;
 
 import java.io.IOException;
 
-import org.melati.LogicalDatabase;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -12,7 +11,6 @@ import org.melati.poem.Capability;
 import org.melati.poem.Field;
 import org.melati.poem.test.Node;
 import org.melati.poem.test.PoemTestCase;
-import org.melati.poem.test.TestDatabase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.NotFoundException;
@@ -40,15 +38,30 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   protected static MarkupLanguage ml = null;
   protected static AttributeMarkupLanguage aml = null;
   protected static Melati m = null;
+
+  /**
+   * Constructor for PoemTest.
+   * @param arg0
+   */
+  public MarkupLanguageTestAbstract(String arg0) {
+    super(arg0);
+    setDbName("poemtest");
+  }
+  /**
+   * Constructor.
+   */
+  public MarkupLanguageTestAbstract() {
+    super();
+  }
   
+
+ 
   /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception
   {
     setDbName("poemtest");
-    if (db == null)
-      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
@@ -71,13 +84,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   }
   
   /**
-   * @see TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    super.tearDown();
-  }
-
-  /**
    * Test method for rendered(Exception).
    * 
    * @see org.melati.template.HTMLAttributeMarkupLanguage#
@@ -94,7 +100,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
 
     try {
       AccessPoemException ape = new AccessPoemException(
-          (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
+          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
       assertTrue(ml.rendered(ape).indexOf(
           "org.melati.poem.AccessPoemException: " + 
           "You need the capability Cool but " + 
@@ -115,7 +121,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     }
     try {
       AccessPoemException ape = new AccessPoemException(
-          (AccessToken)db.getUserTable().guestUser(), new Capability("Cool"));
+          (AccessToken)getDb().getUserTable().guestUser(), new Capability("Cool"));
       assertEquals("", aml.rendered(ape));
       System.err.println(m.getWriter().toString());
       assertTrue(m.getWriter().toString().indexOf("[Access denied to Melati guest user]") != -1);
@@ -178,7 +184,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.HTMLLikeMarkupLanguage#escaped(Persistent)
    */
   public void testEscapedPersistent() {
-    assertEquals("Melati guest user",ml.escaped(db.getUserTable().getUserObject(0)));
+    assertEquals("Melati guest user",ml.escaped(getDb().getUserTable().getUserObject(0)));
   }
 
   /**
@@ -235,7 +241,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
     
     try {
 
-      Node persistent = (Node)db.getTable("node").newPersistent();
+      Node persistent = (Node)getDb().getTable("node").newPersistent();
       persistent.setName("Mum");
       persistent.makePersistent();
       m.setPoemContext(new PoemContext());
@@ -291,7 +297,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field)
    */
   public void testRenderedField() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.rendered(userName));
     } catch (Exception e) {
@@ -305,7 +311,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field, int)
    */
   public void testRenderedFieldInt() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.rendered(userName,3));
     } catch (Exception e) {
@@ -320,7 +326,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#rendered(Field, int, int)
    */
   public void testRenderedFieldIntInt() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_gu...", ml.rendered(userName,3,3));
     } catch (Exception e) {
@@ -335,7 +341,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#renderedShort(Field)
    */
   public void testRenderedShort() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.renderedShort(userName));
     } catch (Exception e) {
@@ -351,7 +357,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#renderedMedium(Field)
    */
   public void testRenderedMedium() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.renderedMedium(userName));
     } catch (Exception e) {
@@ -366,7 +372,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#renderedLong(Field)
    */
   public void testRenderedLong() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.renderedLong(userName));
     } catch (Exception e) {
@@ -382,7 +388,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#renderedFull(Field)
    */
   public void testRenderedFull() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.renderedFull(userName));
     } catch (Exception e) {
@@ -397,7 +403,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#renderedStart(Field)
    */
   public void testRenderedStart() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertEquals("_guest_", ml.renderedStart(userName));
     } catch (Exception e) {
@@ -413,7 +419,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#input(Field)
    */
   public void testInputField() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.input(userName).toLowerCase().indexOf("<input name=\"field_login\"") != -1);
     } catch (Exception e) {
@@ -438,7 +444,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#inputAs(Field, String)
    */
   public void testInputAs() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.inputAs(userName, "nonExistantTemplateName").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
       fail();
@@ -459,7 +465,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * @see org.melati.template.MarkupLanguage#searchInput(Field, String)
    */
   public void testSearchInput() {
-    Field userName = db.getUserTable().getUserObject(0).getField("login");
+    Field userName = getDb().getUserTable().getUserObject(0).getField("login");
     try {
       assertTrue(ml.searchInput(userName, "None").toLowerCase().indexOf("<input name=\"field_login\"") != -1);
     } catch (Exception e) {
@@ -501,7 +507,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       TemplateContext tc = m.getTemplateContext();
       tc.put("melati", m);
       tc.put("ml", ml);
-      Field nullable = db.getColumnInfoTable().
+      Field nullable = getDb().getColumnInfoTable().
                            getColumnInfoObject(0).getField("nullable");
       tc.put("object", nullable);
       t.write(m.getWriter(),tc, m.getTemplateEngine());
@@ -604,5 +610,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       fail();
     }
   }
+
 
 }

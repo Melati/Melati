@@ -37,8 +37,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.getTable(String)'
    */
   public void testGetUserTable() {
-    UserTable ut1 = db.getUserTable();
-    UserTable ut2 = (UserTable)db.getTable("user");
+    UserTable ut1 = getDb().getUserTable();
+    UserTable ut2 = (UserTable)getDb().getTable("user");
     assertEquals(ut1, ut2);
   }
 
@@ -46,7 +46,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.transactionsMax()'
    */
   public void testTransactionsMax() {
-    assertEquals(4, db.transactionsMax());
+    assertEquals(4, getDb().transactionsMax());
   }
 
   /**
@@ -63,7 +63,7 @@ public class PoemDatabaseTest extends PoemTestCase {
             + "tablecategory (from the data structure definition)"
             + "setting (from the data structure definition)";
 
-    Enumeration en = db.getDisplayTables();
+    Enumeration en = getDb().getDisplayTables();
     String result = "";
     while (en.hasMoreElements()) {
       result += en.nextElement().toString();
@@ -77,8 +77,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.sqlQuery(String)'
    */
   public void testSqlQuery() {
-    String query = "select * from " + db.getUserTable().quotedName();
-    ResultSet rs = db.sqlQuery(query);
+    String query = "select * from " + getDb().getUserTable().quotedName();
+    ResultSet rs = getDb().sqlQuery(query);
     int count = 0;
     try {
       while (rs.next())
@@ -95,15 +95,15 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.hasCapability(User, Capability)'
    */
   public void testHasCapability() {
-    assertTrue(db.hasCapability(db.getUserTable().administratorUser(), db
-            .getCanAdminister()));
+    assertTrue(getDb().hasCapability(getDb().getUserTable().administratorUser(), 
+        getDb().getCanAdminister()));
   }
 
   /**
    * Test method for 'org.melati.poem.Database.administerCapability()'
    */
   public void testAdministerCapability() {
-    Capability c = db.administerCapability();
+    Capability c = getDb().administerCapability();
     assertEquals("_administer_", c.toString());
   }
 
@@ -111,19 +111,19 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.getCanAdminister()'
    */
   public void testGetCanAdminister() {
-    assertNull(db.getCanAdminister());
+    assertNull(getDb().getCanAdminister());
   }
 
   /**
    * @see org.melati.poem.UserTable#guestUser()
    */
   public final void testGuestUser() {
-    User u = db.getUserTable().guestUser();
+    User u = getDb().getUserTable().guestUser();
     assertEquals(u.getLogin(), "_guest_");
   }
 
   public final void testAdministratorUser() {
-    User u = db.getUserTable().administratorUser();
+    User u = getDb().getUserTable().administratorUser();
     assertEquals(u.getPassword(), "FIXME");
     // TODO Implement administratorUser().
   }
@@ -136,7 +136,7 @@ public class PoemDatabaseTest extends PoemTestCase {
             + "(INT (org.melati.poem.ReferencePoemType)) "
             + "(from the data structure definition)";
     String result = "";
-    Enumeration en = db.referencesTo(db.getUserTable());
+    Enumeration en = getDb().referencesTo(getDb().getUserTable());
     while (en.hasMoreElements())
       result += en.nextElement();
     assertEquals(expected, result);
@@ -146,7 +146,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.getDbms()'
    */
   public void testGetDbms() {
-    Dbms dbms = db.getDbms();
+    Dbms dbms = getDb().getDbms();
     System.err.println(dbms);
   }
 
@@ -154,7 +154,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.toString()'
    */
   public void testToString() {
-    String name = db.toString();
+    String name = getDb().toString();
     System.err.println(name);
     assertTrue(name.endsWith(getDbName()));
   }
@@ -163,16 +163,16 @@ public class PoemDatabaseTest extends PoemTestCase {
    * Test method for 'org.melati.poem.Database.logSQL()'
    */
   public void testLogSQL() {
-    assertFalse(db.logSQL());
+    assertFalse(getDb().logSQL());
   }
 
   /**
    * Test method for 'org.melati.poem.Database.setLogSQL(boolean)'
    */
   public void testSetLogSQL() {
-    assertFalse(db.logSQL());
-    db.setLogSQL(true);
-    assertTrue(db.logSQL());
+    assertFalse(getDb().logSQL());
+    getDb().setLogSQL(true);
+    assertTrue(getDb().logSQL());
   }
 
 }

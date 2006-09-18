@@ -2,12 +2,14 @@ package org.melati.poem.test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+//import java.sql.Connection;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 //import org.melati.poem.SQLPoemException;
+import org.melati.util.DatabaseInitException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -25,7 +27,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  protected PoemDatabase db = null;
+  private PoemDatabase db = null;
 
   private String dbName = "melatijunit";
 
@@ -53,19 +55,23 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
+    setDb(getDbName());
   }
 
   /**
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-/*    if (db != null && db.getCommittedConnection() != null)
-      db.inSession(AccessToken.root, // HACK
+/*
+    Connection connection;
+    if (getDb() != null) {
+      connection =  getDb().getCommittedConnection();
+      if (connection != null) {
+        getDb().inSession(AccessToken.root, // HACK
               new PoemTask() {
                 public void run() {
                   try {
-                    db.shutdown();
+                    getDb().shutdown();
                   } catch (SQLPoemException  e) {
                     e = null; // Session already closed
                   } catch (Throwable  e) {
@@ -73,7 +79,11 @@ public abstract class PoemTestCase extends TestCase implements Test {
                     throw new RuntimeException(e);
                   }
         }});
-        */
+        if (!connection.isClosed())
+          connection.close();
+      }
+    }
+    */
     db = null;
   }
   
@@ -96,7 +106,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
       // Ensures that we are invoking on 
       // the object that method belongs to.
       final Object _this = this;
-      db.inSession(AccessToken.root, // HACK
+      getDb().inSession(AccessToken.root, // HACK
               new PoemTask() {
                 public void run() {
                   try {
@@ -140,5 +150,19 @@ public abstract class PoemTestCase extends TestCase implements Test {
     this.dbName = dbName;
   }
 
+  /**
+   * @return Returns the db.
+   */
+  public PoemDatabase getDb() {
+    return db;
+  }
+
+  public void setDb(String dbName){
+    try {
+      db =  (PoemDatabase)LogicalDatabase.getDatabase(dbName);
+    } catch (DatabaseInitException e) {
+       fail(e.getMessage());
+    }
+  }
   
 }

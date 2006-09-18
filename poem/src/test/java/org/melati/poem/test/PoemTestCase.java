@@ -2,13 +2,13 @@ package org.melati.poem.test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-//import java.sql.Connection;
+import java.sql.Connection;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
-//import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLPoemException;
 import org.melati.util.DatabaseInitException;
 
 import junit.framework.Test;
@@ -62,7 +62,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-/*
     Connection connection;
     if (getDb() != null) {
       connection =  getDb().getCommittedConnection();
@@ -71,9 +70,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
               new PoemTask() {
                 public void run() {
                   try {
-                    getDb().shutdown();
-                  } catch (SQLPoemException  e) {
-                    e = null; // Session already closed
+                    //getDb().shutdown();
                   } catch (Throwable  e) {
                     e.fillInStackTrace();
                     throw new RuntimeException(e);
@@ -83,7 +80,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
           connection.close();
       }
     }
-    */
     db = null;
   }
   

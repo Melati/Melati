@@ -95,7 +95,7 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
   }
 
   /**
-   * Get the DsiplayString of a <code>Persistent</code> and 
+   * Get the DisplayString of a <code>Persistent</code> and 
    * escape that using the current locale and a MEDIUM DateFormat.
    * 
    * See org/melati/admin/SelectionWindowSelection.wm

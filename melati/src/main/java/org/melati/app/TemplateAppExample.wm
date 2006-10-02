@@ -41,8 +41,6 @@
 ##     Tim Pizey <timp@paneris.org>
 ##     http://www.paneris.org/~timp
 ##
-## We don't have a TextMarkupLanguage as yet
-#set $ml = $melati.MarkupLanguage
 
 Hello $melati.getUser()
 

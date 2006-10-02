@@ -47,24 +47,24 @@ import org.melati.Melati;
 import org.melati.template.TemplateContext;
 
 /**
- * An example of how to use a Template Engine with a Poem database 
- * from the command line. 
- * 
- * Invoke: 
- * 
+ * An example of how to use a Template Engine with a Poem database
+ * from the command line.
+ *
+ * Invoke:
+ *
  * java -cp melati.jar:site\properties:lib\hsqldb.jar: \
  *  lib\webmacro.jar:lib\servlet.jar \
  *  org.melati.app.PoemTemplateExample poemtest user 0 \
  *  org/melati/app/TemplateAppExample
- * 
- * Where poemtest is your database, user is your tabel and 0 is the record id.
- * 
+ *
+ * Where poemtest is your database, user is your table and 0 is the record id.
+ *
  */
 public class TemplateAppExample extends TemplateApp {
 
   /**
-   * The main method to override. 
-   * 
+   * The main method to override.
+   *
    * @param melati A {@link Melati} with arguments and properties set
    * @param templateContext A {@link TemplateContext} containing a {@link Melati}
    * @return the name of a template to expand
@@ -75,7 +75,7 @@ public class TemplateAppExample extends TemplateApp {
   protected String doTemplateRequest(Melati melati,
       TemplateContext templateContext) throws Exception {
     // test logging in if necessary
-    if (melati.getConfig().getAccessHandler() 
+    if (melati.getConfig().getAccessHandler()
          instanceof  org.melati.login.CommandLineAccessHandler)
       melati.getDatabase().getUserTable().
                              getTableInfo().setDefaultcanread(
@@ -85,9 +85,9 @@ public class TemplateAppExample extends TemplateApp {
 
   /**
    * The main entry point.
-   * 
-   * @param args in format <code>db table troid method</code> 
-   *             where method is a template name 
+   *
+   * @param args in format <code>db table troid method</code>
+   *             where method is a template name
    */
   public static void main(String[] args) {
     TemplateAppExample me = new TemplateAppExample();

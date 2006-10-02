@@ -71,7 +71,7 @@ public interface TemplateEngine {
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
-   * @return a {@link ServletTemplateContext}
+   * @return a {@link TemplateContext}
    */
   TemplateContext getTemplateContext(Melati melati)
       throws TemplateEngineException;

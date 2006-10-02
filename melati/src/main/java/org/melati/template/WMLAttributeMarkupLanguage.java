@@ -49,7 +49,6 @@ import org.melati.poem.AccessPoemException;
 
 /**
  * A WML based markup language suitable for markup within an attribute tag.
- * @todo Delete this, it should be identical to AttributeHTMLMarkupLanguage, 
  * WML has same entities as HTML.
  * 
  */

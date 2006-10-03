@@ -1200,7 +1200,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * (as a decimal string).
    * 
    * @param locale our locale
-   * @param style a DateFormat
+   * @param style 
+   *      a DateFormat (only applicable to those rare objects whose summary column is a date)
    * @return the String to display
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
@@ -1217,12 +1218,23 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
+   * Default to using  DateFromat MEDIUM.
    * @return Default String for display.
    * 
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String getDisplayString() 
+  public String displayString(MelatiLocale locale) 
+      throws AccessPoemException {
+    return displayString(locale, DateFormat.MEDIUM);
+  }
+  /**
+   * @return Default String for display.
+   * 
+   * @throws AccessPoemException 
+   *         if current User does not have viewing {@link Capability}
+   */
+  public String displayString() 
       throws AccessPoemException {
     return displayString(MelatiLocale.HERE, DateFormat.MEDIUM);
   }

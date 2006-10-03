@@ -211,6 +211,7 @@
      <directory>src/main/java</directory>
      <includes>
       <include>**/*.wm</include>
+      <include>**/*.vm</include>
       <include>**/*.dsd</include>
      </includes>
      <excludes>

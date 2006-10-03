@@ -44,6 +44,7 @@
 ##
 
 <INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
+       TITLE="$field.Description"
        VALUE="$ml.Attr.rendered($field.RawString)">  (dd/mm/yyyy hh:mm:ss)
 
 <SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">

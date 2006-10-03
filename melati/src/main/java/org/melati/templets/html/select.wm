@@ -43,7 +43,7 @@
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 ## Expecting $object to be a Field
-<select name="field_$ml.rendered($object.Name)">
+<select name="field_$ml.rendered($object.Name)" TITLE="$object.Description">
   #foreach $poss in $object.First1000Possibilities #begin
     <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($object)) #begin

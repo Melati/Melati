@@ -48,6 +48,7 @@
        VALUE="org.melati.template.SimpleDateAdaptor">
 
 <INPUT NAME="field_$ml.rendered($field.Name)" 
+       TITLE="$field.Description"
        SIZE="10"
        VALUE="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))"> (dd/mm/yyyy)
 

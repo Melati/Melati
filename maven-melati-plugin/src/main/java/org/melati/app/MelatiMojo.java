@@ -52,7 +52,7 @@ import java.io.File;
  * Goal which runs a Melati command.
  * 
  * @goal run
- * @phase generate-sources
+ * @phase compile
  */
 public class MelatiMojo extends AbstractMojo {
 
@@ -64,6 +64,39 @@ public class MelatiMojo extends AbstractMojo {
    */
   private File outputDirectory;
 
+  /**
+   * Application name.
+   * 
+   * @parameter expression="TemplateAppExample"
+   * @required
+   */
+  private String appName;
+
+  /**
+   * Database name.
+   * 
+   * @parameter expression="melatitest"
+   * @required
+   */
+  private String db;
+
+  /**
+   * Database table.
+   * 
+   * @parameter expression="user"
+   * @required
+   */
+  private String table;
+
+  /**
+   * Table row id (troid).
+   * 
+   * @parameter expression="0"
+   * @required
+   */
+  private String troid;
+
+  
   public void execute()
       throws MojoExecutionException {
     File f = outputDirectory;
@@ -71,7 +104,38 @@ public class MelatiMojo extends AbstractMojo {
     if (!f.exists()) {
       f.mkdirs();
     }
-    TemplateAppExample app = new TemplateAppExample();
-    app.run(new String[] {"melatitest",  "user", "0"});
+    App app;
+    try {
+      app = (App)instanceOfNamedClass(appName, "org.melati.app.App");
+      app.run(new String[] {db,  table, troid});
+    } catch (InstantiationException e) {
+      throw new MojoExecutionException( "Could not load main class. Terminating", e );      
+    }
   }
+  /**
+   * Instantiate an interface.
+   * 
+   * @param className the name of the Class
+   * @param base the interface Class
+   * @return a new object
+   * @throws InstantiationException 
+   *   if the named class does not descend from the interface
+   */
+  public static Object instanceOfNamedClass(String className, String interfaceName)
+      throws InstantiationException {
+    try {
+      Class clazz = Class.forName(className);
+      Class interfaceRequired = Class.forName(interfaceName);
+      if (!interfaceRequired.isAssignableFrom(clazz))
+        throw new ClassCastException(
+            clazz + " is not descended from " + interfaceName);
+      return clazz.newInstance();
+    }
+    catch (Exception e) {
+      throw new 
+          InstantiationException(
+              "Error instantiating " + className + ": " + e.toString());
+    }
+  }
+
 }

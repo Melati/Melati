@@ -50,7 +50,6 @@ import java.text.DateFormat;
 
 import org.melati.Melati;
 import org.melati.poem.Field;
-import org.melati.poem.Persistent;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
@@ -143,8 +142,12 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       render((String)o, sw);
     else if (o instanceof Field) 
       render((Field)o, sw);
-    else if (o instanceof Persistent) 
-      render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), sw);
+    // There is now an org.melati.poem.Persistent template 
+    // which does this, also defaulting the date type in 
+    // the extraordinary situation that a Persistent has a Date as its 
+    // PrimaryDisplay column. 
+    //else if (o instanceof Persistent) 
+    //  render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), sw);
     else
       render(o, sw);
     return sw.toString();
@@ -221,8 +224,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       render((String)o, writer);
     else if (o instanceof Field) 
       render((Field)o, writer);
-    else if (o instanceof Persistent) 
-      render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
+    //else if (o instanceof Persistent) 
+    //  render(((Persistent)o).displayString(locale, DateFormat.MEDIUM), writer);
     else
       render(o, writer);
   }

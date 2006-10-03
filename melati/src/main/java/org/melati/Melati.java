@@ -92,6 +92,11 @@ import org.melati.util.UnexpectedExceptionException;
  * If you are using servlets, you will want to construct a melati with
  * a request and response object.  Otherwise, simply pass in a Writer.
  * <p>
+ * If you are a template engine outside of a servlets context you will 
+ * still need the servlets jar in your classpath, annoyingly, as Velocity and 
+ * WebMacro introspect all possible methods and throw a ClassNotFound exception 
+ * if the servlets classes are not available.  
+ * <p>
  * A Melati exists once per request.
  * <p>
  * Melati is typically used with Servlets, POEM (Persistent Object Engine for
@@ -890,7 +895,7 @@ public class Melati {
   }
   
   /**
-   * Establish if this is a ReferencePoemType field.
+   * Establish if field is a ReferencePoemType field.
    * 
    * @param field
    *          the field to check

@@ -651,7 +651,7 @@ public abstract class Column implements FieldAttributes {
         "field `"
           + column.getDisplayName()
           + "' in object `"
-          + persistent.getDisplayString()
+          + persistent.displayString()
           + "' of type `"
           + column.getTable().getDisplayName()
           + "'";

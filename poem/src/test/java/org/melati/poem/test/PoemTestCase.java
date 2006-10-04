@@ -8,7 +8,6 @@ import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
-import org.melati.poem.SQLPoemException;
 import org.melati.util.DatabaseInitException;
 
 import junit.framework.Test;

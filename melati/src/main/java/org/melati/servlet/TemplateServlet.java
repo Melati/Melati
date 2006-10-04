@@ -107,7 +107,7 @@ public abstract class TemplateServlet extends PoemServlet {
     // for this request, set the Initialised Template Engine
     melati.setTemplateEngine(templateEngine);
     ServletTemplateContext templateContext =
-            (ServletTemplateContext)templateEngine.getTemplateContext(melati);
+            templateEngine.getServletTemplateContext(melati);
 
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.

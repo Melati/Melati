@@ -105,10 +105,11 @@
     </dependency>
 
     <dependency>
+      <!-- To get rid of this would be a major exercise -->
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.3</version>
-      <scope>provided</scope>
+      <scope>runtime</scope>
     </dependency>
 <!--
     <dependency>

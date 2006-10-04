@@ -51,7 +51,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.template.ServletTemplateContext;
-import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
 import org.melati.util.MelatiWriter;
@@ -88,7 +87,7 @@ public class WebmacroServletTemplateEngine
    * with servlet objects in the Context.
    *
    * @param melati the {@link Melati}
-   * @return a {@link TemplateContext}
+   * @return a {@link ServletTemplateContext}
    */
   public ServletTemplateContext getServletTemplateContext(Melati melati) {
     WebContext webContext = new WebContext(wm.getBroker(),

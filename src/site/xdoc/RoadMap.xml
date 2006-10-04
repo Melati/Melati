@@ -129,16 +129,16 @@ would be nice to have before a 1.0 release.
      Support for MS Access.<br />
      Unit test coverage extended to canonical Poem database.<br />
      Velocity/WebMacro version of admin system. <br />
-     Templets used to render everything.<br />
+     Templets used to render everything, including Persistents.<br />
      Metadata extensible.<br />
+     Support for Maven 2. <br />
     </td>
     <td><b>done</b></td>
   </tr>
   <tr> 
     <td>0.7.6</td>
     <td>
-    <a href="/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.<br />
-    Support for Maven 2. <br />
+    <a href="/melati/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.<br />
     Add default properties file.
     </td>
     <td></td>
@@ -158,9 +158,8 @@ would be nice to have before a 1.0 release.
     <td>MDK (Melati Developer's Kit)</td>
     <td>
         Bundled with Jetty and HSQLDB. <br />
-        <tt>ant</tt> build script improved.<br />
         Support for <a href="http://www.eclipse.org/">Eclipse</a>.<br />
-        Support and use of <a href="http://maven.apache.org/">Maven</a>.
+        Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2).
     </td>
   </tr>
 </table>

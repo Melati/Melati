@@ -222,7 +222,7 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   public static Field string(String value, String name) {
-    return basic(value, name, StringPoemType.nullable);
+    return basic(value, name, StringPoemType.nullableInstance);
   }
 
   public static Field integer(Integer value, String name) {

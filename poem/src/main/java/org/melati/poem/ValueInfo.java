@@ -129,7 +129,7 @@ public class ValueInfo extends ValueInfoBase {
       if (f == null) {
         // this can happen before we have been fully initialised
         // it's convenient to return the "most general" type available ...
-        return StringPoemType.nullable;
+        return StringPoemType.nullableInstance;
       }
 
       poemType = f.typeOf(getDatabase(), toTypeParameter());

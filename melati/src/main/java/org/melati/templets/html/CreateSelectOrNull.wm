@@ -48,7 +48,9 @@
        name="field_$ml.rendered($field.Name)" 
        value='$ml.rendered($field.RawString)'>
 <input type="text" name="field_$ml.rendered($field.Name)_dummy" 
+#if ($field.Description) #begin
        title="$ml.rendered$field.Description" 
+#end
 #if ($field.Raw) #begin
 value="$ml.rendered($field.Cooked)"
 #end

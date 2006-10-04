@@ -54,7 +54,9 @@
 #set $secondField = $melati.Config.YMDHMSTimestampAdaptor.secondField($field)
 
 <SELECT NAME="field_$ml.rendered($dayField.Name)"
+#if ($field.Description) #begin
         TITLE="$field.Description"
+#end
   #if ($field.Type.Nullable) #begin
     ONCHANGE="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;

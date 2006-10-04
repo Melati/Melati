@@ -49,11 +49,15 @@
 #if ($field.Height != 1) #begin
   <TEXTAREA NAME="field_$ml.rendered($field.Name)"
             COLS=$field.Width
-            TITLE="$field.Description"
+#if ($field.Description) #begin
+            TITLE="$field.Description" 
+#end
             ROWS=$field.Height>$ml.rendered($field.RawString)</TEXTAREA>
 #end #else #begin
   <INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
-         TITLE="$field.Description"
+#if ($field.Description) #begin
+            TITLE="$field.Description"
+#end
          VALUE="$ml.Attr.rendered($field.RawString)">
 #end
 <br>

@@ -44,7 +44,9 @@
 ##
 
 <INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
+#if ($field.Description) #begin
        TITLE="$field.Description"
+#end
        VALUE="$ml.Attr.rendered($field.RawString)">
 
 #if ($field.RawString.equals("")) #begin

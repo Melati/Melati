@@ -49,7 +49,9 @@
 value='$ml.rendered($field.Cooked)' 
 #end
 size=30 
+#if ($field.Description) #begin
 title="$field.Description"
+#end
 onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()">
 <input type=button value="choose" name=$ml.rendered($field.Name)_button 
 onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">

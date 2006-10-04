@@ -45,7 +45,11 @@
 
 #if ($field.Type.Nullable) #begin
 
-<SELECT NAME="field_$ml.escaped($field.Name)" TITLE="$field.Description">
+<SELECT NAME="field_$ml.escaped($field.Name)" 
+  #if ($field.Description) #begin
+     TITLE="$field.Description"
+  #end
+     >
      <OPTION VALUE=""
   #if (!$field.Raw && !($field.Raw == false)) #begin
     SELECTED
@@ -66,7 +70,9 @@
 #end #else #begin
 
 <INPUT TYPE="checkbox" NAME="field_$ml.escaped($field.Name)" VALUE="true"
+  #if ($field.Description) #begin
   TITLE="$field.Description"
+  #end
   #if ($field.Raw) #begin
     CHECKED
   #end

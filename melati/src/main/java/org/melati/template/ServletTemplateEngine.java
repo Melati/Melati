@@ -50,6 +50,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServlet;
 
+import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.util.MelatiWriter;
 
@@ -82,5 +83,15 @@ public interface ServletTemplateEngine extends TemplateEngine {
   MelatiWriter getServletWriter(HttpServletResponse response, 
                                 boolean buffered)
       throws IOException;
+
+  /**
+   * Get the generic parameters for this engine.
+   *
+   * @param melati the {@link Melati}
+   * @throws TemplateEngineException if any problem occurs with the engine
+   * @return a {@link ServletTemplateContext}
+   */
+  ServletTemplateContext getServletTemplateContext(Melati melati)
+      throws TemplateEngineException;
   
 }

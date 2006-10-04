@@ -160,12 +160,13 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements Te
   public static final String FORM = "Form";
 
   /**
-   * Get the template context for Velocity.
+   * Get the template context for Velocity, 
+   * with servlet specific objects added.
    *
    * @param melati the {@link Melati}
    * @return a {@link TemplateContext}
    */
-  public TemplateContext getTemplateContext(Melati melati) {
+  public ServletTemplateContext getServletTemplateContext(Melati melati) {
     VelocityContext context = new VelocityContext();
     org.melati.template.velocity.HttpServletRequestWrap req = 
       new org.melati.template.velocity.HttpServletRequestWrap(
@@ -175,6 +176,17 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements Te
     context.put(VelocityTemplateContext.RESPONSE, 
                              melati.getResponse());
     return (ServletTemplateContext)new VelocityTemplateContext(context);
+  }
+  
+  /**
+   * Get the template context for Velocity.
+   *
+   * @param melati the {@link Melati}
+   * @return a {@link TemplateContext}
+   */
+  public TemplateContext getTemplateContext(Melati melati) {
+    VelocityContext context = new VelocityContext();
+    return (TemplateContext)new VelocityTemplateContext(context);
   }
   
   /**

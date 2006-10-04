@@ -96,13 +96,25 @@ public class NoTemplateEngine implements ServletTemplateEngine {
   }
 
   /**
-   * Get the generic parameters for this engine.
+   * Throw excption.
    *
    * @param melati the {@link Melati}
    * @throws TemplateEngineException if any problem occurs with the engine
-   * @return a {@link ServletTemplateContext}
+   * @return a {@link TemplateContext}
    */
   public TemplateContext getTemplateContext(Melati melati)
+      throws TemplateEngineException {
+    throw new TemplateEngineException(message);
+  }
+
+  /**
+   * Throw excption.
+   *
+   * @param melati the {@link Melati}
+   * @throws TemplateEngineException always
+   * @return an exception
+   */
+  public ServletTemplateContext getServletTemplateContext(Melati melati)
       throws TemplateEngineException {
     throw new TemplateEngineException(message);
   }
@@ -194,14 +206,6 @@ public class NoTemplateEngine implements ServletTemplateEngine {
       throws TemplateEngineException {
     throw new TemplateEngineException(message);
   }
-
-/*
-  Not used, not in the interface
-  public void expandTemplate(MelatiWriter out, ServletTemplateContext templateContext)
-      throws TemplateEngineException {
-    throw new TemplateEngineException(message);
-  }
-*/
 
   /** 
    * Get a variable exception handler for use if there is 

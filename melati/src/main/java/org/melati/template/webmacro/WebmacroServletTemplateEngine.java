@@ -50,6 +50,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
+import org.melati.template.ServletTemplateContext;
 import org.melati.template.TemplateContext;
 import org.melati.template.ServletTemplateEngine;
 import org.melati.template.TemplateEngineException;
@@ -83,12 +84,13 @@ public class WebmacroServletTemplateEngine
   }
 
   /**
-   * Get the generic parameters for WebMacro.
+   * Get the generic parameters for WebMacro, 
+   * with servlet objects in the Context.
    *
    * @param melati the {@link Melati}
    * @return a {@link TemplateContext}
    */
-  public TemplateContext getTemplateContext(Melati melati) {
+  public ServletTemplateContext getServletTemplateContext(Melati melati) {
     WebContext webContext = new WebContext(wm.getBroker(),
                                            melati.getRequest(),
                                            melati.getResponse());

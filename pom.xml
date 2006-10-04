@@ -90,9 +90,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
     </connection>
     <developerConnection>
-scm:cvs:ext:timpmelati.org:/usr/cvsroot:melati
+     scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
     </developerConnection>
-
     <url>
       http://melati.org/cgi-bin/cvsweb.cgi/melati/
     </url>
@@ -419,14 +418,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <artifactId>jdepend-maven-plugin</artifactId>
         <version>2.0-beta-1-SNAPSHOT</version>
       </plugin>
-      <!-- plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jcoverage-maven-plugin</artifactId>
-      </plugin -->
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
+        <artifactId>jcoverage-maven-plugin</artifactId>
       </plugin-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
@@ -453,6 +452,27 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <locales>en</locales>
         <outputEncoding>UTF-8</outputEncoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <instrumentation>
+           <ignores>
+            <ignore>**Exception</ignore>
+           </ignores>
+           <excludes>
+            <exclude>**/*Exception.class</exclude>
+           </excludes>
+          </instrumentation>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>

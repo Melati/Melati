@@ -101,5 +101,17 @@
         </p>
       </answer>
     </faq>
+    <faq id="ServletAPI">
+      <question>Why do I need the servlet jar in my classpath, even outside a servlet environemt?</question>
+      <answer>
+        <p>
+        Both WebMacro and Velocity use an overly inclusive caching mechanism, 
+        where they introspect all methods on an object when checking for the 
+        existance of one method. As a Melati object has methods which return 
+        objects from the <tt>javax.servlet.http</tt> package the servlets jar 
+        is required, even when not used. 
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>

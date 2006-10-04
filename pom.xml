@@ -90,7 +90,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati
     </connection>
     <developerConnection>
-scm:cvs:ext:timp@melati.org:/usr/cvsroot:melati
+scm:cvs:ext:timpmelati.org:/usr/cvsroot:melati
     </developerConnection>
 
     <url>
@@ -171,7 +171,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>William Chesters</name>
       <id>williamc</id>
-      <email>williamc@paneris.org</email>
+      <email>williamc AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Original author</role>
@@ -182,7 +182,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Tim Pizey</name>
       <id>timp</id>
-      <email>timp@paneris.org</email>
+      <email>timp AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Maintainer</role>
@@ -195,7 +195,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Tim Joyce</name>
       <id>timj</id>
-      <email>timj@paneris.org</email>
+      <email>timj AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -206,7 +206,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Myles Chippendale</name>
       <id>mylesc</id>
-      <email>mylesc@paneris.org</email>
+      <email>mylesc AT paneris.org</email>
       <organization>MJC Solutions</organization>
       <roles>
         <role>Developer</role>
@@ -217,7 +217,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Colin Rainsforth</name>
       <id>colinr</id>
-      <email>colinr@paneris.org</email>
+      <email>colinr AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Graphics Designer</role>
@@ -228,7 +228,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Jim Wright</name>
       <id>jimw</id>
-      <email>jimw@paneris.org</email>
+      <email>jimw AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -239,7 +239,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Chris Kimpton</name>
       <id>kimptoc</id>
-      <email>chris@kimptoc.net</email>
+      <email>chris AT kimptoc.net</email>
       <organization>Kimptoc</organization>
       <roles>
         <role>Developer</role>
@@ -250,7 +250,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>David Warnock</name>
       <id>davew</id>
-      <email>david@sundayta.com</email>
+      <email>david AT sundayta.com</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -261,7 +261,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Karl Zilles</name>
       <id>karlz</id>
-      <email>karlz@paneris.org</email>
+      <email>karlz AT paneris.org</email>
       <organization>1969 Communications Inc</organization>
       <roles>
         <role>Developer</role>
@@ -272,7 +272,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Samuel Goldstein</name>
       <id>samuelg</id>
-      <email>samuelg@paneris.org</email>
+      <email>samuelg AT paneris.org</email>
       <organization>1969 Communications Inc</organization>
       <roles>
         <role>Developer</role>
@@ -283,7 +283,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Vasily Pozhidaev</name>
       <id>vasilyp</id>
-      <email>vasilyp@paneris.org</email>
+      <email>vasilyp AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -294,7 +294,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Peter Kehl</name>
       <id>peterk</id>
-      <email>peterk@paneris.org</email>
+      <email>peterk AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -305,7 +305,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Lane Sharman</name>
       <id>lanes</id>
-      <email>lanes@paneris.org</email>
+      <email>lanes AT paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>

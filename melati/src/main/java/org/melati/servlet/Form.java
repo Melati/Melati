@@ -58,7 +58,7 @@ import org.melati.template.TempletAdaptorConstructionMelatiException;
 import org.melati.util.UTF8URLEncoder;
 
 /**
- * An object to hold useful static methods for manipulation of a Form in in a 
+ * An object to hold useful static methods for manipulation of a Form in a 
  * {@link ServletTemplateContext}.
  */
 

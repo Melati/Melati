@@ -50,7 +50,7 @@ public class ContactView extends TemplateServlet {
       }
       try {
         melati.getResponse().sendRedirect
-        ("/melati/org.melati.example.contacts.Search/contacts");
+        (melati.getZoneURL() + "/org.melati.example.contacts.Search/contacts");
       } catch (IOException e) {
         throw new Exception(e.toString());
       }
@@ -62,7 +62,7 @@ public class ContactView extends TemplateServlet {
       contact.deleteAndCommit();
       try {
         melati.getResponse().sendRedirect
-        ("/melati/org.melati.example.contacts.Search/contacts");
+        (melati.getZoneURL() + "/org.melati.example.contacts.Search/contacts");
       } catch (IOException e) {
         throw new Exception(e.toString());
       }

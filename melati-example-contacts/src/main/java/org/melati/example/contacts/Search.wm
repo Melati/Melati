@@ -58,7 +58,7 @@
 <table>
 #foreach $item in $results #begin
 <tr>
- <td><a href=/melati/org.melati.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
+ <td><a href=$melati.ZoneURL/org.melati.example.contacts.ContactView/contact/$item.Troid/View>edit</a></td>
  <td>$ml.rendered($item.Name), $ml.rendered($item.Address)</td>
 </tr>
 #end

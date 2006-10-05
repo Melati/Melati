@@ -19,7 +19,7 @@ Insert
 Contact</h1>
 <form method=post action=Update>
 <table>
-#foreach $field in $contact.RecordDisplayFields #begin
+#foreach $field in $contact.DisplayFields #begin
 #if ($field.UserEditable) #begin
       <TR>
         <TD>

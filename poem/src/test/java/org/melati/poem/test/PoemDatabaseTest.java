@@ -5,9 +5,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 import org.melati.poem.Capability;
-import org.melati.poem.ColumnInfo;
 import org.melati.poem.PoemDatabase;
-import org.melati.poem.PoemThread;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
@@ -35,6 +33,13 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
+  }
+
+  /**
+   * @see TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    super.tearDown();
   }
 
   /**
@@ -199,41 +204,21 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#disconnect()
    */
   public void testDisconnect() {
-    // see above
+    getDb().disconnect();
   }
 
   /**
    * @see org.melati.poem.Database#shutdown()
    */
   public void testShutdown() {
-    // see above
+    getDb().shutdown();
   }
 
   /**
    * @see org.melati.poem.Database#addTableAndCommit(TableInfo, String)
    */
-  public void testAddTableAndCommit() {
-    TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
-    info.setName("junit");
-    info.setDisplayname("Junit created table");
-    info.setDisplayorder(13);
-    info.setSeqcached(new Boolean(false));
-    info.setCategory_unsafe(new Integer(1));
-    info.setCachelimit(0);
-    info.makePersistent();
-    getDb().addTableAndCommit(info, "id");
-    Enumeration cols = getDb().getColumnInfoTable().
-                           getTableinfoColumn().selectionWhereEq(info.troid());
-     while (cols.hasMoreElements()) {
-       ColumnInfo c = (ColumnInfo)cols.nextElement();
-       c.delete();
-     }
-    info.delete();
-    getDb().sqlUpdate("DROP TABLE JUNIT");
-    PoemThread.commit();
-    getDb().shutdown();
-    getDb().disconnect();
-
+  public void testAddTableAndCommit() throws Exception {
+   // @see PoemDatabaseCreateTableTest()
   }
 
   /**
@@ -254,35 +239,45 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTransactionsCount()
    */
   public void testGetTransactionsCount() {
-
+    assertTrue(getDb().getTransactionsCount() == 4);
   }
 
   /**
    * @see org.melati.poem.Database#getFreeTransactionsCount()
    */
   public void testGetFreeTransactionsCount() {
-
+    System.err.println(getDb().getFreeTransactionsCount());
+    assertTrue(getDb().getFreeTransactionsCount() == 3);
   }
 
   /**
    * @see org.melati.poem.Database#poemTransaction(int)
    */
   public void testPoemTransaction() {
-
+    assertEquals(getDb().poemTransaction(1).toString(), "transaction1");
   }
 
   /**
    * @see org.melati.poem.Database#transaction(int)
    */
   public void testTransaction() {
-
+    assertEquals(getDb().transaction(1).toString(), "transaction1");
   }
 
   /**
    * @see org.melati.poem.Database#isFree(PoemTransaction)
    */
   public void testIsFree() {
-
+    assertTrue(getDb().isFree(getDb().poemTransaction(0)));     
+    assertTrue(getDb().isFree(getDb().poemTransaction(1)));     
+    assertTrue(getDb().isFree(getDb().poemTransaction(2)));     
+    assertFalse(getDb().isFree(getDb().poemTransaction(3)));     
+    try {
+      System.err.println(getDb().isFree(getDb().poemTransaction(4)));
+      fail("Should have caused exception");
+    } catch (ArrayIndexOutOfBoundsException e) {
+      e = null; 
+    }
   }
 
   /**

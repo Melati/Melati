@@ -283,7 +283,7 @@ StaticTree.prototype.display = function () {
   //var doc = this.frame.document.open(); - does not work in Opera/Konqueror
   var doc = this.frame.document;
   doc.write("<html><head>");
-  if (this.stylesheet != null) {
+  if (this.stylesheet != null && this.stylesheet != "") {
     doc.write("<LINK rel=\"stylesheet\" type=\"text/css\" href=\"" + this.stylesheet + "\">");
   }
   doc.write("</head><body bgcolor='#" + this.backgroundColour + "'><form>\n");

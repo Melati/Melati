@@ -1,6 +1,5 @@
 package org.melati.poem.test;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.sql.Connection;
@@ -37,7 +36,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public PoemTestCase() {
     super();
     fName = null;
-    db = null;
   }
 
   /**
@@ -48,59 +46,21 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public PoemTestCase(String name) {
     super(name);
     fName = name;
-    db = null;
   }
 
+  String dbUrl = null;
   /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
     setDb(getDbName());
-    int count = 0;
-    while (getDb().getCommittedConnection().isClosed() && count++ < 10) {
-      System.err.println(count);
-    }
   }
 
   /**
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    String dbUrl = getDb().toString();
-    Connection connection = getDb().getCommittedConnection();
-    if (connection != null) {
-      getDb().inSession(AccessToken.root, // HACK
-          new PoemTask() {
-            public void run() {
-              try {
-                 getDb().shutdown();
-              } catch (Throwable e) {
-                e.fillInStackTrace();
-                throw new RuntimeException(e);
-              }
-            }
-          });
-      if (!connection.isClosed())
-        connection.close();
-    }
-    if (getDb().getDbms() instanceof org.melati.poem.dbms.Hsqldb) {
-      db = null;
-      System.gc();
-      String fileName = dbUrl.substring(12);
-      int count = 0;
-      while(! new File(fileName + ".script").delete() && count++ < 10 );
-      count = 0;
-      while(! new File(fileName + ".log").delete() && count++ < 10 );
-      count = 0;
-      while(! new File(fileName + ".data").delete() && count++ < 10 );
-      count = 0;
-      while(! new File(fileName + ".backup").delete() && count++ < 10 );
-      count = 0;
-      while(! new File(fileName + ".properties").delete() && count++ < 10 );
-      System.err.println("should be gone");
-    }
-    db = null;
   }
 
   /**

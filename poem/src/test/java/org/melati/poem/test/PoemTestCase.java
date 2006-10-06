@@ -2,7 +2,6 @@ package org.melati.poem.test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.sql.Connection;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;

@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 import org.melati.poem.Capability;
+import org.melati.poem.ColumnInfo;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.PoemDatabase;
+import org.melati.poem.PoemThread;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
@@ -219,8 +221,28 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#addTableAndCommit(TableInfo, String)
    */
   public void testAddTableAndCommit() throws Exception {
-   // @see PoemDatabaseCreateTableTest()
+    TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    info.setName("junit");
+    info.setDisplayname("Junit created table");
+    info.setDisplayorder(13);
+    info.setSeqcached(new Boolean(false));
+    info.setCategory_unsafe(new Integer(1));
+    info.setCachelimit(0);
+    info.makePersistent();
+    PoemThread.commit();
+    getDb().addTableAndCommit(info, "id");
+    Enumeration cols = getDb().getColumnInfoTable().
+                           getTableinfoColumn().selectionWhereEq(info.troid());
+     while (cols.hasMoreElements()) {
+       ColumnInfo c = (ColumnInfo)cols.nextElement();
+       c.delete();
+     }
+    info.delete();
+    getDb().sqlUpdate("DROP TABLE JUNIT");
+    PoemThread.commit();
+
   }
+
 
   /**
    * @see org.melati.poem.Database#addConstraints()
@@ -344,7 +366,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       count++;
     }
     System.err.println(count);
-    assertTrue(count == 9);
+    assertTrue(count == 10);
     
   }
 
@@ -359,7 +381,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       count++;
     }
     System.err.println(count);
-    assertTrue(count == 69);
+    assertTrue(count == 70);
   }
 
   /**

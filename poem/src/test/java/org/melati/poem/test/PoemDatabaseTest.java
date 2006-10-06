@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 import org.melati.poem.Capability;
+import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
@@ -225,14 +226,17 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#addConstraints()
    */
   public void testAddConstraints() {
-
+    // FIXME - does not terminate
+    //getDb().addConstraints();
   }
 
   /**
    * @see org.melati.poem.Database#setTransactionsMax(int)
    */
   public void testSetTransactionsMax() {
-
+    assertTrue(getDb().transactionsMax() == 4);
+    getDb().setTransactionsMax(12);
+    assertTrue(getDb().transactionsMax() == 12);
   }
 
   /**
@@ -326,70 +330,92 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTable(String)
    */
   public void testGetTable() {
-
+    assertEquals(getDb().getUserTable(), getDb().getTable("user"));
   }
 
   /**
    * @see org.melati.poem.Database#tables()
    */
   public void testTables() {
-
+    Enumeration e = getDb().tables();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      e.nextElement();
+      count++;
+    }
+    System.err.println(count);
+    assertTrue(count == 9);
+    
   }
 
   /**
    * @see org.melati.poem.Database#columns()
    */
   public void testColumns() {
-
+    Enumeration e = getDb().columns();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      e.nextElement();
+      count++;
+    }
+    System.err.println(count);
+    assertTrue(count == 69);
   }
 
   /**
    * @see org.melati.poem.Database#getTableInfoTable()
    */
   public void testGetTableInfoTable() {
-
+    assertEquals(getDb().getTableInfoTable(), 
+        getDb().getTable("tableinfo"));
   }
 
   /**
    * @see org.melati.poem.Database#getTableCategoryTable()
    */
   public void testGetTableCategoryTable() {
-
+    assertEquals(getDb().getTableCategoryTable(), 
+        getDb().getTable("tablecategory"));
   }
 
   /**
    * @see org.melati.poem.Database#getColumnInfoTable()
    */
   public void testGetColumnInfoTable() {
-
+    assertEquals(getDb().getColumnInfoTable(), 
+        getDb().getTable("columninfo"));
   }
 
   /**
    * @see org.melati.poem.Database#getCapabilityTable()
    */
   public void testGetCapabilityTable() {
-
+    assertEquals(getDb().getCapabilityTable(), 
+        getDb().getTable("capability"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupTable()
    */
   public void testGetGroupTable() {
-
+    assertEquals(getDb().getGroupTable(), 
+        getDb().getTable("group"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupMembershipTable()
    */
   public void testGetGroupMembershipTable() {
-
+    assertEquals(getDb().getGroupMembershipTable(), 
+        getDb().getTable("groupmembership"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupCapabilityTable()
    */
   public void testGetGroupCapabilityTable() {
-
+    assertEquals(getDb().getGroupCapabilityTable(), 
+        getDb().getTable("groupcapability"));
   }
 
   /**
@@ -403,14 +429,29 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#sqlUpdate(String)
    */
   public void testSqlUpdate() {
-
+    try {
+      getDb().sqlUpdate("insert");
+      fail("should have blown up");
+    } catch (ExecutingSQLPoemException e) {
+      e = null;
+      // All ok
+    }
+    try {
+      getDb().sqlUpdate("INSERT INTO \"COLUMNINFO\" VALUES('Name','A human-readable name for the group',TRUE,-7,FALSE,60,20,1,22,2,NULL,NULL,NULL,15,1,'name',1,TRUE,0,0,0,FALSE,FALSE,TRUE,2)");
+      fail("should have blown up");
+    } catch (ExecutingSQLPoemException e) {
+      e = null;
+      // All ok
+    }
   }
 
   /**
    * @see org.melati.poem.Database#givesCapabilitySQL(User, Capability)
    */
   public void testGivesCapabilitySQL() {
-
+    assertTrue(getDb().givesCapabilitySQL(
+        (User)getDb().guestAccessToken(),
+        getDb().administerCapability()).indexOf("SELECT") == 0);
   }
 
   /**
@@ -456,21 +497,21 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Database.dumpCacheAnalysis()
+   * @see org.melati.poem.Database#dumpCacheAnalysis()
    */
   public void testDumpCacheAnalysis() {
 
   }
 
   /**
-   * @see org.melati.poem.Database.dump()
+   * @see org.melati.poem.Database#dump()
    */
   public void testDump() {
 
   }
 
   /**
-   * @see org.melati.poem.Database.quotedName(String)
+   * @see org.melati.poem.Database#quotedName(String)
    */
   public void testQuotedName() {
 

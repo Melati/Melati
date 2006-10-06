@@ -204,14 +204,14 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#disconnect()
    */
   public void testDisconnect() {
-    getDb().disconnect();
+    //getDb().disconnect();
   }
 
   /**
    * @see org.melati.poem.Database#shutdown()
    */
   public void testShutdown() {
-    getDb().shutdown();
+   // getDb().shutdown();
   }
 
   /**

@@ -540,6 +540,8 @@ public abstract class Database implements TransactionPool {
 
   /**
    * Set the maximum number of transactions.
+   * Note that this does not resize the transaction pool 
+   * so should be called before the db is connected to.
    */
   public final void setTransactionsMax(int t) {
     transactionsMax = t;

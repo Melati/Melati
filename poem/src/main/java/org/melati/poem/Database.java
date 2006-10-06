@@ -987,8 +987,6 @@ public abstract class Database implements TransactionPool {
       int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
-      if (logSQL())
-        log("Still set wrong");
       return n;
     }
     catch (SQLException e) {

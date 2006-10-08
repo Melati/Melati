@@ -18,7 +18,7 @@ public abstract class ContactsServlet extends TemplateServlet {
    * @return the System Administrators email address.
    */
   public String getSysAdminEmail () {
-    return "timp@paneris.org";
+    return "timp AT melati.org";
   }
 
 }

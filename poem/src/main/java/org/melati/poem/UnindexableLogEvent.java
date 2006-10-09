@@ -47,6 +47,8 @@ package org.melati.poem;
 
 /**
  * A warning about an unindexable indexed Column.
+ * 
+ * MSSQL has an unindexable column type: text, but melati does not use it. 
  */
 public class UnindexableLogEvent extends PoemLogEvent {
 

@@ -88,18 +88,19 @@ public class Contact extends ContactBase implements Treeable {
     return (Contact.arrayOf(getContactTable().getOwnerColumn().
                selectionWhereEq(troid())));
   }
+  
   public ArrayList getAncestors() {
     ArrayList l = new ArrayList();
     Contact p = getOwner();
     while (p != null) {
-        l.add(p);
+        l.add(new Integer(p.troid().intValue()));
         p = p.getOwner();
     }
     return l;
 }
   public void setOwner(Contact cooked)
     throws AccessPoemException {
-    if (getAncestors().contains(cooked)) {
+    if (cooked != null && cooked.getAncestors().contains(this.troid())) {
       throw new DescendantParentException("Owner must not be a descendant.");
     }
     super.setOwner(cooked);

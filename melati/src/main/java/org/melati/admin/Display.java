@@ -46,8 +46,8 @@
 package org.melati.admin;
 
 import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.InvalidUsageException;
 import org.melati.template.ServletTemplateContext;
+import org.melati.util.StringUtils;
 import org.melati.Melati;
 
 /**
@@ -74,9 +74,6 @@ public class Display extends TemplateServlet {
 
     if (context.getForm("template") != null) 
       return context.getForm("template");
-    if (melati.getMethod() != null) 
-      return melati.getMethod();
-    else 
-      throw new InvalidUsageException(this, melati.getPoemContext());
+    return StringUtils.tr(this.getClass().getName(),".","/");
   }
 }

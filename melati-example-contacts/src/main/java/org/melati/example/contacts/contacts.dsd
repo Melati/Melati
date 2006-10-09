@@ -19,7 +19,7 @@ table Contact
 
   Contact owner
     (nullable)
-    (displaylevel = record) 
+    (displaylevel = summary) 
     (searchability = yes)
     (displayorderpriority = 1)
     (description = "Contact who owns this contact")

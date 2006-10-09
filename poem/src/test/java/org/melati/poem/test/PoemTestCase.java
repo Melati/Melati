@@ -28,6 +28,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
   private PoemDatabase db = null;
 
   private String dbName = "melatijunit";
+  
+  private AccessToken userToRunAs;
 
   /**
    * Constructor.
@@ -53,6 +55,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    setDbName(getDbName());
     setDb(getDbName());
   }
 
@@ -120,7 +123,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @return Returns the dbName.
    */
   protected String getDbName() {
-    return dbName;
+    return this.dbName;
   }
 
   /**
@@ -139,11 +142,25 @@ public abstract class PoemTestCase extends TestCase implements Test {
   }
 
   public void setDb(String dbName) {
+    if (dbName == null)
+      throw new NullPointerException();
     try {
-      db = (PoemDatabase) LogicalDatabase.getDatabase(dbName);
+      db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
     } catch (DatabaseInitException e) {
       fail(e.getMessage());
     }
+  }
+
+  public AccessToken getUserToRunAs() {
+    if (userToRunAs == null) return AccessToken.root;
+    return userToRunAs;
+  }
+
+  public void setUserToRunAs(AccessToken userToRunAs) {
+    if (userToRunAs == null) 
+      this.userToRunAs = AccessToken.root;
+    else
+      this.userToRunAs = userToRunAs;
   }
 
 }

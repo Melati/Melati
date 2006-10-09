@@ -27,6 +27,19 @@
           <server>melati-tomcat</server>
         </configuration>
       </plugin-->
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <configuration>
+          <contextPath>/</contextPath>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+          <scanTargets>
+            <scanTarget>
+             ${basedir}/src/main/java
+	    </scanTarget>
+          </scanTargets>
+        </configuration>
+      </plugin>
      </plugins>
   </build>
   <dependencies>

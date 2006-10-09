@@ -364,7 +364,7 @@ public class TailoredQuery {
   }
 
   /**
-   * Retunr an Enumeration of the columns in the first row of 
+   * Return an Enumeration of the columns in the first row of 
    * a ResultSet.
    */
   public class FirstRawTailoredResultSetEnumeration

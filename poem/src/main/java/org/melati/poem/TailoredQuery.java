@@ -145,9 +145,9 @@ public class TailoredQuery {
    * 
    * for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
    *   FieldSet fs = (FieldSet)ms.nextElement();
-   *   System.out.println(fs.get("user_name").getCookedString() +
+   *   System.out.println(fs.get("user_name").getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM) +
    *                 ", " +
-   *                 fs.get("group_name").getCookedString());
+   *                 fs.get("group_name").getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM));
    * }
    * </PRE></BLOCKQUOTE>
    *
@@ -278,7 +278,7 @@ public class TailoredQuery {
       sqlLocal.append(orderByClause);
     }
 
-    this.sql = sql.toString();
+    this.sql = sqlLocal.toString();
 
     // Set up mappings from column name (<table>_<column>) to position
     // (including the canRead columns, if anyone ever wants them)

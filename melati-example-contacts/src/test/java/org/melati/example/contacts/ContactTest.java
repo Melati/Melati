@@ -92,7 +92,11 @@ public class ContactTest extends PoemTestCase {
    */
   public void testGetAncestors() {
     assertTrue(z.getAncestors().toArray().length == 5);
-  }
+    assertTrue(b.getAncestors().toArray().length == 1);
+    assertTrue(c.getAncestors().toArray().length == 1);
+    assertTrue(r.getAncestors().toArray().length == 2);
+    assertTrue(s.getAncestors().toArray().length == 2);
+}
 
   public void testArrayOfVector() {
    // fail("Not yet implemented");

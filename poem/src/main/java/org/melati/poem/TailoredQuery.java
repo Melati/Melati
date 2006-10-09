@@ -393,4 +393,8 @@ public class TailoredQuery {
     return new FirstRawTailoredResultSetEnumeration(this,
                                                     database.sqlQuery(sql));
   }
+  
+  public String toString() {
+    return super.toString() + "(SQL=" + sql +  ")";
+  }
 }

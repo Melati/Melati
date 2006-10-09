@@ -226,7 +226,7 @@ public class ContactTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.record;
+            return DisplayLevel.summary;
           }
 
           protected Searchability defaultSearchability() {

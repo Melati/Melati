@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
+import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DuplicateTableNamePoemException;
@@ -103,7 +104,6 @@ public class PoemDatabaseTest extends PoemTestCase {
       fail();
     }
     assertEquals(2, count);
-
   }
 
   /**
@@ -112,6 +112,10 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testHasCapability() {
     assertTrue(getDb().hasCapability(getDb().getUserTable().administratorUser(), 
         getDb().getCanAdminister()));
+    assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), 
+        getDb().getCanAdminister()));
+    assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), 
+        null));
   }
 
   /**
@@ -338,6 +342,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testAddConstraints() {
     // FIXME - does not terminate
+    // appears to wait forever due to failure to readlock
     //getDb().addConstraints();
   }
 
@@ -504,7 +509,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getSettingTable()
    */
   public void testGetSettingTable() {
-
+    assertEquals(getDb().getSettingTable(), 
+        getDb().getTable("setting"));
   }
 
   /**
@@ -540,14 +546,18 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#guestAccessToken()
    */
   public void testGuestAccessToken() {
-
+    AccessToken guest = getDb().guestAccessToken();
+    User guestUser = getDb().getUserTable().guestUser();
+    assertEquals(guest, guestUser);
   }
 
   /**
    * @see org.melati.poem.Database#setCanAdminister()
    */
   public void testSetCanAdminister() {
-
+    assertNull(getDb().getCanAdminister());
+    getDb().setCanAdminister();
+    assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb().getCanAdminister());
   }
 
   /**
@@ -561,42 +571,50 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#trimCache(int)
    */
   public void testTrimCache() {
-
+    getDb().trimCache(12);
   }
 
   /**
    * @see org.melati.poem.Database#uncacheContents()
    */
   public void testUncacheContents() {
-
+    getDb().uncacheContents();
   }
 
   /**
-   * @see org.melati.poem.Database.referencesTo(Persistent)
+   * @see org.melati.poem.Database#referencesTo(Persistent)
    */
   public void testReferencesToPersistent() {
-
+    Enumeration en = getDb().referencesTo(getDb().getUserTable().administratorUser());
+    int count = 0;
+    while (en.hasMoreElements()) {
+      en.nextElement();
+      count++;
+    }
+    System.err.println(count);
+    assertTrue(count == 1);
+    
   }
 
   /**
    * @see org.melati.poem.Database#dumpCacheAnalysis()
    */
   public void testDumpCacheAnalysis() {
-
+    getDb().dumpCacheAnalysis();
   }
 
   /**
    * @see org.melati.poem.Database#dump()
    */
   public void testDump() {
-
+    getDb().dump();
   }
 
   /**
    * @see org.melati.poem.Database#quotedName(String)
    */
   public void testQuotedName() {
-
+    assertEquals(getDb().quotedName("user"), "\"USER\"");
   }
 
   /**
@@ -610,13 +628,18 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#logCommits()
    */
   public void testLogCommits() {
-
+    assertFalse(getDb().logCommits());
   }
 
   /**
    * @see org.melati.poem.Database#setLogCommits(boolean)
    */
   public void testSetLogCommits() {
+    assertFalse(getDb().logCommits());
+    getDb().setLogCommits(true);
+    assertTrue(getDb().logCommits());
+    getDb().setLogCommits(false);
+    assertFalse(getDb().logCommits());
 
   }
 

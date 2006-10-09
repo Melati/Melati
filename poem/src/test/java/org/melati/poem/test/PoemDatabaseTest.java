@@ -6,9 +6,11 @@ import java.util.Enumeration;
 
 import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
+import org.melati.poem.DuplicateTableNamePoemException;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemThread;
+import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
@@ -218,6 +220,39 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * Note this is here so that we have the expectyed number of tables. 
+   * @see org.melati.poem.Database#tables()
+   */
+  public void testTables() {
+    Enumeration e = getDb().tables();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      e.nextElement();
+      count++;
+    }
+    System.err.println(count);
+    assertTrue(count == 9);
+    
+  }
+
+  /**
+   * Note this is here so that we have the expectyed number of tables. 
+   * @see org.melati.poem.Database#columns()
+   */
+  public void testColumns() {
+    Enumeration e = getDb().columns();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      e.nextElement();
+      count++;
+    }
+    System.err.println(count);
+    assertTrue(count == 69);
+  }
+
+
+  
+  /**
    * @see org.melati.poem.Database#addTableAndCommit(TableInfo, String)
    */
   public void testAddTableAndCommit() throws Exception {
@@ -240,7 +275,61 @@ public class PoemDatabaseTest extends PoemTestCase {
     info.delete();
     getDb().sqlUpdate("DROP TABLE JUNIT");
     PoemThread.commit();
+    try { 
+      getDb().addTableAndCommit(info, "id");
+      fail("Should have blown up");
+    } catch (RowDisappearedPoemException e) {
+     e = null; 
+    }
+    TableInfo info2 = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    info2.setName("junit");
+    info2.setDisplayname("Junit created table");
+    info2.setDisplayorder(13);
+    info2.setSeqcached(new Boolean(false));
+    info2.setCategory_unsafe(new Integer(1));
+    info2.setCachelimit(0);
+    info2.makePersistent();
+    PoemThread.commit();
+    try { 
+      getDb().addTableAndCommit(info2, "id");
+      fail("Should have blown up");
+    } catch (DuplicateTableNamePoemException e) {
+      e = null;
+    }
+    cols = getDb().getColumnInfoTable().
+                           getTableinfoColumn().selectionWhereEq(info2.troid());
+     while (cols.hasMoreElements()) {
+       ColumnInfo c = (ColumnInfo)cols.nextElement();
+       c.delete();
+     }
+    info2.delete();
+    getDb().sqlUpdate("DROP TABLE JUNIT");
+    PoemThread.commit();
 
+    TableInfo info3 = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    info3.setName("junit2");
+    info3.setDisplayname("Junit created table");
+    info3.setDisplayorder(13);
+    info3.setSeqcached(new Boolean(false));
+    info3.setCategory_unsafe(new Integer(1));
+    info3.setCachelimit(0);
+    info3.makePersistent();
+    PoemThread.commit();
+    try { 
+      getDb().addTableAndCommit(info3, "id");
+    } catch (DuplicateTableNamePoemException e) {
+      e = null;
+    }
+    cols = getDb().getColumnInfoTable().
+                           getTableinfoColumn().selectionWhereEq(info3.troid());
+     while (cols.hasMoreElements()) {
+       ColumnInfo c = (ColumnInfo)cols.nextElement();
+       c.delete();
+     }
+    info3.delete();
+    getDb().sqlUpdate("DROP TABLE JUNIT2");
+    PoemThread.rollback();
+    
   }
 
 
@@ -353,35 +442,6 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testGetTable() {
     assertEquals(getDb().getUserTable(), getDb().getTable("user"));
-  }
-
-  /**
-   * @see org.melati.poem.Database#tables()
-   */
-  public void testTables() {
-    Enumeration e = getDb().tables();
-    int count = 0;
-    while (e.hasMoreElements()) {
-      e.nextElement();
-      count++;
-    }
-    System.err.println(count);
-    assertTrue(count == 10);
-    
-  }
-
-  /**
-   * @see org.melati.poem.Database#columns()
-   */
-  public void testColumns() {
-    Enumeration e = getDb().columns();
-    int count = 0;
-    while (e.hasMoreElements()) {
-      e.nextElement();
-      count++;
-    }
-    System.err.println(count);
-    assertTrue(count == 70);
   }
 
   /**

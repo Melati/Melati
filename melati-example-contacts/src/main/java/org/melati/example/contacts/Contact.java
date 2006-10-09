@@ -74,7 +74,11 @@ public class Contact extends ContactBase implements Treeable {
   protected void writeLock() {
     super.writeLock();
     setLastupdated_unsafe(new java.sql.Date(new java.util.Date().getTime()));
-    setLastupdateuser_unsafe(((User)PoemThread.accessToken()).getTroid());
+    if (PoemThread.accessToken() instanceof User)
+      setLastupdateuser_unsafe(((User)PoemThread.accessToken()).getTroid());
+    else
+      setLastupdateuser_unsafe(new Integer(1));
+      
     Integer count = getUpdates();
     if (count == null) count = new Integer(0);
     setUpdates_unsafe(new Integer(count.intValue()+1));

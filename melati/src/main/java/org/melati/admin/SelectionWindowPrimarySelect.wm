@@ -3,7 +3,7 @@
 ## $Source$
 ## $Revision$
 ##
-## Copyright (C) 2000 William Chesters
+## Copyright (C) 2000 Tim Joyce
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
 ## development of clean, maintainable web applications.
@@ -39,9 +39,8 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Tim Joyce <timj At paneris.org>
+##     http://paneris.org/~timj
 ##
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

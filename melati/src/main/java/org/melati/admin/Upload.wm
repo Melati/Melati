@@ -3,7 +3,7 @@
 ## $Source$
 ## $Revision$
 ##
-## Copyright (C) 2000 William Chesters
+## Copyright (C) 2000 Myles Chippendale
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
 ## development of clean, maintainable web applications.
@@ -39,9 +39,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Myles Chippendale <MylesC At paneris.org>
 ##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -57,15 +55,15 @@
 <form ENCTYPE="multipart/form-data" METHOD="POST" action="$admin.UploadHandlerURL($melati.Table,$melati.Object,$field)">
 <div align="center">
 <b>File to upload:</b>
-<br>
+<br />
 <input name="file" type="file" size="30" onchange="window.focus()">
 <SCRIPT language="JavaScript1.2" type="text/javascript">
   add_rule("file", "File to upload", !false)
 </SCRIPT>
 <input name="field" type="hidden" value="$field">
 <p>
-<input type="submit" value=" Upload " ONCLICK="return validate(this.form);">
-<input type="button" value=" Cancel " onclick="window.close()">
+<input type="submit" value=" Upload " title="Upload file" ONCLICK="return validate(this.form);">
+<input type="button" value=" Cancel " title="Close window" onclick="window.close()">
 </div>
 </form>
 

@@ -37,7 +37,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timp@paneris.org>
+##     Tim Pizey <timp At paneris.org>
 ##
 #set $melati.ResponseContentType = "text/plain"
 

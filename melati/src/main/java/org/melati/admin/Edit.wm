@@ -39,7 +39,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
@@ -88,8 +88,10 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
          <a
           #if ($field.Raw) #begin
  href=$admin.RightURL($field.Type.targetTable().getObject($field.getRaw()))?returnTarget=&amp;returnURL=$ml.encoded("$admin.SelectionRightURL($table)")
+ title="Edit $ml.rendered($field.Type.targetTable().DisplayName) $ml.rendered($field.DisplayName)"
           #end #else #begin
  href=$admin.SelectionRightURL($field.Type.targetTable())
+ title="Select $ml.rendered($field.Type.targetTable().DisplayName)"
           #end
  >
         #end

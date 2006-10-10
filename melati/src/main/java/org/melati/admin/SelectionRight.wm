@@ -3,7 +3,7 @@
 ## $Source$
 ## $Revision$
 ##
-## Copyright (C) 2000 William Chesters
+## Copyright (C) 2000 Tim Joyce
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
 ## development of clean, maintainable web applications.
@@ -39,9 +39,8 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Tim Joyce <timj At paneris.org>
+##     http://paneris.org/~timj
 ##
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -60,17 +59,17 @@
   <tr>
     <td align="center">
 #if ($results.PrevPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="&lt;&lt; Prev" ONCLICK="location.href='SelectionRight?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Previous" title="Previous page" value="&lt;&lt; Prev" ONCLICK="location.href='SelectionRight?start=$results.PrevPageStart&$whereClause&$orderClause'"></font>
 #end
 <b><FONT face="Arial, Helvetica" size="-1">
 Records $results.PageStart to $results.PageEnd of $results.TotalCount
 </FONT></b>
 
 #if ($results.NextPageStart) #begin
-<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Add" value="Next &gt;&gt;" ONCLICK="location.href='SelectionRight?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
+<FONT face="Arial, Helvetica" size="-2"><input type="button" name="Next" title="Show next page" value="Next &gt;&gt;" ONCLICK="location.href='SelectionRight?start=$results.NextPageStart&$whereClause&$orderClause'"></font>
 #end
 </td>
-<td align=right><A HREF='$admin.AddURL($table)?$whereClause'><IMG
+<td align=right><A HREF='$admin.AddURL($table)?$whereClause' title="New $table.DisplayName"><IMG
   src="$admin.StaticURL/edit_file.gif" border="0" alt="New $table.DisplayName" /></a>
 </td></tr></table>
 
@@ -86,10 +85,10 @@ Records $results.PageStart to $results.PageEnd of $results.TotalCount
 	#set $color = $color1
     #foreach $result in $results #begin
       <TR>
-	<TD bgcolor="$color"><FONT SIZE="-1"><a href='$admin.RightURL($result)?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&$orderClause&$whereClause")'><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" /></a>&nbsp;</font></TD>
-	#foreach $field in $result.SummaryDisplayFields #begin
-	  <TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.renderedStart($field)&nbsp;</font></TD>
-	#end
+	<TD bgcolor="$color"><FONT SIZE="-1"><a href='$admin.RightURL($result)?returnTarget=parent&returnURL=$ml.encoded("$admin.SelectionRightURL($table)?start=$results.PageStart&$orderClause&$whereClause")' title="Edit"><IMG src="$admin.StaticURL/file.gif" border="0" alt="Edit" /></a>&nbsp;</font></TD>
+     #foreach $field in $result.SummaryDisplayFields #begin
+	<TD bgcolor="$color"><FONT face="Arial, Helvetica" size="-1">$ml.renderedStart($field)&nbsp;</font></TD>
+     #end
       </TR>
 	  #if ($color == $color1) #begin
 	  #set $color = $color2

@@ -3,7 +3,7 @@
 ## $Source$
 ## $Revision$
 ##
-## Copyright (C) 2000 William Chesters
+## Copyright (C) 2000 Tim Joyce
 ##
 ## Part of Melati (http://melati.org), a framework for the rapid
 ## development of clean, maintainable web applications.
@@ -39,9 +39,8 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
-##     http://paneris.org/~williamc
-##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+##     Tim Joyce <timj@paneris.org>
+##     http://paneris.org/~timj
 ##
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
 #set $returnTarget = $Form.returnTarget
@@ -67,12 +66,14 @@
   <td valign="top">
 #if ($admin.isTreeable($object)) #begin
    <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$object.Table.Name$object.troid()">tree</a>
+target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">Tree
+   <!-- IMG src="$admin.StaticURL/tree.gif" alt="Tree view" -->
+   </a>
 #end
-   <IMG src="$admin.StaticURL/file.gif" alt="Tree">
    <FONT FACE="Arial, Helvetica" size="2">&nbsp;$table.DisplayName:
 <a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$object.Table.Name$object.troid()">
+target="admin_edit$object.Table.Name$object.troid()"
+title="Display $ml.rendered($object)">
 $ml.rendered($object)</a>
    </font>
   </td>
@@ -82,7 +83,9 @@ $ml.rendered($object)</a>
    <p>
     <font FACE="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
-[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) target="admin_edit$object.Table.Name$object.troid()">$column.Table.DisplayName</a>&nbsp;]
+[&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) 
+          target="admin_edit$object.Table.Name$object.troid()"
+          title="Show associated $column.Table.DisplayName records">$column.Table.DisplayName</a>&nbsp;]
 #end
     </font>
    </p>

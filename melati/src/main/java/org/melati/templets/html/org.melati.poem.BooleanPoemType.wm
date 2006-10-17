@@ -76,7 +76,7 @@
        title="$field.Description"
   #end
   #if ($field.Raw) #begin
-    checked
+    checked="checked"
   #end
  />
 

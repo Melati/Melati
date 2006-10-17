@@ -63,7 +63,7 @@
 #end
 <br />
 
-<script language="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   var imagename_$ml.escaped($field.Name) = '$field.RawString';
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",

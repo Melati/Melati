@@ -58,7 +58,7 @@
          value="$ml.Attr.rendered($field.RawString)" />
 #end
 
-<script language="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)

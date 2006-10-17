@@ -49,7 +49,7 @@
 #end
        value="$ml.Attr.rendered($field.RawString)" />  (dd/mm/yyyy hh:mm:ss)
 
-<script language="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   add_timestamp("field_$ml.escaped($field.Name)",
                 "$ml.escaped($field.DisplayName)",
 	        !$field.Type.Nullable)

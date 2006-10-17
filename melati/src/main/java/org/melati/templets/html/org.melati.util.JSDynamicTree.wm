@@ -55,7 +55,7 @@
 <div id="loadbuffer" style="position:absolute; visibility:hidden;" name="loadbuffer"></div>
 <iframe name="loadframe" height=0 width=0></iframe>
 
-<script language="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
 
 // IE remembers the last contents of the IFrame :-(
 if(!isNav4) parent.loadframe.document.location = "blank.html";

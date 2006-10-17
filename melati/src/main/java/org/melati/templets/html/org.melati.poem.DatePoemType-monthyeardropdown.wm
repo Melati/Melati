@@ -70,7 +70,7 @@
   #foreach $poss in $monthField.First1000Possibilities #begin
     <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($monthField)) #begin
-        selected
+        selected="selected"
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -99,7 +99,7 @@
   #foreach $poss in $yearField.First1000Possibilities #begin
     <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($yearField)) #begin
-        selected
+        selected="selected"
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin

@@ -52,17 +52,17 @@
      >
      <option value=""
   #if (!$field.Raw && !($field.Raw == false)) #begin
-    selected
+    selected="selected"
   #end
 	 >&nbsp;</option>
      <option value="true"
   #if ($field.Raw) #begin
-    selected
+    selected="selected"
   #end
 	 >true</option>
      <option value="false"
   #if ($field.Raw == false) #begin
-    selected
+    selected="selected"
   #end
 	 >false</option>
 </select>

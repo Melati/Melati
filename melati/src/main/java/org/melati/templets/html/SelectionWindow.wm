@@ -38,12 +38,12 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
-<input type=hidden name="field_$ml.rendered($field.Name)" value='$ml.rendered($field.RawString)'>
+<input type=hidden name="field_$ml.rendered($field.Name)" value='$ml.rendered($field.RawString)' />
 <input type="text" name="field_$ml.rendered($field.Name)_dummy" 
 #if ($field.Raw) #begin
 value='$ml.rendered($field.Cooked)' 
@@ -52,11 +52,11 @@ size=30
 #if ($field.Description) #begin
 title="$field.Description"
 #end
-onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()">
+onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
 <input type=button value="choose" name=$ml.rendered($field.Name)_button 
-onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
-<SCRIPT LANGUAGE="JavaScript1.2" type="text/javascript">
+onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
+<script language="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)
-</SCRIPT>
+</script>

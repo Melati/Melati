@@ -38,10 +38,10 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
-<TABLE><TR>
-  <TD BGCOLOR="cyan">[Access denied to $ml.rendered($exception.token)]</TD>
-</TR></TABLE>
+<table><tr>
+  <td style="background-color: cyan;">[Access denied to $ml.rendered($exception.token)]</td>
+</tr></table>

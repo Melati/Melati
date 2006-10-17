@@ -35,7 +35,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Mylesc Chippendale <mylesc@paneris.org>
+##     Mylesc Chippendale <mylesc At paneris.org>
 ##     http://paneris.org/
 ##     29 Stanley Road, Oxford, OX4 1QY, UK
 ##
@@ -47,11 +47,11 @@
 
 <!-- start org/melati/template/webmacro/templets/html/org.melati.util.JSStaticTree.wm -->
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript" 
-        src="$melati.JavascriptLibraryURL/statictrees.js"></SCRIPT>
+<script language="JavaScript1.2" type="text/javascript" 
+        src="$melati.JavascriptLibraryURL/statictrees.js"></script>
 
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   function init() {
   // Go through nodes adding items and lists
 
@@ -76,7 +76,7 @@
   #end
 
   var tree = new StaticTree(parent.treedisplay,       ## displayFrame
-                "parent.treecontrol",     ## controlFrameName needs quotes
+                "parent.treecontrol",      ## controlFrameName needs quotes
                 roots,                
                 false,                     ## selectNodes
                 false,                     ## selectLeaves

@@ -38,13 +38,13 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT TYPE=hidden NAME="field_$ml.rendered($field.Name)-adaptor"
-       VALUE="org.melati.template.YMDHMSTimestampAdaptor">
+<input type=hidden name="field_$ml.rendered($field.Name)-adaptor"
+       value="org.melati.template.YMDHMSTimestampAdaptor" />
 
 #set $yearField = $melati.Config.YMDHMSTimestampAdaptor.yearField($field)
 #set $monthField = $melati.Config.YMDHMSTimestampAdaptor.monthField($field)
@@ -53,12 +53,12 @@
 #set $minuteField = $melati.Config.YMDHMSTimestampAdaptor.minuteField($field)
 #set $secondField = $melati.Config.YMDHMSTimestampAdaptor.secondField($field)
 
-<SELECT NAME="field_$ml.rendered($dayField.Name)"
+<select name="field_$ml.rendered($dayField.Name)"
 #if ($field.Description) #begin
-        TITLE="$field.Description"
+        title="$field.Description"
 #end
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
@@ -80,9 +80,9 @@
   #end
 >
   #foreach $poss in $dayField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($dayField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -90,14 +90,14 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 
 
-<SELECT NAME="field_$ml.rendered($monthField.Name)"
+<select name="field_$ml.rendered($monthField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
@@ -119,9 +119,9 @@
   #end
 >
   #foreach $poss in $monthField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($monthField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -129,13 +129,13 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 
-<SELECT NAME="field_$ml.rendered($yearField.Name)"
+<select name="field_$ml.rendered($yearField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($hourField.Name)'].selectedIndex = 0;
@@ -157,9 +157,9 @@
   #end
 >
   #foreach $poss in $yearField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($yearField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -169,14 +169,14 @@
       #end
     &nbsp;</OPTION>
   #end
-</SELECT>
+</select>
 
 
 
 
-<SELECT NAME="field_$ml.rendered($hourField.Name)"
+<select name="field_$ml.rendered($hourField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
@@ -198,9 +198,9 @@
   #end
 >
   #foreach $poss in $hourField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($hourField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -208,13 +208,13 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 :
-<SELECT NAME="field_$ml.rendered($minuteField.Name)"
+<select name="field_$ml.rendered($minuteField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
@@ -236,9 +236,9 @@
   #end
 >
   #foreach $poss in $minuteField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($minuteField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -248,11 +248,11 @@
       #end
     &nbsp;</OPTION>
   #end
-</SELECT>
+</select>
 :
-<SELECT NAME="field_$ml.rendered($secondField.Name)"
+<select name="field_$ml.rendered($secondField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
@@ -274,9 +274,9 @@
   #end
 >
   #foreach $poss in $secondField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($secondField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -284,9 +284,9 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 
 
 

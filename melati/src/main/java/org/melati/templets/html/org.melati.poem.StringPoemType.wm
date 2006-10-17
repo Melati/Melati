@@ -38,28 +38,28 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
 #if ($field.Height != 1) #begin
-  <TEXTAREA NAME="field_$ml.rendered($field.Name)"
-	    COLS="$field.Width"
+  <textarea name="field_$ml.rendered($field.Name)"
+	    cols="$field.Width"
 #if ($field.Description) #begin
-            TITLE="$field.Description"
+            title="$field.Description"
 #end
-            ROWS="$field.Height">$ml.Attr.rendered($field.RawString)</TEXTAREA>
+            rows="$field.Height">$ml.Attr.rendered($field.RawString)</textarea>
 #end #else #begin
-  <INPUT NAME="field_$ml.rendered($field.Name)" SIZE="$field.Width"
+  <input name="field_$ml.rendered($field.Name)" size="$field.Width"
 #if ($field.Description) #begin
-         TITLE="$field.Description"
+         title="$field.Description"
 #end
-         VALUE="$ml.Attr.rendered($field.RawString)">
+         value="$ml.Attr.rendered($field.RawString)" />
 #end
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" TYPE="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)
-</SCRIPT>
+</script>

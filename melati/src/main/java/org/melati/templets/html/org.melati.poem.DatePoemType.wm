@@ -38,24 +38,24 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT TYPE="hidden" 
-       NAME="field_$ml.rendered($field.Name)-adaptor"
-       VALUE="org.melati.template.SimpleDateAdaptor">
+<input type="hidden" 
+       name="field_$ml.rendered($field.Name)-adaptor"
+       value="org.melati.template.SimpleDateAdaptor" />
 
-<INPUT NAME="field_$ml.rendered($field.Name)" 
+<input name="field_$ml.rendered($field.Name)" 
 #if ($field.Description) #begin
-       TITLE="$field.Description"
+       title="$field.Description"
 #end
-       SIZE="10"
-       VALUE="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))"> (dd/mm/yyyy)
+       size="10"
+       value="$ml.Attr.rendered($melati.Config.SimpleDateAdaptor.rendered($field))" /> (dd/mm/yyyy)
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   add_date("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)
-</SCRIPT>
+</script>

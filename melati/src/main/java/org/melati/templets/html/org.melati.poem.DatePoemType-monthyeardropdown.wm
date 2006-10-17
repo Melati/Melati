@@ -38,24 +38,24 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
-<INPUT TYPE="hidden" 
-       NAME="field_$ml.rendered($field.Name)-adaptor"
-       VALUE="org.melati.template.YMDDateAdaptor">
+<input type="hidden" 
+       name="field_$ml.rendered($field.Name)-adaptor"
+       value="org.melati.template.YMDDateAdaptor" />
 
 #set $yearField = $melati.Config.YMDDateAdaptor.yearField($field)
 #set $monthField = $melati.Config.YMDDateAdaptor.monthField($field)
 #set $dayField = $melati.Config.YMDDateAdaptor.dayField($field)
 
-<INPUT TYPE="hidden" NAME="field_$ml.rendered($dayField.Name)" value="1">
+<input type="hidden" name="field_$ml.rendered($dayField.Name)" value="1" />
 
-<SELECT NAME="field_$ml.rendered($monthField.Name)"
+<select name="field_$ml.rendered($monthField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($yearField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 	      \}
@@ -68,9 +68,9 @@
   #end
 >
   #foreach $poss in $monthField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($monthField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -78,13 +78,13 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 
-<SELECT NAME="field_$ml.rendered($yearField.Name)"
+<select name="field_$ml.rendered($yearField.Name)"
   #if ($field.Type.Nullable) #begin
-    ONCHANGE="if (selectedIndex == 0) \{
+    onchange="if (selectedIndex == 0) \{
 		form['field_$ml.rendered($monthField.Name)'].selectedIndex = 0;
 		form['field_$ml.rendered($dayField.Name)'].selectedIndex = 0;
 	      \}
@@ -97,9 +97,9 @@
   #end
 >
   #foreach $poss in $yearField.First1000Possibilities #begin
-    <OPTION VALUE="$ml.Attr.rendered($poss.RawString)"
+    <option value="$ml.Attr.rendered($poss.RawString)"
       #if ($poss.sameRawAs($yearField)) #begin
-        SELECTED
+        selected
       #end
     >
       #if ($poss.RawString.equals("") && $nullValue) #begin
@@ -107,7 +107,7 @@
       #end #else #begin
         $ml.rendered($poss)
       #end
-    &nbsp;</OPTION>
+    &nbsp;</option>
   #end
-</SELECT>
+</select>
 

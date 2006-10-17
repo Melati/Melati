@@ -38,24 +38,24 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Myles Chippendale <mylesc@paneris.org>
+##     Myles Chippendale <mylesc At paneris.org>
 ##     http://paneris.org/
 ##     29 Stanley Road, Oxford, OX4 1QY, UK
 ##
 
 #set $tree = $object
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javscript" 
-        src="$melati.JavascriptLibraryURL/trees.js"></SCRIPT>
+<script language="JavaScript1.2" type="text/javscript" 
+        src="$melati.JavascriptLibraryURL/trees.js"></script>
 
 #foreach $node in $tree.flattened() #begin
-<DIV ID="Layer$node.UniqueName" style="position:absolute" name="Layer$node.UniqueName"></DIV>
+<div id="Layer$node.UniqueName" style="position:absolute" name="Layer$node.UniqueName"></div>
 #end
 
-<DIV ID="loadbuffer" style="position:absolute; visibility:hidden;" name="loadbuffer"></DIV>
-<IFRAME name="loadframe" height=0 width=0></IFRAME>
+<div id="loadbuffer" style="position:absolute; visibility:hidden;" name="loadbuffer"></div>
+<iframe name="loadframe" height=0 width=0></iframe>
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" TYPE="text/javascript">
 
 // IE remembers the last contents of the IFrame :-(
 if(!isNav4) parent.loadframe.document.location = "blank.html";

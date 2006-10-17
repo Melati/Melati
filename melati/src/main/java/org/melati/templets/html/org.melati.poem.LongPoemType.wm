@@ -38,18 +38,18 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Pizey <timp@paneris.org>
+##     Tim Pizey <timp At paneris.org>
 ##
 
-<INPUT NAME="field_$ml.rendered($field.Name)" 
-       SIZE="$field.Width"
+<input name="field_$ml.rendered($field.Name)" 
+       size="$field.Width"
 #if ($field.Description) #begin
-       TITLE="$field.Description"
+       title="$field.Description"
 #end
-       VALUE="$ml.Attr.rendered($field.RawString)">
+       value="$ml.Attr.rendered($field.RawString)" />
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   add_integer("field_$ml.escaped($field.Name)",
               "$ml.escaped($field.DisplayName)",
 	      !$field.Type.Nullable)
-</SCRIPT>
+</script>

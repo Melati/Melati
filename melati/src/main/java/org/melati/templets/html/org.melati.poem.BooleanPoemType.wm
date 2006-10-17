@@ -38,47 +38,49 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 
 #if ($field.Type.Nullable) #begin
 
-<SELECT NAME="field_$ml.escaped($field.Name)" 
+<select name ="field_$ml.escaped($field.Name)" 
   #if ($field.Description) #begin
-     TITLE="$field.Description"
+     title="$field.Description"
   #end
      >
-     <OPTION VALUE=""
+     <option value=""
   #if (!$field.Raw && !($field.Raw == false)) #begin
-    SELECTED
+    selected
   #end
 	 >&nbsp;</option>
-     <OPTION VALUE="true"
+     <option value="true"
   #if ($field.Raw) #begin
-    SELECTED
+    selected
   #end
 	 >true</option>
-     <OPTION VALUE="false"
+     <option value="false"
   #if ($field.Raw == false) #begin
-    SELECTED
+    selected
   #end
 	 >false</option>
-</SELECT>
+</select>
 
 #end #else #begin
 
-<INPUT TYPE="checkbox" NAME="field_$ml.escaped($field.Name)" VALUE="true"
+<input type="checkbox" 
+       name="field_$ml.escaped($field.Name)" 
+       value="true"
   #if ($field.Description) #begin
-  TITLE="$field.Description"
+       title="$field.Description"
   #end
   #if ($field.Raw) #begin
-    CHECKED
+    checked
   #end
->
+ />
 
 ## FIXME will this always work?  It does with Apache/JServ
-<INPUT TYPE="hidden" NAME="field_$ml.escaped($field.Name)" VALUE="false">
+<input type="hidden" name="field_$ml.escaped($field.Name)" value="false" />
 
 #end

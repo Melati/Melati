@@ -38,20 +38,20 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Samuel Goldstein <samuel@1969.ws>
+##     Samuel Goldstein <samuel At 1969.ws>
 ##     http://www.1969.ws
 ##     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
 ##
 
-<INPUT NAME="field_$ml.rendered($field.Name)" 
+<input name="field_$ml.rendered($field.Name)" 
 #if ($field.Description) #begin
-       TITLE="$field.Description"
+       title="$field.Description"
 #end
-       SIZE="$field.Width"
-       VALUE="$ml.Attr.rendered($field.RawString)">
+       size="$field.Width"
+       value="$ml.Attr.rendered($field.RawString)" />
 
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" TYPE="text/javascript">
   add_fixed_number("field_$ml.escaped($field.Name)",
              "$ml.escaped($field.DisplayName)",
              !$field.Type.Nullable,2)
-</SCRIPT>
+</script>

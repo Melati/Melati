@@ -39,14 +39,14 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     William Chesters <williamc@paneris.org>
+##     William Chesters <williamc At paneris.org>
 ##     http://paneris.org/~williamc
 ##     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
 ##
 #set $admin = $melati.getContextUtil("org.melati.admin.AdminUtils")
 <input type="hidden" 
        name="field_$ml.rendered($field.Name)" 
-       value='$ml.rendered($field.RawString)'>
+       value='$ml.rendered($field.RawString)' />
 <input type="text" name="field_$ml.rendered($field.Name)_dummy" 
 #if ($field.Description) #begin
        title="$ml.rendered$field.Description" 
@@ -54,17 +54,17 @@
 #if ($field.Raw) #begin
 value="$ml.rendered($field.Cooked)"
 #end
-size=30 onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()">
+size=30 onfocus="document.forms[0].$ml.rendered($field.Name)_button.focus()" />
 <input type="button" value="Choose" name="$ml.rendered($field.Name)_button" 
 onClick ="choosewindow = window.open('$admin.SelectionWindowURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
 <input type=button value="Create" 
-onClick ="createwindow = window.open('$admin.AddURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;">
+onClick ="createwindow = window.open('$admin.AddURL($field.getType().targetTable())?returnfield=field_$ml.rendered($field.Name)','$ml.rendered($field.Name)','width=400,height=500,scrollbars=yes'); return false;" />
 #if ($field.Type.Nullable) #begin
   <input type="button" value="Clear" 
-  onClick="document.forms[0].field_$(ml.rendered($field.Name)).value = ''; document.forms[0].field_$ml.rendered($field.Name)_dummy.value = ''; return false;">
+  onClick="document.forms[0].field_$(ml.rendered($field.Name)).value = ''; document.forms[0].field_$ml.rendered($field.Name)_dummy.value = ''; return false;" />
 #end
-<SCRIPT LANGUAGE="JavaScript1.2" TYPE="text/javascript">
+<script language="JavaScript1.2" type="text/javascript">
   add_rule("field_$ml.escaped($field.Name)",
            "$ml.escaped($field.DisplayName)",
 	   !$field.Type.Nullable)
-</SCRIPT>
+</script>

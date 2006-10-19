@@ -17,7 +17,6 @@ public class ContactTest extends PoemTestCase {
   private Contact c = null;
   private Contact r = null;
   private Contact s = null;
-  private Contact t = null;
   private Contact x = null;
   private Contact y = null;
   private Contact z = null;
@@ -45,7 +44,6 @@ public class ContactTest extends PoemTestCase {
 
               r = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("r", a, "Oxford");
               s = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("s", a, "Oxford");
-              t = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("t", a, "Oxford");
 
               x = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("x", s, "Oxford");
               y = (Contact)((ContactsDatabase)getDb()).getContactTable().ensure("y", x, "Oxford");

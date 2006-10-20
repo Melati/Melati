@@ -190,6 +190,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </roles>
       <timezone>0</timezone>
       <url>http://paneris.org/~timp</url>
+      <organization>
+       <name>Context Computing</name>
+       <url>http://www.context-computing.co.uk/</url>
+      </organization>
     </developer>
     <developer>
       <name>Tim Joyce</name>

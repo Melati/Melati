@@ -43,13 +43,13 @@
 ##     http://paneris.org/~timj
 ##
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
-<HEAD>
- <TITLE>Options</TITLE>
- <meta name="CVS Id" content="\$Id$">
+<html>
+<head>
+ <title>Options</title>
+ <meta name="CVS Id" content="\$Id$" />
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
-      type="text/css" media="screen">
-<SCRIPT Language="JavaScript" type="text/javascript">
+      type="text/css" media="screen" />
+<script Language="JavaScript" type="text/javascript">
   function goto_page() {
    var selector;
    selector = document.forms[0].mainmenu;
@@ -57,20 +57,20 @@
    if (option != "null") parent["admin_bottom"].location = option;
    return false;
   }
-</SCRIPT>
+</script>
 
-</HEAD>
+</head>
 
-<BODY bgcolor="#dddddd" onLoad="goto_page()">
-<FORM method="get" target="admin_bottom" action="notused">
-<TABLE cellpadding="2" cellspacing="2" border="0" width="100%">
-<TR>
-<TH align="left" valign="middle">
-<FONT face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</FONT>
-</TH>
-<TD align="left" valign="middle">
-<FONT SIZE="-1" FACE="Arial, Helvetica">
-<SELECT name="mainmenu" OnChange="return(goto_page());" title="Select table to edit">
+<body bgcolor="#dddddd" onLoad="goto_page()">
+<form method="get" target="admin_bottom" action="notused">
+<table cellpadding="2" cellspacing="2" border="0" width="100%">
+<tr>
+<th align="left" valign="middle">
+<font face="Arial, Helvetica" size="3" color="#000000">Melati Admin Suite</font>
+</th>
+<td align="left" valign="middle">
+<font size="-1" face="Arial, Helvetica">
+<select name="mainmenu" OnChange="return(goto_page());" title="Select table to edit">
 
 #set $lasttype = ""
 #set $selected = false
@@ -82,7 +82,7 @@
   #end
   #set $lasttype = $tab.Category
 
-<OPTION value="$admin.BottomURL($tab)"
+<option value="$admin.BottomURL($tab)"
 #if (!$selected) #begin
   #if ($melati.Table != null) #begin 
    #if ($melati.Table.equals($tab)) #begin  
@@ -96,27 +96,36 @@
 #end
 > $ml.rendered($tab.DisplayName)</option>
 #end
-</SELECT>
-</font><FONT SIZE="-2" FACE="Arial, Helvetica">
+</select>
+</font><font size="-2" FACE="Arial, Helvetica">
 <input type=button value=" Go " onclick="goto_page()">
 </font></td>
 <td align="right" valign="middle">
-<FONT SIZE="-2" FACE="Arial, Helvetica">
+<font size="-2" face="Arial, Helvetica">
 #if ($melati.User.isAdministrator()) #begin
-<a href="$admin.SessionURL()" target="admin_bottom">Sessions</a>
-<a href="$admin.StatusURL()" target="admin_bottom">Cache</a>
-<a href="$admin.DsdURL()" target="admin_bottom">Dsd</a>
+<a href="$admin.SessionURL()" target="admin_bottom" 
+   title="Database sessions available and in use">Sessions</a>
+<a href="$admin.StatusURL()" target="admin_bottom" 
+   title="Which records are currently stored in memory">Cache</a>
+<a href="$admin.DsdURL()" target="admin_bottom" 
+   title="Display the Data Structure Definition for the database, including any current modifications">Dsd</a>
 #end
 &nbsp;
  #if ($melati.User.isGuest()) #begin
- <input type="button" value=" Login " onclick="parent['admin_bottom'].location = '$melati.LoginURL?returnURL='+parent['admin_bottom'].location.href;">
+ <input type="button" value=" Login " 
+        title="Login to the system"
+        onclick="parent['admin_bottom'].location = '$melati.LoginURL?returnURL='+parent['admin_bottom'].location.href;">
  #end #else #begin
- <input type="button" value=" Logout " onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
+ <input type="button" value=" Logout " 
+        title="Logout from the system"
+        onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
  #end
  <input type="button" value=" Home " 
+        title="Display the home page, as set in the setting table, in the main frame"
  #if ($database.SettingTable.get("HomepageUrl")) #begin
-        onclick="parent['admin_bottom'].location = '$database.SettingTable.get("HomepageUrl")';">
+        onclick="parent['admin_bottom'].location = '$database.SettingTable.get("HomepageUrl")';"
  #end #else #begin
-        onclick="parent['admin_bottom'].location = 'http://www.melati.net';">
+        onclick="parent['admin_bottom'].location = 'http://www.melati.net';"
  #end
-</font></td></TR></TABLE></FORM></BODY></HTML>
+ >
+</font></td></tr></table></form></body></html>

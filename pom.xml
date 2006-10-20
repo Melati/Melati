@@ -171,7 +171,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <name>William Chesters</name>
       <id>williamc</id>
       <email>williamc AT paneris.org</email>
-      <organization>PanEris</organization>
+      <organization>
+        PanEris
+      </organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Original author</role>
       </roles>
@@ -182,7 +185,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <name>Tim Pizey</name>
       <id>timp</id>
       <email>timp AT paneris.org</email>
-      <organization>PanEris</organization>
       <roles>
         <role>Maintainer</role>
         <role>Maven maven</role>
@@ -190,16 +192,15 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </roles>
       <timezone>0</timezone>
       <url>http://paneris.org/~timp</url>
-      <organization>
-       <name>Context Computing</name>
-       <url>http://www.context-computing.co.uk/</url>
-      </organization>
+      <organization>Context Computing</organization>
+      <organizationUrl>http://www.context-computing.co.uk/</organizationUrl>
     </developer>
     <developer>
       <name>Tim Joyce</name>
       <id>timj</id>
       <email>timj AT paneris.org</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -233,6 +234,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>jimw</id>
       <email>jimw AT paneris.org</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -255,6 +257,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>davew</id>
       <email>david AT sundayta.com</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -288,6 +291,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>vasilyp</id>
       <email>vasilyp AT paneris.org</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -299,6 +303,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>peterk</id>
       <email>peterk AT paneris.org</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>

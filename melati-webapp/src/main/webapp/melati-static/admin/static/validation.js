@@ -18,10 +18,20 @@
 //
 //    onClick="return validate(this.form)"
 
-rules = new Array();
-rulecount = 0;
-extras = new Array();
-extracount = 0;
+var rules = new Array();
+var rulecount = 0;
+var extras = new Array();
+var extracount = 0;
+
+// Strings gathered in one place for ease of internationalisation.
+// Note spaces are important.
+var is_not_defined_for_this_form = " is not defined for this form";
+var must_be_filled_in = "Must be filled in";
+var the_value = "The value";
+var is_not_allowed = "is not allowed";
+var there_were_problems = "This form has not been submitted because there were problems with the following fields";
+var continue_anyway = "Would you like to continue anyway?";
+var correct_and_try_again = "Please correct these and try again.";
 
 // Function add_rule(name, heading, mandatory, pattern, snippet)
 //
@@ -92,7 +102,7 @@ function validate (form, allowSubmit) {
 //            "\n Snippet:" + snippet );
 
       if (!form[name]) {
-        alert(name + " is not defined for this form");
+        alert(name + is_not_defined_for_this_form);
       }
       else {
         // If this is a select box (but not a multiple select)...
@@ -105,7 +115,7 @@ function validate (form, allowSubmit) {
         // Check that a mandatory field isn't empty
         if (trim(value) == "") {
             if (mandatory == true)
-                display += "* "+heading+": Must be filled in\n";
+                display += "* "+heading+": " + must_be_filled_in +"\n";
         }
         // Check if we match the pattern
         else {
@@ -113,7 +123,7 @@ function validate (form, allowSubmit) {
             if (RegExp)  // if this broswer supports RegExp
               if (value.search(pattern) == -1 ) // failed to match pattern
                 if (!snippet) { // If we don't have a code snippet 
-                  display += "* "+heading+": The value '"+value+"' is not allowed\n";
+                  display += "* "+heading+": " + the_value + " '"+value+"' " + is_not_allowed +"\n";
                 }
           }
           if (snippet) { // If we have a code snippet 
@@ -134,9 +144,9 @@ function validate (form, allowSubmit) {
     }
     if (display.length != 0) {
       if (allowSubmit == "yes")
-          return confirm("This form has not been submitted because there were problems with the following fields:\n\n"+display+"\n\nWould you like to continue anyway?");
+          return confirm(there_were_problems +  ":\n\n"+display+"\n\n" + continue_anyway);
       else {
-          alert("This form has not been submitted because there were problems with the following fields:\n\n"+display+"\n\nPlease correct these and try again.");
+          alert(there_were_problems + ":\n\n"+display+"\n\n" + correct_and_try_again);
           return false;
       }
     }
@@ -175,25 +185,25 @@ function add_email(name, heading, mandatory) {
 // IE from complaining that our re is wrong :-(
 function add_date(name, heading, mandatory) {
   add_rule(name, heading, mandatory, "(^[0123]?\\d)[/]([01]?\\d)[/]\\d{4}\\s*$",
-           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0)?'The value \"'+value+'\" is not allowed':'';"
+           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0)?'" + the_value + " \"'+value+'\" " + is_not_allowed + "':'';"
           );
 }
 
 // DateTime         - dd/mm/yyyy hh:mm
 function add_datetime(name, heading, mandatory) {
   add_rule(name, heading, mandatory, "(^\\d{1,2})[/](\\d{1,2})[/]\\d{2,4}\\s*(\\d{1,2}):(\\d{1,2})\\s*$",
-           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 )?'The value \"'+value+'\" is not allowed':'';"
+           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 )?'" + the_value + " \"'+value+'\" " + is_not_allowed + "':'';"
           );
 }
 
 // Timestamp         - dd/mm/yyyy hh:mm:ss.mmm
 function add_timestamp(name, heading, mandatory) {
   add_rule(name, heading, mandatory, "(^\\d{1,2})[/](\\d{1,2})[/]\\d{2,4}\\s*(\\d{1,2}):(\\d{1,2}):(\\d{1,2})\\s*$",
-           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 || RegExp.$5>59 )?'The value \"'+value+'\" is not allowed':'';"
+           "return (RegExp.$1>31 || RegExp.$1==0 || RegExp.$2>12 || RegExp.$2==0 || RegExp.$3>23 || RegExp.$4>59 || RegExp.$5>59 )?'" + the_value + " \"'+value+'\" " + is_not_allowed + "':'';"
           );
 }
 
-// Useful in an onChange attriobute, eg:
+// Useful in an onChange attribute, eg:
 // <SELECT NAME="trolley_sponsored" onChange="sponsored = !sponsored; flipMandatory('trolley_sponsor|trolley_company');">
 
 function flipMandatory(fieldList) {

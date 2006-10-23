@@ -86,18 +86,18 @@
 #if (!$selected) #begin
   #if ($melati.Table != null) #begin 
    #if ($melati.Table.equals($tab)) #begin  
-    selected
+    selected="selected"
 #set $selected = true
    #end
   #end #else #begin
-    selected
+    selected="selected"
 #set $selected = true
   #end
 #end
 > $ml.rendered($tab.DisplayName)</option>
 #end
 </select>
-</font><font size="-2" FACE="Arial, Helvetica">
+</font><font size="-2" face="Arial, Helvetica">
 <input type=button value=" Go " onclick="goto_page()">
 </font></td>
 <td align="right" valign="middle">
@@ -128,4 +128,38 @@
         onclick="parent['admin_bottom'].location = 'http://www.melati.net';"
  #end
  >
+ #if ($melati.KnownDatabaseNames.size() > 1) #begin 
+<script Language="JavaScript" type="text/javascript">
+  function reload_page_with_different_db() {
+   var dbSelector;
+   dbSelector = document.forms[0].dbs;
+   var option = dbSelector.options[dbSelector.selectedIndex].value;
+   if (option != "null") parent.location = option;
+   return false;
+  }
+</script>
+<font size="-1" face="Arial, Helvetica">
+<select name="dbs" 
+        OnChange="return(reload_page_with_different_db());" 
+        title="Select db to use">
+
+#set $selected = false
+#foreach $dbName in $melati.KnownDatabaseNames #begin
+<option value="$admin.MainURL($dbName)"
+#if (!$selected) #begin
+  #if ($melati.PoemContext.LogicalDatabase != null) #begin 
+   #if ($melati.PoemContext.LogicalDatabase.equals($dbName)) #begin  
+    selected = "selected"
+#set $selected = true
+   #end
+  #end #else #begin
+    selected
+#set $selected = true
+  #end
+#end
+> $dbName </option>
+#end
+</select>
+</font>
+ #end
 </font></td></tr></table></form></body></html>

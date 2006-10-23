@@ -84,7 +84,7 @@ public final class LogicalDatabase {
   private static final Hashtable databases = new Hashtable();
 
   /** 
-   * Retrieve the the databases which have completed initialisation.
+   * Retrieve the databases which have completed initialisation.
    *
    * @return a <code>Vector</code> of the initialised databases
    */
@@ -97,6 +97,30 @@ public final class LogicalDatabase {
         Object dbOrPending = databases.get(e.nextElement());
         if (dbOrPending != pending)
           dbs.addElement(dbOrPending);
+      }
+    }
+    return dbs;
+  }
+
+
+  /** 
+   * Retrieve the names of the databases which have 
+   * completed initialisation.
+   * Note that a databse which has not been used 
+   * will not have been initialised.
+   *
+   * @return a <code>Vector</code> of the initialised database names
+   */
+  public static Vector getInitialisedDatabaseNames() {
+    Vector dbs = new Vector();
+    Enumeration e = null;
+    synchronized (databases) {
+      e = databases.keys();
+      while (e.hasMoreElements()) {
+        String key = (String)e.nextElement();
+        Object dbOrPending = databases.get(key);
+        if (dbOrPending != pending)
+          dbs.addElement(key);
       }
     }
     return dbs;

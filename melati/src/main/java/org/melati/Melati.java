@@ -48,6 +48,7 @@ package org.melati;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
+import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -251,6 +252,16 @@ public class Melati {
    */
   public Database getDatabase() {
     return database;
+  }
+  
+  /**
+   * Return the names of other databases known at the moment. 
+   *  
+   * @return a Vector of database names
+   */
+  public Vector getKnownDatabaseNames() {
+    return LogicalDatabase.
+               getInitialisedDatabaseNames();
   }
 
   /**

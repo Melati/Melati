@@ -343,8 +343,7 @@ public class TableDef {
     w.write("public class " + naming.mainClassShortName() + " extends "
         + naming.baseClassShortName() + " {\n");
 
-    w
-        .write("\n /**\n"
+    w.write("\n /**\n"
             + "  * Constructor \n"
             + "  * for a <code>Persistent</code> <code>"
             + naming.mainClassShortName()
@@ -584,7 +583,9 @@ public class TableDef {
       addImport(naming.superclassMainFQName(), "persistent");
     }
 
-    addImport(naming.tableMainClassFQName(), "persistent");
+    // Only used if we have fields, which we may not in an overridden class
+    if (fields.elements().hasMoreElements())
+      addImport(naming.tableMainClassFQName(), "persistent");
     addImport(dsd.packageName + "." + dsd.databaseTablesClass, "persistent");
 
     addImport("org.melati.poem.Database", "table");

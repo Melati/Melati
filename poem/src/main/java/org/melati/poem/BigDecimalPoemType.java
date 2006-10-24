@@ -109,9 +109,15 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
     }
   }
 
+  /**
+   * Whilst BigDecimal cannot represent all Doubles it can represent 
+   * legacy money doubles, so we allow it to enable upgrades from Doubles 
+   * to BigDecimals.
+   * FIXME is this a potential gotcha?
+   * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
+   */
   protected boolean _canRepresent(SQLPoemType other) {
-    //return other instanceof DoublePoemType;
-    return other instanceof BigDecimalPoemType;
+    return other instanceof BigDecimalPoemType || other instanceof DoublePoemType;
   }
 
   /**

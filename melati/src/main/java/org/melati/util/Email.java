@@ -231,7 +231,6 @@ public final class Email {
       }
       message.setSubject(subject);
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       throw new EmailException("Problem sending message: " + e.toString());
     }

@@ -45,7 +45,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
- <link rel="stylesheet" title="Default" href="admin.css"
+ <link rel="stylesheet" title="Default" href="$melati.MelatiConfig.StaticURL/admin/admin.css"
       type="text/css" media="screen">
 <title>Anticipated Melati Error</title>
 <style type="text/css">

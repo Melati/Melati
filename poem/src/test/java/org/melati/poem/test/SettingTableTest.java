@@ -1,0 +1,141 @@
+/**
+ * 
+ */
+package org.melati.poem.test;
+
+import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.Setting;
+import org.melati.poem.SettingTable.UnsetException;
+
+/**
+ * @author timp
+ */
+public class SettingTableTest extends PoemTestCase {
+
+  /**
+   * Constructor for SettingTableTest.
+   * 
+   * @param name
+   */
+  public SettingTableTest(String name) {
+    super(name);
+  }
+
+  /*
+   * @see PoemTestCase#setUp()
+   */
+  protected void setUp()
+      throws Exception {
+    super.setUp();
+  }
+
+  /*
+   * @see PoemTestCase#tearDown()
+   */
+  protected void tearDown()
+      throws Exception {
+    super.tearDown();
+  }
+
+  /*
+   * @see org.melati.poem.SettingTable.postInitialise()'
+   */
+  public void testPostInitialise() {
+
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable#SettingTable(Database, String,
+   *      DefinitionSource)
+   */
+  public void testSettingTable() {
+
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable#getCooked(String)
+   */
+  public void testGetCooked() {
+    Setting stringSetting = getDb().getSettingTable().ensure("stringSetting",
+        "set", "String", "A set string setting");
+    stringSetting.setValue("new");
+    assertEquals("new", stringSetting.getCooked());
+    assertEquals("new", (String) getDb().getSettingTable().getCooked(
+        "stringSetting"));
+    assertNull(getDb().getSettingTable().getCooked("unsetSetting"));
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable#get(String)
+   */
+  public void testGet() {
+    getDb().getSettingTable().ensure("integerSetting", 12, "Integer",
+        "A set Integer setting");
+    assertEquals("12", (String) getDb().getSettingTable().get("integerSetting"));
+    assertNull(getDb().getSettingTable().get("unsetSetting"));
+
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable#getOrDie(String)
+   */
+  public void testGetOrDie() {
+    getDb().getSettingTable().ensure("integerSetting", 12, "Integer",
+        "A set Integer setting");
+    assertEquals("12", (String) getDb().getSettingTable().get("integerSetting"));
+    try {
+      getDb().getSettingTable().getOrDie("unsetSetting");
+      fail("Should have blown up");
+    } catch (UnsetException e) {
+      e = null;
+    }
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable# ensure(String, PoemTypeFactory, Object,
+   *      String, String)
+   */
+  public void testEnsureStringPoemTypeFactoryObjectStringString() {
+    Setting stringSetting1 = getDb().getSettingTable().ensure("stringSetting",
+        PoemTypeFactory.STRING, "set", "String", "A set string setting");
+    Setting stringSetting2 = getDb().getSettingTable().ensure("stringSetting",
+        "set", "String", "A set string setting");
+    assertEquals(stringSetting1, stringSetting2);
+    Setting integerSetting1 = getDb().getSettingTable().ensure(
+        "integerSetting", PoemTypeFactory.INTEGER, new Integer(13), "Integer",
+        "An integer setting");
+    Setting integerSetting2 = getDb().getSettingTable().ensure(
+        "integerSetting", 13, "Integer",
+        "An integer setting");
+    assertEquals(integerSetting1, integerSetting2);
+    Setting booleanSetting1 = getDb().getSettingTable().ensure(
+        "booleanSetting", PoemTypeFactory.BOOLEAN, new Boolean(true), "Boolean",
+        "A boolean setting");
+    Setting booleanSetting2 = getDb().getSettingTable().ensure(
+        "booleanSetting", true, "Boolean",
+        "A boolean setting");
+    assertEquals(booleanSetting1, booleanSetting2);
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable# ensure(String, String, String, String)
+   */
+  public void testEnsureStringStringStringString() {
+
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable# ensure(String, int, String, String)
+   */
+  public void testEnsureStringIntStringString() {
+
+  }
+
+  /**
+   * @see org.melati.poem.SettingTable# ensure(String, boolean, String, String)
+   */
+  public void testEnsureStringBooleanStringString() {
+
+  }
+
+}

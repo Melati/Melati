@@ -81,9 +81,9 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#get(String)
    */
   public void testGet() {
-    getDb().getSettingTable().ensure("integerSetting", 12, "Integer",
+    getDb().getSettingTable().ensure("integerSettingG", 12, "Integer",
         "A set Integer setting");
-    assertEquals("12", (String) getDb().getSettingTable().get("integerSetting"));
+    assertEquals("12", (String)getDb().getSettingTable().get("integerSettingG"));
     assertNull(getDb().getSettingTable().get("unsetSetting"));
 
   }
@@ -92,9 +92,9 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#getOrDie(String)
    */
   public void testGetOrDie() {
-    getDb().getSettingTable().ensure("integerSetting", 12, "Integer",
+    getDb().getSettingTable().ensure("integerSettingGOD", 12, "Integer",
     "A set Integer setting");
-    assertEquals("12", (String) getDb().getSettingTable().getOrDie("integerSetting"));
+    assertEquals("12", (String) getDb().getSettingTable().getOrDie("integerSettingGOD"));
     try {
       getDb().getSettingTable().getOrDie("unsetSetting");
       fail("Should have blown up");

@@ -56,13 +56,25 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#getCooked(String)
    */
   public void testGetCooked() {
+    //getDb().setLogSQL(true);
     Setting stringSetting = getDb().getSettingTable().ensure("stringSetting",
         "set", "String", "A set string setting");
     stringSetting.setValue("new");
     assertEquals("new", stringSetting.getCooked());
     assertEquals("new", (String) getDb().getSettingTable().getCooked(
-        "stringSetting"));
+    "stringSetting"));
     assertNull(getDb().getSettingTable().getCooked("unsetSetting"));
+    getDb().getSettingTable().ensure("nullIntegerSetting", null, "Null Integer",
+         "A null Integer setting");
+    assertNull(getDb().getSettingTable().getCooked("nullIntegerSetting"));
+    // Second time from cache
+    assertNull(getDb().getSettingTable().getCooked("nullIntegerSetting"));
+    getDb().getSettingTable().ensure("integerSettingA", 13, "Integer",
+         "A set Integer setting");
+    assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
+         "integerSettingA"));
+    assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
+         "integerSettingA"));
   }
 
   /**
@@ -81,8 +93,8 @@ public class SettingTableTest extends PoemTestCase {
    */
   public void testGetOrDie() {
     getDb().getSettingTable().ensure("integerSetting", 12, "Integer",
-        "A set Integer setting");
-    assertEquals("12", (String) getDb().getSettingTable().get("integerSetting"));
+    "A set Integer setting");
+    assertEquals("12", (String) getDb().getSettingTable().getOrDie("integerSetting"));
     try {
       getDb().getSettingTable().getOrDie("unsetSetting");
       fail("Should have blown up");

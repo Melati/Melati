@@ -98,6 +98,12 @@ public class SettingTable extends SettingTableBase {
   private Hashtable cache = null;
   private long cacheSerial = 0L;
 
+  /**
+   * Get an object of the appropriate type by name.
+   * 
+   * @param name the name field of this Setting object
+   * @return its value, cast the the appropriate type.
+   */
   public Object getCooked(String name) {
     if (cache == null || cacheSerial != serial(PoemThread.transaction()))
       cache = new Hashtable();
@@ -121,6 +127,11 @@ public class SettingTable extends SettingTableBase {
     }
   }
 
+  /**
+   * Get the String representation of the setting.
+   * @param name the name field of the Setting object
+   * @return the value as a String or null
+   */
   public String get(String name) {
     Object it = getCooked(name);
     return it == null ? null : it.toString();
@@ -146,6 +157,12 @@ public class SettingTable extends SettingTableBase {
     }
   }
 
+  /**
+   * Get a set value.
+   * 
+   * @param name the Setting's name field
+   * @return the Setting's value as an appropriate Object
+   */
   public Object getOrDie(String name) {
     Object it = get(name);
     if (it == null)

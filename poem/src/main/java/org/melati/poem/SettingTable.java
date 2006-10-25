@@ -101,29 +101,35 @@ public class SettingTable extends SettingTableBase {
   /**
    * Get an object of the appropriate type by name.
    * 
+   * Note this has not worked prior to 25/10/2006, 
+   * a new cache was created every time.
+   * Transactions are so fine grained that it is not clear that 
+   * this cache serves any purpose. 
+   * 
    * @param name the name field of this Setting object
-   * @return its value, cast the the appropriate type.
+   * @return its value, cast to the appropriate type.
    */
   public Object getCooked(String name) {
-    if (cache == null || cacheSerial != serial(PoemThread.transaction()))
+    if (cache == null || cacheSerial != serial(PoemThread.transaction())) {
+      cacheSerial = serial(PoemThread.transaction());
       cache = new Hashtable();
-    Object value = cache.get(name);
-    if (value == nullEntry)
-      return null;
-    else if (value != null)
-      return (String)value;
-    else {
-      Setting prop =
-          (Setting)getNameColumn().firstWhereEq(name);
-      if (prop == null) {
-        cache.put(name, nullEntry);
+    } else {
+      Object value = cache.get(name);
+      if (value == nullEntry)
         return null;
-      }
-      else {
-        Object propValue = prop.getCooked();
-        cache.put(name, propValue == null ? nullEntry : propValue);
-        return propValue;
-      }
+      else if (value != null) 
+        return value;
+    } 
+    Setting prop =
+          (Setting)getNameColumn().firstWhereEq(name);
+    if (prop == null) {
+      cache.put(name, nullEntry);
+      return null;
+    }
+    else {
+      Object propValue = prop.getCooked();
+      cache.put(name, propValue == null ? nullEntry : propValue);
+      return propValue;
     }
   }
 

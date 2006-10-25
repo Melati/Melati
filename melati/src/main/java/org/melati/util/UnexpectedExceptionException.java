@@ -50,6 +50,7 @@ package org.melati.util;
  *
  * @author WilliamC@paneris.org
  * @see MelatiBugMelatiException
+ * @todo Delete me - not used in Melati
  */
 public class UnexpectedExceptionException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;

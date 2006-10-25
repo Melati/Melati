@@ -45,42 +45,25 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
- <link rel="stylesheet" title="Default" href="$melati.MelatiConfig.StaticURL/admin/admin.css"
+ <link rel="stylesheet" title="Default" href="$melati.Config.StaticURL/admin/admin.css"
       type="text/css" media="screen">
 <title>Anticipated Melati Error</title>
 <style type="text/css">
 H1 {
   color: green;
 }
-PRE {
-  background-color: white;
-  color:green;
-  border: 1px solid green;
-  width: auto;
-  margin: 4px;
-  padding: 3px;
-}
-\#switch {
-}
-\#switched {
-  display:none;
-}
-\#switch:hover \#switched {
-  display:block;
-}
-
 </style>
 </head>
 
 <body bgcolor="#cccccc" >
 <h1>Anticipated Melati Error</h1>
 <div id="switch">
-<p>
+<p class="errorMessage">
   $object.Message
 </p>
 #if ($error) #begin
 <div id="switched">
-<pre>
+<pre class="errorTrace">
 $error
 </pre>
 </div>

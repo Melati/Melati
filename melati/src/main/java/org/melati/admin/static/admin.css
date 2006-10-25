@@ -15,3 +15,23 @@ FRAME {
 FRAMESET {
  border: none;
 }
+
+.errorMessage {
+  color: red;
+}
+.errorTrace {
+  background-color: white;
+  color:green;
+  border: 1px solid green;
+  width: auto;
+  margin: 4px;
+  padding: 3px;
+}
+#switch {
+}
+#switched {
+  display:none;
+}
+#switch:hover #switched {
+  display:block;
+}

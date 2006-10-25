@@ -5,9 +5,11 @@
 
 BODY {
   COLOR: #aa3300; 
+  background-color: white;
 }
 
 .created {
-  bgcolor: lime;
+  COLOR: #aa3300; 
+  background-color: lime;
 }
 

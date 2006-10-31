@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -93,7 +93,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
   }
 
   /**
-   * Return an enumeration of the Columns in teh first row of a ResultSet.
+   * Return an enumeration of the Columns in the first row of a ResultSet.
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
   public Enumeration selection_firstRaw() {

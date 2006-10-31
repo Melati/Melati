@@ -153,6 +153,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
       } else 
         rs = statement.executeQuery();
       token.toTidy().add(rs);
+      database.incrementQueryCount();
       return rs;
     } catch (SQLException e) {
       throw new PreparedSQLSeriousPoemException(statement, e);

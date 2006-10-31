@@ -52,7 +52,7 @@ import org.melati.util.EnumUtils;
 /**
  * A cached instance of a {@link PreparedTailoredQuery}.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 public class CachedTailoredQuery extends PreparedTailoredQuery {
@@ -61,6 +61,15 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
   private Vector firstRawResults = null;
   private long[] tableSerials;
 
+  /**
+   * Constructor.
+   * 
+   * @param modifier
+   * @param selectedColumns
+   * @param otherTables
+   * @param whereClause
+   * @param orderByClause
+   */
   public CachedTailoredQuery(String modifier, 
                              Column[] selectedColumns, Table[] otherTables,
                              String whereClause, String orderByClause) {
@@ -68,11 +77,20 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
     tableSerials = new long[tables.length];
   }
 
+  /**
+   * @param selectedColumns
+   * @param otherTables
+   * @param whereClause
+   * @param orderByClause
+   */
   public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
                              String whereClause, String orderByClause) {
     this(null, selectedColumns, otherTables, whereClause, orderByClause);
   }
 
+  /**
+   * @return whether the underlying tables have changed since last run.
+   */
   protected boolean upToDate() {
     boolean is = true;
 
@@ -88,6 +106,9 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
     return is;
   }
 
+  /**
+   * @see org.melati.poem.TailoredQuery#selection()
+   */
   public Enumeration selection() {
     Vector resultsLocal = this.results;
     if (!upToDate() || resultsLocal == null) {
@@ -97,6 +118,9 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
     return resultsLocal.elements();
   }
 
+  /**
+   * @see org.melati.poem.TailoredQuery#selection_firstRaw()
+   */
   public Enumeration selection_firstRaw()  {
     Vector firstRawResultsLocal = this.firstRawResults;
     if (!upToDate() || firstRawResultsLocal == null) {

@@ -4,10 +4,11 @@
 package org.melati.poem.test;
 
 import org.melati.poem.CachedCount;
+import org.melati.poem.User;
 
 /**
  * @author timp
- *
+ * @since 31/10/2006
  */
 public class CachedCountTest extends PoemTestCase {
 
@@ -39,25 +40,56 @@ public class CachedCountTest extends PoemTestCase {
    * @see org.melati.poem.CachedCount#CachedCount(Table, String, Table[])
    */
   public void testCachedCountTableStringTableArray() {
-
+    // FIXME work out good use case
+    int queries = getDb().getQueryCount();
+    CachedCount cc = new CachedCount(getDb().getUserTable(), "\"USER\".\"ID\" = 0", null);
+    int queries2 = getDb().getQueryCount();
+    assertEquals(queries, queries2);
+    assertEquals(1, cc.count());
+    int queries3 = getDb().getQueryCount();
+    assertEquals(queries2 + 1, queries3);
+    assertEquals(1, cc.count());
+    int queries4 = getDb().getQueryCount();
+    assertEquals(queries3, queries4);
   }
 
   /**
    * @see org.melati.poem.CachedCount#CachedCount(Persistent, boolean, boolean)
    */
   public void testCachedCountPersistentBooleanBoolean() {
-
+    int queries = getDb().getQueryCount();
+    User u = (User)getDb().getUserTable().newPersistent();
+    u.setName("guest");
+    CachedCount cc = new CachedCount(u,false,true);
+    int queries2 = getDb().getQueryCount();
+    assertEquals(queries, queries2);
+    assertEquals(1, cc.count());
+    int queries3 = getDb().getQueryCount();
+    assertEquals(queries2 + 1, queries3);
+    assertEquals(1, cc.count());
+    int queries4 = getDb().getQueryCount();
+    assertEquals(queries3, queries4);
   }
 
   /**
    * @see org.melati.poem.CachedCount#CachedCount(Table, String)
    */
   public void testCachedCountTableString() {
+    int queries = getDb().getQueryCount();
+    CachedCount cc = new CachedCount(getDb().getUserTable(), "\"USER\".\"ID\" = 0");
+    int queries2 = getDb().getQueryCount();
+    assertEquals(queries, queries2);
+    assertEquals(1, cc.count());
+    int queries3 = getDb().getQueryCount();
+    assertEquals(queries2 + 1, queries3);
+    assertEquals(1, cc.count());
+    int queries4 = getDb().getQueryCount();
+    assertEquals(queries3, queries4);
 
   }
 
-  /*
-   * @see org.melati.poem.CachedCount.count()'
+  /**
+   * @see org.melati.poem.CachedCount#count()
    */
   public void testCount() {
     int queries = getDb().getQueryCount();
@@ -70,48 +102,6 @@ public class CachedCountTest extends PoemTestCase {
     assertEquals(2, cc.count());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.CachedQuery(Table, String, Table[])'
-   */
-  public void testCachedQueryTableStringTableArray() {
-
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.CachedQuery(Table, String)'
-   */
-  public void testCachedQueryTableString() {
-
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.statements()'
-   */
-  public void testStatements() {
-
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.compute()'
-   */
-  public void testCompute() {
-
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.getTable()'
-   */
-  public void testGetTable() {
-
-  }
-
-  /*
-   * @see org.melati.poem.CachedQuery.outOfDate()'
-   */
-  public void testOutOfDate() {
-
   }
 
 }

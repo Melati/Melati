@@ -98,6 +98,11 @@ public abstract class Database implements TransactionPool {
   private int transactionsMax;
 
   private String connectionUrl;
+  
+  /**
+   * Used in testing to check caching.
+   */
+  private int queryCount = 0;
 
   //
   // ================
@@ -505,6 +510,7 @@ public abstract class Database implements TransactionPool {
     inSession(AccessToken.root,
         new PoemTask() {
           public void run() throws PoemException {
+            PoemThread.commit();
             beginStructuralModification();
             try {
               for (Enumeration t = tables.elements(); t.hasMoreElements();)
@@ -958,6 +964,7 @@ public abstract class Database implements TransactionPool {
       token.toTidy().add(rs);
       if (logSQL())
         log(new SQLLogEvent(sql));
+      incrementQueryCount();
       return rs;
     }
     catch (SQLException e) {
@@ -989,6 +996,7 @@ public abstract class Database implements TransactionPool {
       int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
+      incrementQueryCount();
       return n;
     }
     catch (SQLException e) {
@@ -1317,5 +1325,16 @@ public abstract class Database implements TransactionPool {
     return structureSerial;
   }
 
+  /**
+   * Used in testing to check if the cache is being used 
+   * or a new query is being issued. 
+   * @return Returns the queryCount.
+   */
+  public int getQueryCount() {
+    return queryCount;
+  }
+  public void incrementQueryCount() {
+    queryCount++; 
+  }
 }
 

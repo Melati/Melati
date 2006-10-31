@@ -70,7 +70,7 @@ public abstract class CachedQuery {
    * 
    * @param table the table to select from 
    * @param query the SQL query string 
-   * @param otherTables an array of other tables involved in teh query
+   * @param otherTables an array of other tables involved in the query
    */
   public CachedQuery(final Table table,
                      final String query,

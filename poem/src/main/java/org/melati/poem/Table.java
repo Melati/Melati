@@ -558,6 +558,7 @@ public class Table implements Selectable {
       updateStatement.executeUpdate(sql);
       updateStatement.close();
       database.getCommittedConnection().commit();
+      database.incrementQueryCount();
       if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
     }
     catch (SQLException e) {
@@ -755,6 +756,7 @@ public class Table implements Selectable {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
         ResultSet rs = select.executeQuery();
+        database.incrementQueryCount();
         try {
           if (database.logSQL())
             database.log(new SQLLogEvent(select.toString()));
@@ -818,6 +820,7 @@ public class Table implements Selectable {
       catch (SQLException e) {
         throw dbms().exceptionForUpdate(this, modify, false, e);
       }
+      database.incrementQueryCount();
 
       if (database.logSQL())
         database.log(new SQLLogEvent(modify.toString()));
@@ -837,6 +840,7 @@ public class Table implements Selectable {
       catch (SQLException e) {
         throw dbms().exceptionForUpdate(this, insert, true, e);
       }
+      database.incrementQueryCount();
       if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));
     }
@@ -862,6 +866,7 @@ public class Table implements Selectable {
       Statement deleteStatement = connection.createStatement();
       deleteStatement.executeUpdate(sql);
       deleteStatement.close();
+      database.incrementQueryCount();
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
 
@@ -1117,12 +1122,15 @@ public class Table implements Selectable {
         connection = transaction.getConnection();
       }
 
-      ResultSet rs = connection.createStatement().executeQuery(sql);
+      Statement selectionStatement = connection.createStatement();
+      ResultSet rs = selectionStatement.executeQuery(sql);
+      database.incrementQueryCount();
 
       SessionToken token = PoemThread._sessionToken();
-      if (token != null)
+      if (token != null) {
         token.toTidy().add(rs);
-
+        token.toTidy().add(selectionStatement);
+      }
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       return rs;
@@ -1576,12 +1584,15 @@ public class Table implements Selectable {
         connection = transaction.getConnection();
       }
 
-      ResultSet rs = connection.createStatement().executeQuery(sql);
+      Statement s = connection.createStatement();
+      ResultSet rs = s.executeQuery(sql);
+      database.incrementQueryCount();
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       rs.next();
       int count = rs.getInt(1);
       rs.close();
+      s.close();
       return count;
     }
     catch (SQLException e) {
@@ -2606,15 +2617,19 @@ public class Table implements Selectable {
         " FROM " + quotedName() +
         " ORDER BY " + troidColumn.quotedName() + " DESC";
     try {
+      Statement selectionStatement = getDatabase().getCommittedConnection().createStatement();
       ResultSet maxTroid =
-          getDatabase().getCommittedConnection().createStatement().
+          selectionStatement.
               executeQuery(sql);
+      database.incrementQueryCount();
       if (database.logSQL())
         database.log(new SQLLogEvent(sql));
       if (maxTroid.next())
         nextTroid = maxTroid.getInt(1) + 1;
       else
         nextTroid = 0;
+      maxTroid.close();
+      selectionStatement.close();
     }
     catch (SQLException e) {
       throw new SQLSeriousPoemException(e);

@@ -62,13 +62,14 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
   private long[] tableSerials;
 
   /**
-   * Constructor.
+   * Full Constructor.
    * 
-   * @param modifier
-   * @param selectedColumns
-   * @param otherTables
-   * @param whereClause
-   * @param orderByClause
+   * @param modifier  SQL modifier eg DISTINCT
+   * @param selectedColumns An array of columns we know we need
+   * @param otherTables Tables other than ours whose modification 
+   *                    state needs to be taken into account
+   * @param whereClause Raw SQL
+   * @param orderByClause Raw ORDER BY clause
    */
   public CachedTailoredQuery(String modifier, 
                              Column[] selectedColumns, Table[] otherTables,
@@ -78,10 +79,13 @@ public class CachedTailoredQuery extends PreparedTailoredQuery {
   }
 
   /**
-   * @param selectedColumns
-   * @param otherTables
-   * @param whereClause
-   * @param orderByClause
+   * Constructor with modifier null. 
+   * 
+   * @param selectedColumns An array of columns we know we need
+   * @param otherTables Tables other than ours whose modification 
+   *                    state needs to be taken into account
+   * @param whereClause Raw SQL
+   * @param orderByClause Raw ORDER BY clause
    */
   public CachedTailoredQuery(Column[] selectedColumns, Table[] otherTables,
                              String whereClause, String orderByClause) {

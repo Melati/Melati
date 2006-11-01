@@ -378,8 +378,8 @@ public class Admin extends TemplateServlet {
         start = Math.max(0, Integer.parseInt(startString));
       }
       catch (NumberFormatException e) {
-        throw new 
-            FormParameterException("start", "param to must be an Integer");
+        throw new AnticipatedException(new 
+            FormParameterException("start", "param to must be an Integer"));
       }
     }
 
@@ -813,7 +813,7 @@ public class Admin extends TemplateServlet {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin))
-      throw new AccessPoemException(token, admin);
+      throw new AnticipatedException(new AccessPoemException(token, admin));
 
     context.put("admin", new AdminUtils(melati));
     

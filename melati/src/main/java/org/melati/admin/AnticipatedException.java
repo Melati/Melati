@@ -54,6 +54,7 @@ public class AnticipatedException extends MelatiRuntimeException {
 
   private String message;
 
+  
   /** Constructor */
   public AnticipatedException(String message) {
     this.message = message;
@@ -63,4 +64,20 @@ public class AnticipatedException extends MelatiRuntimeException {
   public String getMessage() {
     return message;
   }
+
+  /**
+   * Pre-java 1.4 initial cause.
+   */
+  public AnticipatedException(String message, Exception subException) {
+    this(message);
+    initCause(subException);
+  }
+
+  /**
+   * Pre-java 1.4 initial cause.
+   */
+  public AnticipatedException(Exception subException) {
+    this(null, subException);
+  }
+
 }

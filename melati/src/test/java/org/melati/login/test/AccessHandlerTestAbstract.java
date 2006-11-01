@@ -15,7 +15,7 @@ import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.TemplateContext;
 import org.melati.template.TemplateEngine;
-import org.melati.template.webmacro.WebmacroTemplateEngine;
+//import org.melati.template.webmacro.WebmacroTemplateEngine;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -72,9 +72,12 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
 
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
+    /* 
+     * Not sure what this was about
     if(mc.getTemplateEngine().getName() != "webmacro") {
       mc.setTemplateEngine(new WebmacroTemplateEngine());
     }
+    */
   }
   
   /**

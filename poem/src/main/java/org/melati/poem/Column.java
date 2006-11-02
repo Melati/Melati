@@ -700,32 +700,45 @@ public abstract class Column implements FieldAttributes {
       return there;
   }
 
+  
+  /**
+   * Find the next free Id in this Troid column.
+   * 
+   * This is not used in Melati, but is used in Bibliomania. 
+   * @param whereClause
+   * @return a troid
+   * @since 04/05/2000
+   * @throws AppBugPoemException if this Column is not a troid column 
+   */
   public int firstFree(String whereClause) {
+    if (! isTroidColumn()) 
+      throw new AppBugPoemException("firstFree called on a non Troid column");
     if (whereClause != null && whereClause.trim().equals(""))
       whereClause = null;
     getTable().readLock();
-    ResultSet results =
-      getDatabase().sqlQuery(
-        "SELECT "
-          + quotedName
-          + " + 1 "
-          + "FROM "
-          + getTable().quotedName()
-          + " AS t1 "
-          + "WHERE "
-          + (whereClause == null ? "" : "(t1." + whereClause + ") AND ")
-          + "NOT EXISTS ("
-          + "SELECT * FROM "
-          + getTable().quotedName()
-          + " AS t2 "
-          + "WHERE "
-          + (whereClause == null ? "" : "(t2." + whereClause + ") AND ")
-          + "t2."
-          + quotedName
-          + " = t1."
-          + quotedName
-          + " + 1) "
-          + "LIMIT 1");
+    String query = 
+      "SELECT "
+      + quotedName
+      + " + 1 "
+      + "FROM "
+      + getTable().quotedName()
+      + " AS t1 "
+      + "WHERE "
+      + (whereClause == null ? "" : "(t1." + whereClause + ") AND ")
+      + "NOT EXISTS ("
+      + "SELECT * FROM "
+      + getTable().quotedName()
+      + " AS t2 "
+      + "WHERE "
+      + (whereClause == null ? "" : "(t2." + whereClause + ") AND ")
+      + "t2."
+      + quotedName
+      + " = t1."
+      + quotedName
+      + " + 1) "
+      + "LIMIT 1";  
+    //System.err.println(query);
+    ResultSet results = getDatabase().sqlQuery(query);
     try {
       if (results.next())
         return results.getInt(1);

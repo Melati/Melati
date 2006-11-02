@@ -57,6 +57,11 @@ public class AppBugPoemException extends SeriousPoemException {
   }
 
   /** Constructor. */
+  public AppBugPoemException(String message) {
+    super(message);
+  }
+  
+  /** Constructor. */
   public AppBugPoemException(Exception subException) {
     super(subException);
   }

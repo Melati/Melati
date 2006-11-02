@@ -38,15 +38,13 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.login;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 import org.melati.Melati;
@@ -59,110 +57,6 @@ import org.melati.util.MelatiException;
 
 
 /**
- * A store for a username and password.
- *
- */
-final class Authorization {
-  public String username = null;
-  public String password = null;
-
-  /**
-   * Do not allow public instantiation.
-   */
-  private  Authorization() {
-  }
-
-  /**
-   * Private constructor.
-   * 
-   * @param username
-   * @param password
-   */
-  private Authorization(String username, String password) {
-    this.username = username;
-    this.password = password;
-  }
-
-  /**
-   * Interrogate the user for thier details.
-   * 
-   * @param input notmally System.in
-   * @return a new Authorisation object or null
-   */
-  static Authorization from(InputStream input, PrintStream output) {
-    String username = null;
-    String password = null;
-
-    output.print("Enter your username: ");
-    BufferedReader in = new BufferedReader(new InputStreamReader(input));
-    try {
-       username = in.readLine();
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-    output.print("Enter your password: ");
-    in = new BufferedReader(new InputStreamReader(input));
-    try {
-       password = in.readLine();
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-    if (username != null && password != null)
-      return new Authorization(username, password);
-    else
-      return null;
-  }
-
-  /**
-   * Create an Authorisation from an array, typically the stored 
-   * arguments.
-   * @param args Command line arguments, stored in Melati
-   * @return a new Authorization object or null
-   */
-  static Authorization from(String[] args) {
-    String username = null;
-    String password = null;
-    boolean nextValue = false;
-    for (int i = 0; i < args.length; i++) {
-      if (nextValue) {
-        username = args[i];
-        break;
-      }
-      if (args[i].equalsIgnoreCase("-u"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("-user"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("-username"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("--username"))
-        nextValue = true;
-    }
-    nextValue = false;
-    for (int i = 0; i < args.length; i++) {
-      if (nextValue) {
-        password = args[i];
-        break;
-      }
-      if (args[i].equalsIgnoreCase("-p"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("-pass"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("-password"))
-        nextValue = true;
-      if (args[i].equalsIgnoreCase("--password"))
-        nextValue = true;
-    }
-
-    if (username != null && password != null)
-      return new Authorization(username, password);
-    else
-      return null;
-  }
-
-}
-
-
-/**
  * A handler invoked when an {@link AccessPoemException} is thrown.
  *
  * @see org.melati.login.AccessHandler
@@ -171,7 +65,7 @@ public class CommandLineAccessHandler implements AccessHandler {
 
   private PrintStream output = System.out;
   private InputStream input = System.in;
-  
+
   /**
    * Constructor.
    */
@@ -179,9 +73,9 @@ public class CommandLineAccessHandler implements AccessHandler {
     super();
   }
 
-  /** 
+  /**
    * Actually handle the {@link AccessPoemException}.
-   * 
+   *
    * @see org.melati.login.AccessHandler
    */
   public void handleAccessException(Melati melati,
@@ -268,7 +162,7 @@ public class CommandLineAccessHandler implements AccessHandler {
 
   /**
    * A no-op in a command line application.
-   * 
+   *
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati) throws MelatiException, IOException {

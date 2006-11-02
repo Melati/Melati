@@ -96,7 +96,7 @@ public interface IntegrityFix {
                            Enumeration refs, Map referenceFixOfColumn);
   
   /**
-   * Integrity fixes are ste in the DSD by name. 
+   * Integrity fixes are set in the DSD by name. 
    * @return the name
    */
   String getName();

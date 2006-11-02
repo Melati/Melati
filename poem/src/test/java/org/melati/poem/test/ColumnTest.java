@@ -4,9 +4,16 @@
 package org.melati.poem.test;
 
 import org.melati.poem.AppBugPoemException;
+import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
 import org.melati.poem.DisplayLevel;
+import org.melati.poem.Field;
+import org.melati.poem.NullTypeMismatchPoemException;
+import org.melati.poem.Searchability;
+import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
+import org.melati.poem.Column.SettingException;
 import org.melati.util.EnumUtils;
 
 /**
@@ -129,13 +136,28 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#setDisplayLevel(DisplayLevel)
    */
   public void testSetDisplayLevel() {
-
+    assertEquals(DisplayLevel.summary, 
+        getDb().getUserTable().getColumn("login").getDisplayLevel());
+    getDb().getUserTable().getColumn("login").setDisplayLevel(DisplayLevel.detail);
+    assertEquals(DisplayLevel.detail, 
+        getDb().getUserTable().getColumn("login").getDisplayLevel());
+    getDb().getUserTable().getColumn("login").setDisplayLevel(DisplayLevel.summary);
+    assertEquals(DisplayLevel.summary, 
+        getDb().getUserTable().getColumn("login").getDisplayLevel());
   }
 
   /**
    * @see org.melati.poem.Column#getSearchability()
    */
   public void testGetSearchability() {
+    assertEquals(Searchability.yes, 
+        getDb().getUserTable().troidColumn().getSearchability());
+    assertEquals(Searchability.primary, 
+        getDb().getUserTable().getColumn("name").getSearchability());
+    assertEquals(Searchability.yes, 
+        getDb().getUserTable().getColumn("login").getSearchability());
+    assertEquals(Searchability.no, 
+        getDb().getUserTable().getColumn("password").getSearchability());
 
   }
 
@@ -143,6 +165,14 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#setSearchability(Searchability)
    */
   public void testSetSearchability() {
+    assertEquals(Searchability.yes, 
+        getDb().getUserTable().getColumn("login").getSearchability());
+    getDb().getUserTable().getColumn("login").setSearchability(Searchability.no);
+    assertEquals(Searchability.no, 
+        getDb().getUserTable().getColumn("login").getSearchability());
+    getDb().getUserTable().getColumn("login").setSearchability(Searchability.yes);
+    assertEquals(Searchability.yes, 
+        getDb().getUserTable().getColumn("login").getSearchability());
 
   }
 
@@ -206,13 +236,22 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#getIntegrityFix()
    */
   public void testGetIntegrityFix() {
-
+    assertEquals(StandardIntegrityFix.prevent,
+        getDb().getUserTable().troidColumn().getIntegrityFix());
   }
 
   /**
    * @see org.melati.poem.Column#setIntegrityFix(StandardIntegrityFix)
    */
   public void testSetIntegrityFix() {
+    assertEquals(StandardIntegrityFix.prevent,
+        getDb().getUserTable().troidColumn().getIntegrityFix());
+    getDb().getUserTable().troidColumn().setIntegrityFix(StandardIntegrityFix.delete);
+    assertEquals(StandardIntegrityFix.delete,
+        getDb().getUserTable().troidColumn().getIntegrityFix());
+    getDb().getUserTable().troidColumn().setIntegrityFix(StandardIntegrityFix.prevent);
+    assertEquals(StandardIntegrityFix.prevent,
+        getDb().getUserTable().troidColumn().getIntegrityFix());
 
   }
 
@@ -269,42 +308,54 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#eqClause(Object)
    */
   public void testEqClause() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Column#resultSetWhereEq(Object)
-   */
-  public void testResultSetWhereEq() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Column#troidSelectionWhereEq(Object)
-   */
-  public void testTroidSelectionWhereEq() {
-
+    assertEquals("\"USER\".\"ID\" IS NULL", 
+                 getDb().getUserTable().troidColumn().eqClause(null));
+    assertEquals("\"USER\".\"ID\" = 1", 
+                 getDb().getUserTable().troidColumn().eqClause(new Integer(1)));
   }
 
   /**
    * @see org.melati.poem.Column#selectionWhereEq(Object)
    */
   public void testSelectionWhereEq() {
-
+    assertEquals(new Integer(69), 
+        new Integer(EnumUtils.vectorOf(
+            getDb().getColumnInfoTable().getHeightColumn().
+            selectionWhereEq(new Integer(1))).size()));
+    try {
+      getDb().getColumnInfoTable().getHeightColumn().
+          selectionWhereEq(null);
+      fail("Should have bombed");
+    } catch (NullTypeMismatchPoemException e) {
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Column#firstWhereEq(Object)
    */
   public void testFirstWhereEq() {
-
+    assertNull(getDb().getColumnInfoTable().getHeightColumn().
+        firstWhereEq(new Integer(0)));
+    assertNull(getDb().getColumnInfoTable().getHeightColumn().
+        firstWhereEq(new Integer(2)));
+    assertEquals("columninfo/0", 
+        getDb().getColumnInfoTable().getHeightColumn().
+            firstWhereEq(new Integer(1)).toString());
   }
 
   /**
    * @see org.melati.poem.Column#cachedSelectionWhereEq(Object)
    */
   public void testCachedSelectionWhereEq() {
-
+    int queries = getDb().getQueryCount();
+    CachedSelection cs = getDb().getColumnInfoTable().getHeightColumn().
+        cachedSelectionWhereEq(new Integer(1));
+    int queries2 = getDb().getQueryCount();
+    assertEquals(queries, queries2);
+    assertEquals(69,cs.count());
+    int queries3 = getDb().getQueryCount();
+    assertEquals(queries2 + 1, queries3);
   }
 
   /**
@@ -364,24 +415,42 @@ public class ColumnTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Column#asField(Persistent)
-   */
-  public void testAsField() {
-
-  }
-
-  /**
    * @see org.melati.poem.Column#asEmptyField()
    */
   public void testAsEmptyField() {
-
+    Field f = getDb().getUserTable().troidColumn().asEmptyField();
+    assertEquals("id",f.getName());
+    assertEquals("Id",f.getDisplayName());
+    assertEquals("The Table Row Object ID",f.getDescription());
+    assertEquals(1,f.getHeight());
+    assertEquals(20,f.getWidth());
+    assertNull(f.getRaw());
+    try { 
+      f.getCooked();
+      fail("Should have bombed");
+    } catch (NullTypeMismatchPoemException e) {
+      e = null;
+    }
+    assertTrue(f.getIndexed());
+    assertFalse(f.getUserEditable());
+    assertFalse(f.getUserCreateable());
+    assertNull(f.getRenderInfo());
+    assertTrue(f.getType() instanceof TroidPoemType);
   }
 
   /**
    * @see org.melati.poem.Column#setRawString(Persistent, String)
    */
   public void testSetRawString() {
-
+    User admin = getDb().getUserTable().administratorUser();
+    try { 
+      getDb().getUserTable().troidColumn().setRawString(admin, "one");
+      fail("Should have bombed");
+    } catch (SettingException e) {
+      e = null;
+    }
+    getDb().getUserTable().getNameColumn().setRawString(admin, "Admin");
+    assertEquals("Admin", admin.getName());
   }
 
   /**

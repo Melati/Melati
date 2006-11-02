@@ -48,6 +48,8 @@
 
 package org.melati.util.test;
 
+import java.nio.charset.UnsupportedCharsetException;
+
 import junit.framework.TestCase;
 
 import org.melati.util.AcceptCharset;
@@ -57,7 +59,7 @@ import org.melati.util.AcceptCharset;
  *
  * @see AcceptCharset
  * @author jimw@paneris.org
- * @version $Version$
+ * @version $Version: $
  */
 public class AcceptCharsetTest extends TestCase {
 
@@ -87,6 +89,7 @@ public class AcceptCharsetTest extends TestCase {
       "UTF-8",
       "BOLLOX",
     };
+    
     ac = new AcceptCharset(headerValue, supportedPreference);
     assertEquals("ISO-8859-3", ac.clientChoice());
     assertEquals("ISO-8859-1", ac.serverChoice());
@@ -105,6 +108,14 @@ public class AcceptCharsetTest extends TestCase {
     ac = new AcceptCharset(null, supportedPreference);
     assertEquals("ISO-8859-1", ac.clientChoice());
     assertEquals("ISO-8859-1", ac.serverChoice());
+
+    try { 
+      ac = new AcceptCharset("BOLLOX", supportedPreference);
+      fail("Should have blown up");
+    } catch (UnsupportedCharsetException e) { 
+      e = null;
+    }
+
   }
 
 }

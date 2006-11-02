@@ -2561,7 +2561,7 @@ public class Table implements Selectable {
       Hashtable dbHasIndexForColumn = new Hashtable();
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
-      System.err.println("Getting indexes for " + unreservedName);
+      //System.err.println("Getting indexes for " + unreservedName);
       ResultSet index =
         getDatabase().getCommittedConnection().getMetaData().
         // null, "" means ignore catalog, 

@@ -173,4 +173,11 @@ public final class DisplayLevel {
       throw new NameUnrecognisedException(name);
     return it;
   }
+  
+  /** 
+   * Return the name and index.
+   */
+  public String toString() {
+    return name + "/" + index;
+  }
 }

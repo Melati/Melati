@@ -209,5 +209,13 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
       throw new NameUnrecognisedException(name);
     return it;
   }
+  
+  /** 
+   * Return the name and index.
+   */
+  public String toString() {
+    return name + "/" + index;
+  }
+
 
 }

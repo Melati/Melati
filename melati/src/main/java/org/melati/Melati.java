@@ -185,11 +185,19 @@ public class Melati {
    * @see org.melati.login.HttpSessionAccessHandler
    * @param request - new request object
    */
-
   public void setRequest(HttpServletRequest request) {
     this.request = request;
   }
 
+  /**
+   * Used to set response mock in tests.
+   * @see org.melati.login.HttpSessionAccessHandler
+   * @param response - mock response object
+   */
+  public void setResponse(HttpServletResponse response) {
+    this.response = response;
+  }
+  
   /**
    * Get the servlet response object.
    *

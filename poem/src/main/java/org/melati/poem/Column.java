@@ -429,6 +429,11 @@ public abstract class Column implements FieldAttributes {
     return statementWhereEq().resultSet(token, ps);
   }
 
+  /**
+   * @todo check if used outside Melati, not use inside.
+   * @param raw value 
+   * @return an Enumeration of Integers 
+   */
   Enumeration troidSelectionWhereEq(Object raw) {
     return new ResultSetEnumeration(resultSetWhereEq(raw)) {
       public Object mapped(ResultSet rs) throws SQLException {
@@ -663,6 +668,14 @@ public abstract class Column implements FieldAttributes {
     }
   }
 
+  /**
+   * Set the value from its String representation, if possible.
+   * 
+   * @param g the Persistent to alter
+   * @param rawString the String representation of the value to set
+   * @throws SettingException if the String value cannot be 
+   *                          converted to the appropriate type 
+   */
   public void setRawString(Persistent g, String rawString) {
     Object raw;
     try {
@@ -670,10 +683,15 @@ public abstract class Column implements FieldAttributes {
     } catch (Exception e) {
       throw new SettingException(g, this, e);
     }
-
     setRaw(g, raw);
   }
 
+  /**
+   * Return an Enumeration of Persistents from the 
+   * Table this column refers to, if this is a reference column, 
+   * otherwise the Empty Enumeration.
+   * @param object A persistent of the type referred to by this column
+   */
   public Enumeration referencesTo(Persistent object) {
     return getType() instanceof ReferencePoemType
       && ((ReferencePoemType) getType()).targetTable() == object.getTable()

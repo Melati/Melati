@@ -209,7 +209,7 @@ public class AdminUtils {
   /**
    * @return The Popup URL.
    */
-  public String PopupURL(Table table) {
+  public String PopUpURL(Table table) {
     return servletUrl + "/" + logicalDatabase + "/" + table.getName() + "/PopUp";
   }
   

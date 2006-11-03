@@ -66,6 +66,7 @@ public class AdminUtilsTest extends PoemTestCase {
     mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
+    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Language", null); 
     m.setRequest((HttpServletRequest)mockHttpServletRequest.proxy());    
     au = new AdminUtils(m);
   }
@@ -275,9 +276,9 @@ public class AdminUtilsTest extends PoemTestCase {
    *          specialFacilities(Melati, MarkupLanguage, Persistent)
    */
   public void testSpecialFacilities() throws Exception {
-    // @todo set the mock up further to handle this
-    //assertEquals("", 
-    //    au.specialFacilities(m, m.getMarkupLanguage(), m.getObject()));
+    m.loadTableAndObject();
+    assertEquals("", 
+        au.specialFacilities(m, m.getMarkupLanguage(), m.getObject()));
   }
 
   /**

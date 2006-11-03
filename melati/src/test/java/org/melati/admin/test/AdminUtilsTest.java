@@ -292,7 +292,7 @@ public class AdminUtilsTest extends PoemTestCase {
    * @see org.melati.admin.AdminUtils#createTree(Treeable)
    */
   public void testCreateTree() {
-   // todo
+   // Not easy to do, as poem objects are not Treeable
   }
 
   /**

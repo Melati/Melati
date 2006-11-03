@@ -3,6 +3,8 @@ package org.melati.test;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
+import org.melati.poem.Field;
+import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
 
@@ -107,6 +109,29 @@ public class MelatiTest extends TestCase {
    */
   public void testGetDatabase() {
 
+  }
+
+  /**
+   * @see org.melati.Melati#getKnownDatabaseNames()
+   */
+  public void testGetKnownDatabaseNames() {
+    MelatiConfig mc = null;
+    PoemContext pc = null;
+    Melati m = null;
+    try {
+      mc = new MelatiConfig();
+      m = new Melati(mc, new MelatiStringWriter());
+      pc = poemContext(m);
+      m.setPoemContext(pc);
+      assertEquals(0, m.getKnownDatabaseNames().size());
+      pc.setLogicalDatabase("melatijunit");
+      m.setPoemContext(pc);
+      m.loadTableAndObject();
+      assertEquals(1, m.getKnownDatabaseNames().size());
+    } catch (MelatiException e) {
+      e.printStackTrace();
+      fail();
+    }
   }
 
   /**
@@ -229,6 +254,12 @@ public class MelatiTest extends TestCase {
     }
     Object adminUtil = m.getContextUtil("org.melati.admin.AdminUtils");
     assertTrue(adminUtil instanceof org.melati.admin.AdminUtils);
+    try { 
+      m.getContextUtil("unknownClass");
+      fail("Should have bombed");
+    } catch (MelatiBugMelatiException e) { 
+      e = null;
+    }
   }
 
   /**
@@ -446,10 +477,9 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.Melati.isReferencePoemType(Field)'
+   * @see org.melati.Melati#isReferencePoemType(Field)
    */
   public void testIsReferencePoemType() {
-
   }
 
 }

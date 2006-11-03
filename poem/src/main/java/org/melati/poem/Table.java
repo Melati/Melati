@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -74,7 +74,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  * A Table.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  * @todo Allow selection based on null fields
  * @todo See FIXMEs
  **/
@@ -2659,4 +2659,5 @@ public class Table implements Selectable {
             ((Table)t).getName().equals(name));
     
   }
+
 }

@@ -173,8 +173,8 @@ public class PoemServletTest extends PoemTestCase {
    * Test method for 'org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)'
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
                    
     mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
     mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 

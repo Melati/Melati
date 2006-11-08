@@ -671,10 +671,10 @@ public abstract class Column implements FieldAttributes {
   /**
    * Set the value from its String representation, if possible.
    * 
+   * Throws SettingException if the String value cannot be 
+   * converted to the appropriate type 
    * @param g the Persistent to alter
    * @param rawString the String representation of the value to set
-   * Throws SettingException if the String value cannot be 
-   *                          converted to the appropriate type 
    */
   public void setRawString(Persistent g, String rawString) {
     Object raw;
@@ -706,8 +706,6 @@ public abstract class Column implements FieldAttributes {
    * The given object is used to create a new row if
    * necessary, in which case it will be assigned the next troid.and
    * cached.
-   * <p>
-   * (Please review this description and delete this line. JimW)
    */
   public Persistent ensure(Persistent orCreate) {
     Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
@@ -723,10 +721,10 @@ public abstract class Column implements FieldAttributes {
    * Find the next free Id in this Troid column.
    * 
    * This is not used in Melati, but is used in Bibliomania. 
+   * Throws AppBugPoemException if this Column is not a troid column 
    * @param whereClause
    * @return a troid
    * @since 04/05/2000
-   * Throws AppBugPoemException if this Column is not a troid column 
    */
   public int firstFree(String whereClause) {
     if (! isTroidColumn()) 

@@ -31,6 +31,15 @@
     <suppress checks="MagicNumber"
               files="DatePoemtype.java" />
 
+    <!-- Perfectly proper use of empty statements -->
+    <suppress checks="EmptyStatement"
+              files="HTMLUtils.java" />
+    <suppress checks="EmptyStatement"
+              files="HttpHeader.java" />
+    <suppress checks="EmptyStatement"
+              files="Transactioned.java" />
+    
+
     <!-- it is just a biggy, OK -->
     <suppress checks="FileLength"
               files="Table.java" />
@@ -96,5 +105,5 @@
 
     <!-- checkstyle wrong -->
     <suppress checks="DoubleCheckedLocking"
-              files="/Table.java" />
+              files="Table.java" />
 </suppressions>

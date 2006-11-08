@@ -673,7 +673,7 @@ public abstract class Column implements FieldAttributes {
    * 
    * @param g the Persistent to alter
    * @param rawString the String representation of the value to set
-   * @throws SettingException if the String value cannot be 
+   * Throws SettingException if the String value cannot be 
    *                          converted to the appropriate type 
    */
   public void setRawString(Persistent g, String rawString) {
@@ -726,7 +726,7 @@ public abstract class Column implements FieldAttributes {
    * @param whereClause
    * @return a troid
    * @since 04/05/2000
-   * @throws AppBugPoemException if this Column is not a troid column 
+   * Throws AppBugPoemException if this Column is not a troid column 
    */
   public int firstFree(String whereClause) {
     if (! isTroidColumn()) 

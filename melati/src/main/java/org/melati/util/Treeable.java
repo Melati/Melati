@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 
 package org.melati.util;
@@ -47,8 +47,16 @@ package org.melati.util;
  * Methods an object must have to be treated as a <code>Tree</code>.
  */
 public interface Treeable {
+
+  /**
+   * @return an Array of Treeable children
+   */
   Treeable[] getChildren();
 
+  /**
+   * This should not return null.
+   * @return the name of the object, used as node label
+   */
   String getName();
 }
 

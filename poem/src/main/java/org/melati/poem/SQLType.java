@@ -52,19 +52,47 @@ import org.melati.poem.dbms.Dbms;
 /**
  * A native SQL {@link Field} datatype.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 public interface SQLType {
+  
+  /**
+   * @return The SQL92 ANSI code for this type.
+   */
   int sqlTypeCode();
+  
+  
+  /**
+   * @param dbms the DBMS 
+   * @return the DBMS specific SQL snippet
+   */
   String sqlDefinition(Dbms dbms);
 
+  /**
+   * @param raw
+   * @return
+   */
   String quotedRaw(Object raw);
 
+  /**
+   * Return an object as delivered by the database.
+   * 
+   * @param rs the Resultset containing the value
+   * @param col the column withing the ResultSet to read
+   * @return the value as an Object
+   */
   Object getRaw(ResultSet rs, int col)
       throws TypeMismatchPoemException, ValidationPoemException,
              ParsingPoemException;
 
+  /**
+   * Set a column's value.
+   * 
+   * @param ps the Prepared Statement to modify
+   * @param col the column within the PreparedStatement
+   * @param cooked the object value to set
+   */
   void setRaw(PreparedStatement ps, int col, Object cooked)
       throws TypeMismatchPoemException;
 }

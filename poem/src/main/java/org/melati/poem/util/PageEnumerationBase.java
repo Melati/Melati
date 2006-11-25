@@ -133,9 +133,6 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
 /**
  * A 'screen full' of results.
- *
- * @todo Delete me
- * @deprecated appears to be unused
  */
   public class Page {
     int number;

@@ -2,6 +2,7 @@ package org.melati.poem.test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Enumeration;
 
 import org.melati.poem.AccessToken;
@@ -9,6 +10,7 @@ import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DuplicateTableNamePoemException;
 import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemThread;
 import org.melati.poem.RowDisappearedPoemException;
@@ -20,14 +22,14 @@ import org.melati.poem.Database;
 
 /**
  * Test the features of all Poem databases.
- * 
+ *
  * @author timp
  */
 public class PoemDatabaseTest extends PoemTestCase {
 
   /**
    * Constructor for PoemTest.
-   * 
+   *
    * @param arg0
    */
   public PoemDatabaseTest(String arg0) {
@@ -37,15 +39,19 @@ public class PoemDatabaseTest extends PoemTestCase {
   /**
    * @see TestCase#setUp()
    */
-  protected void setUp() throws Exception {
+  protected void setUp()
+      throws Exception {
     super.setUp();
   }
 
   /**
    * @see TestCase#tearDown()
    */
-  protected void tearDown() throws Exception {
+  protected void tearDown()
+      throws Exception {
     super.tearDown();
+    getDb().setLogCommits(false);
+    getDb().setLogSQL(false);
   }
 
   /**
@@ -62,7 +68,10 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#transactionsMax()
    */
   public void testTransactionsMax() {
-    assertEquals(4, getDb().transactionsMax());
+    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
+      assertEquals(1, getDb().transactionsMax());
+    else
+      assertEquals(4, getDb().transactionsMax());
   }
 
   /**
@@ -70,14 +79,14 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testGetDisplayTables() {
     final String expected = "user (from the data structure definition)"
-            + "group (from the data structure definition)"
-            + "capability (from the data structure definition)"
-            + "groupmembership (from the data structure definition)"
-            + "groupcapability (from the data structure definition)"
-            + "tableinfo (from the data structure definition)"
-            + "columninfo (from the data structure definition)"
-            + "tablecategory (from the data structure definition)"
-            + "setting (from the data structure definition)";
+        + "group (from the data structure definition)"
+        + "capability (from the data structure definition)"
+        + "groupmembership (from the data structure definition)"
+        + "groupcapability (from the data structure definition)"
+        + "tableinfo (from the data structure definition)"
+        + "columninfo (from the data structure definition)"
+        + "tablecategory (from the data structure definition)"
+        + "setting (from the data structure definition)";
 
     Enumeration en = getDb().getDisplayTables();
     String result = "";
@@ -110,12 +119,14 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#hasCapability(User, Capability)
    */
   public void testHasCapability() {
-    assertTrue(getDb().hasCapability(getDb().getUserTable().administratorUser(), 
+    assertTrue(getDb().hasCapability(
+        getDb().getUserTable().administratorUser(),
         getDb().getCanAdminister()));
-    assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), 
+    assertTrue(getDb().hasCapability(
+        getDb().getUserTable().guestUser(),
         getDb().getCanAdminister()));
-    assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), 
-        null));
+    assertTrue(getDb().hasCapability(
+        getDb().getUserTable().guestUser(), null));
   }
 
   /**
@@ -154,8 +165,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testReferencesToTable() {
     String expected = "groupmembership.user: reference to user "
-            + "(INT (org.melati.poem.ReferencePoemType)) "
-            + "(from the data structure definition)";
+        + "(INT (org.melati.poem.ReferencePoemType)) "
+        + "(from the data structure definition)";
     String result = "";
     Enumeration en = getDb().referencesTo(getDb().getUserTable());
     while (en.hasMoreElements())
@@ -195,36 +206,42 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setLogSQL(true);
     assertTrue(getDb().logSQL());
   }
-  
+
   /**
    * @see Database#connect(String, String, String, String, int)
    */
   public void testConnect() {
-    
+
+    // We are in a session from PoemTestCase
+    // end it
+    getDb().endSession();
     PoemDatabase db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.Hsqldb",
-                            "jdbc:hsqldb:/dist/melati/db/m2", "sa", "", 3); 
-    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase"); 
+    db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:/dist/melati/db/m2",
+        "sa", "", 3);
+    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
     db.shutdown();
     db.disconnect();
+    // Start a session so PoemTestCase has one to end
+    getDb().beginSession(AccessToken.root);
   }
 
   /**
    * @see org.melati.poem.Database#disconnect()
    */
   public void testDisconnect() {
-    //getDb().disconnect();
+    // getDb().disconnect();
   }
 
   /**
    * @see org.melati.poem.Database#shutdown()
    */
   public void testShutdown() {
-   // getDb().shutdown();
+    // getDb().shutdown();
   }
 
   /**
-   * Note this is here so that we have the expectyed number of tables. 
+   * Note this is here so that we have the expected number of tables.
+   *
    * @see org.melati.poem.Database#tables()
    */
   public void testTables() {
@@ -236,11 +253,12 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     System.err.println(count);
     assertTrue(count == 9);
-    
+
   }
 
   /**
-   * Note this is here so that we have the expectyed number of tables. 
+   * Note this is here so that we have the expected number of tables.
+   *
    * @see org.melati.poem.Database#columns()
    */
   public void testColumns() {
@@ -254,13 +272,14 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertTrue(count == 69);
   }
 
-
-  
   /**
    * @see org.melati.poem.Database#addTableAndCommit(TableInfo, String)
    */
-  public void testAddTableAndCommit() throws Exception {
-    TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
+  public void testAddTableAndCommit()
+      throws Exception {
+    getDb().setLogCommits(true);
+    getDb().setLogSQL(true);
+    TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();
     info.setName("junit");
     info.setDisplayname("Junit created table");
     info.setDisplayorder(13);
@@ -270,47 +289,57 @@ public class PoemDatabaseTest extends PoemTestCase {
     info.makePersistent();
     PoemThread.commit();
     getDb().addTableAndCommit(info, "id");
-    Enumeration cols = getDb().getColumnInfoTable().
-                           getTableinfoColumn().selectionWhereEq(info.troid());
-     while (cols.hasMoreElements()) {
-       ColumnInfo c = (ColumnInfo)cols.nextElement();
-       c.delete();
-     }
-    info.delete();
-    getDb().sqlUpdate("DROP TABLE JUNIT");
+    Persistent junit = getDb().getTable("junit").newPersistent();
     PoemThread.commit();
-    try { 
+    System.err.println("troid:" + junit.troid());
+    junit.makePersistent();
+    System.err.println("troid:" + junit.troid());
+    Enumeration cols = getDb().getColumnInfoTable().getTableinfoColumn()
+        .selectionWhereEq(info.troid());
+    int colCount = 0;
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo) cols.nextElement();
+      c.delete();
+      colCount++;
+    }
+    System.err.println("Col count:" + colCount);
+    PoemThread.commit(); // Commit before raw sql, so that tests can be rerun
+    getDb().getCommittedConnection().commit();
+    String q = "DROP TABLE " + getDb().getDbms().getQuotedName("junit");
+    Statement dropStatement = getDb().getCommittedConnection()
+        .createStatement();
+    dropStatement.execute(q);
+    getDb().getCommittedConnection().commit();
+
+    try {
+      getDb().addTableAndCommit(info, "id");
+      fail("Should have blown up");
+    } catch (DuplicateTableNamePoemException e) {
+      System.err.println(e);
+      e = null;
+    }
+    cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
+        info.troid());
+    colCount = 0;
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo) cols.nextElement();
+      c.delete();
+      colCount++;
+    }
+    System.err.println("Col count:" + colCount);
+
+    info.deleteAndCommit();
+    PoemThread.commit();
+    try {
       getDb().addTableAndCommit(info, "id");
       fail("Should have blown up");
     } catch (RowDisappearedPoemException e) {
-     e = null; 
-    }
-    TableInfo info2 = (TableInfo)getDb().getTableInfoTable().newPersistent();
-    info2.setName("junit");
-    info2.setDisplayname("Junit created table");
-    info2.setDisplayorder(13);
-    info2.setSeqcached(new Boolean(false));
-    info2.setCategory_unsafe(new Integer(1));
-    info2.setCachelimit(0);
-    info2.makePersistent();
-    PoemThread.commit();
-    try { 
-      getDb().addTableAndCommit(info2, "id");
-      fail("Should have blown up");
-    } catch (DuplicateTableNamePoemException e) {
+      System.err.println(e);
       e = null;
     }
-    cols = getDb().getColumnInfoTable().
-                           getTableinfoColumn().selectionWhereEq(info2.troid());
-     while (cols.hasMoreElements()) {
-       ColumnInfo c = (ColumnInfo)cols.nextElement();
-       c.delete();
-     }
-    info2.delete();
-    getDb().sqlUpdate("DROP TABLE JUNIT");
-    PoemThread.commit();
+    dropStatement.execute(q);
 
-    TableInfo info3 = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    TableInfo info3 = (TableInfo) getDb().getTableInfoTable().newPersistent();
     info3.setName("junit2");
     info3.setDisplayname("Junit created table");
     info3.setDisplayorder(13);
@@ -319,84 +348,98 @@ public class PoemDatabaseTest extends PoemTestCase {
     info3.setCachelimit(0);
     info3.makePersistent();
     PoemThread.commit();
-    try { 
-      getDb().addTableAndCommit(info3, "id");
-    } catch (DuplicateTableNamePoemException e) {
-      e = null;
+    getDb().addTableAndCommit(info3, "id");
+    cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
+        info3.troid());
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo) cols.nextElement();
+      c.delete();
     }
-    cols = getDb().getColumnInfoTable().
-                           getTableinfoColumn().selectionWhereEq(info3.troid());
-     while (cols.hasMoreElements()) {
-       ColumnInfo c = (ColumnInfo)cols.nextElement();
-       c.delete();
-     }
-    info3.delete();
-    getDb().sqlUpdate("DROP TABLE JUNIT2");
-    PoemThread.rollback();
-    
-  }
+    info3.deleteAndCommit();
+    PoemThread.commit();
 
+    q = "DROP TABLE " + getDb().getDbms().getQuotedName("junit2");
+    dropStatement.execute(q);
+    dropStatement.close();
+    PoemThread.commit();
+  }
 
   /**
    * @see org.melati.poem.Database#addConstraints()
    */
   public void testAddConstraints() {
-    // FIXME - does not terminate
-    // appears to wait forever due to failure to readlock
-    //getDb().addConstraints();
+    // We are in a session from PoemTestCase
+    // end it
+    getDb().endSession();
+    getDb().addConstraints();
+    // Start a session so PoemTestCase has one to end
+    getDb().beginSession(AccessToken.root);
   }
 
   /**
    * @see org.melati.poem.Database#setTransactionsMax(int)
    */
   public void testSetTransactionsMax() {
-    assertTrue(getDb().transactionsMax() == 4);
+    int current = 0;
+    current = getDb().transactionsMax();
+    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
+      assertEquals(1, getDb().transactionsMax());
+    else
+      assertEquals(4, getDb().transactionsMax());
     getDb().setTransactionsMax(12);
     assertTrue(getDb().transactionsMax() == 12);
+    getDb().setTransactionsMax(current);
   }
 
   /**
    * @see org.melati.poem.Database#getTransactionsCount()
    */
   public void testGetTransactionsCount() {
-    assertTrue(getDb().getTransactionsCount() == 4);
+    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
+      assertTrue(getDb().getTransactionsCount() == 1);
+    else
+      assertTrue(getDb().getTransactionsCount() == 4);
   }
 
   /**
    * @see org.melati.poem.Database#getFreeTransactionsCount()
    */
   public void testGetFreeTransactionsCount() {
-    System.err.println(getDb().getFreeTransactionsCount());
-    assertTrue(getDb().getFreeTransactionsCount() == 3);
+    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
+      assertTrue(getDb().getFreeTransactionsCount() == 0);
+    else
+      assertTrue(getDb().getFreeTransactionsCount() == 3);
   }
 
   /**
    * @see org.melati.poem.Database#poemTransaction(int)
    */
   public void testPoemTransaction() {
-    assertEquals(getDb().poemTransaction(1).toString(), "transaction1");
+    assertEquals(getDb().poemTransaction(0).toString(), "transaction0");
   }
 
   /**
    * @see org.melati.poem.Database#transaction(int)
    */
   public void testTransaction() {
-    assertEquals(getDb().transaction(1).toString(), "transaction1");
+    assertEquals(getDb().transaction(0).toString(), "transaction0");
   }
 
   /**
    * @see org.melati.poem.Database#isFree(PoemTransaction)
    */
   public void testIsFree() {
-    assertTrue(getDb().isFree(getDb().poemTransaction(0)));     
-    assertTrue(getDb().isFree(getDb().poemTransaction(1)));     
-    assertTrue(getDb().isFree(getDb().poemTransaction(2)));     
-    assertFalse(getDb().isFree(getDb().poemTransaction(3)));     
-    try {
-      System.err.println(getDb().isFree(getDb().poemTransaction(4)));
-      fail("Should have caused exception");
-    } catch (ArrayIndexOutOfBoundsException e) {
-      e = null; 
+    if (!(getDb().getDbms().toString().indexOf("MSAccess") > 0)) {
+      assertTrue(getDb().isFree(getDb().poemTransaction(0)));
+      assertTrue(getDb().isFree(getDb().poemTransaction(1)));
+      assertTrue(getDb().isFree(getDb().poemTransaction(2)));
+      assertFalse(getDb().isFree(getDb().poemTransaction(3)));
+      try {
+        System.err.println(getDb().isFree(getDb().poemTransaction(4)));
+        fail("Should have caused exception");
+      } catch (ArrayIndexOutOfBoundsException e) {
+        e = null;
+      }
     }
   }
 
@@ -414,7 +457,7 @@ public class PoemDatabaseTest extends PoemTestCase {
 
   }
 
-  /** 
+  /**
    * @see org.melati.poem.Database#inSession(AccessToken, PoemTask)
    */
   public void testInSession() {
@@ -428,7 +471,7 @@ public class PoemDatabaseTest extends PoemTestCase {
 
   }
 
-  /** 
+  /**
    * @see org.melati.poem.Database#endSession()
    */
   public void testEndSession() {
@@ -453,64 +496,59 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTableInfoTable()
    */
   public void testGetTableInfoTable() {
-    assertEquals(getDb().getTableInfoTable(), 
-        getDb().getTable("tableinfo"));
+    assertEquals(getDb().getTableInfoTable(), getDb().getTable("tableinfo"));
   }
 
   /**
    * @see org.melati.poem.Database#getTableCategoryTable()
    */
   public void testGetTableCategoryTable() {
-    assertEquals(getDb().getTableCategoryTable(), 
-        getDb().getTable("tablecategory"));
+    assertEquals(getDb().getTableCategoryTable(), getDb().getTable(
+        "tablecategory"));
   }
 
   /**
    * @see org.melati.poem.Database#getColumnInfoTable()
    */
   public void testGetColumnInfoTable() {
-    assertEquals(getDb().getColumnInfoTable(), 
-        getDb().getTable("columninfo"));
+    assertEquals(getDb().getColumnInfoTable(), getDb().getTable("columninfo"));
   }
 
   /**
    * @see org.melati.poem.Database#getCapabilityTable()
    */
   public void testGetCapabilityTable() {
-    assertEquals(getDb().getCapabilityTable(), 
-        getDb().getTable("capability"));
+    assertEquals(getDb().getCapabilityTable(), getDb().getTable("capability"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupTable()
    */
   public void testGetGroupTable() {
-    assertEquals(getDb().getGroupTable(), 
-        getDb().getTable("group"));
+    assertEquals(getDb().getGroupTable(), getDb().getTable("group"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupMembershipTable()
    */
   public void testGetGroupMembershipTable() {
-    assertEquals(getDb().getGroupMembershipTable(), 
-        getDb().getTable("groupmembership"));
+    assertEquals(getDb().getGroupMembershipTable(), getDb().getTable(
+        "groupmembership"));
   }
 
   /**
    * @see org.melati.poem.Database#getGroupCapabilityTable()
    */
   public void testGetGroupCapabilityTable() {
-    assertEquals(getDb().getGroupCapabilityTable(), 
-        getDb().getTable("groupcapability"));
+    assertEquals(getDb().getGroupCapabilityTable(), getDb().getTable(
+        "groupcapability"));
   }
 
   /**
    * @see org.melati.poem.Database#getSettingTable()
    */
   public void testGetSettingTable() {
-    assertEquals(getDb().getSettingTable(), 
-        getDb().getTable("setting"));
+    assertEquals(getDb().getSettingTable(), getDb().getTable("setting"));
   }
 
   /**
@@ -525,7 +563,9 @@ public class PoemDatabaseTest extends PoemTestCase {
       // All ok
     }
     try {
-      getDb().sqlUpdate("INSERT INTO \"COLUMNINFO\" VALUES('Name','A human-readable name for the group',TRUE,-7,FALSE,60,20,1,22,2,NULL,NULL,NULL,15,1,'name',1,TRUE,0,0,0,FALSE,FALSE,TRUE,2)");
+      getDb()
+          .sqlUpdate(
+              "INSERT INTO \"COLUMNINFO\" VALUES('Name','A human-readable name for the group',TRUE,-7,FALSE,60,20,1,22,2,NULL,NULL,NULL,15,1,'name',1,TRUE,0,0,0,FALSE,FALSE,TRUE,2)");
       fail("should have blown up");
     } catch (ExecutingSQLPoemException e) {
       e = null;
@@ -537,8 +577,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#givesCapabilitySQL(User, Capability)
    */
   public void testGivesCapabilitySQL() {
-    assertTrue(getDb().givesCapabilitySQL(
-        (User)getDb().guestAccessToken(),
+    assertTrue(getDb().givesCapabilitySQL((User) getDb().guestAccessToken(),
         getDb().administerCapability()).indexOf("SELECT") == 0);
   }
 
@@ -557,7 +596,8 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testSetCanAdminister() {
     assertNull(getDb().getCanAdminister());
     getDb().setCanAdminister();
-    assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb().getCanAdminister());
+    assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb()
+        .getCanAdminister());
   }
 
   /**
@@ -585,7 +625,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#referencesTo(Persistent)
    */
   public void testReferencesToPersistent() {
-    Enumeration en = getDb().referencesTo(getDb().getUserTable().administratorUser());
+    Enumeration en = getDb().referencesTo(
+        getDb().getUserTable().administratorUser());
     int count = 0;
     while (en.hasMoreElements()) {
       en.nextElement();
@@ -593,7 +634,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     System.err.println(count);
     assertTrue(count == 1);
-    
+
   }
 
   /**
@@ -614,7 +655,10 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#quotedName(String)
    */
   public void testQuotedName() {
-    assertEquals(getDb().quotedName("user"), "\"USER\"");
+    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
+      assertEquals(getDb().quotedName("user"), "\"user\"");
+    else
+      assertEquals(getDb().quotedName("user"), "\"USER\"");
   }
 
   /**
@@ -642,6 +686,5 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertFalse(getDb().logCommits());
 
   }
-
 
 }

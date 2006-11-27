@@ -159,7 +159,7 @@ public abstract class Transactioned {
    * have one.
    * <p>
    * This will block until no other transactions have
-   * write locks on the object.before claiming the next write
+   * write locks on the object before claiming the next write
    * lock. Then it will block until none have read locks.
    * <p>
    * Finally it calls ensureValid(Transaction).

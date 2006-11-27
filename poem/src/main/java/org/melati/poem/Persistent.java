@@ -65,8 +65,8 @@ import org.melati.util.MelatiLocale;
  * this functionality might later be factored out into separate
  * types specifically for that purpose.
  *
- * @author William Chesters
- * @author jimw@paneris.org (Representing query constructs)
+ * @author WilliamC At paneris.org
+ * @author jimw At paneris.org (Representing query constructs)
  */
 
 public class Persistent extends Transactioned implements Cloneable, Persistable {
@@ -134,11 +134,17 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   // ***************
   // 
 
+  /**
+   * Throws an exception if this Persistent has a null troid.
+   */
   private void assertNotFloating() {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
   }
 
+  /**
+   * Throws an exception if this Persistent has a status of DELETED.
+   */
   private void assertNotDeleted() {
     if (status == DELETED)
       throw new RowDisappearedPoemException(this);
@@ -152,8 +158,14 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     // table will clear our dirty flag and set status
   }
 
+  /* JimW changed to false, from true "so that rollback would work", 
+   * however this appears to ensure that the cache is not used. 
+   * 
+   * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
+   * @todo investigate effect on rollback
+   */
   protected boolean upToDate(Transaction transaction) {
-    return false;
+    return true;
   }
 
   /**
@@ -1061,8 +1073,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *            <TT>null</TT> to mean `empty'.  If a column isn't mentioned,
    *            the default behaviour for the column is used.  (The default 
    *            is {@link StandardIntegrityFix#prevent}.)
-   *
-   * @todo Reassure list that issues around postWrite are fixed.
    */
 
   public void delete(Map integrityFixOfColumn) {
@@ -1112,6 +1122,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
   }
 
+  /**
+   * Delete this persistent.
+   */
   public final void delete() {
     delete(null);
   }

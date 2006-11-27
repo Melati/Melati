@@ -96,10 +96,19 @@ public final class PoemThread {
   /** keep track of the old thread names */
   private static Map threadOldNames = new HashMap();
   
-  /** this method does the processing to start a db session */
+  /**
+   *  Do the processing to start a db session.
+   *   
+   * @param accessToken The session's token
+   * @param transaction The PoemTransaction to run in
+   * @param task The PoemTask to run
+   * @throws PoemException if we are already in a Session
+   */
   static void beginSession(AccessToken accessToken,
                            PoemTransaction transaction,
                            PoemTask task) throws PoemException {
+    if(inSession())
+      throw new AlreadyInSessionPoemException();
     Integer token = allocatedSessionToken(accessToken, transaction, task);
     String oldname = Thread.currentThread().getName();
     Thread.currentThread().setName("" + (char)token.intValue());
@@ -112,7 +121,11 @@ public final class PoemThread {
     beginSession(accessToken, transaction, null);
   }
 
-  /** this method does the processing to end a db session */
+  /**
+   *  End a db session.
+   *  
+   *  @throws PoemnException if we are not in a SEssion
+   */
   static void endSession() throws PoemException {
     char tokenChar = Thread.currentThread().getName().charAt(0);
 
@@ -128,7 +141,11 @@ public final class PoemThread {
     }
   }
 
-  /** performs the specified task in the current thread session */
+  /**
+   * Perform the specified task in the current thread session.
+   * @throws PoemException if there is a problem starting or ending the session or 
+   *         if there is a problem running the task.
+   */
   static void inSession(PoemTask task, AccessToken accessToken,
                         PoemTransaction transaction) throws PoemException {
     beginSession(accessToken, transaction, task);

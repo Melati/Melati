@@ -682,7 +682,8 @@ public abstract class Database implements TransactionPool {
           transaction.close(false);
         }
       } finally {
-         lock.readLock().release();
+
+        lock.readLock().release();
       }
     }
   }
@@ -978,7 +979,7 @@ public abstract class Database implements TransactionPool {
    * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
    * that it bypasses the access control mechanism.  Furthermore, the cache
    * will be left out of sync with the database and must be cleared out
-   * (explicitly, manually) after the currently transaction has been committed
+   * (explicitly, manually) after the current transaction has been committed
    * or completed.
    *
    * @see Table#selection()

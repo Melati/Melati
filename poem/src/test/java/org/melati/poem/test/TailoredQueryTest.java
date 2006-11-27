@@ -240,7 +240,7 @@ public class TailoredQueryTest extends PoemTestCase {
     assertTrue(count == 1);
     System.err.println(q);
     assertTrue(q.toString().indexOf("SELECT") > 0 && 
-        q.toString().indexOf("USER") > 0 );
+        q.toString().toUpperCase().indexOf("USER") > 0 );
   }
 
 }

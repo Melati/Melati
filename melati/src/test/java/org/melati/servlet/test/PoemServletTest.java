@@ -11,7 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.melati.poem.test.PoemTestCase;
+import junit.framework.TestCase;
 
 import com.mockobjects.dynamic.Mock;
 import com.mockobjects.dynamic.OrderedMock;
@@ -20,7 +20,7 @@ import com.mockobjects.dynamic.OrderedMock;
  * @author timp
  *
  */
-public class PoemServletTest extends PoemTestCase {
+public class PoemServletTest extends TestCase {
 
   /**
    * Constructor for PoemServletTest.
@@ -124,7 +124,6 @@ public class PoemServletTest extends PoemTestCase {
     mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
     
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
@@ -133,6 +132,7 @@ public class PoemServletTest extends PoemTestCase {
     // melati.establishCharSets
     mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
     mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
+    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
     mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
     mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 

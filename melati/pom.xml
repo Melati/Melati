@@ -180,10 +180,10 @@
       <includes>
        <include>**/*Test.java</include>
       </includes>
-      <excludes>
-       <!--exclude>**/PoemDatabaseTest.java</exclude-->
+      <!--excludes>
+       <exclude>**/PoemDatabaseTest.java</exclude>
        <exclude>**/PoemServletTest.java</exclude>
-      </excludes>
+      </excludes-->
      </configuration>
     </plugin>
      <plugin>

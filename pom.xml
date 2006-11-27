@@ -225,6 +225,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>colinr</id>
       <email>colinr AT paneris.org</email>
       <organization>PanEris</organization>
+      <organizationUrl>http://paneris.org/</organizationUrl>
       <roles>
         <role>Graphics Designer</role>
       </roles>
@@ -271,6 +272,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>karlz</id>
       <email>karlz AT paneris.org</email>
       <organization>1969 Communications Inc</organization>
+      <organizationUrl>http://www.1969.ws/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -282,6 +284,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <id>samuelg</id>
       <email>samuelg AT paneris.org</email>
       <organization>1969 Communications Inc</organization>
+      <organizationUrl>http://www.1969.ws/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -316,7 +319,8 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       <name>Lane Sharman</name>
       <id>lanes</id>
       <email>lanes AT paneris.org</email>
-      <organization>PanEris</organization>
+      <organization>Open Doors</organization>
+      <organizationUrl>http://www.opendoors.com/</organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>

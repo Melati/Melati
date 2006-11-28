@@ -45,7 +45,6 @@ package org.melati.util;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Vector;
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
 
 /**
  * A tree of <code>DefaultMutableTreeNode</code>s, 
@@ -61,7 +60,7 @@ import java.util.NoSuchElementException;
  *
  * @see DefaultMutableTreeNode
  *
- * @version 1.00 04/10/2000
+ * @since 04/10/2000
  * @author Myles Chippendale
  **/
 
@@ -72,14 +71,8 @@ public class ChildrenDrivenMutableTree {
      * An enumeration that is always empty. This is used when an enumeration
      * of a leaf node's children is requested.
      */
-    // FIXME Why not just = DefaultMutableTreeNode.EMPTY_ENUMERATION ?
-    public static final Enumeration EMPTY_ENUMERATION
-        = new Enumeration() {
-          public boolean hasMoreElements() { return false; }
-          public Object nextElement() {
-             throw new NoSuchElementException("No more elements");
-       }
-    };
+    public static final Enumeration EMPTY_ENUMERATION = 
+      DefaultMutableTreeNode.EMPTY_ENUMERATION; 
 
     /** root node */
     protected DefaultMutableTreeNode root;

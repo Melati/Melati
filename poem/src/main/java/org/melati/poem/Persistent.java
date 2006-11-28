@@ -49,6 +49,7 @@ import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Map;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import org.melati.util.Transaction;
 import org.melati.util.Transactioned;
@@ -1117,9 +1118,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       throw new DeletionIntegrityPoemException(this, refs);
 
     delete_unsafe();
-    // This requires source=1.4 in build.xml
-    // assert status == DELETED : "Status changed by delete_unsafe()";
-
   }
 
   /**
@@ -1298,6 +1296,13 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     it.status = NONEXISTENT;
 
     return it;
+  }
+
+  public String dump() {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream ps = new PrintStream(baos);
+    dump(ps);
+    return baos.toString();
   }
 
   public void dump(PrintStream p) {

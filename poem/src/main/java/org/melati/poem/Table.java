@@ -48,6 +48,7 @@ package org.melati.poem;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Hashtable;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
@@ -829,6 +830,7 @@ public class Table implements Selectable {
   }
 
   private void insert(PoemTransaction transaction, Persistent persistent) {
+    
     PreparedStatement insert =
         ((TransactionStuff)transactionStuffs.get(transaction.index)).insert;
     synchronized (insert) {
@@ -844,7 +846,6 @@ public class Table implements Selectable {
       if (database.logSQL())
         database.log(new SQLLogEvent(insert.toString()));
     }
-
     persistent.postInsert();
   }
 
@@ -917,6 +918,10 @@ public class Table implements Selectable {
         }
       };
 
+  /**
+   * Empty table cache.
+   * Candidate for being made public.
+   */
   void uncacheContents() {
     cache.iterate(invalidator);
     serial.invalidate();
@@ -2093,15 +2098,24 @@ public class Table implements Selectable {
   }
 
   /**
-   * Print information about the structure of the database to stdout.
+   * Print information about the structure of the table to stdout.
    */
   public void dump() {
-    System.out.println("=== table " + name +
-                       " (tableinfo id " + tableInfoID() + ")");
-    for (int c = 0; c < columns.length; ++c)
-      columns[c].dump();
+    dump(System.out);
   }
 
+  /**
+   * Print information to PrintStream. 
+   * 
+   * @param ps PrintStream to dump to
+   */
+  public void dump(PrintStream ps) {
+    ps.println("=== table " + name +
+        " (tableinfo id " + tableInfoID() + ")");
+    for (int c = 0; c < columns.length; ++c)
+      columns[c].dump(ps);
+  }
+  
   /**
    * A mechanism for caching a selection of records.
    * 

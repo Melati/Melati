@@ -45,6 +45,7 @@
 
 package org.melati.poem;
 
+import java.io.PrintStream;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -393,10 +394,27 @@ public abstract class Column implements FieldAttributes {
       + ")";
   }
 
+  /**
+   * Print information about the structure of the Column to stdout.
+   */
   public void dump() {
-    System.out.println(toString());
+    dump(System.out);
   }
 
+  /**
+   * Print information to PrintStream. 
+   * 
+   * @param ps PrintStream to dump to
+   */
+  public void dump(PrintStream ps) {
+    ps.println(toString());
+  }
+
+  /**
+   * 
+   * @param raw An object with an equivalent SQL type
+   * @return the SQL euals clause that would capture equality with the raw
+   */
   public String eqClause(Object raw) {
     return fullQuotedName()
       + (raw == null ? " IS NULL" : " = " + type.quotedRaw(raw));

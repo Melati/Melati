@@ -6,9 +6,7 @@ package org.melati.poem.test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.melati.poem.Persistent;
 import org.melati.poem.Table;
-import org.melati.poem.User;
 
 
 /**

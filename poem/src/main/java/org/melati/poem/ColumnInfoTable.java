@@ -113,17 +113,6 @@ public class ColumnInfoTable extends ColumnInfoTableBase {
 
   // programmer's domain-specific code here
 
- /**
-  * Constructor.
-  * @todo check if this is used
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @throws PoemException    if anything goes wrong
-  */
-  public ColumnInfoTable(Database database, String name) throws PoemException {
-    super(database, name);
-  }
-
   /**
    * Apply default protection to this table 
    * if it has not already been protected.

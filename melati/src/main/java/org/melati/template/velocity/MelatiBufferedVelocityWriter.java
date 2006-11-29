@@ -103,13 +103,4 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     buffer.reset();
   }
 
-  /**
-   * @deprecated Use {@link org.melati.util.MelatiStringWriter#toString()}.
-   * @todo Fix or delete as this uses the default platform charset to decode.
-   */
-  public String asString() throws IOException {
-    out.flush();
-    return buffer.toString();
-  }
-
 }

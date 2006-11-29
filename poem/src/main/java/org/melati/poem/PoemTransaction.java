@@ -57,7 +57,7 @@ public class PoemTransaction extends Transaction {
   private Connection connection;
 
   PoemTransaction(Database database, Connection connection, int index) {
-    super(index);
+    super(database, index);
     this.database = database;
     this.connection = connection;
     try {

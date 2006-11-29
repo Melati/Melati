@@ -77,23 +77,20 @@ public abstract class Transaction {
   private int touchedCapacityMax = 1000;
   private Vector touched = new Vector();
 
-  /**
-   * The maximum number of Transactions.
-   *FIXME this should be TransactionPool.transactionsMax()
-   */
-  public static final int MAX_INDEX = 30;
+  private TransactionPool transactionPool;
 
   /**
    * Constructor.
    * 
-   * @param index 
-   * @todo figure out how to get a pointer to TransactionPool
+   * @param transactionPoolP the pool this transaction belongs to 
+   * @param indexP the key for this Transaction 
    */
-  public Transaction(int index) {
-    if (index > MAX_INDEX)
+  public Transaction(TransactionPool transactionPoolP, int indexP) {
+    this.transactionPool = transactionPoolP;
+    if (indexP > transactionPool.transactionsMax())
       throw new TransactionIndexTooLargeException();
 
-    this.index = index;
+    this.index = indexP;
     mask = 1 << index;
     negMask = ~mask;
   }
@@ -103,7 +100,7 @@ public abstract class Transaction {
 
   /**
    * The thread calling block will have to wait
-   * until (another thread) calls finish and calls notifyAll
+   * until (another thread) calls finish and calls notifyAll.
    */
   synchronized void block(Transaction blockee) {
     blockees.addElement(blockee);

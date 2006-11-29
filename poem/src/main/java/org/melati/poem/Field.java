@@ -185,6 +185,11 @@ public class Field implements FieldAttributes, Cloneable {
                                         attrs, attrs.getName(), description));
   }
 
+  /**
+   * Might be a bit big.
+   * 
+   * @return All possible values.
+   */
   public Enumeration getPossibilities() {
     final Field _this = this;
     return
@@ -196,9 +201,10 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   /**
+   * Return a limited enumeration of possibilities.
+   * 
    * A bit of a hack?
    */
-
   public Enumeration getFirst1000Possibilities() {
     return new LimitedEnumeration(getPossibilities(), 1000);
   }
@@ -209,11 +215,33 @@ public class Field implements FieldAttributes, Cloneable {
     return raw == null ? other.raw == null : raw.equals(other.raw);
   }
 
+  /**
+   * Dump to a PrintStream.
+   * 
+   * @param p the PRintStream to write to
+   */
   public void dump(PrintStream p) {
-    p.print(getName() + ": " + getCookedString(MelatiLocale.HERE,
-                                               DateFormat.MEDIUM));
+    p.print(toString());
+  }
+  
+  /**
+   * Dump to a string.
+   * 
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    return getName() + ": " + getCookedString(MelatiLocale.HERE,
+                                               DateFormat.MEDIUM);
   }
 
+  /**
+   * A convenience method to create a Field.
+   * 
+   * @param value the Object to set the value to 
+   * @param name the name of the new Field, also used as description
+   * @param type the PoemType of the Field
+   * @return a newly created Field
+   */
   public static Field basic(Object value, String name, PoemType type) {
     return
         new Field(value,
@@ -221,19 +249,47 @@ public class Field implements FieldAttributes, Cloneable {
                                           false, true, true));
   }
 
+  /**
+   * A convenience method to create nullable String Field.
+   * 
+   * @param value the String to set the value to 
+   * @param name the name of the new Field, also used as description
+   * @return a newly created nullable Field of type StringPoemType
+   */
   public static Field string(String value, String name) {
     return basic(value, name, StringPoemType.nullableInstance);
   }
 
+  /**
+   * A convenience method to create nullable Integer Field.
+   * 
+   * @param value the Integer to set the value to 
+   * @param name the name of the new Field, also used as description
+   * @return a newly created nullable Field of type IntegerPoemType
+   */
   public static Field integer(Integer value, String name) {
     return basic(value, name, IntegerPoemType.nullableInstance);
   }
 
+  /**
+   * A convenience method to create a populated, nullable, Reference Field.
+   * 
+   * @param value the Persistent to set the value to 
+   * @param name the name of the new Field, also used as description
+   * @return a newly created nullable Field of type ReferencePoemType
+   */
   public static Field reference(Persistent value, String name) {
     return basic(value.troid(), name,
                  new ReferencePoemType(value.getTable(), true));
   }
 
+  /**
+   * A convenience method to create new unpopulated, nullable Reference Field.
+   * 
+   * @param table the Table to refer to  
+   * @param name the name of the new Field, also used as description
+   * @return a newly created nullable Field of type ReferencePoemType
+   */
   public static Field reference(Table table, String name) {
     return basic(null, name, new ReferencePoemType(table, true));
   }

@@ -66,76 +66,106 @@ import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
 
 /**
- * Base class to use Poem with Servlets. <p> Simply extend this class and
- * override the doPoemRequest method. If you are going to use a template engine
- * look at TemplateServlet. <UL> <LI> <A NAME=pathinfoscan>By default, the path
- * info of the URL by which the servlet was called up is examined to determine
- * the `logical name' of the Melati POEM database to which the servlet should
- * connect, and possibly a table within that database, an object within that
- * table, and a `method' to apply to that object.</A> The URL is expected to
- * take one of the following forms: <BLOCKQUOTE><TT> http://<I>h</I>/<I>s</I>/<I>db</I>/
- * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>meth</I> <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>meth</I>
- * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>
- * <BR>http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>/<I>other</I>
+ * Base class to use Poem with Servlets.
+ * <p>
+ * Simply extend this class and override the doPoemRequest method. If you are
+ * going to use a template engine look at TemplateServlet.
+ * <UL>
+ * <LI> <A NAME=pathinfoscan>By default, the path info of the URL by which the
+ * servlet was called up is examined to determine the `logical name' of the
+ * Melati POEM database to which the servlet should connect, and possibly a
+ * table within that database, an object within that table, and a `method' to
+ * apply to that object.</A> The URL is expected to take one of the following
+ * forms: <BLOCKQUOTE><TT> http://<I>h</I>/<I>s</I>/<I>db</I>/ <BR>
+ * http://<I>h</I>/<I>s</I>/<I>db</I>/<I>meth</I> <BR>
+ * http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>meth</I> <BR>
+ * http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>
+ * <BR>
+ * http://<I>h</I>/<I>s</I>/<I>db</I>/<I>tbl</I>/<I>troid</I>/<I>meth</I>/<I>other</I>
  * </TT></BLOCKQUOTE> and the following components are broken out of the path
  * info and passed to your application code in the <TT>melati</TT> parameter
  * (which is also copied automatically into <TT>context</TT> so that it is
- * easily available in templates): <TABLE> <TR> <TD><TT><I>h</I></TT></TD>
- * <TD>host name, such as <TT>www.melati.org</TT></TD> </TR> <TR> <TD><TT><I>s</I></TT></TD>
+ * easily available in templates): <TABLE>
+ * <TR>
+ * <TD><TT><I>h</I></TT></TD>
+ * <TD>host name, such as <TT>www.melati.org</TT></TD>
+ * </TR>
+ * <TR>
+ * <TD><TT><I>s</I></TT></TD>
  * <TD> servlet-determining part, such as <TT>melati/org.melati.admin.Admin</TT>
- * </TD> </TR> <TR> <TD><TT><I>db</I></TT></TD> <TD> The first element of
- * the path info is taken to be the `logical name' of the Melati POEM database
- * to which the servlet should connect. It is mapped onto JDBC connection
- * details via the config file <TT>org.melati.LogicalDatabase.properties</TT>,
+ * </TD>
+ * </TR>
+ * <TR>
+ * <TD><TT><I>db</I></TT></TD>
+ * <TD> The first element of the path info is taken to be the `logical name' of
+ * the Melati POEM database to which the servlet should connect. It is mapped
+ * onto JDBC connection details via the config file <TT>org.melati.LogicalDatabase.properties</TT>,
  * of which there is an example in the source tree. This is automatically made
- * available in templates as <TT>$melati.Database</TT>. </TD> <TR> <TD><TT><I>tbl</I></TT></TD>
+ * available in templates as <TT>$melati.Database</TT>. </TD>
+ * <TR>
+ * <TD><TT><I>tbl</I></TT></TD>
  * <TD> The DBMS name of a table with which the servlet is concerned: perhaps it
  * is meant to list its contents. This is automatically made available in
- * templates as <TT>$melati.Table</TT>. </TD> </TR> <TR> <TD><TT><I>troid</I></TT></TD>
+ * templates as <TT>$melati.Table</TT>. </TD>
+ * </TR>
+ * <TR>
+ * <TD><TT><I>troid</I></TT></TD>
  * <TD> The POEM `troid' (table row identifier, or row-unique integer) of a row
  * within <TT><I>tbl</I></TT> with which the servlet is concerned: perhaps it
  * is meant to display it. This is automatically made available in templates as
- * <TT>$melati.Object</TT>. </TD> </TR> <TR> <TD><TT><I>meth</I></TT></TD>
+ * <TT>$melati.Object</TT>. </TD>
+ * </TR>
+ * <TR>
+ * <TD><TT><I>meth</I></TT></TD>
  * <TD> A freeform string telling your servlet what it is meant to do. This is
  * automatically made available in templates as <TT>$melati.Method</TT>.
- * </TD> </TR> <TR> <TD><TT><I>other</I></TT></TD> <TD> Any other
- * information you wish to put in the pathinfo. This is useful, for instance, if
- * you wish to specify the &quot;filename&quot; of your servlet. For instance,
- * if you call <TT>/db/myfiles/0/Download/afile.html</TT> and return a stream
- * with a content-type of <tt>application/octet-stream</tt> most browsers will
- * prompt you to save the &quot;file&quot; as <tt>afile.html</tt> </TD> </TR>
- * </TABLE> <LI> You can change the way these things are determined by
- * overriding <TT>poemContext</TT>. <LI> Any POEM database operations you
- * perform will be done with the access rights of the POEM <TT>User</TT>
- * associated with the servlet session. If there is no established servlet
- * session, the current user will be set to the default `guest' user. If this
- * method terminates with an <TT>AccessPoemException</TT>, indicating that
- * you have attempted something which you aren't entitled to do, the user will
- * be prompted to log in, and the original request will be retried. The precise
- * mechanism used for login is <A HREF=#loginmechanism>configurable</A>. <LI>
- * No changes made to the database by other concurrently executing threads will
- * be visible to you (in the sense that once you have seen a particular version
- * of a record, you will always subsequently see the same one), and your own
- * changes will not be made permanent until this method completes successfully
- * or you perform an explicit <TT>PoemThread.commit()</TT>. If it terminates
- * with an exception or you issue a <TT>PoemThread.rollback()</TT>, your
- * changes will be lost. <LI> <A NAME=loginmechanism>It's possible to configure
- * how your <TT>PoemServlet</TT>-derived servlets implement user login.</A>
- * If the properties file <TT><A HREF=../org.melati.MelatiServlet.properties>
+ * </TD>
+ * </TR>
+ * <TR>
+ * <TD><TT><I>other</I></TT></TD>
+ * <TD> Any other information you wish to put in the pathinfo. This is useful,
+ * for instance, if you wish to specify the &quot;filename&quot; of your
+ * servlet. For instance, if you call <TT>/db/myfiles/0/Download/afile.html</TT>
+ * and return a stream with a content-type of <tt>application/octet-stream</tt>
+ * most browsers will prompt you to save the &quot;file&quot; as
+ * <tt>afile.html</tt> </TD>
+ * </TR>
+ * </TABLE>
+ * <LI> You can change the way these things are determined by overriding <TT>poemContext</TT>.
+ * <LI> Any POEM database operations you perform will be done with the access
+ * rights of the POEM <TT>User</TT> associated with the servlet session. If
+ * there is no established servlet session, the current user will be set to the
+ * default `guest' user. If this method terminates with an <TT>AccessPoemException</TT>,
+ * indicating that you have attempted something which you aren't entitled to do,
+ * the user will be prompted to log in, and the original request will be
+ * retried. The precise mechanism used for login is <A
+ * HREF=#loginmechanism>configurable</A>.
+ * <LI> No changes made to the database by other concurrently executing threads
+ * will be visible to you (in the sense that once you have seen a particular
+ * version of a record, you will always subsequently see the same one), and your
+ * own changes will not be made permanent until this method completes
+ * successfully or you perform an explicit <TT>PoemThread.commit()</TT>. If
+ * it terminates with an exception or you issue a <TT>PoemThread.rollback()</TT>,
+ * your changes will be lost.
+ * <LI> <A NAME=loginmechanism>It's possible to configure how your <TT>PoemServlet</TT>-derived
+ * servlets implement user login.</A> If the properties file <TT><A
+ * HREF=../org.melati.MelatiServlet.properties>
  * org.melati.MelatiServlet.properties</A></TT> exists and contains a setting
  * <TT>org.melati.MelatiServlet.accessHandler=<I>foo</I></TT>, then <TT><I>foo</I></TT>
  * is taken to be the name of a class implementing the <TT>AccessHandler</TT>
  * interface. The default is <TT>HttpSessionAccessHandler</TT>, which stores
  * the user id in the servlet session, and redirects to the <TT>Login</TT>
- * servlet to throw up templated login screens. If instead you specify <TT>HttpBasicAuthenticationAccessHandler</TT>,
- * the user id is maintained using HTTP Basic Authentication (RFC2068 �11.1,
- * the mechanism commonly used to password-protect static pages), and the task
- * of popping up login dialogs is delegated to the browser. The advantage of the
+ * servlet to throw up templated login screens. If instead you specify 
+ * <TT>HttpBasicAuthenticationAccessHandler</TT>, the user id is maintained 
+ * using HTTP Basic Authentication (RFC2068 11.1, the
+ * mechanism commonly used to password-protect static pages), and the task of
+ * popping up login dialogs is delegated to the browser. The advantage of the
  * former method is that the user gets a more informative interface which is
  * more under the designer's control; the advantage of the latter method is that
  * no cookies or URL rewriting are required---for instance it is probably more
  * appropriate for WAP phones. Both methods involve sending the user's password
- * in plain text across the public network. </UL>
+ * in plain text across the public network.
+ * </UL>
  * 
  * @see org.melati.poem.Database#guestAccessToken
  * @see org.melati.poem.PoemThread#commit
@@ -148,21 +178,17 @@ import org.melati.util.StringUtils;
  */
 
 public abstract class PoemServlet extends ConfigServlet {
-  // FIXME this does not take into account different dbs
-  protected static String poemAdministratorsName = "notDefined";
-  protected static String poemAdministratorsEmail = "notDefined";
 
   /**
    * Overriden in TemplateServlet.
    * 
    * @param melati
-   *        org.melati.Melati A source of information about the Melati database
-   *        context (database, table, object) and utility objects such as error
-   *        handlers.
+   *          org.melati.Melati A source of information about the Melati
+   *          database context (database, table, object) and utility objects
+   *          such as error handlers.
    */
 
-  protected void prePoemSession(Melati melati)
-      throws Exception {
+  protected void prePoemSession(Melati melati) throws Exception {
   }
 
   public void destroy() {
@@ -205,17 +231,17 @@ public abstract class PoemServlet extends ConfigServlet {
 
     melati.getDatabase().inSession(AccessToken.root, new PoemTask() {
       public void run() {
+        String poemAdministratorsName = null;
+        String poemAdministratorsEmail = null;
         melati.getConfig().getAccessHandler().establishUser(melati);
         melati.loadTableAndObject();
         try {
           try {
             if (poemAdministratorsName == null) {
-              poemAdministratorsName = melati.getDatabase().getUserTable()
-                  .administratorUser().getName();
+              poemAdministratorsName = melati.getDatabase().administratorUser().getName();
               Field emailField = null;
               try {
-                emailField = melati.getDatabase().getUserTable()
-                    .administratorUser().getField("email");
+                emailField = melati.getDatabase().administratorUser().getField("email");
                 poemAdministratorsEmail = emailField.toString();
               } catch (NoSuchColumnPoemException e) {
                 poemAdministratorsEmail = "noEmailDefined@nobody.com";
@@ -271,9 +297,9 @@ public abstract class PoemServlet extends ConfigServlet {
    * Default method to handle an exception without a template engine.
    * 
    * @param melati
-   *        the Melati
+   *          the Melati
    * @param exception
-   *        the exception to handle
+   *          the exception to handle
    */
   protected void handleException(Melati melati, Exception exception)
       throws Exception {
@@ -298,8 +324,7 @@ public abstract class PoemServlet extends ConfigServlet {
     }
   }
 
-  protected void dbBusyMessage(Melati melati)
-      throws IOException {
+  protected void dbBusyMessage(Melati melati) throws IOException {
     melati.getResponse().setContentType("text/html");
     MelatiWriter mw = melati.getWriter();
     // get rid of anything that has been written so far
@@ -312,8 +337,7 @@ public abstract class PoemServlet extends ConfigServlet {
     melati.write();
   }
 
-  protected PoemContext poemContext(Melati melati)
-      throws PathInfoException {
+  protected PoemContext poemContext(Melati melati) throws PathInfoException {
 
     PoemContext it = new PoemContext();
 
@@ -321,10 +345,9 @@ public abstract class PoemServlet extends ConfigServlet {
     String[] parts;
     if (initParameterPathInfo != null)
       parts = StringUtils.split(initParameterPathInfo, '/');
-    else 
+    else
       parts = melati.getPathInfoParts();
 
-    
     // set it to something in order to provoke meaningful error
     it.setLogicalDatabase("");
     if (parts.length > 0) {
@@ -361,12 +384,9 @@ public abstract class PoemServlet extends ConfigServlet {
    * This is provided for convenience, so you don't have to specify the
    * logicaldatabase on the pathinfo. This is a very good idea when writing your
    * applications where you are typically only accessing a single database.
-   * Simply override poemContext(Melati melati) thus: 
-   * <PRE> 
-   * protected PoemContext poemContext(Melati melati) throws PathInfoException { 
-   * return poemContextWithLDB(melati,"<your logical database name>"); 
-   * } 
-   * </PRE>
+   * Simply override poemContext(Melati melati) thus: <PRE> protected
+   * PoemContext poemContext(Melati melati) throws PathInfoException { return
+   * poemContextWithLDB(melati,"<your logical database name>"); } </PRE>
    */
   protected PoemContext poemContextWithLDB(Melati melati, String logicalDatabase)
       throws PathInfoException {
@@ -375,7 +395,7 @@ public abstract class PoemServlet extends ConfigServlet {
     String[] parts;
     if (initParameterPathInfo != null)
       parts = StringUtils.split(initParameterPathInfo, '/');
-    else 
+    else
       parts = melati.getPathInfoParts();
 
     // set it to something in order to provoke meaningful error
@@ -416,7 +436,6 @@ public abstract class PoemServlet extends ConfigServlet {
    * 
    * @param melati
    */
-  protected abstract void doPoemRequest(Melati melati)
-      throws Exception;
+  protected abstract void doPoemRequest(Melati melati) throws Exception;
 
 }

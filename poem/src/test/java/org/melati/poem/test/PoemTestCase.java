@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 public abstract class PoemTestCase extends TestCase implements Test {
 
   /**
-   * the name of the test case
+   * The name of the test case
    */
   private String fName;
 

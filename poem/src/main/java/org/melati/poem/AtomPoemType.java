@@ -96,11 +96,7 @@ public abstract class AtomPoemType extends BasePoemType {
   }
  
   protected String _sqlDefinition(Dbms dbms) {
-    try {
       return dbms.getSqlDefinition(sqlTypeName);
-    } catch (SQLException e) {
-      throw new SQLSeriousPoemException(e);
-    }
   }
 
   protected String _toString() {

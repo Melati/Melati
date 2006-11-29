@@ -125,7 +125,7 @@ public interface Dbms {
   * @param sqlTypeName the Melati internal type name
   * @return this dbms specific type keyword
   */
-  String getSqlDefinition(String sqlTypeName) throws SQLException;
+  String getSqlDefinition(String sqlTypeName);
 
   /**
    * Accomodate String / Text distinction.

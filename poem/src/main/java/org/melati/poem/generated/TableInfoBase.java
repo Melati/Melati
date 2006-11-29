@@ -1291,7 +1291,7 @@ public abstract class TableInfoBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Category</code> object reffered to.
+  * Retrieves the <code>Category</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  

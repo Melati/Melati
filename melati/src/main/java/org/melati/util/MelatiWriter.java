@@ -94,16 +94,4 @@ public abstract class MelatiWriter extends Writer {
     return new PrintWriter(out);
   }
 
-  /**
-   * Returns {@link #out}<code>.toString()</code>.
-   * <p>
-   * This does not meet the requirement for every type of {@link #out}.
-   * i.e. to return the characters written.
-   *
-   * @deprecated Arrange to use {@link MelatiStringWriter#toString()}.
-   */
-  public String asString() throws IOException {
-    return out.toString();
-  }
- 
 }

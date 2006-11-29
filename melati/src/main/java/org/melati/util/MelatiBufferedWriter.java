@@ -80,11 +80,4 @@ public class MelatiBufferedWriter extends MelatiWriter {
     super.close();
   }
   
-  /**
-   * @deprecated Arrange to use {@link MelatiStringWriter#toString()}.
-   */
-  public String asString() throws IOException {
-    return bufferedOutput.toString();
-  }
-
 }

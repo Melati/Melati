@@ -471,10 +471,10 @@ public class Melati {
 
   /**
    * Get the URL for the JavascriptLibrary.
-   *
+   * Convenience method.
+   * 
    * @return - the URL for the JavascriptLibrary
    * @see org.melati.MelatiConfig#getJavascriptLibraryURL
-   * @deprecated use melati.getConfig.getJavascriptLibraryURL()
    */
   public String getJavascriptLibraryURL() {
     return config.getJavascriptLibraryURL();
@@ -624,16 +624,13 @@ public class Melati {
 
   /**
    * Get a HTMLMarkupLanguage.
+   * Retained for backward compatibility as there are a lot 
+   * of uses in templates.
    *
    * @return - a HTMLMarkupLanguage
-   * @deprecated but we have a lot of them about
    */
   public HTMLMarkupLanguage getHTMLMarkupLanguage() {
-    if (ml == null) 
-      ml = new HTMLMarkupLanguage(this,
-                                  config.getTempletLoader(),
-                                  getMelatiLocale());
-    return (HTMLMarkupLanguage)ml;
+    return (HTMLMarkupLanguage)getMarkupLanguage();
   }
 
   /**

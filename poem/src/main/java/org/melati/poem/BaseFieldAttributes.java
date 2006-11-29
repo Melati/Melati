@@ -50,7 +50,7 @@ import org.melati.util.StringUtils;
 /**
  * Base class of all {@link Field}s.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 public class BaseFieldAttributes implements FieldAttributes {
@@ -65,6 +65,20 @@ public class BaseFieldAttributes implements FieldAttributes {
   private boolean userEditable;
   private boolean userCreateable;
 
+  /**
+   * Full Constructor.
+   * 
+   * @param name simple name
+   * @param displayName human readable name
+   * @param description a short description 
+   * @param type the PoemType of the new Field
+   * @param width how wide input widgets should be 
+   * @param height how high input widgets should be 
+   * @param renderInfo the name of a special templet to render this field
+   * @param indexed whether the Field is indexed.
+   * @param userEditable whether users should be able to modify the value
+   * @param userCreateable whether users should be allowed to create new instances
+   */
   public BaseFieldAttributes(
       String name, String displayName, String description, PoemType type,
       int width, int height, String renderInfo, boolean indexed,
@@ -109,7 +123,8 @@ public class BaseFieldAttributes implements FieldAttributes {
          other.getUserCreateable());
   }
 
-  /* allow the description to vary as well
+  /** 
+   * Allow the description to vary as well
    */
   public BaseFieldAttributes(FieldAttributes other, String name, 
                              String description) {

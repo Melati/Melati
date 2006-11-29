@@ -52,12 +52,18 @@ import org.melati.util.MelatiLocale;
 /**
  * A data type that is a reference to a {@link Persistent} object.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  */
 public class ReferencePoemType extends IntegerPoemType {
 
   private Table targetTable;
 
+  /**
+   * Constructor.
+   * 
+   * @param targetTable the Table the type refers to 
+   * @param nullable whether this type may contain null values
+   */
   public ReferencePoemType(Table targetTable, boolean nullable) {
     super(nullable);
     if (targetTable == null)

@@ -66,12 +66,6 @@ public class JSStaticTree extends Tree {
     private String leafImage;
     private String imageBaseRef;
 
-    /**
-     * @deprecated Use {@link #JSStaticTree(Tree, String)}
-     */
-    public JSStaticTree(Tree tree) {
-      this(tree, "/melati-static/admin");
-    }
 
     public JSStaticTree(Tree tree, String staticURL) {
         super(tree.getTreeableRoots(), tree.getDepth());

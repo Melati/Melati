@@ -117,7 +117,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   *   @deprecated Servlet 2.3
+   *   @deprecated Servlet API 2.3
    **/ 
   public boolean isRequestedSessionIdFromUrl() {
     return HttpServletRequestCompat.isRequestedSessionIdFromUrl(peer);
@@ -185,7 +185,7 @@ public class DelegatedHttpServletRequest implements HttpServletRequest {
   }
 
   /**
-   * @deprecated in Servlet API 2.2
+   * @deprecated Servlet API 2.2
    **/
   public boolean isRequestedSessionIdFromCookie() {
     return peer.isRequestedSessionIdFromCookie();

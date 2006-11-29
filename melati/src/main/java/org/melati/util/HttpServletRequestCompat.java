@@ -191,9 +191,8 @@ public final class HttpServletRequestCompat {
   }
 
   /**
-   * @deprecated in Servlet API 2.2
+   * @deprecated Servlet API 2.2
    */
-
   public static boolean isRequestedSessionIdFromCookie(HttpServletRequest it) {
     return it.isRequestedSessionIdFromCookie();
   }
@@ -412,9 +411,8 @@ public final class HttpServletRequestCompat {
   }
 
   /**
-   * Deprecated in Servlet API 2.3
+   * @deprecated Servlet API 2.3
    */
-
   public static boolean isRequestedSessionIdFromUrl(HttpServletRequest it) {
     return ((Boolean) invoke(isRequestedSessionIdFromUrl, it, noargs))
             .booleanValue();
@@ -422,10 +420,10 @@ public final class HttpServletRequestCompat {
   }
 
   /**
-   * Deprecated in Servlet API 2.1 Throws <TT>MissingMethodError</TT> when run
+   * Throws <TT>MissingMethodError</TT> when run
    * against 2.3 API.
+   * @deprecated Servlet API 2.1 
    */
-
   public static String getRealPath(HttpServletRequest it, String arg) {
     return (String) invoke(getRealPath, it, new Object[] { arg });
     // return it.getRealPath(rg);

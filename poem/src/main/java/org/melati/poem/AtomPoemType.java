@@ -38,14 +38,13 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
 package org.melati.poem;
 
-import java.sql.SQLException;
 import org.melati.util.MelatiLocale;
 import org.melati.poem.dbms.Dbms;
 

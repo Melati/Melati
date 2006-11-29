@@ -70,18 +70,6 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
   
-  /**
-   * Not sure if this is used now.
-   * <p>
-   * It was used like a <code>StringWriter</code> which is pointless.
-   * If it is used to convert characters to bytes (and not back again)
-   * then that might make sense.
-   *
-   * @todo Check if used and deprecate/delete.
-   */
-  public MelatiBufferedVelocityWriter(String encoding) throws IOException {
-    this(new ByteArrayOutputStream(), encoding);
-  }
 
   public void close() throws IOException {
     super.close();

@@ -448,7 +448,8 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
-   * @todo check if used outside Melati, not use inside.
+   * Not used in Melati or PanEris tree.
+   * 
    * @param raw value 
    * @return an Enumeration of Integers 
    */

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -100,9 +100,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     this.troid = troid;
   }
 
-  public Persistent(Table table) {
-    this.table = table;
-  }
 
   public Persistent() {
   }
@@ -151,6 +148,11 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       throw new RowDisappearedPoemException(this);
   }
 
+  /**
+   * Called if not uptodate ie never.
+   * 
+   * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
+   */
   protected void load(Transaction transaction) {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
@@ -159,7 +161,12 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     // table will clear our dirty flag and set status
   }
 
-  /* JimW changed to false, from true "so that rollback would work", 
+  /**
+   * Whether we are up to date with respect to current Transaction.
+   * <p>
+   * Always returns true.
+   * <p>
+   * JimW changed to false, from true "so that rollback would work", 
    * however this appears to ensure that the cache is not used. 
    * 
    * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
@@ -197,7 +204,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * This is just to make this method available to <TT>Table</TT>.
    */
-
   protected void readLock(Transaction transaction) {
     if (troid != null) {
       super.readLock(transaction);
@@ -239,7 +245,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
  /**
-  * The table from which the object comes.
+  * The Table from which the object comes, 
+  * complete with metadata.
   */
   public final Table getTable() {
     return table;
@@ -321,6 +328,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     writeLock(sessionToken.transaction);
   }
 
+  /**
+   * 
+   */
   public void existenceLock() {
     existenceLock(PoemThread.sessionToken());
   }
@@ -557,6 +567,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * this stale token stuff!
    *
    * @return the capability the user needs to select this record
+   * @todo document use-case or delete
    */
   protected Capability getCanSelect() {
     Column c = getTable().canSelectColumn();
@@ -867,12 +878,16 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
   /**
    * A string representation of the `true value' of one of the object's fields.
+   * For example the return value for the user table's category field would be 
+   * User. 
    * The value returned is relative to the transaction associated with the
    * calling thread, as set up by <TT>Database.inSession</TT>: see the remarks
    * made about <TT>getRaw</TT>.
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
+   * @param locale      A MelatiLocale eg MelatiLocale.HERE
+   * @param style       A date format
    *
    * @return The string the underlying RDBMS would display if asked
    *         to show the field's value, except that reference fields are
@@ -970,8 +985,13 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return getTable().getColumn(name).asField(this);
   }
 
+  /**
+   * Create Fields from Columns. 
+   * 
+   * @param columns an Enumeration of Columns
+   * @return an Enumeration of Fields 
+   */
   public Enumeration fieldsOfColumns(Enumeration columns) {
-    // return new FieldsEnumeration(this, columns);
     final Persistent _this = this;
     return
         new MappedEnumeration(columns) {
@@ -1029,22 +1049,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
-  public void delete_unsafe()
-      throws AccessPoemException {
-    assertNotFloating();
-    SessionToken sessionToken = PoemThread.sessionToken();
-    deleteLock(sessionToken);
-    try {
-      status = DELETED;
-      table.delete(troid(), sessionToken.transaction);
-    }
-    catch (PoemException e) {
-      status = EXISTENT;
-      throw e;
-    }
-
-  }
-
   public Field getPrimaryDisplayField() {
     return getTable().displayColumn().asField(this);
   }
@@ -1075,7 +1079,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *            the default behaviour for the column is used.  (The default 
    *            is {@link StandardIntegrityFix#prevent}.)
    */
-
   public void delete(Map integrityFixOfColumn) {
     
     assertNotFloating();
@@ -1121,7 +1124,25 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * Delete this persistent.
+   * Delete without access checks.
+   */
+  public void delete_unsafe() {
+    assertNotFloating();
+    SessionToken sessionToken = PoemThread.sessionToken();
+    deleteLock(sessionToken);
+    try {
+      status = DELETED;
+      table.delete(troid(), sessionToken.transaction);
+    } catch (PoemException e) {
+      status = EXISTENT;
+      throw e;
+    }
+  }
+
+ 
+  /**
+   * Delete this persistent, with default integrity checks, 
+   * ie disallow deletion if object referred to by others.
    */
   public final void delete() {
     delete(null);
@@ -1163,9 +1184,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
   /**
    * Create a new object like this one.
-   * <p>
-   * This object is assumed to exist in the database undeleted.
-   * The result is not yet in the database.
+   * This Persistent must not be floating.
+   * 
+   * @return A floating clone
    */
   public Persistent duplicated() throws AccessPoemException {
     assertNotFloating();
@@ -1174,13 +1195,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * Create a new persistent like this one.
-   * <p>
-   * No assumptions are made about this object, so it could be
-   * floating (i.e. NONEXISTENT meaning not in the database?).
-   * It does not currently have to be floating but perhaps best
-   * not rely on this.
-   * The result is not yet in the database.
+   * Create a new persistent like this one, regardless of 
+   * whether this Persistent has been written to the dbms yet.
+   * @return A floating clone
    */
   public Persistent duplicatedFloating() throws AccessPoemException {
     return (Persistent)clone();

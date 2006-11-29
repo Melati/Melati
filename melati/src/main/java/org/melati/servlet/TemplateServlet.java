@@ -153,24 +153,7 @@ public abstract class TemplateServlet extends PoemServlet {
       return templateName;      
   }
 
-  
- /**
-  * A useful utility method that gets a value from the Form.  
-  * It will return null if the value is "" or not present.
-  *
-  * @param melati - the melati for this request
-  * @param field - the name of the field to get
-  *
-  * @return - the value of the field requested
-  * @deprecated as of 02/04/2001 - use Form methods
-  */
-  public String getFormNulled(Melati melati, String field) {
-    String val = melati.getServletTemplateContext().getForm(field);
-    if (val == null) return null;
-    return val.equals("")?null:val;
-  }
-  
-  
+   
   /**
    * Send an error message.
    *

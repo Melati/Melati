@@ -5,14 +5,26 @@ package org.melati.poem.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.text.DateFormat;
+import java.util.Enumeration;
 
 import org.melati.poem.AccessToken;
+import org.melati.poem.CreationAccessPoemException;
+import org.melati.poem.DeletePersistentAccessPoemException;
 import org.melati.poem.DoubleCreatePoemException;
+import org.melati.poem.Field;
 import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
+import org.melati.poem.NoSuchRowPoemException;
+import org.melati.poem.NonRootSetAccessTokenPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
+import org.melati.poem.ReadPersistentAccessPoemException;
+import org.melati.poem.RowDisappearedPoemException;
+import org.melati.poem.Table;
+import org.melati.poem.TableCategory;
 import org.melati.poem.User;
 import org.melati.poem.WritePersistentAccessPoemException;
+import org.melati.util.MelatiLocale;
 
 /**
  * @author timp
@@ -26,6 +38,7 @@ public class PersistentTest extends PoemTestCase {
    */
   public PersistentTest(String name) {
     super(name);
+    setDbName("poemtest");
   }
 
   /**
@@ -33,6 +46,7 @@ public class PersistentTest extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
+    setDbName("poemtest");
     super.setUp();
   }
 
@@ -42,14 +56,6 @@ public class PersistentTest extends PoemTestCase {
   protected void tearDown()
       throws Exception {
     super.tearDown();
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#hashCode()
-   */
-  public void testHashCode() {
-    Persistent p = getDb().getUserTable().guestUser();
-    assertEquals(3599307, p.hashCode());
   }
 
   /**
@@ -158,13 +164,6 @@ public class PersistentTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Persistent#Persistent(Table)
-   */
-  public void testPersistentTable() {
-
-  }
-
-  /**
    * @see org.melati.poem.Persistent#Persistent()
    */
   public void testPersistent() {
@@ -239,7 +238,9 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#troid()
    */
   public void testTroid() {
-    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    Persistent p = new Persistent();
+    assertNull(p.troid());
+    p = new Persistent(getDb().getUserTable(), new Integer(0));
     assertEquals(p.troid(), new Integer(0));
   }
 
@@ -247,49 +248,87 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#getTroid()
    */
   public void testGetTroid() {
-
+    Persistent p = new Persistent();
+    assertNull(p.getTroid());
+    p = new Persistent(getDb().getUserTable(), new Integer(0));
+    assertEquals(p.troid(), new Integer(0));
   }
 
   /**
    * @see org.melati.poem.Persistent#existenceLock()
    */
   public void testExistenceLock() {
-
+    Persistent p = new Persistent();
+    p.existenceLock();
+    try {
+      p.delete();
+      fail("Should have blown up");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) {
+      e = null;
+    }
+       
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanRead(AccessToken)
    */
   public void testAssertCanReadAccessToken() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    p.assertCanRead(g);
+    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
+    try {
+      p.assertCanRead(g);
+      fail("Should have bombed");
+    } catch (ReadPersistentAccessPoemException e) {
+      e = null;
+    }
+    AccessToken a  = getDb().getUserTable().administratorUser();
+    p.assertCanRead(a);
+    p.getTable().getTableInfo().setDefaultcanread(null);
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanRead()
    */
   public void testAssertCanRead() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    p.assertCanRead();
+    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
+    AccessToken g  = getDb().getUserTable().guestUser();
+    try {
+      PoemThread.setAccessToken(g);
+      p.assertCanRead();
+      fail("Should have bombed");
+    } catch (ReadPersistentAccessPoemException e) {
+      e = null;
+    }
+    AccessToken a  = getDb().getUserTable().administratorUser();
+    try { 
+      PoemThread.setAccessToken(a);
+      fail("Should have bombed");
+    } catch (NonRootSetAccessTokenPoemException e) {
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Persistent#getReadable()
    */
   public void testGetReadable() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    assertTrue(p.getReadable());
+    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
+    AccessToken g  = getDb().getUserTable().guestUser();
+    PoemThread.setAccessToken(g);
+    assertFalse(p.getReadable());
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanWrite(AccessToken)
    */
   public void testAssertCanWriteAccessToken() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#assertCanWrite()
-   */
-  public void testAssertCanWrite() {
-    Persistent p = getDb().getUserTable().administratorUser();
+    Persistent p = getDb().getUserTable().guestUser();
     AccessToken g  = getDb().getUserTable().guestUser();
     try {
       p.assertCanWrite(g);
@@ -302,143 +341,285 @@ public class PersistentTest extends PoemTestCase {
   }
 
   /**
+   * @see org.melati.poem.Persistent#assertCanWrite()
+   */
+  public void testAssertCanWrite() {
+    Persistent p = getDb().getUserTable().administratorUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    p.assertCanWrite();
+    try {
+      PoemThread.setAccessToken(g);
+      p.assertCanWrite();
+      fail("Should have bombed");
+    } catch (WritePersistentAccessPoemException e) {
+      e = null;
+    }
+  }
+
+  /**
    * @see org.melati.poem.Persistent#assertCanDelete(AccessToken)
    */
   public void testAssertCanDeleteAccessToken() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    try {
+      p.assertCanDelete(g);
+      fail("Should have bombed");
+    } catch (DeletePersistentAccessPoemException e) {
+      e = null;
+    }
+    AccessToken a  = getDb().getUserTable().administratorUser();
+    p.assertCanDelete(a);
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanDelete()
    */
   public void testAssertCanDelete() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    p.assertCanDelete();
+    try {
+      PoemThread.setAccessToken(g);
+      p.assertCanDelete();
+      fail("Should have bombed");
+    } catch (DeletePersistentAccessPoemException e) {
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanCreate(AccessToken)
    */
   public void testAssertCanCreateAccessToken() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    try {
+      p.assertCanCreate(g);
+      fail("Should have bombed");
+    } catch (CreationAccessPoemException e) {
+      e = null;
+    }
+    AccessToken a  = getDb().getUserTable().administratorUser();
+    p.assertCanWrite(a);
   }
 
   /**
    * @see org.melati.poem.Persistent#assertCanCreate()
    */
   public void testAssertCanCreate() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    AccessToken g  = getDb().getUserTable().guestUser();
+    p.assertCanCreate();
+    try {
+      PoemThread.setAccessToken(g);
+      p.assertCanCreate();
+      fail("Should have bombed");
+    } catch (CreationAccessPoemException e) {
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Persistent#getRaw(String)
    */
   public void testGetRaw() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = (String)p.getRaw("name");
+    assertEquals("Melati database administrator", name);
+    Integer id = (Integer)p.getRaw("id");
+    assertEquals(new Integer(1), id);
   }
 
   /**
    * @see org.melati.poem.Persistent#getRawString(String)
    */
   public void testGetRawString() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = p.getRawString("name");
+    assertEquals("Melati database administrator", name);
+    String id = p.getRawString("id");
+    assertEquals("1", id);
   }
 
   /**
    * @see org.melati.poem.Persistent#setRaw(String, Object)
    */
   public void testSetRaw() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = p.getRawString("name");
+    assertEquals("Melati database administrator", name);
+    p.setRaw("name", "test");
+    String name2 = p.getRawString("name");
+    assertEquals("test", name2);
+    p.setRaw("name", name);
+    String name3 = p.getRawString("name");
+    assertEquals("Melati database administrator", name3);
   }
 
   /**
    * @see org.melati.poem.Persistent#setRawString(String, String)
    */
   public void testSetRawString() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = p.getRawString("name");
+    assertEquals("Melati database administrator", name);
+    p.setRawString("name", "test");
+    String name2 = p.getRawString("name");
+    assertEquals("test", name2);
+    p.setRawString("name", name);
+    String name3 = p.getRawString("name");
+    assertEquals("Melati database administrator", name3);
   }
 
   /**
    * @see org.melati.poem.Persistent#getCooked(String)
    */
   public void testGetCooked() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = (String)p.getCooked("name");
+    assertEquals("Melati database administrator", name);
+    p = getDb().getUserTable().getTableInfo();
+    TableCategory c = (TableCategory)p.getCooked("category");
+    assertEquals("tablecategory/0", c.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getCookedString(String, MelatiLocale, int)
    */
   public void testGetCookedString() {
-
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = (String)p.getCookedString("name", MelatiLocale.HERE, DateFormat.MEDIUM);
+    assertEquals("Melati database administrator", name);
+    Persistent p2 = getDb().getUserTable().getTableInfo();
+    String c = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    assertEquals("User", c);
   }
 
   /**
    * @see org.melati.poem.Persistent#setCooked(String, Object)
    */
   public void testSetCooked() {
+    Persistent p = getDb().getUserTable().administratorUser();
+    String name = p.getRawString("name");
+    assertEquals("Melati database administrator", name);
+    p.setCooked("name", "test");
+    String name2 = p.getRawString("name");
+    assertEquals("test", name2);
+    p.setCooked("name", name);
+    String name3 = p.getRawString("name");
+    assertEquals("Melati database administrator", name3);
 
+    Persistent p2 = getDb().getUserTable().getTableInfo();
+    TableCategory c = (TableCategory)p2.getCooked("category");
+    TableCategory c2 = (TableCategory)getDb().getTableCategoryTable().newPersistent();
+    c2.setName("Test");
+    c2.makePersistent();
+    p2.setCooked("category",c2);
+    String cString = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    assertEquals("Test", cString);
+    p2.setCooked("category",c);
+    cString = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    assertEquals("User", cString);
+    c2.delete();
   }
 
   /**
    * @see org.melati.poem.Persistent#getField(String)
    */
   public void testGetField() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Field f = p.getField("user");
+    assertEquals("user: Melati database administrator", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#fieldsOfColumns(Enumeration)
    */
   public void testFieldsOfColumns() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.fieldsOfColumns(p.getTable().columns());
+    Field f = (Field)fields.nextElement();
+    assertEquals("id: 0", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getFields()
    */
   public void testGetFields() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.getFields();
+    Field f = (Field)fields.nextElement();
+    assertEquals("id: 0", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getRecordDisplayFields()
    */
   public void testGetRecordDisplayFields() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.getRecordDisplayFields();
+    Field f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getDetailDisplayFields()
    */
   public void testGetDetailDisplayFields() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.getDetailDisplayFields();
+    Field f = (Field)fields.nextElement();
+    assertEquals("id: 0", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getSummaryDisplayFields()
    */
   public void testGetSummaryDisplayFields() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.getSummaryDisplayFields();
+    Field f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getSearchCriterionFields()
    */
   public void testGetSearchCriterionFields() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#delete_unsafe()
-   */
-  public void testDelete_unsafe() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Enumeration fields = p.getSearchCriterionFields();
+    Field f = (Field)fields.nextElement();
+    assertEquals("id: 0", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("user: Melati database administrator", f.toString());
+    f = (Field)fields.nextElement();
+    assertEquals("group: Melati database administrators", f.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#getPrimaryDisplayField()
    */
   public void testGetPrimaryDisplayField() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    Field f = p.getPrimaryDisplayField();
+    assertEquals("id: 0", f.toString());
   }
 
   /**
@@ -452,20 +633,117 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#delete()
    */
   public void testDelete() {
+    Persistent p = getDb().getGroupTable().newPersistent();
+    try {
+      p.delete();
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
+    p.setCooked("name","test");
+    p.makePersistent();
+    assertEquals(new Integer(1), p.troid());
+    p.delete();
+    try { 
+      p.delete();
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(1);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
+  }
 
+  /**
+   * @see org.melati.poem.Persistent#delete_unsafe()
+   */
+  public void testDelete_unsafe() {
+    Persistent p = getDb().getGroupTable().newPersistent();
+    try {
+      p.delete_unsafe();
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
+    p.setCooked("name","test");
+    p.makePersistent();
+    // Hmm - not sure I am happy with this ordered dependency
+    assertEquals(new Integer(2), p.troid());
+    p.delete_unsafe();
+    try { 
+      p.delete_unsafe();
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(2);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
+
+  }
+  
+
+  /**
+   * @see org.melati.poem.Persistent#deleteAndCommit()
+   */
+  public void testDeleteAndCommit() {
+    Persistent p = getDb().getGroupTable().newPersistent();
+    try {
+      p.deleteAndCommit();
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
+    p.setCooked("name","test");
+    p.makePersistent();
+    // Hmm - not sure I am happy with this ordered dependency
+    assertEquals(new Integer(3), p.troid());
+    p.deleteAndCommit();
+    try { 
+      p.deleteAndCommit();
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(3);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Persistent#deleteAndCommit(Map)
    */
   public void testDeleteAndCommitMap() {
-
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#deleteAndCommit()
-   */
-  public void testDeleteAndCommit() {
+    Persistent p = getDb().getGroupTable().newPersistent();
+    try {
+      p.deleteAndCommit(null);
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
+    p.setCooked("name","test");
+    p.makePersistent();
+    // Hmm - not sure I am happy with this ordered dependency
+    assertEquals(new Integer(4), p.troid());
+    p.deleteAndCommit(null);
+    try { 
+      p.deleteAndCommit(null);
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(4);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
 
   }
 
@@ -473,55 +751,121 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#duplicated()
    */
   public void testDuplicated() {
-
+    Persistent p = getDb().getGroupTable().getObject(0); 
+    Persistent p2 = p.duplicated();
+    assertFalse(p.equals(p2)); // p2 is floating
+    try {
+      p2.duplicated();
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
   }
 
   /**
    * @see org.melati.poem.Persistent#duplicatedFloating()
    */
   public void testDuplicatedFloating() {
-
+    Persistent p = getDb().getGroupTable().getObject(0); 
+    Persistent p2 = p.duplicatedFloating();
+    assertFalse(p.equals(p2)); 
+    Persistent p3 = p2.duplicatedFloating();
+    assertTrue(p2.equals(p3)); 
   }
 
   /**
    * @see org.melati.poem.Persistent#toString()
    */
   public void testToString() {
-
+    Persistent p = getDb().getGroupMembershipTable().getObject(0);
+    assertEquals("groupmembership/0", p.toString());
   }
 
   /**
    * @see org.melati.poem.Persistent#displayString(MelatiLocale, int)
    */
   public void testDisplayStringMelatiLocaleInt() {
-
+    Persistent p = getDb().getGroupTable().getObject(0);
+    assertEquals("Melati database administrators", 
+        p.displayString(MelatiLocale.HERE, DateFormat.MEDIUM));
   }
 
   /** 
    * @see org.melati.poem.Persistent#displayString(MelatiLocale)
    */
   public void testDisplayStringMelatiLocale() {
-
+    Persistent p = getDb().getGroupTable().getObject(0);
+    assertEquals("Melati database administrators", 
+        p.displayString(MelatiLocale.HERE));
   }
 
   /**
    * @see org.melati.poem.Persistent#displayString()
    */
   public void testDisplayString() {
-
+    Persistent p = getDb().getGroupTable().getObject(0);
+    assertEquals("Melati database administrators", 
+        p.displayString());    
   }
-
+  
+  /**
+   * @see org.melati.poem.Persistent#hashCode()
+   */
+  public void testHashCode() {
+    Persistent p = getDb().getUserTable().guestUser();
+    assertEquals(3599307, p.hashCode());
+    try { 
+      p = getDb().getUserTable().newPersistent();
+      p.hashCode();
+      fail("Should have bombed");
+    } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
+      e = null;
+    }
+  }
+  
   /**
    * @see org.melati.poem.Persistent#equals(Object)
    */
   public void testEqualsObject() {
-
+    Persistent p = getDb().getGroupTable().getObject(0);
+    assertTrue(p.equals(p));
+    Persistent p2 = getDb().getGroupTable().newPersistent();
+    assertTrue(p2.equals(p2));
+    assertFalse(p.equals(p2));
+    assertFalse(p.equals(null));
+    assertFalse(p.equals(new Integer(0)));
+    // Note that id != troid
+    // troid remains null
+    p2.setRaw("id", new Integer(0));
+    assertFalse(p.equals(p2));
   }
 
   /**
-   * @see org.melati.poem.Persistent#dump(PrintStream)
+   * @see org.melati.poem.Persistent#dump()
    */
   public void testDump() {
+    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    String d = null; 
+    try { 
+      d = p.dump();
+      fail("Should have blown up");
+    } catch (ClassCastException e) {
+      e = null;
+    }
+    assertNull(d);
+    
+    User u = (User)getDb().getUserTable().newPersistent();
+    d = u.dump();
+    assertTrue(d.startsWith("user/null"));
+    u = (User)getDb().getUserTable().guestUser();
+    d = u.dump();
+    assertTrue(d.startsWith("user/0"));
+  
+  }
+  /**
+   * @see org.melati.poem.Persistent#dump(PrintStream)
+   */
+  public void testDumpPrintStream() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(baos);
     try { 
@@ -551,35 +895,41 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#postWrite()
    */
   public void testPostWrite() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    p.postWrite();
   }
 
   /**
    * @see org.melati.poem.Persistent#postInsert()
    */
   public void testPostInsert() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    p.postInsert();
   }
 
   /**
    * @see org.melati.poem.Persistent#postModify()
    */
   public void testPostModify() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    p.postModify();
   }
 
   /**
    * @see org.melati.poem.Persistent#preEdit()
    */
   public void testPreEdit() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    p.preEdit();
   }
 
   /**
    * @see org.melati.poem.Persistent#postEdit(boolean)
    */
   public void testPostEdit() {
-
+    Persistent p = getDb().getUserTable().guestUser();
+    p.postEdit(true);
+    p.postEdit(false);
   }
 
   /**
@@ -614,28 +964,9 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#otherMatchTables()
    */
   public void testOtherMatchTables() {
-
+    Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
+    assertTrue(p.otherMatchTables().length == 0);
   }
 
-  /**
-   * @see org.melati.util.Transactioned#Transactioned(TransactionPool)
-   */
-  public void testTransactionedTransactionPool() {
-
-  }
-
-  /**
-   * @see org.melati.util.Transactioned#Transactioned()
-   */
-  public void testTransactioned() {
-
-  }
-
-  /**
-   * @see org.melati.util.Transactioned#markValid()
-   */
-  public void testMarkValid() {
-
-  }
 
 }

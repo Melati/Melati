@@ -189,7 +189,7 @@ public class ReferenceFieldDef extends FieldDef {
       "\n");
     w.write(
       "\n /**\n"
-      + "  * Retrieves the <code>" + suffix + "</code> object reffered to.\n"
+      + "  * Retrieves the <code>" + suffix + "</code> object referred to.\n"
       + "  *  \n"
       + "  * @generator " 
       + "org.melati.poem.prepro.ReferenceFieldDef" 

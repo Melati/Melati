@@ -1015,6 +1015,21 @@ public abstract class Database implements TransactionPool {
   //
 
   /**
+   * @return the guest
+   */
+  public User guestUser() {
+    return getUserTable().guestUser();
+  }
+
+  /**
+   * @return the administrator
+   */
+  public User administratorUser() {
+    return getUserTable().administratorUser();
+  }
+
+  
+  /**
    * Get the raw SQL statement for this database's DBMS for Capability 
    * check for a User.
    * @param user
@@ -1111,6 +1126,7 @@ public abstract class Database implements TransactionPool {
     return getCapabilityTable().administer();
   }
 
+ 
   /**
    * By default, anyone can administer a database.
    *

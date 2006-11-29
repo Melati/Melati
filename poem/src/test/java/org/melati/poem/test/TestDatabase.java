@@ -1,5 +1,6 @@
 package org.melati.poem.test;
 
+import org.melati.poem.Capability;
 import org.melati.poem.test.generated.TestDatabaseBase;
 
 /**
@@ -8,6 +9,11 @@ import org.melati.poem.test.generated.TestDatabaseBase;
 public class TestDatabase extends TestDatabaseBase
                             implements TestDatabaseTables {
   // programmer's domain-specific code here
+
+  public Capability getCanAdminister() {
+    return administerCapability();
+  }
+  
 }
 
 

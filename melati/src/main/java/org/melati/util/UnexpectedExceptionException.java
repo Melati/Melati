@@ -47,10 +47,11 @@ package org.melati.util;
 
 /**
  * Thrown if an internal assumption about Melati is violated.
- *
- * @author WilliamC@paneris.org
+ * Not used in Melati but used extensively in Bibliomania.
+ * 
+ * @author WilliamC At paneris.org
  * @see MelatiBugMelatiException
- * @todo Delete me - not used in Melati
+ * 
  */
 public class UnexpectedExceptionException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;

@@ -163,8 +163,6 @@ public abstract class Transactioned {
    * lock. Then it will block until none have read locks.
    * <p>
    * Finally it calls ensureValid(Transaction).
-   *
-   * @todo Review Javadocs
    */
   protected void writeLock(Transaction transaction) {
 

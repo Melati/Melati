@@ -1058,19 +1058,6 @@ public class Table implements Selectable {
   // 
 
   /**
-   * Return an SQL SELECT statement put together from the arguments,
-   * and the default from and order by clauses. 
-   * 
-   * @deprecated Your app cannot call this but conceivably overrides
-   * it, in which case it may not work with this release!
-   */
-  String selectionSQL(String whereClause, String orderByClause,
-                      boolean includeDeleted) {
-    return selectionSQL(null, whereClause, orderByClause,
-                        includeDeleted, true);
-  }
-
-  /**
    * Return an SQL SELECT statement put together from the arguments and
    * default order by clause.
    * <p>

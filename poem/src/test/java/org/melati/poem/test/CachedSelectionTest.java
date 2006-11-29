@@ -318,4 +318,19 @@ public class CachedSelectionTest extends PoemTestCase {
     */
     // TODO think of an appropriate assertion
   }
+  
+  /**
+   * @see org.melati.poem.CachedSelection#firstObject()
+   */
+  public void testFirstObject() {
+    
+  }
+
+  /**
+   * @see org.melati.poem.CachedSelection#nth()
+   */
+  public void testNth() {
+
+  }
+
 }

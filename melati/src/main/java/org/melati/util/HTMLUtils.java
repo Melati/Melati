@@ -178,15 +178,15 @@ public final class HTMLUtils {
     }
   }
 
- /**
-  * Convenience method for backward compatibility.
-  * 
-  *@deprecated Specify encoding
-  *@return A string with all special characters as entities 
-  */
-  public static String entitied(String s, boolean mapBR) {
-    return entitied(s, mapBR, null);
-  }
+  /**
+   * Return the String with all high value ascii characters 
+   * replaced with HTML entities.
+   * 
+   * @param s input String
+   * @param mapBR whether to replace line ends with html breaks
+   * @param encoding the encoding of the input string
+   * @return the input with appropriate substitutions
+   */
   public static String entitied(String s, boolean mapBR, String encoding) {
     int length = s.length();
     int i;

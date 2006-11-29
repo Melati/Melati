@@ -145,42 +145,6 @@ public final class StringUtils {
     return b.toString();
   }
 
-  /**
-   * Insert an escape character in front of a character.
-   *  
-   * @param s the String which may contain characters to escape
-   * @param e the character to escape
-   * @return the escaped string
-   * @deprecated not in use in Melati, cannot be used twice.
-   */
-  public static String escaped(String s, char e) {
-    int l = s.length();
-    for (int i = 0; i < l; ++i) {
-      char c = s.charAt(i);
-      if (c == '\\' || c == e) {
-        // damn, found one; catch up to here ...
-
-        StringBuffer t = new StringBuffer(l + 2);
-
-        for (int j = 0; j < i; ++j)
-          t.append(s.charAt(j));
-        t.append('\\');
-        t.append(c);
-
-        // ... and continue
-
-        for (++i; i < l; ++i) {
-          c = s.charAt(i);
-          if (c == '\\' || c == e)
-            t.append('\\');
-          t.append(c);
-        }
-
-        return t.toString();
-      }
-    }
-    return s;
-  }
 
   /**
    * Captialise the first character of the input string.

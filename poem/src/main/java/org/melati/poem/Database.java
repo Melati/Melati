@@ -1014,18 +1014,24 @@ public abstract class Database implements TransactionPool {
   // =======
   //
 
+  private User guest = null;
   /**
    * @return the guest
    */
   public User guestUser() {
-    return getUserTable().guestUser();
+    if (guest == null)
+      guest = getUserTable().guestUser();
+    return guest;
   }
 
+  private User administrator = null; 
   /**
    * @return the administrator
    */
   public User administratorUser() {
-    return getUserTable().administratorUser();
+    if (administrator == null)
+      administrator = getUserTable().administratorUser();
+    return administrator;
   }
 
   

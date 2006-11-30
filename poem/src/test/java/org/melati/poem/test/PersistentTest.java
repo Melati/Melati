@@ -642,10 +642,11 @@ public class PersistentTest extends PoemTestCase {
     }
     p.setCooked("name","test");
     p.makePersistent();
-    assertEquals(new Integer(1), p.troid());
+    assertEquals("test", p.getCooked("name"));
     p.delete();
     try { 
       p.delete();
+      fail("Should have bombed");
     } catch (RowDisappearedPoemException e) { 
       e = null;
     }
@@ -655,6 +656,55 @@ public class PersistentTest extends PoemTestCase {
     } catch (NoSuchRowPoemException e) { 
       e = null;
     }
+    // To before we started
+    PoemThread.rollback();
+    try {
+      getDb().getGroupTable().getObject(1);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
+    p = getDb().getGroupTable().newPersistent();    
+    p.setCooked("name","test");
+    p.makePersistent();
+    assertEquals("test", p.getCooked("name"));
+    assertEquals(new Integer(2), p.getTroid());
+    // Write to db
+    PoemThread.commit();
+    p.delete();
+    try { 
+      p.delete();
+      fail("Should have bombed");
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(2);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
+    // Rollback so it should be there again
+    PoemThread.rollback(); 
+    getDb().getGroupTable().getObject(2);
+    assertEquals("test", p.getCooked("name"));
+    p.delete();
+    try { 
+      p.delete();
+      fail("Should have bombed");
+    } catch (RowDisappearedPoemException e) { 
+      e = null;
+    }
+    try {
+      getDb().getGroupTable().getObject(1);
+      fail("Should have bombed");
+    } catch (NoSuchRowPoemException e) { 
+      e = null;
+    }
+    // So the db state should be unchanged
+    PoemThread.commit();
+    
+    
   }
 
   /**
@@ -671,7 +721,7 @@ public class PersistentTest extends PoemTestCase {
     p.setCooked("name","test");
     p.makePersistent();
     // Hmm - not sure I am happy with this ordered dependency
-    assertEquals(new Integer(2), p.troid());
+    assertEquals("test", p.getCooked("name"));
     p.delete_unsafe();
     try { 
       p.delete_unsafe();
@@ -701,8 +751,7 @@ public class PersistentTest extends PoemTestCase {
     }
     p.setCooked("name","test");
     p.makePersistent();
-    // Hmm - not sure I am happy with this ordered dependency
-    assertEquals(new Integer(3), p.troid());
+    assertEquals("test", p.getCooked("name"));
     p.deleteAndCommit();
     try { 
       p.deleteAndCommit();
@@ -730,8 +779,7 @@ public class PersistentTest extends PoemTestCase {
     }
     p.setCooked("name","test");
     p.makePersistent();
-    // Hmm - not sure I am happy with this ordered dependency
-    assertEquals(new Integer(4), p.troid());
+    assertEquals("test", p.getCooked("name"));
     p.deleteAndCommit(null);
     try { 
       p.deleteAndCommit(null);

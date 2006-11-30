@@ -166,6 +166,12 @@ public class Field implements FieldAttributes, Cloneable {
                          getType().stringOfCooked(getCooked(), locale, style);
   }
 
+  /**
+   * Clone this Field with a new value but same metadata.
+   * 
+   * @param rawP new value to set
+   * @return a clone with the raw value set to new value
+   */
   public Field withRaw(Object rawP) {
     Field it = (Field)clone();
     it.raw = rawP;
@@ -209,6 +215,13 @@ public class Field implements FieldAttributes, Cloneable {
     return new LimitedEnumeration(getPossibilities(), 1000);
   }
 
+  /**
+   * Compare raws.
+   * 
+   * @param other another field to check
+   * @return whether the other field has the same raw value as this one
+   * @throws AccessPoemException
+   */
   public boolean sameRawAs(Field other) throws AccessPoemException {
     if (accessException != null)
       throw accessException;

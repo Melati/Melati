@@ -49,6 +49,7 @@ import org.melati.util.StringUtils;
 
 /**
  * Base class of all {@link Field}s.
+ * All the fields of a Field except its value.
  *
  * @author WilliamC At paneris.org
  *

@@ -80,6 +80,11 @@ public interface PoemType {
 
   PoemType canRepresent(PoemType other);
 
+  /**
+   * 
+   * @param nullable the nullability we want
+   * @return this or a clone with the desired nullability
+   */
   PoemType withNullable(boolean nullable);
 
   void saveColumnInfo(ColumnInfo columnInfo) throws AccessPoemException;

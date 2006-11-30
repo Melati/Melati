@@ -323,14 +323,17 @@ public class CachedSelectionTest extends PoemTestCase {
    * @see org.melati.poem.CachedSelection#firstObject()
    */
   public void testFirstObject() {
-    
+    CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    assertEquals("tableinfo/12", cachedSelection.firstObject().toString());
   }
 
   /**
    * @see org.melati.poem.CachedSelection#nth()
    */
   public void testNth() {
-
+    CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
+    assertEquals("tableinfo/12", cachedSelection.nth(0).toString());
+    assertEquals("tableinfo/18", cachedSelection.nth(6).toString());
   }
 
 }

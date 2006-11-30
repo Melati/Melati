@@ -61,7 +61,10 @@ import java.net.URL;
  */ 
 public final class IoUtils {
 
-  private IoUtils() {}
+  private IoUtils() {
+    // Utility classes should not have a public or default constructor.
+    
+  }
 
  
   /**

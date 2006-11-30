@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -104,6 +104,11 @@ public class BaseFieldAttributes implements FieldAttributes {
   }
   */
 
+  /**
+   * Convenience constructor. 
+   * @param name used as the name and, capitalised, the display name
+   * @param type the Poem datatype
+   */
   public BaseFieldAttributes(String name, PoemType type) {
     this(name, StringUtils.capitalised(name), null, type, 0, 0, null, 
          false, true, true);

@@ -51,6 +51,9 @@ import org.melati.util.Base64;
 
 /**
  * The information contained in an HTTP authorization.
+ * 
+ * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html and 
+ * http://www.ietf.org/rfc/rfc2617.txt
  */
 final class HttpAuthorization {
   String type;
@@ -58,7 +61,7 @@ final class HttpAuthorization {
   String password;
 
   private HttpAuthorization() {
-    // Utility classes should not have a public or default constructor
+    // Utility classes should not have a public or default constructor.
   }
 
   /**
@@ -76,12 +79,15 @@ final class HttpAuthorization {
 
   /**
    * Create an Authorization from an HTTP Authorization header.
+   * 
    * @param authHeader
    * @return a new Authorization or null
    */
   static HttpAuthorization from(String authHeader) {
-    // FIXME single space probably not only valid separator
-
+    // Space is only valid separator, 
+    // from my reading of http://www.ietf.org/rfc/rfc2617.txt
+    // only one.
+    // This has worked well for a long time.
     if (authHeader.regionMatches(0, "Basic ", 0, 6)) {
 
       String logpas = Base64.decode(authHeader.substring(6));

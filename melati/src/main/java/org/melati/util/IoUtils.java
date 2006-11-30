@@ -57,15 +57,25 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * IO voodoo.
- *
- * @todo Javadoc
+ * IO utilities.
  */ 
 public final class IoUtils {
 
+  /* Ensure cannot be instansiated */
   private IoUtils() {}
 
-  // not sure this is really optimal 
+ 
+  /**
+   * Read into a byte array. 
+   * 
+   * Not sure this is really optimal.
+   * 
+   * @param i the inputStream
+   * @param estimate approximately how big
+   * @param limit will not be bigger than 
+   * @return a byte array no bigger than limit
+   * @throws IOException
+   */
   public static byte[] slurp(InputStream i, int estimate, int limit)
       throws IOException {
     try {
@@ -100,23 +110,75 @@ public final class IoUtils {
     }
   }
 
+  /**
+   * Read into a byte array. 
+   * 
+   * Used in bibliomania.
+   * 
+   * @param i the inputStream
+   * @param estimate approximately how big
+   * @return a byte array no bigger than Integer.MAX_VALUE
+   * @throws IOException
+   */
   public static byte[] slurp(InputStream i, int estimate) throws IOException {
     return slurp(i, estimate, Integer.MAX_VALUE);
   }
 
+  /**
+   * Read an url into a byte array. 
+   * 
+   * Used in bibliomania.
+   * 
+   * @param url the url to read
+   * @param estimate approximately how big
+   * @return a byte array no bigger than Integer.MAX_VALUE
+   * @throws IOException
+   */
   public static byte[] slurp(URL url, int estimate) throws IOException {
     return slurp(url.openStream(), estimate);
   }
 
+  /**
+   * Read an url into a byte array, with a limit.
+   * 
+   * Used in bibliomania.
+   * 
+   * @param url the url to read
+   * @param estimate approximately how big
+   * @param max limit 
+   * @return a byte array no bigger than max
+   * @throws IOException
+   */
   public static byte[] slurp(URL url, int estimate, int max)
       throws IOException {
     return slurp(url.openStream(), estimate, max);
   }
 
+  /**
+   * Read a file into a byte array.
+   * 
+   * Used in bibliomania.
+   * 
+   * @param f file to read
+   * @param estimate approximately how big
+   * @return a byte array no bigger than Integer.MAX_VALUE
+   * @throws IOException
+   */
   public static byte[] slurp(File f, int estimate) throws IOException {
     return slurp(new FileInputStream(f), estimate);
   }
 
+  /**
+   * Read from a Reader into a byte array.
+   * 
+   * Not used elsewhere as of 30/11/2006.
+   * 
+   * @param i Reader to read
+   * @param estimate approximately how big
+   * @param limit max size
+   * @return a byte array no bigger than limit
+   * @throws IOException
+   */
   public static char[] slurp(Reader i, int estimate, int limit)
       throws IOException {
     try {
@@ -151,14 +213,32 @@ public final class IoUtils {
     }
   }
 
+  /**
+   * Read from a Reader into a byte array.
+   * 
+   * Used in bibliomania.
+   * 
+   * @param i Reader to read
+   * @param estimate approximately how big
+   * @return a byte array no bigger than Integer.MAX_VALUE
+   * @throws IOException
+   */
   public static char[] slurp(Reader i, int estimate) throws IOException {
     return slurp(i, estimate, Integer.MAX_VALUE);
   }
 
   /**
-   * FIXME warn about potential inefficiency
+   * Read the output of a system command into a byte array.
+   * 
+   * Warning: potentially inefficient.
+   * Not used elsewhere as of 30/11/2006.
+   * 
+   * @param command the command to run
+   * @param estimate approximately how big
+   * @param limit max size
+   * @return a byte array no bigger than limit
+   * @throws IOException
    */
-
   public static byte[] slurpOutputOf_bytes(String[] command,
                                            int estimate, int limit)
       throws IOException {
@@ -182,13 +262,31 @@ public final class IoUtils {
   }
 
   /**
-   * FIXME warn about potential inefficiency
+   * Read the output of a system command into a byte array.
+   * 
+   * Warning: potentially inefficient.
+   * Not used elsewhere as of 30/11/2006.
+   * 
+   * @param command the command to run
+   * @param estimate approximately how big
+   * @param limit max size
+   * @return a String no bigger than limit
+   * @throws IOException
    */
   public static String slurpOutputOf(String[] command, int estimate, int limit)
       throws IOException {
     return new String(slurpOutputOf_bytes(command, estimate, limit));
   }
 
+  /**
+   * Copy from an InputStream to an OutputStream.
+   * Not used elsewhere as of 30/11/2006.
+   * 
+   * @param i the InputStream
+   * @param buf the size of buffer to use
+   * @param o the OutputStream
+   * @throws IOException
+   */
   public static void copy(InputStream i, int buf, OutputStream o)
       throws IOException {
     byte b[] = new byte[buf];
@@ -199,6 +297,15 @@ public final class IoUtils {
     }
   }
 
+  /**
+   * Copy from a Reader to a Writer.
+   * Not used elsewhere as of 30/11/2006.
+   * 
+   * @param i the Reader
+   * @param buf the size of buffer to use
+   * @param o the Writer
+   * @throws IOException
+   */
   public static void copy(Reader i, int buf, Writer o)
       throws IOException {
     char b[] = new char[buf];
@@ -209,6 +316,15 @@ public final class IoUtils {
     }
   }
 
+  /**
+   * Copy from one file to another.
+   * 
+   * Used in bibliomania.
+   * @param from input file
+   * @param buf the size of buffer to use
+   * @param to output file
+   * @throws IOException
+   */
   public static void copy(File from, int buf, File to) throws IOException {
     FileReader i = new FileReader(from);
     try {

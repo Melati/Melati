@@ -168,9 +168,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * <p>
    * JimW changed to false, from true "so that rollback would work", 
    * however this appears to ensure that the cache is not used. 
+   * Rollback now works, due to removal of exclusion of DELETED status. 
    * 
    * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
-   * @todo investigate effect on rollback
    */
   protected boolean upToDate(Transaction transaction) {
     return true;
@@ -211,18 +211,26 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * Previously deletion was treated as non-rollbackable, 
+   * as deleteAndCommit was the only deletion mechanism. 
+   * 
+   * @see org.melati.util.Transactioned#commit(org.melati.util.Transaction)
+   */
   protected void commit(Transaction transaction) {
-    if (status != DELETED) {
+    //if (status != DELETED) {
       assertNotFloating();
       super.commit(transaction);
-    }
+    //}
   }
 
   protected void rollback(Transaction transaction) {
-    if (status != DELETED) {
-      assertNotFloating();
-      super.rollback(transaction);
-    }
+    //if (status != DELETED) {
+    assertNotFloating();
+    if (status == DELETED)
+      status = EXISTENT;
+    super.rollback(transaction);
+    //}
   }
 
   // 
@@ -1152,14 +1160,15 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * Delete the object, with even more safety checks for referential integrity.
    * As {@link #delete(java.util.Map)}, but waits for exclusive access to the
    * database before doing the delete, and commits the session immediately
-   * afterwards.  This used to be the only deletion entry point allowed, but
-   * now we (think we) ensure that the possible race condition involving new
+   * afterwards.  
+   * <p>
+   * This used to be the only deletion entry point allowed, but
+   * now we ensure that the possible race condition involving new
    * pointers to the deleted object created during the deletion process is
    * covered.
    *
    * @deprecated Use {@link #delete(java.util.Map)}
    */
-
   public void deleteAndCommit(Map integrityFixOfColumn)
       throws AccessPoemException, DeletionIntegrityPoemException {
 
@@ -1177,6 +1186,12 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * Convenience method with default integrity fix. 
+   * 
+   * @throws AccessPoemException
+   * @throws DeletionIntegrityPoemException
+   */
   public final void deleteAndCommit()
       throws AccessPoemException, DeletionIntegrityPoemException {
     deleteAndCommit(null);

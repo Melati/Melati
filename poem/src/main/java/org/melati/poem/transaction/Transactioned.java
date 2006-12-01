@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,8 +47,6 @@ package org.melati.util;
 
 /**
  * An object which can have uncommitted state within a {@link Transaction}.
- *
- * @todo Improve javadoc
  */
 public abstract class Transactioned {
 
@@ -72,21 +70,11 @@ public abstract class Transactioned {
   protected abstract void load(Transaction transaction);
 
   /**
-   * Is this instance up-to-date?
+   * Whether this instance is up-to-date.
    * <p>
    * This enables subtypes to define under what circumstances
    * an instance needs to be reloaded when it is marked as
    * invalid.
-   * <p>
-   * There is some confusion about the requirements.
-   * See subtypes.
-   * <p>
-   * Transactioned#ensureValid(Transaction) will
-   * reload instances that are not up-to-date but it is not
-   * clear what purpose this serves in cases where this
-   * method is overridden e.g. org.paneris.bibliomania.
-   *
-   * @todo Review javadocs
    */
   protected abstract boolean upToDate(Transaction transaction);
 
@@ -113,9 +101,11 @@ public abstract class Transactioned {
     this.transactionPool = transactionPool;
   }
 
-  // We don't synchronize this; under the one-thread-per-transaction parity it
-  // can't happen, and at worst it means loading twice sometimes
-
+  /**
+   * We don't synchronize this; under the one-thread-per-transaction 
+   * parity itcan't happen, and at worst it means loading twice sometimes.
+   * @param transaction
+   */
   private void ensureValid(Transaction transaction) {
     if (!valid) {
       if (transaction == null)

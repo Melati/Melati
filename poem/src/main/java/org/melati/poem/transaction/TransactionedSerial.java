@@ -46,9 +46,8 @@
 package org.melati.util;
 
 /**
- * Transaction voodoo.
- *
- * @todo Review javadoc
+ * A serial id of an object which is incremented each time 
+ * that object is loaded or locked.
  */
 public class TransactionedSerial extends Transactioned {
 
@@ -58,15 +57,16 @@ public class TransactionedSerial extends Transactioned {
     super(transactionPool);
   }
 
+  /**
+   * On load increment the Serial for this object.
+   * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
+   */
   protected void load(Transaction transaction) {
     ++serial;
   }
 
   /**
-   * @todo This is what Persistent did but that was
-   * wrong. Check. If it should return false then
-   * replace both methods by an implementation in
-   * Transactioned or completely remove.
+   * Always up to date, as we are in an insulated transaction.
    */
   protected boolean upToDate(Transaction transaction) {
     return true;

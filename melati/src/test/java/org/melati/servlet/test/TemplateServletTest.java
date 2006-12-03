@@ -31,7 +31,7 @@ public class TemplateServletTest extends PoemServletTest {
     super(name);
   }
 
-  /*
+  /**
    * @see PoemServletTest#setUp()
    */
   protected void setUp()
@@ -39,7 +39,7 @@ public class TemplateServletTest extends PoemServletTest {
     super.setUp();
   }
 
-  /*
+  /**
    * @see PoemServletTest#tearDown()
    */
   protected void tearDown()
@@ -47,29 +47,29 @@ public class TemplateServletTest extends PoemServletTest {
     super.tearDown();
   }
 
-  /*
-   * Test method for 'org.melati.servlet.TemplateServlet.error(Melati, Exception)'
+  /**
+   * @see org.melati.servlet.TemplateServlet.error(Melati, Exception)
    */
   public void testError() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.getSysAdminName()'
+  /**
+   * @see org.melati.servlet.PoemServlet.getSysAdminName()
    */
   public void testGetSysAdminName() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.getSysAdminEmail()'
+  /**
+   * @see org.melati.servlet.PoemServlet.getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -138,22 +138,22 @@ public class TemplateServletTest extends PoemServletTest {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)
    */
   public void testWriteError() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.writeConnectionPendingException(PrintWriter, Exception)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.writeConnectionPendingException(PrintWriter, Exception)
    */
   public void testWriteConnectionPendingException() {
 

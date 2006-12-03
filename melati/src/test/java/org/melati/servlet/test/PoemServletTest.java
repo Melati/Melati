@@ -105,14 +105,14 @@ public class PoemServletTest extends TestCase {
   }
 
   /**
-   * @see org.melati.servlet.PoemServlet.poemContext(Melati)
+   * @see org.melati.servlet.PoemServlet#poemContext
    */
   public void testPoemContext() {
 
   }
 
   /**
-   * @see org.melati.servlet.PoemServlet.doConfiguredRequest(Melati)
+   * @see org.melati.servlet.doConfiguredRequest(Melati)
    */
   public void testDoConfiguredRequest() {
 
@@ -282,7 +282,7 @@ public class PoemServletTest extends TestCase {
   }
 
   /**
-   * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)
+   * @see org.melati.servlet.ConfigServlet#writeError(PrintWriter, Exception)
    */
   public void testWriteError() {
 

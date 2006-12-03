@@ -67,6 +67,6 @@ public class SortDescendingFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
-    field.sortDescending = true;
+    field.setSortDescending(true);
   }
 }

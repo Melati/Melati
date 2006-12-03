@@ -46,8 +46,6 @@
 package org.melati.poem.prepro;
 
 import java.util.Vector;
-//import java.io.Writer;
-//import java.io.IOException;
 
 /**
  * A definition of a <tt>BigDecimalPoemType</tt> from the DSD.
@@ -57,8 +55,8 @@ import java.util.Vector;
  */
 public class BigDecimalFieldDef extends AtomFieldDef {
 
-  int scale;
-  int precision;
+  private Integer scale = null;
+  private Integer precision = null;
 
  /**
   * Constructor.
@@ -99,12 +97,32 @@ public class BigDecimalFieldDef extends AtomFieldDef {
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
     return "new BigDecimalPoemType("
-      + isNullable
+      + isNullable()
       + ", "
-      + precision
+      + getPrecision()
       + ", "
-      + scale
+      + getScale()
       + ")";
   }
+
+public Integer getPrecision() {
+  return precision;
+}
+
+public void setPrecision(Integer precision) {
+  if (this.precision != null)
+    throw new IllegalityException("Redefinition of precision.");
+  this.precision = precision;
+}
+
+public Integer getScale() {
+  return scale;
+}
+
+public void setScale(Integer scale) {
+  if (this.scale != null)
+    throw new IllegalityException("Redefinition of scale.");
+  this.scale = scale;
+}
 
 }

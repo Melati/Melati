@@ -57,6 +57,8 @@ import org.melati.util.StringUtils;
  * 
  */
 public abstract class FieldDef {
+  
+  private int NOTSET = -1;
   protected final TableDef table;
   protected final String name;
   protected final String suffix;
@@ -71,17 +73,17 @@ public abstract class FieldDef {
   final String tableAccessorMethod;
   org.melati.poem.DisplayLevel displayLevel = null;
   org.melati.poem.Searchability searchability = null;
-  boolean isNullable;
-  boolean isTroidColumn;
-  boolean isDeletedColumn;
-  int displayOrderPriority = -1;
-  boolean isEditable = true;
-  boolean sortDescending = false;
-  boolean isCreateable = true;
-  boolean isIndexed = false;
-  boolean isUnique = false;
+  private boolean isNullable = false;
+  private boolean isTroidColumn = false;
+  private boolean isDeletedColumn = false;
+  int displayOrderPriority = NOTSET;
+  private boolean isEditable = true;
+  private boolean sortDescending = false;
+  private boolean isCreateable = true;
+  private boolean isIndexed = false;
+  private boolean isUnique = false;
   boolean isCompareOnly = false;
-  int width = -1, height = -1;
+  private int width = NOTSET, height = NOTSET;
   String renderinfo = null;
 
  /**
@@ -480,7 +482,7 @@ public abstract class FieldDef {
           + "          }\n"
           + "\n");
 
-    if (displayOrderPriority != -1)
+    if (displayOrderPriority != NOTSET)
       w.write(
         "          protected Integer defaultDisplayOrderPriority() {\n"
           + "            return new Integer("
@@ -536,7 +538,7 @@ public abstract class FieldDef {
           + "          }\n"
           + "\n");
 
-    if (width != -1)
+    if (width != NOTSET)
       w.write(
         "          protected int defaultWidth() {\n"
           + "            return "
@@ -545,7 +547,7 @@ public abstract class FieldDef {
           + "          }\n"
           + "\n");
 
-    if (height != -1)
+    if (height != NOTSET)
       w.write(
         "          protected int defaultHeight() {\n"
           + "            return "
@@ -568,6 +570,98 @@ public abstract class FieldDef {
     w.write("        });\n");
   }
 
+  /** Generic setter */
+  protected void setBoolean(boolean field, boolean value) {
+    if(field)
+      throw new IllegalityException("field already set true.");
+    field = value;
+  }
+  protected void setInt(int field, int value) {
+    if(field != NOTSET)
+      throw new IllegalityException("integer field already set.");
+    field = value;
+  }
+  
  /** @return the Java string for this <code>PoemType</code>. */
   public abstract String poemTypeJava();
+
+public boolean isDeletedColumn() {
+  return isDeletedColumn;
+}
+
+public void setDeletedColumn(boolean isDeletedColumn) {
+  setBoolean(this.isDeletedColumn, isDeletedColumn);
+}
+
+public boolean isTroidColumn() {
+  return isTroidColumn;
+}
+
+public void setTroidColumn(boolean isTroidColumn) {
+  setBoolean(this.isTroidColumn, isTroidColumn);
+}
+
+public boolean isNullable() {
+  return isNullable;
+}
+
+public void setNullable(boolean isNullable) {
+  setBoolean(this.isNullable, isNullable);
+}
+
+public boolean isEditable() {
+  return isEditable;
+}
+
+public void setEditable(boolean isEditable) {
+  setBoolean(this.isEditable, isEditable);
+}
+
+public boolean isSortDescending() {
+  return sortDescending;
+}
+
+public void setSortDescending(boolean sortDescending) {
+  setBoolean(this.sortDescending, sortDescending);
+}
+
+public boolean isCreateable() {
+  return isCreateable;
+}
+
+public void setCreateable(boolean isCreateable) {
+  setBoolean(this.isCreateable, isCreateable);
+}
+
+public boolean isIndexed() {
+  return isIndexed;
+}
+
+public void setIndexed(boolean isIndexed) {
+  setBoolean(this.isIndexed, isIndexed);
+}
+
+public boolean isUnique() {
+  return isUnique;
+}
+
+public void setUnique(boolean isUnique) {
+  setBoolean(this.isUnique, isUnique);
+}
+
+public int getWidth() {
+  return width;
+}
+
+public void setWidth(int width) {
+  setInt(this.width, width);
+}
+
+public int getHeight() {
+  return height;
+}
+
+public void setHeight(int height) {
+  setInt(this.height, height);
+}
 }

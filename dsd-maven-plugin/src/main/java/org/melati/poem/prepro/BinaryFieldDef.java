@@ -80,6 +80,14 @@ public class BinaryFieldDef extends AtomFieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new BinaryPoemType(" + isNullable + ", " + size + ")";
+    return "new BinaryPoemType(" + isNullable() + ", " + size + ")";
   }
+
+public int getSize() {
+  return size;
+}
+
+public void setSize(int size) {
+  setInt(this.size, size);
+}
 }

@@ -71,9 +71,8 @@ public class DeletedFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
-    // FIXME check for duplication
-    if (!field.type.equals("Boolean") || field.isNullable)
+    if (!field.type.equals("Boolean") || field.isNullable())
       throw new DeletedTypeException(field);
-    field.isDeletedColumn = true;
+    field.setDeletedColumn(true);
   }
 }

@@ -80,6 +80,14 @@ public class StringFieldDef extends AtomFieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new StringPoemType(" + isNullable + ", " + size + ")";
+    return "new StringPoemType(" + isNullable() + ", " + size + ")";
   }
+
+public int getSize() {
+  return size;
+}
+
+public void setSize(int size) {
+  setInt(this.size, size);
+}
 }

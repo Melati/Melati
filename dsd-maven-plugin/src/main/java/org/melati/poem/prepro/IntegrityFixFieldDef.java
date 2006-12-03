@@ -234,6 +234,6 @@ public class IntegrityFixFieldDef extends FieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new IntegrityFixPoemType(" + isNullable + ")";
+    return "new IntegrityFixPoemType(" + isNullable() + ")";
   }
 }

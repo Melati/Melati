@@ -270,6 +270,6 @@ public class ReferenceFieldDef extends FieldDef {
     return
         "new ReferencePoemType(" + db + ".\n" + 
         "                                             " +
-        targetTableAccessorMethod + "(), " + isNullable + ")";
+        targetTableAccessorMethod + "(), " + isNullable() + ")";
   }
 }

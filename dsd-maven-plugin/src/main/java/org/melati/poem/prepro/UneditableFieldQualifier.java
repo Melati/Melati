@@ -66,6 +66,6 @@ public class UneditableFieldQualifier extends FieldQualifier {
   * @param field the {@link FieldDef} to update
   */
   public void apply(FieldDef field) {
-    field.isEditable = false;
+    field.setEditable(false);
   }
 }

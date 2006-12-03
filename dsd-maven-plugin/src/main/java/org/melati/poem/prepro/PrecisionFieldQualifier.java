@@ -56,7 +56,7 @@ import java.io.IOException;
  */
 public class PrecisionFieldQualifier extends FieldQualifier {
 
-  private int precision;
+  private Integer precision;
 
  /**
   * Constructor.
@@ -72,7 +72,7 @@ public class PrecisionFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int) tokens.nval <= 0)
       throw new ParsingDSDException("<positive precision number>", tokens);
-    precision = (int) tokens.nval;
+    precision = new Integer((int) tokens.nval);
     tokens.nextToken();
   }
 
@@ -87,7 +87,7 @@ public class PrecisionFieldQualifier extends FieldQualifier {
   public void apply(FieldDef field) throws SizeApplicationException {
     // FIXME check for duplication
     if (field instanceof BigDecimalFieldDef)
-       ((BigDecimalFieldDef) field).precision = precision;
+       ((BigDecimalFieldDef) field).setPrecision(precision);
     else
       throw new SizeApplicationException(field);
   }

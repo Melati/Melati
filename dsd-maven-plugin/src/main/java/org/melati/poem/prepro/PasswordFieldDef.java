@@ -76,6 +76,6 @@ public class PasswordFieldDef extends StringFieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new PasswordPoemType(" + isNullable + ", " + size + ")";
+    return "new PasswordPoemType(" + isNullable() + ", " + size + ")";
   }
 }

@@ -82,6 +82,6 @@ public class HeightFieldQualifier extends FieldQualifier {
   * @param field the {@link FieldDef} to update
   */
   public void apply(FieldDef field) {
-    field.height = height;
+    field.setHeight(height);
   }
 }

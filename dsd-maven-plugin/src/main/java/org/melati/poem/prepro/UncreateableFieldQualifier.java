@@ -64,6 +64,6 @@ public class UncreateableFieldQualifier extends FieldQualifier {
   * @param field the {@link FieldDef} to update
   */
   public void apply(FieldDef field) {
-    field.isCreateable = false;
+    field.setCreateable(false);
   }
 }

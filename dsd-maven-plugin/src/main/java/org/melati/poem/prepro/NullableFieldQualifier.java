@@ -69,10 +69,10 @@ public class NullableFieldQualifier extends FieldQualifier {
   public void apply(FieldDef field)
       throws NullTroidException, NullDeletedException {
     // oops this isn't terribly OO
-    if (field.isTroidColumn)
+    if (field.isTroidColumn())
       throw new NullTroidException(field);
-    if (field.isDeletedColumn)
+    if (field.isDeletedColumn())
       throw new NullDeletedException(field);
-    field.isNullable = true;
+    field.setNullable(true);
   }
 }

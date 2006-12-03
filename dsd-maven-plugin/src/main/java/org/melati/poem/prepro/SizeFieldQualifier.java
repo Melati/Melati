@@ -51,8 +51,6 @@ import java.io.IOException;
 /**
  * A <tt>FieldQualifier</TT> which enables the size of 
  * strings to be specified.
- *
- * @todo Ensure that one field cannot have more than one size qualifier
  */
 public class SizeFieldQualifier extends FieldQualifier {
 
@@ -89,11 +87,10 @@ public class SizeFieldQualifier extends FieldQualifier {
   * @throws SizeApplicationException if the field is a non-sizable field
   */
   public void apply(FieldDef field) throws SizeApplicationException {
-    // FIXME check for duplication
     if (field instanceof StringFieldDef)
-       ((StringFieldDef)field).size = size;
+       ((StringFieldDef)field).setSize(size);
     else if (field instanceof BinaryFieldDef)
-       ((BinaryFieldDef)field).size = size;
+       ((BinaryFieldDef)field).setSize(size);
     else
       throw new SizeApplicationException(field);
   }

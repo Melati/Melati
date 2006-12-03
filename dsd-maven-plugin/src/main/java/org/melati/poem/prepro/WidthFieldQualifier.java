@@ -81,6 +81,6 @@ public class WidthFieldQualifier extends FieldQualifier {
   * @param field the {@link FieldDef} to update
   */
   public void apply(FieldDef field) {
-    field.width = width;
+    field.setWidth(width);
   }
 }

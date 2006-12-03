@@ -81,6 +81,6 @@ public class IndexedFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
-    field.isIndexed = true;
+    field.setIndexed(true);
   }
 }

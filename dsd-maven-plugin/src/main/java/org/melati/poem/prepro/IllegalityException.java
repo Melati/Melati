@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,7 +48,7 @@ package org.melati.poem.prepro;
 /**
  * Superclass of all illegal syntax exceptions.
  */ 
-class IllegalityException extends Exception {
+class IllegalityException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   IllegalityException() {

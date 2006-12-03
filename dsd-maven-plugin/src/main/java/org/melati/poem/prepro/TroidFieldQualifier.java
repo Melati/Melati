@@ -71,9 +71,8 @@ public class TroidFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
-    // FIXME check for duplication
-    if (!field.type.equals("Integer") || field.isNullable)
+    if (!field.type.equals("Integer") || field.isNullable())
       throw new TroidTypeException(field);
-    field.isTroidColumn = true;
+    field.setTroidColumn(true);
   }
 }

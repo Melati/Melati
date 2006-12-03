@@ -66,6 +66,6 @@ public class UniqueFieldQualifier extends IndexedFieldQualifier {
   * @param field the {@link FieldDef} to update
   */
   public void apply(FieldDef field) {
-    field.isUnique = true;
+    field.setUnique(true);
   }
 }

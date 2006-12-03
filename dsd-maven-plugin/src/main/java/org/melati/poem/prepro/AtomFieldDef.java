@@ -185,6 +185,6 @@ public class AtomFieldDef extends FieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new " + type + "PoemType(" + isNullable + ")";
+    return "new " + type + "PoemType(" + isNullable() + ")";
   }
 }

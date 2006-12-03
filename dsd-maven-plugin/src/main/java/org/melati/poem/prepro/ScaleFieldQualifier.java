@@ -56,7 +56,7 @@ import java.io.IOException;
  */
 public class ScaleFieldQualifier extends FieldQualifier {
 
-  private int scale;
+  private Integer scale;
 
  /**
   * Constructor.
@@ -72,7 +72,7 @@ public class ScaleFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int) tokens.nval < 0)
       throw new ParsingDSDException("<non-negative scale number>", tokens);
-    scale = (int) tokens.nval;
+    scale = new Integer((int) tokens.nval);
     tokens.nextToken();
   }
 
@@ -87,7 +87,7 @@ public class ScaleFieldQualifier extends FieldQualifier {
   public void apply(FieldDef field) throws SizeApplicationException {
     // FIXME check for duplication
     if (field instanceof BigDecimalFieldDef)
-       ((BigDecimalFieldDef) field).scale = scale;
+       ((BigDecimalFieldDef)field).setScale(scale);
     else
       throw new SizeApplicationException(field);
   }

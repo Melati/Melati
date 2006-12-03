@@ -72,7 +72,7 @@ public class IntegerFieldDef extends AtomFieldDef {
   public IntegerFieldDef(TableDef table, String name, int displayOrder,
                          Vector qualifiers) throws IllegalityException {
     super(table, name, "Integer", displayOrder, qualifiers);
-    if (isTroidColumn)
+    if (isTroidColumn())
       table.addImport("org.melati.poem.TroidPoemType", 
                       "table");
     else
@@ -120,6 +120,6 @@ public class IntegerFieldDef extends AtomFieldDef {
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return isTroidColumn ? "new TroidPoemType()" : super.poemTypeJava();
+    return isTroidColumn() ? "new TroidPoemType()" : super.poemTypeJava();
   }
 }

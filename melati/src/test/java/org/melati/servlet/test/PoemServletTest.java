@@ -30,7 +30,7 @@ public class PoemServletTest extends TestCase {
     super(name);
   }
 
-  /*
+  /**
    * @see PoemTestCase#setUp()
    */
   protected void setUp()
@@ -38,7 +38,7 @@ public class PoemServletTest extends TestCase {
     super.setUp();
   }
 
-  /*
+  /**
    * @see TestCase#tearDown()
    */
   protected void tearDown()
@@ -46,8 +46,8 @@ public class PoemServletTest extends TestCase {
     super.tearDown();
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.getSysAdminName()'
+  /**
+   * @see org.melati.servlet.PoemServlet.getSysAdminName()
    */
   public void testGetSysAdminName() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -75,36 +75,58 @@ public class PoemServletTest extends TestCase {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.getSysAdminEmail()'
+  /**
+   * @see org.melati.servlet.PoemServlet.getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
+    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+                   
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    org.melati.test.PoemServletTest aServlet = 
+          new org.melati.test.PoemServletTest();
+    try {
+      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      assertEquals("nobody@nobody.com", aServlet.getSysAdminEmail());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    } 
+                   
+    mockHttpServletRequest.verify(); 
+    mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.poemContext(Melati)'
+  /**
+   * @see org.melati.servlet.PoemServlet.poemContext(Melati)
    */
   public void testPoemContext() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.doConfiguredRequest(Melati)'
+  /**
+   * @see org.melati.servlet.PoemServlet.doConfiguredRequest(Melati)
    */
   public void testDoConfiguredRequest() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.PoemServlet.prePoemSession(Melati)'
+  /**
+   * @see org.melati.servlet.PoemServlet.prePoemSession(Melati)
    */
   public void testPrePoemSession() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -169,8 +191,8 @@ public class PoemServletTest extends TestCase {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
@@ -229,22 +251,45 @@ public class PoemServletTest extends TestCase {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.error(Melati, Exception)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.error(Melati, Exception)
    */
   public void testError() {
+    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+                   
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    org.melati.test.PoemServletTest aServlet = 
+          new org.melati.test.PoemServletTest();
+    try {
+      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      assertEquals("nobody", aServlet.getSysAdminName());
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    } 
+                   
+    mockHttpServletRequest.verify(); 
+    mockHttpServletResponse.verify(); 
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
+
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)
    */
   public void testWriteError() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.writeConnectionPendingException(PrintWriter, Exception)'
+  /**
+   * @see org.melati.servlet.ConfigServlet.writeConnectionPendingException(PrintWriter, Exception)
    */
   public void testWriteConnectionPendingException() {
 

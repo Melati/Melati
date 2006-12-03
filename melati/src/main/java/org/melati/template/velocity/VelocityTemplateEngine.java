@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.template.velocity;
@@ -122,34 +122,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements Te
 
   protected Properties loadConfiguration(MelatiConfig melatiConfig) 
                                throws IOException, FileNotFoundException {
-        
-//    String propsFile = config.getInitParameter(INIT_PROPS_KEY);
-    /*
-     * This will attempt to find the location of the properties
-     * file from the relative path to the WAR archive (ie:
-     * docroot). Since JServ returns null for getRealPath()
-     * because it was never implemented correctly, then we know we
-     * will not have an issue with using it this way. I don't know
-     * if this will break other servlet engines, but it probably
-     * shouldn't since WAR files are the future anyways.
-     */
-                                     /*
-    if (propsFile != null) {
-      String realPath = config.getServletContext().getRealPath(propsFile);
-      if ( realPath != null ) propsFile = realPath;
-      p.load( new FileInputStream(propsFile) );
-    }
-    // FIXME work out how to set this some other way
- */
-    Properties p = new Properties();
-
-/*
-    p.setProperty("resource.loader","file");
-    p.setProperty("file.resource.loader.path", 
-                  melatiConfig.getTemplatePath());
-    p.setProperty("file.resource.loader.class", 
-    "org.melati.template.velocity.WebMacroFileResourceLoader");
-*/
+   Properties p = new Properties();
     p.setProperty("resource.loader","class");
     p.setProperty("class.resource.loader.class", 
           "org.melati.template.velocity.WebMacroClasspathResourceLoader");

@@ -53,7 +53,6 @@ package org.melati.poem.prepro;
  * marks the whole record as deleted.
  *
  * @see org.melati.poem.DeletedPoemType 
- * @todo Check for duplication
  */
 public class DeletedFieldQualifier extends FieldQualifier {
 

@@ -51,8 +51,6 @@ import java.io.IOException;
 /**
  * A <tt>FieldQualifier</TT> which enables the precision of 
  * BigDecimals to be specified.
- *
- * @todo Ensure that one field cannot have more than one precision qualifier
  */
 public class PrecisionFieldQualifier extends FieldQualifier {
 
@@ -85,7 +83,6 @@ public class PrecisionFieldQualifier extends FieldQualifier {
   *           if this is a non-sizable field
   */
   public void apply(FieldDef field) throws SizeApplicationException {
-    // FIXME check for duplication
     if (field instanceof BigDecimalFieldDef)
        ((BigDecimalFieldDef) field).setPrecision(precision);
     else

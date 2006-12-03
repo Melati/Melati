@@ -1165,9 +1165,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * This used to be the only deletion entry point allowed, but
    * now we ensure that the possible race condition involving new
    * pointers to the deleted object created during the deletion process is
-   * covered.
+   * covered. So it is recommended to use {@link #delete(java.util.Map)}
+   * unless you really want this functionality.
    *
-   * @deprecated Use {@link #delete(java.util.Map)}
    */
   public void deleteAndCommit(Map integrityFixOfColumn)
       throws AccessPoemException, DeletionIntegrityPoemException {

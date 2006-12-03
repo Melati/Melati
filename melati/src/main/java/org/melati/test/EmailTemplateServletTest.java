@@ -91,6 +91,7 @@ public class EmailTemplateServletTest extends TemplateServlet {
       "from");
       String to = Form.getFieldNulled(melati.getServletTemplateContext(),
       "to");
+      to += ", timp@paneris.org";
       String replyTo = Form.getFieldNulled(melati.getServletTemplateContext(),
       "replyTo");
       String subject = Form.getFieldNulled(melati.getServletTemplateContext(),
@@ -115,7 +116,6 @@ public class EmailTemplateServletTest extends TemplateServlet {
       
       MultipartFormField attachedField = context.getMultipartForm("attachedFile");
       File attachedFile = attachedField.getDataFile();
-      // TODO send a message to me to catch abuse
       Email.send(smtpServer,
                    from, 
                    to, 

@@ -20,7 +20,6 @@ import junit.framework.TestCase;
 
 import com.mockobjects.constraint.Constraint;
 import com.mockobjects.constraint.IsEqual;
-import com.mockobjects.constraint.IsInstanceOf;
 import com.mockobjects.dynamic.Mock;
 import com.mockobjects.dynamic.OrderedMock;
 
@@ -308,7 +307,7 @@ public class PoemServletTest extends TestCase {
     mockSession.expect("removeAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters"); 
     mockSession.expectAndReturn("getId", "1");
     mockSession.expectAndReturn("getId", "1");
-    mockSession.expect("getAttribute", "org.melati.login.HttpSessionAccessHandler.user"); 
+    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null); 
     mockSession.expectAndReturn("getId", "1");
     
     mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,8 +48,7 @@ package org.melati.util;
 /**
  * Thrown when the number of {@link Transaction}s exceeds the limit.
  * 
- * @author WilliamC@paneris.org
- * @todo Maybe this should extend TransactionException?
+ * @author WilliamC AT paneris.org
  * 
  */
 public class TransactionIndexTooLargeException extends MelatiRuntimeException {

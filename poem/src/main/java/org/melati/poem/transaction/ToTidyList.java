@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,13 +56,14 @@ import java.sql.ResultSet;
 /**
  * List of objects which need closing when a <code>Transaction</code> 
  * is terminated.
- *
- * @todo Review javadoc
  */
 public class ToTidyList {
 
 /** Can be closed */
   public interface Closeable {
+    /**
+     * Free any resources and prepare for death or reuse.
+     */
     void close();
   }
 
@@ -90,6 +91,9 @@ public class ToTidyList {
     }
   }
 
+  /**
+   * Close all ob jects on list.
+   */
   public synchronized void close() {
     for (int i = objects.size() - 1; i >= 0; --i)
       tidy(objects.elementAt(i));

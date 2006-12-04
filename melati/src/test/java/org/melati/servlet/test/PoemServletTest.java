@@ -261,9 +261,10 @@ public class PoemServletTest extends TestCase {
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.servlet.PoemServlet#error(Melati, Exception)
    */
-  public void testError() {
+  public void testError() throws Exception {
     Mock mockHttpServletRequest = new OrderedMock(HttpServletRequest.class); 
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
                    
@@ -351,15 +352,10 @@ public class PoemServletTest extends TestCase {
     
     ExceptionPoemServlet aServlet = 
           new ExceptionPoemServlet();
-    try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
                      (HttpServletResponse) mockHttpServletResponse.proxy());
-      aServlet.destroy();
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    } 
+    aServlet.destroy();
                    
 
    // mockHttpServletRequest.verify(); 

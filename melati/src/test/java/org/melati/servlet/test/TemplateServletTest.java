@@ -26,10 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.melati.util.MelatiStringWriter;
-
 import com.mockobjects.dynamic.Mock;
-import com.mockobjects.dynamic.OrderedMock;
 
 /**
  * @author timp
@@ -100,7 +97,7 @@ public class TemplateServletTest extends PoemServletTest {
    * 
    */
   public void doGetPost() {
-    final MelatiStringWriter output = new MelatiStringWriter(); 
+    //final MelatiStringWriter output = new MelatiStringWriter(); 
     //final PrintWriter contentWriter = new PrintWriter(output); 
            
     //Mock mockHttpServletRequest = new OrderedMock(HttpServletRequest.class);

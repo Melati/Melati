@@ -140,11 +140,9 @@ public abstract class ConfigServlet extends HttpServlet {
    *
    * @param request the incoming <code>HttpServletRequest</code>
    * @param response the outgoing <code>HttpServletResponse</code>
-   * @throws ServletException is anything goes wrong with Melati
-   * @throws IOException if anything goes wrong with the file system
    */
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public void doGet(HttpServletRequest request, 
+                    HttpServletResponse response) {
     doGetPostRequest(request, response);
   }
 
@@ -153,24 +151,22 @@ public abstract class ConfigServlet extends HttpServlet {
    *
    * @param request the incoming <code>HttpServletRequest</code>
    * @param response the outgoing <code>HttpServletResponse</code>
-   * @throws ServletException is anything goes wrong with Melati
-   * @throws IOException if anything goes wrong with the file system
    */
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public void doPost(HttpServletRequest request, 
+                     HttpServletResponse response) {
     doGetPostRequest(request, response);
   }
 
   /**
    * Process the request.
    *
+   * Exceptions are presented to the user if practicable, or written to the log. 
+   * 
    * @param request the incoming <code>HttpServletRequest</code>
    * @param response the outgoing <code>HttpServletResponse</code>
-   * @throws IOException if anything goes wrong with the file system
    */
   private void doGetPostRequest(final HttpServletRequest request, 
-                                final HttpServletResponse response)
-      throws IOException {
+                                final HttpServletResponse response) {
     try {
       Melati melati = new Melati(melatiConfig, request, response);
       try {
@@ -204,7 +200,7 @@ public abstract class ConfigServlet extends HttpServlet {
       // log it
       e.printStackTrace(System.err);
       // and put it on the page
-      melati.getResponse().setContentType ("text/html");
+      melati.setResponseContentType ("text/html");
       MelatiWriter mw =  melati.getWriter();
       // get rid of anything that has been written so far
       mw.reset();

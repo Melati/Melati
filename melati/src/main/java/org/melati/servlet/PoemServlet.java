@@ -47,7 +47,6 @@ package org.melati.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +54,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
-import org.melati.poem.Database;
 import org.melati.poem.Field;
 import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.PoemThread;
@@ -191,7 +189,13 @@ public abstract class PoemServlet extends ConfigServlet {
   protected void prePoemSession(Melati melati) throws Exception {
   }
 
+  /**
+   * @see javax.servlet.Servlet#destroy()
+   */
   public void destroy() {
+    /*
+     * We do not want to shut the db down after every request.
+     * The closure of the transaction is handled in inSession. 
     Enumeration dbs = org.melati.LogicalDatabase.initialisedDatabases()
         .elements();
     while (dbs.hasMoreElements()) {
@@ -201,6 +205,7 @@ public abstract class PoemServlet extends ConfigServlet {
         db.disconnect();
       }
     }
+    */
     super.destroy();
   }
 
@@ -384,9 +389,12 @@ public abstract class PoemServlet extends ConfigServlet {
    * This is provided for convenience, so you don't have to specify the
    * logicaldatabase on the pathinfo. This is a very good idea when writing your
    * applications where you are typically only accessing a single database.
-   * Simply override poemContext(Melati melati) thus: <PRE> protected
-   * PoemContext poemContext(Melati melati) throws PathInfoException { return
-   * poemContextWithLDB(melati,"<your logical database name>"); } </PRE>
+   * Simply override poemContext(Melati melati) thus: 
+   * <code> 
+   * protected PoemContext poemContext(Melati melati) throws PathInfoException { 
+   *   return poemContextWithLDB(melati,"<your logical database name>"); 
+   * } 
+   * </code>
    */
   protected PoemContext poemContextWithLDB(Melati melati, String logicalDatabase)
       throws PathInfoException {

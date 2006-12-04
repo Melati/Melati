@@ -70,7 +70,9 @@ public final class HttpUtil {
     appendRelativeZoneURL(url,request);
   }
 
-  /*
+  /**
+   * Append relative servlet zone url.
+   * 
    * Note that this function should return 
    * http://host/zone from a request of form 
    * http://host/zone/servlet/pathinfo?querystring

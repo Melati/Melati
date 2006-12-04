@@ -84,11 +84,12 @@ public final class HttpUtil {
       StringBuffer url, HttpServletRequest request) {
     url.append(HttpServletRequestCompat.getContextPath(request));
     String servletPath = request.getServletPath();
-    if (servletPath.lastIndexOf('/') == -1) 
-      throw new MelatiBugMelatiException(
-          "Servlet Path does not contain a forward slash:" + servletPath);
-    if (servletPath != null && !servletPath.equals(""))
+    if (servletPath != null && !servletPath.equals("")) {
       url.append(servletPath.substring(0, servletPath.lastIndexOf('/')));
+      if (servletPath.lastIndexOf('/') == -1) 
+        throw new MelatiBugMelatiException(
+            "Servlet Path does not contain a forward slash:" + servletPath);
+    }
   }
 
 

@@ -191,9 +191,9 @@ public class ConfigServletTest extends ConfigServlet {
     }
   }
 
-/**
- * this simply demonstrates how to use a different melati configuration
- */
+ /**
+  * Demonstrates how to use a different melati configuration.
+  */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
     config.setFormDataAdaptorFactory(new MemoryDataAdaptorFactory());

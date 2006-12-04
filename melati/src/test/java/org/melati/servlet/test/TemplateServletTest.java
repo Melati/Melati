@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.melati.util.EmptyEnumeration;
+import org.melati.util.HttpServletRequestParameters;
+
 //import org.melati.util.HttpServletRequestParameters;
 
 import com.mockobjects.dynamic.Mock;
@@ -51,34 +54,64 @@ public class TemplateServletTest extends PoemServletTest {
    * @see org.melati.servlet.TemplateServlet.error(Melati, Exception)
    */
   public void testError() {
-
+    super.testError();
   }
 
   /**
    * @see org.melati.servlet.PoemServlet.getSysAdminName()
    */
   public void testGetSysAdminName() {
-
+    super.testGetSysAdminName();
   }
 
   /**
    * @see org.melati.servlet.PoemServlet.getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
-
+    super.testGetSysAdminEmail();
   }
 
   /**
    * @see org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    doGetPost(); 
+  }
+  /**
+   * @see org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)
+   */
+  public void testDoPostHttpServletRequestHttpServletResponse() {
+    //doGetPost(); 
+
+  }
+  
+  /**
+   * 
+   */
+  public void doGetPost() {
+    Mock mockHttpServletRequest = new OrderedMock(HttpServletRequest.class); 
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
                    
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
+    mockHttpServletRequest.expectAndReturn( "getParameterNames", new EmptyEnumeration()); 
+    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
+    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
+    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
     mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
     mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
+    mockHttpServletRequest.expectAndReturn( "getQueryString", null); 
+    mockHttpServletRequest.expectAndReturn( "getMethod", null); 
+
+    Mock mockSession = new Mock(HttpSession.class);
+    mockSession.expectAndReturn("getId", "1");
+    mockSession.expectAndReturn("getId", "1");
+
+    mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
+
+    
     mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
+
+    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
+    mockHttpServletRequest.expectAndReturn("getPathInfo", "melatitest/user/1"); 
     
     final StringWriter output = new StringWriter(); 
     final PrintWriter contentWriter = new PrintWriter(output); 
@@ -108,42 +141,35 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletContext.expectAndReturn("hashCode", 17); 
     mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1", null);
 
-    Mock mockSession = new Mock(HttpSession.class);
     mockHttpServletRequest.expectAndReturn("getSession", Boolean.TRUE, mockSession.proxy());
 
     
-    //mockHttpServletRequest.expectAndReturn( "getParameterNames", null); 
-    //mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters", 
-    //                            new HttpServletRequestParameters((HttpServletRequest)mockHttpServletRequest.proxy())); 
+    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters", 
+                                new HttpServletRequestParameters((HttpServletRequest)mockHttpServletRequest.proxy())); 
         
     
     org.melati.test.TemplateServletTest aServlet = 
           new org.melati.test.TemplateServletTest();
     try {
       aServlet.init((ServletConfig)mockServletConfig.proxy());
-     // aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-     //                (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
+                     (HttpServletResponse) mockHttpServletResponse.proxy());
+      aServlet.destroy();
       
     } catch (Exception e) {
       e.printStackTrace();
       fail();
     } 
                    
-    //mockHttpServletRequest.verify(); 
-    //mockHttpServletResponse.verify(); 
+    mockHttpServletRequest.verify(); 
+    mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
-    //assertTrue(output.toString().indexOf("<h2>TemplateServlet Test</h2>") != -1); 
+    assertTrue(output.toString().indexOf("<h2>TemplateServlet Test</h2>") != -1); 
 
 
   }
 
-  /**
-   * @see org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)
-   */
-  public void testDoPostHttpServletRequestHttpServletResponse() {
-
-  }
 
   /**
    * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)

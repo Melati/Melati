@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -112,7 +112,7 @@ public abstract class TemplateServlet extends PoemServlet {
     // If we have an multipart form, we use a different template context
     // which allows us to access the uploaded files as well as fields.
     String contentType = melati.getRequest().getHeader("content-type");
-    if (contentType != null &&
+    if (contentType != null && contentType.length() >= 19 &&
         contentType.substring(0,19).equalsIgnoreCase("multipart/form-data")) {
       templateContext =
         new MultipartTemplateContext(melati, templateContext);

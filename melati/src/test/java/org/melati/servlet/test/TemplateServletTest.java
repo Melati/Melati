@@ -64,12 +64,6 @@ public class TemplateServletTest extends PoemServletTest {
     super.tearDown();
   }
 
-  /**
-   * @see org.melati.servlet.TemplateServlet.error(Melati, Exception)
-   */
-  public void testError() {
-    super.testError();
-  }
 
   /**
    * @see org.melati.servlet.PoemServlet.getSysAdminName()
@@ -208,9 +202,9 @@ public class TemplateServletTest extends PoemServletTest {
 
 
   /**
-   * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)
+   * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
    */
-  public void testWriteError() throws Exception {
+  public void testError() throws Exception {
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
@@ -240,9 +234,28 @@ public class TemplateServletTest extends PoemServletTest {
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", "melatitest/user/1");
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    mockServletContext.expectAndReturn("getMajorVersion", 2); 
+    mockServletContext.expectAndReturn("getMinorVersion", 3); 
+    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("toString", "mockServletContext"); 
+    mockServletContext.expectAndReturn("getResource", "/WEB-INF/WebMacro.properties", null); 
+    mockServletContext.expectAndReturn("getResource", "/WebMacro.properties", null); 
+    mockServletContext.expectAndReturn("getInitParameterNames", null); 
+    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("toString", "mockServletContext"); 
+    mockServletContext.expectAndReturn("log", "WebMacro:LogFile\tNOTICE\t--- Log Started ---", null); 
+    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("log", "WebMacro:broker\tNOTICE\tLoaded settings from WebMacro.defaults, WebMacro.properties, (WAR file), (System Properties)", null);
+    mockServletContext.expectAndReturn("hashCode", 17); 
+    mockServletContext.expectAndReturn("log", "WebMacro:wm\tNOTICE\tnew WebMacro(mockServletContext) v2.0b1", null);
+    mockServletContext.expectAndReturn("getResource", "/java/lang/Exception.wm", null); 
+    mockServletContext.expectAndReturn("log", new IsInstanceOf(String.class), null);
+//        "WebMacro:resource\tWARNING\tBrokerTemplateProvider:\tTemplate not found:\tjava/lang/Exception.wm", null);
+    mockServletContext.expectAndReturn("getResource", "/org/melati/template/webmacro/templets/html/error/java.lang.Exception.wm", null); 
 
     mockHttpServletRequest.setSession(mockSession.proxy());
     mockSession.expectAndReturn("getId", "1");
@@ -255,14 +268,15 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     
-    ExceptionPoemServlet aServlet = 
-          new ExceptionPoemServlet();
+    ExceptionTemplateServlet aServlet = 
+          new ExceptionTemplateServlet();
     aServlet.init((ServletConfig)mockServletConfig.proxy());
     aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
                    (HttpServletResponse) mockHttpServletResponse);
-    System.err.println(mockHttpServletResponse.getOutputStream().toString());
-    System.err.println(mockHttpServletResponse.getWritten());
+    assertTrue(mockHttpServletResponse.getWritten().indexOf("Melati Error Template") > 0);
+    assertTrue(mockHttpServletResponse.getWritten().indexOf("java.lang.Exception: A problem") > 0);
     aServlet.destroy();
   }
 

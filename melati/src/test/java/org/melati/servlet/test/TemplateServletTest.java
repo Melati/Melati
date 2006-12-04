@@ -4,6 +4,7 @@
 package org.melati.servlet.test;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -26,6 +27,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.melati.util.EmptyEnumeration;
+import org.melati.util.HttpServletRequestParameters;
+
+import com.mockobjects.constraint.Constraint;
+import com.mockobjects.constraint.IsEqual;
 import com.mockobjects.dynamic.Mock;
 
 /**
@@ -175,10 +181,6 @@ public class TemplateServletTest extends PoemServletTest {
     mockServletContext.expectAndReturn("getResource", "/org/melati/test/TemplateServletTest.wm", null); 
     mockServletContext.expect("log", "MelatiConfigTest: destroy");
 
-
-    
-        
-    
     org.melati.test.TemplateServletTest aServlet = 
           new org.melati.test.TemplateServletTest();
     try {
@@ -192,8 +194,6 @@ public class TemplateServletTest extends PoemServletTest {
       fail();
     } 
                    
-   // mockHttpServletRequest.verify(); 
-    //mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
     try {
@@ -202,7 +202,6 @@ public class TemplateServletTest extends PoemServletTest {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    //assertTrue(output.toString().indexOf("<h2>TemplateServlet Test</h2>") != -1); 
 
 
   }
@@ -211,8 +210,60 @@ public class TemplateServletTest extends PoemServletTest {
   /**
    * @see org.melati.servlet.ConfigServlet.writeError(PrintWriter, Exception)
    */
-  public void testWriteError() {
+  public void testWriteError() throws Exception {
+    MockServletRequest mockHttpServletRequest = new MockServletRequest();
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
+                   
+    
+    Mock mockSession = new Mock(HttpSession.class);
+    mockSession.expectAndReturn("getId", "1");
+    mockSession.expectAndReturn("getId", "1");
 
+
+    mockSession.expect("removeAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters"); 
+    mockSession.expectAndReturn("getId", "1");
+    mockSession.expectAndReturn("getId", "1");
+    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.user", null); 
+    mockSession.expectAndReturn("getId", "1");
+    
+    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringRequestParameters"),
+        new IsInstanceOf(HttpServletRequestParameters.class)});
+
+    mockSession.expect("setAttribute", new Constraint []  {new IsEqual("org.melati.login.Login.triggeringException"),
+        new IsInstanceOf(org.melati.poem.AccessPoemException.class)});
+    
+
+    
+    mockSession.expectAndReturn("getId", "1");
+    
+           
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", "melatitest/user/1");
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+
+    mockHttpServletRequest.setSession(mockSession.proxy());
+    mockSession.expectAndReturn("getId", "1");
+    mockSession.expectAndReturn("getId", "1");
+
+    mockSession.expectAndReturn("getAttribute", "org.melati.login.HttpSessionAccessHandler.overlayParameters",
+        new HttpServletRequestParameters(mockHttpServletRequest));
+        
+
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    
+    ExceptionPoemServlet aServlet = 
+          new ExceptionPoemServlet();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
+                   (HttpServletResponse) mockHttpServletResponse);
+    System.err.println(mockHttpServletResponse.getOutputStream().toString());
+    System.err.println(mockHttpServletResponse.getWritten());
+    aServlet.destroy();
   }
 
   /**
@@ -284,7 +335,7 @@ public class TemplateServletTest extends PoemServletTest {
     public String getCharacterEncoding() {
       return "ISO-8859-1";
     }
-
+    ByteArrayOutputStream bout = new ByteArrayOutputStream(); 
     public ServletOutputStream getOutputStream() throws IOException {
         return new ServletOutputStream() {
         
@@ -293,12 +344,15 @@ public class TemplateServletTest extends PoemServletTest {
             }
 
             public void write(int b) throws IOException {
+              bout.write(b);
             }
         };
     }
-
+    public String getWritten() {
+      return bout.toString();
+    }
     public PrintWriter getWriter() throws IOException {
-        return null;
+        return new PrintWriter(System.err);
     }
 
     public void setContentLength(int arg0) {
@@ -479,7 +533,7 @@ public class TemplateServletTest extends PoemServletTest {
     }
 
     public Enumeration getParameterNames() {
-        return null;
+        return new EmptyEnumeration();
     }
 
     public String[] getParameterValues(String arg0) {

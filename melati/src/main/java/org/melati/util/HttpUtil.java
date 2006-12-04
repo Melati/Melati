@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
@@ -83,9 +83,12 @@ public final class HttpUtil {
   public static void appendRelativeZoneURL (
       StringBuffer url, HttpServletRequest request) {
     url.append(HttpServletRequestCompat.getContextPath(request));
-    String servlet = request.getServletPath();
-    if (servlet != null && !servlet.equals(""))
-      url.append(servlet.substring(0, servlet.lastIndexOf('/')));
+    String servletPath = request.getServletPath();
+    if (servletPath.lastIndexOf('/') == -1) 
+      throw new MelatiBugMelatiException(
+          "Servlet Path does not contain a forward slash:" + servletPath);
+    if (servletPath != null && !servletPath.equals(""))
+      url.append(servletPath.substring(0, servletPath.lastIndexOf('/')));
   }
 
 

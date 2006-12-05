@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -91,7 +91,6 @@ import org.melati.poem.generated.ValueInfoBase;
  * </table> 
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
- * @todo Expand javadoc 
  */
 public class ValueInfo extends ValueInfoBase {
 
@@ -105,6 +104,9 @@ public class ValueInfo extends ValueInfoBase {
 
   // programmer's domain-specific code here
 
+  /**
+   * @return a Type Parameter based upon our size and nullability 
+   */
   public PoemTypeFactory.Parameter toTypeParameter() {
     final Boolean nullableL = getNullable_unsafe();
     final Integer sizeL = getSize_unsafe();
@@ -122,6 +124,9 @@ public class ValueInfo extends ValueInfoBase {
 
   private SQLPoemType poemType = null;
 
+  /**
+   * @return our SQLPoemType
+   */
   public SQLPoemType getType() {
     if (poemType == null) {
       PoemTypeFactory f = getTypefactory();
@@ -138,9 +143,10 @@ public class ValueInfo extends ValueInfoBase {
     return poemType;
   }
 
- /**
-  * @todo Make more efficient, add interface for ranged types
-  */
+  /**
+   * @param nullableP
+   * @return
+   */
   private SQLPoemType getRangeEndType(boolean nullableP) {
     // FIXME a little inefficient, but rarely used; also relies on BasePoemType
     // should have interface for ranged type ...
@@ -169,10 +175,18 @@ public class ValueInfo extends ValueInfoBase {
     );
   }
 
+  /**
+   * @param c a FieldAttributes eg a Field
+   * @return a new FieldAttributes
+   */
   public FieldAttributes fieldAttributesRenamedAs(FieldAttributes c) {
     return fieldAttributesRenamedAs(c, getType());
   }
 
+  /**
+   * @param c a Column with a Range
+   * @return a Field representing the end of the Range
+   */
   private Field rangeEndField(Column c) {
     SQLPoemType unrangedType = getRangeEndType(c.getType().getNullable());
 
@@ -198,16 +212,25 @@ public class ValueInfo extends ValueInfoBase {
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.generated.ValueInfoBase#getRangelow_stringField()
+   */
   public Field getRangelow_stringField() {
     Field it = rangeEndField(getValueInfoTable().getRangelow_stringColumn());
     return it != null ? it : super.getRangelow_stringField();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.generated.ValueInfoBase#getRangelimit_stringField()
+   */
   public Field getRangelimit_stringField() {
     Field it = rangeEndField(getValueInfoTable().getRangelimit_stringColumn());
     return it != null ? it : super.getRangelimit_stringField();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.generated.ValueInfoBase#setRangelow_string(java.lang.String)
+   */
   public void setRangelow_string(String value) {
     boolean nullableL = getValueInfoTable().getRangelow_stringColumn().
                         getType().getNullable();
@@ -217,6 +240,9 @@ public class ValueInfo extends ValueInfoBase {
     super.setRangelow_string(value);
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.generated.ValueInfoBase#setRangelimit_string(java.lang.String)
+   */
   public void setRangelimit_string(String value) {
     boolean nullableL = getValueInfoTable().getRangelimit_stringColumn().
                         getType().getNullable();

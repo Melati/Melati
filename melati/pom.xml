@@ -177,13 +177,17 @@
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-surefire-plugin</artifactId>
      <configuration>
+      <redirectTestOutputToFile>true</redirectTestOutputToFile>
+      <forkMode>once</forkMode>
+      <threadCount>1</threadCount>
+      <childDelegation>false</childDelegation>
       <includes>
        <include>**/*Test.java</include>
       </includes>
-      <!--excludes>
-       <exclude>**/PoemDatabaseTest.java</exclude>
-       <exclude>**/PoemServletTest.java</exclude>
-      </excludes-->
+      <excludes>
+       <!-- exclude>**/PoemDatabaseTest.java</exclude -->
+       <!-- exclude>**/PoemServletTest.java</exclude -->
+      </excludes>
      </configuration>
     </plugin>
      <plugin>

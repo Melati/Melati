@@ -321,12 +321,12 @@ public class DSD {
       if (overwrite) {
         BufferedReader r = new BufferedReader(new FileReader(f));
         try {
-          for(int i = 0; i < 9; i++) {r.readLine(); }
-          String tenthLine = r.readLine();
-          if (tenthLine == null || tenthLine.indexOf(autogenStamp) != -1)
+          for(int i = 0; i < 8; i++) {r.readLine(); }
+          String ninthLine = r.readLine();
+          if (ninthLine == null || ninthLine.indexOf(autogenStamp) != -1)
             System.err.println("Replacing " + f);
           else {
-            System.err.println(tenthLine); 
+            System.err.println(ninthLine); 
             throw new TargetExistsDSDException(f);
           }
         } finally {
@@ -352,8 +352,8 @@ public class DSD {
         w.write(".generated");
       w.write("</title>\n" +
               "</head>\n" +
-              "<body>\n" +
-              "<!-- " + autogenStamp + "-->\n");
+              "<!-- " + autogenStamp + "-->\n" +
+              "<body>\n");
       proc.process(w);
 
       w.write("</body>\n" + 

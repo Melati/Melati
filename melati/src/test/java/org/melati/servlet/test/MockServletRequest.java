@@ -72,7 +72,7 @@ class MockServletRequest implements HttpServletRequest {
     }
 
     public String getContextPath() {
-        return null;
+        return ""; // root context
     }
 
     public String getQueryString() {
@@ -190,11 +190,11 @@ class MockServletRequest implements HttpServletRequest {
     }
 
     public String getServerName() {
-        return null;
+        return "localhost";
     }
 
     public int getServerPort() {
-        return 0;
+        return 80;
     }
 
     public BufferedReader getReader() throws IOException {
@@ -241,7 +241,7 @@ class MockServletRequest implements HttpServletRequest {
     }
 
     public String getRealPath(String arg0) {
-        return null;
+        return "test";
     }
     
 }

@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.melati.util.MelatiBugMelatiException;
-
 import junit.framework.TestCase;
 import com.mockobjects.dynamic.Mock;
 import com.mockobjects.dynamic.OrderedMock;
@@ -280,8 +278,8 @@ public class ConfigServletTest extends TestCase {
       aServlet.doPost((HttpServletRequest) request,  
                      (HttpServletResponse) response);
       fail("Should have blown up");
-    } catch (MelatiBugMelatiException e) {
-      assertEquals("An apparent bug in Melati: Pretend bug", e.getMessage());
+    } catch (ServletException e) {
+      assertEquals("org.melati.util.ConfigException: Pretend bug", e.getMessage());
     }
     aServlet.destroy();
 

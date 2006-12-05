@@ -6,7 +6,7 @@ package org.melati.servlet.test;
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.servlet.ConfigServlet;
-import org.melati.util.MelatiBugMelatiException;
+import org.melati.util.ConfigException;
 import org.melati.util.MelatiException;
 
 /**
@@ -38,6 +38,6 @@ public class MelatiConfigExceptionConfigServlet extends ConfigServlet {
   }
 
   protected MelatiConfig melatiConfig() throws MelatiException {
-    throw new MelatiBugMelatiException("Pretend bug");
+    throw new ConfigException("Pretend bug");
    }
 }

@@ -264,14 +264,25 @@ public abstract class Column implements FieldAttributes {
     return name;
   }
 
+  /**
+   * @return the name quoted appropriately for the DBMS
+   */
   public final String quotedName() {
     return quotedName;
   }
 
+  /**
+   * @return the name in table.column notation
+   */
   public final String fullQuotedName() {
     return table.quotedName() + "." + quotedName;
   }
 
+  /**
+   * Return a human readable name from the metadata.
+   * 
+   * @see org.melati.poem.FieldAttributes#getDisplayName()
+   */
   public final String getDisplayName() {
     return info.getDisplayname();
   }

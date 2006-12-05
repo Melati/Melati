@@ -156,7 +156,6 @@ public class PoemServletTest extends PoemServlet {
   
 /**
  * How to use a different melati configuration.
- *
  */
   protected MelatiConfig melatiConfig() throws MelatiException {
     MelatiConfig config = super.melatiConfig();
@@ -166,11 +165,11 @@ public class PoemServletTest extends PoemServlet {
 
 /**
  * Set up the melati context so we don't have to specify the 
- * logicaldatabase on the pathinfo.  
- *
+ * logical database on the pathinfo.  
+ * <p>
  * This is a very good idea when
- * writing your appications where you are typically only accessing
- * a single database
+ * writing your applications where you are typically only accessing
+ * a single database.
  */
   protected PoemContext poemContext(Melati melati)
   throws PathInfoException {

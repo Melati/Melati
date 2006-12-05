@@ -90,7 +90,7 @@ class MockServletResponse implements HttpServletResponse {
       return bout.toString();
     }
     public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(System.err);
+        return new PrintWriter(getOutputStream());
     }
 
     public void setContentLength(int arg0) {

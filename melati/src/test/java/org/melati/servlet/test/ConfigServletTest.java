@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.servlet.test;
 
 import java.io.PrintWriter;
@@ -20,7 +17,6 @@ import com.mockobjects.dynamic.OrderedMock;
 
 /**
  * @author timp
- *
  */
 public class ConfigServletTest extends TestCase {
 
@@ -33,7 +29,7 @@ public class ConfigServletTest extends TestCase {
     
   }
 
-  /*
+  /**
    * @see TestCase#setUp()
    */
   protected void setUp()
@@ -41,7 +37,7 @@ public class ConfigServletTest extends TestCase {
     super.setUp();
   }
 
-  /*
+  /**
    * @see TestCase#tearDown()
    */
   protected void tearDown()
@@ -49,15 +45,15 @@ public class ConfigServletTest extends TestCase {
     super.tearDown();
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.init(ServletConfig)'
+  /**
+   * @see org.melati.servlet.ConfigServlet#init(ServletConfig)
    */
   public void testInitServletConfig() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)'
+  /**
+   * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -117,7 +113,7 @@ public class ConfigServletTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)'
+   * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -295,21 +291,21 @@ public class ConfigServletTest extends TestCase {
   
 
   /**
-   * Test method for 'org.melati.servlet.ConfigServlet#writeError(PrintWriter, Exception)'
+   * @see org.melati.servlet.ConfigServlet#writeError(PrintWriter, Exception)
    */
   public void testWriteError() {
 
   }
 
   /**
-   * Test method for 'org.melati.servlet.ConfigServlet#writeConnectionPendingException(PrintWriter, Exception)'
+   * @see org.melati.servlet.ConfigServlet#writeConnectionPendingException(PrintWriter, Exception)
    */
   public void testWriteConnectionPendingException() {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.getSysAdminName()'
+  /**
+   * @see org.melati.servlet.ConfigServlet.getSysAdminName()
    */
   public void testGetSysAdminName() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
@@ -367,8 +363,8 @@ public class ConfigServletTest extends TestCase {
 
   }
 
-  /*
-   * Test method for 'org.melati.servlet.ConfigServlet.getSysAdminEmail()'
+  /**
+   * @see org.melati.servlet.ConfigServlet#getSysAdminEmail()
    */
   public void testGetSysAdminEmail() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 

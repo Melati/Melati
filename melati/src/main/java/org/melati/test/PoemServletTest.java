@@ -47,7 +47,9 @@ package org.melati.test;
 
 import java.io.IOException;
 import java.util.Enumeration;
+
 import javax.servlet.ServletException;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.login.HttpBasicAuthenticationAccessHandler;
@@ -70,8 +72,15 @@ import org.melati.util.MelatiException;
 public class PoemServletTest extends PoemServlet {
   private static final long serialVersionUID = 1L;
 
-  protected void doPoemRequest(Melati melati)
-      throws ServletException, IOException {
+  /**
+   * Constructor.
+   */
+   public PoemServletTest() {
+     super();
+   }
+
+   protected void doPoemRequest(Melati melati)
+     throws ServletException, IOException {
 
     melati.getResponse().setContentType("text/html");
     MelatiWriter output = melati.getWriter();
@@ -179,6 +188,7 @@ public class PoemServletTest extends PoemServlet {
     else 
       return super.poemContext(melati);
   }
+
 }
 
 

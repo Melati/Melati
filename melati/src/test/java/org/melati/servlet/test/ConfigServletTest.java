@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.melati.util.MelatiBugMelatiException;
+
 import junit.framework.TestCase;
 import com.mockobjects.dynamic.Mock;
 import com.mockobjects.dynamic.OrderedMock;
@@ -226,7 +228,7 @@ public class ConfigServletTest extends TestCase {
   /**
    * @see org.melati.servlet.ConfigServlet#error(Melati, Exception)
    */
-  public void testConnectionPendingError() {
+  public void testConnectionPendingError() throws Exception {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
                    
@@ -250,15 +252,10 @@ public class ConfigServletTest extends TestCase {
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
     DbPendingErrorConfigServlet aServlet = 
           new DbPendingErrorConfigServlet();
-    try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-          (HttpServletResponse) mockHttpServletResponse.proxy());
-      aServlet.destroy();
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    } 
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
+                   (HttpServletResponse) mockHttpServletResponse.proxy());
+    aServlet.destroy();
                    
 
     mockHttpServletRequest.verify(); 
@@ -268,6 +265,34 @@ public class ConfigServletTest extends TestCase {
     assertTrue(output.toString().indexOf("The database `testdb' is in the process of being initialized") != -1); 
 
   }
+  
+  public void testExceptionDuringInit() throws Exception {
+    MockServletResponse response = new MockServletResponse();
+    MockServletRequest request = new MockServletRequest();
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: init", null);
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    MelatiConfigExceptionConfigServlet aServlet = 
+      new MelatiConfigExceptionConfigServlet();
+    try {
+      aServlet.init((ServletConfig)mockServletConfig.proxy());
+      aServlet.doPost((HttpServletRequest) request,  
+                     (HttpServletResponse) response);
+      fail("Should have blown up");
+    } catch (MelatiBugMelatiException e) {
+      assertEquals("An apparent bug in Melati: Pretend bug", e.getMessage());
+    }
+    aServlet.destroy();
+
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
+  }
+  
 
   /**
    * Test method for 'org.melati.servlet.ConfigServlet#writeError(PrintWriter, Exception)'

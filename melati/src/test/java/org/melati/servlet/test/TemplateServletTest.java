@@ -3,8 +3,6 @@
  */
 package org.melati.servlet.test;
 
-import java.io.IOException;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +63,7 @@ public class TemplateServletTest extends PoemServletTest {
   /**
    * @see org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)
    */
-  public void testDoGetHttpServletRequestHttpServletResponse() {
+  public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
     doGetPost(); 
   }
   /**
@@ -79,7 +77,7 @@ public class TemplateServletTest extends PoemServletTest {
   /**
    * 
    */
-  public void doGetPost() {
+  public void doGetPost() throws Exception {
     //final MelatiStringWriter output = new MelatiStringWriter(); 
     //final PrintWriter contentWriter = new PrintWriter(output); 
            
@@ -173,12 +171,7 @@ public class TemplateServletTest extends PoemServletTest {
                    
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
-    try {
-      System.err.println(mockHttpServletResponse.getOutputStream().toString());
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    System.err.println(mockHttpServletResponse.getOutputStream().toString());
 
 
   }

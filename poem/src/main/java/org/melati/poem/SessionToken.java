@@ -50,7 +50,8 @@ import org.melati.util.ToTidyList;
 /**
  * A Session Token.
  * 
- * @todo Javadoc - what more can be said?
+ * A Session has an AccessToken, a Time started, a Task, 
+ * a Transaction within which the task is running and a Thread which runs the task.
  */
 public class SessionToken {
   Thread thread;
@@ -60,6 +61,12 @@ public class SessionToken {
   AccessToken accessToken;
   private ToTidyList toTidy = null;
 
+  /**
+   * @param thread
+   * @param transaction
+   * @param accessToken
+   * @param task
+   */
   SessionToken(Thread thread, PoemTransaction transaction,
                AccessToken accessToken, PoemTask task) {
     this.thread = thread;
@@ -69,6 +76,9 @@ public class SessionToken {
     this.accessToken = accessToken;
   }
 
+  /**
+   * Close this session and its toTidy list.
+   */
   void close() {
     thread = null;
     started = 0L;
@@ -79,6 +89,9 @@ public class SessionToken {
       toTidy.close();
   }
 
+  /**
+   * @return the list of object to close when we close
+   */
   public synchronized ToTidyList toTidy() {
     if (toTidy == null)
       toTidy = new ToTidyList();
@@ -86,7 +99,7 @@ public class SessionToken {
   }
 
   /**
-   * @return Returns the started.
+   * @return Returns the time, as a long, started.
    */
   public long getStarted() {
     return started;

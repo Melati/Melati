@@ -22,7 +22,7 @@ public class CommandLineAccessHandlerTest extends AccessHandlerTestAbstract {
 
   public void setUp() throws Exception {
     super.setUp();
-    m.setArguments(new String[] {"poemtest", "-u", "_administrator_", "-p", "FIXME"});    
+    m.setArguments(new String[] {"melatijunit", "-u", "_administrator_", "-p", "FIXME"});    
   }
   
   /** 

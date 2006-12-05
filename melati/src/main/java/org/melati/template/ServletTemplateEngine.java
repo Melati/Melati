@@ -71,7 +71,7 @@ public interface ServletTemplateEngine extends TemplateEngine {
       throws TemplateEngineException;
 
   /**
-   * Get a Writer which can write to s Servlet output.
+   * Get a Writer which can write to Servlet output.
    *  
    * @param response the <code>HttpServletResponse</code> that this 
    *                 writer will be part of

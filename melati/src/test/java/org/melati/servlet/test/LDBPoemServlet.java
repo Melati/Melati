@@ -30,7 +30,7 @@ public class LDBPoemServlet extends PoemServletTest {
 
   
   protected PoemContext poemContext(Melati melati) throws PathInfoException { 
-    return poemContextWithLDB(melati, "poemtest"); 
+    return poemContextWithLDB(melati, "melatijunit"); 
   } 
 
 }

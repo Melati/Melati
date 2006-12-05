@@ -205,6 +205,8 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertFalse(getDb().logSQL());
     getDb().setLogSQL(true);
     assertTrue(getDb().logSQL());
+    getDb().setLogSQL(false);
+    assertFalse(getDb().logSQL());
   }
 
   /**
@@ -277,8 +279,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testAddTableAndCommit()
       throws Exception {
-    getDb().setLogCommits(true);
-    getDb().setLogSQL(true);
+    //getDb().setLogCommits(true);
+    //getDb().setLogSQL(true);
     TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();
     info.setName("junit");
     info.setDisplayname("Junit created table");

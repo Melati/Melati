@@ -755,7 +755,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table.cachedSelectionField(String, String, boolean, Integer, String)
    */
   public void testCachedSelectionField() {
-    getDb().setLogSQL(true);
+    //getDb().setLogSQL(true);
     Field userTables = getDb().getTableInfoTable().cachedSelectionField(
         "\"TABLEINFO\".\"DISPLAYORDER\" < 3000", null, true, null, "userTables");
     Enumeration them = userTables.getPossibilities();

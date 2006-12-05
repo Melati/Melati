@@ -25,7 +25,6 @@ public class TestDatabaseTest extends PoemTestCase {
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName("poemtest");
     super.setUp();
   }
   /**

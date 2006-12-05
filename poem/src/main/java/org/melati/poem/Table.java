@@ -76,8 +76,6 @@ import org.melati.poem.dbms.Dbms;
  * A Table.
  *
  * @author WilliamC At paneris.org
- * @todo Allow selection based on null fields
- * @todo See FIXMEs
  **/
 
 public class Table implements Selectable {
@@ -279,6 +277,10 @@ public class Table implements Selectable {
     return columns.length;
   }
 
+  /**
+   * @param columnInfoID
+   * @return the Column with a TROID equal to columnInfoID
+   */
   Column columnWithColumnInfoID(int columnInfoID) {
     for (Enumeration c = columns(); c.hasMoreElements();) {
       Column column = (Column)c.nextElement();
@@ -395,9 +397,17 @@ public class Table implements Selectable {
       clearColumnInfoCaches();
   }
 
+  /**
+   * Get an Array of columns meeting the criteria of whereClause.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
+   * @param whereClause an SQL snippet
+   * @return an array of Columns
+   */
   private Column[] columnsWhere(String whereClause) {
     // get the col IDs from the committed session
-
     Enumeration colIDs =
         getDatabase().getColumnInfoTable().troidSelection(
             database.quotedName("tableinfo") + " = " + tableInfoID() + 
@@ -1065,6 +1075,9 @@ public class Table implements Selectable {
    * inextricably linked to the when clause, but the default is 
    * {@link #quotedName()}.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param fromClause Comma separated list of table names or null for default.
    * @param whereClause SQL fragment
    * @param orderByClause Comma separated list
@@ -1081,6 +1094,9 @@ public class Table implements Selectable {
   }
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param fromClause SQL fragment
    * @param whereClause SQL fragment
    * @param orderByClause comma separated list
@@ -1133,6 +1149,9 @@ public class Table implements Selectable {
   }
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @return an {@link Enumeration} of Troids satisfying the criteria.
    */ 
   public Enumeration troidSelection(String whereClause, String orderByClause,
@@ -1190,6 +1209,9 @@ public class Table implements Selectable {
    * A <TT>SELECT</TT>ion of troids of objects from the table meeting given
    * criteria.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * If the orderByClause is null, then the default order by clause is applied.
    * If the orderByClause is an empty string, ie "", then no ordering is 
    * applied.
@@ -1236,6 +1258,9 @@ public class Table implements Selectable {
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria.
    * This is one way to run a search against the database and return the
    * results as a series of typed POEM objects.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
    *
    * @param whereClause         SQL <TT>SELECT</TT>ion criteria for the search:
    *                            the part that should appear after the
@@ -1263,6 +1288,9 @@ public class Table implements Selectable {
   * It is the programmer's responsibility to use this in a 
   * context where only one result will be found, if more than one 
   * actually exist only the first will be returned. 
+  * 
+  * It is the programmer's responsibility to ensure that the where clause 
+  * is suitable for the target DBMS.
   *
   * @param whereClause         SQL <TT>SELECT</TT>ion criteria for the search:
   *                            the part that should appear after the
@@ -1281,6 +1309,9 @@ public class Table implements Selectable {
    * If the orderByClause is an empty string, ie "", then no ordering is 
    * applied.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param includeDeleted      whether to return objects flagged as deleted
    *                            (ignored if the table doesn't have a
    *                            <TT>deleted</TT> column)
@@ -1348,6 +1379,9 @@ public class Table implements Selectable {
    * A <TT>SELECT</TT>ion of objects from the table meeting given criteria,
    * possibly including those flagged as deleted.  
    * The results are returned in 'pages'.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
    *
    * @param orderByClause  the DBMS name of the field to order by
    *                       if null, then the default order by clause is 
@@ -1400,6 +1434,9 @@ public class Table implements Selectable {
    * {@link #selectionSQL(String, String, String, boolean, boolean)}.
    * <p>
    * Temporarily public for debugging purposes.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
    *
    * @param fromClause Comma separated list of table names or null just this
    * table.
@@ -1413,6 +1450,9 @@ public class Table implements Selectable {
   /**
    * Return an SQL SELECT statement for selecting or counting rows.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param selectClause the columns to return
    * @param fromClause Comma separated list of table names or null for default.
    * @param whereClause SQL fragment
@@ -1462,6 +1502,9 @@ public class Table implements Selectable {
    * Despite the name this does not use a <code>StringBuffer</code>.
    * in the belief that the costs outweigh the benefits here.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause SQL fragment
    * @param includeDeleted Flag as to whether to include soft deleted records
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
@@ -1541,6 +1584,9 @@ public class Table implements Selectable {
   }
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @return the number records satisfying criteria.
    */ 
   public int count(String whereClause,
@@ -1551,6 +1597,9 @@ public class Table implements Selectable {
   }
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @return the number records satisfying criteria.
    */ 
   public int count(String whereClause, boolean includeDeleted)
@@ -1559,6 +1608,9 @@ public class Table implements Selectable {
   }
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @return the number records satisfying criteria.
    */ 
   public int count(String whereClause)
@@ -1602,12 +1654,16 @@ public class Table implements Selectable {
 
 
   /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause the SQL criteria
    * @return whether any  records satisfy criteria.
    */ 
   public boolean exists(String whereClause) throws SQLPoemException {
     return count(whereClause) > 0;
   }
+
   /**
    * @param persistent a {@link Persistent} with some fields filled in 
    * @return whether any  records exist with the same fields filled
@@ -1628,12 +1684,10 @@ public class Table implements Selectable {
    * by canselect columns.
    * 
    * @todo Add mechanism for searching for Nulls (that would be query
-   * constructs as per SQL parse tree, but efferent not afferent JimW)
-   * @todo Decide whether this and similar should be here or in
-   * {@link Persistent} then deprecate etc.
+   * constructs as per SQL parse tree, but efferent not afferent)
    *
-   * see #notifyColumnInfo(ColumnInfo)
-   * see #clearColumnInfoCaches()
+   * @see #notifyColumnInfo(ColumnInfo)
+   * @see #clearColumnInfoCaches()
    */
   public void appendWhereClause(StringBuffer clause, Persistent persistent) {
     Column[] columnsLocal = this.columns;
@@ -1704,8 +1758,10 @@ public class Table implements Selectable {
   }
 
   /**
-   * @todo Document this, particularly "cnf" and the fact that it does
-   * not work if any of the persistents produces an empty where clause.
+   * Return a Conjunctive Normal Form (CNF) where clause.
+   * See http://en.wikipedia.org/wiki/Conjunctive_normal_form.
+   *  
+   * FIXME Does not work if any of the persistents produces an empty where clause.
    */
   public String cnfWhereClause(Enumeration persistents,
                                boolean includeDeleted, boolean excludeUnselectable) {
@@ -1935,6 +1991,12 @@ public class Table implements Selectable {
     return new Persistent();
   }
 
+  /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
+   * @param whereClause the criteria
+   */
   public void delete_unsafe(String whereClause) {
     serial.increment(PoemThread.transaction());
     getDatabase().sqlUpdate("DELETE FROM " + quotedName + 
@@ -2106,6 +2168,9 @@ public class Table implements Selectable {
   /**
    * A mechanism for caching a selection of records.
    * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param orderByClause which field to order by or null
    * @return the results
@@ -2133,6 +2198,9 @@ public class Table implements Selectable {
   /**
    * A mechanism for caching a record count.
    * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param includeDeleted whether to include soft deleted records
    * @return a cached count
@@ -2143,6 +2211,9 @@ public class Table implements Selectable {
 
   /**
    * A mechanism for caching a record count.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param includeDeleted whether to include soft deleted records
@@ -2172,6 +2243,9 @@ public class Table implements Selectable {
   /**
    * A mechanism for caching a record count.
    * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @return a cached count
    */
@@ -2179,6 +2253,14 @@ public class Table implements Selectable {
     return cachedCount(whereClause, (Persistent)null);
   }
 
+  /**
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
+   * @param whereClause raw SQL selection clause appropriate for this DBMS
+   * @param criteria a Persistent to extract a where clause from
+   * @return a cached count
+   */
   private CachedCount cachedCount(String whereClause, Persistent criteria) {
     CachedCount it = (CachedCount)cachedCounts.get(whereClause);
     if (it == null) {
@@ -2202,6 +2284,9 @@ public class Table implements Selectable {
   /**
    * A mechanism for caching an existance.
    * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @return a cached exists
    */
@@ -2223,6 +2308,9 @@ public class Table implements Selectable {
 
   /**
    * A mechanism for caching a record count.
+   * 
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @param orderByClause raw SQL order clause appropriate for this DBMS
@@ -2262,6 +2350,9 @@ public class Table implements Selectable {
    * always reflect the state of affairs within your transaction even if you
    * haven't done a commit.
    *
+   * It is the programmer's responsibility to ensure that the where clause 
+   * is suitable for the target DBMS.
+   * 
    * @param whereClause         an SQL expression (the bit after the
    *                            <TT>SELECT</TT> ... <TT>WHERE</TT>) for picking
    *                            out the records you want

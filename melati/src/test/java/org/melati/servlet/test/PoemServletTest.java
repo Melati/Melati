@@ -128,9 +128,10 @@ public class PoemServletTest extends TestCase {
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
-  public void testDoGetHttpServletRequestHttpServletResponse() {
+  public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
                    
@@ -177,14 +178,9 @@ public class PoemServletTest extends TestCase {
     mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
     org.melati.test.PoemServletTest aServlet = 
           new org.melati.test.PoemServletTest();
-    try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doGet((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                     (HttpServletResponse) mockHttpServletResponse.proxy());
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    } 
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doGet((HttpServletRequest) mockHttpServletRequest.proxy(),  
+                   (HttpServletResponse) mockHttpServletResponse.proxy());
     assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
 
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
@@ -200,7 +196,7 @@ public class PoemServletTest extends TestCase {
   /**
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
-  public void testDoPostHttpServletRequestHttpServletResponse() {
+  public void testDoPostHttpServletRequestHttpServletResponse() throws Exception {
     Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
                    
@@ -237,22 +233,17 @@ public class PoemServletTest extends TestCase {
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", null);
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
-    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
-    org.melati.test.PoemServletTest aServlet = 
-          new org.melati.test.PoemServletTest();
-    try {
-      aServlet.init((ServletConfig)mockServletConfig.proxy());
-      aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                     (HttpServletResponse) mockHttpServletResponse.proxy());
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail();
-    } 
-                   
-    assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
     mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
     mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
+
+    org.melati.test.PoemServletTest aServlet = 
+          new org.melati.test.PoemServletTest();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
+                   (HttpServletResponse) mockHttpServletResponse.proxy());
+    assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
     aServlet.destroy();
     mockHttpServletRequest.verify(); 
     mockHttpServletResponse.verify(); 
@@ -365,6 +356,34 @@ public class PoemServletTest extends TestCase {
     //assertTrue(output.toString().indexOf("You need the capability") != -1); 
     System.err.println(output);
 
+  }
+
+  public void testLDB() throws Exception {
+    MockServletResponse response = new MockServletResponse();
+    MockServletRequest request = new MockServletRequest();
+    Mock mockServletConfig = new Mock(ServletConfig.class);
+    Mock mockServletContext = new Mock(ServletContext.class);
+   // mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getInitParameter", "pathInfo", null);
+   // mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
+    mockServletConfig.expectAndReturn("getServletName", "MelatiConfigTest");
+    mockServletContext.expectAndReturn("log", "MelatiConfigTest: init", null);
+    mockServletContext.expectAndReturn("log","MelatiConfigTest: destroy", null);
+    LDBPoemServlet aServlet = 
+      new LDBPoemServlet();
+    aServlet.init((ServletConfig)mockServletConfig.proxy());
+    aServlet.doPost((HttpServletRequest) request,  
+                    (HttpServletResponse) response);
+    System.out.println(response.getWritten().toString());
+    aServlet.destroy();
+
+    assertTrue(response.getWritten().toString().indexOf("logicalDatabase = poemtest") != -1);
+    mockServletConfig.verify(); 
+    mockServletContext.verify(); 
+    
   }
 
   /** Tests whether the value is an instance of a class.

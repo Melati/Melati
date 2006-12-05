@@ -5,6 +5,7 @@ package org.melati.servlet.test;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,16 +48,18 @@ public class TemplateServletTest extends PoemServletTest {
 
 
   /**
+   * @throws ServletException 
    * @see org.melati.servlet.PoemServlet.getSysAdminName()
    */
-  public void testGetSysAdminName() {
+  public void testGetSysAdminName() throws ServletException {
     super.testGetSysAdminName();
   }
 
   /**
+   * @throws ServletException 
    * @see org.melati.servlet.PoemServlet.getSysAdminEmail()
    */
-  public void testGetSysAdminEmail() {
+  public void testGetSysAdminEmail() throws ServletException {
     super.testGetSysAdminEmail();
   }
 

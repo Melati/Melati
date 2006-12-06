@@ -58,6 +58,7 @@ public abstract class MappedEnumeration implements Enumeration {
   private Enumeration enumeration;
 
   public MappedEnumeration(Enumeration enumeration) {
+    if (enumeration == null) throw new NullPointerException();
     this.enumeration = enumeration;
   }
 

@@ -169,6 +169,12 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     return null;
   }
   
+  /**
+   * Obviously the possible raw values for an Integer or String are 
+   * infinite, so return null.
+   * 
+   * @see org.melati.poem.PoemType#possibleRaws()
+   */
   public Enumeration possibleRaws() {
     Enumeration them = _possibleRaws();
     return them == null ? null :

@@ -310,7 +310,7 @@ public class Field implements FieldAttributes, Cloneable {
    * 
    * @param other another field to check
    * @return whether the other field has the same raw value as this one
-   * @throws AccessPoemException
+   * @throws AccessPoemException if it is already set
    */
   public boolean sameRawAs(Field other) throws AccessPoemException {
     if (accessException != null)

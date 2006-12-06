@@ -277,27 +277,32 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   /**
-   * Might be a bit big.
+   * Might be a bit big for soem Reference types or null 
+   * for String or Integer Types.
    * 
-   * @return All possible values.
+   * @return All possible values or null.
    */
   public Enumeration getPossibilities() {
     final Field _this = this;
+    Enumeration en = getType().possibleRaws();
     return
-        new MappedEnumeration(getType().possibleRaws()) {
-          protected Object mapped(Object rawP) {
-            return _this.withRaw(rawP);
-          }
-        };
+        en == null ? null :
+          new MappedEnumeration(en) {
+            protected Object mapped(Object rawP) {
+              return _this.withRaw(rawP);
+            }
+          };
   }
 
   /**
    * Return a limited enumeration of possibilities.
    * 
    * A bit of a hack?
+   * @return the first 100 possibilities or null
    */
   public Enumeration getFirst1000Possibilities() {
-    return new LimitedEnumeration(getPossibilities(), 1000);
+    Enumeration en = getPossibilities();
+    return en == null ? null : new LimitedEnumeration(en, 1000);
   }
 
   /**

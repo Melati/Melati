@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,12 +61,24 @@ public class Field implements FieldAttributes, Cloneable {
   private Object raw;
   private FieldAttributes attrs;
 
+  /**
+   * Constructor.
+   * 
+   * @param raw the object value, integer for reference types
+   * @param attrs the metadata attributes to set
+   */
   public Field(Object raw, FieldAttributes attrs) {
     this.raw = raw;
     this.attrs = attrs;
     accessException = null;
   }      
 
+  /**
+   * Constructor for a Field with an access violation.
+   * 
+   * @param accessException the access violation
+   * @param attrs the metadata attributes to set
+   */
   public Field(AccessPoemException accessException, FieldAttributes attrs) {
     this.accessException = accessException;
     this.attrs = attrs;
@@ -79,6 +91,9 @@ public class Field implements FieldAttributes, Cloneable {
   // -----------
   // 
 
+  /* (non-Javadoc)
+   * @see java.lang.Object#clone()
+   */
   public Object clone() {
     try {
       return super.clone();
@@ -94,42 +109,72 @@ public class Field implements FieldAttributes, Cloneable {
   // -----------------
   // 
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getName()
+   */
   public String getName() {
     return attrs.getName();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getDisplayName()
+   */
   public String getDisplayName() {
     return attrs.getDisplayName();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getDescription()
+   */
   public String getDescription() {
     return attrs.getDescription();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getType()
+   */
   public PoemType getType() {
     return attrs.getType();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getIndexed()
+   */
   public boolean getIndexed() {
     return attrs.getIndexed();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getUserEditable()
+   */
   public boolean getUserEditable() {
     return attrs.getUserEditable();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getUserCreateable()
+   */
   public boolean getUserCreateable() {
     return attrs.getUserCreateable();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getWidth()
+   */
   public int getWidth() {
     return attrs.getWidth();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getHeight()
+   */
   public int getHeight() {
     return attrs.getHeight();
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getRenderInfo()
+   */
   public String getRenderInfo() {
     return attrs.getRenderInfo();
   }
@@ -140,24 +185,46 @@ public class Field implements FieldAttributes, Cloneable {
   // -------
   // 
 
+  /**
+   * Get the value of the Field.
+   * 
+   * @return the Object value, Integer for reference types
+   * @throws AccessPoemException
+   */
   public final Object getRaw() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return raw;
   }
 
+  /**
+   * Get the value as a String.
+   * 
+   * @return the String representation of this Field.
+   * @throws AccessPoemException if the current AccessToken does not permit reading
+   */
   public final Object getRawString() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return raw == null ? "" : getType().stringOfRaw(raw);
   }
 
+  /**
+   * @return
+   * @throws AccessPoemException if the current AccessToken does not permit reading
+   */
   public final Object getCooked() throws AccessPoemException {
     if (accessException != null)
       throw accessException;
     return getType().cookedOfRaw(raw);
   }
 
+  /**
+   * @param locale
+   * @param style
+   * @return
+   * @throws AccessPoemException if the current AccessToken does not permit reading
+   */
   public final String getCookedString(MelatiLocale locale, int style)
       throws AccessPoemException {
     if (accessException != null)
@@ -178,14 +245,32 @@ public class Field implements FieldAttributes, Cloneable {
     return it;
   }
 
+  /**
+   * Clone with a different nullability.
+   * 
+   * @param nullable the new nullability
+   * @return a new Field with a new, presumably different, nullability
+   */
   public Field withNullable(boolean nullable) {
     return new Field(raw, new BaseFieldAttributes(attrs, nullable));
   }
 
+  /**
+   * Clone with a new name.
+   * 
+   * @param name the new name
+   * @return a new Field with a new name
+   */
   public Field withName(String name) {
     return new Field(raw, new BaseFieldAttributes(attrs, name));
   }
 
+  /**
+   * Clone with a new description.
+   * 
+   * @param description the new description
+   * @return a new Field with a new description
+   */
   public Field withDescription(String description) {
     return new Field(raw, new BaseFieldAttributes(
                                         attrs, attrs.getName(), description));

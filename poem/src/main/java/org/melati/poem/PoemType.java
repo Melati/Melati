@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,40 +52,117 @@ import org.melati.util.MelatiLocale;
  * A data type.
  */
 public interface PoemType {
+  
+  /**
+   * Check if value is of the right type and an allowed value,
+   * throw appropriate Exception if not.
+   *  
+   * @param raw the raw value to check
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   * @throws ValidationPoemException if the raw has an illegal value
+   */
   void assertValidRaw(Object raw)
       throws TypeMismatchPoemException, ValidationPoemException;
 
+  /**
+   * Get the possible values for this field, null for general fields 
+   * such as String or Integer.
+   *  
+   * @return an Enumeration of possibilities or null
+   */
   Enumeration possibleRaws();
 
+  /**
+   * The String representation of the Field.
+   * 
+   * @param raw the value
+   * @return a String representation
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   * @throws ValidationPoemException if the raw has an illegal value
+   */
   String stringOfRaw(Object raw)
       throws TypeMismatchPoemException, ValidationPoemException;
+  
+  /**
+   * Get an Object from its String representation. 
+   * 
+   * @param rawString the String representation to convert
+   * @return an Object of the correct type
+   * @throws ParsingPoemException if the Strinf representation is not well formed
+   * @throws ValidationPoemException if the raw has an illegal value
+   */
   Object rawOfString(String rawString)
       throws ParsingPoemException, ValidationPoemException;
 
+  /**
+   * Check if an Object is valid, throw appropriate Exception if not.
+   * 
+   * @param cooked the Object to check
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   * @throws ValidationPoemException if the raw has an illegal value
+   */
   void assertValidCooked(Object cooked)
       throws TypeMismatchPoemException, ValidationPoemException;
 
+  /**
+   * Create an Object from a raw Object, a no-op for all but ReferencePoemTypes.
+   * @param raw the object, typically a troid
+   * @return the Persistent or the raw unchanged
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   * @throws PoemException if there is another problem, such as no object with that troid
+   */
   Object cookedOfRaw(Object raw)
       throws TypeMismatchPoemException, PoemException;
+  
+  /**
+   * Return the Object value, a no-op for all but ReferencePoemTypes, 
+   * for which it returns the troid as an Integer.
+   * 
+   * @param cooked the Persistent or Object
+   * @return a Persistent's troid or the raw unchanged
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   */
   Object rawOfCooked(Object cooked) throws TypeMismatchPoemException;
 
   /**
-   * @param style       as in <TT>java.text.DateFormat.SHORT</TT>, ...
+   * A localised String representation of the oject.
+   * 
+   * @param style as in <TT>java.text.DateFormat.SHORT</TT>, ...
+   * @return a String representation of an Object
+   * @throws TypeMismatchPoemException if the raw is of the wrong type
+   * @throws PoemException if there is an access violation
    */
-
   String stringOfCooked(Object cooked, MelatiLocale locale, int style)
       throws TypeMismatchPoemException, PoemException;
 
+  /**
+   * Whether the type is nullable.
+   * 
+   * @return the type's nullability
+   */
   boolean getNullable();
 
+  /**
+   * Whether this type can repesent another.
+   * 
+   * @param other the other type to check
+   * @return whether this type can represent the other 
+   */
   PoemType canRepresent(PoemType other);
 
   /**
-   * 
+   * Get a new type with a nullablity, presumably different.
+   *  
    * @param nullable the nullability we want
    * @return this or a clone with the desired nullability
    */
   PoemType withNullable(boolean nullable);
 
+  /**
+   * Set the type of the ColumnInfo.
+   * 
+   * @param columnInfo the SolumnInfo to set the type of
+   * @throws AccessPoemException if our AccessToken does not permit modification
+   */
   void saveColumnInfo(ColumnInfo columnInfo) throws AccessPoemException;
 }

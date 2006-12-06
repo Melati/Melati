@@ -107,6 +107,7 @@ public class BaseFieldAttributes implements FieldAttributes {
 
   /**
    * Convenience constructor. 
+   * 
    * @param name used as the name and, capitalised, the display name
    * @param type the Poem datatype
    */
@@ -115,6 +116,12 @@ public class BaseFieldAttributes implements FieldAttributes {
          false, true, true);
   }
 
+  /**
+   * Create a new BaseFieldAttributes based upon another, but overriding its type.
+   * 
+   * @param other the FieldAttributes to clone
+   * @param type allows overriding of type
+   */
   public BaseFieldAttributes(FieldAttributes other, PoemType type) {
     this(other.getName(), other.getDisplayName(), other.getDescription(),
          type, other.getWidth(), other.getHeight(), other.getRenderInfo(),
@@ -122,6 +129,12 @@ public class BaseFieldAttributes implements FieldAttributes {
          other.getUserCreateable());
   }
 
+  /**
+   * Create a new BaseFieldAttributes based upon another, overriding its name.
+   * 
+   * @param other the FieldAttributes to clone
+   * @param name the new name
+   */
   public BaseFieldAttributes(FieldAttributes other, String name) {
     this(name, other.getDisplayName(), other.getDescription(),
          other.getType(), other.getWidth(), other.getHeight(), 
@@ -129,8 +142,11 @@ public class BaseFieldAttributes implements FieldAttributes {
          other.getUserCreateable());
   }
 
-  /** 
-   * Allow the description to vary as well
+  /**
+   * Allow the description to vary as well.
+   * @param other the FieldAttributes to clone
+   * @param name the new name
+   * @param description the new description
    */
   public BaseFieldAttributes(FieldAttributes other, String name, 
                              String description) {
@@ -141,46 +157,82 @@ public class BaseFieldAttributes implements FieldAttributes {
          other.getUserCreateable());
   }
 
+  /**
+   * Create a new BaseFieldAttributes based upon another, overriding its nullability.
+   * 
+   * @param other the FieldAttributes to clone
+   * @param nullable the new nullability
+   */
   public BaseFieldAttributes(FieldAttributes other, boolean nullable) {
     this(other, other.getType().withNullable(nullable));
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getName()
+   */
   public String getName() {
     return name;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getDisplayName()
+   */
   public String getDisplayName() {
     return displayName;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getDescription()
+   */
   public String getDescription() {
     return description;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getType()
+   */
   public PoemType getType() {
     return type;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getIndexed()
+   */
   public boolean getIndexed() {
     return indexed;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getUserEditable()
+   */
   public boolean getUserEditable() {
     return userEditable;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getUserCreateable()
+   */
   public boolean getUserCreateable() {
     return userCreateable;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getWidth()
+   */
   public int getWidth() {
     return width;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getHeight()
+   */
   public int getHeight() {
     return height;
   }
 
+  /* (non-Javadoc)
+   * @see org.melati.poem.FieldAttributes#getRenderInfo()
+   */
   public String getRenderInfo() {
     return renderInfo;
   }

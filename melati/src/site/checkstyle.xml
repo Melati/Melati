@@ -58,6 +58,7 @@
           <property name="allowMissingParamTags" value="true"/>
           <property name="allowMissingThrowsTags" value="true"/>
           <property name="allowMissingReturnTag" value="false"/>
+          <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
         <module name="JavadocType">
           <property name="scope" value="public"/>
@@ -66,7 +67,10 @@
           <property name="scope" value="public"/>
         </module>
 
-
+         <module name="JavadocStyle"> 
+          <property name="scope" value="public"/>
+          <property name="checkFirstSentence" value="true"/>
+	 </module>
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->

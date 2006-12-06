@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import java.text.DateFormat;
+import java.util.Enumeration;
 
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BaseFieldAttributes;
@@ -65,14 +66,14 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.Field(Object, FieldAttributes)
+   * @see org.melati.poem.Field#Field(Object, FieldAttributes)
    */
   public void testFieldObjectFieldAttributes() {
     
   }
 
   /**
-   * @see org.melati.poem.Field.Field(AccessPoemException, FieldAttributes)
+   * @see org.melati.poem.Field#Field(AccessPoemException, FieldAttributes)
    */
   public void testFieldAccessPoemExceptionFieldAttributes() {
     Field f = new Field(new AccessPoemException(), stringField);
@@ -109,7 +110,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.clone()
+   * @see org.melati.poem.Field#clone()
    */
   public void testClone() {
     Field s2 = (Field)stringField.clone();
@@ -122,7 +123,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getName()
+   * @see org.melati.poem.Field#getName()
    */
   public void testGetName() {
     assertEquals("stringName", stringField.getName());
@@ -130,7 +131,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getDisplayName()
+   * @see org.melati.poem.Field#getDisplayName()
    */
   public void testGetDisplayName() {
     assertEquals("String Display Name", stringField.getDisplayName());
@@ -138,7 +139,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getDescription()
+   * @see org.melati.poem.Field#getDescription()
    */
   public void testGetDescription() {
     assertEquals("String description", stringField.getDescription());
@@ -147,7 +148,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getType()
+   * @see org.melati.poem.Field#getType()
    */
   public void testGetType() {
     assertEquals(StringPoemType.nullableInstance, stringField.getType());
@@ -156,7 +157,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getIndexed()
+   * @see org.melati.poem.Field#getIndexed()
    */
   public void testGetIndexed() {
     assertFalse(stringField.getIndexed());
@@ -164,7 +165,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getUserEditable()
+   * @see org.melati.poem.Field#getUserEditable()
    */
   public void testGetUserEditable() {
     assertTrue(stringField.getUserEditable());
@@ -172,7 +173,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getUserCreateable()
+   * @see org.melati.poem.Field#getUserCreateable()
    */
   public void testGetUserCreateable() {
     assertTrue(stringField.getUserCreateable());
@@ -180,7 +181,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getWidth()
+   * @see org.melati.poem.Field#getWidth()
    */
   public void testGetWidth() {
     assertEquals(20, stringField.getWidth());
@@ -188,7 +189,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getHeight()
+   * @see org.melati.poem.Field#getHeight()
    */
   public void testGetHeight() {
     assertEquals(1, stringField.getHeight());
@@ -196,7 +197,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getRenderInfo()
+   * @see org.melati.poem.Field#getRenderInfo()
    */
   public void testGetRenderInfo() {
     assertNull(stringField.getRenderInfo());
@@ -204,7 +205,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getRaw()
+   * @see org.melati.poem.Field#getRaw()
    */
   public void testGetRaw() {
     assertEquals("stringfield", stringField.getRaw());
@@ -212,7 +213,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getRawString()
+   * @see org.melati.poem.Field#getRawString()
    */
   public void testGetRawString() {
     assertEquals("stringfield", stringField.getRawString());
@@ -220,7 +221,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getCooked()
+   * @see org.melati.poem.Field#getCooked()
    */
   public void testGetCooked() {
     assertEquals("stringfield", stringField.getCooked());
@@ -228,7 +229,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.getCookedString(MelatiLocale, int)
+   * @see org.melati.poem.Field#getCookedString(MelatiLocale, int)
    */
   public void testGetCookedString() {
     assertEquals("stringfield", stringField.getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM));
@@ -236,112 +237,140 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field.withRaw(Object)
+   * @see org.melati.poem.Field#withRaw(Object)
    */
   public void testWithRaw() {
-
+    Field stringField2 = stringField.withRaw("stringField2");
+    assertEquals("stringField2", (String)stringField2.getRaw());
+    Field integerField2 = stringField.withRaw(new Integer(2));
+    assertEquals(new Integer(2), (Integer)integerField2.getRaw());
   }
 
   /**
-   * @see org.melati.poem.Field.withNullable(boolean)
+   * @see org.melati.poem.Field#withNullable(boolean)
    */
   public void testWithNullable() {
+    assertTrue(stringField.getType().getNullable());
+    Field stringField2 = stringField.withNullable(false);
+    assertFalse(stringField2.getType().getNullable());
 
+    assertTrue(integerField.getType().getNullable());
+    Field integerField2 = integerField.withNullable(false);
+    assertFalse(integerField2.getType().getNullable());
   }
 
   /**
-   * @see org.melati.poem.Field.withName(String)
+   * @see org.melati.poem.Field#withName(String)
    */
   public void testWithName() {
-
+    Field stringField2 = stringField.withName("stringField2");
+    assertEquals("stringField2", stringField2.getName());
+    Field integerField2 = stringField.withName("integerField2");
+    assertEquals("integerField2", integerField2.getName());
   }
 
   /**
-   * @see org.melati.poem.Field.withDescription(String)
+   * @see org.melati.poem.Field#withDescription(String)
    */
   public void testWithDescription() {
-
+    Field stringField2 = stringField.withDescription("stringField2");
+    assertEquals("stringField2", stringField2.getDescription());
+    Field integerField2 = stringField.withDescription("integerField2");
+    assertEquals("integerField2", integerField2.getDescription());
   }
 
   /**
-   * @see org.melati.poem.Field.getPossibilities()
+   * @see org.melati.poem.Field#getPossibilities()
    */
   public void testGetPossibilities() {
-
+    Enumeration en = stringField.getPossibilities();
+    assertNull(en);
+    en = integerField.getPossibilities();
+    assertNull(en);
   }
 
   /**
-   * @see org.melati.poem.Field.getFirst1000Possibilities()
+   * @see org.melati.poem.Field#getFirst1000Possibilities()
    */
   public void testGetFirst1000Possibilities() {
-
+    Enumeration en = stringField.getFirst1000Possibilities();
+    assertNull(en);
+    en = integerField.getFirst1000Possibilities();
+    assertNull(en);
   }
 
   /**
-   * @see org.melati.poem.Field.sameRawAs(Field)
+   * @see org.melati.poem.Field#sameRawAs(Field)
    */
   public void testSameRawAs() {
-
+    Field stringField2 = stringField.withRaw("stringField2");
+    assertFalse(stringField.sameRawAs(stringField2));
+    stringField2 = stringField2.withRaw("stringfield");
+    assertTrue(stringField.sameRawAs(stringField2));
+    Field integerField2 = stringField.withRaw(new Integer(2));
+    assertFalse(integerField.sameRawAs(integerField2));
+    integerField2 = integerField2.withRaw(new Integer(1));
+    assertTrue(integerField.sameRawAs(integerField2));
   }
 
   /**
-   * @see org.melati.poem.Field.dump(PrintStream)
+   * @see org.melati.poem.Field#dump(PrintStream)
    */
   public void testDump() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.toString()
+   * @see org.melati.poem.Field#toString()
    */
   public void testToString() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.basic(Object, String, PoemType)
+   * @see org.melati.poem.Field#basic(Object, String, PoemType)
    */
   public void testBasic() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.string(String, String)
+   * @see org.melati.poem.Field#string(String, String)
    */
   public void testString() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.integer(Integer, String)
+   * @see org.melati.poem.Field#integer(Integer, String)
    */
   public void testInteger() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.reference(Persistent, String)
+   * @see org.melati.poem.Field#reference(Persistent, String)
    */
   public void testReferencePersistentString() {
 
   }
 
   /**
-   * @see org.melati.poem.Field.reference(Table, String)
+   * @see org.melati.poem.Field#reference(Table, String)
    */
   public void testReferenceTableString() {
 
   }
 
   /**
-   * @see java.lang.Object.hashCode()
+   * @see java.lang.Object#hashCode()
    */
   public void testHashCode() {
 
   }
 
   /**
-   * @see java.lang.Object.equals(Object)
+   * @see java.lang.Object#equals(Object)
    */
   public void testEquals() {
 

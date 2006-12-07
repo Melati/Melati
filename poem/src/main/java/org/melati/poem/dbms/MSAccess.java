@@ -277,23 +277,33 @@ public class MSAccess extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
 
+
   /** 
    * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo find out foreign key syntax
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
-    return "";
+                                        String targetTableName, 
+                                        String targetTableFieldName, 
+                                        String fixName) {
+    StringBuffer sb = new StringBuffer();
+    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
+              getQuotedName(targetTableName) + 
+              "(" + getQuotedName(targetTableFieldName) + ")");
+    if (fixName.equals("prevent"))
+      sb.append(" ON DELETE NO ACTION");
+    if (fixName.equals("delete"))
+      sb.append(" ON DELETE CASCADE");      
+    if (fixName.equals("clear"))
+      sb.append(" ON DELETE SET NULL");      
+    return sb.toString();
   }
+
 
   /** 
    * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
-   * @todo find out primary key syntax
    */
   public String getPrimaryKeyDefinition(String fieldName) {
-    return "";
+    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
-
-
 
 }

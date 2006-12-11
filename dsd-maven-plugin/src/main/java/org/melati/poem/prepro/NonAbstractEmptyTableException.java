@@ -38,15 +38,13 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  */
 
 package org.melati.poem.prepro;
 
 /**
  * Thrown when a non-abstract {@link TableDef} contains no {@link FieldDef}s.
- *
- * @author TimP@paneris.org
  */
 class NonAbstractEmptyTableException extends IllegalityException {
   private static final long serialVersionUID = 1L;
@@ -55,11 +53,7 @@ class NonAbstractEmptyTableException extends IllegalityException {
 
   NonAbstractEmptyTableException(String name) {
     this.name = name;
-  }
-
-  /** @return the message */
-  public String getMessage() {
-    return "The table " + name + " contains no fields but is not 'abstract';" +
-           " only abstract tables may be empty.";
+    this.message = "The table " + name + " contains no fields but is not 'abstract';" +
+    " only abstract tables may be empty."; 
   }
 }

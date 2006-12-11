@@ -48,15 +48,15 @@ package org.melati.poem.prepro;
 /**
  * Superclass of all illegal syntax exceptions.
  */ 
-class IllegalityException extends RuntimeException {
+class IllegalityException extends ParsingDSDException {
   private static final long serialVersionUID = 1L;
 
   IllegalityException() {
     super();
   }
 
-  IllegalityException(String s) {
-    super(s);
+  IllegalityException(int lineNo, String s) {
+    super(lineNo, s);
   }
   
 }

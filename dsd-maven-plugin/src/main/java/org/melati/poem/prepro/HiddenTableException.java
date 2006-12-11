@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, UK
  */
@@ -49,8 +49,9 @@ package org.melati.poem.prepro;
  * Thrown when a table is given a name which is already used in 
  * this or an imported DSD.
  *
- * Note that this exception is thrown if a table is refered to by the 
- * <tt>extends</tt> keyword before it is defined (FIXME?).
+ * Note that this exception is thrown if a table is referred to by the 
+ * <tt>extends</tt> keyword before it is defined.
+ * Room for improvement but not a pressing requirement.
  */
 class HiddenTableException extends IllegalityException {
   private static final long serialVersionUID = 1L;
@@ -61,12 +62,9 @@ class HiddenTableException extends IllegalityException {
   HiddenTableException(String name, String table) {
     this.name = name;
     this.table = table;
+    this.message = "You cannot name a table `" + name + "' unless it extends the " +
+    "pre-existing table " + table + 
+    "(Check that extended tables are defined before being referenced)"; 
   }
 
-  /** @return the message */
-  public String getMessage() {
-    return "You cannot name a table `" + name + "' unless it extends the " +
-           "pre-existing table " + table + 
-           "(Check that extended tables are defined before being referenced)";
-  }
 }

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,14 +52,10 @@ package org.melati.poem.prepro;
 class NullTroidException extends IllegalityException {
   private static final long serialVersionUID = 1L;
 
-  FieldDef field;
-
   NullTroidException(FieldDef field) {
     this.field = field;
+    this.lineNumber = field.lineNumber;
+    this.message = "You may not make the troid column " + field + " nullable";
   }
 
-  /** @return the message */
-  public String getMessage() {
-    return "You may not make the troid column " + field + " nullable";
-  }
 }

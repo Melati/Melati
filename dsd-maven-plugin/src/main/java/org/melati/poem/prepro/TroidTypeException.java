@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,16 +52,11 @@ package org.melati.poem.prepro;
 class TroidTypeException extends IllegalityException {
   private static final long serialVersionUID = 1L;
 
-  FieldDef field;
-
   TroidTypeException(FieldDef field) {
     this.field = field;
-  }
+    this.lineNumber = field.lineNumber;
+    this.message = "The field " + field + " cannot be a troid: " +
+    "it isn't a non-nullable Integer";
 
-  /** @return the message */
-  public String toString() {
-    return
-        "The field " + field + " cannot be a troid: " +
-        "it isn't a non-nullable Integer";
   }
 }

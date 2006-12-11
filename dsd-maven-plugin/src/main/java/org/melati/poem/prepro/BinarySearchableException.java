@@ -38,9 +38,8 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 
 package org.melati.poem.prepro;
@@ -52,14 +51,10 @@ package org.melati.poem.prepro;
 class BinarySearchableException extends IllegalityException {
   private static final long serialVersionUID = 1L;
 
-  FieldDef field;
-
   BinarySearchableException(FieldDef field) {
     this.field = field;
+    this.lineNumber = field.lineNumber;
+    this.message = "The column " + field + " is searchable, which makes no sense";
   }
 
-  /** @return the message */
-  public String getMessage() {
-    return "The column " + field + " is searchable, which makes no sense";
-  }
 }

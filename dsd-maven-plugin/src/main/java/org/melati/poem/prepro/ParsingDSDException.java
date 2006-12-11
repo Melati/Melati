@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,32 +47,64 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 
+
 /**
  * Thrown when an unexpected token is encountered during parsing.
- *
+ * Accommodates following  types of error. 
+ * Syntactic assertion failures where the tokens found do not match 
+ * those expected.
+ * Vocabulary failures where values are outside the token set.
+ * Model violations where legal expressions cannot actually be 
+ * implemented, such as String troid columns.
+ * Limitations on tables which must be either abstract or populated 
+ * and must not hide a table in this or an imported DSD.     
  */
-class ParsingDSDException extends Exception {
+class ParsingDSDException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   String expected, got;
+  int lineNumber;
+  String message;
+  FieldDef field = null;
+
+  /**
+   * Constructor.
+   */
+  ParsingDSDException() {
+    super();
+  }
 
   ParsingDSDException(String expected, String got) {
-    this.expected = expected;
-    this.got = "\"" + got + "\"";
   }
 
   ParsingDSDException(String expected, StreamTokenizer got) {
-    this(expected, got.toString());
+    this.expected = expected;
+    this.got = "\"" + got.toString() + "\"";
+    this.lineNumber = got.lineno();
   }
 
-  ParsingDSDException(String expected, String got,
-                             StreamTokenizer context) {
+  ParsingDSDException(String expected, 
+                      String got, StreamTokenizer context) {
     this.expected = expected;
     this.got = "\"" + got + "\" near " + context.toString();
+    this.lineNumber = context.lineno();
+  }
+
+  ParsingDSDException(int lineNo, String error) {
+    this.message = error;
+    this.lineNumber = lineNo;
   }
 
   /** @return the message */
   public String getMessage() {
-    return "Expected \"" + expected + "\" but got " + got + "\n";
+    String returnString = "";
+    if (lineNumber != 0)
+      returnString = "Definition ending on line " + lineNumber + ": ";
+    if (expected != null)
+      returnString = returnString + "Expected \"" + expected + 
+         "\" but got " + got + "\n";
+    if (message != null)
+      returnString = returnString + message;
+    return returnString;
   }
 }

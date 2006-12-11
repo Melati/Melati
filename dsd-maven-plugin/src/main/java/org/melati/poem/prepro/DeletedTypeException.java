@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,16 +53,12 @@ package org.melati.poem.prepro;
 class DeletedTypeException extends IllegalityException {
   private static final long serialVersionUID = 1L;
 
-  FieldDef field;
-
   DeletedTypeException(FieldDef field) {
     this.field = field;
+    this.lineNumber = field.lineNumber;
+    this.message = "The field " + field + " cannot be a deleted flag: " +
+    "it isn't a non-nullable Boolean";
+
   }
 
-  /** @return the message */
-  public String toString() {
-    return
-        "The field " + field + " cannot be a deleted flag: " +
-        "it isn't a non-nullable Boolean";
-  }
 }

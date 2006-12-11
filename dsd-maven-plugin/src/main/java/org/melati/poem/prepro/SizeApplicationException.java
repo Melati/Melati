@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,16 +52,10 @@ package org.melati.poem.prepro;
 public class SizeApplicationException extends IllegalityException {
   private static final long serialVersionUID = 1L;
 
-  FieldDef field;
-
   SizeApplicationException(FieldDef field) {
     this.field = field;
-  }
-
-  /** @return the message */
-  public String getMessage() {
-    return
-        "The column " + field + " cannot have a `size' " +
-        "because that only applies to `String's";
+    this.lineNumber = field.lineNumber;
+    this.message = "The column " + field + " cannot have a `size' " +
+    "because that only applies to Strings and Binaries"; 
   }
 }

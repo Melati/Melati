@@ -60,10 +60,10 @@
          object and can be given Java methods.
        </P>
        <P>
-          If you database SQL definition contains repetition, 
-          say every table contains the fields <tt>changetime</tt> and  
-          <tt>changedbyuser</tt> these fields can be separated out into a 
-          an abstract table which all your other tables extend. 
+          If you database SQL definition contains repetition,
+          say every table contains the fields <tt>changetime</tt> and
+          <tt>changedbyuser</tt> these fields can be separated out into a
+          an abstract table which all your other tables extend.
        </P>
 
   <LI> <A HREF=#dsd><B>Write your data structure definition.</B></A>
@@ -82,11 +82,11 @@
 
   <LI> <A HREF=#run><B>Compile and inspect your schema.</B></A>
        <P>
-         Before going any further you can look at your schema using the 
+         Before going any further you can look at your schema using the
          Melati Admin system.
        </P>
        <P>
-         Use the Admin system to fill in data in your schema. 
+         Use the Admin system to fill in data in your schema.
        </P>
   <LI> <A HREF=#extend><B>Add Java methods.</B></A>
        <P>
@@ -94,20 +94,20 @@
          Java methods you wish to attach to your row-objects.
        </P>
        <P>
-         It is a good idea to use <tt>ensure</tt> methods to prepopulate 
+         It is a good idea to use <tt>ensure</tt> methods to prepopulate
          code tables with values which are essential to the working of the
-         system; 
-         see for example <a href="/javadoc/org/melati/poem/CapabilityTable.html#ensure(java.lang.String)">CapabilityTable.ensure(java.lang.String)</a>
+         system;
+         see for example <a href="/melati/apidocs/org/melati/poem/CapabilityTable.html#ensure(java.lang.String)">CapabilityTable.ensure(java.lang.String)</a>
        </P>
 
   <LI> <A HREF=#run><B>Review you DSD by exporting it</B></A>
        <P>
-         You may wish to use the DSD export function to review your DSD, 
-         <A href="/melati/org.melati.admin.Admin/melatitest/DSD?comments"> 
-         http://www.melati.org/melati/org.melati.admin.Admin/melatitest/DSD?comments</A> 
+         You may wish to use the DSD export function to review your DSD,
+         <A href="/db/org.melati.admin.Admin/melatitest/DSD?comments">
+         http://www.melati.org/db/org.melati.admin.Admin/melatitest/DSD?comments</A>
          though be aware that this function does not preserve abstract tables
          and enforces the <b>only first letter capitalised</b> rule for table
-         names. 
+         names.
        </P>
 </UL>
 
@@ -243,6 +243,9 @@ javac -d /usr/local/packages/inst/paneris `find . -path .*java`
   The CVS log for this document is:
   <BR>
   <BR>$Log$
+  <BR>Revision 1.2  2006/12/13 11:41:52  timp
+  <BR>New javadoc and db mount points
+  <BR>
   <BR>Revision 1.1  2005/11/21 22:01:49  timp
   <BR>Moved from site/doc
   <BR>

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -58,6 +58,10 @@ import java.util.NoSuchElementException;
  */
 public class BooleanPoemType extends AtomPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether nullable
+   */
   public BooleanPoemType(boolean nullable) {
     super(Types.BIT, "BOOLEAN", nullable);
   }
@@ -110,7 +114,7 @@ public class BooleanPoemType extends AtomPoemType {
     return other instanceof BooleanPoemType;
   }
 
-  /*
+  /**
    * The field type used in the Data Structure Definition language.
    */
   public String toDsdType() {
@@ -131,6 +135,7 @@ class BooleanPossibleRawEnumeration implements Enumeration {
   private int state = 0;
 
   /**
+   * {@inheritDoc}
    * @see java.util.Enumeration#hasMoreElements()
    */
   public boolean hasMoreElements() {
@@ -138,6 +143,7 @@ class BooleanPossibleRawEnumeration implements Enumeration {
   }
 
   /**
+   * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
   public synchronized Object nextElement() {

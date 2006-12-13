@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.util;
@@ -56,10 +56,21 @@ public final class UTF8URLEncoder {
   
   private UTF8URLEncoder() {}
 
+  /**
+   * Encode with default encoding.
+   * @param s the String to encode
+   * @return the encoded String
+   */
   public static String encode(String s) {
     return encode(s, Melati.DEFAULT_ENCODING);
   }
 
+  /**
+   * Encode with an encoding.
+   * @param s the String to encode
+   * @param encoding the character encoding to use 
+   * @return the encoded String
+   */
   public static String encode(String s, String encoding) {
     String encoded = null;
     try {
@@ -70,10 +81,21 @@ public final class UTF8URLEncoder {
     return encoded;
   }
 
+  /**
+   * Decode using default character encoding.
+   * @param s the String to decode
+   * @return the decoded String
+   */
   public static String decode(String s) {
     return decode(s, Melati.DEFAULT_ENCODING);
   }
   
+  /**
+   * Decode with an encoding.
+   * @param s the String to decode
+   * @param encoding the character encoding to use 
+   * @return the decoded String
+   */
   public static String decode(String s, String encoding) {
     String decoded = null;
     try {

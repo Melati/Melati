@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,56 +52,87 @@ import java.io.IOException;
 import org.melati.util.StringUtils;
 
 /**
- * An abstract definition of a  <tt>Field</tt> from which 
- * all other <tt>FieldDef</tt>s are derived.
+ * An abstract definition of a <tt>Field</tt> from which all other
+ * <tt>FieldDef</tt>s are derived.
  * 
  */
 public abstract class FieldDef {
-  
-  private int NOTSET = -1;
+
   protected final TableDef table;
+
   protected final String name;
+
   protected final String suffix;
+
   protected int displayOrder;
+
   String displayName;
+
   String description;
+
   protected final String type;
+
   protected final String rawType;
+
   protected final Vector qualifiers;
 
   final String mainClass;
+
   final String tableAccessorMethod;
+
   org.melati.poem.DisplayLevel displayLevel = null;
+
   org.melati.poem.Searchability searchability = null;
-  private boolean isNullable = false;
-  private boolean isTroidColumn = false;
-  private boolean isDeletedColumn = false;
-  int displayOrderPriority = NOTSET;
-  private boolean isEditable = true;
+
   private boolean sortDescending = false;
+
+  int displayOrderPriority = -1;
+
+  private boolean isNullable = false;
+
+  private boolean isTroidColumn = false;
+
+  private boolean isDeletedColumn = false;
+
+  private boolean isEditable = true;
+
   private boolean isCreateable = true;
+
   private boolean isIndexed = false;
+
   private boolean isUnique = false;
+
   boolean isCompareOnly = false;
-  private int width = NOTSET, height = NOTSET;
+
+  private int width = -1, height = -1;
+
   String renderinfo = null;
 
- /**
-  * Constructor.
-  *
-  * @param table        the {@link TableDef} that this <code>Field</code> is 
-  *                     part of 
-  * @param name         the name of this field
-  * @param type         the POEM type of this field
-  * @param rawType      the underlying java type of this field
-  * @param displayOrder where to place this field in a list
-  * @param qualifiers   all the qualifiers of this field
-  * 
-  * @throws IllegalityException if a semantic inconsistency is detected
-  */
-  public FieldDef(TableDef table, String name, String type, String rawType,
-                  int displayOrder, Vector qualifiers)
+  protected int lineNumber;
+
+  /**
+   * Constructor.
+   * 
+   * @param table
+   *          the {@link TableDef} that this <code>Field</code> is part of
+   * @param name
+   *          the name of this field
+   * @param type
+   *          the POEM type of this field
+   * @param rawType
+   *          the underlying java type of this field
+   * @param displayOrder
+   *          where to place this field in a list
+   * @param qualifiers
+   *          all the qualifiers to be applied to this field
+   * 
+   * @throws IllegalityException
+   *           if a semantic inconsistency is detected
+   */
+  public FieldDef(int lineNo, TableDef table, String name, String type,
+      String rawType, int displayOrder, Vector qualifiers)
       throws IllegalityException {
+    this.lineNumber = lineNo;
     this.table = table;
     this.name = name;
     this.displayOrder = displayOrder;
@@ -113,23 +144,19 @@ public abstract class FieldDef {
     this.mainClass = table.naming.mainClassUnambiguous();
     this.tableAccessorMethod = table.naming.tableAccessorMethod();
 
-    for (int q = 0; q < qualifiers.size(); ++q)
-       ((FieldQualifier) qualifiers.elementAt(q)).apply(this);
+    for (int q = 0; q < qualifiers.size(); ++q) {
+      ((FieldQualifier)qualifiers.elementAt(q)).apply(this);
+    }
+
   }
 
-  /** @return a name for this class*/ 
+  /** @return a name for this class */
   public String toString() {
-    return table.name
-      + "."
-      + name
-      + " ("
-      + (isNullable ? "nullable " : "")
-      + type
-      + ")";
+    return table.name + "." + name + " (" + (isNullable ? "nullable " : "")
+        + type + ")";
   }
 
-  private static void fieldQualifiers(Vector qualifiers, 
-                                      StreamTokenizer tokens)
+  private static void fieldQualifiers(Vector qualifiers, StreamTokenizer tokens)
       throws ParsingDSDException, IOException {
     while (tokens.ttype == '(') {
       tokens.nextToken();
@@ -139,25 +166,28 @@ public abstract class FieldDef {
     }
   }
 
- /**
-  * Creates the appropriate type of <code>FieldDef</code> 
-  * from the input stream.
-  *
-  * @param table        the {@link TableDef} we are dealing with
-  * @param tokens       the <code>StreamTokenizer</code> to get tokens from
-  * @param displayOrder the ranking of this <code>Field</code>
-  *
-  * @throws ParsingDSDException 
-  *           if an unexpected token is encountered
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  * @throws IllegalityException
-  *           if a semantic incoherence is detected
-  * @return a new <code>FieldDef</code> of the appropriate type
-  */
+  /**
+   * Creates the appropriate type of <code>FieldDef</code> from the input
+   * stream.
+   * 
+   * @param table
+   *          the {@link TableDef} we are dealing with
+   * @param tokens
+   *          the <code>StreamTokenizer</code> to get tokens from
+   * @param displayOrder
+   *          the ranking of this <code>Field</code>
+   * 
+   * @throws ParsingDSDException
+   *           if an unexpected token is encountered
+   * @throws IOException
+   *           if something goes wrong with the file system
+   * @throws IllegalityException
+   *           if a semantic incoherence is detected
+   * @return a new <code>FieldDef</code> of the appropriate type
+   */
   public static FieldDef from(TableDef table, StreamTokenizer tokens,
-                              int displayOrder)
-      throws ParsingDSDException, IOException, IllegalityException {
+      int displayOrder) throws ParsingDSDException, IOException,
+      IllegalityException {
     table.addImport("org.melati.poem.AccessPoemException", "both");
     table.addImport("org.melati.poem.ValidationPoemException", "table");
     table.addImport("org.melati.poem.Persistent", "table");
@@ -181,487 +211,454 @@ public abstract class FieldDef {
     tokens.nextToken();
     fieldQualifiers(qualifiers, tokens);
     DSD.expect(tokens, ';');
-
+    int lineNo = tokens.lineno();
     if (type.equals("Integer"))
-      return new IntegerFieldDef(table, name, displayOrder, qualifiers);
+      return new IntegerFieldDef(lineNo, table, name, displayOrder, qualifiers);
     if (type.equals("Long"))
-      return new LongFieldDef(table, name, displayOrder, qualifiers);
+      return new LongFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("Double"))
-      return new DoubleFieldDef(table, name, displayOrder, qualifiers);
+      return new DoubleFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("Boolean"))
-      return new BooleanFieldDef(table, name, displayOrder, qualifiers);
+      return new BooleanFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("String"))
-      return new StringFieldDef(table, name, displayOrder, qualifiers);
+      return new StringFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("Password"))
-      return new PasswordFieldDef(table, name, displayOrder, qualifiers);
+      return new PasswordFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("Date"))
-      return new DateFieldDef(table, name, displayOrder, qualifiers);
+      return new DateFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else if (type.equals("Timestamp"))
-      return new TimestampFieldDef(table, name, displayOrder, qualifiers);
+      return new TimestampFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("ColumnType"))
-      return new ColumnTypeFieldDef(table, name, displayOrder, qualifiers);
+      return new ColumnTypeFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("DisplayLevel"))
-      return new DisplayLevelFieldDef(table, name, displayOrder, qualifiers);
+      return new DisplayLevelFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("Searchability"))
-      return new SearchabilityFieldDef(table, name, displayOrder, qualifiers);
+      return new SearchabilityFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("IntegrityFix"))
-      return new IntegrityFixFieldDef(table, name, displayOrder, qualifiers);
+      return new IntegrityFixFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("BigDecimal"))
-      return new BigDecimalFieldDef(table, name, displayOrder, qualifiers);
+      return new BigDecimalFieldDef(lineNo, table, name, displayOrder,
+          qualifiers);
     else if (type.equals("byte[]"))
-      return new BinaryFieldDef(table, name, displayOrder, qualifiers);
+      return new BinaryFieldDef(lineNo, table, name, displayOrder, qualifiers);
     else
-      return new ReferenceFieldDef(table, name, displayOrder, 
-                                   type, qualifiers);
+      return new ReferenceFieldDef(lineNo, table, name, displayOrder, type,
+          qualifiers);
   }
 
- /**
-  * Write out this <code>Column</code>'s base methods.
-  *
-  * @param w Persistent Base
-  * 
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s base methods.
+   * 
+   * @param w
+   *          Persistent Base
+   * 
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public void generateBaseMethods(Writer w) throws IOException {
-    w.write(
-      "\n /**\n"
-      + "  * Retrieves the <code>" 
-      + suffix 
-      + "</code> value, without locking, \n"
-      + "  * for this <code>" 
-      + table.suffix
-      + "</code> <code>Persistent</code>.\n"
-      + "  *\n"
-      + "  * @generator " 
-      + "org.melati.poem.prepro.FieldDef" 
-      + "#generateBaseMethods \n"
-      + "  * @return the " + rawType + " " + name + "\n"
-      + "  */\n");
-    w.write(
-      "  public "
-      + rawType
-      + " get"
-      + suffix
-      + "_unsafe() {\n"
-      + "    return "
-      + name
-      + ";\n"
-      + "  }\n"
-      + "\n");
-    w.write(
-      "\n /**\n"
-      + "  * Sets the <code>" 
-      + suffix 
-      + "</code> value directly, without checking, \n"
-      + "  * for this " 
-      + table.suffix
-      + " <code>Persistent</code>.\n"
-      + "  * \n"
-      + "  * @generator " 
-      + "org.melati.poem.prepro.FieldDef" 
-      + "#generateBaseMethods \n"
-      + "  * @param cooked  the pre-validated value to set\n"
-      + "  */\n");
-    w.write(
-      "  public void set"
-      + suffix
-      + "_unsafe("
-      + rawType
-      + " cooked) {\n"
-      + "    "
-      + name
-      + " = cooked;\n"
-      + "  }\n");
+    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+        + "</code> value, without locking, \n" + "  * for this <code>"
+        + table.suffix + "</code> <code>Persistent</code>.\n" + "  *\n"
+        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "#generateBaseMethods \n" + "  * @return the " + rawType + " " + name
+        + "\n" + "  */\n");
+    w.write("  public " + rawType + " get" + suffix + "_unsafe() {\n"
+        + "    return " + name + ";\n" + "  }\n" + "\n");
+    w.write("\n /**\n" + "  * Sets the <code>" + suffix
+        + "</code> value directly, without checking, \n" + "  * for this "
+        + table.suffix + " <code>Persistent</code>.\n" + "  * \n"
+        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "#generateBaseMethods \n"
+        + "  * @param cooked  the pre-validated value to set\n" + "  */\n");
+    w.write("  public void set" + suffix + "_unsafe(" + rawType
+        + " cooked) {\n" + "    " + name + " = cooked;\n" + "  }\n");
   }
 
- /**
-  * Write out this <code>Column</code>'s field creators. 
-  *
-  * @param w Persistent Base
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s field creators.
+   * 
+   * @param w
+   *          Persistent Base
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public void generateFieldCreator(Writer w) throws IOException {
-    w.write(
-      "\n /**\n"
-      + "  * Retrieves the <code>" 
-      + suffix 
-      + "</code> value as a <code>Field</code>\n"
-      + "  * from this <code>" 
-      + table.suffix
-      + "</code> <code>Persistent</code>.\n"
-      + "  * \n"
-      + "  * @generator " 
-      + "org.melati.poem.prepro.FieldDef" 
-      + "#generateFieldCreator \n"
-      + "  * @throws AccessPoemException \n"
-      + "  *         if the current <code>AccessToken</code> \n"
-      + "  *         does not confer write access rights\n"
-      + "  * @return the " + rawType + " " + name + "\n"
-      + "  */\n");
-    w.write(
-      "  public Field get"
-      + suffix
-      + "Field() "
-      + "throws AccessPoemException {\n"
-      + "    Column c = _"
-      + tableAccessorMethod
-      + "()."
-      + "get"
-      + suffix
-      + "Column();\n"
-      + "    return new Field(c.getRaw(this), c);\n"
-      + "  }\n");
+    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+        + "</code> value as a <code>Field</code>\n" + "  * from this <code>"
+        + table.suffix + "</code> <code>Persistent</code>.\n" + "  * \n"
+        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "#generateFieldCreator \n" + "  * @throws AccessPoemException \n"
+        + "  *         if the current <code>AccessToken</code> \n"
+        + "  *         does not confer write access rights\n"
+        + "  * @return the " + rawType + " " + name + "\n" + "  */\n");
+    w.write("  public Field get" + suffix + "Field() "
+        + "throws AccessPoemException {\n" + "    Column c = _"
+        + tableAccessorMethod + "()." + "get" + suffix + "Column();\n"
+        + "    return new Field(c.getRaw(this), c);\n" + "  }\n");
   }
 
- /**
-  * Write out this <code>Field</code>'s java declaration string.
-  *
-  * @param w PersistentBase
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Field</code>'s java declaration string.
+   * 
+   * @param w
+   *          PersistentBase
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public abstract void generateJavaDeclaration(Writer w) throws IOException;
 
- /**
-  * Write out this <code>Column</code>'s java declaration string.
-  *
-  * @param w TableBase
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s java declaration string.
+   * 
+   * @param w
+   *          TableBase
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public void generateColDecl(Writer w) throws IOException {
     w.write("Column col_" + name);
   }
 
- /**
-  * Write out this <code>Column</code>'s accessors. 
-  *
-  * @param w TableBase
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s accessors.
+   * 
+   * @param w
+   *          TableBase
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public void generateColAccessor(Writer w) throws IOException {
-    w.write(
-      "\n /**\n"
-      + "  * Retrieves the <code>" 
-      + suffix 
-      + "</code> <code>Column</code> for this \n"
-      + "  * <code>" 
-      + table.suffix
-      + "</code> <code>Table</code>\n"
-      + "  * \n"
-      + "  * @generator " 
-      + "org.melati.poem.prepro.FieldDef" 
-      + "#generateColAccessor \n"
-      + "  * @return the " + name + " <code>Column</code>\n"
-      + "  */\n");
-    w.write(
-      "  public final Column get"
-      + suffix
-      + "Column() {\n"
-      + "    return col_"
-      + name
-      + ";\n"
-      + "  }\n");
+    w.write("\n /**\n" + "  * Retrieves the <code>" + suffix
+        + "</code> <code>Column</code> for this \n" + "  * <code>"
+        + table.suffix + "</code> <code>Table</code>.\n" + "  * \n"
+        + "  * @generator " + "org.melati.poem.prepro.FieldDef"
+        + "#generateColAccessor \n" + "  * @return the " + name
+        + " <code>Column</code>\n" + "  */\n");
+    w.write("  public final Column get" + suffix + "Column() {\n"
+        + "    return col_" + name + ";\n" + "  }\n");
   }
 
- /**
-  * Write out this <code>Column</code>'s field accessors as 
-  * part of the anonymous definition of the <code>Column</code>.
-  *
-  * @param w TableBase
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s field accessors as part of the
+   * anonymous definition of the <code>Column</code>.
+   * 
+   * @param w
+   *          TableBase
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   protected void generateColRawAccessors(Writer w) throws IOException {
-    w.write(
-          "          public Object getRaw_unsafe(Persistent g)\n"
+    w.write("          public Object getRaw_unsafe(Persistent g)\n"
         + "              throws AccessPoemException {\n"
-        + "            return (("
-        + mainClass
-        + ")g)."
-        + "get"
-        + suffix
-        + "_unsafe();\n"
-        + "          }\n"
-        + "\n");
+        + "            return ((" + mainClass + ")g)." + "get" + suffix
+        + "_unsafe();\n" + "          }\n" + "\n");
 
-    w.write(
-      "          public void setRaw_unsafe(Persistent g, Object raw)\n"
-      + "              throws AccessPoemException {\n"
-      + "            (("
-      + mainClass
-      + ")g).set"
-      + suffix
-      + "_unsafe(("
-      + rawType
-      + ")raw);\n"
-      + "          }\n");
+    w.write("          public void setRaw_unsafe(Persistent g, Object raw)\n"
+        + "              throws AccessPoemException {\n" + "            (("
+        + mainClass + ")g).set" + suffix + "_unsafe((" + rawType + ")raw);\n"
+        + "          }\n");
   }
 
- /**
-  * Write out this <code>Column</code>'s definition 
-  * using an anonymous class. 
-  *
-  * @param w TableBase
-  * @throws IOException 
-  *           if something goes wrong with the file system
-  */
+  /**
+   * Write out this <code>Column</code>'s definition using an anonymous
+   * class.
+   * 
+   * @param w
+   *          TableBase
+   * @throws IOException
+   *           if something goes wrong with the file system
+   */
   public void generateColDefinition(Writer w) throws IOException {
-    w.write(
-      "    defineColumn(col_"
-        + name
-        + " =\n"
-        + "        new Column(this, \""
-        + name
-        + "\",\n"
-        + "                   "
-        + poemTypeJava()
-        + ",\n"
-        + "                   DefinitionSource.dsd) { \n"
-        + "          public Object getCooked(Persistent g)\n"
-        + "              throws AccessPoemException, PoemException {\n"
-        + "            return (("
-        + mainClass
-        + ")g).get"
-        + suffix
-        + "();\n"
-        + "          }\n"
-        + "\n"
-        + "          public void setCooked(Persistent g, Object cooked)\n"
-        + "              throws AccessPoemException, ValidationPoemException {\n"
-        + "            (("
-        + mainClass
-        + ")g).set"
-        + suffix
-        + "(("
-        + type
-        + ")cooked);\n"
-        + "          }\n"
-        + "\n"
-        + "          public Field asField(Persistent g) {\n"
-        + "            return (("
-        + mainClass
-        + ")g).get"
-        + suffix
-        + "Field();\n"
-        + "          }\n"
-        + "\n");
+    w
+        .write("    defineColumn(col_"
+            + name
+            + " =\n"
+            + "        new Column(this, \""
+            + name
+            + "\",\n"
+            + "                   "
+            + poemTypeJava()
+            + ",\n"
+            + "                   DefinitionSource.dsd) { \n"
+            + "          public Object getCooked(Persistent g)\n"
+            + "              throws AccessPoemException, PoemException {\n"
+            + "            return (("
+            + mainClass
+            + ")g).get"
+            + suffix
+            + "();\n"
+            + "          }\n"
+            + "\n"
+            + "          public void setCooked(Persistent g, Object cooked)\n"
+            + "              throws AccessPoemException, ValidationPoemException {\n"
+            + "            ((" + mainClass + ")g).set" + suffix + "((" + type
+            + ")cooked);\n" + "          }\n" + "\n"
+            + "          public Field asField(Persistent g) {\n"
+            + "            return ((" + mainClass + ")g).get" + suffix
+            + "Field();\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isEditable)
-      w.write(
-        "          protected boolean defaultUserEditable() {\n"
-          + "            return false;\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected boolean defaultUserEditable() {\n"
+          + "            return false;\n" + "          }\n" + "\n");
 
     if (isTroidColumn || !isCreateable)
-      w.write(
-        "          protected boolean defaultUserCreateable() {\n"
-          + "            return false;\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected boolean defaultUserCreateable() {\n"
+          + "            return false;\n" + "          }\n" + "\n");
 
     if (displayLevel != null)
-      w.write(
-        "          protected DisplayLevel defaultDisplayLevel() {\n"
-          + "            return DisplayLevel."
-          + displayLevel.name
-          + ";\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected DisplayLevel defaultDisplayLevel() {\n"
+          + "            return DisplayLevel." + displayLevel.name + ";\n"
+          + "          }\n" + "\n");
 
     if (searchability != null)
-      w.write(
-        "          protected Searchability defaultSearchability() {\n"
-          + "            return Searchability."
-          + searchability.name
-          + ";\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected Searchability defaultSearchability() {\n"
+          + "            return Searchability." + searchability.name + ";\n"
+          + "          }\n" + "\n");
 
-    if (displayOrderPriority != NOTSET)
-      w.write(
-        "          protected Integer defaultDisplayOrderPriority() {\n"
-          + "            return new Integer("
-          + displayOrderPriority
-          + ");\n"
-          + "          }\n"
-          + "\n");
+    if (displayOrderPriority != -1)
+      w.write("          protected Integer defaultDisplayOrderPriority() {\n"
+          + "            return new Integer(" + displayOrderPriority + ");\n"
+          + "          }\n" + "\n");
 
     if (sortDescending)
-      w.write(
-        "          protected boolean defaultSortDescending() {\n"
-          + "            return true;\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected boolean defaultSortDescending() {\n"
+          + "            return true;\n" + "          }\n" + "\n");
 
     if (displayName != null)
-      w.write(
-        "          protected String defaultDisplayName() {\n"
-          + "            return "
-          + StringUtils.quoted(displayName, '"')
-          + ";\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected String defaultDisplayName() {\n"
+          + "            return " + StringUtils.quoted(displayName, '"')
+          + ";\n" + "          }\n" + "\n");
 
-    w.write(
-      "          protected int defaultDisplayOrder() {\n"
-        + "            return "
-        + displayOrder
-        + ";\n"
-        + "          }\n"
-        + "\n");
+    w
+        .write("          protected int defaultDisplayOrder() {\n"
+            + "            return " + displayOrder + ";\n" + "          }\n"
+            + "\n");
 
     if (description != null)
-      w.write(
-        "          protected String defaultDescription() {\n"
-          + "            return "
-          + StringUtils.quoted(description, '"')
-          + ";\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected String defaultDescription() {\n"
+          + "            return " + StringUtils.quoted(description, '"')
+          + ";\n" + "          }\n" + "\n");
 
     if (isIndexed)
-      w.write(
-        "          protected boolean defaultIndexed() {\n"
-          + "            return true;\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected boolean defaultIndexed() {\n"
+          + "            return true;\n" + "          }\n" + "\n");
 
     if (isUnique)
-      w.write(
-        "          protected boolean defaultUnique() {\n"
-          + "            return true;\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected boolean defaultUnique() {\n"
+          + "            return true;\n" + "          }\n" + "\n");
 
-    if (width != NOTSET)
-      w.write(
-        "          protected int defaultWidth() {\n"
-          + "            return "
-          + width
-          + ";\n"
-          + "          }\n"
-          + "\n");
+    if (width != -1)
+      w.write("          protected int defaultWidth() {\n"
+          + "            return " + width + ";\n" + "          }\n" + "\n");
 
-    if (height != NOTSET)
-      w.write(
-        "          protected int defaultHeight() {\n"
-          + "            return "
-          + height
-          + ";\n"
-          + "          }\n"
-          + "\n");
+    if (height != -1)
+      w.write("          protected int defaultHeight() {\n"
+          + "            return " + height + ";\n" + "          }\n" + "\n");
 
     if (renderinfo != null)
-      w.write(
-        "          protected String defaultRenderinfo() {\n"
-          + "            return "
-          + StringUtils.quoted(renderinfo, '"')
-          + ";\n"
-          + "          }\n"
-          + "\n");
+      w.write("          protected String defaultRenderinfo() {\n"
+          + "            return " + StringUtils.quoted(renderinfo, '"') + ";\n"
+          + "          }\n" + "\n");
 
     generateColRawAccessors(w);
 
     w.write("        });\n");
   }
 
-  /** Generic setter */
-  protected void setBoolean(boolean field, boolean value) {
-    if(field)
-      throw new IllegalityException("field already set true.");
-    field = value;
-  }
-  protected void setInt(int field, int value) {
-    if(field != NOTSET)
-      throw new IllegalityException("integer field already set.");
-    field = value;
-  }
-  
- /** @return the Java string for this <code>PoemType</code>. */
+  /** @return the Java string for this <code>PoemType</code>. */
   public abstract String poemTypeJava();
 
-public boolean isDeletedColumn() {
-  return isDeletedColumn;
-}
+  /**
+   * @return whether this column is a deleted marker
+   */
+  public boolean isDeletedColumn() {
+    return isDeletedColumn;
+  }
 
-public void setDeletedColumn(boolean isDeletedColumn) {
-  setBoolean(this.isDeletedColumn, isDeletedColumn);
-}
+  /**
+   * Set whether this field represents a deleted marker.
+   * 
+   * @param isDeletedColumn boolean 
+   */
+  public void setDeletedColumn(boolean isDeletedColumn) {
+    if (this.isDeletedColumn)
+      throw new IllegalityException(lineNumber,
+          "Deleted qualifier already set true.");
+    this.isDeletedColumn = isDeletedColumn;
+  }
 
-public boolean isTroidColumn() {
-  return isTroidColumn;
-}
+  /**
+   * @return whether this field represents a troid column.
+   */
+  public boolean isTroidColumn() {
+    return isTroidColumn;
+  }
 
-public void setTroidColumn(boolean isTroidColumn) {
-  setBoolean(this.isTroidColumn, isTroidColumn);
-}
+  /**
+   * Set the isTroidColumn property.
+   * 
+   * @param isTroidColumn boolean
+   */
+  public void setTroidColumn(boolean isTroidColumn) {
+    if (this.isTroidColumn)
+      throw new IllegalityException(lineNumber,
+          "Troid qualifier  already set true.");
+    this.isTroidColumn = isTroidColumn;
+  }
 
-public boolean isNullable() {
-  return isNullable;
-}
+  /**
+   * @return whether this column is nullable.
+   */
+  public boolean isNullable() {
+    return isNullable;
+  }
 
-public void setNullable(boolean isNullable) {
-  setBoolean(this.isNullable, isNullable);
-}
+  /**
+   * Set the nullable property.
+   *  
+   * @param isNullable boolean
+   */
+  public void setNullable(boolean isNullable) {
+    if (this.isNullable)
+      throw new IllegalityException(lineNumber,
+          "Nullable qualifier  already set true.");
+    this.isNullable = isNullable;
+  }
 
-public boolean isEditable() {
-  return isEditable;
-}
+  /**
+   * @return whether this field is editable
+   */
+  public boolean isEditable() {
+    return isEditable;
+  }
 
-public void setEditable(boolean isEditable) {
-  setBoolean(this.isEditable, isEditable);
-}
+  /**
+   * Set the isEditable property.
+   * 
+   * @param isEditable boolean
+   */
+  public void setEditable(boolean isEditable) {
+    if (!this.isEditable)
+      throw new IllegalityException(lineNumber,
+          "Editable qualifier  already set true.");
+    this.isEditable = isEditable;
+  }
 
-public boolean isSortDescending() {
-  return sortDescending;
-}
+  /**
+   * @return whether this column shoudl be sorted in descending order
+   */
+  public boolean isSortDescending() {
+    return sortDescending;
+  }
 
-public void setSortDescending(boolean sortDescending) {
-  setBoolean(this.sortDescending, sortDescending);
-}
+  /**
+   * Set the sortDescending property.
+   * 
+   * @param sortDescending
+   */
+  public void setSortDescending(boolean sortDescending) {
+    if (this.sortDescending)
+      throw new IllegalityException(lineNumber,
+          "Sort descending qualifier  already set true.");
+    this.sortDescending = sortDescending;
+  }
 
-public boolean isCreateable() {
-  return isCreateable;
-}
+  /**
+   * @return whether this column is user creatable
+   */
+  public boolean isCreateable() {
+    return isCreateable;
+  }
 
-public void setCreateable(boolean isCreateable) {
-  setBoolean(this.isCreateable, isCreateable);
-}
+  /**
+   * Set the isCreatable property.
+   *  
+   * @param isCreateable boolean
+   */
+  public void setCreateable(boolean isCreateable) {
+    if (!this.isCreateable)
+      throw new IllegalityException(lineNumber,
+          "Creatable qualifier  already set true.");
+    this.isCreateable = isCreateable;
+  }
 
-public boolean isIndexed() {
-  return isIndexed;
-}
+  /**
+   * @return whether this column is indexed.
+   */
+  public boolean isIndexed() {
+    return isIndexed;
+  }
 
-public void setIndexed(boolean isIndexed) {
-  setBoolean(this.isIndexed, isIndexed);
-}
+  /**
+   * Set the isIndexed property. 
+   * @param isIndexed boolean
+   */
+  public void setIndexed(boolean isIndexed) {
+    if (this.isIndexed)
+      throw new IllegalityException(lineNumber,
+          "Indexed qualifier  already set true.");
+    this.isIndexed = isIndexed;
+  }
 
-public boolean isUnique() {
-  return isUnique;
-}
+  /**
+   * @return whether this column is unique
+   */
+  public boolean isUnique() {
+    return isUnique;
+  }
 
-public void setUnique(boolean isUnique) {
-  setBoolean(this.isUnique, isUnique);
-}
+  /**
+   * Set the isUnique property.
+   * 
+   * @param isUnique boolean
+   */
+  public void setUnique(boolean isUnique) {
+    if (this.isUnique)
+      throw new IllegalityException(lineNumber,
+          "Unique qualifier  already set true.");
+    this.isUnique = isUnique;
+  }
 
-public int getWidth() {
-  return width;
-}
+  /**
+   * @return the width
+   */
+  public int getWidth() {
+    return width;
+  }
 
-public void setWidth(int width) {
-  setInt(this.width, width);
-}
+  /**
+   * Set the width property.
+   * 
+   * @param width the width to set
+   */
+  public void setWidth(int width) {
+    if (this.width != -1)
+      throw new IllegalityException(lineNumber, "Size already set to "
+          + this.width + " cannot overwrite with " + width);
+    this.width = width;
+  }
 
-public int getHeight() {
-  return height;
-}
+  /**
+   * @return the height
+   */
+  public int getHeight() {
+    return height;
+  }
 
-public void setHeight(int height) {
-  setInt(this.height, height);
-}
+  /**
+   * Set the heigth property.
+   * 
+   * @param height the height to set
+   */
+  public void setHeight(int height) {
+    if (this.height != -1)
+      throw new IllegalityException(lineNumber, "Height already set to "
+          + this.width + " cannot overwrite with " + width);
+    this.height = height;
+  }
 }

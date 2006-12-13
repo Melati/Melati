@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -58,6 +58,7 @@ public class TimestampFieldDef extends AtomFieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -66,9 +67,9 @@ public class TimestampFieldDef extends AtomFieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public TimestampFieldDef(TableDef table, String name, int displayOrder,
+  public TimestampFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                            Vector qualifiers) throws IllegalityException {
-    super(table, name, "Timestamp", displayOrder, qualifiers);
+    super(lineNo, table, name, "Timestamp", displayOrder, qualifiers);
     table.addImport("org.melati.poem.TimestampPoemType", 
                     "table");
     table.addImport("java.sql.Timestamp", 

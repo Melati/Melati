@@ -83,6 +83,10 @@ public class DisplayOrderPriorityFieldQualifier extends FieldQualifier {
   * @throws IllegalityException if there is a semantic contractiction
   */
   public void apply(FieldDef field) throws IllegalityException {
+    if(field.displayOrderPriority != -1)
+      throw new IllegalityException(field.lineNumber, 
+          "DisplayOrderPriority already set to " + field.displayOrderPriority + 
+    " cannot overwrite with " + priority);
     field.displayOrderPriority = priority;
   }
 }

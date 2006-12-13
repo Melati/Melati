@@ -58,6 +58,7 @@ public class PasswordFieldDef extends StringFieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -66,16 +67,16 @@ public class PasswordFieldDef extends StringFieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public PasswordFieldDef(TableDef table, String name, int displayOrder,
+  public PasswordFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                           Vector qualifiers)
       throws IllegalityException {
-    super(table, name, displayOrder, qualifiers);
+    super(lineNo, table, name, displayOrder, qualifiers);
     table.addImport("org.melati.poem.PasswordPoemType", 
                     "table");
   }
 
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
-    return "new PasswordPoemType(" + isNullable() + ", " + size + ")";
+    return "new PasswordPoemType(" + isNullable() + ", " + getSize() + ")";
   }
 }

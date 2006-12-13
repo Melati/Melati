@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -89,17 +89,11 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
   public static class ApplicationException extends IllegalityException {
     private static final long serialVersionUID = 1L;
 
-    FieldDef field;
-
     ApplicationException(FieldDef field) {
       this.field = field;
-    }
-
-    /** @return the message */
-    public String getMessage() {
-      return
-          "The column " + field + " cannot have an `integrityfix' " +
-          "because that only applies to references";
+      this.lineNumber = field.lineNumber;
+      this.message = "The column " + field + " cannot have an `integrityfix' " +
+      "because that only applies to references";
     }
   }
 

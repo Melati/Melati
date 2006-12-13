@@ -58,6 +58,7 @@ public class DateFieldDef extends AtomFieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -66,9 +67,9 @@ public class DateFieldDef extends AtomFieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public DateFieldDef(TableDef table, String name, int displayOrder,
+  public DateFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                       Vector qualifiers) throws IllegalityException {
-    super(table, name, "Date", displayOrder, qualifiers);
+    super(lineNo, table, name, "Date", displayOrder, qualifiers);
     table.addImport("org.melati.poem.DatePoemType", 
                     "table");
     table.addImport("java.sql.Date", 

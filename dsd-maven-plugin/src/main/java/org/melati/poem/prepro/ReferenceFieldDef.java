@@ -63,6 +63,7 @@ public class ReferenceFieldDef extends FieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -72,10 +73,10 @@ public class ReferenceFieldDef extends FieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public ReferenceFieldDef(TableDef table, String name, int displayOrder,
+  public ReferenceFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                            String type, Vector qualifiers)
       throws IllegalityException {
-    super(table, name, type, "Integer", displayOrder, qualifiers);
+    super(lineNo, table, name, type, "Integer", displayOrder, qualifiers);
     table.addImport("org.melati.poem.ReferencePoemType", 
                       "table");
     table.addImport("org.melati.poem.NoSuchRowPoemException", 
@@ -198,7 +199,7 @@ public class ReferenceFieldDef extends FieldDef {
       + "  *         if the current <code>AccessToken</code> \n"
       + "  *         does not confer read access rights \n"
       + "  * @throws NoSuchRowPoemException  \n" 
-      + "  *         if the <Persistent</code> has yet "
+      + "  *         if the <code>Persistent</code> has yet "
       + "to be allocated a TROID \n"
       + "  * @return the <code>" 
       + suffix 

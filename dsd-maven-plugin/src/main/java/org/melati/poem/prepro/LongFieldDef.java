@@ -68,9 +68,9 @@ public class LongFieldDef extends AtomFieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public LongFieldDef(TableDef table, String name, int displayOrder,
+  public LongFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                       Vector qualifiers) throws IllegalityException {
-    super(table, name, "Long", displayOrder, qualifiers);
+    super(lineNo, table, name, "Long", displayOrder, qualifiers);
     table.addImport("org.melati.poem.LongPoemType", 
                     "table");
   }

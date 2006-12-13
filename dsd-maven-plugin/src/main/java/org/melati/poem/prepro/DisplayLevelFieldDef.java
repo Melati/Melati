@@ -62,6 +62,7 @@ public class DisplayLevelFieldDef extends FieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -70,9 +71,9 @@ public class DisplayLevelFieldDef extends FieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public DisplayLevelFieldDef(TableDef table, String name, int displayOrder,
+  public DisplayLevelFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                               Vector qualifiers) throws IllegalityException {
-    super(table, name, "DisplayLevel", "Integer", displayOrder, qualifiers);
+    super(lineNo, table, name, "DisplayLevel", "Integer", displayOrder, qualifiers);
     table.addImport("org.melati.poem.DisplayLevelPoemType", 
                     "table");
     table.addImport("org.melati.poem.DisplayLevel", 

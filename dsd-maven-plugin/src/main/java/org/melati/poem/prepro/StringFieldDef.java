@@ -50,44 +50,62 @@ import java.util.Vector;
 /**
  * A definition of a <tt>StringPoemType</tt> from the DSD.
  * 
- * Its member variables are populated from the DSD or defaults.
- * Its methods are used to generate the java code.
- */ 
+ * Its member variables are populated from the DSD or defaults. Its methods are
+ * used to generate the java code.
+ */
 public class StringFieldDef extends AtomFieldDef {
 
-  int size;
+  private int size;
 
- /**
-  * Constructor.
-  *
-  * @param table        the {@link TableDef} that this <code>Field</code> is 
-  *                     part of 
-  * @param name         the name of this field
-  * @param displayOrder where to place this field in a list
-  * @param qualifiers   all the qualifiers of this field
-  * 
-  * @throws IllegalityException if a semantic inconsistency is detected
-  */
-  public StringFieldDef(TableDef table, String name, int displayOrder,
-                        Vector qualifiers)
-      throws IllegalityException {
-    super(table, name, "String", displayOrder, qualifiers);
-    if (size == 0) throw new StringSizeZeroException(this);
-    table.addImport("org.melati.poem.StringPoemType", 
-                    "table");
+  /**
+   * Constructor.
+   * 
+   * @param lineNo
+   *          the line number in the DSD file
+   * @param table
+   *          the {@link TableDef} that this <code>Field</code> is part of
+   * @param name
+   *          the name of this field
+   * @param displayOrder
+   *          where to place this field in a list
+   * @param qualifiers
+   *          all the qualifiers of this field
+   * 
+   * @throws IllegalityException
+   *           if a semantic inconsistency is detected
+   */
+  public StringFieldDef(int lineNo, TableDef table, String name,
+      int displayOrder, Vector qualifiers) throws IllegalityException {
+    super(lineNo, table, name, "String", displayOrder, qualifiers);
+    if (size == 0)
+      throw new StringSizeZeroException(this);
+    table.addImport("org.melati.poem.StringPoemType", "table");
 
   }
 
- /** @return the Java string for this <code>PoemType</code>. */
+  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
     return "new StringPoemType(" + isNullable() + ", " + size + ")";
   }
 
-public int getSize() {
-  return size;
-}
+  /**
+   * @return size property
+   */
+  public int getSize() {
+    return size;
+  }
 
-public void setSize(int size) {
-  setInt(this.size, size);
-}
+  /**
+   * Set the size property. 
+   * 
+   * @param sizeP the size to set
+   */
+  public void setSize(int sizeP) {
+    if (this.size > 0)
+      throw new IllegalityException(lineNumber,
+          "String field size already set to " + this.size
+              + " cannot overwrite with " + sizeP);
+    if (sizeP == 0) throw new RuntimeException("wtf");
+    this.size = sizeP;
+  }
 }

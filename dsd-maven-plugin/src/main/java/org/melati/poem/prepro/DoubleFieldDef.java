@@ -60,6 +60,7 @@ public class DoubleFieldDef extends AtomFieldDef {
  /**
   * Constructor.
   *
+  * @param lineNo       the line number in the DSD file
   * @param table        the {@link TableDef} that this <code>Field</code> is 
   *                     part of 
   * @param name         the name of this field
@@ -68,9 +69,9 @@ public class DoubleFieldDef extends AtomFieldDef {
   * 
   * @throws IllegalityException if a semantic inconsistency is detected
   */
-  public DoubleFieldDef(TableDef table, String name, int displayOrder,
+  public DoubleFieldDef(int lineNo, TableDef table, String name, int displayOrder,
                         Vector qualifiers) throws IllegalityException {
-    super(table, name, "Double", displayOrder, qualifiers);
+    super(lineNo, table, name, "Double", displayOrder, qualifiers);
     table.addImport("org.melati.poem.DoublePoemType", 
                     "table");
   }

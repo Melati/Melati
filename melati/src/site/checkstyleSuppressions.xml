@@ -16,11 +16,8 @@
               files="Test.java" />
     <suppress checks="Header"
               files="/test/" />
-
     <suppress checks="Header"
               files="example" />
-    <suppress checks="Header"
-              files="prepro" />
      
     <!-- There are that many things you need to pass in -->
     <suppress checks="ParameterNumber"

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.util;
@@ -56,24 +56,45 @@ public class MelatiBufferedWriter extends MelatiWriter {
   // the output is buffered
   private CharArrayWriter bufferedOutput = new CharArrayWriter(2000);
   
+  /**
+   * Constructor.
+   * 
+   * @param writer the Writer
+   */
   public MelatiBufferedWriter(Writer writer) {
     out = writer;
   }
   
+  /**
+   * {@inheritDoc}
+   * @see java.io.Writer#write(char[], int, int)
+   */
   public void write(char cbuf[], int off, int len) throws IOException {
     bufferedOutput.write(cbuf, off, len);
     startFlushing();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiWriter#reset()
+   */
   public void reset() throws IOException {
     bufferedOutput.reset();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.Flushable#flush()
+   */
   public void flush() throws IOException {
     bufferedOutput.flush();
     out.flush();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.Closeable#close()
+   */
   public void close() throws IOException {
     bufferedOutput.writeTo(out);
     bufferedOutput.close();

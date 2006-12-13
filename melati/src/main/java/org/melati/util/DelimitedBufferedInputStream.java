@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -274,6 +274,19 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
     return n;
   }
 
+    /**
+     * Calculates length.
+     * <p>
+     * Returns the index within data1 of the
+     * byte array data2. It starts looking in data1 at fromIndex and only
+     * considers len bytes of data1
+     *  
+     * @param      data1 array to look in.
+     * @param      data2 array to look for.
+     * @param      fromIndex where to start looking from in data1.
+     * @return the index of data2 within data1 or
+     *         -1 if data2 does not occur within data1
+     */
     public int indexOf(byte[] data1, byte[] data2, int fromIndex) {
       if (fromIndex < 0)
         fromIndex = 0;
@@ -281,7 +294,7 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
     }
 
     /**
-     * indexOf for byte arrays. It returns the index within data1 of the
+     * Returns the index within data1 of the
      * byte array data2. It starts looking in data1 at fromIndex and only
      * considers len bytes of data1
      *
@@ -335,6 +348,11 @@ public class DelimitedBufferedInputStream extends BufferedInputStream {
       }
     }
 
+    /**
+     * Test harness.
+     * 
+     * @param args arguments
+     */
     public static void main(String[] args) {
       byte[] sink = new byte[10];
       byte[] arr1 = {30, 31, 32, 33};

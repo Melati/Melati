@@ -1344,6 +1344,9 @@ public abstract class Database implements TransactionPool {
     endExclusiveLock();
   }
 
+  /**
+   * @return an id incremented for each change
+   */
   long structureSerial() {
     return structureSerial;
   }

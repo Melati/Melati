@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey (timp@paneris.org)
+ *     Tim Pizey (timp At paneris.org)
  *
  */
 
@@ -78,6 +78,9 @@ public class Hsqldb extends AnsiStandard {
    */
   public static int hsqldbTextHack = 266;
 
+  /**
+   * Constructor.
+   */
   public Hsqldb() {
     setDriverClassName("org.hsqldb.jdbcDriver");
   }
@@ -96,10 +99,12 @@ public class Hsqldb extends AnsiStandard {
   }
 
   /** 
-   * The default is to keep everything in memory.
-   * This allows for the db to be written to the disk.
+   * The default is to keep everything in memory,
+   * this allows for the db to be written to the disk.
    * 
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableSql()
+   * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
    */
   public String createTableSql() {
     return "CREATE CACHED TABLE ";
@@ -121,23 +126,36 @@ public class Hsqldb extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
   */
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) {
     if (size < 0)
       return "VARCHAR(" + hsqldbTextHack + ")";
     return "VARCHAR(" + size + ")";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getLongSqlDefinition()
+   */
   public String getLongSqlDefinition() {
     return "BIGINT";
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "LONGVARBINARY";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent
+   */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == hsqldbTextHack
@@ -157,6 +175,10 @@ public class Hsqldb extends AnsiStandard {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
+   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) 
       throws SQLException {
     //ResultSetMetaData rsmd = md.getMetaData();
@@ -175,6 +197,10 @@ public class Hsqldb extends AnsiStandard {
   * Translates an HSQLDB Boolean into a Poem <code>BooleanPoemType</code>.
   */ 
   public static class HsqldbBooleanPoemType extends BooleanPoemType {
+    /**
+     * Constructor.
+     * @param nullable nullability
+     */
     public HsqldbBooleanPoemType(boolean nullable) {
       super(nullable);
     }
@@ -193,14 +219,19 @@ public class Hsqldb extends AnsiStandard {
 
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
+   */
   public String getQuotedName(String name) {
     StringBuffer b = new StringBuffer();
     StringUtils.appendQuoted(b, unreservedName(name), '"');
     return b.toString();
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
@@ -208,8 +239,9 @@ public class Hsqldb extends AnsiStandard {
     return name.toUpperCase();
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
@@ -223,6 +255,10 @@ public class Hsqldb extends AnsiStandard {
    * @todo Test that there are no results if the user does not have
    * the capability but some other user does, because it seems to
    * me (in my ignorance) that such a test will fail, JimW.
+   * 
+   * @param user the User to check
+   * @param capabilityExpr name of capability
+   * @return the SQL query
    */
   public String givesCapabilitySQL(User user, String capabilityExpr) {
     return "SELECT * FROM "
@@ -260,6 +296,8 @@ public class Hsqldb extends AnsiStandard {
   /** 
    * Note that this is NOT case insensitive.
    * 
+   * {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
@@ -271,8 +309,9 @@ public class Hsqldb extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
   
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
                                         String targetTableName, 
@@ -293,8 +332,9 @@ public class Hsqldb extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";

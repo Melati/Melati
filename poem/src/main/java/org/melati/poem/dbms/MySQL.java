@@ -50,7 +50,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.melati.poem.Persistable;
-import org.melati.poem.User;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
 import org.melati.poem.PoemType;
@@ -467,9 +466,8 @@ public class MySQL extends AnsiStandard {
   }  
 
   /**
-   * @param user
-   * @param capabilityExpr
-   * @return the sql string
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#givesCapabilitySQL
    */
   public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return

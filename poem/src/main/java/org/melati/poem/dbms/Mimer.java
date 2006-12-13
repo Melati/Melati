@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey (timp@paneris.org)
+ *     Tim Pizey (timp At paneris.org)
  *
  */
 
@@ -51,19 +51,30 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.IntegerPoemType;
 
 /**
- * A Driver for Mimer ( NOT WORKING YET!!!)
+ * A Driver for Mimer ( NOT WORKING YET!!!).
  */
 public class Mimer extends AnsiStandard {
 
+  /**
+   * Constructor - set driver.
+   */
   public Mimer() {
      setDriverClassName("com.mimer.jdbc.Driver");
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size)  {
     if (size < 0) return "VARCHAR(2500)";
     return "VARCHAR(" + size + ")";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent
+   */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType &&
         type instanceof StringPoemType) {
@@ -84,6 +95,10 @@ public class Mimer extends AnsiStandard {
 
 
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
+   */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
           return ("INT");
@@ -91,9 +106,10 @@ public class Mimer extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo find out foreign key syntax
+  /**
+   * {@inheritDoc}
+   * @todo Implement
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
@@ -101,9 +117,10 @@ public class Mimer extends AnsiStandard {
   }
 
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
-   * @todo find out primary key syntax
+  /**
+   * {@inheritDoc}
+   * @todo Implement
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return "";

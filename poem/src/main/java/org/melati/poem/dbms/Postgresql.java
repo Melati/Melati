@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     David Warnock (david@sundayta.co.uk)
+ *     David Warnock (david At sundayta.co.uk)
  *     Sundayta Ltd
  *     International House, 
  *     174 Three Bridges Road, 
@@ -69,18 +69,27 @@ import org.melati.poem.SQLPoemException;
 
 
  /**
-  * A Driver for Postgresql (http://www.postgresql.org/)
+  * A Driver for Postgresql.
+  * See http://www.postgresql.org/
   **/
 
 public class Postgresql extends AnsiStandard {
 
+  /**
+   * Constructor.
+   */
   public Postgresql() {
     setDriverClassName("org.postgresql.Driver");
   }
 
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
+  /**
+   * Whether this DBMS can drop columns. 
+   * 
+   * @param con the current connection
+   * @return true if we can
+   * @throws SQLException
+   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
    */
   public boolean canDropColumns(Connection con) throws SQLException {
     if (con instanceof org.postgresql.jdbc1.AbstractJdbc1Connection) {
@@ -91,8 +100,12 @@ public class Postgresql extends AnsiStandard {
   }
 
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder
+  /**
+   * Accomodate casting in placeholders.
+   *  
+   * @param type the type to cast
+   * @return the place holder string
+   * @see org.melati.poem.dbms.AnsiStandard#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
   public String preparedStatementPlaceholder(PoemType type) {
     if (type instanceof IntegerPoemType)
@@ -105,8 +118,13 @@ public class Postgresql extends AnsiStandard {
       return "?";
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+  /**
+   * Accomodate String/Text distinction. 
+   * 
+   * @param size the string length (-1 means no limit)
+   * @return the SQL definition for a string of this size 
+   * @throws SQLException
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
@@ -115,8 +133,9 @@ public class Postgresql extends AnsiStandard {
        return super.getStringSqlDefinition(size);
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "BYTEA";
@@ -150,10 +169,11 @@ public class Postgresql extends AnsiStandard {
       }
   }
 */
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
-
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
     return
@@ -167,8 +187,9 @@ public class Postgresql extends AnsiStandard {
 //           super.defaultPoemTypeOfColumnMetaData(md);
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
    */
   public SQLPoemException exceptionForUpdate(
       Table table, String sql, boolean insert, SQLException e) {
@@ -203,13 +224,16 @@ public class Postgresql extends AnsiStandard {
         return super.exceptionForUpdate(table, sql, insert, e);
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " ~* " + term2;
   }
-  /** 
+  
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
@@ -227,8 +251,12 @@ public class Postgresql extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * Return the PRIMARY KEY definition string for this dbms. 
+   * 
+   * @param fieldName the table Troid column, often id, unquoted
+   * @return The definition string
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";

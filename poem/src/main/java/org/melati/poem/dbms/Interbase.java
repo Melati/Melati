@@ -57,14 +57,27 @@ import java.sql.SQLException;
  * Untested.
  */
 public class Interbase extends AnsiStandard {
+  
+  /**
+   * Constructor.
+   */
   public Interbase() {
     setDriverClassName("interbase.interclient.Driver");
   }
 
+  /**
+   * @param name the field or table name
+   * @return the name with a q in front
+   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
+   */
   public String getQuotedName(String name) {
     return "q" + name;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
+   */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("INT");
@@ -72,6 +85,10 @@ public class Interbase extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       return "blob sub_type 1";
@@ -79,6 +96,10 @@ public class Interbase extends AnsiStandard {
      return super.getStringSqlDefinition(size);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       throw new SQLException(
@@ -87,8 +108,11 @@ public class Interbase extends AnsiStandard {
       }
       return super.getBinarySqlDefinition(size);
   }
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
+   *          (java.lang.String, java.lang.String, java.lang.String, 
+   *          java.lang.String, java.lang.String)
    * @todo find out foreign key syntax
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
@@ -96,8 +120,9 @@ public class Interbase extends AnsiStandard {
     return "";
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    * @todo find out primary key syntax
    */
   public String getPrimaryKeyDefinition(String fieldName) {

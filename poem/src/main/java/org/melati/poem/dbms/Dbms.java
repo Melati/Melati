@@ -64,6 +64,14 @@ import org.melati.poem.Table;
  */
 public interface Dbms {
   
+  /**
+   * Return a connection.
+   * @param url the jdbc URL
+   * @param user the user to connect as, may be null
+   * @param password the password for user, may be null
+   * @return the connection
+   * @throws ConnectionFailurePoemException is we cannot connect
+   */
   Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException;
 
@@ -130,7 +138,7 @@ public interface Dbms {
   /**
    * Accomodate String / Text distinction.
    * 
-   * @param size
+   * @param size the string length (-1 means no limit)
    * @return the SQL definition for a string of this size 
    * @throws SQLException
    */
@@ -215,9 +223,9 @@ public interface Dbms {
    * @param e         The raw SQL exception: the routine is meant to
    *                  try to interpret <TT>e.getMessage</TT> if it can
    *
+   * @return an appropriate exception
    * @see Postgresql#exceptionForUpdate
    */
-
   SQLPoemException exceptionForUpdate(Table table, String sql, boolean insert,
                                       SQLException e);
 
@@ -227,6 +235,13 @@ public interface Dbms {
    * invokes <TT>PreparedStatement.toString()</TT> and calls the
    * <TT>String</TT> version.
    *
+   * @param table     The table on which the update was affected
+   * @param ps        The operation attempted, or possibly <TT>null</TT>
+   * @param insert    Whether the operation was an <TT>INSERT</TT> as
+   *                  opposed to an <TT>UPDATE</TT>
+   * @param e         The raw SQL exception: the routine is meant to
+   *                  try to interpret <TT>e.getMessage</TT> if it can
+   * @return an appropriate exception
    * @see AnsiStandard#exceptionForUpdate(org.melati.poem.Table, java.lang.String, 
    *                             boolean, java.sql.SQLException)
    */
@@ -267,7 +282,7 @@ public interface Dbms {
   boolean canBeIndexed(Column column);
 
   /**
-   * SQL string to get a <tt>Capability</tt>
+   * SQL string to get a <tt>Capability</tt>.
    * 
    * @param user the User Persistable whose troid is used in the query
    * @param capabilityExpr the capability troid we need

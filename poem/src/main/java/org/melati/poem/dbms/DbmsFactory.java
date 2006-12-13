@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     David Warnock (david@sundayta.co.uk)
+ *     David Warnock (david At sundayta.co.uk)
  *     Sundayta Ltd
  *     International House, 
  *     174 Three Bridges Road, 
@@ -66,8 +66,8 @@ public final class DbmsFactory {
 
     /**
      * Return a Dbms object given its class name as a String.
-     * @param dbmsClass the class name 
-     * @return the instantiated Dbms object
+     * @param dbmsClass the name of the dbms class
+     * @return a cached or newly created Dmbs object
      * @throws ConnectionFailurePoemException if we cannot connect
      */
     public static Dbms getDbms(String dbmsClass) 

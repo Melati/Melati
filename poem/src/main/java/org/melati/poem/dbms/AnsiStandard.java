@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     David Warnock (david@sundayta.co.uk)
+ *     David Warnock (david At sundayta.co.uk)
  *     Sundayta Ltd
  *     International House, 
  *     174 Three Bridges Road, 
@@ -82,7 +82,6 @@ import org.melati.util.StringUtils;
  * An SQL 92 compliant Database Management System. Should there ever be such a
  * thing then you wouldn't need to extend this, but all DBs used with Melati so
  * far have needed to extend the standard with their own variations.
- *  
  */
 public class AnsiStandard implements Dbms {
   
@@ -104,21 +103,24 @@ public class AnsiStandard implements Dbms {
     return driverLoaded;
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getSchema()
    */
   public String getSchema() {
     return null;
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#disconnect()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#shutdown(java.sql.Connection)
    */
   public void shutdown(Connection connection)  
     throws SQLException{    
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
    */
   public boolean canDropColumns(Connection con) throws SQLException {
@@ -146,8 +148,9 @@ public class AnsiStandard implements Dbms {
   }
 
   protected String schema;
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getConnection(String, String, String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
    */
   public Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException {
@@ -203,14 +206,16 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)
    */
   public String preparedStatementPlaceholder(PoemType type) {
     return "?";
   }
   
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#createTableSql()
    */
   public String createTableSql() {
@@ -218,14 +223,16 @@ public class AnsiStandard implements Dbms {
   }
 
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
    */
   public String getSqlDefinition(String sqlTypeName) {
     return sqlTypeName;
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size) throws SQLException {
@@ -236,14 +243,16 @@ public class AnsiStandard implements Dbms {
     return "VARCHAR(" + size + ")";
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
    */
   public String getLongSqlDefinition() {
     return "INT8";
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) throws SQLException {
@@ -254,7 +263,8 @@ public class AnsiStandard implements Dbms {
     return "LONGVARBINARY(" + size + ")";
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getFixedPtSqlDefinition(int, int)
    */
   public String getFixedPtSqlDefinition(int scale, int precision)
@@ -267,15 +277,17 @@ public class AnsiStandard implements Dbms {
     return "DECIMAL(" + precision + "," + scale + ")";
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
    */
   public String sqlBooleanValueOfRaw(Object raw) {
     return raw.toString();
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#canRepresent(PoemType, PoemType)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     return storage.canRepresent(type);
@@ -295,8 +307,9 @@ public class AnsiStandard implements Dbms {
     throw e;
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(ResultSet)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -361,16 +374,17 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  /* (non-Javadoc)
-   * @see Dbms#exceptionForUpdate(org.melati.poem.Table, java.lang.String, 
-   *                             boolean, java.sql.SQLException)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#exceptionForUpdate
    */
   public SQLPoemException exceptionForUpdate(Table table, String sql,
       boolean insert, SQLException e) {
     return new ExecutingSQLPoemException(sql, e);
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see Dbms#exceptionForUpdate(org.melati.poem.Table, 
    *                              java.sql.PreparedStatement, 
    *                              boolean, java.sql.SQLException)
@@ -381,7 +395,8 @@ public class AnsiStandard implements Dbms {
         e);
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getQuotedName(java.lang.String)
    */
   public String getQuotedName(String name) {
@@ -390,7 +405,8 @@ public class AnsiStandard implements Dbms {
     return b.toString();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getJdbcMetadataName(java.lang.String)
    */
   public String getJdbcMetadataName(String name) {
@@ -401,14 +417,17 @@ public class AnsiStandard implements Dbms {
    * A pair of functions for getting around keywords which make your 
    * JDBC driver barf, as 'group' does for MySQL.
    * 
-   * @see MySQL#unreservedName
-   * @see MySQL#melatiName
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+   * @see org.melati.poem.dbms.MySQL#unreservedName
+   * @see org.melati.poem.dbms.MySQL#melatiName
    */
   public String unreservedName(String name) {
     return name;
   }
   
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
@@ -419,7 +438,9 @@ public class AnsiStandard implements Dbms {
    * MySQL requires a length argument when creating an index on a BLOB or TEXT
    * column.
    * 
-   * @see MySQL#getIndexLength
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getIndexLength(org.melati.poem.Column)
+   * @see org.melati.poem.dbms.MySQL#getIndexLength
    */
   public String getIndexLength(Column column) {
     return "";
@@ -429,6 +450,8 @@ public class AnsiStandard implements Dbms {
    * MSSQL cannot index a TEXT column. But neither can it compare them so we
    * don't use it, we use VARCHAR(255).
    *  
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#canBeIndexed(org.melati.poem.Column)
    */
   public boolean canBeIndexed(Column column) {
     return true;
@@ -437,7 +460,9 @@ public class AnsiStandard implements Dbms {
   /**
    * MySQL has no EXISTS keyword.
    * 
-   * @see MySQL#givesCapabilitySQL
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#givesCapabilitySQL
+   * @see org.melati.poem.dbms.MySQL#givesCapabilitySQL
    */
   public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
@@ -453,29 +478,33 @@ public class AnsiStandard implements Dbms {
 
   /**
    * This is the MySQL syntax.
-   *
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(String, String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     return term1 + " REGEXP " + term2;
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see java.lang.Object#toString()
    */
   public String toString() {
     return this.getClass().getName();
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition()
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
     return "";
   }
   
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return "";

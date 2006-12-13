@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey (timp@paneris.org)
+ *     Tim Pizey (timp At paneris.org)
  *
  */
 
@@ -167,9 +167,8 @@ public class Mckoi extends AnsiStandard {
 
 
   /**
-   * @param user
-   * @param capabilityExpr
-   * @return
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#givesCapabilitySQL
    */
   public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return
@@ -182,8 +181,10 @@ public class Mckoi extends AnsiStandard {
         "AND capability = " + capabilityExpr;
   }
   
-  /** 
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    * @todo find out foreign key syntax
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
@@ -201,8 +202,9 @@ public class Mckoi extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition
    * @todo find out primary key syntax
    */
   public String getPrimaryKeyDefinition(String fieldName) {

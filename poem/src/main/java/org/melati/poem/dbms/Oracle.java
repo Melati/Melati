@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey (timp@paneris.org)
+ *     Tim Pizey (timp At paneris.org)
  *
  */
 
@@ -72,10 +72,12 @@ import org.melati.poem.StringPoemType;
 //import org.melati.poem.SQLPoemException;
 import org.melati.util.StringUtils;
 
- /**
-  * A Driver for Oracle (http://www.oracle.com/)
-  **/
-
+/**
+ * A Driver for Oracle (http://www.oracle.com/).
+ * 
+ * @todo Testing required, code has been added to keep up with the interface 
+ * without testing.
+ **/
 public class Oracle extends AnsiStandard {
 
   /**
@@ -85,19 +87,29 @@ public class Oracle extends AnsiStandard {
    */
   public static int oracleTextHack = 266;
 
+  /**
+   * Constructor.
+   */
   public Oracle() {
     setDriverClassName("oracle.jdbc.OracleDriver");
   }
 
-  /* Get the user we are connected as and return that as the schema.
+  /**
+   *  Get the user we are connected as and return that as the schema.
    * 
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSchema()
    * @see org.melati.poem.dbms.Dbms#getSchema()
-   * @see org.melati.poem.dbms.Ansistandard#getConnection()
    */
   public String getSchema() {
     return schema;
   }
   
+  /**
+   * We can.
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
+   */
   public boolean canDropColumns(Connection con) {
     return true;
   }
@@ -116,8 +128,9 @@ public class Oracle extends AnsiStandard {
   }
 */
   
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
@@ -127,15 +140,17 @@ public class Oracle extends AnsiStandard {
   }
 
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getLongSqlDefinition()
    */
   public String getLongSqlDefinition() {
     return "NUMBER";
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
    */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
@@ -144,8 +159,9 @@ public class Oracle extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#sqlBooleanValueOfRaw(java.lang.Object)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#sqlBooleanValueOfRaw(java.lang.Object)
    */
   public String sqlBooleanValueOfRaw(Object raw) {
     if (((Boolean)raw).booleanValue()) 
@@ -156,9 +172,14 @@ public class Oracle extends AnsiStandard {
 
   /**
    * Translates an Oracle Boolean into a Poem <code>BooleanPoemType</code>.
-   */ 
-   public static class OracleBooleanPoemType extends BooleanPoemType {
-     public OracleBooleanPoemType(boolean nullable) {
+   */
+  public static class OracleBooleanPoemType extends BooleanPoemType {
+
+    /**
+     * Constructor.
+     * @param nullable nullability
+     */
+    public OracleBooleanPoemType(boolean nullable) {
        super(nullable);
      }
      
@@ -181,6 +202,11 @@ public class Oracle extends AnsiStandard {
     */ 
   public static class OracleStringPoemType extends StringPoemType {
 
+    /**
+     * Constructor.
+     * @param nullable nullability
+     * @param size size
+     */
       public OracleStringPoemType(boolean nullable, int size) {
         super(nullable, size);
       }
@@ -192,8 +218,9 @@ public class Oracle extends AnsiStandard {
                (getSize() >= ((StringPoemType)other).getSize());
       }
 
-      /* (non-Javadoc)
-       * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
        */
       public PoemType canRepresent(PoemType other) {
         System.err.println("Creating an OracleStringPoemType");
@@ -205,15 +232,17 @@ public class Oracle extends AnsiStandard {
 
     }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) throws SQLException {
     return "BLOB";
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("user")) name = "melati_" + name;
@@ -221,8 +250,9 @@ public class Oracle extends AnsiStandard {
     return name.toUpperCase();
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#melatiName(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("melati_user")) name = "user";
@@ -252,11 +282,13 @@ public class Oracle extends AnsiStandard {
   }
 */
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent
+   *          (org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
-    // FIXME - I don't think this is right
+    // FIXME Check if correct with test
     if ((storage instanceof IntegerPoemType &&
         type instanceof BigDecimalPoemType) && 
         (storage.getNullable() == type.getNullable())){
@@ -271,8 +303,9 @@ public class Oracle extends AnsiStandard {
     }
   }
 
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -324,7 +357,9 @@ public class Oracle extends AnsiStandard {
    * Note that this is NOT case insensitive.
    * Term2 has its quotes stripped.
    * 
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
+   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
@@ -335,9 +370,9 @@ public class Oracle extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo test
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
@@ -356,9 +391,9 @@ public class Oracle extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
-   * @todo test
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     StringBuffer sb = new StringBuffer();
@@ -366,6 +401,5 @@ public class Oracle extends AnsiStandard {
         " PRIMARY KEY (" + getQuotedName(fieldName) + "))");
     return sb.toString();
   }
-
 
 }

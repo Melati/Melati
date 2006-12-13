@@ -50,8 +50,10 @@ org.melati.LogicalDatabase.melatitest.dbmsclass=org.melati.poem.dbms.FirstSQL
 # FirstSQL Pro Embedded: set maxtransactions to 0!
 org.melati.LogicalDatabase.melatitest.maxtransactions=0
 ##Run recovery.sh first, if DB was shutdown incorrectly.
-org.melati.LogicalDatabase.melatitest.url= jdbc:dbcp://database.path=/work/firstsqlpro/db;user=adm;password=firstsql
-##org.melati.LogicalDatabase.melatitest.url=jdbc:dbcp://database.path=/work/firstsqlpro/db;recover=yes;user=adm;password=firstsql
+org.melati.LogicalDatabase.melatitest.url= 
+ jdbc:dbcp://database.path=/work/firstsqlpro/db;user=adm;password=firstsql
+##org.melati.LogicalDatabase.melatitest.url=
+jdbc:dbcp://database.path=/work/firstsqlpro/db;recover=yes;user=adm;password=firstsql
 org.melati.LogicalDatabase.melatitest.user=
 org.melati.LogicalDatabase.melatitest.pass=
 */
@@ -90,7 +92,7 @@ import java.sql.SQLException;
 import org.melati.util.UnexpectedExceptionException;
 
 /**
- * A Driver for FirstSQL ( NOT WORKING YET!!!)
+ * A Driver for FirstSQL ( NOT WORKING YET!!!).
  */
 
 public class FirstSQL extends AnsiStandard {
@@ -98,13 +100,20 @@ public class FirstSQL extends AnsiStandard {
   /** Where to log to. */
   public static java.io.PrintStream logStream = System.err;
 
+  /**
+   * Constructor.
+   */
   public FirstSQL() {
     setDriverClassName("COM.FirstSQL.Dbcp.DbcpDriver");  
   }
 
 
-//It does the same error, even if we don't override it -
-// using AnsiStandard.getConnection(...)
+  /**
+   * It does the same error, even if we don't override it 
+   * so using AnsiStandard.getConnection(...).
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getConnection
+   */
   public Connection getConnection(String url, String user, String password) 
       throws ConnectionFailurePoemException {
 /*      Properties info = new Properties();
@@ -143,18 +152,20 @@ public class FirstSQL extends AnsiStandard {
     }
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo find out foreign key syntax
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
+   * @todo Find out foreign key syntax
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
     return "";
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
-   * @todo find out primary key syntax
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition
+   * @todo Find out primary key syntax
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return "";

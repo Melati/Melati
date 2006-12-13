@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey (timp@paneris.org)
+ *     Tim Pizey (timp At paneris.org)
  *
  */
 package org.melati.poem.dbms;
@@ -79,8 +79,10 @@ public class MSAccess extends AnsiStandard {
    * Return <code>null</code> as the Schema Name, 
    * which tells jdbc not to filter on it. 
    * 
+   * @return the user as null
    * @see org.melati.poem.dbms.Dbms#getSchema()
    * @see org.melati.poem.dbms.AnsiStandard#getConnection
+   * @see org.melati.poem.dbms.AnsiStandard#getSchema()
    */
   public String getSchema() {
     return null;
@@ -89,6 +91,8 @@ public class MSAccess extends AnsiStandard {
   /**
    * Ignore tables starting with '~', which should 
    * probably have a jdbc type of 'SYSTEM TABLE'.
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
     if (name == null)
@@ -98,17 +102,17 @@ public class MSAccess extends AnsiStandard {
     return name;
   }
   
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#unreservedName(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
   public String unreservedName(String name) {
     return name;
   }
 
-
-
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getSqlDefinition(java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
    */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
@@ -125,15 +129,18 @@ public class MSAccess extends AnsiStandard {
     }
     return super.getSqlDefinition(sqlTypeName);
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getLongSqlDefinition()
    */
   public String getLongSqlDefinition() {
     return "INTEGER";
   }
   
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
@@ -145,6 +152,8 @@ public class MSAccess extends AnsiStandard {
   
   /**
    * Cludge?
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getFixedPtSqlDefinition(int, int)
    */
   public String getFixedPtSqlDefinition(int scale, int precision)
   throws SQLException {
@@ -153,16 +162,18 @@ public class MSAccess extends AnsiStandard {
       "negative scale or nonpositive precision not supported in AnsiStandard DECIMALs");
     return "NUMERIC";
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) throws SQLException {
     if (size < 0)
       return "BINARY"; // 512
     return "BINARY(" + size + ")";
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
@@ -192,6 +203,11 @@ public class MSAccess extends AnsiStandard {
    * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
    */
   public static class MSAccessStringPoemType extends StringPoemType {
+    /**
+     * Constructor.
+     * @param nullable nullability
+     * @param size length normally
+     */
     public MSAccessStringPoemType(boolean nullable, int size) {
       super(nullable, size);
     }
@@ -201,8 +217,9 @@ public class MSAccess extends AnsiStandard {
               getSize() == msAccessTextHack || 
               getSize() >= ((StringPoemType) other).getSize());
     }
-    /* (non-Javadoc)
-     * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
      */
     public PoemType canRepresent(PoemType other) {
       return other instanceof StringPoemType
@@ -211,8 +228,9 @@ public class MSAccess extends AnsiStandard {
               : null;
     }
   }
-  /* (non-Javadoc)
-   * @see org.melati.poem.dbms.Dbms#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
@@ -264,9 +282,9 @@ public class MSAccess extends AnsiStandard {
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
-  /** 
-   * 
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
@@ -277,9 +295,9 @@ public class MSAccess extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
 
-
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
                                         String targetTableName, 
@@ -299,8 +317,9 @@ public class MSAccess extends AnsiStandard {
   }
 
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";

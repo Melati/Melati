@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     David Warnock (david@sundayta.co.uk)
+ *     David Warnock (david At sundayta.co.uk)
  *     Sundayta Ltd
  *     International House, 
  *     174 Three Bridges Road, 
@@ -63,6 +63,9 @@ import org.melati.poem.TimestampPoemType;
 
 /**
  * A Driver for the Microsoft SQL server.
+ * 
+ * @todo Testing required, code has been added to keep up with the interface 
+ * without testing.
  */
 public class SQLServer extends AnsiStandard {
 
@@ -72,6 +75,9 @@ public class SQLServer extends AnsiStandard {
    */
   public static final int sqlServerTextHack = 2333;
 
+  /**
+   * Constructor.
+   */
   public SQLServer() {
     //buggy
     //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
@@ -84,10 +90,12 @@ public class SQLServer extends AnsiStandard {
     //FreeTDS driver now have many unimplemented features and => does not work.
   }
 
-  /*
+  /**
    * Get the user we are connected as and return that as the schema.
+   * {@inheritDoc}
    * 
    * @see org.melati.poem.dbms.Dbms#getSchema()
+   * @see org.melati.poem.dbms.AnsiStandard#getSchema()
    * @see org.melati.poem.dbms.Ansistandard#getConnection()
    */
   public String getSchema() {
@@ -111,6 +119,10 @@ public class SQLServer extends AnsiStandard {
     //return super.getQuotedName(name);
   //}
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
+   */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("BOOLEAN")) {
       return ("BIT");
@@ -124,6 +136,10 @@ public class SQLServer extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { // Don't use TEXT as it doesn't support
       //indexing or comparison
@@ -137,6 +153,11 @@ public class SQLServer extends AnsiStandard {
    */
   public static class MSSQLStringPoemType extends StringPoemType {
 
+    /**
+     * Constructor.
+     * @param nullable nullability
+     * @param size length
+     */
     public MSSQLStringPoemType(boolean nullable, int size) {
       super(nullable, size);
     }
@@ -149,6 +170,10 @@ public class SQLServer extends AnsiStandard {
           .getSize());
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
+     */
     public PoemType canRepresent(PoemType other) {
       return other instanceof StringPoemType
           && _canRepresent((StringPoemType) other)
@@ -164,6 +189,10 @@ public class SQLServer extends AnsiStandard {
    */
   public static class MSSQLDatePoemType extends DatePoemType {
 
+    /**
+     * Constructor.
+     * @param nullable nullability
+     */
     public MSSQLDatePoemType(boolean nullable) {
       super(Types.DATE, "DATETIME", nullable);
     }
@@ -175,12 +204,21 @@ public class SQLServer extends AnsiStandard {
    */
   public static class MSSQLTimestampPoemType extends TimestampPoemType {
 
+    /**
+     * Constructor.
+     * @param nullable nullability
+     */
     public MSSQLTimestampPoemType(boolean nullable) {
       super(Types.TIMESTAMP, "DATETIME", nullable);
     }
 
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(
+   *                                            java.sql.ResultSet)
+   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
 
@@ -224,8 +262,10 @@ public class SQLServer extends AnsiStandard {
 
   /**
    * Ignore <TT>dtproperties</TT> as it is a 'System' table used to store
-   * Entity Relationship diagrams which has a jdbc type of TABLE when it should
-   * probably have a jdbc type of 'SYSTEM TABLE'
+   * Entity Relationship diagrams which haVE a jdbc type of TABLE when it should
+   * probably have a jdbc type of 'SYSTEM TABLE'.
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
     if (name == null)
@@ -250,9 +290,9 @@ public class SQLServer extends AnsiStandard {
       return false;
     return true;
   }
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo test
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
@@ -269,15 +309,13 @@ public class SQLServer extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
-   * @todo test
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
-
-
   
 }
 

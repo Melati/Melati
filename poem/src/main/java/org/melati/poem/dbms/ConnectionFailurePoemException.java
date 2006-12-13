@@ -54,10 +54,18 @@ import org.melati.poem.SQLPoemException;
 public class ConnectionFailurePoemException extends SQLPoemException {
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   * @param e an exception thrown by the jdbc driver or us
+   */
   public ConnectionFailurePoemException(SQLException e) {
     super(e);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLPoemException#getMessage()
+   */
   public String getMessage() {
     return "Initialising\n" + super.getMessage();
   }

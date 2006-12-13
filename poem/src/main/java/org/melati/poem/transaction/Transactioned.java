@@ -152,7 +152,7 @@ public abstract class Transactioned {
    * write locks on the object before claiming the next write
    * lock. Then it will block until none have read locks.
    * <p>
-   * Finally it calls ensureValid(Transaction).
+   * Finally it calls {@link #ensureValid(Transaction)}.
    */
   protected void writeLock(Transaction transaction) {
 

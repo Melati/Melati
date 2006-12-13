@@ -56,7 +56,7 @@ import java.sql.SQLException;
 /**
  * A factory class to create Dbms objects.
  * 
- * @todo Revisit exception handling
+ * FIXME What horrible exception handling. We need a non SQL Exception here.
  */
 public final class DbmsFactory {
 
@@ -64,8 +64,12 @@ public final class DbmsFactory {
 
     private DbmsFactory() {}
 
-    // FIXME
-    // What horrible exception handling. We need a non SQL Exception here
+    /**
+     * Return a Dbms object given its class name as a String.
+     * @param dbmsClass the class name 
+     * @return the instantiated Dbms object
+     * @throws ConnectionFailurePoemException if we cannot connect
+     */
     public static Dbms getDbms(String dbmsClass) 
         throws ConnectionFailurePoemException {
       synchronized (dbmsObjects) {

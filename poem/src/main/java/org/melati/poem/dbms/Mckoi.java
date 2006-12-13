@@ -48,7 +48,7 @@ import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
-import org.melati.poem.User;
+import org.melati.poem.Persistable;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.DoublePoemType;
@@ -57,23 +57,37 @@ import org.melati.poem.StringPoemType;
 
 /**
  * A Driver for Mckoidb (http://www.mckoi.com/).
- * 
- **/
+*/
 public class Mckoi extends AnsiStandard {
 
+  /**
+   * Constructor.
+   */
   public Mckoi() {
     setDriverClassName("com.mckoi.JDBCDriver");
   }
 
+  /**
+   * Can this still be true.
+   * @return false
+   */
   public boolean supportsIndex() {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) {
       // BLOBs in Postgres are represented as OIDs pointing to the data
     return "LONGVARBINARY";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       return "TEXT";
@@ -81,6 +95,10 @@ public class Mckoi extends AnsiStandard {
     return super.getStringSqlDefinition(size);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
+   */
   public String getQuotedName (String name) {
     //McKoi doesn't quote names
     if (name.equals("unique")) return super.getQuotedName(name);
@@ -89,8 +107,10 @@ public class Mckoi extends AnsiStandard {
   }
 
  /**
-  * @todo Check against modern McKoi 
-  */
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
+   * @todo Check against modern McKoi 
+   */
   public String getSqlDefinition(String sqlTypeName) {
     if (sqlTypeName.equals("INT")) {
       return ("INTEGER");
@@ -103,6 +123,10 @@ public class Mckoi extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent
+   */
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType &&
       type instanceof StringPoemType) {
@@ -126,6 +150,10 @@ public class Mckoi extends AnsiStandard {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
+   */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
 //      ResultSetMetaData rsmd= md.getMetaData();
@@ -138,13 +166,18 @@ public class Mckoi extends AnsiStandard {
   }
 
 
-  public String givesCapabilitySQL(User user, String capabilityExpr) {
+  /**
+   * @param user
+   * @param capabilityExpr
+   * @return
+   */
+  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return
         "SELECT groupmembership.*  " + 
         "FROM groupmembership LEFT JOIN groupcapability " +
         "ON groupmembership." + getQuotedName("group") +
         " =  groupcapability." + getQuotedName("group") + " " +
-        "WHERE " + getQuotedName("user") + " = " + user.troid() + " " +
+        "WHERE " + getQuotedName("user") + " = " + user.getTroid() + " " +
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }

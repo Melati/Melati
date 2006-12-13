@@ -48,6 +48,8 @@ import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import org.melati.poem.Persistable;
 import org.melati.poem.User;
 import org.melati.poem.Table;
 import org.melati.poem.Column;
@@ -141,6 +143,8 @@ public class MySQL extends AnsiStandard {
    * which throws an SQLException when one issues a commit.
    * This could conceivably be moved up to AnsiStandard.
    *
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getConnection
    * @see org.melati.poem.dbms.Dbms#getConnection
    *         (java.lang.String, java.lang.String, java.lang.String)
    */
@@ -169,6 +173,10 @@ public class MySQL extends AnsiStandard {
     return super.getSqlDefinition(sqlTypeName);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
+   */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { 
       return "TEXT";
@@ -176,11 +184,19 @@ public class MySQL extends AnsiStandard {
     return super.getStringSqlDefinition(size); //VARCHAR(size) is OK
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
+   */
   public String getBinarySqlDefinition(int size) {
     return "BLOB"; //How to define BLOB of limited size?
   }
 
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
+   */
   public String getQuotedName(String name) {
     return unreservedName(name);
   }
@@ -190,6 +206,11 @@ public class MySQL extends AnsiStandard {
   */ 
   public static class MySQLStringPoemType extends StringPoemType {
 
+    /**
+     * Constructor.
+     * @param nullable whether nullable
+     * @param size size
+     */
     public MySQLStringPoemType(boolean nullable, int size) {
       super(nullable, size);
     }
@@ -204,6 +225,10 @@ public class MySQL extends AnsiStandard {
                getSize()>=((StringPoemType)other).getSize());
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
+     */
     public PoemType canRepresent(PoemType other) {
       return other instanceof StringPoemType &&
              _canRepresent((StringPoemType)other) &&
@@ -216,6 +241,10 @@ public class MySQL extends AnsiStandard {
   * Translates a MySQL Boolean into a Poem <code>BooleanType</code>.
   */ 
     public static class MySQLBooleanPoemType extends BooleanPoemType {
+      /**
+       * Constructor.
+       * @param nullable whether nullable
+       */
       public MySQLBooleanPoemType(boolean nullable) {
         super(nullable);
       }
@@ -270,6 +299,11 @@ public class MySQL extends AnsiStandard {
   * Translates a MySQL Blob into a Poem <code>IntegerPoemType</code>.
   */ 
     public static class BlobPoemType extends BinaryPoemType {
+      /**
+       * Constructor.
+       * @param nullable whether nullable
+       * @param size size
+       */
       public BlobPoemType(boolean nullable, int size) {
         super(nullable, size);
       }
@@ -278,6 +312,10 @@ public class MySQL extends AnsiStandard {
         return other instanceof BinaryPoemType;
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
+       */
       public PoemType canRepresent(PoemType other) {
         return other instanceof BinaryPoemType &&
           !(!getNullable() && ((BinaryPoemType)other).getNullable()) ?
@@ -285,6 +323,10 @@ public class MySQL extends AnsiStandard {
       }
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
+     */
     public PoemType canRepresent(PoemType storage, PoemType type) {
       if (storage instanceof IntegerPoemType &&
           type instanceof BooleanPoemType) {
@@ -294,6 +336,10 @@ public class MySQL extends AnsiStandard {
       }
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+     */
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {
       //ResultSetMetaData rsmd= md.getMetaData();
@@ -322,6 +368,10 @@ public class MySQL extends AnsiStandard {
     }
 
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.dbms.AnsiStandard#exceptionForUpdate
+     */
     public SQLPoemException exceptionForUpdate(
         Table table, String sql, boolean insert, SQLException e) {
 
@@ -380,6 +430,10 @@ public class MySQL extends AnsiStandard {
       return super.exceptionForUpdate(table, sql, insert, e);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
+   */
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("group")) name = "melati_" + name;
     if(name.equalsIgnoreCase("precision")) name = "melati_" + name;
@@ -387,6 +441,10 @@ public class MySQL extends AnsiStandard {
     return name;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
+   */
   public String melatiName(String name) {
     if(name.equalsIgnoreCase("melati_group")) name = "group";
     if(name.equalsIgnoreCase("melati_precision")) name = "precision";
@@ -408,19 +466,24 @@ public class MySQL extends AnsiStandard {
     return "";
   }  
 
-  public String givesCapabilitySQL(User user, String capabilityExpr) {
+  /**
+   * @param user
+   * @param capabilityExpr
+   * @return the sql string
+   */
+  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return
         "SELECT groupmembership.*  " + 
         "FROM groupmembership LEFT JOIN groupcapability " +
         "ON groupmembership." + getQuotedName("group") +
         " =  groupcapability." + getQuotedName("group") + " " +
-        "WHERE " + getQuotedName("user") + " = " + user.troid() + " " +
+        "WHERE " + getQuotedName("user") + " = " + user.getTroid() + " " +
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @todo test - do foreign key declarations have to come at end of definition?
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
@@ -436,8 +499,9 @@ public class MySQL extends AnsiStandard {
     return sb.toString();
   }
 
-  /** 
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";

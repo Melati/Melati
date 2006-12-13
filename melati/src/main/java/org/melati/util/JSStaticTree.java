@@ -38,173 +38,282 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
 /**
  * A JavaScript tree which can be rendered as ordinary HTML.
- *
+ * 
  * @todo Rename to JsHtmlTree
  */
 public class JSStaticTree extends Tree {
 
-    private String nodeLabelTemplet = 
-           "org/melati/template/webmacro/templets/html/StaticNode.wm";
-    private String backgroundColour = "FFFFFF";
-    private Integer depthPerDownload = new Integer(-1);
-    private String verticalLinkImage;
-    private String spacerImage;
-    private String openedFolderImage;
-    private String closedFolderImage;
-    private String openedTImage;
-    private String closedTImage;
-    private String openedLImage;
-    private String closedLImage;
-    private String leafTImage;
-    private String leafLImage;
-    private String leafImage;
-    private String imageBaseRef;
+  private String nodeLabelTemplet = "org/melati/template/webmacro/templets/html/StaticNode.wm";
+  private String backgroundColour = "FFFFFF";
+  private Integer depthPerDownload = new Integer(-1);
+  private String verticalLinkImage;
+  private String spacerImage;
+  private String openedFolderImage;
+  private String closedFolderImage;
+  private String openedTImage;
+  private String closedTImage;
+  private String openedLImage;
+  private String closedLImage;
+  private String leafTImage;
+  private String leafLImage;
+  private String leafImage;
+  private String imageBaseRef;
 
+  /**
+   * Constructor.
+   * 
+   * @param tree
+   *        the Tree to render
+   * @param staticURL
+   *        images base url
+   */
+  public JSStaticTree(Tree tree, String staticURL) {
+    super(tree.getTreeableRoots(), tree.getDepth());
+    verticalLinkImage = staticURL + "/vertline.gif";
+    spacerImage = staticURL + "/spacer.gif";
+    openedFolderImage = staticURL + "/openfolder.gif";
+    closedFolderImage = staticURL + "/closedfolder.gif";
+    openedTImage = staticURL + "/node_minus.gif";
+    closedTImage = staticURL + "/node_plus.gif";
+    openedLImage = staticURL + "/lastnode_minus.gif";
+    closedLImage = staticURL + "/lastnode_plus.gif";
+    leafTImage = staticURL + "/node.gif";
+    leafLImage = staticURL + "/last_node.gif";
+    leafImage = staticURL + "/file.gif";
+    imageBaseRef = staticURL;
+  }
 
-    public JSStaticTree(Tree tree, String staticURL) {
-        super(tree.getTreeableRoots(), tree.getDepth());
-        verticalLinkImage = staticURL + "/vertline.gif";
-        spacerImage = staticURL + "/spacer.gif";
-        openedFolderImage = staticURL + "/openfolder.gif";
-        closedFolderImage = staticURL + "/closedfolder.gif";
-        openedTImage = staticURL + "/node_minus.gif";
-        closedTImage = staticURL + "/node_plus.gif";
-        openedLImage = staticURL + "/lastnode_minus.gif";
-        closedLImage = staticURL + "/lastnode_plus.gif";
-        leafTImage = staticURL + "/node.gif";
-        leafLImage = staticURL + "/last_node.gif";
-        leafImage = staticURL + "/file.gif";
-        imageBaseRef = staticURL;
-    }
+  /**
+   * @return the name of the node label templet
+   */
+  public String getNodeLabelTemplet() {
+    return nodeLabelTemplet;
+  }
 
-    public String getNodeLabelTemplet() {
-        return nodeLabelTemplet;
-    }
+  /**
+   * Set the Node Label Templet.
+   * 
+   * @param nlt the name of the Node Label Templet to set
+   */
+  public void setNodeLabelTemplet(String nlt) {
+    nodeLabelTemplet = nlt;
+  }
 
-    public void setNodeLabelTemplet(String nlt) {
-        nodeLabelTemplet = nlt;
-    }
+  /**
+   * @return the background colour hex string (without a hash)
+   */
+  public String getBackgroundColour() {
+    return backgroundColour;
+  }
 
-    public String getBackgroundColour() {
-        return backgroundColour;
-    }
+  /**
+   * Set the background colour. 
+   * 
+   * @param bg the background colour hex string (without a hash)
+   */
+  public void setBackgroundColour(String bg) {
+    backgroundColour = bg;
+  }
 
-    public void setBackgroundColour(String bg) {
-        backgroundColour = bg;
-    }
+  /**
+   * @return the vertical link image
+   */
+  public String getVerticalLinkImage() {
+    return verticalLinkImage;
+  }
 
-    public String getVerticalLinkImage() {
-        return verticalLinkImage;
-    }
+  /**
+   * Set the vertical link image.
+   * @param vli the vertical link image
+   */
+  public void setVerticalLinkImage(String vli) {
+    verticalLinkImage = vli;
+  }
 
-    public void setVerticalLinkImage(String vli) {
-        verticalLinkImage = vli;
-    }
+  /**
+   * @return the spacer image name
+   */
+  public String getSpacerImage() {
+    return spacerImage;
+  }
 
-    public String getSpacerImage() {
-        return spacerImage;
-    }
+  /**
+   * Set the spacer image name.
+   * @param si the spacer image name to set
+   */
+  public void setSpacerImage(String si) {
+    spacerImage = si;
+  }
 
-    public void setSpacerImage(String si) {
-        spacerImage = si;
-    }
+  /**
+   * @return the opened folder image name
+   */
+  public String getOpenedFolderImage() {
+    return openedFolderImage;
+  }
 
-    public String getOpenedFolderImage() {
-        return openedFolderImage;
-    }
+  /**
+   * Set the opened folder image name.
+   * @param ofi the opened folder image name to set
+   */
+  public void setOpenedFolderImage(String ofi) {
+    openedFolderImage = ofi;
+  }
 
-    public void setOpenedFolderImage(String ofi) {
-        openedFolderImage = ofi;
-    }
+  /**
+   * @return the closed folder image name
+   */
+  public String getClosedFolderImage() {
+    return closedFolderImage;
+  }
 
-    public String getClosedFolderImage() {
-        return closedFolderImage;
-    }
+  /**
+   * Set the closed folder image name.
+   * @param cfi the closed folder image name to set
+   */
+  public void setClosedFolderImage(String cfi) {
+    closedFolderImage = cfi;
+  }
 
-    public void setClosedFolderImage(String cfi) {
-        closedFolderImage = cfi;
-    }
+  /**
+   * @return the opened Tee image 
+   */
+  public String getOpenedTImage() {
+    return openedTImage;
+  }
 
-    public String getOpenedTImage() {
-        return openedTImage;
-    }
+  /**
+   * Set the opened Tee image.
+   * @param oti the opened Tee image to set
+   */
+  public void setOpenedTImage(String oti) {
+    openedTImage = oti;
+  }
 
-    public void setOpenedTImage(String oti) {
-        openedTImage = oti;
-    }
+  /**
+   * @return the opened L image
+   */
+  public String getOpenedLImage() {
+    return openedLImage;
+  }
 
-    public String getOpenedLImage() {
-        return openedLImage;
-    }
+  /**
+   * Set the opened L image.
+   * @param oli the opened L image to set
+   */
+  public void setOpenedLImage(String oli) {
+    openedLImage = oli;
+  }
 
-    public void setOpenedLImage(String oli) {
-        openedLImage = oli;
-    }
+  /**
+   * @return the closed Tee image
+   */
+  public String getClosedTImage() {
+    return closedTImage;
+  }
 
-    public String getClosedTImage() {
-        return closedTImage;
-    }
+  /**
+   * Set the closed Tee image.
+   * @param cti the closed Tee image
+   */
+  public void setClosedTImage(String cti) {
+    closedTImage = cti;
+  }
 
-    public void setClosedTImage(String cti) {
-        closedTImage = cti;
-    }
+  /**
+   * @return the closed L image
+   */
+  public String getClosedLImage() {
+    return closedLImage;
+  }
 
-    public String getClosedLImage() {
-        return closedLImage;
-    }
+  /**
+   * Set the closed L image.
+   * @param cli the closed L image
+   */
+  public void setClosedLImage(String cli) {
+    closedLImage = cli;
+  }
 
-    public void setClosedLImage(String cli) {
-        closedLImage = cli;
-    }
+  /**
+   * @return the Leaf Tee image
+   */
+  public String getLeafTImage() {
+    return leafTImage;
+  }
 
-    public String getLeafTImage() {
-        return leafTImage;
-    }
+  /**
+   * Set the Leaf Tee image.
+   * @param lti the Leaf Tee image to set
+   */
+  public void setLeafTImage(String lti) {
+    leafTImage = lti;
+  }
 
-    public void setLeafTImage(String li) {
-        leafTImage = li;
-    }
+  /**
+   * @return the leaf L image
+   */
+  public String getLeafLImage() {
+    return leafLImage;
+  }
 
-    public String getLeafLImage() {
-        return leafLImage;
-    }
+  /**
+   * Set the leaf L image.
+   * @param lli the leaf L image to set
+   */
+  public void setLeafLImage(String lli) {
+    leafLImage = lli;
+  }
 
-    public void setLeafLImage(String li) {
-        leafLImage = li;
-    }
+  /**
+   * @return the leaf image
+   */
+  public String getLeafImage() {
+    return leafImage;
+  }
 
-    public String getLeafImage() {
-        return leafImage;
-    }
+  /**
+   * Set the leaf image.
+   * @param li the leaf image to set
+   */
+  public void setLeafImage(String li) {
+    leafImage = li;
+  }
 
-    public void setLeafImage(String li) {
-        leafImage = li;
-    }
+  /**
+   * @return the image base href
+   */
+  public String getImageBaseRef() {
+    return imageBaseRef;
+  }
 
-    public String getImageBaseRef() {
-        return imageBaseRef;
-    }
+  /**
+   * Set the image base href.
+   * @param ibr the image base href to set
+   */
+  public void setImageBaseRef(String ibr) {
+    imageBaseRef = ibr;
+  }
 
-    public void setImageBaseRef(String ibr) {
-        imageBaseRef = ibr;
-    }
+  /**
+   * @return the depth per download
+   */
+  public Integer getDepthPerDownload() {
+    return depthPerDownload;
+  }
 
-    public Integer getDepthPerDownload() {
-        return depthPerDownload;
-    }
-
-    public void setDepthPerDownload(Integer dpd) {
-        depthPerDownload = dpd;
-    }
+  /**
+   * Set the depth per download.
+   * @param dpd the depth per download to set
+   */
+  public void setDepthPerDownload(Integer dpd) {
+    depthPerDownload = dpd;
+  }
 
 }
-
-
-
-

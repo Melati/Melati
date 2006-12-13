@@ -72,7 +72,8 @@ public class CSVWriteDownException extends RuntimeException {
   }
   
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

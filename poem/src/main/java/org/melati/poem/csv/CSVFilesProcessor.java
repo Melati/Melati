@@ -164,6 +164,23 @@ public class CSVFilesProcessor {
           output);
 
   }
+  /**
+   * With write on the fly false.
+   * <p>
+   * Load all the data from the files, empty the tables if necessary and then
+   * write the new data into the tables.
+   * <p>
+   * Write a report of the progress to the Writer.
+   * 
+   * @param emptyTables flag whether to remove remains from last run
+   * @param recordDetails flag passed in to table.report
+   * @param fieldDetails flag passed in to table.report
+   * @param output to write report to
+   * @throws IOException if file stuff goes wrong
+   * @throws CSVParseException if csv file has an error
+   * @throws NoPrimaryKeyInCSVTableException not thrown
+   * @throws CSVWriteDownException thrown when a persistent cannot be created
+   */
   public void process(boolean emptyTables, boolean recordDetails,
                       boolean fieldDetails, Writer output) 
       throws IOException,

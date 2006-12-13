@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,7 +57,7 @@ import org.melati.util.CachedIndexFactory;
  * properly executed.
  * <p>
  * The cached contents are discarded if the database structure has
- * changed.
+ * changed since the cache was created.
  * <p>
  * Execution of the statement in a transaction reflects uncommitted
  * changes in that transaction.
@@ -66,7 +66,7 @@ import org.melati.util.CachedIndexFactory;
  * by index, but this is slightly complicated and the additional
  * methods rely on transactions instead.
  *
- * @author williamc@paneris.org
+ * @author williamc At paneris.org
  */
 
 public class PreparedStatementFactory extends CachedIndexFactory {
@@ -75,6 +75,11 @@ public class PreparedStatementFactory extends CachedIndexFactory {
   private long structureSerial;
   private String sql;
 
+  /**
+   * Constructor.
+   * @param database the db we are working with
+   * @param sql the SQL statement
+   */
   public PreparedStatementFactory(Database database, String sql) {
     this.database = database;
     this.structureSerial = database.structureSerial();
@@ -99,6 +104,10 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.IndexFactory#get(int)
+   */
   public Object get(int index) {
     if (structureSerial != database.structureSerial()) {
       invalidate();
@@ -108,11 +117,19 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     return super.get(index);
   }
 
+  /**
+   * Get a new or cached PreparedStatement. 
+   * @param transaction the PoemTransaction, can be null
+   * @return a new or cached PreparedStatement
+   */
   public PreparedStatement preparedStatement(PoemTransaction transaction) {
     return (PreparedStatement)get(transaction == null ?
                                           0 : transaction.index + 1);
   }
 
+  /**
+   * @return a new or cached PreparedStatement for the current PoemThread's transaction.
+   */
   public final PreparedStatement preparedStatement() {
     return preparedStatement(PoemThread.transaction());
   }
@@ -164,6 +181,9 @@ public class PreparedStatementFactory extends CachedIndexFactory {
     return resultSet(token, preparedStatement(token.transaction));
   }
 
+  /**
+   * @return the ResultSet from the PreparedStatement of the PoemThread
+   */
   public final ResultSet resultSet() {
     return resultSet(PoemThread.sessionToken());
   }

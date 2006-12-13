@@ -961,15 +961,10 @@ public class Table implements Selectable {
   /**
    * Notify the table that one if its records is about to be changed in a
    * transaction.  You can (with care) use this to support cacheing of
-   * frequently-used facts about the table's records.  For instance,
-   * <TT>GroupMembershipTable</TT> and <TT>GroupCapabilityTable</TT> override
-   * this to inform <TT>UserTable</TT> that its cache of users' capabilities
-   * has become invalid.
+   * frequently-used facts about the table's records.  
    *
    * @param transaction the transaction in which the change will be made
    * @param persistent  the record to be changed
-   *
-   * @see GroupMembershipTable#notifyTouched
    */
   void notifyTouched(PoemTransaction transaction, Persistent persistent) {
     serial.increment(transaction);

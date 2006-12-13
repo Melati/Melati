@@ -38,119 +38,206 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
 /**
  * A JavaScript tree which can be rendered as Dynamic HTML.
- *
+ * 
  * @todo Rename to JsDhtmlTree
  */
 public class JSDynamicTree extends Tree {
 
-    private Integer x = new Integer(10);
-    private Integer y = new Integer(10);
-    private Integer nodeHeight = new Integer(19);
-    private Integer nodeWidth = new Integer(400);
-    private String nodeColour = "#ffffff";
-    private Integer indent = new Integer(20);
-    private String nodeLabelTemplet = "";
-    private String openedImage = "";
-    private String closedImage = "";
-    private String leafImage = "";
-    private Integer depthPerDownload = new Integer(-1);
+  private Integer x = new Integer(10);
+  private Integer y = new Integer(10);
+  private Integer nodeHeight = new Integer(19);
+  private Integer nodeWidth = new Integer(400);
+  private String nodeColour = "#ffffff";
+  private Integer indent = new Integer(20);
+  private String nodeLabelTemplet = "";
+  private String openedImage = "";
+  private String closedImage = "";
+  private String leafImage = "";
+  private Integer depthPerDownload = new Integer(-1);
 
-    public JSDynamicTree(Tree tree) {
-        super(tree.getTreeableRoots(), tree.getDepth());
-    }
+  /**
+   * Constructor.
+   * 
+   * @param tree
+   *        the Tree to render
+   */
+  public JSDynamicTree(Tree tree) {
+    super(tree.getTreeableRoots(), tree.getDepth());
+  }
 
-    public Integer getX() {
-        return x;
-    }
+  /**
+   * @return the starting X co-ordinate
+   */
+  public Integer getX() {
+    return x;
+  }
 
-    public void setX(Integer x) {
-        this.x = x;
-    }
+  /**
+   * Set the starting X co-ordinate.
+   * @param x the starting X co-ordinate to set
+   */
+  public void setX(Integer x) {
+    this.x = x;
+  }
 
-    public Integer getY() {
-        return y;
-    }
+  /**
+   * @return the starting Y co-ordinate
+   */
+  public Integer getY() {
+    return y;
+  }
 
-    public void setY(Integer y) {
-        this.y = y;
-    }
+  /**
+   * Set the starting Y co-ordinate.
+   * @param y the starting Y co-ordinate to set
+   */
+  public void setY(Integer y) {
+    this.y = y;
+  }
 
-    public Integer getNodeHeight() {
-        return nodeHeight;
-    }
+  /**
+   * @return the node height
+   */
+  public Integer getNodeHeight() {
+    return nodeHeight;
+  }
 
-    public void setNodeHeight(Integer nh) {
-        nodeHeight = nh;
-    }
+  /**
+   * Set the node height.
+   * @param nh the node height to set
+   */
+  public void setNodeHeight(Integer nh) {
+    nodeHeight = nh;
+  }
 
-    public Integer getNodeWidth() {
-        return nodeWidth;
-    }
+  /**
+   * @return the node width
+   */
+  public Integer getNodeWidth() {
+    return nodeWidth;
+  }
 
-    public void setNodeWidth(Integer nw) {
-        nodeWidth = nw;
-    }
+  /**
+   * Set the node width.
+   * @param nw the node width to set
+   */
+  public void setNodeWidth(Integer nw) {
+    nodeWidth = nw;
+  }
 
-    public String getNodeColour() {
-        return nodeColour;
-    }
+  /**
+   * @return the node colour
+   */
+  public String getNodeColour() {
+    return nodeColour;
+  }
 
-    public void setNodeColour(String nc) {
-        nodeColour = nc;
-    }
+  /**
+   * Set the node colour.
+   * @param nc the node colour to set
+   */
+  public void setNodeColour(String nc) {
+    nodeColour = nc;
+  }
 
-    public Integer getIndent() {
-        return indent;
-    }
+  /**
+   * @return the indent 
+   */
+  public Integer getIndent() {
+    return indent;
+  }
 
-    public void setIndent(Integer i) {
-        indent = i;
-    }
+  /**
+   * Set the indent.
+   * @param i the indent to set
+   */
+  public void setIndent(Integer i) {
+    indent = i;
+  }
 
-    public String getNodeLabelTemplet() {
-        return nodeLabelTemplet;
-    }
+  /**
+   * @return the node label templet
+   */
+  public String getNodeLabelTemplet() {
+    return nodeLabelTemplet;
+  }
 
-    public void setNodeLabelTemplet(String nlt) {
-        nodeLabelTemplet = nlt;
-    }
+  /**
+   * Set the node label templet.
+   * @param nlt the node label templet to set
+   */
+  public void setNodeLabelTemplet(String nlt) {
+    nodeLabelTemplet = nlt;
+  }
 
-    public String getOpenedImage() {
-        return openedImage;
-    }
+  /**
+   * @return the opened image
+   */
+  public String getOpenedImage() {
+    return openedImage;
+  }
 
-    public void setOpenedImage(String oi) {
-        openedImage = oi;
-    }
+  /**
+   * Set the opened image.
+   * @param oi the opened image to set
+   */
+  public void setOpenedImage(String oi) {
+    openedImage = oi;
+  }
 
-    public String getClosedImage() {
-        return closedImage;
-    }
+  /**
+   * @return the closed image
+   */
+  public String getClosedImage() {
+    return closedImage;
+  }
 
-    public void setClosedImage(String ci) {
-        closedImage = ci;
-    }
+  /**
+   * Set the closed image.
+   * @param ci the closed image to set 
+   */
+  public void setClosedImage(String ci) {
+    closedImage = ci;
+  }
 
-    public String getLeafImage() {
-        return leafImage;
-    }
+  /**
+   * @return the leaf image
+   */
+  public String getLeafImage() {
+    return leafImage;
+  }
 
-    public void setLeafImage(String li) {
-        leafImage = li;
-    }
+  /**
+   * Set the leaf image.
+   * 
+   * @param li
+   *        the leaf image to set
+   */
+  public void setLeafImage(String li) {
+    leafImage = li;
+  }
 
-    public Integer getDepthPerDownload() {
-        return depthPerDownload;
-    }
+  /**
+   * @return the depth per download
+   */
+  public Integer getDepthPerDownload() {
+    return depthPerDownload;
+  }
 
-    public void setDepthPerDownload(Integer dpd) {
-        depthPerDownload = dpd;
-    }
+  /**
+   * Set the depth per download.
+   * 
+   * @param dpd
+   *        the depth per download to set
+   */
+  public void setDepthPerDownload(Integer dpd) {
+    depthPerDownload = dpd;
+  }
 
 }

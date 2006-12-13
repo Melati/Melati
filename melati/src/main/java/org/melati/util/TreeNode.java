@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <MylesC@paneris.org>
+ *     Myles Chippendale <MylesC At paneris.org>
  */
 
 package org.melati.util;
@@ -48,7 +48,7 @@ import java.util.Vector;
 /**
  * A {@link Tree} node.
  *
- * @author MylesC@paneris.org
+ * @author MylesC At paneris.org
  *
  */
 public class TreeNode {
@@ -58,31 +58,54 @@ public class TreeNode {
     private TreeNode[] children = null;
     private boolean checkedForChildren = false;
     
+    /**
+     * Constructor.
+     * @param n the Treeable object 
+     * @param d the depth of this node
+     */
     public TreeNode(Treeable n, int d) {
         data = n;
         depth = d;
     }
 
+    /**
+     * @return whether this is a root node
+     */
     public boolean isRoot() {
         return (parent == null);
     }
 
+    /**
+     * @return whether this is a terminal node
+     */
     public boolean isLeaf() {
         return (getChildren() == null);
     }
 
+    /**
+     * @return the depth in the tree
+     */
     public int getDepth() {
         return depth;
     }
 
+    /**
+     * @return the Treeable data object this wraps 
+     */
     public Treeable getData() {
         return data;
     }
 
+    /**
+     * @return theis nodes parent, null if this is a root node
+     */
     public TreeNode getParent() {
         return parent;
     }
 
+    /**
+     * @return the name unique within the Tree
+     */
     public String getUniqueName() {
         int code = hashCode();
         String name = "";
@@ -93,6 +116,9 @@ public class TreeNode {
         return name + Integer.toString(code, java.lang.Character.MAX_RADIX);
     }
 
+    /**
+     * @return the descendants of this node, maybe an empty Array
+     */
     public synchronized TreeNode[] getChildren() {
         if (checkedForChildren)
             return children;
@@ -110,6 +136,14 @@ public class TreeNode {
         return children;
     }
 
+    /**
+     * Retrieve an Array of TreeNodes which is the shortest path from 
+     * this node to its root.
+     *  
+     * @param includeNode whether to include this node in the path
+     * @param reverse if true returns a path from root to this
+     * @return
+     */
     public TreeNode[] getNodeToRootPath(boolean includeNode, boolean reverse) {
         Vector path = new Vector();
         if (includeNode)
@@ -129,14 +163,26 @@ public class TreeNode {
         return (TreeNode[])path.toArray(result);
     }
 
+    /**
+     * @return the path to this node's root excluding this node 
+     */
     public TreeNode[] getPathToRoot() {
         return getNodeToRootPath(false, false);
     }
 
+    /**
+     * @return the path from this node's root excluding this node
+     */
     public TreeNode[] getPathFromRoot() {
         return getNodeToRootPath(false, true);
     }
 
+    /**
+     * Create a new Array of TreeNodes specifying a new depth.
+     * @param nodes the nodes to copy
+     * @param depth the new depth
+     * @return a new Array of TreeNodes with the new depth
+     */
     public static TreeNode[] augment(Treeable[] nodes, int depth) {
         TreeNode[] t = new TreeNode[nodes.length];
         for (int i=0; i<nodes.length; i++) {

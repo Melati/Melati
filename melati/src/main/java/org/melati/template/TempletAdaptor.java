@@ -49,5 +49,12 @@ package org.melati.template;
  * Object to read fields from a context modified in a templet.
  */
 public interface TempletAdaptor {
+  
+  /**
+   * Retrieve a raw object, ie an SQL value, from a ServletTemplateContext. 
+   * @param context the ServletTemplateContext the value is stored in
+   * @param fieldName the name of the field in the context
+   * @return the raw value 
+   */
   Object rawFrom(ServletTemplateContext context, String fieldName);
 }

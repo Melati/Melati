@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,6 +53,12 @@ import java.sql.SQLException;
  */
 public class CachedCount extends CachedQuery {
 
+  /**
+   * Constructor.
+   * @param table the table of which we are a count
+   * @param whereClause discriminator, may be null
+   * @param otherTables other tables involved in whereClause, if any
+   */
   public CachedCount(final Table table,
                        final String whereClause,
                        final Table otherTables[]) {
@@ -70,9 +76,8 @@ public class CachedCount extends CachedQuery {
    * We could have passed the whole query in the meantime but for
    * potential signature confusion.
    *
-   *
-   * @param criteria
-   * @param includeDeleted
+   * @param criteria the Persistent representing the query
+   * @param includeDeleted whether to include records marked as deleted
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
   public CachedCount(final Persistent criteria,
@@ -82,6 +87,11 @@ public class CachedCount extends CachedQuery {
           criteria.otherMatchTables());
   }
 
+  /**
+   * Constructor where whereClause does not involve other tables.
+   * @param table the table to count
+   * @param whereClause discrimination, can be null
+   */
   public CachedCount(final Table table, final String whereClause) {
     this(table, whereClause, null);
   }
@@ -90,6 +100,9 @@ public class CachedCount extends CachedQuery {
     return new Integer(rs.getInt(1));
   }
 
+  /**
+   * @return the count itself
+   */
   public int count() {
     compute();
     return ((Integer)this.rows.elementAt(0)).intValue();

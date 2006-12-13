@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,16 +50,30 @@ package org.melati.poem;
  */
 public class CachedExists extends CachedCount {
 
+  /**
+   * Constructor.
+   * 
+   * @param table the Table we are dealing with
+   * @param whereClause SQL snippet
+   * @param otherTables Array of other tables referred to in whereClause, if any
+   */
   public CachedExists(final Table table,
                            final String whereClause,
                            final Table otherTables[]) {
     super(table, whereClause, otherTables);
   }
 
+  /**
+   * @param table the Table we are dealing with
+   * @param whereClause SQL snippet
+   */
   public CachedExists(final Table table, final String whereClause) {
     this(table, whereClause, null);
   }
 
+  /**
+   * @return whether any record match the criteria or not
+   */
   public boolean exists() {
     compute();
     return ((Integer)this.rows.elementAt(0)).intValue() > 0;

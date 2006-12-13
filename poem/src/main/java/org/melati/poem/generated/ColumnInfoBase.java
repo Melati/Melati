@@ -264,14 +264,14 @@ public abstract class ColumnInfoBase extends ValueInfo {
 
 
  /**
-  * Retrieves the <code>Tableinfo</code> object reffered to.
+  * Retrieves the <code>Tableinfo</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Tableinfo</code> as a <code>TableInfo</code> 
   */
   public TableInfo getTableinfo()
@@ -1395,3 +1395,4 @@ for this <code>Persistent</code>.
     return new Field(c.getRaw(this), c);
   }
 }
+

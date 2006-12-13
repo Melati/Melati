@@ -418,3 +418,4 @@ public abstract class UserBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

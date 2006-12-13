@@ -244,3 +244,4 @@ public abstract class TableCategoryBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

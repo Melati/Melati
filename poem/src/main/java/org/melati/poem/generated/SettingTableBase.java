@@ -235,7 +235,7 @@ public class SettingTableBase extends ValueInfoTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>Setting</code> <code>Table</code>
+  * <code>Setting</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -247,7 +247,7 @@ public class SettingTableBase extends ValueInfoTable {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>Setting</code> <code>Table</code>
+  * <code>Setting</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
@@ -259,7 +259,7 @@ public class SettingTableBase extends ValueInfoTable {
 
  /**
   * Retrieves the <code>Value</code> <code>Column</code> for this 
-  * <code>Setting</code> <code>Table</code>
+  * <code>Setting</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the value <code>Column</code>
@@ -315,3 +315,4 @@ public class SettingTableBase extends ValueInfoTable {
     return 3040;
   }
 }
+

@@ -244,3 +244,4 @@ public abstract class CapabilityBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

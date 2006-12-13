@@ -1382,3 +1382,4 @@ public abstract class ValueInfoBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

@@ -331,3 +331,4 @@ public abstract class SettingBase extends ValueInfo {
     return new Field(c.getRaw(this), c);
   }
 }
+

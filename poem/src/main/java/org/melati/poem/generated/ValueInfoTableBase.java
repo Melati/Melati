@@ -867,7 +867,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Displayname</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the displayname <code>Column</code>
@@ -879,7 +879,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Description</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the description <code>Column</code>
@@ -891,7 +891,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Usereditable</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the usereditable <code>Column</code>
@@ -903,7 +903,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Typefactory</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the typefactory <code>Column</code>
@@ -915,7 +915,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Nullable</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the nullable <code>Column</code>
@@ -927,7 +927,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Size</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the size <code>Column</code>
@@ -939,7 +939,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Width</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the width <code>Column</code>
@@ -951,7 +951,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Height</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the height <code>Column</code>
@@ -963,7 +963,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Precision</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the precision <code>Column</code>
@@ -975,7 +975,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Scale</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the scale <code>Column</code>
@@ -987,7 +987,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Renderinfo</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the renderinfo <code>Column</code>
@@ -999,7 +999,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Rangelow_string</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelow_string <code>Column</code>
@@ -1011,7 +1011,7 @@ public class ValueInfoTableBase extends Table {
 
  /**
   * Retrieves the <code>Rangelimit_string</code> <code>Column</code> for this 
-  * <code>ValueInfo</code> <code>Table</code>
+  * <code>ValueInfo</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the rangelimit_string <code>Column</code>
@@ -1047,3 +1047,4 @@ public class ValueInfoTableBase extends Table {
     return 7;
   }
 }
+

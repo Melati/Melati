@@ -196,7 +196,7 @@ public class TableCategoryTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>TableCategory</code> <code>Table</code>
+  * <code>TableCategory</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -208,7 +208,7 @@ public class TableCategoryTableBase extends Table {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>TableCategory</code> <code>Table</code>
+  * <code>TableCategory</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
@@ -268,3 +268,4 @@ public class TableCategoryTableBase extends Table {
     return 3030;
   }
 }
+

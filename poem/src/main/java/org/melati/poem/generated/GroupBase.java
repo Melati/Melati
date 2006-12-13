@@ -244,3 +244,4 @@ public abstract class GroupBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

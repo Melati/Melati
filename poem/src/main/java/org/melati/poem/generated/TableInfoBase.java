@@ -622,14 +622,14 @@ public abstract class TableInfoBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Defaultcanread</code> object reffered to.
+  * Retrieves the <code>Defaultcanread</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Defaultcanread</code> as a <code>Capability</code> 
   */
   public Capability getDefaultcanread()
@@ -737,14 +737,14 @@ public abstract class TableInfoBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Defaultcanwrite</code> object reffered to.
+  * Retrieves the <code>Defaultcanwrite</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Defaultcanwrite</code> as a <code>Capability</code> 
   */
   public Capability getDefaultcanwrite()
@@ -852,14 +852,14 @@ public abstract class TableInfoBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Defaultcandelete</code> object reffered to.
+  * Retrieves the <code>Defaultcandelete</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Defaultcandelete</code> as a <code>Capability</code> 
   */
   public Capability getDefaultcandelete()
@@ -967,14 +967,14 @@ public abstract class TableInfoBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Cancreate</code> object reffered to.
+  * Retrieves the <code>Cancreate</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Cancreate</code> as a <code>Capability</code> 
   */
   public Capability getCancreate()
@@ -1298,7 +1298,7 @@ public abstract class TableInfoBase extends Persistent {
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Category</code> as a <code>TableCategory</code> 
   */
   public TableCategory getCategory()
@@ -1348,3 +1348,4 @@ public abstract class TableInfoBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

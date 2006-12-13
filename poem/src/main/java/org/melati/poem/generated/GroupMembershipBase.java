@@ -226,14 +226,14 @@ public abstract class GroupMembershipBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>User</code> object reffered to.
+  * Retrieves the <code>User</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>User</code> as a <code>User</code> 
   */
   public User getUser()
@@ -341,14 +341,14 @@ public abstract class GroupMembershipBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Group</code> object reffered to.
+  * Retrieves the <code>Group</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Group</code> as a <code>Group</code> 
   */
   public Group getGroup()
@@ -398,3 +398,4 @@ public abstract class GroupMembershipBase extends Persistent {
     return new Field(c.getRaw(this), c);
   }
 }
+

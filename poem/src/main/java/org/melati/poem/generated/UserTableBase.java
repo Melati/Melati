@@ -321,7 +321,7 @@ public class UserTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>
+  * <code>User</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -333,7 +333,7 @@ public class UserTableBase extends Table {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>
+  * <code>User</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
@@ -345,7 +345,7 @@ public class UserTableBase extends Table {
 
  /**
   * Retrieves the <code>Login</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>
+  * <code>User</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the login <code>Column</code>
@@ -357,7 +357,7 @@ public class UserTableBase extends Table {
 
  /**
   * Retrieves the <code>Password</code> <code>Column</code> for this 
-  * <code>User</code> <code>Table</code>
+  * <code>User</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the password <code>Column</code>
@@ -409,3 +409,4 @@ public class UserTableBase extends Table {
     return 2010;
   }
 }
+

@@ -248,7 +248,7 @@ public class GroupCapabilityTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>
+  * <code>GroupCapability</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -260,7 +260,7 @@ public class GroupCapabilityTableBase extends Table {
 
  /**
   * Retrieves the <code>Group</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>
+  * <code>GroupCapability</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>
@@ -272,7 +272,7 @@ public class GroupCapabilityTableBase extends Table {
 
  /**
   * Retrieves the <code>Capability</code> <code>Column</code> for this 
-  * <code>GroupCapability</code> <code>Table</code>
+  * <code>GroupCapability</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the capability <code>Column</code>
@@ -324,3 +324,4 @@ public class GroupCapabilityTableBase extends Table {
     return 2050;
   }
 }
+

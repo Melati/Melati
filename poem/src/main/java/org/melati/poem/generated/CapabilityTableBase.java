@@ -200,7 +200,7 @@ public class CapabilityTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>Capability</code> <code>Table</code>
+  * <code>Capability</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -212,7 +212,7 @@ public class CapabilityTableBase extends Table {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>Capability</code> <code>Table</code>
+  * <code>Capability</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
@@ -264,3 +264,4 @@ public class CapabilityTableBase extends Table {
     return 2030;
   }
 }
+

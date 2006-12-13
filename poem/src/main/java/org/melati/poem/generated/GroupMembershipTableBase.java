@@ -273,7 +273,7 @@ public class GroupMembershipTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>GroupMembership</code> <code>Table</code>
+  * <code>GroupMembership</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -285,7 +285,7 @@ public class GroupMembershipTableBase extends Table {
 
  /**
   * Retrieves the <code>User</code> <code>Column</code> for this 
-  * <code>GroupMembership</code> <code>Table</code>
+  * <code>GroupMembership</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the user <code>Column</code>
@@ -297,7 +297,7 @@ public class GroupMembershipTableBase extends Table {
 
  /**
   * Retrieves the <code>Group</code> <code>Column</code> for this 
-  * <code>GroupMembership</code> <code>Table</code>
+  * <code>GroupMembership</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the group <code>Column</code>

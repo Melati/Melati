@@ -54,12 +54,12 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 /**
- * List of objects which need closing when a <code>Transaction</code> 
- * is terminated.
+ * List of objects which need closing when a <code>Transaction</code> is
+ * terminated.
  */
 public class ToTidyList {
 
-/** Can be closed */
+  /** Can be closed */
   public interface Closeable {
     /**
      * Free any resources and prepare for death or reuse.
@@ -85,14 +85,13 @@ public class ToTidyList {
         ((OutputStream)o).close();
       else if (o instanceof Closeable)
         ((Closeable)o).close();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace(System.err);
     }
   }
 
   /**
-   * Close all ob jects on list.
+   * Close all objects on list.
    */
   public synchronized void close() {
     for (int i = objects.size() - 1; i >= 0; --i)
@@ -105,34 +104,65 @@ public class ToTidyList {
     objects.addElement(o);
   }
 
+  /**
+   * Add a ResultSet to the list.
+   * @param o the ResultSet to add
+   */
   public void add(ResultSet o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add a Statement to the list.
+   * @param o the Statement to add
+   */
   public void add(Statement o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add a Reader to the list.
+   * @param o the Reader to add
+   */
   public void add(Reader o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add a Writer to the list.
+   * @param o the Writer to add
+   */
   public void add(Writer o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add an InputStream to the list.
+   * @param o the InputStream to add
+   */
   public void add(InputStream o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add an OutputStream to the list.
+   * @param o the OutputStream to add
+   */
   public void add(OutputStream o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * Add any Closeable to the list.
+   * @param o the Closeable to add
+   */
   public void add(Closeable o) {
     addObject(o);
-  } 
+  }
 
+  /**
+   * @return an Enumeration of the items on the list
+   */
   public Enumeration elements() {
     return objects.elements();
   }

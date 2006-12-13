@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,12 +53,17 @@ public class TransactionedSerial extends Transactioned {
 
   private long serial = 0L;
 
+  /**
+   * Constructor.
+   * @param transactionPool the TransactionPool this is relevant to
+   */
   public TransactionedSerial(TransactionPool transactionPool) {
     super(transactionPool);
   }
 
   /**
    * On load increment the Serial for this object.
+   * {@inheritDoc}
    * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
    */
   protected void load(Transaction transaction) {
@@ -67,6 +72,8 @@ public class TransactionedSerial extends Transactioned {
 
   /**
    * Always up to date, as we are in an insulated transaction.
+   * {@inheritDoc}
+   * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {
     return true;
@@ -74,6 +81,8 @@ public class TransactionedSerial extends Transactioned {
 
   /**
    * This implementation does nothing.
+   * {@inheritDoc}
+   * @see org.melati.util.Transactioned#writeDown(org.melati.util.Transaction)
    */
   protected void writeDown(Transaction transaction) {
   }
@@ -84,16 +93,28 @@ public class TransactionedSerial extends Transactioned {
   // ---------------------
   // 
 
+  /**
+   * Readlock and return the serial for the given Transaction.
+   * @param transaction the Transaction
+   * @return the serial for the given Transaction
+   */
   public long current(Transaction transaction) {
     readLock(transaction);
     return serial;
   }
 
+  /**
+   * Write lock and increment.
+   * @param transaction the Transaction
+   */
   public void increment(Transaction transaction) {
     writeLock(transaction);
     increment_unlocked();
   }
 
+  /**
+   * Increment;
+   */
   public void increment_unlocked() {
     ++serial;
   }

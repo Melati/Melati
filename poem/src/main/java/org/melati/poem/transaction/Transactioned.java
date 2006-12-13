@@ -59,10 +59,17 @@ public abstract class Transactioned {
   private Transaction touchedBy = null;
   private TransactionPool transactionPool = null;
 
+  /**
+   * Constructor.
+   * @param transactionPool the TransactionPool
+   */
   public Transactioned(TransactionPool transactionPool) {
     this.transactionPool = transactionPool;
   }
 
+  /**
+   * Constructor.
+   */
   public Transactioned() {
     this(null);
   }
@@ -225,10 +232,16 @@ public abstract class Transactioned {
     valid = false;
   }
 
+  /**
+   * Mark as invalid.
+   */
   public synchronized void invalidate() {
     valid = false;
   }
 
+  /**
+   * Mark as valid.
+   */
   public synchronized void markValid() {
     valid = true;
   }

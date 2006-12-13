@@ -59,3 +59,4 @@ class NullDeletedException extends IllegalityException {
 
   }
 }
+

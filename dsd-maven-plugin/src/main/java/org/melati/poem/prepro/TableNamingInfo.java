@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, UK
  */
@@ -52,7 +52,7 @@ public class TableNamingInfo {
 
   static final String POEM = "org.melati.poem";
 
-  /** This package eg org.melati.example.contacts */
+  /** This package eg org.melati.example.contacts . */
   public String packageName = null;
 
   /** The fully qualified name of the table (e.g. `org.melati.poem.User') */
@@ -62,7 +62,7 @@ public class TableNamingInfo {
   public String tableShortName = null;
 
   /** The TableNamingInfo of this Table's superclass (or null if extends
-      Persistent) */
+      Persistent). */
   public TableNamingInfo superclass = null;
 
   /** 

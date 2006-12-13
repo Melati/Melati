@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 
 package org.melati.util;
@@ -47,124 +47,201 @@ import java.util.Vector;
 
 /**
  * A whole tree.
- *
  */
 public class Tree {
-    private Treeable[] orig_roots;
-    private TreeNode[] roots;
-    private int depth;
+  private Treeable[] orig_roots;
+  private TreeNode[] roots;
+  private int depth;
 
-    public Tree(Treeable node) {
-        orig_roots = new Treeable[1];
-        orig_roots[0] = node;
-        this.depth = 0;
-        roots = new TreeNode[] {new TreeNode(node, 0)};
+  /**
+   * Constructor from root node.
+   * @param node root node
+   */
+  public Tree(Treeable node) {
+    orig_roots = new Treeable[1];
+    orig_roots[0] = node;
+    this.depth = 0;
+    roots = new TreeNode[] { new TreeNode(node, 0) };
+  }
+
+  /**
+   * Constructor from root node with anticipated depth.
+   * @param node root node
+   * @param depth the anticipated depth
+   */
+  public Tree(Treeable node, int depth) {
+    orig_roots = new Treeable[1];
+    orig_roots[0] = node;
+    this.depth = depth;
+    roots = new TreeNode[] { new TreeNode(node, depth) };
+  }
+
+  /**
+   * Constructor for a multi-rooted tree.
+   * @param nodes the root nodes
+   */
+  public Tree(Treeable[] nodes) {
+    orig_roots = nodes;
+    this.depth = 0;
+    roots = TreeNode.augment(nodes, 0);
+  }
+
+  /**
+   * Constructor for a multi-rooted tree with anticipated depth.
+   * @param nodes the root nodes
+   * @param depth anticipated depth
+   */
+  public Tree(Treeable[] nodes, int depth) {
+    orig_roots = nodes;
+    this.depth = depth;
+    roots = TreeNode.augment(nodes, depth);
+  }
+
+  /**
+   * @return the roots
+   */
+  public Treeable[] getTreeableRoots() {
+    return orig_roots;
+  }
+
+  /**
+   * @return the depth, possibly anticipated
+   */
+  public int getDepth() {
+    return depth;
+  }
+
+  /**
+   * Retrieve all the nodes down to a given depth.
+   * @param depthP
+   *        Only apply the function to nodes at or above this depth. A negative
+   *        depth means apply this to all nodes in the tree
+   * @param depthFirst
+   *        If true, traverse the tree depth-first, otherwise traverse it
+   *        breadth-first
+   * @return all the nodes down to the given depth
+   */
+  public Vector flattened(int depthP, boolean depthFirst) {
+
+    Vector results = new Vector();
+    Vector agenda = new Vector();
+    for (int i = 0; i < roots.length; i++) {
+      agenda.addElement(roots[i]);
     }
 
-    public Tree(Treeable node, int depth) {
-        orig_roots = new Treeable[1];
-        orig_roots[0] = node;
-        this.depth = depth;
-        roots = new TreeNode[] {new TreeNode(node, depth)};
-    }
+    while (!agenda.isEmpty()) {
+      TreeNode current = (TreeNode)agenda.firstElement();
+      agenda.removeElementAt(0);
+      results.addElement(current);
 
-    public Tree(Treeable[] nodes) {
-        orig_roots = nodes;
-        this.depth = 0;
-        roots = TreeNode.augment(nodes, 0);
-    }
+      if (depthP < 0 || current.depth < depthP) {
+        TreeNode[] kids = current.getChildren();
 
-    public Tree(Treeable[] nodes, int depth) {
-        orig_roots = nodes;
-        this.depth = depth;
-        roots = TreeNode.augment(nodes, depth);
-    }
-
-    public Treeable[] getTreeableRoots() {
-        return orig_roots;
-    }
-
-    public int getDepth() {
-        return depth;
-    }
-
-    public Vector flattened(int depthP, boolean depthFirst) {
-
-        Vector results = new Vector();
-        Vector agenda = new Vector();
-        for(int i=0; i<roots.length; i++) {
-            agenda.addElement(roots[i]);
+        if (kids != null) {
+          for (int i = 0; i < kids.length; i++) {
+            if (depthFirst)
+              // Maybe not the most efficient ...?
+              agenda.insertElementAt(kids[i], i);
+            else
+              agenda.addElement(kids[i]);
+          }
         }
-
-        while (!agenda.isEmpty()) {
-            TreeNode current = (TreeNode)agenda.firstElement();
-            agenda.removeElementAt(0);
-            results.addElement(current);
-
-            if (depthP < 0 || current.depth < depthP) {
-                TreeNode[] kids = current.getChildren();
-
-                if (kids != null) {
-                    for(int i=0; i<kids.length; i++) {
-                        if (depthFirst)
-                            // Maybe not the most efficient ...?
-                            agenda.insertElementAt(kids[i], i);
-                        else
-                            agenda.addElement(kids[i]);
-                    }
-                }
-            }
-        }
-        return results;
+      }
     }
+    return results;
+  }
 
-    public Vector flattened(int depthP) {
-        return flattened(depthP, true);
-    }
+  /**
+   * Retrieve all the nodes down to a given depth, depth-first.
+   * @param depthP
+   *        Only apply the function to nodes at or above this depth. A negative
+   *        depth means apply this to all nodes in the tree
+   * @return all the nodes down to the given depth
+   */
+  public Vector flattened(int depthP) {
+    return flattened(depthP, true);
+  }
 
-    public Vector flattened() {
-        return flattened(-1);
-    }
+  /**
+   * @return all the nodes, depth-first
+   */
+  public Vector flattened() {
+    return flattened(-1);
+  }
 
-    /**
-     * Apply the Function to each node in the tree.
-     *
-     * @param depthP Only apply the function to nodes at or above
-     *               this depth. A negative depth means apply this
-     *               to all nodes in the tree
-     * @param depthFirst If true, traverse the tree depth-first, otherwise
-     *                   traverse it breadth-first
-     **/
-    public Vector apply(Function func, int depthP, boolean depthFirst) {
-        Vector flattened = flattened(depthP, depthFirst);
-        for(int i=0; i<flattened.size(); i++) {
-            flattened.setElementAt(func.apply(flattened.elementAt(i)), i);
-        }
-        return flattened;
+  /**
+   * Apply the Function to each node in the tree.
+   * 
+   * @param depthP
+   *        Only apply the function to nodes at or above this depth. A negative
+   *        depth means apply this to all nodes in the tree
+   * @param depthFirst
+   *        If true, traverse the tree depth-first, otherwise traverse it
+   *        breadth-first
+   */
+  public Vector apply(Function func, int depthP, boolean depthFirst) {
+    Vector flattened = flattened(depthP, depthFirst);
+    for (int i = 0; i < flattened.size(); i++) {
+      flattened.setElementAt(func.apply(flattened.elementAt(i)), i);
     }
+    return flattened;
+  }
 
-    public Vector applyDepthFirst(Function func) {
-        return apply(func, -1, true);
-    }
+  /**
+   * Apply a function to all nodes, depth first.
+   * @param func the function to apply
+   * @return a vector of nodes to which the function has been applied
+   */
+  public Vector applyDepthFirst(Function func) {
+    return apply(func, -1, true);
+  }
 
-    public Vector applyDepthFirst(Function func, int depthP) {
-        return apply(func, depthP, true);
-    }
+  /**
+   * Apply a function to all nodes to a given depth, depth first.
+   * @param func the function to apply
+   * @param depthP
+   *        Only apply the function to nodes at or above this depth. A negative
+   *        depth means apply this to all nodes in the tree
+   * @return a vector of nodes to which the function has been applied
+   */
+  public Vector applyDepthFirst(Function func, int depthP) {
+    return apply(func, depthP, true);
+  }
 
-    public Vector applyBreadthFirst(Function func) {
-        return apply(func, -1, false);
-    }
+  /**
+   * Apply a function to all nodes, breadth first.
+   * @param func the function to apply
+   * @return a vector of nodes to which the function has been applied
+   */
+  public Vector applyBreadthFirst(Function func) {
+    return apply(func, -1, false);
+  }
 
-    public Vector applyBreadthFirst(Function func, int depthP) {
-        return apply(func, depthP, false);
-    }
+  /**
+   * Apply a function to all nodes to a given depth, breadth first.
+   * @param func the function to apply
+   * @param depthP
+   *        Only apply the function to nodes at or above this depth. A negative
+   *        depth means apply this to all nodes in the tree
+   * @return a vector of nodes to which the function has been applied
+   */
+  public Vector applyBreadthFirst(Function func, int depthP) {
+    return apply(func, depthP, false);
+  }
 
-    public Vector sorted(Order cmp, int depthP) {
-        Vector flattened = flattened(depthP);
-        Object[] sorted = SortUtils.sorted(cmp, flattened);
-        System.arraycopy(sorted, 0, flattened, 0, sorted.length);
-        return flattened;
-    }
+  /**
+   * Retrieve a sorted Vector of the tree's contents, down to the given depth. 
+   * @param cmp an Ordering
+   * @param depthP
+   *        Only return nodes at or above this depth. A negative
+   *        depth means return all nodes in the tree
+   * @return a sorted Vector of the tree's contents, down to the given depth
+   */
+  public Vector sorted(Order cmp, int depthP) {
+    Vector flattened = flattened(depthP);
+    Object[] sorted = SortUtils.sorted(cmp, flattened);
+    System.arraycopy(sorted, 0, flattened, 0, sorted.length);
+    return flattened;
+  }
 
 }
-

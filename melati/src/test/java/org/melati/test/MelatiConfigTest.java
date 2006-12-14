@@ -5,8 +5,10 @@ package org.melati.test;
 
 import org.melati.MelatiConfig;
 import org.melati.servlet.FormDataAdaptorFactory;
+import org.melati.template.SimpleDateAdaptor;
+import org.melati.template.YMDDateAdaptor;
+import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
-import org.melati.util.MelatiException;
 
 import junit.framework.TestCase;
 
@@ -56,11 +58,20 @@ public class MelatiConfigTest extends TestCase {
       throws Exception {
     MelatiConfig mc = new MelatiConfig("org.melati.MelatiServlet");
     assertEquals("/melati-static", mc.getStaticURL());
+
     try {
       mc = new MelatiConfig("nonexistantProperties");
       fail("should have blown up");
     } catch (ConfigException e) {
-      e = null;
+      assertTrue(e.getMessage().indexOf("Is it in your CLASSPATH")>= 0); 
+    }
+
+    try {
+      mc = new MelatiConfig("bad.MelatiServlet");
+      fail("should have blown up");
+    } catch (ConfigException e) {
+      System.err.println(e);
+      assertTrue(e.getMessage().indexOf("is not a valid language tag")>= 0); 
     }
 
   }
@@ -241,35 +252,41 @@ public class MelatiConfigTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     FormDataAdaptorFactory fdaf = mc.getFdaFactory();
     assertTrue(fdaf instanceof FormDataAdaptorFactory);
-
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.MelatiConfig#setFdaFactory(FormDataAdaptorFactory)
    */
-  public void testSetFdaFactory() {
-
+  public void testSetFdaFactory() throws Exception {
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.MelatiConfig#getYMDDateAdaptor()
    */
-  public void testGetYMDDateAdaptor() {
+  public void testGetYMDDateAdaptor() throws Exception {
+    YMDDateAdaptor it = MelatiConfig.getYMDDateAdaptor();
+    assertTrue(it instanceof YMDDateAdaptor);
 
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.MelatiConfig#getYMDHMSTimestampAdaptor()
    */
-  public void testGetYMDHMSTimestampAdaptor() {
-
+  public void testGetYMDHMSTimestampAdaptor() throws Exception {
+    YMDHMSTimestampAdaptor it = MelatiConfig.getYMDHMSTimestampAdaptor();
+    assertTrue(it instanceof YMDHMSTimestampAdaptor);
   }
 
   /**
+   * @throws Exception 
    * @see org.melati.MelatiConfig#getSimpleDateAdaptor()
    */
-  public void testGetSimpleDateAdaptor() {
-
+  public void testGetSimpleDateAdaptor() throws Exception {
+    SimpleDateAdaptor it = MelatiConfig.getSimpleDateAdaptor();
+    assertTrue(it instanceof SimpleDateAdaptor);
   }
 
 }

@@ -267,7 +267,7 @@ public class TemplateServletTest extends PoemServletTest {
    * Test that a templet on the classpath is used.
    * @see org.melati.servlet.TemplateServlet#error(org.melati.Melati, Exception)
    */
-  public void testErrorWithClasspathTemplet() throws Exception {
+  public void testErrorUsesClasspathTemplet() throws Exception {
     MockServletRequest mockHttpServletRequest = new MockServletRequest();
     MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
@@ -342,7 +342,7 @@ public class TemplateServletTest extends PoemServletTest {
                    (HttpServletResponse) mockHttpServletResponse);
     System.err.println(mockHttpServletResponse.getWritten());
     assertTrue(mockHttpServletResponse.getWritten().indexOf("org.melati.servlet.test.ClasspathRenderedException: A problem") > 0);
-    assertTrue(mockHttpServletResponse.getWritten().indexOf("Rendered from classpath") > 0);
+    assertTrue(mockHttpServletResponse.getWritten().indexOf("Rendered using template from classpath") > 0);
     aServlet.destroy();
   }
 

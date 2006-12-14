@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -56,9 +56,16 @@ public class TemporaryFileDataAdaptor extends BaseFileDataAdaptor {
 
   private String temporaryFileName;
   
+  /**
+   * Constructor.
+   */
   public TemporaryFileDataAdaptor() {
     temporaryFileName = "melati";
   }
+  /**
+   * Constructor specifying temporary file name.
+   * @param temporaryFileName the temporary fle name ot use
+   */
   public TemporaryFileDataAdaptor(String temporaryFileName) {
     this.temporaryFileName = temporaryFileName;
   }

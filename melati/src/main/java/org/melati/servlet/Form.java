@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -76,7 +76,6 @@ public final class Form {
    * the result is parsed. 
    * This is currently used for dates.
    *
-   * @todo Cache adaptor templet.
    * @param context the current {@link ServletTemplateContext} to get values from
    * @param object  the {@link Persistent} to update
    */
@@ -92,7 +91,7 @@ public final class Form {
       if (adaptorName != null) {
         TempletAdaptor adaptor;
         try {
-          // FIXME cache this instantiation
+          // FIXME Cache this instantiation of TempletAdaptor
           adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
         }
         catch (Exception e) {
@@ -136,7 +135,7 @@ public final class Form {
     if (adaptorName != null) {
       TempletAdaptor adaptor;
       try {
-        // FIXME cache this instantiation
+        // FIXME Cache this instantiation of TempletAdaptor
         adaptor = (TempletAdaptor)Class.forName(adaptorName).newInstance();
       }
       catch (Exception e) {
@@ -263,7 +262,7 @@ public final class Form {
   /**
    * Modify or add a form parameter setting (query string component) in a query
    * string.
-   * @todo move to Melati so we can use non-default encoding 
+   * Note this uses the default encoding. 
    * 
    * @param qs      A query string
    * @param field   The parameter's name

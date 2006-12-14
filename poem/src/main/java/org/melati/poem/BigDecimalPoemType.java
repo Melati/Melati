@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Samuel Goldstein <samuel@1969.ws>
+ *     Samuel Goldstein <samuel At 1969.ws>
  *     http://www.1969.ws
  *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
@@ -113,7 +113,6 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
    * Whilst BigDecimal cannot represent all Doubles it can represent 
    * legacy money doubles, so we allow it to enable upgrades from Doubles 
    * to BigDecimals.
-   * FIXME is this a potential gotcha? 
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
   protected boolean _canRepresent(SQLPoemType other) {

@@ -47,7 +47,6 @@ package org.melati;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -66,16 +65,12 @@ import org.melati.util.HttpHeader;
 import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
-import org.melati.util.StringUtils;
 
 /**
  * A MelatiConfig loads and provides access to the configuration parameters for
  * melati. These are held in <TT>org.melati.MelatiServlet.properties</TT>.
  */
 public class MelatiConfig {
-
-  private int maxLocales = 10;
-  private Hashtable localeHash = new Hashtable(maxLocales);
 
   private Properties configuration = null;
   private String defaultPropertiesName = "org.melati.MelatiServlet";
@@ -388,8 +383,6 @@ public class MelatiConfig {
    * @return The configured locale, defaults to British English melati locale.
    */
   public static MelatiLocale getMelatiLocale() {
-    if (melatiLocale == null)
-      return MelatiLocale.HERE;
     return melatiLocale;
   }
 
@@ -401,48 +394,6 @@ public class MelatiConfig {
     MelatiConfig.melatiLocale = melatiLocale;
   }
 
-  /**
-   * Returns a MelatiLocale based on a language tag. Locales are cached for
-   * future use.
-   * 
-   * @param languageHeader
-   *        A language header from RFC 3282
-   * @return a MelatiLocale based on a language tag.
-   */
-  public MelatiLocale getMelatiLocale(String languageHeader) {
-
-    // language headers may have multiple language tags sperated by ,
-    String tags[] = StringUtils.split(languageHeader, ',');
-    MelatiLocale ml = null;
-
-    // loop through until we find a tag we like
-    for (int i = 0; i < tags.length; i++) {
-      String tag = tags[i];
-
-      // remove quality value if it exists.
-      // we'll just try them in order
-      int indexSemicolon = tag.indexOf(';');
-      if (indexSemicolon != -1)
-        tag = tag.substring(0, indexSemicolon);
-
-      String lowerTag = tag.trim().toLowerCase();
-
-      // try our cache
-      ml = (MelatiLocale)localeHash.get(lowerTag);
-      if (ml != null)
-        return ml;
-
-      // try creating a locale from this tag
-      ml = MelatiLocale.fromLanguageTag(lowerTag);
-      if (ml != null) {
-        localeHash.put(lowerTag, ml);
-        return ml;
-      }
-    }
-
-    // return our default locale
-    return getMelatiLocale();
-  }
 
   /**
    * Return the set encodings that the server prefers and supports.
@@ -475,8 +426,18 @@ public class MelatiConfig {
   public void setFdaFactory(FormDataAdaptorFactory fdaFactory) {
     this.fdaFactory = fdaFactory;
   }
-
+  
+  //
+  // Non configurable but here to make them available in a template context.
+  //
+  
   /**
+   * Called from within templets using 
+   * <code>
+   * #set $yearField = $melati.Config.YMDDateAdaptor.yearField($field)
+   * </code>
+   * idiom.
+   * Perhaps this should be elsewhere.
    * @return the adaptor for rendering dates as drop-downs.
    */
   public static YMDDateAdaptor getYMDDateAdaptor() {
@@ -484,6 +445,12 @@ public class MelatiConfig {
   }
 
   /**
+   * Called from within templets using 
+   * <code>
+   * #set $secondField = $melati.Config.YMDHMSTimestampAdaptor.secondField($field)
+   * </code>
+   * idiom.
+   * Perhaps this should be elsewhere.
    * @return the adaptor for rendering timestamps as drop-downs.
    */
   public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
@@ -491,6 +458,8 @@ public class MelatiConfig {
   }
 
   /**
+   * Called from within templets.
+   * Perhaps this should be elsewhere.
    * @return the adaptor for rendering dates as normal.
    */
   public static SimpleDateAdaptor getSimpleDateAdaptor() {

@@ -318,6 +318,25 @@ public class MelatiTest extends TestCase {
   }
 
   /**
+   * @see org.melati.Melati#getMelatiLocale(String)
+   */
+  public void testGetMelatiLocaleString() {
+    assertNull(Melati.getMelatiLocale(""));    
+    assertNull(Melati.getMelatiLocale(";"));    
+    assertNull(Melati.getMelatiLocale(";9"));    
+    assertNull(Melati.getMelatiLocale(";nine"));    
+    assertNull(Melati.getMelatiLocale("rubbish")); 
+    assertNull(Melati.getMelatiLocale("rubbish;9")); 
+    assertNull(Melati.getMelatiLocale("rubbish;nine")); 
+    assertEquals("en_GB", Melati.getMelatiLocale("EN-GB").toString());    
+    assertEquals("en_GB", Melati.getMelatiLocale("en-GB").toString());    
+    assertEquals("en_GB", Melati.getMelatiLocale("en-gb").toString());    
+    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;").toString());    
+    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;9").toString());    
+    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;nine").toString());    
+    
+  }
+  /**
    * Test method for 'org.melati.Melati.establishCharsets()'
    */
   public void testEstablishCharsets() {

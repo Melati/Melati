@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,6 +48,7 @@ package org.melati;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,7 +94,7 @@ import org.melati.util.UnexpectedExceptionException;
  * If you are using servlets, you will want to construct a melati with
  * a request and response object.  Otherwise, simply pass in a Writer.
  * <p>
- * If you are a template engine outside of a servlets context you will 
+ * If you are using a template engine outside of a servlets context you will 
  * still need the servlets jar in your classpath, annoyingly, as Velocity and 
  * WebMacro introspect all possible methods and throw a ClassNotFound exception 
  * if the servlets classes are not available.  
@@ -111,7 +112,7 @@ import org.melati.util.UnexpectedExceptionException;
 
 public class Melati {
 
-  /** UTF-8 */
+  /** UTF-8. */
   public static final String DEFAULT_ENCODING = "UTF-8";
   
   private MelatiConfig config;
@@ -137,6 +138,9 @@ public class Melati {
   private boolean buffered= true;
   // the output writer
   private MelatiWriter writer;
+
+  private static final int maxLocales = 10;
+  private static Hashtable localeHash = new Hashtable(maxLocales);
 
   private String encoding;
 
@@ -283,7 +287,7 @@ public class Melati {
   }
 
   /**
-   * Get the POEM Object (if any) in use for this Request
+   * Get the POEM Object (if any) in use for this Request.
    *
    * @return the POEM Object for this Request
    * @see #loadTableAndObject
@@ -491,14 +495,58 @@ public class Melati {
    */
   public MelatiLocale getMelatiLocale() {
     HttpServletRequest r = getRequest();
+    MelatiLocale ml = null;
     if (r != null) {
       String acceptLanguage = r.getHeader("Accept-Language");
       if (acceptLanguage != null)
-        return config.getMelatiLocale(acceptLanguage);
+        ml = getMelatiLocale(acceptLanguage);
     }
-   return MelatiConfig.getMelatiLocale();
+   return ml != null ? ml : MelatiConfig.getMelatiLocale();
   }
 
+  /**
+   * Returns a MelatiLocale based on a language tag. Locales are cached for
+   * future use.
+   * 
+   * @param languageHeader
+   *        A language header from RFC 3282
+   * @return a MelatiLocale based on a language tag or null if not found
+   * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+   */
+  public static MelatiLocale getMelatiLocale(String languageHeader) {
+
+    // language headers may have multiple language tags sperated by ,
+    String tags[] = StringUtils.split(languageHeader, ',');
+    MelatiLocale ml = null;
+
+    // loop through until we find a tag we like
+    for (int i = 0; i < tags.length; i++) {
+      String tag = tags[i];
+
+      // remove quality value if it exists.
+      // we'll just try them in order
+      int indexSemicolon = tag.indexOf(';');
+      if (indexSemicolon != -1)
+        tag = tag.substring(0, indexSemicolon);
+
+      String lowerTag = tag.trim().toLowerCase();
+
+      // try our cache
+      ml = (MelatiLocale)localeHash.get(lowerTag);
+      if (ml != null)
+        return ml;
+
+      // try creating a locale from this tag
+      ml = MelatiLocale.fromLanguageTag(lowerTag);
+      if (ml != null) {
+        localeHash.put(lowerTag, ml);
+        return ml;
+      }
+    }
+
+    return null;
+  }
+  
   /**
    * Suggest a response character encoding and if necessary choose a
    * request encoding.
@@ -598,9 +646,8 @@ public class Melati {
   /**
    * Use this method if you wish to use a different 
    * MarkupLanguage, WMLMarkupLanguage for example. 
-   * 
+   * Cannot be set in MelatiConfig as does not have a noarg constructor.
    * @param ml The ml to set.
-   * @todo set in MelatiConfig
    */
   public void setMarkupLanguage(MarkupLanguage ml) {
     this.ml = ml;
@@ -758,6 +805,7 @@ public class Melati {
    * It assumes {@link #establishCharsets()} has been called to
    * set the request encoding if necessary.
    *
+   * @return the character encoding
    * @see #establishCharsets()
    * see also org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
    */
@@ -769,6 +817,10 @@ public class Melati {
    * Convenience method to URL encode a URL query string.
    *
    * See org.melati.admin.Admin#selection(ServletTemplateContext, Melati)
+   */
+  /**
+   * @param string the String to encode
+   * @return the encoded string
    */
   public String urlEncode(String string) {
     try {
@@ -889,7 +941,7 @@ public class Melati {
   }
 
   /**
-   * Get a User for this request (if they are logged in)
+   * Get a User for this request (if they are logged in).
    *
    * @return - a User for this request
    */

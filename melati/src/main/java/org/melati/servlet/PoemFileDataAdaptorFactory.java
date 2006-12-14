@@ -74,7 +74,7 @@ public class PoemFileDataAdaptorFactory extends FormDataAdaptorFactory {
     String uploadURL = (String)db.getSettingTable().
                                   getOrDie("UploadURL");
 
-    return new DefaultFileDataAdaptor(uploadDir, uploadURL);
+    return new DefaultFileDataAdaptor(melati, uploadDir, uploadURL);
   }
 }
 

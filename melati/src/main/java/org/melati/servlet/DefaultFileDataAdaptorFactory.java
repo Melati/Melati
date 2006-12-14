@@ -93,7 +93,7 @@ public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
    * @return The {@link FormDataAdaptor}. 
    */
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
-    return new DefaultFileDataAdaptor(uploadDir, uploadURL);
+    return new DefaultFileDataAdaptor(melati, uploadDir, uploadURL);
   }
 }
 

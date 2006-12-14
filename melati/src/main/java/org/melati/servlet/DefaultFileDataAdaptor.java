@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -46,6 +46,8 @@
 package org.melati.servlet;
 
 import java.io.File;
+
+import org.melati.Melati;
 import org.melati.util.UTF8URLEncoder;
 import org.melati.util.FileUtils;
 
@@ -58,26 +60,30 @@ import org.melati.util.FileUtils;
 
 public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
 
+  protected Melati melati;
   protected String uploadDir = null;
   protected String uploadURL = null;
   protected boolean makeUnique = true;
 
   /**
-   * Constructor
+   * Constructor.
    * 
+   * @param melati     The current melati
    * @param uploadDir The directory to save this file in
    * @param uploadURL A URL pointing to this directory (null if there
    *                  isn't an appropriate URL)
    */
 
-  public DefaultFileDataAdaptor(String uploadDir, String uploadURL) {
-    this.uploadDir = uploadDir;
-    this.uploadURL = uploadURL;
+  public DefaultFileDataAdaptor(Melati melatiP, String uploadDirP, String uploadUrlP) {
+    this.melati = melatiP;
+    this.uploadDir = uploadDirP;
+    this.uploadURL = uploadUrlP;
   }
 
   /**
-   * Constructor
+   * Constructor.
    * 
+   * @param melati     The current melati
    * @param uploadDir  The directory to save this file in
    * @param uploadURL  A URL pointing to this directory  (null if there
    *                   isn't an appropriate URL)
@@ -85,7 +91,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
    *                   name within the <code>uploadDir</code> directory
    */
 
-  public DefaultFileDataAdaptor(String uploadDir, String uploadURL,
+  public DefaultFileDataAdaptor(Melati melatiP, String uploadDir, String uploadURL,
                                 boolean makeUnique) {
     this.uploadDir = uploadDir;
     this.uploadURL = uploadURL;
@@ -95,7 +101,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
   protected File calculateLocalFile() {
     // FIXME decode surely?
     File f = new File(uploadDir,
-                      UTF8URLEncoder.encode(field.getUploadedFileName()));
+                      UTF8URLEncoder.encode(field.getUploadedFileName(), melati.getEncoding()));
     return makeUnique ? FileUtils.withUniqueName(f) : f;
   }
 

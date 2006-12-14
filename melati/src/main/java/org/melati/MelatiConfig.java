@@ -38,12 +38,10 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
-
-
 
 package org.melati;
 
@@ -70,11 +68,9 @@ import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
 import org.melati.util.StringUtils;
 
-
 /**
  * A MelatiConfig loads and provides access to the configuration parameters for
- * melati.  These are held in <TT>org.melati.MelatiServlet.properties</TT>.
- *
+ * melati. These are held in <TT>org.melati.MelatiServlet.properties</TT>.
  */
 public class MelatiConfig {
 
@@ -95,31 +91,37 @@ public class MelatiConfig {
   private String javascriptLibraryURL = null;
   private String staticURL = null;
   private String templatePath = null;
-  private static String loginPageServletClassName = "org.melati.login.Login"; 
-  private static String logoutPageServletClassName = "org.melati.login.Logout"; 
+  private static String loginPageServletClassName = "org.melati.login.Login";
+  private static String logoutPageServletClassName = "org.melati.login.Logout";
 
-
- /**
-  * Allows creation of a <code>MelatiConfig</code> with default config params.
-  *
-  * @throws MelatiException if anything goes wrong.
-  */
-  public MelatiConfig() throws MelatiException {
+  /**
+   * Allows creation of a <code>MelatiConfig</code> with default config
+   * params.
+   * 
+   * @throws MelatiException
+   *         if anything goes wrong.
+   */
+  public MelatiConfig()
+      throws MelatiException {
     init(defaultPropertiesName);
   }
 
- /**
-  * Allows creation of a <code>MelatiConfig</code> with
-  * a specified properties file.
-  *
-  * @param propertiesName the name of a properties file
-  * @throws MelatiException if anything goes wrong.
-  */
-  public MelatiConfig(String propertiesName) throws MelatiException {
+  /**
+   * Allows creation of a <code>MelatiConfig</code> with a specified
+   * properties file.
+   * 
+   * @param propertiesName
+   *        the name of a properties file
+   * @throws MelatiException
+   *         if anything goes wrong.
+   */
+  public MelatiConfig(String propertiesName)
+      throws MelatiException {
     init(propertiesName);
   }
 
-  void init(String propertiesNameIn) throws MelatiException {
+  void init(String propertiesNameIn)
+      throws MelatiException {
     this.propertiesName = propertiesNameIn;
     String pref = propertiesName + ".";
     String accessHandlerProp = pref + "accessHandler";
@@ -186,7 +188,7 @@ public class MelatiConfig {
 
       setMelatiLocale(MelatiLocale.fromLanguageTag(languageTag));
       if (melatiLocale == null)
-          throw new Exception(languageTag +
+          throw new ConfigException(languageTag +
                               " is not a valid language tag for " +
                               melatiLocaleProp);
 
@@ -207,7 +209,7 @@ public class MelatiConfig {
                                                   javascriptLibraryURLProp));
 
       setStaticURL(PropertiesUtils.getOrDie(configuration, staticURLProp));
-      
+
       setTemplatePath(PropertiesUtils.getOrDefault(configuration,
           templatePathProp, "."));
 
@@ -224,177 +226,187 @@ public class MelatiConfig {
 
   }
 
+  /**
+   * @return {@link ServletTemplateEngine} in use.
+   */
+  public ServletTemplateEngine getServletTemplateEngine() {
+    return (ServletTemplateEngine)templateEngine;
+  }
 
   /**
    * @return {@link ServletTemplateEngine} in use.
    */
-   public ServletTemplateEngine getServletTemplateEngine() {
-     return (ServletTemplateEngine)templateEngine;
-   }
+  public TemplateEngine getTemplateEngine() {
+    return templateEngine;
+  }
 
   /**
-   * @return {@link ServletTemplateEngine} in use.
+   * Set the {@link TemplateEngine} to use.
+   * 
+   * @param templateEngine
+   *        a {@link TemplateEngine}
    */
-   public TemplateEngine getTemplateEngine() {
-     return templateEngine;
-   }
-
- /**
-  * Set the {@link TemplateEngine} to use.
-  *
-  * @param templateEngine a {@link TemplateEngine}
-  */
   public void setTemplateEngine(TemplateEngine templateEngine) {
     this.templateEngine = templateEngine;
   }
 
- /**
-  * @return the configured {@link AccessHandler}
-  */
+  /**
+   * @return the configured {@link AccessHandler}
+   */
   public AccessHandler getAccessHandler() {
     return accessHandler;
   }
 
- /**
-  * Set the <code>AccessHandler</code> for use by this Melati.
-  *
-  * @param accessHandler a {@link AccessHandler}
-  */
+  /**
+   * Set the <code>AccessHandler</code> for use by this Melati.
+   * 
+   * @param accessHandler
+   *        a {@link AccessHandler}
+   */
   public void setAccessHandler(AccessHandler accessHandler) {
     this.accessHandler = accessHandler;
   }
 
- /**
-  * @return the configured {@link TempletLoader}
-  */
+  /**
+   * @return the configured {@link TempletLoader}
+   */
   public TempletLoader getTempletLoader() {
     return templetLoader;
   }
 
- /**
-  * Set the {@link TempletLoader} for use by this Melati.
-  *
-  * @param templetLoader a {@link TempletLoader}
-  */
+  /**
+   * Set the {@link TempletLoader} for use by this Melati.
+   * 
+   * @param templetLoader
+   *        a {@link TempletLoader}
+   */
   public void setTempletLoader(TempletLoader templetLoader) {
     this.templetLoader = templetLoader;
   }
 
- /**
-  * @return the configured {@link FormDataAdaptorFactory}
-  */
+  /**
+   * @return the configured {@link FormDataAdaptorFactory}
+   */
   public FormDataAdaptorFactory getFormDataAdaptorFactory() {
     return fdaFactory;
   }
 
- /**
-  * Set the {@link FormDataAdaptorFactory} for use by this Melati.
-  *
-  * @param fdaf a {@link FormDataAdaptorFactory}
-  */
+  /**
+   * Set the {@link FormDataAdaptorFactory} for use by this Melati.
+   * 
+   * @param fdaf
+   *        a {@link FormDataAdaptorFactory}
+   */
   public void setFormDataAdaptorFactory(FormDataAdaptorFactory fdaf) {
     fdaFactory = fdaf;
   }
 
- /**
-  * @return the location of javascript for this site.
-  */
+  /**
+   * @return the location of javascript for this site.
+   */
   public String getJavascriptLibraryURL() {
     return javascriptLibraryURL;
   }
 
- /**
-  * Set the <code>JavascriptLibraryURL</code> for use by this Melati.
-  *
-  * @param url a URL to the directory containing the JavaScript for this site
-  */
+  /**
+   * Set the <code>JavascriptLibraryURL</code> for use by this Melati.
+   * 
+   * @param url
+   *        a URL to the directory containing the JavaScript for this site
+   */
   public void setJavascriptLibraryURL(String url) {
     this.javascriptLibraryURL = url;
   }
 
- /**
-  * Normally set to <code>melati-static</code>.
-  *
-  * @return the location of static content for this site.
-  */
+  /**
+   * Normally set to <code>melati-static</code>.
+   * 
+   * @return the location of static content for this site.
+   */
   public String getStaticURL() {
     return staticURL;
   }
 
- /**
-  * Set the <code>StaticURL</code> for use by this Melati.
-  *
-  * @param url a URL to the directory containing the static content
-  */
+  /**
+   * Set the <code>StaticURL</code> for use by this Melati.
+   * 
+   * @param url
+   *        a URL to the directory containing the static content
+   */
   public void setStaticURL(String url) {
     this.staticURL = url;
   }
 
- /**
-  * @return the location of templates.
-  */
+  /**
+   * @return the location of templates.
+   */
   public String getTemplatePath() {
     return templatePath;
   }
 
   /**
-   * @param templatePath The templatePath to set.
+   * @param templatePath
+   *        The templatePath to set.
    */
   public void setTemplatePath(String templatePath) {
     this.templatePath = templatePath;
   }
 
- /**
-  * @return the class name of the logout servlet
-  */
+  /**
+   * @return the class name of the logout servlet
+   */
   public static String getLogoutPageServletClassName() {
     return logoutPageServletClassName;
   }
 
   /**
-   * @param logoutPageServletClassName The logoutPageServletClassName to set.
+   * @param logoutPageServletClassName
+   *        The logoutPageServletClassName to set.
    */
-  public static void 
-      setLogoutPageServletClassName(String logoutPageServletClassName) {
+  public static void setLogoutPageServletClassName(
+      String logoutPageServletClassName) {
     MelatiConfig.logoutPageServletClassName = logoutPageServletClassName;
   }
 
-
- /**
-  * @return the class name of the login servlet
-  */
+  /**
+   * @return the class name of the login servlet
+   */
   public static String getLoginPageServletClassName() {
     return loginPageServletClassName;
   }
-  
- /**
-  * @param loginPageServletClassName The loginPageServletClassName to set.
-  */
-  public static void setLoginPageServletClassName(String loginPageServletClassName) {
+
+  /**
+   * @param loginPageServletClassName
+   *        The loginPageServletClassName to set.
+   */
+  public static void setLoginPageServletClassName(
+      String loginPageServletClassName) {
     MelatiConfig.loginPageServletClassName = loginPageServletClassName;
   }
 
- /**
-  * @return The configured locale, defaults to British English melati locale.
-  */
+  /**
+   * @return The configured locale, defaults to British English melati locale.
+   */
   public static MelatiLocale getMelatiLocale() {
     if (melatiLocale == null)
       return MelatiLocale.HERE;
     return melatiLocale;
   }
 
- /**
-  * @param melatiLocale The melatiLocale to set.
-  */
+  /**
+   * @param melatiLocale
+   *        The melatiLocale to set.
+   */
   public void setMelatiLocale(MelatiLocale melatiLocale) {
     MelatiConfig.melatiLocale = melatiLocale;
   }
-  
+
   /**
-   * Returns a MelatiLocale based on a language tag.  Locales
-   * are cached for future use.
-   *
-   * @param languageHeader A language header from RFC 3282
+   * Returns a MelatiLocale based on a language tag. Locales are cached for
+   * future use.
+   * 
+   * @param languageHeader
+   *        A language header from RFC 3282
    * @return a MelatiLocale based on a language tag.
    */
   public MelatiLocale getMelatiLocale(String languageHeader) {
@@ -404,7 +416,7 @@ public class MelatiConfig {
     MelatiLocale ml = null;
 
     // loop through until we find a tag we like
-    for (int i=0; i<tags.length; i++) {
+    for (int i = 0; i < tags.length; i++) {
       String tag = tags[i];
 
       // remove quality value if it exists.
@@ -416,7 +428,7 @@ public class MelatiConfig {
       String lowerTag = tag.trim().toLowerCase();
 
       // try our cache
-      ml = (MelatiLocale) localeHash.get(lowerTag);
+      ml = (MelatiLocale)localeHash.get(lowerTag);
       if (ml != null)
         return ml;
 
@@ -432,60 +444,57 @@ public class MelatiConfig {
     return getMelatiLocale();
   }
 
- /**
-  * Return the set encodings that the server prefers and supports.
-  *
-  * @return List of encoding names or aliases.
-  */
+  /**
+   * Return the set encodings that the server prefers and supports.
+   * 
+   * @return List of encoding names or aliases.
+   */
   public List getPreferredCharsets() {
     return preferredCharsets;
   }
 
- /**
-  * @param preferredCharsets The preferredCharsets to set.
-  */
+  /**
+   * @param preferredCharsets
+   *        The preferredCharsets to set.
+   */
   public void setPreferredCharsets(Vector preferredCharsets) {
     this.preferredCharsets = preferredCharsets;
   }
 
- /**
-  * @return Returns the fdaFactory.
-  */
+  /**
+   * @return Returns the fdaFactory.
+   */
   public FormDataAdaptorFactory getFdaFactory() {
     return fdaFactory;
   }
 
- /**
-  * @param fdaFactory The fdaFactory to set.
-  */
+  /**
+   * @param fdaFactory
+   *        The fdaFactory to set.
+   */
   public void setFdaFactory(FormDataAdaptorFactory fdaFactory) {
     this.fdaFactory = fdaFactory;
   }
 
-  
- /**
-  * @return the adaptor for rendering dates as drop-downs.
-  */
+  /**
+   * @return the adaptor for rendering dates as drop-downs.
+   */
   public static YMDDateAdaptor getYMDDateAdaptor() {
     return YMDDateAdaptor.it;
   }
 
- /**
-  * @return the adaptor for rendering timestamps as drop-downs.
-  */
+  /**
+   * @return the adaptor for rendering timestamps as drop-downs.
+   */
   public static YMDHMSTimestampAdaptor getYMDHMSTimestampAdaptor() {
     return YMDHMSTimestampAdaptor.getIt();
   }
 
- /**
-  * @return the adaptor for rendering dates as normal.
-  */
+  /**
+   * @return the adaptor for rendering dates as normal.
+   */
   public static SimpleDateAdaptor getSimpleDateAdaptor() {
     return SimpleDateAdaptor.it;
   }
 
 }
-
-
-
-

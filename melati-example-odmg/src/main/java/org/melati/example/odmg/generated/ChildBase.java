@@ -297,7 +297,7 @@ public abstract class ChildBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Parent</code> object reffered to.
+  * Retrieves the <code>Parent</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  

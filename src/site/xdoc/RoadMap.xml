@@ -4,7 +4,7 @@
 
   <properties>
     <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
+    <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
       Objects, Object Oriented, J2EE replacement
@@ -127,11 +127,19 @@ would be nice to have before a 1.0 release.
      Separation of Melati from servlets. <br />
      Improved support for HSQLDB, Oracle.<br />
      Support for MS Access.<br />
-     Unit test coverage extended to canonical Poem database.<br />
+     Unit test coverage extended.<br />
+     Use of HSQLDB mem urls in tests.<br />
      Velocity/WebMacro version of admin system. <br />
      Templets used to render everything, including Persistents.<br />
      Metadata extensible.<br />
      Support for Maven 2. <br />
+     Preprocessor revisited. <br />
+     All deprecated methods removed. <br />
+     DSD mojo introduced. <br />
+     Maven archetype introduced. <br />
+     Maven skin introduced. <br />
+     Examples moved into own projects. <br />
+     Java 5 compatibility. <br />
     </td>
     <td><b>done</b></td>
   </tr>
@@ -159,7 +167,8 @@ would be nice to have before a 1.0 release.
     <td>
         Bundled with Jetty and HSQLDB. <br />
         Support for <a href="http://www.eclipse.org/">Eclipse</a>.<br />
-        Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2).
+        Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2). <br />
+        No warnings shown in Eclipse. <br />
     </td>
   </tr>
 </table>

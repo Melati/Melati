@@ -145,7 +145,7 @@
      <artifactId>maven-dsd-plugin</artifactId>
      <executions>
        <execution>
-         <phase>process-sources</phase>
+         <phase>generate-sources</phase>
          <goals>
            <goal>generate</goal>
          </goals>
@@ -187,6 +187,7 @@
       <excludes>
        <!-- exclude>**/PoemDatabaseTest.java</exclude -->
        <!-- exclude>**/PoemServletTest.java</exclude -->
+       <!-- exclude>**/*.java</exclude -->
       </excludes>
      </configuration>
     </plugin>

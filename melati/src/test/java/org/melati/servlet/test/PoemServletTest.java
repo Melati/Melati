@@ -401,7 +401,7 @@ public class PoemServletTest extends TestCase {
       }
       
       public boolean eval( Object arg ) {
-          System.err.println(arg);
+          System.err.println("Argument to Mock:" + arg);
           return _class.isInstance( arg );
       }
       

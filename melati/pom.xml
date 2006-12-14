@@ -230,7 +230,10 @@
     <testResource>
      <directory>src/test/java</directory>
      <includes>
+      <include>**/*.dsd</include>
       <include>**/*.properties</include>
+      <include>**/*.wm</include>
+      <include>**/*.vm</include>
      </includes>
     </testResource>
    </testResources>

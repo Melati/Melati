@@ -190,8 +190,7 @@ public abstract class TemplateServlet extends PoemServlet {
 
         Template errorTemplate;
         try {
-          // Look on the classpath 
-          // FIXME - not sure this ever returns a result
+          // Look on the classpath for template
           errorTemplate = templateEngine.template(e.getClass());
         }
         catch (NotFoundException f) {

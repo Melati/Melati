@@ -42,4 +42,4 @@
 ##     http://paneris.org/~timp
 ##
 [$ml.rendered($object.toString())]
-Rendered from classpath
+Rendered using template from classpath

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,30 +48,77 @@ package org.melati.template;
 import org.melati.poem.FieldAttributes;
 
 /**
- * Interface for loading templets using a  Template Engine.
+ * An object which can load a templet given a {@link TemplateEngine}, 
+ * a {@link MarkupLanguage} and a means of identifying the templet.
  */
 public interface TempletLoader {
 
+  /**
+   * Return a templet by name.
+   * @param templateEngine the TemplateEngine in use
+   * @param markupLanguage the markuplanguage the templet is in
+   * @param templetName the name of the templet
+   * @return the templet
+   * @throws TemplateEngineException if not found or other problem with file system
+   */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    String templetName)
       throws TemplateEngineException;
 
+  /**
+   * Return a templet by name and purpose.
+   * 
+   * @param templateEngine the TemplateEngine in use
+   * @param markupLanguage the markuplanguage the templet is in
+   * @param purpose what the templet is for eg error
+   * @param templetName the name of the templet
+   * @return the templet
+   * @throws TemplateEngineException if not found or other problem with file system
+   */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    String purpose, String templetName)
       throws TemplateEngineException;
 
+  /**
+   * Return a templet by Class.
+   * 
+   * @param templateEngine the TemplateEngine in use
+   * @param markupLanguage the markuplanguage the templet is in
+   * @param clazz Class that templet renders 
+   * @return the templet
+   * @throws TemplateEngineException if not found or other problem with file system
+   */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    Class clazz)
       throws TemplateEngineException;
 
+  /**
+   * Return a templet by Class and purpose.
+   * 
+   * @param templateEngine the TemplateEngine in use
+   * @param markupLanguage the markuplanguage the templet is in
+   * @param purpose what the templet is for eg error
+   * @param clazz Class that templet renders 
+   * @return the templet
+   * @throws TemplateEngineException if not found or other problem with file system
+   */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    String purpose, Class clazz)
       throws TemplateEngineException;
 
+  /**
+   * Return a templet to render a Field.
+   * 
+   * @param templateEngine the TemplateEngine in use
+   * @param markupLanguage the markuplanguage the templet is in
+   * @param attributes a FieldAttributes the templet is for eg a Field
+   * @return the templet
+   * @throws TemplateEngineException if not found or other problem with file system
+   */
   Template templet(TemplateEngine templateEngine, 
                    MarkupLanguage markupLanguage,
                    FieldAttributes attributes)

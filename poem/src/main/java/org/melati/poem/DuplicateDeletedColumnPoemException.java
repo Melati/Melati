@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,15 +49,15 @@ package org.melati.poem;
   * Thrown when an attempt to create a second {@link Column} of type 
   * {@link DeletedPoemType} in a {@link Table} is made. 
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   *
   */
 public class DuplicateDeletedColumnPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Table we are dealing with */
+  /** The Table we are dealing with. */
   public Table table;
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
 
   /** Constructor. */

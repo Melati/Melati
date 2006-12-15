@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/~timj
  */
 
@@ -56,7 +56,7 @@ public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage
   // The ML to use for attributes
   private WMLAttributeMarkupLanguage attributeML = null;
 
-  /** Constructor */
+  /** Constructor. */
   public WMLMarkupLanguage(Melati melati,
                            TempletLoader templetLoader, MelatiLocale locale) {
     super("wml", melati, templetLoader, locale);

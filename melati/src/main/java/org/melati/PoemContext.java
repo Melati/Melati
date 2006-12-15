@@ -38,9 +38,8 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc At paneris.org>
- *     http://paneris.org/~williamc
- *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 
 package org.melati;

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,6 +61,10 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
   private final ResultSet resultSet;
   private int more = -1;
 
+  /**
+   * Constructor.
+   * @param resultSet the ResultSet property
+   */
   public ResultSetEnumeration(ResultSet resultSet) {
     this.resultSet = resultSet;
   }
@@ -78,6 +82,10 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public synchronized boolean hasMoreElements() {
     try {
       if (more == -1)
@@ -97,6 +105,8 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
    * Note that a {@link RowDisappearedPoemException} might be thrown
    * but does not prevent subsequent use of the object.
    * This behaviour is now relied upon in {@link StandardIntegrityFix}.
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
    */
   public synchronized Object nextElement() throws NoSuchElementException {
     try {
@@ -119,6 +129,10 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.SkipEnumeration#skip()
+   */
   public synchronized void skip() throws NoSuchElementException {
     try {
       if (more == -1)

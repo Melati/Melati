@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,12 +48,12 @@ package org.melati.poem;
 /**
  * Thrown when a {@link Field} fails its content validation.
  * 
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  */
 public class FieldContentsPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
 
   /** Constructor. */

@@ -338,6 +338,8 @@ public class AdminUtils {
    * Whether the object is a Treeable. 
    * You can no longer (as of 1.0) look at an object's methods
    * in WebMacro.
+   * @param object the object to interrogate
+   * @return whether the object is an instance of Treeable
    */
   public boolean isTreeable(Persistent object) {
     return object instanceof Treeable;

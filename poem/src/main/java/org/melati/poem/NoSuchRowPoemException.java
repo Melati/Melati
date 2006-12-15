@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,14 +48,14 @@ package org.melati.poem;
  /**
   * Thrown when a reference to a non existent row is made.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   */
 public class NoSuchRowPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The table we are dealing with */
+  /** The table we are dealing with. */
   public Table table;
-  /** Its TROID */
+  /** Its TROID. */
   public Integer troid;
 
   /** Constructor. */

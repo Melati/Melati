@@ -93,7 +93,8 @@ public class PreparedTailoredQuery extends TailoredQuery {
   }
 
   /**
-   * Return an enumeration of the Columns in the first row of a ResultSet.
+   * @return an enumeration of the Columns in the first row of a ResultSet
+   * {@inheritDoc}
    * @see org.melati.poem.TailoredQuery#selection_firstRaw()
    */
   public Enumeration selection_firstRaw() {

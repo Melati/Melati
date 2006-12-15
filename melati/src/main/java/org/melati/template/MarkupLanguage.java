@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <Timp@paneris.org>
+ *     Tim Pizey <Timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.template;
@@ -65,6 +65,7 @@ import org.melati.poem.Persistent;
 public interface MarkupLanguage {
 
   /**
+   * The AttributeMarkupLanguage associated with this MarkupLanguage.
    * See org/melati/admin/EditHeader.wm
    * See org/melati/admin/PrimarySelect.wm
    * @return the AttributeMarkupLanguage to use for rendering attributes.

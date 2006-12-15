@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.template.velocity;
@@ -54,45 +54,61 @@ import org.melati.util.MelatiWriter;
 import org.apache.velocity.io.VelocityWriter;
 import org.apache.velocity.util.SimplePool;
 
-
 /**
- * This provides an interface for objects that output from melati
+ * This provides an interface for objects that output from melati.
  */
-
 public class MelatiVelocityWriter extends MelatiWriter {
 
   private static SimplePool writerPool = new SimplePool(40);
   protected OutputStream outputStream;
-  
-  public MelatiVelocityWriter(HttpServletResponse response) 
+
+  /**
+   * Constructor.
+   * @param response the response to write to
+   * @throws IOException if getOutputStream throws one
+   */
+  public MelatiVelocityWriter(HttpServletResponse response)
       throws IOException {
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
 
+  /**
+   * Constructor.
+   * @param output OutputStream to write to
+   * @param encoding character encoding to use
+   * @throws IOException if getOutputStream throws one
+   */
   public MelatiVelocityWriter(OutputStream output, String encoding)
       throws IOException {
     // need to make this accessable to subcalsses
     outputStream = output;
-    out = (VelocityWriter) writerPool.get();
+    out = (VelocityWriter)writerPool.get();
     if (out == null) {
-      out = new VelocityWriter(new OutputStreamWriter(output, encoding), 
-                               4*1024, true);
+      out = new VelocityWriter(new OutputStreamWriter(output, encoding),
+                               4 * 1024, true);
     } else {
       ((VelocityWriter)out).recycle(new OutputStreamWriter(output, encoding));
     }
   }
 
+  /**
+   * As we can write to the underlying peer the Flusher may not 
+   * get started so we should start it here.
+   * @return the underlying output
+   */
   public VelocityWriter getPeer() {
-    // as we can write to the underlying peer, the Flusher may not get started
-    // so we should start it here
     startFlushing();
     return (VelocityWriter)out;
   }
-  
-  public void close() throws IOException {
+
+  /**
+   * {@inheritDoc}
+   * @see java.io.Closeable#close()
+   */
+  public void close()
+      throws IOException {
     super.close();
     writerPool.put(getPeer());
   }
-  
 
 }

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,6 +54,13 @@ package org.melati.poem;
 public class ExtraColumn extends Column {
   private final int extrasIndex;
 
+  /**
+   * @param table
+   * @param name
+   * @param type
+   * @param definitionSource
+   * @param extrasIndex
+   */
   public ExtraColumn(Table table, String name, SQLPoemType type,
                      DefinitionSource definitionSource,
                      int extrasIndex) {
@@ -61,15 +68,27 @@ public class ExtraColumn extends Column {
     this.extrasIndex = extrasIndex;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#getRaw(org.melati.poem.Persistent)
+   */
   public Object getRaw(Persistent g) throws AccessPoemException {
     g.readLock();
     return getRaw_unsafe(g);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#getRaw_unsafe(org.melati.poem.Persistent)
+   */
   public Object getRaw_unsafe(Persistent g) {
     return g.extras()[extrasIndex];
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#setRaw(org.melati.poem.Persistent, java.lang.Object)
+   */
   public void setRaw(Persistent g, Object raw)
       throws AccessPoemException, ValidationPoemException {
     getType().assertValidRaw(raw);
@@ -77,16 +96,28 @@ public class ExtraColumn extends Column {
     setRaw_unsafe(g, raw);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#setRaw_unsafe(org.melati.poem.Persistent, java.lang.Object)
+   */
   public void setRaw_unsafe(Persistent g, Object raw) {
     g.extras()[extrasIndex] = raw;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#getCooked(org.melati.poem.Persistent)
+   */
   public Object getCooked(Persistent g)
       throws AccessPoemException, PoemException {
     // FIXME revalidation
     return getType().cookedOfRaw(getRaw(g));
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#setCooked(org.melati.poem.Persistent, java.lang.Object)
+   */
   public void setCooked(Persistent g, Object cooked)
       throws AccessPoemException, ValidationPoemException {
     // FIXME revalidation
@@ -94,6 +125,10 @@ public class ExtraColumn extends Column {
     setRaw(g, getType().rawOfCooked(cooked));
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.Column#asField(org.melati.poem.Persistent)
+   */
   public Field asField(Persistent g) {
     try {
       return new Field(getRaw(g), this);
@@ -103,6 +138,13 @@ public class ExtraColumn extends Column {
     }
   }
 
+  /**
+   * @param table
+   * @param columnInfo
+   * @param extrasIndex
+   * @param source
+   * @return
+   */
   public static Column from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {
     return new ExtraColumn(

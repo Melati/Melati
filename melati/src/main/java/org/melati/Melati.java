@@ -122,7 +122,8 @@ public class Melati {
   private Database database = null;
   private Table table = null;
   private Persistent object = null;
-
+  private MarkupLanguage markupLanguage = null;
+  
   private String[] arguments;
 
   // the template engine that is in use (if any)
@@ -641,8 +642,6 @@ public class Melati {
       response.setContentType(type);
   }
 
-  private MarkupLanguage ml = null;
-  
   /**
    * Use this method if you wish to use a different 
    * MarkupLanguage, WMLMarkupLanguage for example. 
@@ -650,7 +649,7 @@ public class Melati {
    * @param ml The ml to set.
    */
   public void setMarkupLanguage(MarkupLanguage ml) {
-    this.ml = ml;
+    this.markupLanguage = ml;
   }
   
   /**
@@ -662,11 +661,11 @@ public class Melati {
    * @see org.melati.util.MelatiLocale
    */
   public MarkupLanguage getMarkupLanguage() {
-    if (ml == null) 
-      ml = new HTMLMarkupLanguage(this,
+    if (markupLanguage == null) 
+      markupLanguage = new HTMLMarkupLanguage(this,
                                   config.getTempletLoader(),
                                   getMelatiLocale());
-    return ml;
+    return markupLanguage;
   }
 
   /**

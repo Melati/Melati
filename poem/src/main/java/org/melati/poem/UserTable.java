@@ -121,24 +121,43 @@ public class UserTable extends UserTableBase {
     administratorUser.setName_unsafe("Melati database administrator");
   }
 
+  /**
+   * @return the special User guest
+   */
   public User guestUser() {
     return guestUser;
   }
 
+  /**
+   * @return the special User administrator
+   */
   public User administratorUser() {
     return administratorUser;
   }
 
+  /**
+   * Defaults to the db's administraor capability.
+   * @return the Capability required to read a password
+   */
   public Capability canReadPasswords() {
     return getDatabase().administerCapability();
     // return canReadPasswords;
   }
 
+  /**
+   * Defaults to the db's administraor capability.
+   * @return the Capability required to write a password
+   */
   public Capability canWritePasswords() {
     return getDatabase().administerCapability();
     // return canWritePasswords;
   }
 
+  /**
+   * Create guestUser and administratorUser.
+   * {@inheritDoc}
+   * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
+   */
   public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);

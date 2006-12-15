@@ -91,7 +91,8 @@ public class Field implements FieldAttributes, Cloneable {
   // -----------
   // 
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see java.lang.Object#clone()
    */
   public Object clone() {
@@ -109,70 +110,80 @@ public class Field implements FieldAttributes, Cloneable {
   // -----------------
   // 
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getName()
    */
   public String getName() {
     return attrs.getName();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getDisplayName()
    */
   public String getDisplayName() {
     return attrs.getDisplayName();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getDescription()
    */
   public String getDescription() {
     return attrs.getDescription();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getType()
    */
   public PoemType getType() {
     return attrs.getType();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getIndexed()
    */
   public boolean getIndexed() {
     return attrs.getIndexed();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getUserEditable()
    */
   public boolean getUserEditable() {
     return attrs.getUserEditable();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getUserCreateable()
    */
   public boolean getUserCreateable() {
     return attrs.getUserCreateable();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getWidth()
    */
   public int getWidth() {
     return attrs.getWidth();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getHeight()
    */
   public int getHeight() {
     return attrs.getHeight();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getRenderInfo()
    */
   public String getRenderInfo() {

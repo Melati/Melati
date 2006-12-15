@@ -60,19 +60,31 @@ import org.melati.poem.dbms.Dbms;
  * */
 public class BigDecimalPoemType extends FixedPointAtomPoemType {
 
+  /**
+   * Constructor.
+   * 
+   * @param nullable whether nullable 
+   */
   public BigDecimalPoemType(boolean nullable) {
     super(Types.DECIMAL, "Big Decimal", nullable, 22, 2);
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param nullable whether nullable 
+   * @param precision defaults to 22
+   * @param scale defaults to 2
+   */
   public BigDecimalPoemType(boolean nullable, int precision, int scale) {
     super(Types.DECIMAL, "Big Decimal", nullable, precision, scale);
     // because a newly added column of this type won't have valid 
     // numbers, we fix that here...
-    if (scale < 0) {
-      setScale(2);
-    }
     if (precision <= 0) {
       setPrecision(22);
+    }
+    if (scale < 0) {
+      setScale(2);
     }
   }
 
@@ -120,7 +132,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * @return the field type used in the Data Structure Definition language.
    */
   public String toDsdType() {
     return "BigDecimal";

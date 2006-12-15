@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  */
 package org.melati.servlet;
 
@@ -65,9 +65,9 @@ import org.melati.util.StringUtils;
  * This is a TOY and does not represent the proper way to use Melati as Melati
  * was designed with a template engine in mind.
  * 
- * To use extend this class to
+ * To use extend this class.
  * 
- * @author timp@paneris.org
+ * @author timp At paneris.org
  *  
  */
 public abstract class JspServlet extends HttpServlet implements HttpJspPage {
@@ -104,16 +104,21 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
     return m;
   }
 
-  /*
+  /**
+   * {@inheritDoc}
    * @see javax.servlet.jsp.JspPage#jspInit()
    */
   public void jspInit() {
   }
 
+  /**
+   * Do nothing.
+   */
   public void _jspInit() {
   }
 
-  /*
+  /**
+   * {@inheritDoc}
    * @see javax.servlet.Servlet#getServletInfo()
    */
   public String getServletInfo() {
@@ -121,7 +126,8 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
         + "21/10/2003";
   }
 
-  /*
+  /**
+   * {@inheritDoc}
    * @see javax.servlet.Servlet#destroy()
    */
   public final void destroy() {
@@ -129,7 +135,8 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
     _jspDestroy();
   }
 
-  /*
+  /**
+   * {@inheritDoc}
    * @see javax.servlet.jsp.JspPage#jspDestroy()
    */
   public void jspDestroy() {
@@ -140,7 +147,7 @@ public abstract class JspServlet extends HttpServlet implements HttpJspPage {
 
   /**
    * This method is overridden by the code generated from the .jsp file.
-   * 
+   * {@inheritDoc}
    * @see javax.servlet.jsp.HttpJspPage#_jspService(javax.servlet.http.HttpServletRequest,
    *      javax.servlet.http.HttpServletResponse)
    */

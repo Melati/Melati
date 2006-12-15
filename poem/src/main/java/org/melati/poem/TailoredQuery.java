@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -386,14 +386,19 @@ public class TailoredQuery {
     }
   }
 
- /**
-  * Retrieve the first row of this <code>TailoredQuery</code>.
-  */
+  /**
+   * @return the first row of this <code>TailoredQuery</code>
+   */
   public Enumeration selection_firstRaw() {
     return new FirstRawTailoredResultSetEnumeration(this,
                                                     database.sqlQuery(sql));
   }
   
+  /**
+   * The SQL of the query.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + "(SQL=" + sql +  ")";
   }

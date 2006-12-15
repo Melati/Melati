@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -70,8 +70,9 @@ public interface SQLType {
   String sqlDefinition(Dbms dbms);
 
   /**
-   * @param raw
-   * @return
+   * Quoting a raw value, if appropriate for the Dbms.
+   * @param raw sql value
+   * @return the raw value with quotes if appropriate for the dbms
    */
   String quotedRaw(Object raw);
 

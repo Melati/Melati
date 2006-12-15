@@ -218,7 +218,13 @@ public class SettingTable extends SettingTableBase {
 
   /**
    * Convenience method. 
-   * @see ensure(String, PoemTypeFactory, String, String)
+   * 
+   * @param name the name of the Setting to ensure
+   * @param value the value of this setting
+   * @param displayname a human readable name 
+   * @param description the purpose of the setting
+   * @return the existing or newly created Setting
+   * @see #ensure(String, PoemTypeFactory, Object, String, String)
    */
   public Setting ensure(String name, String value,
                         String displayname, String description) {
@@ -228,7 +234,12 @@ public class SettingTable extends SettingTableBase {
 
   /**
    * Convenience method. 
-   * @see ensure(String, PoemTypeFactory, String, String)
+   * @param name the name of the Setting to ensure
+   * @param value the value of this setting
+   * @param displayname a human readable name 
+   * @param description the purpose of the setting
+   * @return the existing or newly created Setting
+   * @see #ensure(String, PoemTypeFactory, Object, String, String)
    */
   public Setting ensure(String name, int value,
                         String displayname, String description) {
@@ -238,7 +249,12 @@ public class SettingTable extends SettingTableBase {
   
   /**
    * Convenience method. 
-   * @see ensure(String, PoemTypeFactory, String, String)
+   * @param name the name of the Setting to ensure
+   * @param value the value of this setting
+   * @param displayname a human readable name 
+   * @param description the purpose of the setting
+   * @return the existing or newly created Setting
+   * @see #ensure(String, PoemTypeFactory, Object, String, String)
    */
   public Setting ensure(String name, boolean value, 
                            String displayname, String description) { 

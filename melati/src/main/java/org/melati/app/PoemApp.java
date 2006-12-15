@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -184,6 +184,9 @@ public abstract class PoemApp extends ConfigApp implements  App {
    * Initialise.
    * 
    * @param args the command line arguments
+   * @return a configured Melati
+   * {@inheritDoc}
+   * @see org.melati.app.ConfigApp#init(java.lang.String[])
    */
   public Melati init(String[] args)  throws MelatiException {
     Melati m = super.init(args);

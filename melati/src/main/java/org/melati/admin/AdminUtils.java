@@ -263,12 +263,22 @@ public class AdminUtils {
    * If your upload handler depends on having a persistent, then you should
    * override your upload template so that it prevents uploading in an insert
    * situation.
+   * 
+   * @param table table object belongs to
+   * @param object the Persistent we are dealing with
+   * @param field the upload field
+   * @return Upload Url
    */
   public String UploadURL(Table table, Persistent object, Field field) {
     return upload(table, object) + "/Upload?field=" + field.getName();
   }
   
   /**
+   * Upload URL.
+   * 
+   * @param table table object belongs to
+   * @param object the Persistent we are dealing with
+   * @param field the upload field
    * @return Upload done URL
    */
   public String UploadHandlerURL(Table table, Persistent object, String field) {
@@ -315,7 +325,11 @@ public class AdminUtils {
     return staticURL;
   }
 
-  /** Create a tree. */
+  /**
+   *  Create a tree. 
+   * @param node  a tree node
+   * @return a tree with node as its root
+   */
   public JSStaticTree createTree(Treeable node) {
     return new JSStaticTree(new Tree(node), getStaticURL());
   }

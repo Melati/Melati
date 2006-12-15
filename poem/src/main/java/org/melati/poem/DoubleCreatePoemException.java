@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,13 +49,13 @@ package org.melati.poem;
   * Thrown when an attempt to create a {@link Persistent} which 
   * already exists is made. 
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   *
   */
 public class DoubleCreatePoemException extends AppBugPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Persistent we have a problem with */
+  /** The Persistent we have a problem with. */
   public Persistent persistent;
 
   /** Constructor. */
@@ -65,6 +65,8 @@ public class DoubleCreatePoemException extends AppBugPoemException {
 
   /**
    * @return The detail message.
+   * {@inheritDoc}
+   * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {
     return "The application tried to create an already-existing " +

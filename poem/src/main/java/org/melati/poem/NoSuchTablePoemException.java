@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,14 +48,14 @@ package org.melati.poem;
  /**
   * Thrown when a reference to a non existent {@link Table} is made.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   */
 public class NoSuchTablePoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Database we are dealign with */
+  /** The Database we are dealing with. */
   public Database database;
-  /** Its name */
+  /** Its name. */
   public String name;
 
   /** Constructor. */
@@ -66,6 +66,7 @@ public class NoSuchTablePoemException extends NormalPoemException {
 
   /**
    * @return The detail message
+   * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

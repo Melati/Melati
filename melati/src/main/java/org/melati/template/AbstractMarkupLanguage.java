@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -113,6 +113,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#getName()
    */
   public String getName() {
@@ -121,7 +122,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
   /**
    * Name and locale.
-   * 
+   * {@inheritDoc}
    * @see java.lang.Object#toString()
    */
   public String toString() {
@@ -133,6 +134,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.Object)
    */
   public String rendered(Object o)
@@ -175,6 +177,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   protected abstract void render(String s, MelatiWriter writer) throws IOException;
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(java.lang.String, int)
    */
   public String rendered(String s, int limit) throws IOException {
@@ -230,8 +233,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
       render(o, writer);
   }
 
-
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field)
    */
   public String rendered(Field field)
@@ -250,6 +253,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int, int)
    */
   public String rendered(Field field, int style, int limit)
@@ -294,6 +298,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#rendered(org.melati.poem.Field, int)
    */
   public String rendered(Field field, int style)
@@ -334,6 +339,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedShort(org.melati.poem.Field)
    */
   public String renderedShort(Field field)
@@ -354,6 +360,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedMedium(org.melati.poem.Field)
    */
   public String renderedMedium(Field field)
@@ -374,6 +381,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedLong(org.melati.poem.Field)
    */
   public String renderedLong(Field field)
@@ -394,6 +402,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedFull(org.melati.poem.Field)
    */
   public String renderedFull(Field field)
@@ -413,8 +422,8 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
     render(field, DateFormat.FULL, writer);
   }
 
-
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#renderedStart(org.melati.poem.Field)
    */
   public String renderedStart(Field field)
@@ -489,6 +498,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   //
   
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
   public String input(Field field)
@@ -498,6 +508,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#inputAs(org.melati.poem.Field, java.lang.String)
    */
   public String inputAs(Field field, String templetName)
@@ -507,6 +518,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#searchInput(org.melati.poem.Field, java.lang.String)
    */
   public String searchInput(Field field, String nullValue)
@@ -549,6 +561,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#templet(java.lang.String)
    */
   public Template templet(String templetName) throws TemplateEngineException {
@@ -557,14 +570,17 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   }
 
   /**
-   * @see org.melati.template.MarkupLanguage#templet(java.lang.String, java.lang.Class)
+   * {@inheritDoc}
+   * @see org.melati.template.MarkupLanguage#templet(java.lang.Class)
    */
   public Template templet(Class clazz)
       throws TemplateEngineException {
     return templetLoader.templet(melati.getTemplateEngine(), this, 
                                  clazz);
   }
+
   /**
+   * {@inheritDoc}
    * @see org.melati.template.MarkupLanguage#templet(java.lang.String, java.lang.Class)
    */
   public Template templet(String purpose, Class clazz)

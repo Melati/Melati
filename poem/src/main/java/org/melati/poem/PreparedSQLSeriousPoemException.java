@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -51,12 +51,12 @@ import java.sql.SQLException;
  /**
   * Thrown when an SQL <code>PreparedStatement</code> fails.
   *
-  * @author WilliamC@paneris.org
+  * @author WilliamC At paneris.org
   */
 public class PreparedSQLSeriousPoemException extends SQLSeriousPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** Our PreparedStatement */
+  /** Our PreparedStatement. */
   public PreparedStatement statement;
 
   /** Constructor. */

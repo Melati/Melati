@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,7 +54,7 @@ import java.util.Hashtable;
  */
 public final class DisplayLevel {
 
-  /** The numeric Id of the Level */
+  /** The numeric Id of the Level. */
   public final Integer index;
   /** The name of the level. */
   public final String name;
@@ -175,7 +175,9 @@ public final class DisplayLevel {
   }
   
   /** 
-   * Return the name and index.
+   * @return the name and index.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return name + "/" + index;

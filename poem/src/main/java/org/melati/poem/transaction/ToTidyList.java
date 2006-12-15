@@ -59,7 +59,7 @@ import java.sql.ResultSet;
  */
 public class ToTidyList {
 
-  /** Can be closed */
+  /** Can be closed. */
   public interface Closeable {
     /**
      * Free any resources and prepare for death or reuse.

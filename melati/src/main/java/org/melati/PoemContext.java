@@ -98,14 +98,10 @@ public class PoemContext implements Cloneable {
  /**
   * Clone me.
   * @return a duplicate of this
+  * @throws CloneNotSupportedException cannot be thrown 
   */
-  public Object clone() {
-    try {
+  public Object clone() throws CloneNotSupportedException {
       return super.clone();
-    }
-    catch (CloneNotSupportedException e) {
-      throw new UnexpectedExceptionException(e);
-    }
   }
   
 

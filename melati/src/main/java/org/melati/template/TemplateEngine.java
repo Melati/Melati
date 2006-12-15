@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.template;
@@ -54,7 +54,7 @@ import org.melati.util.MelatiWriter;
  * 
  * The canonical java Template Engines are WebMacro and Velocity.
  * 
- * @author timp@paneris.org
+ * @author timp At paneris.org
  */
 public interface TemplateEngine {
   
@@ -141,6 +141,7 @@ public interface TemplateEngine {
    * @param template        the {@link Template} to expand
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
+   * @return the interpolated template as a String
    * @throws TemplateEngineException if any problem occurs with the engine
    */
   String expandedTemplate(Template template, TemplateContext templateContext)
@@ -156,8 +157,7 @@ public interface TemplateEngine {
   Object getPassbackVariableExceptionHandler();
 
   /** 
-   * Return a {@link MelatiStringWriter}.
-   *
+   * @return a {@link MelatiStringWriter}.
    * @see Melati#getStringWriter() 
    */
   MelatiStringWriter getStringWriter();

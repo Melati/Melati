@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
@@ -43,20 +44,24 @@ public class MockServletRequest implements HttpServletRequest {
         return 0;
     }
 
+    // Note this is not correct, should be a MultiMap
+    Hashtable headers = new Hashtable();
     public String getHeader(String arg0) {
-        return null;
+        return (String)headers.get(arg0);
     }
-
+    public void setHeader(String key, String value) {
+      headers.put(key, value);
+    }
     public Enumeration getHeaders(String arg0) {
-        return null;
+        return headers.elements();
     }
 
     public Enumeration getHeaderNames() {
-        return null;
+        return headers.keys();
     }
 
     public int getIntHeader(String arg0) {
-        return 0;
+        return -1;
     }
 
     public String getMethod() {

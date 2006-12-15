@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -72,6 +72,7 @@ public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage
   }
 
   /**
+   * Get an appropriate markup language to render attributes.
    * See org/melati/admin/EditHeader.wm
    * See org/melati/admin/PrimarySelect.wm
    * @return the AttributeMarkupLanguage to use for rendering attributes.

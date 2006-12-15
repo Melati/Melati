@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -59,7 +59,7 @@ import org.melati.util.DelegatedHttpServletRequest;
 public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
 
     /**
-     *  Constructor
+     *  Constructor.
      *
      *  @param peer HttpServletRequest object to wrap
      */
@@ -78,8 +78,7 @@ public class HttpServletRequestWrap extends DelegatedHttpServletRequest {
     }
    
     /**
-     *  Accessor to allow one to retrieve the 
-     *  parameters
+     *  Accessor to allow one to retrieve the parameters.
      *
      *  @return Parameter as String
      */

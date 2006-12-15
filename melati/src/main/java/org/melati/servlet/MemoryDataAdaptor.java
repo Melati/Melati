@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -76,7 +76,7 @@ public class MemoryDataAdaptor implements FormDataAdaptor {
   }
 
   /**
-   * return a File object pointing to the saved data (if one exists).
+   * Return a File object pointing to the saved data (if one exists).
    * @return always <code>null</code>
    */
   public File getFile() {
@@ -92,8 +92,8 @@ public class MemoryDataAdaptor implements FormDataAdaptor {
   }
 
   /**
-   * read data from in until the delim and save it
-   * in an internal buffer for later use
+   * Read data from in until the delim and save it
+   * in an internal buffer for later use.
    *
    * @param field   a {@link MultipartFormField} to be read
    * @param in      a {@link DelimitedBufferedInputStream} to read from

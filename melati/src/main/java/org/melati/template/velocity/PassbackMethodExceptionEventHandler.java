@@ -50,12 +50,15 @@ import org.apache.velocity.app.event.MethodExceptionEventHandler;
  * '$foo' being rendered. Please return what you want rendered into the output
  * stream.
  * 
- * @author Geir Magnusson Jr. <geirm At optonline.net>
+ * @author Geir Magnusson Jr. geirm At optonline.net
  */
-
 public class PassbackMethodExceptionEventHandler implements
     MethodExceptionEventHandler {
 
+  /**
+   * {@inheritDoc}
+   * @see org.apache.velocity.app.event.MethodExceptionEventHandler#methodException
+   */
   public Object methodException(Class claz, String method, Exception e)
       throws Exception {
     return e;

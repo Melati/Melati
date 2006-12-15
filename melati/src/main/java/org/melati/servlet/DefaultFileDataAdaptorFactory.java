@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -48,23 +48,27 @@ package org.melati.servlet;
 import org.melati.Melati;
 
 /**
- * Save the uploaded file to disk in a particular directory
- * with a particular URL.
+ * Save the uploaded file to disk in a particular directory with a particular
+ * URL.
  */
 public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
 
   protected String uploadDir = null;
 
-  /** Return the directory to save files in.
+  /**
+   * Return the directory to save files in.
+   * 
    * @return the directory as a <code>String</code>
    */
   public String getUploadDir() {
     return uploadDir;
   }
 
-  /** Set the directory to save files in. 
-   *
-   * @param dir The value to set it to
+  /**
+   * Set the directory to save files in.
+   * 
+   * @param dir
+   *        The value to set it to
    */
 
   public void setUploadDir(String dir) {
@@ -77,28 +81,27 @@ public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
   public String getUploadURL() {
     return uploadURL;
   }
-  /** Set the URL to the uploadDir 
-   *
-   * @param url The value to set it to
+
+  /**
+   * Set the URL to the uploadDir
+   * 
+   * @param url
+   *        The value to set it to
    */
   public void setUploadURL(String url) {
     uploadURL = url;
   }
 
-  /** 
+  /**
    * Get the {@link FormDataAdaptor}.
-   *
-   * @param melati The {@link Melati}
-   * @param field  A {@link MultipartFormField}
-   * @return The {@link FormDataAdaptor}. 
+   * 
+   * @param melati
+   *        The {@link Melati}
+   * @param field
+   *        A {@link MultipartFormField}
+   * @return The {@link FormDataAdaptor}.
    */
   public FormDataAdaptor getIt(final Melati melati, MultipartFormField field) {
     return new DefaultFileDataAdaptor(melati, uploadDir, uploadURL);
   }
 }
-
-
-
-
-
-

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -56,19 +56,24 @@ import org.webmacro.ContextException;
 import org.webmacro.Context;
 
 /**
- * A Template for use with Melati
+ * A Template for use with Melati.
  *
  */
 
 public class WebmacroTemplate implements Template {
   private org.webmacro.Template template;
 
+  /**
+   * Constructor.
+   * @param t webmacro template
+   */
   public WebmacroTemplate(org.webmacro.Template t) {
     template = t;
   }
 
   /**
-   * @param out A {@link MelatiWebmacroWriter}.
+   * Write to the given output.
+   * @param out a {@link MelatiWebmacroWriter}.
    */
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException {

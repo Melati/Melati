@@ -68,12 +68,11 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
   /**
    * Constructor.
    * 
-   * @param melati     The current melati
-   * @param uploadDir The directory to save this file in
-   * @param uploadURL A URL pointing to this directory (null if there
-   *                  isn't an appropriate URL)
+   * @param melatiP    The current melati
+   * @param uploadDirP The directory to save this file in
+   * @param uploadUrlP A URL pointing to this directory (null if there
+   *                   isn't an appropriate URL)
    */
-
   public DefaultFileDataAdaptor(Melati melatiP, String uploadDirP, String uploadUrlP) {
     this.melati = melatiP;
     this.uploadDir = uploadDirP;

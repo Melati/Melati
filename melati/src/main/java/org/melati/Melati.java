@@ -466,6 +466,7 @@ public class Melati {
 
   /**
    * Get the URL for this request.
+   * Not used in Melati.
    *
    * @return - the URL for this request
    * @see org.melati.util.HttpUtil#servletURL

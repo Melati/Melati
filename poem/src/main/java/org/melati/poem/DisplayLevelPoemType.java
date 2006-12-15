@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,6 +54,9 @@ import org.melati.util.MelatiLocale;
  */
 public class DisplayLevelPoemType extends IntegerPoemType {
 
+  /**
+   * Constructor.
+   */
   public DisplayLevelPoemType() {
     super(false);
   }
@@ -91,12 +94,18 @@ public class DisplayLevelPoemType extends IntegerPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.DISPLAYLEVEL);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return "display level (" + super.toString() + ")";
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * @return the field type used in the Data Structure Definition language
+   * {@inheritDoc}
+   * @see org.melati.poem.IntegerPoemType#toDsdType()
    */
   public String toDsdType() {
     return "DisplayLevel";

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -62,6 +62,13 @@ public class ReconstructedHttpServletRequest
 
   private HttpServletRequestParameters oldParams;
 
+  /**
+   * Constructor.
+   * 
+   * @param oldParams parameters from original request
+   * @param newRequest the new request to add parameters to
+   * @throws ReconstructedHttpServletRequestMismatchException
+   */
   public ReconstructedHttpServletRequest(
       HttpServletRequestParameters oldParams, HttpServletRequest newRequest)
           throws ReconstructedHttpServletRequestMismatchException {
@@ -80,18 +87,26 @@ public class ReconstructedHttpServletRequest
                                                                  newRequest);
   }
 
+  /**
+   * Set the peer property.
+   * @param newRequest the request to set as peer
+   */
   public void setNewRequest(HttpServletRequest newRequest) {
     peer = newRequest;
   }
 
+  /**
+   * @return the new request
+   */
   public HttpServletRequest getNewRequest() {
     return peer;
   }
 
   /**
    * From the <B>old</B> request.
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
    */
-
   public String getParameter(String name) {
     String[] vals = (String[])oldParams.parameters.get(name);
     return vals == null ? null : vals[0];
@@ -99,24 +114,27 @@ public class ReconstructedHttpServletRequest
 
   /**
    * From the <B>old</B> request.
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getParameterValues(java.lang.String)
    */
-
   public String[] getParameterValues(String name) {
     return (String[])oldParams.parameters.get(name);
   }
 
   /**
    * From the <B>old</B> request.
+   * {@inheritDoc}
+   * @see javax.servlet.ServletRequest#getParameterNames()
    */
-
   public Enumeration getParameterNames() {
     return oldParams.parameters.keys();
   }
 
   /**
    * From the <B>old</B> request.
+   * {@inheritDoc}
+   * @see javax.servlet.http.HttpServletRequest#getMethod()
    */
-
   public String getMethod() {
     return oldParams.method;
   }

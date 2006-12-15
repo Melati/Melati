@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -71,8 +71,7 @@ import org.melati.util.MelatiWriter;
  *
  * If you want a poem session established, please extend PoemServlet.
  *
- * <A NAME=pathinfoscan>ConfigServlet does set up a basic
- * MelatiContext with the Method set,
+ * ConfigServlet does set up a basic PoemContext with the Method set,
  * but not the POEM logicaldatabase, table or troid.
  *
  * The URL is expected to take one of the following form:
@@ -83,7 +82,7 @@ import org.melati.util.MelatiWriter;
  *
  * the method is broken out of the path info and passed to
  * your application code in the <TT>Melati</TT> and
- * <TT>MelatiContext</TT> parameter
+ * <TT>PoemContext</TT> parameter
  *
  * <TABLE>
  *   <TR>
@@ -108,7 +107,7 @@ import org.melati.util.MelatiWriter;
  * </TABLE>
  *
  * You can change the way these things are determined by overriding
- * <TT>melatiContext</TT>.
+ * <TT>poemContext(Melati)</TT>.
  */
 
 public abstract class ConfigServlet extends HttpServlet {

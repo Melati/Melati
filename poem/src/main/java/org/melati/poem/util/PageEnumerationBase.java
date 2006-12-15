@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  */
 
 package org.melati.util;
@@ -66,10 +66,18 @@ public abstract class PageEnumerationBase implements PageEnumeration {
   // -------------
   // 
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return us.hasMoreElements();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public Object nextElement() {
     currentPosition++;
     return us.nextElement();
@@ -81,50 +89,90 @@ public abstract class PageEnumerationBase implements PageEnumeration {
   // -----------------
   // 
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumeration#getPageStart()
+   */
   public int getPageStart() {
     return pageStart;
   }
 
-  public int getCurrentPosition() {
-    return currentPosition;
-  }
-
-  public int getNextPosition() {
-    return hasMoreElements() ? currentPosition + 1 : 0;
-  }
-  
-  public boolean nextElementOnThisPage() {
-    return hasMoreElements() && getPageEnd() >= getNextPosition();
-  }
-
-  public int getPageSize() {
-    return page.size();
-  }
-
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumeration#getPageEnd()
+   */
   public int getPageEnd() {
     return pageStart + page.size() - 1;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumeration#getTotalCount()
+   */
   public int getTotalCount() {
     return totalCount;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumeration#getNextPageStart()
+   */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
     return it <= totalCount ? new Integer(it) : null;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumeration#getPrevPageStart()
+   */
   public Integer getPrevPageStart() {
     int it = pageStart - pageSize;
     return it < 0 ? null : new Integer(it);
   }
 
+  // 
+  // Our methods
+  // 
+  
+  /**
+   * @return where we are in the sequence
+   */
+  public int getCurrentPosition() {
+    return currentPosition;
+  }
 
+  /**
+   * @return the position of the next element in the sequence
+   */
+  public int getNextPosition() {
+    return hasMoreElements() ? currentPosition + 1 : 0;
+  }
+  
+  /**
+   * @return whether there are more elements on this page
+   */
+  public boolean nextElementOnThisPage() {
+    return hasMoreElements() && getPageEnd() >= getNextPosition();
+  }
+
+  /**
+   * @return the number of elements on a page
+   */
+  public int getPageSize() {
+    return page.size();
+  }
+
+
+
+  /**
+   * @return the start position of page
+   */
   public Vector getPageStartList() {
     Vector ret = new Vector(totalCount / pageSize);
-    int i=1;
-    while((i-1)*pageSize < totalCount) {
-      ret.addElement(new Page(i,(i-1)*pageSize+1));
+    int i = 1;
+    while((i - 1)*pageSize < totalCount) {
+      ret.addElement(new Page(i,(i - 1)*pageSize+1));
       i++;
     }
     return ret;
@@ -137,13 +185,25 @@ public abstract class PageEnumerationBase implements PageEnumeration {
   public class Page {
     int number;
     int start;
+    
+    /**
+     * Constructor.
+     * @param number page number in collection 
+     * @param start position in collection of first item on page
+     */
     public Page(int number, int start) {
       this.number = number;
       this.start = start;
     }
+    /**
+     * @return the page number 
+     */
     public int getNumber() {
       return number;
     }
+    /**
+     * @return the starting position of the page
+     */
     public int getStart() {
       return start; 
     }

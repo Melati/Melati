@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -60,6 +60,11 @@ public class StringPoemType extends SizedAtomPoemType {
   /** The nullable instance. */
   public static final StringPoemType nullableInstance = new StringPoemType(true, -1);
 
+  /**
+   * Constructor.
+   * @param nullable whether nullable
+   * @param size how big
+   */
   public StringPoemType(boolean nullable, int size) {
     super(Types.VARCHAR, "VARCHAR", nullable, size);
   }
@@ -101,12 +106,17 @@ public class StringPoemType extends SizedAtomPoemType {
         sizeGreaterEqual(getSize(), ((StringPoemType)other).getSize());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#toString()
+   */
   public String toString() {
     return (getNullable() ? "nullable " : "") + "String(" + getSize() + ")";
   }
 
   /**
    * The field type used in the Data Structure Definition language.
+   * @return a dsd type
    */
   public String toDsdType() {
     return "String";

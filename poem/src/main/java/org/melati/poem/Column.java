@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,7 +57,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  * Abstract {@link Table} column which is extended by the generated classes.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  * 
  */
 public abstract class Column implements FieldAttributes {
@@ -68,6 +68,13 @@ public abstract class Column implements FieldAttributes {
   private DefinitionSource definitionSource;
   private ColumnInfo info = null;
 
+  /**
+   * Constructor.
+   * @param table this column belongs to
+   * @param name of this Column
+   * @param type datatype
+   * @param definitionSource where it is being defined from
+   */
   public Column(
     Table table,
     String name,
@@ -86,6 +93,9 @@ public abstract class Column implements FieldAttributes {
   // ================
   // 
 
+  /**
+   * @return the underlying Ddbms
+   */
   Dbms dbms() {
     return getDatabase().getDbms();
   }
@@ -248,10 +258,16 @@ public abstract class Column implements FieldAttributes {
   // ===========
   // 
 
+  /**
+   * @return the Databse our table is in
+   */
   public final Database getDatabase() {
     return getTable().getDatabase();
   }
 
+  /**
+   * @return our Table
+   */
   public final Table getTable() {
     return table;
   }
@@ -260,6 +276,10 @@ public abstract class Column implements FieldAttributes {
     this.table = table;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getName()
+   */
   public final String getName() {
     return name;
   }
@@ -281,12 +301,17 @@ public abstract class Column implements FieldAttributes {
   /**
    * Return a human readable name from the metadata.
    * 
+   * {@inheritDoc}
    * @see org.melati.poem.FieldAttributes#getDisplayName()
    */
   public final String getDisplayName() {
     return info.getDisplayname();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getDescription()
+   */
   public final String getDescription() {
     return info.getDescription();
   }
@@ -295,93 +320,164 @@ public abstract class Column implements FieldAttributes {
    * The troid (<TT>id</TT>) of the column's entry in the <TT>columninfo</TT>
    * table.  It will always have one (except during initialisation, which the
    * application programmer will never see).
+   * @return the troid of our record in the columnInfo table
    */
-
   final Integer columnInfoID() {
     return info == null ? null : info.troid();
   }
 
+  /**
+   * @return the metadata record for this Column
+   */
   public final ColumnInfo getColumnInfo() {
     return info;
   }
 
+  /**
+   * @return the defined or default DsiplayLevel
+   */
   public DisplayLevel getDisplayLevel() {
     return info == null ? defaultDisplayLevel() : info.getDisplaylevel();
   }
 
+  /**
+   * @param level the DisplayLevel to set
+   */
   public void setDisplayLevel(DisplayLevel level) {
     if (info != null)
       info.setDisplaylevel(level);
   }
 
+  /**
+   * @return our defined or default Searchabillity
+   */
   public Searchability getSearchability() {
     return info == null ? defaultSearchability() : info.getSearchability();
   }
 
+  /**
+   * @param searchability the Searchability to set
+   */
   public void setSearchability(Searchability searchability) {
     if (info != null)
       info.setSearchability(searchability);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getUserEditable()
+   */
   public final boolean getUserEditable() {
     return !isTroidColumn()
       && (info == null || info.getUsereditable().booleanValue());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getUserCreateable()
+   */
   public final boolean getUserCreateable() {
     return !isTroidColumn()
       && (info == null || info.getUsercreateable().booleanValue());
   }
 
+  /**
+   * @return the SQLPoemType of this Column
+   */
   public final SQLPoemType getSQLType() {
     return type;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getType()
+   */
   public final PoemType getType() {
     return type;
   }
 
+  /**
+   * @return whether this is a Troid Column
+   */
   public final boolean isTroidColumn() {
     return getType() instanceof TroidPoemType;
   }
 
+  /**
+   * A Deleted Column is a Column which signal whether 
+   * the record has been soft-deleted.
+   * @return whether this is a Deleted Column
+   */
   public final boolean isDeletedColumn() {
     return getType() instanceof DeletedPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getIndexed()
+   */
   public final boolean getIndexed() {
     return getUnique() || info.getIndexed().booleanValue();
   }
 
+  /**
+   * @return whether this Column's values are unique in this table
+   */
   public final boolean getUnique() {
     return isTroidColumn() || info.getUnique().booleanValue();
   }
 
+  /**
+   * Get the IntegrityFix, if any.
+   * @return the IntegrityFix or default
+   */
   public IntegrityFix getIntegrityFix() {
     IntegrityFix it = info.getIntegrityfix();
     return it == null ? defaultIntegrityFix() : it;
   }
 
+  /**
+   * @param fix the IntegrityFix to set
+   */
   public void setIntegrityFix(StandardIntegrityFix fix) {
     info.setIntegrityfix(fix);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getRenderInfo()
+   */
   public final String getRenderInfo() {
     return info.getRenderinfo();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getWidth()
+   */
   public final int getWidth() {
     return info.getWidth().intValue();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.FieldAttributes#getHeight()
+   */
   public final int getHeight() {
     return info.getHeight().intValue();
   }
 
+  /**
+   * @return the set or default DisplayOrderPriority
+   */
   public final Integer getDisplayOrderPriority() {
     return info == null ? null : info.getDisplayorderpriority();
   }
 
+  /**
+   * Defaults to false.
+   * @return whether this Column should be sorted in descending order 
+   */
   public final boolean getSortDescending() {
     return info.getSortdescending() == null
       ? false
@@ -394,6 +490,10 @@ public abstract class Column implements FieldAttributes {
   // ===========
   // 
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return table.getName()
       + "."
@@ -518,6 +618,7 @@ public abstract class Column implements FieldAttributes {
   * for this <code>Column</code>.
   * 
   * @param g  the <code>Persistent</code> to read
+  * @return the Object itself
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights
@@ -529,6 +630,7 @@ public abstract class Column implements FieldAttributes {
   * for this <code>Column</code>.
   * 
   * @param g  the <code>Persistent</code> to read
+  * @return the Object without checks
   */
   public abstract Object getRaw_unsafe(Persistent g);
 
@@ -561,6 +663,7 @@ public abstract class Column implements FieldAttributes {
   * for this <code>Column</code>.
   * 
   * @param g  the <code>Persistent</code> to modify
+  * @return either the value or what is represented by the value
   * @throws AccessPoemException 
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights
@@ -593,6 +696,11 @@ public abstract class Column implements FieldAttributes {
 
     private Column column;
 
+    /**
+     * Constructor.
+     * @param column Column relevant to
+     * @param problem the Exception
+     */
     public LoadException(Column column, Exception problem) {
       super(problem);
       this.column = column;
@@ -656,8 +764,17 @@ public abstract class Column implements FieldAttributes {
   // ============
   // 
 
+  /**
+   * Return a Field of the same type as this Column from the Persistent.
+   * @param g the Perseistent
+   * @return a Field
+   */
   public abstract Field asField(Persistent g);
 
+  /**
+   * Return a Field of the same type as this Column with default attributes.
+   * @return the empty Field
+   */
   public Field asEmptyField() {
     return new Field((Object) null, this);
   }
@@ -668,13 +785,19 @@ public abstract class Column implements FieldAttributes {
    */
   public static class SettingException extends NormalPoemException {
     private static final long serialVersionUID = 1L;
-    /** The Persistent to which this Column belongs */
+    /** The Persistent to which this Column belongs. */
     public Persistent persistent;
-    /** The Column setting which caused the problem */
+    /** The Column setting which caused the problem. */
     public Column column;
-    /** The description of the Column */
+    /** The description of the Column. */
     public String columnDesc;
 
+    /**
+     * Constructor.
+     * @param persistent the Persistent with the problem
+     * @param column he Column with the problem
+     * @param trouble the problem
+     */
     public SettingException(
       Persistent persistent,
       Column column,
@@ -721,6 +844,7 @@ public abstract class Column implements FieldAttributes {
    * Table this column refers to, if this is a reference column, 
    * otherwise the Empty Enumeration.
    * @param object A persistent of the type referred to by this column
+   * @return an Enumeration Persistents referencing this Column of the Persistent
    */
   public Enumeration referencesTo(Persistent object) {
     return getType() instanceof ReferencePoemType
@@ -736,6 +860,8 @@ public abstract class Column implements FieldAttributes {
    * The given object is used to create a new row if
    * necessary, in which case it will be assigned the next troid.and
    * cached.
+   * @param orCreate the Persistent to use as criteria and ensure
+   * @return the existing or newly created Persistent
    */
   public Persistent ensure(Persistent orCreate) {
     Persistent there = firstWhereEq(getRaw_unsafe(orCreate));
@@ -751,7 +877,7 @@ public abstract class Column implements FieldAttributes {
    * Find the next free Id in this Troid column.
    * 
    * This is not used in Melati, but is used in Bibliomania. 
-   * Throws AppBugPoemException if this Column is not a troid column 
+   * Throws AppBugPoemException if this Column is not a troid column.
    * @param whereClause
    * @return a troid
    * @since 04/05/2000

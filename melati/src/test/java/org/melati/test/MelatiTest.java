@@ -7,6 +7,7 @@ import org.melati.poem.Field;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
+import org.melati.servlet.test.MockServletRequest;
 
 import junit.framework.TestCase;
 
@@ -49,63 +50,63 @@ public class MelatiTest extends TestCase {
   
   
   /**
-   * Test method for 'org.melati.Melati.Melati(MelatiConfig, HttpServletRequest, HttpServletResponse)'
+   * @see org.melati.Melati#Melati(MelatiConfig, HttpServletRequest, HttpServletResponse)
    */
   public void testMelatiMelatiConfigHttpServletRequestHttpServletResponse() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.Melati(MelatiConfig, MelatiWriter)'
+   * @see org.melati.Melati#Melati(MelatiConfig, MelatiWriter)
    */
   public void testMelatiMelatiConfigMelatiWriter() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getRequest()'
+   * @see org.melati.Melati#getRequest()
    */
   public void testGetRequest() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setRequest(HttpServletRequest)'
+   * @see org.melati.Melati#setRequest(HttpServletRequest)
    */
   public void testSetRequest() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getResponse()'
+   * @see org.melati.Melati#getResponse()
    */
   public void testGetResponse() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setPoemContext(PoemContext)'
+   * @see org.melati.Melati#setPoemContext(PoemContext)
    */
   public void testSetPoemContext() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.loadTableAndObject()'
+   * @see org.melati.Melati#loadTableAndObject()
    */
   public void testLoadTableAndObject() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getPoemContext()'
+   * @see org.melati.Melati#getPoemContext()
    */
   public void testGetPoemContext() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getDatabase()'
+   * @see org.melati.Melati#getDatabase()
    */
   public void testGetDatabase() {
 
@@ -124,12 +125,12 @@ public class MelatiTest extends TestCase {
       pc = poemContext(m);
       m.setPoemContext(pc);
       // Fails in maven eclipse plugin 
-      //assertEquals(0, m.getKnownDatabaseNames().size());
+      assertEquals(0, m.getKnownDatabaseNames().size());
       pc.setLogicalDatabase("melatijunit");
       m.setPoemContext(pc);
       m.loadTableAndObject();
       // Fails in maven eclipse plugin 
-      //assertEquals(1, m.getKnownDatabaseNames().size());
+      assertEquals(1, m.getKnownDatabaseNames().size());
     } catch (MelatiException e) {
       e.printStackTrace();
       fail();
@@ -137,84 +138,84 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.Melati.getTable()'
+   * @see org.melati.Melati#getTable()
    */
   public void testGetTable() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getObject()'
+   * @see org.melati.Melati#getObject()
    */
   public void testGetObject() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getMethod()'
+   * @see org.melati.Melati#getMethod()
    */
   public void testGetMethod() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setTemplateEngine(TemplateEngine)'
+   * @see org.melati.Melati#setTemplateEngine(TemplateEngine)
    */
   public void testSetTemplateEngine() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getTemplateEngine()'
+   * @see org.melati.Melati#getTemplateEngine()
    */
   public void testGetTemplateEngine() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setTemplateContext(TemplateContext)'
+   * @see org.melati.Melati#setTemplateContext(TemplateContext)
    */
   public void testSetTemplateContext() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getTemplateContext()'
+   * @see org.melati.Melati#getTemplateContext()
    */
   public void testGetTemplateContext() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getServletTemplateContext()'
+   * @see org.melati.Melati#getServletTemplateContext()
    */
   public void testGetServletTemplateContext() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getConfig()'
+   * @see org.melati.Melati#getConfig()
    */
   public void testGetConfig() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getPathInfoParts()'
+   * @see org.melati.Melati#getPathInfoParts()
    */
   public void testGetPathInfoParts() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setArguments(String[])'
+   * @see org.melati.Melati#setArguments(String[])
    */
   public void testSetArguments() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getArguments()'
+   * @see org.melati.Melati#getArguments()
    */
   public void testGetArguments() {
     MelatiConfig mc = null;
@@ -234,14 +235,14 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.Melati.getSession()'
+   * @see org.melati.Melati#getSession()
    */
   public void testGetSession() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getContextUtil(String)'
+   * @see org.melati.Melati#getContextUtil(String)
    */
   public void testGetContextUtil() {
     MelatiConfig mc = null;
@@ -265,54 +266,78 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.Melati.getLogoutURL()'
+   * @see org.melati.Melati#getLogoutURL()
+   * @throws Exception 
    */
-  public void testGetLogoutURL() {
+  public void testGetLogoutURL() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    m.setRequest(new MockServletRequest());
+    assertEquals("/org.melati.login.Logout/null",m.getLogoutURL());
   }
 
   /**
-   * Test method for 'org.melati.Melati.getLoginURL()'
+   * @see org.melati.Melati#getLoginURL()
+   * @throws Exception 
    */
-  public void testGetLoginURL() {
+  public void testGetLoginURL() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    m.setRequest(new MockServletRequest());
+    assertEquals("/org.melati.login.Login/null",m.getLoginURL());
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getZoneURL()'
+   * @see org.melati.Melati#getZoneURL()
    */
   public void testGetZoneURL() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getServletURL()'
+   * Not used in Melati.
+   * @throws Exception 
+   * @see org.melati.Melati#getServletURL()
    */
-  public void testGetServletURL() {
-
+  public void testGetServletURL() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    m.setRequest(new MockServletRequest());
+    assertEquals("http://localhost",m.getServletURL());
   }
 
   /**
-   * Test method for 'org.melati.Melati.getJavascriptLibraryURL()'
+   * @see org.melati.Melati#getJavascriptLibraryURL()
    */
   public void testGetJavascriptLibraryURL() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getMelatiLocale()'
+   * @throws Exception 
+   * @see org.melati.Melati#getMelatiLocale()
    */
-  public void testGetMelatiLocale() {
+  public void testGetMelatiLocale() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
     assertEquals("en_GB", m.getMelatiLocale().toString());
+    m.setRequest(new MockServletRequest());
+    assertEquals("en_GB", m.getMelatiLocale().toString());
+    MockServletRequest msr = new MockServletRequest();
+    msr.setHeader("Accept-Language","en-gb");
+    m.setRequest(msr);
+    assertEquals("en_GB", m.getMelatiLocale().toString());
+    msr.setHeader("Accept-Language","not");
+    assertEquals("en_GB", m.getMelatiLocale().toString());
+    msr.setHeader("Accept-Language","en-us");
+    assertEquals("en_US", m.getMelatiLocale().toString());
     
 
   }
@@ -337,28 +362,28 @@ public class MelatiTest extends TestCase {
     
   }
   /**
-   * Test method for 'org.melati.Melati.establishCharsets()'
+   * @see org.melati.Melati#establishCharsets()
    */
   public void testEstablishCharsets() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setResponseContentType(String)'
+   * @see org.melati.Melati#setResponseContentType(String)
    */
   public void testSetResponseContentType() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setMarkupLanguage(MarkupLanguage)'
+   * @see org.melati.Melati#setMarkupLanguage(MarkupLanguage)
    */
   public void testSetMarkupLanguage() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getMarkupLanguage()'
+   * @see org.melati.Melati#getMarkupLanguage()
    */
   public void testGetMarkupLanguage() {
     MelatiConfig mc = null;
@@ -376,112 +401,112 @@ public class MelatiTest extends TestCase {
   }
 
   /**
-   * Test method for 'org.melati.Melati.getHTMLMarkupLanguage()'
+   * @see org.melati.Melati#getHTMLMarkupLanguage()
    */
   public void testGetHTMLMarkupLanguage() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.sameURLWith(String, String)'
+   * @see org.melati.Melati#sameURLWith(String, String)
    */
   public void testSameURLWithStringString() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.sameURLWith(String)'
+   * @see org.melati.Melati#sameURLWith(String)
    */
   public void testSameURLWithString() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getSameURL()'
+   * @see org.melati.Melati#getSameURL()
    */
   public void testGetSameURL() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setBufferingOff()'
+   * @see org.melati.Melati#setBufferingOff()
    */
   public void testSetBufferingOff() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setFlushingOn()'
+   * @see org.melati.Melati#setFlushingOn()
    */
   public void testSetFlushingOn() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.gotWriter()'
+   * @see org.melati.Melati#gotWriter()
    */
   public void testGotWriter() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getURLQueryEncoding()'
+   * @see org.melati.Melati#getURLQueryEncoding()
    */
   public void testGetURLQueryEncoding() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.urlEncode(String)'
+   * @see org.melati.Melati#urlEncode(String)
    */
   public void testUrlEncode() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getEncoding()'
+   * @see org.melati.Melati#getEncoding()
    */
   public void testGetEncoding() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getWriter()'
+   * @see org.melati.Melati#getWriter()
    */
   public void testGetWriter() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getStringWriter()'
+   * @see org.melati.Melati#getStringWriter()
    */
   public void testGetStringWriter() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.write()'
+   * @see org.melati.Melati#write()
    */
   public void testWrite() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getPassbackVariableExceptionHandler()'
+   * @see org.melati.Melati#getPassbackVariableExceptionHandler()
    */
   public void testGetPassbackVariableExceptionHandler() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.setVariableExceptionHandler(Object)'
+   * @see org.melati.Melati#setVariableExceptionHandler(Object)
    */
   public void testSetVariableExceptionHandler() {
 
   }
 
   /**
-   * Test method for 'org.melati.Melati.getUser()'
+   * @see org.melati.Melati#getUser()
    */
   public void testGetUser() {
     MelatiConfig mc = null;

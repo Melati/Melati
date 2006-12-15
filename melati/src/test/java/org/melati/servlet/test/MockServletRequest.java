@@ -23,7 +23,7 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.util.EmptyEnumeration;
 
-class MockServletRequest implements HttpServletRequest {
+public class MockServletRequest implements HttpServletRequest {
 
     Map parameters = new HashMap();
     

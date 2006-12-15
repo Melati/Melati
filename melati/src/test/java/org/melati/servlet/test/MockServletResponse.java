@@ -12,7 +12,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-class MockServletResponse implements HttpServletResponse {
+public class MockServletResponse implements HttpServletResponse {
 
     public void addCookie(Cookie arg0) {
     }

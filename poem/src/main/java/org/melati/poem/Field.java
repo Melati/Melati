@@ -54,6 +54,10 @@ import org.melati.util.MelatiLocale;
 
 /**
  * A Field.
+ * A field is a value (the raw) with its metadata 
+ * (a set of attributes) and possibly an access violation 
+ * if the current user is not allowed to access it. 
+ * 
  */
 public class Field implements FieldAttributes, Cloneable {
 
@@ -221,7 +225,7 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   /**
-   * @return
+   * @return the object represented by the raw
    * @throws AccessPoemException if the current AccessToken does not permit reading
    */
   public final Object getCooked() throws AccessPoemException {
@@ -233,7 +237,7 @@ public class Field implements FieldAttributes, Cloneable {
   /**
    * @param locale
    * @param style
-   * @return
+   * @return a String representation of the Object represented by the raw
    * @throws AccessPoemException if the current AccessToken does not permit reading
    */
   public final String getCookedString(MelatiLocale locale, int style)
@@ -341,6 +345,7 @@ public class Field implements FieldAttributes, Cloneable {
   /**
    * Dump to a string.
    * 
+   * {@inheritDoc}
    * @see java.lang.Object#toString()
    */
   public String toString() {

@@ -864,7 +864,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -876,7 +876,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Binaryfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield2 <code>Column</code>
@@ -888,7 +888,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Stringfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield2 <code>Column</code>
@@ -900,7 +900,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Passwordfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield2 <code>Column</code>
@@ -912,7 +912,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Booleanfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield2 <code>Column</code>
@@ -924,7 +924,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Datefield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield2 <code>Column</code>
@@ -936,7 +936,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Doublefield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield2 <code>Column</code>
@@ -948,7 +948,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Integerfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield2 <code>Column</code>
@@ -960,7 +960,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Longfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield2 <code>Column</code>
@@ -972,7 +972,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Bigdecimalfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield2 <code>Column</code>
@@ -984,7 +984,7 @@ public class EAExtendedTableBase extends EverythingAbstractTable {
 
  /**
   * Retrieves the <code>Timestampfield2</code> <code>Column</code> for this 
-  * <code>EAExtended</code> <code>Table</code>
+  * <code>EAExtended</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield2 <code>Column</code>

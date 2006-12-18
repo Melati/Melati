@@ -39,11 +39,6 @@ public abstract class EmptyAbstractTableBase extends Persistent {
     return (EmptyAbstractTableTable)getTable();
   }
 
-/*
-  private EmptyAbstractTableTable _getEmptyAbstractTableTable() {
-    return (EmptyAbstractTableTable)getTable();
-  }
-*/
-  // Fields in this table 
+  // There are no Fields in this table, only in its ancestors 
 }
 

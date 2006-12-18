@@ -12,7 +12,6 @@ import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
-//import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
@@ -221,7 +220,7 @@ public class PasswordFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>PasswordField</code> <code>Table</code>
+  * <code>PasswordField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -233,7 +232,7 @@ public class PasswordFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Passwordfield</code> <code>Column</code> for this 
-  * <code>PasswordField</code> <code>Table</code>
+  * <code>PasswordField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>

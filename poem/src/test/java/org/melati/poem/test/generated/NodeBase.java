@@ -301,14 +301,14 @@ public abstract class NodeBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Parent</code> object reffered to.
+  * Retrieves the <code>Parent</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Parent</code> as a <code>Node</code> 
   */
   public Node getParent()

@@ -220,7 +220,7 @@ public class IntegerFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>IntegerField</code> <code>Table</code>
+  * <code>IntegerField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -232,7 +232,7 @@ public class IntegerFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Integerfield</code> <code>Column</code> for this 
-  * <code>IntegerField</code> <code>Table</code>
+  * <code>IntegerField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>

@@ -221,7 +221,7 @@ public class BigdecimalFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>BigdecimalField</code> <code>Table</code>
+  * <code>BigdecimalField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -233,7 +233,7 @@ public class BigdecimalFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Bigdecimalfield</code> <code>Column</code> for this 
-  * <code>BigdecimalField</code> <code>Table</code>
+  * <code>BigdecimalField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield <code>Column</code>

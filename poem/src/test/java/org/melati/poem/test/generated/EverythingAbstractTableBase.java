@@ -735,7 +735,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Binaryfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the binaryfield <code>Column</code>
@@ -747,7 +747,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Stringfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the stringfield <code>Column</code>
@@ -759,7 +759,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Passwordfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the passwordfield <code>Column</code>
@@ -771,7 +771,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Booleanfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>
@@ -783,7 +783,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Datefield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the datefield <code>Column</code>
@@ -795,7 +795,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Doublefield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the doublefield <code>Column</code>
@@ -807,7 +807,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Integerfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the integerfield <code>Column</code>
@@ -819,7 +819,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Longfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield <code>Column</code>
@@ -831,7 +831,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Bigdecimalfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the bigdecimalfield <code>Column</code>
@@ -843,7 +843,7 @@ public class EverythingAbstractTableBase extends Table {
 
  /**
   * Retrieves the <code>Timestampfield</code> <code>Column</code> for this 
-  * <code>EverythingAbstract</code> <code>Table</code>
+  * <code>EverythingAbstract</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield <code>Column</code>

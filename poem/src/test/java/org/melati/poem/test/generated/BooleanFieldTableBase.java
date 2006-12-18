@@ -220,7 +220,7 @@ public class BooleanFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>BooleanField</code> <code>Table</code>
+  * <code>BooleanField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -232,7 +232,7 @@ public class BooleanFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Booleanfield</code> <code>Column</code> for this 
-  * <code>BooleanField</code> <code>Table</code>
+  * <code>BooleanField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the booleanfield <code>Column</code>

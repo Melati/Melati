@@ -221,7 +221,7 @@ public class TimestampFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>TimestampField</code> <code>Table</code>
+  * <code>TimestampField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -233,7 +233,7 @@ public class TimestampFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Timestampfield</code> <code>Column</code> for this 
-  * <code>TimestampField</code> <code>Table</code>
+  * <code>TimestampField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the timestampfield <code>Column</code>

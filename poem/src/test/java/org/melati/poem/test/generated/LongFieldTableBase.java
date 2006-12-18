@@ -220,7 +220,7 @@ public class LongFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>LongField</code> <code>Table</code>
+  * <code>LongField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -232,7 +232,7 @@ public class LongFieldTableBase extends Table {
 
  /**
   * Retrieves the <code>Longfield</code> <code>Column</code> for this 
-  * <code>LongField</code> <code>Table</code>
+  * <code>LongField</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the longfield <code>Column</code>

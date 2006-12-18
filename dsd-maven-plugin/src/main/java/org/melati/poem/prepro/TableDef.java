@@ -276,12 +276,13 @@ public class TableDef {
         + naming.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
-        + "#generateBaseJava \n" + "  * @return the " + requiredReturnClass
+        + "#generateBaseJava \n" 
+        + "  * @return the " + requiredReturnClass
         + "\n" + "  */\n");
     w.write("  public " + requiredReturnClass + " "
         + naming.tableAccessorMethod() + "() {\n" + "    return ("
         + requiredReturnClass + ")getTable();\n" + "  }\n\n");
-
+      
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
     } else {
@@ -582,9 +583,9 @@ public class TableDef {
       addImport(naming.superclassMainFQName(), "persistent");
     }
 
-    // Only used if we have fields, which we may not in an overridden class
-    if (fields.elements().hasMoreElements())
-      addImport(naming.tableMainClassFQName(), "persistent");
+    // we may not have any fields in an in an overridden class
+    // but we need the import for getTable
+    addImport(naming.tableMainClassFQName(), "persistent");
     addImport(dsd.packageName + "." + dsd.databaseTablesClass, "persistent");
 
     addImport("org.melati.poem.Database", "table");

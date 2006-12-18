@@ -136,10 +136,6 @@
       <target>1.4</target>
      </configuration>
     </plugin>
-    <!--  Cycles in dependency graph -->
-    <!-- uncomment below and run from this directory 
-         to regenerated poem or test classes -->
-    <!--
     <plugin>
      <groupId>org.melati</groupId>
      <artifactId>maven-dsd-plugin</artifactId>
@@ -154,14 +150,15 @@
      <configuration>
        <dsdPackage>org.melati.poem</dsdPackage>
        <dsdFile>Poem.dsd</dsdFile>
+    <!--
      
        OR 
        <sourceDirectory>src/test/java</sourceDirectory>
        <dsdPackage>org.melati.poem.test</dsdPackage>
        <dsdFile>Test.dsd</dsdFile>
+    -->
      </configuration>
     </plugin>
-    -->
      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-jar-plugin</artifactId>

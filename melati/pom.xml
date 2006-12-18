@@ -150,26 +150,32 @@
      <configuration>
        <dsdPackage>org.melati.poem</dsdPackage>
        <dsdFile>Poem.dsd</dsdFile>
-    <!--
-     
-       OR 
+     <!--
+      OR 
        <sourceDirectory>src/test/java</sourceDirectory>
        <dsdPackage>org.melati.poem.test</dsdPackage>
        <dsdFile>Test.dsd</dsdFile>
-    -->
+      -->
      </configuration>
+     <dependencies>
+      <dependency>
+       <groupId>org.melati</groupId>
+       <artifactId>melati</artifactId>
+       <version>0.7.5-RC5</version>
+      </dependency>
+     </dependencies>
     </plugin>
-     <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-jar-plugin</artifactId>
-       <executions>
-         <execution>
-           <goals>
-             <goal>test-jar</goal>
-           </goals>
-         </execution>
-       </executions>
-     </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <executions>
+        <execution>
+          <goals>
+            <goal>test-jar</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
     <plugin>
      <groupId>org.apache.maven.plugins</groupId>
      <artifactId>maven-surefire-plugin</artifactId>

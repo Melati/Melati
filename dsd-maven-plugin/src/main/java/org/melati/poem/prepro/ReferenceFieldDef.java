@@ -48,7 +48,6 @@ package org.melati.poem.prepro;
 import java.util.Vector;
 import java.io.Writer;
 import java.io.IOException;
-import org.melati.poem.StandardIntegrityFix;
 
 /**
  * A definition of a <tt>ReferencePoemType</tt> from the DSD.
@@ -58,7 +57,7 @@ import org.melati.poem.StandardIntegrityFix;
  */ 
 public class ReferenceFieldDef extends FieldDef {
 
-  StandardIntegrityFix integrityfix;
+  String integrityfix;
 
  /**
   * Constructor.
@@ -120,7 +119,7 @@ public class ReferenceFieldDef extends FieldDef {
         "\n" +
         "          public StandardIntegrityFix defaultIntegrityFix() {\n" +
         "            return StandardIntegrityFix." + 
-        integrityfix.name + ";\n" +
+        integrityfix + ";\n" +
         "          }\n");
     }
   }

@@ -47,7 +47,6 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 import java.io.IOException;
-import org.melati.poem.DisplayLevel;
 
 /**
  * A <tt>FieldQualifier</tt> which defines the <tt>DisplayLevel</tt> 
@@ -56,7 +55,7 @@ import org.melati.poem.DisplayLevel;
  */
 public class DisplayLevelFieldQualifier extends FieldQualifier {
 
-  private DisplayLevel displayLevel;
+  private String displayLevel;
 
  /**
   * Constructor.
@@ -72,17 +71,29 @@ public class DisplayLevelFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<display level name>", tokens);
-    try {
-      displayLevel = DisplayLevel.named(tokens.sval);
-    }
-    catch (DisplayLevel.NameUnrecognisedException e) {
-      throw new ParsingDSDException("<display level name>", tokens);
-    }
+    displayLevel = validDisplayLevelNamed(tokens.sval);
 
     tokens.nextToken();
   }
 
  /**
+  * Check DisplayLevel name.
+  * @param sval DisplayLevel name
+  * @return validated DisplayLevel name
+  */
+  private String validDisplayLevelNamed(String sval) {
+    if (sval.equals("primary") ||  
+        sval.equals("summary") ||
+        sval.equals("record")  ||
+        sval.equals("detail")  || 
+        sval.equals("never")
+        )
+      return sval;
+    else 
+      throw new ParsingDSDException("<display level name>: one of primary, summary, record, detail or never", sval);
+}
+
+/**
   * Update the model.
   *
   * @param field the {@link FieldDef} to update

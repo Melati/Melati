@@ -80,9 +80,9 @@ public abstract class FieldDef {
 
   final String tableAccessorMethod;
 
-  org.melati.poem.DisplayLevel displayLevel = null;
+  protected String displayLevel = null;
 
-  org.melati.poem.Searchability searchability = null;
+  protected String searchability = null;
 
   private boolean sortDescending = false;
 
@@ -412,12 +412,12 @@ public abstract class FieldDef {
 
     if (displayLevel != null)
       w.write("          protected DisplayLevel defaultDisplayLevel() {\n"
-          + "            return DisplayLevel." + displayLevel.name + ";\n"
+          + "            return DisplayLevel." + displayLevel + ";\n"
           + "          }\n" + "\n");
 
     if (searchability != null)
       w.write("          protected Searchability defaultSearchability() {\n"
-          + "            return Searchability." + searchability.name + ";\n"
+          + "            return Searchability." + searchability + ";\n"
           + "          }\n" + "\n");
 
     if (displayOrderPriority != -1)

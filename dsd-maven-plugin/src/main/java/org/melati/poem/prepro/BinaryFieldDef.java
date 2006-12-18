@@ -79,7 +79,7 @@ public class BinaryFieldDef extends AtomFieldDef {
     super(lineNo, table, name, "byte[]", displayOrder, qualifiers);
     if (size == 0)
       throw new BinarySizeZeroException(this);
-    if (searchability == org.melati.poem.Searchability.yes)
+    if (searchability == "yes")
       throw new BinarySearchableException(this);
     table.addImport("org.melati.poem.BinaryPoemType", "table");
   }

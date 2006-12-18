@@ -47,7 +47,6 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 import java.io.IOException;
-import org.melati.poem.StandardIntegrityFix;
 
 /**
  * A <tt>FieldQualifier</tt> which defines the type of 
@@ -56,7 +55,7 @@ import org.melati.poem.StandardIntegrityFix;
  */
 public class IntegrityfixFieldQualifier extends FieldQualifier {
 
-  private StandardIntegrityFix integrityfix;
+  private String integrityfix;
 
  /**
   * Constructor.
@@ -72,14 +71,23 @@ public class IntegrityfixFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<integrity fix name>", tokens);
-    try {
-      integrityfix = StandardIntegrityFix.named(tokens.sval);
-    }
-    catch (StandardIntegrityFix.NameUnrecognisedException e) {
-      throw new ParsingDSDException("<integrity fix name>", tokens);
-    }
+    integrityfix = validIntegrityFixNamed(tokens.sval);
 
     tokens.nextToken();
+  }
+
+ /**
+  * Check fix name.
+  * @param sval fix name
+  * @return validated fix name
+  */
+  private String validIntegrityFixNamed(String sval) {
+    if (sval.equals("delete") ||  
+        sval.equals("clear")  ||
+        sval.equals("prevent"))
+      return sval;
+    else 
+      throw new ParsingDSDException("<integrity fix name>: one of delete, clear or prevent", sval);
   }
 
  /**

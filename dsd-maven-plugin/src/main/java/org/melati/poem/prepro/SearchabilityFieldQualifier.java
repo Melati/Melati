@@ -47,7 +47,6 @@ package org.melati.poem.prepro;
 
 import java.io.StreamTokenizer;
 import java.io.IOException;
-import org.melati.poem.Searchability;
 
 /**
  * A <tt>FieldQualifier</tt> which defines the type of 
@@ -56,7 +55,7 @@ import org.melati.poem.Searchability;
  */
 public class SearchabilityFieldQualifier extends FieldQualifier {
 
-  private Searchability searchability;
+  private String searchability;
 
  /**
   * Constructor.
@@ -72,17 +71,27 @@ public class SearchabilityFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_WORD)
       throw new ParsingDSDException("<searchability level name>", tokens);
-    try {
-      searchability = Searchability.named(tokens.sval);
-    }
-    catch (Searchability.NameUnrecognisedException e) {
-      throw new ParsingDSDException("<searchability level name>", tokens);
-    }
+    
+      searchability = validSearchabilityNamed(tokens.sval);
 
     tokens.nextToken();
   }
 
  /**
+  * Check Searchability name.
+  * @param sval Searchability name
+  * @return validated Searchability name
+  */
+  private String validSearchabilityNamed(String sval) {
+    if (sval.equals("primary") ||  
+        sval.equals("yes")  ||
+        sval.equals("no"))
+      return sval;
+    else 
+      throw new ParsingDSDException("<searchability level name>: one of primary, yes or no", sval);
+  }
+
+/**
   * Update the model.
   *
   * @param field the {@link FieldDef} to update

@@ -531,7 +531,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Id</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the id <code>Column</code>
@@ -543,7 +543,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Name</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the name <code>Column</code>
@@ -555,7 +555,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Owner</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the owner <code>Column</code>
@@ -567,7 +567,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Address</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the address <code>Column</code>
@@ -579,7 +579,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Updates</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the updates <code>Column</code>
@@ -591,7 +591,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Lastupdated</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdated <code>Column</code>
@@ -603,7 +603,7 @@ public class ContactTableBase extends Table {
 
  /**
   * Retrieves the <code>Lastupdateuser</code> <code>Column</code> for this 
-  * <code>Contact</code> <code>Table</code>
+  * <code>Contact</code> <code>Table</code>.
   * 
   * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
   * @return the lastupdateuser <code>Column</code>

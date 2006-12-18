@@ -304,7 +304,7 @@ public abstract class ChildBase extends Persistent {
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Parent</code> as a <code>Parent</code> 
   */
   public Parent getParent()

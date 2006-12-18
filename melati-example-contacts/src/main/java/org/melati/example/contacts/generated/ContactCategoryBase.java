@@ -219,14 +219,14 @@ public abstract class ContactCategoryBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Category</code> object reffered to.
+  * Retrieves the <code>Category</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Category</code> as a <code>Category</code> 
   */
   public Category getCategory()
@@ -334,14 +334,14 @@ public abstract class ContactCategoryBase extends Persistent {
 
 
  /**
-  * Retrieves the <code>Contact</code> object reffered to.
+  * Retrieves the <code>Contact</code> object referred to.
   *  
   * @generator org.melati.poem.prepro.ReferenceFieldDef#generateBaseMethods 
   * @throws AccessPoemException  
   *         if the current <code>AccessToken</code> 
   *         does not confer read access rights 
   * @throws NoSuchRowPoemException  
-  *         if the <Persistent</code> has yet to be allocated a TROID 
+  *         if the <code>Persistent</code> has yet to be allocated a TROID 
   * @return the <code>Contact</code> as a <code>Contact</code> 
   */
   public Contact getContact()

@@ -13,7 +13,7 @@
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.5-RC4</version>
+      <version>0.7.5-RC5</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

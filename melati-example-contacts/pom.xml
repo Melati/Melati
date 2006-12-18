@@ -68,6 +68,13 @@
           <dsdPackage>org.melati.example.contacts</dsdPackage>
           <dsdFile>contacts.dsd</dsdFile>
         </configuration>
+        <dependencies>
+         <dependency>
+          <groupId>org.melati</groupId>
+          <artifactId>melati</artifactId>
+          <version>0.7.5-RC5</version>
+         </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>

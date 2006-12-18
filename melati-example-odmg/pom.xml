@@ -2,13 +2,13 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.5-RC4</version>
+    <version>0.7.5-RC5</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>melati-example-odmg</artifactId>
   <name>ODMG Example</name>
-  <version>0.7.5-RC4</version>
+  <version>0.7.5-RC5</version>
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>

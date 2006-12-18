@@ -4,7 +4,7 @@
   <groupId>melati</groupId>
   <artifactId>melati</artifactId>
   <name>Melati</name>
-  <currentVersion>0.7.5-RC4</currentVersion>
+  <currentVersion>0.7.5-RC5</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -117,7 +117,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>William Chesters</name>
       <id>williamc</id>
-      <email>williamc@paneris.org</email>
+      <email>williamc At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Original author</role>
@@ -128,7 +128,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Tim Pizey</name>
       <id>timp</id>
-      <email>timp@paneris.org</email>
+      <email>timp At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Maintainer</role>
@@ -141,7 +141,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Tim Joyce</name>
       <id>timj</id>
-      <email>timj@paneris.org</email>
+      <email>timj At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -152,7 +152,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Myles Chippendale</name>
       <id>mylesc</id>
-      <email>mylesc@paneris.org</email>
+      <email>mylesc At paneris.org</email>
       <organization>MJC Solutions</organization>
       <roles>
         <role>Developer</role>
@@ -163,7 +163,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Colin Rainsforth</name>
       <id>colinr</id>
-      <email>colinr@paneris.org</email>
+      <email>colinr At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Graphics Designer</role>
@@ -174,7 +174,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Jim Wright</name>
       <id>jimw</id>
-      <email>jimw@paneris.org</email>
+      <email>jimw At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -185,7 +185,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Chris Kimpton</name>
       <id>kimptoc</id>
-      <email>chris@kimptoc.net</email>
+      <email>chris At kimptoc.net</email>
       <organization>Kimptoc</organization>
       <roles>
         <role>Developer</role>
@@ -196,7 +196,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>David Warnock</name>
       <id>davew</id>
-      <email>david@sundayta.com</email>
+      <email>david At sundayta.com</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -207,7 +207,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Karl Zilles</name>
       <id>karlz</id>
-      <email>karlz@paneris.org</email>
+      <email>karlz At paneris.org</email>
       <organization>1969 Communications Inc</organization>
       <roles>
         <role>Developer</role>
@@ -229,7 +229,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Vasily Pozhidaev</name>
       <id>vasilyp</id>
-      <email>vasilyp@paneris.org</email>
+      <email>vasilyp At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -240,7 +240,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Peter Kehl</name>
       <id>peterk</id>
-      <email>peterk@paneris.org</email>
+      <email>peterk At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -251,7 +251,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Lane Sharman</name>
       <id>lanes</id>
-      <email>lanes@paneris.org</email>
+      <email>lanes At paneris.org</email>
       <organization>PanEris</organization>
       <roles>
         <role>Developer</role>
@@ -441,9 +441,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </dependencies>
 
   <build>
-    <nagEmailAddress>
-      timp@paneris.org
-    </nagEmailAddress>
 
     <sourceDirectory>src/main/java/</sourceDirectory>
 

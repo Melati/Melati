@@ -49,12 +49,11 @@ import java.util.Vector;
 import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.io.IOException;
-import org.melati.util.StringUtils;
 
 /**
  * An abstract definition of a <tt>Field</tt> from which all other
  * <tt>FieldDef</tt>s are derived.
- * 
+ *
  */
 public abstract class FieldDef {
 
@@ -112,7 +111,7 @@ public abstract class FieldDef {
 
   /**
    * Constructor.
-   * 
+   *
    * @param table
    *          the {@link TableDef} that this <code>Field</code> is part of
    * @param name
@@ -125,7 +124,7 @@ public abstract class FieldDef {
    *          where to place this field in a list
    * @param qualifiers
    *          all the qualifiers to be applied to this field
-   * 
+   *
    * @throws IllegalityException
    *           if a semantic inconsistency is detected
    */
@@ -169,14 +168,14 @@ public abstract class FieldDef {
   /**
    * Creates the appropriate type of <code>FieldDef</code> from the input
    * stream.
-   * 
+   *
    * @param table
    *          the {@link TableDef} we are dealing with
    * @param tokens
    *          the <code>StreamTokenizer</code> to get tokens from
    * @param displayOrder
    *          the ranking of this <code>Field</code>
-   * 
+   *
    * @throws ParsingDSDException
    *           if an unexpected token is encountered
    * @throws IOException
@@ -253,10 +252,10 @@ public abstract class FieldDef {
 
   /**
    * Write out this <code>Column</code>'s base methods.
-   * 
+   *
    * @param w
    *          Persistent Base
-   * 
+   *
    * @throws IOException
    *           if something goes wrong with the file system
    */
@@ -281,7 +280,7 @@ public abstract class FieldDef {
 
   /**
    * Write out this <code>Column</code>'s field creators.
-   * 
+   *
    * @param w
    *          Persistent Base
    * @throws IOException
@@ -304,7 +303,7 @@ public abstract class FieldDef {
 
   /**
    * Write out this <code>Field</code>'s java declaration string.
-   * 
+   *
    * @param w
    *          PersistentBase
    * @throws IOException
@@ -314,7 +313,7 @@ public abstract class FieldDef {
 
   /**
    * Write out this <code>Column</code>'s java declaration string.
-   * 
+   *
    * @param w
    *          TableBase
    * @throws IOException
@@ -326,7 +325,7 @@ public abstract class FieldDef {
 
   /**
    * Write out this <code>Column</code>'s accessors.
-   * 
+   *
    * @param w
    *          TableBase
    * @throws IOException
@@ -346,7 +345,7 @@ public abstract class FieldDef {
   /**
    * Write out this <code>Column</code>'s field accessors as part of the
    * anonymous definition of the <code>Column</code>.
-   * 
+   *
    * @param w
    *          TableBase
    * @throws IOException
@@ -367,7 +366,7 @@ public abstract class FieldDef {
   /**
    * Write out this <code>Column</code>'s definition using an anonymous
    * class.
-   * 
+   *
    * @param w
    *          TableBase
    * @throws IOException
@@ -482,8 +481,8 @@ public abstract class FieldDef {
 
   /**
    * Set whether this field represents a deleted marker.
-   * 
-   * @param isDeletedColumn boolean 
+   *
+   * @param isDeletedColumn boolean
    */
   public void setDeletedColumn(boolean isDeletedColumn) {
     if (this.isDeletedColumn)
@@ -501,7 +500,7 @@ public abstract class FieldDef {
 
   /**
    * Set the isTroidColumn property.
-   * 
+   *
    * @param isTroidColumn boolean
    */
   public void setTroidColumn(boolean isTroidColumn) {
@@ -520,7 +519,7 @@ public abstract class FieldDef {
 
   /**
    * Set the nullable property.
-   *  
+   *
    * @param isNullable boolean
    */
   public void setNullable(boolean isNullable) {
@@ -539,7 +538,7 @@ public abstract class FieldDef {
 
   /**
    * Set the isEditable property.
-   * 
+   *
    * @param isEditable boolean
    */
   public void setEditable(boolean isEditable) {
@@ -558,7 +557,7 @@ public abstract class FieldDef {
 
   /**
    * Set the sortDescending property.
-   * 
+   *
    * @param sortDescending
    */
   public void setSortDescending(boolean sortDescending) {
@@ -577,7 +576,7 @@ public abstract class FieldDef {
 
   /**
    * Set the isCreatable property.
-   *  
+   *
    * @param isCreateable boolean
    */
   public void setCreateable(boolean isCreateable) {
@@ -595,7 +594,7 @@ public abstract class FieldDef {
   }
 
   /**
-   * Set the isIndexed property. 
+   * Set the isIndexed property.
    * @param isIndexed boolean
    */
   public void setIndexed(boolean isIndexed) {
@@ -614,7 +613,7 @@ public abstract class FieldDef {
 
   /**
    * Set the isUnique property.
-   * 
+   *
    * @param isUnique boolean
    */
   public void setUnique(boolean isUnique) {
@@ -633,7 +632,7 @@ public abstract class FieldDef {
 
   /**
    * Set the width property.
-   * 
+   *
    * @param width the width to set
    */
   public void setWidth(int width) {
@@ -652,7 +651,7 @@ public abstract class FieldDef {
 
   /**
    * Set the heigth property.
-   * 
+   *
    * @param height the height to set
    */
   public void setHeight(int height) {

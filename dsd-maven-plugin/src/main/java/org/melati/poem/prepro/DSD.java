@@ -58,15 +58,14 @@ import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.StreamTokenizer;
 import java.io.IOException;
-import org.melati.util.StringUtils;
 
 /**
- * The <code>DSD</code> class is an application which parses a DSD 
- * (Data Structure Definition) file and outputs Java code, creating 
+ * The <code>DSD</code> class is an application which parses a DSD
+ * (Data Structure Definition) file and outputs Java code, creating
  * a POEM view of a database.
  * <p>
- * The generated files are placed in the current directory, which is 
- * assumed to be similar to <code>org/paneris/myapp/model/</code> and 
+ * The generated files are placed in the current directory, which is
+ * assumed to be similar to <code>org/paneris/myapp/model/</code> and
  * also in a new directory below it called <code>generated</code>.
  *
  * @author  William Chesters
@@ -113,7 +112,7 @@ public class DSD {
   * @param file  the name of the DSD file to open
   * @throws ResourceNotFoundException
   *    if a DSD file cannot be found
-  * @throws ParsingDSDException 
+  * @throws ParsingDSDException
   *    if an unexpected token is encountered
   * @throws IllegalityException
   *    if a semantic incoherence is detected
@@ -130,10 +129,10 @@ public class DSD {
   *
   * @param file  the name of the DSD file to open
   * @param names a {@link TableNamingStore} containing names encountered so far
-  * @param includePoem whether to include the Poem tables 
+  * @param includePoem whether to include the Poem tables
   * @throws ResourceNotFoundException
   *    if a DSD file cannot be found
-  * @throws ParsingDSDException 
+  * @throws ParsingDSDException
   *    if an unexpected token is encountered
   * @throws IllegalityException
   *    if a semantic incoherence is detected
@@ -176,7 +175,7 @@ public class DSD {
                    new InputStreamReader(Thread.currentThread()
                         .getContextClassLoader()
                           .getResourceAsStream(resourceName)));
-      } else 
+      } else
         throw e;
     }
     try {
@@ -308,7 +307,7 @@ public class DSD {
     w.write("\n");
     w.close();
   }
-  
+
   void createPackageHTML(Generator proc, boolean overwrite)
       throws IOException {
     File f = null;
@@ -326,7 +325,7 @@ public class DSD {
           if (ninthLine == null || ninthLine.indexOf(autogenStamp) != -1)
             System.err.println("Replacing " + f);
           else {
-            System.err.println(ninthLine); 
+            System.err.println(ninthLine);
             throw new TargetExistsDSDException(f);
           }
         } finally {
@@ -343,12 +342,12 @@ public class DSD {
     try {
       w.write("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n" +
               "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n" +
-              "   \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" + 
+              "   \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
               "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
               "<head>\n" +
               " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\" />\n" +
               " <title>" + packageName);
-      if (overwrite) 
+      if (overwrite)
         w.write(".generated");
       w.write("</title>\n" +
               "</head>\n" +
@@ -356,8 +355,8 @@ public class DSD {
               "<body>\n");
       proc.process(w);
 
-      w.write("</body>\n" + 
-              "</html>\n" + 
+      w.write("</body>\n" +
+              "</html>\n" +
               "\n");
     } catch (IOException e) {
       try {
@@ -393,7 +392,7 @@ public class DSD {
         w.write(td.naming.importTableString());
     }
 
-    w.write("\n" + 
+    w.write("\n" +
             "/**\n" +
             " * Melati POEM generated Database base class.\n" +
             " */\n");
@@ -430,9 +429,9 @@ public class DSD {
   }
 
   void generateDatabaseJava(Writer w) throws IOException {
-    w.write("import " + packageName + ".generated." + 
+    w.write("import " + packageName + ".generated." +
               databaseBaseClass + ";\n");
-    w.write("\n" + 
+    w.write("\n" +
             "/**\n" +
             " * Melati POEM generated, programmer modifiable stub.\n" +
             " */\n");
@@ -456,11 +455,11 @@ public class DSD {
     }
     for (int j = 0; j < importedDSDs.size(); j++) {
       DSD dsd = (DSD)importedDSDs.elementAt(j);
-      w.write("import " + dsd.packageName + "."+ 
+      w.write("import " + dsd.packageName + "."+
               dsd.databaseTablesClass + ";\n");
     }
 
-    w.write("\n" + 
+    w.write("\n" +
             "/**\n" +
             " * Melati POEM generated base interface to the tables in \n" +
             " * " + packageName + ".\n" +
@@ -474,7 +473,7 @@ public class DSD {
         first = false;
       }
       else {
-        w.write(",\n                               " + 
+        w.write(",\n                               " +
                 dsd.databaseTablesClass);
       }
     }
@@ -488,9 +487,9 @@ public class DSD {
   }
 
   void generateDatabaseTablesJava(Writer w) throws IOException {
-    w.write("import " + packageName + ".generated." + 
+    w.write("import " + packageName + ".generated." +
               databaseTablesBaseClass + ";\n");
-    w.write("\n" + 
+    w.write("\n" +
             "/**\n" +
             " * Melati POEM generated, " +
             "programmer modifyable interface stub.\n" +
@@ -509,7 +508,7 @@ public class DSD {
                  public void process(Writer w) throws IOException {
                    this_.generateDatabaseBaseJava(w);
                  }
-               }, 
+               },
                true);
 
     createJava(databaseClass,
@@ -525,7 +524,7 @@ public class DSD {
                  public void process(Writer w) throws IOException {
                    this_.generateDatabaseTablesBaseJava(w);
                  }
-               }, 
+               },
                true);
 
     createJava(databaseTablesClass,
@@ -539,7 +538,7 @@ public class DSD {
     // Create a default package.html if it does not exist
     createPackageHTML(new Generator() {
       public void process(Writer w) throws IOException {
-        w.write("<p>The POEM-generated model classes for " + 
+        w.write("<p>The POEM-generated model classes for " +
         packageName + ".</p>\n");
       }
     }, false);
@@ -547,7 +546,7 @@ public class DSD {
     // Create a package.html for the generated files
     createPackageHTML(new Generator() {
       public void process(Writer w) throws IOException {
-        w.write("<p>The POEM-generated support classes for " + 
+        w.write("<p>The POEM-generated support classes for " +
         packageName + ".</p>\n");
       }
     }, true);
@@ -594,14 +593,14 @@ public class DSD {
   }
 
 
-  static String javadocFormat(String indent2, 
+  static String javadocFormat(String indent2,
                                      String string) {
       return javadocFormat(2,Integer.parseInt(indent2), string);
   }
   static String javadocFormat(String string) {
       return javadocFormat(2, 1, string);
   }
-  static String javadocFormat(String indent1, String indent2, 
+  static String javadocFormat(String indent1, String indent2,
                                      String string) {
       return javadocFormat(Integer.parseInt(indent1),Integer.parseInt(indent2),
                            string);
@@ -630,7 +629,7 @@ public class DSD {
     } else {
       int prevSpace = string.lastIndexOf(' ',available);
       int incision = available;
-      if (prevSpace != -1) 
+      if (prevSpace != -1)
         incision = prevSpace + 1;
       b.append(string.substring(0, incision));
       b.append("\n");

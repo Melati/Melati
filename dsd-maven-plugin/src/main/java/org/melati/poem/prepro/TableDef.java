@@ -52,7 +52,6 @@ import java.util.Arrays;
 import java.io.StreamTokenizer;
 import java.io.Writer;
 import java.io.IOException;
-import org.melati.util.StringUtils;
 
 /**
  * A Table Definition holding information from a DSD.
@@ -82,7 +81,7 @@ public class TableDef {
 
   /**
    * Constructor.
-   * 
+   *
    * @param dsd
    *        the {@link DSD} this is a member of
    * @param tokens
@@ -285,7 +284,7 @@ public class TableDef {
 
     if (!fields.elements().hasMoreElements()) {
       w.write("  // There are no Fields in this table, only in its ancestors \n");
-    } else { 
+    } else {
       w.write("  private " + naming.tableMainClassUnambiguous() + " _"
           + naming.tableAccessorMethod() + "() {\n" + "    return ("
           + naming.tableMainClassUnambiguous() + ")getTable();\n" + "  }\n\n");
@@ -545,7 +544,7 @@ public class TableDef {
 
   /**
    * Generate the 4 files.
-   * 
+   *
    * @throws IOException
    *         if a problem with the file system is encountered
    * @throws IllegalityException

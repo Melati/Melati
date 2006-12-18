@@ -55,9 +55,9 @@ import java.util.Vector;
  */
 public class BigDecimalFieldDef extends AtomFieldDef {
 
-  private Integer scale = null;
+  private int scale;
 
-  private Integer precision = null;
+  private int precision;
 
   /**
    * Constructor.
@@ -110,7 +110,7 @@ public class BigDecimalFieldDef extends AtomFieldDef {
    * 
    * @return the precision
    */
-  public Integer getPrecision() {
+  public int getPrecision() {
     return precision;
   }
 
@@ -119,8 +119,8 @@ public class BigDecimalFieldDef extends AtomFieldDef {
    * 
    * @param precision
    */
-  public void setPrecision(Integer precision) {
-    if (this.precision != null)
+  public void setPrecision(int precision) {
+    if (this.precision != 0)
       throw new IllegalityException(lineNumber, "Redefinition of precision.");
     this.precision = precision;
   }
@@ -130,7 +130,7 @@ public class BigDecimalFieldDef extends AtomFieldDef {
    * 
    * @return the scale
    */
-  public Integer getScale() {
+  public int getScale() {
     return scale;
   }
 
@@ -139,8 +139,8 @@ public class BigDecimalFieldDef extends AtomFieldDef {
    * 
    * @param scale the scale to set
    */
-  public void setScale(Integer scale) {
-    if (this.scale != null)
+  public void setScale(int scale) {
+    if (this.scale != 0)
       throw new IllegalityException(lineNumber, "Redefinition of scale.");
     this.scale = scale;
   }

@@ -54,7 +54,7 @@ import java.io.IOException;
  */
 public class PrecisionFieldQualifier extends FieldQualifier {
 
-  private Integer precision;
+  private int precision;
 
  /**
   * Constructor.
@@ -70,7 +70,7 @@ public class PrecisionFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int) tokens.nval <= 0)
       throw new ParsingDSDException("<positive precision number>", tokens);
-    precision = new Integer((int) tokens.nval);
+    precision = (int) tokens.nval;
     tokens.nextToken();
   }
 

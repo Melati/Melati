@@ -54,7 +54,7 @@ import java.io.IOException;
  */
 public class ScaleFieldQualifier extends FieldQualifier {
 
-  private Integer scale;
+  private int scale;
 
  /**
   * Constructor.
@@ -70,7 +70,7 @@ public class ScaleFieldQualifier extends FieldQualifier {
     tokens.nextToken();
     if (tokens.ttype != StreamTokenizer.TT_NUMBER || (int) tokens.nval < 0)
       throw new ParsingDSDException("<non-negative scale number>", tokens);
-    scale = new Integer((int) tokens.nval);
+    scale = (int) tokens.nval;
     tokens.nextToken();
   }
 

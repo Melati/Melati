@@ -64,11 +64,33 @@ public interface SQLType {
   
   
   /**
+   * SQL type definition with nullability.
+   * eg:
+   * <code>
+   * STRING NOT NULL
+   * </code>
    * @param dbms the DBMS 
    * @return the DBMS specific SQL snippet
    */
   String sqlDefinition(Dbms dbms);
 
+  /**
+   * Used to set a not null value when 
+   * creating a non nullable column.
+   * @return a String suitable to substituted in UPDATE table SET field = ?
+   */
+  String sqlDefaultValue();
+  
+  /**
+   * SQL type definition without nullability.
+   * eg:
+   * <code>
+   * STRING
+   * </code>
+   * @param dbms the DBMS 
+   * @return the DBMS specific SQL snippet
+   */
+  public String sqlTypeDefinition(Dbms dbms);  
   /**
    * Quoting a raw value, if appropriate for the Dbms.
    * @param raw sql value

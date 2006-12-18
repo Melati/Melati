@@ -125,4 +125,12 @@ public class IntegerPoemType extends AtomPoemType {
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.INTEGER);
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return new Integer(0).toString();
+  }
 }

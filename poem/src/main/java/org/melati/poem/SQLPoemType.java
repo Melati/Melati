@@ -50,4 +50,5 @@ package org.melati.poem;
  * and an {@link SQLType}.
  */
 public interface SQLPoemType extends SQLType, PoemType {
+
 }

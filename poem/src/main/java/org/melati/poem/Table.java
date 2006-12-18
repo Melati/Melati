@@ -637,10 +637,25 @@ public class Table implements Selectable {
   }
 
   private void dbAddColumn(Column column) {
-    dbModifyStructure(
-        "ALTER TABLE " + quotedName() +
-        " ADD COLUMN " + column.quotedName() +
-        " " + column.getSQLType().sqlDefinition(dbms()));
+    if (column.getType().getNullable()) {
+      dbModifyStructure(
+          "ALTER TABLE " + quotedName() +
+          " ADD COLUMN " + column.quotedName() +
+          " " + column.getSQLType().sqlDefinition(dbms()));
+    } else {
+      dbModifyStructure(
+          "ALTER TABLE " + quotedName() +
+          " ADD COLUMN " + column.quotedName() +
+          " " + column.getSQLType().sqlTypeDefinition(dbms()));
+      dbModifyStructure(
+          "UPDATE " + quotedName() +
+          " SET " + column.quotedName() +
+          " = " + column.getSQLType().sqlDefaultValue());
+      dbModifyStructure(
+          "ALTER TABLE " + quotedName() +
+          " ALTER COLUMN " + column.quotedName() +
+          " SET NOT NULL");      
+    }
   }
 
   private void dbCreateIndex(Column column) {

@@ -126,6 +126,14 @@ public class BooleanPoemType extends AtomPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return "false";
+  }
+
 }
 
 /**

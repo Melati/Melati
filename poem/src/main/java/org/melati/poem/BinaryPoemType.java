@@ -123,6 +123,14 @@ public class BinaryPoemType extends SizedAtomPoemType {
   protected String _quotedRaw(Object raw) {
     return StringUtils.quoted(_stringOfRaw(raw), '\'');
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return "";
+  }
 }
 
 

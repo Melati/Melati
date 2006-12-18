@@ -144,4 +144,12 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
     columnInfo.setPrecision(getPrecision());
     columnInfo.setScale(getScale());
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return new BigDecimal(0).toString();
+  }
 }

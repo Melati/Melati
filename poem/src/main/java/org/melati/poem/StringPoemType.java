@@ -131,4 +131,12 @@ public class StringPoemType extends SizedAtomPoemType {
   protected String _quotedRaw(Object raw) {
     return StringUtils.quoted((String)raw, '\'');
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return "";
+  }
 }

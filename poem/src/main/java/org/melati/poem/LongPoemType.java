@@ -130,4 +130,12 @@ public class LongPoemType extends AtomPoemType {
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.LONG);
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return new Long(0).toString();
+  }
 }

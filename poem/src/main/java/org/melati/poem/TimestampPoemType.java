@@ -45,16 +45,18 @@
 
 package org.melati.poem;
 
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
-import org.melati.util.StringUtils;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.melati.util.MelatiLocale;
+import org.melati.util.StringUtils;
 
 /**
  * A Timestamp.
@@ -125,6 +127,14 @@ public class TimestampPoemType extends AtomPoemType {
 
   protected String _quotedRaw(Object raw) {
     return StringUtils.quoted(_stringOfRaw(raw), '\'');
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return new Timestamp(new Date().getTime()).toString();
   }
 
 }

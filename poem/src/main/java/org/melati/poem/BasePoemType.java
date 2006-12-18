@@ -302,10 +302,20 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   protected abstract String _sqlDefinition(Dbms dbms);
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefinition(org.melati.poem.dbms.Dbms)
+   */
   public String sqlDefinition(Dbms dbms) {
-    return _sqlDefinition(dbms) + (nullable ? "" : " NOT NULL");
+    return sqlTypeDefinition(dbms) + (nullable ? "" : " NOT NULL");
   }
-
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlTypeDefinition(org.melati.poem.dbms.Dbms)
+   */
+  public String sqlTypeDefinition(Dbms dbms) {
+    return _sqlDefinition(dbms);
+  }
   protected abstract boolean _canRepresent(SQLPoemType other);
 
     /**

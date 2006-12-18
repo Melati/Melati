@@ -16,37 +16,14 @@
   <url>http://melati.org/maven-dsd-plugin/</url>
   <description>
   A processor of the DSD language which can run as an application or as a 
-  Maven MOJO plugin to run during the process-sources   phase of a project.
+  Maven MOJO plugin to run during the process-sources phase of a project.
   </description>
-
-  <developers>
-    <developer>
-      <name>Tim Pizey</name>
-      <id>timp</id>
-      <email>timp At paneris.org</email>
-      <organization>PanEris</organization>
-      <organizationUrl>http://PanEris.org/</organizationUrl>
-      <roles>
-        <role>Maintainer</role>
-        <role>Maven maven</role>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-      <url>http://paneris.org/~timp</url>
-    </developer>
-  </developers>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <!-- scope>test</scope -->
     </dependency>
   </dependencies>
   <build>

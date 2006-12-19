@@ -1108,6 +1108,9 @@ public abstract class Database implements TransactionPool {
 
   /**
    * Check if a user has the specified Capability.
+   * @param user the User to check
+   * @param capability the Capability required
+   * @return whether User has Capability
    */
   public boolean hasCapability(User user, Capability capability) {
     // no capability means that we always have access
@@ -1144,9 +1147,16 @@ public abstract class Database implements TransactionPool {
     return canAdminister;
   }
   
+  /**
+   * Set administrator capability to default.
+   */
   public void setCanAdminister() {
     canAdminister = administerCapability();
   }
+  /**
+   * Set administrator capability to named Capability.
+   * @param capabilityName name of Capability
+   */
   public void setCanAdminister(String capabilityName) {
     canAdminister = getCapabilityTable().ensure(capabilityName);
   }
@@ -1283,6 +1293,8 @@ public abstract class Database implements TransactionPool {
   /**
    * Returns the connection url.
    * If you want a simple name see LogicalDatabase.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     if (connectionUrl == null)
@@ -1337,6 +1349,9 @@ public abstract class Database implements TransactionPool {
     beginExclusiveLock();
   }
 
+  /**
+   * Uncache, increment serial and release exclusive lock.
+   */
   void endStructuralModification() {
     for (int t = 0; t < tables.size(); ++t)
       ((Table)tables.elementAt(t)).uncacheContents();
@@ -1359,6 +1374,9 @@ public abstract class Database implements TransactionPool {
   public int getQueryCount() {
     return queryCount;
   }
+  /**
+   * Increment query count.
+   */
   public void incrementQueryCount() {
     queryCount++; 
   }

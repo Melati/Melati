@@ -150,12 +150,12 @@
      <configuration>
        <dsdPackage>org.melati.poem</dsdPackage>
        <dsdFile>Poem.dsd</dsdFile>
+     </configuration>
      <!--
       OR 
        <sourceDirectory>src/test/java</sourceDirectory>
        <dsdPackage>org.melati.poem.test</dsdPackage>
        <dsdFile>Test.dsd</dsdFile>
-      -->
      </configuration>
      <dependencies>
       <dependency>
@@ -164,6 +164,7 @@
        <version>0.7.5-RC5</version>
       </dependency>
      </dependencies>
+      -->
     </plugin>
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>

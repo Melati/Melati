@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -46,8 +46,13 @@
 package org.melati.util;
 
 /**
- * A Procedure.
+ * A Procedure ie a void function.
  */
 public interface Procedure {
+  
+  /**
+   * Apply ourselves to argument.
+   * @param arg an appropriate Object
+   */
   void apply(Object arg);
 }

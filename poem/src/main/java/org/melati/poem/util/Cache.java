@@ -372,6 +372,10 @@ public final class Cache {
     }
   }
 
+  /**
+   * Apply function to all items in cache.
+   * @param f Procedure to apply to all members of cache
+   */
   public synchronized void iterate(Procedure f) {
     gc();
     for (Enumeration n = table.elements(); n.hasMoreElements();) {
@@ -381,6 +385,10 @@ public final class Cache {
     }
   }
 
+  /**
+   * Retieve an Enumeration of items held.
+   * @return  an Enumeration of items held
+   */
   public Enumeration getReport() {
     return new ConsEnumeration(
                heldNodes + " held, " + table.size() + " total ",

@@ -170,6 +170,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * however this appears to ensure that the cache is not used. 
    * Rollback now works, due to removal of exclusion of DELETED status. 
    * 
+   * Now relies upon Transaction.valid which seems to make more sense. 
+   * 
    * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {

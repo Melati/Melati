@@ -7,8 +7,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Enumeration;
 
+import org.melati.poem.ColumnInfo;
+import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.Initialiser;
+import org.melati.poem.Persistent;
+import org.melati.poem.PoemThread;
+import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.Searchability;
 import org.melati.poem.Table;
+import org.melati.poem.TableInfo;
+import org.melati.poem.UserTable;
+import org.melati.util.EnumUtils;
 
 
 /**
@@ -17,666 +27,696 @@ import org.melati.poem.Table;
  */
 public class TableTest extends PoemTestCase {
 
-  /*
+  /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
   }
-  /*
+  /**
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
     super.tearDown();
   }
   
-  /*
-   * @see org.melati.poem.Table.Table(Database, String, DefinitionSource)
+  /**
+   * @see org.melati.poem.Table#Table(Database, String, DefinitionSource)
    */
   public void testTable() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.postInitialise()
+  /**
+   * @see org.melati.poem.Table#postInitialise()
    */
   public void testPostInitialise() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDatabase()
+  /**
+   * @see org.melati.poem.Table#getDatabase()
    */
   public void testGetDatabase() {
      assertTrue(getDb().getUserTable().getDatabase().equals(getDb()));
   }
 
-  /*
-   * @see org.melati.poem.Table.getName()
+  /**
+   * @see org.melati.poem.Table#getName()
    */
   public void testGetName() {
     Table ut = getDb().getUserTable();
     assertEquals("user", ut.getName());
   }
 
-  /*
-   * @see org.melati.poem.Table.quotedName()
+  /**
+   * @see org.melati.poem.Table#quotedName()
    */
   public void testQuotedName() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDisplayName()
+  /**
+   * @see org.melati.poem.Table#getDisplayName()
    */
   public void testGetDisplayName() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDescription()
+  /**
+   * @see org.melati.poem.Table#getDescription()
    */
   public void testGetDescription() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getCategory()
+  /**
+   * @see org.melati.poem.Table#getCategory()
    */
   public void testGetCategory() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getInfo()
+  /**
+   * @see org.melati.poem.Table#getInfo()
    */
   public void testGetInfo() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.tableInfoID()
+  /**
+   * @see org.melati.poem.Table#tableInfoID()
    */
   public void testTableInfoID() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getColumn(String)
+  /**
+   * @see org.melati.poem.Table#getColumn(String)
    */
   public void testGetColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table._getColumn(String)
+  /**
+   * @see org.melati.poem.Table#_getColumn(String)
    */
   public void test_getColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.columns()
+  /**
+   * @see org.melati.poem.Table#columns()
    */
   public void testColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getColumnsCount()
+  /**
+   * @see org.melati.poem.Table#getColumnsCount()
    */
   public void testGetColumnsCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.columnWithColumnInfoID(int)
+  /**
+   * @see org.melati.poem.Table#columnWithColumnInfoID(int)
    */
   public void testColumnWithColumnInfoID() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.troidColumn()
+  /**
+   * @see org.melati.poem.Table#troidColumn()
    */
   public void testTroidColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.deletedColumn()
+  /**
+   * @see org.melati.poem.Table#deletedColumn()
    */
   public void testDeletedColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.displayColumn()
+  /**
+   * @see org.melati.poem.Table#displayColumn()
    */
   public void testDisplayColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.setDisplayColumn(Column)
+  /**
+   * @see org.melati.poem.Table#setDisplayColumn(Column)
    */
   public void testSetDisplayColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.primaryCriterionColumn()
+  /**
+   * @see org.melati.poem.Table#primaryCriterionColumn()
    */
   public void testPrimaryCriterionColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.setSearchColumn(Column)
+  /**
+   * @see org.melati.poem.Table#setSearchColumn(Column)
    */
   public void testSetSearchColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.defaultOrderByClause()
+  /**
+   * @see org.melati.poem.Table#defaultOrderByClause()
    */
   public void testDefaultOrderByClause() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.notifyColumnInfo(ColumnInfo)
+  /**
+   * @see org.melati.poem.Table#notifyColumnInfo(ColumnInfo)
    */
   public void testNotifyColumnInfo() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.displayColumns(DisplayLevel)
+  /**
+   * @see org.melati.poem.Table#displayColumns(DisplayLevel)
    */
   public void testDisplayColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.displayColumnsCount(DisplayLevel)
+  /**
+   * @see org.melati.poem.Table#displayColumnsCount(DisplayLevel)
    */
   public void testDisplayColumnsCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDetailDisplayColumns()
+  /**
+   * @see org.melati.poem.Table#getDetailDisplayColumns()
    */
   public void testGetDetailDisplayColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDetailDisplayColumnsCount()
+  /**
+   * @see org.melati.poem.Table#getDetailDisplayColumnsCount()
    */
   public void testGetDetailDisplayColumnsCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getRecordDisplayColumns()
+  /**
+   * @see org.melati.poem.Table#getRecordDisplayColumns()
    */
   public void testGetRecordDisplayColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getRecordDisplayColumnsCount()
+  /**
+   * @see org.melati.poem.Table#getRecordDisplayColumnsCount()
    */
   public void testGetRecordDisplayColumnsCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getSummaryDisplayColumns()
+  /**
+   * @see org.melati.poem.Table#getSummaryDisplayColumns()
    */
   public void testGetSummaryDisplayColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getSearchCriterionColumns()
+  /**
+   * @see org.melati.poem.Table#getSearchCriterionColumns()
    */
   public void testGetSearchCriterionColumns() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getSearchCriterionColumnsCount()
+  /**
+   * @see org.melati.poem.Table#getSearchCriterionColumnsCount()
    */
   public void testGetSearchCriterionColumnsCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.dbModifyStructure(String)
+  /**
+   * @see org.melati.poem.Table#dbModifyStructure(String)
    */
   public void testDbModifyStructure() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.load(PoemTransaction, Persistent)
+  /**
+   * @see org.melati.poem.Table#load(PoemTransaction, Persistent)
    */
   public void testLoad() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.delete(Integer, PoemTransaction)
+  /**
+   * @see org.melati.poem.Table#delete(Integer, PoemTransaction)
    */
   public void testDelete() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.writeDown(PoemTransaction, Persistent)
+  /**
+   * @see org.melati.poem.Table#writeDown(PoemTransaction, Persistent)
    */
   public void testWriteDown() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.uncacheContents()
+  /**
+   * @see org.melati.poem.Table#uncacheContents()
    */
   public void testUncacheContents() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.trimCache(int)
+  /**
+   * @see org.melati.poem.Table#trimCache(int)
    */
   public void testTrimCache() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getCacheInfo()
+  /**
+   * @see org.melati.poem.Table#getCacheInfo()
    */
   public void testGetCacheInfo() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.addListener(TableListener)
+  /**
+   * @see org.melati.poem.Table#addListener(TableListener)
    */
   public void testAddListener() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.notifyTouched(PoemTransaction, Persistent)
+  /**
+   * @see org.melati.poem.Table#notifyTouched(PoemTransaction, Persistent)
    */
   public void testNotifyTouched() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.serial(PoemTransaction)
+  /**
+   * @see org.melati.poem.Table#serial(PoemTransaction)
    */
   public void testSerial() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.readLock()
+  /**
+   * @see org.melati.poem.Table#readLock()
    */
   public void testReadLock() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getObject(Integer)
+  /**
+   * @see org.melati.poem.Table#getObject(Integer)
    */
   public void testGetObjectInteger() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getObject(int)
+  /**
+   * @see org.melati.poem.Table#getObject(int)
    */
   public void testGetObjectInt() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.selectionSQL(String, String, boolean)
+  /**
+   * @see org.melati.poem.Table#selectionSQL(String, String, boolean)
    */
   public void testSelectionSQLStringStringBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.selectionSQL(String, String, String, boolean, boolean)
+  /**
+   * @see org.melati.poem.Table#selectionSQL(String, String, String, boolean, boolean)
    */
   public void testSelectionSQLStringStringStringBooleanBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.troidSelection(String, String, boolean, PoemTransaction)
+  /**
+   * @see org.melati.poem.Table#troidSelection(String, String, boolean, PoemTransaction)
    */
   public void testTroidSelectionStringStringBooleanPoemTransaction() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.troidSelection(Persistent, String, boolean, boolean, PoemTransaction)
+/**
+   * @see org.melati.poem.Table#troidSelection(Persistent, String, boolean, boolean, PoemTransaction)
    */
   public void testTroidSelectionPersistentStringBooleanBooleanPoemTransaction() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.rememberAllTroids(boolean)
+   * @see org.melati.poem.Table#rememberAllTroids(boolean)
    */
   public void testRememberAllTroids() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.setCacheLimit(Integer)
+   * @see org.melati.poem.Table#setCacheLimit(Integer)
    */
   public void testSetCacheLimit() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.troidSelection(String, String, boolean)
+   * @see org.melati.poem.Table#troidSelection(String, String, boolean)
    */
   public void testTroidSelectionStringStringBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection()
+   * @see org.melati.poem.Table#selection()
    */
   public void testSelection() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(String)
+   * @see org.melati.poem.Table#selection(String)
    */
   public void testSelectionString() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.firstSelection(String)
+   * @see org.melati.poem.Table#firstSelection(String)
    */
   public void testFirstSelection() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(String, String, boolean)
+   * @see org.melati.poem.Table#selection(String, String, boolean)
    */
   public void testSelectionStringStringBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(Persistent)
+   * @see org.melati.poem.Table#selection(Persistent)
    */
   public void testSelectionPersistent() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(Persistent, String)
+   * @see org.melati.poem.Table#selection(Persistent, String)
    */
   public void testSelectionPersistentString() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(Persistent, String, boolean, boolean)
+   * @see org.melati.poem.Table#selection(Persistent, String, boolean, boolean)
    */
   public void testSelectionPersistentStringBooleanBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(String, String, boolean, int, int)
+   * @see org.melati.poem.Table#selection(String, String, boolean, int, int)
    */
   public void testSelectionStringStringBooleanIntInt() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.selection(Persistent, String, boolean, boolean, int, int)
+   * @see org.melati.poem.Table#selection(Persistent, String, boolean, boolean, int, int)
    */
   public void testSelectionPersistentStringBooleanBooleanIntInt() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.countSQL(String)
+   * @see org.melati.poem.Table#countSQL(String)
    */
   public void testCountSQLString() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.countSQL(String, String, boolean, boolean)
+   * @see org.melati.poem.Table#countSQL(String, String, boolean, boolean)
    */
   public void testCountSQLStringStringBooleanBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.count(String, boolean, boolean)
+   * @see org.melati.poem.Table#count(String, boolean, boolean)
    */
   public void testCountStringBooleanBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.count(String, boolean)
+/**
+   * @see org.melati.poem.Table#count(String, boolean)
    */
   public void testCountStringBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.count(String)
+/**
+   * @see org.melati.poem.Table#count(String)
    */
   public void testCountString() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.count()
+/**
+   * @see org.melati.poem.Table#count()
    */
   public void testCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.exists(String)
+/**
+   * @see org.melati.poem.Table#exists(String)
    */
   public void testExistsString() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.exists(Persistent)
+/**
+   * @see org.melati.poem.Table#exists(Persistent)
    */
   public void testExistsPersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.appendWhereClause(StringBuffer, Persistent)
+/**
+   * @see org.melati.poem.Table#appendWhereClause(StringBuffer, Persistent)
    */
   public void testAppendWhereClause() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.whereClause(Persistent)
+/**
+   * @see org.melati.poem.Table#whereClause(Persistent)
    */
   public void testWhereClausePersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.whereClause(Persistent, boolean, boolean)
+/**
+   * @see org.melati.poem.Table#whereClause(Persistent, boolean, boolean)
    */
   public void testWhereClausePersistentBooleanBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.cnfWhereClause(Enumeration)
+/**
+   * @see org.melati.poem.Table#cnfWhereClause(Enumeration)
    */
   public void testCnfWhereClauseEnumeration() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.cnfWhereClause(Enumeration, boolean, boolean)
+/**
+   * @see org.melati.poem.Table#cnfWhereClause(Enumeration, boolean, boolean)
    */
   public void testCnfWhereClauseEnumerationBooleanBoolean() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.referencesTo(Persistent)
+/**
+   * @see org.melati.poem.Table#referencesTo(Persistent)
    */
   public void testReferencesToPersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.referencesTo(Table)
+/**
+   * @see org.melati.poem.Table#referencesTo(Table)
    */
   public void testReferencesToTable() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.troidFor(Persistent)
+/**
+   * @see org.melati.poem.Table#troidFor(Persistent)
    */
   public void testTroidFor() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.create(Persistent)
+/**
+   * @see org.melati.poem.Table#create(Persistent)
    */
   public void testCreatePersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.create(Initialiser)
+/**
+   * @see org.melati.poem.Table#create(Initialiser)
    */
   public void testCreateInitialiser() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.newPersistent()
+/**
+   * @see org.melati.poem.Table#newPersistent()
    */
   public void testNewPersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table._newPersistent()
+/**
+   * @see org.melati.poem.Table#_newPersistent()
    */
   public void test_newPersistent() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.delete_unsafe(String)
+/**
+   * @see org.melati.poem.Table#delete_unsafe(String)
    */
   public void testDelete_unsafe() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.extrasCount()
+/**
+   * @see org.melati.poem.Table#extrasCount()
    */
   public void testExtrasCount() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDefaultCanRead()
+/**
+   * @see org.melati.poem.Table#getDefaultCanRead()
    */
   public void testGetDefaultCanRead() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDefaultCanWrite()
+/**
+   * @see org.melati.poem.Table#getDefaultCanWrite()
    */
   public void testGetDefaultCanWrite() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getDefaultCanDelete()
+/**
+   * @see org.melati.poem.Table#getDefaultCanDelete()
    */
   public void testGetDefaultCanDelete() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.getCanCreate()
+/**
+   * @see org.melati.poem.Table#getCanCreate()
    */
   public void testGetCanCreate() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.canReadColumn()
+/**
+   * @see org.melati.poem.Table#canReadColumn()
    */
   public void testCanReadColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.canSelectColumn()
+/**
+   * @see org.melati.poem.Table#canSelectColumn()
    */
   public void testCanSelectColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.canWriteColumn()
+/**
+   * @see org.melati.poem.Table#canWriteColumn()
    */
   public void testCanWriteColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.canDeleteColumn()
+/**
+   * @see org.melati.poem.Table#canDeleteColumn()
    */
   public void testCanDeleteColumn() {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.addColumnAndCommit(ColumnInfo)
+/**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommit() {
-
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testcol");
+    columnInfo.setDisplayname("Test Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.STRING);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testcol").selectionWhereEq("default")).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testcol").selectionWhereEq("default")).size());
+    assertEquals("default", ut.administratorUser().getRaw("testcol"));
+    assertEquals("default", ut.administratorUser().getCooked("testcol"));
+    assertEquals("default", ut.getObject(0).getCooked("testcol"));
   }
 
-  /*
-   * @see org.melati.poem.Table.toString()
+/**
+   * @see org.melati.poem.Table#toString()
    */
   public void testToString() {
     Table ut = getDb().getUserTable();
@@ -684,8 +724,8 @@ public class TableTest extends PoemTestCase {
 
   }
 
-  /*
-   * @see org.melati.poem.Table.dumpCacheAnalysis()
+/**
+   * @see org.melati.poem.Table#dumpCacheAnalysis()
    */
   public void testDumpCacheAnalysis() {
 
@@ -703,56 +743,56 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table.cachedSelection(String, String)
+   * @see org.melati.poem.Table#cachedSelection(String, String)
    */
   public void testCachedSelection() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedCount(String, boolean)
+   * @see org.melati.poem.Table#cachedCount(String, boolean)
    */
   public void testCachedCountStringBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedCount(String, boolean, boolean)
+   * @see org.melati.poem.Table#cachedCount(String, boolean, boolean)
    */
   public void testCachedCountStringBooleanBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedCount(Persistent, boolean, boolean)
+   * @see org.melati.poem.Table#cachedCount(Persistent, boolean, boolean)
    */
   public void testCachedCountPersistentBooleanBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedCount(String)
+   * @see org.melati.poem.Table#cachedCount(String)
    */
   public void testCachedCountString() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedExists(String)
+   * @see org.melati.poem.Table#cachedExists(String)
    */
   public void testCachedExists() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedSelectionType(String, String, boolean)
+   * @see org.melati.poem.Table#cachedSelectionType(String, String, boolean)
    */
   public void testCachedSelectionType() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.cachedSelectionField(String, String, boolean, Integer, String)
+   * @see org.melati.poem.Table#cachedSelectionField(String, String, boolean, Integer, String)
    */
   public void testCachedSelectionField() {
     //getDb().setLogSQL(true);
@@ -813,112 +853,112 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table.defineColumn(Column, boolean)
+   * @see org.melati.poem.Table#defineColumn(Column, boolean)
    */
   public void testDefineColumnColumnBoolean() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defineColumn(Column)
+   * @see org.melati.poem.Table#defineColumn(Column)
    */
   public void testDefineColumnColumn() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.setTableInfo(TableInfo)
+   * @see org.melati.poem.Table#setTableInfo(TableInfo)
    */
   public void testSetTableInfo() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.getTableInfo()
+   * @see org.melati.poem.Table#getTableInfo()
    */
   public void testGetTableInfo() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultDisplayName()
+   * @see org.melati.poem.Table#defaultDisplayName()
    */
   public void testDefaultDisplayName() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.getDsdName()
+   * @see org.melati.poem.Table#getDsdName()
    */
   public void testGetDsdName() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultDisplayOrder()
+   * @see org.melati.poem.Table#defaultDisplayOrder()
    */
   public void testDefaultDisplayOrder() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultDescription()
+   * @see org.melati.poem.Table#defaultDescription()
    */
   public void testDefaultDescription() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultCacheLimit()
+   * @see org.melati.poem.Table#defaultCacheLimit()
    */
   public void testDefaultCacheLimit() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultRememberAllTroids()
+   * @see org.melati.poem.Table#defaultRememberAllTroids()
    */
   public void testDefaultRememberAllTroids() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.defaultCategory()
+   * @see org.melati.poem.Table#defaultCategory()
    */
   public void testDefaultCategory() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.createTableInfo()
+   * @see org.melati.poem.Table#createTableInfo()
    */
   public void testCreateTableInfo() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.unifyWithColumnInfo()
+   * @see org.melati.poem.Table#unifyWithColumnInfo()
    */
   public void testUnifyWithColumnInfo() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.unifyWithDB(ResultSet)
+   * @see org.melati.poem.Table#unifyWithDB(ResultSet)
    */
   public void testUnifyWithDB() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.init()
+   * @see org.melati.poem.Table#init()
    */
   public void testInit() {
 
   }
 
   /**
-   * @see org.melati.poem.Table.hashCode()
+   * @see org.melati.poem.Table#hashCode()
    */
   public void testHashCode() {
     Table ut = getDb().getUserTable();
@@ -928,7 +968,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table.equals(Object)
+   * @see org.melati.poem.Table#equals(Object)
    */
   public void testEqualsObject() {
     Table ut = getDb().getUserTable();

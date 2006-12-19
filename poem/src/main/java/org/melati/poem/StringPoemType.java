@@ -137,6 +137,6 @@ public class StringPoemType extends SizedAtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return "";
+    return "default";
   }
 }

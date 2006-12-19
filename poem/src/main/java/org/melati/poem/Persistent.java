@@ -164,14 +164,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * Whether we are up to date with respect to current Transaction.
    * <p>
-   * Always returns true.
-   * <p>
-   * JimW changed to false, from true "so that rollback would work", 
-   * however this appears to ensure that the cache is not used. 
-   * Rollback now works, due to removal of exclusion of DELETED status. 
-   * 
-   * Now relies upon Transaction.valid which seems to make more sense. 
-   * 
+   * Return the inheritted validity flag.
+   * {@inheritDoc}
    * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {

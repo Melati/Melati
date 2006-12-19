@@ -71,12 +71,13 @@ public class TransactionedSerial extends Transactioned {
   }
 
   /**
-   * Always up to date, as we are in an insulated transaction.
+   * Return the inheritted validity flag.
+   * 
    * {@inheritDoc}
    * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {
-    return true;
+    return valid;
   }
 
   /**

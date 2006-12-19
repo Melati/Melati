@@ -79,9 +79,10 @@ public abstract class Transactioned {
   /**
    * Whether this instance is up-to-date.
    * <p>
-   * This enables subtypes to define under what circumstances
+   * This is a hook to enable subtypes to define under what circumstances
    * an instance needs to be reloaded when it is marked as
-   * invalid.
+   * invalid, however the two known subtypes just return 
+   * the inheritted valid flag. 
    */
   protected abstract boolean upToDate(Transaction transaction);
 
@@ -110,7 +111,7 @@ public abstract class Transactioned {
 
   /**
    * We don't synchronize this; under the one-thread-per-transaction 
-   * parity itcan't happen, and at worst it means loading twice sometimes.
+   * parity it can't happen, and at worst it means loading twice sometimes.
    * @param transaction
    */
   private void ensureValid(Transaction transaction) {
@@ -118,6 +119,8 @@ public abstract class Transactioned {
       if (transaction == null)
         transaction = touchedBy;
 
+      // NOTE this could be simplified to if(!valid) 
+      // but that would remove a useful extension hook.
       if (!upToDate(transaction))
         load(transaction);
 

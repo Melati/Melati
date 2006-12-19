@@ -650,7 +650,7 @@ public class Table implements Selectable {
       dbModifyStructure(
           "UPDATE " + quotedName() +
           " SET " + column.quotedName() +
-          " = " + column.getSQLType().sqlDefaultValue());
+          " = " + StringUtils.quoted(column.getSQLType().sqlDefaultValue(),'\''));
       dbModifyStructure(
           "ALTER TABLE " + quotedName() +
           " ALTER COLUMN " + column.quotedName() +

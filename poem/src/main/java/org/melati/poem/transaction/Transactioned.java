@@ -50,7 +50,7 @@ package org.melati.util;
  */
 public abstract class Transactioned {
 
-  private boolean valid = true;
+  protected boolean valid = true;
 
   /* The transactions which have read us */
   private int seenMask = 0;

@@ -1376,7 +1376,7 @@ for this <code>Persistent</code>.
   */
   public void setIntegrityfix(StandardIntegrityFix cooked)
       throws AccessPoemException {
-    setIntegrityfixIndex(cooked == null ? null : cooked.index);
+    setIntegrityfixIndex(cooked == null ? null : cooked.getIndex());
   }
 
 

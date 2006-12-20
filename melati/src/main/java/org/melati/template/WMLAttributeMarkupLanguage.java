@@ -67,6 +67,9 @@ public class WMLAttributeMarkupLanguage extends WMLMarkupLanguage
   /**
    * AccessPoemException is handled differently in an Attribute 
    * than it is in the main body of a page.
+   * {@inheritDoc}
+   * @see org.melati.template.AttributeMarkupLanguage#rendered
+   *          (org.melati.poem.AccessPoemException)
    */
   public String rendered(AccessPoemException e) throws IOException {
     try {

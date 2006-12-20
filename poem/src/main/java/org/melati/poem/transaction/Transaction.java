@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -60,13 +60,13 @@ public abstract class Transaction {
   /** Negative mask. */
   public final int negMask;
 
-  /* The transaction we are waiting on */
+  /** The transaction we are waiting on. */
   private Transaction blockedOn = null;
 
-  /* The transactions that are directly waiting on us */
+  /** The transactions that are directly waiting on us. */
   private Vector blockees = new Vector();
 
-  /* The transitive closure of the transactions we are waiting on */
+  /** The transitive closure of the transactions we are waiting on. */
   private int blockedOnMask;
 
   private int seenCapacityMin = 50;
@@ -198,6 +198,9 @@ public abstract class Transaction {
     }
   }
 
+  /**
+   * Finish up, for example write to database.
+   */
   public void commit() {
     try {
       finish(true);
@@ -230,6 +233,8 @@ public abstract class Transaction {
 
   /**
    * The transaction index.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return "transaction" + index;

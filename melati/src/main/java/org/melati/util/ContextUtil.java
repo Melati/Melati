@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,9 +52,17 @@ package org.melati.util;
  */
 public class ContextUtil extends Object {
 
+    /**
+     * No arg constructor.
+     */
     public ContextUtil() {
     }
 
+    /**
+     * Increment an Integer.
+     * @param a the Integer to Increment
+     * @return a new Integer one bigger than the argument
+     */
     public Integer increment(Integer a) {
         return new Integer(a.intValue() +1);
     }

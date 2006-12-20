@@ -115,7 +115,8 @@ public class BooleanPoemType extends AtomPoemType {
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Boolean";

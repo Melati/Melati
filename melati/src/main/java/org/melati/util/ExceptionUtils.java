@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,6 +54,10 @@ public final class ExceptionUtils {
 
   private ExceptionUtils() {}
 
+  /**
+   * @param e a Throwable
+   * @return Returns its stack trace as a String
+   */
   public static String stackTrace(Throwable e) {
     StringWriter buf = new StringWriter();
     e.printStackTrace(new PrintWriter(buf));

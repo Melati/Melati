@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,6 +54,9 @@ public class TroidPoemType extends IntegerPoemType {
   /** The instance. */
   public static final TroidPoemType it = new TroidPoemType();
 
+  /**
+   * Construct a non-nullable type.
+   */
   public TroidPoemType() {
     super(false);
   }
@@ -67,14 +70,19 @@ public class TroidPoemType extends IntegerPoemType {
     return other instanceof IntegerPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return "troid (" + super.toString() + ")";
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * Might be nicer as 'Troid'.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
-  //might be nicer as 'Troid' ?
   public String toDsdType() {
     return "Integer";
   }

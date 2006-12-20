@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,7 +49,7 @@ package org.melati.util;
  * Thrown should there be an attempt within one {@link Transactioned} 
  * {@link Transaction} to commit changes made in another.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  * 
  */
 public class CrossTransactionCommitException extends MelatiRuntimeException {
@@ -58,7 +58,10 @@ public class CrossTransactionCommitException extends MelatiRuntimeException {
   /** The Transaction that has the problem. */
   public Transactioned object;
 
-  /*** Constructor */
+  /**
+   * Constructor taking a Transactioned object.
+   * @param object the Transaction object
+   */
   public CrossTransactionCommitException(Transactioned object) {
     this.object = object;
   }

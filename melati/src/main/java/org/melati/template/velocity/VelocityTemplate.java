@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -63,6 +63,12 @@ import org.apache.velocity.runtime.RuntimeSingleton;
 public class VelocityTemplate implements org.melati.template.Template {
   private org.apache.velocity.Template template;
 
+  /**
+   * Constructor.
+   * @param templateName name or Template
+   * @throws ParseErrorException if there is a problem paring the template
+   * @throws ResourceNotFoundException if the template is not found
+   */
   public VelocityTemplate(String templateName) 
       throws ParseErrorException, ResourceNotFoundException {
     try {
@@ -76,6 +82,12 @@ public class VelocityTemplate implements org.melati.template.Template {
     }
   }
   
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.Template#write
+   * (org.melati.util.MelatiWriter, org.melati.template.TemplateContext, 
+   * org.melati.template.TemplateEngine)
+   */
   public void write(MelatiWriter out, TemplateContext templateContext, 
                     TemplateEngine engine) throws TemplateEngineException {
     try {

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/~timj
  */
 
@@ -56,6 +56,10 @@ public class WMLAttributeMarkupLanguage extends WMLMarkupLanguage
     implements MarkupLanguage, AttributeMarkupLanguage {
 
 
+  /**
+   * Constructor from a normal MarkupLanguage.
+   * @param wml the WMLMarkupLanguage to be based upon
+   */
   public WMLAttributeMarkupLanguage(WMLMarkupLanguage wml) {
     super("wml_attr", wml);
   }

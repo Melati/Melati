@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -48,17 +48,25 @@ package org.melati.util;
 /** 
  * Thrown when there is a problem configuring Melati.
  * 
- * @author TimJ@paneris.org
+ * @author TimJ At paneris.org
  *
  */ 
 public class ConfigException extends MelatiException {
   private static final long serialVersionUID = 1L;
 
   String error;
+  /**
+   * Constructor.
+   * @param error the message
+   */
   public ConfigException(String error) {
     this.error = error;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return error;
   }

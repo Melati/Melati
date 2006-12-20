@@ -71,7 +71,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     getDb().setLogSQL(true);
     assertEquals(18,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries3 = getDb().getQueryCount();
-    assertEquals(queries2 + 1, queries3); 
+    assertEquals(queries2 + 3, queries3); 
     assertEquals(18,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);

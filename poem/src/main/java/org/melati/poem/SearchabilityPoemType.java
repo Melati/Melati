@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,17 +50,25 @@ import org.melati.util.IntegerEnumeration;
 import org.melati.util.MelatiLocale;
 
 /**
+ * Whether field is searchable.
  * A data type used within the POEM {@link ColumnInfo} metadata.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 public class SearchabilityPoemType extends IntegerPoemType {
 
+  /**
+   * Constructor, non nullable.
+   */
   public SearchabilityPoemType() {
     super(false);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#possibleRaws()
+   */
   public Enumeration possibleRaws() {
     return new IntegerEnumeration(0, Searchability.count());
   }
@@ -94,6 +102,10 @@ public class SearchabilityPoemType extends IntegerPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.SEARCHABILITY);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return "searchability (" + super.toString() + ")";
   }

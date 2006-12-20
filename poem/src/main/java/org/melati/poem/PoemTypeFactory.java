@@ -113,23 +113,31 @@ public abstract class PoemTypeFactory {
 
   public abstract String getDescription();
 
-  /** The allowable factories. */
-  public static final PoemTypeFactory TROID,
-    DELETED,
-    TYPE,
-    BOOLEAN,
+  /** Troid column factory. */
+  public static final PoemTypeFactory TROID;
+  /** Deleted column factory. */
+  public static final PoemTypeFactory DELETED;
+  /** Type column factory. */
+  public static final PoemTypeFactory TYPE;
+    
+  /** Base type factories. */
+  public static final PoemTypeFactory BOOLEAN,
     INTEGER,
     DOUBLE,
-    STRING,
-    DATE,
-    PASSWORD,
-    TIMESTAMP,
-    DISPLAYLEVEL,
-    SEARCHABILITY,
-    BINARY,
     LONG,
-    INTEGRITYFIX,
-    BIGDECIMAL;
+    BIGDECIMAL,
+    STRING,
+    PASSWORD,
+    DATE,
+    TIMESTAMP,
+    BINARY;
+
+  /** Poem Displaylevel factory. */
+  public static final PoemTypeFactory  DISPLAYLEVEL;
+  /** Poem Searchability factory. */
+  public static final PoemTypeFactory  SEARCHABILITY;
+  /** Poem IntegrityFix factory. */
+  public static final PoemTypeFactory  INTEGRITYFIX;
 
   private static int n = -1;
 

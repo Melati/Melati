@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *
  *
  * ------
@@ -65,23 +65,23 @@ import org.melati.poem.PoemThread;
 public class CSVRecord extends Vector {
   private static final long serialVersionUID = 1L;
 
-  /* The value of the primary key of this record, from the csv file */
+  /** The value of the primary key of this record, from the csv file */
   String primaryKeyValue = null;
 
-  /* The table this record wants to be written to */
+  /** The table this record wants to be written to */
   Table table = null;
 
-  /* The Poem Persistent corresponding to writing this record to the db */
+  /** The Poem Persistent corresponding to writing this record to the db */
   Persistent poemRecord = null;
   
-  /** The line number of the CSV file */
+  /** The line number of the CSV file. */
   private int lineNo;
   
-  /** The record number of the CSV file */
+  /** The record number of the CSV file. */
   private int recordNo;
   
   /**
-   * Constructor
+   * Constructor.
    */
   public CSVRecord(Table table) {
     super();
@@ -89,7 +89,7 @@ public class CSVRecord extends Vector {
   }
 
   /**
-   * Add a field to this record
+   * Add a field to this record.
    */
   public synchronized void addField(CSVField field) {
     if (field.column.isPrimaryKey)
@@ -162,8 +162,9 @@ public class CSVRecord extends Vector {
  /**
   * Retreive the Persistent corresponding to this CSVRecord, if there
   * is one.
- * @throws NoPrimaryKeyInCSVTableException
- * @throws CSVWriteDownException
+  * @return the existing or newly created Poem Persistent 
+  * @throws NoPrimaryKeyInCSVTableException
+  * @throws CSVWriteDownException
   */
   public Persistent getPersistent() 
       throws NoPrimaryKeyInCSVTableException, CSVWriteDownException {

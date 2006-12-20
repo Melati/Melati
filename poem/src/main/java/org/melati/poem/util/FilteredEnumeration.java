@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -59,6 +59,10 @@ public abstract class FilteredEnumeration implements SkipEnumeration {
   private int finished = -1;
   private Object next;
 
+  /**
+   * Constructor.
+   * @param base the Enumeration we are based upon
+   */
   public FilteredEnumeration(Enumeration base) {
     this.base = base;
   }
@@ -83,11 +87,19 @@ public abstract class FilteredEnumeration implements SkipEnumeration {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public synchronized boolean hasMoreElements() {
     probe();
     return finished == 0;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() {
     if (!hasMoreElements())
       throw new NoSuchElementException();
@@ -96,6 +108,10 @@ public abstract class FilteredEnumeration implements SkipEnumeration {
     return next;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.SkipEnumeration#skip()
+   */
   public synchronized void skip() {
     nextElement();
   }

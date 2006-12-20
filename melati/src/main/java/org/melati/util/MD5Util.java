@@ -48,16 +48,19 @@ package org.melati.util;
 import java.security.MessageDigest;
 
 /**
- * MD5 - utils for encoding using MD5
+ * MD5 - utils for encoding using MD5.
  */
 
 public final class MD5Util {
 
-  private MD5Util() {}
+  private MD5Util() {
+  }
 
   /**
    * Encode a String.
-   * @param in the String to encode
+   * 
+   * @param in
+   *        the String to encode
    * @return the encoded String
    */
   public static String encode(String in) {
@@ -67,40 +70,23 @@ public final class MD5Util {
       return new String(digest);
     } catch (Exception e) {
       throw new MelatiBugMelatiException(
-         "For some reason I couldn't encode the password!", e);
+          "For some reason I couldn't encode the password!",
+          e);
     }
   }
 
-  
-    /**
-     * Test harness
-     */
-   public static void main(String arg[]) {
+  /**
+   * Test harness.
+   */
+  public static void main(String arg[]) {
 
-      String in = "FIXME";
-      if (arg.length > 0) {
-        in = arg[1];
-      }
-      System.out.println("arg:" + in + ":");
-      System.out.println(":" + encode(in) + ":");
-      System.out.println(":" + encode(in) + ":");
-
-   }
+    String in = "FIXME";
+    if (arg.length > 0) {
+      in = arg[1];
+    }
+    System.out.println("arg:" + in + ":");
+    System.out.println(":" + encode(in) + ":");
+    System.out.println(":" + encode(in) + ":");
+  }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

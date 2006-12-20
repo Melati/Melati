@@ -66,7 +66,10 @@ public class CrossTransactionCommitException extends MelatiRuntimeException {
     this.object = object;
   }
 
-  /** The detail message. */
+  /** The detail message. 
+   * {@inheritDoc}
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return "An attempt was made to commit or roll back changes to an object " +
            object +

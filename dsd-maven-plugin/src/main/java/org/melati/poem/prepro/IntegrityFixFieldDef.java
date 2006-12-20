@@ -218,7 +218,7 @@ public class IntegrityFixFieldDef extends FieldDef {
     w.write("  public void set" + suffix + "(" + type + " cooked)\n" +
             "      throws AccessPoemException {\n" +
             "    set" + suffix + 
-            "Index(cooked == null ? null : cooked.index);\n" +
+            "Index(cooked == null ? null : cooked.getIndex());\n" +
             "  }\n");
   }
 

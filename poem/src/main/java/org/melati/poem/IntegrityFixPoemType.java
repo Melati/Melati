@@ -73,13 +73,13 @@ public class IntegrityFixPoemType extends IntegerPoemType {
   }
 
   protected Object _rawOfCooked(Object cooked) {
-    return ((StandardIntegrityFix)cooked).index;
+    return ((StandardIntegrityFix)cooked).getIndex();
   }
 
   protected String _stringOfCooked(Object cooked,
                                    MelatiLocale locale, int style)
       throws PoemException {
-    return ((StandardIntegrityFix)cooked).name;
+    return ((StandardIntegrityFix)cooked).getName();
   }
 
   protected boolean _canRepresent(PoemType other) {
@@ -97,8 +97,19 @@ public class IntegrityFixPoemType extends IntegerPoemType {
 
   /*
    * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.IntegerPoemType#toDsdType()
    */
   public String toDsdType() {
     return "IntegrityFix";
+  }
+
+  /**
+   * Set prevent as default.
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return StandardIntegrityFix.prevent.getIndex().toString();
   }
 }

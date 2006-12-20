@@ -122,4 +122,13 @@ public class ColumnTypePoemType extends IntegerPoemType {
     return "ColumnType";
   }
 
+  /**
+   * Defaults to User.
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue() {
+    return new Integer(0).toString();
+  }
+
 }

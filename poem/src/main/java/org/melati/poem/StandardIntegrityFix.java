@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,18 +61,24 @@ import org.melati.util.EmptyEnumeration;
 public abstract class StandardIntegrityFix implements IntegrityFix {
 
   /** The id for a fix. */
-  public final Integer index;
+  private final Integer index;
   /** The name for a fix. */
-  public final String name;
+  private final String name;
 
   /**
-   * Even though it is public.
-   * 
-   * @return Returns the name.
+   * @return Returns the name
    */
   public String getName() {
     return name;
   }
+
+  /**
+   * @return Returns the index.
+   */
+  public Integer getIndex() {
+    return index;
+  }
+
 
   /* private -- makes Sun compiler barf ... 
      An abstract class must be extended so cannot have a private constructor.
@@ -187,6 +193,10 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     /** The name. */
     public String name;
 
+    /**
+     * Constructor.
+     * @param name the name of the fix
+     */
     public NameUnrecognisedException(String name) {
       this.name = name;
     }

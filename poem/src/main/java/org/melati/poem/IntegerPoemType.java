@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -60,6 +60,10 @@ public class IntegerPoemType extends AtomPoemType {
   /** Instance of a nullable IntegerPoemType. */
   public static final IntegerPoemType nullableInstance = new IntegerPoemType(true);
 
+  /**
+   * Constructor.
+   * @param nullable whether nullable or not
+   */
   public IntegerPoemType(boolean nullable) {
     super(Types.INTEGER, "INT", nullable);
   }
@@ -70,9 +74,8 @@ public class IntegerPoemType extends AtomPoemType {
   }
 
   /**
-   * FIXME do down-counting??
+   * FIXME Do down-counting??
    */
-
   protected Enumeration _possibleRaws() {
     Integer low = (Integer)getLowRaw();
     Integer limit = (Integer)getLimitRaw();
@@ -114,8 +117,9 @@ public class IntegerPoemType extends AtomPoemType {
     return other instanceof IntegerPoemType;
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Integer";

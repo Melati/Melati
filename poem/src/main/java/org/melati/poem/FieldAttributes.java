@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,17 +48,47 @@ package org.melati.poem;
 /**
  * An interface which defines attributes of all {@link Field}s.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  */
 public interface FieldAttributes {
+  /**
+   * @return the machien name of the field
+   */
   String getName();
+  /**
+   * @return the human readable name of the field
+   */
   String getDisplayName();
+  /**
+   * @return the longer description of the field
+   */
   String getDescription();
+  /**
+   * @return the PoemType of the field
+   */
   PoemType getType();
+  /**
+   * @return whether the field is indexed
+   */
   boolean getIndexed();
+  /**
+   * @return whether a user may change the field value
+   */
   boolean getUserEditable();
+  /**
+   * @return whether a user may create a field
+   */
   boolean getUserCreateable();
+  /**
+   * @return the width of widget required to display this field 
+   */
   int getWidth();
+  /**
+   * @return the height of widget to display this field
+   */
   int getHeight();
+  /**
+   * @return the name of a special widget templet to display this field 
+   */
   String getRenderInfo();
 }

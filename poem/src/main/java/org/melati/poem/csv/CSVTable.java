@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *
  *
  * ------
@@ -216,7 +216,10 @@ public class CSVTable {
   * field values (ie until it sees an EOF or a line starting
   * with '$') which it returns in a hashtable (null if there are
   * no field values).
-  */
+   * @return a new CSVRecord
+   * @throws IOException if there is a problem with the file system
+   * @throws CSVParseException if there is a problem parsing the input
+   */
   public CSVRecord parseRecord() throws IOException, CSVParseException {
     if (!parser.nextRecord())
       return null;

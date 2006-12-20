@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,7 +54,7 @@ package org.melati.poem;
  * I'd just like you to know that I had to type this file in again after
  * deleting it.  It's not even very nice is it?
  *
- * @author williamc@paneris.org
+ * @author williamc At paneris.org
  */
 
 public abstract class PoemTypeFactory {
@@ -67,6 +67,10 @@ public abstract class PoemTypeFactory {
    */
   final Integer code;
 
+  /**
+   * Constructor.
+   * @param c PoemType code
+   */
   public PoemTypeFactory(int c) {
     this.code = new Integer(c);
   }
@@ -76,25 +80,40 @@ public abstract class PoemTypeFactory {
    * is <tt>nullable</tt> and its <tt>size</tt>.
    */
   public interface Parameter {
+    /**
+     * @return the nullability of the parameter
+     */
     boolean getNullable();
+    /**
+     * @return its size 
+     */
     int getSize();
   }
 
   abstract SQLPoemType typeOf(Database database, Parameter info);
 
+  /**
+   * @return the arbetary code for this type
+   */
   public Integer getCode() {
     return code;
   }
 
+  /**
+   * @return the machine name of this type
+   */
   public abstract String getName();
 
+  /**
+   * @return the display name of this type
+   */
   public String getDisplayName() {
     return getName();
   }
 
   public abstract String getDescription();
 
-  /** The allowable factories */
+  /** The allowable factories. */
   public static final PoemTypeFactory TROID,
     DELETED,
     TYPE,
@@ -126,196 +145,403 @@ public abstract class PoemTypeFactory {
 
   static final PoemTypeFactory[] atomTypeFactories =
     {
-      TROID =
-      new PoemTypeFactory(
-        n--) {public SQLPoemType typeOf(Database database, Parameter info) {
+      TROID = new PoemTypeFactory(n--) {
+        /**
+         * {@inheritDoc}
+         * @see org.melati.poem.PoemTypeFactory#typeOf
+         * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+         */
+        public SQLPoemType typeOf(Database database, Parameter info) {
           return TroidPoemType.it;
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "TROID";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, DELETED = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return DeletedPoemType.it;
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "DELETED";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, TYPE = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new ColumnTypePoemType(database);
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "TYPE";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, BOOLEAN = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new BooleanPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "BOOLEAN";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, INTEGER = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new IntegerPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "INTEGER";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, DOUBLE = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DoublePoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "DOUBLE";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, STRING = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new StringPoemType(info.getNullable(), info.getSize());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "STRING";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, DATE = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DatePoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "DATE";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, PASSWORD = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new PasswordPoemType(info.getNullable(), info.getSize());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "PASSWORD";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, TIMESTAMP = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new TimestampPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "TIMESTAMP";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, DISPLAYLEVEL = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new DisplayLevelPoemType();
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "DISPLAYLEVEL";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, SEARCHABILITY = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new SearchabilityPoemType();
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "SEARCHABILITY";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, BINARY = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new BinaryPoemType(info.getNullable(), info.getSize());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "BINARY";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, LONG = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new LongPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "LONG";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, INTEGRITYFIX = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new IntegrityFixPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "INTEGRITYFIX";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
     }, BIGDECIMAL = new PoemTypeFactory(n--) {
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#typeOf
+       * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+       */
       public SQLPoemType typeOf(Database database, Parameter info) {
         return new BigDecimalPoemType(info.getNullable());
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getName()
+       */
       public String getName() {
         return "BIGDECIMAL";
       }
 
+      /**
+       * {@inheritDoc}
+       * @see org.melati.poem.PoemTypeFactory#getDescription()
+       */
       public String getDescription() {
         return "...";
       }
@@ -331,18 +557,35 @@ public abstract class PoemTypeFactory {
     else {
       final Table table = database.tableWithTableInfoID(code);
       return new PoemTypeFactory(code) {
+        /**
+         * {@inheritDoc}
+         * @see org.melati.poem.PoemTypeFactory#typeOf
+         * (org.melati.poem.Database, org.melati.poem.PoemTypeFactory.Parameter)
+         */
         public SQLPoemType typeOf(Database db, Parameter info) {
           return new ReferencePoemType(table, info.getNullable());
         }
 
+        /**
+         * {@inheritDoc}
+         * @see org.melati.poem.PoemTypeFactory#getName()
+         */
         public String getName() {
           return table.getName();
         }
 
+        /**
+         * {@inheritDoc}
+         * @see org.melati.poem.PoemTypeFactory#getDisplayName()
+         */
         public String getDisplayName() {
           return table.getDisplayName();
         }
 
+        /**
+         * {@inheritDoc}
+         * @see org.melati.poem.PoemTypeFactory#getDescription()
+         */
         public String getDescription() {
           return table.getDescription();
         }

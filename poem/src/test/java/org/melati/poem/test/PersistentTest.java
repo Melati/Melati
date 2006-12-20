@@ -73,19 +73,14 @@ public class PersistentTest extends PoemTestCase {
     
     // guestUser does not hit the database
     int hits = getDb().getQueryCount();
-    //System.err.println(hits);
     int hits2 = getDb().getQueryCount();
     getDb().getUserTable().guestUser();
-    //System.err.println(hits2);
     getDb().getUserTable().guestUser();
     int hits3 = getDb().getQueryCount();
-    //System.err.println(hits3);
     getDb().uncacheContents();
     int hits4 = getDb().getQueryCount();
-    //System.err.println(hits4);
     getDb().getUserTable().guestUser();
     int hits5 = getDb().getQueryCount();
-    //System.err.println(hits5);
     assertTrue(hits == hits2);
     assertTrue(hits == hits3);
     assertTrue(hits == hits4);
@@ -94,39 +89,32 @@ public class PersistentTest extends PoemTestCase {
     // Count always increments queryCount
     getDb().getUserTable().count();
     int countHits1 = getDb().getQueryCount();
-    //System.err.println(countHits1);
-    assertTrue(countHits1 == hits5 + 1);
+    assertEquals(hits5 + 1, countHits1 );
     getDb().getUserTable().count();
     int countHits2 = getDb().getQueryCount();
     //System.err.println(countHits2);
-    assertTrue(countHits2 == countHits1 + 1);
+    assertEquals(countHits1 + 1, countHits2);
     
-    // Selection is cached but not invalidated 
+    // FIXME Selection is cached but not invalidated 
     // when table cache is invalidated
     getDb().getUserTable().selection();
     int selectionHits1 = getDb().getQueryCount();
-    //System.err.println(selectionHits1);
     getDb().getUserTable().selection();
     int selectionHits2 = getDb().getQueryCount();
-    //System.err.println(selectionHits2);
-    assertTrue(selectionHits1 == selectionHits2);
+    assertEquals(selectionHits1, selectionHits2);
     getDb().uncacheContents();
     getDb().getUserTable().selection();
     int selectionHits3 = getDb().getQueryCount();
-    //System.err.println(selectionHits3);
-    assertTrue(selectionHits2 == selectionHits3);
+    assertEquals(selectionHits2 + 5, selectionHits3);
     
-    // Gets should increment query count
-    // but don't seem to
     getDb().getUserTable().getUserObject(0);
     int getHits1 = getDb().getQueryCount();
     //System.err.println(getHits1);
-    assertTrue(selectionHits3 == getHits1);
+    assertEquals(selectionHits3 + 1, getHits1);
     getDb().uncacheContents();
     getDb().getUserTable().getUserObject(0);
     int getHits2 = getDb().getQueryCount();
-    //System.err.println(getHits2);
-    assertTrue(getHits1  == getHits2);
+    assertEquals(getHits1 + 1, getHits2);
     
     Persistent p2 = getDb().getUserTable().newPersistent();
     p2.setCooked("name", "test");
@@ -136,11 +124,9 @@ public class PersistentTest extends PoemTestCase {
     getDb().getUserTable().getUserObject(2);
     int getHits3 = getDb().getQueryCount();
     //System.err.println(getHits3);
-    assertTrue(getHits3 == getHits2 + 1);
+    assertEquals(getHits2 + 3, getHits3);
     p2.delete();
     PoemThread.commit();
-    // todo - find a scenario where invalidating the cache makes 
-    // a difference
   }
 
   /**

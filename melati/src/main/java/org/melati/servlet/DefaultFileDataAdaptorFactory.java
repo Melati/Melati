@@ -83,7 +83,7 @@ public class DefaultFileDataAdaptorFactory extends FormDataAdaptorFactory {
   }
 
   /**
-   * Set the URL to the uploadDir
+   * Set the URL to the uploadDir.
    * 
    * @param url
    *        The value to set it to

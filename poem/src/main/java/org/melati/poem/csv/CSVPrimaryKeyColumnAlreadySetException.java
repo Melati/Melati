@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *
  *
  * ------
@@ -71,6 +71,7 @@ public class CSVPrimaryKeyColumnAlreadySetException extends RuntimeException {
   }
 
   /**
+   * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

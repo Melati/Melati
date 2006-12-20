@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,16 +55,29 @@ public class LongEnumeration implements Enumeration {
   // No real need for start
   private long start, limit, i;
 
+  /**
+   * Constructor.
+   * @param start starting value
+   * @param limit size limit
+   */
   public LongEnumeration(long start, long limit) {
     this.start = start;
     this.limit = limit;
     this.i = this.start;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return i < limit;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() throws NoSuchElementException {
     if (i >= limit)
       throw new NoSuchElementException();

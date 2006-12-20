@@ -90,7 +90,7 @@ public interface SQLType {
    * @param dbms the DBMS 
    * @return the DBMS specific SQL snippet
    */
-  public String sqlTypeDefinition(Dbms dbms);  
+  String sqlTypeDefinition(Dbms dbms);  
   /**
    * Quoting a raw value, if appropriate for the Dbms.
    * @param raw sql value

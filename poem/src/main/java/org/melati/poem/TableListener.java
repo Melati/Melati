@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,10 +49,20 @@ package org.melati.poem;
  * An object which notices and records when a {@link Table} is 
  * accessed.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  */
 public interface TableListener {
+  /**
+   * Notify a Table that on of its records is about to be modified.
+   * @param transaction the PoemTransaction about to modify
+   * @param table the Table to notify
+   * @param persistent the record that is being modified
+   */
   void notifyTouched(PoemTransaction transaction,
                      Table table, Persistent persistent);
+  /**
+   * Notify a Table that it is being uncached. 
+   * @param table the Table that is to be uncached
+   */
   void notifyUncached(Table table);
 }

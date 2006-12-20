@@ -79,4 +79,13 @@ public class DeletedPoemType extends BooleanPoemType {
   public String toString() {
     return "deleted (" + super.toString() + ")";
   }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
+   */
+  public String toDsdType() {
+    return "Deleted";
+  }
+ 
 }

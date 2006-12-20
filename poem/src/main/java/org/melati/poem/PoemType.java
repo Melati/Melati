@@ -165,4 +165,9 @@ public interface PoemType {
    * @throws AccessPoemException if our AccessToken does not permit modification
    */
   void saveColumnInfo(ColumnInfo columnInfo) throws AccessPoemException;
+
+  /**
+   * The field type used in the Data Structure Definition language.
+   */
+   String toDsdType();
 }

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  */
 
 package org.melati.template.webmacro;
@@ -59,6 +59,8 @@ public interface MelatiWebmacroWriter {
    * Return a <code>FastWriter</code> that can be used for a while.
    *
    * @see #stopUsingFastWriter(FastWriter)
+   * @param engine the TemplateEngine
+   * @return a FastWriter
    */
   FastWriter getFastWriter(TemplateEngine engine);
 

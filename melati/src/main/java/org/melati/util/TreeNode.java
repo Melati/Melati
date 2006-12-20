@@ -142,7 +142,7 @@ public class TreeNode {
      *  
      * @param includeNode whether to include this node in the path
      * @param reverse if true returns a path from root to this
-     * @return
+     * @return an Array of TreeNodes
      */
     public TreeNode[] getNodeToRootPath(boolean includeNode, boolean reverse) {
         Vector path = new Vector();

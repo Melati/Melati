@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,13 +47,21 @@ package org.melati.poem;
 
 /**
  * A record of a structural change to the underlying DBMS.
- * For example the creation of a table ot the addition of a column.
+ * For example the creation of a table or the addition of a column.
  */
 public class StructuralModificationLogEvent extends SQLLogEvent {
+  /**
+   * Constructor.
+   * @param sql the query that has been applied
+   */
   public StructuralModificationLogEvent(String sql) {
     super(sql);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return "Structural modification\n" + super.toString();
   }

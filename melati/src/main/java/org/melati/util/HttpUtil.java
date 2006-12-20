@@ -52,6 +52,12 @@ public final class HttpUtil {
   
   private HttpUtil() {}
 
+  /**
+   * Add a Zone URL to buffer.
+   *  
+   * @param url an empty StringBuffer to append to 
+   * @param request the request to interrogate
+   */
   public static void appendZoneURL(StringBuffer url, 
                                    HttpServletRequest request) {
     String scheme = request.getScheme();
@@ -79,6 +85,8 @@ public final class HttpUtil {
    * on all servlet API versions 2.0 through 2.3
    * In 2.0 the zone was returned in the ServletPath 
    * it is now in the ContextPath.
+   * @param url StringBuffer to append to 
+   * @param request the request to interrogate
    */
   public static void appendRelativeZoneURL (
       StringBuffer url, HttpServletRequest request) {
@@ -92,13 +100,22 @@ public final class HttpUtil {
     }
   }
 
-
+  /**
+   * Retrieve a Zone url.
+   * @param request the request to interrogate
+   * @return an Url up to the zone specification as a String 
+   */
   public static String zoneURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     appendZoneURL(url, request);
     return url.toString();
   }
 
+  /**
+   * Retrieve a Servlet url from a request.
+   * @param request the request to interrogate
+   * @return an Url up to the servlet specification as a String 
+   */
   public static String servletURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     appendZoneURL(url, request);
@@ -109,6 +126,11 @@ public final class HttpUtil {
     return url.toString();
   }
 
+  /**
+   * Retrieve a relative url from a request.
+   * @param request the request to interrogate
+   * @return a relative Url  
+   */
   public static String getRelativeRequestURL(HttpServletRequest request) {
     StringBuffer url = new StringBuffer();
     url.append(HttpServletRequestCompat.getContextPath(request));

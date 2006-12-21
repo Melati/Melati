@@ -217,6 +217,7 @@
            </ignores>
            <excludes>
             <exclude>**/*Exception.class</exclude>
+            <exclude reason="Not used anywhere">**/AccessForbiddenToken.class</exclude>
            </excludes>
           </instrumentation>
         </configuration>
@@ -272,4 +273,17 @@
       </plugin>
     </plugins>
   </reporting>
+  <repositories>
+   <repository>
+    <id>melati</id>
+    <name>Melati Maven Repository</name>
+    <url>http://melati.org/maven2/</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+   </repository>
+  </repositories>
 </project>

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,7 +56,7 @@ import org.melati.poem.dbms.Dbms;
 /**
  * Base class of all fundamental types.
  *
- * @author WilliamC@paneris.org
+ * @author WilliamC At paneris.org
  *
  */
 public abstract class BasePoemType implements SQLPoemType, Cloneable {
@@ -104,6 +104,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
           this, raw, new OutsideRangePoemException(low, limit, raw));
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#assertValidRaw(java.lang.Object)
+   */
   public final void assertValidRaw(Object raw)
       throws ValidationPoemException {
     if (raw == null) {
@@ -118,9 +122,8 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   }
 
   /**
-   * Detect bugs where a raw value should be valid but is not.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
+   * Check if the raw value is valid, as expected.
+   * @param raw an Object which should be of correct type
    */
   public final void doubleCheckValidRaw(Object raw) {
     try {
@@ -134,6 +137,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   protected abstract Object _getRaw(ResultSet rs, int col)
       throws SQLException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#getRaw(java.sql.ResultSet, int)
+   */
   public final Object getRaw(ResultSet rs, int col)
       throws ValidationPoemException {
     Object o;
@@ -152,6 +159,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
                                   Object raw)
       throws SQLException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#setRaw(java.sql.PreparedStatement, int, java.lang.Object)
+   */
   public final void setRaw(PreparedStatement ps, int col, Object raw) {
     doubleCheckValidRaw(raw);
     try {
@@ -186,18 +197,17 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   /**
    * This <B>doesn't</B> do an explicit <TT>assertValidRaw</TT>.
+      * {@inheritDoc}
+   * @see org.melati.poem.PoemType#stringOfRaw(java.lang.Object)
    */
-
   public final String stringOfRaw(Object raw)
       throws ValidationPoemException {
     return raw == null ? null : _stringOfRaw(raw);
   }
 
   /**
-   * Converts a non-null string to a low level representation
-   * of a database column value.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
+   * Converts a non-null string to an appropriate value 
+   * for insertion into the underlying DBMS.
    */
   protected abstract Object _rawOfString(String string)
       throws ParsingPoemException;
@@ -206,13 +216,11 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * Converts a possibly null <code>String</code> to a low level
    * representation of a valid database column value.
    * <p>
-   * A null value is converted to null.
+   * A null values are not changed.
    * <p>
    * This result is validated with {@link #assertValidRaw(Object)}
    * whereas {@link #stringOfRaw(Object)} assumes this is not
    * required.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
    */
   public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {
@@ -224,6 +232,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   protected abstract void _assertValidCooked(Object cooked)
       throws ValidationPoemException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#assertValidCooked(java.lang.Object)
+   */
   public final void assertValidCooked(Object cooked)
       throws ValidationPoemException {
     if (cooked == null) {
@@ -237,6 +249,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
+  /**
+   * Check that object is valid, as expected.
+   * @param cooked the cooked object
+   */
   public final void doubleCheckValidCooked(Object cooked) {
     try {
       assertValidCooked(cooked);
@@ -248,34 +264,38 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   /**
    * Converts a non-null low-level representation of a database
-   * column value to the form most useful internally.
+   * column value to the appropriate object.
    * <p>
-   * For example, integer codes are converted to objects.
-   * Other values remain unchanged.
+   * For the base object types, (String, Integer etc) this involves no change. 
    * <p>
-   * (Please review this description and delete this line. JimW.)
+   * For types with an integer id, such as Poem internal types and user defined types, 
+   * then the appropriate instantiated type is returned from its Integer id.
+   * @param raw the base object or Integer object id
+   * @return the unchanged base object or an instantiated type
    */
   protected abstract Object _cookedOfRaw(Object raw) throws PoemException;
 
   /**
    * Converts a possibly null low-level representation of a database
-   * column value to the form most useful internally.
+   * column value to its canonical form. 
+   * Types represented as integers in the database are converted to 
+   * corresponding objects .
    * <p>
-   * A null value is converted to a null value.
-   * <p>
-   * It is assume the value is valid.
-   * <p>
-   * (Please review this description and delete this line. JimW.)
+   * The raw value is checked to ensure it is valid.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#cookedOfRaw(java.lang.Object)
    */
   public final Object cookedOfRaw(Object raw) throws PoemException {
-    // Well actually it is not assumed the value is valid because
-    // this is a good place to detect bugs.
     doubleCheckValidRaw(raw);
     return raw == null ? null : _cookedOfRaw(raw);
   }
 
   protected abstract Object _rawOfCooked(Object raw) throws PoemException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#rawOfCooked(java.lang.Object)
+   */
   public final Object rawOfCooked(Object cooked) {
     doubleCheckValidCooked(cooked);
     return cooked == null ? null : _rawOfCooked(cooked);
@@ -285,6 +305,11 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
                                            MelatiLocale locale, int style)
       throws PoemException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#stringOfCooked
+   *          (java.lang.Object, org.melati.util.MelatiLocale, int)
+   */
   public final String stringOfCooked(Object cooked,
                                     MelatiLocale locale, int style)
       throws PoemException {
@@ -292,10 +317,18 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     return cooked == null ? "" : _stringOfCooked(cooked, locale, style);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#getNullable()
+   */
   public final boolean getNullable() {
     return nullable;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlTypeCode()
+   */
   public final int sqlTypeCode() {
     return sqlTypeCode;
   }
@@ -318,9 +351,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   }
   protected abstract boolean _canRepresent(SQLPoemType other);
 
-    /**
-     * @todo Work out semantics of range.
-     */ 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)
+   */
   public PoemType canRepresent(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
@@ -336,6 +370,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#withNullable(boolean)
+   */
   public final PoemType withNullable(boolean nullableP) {
     if (this.nullable == nullableP)
       return this;
@@ -349,6 +387,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   protected abstract void _saveColumnInfo(ColumnInfo info)
       throws AccessPoemException;
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#saveColumnInfo(org.melati.poem.ColumnInfo)
+   */
   public void saveColumnInfo(ColumnInfo info) throws AccessPoemException {
     info.setNullable(nullable);
     info.setSize(0);
@@ -362,6 +404,10 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   protected abstract String _quotedRaw(Object raw);
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#quotedRaw(java.lang.Object)
+   */
   public String quotedRaw(Object raw) throws ValidationPoemException {
     assertValidRaw(raw);
     return raw == null ? "NULL" : _quotedRaw(raw);
@@ -369,17 +415,25 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   protected abstract String _toString();
 
-  public String toString() {
-    return (nullable ? "nullable " : "") + _toString() + 
-    " (" + this.getClass().getName() + ")";
-  }
-
   // 
   // --------
   //  Object
   // --------
   // 
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    return (nullable ? "nullable " : "") + _toString() + 
+    " (" + this.getClass().getName() + ")";
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#clone()
+   */
   protected Object clone() {
     try {
       return super.clone();

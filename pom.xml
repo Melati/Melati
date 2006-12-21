@@ -440,6 +440,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <tag>@todo</tag>
           <tag>FIXME</tag>
           <tag>@deprecated</tag>
+          <tag>NOTE</tag>
          </tags>
         </configuration>
       </plugin>

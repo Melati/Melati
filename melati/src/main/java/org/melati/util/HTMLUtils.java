@@ -67,11 +67,17 @@ public final class HTMLUtils {
 
   private HTMLUtils() {}
 
-  /** The DTD name */
+  /** The DTD name. */
   public static final String dtdNameForHTMLParser = "html32.bdtd";
 
   private static DTD dtdForHTMLParser = null;
 
+  /**
+   * Add an Elenet to the ContentModel.
+   * @param cm the ContentModel to add to
+   * @param existing existing element
+   * @param alt alternate element
+   */
   public static void add(ContentModel cm, Element existing, Element alt) {
     if (cm.content == existing) {
       ContentModel twig =
@@ -90,6 +96,12 @@ public final class HTMLUtils {
       add(cm.next, existing, alt);
   }
 
+  /**
+   * Add element to a DTD.
+   * @param dtd DTD to add to 
+   * @param existing existing element
+   * @param alt alternate element
+   */
   public static void addToContentModels(DTD dtd,
                                         Element existing, Element alt) {
     for (Enumeration els = dtd.elementHash.elements();
@@ -100,6 +112,9 @@ public final class HTMLUtils {
     }
   }
 
+  /**
+   * @return a DTD
+   */
   public static DTD dtdForHTMLParser() {
     // not clear HTF this putDTDHash/getDTD API is meant to be useful ...
 
@@ -138,6 +153,9 @@ public final class HTMLUtils {
     return dtdForHTMLParser;
   }
 
+  /**
+   * @return a new parser
+   */
   public static FictionalNotifyingDocumentParser newDocumentParser() {
     return new FictionalNotifyingDocumentParser(dtdForHTMLParser());
   }
@@ -234,6 +252,12 @@ public final class HTMLUtils {
     return entitied(s, true, null);
   }
 
+  /**
+   * Javascript escape sequence for a character, if any, 
+   * otherwise null.
+   * @param c the character
+   * @return an escape sequence or null
+   */
   public static String jsEscapeFor(char c) {
     switch (c) {
       case '\n': return "\\012";
@@ -243,6 +267,11 @@ public final class HTMLUtils {
     }
   } 
 
+  /**
+   * Javascript escape a String.
+   * @param s the String to escape
+   * @return the escaped String
+   */
   public static String jsEscaped(String s) {
     int length = s.length();
     int i = 0;
@@ -269,6 +298,13 @@ public final class HTMLUtils {
     return b.toString();
   }
 
+  /**
+   * Write a tag to a Writer.
+   * @param w the Writer to write to
+   * @param tag the Tag to write
+   * @param attributes the Tag's attributes
+   * @throws IOException if there is a problem writing
+   */
   public static void write(Writer w, HTML.Tag tag, AttributeSet attributes)
       throws IOException {
     w.write('<');
@@ -287,6 +323,11 @@ public final class HTMLUtils {
     w.write('>');
   }
 
+  /**
+   * @param tag the Tag
+   * @param attributes the Tag's attributes
+   * @return a String version of the Tag
+   */
   public static String stringOf(HTML.Tag tag, AttributeSet attributes) {
     StringWriter w = new StringWriter();
 
@@ -304,9 +345,9 @@ public final class HTMLUtils {
  * An Instance of a tag.
  */
   public static class TagInstance {
-    /** The tag*/
+    /** The tag. */
     public final HTML.Tag tag;
-    /** Its attribute */
+    /** Its attributes. */
     public final AttributeSet attributes;
 
     private TagInstance() {

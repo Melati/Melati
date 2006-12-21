@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
@@ -175,6 +175,10 @@ public final class HTMLUtils {
    * If a charset is passed and a character does not encode then we
    * replace it with a numeric character reference (not an entity
    * either but pretty similar).
+   * @param c character to lookup entity for 
+   * @param mapBR whether to replace line ends
+   * @param ce an encoder
+   * @return an entity or null
    */
   public static String entityFor(char c, boolean mapBR, CharsetEncoder ce) {
     switch (c) {
@@ -186,11 +190,10 @@ public final class HTMLUtils {
       case '\'': return "&#39;";
       default:
         if (ce == null || ce.canEncode(c)) {
-          // System.err.println("Tested");
           return null;  
         } else {
           String result = "&#x" + Integer.toHexString(c) + ";";
-          System.err.println("Cannot encode: " + c + " so encoded as: " + result);
+          //System.err.println("Cannot encode: " + c + " so encoded as: " + result);
           return result;
         }
     }
@@ -243,11 +246,12 @@ public final class HTMLUtils {
    * Escape the given string as PCDATA without regard for any characters that
    * cannot be encoded in some required character set.
    * <p>
-   * This is for backward compatibility mainly because it is used below and
-   * I cannot be bothered to unravel the call sequence to find out what for.
+   * This is for backward compatibility as it is used below.
    *
+   * @param s the String to replace special characters from
+   * @return a new String with special characters replaced with entities
    * @see #entitied(String, boolean, String)
-   */    
+   */
   public static String entitied(String s) {
     return entitied(s, true, null);
   }
@@ -368,7 +372,10 @@ public final class HTMLUtils {
       HTMLUtils.write(w, tag, attributes);
     }
 
-    /** A String representation. */
+    /** A String representation. 
+     * {@inheritDoc}
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
       return HTMLUtils.stringOf(tag, attributes);
     }

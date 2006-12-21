@@ -6,6 +6,7 @@ package org.melati.poem.test;
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.TypeMismatchPoemException;
 
 /**
  * @author timp
@@ -109,6 +110,21 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * {@link org.melati.poem.PoemType#assertValidRaw(java.lang.Object)}.
    */
   public void testAssertValidRaw() {
+    if (it.getNullable())
+      it.assertValidRaw(null);
+    else
+      try {
+        it.assertValidRaw(null);
+        fail("Should have blown up");
+      } catch (NullTypeMismatchPoemException e) {
+        e = null;
+      }
+    try {
+      it.assertValidRaw(new Exception("Random class"));
+      fail("Should have blown up");
+    } catch (TypeMismatchPoemException e) {
+      e = null;
+    }
 
   }
 
@@ -140,7 +156,21 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * {@link org.melati.poem.PoemType#assertValidCooked(java.lang.Object)}.
    */
   public void testAssertValidCooked() {
-
+    if (it.getNullable())
+      it.assertValidCooked(null);
+    else
+      try {
+        it.assertValidCooked(null);
+        fail("Should have blown up");
+      } catch (NullTypeMismatchPoemException e) {
+        e = null;
+      }
+    try {
+      it.assertValidCooked(new Exception("Random class"));
+      fail("Should have blown up");
+    } catch (TypeMismatchPoemException e) {
+      e = null;
+    }
   }
 
   /**

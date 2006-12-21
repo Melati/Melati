@@ -66,7 +66,8 @@ public class DatePoemType extends AtomPoemType {
     super(Types.DATE, "DATE", nullable);
   }
  /**
-  * @see org.melati.poem.dbms.SQLServer
+  * Constructor.
+  * @see org.melati.poem.dbms.SQLServer.MSSQLDatePoemType
   */
   public DatePoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
     super(sqlTypeCode, sqlTypeName, nullable);
@@ -109,6 +110,8 @@ public class DatePoemType extends AtomPoemType {
 
   /**
    * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Date";

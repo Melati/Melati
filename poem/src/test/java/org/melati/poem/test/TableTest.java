@@ -5,20 +5,25 @@ package org.melati.poem.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
 
 import org.melati.poem.ColumnInfo;
-import org.melati.poem.DatePoemType;
 import org.melati.poem.DisplayLevel;
+import org.melati.poem.DuplicateTroidColumnPoemException;
 import org.melati.poem.Field;
 import org.melati.poem.Initialiser;
+import org.melati.poem.IntegrityFix;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.Searchability;
+import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
+import org.melati.poem.User;
 import org.melati.poem.UserTable;
 import org.melati.util.EnumUtils;
 
@@ -683,22 +688,59 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void testAddColumnAndCommit() {
+  public void testAddColumnAndCommitTroid() {
     UserTable ut = getDb().getUserTable();
     ColumnInfo columnInfo =
       (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     TableInfo ti = ut.getTableInfo();
     columnInfo.setTableinfo(ti);
-    columnInfo.setName("teststringcol");
+    columnInfo.setName("testtroidcol");
     columnInfo.setDisplayname("Test String Column");
     columnInfo.setDisplayorder(99);
     columnInfo.setSearchability(Searchability.yes);
     columnInfo.setIndexed(false);
     columnInfo.setUnique(false);
-    columnInfo.setDescription("A non-nullable extra String column");
+    columnInfo.setDescription("A non-nullable extra Troid column");
     columnInfo.setUsercreateable(true);
     columnInfo.setUsereditable(true);
-    columnInfo.setTypefactory(PoemTypeFactory.STRING);
+    columnInfo.setTypefactory(PoemTypeFactory.TROID);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    try {
+      columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+      fail("Should have blown up");
+    } catch (DuplicateTroidColumnPoemException e) {
+     e = null; 
+    }
+    getDb().setLogSQL(false);
+  }
+
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitDeleted() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testdeletedcol");
+    columnInfo.setDisplayname("Test Deleted Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Deleted column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.DELETED);
     columnInfo.setSize(-1);
     columnInfo.setWidth(20);
     columnInfo.setHeight(1);
@@ -709,17 +751,108 @@ public class TableTest extends PoemTestCase {
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
-    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("teststringcol").selectionWhereEq("default")).size());
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdeletedcol").selectionWhereEq(Boolean.FALSE)).size());
     PoemThread.commit();
-    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("teststringcol").selectionWhereEq("default")).size());
-    assertEquals("default", ut.administratorUser().getRaw("teststringcol"));
-    assertEquals("default", ut.administratorUser().getCooked("teststringcol"));
-    assertEquals("default", ut.getObject(0).getCooked("teststringcol"));
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdeletedcol").selectionWhereEq(Boolean.FALSE)).size());
+    assertEquals(Boolean.FALSE, ut.administratorUser().getRaw("testdeletedcol"));
+    assertEquals(Boolean.FALSE, ut.administratorUser().getCooked("testdeletedcol"));
+    assertEquals(Boolean.FALSE, ut.getObject(0).getCooked("testdeletedcol"));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitType() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testtypecol");
+    columnInfo.setDisplayname("Test Type Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Type column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.TYPE);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    Integer t = null;
+    Enumeration en = ut.selection();
+    t = (Integer)((User)en.nextElement()).getRaw("testtypecol");
+    while (en.hasMoreElements()) {
+      assertEquals(t, (Integer)((User)en.nextElement()).getRaw("testtypecol"));
+    }
+
+    PoemTypeFactory t2 = null;
+    Enumeration en2 = ut.selection();
+    t2 = (PoemTypeFactory)((User)en2.nextElement()).getCooked("testtypecol");
+    while (en2.hasMoreElements()) {
+      System.err.println(t2.getName());
+      assertEquals(t2.getName(), 
+          ((PoemTypeFactory)((User)en2.nextElement()).getCooked("testtypecol")).getName());
+    }
+    
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testtypecol").selectionWhereEq(new Integer(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testtypecol").selectionWhereEq(new Integer(0))).size());
+    assertEquals(new Integer(0), ut.administratorUser().getRaw("testtypecol"));
+    assertEquals("user", ((PoemTypeFactory)ut.administratorUser().getCooked("testtypecol")).getName());
+    assertEquals("user", ((PoemTypeFactory)ut.getObject(0).getCooked("testtypecol")).getName());
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitBoolean() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testbooleancol");
+    columnInfo.setDisplayname("Test Boolean Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Boolean column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbooleancol").selectionWhereEq(Boolean.FALSE)).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbooleancol").selectionWhereEq(Boolean.FALSE)).size());
+    assertEquals(Boolean.FALSE, ut.administratorUser().getRaw("testbooleancol"));
+    assertEquals(Boolean.FALSE, ut.administratorUser().getCooked("testbooleancol"));
+    assertEquals(Boolean.FALSE, ut.getObject(0).getCooked("testbooleancol"));
     getDb().setLogSQL(false);
   }
 
   /**
-   * @todo Finish
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitInteger() {
@@ -760,6 +893,196 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
+  public void testAddColumnAndCommitDouble() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testdoublecol");
+    columnInfo.setDisplayname("Test Double Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Double column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.DOUBLE);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdoublecol").selectionWhereEq(new Double(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdoublecol").selectionWhereEq(new Double(0))).size());
+    assertEquals(new Double(0), ut.administratorUser().getRaw("testdoublecol"));
+    assertEquals(new Double(0), ut.administratorUser().getCooked("testdoublecol"));
+    assertEquals(new Double(0), ut.getObject(0).getCooked("testdoublecol"));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitLong() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testlongcol");
+    columnInfo.setDisplayname("Test Long Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Long column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.LONG);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testlongcol").selectionWhereEq(new Long(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testlongcol").selectionWhereEq(new Long(0))).size());
+    assertEquals(new Long(0), ut.administratorUser().getRaw("testlongcol"));
+    assertEquals(new Long(0), ut.administratorUser().getCooked("testlongcol"));
+    assertEquals(new Long(0), ut.getObject(0).getCooked("testlongcol"));
+    getDb().setLogSQL(false);
+  }
+
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitBigDecimal() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testbigdecimalcol");
+    columnInfo.setDisplayname("Test Big Decimal Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Big Decimal column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.BIGDECIMAL);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0))).size());
+    assertEquals(new BigDecimal(0), ut.administratorUser().getRaw("testbigdecimalcol"));
+    assertEquals(new BigDecimal(0), ut.administratorUser().getCooked("testbigdecimalcol"));
+    assertEquals(new BigDecimal(0), ut.getObject(0).getCooked("testbigdecimalcol"));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitString() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("teststringcol");
+    columnInfo.setDisplayname("Test String Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra String column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.STRING);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("teststringcol").selectionWhereEq("default")).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("teststringcol").selectionWhereEq("default")).size());
+    assertEquals("default", ut.administratorUser().getRaw("teststringcol"));
+    assertEquals("default", ut.administratorUser().getCooked("teststringcol"));
+    assertEquals("default", ut.getObject(0).getCooked("teststringcol"));
+    getDb().setLogSQL(false);
+  }
+
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitPassword() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testpasswordcol");
+    columnInfo.setDisplayname("Test Password Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Password column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.PASSWORD);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testpasswordcol").selectionWhereEq("default")).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testpasswordcol").selectionWhereEq("default")).size());
+    assertEquals("default", ut.administratorUser().getRaw("testpasswordcol"));
+    assertEquals("default", ut.administratorUser().getCooked("testpasswordcol"));
+    assertEquals("default", ut.getObject(0).getCooked("testpasswordcol"));
+    getDb().setLogSQL(false);
+  }
+
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
   public void testAddColumnAndCommitDate() {
     UserTable ut = getDb().getUserTable();
     ColumnInfo columnInfo =
@@ -767,12 +1090,12 @@ public class TableTest extends PoemTestCase {
     TableInfo ti = ut.getTableInfo();
     columnInfo.setTableinfo(ti);
     columnInfo.setName("testdatecol");
-    columnInfo.setDisplayname("Test Integer Column");
+    columnInfo.setDisplayname("Test Date Column");
     columnInfo.setDisplayorder(199);
     columnInfo.setSearchability(Searchability.yes);
     columnInfo.setIndexed(false);
     columnInfo.setUnique(false);
-    columnInfo.setDescription("A non-nullable extra Integer column");
+    columnInfo.setDescription("A non-nullable extra Date column");
     columnInfo.setUsercreateable(true);
     columnInfo.setUsereditable(true);
     columnInfo.setTypefactory(PoemTypeFactory.DATE);
@@ -786,16 +1109,272 @@ public class TableTest extends PoemTestCase {
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
-    //assertEquals(2,EnumUtils.vectorOf(
-    //    ut.getColumn("testdatecol").selectionWhereEq(new DatePoemType(false))).size());
+    assertEquals(2,EnumUtils.vectorOf(
+        ut.getColumn("testdatecol").selectionWhereEq(
+            new java.sql.Date(new Date().getTime()))).size());
     PoemThread.commit();
-    //assertEquals(2,EnumUtils.vectorOf(
-    //    ut.getColumn("testdatecol").selectionWhereEq(new Date())).size());
-    //assertEquals(new Date(), ut.administratorUser().getRaw("testdatecol"));
-    //assertEquals(new Date(), ut.administratorUser().getCooked("testdatecol"));
-    //assertEquals(new Date(), ut.getObject(0).getCooked("testdatecol"));
+    assertEquals(2,EnumUtils.vectorOf(
+        ut.getColumn("testdatecol").selectionWhereEq(
+            new java.sql.Date(new Date().getTime()))).size());
+    assertEquals(new java.sql.Date(new Date().getTime()).toString(), 
+        ut.administratorUser().getRaw("testdatecol").toString());
+    assertEquals(new java.sql.Date(new Date().getTime()).toString(), 
+        ut.administratorUser().getCooked("testdatecol").toString());
+    assertEquals(new java.sql.Date(new Date().getTime()).toString(), 
+        ut.getObject(0).getCooked("testdatecol").toString());
     getDb().setLogSQL(false);
   }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitTimestamp() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testtimestampcol");
+    columnInfo.setDisplayname("Test Timestamp Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Timestamp column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    Timestamp t = null;
+    Enumeration en = ut.selection();
+    t = (Timestamp)((User)en.nextElement()).getRaw("testtimestampcol");
+    while (en.hasMoreElements()) {
+      assertEquals(t, (Timestamp)((User)en.nextElement()).getRaw("testtimestampcol"));
+    }
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testtimestampcol").selectionWhereEq(t)).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testtimestampcol").selectionWhereEq(t)).size());
+    assertEquals(t, ut.administratorUser().getRaw("testtimestampcol"));
+    assertEquals(t, ut.administratorUser().getCooked("testtimestampcol"));
+    assertEquals(t, ut.getObject(0).getCooked("testtimestampcol"));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitBinary() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testbinarycol");
+    columnInfo.setDisplayname("Test Binary Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Binary column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.BINARY);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    byte[] t = null;
+    Enumeration en = ut.selection();
+    t = (byte[])((User)en.nextElement()).getRaw("testbinarycol");
+    while (en.hasMoreElements()) {
+      assertEquals(t.length, ((byte[])((User)en.nextElement()).getRaw("testbinarycol")).length);
+    }
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbinarycol").selectionWhereEq(t)).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testbinarycol").selectionWhereEq(t)).size());
+    assertEquals(t, ut.administratorUser().getRaw("testbinarycol"));
+    assertEquals(t, ut.administratorUser().getCooked("testbinarycol"));
+    assertEquals(t.length, ((byte[])ut.getObject(0).getCooked("testbinarycol")).length);
+    getDb().setLogSQL(false);
+  }
+
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitDisplaylevel() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testdisplaylevelcol");
+    columnInfo.setDisplayname("Test Displaylevel Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Displaylevel column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.DISPLAYLEVEL);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    Integer t = null;
+    Enumeration en = ut.selection();
+    t = (Integer)((User)en.nextElement()).getRaw("testdisplaylevelcol");
+    while (en.hasMoreElements()) {
+      assertEquals(t, (Integer)((User)en.nextElement()).getRaw("testdisplaylevelcol"));
+    }
+
+    DisplayLevel t2 = null;
+    Enumeration en2 = ut.selection();
+    t2 = (DisplayLevel)((User)en2.nextElement()).getCooked("testdisplaylevelcol");
+    while (en2.hasMoreElements()) {
+      System.err.println(t2);
+      assertEquals(t2, 
+          ((DisplayLevel)((User)en2.nextElement()).getCooked("testdisplaylevelcol")));
+    }
+    
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdisplaylevelcol").selectionWhereEq(new Integer(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testdisplaylevelcol").selectionWhereEq(new Integer(0))).size());
+    assertEquals(new Integer(0), ut.administratorUser().getRaw("testdisplaylevelcol"));
+    assertEquals(DisplayLevel.primary, ((DisplayLevel)ut.administratorUser().getCooked("testdisplaylevelcol")));
+    assertEquals(DisplayLevel.primary, ((DisplayLevel)ut.getObject(0).getCooked("testdisplaylevelcol")));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitSearchability() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testsearchabilitycol");
+    columnInfo.setDisplayname("Test searchability Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Searchability column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.SEARCHABILITY);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    Integer t = null;
+    Enumeration en = ut.selection();
+    t = (Integer)((User)en.nextElement()).getRaw("testsearchabilitycol");
+    while (en.hasMoreElements()) {
+      assertEquals(t, (Integer)((User)en.nextElement()).getRaw("testsearchabilitycol"));
+    }
+
+    Searchability t2 = null;
+    Enumeration en2 = ut.selection();
+    t2 = (Searchability)((User)en2.nextElement()).getCooked("testsearchabilitycol");
+    while (en2.hasMoreElements()) {
+      System.err.println(t2);
+      assertEquals(t2, 
+          ((Searchability)((User)en2.nextElement()).getCooked("testsearchabilitycol")));
+    }
+    
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testsearchabilitycol").selectionWhereEq(new Integer(0))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testsearchabilitycol").selectionWhereEq(new Integer(0))).size());
+    assertEquals(new Integer(0), ut.administratorUser().getRaw("testsearchabilitycol"));
+    assertEquals(Searchability.primary, ((Searchability)ut.administratorUser().getCooked("testsearchabilitycol")));
+    assertEquals(Searchability.primary, ((Searchability)ut.getObject(0).getCooked("testsearchabilitycol")));
+    getDb().setLogSQL(false);
+  }
+  
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitIntegrityfix() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo =
+      (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testintegrityfixcol");
+    columnInfo.setDisplayname("Test Integrityfix Column");
+    columnInfo.setDisplayorder(99);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A non-nullable extra Integrityfix column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.INTEGRITYFIX);
+    columnInfo.setSize(-1);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(false);
+    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    Integer t = null;
+    Enumeration en = ut.selection();
+    t = (Integer)((User)en.nextElement()).getRaw("testIntegrityfixcol");
+    while (en.hasMoreElements()) {
+      assertEquals(t, (Integer)((User)en.nextElement()).getRaw("testIntegrityfixcol"));
+    }
+
+    IntegrityFix t2 = null;
+    Enumeration en2 = ut.selection();
+    t2 = (IntegrityFix)((User)en2.nextElement()).getCooked("testIntegrityfixcol");
+    while (en2.hasMoreElements()) {
+      System.err.println(t2);
+      assertEquals(t2, 
+          ((IntegrityFix)((User)en2.nextElement()).getCooked("testIntegrityfixcol")));
+    }
+    
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testIntegrityfixcol").selectionWhereEq(new Integer(2))).size());
+    PoemThread.commit();
+    assertEquals(2,EnumUtils.vectorOf(ut.getColumn("testIntegrityfixcol").selectionWhereEq(new Integer(2))).size());
+    assertEquals(new Integer(2), ut.administratorUser().getRaw("testIntegrityfixcol"));
+    assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix)ut.administratorUser().getCooked("testIntegrityfixcol")));
+    assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix)ut.getObject(0).getCooked("testIntegrityfixcol")));
+    getDb().setLogSQL(false);
+  }
+  
   
   /**
    * @see org.melati.poem.Table#toString()

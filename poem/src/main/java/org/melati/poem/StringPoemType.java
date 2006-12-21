@@ -100,6 +100,11 @@ public class StringPoemType extends SizedAtomPoemType {
     }
   }
 
+  /**
+   * NOTE that this means nullable types can represent non-nullable types and visa verca.
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
+   */
   protected boolean _canRepresent(SQLPoemType other) {
     return
         other instanceof StringPoemType &&

@@ -114,7 +114,6 @@ public class IntegerPoemType extends AtomPoemType {
   }
 
   /**
-   * NOTE This means that nullable types can represent non-nullable types.
    * {@inheritDoc}
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */

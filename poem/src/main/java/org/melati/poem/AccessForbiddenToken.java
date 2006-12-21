@@ -47,11 +47,20 @@ package org.melati.poem;
 
 /**
  * {@link AccessToken} that gives no capabilities.
+ * <p>
+ * Not currently in use (21/12/2006/TimP).
+ * You could enforce a policy of explicit permissions 
+ * by making this the guest users' default AccessToken.   
  *
  * @author williamc At paneris.org
- * @todo check if used elsewhere and delete
  */
-public class BaseAccessToken implements AccessToken {
+public class AccessForbiddenToken implements AccessToken {
+  /**
+   * Return false, thereby not giving Capability.
+   * 
+   * {@inheritDoc}
+   * @see org.melati.poem.AccessToken#givesCapability(org.melati.poem.Capability)
+   */
   public boolean givesCapability(Capability capability) {
     return false;
   }

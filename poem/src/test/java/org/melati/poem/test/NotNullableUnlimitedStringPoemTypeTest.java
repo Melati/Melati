@@ -3,8 +3,6 @@
  */
 package org.melati.poem.test;
 
-import org.melati.poem.DisplayLevelPoemType;
-import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.StringPoemType;
 
 /**

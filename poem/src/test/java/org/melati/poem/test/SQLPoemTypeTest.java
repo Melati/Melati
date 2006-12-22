@@ -5,7 +5,7 @@ package org.melati.poem.test;
 
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.NullTypeMismatchPoemException;
-import org.melati.poem.SQLPoemType;
+import org.melati.poem.PoemType;
 import org.melati.poem.TypeMismatchPoemException;
 
 /**
@@ -29,7 +29,7 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
     super(name);
   }
 
-  SQLPoemType it = null;
+  protected PoemType it = null;
 
   /**
    * {@inheritDoc}
@@ -218,6 +218,7 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    */
   public void testCanRepresent() {
     assertNull(it.canRepresent(new DisplayLevelPoemType()));
+    
   }
 
   /**

@@ -358,7 +358,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   public PoemType canRepresent(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
-    if (!(other instanceof SQLPoemType))
+    if (!(other instanceof SQLPoemType)) // Never happens as currently all PoemTypes are SQLPoemTypes
       return null;
     else {
       SQLPoemType q = (SQLPoemType)other;

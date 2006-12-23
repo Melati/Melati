@@ -3,9 +3,14 @@
  */
 package org.melati.poem.test;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.TypeMismatchPoemException;
 
 /**
@@ -94,6 +99,15 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * {@link org.melati.poem.SQLType#getRaw(java.sql.ResultSet, int)}.
    */
   public void testGetRaw() {
+    try {
+      ((SQLPoemType)it).getRaw((ResultSet)null,1);
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      assertTrue(it instanceof SqlExceptionPoemType);
+      e = null;
+    } catch (NullPointerException e2) {
+      e2 = null;
+    }
 
   }
 
@@ -102,6 +116,16 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * {@link org.melati.poem.SQLType#setRaw(java.sql.PreparedStatement, int, java.lang.Object)}.
    */
   public void testSetRaw() {
+    try {
+      ((SQLPoemType)it).setRaw((PreparedStatement)null,1, null);
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      assertTrue(it instanceof SqlExceptionPoemType);
+      e = null;
+    } catch (NullPointerException e2) {
+      e2 = null;
+    }
+
 
   }
 

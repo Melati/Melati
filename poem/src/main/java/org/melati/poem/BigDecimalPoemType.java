@@ -150,6 +150,6 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return new BigDecimal(0).toString();
+    return new BigDecimal(0.0).toString();
   }
 }

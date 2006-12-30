@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -80,10 +80,6 @@ public abstract class CachedQuery {
     this.otherTables = otherTables;
     if (otherTables != null)
       otherTablesSerial = new long[otherTables.length];
-  }
-
-  public CachedQuery(final Table table, final String query) {
-    this(table,query,null);
   }
 
   protected PreparedStatementFactory statements() {
@@ -148,10 +144,16 @@ public abstract class CachedQuery {
     }
   }
 
+  /**
+   * @return the table property
+   */
   public Table getTable() {
     return table;
   }
 
+  /**
+   * @return whether the results are still valid
+   */
   public boolean outOfDate() {
     return somethingHasChanged(PoemThread.transaction());
   }

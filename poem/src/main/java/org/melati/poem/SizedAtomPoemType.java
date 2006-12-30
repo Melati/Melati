@@ -52,16 +52,30 @@ public abstract class SizedAtomPoemType extends AtomPoemType {
 
   private int size;
 
+  /**
+   * Constructor with size.
+   * @param sqlTypeCode SQL TYPE code
+   * @param sqlTypeName SQL TYPE name
+   * @param nullable whether nullable 
+   * @param size how big
+   */
   public SizedAtomPoemType(int sqlTypeCode, String sqlTypeName,
                            boolean nullable, int size) {
     super(sqlTypeCode, sqlTypeName, nullable);
     this.size = size;
   }
 
+  /**
+   * @return the size of this type
+   */
   public int getSize() {
     return size;
   }
 
+  /**
+   * @param newSize size of returned field
+   * @return this or clone with new size
+   */
   public SizedAtomPoemType withSize(int newSize) {
     if (newSize == getSize())
       return this;

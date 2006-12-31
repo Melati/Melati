@@ -216,7 +216,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * Converts a possibly null <code>String</code> to a low level
    * representation of a valid database column value.
    * <p>
-   * A null values are not changed.
+   * Null values are not changed.
    * <p>
    * This result is validated with {@link #assertValidRaw(Object)}
    * whereas {@link #stringOfRaw(Object)} assumes this is not

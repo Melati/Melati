@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -112,15 +112,6 @@ public class Capability extends CapabilityBase {
 
  /**
   * Return the capability name.
-  * <p>
-  * Not sure what the requirements are here but it is used
-  * in exception reporting and in that case we want
-  * what information we can get. So a read lock is not
-  * required if we are not in a session. Question is, do
-  * we want a read lock if we are in a session? That is
-  * the way it has been and it probably does not matter
-  * so we get one for backward compatibility.
-  *
   * @return the name of this <code>Capability</code>
   */
   public String toString() {

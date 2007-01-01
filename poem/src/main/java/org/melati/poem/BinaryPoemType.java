@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -58,6 +58,11 @@ import org.melati.poem.dbms.Dbms;
  */
 public class BinaryPoemType extends SizedAtomPoemType {
  
+  /**
+   * Constructor.
+   * @param nullable whether nullable
+   * @param size how big
+   */
   public BinaryPoemType(boolean nullable, int size) {
     super(Types.VARBINARY, "VARBINARY", nullable, size);
   }
@@ -86,7 +91,7 @@ public class BinaryPoemType extends SizedAtomPoemType {
   }
 
   protected Object _rawOfString(String rawString) {
-    return Base64.decode(rawString);
+    return Base64.decode(rawString).getBytes();
   }
 
   protected String _sqlDefinition(Dbms dbms) {
@@ -103,12 +108,17 @@ public class BinaryPoemType extends SizedAtomPoemType {
         sizeGreaterEqual(getSize(), ((BinaryPoemType)other).getSize());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#toString()
+   */
   public String toString() {
     return (getNullable() ? "nullable " : "") + "binary(" + getSize() + ")";
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "byte[]";

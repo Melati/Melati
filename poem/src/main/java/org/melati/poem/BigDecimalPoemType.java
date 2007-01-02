@@ -60,7 +60,7 @@ import org.melati.poem.dbms.Dbms;
  * */
 public class BigDecimalPoemType extends FixedPointAtomPoemType {
 
-  final static String sqlTypeName = "DECIMAL"; 
+  static final String sqlTypeName = "DECIMAL"; 
   /**
    * Constructor.
    * 

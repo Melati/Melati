@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,7 +53,6 @@ import java.sql.Types;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.melati.util.MelatiLocale;
 import org.melati.util.StringUtils;
@@ -67,10 +66,16 @@ public class TimestampPoemType extends AtomPoemType {
   public static final DateFormat format =
       new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
+  /**
+   * Constructor.
+   * @param nullable whether nullable
+   */
   public TimestampPoemType(boolean nullable) {
     super(Types.TIMESTAMP, "TIMESTAMP", nullable);
   }
+  
  /**
+  * Constructor.
   * @see org.melati.poem.dbms.SQLServer
   */
   public TimestampPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
@@ -113,8 +118,9 @@ public class TimestampPoemType extends AtomPoemType {
     return other instanceof TimestampPoemType;
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Timestamp";
@@ -134,7 +140,7 @@ public class TimestampPoemType extends AtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return new Timestamp(new Date().getTime()).toString();
+    return format.format(new Timestamp(System.currentTimeMillis()));
   }
 
 }

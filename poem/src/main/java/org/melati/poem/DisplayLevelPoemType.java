@@ -85,7 +85,7 @@ public class DisplayLevelPoemType extends IntegerPoemType {
     return ((DisplayLevel)cooked).name;
   }
 
-  protected boolean _canRepresent(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof DisplayLevelPoemType;
   }
 

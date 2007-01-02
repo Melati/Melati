@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc AT paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -65,11 +65,19 @@ public class ColumnTypePoemType extends IntegerPoemType {
 
   private Database database;
 
+  /**
+   * Constructor for a non nullable column type.
+   * @param database the db we are dealing with
+   */
   public ColumnTypePoemType(Database database) {
     super(false);
     this.database = database;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#possibleRaws()
+   */
   public Enumeration possibleRaws() {
     return
         new FlattenedEnumeration(
@@ -102,7 +110,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }
 
-  protected boolean _canRepresent(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof ColumnTypePoemType;
   }
 
@@ -111,12 +119,17 @@ public class ColumnTypePoemType extends IntegerPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.TYPE);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#toString()
+   */
   public String toString() {
     return "type code (" + super.toString() + ")";
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.IntegerPoemType#toDsdType()
    */
   public String toDsdType() {
     return "ColumnType";

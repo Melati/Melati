@@ -53,8 +53,6 @@ package org.melati.poem;
  *
  * I'd just like you to know that I had to type this file in again after
  * deleting it.  It's not even very nice is it?
- *
- * @author williamc At paneris.org
  */
 
 public abstract class PoemTypeFactory {

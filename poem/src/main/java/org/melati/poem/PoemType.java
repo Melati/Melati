@@ -143,11 +143,11 @@ public interface PoemType {
   boolean getNullable();
 
   /**
-   * Return a PoemType which can can repesent another, 
+   * Return a PoemType which can can represent another, 
    * or null.
    * 
    * @param other the other type to check
-   * @return whether this type can represent the other 
+   * @return the other or null 
    */
   PoemType canRepresent(PoemType other);
 

@@ -105,7 +105,11 @@ public class TimestampPoemType extends AtomPoemType {
       return new Timestamp(format.parse(raw).getTime());
     }
     catch (ParseException e) {
-      throw new ParsingPoemException(this, raw, e);
+      try {
+        return Timestamp.valueOf(raw);
+      } catch (IllegalArgumentException  e2) {
+        throw new ParsingPoemException(this, raw, e2);
+      }
     }
   }
 
@@ -140,7 +144,7 @@ public class TimestampPoemType extends AtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return format.format(new Timestamp(System.currentTimeMillis()));
+    return new Timestamp(System.currentTimeMillis()).toString();
   }
 
 }

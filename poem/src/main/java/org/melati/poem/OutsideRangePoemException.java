@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,17 +47,15 @@ package org.melati.poem;
 
  /**
   * Thrown when a value outside of a {@link Field}'s range is discovered.
-  *
-  * @author WilliamC@paneris.org
   */
 public class OutsideRangePoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
-    /** Low limit */
+    /** Low limit. */
   public Object low;
-    /** High limit */
+    /** High limit. */
   public Object limit;
-    /** Value */
+    /** Value. */
   public Object value;
 
   /** Constructor. */
@@ -73,6 +71,6 @@ public class OutsideRangePoemException extends PoemException {
    */
   public String getMessage() {
     return "The value " + value +
-           " is outside the range [" + low + ", " + limit + ")";
+           " is outside the range [" + low + ", " + limit + "]";
   }
 }

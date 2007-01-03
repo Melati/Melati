@@ -52,6 +52,7 @@ import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
+import org.melati.poem.SQLPoemType;
 
 /**
  * An hour.
@@ -62,7 +63,7 @@ class HourPoemType extends IntegerPoemType {
     setRawRange(new Integer(0), new Integer(24));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof HourPoemType;
   }
 
@@ -80,7 +81,7 @@ class MinutePoemType extends IntegerPoemType {
     setRawRange(new Integer(0), new Integer(60));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof MinutePoemType;
   }
 
@@ -98,7 +99,7 @@ class SecondPoemType extends IntegerPoemType {
     setRawRange(new Integer(0), new Integer(60));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof SecondPoemType;
   }
 

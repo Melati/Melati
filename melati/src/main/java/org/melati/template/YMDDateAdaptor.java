@@ -54,6 +54,7 @@ import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
+import org.melati.poem.SQLPoemType;
 
 /**
  * A numeric year. 
@@ -65,7 +66,7 @@ class YearPoemType extends IntegerPoemType {
     setRawRange(new Integer(low), new Integer(limit));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof YearPoemType;
   }
 
@@ -84,7 +85,7 @@ class MonthPoemType extends IntegerPoemType {
     setRawRange(new Integer(1), new Integer(13));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof MonthPoemType;
   }
 
@@ -116,7 +117,7 @@ class DayPoemType extends IntegerPoemType {
     setRawRange(new Integer(1), new Integer(32));
   }
 
-  protected boolean _canBe(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof DayPoemType;
   }
 

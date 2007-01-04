@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,8 +55,9 @@ import org.melati.Melati;
  *
  * Invoked with:
  * http://localhost/zone/org.melati.admin.Display/db/table/troid/Template
- * or 
- * http://localhost/zone/org.melati.admin.Display/db/table/troid?template=t
+ * or
+ * http://localhost/zone/org.melati.admin.Display/db/table/troid/?template=t
+ * otherwise the default template is used.
  */
 public class Display extends TemplateServlet {
   private static final long serialVersionUID = 1L;
@@ -72,8 +73,12 @@ public class Display extends TemplateServlet {
       context.put("object", melati.getObject());
     }
 
-    if (context.getForm("template") != null) 
+    if (context.getForm("template") != null)
       return context.getForm("template");
+
+    if (melati.getMethod() != null && melati.getMethod().length() != 0)
+      return melati.getMethod();
+
     return StringUtils.tr(this.getClass().getName(),".","/");
   }
 }

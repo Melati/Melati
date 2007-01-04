@@ -49,10 +49,12 @@ $melati.setVariableExceptionHandler($melati.PassbackVariableExceptionHandler)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>$ml.rendered($object) rendered using default template</title>
 </head>
 <body>
-$object
-<br>
-$ml.rendered($object)
+<h1>Default Display Template</h1>
+Object: $object
+<br/>
+Rendered: $ml.rendered($object)
 </body>
 </html>

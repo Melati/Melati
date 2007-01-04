@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,6 +54,10 @@ import org.melati.util.MelatiLocale;
  */
 public class IntegrityFixPoemType extends IntegerPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether may be null
+   */
   public IntegrityFixPoemType(boolean nullable) {
     super(nullable);
   }
@@ -82,7 +86,7 @@ public class IntegrityFixPoemType extends IntegerPoemType {
     return ((StandardIntegrityFix)cooked).getName();
   }
 
-  protected boolean _canRepresent(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof IntegrityFixPoemType;
   }
 
@@ -91,12 +95,15 @@ public class IntegrityFixPoemType extends IntegerPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.INTEGRITYFIX);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#toString()
+   */
   public String toString() {
     return "integrity fix (" + super.toString() + ")";
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
    * {@inheritDoc}
    * @see org.melati.poem.IntegerPoemType#toDsdType()
    */

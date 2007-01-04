@@ -66,8 +66,13 @@ public class IntegrityFixPoemType extends IntegerPoemType {
     return new IntegerEnumeration(0, StandardIntegrityFix.count());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.AtomPoemType#_assertValidCooked(java.lang.Object)
+   */
   protected void _assertValidCooked(Object cooked)
       throws ValidationPoemException {
+    // This may need to be broadened to IntegrityFixPoemType 
     if (!(cooked instanceof StandardIntegrityFix))
       throw new TypeMismatchPoemException(cooked, this);
   }

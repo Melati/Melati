@@ -3,15 +3,15 @@
  */
 package org.melati.poem.test;
 
-import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.ValidationPoemException;
 
 /**
  * @author timp
  * @since 21 Dec 2006
  *
  */
-public class NullableIntegerPoemTypeTest extends SQLPoemTypeTest {
+public class NullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
   /**
    * 
@@ -31,14 +31,55 @@ public class NullableIntegerPoemTypeTest extends SQLPoemTypeTest {
    * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
    */
   void setObjectUnderTest() {
-    it = new IntegerPoemType(true);
+    it = new RangedIntegerPoemType(true, new Integer(2), new Integer(13));
+  }
+ 
+  
+  public void testToDsdType() {
   }
 
-  /**
-   * Test method for
-   * {@link org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)}.
-   */
-  public void testCanRepresent() {
-    assertTrue(it.canRepresent(new DisplayLevelPoemType()) instanceof IntegerPoemType);
+
+  public void testAssertValidRaw() {
+    super.testAssertValidRaw();
+    try {
+      it.assertValidRaw(new Integer(0));
+      fail("Should have blown up");
+    } catch (ValidationPoemException e) {
+      e = null;
+    }
+    try {
+      it.assertValidRaw(new Integer(23));
+      fail("Should have blown up");
+    } catch (ValidationPoemException e) {
+      e = null;
+    }
+  }
+
+
+  public void testAssertValidCooked() {
+    // TODO Auto-generated method stub
+    super.testAssertValidCooked();
+  }
+
+
+  class RangedIntegerPoemType extends IntegerPoemType {
+    /**
+     * @param nullableP
+     * @param low
+     * @param limit
+     */
+    RangedIntegerPoemType(boolean nullableP, Integer low, Integer limit) {
+      super(nullableP);
+      setRawRange(low, limit);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see org.melati.poem.IntegerPoemType#sqlDefaultValue()
+     */
+    public String sqlDefaultValue() {
+      return "2";
+    }
+    
   }
 }

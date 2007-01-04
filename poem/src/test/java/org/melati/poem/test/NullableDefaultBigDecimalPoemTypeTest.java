@@ -10,7 +10,7 @@ import org.melati.poem.BigDecimalPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeTest {
+public class NullableDefaultBigDecimalPoemTypeTest extends NotNullableDefaultBigDecimalPoemTypeTest {
 
   /**
    * 

@@ -10,7 +10,7 @@ import org.melati.poem.DoublePoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableDoublePoemTypeTest extends SQLPoemTypeTest {
+public class NullableDoublePoemTypeTest extends NotNullableDoublePoemTypeTest {
 
   /**
    * 

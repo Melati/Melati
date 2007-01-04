@@ -121,8 +121,8 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     System.err.println("==");
     */
     CachedTailoredQuery ctqDistinct = new CachedTailoredQuery("DISTINCT", cols,
-                                                              tables, null,
-                                                              null);
+        tables, null,
+        null);
     assertEquals(4,EnumUtils.vectorOf(ctqDistinct.selection()).size());
     /* 
     System.err.println(ctqDistinct.toString());
@@ -137,6 +137,10 @@ public class CachedTailoredQueryTest extends PoemTestCase {
       }
     }
     */
+    CachedTailoredQuery ctqOthers = new CachedTailoredQuery("DISTINCT", cols,
+        tables, "category=1",
+        null);
+    assertEquals(2,EnumUtils.vectorOf(ctqOthers.selection()).size());
   }
 
   /**

@@ -10,7 +10,7 @@ import org.melati.poem.BooleanPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableBooleanPoemTypeTest extends SQLPoemTypeTest {
+public class NullableBooleanPoemTypeTest extends NotNullableBooleanPoemTypeTest {
 
   /**
    * 

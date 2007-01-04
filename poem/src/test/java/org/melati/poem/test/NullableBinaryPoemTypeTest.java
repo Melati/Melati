@@ -10,7 +10,7 @@ import org.melati.poem.BinaryPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableBinaryPoemTypeTest extends SQLPoemTypeTest {
+public class NullableBinaryPoemTypeTest extends NotNullableBinaryPoemTypeTest {
 
   /**
    * 
@@ -31,6 +31,10 @@ public class NullableBinaryPoemTypeTest extends SQLPoemTypeTest {
    */
   void setObjectUnderTest() {
     it = new BinaryPoemType(true, 20);
+  }
+
+  public void testToString() {
+    assertEquals("nullable binary(20)",it.toString());
   }
 
 }

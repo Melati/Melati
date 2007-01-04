@@ -3,7 +3,11 @@
  */
 package org.melati.poem.test;
 
+
 import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.ParsingPoemException;
+import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLSeriousPoemException;
 
 /**
  * @author timp
@@ -31,6 +35,43 @@ public class NotNullableDefaultBigDecimalPoemTypeTest extends SQLPoemTypeTest {
    */
   void setObjectUnderTest() {
     it = new BigDecimalPoemType(false);
+  }
+
+  public void testRawOfString() {
+    super.testRawOfString();
+    try {
+      it.rawOfString("ggg");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+   
+  }
+
+  /**
+   * Test method for
+   * {@link org.melati.poem.SQLType#sqlTypeDefinition(org.melati.poem.dbms.Dbms)}.
+   */
+  public void testSqlTypeDefinition() {
+    super.testSqlDefinition();
+    BigDecimalPoemType it2 = new BigDecimalPoemType(true);
+    it2.setPrecision(-999);
+    it2.setScale(-999);
+    try {
+      it2.sqlTypeDefinition(getDb().getDbms());
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      e = null;
+    }
+  }
+ 
+  /**
+   * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
+   */
+  public void testQuotedRaw() {
+    assertEquals(((SQLPoemType)it).sqlDefaultValue(), 
+        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+
   }
 
 }

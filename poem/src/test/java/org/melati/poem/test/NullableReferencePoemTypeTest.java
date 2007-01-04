@@ -10,7 +10,7 @@ import org.melati.poem.ReferencePoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableReferencePoemTypeTest extends SQLPoemTypeTest {
+public class NullableReferencePoemTypeTest extends NotNullableReferencePoemTypeTest {
 
   /**
    * 

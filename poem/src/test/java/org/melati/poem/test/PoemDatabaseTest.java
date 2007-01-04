@@ -135,6 +135,14 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testAdministerCapability() {
     Capability c = getDb().administerCapability();
     assertEquals("_administer_", c.toString());
+    // If we are not in a  session then an unsafe read is performed
+    getDb().endSession();
+    Capability c2 = getDb().administerCapability();
+    assertEquals("_administer_", c2.toString());
+
+    // Start a session so PoemTestCase has one to end
+    getDb().beginSession(AccessToken.root);
+    
   }
 
   /**

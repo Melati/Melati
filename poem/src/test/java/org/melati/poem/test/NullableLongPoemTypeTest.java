@@ -10,7 +10,7 @@ import org.melati.poem.LongPoemType;
  * @since 21 Dec 2006
  *
  */
-public class NullableLongPoemTypeTest extends SQLPoemTypeTest {
+public class NullableLongPoemTypeTest extends NotNullableLongPoemTypeTest {
 
   /**
    * 

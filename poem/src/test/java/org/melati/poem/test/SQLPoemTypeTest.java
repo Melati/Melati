@@ -11,6 +11,7 @@ import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.SQLType;
 import org.melati.poem.TypeMismatchPoemException;
 
 /**
@@ -91,6 +92,8 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
+    assertEquals("'" +((SQLPoemType)it).sqlDefaultValue() + "'", 
+        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
 
   }
 
@@ -100,8 +103,10 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    */
   public void testGetRaw() {
     try {
-      ((SQLPoemType)it).getRaw((ResultSet)null,1);
+      ((SQLPoemType)it).getRaw((ResultSet)null, 1);
       fail("Should have blown up");
+    } catch (ClassCastException e) {
+      assertTrue(it instanceof NonSQLPoemType);
     } catch (SQLSeriousPoemException e) {
       assertTrue(it instanceof SqlExceptionPoemType);
       e = null;
@@ -117,15 +122,35 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    */
   public void testSetRaw() {
     try {
-      ((SQLPoemType)it).setRaw((PreparedStatement)null,1, null);
+      ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, null);
       fail("Should have blown up");
-    } catch (SQLSeriousPoemException e) {
-      assertTrue(it instanceof SqlExceptionPoemType);
+    } catch (ClassCastException e) {
+      assertTrue(it instanceof NonSQLPoemType);
+    } catch (NullPointerException e) {
       e = null;
-    } catch (NullPointerException e2) {
+    } catch (NullTypeMismatchPoemException e2) {
+      assertFalse(it.getNullable());
       e2 = null;
     }
+    try {
+      String sVal = ((SQLType)it).sqlDefaultValue();
 
+      Object value = it.rawOfString(sVal);
+      try {
+        ((SQLPoemType)it).setRaw((PreparedStatement)null, 1, value);
+        fail("Should have blown up");
+      } catch (SQLSeriousPoemException e) {
+        assertTrue(it instanceof SqlExceptionPoemType);
+        e = null;
+      } catch (NullTypeMismatchPoemException e2) {
+        assertFalse(it.getNullable());
+        e2 = null;
+      } catch (NullPointerException e3) {
+        e3 = null;
+      }
+    } catch (ClassCastException e) {
+      assertTrue(it instanceof NonSQLPoemType);
+    }
 
   }
 
@@ -194,6 +219,11 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
       fail("Should have blown up");
     } catch (TypeMismatchPoemException e) {
       e = null;
+    } 
+    try {
+      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+    } catch (ClassCastException e){
+      assertTrue(it instanceof NonSQLPoemType);
     }
   }
 
@@ -223,7 +253,8 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
 
   /**
    * Test method for
-   * {@link org.melati.poem.PoemType#stringOfCooked(java.lang.Object, org.melati.util.MelatiLocale, int)}.
+   * {@link org.melati.poem.PoemType#stringOfCooked
+   *     (java.lang.Object, org.melati.util.MelatiLocale, int)}.
    */
   public void testStringOfCooked() {
 
@@ -241,8 +272,10 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * {@link org.melati.poem.PoemType#canRepresent(org.melati.poem.PoemType)}.
    */
   public void testCanRepresent() {
-    assertNull(it.canRepresent(new DisplayLevelPoemType()));
-    
+    DisplayLevelPoemType dl = new DisplayLevelPoemType();
+    assertNull(it.canRepresent(dl));
+    assertNull(dl.canRepresent(it));
+
   }
 
   /**
@@ -264,6 +297,9 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.PoemType#toDsdType()}.
    */
   public void testToDsdType() {
+    String itDsdType = it.getClass().getName().replaceFirst("PoemType","")
+                           .replaceFirst("org.melati.poem.", "");
+    assertEquals(itDsdType, it.toDsdType()); 
 
   }
 

@@ -4,6 +4,8 @@
 package org.melati.poem.test;
 
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.ParsingPoemException;
+import org.melati.poem.SQLPoemType;
 
 /**
  * @author timp
@@ -31,6 +33,49 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
    */
   void setObjectUnderTest() {
     it = new BooleanPoemType(false);
+  }
+
+  /**
+   * Test method for
+   * {@link org.melati.poem.PoemType#rawOfString(java.lang.String)}.
+   */
+  public void testRawOfString() {
+    super.testRawOfString();
+    assertEquals(Boolean.TRUE,it.rawOfString("t")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("T")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("y")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("Y")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("1")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("true")); 
+    assertEquals(Boolean.TRUE,it.rawOfString("yes")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("f")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("F")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("n")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("N")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("0")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("false")); 
+    assertEquals(Boolean.FALSE,it.rawOfString("no")); 
+    try{
+      it.rawOfString("9");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+    try{
+      it.rawOfString("frue");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
+   */
+  public void testQuotedRaw() {
+    assertEquals(((SQLPoemType)it).sqlDefaultValue(), 
+        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+
   }
 
 }

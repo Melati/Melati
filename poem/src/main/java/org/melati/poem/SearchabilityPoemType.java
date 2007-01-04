@@ -50,16 +50,13 @@ import org.melati.util.IntegerEnumeration;
 import org.melati.util.MelatiLocale;
 
 /**
- * Whether field is searchable.
+ * Whether field can be searched upon.
  * A data type used within the POEM {@link ColumnInfo} metadata.
- *
- * @author WilliamC At paneris.org
- *
  */
 public class SearchabilityPoemType extends IntegerPoemType {
 
   /**
-   * Constructor, non nullable.
+   * Constructor, non-nullable.
    */
   public SearchabilityPoemType() {
     super(false);
@@ -93,7 +90,7 @@ public class SearchabilityPoemType extends IntegerPoemType {
     return ((Searchability)cooked).name;
   }
 
-  protected boolean _canRepresent(PoemType other) {
+  protected boolean _canRepresent(SQLPoemType other) {
     return other instanceof SearchabilityPoemType;
   }
 
@@ -111,8 +108,9 @@ public class SearchabilityPoemType extends IntegerPoemType {
   }
 
  /**
-  * The field type used in the Data Structure Definition language.
-  */
+   * {@inheritDoc}
+   * @see org.melati.poem.IntegerPoemType#toDsdType()
+   */
   public String toDsdType() {
     return "Searchability";
   }

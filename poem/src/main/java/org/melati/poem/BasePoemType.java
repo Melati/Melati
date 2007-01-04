@@ -251,6 +251,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
 
   /**
    * Check that object is valid, as expected.
+   * NOTE If it isn't valid then it isn't cooked.
    * @param cooked the cooked object
    */
   public final void doubleCheckValidCooked(Object cooked) {
@@ -358,7 +359,8 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   public PoemType canRepresent(PoemType other) {
     // FIXME takes no account of range---need to decide on semantics for this,
     // is it subset (inclusion) or some other notion of storability?
-    if (!(other instanceof SQLPoemType)) // Never happens as currently all PoemTypes are SQLPoemTypes
+    if (!(other instanceof SQLPoemType)) 
+      // NOTE Never happens as currently all PoemTypes are SQLPoemTypes
       return null;
     else {
       SQLPoemType q = (SQLPoemType)other;

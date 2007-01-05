@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,6 +55,10 @@ import java.sql.SQLException;
  */
 public class DoublePoemType extends AtomPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public DoublePoemType(boolean nullable) {
     super(Types.DOUBLE, "DOUBLE PRECISION", nullable);
   }
@@ -91,7 +95,8 @@ public class DoublePoemType extends AtomPoemType {
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Double";
@@ -107,6 +112,6 @@ public class DoublePoemType extends AtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return new Double(0).toString();
+    return "0.0";
   }
 }

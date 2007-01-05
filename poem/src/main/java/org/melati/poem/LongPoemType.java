@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,6 +61,10 @@ public class LongPoemType extends AtomPoemType {
   /** Instance of a nullable LongPoemType. */
   public static final LongPoemType nullable = new LongPoemType(true);
 
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public LongPoemType(boolean nullable) {
     super(Types.BIGINT, "INT8", nullable); 
   }
@@ -119,8 +123,9 @@ public class LongPoemType extends AtomPoemType {
     return other instanceof LongPoemType;
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
     return "Long";
@@ -136,6 +141,6 @@ public class LongPoemType extends AtomPoemType {
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
   public String sqlDefaultValue() {
-    return new Long(0).toString();
+    return "0";
   }
 }

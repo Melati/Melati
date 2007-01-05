@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -51,7 +51,7 @@ import org.melati.poem.generated.UserBase;
  * A registered user.
  *
  * 
- * Melati POEM generated, programmer modifiable stub 
+ * Melati POEM generated, programmer modified stub 
  * for a <code>Persistent</code> <code>User</code> object.
  * 
  * <p> 
@@ -72,7 +72,6 @@ import org.melati.poem.generated.UserBase;
  * </table> 
  * 
  * @generator org.melati.poem.prepro.TableDef#generateMainJava 
- * @todo Introduce a new type to conceal passwords
  */
 public class User extends UserBase implements AccessToken {
 
@@ -91,14 +90,24 @@ public class User extends UserBase implements AccessToken {
 
   // programmer's domain-specific code here
 
-  // FIXME it shouldn't be possible for anyone to getPassword
 
+  /**
+   * Constructor.
+   * 
+   * @param login user's login name 
+   * @param password user's password
+   * @param name user's name
+   */
   public User(String login, String password, String name) {
     setLogin_unsafe(login);
     setPassword_unsafe(password);
     setName_unsafe(name);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.AccessToken#givesCapability(org.melati.poem.Capability)
+   */
   public boolean givesCapability(Capability capability) {
     return getDatabase().hasCapability(this, capability);
   }
@@ -107,10 +116,12 @@ public class User extends UserBase implements AccessToken {
    * Will throw a <TT>ReadPasswordAccessPoemException</TT> unless the access
    * token associated with the running thread is the <TT>User</TT> object
    * itself or provides the <TT>readPasswords</TT> capability.
+   *  FIXME it shouldn't be possible for anyone to getPassword
+   * {@inheritDoc}
+   * @see org.melati.poem.generated.UserBase#getPassword()
    */
-
   public String getPassword() throws AccessPoemException {
-    // FIXME need 2 sorts of obj
+    // FIXME We need 2 sorts of object 
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&
@@ -123,8 +134,12 @@ public class User extends UserBase implements AccessToken {
     return super.getPassword();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.generated.UserBase#setPassword(java.lang.String)
+   */
   public void setPassword(String cooked) throws AccessPoemException {
-    // FIXME need 2 sorts of obj
+    // FIXME We need 2 different sorts of object
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&
@@ -137,14 +152,24 @@ public class User extends UserBase implements AccessToken {
     super.setPassword(cooked);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return getLogin_unsafe() == null ? super.toString() : getLogin_unsafe();
   }
 
+  /**
+   * @return whether this User is the special, guest user
+   */
   public boolean isGuest() {
     return (this == ((UserTable)getTable()).guestUser()) ? true: false;
   }
 
+  /**
+   * @return whether this User is an administrator
+   */
   public boolean isAdministrator() {
     return (this == ((UserTable)getTable()).administratorUser()) ? true: false;
   }

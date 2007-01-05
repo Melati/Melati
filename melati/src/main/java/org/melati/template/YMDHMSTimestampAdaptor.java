@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,14 +50,17 @@ import java.sql.Timestamp;
 
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
-import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.SQLPoemType;
 
 /**
- * An hour.
+ * An hour type.
  */
 class HourPoemType extends IntegerPoemType {
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public HourPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(0), new Integer(24));
@@ -67,15 +70,23 @@ class HourPoemType extends IntegerPoemType {
     return other instanceof HourPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (hour)";
   }
 }
 
 /**
- * A minute.
+ * A minute type.
  */
 class MinutePoemType extends IntegerPoemType {
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public MinutePoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(0), new Integer(60));
@@ -85,6 +96,10 @@ class MinutePoemType extends IntegerPoemType {
     return other instanceof MinutePoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (minutes)";
   }
@@ -94,6 +109,10 @@ class MinutePoemType extends IntegerPoemType {
  * A second.
  */
 class SecondPoemType extends IntegerPoemType {
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public SecondPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(0), new Integer(60));
@@ -103,6 +122,10 @@ class SecondPoemType extends IntegerPoemType {
     return other instanceof SecondPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (seconds)";
   }
@@ -121,12 +144,17 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
   private static final YMDHMSTimestampAdaptor me = new YMDHMSTimestampAdaptor();
 
   /**
-   * @return Returns the it.
+   * @return the instance.
    */
   public static YMDHMSTimestampAdaptor getIt() {
     return me;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TempletAdaptor#rawFrom(
+   *          org.melati.template.ServletTemplateContext, java.lang.String)
+   */
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);
     String month = getFormOrDie(context, fieldName, monthSuffix);
@@ -153,6 +181,10 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
     }
   }
 
+  /**
+   * @param field the field to copy
+   * @return an hour field
+   */
   public Field hourField(Field field) {
 
     Calendar when = when(field);
@@ -171,6 +203,10 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
             null, false, true, true));
   }
 
+  /**
+   * @param field the field to copy
+   * @return a minute field
+   */
   public Field minuteField(Field field) {
 
     Calendar when = when(field);
@@ -189,6 +225,10 @@ public class YMDHMSTimestampAdaptor extends YMDDateAdaptor {
             null, false, true, true));
   }
 
+  /**
+   * @param field the field to copy
+   * @return a second field
+   */
   public Field secondField(Field field) {
 
     Calendar when = when(field);

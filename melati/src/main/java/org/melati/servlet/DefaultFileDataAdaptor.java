@@ -82,7 +82,7 @@ public class DefaultFileDataAdaptor extends BaseFileDataAdaptor {
   /**
    * Constructor.
    * 
-   * @param melati     The current melati
+   * @param melatiP    The current melati
    * @param uploadDir  The directory to save this file in
    * @param uploadURL  A URL pointing to this directory  (null if there
    *                   isn't an appropriate URL)

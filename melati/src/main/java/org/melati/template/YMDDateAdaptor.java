@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,15 +52,20 @@ import java.text.DateFormat;
 import org.melati.util.MelatiLocale;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
-import org.melati.poem.PoemType;
 import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.SQLPoemType;
 
 /**
- * A numeric year. 
+ * A numeric year type. 
  */
 
 class YearPoemType extends IntegerPoemType {
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   * @param low lower (inclusive) limit
+   * @param limit upper (exclusive) limit
+   */
   public YearPoemType(boolean nullable, int low, int limit) {
     super(nullable);
     setRawRange(new Integer(low), new Integer(limit));
@@ -70,16 +75,24 @@ class YearPoemType extends IntegerPoemType {
     return other instanceof YearPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (year)";
   }
 }
 
 /**
- * A numeric month.
+ * A numeric month type.
  */
 class MonthPoemType extends IntegerPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public MonthPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(1), new Integer(13));
@@ -102,16 +115,24 @@ class MonthPoemType extends IntegerPoemType {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (month)";
   }
 }
 
 /**
- * A numeric day.
+ * A numeric day type.
  */
 class DayPoemType extends IntegerPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether null is an allowed value
+   */
   public DayPoemType(boolean nullable) {
     super(nullable);
     setRawRange(new Integer(1), new Integer(32));
@@ -121,6 +142,10 @@ class DayPoemType extends IntegerPoemType {
     return other instanceof DayPoemType;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return super.toString() + " (day)";
   }

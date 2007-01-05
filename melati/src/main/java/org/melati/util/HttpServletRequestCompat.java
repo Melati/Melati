@@ -169,8 +169,6 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @param name
-   *        a <code>String</code> specifying the name of the header
    * @return a <code>long</code> value representing the date specified in the
    *         header expressed as the number of milliseconds since January 1,
    *         1970 GMT, or -1 if the named header was not included with the
@@ -189,8 +187,6 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @param name
-   *        a <code>String</code> specifying the header name
    * @return a <code>String</code> containing the value of the requested
    *         header, or <code>null</code> if the request does not have a
    *         header of that name
@@ -227,12 +223,8 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @param name
-   *        a <code>String</code> specifying the name of a request header
    * @return an integer expressing the value of the request header or -1 if the
    *         request doesn't have a header of this name
-   * @exception NumberFormatException
-   *            If the header value can't be converted to an <code>int</code>
    * @see javax.servlet.http.HttpServletRequest#getIntHeader(String)
    */
   public static int getIntHeader(HttpServletRequest it, String a) {

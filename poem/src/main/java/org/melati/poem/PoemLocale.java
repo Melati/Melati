@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -65,7 +65,8 @@ public class MelatiLocale {
   private final DateFormat[] timestampFormats;
   
   /**
-   * Creates a melati locale from a language tag as defined in RFC3066
+   * Creates a melati locale from a language tag as defined in RFC3066.
+   * 
    * @param tag A language tag, for example, "en-gb"
    * @return A melati locale from the tag if we can parse it, otherwise null
    */
@@ -131,32 +132,67 @@ public class MelatiLocale {
     return locale;
   }
 
+  /**
+   * @param monthNum numeric month
+   * @return full name of month
+   */
   public String monthName(int monthNum) {
     return months[monthNum - 1];
   }
 
+  /**
+   * @param monthNum numeric month
+   * @return short name of month
+   */
   public String shortMonthName(int monthNum) {
     return shortMonths[monthNum - 1];
   }
 
+  /**
+   * @param style as defined in DateFormat
+   * @return a format of that style
+   */
   public DateFormat dateFormat(int style) {
     return dateFormats[style];
   }
 
+  /**
+   * @param style as defined in DateFormat
+   * @return a format of that style
+   */
   public DateFormat timestampFormat(int style) {
     return timestampFormats[style];
   }
 
   /**
    * Delegated to Locale.
+   * 
    * @see java.util.Locale#hashCode()
+   * {@inheritDoc}
+   * @see java.lang.Object#hashCode()
    */
   public int hashCode() {
     return locale.hashCode();
   }
 
   /**
+   * {@inheritDoc}
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+  public boolean equals(Object o) {
+    if (this == o)     // quick check
+      return true;
+    if (o instanceof MelatiLocale) 
+      return locale.equals(((MelatiLocale)o).locale());
+    else 
+      return false;
+  }
+  
+  /**
    * Delegated to Locale.
+   * 
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return locale.toString();

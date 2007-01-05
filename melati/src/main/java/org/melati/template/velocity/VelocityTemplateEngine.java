@@ -148,8 +148,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     VelocityContext context = new VelocityContext();
     org.melati.template.velocity.HttpServletRequestWrap req = 
       new org.melati.template.velocity.HttpServletRequestWrap(
-                                                                                                                      melati
-                                                                                                                          .getRequest());
+          melati.getRequest());
     context.put(VelocityTemplateContext.REQUEST, req);
     context.put(FORM, req);
     context.put(VelocityTemplateContext.RESPONSE, melati.getResponse());

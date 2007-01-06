@@ -147,7 +147,7 @@ public class ColumnInfo extends ColumnInfoBase {
   */
   public void setDisplaylevelIndex(Integer index) {
     super.setDisplaylevelIndex(index);
-    if (index.equals(DisplayLevel.primary.index)) {
+    if (index.equals(DisplayLevel.primary.getIndex())) {
       Column column = column();
       if (column != null) {
         Table table = column.getTable();

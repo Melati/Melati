@@ -129,7 +129,7 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
         dsd = new DSD(dsdPath);
         dsd.generateJava();
       } catch (Exception e) {
-        throw new MojoExecutionException(e.toString());
+        throw new MojoExecutionException("Error processing DSD", e);
       }
     }
   }

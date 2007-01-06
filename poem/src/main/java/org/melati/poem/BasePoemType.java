@@ -55,9 +55,6 @@ import org.melati.poem.dbms.Dbms;
 
 /**
  * Base class of all fundamental types.
- *
- * @author WilliamC At paneris.org
- *
  */
 public abstract class BasePoemType implements SQLPoemType, Cloneable {
   private int sqlTypeCode;
@@ -70,7 +67,12 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
     this.nullable = nullable;
   }
 
-  protected void setRawRange(Comparable low, Comparable limit) {
+  /**
+   * Set the limits, if applicable.
+   * @param low included lower limit
+   * @param limit excluded upper limit
+   */
+  public void setRawRange(Comparable low, Comparable limit) {
     this.low = low;
     this.limit = limit;
   }

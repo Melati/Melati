@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.StringLengthValidationPoemException;
 import org.melati.poem.StringPoemType;
 
 /**
@@ -32,5 +33,17 @@ public class NotNullableSizedStringPoemTypeTest extends SizedAtomPoemTypeTest {
   void setObjectUnderTest() {
     it = new StringPoemType(false, 20);
   }
+
+  public void testAssertValidRaw() {
+    // TODO Auto-generated method stub
+    super.testAssertValidRaw();
+    try {
+      it.assertValidRaw("123456789012345678901");
+      fail("Should have blown up");
+    } catch (StringLengthValidationPoemException e) { 
+      e = null;
+    }
+  }
+  
 
 }

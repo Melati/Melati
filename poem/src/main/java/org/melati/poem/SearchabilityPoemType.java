@@ -81,13 +81,13 @@ public class SearchabilityPoemType extends IntegerPoemType {
   }
 
   protected Object _rawOfCooked(Object cooked) {
-    return ((Searchability)cooked).index;
+    return ((Searchability)cooked).getIndex();
   }
 
   protected String _stringOfCooked(Object cooked,
                                    MelatiLocale locale, int style)
       throws PoemException {
-    return ((Searchability)cooked).name;
+    return ((Searchability)cooked).getName();
   }
 
   protected boolean _canRepresent(SQLPoemType other) {

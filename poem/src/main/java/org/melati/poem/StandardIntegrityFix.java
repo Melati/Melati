@@ -66,14 +66,14 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   private final String name;
 
   /**
-   * @return Returns the name
+   * @return the name
    */
   public String getName() {
     return name;
   }
 
   /**
-   * @return Returns the index.
+   * @return the index.
    */
   public Integer getIndex() {
     return index;

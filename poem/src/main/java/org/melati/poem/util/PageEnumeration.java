@@ -48,30 +48,32 @@ package org.melati.util;
 import java.util.Enumeration;
 
 /**
- * The required methods for a <code>PageEnumeration</code>.
+ * A paged enumeration.
  */
 public interface PageEnumeration extends Enumeration {
 
   /**
-   * The start record of the page, indexed from 1.
+   * @return the start record of the page, indexed from 1.
    */
   int getPageStart();
 
   /**
-   * The end record of the page, indexed from 1.
+   * @return the end record of the page, indexed from 1.
    */
   int getPageEnd();
+  /**
+   * 
+   * @return the total number of items
+   */
   int getTotalCount();
 
   /**
-   * The start record of the previous page, indexed from 1.
+   * @return the start record of the previous page, indexed from 1.
    */
-
   Integer getPrevPageStart();
 
   /**
-   * The start record of the next page, indexed from 1.
+   * @return the start record of the next page, indexed from 1.
    */
-
   Integer getNextPageStart();
 }

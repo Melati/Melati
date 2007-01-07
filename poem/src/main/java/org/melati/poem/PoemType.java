@@ -65,8 +65,7 @@ public interface PoemType {
       throws TypeMismatchPoemException, ValidationPoemException;
 
   /**
-   * Get the possible values for this field, null for general fields 
-   * such as String or Integer.
+   * Get the possible values for this field, null for unranged types.
    *  
    * @return an Enumeration of possibilities or null
    */

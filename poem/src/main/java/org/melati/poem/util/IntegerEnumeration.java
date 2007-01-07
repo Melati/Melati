@@ -49,12 +49,17 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 /**
- * An <code>Enumeration</code> of Integers.
+ * An <code>Enumeration</code> of sequential Integers.
  */
 public class IntegerEnumeration implements Enumeration {
   // Currently no real need for start
   private int start, limit, i;
 
+  /**
+   * Constructor with lower, included, bound and upper, excluded, bound.
+   * @param start first element.
+   * @param limit upper, excluded, limit
+   */
   public IntegerEnumeration(int start, int limit) {
     this.start = start;
     this.limit = limit;

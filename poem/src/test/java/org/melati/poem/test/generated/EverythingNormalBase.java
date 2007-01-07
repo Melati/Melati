@@ -95,6 +95,10 @@ public abstract class EverythingNormalBase extends Persistent {
   * Timestamp Field 
   */
   protected Timestamp timestampfield;
+ /**
+  * Deleted Field 
+  */
+  protected Boolean deletedfield;
 
 
  /**
@@ -1052,6 +1056,104 @@ public abstract class EverythingNormalBase extends Persistent {
   */
   public Field getTimestampfieldField() throws AccessPoemException {
     Column c = _getEverythingNormalTable().getTimestampfieldColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+
+ /**
+  * Retrieves the <code>Deletedfield</code> value, without locking, 
+  * for this <code>EverythingNormal</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Boolean deletedfield
+  */
+  public Boolean getDeletedfield_unsafe() {
+    return deletedfield;
+  }
+
+
+ /**
+  * Sets the <code>Deletedfield</code> value directly, without checking, 
+  * for this EverythingNormal <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
+  public void setDeletedfield_unsafe(Boolean cooked) {
+    deletedfield = cooked;
+  }
+
+ /**
+  * Retrieves the Deletedfield value, with locking, for this 
+  * <code>EverythingNormal</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Deletedfield</code> for this 
+  *         <code>EverythingNormal</code> <code>Persistent</code>  
+  */
+
+  public Boolean getDeletedfield()
+      throws AccessPoemException {
+    readLock();
+    return getDeletedfield_unsafe();
+  }
+
+
+ /**
+  * Sets the <code>Deletedfield</code> value, with checking, for this 
+  * <code>EverythingNormal</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+  public void setDeletedfield(Boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getEverythingNormalTable().getDeletedfieldColumn().
+      getType().assertValidCooked(cooked);
+    writeLock();
+    setDeletedfield_unsafe(cooked);
+  }
+
+ /**
+  * Sets the <code>Deletedfield</code> value, with checking, 
+  * from a <code>boolean</code>, for this 
+  * <code>EverythingNormal</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.BooleanFieldDef#generateBaseMethods 
+  * @param cooked  a <code>boolean</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+
+  public final void setDeletedfield(boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setDeletedfield(cooked ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+
+ /**
+  * Retrieves the <code>Deletedfield</code> value as a <code>Field</code>
+  * from this <code>EverythingNormal</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Boolean deletedfield
+  */
+  public Field getDeletedfieldField() throws AccessPoemException {
+    Column c = _getEverythingNormalTable().getDeletedfieldColumn();
     return new Field(c.getRaw(this), c);
   }
 }

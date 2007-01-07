@@ -3,8 +3,11 @@
  */
 package org.melati.poem.test;
 
+import java.util.Enumeration;
+
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.TypeMismatchPoemException;
 
@@ -66,5 +69,39 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
         ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
 
   }
-  
+
+  public void testPossibleRaws() {
+    super.testPossibleRaws();
+    Enumeration them = it.possibleRaws();
+    assertNull(them);
+    ((IntegerPoemType)it).setRawRange(new Integer(Integer.MAX_VALUE -5), (Integer)null);
+    them = it.possibleRaws();
+    int count = 0;
+    while(them.hasMoreElements()) {
+      them.nextElement();
+      count++;
+    }
+    assertEquals(5,count);
+    ((IntegerPoemType)it).setRawRange(new Integer(2), new Integer(5));
+    them = it.possibleRaws();
+    count = 0;
+    while(them.hasMoreElements()) {
+      them.nextElement();
+      count++;
+    }
+    assertEquals(3,count);
+  }
+
+
+  public void testRawOfString() {
+    super.testRawOfString();
+    try{
+      it.rawOfString("kk");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+    
+  }
+
 }

@@ -13,6 +13,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Database;
 import org.melati.poem.DatePoemType;
 import org.melati.poem.DefinitionSource;
+import org.melati.poem.DeletedPoemType;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.Field;
@@ -51,6 +52,7 @@ public class EverythingNormalTableBase extends Table {
   private Column col_longfield = null;
   private Column col_bigdecimalfield = null;
   private Column col_timestampfield = null;
+  private Column col_deletedfield = null;
 
  /**
   * Constructor. 
@@ -811,6 +813,61 @@ public class EverythingNormalTableBase extends Table {
             ((EverythingNormal)g).setTimestampfield((Timestamp)raw);
           }
         });
+
+    defineColumn(col_deletedfield =
+        new Column(this, "deletedfield",
+                   new DeletedPoemType(),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((EverythingNormal)g).getDeletedfield();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((EverythingNormal)g).setDeletedfield((Boolean)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((EverythingNormal)g).getDeletedfieldField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.summary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.yes;
+          }
+
+          protected String defaultDisplayName() {
+            return "Deleted Field";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 11;
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((EverythingNormal)g).getDeletedfield_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((EverythingNormal)g).setDeletedfield_unsafe((Boolean)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((EverythingNormal)g).getDeletedfield();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((EverythingNormal)g).setDeletedfield((Boolean)raw);
+          }
+        });
   }
 
 
@@ -943,6 +1000,18 @@ public class EverythingNormalTableBase extends Table {
   */
   public final Column getTimestampfieldColumn() {
     return col_timestampfield;
+  }
+
+
+ /**
+  * Retrieves the <code>Deletedfield</code> <code>Column</code> for this 
+  * <code>EverythingNormal</code> <code>Table</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the deletedfield <code>Column</code>
+  */
+  public final Column getDeletedfieldColumn() {
+    return col_deletedfield;
   }
 
 

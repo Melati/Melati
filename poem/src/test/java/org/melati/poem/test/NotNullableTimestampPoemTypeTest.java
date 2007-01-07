@@ -57,4 +57,19 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeTest {
 
   }
 
+  public void testAssertValidCooked() {
+    // TODO Auto-generated method stub
+    super.testAssertValidCooked();
+  }
+
+  public void testPossibleRaws() {
+    super.testPossibleRaws();
+    
+  }
+
+  public void testRawOfCooked() {
+    // TODO Auto-generated method stub
+    super.testRawOfCooked();
+  }
+
 }

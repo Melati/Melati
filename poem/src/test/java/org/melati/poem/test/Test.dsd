@@ -243,6 +243,23 @@ table EverythingNormal
       // Not indexed
       // Not unique
       ;
+    Boolean deletedfield
+      (displayname = "Deleted Field")
+      // (description = null)
+      // usereditable
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 11)
+      //usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      (deleted)
+      ;
 }
 
 table ENExtended extends EverythingNormal

@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import org.melati.poem.DoublePoemType;
+import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
 
 /**
@@ -42,4 +43,16 @@ public class NotNullableDoublePoemTypeTest extends SQLPoemTypeTest {
         ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
 
   }
+
+  public void testRawOfString() {
+    super.testRawOfString();
+    try{
+      it.rawOfString("kk");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+    
+  }
+  
 }

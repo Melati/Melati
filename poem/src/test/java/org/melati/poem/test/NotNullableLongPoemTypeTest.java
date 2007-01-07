@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import java.sql.Types;
 import java.util.Enumeration;
 
 import org.melati.poem.LongPoemType;
@@ -57,7 +58,10 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
       them.nextElement();
       count++;
     }
-    assertEquals(5,count);
+    if (it.getNullable())
+      assertEquals(6,count);
+    else 
+      assertEquals(5,count);
     ((LongPoemType)it).setRawRange(new Long(2L), new Long(5L));
     them = it.possibleRaws();
     count = 0;
@@ -65,7 +69,11 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
       them.nextElement();
       count++;
     }
-    assertEquals(3,count);
+    if (it.getNullable())
+      assertEquals(4,count);
+    else
+      assertEquals(3,count);
+
   }
 
   public void testRawOfString() {
@@ -75,6 +83,22 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
       fail("Should have blown up");
     } catch (ParsingPoemException e) {
       e = null;
+    }
+    
+  }
+  public void testFullConstructor() {
+    LongPoemType it2 = new MyLongPoemType(it.getNullable());
+    assertEquals(it.getNullable(),it2.getNullable());
+  }
+  class MyLongPoemType extends LongPoemType {
+
+    /**
+     * @param sqlTypeCode
+     * @param sqlTypeName
+     * @param nullable
+     */
+    public MyLongPoemType(boolean nullable) {
+      super(Types.BIGINT, "INT8", nullable);
     }
     
   }

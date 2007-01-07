@@ -3,6 +3,8 @@
  */
 package org.melati.poem.test;
 
+import java.util.Enumeration;
+
 import org.melati.poem.BooleanPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
@@ -77,5 +79,20 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
         ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
 
   }
+
+  public void testPossibleRaws() {
+    super.testPossibleRaws();
+    Enumeration them = it.possibleRaws();
+    int counter = 0;
+    while(them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    if (it.getNullable())
+      assertEquals(3,counter);
+    else
+      assertEquals(2,counter);
+  }
+
 
 }

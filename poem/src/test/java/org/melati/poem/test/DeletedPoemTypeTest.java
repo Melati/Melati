@@ -11,7 +11,7 @@ import org.melati.poem.IntegerPoemType;
  * @author timp
  * @since 6 Jan 2007
  */
-public class DeletedPoemTypeTest extends NotNullableIntegerPoemTypeTest {
+public class DeletedPoemTypeTest extends NotNullableBooleanPoemTypeTest {
 
   /**
    * 

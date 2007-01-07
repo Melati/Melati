@@ -4,8 +4,10 @@
 package org.melati.poem.test;
 
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.text.DateFormat;
 
+import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.util.MelatiLocale;
@@ -66,10 +68,36 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeTest {
     super.testPossibleRaws();
     
   }
+  public void testRawOfString() {
+    super.testRawOfString();
+    try{
+      it.rawOfString("kk");
+      fail("Should have blown up");
+    } catch (ParsingPoemException e) {
+      e = null;
+    }
+    
+  }
 
   public void testRawOfCooked() {
     // TODO Auto-generated method stub
     super.testRawOfCooked();
   }
 
+  public void testFullConstructor() {
+    TimestampPoemType it2 = new MyTimestampPoemType(it.getNullable());
+    assertEquals(it.getNullable(),it2.getNullable());
+  }
+  class MyTimestampPoemType extends TimestampPoemType {
+
+    /**
+     * @param sqlTypeCode
+     * @param sqlTypeName
+     * @param nullable
+     */
+    public MyTimestampPoemType(boolean nullable) {
+      super(Types.TIMESTAMP, "TIMESTAMP", nullable);
+    }
+    
+  }
 }

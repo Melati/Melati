@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import java.sql.Types;
 import java.util.Enumeration;
 
 import org.melati.poem.DisplayLevelPoemType;
@@ -72,24 +73,31 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
 
   public void testPossibleRaws() {
     super.testPossibleRaws();
-    Enumeration them = it.possibleRaws();
-    assertNull(them);
+    Enumeration them = ((IntegerPoemType)it).possibleRaws();
+    if (!it.getNullable())
+      assertNull(them);
     ((IntegerPoemType)it).setRawRange(new Integer(Integer.MAX_VALUE -5), (Integer)null);
     them = it.possibleRaws();
-    int count = 0;
+    int counter = 0;
     while(them.hasMoreElements()) {
       them.nextElement();
-      count++;
+      counter++;
     }
-    assertEquals(5,count);
+    if (it.getNullable())
+      assertEquals(6,counter);
+    else
+      assertEquals(5,counter);
     ((IntegerPoemType)it).setRawRange(new Integer(2), new Integer(5));
     them = it.possibleRaws();
-    count = 0;
+    counter = 0;
     while(them.hasMoreElements()) {
       them.nextElement();
-      count++;
+      counter++;
     }
-    assertEquals(3,count);
+    if (it.getNullable())
+      assertEquals(4,counter);
+    else
+      assertEquals(3,counter);
   }
 
 
@@ -103,5 +111,20 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
     }
     
   }
+  public void testFullConstructor() {
+    IntegerPoemType it2 = new MyIntegerPoemType(it.getNullable());
+    assertEquals(it.getNullable(),it2.getNullable());
+  }
+  class MyIntegerPoemType extends IntegerPoemType {
 
+    /**
+     * @param sqlTypeCode
+     * @param sqlTypeName
+     * @param nullable
+     */
+    public MyIntegerPoemType(boolean nullable) {
+      super(Types.INTEGER, "INT", nullable);
+    }
+    
+  }
 }

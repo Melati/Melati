@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.SearchabilityPoemType;
+import org.melati.poem.Searchability.NameUnrecognisedException;
 import org.melati.util.MelatiLocale;
 
 /**
@@ -67,5 +68,14 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
 
   public void testCanRepresent() {
     assertNull(it.canRepresent(new DisplayLevelPoemType()));
+  }
+  public void testNamed() {
+    assertEquals(Searchability.primary, Searchability.named("primary"));
+    try {
+      Searchability.named("kk");
+      fail("should have blown up");
+    } catch (NameUnrecognisedException e) {
+      e = null;
+    }
   }
 }

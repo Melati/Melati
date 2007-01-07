@@ -68,7 +68,10 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
       them.nextElement();
       count++;
     }
-    assertEquals(2,count);
+    if (it.getNullable())
+      assertEquals(3,count);
+    else
+      assertEquals(2,count);
   }
 
   public void testRawOfCooked() {

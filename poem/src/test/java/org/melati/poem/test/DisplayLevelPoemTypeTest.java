@@ -48,14 +48,13 @@ public class DisplayLevelPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   }
 
   public void testPossibleRaws() {
-    super.testPossibleRaws();
     Enumeration them = it.possibleRaws();
     int count = 0;
     while(them.hasMoreElements()) {
       them.nextElement();
       count++;
     }
-    assertEquals(5,count);
+    assertEquals(5,count);      
   }
   
   public void testStringOfCooked() {

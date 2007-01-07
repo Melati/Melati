@@ -57,13 +57,27 @@ public final class DisplayLevel {
   /** The numeric Id of the Level. */
   public final Integer index;
   /** The name of the level. */
-  public final String name;
+  private final String name;
 
   /** Constructor. */
   private DisplayLevel(int index, String name) {
     this.index = new Integer(index);
     this.name = name;
   }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @return the index.
+   */
+  public Integer getIndex() {
+    return index;
+  }
+
 
   /**
    * Display level of a {@link Column} used as the name of the 

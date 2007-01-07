@@ -51,8 +51,6 @@ import org.melati.util.MelatiLocale;
 
 /**
  * A data type that is a reference to a {@link Persistent} object.
- *
- * @author WilliamC At paneris.org
  */
 public class ReferencePoemType extends IntegerPoemType {
 
@@ -71,6 +69,9 @@ public class ReferencePoemType extends IntegerPoemType {
     this.targetTable = targetTable;
   }
 
+  /**
+   * @return Table this type refernces
+   */
   public Table targetTable() {
     return targetTable;
   }
@@ -122,6 +123,10 @@ public class ReferencePoemType extends IntegerPoemType {
     columnInfo.setTypefactoryCode(targetTable.tableInfoID());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.BasePoemType#toString()
+   */
   public String toString() {
     return
         "reference to " + targetTable.getName() + 
@@ -129,7 +134,8 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   /**
-   * The field type used in the Data Structure Definition language.
+   * {@inheritDoc}
+   * @see org.melati.poem.IntegerPoemType#toDsdType()
    */
   public String toDsdType() {
     return StringUtils.capitalised(targetTable.getName());

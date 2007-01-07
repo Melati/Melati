@@ -52,8 +52,7 @@ import java.util.NoSuchElementException;
  * An <code>Enumeration</code> of sequential Integers.
  */
 public class IntegerEnumeration implements Enumeration {
-  // Currently no real need for start
-  public int limit, index;
+  private int limit, index;
 
   /**
    * Constructor with lower, included, bound and upper, excluded, bound.

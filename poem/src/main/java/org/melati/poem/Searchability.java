@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,7 +57,7 @@ public final class Searchability {
   /** The Id of the Searchability. */
   public final Integer index;
   /** Its name. */
-  public final String name;
+  private final String name;
 
   /** Constructor. */
   private Searchability(int index, String name) {
@@ -106,10 +106,17 @@ public final class Searchability {
       searchabilityOfName.put(searchabilities[i].name, searchabilities[i]);
   }
 
+  /**
+   * @param index key
+   * @return the selected Searchability
+   */
   public static Searchability forIndex(int index) {
     return searchabilities[index];
   }
 
+  /**
+   * @return the number of Searchabilities
+   */
   public static int count() {
     return searchabilities.length;
   }
@@ -137,6 +144,12 @@ public final class Searchability {
     }
   }
 
+  /**
+   * Throws NameUnrecognisedException if not found.
+   *  
+   * @param name String name of Searchability
+   * @return the Searchability 
+   */
   public static Searchability named(String name) {
     Searchability it = (Searchability)searchabilityOfName.get(name);
     if (it == null)
@@ -149,6 +162,20 @@ public final class Searchability {
    */
   public String toString() {
     return name + "/" + index;
+  }
+
+  /**
+   * @return the index
+   */
+  public Integer getIndex() {
+    return index;
+  }
+
+  /**
+   * @return the Name
+   */
+  public String getName() {
+    return name;
   }
 
 }

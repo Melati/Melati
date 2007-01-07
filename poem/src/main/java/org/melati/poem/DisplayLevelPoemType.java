@@ -55,7 +55,7 @@ import org.melati.util.MelatiLocale;
 public class DisplayLevelPoemType extends IntegerPoemType {
 
   /**
-   * Constructor.
+   * Constructor giving non nullable type.
    */
   public DisplayLevelPoemType() {
     super(false);
@@ -76,13 +76,13 @@ public class DisplayLevelPoemType extends IntegerPoemType {
   }
 
   protected Object _rawOfCooked(Object cooked) {
-    return ((DisplayLevel)cooked).index;
+    return ((DisplayLevel)cooked).getIndex();
   }
 
   protected String _stringOfCooked(Object cooked,
                                    MelatiLocale locale, int style)
       throws PoemException {
-    return ((DisplayLevel)cooked).name;
+    return ((DisplayLevel)cooked).getName();
   }
 
   protected boolean _canRepresent(SQLPoemType other) {

@@ -53,17 +53,16 @@ import java.util.NoSuchElementException;
  */
 public class IntegerEnumeration implements Enumeration {
   // Currently no real need for start
-  private int start, limit, i;
+  public int limit, index;
 
   /**
    * Constructor with lower, included, bound and upper, excluded, bound.
    * @param start first element.
-   * @param limit upper, excluded, limit
+   * @param limitP upper, excluded, limit
    */
-  public IntegerEnumeration(int start, int limit) {
-    this.start = start;
-    this.limit = limit;
-    this.i = this.start;
+  public IntegerEnumeration(int start, int limitP) {
+    this.index = start;
+    this.limit = limitP;
   }
 
   /**
@@ -71,7 +70,7 @@ public class IntegerEnumeration implements Enumeration {
    * @see java.util.Enumeration#hasMoreElements()
    */
   public boolean hasMoreElements() {
-    return i < limit;
+    return index < limit;
   }
 
   /**
@@ -79,9 +78,11 @@ public class IntegerEnumeration implements Enumeration {
    * @see java.util.Enumeration#nextElement()
    */
   public synchronized Object nextElement() throws NoSuchElementException {
-    if (i >= limit)
+    if (index >= limit)
       throw new NoSuchElementException();
-    return new Integer(i++);
+    Integer value = new Integer(index);
+    index++;
+    return value;
   }
 }
 

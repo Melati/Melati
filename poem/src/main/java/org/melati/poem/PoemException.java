@@ -59,6 +59,19 @@ public abstract class PoemException extends MelatiRuntimeException {
 
   /** Constructor. */
   public PoemException() {
-    this(null);
+    this((String)null);
+  }
+  /**
+   * Constructor with message and pre-java 1.4 initial cause.
+   */
+  public PoemException(String message, Exception subException) {
+    this(message);
+    initCause(subException);
+  }
+  /**
+   * Constructor with message.
+   */
+  public PoemException(String message) {
+    super(message);
   }
 }

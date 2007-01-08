@@ -64,4 +64,17 @@ public abstract class NormalPoemException extends PoemException {
   public NormalPoemException() {
     super();
   }
+  /**
+   * Constructor with message and pre-java 1.4 initial cause.
+   */
+  public NormalPoemException(String message, Exception subException) {
+    this(message);
+    initCause(subException);
+  }
+  /**
+   * Constructor with message.
+   */
+  public NormalPoemException(String message) {
+    super(message);
+  }
 }

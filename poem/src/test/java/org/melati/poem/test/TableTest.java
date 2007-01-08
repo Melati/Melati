@@ -196,7 +196,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#primaryCriterionColumn()
    */
   public void testPrimaryCriterionColumn() {
-
+    assertEquals("name", getDb().getUserTable().primaryCriterionColumn().getName());
   }
 
   /**
@@ -231,42 +231,67 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#displayColumnsCount(DisplayLevel)
    */
   public void testDisplayColumnsCount() {
-
+    assertEquals(1, getDb().getUserTable().displayColumnsCount(DisplayLevel.primary));
   }
 
   /**
    * @see org.melati.poem.Table#getDetailDisplayColumns()
    */
   public void testGetDetailDisplayColumns() {
-
+    Enumeration them = getDb().getUserTable().getDetailDisplayColumns();
+    int counter = 0;
+    while (them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(4, counter);
   }
 
   /**
    * @see org.melati.poem.Table#getDetailDisplayColumnsCount()
    */
   public void testGetDetailDisplayColumnsCount() {
-
+    assertEquals(4, getDb().getUserTable().getDetailDisplayColumnsCount());
   }
 
   /**
    * @see org.melati.poem.Table#getRecordDisplayColumns()
    */
   public void testGetRecordDisplayColumns() {
-
+    Enumeration them = getDb().getUserTable().getRecordDisplayColumns();
+    int counter = 0;
+    while (them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(3, counter);
   }
 
   /**
    * @see org.melati.poem.Table#getRecordDisplayColumnsCount()
    */
   public void testGetRecordDisplayColumnsCount() {
-
+    assertEquals(3, getDb().getUserTable().getRecordDisplayColumnsCount());
   }
 
   /**
    * @see org.melati.poem.Table#getSummaryDisplayColumns()
    */
   public void testGetSummaryDisplayColumns() {
+    Enumeration them = getDb().getUserTable().getSummaryDisplayColumns();
+    int counter = 0;
+    while (them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(2, counter);
+  }
 
+  /**
+   * @see org.melati.poem.Table#getSummaryDisplayColumnsCount()
+   */
+  public void testGetSummaryDisplayColumnsCount() {
+    assertEquals(2, getDb().getUserTable().getSummaryDisplayColumnsCount());
   }
 
   /**
@@ -277,10 +302,11 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * Not used in the java, possibly in templates.
    * @see org.melati.poem.Table#getSearchCriterionColumnsCount()
    */
   public void testGetSearchCriterionColumnsCount() {
-
+    assertEquals(3, getDb().getUserTable().getSearchCriterionColumnsCount());
   }
 
   /**
@@ -326,10 +352,17 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * Used in cache dump servlet.
    * @see org.melati.poem.Table#getCacheInfo()
    */
   public void testGetCacheInfo() {
-
+    Enumeration them = getDb().getUserTable().getCacheInfo().getHeldElements();
+    int counter = 0;
+    while(them.hasMoreElements()){
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(2,counter);
   }
 
   /**
@@ -725,7 +758,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.detail);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     try {
@@ -762,7 +795,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -850,7 +883,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -908,7 +941,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -963,6 +996,47 @@ public class TableTest extends PoemTestCase {
     assertEquals(new Integer(0), ut.administratorUser().getCooked(
         "testintegercol"));
     assertEquals(new Integer(0), ut.getObject(0).getCooked("testintegercol"));
+    getDb().setLogSQL(false);
+  }
+  /**
+   * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
+   */
+  public void testAddColumnAndCommitNullableInteger() {
+    UserTable ut = getDb().getUserTable();
+    ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
+        .newPersistent();
+    TableInfo ti = ut.getTableInfo();
+    columnInfo.setTableinfo(ti);
+    columnInfo.setName("testnullableintegercol");
+    columnInfo.setDisplayname("Test Nullable Integer Column");
+    columnInfo.setDisplayorder(199);
+    columnInfo.setSearchability(Searchability.yes);
+    columnInfo.setIndexed(false);
+    columnInfo.setUnique(false);
+    columnInfo.setDescription("A nullable extra Integer column");
+    columnInfo.setUsercreateable(true);
+    columnInfo.setUsereditable(true);
+    columnInfo.setTypefactory(PoemTypeFactory.INTEGER);
+    columnInfo.setSize(8);
+    columnInfo.setWidth(20);
+    columnInfo.setHeight(1);
+    columnInfo.setPrecision(0);
+    columnInfo.setScale(0);
+    columnInfo.setNullable(true);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
+    columnInfo.makePersistent();
+    getDb().setLogSQL(true);
+    columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
+    assertEquals(0, EnumUtils.vectorOf(
+        ut.getColumn("testnullableintegercol").selectionWhereEq(new Integer(0))).size());
+    PoemThread.commit();
+    assertEquals(0, EnumUtils.vectorOf(
+        ut.getColumn("testnullableintegercol").selectionWhereEq(new Integer(0))).size());
+    assertNull(ut.administratorUser()
+        .getRaw("testnullableintegercol"));
+    assertNull(ut.administratorUser().getCooked(
+        "testnullableintegercol"));
+    assertNull(ut.getObject(0).getCooked("testnullableintegercol"));
     getDb().setLogSQL(false);
   }
 
@@ -1117,7 +1191,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -1157,7 +1231,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -1337,7 +1411,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -1400,7 +1474,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
@@ -1463,7 +1537,7 @@ public class TableTest extends PoemTestCase {
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
     columnInfo.setNullable(false);
-    columnInfo.setDisplaylevel(DisplayLevel.summary);
+    columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);

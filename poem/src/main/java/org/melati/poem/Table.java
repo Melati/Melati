@@ -519,6 +519,13 @@ public class Table implements Selectable {
   }
   
   /**
+   * @return the number of columns at display level <tt>Summary</tt>
+   */ 
+  public final int getSummaryDisplayColumnsCount() {
+    return displayColumnsCount(DisplayLevel.summary);
+  }
+
+  /**
    * The table's columns designated for use as search criteria, in display
    * order.
    *

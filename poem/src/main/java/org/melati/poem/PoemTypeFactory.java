@@ -109,6 +109,9 @@ public abstract class PoemTypeFactory {
     return getName();
   }
 
+ /**
+  * @return a description for this type
+  */
   public abstract String getDescription();
 
   /** Troid column factory. */

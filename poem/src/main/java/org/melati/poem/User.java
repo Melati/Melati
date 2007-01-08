@@ -121,7 +121,7 @@ public class User extends UserBase implements AccessToken {
    * @see org.melati.poem.generated.UserBase#getPassword()
    */
   public String getPassword() throws AccessPoemException {
-    // FIXME We need 2 sorts of object 
+    // FIXME We need 2 sorts of object here 
     if (troid() != null) {
       AccessToken token = PoemThread.accessToken();
       if (token != this &&

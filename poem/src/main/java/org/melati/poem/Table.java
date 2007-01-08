@@ -319,9 +319,10 @@ public class Table implements Selectable {
   }
 
   /**
-   * The table's primary display column, if any.  This is the column used to
-   * represent records from the table concisely in reports or whatever.  It is
-   * determined at initialisation time by examining the <TT>Column</TT>s
+   * The table's primary display column, the Troid column if not set.  
+   * This is the column used to represent records from the table 
+   * concisely in reports or whatever.  It is determined 
+   * at initialisation time by examining the <TT>Column</TT>s
    * <TT>getPrimaryDisplay()</TT> flags.
    *
    * @return the table's display column, or <TT>null</TT> if it hasn't got one

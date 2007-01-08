@@ -459,16 +459,17 @@ public class AnsiStandard implements Dbms {
 
   /**
    * MySQL has no EXISTS keyword.
-   * 
+   * NOTE There is a bootstrap problem here, we need to use the 
+   * unchecked troid, otherwise we get a stack overflow.
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#givesCapabilitySQL
    * @see org.melati.poem.dbms.MySQL#givesCapabilitySQL
    */
   public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
     return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
-        + getQuotedName("user") + " = " + user.getTroid() + " AND "
+        + getQuotedName("user") + " = " + user.troid() + " AND "
         + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
-        + getQuotedName("group") + " " + "FROM "
+        + getQuotedName("group") + " FROM "
         + getQuotedName("groupcapability") + " WHERE "
         + getQuotedName("groupcapability") + "." + getQuotedName("group")
         + " = " + getQuotedName("groupmembership") + "."

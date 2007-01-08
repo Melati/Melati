@@ -152,27 +152,6 @@ public class FirstSQL extends AnsiStandard {
     }
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
-   * @todo Find out foreign key syntax
-   */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
-    return "";
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition
-   * @todo Find out primary key syntax
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return "";
-  }
-
-
-
 }
 
 

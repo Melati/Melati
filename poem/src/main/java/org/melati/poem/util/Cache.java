@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,13 +56,13 @@ import java.util.Vector;
  */
 public final class Cache {
 
- /** A <code>key:value</code> pair */
+ /** A <code>key:value</code> pair. */
   private interface Node {
     Object key();
     Object value();
   }
 
- /** A <code>node</code> in a linked list */
+ /** A <code>node</code> in a linked list. */
   private static class HeldNode implements Node {
     Object key;
     Object value;
@@ -114,10 +114,18 @@ public final class Cache {
       this.nextMRU = nextMRUP;                   // B => J
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.Cache.Node#key()
+     */
     public Object key() {
       return key;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.Cache.Node#value()
+     */
     public Object value() {
       return value;
     }
@@ -133,10 +141,18 @@ public final class Cache {
       this.key = key;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.Cache.Node#key()
+     */
     public Object key() {
       return key;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.Cache.Node#value()
+     */
     public Object value() {
       return this.get();
     }
@@ -238,10 +254,18 @@ public final class Cache {
     //   throw new InconsistencyException(probs);
   }
 
+  /**
+   * Constructor with maximum size.
+   * @param maxSize maximum size cache may grow to 
+   */
   public Cache(int maxSize) {
     setSize(maxSize);
   }
 
+  /**
+   * Set maximum size of Cache.
+   * @param maxSize maximum size cache may grow to 
+   */
   public void setSize(int maxSize) {
     if (maxSize < 0)
       throw new IllegalArgumentException();
@@ -256,6 +280,10 @@ public final class Cache {
     }
   }
 
+  /**
+   * Reduce size of cache.
+   * @param maxSizeP maximum size cache may grow to 
+   */
   public synchronized void trim(int maxSizeP) {
     gc();
 
@@ -277,6 +305,10 @@ public final class Cache {
     assertInvariant();
   }
 
+  /**
+   * Remove from cache.
+   * @param key cache key field
+   */
   public synchronized void delete(Object key) {
     Node n = (Node)table.get(key);
     if (n == null)
@@ -334,6 +366,11 @@ public final class Cache {
     }
   }
 
+  /**
+   * Return an object from the Cache, null if not found.
+   * @param key the cache key
+   * @return the object of null if not in cache
+   */
   public synchronized Object get(Object key) {
 
     gc();
@@ -402,6 +439,9 @@ public final class Cache {
 
     private Info() {}
 
+    /**
+     * @return an Enumeration of object held
+     */
     public Enumeration getHeldElements() {
       gc();
       return new MappedEnumeration(
@@ -416,6 +456,9 @@ public final class Cache {
       };
     }
 
+    /**
+     * @return an Enumeration of elements dropped from the cache
+     */
     public Enumeration getDroppedElements() {
       gc();
       return new MappedEnumeration(
@@ -430,15 +473,24 @@ public final class Cache {
       };
     }
 
+    /**
+     * @return an enumeration of held objects
+     */
     public Enumeration getReport() {
       return Cache.this.getReport();
     }
   }
 
+  /**
+   * @return a new Info object
+   */
   public Info getInfo() {
     return new Info();
   }
 
+  /**
+   * Dump to syserr.
+   */
   public void dumpAnalysis() {
     for (Enumeration l = getReport(); l.hasMoreElements();)
       System.err.println(l.nextElement());

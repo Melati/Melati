@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,17 +57,33 @@ public abstract class MappedEnumeration implements Enumeration {
 
   private Enumeration enumeration;
 
+  /**
+   * Wrapper Constructor given Enumeration to wrap.
+   * @param enumeration Enumeration to wrap
+   */
   public MappedEnumeration(Enumeration enumeration) {
     if (enumeration == null) throw new NullPointerException();
     this.enumeration = enumeration;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return enumeration.hasMoreElements();
   }
 
+  /**
+   * @param element the element of the Enumeration to act on
+   * @return the element after transformation
+   */
   protected abstract Object mapped(Object element);
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public Object nextElement() {
     return mapped(enumeration.nextElement());
   }

@@ -47,9 +47,6 @@ package org.melati.util;
 
 /**
  * Abstract base class for all <code>RuntimeException}s within Melati.
- *
- * @author WilliamC AT paneris.org
- *
  * @todo Upgrade to Java 1.4 after we stop supporting Java 1.3
  */
 public abstract class MelatiRuntimeException extends RuntimeException {
@@ -60,29 +57,38 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   public Exception subException;
 
   /**
-   * Pre-java 1.4 initial cause.
+   * Constructor with message and pre-java 1.4 initial cause.
    */
   public MelatiRuntimeException(String message, Exception subException) {
     this(message);
     initCause(subException);
   }
 
+  /**
+   * Constructor with detailed message.
+   * @param message the detailed message
+   */
   public MelatiRuntimeException(String message) {
     super(message);
   }
 
   /**
-   * Pre-java 1.4 initial cause.
+   * Constructor with pre-java 1.4 initial cause.
    */
   public MelatiRuntimeException(Exception subException) {
     this(null, subException);
   }
 
+  /**
+   * constructor.
+   */
   public MelatiRuntimeException() {
   }
 
   /**
    * Overrides standard method for backward compatibility.
+   * {@inheritDoc}
+   * @see java.lang.Throwable#initCause(java.lang.Throwable)
    */
   public Throwable initCause(Throwable cause) {
     subException = (Exception)cause;
@@ -92,12 +98,16 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   }
   
 
+  /**
+   * @return the message from super class
+   */
   public String getCoreMessage() {
     return super.getMessage();
   }
 
   /** 
    * The detail message which may be null.
+   * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {
@@ -106,6 +116,9 @@ public abstract class MelatiRuntimeException extends RuntimeException {
            (subException == null ? "" : "\n" + subException);
   }
 
+  /**
+   * @return the actual exception
+   */
   public Exception innermostException() {
     return subException == null ? this :
            subException instanceof MelatiException ?
@@ -115,6 +128,10 @@ public abstract class MelatiRuntimeException extends RuntimeException {
            subException;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace()
+   */
   public void printStackTrace() {
     if (subException == null)
       super.printStackTrace();
@@ -125,6 +142,10 @@ public abstract class MelatiRuntimeException extends RuntimeException {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace(java.io.PrintStream)
+   */
   public void printStackTrace(java.io.PrintStream s) {
     if (subException == null)
       super.printStackTrace(s);
@@ -135,6 +156,10 @@ public abstract class MelatiRuntimeException extends RuntimeException {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace(java.io.PrintWriter)
+   */
   public void printStackTrace(java.io.PrintWriter w) {
     if (subException == null)
       super.printStackTrace(w);

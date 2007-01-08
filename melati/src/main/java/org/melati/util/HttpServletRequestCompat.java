@@ -232,9 +232,11 @@ public final class HttpServletRequestCompat {
   }
 
   /**
-   * @param it
-   *        the HttpServletRequest
-   * @return
+   * @param it the HttpServletRequest
+   * @return      a <code>String</code> 
+   *        specifying the name
+   *        of the method with which
+   *        this request was made
    * @see javax.servlet.http.HttpServletRequest#getMethod()
    */
   public static String getMethod(HttpServletRequest it) {
@@ -244,7 +246,12 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> specifying 
+   *      extra path information that comes
+   *      after the servlet path but before
+   *      the query string in the request URL;
+   *      or <code>null</code> if the URL does not have
+   *      any extra path information
    * @see javax.servlet.http.HttpServletRequest#getPathInfo()
    */
   public static String getPathInfo(HttpServletRequest it) {
@@ -254,7 +261,10 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> specifying the
+   *      real path, or <code>null</code> if
+   *      the URL does not have any extra path
+   *      information
    * @see javax.servlet.http.HttpServletRequest#getPathTranslated()
    */
   public static String getPathTranslated(HttpServletRequest it) {
@@ -264,7 +274,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> containing the query
+   *      string or <code>null</code> if the URL 
+   *      contains no query string
    * @see javax.servlet.http.HttpServletRequest#getQueryString()
    */
   public static String getQueryString(HttpServletRequest it) {
@@ -274,7 +286,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> specifying the login
+   *      of the user making this request, or <code>null</code
+   *      if the user login is not known
    * @see javax.servlet.http.HttpServletRequest#getRemoteUser()
    */
   public static String getRemoteUser(HttpServletRequest it) {
@@ -284,7 +298,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> containing
+   *      the part of the URL from the 
+   *      protocol name up to the query string
    * @see javax.servlet.http.HttpServletRequest#getRequestURI()
    */
   public static String getRequestURI(HttpServletRequest it) {
@@ -294,7 +310,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> specifying the session
+   *      ID, or <code>null</code> if the request did
+   *      not specify a session ID
    * @see javax.servlet.http.HttpServletRequest#getRequestedSessionId()
    */
   public static String getRequestedSessionId(HttpServletRequest it) {
@@ -304,7 +322,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>String</code> containing
+   *      the name or path of the servlet being
+   *      called, as specified in the request URL 
    * @see javax.servlet.http.HttpServletRequest#getServletPath()
    */
   public static String getServletPath(HttpServletRequest it) {
@@ -315,7 +335,8 @@ public final class HttpServletRequestCompat {
    * @param it
    *        the HttpServletRequest
    * @param a
-   * @return
+   * @return    the <code>HttpSession</code> associated
+   *      with this request
    * @see javax.servlet.http.HttpServletRequest#getSession()
    */
   public static HttpSession getSession(HttpServletRequest it, boolean a) {
@@ -325,7 +346,10 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return      <code>true</code> if this
+   *        request has an id for a valid session
+   *        in the current session context;
+   *        <code>false</code> otherwise
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdValid()
    */
   public static boolean isRequestedSessionIdValid(HttpServletRequest it) {
@@ -335,7 +359,9 @@ public final class HttpServletRequestCompat {
   /**
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return      <code>true</code> if the session ID
+   *        came in as a
+   *        cookie; otherwise, <code>false</code>
    * @deprecated Servlet API 2.2
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromCookie()
    */
@@ -420,7 +446,10 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    a <code>java.security.Principal</code> containing
+   *      the name of the user making this request;
+   *      <code>null</code> if the user has not been 
+   *      authenticated
    * @see javax.servlet.http.HttpServletRequest#getUserPrincipal()
    */
   public static java.security.Principal getUserPrincipal(HttpServletRequest it) {
@@ -434,7 +463,11 @@ public final class HttpServletRequestCompat {
    * @param it
    *        the HttpServletRequest
    * @param arg
-   * @return
+   * @return      a <code>Enumeration</code> containing the
+   *        values of the requested
+   *        header, or <code>null</code>
+   *        if the request does not
+   *        have any headers of that name
    * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
    */
   public static Enumeration getHeaders(HttpServletRequest it, String arg) {
@@ -447,7 +480,8 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return    the <code>HttpSession</code> associated
+   *      with this request
    * @see javax.servlet.http.HttpServletRequest#getSession()
    */
   public static HttpSession getSession(HttpServletRequest it) {
@@ -460,7 +494,9 @@ public final class HttpServletRequestCompat {
    * 
    * @param it
    *        the HttpServletRequest
-   * @return
+   * @return      <code>true</code> if the session ID
+   *        came in as part of a URL; otherwise,
+   *        <code>false</code>
    * @see javax.servlet.http.HttpServletRequest#isRequestedSessionIdFromURL()
    */
   public static boolean isRequestedSessionIdFromURL(HttpServletRequest it) {
@@ -475,7 +511,10 @@ public final class HttpServletRequestCompat {
    * @param it
    *        the HttpServletRequest
    * @param arg
-   * @return
+   * @return    a <code>boolean</code> indicating whether
+   *      the user making this request belongs to a given role;
+   *      <code>false</code> if the user has not been 
+   *      authenticated
    * @see javax.servlet.http.HttpServletRequest#isUserInRole(java.lang.String)
    */
   public static boolean isUserInRole(HttpServletRequest it, String arg) {
@@ -621,7 +660,7 @@ public final class HttpServletRequestCompat {
    *        a <code>String</code> specifying the name of the attribute
    * @param arg2
    *        the <code>Object</code> to be stored
-   * @see javax.servlet.http.HttpServletRequest#setAttribute()
+   * @see javax.servlet.http.HttpServletRequest#setAttribute
    */
   public static void setAttribute(HttpServletRequest it, String arg1,
       Object arg2) {

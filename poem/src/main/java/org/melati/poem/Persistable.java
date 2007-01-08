@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/~timj
  */
 
@@ -51,7 +51,7 @@ package org.melati.poem;
 public interface Persistable {
 
   /**
-   * The object's troid.
+   * The object's troid, returned after access check.
    *
    * @return Every record (object) in a POEM database must have a
    *         troid (table row ID, or table-unique non-nullable integer primary
@@ -65,4 +65,10 @@ public interface Persistable {
    * @see Persistent#getTroid()
    */
   Integer getTroid() throws AccessPoemException;
+  
+  /**
+   * Get the troid without access checking.
+   * @return the troid
+   */
+  Integer troid();
 }

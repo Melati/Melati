@@ -1043,7 +1043,8 @@ public abstract class Database implements TransactionPool {
    * @return the raw SQL appropriate for this db
    */
   public String givesCapabilitySQL(User user, Capability capability) {
-    return dbms.givesCapabilitySQL(user, capability.troid().toString());
+    // NOTE Bootstrapping to troid or we get a stack overflow 
+    return dbms.givesCapabilitySQL(user.troid(), capability.troid().toString());
   }
 
  /**

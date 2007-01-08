@@ -49,7 +49,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import org.melati.poem.BinaryPoemType;
@@ -57,7 +56,6 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.User;
 import org.melati.util.StringUtils;
 
 /**
@@ -251,6 +249,7 @@ public class Hsqldb extends AnsiStandard {
   
   /**
    * Hsqldb gets its scope confused unless inner table is aliased.
+   * Seems to work now. 
    *
    * @todo Test that there are no results if the user does not have
    * the capability but some other user does, because it seems to
@@ -260,39 +259,23 @@ public class Hsqldb extends AnsiStandard {
    * @param capabilityExpr name of capability
    * @return the SQL query
    */
-  public String givesCapabilitySQL(User user, String capabilityExpr) {
-    return "SELECT * FROM "
-      + getQuotedName("groupmembership")
-      + " WHERE "
-      + getQuotedName("user")
-      + " = "
-      + user.troid()
-      + " AND "
-      + "EXISTS ( "
-      + "SELECT "
-      + getQuotedName("groupcapability")
-      + "."
-      + getQuotedName("group")
-      + " "
-      + "FROM "
-      + getQuotedName("groupcapability")
-      + ", "
+/*  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
+    return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
+      + getQuotedName("user") + " = " + user.getTroid() + " AND "
+      + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
+      + getQuotedName("group") + " FROM "
+      + getQuotedName("groupcapability") + ", "
       + getQuotedName("groupmembership")
       + " AS GM2"
       + " WHERE "
-      + getQuotedName("groupcapability")
-      + "."
-      + getQuotedName("group")
+      + getQuotedName("groupcapability") + "." + getQuotedName("group")
       + " = "
-      + "GM2."
-      + getQuotedName("group")
+      + "GM2." + getQuotedName("group")
       + " AND "
-      + getQuotedName("capability")
-      + " = "
-      + capabilityExpr
+      + getQuotedName("capability") + " = " + capabilityExpr
       + ")";
   }
-
+*/
   /** 
    * Note that this is NOT case insensitive.
    * 

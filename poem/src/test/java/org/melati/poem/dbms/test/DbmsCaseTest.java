@@ -38,19 +38,17 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 package org.melati.poem.dbms.test;
 
 import junit.framework.TestCase;
 
-import org.melati.poem.Persistable;
 import org.melati.poem.dbms.AnsiStandard;
 import org.melati.poem.dbms.Hsqldb;
 import org.melati.poem.dbms.Postgresql;
 import org.melati.poem.dbms.Oracle;
 
-import com.mockobjects.dynamic.Mock;
 
 /**
  * Test to ensure that CaseInsensitiveRegExpSQL behaves in the same 
@@ -69,10 +67,8 @@ public class DbmsCaseTest extends TestCase {
   }
 
   public void testGivesCapabilitySQL() {
-    Mock userControl = new Mock(Persistable.class);
-    userControl.expectAndReturn("troid",new Integer(42));
     AnsiStandard unit = new AnsiStandard();
-    String actual = unit.givesCapabilitySQL((Persistable)userControl.proxy(),"hello");
+    String actual = unit.givesCapabilitySQL(new Integer(42),"hello");
     String expected = "SELECT * FROM \"groupmembership\" " + 
                       "WHERE \"user\" = 42 AND " + 
                       "EXISTS ( SELECT \"groupcapability\".\"group\" " + 

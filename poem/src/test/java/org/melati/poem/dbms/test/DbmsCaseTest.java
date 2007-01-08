@@ -70,7 +70,7 @@ public class DbmsCaseTest extends TestCase {
 
   public void testGivesCapabilitySQL() {
     Mock userControl = new Mock(Persistable.class);
-    userControl.expectAndReturn("getTroid",new Integer(42));
+    userControl.expectAndReturn("troid",new Integer(42));
     AnsiStandard unit = new AnsiStandard();
     String actual = unit.givesCapabilitySQL((Persistable)userControl.proxy(),"hello");
     String expected = "SELECT * FROM \"groupmembership\" " + 

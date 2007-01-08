@@ -1053,6 +1053,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
 
+  /**
+   * @return the Primary Display Column as a Field
+   */
   public Field getPrimaryDisplayField() {
     return getTable().displayColumn().asField(this);
   }

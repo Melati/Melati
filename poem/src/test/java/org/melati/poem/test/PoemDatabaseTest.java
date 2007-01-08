@@ -103,7 +103,9 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testSqlQuery() {
     String query = "select * from " + getDb().getUserTable().quotedName();
+    getDb().setLogSQL(true);
     ResultSet rs = getDb().sqlQuery(query);
+    getDb().setLogSQL(false);
     int count = 0;
     try {
       while (rs.next())
@@ -581,6 +583,11 @@ public class PoemDatabaseTest extends PoemTestCase {
       e = null;
       // All ok
     }
+    getDb().setLogSQL(true);  
+    getDb().
+        sqlUpdate(
+            getDb().getDbms().createTableSql() + "TEST (ID INT)" );
+    getDb().setLogSQL(false);  
   }
 
   /**
@@ -602,19 +609,16 @@ public class PoemDatabaseTest extends PoemTestCase {
 
   /**
    * @see org.melati.poem.Database#setCanAdminister()
+   * @see org.melati.poem.Database#setCanAdminister(String)
    */
   public void testSetCanAdminister() {
     assertNull(getDb().getCanAdminister());
     getDb().setCanAdminister();
     assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb()
         .getCanAdminister());
-  }
-
-  /**
-   * @see org.melati.poem.Database#setCanAdminister(String)
-   */
-  public void testSetCanAdministerString() {
-
+    getDb().setCanAdminister("testing");
+    assertEquals(getDb().getCapabilityTable().get("testing"), getDb()
+        .getCanAdminister());
   }
 
   /**

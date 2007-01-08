@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,9 +48,6 @@ package org.melati.poem;
  /**
   * Thrown when an attempt to create a {@link Column} in a {@link Table} 
   * which already contains one of that name is made. 
-  *
-  * @author WilliamC@paneris.org
-  *
   */
 public class DuplicateColumnNamePoemException extends NormalPoemException {
 
@@ -58,7 +55,7 @@ public class DuplicateColumnNamePoemException extends NormalPoemException {
 
   /** The Table we are dealing with. */
   public Table table;
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
 
   /** Constructor. */
@@ -67,8 +64,8 @@ public class DuplicateColumnNamePoemException extends NormalPoemException {
     this.column = column;
   }
 
-  /** @return A description. */
-  public String toString() {
+  /** @return the detailed message */
+  public String getMessage() {
     return "Can't add duplicate column " + column + " to " + table;
   }
 }

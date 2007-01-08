@@ -108,26 +108,5 @@ public class Interbase extends AnsiStandard {
       }
       return super.getBinarySqlDefinition(size);
   }
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
-   *          (java.lang.String, java.lang.String, java.lang.String, 
-   *          java.lang.String, java.lang.String)
-   * @todo find out foreign key syntax
-   */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
-    return "";
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
-   * @todo find out primary key syntax
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return "";
-  }
-
   
 }

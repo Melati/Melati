@@ -48,7 +48,6 @@ import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
-import org.melati.poem.Persistable;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.DoublePoemType;
@@ -170,48 +169,17 @@ public class Mckoi extends AnsiStandard {
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#givesCapabilitySQL
    */
-  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
+  public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return
         "SELECT groupmembership.*  " + 
         "FROM groupmembership LEFT JOIN groupcapability " +
         "ON groupmembership." + getQuotedName("group") +
         " =  groupcapability." + getQuotedName("group") + " " +
-        "WHERE " + getQuotedName("user") + " = " + user.getTroid() + " " +
+        "WHERE " + getQuotedName("user") + " = " + userTroid + " " +
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
-   * @todo find out foreign key syntax
-   */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
-    StringBuffer sb = new StringBuffer();
-    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
-              getQuotedName(targetTableName) + 
-              "(" + getQuotedName(targetTableFieldName) + ")");
-    if (fixName.equals("prevent"))
-      sb.append(" ON DELETE NO ACTION");      
-    if (fixName.equals("delete"))
-      sb.append(" ON DELETE CASCADE");      
-    if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
-    return sb.toString();
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition
-   * @todo find out primary key syntax
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
-  }
-
-
 }
 
 

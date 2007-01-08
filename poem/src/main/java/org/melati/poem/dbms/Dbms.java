@@ -53,7 +53,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.melati.poem.Column;
-import org.melati.poem.Persistable;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
@@ -284,11 +283,11 @@ public interface Dbms {
   /**
    * SQL string to get a <tt>Capability</tt>.
    * 
-   * @param user the User Persistable whose troid is used in the query
+   * @param userTroid the troid of the User to use in the query
    * @param capabilityExpr the capability troid we need
    * @return the SQL query to use
    */
-  String givesCapabilitySQL(Persistable user, String capabilityExpr);
+  String givesCapabilitySQL(Integer userTroid, String capabilityExpr);
 
   /**
    * Accomodate the variety of ways of ignoring case.

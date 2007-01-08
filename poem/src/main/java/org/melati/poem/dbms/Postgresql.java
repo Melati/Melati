@@ -232,35 +232,5 @@ public class Postgresql extends AnsiStandard {
     return term1 + " ~* " + term2;
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getForeignKeyDefinition
-   */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
-    StringBuffer sb = new StringBuffer();
-    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
-              getQuotedName(targetTableName) + 
-              "(" + getQuotedName(targetTableFieldName) + ")");
-    if (fixName.equals("prevent"))
-      sb.append(" ON DELETE RESTRICT");
-    if (fixName.equals("delete"))
-      sb.append(" ON DELETE CASCADE");      
-    if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
-    return sb.toString();
-  }
-
-  /**
-   * Return the PRIMARY KEY definition string for this dbms. 
-   * 
-   * @param fieldName the table Troid column, often id, unquoted
-   * @return The definition string
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
-  }
-
 
 }

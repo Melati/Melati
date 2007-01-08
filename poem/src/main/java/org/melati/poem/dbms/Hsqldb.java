@@ -247,35 +247,6 @@ public class Hsqldb extends AnsiStandard {
     return name.toLowerCase();
   }
   
-  /**
-   * Hsqldb gets its scope confused unless inner table is aliased.
-   * Seems to work now. 
-   *
-   * @todo Test that there are no results if the user does not have
-   * the capability but some other user does, because it seems to
-   * me (in my ignorance) that such a test will fail, JimW.
-   * 
-   * @param user the User to check
-   * @param capabilityExpr name of capability
-   * @return the SQL query
-   */
-/*  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
-    return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
-      + getQuotedName("user") + " = " + user.getTroid() + " AND "
-      + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
-      + getQuotedName("group") + " FROM "
-      + getQuotedName("groupcapability") + ", "
-      + getQuotedName("groupmembership")
-      + " AS GM2"
-      + " WHERE "
-      + getQuotedName("groupcapability") + "." + getQuotedName("group")
-      + " = "
-      + "GM2." + getQuotedName("group")
-      + " AND "
-      + getQuotedName("capability") + " = " + capabilityExpr
-      + ")";
-  }
-*/
   /** 
    * Note that this is NOT case insensitive.
    * 
@@ -313,14 +284,6 @@ public class Hsqldb extends AnsiStandard {
     if (fixName.equals("clear"))
       sb.append(" ON DELETE SET NULL");      
     return sb.toString();
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
 
 }

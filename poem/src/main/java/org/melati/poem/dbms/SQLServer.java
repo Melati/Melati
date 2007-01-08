@@ -291,6 +291,7 @@ public class SQLServer extends AnsiStandard {
     return true;
   }
   /**
+   * Slightly different - embrace and extend.
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
@@ -309,13 +310,5 @@ public class SQLServer extends AnsiStandard {
     return sb.toString();
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
-   */
-  public String getPrimaryKeyDefinition(String fieldName) {
-    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
-  }
-  
 }
 

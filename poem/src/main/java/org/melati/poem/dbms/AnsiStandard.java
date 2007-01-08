@@ -68,7 +68,6 @@ import org.melati.poem.DoublePoemType;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
-import org.melati.poem.Persistable;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
@@ -465,9 +464,9 @@ public class AnsiStandard implements Dbms {
    * @see org.melati.poem.dbms.Dbms#givesCapabilitySQL
    * @see org.melati.poem.dbms.MySQL#givesCapabilitySQL
    */
-  public String givesCapabilitySQL(Persistable user, String capabilityExpr) {
+  public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return "SELECT * FROM " + getQuotedName("groupmembership") + " WHERE "
-        + getQuotedName("user") + " = " + user.troid() + " AND "
+        + getQuotedName("user") + " = " + userTroid + " AND "
         + "EXISTS ( " + "SELECT " + getQuotedName("groupcapability") + "."
         + getQuotedName("group") + " FROM "
         + getQuotedName("groupcapability") + " WHERE "
@@ -500,17 +499,29 @@ public class AnsiStandard implements Dbms {
    */
   public String getForeignKeyDefinition(String tableName, String fieldName, 
       String targetTableName, String targetTableFieldName, String fixName) {
-    return "";
+    StringBuffer sb = new StringBuffer();
+    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
+              getQuotedName(targetTableName) + 
+              "(" + getQuotedName(targetTableFieldName) + ")");
+    if (fixName.equals("prevent"))
+      sb.append(" ON DELETE RESTRICT");
+    if (fixName.equals("delete"))
+      sb.append(" ON DELETE CASCADE");      
+    if (fixName.equals("clear"))
+      sb.append(" ON DELETE SET NULL");      
+    return sb.toString();
   }
-  
+
   /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition(java.lang.String)
+   * Return the PRIMARY KEY definition string for this dbms. 
+   * 
+   * @param fieldName the table Troid column, often id, unquoted
+   * @return The definition string
+   * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
-    return "";
+    return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
   }
-  
 
 }
 

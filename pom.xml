@@ -384,10 +384,14 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         </reportSet>
        </reportSets>
       </plugin>
-      <!--plugin>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin-->
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
@@ -410,7 +414,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <configuration>
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/controversial.xml</ruleset>
+            <!-- ruleset>/rulesets/controversial.xml</ruleset-->
           </rulesets>
           <minmemory>128m</minmemory>
           <maxmemory>256</maxmemory>
@@ -428,10 +432,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <artifactId>jdepend-maven-plugin</artifactId>
         <version>2.0-beta-1-SNAPSHOT</version>
       </plugin>
-      <!--plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jcoverage-maven-plugin</artifactId>
-      </plugin-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
@@ -448,10 +448,38 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
       </plugin>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+         <tags>
+           <tag>
+             <name>todo</name>
+             <!-- Should be a combination of the letters Xaoptcmf -->
+             <placement>a</placement>
+             <head>To do something:</head>
+           </tag>
+           <tag>
+             <name>generator</name>
+             <!-- Should be a combination of the letters Xaoptcmf -->
+             <placement>mct</placement>
+             <head>Generator</head>
+           </tag>
+         </tags>
+        </configuration>
+      </plugin>
     </plugins>
   </reporting>
   <build>
-    <plugins>
-    </plugins>
+   <plugins>
+    <plugin>
+     <groupId>org.apache.maven.plugins</groupId>
+     <artifactId>maven-compiler-plugin</artifactId>
+     <configuration>
+      <source>1.4</source>
+      <target>1.4</target>
+     </configuration>
+    </plugin>
+   </plugins>
   </build>
 </project>

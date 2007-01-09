@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,16 +49,13 @@ package org.melati.poem;
  * Thrown during validation of a {@link ReferencePoemType} 
  * if a {@link Persistent} is claimed to be of that type but has the 
  * wrong {@link Table} set.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class TableMismatchPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Persistent */
+  /** The Persistent. */
   public Persistent value;
-    /** The Table it should have set */
+    /** The Table it should have set. */
   public Table table;
 
   /** Constructor. */

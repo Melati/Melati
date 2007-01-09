@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,15 +57,28 @@ public class ConsEnumeration implements SkipEnumeration {
   private Object hd;
   private Enumeration tl;
 
-  public ConsEnumeration(Object hd, Enumeration tl) {
-    this.hd = hd;
-    this.tl = tl == null ? EmptyEnumeration.it : tl;
+  /**
+   * Constructor with head and tail.
+   * @param head
+   * @param tail
+   */
+  public ConsEnumeration(Object head, Enumeration tail) {
+    this.hd = head;
+    this.tl = tail == null ? EmptyEnumeration.it : tail;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public synchronized boolean hasMoreElements() {
     return !hadHd || tl.hasMoreElements();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() {
     if (!hadHd) 
       try {
@@ -78,6 +91,10 @@ public class ConsEnumeration implements SkipEnumeration {
       return tl.nextElement();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.SkipEnumeration#skip()
+   */
   public synchronized void skip() {
     if (!hadHd)
       hadHd = true;

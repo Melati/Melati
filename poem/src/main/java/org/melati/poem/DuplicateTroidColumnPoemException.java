@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,15 +47,13 @@ package org.melati.poem;
 
  /**
   * Thrown when an attempt to add a second <code>Troid</code> column is made. 
-  *
-  * @author WilliamC@paneris.org
   */
 public class DuplicateTroidColumnPoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Table we are dealing with */
+  /** The Table we are dealing with. */
   public Table table;
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
 
   /** Constructor. */

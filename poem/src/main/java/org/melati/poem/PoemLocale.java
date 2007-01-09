@@ -54,7 +54,7 @@ import java.text.DateFormatSymbols;
  */
 public class MelatiLocale {
 
-  /** Default Locale: GB */
+  /** Default Locale: GB. */
   public static final MelatiLocale HERE = new MelatiLocale(Locale.UK);
 
   private final Locale locale;

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,9 +54,9 @@ package org.melati.poem;
 public class AccessPoemException extends PoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The User's Token */
+  /** The User's Token. */
   public AccessToken token;
-  /** The required Capability */
+  /** The required Capability. */
   public Capability capability;
 
   // This is required to report the exception outside of a session.

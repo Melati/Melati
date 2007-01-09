@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -46,20 +46,25 @@
 package org.melati.util;
 
 /**
- * Thrown when there is a problem establishing Character Sets
- *
- * @author timp@paneris.org
- * 
+ * Thrown when there is a problem establishing Character Sets.
  */
 public class CharsetException extends MelatiException {
   private static final long serialVersionUID = 1L;
 
   private String message;
   
+  /**
+   * Constructor with message.
+   * @param message the message to set
+   */
   public CharsetException(String message) {
     this.message = message;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiException#getMessage()
+   */
   public String getMessage() {
     return message;
   }

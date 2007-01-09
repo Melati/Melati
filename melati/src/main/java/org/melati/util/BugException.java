@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,14 +52,27 @@ package org.melati.util;
 public class BugException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor with message.
+   * @param message
+   */
   public BugException(String message) {
     super(message, null);
   }
 
+  /**
+   * Constructor with message and exception.
+   * @param message the message
+   * @param e the exception
+   */
   public BugException(String message, Exception e) {
     super(message, e);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiRuntimeException#getMessage()
+   */
   public String getMessage() {
     return "An unexpected condition occurred in the software\n" + 
     getCoreMessage();

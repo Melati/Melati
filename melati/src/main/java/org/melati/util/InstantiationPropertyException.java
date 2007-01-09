@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,18 +50,25 @@ import java.util.Properties;
 /**
  * Thrown when there is a problem finding or creating a class 
  * from a property value.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class InstantiationPropertyException extends PropertyException {
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor with properties, property name and problem.
+   * @param properties a properties object
+   * @param propertyName the name of the property with the problem
+   * @param problem and Exception 
+   */
   public InstantiationPropertyException(
       Properties properties, String propertyName, Exception problem) {
     super(properties, propertyName, problem);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PropertyException#getMessage()
+   */
   public String getMessage() {
     return "Unable to instantiate an object from property " +
            "`" + propertyName + "'\n" +

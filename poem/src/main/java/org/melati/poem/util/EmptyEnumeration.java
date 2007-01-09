@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,10 +56,18 @@ public class EmptyEnumeration implements Enumeration {
   /** The instance. */
   public static final EmptyEnumeration it = new EmptyEnumeration();
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public Object nextElement() {
     throw new NoSuchElementException();
   }

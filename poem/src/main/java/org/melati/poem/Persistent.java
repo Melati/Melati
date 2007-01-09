@@ -339,10 +339,18 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     existenceLock(PoemThread.sessionToken());
   }
 
+  /**
+   * Check if we may read this object and then lock it.
+   * @throws AccessPoemException if current AccessToken does not give read Capability
+   */
   protected void readLock() throws AccessPoemException {
     readLock(PoemThread.sessionToken());
   }
 
+  /**
+   * Check if we may write to this object and then lock it.
+   * @throws AccessPoemException if current AccessToken does not give write Capability
+   */
   protected void writeLock() throws AccessPoemException {
     writeLock(PoemThread.sessionToken());
   }

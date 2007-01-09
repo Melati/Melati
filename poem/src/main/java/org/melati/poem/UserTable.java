@@ -87,16 +87,6 @@ public class UserTable extends UserTableBase {
   // private Capability canReadPasswords = new Capability("ReadPasswords");
   // private Capability canWritePasswords = new Capability("WritePasswords");
 
- /**
-  * Constructor.
-  * 
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @throws PoemException    if anything goes wrong
-  */
-  public UserTable(Database database, String name) throws PoemException {
-    this(database, name, DefinitionSource.dsd);
-  }
 
  /**
   * Constructor.

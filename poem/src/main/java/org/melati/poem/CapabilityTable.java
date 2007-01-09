@@ -111,9 +111,7 @@ public class CapabilityTable extends CapabilityTableBase {
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
 
-    Capability standard = (Capability)newPersistent();
-    standard.setName_unsafe("_administer_");
-    administer = (Capability)getNameColumn().ensure(standard);
+    administer = ensure("_administer_");
 
     if (getTableInfo().getDefaultcanwrite() == null)
       getTableInfo().setDefaultcanwrite(administer);

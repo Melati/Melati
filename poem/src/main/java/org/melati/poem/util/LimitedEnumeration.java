@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -58,15 +58,28 @@ public class LimitedEnumeration implements SkipEnumeration {
   private int limit;
   private int seen = 0;
 
+  /**
+   * Constructor.
+   * @param base the underlying Enumeration
+   * @param limit the excluded limit
+   */
   public LimitedEnumeration(Enumeration base, int limit) {
     this.base = base;
     this.limit = limit;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public synchronized boolean hasMoreElements() {
     return seen < limit && base.hasMoreElements();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() throws NoSuchElementException {
     if (seen >= limit)
       throw new NoSuchElementException();
@@ -75,6 +88,10 @@ public class LimitedEnumeration implements SkipEnumeration {
     return it;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.SkipEnumeration#skip()
+   */
   public synchronized void skip() throws NoSuchElementException {
     if (seen >= limit)
       throw new NoSuchElementException();

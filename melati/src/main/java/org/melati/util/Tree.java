@@ -172,12 +172,14 @@ public class Tree {
   /**
    * Apply the Function to each node in the tree.
    * 
+   * @param func the Function to apply
    * @param depthP
    *        Only apply the function to nodes at or above this depth. A negative
    *        depth means apply this to all nodes in the tree
    * @param depthFirst
    *        If true, traverse the tree depth-first, otherwise traverse it
    *        breadth-first
+   * @return a Vector nodes that have had func applied to them
    */
   public Vector apply(Function func, int depthP, boolean depthFirst) {
     Vector flattened = flattened(depthP, depthFirst);

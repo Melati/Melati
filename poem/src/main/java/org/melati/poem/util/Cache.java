@@ -136,6 +136,12 @@ public final class Cache {
 
     Object key;
 
+    /**
+     * Constructor.
+     * @param key cache key
+     * @param value Cache object
+     * @param queue reference queue
+     */
     DroppedNode(Object key, Object value, ReferenceQueue queue) {
       super(value, queue);
       this.key = key;
@@ -188,7 +194,10 @@ public final class Cache {
       this.probs = probs;
     }
 
-    /** The detail message. */
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.MelatiRuntimeException#getMessage()
+     */
     public String getMessage() {
       return EnumUtils.concatenated("\n", probs.elements());
     }

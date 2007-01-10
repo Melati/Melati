@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,10 +53,19 @@ import java.util.Properties;
 public class NoSuchPropertyException extends PropertyException {
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   * @param properties the Properties object the problem arose in
+   * @param propertyName the name of the property no found
+   */
   public NoSuchPropertyException(Properties properties, String propertyName) {
     super(properties, propertyName);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PropertyException#getMessage()
+   */
   public String getMessage() {
     return "Property `" + propertyName + "' not found";
   }

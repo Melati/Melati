@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,8 +47,12 @@ package org.melati.util;
 
 /**
  * A Function.
- *
  */
 public interface Function {
+  /**
+   * Apply to the argument.
+   * @param arg the Object to act upon 
+   * @return the acted upon Object
+   */
   Object apply(Object arg);
 }

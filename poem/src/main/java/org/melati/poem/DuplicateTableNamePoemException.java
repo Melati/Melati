@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,15 +48,13 @@ package org.melati.poem;
  /**
   * Thrown when an attempt to add a {@link Table} to a {@link Database} 
   * which already has one of that name.
-  *
-  * @author WilliamC@paneris.org
   */
 public class DuplicateTableNamePoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Database we are dealing with */
+  /** The Database we are dealing with. */
   public Database database;
-  /** Its name */
+  /** Its name. */
   public String name;
 
   /** Constructor. */

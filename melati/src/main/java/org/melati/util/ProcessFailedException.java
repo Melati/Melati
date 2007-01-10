@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,19 +48,16 @@ import java.io.IOException;
 
 /**
  * Thrown when an external program fails to <code>exec</code>.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class ProcessFailedException extends IOException {
   private static final long serialVersionUID = 1L;
 
-  /** The String that was printed to STDERR */
+  /** The String that was printed to STDERR. */
   public String stderr;
   
   private ProcessFailedException() {}
 
-  /** Constructor */
+  /** Constructor with message and what was printed to STDERR. */
   public ProcessFailedException(String message, String stderr) {
     super(message);
     this.stderr = stderr;

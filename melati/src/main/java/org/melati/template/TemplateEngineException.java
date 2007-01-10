@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -56,14 +56,26 @@ public class TemplateEngineException extends MelatiException {
 
   String message;
   
+  /**
+   * Constructor.
+   * @param underlying cause
+   */
   public TemplateEngineException(Exception underlying) {
     super(underlying);
   }
 
+  /**
+   * Constructor with message.
+   * @param message message
+   */
   public TemplateEngineException(String message) {
     this.message = message;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiException#getMessage()
+   */
   public String getMessage() {
     if (message == null) return super.getMessage();
     return message;

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,7 +52,7 @@ package org.melati.util;
 public class WriteCommittedException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
-  /** The committed Transaction */
+  /** The committed Transaction. */
   public Transactioned transactioned;
 
   /** Only way in is through the front door. */

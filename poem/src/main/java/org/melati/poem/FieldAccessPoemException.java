@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,12 +48,11 @@ package org.melati.poem;
 /**
  * Thrown when an unauthorised access of a {@link Field} 
  * of a {@link Persistent} is attempted.
- * 
  */
 public abstract class FieldAccessPoemException
     extends PersistentAccessPoemException {
 
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
 
   /** Constructor. */
@@ -64,9 +63,13 @@ public abstract class FieldAccessPoemException
     this.column = column;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PersistentAccessPoemException#modeDescription()
+   */
   abstract String modeDescription();
 
-  /** @return A description. */
+  /** @return A description of the Action. */
   public String getActionDescription() {
     return modeDescription() + " the field " + column.getName() +
            " of the object " + object.toString();

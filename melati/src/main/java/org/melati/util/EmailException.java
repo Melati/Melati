@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,18 +49,22 @@ import java.io.IOException;
 
 /**
  * Thrown when there is a problem sending an {@link Email}.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class EmailException extends IOException {
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   */
   public EmailException() {
        super();
     }
 
-    public EmailException(String s) {
-       super(s);
-    }
+ /**
+  * Constructor with message.
+  * @param message the message 
+  */
+  public EmailException(String message) {
+    super(message);
+  }
 }

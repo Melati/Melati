@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -51,13 +51,16 @@ import java.sql.ResultSet;
 /**
  * A {@link ResultSetEnumeration} relying on a {@link TailoredQuery}
  * for column and access information.
- *
- * @author williamc@paneris.org
  */
 public class TailoredResultSetEnumeration extends ResultSetEnumeration {
 
   protected TailoredQuery query;
 
+  /**
+   * Constructor.
+   * @param query the TailoredQuery
+   * @param resultSet ResultSet to create Enumeration from
+   */
   public TailoredResultSetEnumeration(TailoredQuery query,
                                       ResultSet resultSet) {
     super(resultSet);
@@ -80,6 +83,10 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
   /**
    * Returns the raw value of a numbered column in the current row 
    * of a result set.
+   * 
+   * @param them the ResultSet
+   * @param c index into ResultSet
+   * @return the raw value
    */
   Object column(ResultSet them, int c) {
     Column column = query.columns[c];
@@ -102,6 +109,8 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
   /**
    * Return the current result set row packaged with column names in a 
    * {@link FieldSet}.
+   * {@inheritDoc}
+   * @see org.melati.poem.ResultSetEnumeration#mapped(java.sql.ResultSet)
    */
   protected Object mapped(ResultSet them)
       throws SQLException, NoSuchRowPoemException {

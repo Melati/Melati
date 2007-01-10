@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *
  *
  * ------
@@ -55,7 +55,7 @@
 package org.melati.poem.csv;
 
 /**
- * An error in parsing a CSV line
+ * An error in parsing a CSV line.
  *
  */
 public class CSVParseException extends RuntimeException {

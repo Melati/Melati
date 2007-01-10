@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,17 +48,15 @@ package org.melati.poem;
 /**
  * Thrown when there is a mismatch over the uniqueness of an index in the Poem
  * metadata and the jdbc metadata.
- * 
- * @author WilliamC@paneris.org
  */
 public class IndexUniquenessPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Column we are dealing with */
+  /** The Column we are dealing with. */
   public Column column;
-  /** The column's index */
+  /** The column's index. */
   public String indexName;
-  /** Whether this Column shoudl eb unique. */
+  /** Whether this Column should be unique. */
   public boolean meantToBeUnique;
 
   /** Constructor. */

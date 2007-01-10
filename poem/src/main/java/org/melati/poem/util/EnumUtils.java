@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -97,6 +97,12 @@ public final class EnumUtils {
     return v;
   }
 
+  /**
+   * Join two Enumerations into a single one.
+   * @param a head Enumeration
+   * @param b tail Enumeration 
+   * @return a new enumeration which is a concatenation of A and B
+   */
   public static Enumeration join(Enumeration a, Enumeration b) {
     Vector aVector =  vectorOf(a);
     while (b.hasMoreElements())

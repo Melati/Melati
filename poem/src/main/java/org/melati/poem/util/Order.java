@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,5 +49,11 @@ package org.melati.util;
  * An Ordering.
  */
 public interface Order {
+  /**
+   * Whether A is less than or equal to B.
+   * @param a A
+   * @param b B
+   * @return true if a is less than or equal to b
+   */
   boolean lessOrEqual(Object a, Object b);
 }

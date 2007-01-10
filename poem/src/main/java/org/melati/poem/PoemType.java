@@ -169,6 +169,7 @@ public interface PoemType {
 
   /**
    * The field type used in the Data Structure Definition language.
+   * @return the Type name
    */
-   String toDsdType();
+  String toDsdType();
 }

@@ -91,6 +91,8 @@ public class TableCategoryTable extends TableCategoryTableBase {
 
  /**
   * Create an entry with the given name if it doesn't exist.
+  * @param name the name of the Category
+  * @return the existing or newly created TableCategory
   */
   public TableCategory ensure(String name) {
     TableCategory it = (TableCategory)newPersistent();

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -46,7 +46,7 @@
 package org.melati.util;
 
 /**
- * An ordering using <code>String.compareTo</code>
+ * An ordering using <code>String.compareTo</code>.
  * 
  */
 public class DictionaryOrder implements Order {
@@ -54,6 +54,10 @@ public class DictionaryOrder implements Order {
   /** Standard ordering. */
   public static DictionaryOrder vanilla = new DictionaryOrder();
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.Order#lessOrEqual(java.lang.Object, java.lang.Object)
+   */
   public boolean lessOrEqual(Object a, Object b) {
     return !(((String)a).compareTo((String)b) > 0);
   }

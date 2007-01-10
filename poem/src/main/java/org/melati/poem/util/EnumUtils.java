@@ -54,6 +54,12 @@ import java.util.Enumeration;
 public final class EnumUtils {
   private EnumUtils() {}
 
+  /**
+   * Skip a specified number of Elements in an Enumeration.
+   * @param e the Enumeration to skip Elements of
+   * @param n the number of Elements to skip
+   * @return the number of Elements actually skipped, may be less than asked 
+   */
   public static int skip(Enumeration e, int n) {
     int c = 0;
     if (e instanceof SkipEnumeration) {
@@ -72,6 +78,14 @@ public final class EnumUtils {
     return c;
   }
 
+  /**
+   * Create a Vector of the first n Elemets of an Enumeration.
+   * If the number of elements in the Enumeration is less than 
+   * n then the remaining elements of the Vector will be null.
+   * @param e the input Enumeration
+   * @param n the number of Elements to include
+   * @return a new Vector of the initial Elements
+   */
   public static Vector initial(Enumeration e, int n) {
     Vector v = new Vector(n);
 
@@ -90,6 +104,12 @@ public final class EnumUtils {
     return aVector.elements();
   }
 
+  /**
+   * Create a Vector from an Enumeration.
+   * @param e the source Enumeration
+   * @param roughSize starting size of the Vector
+   * @return a Vector of the Elements of the input Enumeration
+   */
   public static Vector vectorOf(Enumeration e, int roughSize) {
     Vector v = new Vector(roughSize);
 
@@ -99,11 +119,18 @@ public final class EnumUtils {
     return v;
   }
 
+  /**
+   * Create a Vector from an Enumeration, supplying an 
+   * initial size of 20.
+   * @param e the source Enumeration
+   * @return a Vector with size at least 20 of the Elements of the input Enumeration
+   */
   public static Vector vectorOf(Enumeration e) {
     return vectorOf(e, 20);
   }
 
   /**
+   * Concatenate an Enumeration, specifying the separator.
    * @param sep Seperator string 
    * @param e Enumeration to be concatenated
    * @return A String represenation of the Enumeration
@@ -122,6 +149,12 @@ public final class EnumUtils {
     return b.toString();
   }
 
+  /**
+   * Whether the Enumeration contain an Object.
+   * @param e an Enumeration to look in
+   * @param o the Object to look for
+   * @return true if the Object occurs in the Enumeration
+   */
   public static boolean contains(Enumeration e, Object o) {
     while (e.hasMoreElements())
       if (e.nextElement().equals(o))

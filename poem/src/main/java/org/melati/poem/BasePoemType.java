@@ -221,6 +221,8 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * This result is validated with {@link #assertValidRaw(Object)}
    * whereas {@link #stringOfRaw(Object)} assumes this is not
    * required.
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemType#rawOfString(java.lang.String)
    */
   public final Object rawOfString(String string)
       throws ParsingPoemException, ValidationPoemException {

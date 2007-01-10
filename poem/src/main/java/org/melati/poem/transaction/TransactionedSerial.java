@@ -114,7 +114,7 @@ public class TransactionedSerial extends Transactioned {
   }
 
   /**
-   * Increment;
+   * Increment.
    */
   public void increment_unlocked() {
     ++serial;

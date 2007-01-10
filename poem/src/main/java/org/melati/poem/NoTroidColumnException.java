@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,7 +54,7 @@ package org.melati.poem;
 public class NoTroidColumnException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Table we are dealign with */
+  /** The Table we are dealing with. */
   public Table table;
 
   /** Constructor.*/

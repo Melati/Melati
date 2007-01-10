@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -85,7 +85,8 @@ public abstract class ConfigApp implements App {
    * Initialise.
    *
    * @param args the command line arguments
-   * @throws MelatiException 
+   * @return a newly created Melati
+   * @throws MelatiException if something goes wrong during initialisation
    */
   public Melati init(String[] args) throws MelatiException  {
     try {

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,17 +50,27 @@ package org.melati.poem;
  */
 public class PasswordPoemType extends StringPoemType {
 
+  /**
+   * Constructor.
+   * @param nullable whether value may be null
+   * @param size how big the field may be
+   */
   public PasswordPoemType(boolean nullable, int size) {
     super(nullable, size);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.StringPoemType#toString()
+   */
   public String toString() {
     return (getNullable() ? "nullable " : "") +
            "Password(" + super.getSize() + ")";
   }
 
-  /*
-   * The field type used in the Data Structure Definition language.
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.StringPoemType#toDsdType()
    */
   public String toDsdType() {
     return "Password";

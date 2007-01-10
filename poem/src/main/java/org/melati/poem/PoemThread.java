@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -93,7 +93,7 @@ public final class PoemThread {
     }
   }
 
-  /** keep track of the old thread names */
+  /** keep track of the old thread names. */
   private static Map threadOldNames = new HashMap();
   
   /**
@@ -124,7 +124,7 @@ public final class PoemThread {
   /**
    *  End a db session.
    *  
-   *  @throws PoemnException if we are not in a SEssion
+   *  @throws PoemException if we are not in a Session
    */
   static void endSession() throws PoemException {
     char tokenChar = Thread.currentThread().getName().charAt(0);
@@ -226,7 +226,9 @@ public final class PoemThread {
   }
 
   /**
-   * The access token under which your thread is running.
+   * @return the access token under which your thread is running.
+   * @throws NotInSessionPoemException if we are not in a session
+   * @throws NoAccessTokenPoemException if we do not have an AccessToken
    */
   public static AccessToken accessToken()
       throws NotInSessionPoemException, NoAccessTokenPoemException {

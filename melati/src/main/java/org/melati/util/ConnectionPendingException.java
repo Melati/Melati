@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,22 +47,22 @@ package org.melati.util;
 
 /** 
  * Thrown if an attempt is made to use a DBMS whilst it is initialising.
- *
- * @author WilliamC@paneris.org
- *
  */
 public class ConnectionPendingException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
 
-  /** The database name */
+  /** The database name. */
   public String name;
 
-  /** Constructor */
+  /** Constructor. */
   public ConnectionPendingException(String name) {
     this.name = name;
   }
 
-  /** The detail message. */
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiRuntimeException#getMessage()
+   */
   public String getMessage() {
     return "The database `" + name + "' is in the process of being " +
            "initialized; please try again in a moment";

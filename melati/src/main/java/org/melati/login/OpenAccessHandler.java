@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.login;
@@ -77,6 +77,7 @@ public class OpenAccessHandler implements AccessHandler {
   /**
    * Set to guest if not set, remains null if we have no database.
    *  
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
   public Melati establishUser(Melati melati) {
@@ -88,6 +89,7 @@ public class OpenAccessHandler implements AccessHandler {
   /** 
    * Nothing to do.
    * 
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati) throws MelatiException, IOException {

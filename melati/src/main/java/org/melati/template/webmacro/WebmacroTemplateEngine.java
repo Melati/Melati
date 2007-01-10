@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -66,7 +66,7 @@ import org.webmacro.Context;
  */
 public class WebmacroTemplateEngine extends AbstractTemplateEngine implements TemplateEngine {
 
-  /** The name of the engine */
+  /** The name of the engine. */
   public static final String NAME = "webmacro";
 
 //  public static final Object check =
@@ -203,6 +203,8 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
    * @param templateContext the {@link TemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if any problem occurs with the engine
+   * {@inheritDoc}
+   * @see org.melati.template.AbstractTemplateEngine#expandedTemplate
    */
   public String expandedTemplate(org.melati.template.Template template,  
                                  TemplateContext templateContext)
@@ -226,7 +228,9 @@ public class WebmacroTemplateEngine extends AbstractTemplateEngine implements Te
   /** 
    * Return a {@link MelatiWebmacroStringWriter}.
    *
-   * @see Melati#getStringWriter() 
+   * {@inheritDoc}
+   * @see org.melati.Melati#getStringWriter() 
+   * @see org.melati.template.AbstractTemplateEngine#getStringWriter()
    */
   public MelatiStringWriter getStringWriter() {
     return new MelatiWebmacroStringWriter();

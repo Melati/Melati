@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -65,15 +65,14 @@ import org.melati.util.UTF8URLEncoder;
 /**
  * An {@link AccessHandler} which uses <code>Session</code> cookies to
  * elicit and maintain the user's login and password.  
- *
  */
 public class HttpSessionAccessHandler implements AccessHandler {
 
-  /** Class name */
+  /** Class name. */
   public static final String
      OVERLAY_PARAMETERS = 
        "org.melati.login.HttpSessionAccessHandler.overlayParameters";
-  /** Class name */
+  /** Class name. */
   public static final String
      USER = 
        "org.melati.login.HttpSessionAccessHandler.user";
@@ -82,6 +81,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * The class name of the class implementing the login servlet.  Unless
    * overridden, this is <TT>org.melati.login.Login</TT>.
    *
+   * @return the class name of login servlet
    * @see org.melati.login.Login
    */
   protected String loginPageServletClassName() {
@@ -93,8 +93,10 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * substituting {@link #loginPageServletClassName()} into the URL of the
    * request being serviced.
    *
+   * @param melati   the current Melati
    * @param request  the request currently being serviced
    *
+   * @return the login page url
    * @see #loginPageServletClassName
    */
   public String loginPageURL(Melati melati, HttpServletRequest request) {
@@ -113,6 +115,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
   /**
    * Store the current request and redirect to the login page. 
    * 
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#handleAccessException
    */
   public void handleAccessException(Melati melati, 
@@ -139,9 +142,9 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * The login is used (with the logical database name) to retrieve an encoded
    * password which is then checked.
    *
-   * @see org.melati.login.LoginHandler
+   * {@inheritDoc}
+   * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
-  
   public Melati establishUser(Melati melati) {
     // now when we establish a user, we must also set the cookie
     String ldb = melati.getPoemContext().getLogicalDatabase();
@@ -163,7 +166,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
   
   /**
    * Set our AccessToken.
-   * Remember a User isa Token.
+   * NOTE Remember a User isa Token.
    * 
    * @param melati the Melati to get our database from
    * @param user the token to set
@@ -176,8 +179,8 @@ public class HttpSessionAccessHandler implements AccessHandler {
   
   /**
    * Extract User via the cookie.
-   * @param melati
-   * @param key
+   * @param melati our Melati
+   * @param key cookie key
    * @return the found User or null
    */
   User getUserFromCookie(Melati melati,String key) {
@@ -192,7 +195,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * 
    * @param melati the Melati in which the Request and its cookies are stored
    * @param key the key we need the value of
-   * @return teh cookie value or null
+   * @return the cookie value or null
    */
   String getCookieValue(Melati melati,String key) {
     // try and get from cookie
@@ -212,6 +215,7 @@ public class HttpSessionAccessHandler implements AccessHandler {
    * If we are returning from a login rebuild the original request,
    * otherwise do nothing.
    *  
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati) 

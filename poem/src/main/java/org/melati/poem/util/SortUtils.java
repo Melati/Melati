@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,12 +55,23 @@ public final class SortUtils {
 
   private SortUtils() {}
 
+  /**
+   * Swap two elements of an Array.
+   * @param arr the Array
+   * @param i will become j
+   * @param j will become i
+   */
   public static void swap(Object[] arr, int i, int j) {
     Object t = arr[i];
     arr[i] = arr[j];
     arr[j] = t;
   }
 
+  /**
+   * Sort an Array by a supplied ordering.
+   * @param cmp an ordering
+   * @param arr the Array to sort
+   */
   public static void insertionSort(Order cmp, Object[] arr) {
     for (int i = 1; i < arr.length; ++i) {
       Object val_i = arr[i];
@@ -81,7 +92,6 @@ public final class SortUtils {
    * Sedgewick.  ocaml is a superb object/functional language from INRIA: 
    * see http://caml.inria.fr.
    */
-
   private static void partlyQSort(Order cmp, Object[] arr, int lo, int hi) {
     if (hi - lo >= 6) {
       int mid = (lo + hi) >> 1;
@@ -125,28 +135,56 @@ public final class SortUtils {
     }
   }
 
+  /**
+   * Quick sort.
+   * @param cmp ordering to use
+   * @param arr Array to sort 
+   */
   public static void qsort(Order cmp, Object[] arr) {
     partlyQSort(cmp, arr, 0, arr.length - 1);
     /* Finish sorting by insertion sort */
     insertionSort(cmp, arr);
   }
 
+  /**
+   * Return a sorted Array.
+   * @param cmp the ordering
+   * @param arr the Array to sort
+   * @return the sorted Array
+   */
   public static Object[] sorted(Order cmp, Object[] arr) {
     Object[] arr2 = (Object[])arr.clone();
     qsort(cmp, arr2);
     return arr2;
   }
 
+  /**
+   * Sort a Vector into an Array.
+   * @param cmp the ordering
+   * @param v Vector to sort
+   * @return an Array of the sorted Vector's Elements 
+   */
   public static Object[] sorted(Order cmp, Vector v) {
     Object[] arr = ArrayUtils.arrayOf(v);
     qsort(cmp, arr);
     return arr;
   }
 
+  /**
+   * Sort an Enumeration into an Array.
+   * @param cmp the ordering
+   * @param e the Enumeration to sort
+   * @return an Array of the sorted Enumeration's Elements 
+   */
   public static Object[] sorted(Order cmp, Enumeration e) {
     return sorted(cmp, EnumUtils.vectorOf(e));
   }
 
+  /**
+   * Test rig.
+   * @param args arguments
+   * @throws Exception if anything fails
+   */
   public static void main(String[] args) throws Exception {
     qsort(DictionaryOrder.vanilla, args);
     for (int i = 0; i < args.length; ++i)

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -49,8 +49,12 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 /**
- * Adds {link #skip} to <code>Enumeration</code>.
+ * An <code>Enumeration</code> with a {link #skip} method.
  */
 public interface SkipEnumeration extends Enumeration {
+  /**
+   * Skip an Element.
+   * @throws NoSuchElementException if there are no more Elements
+   */
   void skip() throws NoSuchElementException;
 }

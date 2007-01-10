@@ -559,6 +559,9 @@ public abstract class PoemTypeFactory {
   /**
    * Returns an instance given a database and the integer code for
    * the instance.
+   * @param database to get tables from
+   * @param code TypeCode
+   * @return a new PoemTypeFactory
    */
   public static PoemTypeFactory forCode(Database database, int code) {
     if (code < 0)

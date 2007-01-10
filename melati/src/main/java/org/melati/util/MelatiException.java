@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,13 +48,10 @@ package org.melati.util;
 /**
  * Abstract base class for all <code>Exception</code>s within 
  * Melati.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public abstract class MelatiException extends Exception {
 
-  /** A sub-exception we may be wrapping, otherwise null */ 
+  /** A sub-exception we may be wrapping, otherwise null. */ 
   public Exception subException;
 
   /** Constructor with sub-exception. */
@@ -62,14 +59,24 @@ public abstract class MelatiException extends Exception {
     this.subException = subException;
   }
 
+  /**
+   * Constructor.
+   */
   public MelatiException() {
     this(null);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#getMessage()
+   */
   public String getMessage() {
     return this.getClass().getName() + "\n" + subException;
   }
 
+  /**
+   * @return the actual cause
+   */
   public Exception innermostException() {
     return subException == null ? this :
            subException instanceof MelatiException ?
@@ -79,6 +86,10 @@ public abstract class MelatiException extends Exception {
            subException;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace()
+   */
   public void printStackTrace() {
     if (subException == null)
       super.printStackTrace();
@@ -89,6 +100,10 @@ public abstract class MelatiException extends Exception {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace(java.io.PrintStream)
+   */
   public void printStackTrace(java.io.PrintStream s) {
     if (subException == null)
       super.printStackTrace(s);
@@ -99,6 +114,10 @@ public abstract class MelatiException extends Exception {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Throwable#printStackTrace(java.io.PrintWriter)
+   */
   public void printStackTrace(java.io.PrintWriter w) {
     if (subException == null)
       super.printStackTrace(w);

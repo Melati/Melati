@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,6 +56,13 @@ public interface TransactionPool {
    */
   int transactionsMax();
 
+  /**
+   * Set the maximum number of transactions in this pool.
+   * 
+   * @param tMax maximum number of transactions to set
+   */
+  void setTransactionsMax(int tMax);
+  
   /**
    * Get a {@link Transaction} by its index.
    * 

@@ -55,7 +55,7 @@ import java.io.UnsupportedEncodingException;
  * Tested on IE 5.0, HotJava 3.0, Netscape Navigator 4.x
  *
  * @see <a href="http://www.ietf.org/rfc/rfc1867.txt">rfc1867</a>
- * @author Vasily Pozhidaev <vasilyp At paneris.org>
+ * @author Vasily Pozhidaev (vasilyp At paneris.org)
  */
 public class MultipartFormField {
 

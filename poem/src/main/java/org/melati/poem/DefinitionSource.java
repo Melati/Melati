@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,8 +50,6 @@ package org.melati.poem;
  * or {@link Table}.
  *
  * The definition sources are unified during Poem initialisation.
- *
- * @author WilliamC@paneris.org
  *
  * @see Database#unifyWithIndex
  * @see Table#unifyWithDB
@@ -66,11 +64,15 @@ public class DefinitionSource {
     this.name = what.toString();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return name;
   }
 
-  /** Definition source */
+  /** Defined definition sources. */
   public static final DefinitionSource
       dsd = new DefinitionSource("the data structure definition"),
       infoTables = new DefinitionSource("the data dictionary"),

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -73,6 +73,11 @@ public class MultipartTemplateContext implements ServletTemplateContext {
   Hashtable fields;
   Melati melati;
 
+  /**
+   * Constructor.
+   * @param melati our Melati
+   * @param context the ServletTemplateContext
+   */
   public MultipartTemplateContext(Melati melati, ServletTemplateContext context)
       throws IOException {
     peer = context;
@@ -93,6 +98,12 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     }
   }
 
+  /**
+   * Constructor.
+   * @param melati our Melati
+   * @param context the ServletTemplateContext
+   * @param maxSize maximum allowed size 
+   */
   public MultipartTemplateContext(Melati melati, ServletTemplateContext context,
                                   int maxSize)
       throws IOException {
@@ -114,10 +125,18 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
+   */
   public void put(String s, Object o) {
     peer.put(s,o);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
+   */
   public String getForm(String s) {
     MultipartFormField field = (MultipartFormField)fields.get(s);
     if (field == null)
@@ -125,26 +144,49 @@ public class MultipartTemplateContext implements ServletTemplateContext {
     return field.getDataString(melati.getResponse().getCharacterEncoding());
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
+   */
   public MultipartFormField getMultipartForm(String s) {
     return (MultipartFormField)fields.get(s);
   }
 
+  /**
+   * @return an Enumeration of Field names
+   */
   public Enumeration getFieldNames() {
     return fields.elements();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#get(java.lang.String)
+   */
   public Object get(String s) {
     return peer.get(s);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getSession()
+   */
   public HttpSession getSession() {
     return peer.getSession();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#getContext()
+   */
   public Object getContext() {
     return peer.getContext();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   */
   public void setVariableExceptionHandler(Object veh) {
     peer.setVariableExceptionHandler(veh);
   }

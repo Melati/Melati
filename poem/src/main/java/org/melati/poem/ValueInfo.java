@@ -212,7 +212,8 @@ public class ValueInfo extends ValueInfoBase {
     }
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#getRangelow_stringField()
    */
   public Field getRangelow_stringField() {
@@ -220,7 +221,8 @@ public class ValueInfo extends ValueInfoBase {
     return it != null ? it : super.getRangelow_stringField();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#getRangelimit_stringField()
    */
   public Field getRangelimit_stringField() {
@@ -228,7 +230,8 @@ public class ValueInfo extends ValueInfoBase {
     return it != null ? it : super.getRangelimit_stringField();
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#setRangelow_string(java.lang.String)
    */
   public void setRangelow_string(String value) {
@@ -240,7 +243,8 @@ public class ValueInfo extends ValueInfoBase {
     super.setRangelow_string(value);
   }
 
-  /* (non-Javadoc)
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.generated.ValueInfoBase#setRangelimit_string(java.lang.String)
    */
   public void setRangelimit_string(String value) {

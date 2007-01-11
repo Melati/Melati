@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -56,6 +56,9 @@ public class PoemTransaction extends Transaction {
   private Database database;
   private Connection connection;
 
+  /**
+   * Constructor.
+   */
   PoemTransaction(Database database, Connection connection, int index) {
     super(database, index);
     this.database = database;
@@ -68,6 +71,9 @@ public class PoemTransaction extends Transaction {
     }
   }
 
+  /**
+   * @return the Database this PoemTransaction relates to
+   */
   public final Database getDatabase() {
     return database;
   }
@@ -96,6 +102,11 @@ public class PoemTransaction extends Transaction {
     }
   }
 
+  /**
+   * Close the transaction, committing or rolling back, 
+   * notifying the database that we are closed.
+   * @param commit whether to commit before closing
+   */
   public void close(boolean commit) {
     try {
       if (commit)

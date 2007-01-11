@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,16 +48,13 @@ package org.melati.poem;
 /**
  * Thrown when an attempt is made to set the name of a {@link Table} 
  * in its the {@link TableInfo} when it has already been set.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class TableRenamePoemException extends AccessPoemException {
   private static final long serialVersionUID = 1L;
 
   /** The current name of the table. */
   public String tableName;
-  /** The name we failed to assign */
+  /** The name we failed to assign. */
   public String newName;
 
   /** Constructor. */

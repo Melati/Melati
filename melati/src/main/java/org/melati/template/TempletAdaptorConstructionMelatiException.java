@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -59,6 +59,12 @@ public class TempletAdaptorConstructionMelatiException
   /** The name of the Adaptor. */
   public String adaptorName;
 
+  /**
+   * Constructor.
+   * @param adaptorFieldName name of the adaptor field
+   * @param adaptorName name of the adaptor
+   * @param problem the Exception 
+   */
   public TempletAdaptorConstructionMelatiException(
       String adaptorFieldName, String adaptorName, Exception problem) {
     super(problem);
@@ -66,6 +72,10 @@ public class TempletAdaptorConstructionMelatiException
     this.adaptorName = adaptorName;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiRuntimeException#getMessage()
+   */
   public String getMessage() {
     return "There was a problem with the adaptor `" + adaptorName + "' " +
            "named in the field `" + adaptorFieldName + "'\n" +

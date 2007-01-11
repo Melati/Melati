@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -60,7 +60,10 @@ public class WritePersistentAccessPoemException
     super(object, token, capability);
   }
 
-  /** The mode String. */
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.PersistentAccessPoemException#modeDescription()
+   */
   public String modeDescription() {
     return "write";
   }

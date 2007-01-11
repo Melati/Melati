@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -57,10 +57,19 @@ public class FlattenedEnumeration implements Enumeration {
   private Enumeration enumerations;
   private Enumeration enumeration = null;
 
+  /**
+   * Constructor.
+   * @param enumerations an Enumeration of Enumerations
+   */
   public FlattenedEnumeration(Enumeration enumerations) {
     this.enumerations = enumerations;
   }
 
+  /**
+   * Constructor given two Enumerations to flatten into one.
+   * @param a head Enumeration
+   * @param b tail Enumeration
+   */
   public FlattenedEnumeration(Enumeration a, Enumeration b) {
     this.enumerations =
         new ConsEnumeration(a, new ConsEnumeration(b, EmptyEnumeration.it));
@@ -72,11 +81,19 @@ public class FlattenedEnumeration implements Enumeration {
       enumeration = (Enumeration)enumerations.nextElement();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public synchronized boolean hasMoreElements() {
     probe();
     return enumeration != null && enumeration.hasMoreElements();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public synchronized Object nextElement() {
     probe();
     if (enumeration == null)

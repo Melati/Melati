@@ -115,9 +115,6 @@ public final class Email {
    * 
    * @param smtpServer name of SMTP server to use
    * @param from email address and optionally name of sender
-   * @param replyto email address and optionally name to reply to
-   * @param subject subject of message
-   * @param text text body of email
    * @param toList list of email addresses and optionally names of recipients
    * @param apparentlyTo ignored
    * @param replyto email address and optionally name to reply to

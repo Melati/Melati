@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Samuel Goldstein <samuel@1969.ws>
+ *     Samuel Goldstein <samuel At 1969.ws>
  *     http://www.1969.ws
  *     13101 W. Washington Blvd Suite 248, Los Angeles, CA 90066 USA
  */
@@ -54,6 +54,14 @@ public abstract class FixedPointAtomPoemType extends AtomPoemType {
   private int precision;
   private int scale;
 
+  /**
+   * Constructor.
+   * @param sqlTypeCode from Types
+   * @param sqlTypeName name od sql type
+   * @param nullable whether nulls are allowable values
+   * @param precision how many places to the left of decimal point 
+   * @param scale howmany places to right of decimal point
+   */
   public FixedPointAtomPoemType(
     int sqlTypeCode,
     String sqlTypeName,
@@ -65,10 +73,19 @@ public abstract class FixedPointAtomPoemType extends AtomPoemType {
     this.scale = scale;
   }
 
+  /**
+   * @return precision plus scale
+   */
   public int getTotalSize() {
     return precision + scale;
   }
 
+  /**
+   * 
+   * @param newPrecision required precision
+   * @param newScale required scale
+   * @return this or a clone with new values
+   */
   public FixedPointAtomPoemType withPrecisionAndScale(
     int newPrecision,
     int newScale) {
@@ -81,25 +98,31 @@ public abstract class FixedPointAtomPoemType extends AtomPoemType {
     return it;
   }
 
+  /**
+   * @return the value of the precision property
+   */
   public int getPrecision() {
     return precision;
   }
 
+  /**
+   * @return the value of the scale property
+   */
   public int getScale() {
     return scale;
   }
   /**
-   * @param i
+   * @param newPrecision precision to set
    */
-  public void setPrecision(int i) {
-    precision = i;
+  public void setPrecision(int newPrecision) {
+    precision = newPrecision;
   }
 
   /**
-   * @param i
+   * @param newScale scale to set
    */
-  public void setScale(int i) {
-    scale = i;
+  public void setScale(int newScale) {
+    scale = newScale;
   }
 
 }

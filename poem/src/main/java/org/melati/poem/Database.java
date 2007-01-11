@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -66,7 +66,7 @@ import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
 
 /**
  * An RDBMS database.  Don't instantiate (or subclass) this class, but rather
- * <TT>PoemDatabase</TT>, which includes the boilerplate code for the standard
+ * {@link PoemDatabase}, which includes the boilerplate code for the standard
  * tables such as <TT>user</TT> and <TT>columninfo</TT> which all POEM
  * databases must contain.  If the database is predefined by a Data Structure
  * Definition <TT><I>Bar</I>.dsd</TT>, there will be an application-specialised
@@ -136,7 +136,11 @@ public abstract class Database implements TransactionPool {
   */
   public class ConnectingException extends PoemException {
     private static final long serialVersionUID = 1L;
-    public String toString() {
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.MelatiRuntimeException#getMessage()
+     */
+    public String getMessage() {
       return "Connection to the database is currently in progress; " +
              "please try again in a moment";
     }
@@ -346,10 +350,10 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
+   * Add a Table to this Databse and commit the Transaction.
    * @param info Table metadata object
    * @param troidName name of troidColumn
    * @return new minted {@link Table} 
-   * @throws PoemException
    */
   public Table addTableAndCommit(TableInfo info, String troidName)
       throws PoemException {
@@ -539,6 +543,9 @@ public abstract class Database implements TransactionPool {
    * This is the number of JDBC <TT>Connection</TT>s opened when the database
    * was <TT>connect</TT>ed, this can be set via LogicalDatabase.properties,
    * but defaults to 8 if not set.
+   * 
+   * {@inheritDoc}
+   * @see org.melati.util.TransactionPool#transactionsMax()
    */
   public final int transactionsMax() {
     return transactionsMax;
@@ -548,29 +555,33 @@ public abstract class Database implements TransactionPool {
    * Set the maximum number of transactions.
    * Note that this does not resize the transaction pool 
    * so should be called before the db is connected to.
+   * {@inheritDoc}
+   * @see org.melati.util.TransactionPool#setTransactionsMax(int)
    */
   public final void setTransactionsMax(int t) {
     transactionsMax = t;
   }
 
   /**
-   * @return Returns the total number of transactions.
+   * {@inheritDoc}
+   * @see org.melati.util.TransactionPool#getTransactionsCount()
    */
   public int getTransactionsCount() {
     return transactions.size();
   }
 
   /**
-   * @return Returns the number of free transactions.
+   * {@inheritDoc}
+   * @see org.melati.util.TransactionPool#getFreeTransactionsCount()
    */
   public int getFreeTransactionsCount() {
     return freeTransactions.size();
   }
 
   //
-  // -----------------------
-  //  Keeping track of them
-  // -----------------------
+  // ----------------------------------
+  //  Keeping track of the Transactions
+  // ----------------------------------
   //
 
   /**
@@ -589,7 +600,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * Finish using a transaction.  It's put back on the freelist.
+   * Finish using a transaction, put it back on the freelist.
    */
   void notifyClosed(PoemTransaction transaction) {
     freeTransactions.addElement(transaction);
@@ -598,15 +609,25 @@ public abstract class Database implements TransactionPool {
   /**
    * Find a transaction by its index.
    * transaction(i).index() == i
+   * @param index the index of the Transaction to return
+   * @return the Transactoion with that index
    */
   public PoemTransaction poemTransaction(int index) {
     return (PoemTransaction)transactions.elementAt(index);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.TransactionPool#transaction(int)
+   */
   public final Transaction transaction(int index) {
     return poemTransaction(index);
   }
 
+  /**
+   * @param trans a PoemTransaction
+   * @return whether the Transaction is free
+   */
   public boolean isFree(PoemTransaction trans) {
     return freeTransactions.contains(trans);
   }
@@ -781,13 +802,15 @@ public abstract class Database implements TransactionPool {
   //
 
   /**
-   * The table with a given name.
+   * Retrieve the table with a given name.
    *
    * @param name        The name of the table to return, as in the RDBMS
    *                    database.  It's case-sensitive, and some RDBMSs such as
    *                    Postgres 6.4.2 (and perhaps other versions) treat upper
    *                    case letters in identifiers inconsistently, so this is
    *                    likely to be a simple lower-case name.
+   *
+   * @return the Table of that name 
    *
    * @exception NoSuchTablePoemException
    *             if no table with the given name exists in the RDBMS
@@ -857,7 +880,7 @@ public abstract class Database implements TransactionPool {
   }
 
  /**
-  * All the {@link Column}s in the whole {@link Database}.
+  * @return All the {@link Column}s in the whole {@link Database}
   */
   public Enumeration columns() {
     return new FlattenedEnumeration(
@@ -880,17 +903,17 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * The metadata table with information about all tables in the database.
+   * @return The metadata table with information about all tables in the database.
    */
   public abstract TableInfoTable getTableInfoTable();
 
   /**
-   * The Table Category Table.
+   * @return The Table Category Table.
    */
   public abstract TableCategoryTable getTableCategoryTable();
 
   /**
-   * The metadata table with information about all columns in all tables in the
+   * @return The metadata table with information about all columns in all tables in the
    * database.
    */
   public abstract ColumnInfoTable getColumnInfoTable();
@@ -900,6 +923,7 @@ public abstract class Database implements TransactionPool {
    * defined for the database.  Users acquire capabilities in virtue of being
    * members of groups.
    *
+   * @return the CapabilityTable
    * @see Persistent#getCanRead
    * @see Persistent#getCanWrite
    * @see Persistent#getCanDelete
@@ -913,29 +937,30 @@ public abstract class Database implements TransactionPool {
   public abstract CapabilityTable getCapabilityTable();
 
   /**
-   * The table of known users of the database.
+   * @return the table of known users of the database
    */
   public abstract UserTable getUserTable();
 
   /**
-   * The table of defined user groups for the database.
+   * @return the table of defined user groups for the database
    */
   public abstract GroupTable getGroupTable();
 
   /**
-   * The table containing group-membership records.  A user is a member of a
-   * group iff there is a record in this table to say so.
+   * A user is a member of a group iff there is a record in this table to say so.
+   * @return the table containing group-membership records
    */
   public abstract GroupMembershipTable getGroupMembershipTable();
 
   /**
    * The table containing group-capability records.  A group has a certain
    * capability iff there is a record in this table to say so.
+   * @return the GroupCapability table 
    */
   public abstract GroupCapabilityTable getGroupCapabilityTable();
 
   /**
-   * The Setting Table.
+   * @return the Setting Table.
    */
   public abstract SettingTable getSettingTable();
 
@@ -951,6 +976,7 @@ public abstract class Database implements TransactionPool {
    * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
    * that it bypasses the access control mechanism!
    *
+   * @return the ResultSet resulting from running the query
    * @see Table#selection()
    * @see Table#selection(java.lang.String)
    * @see Column#selectionWhereEq(java.lang.Object)
@@ -982,6 +1008,8 @@ public abstract class Database implements TransactionPool {
    * (explicitly, manually) after the current transaction has been committed
    * or completed.
    *
+   * @return an unused int
+   * 
    * @see Table#selection()
    * @see Table#selection(java.lang.String)
    * @see Column#selectionWhereEq(java.lang.Object)

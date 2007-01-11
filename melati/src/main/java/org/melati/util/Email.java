@@ -183,8 +183,6 @@ public final class Email {
    * @param to email address and optionally name of recipient 
    * @param replyto email address and optionally name to reply to
    * @param subject subject of message
-   * @param replyto email address and optionally name to reply to
-   * @param subject subject of message
    * @param plainText text body of email
    * @param htmlText HTML body of email
    * @param referenced Array of Files referenced withing the HTML body

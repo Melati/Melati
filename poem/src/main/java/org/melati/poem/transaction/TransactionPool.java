@@ -70,4 +70,16 @@ public interface TransactionPool {
    * @return the found Transaction
    */
   Transaction transaction(int index);
+  
+  /**
+   * @return Returns the total number of transactions.
+   */
+  int getTransactionsCount();
+  
+  /**
+   * @return the number of free transactions.
+   */
+  int getFreeTransactionsCount();
+
+
 }

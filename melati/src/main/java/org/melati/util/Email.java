@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.util;
@@ -83,6 +83,15 @@ public final class Email {
     sendWithAttachments(smtpServer, from, to, replyto, subject, text, empty);
   }
 */
+  /**
+   * Send the email.
+   * @param smtpServer name of SMTP server to use
+   * @param from email address and optionally name of sender
+   * @param to email address and optionally name of recipient 
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param text text body of email
+   */
   public static void send(String smtpServer, String from, String to,
                           String replyto, String subject, String text) 
       throws EmailException, IOException {
@@ -102,7 +111,18 @@ public final class Email {
   }
 */
   /**
+   * Send the email to a list of recipients.
+   * 
+   * @param smtpServer name of SMTP server to use
+   * @param from email address and optionally name of sender
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param text text body of email
+   * @param toList list of email addresses and optionally names of recipients
    * @param apparentlyTo ignored
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param message text body of email
    */
   public static void sendToList(String smtpServer, String from,
           String[] toList, String apparentlyTo, String replyto, String subject,
@@ -113,6 +133,21 @@ public final class Email {
       sendWithAttachments(smtpServer, from, toList[i], replyto, subject, message, empty);
   }
   
+  /**
+   * Send message with attachments.
+   * 
+   * @param smtpServer name of SMTP server to use
+   * @param from email address and optionally name of sender
+   * @param to email address and optionally name of recipient 
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param text text body of email
+   * @param apparentlyTo ignored
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param message text body of email
+   * @param attachments Array of files to attach
+   */
   public static void sendWithAttachments(String smtpServer, String from,
           String to, String replyto, String subject, String text, File[] attachments)
           throws EmailException, IOException {
@@ -147,6 +182,21 @@ public final class Email {
     post(message);
   }
   
+  /**
+   * Send HTML message with attachments.
+   * 
+   * @param smtpServer name of SMTP server to use
+   * @param from email address and optionally name of sender
+   * @param to email address and optionally name of recipient 
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param replyto email address and optionally name to reply to
+   * @param subject subject of message
+   * @param plainText text body of email
+   * @param htmlText HTML body of email
+   * @param referenced Array of Files referenced withing the HTML body
+   * @param attachments Array of files to attach
+   */
   public static void sendAsHtmlWithAttachments(String smtpServer, String from,
           String to, String replyto, String subject, String plainText,
           String htmlText, File[] referenced, File[] attachments)

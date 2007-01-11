@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -55,8 +55,16 @@ import org.melati.poem.Capability;
  */
 public class RestrictedAccessObject {
 
+  /**
+   * Constructor.
+   */
   public RestrictedAccessObject() {}
 
+  /**
+   * Used in a  test template.
+   * @return a String assuring that current user has admin priviledges
+   * @throws AccessPoemException is current user is not an administrator
+   */
   public String getAccessPoemException() throws AccessPoemException {
     Capability admin = PoemThread.database().administerCapability();
     AccessToken token = PoemThread.accessToken();

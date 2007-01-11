@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/~timj
  */
 
@@ -48,9 +48,21 @@ import java.util.Enumeration;
 
  /**
   * An object on which selections can be performed.
-  *
   */ 
 public interface Selectable {
+  
+  /**
+   * Get an object by its key.
+   * @param troid the Table Row ID  
+   * @return the object referenced by the key
+   * @throws NoSuchRowPoemException if the key does not exist
+   */
   Persistent getObject(Integer troid) throws NoSuchRowPoemException;
+  
+  /**
+   * All the Objects.
+   * @return an Enumeration of all Objects held
+   * @throws SQLPoemException
+   */
   Enumeration selection() throws SQLPoemException;
 }

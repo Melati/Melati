@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  *     Bohemian Enterprise
  *     Predmerice nad Jizerou 77
  *     294 74
@@ -65,6 +65,9 @@ public final class CharData {
 
   private CharData() {}
 
+  /**
+   * @return an Iterator of Items
+   */
   public static Iterator getItems() {
     return new Iterator() {
 
@@ -89,22 +92,39 @@ public final class CharData {
 
     private int i;
 
+    /**
+     * Constructor.
+     * @param i
+     */
     public Item(int i) {
       this.i = i;
     }
 
+    /**
+     * @return next character
+     */
     public final String getChar() {
       return charData[i][0];
     }
 
+    /**
+     * @return description of the character
+     */
     public final String getDescription() {
       return charData[i][1];
     }
 
+    /**
+     * @return the numeric entity for the character
+     */
     public final String getReference() {
       return "&#x" + Integer.toHexString(getChar().charAt(0)) + ";";
     }
 
+    /**
+     * @param melati current Melati
+     * @return String status of test
+     */
     public String encodingTest(Melati melati) {
       Charset cs = Charset.forName(melati.getEncoding());
       CharsetEncoder e = cs.newEncoder();

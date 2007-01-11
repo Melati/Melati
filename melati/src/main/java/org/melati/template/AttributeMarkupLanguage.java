@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -51,8 +51,6 @@ import org.melati.util.MelatiWriter;
 
 /**
  * A MarkupLanguage suitable for markup within an attribute tag.
- * 
- * @author timp
  * @since 17-May-2006
  */
 public interface AttributeMarkupLanguage extends MarkupLanguage {
@@ -60,12 +58,16 @@ public interface AttributeMarkupLanguage extends MarkupLanguage {
   /**
    * AccessPoemException is treated differently in an Atribute than 
    * in the main body of a page.
+   * @param e an Exception to render
+   * @return a String representation of the Exception
    */
   String rendered(AccessPoemException e) throws IOException;
 
   /**
    * Render, not translating line ends to BR tags.
    * 
+   * @param s the String to render
+   * @param writer writer to render to 
    * @see org.melati.template.AbstractMarkupLanguage#render(String, MelatiWriter)
    */
   void render(String s, MelatiWriter writer) throws IOException;

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,13 +61,18 @@ import org.melati.util.HTMLUtils;
 public class HTMLAttributeMarkupLanguage extends HTMLMarkupLanguage 
     implements MarkupLanguage, AttributeMarkupLanguage {
 
+  /**
+   * Constructor given an HTMLMarkupLanguage.
+   * @param html the HTMLMarkupLanguage the attribute language is relevant to
+   */
   public HTMLAttributeMarkupLanguage(HTMLMarkupLanguage html) {
     super("html_attr", html);
   }
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.AttributeMarkupLanguage#rendered(
-   *           org.melati.poem.AccessPoemException)
+   * org.melati.poem.AccessPoemException)
    */
   public String rendered(AccessPoemException e) throws IOException {
     try {

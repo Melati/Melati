@@ -1279,6 +1279,8 @@ public class Table implements Selectable {
    *         without provoking a <TT>PoemAccessException</TT>.  If the table
    *         has a <TT>deleted</TT> column, the objects flagged as deleted will
    *         be passed over.
+   * {@inheritDoc}
+   * @see org.melati.poem.Selectable#selection()
    */
   public Enumeration selection() throws SQLPoemException {
     return selection((String)null, (String)null, false);

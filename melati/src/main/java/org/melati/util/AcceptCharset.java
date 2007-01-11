@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  *     Bohemian Enterprise
  *     Predmerice nad Jizerou 77
  *     294 74
@@ -62,7 +62,6 @@ import java.util.List;
  * preferences.
  *
  * @author  jimw@paneris.org
- * @version $Version: $
  */
 public class AcceptCharset extends HttpHeader {
 
@@ -196,12 +195,19 @@ public class AcceptCharset extends HttpHeader {
    */
   public class CharsetAndQValueIterator extends TokenAndQValueIterator {
 
+    /**
+     * @return the next one
+     */
     public CharsetAndQValue nextCharsetAndQValue() throws HttpHeaderException {
       // System.err.println("Tested 7a");
       return (CharsetAndQValue)AcceptCharset.this.nextTokenAndQValue();
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.HttpHeader#nextTokenAndQValue()
+   */
   public TokenAndQValue nextTokenAndQValue() throws HttpHeaderException {
     // System.err.println("Tested 7b");
     return new CharsetAndQValue(tokenizer);
@@ -210,6 +216,7 @@ public class AcceptCharset extends HttpHeader {
   /**
    * Factory method to create and return the next
    * {@link HttpHeader.TokenAndQValue}.
+   * @return a new Iterator
    */
   public CharsetAndQValueIterator charsetAndQValueIterator() {
     // System.err.println("Tested 7c");
@@ -219,8 +226,9 @@ public class AcceptCharset extends HttpHeader {
   private final Comparator clientComparator = new Comparator();
 
   /**
-   * Return the first supported charset that is also acceptable to the
+   * @return the first supported charset that is also acceptable to the
    * client in order of client preference.
+   *  
    */
   public String clientChoice() {
     // System.err.println("Tested 8");
@@ -241,7 +249,7 @@ public class AcceptCharset extends HttpHeader {
     };
 
   /**
-   * Return the first supported charset also acceptable to the client
+   * @return the first supported charset also acceptable to the client
    * in order of server preference.
    */
   public String serverChoice() {
@@ -250,13 +258,12 @@ public class AcceptCharset extends HttpHeader {
   }
 
   /**
-   * Return the first supported charset also acceptable to the client
-   * in order defined by the given {@link Comparator}.
-   * <p>
    * If there is none, return null, and the caller can either use an
    * unacceptable character set or generate a 406 error.
    *
    * see #firstOther
+   * @return the first supported charset also acceptable to the client
+   * in order defined by the given {@link Comparator}
    */
   public String choice(Comparator comparator) {
     CharsetAndQValue best = null;
@@ -281,6 +288,10 @@ public class AcceptCharset extends HttpHeader {
    */
   protected static class Comparator implements java.util.Comparator {
     
+    /**
+     * {@inheritDoc}
+     * @see java.util.Comparator#compare(T, T)
+     */
     public final int compare(Object one, Object two) {
       // System.err.println("Tested 14");
       return compareCharsetAndQValue((CharsetAndQValue)one, (CharsetAndQValue)two);
@@ -340,6 +351,7 @@ public class AcceptCharset extends HttpHeader {
     
     /**
      * Create an instance and initialize it by reading a tokenizer.
+     * @param t tokenizer
      */
     public CharsetAndQValue(Tokenizer t) throws HttpHeaderException {
       super(t);
@@ -370,7 +382,7 @@ public class AcceptCharset extends HttpHeader {
     }
 
     /**
-     * Is the given charset token an asterix?.
+     * @return whether the given charset token is an asterix
      */
     public boolean isWildcard() {
       // System.err.println("Tested 20a");
@@ -384,6 +396,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.8  2007/01/11 13:23:34  timp
+ * Javadoc
+ *
  * Revision 1.7  2006/05/16 12:42:01  timp
  * Javadoc - do not refer to private methods
  *

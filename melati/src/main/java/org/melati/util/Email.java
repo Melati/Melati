@@ -139,10 +139,6 @@ public final class Email {
    * @param replyto email address and optionally name to reply to
    * @param subject subject of message
    * @param text text body of email
-   * @param apparentlyTo ignored
-   * @param replyto email address and optionally name to reply to
-   * @param subject subject of message
-   * @param message text body of email
    * @param attachments Array of files to attach
    */
   public static void sendWithAttachments(String smtpServer, String from,

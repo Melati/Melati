@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,14 +50,11 @@ import java.util.Properties;
 /**
  * Thrown when an attempt is made to cast a <code>String</code> 
  * property value as a numeric type.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class FormatPropertyException extends PropertyException {
   private static final long serialVersionUID = 1L;
 
-  /** The actual value */
+  /** The actual value. */
   public String value;
   /** The expected value. */
   public String expected;

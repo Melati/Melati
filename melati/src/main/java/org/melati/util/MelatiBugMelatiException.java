@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,9 +47,6 @@ package org.melati.util;
 
 /**
  * Thrown if an internal assumption about Melati is violated.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class MelatiBugMelatiException extends MelatiRuntimeException {
   private static final long serialVersionUID = 1L;
@@ -60,7 +57,7 @@ public class MelatiBugMelatiException extends MelatiRuntimeException {
   private MelatiBugMelatiException() {
   }
   
-  /** Full constructor */
+  /** Full constructor. */
   public MelatiBugMelatiException(String bug, Exception e) {
     super(e);
     this.bug = bug;

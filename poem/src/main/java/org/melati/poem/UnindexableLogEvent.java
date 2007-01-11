@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -55,6 +55,10 @@ public class UnindexableLogEvent extends PoemLogEvent {
   /** The Column we are dealing with. */ 
   public Column column;
 
+  /**
+   * Constructor.
+   * @param column the column which cannot be indexed
+   */
   public UnindexableLogEvent(Column column) {
     this.column = column;
   }

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -93,6 +93,15 @@ public class Setting extends SettingBase {
   private Object raw = null;
   private Object cooked = null;
 
+  /**
+   * Constructor.
+   * Use SettingTable.create to persist this.
+   * @param typefactory
+   * @param name
+   * @param value
+   * @param displayname
+   * @param description
+   */
   public Setting(Integer typefactory, String name, String value,
                  String displayname, String description) {
     setTypefactory_unsafe(typefactory);
@@ -124,6 +133,10 @@ public class Setting extends SettingBase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.generated.SettingBase#setValue(java.lang.String)
+   */
   public void setValue(String value) {
     Object rawLocal;
     try {
@@ -137,6 +150,10 @@ public class Setting extends SettingBase {
     cooked = null;
   }
 
+  /**
+   * Set from a raw value.
+   * @param raw teh raw to set
+   */
   public void setRaw(Object raw) {
     String string;
     try {
@@ -150,6 +167,9 @@ public class Setting extends SettingBase {
     cooked = null;
   }
 
+  /**
+   * @return the raw value
+   */
   public Object getRaw() {
     if (raw == null)
       try {
@@ -161,6 +181,9 @@ public class Setting extends SettingBase {
     return raw;
   }
 
+  /**
+   * @return the cooked Object
+   */
   public Object getCooked() {
     if (cooked == null)
       cooked = getType().cookedOfRaw(getRaw());
@@ -196,6 +219,9 @@ public class Setting extends SettingBase {
     }
   }
 
+  /**
+   * @return value as an Integer
+   */
   public Integer getIntegerCooked() {
     Object cookedLocal = getCooked();
     if (cookedLocal == null)
@@ -207,6 +233,9 @@ public class Setting extends SettingBase {
                                              getTypefactory(), "Integer");
   }
 
+  /**
+   * @return value as a String
+   */
   public String getStringCooked() {
     Object cookedLocal = getCooked();
     if (cookedLocal == null)
@@ -218,6 +247,9 @@ public class Setting extends SettingBase {
                                              getTypefactory(), "String");
   }
 
+  /**
+   * @return value as a Boolean
+   */
   public Boolean getBooleanCooked() {
     Object cookedLocal = getCooked();
     if (cookedLocal == null)
@@ -237,6 +269,10 @@ public class Setting extends SettingBase {
     return valueAttributes;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.generated.SettingBase#getValueField()
+   */
   public Field getValueField() {
     try {
       return new Field(getRaw(), valueAttributes());

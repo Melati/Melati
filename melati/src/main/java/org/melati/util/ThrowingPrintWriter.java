@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,7 +52,7 @@ import java.io.PrintWriter;
 public final class ThrowingPrintWriter extends PrintWriter {
   private PrintWriter pw;
   
-  /** Description of this PrintWriter */
+  /** Description of this PrintWriter. */
   public final String description;
 
  /**
@@ -60,11 +60,19 @@ public final class ThrowingPrintWriter extends PrintWriter {
   */
   public static class SuperUseException extends BugException {
     private static final long serialVersionUID = 1L;
+    /**
+     * Constructor.
+     */
     public SuperUseException() {
       super("ThrowingPrintWriter tried to use super.out");
     }
   }
 
+  /**
+   * Constructor.
+   * @param pw Preint writer to write to 
+   * @param description A description
+   */
   public ThrowingPrintWriter(PrintWriter pw, String description) {
     super(pw);
     this.pw = pw;
@@ -77,6 +85,10 @@ public final class ThrowingPrintWriter extends PrintWriter {
    */
   public class TroubleException extends MelatiRuntimeException {
     private static final long serialVersionUID = 1L;
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.MelatiRuntimeException#getMessage()
+     */
     public String getMessage() {
       return "An exception condition occurred writing to " +
              (description == null ? "a PrintWriter" : description);
@@ -93,6 +105,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#flush()
    */
   public void flush() {
@@ -102,6 +115,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#close()
    */
   public void close() {
@@ -111,6 +125,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#checkError()
    */
   public boolean checkError() {
@@ -119,6 +134,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#write(int)
    */
   public void write(int c) {
@@ -128,6 +144,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#write(char[], int, int)
    */
   public void write(char buf[], int off, int len) {
@@ -137,7 +154,8 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
-   * @see java.io.PrintWriter#write(String, int, int)
+   * {@inheritDoc}
+   * @see java.io.PrintWriter#write(java.lang.String, int, int)
    */
   public void write(String buf, int off, int len) {
     pw.write(buf, off, len);
@@ -146,6 +164,7 @@ public final class ThrowingPrintWriter extends PrintWriter {
 
   /**
    * Delegated method.
+   * {@inheritDoc}
    * @see java.io.PrintWriter#println()
    */
   public void println() {

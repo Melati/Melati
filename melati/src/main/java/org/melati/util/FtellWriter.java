@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
@@ -52,25 +52,44 @@ import java.io.IOException;
 public class FtellWriter extends FilterWriter {
   protected long position = 0;
 
+  /**
+   * Constructor.
+   * @param writer Underlying writer
+   */
   public FtellWriter(Writer writer) {
     super(writer);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.FilterWriter#write(int)
+   */
   public void write(int c) throws IOException {
     out.write(c);
     ++position;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.FilterWriter#write(char[], int, int)
+   */
   public void write(char buf[], int off, int len) throws IOException {
     out.write(buf, off, len);
     position += len;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.FilterWriter#write(java.lang.String, int, int)
+   */
   public void write(String buf, int off, int len) throws IOException {
     out.write(buf, off, len);
     position += len;
   }
 
+  /**
+   * @return number of characters written
+   */
   public long ftell() {
     return position;
   }

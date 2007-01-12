@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -52,19 +52,25 @@ import org.melati.util.ArrayEnumeration;
 /**
  * A set of {@link Field}s accessible in sequence or looked up
  * using an encoding of the table name and column name.
- *
- * @author williamc@paneris.org (except Javadocs)
  */
 public class FieldSet {
 
   private Hashtable table_columnMap;
   private Field[] fields;
 
+  /**
+   * Constructor.
+   * @param table_columnMap a Hashtable keyed on tablename underscore fieldname containing indices to fields
+   * @param fields an array of fields
+   */
   public FieldSet(Hashtable table_columnMap, Field[] fields) {
     this.table_columnMap = table_columnMap;
     this.fields = fields;
   }
 
+  /**
+   * @return an Enumeration of the fields
+   */
   public Enumeration elements() {
     return new ArrayEnumeration(fields);
   }

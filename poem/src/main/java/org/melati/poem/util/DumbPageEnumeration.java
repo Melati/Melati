@@ -61,10 +61,10 @@ public class DumbPageEnumeration extends PageEnumerationBase {
 
   /**
    * Constructor.
-   * @param base
-   * @param pageStart
-   * @param pageSize
-   * @param countHorizon
+   * @param base underlying Enumeration
+   * @param pageStart index of start of page 
+   * @param pageSize  how many Elements to include upon a page 
+   * @param countHorizon where to count to, may be less than total size of underlying Enumeration
    */
   public DumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int countHorizon) {
@@ -83,10 +83,10 @@ public class DumbPageEnumeration extends PageEnumerationBase {
 
   /**
    * Constructor given a SkipEnumeration.
-   * @param base
-   * @param pageStart
-   * @param pageSize
-   * @param countHorizon
+   * @param base underlying SkipEnumeration
+   * @param pageStart index of start of page 
+   * @param pageSize  how many Elements to include upon a page 
+   * @param countHorizon where to count to, may be less than total size of underlying Enumeration
    */
   public DumbPageEnumeration(SkipEnumeration base,
                              int pageStart, int pageSize, int countHorizon) {
@@ -104,7 +104,7 @@ public class DumbPageEnumeration extends PageEnumerationBase {
   }
 
   /**
-   * @return
+   * @return whether there are more elements to come beyond horizon 
    */
   public boolean getTotalCountIsMinimum() {
     return totalCountIsMinimum;

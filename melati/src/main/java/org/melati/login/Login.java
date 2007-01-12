@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -51,17 +51,16 @@ import org.melati.template.ServletTemplateContext;
 
 /**
  * A servlet which handles user logins.
- *
  */
 public class Login extends TemplateServlet {
 
   private static final long serialVersionUID = 1L;
 
-  /**Parameters,in GET format, of triggering request, so we can reconstruct it */
+  /** Parameters,in GET format, of triggering request, so we can reconstruct it. */
   public static final String
      TRIGGERING_REQUEST_PARAMETERS = 
        "org.melati.login.Login.triggeringRequestParameters";
-  /** The triggering exception */
+  /** The triggering exception. */
   public static final String
      TRIGGERING_EXCEPTION = 
        "org.melati.login.Login.triggeringException";

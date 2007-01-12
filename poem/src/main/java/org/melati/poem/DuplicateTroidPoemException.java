@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -50,15 +50,13 @@ package org.melati.poem;
   * a given <code>Troid</code> in the {@link Database}.
   *
   * This should not happen without human intervention.
-  *
-  * @author WilliamC@paneris.org
   */
 public class DuplicateTroidPoemException extends DBConsistencyPoemException {
   private static final long serialVersionUID = 1L;
 
-  /** The Table we are dealing with */
+  /** The Table we are dealing with. */
   public Table table;
- /** the Table Row ID we are dealing with */
+ /** The Table Row ID we are dealing with. */
   public Integer troid;
 
   /** Constructor. */

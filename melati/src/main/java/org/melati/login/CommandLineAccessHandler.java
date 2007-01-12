@@ -76,7 +76,9 @@ public class CommandLineAccessHandler implements AccessHandler {
   /**
    * Actually handle the {@link AccessPoemException}.
    *
-   * @see org.melati.login.AccessHandler
+   * {@inheritDoc}
+   * @see org.melati.login.AccessHandler#handleAccessException
+   *          (org.melati.Melati, org.melati.poem.AccessPoemException)
    */
   public void handleAccessException(Melati melati,
                                     AccessPoemException accessException)
@@ -115,6 +117,7 @@ public class CommandLineAccessHandler implements AccessHandler {
 
   /**
    * Called when the PoemTask is initialised, recalled after a login.
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
   public Melati establishUser(Melati melati) {
@@ -163,6 +166,7 @@ public class CommandLineAccessHandler implements AccessHandler {
   /**
    * A no-op in a command line application.
    *
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati) throws MelatiException, IOException {

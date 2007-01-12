@@ -56,7 +56,7 @@ public class XMLMarkupLanguage extends HTMLLikeMarkupLanguage
   // The ML to use for attributes
   private XMLAttributeMarkupLanguage attributeML = null;
 
-  /** Constructor */
+  /** Constructor. */
   public XMLMarkupLanguage(Melati melati,
                            TempletLoader templetLoader, MelatiLocale locale) {
     super("xml", melati, templetLoader, locale);

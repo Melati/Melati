@@ -125,8 +125,11 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   *
   * @param melati the Melati
   * @param accessException the particular access exception to handle
-  * @throws Exception if anything goes wrong
-  */
+   * {@inheritDoc}
+   * @see org.melati.login.AccessHandler#
+   *   handleAccessException(org.melati.Melati, 
+   *                         org.melati.poem.AccessPoemException)
+   */
   public void handleAccessException(Melati melati,
                                     AccessPoemException accessException)
       throws Exception {
@@ -139,6 +142,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   /**
    * Get the users details.
    *
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#establishUser(org.melati.Melati)
    */
   public Melati establishUser(Melati melati) {
@@ -223,6 +227,7 @@ public class HttpBasicAuthenticationAccessHandler implements AccessHandler {
   /**
    * If we are allowed in then no need to change request.
    *
+   * {@inheritDoc}
    * @see org.melati.login.AccessHandler#buildRequest(org.melati.Melati)
    */
   public void buildRequest(Melati melati)

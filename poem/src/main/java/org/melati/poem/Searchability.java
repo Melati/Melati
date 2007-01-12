@@ -137,7 +137,10 @@ public final class Searchability {
       this.name = name;
     }
 
-    /** @return The detail message. */
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.MelatiRuntimeException#getMessage()
+     */
     public String getMessage() {
       return
         "No searchability level found which goes by the name `" + name + "'";
@@ -158,7 +161,9 @@ public final class Searchability {
   }
   
   /** 
-   * Return the name and index.
+   * @return the name and index
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return name + "/" + index;

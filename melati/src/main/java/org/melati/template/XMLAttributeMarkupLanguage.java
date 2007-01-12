@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     tim Pizey <timp@paneris.org>
+ *     tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -56,13 +56,19 @@ public class XMLAttributeMarkupLanguage extends XMLMarkupLanguage
     implements MarkupLanguage, AttributeMarkupLanguage {
 
 
-  public XMLAttributeMarkupLanguage(XMLMarkupLanguage wml) {
-    super("xml_attr", wml);
+  /**
+   * Constructor.
+   * @param xml MarkupLanguage we are the AttributeMarkupupLanguage for
+   */
+  public XMLAttributeMarkupLanguage(XMLMarkupLanguage xml) {
+    super("xml_attr", xml);
   }
 
   /**
    * AccessPoemException is handled differently in an Attribute 
    * than it is in the main body of a page.
+   * {@inheritDoc}
+   * @see org.melati.template.AttributeMarkupLanguage#rendered(org.melati.poem.AccessPoemException)
    */
   public String rendered(AccessPoemException e) throws IOException {
     try {

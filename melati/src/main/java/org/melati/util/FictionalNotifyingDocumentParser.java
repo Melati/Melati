@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -54,15 +54,25 @@ import javax.swing.text.html.parser.DTD;
 /**
  * An extended <code>DocumentParser</code>.
  *
- * @todo Explain why this is in Melati as only used in Bibliomania
+ * @todo Move to Bibliomania
  */
 public class FictionalNotifyingDocumentParser extends DocumentParser {
   protected FictionalNotifiableParserCallback callback = null;
 
+  /**
+   * Constructor.
+   * @param dtd the Document Type Definition
+   */
   public FictionalNotifyingDocumentParser(DTD dtd) {
     super(dtd);
   }
 
+  /**
+   * Parse the document.
+   * @param in the Reader to read document from 
+   * @param callbackP the callaback to call
+   * @param ignoreCharSet whether to ignore the character set declaration
+   */
   public void parse(Reader in,
                     FictionalNotifiableParserCallback callbackP,
                     boolean ignoreCharSet) throws IOException {

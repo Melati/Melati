@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  */
 package org.melati.util;
 
@@ -74,6 +74,8 @@ public class CSVStringEnumeration implements Enumeration {
 
   /**
    * Are there any more tokens to come?
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
    */
   public boolean hasMoreElements() {
     return emptyLastField || p < line.length();
@@ -81,13 +83,15 @@ public class CSVStringEnumeration implements Enumeration {
 
   /**
    * Return the next token as an <TT>Object</TT>.
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
    */
   public final Object nextElement() {
     return nextToken();
   }
 
   /**
-   * Return the next token as a <TT>String</TT>.
+   * @return the next token as a <TT>String</TT>.
    */
   public String nextToken() {
 

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *
  *
  * ------
@@ -56,7 +56,6 @@ package org.melati.poem.csv;
 
 /**
  * Thrown when no primary key is set.
- * 
  */
 public class NoPrimaryKeyInCSVTableException extends RuntimeException {
 
@@ -76,6 +75,7 @@ public class NoPrimaryKeyInCSVTableException extends RuntimeException {
   }
 
   /**
+   * {@inheritDoc}
    * @see java.lang.Throwable#getMessage()
    */
   public String getMessage() {

@@ -119,7 +119,7 @@ public abstract class Transactioned {
       if (transaction == null)
         transaction = touchedBy;
 
-      // NOTE this could be simplified to if(!valid) 
+      // NOTE This could be simplified to if(!valid) 
       // but that would remove a useful extension hook.
       if (!upToDate(transaction))
         load(transaction);

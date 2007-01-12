@@ -60,6 +60,11 @@ import org.melati.poem.SQLPoemType;
  */
 
 class YearPoemType extends IntegerPoemType {
+  /** First year for a dropdown. */
+  static final int firstYear = 2000; 
+  /** Limt  (excluded)  year for a dropdown. */
+  static final int limitYear = 2023;
+  
   /**
    * Constructor.
    * @param nullable whether null is an allowed value
@@ -195,8 +200,6 @@ public class YMDDateAdaptor implements TempletAdaptor {
   public Field yearField(Field field) {
 
     Calendar when = when(field);
-    int firstYear = 2000; // FIXME put these in ColumnInfo
-    int limitYear = 2015;
 
     // This isn't meant to be used, so we don't try to localize it
 
@@ -209,7 +212,7 @@ public class YMDDateAdaptor implements TempletAdaptor {
             displayName,
             null,
             new YearPoemType(field.getType().getNullable(),
-                             firstYear, limitYear),
+                             YearPoemType.firstYear, YearPoemType.limitYear),
                              5, 1,
             null, false, true, true));
   }

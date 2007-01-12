@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -59,6 +59,13 @@ public class DumbPageEnumeration extends PageEnumerationBase {
   
   private boolean totalCountIsMinimum;
 
+  /**
+   * Constructor.
+   * @param base
+   * @param pageStart
+   * @param pageSize
+   * @param countHorizon
+   */
   public DumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int countHorizon) {
     pageStart = Math.max(pageStart, 1);
@@ -74,16 +81,31 @@ public class DumbPageEnumeration extends PageEnumerationBase {
     currentPosition = pageStart-1; 
   }
 
+  /**
+   * Constructor given a SkipEnumeration.
+   * @param base
+   * @param pageStart
+   * @param pageSize
+   * @param countHorizon
+   */
   public DumbPageEnumeration(SkipEnumeration base,
                              int pageStart, int pageSize, int countHorizon) {
     this((Enumeration)base, pageStart, pageSize, countHorizon);
+    // TPP 2007/01/12 Why is this constructor needed?
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.PageEnumerationBase#getNextPageStart()
+   */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
     return totalCountIsMinimum || it <= totalCount ? new Integer(it) : null;
   }
 
+  /**
+   * @return
+   */
   public boolean getTotalCountIsMinimum() {
     return totalCountIsMinimum;
   }

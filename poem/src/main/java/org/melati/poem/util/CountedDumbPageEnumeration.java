@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  */
 
 package org.melati.util;
@@ -55,6 +55,13 @@ import java.util.Enumeration;
  */
 public class CountedDumbPageEnumeration extends PageEnumerationBase {
   
+  /**
+   * Constructor.
+   * @param base underlying Enumeration
+   * @param pageStart index of start of page 
+   * @param pageSize  how many Elements to include upon a page 
+   * @param totalCount size of the underlying Enumeration
+   */
   public CountedDumbPageEnumeration(Enumeration base,
                              int pageStart, int pageSize, int totalCount) {
     pageStart = Math.max(pageStart, 1);
@@ -68,9 +75,17 @@ public class CountedDumbPageEnumeration extends PageEnumerationBase {
     currentPosition = pageStart -1; 
   }
 
+  /**
+   * Constructor given a SkipEnumeration.
+   * @param base underlying Enumeration
+   * @param pageStart index of start of page 
+   * @param pageSize  how many Elements to include upon a page 
+   * @param totalCount size of the underlying Enumeration
+   */
   public CountedDumbPageEnumeration(SkipEnumeration base,
                              int pageStart, int pageSize, int totalCount) {
     this((Enumeration)base, pageStart, pageSize, totalCount);
+    // TPP 2007/01/12 Why is this constructor needed?
   }
 
 }

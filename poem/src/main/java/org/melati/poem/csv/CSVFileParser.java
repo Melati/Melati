@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
@@ -68,8 +68,8 @@ import java.util.NoSuchElementException;
  * <code>recordHasMoreFields()</code> and <code>nextField()</code>
  * can be used like an Enumeration to iterate through the fields.
  *
- * @author  myles@paneris.org, based heavily on williamc@paneris.org
- *          orginal CSVStringEnumeration
+ * @author  mylesc, based heavily on 
+ *          orginal CSVStringEnumeration williamc
  */
 
 public class CSVFileParser {
@@ -81,14 +81,17 @@ public class CSVFileParser {
   private boolean emptyLastField = false;
   int p = 0;
 
+  /**
+   * Constructor.
+   * @param reader file reader
+   */
   public CSVFileParser(BufferedReader reader) {
     this.reader = reader;
   }
 
   /**
-   * Look at a new line
+   * @return whether there is another line 
    */
-
   public boolean nextRecord() throws IOException {
     return nextLine();
   }
@@ -120,26 +123,22 @@ public class CSVFileParser {
   
   /**
    * Are there any more tokens to come?
+   * @return whether there are more fields
    */
-
   public boolean recordHasMoreFields() {
     return emptyLastField || p < line.length();
   }
 
   /**
-   * Return the next token as an <TT>Object</TT>.
+   * @return the next token as a String
    */
-
   public String nextField() throws IOException {
     return nextToken(false);
   }
 
-
-
   /**
-   * Return the next token as a <TT>String</TT>.
+   * @return the next token as a String
    */
-
   private String nextToken(boolean inUnclosedQuotes) throws IOException {
 
     if (emptyLastField) {
@@ -197,6 +196,11 @@ public class CSVFileParser {
     }
   }
 
+  /**
+   * Test harness.
+   * @param args arguments
+   * @throws Exception if anything fails
+   */
   public static void main(String[] args) throws Exception {
 
     System.out.println("***** Reading file " + args[0]);

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -149,7 +149,7 @@ public final class StringUtils {
   /**
    * Captialise the first character of the input string.
    * 
-   * @param name
+   * @param name String to capitalise
    * @return the capitalised string
    */
   public static String capitalised(String name) {
@@ -166,7 +166,11 @@ public final class StringUtils {
   * <code>
   *  tr("melati", "ait", "osn").equals("melons")
   * </code>
-  */
+   * @param s String to act upon
+   * @param from String containing characters to swap from 
+   * @param to String containing characters to swap to
+   * @return the transformed input String
+   */
   public static String tr(String s, String from, String to) {
     StringBuffer sNew = null;
 
@@ -190,6 +194,10 @@ public final class StringUtils {
   * <code>
   *  tr("melati", 'i', 'o').equals("melato")
   * </code>
+  * @param s String to act upon
+  * @param from character to swap from 
+  * @param to character to swap to
+  * @return the transformed input String
   */
   public static String tr(String s, char from, char to) {
     StringBuffer sNew = null;
@@ -253,7 +261,10 @@ public final class StringUtils {
   }
 
   /**
-   *  Turn an empty String into a null.
+   * Turn an empty String into a null.
+   * 
+   * @param s input String, possibly of zero length
+   * @return null if input is empty, input otherwise
    */
   public static String nulled(String s) {
     if (s.equals(""))
@@ -263,6 +274,8 @@ public final class StringUtils {
 
   /**
    *  Turn a null into an empty String.
+   * @param in input String, possibly null
+   * @return empty String if input is null, input otherwise
    */
   public static String unNulled(String in) {
     if (in == null)

@@ -67,7 +67,7 @@ public interface PoemType {
   /**
    * Get the possible values for this field, null for rangeable types with 
    * no range set.
-   * NOTE null is a possible value for nullable types 
+   * NOTE Null is a possible value for nullable types 
    * @return an Enumeration of possibilities or null
    */
   Enumeration possibleRaws();

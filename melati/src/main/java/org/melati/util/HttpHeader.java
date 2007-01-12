@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  *     Bohemian Enterprise
  *     Predmerice nad Jizerou 77
  *     294 74
@@ -64,7 +64,6 @@ import java.util.Enumeration;
  * a message are concatenated with comma separators.
  *
  * @author  Jim Wright
- * @version $Version: $
  */
 public class HttpHeader {
 
@@ -97,17 +96,25 @@ public class HttpHeader {
    */
   public abstract class FieldIterator implements Iterator, Enumeration {
 
+    /**
+     * {@inheritDoc}
+     * @see java.util.Enumeration#hasMoreElements()
+     */
     public final boolean hasMoreElements() {
-      // System.err.println("Tested 22");
       return hasNext();
     }
 
+    /**
+     * {@inheritDoc}
+     * @see java.util.Enumeration#nextElement()
+     */
     public final Object nextElement() {
-      // System.err.println("Tested 23");
       return next();
     }
 
     /**
+     * {@inheritDoc}
+     * @see java.util.Iterator#hasNext()
      * @see #next()
      */
     public final boolean hasNext() {
@@ -115,6 +122,10 @@ public class HttpHeader {
       return tokenizer.ttype != StreamTokenizer.TT_EOF;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see java.util.Iterator#remove()
+     */
     public void remove() throws UnsupportedOperationException {
       // System.err.println("Tested 25");
       throw new UnsupportedOperationException("Cannot remove tokens from the HTTP header");
@@ -123,8 +134,7 @@ public class HttpHeader {
     /**
      * Return the next element or an exception.
      *
-     * @return An exception if it prevented an object
-     * of the anticipated type being returned.
+     * @return An exception if an object of the anticipated type cannot be returned
      */
     public Object next() {
       try {
@@ -138,7 +148,7 @@ public class HttpHeader {
     }
 
     /**
-     * Returns the next token or throws an exception.
+     * @return the next token or throws an exception
      */
     public abstract Object nextToken() throws HttpHeaderException;
 
@@ -149,12 +159,19 @@ public class HttpHeader {
    */
   public class WordIterator extends FieldIterator {
 
+    /**
+     * @return the next word
+     */
     public String nextWord() throws HttpHeaderException {
       String result = tokenizer.readWord();
       tokenizer.skipAnyCommaSeparator();
       return result;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.HttpHeader.FieldIterator#nextToken()
+     */
     public Object nextToken() throws HttpHeaderException {
       return nextWord();
     }
@@ -164,8 +181,9 @@ public class HttpHeader {
   /**
    * Factory method to create and return an iterator of words.
    * <p>
-   * Actually, subtypes are unlikely to (want to) override this so
-   * its currently final.
+   * Subtypes are unlikely to (want to) override this so it is, 
+   * currently, final.
+   * @return a new WordIterator
    */
   public final WordIterator wordIterator() {
     return new WordIterator();
@@ -176,13 +194,19 @@ public class HttpHeader {
    */
   public class TokenAndQValueIterator extends FieldIterator {
 
+    /**
+     * @return the next TokenAndQValue
+     * @throws HttpHeaderException
+     */
     public TokenAndQValue nextTokenAndQValue() throws HttpHeaderException {
-      // System.err.println("Tested 28");
       return HttpHeader.this.nextTokenAndQValue();
     }
 
+    /**
+     * {@inheritDoc}
+     * @see org.melati.util.HttpHeader.FieldIterator#nextToken()
+     */
     public Object nextToken() throws HttpHeaderException {
-      // System.err.println("Tested 29");
       return nextTokenAndQValue();
     }
 
@@ -191,17 +215,17 @@ public class HttpHeader {
   /**
    * Factory method to create and return the next
    * {@link HttpHeader.TokenAndQValue}.
+   * @return a new TokenAndQValue
    */
   public TokenAndQValue nextTokenAndQValue() throws HttpHeaderException {
-    // System.err.println("Tested 30");
     return new TokenAndQValue(tokenizer);
   }
 
   /**
    * Factory method to create and return an iterator of {@link TokenAndQValue}'s.
+   * @return a new TokenAndQValueIterator
    */
   public TokenAndQValueIterator tokenAndQValueIterator() {
-    // System.err.println("Tested 31");
     return new TokenAndQValueIterator();
   }
 
@@ -232,8 +256,6 @@ public class HttpHeader {
      * Create an uninitialised instance.
      */
     public TokenAndQValue() {
-      // super();
-      // System.err.println("Tested 32");
     }
 
     /**
@@ -244,7 +266,6 @@ public class HttpHeader {
       this();
       t.readTokenAndQValue(this);
       t.skipAnyCommaSeparator();
-      // System.err.println("Tested 33");
     }
 
   }  
@@ -353,6 +374,7 @@ public class HttpHeader {
      * Same as <code>nextToken()</code> but does not throw an <code>IOException</code>
      * and handles erroneous line breaks.
      *
+     * @return int value of next LToken
      * @throws HttpHeaderException Error detected in the fields.
      */
     public int nextLToken() throws HttpHeaderException {
@@ -380,12 +402,10 @@ public class HttpHeader {
      */
     public final int skipCommaSeparator() throws HttpHeaderException {
       if (ttype != ',') {
-        // System.err.println("Tested 41 by temporary hack");
         throw new IllegalStateException("Not at a comma");
       }
       while (nextLToken() == ',')
         ;
-      // System.err.println("Tested 42");
       return ttype;
     }
 
@@ -410,37 +430,36 @@ public class HttpHeader {
      * <p>
      * If this returns true then the token value is in <code>sval</code>
      * with any quotes removed.
+     * @return whether token is an SVal
      */
     public final boolean isSVal() {
-      // System.err.println("Tested 43");
       return ttype == TT_WORD || ttype == '"';
     }
 
     /**
      * Read the word token or quoted string that comes next.
      *
+     * @return the SVal 
      * @throws HttpHeaderException Error detected in the fields.
      */
     public final String readSVal() throws HttpHeaderException {
       if (! isSVal()) {
-        // System.err.println("Tested 44");
         throw new HttpHeaderException("Next token is not a (possibly quoted) word: " +
             toString());
       }      
       String result = sval;
       nextLToken();
-      // System.err.println("Tested 45");
       return result;
     }
 
     /**
      * Read the word token that comes next.
-     *
+     * 
+     * @return the word as a String
      * @throws HttpHeaderException Error detected in the fields.
      */
     public final String readWord() throws HttpHeaderException {
       if (ttype != TT_WORD) {
-        // System.err.println("Tested 46");
         throw new HttpHeaderException("Next token is not a word token: " +
                                       toString());
       }      
@@ -481,23 +500,22 @@ public class HttpHeader {
 
     /**
      * Read the number token that comes next.
-     *
+     * @return the number's value as a double
      * @throws HttpHeaderException Error detected in the fields.
      */
     public final double readNVal() throws HttpHeaderException {
       if (ttype != TT_NUMBER) {
-        // System.err.println("Tested 50 by temporary hack");
         throw new HttpHeaderException("Next token is not a number: " +
             toString());
       }      
       double result = nval;
       nextLToken();
-      // System.err.println("Tested 51");
       return result;
     }
 
     /**
      * Read a token sequence of the form "; q = 0.42" and return the number.
+     * @return the number's value as a float
      *
      * @throws IllegalStateException Current token not semicolon.
      * @throws HttpHeaderException Error detected in the fields.
@@ -505,19 +523,18 @@ public class HttpHeader {
     public final float readQValue() 
         throws IllegalStateException, HttpHeaderException {
       if (ttype != ';') {
-        // System.err.println("Tested 52 by temporary hack");
         throw new IllegalStateException("Not at a semicolon");
       }
       readChar(';');
       readWord("q");
       readChar('=');
-      // System.err.println("Tested 53");
       return (float)readNVal();
     }
 
     /**
      * Read a word or quoted string token optionally followed by a string
      * of the form "; q = 0.42" and initialises the given object.
+     * @return current TokenAndQValue
      */
     protected TokenAndQValue readTokenAndQValue(TokenAndQValue result)
           throws HttpHeaderException {
@@ -525,14 +542,11 @@ public class HttpHeader {
       switch (ttype) {
       case TT_EOF :
       case ',' :
-        // System.err.println("Tested 54");
         break;
       case ';' :
         result.q = readQValue();
-        // System.err.println("Tested 55");
         break;
       default:
-        // System.err.println("Tested 56");
         throw new HttpHeaderException("Word token: \'" + result.token +
             "\' is followed by something unexpected: " + toString());
       }
@@ -571,7 +585,6 @@ public class HttpHeader {
      */
     public HttpHeaderException(String message) {
       super(message);
-      // System.err.println("Tested 57");
     }
 
   }

@@ -49,17 +49,12 @@ package org.melati.poem;
 /**
  * A {@link Column} which exists in the dbms but is not defined in the 
  * DSD.
- * @todo Validated twice - see FIXME
  */
 public class ExtraColumn extends Column {
   private final int extrasIndex;
 
   /**
-   * @param table
-   * @param name
-   * @param type
-   * @param definitionSource
-   * @param extrasIndex
+   * Constructor.
    */
   public ExtraColumn(Table table, String name, SQLPoemType type,
                      DefinitionSource definitionSource,
@@ -110,7 +105,7 @@ public class ExtraColumn extends Column {
    */
   public Object getCooked(Persistent g)
       throws AccessPoemException, PoemException {
-    // FIXME revalidation
+    // FIXME Revalidation  
     return getType().cookedOfRaw(getRaw(g));
   }
 
@@ -139,11 +134,12 @@ public class ExtraColumn extends Column {
   }
 
   /**
+   * Static factory.
    * @param table
    * @param columnInfo
    * @param extrasIndex
    * @param source
-   * @return
+   * @return a new ExtraColumn 
    */
   public static Column from(Table table, ColumnInfo columnInfo,
                             int extrasIndex, DefinitionSource source) {

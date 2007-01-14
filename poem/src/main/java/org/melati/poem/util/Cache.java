@@ -66,8 +66,8 @@ public final class Cache {
   private static class HeldNode implements Node {
     Object key;
     Object value;
-    HeldNode nextMRU = null;
-    HeldNode prevMRU = null;
+    HeldNode nextMRU = null; // Next Most Recently Used node
+    HeldNode prevMRU = null; // Previous Most Recently Used node
 
     HeldNode(Object key, Object value) {
       this.key = key;
@@ -203,6 +203,9 @@ public final class Cache {
     }
   }
 
+  /**
+   * @return a Vector of problematic nodes 
+   */
   private Vector invariantBreaches() {
     Vector probs = new Vector();
 
@@ -449,7 +452,7 @@ public final class Cache {
     private Info() {}
 
     /**
-     * @return an Enumeration of object held
+     * @return an Enumeration of objects held
      */
     public Enumeration getHeldElements() {
       gc();

@@ -102,6 +102,10 @@ public class GroupCapability extends GroupCapabilityBase {
   * @param capability the {@link Capability} 
   */
   public GroupCapability(Group group, Capability capability) {
+    if (group.troid() == null) 
+      throw new IllegalArgumentException("Group is still floating without an id");
+    if (capability.troid() == null) 
+      throw new IllegalArgumentException("Capability is still floating without an id");
     this.group = group.troid();
     this.capability = capability.troid();
   }

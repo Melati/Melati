@@ -125,7 +125,7 @@ public class GroupTable extends GroupTableBase {
     if (group != null)
       return group;
     else {
-      group = (Group) newPersistent();
+      group = (Group)newPersistent();
       group.setName(name);
       return (Group)getNameColumn().ensure(group);
     }

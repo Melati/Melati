@@ -103,22 +103,30 @@ public class CapabilityTable extends CapabilityTableBase {
 
  /**
   * Ensure that the <tt>_administer_</tt> {@link Capability} 
-  * exists and apply it to this table.
+  * exists and apply it to this table, also create <tt>canRead</tt>,
+  * <tt>canWrite</tt>, <tt>candelete</tt> and <tt>canSelect</tt> 
+  * as they are referrred to in column definition.
   *
-  * @param colDescs the {@link Column} descriptions 
+  * @param colDescs the {@link Column} descriptions
+  * @see org.melati.poem.Table#defineColumn(Column, boolean) 
   */
   public synchronized void unifyWithDB(ResultSet colDescs)
       throws SQLException, PoemException {
     super.unifyWithDB(colDescs);
 
     administer = ensure("_administer_");
-
     if (getTableInfo().getDefaultcanwrite() == null)
       getTableInfo().setDefaultcanwrite(administer);
     if (getTableInfo().getDefaultcandelete() == null)
       getTableInfo().setDefaultcandelete(administer);
     if (getTableInfo().getCancreate() == null)
       getTableInfo().setCancreate(administer);
+    
+    ensure("canRead");
+    ensure("canWrite");
+    ensure("canDelete");
+    ensure("canSelect");
+
   }
   
  /**
@@ -142,7 +150,7 @@ public class CapabilityTable extends CapabilityTableBase {
     if (capability != null)
       return capability;
     else {
-      capability = (Capability) newPersistent();
+      capability = (Capability)newPersistent();
       capability.setName(name);
       return (Capability)getNameColumn().ensure(capability);
     }

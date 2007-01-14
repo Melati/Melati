@@ -85,4 +85,26 @@ public class FieldSet {
     Integer f = (Integer)table_columnMap.get(name);
     return f == null ? null : fields[f.intValue()];
   }
+  
+  /**
+   * Used to debug tests
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    if (fields != null) {
+      String result = "";
+        for (int i = 0; i< fields.length; i++) {
+          result += fields[i].getName();
+          result += "=\"";
+          result += fields[i].getCooked();
+          result += "\"";
+          result += "\n";
+        }
+      return result;
+    } else {
+      return null;
+    }
+    
+  }
 }

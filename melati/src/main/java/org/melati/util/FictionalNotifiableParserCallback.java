@@ -49,9 +49,12 @@ import javax.swing.text.html.HTMLEditorKit;
 /**
  * An extended <code>ParserCallback</code>.
  *
- * @todo Explain why this is in Melati as it is only used in Bibliomania
+ * @todo Move to Bibliomania
  */
 public abstract class FictionalNotifiableParserCallback
     extends HTMLEditorKit.ParserCallback {
+  /**
+   * @param is set whether current is fictional
+   */
   public abstract void notifyCurrentIsFictional(boolean is);
 }

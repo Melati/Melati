@@ -222,6 +222,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
   
   /** 
    * Return the name and index.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return name + "/" + index;

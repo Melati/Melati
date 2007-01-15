@@ -287,7 +287,7 @@ public final class HttpServletRequestCompat {
    * @param it
    *        the HttpServletRequest
    * @return    a <code>String</code> specifying the login
-   *      of the user making this request, or <code>null</code
+   *      of the user making this request, or <code>null</code>
    *      if the user login is not known
    * @see javax.servlet.http.HttpServletRequest#getRemoteUser()
    */

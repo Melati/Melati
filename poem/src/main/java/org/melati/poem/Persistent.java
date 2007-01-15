@@ -94,6 +94,11 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
   private Object[] extras = null;
 
+  /**
+   * Constructor.
+   * @param table the table of the Persistent
+   * @param troid its Table Row Object Id
+   */
   public Persistent(Table table, Integer troid) {
     super(table.getDatabase());
     this.table = table;
@@ -101,6 +106,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
 
+  /**
+   * Constructor.
+   */
   public Persistent() {
   }
 
@@ -118,10 +126,16 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     status = EXISTENT;
   }
 
+  /**
+   * @return whether this object has been deleted
+   */
   public final boolean statusNonexistent() {
     return status == NONEXISTENT;
   }
 
+  /**
+   * @return whether this object has been deleted
+   */
   public final boolean statusExistent() {
     return status == EXISTENT;
   }
@@ -251,7 +265,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
  /**
   * The Table from which the object comes, 
   * complete with metadata.
-  */
+   * @return the Table
+   */
   public final Table getTable() {
     return table;
   }
@@ -264,7 +279,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
 
  /**
-  * The database from which the object comes.  <I>I.e.</I>
+  * @return The database from which the object comes.  <I>I.e.</I>
   * <TT>getTable().getDatabase()</TT>.
   */
   public final Database getDatabase() {
@@ -272,7 +287,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * The Table Row Object Id for this Persistent.
+   * @return The Table Row Object Id for this Persistent.
    * 
    * FIXME This shouldn't be public because we don't in principle want people
    * to know even the troid of an object they aren't allowed to read.  However,
@@ -333,7 +348,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * 
+   * Lock without actually reading.
    */
   public void existenceLock() {
     existenceLock(PoemThread.sessionToken());
@@ -436,12 +451,15 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * @throws AccessPoemException if current accessToken does not grant read capability
+   */
   public final void assertCanRead() throws AccessPoemException {
     assertCanRead(PoemThread.accessToken());
   }
 
   /**
-   * Whether the object is readable by you.
+   * @return Whether the object is readable by current AccessToken
    *
    * @see #assertCanRead()
    */
@@ -468,7 +486,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @see #assertCanWrite
    */
-
   protected Capability getCanWrite() {
     Column cwCol = getTable().canWriteColumn();
     return
@@ -510,6 +527,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * @throws AccessPoemException if current accessToken does not grant wraite capability
+   */
   public final void assertCanWrite() throws AccessPoemException {
     assertCanWrite(PoemThread.accessToken());
   }
@@ -526,7 +546,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @see #assertCanDelete
    */
-
   protected Capability getCanDelete() {
     Column cwCol = getTable().canDeleteColumn();
     return
@@ -568,6 +587,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * @throws AccessPoemException if current accessToken does not grant delete capability
+   */
   public final void assertCanDelete() throws AccessPoemException {
     assertCanDelete(PoemThread.accessToken());
   }
@@ -613,6 +635,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       throw new CreationAccessPoemException(getTable(), token, canCreate);
   }
 
+  /**
+   * @throws AccessPoemException if current accessToken does not grant create capability
+   */
   public final void assertCanCreate() throws AccessPoemException {
     assertCanCreate(PoemThread.accessToken());
   }
@@ -687,7 +712,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see PoemThread#rollback
    * @see #assertCanRead()
    */
-
   public Object getRaw(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).getRaw(this);
@@ -989,9 +1013,12 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * by an application-specialised subclass of <TT>Persistent</TT> called
    * <TT><I>Foo</I></TT> which provides a <TT>get<I>Baz</I>Field</TT> method.
    *
+   * @param name column name
+   * @return the Field of that name
+   * @throws NoSuchColumnPoemException if there is no column of that name
+   * @throws AccessPoemException if the current AccessToken does not grant access capability
    * @see org.melati.template.MarkupLanguage#input(org.melati.poem.Field)
    */
-
   public final Field getField(String name)
       throws NoSuchColumnPoemException, AccessPoemException {
     return getTable().getColumn(name).asField(this);
@@ -1057,6 +1084,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return fieldsOfColumns(getTable().getSummaryDisplayColumns());
   }
 
+  /**
+   * @return an <TT>Enumeration</TT> of searchable <TT>Field</TT>s
+   */
   public Enumeration getSearchCriterionFields() {
     return fieldsOfColumns(getTable().getSearchCriterionColumns());
   }
@@ -1234,6 +1264,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * A string briefly describing the object for diagnostic purposes.  The name
    * of its table and its troid.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     if (getTable() == null) {
@@ -1268,7 +1300,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * Default to using  DateFromat MEDIUM.
+   * Defaults to DateFormat.MEDIUM.
    * @return Default String for display.
    * 
    * @throws AccessPoemException 
@@ -1295,6 +1327,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   // ===============
   // 
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#hashCode()
+   */
   public final int hashCode() {
     if (troid == null)
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
@@ -1302,6 +1338,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return getTable().hashCode() + troid().intValue();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
   public final boolean equals(Object object) {
     if (object == null || !(object instanceof Persistent))
       return false;
@@ -1312,12 +1352,20 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.Transactioned#invalidate()
+   */
   public synchronized void invalidate() {
     assertNotFloating();
     super.invalidate();
     extras = null;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#clone()
+   */
   protected Object clone() {
     // to clone it you have to be able to read it
     assertCanRead();
@@ -1337,6 +1385,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return it;
   }
 
+  /**
+   * @return the dump String
+   */
   public String dump() {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(baos);
@@ -1344,6 +1395,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     return baos.toString();
   }
 
+  /**
+   * Dump to a PrintStream.
+   * @param p the PrintStream to dump to
+   */
   public void dump(PrintStream p) {
     p.println(getTable().getName() + "/" + troid());
     for (Enumeration f = getRecordDisplayFields(); f.hasMoreElements();) {
@@ -1461,6 +1516,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * <p>
    * Subtypes must ensure the result is compatible with the
    * result of {@link Table #appendWhereClause(StringBuffer, Persistent)}.
+   * @return an SQL snippet 
    */
   public String fromClause() {
     String result = getTable().quotedName();
@@ -1477,6 +1533,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * <p>
    * Note that this does not support aliases, unless we implement
    * these through a subtype of {@link Table}.
+   * @return an empty Array
    */
   public Table[] otherMatchTables() {
     return new Table[0];
@@ -1554,7 +1611,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     }
 
     /**
-     * Return a reference to the saved copy or null.
+     * @return a reference to the saved copy or null.
      */
     public Persistent get() {
       return copy;
@@ -1562,6 +1619,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
     /**
      * Has the given column been changed?
+     * @return whether the column has changed
      */
     public boolean isDifferent(Column column) {
       return ! column.asField(Persistent.this).sameRawAs(column.asField(copy));

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -59,6 +59,13 @@ public class CachedSelection extends CachedQuery {
   private String orderByClause;
   private String tableDefaultOrderByClause = null;
 
+  /**
+   * Constructor.
+   * @param table the primary Table we are selecting rows from
+   * @param whereClause SQL snippet
+   * @param orderByClause SQL snippet
+   * @param otherTables an Array of Tables which are also referenced in query
+   */
   public CachedSelection(final Table table,
                          final String whereClause,
                          final String orderByClause,
@@ -70,6 +77,12 @@ public class CachedSelection extends CachedQuery {
     this.orderByClause = orderByClause;
   }
 
+  /**
+   * Constructor for a single Table query.
+   * @param table the primary Table we are selecting rows from
+   * @param whereClause SQL snippet
+   * @param orderByClause SQL snippet
+   */
   public CachedSelection(final Table table,
                          final String whereClause,
                          final String orderByClause) {
@@ -98,11 +111,17 @@ public class CachedSelection extends CachedQuery {
     return new Integer(rs.getInt(1));
   }
 
+  /**
+   * @return an Enumeration of Table Row Object Ids
+   */
   public Enumeration troids() {
     compute();
     return rows.elements();
   }
 
+  /**
+   * @return an Enumeration of Table Row ReferencePoemType objects
+   */
   public Enumeration objects() {
     return
         new MappedEnumeration(troids()) {
@@ -112,10 +131,17 @@ public class CachedSelection extends CachedQuery {
         };
   }
 
+  /**
+   * @return the first, often only, result
+   */
   public Persistent firstObject() {
     return nth(0);
   }
 
+  /**
+   * @param n index into ResultSet
+   * @return the row corresponding to the index
+   */
   public Persistent nth(int n) {
     compute();
     return rows.size() <= n ?
@@ -123,6 +149,9 @@ public class CachedSelection extends CachedQuery {
                table.getObject((Integer)rows.elementAt(n));
   }
 
+  /**
+   * @return the number of results
+   */
   public int count() {
     compute();
     return this.rows.size();

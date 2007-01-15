@@ -59,6 +59,11 @@ import org.melati.util.MelatiException;
  */
 public interface AccessHandler {
 
+  /**
+   * Deal with an AccessPoemException, often by allowing login.
+   * @param melati current Melati
+   * @param accessException teh AccessException
+   */
   void handleAccessException(Melati melati, 
                              AccessPoemException accessException)
                         throws Exception;

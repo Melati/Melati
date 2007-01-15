@@ -37,10 +37,20 @@ import org.melati.util.EnumUtils;
 public class TableTest extends PoemTestCase {
 
   /**
+   * Constructor for PoemTest.
+   * @param arg0
+   */
+  public TableTest(String arg0) {
+    super(arg0);
+    setDbName("poemtest");
+  }
+
+  /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
+    setDbName("poemtest");
   }
 
   /**
@@ -397,7 +407,19 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getObject(Integer)
    */
   public void testGetObjectInteger() {
-
+    int count1 = getDb().getQueryCount();
+    User u = getDb().guestUser();
+    int count2 = getDb().getQueryCount();
+    UserTable ut = getDb().getUserTable();
+    int count3 = getDb().getQueryCount();
+    User u2 = (User)ut.getObject(new Integer(0));
+    int count4 = getDb().getQueryCount();
+    User u3 = (User)ut.getObject(new Integer(0));
+    int count5 = getDb().getQueryCount();
+    assertEquals(u,u2);
+    System.err.println(u3.getName());
+    int count6 = getDb().getQueryCount();
+    System.err.println(count1 + ":" + count2 + ":" +  count3 + ":" + count4 + ":"+  count5 + ":" + count6);    
   }
 
   /**
@@ -491,7 +513,40 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#selection(Persistent)
    */
   public void testSelectionPersistent() {
+    User exemplar = (User)getDb().getUserTable().newPersistent();
+    Enumeration found  = getDb().getUserTable().selection(exemplar);
+    int count = 0;
+    User result = null;
+    while (found.hasMoreElements()) {
+      count++;
+      result = (User)found.nextElement();
+      //System.err.println(result);
+    }
+    assertNotNull(result);
+    assertEquals(2, count);
+    exemplar.setLogin("_administrator_");
+    result = null;
+    count = 0;
+    found  = getDb().getUserTable().selection(exemplar);
+    while (found.hasMoreElements()) {
+      count++;
+      result = (User)found.nextElement();
+      //System.err.println(result);
+    }
+    assertNotNull(result);
+    assertEquals(1, count);
 
+    exemplar.setLogin("notSet");
+    result = null;
+    count = 0;
+    found  = getDb().getUserTable().selection(exemplar);
+    while (found.hasMoreElements()) {
+      count++;
+      result = (User)found.nextElement();
+     //System.err.println(result);
+    }
+    assertNull(result);
+    assertEquals(0, count);
   }
 
   /**
@@ -1657,24 +1712,24 @@ public class TableTest extends PoemTestCase {
    */
   public void testCachedSelectionField() {
     // getDb().setLogSQL(true);
-    Field userTables = getDb().getTableInfoTable()
-        .cachedSelectionField("\"TABLEINFO\".\"DISPLAYORDER\" < 3000", null,
+    Field userTableFields = getDb().getTableInfoTable()
+        .cachedSelectionField("\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000", null,
             true, null, "userTables");
-    Enumeration them = userTables.getPossibilities();
-    assertEquals(them.nextElement().toString(), "userTables: ");
-    assertEquals(them.nextElement().toString(), "userTables: User");
-    assertEquals(them.nextElement().toString(), "userTables: Group");
-    assertEquals(them.nextElement().toString(), "userTables: Capability");
-    assertEquals(them.nextElement().toString(), "userTables: Group membership");
-    assertEquals(them.nextElement().toString(), "userTables: Group capability");
+    Enumeration them = userTableFields.getPossibilities();
+    assertEquals("userTables: ", them.nextElement().toString());
+    assertEquals("userTables: User", them.nextElement().toString());
+    assertEquals("userTables: Group", them.nextElement().toString());
+    assertEquals("userTables: Capability",them.nextElement().toString());
+    assertEquals("userTables: Group membership",them.nextElement().toString());
+    assertEquals("userTables: Group capability",them.nextElement().toString());
     assertFalse(them.hasMoreElements());
-    assertEquals(null, userTables.getRaw());
+    assertEquals(null, userTableFields.getRaw());
 
     // with order by
-    userTables = getDb().getTableInfoTable().cachedSelectionField(
-        "\"TABLEINFO\".\"DISPLAYORDER\" < 3000",
+    userTableFields = getDb().getTableInfoTable()
+    .cachedSelectionField("\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000", 
         "\"TABLEINFO\".\"DISPLAYNAME\"", true, null, "userTables");
-    them = userTables.getPossibilities();
+    them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: ");
     assertEquals(them.nextElement().toString(), "userTables: Capability");
     assertEquals(them.nextElement().toString(), "userTables: Group");
@@ -1682,33 +1737,33 @@ public class TableTest extends PoemTestCase {
     assertEquals(them.nextElement().toString(), "userTables: Group membership");
     assertEquals(them.nextElement().toString(), "userTables: User");
     assertFalse(them.hasMoreElements());
-    assertEquals(null, userTables.getRaw());
+    assertEquals(null, userTableFields.getRaw());
 
     // without null option
-    userTables = getDb().getTableInfoTable().cachedSelectionField(
-        "\"TABLEINFO\".\"DISPLAYORDER\" < 3000",
+    userTableFields = getDb().getTableInfoTable().cachedSelectionField(
+        "\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000",
         "\"TABLEINFO\".\"DISPLAYNAME\"", false, null, "userTables");
-    them = userTables.getPossibilities();
+    them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: Capability");
     assertEquals(them.nextElement().toString(), "userTables: Group");
     assertEquals(them.nextElement().toString(), "userTables: Group capability");
     assertEquals(them.nextElement().toString(), "userTables: Group membership");
     assertEquals(them.nextElement().toString(), "userTables: User");
     assertFalse(them.hasMoreElements());
-    assertEquals(null, userTables.getRaw());
+    assertEquals(null, userTableFields.getRaw());
 
     // with a troid
-    userTables = getDb().getTableInfoTable().cachedSelectionField(
-        "\"TABLEINFO\".\"DISPLAYORDER\" < 3000",
+    userTableFields = getDb().getTableInfoTable().cachedSelectionField(
+        "\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000",
         "\"TABLEINFO\".\"DISPLAYNAME\"", false, new Integer(0), "userTables");
-    them = userTables.getPossibilities();
+    them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: Capability");
     assertEquals(them.nextElement().toString(), "userTables: Group");
     assertEquals(them.nextElement().toString(), "userTables: Group capability");
     assertEquals(them.nextElement().toString(), "userTables: Group membership");
     assertEquals(them.nextElement().toString(), "userTables: User");
     assertFalse(them.hasMoreElements());
-    assertEquals(new Integer(0), userTables.getRaw());
+    assertEquals(new Integer(0), userTableFields.getRaw());
   }
 
   /**

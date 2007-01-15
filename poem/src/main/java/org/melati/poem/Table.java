@@ -696,6 +696,11 @@ public class Table implements Selectable {
   // -------------------------------
   // 
 
+  /**
+   * 
+   * @param connection the connection the PreparedStatement is tied to
+   * @return a PreparedStatment to perform a simple INSERT
+   */
   private PreparedStatement simpleInsert(Connection connection) {
     StringBuffer sql = new StringBuffer();
     sql.append("INSERT INTO " + quotedName() + " (");

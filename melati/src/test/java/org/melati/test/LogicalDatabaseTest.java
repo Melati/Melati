@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.test.PoemTestCase;
-import org.melati.util.DatabaseInitException;
 
 /**
  * @author timp
@@ -83,7 +82,7 @@ public class LogicalDatabaseTest extends PoemTestCase {
    * Test method for {@link org.melati.LogicalDatabase#getDefaultPropertiesName()}.
    */
   public void testGetDefaultPropertiesName() {
-    assertEquals("org.melati.LogicalDatabse.properties", LogicalDatabase.getDefaultPropertiesName());
+    assertEquals("org.melati.LogicalDatabase.properties", LogicalDatabase.getDefaultPropertiesName());
   }
 
 }

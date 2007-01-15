@@ -80,7 +80,7 @@ public class TailoredQueryTest extends PoemTestCase {
           + fs.get("group_name").getCookedString(MelatiLocale.HERE,
               DateFormat.MEDIUM));
     }
-    assertTrue(count == 1);
+    assertEquals(1,count);
   }
 
   /**
@@ -121,7 +121,7 @@ public class TailoredQueryTest extends PoemTestCase {
           + fs.get("group_name").getCookedString(MelatiLocale.HERE,
               DateFormat.MEDIUM));
     }
-    assertTrue(count == 1);
+    assertEquals(1, count);
 
   }
 
@@ -162,7 +162,7 @@ public class TailoredQueryTest extends PoemTestCase {
           + fs.get("group_name").getCookedString(MelatiLocale.HERE,
               DateFormat.MEDIUM));
     }
-    assertTrue(count == 1);
+    assertEquals(1,count);
 
   }
 
@@ -197,7 +197,7 @@ public class TailoredQueryTest extends PoemTestCase {
       count++;
       System.out.println(ms.nextElement());
     }
-    assertTrue(count == 1);
+    assertEquals(1,count);
   }
 
   /**
@@ -237,7 +237,7 @@ public class TailoredQueryTest extends PoemTestCase {
           + fs.get("group_name").getCookedString(MelatiLocale.HERE,
               DateFormat.MEDIUM));
     }
-    assertTrue(count == 1);
+    assertEquals(1,count);
     System.err.println(q);
     assertTrue(q.toString().indexOf("SELECT") > 0 && 
         q.toString().toUpperCase().indexOf("USER") > 0 );

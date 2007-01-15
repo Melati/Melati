@@ -37,8 +37,17 @@ public class UserTest extends PoemTestCase {
    */
   protected void tearDown() throws Exception {
     super.tearDown();
+    
   }
 
+  protected void melatijunitUnchanged() { 
+    User tester = (User)getDb().getUserTable().getNameColumn().firstWhereEq("tester");
+    if (tester != null)
+      tester.delete();
+    super.melatijunitUnchanged();
+
+  }
+  
   /**
    * Test method for {@link org.melati.poem.User#toString()}.
    */
@@ -70,7 +79,6 @@ public class UserTest extends PoemTestCase {
     }
     assertFalse(tester.isGuest());
     assertFalse(tester.isAdministrator());
-
   }
 
   /**
@@ -84,8 +92,8 @@ public class UserTest extends PoemTestCase {
     getDb().guestUser().setPassword("guest");
     assertEquals("guest",getDb().guestUser().getPassword());
     User tester = (User)getDb().getUserTable().newPersistent();
-    tester.setName("tester2");
-    tester.setLogin("tester2");
+    tester.setName("tester");
+    tester.setLogin("tester");
     tester.setPassword("pwd");
     tester.makePersistent();
     assertEquals("pwd",tester.getPassword());
@@ -105,8 +113,8 @@ public class UserTest extends PoemTestCase {
    */
   public void testSetPassword2() {
     User tester = (User)getDb().getUserTable().newPersistent();
-    tester.setName("tester3");
-    tester.setLogin("tester3");
+    tester.setName("tester");
+    tester.setLogin("tester");
     tester.setPassword("pwd");
     tester.makePersistent();
     assertEquals("pwd",tester.getPassword());
@@ -131,9 +139,8 @@ public class UserTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.User#User(java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testUserStringStringString() {
-   User u = new User("a","a","a");
-   getDb().getUserTable().create(u);
-   
+   User u = new User("tester","tester","tester");
+   getDb().getUserTable().create(u);   
   }
 
   /**
@@ -158,5 +165,6 @@ public class UserTest extends PoemTestCase {
     assertFalse(getDb().guestUser().isAdministrator());
     assertTrue(getDb().administratorUser().isAdministrator());    
   }
+
 
 }

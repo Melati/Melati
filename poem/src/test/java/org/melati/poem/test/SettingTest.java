@@ -50,6 +50,8 @@ public class SettingTest extends PoemTestCase {
     Setting integerSetting = getDb().getSettingTable().ensure("integerSetting",12,"Integer","A set Integer setting");
     integerSetting.setRaw(new Integer(13));
     assertEquals(new Integer(13),integerSetting.getCooked());
+    stringSetting.delete();
+    integerSetting.delete();
   }
 
   /**
@@ -1278,8 +1280,10 @@ public class SettingTest extends PoemTestCase {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(baos);
     stringSetting.dump(ps);
-    System.err.println(baos.toString().trim() + ":");
-    assertTrue(baos.toString().startsWith("setting/0"));}
+    //System.err.println(baos.toString().trim() + ":");
+    assertTrue(baos.toString().startsWith("setting/"));
+    stringSetting.delete();
+    }
 
   /**
    * @see org.melati.poem.Persistent.postWrite()

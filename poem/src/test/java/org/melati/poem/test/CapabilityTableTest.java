@@ -44,6 +44,7 @@ public class CapabilityTableTest extends PoemTestCase {
     assertEquals(admin, admin2);
     Capability newOne = getDb().getCapabilityTable().ensure("newOne");
     assertEquals("newOne", newOne.getName());
+    newOne.delete();
   }
 
 }

@@ -53,6 +53,7 @@ public class TableCategoryTest extends PoemTestCase {
     TableCategory it = new TableCategory("test");
     getDb().getTableCategoryTable().create(it);
     assertEquals("test",it.getName());
+    it.delete();
   }
 
 }

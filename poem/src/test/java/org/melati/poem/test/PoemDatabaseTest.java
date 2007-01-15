@@ -8,12 +8,19 @@ import java.util.Enumeration;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
+import org.melati.poem.DisplayLevel;
 import org.melati.poem.DuplicateTableNamePoemException;
 import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.NoSuchTablePoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
+import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
+import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.ReadPersistentAccessPoemException;
 import org.melati.poem.RowDisappearedPoemException;
+import org.melati.poem.Searchability;
+import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
@@ -54,6 +61,32 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setLogSQL(false);
   }
 
+  protected void melatijunitUnchanged() { 
+    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("extra");
+    if (ci != null) { 
+      System.err.println("Cleaning up: " + ci);
+      ci.delete();
+    }
+    Table extra = null;
+    try { 
+      extra = getDb().getTable("test");
+    } catch (NoSuchTablePoemException e) {
+      
+    }
+    if (extra != null ) {
+      if (extra.troidColumn().getColumnInfo().statusExistent()) {
+        extra.troidColumn().getColumnInfo().delete();
+        System.err.println("Cleaning up troid ");
+      }
+    }
+    TableInfo extraTI = (TableInfo)getDb().getTableInfoTable().getNameColumn().firstWhereEq("test");        
+    if (extraTI != null) {
+      extraTI.delete();
+    }
+    super.melatijunitUnchanged();
+  } 
+
+  
   /**
    * @see org.melati.poem.generated.PoemDatabaseBase#getUserTable()
    * @see org.melati.poem.Database#getTable(String)
@@ -64,6 +97,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertEquals(ut1, ut2);
   }
 
+  
   /**
    * @see org.melati.poem.Database#transactionsMax()
    */
@@ -93,8 +127,6 @@ public class PoemDatabaseTest extends PoemTestCase {
     while (en.hasMoreElements()) {
       result += en.nextElement().toString();
     }
-    System.err.println(expected);
-    System.err.println(result);
     assertEquals(expected, result);
   }
 
@@ -116,7 +148,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     assertEquals(2, count);
   }
-
+  
   /**
    * @see org.melati.poem.Database#hasCapability(User, Capability)
    */
@@ -197,7 +229,6 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testToString() {
     String name = getDb().toString();
-    System.err.println(name);
     assertTrue(name.endsWith(getDbName()));
   }
 
@@ -228,7 +259,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     // end it
     getDb().endSession();
     PoemDatabase db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:/dist/melati/db/m2",
+    db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
         "sa", "", 3);
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
     db.shutdown();
@@ -263,7 +294,6 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    System.err.println(count);
     assertTrue(count == 9);
 
   }
@@ -280,7 +310,6 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    System.err.println(count);
     assertTrue(count == 69);
   }
 
@@ -292,7 +321,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     //getDb().setLogCommits(true);
     //getDb().setLogSQL(true);
     TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();
-    info.setName("junit");
+    info.setName("addedtable");
     info.setDisplayname("Junit created table");
     info.setDisplayorder(13);
     info.setSeqcached(new Boolean(false));
@@ -300,12 +329,40 @@ public class PoemDatabaseTest extends PoemTestCase {
     info.setCachelimit(0);
     info.makePersistent();
     PoemThread.commit();
-    getDb().addTableAndCommit(info, "id");
-    Persistent junit = getDb().getTable("junit").newPersistent();
+    Table extra = getDb().addTableAndCommit(info, "id");
+    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    ci.setTableinfo(info);
+    ci.setTypefactory(PoemTypeFactory.STRING);
+    ci.setNullable(false);
+    ci.setSize(-1);
+    ci.setWidth(20);
+    ci.setHeight(1);
+    ci.setPrecision(1);
+    ci.setScale(1);
+    ci.setName("extra");
+    ci.setDescription("Description of extra column");
+    ci.setDisplayname("Extra");
+    ci.setDisplayorder(10);
+    ci.setIndexed(true);
+    ci.setUnique(true);
+    ci.setSearchability(Searchability.yes);
+    ci.setDisplaylevel(DisplayLevel.primary);
+    ci.setUsereditable(true);
+    ci.setUsercreateable(true);
+    
+    ci.makePersistent();
+    extra.addColumnAndCommit(ci);
+    Persistent extraPersistent = extra.newPersistent();
     PoemThread.commit();
-    System.err.println("troid:" + junit.troid());
-    junit.makePersistent();
-    System.err.println("troid:" + junit.troid());
+    assertNull(extraPersistent.troid());
+    extraPersistent.setCooked("extra", "Test");
+    extraPersistent.makePersistent();
+    assertEquals("Test",extraPersistent.getField("extra").getRaw());
+    
+    extra.getTableInfo().setDefaultcanread(getDb().administerCapability());
+    extraPersistent.getField("extra").getRaw();
+
+    assertEquals(new Integer(0),extraPersistent.troid());
     Enumeration cols = getDb().getColumnInfoTable().getTableinfoColumn()
         .selectionWhereEq(info.troid());
     int colCount = 0;
@@ -314,10 +371,11 @@ public class PoemDatabaseTest extends PoemTestCase {
       c.delete();
       colCount++;
     }
-    System.err.println("Col count:" + colCount);
-    PoemThread.commit(); // Commit before raw sql, so that tests can be rerun
+    assertEquals(2,  colCount);
+    
+    PoemThread.commit(); 
     getDb().getCommittedConnection().commit();
-    String q = "DROP TABLE " + getDb().getDbms().getQuotedName("junit");
+    String q = "DROP TABLE " + getDb().getDbms().getQuotedName("addedtable");
     Statement dropStatement = getDb().getCommittedConnection()
         .createStatement();
     dropStatement.execute(q);
@@ -327,7 +385,6 @@ public class PoemDatabaseTest extends PoemTestCase {
       getDb().addTableAndCommit(info, "id");
       fail("Should have blown up");
     } catch (DuplicateTableNamePoemException e) {
-      System.err.println(e);
       e = null;
     }
     cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
@@ -338,7 +395,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       c.delete();
       colCount++;
     }
-    System.err.println("Col count:" + colCount);
+    assertEquals(1,  colCount);
 
     info.deleteAndCommit();
     PoemThread.commit();
@@ -346,7 +403,6 @@ public class PoemDatabaseTest extends PoemTestCase {
       getDb().addTableAndCommit(info, "id");
       fail("Should have blown up");
     } catch (RowDisappearedPoemException e) {
-      System.err.println(e);
       e = null;
     }
     dropStatement.execute(q);
@@ -376,6 +432,64 @@ public class PoemDatabaseTest extends PoemTestCase {
     PoemThread.commit();
   }
 
+  public void testExtraColumnAsField () {
+    TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();
+    info.setName("test");
+    info.setDisplayname("Junit created table");
+    info.setDisplayorder(13);
+    info.setSeqcached(new Boolean(false));
+    info.setCategory_unsafe(new Integer(1));
+    info.setCachelimit(0);
+    info.makePersistent();
+    //PoemThread.commit();
+    Table extra = getDb().addTableAndCommit(info, "id");
+    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    ci.setTableinfo(info);
+    ci.setTypefactory(PoemTypeFactory.STRING);
+    ci.setNullable(false);
+    ci.setSize(-1);
+    ci.setWidth(20);
+    ci.setHeight(1);
+    ci.setPrecision(1);
+    ci.setScale(1);
+    ci.setName("extra");
+    ci.setDescription("Description of extra column");
+    ci.setDisplayname("Extra");
+    ci.setDisplayorder(10);
+    ci.setIndexed(true);
+    ci.setUnique(true);
+    ci.setSearchability(Searchability.yes);
+    ci.setDisplaylevel(DisplayLevel.primary);
+    ci.setUsereditable(true);
+    ci.setUsercreateable(true);
+    
+    ci.makePersistent();
+    extra.addColumnAndCommit(ci);
+    
+    Persistent extraInstance = extra.newPersistent();
+    PoemThread.commit();
+    assertNull(extraInstance.troid());
+    extraInstance.setCooked("extra", "Test");
+    extraInstance.makePersistent();
+    assertEquals("Test",extraInstance.getField("extra").getRaw());
+    
+    // Show that guest cannot read
+    extra.getTableInfo().setDefaultcanread(getDb().administerCapability());    
+    PoemThread.setAccessToken(getDb().guestAccessToken());
+    try {
+      extraInstance.getField("extra").getRaw();
+      fail("Should have bombed");
+    } catch (ReadPersistentAccessPoemException e) {
+      e = null;
+    }
+    // Do not tidy up here
+    // as we no longer have write priviledges.
+    // see our overidden version of melatijunitUnchanged()  
+    //ci.delete();
+    //extra.troidColumn().getColumnInfo().delete();
+    //info.delete();
+
+  }
   /**
    * @see org.melati.poem.Database#addConstraints()
    */
@@ -585,9 +699,11 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     getDb().setLogSQL(true);  
     getDb().
-        sqlUpdate(
-            getDb().getDbms().createTableSql() + "TEST (ID INT)" );
+    sqlUpdate(
+        getDb().getDbms().createTableSql() + "RAWSQL (ID INT)" );
     getDb().setLogSQL(false);  
+    getDb().
+    sqlUpdate("DROP TABLE RAWSQL" );
   }
 
   /**
@@ -619,6 +735,8 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setCanAdminister("testing");
     assertEquals(getDb().getCapabilityTable().get("testing"), getDb()
         .getCanAdminister());
+    getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing").delete();
+    
   }
 
   /**

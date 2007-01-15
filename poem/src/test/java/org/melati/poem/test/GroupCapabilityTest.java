@@ -3,6 +3,8 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Capability;
+import org.melati.poem.Group;
 import org.melati.poem.GroupCapability;
 
 /**
@@ -46,12 +48,16 @@ public class GroupCapabilityTest extends PoemTestCase {
    * GroupCapability(org.melati.poem.Group, org.melati.poem.Capability)}.
    */
   public void testGroupCapabilityGroupCapability() {
-    GroupCapability it = new GroupCapability(
-        getDb().getGroupTable().ensure("testgroup"),
-        getDb().getCapabilityTable().ensure("testing"));
-    getDb().getGroupCapabilityTable().create(it);
-    assertEquals("testgroup",it.getGroup().getName());
-    assertEquals("testing",it.getCapability().getName());
+    Group g = (Group)getDb().getGroupTable().ensure("testgroup");
+    Capability c = (Capability)getDb().getCapabilityTable().ensure("testing");
+    GroupCapability gc = new GroupCapability(g, c);
+    getDb().getGroupCapabilityTable().create(gc);
+    assertEquals("testgroup",gc.getGroup().getName());
+    assertEquals("testing",gc.getCapability().getName());
+    gc.delete();
+    g.delete();
+    c.delete();
+    
   }
 
 }

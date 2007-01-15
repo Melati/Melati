@@ -64,27 +64,32 @@ public class SettingTableTest extends PoemTestCase {
     assertEquals("new", (String) getDb().getSettingTable().getCooked(
     "stringSetting"));
     assertNull(getDb().getSettingTable().getCooked("unsetSetting"));
-    getDb().getSettingTable().ensure("nullIntegerSetting", null, "Null Integer",
+    Setting setting2 = getDb().getSettingTable().ensure("nullIntegerSetting", null, "Null Integer",
          "A null Integer setting");
     assertNull(getDb().getSettingTable().getCooked("nullIntegerSetting"));
     // Second time from cache
     assertNull(getDb().getSettingTable().getCooked("nullIntegerSetting"));
-    getDb().getSettingTable().ensure("integerSettingA", 13, "Integer",
+    Setting setting3 = getDb().getSettingTable().ensure("integerSettingA", 13, "Integer",
          "A set Integer setting");
     assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
          "integerSettingA"));
     assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
          "integerSettingA"));
+    
+    stringSetting.delete();
+    setting2.delete();
+    setting3.delete();
   }
 
   /**
    * @see org.melati.poem.SettingTable#get(String)
    */
   public void testGet() {
-    getDb().getSettingTable().ensure("integerSettingG", 12, "Integer",
+    Setting setting1 = getDb().getSettingTable().ensure("integerSettingG", 12, "Integer",
         "A set Integer setting");
     assertEquals("12", (String)getDb().getSettingTable().get("integerSettingG"));
     assertNull(getDb().getSettingTable().get("unsetSetting"));
+    setting1.delete();
 
   }
 
@@ -92,7 +97,7 @@ public class SettingTableTest extends PoemTestCase {
    * @see org.melati.poem.SettingTable#getOrDie(String)
    */
   public void testGetOrDie() {
-    getDb().getSettingTable().ensure("integerSettingGOD", 12, "Integer",
+    Setting s = getDb().getSettingTable().ensure("integerSettingGOD", 12, "Integer",
     "A set Integer setting");
     assertEquals("12", (String) getDb().getSettingTable().getOrDie("integerSettingGOD"));
     try {
@@ -101,6 +106,7 @@ public class SettingTableTest extends PoemTestCase {
     } catch (UnsetException e) {
       e = null;
     }
+    s.delete();
   }
 
   /**
@@ -113,6 +119,9 @@ public class SettingTableTest extends PoemTestCase {
     Setting stringSetting2 = getDb().getSettingTable().ensure("stringSetting",
         "set", "String", "A set string setting");
     assertEquals(stringSetting1, stringSetting2);
+    stringSetting1.delete();
+
+    
     Setting integerSetting1 = getDb().getSettingTable().ensure(
         "integerSetting", PoemTypeFactory.INTEGER, new Integer(13), "Integer",
         "An integer setting");
@@ -120,6 +129,7 @@ public class SettingTableTest extends PoemTestCase {
         "integerSetting", 13, "Integer",
         "An integer setting");
     assertEquals(integerSetting1, integerSetting2);
+    integerSetting1.delete();
     Setting booleanSetting1 = getDb().getSettingTable().ensure(
         "booleanSetting", PoemTypeFactory.BOOLEAN, new Boolean(true), "Boolean",
         "A boolean setting");
@@ -127,6 +137,7 @@ public class SettingTableTest extends PoemTestCase {
         "booleanSetting", true, "Boolean",
         "A boolean setting");
     assertEquals(booleanSetting1, booleanSetting2);
+    booleanSetting1.delete();
   }
 
   /**

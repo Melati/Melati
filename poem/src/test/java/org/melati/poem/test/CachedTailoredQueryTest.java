@@ -3,12 +3,12 @@
  */
 package org.melati.poem.test;
 
-//import java.util.Enumeration;
+import java.util.Enumeration;
 
 import org.melati.poem.CachedTailoredQuery;
 import org.melati.poem.Column;
-//import org.melati.poem.Field;
-//import org.melati.poem.FieldSet;
+import org.melati.poem.Field;
+import org.melati.poem.FieldSet;
 import org.melati.poem.Table;
 import org.melati.util.EnumUtils;
 
@@ -55,12 +55,12 @@ public class CachedTailoredQueryTest extends PoemTestCase {
    * @see org.melati.poem.CachedTailoredQuery.selection_firstRaw()'
    */
   public void testSelection_firstRaw() {
-    Column[] cols = new Column[2];
-    cols[0] = getDb().getTableInfoTable().getColumn("category");
-    cols[1] = getDb().getTableCategoryTable().troidColumn();
-    Table[] tables = new Table[2];
-    tables[0] = getDb().getTableInfoTable();
-    tables[1] = getDb().getTableCategoryTable();
+    Column[] cols = new Column[1];
+    cols[0] = getDb().getTableCategoryTable().troidColumn();
+    //cols[1] = getDb().getTableInfoTable().getColumn("category");
+    Table[] tables = new Table[1];
+    tables[0] = getDb().getTableCategoryTable();
+    //tables[1] = getDb().getTableInfoTable();
     int queries = getDb().getQueryCount();
     CachedTailoredQuery ctq = new CachedTailoredQuery(cols,
                                                       tables, 
@@ -68,12 +68,12 @@ public class CachedTailoredQueryTest extends PoemTestCase {
                                                       null);
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
-    getDb().setLogSQL(true);
-    assertEquals(18,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
+    //getDb().setLogSQL(true);
+    assertEquals(2,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries3 = getDb().getQueryCount();
     // Hmm looks like the cache is working
-    //assertEquals(queries2 + 3, queries3); 
-    assertEquals(18,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
+    //assertEquals(queries2 + 2, queries3); 
+    assertEquals(2,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);
 
@@ -84,28 +84,56 @@ public class CachedTailoredQueryTest extends PoemTestCase {
    *      Column[], Table[], String, String)
    */
   public void testCachedTailoredQueryStringColumnArrayTableArrayStringString() {
-    Column[] cols = new Column[2];
-    cols[0] = getDb().getTableInfoTable().getColumn("category");
-    cols[1] = getDb().getTableCategoryTable().troidColumn();
-    Table[] tables = new Table[2];
-    tables[0] = getDb().getTableInfoTable();
-    tables[1] = getDb().getTableCategoryTable();
+    Column[] colsInQuery = new Column[2];
+    colsInQuery[0] = getDb().getGroupTable().getColumn("name");
+    colsInQuery[1] = getDb().getGroupTable().troidColumn();
+    Table[] tables = new Table[1];
+    tables[0] = getDb().getGroupTable();
+    //tables[1] = getDb().getTableCategoryTable();
     int queries = getDb().getQueryCount();
-    CachedTailoredQuery ctq = new CachedTailoredQuery(cols,
+    CachedTailoredQuery ctq = new CachedTailoredQuery(colsInQuery,
                                                       tables, 
                                                       null,
                                                       null);
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
+
     getDb().setLogSQL(true);
-    assertEquals(18,EnumUtils.vectorOf(ctq.selection()).size());
+    
+    Enumeration results = ctq.selection();
+    System.err.println(ctq.toString());
+    while (results.hasMoreElements()) {
+      //System.err.println("Found:" + ((FieldSet)results.nextElement()).toString());
+      results.nextElement();
+    }
+    results = ctq.selection();
+    assertEquals(1,EnumUtils.vectorOf(results).size());
+    while (results.hasMoreElements()) {
+      //System.err.println("Found:" + results.nextElement());
+      results.nextElement();
+    }
+    getDb().setLogSQL(false);
+
     int queries3 = getDb().getQueryCount();
-    assertEquals(queries2 + 1, queries3); 
-    assertEquals(18,EnumUtils.vectorOf(ctq.selection()).size());
+    
+    // The query and 2 lookups of tableinfo
+    int numberOfCachedTableinfoRecords = 0;
+    Enumeration r = getDb().getTableInfoTable().getCacheInfo().getHeldElements();      
+    while(r.hasMoreElements()){
+      r.nextElement();
+      numberOfCachedTableinfoRecords++;
+    }
+    //System.err.println("TableInfo records:" + numberOfCachedTableinfoRecords);
+    int numberOfCachedGroupRecords = 0;
+    Enumeration g = getDb().getGroupTable().getCacheInfo().getHeldElements();      
+    while(g.hasMoreElements()){
+      g.nextElement();
+      numberOfCachedGroupRecords++;
+    }
+    assertEquals(1,EnumUtils.vectorOf(ctq.selection()).size());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);
     
-    /*
     System.err.println(ctq.toString());
     Enumeration en = ctq.selection();
     while (en.hasMoreElements()) {
@@ -119,12 +147,10 @@ public class CachedTailoredQueryTest extends PoemTestCase {
 
     }
     System.err.println("==");
-    */
-    CachedTailoredQuery ctqDistinct = new CachedTailoredQuery("DISTINCT", cols,
+    CachedTailoredQuery ctqDistinct = new CachedTailoredQuery("DISTINCT", colsInQuery,
         tables, null,
         null);
-    assertEquals(4,EnumUtils.vectorOf(ctqDistinct.selection()).size());
-    /* 
+    assertEquals(1,EnumUtils.vectorOf(ctqDistinct.selection()).size());
     System.err.println(ctqDistinct.toString());
     Enumeration en2 = ctqDistinct.selection();
     while (en2.hasMoreElements()) {
@@ -136,11 +162,10 @@ public class CachedTailoredQueryTest extends PoemTestCase {
         System.err.println(f.getName() + "=" + f.getRawString());
       }
     }
-    */
-    CachedTailoredQuery ctqOthers = new CachedTailoredQuery("DISTINCT", cols,
-        tables, "category=1",
+    CachedTailoredQuery ctqOthers = new CachedTailoredQuery("DISTINCT", colsInQuery,
+        tables, "id=0",
         null);
-    assertEquals(2,EnumUtils.vectorOf(ctqOthers.selection()).size());
+    assertEquals(1,EnumUtils.vectorOf(ctqOthers.selection()).size());
   }
 
   /**

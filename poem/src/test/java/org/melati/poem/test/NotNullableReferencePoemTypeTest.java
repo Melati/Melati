@@ -6,6 +6,7 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
+import org.melati.poem.Capability;
 import org.melati.poem.Group;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.SQLPoemType;
@@ -36,7 +37,7 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
    * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
    */
   void setObjectUnderTest() {
-    it = new ReferencePoemType(getDb().getUserTable(), false);
+    it = new ReferencePoemType(getDb().getCapabilityTable(), false);
   }
   /**
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
@@ -69,14 +70,23 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
       count++;
     }
     if (it.getNullable())
-      assertEquals(3,count);
-    else
-      assertEquals(2,count);
+      assertEquals(6,count);
+    else {
+      Enumeration them2 = it.possibleRaws();
+      while (them2.hasMoreElements()) {
+        Integer raw = (Integer)them2.nextElement();
+        System.err.println(raw + 
+            ((Capability)getDb().getCapabilityTable().getObject(raw.intValue())).getName());
+        
+      }
+     assertEquals(5,count);
+    }
+    
   }
 
   public void testRawOfCooked() {
     super.testRawOfCooked();
-    assertEquals(new Integer(1), it.rawOfCooked(getDb().administratorUser()));
+    assertEquals(new Integer(0), it.rawOfCooked(getDb().administerCapability()));
     
   }
 
@@ -84,7 +94,7 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
    * Test method for {@link org.melati.poem.PoemType#toDsdType()}.
    */
   public void testToDsdType() {
-    assertEquals("User", it.toDsdType()); 
+    assertEquals("Capability", it.toDsdType()); 
 
   }
 

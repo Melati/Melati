@@ -2,11 +2,14 @@ package org.melati.poem.test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
+import org.melati.poem.Table;
 import org.melati.util.DatabaseInitException;
 
 import junit.framework.Test;
@@ -63,6 +66,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
+    checkDbUnchanged();
   }
 
   /**
@@ -100,6 +104,54 @@ public abstract class PoemTestCase extends TestCase implements Test {
     }
   }
 
+  protected void checkDbUnchanged() {
+    getDb().inSession(AccessToken.root, // HACK
+        new PoemTask() {
+          public void run() {
+            if (dbName.equals("poemtest")) {
+              poemtestUnchanged();
+            } else {
+              melatijunitUnchanged();
+            }
+          }
+        });
+
+  }
+  protected void melatijunitUnchanged() { 
+    assertEquals(0, getDb().getSettingTable().count());
+    assertEquals(1, getDb().getGroupTable().count());
+    assertEquals(1, getDb().getGroupMembershipTable().count());
+    assertEquals(5, getDb().getCapabilityTable().count());
+    assertEquals(1, getDb().getGroupCapabilityTable().count());
+    assertEquals(2, getDb().getTableCategoryTable().count());
+    assertEquals(2, getDb().getUserTable().count());
+    assertEquals(69, getDb().getColumnInfoTable().count());
+    assertEquals(9, getDb().getTableInfoTable().count());
+
+  }
+  protected void poemtestUnchanged() { 
+    assertEquals(0, getDb().getSettingTable().count());
+    assertEquals(1, getDb().getGroupTable().count());
+    assertEquals(1, getDb().getGroupMembershipTable().count());
+    assertEquals(5, getDb().getCapabilityTable().count());
+    assertEquals(1, getDb().getGroupCapabilityTable().count());
+    assertEquals(4, getDb().getTableCategoryTable().count());
+    assertEquals(2, getDb().getUserTable().count());
+    //dumpTable(getDb().getColumnInfoTable());
+    // Until table.dropColumnAndCommit() arrives...
+    //assertEquals(147, getDb().getColumnInfoTable().count());
+    assertEquals(23, getDb().getTableInfoTable().count());
+
+  }
+  protected void dumpTable(Table t) {
+    Enumeration them = t.selection();
+    while (them.hasMoreElements()) {
+      Persistent it = (Persistent)them.nextElement();
+      System.err.println(it.troid() + " " + it.getCooked("name") + " " +
+          it.getTable().getName());
+    }
+    
+  }
   /**
    * Gets the name of a TestCase.
    * 

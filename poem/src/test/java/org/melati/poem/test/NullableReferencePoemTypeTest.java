@@ -30,7 +30,7 @@ public class NullableReferencePoemTypeTest extends NotNullableReferencePoemTypeT
    * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
    */
   void setObjectUnderTest() {
-    it = new ReferencePoemType(getDb().getUserTable(), true);
+    it = new ReferencePoemType(getDb().getCapabilityTable(), true);
   }
 
 }

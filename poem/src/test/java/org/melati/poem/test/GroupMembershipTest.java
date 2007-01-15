@@ -3,7 +3,9 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Group;
 import org.melati.poem.GroupMembership;
+import org.melati.poem.User;
 
 /**
  * @author timp
@@ -46,10 +48,14 @@ public class GroupMembershipTest extends PoemTestCase {
    *     GroupMembership(org.melati.poem.User, org.melati.poem.Group)}.
    */
   public void testGroupMembershipUserGroup() {
-    GroupMembership it = new GroupMembership(getDb().guestUser(),
-        getDb().getGroupTable().ensure("testgroup"));
+    User u = getDb().guestUser();
+    Group g = getDb().getGroupTable().ensure("testgroup");
+    GroupMembership it = new GroupMembership(u,
+        g);
     getDb().getGroupMembershipTable().create(it);
     assertEquals("testgroup",it.getGroup().getName());
+    it.delete();
+    g.delete();
   }
 
   /**
@@ -57,10 +63,13 @@ public class GroupMembershipTest extends PoemTestCase {
    *     GroupMembership(java.lang.Integer, java.lang.Integer)}.
    */
   public void testGroupMembershipIntegerInteger() {
+    Group g = getDb().getGroupTable().ensure("testgroup");
     GroupMembership it = new GroupMembership(getDb().guestUser().getTroid(),
-        getDb().getGroupTable().ensure("testgroup").getTroid());
+        g.getTroid());
     getDb().getGroupMembershipTable().create(it);
     assertEquals("testgroup",it.getGroup().getName());
+    it.delete();
+    g.delete();
   }
 
 }

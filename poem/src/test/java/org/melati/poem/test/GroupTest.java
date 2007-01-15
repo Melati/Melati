@@ -54,6 +54,8 @@ public class GroupTest extends PoemTestCase {
         
     getDb().getGroupTable().create(it);
     assertEquals("testers",it.getName());
+    
+    it.delete();
   }
 
 }

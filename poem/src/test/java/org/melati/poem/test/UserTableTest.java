@@ -13,7 +13,7 @@ import junit.framework.TestCase;
  * Test the User Table.
  * 
  * This test is duplicated in PoemDatabaseTest, 
- * but is left in here as ait is a useful template for 
+ * but is left in here as it is a useful template for 
  * a simple, single dbms test.
  * 
  * @author timp
@@ -24,7 +24,8 @@ public class UserTableTest extends TestCase {
   private PoemDatabase db = null;
   private UserTable ut;
 
-  protected static String dbUrl = "jdbc:hsqldb:/dist/melati/db/melatijunit"; 
+  //protected static String dbUrl = "jdbc:hsqldb:/dist/melati/db/melatijunit"; 
+  protected static String dbUrl = "jdbc:hsqldb:mem:melatijunit"; 
   /*
    * @see TestCase#setUp()
    */

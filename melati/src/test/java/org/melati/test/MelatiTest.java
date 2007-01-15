@@ -1,5 +1,7 @@
 package org.melati.test;
 
+import java.util.Vector;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -124,13 +126,15 @@ public class MelatiTest extends TestCase {
       m = new Melati(mc, new MelatiStringWriter());
       pc = poemContext(m);
       m.setPoemContext(pc);
-      // Fails in maven eclipse plugin 
-      //assertEquals(0, m.getKnownDatabaseNames().size());
+      Vector known = m.getKnownDatabaseNames();
+      // Fails in maven surefire plugin 
+      assertEquals(0, known.size());
       pc.setLogicalDatabase("melatijunit");
       m.setPoemContext(pc);
       m.loadTableAndObject();
-      // Fails in maven eclipse plugin 
-      //assertEquals(1, m.getKnownDatabaseNames().size());
+      known = m.getKnownDatabaseNames();
+      // Fails in maven surefire plugin 
+      assertEquals(1, known.size());
     } catch (MelatiException e) {
       e.printStackTrace();
       fail();

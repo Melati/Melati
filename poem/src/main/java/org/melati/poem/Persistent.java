@@ -1291,12 +1291,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   public String displayString(MelatiLocale locale, int style)
       throws AccessPoemException {
     Column displayColumn = getTable().displayColumn();
-    if (displayColumn == null)
-      return String.valueOf(getTroid());
-    else
-      return
-          displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
-                                                 locale, style);
+    return displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
+                                                  locale, style);
   }
 
   /**

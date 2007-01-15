@@ -49,7 +49,6 @@ import java.util.Map;
 import java.util.Enumeration;
 import java.util.Locale;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;
@@ -590,8 +589,8 @@ public final class HttpServletRequestCompat {
    * current servlet context. If the path begins with a "/" it is interpreted as
    * relative to the current context root. This method returns <code>null</code>
    * if the servlet container cannot return a <code>RequestDispatcher</code>.
-   * <p>The difference between this method and {@link
-   * ServletContext#getRequestDispatcher} is that this method can take a
+   * <p>The difference between this method and 
+   * ServletContext#getRequestDispatcher is that this method can take a
    * relative path.
    * 
    * @param it
@@ -601,7 +600,6 @@ public final class HttpServletRequestCompat {
    * @return a <code>RequestDispatcher</code> object that acts as a wrapper
    *         for the resource at the specified path
    * @see RequestDispatcher
-   * @see ServletContext#getRequestDispatcher
    * @see javax.servlet.http.HttpServletRequest#getRequestDispatcher(String)
    */
   public static RequestDispatcher getRequestDispatcher(HttpServletRequest it,

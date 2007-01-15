@@ -179,6 +179,11 @@ public class YMDDateAdaptor implements TempletAdaptor {
     return value;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TempletAdaptor#
+   *          rawFrom(org.melati.template.ServletTemplateContext, java.lang.String)
+   */
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String year = getFormOrDie(context, fieldName, yearSuffix);
     String month = getFormOrDie(context, fieldName, monthSuffix);
@@ -197,64 +202,75 @@ public class YMDDateAdaptor implements TempletAdaptor {
     }
   }
 
-  public Field yearField(Field field) {
+  /**
+   * @param dateField date field to extract year field from 
+   * @return year constituent of date
+   */
+  public Field yearField(Field dateField) {
 
-    Calendar when = when(field);
+    Calendar when = when(dateField);
 
     // This isn't meant to be used, so we don't try to localize it
-
-    String displayName = field.getDisplayName() + " (year)";
+    String displayName = dateField.getDisplayName() + " (year)";
 
     return new Field(
         when == null ? null : new Integer(when.get(Calendar.YEAR)),
         new BaseFieldAttributes(
-            field.getName() + yearSuffix,
+            dateField.getName() + yearSuffix,
             displayName,
             null,
-            new YearPoemType(field.getType().getNullable(),
+            new YearPoemType(dateField.getType().getNullable(),
                              YearPoemType.firstYear, YearPoemType.limitYear),
                              5, 1,
-            null, false, true, true));
+                             null, false, true, true));
   }
 
-  public Field monthField(Field field) {
+  /**
+   * @param dateField date field to extract month field from 
+   * @return month constituent of date
+   */
+  public Field monthField(Field dateField) {
 
-    Calendar when = when(field);
+    Calendar when = when(dateField);
     // This isn't meant to be used, so we don't try to localize it
 
-    String displayName = field.getDisplayName() + " (month)";
+    String displayName = dateField.getDisplayName() + " (month)";
 
     return new Field(
         when == null ? null : new Integer(when.get(Calendar.MONTH) + 1),
         new BaseFieldAttributes(
-            field.getName() + monthSuffix, displayName, null,
-            field.getType().getNullable() ? new MonthPoemType(true) :
+            dateField.getName() + monthSuffix, displayName, null,
+            dateField.getType().getNullable() ? new MonthPoemType(true) :
                                             new MonthPoemType(false),
             3, 1,
             null, false, true, true));
   }
 
-  public Field dayField(Field field) {
+  /**
+   * @param dateField date field to extract day field from 
+   * @return day constituent of date
+   */
+  public Field dayField(Field dateField) {
 
-    Calendar when = when(field);
+    Calendar when = when(dateField);
     // This isn't meant to be used, so we don't try to localize it
 
-    String displayName = field.getDisplayName() + " (day)";
+    String displayName = dateField.getDisplayName() + " (day)";
 
     return new Field(
         when == null ? null : new Integer(when.get(Calendar.DAY_OF_MONTH)),
         new BaseFieldAttributes(
-            field.getName() + daySuffix, displayName, null,
-            field.getType().getNullable() ? new DayPoemType(true) :
+            dateField.getName() + daySuffix, displayName, null,
+            dateField.getType().getNullable() ? new DayPoemType(true) :
                                             new DayPoemType(false),
             2, 1,
             null, false, true, true));
   }
   
-  protected Calendar when(Field field) {
-    if (field.getRaw() == null) return null;
+  protected Calendar when(Field dateField) {
+    if (dateField.getRaw() == null) return null;
     Calendar when = Calendar.getInstance();
-    when.setTime((java.util.Date)field.getRaw());
+    when.setTime((java.util.Date)dateField.getRaw());
     return when;
   }
 }

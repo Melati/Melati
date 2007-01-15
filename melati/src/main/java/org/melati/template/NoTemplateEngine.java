@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -62,7 +62,6 @@ import org.melati.util.MelatiBufferedWriter;
  * The <code>null</code> {@link ServletTemplateEngine}.
  *
  * @author Tim Joyce
- * $Revision$
  */
 public class NoTemplateEngine implements ServletTemplateEngine {
 
@@ -200,6 +199,9 @@ public class NoTemplateEngine implements ServletTemplateEngine {
    * @param templateContext the {@link ServletTemplateContext} to expand 
    *                        the template against
    * @throws TemplateEngineException if invoked
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#expandedTemplate
+   * (org.melati.template.Template, org.melati.template.TemplateContext)
    */
   public String expandedTemplate(Template melatiTemplate,
                                  TemplateContext templateContext)
@@ -236,7 +238,8 @@ public class NoTemplateEngine implements ServletTemplateEngine {
 
   /** 
    * Return a {@link MelatiStringWriter}.
-   *
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#getStringWriter()
    * @see Melati#getStringWriter() 
    */
   public MelatiStringWriter getStringWriter() {

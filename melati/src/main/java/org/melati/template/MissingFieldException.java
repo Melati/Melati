@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -58,6 +58,12 @@ public class MissingFieldException extends MelatiRuntimeException {
   String name;
   String fullName;
   
+  /**
+   * Constructor.
+   * @param adaptor the TempletAdaptor
+   * @param name name of compound field
+   * @param fullName name of sub-field
+   */
   public MissingFieldException(TempletAdaptor adaptor,
                                String name, String fullName) {
     this.adaptor = adaptor;
@@ -65,6 +71,10 @@ public class MissingFieldException extends MelatiRuntimeException {
     this.fullName = fullName;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiRuntimeException#getMessage()
+   */
   public String getMessage() {
     return
         "The templet adaptor `" + adaptor + "' was looking for a form field " +

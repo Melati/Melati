@@ -57,6 +57,12 @@ public abstract class AtomPoemType extends BasePoemType {
 
   protected String sqlTypeName;
 
+  /**
+   * Constructor.
+   * @param sqlTypeCode from Types
+   * @param sqlTypeName SQL Type name
+   * @param nullable whether null is an allowed value
+   */
   public AtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable) {
     super(sqlTypeCode, nullable);
     this.sqlTypeName = sqlTypeName;

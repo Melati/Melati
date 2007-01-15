@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -56,11 +56,20 @@ public class FormParameterException extends MelatiException {
   String error;
   String param;
 
-  public FormParameterException(String param, String error) {
-    this.error = error;
-    this.param = param;
+  /**
+   * Constructor.
+   * @param paramP the Form parameter name
+   * @param errorP the description of the problem
+   */
+  public FormParameterException(String paramP, String errorP) {
+    this.param = paramP;
+    this.error = errorP;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiException#getMessage()
+   */
   public String getMessage() {
     return "I couldn't parse the form parameter: " + param + " because: " +
            error;

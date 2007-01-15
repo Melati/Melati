@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.util;
@@ -58,15 +58,26 @@ public abstract class MelatiWriter extends Writer {
   // the flusher send output to the client ever x seconds
   private Flusher flusher = null;
   
+  /**
+   * Set flushing true.
+   */
   public void setFlushingOn() {
     flush = true;
   }
   
+  /**
+   * {@inheritDoc}
+   * @see java.io.Writer#write(char[], int, int)
+   */
   public void write(char cbuf[], int off, int len) throws IOException {
     out.write(cbuf, off, len);
     startFlushing();
   }
   
+  /**
+   * {@inheritDoc}
+   * @see java.io.Writer#write(java.lang.String)
+   */
   public void write(String string) throws IOException {
     out.write(string);
   }
@@ -78,18 +89,32 @@ public abstract class MelatiWriter extends Writer {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.Writer#flush()
+   */
   public void flush() throws IOException {
     out.flush();
   }
 
+  /**
+   * Hook for extension.
+   */
   public void reset() throws IOException {
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.Writer#close()
+   */
   public void close() throws IOException {
     out.close();
     if (flusher != null) flusher.setStopTask(true);
   }
 
+  /**
+   * @return a PrintWriter from the output
+   */
   public PrintWriter getPrintWriter() throws IOException {
     return new PrintWriter(out);
   }

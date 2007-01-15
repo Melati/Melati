@@ -38,7 +38,7 @@
  *    
  * Contact details for copyright holder:    
  *    
- *     Tim Joyce <timj@paneris.org>    
+ *     Tim Joyce <timj At paneris.org>    
  *    
  */    
     
@@ -53,22 +53,21 @@ import org.apache.velocity.app.event.EventCartridge;
 import org.apache.velocity.app.event.EventHandler;    
     
 /**    
- * Implements a template context for Melati / Velocity    
+ * Implements a template context for Melati with Velocity.
  *     
  * @author Tim Joyce    
- * $Revision$    
  */    
 public class VelocityTemplateContext implements ServletTemplateContext {    
     
-    /**    
-     * The HTTP request object context key.    
-     */    
-    public static final String REQUEST = "Request";    
+ /**    
+  * The HTTP request object context key.    
+  */    
+  public static final String REQUEST = "Request";    
     
-    /**    
-     * The HTTP response object context key.    
-     */    
-    public static final String RESPONSE = "Response";    
+ /**    
+  * The HTTP response object context key.    
+  */    
+  public static final String RESPONSE = "Response";    
     
     
   /** The webcontext. */    

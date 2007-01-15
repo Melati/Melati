@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -68,6 +68,8 @@ public final class FileUtils {
    * For instance, if <code>newfile.txt</code> exists then we
    * check <code>newfile0.txt</code>, <code>newfile1.txt</code>, ...
    * until we find a new filename.
+   * 
+   * @return a new File whose name has been made unique 
    */
 
   public static File withUniqueName(File file) {
@@ -87,9 +89,11 @@ public final class FileUtils {
   }
 
   /**
-   * Write a byte array to a given file
+   * Write a byte array to a given file.
+   * @param file file to write to
+   * @param data to write to file
+   * @return File with data written to it
    */
-
   public static File writeFile(File file, byte[] data) throws IOException {
     FileOutputStream os=new FileOutputStream(file);
     os.write(data);
@@ -101,7 +105,6 @@ public final class FileUtils {
    * Mark a file as executable.  Does <TT>chmod +x <I>file</I></TT> on
    * Unix, else does nothing.
    */
-
   public static void makeExecutable(File file) throws IOException {
     if (File.separatorChar == '/')
       // we're unix

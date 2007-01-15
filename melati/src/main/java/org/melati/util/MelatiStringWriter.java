@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.util;
@@ -52,10 +52,17 @@ import java.io.IOException;
 
 public class MelatiStringWriter extends MelatiWriter {
   
+  /**
+   * Constructor.
+   */
   public MelatiStringWriter() {
     out = new StringWriter();
   }
   
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiWriter#reset()
+   */
   public void reset() throws IOException {
     out = new StringWriter();
   }
@@ -63,7 +70,9 @@ public class MelatiStringWriter extends MelatiWriter {
   /**
    * Returns the buffer contents.
    * <p>
-   * This is the same as <code>java.io.StringBuffer</code>.
+   * Delegated to  <code>java.io.StringBuffer</code>.
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
    */
   public String toString() {
     return out.toString();

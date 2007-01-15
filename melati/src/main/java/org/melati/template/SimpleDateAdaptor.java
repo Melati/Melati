@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -73,6 +73,11 @@ public class SimpleDateAdaptor implements TempletAdaptor {
   private static SimpleDateFormat dateFormatter2 =
       new SimpleDateFormat("yyyyMMdd");
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TempletAdaptor#
+   *          rawFrom(org.melati.template.ServletTemplateContext, java.lang.String)
+   */
   public Object rawFrom(ServletTemplateContext context, String fieldName) {
     String value = Form.getFieldNulled(context,fieldName);
     if (value == null) return null;
@@ -83,6 +88,10 @@ public class SimpleDateAdaptor implements TempletAdaptor {
     return new Date(date.getTime());
   }
 
+  /**
+   * @param dateField the input Field
+   * @return the rendered String
+   */
   public String rendered(Field dateField) {
     return dateField.getRaw() == null ?
                "" :

@@ -613,7 +613,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * Check that you have create access to the object.  Which is to say: the
    * <TT>AccessToken</TT> associated with the POEM task executing in the
    * running thread confers the <TT>Capability</TT> required for creating the
-   * object. The capability is determined solely by <TT>getCanCreate<TT>
+   * object. The capability is determined solely by <TT>getCanCreate</TT>
    * from the table. Unlike <TT>assertCanRead</TT> and <TT>assertCanWrite</TT>
    * there is no idea of having a default <TT>Capability</TT> defined 
    * in the table which could be overriden by a <TT>canwrite</TT> field
@@ -980,7 +980,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *                if the calling thread doesn't have write access to the
    *                object (see <TT>assertCanWrite</TT>)
    * @exception ValidationPoemException
-   *                if <TT>cooked<TT> is not a valid value for the field
+   *                if <TT>cooked</TT> is not a valid value for the field
    *                (<I>e.g.</I> a string is too long)
    *
    * @see #setRaw

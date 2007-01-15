@@ -55,12 +55,15 @@ public class AnticipatedException extends MelatiRuntimeException {
   private String message;
 
   
-  /** Constructor */
+  /** Constructor. */
   public AnticipatedException(String message) {
     this.message = message;
   }
 
-  /** The detail message. */
+  /** The detail message. 
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiRuntimeException#getMessage()
+   */
   public String getMessage() {
     return message;
   }

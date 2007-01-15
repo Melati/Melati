@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -114,6 +114,7 @@ public class ClassNameTempletLoader implements TempletLoader {
   /**
    * Get a templet by name, with optional purpose. 
    * 
+   * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, AbstractMarkupLanguage, String, String)
    */
   public Template templet(TemplateEngine templateEngine,
@@ -126,7 +127,8 @@ public class ClassNameTempletLoader implements TempletLoader {
   /**
    * Get a templet by its name. 
    * 
-   * @see TempletLoader#templet(TemplateEngine, AbstractMarkupLanguage, String)
+   * {@inheritDoc}
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, String)
    */
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, String name)
@@ -137,7 +139,8 @@ public class ClassNameTempletLoader implements TempletLoader {
   /**
    * Get a templet based upon class name and optional purpose. 
    * 
-   * @see TempletLoader#templet(TemplateEngine, AbstractMarkupLanguage, 
+   * {@inheritDoc}
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, 
    *                            String, Class)
    */
   public Template templet(TemplateEngine templateEngine,
@@ -202,7 +205,8 @@ public class ClassNameTempletLoader implements TempletLoader {
   /**
    * Get a templet name based upon class name.
    * 
-   * @see TempletLoader#templet(TemplateEngine, AbstractMarkupLanguage, Class)
+   * {@inheritDoc}
+   * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)
    */
   public final Template templet(TemplateEngine templateEngine,
                                 MarkupLanguage markupLanguage, Class clazz)
@@ -214,7 +218,8 @@ public class ClassNameTempletLoader implements TempletLoader {
    * Get a templet either from the FieldAttributes or 
    * the class name.
    * 
-   * @see TempletLoader#templet(TemplateEngine,AbstractMarkupLanguage,FieldAttributes)
+   * {@inheritDoc}
+   * @see TempletLoader#templet(TemplateEngine,MarkupLanguage,FieldAttributes)
    */
   public Template templet(TemplateEngine templateEngine,
                           MarkupLanguage markupLanguage,

@@ -76,7 +76,9 @@ public class AdminUtilsTest extends PoemTestCase {
    */
   protected void tearDown()
       throws Exception {
-    super.tearDown();
+    // Do not check whether db has changed 
+    // as it has not even been initialised
+    //super.tearDown();
   }
 
   /**

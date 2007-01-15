@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -55,15 +55,27 @@ public class ArrayEnumeration implements Enumeration {
   private Object[] a;
   private int i;
 
+  /**
+   * Constructor.
+   * @param a the Array to enumerate
+   */
   public ArrayEnumeration(Object[] a) {
     this.a = a;
     i = 0;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#hasMoreElements()
+   */
   public boolean hasMoreElements() {
     return i < a.length;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.util.Enumeration#nextElement()
+   */
   public Object nextElement() {
     if (i < a.length)
       return a[i++];

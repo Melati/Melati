@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,12 +61,12 @@ public class ReconstructedHttpServletRequestMismatchException
 
   /** The stored originating parameters. */
   public HttpServletRequestParameters stored;
-  /** The current request */
+  /** The current request. */
   public HttpServletRequest newRequest;
 
   private ReconstructedHttpServletRequestMismatchException() {}
   
-  /** Constructor */
+  /** Constructor. */
   public ReconstructedHttpServletRequestMismatchException(
       HttpServletRequestParameters stored, HttpServletRequest newRequest) {
     this.stored = stored;

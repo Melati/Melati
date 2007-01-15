@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -59,7 +59,10 @@ public class CommitLogEvent extends PoemLogEvent {
     this.transaction = transaction;
   }
 
-  /** A description. */
+  /** A description. 
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
   public String toString() {
     return "Committed transaction " + transaction.index;
   }

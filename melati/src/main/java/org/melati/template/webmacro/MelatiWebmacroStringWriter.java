@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Jim Wright <jimw@paneris.org>
+ *     Jim Wright <jimw At paneris.org>
  */
 
 package org.melati.template.webmacro;
@@ -62,9 +62,12 @@ public class MelatiWebmacroStringWriter extends MelatiStringWriter
     implements MelatiWebmacroWriter {
 
   /**
-   * Return a <code>FastWriter</code> that can be used for a while.
+   * @return a <code>FastWriter</code> that can be used for a while.
    *
+   * {@inheritDoc}
    * @see #stopUsingFastWriter(FastWriter)
+   * @see org.melati.template.webmacro.MelatiWebmacroWriter#getFastWriter
+   *         (org.melati.template.TemplateEngine)
    */
   public FastWriter getFastWriter(TemplateEngine engine) {
     WebmacroServletTemplateEngine wte = (WebmacroServletTemplateEngine)engine;

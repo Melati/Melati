@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Myles Chippendale <mylesc@paneris.org>
+ *     Myles Chippendale <mylesc At paneris.org>
  */
 package org.melati.util;
 
@@ -77,19 +77,33 @@ public class ChildrenDrivenMutableTree {
     /** root node */
     protected DefaultMutableTreeNode root;
 
+    /**
+     * Constructor.
+     */
     public ChildrenDrivenMutableTree() {
       this(null);
     }
 
+    /**
+     * Constructor.
+     * @param userObject the root
+     */
     public ChildrenDrivenMutableTree(Treeable userObject) {
       root = new DefaultMutableTreeNode(userObject);
       buildTree();
     }
 
+    /**
+     * Compute the children.
+     */
     public void buildTree() {
       buildTree(computeChildren(root));
     }
 
+    /**
+     * Compute the children given the nodes.
+     * @param nodes an Enumeration of nodes
+     */
     public void buildTree(Enumeration nodes) {
       while (nodes.hasMoreElements())
         buildTree(computeChildren((DefaultMutableTreeNode)nodes.nextElement()));
@@ -106,6 +120,11 @@ public class ChildrenDrivenMutableTree {
     }
 
 
+    /**
+     * Find a node in a tree.
+     * @param search the node object
+     * @return a tree node
+     */
     public DefaultMutableTreeNode getTreeNodeFor(Treeable search) {
 
         Vector agenda = new Vector();
@@ -128,6 +147,9 @@ public class ChildrenDrivenMutableTree {
         return null;
     }
 
+    /**
+     * @return the root
+     */
     public DefaultMutableTreeNode getRoot() {
       return root;
     }
@@ -138,6 +160,7 @@ public class ChildrenDrivenMutableTree {
      * <p>
      * Root is first node. What is the difference
      * from breadth first?
+     * @return the nodes
      */
     public Enumeration preorderEnumeration() {
       return root.preorderEnumeration();
@@ -149,20 +172,21 @@ public class ChildrenDrivenMutableTree {
      * <p>
      * Leftmost leaf is first. What is the difference
      * from depth first?
+     * @return the nodes
      */
     public Enumeration postorderEnumeration() {
       return root.postorderEnumeration();
     }
 
     /**
-     * Return an enumeration of nodes in breadth first order.
+     * @return an enumeration of nodes in breadth first order.
      */
     public Enumeration breadthFirstEnumeration() {
       return root.breadthFirstEnumeration();
     }
 
     /**
-     * Return an enumeration of nodes in depth first order.
+     * @return an enumeration of nodes in depth first order.
      */
     public Enumeration depthFirstEnumeration() {
       return root.depthFirstEnumeration();

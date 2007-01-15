@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,8 +61,6 @@ import java.util.Vector;
  * <p>
  * Individual elements can be removed from the cache, or all of
  * them.
- * 
- * @author williamc@paneris.org
  */
 
 public abstract class CachedIndexFactory implements IndexFactory {
@@ -71,6 +69,10 @@ public abstract class CachedIndexFactory implements IndexFactory {
 
   protected abstract Object reallyGet(int index);
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.IndexFactory#get(int)
+   */
   public Object get(int index) {
     synchronized (cache) {
       if (cache.size() <= index) {
@@ -94,10 +96,17 @@ public abstract class CachedIndexFactory implements IndexFactory {
     }
   }
 
+  /**
+   * Invalidate an entry in the cache.
+   * @param index the entry's index to invalidate
+   */
   public void invalidate(int index) {
     cache.setElementAt(null, index);
   }
 
+  /**
+   * Invalidate whole cache.
+   */
   public void invalidate() {
     cache.removeAllElements();
   }

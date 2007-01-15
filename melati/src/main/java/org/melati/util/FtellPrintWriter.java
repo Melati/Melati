@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -53,25 +53,44 @@ import java.io.PrintWriter;
 public class FtellPrintWriter extends PrintWriter {
   protected long position = 0;
 
+  /**
+   * Constructor.
+   * @param writer to write to
+   */
   public FtellPrintWriter(Writer writer) {
     super(writer);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.PrintWriter#write(int)
+   */
   public void write(int c) {
     super.write(c);
     ++position;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.PrintWriter#write(char[], int, int)
+   */
   public void write(char buf[], int off, int len) {
     super.write(buf, off, len);
     position += len;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.io.PrintWriter#write(java.lang.String, int, int)
+   */
   public void write(String buf, int off, int len) {
     super.write(buf, off, len);
     position += len;
   }
 
+  /**
+   * @return number of characters written
+   */
   public long ftell() {
     return position;
   }

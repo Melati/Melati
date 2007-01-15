@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,6 +61,10 @@ public class HttpServletRequestParameters {
   final String method;
   final String sessionID;
 
+  /**
+   * Constructor.
+   * @param request to extract parameters from
+   */
   public HttpServletRequestParameters(HttpServletRequest request) {
     parameters = new Hashtable();
     for (Enumeration p = request.getParameterNames();
@@ -76,10 +80,16 @@ public class HttpServletRequestParameters {
     sessionID = session == null ? null : session.getId();
   }
 
-    public Hashtable getParameters() {
-      return parameters;
-    }
+  /**
+   * @return the extracted parameters
+   */
+  public Hashtable getParameters() {
+    return parameters;
+  }
 
+  /**
+   * @return URL String 
+   */
   public String continuationURL() {
     return
         requestURL +

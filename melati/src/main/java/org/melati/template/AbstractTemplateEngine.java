@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.template;
@@ -81,13 +81,20 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
 
 
   /**
-   * @see org.melati.template.TemplateEngine#expandTemplate(MelatiWriter,Template, TemplateContext)
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#
+   *  expandTemplate(org.melati.util.MelatiWriter, 
+   *                 org.melati.template.Template, 
+   *                 org.melati.template.TemplateContext)
    */
   public abstract void expandTemplate(MelatiWriter out, Template template,
       TemplateContext templateContext) throws TemplateEngineException;
   
   /**
-   * @see org.melati.template.TemplateEngine#expandedTemplate
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#expandedTemplate(
+   *          org.melati.template.Template, 
+   *          org.melati.template.TemplateContext)
    */
   public abstract String expandedTemplate(Template template,
       TemplateContext templateContext) throws TemplateEngineException;
@@ -98,6 +105,8 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    *
    * @return a <code>PassbackVariableExceptionHandler</code> 
    *         appropriate for this engine.
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()
    */
   public Object getPassbackVariableExceptionHandler() {
     return new PassbackEvaluationExceptionHandler();
@@ -105,11 +114,13 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
 
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.TemplateEngine#getStringWriter()
    */
   public abstract MelatiStringWriter getStringWriter();
 
   /**
+   * {@inheritDoc}
    * @see org.melati.template.TemplateEngine#getEngine()
    */
   public abstract Object getEngine();

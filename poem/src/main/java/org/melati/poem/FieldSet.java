@@ -79,6 +79,7 @@ public class FieldSet {
    * Return a specified field.
    *
    * @param name The table name and column name separated by "_".
+   * @return a Field with given name or null
    * @see TailoredResultSetEnumeration#mapped(java.sql.ResultSet)
    */
   public Field get(String name) {
@@ -87,7 +88,7 @@ public class FieldSet {
   }
   
   /**
-   * Used to debug tests
+   * Used to debug tests.
    * {@inheritDoc}
    * @see java.lang.Object#toString()
    */

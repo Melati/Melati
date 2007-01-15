@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.template.webmacro;
@@ -65,17 +65,35 @@ import org.webmacro.util.Settings;
 public class PropagateEvaluationExceptionHandler 
   implements EvaluationExceptionHandler {
 
-   public PropagateEvaluationExceptionHandler() {
+   /**
+   * Constructor.
+   */
+  public PropagateEvaluationExceptionHandler() {
    }
 
-   public PropagateEvaluationExceptionHandler(Broker b) {
+   /**
+   * Constructor.
+   * @param b the WebMacro broker
+   */
+  public PropagateEvaluationExceptionHandler(Broker b) {
       init(b, b.getSettings());
    }
 
-   public void init(Broker b, Settings config) {
+   /**
+   * {@inheritDoc}
+   * @see org.webmacro.engine.EvaluationExceptionHandler#
+   *        init(org.webmacro.Broker, org.webmacro.util.Settings)
+   */
+  public void init(Broker b, Settings config) {
    }
 
-   public void evaluate(Variable variable, 
+   /**
+   * {@inheritDoc}
+   * @see org.webmacro.engine.EvaluationExceptionHandler#
+   *          evaluate(org.webmacro.engine.Variable, 
+   *                   org.webmacro.Context, java.lang.Exception)
+   */
+  public void evaluate(Variable variable, 
                         Context context, 
                         Exception problem) 
    throws PropertyException {
@@ -91,7 +109,12 @@ public class PropagateEvaluationExceptionHandler
                                    + problem, problem);
    }
 
-   public String expand(Variable variable, 
+   /**
+   * {@inheritDoc}
+   * @see org.webmacro.engine.EvaluationExceptionHandler#expand(
+   *          org.webmacro.engine.Variable, org.webmacro.Context, java.lang.Exception)
+   */
+  public String expand(Variable variable, 
                         Context context, 
                         Exception problem) 
    throws PropertyException {
@@ -104,12 +127,20 @@ public class PropagateEvaluationExceptionHandler
    }
 
 
-   public String warningString(String warningText) throws PropertyException {
+   /**
+   * {@inheritDoc}
+   * @see org.webmacro.engine.EvaluationExceptionHandler#warningString(java.lang.String)
+   */
+  public String warningString(String warningText) throws PropertyException {
       throw new PropertyException("Evaluation warning: " + warningText);
    }
 
 
-   public String errorString(String errorText) throws PropertyException {
+   /**
+   * {@inheritDoc}
+   * @see org.webmacro.engine.EvaluationExceptionHandler#errorString(java.lang.String)
+   */
+  public String errorString(String errorText) throws PropertyException {
       throw new PropertyException("Evaluation error: " + errorText);
    }
 }

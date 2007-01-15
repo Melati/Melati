@@ -71,37 +71,69 @@ public class VelocityTemplateContext implements ServletTemplateContext {
     public static final String RESPONSE = "Response";    
     
     
-  /** The webcontext */    
+  /** The webcontext. */    
   public VelocityContext velContext;    
     
+  /**
+   * Constructor.
+   * @param vc context
+   */
   public VelocityTemplateContext(VelocityContext vc) {    
     velContext = vc;    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#put(java.lang.String, java.lang.Object)
+   */
   public void put(String s, Object o) {    
     velContext.put(s,o);    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getForm(java.lang.String)
+   */
   public String getForm(String s) {    
     return ((HttpServletRequestWrap)velContext.get(REQUEST)).getParameter(s);    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getMultipartForm(java.lang.String)
+   */
   public MultipartFormField getMultipartForm(String s) {    
     return null;    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#get(java.lang.String)
+   */
   public Object get(String s) {    
     return velContext.get(s);    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#getContext()
+   */
   public Object getContext() {    
     return velContext;    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.ServletTemplateContext#getSession()
+   */
   public HttpSession getSession() {    
     return ((HttpServletRequestWrap)velContext.get(REQUEST)).getSession(true);    
   }    
     
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateContext#setVariableExceptionHandler(java.lang.Object)
+   */
   public void setVariableExceptionHandler(Object eeh) {    
     EventCartridge ec = velContext.getEventCartridge();    
     if (ec == null) {    

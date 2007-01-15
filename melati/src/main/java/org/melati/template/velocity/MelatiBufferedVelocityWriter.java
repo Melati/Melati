@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  */
 
 package org.melati.template.velocity;
@@ -58,6 +58,11 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
   private OutputStream underlying;
   private ByteArrayOutputStream buffer;
 
+  /**
+   * Constructor.
+   * @param output OutputStream to write to
+   * @param encoding character encoding to use 
+   */
   public MelatiBufferedVelocityWriter(OutputStream output, String encoding)
       throws IOException {
     super(new ByteArrayOutputStream(), encoding);
@@ -65,12 +70,21 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     underlying = output;
   }
 
+  /**
+   * Constructor.
+   * @param response from which to get OutputSteram and encoding
+   * @throws IOException
+   */
   public MelatiBufferedVelocityWriter(HttpServletResponse response) 
       throws IOException {
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
   
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.template.velocity.MelatiVelocityWriter#close()
+   */
   public void close() throws IOException {
     super.close();
     buffer.writeTo(underlying);
@@ -79,6 +93,10 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     underlying.close();
   }
   
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiWriter#flush()
+   */
   public void flush() throws IOException {
     out.flush();
     buffer.writeTo(underlying);
@@ -86,6 +104,10 @@ public class MelatiBufferedVelocityWriter extends MelatiVelocityWriter {
     underlying.flush();
   }  
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.util.MelatiWriter#reset()
+   */
   public void reset() throws IOException {
     out.flush();
     buffer.reset();

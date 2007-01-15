@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Joyce <timj@paneris.org>
+ *     Tim Joyce <timj At paneris.org>
  *     http://paneris.org/
  *     68 Sandbanks Rd, Poole, Dorset. BH14 8BY. UK
  */
@@ -57,18 +57,32 @@ public final class Flusher extends Thread {
         return 2000;
     }
 
+    /**
+     * Constructor.
+     * @param aOut MelatiWriter to flush
+     */
     public Flusher(MelatiWriter aOut) {
         out = aOut;
     }
 
+    /**
+     * @return whether to stop the task
+     */
     public synchronized boolean getStopTask() {
         return stopTask;
     }
 
+    /**
+     * @param aStopTask set whether to stop the task
+     */
     public synchronized void setStopTask(boolean aStopTask) {
         stopTask = aStopTask;
     }
 
+    /**
+     * {@inheritDoc}
+     * @see java.lang.Thread#run()
+     */
     public void run() {
       try {
         while (!getStopTask()) {

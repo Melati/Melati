@@ -588,13 +588,11 @@ public class Melati {
       ac = new AcceptCharset(acs, config.getPreferredCharsets());
     }
     catch (HttpHeader.HttpHeaderException e) {
-      CharsetException t = new CharsetException(
-          "An error was apparently detected in your HTTP request header " +
-          " worthy of response code: " +
+      throw new CharsetException(
+          "An error was detected in your HTTP request header, " +
+          "response code: " +
           HttpServletResponse.SC_BAD_REQUEST +
-          ": \"" + acs + '"');
-      t.initCause(e);
-      throw t;
+          ": \"" + acs + '"', e);
     }
     if (request.getCharacterEncoding() == null) {
       responseCharset = ac.clientChoice();

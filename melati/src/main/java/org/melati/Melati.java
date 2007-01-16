@@ -872,8 +872,8 @@ public class Melati {
    *
    * @return - one of:
    *
-   * - a MelaitStringWriter from the template engine
-   * - a new MelatiStringWriter
+   * - a MelatiStringWriter from the template engine
+   * - a new MelatiStringWriter if template engine not set
    *
    */
   public MelatiWriter getStringWriter() {

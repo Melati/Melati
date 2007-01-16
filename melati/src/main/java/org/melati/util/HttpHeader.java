@@ -566,7 +566,6 @@ public class HttpHeader {
    * But its possible that some unusual client has sent something
    * erroneous or just unusual that has not been filtered out
    * earlier and causes an error here.
-   * After debugging that is the most likely cause.
    * <p>
    * In general detecting such problems requires parsing.
    * So although we could nearly always blame the caller we provide

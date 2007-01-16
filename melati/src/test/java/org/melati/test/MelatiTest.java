@@ -1,15 +1,18 @@
 package org.melati.test;
 
+import java.io.IOException;
 import java.util.Vector;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.Field;
+import org.melati.template.webmacro.PassbackEvaluationExceptionHandler;
 import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
+import org.melati.util.MelatiWriter;
 import org.melati.servlet.test.MockServletRequest;
 
 import junit.framework.TestCase;
@@ -466,8 +469,29 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#setBufferingOff()
    */
-  public void testSetBufferingOff() {
-
+  public void testSetBufferingOff() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    m.setBufferingOff();
+    m.setFlushingOn();
+    MelatiWriter mw = m.getWriter();
+    try {
+      m.setBufferingOff();
+      fail("Should have blown up");
+    } catch (IOException e) {
+      e = null;
+    }
+    try {
+      m.setFlushingOn();
+      fail("Should have blown up");
+    } catch (IOException e) {
+      e = null;
+    }
+    mw.flush();
+    mw.close();
   }
 
   /**
@@ -478,24 +502,46 @@ public class MelatiTest extends TestCase {
   }
 
   /**
+   * Not called in Melati.
    * @see org.melati.Melati#gotWriter()
    */
-  public void testGotWriter() {
-
+  public void testGotWriter() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    assertFalse(m.gotWriter());
+    m.getWriter();
+    assertTrue(m.gotWriter());
   }
 
   /**
    * @see org.melati.Melati#getURLQueryEncoding()
    */
-  public void testGetURLQueryEncoding() {
-
+  public void testGetURLQueryEncoding() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    assertEquals("ISO-8859-1", m.getURLQueryEncoding());
   }
 
   /**
    * @see org.melati.Melati#urlEncode(String)
    */
-  public void testUrlEncode() {
-
+  public void testUrlEncode() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    assertEquals("", m.urlEncode(""));
+    assertEquals("A+space+seperated+string", m.urlEncode("A space seperated string"));
+    mock.setCharacterEncoding("Unsupported Encoding");
+    m.setRequest(mock);
+    assertEquals("A space seperated string", m.urlEncode("A space seperated string"));
   }
 
   /**
@@ -515,8 +561,14 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getStringWriter()
    */
-  public void testGetStringWriter() {
-
+  public void testGetStringWriter() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    assertNull(m.getTemplateEngine());
+    assertTrue(m.getStringWriter() instanceof MelatiStringWriter);
   }
 
   /**
@@ -529,38 +581,57 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getPassbackVariableExceptionHandler()
    */
-  public void testGetPassbackVariableExceptionHandler() {
-
+  public void testGetPassbackVariableExceptionHandler() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    m.setRequest(mock);
+    assertNull(m.getTemplateEngine());
+    try { 
+      m.getPassbackVariableExceptionHandler();
+      fail("Should have blown up");
+    } catch (NullPointerException e) { 
+      e = null;
+    }
+    m.setTemplateEngine(mc.getTemplateEngine());
+    assertTrue(m.getPassbackVariableExceptionHandler() instanceof PassbackEvaluationExceptionHandler);
   }
 
   /**
+   * FIXME this seems really odd
    * @see org.melati.Melati#setVariableExceptionHandler(Object)
    */
-  public void testSetVariableExceptionHandler() {
-
+  public void testSetVariableExceptionHandler() throws Exception {
   }
 
   /**
    * @see org.melati.Melati#getUser()
    */
-  public void testGetUser() {
+  public void testGetUser() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
-    try {
-      mc = new MelatiConfig();
-      m = new Melati(mc, new MelatiStringWriter());
-      m.setPoemContext(poemContext(m));
-    } catch (MelatiException e) {
-      e.printStackTrace();
-      fail();
-    }
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
     assertNull(m.getUser());
   }
 
   /**
    * @see org.melati.Melati#isReferencePoemType(Field)
    */
-  public void testIsReferencePoemType() {
+  public void testIsReferencePoemType() throws Exception {
+    MelatiConfig mc = null;
+    Melati m = null;
+    mc = new MelatiConfig();
+    m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    try { 
+      m.isReferencePoemType(null);
+      fail("Should have blown up");
+    } catch (NullPointerException e) { 
+      e = null;
+    }
   }
 
 }

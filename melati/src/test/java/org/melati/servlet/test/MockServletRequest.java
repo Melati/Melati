@@ -100,8 +100,12 @@ public class MockServletRequest implements HttpServletRequest {
         return null;
     }
 
+    String requestURI = null;
     public String getRequestURI() {
-        return null;
+        return requestURI;
+    }
+    public void setRequestURI(String uri) {
+      requestURI = uri;
     }
 
     public StringBuffer getRequestURL() {
@@ -147,11 +151,15 @@ public class MockServletRequest implements HttpServletRequest {
         return null;
     }
 
+    String charEncoding = "ISO-8859-1";
     public String getCharacterEncoding() {
-      return "ISO-8859-1";
+      return charEncoding;
     }
 
-    public void setCharacterEncoding(String arg0) throws UnsupportedEncodingException {
+    public void setCharacterEncoding(String ce) throws UnsupportedEncodingException {
+      if (ce != null && ce.equals("UnsupportedEncoding"))
+        throw new UnsupportedEncodingException();
+      charEncoding = ce;
     }
 
     public int getContentLength() {

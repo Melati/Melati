@@ -48,11 +48,11 @@
 
 package org.melati.util.test;
 
-import java.nio.charset.UnsupportedCharsetException;
 
 import junit.framework.TestCase;
 
 import org.melati.util.AcceptCharset;
+import org.melati.util.HttpHeader;
 
 /**
  * Tests the corresponding class in the superpackage.
@@ -112,7 +112,7 @@ public class AcceptCharsetTest extends TestCase {
     try { 
       ac = new AcceptCharset("BOLLOX", supportedPreference);
       fail("Should have blown up");
-    } catch (UnsupportedCharsetException e) { 
+    } catch (HttpHeader.HttpHeaderException e) { 
       e = null;
     }
 

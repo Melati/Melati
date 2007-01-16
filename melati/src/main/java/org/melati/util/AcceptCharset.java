@@ -356,8 +356,11 @@ public class AcceptCharset extends HttpHeader {
     public CharsetAndQValue(Tokenizer t) throws HttpHeaderException {
       super(t);
       if (! isWildcard()) {
-        charset = Charset.forName(token);        
-        // System.err.println("Tested 18");
+        try {
+          charset = Charset.forName(token);
+        } catch (UnsupportedCharsetException e) {
+          throw new HttpHeaderException("Unsupported Character set:", e);
+        }
       }
     }
 
@@ -396,6 +399,9 @@ public class AcceptCharset extends HttpHeader {
 /*
  * MODIFICATIONS
  * $Log$
+ * Revision 1.9  2007/01/16 10:28:26  timp
+ * Throw HttpHeaderException if charset unrecognised
+ *
  * Revision 1.8  2007/01/11 13:23:34  timp
  * Javadoc
  *

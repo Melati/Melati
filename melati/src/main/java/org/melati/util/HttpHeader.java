@@ -587,6 +587,13 @@ public class HttpHeader {
       super(message);
     }
 
+    /**
+     * Create an instance with message and cause.
+     */
+    public HttpHeaderException(String message, Exception e) {
+      super(message, e);
+    }
+
   }
 
 }

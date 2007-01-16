@@ -62,6 +62,16 @@ public class CharsetException extends MelatiException {
   }
 
   /**
+   * Constructor with message.
+   * @param message the message to set
+   * @param e initial cause
+   */
+  public CharsetException(String message, Exception e) {
+    this.message = message;
+    this.subException = e;
+  }
+
+  /**
    * {@inheritDoc}
    * @see org.melati.util.MelatiException#getMessage()
    */

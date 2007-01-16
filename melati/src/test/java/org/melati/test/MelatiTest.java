@@ -6,6 +6,7 @@ import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 import org.melati.poem.Field;
+import org.melati.util.CharsetException;
 import org.melati.util.MelatiBugMelatiException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiStringWriter;
@@ -369,8 +370,29 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#establishCharsets()
    */
-  public void testEstablishCharsets() {
+  public void testEstablishCharsets() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    mock.setHeader("Accept-Charset", "");
+    m.setRequest(mock);
+    m.establishCharsets();
 
+    mock.setHeader("Accept-Charset", "rubbish");
+    m.setRequest(mock);
+    try { 
+      m.establishCharsets();
+      fail("Should have blown up");
+    } catch (CharsetException e) { 
+      e = null;
+    }
+
+    mock.setHeader("Accept-Charset", "");
+    mock.setCharacterEncoding(null);
+    m.setRequest(mock);
+    m.establishCharsets();
+    
   }
 
   /**
@@ -415,8 +437,16 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#sameURLWith(String, String)
    */
-  public void testSameURLWithStringString() {
+  public void testSameURLWithStringString() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+    Melati m = new Melati(mc, new MelatiStringWriter());
+    m.setPoemContext(poemContext(m));
+    MockServletRequest mock = new MockServletRequest();
+    mock.setRequestURI("page");
+    m.setRequest(mock);
 
+    assertEquals("page?noodles=1", m.sameURLWith("noodles","1"));
+    assertEquals("page?noodles=1", m.sameURLWith("noodles"));
   }
 
   /**

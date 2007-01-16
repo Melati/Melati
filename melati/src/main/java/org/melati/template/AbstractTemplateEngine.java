@@ -43,7 +43,6 @@
  */
 package org.melati.template;
 
-import org.melati.template.webmacro.PassbackEvaluationExceptionHandler;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 import org.melati.util.StringUtils;
@@ -98,19 +97,6 @@ public abstract class AbstractTemplateEngine implements TemplateEngine {
    */
   public abstract String expandedTemplate(Template template,
       TemplateContext templateContext) throws TemplateEngineException;
-
-  /** 
-   * Get a variable exception handler for use if there is 
-   * a problem accessing a variable.
-   *
-   * @return a <code>PassbackVariableExceptionHandler</code> 
-   *         appropriate for this engine.
-   * {@inheritDoc}
-   * @see org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()
-   */
-  public Object getPassbackVariableExceptionHandler() {
-    return new PassbackEvaluationExceptionHandler();
-  }
 
 
   /**

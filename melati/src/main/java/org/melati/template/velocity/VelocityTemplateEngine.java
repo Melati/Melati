@@ -334,4 +334,18 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine implements
     return null;
   }
 
+  /** 
+   * Get a variable exception handler for use if there is 
+   * a problem accessing a variable.
+   * FIXME Discover the velocity equivalent
+   * @return a <code>PassbackVariableExceptionHandler</code> 
+   *         appropriate for this engine.
+   * {@inheritDoc}
+   * @see org.melati.template.TemplateEngine#getPassbackVariableExceptionHandler()
+   */
+  public Object getPassbackVariableExceptionHandler() {
+    return  null;
+  }
+
+  
 }

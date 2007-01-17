@@ -874,17 +874,18 @@ public abstract class Column implements FieldAttributes {
 
   
   /**
-   * Find the next free Id in this Troid column.
+   * Find the next free value in an Integer column.
    * 
    * This is not used in Melati, but is used in Bibliomania. 
    * Throws AppBugPoemException if this Column is not a troid column.
+   * 
    * @param whereClause
-   * @return a troid
+   * @return the incremented value 
    * @since 04/05/2000
    */
   public int firstFree(String whereClause) {
-    if (! isTroidColumn()) 
-      throw new AppBugPoemException("firstFree called on a non Troid column");
+    if (! (getType() instanceof IntegerPoemType)) 
+      throw new AppBugPoemException("firstFree called on a non Integer column");
     if (whereClause != null && whereClause.trim().equals(""))
       whereClause = null;
     getTable().readLock();

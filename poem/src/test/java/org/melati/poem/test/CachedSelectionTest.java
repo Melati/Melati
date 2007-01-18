@@ -47,6 +47,7 @@ package org.melati.poem.test;
 import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
+import org.melati.poem.Group;
 import org.melati.poem.Table;
 import org.melati.poem.AccessToken;
 import org.melati.poem.PoemTask;
@@ -334,6 +335,57 @@ public class CachedSelectionTest extends PoemTestCase {
     CachedSelection cachedSelection = new CachedSelection(getDb().getTableInfoTable(), null, null, null);
     assertEquals("tableinfo/12", cachedSelection.nth(0).toString());
     assertEquals("tableinfo/18", cachedSelection.nth(6).toString());
+    assertNull(cachedSelection.nth(999));
   }
 
+  public void testMultiTableSelection() {
+    getDb().uncacheContents();
+    Table[] others = new Table[] {getDb().getGroupMembershipTable(),
+                                  getDb().getGroupTable()};
+    String query =  
+    getDb().getUserTable().troidColumn().fullQuotedName() +
+    // user.id
+    " = 1 AND " +
+    getDb().getGroupMembershipTable().getUserColumn().fullQuotedName() +
+    //groupmembership.user 
+    " = " +
+    // user.id 
+    getDb().getUserTable().troidColumn().fullQuotedName()   +
+    " AND " +
+    getDb().getGroupMembershipTable().quotedName()  + "." +
+    getDb().getGroupMembershipTable().getGroupColumn().quotedName()
+    //groupmembership.group 
+    + " = " +  
+    //group.id
+    getDb().getGroupTable().troidColumn().fullQuotedName() + 
+    " AND " + 
+    getDb().getGroupTable().troidColumn().fullQuotedName()  +
+    // group.id
+    " = 0";
+   
+   // System.err.println("IN test:" + query);
+    int count = getDb().getQueryCount();
+    
+    CachedSelection cachedSelection = new CachedSelection(
+        getDb().getUserTable(), query, null, others);
+    assertEquals(count + 4,getDb().getQueryCount());    
+    //getDb().setLogSQL(true);
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 6,getDb().getQueryCount());    
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 6,getDb().getQueryCount());    
+    getDb().guestUser().setName(getDb().guestUser().getName());
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 11,getDb().getQueryCount());    
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 11,getDb().getQueryCount());    
+    Group g = getDb().getGroupTable().getGroupObject(0);
+    g.setName(g.getName());
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 15,getDb().getQueryCount());    
+    assertEquals("_administrator_", cachedSelection.nth(0).toString());
+    assertEquals(count + 15,getDb().getQueryCount());    
+    
+    getDb().setLogSQL(false);
+  }
 }

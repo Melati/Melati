@@ -70,6 +70,10 @@ This page last updated: $Date$ $Author$
   supported by Melati. 
  </li>
  <li>
+  <a href="http://www.easysoft.com/">Easysoft</a> supply a jdbc driver for Access, 
+  which works with Melati.
+ </li>
+ <li>
   <a href="http://www.linux.org/">Linux</a> is the reference operating system 
    for initial Melati development. 
  </li>
@@ -90,8 +94,6 @@ This page last updated: $Date$ $Author$
   more modern servlet runner, to which Melati and most Melati-driven sites are
   migrating.
  </li>
- <li><a href="http://jakarta.apache.org/ant/">Ant</a> is used to build Melati.
- </li>
  <li><a href="http://www.cvshome.org/">CVS</a> Concurrent Versions System 
   is used by the Melati developers. 
  </li>
@@ -99,6 +101,8 @@ This page last updated: $Date$ $Author$
   build, test and deployment system which is used to maintain
   Melati code quality and produce the 
   <a href="http://maven.melati.org">Maven site</a>.</li>
+ <li><a href="http://jakarta.apache.org/ant/">Ant</a> was used to build Melati.
+ </li>
  <li><a href="http://www.eclipse.org/">Eclipse</a> 
   is an IDE used by some Melati developers, which Melati works well with.
  </li>

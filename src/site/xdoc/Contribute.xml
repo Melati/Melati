@@ -4,7 +4,7 @@
 
   <properties>
     <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
+    <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
       Objects, Object Oriented, J2EE replacement
@@ -50,7 +50,7 @@ This page last updated: $Date$ $Author$
   the codebase meets minimal code standards as defined by 
   <a href="http://maven.apache.org/">Maven</a> 
   so please try not to add to the errors listed on the 
-  <a href="http://maven.melati.org/checkstyle.html">Checkstyle 
+  <a href="http://maven.melati.org/melati/checkstyle.html">Checkstyle 
   Report</a>.<br />
   To make changes, please follow this procedure:
 </p>

@@ -133,13 +133,13 @@ would be nice to have before a 1.0 release.
      Templets used to render everything, including Persistents.<br />
      Metadata extensible.<br />
      Support for Maven 2. <br />
-     Preprocessor revisited. <br />
+     Preprocessor revisited, extracted to sub-project and made a MOJO. <br />
      All deprecated methods removed. <br />
-     DSD mojo introduced. <br />
      Maven archetype introduced. <br />
      Maven skin introduced. <br />
-     Examples moved into own projects. <br />
+     Examples moved into own sub-projects. <br />
      Java 5 compatibility. <br />
+     JavaDocs for all public types, members and methods. <br />
     </td>
     <td><b>done</b></td>
   </tr>
@@ -152,24 +152,32 @@ would be nice to have before a 1.0 release.
     <td></td>
   </tr>
   <tr> 
-    <td>0.7.7</td>
-    <td>Completion of JavaDocs.</td>
-    <td>All public types and members done</td>
-  </tr>
-  <tr> 
     <td>0.7.8</td>
     <td>Completion of Documentation - Manual, Howto's.</td>
     <td>In progess</td>
   </tr>
   <tr>
     <td>1.0</td>
-    <td>MDK (Melati Developer's Kit)</td>
-    <td>
-        Bundled with Jetty and HSQLDB. <br />
-        Support for <a href="http://www.eclipse.org/">Eclipse</a>.<br />
+    <td><b>MDK (Melati Developer's Kit)</b> <br />
         Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2). <br />
-        No warnings shown in Eclipse. <br />
+        Bundled with Jetty and HSQLDB. <br />
+        Support for <a href="http://www.eclipse.org/">Eclipse</a> (No warnings shown).<br />
     </td>
+    <td><b>done</b></td>
+  </tr>
+  <tr>
+    <td>1.1</td>
+    <td>
+    Upgrade to JSDK 1.5
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1.2</td>
+    <td>
+    Support for JPA.
+    </td>
+    <td></td>
   </tr>
 </table>
 </section>

@@ -4,7 +4,7 @@
 
   <properties>
     <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
+    <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
       Objects, Object Oriented, J2EE replacement
@@ -24,37 +24,14 @@ This page last updated: $Date$ $Author$
   
 <!-- menu -->
 
-<section name=" Download Latest Release ">
-<table border="1" cellpadding="5" cellspacing="0">
-  <tr>
-    <td><b>Release</b></td>
-    <td align="center"><b>Jar and Source</b></td>
-    <td align="center"><b>Javadoc</b></td>
-    <td align="center"><b>War</b></td>
-  </tr>
-  <tr>
-    <td>Melati 0.7.4 (10-01-2005)</td>
-    <td><a href="/download/melati_0.7.4.tar.gz">Unix</a><br />
-        <a href="/download/melati_0.7.4.zip">Windows</a></td>
-    <td><a href="/download/melati_0.7.4_doc.tar.gz">Unix</a><br />
-        <a href="/download/melati_0.7.4_doc.zip">Windows </a></td>
-    <td><a href="/download/melati.war">war</a>
-    </td>
-  </tr>
-</table>
-<p>
-The above are built with <a href='http://ant.apache.org/'>Ant</a>, whereas the rest of the site 
-is more regularly bult with Maven. You are best off using Maven. 
-</p>
-</section>
 <section name=" Download Current Snapshot ">
 
       <p>
         The latest snapshot build can be found in our  
+	<a href="http://maven.melati.org/maven2/org/melati/">Maven Two
+        repository</a> ( or our 
 	<a href="http://maven.melati.org/maven/melati/">Maven One
-        repository</a> or our 
-	<a href="http://maven.melati.org/maven2/org.melati/org/melati/">Maven Two
-        repository</a>.
+        repository</a>).
       </p>
       
 </section>

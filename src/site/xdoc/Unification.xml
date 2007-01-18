@@ -93,7 +93,7 @@ Metadata in the database tables takes precedence over metadata in the java code.
 <p>
 The equivalence function between Poem's datatypes and SQL datatypes (called 
 <a 
-href="/apidocs/org/melati/poem/dbms/AnsiStandard.html#canRepresent(org.melati.poem.PoemType,
+href="/melati/apidocs/org/melati/poem/dbms/AnsiStandard.html#canRepresent(org.melati.poem.PoemType,
 org.melati.poem.PoemType)">canRepresent</a>) determines whether a JDBC column 
 is allowed to unify with a columnn in the <tt>columnInfo</tt> table.
 </p>
@@ -101,7 +101,7 @@ is allowed to unify with a columnn in the <tt>columnInfo</tt> table.
 <subsection name=" Example ">
 <p>
 If you point melati at an empty database it will unify with a 
-<a href="/apidocs/org/melati/poem/PoemDatabse.html">PoemDatabase</a> 
+<a href="/melati/apidocs/org/melati/poem/PoemDatabse.html">PoemDatabase</a> 
 creating tables and populating the metadata tables with results shown below:
 </p>
 <table>
@@ -119,7 +119,7 @@ JDBC
 </tr>
 <tr>
 <td bgcolor="lime">
-<a href="/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
+<a href="/melati/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
 </td>
 <td  bgcolor="cyan">
 tableinfo
@@ -130,7 +130,7 @@ TABLEINFO
 </tr>
 <tr>
 <td  bgcolor="lime">
-<a href="/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
+<a href="/melati/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
 </td>
 <td bgcolor="cyan">
 columninfo
@@ -141,7 +141,7 @@ COLUMNINFO
 </tr>
 <tr>
 <td  bgcolor="lime">
-<a href="/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
+<a href="/melati/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
 </td>
 <td bgcolor="cyan">
 tablecategory
@@ -182,7 +182,7 @@ YOURTABLE
 </tr>
 <tr>
 <td bgcolor="cyan">
-<a href="/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
+<a href="/melati/apidocs/org/melati/poem/TableInfoTable.html">TableInfoTable</a>
 </td>
 <td  bgcolor="cyan">
 tableinfo
@@ -193,7 +193,7 @@ TABLEINFO
 </tr>
 <tr>
 <td  bgcolor="cyan">
-<a href="/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
+<a href="/melati/apidocs/org/melati/poem/ColumnInfoTable.html">ColumnInfoTable</a>
 </td>
 <td bgcolor="cyan">
 columninfo
@@ -204,7 +204,7 @@ COLUMNINFO
 </tr>
 <tr>
 <td  bgcolor="cyan">
-<a href="/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
+<a href="/melati/apidocs/org/melati/poem/TableCategoryTable.html">TableCategoryTable</a>
 </td>
 <td bgcolor="cyan">
 tablecategory
@@ -258,7 +258,7 @@ your table initialisation method to create these values if absent.
 <subsection name=" Iterating ">
 <p>
 Once you have a functioning Poem database you can create a DSD using the 
-Admin system <a href="/melati/Admin/contacts/DSD?comments=true">DSD Report</a>.
+Admin system <a href="/melati-webapp/Admin/contacts/DSD?comments=true">DSD Report</a>.
 </p>
 <p>
 This can be fed back into the start of the process, enabling you to add meta

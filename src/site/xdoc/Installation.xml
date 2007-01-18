@@ -4,7 +4,7 @@
 
   <properties>
     <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
+    <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
       Objects, Object Oriented, J2EE replacement
@@ -40,10 +40,15 @@ This page last updated: $Date$ $Author$
   is configured in the distribution.<br />
   This can be used as your local <a href="/melati-webapp/org.melati.admin.Admin/melatitest/Main">desktop database</a>.
 </p>
+<subsection name="Maven quick start">
+</subsection>
+<subsection name="Testing">
 <p>
 To test your installation and illustrate a few capabilities 
 run through the <a href="Testing.html">tests</a>.
 </p>
+</subsection>
+<subsection name="Embrace and extend">
 <p>
   If you want to use Melati to build a website you might start by 
   downloading and tinkering with the <a
@@ -51,9 +56,13 @@ run through the <a href="Testing.html">tests</a>.
   locally, you can, of course change the target database and default
   templating engine.
 </p>
+</subsection>
+<subsection name="Maven archetype">
 <p>
   To create a new Melati based project use the <a href="melati-archetype/">archetype</a>.
 </p>
+</subsection>
+<subsection name="Using ant still?">
 <p>
   To get a complete replica of the Melati website using ant:
   <pre><code>
@@ -72,6 +81,7 @@ ant go </code></pre>
   Further installation instructions are in the <a
   href="/README.html">README</a> file.
 </p>
+</subsection>
 </section>
 </body>
 </document>

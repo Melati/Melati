@@ -45,8 +45,6 @@
 
 package org.melati.poem;
 
-import java.sql.SQLException;
-import java.sql.ResultSet;
 import java.util.Enumeration;
 import org.melati.util.MappedEnumeration;
 
@@ -54,10 +52,6 @@ import org.melati.util.MappedEnumeration;
  * A cached instance of an SQL <code>select</code> query.
  */
 public class CachedSelection extends CachedQuery {
-
-  private String whereClause;
-  private String orderByClause;
-  private String tableDefaultOrderByClause = null;
 
   /**
    * Constructor.
@@ -70,11 +64,18 @@ public class CachedSelection extends CachedQuery {
                          final String whereClause,
                          final String orderByClause,
                          final Table otherTables[]) {
-    super(table,
-          table.selectionSQL(null, whereClause, orderByClause, false, true),
-          otherTables);
-    this.whereClause = whereClause;
-    this.orderByClause = orderByClause;
+    super(table, null, otherTables);
+    
+
+    String fromClause = table.quotedName();
+    if (otherTables != null) {
+      for (int i = 0; i<otherTables.length; i++) {
+        fromClause += ", " + otherTables[i].quotedName();
+      }
+    }
+    setQuery(table.selectionSQL(fromClause, whereClause, 
+        orderByClause == null ? table.defaultOrderByClause() : orderByClause, false, true));
+    
   }
 
   /**
@@ -87,28 +88,6 @@ public class CachedSelection extends CachedQuery {
                          final String whereClause,
                          final String orderByClause) {
     this(table,whereClause,orderByClause,null);
-  }
-
-  protected PreparedStatementFactory statements() {
-    if (orderByClause == null) {
-      String defaultOrderByClause = table.defaultOrderByClause();
-      if (defaultOrderByClause != tableDefaultOrderByClause) {
-        statements = null;
-        tableDefaultOrderByClause = defaultOrderByClause;
-      }
-    }
-
-    if (statements == null)
-      statements = new PreparedStatementFactory(
-                       table.getDatabase(),
-                       table.selectionSQL(null, whereClause, 
-                                          orderByClause, false, true));
-
-    return statements;
-  }
-  
-  protected final Object extract(ResultSet rs) throws SQLException {
-    return new Integer(rs.getInt(1));
   }
 
   /**

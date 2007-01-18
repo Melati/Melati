@@ -110,7 +110,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
           public void run() {
             if (dbName.equals("poemtest")) {
               poemtestUnchanged();
-            } else {
+            } 
+            if (dbName.equals("melatijunit")) {
               melatijunitUnchanged();
             }
           }
@@ -199,6 +200,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
     try {
       db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
     } catch (DatabaseInitException e) {
+      e.printStackTrace();
       fail(e.getMessage());
     }
   }

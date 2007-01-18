@@ -1206,11 +1206,11 @@ public class TableTest extends PoemTestCase {
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
-        ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0)))
+        ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
-        ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0)))
+        ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
     assertEquals(new BigDecimal(0), ut.administratorUser().getRaw(
         "testbigdecimalcol"));
@@ -1434,8 +1434,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbinarycol").selectionWhereEq(t)).size());
-    assertEquals(t, ut.administratorUser().getRaw("testbinarycol"));
-    assertEquals(t, ut.administratorUser().getCooked("testbinarycol"));
+    assertEquals(t.length, ((byte[])ut.administratorUser().getRaw("testbinarycol")).length);
+    assertEquals(t.length, ((byte[])ut.administratorUser().getCooked("testbinarycol")).length);
     assertEquals(t.length,
         ((byte[]) ut.getObject(0).getCooked("testbinarycol")).length);
     getDb().setLogSQL(false);

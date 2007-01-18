@@ -91,7 +91,9 @@ public abstract class CachedQuery {
     return statements;
   }
 
-  protected abstract Object extract(ResultSet rs) throws SQLException;
+  protected final Object extract(ResultSet rs) throws SQLException {
+    return new Integer(rs.getInt(1));
+  }
 
   protected void compute() {
     Vector rowsLocal = this.rows;
@@ -156,5 +158,13 @@ public abstract class CachedQuery {
    */
   public boolean outOfDate() {
     return somethingHasChanged(PoemThread.transaction());
+  }
+
+  protected void setQuery(String query) {
+    this.query = query;
+  }
+
+  protected String getQuery() {
+    return query;
   }
 }

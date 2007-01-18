@@ -63,6 +63,7 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#invalidate()
    */
   public void testInvalidate() {
+    getDb().uncacheContents();
     Persistent p = getDb().getUserTable().newPersistent();
     try {
       p.invalidate();
@@ -105,7 +106,7 @@ public class PersistentTest extends PoemTestCase {
     getDb().uncacheContents();
     getDb().getUserTable().selection();
     int selectionHits3 = getDb().getQueryCount();
-    assertEquals(selectionHits2 + 5, selectionHits3);
+    assertEquals(selectionHits2 + 1, selectionHits3);
     
     getDb().getUserTable().getUserObject(0);
     int getHits1 = getDb().getQueryCount();

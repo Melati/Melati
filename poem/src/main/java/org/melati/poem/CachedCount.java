@@ -45,9 +45,6 @@
 
 package org.melati.poem;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * A cached instance of an SQL <code>count</code> query.
  */
@@ -94,10 +91,6 @@ public class CachedCount extends CachedQuery {
    */
   public CachedCount(final Table table, final String whereClause) {
     this(table, whereClause, null);
-  }
-
-  protected final Object extract(ResultSet rs) throws SQLException {
-    return new Integer(rs.getInt(1));
   }
 
   /**

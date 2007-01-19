@@ -232,5 +232,8 @@ public class DatabasePerformInCommittedTransactionTest
     };
   }
   
-  
+  public void testToString() {
+    PoemDatabase d = new PoemDatabase();
+    assertEquals("unconnected database", d.toString());
+  }
 }

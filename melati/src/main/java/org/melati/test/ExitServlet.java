@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 
@@ -52,7 +52,8 @@ import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
 
 /**
- * Test how your servlet contaier behaves when you call System.exit(0).
+ * Test how your servlet container behaves when you call System.exit(0).
+ * Jetty calls shutdown hook.
  */
 public class ExitServlet extends ConfigServlet {
 

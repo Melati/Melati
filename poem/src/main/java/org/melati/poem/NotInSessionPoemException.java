@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -48,9 +48,22 @@ package org.melati.poem;
  /**
   * Thrown when it is discovered that a <code>Transaction</code> has 
   * somehow been created outside a <code>Session</code>.
-  *
-  * @author WilliamC@paneris.org
   */
 public class NotInSessionPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * Constructor.
+   */
+  public NotInSessionPoemException() { 
+    super();
+  }
+  
+  /**
+   * Constructor with message.
+   * @param message the message
+   */
+  public NotInSessionPoemException(String message) { 
+    super(message);
+  }
 }

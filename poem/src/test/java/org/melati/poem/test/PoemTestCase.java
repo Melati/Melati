@@ -141,7 +141,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
     //assertEquals(147, getDb().getColumnInfoTable().count());
-    assertEquals(23, getDb().getTableInfoTable().count());
+    assertEquals(24, getDb().getTableInfoTable().count());
 
   }
   protected void dumpTable(Table t) {

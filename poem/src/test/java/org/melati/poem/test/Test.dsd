@@ -1479,3 +1479,46 @@ table Node
     ;
 
 }
+
+table Protected
+  (displayorder = 90)
+  (category = "Data")
+  (description = "A protected table") {
+
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+  User spy
+    (displaylevel = primary) 
+    (searchability = primary)
+    (displayorderpriority = 1)
+    (description = "Spy")
+    ;
+  String mission
+    (size = unlimited) 
+    (displaylevel = primary) 
+    (searchability = primary)
+    (description = "Secret mission")
+    (displayorderpriority = 0)
+    (width = 20)
+    ;
+
+  Capability canRead
+    (displaylevel = record) 
+    (description = "Capability required to read this row ")
+    ;
+  Capability canWrite
+    (displaylevel = record) 
+    (description = "Capability required to write this row ")
+    ;
+  Capability canDelete
+    (displaylevel = record) 
+    (description = "Capability required to delete this row ")
+    ;
+  Capability canSelect
+    (displaylevel = record) 
+    (description = "Capability required to select this row ")
+    ;
+
+}

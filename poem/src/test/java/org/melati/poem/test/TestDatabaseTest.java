@@ -26,6 +26,7 @@ public class TestDatabaseTest extends PoemTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    setDbName("poemtest");
   }
   /**
    * Test method for 'org.melati.poem.test.generated.TestDatabaseBase.getUserTable()'
@@ -56,6 +57,7 @@ public class TestDatabaseTest extends PoemTestCase {
     "everythingnormal (from the data structure definition)" + 
     "enextended (from the data structure definition)" + 
     "eaextended (from the data structure definition)" + 
+    "protected (from the data structure definition)" +
     "user (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 

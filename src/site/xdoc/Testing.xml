@@ -25,6 +25,18 @@ This page last updated: $Date$ $Author$
 <!-- menu -->
 
 <section name=" Testing ">
+<subsection name="JUnit tests">
+<p>
+Maven allows tests to be run in a single thread or a new thread per test.
+Running in a single thrad is considerably faster.
+To enable the tests to run in a single thread it is important to ensure that 
+tests clean up after themselves or different results will be returned when a 
+test is run on its own, in Eclipse for example, to when it is run as part of a suite.
+To this end all database tests inherit a method to ensure that the number of rows in the 
+database is unchanged.
+Currently there is no way to delete a column from a table, so the tests for column addition 
+are not well behaved, this is worked around by not not checking the number of rows in the ColumnInfo table.
+</p>
 <p>
 <a href="http://junit.org/">JUnit</a> tests are incorporated into the
 build:
@@ -35,6 +47,62 @@ build:
 </ol>
 
 </p>
+</subsection>
+<subsection name="Coverage notes">
+<p>
+The tests have been retro-fitted, JUnit had not been written when the code was first written, 
+so the objective of the tests is to achieve 100% branch coverage, not to have a unit test for every method.
+</p>
+<p>
+The excercise of retro-fitting has been very useful, as a learning excercise for me and 
+also to justify the claim that Melati is very well written. The number of errors highlighted by the tests 
+was very small but did point out a few worthwhile refactorings.
+</p>
+<ul>
+<li>org.melati
+<p>
+Finished.
+</p>
+</li>
+<li>org.melati.admin</li>
+<li>org.melati.app</li>
+<li>org.melati.login</li>
+<li>org.melati.poem
+<p>
+Almost finished, the last part is the most interesting.
+</p>
+<p>
+</p>
+</li>
+<li>org.melati.poem.csv</li>
+<li>org.melati.poem.dbms
+<p>
+It is not envisaged that all dbmsen should be tested in a single run.
+The tests can be run against a particular dbms by changing the database urls in 
+<code>org.melati.LogicalDatabse.properties</code>.
+The tests use an HSQLDB mem database by default.
+</p>
+</li>
+<li>org.melati.poem.generated
+<p>
+This to be left until last, any methods not invoked are suspect.
+</p>
+</li>
+<li>org.melati.servlet</li>
+<li>org.melati.template</li>
+<li>org.melati.template.velocity</li>
+<li>org.melati.template.webmacro</li>
+<li>org.melati.test</li>
+<p>
+Some of the manual tests are run using mocks.
+</p>
+<li>org.melati.util</li>
+<p>
+Not much explicit testing so far.
+</p>
+</ul>
+</subsection>
+<subsection name="Manual tests">
 <p>
 The tests below enable you to ensure that your installation 
 is functioning and is useful during development to ascertain 
@@ -120,6 +188,7 @@ Shows current sessions and jvm memory usage.
 
 </table>
 </p>
+</subsection>
 </section>
 </body>
 </document>

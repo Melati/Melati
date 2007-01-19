@@ -791,13 +791,16 @@ public abstract class Database implements TransactionPool {
    * The effect is the same as <TT>inSession</TT>, except that the task will
    * see changes to the database made by other transactions as they are
    * committed, and it is not allowed to make any changes of its own.
-   * (If it tries, it will
-   * currently trigger a <TT>NullPointerException</TT>---FIXME!)
-   * Not recommended.
-   *
+   * <p>
+   * A modification will trigger a <code>WriteCommittedException</code>, 
+   * however a create operation will trigger a NullPointerException, 
+   * as we have no Transaction.
+   * </p>
+   * <p>
+   * Not recommended; why exactly do you want to sidestep the Transaction handling?
+   * </p>
    * @see #inSession
    */
-
   public void inCommittedTransaction(AccessToken accessToken, PoemTask task) {
     perform(accessToken, task, true);
   }

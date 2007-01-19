@@ -3,15 +3,15 @@
  */
 package org.melati.poem.test;
 
-//import java.text.DateFormat;
+import java.text.DateFormat;
 import java.util.Enumeration;
 
 import org.melati.poem.Column;
-//import org.melati.poem.FieldSet;
+import org.melati.poem.FieldSet;
 import org.melati.poem.Capability;
 import org.melati.poem.Table;
 import org.melati.poem.TailoredQuery;
-//import org.melati.util.MelatiLocale;
+import org.melati.util.MelatiLocale;
 import org.melati.poem.User;
 
 /**
@@ -306,16 +306,14 @@ public class TailoredQueryTest extends PoemTestCase {
     int count = 0;
     for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
       count++;
-      //FieldSet fs = (FieldSet) 
+      FieldSet fs = (FieldSet) 
       ms.nextElement();
-      /*
       System.out.println(
           fs.get("user_name").getCookedString(MelatiLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("group_name").getCookedString(MelatiLocale.HERE,
+          + fs.get("protected_mission").getCookedString(MelatiLocale.HERE,
               DateFormat.MEDIUM));
-       */
     }
     assertEquals(1,count);
     // System.err.println(q);

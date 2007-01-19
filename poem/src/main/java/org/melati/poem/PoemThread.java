@@ -53,24 +53,24 @@ import org.melati.util.ToTidyList;
 
 /**
  * A Poem Thread.
- *
+ * 
  */
 public final class PoemThread {
 
-  private PoemThread() {}
+  private PoemThread() {
+  }
 
   private static Vector sessionTokens = new Vector();
+
   private static Vector freeSessionTokenIndices = new Vector();
 
   /**
-   * The maximum number of Threads.
-   * Must be < Char.MAX_VALUE = 64k 
+   * The maximum number of Threads. Must be < Char.MAX_VALUE = 64k
    */
-  public static final int threadsMax = 100; 
+  public static final int threadsMax = 100;
 
   static Integer allocatedSessionToken(AccessToken accessToken,
-                                       PoemTransaction transaction,
-                                       PoemTask task) {
+          PoemTransaction transaction, PoemTask task) {
     synchronized (freeSessionTokenIndices) {
       Integer index;
       if (freeSessionTokenIndices.size() == 0) {
@@ -79,14 +79,13 @@ public final class PoemThread {
           throw new TooManyThreadsPoemException();
         sessionTokens.setSize(i + 1);
         index = new Integer(i);
-      }
-      else {
+      } else {
         index = (Integer)freeSessionTokenIndices.lastElement();
         freeSessionTokenIndices.setSize(freeSessionTokenIndices.size() - 1);
       }
 
-      SessionToken token = new SessionToken(
-          Thread.currentThread(), transaction, accessToken, task);
+      SessionToken token = new SessionToken(Thread.currentThread(),
+              transaction, accessToken, task);
       sessionTokens.setElementAt(token, index.intValue());
 
       return index;
@@ -95,43 +94,49 @@ public final class PoemThread {
 
   /** keep track of the old thread names. */
   private static Map threadOldNames = new HashMap();
-  
+
   /**
-   *  Do the processing to start a db session.
-   *   
-   * @param accessToken The session's token
-   * @param transaction The PoemTransaction to run in
-   * @param task The PoemTask to run
-   * @throws PoemException if we are already in a Session
+   * Do the processing to start a db session.
+   * 
+   * @param accessToken
+   *          The session's token
+   * @param transaction
+   *          The PoemTransaction to run in
+   * @param task
+   *          The PoemTask to run
+   * @throws PoemException
+   *           if we are already in a Session
    */
   static void beginSession(AccessToken accessToken,
-                           PoemTransaction transaction,
-                           PoemTask task) throws PoemException {
-    if(inSession())
+          PoemTransaction transaction, PoemTask task) throws PoemException {
+    if (inSession())
       throw new AlreadyInSessionPoemException();
     Integer token = allocatedSessionToken(accessToken, transaction, task);
     String oldname = Thread.currentThread().getName();
+
     Thread.currentThread().setName("" + (char)token.intValue());
     // Save the old thread name for later use
-    threadOldNames.put(token,oldname);
+    threadOldNames.put(token, oldname);
   }
 
-  static void beginSession(AccessToken accessToken,
-                           PoemTransaction transaction) throws PoemException {
+  static void beginSession(AccessToken accessToken, PoemTransaction transaction)
+          throws PoemException {
     beginSession(accessToken, transaction, null);
   }
 
   /**
-   *  End a db session.
-   *  
-   *  @throws PoemException if we are not in a Session
+   * End a db session.
+   * 
+   * @throws PoemException
+   *           if we are not in a Session
    */
   static void endSession() throws PoemException {
     char tokenChar = Thread.currentThread().getName().charAt(0);
-
     Integer token = new Integer(tokenChar);
     String oldname = (String)threadOldNames.get(token);
-    if (oldname == null) throw new NotInSessionPoemException();
+    if (oldname == null)
+      throw new NotInSessionPoemException(Thread.currentThread().getName()
+              + " has null old name");
 
     Thread.currentThread().setName(oldname);
     synchronized (freeSessionTokenIndices) {
@@ -143,33 +148,34 @@ public final class PoemThread {
 
   /**
    * Perform the specified task in the current thread session.
-   * @throws PoemException if there is a problem starting or ending the session or 
-   *         if there is a problem running the task.
+   * 
+   * @throws PoemException
+   *           if there is a problem starting or ending the session or if there
+   *           is a problem running the task.
    */
   static void inSession(PoemTask task, AccessToken accessToken,
-                        PoemTransaction transaction) throws PoemException {
+          PoemTransaction transaction) throws PoemException {
     beginSession(accessToken, transaction, task);
     try {
       task.run();
-    }
-    finally {
+    } finally {
       endSession();
     }
   }
 
- /**
-  * Retrieve the open sessions.
-  *
-  * @return a Vector of open {@link SessionToken}s
-  */
+  /**
+   * Retrieve the open sessions.
+   * 
+   * @return a Vector of open {@link SessionToken}s
+   */
   public static Vector openSessions() {
     Vector open = new Vector();
     Enumeration e = null;
-//    synchronized(sessionTokens) {
-      e = sessionTokens.elements();
-//    }
-    while(e.hasMoreElements()) {
-      SessionToken token = (SessionToken) e.nextElement();
+    // synchronized(sessionTokens) {
+    e = sessionTokens.elements();
+    // }
+    while (e.hasMoreElements()) {
+      SessionToken token = (SessionToken)e.nextElement();
       if (token != null)
         open.addElement(token);
     }
@@ -177,18 +183,16 @@ public final class PoemThread {
   }
 
   static SessionToken _sessionToken() {
-    try {
-      SessionToken context =
-          (SessionToken)sessionTokens.elementAt(Thread.currentThread().
-                                                getName().charAt(0));
-      if (context.thread == Thread.currentThread())
-        return context;
-      else
-        return null;
-    }
-    catch (Exception e) {
+    // If we are not in a PoemThread then the name is likely
+    // to be "main"
+    if (Thread.currentThread().getName().length() != 1)
       return null;
-    }
+    SessionToken context = (SessionToken)sessionTokens.elementAt(Thread
+            .currentThread().getName().charAt(0));
+    if (context.thread == Thread.currentThread())
+      return context;
+    else
+      return null;
   }
 
   static SessionToken sessionToken() throws NotInSessionPoemException {
@@ -198,40 +202,42 @@ public final class PoemThread {
     return it;
   }
 
- /**
-  * Retrieve the {@link ToTidyList} for this session.
-  *
-  * @return the {@link ToTidyList} for this {@link PoemThread}.
-  */
+  /**
+   * Retrieve the {@link ToTidyList} for this session.
+   * 
+   * @return the {@link ToTidyList} for this {@link PoemThread}.
+   */
   public static ToTidyList toTidy() throws NotInSessionPoemException {
     return sessionToken().toTidy();
   }
 
- /**
-  * Retrieve the {@link PoemTransaction} for this PoemThread.
-  *
-  * @return the {@link PoemTransaction} for this {@link PoemThread}.
-  */
+  /**
+   * Retrieve the {@link PoemTransaction} for this PoemThread.
+   * 
+   * @return the {@link PoemTransaction} for this {@link PoemThread}.
+   */
   public static PoemTransaction transaction() {
     return sessionToken().transaction;
   }
 
- /**
-  * Whether we are currently in a session.
-  *
-  * @return whether we are currently in a session
-  */
+  /**
+   * Whether we are currently in a session.
+   * 
+   * @return whether we are currently in a session
+   */
   public static boolean inSession() {
     return _sessionToken() != null;
   }
 
   /**
    * @return the access token under which your thread is running.
-   * @throws NotInSessionPoemException if we are not in a session
-   * @throws NoAccessTokenPoemException if we do not have an AccessToken
+   * @throws NotInSessionPoemException
+   *           if we are not in a session
+   * @throws NoAccessTokenPoemException
+   *           if we do not have an AccessToken
    */
-  public static AccessToken accessToken()
-      throws NotInSessionPoemException, NoAccessTokenPoemException {
+  public static AccessToken accessToken() throws NotInSessionPoemException,
+          NoAccessTokenPoemException {
     AccessToken it = sessionToken().accessToken;
     if (it == null)
       throw new NoAccessTokenPoemException();
@@ -239,13 +245,13 @@ public final class PoemThread {
   }
 
   /**
-   * Change the access token under which your thread is operating.  You can't
-   * do this unless the current token is <TT>root</TT>.
-   *
+   * Change the access token under which your thread is operating. You can't do
+   * this unless the current token is <TT>root</TT>.
+   * 
    * @see AccessToken#root
    */
   public static void setAccessToken(AccessToken token)
-      throws NonRootSetAccessTokenPoemException {
+          throws NonRootSetAccessTokenPoemException {
     SessionToken context = sessionToken();
     AccessToken old = context.accessToken;
     if (old != AccessToken.root)
@@ -254,11 +260,13 @@ public final class PoemThread {
   }
 
   /**
-   * Run a {@link PoemTask} under a specified {@link AccessToken}, typically 
+   * Run a {@link PoemTask} under a specified {@link AccessToken}, typically
    * <tt>Root</tt>.
-   *
-   * @param token the token to run with
-   * @param task the task to run 
+   * 
+   * @param token
+   *          the token to run with
+   * @param task
+   *          the task to run
    */
   public static void withAccessToken(AccessToken token, PoemTask task) {
     SessionToken context = sessionToken();
@@ -266,21 +274,21 @@ public final class PoemThread {
     context.accessToken = token;
     try {
       task.run();
-    }
-    finally {
+    } finally {
       context.accessToken = old;
     }
   }
 
   /**
-   * Check that we have the given {@link Capability}, throw an 
+   * Check that we have the given {@link Capability}, throw an
    * {@link AccessPoemException} if we don't.
-   *
-   * @param capability to check
+   * 
+   * @param capability
+   *          to check
    */
   public static void assertHasCapability(Capability capability)
-     throws NotInSessionPoemException, NoAccessTokenPoemException,
-            AccessPoemException {
+          throws NotInSessionPoemException, NoAccessTokenPoemException,
+          AccessPoemException {
     AccessToken token = accessToken();
     if (!token.givesCapability(capability))
       throw new AccessPoemException(token, capability);
@@ -288,7 +296,7 @@ public final class PoemThread {
 
   /**
    * Retrieve the {@link Database} associated with this thread.
-   *
+   * 
    * @return the {@link Database} associated with this thread.
    */
   public static Database database() throws NotInSessionPoemException {
@@ -297,36 +305,34 @@ public final class PoemThread {
 
   /**
    * Write to the underlying DBMS.
-   *
+   * 
    */
   public static void writeDown() {
     transaction().writeDown();
   }
 
   /**
-   * Commit  to the underlying DBMS.
-   *
+   * Commit to the underlying DBMS.
+   * 
    */
   public static void commit() {
     SessionToken token = sessionToken();
     try {
       token.transaction.commit();
-    }
-    finally {
+    } finally {
       token.toTidy().close();
     }
   }
 
   /**
    * Rollback the underlying DBMS.
-   *
+   * 
    */
   public static void rollback() {
     SessionToken token = sessionToken();
     try {
       token.transaction.rollback();
-    }
-    finally {
+    } finally {
       token.toTidy().close();
     }
   }

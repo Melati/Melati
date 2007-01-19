@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.Enumeration;
 
 import org.melati.poem.AccessToken;
+import org.melati.poem.AlreadyInSessionPoemException;
 import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
@@ -608,7 +609,24 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#inCommittedTransaction(AccessToken, PoemTask)
    */
   public void testInCommittedTransaction() {
+    PoemTask task = new PoemTask() {
+      public void run() {
+      }
+    };
+    try {
+      getDb().inCommittedTransaction(PoemThread.accessToken(), task);
+      fail("Should have blown up");
+    } catch (AlreadyInSessionPoemException e) { 
+      e = null;
+    }
+    // End our current session 
+    getDb().endSession();
 
+    getDb().inCommittedTransaction(AccessToken.root, task);
+    
+    // Start a session so PoemTestCase has one to end
+    getDb().beginSession(AccessToken.root);
+    
   }
 
   /**

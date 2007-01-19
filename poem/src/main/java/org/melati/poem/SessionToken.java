@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -90,7 +90,7 @@ public class SessionToken {
   }
 
   /**
-   * @return the list of object to close when we close
+   * @return the list of objects to close when we close
    */
   public synchronized ToTidyList toTidy() {
     if (toTidy == null)

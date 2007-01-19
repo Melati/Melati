@@ -195,6 +195,10 @@ public final class PoemThread {
       return null;
   }
 
+  /**
+   * @return the current SessionToken
+   * @throws NotInSessionPoemException if there is no current SessionToken
+   */
   static SessionToken sessionToken() throws NotInSessionPoemException {
     SessionToken it = _sessionToken();
     if (it == null)

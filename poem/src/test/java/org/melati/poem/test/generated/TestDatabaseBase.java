@@ -27,6 +27,7 @@ import org.melati.poem.test.LongFieldTable;
 import org.melati.poem.test.BigdecimalFieldTable;
 import org.melati.poem.test.TimestampFieldTable;
 import org.melati.poem.test.NodeTable;
+import org.melati.poem.test.ProtectedTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -56,6 +57,7 @@ public class TestDatabaseBase extends PoemDatabase {
   private BigdecimalFieldTable tab_bigdecimalfield = null;
   private TimestampFieldTable tab_timestampfield = null;
   private NodeTable tab_node = null;
+  private ProtectedTable tab_protected = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -81,6 +83,7 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_bigdecimalfield = new BigdecimalFieldTable(this, "bigdecimalfield", DefinitionSource.dsd));
     redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampfield", DefinitionSource.dsd));
     redefineTable(tab_node = new NodeTable(this, "node", DefinitionSource.dsd));
+    redefineTable(tab_protected = new ProtectedTable(this, "protected", DefinitionSource.dsd));
   }
 
 
@@ -337,6 +340,17 @@ public class TestDatabaseBase extends PoemDatabase {
   */
   public NodeTable getNodeTable() {
     return tab_node;
+  }
+
+
+ /**
+  * Retrieves the ProtectedTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the ProtectedTable from this database
+  */
+  public ProtectedTable getProtectedTable() {
+    return tab_protected;
   }
 }
 

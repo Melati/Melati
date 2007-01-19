@@ -160,11 +160,19 @@ public abstract class CachedQuery {
     return somethingHasChanged(PoemThread.transaction());
   }
 
+  /**
+   * Used in constructor of {@link CachedSelection}.
+   * @param query the query to set
+   */
   protected void setQuery(String query) {
     this.query = query;
   }
-
-  protected String getQuery() {
-    return query;
+  
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+    return getClass().getName() + " " + query;
   }
 }

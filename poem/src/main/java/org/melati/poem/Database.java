@@ -672,8 +672,14 @@ public abstract class Database implements TransactionPool {
   // ---------------
   //
 
+  /**
+   * Perform a PoemTask.
+   * @param accessToken the AccessToken to run the task under
+   * @param task the PoemTask to perform
+   * @param useCommittedTransaction whether to use an insulated Transaction or the Committed one
+   */
   private void perform(AccessToken accessToken, final PoemTask task,
-                       boolean committedTransaction) throws PoemException {
+                       boolean useCommittedTransaction) throws PoemException {
     try {
       lock.readLock().acquire();
     }
@@ -682,7 +688,7 @@ public abstract class Database implements TransactionPool {
     }
 
     final PoemTransaction transaction =
-        committedTransaction ? null : openTransaction();
+        useCommittedTransaction ? null : openTransaction();
     try {
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {

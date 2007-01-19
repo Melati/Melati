@@ -693,7 +693,8 @@ public abstract class Database implements TransactionPool {
       PoemThread.inSession(new PoemTask() {
                              public void run() throws PoemException {
                                  task.run();
-                                 transaction.close(true);
+                                 if (transaction != null) 
+                                   transaction.close(true);
                              }
 
                              public String toString() {

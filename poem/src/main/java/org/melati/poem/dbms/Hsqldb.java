@@ -45,16 +45,10 @@
 package org.melati.poem.dbms;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 
-import org.melati.poem.BinaryPoemType;
-import org.melati.poem.BooleanPoemType;
 import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.util.StringUtils;
 
@@ -162,59 +156,9 @@ public class Hsqldb extends AnsiStandard {
       } else {
         return storage.canRepresent(type);
       }
-    } else if (storage instanceof BinaryPoemType && type instanceof BinaryPoemType) {
-      if (((BinaryPoemType)storage).getSize() == 0) {
-        return type;
-      } else {
-        return storage.canRepresent(type);
-      }
     } else {
       return storage.canRepresent(type);
     }
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData
-   */
-  public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md) 
-      throws SQLException {
-    //ResultSetMetaData rsmd = md.getMetaData();
-    // 1.7.3 introduces a Boolean type, which a Bit is inferred to be 
-    if (md.getString("TYPE_NAME").equals("BOOLEAN"))
-      return new HsqldbBooleanPoemType(
-                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    if (md.getString("TYPE_NAME").equals("BIT"))
-      return new HsqldbBooleanPoemType(
-                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
-    else
-      return super.defaultPoemTypeOfColumnMetaData(md);
-  }
-
- /**
-  * Translates an HSQLDB Boolean into a Poem <code>BooleanPoemType</code>.
-  */ 
-  public static class HsqldbBooleanPoemType extends BooleanPoemType {
-    /**
-     * Constructor.
-     * @param nullable nullability
-     */
-    public HsqldbBooleanPoemType(boolean nullable) {
-      super(nullable);
-    }
-
-    protected Object _getRaw(ResultSet rs, int col) throws SQLException {
-      synchronized (rs) {
-        int i = rs.getInt(col);
-        return rs.wasNull() ? null : (i == 1 ? Boolean.TRUE : Boolean.FALSE);
-      }
-    }
-
-    protected void _setRaw(PreparedStatement ps, int col, Object bool) 
-        throws SQLException {
-      ps.setInt(col, ((Boolean) bool).booleanValue() ? 1 : 0);
-    }
-
   }
 
   /**
@@ -279,10 +223,13 @@ public class Hsqldb extends AnsiStandard {
     //another reason for not using the DB to control these things
     //if (fixName.equals("prevent"))
     //  sb.append(" ON DELETE NO ACTION");
+    // There is an "ON DELETE SET DEFAULT" 
+    
     if (fixName.equals("delete"))
       sb.append(" ON DELETE CASCADE");      
     if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
+      sb.append(" ON DELETE SET NULL");
+    
     return sb.toString();
   }
 

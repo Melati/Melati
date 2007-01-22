@@ -85,7 +85,7 @@ public class PreparedTailoredQuery extends TailoredQuery {
 
   /**
    * The results of the query.
-   * @return the results as an Enumeration.
+   * @return the results (a TailoredResultSetEnumeration) as an Enumeration.
    * @see org.melati.poem.TailoredQuery#selection()
    */
   public Enumeration selection() {

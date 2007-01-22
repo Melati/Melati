@@ -145,6 +145,7 @@ public class Hsqldb extends AnsiStandard {
   }
 
   /**
+   * Accomodate or String size hack. 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */
@@ -157,7 +158,7 @@ public class Hsqldb extends AnsiStandard {
         return storage.canRepresent(type);
       }
     } else {
-      return storage.canRepresent(type);
+      return super.canRepresent(storage, type);
     }
   }
 

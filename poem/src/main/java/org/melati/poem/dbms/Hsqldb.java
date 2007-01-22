@@ -164,16 +164,6 @@ public class Hsqldb extends AnsiStandard {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getQuotedName(java.lang.String)
-   */
-  public String getQuotedName(String name) {
-    StringBuffer b = new StringBuffer();
-    StringUtils.appendQuoted(b, unreservedName(name), '"');
-    return b.toString();
-  }
-
-  /**
-   * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
   public String unreservedName(String name) {

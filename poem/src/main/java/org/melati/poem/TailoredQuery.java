@@ -92,7 +92,7 @@ public class TailoredQuery {
   Column[] columns;
   boolean[] isCanReadColumn;
   Table[] tables;
-  Table[] canReadTables;
+  Table[] tablesWithoutCanReadColumn;
 
   Hashtable table_columnMap = new Hashtable();
 
@@ -193,7 +193,6 @@ public class TailoredQuery {
       if (!tablesV.contains(table))
         tablesV.addElement(table);
     }
-
     for (int t = 0; t < otherTables.length; ++t)
       if (!tablesV.contains(otherTables[t]))
         tablesV.addElement(otherTables[t]);
@@ -206,41 +205,44 @@ public class TailoredQuery {
     // programmer).  Make up a list of all the columns we need, included any
     // `canRead' access control columns for tables.
 
-    Vector columnsLocal = new Vector();
+    Vector columnsV = new Vector();
     Vector canReadColumnIndices = new Vector();
-    Vector canReadTablesLocal = new Vector();
+    Vector tablesWithoutCanReadColumnV = new Vector();
 
     selectedColumnsCount = selectedColumns.length;
-    for (int c = 0; c < selectedColumns.length; ++c)
-      columnsLocal.addElement(selectedColumns[c]);
-
-    for (int t = 0; t < tables.length; ++t) {
+    for (int c = 0; c < selectedColumns.length; ++c) {
+      columnsV.addElement(selectedColumns[c]);
+    }
+    
+    for (int t = 0; t < tables.length; t++) {
       Table table = tables[t];
       Column canRead = table.canReadColumn();
       if (canRead == null) {
         // No specific canRead column, revert to the table default protection
-
-        if (!canReadTablesLocal.contains(table))
-          canReadTablesLocal.addElement(table);
+        if (!tablesWithoutCanReadColumnV.contains(table))
+          tablesWithoutCanReadColumnV.addElement(table);
       }
-      else
-        if (!columnsLocal.contains(canRead)) {
-          canReadColumnIndices.addElement(new Integer(columnsLocal.size()));
-          columnsLocal.addElement(canRead);
+      else {
+        if (!columnsV.contains(canRead)) {
+          canReadColumnIndices.addElement(new Integer(columnsV.size()));
+          columnsV.addElement(canRead);
+        } else { 
+          canReadColumnIndices.addElement(new Integer(columnsV.indexOf(canRead)));          
         }
+      }
     }     
 
-    this.columns = new Column[columnsLocal.size()];
-    columnsLocal.copyInto(this.columns);
+    this.columns = new Column[columnsV.size()];
+    columnsV.copyInto(this.columns);
 
-    isCanReadColumn = new boolean[columnsLocal.size()];
+    isCanReadColumn = new boolean[columnsV.size()];
     for (int i = 0; i < canReadColumnIndices.size(); ++i) {
       int c = ((Integer)canReadColumnIndices.elementAt(i)).intValue();
       isCanReadColumn[c] = true;
     }
 
-    this.canReadTables = new Table[canReadTablesLocal.size()];
-    canReadTablesLocal.copyInto(this.canReadTables);
+    this.tablesWithoutCanReadColumn = new Table[tablesWithoutCanReadColumnV.size()];
+    tablesWithoutCanReadColumnV.copyInto(this.tablesWithoutCanReadColumn);
 
     // Make up the SQL for the query
 
@@ -253,9 +255,9 @@ public class TailoredQuery {
       sqlLocal.append(' ');
     }
 
-    for (int c = 0; c < columnsLocal.size(); ++c) {
+    for (int c = 0; c < columnsV.size(); ++c) {
       if (c > 0) sqlLocal.append(", ");
-      Column column = (Column)columnsLocal.elementAt(c);
+      Column column = (Column)columnsV.elementAt(c);
       sqlLocal.append(column.getTable().quotedName());
       sqlLocal.append('.');
       sqlLocal.append(column.quotedName());
@@ -283,8 +285,8 @@ public class TailoredQuery {
     // Set up mappings from column name (<table>_<column>) to position
     // (including the canRead columns, if anyone ever wants them)
 
-    for (int c = 0; c < columnsLocal.size(); ++c) {
-      Column column = (Column)columnsLocal.elementAt(c);
+    for (int c = 0; c < columnsV.size(); ++c) {
+      Column column = (Column)columnsV.elementAt(c);
       table_columnMap.put(
           column.getTable().getName() + "_" + column.getName(),
           new Integer(c));

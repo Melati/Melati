@@ -94,5 +94,27 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
       assertEquals(2,counter);
   }
 
+  public void testGetRaw() {
+    super.testGetRaw();
+    Boolean nullable = getDb().getUserTable().getNameColumn().getColumnInfo().getNullable();
+    assertEquals(Boolean.FALSE, nullable);
+  }
+
+  public void testSetRaw() {
+    super.testSetRaw();
+    Boolean nullable = getDb().getUserTable().getNameColumn().getColumnInfo().getNullable();
+    assertEquals(Boolean.FALSE, nullable);
+    getDb().getUserTable().getNameColumn().getColumnInfo().setNullable(Boolean.TRUE);
+    nullable = getDb().getUserTable().getNameColumn().getColumnInfo().getNullable();
+    assertEquals(Boolean.TRUE, nullable);
+    getDb().getUserTable().getNameColumn().getColumnInfo().setNullable(Boolean.FALSE);
+    nullable = getDb().getUserTable().getNameColumn().getColumnInfo().getNullable();
+    assertEquals(Boolean.FALSE, nullable);
+    nullable = getDb().getUserTable().getNameColumn().getColumnInfo().getNullable();
+    assertEquals(Boolean.FALSE, nullable);
+  }
+  
+  
+
 
 }

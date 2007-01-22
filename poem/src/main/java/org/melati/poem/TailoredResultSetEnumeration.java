@@ -68,13 +68,14 @@ public class TailoredResultSetEnumeration extends ResultSetEnumeration {
   }
 
   /**
-   * Throw an exception if we cannot read all the tables.
+   * Check whether defaultCanRead debars us from reading. 
+   * Explicit canRead columns are checked in column(ResultSet them, int c).
    */
   void checkTableAccess(ResultSet them) {
     AccessToken token = PoemThread.accessToken();
 
-    for (int t = 0; t < query.canReadTables.length; ++t) {
-      Capability canRead = query.canReadTables[t].getDefaultCanRead();
+    for (int t = 0; t < query.tablesWithoutCanReadColumn.length; ++t) {
+      Capability canRead = query.tablesWithoutCanReadColumn[t].getDefaultCanRead();
       if (canRead != null && !token.givesCapability(canRead))
         throw new AccessPoemException(token, canRead);
     }

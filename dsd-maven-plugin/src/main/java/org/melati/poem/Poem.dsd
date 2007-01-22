@@ -231,29 +231,33 @@ table TableInfo
     (displayname = "Default `read' capability")
     (description = "The capability required, by default, for reading the table's records")
     (displaylevel = record)
-    (searchability = no);
-
+    (searchability = no)
+    (integrityfix = clear)
+    ;
   Capability defaultcanwrite 
     (nullable)
     (displayname = "Default `write' capability")
     (description = "The capability required, by default, for updating the table's records")
     (displaylevel = record) 
-    (searchability = no);
-
+    (searchability = no)
+    (integrityfix = clear)
+    ;
   Capability defaultcandelete 
     (nullable)
     (displayname = "Default `delete' capability")
     (description = "The capability required, by default, for deleting the table's records")
     (displaylevel = record) 
-    (searchability = no);
-
+    (searchability = no)
+    (integrityfix = clear)
+    ;
   Capability cancreate 
     (nullable)
     (displayname = "Default `create' capability")
     (description = "The capability required, by default, for creating records in the table")
     (displaylevel = record) 
-    (searchability = no);
-
+    (searchability = no)
+    (integrityfix = clear)
+    ;
   Integer cachelimit 
     (nullable)
     (displayname = "Cache size limit")
@@ -447,7 +451,8 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     (displayname = "Integrity fix")
     (description = "How referential integrity is maintained, what to do when the object referred to is deleted")
     (displaylevel = record)
-    (searchability = no);
+    (searchability = no)
+    ;
 }
 
 table Setting extends org.melati.poem.ValueInfo

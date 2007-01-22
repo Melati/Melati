@@ -16,6 +16,7 @@ import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
+import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
@@ -442,6 +443,10 @@ public class TableInfoTableBase extends Table {
               throws AccessPoemException {
             ((TableInfo)g).setDefaultcanreadTroid((Integer)raw);
           }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.clear;
+          }
         });
 
     defineColumn(col_defaultcanwrite =
@@ -501,6 +506,10 @@ public class TableInfoTableBase extends Table {
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setDefaultcanwriteTroid((Integer)raw);
+          }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.clear;
           }
         });
 
@@ -562,6 +571,10 @@ public class TableInfoTableBase extends Table {
               throws AccessPoemException {
             ((TableInfo)g).setDefaultcandeleteTroid((Integer)raw);
           }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.clear;
+          }
         });
 
     defineColumn(col_cancreate =
@@ -621,6 +634,10 @@ public class TableInfoTableBase extends Table {
           public void setRaw(Persistent g, Object raw)
               throws AccessPoemException {
             ((TableInfo)g).setCancreateTroid((Integer)raw);
+          }
+
+          public StandardIntegrityFix defaultIntegrityFix() {
+            return StandardIntegrityFix.clear;
           }
         });
 

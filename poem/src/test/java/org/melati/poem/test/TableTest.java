@@ -366,6 +366,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getCacheInfo()
    */
   public void testGetCacheInfo() {
+    getDb().uncacheContents();
     Enumeration them = getDb().getUserTable().getCacheInfo().getHeldElements();
     int counter = 0;
     while(them.hasMoreElements()){

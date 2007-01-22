@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
 
+import org.melati.poem.CachedCount;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnRenamePoemException;
 import org.melati.poem.DisplayLevel;
@@ -1680,10 +1681,16 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * Ensure that sqlBooleanValue is tested.
    * @see org.melati.poem.Table#cachedCount(Persistent, boolean, boolean)
    */
   public void testCachedCountPersistentBooleanBoolean() {
-
+    TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    CachedCount cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
+    assertEquals(24, cached.count());
+    ti.setSeqcached(true);
+    cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
+    assertEquals(7, cached.count());
   }
 
   /**

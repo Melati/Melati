@@ -3,6 +3,11 @@
  */
 package org.melati.poem.test;
 
+import java.util.Enumeration;
+import java.util.NoSuchElementException;
+
+import org.melati.poem.ResultSetEnumeration;
+
 /**
  * @author timp
  * @since 22 Jan 2007
@@ -16,7 +21,6 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    */
   public ResultSetEnumerationTest(String name) {
     super(name);
-    setDbName("poemtest");
   }
 
   /**
@@ -25,7 +29,6 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    setDbName("poemtest");
   }
 
   /**
@@ -51,9 +54,18 @@ public class ResultSetEnumerationTest extends PoemTestCase {
   }
 
   /**
+   * Test ov deviant useage.
    * Test method for {@link org.melati.poem.ResultSetEnumeration#nextElement()}.
    */
   public void testNextElement() {
+    Enumeration rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    rse.nextElement();
+    try { 
+      rse.nextElement();
+      fail("Should have blown up");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
     
   }
 
@@ -61,7 +73,22 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.ResultSetEnumeration#skip()}.
    */
   public void testSkip() {
-    
+    ResultSetEnumeration rse = (ResultSetEnumeration)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    rse.skip();
+    try { 
+      rse.nextElement();
+      fail("Should have blown up");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }    
+    rse = (ResultSetEnumeration)getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
+    rse.skip();
+    try { 
+      rse.skip();
+      fail("Should have blown up");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }    
   }
 
 }

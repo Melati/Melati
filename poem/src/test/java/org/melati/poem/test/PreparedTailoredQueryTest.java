@@ -5,8 +5,6 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import junit.framework.AssertionFailedError;
-
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
@@ -86,9 +84,9 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
                             ptq.selection()).size()));
     Enumeration en = ptq.selection();
     while (en.hasMoreElements()) {
-      //Object ne = 
+      Object ne = 
         en.nextElement();
-      //System.err.println(ne);
+      System.err.println("FieldSet:" + ne);
     }
 
     PoemTask readAsGuest = new PoemTask() {
@@ -135,7 +133,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
             System.err.println(tuple);
           }
           fail("Should have blown up");
-        } catch (AccessPoemException e) { 
+        } catch (AccessPoemException e) {
           e = null;
         }
 
@@ -144,19 +142,28 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
     
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
 
-    // Now remove row's capability
+    // Now remove row's capability and set Users capability;
+    // (as Protected does not get checked in {@link TailoredResultSetEnumeration}).
     spyMission.setCanRead(null);
+    db.getUserTable().getTableInfo().setDefaultcanread(moneyPenny);
+    
     try { 
       PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
-    } catch (AssertionFailedError  e) { 
+    } catch (AccessPoemException e) { 
       e = null;
     }
     
     // Check that table level protection is used if row level is missing
     db.getProtectedTable().getTableInfo().setDefaultcanread(moneyPenny);
-    PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
+    try { 
+      PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
+    } catch (AccessPoemException e) { 
+      e = null;
+    }
     
+    // cleanup 
     db.getProtectedTable().getTableInfo().setDefaultcanread(null);
+    db.getUserTable().getTableInfo().setDefaultcanread(null);
     spyMission.delete();
     spy.delete();
     spyMaster.delete();

@@ -5,6 +5,8 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
+import junit.framework.AssertionFailedError;
+
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
@@ -110,10 +112,8 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
     
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest);
     
-    // Check that default works as well
-   // db.getProtectedTable().getTableInfo().setDefaultcanread(moneyPenny);
     final Column missionColumn = db.getProtectedTable().getMissionColumn();
-
+    assertEquals("moneyPenny",spyMission.getCanRead().getName());
     final PreparedTailoredQuery ptq2 = new PreparedTailoredQuery(
             new Column[] {missionColumn, db.getUserTable().getPasswordColumn()},
             new Table[] {db.getUserTable()},
@@ -122,7 +122,6 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
             " = " + 
             db.getUserTable().troidColumn().fullQuotedName(),
             null) ;
-    System.err.println(ptq2);
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
         assertEquals(new Integer(1), 
@@ -143,10 +142,21 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
       }
     };
     
+    PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
+
+    // Now remove row's capability
     spyMission.setCanRead(null);
+    try { 
+      PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
+    } catch (AssertionFailedError  e) { 
+      e = null;
+    }
+    
+    // Check that table level protection is used if row level is missing
+    db.getProtectedTable().getTableInfo().setDefaultcanread(moneyPenny);
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
     
-    
+    db.getProtectedTable().getTableInfo().setDefaultcanread(null);
     spyMission.delete();
     spy.delete();
     spyMaster.delete();

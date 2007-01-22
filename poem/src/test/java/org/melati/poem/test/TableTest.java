@@ -529,7 +529,8 @@ public class TableTest extends PoemTestCase {
     exemplar.setLogin("_administrator_");
     result = null;
     count = 0;
-    found  = getDb().getUserTable().selection(exemplar);
+    found  = getDb().getUserTable().selection(exemplar, 
+        getDb().getUserTable().getNameColumn().fullQuotedName());
     while (found.hasMoreElements()) {
       count++;
       result = (User)found.nextElement();

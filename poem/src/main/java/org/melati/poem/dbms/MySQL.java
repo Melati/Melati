@@ -224,6 +224,7 @@ public class MySQL extends AnsiStandard {
     }
 
     /**
+     * Looks like this is unnecessary.
      * {@inheritDoc}
      * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
      */
@@ -336,7 +337,8 @@ public class MySQL extends AnsiStandard {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+     * @see org.melati.poem.dbms.AnsiStandard#
+     *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
      */
     public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
         throws SQLException {

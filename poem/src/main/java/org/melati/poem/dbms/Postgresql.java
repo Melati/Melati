@@ -172,7 +172,8 @@ public class Postgresql extends AnsiStandard {
   
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
+   * @see org.melati.poem.dbms.AnsiStandard#
+   *          defaultPoemTypeOfColumnMetaData(java.sql.ResultSet)
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {

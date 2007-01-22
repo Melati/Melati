@@ -122,7 +122,6 @@ public class PersistentTest extends PoemTestCase {
     p2.setCooked("login", "test");
     p2.setCooked("password", "test");
     p2.makePersistent();
-    getDb().getUserTable().getUserObject(2);
     int getHits3 = getDb().getQueryCount();
     //System.err.println(getHits3);
     assertEquals(getHits2 + 3, getHits3);

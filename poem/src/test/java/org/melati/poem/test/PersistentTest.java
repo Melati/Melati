@@ -11,6 +11,7 @@ import java.util.Enumeration;
 import org.melati.poem.AccessToken;
 import org.melati.poem.CreationAccessPoemException;
 import org.melati.poem.DeletePersistentAccessPoemException;
+import org.melati.poem.DeletionIntegrityPoemException;
 import org.melati.poem.DoubleCreatePoemException;
 import org.melati.poem.Field;
 import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
@@ -22,6 +23,7 @@ import org.melati.poem.ReadPersistentAccessPoemException;
 import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
+import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.WritePersistentAccessPoemException;
 import org.melati.util.MelatiLocale;
@@ -617,6 +619,13 @@ public class PersistentTest extends PoemTestCase {
    * @see org.melati.poem.Persistent#delete(Map)
    */
   public void testDeleteMap() {
+    TableInfo ti = (TableInfo)getDb().getUserTable().getTableInfo();
+    try { 
+      ti.delete();
+      fail("Should have bombed");
+    } catch (DeletionIntegrityPoemException e) { 
+      e = null;
+    }
 
   }
 

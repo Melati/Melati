@@ -368,6 +368,27 @@ public class AnsiStandard implements Dbms {
       case Types.OTHER :
         return unsupported("OTHER", md);
 
+
+        // Following introduced since 1.1
+      case Types.JAVA_OBJECT : 
+        return unsupported("JAVA_OBJECT", md);
+      case Types.DISTINCT : 
+        return unsupported("DISTINCT", md);
+      case Types.STRUCT : 
+        return unsupported("STRUCT", md);
+      case Types.ARRAY : 
+        return unsupported("ARRAY", md);
+      case Types.BLOB : 
+        return unsupported("BLOB", md);
+      case Types.CLOB : 
+        return unsupported("CLOB", md);
+      case Types.REF : 
+        return unsupported("REF", md);
+      case Types.DATALINK : 
+        return unsupported("DATLINK", md);
+
+      case Types.BOOLEAN : 
+        return new BooleanPoemType(nullable);
       default :
         return unsupported("<code not in Types.java!>", md);
     }

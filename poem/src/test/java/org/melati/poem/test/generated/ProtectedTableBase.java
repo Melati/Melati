@@ -267,7 +267,7 @@ public class ProtectedTableBase extends Table {
     defineColumn(col_canRead =
         new Column(this, "canRead",
                    new ReferencePoemType(getTestDatabaseTables().
-                                             getCapabilityTable(), false),
+                                             getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {

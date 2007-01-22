@@ -1505,6 +1505,7 @@ table Protected
     ;
 
   Capability canRead
+    (nullable)
     (displaylevel = record) 
     (description = "Capability required to read this row ")
     ;

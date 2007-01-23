@@ -44,7 +44,6 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.Connection;
 import java.sql.ResultSetMetaData;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -108,9 +107,9 @@ public class Oracle extends AnsiStandard {
   /**
    * We can.
    * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns(java.sql.Connection)
+   * @see org.melati.poem.dbms.AnsiStandard#canDropColumns()
    */
-  public boolean canDropColumns(Connection con) {
+  public boolean canDropColumns() {
     return true;
   }
 

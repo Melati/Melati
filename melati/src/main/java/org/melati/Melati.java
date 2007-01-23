@@ -945,7 +945,6 @@ public class Melati {
    * @return - a User for this request
    */
   public User getUser() {
-    // 
     try {
       return (User)PoemThread.accessToken();
     }

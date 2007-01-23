@@ -940,12 +940,12 @@ public class Melati {
 
   /**
    * Get a User for this request (if they are logged in).
-   *
+   * NOTE POEM studiously assumes there isn't necessarily a user, only
+   * an AccessToken
    * @return - a User for this request
    */
   public User getUser() {
-    // FIXME oops, POEM studiously assumes there isn't necessarily a user, only
-    // an AccessToken
+    // 
     try {
       return (User)PoemThread.accessToken();
     }

@@ -98,6 +98,14 @@ public class AnsiStandard implements Dbms {
   protected synchronized void setDriverLoaded(boolean loaded) {
     driverLoaded = loaded;
   }
+
+  public void unloadDriver() {
+    driver = null;
+    setDriverClassName(null);
+    setDriverLoaded(false);
+    System.gc();
+  }
+  
   protected synchronized boolean getDriverLoaded() {
     return driverLoaded;
   }
@@ -120,9 +128,9 @@ public class AnsiStandard implements Dbms {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#canDropColumns(java.sql.Connection)
+   * @see org.melati.poem.dbms.Dbms#canDropColumns()
    */
-  public boolean canDropColumns(Connection con) throws SQLException {
+  public boolean canDropColumns(){
     return false;
   }
 

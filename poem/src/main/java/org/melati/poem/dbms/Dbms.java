@@ -64,6 +64,11 @@ import org.melati.poem.Table;
 public interface Dbms {
   
   /**
+   * Used in tests to allow multiple dbmsen to be loaded and unloaded.
+   */
+  void unloadDriver();
+  
+  /**
    * Return a connection.
    * @param url the jdbc URL
    * @param user the user to connect as, may be null
@@ -199,11 +204,10 @@ public interface Dbms {
   /**
    * Whether this DBMS can drop columns.
    * 
-   * @param con the current connection
    * @return true if we can
    * @throws SQLException
    */
-  boolean canDropColumns(Connection con) throws SQLException; 
+  boolean canDropColumns(); 
 
   /**
    * An exception appropriate for expressing what really went wrong

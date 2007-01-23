@@ -246,7 +246,7 @@ public abstract class DbmsSpec extends TestCase {
    * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testGetForeignKeyDefinition() {
-    
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
   }
 
   /**

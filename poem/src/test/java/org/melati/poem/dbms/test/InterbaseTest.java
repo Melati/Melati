@@ -40,4 +40,12 @@ public class InterbaseTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Interbase");    
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD FOREIGN KEY (quser) REFERENCES quser(qid) ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
+
 }

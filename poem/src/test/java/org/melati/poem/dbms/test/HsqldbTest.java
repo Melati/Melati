@@ -71,5 +71,12 @@ public class HsqldbTest extends DbmsSpec {
     assertEquals("NAME", it.unreservedName("name"));    
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD FOREIGN KEY (\"USER\") REFERENCES \"USER\"(\"ID\") ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
 
 }

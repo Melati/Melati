@@ -80,5 +80,16 @@ public class OracleTest extends DbmsSpec {
     assertEquals("NAME", it.unreservedName("name"));    
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD (CONSTRAINT FK_test_user) FOREIGN KEY (\"MELATI_USER\") REFERENCES " + 
+                 "\"MELATI_USER\"(\"ID\") ON DELETE CASCADE",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
 
+
+  
 }

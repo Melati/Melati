@@ -47,5 +47,13 @@ public class MySQLTest extends DbmsSpec {
     assertEquals("BLOB", it.getBinarySqlDefinition(0));        
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
+
 
 }

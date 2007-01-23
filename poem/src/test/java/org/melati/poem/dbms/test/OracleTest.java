@@ -39,5 +39,46 @@ public class OracleTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Oracle");
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getLongSqlDefinition()}.
+   */
+  public void testGetLongSqlDefinition() {
+    assertEquals("NUMBER", it.getLongSqlDefinition());    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * sqlBooleanValueOfRaw(java.lang.Object)}.
+   */
+  public void testSqlBooleanValueOfRaw() {
+    assertEquals("0", it.sqlBooleanValueOfRaw(Boolean.FALSE));        
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("BLOB", it.getBinarySqlDefinition(0));        
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * canDropColumns(java.sql.Connection)}.
+   */
+  public void testCanDropColumns() throws Exception {
+    assertTrue(it.canDropColumns());
+  }
+  
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * unreservedName(java.lang.String)}.
+   */
+  public void testUnreservedName() {
+    assertEquals("NAME", it.unreservedName("name"));    
+  }
+
 
 }

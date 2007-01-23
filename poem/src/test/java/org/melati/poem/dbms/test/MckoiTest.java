@@ -40,4 +40,12 @@ public class MckoiTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Mckoi");
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("LONGVARBINARY", it.getBinarySqlDefinition(0));        
+  }
+
 }

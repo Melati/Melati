@@ -39,5 +39,13 @@ public class PostgresqlTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Postgresql");
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("BYTEA", it.getBinarySqlDefinition(0));        
+  }
+
 
 }

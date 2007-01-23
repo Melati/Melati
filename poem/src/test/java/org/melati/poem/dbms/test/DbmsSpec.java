@@ -32,6 +32,7 @@ public abstract class DbmsSpec extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    setObjectUnderTest();
   }
 
   /**
@@ -40,6 +41,7 @@ public abstract class DbmsSpec extends TestCase {
    */
   protected void tearDown() throws Exception {
     super.tearDown();
+    it.unloadDriver();
   }
 
   protected abstract void setObjectUnderTest();
@@ -95,7 +97,7 @@ public abstract class DbmsSpec extends TestCase {
    * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
    */
   public void testCreateTableSql() {
-    
+    assertEquals("CREATE TABLE ", it.createTableSql());
   }
 
   /**
@@ -109,8 +111,8 @@ public abstract class DbmsSpec extends TestCase {
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#getStringSqlDefinition(int)}.
    */
-  public void testGetStringSqlDefinition() {
-    
+  public void testGetStringSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
   }
 
   /**
@@ -118,7 +120,7 @@ public abstract class DbmsSpec extends TestCase {
    * getLongSqlDefinition()}.
    */
   public void testGetLongSqlDefinition() {
-    
+    assertEquals("INT8", it.getLongSqlDefinition());    
   }
 
   /**
@@ -126,15 +128,15 @@ public abstract class DbmsSpec extends TestCase {
    * sqlBooleanValueOfRaw(java.lang.Object)}.
    */
   public void testSqlBooleanValueOfRaw() {
-    
+    assertEquals("false", it.sqlBooleanValueOfRaw(Boolean.FALSE));        
   }
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getBinarySqlDefinition(int)}.
    */
-  public void testGetBinarySqlDefinition() {
-    
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("LONGVARBINARY(0)", it.getBinarySqlDefinition(0));        
   }
 
   /**
@@ -165,8 +167,8 @@ public abstract class DbmsSpec extends TestCase {
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * canDropColumns(java.sql.Connection)}.
    */
-  public void testCanDropColumns() {
-    
+  public void testCanDropColumns() throws Exception {
+    assertFalse(it.canDropColumns());
   }
 
   /**
@@ -190,14 +192,14 @@ public abstract class DbmsSpec extends TestCase {
    * unreservedName(java.lang.String)}.
    */
   public void testUnreservedName() {
-    
+    assertEquals("name", it.unreservedName("name"));    
   }
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#melatiName(java.lang.String)}.
    */
   public void testMelatiName() {
-    
+    assertEquals("name", it.melatiName("name"));
   }
 
   /**

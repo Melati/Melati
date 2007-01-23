@@ -40,4 +40,21 @@ public class MSAccessTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.MSAccess");
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getLongSqlDefinition()}.
+   */
+  public void testGetLongSqlDefinition() {
+    assertEquals("INTEGER", it.getLongSqlDefinition());    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("BINARY(0)", it.getBinarySqlDefinition(0));        
+  }
+
+  
 }

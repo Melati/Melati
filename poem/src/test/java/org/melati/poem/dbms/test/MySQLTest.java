@@ -39,5 +39,13 @@ public class MySQLTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.MySQL");
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("BLOB", it.getBinarySqlDefinition(0));        
+  }
+
 
 }

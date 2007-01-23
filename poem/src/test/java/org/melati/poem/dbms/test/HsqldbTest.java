@@ -40,4 +40,36 @@ public class HsqldbTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Hsqldb");
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableSql()}.
+   */
+  public void testCreateTableSql() {
+    assertEquals("CREATE CACHED TABLE ", it.createTableSql());
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getLongSqlDefinition()}.
+   */
+  public void testGetLongSqlDefinition() {
+    assertEquals("BIGINT", it.getLongSqlDefinition());    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("LONGVARBINARY", it.getBinarySqlDefinition(0));        
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * unreservedName(java.lang.String)}.
+   */
+  public void testUnreservedName() {
+    assertEquals("NAME", it.unreservedName("name"));    
+  }
+
+
 }

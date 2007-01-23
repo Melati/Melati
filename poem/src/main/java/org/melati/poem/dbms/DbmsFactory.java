@@ -51,53 +51,48 @@
 package org.melati.poem.dbms;
 
 import java.util.Hashtable;
-import java.sql.SQLException;
+
+import org.melati.poem.AppBugPoemException;
 
 /**
  * A factory class to create Dbms objects.
- * 
- * FIXME What horrible exception handling. We need a non SQL Exception here.
  */
 public final class DbmsFactory {
 
-    private static final Hashtable dbmsObjects = new Hashtable();
+  private static final Hashtable dbmsObjects = new Hashtable();
 
-    private DbmsFactory() {}
+  private DbmsFactory() {
+  }
 
-    /**
-     * Return a Dbms object given its class name as a String.
-     * @param dbmsClass the name of the dbms class
-     * @return a cached or newly created Dmbs object
-     * @throws ConnectionFailurePoemException if we cannot connect
-     */
-    public static Dbms getDbms(String dbmsClass) 
-        throws ConnectionFailurePoemException {
-      synchronized (dbmsObjects) {
-        try {
-          Dbms dbms = (Dbms)dbmsObjects.get(dbmsClass);
-          if (dbms != null) {
-            return dbms;
-          }
-
-          Object dbmsObject = Class.forName(dbmsClass).newInstance();
-
-          if (!(dbmsObject instanceof Dbms)) {
-            throw new ClassCastException(
-                 "The .class=" + dbmsClass + " entry named a class of type " +
-                 dbmsObject.getClass() + ", " +
-                 "which is not an org.melati.poem.dbms.Dbms");
-          }
-
-          dbms = (Dbms)dbmsObject;
-          dbmsObjects.put(dbmsClass, dbms);
-          return dbms;
-        } catch (Exception e) {
-          // get the stack trace
-          e.printStackTrace(System.err);
-          throw new ConnectionFailurePoemException(
-                        new SQLException(e.getMessage()));
-        }
+  /**
+   * Return a Dbms object given its class name as a String.
+   * 
+   * @param dbmsClass
+   *          the name of the dbms class
+   * @return a cached or newly created Dmbs object
+   */
+  public static Dbms getDbms(String dbmsClass) {
+    synchronized (dbmsObjects) {
+      Dbms dbms = (Dbms)dbmsObjects.get(dbmsClass);
+      if (dbms != null) {
+        return dbms;
       }
-    }
-}
 
+      try {
+        Object dbmsObject = Class.forName(dbmsClass).newInstance();
+
+        if (!(dbmsObject instanceof Dbms)) {
+          throw new ClassCastException("The .class=" + dbmsClass
+                  + " entry named a class of type " + dbmsObject.getClass()
+                  + ", " + "which is not an org.melati.poem.dbms.Dbms");
+        }
+        dbms = (Dbms)dbmsObject;
+      } catch (Exception e) {
+        throw new AppBugPoemException("Problem instantiating class "
+                + dbmsClass, e);
+      }
+      dbmsObjects.put(dbmsClass, dbms);
+      return dbms;
+    }
+  }
+}

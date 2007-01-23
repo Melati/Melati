@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -46,7 +46,9 @@
 package org.melati.poem;
 
 /**
- * A bug has been trapped!
+ * Thrown when the error is likely to be caused by an error in 
+ * the application programmers code, such as mistypeing a class name or 
+ * mis-configuring a property.  
  */
 public class AppBugPoemException extends SeriousPoemException {
   private static final long serialVersionUID = 1L;

@@ -38,12 +38,14 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
 package org.melati.poem;
+
+import java.util.Enumeration;
 
 import org.melati.poem.generated.GroupCapabilityTableBase;
 
@@ -116,4 +118,23 @@ public class GroupCapabilityTable extends GroupCapabilityTableBase {
     if (info.getCancreate() == null)
       info.setCancreate(getDatabase().administerCapability());
   }
+  
+  /**
+   * Make sure that a record exists.
+   *
+   * @return the existing or newly created {@link GroupCapability}
+   */
+  public GroupCapability ensure(Group group, Capability capability) {
+     GroupCapability p = (GroupCapability)newPersistent();
+     p.setGroup(group);
+     p.setCapability(capability);
+     Enumeration them = selection(p);
+     if (them.hasMoreElements()) 
+       return (GroupCapability)them.nextElement();
+     else {
+       p.makePersistent();
+       return p;
+     }
+   }
+
 }

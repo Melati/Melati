@@ -86,10 +86,10 @@ public interface IntegrityFix {
    * @param referenceFixOfColumn The column-to-<TT>IntegrityFix</TT>
    *         mapping passed into {@link Persistent#delete(Map)}.
    *
-   * @return A list of the <TT>Persistent</TT>s from <TT>refs</TT> which
-   *         constitute reasons why the <TT>referee</TT> can't be deleted
-   *         at this time.  If you want to allow the <TT>referee</TT> to be
-   *         deleted, return an empty list (<TT>EmptyEnumeration.it</TT>).
+   * @return Either a list of the <TT>Persistent</TT>s from <TT>refs</TT> which
+   *         constitute reasons why the <TT>referee</TT> can't be deleted 
+   *         or the <TT>EmptyEnumeration</TT> if there are no references or 
+   *         all <TT>refs</TT> have been cleared or deleted.
    */
 
   Enumeration referencesTo(Persistent referee, Column column,

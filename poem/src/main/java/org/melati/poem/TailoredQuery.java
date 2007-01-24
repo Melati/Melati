@@ -340,7 +340,7 @@ public class TailoredQuery {
    *
    * <P>
    *
-   * <B>Note.</B> Since this way of doing queries involves named fields rather
+   * NOTE Since this way of doing queries involves named fields rather
    * than whole <TT>Persistent</TT> objects, it inevitably bypasses any
    * Java-coded access rules put in place by the programmer by overriding
    * <TT>Persistent.assertCanRead</TT>.

@@ -130,7 +130,7 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
             p.delete(referenceFixOfColumn);
           }
           catch (RowDisappearedPoemException e) {
-            // This is possible if the table has a (currently non-standard)
+            // This is possible if the table has a non-standard
             // integrity fix that deletes subsequent rows. ResultSetEnumeration
             // allows us to carry on in that case.
             if (! (refs instanceof ResultSetEnumeration)) {

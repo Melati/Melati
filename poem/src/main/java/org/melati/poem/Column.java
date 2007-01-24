@@ -180,6 +180,9 @@ public abstract class Column implements FieldAttributes {
     return isTroidColumn();
   }
 
+  /**
+   * @return the StandardIntegrityFix prevent
+   */
   protected StandardIntegrityFix defaultIntegrityFix() {
     return StandardIntegrityFix.prevent;
   }

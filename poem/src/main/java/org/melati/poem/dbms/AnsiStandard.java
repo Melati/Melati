@@ -486,7 +486,7 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * MySQL has no EXISTS keyword.
+   * MySQL had no EXISTS keyword, from 4.1 onwards it does.
    * NOTE There is a bootstrap problem here, we need to use the 
    * unchecked troid, otherwise we get a stack overflow.
    * {@inheritDoc}

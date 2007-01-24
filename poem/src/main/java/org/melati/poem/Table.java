@@ -1567,9 +1567,9 @@ public class Table implements Selectable {
 
     if (deletedColumn != null && ! includeDeleted) {
       if (whereClause.length() > 0) {
-        whereClause += " AND ";
+        whereClause += " AND";
       }
-      whereClause += "NOT " + deletedColumn.quotedName();
+      whereClause += " NOT " + deletedColumn.quotedName();
     }
 
     if (excludeUnselectable){

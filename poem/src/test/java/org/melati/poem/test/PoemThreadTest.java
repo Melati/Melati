@@ -46,30 +46,25 @@ public class PoemThreadTest extends PoemTestCase {
    * Check that exception it thrown.
    */
   public void testAlreadyInSession() {
-    /*
     try {
       getDb().beginSession(PoemThread.accessToken());
       fail("Should have blown up");
     } catch (AlreadyInSessionPoemException e) { 
       e = null;
     }
-    */
   }
   /**
    * Called in SessionAnalysisServlet.
    * Test method for {@link org.melati.poem.PoemThread#openSessions()}.
    */
   public void testOpenSessions() {
-    /*
     assertEquals(1, PoemThread.openSessions().size());
-    */
   }
 
   /**
    * Test method for {@link org.melati.poem.PoemThread#toTidy()}.
    */
   public void testToTidy() {
-/*
     ToTidyList list = PoemThread.toTidy();
     Enumeration en = list.elements();
     int count = 0;
@@ -78,7 +73,6 @@ public class PoemThreadTest extends PoemTestCase {
       en.nextElement();
     }
     assertEquals(0, count);
-*/
   }
 
   /**
@@ -124,7 +118,6 @@ public class PoemThreadTest extends PoemTestCase {
    * assertHasCapability(org.melati.poem.Capability)}.
    */
   public void testAssertHasCapability() {
-    /*
     Capability canWrite = (Capability)getDb().getCapabilityTable().getNameColumn().firstWhereEq("canRead");
     assertNotNull(canWrite);
     PoemThread.assertHasCapability(canWrite);
@@ -136,7 +129,6 @@ public class PoemThreadTest extends PoemTestCase {
     } catch (AccessPoemException e) { 
       e = null;
     }
-    */
   }
 
   /**

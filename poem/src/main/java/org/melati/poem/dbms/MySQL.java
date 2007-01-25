@@ -472,7 +472,7 @@ public class MySQL extends AnsiStandard {
    */
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return
-        "SELECT groupmembership.*  " + 
+        "SELECT groupmembership.* " + 
         "FROM groupmembership LEFT JOIN groupcapability " +
         "ON groupmembership." + getQuotedName("group") +
         " =  groupcapability." + getQuotedName("group") + " " +

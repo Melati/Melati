@@ -60,6 +60,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
     super.setUp();
     setDbName(getDbName());
     setDb(getDbName());
+    assertEquals(4, getDb().getFreeTransactionsCount());
   }
 
   /**

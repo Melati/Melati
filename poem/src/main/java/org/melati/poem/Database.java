@@ -769,8 +769,14 @@ public abstract class Database implements TransactionPool {
     catch (InterruptedException e) {
       throw new InterruptedPoemException(e);
     }
-
-    PoemThread.beginSession(accessToken,openTransaction());
+    PoemTransaction transaction = openTransaction();
+    try { 
+      PoemThread.beginSession(accessToken,transaction);
+    } catch (AlreadyInSessionPoemException e) { 
+      notifyClosed(transaction);
+      lock.readLock().release();
+      throw e;
+    }
   }
 
   /**

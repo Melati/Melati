@@ -45,7 +45,6 @@
 
 package org.melati.poem.test;
 
-import org.melati.LogicalDatabase;
 /**
  * Test the handling of binary data field type.
  * 
@@ -70,7 +69,7 @@ public class BinaryTest extends PoemTestCase {
   protected void setUp() throws Exception {
     setDbName(dbName);
     super.setUp();
-    db = (TestDatabase)LogicalDatabase.getDatabase(dbName);
+    db = (TestDatabase)getDb();
   }
 
   /*

@@ -21,6 +21,8 @@ import org.melati.poem.TypeMismatchPoemException;
  */
 abstract public class SQLPoemTypeTest extends PoemTestCase {
 
+  protected PoemType it = null;
+
   /**
    * @param name
    */
@@ -35,8 +37,6 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
     super(name);
   }
 
-  protected PoemType it = null;
-
   /**
    * {@inheritDoc}
    * 
@@ -47,8 +47,6 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
     setObjectUnderTest();
   }
 
-  abstract void setObjectUnderTest();
-
   /**
    * {@inheritDoc}
    * 
@@ -57,6 +55,9 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
   protected void tearDown() throws Exception {
     super.tearDown();
   }
+
+  abstract void setObjectUnderTest();
+
 
   /**
    * Test method for {@link org.melati.poem.SQLType#sqlTypeCode()}.

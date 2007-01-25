@@ -32,6 +32,22 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * {@inheritDoc}
+   * @see org.melati.poem.test.SQLPoemTypeTest#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.SQLPoemTypeTest#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    super.tearDown();
+  }
+
+  /**
+   * {@inheritDoc}
    * @see org.melati.poem.test.SQLPoemTypeTest#setObjectUnderTest()
    */
   void setObjectUnderTest() {

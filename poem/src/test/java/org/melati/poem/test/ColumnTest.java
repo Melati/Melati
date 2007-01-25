@@ -30,16 +30,18 @@ public class ColumnTest extends PoemTestCase {
     super(name);
   }
 
-  /*
-   * @see PoemTestCase#setUp()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /*
-   * @see PoemTestCase#tearDown()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PoemTestCase#tearDown()
    */
   protected void tearDown()
       throws Exception {

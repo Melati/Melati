@@ -5,7 +5,6 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.PoemTask;
@@ -39,9 +38,8 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
    */
   protected void setUp() throws Exception {
     setDbName("poemtest");
-    if (db == null)
-      db = (TestDatabase)LogicalDatabase.getDatabase(getDbName());
     super.setUp();
+    db = (TestDatabase)getDb();
   }
 
 

@@ -25,6 +25,7 @@ import org.melati.util.MelatiStringWriter;
  */
 public abstract class AccessHandlerTestAbstract extends PoemTestCase {
 
+
   protected AccessHandler it = null;
  
   protected static MelatiConfig mc = null;
@@ -41,11 +42,6 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     super(name);
   }
 
-  /**
-   * Set the particular AccessHandler to test.
-   */
-  public abstract void setAccessHandler();
-  
   /*
    * @see TestCase#setUp()
    */
@@ -70,6 +66,15 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
    
   }
 
+  protected void tearDown() throws Exception {
+    super.tearDown();
+  }
+  
+  /**
+   * Set the particular AccessHandler to test.
+   */
+  public abstract void setAccessHandler();
+  
   protected void melatiConfig() throws MelatiException {
     mc = new MelatiConfig();
     /* 

@@ -67,6 +67,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   protected void tearDown() throws Exception {
     checkDbUnchanged();
+    assertEquals(4, getDb().getFreeTransactionsCount());
   }
 
   /**

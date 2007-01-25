@@ -39,5 +39,20 @@ public class SQLServerTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.SQLServer");
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, 
+   *                         java.lang.String, java.lang.String, 
+   *                         java.lang.String)}.
+   */
+  public void testGetForeignKeyDefinition() {
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE NO ACTION",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "prevent"));
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE SET NULL",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "clear"));
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE CASCADE",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
+
 
 }

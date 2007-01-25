@@ -54,6 +54,26 @@ public class MySQLTest extends DbmsSpec {
   public void testGetForeignKeyDefinition() {
     assertEquals(" ADD FOREIGN KEY (user) REFERENCES user(id) ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * givesCapabilitySQL(java.lang.Integer, java.lang.String)}.
+   */
+  public void testGivesCapabilitySQL() {
+    String actual = it.givesCapabilitySQL(new Integer(42), "hello");
+    String expected = "SELECT " + it.getQuotedName("groupmembership") + ".* "
+            + "FROM " + it.getQuotedName("groupmembership") + " LEFT JOIN "
+            + it.getQuotedName("groupcapability") + " ON "
+            + it.getQuotedName("groupmembership") + "."
+            + it.getQuotedName("group") + " =  "
+            + it.getQuotedName("groupcapability") + "."
+            + it.getQuotedName("group") + " WHERE " + it.getQuotedName("user")
+            + " = 42" + " " + "AND " + it.getQuotedName("groupcapability")
+            + "." + it.getQuotedName("group") + " IS NOT NULL " + "AND "
+            + it.getQuotedName("capability") + " = hello";
+
+    assertEquals(expected, actual);
+
+  }
 
 
 }

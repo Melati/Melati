@@ -47,5 +47,27 @@ public class PostgresqlTest extends DbmsSpec {
     assertEquals("BYTEA", it.getBinarySqlDefinition(0));        
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
+   */
+  public void testCaseInsensitiveRegExpSQL() {
+    String expected = "a ~* b";
+    String actual = it.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
+  }
 
+  public void testCaseInsensitiveRegExpSQLQuoted() {
+    String expected = "a ~* \"b\"";
+    String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLBlank() {
+    String expected = " ~* ";
+    String actual = it.caseInsensitiveRegExpSQL("", "");
+    assertEquals(expected, actual);
+  }
+
+  
 }

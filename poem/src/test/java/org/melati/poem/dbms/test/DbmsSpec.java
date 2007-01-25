@@ -223,6 +223,19 @@ public abstract class DbmsSpec extends TestCase {
    * givesCapabilitySQL(java.lang.Integer, java.lang.String)}.
    */
   public void testGivesCapabilitySQL() {
+    String actual = it.givesCapabilitySQL(new Integer(42),"hello");
+    String expected = "SELECT * FROM " + it.getQuotedName("groupmembership") + 
+                      " WHERE " + it.getQuotedName("user") + " = 42 AND " + 
+                      "EXISTS ( SELECT " + it.getQuotedName("groupcapability") + 
+                      "." + it.getQuotedName("group") +  
+                      " FROM " + it.getQuotedName("groupcapability") + 
+                      " WHERE " + 
+                      it.getQuotedName("groupcapability") + "." + it.getQuotedName("group") + 
+                      " = " + 
+                      it.getQuotedName("groupmembership") + "." + 
+                      it.getQuotedName("group") + " AND " + 
+                      it.getQuotedName("capability") + " = hello)";
+    assertEquals(expected,actual);
     
   }
 
@@ -231,9 +244,24 @@ public abstract class DbmsSpec extends TestCase {
    * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
    */
   public void testCaseInsensitiveRegExpSQL() {
-    
+    String expected = "a REGEXP b";
+    String actual = it.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
   }
 
+  public void testCaseInsensitiveRegExpSQLQuoted() {
+    String expected = "a REGEXP \"b\"";
+    String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLBlank() {
+    String expected = " REGEXP ";
+    String actual = it.caseInsensitiveRegExpSQL("", "");
+    assertEquals(expected, actual);
+  }
+
+  
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#toString()}.
    */

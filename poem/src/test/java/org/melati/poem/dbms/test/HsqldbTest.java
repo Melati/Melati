@@ -76,7 +76,15 @@ public class HsqldbTest extends DbmsSpec {
    * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testGetForeignKeyDefinition() {
-    assertEquals(" ADD FOREIGN KEY (\"USER\") REFERENCES \"USER\"(\"ID\") ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+    
+    assertEquals(" ADD FOREIGN KEY (\"USER\") REFERENCES \"USER\"(\"ID\")",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "prevent"));
+    assertEquals(" ADD FOREIGN KEY (\"USER\") REFERENCES \"USER\"(\"ID\") ON DELETE SET NULL",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "clear"));
+    assertEquals(" ADD FOREIGN KEY (\"USER\") REFERENCES \"USER\"(\"ID\") ON DELETE CASCADE",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+
+  
   }
 
   /**

@@ -271,10 +271,17 @@ public abstract class DbmsSpec extends TestCase {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
+   * getForeignKeyDefinition(java.lang.String, java.lang.String, 
+   *                         java.lang.String, java.lang.String, 
+   *                         java.lang.String)}.
    */
   public void testGetForeignKeyDefinition() {
-    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE CASCADE",it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE RESTRICT",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "prevent"));
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE SET NULL",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "clear"));
+    assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE CASCADE",
+            it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
   }
 
   /**

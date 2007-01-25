@@ -171,13 +171,15 @@ public class Mckoi extends AnsiStandard {
    */
   public String givesCapabilitySQL(Integer userTroid, String capabilityExpr) {
     return
-        "SELECT groupmembership.*  " + 
-        "FROM groupmembership LEFT JOIN groupcapability " +
-        "ON groupmembership." + getQuotedName("group") +
-        " =  groupcapability." + getQuotedName("group") + " " +
-        "WHERE " + getQuotedName("user") + " = " + userTroid + " " +
-        "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
-        "AND capability = " + capabilityExpr;
+        "SELECT " + getQuotedName("groupmembership") + ".* " + 
+        "FROM " + getQuotedName("groupmembership") + " LEFT JOIN " + 
+        getQuotedName("groupcapability") +
+        " ON " + getQuotedName("groupmembership") + "." + getQuotedName("group") +
+        " =  " + getQuotedName("groupcapability") + "." + getQuotedName("group") + 
+        " WHERE " + getQuotedName("user") + " = " + userTroid + " " +
+        "AND " + getQuotedName("groupcapability") + "." + getQuotedName("group") + 
+        " IS NOT NULL " +
+        "AND " + getQuotedName("capability") + " = " + capabilityExpr;
   }
   
 }

@@ -140,8 +140,9 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setLogSQL(false);
     int count = 0;
     try {
-      while (rs.next())
+      while (rs.next()) { 
         count++;
+      }
     } catch (SQLException e) {
       e.printStackTrace();
       fail();
@@ -532,9 +533,9 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testGetFreeTransactionsCount() {
     if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertTrue(getDb().getFreeTransactionsCount() == 0);
+      assertEquals(0,getDb().getFreeTransactionsCount());
     else
-      assertTrue(getDb().getFreeTransactionsCount() == 3);
+      assertEquals(3, getDb().getFreeTransactionsCount());
   }
 
   /**

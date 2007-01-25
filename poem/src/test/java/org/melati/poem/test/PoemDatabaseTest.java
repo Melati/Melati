@@ -13,7 +13,6 @@ import org.melati.poem.DuplicateTableNamePoemException;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.NoSuchTablePoemException;
 import org.melati.poem.Persistent;
-import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
@@ -165,19 +164,10 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * @see org.melati.poem.test.DatabaseTest#administerCapability()
    * @see org.melati.poem.Database#administerCapability()
    */
   public void testAdministerCapability() {
-    Capability c = getDb().administerCapability();
-    assertEquals("_administer_", c.toString());
-    // If we are not in a  session then an unsafe read is performed
-    getDb().endSession();
-    Capability c2 = getDb().administerCapability();
-    assertEquals("_administer_", c2.toString());
-
-    // Start a session so PoemTestCase has one to end
-    getDb().beginSession(AccessToken.root);
-    
   }
 
   /**
@@ -252,21 +242,11 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * @see org.melati.poem.test.DatabaseTest#testConnect()
    * @see Database#connect(String, String, String, String, int)
    */
   public void testConnect() {
 
-    // We are in a session from PoemTestCase
-    // end it
-    getDb().endSession();
-    PoemDatabase db = new PoemDatabase();
-    db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
-        "sa", "", 3);
-    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
-    db.shutdown();
-    db.disconnect();
-    // Start a session so PoemTestCase has one to end
-    getDb().beginSession(AccessToken.root);
   }
 
   /**
@@ -493,14 +473,9 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
   /**
    * @see org.melati.poem.Database#addConstraints()
+   * @see org.melati.poem.test.DatabaseTest#testAddConstraints()
    */
   public void testAddConstraints() {
-    // We are in a session from PoemTestCase
-    // end it
-    getDb().endSession();
-    getDb().addConstraints();
-    // Start a session so PoemTestCase has one to end
-    getDb().beginSession(AccessToken.root);
   }
 
   /**

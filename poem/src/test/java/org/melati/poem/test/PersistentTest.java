@@ -1016,5 +1016,15 @@ public class PersistentTest extends PoemTestCase {
     assertTrue(p.otherMatchTables().length == 0);
   }
 
+  public void testToStringNull() {
+    Persistent unit = new Persistent();
+    assertEquals("null/null", unit.toString());
+  }
+
+  public void testEqualsNull() {
+    Persistent unitOne = new Persistent();
+    Persistent unitTwo = new Persistent();
+    assertTrue(unitOne.equals(unitTwo));
+  }
 
 }

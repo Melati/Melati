@@ -3,6 +3,8 @@ package org.melati.test;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
@@ -282,8 +284,10 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext(m));
-    m.setRequest(new MockServletRequest());
-    assertEquals("/org.melati.login.Logout/null",m.getLogoutURL());
+    MockServletRequest req = new MockServletRequest();
+    req.setRequestURI("");
+    m.setRequest(req);
+    assertEquals("/mockServletPath/org.melati.login.Logout/null",m.getLogoutURL());
   }
 
   /**
@@ -294,8 +298,10 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext(m));
-    m.setRequest(new MockServletRequest());
-    assertEquals("/org.melati.login.Login/null",m.getLoginURL());
+    MockServletRequest req = new MockServletRequest();
+    req.setRequestURI("");
+    m.setRequest(req);
+    assertEquals("/mockServletPath/org.melati.login.Login/null",m.getLoginURL());
 
   }
 
@@ -315,8 +321,10 @@ public class MelatiTest extends TestCase {
     MelatiConfig mc = new MelatiConfig();
     Melati m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext(m));
-    m.setRequest(new MockServletRequest());
-    assertEquals("http://localhost",m.getServletURL());
+    MockServletRequest req = new MockServletRequest();
+    req.setRequestURI("/");
+    m.setRequest(req);
+    assertEquals("http://localhost/mockServletPath/",m.getServletURL());
   }
 
   /**

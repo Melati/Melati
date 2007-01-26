@@ -116,9 +116,9 @@ public class PersistentTest extends PoemTestCase {
     assertEquals(getHits1 + 1, getHits2);
     
     Persistent p2 = getDb().getUserTable().newPersistent();
-    p2.setCooked("name", "test");
-    p2.setCooked("login", "test");
-    p2.setCooked("password", "test");
+    p2.setCooked("name", "testuser");
+    p2.setCooked("login", "testuser");
+    p2.setCooked("password", "testuser");
     p2.makePersistent();
     int getHits3 = getDb().getQueryCount();
     //System.err.println(getHits3);
@@ -575,9 +575,9 @@ public class PersistentTest extends PoemTestCase {
     } catch (InvalidOperationOnFloatingPersistentPoemException e) { 
       e = null;
     }
-    p.setCooked("name","test");
+    p.setCooked("name","testGroup");
     p.makePersistent();
-    assertEquals("test", p.getCooked("name"));
+    assertEquals("testGroup", p.getCooked("name"));
     p.delete();
     try { 
       p.delete();
@@ -586,7 +586,7 @@ public class PersistentTest extends PoemTestCase {
       e = null;
     }
     try {
-      getDb().getGroupTable().getObject(1);
+      getDb().getGroupTable().getObject(p.troid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
@@ -594,15 +594,15 @@ public class PersistentTest extends PoemTestCase {
     // To before we started
     PoemThread.rollback();
     try {
-      getDb().getGroupTable().getObject(1);
+      getDb().getGroupTable().getObject(p.troid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
     }
     p = getDb().getGroupTable().newPersistent();    
-    p.setCooked("name","test");
+    p.setCooked("name","testGroup");
     p.makePersistent();
-    assertEquals("test", p.getCooked("name"));
+    assertEquals("testGroup", p.getCooked("name"));
     // Write to db
     PoemThread.commit();
     p.delete();
@@ -613,15 +613,17 @@ public class PersistentTest extends PoemTestCase {
       e = null;
     }
     try {
-      getDb().getGroupTable().getObject(2);
+      getDb().getGroupTable().getObject(p.troid());
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;
     }
     // Rollback so it should be there again
+    getDb().setLogCommits(true);
     PoemThread.rollback(); 
-    getDb().getGroupTable().getObject(2);
-    assertEquals("test", p.getCooked("name"));
+    getDb().setLogCommits(false);
+    getDb().getGroupTable().getObject(p.troid());
+    assertEquals("testGroup", p.getCooked("name"));
     p.delete();
     try { 
       p.delete();
@@ -636,9 +638,9 @@ public class PersistentTest extends PoemTestCase {
       e = null;
     }
     // So the db state should be unchanged
+    getDb().setLogCommits(true);
     PoemThread.commit();
-    
-    
+    getDb().setLogCommits(false);
   }
 
   /**

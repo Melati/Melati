@@ -2488,13 +2488,13 @@ public class Table implements Selectable {
         if (type instanceof ReferencePoemType &&
             ((ReferencePoemType)type).targetTable() ==
                  database.getCapabilityTable()) {
-          if (column.getName().toLowerCase().equals("canread"))
+          if (column.getName().equals("canRead"))
             canReadColumn = column;
-          else if (column.getName().toLowerCase().equals("canwrite"))
+          else if (column.getName().equals("canWrite"))
             canWriteColumn = column;
-          else if (column.getName().toLowerCase().equals("candelete"))
+          else if (column.getName().equals("canDelete"))
             canDeleteColumn = column;
-          else if (column.getName().toLowerCase().equals("canselect"))
+          else if (column.getName().equals("canSelect"))
             canSelectColumn = column;
         }
       }

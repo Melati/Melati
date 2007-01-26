@@ -16,10 +16,8 @@ import org.melati.poem.DoubleCreatePoemException;
 import org.melati.poem.Field;
 import org.melati.poem.InvalidOperationOnFloatingPersistentPoemException;
 import org.melati.poem.NoSuchRowPoemException;
-import org.melati.poem.NonRootSetAccessTokenPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
-import org.melati.poem.ReadPersistentAccessPoemException;
 import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
@@ -40,7 +38,6 @@ public class PersistentTest extends PoemTestCase {
    */
   public PersistentTest(String name) {
     super(name);
-    setDbName("poemtest");
   }
 
   /**
@@ -48,7 +45,6 @@ public class PersistentTest extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
-    setDbName("poemtest");
     super.setUp();
   }
 
@@ -257,60 +253,6 @@ public class PersistentTest extends PoemTestCase {
        
   }
 
-  /**
-   * @see org.melati.poem.Persistent#assertCanRead(AccessToken)
-   */
-  public void testAssertCanReadAccessToken() {
-    Persistent p = getDb().getUserTable().administratorUser();
-    AccessToken g  = getDb().getUserTable().guestUser();
-    p.assertCanRead(g);
-    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
-    try {
-      p.assertCanRead(g);
-      fail("Should have bombed");
-    } catch (ReadPersistentAccessPoemException e) {
-      e = null;
-    }
-    AccessToken a  = getDb().getUserTable().administratorUser();
-    p.assertCanRead(a);
-    p.getTable().getTableInfo().setDefaultcanread(null);
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#assertCanRead()
-   */
-  public void testAssertCanRead() {
-    Persistent p = getDb().getUserTable().administratorUser();
-    p.assertCanRead();
-    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
-    AccessToken g  = getDb().getUserTable().guestUser();
-    try {
-      PoemThread.setAccessToken(g);
-      p.assertCanRead();
-      fail("Should have bombed");
-    } catch (ReadPersistentAccessPoemException e) {
-      e = null;
-    }
-    AccessToken a  = getDb().getUserTable().administratorUser();
-    try { 
-      PoemThread.setAccessToken(a);
-      fail("Should have bombed");
-    } catch (NonRootSetAccessTokenPoemException e) {
-      e = null;
-    }
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#getReadable()
-   */
-  public void testGetReadable() {
-    Persistent p = getDb().getUserTable().administratorUser();
-    assertTrue(p.getReadable());
-    p.getTable().getTableInfo().setDefaultcanread(getDb().getCanAdminister());
-    AccessToken g  = getDb().getUserTable().guestUser();
-    PoemThread.setAccessToken(g);
-    assertFalse(p.getReadable());
-  }
 
   /**
    * @see org.melati.poem.Persistent#assertCanWrite(AccessToken)
@@ -602,17 +544,10 @@ public class PersistentTest extends PoemTestCase {
   }
 
   /**
+   * @see org.melati.poem.test.ProtectedPersistentTest#testGetPrimaryDisplayField()
    * @see org.melati.poem.Persistent#getPrimaryDisplayField()
    */
   public void testGetPrimaryDisplayField() {
-    Persistent p = getDb().getGroupMembershipTable().getObject(0);
-    Field f = p.getPrimaryDisplayField();
-    assertEquals("id: 0", f.toString());
-    Persistent p2 = ((TestDatabase)getDb()).getENExtendedTable().newPersistent();
-    p2.setCooked("stringfield2", "primary search field");
-    p2.makePersistent();
-    Field f2 = p2.getPrimaryDisplayField();
-    assertEquals("stringfield2: primary search field", f2.toString());
   }
 
   /**
@@ -668,7 +603,6 @@ public class PersistentTest extends PoemTestCase {
     p.setCooked("name","test");
     p.makePersistent();
     assertEquals("test", p.getCooked("name"));
-    assertEquals(new Integer(2), p.getTroid());
     // Write to db
     PoemThread.commit();
     p.delete();
@@ -780,6 +714,7 @@ public class PersistentTest extends PoemTestCase {
     p.setCooked("name","test");
     p.makePersistent();
     assertEquals("test", p.getCooked("name"));
+    Integer troid = p.getTroid();
     p.deleteAndCommit(null);
     try { 
       p.deleteAndCommit(null);
@@ -787,7 +722,7 @@ public class PersistentTest extends PoemTestCase {
       e = null;
     }
     try {
-      getDb().getGroupTable().getObject(4);
+      getDb().getGroupTable().getObject(troid);
       fail("Should have bombed");
     } catch (NoSuchRowPoemException e) { 
       e = null;

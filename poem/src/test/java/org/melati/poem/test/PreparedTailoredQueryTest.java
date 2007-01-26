@@ -19,12 +19,13 @@ import org.melati.util.EnumUtils;
 /**
  * @author timp
  * @since 22 Jan 2007
- *
+ * 
  */
 public class PreparedTailoredQueryTest extends PoemTestCase {
 
   /**
    * Constructor.
+   * 
    * @param name
    */
   public PreparedTailoredQueryTest(String name) {
@@ -34,6 +35,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp() throws Exception {
@@ -43,6 +45,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.test.PoemTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
@@ -56,7 +59,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
     TestDatabase db = (TestDatabase)getDb();
     Capability spyMaster = db.getCapabilityTable().ensure("spyMaster");
     final Capability moneyPenny = db.getCapabilityTable().ensure("moneyPenny");
-    
+
     User spy = (User)db.getUserTable().newPersistent();
     spy.setLogin("spy");
     spy.setName("Spy");
@@ -71,64 +74,57 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
     spyMission.setSpy(spy);
     spyMission.setMission("impossible");
     spyMission.makePersistent();
-    
+
     final Column canReadColumn = db.getProtectedTable().getCanReadColumn();
     final PreparedTailoredQuery ptq = new PreparedTailoredQuery(
-            new Column[] {canReadColumn},
-            new Table[0],
-            canReadColumn.fullQuotedName() + "=" + moneyPenny.troid(),
-            null) ;
-    assertEquals(new Integer(1), 
-            new Integer(
-                    EnumUtils.vectorOf(
-                            ptq.selection()).size()));
+            new Column[] { canReadColumn }, new Table[0], canReadColumn
+                    .fullQuotedName()
+                    + "=" + moneyPenny.troid(), null);
+    assertEquals(new Integer(1), new Integer(EnumUtils
+            .vectorOf(ptq.selection()).size()));
     Enumeration en = ptq.selection();
     while (en.hasMoreElements()) {
-      Object ne = 
-        en.nextElement();
+      Object ne = en.nextElement();
       System.err.println("FieldSet:" + ne);
     }
 
     PoemTask readAsGuest = new PoemTask() {
       public void run() {
-        assertEquals(new Integer(1), 
-                new Integer(
-                        EnumUtils.vectorOf(
-                                ptq.selection()).size()));
-        Enumeration en = ptq.selection();
-        try { 
-          while (en.hasMoreElements()) { 
+        try {
+          Enumeration en = ptq.selection();
+          assertEquals(new Integer(1), new Integer(EnumUtils.vectorOf(en)
+                  .size()));
+          en = ptq.selection();
+          while (en.hasMoreElements()) {
             System.err.println(en.nextElement());
           }
           fail("Should have blown up");
-        } catch (AccessPoemException e) { 
+        } catch (AccessPoemException e) {
           e = null;
         }
 
       }
     };
-    
+
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest);
-    
+
     final Column missionColumn = db.getProtectedTable().getMissionColumn();
-    assertEquals("moneyPenny",spyMission.getCanRead().getName());
-    final PreparedTailoredQuery ptq2 = new PreparedTailoredQuery(
-            new Column[] {missionColumn, db.getUserTable().getPasswordColumn()},
-            new Table[] {db.getUserTable()},
-            missionColumn.fullQuotedName() + " = 'impossible' AND " + 
-            db.getProtectedTable().getSpyColumn().fullQuotedName() + 
-            " = " + 
-            db.getUserTable().troidColumn().fullQuotedName(),
-            null) ;
+    assertEquals("moneyPenny", spyMission.getCanRead().getName());
+    final PreparedTailoredQuery ptq2 = new PreparedTailoredQuery(new Column[] {
+        missionColumn, db.getUserTable().getPasswordColumn() },
+            new Table[] { db.getUserTable() }, missionColumn.fullQuotedName()
+                    + " = 'impossible' AND "
+                    + db.getProtectedTable().getSpyColumn().fullQuotedName()
+                    + " = " + db.getUserTable().troidColumn().fullQuotedName(),
+            null);
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
-        assertEquals(new Integer(1), 
-                new Integer(
-                        EnumUtils.vectorOf(
-                                ptq2.selection()).size()));
         Enumeration en = ptq2.selection();
-        try { 
-          while (en.hasMoreElements()) { 
+        try {
+          assertEquals(new Integer(1), new Integer(EnumUtils.vectorOf(
+                  ptq2.selection()).size()));
+          en = ptq2.selection();
+          while (en.hasMoreElements()) {
             FieldSet tuple = (FieldSet)en.nextElement();
             System.err.println(tuple);
           }
@@ -139,29 +135,30 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
 
       }
     };
-    
+
     PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
 
     // Now remove row's capability and set Users capability;
-    // (as Protected does not get checked in {@link TailoredResultSetEnumeration}).
+    // (as Protected does not get checked in {@link
+    // TailoredResultSetEnumeration}).
     spyMission.setCanRead(null);
     db.getUserTable().getTableInfo().setDefaultcanread(moneyPenny);
-    
-    try { 
+
+    try {
       PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
-    } catch (AccessPoemException e) { 
+    } catch (AccessPoemException e) {
       e = null;
     }
-    
+
     // Check that table level protection is used if row level is missing
     db.getProtectedTable().getTableInfo().setDefaultcanread(moneyPenny);
-    try { 
+    try {
       PoemThread.withAccessToken(db.guestAccessToken(), readAsGuest2);
-    } catch (AccessPoemException e) { 
+    } catch (AccessPoemException e) {
       e = null;
     }
-    
-    // cleanup 
+
+    // cleanup
     db.getProtectedTable().getTableInfo().setDefaultcanread(null);
     db.getUserTable().getTableInfo().setDefaultcanread(null);
     spyMission.delete();
@@ -172,45 +169,50 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PreparedTailoredQuery#selection_firstRaw()}.
+   * Test method for
+   * {@link org.melati.poem.PreparedTailoredQuery#selection_firstRaw()}.
    */
   public void testSelection_firstRaw() {
-    
+
   }
 
   /**
-   * Test method for {@link org.melati.poem.PreparedTailoredQuery#PreparedTailoredQuery(java.lang.String, org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
+   * Test method for
+   * {@link org.melati.poem.PreparedTailoredQuery#PreparedTailoredQuery(java.lang.String, org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
    */
   public void testPreparedTailoredQueryStringColumnArrayTableArrayStringString() {
-    
+
   }
 
   /**
-   * Test method for {@link org.melati.poem.PreparedTailoredQuery#PreparedTailoredQuery(org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
+   * Test method for
+   * {@link org.melati.poem.PreparedTailoredQuery#PreparedTailoredQuery(org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
    */
   public void testPreparedTailoredQueryColumnArrayTableArrayStringString() {
-    
+
   }
 
   /**
-   * Test method for {@link org.melati.poem.TailoredQuery#TailoredQuery(org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
+   * Test method for
+   * {@link org.melati.poem.TailoredQuery#TailoredQuery(org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
    */
   public void testTailoredQueryColumnArrayTableArrayStringString() {
-    
+
   }
 
   /**
-   * Test method for {@link org.melati.poem.TailoredQuery#TailoredQuery(java.lang.String, org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
+   * Test method for
+   * {@link org.melati.poem.TailoredQuery#TailoredQuery(java.lang.String, org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
    */
   public void testTailoredQueryStringColumnArrayTableArrayStringString() {
-    
+
   }
 
   /**
    * Test method for {@link org.melati.poem.TailoredQuery#toString()}.
    */
   public void testToString() {
-    
+
   }
 
 }

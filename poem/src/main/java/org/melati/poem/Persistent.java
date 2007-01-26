@@ -168,7 +168,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
    */
   protected void load(Transaction transaction) {
-    if (troid == null)
+    if (troid == null) // I cannot contrive a test to cover this case, but hey
       throw new InvalidOperationOnFloatingPersistentPoemException(this);
 
     table.load((PoemTransaction)transaction, this);

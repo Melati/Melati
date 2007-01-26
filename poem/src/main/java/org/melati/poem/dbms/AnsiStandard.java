@@ -99,11 +99,13 @@ public class AnsiStandard implements Dbms {
     driverLoaded = loaded;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#unloadDriver()
+   */
   public void unloadDriver() {
     driver = null;
-    setDriverClassName(null);
     setDriverLoaded(false);
-    System.gc();
   }
   
   protected synchronized boolean getDriverLoaded() {

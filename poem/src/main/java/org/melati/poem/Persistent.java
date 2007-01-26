@@ -163,7 +163,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
-   * Called if not uptodate ie never.
+   * Called if not uptodate.
    * 
    * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
    */

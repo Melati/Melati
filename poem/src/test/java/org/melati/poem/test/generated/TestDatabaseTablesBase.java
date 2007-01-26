@@ -2,7 +2,7 @@
 
 package org.melati.poem.test.generated;
 
-// 27 tables in database
+// 28 tables in database
 import org.melati.poem.UserTable;
 import org.melati.poem.GroupTable;
 import org.melati.poem.CapabilityTable;
@@ -30,6 +30,7 @@ import org.melati.poem.test.BigdecimalFieldTable;
 import org.melati.poem.test.TimestampFieldTable;
 import org.melati.poem.test.NodeTable;
 import org.melati.poem.test.ProtectedTable;
+import org.melati.poem.test.DynamicTable;
 
 /**
  * Melati POEM generated base interface to the tables in 
@@ -229,6 +230,14 @@ public interface TestDatabaseTablesBase {
   * @return the ProtectedTable from this database
   */
   ProtectedTable getProtectedTable();
+
+ /**
+  * Retrieves the <code>DynamicTable</code> table.
+  * 
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorDefnJava 
+  * @return the DynamicTable from this database
+  */
+  DynamicTable getDynamicTable();
 }
 
 

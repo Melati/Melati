@@ -1523,3 +1523,25 @@ table Protected
     ;
 
 }
+
+
+table Dynamic
+  (displayorder = 100)
+  (category = "Data")
+  (description = "A table for adding and deleting columns from") {
+
+  (primary) Integer id
+    (displaylevel = record) 
+    (searchability = no);
+
+  String name
+    (size = unlimited) 
+    (displaylevel = primary) 
+    (searchability = primary)
+    (description = "Name")
+    (displayorderpriority = 0)
+    (width = 20)
+    ;
+
+
+}

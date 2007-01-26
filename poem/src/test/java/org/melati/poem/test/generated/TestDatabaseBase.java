@@ -28,6 +28,7 @@ import org.melati.poem.test.BigdecimalFieldTable;
 import org.melati.poem.test.TimestampFieldTable;
 import org.melati.poem.test.NodeTable;
 import org.melati.poem.test.ProtectedTable;
+import org.melati.poem.test.DynamicTable;
 
 /**
  * Melati POEM generated Database base class.
@@ -58,6 +59,7 @@ public class TestDatabaseBase extends PoemDatabase {
   private TimestampFieldTable tab_timestampfield = null;
   private NodeTable tab_node = null;
   private ProtectedTable tab_protected = null;
+  private DynamicTable tab_dynamic = null;
 
   protected TestDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
@@ -84,6 +86,7 @@ public class TestDatabaseBase extends PoemDatabase {
     redefineTable(tab_timestampfield = new TimestampFieldTable(this, "timestampfield", DefinitionSource.dsd));
     redefineTable(tab_node = new NodeTable(this, "node", DefinitionSource.dsd));
     redefineTable(tab_protected = new ProtectedTable(this, "protected", DefinitionSource.dsd));
+    redefineTable(tab_dynamic = new DynamicTable(this, "dynamic", DefinitionSource.dsd));
   }
 
 
@@ -351,6 +354,17 @@ public class TestDatabaseBase extends PoemDatabase {
   */
   public ProtectedTable getProtectedTable() {
     return tab_protected;
+  }
+
+
+ /**
+  * Retrieves the DynamicTable table.
+  *
+  * @generator org.melati.poem.prepro.TableDef#generateTableAccessorJava 
+  * @return the DynamicTable from this database
+  */
+  public DynamicTable getDynamicTable() {
+    return tab_dynamic;
   }
 }
 

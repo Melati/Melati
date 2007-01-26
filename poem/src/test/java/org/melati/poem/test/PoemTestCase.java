@@ -121,16 +121,19 @@ public abstract class PoemTestCase extends TestCase implements Test {
 
   }
   protected void melatijunitUnchanged() { 
-    assertEquals(0, getDb().getSettingTable().count());
-    assertEquals(1, getDb().getGroupTable().count());
-    assertEquals(1, getDb().getGroupMembershipTable().count());
-    assertEquals(5, getDb().getCapabilityTable().count());
-    assertEquals(1, getDb().getGroupCapabilityTable().count());
-    assertEquals(2, getDb().getTableCategoryTable().count());
-    assertEquals(2, getDb().getUserTable().count());
-    assertEquals(69, getDb().getColumnInfoTable().count());
-    assertEquals(9, getDb().getTableInfoTable().count());
-
+    try { 
+    assertEquals("Setting changed", 0, getDb().getSettingTable().count());
+    assertEquals("Group changed", 1, getDb().getGroupTable().count());
+    assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
+    assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
+    assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
+    assertEquals("TableCategory changed", 2, getDb().getTableCategoryTable().count());
+    assertEquals("User changed", 2, getDb().getUserTable().count());
+    assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
+    assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
+    } catch (Error e) { 
+      System.exit(0);
+    }
   }
   protected void poemtestUnchanged() { 
     assertEquals(0, getDb().getSettingTable().count());
@@ -142,8 +145,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals(2, getDb().getUserTable().count());
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
-    //assertEquals(147, getDb().getColumnInfoTable().count());
-    assertEquals(24, getDb().getTableInfoTable().count());
+    //assertEquals(156, getDb().getColumnInfoTable().count());
+    assertEquals(25, getDb().getTableInfoTable().count());
 
   }
   protected void dumpTable(Table t) {

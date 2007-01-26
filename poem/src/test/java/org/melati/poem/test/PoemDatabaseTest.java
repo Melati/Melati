@@ -275,12 +275,12 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    assertTrue(count == 9);
+    assertEquals(11, count);
 
   }
 
   /**
-   * Note this is here so that we have the expected number of tables.
+   * Note this is here so that we have the expected number of columns.
    *
    * @see org.melati.poem.Database#columns()
    */
@@ -291,7 +291,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    assertTrue(count == 69);
+    assertEquals(72, count);
   }
 
   /**

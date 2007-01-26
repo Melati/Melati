@@ -58,6 +58,7 @@ public class TestDatabaseTest extends PoemTestCase {
     "enextended (from the data structure definition)" + 
     "eaextended (from the data structure definition)" + 
     "protected (from the data structure definition)" +
+    "dynamic (from the data structure definition)" +
     "user (from the data structure definition)" + 
     "group (from the data structure definition)" + 
     "capability (from the data structure definition)" + 
@@ -73,8 +74,8 @@ public class TestDatabaseTest extends PoemTestCase {
     while (en.hasMoreElements()) {
       result += en.nextElement().toString();
     }
-    System.err.println(expected);
-    System.err.println(result);
+    //System.err.println(expected);
+    //System.err.println(result);
     assertEquals(expected, result);
   }
 

@@ -100,12 +100,12 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
           String fieldContent = "setWhatsit" + (serial++);
           StringField t = (StringField)table.firstSelection(null);
           if (t == null){
-            System.err.println("\n*** setter: nothing to set\n");
+            System.out.println("\n*** setter: nothing to set\n");
             synchronized(result) {
               result += "\nNULL" + fieldContent;            
             }
           } else {
-            System.err.println("\n*** setter: setting " + fieldContent);
+            System.out.println("\n*** setter: setting " + fieldContent);
             t.setStringfield(fieldContent);
             synchronized(result) {
               result += "\n" + fieldContent;
@@ -114,7 +114,7 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
         }
         else if (theSignal[0] == add) {
           String fieldContent = "addedWhatsit" + (serial++);
-          System.err.println("*** setter: adding " + fieldContent);
+          System.out.println("*** setter: adding " + fieldContent);
           StringField t = (StringField)table.newPersistent();
           t.setStringfield(fieldContent);
           t.makePersistent();
@@ -125,21 +125,21 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
         else if (theSignal[0] == delete) {
           StringField t = (StringField)table.firstSelection(null);
           if (t == null) {
-            System.err.println("\n*** setter: nothing to delete");
+            System.out.println("\n*** setter: nothing to delete");
             synchronized(result) {
               result += "\nempty delete";
             }
           } else {
-            System.err.println("*** setter: deleting");
+            System.out.println("*** setter: deleting");
             t.delete_unsafe();
-            System.err.println("*** setter: done deleting");
+            System.out.println("*** setter: done deleting");
             synchronized(result) {
               result += "\ndelete";
             }
           }
         }
         else if (theSignal[0] == null) {
-          System.err.println("\n*** setter done");
+          System.out.println("\n*** setter done");
           break;
         }
 
@@ -172,14 +172,14 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
         }
 
         if (theSignal[0] == null) {
-          System.err.println("\n*** getter done\n");
+          System.out.println("\n*** getter done\n");
           break;
         }
         else {
-          System.err.println("\n*** getter:");
+          System.out.println("\n*** getter:");
           Enumeration them = cachedSelection.objects();
 
-          System.err.print("** got\n");
+          System.out.print("** got\n");
           synchronized(result) {
             result += "\ngot";
           }
@@ -188,10 +188,10 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
             while (them.hasMoreElements()) {
               String s = " " + ((StringField)them.nextElement()).getStringfield();
               result += s;
-              System.err.print(s);
+              System.out.print(s);
             }
           }
-          System.err.println("\n");
+          System.out.println("\n");
         }
 
         PoemThread.commit();
@@ -256,7 +256,7 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
                 fail();
               }
               
-    System.err.println(result);
+    System.out.println(result);
     /* 
     assertEquals("\naddedWhatsit0\n" + 
                  "got addedWhatsit0\n" + 

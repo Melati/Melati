@@ -3,9 +3,6 @@
  */
 package org.melati.servlet.test;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -129,43 +126,13 @@ public class PoemServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest();
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    //poemContext - melati.getPathInfoParts
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1");
+    mockHttpServletRequest.setPathInfo("/melatitest/user/1");
     
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
-    // HttpUtil.appendZoneURL
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    // HttpUtil.appendRelativeZoneURL
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
+    mockHttpServletRequest.setHeader("Accept-Charset", "ISO-8859-1"); 
     
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    // melati.establishCharSets
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
-           
-    mockHttpServletResponse.expect( "setContentType", "text/html"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
 
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
@@ -180,13 +147,12 @@ public class PoemServletTest extends TestCase {
     org.melati.test.PoemServletTest aServlet = 
           new org.melati.test.PoemServletTest();
     aServlet.init((ServletConfig)mockServletConfig.proxy());
-    aServlet.doGet((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                   (HttpServletResponse) mockHttpServletResponse.proxy());
+    aServlet.doGet((HttpServletRequest) mockHttpServletRequest,  
+                   (HttpServletResponse) mockHttpServletResponse);
+    String output = mockHttpServletResponse.getWritten();
     assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
 
     aServlet.destroy();
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
   }
@@ -195,37 +161,14 @@ public class PoemServletTest extends TestCase {
    * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() throws Exception {
-    Mock mockHttpServletResponse = new OrderedMock(HttpServletResponse.class, "Response with non-default name"); 
-    Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 
+    MockServletRequest mockHttpServletRequest = new MockServletRequest();
+    MockServletResponse mockHttpServletResponse = new MockServletResponse(); 
                    
-    mockHttpServletRequest.expectAndReturn( "getCharacterEncoding", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getPathInfo", "/melatitest/user/1"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Authorization", null); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getHeader", "Accept-Charset", "ISO-8859-1"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
-    mockHttpServletRequest.expectAndReturn( "getScheme", "mockScheme"); 
-    mockHttpServletRequest.expectAndReturn( "getServerName", "mockServer.net"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getContextPath", "mockContextPath"); 
-    mockHttpServletRequest.expectAndReturn( "getServletPath", "mockServletPath/"); 
+    mockHttpServletRequest.setCharacterEncoding("ISO-8859-1"); 
+    mockHttpServletRequest.setPathInfo("/melatitest/user/1"); 
+    mockHttpServletRequest.setHeader("Accept-Charset", "ISO-8859-1"); 
     
-    final StringWriter output = new StringWriter(); 
-    final PrintWriter contentWriter = new PrintWriter(output); 
            
-    mockHttpServletResponse.expect( "setContentType", "text/html"); 
-    mockHttpServletResponse.expectAndReturn( "getWriter", contentWriter ); 
-
     Mock mockServletConfig = new Mock(ServletConfig.class);
     Mock mockServletContext = new Mock(ServletContext.class);
     mockServletConfig.expectAndReturn("getServletContext", (ServletContext)mockServletContext.proxy()); 
@@ -239,13 +182,13 @@ public class PoemServletTest extends TestCase {
     org.melati.test.PoemServletTest aServlet = 
           new org.melati.test.PoemServletTest();
     aServlet.init((ServletConfig)mockServletConfig.proxy());
-    aServlet.doPost((HttpServletRequest) mockHttpServletRequest.proxy(),  
-                   (HttpServletResponse) mockHttpServletResponse.proxy());
-    assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
+    aServlet.doPost((HttpServletRequest) mockHttpServletRequest,  
+                   (HttpServletResponse) mockHttpServletResponse);
+    String output = mockHttpServletResponse.getWritten();
+    assertTrue("Unexpected output (check org.melati.LogicalDatabase properties): " + 
+            output.toString(), output.toString().indexOf("<h2>PoemServlet Test</h2>") != -1); 
     aServlet.destroy();
 
-    mockHttpServletRequest.verify(); 
-    mockHttpServletResponse.verify(); 
     mockServletConfig.verify(); 
     mockServletContext.verify(); 
   }

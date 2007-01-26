@@ -96,7 +96,9 @@ public class MockServletResponse implements HttpServletResponse {
     public void setContentLength(int arg0) {
     }
 
-    public void setContentType(String arg0) {
+    String contentType;
+    public void setContentType(String type) {
+      contentType = type;
     }
 
     public void setBufferSize(int arg0) {

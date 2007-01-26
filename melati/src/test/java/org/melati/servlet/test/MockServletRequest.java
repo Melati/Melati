@@ -68,8 +68,12 @@ public class MockServletRequest implements HttpServletRequest {
         return null;
     }
 
+    String pathInfo;
     public String getPathInfo() {
-        return null;
+        return pathInfo;
+    }
+    public void setPathInfo(String info) {
+      pathInfo = info;
     }
 
     public String getPathTranslated() {
@@ -113,7 +117,7 @@ public class MockServletRequest implements HttpServletRequest {
     }
 
     public String getServletPath() {
-        return null;
+        return "/mockServletPath/";
     }
     Object session;
     public void setSession(Object s){

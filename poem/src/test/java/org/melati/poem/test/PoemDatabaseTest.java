@@ -275,7 +275,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    assertEquals(11, count);
+    assertEquals(9, count);
 
   }
 
@@ -291,7 +291,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       e.nextElement();
       count++;
     }
-    assertEquals(72, count);
+    assertEquals(69, count);
   }
 
   /**

@@ -6,7 +6,6 @@ import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
-import org.melati.poem.Group;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
@@ -29,7 +28,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  private PoemDatabase db = null;
+  private static PoemDatabase db = null;
 
   private String dbName = "melatijunit";
   

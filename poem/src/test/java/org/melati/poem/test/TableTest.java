@@ -831,8 +831,8 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void testAddColumnAndCommitDeleted() {
-    UserTable ut = getDb().getUserTable();
+  public void testAddColumnAndCommitDeleted() throws Exception {
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -862,17 +862,16 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testdeletedcol").selectionWhereEq(Boolean.FALSE)).size());
-    assertEquals(Boolean.FALSE, ut.administratorUser().getRaw("testdeletedcol"));
-    assertEquals(Boolean.FALSE, ut.administratorUser().getCooked(
-        "testdeletedcol"));
+    assertEquals(Boolean.FALSE, ut.two().getRaw("testdeletedcol"));
+    assertEquals(Boolean.FALSE, ut.two().getCooked("testdeletedcol"));
     assertEquals(Boolean.FALSE, ut.getObject(0).getCooked("testdeletedcol"));
     try {
       columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
       fail("Should have blown up");
     } catch (DuplicateColumnNamePoemException e) {
-      assertEquals("Can't add duplicate column user.testdeletedcol: "
+      assertEquals("Can't add duplicate column dynamic.testdeletedcol: "
           + "deleted (BOOLEAN (org.melati.poem.DeletedPoemType)) "
-          + "(from the running application) to user "
+          + "(from the running application) to dynamic "
           + "(from the data structure definition)", e.getMessage());
       e = null;
     }
@@ -881,7 +880,7 @@ public class TableTest extends PoemTestCase {
     } catch (ColumnRenamePoemException e) {
       e = null;
     }
-    ColumnInfo columnInfo2 = (ColumnInfo) getDb().getColumnInfoTable()
+    ColumnInfo columnInfo2 = (ColumnInfo)getDb().getColumnInfoTable()
         .newPersistent();
     columnInfo2.setTableinfo(ti);
     columnInfo2.setName("testdeletedcol2");
@@ -906,13 +905,22 @@ public class TableTest extends PoemTestCase {
       columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo2);
       fail("Should have blown up");
     } catch (DuplicateDeletedColumnPoemException e) {
-      assertEquals("Can't add testdeletedcol2 to user as a deleted column, "
+      assertEquals("Can't add testdeletedcol2 to dynamic as a deleted column, "
           + "because it already has one, "
-          + "i.e. user.testdeletedcol: deleted "
+          + "i.e. dynamic.testdeletedcol: deleted "
           + "(BOOLEAN (org.melati.poem.DeletedPoemType)) "
           + "(from the running application)", e.getMessage());
       e = null;
     }
+//    String query = "ALTER TABLE " + getDb().getUserTable().quotedName() + 
+//    " DROP COLUMN " + getDb().quotedName(columnInfo.getName());
+//    getDb().sqlUpdate(query);
+//    columnInfo.delete();
+//    getDb().getUserTable()
+//    columnInfo2.delete();
+//    getDb().uncacheContents();
+//    getDb().unifyWithDB();
+    
     getDb().setLogSQL(false);
   }
 
@@ -920,7 +928,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitType() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -947,17 +955,17 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = ut.selection();
-    t = (Integer) ((User) en.nextElement()).getRaw("testtypecol");
+    t = (Integer) ((Dynamic) en.nextElement()).getRaw("testtypecol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((User) en.nextElement()).getRaw("testtypecol"));
+      assertEquals(t, (Integer) ((Dynamic) en.nextElement()).getRaw("testtypecol"));
     }
 
     PoemTypeFactory t2 = null;
     Enumeration en2 = ut.selection();
-    t2 = (PoemTypeFactory) ((User) en2.nextElement()).getCooked("testtypecol");
+    t2 = (PoemTypeFactory) ((Dynamic) en2.nextElement()).getCooked("testtypecol");
     while (en2.hasMoreElements()) {
       System.err.println(t2.getName());
-      assertEquals(t2.getName(), ((PoemTypeFactory) ((User) en2.nextElement())
+      assertEquals(t2.getName(), ((PoemTypeFactory) ((Dynamic) en2.nextElement())
           .getCooked("testtypecol")).getName());
     }
 
@@ -966,9 +974,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testtypecol").selectionWhereEq(new Integer(0))).size());
-    assertEquals(new Integer(0), ut.administratorUser().getRaw("testtypecol"));
-    assertEquals("user", ((PoemTypeFactory) ut.administratorUser().getCooked(
-        "testtypecol")).getName());
+    assertEquals(new Integer(0), ut.two().getRaw("testtypecol"));
+    assertEquals("user", ((PoemTypeFactory) ut.two().getCooked("testtypecol")).getName());
     assertEquals("user", ((PoemTypeFactory) ut.getObject(0).getCooked(
         "testtypecol")).getName());
     getDb().setLogSQL(false);
@@ -978,7 +985,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBoolean() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1008,8 +1015,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbooleancol").selectionWhereEq(Boolean.FALSE)).size());
-    assertEquals(Boolean.FALSE, ut.administratorUser().getRaw("testbooleancol"));
-    assertEquals(Boolean.FALSE, ut.administratorUser().getCooked(
+    assertEquals(Boolean.FALSE, ut.two().getRaw("testbooleancol"));
+    assertEquals(Boolean.FALSE, ut.two().getCooked(
         "testbooleancol"));
     assertEquals(Boolean.FALSE, ut.getObject(0).getCooked("testbooleancol"));
     getDb().setLogSQL(false);
@@ -1019,7 +1026,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitInteger() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1049,9 +1056,9 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testintegercol").selectionWhereEq(new Integer(0))).size());
-    assertEquals(new Integer(0), ut.administratorUser()
+    assertEquals(new Integer(0), ut.two()
         .getRaw("testintegercol"));
-    assertEquals(new Integer(0), ut.administratorUser().getCooked(
+    assertEquals(new Integer(0), ut.two().getCooked(
         "testintegercol"));
     assertEquals(new Integer(0), ut.getObject(0).getCooked("testintegercol"));
     getDb().setLogSQL(false);
@@ -1060,7 +1067,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitNullableInteger() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1090,10 +1097,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(0, EnumUtils.vectorOf(
         ut.getColumn("testnullableintegercol").selectionWhereEq(new Integer(0))).size());
-    assertNull(ut.administratorUser()
-        .getRaw("testnullableintegercol"));
-    assertNull(ut.administratorUser().getCooked(
-        "testnullableintegercol"));
+    assertNull(ut.two().getRaw("testnullableintegercol"));
+    assertNull(ut.two().getCooked("testnullableintegercol"));
     assertNull(ut.getObject(0).getCooked("testnullableintegercol"));
     getDb().setLogSQL(false);
   }
@@ -1102,7 +1107,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDouble() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1132,8 +1137,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testdoublecol").selectionWhereEq(new Double(0))).size());
-    assertEquals(new Double(0), ut.administratorUser().getRaw("testdoublecol"));
-    assertEquals(new Double(0), ut.administratorUser().getCooked(
+    assertEquals(new Double(0), ut.two().getRaw("testdoublecol"));
+    assertEquals(new Double(0), ut.two().getCooked(
         "testdoublecol"));
     assertEquals(new Double(0), ut.getObject(0).getCooked("testdoublecol"));
     getDb().setLogSQL(false);
@@ -1143,7 +1148,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitLong() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1173,8 +1178,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testlongcol").selectionWhereEq(new Long(0))).size());
-    assertEquals(new Long(0), ut.administratorUser().getRaw("testlongcol"));
-    assertEquals(new Long(0), ut.administratorUser().getCooked("testlongcol"));
+    assertEquals(new Long(0), ut.two().getRaw("testlongcol"));
+    assertEquals(new Long(0), ut.two().getCooked("testlongcol"));
     assertEquals(new Long(0), ut.getObject(0).getCooked("testlongcol"));
     getDb().setLogSQL(false);
   }
@@ -1183,7 +1188,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBigDecimal() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1215,9 +1220,9 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
-    assertEquals(new BigDecimal(0), ut.administratorUser().getRaw(
+    assertEquals(new BigDecimal(0), ut.two().getRaw(
         "testbigdecimalcol"));
-    assertEquals(new BigDecimal(0), ut.administratorUser().getCooked(
+    assertEquals(new BigDecimal(0), ut.two().getCooked(
         "testbigdecimalcol"));
     assertEquals(new BigDecimal(0), ut.getObject(0).getCooked(
         "testbigdecimalcol"));
@@ -1228,7 +1233,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitString() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1258,8 +1263,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("teststringcol").selectionWhereEq("default")).size());
-    assertEquals("default", ut.administratorUser().getRaw("teststringcol"));
-    assertEquals("default", ut.administratorUser().getCooked("teststringcol"));
+    assertEquals("default", ut.two().getRaw("teststringcol"));
+    assertEquals("default", ut.two().getCooked("teststringcol"));
     assertEquals("default", ut.getObject(0).getCooked("teststringcol"));
     getDb().setLogSQL(false);
   }
@@ -1268,7 +1273,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitPassword() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1298,8 +1303,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testpasswordcol").selectionWhereEq("default")).size());
-    assertEquals("default", ut.administratorUser().getRaw("testpasswordcol"));
-    assertEquals("default", ut.administratorUser().getCooked("testpasswordcol"));
+    assertEquals("default", ut.two().getRaw("testpasswordcol"));
+    assertEquals("default", ut.two().getCooked("testpasswordcol"));
     assertEquals("default", ut.getObject(0).getCooked("testpasswordcol"));
     getDb().setLogSQL(false);
   }
@@ -1308,7 +1313,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDate() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1341,9 +1346,9 @@ public class TableTest extends PoemTestCase {
         ut.getColumn("testdatecol").selectionWhereEq(
             new java.sql.Date(new Date().getTime()))).size());
     assertEquals(new java.sql.Date(new Date().getTime()).toString(), ut
-        .administratorUser().getRaw("testdatecol").toString());
+        .two().getRaw("testdatecol").toString());
     assertEquals(new java.sql.Date(new Date().getTime()).toString(), ut
-        .administratorUser().getCooked("testdatecol").toString());
+        .two().getCooked("testdatecol").toString());
     assertEquals(new java.sql.Date(new Date().getTime()).toString(), ut
         .getObject(0).getCooked("testdatecol").toString());
     getDb().setLogSQL(false);
@@ -1353,7 +1358,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitTimestamp() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1380,9 +1385,9 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Timestamp t = null;
     Enumeration en = ut.selection();
-    t = (Timestamp) ((User) en.nextElement()).getRaw("testtimestampcol");
+    t = (Timestamp) ((Dynamic) en.nextElement()).getRaw("testtimestampcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Timestamp) ((User) en.nextElement())
+      assertEquals(t, (Timestamp) ((Dynamic) en.nextElement())
           .getRaw("testtimestampcol"));
     }
     assertEquals(2, EnumUtils.vectorOf(
@@ -1390,8 +1395,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testtimestampcol").selectionWhereEq(t)).size());
-    assertEquals(t, ut.administratorUser().getRaw("testtimestampcol"));
-    assertEquals(t, ut.administratorUser().getCooked("testtimestampcol"));
+    assertEquals(t, ut.two().getRaw("testtimestampcol"));
+    assertEquals(t, ut.two().getCooked("testtimestampcol"));
     assertEquals(t, ut.getObject(0).getCooked("testtimestampcol"));
     getDb().setLogSQL(false);
   }
@@ -1400,7 +1405,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBinary() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1427,9 +1432,9 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     byte[] t = null;
     Enumeration en = ut.selection();
-    t = (byte[]) ((User) en.nextElement()).getRaw("testbinarycol");
+    t = (byte[]) ((Dynamic) en.nextElement()).getRaw("testbinarycol");
     while (en.hasMoreElements()) {
-      assertEquals(t.length, ((byte[]) ((User) en.nextElement())
+      assertEquals(t.length, ((byte[]) ((Dynamic) en.nextElement())
           .getRaw("testbinarycol")).length);
     }
     assertEquals(2, EnumUtils.vectorOf(
@@ -1437,8 +1442,8 @@ public class TableTest extends PoemTestCase {
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbinarycol").selectionWhereEq(t)).size());
-    assertEquals(t.length, ((byte[])ut.administratorUser().getRaw("testbinarycol")).length);
-    assertEquals(t.length, ((byte[])ut.administratorUser().getCooked("testbinarycol")).length);
+    assertEquals(t.length, ((byte[])ut.two().getRaw("testbinarycol")).length);
+    assertEquals(t.length, ((byte[])ut.two().getCooked("testbinarycol")).length);
     assertEquals(t.length,
         ((byte[]) ut.getObject(0).getCooked("testbinarycol")).length);
     getDb().setLogSQL(false);
@@ -1448,7 +1453,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDisplaylevel() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1475,19 +1480,19 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = ut.selection();
-    t = (Integer) ((User) en.nextElement()).getRaw("testdisplaylevelcol");
+    t = (Integer) ((Dynamic) en.nextElement()).getRaw("testdisplaylevelcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((User) en.nextElement())
+      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
           .getRaw("testdisplaylevelcol"));
     }
 
     DisplayLevel t2 = null;
     Enumeration en2 = ut.selection();
-    t2 = (DisplayLevel) ((User) en2.nextElement())
+    t2 = (DisplayLevel) ((Dynamic) en2.nextElement())
         .getCooked("testdisplaylevelcol");
     while (en2.hasMoreElements()) {
       System.err.println(t2);
-      assertEquals(t2, ((DisplayLevel) ((User) en2.nextElement())
+      assertEquals(t2, ((DisplayLevel) ((Dynamic) en2.nextElement())
           .getCooked("testdisplaylevelcol")));
     }
 
@@ -1498,9 +1503,9 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testdisplaylevelcol").selectionWhereEq(new Integer(0)))
         .size());
-    assertEquals(new Integer(0), ut.administratorUser().getRaw(
+    assertEquals(new Integer(0), ut.two().getRaw(
         "testdisplaylevelcol"));
-    assertEquals(DisplayLevel.primary, ((DisplayLevel) ut.administratorUser()
+    assertEquals(DisplayLevel.primary, ((DisplayLevel) ut.two()
         .getCooked("testdisplaylevelcol")));
     assertEquals(DisplayLevel.primary, ((DisplayLevel) ut.getObject(0)
         .getCooked("testdisplaylevelcol")));
@@ -1511,7 +1516,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitSearchability() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1538,19 +1543,19 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = ut.selection();
-    t = (Integer) ((User) en.nextElement()).getRaw("testsearchabilitycol");
+    t = (Integer) ((Dynamic) en.nextElement()).getRaw("testsearchabilitycol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((User) en.nextElement())
+      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
           .getRaw("testsearchabilitycol"));
     }
 
     Searchability t2 = null;
     Enumeration en2 = ut.selection();
-    t2 = (Searchability) ((User) en2.nextElement())
+    t2 = (Searchability) ((Dynamic) en2.nextElement())
         .getCooked("testsearchabilitycol");
     while (en2.hasMoreElements()) {
       System.err.println(t2);
-      assertEquals(t2, ((Searchability) ((User) en2.nextElement())
+      assertEquals(t2, ((Searchability) ((Dynamic) en2.nextElement())
           .getCooked("testsearchabilitycol")));
     }
 
@@ -1561,9 +1566,9 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testsearchabilitycol").selectionWhereEq(new Integer(0)))
         .size());
-    assertEquals(new Integer(0), ut.administratorUser().getRaw(
+    assertEquals(new Integer(0), ut.two().getRaw(
         "testsearchabilitycol"));
-    assertEquals(Searchability.primary, ((Searchability) ut.administratorUser()
+    assertEquals(Searchability.primary, ((Searchability) ut.two()
         .getCooked("testsearchabilitycol")));
     assertEquals(Searchability.primary, ((Searchability) ut.getObject(0)
         .getCooked("testsearchabilitycol")));
@@ -1574,7 +1579,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitIntegrityfix() {
-    UserTable ut = getDb().getUserTable();
+    DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = ut.getTableInfo();
@@ -1601,19 +1606,19 @@ public class TableTest extends PoemTestCase {
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = ut.selection();
-    t = (Integer) ((User) en.nextElement()).getRaw("testIntegrityfixcol");
+    t = (Integer) ((Dynamic) en.nextElement()).getRaw("testIntegrityfixcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((User) en.nextElement())
+      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
           .getRaw("testIntegrityfixcol"));
     }
 
     IntegrityFix t2 = null;
     Enumeration en2 = ut.selection();
-    t2 = (IntegrityFix) ((User) en2.nextElement())
+    t2 = (IntegrityFix) ((Dynamic) en2.nextElement())
         .getCooked("testIntegrityfixcol");
     while (en2.hasMoreElements()) {
       System.err.println(t2);
-      assertEquals(t2, ((IntegrityFix) ((User) en2.nextElement())
+      assertEquals(t2, ((IntegrityFix) ((Dynamic) en2.nextElement())
           .getCooked("testIntegrityfixcol")));
     }
 
@@ -1624,10 +1629,10 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testIntegrityfixcol").selectionWhereEq(new Integer(2)))
         .size());
-    assertEquals(new Integer(2), ut.administratorUser().getRaw(
+    assertEquals(new Integer(2), ut.two().getRaw(
         "testIntegrityfixcol"));
     assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix) ut
-        .administratorUser().getCooked("testIntegrityfixcol")));
+        .two().getCooked("testIntegrityfixcol")));
     assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix) ut.getObject(0)
         .getCooked("testIntegrityfixcol")));
     getDb().setLogSQL(false);
@@ -1688,7 +1693,7 @@ public class TableTest extends PoemTestCase {
   public void testCachedCountPersistentBooleanBoolean() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     CachedCount cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
-    assertEquals(24, cached.count());
+    assertEquals(25, cached.count());
     ti.setSeqcached(true);
     cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
     assertEquals(7, cached.count());

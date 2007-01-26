@@ -453,6 +453,7 @@ public class ColumnTest extends PoemTestCase {
     }
     getDb().getUserTable().getNameColumn().setRawString(admin, "Admin");
     assertEquals("Admin", admin.getName());
+    getDb().getUserTable().getNameColumn().setRawString(admin, "Melati database administrator");
   }
 
   /**

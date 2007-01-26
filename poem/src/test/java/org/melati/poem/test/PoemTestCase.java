@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
+import org.melati.poem.Group;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
@@ -121,7 +122,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
 
   }
   protected void melatijunitUnchanged() { 
-    try { 
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
@@ -131,9 +131,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals("User changed", 2, getDb().getUserTable().count());
     assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
-    } catch (Error e) { 
-      System.exit(0);
-    }
   }
   protected void poemtestUnchanged() { 
     assertEquals(0, getDb().getSettingTable().count());

@@ -172,7 +172,6 @@
       <forkMode>once</forkMode>
       <!-- threadCount>1</threadCount-->
       <!-- childDelegation>false</childDelegation -->
-      <redirectTestOutputToFile>true</redirectTestOutputToFile>
       <usefile>true</usefile>
       <includes>
        <include>**/*Test.java</include>
@@ -186,8 +185,8 @@
        <!-- exclude>**/PostgresqlTest.java</exclude-->
        <!-- exclude>**/dbms/**</exclude-->
        <!-- exclude>**/PoemDatabaseTest.java</exclude-->
-       <exclude>**/PoemServletTest.java</exclude>
-       <exclude>**/TemplateServletTest.java</exclude>
+       <!-- exclude>**/PoemServletTest.java</exclude -->
+       <!-- exclude>**/TemplateServletTest.java</exclude -->
 <!--
        <exclude>**/*.java</exclude>
        <exclude>**/TableTest.java</exclude>

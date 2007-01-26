@@ -101,7 +101,7 @@ public class DatabasePerformInCommittedTransactionTest
     assertEquals(2, getDb().getUserTable().count());
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
-    //assertEquals(147, getDb().getColumnInfoTable().count());
+    assertEquals(147, getDb().getColumnInfoTable().count());
     assertEquals(23, getDb().getTableInfoTable().count());
 
   }

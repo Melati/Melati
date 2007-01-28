@@ -93,6 +93,14 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   private int status = NONEXISTENT;
 
   private Object[] extras = null;
+  // HACK Set when used as a criteria 
+  private Table[] otherMatchTables = new Table[0];
+
+  /**
+   * Constructor.
+   */
+  public Persistent() {
+  }
 
   /**
    * Constructor.
@@ -105,12 +113,16 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     this.troid = troid;
   }
 
-
   /**
    * Constructor.
+   * @param tableName String name of a table
+   * @param troidString String integer representation
    */
-  public Persistent() {
-  }
+  public Persistent(String tableName, String troidString) {
+    super(PoemThread.database());
+    this.table = PoemThread.database().getTable(tableName);
+    this.troid = new Integer(troidString);
+   }
 
   // 
   // --------
@@ -375,6 +387,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * used by <TT>assertCanRead</TT> (unless that's been overridden) to obtain a
    * <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
+   * <p>
+   * NOTE if a canRead column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>canread</TT> field, 
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -384,10 +398,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    */
 
   protected Capability getCanRead() {
-    Column crCol = getTable().canReadColumn();
-    return
-        crCol == null ? null :
-            (Capability)crCol.getType().cookedOfRaw(crCol.getRaw_unsafe(this));
+    return null;
   }
 
   /**
@@ -479,6 +490,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * used by <TT>assertCanWrite</TT> (unless that's been overridden) to obtain 
    * a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
+   * <p>
+   * NOTE if a canWrite column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>canwrite</TT> field,
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -487,10 +500,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #assertCanWrite
    */
   protected Capability getCanWrite() {
-    Column cwCol = getTable().canWriteColumn();
-    return
-        cwCol == null ? null :
-            (Capability)cwCol.getType().cookedOfRaw(cwCol.getRaw_unsafe(this));
+    return null;
   }
 
   /**
@@ -539,6 +549,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * used by <TT>assertCanDelete</TT> (unless that's been overridden) 
    * to obtain a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
+   * <p>
+   * NOTE if a canDelete column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>candelete</TT> field,
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -547,10 +559,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #assertCanDelete
    */
   protected Capability getCanDelete() {
-    Column cwCol = getTable().canDeleteColumn();
-    return
-        cwCol == null ? null :
-            (Capability)cwCol.getType().cookedOfRaw(cwCol.getRaw_unsafe(this));
+    return null;
   }
 
   /**
@@ -604,9 +613,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @todo document use-case or delete
    */
   protected Capability getCanSelect() {
-    Column c = getTable().canSelectColumn();
-    return c == null ? null :
-        (Capability)c.getType().cookedOfRaw(c.getRaw_unsafe(this));
+    return null;
   }
 
   /**
@@ -1532,7 +1539,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @return an empty Array
    */
   public Table[] otherMatchTables() {
-    return new Table[0];
+    return otherMatchTables ;
   }
 
   /**
@@ -1621,6 +1628,13 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       return ! column.asField(Persistent.this).sameRawAs(column.asField(copy));
     }
 
+  }
+
+  /**
+   * @param otherMatchTables the otherMatchTables to set
+   */
+  public void setOtherMatchTables(Table[] otherMatchTables) {
+    this.otherMatchTables = otherMatchTables;
   }
 
 }

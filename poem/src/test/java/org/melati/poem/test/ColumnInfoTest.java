@@ -96,28 +96,32 @@ public class ColumnInfoTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#getPoemDatabaseTables()}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * getPoemDatabaseTables()}.
    */
   public void testGetPoemDatabaseTables() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#getColumnInfoTable()}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * getColumnInfoTable()}.
    */
   public void testGetColumnInfoTable() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#getId_unsafe()}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * getId_unsafe()}.
    */
   public void testGetId_unsafe() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#setId_unsafe(java.lang.Integer)}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * setId_unsafe(java.lang.Integer)}.
    */
   public void testSetId_unsafe() {
 
@@ -579,28 +583,32 @@ public class ColumnInfoTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#getIntegrityfixIndex()}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * getIntegrityfixIndex()}.
    */
   public void testGetIntegrityfixIndex() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#setIntegrityfixIndex(java.lang.Integer)}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * setIntegrityfixIndex(java.lang.Integer)}.
    */
   public void testSetIntegrityfixIndex() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#getIntegrityfix()}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * getIntegrityfix()}.
    */
   public void testGetIntegrityfix() {
 
   }
 
   /**
-   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#setIntegrityfix(org.melati.poem.StandardIntegrityFix)}.
+   * Test method for {@link org.melati.poem.generated.ColumnInfoBase#
+   * setIntegrityfix(org.melati.poem.StandardIntegrityFix)}.
    */
   public void testSetIntegrityfix() {
 

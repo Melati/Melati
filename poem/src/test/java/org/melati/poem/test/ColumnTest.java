@@ -243,6 +243,7 @@ public class ColumnTest extends PoemTestCase {
   }
 
   /**
+   * Set the integrityFix and set it back again.
    * @see org.melati.poem.Column#setIntegrityFix(StandardIntegrityFix)
    */
   public void testSetIntegrityFix() {

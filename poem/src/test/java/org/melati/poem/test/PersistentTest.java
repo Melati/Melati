@@ -19,6 +19,7 @@ import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.RowDisappearedPoemException;
+import org.melati.poem.Setting;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
 import org.melati.poem.TableInfo;
@@ -845,7 +846,17 @@ public class PersistentTest extends PoemTestCase {
     u = (User)getDb().getUserTable().guestUser();
     d = u.dump();
     assertTrue(d.startsWith("user/0"));
-  
+
+
+    
+    Setting stringSetting = getDb().getSettingTable().ensure("stringSetting","set","String","A set string setting");
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    PrintStream ps = new PrintStream(baos);
+    stringSetting.dump(ps);
+    //System.err.println(baos.toString().trim() + ":");
+    assertTrue(baos.toString().startsWith("setting/"));
+    stringSetting.delete();
+    
   }
   /**
    * @see org.melati.poem.Persistent#dump(PrintStream)
@@ -943,6 +954,9 @@ public class PersistentTest extends PoemTestCase {
   public void testFromClause() {
     Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
     assertEquals("\"USER\"", p.fromClause());
+    
+    p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
+    assertEquals("\"USER\", \"CAPABILITY\"", p.fromClause());
   }
 
   /**

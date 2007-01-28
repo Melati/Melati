@@ -74,6 +74,9 @@ public abstract class Transactioned {
     this(null);
   }
 
+  /**
+   * Load the transactioned object from its backing store.
+   */
   protected abstract void load(Transaction transaction);
 
   /**

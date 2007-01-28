@@ -109,7 +109,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
    * @param referenceFixOfColumn a {@link Map} keyed on {@link Column} 
    *        giving the associated {@link IntegrityFix}, passed in to 
    *        the {@link Persistent} referer to delete itself
-   *@return an {@link Enumeration} of the remaining referers    
+   *@return an {@link Enumeration} of the remaining referers, which if 
+   *        not empty will prevent deletion     
    */
    public abstract Enumeration referencesTo(Persistent referee,
                                    Column column,

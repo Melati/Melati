@@ -70,7 +70,7 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   /**
-   * @return Table this type refernces
+   * @return Table this type references
    */
   public Table targetTable() {
     return targetTable;

@@ -53,8 +53,7 @@ import org.melati.util.CachedIndexFactory;
 
 /**
  * Maintains a cache of <code>PreparedStatement</code>s for an SQL
- * statement string and for each connection, allowing it to be
- * properly executed.
+ * statement string.
  * <p>
  * The cached contents are discarded if the database structure has
  * changed since the cache was created.
@@ -70,6 +69,7 @@ import org.melati.util.CachedIndexFactory;
  */
 
 public class PreparedStatementFactory extends CachedIndexFactory {
+
 
   private Database database;
   private long structureSerial;
@@ -187,4 +187,14 @@ public class PreparedStatementFactory extends CachedIndexFactory {
   public final ResultSet resultSet() {
     return resultSet(PoemThread.sessionToken());
   }
+
+  /**
+   * {@inheritDoc}
+   * @see java.lang.Object#toString()
+   */
+  public String toString() {
+
+    return super.toString() + " (SQL: " + sql + ")";
+  }
+
 }

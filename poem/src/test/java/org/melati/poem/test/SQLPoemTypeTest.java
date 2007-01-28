@@ -94,7 +94,9 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    */
   public void testQuotedRaw() {
     assertEquals("'" +((SQLPoemType)it).sqlDefaultValue() + "'", 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+        ((SQLPoemType)it).quotedRaw(
+            ((SQLPoemType)it).rawOfString(
+                ((SQLPoemType)it).sqlDefaultValue())));
 
   }
 

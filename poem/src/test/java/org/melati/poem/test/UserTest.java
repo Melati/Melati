@@ -136,11 +136,14 @@ public class UserTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.User#User(java.lang.String, java.lang.String, java.lang.String)}.
+   * Test method for {@link org.melati.poem.User#
+   * User(java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testUserStringStringString() {
    User u = new User("tester","tester","tester");
-   getDb().getUserTable().create(u);   
+   getDb().getUserTable().create(u); 
+   assertEquals("tester",u.getName());
+   u.delete();
   }
 
   /**

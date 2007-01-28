@@ -44,12 +44,13 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
    */
   public void testQuotedRaw() {
     assertEquals(((SQLPoemType)it).sqlDefaultValue(), 
-        ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+        ((SQLPoemType)it).quotedRaw(
+            ((SQLPoemType)it).rawOfString(
+                ((SQLPoemType)it).sqlDefaultValue())));
 
   }
   
   public void testAssertValidCooked() {
-    // TODO Auto-generated method stub
     super.testAssertValidCooked();
     Group g = (Group)getDb().getGroupTable().firstSelection(null);
     try {

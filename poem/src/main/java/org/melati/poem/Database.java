@@ -1018,13 +1018,16 @@ public abstract class Database implements TransactionPool {
   /**
    * Run an arbitrary SQL update against the database.  This is a low-level
    * <TT>java.sql.Statement.executeUpdate</TT>, intended for fiddly updates for
-   * which the higher-level methods are too clunky or inflexible.  <B>Note</B>
-   * that it bypasses the access control mechanism.  Furthermore, the cache
+   * which the higher-level methods are too clunky or inflexible.
+   * <p>  
+   * NOTE This bypasses the access control mechanism.  Furthermore, the cache
    * will be left out of sync with the database and must be cleared out
    * (explicitly, manually) after the current transaction has been committed
    * or completed.
    *
-   * @return an unused int
+   * @return either the row count for <code>INSERT</code>, <code>UPDATE</code>
+   * or <code>DELETE</code> statements, or <code>0</code> for SQL statements 
+   * that return nothing
    * 
    * @see Table#selection()
    * @see Table#selection(java.lang.String)

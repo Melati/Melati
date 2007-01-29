@@ -3,9 +3,11 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
+import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
 
 import junit.framework.TestCase;
@@ -193,7 +195,11 @@ public class DatabaseTest extends TestCase {
    * Test method for {@link org.melati.poem.Database#endSession()}.
    */
   public void testEndSession() {
-
+    getDb().beginSession(AccessToken.root);
+    assertEquals(
+            PoemThread.database().getTransactionsCount(), 
+            PoemThread.database().getFreeTransactionsCount() + 1);
+    getDb().endSession();
   }
 
   /**

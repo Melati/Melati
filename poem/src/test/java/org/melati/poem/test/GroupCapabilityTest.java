@@ -55,8 +55,16 @@ public class GroupCapabilityTest extends PoemTestCase {
     assertEquals("testgroup",gc.getGroup().getName());
     assertEquals("testing",gc.getCapability().getName());
     gc.delete();
-    g.delete();
     c.delete();
+    try { 
+      c = new Capability();
+      gc = new GroupCapability(g,c);
+      
+      fail("Should have blown up");
+    } catch (IllegalArgumentException e) { 
+      e = null;
+    }
+    g.delete();
     try { 
       g = new Group();
       c = new Capability();

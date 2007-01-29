@@ -1820,7 +1820,6 @@ public class Table implements Selectable {
    * Return a Conjunctive Normal Form (CNF) where clause.
    * See http://en.wikipedia.org/wiki/Conjunctive_normal_form.
    *  
-   * FIXME Does not work if any of the persistents produces an empty where clause.
    * @return an SQL fragment
    */
   public String cnfWhereClause(Enumeration persistents,
@@ -1829,13 +1828,17 @@ public class Table implements Selectable {
 
     boolean hadOne = false;
     while (persistents.hasMoreElements()) {
-      if (hadOne)
-        clause.append(" OR ");
-      else
-        hadOne = true;
-      clause.append("(");
-      appendWhereClause(clause, (Persistent)persistents.nextElement());
-      clause.append(")");
+      StringBuffer pClause = new StringBuffer();
+      appendWhereClause(pClause, (Persistent)persistents.nextElement());
+      if (pClause.length() > 0) {
+        if (hadOne)
+          clause.append(" OR ");
+        else
+          hadOne = true;
+        clause.append("(");
+        clause.append(pClause);
+        clause.append(")");
+      }
     }
 
     return appendWhereClauseFilters(clause.toString(),
@@ -2071,7 +2074,7 @@ public class Table implements Selectable {
   public void delete_unsafe(String whereClause) {
     serial.increment(PoemThread.transaction());
     getDatabase().sqlUpdate("DELETE FROM " + quotedName + 
-                            " WHERE " + whereClause);
+            " WHERE " + whereClause);
     uncacheContents();
   }
 

@@ -6,8 +6,6 @@ package org.melati.poem.test;
 import org.melati.poem.Database;
 import org.melati.poem.PoemTypeFactory;
 
-import junit.framework.TestCase;
-
 /**
  * @author timp
  * @since 29 Jan 2007

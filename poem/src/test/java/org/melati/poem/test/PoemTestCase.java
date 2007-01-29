@@ -100,6 +100,9 @@ public abstract class PoemTestCase extends TestCase implements Test {
                 throw new RuntimeException(e);
               }
             }
+            public String toString() { 
+              return "PoemTestCase:"+ fName;
+            }
           });
     } catch (NoSuchMethodException e) {
       fail("Method \"" + fName + "\" not found");

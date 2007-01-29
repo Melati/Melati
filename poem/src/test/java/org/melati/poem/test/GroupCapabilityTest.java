@@ -57,7 +57,15 @@ public class GroupCapabilityTest extends PoemTestCase {
     gc.delete();
     g.delete();
     c.delete();
-    
+    try { 
+      g = new Group();
+      c = new Capability();
+      gc = new GroupCapability(g,c);
+      
+      fail("Should have blown up");
+    } catch (IllegalArgumentException e) { 
+      e = null;
+    }
   }
 
   /**

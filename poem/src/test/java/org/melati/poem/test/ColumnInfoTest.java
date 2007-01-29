@@ -49,7 +49,13 @@ public class ColumnInfoTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.ColumnInfo#setTableinfoTroid(java.lang.Integer)}.
    */
   public void testSetTableinfoTroid() {
-
+    ColumnInfo ci = getDb().getUserTable().getNameColumn().getColumnInfo();
+    try { 
+      ci.setTableinfoTroid(new Integer(99));
+      fail("Should have bombed");
+    } catch (IllegalArgumentException e) { 
+      e = null;
+    }
   }
 
   /**

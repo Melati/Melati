@@ -198,12 +198,11 @@ public class ValueInfo extends ValueInfoBase {
         raw = unrangedType.rawOfString((String)c.getRaw_unsafe(this));
       }
       catch (Exception e) {
-        System.err.println("Found a bad entry for " + c + " in " +
-                           getTable().getName() + "/" + troid() + ": " +
-                           "solution is to null it out ...");
-        e.printStackTrace();
         c.setRaw_unsafe(this, null);
         raw = null;
+        throw new AppBugPoemException("Found a bad entry for " + c + " in " +
+                getTable().getName() + "/" + troid() + ": " +
+                "solution is to null it out ...", e);
       }
 
       return new Field(

@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import org.melati.poem.ResultSetEnumeration;
+import org.melati.poem.RowDisappearedPoemException;
+import org.melati.poem.User;
 
 /**
  * @author timp
@@ -67,6 +69,19 @@ public class ResultSetEnumerationTest extends PoemTestCase {
       e = null;
     }
     
+    // FIXME There should be a way to provoke RowDisappearedPoemException
+    User u = new User("tester","tester","tester");
+    getDb().getUserTable().create(u); 
+    Enumeration rse2 = getDb().getUserTable().troidSelection(null,null,false);
+    u.delete();
+    try { 
+      while(rse2.hasMoreElements()) { 
+        rse2.nextElement();
+      }
+      // fail("Should have blown up");
+    } catch (RowDisappearedPoemException e) {
+      e = null;
+    }
   }
 
   /**

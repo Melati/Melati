@@ -128,6 +128,34 @@ public class PersistentTest extends PoemTestCase {
     PoemThread.commit();
   }
 
+
+  /**
+   * @see org.melati.poem.Persistent#Persistent()
+   */
+  public void testPersistent() {
+
+  }
+
+  /**
+   * @see org.melati.poem.Persistent#Persistent(String, String)
+   */
+  public void testPersistentStringString() {
+    Persistent p = new Persistent("user", "0");
+    try {
+      p.makePersistent();
+      fail("Should have blown up");
+    } catch (DoubleCreatePoemException e) {
+      e = null;      
+    }
+    p = new Persistent(getDb().getUserTable(), new Integer(2));
+    try {
+      p.makePersistent();
+      fail("Should have blown up");
+    } catch (DoubleCreatePoemException e) {
+      e = null;      
+    }
+  }
+
   /**
    * @see org.melati.poem.Persistent#Persistent(Table, Integer)
    */
@@ -146,13 +174,6 @@ public class PersistentTest extends PoemTestCase {
     } catch (DoubleCreatePoemException e) {
       e = null;      
     }
-  }
-
-  /**
-   * @see org.melati.poem.Persistent#Persistent()
-   */
-  public void testPersistent() {
-
   }
 
   /**

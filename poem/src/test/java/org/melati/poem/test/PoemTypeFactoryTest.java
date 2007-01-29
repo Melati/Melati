@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Database;
 import org.melati.poem.PoemTypeFactory;
 
 import junit.framework.TestCase;
@@ -12,7 +13,7 @@ import junit.framework.TestCase;
  * @since 29 Jan 2007
  *
  */
-public class PoemTypeFactoryTest extends TestCase {
+public class PoemTypeFactoryTest extends PoemTestCase {
 
   /**
    * Constructor.
@@ -104,10 +105,13 @@ public class PoemTypeFactoryTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PoemTypeFactory#forCode(org.melati.poem.Database, int)}.
+   * Test method for {@link org.melati.poem.PoemTypeFactory#
+   * forCode(org.melati.poem.Database, int)}.
    */
   public void testForCode() {
-    
+    PoemTypeFactory userType = PoemTypeFactory.forCode((Database)getDb(),0);
+    assertEquals("User", userType.getDisplayName());
+    assertEquals("A registered user of the database", userType.getDescription());
   }
 
 }

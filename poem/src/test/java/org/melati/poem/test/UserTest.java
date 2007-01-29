@@ -3,8 +3,11 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Group;
+import org.melati.poem.GroupMembership;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReadPasswordAccessPoemException;
+import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.User;
 import org.melati.poem.WriteFieldAccessPoemException;
 import org.melati.poem.WritePersistentAccessPoemException;
@@ -140,10 +143,10 @@ public class UserTest extends PoemTestCase {
    * User(java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testUserStringStringString() {
-   User u = new User("tester","tester","tester");
-   getDb().getUserTable().create(u); 
-   assertEquals("tester",u.getName());
-   u.delete();
+    User u = new User("tester","tester","tester");
+    getDb().getUserTable().create(u); 
+    assertEquals("tester",u.getName());
+    u.delete();
   }
 
   /**
@@ -169,5 +172,21 @@ public class UserTest extends PoemTestCase {
     assertTrue(getDb().administratorUser().isAdministrator());    
   }
 
+  public void testIntegrityFixDelete() {
+    User u = new User("tester","tester","tester");
+    getDb().getUserTable().create(u); 
+    assertEquals("tester",u.getName());
+    Group g = getDb().getGroupTable().administratorsGroup();
+    GroupMembership gm = (GroupMembership)getDb().getGroupMembershipTable().newPersistent();
+    gm.setGroup(g);
+    gm.setUser(u);
+    gm.makePersistent();
+    u.delete();
+    try {
+      gm.delete();
+    } catch(RowDisappearedPoemException e) { 
+      e = null;
+    }
+  }
 
 }

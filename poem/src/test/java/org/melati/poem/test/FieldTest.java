@@ -10,7 +10,9 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.ReferencePoemType;
 import org.melati.poem.StringPoemType;
+import org.melati.poem.User;
 import org.melati.util.MelatiLocale;
 
 /**
@@ -328,10 +330,12 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field#basic(Object, String, PoemType)
+   * @see org.melati.poem.Field#basic(Object, String, org.melati.poem.PoemType)
    */
   public void testBasic() {
-
+    Field f1 = Field.basic("basicField", "basicField", StringPoemType.nullableInstance);
+    Field f2 = Field.string("basicField", "basicField");
+    assertTrue(f1.sameRawAs(f2));
   }
 
   /**
@@ -345,21 +349,30 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#integer(Integer, String)
    */
   public void testInteger() {
-
+    Field f1 = Field.basic(new Integer(13), "integerField", IntegerPoemType.nullableInstance);
+    Field f2 = Field.integer(new Integer(13), "integerField");
+    assertTrue(f1.sameRawAs(f2));
   }
 
   /**
-   * @see org.melati.poem.Field#reference(Persistent, String)
+   * @see org.melati.poem.Field#reference(org.melati.poem.Persistent, String)
    */
   public void testReferencePersistentString() {
-
+    User u = getDb().guestUser();
+    Field f1 = Field.basic(u.troid(), "referenceField", 
+            new ReferencePoemType(getDb().getUserTable(), true));
+    Field f2 = Field.reference(u, "referenceField");
+    assertTrue(f1.sameRawAs(f2));
   }
 
   /**
-   * @see org.melati.poem.Field#reference(Table, String)
+   * @see org.melati.poem.Field#reference(org.melati.poem.Table, String)
    */
   public void testReferenceTableString() {
-
+    Field f1 = Field.basic(null, "referenceField", 
+            new ReferencePoemType(getDb().getUserTable(), true));
+    Field f2 = Field.reference(getDb().getUserTable(), "referenceField");
+    assertTrue(f1.sameRawAs(f2));
   }
 
   /**

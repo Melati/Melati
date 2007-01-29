@@ -901,20 +901,20 @@ public class Table implements Selectable {
     persistent.postInsert();
   }
 
+  /**
+   * The Transaction cannot be null, as this is trapped in 
+   * {@link Persistent#deleteLock(SessionToken)}.
+   * @param troid id of row to delete
+   * @param transaction a non-null transaction
+   */
   void delete(Integer troid, PoemTransaction transaction) {
     String sql =
         "DELETE FROM " + quotedName() +
         " WHERE " + troidColumn.quotedName() + " = " +
         troid.toString();
-
     try {
-      Connection connection;
-      if (transaction == null)
-        connection = getDatabase().getCommittedConnection();
-      else {
-        transaction.writeDown();
-        connection = transaction.getConnection();
-      }
+      transaction.writeDown();
+      Connection connection = transaction.getConnection();
 
       Statement deleteStatement = connection.createStatement();
       deleteStatement.executeUpdate(sql);

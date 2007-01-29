@@ -9,6 +9,7 @@ import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
+import org.melati.poem.User;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.WriteCommittedException;
 
@@ -177,10 +178,13 @@ public class DatabasePerformInCommittedTransactionTest
   public void testReadInCommittedTransaction() {
     PoemTask read = new PoemTask() {
       public void run() {
-        assertEquals("Melati guest user",getDb().guestUser().getName());
+        assertEquals("Melati guest user",
+                ((User)getDb().getUserTable().getObject(new Integer(0))).getName());
       }
     };
 
+    getDb().inCommittedTransaction(AccessToken.root, read);
+    getDb().uncacheContents();
     getDb().inCommittedTransaction(AccessToken.root, read);
     
   }

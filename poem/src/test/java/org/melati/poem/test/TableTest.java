@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import org.melati.poem.CachedCount;
 import org.melati.poem.ColumnInfo;
@@ -29,6 +30,7 @@ import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
+import org.melati.util.EmptyEnumeration;
 import org.melati.util.EnumUtils;
 
 /**
@@ -570,7 +572,8 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#selection(String, String, boolean, int, int)
    */
   public void testSelectionStringStringBooleanIntInt() {
-
+    Enumeration en = getDb().getUserTable().selection(null, null, false, 1, 10);
+    assertEquals(2, EnumUtils.vectorOf(en).size());
   }
 
   /**
@@ -578,6 +581,9 @@ public class TableTest extends PoemTestCase {
    *      int, int)
    */
   public void testSelectionPersistentStringBooleanBooleanIntInt() {
+    Enumeration en = getDb().getUserTable().selection(
+            getDb().getUserTable().newPersistent(), null, false, true, 1, 10);
+    assertEquals(2, EnumUtils.vectorOf(en).size());
 
   }
 
@@ -662,7 +668,29 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#cnfWhereClause(Enumeration)
    */
   public void testCnfWhereClauseEnumeration() {
-
+    String cnf = getDb().getUserTable().cnfWhereClause(
+            getDb().getUserTable().selection());
+    assertEquals("((\"USER\".\"ID\" = 0 AND "+
+            "\"USER\".\"NAME\" LIKE \'%Melati guest user%\' AND " +
+            "\"USER\".\"LOGIN\" LIKE \'%_guest_%\' AND " +
+            "\"USER\".\"PASSWORD\" LIKE \'%guest%\') " +
+            "OR" +
+            " (\"USER\".\"ID\" = 1 AND " +
+            "\"USER\".\"NAME\" LIKE \'%Melati database administrator%\' AND " +
+            "\"USER\".\"LOGIN\" LIKE \'%_administrator_%\' AND " +
+            "\"USER\".\"PASSWORD\" LIKE \'%FIXME%\'))",
+            cnf);
+    cnf = getDb().getUserTable().cnfWhereClause(
+            EmptyEnumeration.it);
+    assertEquals("", cnf);
+    Vector v = new Vector();
+    v.addElement(getDb().getUserTable().newPersistent());
+    cnf = getDb().getUserTable().cnfWhereClause(
+            v.elements());
+    assertEquals("", cnf);
+    //getDb().getUserTable().selection(cnf);
+    
+    
   }
 
   /**
@@ -722,10 +750,25 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * Looks like you can sucessfully delete 
+   * the same record twice.
    * @see org.melati.poem.Table#delete_unsafe(String)
    */
   public void testDelete_unsafe() {
-
+    User tester = (User)getDb().getUserTable().newPersistent();
+    tester.setName("tester");
+    tester.setLogin("tester");
+    tester.setPassword("pwd");
+    tester.makePersistent();
+    getDb().getUserTable().delete_unsafe(
+            getDb().getUserTable().getNameColumn().fullQuotedName()
+            + " = 'tester'"
+            );
+    PoemThread.commit();
+    //System.err.println(tester.dump());
+    tester.delete();
+    tester = (User)getDb().getUserTable().getNameColumn().firstWhereEq("tester");
+    assertNull(tester);
   }
 
   /**

@@ -889,8 +889,6 @@ public abstract class Column implements FieldAttributes {
   public int firstFree(String whereClause) {
     if (! (getType() instanceof IntegerPoemType)) 
       throw new AppBugPoemException("firstFree called on a non Integer column");
-    if (whereClause != null && whereClause.trim().equals(""))
-      whereClause = null;
     getTable().readLock();
     String query = 
       "SELECT "
@@ -913,7 +911,6 @@ public abstract class Column implements FieldAttributes {
       + quotedName
       + " + 1) "
       + "LIMIT 1";  
-    //System.err.println(query);
     ResultSet results = getDatabase().sqlQuery(query);
     try {
       if (results.next())

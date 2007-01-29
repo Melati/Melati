@@ -786,6 +786,11 @@ public class Table implements Selectable {
 
   private TransactionStuff committedTransactionStuff = null;
 
+  /**
+   * Called when working outside a Transaction.
+   * @return the TransactionStuff for the committed transaction
+   * @see org.melati.poem.PoemDatabase#inCommittedTransaction(AccessToken, PoemTask)
+   */
   private synchronized TransactionStuff getCommittedTransactionStuff() {
     if (committedTransactionStuff == null)
       committedTransactionStuff =

@@ -1163,7 +1163,7 @@ public class Table implements Selectable {
 
     try {
       Connection connection;
-      if (transaction == null)
+      if (transaction == null)  // Cannot devise a test for this
         connection = getDatabase().getCommittedConnection();
       else {
         transaction.writeDown();
@@ -1275,7 +1275,7 @@ public class Table implements Selectable {
       return allTroidsLocal.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
-                            PoemThread.transaction());
+              PoemThread.inSession() ? PoemThread.transaction() : null);
     }
 
   /**
@@ -1439,6 +1439,7 @@ public class Table implements Selectable {
    *                            <TT>deleted</TT> column)
    * @return a paged enumeration
    * @see #selection(java.lang.String)
+   * FIXME Needs excludeUnselectable
    */
   public PageEnumeration selection(String whereClause, String orderByClause, 
                                    boolean includeDeleted, int pageStart, 
@@ -1603,9 +1604,13 @@ public class Table implements Selectable {
    */
   private String canSelectClause() {
     Column canSelect = canSelectColumn();
-    AccessToken accessToken = PoemThread.sessionToken().accessToken;
-    if (canSelect == null || accessToken instanceof RootAccessToken) {
+    AccessToken accessToken = PoemThread.inSession() ? 
+            PoemThread.sessionToken().accessToken : null;
+    if (canSelect == null ||
+        accessToken instanceof RootAccessToken) {
       return null;
+    } else if (accessToken == null) {
+      return canSelect.fullQuotedName() + " IS NULL";
     } else if (accessToken instanceof User) {
       return "(" +
         canSelect.fullQuotedName() + " IS NULL OR EXISTS( SELECT 1 FROM " +

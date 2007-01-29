@@ -304,7 +304,7 @@ public class ColumnTest extends PoemTestCase {
    * @see org.melati.poem.Column#dump()
    */
   public void testDump() {
-
+    getDb().getUserTable().troidColumn().dump();
   }
 
   /**
@@ -312,7 +312,7 @@ public class ColumnTest extends PoemTestCase {
    */
   public void testEqClause() {
     assertEquals("\"USER\".\"ID\" IS NULL", 
-                 getDb().getUserTable().troidColumn().eqClause(null));
+            getDb().getUserTable().troidColumn().eqClause(null));
     assertEquals("\"USER\".\"ID\" = 1", 
                  getDb().getUserTable().troidColumn().eqClause(new Integer(1)));
   }

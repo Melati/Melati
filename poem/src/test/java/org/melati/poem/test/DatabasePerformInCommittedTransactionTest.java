@@ -188,6 +188,7 @@ public class DatabasePerformInCommittedTransactionTest
     getDb().inCommittedTransaction(AccessToken.root, read);
     
   }
+  
   /**
    * @see org.melati.poem.Database#inCommittedTransaction(AccessToken, PoemTask)
    */
@@ -196,6 +197,24 @@ public class DatabasePerformInCommittedTransactionTest
       public void run() {
         try { 
           getDb().guestUser().setName(getDb().guestUser().getName());
+          fail("Should have blown up");
+        } catch (WriteCommittedException e ) { 
+          e = null;
+        }
+      }
+    };
+    getDb().inCommittedTransaction(AccessToken.root, modify);
+    
+  }
+  
+  /**
+   * @see org.melati.poem.Database#inCommittedTransaction(AccessToken, PoemTask)
+   */
+  public void testDeleteInCommittedTransaction() {
+    PoemTask modify = new PoemTask() {
+      public void run() {
+        try { 
+          getDb().guestUser().delete_unsafe();
           fail("Should have blown up");
         } catch (WriteCommittedException e ) { 
           e = null;
@@ -236,8 +255,32 @@ public class DatabasePerformInCommittedTransactionTest
     };
   }
   
+  /**
+   * @see org.melati.poem.Database#toString()
+   */
   public void testToString() {
     PoemDatabase d = new PoemDatabase();
     assertEquals("unconnected database", d.toString());
+  }
+  
+  /**
+   * Test troidSelection uses committed transaction.
+   * FIXME Relies upon session
+   */
+  public void testTableTroidSelection() {
+    //Enumeration en = getDb().getUserTable().troidSelection(
+    //        getDb().getUserTable().troidColumn().fullQuotedName() + "=0",null, false);
+    //assertEquals(2, EnumUtils.vectorOf(en).size());
+  }
+  
+  /**
+   * Test that committed transaction is used.
+   */
+  public void testTableCount() {
+    getDb().setLogSQL(true);
+    assertEquals(1, getDb().getGroupTable().count());
+    getDb().setLogSQL(false);
+    assertEquals(1, getDb().getGroupTable().count(null, true));
+    
   }
 }

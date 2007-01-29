@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Capability;
 import org.melati.poem.TableRenamePoemException;
 
 /**
@@ -88,4 +89,17 @@ public class TableInfoTest extends PoemTestCase {
     
   }
 
+  /**
+   * Test that the 'clear' integrityfix works.
+   */
+  public void testClearIntegrityFix() {
+    Capability c = getDb().getCapabilityTable().ensure("tableInfoReading");
+    getDb().getUserTable().getTableInfo().setDefaultcanread(c);
+    assertEquals("tableInfoReading", 
+            getDb().getUserTable().getTableInfo().getDefaultcanread().getName());
+    c.delete();
+    assertNull(getDb().getUserTable().getTableInfo().getDefaultcanread());
+    
+  }
+  
 }

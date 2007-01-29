@@ -294,8 +294,9 @@ public class Table implements Selectable {
       if (id != null && id.intValue() == columnInfoID)
         return column;
     }
-
-    return null;
+    throw new PoemBugPoemException(
+            "Non existent column ID " + columnInfoID + 
+            " requested for table " + name);
   }
 
   /**
@@ -1674,14 +1675,14 @@ public class Table implements Selectable {
     String sql = countSQL(whereClause);
 
     try {
-      PoemTransaction transaction = PoemThread.transaction();
       Connection connection;
-      if (transaction == null)
-        connection = getDatabase().getCommittedConnection();
-      else {
+      if (PoemThread.inSession()) {
+        PoemTransaction transaction = PoemThread.transaction();
         transaction.writeDown();
         connection = transaction.getConnection();
-      }
+      } else 
+        connection = getDatabase().getCommittedConnection();
+
 
       Statement s = connection.createStatement();
       ResultSet rs = s.executeQuery(sql);

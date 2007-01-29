@@ -95,7 +95,10 @@ public class GroupTable extends GroupTableBase {
 
   private Group administratorsGroup;
 
-  Group administratorsGroup() {
+  /**
+   * @return the Group to which administrators belong
+   */
+  public Group administratorsGroup() {
     return administratorsGroup;
   }
 

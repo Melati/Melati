@@ -1536,10 +1536,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * <p>
    * Note that this does not support aliases, unless we implement
    * these through a subtype of {@link Table}.
-   * @return an empty Array
+   * @return an empty Array by default
    */
   public Table[] otherMatchTables() {
-    return otherMatchTables ;
+    return otherMatchTables;
   }
 
   /**

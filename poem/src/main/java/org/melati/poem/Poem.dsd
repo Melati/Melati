@@ -47,7 +47,7 @@ package org.melati.poem;
 
 table User
   (displayorder = 2010)
-  (description = "A registered user of the database")
+  (description = "A registered User of the database")
   (category = "User")
   (seqcached) {  
 
@@ -82,7 +82,7 @@ table User
 
 table Group
   (displayorder = 2020)
-  (description = "A group to which registered users of the database can belong")
+  (description = "A Group to which registered Users of the database can belong")
   (category = "User")
   (seqcached) {
 
@@ -101,7 +101,7 @@ table Group
 
 table Capability
   (displayorder = 2030)
-  (description = "A capability which users can be required to possess before accessing data")
+  (description = "A Capability which Users can be required to possess before accessing data")
   (category = "User")
   (seqcached) {
 
@@ -113,7 +113,7 @@ table Capability
   String name 
     (size = 60)
     (unique) 
-    (description = "A human-readable name for the capability")
+    (description = "A human-readable name for the Capability")
     (displayorderpriority = 0) 
     (displaylevel = primary) 
     (searchability = primary);
@@ -123,7 +123,7 @@ table GroupMembership
   (displayorder = 2040)
   (displayname = "Group membership")
   (category = "User")
-  (description = "A record that a given user is a member of a given group") {
+  (description = "A record that a given User is a member of a given Group") {
 
   Integer id
     (description = "The Table Row Object ID")
@@ -149,7 +149,7 @@ table GroupCapability
   (displayorder = 2050)
   (displayname = "Group capability")
   (category = "User")
-  (description = "A record that users belonging to a given group possess a given capability") {
+  (description = "A record that Users belonging to a given Group possess a given Capability") {
 
   Integer id
     (description = "The Table Row Object ID")
@@ -158,7 +158,7 @@ table GroupCapability
 
   Group group 
     (displayorderpriority = 0)
-    (description = "The user-group which has the capability")
+    (description = "The Group which has the capability")
     (searchability = primary);
 
   Capability capability 
@@ -457,7 +457,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
 
 table Setting extends org.melati.poem.ValueInfo
   (displayorder = 3040)
-  (description = "A configurable setting for the application")
+  (description = "A configurable Setting for the application, where a Setting can be of any object type")
   (category = "System")
   (cachelimit = unlimited)
   (seqcached) {

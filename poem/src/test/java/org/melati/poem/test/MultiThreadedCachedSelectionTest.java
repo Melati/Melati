@@ -189,7 +189,6 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
           signal("done");
           break;
         } else {
-          signal("read");
           System.out.println("\n*** getter:");
           Enumeration them = cachedSelection.objects();
 
@@ -262,10 +261,11 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
       getter.signal(Boolean.TRUE);
       Thread.sleep(nap());
       
-      if(getDb().getFreeTransactionsCount() != getDb().transactionsMax() -1)
-        Thread.sleep(nap());
+      System.err.println(getDb().getFreeTransactionsCount() +  "!=" +  (getDb().transactionsMax() -1));
       setter.signal(null);
       getter.signal(null);
+      while(getDb().getFreeTransactionsCount() != getDb().transactionsMax() -1)
+        Thread.sleep(1000);
     } catch (Exception e) {
       e.printStackTrace();
       fail();

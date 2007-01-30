@@ -269,14 +269,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#tables()
    */
   public void testTables() {
-    Enumeration e = getDb().tables();
-    int count = 0;
-    while (e.hasMoreElements()) {
-      e.nextElement();
-      count++;
-    }
-    assertEquals(9, count);
-
+    // tested in PoemTestCase
   }
 
   /**
@@ -285,20 +278,13 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#columns()
    */
   public void testColumns() {
-    Enumeration e = getDb().columns();
-    int count = 0;
-    while (e.hasMoreElements()) {
-      e.nextElement();
-      count++;
-    }
-    assertEquals(69, count);
+    // tested in PoemTestCase
   }
 
   /**
    * @see org.melati.poem.Database#addTableAndCommit(TableInfo, String)
    */
-  public void testAddTableAndCommit()
-      throws Exception {
+  public void testAddTableAndCommit() throws Exception {
     //getDb().setLogCommits(true);
     //getDb().setLogSQL(true);
     TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();

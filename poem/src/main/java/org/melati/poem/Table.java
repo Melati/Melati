@@ -918,7 +918,10 @@ public class Table implements Selectable {
       Connection connection = transaction.getConnection();
 
       Statement deleteStatement = connection.createStatement();
-      deleteStatement.executeUpdate(sql);
+      int deleted = deleteStatement.executeUpdate(sql);
+      if (deleted != 1) { 
+        throw new RowDisappearedPoemException(this,troid);
+      }
       deleteStatement.close();
       database.incrementQueryCount();
       if (database.logSQL())

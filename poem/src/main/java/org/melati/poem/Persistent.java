@@ -1140,9 +1140,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
     Enumeration columns = getDatabase().referencesTo(getTable());
     Vector refEnumerations = new Vector();
 
-    // FIXME These integrity fixes may result in calls to postWrite()
-    // unless the deletion status is changed first. Not sure what the
-    // side effects would be. JimW
     while (columns.hasMoreElements()) {
       Column column = (Column)columns.nextElement();
 

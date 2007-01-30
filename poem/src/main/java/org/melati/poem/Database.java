@@ -844,6 +844,7 @@ public abstract class Database implements TransactionPool {
    *         order.
    */
   public final Enumeration tables() {
+    // NOTE This will include any deleted tables 
     return tables.elements();
   }
 

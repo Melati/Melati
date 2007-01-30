@@ -113,7 +113,6 @@ public final class PoemThread {
       throw new AlreadyInSessionPoemException();
     Integer token = allocatedSessionToken(accessToken, transaction, task);
     String oldname = Thread.currentThread().getName();
-
     Thread.currentThread().setName("" + (char)token.intValue());
     // Save the old thread name for later use
     threadOldNames.put(token, oldname);
@@ -139,12 +138,12 @@ public final class PoemThread {
               + " has null old name");
 
     Thread.currentThread().setName(oldname);
-    synchronized (freeSessionTokenIndices) {
-      ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
-      sessionTokens.setElementAt(null, token.intValue());
-      freeSessionTokenIndices.addElement(token);
+      synchronized (freeSessionTokenIndices) {
+        ((SessionToken)sessionTokens.elementAt(token.intValue())).close();
+        sessionTokens.setElementAt(null, token.intValue());
+        freeSessionTokenIndices.addElement(token);
+      }
     }
-  }
 
   /**
    * Perform the specified task in the current thread session.
@@ -184,7 +183,7 @@ public final class PoemThread {
 
   static SessionToken _sessionToken() {
     // If we are not in a PoemThread then the name is likely
-    // to be "main"
+    // to be "main" or "Thread-1", "Thread-2" etc
     if (Thread.currentThread().getName().length() != 1)
       return null;
     SessionToken context = (SessionToken)sessionTokens.elementAt(Thread

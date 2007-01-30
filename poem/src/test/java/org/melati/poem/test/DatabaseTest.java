@@ -45,17 +45,18 @@ public class DatabaseTest extends TestCase {
     super.tearDown();
   }
 
-  private PoemDatabase db;
+  private static PoemDatabase db;
   /**
-   * @return tha db
+   * @return the db
    */
-  private Database getDb() {
+  private static Database getDb() {
     if (db != null)
       return db;
     else {
       db = new PoemDatabase();
       db.connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
-        "sa", "", 3);
+        "sa", "", 8);
+      assertEquals(8, db.getFreeTransactionsCount());
       assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
       return db;
     }
@@ -75,15 +76,17 @@ public class DatabaseTest extends TestCase {
   public void testConnect() { 
     try { 
       getDb().connect("org.melati.poem.dbms.Hsqldb", "jdbc:hsqldb:mem:m2",
-          "sa", "", 3);
+          "sa", "", 8);
       fail("Should have blown up");
     } catch (ReconnectionPoemException e) {
       e = null;
     }
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
-    getDb().shutdown();
-    getDb().disconnect();
-
+    assertEquals(8, db.getFreeTransactionsCount());
+    db.shutdown();
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
   }
 
   /**

@@ -2671,13 +2671,13 @@ public class Table implements Selectable {
               database.defaultPoemTypeOfColumnMetaData(colDescs);
 
           // magically make eligible columns called "id" and "deleted"
-          // into designed troid and soft-deleted-flag columns
+          // into troid and soft-deleted-flag columns
 
-          if (troidColumn == null && colName.equals("id") &&
+          if (troidColumn == null && colName.equalsIgnoreCase("id") &&
               dbms().canRepresent(colType, TroidPoemType.it) != null)
             colType = TroidPoemType.it;
 
-          if (deletedColumn == null && colName.equals("deleted") &&
+          if (deletedColumn == null && colName.equalsIgnoreCase("deleted") &&
               dbms().canRepresent(colType, DeletedPoemType.it) != null)
             colType = DeletedPoemType.it;
 

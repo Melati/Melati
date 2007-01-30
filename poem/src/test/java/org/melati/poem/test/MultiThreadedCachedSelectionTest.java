@@ -4,6 +4,7 @@
 package org.melati.poem.test;
 
 import java.util.Enumeration;
+import java.util.Random;
 
 import org.melati.poem.AccessToken;
 import org.melati.poem.CachedSelection;
@@ -13,19 +14,19 @@ import org.melati.poem.Table;
 import org.melati.poem.UnexpectedExceptionPoemException;
 
 /**
- * FIXME this test currently breaks everything.
- * It worked once, but started shutting sessions.
  * @author timp
  * @since 24 Jan 2007
- *
+ * 
  */
 public class MultiThreadedCachedSelectionTest extends PoemTestCase {
 
   private static String result;
-  protected TestDatabase db;
-  
+
+  protected static TestDatabase db;
+
   /**
-   * Constructor for CachedSelectionTest.
+   * Constructor.
+   * 
    * @param arg0
    */
   public MultiThreadedCachedSelectionTest(String arg0) {
@@ -33,8 +34,10 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     setDbName("poemtest");
   }
 
-  /*
-   * @see TestCase#setUp()
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp() throws Exception {
     setDbName("poemtest");
@@ -42,6 +45,9 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     db = (TestDatabase)getDb();
   }
 
+  protected void tearDown() throws Exception {
+    super.tearDown();
+  }
 
   abstract static class PoemTaskThread extends Thread {
 
@@ -54,29 +60,31 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     abstract void run_() throws Exception;
 
     public void run() {
-      table.getDatabase().inSession(
-          AccessToken.root,
-          new PoemTask() {
-            public void run() {
-              try {
-                run_();
-              }
-              catch (Exception e) {
-                throw new UnexpectedExceptionPoemException(e);
-              }
-            }
-          });
+      //System.err.println("MTCST thread name: "+ Thread.currentThread().getName());
+      table.getDatabase().inSession(AccessToken.root, new PoemTask() {
+        public void run() {
+          try {
+            run_();
+          } catch (Exception e) {
+            throw new UnexpectedExceptionPoemException(e);
+          }
+        }
+      });
     }
   }
 
   static class Setter extends PoemTaskThread {
 
-    static class Signal {}
+    static class Signal {
+    }
 
-    static final Signal
-        set = new Signal(), add = new Signal(), delete = new Signal();
+    static final Signal 
+      set = new Signal(){ public String toString() {return "set";}}, 
+      add = new Signal(){ public String toString() {return "add";}},
+      delete = new Signal() { public String toString() {return "delete";}};
 
-    Signal[] theSignal = new Signal[1];
+    static Signal[] theSignal = new Signal[1];
+
     int serial = 0;
 
     Setter(Table table) {
@@ -84,6 +92,8 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     }
 
     void signal(Signal signal) {
+      System.err.println("Setter Signal changing from "
+              +theSignal[0] + " to " + signal);
       synchronized (theSignal) {
         theSignal[0] = signal;
         theSignal.notifyAll();
@@ -91,6 +101,7 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     }
 
     void run_() throws Exception {
+      System.err.println("Setter thread name: "+ (int)Thread.currentThread().getName().charAt(0));
       for (;;) {
         synchronized (theSignal) {
           theSignal.wait();
@@ -99,58 +110,57 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
         if (theSignal[0] == set) {
           String fieldContent = "setWhatsit" + (serial++);
           StringField t = (StringField)table.firstSelection(null);
-          if (t == null){
+          if (t == null) {
             System.out.println("\n*** setter: nothing to set\n");
-            synchronized(result) {
-              result += "\nNULL" + fieldContent;            
+            synchronized (result) {
+              result += "\nNULL" + fieldContent;
             }
           } else {
             System.out.println("\n*** setter: setting " + fieldContent);
             t.setStringfield(fieldContent);
-            synchronized(result) {
+            synchronized (result) {
               result += "\n" + fieldContent;
             }
           }
-        }
-        else if (theSignal[0] == add) {
+        } else if (theSignal[0] == add) {
           String fieldContent = "addedWhatsit" + (serial++);
           System.out.println("*** setter: adding " + fieldContent);
           StringField t = (StringField)table.newPersistent();
           t.setStringfield(fieldContent);
           t.makePersistent();
-          synchronized(result) {
+          synchronized (result) {
             result += "\n" + fieldContent;
           }
-        }
-        else if (theSignal[0] == delete) {
+        } else if (theSignal[0] == delete) {
           StringField t = (StringField)table.firstSelection(null);
           if (t == null) {
             System.out.println("\n*** setter: nothing to delete");
-            synchronized(result) {
+            synchronized (result) {
               result += "\nempty delete";
             }
           } else {
             System.out.println("*** setter: deleting");
             t.delete_unsafe();
             System.out.println("*** setter: done deleting");
-            synchronized(result) {
+            synchronized (result) {
               result += "\ndelete";
             }
           }
-        }
-        else if (theSignal[0] == null) {
+        } else if (theSignal[0] == null) {
           System.out.println("\n*** setter done");
           break;
-        }
+        } else fail("WTF");
 
         PoemThread.commit();
       }
+      PoemThread.commit();
     }
   }
 
   static class Getter extends PoemTaskThread {
 
-    Object[] theSignal = new Object[1];
+    static Object[] theSignal = new Object[1];
+
     CachedSelection cachedSelection;
 
     Getter(Table table) {
@@ -158,7 +168,9 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
       cachedSelection = new CachedSelection(table, null, null, null);
     }
 
-    void signal(Object signal) {
+    void signal(Object signal) throws Exception {
+      System.err.println("Getter Signal changing from "
+              +theSignal[0] + " to " + signal);
       synchronized (theSignal) {
         theSignal[0] = signal;
         theSignal.notifyAll();
@@ -166,6 +178,7 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
     }
 
     void run_() throws Exception {
+      System.err.println("Getter thread name: "+ (int)Thread.currentThread().getName().charAt(0));
       for (;;) {
         synchronized (theSignal) {
           theSignal.wait();
@@ -173,91 +186,93 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
 
         if (theSignal[0] == null) {
           System.out.println("\n*** getter done\n");
+          signal("done");
           break;
-        }
-        else {
+        } else {
+          signal("read");
           System.out.println("\n*** getter:");
           Enumeration them = cachedSelection.objects();
 
           System.out.print("** got\n");
-          synchronized(result) {
+          synchronized (result) {
             result += "\ngot";
           }
 
-          synchronized(result) {
+          synchronized (result) {
             while (them.hasMoreElements()) {
-              String s = " " + ((StringField)them.nextElement()).getStringfield();
+              String s = " "
+                      + ((StringField)them.nextElement()).getStringfield();
               result += s;
-              System.out.print(s);
+              //System.out.print(s);
             }
           }
-          System.out.println("\n");
+          //System.out.println("\n");
         }
-
         PoemThread.commit();
       }
+      PoemThread.commit();
     }
   }
 
   /**
-   * Setup threads and test them. 
+   * Setup threads and test them.
+   * @throws Exception 
    */
-  public void testThem() {
-
+  public void testThem() throws Exception {
+    System.err.println("Start of test method");
     result = "";
-              //db.setLogSQL(true);
+    // db.setLogSQL(true);
 
-              Setter setter = new Setter(db.getStringFieldTable());
-              setter.start();
+    Setter setter = new Setter(db.getStringFieldTable());
+    Getter getter = new Getter(db.getStringFieldTable());
 
-              Getter getter = new Getter(db.getStringFieldTable());
-              getter.start();
+    setter.start();
+    getter.start();
 
-              // fails at a nap of 18ms for postgresl and hsqldb
-              // fails at a nap of 700ms for Access
-              int nap = 100;
-              try{
-              Thread.sleep(nap);
-              setter.signal(Setter.add);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              setter.signal(Setter.set);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              setter.signal(Setter.add);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              setter.signal(Setter.delete);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              setter.signal(Setter.delete);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-              getter.signal(Boolean.TRUE);
-              Thread.sleep(nap);
-
-              setter.signal(null);
-              getter.signal(null);
-              } catch (Exception e) {
-                e.printStackTrace();
-                fail();
-              }
-              
-    System.out.println(result);
-    /* 
+    try {
+      Thread.sleep(nap());
+      setter.signal(Setter.add);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      setter.signal(Setter.set);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      setter.signal(Setter.add);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      setter.signal(Setter.delete);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      setter.signal(Setter.delete);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      getter.signal(Boolean.TRUE);
+      Thread.sleep(nap());
+      
+      if(getDb().getFreeTransactionsCount() != getDb().transactionsMax() -1)
+        Thread.sleep(nap());
+      setter.signal(null);
+      getter.signal(null);
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail();
+    }
+    System.err.println("End of test method");
+    // System.out.println(result);
+    /*
     assertEquals("\naddedWhatsit0\n" + 
                  "got addedWhatsit0\n" + 
                  "got addedWhatsit0\n" + 
@@ -273,9 +288,14 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
                  "delete\n" + 
                  "got\n" + 
                  "got",result);
-    */
+     */
     // TODO think of an appropriate assertion
   }
-  
 
+  private int nap() { 
+    Random generator = new Random();
+    int it = generator.nextInt(80);
+    //System.err.println(it);
+    return it;
+  }
 }

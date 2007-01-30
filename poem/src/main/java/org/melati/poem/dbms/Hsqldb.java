@@ -224,4 +224,8 @@ public class Hsqldb extends AnsiStandard {
     return sb.toString();
   }
 
+  public String getJdbcMetadataName(String name) {
+    return name.toUpperCase();
+  }
+
 }

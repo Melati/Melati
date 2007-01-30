@@ -6,6 +6,7 @@ import java.util.Enumeration;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
+import org.melati.poem.Column;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
@@ -51,13 +52,14 @@ public abstract class PoemTestCase extends TestCase implements Test {
     super(name);
     fName = name;
   }
-
+  boolean problem = false;
   String dbUrl = null;
   /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
+    problem = false;
     setDbName(getDbName());
     setDb(getDbName());
     assertEquals(4, getDb().getFreeTransactionsCount());
@@ -67,8 +69,10 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    checkDbUnchanged();
-    assertEquals(4, getDb().getFreeTransactionsCount());
+    if (!problem) {
+      checkDbUnchanged();
+      assertEquals("Not all transactions free", 4, getDb().getFreeTransactionsCount());
+    }
   }
 
   /**
@@ -96,6 +100,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
               try {
                 runMethod.invoke(_this, new Class[0]);
               } catch (Throwable e) {
+                problem = true;
                 e.fillInStackTrace();
                 throw new RuntimeException(e);
               }
@@ -133,21 +138,67 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals("User changed", 2, getDb().getUserTable().count());
     assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
+    checkTablesAndColumns(9,69);
   }
   protected void poemtestUnchanged() { 
-    assertEquals(0, getDb().getSettingTable().count());
-    assertEquals(1, getDb().getGroupTable().count());
-    assertEquals(1, getDb().getGroupMembershipTable().count());
-    assertEquals(5, getDb().getCapabilityTable().count());
-    assertEquals(1, getDb().getGroupCapabilityTable().count());
-    assertEquals(4, getDb().getTableCategoryTable().count());
-    assertEquals(2, getDb().getUserTable().count());
+    assertEquals("Setting changed",0, getDb().getSettingTable().count());
+    assertEquals("Group changed", 1, getDb().getGroupTable().count());
+    assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
+    assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
+    assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
+    assertEquals("TableCategory changed", 4, getDb().getTableCategoryTable().count());
+    assertEquals("User changed", 2, getDb().getUserTable().count());
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
-    //assertEquals(156, getDb().getColumnInfoTable().count());
-    assertEquals(25, getDb().getTableInfoTable().count());
-
+    //assertEquals("ColumnInfo changed", 156, getDb().getColumnInfoTable().count());
+    assertEquals("TableInfo changed", 25, getDb().getTableInfoTable().count());
+    checkTables(25);
   }
+  
+
+  protected void checkTablesAndColumns(int tableCount, int columnCount) {
+    checkTables(tableCount);
+    checkColumns(columnCount);
+  }
+  protected void checkTables(int tableCount) {
+    Enumeration e = getDb().tables();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      Table t = (Table)e.nextElement();
+      if (t.getTableInfo().statusExistent()) count++;
+    }
+    if (count != tableCount) {
+      System.out.println(fName + " Additional tables - expected:" + 
+              tableCount + " found:" + count);
+      e = getDb().tables();
+      while (e.hasMoreElements()) {
+        Table t = (Table)e.nextElement();
+        System.out.println(t.getTableInfo().troid() + " " +
+                t.getTableInfo().statusExistent() + " " +
+                t);
+      }      
+    }
+    assertEquals(tableCount, count);
+  }
+  protected void checkColumns(int columnCount) {
+    Enumeration e = getDb().columns();
+    int count = 0;
+    while (e.hasMoreElements()) {
+      Column c = (Column)e.nextElement();
+      if (c.getColumnInfo().statusExistent())
+        count++;
+    }
+    if (count != columnCount) {
+      System.out.println(fName + " Additional columns - expected:" + 
+              columnCount + " found:" + count);
+      e = getDb().columns();
+      while (e.hasMoreElements()) {
+        System.out.println((Column)e.nextElement());
+      }      
+    }
+    assertEquals(columnCount, count);
+  }
+  
   protected void dumpTable(Table t) {
     Enumeration them = t.selection();
     while (them.hasMoreElements()) {

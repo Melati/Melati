@@ -25,6 +25,19 @@ This page last updated: $Date$ $Author$
 <!-- menu -->
 
 <section name=" Testing ">
+<p>
+Until I retro-fitted the tests I used Melati for three years in the strong belief it was bug-free, 
+now I believe only tested software is bug free.
+</p>
+<p>
+The unit tests have been retro-fitted, JUnit had not been written when the code was first written, 
+so the objective of the tests is to achieve 100% branch coverage, not to have a unit test for every method.
+</p>
+<p>
+The excercise of retro-fitting has been very useful, as a learning excercise for me and 
+also to justify the claim that Melati is very well written. The number of errors highlighted by the tests 
+was very small but did point out a few worthwhile refactorings.
+</p>
 <subsection name="JUnit tests">
 <p>
 Maven allows tests to be run in a single thread or a new thread per test.
@@ -49,15 +62,6 @@ build:
 </p>
 </subsection>
 <subsection name="Coverage notes">
-<p>
-The tests have been retro-fitted, JUnit had not been written when the code was first written, 
-so the objective of the tests is to achieve 100% branch coverage, not to have a unit test for every method.
-</p>
-<p>
-The excercise of retro-fitting has been very useful, as a learning excercise for me and 
-also to justify the claim that Melati is very well written. The number of errors highlighted by the tests 
-was very small but did point out a few worthwhile refactorings.
-</p>
 <ul>
 <li>org.melati
 <p>
@@ -72,6 +76,15 @@ Finished.
 Almost finished, the last part is the most interesting.
 </p>
 <p>
+Notes on remaining non-coverage
+<ul>
+<li>
+Database
+<p>
+Finished - remaining exception handling is to artificail to cover
+</p>
+</li>
+</ul>
 </p>
 </li>
 <li>org.melati.poem.csv</li>
@@ -90,8 +103,19 @@ This to be left until last, any methods not invoked are suspect.
 </li>
 <li>org.melati.servlet</li>
 <li>org.melati.template</li>
-<li>org.melati.template.velocity</li>
-<li>org.melati.template.webmacro</li>
+<p>
+Abstract tests written against interfaces.
+</p>
+<li>org.melati.template.velocity
+<p>
+Tests run by injecting into abstract tests.
+</p>
+</li>
+<li>org.melati.template.webmacro
+<p>
+Tests run by injecting into abstract tests.
+</p>
+</li>
 <li>org.melati.test</li>
 <p>
 Some of the manual tests are run using mocks.
@@ -104,9 +128,7 @@ Not much explicit testing so far.
 </subsection>
 <subsection name="Manual tests">
 <p>
-The tests below enable you to ensure that your installation 
-is functioning and is useful during development to ascertain 
-where in an installation an ellusive bug is hiding. 
+The tests below were all we had before JUnit.
 A default installation should not produce errors for any of them.
 <table>
 <tr><td>

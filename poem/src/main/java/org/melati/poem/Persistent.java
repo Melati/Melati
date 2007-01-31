@@ -1374,7 +1374,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       it = (Persistent)super.clone();
     }
     catch (CloneNotSupportedException e) {
-      throw new UnexpectedExceptionPoemException(e);
+      throw new UnexpectedExceptionPoemException(e, "Object no longer supports clone.");
     }
 
     it.extras = (Object[])extras().clone();

@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import org.melati.poem.CachedCount;
+import org.melati.poem.CachedExists;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnRenamePoemException;
 import org.melati.poem.DisplayLevel;
@@ -1741,6 +1742,7 @@ public class TableTest extends PoemTestCase {
     cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
     assertEquals(7, cached.count());
   }
+  
 
   /**
    * @see org.melati.poem.Table#cachedCount(String)
@@ -1750,10 +1752,30 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
+   * @see org.melati.poem.Table#cachedCount(String)
+   */
+  public void testCachedCountPersistent() {
+    TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    CachedCount cached = getDb().getTableInfoTable().cachedCount(ti); 
+    assertEquals(25, cached.count());
+    ti.setSeqcached(true);
+    cached = getDb().getTableInfoTable().cachedCount(ti); 
+    assertEquals(7, cached.count());
+  }
+
+  /**
    * @see org.melati.poem.Table#cachedExists(String)
    */
   public void testCachedExists() {
-
+    CachedExists cached = getDb().getUserTable().cachedExists(null); 
+    assertEquals(2, cached.count());
+    User t = (User)getDb().getUserTable().newPersistent();
+    t.setName("TestUser");
+    t.setLogin("TestUser");
+    t.setPassword("TestUser");
+    t.makePersistent();
+    assertEquals(3, cached.count());
+    t.delete();
   }
 
   /**
@@ -1862,7 +1884,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getDsdName()
    */
   public void testGetDsdName() {
-
+    assertEquals("User",getDb().getUserTable().getDsdName());
   }
 
   /**

@@ -83,10 +83,10 @@ public class TailoredQueryTest extends PoemTestCase {
       ms.nextElement();
       /*
       System.out.println(
-          fs.get("user_name").getCookedString(MelatiLocale.HERE,
+          fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("group_name").getCookedString(MelatiLocale.HERE,
+          + fs.get("group_name").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
        */
     }
@@ -127,10 +127,10 @@ public class TailoredQueryTest extends PoemTestCase {
       ms.nextElement();
       /*
       System.out.println(
-          fs.get("user_name").getCookedString(MelatiLocale.HERE,
+          fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("group_name").getCookedString(MelatiLocale.HERE,
+          + fs.get("group_name").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
        */
     }
@@ -171,10 +171,10 @@ public class TailoredQueryTest extends PoemTestCase {
       ms.nextElement();
       /*
       System.out.println(
-          fs.get("user_name").getCookedString(MelatiLocale.HERE,
+          fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("group_name").getCookedString(MelatiLocale.HERE,
+          + fs.get("group_name").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
         */
     }
@@ -249,10 +249,10 @@ public class TailoredQueryTest extends PoemTestCase {
       ms.nextElement();
       /*
       System.out.println(
-          fs.get("user_name").getCookedString(MelatiLocale.HERE,
+          fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("group_name").getCookedString(MelatiLocale.HERE,
+          + fs.get("group_name").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
        */
     }

@@ -257,7 +257,7 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
   /**
    * Test method for
    * {@link org.melati.poem.PoemType#stringOfCooked
-   *     (java.lang.Object, org.melati.util.MelatiLocale, int)}.
+   *     (java.lang.Object, org.melati.poem.PoemLocale, int)}.
    */
   public void testStringOfCooked() {
 

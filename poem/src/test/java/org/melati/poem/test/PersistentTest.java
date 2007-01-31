@@ -437,7 +437,7 @@ public class PersistentTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Persistent#getCookedString(String, MelatiLocale, int)
+   * @see org.melati.poem.Persistent#getCookedString(String, PoemLocale, int)
    */
   public void testGetCookedString() {
     Persistent p = getDb().getUserTable().administratorUser();
@@ -789,18 +789,18 @@ public class PersistentTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Persistent#displayString(MelatiLocale, int)
+   * @see org.melati.poem.Persistent#displayString(PoemLocale, int)
    */
-  public void testDisplayStringMelatiLocaleInt() {
+  public void testDisplayStringPoemLocaleInt() {
     Persistent p = getDb().getGroupTable().getObject(0);
     assertEquals("Melati database administrators", 
         p.displayString(PoemLocale.HERE, DateFormat.MEDIUM));
   }
 
   /** 
-   * @see org.melati.poem.Persistent#displayString(MelatiLocale)
+   * @see org.melati.poem.Persistent#displayString(PoemLocale)
    */
-  public void testDisplayStringMelatiLocale() {
+  public void testDisplayStringPoemLocale() {
     Persistent p = getDb().getGroupTable().getObject(0);
     assertEquals("Melati database administrators", 
         p.displayString(PoemLocale.HERE));

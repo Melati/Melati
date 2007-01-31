@@ -233,7 +233,7 @@ public class FieldTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Field#getCookedString(MelatiLocale, int)
+   * @see org.melati.poem.Field#getCookedString(PoemLocale, int)
    */
   public void testGetCookedString() {
     assertEquals("stringfield", stringField.getCookedString(PoemLocale.HERE, DateFormat.MEDIUM));

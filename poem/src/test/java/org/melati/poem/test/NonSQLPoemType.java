@@ -107,9 +107,10 @@ public class NonSQLPoemType implements PoemType {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.poem.PoemType#stringOfCooked(java.lang.Object, org.melati.util.MelatiLocale, int)
+     * @see org.melati.poem.PoemType#stringOfCooked(java.lang.Object, org.melati.poem.PoemLocale, int)
      */
-    public String stringOfCooked(Object cooked, PoemLocale locale, int style) throws TypeMismatchPoemException, PoemException {
+    public String stringOfCooked(Object cooked, PoemLocale locale, int style) 
+        throws TypeMismatchPoemException, PoemException {
       return null;
     }
 

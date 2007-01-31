@@ -224,6 +224,11 @@ public class Hsqldb extends AnsiStandard {
     return sb.toString();
   }
 
+  /**
+   * Bad smell.
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getJdbcMetadataName(java.lang.String)
+   */
   public String getJdbcMetadataName(String name) {
     return name.toUpperCase();
   }

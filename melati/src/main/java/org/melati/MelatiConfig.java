@@ -382,6 +382,7 @@ public class MelatiConfig {
   /**
    * For backwards compatibility.
    * @return The configured locale, defaults to British English melati locale.
+   * @deprecated use getPoemLocale
    */
   public static PoemLocale getMelatiLocale() {
     return poemLocale;
@@ -395,7 +396,7 @@ public class MelatiConfig {
 
   /**
    * @param poemLocale
-   *        The melatiLocale to set.
+   *        The PoemLocale to set.
    */
   public void setPoemiLocale(PoemLocale poemLocale) {
     MelatiConfig.poemLocale = poemLocale;

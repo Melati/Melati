@@ -107,7 +107,7 @@ public interface MarkupLanguage {
    * returning a MEDIUM Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
@@ -124,7 +124,7 @@ public interface MarkupLanguage {
    * Defaults to a limit of 10,000,000. 
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
@@ -141,7 +141,7 @@ public interface MarkupLanguage {
    * returning a String.
    *
    * see org.melati.poem.DatePoemType#_stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @param style - a style to format this Field.
@@ -159,7 +159,7 @@ public interface MarkupLanguage {
    * returning a SHORT Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
@@ -175,7 +175,7 @@ public interface MarkupLanguage {
    * returning a MEDIUM Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
@@ -191,7 +191,7 @@ public interface MarkupLanguage {
    * returning a LONG Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
@@ -204,7 +204,7 @@ public interface MarkupLanguage {
    * returning a FULL Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.
@@ -218,7 +218,7 @@ public interface MarkupLanguage {
    * returning a START Date format String.
    *
    * @see org.melati.poem.DatePoemType#stringOfCooked
-   *              (java.lang.Object,org.melati.util.MelatiLocale, int)
+   *              (java.lang.Object,org.melati.poem.PoemLocale, int)
    * 
    * @param field - the Field to be rendered
    * @return - the Field rendered as a String in a MarkupLanguage specific way.

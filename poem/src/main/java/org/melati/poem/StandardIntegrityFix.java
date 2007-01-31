@@ -126,18 +126,8 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
                                       Enumeration refs,
                                       Map referenceFixOfColumn) {
         while (refs.hasMoreElements()) {
-          try {
-            Persistent p = (Persistent)refs.nextElement();
-            p.delete(referenceFixOfColumn);
-          }
-          catch (RowDisappearedPoemException e) {
-            // This is possible if the table has a non-standard
-            // integrity fix that deletes subsequent rows. ResultSetEnumeration
-            // allows us to carry on in that case.
-            if (! (refs instanceof ResultSetEnumeration)) {
-              throw e;
-            }
-          }
+          Persistent p = (Persistent)refs.nextElement();
+          p.delete(referenceFixOfColumn);
         }
         return EmptyEnumeration.it;
       }

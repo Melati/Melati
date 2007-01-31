@@ -145,7 +145,7 @@ public class ConfigServletTest extends ConfigServlet {
     "</td></tr>\n");
     output.write(
     "<tr><td>Locale</td><td>" +
-    MelatiConfig.getMelatiLocale().getClass().getName() +
+    MelatiConfig.getPoemLocale().getClass().getName() +
     "</td></tr>\n");
     output.write(
     "<tr><td>TempletLoader</td><td>" +

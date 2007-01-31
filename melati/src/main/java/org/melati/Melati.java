@@ -487,13 +487,13 @@ public class Melati {
   }
 
   /**
-   * Returns a MelatiLocale object based on the Accept-Language header
+   * Returns a PoemLocale object based on the Accept-Language header
    * of this request.
    *
    * If we are using Melati outside of a servlet context then the
    * configured locale is returned.
    *
-   * @return a MelatiLocale object
+   * @return a PoemLocale object
    */
   public PoemLocale getPoemLocale() {
     HttpServletRequest r = getRequest();
@@ -503,16 +503,16 @@ public class Melati {
       if (acceptLanguage != null)
         ml = getPoemLocale(acceptLanguage);
     }
-   return ml != null ? ml : MelatiConfig.getMelatiLocale();
+   return ml != null ? ml : MelatiConfig.getPoemLocale();
   }
 
   /**
-   * Returns a MelatiLocale based on a language tag. Locales are cached for
+   * Returns a PoemLocale based on a language tag. Locales are cached for
    * future use.
    * 
    * @param languageHeader
    *        A language header from RFC 3282
-   * @return a MelatiLocale based on a language tag or null if not found
+   * @return a PoemLocale based on a language tag or null if not found
    * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
    */
   public static PoemLocale getPoemLocale(String languageHeader) {
@@ -657,7 +657,7 @@ public class Melati {
    *
    * @return - a MarkupLanguage, defaulting to HTMLMarkupLanguage
    * @see org.melati.template.TempletLoader
-   * @see org.melati.util.MelatiLocale
+   * @see org.melati.poem.PoemLocale
    */
   public MarkupLanguage getMarkupLanguage() {
     if (markupLanguage == null) 

@@ -2260,18 +2260,11 @@ public class Table implements Selectable {
                                            String orderByClause) {
     String key = whereClause + "/" + orderByClause;
     CachedSelection them = (CachedSelection)cachedSelections.get(key);
-    if (them == null || them.outOfDate()) {
+    if (them == null) {
       CachedSelection newThem =
           new CachedSelection(this, whereClause, orderByClause);
-      // synchronise in case someone else has performed the query whilst 
-      // we were performing it.
-      synchronized (cachedSelections) {
-        them = (CachedSelection)cachedSelections.get(key);
-        if (them == null) {
-          cachedSelections.put(key, newThem);
-          them = newThem;
-        }
-      }
+      cachedSelections.put(key, newThem);
+      them = newThem;
     }
     return them;
   }
@@ -2317,8 +2310,15 @@ public class Table implements Selectable {
    */
   public CachedCount cachedCount(Persistent criteria, boolean includeDeleted, 
                                  boolean excludeUnselectable) {
-    return cachedCount(whereClause(criteria, includeDeleted, excludeUnselectable),
-                       criteria);
+    return cachedCount(whereClause(criteria, includeDeleted, excludeUnselectable));
+  }
+
+  /**
+   * @param criteria a Persistent to extract where clause from 
+   * @return a CachedCount of records matching Criteria
+   */
+  public CachedCount cachedCount(Persistent criteria) {
+    return cachedCount(whereClause(criteria, true, false));
   }
 
   /**
@@ -2331,33 +2331,11 @@ public class Table implements Selectable {
    * @return a cached count
    */
   public CachedCount cachedCount(String whereClause) {
-    return cachedCount(whereClause, (Persistent)null);
-  }
-
-  /**
-   * It is the programmer's responsibility to ensure that the where clause 
-   * is suitable for the target DBMS.
-   * 
-   * @param whereClause raw SQL selection clause appropriate for this DBMS
-   * @param criteria a Persistent to extract a where clause from
-   * @return a cached count
-   */
-  private CachedCount cachedCount(String whereClause, Persistent criteria) {
-    CachedCount it = (CachedCount)cachedCounts.get(whereClause);
+    String key = "" + whereClause;
+    CachedCount it = (CachedCount)cachedCounts.get(key);
     if (it == null) {
-      CachedCount newIt;
-      if (criteria == null) {
-        newIt = new CachedCount(this, whereClause);
-      } else {
-        newIt = new CachedCount(criteria, false, true);
-      }
-      synchronized (cachedCounts) {
-        it = (CachedCount)cachedCounts.get(whereClause);
-        if (it == null) {
-          cachedCounts.put(whereClause, newIt);
-          it = newIt;
-        }
-      }
+      it = new CachedCount(this, whereClause);
+      cachedCounts.put(key, it);
     }
     return it;
   }
@@ -2368,21 +2346,19 @@ public class Table implements Selectable {
    * It is the programmer's responsibility to ensure that the where clause 
    * is suitable for the target DBMS.
    * 
+   * NOTE that it is possible for the count to be written simultaneously, 
+   * but the cache will end up with the same result.
+   * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS
    * @return a cached exists
    */
   public CachedExists cachedExists(String whereClause) {
-    CachedExists it = (CachedExists)cachedExists.get(whereClause);
+    String key = "" + whereClause;
+    CachedExists it = null;
+      it = (CachedExists)cachedExists.get(key);
     if (it == null) {
-      CachedExists newIt =
-          new CachedExists(this, whereClause);
-      synchronized (cachedExists) {
-        it = (CachedExists)cachedExists.get(whereClause);
-        if (it == null) {
-          cachedExists.put(whereClause, newIt);
-          it = newIt;
-        }
-      }
+      it = new CachedExists(this, whereClause);
+      cachedExists.put(key, it);
     }
     return it;
   }
@@ -2620,13 +2596,15 @@ public class Table implements Selectable {
     }
   }
 
+  /**
+   * Match columnInfo with this Table's columns.
+   * Conversely, create a ColumnInfo for any columns which don't have one. 
+   */
   synchronized void unifyWithColumnInfo() throws PoemException {
-
-    // Match columnInfo with our columns
 
     if (info == null)
       throw new PoemBugPoemException("Get the initialisation order right ...");
-
+    
     for (Enumeration ci =
              database.getColumnInfoTable().getTableinfoColumn().
                  selectionWhereEq(info.troid());
@@ -2638,11 +2616,8 @@ public class Table implements Selectable {
                                   DefinitionSource.infoTables);
         _defineColumn(column);
       }
-
       column.setColumnInfo(columnInfo);
     }
-
-    // Conversely, make columnInfo for any columns which don't have it
 
     for (Enumeration c = columns(); c.hasMoreElements();)
       ((Column)c.nextElement()).createColumnInfo();
@@ -2659,10 +2634,10 @@ public class Table implements Selectable {
 
     Hashtable dbColumns = new Hashtable();
 
-    int dbIndex = 0;
+    int colCount = 0;
     if (colDescs != null){
 
-      for (; colDescs.next(); ++dbIndex) {
+      for (; colDescs.next(); ++colCount) {
         String colName = colDescs.getString("COLUMN_NAME");
         Column column = _getColumn(dbms().melatiName(colName));
 
@@ -2689,7 +2664,7 @@ public class Table implements Selectable {
 
           _defineColumn(column);
 
-          // FIXME hack: info == null happens when *InfoTable are unified with
+          // HACK info == null happens when *InfoTable are unified with
           // the database---obviously they haven't been initialised yet but it
           // gets fixed in the next round when all tables (including them,
           // again) are unified
@@ -2705,13 +2680,11 @@ public class Table implements Selectable {
     }  // else System.err.println(
        //                 "Table.unifyWithDB called with null ResultsSet");
 
-    if (dbIndex == 0) {
-      // OK, we simply don't exist ...
-      // ie the Database MetaData  Result Set passed in was empty or null
-      //System.err.println("Table.UnifyWithDB called with null or empty ResultsSet");
+    if (colCount == 0) {
+      // No columns found in jdbc metadata, so table does not exist
       dbCreateTable();
     } else {
-      // silently create any missing columns
+      // Create any columns which do not exist in the dbms but are defined in java or metadata 
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
         //  if (logSQL()) log("About to add missing column: " + columns[c]);

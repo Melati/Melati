@@ -430,22 +430,19 @@ public abstract class Database implements TransactionPool {
         // but we only want to include them if they have a plausible troid:
         ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
             dbms.getJdbcMetadataName(dbms.unreservedName("id")));
-        if (idCol.next()) { 
-          if (dbms.canRepresent(
+        if (idCol.next() && dbms.canRepresent(
                 defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
-            if (logSQL()) log("Got an ID col");
-            try {
-              table = new Table(this, tableName,
-                                DefinitionSource.sqlMetaData);
-              defineTable(table);
-            }
-            catch (DuplicateTableNamePoemException e) {
-              throw new UnexpectedExceptionPoemException(e);
-            }
-            table.createTableInfo();
+          if (logSQL()) log("Got an ID col");
+          try {
+            table = new Table(this, tableName,
+                              DefinitionSource.sqlMetaData);
+            defineTable(table);
           }
+          catch (DuplicateTableNamePoemException e) {
+            throw new UnexpectedExceptionPoemException(e);
+          }
+          table.createTableInfo();
         }
-        
         /**
         // Try to promote the primary key to a troid
         else {

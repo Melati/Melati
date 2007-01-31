@@ -140,9 +140,9 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    * Test method for Constructor. 
    * 
    * @see org.melati.template.HTMLMarkupLanguage#
-   *   HTMLMarkupLanguage(Melati, TempletLoader, MelatiLocale)
+   *   HTMLMarkupLanguage(Melati, TempletLoader, PoemLocale)
    */
-  public void testHTMLMarkupLanguageMelatiTempletLoaderMelatiLocale() {
+  public void testHTMLMarkupLanguageMelatiTempletLoaderPoemLocale() {
 
   }
 

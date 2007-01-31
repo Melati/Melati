@@ -217,16 +217,16 @@ public class MelatiConfigTest extends TestCase {
   }
 
   /**
-   * @see org.melati.MelatiConfig#getMelatiLocale()
+   * @see org.melati.MelatiConfig#getPoemLocale()
    */
-  public void testGetMelatiLocale() {
+  public void testGetPoemLocale() {
 
   }
 
   /**
-   * @see org.melati.MelatiConfig#setPoemiLocale(MelatiLocale)
+   * @see org.melati.MelatiConfig#setPoemiLocale(PoemLocale)
    */
-  public void testSetMelatiLocale() {
+  public void testSetPoemLocale() {
 
   }
 

@@ -145,9 +145,9 @@ public class TailoredQuery {
    * 
    * for (Enumeration ms = q.selection(); ms.hasMoreElements();) {
    *   FieldSet fs = (FieldSet)ms.nextElement();
-   *   System.out.println(fs.get("user_name").getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM) +
+   *   System.out.println(fs.get("user_name").getCookedString(PoemLocale.HERE, DateFormat.MEDIUM) +
    *                 ", " +
-   *                 fs.get("group_name").getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM));
+   *                 fs.get("group_name").getCookedString(PoemLocale.HERE, DateFormat.MEDIUM));
    * }
    * </PRE></BLOCKQUOTE>
    *

@@ -935,7 +935,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    *
    * @param name        the name of the field (<I>i.e.</I> the name of the
    *                    column in the RDBMS and DSD)
-   * @param locale      A MelatiLocale eg MelatiLocale.HERE
+   * @param locale      A PoemLocale eg PoemLocale.HERE
    * @param style       A date format
    *
    * @return The string the underlying RDBMS would display if asked

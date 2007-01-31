@@ -338,7 +338,7 @@ public class MelatiTest extends TestCase {
    * @throws Exception 
    * @see org.melati.Melati#getPoemLocale()
    */
-  public void testGetMelatiLocale() throws Exception {
+  public void testGetPoemLocale() throws Exception {
     MelatiConfig mc = null;
     Melati m = null;
     mc = new MelatiConfig();
@@ -362,7 +362,7 @@ public class MelatiTest extends TestCase {
   /**
    * @see org.melati.Melati#getPoemLocale(String)
    */
-  public void testGetMelatiLocaleString() {
+  public void testGetPoemLocaleString() {
     assertNull(Melati.getPoemLocale(""));    
     assertNull(Melati.getPoemLocale(";"));    
     assertNull(Melati.getPoemLocale(";9"));    

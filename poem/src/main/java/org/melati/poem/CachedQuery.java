@@ -53,7 +53,9 @@ import java.util.Vector;
  * Object to return the results of a query with caching.
  * <p>
  * Cached results will be returned unless the relevant tables
- * have been updated since the query was last executed.
+ * have been updated since the query was last executed, in which case 
+ * the results will be recomputed. 
+ * 
  */
 public abstract class CachedQuery {
 
@@ -151,13 +153,6 @@ public abstract class CachedQuery {
    */
   public Table getTable() {
     return table;
-  }
-
-  /**
-   * @return whether the results are still valid
-   */
-  public boolean outOfDate() {
-    return somethingHasChanged(PoemThread.transaction());
   }
 
   /**

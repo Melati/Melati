@@ -104,7 +104,7 @@ public class Field implements FieldAttributes, Cloneable {
       return super.clone();
     }
     catch (CloneNotSupportedException e) {
-      throw new PoemBugPoemException();
+      throw new UnexpectedExceptionPoemException(e, "Object no longer supports clone.");
     }
   }
 

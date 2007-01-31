@@ -17,30 +17,7 @@ over any JDBC compliant SQL database which supports Transactions.
 </p>
 <h3><a name="MelatiPoemSeparation">Melati / POEM separation</a></h3>
 <p>
-Guided by the <a href="/melati/jdepend-report.html">JDepend Report</a>
-the aim is to separate POEM from Melati in such a way that POEM
-can be a compiled as a separate source tree, into a separate jar and
-as a Maven sub project.
+Completed.
 </p>
-<p>
-The classes in org.melati.util, the following disentangling
-to be done:
-<dl>
-<dt>Transaction utils</dt>
-<dd>Move from org.melati.util to
-org.melati.poem.transaction</dd>
-<dt>MelatiLocale</dt>
-<dd>Move to org.melati.poem.PoemLocale</dd>
-<dt>*Utils</dt>
-<dd>Move to org.melati.poem.utils</dd>
-<dt>*Enumeration</dt>
-<dd>Move to org.melati.poem.utils</dd>
-<dt>CSVParser</dt>
-<dd>Move to org.melati.poem.csv</dd>
-<dt>Interfaces</dt>
-<dd>Move to org.melati.poem</dd>
-</dl>
-</p>
-
 </body>
 </html>

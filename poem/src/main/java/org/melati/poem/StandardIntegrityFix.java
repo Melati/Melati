@@ -48,7 +48,7 @@ package org.melati.poem;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Hashtable;
-import org.melati.util.EmptyEnumeration;
+import org.melati.poem.util.EmptyEnumeration;
 
 /**
  * A class which defines the three standard integrity fixes of 

@@ -50,7 +50,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * Normal dates.
@@ -100,7 +100,7 @@ public class DatePoemType extends AtomPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style) {
+                                   PoemLocale locale, int style) {
     return locale.dateFormat(style).format((Date)cooked);
   }
 

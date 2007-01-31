@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.util.Enumeration;
 
@@ -96,7 +96,7 @@ public class DumbPageEnumeration extends PageEnumerationBase {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumerationBase#getNextPageStart()
+   * @see org.melati.poem.util.PageEnumerationBase#getNextPageStart()
    */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;

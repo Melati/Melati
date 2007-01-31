@@ -22,7 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.melati.util.EmptyEnumeration;
+import org.melati.poem.util.EmptyEnumeration;
 
 public class MockServletRequest implements HttpServletRequest {
 

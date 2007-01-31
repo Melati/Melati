@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 /**
  * Manufactured objects are identified by a numeric index.
@@ -53,7 +53,7 @@ public interface IndexFactory {
   
   /**
    * @param i the index
-   * @return teh object
+   * @return the object
    */
   Object get(int i) throws Exception;
 }

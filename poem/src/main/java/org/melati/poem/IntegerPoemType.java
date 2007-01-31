@@ -50,7 +50,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import org.melati.util.IntegerEnumeration;
+import org.melati.poem.util.IntegerEnumeration;
 
 /**
  * Plain old integers, the range being contingent on the underlying SQL type. 

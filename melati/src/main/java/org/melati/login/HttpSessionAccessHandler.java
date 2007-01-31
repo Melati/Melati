@@ -46,20 +46,20 @@
 package org.melati.login;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Cookie;
 
+import org.melati.Melati;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
-import org.melati.Melati;
-import org.melati.util.HttpUtil;
 import org.melati.util.HttpServletRequestParameters;
-import org.melati.util.ReconstructedHttpServletRequestMismatchException;
-import org.melati.util.ReconstructedHttpServletRequest;
+import org.melati.util.HttpUtil;
 import org.melati.util.MD5Util;
+import org.melati.util.ReconstructedHttpServletRequest;
+import org.melati.util.ReconstructedHttpServletRequestMismatchException;
 import org.melati.util.UTF8URLEncoder;
 
 /**

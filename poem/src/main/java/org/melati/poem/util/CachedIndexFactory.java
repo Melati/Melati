@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.util.Vector;
 
@@ -71,7 +71,7 @@ public abstract class CachedIndexFactory implements IndexFactory {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.IndexFactory#get(int)
+   * @see org.melati.poem.util.IndexFactory#get(int)
    */
   public Object get(int index) {
     synchronized (cache) {

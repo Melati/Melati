@@ -46,7 +46,7 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.MappedEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A cached instance of an SQL <code>select</code> query.

@@ -43,13 +43,19 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
+
+import org.melati.poem.PoemException;
+import org.melati.poem.util.ConsEnumeration;
+import org.melati.poem.util.EnumUtils;
+import org.melati.poem.util.FilteredEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A store of known objects.
@@ -116,7 +122,7 @@ public final class Cache {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.Cache.Node#key()
+     * @see org.melati.poem.util.Cache.Node#key()
      */
     public Object key() {
       return key;
@@ -124,7 +130,7 @@ public final class Cache {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.Cache.Node#value()
+     * @see org.melati.poem.util.Cache.Node#value()
      */
     public Object value() {
       return value;
@@ -149,7 +155,7 @@ public final class Cache {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.Cache.Node#key()
+     * @see org.melati.poem.util.Cache.Node#key()
      */
     public Object key() {
       return key;
@@ -157,7 +163,7 @@ public final class Cache {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.Cache.Node#value()
+     * @see org.melati.poem.util.Cache.Node#value()
      */
     public Object value() {
       return this.get();
@@ -183,7 +189,7 @@ public final class Cache {
   /**
    * Thrown if one or more problems are discovered with cache consistency.
    */
-  public class InconsistencyException extends MelatiRuntimeException {
+  public class InconsistencyException extends PoemException {
     private static final long serialVersionUID = 1L;
 
     /** A Vector of problems. */
@@ -196,7 +202,6 @@ public final class Cache {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.MelatiRuntimeException#getMessage()
      */
     public String getMessage() {
       return EnumUtils.concatenated("\n", probs.elements());

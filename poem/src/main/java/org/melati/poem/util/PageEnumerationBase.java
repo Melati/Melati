@@ -41,7 +41,7 @@
  *     Tim Pizey <timp At paneris.org>
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.util.Vector;
 import java.util.Enumeration;
@@ -88,10 +88,9 @@ public abstract class PageEnumerationBase implements PageEnumeration {
   //  PageEnumeration
   // -----------------
   // 
-
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumeration#getPageStart()
+   * @see org.melati.poem.util.PageEnumeration#getPageStart()
    */
   public int getPageStart() {
     return pageStart;
@@ -99,7 +98,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumeration#getPageEnd()
+   * @see org.melati.poem.util.PageEnumeration#getPageEnd()
    */
   public int getPageEnd() {
     return pageStart + page.size() - 1;
@@ -107,7 +106,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumeration#getTotalCount()
+   * @see org.melati.poem.util.PageEnumeration#getTotalCount()
    */
   public int getTotalCount() {
     return totalCount;
@@ -115,7 +114,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumeration#getNextPageStart()
+   * @see org.melati.poem.util.PageEnumeration#getNextPageStart()
    */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
@@ -124,7 +123,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.PageEnumeration#getPrevPageStart()
+   * @see org.melati.poem.util.PageEnumeration#getPrevPageStart()
    */
   public Integer getPrevPageStart() {
     int it = pageStart - pageSize;

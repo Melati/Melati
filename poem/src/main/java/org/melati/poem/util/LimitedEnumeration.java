@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
@@ -90,7 +90,7 @@ public class LimitedEnumeration implements SkipEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.SkipEnumeration#skip()
+   * @see org.melati.poem.util.SkipEnumeration#skip()
    */
   public synchronized void skip() throws NoSuchElementException {
     if (seen >= limit)

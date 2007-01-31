@@ -10,7 +10,7 @@ import org.melati.poem.DisplayLevelPoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.SearchabilityPoemType;
 import org.melati.poem.Searchability.NameUnrecognisedException;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -63,7 +63,7 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   public void testStringOfCooked() {
     super.testStringOfCooked();
     assertEquals("primary", 
-        it.stringOfCooked(Searchability.primary, MelatiLocale.HERE, DateFormat.MEDIUM));
+        it.stringOfCooked(Searchability.primary, PoemLocale.HERE, DateFormat.MEDIUM));
   }
 
   public void testCanRepresent() {

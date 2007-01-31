@@ -50,7 +50,7 @@ import java.sql.PreparedStatement;
 import java.sql.Types;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import org.melati.util.LongEnumeration;
+import org.melati.poem.util.LongEnumeration;
 import org.melati.poem.dbms.Dbms;
 
 /**

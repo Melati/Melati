@@ -45,6 +45,9 @@ package org.melati.util;
 
 import java.util.Vector;
 
+import org.melati.poem.util.Order;
+import org.melati.poem.util.SortUtils;
+
 /**
  * A whole tree.
  */

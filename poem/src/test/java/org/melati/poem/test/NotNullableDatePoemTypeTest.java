@@ -9,7 +9,7 @@ import java.text.DateFormat;
 
 import org.melati.poem.DatePoemType;
 import org.melati.poem.SQLPoemType;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -57,7 +57,7 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
   public void testStringOfCooked() {
     super.testStringOfCooked();
     assertEquals("01-Jan-1970", it.stringOfCooked(new Date(1L), 
-        MelatiLocale.HERE, DateFormat.MEDIUM));
+        PoemLocale.HERE, DateFormat.MEDIUM));
   }
   public void testToDsdType() {
 

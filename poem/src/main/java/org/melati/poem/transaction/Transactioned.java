@@ -43,7 +43,9 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
+
+import org.melati.poem.PoemBugPoemException;
 
 /**
  * An object which can have uncommitted state within a {@link Transaction}.
@@ -210,7 +212,7 @@ public abstract class Transactioned {
               ;
 
             if (t == m)
-              throw new MelatiBugMelatiException(
+              throw new PoemBugPoemException(
                   "Thought there was a blocking transaction, " +
                   "but didn't find it");
 

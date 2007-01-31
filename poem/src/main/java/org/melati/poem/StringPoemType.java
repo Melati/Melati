@@ -45,12 +45,13 @@
 
 package org.melati.poem;
 
-import java.sql.Types;
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.melati.util.StringUtils;
+import java.sql.Types;
+
 import org.melati.poem.dbms.Dbms;
+import org.melati.poem.util.StringUtils;
 
 /**
  * Base of all character sequence types.

@@ -46,8 +46,8 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.IntegerEnumeration;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.util.IntegerEnumeration;
+import org.melati.poem.PoemLocale;
 
 /**
  * A {@link Field} type which can hold a {@link StandardIntegrityFix}.
@@ -86,7 +86,7 @@ public class IntegrityFixPoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style)
+                                   PoemLocale locale, int style)
       throws PoemException {
     return ((StandardIntegrityFix)cooked).getName();
   }

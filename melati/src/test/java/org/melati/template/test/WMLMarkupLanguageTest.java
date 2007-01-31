@@ -3,7 +3,7 @@ package org.melati.template.test;
 import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.WMLAttributeMarkupLanguage;
 import org.melati.template.WMLMarkupLanguage;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 
 /**
@@ -37,7 +37,7 @@ public class WMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     ml = new WMLMarkupLanguage(
             m, 
             new ClassNameTempletLoader(), 
-            MelatiLocale.HERE);
+            PoemLocale.HERE);
     aml = new WMLAttributeMarkupLanguage((WMLMarkupLanguage)ml);
     m.setMarkupLanguage(ml);
     assertEquals(ml, m.getMarkupLanguage());    

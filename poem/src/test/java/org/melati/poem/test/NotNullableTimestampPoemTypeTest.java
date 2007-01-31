@@ -8,9 +8,9 @@ import java.sql.Types;
 import java.text.DateFormat;
 
 import org.melati.poem.ParsingPoemException;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.TimestampPoemType;
-import org.melati.util.MelatiLocale;
 
 /**
  * @author timp
@@ -45,7 +45,7 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeTest {
     long now = System.currentTimeMillis();
     Timestamp nowStamp = new Timestamp(now);
     // Hmm not a real test
-    assertTrue(it.stringOfCooked(nowStamp, MelatiLocale.HERE, DateFormat.MEDIUM) instanceof String);
+    assertTrue(it.stringOfCooked(nowStamp, PoemLocale.HERE, DateFormat.MEDIUM) instanceof String);
   }
 
   /**

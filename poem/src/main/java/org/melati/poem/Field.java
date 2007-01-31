@@ -48,9 +48,8 @@ package org.melati.poem;
 import java.util.Enumeration;
 import java.io.PrintStream;
 import java.text.DateFormat;
-import org.melati.util.LimitedEnumeration;
-import org.melati.util.MappedEnumeration;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.util.LimitedEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A Field.
@@ -240,7 +239,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @return a String representation of the Object represented by the raw
    * @throws AccessPoemException if the current AccessToken does not permit reading
    */
-  public final String getCookedString(MelatiLocale locale, int style)
+  public final String getCookedString(PoemLocale locale, int style)
       throws AccessPoemException {
     if (accessException != null)
       throw accessException;
@@ -349,7 +348,7 @@ public class Field implements FieldAttributes, Cloneable {
    * @see java.lang.Object#toString()
    */
   public String toString() {
-    return getName() + ": " + getCookedString(MelatiLocale.HERE,
+    return getName() + ": " + getCookedString(PoemLocale.HERE,
                                                DateFormat.MEDIUM);
   }
 

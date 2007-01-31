@@ -40,7 +40,7 @@
  *
  *     Myles Chippendale <mylesc At paneris.org>
  */
-package org.melati.util;
+package org.melati.poem.csv;
 
 import java.io.BufferedReader;
 import java.io.File;

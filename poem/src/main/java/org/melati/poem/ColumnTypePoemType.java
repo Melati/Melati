@@ -46,10 +46,10 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.FlattenedEnumeration;
-import org.melati.util.MappedEnumeration;
-import org.melati.util.ArrayEnumeration;
-import org.melati.util.MelatiLocale;
+
+import org.melati.poem.util.ArrayEnumeration;
+import org.melati.poem.util.FlattenedEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A metadata type which defines the type of another {@link Column}.
@@ -105,7 +105,7 @@ public class ColumnTypePoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style)
+                                   PoemLocale locale, int style)
       throws PoemException {
     return ((PoemTypeFactory)cooked).getDisplayName();
   }

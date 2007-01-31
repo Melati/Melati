@@ -45,7 +45,7 @@
 package org.melati.template;
 
 import org.melati.Melati;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * A representation of WML.
@@ -58,7 +58,7 @@ public class WMLMarkupLanguage extends HTMLLikeMarkupLanguage
 
   /** Constructor. */
   public WMLMarkupLanguage(Melati melati,
-                           TempletLoader templetLoader, MelatiLocale locale) {
+                           TempletLoader templetLoader, PoemLocale locale) {
     super("wml", melati, templetLoader, locale);
   }
   

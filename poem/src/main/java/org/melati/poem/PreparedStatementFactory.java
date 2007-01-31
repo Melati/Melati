@@ -49,7 +49,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-import org.melati.util.CachedIndexFactory;
+import org.melati.poem.util.CachedIndexFactory;
 
 /**
  * Maintains a cache of <code>PreparedStatement</code>s for an SQL
@@ -64,8 +64,6 @@ import org.melati.util.CachedIndexFactory;
  * The supertype dictates that connections can be indentified
  * by index, but this is slightly complicated and the additional
  * methods rely on transactions instead.
- *
- * @author williamc At paneris.org
  */
 
 public class PreparedStatementFactory extends CachedIndexFactory {
@@ -106,7 +104,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.IndexFactory#get(int)
+   * @see org.melati.poem.util.CachedIndexFactory#get(int)
    */
   public Object get(int index) {
     if (structureSerial != database.structureSerial()) {

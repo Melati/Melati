@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -46,8 +46,8 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.StringUtils;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.util.StringUtils;
+import org.melati.poem.PoemLocale;
 
 /**
  * A data type that is a reference to a {@link Persistent} object.
@@ -107,7 +107,7 @@ public class ReferencePoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked, 
-                                   MelatiLocale locale, int style)
+                                   PoemLocale locale, int style)
       throws PoemException {
     return ((Persistent)cooked).displayString(locale, style);
   }

@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /** 
  * Thrown when an overlong value is asserted to be a valid 

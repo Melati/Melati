@@ -13,7 +13,7 @@ import org.melati.poem.PoemException;
 import org.melati.poem.PoemType;
 import org.melati.poem.TypeMismatchPoemException;
 import org.melati.poem.ValidationPoemException;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -109,7 +109,7 @@ public class NonSQLPoemType implements PoemType {
      * {@inheritDoc}
      * @see org.melati.poem.PoemType#stringOfCooked(java.lang.Object, org.melati.util.MelatiLocale, int)
      */
-    public String stringOfCooked(Object cooked, MelatiLocale locale, int style) throws TypeMismatchPoemException, PoemException {
+    public String stringOfCooked(Object cooked, PoemLocale locale, int style) throws TypeMismatchPoemException, PoemException {
       return null;
     }
 

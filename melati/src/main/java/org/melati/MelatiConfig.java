@@ -52,17 +52,17 @@ import java.util.Properties;
 import java.util.Vector;
 
 import org.melati.login.AccessHandler;
+import org.melati.poem.PoemLocale;
+import org.melati.poem.util.EnumUtils;
 import org.melati.servlet.FormDataAdaptorFactory;
-import org.melati.template.TemplateEngine;
 import org.melati.template.ServletTemplateEngine;
-import org.melati.template.TempletLoader;
 import org.melati.template.SimpleDateAdaptor;
+import org.melati.template.TemplateEngine;
+import org.melati.template.TempletLoader;
 import org.melati.template.YMDDateAdaptor;
 import org.melati.template.YMDHMSTimestampAdaptor;
 import org.melati.util.ConfigException;
-import org.melati.util.EnumUtils;
 import org.melati.util.HttpHeader;
-import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiException;
 import org.melati.util.PropertiesUtils;
 
@@ -81,7 +81,7 @@ public class MelatiConfig {
   private FormDataAdaptorFactory fdaFactory = null;
   private TempletLoader templetLoader = null;
   private TemplateEngine templateEngine = null;
-  private static MelatiLocale melatiLocale = null;
+  private static PoemLocale poemLocale = null;
   private Vector preferredCharsets = null;
   private String javascriptLibraryURL = null;
   private String staticURL = null;
@@ -181,8 +181,8 @@ public class MelatiConfig {
                                                         melatiLocaleProp,
                                                         "en-gb");
 
-      setMelatiLocale(MelatiLocale.fromLanguageTag(languageTag));
-      if (melatiLocale == null)
+      setPoemiLocale(PoemLocale.fromLanguageTag(languageTag));
+      if (poemLocale == null)
           throw new ConfigException(languageTag +
                               " is not a valid language tag for " +
                               melatiLocaleProp);
@@ -382,16 +382,16 @@ public class MelatiConfig {
   /**
    * @return The configured locale, defaults to British English melati locale.
    */
-  public static MelatiLocale getMelatiLocale() {
-    return melatiLocale;
+  public static PoemLocale getMelatiLocale() {
+    return poemLocale;
   }
 
   /**
-   * @param melatiLocale
+   * @param poemLocale
    *        The melatiLocale to set.
    */
-  public void setMelatiLocale(MelatiLocale melatiLocale) {
-    MelatiConfig.melatiLocale = melatiLocale;
+  public void setPoemiLocale(PoemLocale poemLocale) {
+    MelatiConfig.poemLocale = poemLocale;
   }
 
 

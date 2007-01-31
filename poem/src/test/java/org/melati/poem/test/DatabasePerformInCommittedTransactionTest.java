@@ -11,7 +11,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 import org.melati.poem.User;
 import org.melati.util.DatabaseInitException;
-import org.melati.util.WriteCommittedException;
+import org.melati.poem.transaction.WriteCommittedException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

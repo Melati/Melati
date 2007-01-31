@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.melati.login.HttpSessionAccessHandler;
-import org.melati.util.EmptyEnumeration;
+import org.melati.poem.util.EmptyEnumeration;
 import org.melati.util.HttpServletRequestParameters;
 
 import com.mockobjects.constraint.Constraint;

@@ -75,7 +75,7 @@ import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.UnexpectedExceptionPoemException;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * An SQL 92 compliant Database Management System. Should there ever be such a

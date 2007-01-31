@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
 
 /**
  * A serial id of an object which is incremented each time 
@@ -63,8 +63,10 @@ public class TransactionedSerial extends Transactioned {
 
   /**
    * On load increment the Serial for this object.
+   * 
    * {@inheritDoc}
-   * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#
+   *   load(org.melati.poem.transaction.Transaction)
    */
   protected void load(Transaction transaction) {
     ++serial;
@@ -74,7 +76,8 @@ public class TransactionedSerial extends Transactioned {
    * Return the inheritted validity flag.
    * 
    * {@inheritDoc}
-   * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#
+   *   upToDate(org.melati.poem.transaction.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {
     return valid;
@@ -82,8 +85,10 @@ public class TransactionedSerial extends Transactioned {
 
   /**
    * This implementation does nothing.
+   * 
    * {@inheritDoc}
-   * @see org.melati.util.Transactioned#writeDown(org.melati.util.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#
+   *   writeDown(org.melati.poem.transaction.Transaction)
    */
   protected void writeDown(Transaction transaction) {
   }

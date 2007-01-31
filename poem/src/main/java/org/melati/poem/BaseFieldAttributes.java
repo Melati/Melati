@@ -45,14 +45,11 @@
 
 package org.melati.poem;
 
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * Base class of all {@link Field}s.
  * All the fields of a Field except its value.
- *
- * @author WilliamC At paneris.org
- *
  */
 public class BaseFieldAttributes implements FieldAttributes {
 

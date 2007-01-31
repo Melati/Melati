@@ -51,7 +51,7 @@ import java.text.DateFormat;
 import org.melati.Melati;
 import org.melati.poem.Persistent;
 import org.melati.util.MelatiWriter;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 import org.melati.util.HTMLUtils;
 import org.melati.util.UTF8URLEncoder;
 
@@ -66,7 +66,7 @@ public abstract class HTMLLikeMarkupLanguage extends AbstractMarkupLanguage
    */
   public HTMLLikeMarkupLanguage(String name, Melati melati,
                                 TempletLoader templetLoader,
-                                MelatiLocale locale) {
+                                PoemLocale locale) {
     super(name, melati, templetLoader, locale);
   }
   

@@ -52,7 +52,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
-import org.melati.util.ArrayUtils;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.util.MelatiException;
 
 

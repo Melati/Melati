@@ -50,7 +50,7 @@ import java.text.DateFormat;
 
 import org.melati.Melati;
 import org.melati.poem.Field;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
 
@@ -73,7 +73,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
 
   protected TempletLoader templetLoader = null;
   protected Melati melati = null;
-  protected MelatiLocale locale = null;
+  protected PoemLocale locale = null;
 
 
   private String name;
@@ -94,7 +94,7 @@ public abstract class AbstractMarkupLanguage implements MarkupLanguage {
   public AbstractMarkupLanguage(String name,
                         Melati melati,
                         TempletLoader templetLoader,
-                        MelatiLocale locale) {
+                        PoemLocale locale) {
     this.name = name;
     this.melati = melati;
     this.templetLoader = templetLoader;

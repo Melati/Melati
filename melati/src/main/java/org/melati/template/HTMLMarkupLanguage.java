@@ -46,7 +46,7 @@
 package org.melati.template;
 
 import org.melati.Melati;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * A representation of HTML.
@@ -62,7 +62,7 @@ public class HTMLMarkupLanguage extends HTMLLikeMarkupLanguage
    * Constructor.
    */
   public HTMLMarkupLanguage(Melati melati,
-                            TempletLoader templetLoader, MelatiLocale locale) {
+                            TempletLoader templetLoader, PoemLocale locale) {
     super("html", melati, templetLoader, locale);
   }
 

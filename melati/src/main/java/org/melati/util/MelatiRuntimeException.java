@@ -45,16 +45,13 @@
 
 package org.melati.util;
 
+import org.melati.poem.PoemException;
+
 /**
  * Abstract base class for all <code>RuntimeException</code>s within Melati.
  * @todo Upgrade to Java 1.4 after we stop supporting Java 1.3
  */
-public abstract class MelatiRuntimeException extends RuntimeException {
-
-  /**
-   * Pre-java 1.4 initial cause.
-   */
-  public Exception subException;
+public abstract class MelatiRuntimeException extends PoemException {
 
   /**
    * Constructor with message and pre-java 1.4 initial cause.
@@ -86,87 +83,17 @@ public abstract class MelatiRuntimeException extends RuntimeException {
   }
 
   /**
-   * Overrides standard method for backward compatibility.
-   * {@inheritDoc}
-   * @see java.lang.Throwable#initCause(java.lang.Throwable)
-   */
-  public Throwable initCause(Throwable cause) {
-    subException = (Exception)cause;
-    return this;
-    // Do this after we have abandoned Java 1.3
-    // return super.initCause(cause);
-  }
-  
-
-  /**
-   * @return the message from super class
-   */
-  public String getCoreMessage() {
-    return super.getMessage();
-  }
-
-  /** 
-   * The detail message which may be null.
-   * {@inheritDoc}
-   * @see java.lang.Throwable#getMessage()
-   */
-  public String getMessage() {
-    return this.getClass().getName() +
-           (super.getMessage() == null ? "" : ": " + super.getMessage()) +
-           (subException == null ? "" : "\n" + subException);
-  }
-
-  /**
    * @return the actual exception
+   * {@inheritDoc}
+   * @see org.melati.poem.PoemException#innermostException()
    */
   public Exception innermostException() {
     return subException == null ? this :
            subException instanceof MelatiException ?
                ((MelatiException)subException).innermostException() :
-           subException instanceof MelatiRuntimeException ?
-               ((MelatiRuntimeException)subException).innermostException() :
+           subException instanceof PoemException ?
+               ((PoemException)subException).innermostException() :
            subException;
   }
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Throwable#printStackTrace()
-   */
-  public void printStackTrace() {
-    if (subException == null)
-      super.printStackTrace();
-    else {
-      System.err.println(this);
-      System.err.println("---");
-      innermostException().printStackTrace();
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Throwable#printStackTrace(java.io.PrintStream)
-   */
-  public void printStackTrace(java.io.PrintStream s) {
-    if (subException == null)
-      super.printStackTrace(s);
-    else {
-      s.println(this);
-      s.println("---");
-      innermostException().printStackTrace(s);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   * @see java.lang.Throwable#printStackTrace(java.io.PrintWriter)
-   */
-  public void printStackTrace(java.io.PrintWriter w) {
-    if (subException == null)
-      super.printStackTrace(w);
-    else {
-      w.println(this);
-      w.println("---");
-      innermostException().printStackTrace(w);
-    }
-  }
+  
 }

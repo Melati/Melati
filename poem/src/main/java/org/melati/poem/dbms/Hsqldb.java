@@ -50,7 +50,7 @@ import java.sql.SQLException;
 
 import org.melati.poem.PoemType;
 import org.melati.poem.StringPoemType;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A Driver for HSQLDB (http://www.hsqldb.org/).

@@ -47,7 +47,7 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 import java.util.Vector;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 
 /**
  * A cached instance of a {@link PreparedTailoredQuery}.

@@ -45,7 +45,7 @@
 package org.melati.template;
 
 import org.melati.Melati;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * A representation of XML.
@@ -58,7 +58,7 @@ public class XMLMarkupLanguage extends HTMLLikeMarkupLanguage
 
   /** Constructor. */
   public XMLMarkupLanguage(Melati melati,
-                           TempletLoader templetLoader, MelatiLocale locale) {
+                           TempletLoader templetLoader, PoemLocale locale) {
     super("xml", melati, templetLoader, locale);
   }
   

@@ -38,20 +38,19 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
+
+import org.melati.poem.PoemException;
 
 /**
  * Thrown if a {@link Transaction} would get into a deadly embrace 
  * with another.
- *
- * @author WilliamC@paneris.org
- * 
  */
-public class WouldDeadlockException extends MelatiRuntimeException {
+public class WouldDeadlockException extends PoemException {
   private static final long serialVersionUID = 1L;
 }

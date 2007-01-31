@@ -43,7 +43,7 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 /**
  * An ordering using <code>String.compareTo</code>.
@@ -56,7 +56,7 @@ public class DictionaryOrder implements Order {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.Order#lessOrEqual(java.lang.Object, java.lang.Object)
+   * @see org.melati.poem.util.Order#lessOrEqual(java.lang.Object, java.lang.Object)
    */
   public boolean lessOrEqual(Object a, Object b) {
     return !(((String)a).compareTo((String)b) > 0);

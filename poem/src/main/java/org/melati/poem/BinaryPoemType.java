@@ -45,13 +45,14 @@
 
 package org.melati.poem;
 
-import java.sql.Types;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.melati.util.StringUtils;
-import org.melati.util.Base64;
+import java.sql.Types;
+
 import org.melati.poem.dbms.Dbms;
+import org.melati.poem.util.Base64;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A <tt>Blob</tt> {@link Field} type.

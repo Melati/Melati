@@ -43,19 +43,21 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem;
 
 import java.util.Locale;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 
+import org.melati.poem.util.StringUtils;
+
 /**
  * A wrapper for a <code>Locale</code> for use within Melati.
  */
-public class MelatiLocale {
+public class PoemLocale {
 
   /** Default Locale: GB. */
-  public static final MelatiLocale HERE = new MelatiLocale(Locale.UK);
+  public static final PoemLocale HERE = new PoemLocale(Locale.UK);
 
   private final Locale locale;
 
@@ -70,7 +72,7 @@ public class MelatiLocale {
    * @param tag A language tag, for example, "en-gb"
    * @return A melati locale from the tag if we can parse it, otherwise null
    */
-  public static MelatiLocale fromLanguageTag(String tag) {
+  public static PoemLocale fromLanguageTag(String tag) {
     String subtags[] = StringUtils.split(tag, '-');
 
     // if 1st subtag is 2 letters, then it's a 2 letter language code
@@ -81,7 +83,7 @@ public class MelatiLocale {
         locale = new Locale(subtags[0], subtags[1]);
       else
         locale = new Locale(subtags[0], "");
-      return new MelatiLocale(locale);
+      return new PoemLocale(locale);
     }
     return null;
   } 
@@ -91,7 +93,7 @@ public class MelatiLocale {
    * 
    * @param locale The Locale to base ours on.
    */
-  public MelatiLocale(Locale locale) {
+  public PoemLocale(Locale locale) {
     if (locale == null)
       throw new NullPointerException();
     this.locale = locale;
@@ -182,8 +184,8 @@ public class MelatiLocale {
   public boolean equals(Object o) {
     if (this == o)     // quick check
       return true;
-    if (o instanceof MelatiLocale) 
-      return locale.equals(((MelatiLocale)o).locale());
+    if (o instanceof PoemLocale) 
+      return locale.equals(((PoemLocale)o).locale());
     else 
       return false;
   }

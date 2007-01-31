@@ -41,7 +41,7 @@
  *     Tim Pizey <timp At paneris.org>
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 import java.util.Enumeration;
 

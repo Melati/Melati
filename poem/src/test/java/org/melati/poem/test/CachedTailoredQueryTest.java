@@ -10,7 +10,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.FieldSet;
 import org.melati.poem.Table;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 
 /**
  * @author timp

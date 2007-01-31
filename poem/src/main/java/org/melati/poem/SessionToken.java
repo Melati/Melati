@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.util.ToTidyList;
+import org.melati.poem.transaction.ToTidyList;
 
 /**
  * A Session Token.

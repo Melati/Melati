@@ -31,8 +31,8 @@ import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
-import org.melati.util.EmptyEnumeration;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EmptyEnumeration;
+import org.melati.poem.util.EnumUtils;
 
 /**
  * @author timp

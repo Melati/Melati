@@ -69,7 +69,7 @@ import org.melati.poem.StringPoemType;
 //import org.melati.poem.NoSuchColumnPoemException;
 //import org.melati.poem.SeriousPoemException;
 //import org.melati.poem.SQLPoemException;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A Driver for Oracle (http://www.oracle.com/).

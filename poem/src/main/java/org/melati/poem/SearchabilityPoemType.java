@@ -46,8 +46,8 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.IntegerEnumeration;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.util.IntegerEnumeration;
+import org.melati.poem.PoemLocale;
 
 /**
  * Whether field can be searched upon.
@@ -85,7 +85,7 @@ public class SearchabilityPoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style)
+                                   PoemLocale locale, int style)
       throws PoemException {
     return ((Searchability)cooked).getName();
   }

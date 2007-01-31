@@ -59,7 +59,7 @@ import org.melati.poem.Database;
 import org.melati.poem.PoemTask;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.MelatiException;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * This is a TOY and does not represent the proper way to use Melati as Melati

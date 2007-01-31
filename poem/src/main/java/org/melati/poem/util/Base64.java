@@ -16,7 +16,7 @@
  * by e-mail at info@semiotek.com to get a copy.
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 /**
  * A representation of the Base64 encoding scheme.

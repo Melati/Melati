@@ -45,32 +45,33 @@
 
 package org.melati.poem;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Hashtable;
 import java.io.PrintStream;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.melati.util.PageEnumeration;
-import org.melati.util.CountedDumbPageEnumeration;
-import org.melati.util.ArrayEnumeration;
-import org.melati.util.FlattenedEnumeration;
-import org.melati.util.FilteredEnumeration;
-import org.melati.util.MappedEnumeration;
-import org.melati.util.EnumUtils;
-import org.melati.util.StringUtils;
-import org.melati.util.ArrayUtils;
-import org.melati.util.SortUtils;
-import org.melati.util.Order;
-import org.melati.util.Procedure;
-import org.melati.util.Transactioned;
-import org.melati.util.TransactionedSerial;
-import org.melati.util.Cache;
-import org.melati.util.CachedIndexFactory;
+import java.sql.Statement;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
 import org.melati.poem.dbms.Dbms;
+import org.melati.poem.transaction.Transactioned;
+import org.melati.poem.transaction.TransactionedSerial;
+import org.melati.poem.util.ArrayEnumeration;
+import org.melati.poem.util.ArrayUtils;
+import org.melati.poem.util.Cache;
+import org.melati.poem.util.CachedIndexFactory;
+import org.melati.poem.util.CountedDumbPageEnumeration;
+import org.melati.poem.util.EnumUtils;
+import org.melati.poem.util.MappedEnumeration;
+import org.melati.poem.util.PageEnumeration;
+import org.melati.poem.util.Procedure;
+import org.melati.poem.util.FilteredEnumeration;
+import org.melati.poem.util.FlattenedEnumeration;
+import org.melati.poem.util.Order;
+import org.melati.poem.util.SortUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A Table.

@@ -43,13 +43,15 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
+
+import org.melati.poem.PoemException;
 
 /**
  * Thrown when an attempt is made to write to an object within a committed
  * {@link Transaction}.
  */
-public class WriteCommittedException extends MelatiRuntimeException {
+public class WriteCommittedException extends PoemException {
   private static final long serialVersionUID = 1L;
 
   /** The committed Transaction. */

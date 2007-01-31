@@ -57,7 +57,7 @@ import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 /**
  * A Driver for the Microsoft Access database server.
  * http://www.tobychampion.co.uk/Access2000Dialect.java.txt

@@ -5,7 +5,7 @@ package org.melati.util.test;
 
 import java.util.Vector;
 
-import org.melati.util.ArrayUtils;
+import org.melati.poem.util.ArrayUtils;
 
 import junit.framework.TestCase;
 

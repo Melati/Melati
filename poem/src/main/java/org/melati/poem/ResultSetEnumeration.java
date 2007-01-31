@@ -48,7 +48,7 @@ package org.melati.poem;
 import java.util.NoSuchElementException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.melati.util.SkipEnumeration;
+import org.melati.poem.util.SkipEnumeration;
 
 /**
  * An <code>Enumeration</code> created by filtering a 
@@ -131,7 +131,7 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.SkipEnumeration#skip()
+   * @see org.melati.poem.util.SkipEnumeration#skip()
    */
   public synchronized void skip() throws NoSuchElementException {
     try {

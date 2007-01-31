@@ -8,7 +8,7 @@ import java.util.Enumeration;
 
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.DisplayLevelPoemType;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -60,6 +60,6 @@ public class DisplayLevelPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   public void testStringOfCooked() {
     super.testStringOfCooked();
     assertEquals("primary", 
-        it.stringOfCooked(DisplayLevel.primary, MelatiLocale.HERE, DateFormat.MEDIUM));
+        it.stringOfCooked(DisplayLevel.primary, PoemLocale.HERE, DateFormat.MEDIUM));
   }
 }

@@ -43,15 +43,17 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.util;
 
 /**
  * An assortment of useful operations on <code>String</code>s.
+ * <p>
+ * Should be a final class, but it is extended in org.melati.util.
  * 
  */
-public final class StringUtils {
+public class StringUtils {
 
-  private StringUtils() {}
+  protected StringUtils() {}
 
   /**
    * As Perl, create an Array from a String by using a 

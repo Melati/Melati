@@ -43,15 +43,14 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
+
+import org.melati.poem.PoemException;
 
 /**
  * Thrown when the number of {@link Transaction}s exceeds the limit.
- * 
- * @author WilliamC AT paneris.org
- * 
  */
-public class TransactionIndexTooLargeException extends MelatiRuntimeException {
+public class TransactionIndexTooLargeException extends PoemException {
   private static final long serialVersionUID = 1L;
 
 }

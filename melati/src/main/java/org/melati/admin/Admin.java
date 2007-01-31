@@ -77,8 +77,8 @@ import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
 import org.melati.poem.ValidationPoemException;
 
-import org.melati.util.EnumUtils;
-import org.melati.util.MappedEnumeration;
+import org.melati.poem.util.EnumUtils;
+import org.melati.poem.util.MappedEnumeration;
 import org.melati.util.MelatiRuntimeException;
 
 

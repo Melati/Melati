@@ -3,17 +3,19 @@
  */
 package org.melati.poem.test;
 
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Enumeration;
 
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Field;
+import org.melati.poem.FieldAttributes;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.User;
-import org.melati.util.MelatiLocale;
 
 /**
  * @author timp
@@ -98,7 +100,7 @@ public class FieldTest extends PoemTestCase {
       e = null;
     }
     try {
-      f.getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM);
+      f.getCookedString(PoemLocale.HERE, DateFormat.MEDIUM);
       fail("Should have blown up");
     } catch (AccessPoemException e) {
       e = null;
@@ -234,8 +236,8 @@ public class FieldTest extends PoemTestCase {
    * @see org.melati.poem.Field#getCookedString(MelatiLocale, int)
    */
   public void testGetCookedString() {
-    assertEquals("stringfield", stringField.getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM));
-    assertEquals("1", integerField.getCookedString(MelatiLocale.HERE, DateFormat.MEDIUM));
+    assertEquals("stringfield", stringField.getCookedString(PoemLocale.HERE, DateFormat.MEDIUM));
+    assertEquals("1", integerField.getCookedString(PoemLocale.HERE, DateFormat.MEDIUM));
   }
 
   /**

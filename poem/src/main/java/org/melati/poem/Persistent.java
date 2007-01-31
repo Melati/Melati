@@ -45,17 +45,17 @@
 
 package org.melati.poem;
 
-import java.text.DateFormat;
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Map;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.melati.util.Transaction;
-import org.melati.util.Transactioned;
-import org.melati.util.MappedEnumeration;
-import org.melati.util.FlattenedEnumeration;
-import org.melati.util.MelatiLocale;
+import java.text.DateFormat;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Vector;
+
+import org.melati.poem.transaction.Transaction;
+import org.melati.poem.transaction.Transactioned;
+import org.melati.poem.util.FlattenedEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 /**
  * The object representing a single table row; this is the <B>PO</B> in POEM!
@@ -177,7 +177,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * Called if not uptodate.
    * 
-   * @see org.melati.util.Transactioned#load(org.melati.util.Transaction)
+   * {@inheritDoc}
+   * @see org.melati.poem.transaction.Transactioned#
+   *   load(org.melati.poem.transaction.Transaction)
    */
   protected void load(Transaction transaction) {
     if (troid == null) // I cannot contrive a test to cover this case, but hey
@@ -191,8 +193,10 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * Whether we are up to date with respect to current Transaction.
    * <p>
    * Return the inheritted validity flag.
+   * 
    * {@inheritDoc}
-   * @see org.melati.util.Transactioned#upToDate(org.melati.util.Transaction)
+   * @see org.melati.poem.transaction.Transactioned#
+   *   upToDate(org.melati.poem.transaction.Transaction)
    */
   protected boolean upToDate(Transaction transaction) {
     return valid;
@@ -237,7 +241,9 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * Previously deletion was treated as non-rollbackable, 
    * as deleteAndCommit was the only deletion mechanism. 
    * 
-   * @see org.melati.util.Transactioned#commit(org.melati.util.Transaction)
+   * {@inheritDoc}
+   * @see org.melati.poem.transaction.Transactioned#
+   *   commit(org.melati.poem.transaction.Transaction)
    */
   protected void commit(Transaction transaction) {
     //if (status != DELETED) {
@@ -954,7 +960,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @see #displayString
    */
 
-  public final String getCookedString(String name, MelatiLocale locale,
+  public final String getCookedString(String name, PoemLocale locale,
                                      int style)
       throws NoSuchColumnPoemException, AccessPoemException {
     Column column = getTable().getColumn(name);
@@ -1292,7 +1298,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String displayString(MelatiLocale locale, int style)
+  public String displayString(PoemLocale locale, int style)
       throws AccessPoemException {
     Column displayColumn = getTable().displayColumn();
     return displayColumn.getType().stringOfCooked(displayColumn.getCooked(this),
@@ -1306,7 +1312,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * @throws AccessPoemException 
    *         if current User does not have viewing {@link Capability}
    */
-  public String displayString(MelatiLocale locale) 
+  public String displayString(PoemLocale locale) 
       throws AccessPoemException {
     return displayString(locale, DateFormat.MEDIUM);
   }
@@ -1318,7 +1324,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    */
   public String displayString() 
       throws AccessPoemException {
-    return displayString(MelatiLocale.HERE, DateFormat.MEDIUM);
+    return displayString(PoemLocale.HERE, DateFormat.MEDIUM);
   }
 
   // 
@@ -1354,7 +1360,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.Transactioned#invalidate()
+   * @see org.melati.poem.transaction.Transactioned#invalidate()
    */
   public synchronized void invalidate() {
     assertNotFloating();

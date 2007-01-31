@@ -54,7 +54,7 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
 import org.melati.poem.NoMoreTransactionsException;
-import org.melati.util.ArrayUtils;
+import org.melati.poem.util.ArrayUtils;
 import org.melati.util.ConfigException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiException;

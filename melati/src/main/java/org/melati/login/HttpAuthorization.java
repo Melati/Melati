@@ -47,7 +47,7 @@ package org.melati.login;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.melati.util.Base64;
+import org.melati.poem.util.Base64;
 
 /**
  * The information contained in an HTTP authorization.

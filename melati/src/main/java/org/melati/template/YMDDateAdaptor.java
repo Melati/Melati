@@ -46,13 +46,13 @@
 package org.melati.template;
 
 import java.sql.Date;
-import java.util.Calendar;
 import java.text.DateFormat;
+import java.util.Calendar;
 
-import org.melati.util.MelatiLocale;
+import org.melati.poem.BaseFieldAttributes;
 import org.melati.poem.Field;
 import org.melati.poem.IntegerPoemType;
-import org.melati.poem.BaseFieldAttributes;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.SQLPoemType;
 
 /**
@@ -108,7 +108,7 @@ class MonthPoemType extends IntegerPoemType {
   }
 
   protected String _stringOfCooked(Object raw,
-                                   MelatiLocale locale, int style) {
+                                   PoemLocale locale, int style) {
     int m = ((Integer)raw).intValue();
     switch (style) {
       case DateFormat.FULL: case DateFormat.LONG:

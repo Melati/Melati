@@ -43,7 +43,9 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
+
+import org.melati.poem.PoemException;
 
 /**
  * Thrown should there be an attempt within one {@link Transactioned} 
@@ -52,7 +54,7 @@ package org.melati.util;
  * @author WilliamC At paneris.org
  * 
  */
-public class CrossTransactionCommitException extends MelatiRuntimeException {
+public class CrossTransactionCommitException extends PoemException {
   private static final long serialVersionUID = 1L;
 
   /** The Transaction that has the problem. */

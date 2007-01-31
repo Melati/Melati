@@ -54,8 +54,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.melati.util.MelatiLocale;
-import org.melati.util.StringUtils;
+import org.melati.poem.PoemLocale;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A Timestamp.
@@ -114,7 +114,7 @@ public class TimestampPoemType extends AtomPoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style) {
+                                   PoemLocale locale, int style) {
     return locale.timestampFormat(style).format((Timestamp)cooked);
   }
 

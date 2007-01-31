@@ -9,7 +9,7 @@ import org.melati.poem.AccessPoemException;
 import org.melati.poem.AlreadyInSessionPoemException;
 import org.melati.poem.Capability;
 import org.melati.poem.PoemThread;
-import org.melati.util.ToTidyList;
+import org.melati.poem.transaction.ToTidyList;
 
 /**
  * @author timp

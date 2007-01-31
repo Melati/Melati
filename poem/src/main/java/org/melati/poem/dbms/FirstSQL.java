@@ -89,7 +89,7 @@ public class FirstSQLtest {
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.melati.util.UnexpectedExceptionException;
+import org.melati.poem.UnexpectedExceptionPoemException;
 
 /**
  * A Driver for FirstSQL ( NOT WORKING YET!!!).
@@ -148,7 +148,7 @@ public class FirstSQL extends AnsiStandard {
     } catch (SQLException e) {
       throw new ConnectionFailurePoemException(e);
     } catch (Exception e) {
-      throw new UnexpectedExceptionException(e);
+      throw new UnexpectedExceptionPoemException(e);
     }
   }
 

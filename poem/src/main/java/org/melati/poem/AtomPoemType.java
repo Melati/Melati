@@ -45,7 +45,7 @@
 
 package org.melati.poem;
 
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.dbms.Dbms;
 
 /** 
@@ -96,7 +96,7 @@ public abstract class AtomPoemType extends BasePoemType {
   }
 
   protected String _stringOfCooked(Object cooked,
-                                   MelatiLocale locale, int style) {
+                                   PoemLocale locale, int style) {
     return _stringOfRaw(_rawOfCooked(cooked));
   }
  

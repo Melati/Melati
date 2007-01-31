@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Mylesc Chippendale <mylesc@paneris.org>
+ *     Mylesc Chippendale <mylesc At paneris.org>
  *     http://paneris.org/
  *     29 Stanley Road, Oxford, OX4 1QY, UK
  */
@@ -47,20 +47,18 @@ package org.melati.test;
 
 import java.io.IOException;
 import java.text.NumberFormat;
-
 import java.util.Date;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 
-import org.melati.servlet.ConfigServlet;
 import org.melati.Melati;
-import org.melati.util.MelatiWriter;
-import org.melati.util.Transaction;
-
+import org.melati.poem.Database;
 import org.melati.poem.PoemThread;
 import org.melati.poem.SessionToken;
-import org.melati.poem.Database;
+import org.melati.poem.transaction.Transaction;
+import org.melati.servlet.ConfigServlet;
+import org.melati.util.MelatiWriter;
 
 /**
  * Displays information about the status of this JVM and the databases
@@ -68,9 +66,6 @@ import org.melati.poem.Database;
  *
  * It shows us information about any Poem sessions running and
  * each transaction in (think 'connection to') a database.
- *
- * @author MylesC@paneris.org
- *
  */
 
 public class SessionAnalysisServlet extends ConfigServlet {

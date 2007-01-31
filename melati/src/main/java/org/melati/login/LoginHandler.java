@@ -38,27 +38,27 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 package org.melati.login;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 
+import org.melati.Melati;
+import org.melati.poem.AccessPoemException;
+import org.melati.poem.Field;
+import org.melati.poem.PoemThread;
+import org.melati.poem.User;
+import org.melati.poem.UserTable;
 import org.melati.servlet.Form;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
-import org.melati.Melati;
-import org.melati.poem.AccessPoemException;
-import org.melati.poem.UserTable;
-import org.melati.poem.User;
-import org.melati.poem.PoemThread;
-import org.melati.poem.Field;
 import org.melati.util.HttpServletRequestParameters;
-import org.melati.util.UTF8URLEncoder;
 import org.melati.util.MD5Util;
+import org.melati.util.UTF8URLEncoder;
 
 /**
  * An object which sets up the login process.

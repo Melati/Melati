@@ -3,7 +3,7 @@
  */
 package org.melati.util.test;
 
-import org.melati.util.IntegerEnumeration;
+import org.melati.poem.util.IntegerEnumeration;
 
 import junit.framework.TestCase;
 

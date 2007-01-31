@@ -11,7 +11,7 @@ import org.melati.poem.NullTypeMismatchPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.dbms.AnsiStandard;
-import org.melati.util.Base64;
+import org.melati.poem.util.Base64;
 
 /**
  * @author timp

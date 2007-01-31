@@ -4,7 +4,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import org.melati.poem.test.generated.NodeBase;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 import org.melati.util.Treeable;
 
 /**

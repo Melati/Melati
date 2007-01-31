@@ -42,7 +42,7 @@
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
-package org.melati.util;
+package org.melati.poem.transaction;
 
 import java.util.Vector;
 import java.util.Enumeration;

@@ -25,7 +25,7 @@ import org.melati.poem.TableCategory;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.WritePersistentAccessPoemException;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -441,10 +441,10 @@ public class PersistentTest extends PoemTestCase {
    */
   public void testGetCookedString() {
     Persistent p = getDb().getUserTable().administratorUser();
-    String name = (String)p.getCookedString("name", MelatiLocale.HERE, DateFormat.MEDIUM);
+    String name = (String)p.getCookedString("name", PoemLocale.HERE, DateFormat.MEDIUM);
     assertEquals("Melati database administrator", name);
     Persistent p2 = getDb().getUserTable().getTableInfo();
-    String c = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    String c = p2.getCookedString("category", PoemLocale.HERE, DateFormat.MEDIUM);
     assertEquals("User", c);
   }
 
@@ -468,10 +468,10 @@ public class PersistentTest extends PoemTestCase {
     c2.setName("Test");
     c2.makePersistent();
     p2.setCooked("category",c2);
-    String cString = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    String cString = p2.getCookedString("category",PoemLocale.HERE, DateFormat.MEDIUM);
     assertEquals("Test", cString);
     p2.setCooked("category",c);
-    cString = p2.getCookedString("category",MelatiLocale.HERE, DateFormat.MEDIUM);
+    cString = p2.getCookedString("category",PoemLocale.HERE, DateFormat.MEDIUM);
     assertEquals("User", cString);
     c2.delete();
   }
@@ -794,7 +794,7 @@ public class PersistentTest extends PoemTestCase {
   public void testDisplayStringMelatiLocaleInt() {
     Persistent p = getDb().getGroupTable().getObject(0);
     assertEquals("Melati database administrators", 
-        p.displayString(MelatiLocale.HERE, DateFormat.MEDIUM));
+        p.displayString(PoemLocale.HERE, DateFormat.MEDIUM));
   }
 
   /** 
@@ -803,7 +803,7 @@ public class PersistentTest extends PoemTestCase {
   public void testDisplayStringMelatiLocale() {
     Persistent p = getDb().getGroupTable().getObject(0);
     assertEquals("Melati database administrators", 
-        p.displayString(MelatiLocale.HERE));
+        p.displayString(PoemLocale.HERE));
   }
 
   /**

@@ -46,7 +46,6 @@
 package org.melati.poem;
 
 import java.util.Hashtable;
-import org.melati.util.MelatiRuntimeException;
 
 /**
  * The quality of being searchable:
@@ -126,7 +125,7 @@ public final class Searchability {
   * by a typing mistake in the DSD for example.
   */
   public static class NameUnrecognisedException
-      extends MelatiRuntimeException {
+      extends PoemException {
     private static final long serialVersionUID = 1L;
 
     /** The name of the requested Searchability. */
@@ -139,7 +138,6 @@ public final class Searchability {
 
     /**
      * {@inheritDoc}
-     * @see org.melati.util.MelatiRuntimeException#getMessage()
      */
     public String getMessage() {
       return

@@ -47,7 +47,7 @@ package org.melati.poem;
 
 import java.util.Hashtable;
 import java.util.Enumeration;
-import org.melati.util.ArrayEnumeration;
+import org.melati.poem.util.ArrayEnumeration;
 
 /**
  * A set of {@link Field}s accessible in sequence or looked up

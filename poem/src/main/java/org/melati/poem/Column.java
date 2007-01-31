@@ -46,13 +46,14 @@
 package org.melati.poem;
 
 import java.io.PrintStream;
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import org.melati.util.EmptyEnumeration;
-import org.melati.util.StringUtils;
+
 import org.melati.poem.dbms.Dbms;
+import org.melati.poem.util.EmptyEnumeration;
+import org.melati.poem.util.StringUtils;
 
 /**
  * Abstract {@link Table} column which is extended by the generated classes.

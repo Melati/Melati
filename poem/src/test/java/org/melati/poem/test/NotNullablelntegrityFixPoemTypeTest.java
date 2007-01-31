@@ -9,7 +9,7 @@ import java.util.Enumeration;
 import org.melati.poem.IntegrityFixPoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StandardIntegrityFix;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -60,7 +60,7 @@ public class NotNullablelntegrityFixPoemTypeTest extends SQLPoemTypeTest {
   public void testStringOfCooked() {
     super.testStringOfCooked();
     assertEquals("prevent", 
-        it.stringOfCooked(StandardIntegrityFix.prevent, MelatiLocale.HERE, DateFormat.MEDIUM));
+        it.stringOfCooked(StandardIntegrityFix.prevent, PoemLocale.HERE, DateFormat.MEDIUM));
   }
 
   /**

@@ -45,21 +45,22 @@
 
 package org.melati.poem;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.DatabaseMetaData;
 import java.util.Enumeration;
-import java.util.Vector;
 import java.util.Hashtable;
-import org.melati.util.FlattenedEnumeration;
-import org.melati.util.MappedEnumeration;
-import org.melati.util.ArrayEnumeration;
-import org.melati.util.Transaction;
-import org.melati.util.TransactionPool;
+import java.util.Vector;
+
 import org.melati.poem.dbms.Dbms;
 import org.melati.poem.dbms.DbmsFactory;
+import org.melati.poem.transaction.Transaction;
+import org.melati.poem.transaction.TransactionPool;
+import org.melati.poem.util.ArrayEnumeration;
+import org.melati.poem.util.FlattenedEnumeration;
+import org.melati.poem.util.MappedEnumeration;
 
 import EDU.oswego.cs.dl.util.concurrent.ReadWriteLock;
 import EDU.oswego.cs.dl.util.concurrent.WriterPreferenceReadWriteLock;
@@ -138,7 +139,6 @@ public abstract class Database implements TransactionPool {
     private static final long serialVersionUID = 1L;
     /**
      * {@inheritDoc}
-     * @see org.melati.util.MelatiRuntimeException#getMessage()
      */
     public String getMessage() {
       return "Connection to the database is currently in progress; " +
@@ -546,7 +546,7 @@ public abstract class Database implements TransactionPool {
    * but defaults to 8 if not set.
    * 
    * {@inheritDoc}
-   * @see org.melati.util.TransactionPool#transactionsMax()
+   * @see org.melati.poem.transaction.TransactionPool#transactionsMax()
    */
   public final int transactionsMax() {
     return transactionsMax;
@@ -556,8 +556,9 @@ public abstract class Database implements TransactionPool {
    * Set the maximum number of transactions.
    * Note that this does not resize the transaction pool 
    * so should be called before the db is connected to.
+   * 
    * {@inheritDoc}
-   * @see org.melati.util.TransactionPool#setTransactionsMax(int)
+   * @see org.melati.poem.transaction.TransactionPool#setTransactionsMax(int)
    */
   public final void setTransactionsMax(int t) {
     transactionsMax = t;
@@ -565,7 +566,7 @@ public abstract class Database implements TransactionPool {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.TransactionPool#getTransactionsCount()
+   * @see org.melati.poem.transaction.TransactionPool#getTransactionsCount()
    */
   public int getTransactionsCount() {
     return transactions.size();
@@ -573,7 +574,7 @@ public abstract class Database implements TransactionPool {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.TransactionPool#getFreeTransactionsCount()
+   * @see org.melati.poem.transaction.TransactionPool#getFreeTransactionsCount()
    */
   public int getFreeTransactionsCount() {
     return freeTransactions.size();
@@ -619,7 +620,7 @@ public abstract class Database implements TransactionPool {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.util.TransactionPool#transaction(int)
+   * @see org.melati.poem.transaction.TransactionPool#transaction(int)
    */
   public final Transaction transaction(int index) {
     return poemTransaction(index);

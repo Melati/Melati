@@ -54,18 +54,18 @@
 
 package org.melati.poem.csv;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.NoSuchElementException;
 import java.util.Vector;
-import java.util.Hashtable;
-import org.melati.poem.Table;
+
 import org.melati.poem.Persistent;
-import org.melati.util.CSVFileParser;
+import org.melati.poem.Table;
 
 /**
  * A representation of a CSV file as a POEM Table.

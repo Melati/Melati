@@ -49,7 +49,7 @@ import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.HashMap;
-import org.melati.util.ToTidyList;
+import org.melati.poem.transaction.ToTidyList;
 
 /**
  * A Poem Thread.

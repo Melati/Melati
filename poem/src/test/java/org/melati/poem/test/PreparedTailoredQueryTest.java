@@ -14,7 +14,7 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.PreparedTailoredQuery;
 import org.melati.poem.Table;
 import org.melati.poem.User;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 
 /**
  * @author timp

@@ -11,7 +11,7 @@ import org.melati.poem.FieldSet;
 import org.melati.poem.Capability;
 import org.melati.poem.Table;
 import org.melati.poem.TailoredQuery;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.User;
 
 /**
@@ -309,10 +309,10 @@ public class TailoredQueryTest extends PoemTestCase {
       FieldSet fs = (FieldSet) 
       ms.nextElement();
       System.out.println(
-          fs.get("user_name").getCookedString(MelatiLocale.HERE,
+          fs.get("user_name").getCookedString(PoemLocale.HERE,
                                               DateFormat.MEDIUM)
           + ", "
-          + fs.get("protected_mission").getCookedString(MelatiLocale.HERE,
+          + fs.get("protected_mission").getCookedString(PoemLocale.HERE,
               DateFormat.MEDIUM));
     }
     assertEquals(1,count);

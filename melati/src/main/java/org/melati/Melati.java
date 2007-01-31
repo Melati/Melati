@@ -60,10 +60,12 @@ import org.melati.poem.Field;
 import org.melati.poem.NoAccessTokenPoemException;
 import org.melati.poem.NotInSessionPoemException;
 import org.melati.poem.Persistent;
+import org.melati.poem.PoemLocale;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Table;
 import org.melati.poem.User;
+import org.melati.poem.util.StringUtils;
 import org.melati.servlet.Form;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.template.MarkupLanguage;
@@ -78,11 +80,9 @@ import org.melati.util.HttpHeader;
 import org.melati.util.HttpUtil;
 import org.melati.util.MelatiBufferedWriter;
 import org.melati.util.MelatiBugMelatiException;
-import org.melati.util.MelatiLocale;
 import org.melati.util.MelatiSimpleWriter;
 import org.melati.util.MelatiStringWriter;
 import org.melati.util.MelatiWriter;
-import org.melati.util.StringUtils;
 import org.melati.util.UTF8URLEncoder;
 import org.melati.util.UnexpectedExceptionException;
 
@@ -495,13 +495,13 @@ public class Melati {
    *
    * @return a MelatiLocale object
    */
-  public MelatiLocale getMelatiLocale() {
+  public PoemLocale getPoemLocale() {
     HttpServletRequest r = getRequest();
-    MelatiLocale ml = null;
+    PoemLocale ml = null;
     if (r != null) {
       String acceptLanguage = r.getHeader("Accept-Language");
       if (acceptLanguage != null)
-        ml = getMelatiLocale(acceptLanguage);
+        ml = getPoemLocale(acceptLanguage);
     }
    return ml != null ? ml : MelatiConfig.getMelatiLocale();
   }
@@ -515,11 +515,11 @@ public class Melati {
    * @return a MelatiLocale based on a language tag or null if not found
    * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
    */
-  public static MelatiLocale getMelatiLocale(String languageHeader) {
+  public static PoemLocale getPoemLocale(String languageHeader) {
 
     // language headers may have multiple language tags sperated by ,
     String tags[] = StringUtils.split(languageHeader, ',');
-    MelatiLocale ml = null;
+    PoemLocale ml = null;
 
     // loop through until we find a tag we like
     for (int i = 0; i < tags.length; i++) {
@@ -534,12 +534,12 @@ public class Melati {
       String lowerTag = tag.trim().toLowerCase();
 
       // try our cache
-      ml = (MelatiLocale)localeHash.get(lowerTag);
+      ml = (PoemLocale)localeHash.get(lowerTag);
       if (ml != null)
         return ml;
 
       // try creating a locale from this tag
-      ml = MelatiLocale.fromLanguageTag(lowerTag);
+      ml = PoemLocale.fromLanguageTag(lowerTag);
       if (ml != null) {
         localeHash.put(lowerTag, ml);
         return ml;
@@ -663,7 +663,7 @@ public class Melati {
     if (markupLanguage == null) 
       markupLanguage = new HTMLMarkupLanguage(this,
                                   config.getTempletLoader(),
-                                  getMelatiLocale());
+                                  getPoemLocale());
     return markupLanguage;
   }
 

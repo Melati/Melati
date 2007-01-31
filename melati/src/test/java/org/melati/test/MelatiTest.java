@@ -336,7 +336,7 @@ public class MelatiTest extends TestCase {
 
   /**
    * @throws Exception 
-   * @see org.melati.Melati#getMelatiLocale()
+   * @see org.melati.Melati#getPoemLocale()
    */
   public void testGetMelatiLocale() throws Exception {
     MelatiConfig mc = null;
@@ -344,38 +344,38 @@ public class MelatiTest extends TestCase {
     mc = new MelatiConfig();
     m = new Melati(mc, new MelatiStringWriter());
     m.setPoemContext(poemContext(m));
-    assertEquals("en_GB", m.getMelatiLocale().toString());
+    assertEquals("en_GB", m.getPoemLocale().toString());
     m.setRequest(new MockServletRequest());
-    assertEquals("en_GB", m.getMelatiLocale().toString());
+    assertEquals("en_GB", m.getPoemLocale().toString());
     MockServletRequest msr = new MockServletRequest();
     msr.setHeader("Accept-Language","en-gb");
     m.setRequest(msr);
-    assertEquals("en_GB", m.getMelatiLocale().toString());
+    assertEquals("en_GB", m.getPoemLocale().toString());
     msr.setHeader("Accept-Language","not");
-    assertEquals("en_GB", m.getMelatiLocale().toString());
+    assertEquals("en_GB", m.getPoemLocale().toString());
     msr.setHeader("Accept-Language","en-us");
-    assertEquals("en_US", m.getMelatiLocale().toString());
+    assertEquals("en_US", m.getPoemLocale().toString());
     
 
   }
 
   /**
-   * @see org.melati.Melati#getMelatiLocale(String)
+   * @see org.melati.Melati#getPoemLocale(String)
    */
   public void testGetMelatiLocaleString() {
-    assertNull(Melati.getMelatiLocale(""));    
-    assertNull(Melati.getMelatiLocale(";"));    
-    assertNull(Melati.getMelatiLocale(";9"));    
-    assertNull(Melati.getMelatiLocale(";nine"));    
-    assertNull(Melati.getMelatiLocale("rubbish")); 
-    assertNull(Melati.getMelatiLocale("rubbish;9")); 
-    assertNull(Melati.getMelatiLocale("rubbish;nine")); 
-    assertEquals("en_GB", Melati.getMelatiLocale("EN-GB").toString());    
-    assertEquals("en_GB", Melati.getMelatiLocale("en-GB").toString());    
-    assertEquals("en_GB", Melati.getMelatiLocale("en-gb").toString());    
-    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;").toString());    
-    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;9").toString());    
-    assertEquals("en_GB", Melati.getMelatiLocale("en-gb;nine").toString());    
+    assertNull(Melati.getPoemLocale(""));    
+    assertNull(Melati.getPoemLocale(";"));    
+    assertNull(Melati.getPoemLocale(";9"));    
+    assertNull(Melati.getPoemLocale(";nine"));    
+    assertNull(Melati.getPoemLocale("rubbish")); 
+    assertNull(Melati.getPoemLocale("rubbish;9")); 
+    assertNull(Melati.getPoemLocale("rubbish;nine")); 
+    assertEquals("en_GB", Melati.getPoemLocale("EN-GB").toString());    
+    assertEquals("en_GB", Melati.getPoemLocale("en-GB").toString());    
+    assertEquals("en_GB", Melati.getPoemLocale("en-gb").toString());    
+    assertEquals("en_GB", Melati.getPoemLocale("en-gb;").toString());    
+    assertEquals("en_GB", Melati.getPoemLocale("en-gb;9").toString());    
+    assertEquals("en_GB", Melati.getPoemLocale("en-gb;nine").toString());    
     
   }
   /**

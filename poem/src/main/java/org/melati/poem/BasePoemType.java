@@ -45,13 +45,13 @@
 
 package org.melati.poem;
 
-import java.util.Enumeration;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.melati.util.ConsEnumeration;
-import org.melati.util.MelatiLocale;
+import java.util.Enumeration;
+
 import org.melati.poem.dbms.Dbms;
+import org.melati.poem.util.ConsEnumeration;
 
 /**
  * Base class of all fundamental types.
@@ -305,16 +305,16 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
   }
 
   protected abstract String _stringOfCooked(Object cooked,
-                                           MelatiLocale locale, int style)
+                                           PoemLocale locale, int style)
       throws PoemException;
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.PoemType#stringOfCooked
-   *          (java.lang.Object, org.melati.util.MelatiLocale, int)
+   * @see org.melati.poem.PoemType#stringOfCooked(java.lang.Object, 
+   *          org.melati.poem.PoemLocale, int)
    */
   public final String stringOfCooked(Object cooked,
-                                    MelatiLocale locale, int style)
+                                    PoemLocale locale, int style)
       throws PoemException {
     doubleCheckValidCooked(cooked);
     return cooked == null ? "" : _stringOfCooked(cooked, locale, style);

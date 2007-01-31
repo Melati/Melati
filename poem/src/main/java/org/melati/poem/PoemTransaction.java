@@ -45,9 +45,10 @@
 
 package org.melati.poem;
 
-import java.sql.SQLException;
 import java.sql.Connection;
-import org.melati.util.Transaction;
+import java.sql.SQLException;
+
+import org.melati.poem.transaction.Transaction;
 
 /**
  * A set of dbms actions, which can be rolled back if necessary.

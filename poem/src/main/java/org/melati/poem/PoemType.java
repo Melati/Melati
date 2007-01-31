@@ -46,7 +46,7 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * A data type.
@@ -132,7 +132,7 @@ public interface PoemType {
    * @throws TypeMismatchPoemException if the raw is of the wrong type
    * @throws PoemException if there is an access violation
    */
-  String stringOfCooked(Object cooked, MelatiLocale locale, int style)
+  String stringOfCooked(Object cooked, PoemLocale locale, int style)
       throws TypeMismatchPoemException, PoemException;
 
   /**

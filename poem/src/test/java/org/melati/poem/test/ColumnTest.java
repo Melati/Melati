@@ -3,18 +3,25 @@
  */
 package org.melati.poem.test;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import org.melati.poem.AppBugPoemException;
 import org.melati.poem.CachedSelection;
 import org.melati.poem.Column;
+import org.melati.poem.DefinitionSource;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.NullTypeMismatchPoemException;
+import org.melati.poem.Persistent;
+import org.melati.poem.SQLPoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.Column.SettingException;
-import org.melati.util.EnumUtils;
+import org.melati.poem.util.EnumUtils;
 
 /**
  * @author timp

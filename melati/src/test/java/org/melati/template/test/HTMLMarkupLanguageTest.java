@@ -6,7 +6,7 @@ import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.HTMLAttributeMarkupLanguage;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.util.JSStaticTree;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 import org.melati.util.Tree;
 
 
@@ -26,7 +26,7 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
     ml = new HTMLMarkupLanguage(
             m, 
             new ClassNameTempletLoader(), 
-            MelatiLocale.HERE);
+            PoemLocale.HERE);
     aml = new HTMLAttributeMarkupLanguage((HTMLMarkupLanguage)ml);
     m.setMarkupLanguage(ml);
     assertEquals(ml, m.getMarkupLanguage());    

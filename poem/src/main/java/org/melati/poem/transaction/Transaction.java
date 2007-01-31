@@ -43,10 +43,12 @@
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
-package org.melati.util;
+package org.melati.poem.transaction;
 
 import java.util.Vector;
 import java.util.Enumeration;
+
+import org.melati.poem.UnexpectedExceptionPoemException;
 
 /**
  * A Transaction.
@@ -110,7 +112,7 @@ public abstract class Transaction {
       wait();
     }
     catch (InterruptedException e) {
-      throw new UnexpectedExceptionException(e);
+      throw new UnexpectedExceptionPoemException(e);
     }
     finally {
       blockees.removeElement(blockee);

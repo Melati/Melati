@@ -8,7 +8,7 @@ import java.util.Enumeration;
 import org.melati.poem.ColumnTypePoemType;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.SQLPoemType;
-import org.melati.util.MelatiLocale;
+import org.melati.poem.PoemLocale;
 
 /**
  * @author timp
@@ -82,7 +82,7 @@ public class ColumnTypePoemTypeTest extends SQLPoemTypeTest {
 
   public void testStringOfCooked() {
     super.testStringOfCooked();
-    assertEquals("BOOLEAN", it.stringOfCooked(PoemTypeFactory.BOOLEAN, MelatiLocale.HERE, 0));
+    assertEquals("BOOLEAN", it.stringOfCooked(PoemTypeFactory.BOOLEAN, PoemLocale.HERE, 0));
   }
   
   /**

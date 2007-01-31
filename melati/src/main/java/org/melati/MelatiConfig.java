@@ -380,9 +380,16 @@ public class MelatiConfig {
   }
 
   /**
+   * For backwards compatibility.
    * @return The configured locale, defaults to British English melati locale.
    */
   public static PoemLocale getMelatiLocale() {
+    return poemLocale;
+  }
+  /**
+   * @return The configured locale, defaults to British English melati locale.
+   */
+  public static PoemLocale getPoemLocale() {
     return poemLocale;
   }
 

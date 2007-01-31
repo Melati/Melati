@@ -57,6 +57,10 @@ public class PoemBugPoemException extends SeriousPoemException {
   /** A descriptive String.*/
   public String bug;
 
+  public PoemBugPoemException(String message, Exception subException) {
+    super(message, subException);
+  }
+
   /** Constructor. */
   public PoemBugPoemException(String bug) {
     this.bug = bug;

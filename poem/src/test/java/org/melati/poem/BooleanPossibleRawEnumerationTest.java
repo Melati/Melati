@@ -13,15 +13,15 @@ import junit.framework.TestCase;
  */
 public class BooleanPossibleRawEnumerationTest extends TestCase {
 
-  /*
-   * Test method for 'org.melati.poem.BooleanPossibleRawEnumeration.hasMoreElements()'
+  /**
+   * @see org.melati.poem.BooleanPossibleRawEnumeration#hasMoreElements()
    */
   public void testHasMoreElements() {
     // see below
   }
 
-  /*
-   * Test method for 'org.melati.poem.BooleanPossibleRawEnumeration.nextElement()'
+  /**
+   * @see org.melati.poem.BooleanPossibleRawEnumeration#nextElement()
    */
   public void testNextElement() {
     BooleanPossibleRawEnumeration en = new BooleanPossibleRawEnumeration();

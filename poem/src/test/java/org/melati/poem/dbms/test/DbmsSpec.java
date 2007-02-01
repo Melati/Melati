@@ -5,6 +5,11 @@ package org.melati.poem.dbms.test;
 
 import java.sql.SQLException;
 
+import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.StringPoemType;
 import org.melati.poem.dbms.Dbms;
 
 import junit.framework.TestCase;
@@ -60,7 +65,7 @@ public abstract class DbmsSpec extends TestCase {
    * Test method for {@link org.melati.poem.dbms.Dbms#getSchema()}.
    */
   public void testGetSchema() {
-    
+    assertNull(it.getSchema());
   }
 
   /**
@@ -84,7 +89,7 @@ public abstract class DbmsSpec extends TestCase {
    * getJdbcMetadataName(java.lang.String)}.
    */
   public void testGetJdbcMetadataName() {
-    
+    assertEquals("name",it.getJdbcMetadataName("name"));
   }
 
   /**
@@ -92,7 +97,10 @@ public abstract class DbmsSpec extends TestCase {
    * preparedStatementPlaceholder(org.melati.poem.PoemType)}.
    */
   public void testPreparedStatementPlaceholder() {
-    
+    assertEquals("?", it.preparedStatementPlaceholder(new IntegerPoemType(true)));
+    assertEquals("?", it.preparedStatementPlaceholder(new LongPoemType(true)));
+    assertEquals("?", it.preparedStatementPlaceholder(new DoublePoemType(true)));
+    assertEquals("?", it.preparedStatementPlaceholder(new StringPoemType(true, -1)));
   }
 
   /**
@@ -108,12 +116,12 @@ public abstract class DbmsSpec extends TestCase {
    * @throws Exception 
    */
   public void testGetSqlDefinition() throws Exception {
-    try {
-      it.getStringSqlDefinition(-1);
-      fail("Should have blown up");
-    } catch (SQLException e) {
-      e = null;
-    }
+    assertEquals("BOOLEAN", it.getSqlDefinition("BOOLEAN"));
+    assertEquals("DOUBLE PRECISION", it.getSqlDefinition("DOUBLE PRECISION"));
+    assertEquals("INT8", it.getSqlDefinition("INT8"));
+    assertEquals("INT", it.getSqlDefinition("INT"));
+    assertEquals("Big Decimal", it.getSqlDefinition("Big Decimal"));
+    assertEquals("STRING", it.getSqlDefinition("STRING"));
   }
 
   /**
@@ -121,6 +129,12 @@ public abstract class DbmsSpec extends TestCase {
    */
   public void testGetStringSqlDefinition() throws Exception {
     assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
+    try {
+      it.getStringSqlDefinition(-1);
+      fail("Should have blown up");
+    } catch (SQLException e) {
+      e = null;
+    }
   }
 
   /**
@@ -137,6 +151,7 @@ public abstract class DbmsSpec extends TestCase {
    */
   public void testSqlBooleanValueOfRaw() {
     assertEquals("false", it.sqlBooleanValueOfRaw(Boolean.FALSE));        
+    assertEquals("true", it.sqlBooleanValueOfRaw(Boolean.TRUE));        
   }
 
   /**
@@ -145,14 +160,33 @@ public abstract class DbmsSpec extends TestCase {
    */
   public void testGetBinarySqlDefinition() throws Exception {
     assertEquals("LONGVARBINARY(0)", it.getBinarySqlDefinition(0));        
+    try {
+      it.getBinarySqlDefinition(-1);
+      fail("Should have blown up");
+    } catch (SQLException e) {
+      e = null;
+    }
   }
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getFixedPtSqlDefinition(int, int)}.
+   * @throws Exception 
    */
-  public void testGetFixedPtSqlDefinition() {
-    
+  public void testGetFixedPtSqlDefinition() throws Exception {
+    assertEquals("DECIMAL(2,22)", it.getFixedPtSqlDefinition(22, 2));
+    try { 
+      it.getFixedPtSqlDefinition(-1, 2);
+      fail("Should have blown up");
+    } catch (SQLException e) { 
+      e = null;
+    }
+    try { 
+      it.getFixedPtSqlDefinition(22, -1);
+      fail("Should have blown up");
+    } catch (SQLException e) { 
+      e = null;
+    }
   }
 
   /**
@@ -160,6 +194,14 @@ public abstract class DbmsSpec extends TestCase {
    * canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)}.
    */
   public void testCanRepresent() {
+    assertNull(it.canRepresent(StringPoemType.nullableInstance, IntegerPoemType.nullableInstance));
+    assertNull(it.canRepresent(IntegerPoemType.nullableInstance,StringPoemType.nullableInstance));
+
+    assertNull(it.canRepresent(new BigDecimalPoemType(false),new BigDecimalPoemType(true)));
+    assertTrue(it.canRepresent(new BigDecimalPoemType(true),new BigDecimalPoemType(false))
+               instanceof BigDecimalPoemType);
+
+    assertNull(it.canRepresent(new StringPoemType(true, 250), new StringPoemType(true, -1)));
     
   }
 
@@ -208,21 +250,25 @@ public abstract class DbmsSpec extends TestCase {
    */
   public void testMelatiName() {
     assertEquals("name", it.melatiName("name"));
+    assertEquals(null, it.melatiName(null));
+    assertEquals("~MSAccess special", it.melatiName("~MSAccess special"));
   }
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getIndexLength(org.melati.poem.Column)}.
+   * @throws Exception 
    */
-  public void testGetIndexLength() {
-    
+  public void testGetIndexLength() throws Exception {
+    assertEquals("", it.getIndexLength(null));
   }
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * canBeIndexed(org.melati.poem.Column)}.
+   * @throws Exception 
    */
-  public void testCanBeIndexed() {
+  public void testCanBeIndexed() throws Exception {
     
   }
 
@@ -297,7 +343,7 @@ public abstract class DbmsSpec extends TestCase {
    * getPrimaryKeyDefinition(java.lang.String)}.
    */
   public void testGetPrimaryKeyDefinition() {
-    
+    assertEquals(" ADD PRIMARY KEY (\"name\")", it.getPrimaryKeyDefinition("name"));
   }
 
 }

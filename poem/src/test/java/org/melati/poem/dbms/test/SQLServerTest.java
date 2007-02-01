@@ -3,7 +3,9 @@
  */
 package org.melati.poem.dbms.test;
 
+import org.melati.LogicalDatabase;
 import org.melati.poem.dbms.DbmsFactory;
+import org.melati.poem.test.TestDatabase;
 
 /**
  * @author timp
@@ -42,11 +44,49 @@ public class SQLServerTest extends DbmsSpec {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   * getSqlDefinition(java.lang.String)}.
+   * getStringSqlDefinition(java.lang.String)}.
    */
-  public void testGetSqlDefinition() throws Exception {
+  public void testGetStringSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
     assertEquals("VARCHAR(2333)",  it.getStringSqlDefinition(-1));
   }
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getSqlDefinition(java.lang.String)}.
+   * @throws Exception 
+   */
+  public void testGetSqlDefinition() throws Exception {
+    assertEquals("DOUBLE PRECISION", it.getSqlDefinition("DOUBLE PRECISION"));
+    assertEquals("INT8", it.getSqlDefinition("INT8"));
+    assertEquals("Big Decimal", it.getSqlDefinition("Big Decimal"));
+
+    assertEquals("BIT", it.getSqlDefinition("BOOLEAN"));
+    assertEquals("DATETIME", it.getSqlDefinition("DATE"));
+    assertEquals("DATETIME", it.getSqlDefinition("TIMESTAMP"));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#melatiName(java.lang.String)}.
+   */
+  public void testMelatiName() {
+    assertEquals("name", it.melatiName("name"));
+    assertEquals(null, it.melatiName(null));
+    assertNull(it.melatiName("dtproperties"));
+  }
+
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * canBeIndexed(org.melati.poem.Column)}.
+   * @throws Exception 
+   */
+  public void testCanBeIndexed() throws Exception {
+    TestDatabase db = (TestDatabase)LogicalDatabase.getDatabase("poemtest");
+    assertFalse(it.canBeIndexed(db.getTableInfoTable().getDescriptionColumn()));
+    assertTrue(it.canBeIndexed(db.getUserTable().getNameColumn()));
+  }
+
   
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#

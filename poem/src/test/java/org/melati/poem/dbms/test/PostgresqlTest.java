@@ -3,6 +3,10 @@
  */
 package org.melati.poem.dbms.test;
 
+import org.melati.poem.DoublePoemType;
+import org.melati.poem.IntegerPoemType;
+import org.melati.poem.LongPoemType;
+import org.melati.poem.StringPoemType;
 import org.melati.poem.dbms.DbmsFactory;
 
 /**
@@ -39,12 +43,24 @@ public class PostgresqlTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Postgresql");
   }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Postgresql#
+   * preparedStatementPlaceholder(org.melati.poem.PoemType)}.
+   */
+  public void testPreparedStatementPlaceholder() {
+    assertEquals("CAST(? AS INT4)", it.preparedStatementPlaceholder(new IntegerPoemType(true)));
+    assertEquals("CAST(? AS INT8)", it.preparedStatementPlaceholder(new LongPoemType(true)));
+    assertEquals("CAST(? AS FLOAT8)", it.preparedStatementPlaceholder(new DoublePoemType(true)));
+    assertEquals("?", it.preparedStatementPlaceholder(new StringPoemType(true, -1)));
+  }
   
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   * getSqlDefinition(java.lang.String)}.
+   * getStringSqlDefinition(java.lang.String)}.
    */
-  public void testGetSqlDefinition() throws Exception {
+  public void testGetStringSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(0)", it.getStringSqlDefinition(0));    
     assertEquals("TEXT",  it.getStringSqlDefinition(-1));
   }
   

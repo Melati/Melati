@@ -49,9 +49,9 @@ public class HsqldbTest extends DbmsSpec {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   * getSqlDefinition(java.lang.String)}.
+   * getStringSqlDefinition(java.lang.String)}.
    */
-  public void testGetSqlDefinition() throws Exception {
+  public void testGetStringSqlDefinition() throws Exception {
     assertEquals("VARCHAR(266)",  it.getStringSqlDefinition(-1));
   }
 
@@ -72,12 +72,29 @@ public class HsqldbTest extends DbmsSpec {
   }
 
   /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#melatiName(java.lang.String)}.
+   */
+  public void testMelatiName() {
+    assertEquals("name", it.melatiName("name"));
+    assertEquals(null, it.melatiName(null));
+    assertEquals("~msaccess special", it.melatiName("~MSAccess special"));
+  }
+
+  /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * unreservedName(java.lang.String)}.
    */
   public void testUnreservedName() {
     assertEquals("NAME", it.unreservedName("name"));    
   }
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getJdbcMetadataName(java.lang.String)}.
+   */
+  public void testGetJdbcMetadataName() {
+    assertEquals("NAME",it.getJdbcMetadataName("name"));
+  }
+
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
@@ -93,6 +110,14 @@ public class HsqldbTest extends DbmsSpec {
             it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
 
   
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getPrimaryKeyDefinition(java.lang.String)}.
+   */
+  public void testGetPrimaryKeyDefinition() {
+    assertEquals(" ADD PRIMARY KEY (\"NAME\")", it.getPrimaryKeyDefinition("name"));
   }
 
   /**

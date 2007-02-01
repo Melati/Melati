@@ -44,31 +44,20 @@
 
 package org.melati.poem.dbms;
 
-import java.sql.ResultSetMetaData;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.Types;
 
-//import org.melati.poem.Table;
-
-import org.melati.poem.BooleanPoemType;
-import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BigDecimalPoemType;
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.BooleanPoemType;
 import org.melati.poem.DoublePoemType;
-import org.melati.poem.PoemType;
-import org.melati.poem.SQLPoemType;
-//import org.melati.poem.BinaryPoemType;
-//import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
+import org.melati.poem.PoemType;
+import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
-
-//import org.melati.poem.DuplicateKeySQLPoemException;
-//import org.melati.poem.NoSuchColumnPoemException;
-//import org.melati.poem.SeriousPoemException;
-//import org.melati.poem.SQLPoemException;
 import org.melati.poem.util.StringUtils;
 
 /**
@@ -307,24 +296,23 @@ public class Oracle extends AnsiStandard {
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
       throws SQLException {
-    System.err.println("Type:"+md.getString("TYPE_NAME"));
 
-    ResultSetMetaData rsmd = md.getMetaData();
-    int cols = rsmd.getColumnCount();
-    for (int i = 1; i <= cols; i++) {
-      String table = rsmd.getTableName(i);
-      System.err.println("table name: " + table);
-      String column = rsmd.getColumnName(i);
-      System.err.println("column name: " + column);
-      int type = rsmd.getColumnType(i);
-      System.err.println("type: " + type);
-      String typeName = rsmd.getColumnTypeName(i);
-      System.err.println("type Name: " + typeName);
-      String className = rsmd.getColumnClassName(i);
-      System.err.println("class Name: " + className);
-      System.err.println("String val: " + md.getString(i));
-      System.err.println("");
-    }
+    //ResultSetMetaData rsmd = md.getMetaData();
+    //int cols = rsmd.getColumnCount();
+    //for (int i = 1; i <= cols; i++) {
+      //String table = rsmd.getTableName(i);
+      //System.err.println("table name: " + table);
+      //String column = rsmd.getColumnName(i);
+      //System.err.println("column name: " + column);
+      //int type = rsmd.getColumnType(i);
+      //System.err.println("type: " + type);
+      //String typeName = rsmd.getColumnTypeName(i);
+      //System.err.println("type Name: " + typeName);
+      //String className = rsmd.getColumnClassName(i);
+      //System.err.println("class Name: " + className);
+      //System.err.println("String val: " + md.getString(i));
+      //System.err.println("");
+    //}
 
     if(md.getString("TYPE_NAME").equals("VARCHAR2"))
       return 
@@ -347,7 +335,7 @@ public class Oracle extends AnsiStandard {
           new IntegerPoemType(md.getInt("NULLABLE") ==
                               DatabaseMetaData.columnNullable) :
           super.defaultPoemTypeOfColumnMetaData(md);
-    System.err.println("SQLType:"+t);
+    //System.err.println("SQLType:"+t);
     return t;
   }
   

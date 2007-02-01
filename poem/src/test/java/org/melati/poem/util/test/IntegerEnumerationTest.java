@@ -1,7 +1,9 @@
 /**
  * 
  */
-package org.melati.util.test;
+package org.melati.poem.util.test;
+
+import java.util.NoSuchElementException;
 
 import org.melati.poem.util.IntegerEnumeration;
 
@@ -38,7 +40,8 @@ public class IntegerEnumerationTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.util.IntegerEnumeration#IntegerEnumeration(int, int)}.
+   * Test method for {@link org.melati.poem.util.IntegerEnumeration#
+   * IntegerEnumeration(int, int)}.
    */
   public void testIntegerEnumerationZeros() {
     IntegerEnumeration it = new IntegerEnumeration(0,0);
@@ -66,6 +69,22 @@ public class IntegerEnumerationTest extends TestCase {
       count++;
     }
     assertEquals(5, count);
+  }
+  public void testNextElement() {
+    int max = 9;
+    IntegerEnumeration it = new IntegerEnumeration(max - 5, max);
+    int count = 0;
+    while(it.hasMoreElements()) {
+      it.nextElement();
+      count++;
+    }
+    assertEquals(5, count);
+    try {
+      it.nextElement();
+      fail("Should have blown up");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
   }
 
 }

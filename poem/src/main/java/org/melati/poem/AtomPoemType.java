@@ -50,8 +50,8 @@ import org.melati.poem.dbms.Dbms;
 
 /** 
  * Base class for all atomic types.
- *
- * Currently all types.
+ * <p>
+ * Currently all types, as generated classes are instances of IntegerPoemType.
  */
 public abstract class AtomPoemType extends BasePoemType {
 

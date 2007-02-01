@@ -47,10 +47,9 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 import org.melati.poem.util.IntegerEnumeration;
-import org.melati.poem.PoemLocale;
 
 /**
- * A {@link Field} type which can hold a {@link StandardIntegrityFix}.
+ * A type for {@link IntegrityFix}s.
  */
 public class IntegrityFixPoemType extends IntegerPoemType {
 

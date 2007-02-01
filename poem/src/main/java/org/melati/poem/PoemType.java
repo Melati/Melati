@@ -46,10 +46,13 @@
 package org.melati.poem;
 
 import java.util.Enumeration;
-import org.melati.poem.PoemLocale;
 
 /**
  * A data type.
+ * <p>
+ * PoemTypes come in two flavours: the predefined ones and those that can be 
+ * defined by the application programmer; the former have a negative type code, 
+ * the latter a positive one.
  */
 public interface PoemType {
   

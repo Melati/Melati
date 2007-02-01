@@ -52,10 +52,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.melati.poem.PoemException;
-import org.melati.poem.util.ConsEnumeration;
-import org.melati.poem.util.EnumUtils;
-import org.melati.poem.util.FilteredEnumeration;
-import org.melati.poem.util.MappedEnumeration;
 
 /**
  * A store of known objects.

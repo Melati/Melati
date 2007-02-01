@@ -47,10 +47,11 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 import org.melati.poem.util.StringUtils;
-import org.melati.poem.PoemLocale;
 
 /**
  * A data type that is a reference to a {@link Persistent} object.
+ * <p>
+ * All generated classes are instances of this type.
  */
 public class ReferencePoemType extends IntegerPoemType {
 

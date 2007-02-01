@@ -50,10 +50,9 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.melati.poem.PoemLocale;
 
 /**
- * Normal dates.
+ * A type for Normal dates.
  */
 public class DatePoemType extends AtomPoemType {
 

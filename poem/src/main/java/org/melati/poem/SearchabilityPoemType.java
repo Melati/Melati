@@ -47,11 +47,11 @@ package org.melati.poem;
 
 import java.util.Enumeration;
 import org.melati.poem.util.IntegerEnumeration;
-import org.melati.poem.PoemLocale;
 
 /**
- * Whether field can be searched upon.
  * A data type used within the POEM {@link ColumnInfo} metadata.
+ * <p>
+ * Whether field can be searched upon.
  */
 public class SearchabilityPoemType extends IntegerPoemType {
 

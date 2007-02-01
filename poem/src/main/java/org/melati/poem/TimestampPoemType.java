@@ -54,7 +54,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.melati.poem.PoemLocale;
 import org.melati.poem.util.StringUtils;
 
 /**

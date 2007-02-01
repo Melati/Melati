@@ -55,6 +55,9 @@ import org.melati.poem.IntegerPoemType;
  */
 public class Mimer extends AnsiStandard {
 
+  /** Size of text fields. */
+  public static final int mimerTextHack = 2500;
+  
   /**
    * Constructor - set driver.
    */
@@ -67,7 +70,7 @@ public class Mimer extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size)  {
-    if (size < 0) return "VARCHAR(2500)";
+    if (size < 0) return "VARCHAR(" + mimerTextHack + ")";
     return "VARCHAR(" + size + ")";
   }
 
@@ -79,14 +82,18 @@ public class Mimer extends AnsiStandard {
     if (storage instanceof StringPoemType &&
         type instanceof StringPoemType) {
 
-        if (((StringPoemType)storage).getSize() == 2500 &&
-            ((StringPoemType)type).getSize() == -1) {
+        if (((StringPoemType)storage).getSize() == mimerTextHack &&
+            ((StringPoemType)type).getSize() == -1
+            && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+        ) {
            return type;
         } else {
            return storage.canRepresent(type);
         }
     } else if (storage instanceof IntegerPoemType &&
-          type instanceof BooleanPoemType) {
+          type instanceof BooleanPoemType
+          && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+    ) {
         return type;
     } else {
       return storage.canRepresent(type);

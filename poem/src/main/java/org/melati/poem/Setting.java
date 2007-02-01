@@ -49,7 +49,12 @@ import org.melati.poem.generated.SettingBase;
 
 /**
  * A setting, analageous to a Property.
- *
+ * <p>
+ * NOTE While the underlying value is held as a String 
+ * that is converted to any type.
+ * 
+ * <p>
+ * 
  * Melati POEM generated, modified definition of  
  * a <code>Persistent</code> <code>Setting</code> object.
  * 
@@ -94,7 +99,7 @@ public class Setting extends SettingBase {
   private Object cooked = null;
 
   /**
-   * Constructor.
+   * Constructor with reasonable defaults for a String setting
    * Use SettingTable.create to persist this.
    * @param typefactory
    * @param name
@@ -109,6 +114,13 @@ public class Setting extends SettingBase {
     setValue_unsafe(value);
     setDisplayname_unsafe(displayname);
     setDescription_unsafe(description);
+    setUsereditable_unsafe(Boolean.TRUE);
+    setNullable_unsafe(Boolean.TRUE);
+    setSize_unsafe(new Integer(-1));
+    setWidth_unsafe(new Integer(20));
+    setHeight_unsafe(new Integer(1));
+    setPrecision_unsafe(new Integer(22));
+    setScale_unsafe(new Integer(2));
   }
 
  /**
@@ -134,6 +146,7 @@ public class Setting extends SettingBase {
   }
 
   /**
+   * Check that value is of correct type before setting. 
    * {@inheritDoc}
    * @see org.melati.poem.generated.SettingBase#setValue(java.lang.String)
    */
@@ -151,19 +164,24 @@ public class Setting extends SettingBase {
   }
 
   /**
-   * Set from a raw value.
+   * Set from a raw value; checking that the value is of the correct type first.
    * @param raw teh raw to set
    */
   public void setRaw(Object raw) {
     String string;
+    Object newRaw;
     try {
       string = getType().stringOfRaw(raw);
     } catch (Exception e) {
       throw new SettingValidationException(getName_unsafe(), e);
     }
-
-    super.setValue(string);
-    this.raw = raw;
+    try {
+      newRaw = getType().rawOfString(string);
+    } catch (Exception e) {
+      throw new SettingValidationException(getName_unsafe(), e);
+    }
+    super.setValue(newRaw == null ? null : string);
+    this.raw = newRaw;
     cooked = null;
   }
 
@@ -182,7 +200,7 @@ public class Setting extends SettingBase {
   }
 
   /**
-   * @return the cooked Object
+   * @return the cooked, ie typed, Object
    */
   public Object getCooked() {
     if (cooked == null)
@@ -224,7 +242,7 @@ public class Setting extends SettingBase {
    */
   public Integer getIntegerCooked() {
     Object cookedLocal = getCooked();
-    if (cookedLocal == null)
+    if (cookedLocal == null && getNullable().booleanValue())
       return null;
     else if (cookedLocal instanceof Integer)
       return (Integer)cookedLocal;
@@ -238,7 +256,7 @@ public class Setting extends SettingBase {
    */
   public String getStringCooked() {
     Object cookedLocal = getCooked();
-    if (cookedLocal == null)
+    if (cookedLocal == null && getNullable().booleanValue())
       return null;
     else if (cookedLocal instanceof String)
       return (String)cookedLocal;
@@ -252,7 +270,7 @@ public class Setting extends SettingBase {
    */
   public Boolean getBooleanCooked() {
     Object cookedLocal = getCooked();
-    if (cookedLocal == null)
+    if (cookedLocal == null && getNullable().booleanValue())
       return null;
     else if (cookedLocal instanceof Boolean)
       return (Boolean)cookedLocal;

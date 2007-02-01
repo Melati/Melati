@@ -152,7 +152,9 @@ public class Hsqldb extends AnsiStandard {
   public PoemType canRepresent(PoemType storage, PoemType type) {
     if (storage instanceof StringPoemType && type instanceof StringPoemType) {
       if (((StringPoemType)storage).getSize() == hsqldbTextHack
-              && ((StringPoemType)type).getSize() == -1) {
+              && ((StringPoemType)type).getSize() == -1
+              && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+      ) {
         return type;
       } else {
         return storage.canRepresent(type);

@@ -3,6 +3,8 @@
  */
 package org.melati.poem.dbms.test;
 
+import java.sql.SQLException;
+
 import org.melati.poem.dbms.Dbms;
 
 import junit.framework.TestCase;
@@ -103,9 +105,15 @@ public abstract class DbmsSpec extends TestCase {
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getSqlDefinition(java.lang.String)}.
+   * @throws Exception 
    */
-  public void testGetSqlDefinition() {
-    
+  public void testGetSqlDefinition() throws Exception {
+    try {
+      it.getStringSqlDefinition(-1);
+      fail("Should have blown up");
+    } catch (SQLException e) {
+      e = null;
+    }
   }
 
   /**

@@ -42,6 +42,15 @@ public class MSAccessTest extends DbmsSpec {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getSqlDefinition(java.lang.String)}.
+   */
+  public void testGetSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(250)",  it.getStringSqlDefinition(-1));
+  }
+
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
    * getLongSqlDefinition()}.
    */
   public void testGetLongSqlDefinition() {

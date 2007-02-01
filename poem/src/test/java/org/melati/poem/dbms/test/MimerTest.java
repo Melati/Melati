@@ -40,4 +40,13 @@ public class MimerTest extends DbmsSpec {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.Mimer");
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getSqlDefinition(java.lang.String)}.
+   */
+  public void testGetSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(2500)",  it.getStringSqlDefinition(-1));
+  }
+
+  
 }

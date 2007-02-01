@@ -39,6 +39,15 @@ public class SQLServerTest extends DbmsSpec {
   protected void setObjectUnderTest() {
     it = DbmsFactory.getDbms("org.melati.poem.dbms.SQLServer");
   }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getSqlDefinition(java.lang.String)}.
+   */
+  public void testGetSqlDefinition() throws Exception {
+    assertEquals("VARCHAR(2333)",  it.getStringSqlDefinition(-1));
+  }
+  
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getForeignKeyDefinition(java.lang.String, java.lang.String, 

@@ -42,6 +42,14 @@ public class InterbaseTest extends DbmsSpec {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getSqlDefinition(java.lang.String)}.
+   */
+  public void testGetSqlDefinition() throws Exception {
+    assertEquals("blob sub_type 1",  it.getStringSqlDefinition(-1));
+  }
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
    * getForeignKeyDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)}.
    */
   public void testGetForeignKeyDefinition() {

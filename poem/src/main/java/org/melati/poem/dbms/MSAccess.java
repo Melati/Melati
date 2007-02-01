@@ -75,18 +75,6 @@ public class MSAccess extends AnsiStandard {
     // setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); 
     setDriverClassName("easysoft.sql.jobDriver"); 
   }
-  /**
-   * Return <code>null</code> as the Schema Name, 
-   * which tells jdbc not to filter on it. 
-   * 
-   * @return the user as null
-   * @see org.melati.poem.dbms.Dbms#getSchema()
-   * @see org.melati.poem.dbms.AnsiStandard#getConnection
-   * @see org.melati.poem.dbms.AnsiStandard#getSchema()
-   */
-  public String getSchema() {
-    return null;
-  }
 
   /**
    * Ignore tables starting with '~', which should 
@@ -189,9 +177,13 @@ public class MSAccess extends AnsiStandard {
     } else if (storage instanceof BooleanPoemType && type instanceof BooleanPoemType) {
       // ignore nullability
       return type;
-    } else if (storage instanceof DoublePoemType && type instanceof BigDecimalPoemType) {
+    } else if (storage instanceof DoublePoemType && type instanceof BigDecimalPoemType
+            && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+    ) {
       return type;
-    } else if (storage instanceof IntegerPoemType && type instanceof LongPoemType) {
+    } else if (storage instanceof IntegerPoemType && type instanceof LongPoemType
+            && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+    ) {
       return type;
     } else {
       return storage.canRepresent(type);

@@ -31,7 +31,9 @@ public abstract class PoemTestCase extends TestCase implements Test {
 
   private static PoemDatabase db = null;
 
-  private String dbName = "melatijunit";
+  /** Default db name */
+  public static final String defaultDbName = "melatijunit";
+  private String dbName = defaultDbName;
   
   private AccessToken userToRunAs;
 

@@ -368,7 +368,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
       SQLPoemType q = (SQLPoemType)other;
       return
           q.sqlTypeCode() == sqlTypeCode &&
-          !(!nullable && q.getNullable()) &&
+          !(!nullable && q.getNullable()) && // Nullable may represent not nullable
           _canRepresent(q) ?
               q : null;
     }

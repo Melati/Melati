@@ -969,6 +969,26 @@ table BinaryField
       // Not indexed
       // Not unique
       ;
+    byte[] unlimited
+      (displayname = "Binaryfield")
+      // (description = null)
+      (uneditable)
+      (nullable)
+      (size = unlimited)
+      (width = 20)
+      (height = 1)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 1)
+      (uncreateable)
+      (displaylevel = summary)
+      (searchability = no)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
 }
 
 
@@ -1017,6 +1037,26 @@ table StringField
       // (rangelow_string = null)
       // (rangelimit_string = null)
       (displayorder = 2)
+      // usercreateable
+      (displaylevel = summary)
+      (searchability = yes)
+      // (displayorderpriority = null)
+      // Not sortdescending
+      // Not indexed
+      // Not unique
+      ;
+    String unlimited
+      (displayname = "Unlimited String Field")
+      // (description = null)
+      // usereditable
+      (nullable)
+      (size = unlimited)
+      (width = 20)
+      (height = 3)
+      // (renderinfo = null)
+      // (rangelow_string = null)
+      // (rangelimit_string = null)
+      (displayorder = 3)
       // usercreateable
       (displaylevel = summary)
       (searchability = yes)

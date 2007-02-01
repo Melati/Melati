@@ -56,6 +56,10 @@ public abstract class BinaryFieldBase extends Persistent {
   * Binaryfield 
   */
   protected byte[] binaryfield;
+ /**
+  * Binaryfield 
+  */
+  protected byte[] unlimited;
 
 
  /**
@@ -230,6 +234,85 @@ public abstract class BinaryFieldBase extends Persistent {
   */
   public Field getBinaryfieldField() throws AccessPoemException {
     Column c = _getBinaryFieldTable().getBinaryfieldColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> value, without locking, 
+  * for this <code>BinaryField</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the byte[] unlimited
+  */
+  public byte[] getUnlimited_unsafe() {
+    return unlimited;
+  }
+
+
+ /**
+  * Sets the <code>Unlimited</code> value directly, without checking, 
+  * for this BinaryField <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
+  public void setUnlimited_unsafe(byte[] cooked) {
+    unlimited = cooked;
+  }
+
+ /**
+  * Retrieves the Unlimited value, with locking, for this 
+  * <code>BinaryField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Unlimited</code> for this 
+  *         <code>BinaryField</code> <code>Persistent</code>  
+  */
+
+  public byte[] getUnlimited()
+      throws AccessPoemException {
+    readLock();
+    return getUnlimited_unsafe();
+  }
+
+
+ /**
+  * Sets the <code>Unlimited</code> value, with checking, for this 
+  * <code>BinaryField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+  public void setUnlimited(byte[] cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getBinaryFieldTable().getUnlimitedColumn().
+      getType().assertValidCooked(cooked);
+    writeLock();
+    setUnlimited_unsafe(cooked);
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> value as a <code>Field</code>
+  * from this <code>BinaryField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the byte[] unlimited
+  */
+  public Field getUnlimitedField() throws AccessPoemException {
+    Column c = _getBinaryFieldTable().getUnlimitedColumn();
     return new Field(c.getRaw(this), c);
   }
 }

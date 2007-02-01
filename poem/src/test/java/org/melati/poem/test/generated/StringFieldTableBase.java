@@ -30,6 +30,7 @@ public class StringFieldTableBase extends Table {
 
   private Column col_id = null;
   private Column col_stringfield = null;
+  private Column col_unlimited = null;
 
  /**
   * Constructor. 
@@ -215,6 +216,69 @@ public class StringFieldTableBase extends Table {
             ((StringField)g).setStringfield((String)raw);
           }
         });
+
+    defineColumn(col_unlimited =
+        new Column(this, "unlimited",
+                   new StringPoemType(true, -1),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((StringField)g).getUnlimited();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((StringField)g).setUnlimited((String)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((StringField)g).getUnlimitedField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.summary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.yes;
+          }
+
+          protected String defaultDisplayName() {
+            return "Unlimited String Field";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 3;
+          }
+
+          protected int defaultWidth() {
+            return 20;
+          }
+
+          protected int defaultHeight() {
+            return 3;
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((StringField)g).getUnlimited_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((StringField)g).setUnlimited_unsafe((String)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((StringField)g).getUnlimited();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((StringField)g).setUnlimited((String)raw);
+          }
+        });
   }
 
 
@@ -239,6 +303,18 @@ public class StringFieldTableBase extends Table {
   */
   public final Column getStringfieldColumn() {
     return col_stringfield;
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> <code>Column</code> for this 
+  * <code>StringField</code> <code>Table</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the unlimited <code>Column</code>
+  */
+  public final Column getUnlimitedColumn() {
+    return col_unlimited;
   }
 
 

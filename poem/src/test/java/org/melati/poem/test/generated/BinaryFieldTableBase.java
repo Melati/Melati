@@ -30,6 +30,7 @@ public class BinaryFieldTableBase extends Table {
 
   private Column col_id = null;
   private Column col_binaryfield = null;
+  private Column col_unlimited = null;
 
  /**
   * Constructor. 
@@ -223,6 +224,77 @@ public class BinaryFieldTableBase extends Table {
             ((BinaryField)g).setBinaryfield((byte[])raw);
           }
         });
+
+    defineColumn(col_unlimited =
+        new Column(this, "unlimited",
+                   new BinaryPoemType(true, -1),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((BinaryField)g).getUnlimited();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((BinaryField)g).setUnlimited((byte[])cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((BinaryField)g).getUnlimitedField();
+          }
+
+          protected boolean defaultUserEditable() {
+            return false;
+          }
+
+          protected boolean defaultUserCreateable() {
+            return false;
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.summary;
+          }
+
+          protected Searchability defaultSearchability() {
+            return Searchability.no;
+          }
+
+          protected String defaultDisplayName() {
+            return "Binaryfield";
+          }
+
+          protected int defaultDisplayOrder() {
+            return 1;
+          }
+
+          protected int defaultWidth() {
+            return 20;
+          }
+
+          protected int defaultHeight() {
+            return 1;
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((BinaryField)g).getUnlimited_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((BinaryField)g).setUnlimited_unsafe((byte[])raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((BinaryField)g).getUnlimited();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((BinaryField)g).setUnlimited((byte[])raw);
+          }
+        });
   }
 
 
@@ -247,6 +319,18 @@ public class BinaryFieldTableBase extends Table {
   */
   public final Column getBinaryfieldColumn() {
     return col_binaryfield;
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> <code>Column</code> for this 
+  * <code>BinaryField</code> <code>Table</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the unlimited <code>Column</code>
+  */
+  public final Column getUnlimitedColumn() {
+    return col_unlimited;
   }
 
 

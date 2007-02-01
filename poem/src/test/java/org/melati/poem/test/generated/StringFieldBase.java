@@ -56,6 +56,10 @@ public abstract class StringFieldBase extends Persistent {
   * String Field 
   */
   protected String stringfield;
+ /**
+  * Unlimited String Field 
+  */
+  protected String unlimited;
 
 
  /**
@@ -230,6 +234,85 @@ public abstract class StringFieldBase extends Persistent {
   */
   public Field getStringfieldField() throws AccessPoemException {
     Column c = _getStringFieldTable().getStringfieldColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> value, without locking, 
+  * for this <code>StringField</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the String unlimited
+  */
+  public String getUnlimited_unsafe() {
+    return unlimited;
+  }
+
+
+ /**
+  * Sets the <code>Unlimited</code> value directly, without checking, 
+  * for this StringField <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
+  public void setUnlimited_unsafe(String cooked) {
+    unlimited = cooked;
+  }
+
+ /**
+  * Retrieves the Unlimited value, with locking, for this 
+  * <code>StringField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Unlimited</code> for this 
+  *         <code>StringField</code> <code>Persistent</code>  
+  */
+
+  public String getUnlimited()
+      throws AccessPoemException {
+    readLock();
+    return getUnlimited_unsafe();
+  }
+
+
+ /**
+  * Sets the <code>Unlimited</code> value, with checking, for this 
+  * <code>StringField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+  public void setUnlimited(String cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getStringFieldTable().getUnlimitedColumn().
+      getType().assertValidCooked(cooked);
+    writeLock();
+    setUnlimited_unsafe(cooked);
+  }
+
+
+ /**
+  * Retrieves the <code>Unlimited</code> value as a <code>Field</code>
+  * from this <code>StringField</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the String unlimited
+  */
+  public Field getUnlimitedField() throws AccessPoemException {
+    Column c = _getStringFieldTable().getUnlimitedColumn();
     return new Field(c.getRaw(this), c);
   }
 }

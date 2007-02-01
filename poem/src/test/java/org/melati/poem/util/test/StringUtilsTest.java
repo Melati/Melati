@@ -38,10 +38,10 @@
  *
  * Contact details for copyright holder:
  *
- * Tim Joyce <timj@paneris.org>
+ * Tim Joyce <timj At paneris.org>
  *
  */
-package org.melati.util.test;
+package org.melati.poem.util.test;
 
 import junit.framework.TestCase;
 

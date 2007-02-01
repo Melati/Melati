@@ -222,7 +222,6 @@ public class Oracle extends AnsiStandard {
        * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
        */
       public PoemType canRepresent(PoemType other) {
-        System.err.println("Creating an OracleStringPoemType");
         return other instanceof StringPoemType &&
                _canRepresent((StringPoemType)other) &&
                !(!getNullable() && ((StringPoemType)other).getNullable()) ?
@@ -288,15 +287,14 @@ public class Oracle extends AnsiStandard {
    *          (org.melati.poem.PoemType, org.melati.poem.PoemType)
    */
   public PoemType canRepresent(PoemType storage, PoemType type) {
-    // FIXME Check if correct with test
     if ((storage instanceof IntegerPoemType &&
         type instanceof BigDecimalPoemType) && 
-        (storage.getNullable() == type.getNullable())){
+        !(!storage.getNullable() && type.getNullable())){
       return type;
     }
     if ((storage instanceof IntegerPoemType &&
           type instanceof LongPoemType) && 
-          (storage.getNullable() == type.getNullable())) {
+          !(!storage.getNullable() && type.getNullable())) {
         return type;
     } else {
       return storage.canRepresent(type);
@@ -354,7 +352,7 @@ public class Oracle extends AnsiStandard {
   }
   
   /**
-   * Note that this is NOT case insensitive.
+   * NOTE This is NOT case insensitive,
    * Term2 has its quotes stripped.
    * 
    * {@inheritDoc}
@@ -398,7 +396,7 @@ public class Oracle extends AnsiStandard {
   public String getPrimaryKeyDefinition(String fieldName) {
     StringBuffer sb = new StringBuffer();
     sb.append(" ADD (CONSTRAINT PK_" + fieldName + 
-        " PRIMARY KEY (" + getQuotedName(fieldName) + "))");
+        " PRIMARY KEY(" + getQuotedName(fieldName) + "))");
     return sb.toString();
   }
 

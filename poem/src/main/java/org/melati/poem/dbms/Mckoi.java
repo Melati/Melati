@@ -59,19 +59,16 @@ import org.melati.poem.StringPoemType;
 */
 public class Mckoi extends AnsiStandard {
 
+  /** Size of text fields. */
+  public static final int mckoiTextHack = 2147483647;
+  
+  /** Size of binary fields. */
+  public static final int mckoiBinaryHack = 2147483647;
   /**
    * Constructor.
    */
   public Mckoi() {
     setDriverClassName("com.mckoi.JDBCDriver");
-  }
-
-  /**
-   * Can this still be true.
-   * @return false
-   */
-  public boolean supportsIndex() {
-    return false;
   }
 
   /**
@@ -130,15 +127,19 @@ public class Mckoi extends AnsiStandard {
     if (storage instanceof StringPoemType &&
       type instanceof StringPoemType) {
 
-      if (((StringPoemType)storage).getSize() == 2147483647 &&
-          ((StringPoemType)type).getSize() == -1) {
+      if (((StringPoemType)storage).getSize() == mckoiTextHack &&
+          ((StringPoemType)type).getSize() == -1
+          && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+      ) {
            return type;
       } else {
         return storage.canRepresent(type);
       }
     } else if (storage instanceof BinaryPoemType &&
-               type instanceof BinaryPoemType) {
-      if (((BinaryPoemType)storage).getSize() == 2147483647 &&
+               type instanceof BinaryPoemType
+               && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+    ) {
+      if (((BinaryPoemType)storage).getSize() == mckoiBinaryHack &&
           ((BinaryPoemType)type).getSize() == -1) {
         return type;
       } else {

@@ -446,6 +446,7 @@ public class MySQL extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
+    if (name == null) return name;
     if(name.equalsIgnoreCase("melati_group")) name = "group";
     if(name.equalsIgnoreCase("melati_precision")) name = "precision";
     if(name.equalsIgnoreCase("melati_unique")) name = "unique";

@@ -254,6 +254,7 @@ public class Oracle extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
+    if (name == null) return name;
     if(name.equalsIgnoreCase("melati_user")) name = "user";
     if(name.equalsIgnoreCase("melati_group")) name = "group";
     return name.toLowerCase();

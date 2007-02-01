@@ -95,9 +95,7 @@ public class MSAccess extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
-    if (name == null)
-      return null;
-    if (name.startsWith("~"))
+    if (name != null && name.startsWith("~"))
       return null;
     return name;
   }

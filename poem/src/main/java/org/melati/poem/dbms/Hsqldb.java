@@ -173,10 +173,12 @@ public class Hsqldb extends AnsiStandard {
   }
 
   /**
+   * @todo remove lowercase
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
+    if (name == null) return name;
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
     if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "constraint";
     return name.toLowerCase();

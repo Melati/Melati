@@ -8,12 +8,12 @@
   <groupId>org.melati</groupId>
   <artifactId>melati-example-odmg</artifactId>
   <name>ODMG Example</name>
-  <version>0.7.5-RC5</version>
+  <version>0.7.6-RC1</version>
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.5-RC5</version>
+      <version>0.7.6-RC1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -65,8 +65,8 @@
      <dependencies>
       <dependency>
        <groupId>org.melati</groupId>
-       <artifactId>melati</artifactId>
-       <version>0.7.5-RC5</version>
+       <artifactId>poem</artifactId>
+       <version>0.7.6-RC1</version>
       </dependency>
      </dependencies>
     </plugin>

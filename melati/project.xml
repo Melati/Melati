@@ -4,7 +4,7 @@
   <groupId>melati</groupId>
   <artifactId>melati</artifactId>
   <name>Melati</name>
-  <currentVersion>0.7.5-RC5</currentVersion>
+  <currentVersion>0.7.6-RC1</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -287,6 +287,16 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </licenses>
 
   <dependencies>
+    <dependency>
+      <groupId>org.melati</groupId>
+      <artifactId>poem</artifactId>
+      <version>0.7.6-RC1</version>
+      <url>http://www.webmacro.org/</url>
+      <properties>
+         <war.bundle>false</war.bundle>
+         <scope>runtime</scope>
+      </properties>
+    </dependency>
     <dependency>
       <id>webmacro-classic</id>
       <version>2.0b1</version>

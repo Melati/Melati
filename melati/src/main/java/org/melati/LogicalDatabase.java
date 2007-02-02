@@ -46,13 +46,11 @@
 package org.melati;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Vector;
-import java.util.Enumeration;
 import java.util.Properties;
 
 import org.melati.poem.Database;
-import org.melati.util.ConnectionPendingException;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.util.DatabaseInitException;
 import org.melati.util.PropertiesUtils;
 
@@ -60,7 +58,7 @@ import org.melati.util.PropertiesUtils;
  * An object which knows how to connect to a database.
  */
 public final class LogicalDatabase {
-
+  
   private LogicalDatabase() {}
 
   /** The class name of this <code>LogicalDatabase</code>. */
@@ -81,28 +79,16 @@ public final class LogicalDatabase {
     return databaseDefs;
   }
 
-  private static final Hashtable databases = new Hashtable();
-
   /** 
    * Retrieve the databases which have completed initialisation.
    *
    * @return a <code>Vector</code> of the initialised databases
    */
   public static Vector initialisedDatabases() {
-    Vector dbs = new Vector();
-    Enumeration e = null;
-    synchronized (databases) {
-      e = databases.keys();
-      while (e.hasMoreElements()) {
-        Object dbOrPending = databases.get(e.nextElement());
-        if (dbOrPending != pending)
-          dbs.addElement(dbOrPending);
-      }
-    }
-    return dbs;
+    return PoemDatabaseFactory.initialisedDatabases();
   }
 
-
+  
   /** 
    * Retrieve the names of the databases which have 
    * completed initialisation.
@@ -112,23 +98,9 @@ public final class LogicalDatabase {
    * @return a <code>Vector</code> of the initialised database names
    */
   public static Vector getInitialisedDatabaseNames() {
-    Vector dbs = new Vector();
-    Enumeration e = null;
-    synchronized (databases) {
-      e = databases.keys();
-      while (e.hasMoreElements()) {
-        String key = (String)e.nextElement();
-        Object dbOrPending = databases.get(key);
-        if (dbOrPending != pending)
-          dbs.addElement(key);
-      }
-    }
-    return dbs;
+    return PoemDatabaseFactory.getInitialisedDatabaseNames();
   }
-
-
-  private static final Object pending = new Object();
-
+  
   /** 
    * Retrieve a database by name.
    *
@@ -138,33 +110,17 @@ public final class LogicalDatabase {
    */
   public static Database getDatabase(String name) 
       throws DatabaseInitException {
-    if (name == null)
-      throw new NullPointerException();
-
-    Object dbOrPending;
-
-    synchronized (databases) {
-      dbOrPending = databases.get(name);
-      if (dbOrPending == pending)
-        throw new ConnectionPendingException(name);
-      else if (dbOrPending == null)
-        databases.put(name, pending);
-    }
-
-    if (dbOrPending != null)
-      return (Database)dbOrPending;
-
-    try {
-      Database database;
-
+    Database db = PoemDatabaseFactory.getDatabase(name);
+    if (db == null) {
       try {
+        
         Properties defs = databaseDefs();
         String pref = className + "." + name + ".";
         String url = PropertiesUtils.getOrDie(defs, pref + "url");
         String user = PropertiesUtils.getOrDie(defs, pref + "user");
         String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
         String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-        String dbmsclass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+        String dbmsClass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
         String addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
         String logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
         String logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
@@ -172,50 +128,18 @@ public final class LogicalDatabase {
         int maxTrans = PropertiesUtils.
                            getOrDefault_int(defs, pref + "maxtransactions", 8);
 
-        //Object databaseObject=Class.forName(clazz).newInstance();
-
-        Object databaseObject = null;
-
-        try {
-          databaseObject = Thread.currentThread().getContextClassLoader().
-                               loadClass(clazz).newInstance();
-        }
-        catch (Exception e) {
-          databaseObject = Class.forName(clazz).newInstance();
-        }
-
-        if (!(databaseObject instanceof Database)) 
-          throw new ClassCastException(
-              "The .class=" + clazz + " entry named a class of type " +
-              databaseObject.getClass() + ", " +
-              "which is not an org.melati.poem.Database");
-
-        database = (Database)databaseObject;
-
-        database.connect(dbmsclass, url, user, pass, maxTrans);
-
-        // Set properties
-        if (logSQL.equalsIgnoreCase("true"))
-          database.setLogSQL(true);
-        if (logCommits.equalsIgnoreCase("true"))
-          database.setLogCommits(true);
-        if (addConstraints.equalsIgnoreCase("true"))
-          database.addConstraints();
+        db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
+                clazz, dbmsClass, 
+                new Boolean(addConstraints).booleanValue(), 
+                new Boolean(logSQL).booleanValue(), 
+                new Boolean(logCommits).booleanValue(),
+                maxTrans);
+      } catch (Exception e) { 
+        throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
       }
-      finally {
-        // get it removed from the "initialising" state even if an Error, such
-        // as no class found, occurs
-        databases.remove(name);
-      }
-
-      databases.put(name, database);
-      return database;
     }
-    catch (Exception e) {
-      throw new DatabaseInitException(defaultPropertiesName, name, e);
-    }
-  }
-
+    return db;
+  }  
   /**
    * Set the databaseDefs.
    */

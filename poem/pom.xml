@@ -115,8 +115,8 @@
      <dependencies>
       <dependency>
        <groupId>org.melati</groupId>
-       <artifactId>melati</artifactId>
-       <version>0.7.5-RC5</version>
+       <artifactId>poem</artifactId>
+       <version>0.7.6-RC1</version>
       </dependency>
      </dependencies>
     </plugin>
@@ -136,6 +136,7 @@
      <artifactId>maven-surefire-plugin</artifactId>
      <configuration>
       <redirectTestOutputToFile>true</redirectTestOutputToFile>
+       <testFailureIgnore>false</testFailureIgnore>
       <forkMode>once</forkMode>
       <!-- threadCount>1</threadCount-->
       <!-- childDelegation>false</childDelegation -->

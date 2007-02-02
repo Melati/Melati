@@ -224,8 +224,6 @@ public class Table implements Selectable {
   }
 
  /**
-  * 
-  * @see org.melati.admin.Admin#dsdTemplate
   * @return the {@link TableInfo} for this table
   */
   public final TableInfo getInfo() {

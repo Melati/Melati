@@ -2,18 +2,18 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.5-RC5</version>
+    <version>0.7.6-RC1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>melati-example-contacts</artifactId>
   <name>Contacts Example</name>
-  <version>0.7.5-RC5</version>
+  <version>0.7.6-RC1</version>
   <dependencies>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.5-RC5</version>
+      <version>0.7.6-RC1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -30,9 +30,9 @@
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
-      <artifactId>melati</artifactId>
-      <version>0.7.5-RC4</version>
-      <type>test-jar</type>
+      <artifactId>poem</artifactId>
+      <version>0.7.6-RC1</version>
+      <classifier>tests</classifier>
     </dependency>
   </dependencies>
   <build>
@@ -76,6 +76,46 @@
          </dependency>
         </dependencies>
       </plugin>
+      <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>exec-maven-plugin</artifactId>
+       <executions>
+         <execution>
+           <phase>site</phase>
+           <goals>
+             <goal>java</goal>
+           </goals>
+         </execution>
+       </executions>
+       <configuration>
+         <mainClass>net.sourceforge.schemaspy.Main</mainClass>
+       <arguments>
+        <argument>-t=src/site/schemaspy/properties/hsqldb-file.properties</argument>
+        <argument>-cp hsqldb-1.8.0.7.jar </argument>
+        <argument>-db=contacts</argument>
+        <!-- argument>-desc=Melati Example Contacts Database Schema</argument -->
+        <argument>-dir=/dist/melati/db</argument>
+        <argument>-u=sa</argument>
+        <argument>-s=PUBLIC</argument>
+        <argument>-o=target/site/schemaspy</argument>
+        <!-- argument>-i=.*</argument -->
+        <!-- argument>-x=</argument -->
+
+       </arguments>
+     </configuration>
+     <dependencies>
+      <dependency>
+       <groupId>net.sourceforge</groupId>
+       <artifactId>schemaSpy</artifactId>
+       <version>3.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>hsqldb</groupId>
+        <artifactId>hsqldb</artifactId>
+        <version>1.8.0.7</version>
+      </dependency>
+     </dependencies>
+    </plugin>
     </plugins>
   </build>
   <reporting>

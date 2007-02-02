@@ -45,7 +45,6 @@
 
 package org.melati.poem;
 
-import org.melati.poem.PoemLocale;
 import org.melati.poem.dbms.Dbms;
 
 /** 

@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -47,9 +47,6 @@ package org.melati.util;
 
 /**
  * Thrown when there is a problem initialising a database.
- *
- * @author WilliamC@paneris.org
- * 
  */
 public class DatabaseInitException extends MelatiException {
   private static final long serialVersionUID = 1L;
@@ -67,7 +64,7 @@ public class DatabaseInitException extends MelatiException {
     this.name = name;
   }
 
-  /** The detail message. */
+  /** @return The detail message. */
   public String getMessage() {
     return
         "Something went wrong trying to open the logical database `" +

@@ -45,7 +45,7 @@ package org.melati.poem.util.test;
 
 import junit.framework.TestCase;
 
-import org.melati.util.StringUtils;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A test for the org.melati.util.StringUtil class.

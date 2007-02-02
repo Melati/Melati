@@ -2,6 +2,8 @@ package org.melati.example.contacts;
 
 import org.melati.example.contacts.Contact.DescendantParentException;
 import org.melati.poem.AccessToken;
+import org.melati.poem.Database;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemTask;
 import org.melati.poem.PoemThread;
 import org.melati.poem.User;
@@ -9,8 +11,8 @@ import org.melati.poem.test.PoemTestCase;
 
 public class ContactTest extends PoemTestCase {
 
-  private String dbName = "contacts";
-
+  private static String contactsDatabaseName = "contacts";
+  
   private Contact root = null;
   private Contact a = null;
   private Contact b = null;
@@ -66,8 +68,35 @@ public class ContactTest extends PoemTestCase {
    * @return Returns the dbName.
    */
   protected String getDbName() {
-    return this.dbName;
+    return contactsDatabaseName;
   }
+  
+  public Database getDb(String dbNameP) {
+    if (dbNameP == null)
+      throw new NullPointerException();
+    return getPoemDatabase();
+  }
+
+  public  Database getPoemDatabase() { 
+    return PoemDatabaseFactory.getDatabase(contactsDatabaseName,
+            "jdbc:hsqldb:mem:" + contactsDatabaseName,
+            "sa",
+            "","org.melati.example.contacts.ContactsDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+  protected void poemDatabaseUnchanged() { 
+    assertEquals("Setting changed", 0, getDb().getSettingTable().count());
+    assertEquals("Group changed", 1, getDb().getGroupTable().count());
+    assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
+    assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
+    assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
+    assertEquals("TableCategory changed", 4, getDb().getTableCategoryTable().count());
+    assertEquals("User changed", 2, getDb().getUserTable().count());
+    assertEquals("ColumnInfo changed", 81, getDb().getColumnInfoTable().count());
+    assertEquals("TableInfo changed", 12, getDb().getTableInfoTable().count());
+    checkTablesAndColumns(12,81);
+  }
+  
   public void testSetOwner() {
     try { 
       root.setOwner(z);

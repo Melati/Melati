@@ -1493,32 +1493,6 @@ table TimestampField
       ;
 }
 
-table Node
-  (displayorder = 40)
-  (category = "Data")
-  (description = "A Tree Node") {
-
-  (primary) Integer id
-    (displaylevel = record) 
-    (searchability = no);
-
-  String name 
-    (size = unlimited) 
-    (displaylevel = primary) 
-    (searchability = primary)
-    (description = "Contact Name")
-    (displayorderpriority = 0)
-    (width = 20);
-
-  Node parent
-    (nullable)
-    (displaylevel = record) 
-    (searchability = yes)
-    (displayorderpriority = 1)
-    (description = "Parent of this Node")
-    ;
-
-}
 
 table Protected
   (displayorder = 90)

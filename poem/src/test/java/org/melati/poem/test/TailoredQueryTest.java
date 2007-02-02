@@ -26,7 +26,6 @@ public class TailoredQueryTest extends PoemTestCase {
    */
   public TailoredQueryTest(String name) {
     super(name);
-    setDbName("poemtest");
   }
 
   /**
@@ -35,8 +34,8 @@ public class TailoredQueryTest extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
+    setDbName(everythingDatabaseName);
     super.setUp();
-    setDbName("poemtest");
   }
 
   /**

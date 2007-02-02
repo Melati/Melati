@@ -18,15 +18,14 @@ public class TestDatabaseTest extends PoemTestCase {
    */
   public TestDatabaseTest(String arg0) {
     super(arg0);
-    setDbName("poemtest");
   }
 
   /*
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName(everythingDatabaseName);
     super.setUp();
-    setDbName("poemtest");
   }
   /**
    * Test method for 'org.melati.poem.test.generated.TestDatabaseBase.getUserTable()'
@@ -53,7 +52,7 @@ public class TestDatabaseTest extends PoemTestCase {
     "longfield (from the data structure definition)" + 
     "bigdecimalfield (from the data structure definition)" + 
     "timestampfield (from the data structure definition)" + 
-    "node (from the data structure definition)" + 
+//    "node (from the data structure definition)" + 
     "everythingnormal (from the data structure definition)" + 
     "enextended (from the data structure definition)" + 
     "eaextended (from the data structure definition)" + 

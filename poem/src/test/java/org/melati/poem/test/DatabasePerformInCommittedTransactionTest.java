@@ -2,15 +2,15 @@ package org.melati.poem.test;
 
 import java.util.Enumeration;
 
-import org.melati.LogicalDatabase;
 import org.melati.poem.AccessToken;
+import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.Group;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabase;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 import org.melati.poem.User;
-import org.melati.util.DatabaseInitException;
 import org.melati.poem.transaction.WriteCommittedException;
 
 import junit.framework.Test;
@@ -141,8 +141,8 @@ public class DatabasePerformInCommittedTransactionTest
     if (dbName == null)
       throw new NullPointerException();
     try {
-      db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
-    } catch (DatabaseInitException e) {
+      db = (PoemDatabase)PoemDatabaseFactory.getDatabase(dbName);
+    } catch (DatabaseInitialisationPoemException e) {
       e.printStackTrace();
       fail(e.getMessage());
     }

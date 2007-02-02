@@ -4,14 +4,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 
-import org.melati.LogicalDatabase;
+import org.melati.poem.Database;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Column;
 import org.melati.poem.Persistent;
-import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
-import org.melati.util.DatabaseInitException;
+import org.melati.poem.DatabaseInitialisationPoemException;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -29,11 +29,11 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  private static PoemDatabase db = null;
-
   /** Default db name */
-  public static final String defaultDbName = "melatijunit";
-  private String dbName = defaultDbName;
+  public static final String poemDatabaseName = "melatijunit";  // change to poemtest
+  private String dbName = poemDatabaseName;
+  /** Everything db name */
+  public static final String everythingDatabaseName = "poemtest"; // change to Everything
   
   private AccessToken userToRunAs;
 
@@ -62,8 +62,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
   protected void setUp() throws Exception {
     super.setUp();
     problem = false;
-    setDbName(getDbName());
-    setDb(getDbName());
     assertEquals(4, getDb().getFreeTransactionsCount());
   }
 
@@ -120,17 +118,17 @@ public abstract class PoemTestCase extends TestCase implements Test {
     getDb().inSession(AccessToken.root, // HACK
         new PoemTask() {
           public void run() {
-            if (dbName.equals("poemtest")) {
-              poemtestUnchanged();
-            } 
-            if (dbName.equals("melatijunit")) {
-              melatijunitUnchanged();
+            if (dbName.equals(poemDatabaseName)) {
+              poemDatabaseUnchanged();
             }
+            if (dbName.equals(everythingDatabaseName)) {
+              everythingDatabaseUnchanged();
+            } 
           }
         });
 
   }
-  protected void melatijunitUnchanged() { 
+  protected void poemDatabaseUnchanged() { 
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
@@ -142,7 +140,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
     checkTablesAndColumns(9,69);
   }
-  protected void poemtestUnchanged() { 
+  protected void everythingDatabaseUnchanged() { 
     assertEquals("Setting changed",0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
@@ -153,8 +151,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
     //dumpTable(getDb().getColumnInfoTable());
     // Until table.dropColumnAndCommit() arrives...
     //assertEquals("ColumnInfo changed", 156, getDb().getColumnInfoTable().count());
-    assertEquals("TableInfo changed", 25, getDb().getTableInfoTable().count());
-    checkTables(25);
+    assertEquals("TableInfo changed", 24, getDb().getTableInfoTable().count());
+    checkTables(24);
   }
   
 
@@ -240,28 +238,48 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @param dbName
    *          The dbName to set.
    */
-  protected void setDbName(String dbName) {
-    this.dbName = dbName;
+  protected void setDbName(String dbNameP) {
+    this.dbName = dbNameP;
   }
 
   /**
    * @return Returns the db.
    */
-  public PoemDatabase getDb() {
-    return db;
+  public Database getDb() {
+    return getDb(getDbName());
   }
 
-  public void setDb(String dbName) {
-    if (dbName == null)
+  public Database getDb(String dbNameP) {
+    if (dbNameP == null)
       throw new NullPointerException();
+    Database dbL = null;
     try {
-      db = (PoemDatabase)LogicalDatabase.getDatabase(dbName);
-    } catch (DatabaseInitException e) {
+      if (dbNameP.equals(poemDatabaseName))
+        dbL = getPoemDatabase();
+      else if (dbNameP.equals(everythingDatabaseName))
+        dbL = getEverythingDatabase();
+      else throw new RuntimeException("Unrecognised db name: " + dbNameP);
+    } catch (DatabaseInitialisationPoemException e) {
       e.printStackTrace();
       fail(e.getMessage());
     }
+    return dbL;
   }
 
+  public Database getPoemDatabase() { 
+    return PoemDatabaseFactory.getDatabase(poemDatabaseName,
+            "jdbc:hsqldb:mem:" + poemDatabaseName,
+            "sa",
+            "","org.melati.poem.PoemDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+  public static Database getEverythingDatabase() { 
+    return PoemDatabaseFactory.getDatabase(everythingDatabaseName,
+            "jdbc:hsqldb:mem:" + everythingDatabaseName,
+            "sa",
+            "","org.melati.poem.test.TestDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;
     return userToRunAs;

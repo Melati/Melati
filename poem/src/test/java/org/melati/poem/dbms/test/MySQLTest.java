@@ -3,7 +3,6 @@
  */
 package org.melati.poem.dbms.test;
 
-import org.melati.LogicalDatabase;
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
@@ -14,6 +13,7 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.dbms.DbmsFactory;
+import org.melati.poem.test.PoemTestCase;
 import org.melati.poem.test.TestDatabase;
 
 /**
@@ -86,7 +86,7 @@ public class MySQLTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testGetIndexLength() throws Exception {
-    TestDatabase db = (TestDatabase)LogicalDatabase.getDatabase("poemtest");
+    TestDatabase db = (TestDatabase)PoemTestCase.getEverythingDatabase();
     assertEquals("", it.getIndexLength(db.getUserTable().troidColumn()));
     assertEquals("(30)", it.getIndexLength(db.getTableInfoTable().getDescriptionColumn()));
     assertEquals("(30)", it.getIndexLength(db.getBinaryFieldTable().getUnlimitedColumn()));

@@ -60,7 +60,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setLogSQL(false);
   }
 
-  protected void melatijunitUnchanged() { 
+  protected void poemDatabaseUnchanged() { 
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("extra");
     if (ci != null) { 
       System.err.println("Cleaning up: " + ci);
@@ -82,7 +82,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     if (extraTI != null) {
       extraTI.delete();
     }
-    super.melatijunitUnchanged();
+    super.poemDatabaseUnchanged();
   } 
 
   

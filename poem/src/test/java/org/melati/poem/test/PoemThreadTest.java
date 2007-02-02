@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.AlreadyInSessionPoemException;
 import org.melati.poem.Capability;
+import org.melati.poem.Column;
 import org.melati.poem.PoemThread;
 import org.melati.poem.transaction.ToTidyList;
 
@@ -118,7 +119,8 @@ public class PoemThreadTest extends PoemTestCase {
    * assertHasCapability(org.melati.poem.Capability)}.
    */
   public void testAssertHasCapability() {
-    Capability canWrite = (Capability)getDb().getCapabilityTable().getNameColumn().firstWhereEq("canRead");
+    Column c = getDb().getCapabilityTable().getNameColumn();
+    Capability canWrite = (Capability)c.firstWhereEq("canRead");
     assertNotNull(canWrite);
     PoemThread.assertHasCapability(canWrite);
     PoemThread.assertHasCapability(null);

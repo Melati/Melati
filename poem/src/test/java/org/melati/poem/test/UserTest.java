@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.Column;
 import org.melati.poem.Group;
 import org.melati.poem.GroupMembership;
 import org.melati.poem.PoemThread;
@@ -43,11 +44,12 @@ public class UserTest extends PoemTestCase {
     
   }
 
-  protected void melatijunitUnchanged() { 
-    User tester = (User)getDb().getUserTable().getNameColumn().firstWhereEq("tester");
+  protected void poemDatabaseUnchanged() { 
+    Column c = getDb().getUserTable().getNameColumn();
+    User tester = (User)c.firstWhereEq("tester");
     if (tester != null)
       tester.delete();
-    super.melatijunitUnchanged();
+    super.poemDatabaseUnchanged();
 
   }
   

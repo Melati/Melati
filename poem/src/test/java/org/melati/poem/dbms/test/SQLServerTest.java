@@ -3,7 +3,7 @@
  */
 package org.melati.poem.dbms.test;
 
-import org.melati.LogicalDatabase;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.dbms.DbmsFactory;
 import org.melati.poem.test.TestDatabase;
 
@@ -82,7 +82,7 @@ public class SQLServerTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testCanBeIndexed() throws Exception {
-    TestDatabase db = (TestDatabase)LogicalDatabase.getDatabase("poemtest");
+    TestDatabase db = (TestDatabase)PoemDatabaseFactory.getDatabase("poemtest");
     assertFalse(it.canBeIndexed(db.getTableInfoTable().getDescriptionColumn()));
     assertTrue(it.canBeIndexed(db.getUserTable().getNameColumn()));
   }

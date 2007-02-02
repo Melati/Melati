@@ -45,7 +45,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    */
   public MarkupLanguageTestAbstract(String arg0) {
     super(arg0);
-    setDbName("poemtest");
   }
   /**
    * Constructor.

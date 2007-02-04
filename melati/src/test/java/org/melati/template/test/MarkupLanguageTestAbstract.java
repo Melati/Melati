@@ -8,8 +8,10 @@ import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
+import org.melati.poem.Database;
 import org.melati.poem.Field;
-import org.melati.poem.test.Node;
+import org.melati.poem.PoemDatabaseFactory;
+import org.melati.util.test.Node;
 import org.melati.poem.test.PoemTestCase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
@@ -60,7 +62,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    */
   protected void setUp() throws Exception
   {
-    setDbName("poemtest");
+    setDbName("tree");
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
@@ -81,6 +83,23 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
       mc.setTemplateEngine(new WebmacroTemplateEngine());
     }
   }
+
+  
+  /**
+   * @return Returns the db.
+   */
+  public Database getDb() {
+    return getTreeDatabase();
+  }
+
+  public Database getTreeDatabase() { 
+    return PoemDatabaseFactory.getDatabase("tree",
+            "jdbc:hsqldb:mem:" + "tree",
+            "sa",
+            "","org.melati.util.test.TreeDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+  
   
   /**
    * Test method for rendered(Exception).

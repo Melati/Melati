@@ -108,10 +108,10 @@ public class MelatiDsdProcessorMojo extends AbstractMojo {
       getLog().info("Found DSD at " + foundDsdName + ":");
       dsdPath = foundDsdName;
     }
-    String modelDir = dsdPath.substring(0, dsdPath.lastIndexOf('/'));
-    String modelName = dsdPath.substring(dsdPath.lastIndexOf('/'), dsdPath
-        .lastIndexOf('.'));
-    String databaseTablesFileName = modelDir + "/generated" + modelName
+    String modelDir = dsdPath.substring(0, dsdPath.lastIndexOf('/') + 1);
+    String modelName = capitalised(dsdPath.substring(dsdPath.lastIndexOf('/') + 1, dsdPath
+        .lastIndexOf('.')));
+    String databaseTablesFileName = modelDir + "generated/" + modelName
         + "DatabaseBase.java";
 
     File databaseTablesFile = new File(databaseTablesFileName);

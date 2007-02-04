@@ -389,26 +389,18 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin-->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
+      </plugin-->
+      <!-- plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>src/site/checkstyle.xml</configLocation>
           <xrefLocation>xref</xrefLocation>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <minmemory>128m</minmemory>
-          <maxmemory>512</maxmemory>
-        </configuration>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -443,6 +435,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <tag>@deprecated</tag>
           <tag>HACK</tag>
           <tag>NOTE</tag>
+          <tag>HACK</tag>
          </tags>
         </configuration>
       </plugin>
@@ -454,6 +447,9 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
+         <excludePackageNames>org.melati.*</excludePackageNames>
+          <minmemory>128m</minmemory>
+          <maxmemory>512</maxmemory>
          <tags>
            <tag>
              <name>todo</name>
@@ -463,7 +459,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
            </tag>
            <tag>
              <name>generator</name>
-             <!-- Should be a combination of the letters Xaoptcmf -->
              <placement>mct</placement>
              <head>Generator</head>
            </tag>

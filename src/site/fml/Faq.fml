@@ -1,5 +1,16 @@
 <?xml version="1.0"?>
 <faqs title="Frequently Asked Questions" id="General FAQ">
+  <part id="poem">
+    <title>Poem</title>
+    <faq id="cooked">
+      <question>What is a cooked object?</question>
+      <answer>
+        <p>
+A cooked object is one which has attached metadata.
+        </p>
+      </answer>
+    </faq>
+  </part>
   <part id="dbs">
     <title>Database problems</title>
     <faq id="AccessTableNotFound">

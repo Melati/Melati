@@ -8,8 +8,27 @@
 <blockquote> 
   <h1 align="center">The Melati Project </h1>
   <h3 align="center">Release Notes </h3>
-  <h4 align="center">last updated 24/11/2005 - timp@paneris.org</h4>
+  <h4 align="center">last updated 29/01/2007 - timp</h4>
 
+  <h4 align="center">Release 0.7.5-RC6</h4>
+  <h2 align="left">Release 0.7.5-RC6</h2>
+  <h4 align="left">29/01/2007</h4>
+  <p>
+   Major refactoring of org.melati.utils such that all dependencies are now on 
+   poem.utils if the particular util is used in POEM at all.
+   <br />
+   The main work is in moving StringUtils, which is used extensivley in and
+   outside of POEM.
+   <br>
+   The other gotcha is the move of org.melati.util.MelatiLocale to
+   org.melati.poem.PoemLocale, so check your templates as well as your code.
+   <br />
+   The transaction api has moved to org.melati.poem.transaction.
+   <br/ > 
+   org.melati.LogicalDatabase now relies upon 
+   org.melati.poem.PoemDatabaseFactory.
+  </p>
+  <hr>
   <h4 align="center">Release 0.7.5</h4>
   <h2 align="left">Release 0.7.5</h2>
   <h4 align="left">06/02/2005</h4>

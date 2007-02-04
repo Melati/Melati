@@ -95,6 +95,30 @@
 
    <plugins>
     <plugin>
+     <groupId>org.melati</groupId>
+     <artifactId>maven-dsd-plugin</artifactId>
+     <executions>
+       <execution>
+         <phase>generate-sources</phase>
+         <goals>
+           <goal>generate</goal>
+         </goals>
+       </execution>
+     </executions>
+     <configuration>
+       <sourceDirectory>src/test/java</sourceDirectory>
+       <dsdPackage>org.melati.util.test</dsdPackage>
+       <dsdFile>Tree.dsd</dsdFile>
+     </configuration>
+     <dependencies>
+      <dependency>
+       <groupId>org.melati</groupId>
+       <artifactId>poem</artifactId>
+       <version>0.7.6-RC1</version>
+      </dependency>
+     </dependencies>
+    </plugin>
+    <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-jar-plugin</artifactId>
       <executions>
@@ -128,72 +152,7 @@
        <!-- exclude>**/PoemDatabaseTest.java</exclude-->
        <!-- exclude>**/PoemServletTest.java</exclude -->
        <!-- exclude>**/TemplateServletTest.java</exclude -->
-<!--
-       <exclude>**/*.java</exclude>
-       <exclude>**/TableTest.java</exclude>
-       <exclude>**/PersistentTest.java</exclude>
-       <exclude>**/ColumnInfoTest.java</exclude>
-       <exclude>**/SettingTest.java</exclude>
-       <exclude>**/PoemDatabaseTest.java</exclude>
-       <exclude>**/ColumnTest.java</exclude>
-       <exclude>**/CachedSelectionTest.java</exclude>
-       <exclude>**/FieldTest.java</exclude>
-       <exclude>**/TailoredQueryTest.java</exclude>
-       <exclude>**/SQLPoemTypeTest.java</exclude>
-       <exclude>**/CachedTailoredQueryTest.java</exclude>
-       <exclude>**/UserTest.java</exclude>
-       <exclude>**/SettingTableTest.java</exclude>
-       <exclude>**/NotNullableBinaryPoemTypeTest.java</exclude>
-       <exclude>**/NotNullableDatePoemTypeTest.java</exclude>
-       <exclude>**/NotNullableIntegerPoemTypeTest.java</exclude>
-       <exclude>**/CachedCountTest.java</exclude>
-       <exclude>**/BinaryTest.java</exclude>
-       <exclude>**/SqlExceptionPoemType.java</exclude>
-       <exclude>**/TestDatabaseTest.java</exclude>
-       <exclude>**/NotNullableReferencePoemTypeTest.java</exclude>
-       <exclude>**/NotNullableBooleanPoemTypeTest.java</exclude>
-       <exclude>**/NotNullableTimestampPoemTypeTest.java</exclude>
-       <exclude>**/NotNullableLongPoemTypeTest.java</exclude>
-       <exclude>**/CachedExistsTest.java</exclude>
-       <exclude>**/UserTableTest.java</exclude>
-       <exclude>**/ColumnTypePoemTypeTest.java</exclude>
-       <exclude>**/SearchabilityPoemTypeTest.java</exclude>
-       <exclude>**/TableInfoTest.java</exclude>
-       <exclude>**/NotNullableDefaultBigDecimalPoemTypeTest.java</exclude>
-       <exclude>**/GroupMembershipTest.java</exclude>
-       <exclude>**/NotNullablelntegrityFixPoemTypeTest.java</exclude>
-       <exclude>**/NullableIntegerPoemTypeTest.java</exclude>
-       <exclude>**/SizedAtomPoemTypeTest.java</exclude>
-       <exclude>**/GroupCapabilityTest.java</exclude>
-       <exclude>**/NotNullableSetBigDecimalPoemTypeTest.java</exclude>
-       <exclude>**/DisplayLevelPoemTypeTest.java</exclude>
-       <exclude>**/DisplayLevelTest.java</exclude>
-       <exclude>**/TableCategoryTest.java</exclude>
-       <exclude>**/NotNullableDoublePoemTypeTest.java</exclude>
-       <exclude>**/GroupTest.java</exclude>
-       <exclude>**/CapabilityTableTest.java</exclude>
-       <exclude>**/SqlExceptionPoemTypeTest.java</exclude>
-       <exclude>**/DeletedPoemTypeTest.java</exclude>
-       <exclude>**/EmptyAbstractTable.java</exclude>
-       <exclude>**/NotNullableSizedStringPoemTypeTest.java</exclude>
-       <exclude>**/NonSQLPoemTypeTest.java</exclude>
-       <exclude>**/NullableBinaryPoemTypeTest.java</exclude>
-       <exclude>**/NullableDefaultBigDecimalPoemTypeTest.java</exclude>
-       <exclude>**/NullableReferencePoemTypeTest.java</exclude>
-       <exclude>**/TroidPoemTypeTest.java</exclude>
-       <exclude>**/NullableSetBigDecimalPoemTypeTest.java</exclude>
-       <exclude>**/NotNullableUnlimitedStringPoemTypeTest.java</exclude>
-       <exclude>**/NotNullableSizedPasswordPoemTypeTest.java</exclude>
-       <exclude>**/RangedNullableIntegerPoemTypeTest.java</exclude>
-       <exclude>**/NullableUnlimitedStringPoemTypeTest.java</exclude>
-       <exclude>**/NullableTimestampPoemTypeTest.java</exclude>
-       <exclude>**/NullableSizedStringPoemTypeTest.java</exclude>
-       <exclude>**/NullableBooleanPoemTypeTest.java</exclude>
-       <exclude>**/NullableDoublePoemTypeTest.java</exclude>
-       <exclude>**/NullableDatePoemTypeTest.java</exclude>
-       <exclude>**/NullableLongPoemTypeTest.java</exclude>
-       <exclude>**/PersistentCaseTest.java</exclude>
--->
+       <!--exclude>**/*.java</exclude-->
       </excludes>
      </configuration>
     </plugin>

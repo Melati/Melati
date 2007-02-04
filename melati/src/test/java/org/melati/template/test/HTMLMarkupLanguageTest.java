@@ -1,13 +1,14 @@
 package org.melati.template.test;
 
 import org.melati.PoemContext;
-import org.melati.poem.test.Node;
+import org.melati.util.test.Node;
 import org.melati.template.ClassNameTempletLoader;
 import org.melati.template.HTMLAttributeMarkupLanguage;
 import org.melati.template.HTMLMarkupLanguage;
 import org.melati.util.JSStaticTree;
 import org.melati.poem.PoemLocale;
 import org.melati.util.Tree;
+import org.melati.util.test.TreeDatabase;
 
 
 /**
@@ -49,15 +50,14 @@ public class HTMLMarkupLanguageTest extends MarkupLanguageTestAbstract {
    */
   public void testRenderedTreeable() {
     try {
-
-      Node parent = (Node)getDb().getTable("node").newPersistent();
+      Node parent = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
       parent.setName("Mum");
       parent.makePersistent();
-      Node  kid1 = (Node)getDb().getTable("node").newPersistent();
+      Node kid1 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
       kid1.setName("K1");
       kid1.setParent(parent);
       kid1.makePersistent();
-      Node  kid2 = (Node)getDb().getTable("node").newPersistent();
+      Node kid2 = (Node)((TreeDatabase)getDb()).getNodeTable().newPersistent();
       kid2.setName("K2");
       kid2.setParent(parent);
       kid2.makePersistent();

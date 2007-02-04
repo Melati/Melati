@@ -76,7 +76,7 @@
          </dependency>
         </dependencies>
       </plugin>
-      <plugin>
+      <!--plugin>
        <groupId>org.codehaus.mojo</groupId>
        <artifactId>exec-maven-plugin</artifactId>
        <executions>
@@ -93,13 +93,11 @@
         <argument>-t=src/site/schemaspy/properties/hsqldb-file.properties</argument>
         <argument>-cp hsqldb-1.8.0.7.jar </argument>
         <argument>-db=contacts</argument>
-        <!-- argument>-desc=Melati Example Contacts Database Schema</argument -->
+        <argument>-desc=Melati Example Contacts Database Schema</argument>
         <argument>-dir=/dist/melati/db</argument>
         <argument>-u=sa</argument>
         <argument>-s=PUBLIC</argument>
         <argument>-o=target/site/schemaspy</argument>
-        <!-- argument>-i=.*</argument -->
-        <!-- argument>-x=</argument -->
 
        </arguments>
      </configuration>
@@ -115,7 +113,7 @@
         <version>1.8.0.7</version>
       </dependency>
      </dependencies>
-    </plugin>
+    </plugin-->
     </plugins>
   </build>
   <reporting>

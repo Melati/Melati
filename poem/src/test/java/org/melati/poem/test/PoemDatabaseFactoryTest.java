@@ -3,14 +3,17 @@
  */
 package org.melati.poem.test;
 
-import junit.framework.TestCase;
+import java.util.Vector;
+
+import org.melati.poem.PoemDatabaseFactory;
+
 
 /**
  * @author timp
  * @since 2 Feb 2007
  *
  */
-public class PoemDatabaseFactoryTest extends TestCase {
+public class PoemDatabaseFactoryTest extends PoemTestCase {
 
   /**
    * Constructor.
@@ -37,9 +40,44 @@ public class PoemDatabaseFactoryTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PoemDatabaseFactory#PoemDatabaseFactory()}.
+   * Test method for {@link org.melati.LogicalDatabase#getDatabase(java.lang.String)}.
+   * @throws Exception 
    */
-  public void testPoemDatabaseFactory() {
+  public void testGetDatabase() throws Exception {
+    try { 
+      PoemDatabaseFactory.getDatabase(null);
+      fail("Should have blown up");
+    } catch (NullPointerException e) {
+      e = null;
+    }
+  }
+
+
+  
+  /**
+   * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
+   */
+  public void testInitialisedDatabases() {
+    Vector them = PoemDatabaseFactory.initialisedDatabases();
+    assertEquals(1,them.size());
+  }
+
+  /**
+   * Test method for {@link org.melati.LogicalDatabase#getInitialisedDatabaseNames()}.
+   */
+  public void testGetInitialisedDatabaseNames() {
+    Vector them = PoemDatabaseFactory.getInitialisedDatabaseNames();
+    assertEquals(1,them.size()); 
+    String name = (String)them.get(0);
+    assertEquals("melatijunit", name);
+    
+  }
+
+  /**
+   * Test method for {@link org.melati.LogicalDatabase#setDatabaseDefs(java.util.Properties)}.
+   */
+  public void testSetDatabaseDefs() {
+    
   }
 
 }

@@ -1566,7 +1566,7 @@ public class Table implements Selectable {
   private String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
                                           boolean excludeUnselectable) {
-    if (whereClause == null || whereClause.trim().length() == 0) {
+    if (whereClause == null) {
       whereClause = "";
     } else {
       // We could skip this if both the flags are true, or in

@@ -46,10 +46,20 @@ This page last updated: $Date$ $Author$
     a <a href='Unification.html'>three way unification</a> of 
     jdbc, sql and java metadata.
     </li>
+    <li>
+    A type system which enables string fields to be polymorphic.
+    </li>
+    <li>
+    A transaction system which enables insulated sessions.
+    </li>
+    <li>
+    Rich metadata and code generation which enables attractive rendering.
+    </li>
    </ul>
   </li> 
 </ul>
 </p>
+</section>
 </body>
 </document>
 

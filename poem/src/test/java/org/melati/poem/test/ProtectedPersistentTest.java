@@ -23,7 +23,6 @@ public class ProtectedPersistentTest extends PersistentTest {
    */
   public ProtectedPersistentTest(String name) {
     super(name);
-    setDbName("poemtest");
   }
 
   /**
@@ -32,7 +31,7 @@ public class ProtectedPersistentTest extends PersistentTest {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    setDbName("poemtest");
+    setDbName(PoemTestCase.everythingDatabaseName);
   }
 
   /**

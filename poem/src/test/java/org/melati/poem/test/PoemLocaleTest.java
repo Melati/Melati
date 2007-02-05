@@ -1,0 +1,127 @@
+/**
+ * 
+ */
+package org.melati.poem.test;
+
+import java.text.DateFormat;
+import java.util.Locale;
+
+import org.melati.poem.PoemLocale;
+
+import junit.framework.TestCase;
+
+/**
+ * @author timp
+ * @since 5 Feb 2007
+ *
+ */
+public class PoemLocaleTest extends TestCase {
+
+  /**
+   * Constructor.
+   * @param name
+   */
+  public PoemLocaleTest(String name) {
+    super(name);
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see junit.framework.TestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see junit.framework.TestCase#tearDown()
+   */
+  protected void tearDown() throws Exception {
+    super.tearDown();
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#hashCode()}.
+   */
+  public void testHashCode() {
+    assertEquals(827867, PoemLocale.HERE.hashCode());
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#fromLanguageTag(java.lang.String)}.
+   */
+  public void testFromLanguageTag() {
+    assertEquals(PoemLocale.HERE, PoemLocale.fromLanguageTag("en-gb"));
+    assertEquals("en_AU", PoemLocale.fromLanguageTag("en-au").toString());
+
+    assertNull(PoemLocale.fromLanguageTag(""));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#PoemLocale(java.util.Locale)}.
+   */
+  public void testPoemLocale() {
+    try {
+      new PoemLocale(null);
+      fail("Should have blown up.");
+    } catch (NullPointerException e) { 
+      e = null;
+    }
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#locale()}.
+   */
+  public void testLocale() {
+    assertEquals("en_GB",PoemLocale.HERE.locale().toString());
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#monthName(int)}.
+   */
+  public void testMonthName() {
+    assertEquals("January", PoemLocale.HERE.monthName(1));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#shortMonthName(int)}.
+   */
+  public void testShortMonthName() {
+    assertEquals("Jan", PoemLocale.HERE.shortMonthName(1));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#dateFormat(int)}.
+   */
+  public void testDateFormat() {
+    assertEquals( DateFormat.getDateInstance(DateFormat.SHORT, 
+                                             PoemLocale.HERE.locale()).hashCode(), 
+    PoemLocale.HERE.dateFormat(3).hashCode());    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#timestampFormat(int)}.
+   */
+  public void testTimestampFormat() {
+    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#equals(java.lang.Object)}.
+   */
+  public void testEqualsObject() {
+    assertEquals(PoemLocale.HERE,PoemLocale.HERE);
+    assertEquals(PoemLocale.HERE,new PoemLocale(new Locale("en","GB")));
+    assertTrue(PoemLocale.HERE.equals(new PoemLocale(new Locale("en","GB"))));
+    assertFalse(PoemLocale.HERE.equals(new Exception()));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemLocale#toString()}.
+   */
+  public void testToString() {
+    assertEquals("en_GB",PoemLocale.HERE.toString());    
+  }
+
+}

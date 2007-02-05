@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import org.melati.poem.CachedCount;
 import org.melati.poem.CachedExists;
+import org.melati.poem.Capability;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnRenamePoemException;
 import org.melati.poem.DisplayLevel;
@@ -46,15 +47,14 @@ public class TableTest extends PoemTestCase {
    */
   public TableTest(String arg0) {
     super(arg0);
-    setDbName("poemtest");
   }
 
   /**
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName(PoemTestCase.everythingDatabaseName);
     super.setUp();
-    setDbName("poemtest");
   }
 
   /**
@@ -1264,11 +1264,11 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
-    assertEquals(new BigDecimal(0), ut.two().getRaw(
+    assertEquals(new BigDecimal(0.0), ut.two().getRaw(
         "testbigdecimalcol"));
-    assertEquals(new BigDecimal(0), ut.two().getCooked(
+    assertEquals(new BigDecimal(0.0), ut.two().getCooked(
         "testbigdecimalcol"));
-    assertEquals(new BigDecimal(0), ut.getObject(0).getCooked(
+    assertEquals(new BigDecimal(0.0), ut.getObject(0).getCooked(
         "testbigdecimalcol"));
     getDb().setLogSQL(false);
   }
@@ -1727,7 +1727,6 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#cachedCount(String, boolean, boolean)
    */
   public void testCachedCountStringBooleanBoolean() {
-
   }
 
   /**

@@ -1566,7 +1566,7 @@ public class Table implements Selectable {
   private String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
                                           boolean excludeUnselectable) {
-    if (whereClause == null) {
+    if (whereClause == null || whereClause.trim().length() == 0) {
       whereClause = "";
     } else {
       // We could skip this if both the flags are true, or in
@@ -1590,7 +1590,6 @@ public class Table implements Selectable {
         whereClause += s;
       }
     }
-
     return whereClause;
   }
 
@@ -2345,7 +2344,7 @@ public class Table implements Selectable {
    * It is the programmer's responsibility to ensure that the where clause 
    * is suitable for the target DBMS.
    * 
-   * NOTE that it is possible for the count to be written simultaneously, 
+   * NOTE It is possible for the count to be written simultaneously, 
    * but the cache will end up with the same result.
    * 
    * @param whereClause raw SQL selection clause appropriate for this DBMS

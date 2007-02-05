@@ -30,7 +30,6 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
    */
   public PreparedTailoredQueryTest(String name) {
     super(name);
-    setDbName("poemtest");
   }
 
   /**
@@ -39,8 +38,8 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
    * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp() throws Exception {
+    setDbName(PoemTestCase.everythingDatabaseName);
     super.setUp();
-    setDbName("poemtest");
   }
 
   /**

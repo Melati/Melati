@@ -148,7 +148,12 @@ public class UserTest extends PoemTestCase {
     User u = new User("tester","tester","tester");
     getDb().getUserTable().create(u); 
     assertEquals("tester",u.getName());
+    u.setName("tester2");
+    // get the logSQL line covered
+    getDb().setLogSQL(true);
+    PoemThread.commit();
     u.delete();
+    getDb().setLogSQL(false);
   }
 
   /**

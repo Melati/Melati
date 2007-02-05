@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp At paneris.org">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" POEM (Persistent Object Engine for Melati)">
+<P>
+  POEM provides:
+   <ul>
+    <li>
+    industrial-strength open source object database technology, delivering 
+    <b><a href="http://www.odmg.org/">ODMG 3.0</a></b> compliant Java
+    support.
+    </li>
+    <li>
+    an API which enables the database to be seen as a collection of 
+    Java objects, via a (genuinely!) easy-to-use 
+    <b>transparent persistence layer</b> on top of JDBC. 
+    </li>
+    <li>
+    a <b>low level security model</b> allowing restrictions to be 
+    placed on tables, rows and fields.
+    </li>
+    <li>
+    a <a href='Unification.html'>three way unification</a> of 
+    jdbc, sql and java metadata.
+    </li>
+   </ul>
+  </li> 
+</ul>
+</p>
+</body>
+</document>
+
+

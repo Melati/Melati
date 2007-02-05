@@ -5,6 +5,9 @@ package org.melati.poem.test;
 
 import java.util.Vector;
 
+import junit.framework.TestCase;
+
+import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 
 
@@ -13,7 +16,7 @@ import org.melati.poem.PoemDatabaseFactory;
  * @since 2 Feb 2007
  *
  */
-public class PoemDatabaseFactoryTest extends PoemTestCase {
+public class PoemDatabaseFactoryTest extends TestCase {
 
   /**
    * Constructor.
@@ -58,8 +61,10 @@ public class PoemDatabaseFactoryTest extends PoemTestCase {
    * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
+    getPoemDatabase();
+    getEverythingDatabase();
     Vector them = PoemDatabaseFactory.initialisedDatabases();
-    assertEquals(1,them.size());
+    assertEquals(2,them.size());
   }
 
   /**
@@ -67,9 +72,9 @@ public class PoemDatabaseFactoryTest extends PoemTestCase {
    */
   public void testGetInitialisedDatabaseNames() {
     Vector them = PoemDatabaseFactory.getInitialisedDatabaseNames();
-    assertEquals(1,them.size()); 
+    assertEquals(2,them.size()); 
     String name = (String)them.get(0);
-    assertEquals("melatijunit", name);
+    assertEquals(PoemTestCase.everythingDatabaseName, name);
     
   }
 
@@ -78,6 +83,20 @@ public class PoemDatabaseFactoryTest extends PoemTestCase {
    */
   public void testSetDatabaseDefs() {
     
+  }
+  public Database getPoemDatabase() { 
+    return PoemDatabaseFactory.getDatabase(PoemTestCase.poemDatabaseName,
+            "jdbc:hsqldb:mem:" + PoemTestCase.poemDatabaseName,
+            "sa",
+            "","org.melati.poem.PoemDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+  public static Database getEverythingDatabase() { 
+    return PoemDatabaseFactory.getDatabase(PoemTestCase.everythingDatabaseName,
+            "jdbc:hsqldb:mem:" + PoemTestCase.everythingDatabaseName,
+            "sa",
+            "","org.melati.poem.test.TestDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
   }
 
 }

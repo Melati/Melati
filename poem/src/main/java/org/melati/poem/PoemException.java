@@ -59,7 +59,7 @@ public abstract class PoemException extends RuntimeException {
 
   /** Constructor. */
   public PoemException(Exception subException) {
-    super(subException);
+    this((String)null, subException);
   }
 
   /** Constructor. */

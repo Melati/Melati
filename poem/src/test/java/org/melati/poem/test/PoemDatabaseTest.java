@@ -20,6 +20,7 @@ import org.melati.poem.ReadPersistentAccessPoemException;
 import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.Searchability;
 import org.melati.poem.Table;
+import org.melati.poem.TableCategory;
 import org.melati.poem.TableInfo;
 import org.melati.poem.User;
 import org.melati.poem.UserTable;
@@ -81,6 +82,16 @@ public class PoemDatabaseTest extends PoemTestCase {
     TableInfo extraTI = (TableInfo)getDb().getTableInfoTable().getNameColumn().firstWhereEq("test");        
     if (extraTI != null) {
       extraTI.delete();
+    }
+    
+    TableCategory normal = (TableCategory)getDb() .getTableCategoryTable().getNameColumn().firstWhereEq("Normal");
+    if (normal != null ) {
+      normal.delete();
+    }
+    try { 
+      getDb().sqlUpdate("DROP TABLE TEST");
+    } catch (ExecutingSQLPoemException e) { 
+      assertTrue(e.getMessage().indexOf("it does not exist") > 0);
     }
     super.poemDatabaseUnchanged();
   } 
@@ -451,7 +462,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     // Do not tidy up here
     // as we no longer have write priviledges.
-    // see our overidden version of melatijunitUnchanged()  
+    // see our overidden version of poemDatabaseUnchanged()  
     //ci.delete();
     //extra.troidColumn().getColumnInfo().delete();
     //info.delete();
@@ -743,10 +754,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#quotedName(String)
    */
   public void testQuotedName() {
-    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertEquals(getDb().quotedName("user"), "\"user\"");
-    else
-      assertEquals(getDb().quotedName("user"), "\"USER\"");
+    assertEquals("\"user\"", getDb().quotedName("user").toLowerCase() );
   }
 
   /**

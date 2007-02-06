@@ -364,7 +364,7 @@ public abstract class DbmsSpec extends TestCase {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   *    booleanTrueExtression(org.melati.poem.Column)}.
+   *    booleanTrueExpression(org.melati.poem.Column)}.
    */
   public void  testBooleanTrueExtression() { 
     

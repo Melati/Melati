@@ -356,6 +356,6 @@ public interface Dbms {
    * @param booleanColumn
    * @return an expresion that evaluates to True ie the column name or column name = 1
    */
-  String booleanTrueExtression(Column booleanColumn);
+  String booleanTrueExpression(Column booleanColumn);
   
 }

@@ -391,9 +391,9 @@ public class Oracle extends AnsiStandard {
   
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.dbms.Dbms#booleanTrueExtression(org.melati.poem.Column)
+   * @see org.melati.poem.dbms.Dbms#booleanTrueExpression(org.melati.poem.Column)
    */
-  public String booleanTrueExtression(Column booleanColumn) {
+  public String booleanTrueExpression(Column booleanColumn) {
     return booleanColumn.fullQuotedName() + "=1";
   }
 

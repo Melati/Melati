@@ -962,10 +962,14 @@ public class PersistentTest extends PoemTestCase {
     }
     User u = (User)getDb().getUserTable().newPersistent();
     // All the same as we have no deleted or unselectable columns
-    assertEquals("SELECT count(*) FROM \"USER\"", u.countMatchSQL(true, true));
-    assertEquals("SELECT count(*) FROM \"USER\"", u.countMatchSQL(true, false));
-    assertEquals("SELECT count(*) FROM \"USER\"", u.countMatchSQL(false, true));
-    assertEquals("SELECT count(*) FROM \"USER\"", u.countMatchSQL(false, false));
+    assertEquals("SELECT count(*) FROM " + 
+            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, true));
+    assertEquals("SELECT count(*) FROM " + 
+            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(true, false));
+    assertEquals("SELECT count(*) FROM " + 
+            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, true));
+    assertEquals("SELECT count(*) FROM " + 
+            getDb().getDbms().getQuotedName("user"), u.countMatchSQL(false, false));
 
   }
 
@@ -974,10 +978,11 @@ public class PersistentTest extends PoemTestCase {
    */
   public void testFromClause() {
     Persistent p = new Persistent(getDb().getUserTable(), new Integer(0));
-    assertEquals("\"USER\"", p.fromClause());
+    assertEquals(getDb().getDbms().getQuotedName("user"), p.fromClause());
     
     p.setOtherMatchTables(new Table[] {getDb().getCapabilityTable()});
-    assertEquals("\"USER\", \"CAPABILITY\"", p.fromClause());
+    assertEquals(getDb().getDbms().getQuotedName("user") + ", " + 
+            getDb().getDbms().getQuotedName("capability"), p.fromClause());
   }
 
   /**

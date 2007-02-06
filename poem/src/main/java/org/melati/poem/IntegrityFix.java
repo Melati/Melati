@@ -69,10 +69,6 @@ public interface IntegrityFix {
    * Persistent#delete(Map)}, this gives the application programmer 
    * fine-grained control over how referential integrity is maintained.
    *
-   * NOTE It's critically important that the application programmer
-   * really does do something about maintaining integrity, since we
-   * don't do any re-checking afterwards. The default policy is to prevent 
-   * deletion if there are any references to an object.
    *
    * @param referee   The object which is about to be deleted.
 

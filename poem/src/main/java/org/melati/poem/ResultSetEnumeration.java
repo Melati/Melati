@@ -102,10 +102,8 @@ public abstract class ResultSetEnumeration implements SkipEnumeration {
   /**
    * Return the next element.
    * <p>
-   * Note that a {@link RowDisappearedPoemException} might be thrown
+   * NOTE A {@link RowDisappearedPoemException} might be thrown
    * but does not prevent subsequent use of the object.
-   * This behaviour is now relied upon in {@link StandardIntegrityFix}.
-   * {@inheritDoc}
    * @see java.util.Enumeration#nextElement()
    */
   public synchronized Object nextElement() throws NoSuchElementException {

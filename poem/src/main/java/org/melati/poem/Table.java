@@ -1557,11 +1557,12 @@ public class Table implements Selectable {
    * It is the programmer's responsibility to ensure that the where clause 
    * is suitable for the target DBMS.
    * 
+   * FIXME Make private again after debugging
    * @param whereClause SQL fragment
    * @param includeDeleted Flag as to whether to include soft deleted records
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
-  private String appendWhereClauseFilters(String whereClause,
+  public String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
                                           boolean excludeUnselectable) {
     if (whereClause == null || whereClause.trim().length() == 0) {
@@ -1572,12 +1573,15 @@ public class Table implements Selectable {
       whereClause = "(" + whereClause + ")";
     }
 
-    if (deletedColumn != null && ! includeDeleted) {
-      if (whereClause.length() > 0) {
-        whereClause += " AND";
+    if (deletedColumn != null ) {
+      System.err.println("We have a deleted");
+      if(! includeDeleted) {
+        if (whereClause.length() > 0) {
+          whereClause += " AND";
+        }
       }
-      whereClause += " NOT " + dbms().booleanTrueExtression(deletedColumn);
-    }
+      whereClause += " NOT " + dbms().booleanTrueExpression(deletedColumn);
+    }System.err.println("deleted is null");
 
     if (excludeUnselectable){
       String s = canSelectClause();
@@ -1609,10 +1613,8 @@ public class Table implements Selectable {
     if (canSelect == null ||
         accessToken instanceof RootAccessToken) {
       return null;
-    } else if (accessToken == null) {
-      return canSelect.fullQuotedName() + " IS NULL";
     } else if (accessToken instanceof User) {
-      return "(" +
+      String query =  "(" +
         canSelect.fullQuotedName() + " IS NULL OR EXISTS( SELECT 1 FROM " +
         quotedName() +
         ", " +
@@ -1633,7 +1635,9 @@ public class Table implements Selectable {
         " = " +
         canSelect.fullQuotedName() +
         "))";
-    } else {
+      System.err.println(query);
+      return query;
+    } else {  // a read only guest for example
       return canSelect.fullQuotedName() + " IS NULL";
     }
   }

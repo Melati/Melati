@@ -657,21 +657,19 @@ public class Table implements Selectable {
     if (column.getType().getNullable()) {
       dbModifyStructure(
           "ALTER TABLE " + quotedName() +
-          " ADD COLUMN " + column.quotedName() +
+          " ADD " + column.quotedName() +
           " " + column.getSQLType().sqlDefinition(dbms()));
     } else {
       dbModifyStructure(
           "ALTER TABLE " + quotedName() +
-          " ADD COLUMN " + column.quotedName() +
+          " ADD " + column.quotedName() +
           " " + column.getSQLType().sqlTypeDefinition(dbms()));
       dbModifyStructure(
           "UPDATE " + quotedName() +
           " SET " + column.quotedName() +
           " = " + StringUtils.quoted(column.getSQLType().sqlDefaultValue(),'\''));
       dbModifyStructure(
-          "ALTER TABLE " + quotedName() +
-          " ALTER COLUMN " + column.quotedName() +
-          " SET NOT NULL");      
+          dbms().alterColumnNotNullableSQL(name, column));      
     }
   }
 
@@ -1578,7 +1576,7 @@ public class Table implements Selectable {
       if (whereClause.length() > 0) {
         whereClause += " AND";
       }
-      whereClause += " NOT " + deletedColumn.quotedName();
+      whereClause += " NOT " + dbms().booleanTrueExtression(deletedColumn);
     }
 
     if (excludeUnselectable){

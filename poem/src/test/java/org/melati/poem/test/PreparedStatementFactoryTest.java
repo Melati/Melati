@@ -65,17 +65,13 @@ public class PreparedStatementFactoryTest extends PoemTestCase {
   public void testPreparedStatement() throws Exception {
     PreparedStatementFactory it = new PreparedStatementFactory(getDb(),
         getDb().getUserTable().selectionSQL(null,null,null,true,false));
-    assertTrue(it.toString().endsWith( 
+    //System.err.println(it.toString());
+    assertTrue(it.toString().toUpperCase().endsWith( 
         "(SQL: SELECT \"USER\".\"ID\" FROM \"USER\" ORDER BY \"USER\".\"NAME\")"));
     PreparedStatement ps = it.preparedStatement();
-   // System.err.println(ps.toString());
     ResultSet rs = ps.executeQuery();
     rs.next();
     int troid = rs.getInt(1);
-    assertEquals(1,troid);
-    rs = ps.getResultSet();
-    rs.next();
-    troid = rs.getInt(1);
     assertEquals(1,troid);
   }
 

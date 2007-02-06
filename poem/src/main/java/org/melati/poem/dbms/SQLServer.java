@@ -49,23 +49,24 @@
 package org.melati.poem.dbms;
 
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-//import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.melati.poem.BinaryPoemType;
+import org.melati.poem.BooleanPoemType;
 import org.melati.poem.Column;
 import org.melati.poem.DatePoemType;
+import org.melati.poem.DoublePoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
+import org.melati.poem.util.StringUtils;
 
 /**
  * A Driver for the Microsoft SQL server.
- * 
- * @todo Testing required, code has been added to keep up with the interface 
- * without testing.
  */
 public class SQLServer extends AnsiStandard {
 
@@ -75,19 +76,28 @@ public class SQLServer extends AnsiStandard {
    */
   public static final int sqlServerTextHack = 2333;
 
+  public static final int sqlServerMaxBinarySize = 2147483647;
+
   /**
    * Constructor.
    */
   public SQLServer() {
-    //buggy
-    //setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
-    //setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); //does not work
-    //setDriverClassName("com.ashna.jturbo.driver.Driver"); //works
-    //setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
-    // does not return indices without schema name
-    //setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
-    setDriverClassName("com.inet.tds.TdsDriver");
-    //FreeTDS driver now have many unimplemented features and => does not work.
+    // buggy
+    // setDriverClassName("com.merant.datadirect.jdbc.sqlserver.SQLServerDriver");
+    // setDriverClassName("sun.jdbc.odbc.JdbcOdbcDriver"); //does not work
+    // setDriverClassName("com.ashna.jturbo.driver.Driver"); //works
+    // setDriverClassName("com.jnetdirect.jsql.JSQLDriver"); //works
+
+    // 2003
+    // does not return indices without schema name ?
+    // setDriverClassName("com.microsoft.jdbc.sqlserver.SQLServerDriver");
+    // FreeTDS driver has many unimplemented features and => does not work.
+
+    // Works with 2003
+    // setDriverClassName("com.inet.tds.TdsDriver");
+
+    // 2005
+    setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
   }
 
   /**
@@ -99,28 +109,28 @@ public class SQLServer extends AnsiStandard {
    * @see org.melati.poem.dbms.Ansistandard#getConnection()
    */
   public String getSchema() {
-    return schema;
+    return null;
   }
 
-  // Commented out as PMD objects to over riding method which only call 
+  // Commented out as PMD objects to over riding method which only call
   // super.
-  //public String getQuotedName(String name) {
-    //if you don't want to set 'use ANSI quoted identifiers' database property
-    //to 'true' (on SQL Server)
+  // public String getQuotedName(String name) {
+  // if you don't want to set 'use ANSI quoted identifiers' database property
+  // to 'true' (on SQL Server)
 
-    /*
-     * if(name.equalsIgnoreCase("nullable")) return "\"" + name+"\"";
-     * if(name.equalsIgnoreCase("unique")) return "\"" + name+"\"";
-     * if(name.equalsIgnoreCase("user")) return "q" + name;
-     * if(name.equalsIgnoreCase("group")) return "q" + name; return name;
-     */
+  /*
+   * if(name.equalsIgnoreCase("nullable")) return "\"" + name+"\"";
+   * if(name.equalsIgnoreCase("unique")) return "\"" + name+"\"";
+   * if(name.equalsIgnoreCase("user")) return "q" + name;
+   * if(name.equalsIgnoreCase("group")) return "q" + name; return name;
+   */
 
-    //if you already set 'use ANSI quoted identifiers' property to 'true'
-    //return super.getQuotedName(name);
-  //}
-
+  // if you already set 'use ANSI quoted identifiers' property to 'true'
+  // return super.getQuotedName(name);
+  // }
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.AnsiStandard#getSqlDefinition(java.lang.String)
    */
   public String getSqlDefinition(String sqlTypeName) {
@@ -138,11 +148,12 @@ public class SQLServer extends AnsiStandard {
 
   /**
    * {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.AnsiStandard#getStringSqlDefinition(int)
    */
   public String getStringSqlDefinition(int size) throws SQLException {
     if (size < 0) { // Don't use TEXT as it doesn't support
-      //indexing or comparison
+      // indexing or comparison
       return "VARCHAR(" + sqlServerTextHack + ")";
     }
     return super.getStringSqlDefinition(size);
@@ -151,14 +162,17 @@ public class SQLServer extends AnsiStandard {
   /**
    * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
    */
-  public static class MSSQLStringPoemType extends StringPoemType {
+  public static class SQLServerStringPoemType extends StringPoemType {
 
     /**
      * Constructor.
-     * @param nullable nullability
-     * @param size length
+     * 
+     * @param nullable
+     *          nullability
+     * @param size
+     *          length
      */
-    public MSSQLStringPoemType(boolean nullable, int size) {
+    public SQLServerStringPoemType(boolean nullable, int size) {
       super(nullable, size);
     }
 
@@ -166,35 +180,76 @@ public class SQLServer extends AnsiStandard {
     // We set size to sqlServerTextHack for our Text type
     protected boolean _canRepresent(SQLPoemType other) {
       return (getSize() < 0 || getSize() == 2147483647
-          || getSize() == sqlServerTextHack || getSize() >= ((StringPoemType) other)
-          .getSize());
+              || getSize() == sqlServerTextHack || getSize() >= ((StringPoemType)other)
+              .getSize());
     }
 
     /**
      * {@inheritDoc}
+     * 
      * @see org.melati.poem.BasePoemType#canRepresent(PoemType)
      */
-    public PoemType canRepresent(PoemType other) {
-      return other instanceof StringPoemType
-          && _canRepresent((StringPoemType) other)
-          && !(!getNullable() && ((StringPoemType) other).getNullable())
-          ? other
-          : null;
-    }
+    /*
+     * public PoemType canRepresent(PoemType other) { return other instanceof
+     * StringPoemType && _canRepresent((StringPoemType) other) &&
+     * !(!getNullable() && ((StringPoemType) other).getNullable()) ? other :
+     * null; }
+     */
+  }
 
+  /**
+   * Accomodate our String size hack. {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.AnsiStandard#canRepresent
+   */
+  public PoemType canRepresent(PoemType storage, PoemType type) {
+    if (storage instanceof StringPoemType && type instanceof StringPoemType) {
+      if (((StringPoemType)storage).getSize() == sqlServerTextHack
+              && ((StringPoemType)type).getSize() == -1
+              && !(!storage.getNullable() && type.getNullable())) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else if (storage instanceof BinaryPoemType
+            && type instanceof BinaryPoemType) {
+      if (((BinaryPoemType)storage).getSize() == sqlServerMaxBinarySize
+              && ((BinaryPoemType)type).getSize() == -1
+              && !(!storage.getNullable() && type.getNullable())) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else if (storage instanceof SQLServerDatePoemType
+            && type instanceof TimestampPoemType) {
+      if (!(!storage.getNullable() && type.getNullable())) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else {
+      return super.canRepresent(storage, type);
+    }
   }
 
   /**
    * Translates a MSSQL Date into a Poem <code>DatePoemType</code>.
    */
-  public static class MSSQLDatePoemType extends DatePoemType {
+  public static class SQLServerDatePoemType extends DatePoemType {
 
     /**
      * Constructor.
-     * @param nullable nullability
+     * 
+     * @param nullable
+     *          nullability
      */
-    public MSSQLDatePoemType(boolean nullable) {
+    public SQLServerDatePoemType(boolean nullable) {
       super(Types.DATE, "DATETIME", nullable);
+    }
+
+    protected boolean _canRepresent(SQLPoemType other) {
+      return other instanceof DatePoemType
+              || other instanceof TimestampPoemType;
     }
 
   }
@@ -202,69 +257,146 @@ public class SQLServer extends AnsiStandard {
   /**
    * Translates a MSSQL Date into a Poem <code>TimestampPoemType</code>.
    */
-  public static class MSSQLTimestampPoemType extends TimestampPoemType {
+  public static class SQLServerTimestampPoemType extends TimestampPoemType {
 
     /**
      * Constructor.
-     * @param nullable nullability
+     * 
+     * @param nullable
+     *          nullability
      */
-    public MSSQLTimestampPoemType(boolean nullable) {
+    public SQLServerTimestampPoemType(boolean nullable) {
       super(Types.TIMESTAMP, "DATETIME", nullable);
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.AnsiStandard#sqlBooleanValueOfRaw(java.lang.Object)
+   */
+  public String sqlBooleanValueOfRaw(Object raw) {
+    if (((Boolean)raw).booleanValue())
+      return "1";
+    else
+      return "0";
+  }
+
+  /**
+   * Translates an Oracle Boolean into a Poem <code>BooleanPoemType</code>.
+   */
+  public static class SQLServerBooleanPoemType extends BooleanPoemType {
+
+    /**
+     * Constructor.
+     * 
+     * @param nullable
+     *          nullability
+     */
+    public SQLServerBooleanPoemType(boolean nullable) {
+      super(nullable);
+    }
+
+    protected Object _getRaw(ResultSet rs, int col) throws SQLException {
+      synchronized (rs) {
+        boolean v = rs.getBoolean(col);
+        return rs.wasNull() ? null : (v ? Boolean.TRUE : Boolean.FALSE);
+      }
+    }
+
+    protected void _setRaw(PreparedStatement ps, int col, Object bool)
+            throws SQLException {
+      ps.setInt(col, ((Boolean)bool).booleanValue() ? 1 : 0);
     }
 
   }
 
   /**
    * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms#getLongSqlDefinition()
+   */
+  public String getLongSqlDefinition() {
+    return "BIGINT";
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms#getBinarySqlDefinition(int)
+   */
+  public String getBinarySqlDefinition(int size) throws SQLException {
+    if (size < 0)
+      return "VARBINARY(MAX)";
+
+    return "VARBINARY(" + size + ")";
+  }
+
+  /**
+   * {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.AnsiStandard#defaultPoemTypeOfColumnMetaData(
-   *                                            java.sql.ResultSet)
+   *      java.sql.ResultSet)
    */
   public SQLPoemType defaultPoemTypeOfColumnMetaData(ResultSet md)
-      throws SQLException {
+          throws SQLException {
 
     /*
-     * ResultSetMetaData rsmd = md.getMetaData(); int cols =
-     * rsmd.getColumnCount(); for (int i = 1; i <= cols; i++) { String table =
-     * rsmd.getTableName(i); System.err.println("table name: " + table); String
-     * column = rsmd.getColumnName(i); System.err.println("column name: " +
-     * column); int type = rsmd.getColumnType(i); System.err.println("type: " +
-     * type);s String typeName = rsmd.getColumnTypeName(i);
-     * System.err.println("type Name: " + typeName); String className =
-     * rsmd.getColumnClassName(i); System.err.println("class Name: " +
-     * className); System.err.println("String val: " + md.getString(i));
-     * System.err.println(""); }
-     */
+    ResultSetMetaData rsmd = md.getMetaData();
+    int cols = rsmd.getColumnCount();
+    for (int i = 1; i <= cols; i++) {
+      String table = rsmd.getTableName(i);
+      System.err.println("table name: " + table);
+      String column = rsmd.getColumnName(i);
+      System.err.println("column name: " + column);
+      int type = rsmd.getColumnType(i);
+      System.err.println("type: " + type);
+      String typeName = rsmd.getColumnTypeName(i);
+      System.err.println("type Name: " + typeName);
+      String className = rsmd.getColumnClassName(i);
+      System.err.println("class Name: " + className);
+      System.err.println("String val: " + md.getString(i));
+      System.err.println("");
+    }
+    */
     if (md.getString("TYPE_NAME").equals("text"))
-      return new MSSQLStringPoemType(
-          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-              .getInt("COLUMN_SIZE"));
+      return new SQLServerStringPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+                      .getInt("COLUMN_SIZE"));
     // We use a magic number for text fields
     if (md.getString("TYPE_NAME").equals("varchar")
-        && md.getInt("COLUMN_SIZE") == sqlServerTextHack)
-      return new MSSQLStringPoemType(
-          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-              .getInt("COLUMN_SIZE"));
+            && md.getInt("COLUMN_SIZE") == sqlServerTextHack)
+      return new SQLServerStringPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+                      .getInt("COLUMN_SIZE"));
     if (md.getString("TYPE_NAME").equals("char"))
       return new StringPoemType(
-          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-              .getInt("COLUMN_SIZE"));
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+                      .getInt("COLUMN_SIZE"));
+    if (md.getString("TYPE_NAME").equals("float"))
+      return new DoublePoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     if (md.getString("TYPE_NAME").equals("datetime"))
-      return new MSSQLDatePoemType(
-          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+      return new SQLServerDatePoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+    if (md.getString("TYPE_NAME").equals("bit"))
+      return new SQLServerBooleanPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     /*
-     * // MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP) They don't mean what
-     * we mean by timestamp if( md.getString("TYPE_NAME").equals("timestamp"))
-     * return new TimestampPoemType(md.getInt("NULLABLE")==
-     * DatabaseMetaData.columnNullable);
+     * // MSSQL returns type -2 (BINARY) not 93 (TIMESTAMP) 
+     * // They don't mean what we mean by timestamp
+     * // They mean a one-per-record record creation timestamp  
+     * if( md.getString("TYPE_NAME").equals("timestamp"))
+     *   return new TimestampPoemType(md.getInt("NULLABLE")== DatabaseMetaData.columnNullable);
      */
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
   /**
    * Ignore <TT>dtproperties</TT> as it is a 'System' table used to store
-   * Entity Relationship diagrams which haVE a jdbc type of TABLE when it should
-   * probably have a jdbc type of 'SYSTEM TABLE'.
-   * {@inheritDoc}
+   * Entity Relationship diagrams which have a jdbc type of TABLE when it should
+   * probably have a jdbc type of 'SYSTEM TABLE'. {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
@@ -286,29 +418,74 @@ public class SQLServer extends AnsiStandard {
    */
   public boolean canBeIndexed(Column column) {
     PoemType t = column.getType();
-    if (t instanceof StringPoemType && ((StringPoemType) t).getSize() < 0)
+    if (t instanceof StringPoemType && ((StringPoemType)t).getSize() < 0)
       return false;
     return true;
   }
+
   /**
-   * Slightly different - embrace and extend.
    * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
+   */
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    }
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+
+    return term1 + " LIKE " + term2;
+  }
+
+  /**
+   * Slightly different - embrace and extend. {@inheritDoc}
+   * 
    * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */
-  public String getForeignKeyDefinition(String tableName, String fieldName, 
-      String targetTableName, String targetTableFieldName, String fixName) {
+  public String getForeignKeyDefinition(String tableName, String fieldName,
+          String targetTableName, String targetTableFieldName, String fixName) {
     StringBuffer sb = new StringBuffer();
-    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES " + 
-              getQuotedName(targetTableName) + 
-              "(" + getQuotedName(targetTableFieldName) + ")");
+    sb.append(" ADD FOREIGN KEY (" + getQuotedName(fieldName) + ") REFERENCES "
+            + getQuotedName(targetTableName) + "("
+            + getQuotedName(targetTableFieldName) + ")");
     if (fixName.equals("prevent"))
       sb.append(" ON DELETE NO ACTION");
     if (fixName.equals("delete"))
-      sb.append(" ON DELETE CASCADE");      
+      sb.append(" ON DELETE CASCADE");
     if (fixName.equals("clear"))
-      sb.append(" ON DELETE SET NULL");      
+      sb.append(" ON DELETE SET NULL");
     return sb.toString();
   }
 
-}
+  /**
+   * Accommodate SQLServer syntax. {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
+   *      java.lang.String)
+   */
+  public String alterColumnNotNullableSQL(String tableName, Column column) {
+    return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
+            + getQuotedName(column.getName()) + " "
+            + column.getSQLType().sqlDefinition(this);
+  }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms#selectLimit(java.lang.String, int)
+   */
+  public String selectLimit(String querySelection, int limit) {
+    return "SELECT TOP " + limit + querySelection;
+  }
+
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#booleanTrueExtression(org.melati.poem.Column)
+   */
+  public String booleanTrueExtression(Column booleanColumn) {
+    return booleanColumn.fullQuotedName() + "=1";
+  }
+
+  
+}

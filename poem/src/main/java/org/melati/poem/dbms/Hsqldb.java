@@ -145,7 +145,7 @@ public class Hsqldb extends AnsiStandard {
   }
 
   /**
-   * Accomodate or String size hack. 
+   * Accomodate our String size hack. 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent
    */

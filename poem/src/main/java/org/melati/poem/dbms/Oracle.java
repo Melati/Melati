@@ -52,6 +52,7 @@ import java.sql.SQLException;
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Column;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
@@ -387,5 +388,14 @@ public class Oracle extends AnsiStandard {
         " PRIMARY KEY(" + getQuotedName(fieldName) + "))");
     return sb.toString();
   }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#booleanTrueExtression(org.melati.poem.Column)
+   */
+  public String booleanTrueExtression(Column booleanColumn) {
+    return booleanColumn.fullQuotedName() + "=1";
+  }
+
 
 }

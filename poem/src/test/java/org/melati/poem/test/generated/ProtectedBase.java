@@ -79,6 +79,10 @@ public abstract class ProtectedBase extends Persistent {
   * canSelect - Capability required to select this row  
   */
   protected Integer canSelect;
+ /**
+  * deleted - Whether this record is existant  
+  */
+  protected Boolean deleted;
 
 
  /**
@@ -832,6 +836,111 @@ public abstract class ProtectedBase extends Persistent {
   */
   public Field getCanSelectField() throws AccessPoemException {
     Column c = _getProtectedTable().getCanSelectColumn();
+    return new Field(c.getRaw(this), c);
+  }
+
+
+ /**
+  * Retrieves the <code>Deleted</code> value, without locking, 
+  * for this <code>Protected</code> <code>Persistent</code>.
+  *
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @return the Boolean deleted
+  */
+  public Boolean getDeleted_unsafe() {
+    return deleted;
+  }
+
+
+ /**
+  * Sets the <code>Deleted</code> value directly, without checking, 
+  * for this Protected <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateBaseMethods 
+  * @param cooked  the pre-validated value to set
+  */
+  public void setDeleted_unsafe(Boolean cooked) {
+    deleted = cooked;
+  }
+
+ /**
+  * Retrieves the Deleted value, with locking, for this 
+  * <code>Protected</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether this record is existant  
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights 
+  * @return the value of the field <code>Deleted</code> for this 
+  *         <code>Protected</code> <code>Persistent</code>  
+  */
+
+  public Boolean getDeleted()
+      throws AccessPoemException {
+    readLock();
+    return getDeleted_unsafe();
+  }
+
+
+ /**
+  * Sets the <code>Deleted</code> value, with checking, for this 
+  * <code>Protected</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether this record is existant  
+  * 
+  * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
+  * @param cooked  a validated <code>int</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+  public void setDeleted(Boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    _getProtectedTable().getDeletedColumn().
+      getType().assertValidCooked(cooked);
+    writeLock();
+    setDeleted_unsafe(cooked);
+  }
+
+ /**
+  * Sets the <code>Deleted</code> value, with checking, 
+  * from a <code>boolean</code>, for this 
+  * <code>Protected</code> <code>Persistent</code>.
+  * Field description: 
+  *   Whether this record is existant  
+  * 
+  * 
+  * @generator org.melati.poem.prepro.BooleanFieldDef#generateBaseMethods 
+  * @param cooked  a <code>boolean</code> 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @throws ValidationPoemException 
+  *         if the value is not valid
+  */
+
+  public final void setDeleted(boolean cooked)
+      throws AccessPoemException, ValidationPoemException {
+    setDeleted(cooked ? Boolean.TRUE : Boolean.FALSE);
+  }
+
+
+ /**
+  * Retrieves the <code>Deleted</code> value as a <code>Field</code>
+  * from this <code>Protected</code> <code>Persistent</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateFieldCreator 
+  * @throws AccessPoemException 
+  *         if the current <code>AccessToken</code> 
+  *         does not confer write access rights
+  * @return the Boolean deleted
+  */
+  public Field getDeletedField() throws AccessPoemException {
+    Column c = _getProtectedTable().getDeletedColumn();
     return new Field(c.getRaw(this), c);
   }
 }

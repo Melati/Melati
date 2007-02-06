@@ -72,6 +72,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
     spyMission.setCanDelete(spyMaster);
     spyMission.setSpy(spy);
     spyMission.setMission("impossible");
+    spyMission.setDeleted(false);
     spyMission.makePersistent();
 
     final Column canReadColumn = db.getProtectedTable().getCanReadColumn();

@@ -3,6 +3,7 @@
 package org.melati.poem.test.generated;
 
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.BooleanPoemType;
 import org.melati.poem.Capability;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -38,6 +39,7 @@ public class ProtectedTableBase extends Table {
   private Column col_canWrite = null;
   private Column col_canDelete = null;
   private Column col_canSelect = null;
+  private Column col_deleted = null;
 
  /**
   * Constructor. 
@@ -471,6 +473,57 @@ public class ProtectedTableBase extends Table {
             ((Protected)g).setCanSelectTroid((Integer)raw);
           }
         });
+
+    defineColumn(col_deleted =
+        new Column(this, "deleted",
+                   new BooleanPoemType(false),
+                   DefinitionSource.dsd) { 
+          public Object getCooked(Persistent g)
+              throws AccessPoemException, PoemException {
+            return ((Protected)g).getDeleted();
+          }
+
+          public void setCooked(Persistent g, Object cooked)
+              throws AccessPoemException, ValidationPoemException {
+            ((Protected)g).setDeleted((Boolean)cooked);
+          }
+
+          public Field asField(Persistent g) {
+            return ((Protected)g).getDeletedField();
+          }
+
+          protected DisplayLevel defaultDisplayLevel() {
+            return DisplayLevel.record;
+          }
+
+          protected int defaultDisplayOrder() {
+            return 7;
+          }
+
+          protected String defaultDescription() {
+            return "Whether this record is existant ";
+          }
+
+          public Object getRaw_unsafe(Persistent g)
+              throws AccessPoemException {
+            return ((Protected)g).getDeleted_unsafe();
+          }
+
+          public void setRaw_unsafe(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Protected)g).setDeleted_unsafe((Boolean)raw);
+          }
+
+          public Object getRaw(Persistent g)
+              throws AccessPoemException {
+            return ((Protected)g).getDeleted();
+          }
+
+          public void setRaw(Persistent g, Object raw)
+              throws AccessPoemException {
+            ((Protected)g).setDeleted((Boolean)raw);
+          }
+        });
   }
 
 
@@ -555,6 +608,18 @@ public class ProtectedTableBase extends Table {
   */
   public final Column getCanSelectColumn() {
     return col_canSelect;
+  }
+
+
+ /**
+  * Retrieves the <code>Deleted</code> <code>Column</code> for this 
+  * <code>Protected</code> <code>Table</code>.
+  * 
+  * @generator org.melati.poem.prepro.FieldDef#generateColAccessor 
+  * @return the deleted <code>Column</code>
+  */
+  public final Column getDeletedColumn() {
+    return col_deleted;
   }
 
 

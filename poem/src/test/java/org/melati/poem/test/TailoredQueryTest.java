@@ -282,6 +282,7 @@ public class TailoredQueryTest extends PoemTestCase {
     spyMission.setCanDelete(spyMaster);
     spyMission.setSpy(spy);
     spyMission.setMission("impossible");
+    spyMission.setDeleted(false);
     spyMission.makePersistent();
     
     Column[] columns = { 
@@ -296,6 +297,7 @@ public class TailoredQueryTest extends PoemTestCase {
       db.getUserTable().troidColumn().fullQuotedName() + 
       " = " + 
       db.getProtectedTable().getSpyColumn().fullQuotedName();
+    whereClause = getDb().getUserTable().appendWhereClauseFilters(whereClause,false, false);
     System.err.println(whereClause);  
     TailoredQuery q = new TailoredQuery(
                                         columns,

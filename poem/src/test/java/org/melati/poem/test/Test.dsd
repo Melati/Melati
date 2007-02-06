@@ -1535,6 +1535,10 @@ table Protected
     (displaylevel = record) 
     (description = "Capability required to select this row ")
     ;
+  Boolean deleted
+    (displaylevel = record) 
+    (description = "Whether this record is existant ")
+    ;
 
 }
 

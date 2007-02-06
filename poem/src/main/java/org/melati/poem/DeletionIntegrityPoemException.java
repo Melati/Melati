@@ -73,5 +73,7 @@ public class DeletionIntegrityPoemException extends PoemException {
   /** @return A description. */
   public String toString() {
     return "You can't delete " + object + " since there are references to it";
+    // FIXME 
+    //+ references == null ? "" : EnumUtils.concatenated(",",references);
   }
 }

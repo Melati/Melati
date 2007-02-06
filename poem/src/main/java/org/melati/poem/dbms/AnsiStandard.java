@@ -87,6 +87,7 @@ public class AnsiStandard implements Dbms {
   private boolean driverLoaded = false;
   private String driverClassName = null;
   private Driver driver = null;
+  protected String schema;
 
   protected synchronized void setDriverClassName(String name) {
     driverClassName = name;
@@ -156,7 +157,6 @@ public class AnsiStandard implements Dbms {
     }
   }
 
-  protected String schema;
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
@@ -549,9 +549,38 @@ public class AnsiStandard implements Dbms {
    * @param fieldName the table Troid column, often id, unquoted
    * @return The definition string
    * @see org.melati.poem.dbms.AnsiStandard#getPrimaryKeyDefinition(java.lang.String)
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getPrimaryKeyDefinition(java.lang.String)
    */
   public String getPrimaryKeyDefinition(String fieldName) {
     return " ADD PRIMARY KEY (" + getQuotedName(fieldName) + ")";
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#
+   *      alterColumnNotNullableSQL(java.lang.String, java.lang.String)
+   */
+  public String alterColumnNotNullableSQL(String tableName, Column column) {
+    return "ALTER TABLE " + getQuotedName(tableName) +
+    " ALTER COLUMN " + getQuotedName(column.getName()) +
+    " SET NOT NULL";
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#selectLimit(java.lang.String, int)
+   */
+  public String selectLimit(String querySelection, int limit) {
+    return "SELECT " + querySelection + " LIMIT " + limit;
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#booleanTrueExtression(org.melati.poem.Column)
+   */
+  public String booleanTrueExtression(Column booleanColumn) {
+    return booleanColumn.fullQuotedName();
   }
 
 }

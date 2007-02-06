@@ -333,4 +333,29 @@ public interface Dbms {
    * @return The definition string
    */
   String getPrimaryKeyDefinition(String fieldName);
+
+  /**
+   * Return the SQL snippet to alter a column to not nullable.
+   * @param tableName
+   * @param column
+   * @return SQL snippet to set a column not nullable
+   */
+  String alterColumnNotNullableSQL(String tableName, Column column);
+
+  /**
+   * Accomodate different limiting syntax.
+   * 
+   * @param querySelection main body of query
+   * @param limit number to limit to
+   * @return limited query
+   */
+  String selectLimit(String querySelection, int limit);
+
+  /**
+   * Accomodate lack of boolean types.
+   * @param booleanColumn
+   * @return an expresion that evaluates to True ie the column name or column name = 1
+   */
+  String booleanTrueExtression(Column booleanColumn);
+  
 }

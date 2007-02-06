@@ -346,4 +346,28 @@ public abstract class DbmsSpec extends TestCase {
     assertEquals(" ADD PRIMARY KEY (\"name\")", it.getPrimaryKeyDefinition("name"));
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   *    alterColumnNotNullableSQL(java.lang.String, org.melati.poem.Column)}.
+   */
+  public void testAlterColumnNotNullableSQL() { 
+    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   *    selectLimit(java.lang.String, int)}.
+   */
+  public void testSelectLimit() {
+    assertEquals("SELECT * FROM \"USER\" LIMIT 1", it.selectLimit("* FROM \"USER\"", 1));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   *    booleanTrueExtression(org.melati.poem.Column)}.
+   */
+  public void  testBooleanTrueExtression() { 
+    
+  }
+  
 }

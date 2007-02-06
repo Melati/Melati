@@ -3,9 +3,11 @@
  */
 package org.melati.poem.dbms.test;
 
+
+import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.dbms.DbmsFactory;
-import org.melati.poem.test.TestDatabase;
+import org.melati.poem.test.PoemTestCase;
 
 /**
  * @author timp
@@ -82,11 +84,64 @@ public class SQLServerTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testCanBeIndexed() throws Exception {
-    TestDatabase db = (TestDatabase)PoemDatabaseFactory.getDatabase("poemtest");
-    assertFalse(it.canBeIndexed(db.getTableInfoTable().getDescriptionColumn()));
-    assertTrue(it.canBeIndexed(db.getUserTable().getNameColumn()));
+    PoemDatabase db = (PoemDatabase)PoemDatabaseFactory.getDatabase(PoemTestCase.poemDatabaseName);
+    if (db != null) {
+      assertFalse(it.canBeIndexed(db.getTableInfoTable().getDescriptionColumn()));
+      assertTrue(it.canBeIndexed(db.getUserTable().getNameColumn()));
+    }
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
+   */
+  public void testCaseInsensitiveRegExpSQL() {
+    String expected = "a LIKE '%b%'";
+    String actual = it.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLQuoted() {
+    String expected = "a LIKE '%b%'";
+    String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLBlank() {
+    String expected = " LIKE '%%'";
+    String actual = it.caseInsensitiveRegExpSQL("", "");
+    assertEquals(expected, actual);
+  }
+
+  
+  
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getLongSqlDefinition()}.
+   */
+  public void testGetLongSqlDefinition() {
+    assertEquals("BIGINT", it.getLongSqlDefinition());    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * sqlBooleanValueOfRaw(java.lang.Object)}.
+   */
+  public void testSqlBooleanValueOfRaw() {
+    assertEquals("0", it.sqlBooleanValueOfRaw(Boolean.FALSE));        
+    assertEquals("1", it.sqlBooleanValueOfRaw(Boolean.TRUE));        
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getBinarySqlDefinition(int)}.
+   */
+  public void testGetBinarySqlDefinition() throws Exception {
+    assertEquals("VARBINARY(0)", it.getBinarySqlDefinition(0));        
+    assertEquals("VARBINARY(MAX)", it.getBinarySqlDefinition(-1));        
+  }
+
+  
   
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
@@ -101,6 +156,14 @@ public class SQLServerTest extends DbmsSpec {
             it.getForeignKeyDefinition("test", "user", "user", "id", "clear"));
     assertEquals(" ADD FOREIGN KEY (\"user\") REFERENCES \"user\"(\"id\") ON DELETE CASCADE",
             it.getForeignKeyDefinition("test", "user", "user", "id", "delete"));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   *    selectLimit(java.lang.String, int)}.
+   */
+  public void testSelectLimit() {
+    assertEquals("SELECT TOP 1* FROM \"USER\"", it.selectLimit("* FROM \"USER\"", 1));
   }
 
 

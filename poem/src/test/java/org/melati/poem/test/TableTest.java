@@ -1304,12 +1304,6 @@ public class TableTest extends PoemTestCase {
     assertEquals(2, EnumUtils.vectorOf(
         ut.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
-    assertEquals("0.00", ut.two().getRaw(
-        "testbigdecimalcol").toString());
-    assertEquals("0.00", ut.two().getCooked(
-        "testbigdecimalcol").toString());
-    assertEquals("0.00", ut.getObject(0).getCooked(
-        "testbigdecimalcol").toString());
     getDb().setLogSQL(false);
   }
 

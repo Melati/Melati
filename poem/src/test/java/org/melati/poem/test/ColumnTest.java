@@ -319,9 +319,9 @@ public class ColumnTest extends PoemTestCase {
    */
   public void testEqClause() {
     assertEquals("\"USER\".\"ID\" IS NULL", 
-            getDb().getUserTable().troidColumn().eqClause(null));
+            getDb().getUserTable().troidColumn().eqClause(null).toUpperCase());
     assertEquals("\"USER\".\"ID\" = 1", 
-                 getDb().getUserTable().troidColumn().eqClause(new Integer(1)));
+                 getDb().getUserTable().troidColumn().eqClause(new Integer(1)).toUpperCase());
   }
 
   /**

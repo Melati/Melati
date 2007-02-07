@@ -44,12 +44,12 @@ public class UserTest extends PoemTestCase {
     
   }
 
-  protected void poemDatabaseUnchanged() { 
+  protected void databaseUnchanged() { 
     Column c = getDb().getUserTable().getNameColumn();
     User tester = (User)c.firstWhereEq("tester");
     if (tester != null)
       tester.delete();
-    super.poemDatabaseUnchanged();
+    super.databaseUnchanged();
 
   }
   
@@ -191,6 +191,7 @@ public class UserTest extends PoemTestCase {
     u.delete();
     try {
       gm.delete();
+      fail("Should have blown up.");
     } catch(RowDisappearedPoemException e) { 
       e = null;
     }

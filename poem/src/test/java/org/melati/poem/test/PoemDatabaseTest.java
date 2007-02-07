@@ -61,7 +61,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setLogSQL(false);
   }
 
-  protected void poemDatabaseUnchanged() { 
+  protected void databaseUnchanged() { 
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("extra");
     if (ci != null) { 
       System.err.println("Cleaning up: " + ci);
@@ -94,7 +94,7 @@ public class PoemDatabaseTest extends PoemTestCase {
       System.err.println(e.getMessage());
       //assertTrue(e.getMessage().indexOf("it does not exist") > 0);
     }
-    super.poemDatabaseUnchanged();
+    super.databaseUnchanged();
   } 
 
   
@@ -232,7 +232,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testToString() {
     String name = getDb().toString();
-    assertTrue(name.endsWith(getDbName()));
+    assertTrue(name.endsWith(databaseName));
   }
 
   /**

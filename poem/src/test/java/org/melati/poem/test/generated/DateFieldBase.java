@@ -10,7 +10,7 @@ import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.DateFieldTable;
-import org.melati.poem.test.TestDatabaseTables;
+import org.melati.poem.test.EverythingDatabaseTables;
 
 
 /**
@@ -28,8 +28,8 @@ public abstract class DateFieldBase extends Persistent {
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
   * @return the database
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
 

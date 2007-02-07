@@ -21,7 +21,7 @@ import org.melati.poem.util.EnumUtils;
  * @since 22 Jan 2007
  * 
  */
-public class PreparedTailoredQueryTest extends PoemTestCase {
+public class PreparedTailoredQueryTest extends EverythingTestCase {
 
   /**
    * Constructor.
@@ -38,7 +38,6 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
    * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName(PoemTestCase.everythingDatabaseName);
     super.setUp();
   }
 
@@ -55,7 +54,7 @@ public class PreparedTailoredQueryTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.PreparedTailoredQuery#selection()}.
    */
   public void testSelection() {
-    TestDatabase db = (TestDatabase)getDb();
+    EverythingDatabase db = (EverythingDatabase)getDb();
     Capability spyMaster = db.getCapabilityTable().ensure("spyMaster");
     final Capability moneyPenny = db.getCapabilityTable().ensure("moneyPenny");
 

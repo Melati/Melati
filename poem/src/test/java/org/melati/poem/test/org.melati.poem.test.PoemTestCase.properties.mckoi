@@ -1,23 +1,23 @@
 
-org.melati.poem.test.PoemTestCase.poemtest.class=org.melati.poem.test.TestDatabase
-org.melati.poem.test.PoemTestCase.poemtest.dbmsclass=org.melati.poem.dbms.Mckoi
-org.melati.poem.test.PoemTestCase.poemtest.url=jdbc:mckoi://localhost/poemtest
-org.melati.poem.test.PoemTestCase.poemtest.user=test
-org.melati.poem.test.PoemTestCase.poemtest.password=test
-org.melati.poem.test.PoemTestCase.poemtest.maxtransactions=4
-org.melati.poem.test.PoemTestCase.poemtest.addconstraints=true
-org.melati.poem.test.PoemTestCase.poemtest.logsql=false
-org.melati.poem.test.PoemTestCase.poemtest.logcommits=false
+org.melati.poem.test.everythingCase.everything.class=org.melati.poem.test.TestDatabase
+org.melati.poem.test.everythingCase.everything.dbmsclass=org.melati.poem.dbms.Mckoi
+org.melati.poem.test.everythingCase.everything.url=jdbc:mckoi://localhost/everything
+org.melati.poem.test.everythingCase.everything.user=test
+org.melati.poem.test.everythingCase.everything.password=test
+org.melati.poem.test.everythingCase.everything.maxtransactions=4
+org.melati.poem.test.everythingCase.everything.addconstraints=true
+org.melati.poem.test.everythingCase.everything.logsql=false
+org.melati.poem.test.everythingCase.everything.logcommits=false
 
-org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase
-org.melati.poem.test.PoemTestCase.melatijunit.dbmsclass=org.melati.poem.dbms.Mckoi
-org.melati.poem.test.PoemTestCase.melatijunit.url=jdbc:mckoi://localhost/melatijunit
-org.melati.poem.test.PoemTestCase.melatijunit.user=test
-org.melati.poem.test.PoemTestCase.melatijunit.password=test
-org.melati.poem.test.PoemTestCase.melatijunit.maxtransactions=4
-org.melati.poem.test.PoemTestCase.melatijunit.addconstraints=true
-org.melati.poem.test.PoemTestCase.melatijunit.logsql=false
-org.melati.poem.test.PoemTestCase.melatijunit.logcommits=false
+org.melati.poem.test.everythingCase.melatijunit.class=org.melati.poem.PoemDatabase
+org.melati.poem.test.everythingCase.melatijunit.dbmsclass=org.melati.poem.dbms.Mckoi
+org.melati.poem.test.everythingCase.melatijunit.url=jdbc:mckoi://localhost/melatijunit
+org.melati.poem.test.everythingCase.melatijunit.user=test
+org.melati.poem.test.everythingCase.melatijunit.password=test
+org.melati.poem.test.everythingCase.melatijunit.maxtransactions=4
+org.melati.poem.test.everythingCase.melatijunit.addconstraints=true
+org.melati.poem.test.everythingCase.melatijunit.logsql=false
+org.melati.poem.test.everythingCase.melatijunit.logcommits=false
 
 
 

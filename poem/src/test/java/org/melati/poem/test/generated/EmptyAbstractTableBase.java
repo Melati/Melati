@@ -5,7 +5,7 @@ package org.melati.poem.test.generated;
 
 import org.melati.poem.Persistent;
 import org.melati.poem.test.EmptyAbstractTableTable;
-import org.melati.poem.test.TestDatabaseTables;
+import org.melati.poem.test.EverythingDatabaseTables;
 
 
 /**
@@ -23,8 +23,8 @@ public abstract class EmptyAbstractTableBase extends Persistent {
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
   * @return the database
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
 

@@ -32,7 +32,7 @@ import org.melati.poem.test.DynamicTable;
 /**
  * Melati POEM generated Database base class.
  */
-public class TestDatabaseBase extends PoemDatabase {
+public class EverythingDatabaseBase extends PoemDatabase {
 
   private UserTable tab_user = null;
   private GroupTable tab_group = null;
@@ -59,7 +59,7 @@ public class TestDatabaseBase extends PoemDatabase {
   private ProtectedTable tab_protected = null;
   private DynamicTable tab_dynamic = null;
 
-  protected TestDatabaseBase() {
+  protected EverythingDatabaseBase() {
     redefineTable(tab_user = new UserTable(this, "user", DefinitionSource.dsd));
     redefineTable(tab_group = new GroupTable(this, "group", DefinitionSource.dsd));
     redefineTable(tab_capability = new CapabilityTable(this, "capability", DefinitionSource.dsd));

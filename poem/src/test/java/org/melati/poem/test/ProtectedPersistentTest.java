@@ -41,7 +41,6 @@ public class ProtectedPersistentTest extends PersistentTest {
    * @see org.melati.poem.test.PersistentTest#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName(PoemTestCase.everythingDatabaseName);
     super.setUp();
   }
 
@@ -53,7 +52,7 @@ public class ProtectedPersistentTest extends PersistentTest {
     super.tearDown();
   }
 
-  protected void everythingDatabaseUnchanged() { 
+  protected void databaseUnchanged() { 
     //spy.delete();
     //smiley.delete();
     //moneypenny.delete();
@@ -72,7 +71,7 @@ public class ProtectedPersistentTest extends PersistentTest {
     deleteCapability("monitor");
     deleteCapability("commission");
     getDb().getUserTable().getTableInfo().setDefaultcanread(null);
-    super.everythingDatabaseUnchanged();
+    super.databaseUnchanged();
   } 
   private void deleteCapability(String name) {
     Capability c = (Capability)getDb().getCapabilityTable().getNameColumn().firstWhereEq(name);
@@ -187,7 +186,7 @@ public class ProtectedPersistentTest extends PersistentTest {
     Field f = p.getPrimaryDisplayField();
     assertEquals("id: 0", f.toString());
     
-    Persistent p2 = ((TestDatabase)getDb()).getENExtendedTable().newPersistent();
+    Persistent p2 = ((EverythingDatabase)getDb()).getENExtendedTable().newPersistent();
     p2.setCooked("stringfield2", "primary search field");
     p2.makePersistent();
     Field f2 = p2.getPrimaryDisplayField();
@@ -200,7 +199,7 @@ public class ProtectedPersistentTest extends PersistentTest {
    * @see org.melati.poem.Table#cachedCount(String, boolean, boolean)
    */
   public void testCachedCountStringBooleanBoolean() {
-    TestDatabase db = (TestDatabase)getDb();
+    EverythingDatabase db = (EverythingDatabase)getDb();
     Capability commission = db.getCapabilityTable().ensure("commission");
     Capability monitor = db.getCapabilityTable().ensure("monitor");
     
@@ -260,7 +259,7 @@ public class ProtectedPersistentTest extends PersistentTest {
   }
   
   private User ensureUser(String name) {
-    User u = (User)((TestDatabase)getDb()).getUserTable().newPersistent();
+    User u = (User)((EverythingDatabase)getDb()).getUserTable().newPersistent();
     u.setLogin(name);
     u.setName(StringUtils.capitalised(name));
     u.setPassword(name);

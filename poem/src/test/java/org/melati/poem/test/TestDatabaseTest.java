@@ -9,7 +9,7 @@ import org.melati.poem.UserTable;
  * 
  * @author timp
  */
-public class TestDatabaseTest extends PoemTestCase {
+public class TestDatabaseTest extends EverythingTestCase {
 
   
   /**
@@ -24,7 +24,6 @@ public class TestDatabaseTest extends PoemTestCase {
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName(everythingDatabaseName);
     super.setUp();
   }
   /**

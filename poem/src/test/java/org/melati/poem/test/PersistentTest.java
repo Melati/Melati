@@ -31,7 +31,7 @@ import org.melati.poem.PoemLocale;
  * @author timp
  * @since 27/11/2006
  */
-public class PersistentTest extends PoemTestCase {
+public class PersistentTest extends EverythingTestCase {
 
   /**
    * Constructor for PersistentTest.

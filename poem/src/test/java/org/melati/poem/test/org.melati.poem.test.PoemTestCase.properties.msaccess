@@ -1,23 +1,23 @@
 
-org.melati.poem.test.PoemTestCase.poemtest.class=org.melati.poem.test.TestDatabase
-org.melati.poem.test.PoemTestCase.poemtest.dbmsclass=org.melati.poem.dbms.MSAccess
-org.melati.poem.test.PoemTestCase.poemtest.url=jdbc:easysoft:poemtest
-org.melati.poem.test.PoemTestCase.poemtest.user=
-org.melati.poem.test.PoemTestCase.poemtest.password=
-org.melati.poem.test.PoemTestCase.poemtest.maxtransactions=4
-org.melati.poem.test.PoemTestCase.poemtest.addconstraints=true
-org.melati.poem.test.PoemTestCase.poemtest.logsql=false
-org.melati.poem.test.PoemTestCase.poemtest.logcommits=false
+org.melati.poem.test.everythingCase.everything.class=org.melati.poem.test.TestDatabase
+org.melati.poem.test.everythingCase.everything.dbmsclass=org.melati.poem.dbms.MSAccess
+org.melati.poem.test.everythingCase.everything.url=jdbc:easysoft:everything
+org.melati.poem.test.everythingCase.everything.user=
+org.melati.poem.test.everythingCase.everything.password=
+org.melati.poem.test.everythingCase.everything.maxtransactions=4
+org.melati.poem.test.everythingCase.everything.addconstraints=true
+org.melati.poem.test.everythingCase.everything.logsql=false
+org.melati.poem.test.everythingCase.everything.logcommits=false
 
-org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase
-org.melati.poem.test.PoemTestCase.melatijunit.dbmsclass=org.melati.poem.dbms.MSAccess
-org.melati.poem.test.PoemTestCase.melatijunit.url=jdbc:easysoft:melatijunit
-org.melati.poem.test.PoemTestCase.melatijunit.user=
-org.melati.poem.test.PoemTestCase.melatijunit.password=
-org.melati.poem.test.PoemTestCase.melatijunit.maxtransactions=4
-org.melati.poem.test.PoemTestCase.melatijunit.addconstraints=true
-org.melati.poem.test.PoemTestCase.melatijunit.logsql=false
-org.melati.poem.test.PoemTestCase.melatijunit.logcommits=false
+org.melati.poem.test.everythingCase.melatijunit.class=org.melati.poem.PoemDatabase
+org.melati.poem.test.everythingCase.melatijunit.dbmsclass=org.melati.poem.dbms.MSAccess
+org.melati.poem.test.everythingCase.melatijunit.url=jdbc:easysoft:melatijunit
+org.melati.poem.test.everythingCase.melatijunit.user=
+org.melati.poem.test.everythingCase.melatijunit.password=
+org.melati.poem.test.everythingCase.melatijunit.maxtransactions=4
+org.melati.poem.test.everythingCase.melatijunit.addconstraints=true
+org.melati.poem.test.everythingCase.melatijunit.logsql=false
+org.melati.poem.test.everythingCase.melatijunit.logcommits=false
 
 
 

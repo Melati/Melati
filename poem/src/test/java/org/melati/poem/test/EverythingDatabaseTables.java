@@ -1,11 +1,11 @@
 package org.melati.poem.test;
 
-import org.melati.poem.test.generated.TestDatabaseTablesBase;
+import org.melati.poem.test.generated.EverythingDatabaseTablesBase;
 
 /**
  * Melati POEM generated, programmer modifyable interface stub.
  */
-public interface TestDatabaseTables extends TestDatabaseTablesBase {
+public interface EverythingDatabaseTables extends EverythingDatabaseTablesBase {
   // programmer's domain-specific code here
 }
 

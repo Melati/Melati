@@ -41,7 +41,6 @@ public class TableTest extends PoemTestCase {
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName(PoemTestCase.everythingDatabaseName);
     super.setUp();
   }
 
@@ -998,7 +997,7 @@ public class TableTest extends PoemTestCase {
   public void testCachedCountPersistentBooleanBoolean() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     CachedCount cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
-    assertEquals(24, cached.count());
+    assertEquals(9, cached.count());
     ti.setSeqcached(true);
     cached = getDb().getTableInfoTable().cachedCount(ti,false,false); 
     assertEquals(7, cached.count());
@@ -1018,7 +1017,7 @@ public class TableTest extends PoemTestCase {
   public void testCachedCountPersistent() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     CachedCount cached = getDb().getTableInfoTable().cachedCount(ti); 
-    assertEquals(24, cached.count());
+    assertEquals(9, cached.count());
     ti.setSeqcached(true);
     cached = getDb().getTableInfoTable().cachedCount(ti); 
     assertEquals(7, cached.count());

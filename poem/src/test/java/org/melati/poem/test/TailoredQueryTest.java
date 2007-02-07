@@ -17,7 +17,7 @@ import org.melati.poem.User;
 /**
  * @author timp
  */
-public class TailoredQueryTest extends PoemTestCase {
+public class TailoredQueryTest extends EverythingTestCase {
 
   /**
    * Constructor for TailoredQueryTest.
@@ -34,7 +34,6 @@ public class TailoredQueryTest extends PoemTestCase {
    */
   protected void setUp()
       throws Exception {
-    setDbName(everythingDatabaseName);
     super.setUp();
   }
 
@@ -265,7 +264,7 @@ public class TailoredQueryTest extends PoemTestCase {
    * Test table protection
    */
   public void testProtected() {
-    TestDatabase db = (TestDatabase)getDb();
+    EverythingDatabase db = (EverythingDatabase)getDb();
     Capability spyMaster = db.getCapabilityTable().ensure("spyMaster");
     Capability moneyPenny = db.getCapabilityTable().ensure("moneyPenny");
     

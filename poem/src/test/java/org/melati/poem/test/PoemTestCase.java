@@ -34,10 +34,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   private String fName;
 
   /** Default db name */
-  public static final String poemDatabaseName = "melatijunit";  // change to poemtest
-  private String dbName = poemDatabaseName;
-  /** Everything db name */
-  public static final String everythingDatabaseName = "poemtest"; // change to Everything
+  public static final String databaseName = "melatijunit";  // change to poemtest
   
   private AccessToken userToRunAs;
 
@@ -130,17 +127,12 @@ public abstract class PoemTestCase extends TestCase implements Test {
     getDb().inSession(AccessToken.root, // HACK
         new PoemTask() {
           public void run() {
-            if (dbName.equals(poemDatabaseName)) {
-              poemDatabaseUnchanged();
-            }
-            if (dbName.equals(everythingDatabaseName)) {
-              everythingDatabaseUnchanged();
-            } 
+            databaseUnchanged();
           }
         });
 
   }
-  protected void poemDatabaseUnchanged() { 
+  protected void databaseUnchanged() { 
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
@@ -152,21 +144,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
     checkTablesAndColumns(9,69);
   }
-  protected void everythingDatabaseUnchanged() { 
-    assertEquals("Setting changed",0, getDb().getSettingTable().count());
-    assertEquals("Group changed", 1, getDb().getGroupTable().count());
-    assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
-    assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
-    assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
-    assertEquals("TableCategory changed", 4, getDb().getTableCategoryTable().count());
-    assertEquals("User changed", 2, getDb().getUserTable().count());
-    //dumpTable(getDb().getColumnInfoTable());
-    // Until table.dropColumnAndCommit() arrives...
-    //assertEquals("ColumnInfo changed", 156, getDb().getColumnInfoTable().count());
-    assertEquals("TableInfo changed", 24, getDb().getTableInfoTable().count());
-    checkTables(24);
-  }
-  
 
   protected void checkTablesAndColumns(int tableCount, int columnCount) {
     checkTables(tableCount);
@@ -240,25 +217,10 @@ public abstract class PoemTestCase extends TestCase implements Test {
   }
 
   /**
-   * @return Returns the dbName.
-   */
-  protected String getDbName() {
-    return this.dbName;
-  }
-
-  /**
-   * @param dbName
-   *          The dbName to set.
-   */
-  protected void setDbName(String dbNameP) {
-    this.dbName = dbNameP;
-  }
-
-  /**
    * @return Returns the db.
    */
   public Database getDb() {
-    return getDb(getDbName());
+    return getDb(databaseName);
   }
 
   public Database getDb(String dbNameP) {
@@ -266,11 +228,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
       throw new NullPointerException();
     Database dbL = null;
     try {
-      if (dbNameP.equals(poemDatabaseName))
-        dbL = getPoemDatabase();
-      else if (dbNameP.equals(everythingDatabaseName))
-        dbL = getEverythingDatabase();
-      else throw new RuntimeException("Unrecognised db name: " + dbNameP);
+      dbL = getDatabase(dbNameP);
     } catch (DatabaseInitialisationPoemException e) {
       e.printStackTrace();
       fail(e.getMessage());
@@ -278,12 +236,6 @@ public abstract class PoemTestCase extends TestCase implements Test {
     return dbL;
   }
 
-  public Database getPoemDatabase() { 
-    return getDatabase(poemDatabaseName);
-  }
-  public Database getEverythingDatabase() { 
-    return getDatabase(everythingDatabaseName);
-  }
   public Database getDatabase(String name){ 
     Properties defs = databaseDefs();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";

@@ -9,7 +9,7 @@ import org.melati.poem.Column;
 import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.ValidationPoemException;
-import org.melati.poem.test.TestDatabaseTables;
+import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.TimestampFieldTable;
 
 
@@ -28,8 +28,8 @@ public abstract class TimestampFieldBase extends Persistent {
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
   * @return the database
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
 

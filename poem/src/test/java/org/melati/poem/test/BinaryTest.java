@@ -51,7 +51,7 @@ package org.melati.poem.test;
  * @see org.melati.poem.BinaryPoemType
  * @author williamc/timp
  */
-public class BinaryTest extends PoemTestCase {
+public class BinaryTest extends EverythingTestCase {
 
   
   /**
@@ -65,7 +65,6 @@ public class BinaryTest extends PoemTestCase {
    * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName(everythingDatabaseName);
     super.setUp();
     System.err.println("IN BinaryTest" + getDb().getClass().getName());
   }
@@ -79,13 +78,13 @@ public class BinaryTest extends PoemTestCase {
 
   public void testCreate() {
     System.err.println(getDb().getClass().getName());
-    BinaryField aThing = (BinaryField)((TestDatabase)getDb()).getBinaryFieldTable().firstSelection(null);
+    BinaryField aThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().firstSelection(null);
     System.out.println(
                aThing == null ?
                   "Nothing in there" :
                   "Found " + new String(aThing.getBinaryfield()));
 
-    BinaryField bThing = (BinaryField)((TestDatabase)getDb()).getBinaryFieldTable().newPersistent();
+    BinaryField bThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().newPersistent();
     bThing.setBinaryfield(new byte[] { 98, -3, -120 });
     bThing.makePersistent();
   }

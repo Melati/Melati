@@ -18,11 +18,11 @@ import org.melati.poem.UnexpectedExceptionPoemException;
  * @since 24 Jan 2007
  * 
  */
-public class MultiThreadedCachedSelectionTest extends PoemTestCase {
+public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
 
   private static String result;
 
-  protected static TestDatabase db;
+  protected static EverythingDatabase db;
 
   /**
    * Constructor.
@@ -31,7 +31,6 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
    */
   public MultiThreadedCachedSelectionTest(String arg0) {
     super(arg0);
-    setDbName("poemtest");
   }
 
   /**
@@ -40,9 +39,8 @@ public class MultiThreadedCachedSelectionTest extends PoemTestCase {
    * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp() throws Exception {
-    setDbName("poemtest");
     super.setUp();
-    db = (TestDatabase)getDb();
+    db = (EverythingDatabase)getDb();
   }
 
   protected void tearDown() throws Exception {

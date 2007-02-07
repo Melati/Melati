@@ -17,7 +17,7 @@ import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.DateField;
-import org.melati.poem.test.TestDatabaseTables;
+import org.melati.poem.test.EverythingDatabaseTables;
 
 
 /**
@@ -69,8 +69,8 @@ public class DateFieldTableBase extends Table {
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
   protected void init() throws PoemException {

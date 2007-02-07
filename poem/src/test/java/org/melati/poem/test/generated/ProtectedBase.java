@@ -11,8 +11,8 @@ import org.melati.poem.NoSuchRowPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.ProtectedTable;
-import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
@@ -30,8 +30,8 @@ public abstract class ProtectedBase extends Persistent {
   * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
   * @return the database
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
 
@@ -234,7 +234,7 @@ public abstract class ProtectedBase extends Persistent {
   public void setSpyTroid(Integer raw)
       throws AccessPoemException {
     setSpy(raw == null ? null : 
-        getTestDatabaseTables().getUserTable().getUserObject(raw));
+        getEverythingDatabaseTables().getUserTable().getUserObject(raw));
   }
 
 
@@ -253,7 +253,7 @@ public abstract class ProtectedBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getSpyTroid();
     return troid == null ? null :
-        getTestDatabaseTables().getUserTable().getUserObject(troid);
+        getEverythingDatabaseTables().getUserTable().getUserObject(troid);
   }
 
 
@@ -432,7 +432,7 @@ public abstract class ProtectedBase extends Persistent {
   public void setCanReadTroid(Integer raw)
       throws AccessPoemException {
     setCanRead(raw == null ? null : 
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
 
@@ -451,7 +451,7 @@ public abstract class ProtectedBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCanReadTroid();
     return troid == null ? null :
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
 
@@ -547,7 +547,7 @@ public abstract class ProtectedBase extends Persistent {
   public void setCanWriteTroid(Integer raw)
       throws AccessPoemException {
     setCanWrite(raw == null ? null : 
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
 
@@ -566,7 +566,7 @@ public abstract class ProtectedBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCanWriteTroid();
     return troid == null ? null :
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
 
@@ -662,7 +662,7 @@ public abstract class ProtectedBase extends Persistent {
   public void setCanDeleteTroid(Integer raw)
       throws AccessPoemException {
     setCanDelete(raw == null ? null : 
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
 
@@ -681,7 +681,7 @@ public abstract class ProtectedBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCanDeleteTroid();
     return troid == null ? null :
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
 
@@ -777,7 +777,7 @@ public abstract class ProtectedBase extends Persistent {
   public void setCanSelectTroid(Integer raw)
       throws AccessPoemException {
     setCanSelect(raw == null ? null : 
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(raw));
   }
 
 
@@ -796,7 +796,7 @@ public abstract class ProtectedBase extends Persistent {
       throws AccessPoemException, NoSuchRowPoemException {
     Integer troid = getCanSelectTroid();
     return troid == null ? null :
-        getTestDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
+        getEverythingDatabaseTables().getCapabilityTable().getCapabilityObject(troid);
   }
 
 

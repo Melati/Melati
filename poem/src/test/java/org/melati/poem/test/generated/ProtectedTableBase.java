@@ -19,8 +19,8 @@ import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.test.EverythingDatabaseTables;
 import org.melati.poem.test.Protected;
-import org.melati.poem.test.TestDatabaseTables;
 
 
 /**
@@ -78,8 +78,8 @@ public class ProtectedTableBase extends Table {
   * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
   * @return the database tables
   */
-  public TestDatabaseTables getTestDatabaseTables() {
-    return (TestDatabaseTables)getDatabase();
+  public EverythingDatabaseTables getEverythingDatabaseTables() {
+    return (EverythingDatabaseTables)getDatabase();
   }
 
   protected void init() throws PoemException {
@@ -145,7 +145,7 @@ public class ProtectedTableBase extends Table {
 
     defineColumn(col_spy =
         new Column(this, "spy",
-                   new ReferencePoemType(getTestDatabaseTables().
+                   new ReferencePoemType(getEverythingDatabaseTables().
                                              getUserTable(), false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -268,7 +268,7 @@ public class ProtectedTableBase extends Table {
 
     defineColumn(col_canRead =
         new Column(this, "canRead",
-                   new ReferencePoemType(getTestDatabaseTables().
+                   new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -320,7 +320,7 @@ public class ProtectedTableBase extends Table {
 
     defineColumn(col_canWrite =
         new Column(this, "canWrite",
-                   new ReferencePoemType(getTestDatabaseTables().
+                   new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -372,7 +372,7 @@ public class ProtectedTableBase extends Table {
 
     defineColumn(col_canDelete =
         new Column(this, "canDelete",
-                   new ReferencePoemType(getTestDatabaseTables().
+                   new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
@@ -424,7 +424,7 @@ public class ProtectedTableBase extends Table {
 
     defineColumn(col_canSelect =
         new Column(this, "canSelect",
-                   new ReferencePoemType(getTestDatabaseTables().
+                   new ReferencePoemType(getEverythingDatabaseTables().
                                              getCapabilityTable(), false),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)

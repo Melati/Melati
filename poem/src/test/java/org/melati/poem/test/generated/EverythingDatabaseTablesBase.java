@@ -35,7 +35,7 @@ import org.melati.poem.test.DynamicTable;
  * Melati POEM generated base interface to the tables in 
  * org.melati.poem.test.
  */
-public interface TestDatabaseTablesBase {
+public interface EverythingDatabaseTablesBase {
 
 
  /**

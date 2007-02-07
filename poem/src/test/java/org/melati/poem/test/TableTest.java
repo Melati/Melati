@@ -901,6 +901,7 @@ public class TableTest extends PoemTestCase {
     } catch (DuplicateTroidColumnPoemException e) {
       e = null;
     }
+    columnInfo.delete();
     getDb().setLogSQL(false);
   }
 

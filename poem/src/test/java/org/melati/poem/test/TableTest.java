@@ -64,7 +64,7 @@ public class TableTest extends PoemTestCase {
     super.tearDown();
   }
 
-  protected void noteverythingDatabaseUnchanged() { 
+  protected void everythingDatabaseUnchanged() { 
     boolean cleaned = false;
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("testdeletedcol");
     if (ci != null) { 
@@ -908,7 +908,7 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void badtestAddColumnAndCommitDeleted() throws Exception {
+  public void testAddColumnAndCommitDeleted() throws Exception {
     DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -1005,7 +1005,7 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void badtestAddColumnAndCommitType() {
+  public void testAddColumnAndCommitType() {
     DynamicTable dt = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -1483,7 +1483,7 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void badtestAddColumnAndCommitBinary() {
+  public void testAddColumnAndCommitBinary() {
     DynamicTable ut = ((TestDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();

@@ -45,7 +45,9 @@ public class PoemLocaleTest extends TestCase {
    * Test method for {@link org.melati.poem.PoemLocale#hashCode()}.
    */
   public void testHashCode() {
-    assertEquals(827867, PoemLocale.HERE.hashCode());
+    PoemLocale l1 = PoemLocale.fromLanguageTag("en-gb");
+    assertEquals(PoemLocale.HERE, l1);
+    assertEquals(PoemLocale.HERE.hashCode(),l1.hashCode());
   }
 
   /**

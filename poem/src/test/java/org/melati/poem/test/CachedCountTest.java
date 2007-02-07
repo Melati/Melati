@@ -20,16 +20,18 @@ public class CachedCountTest extends PoemTestCase {
     super(name);
   }
 
-  /*
-   * @see PoemTestCase#setUp()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PoemTestCase#setUp()
    */
   protected void setUp()
       throws Exception {
     super.setUp();
   }
 
-  /*
-   * @see PoemTestCase#tearDown()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PoemTestCase#tearDown()
    */
   protected void tearDown()
       throws Exception {
@@ -42,7 +44,8 @@ public class CachedCountTest extends PoemTestCase {
   public void testCachedCountTableStringTableArray() {
     // FIXME work out good use case
     int queries = getDb().getQueryCount();
-    CachedCount cc = new CachedCount(getDb().getUserTable(), "\"USER\".\"ID\" = 0", null);
+    CachedCount cc = new CachedCount(getDb().getUserTable(), 
+            getDb().getUserTable().troidColumn().fullQuotedName() + " = 0", null);
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     assertEquals(1, cc.count());
@@ -76,7 +79,8 @@ public class CachedCountTest extends PoemTestCase {
    */
   public void testCachedCountTableString() {
     int queries = getDb().getQueryCount();
-    CachedCount cc = new CachedCount(getDb().getUserTable(), "\"USER\".\"ID\" = 0");
+    CachedCount cc = new CachedCount(getDb().getUserTable(), 
+            getDb().getUserTable().troidColumn().fullQuotedName() + " = 0");
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     assertEquals(1, cc.count());

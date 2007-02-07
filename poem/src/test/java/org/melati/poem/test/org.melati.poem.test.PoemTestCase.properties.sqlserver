@@ -1,13 +1,13 @@
 
-org.melati.poem.test.PoemTestCase.poemtest.class=org.melati.poem.test.TestDatabase
-org.melati.poem.test.PoemTestCase.poemtest.dbmsclass=org.melati.poem.dbms.SQLServer
-org.melati.poem.test.PoemTestCase.poemtest.url=jdbc:sqlserver://localhost:1433;selectMethod=cursor;databaseName=poemtest
-org.melati.poem.test.PoemTestCase.poemtest.user=sa
-org.melati.poem.test.PoemTestCase.poemtest.password=
-org.melati.poem.test.PoemTestCase.poemtest.maxtransactions=4
-org.melati.poem.test.PoemTestCase.poemtest.addconstraints=true
-org.melati.poem.test.PoemTestCase.poemtest.logsql=false
-org.melati.poem.test.PoemTestCase.poemtest.logcommits=false
+org.melati.poem.test.PoemTestCase.everything.class=org.melati.poem.test.EverythingDatabase
+org.melati.poem.test.PoemTestCase.everything.dbmsclass=org.melati.poem.dbms.SQLServer
+org.melati.poem.test.PoemTestCase.everything.url=jdbc:sqlserver://localhost:1433;selectMethod=cursor;databaseName=everything
+org.melati.poem.test.PoemTestCase.everything.user=sa
+org.melati.poem.test.PoemTestCase.everything.password=
+org.melati.poem.test.PoemTestCase.everything.maxtransactions=4
+org.melati.poem.test.PoemTestCase.everything.addconstraints=true
+org.melati.poem.test.PoemTestCase.everything.logsql=false
+org.melati.poem.test.PoemTestCase.everything.logcommits=false
 
 
 org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase

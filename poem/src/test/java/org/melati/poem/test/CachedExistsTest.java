@@ -43,7 +43,8 @@ public class CachedExistsTest extends PoemTestCase {
   public void testCachedExistsTableStringTableArray() {
     // FIXME work out good use case
     int queries = getDb().getQueryCount();
-    CachedExists ce = new CachedExists(getDb().getUserTable(), "\"USER\".\"ID\" = 0", null);
+    CachedExists ce = new CachedExists(getDb().getUserTable(), 
+        getDb().getUserTable().troidColumn().fullQuotedName() +" = 0", null);
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     assertTrue(ce.exists());
@@ -60,7 +61,8 @@ public class CachedExistsTest extends PoemTestCase {
    */
   public void testCachedExistsTableString() {
     int queries = getDb().getQueryCount();
-    CachedExists ce = new CachedExists(getDb().getUserTable(), "\"USER\".\"ID\" = 0");
+    CachedExists ce = new CachedExists(getDb().getUserTable(), 
+        getDb().getUserTable().troidColumn().fullQuotedName() +" = 0");
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     assertTrue(ce.exists());
@@ -77,7 +79,8 @@ public class CachedExistsTest extends PoemTestCase {
    */
   public void testExists() {
     int queries = getDb().getQueryCount();
-    CachedExists ce = new CachedExists(getDb().getUserTable(), "\"USER\".\"ID\" = 0");
+    CachedExists ce = new CachedExists(getDb().getUserTable(), 
+        getDb().getUserTable().troidColumn().fullQuotedName() +" = 0");
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     assertTrue(ce.exists());

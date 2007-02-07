@@ -48,6 +48,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
 
+import org.melati.poem.BinaryPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.util.StringUtils;
@@ -154,6 +155,20 @@ public class Hsqldb extends AnsiStandard {
       if (((StringPoemType)storage).getSize() == hsqldbTextHack
               && ((StringPoemType)type).getSize() == -1
               && !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
+      ) {
+        return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else if (storage instanceof BinaryPoemType && type instanceof BinaryPoemType) {
+      if (
+           (
+             (((BinaryPoemType)storage).getSize() == 0 )
+             || 
+             (((BinaryPoemType)storage).getSize() > ((BinaryPoemType)type).getSize())
+           )
+           && 
+           !(!storage.getNullable() && type.getNullable())  // Nullable may represent not nullable
       ) {
         return type;
       } else {

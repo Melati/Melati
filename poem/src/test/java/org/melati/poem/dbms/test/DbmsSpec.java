@@ -11,8 +11,7 @@ import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.dbms.Dbms;
-
-import junit.framework.TestCase;
+import org.melati.poem.test.EverythingTestCase;
 
 /**
  * Abstract test for a class implementing the Dbms interface.
@@ -21,7 +20,7 @@ import junit.framework.TestCase;
  * @since 23 Jan 2007
  *
  */
-public abstract class DbmsSpec extends TestCase {
+public abstract class DbmsSpec extends EverythingTestCase {
 
   protected Dbms it = null;
 

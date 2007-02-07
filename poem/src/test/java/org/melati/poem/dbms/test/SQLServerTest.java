@@ -4,10 +4,7 @@
 package org.melati.poem.dbms.test;
 
 
-import org.melati.poem.PoemDatabase;
-import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.dbms.DbmsFactory;
-import org.melati.poem.test.PoemTestCase;
 
 /**
  * @author timp
@@ -84,11 +81,8 @@ public class SQLServerTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testCanBeIndexed() throws Exception {
-    PoemDatabase db = (PoemDatabase)PoemDatabaseFactory.getDatabase(PoemTestCase.poemDatabaseName);
-    if (db != null) {
-      assertFalse(it.canBeIndexed(db.getTableInfoTable().getDescriptionColumn()));
-      assertTrue(it.canBeIndexed(db.getUserTable().getNameColumn()));
-    }
+    assertFalse(it.canBeIndexed(getDb().getTableInfoTable().getDescriptionColumn()));
+    assertTrue(it.canBeIndexed(getDb().getUserTable().getNameColumn()));
   }
 
   /**

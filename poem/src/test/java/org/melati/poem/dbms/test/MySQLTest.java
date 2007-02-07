@@ -13,8 +13,7 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.dbms.DbmsFactory;
-import org.melati.poem.test.PoemTestCase;
-import org.melati.poem.test.TestDatabase;
+import org.melati.poem.test.EverythingDatabase;
 
 /**
  * @author timp
@@ -86,7 +85,7 @@ public class MySQLTest extends DbmsSpec {
    * @throws Exception 
    */
   public void testGetIndexLength() throws Exception {
-    TestDatabase db = (TestDatabase)PoemTestCase.getEverythingDatabase();
+    EverythingDatabase db = (EverythingDatabase)getDb();
     assertEquals("", it.getIndexLength(db.getUserTable().troidColumn()));
     assertEquals("(30)", it.getIndexLength(db.getTableInfoTable().getDescriptionColumn()));
     assertEquals("(30)", it.getIndexLength(db.getBinaryFieldTable().getUnlimitedColumn()));

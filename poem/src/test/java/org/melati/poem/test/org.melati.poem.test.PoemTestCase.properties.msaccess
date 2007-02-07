@@ -5,7 +5,7 @@ org.melati.poem.test.PoemTestCase.everything.url=jdbc:easysoft:everything
 org.melati.poem.test.PoemTestCase.everything.user=
 org.melati.poem.test.PoemTestCase.everything.password=
 org.melati.poem.test.PoemTestCase.everything.maxtransactions=4
-org.melati.poem.test.PoemTestCase.everything.addconstraints=true
+org.melati.poem.test.PoemTestCase.everything.addconstraints=false
 org.melati.poem.test.PoemTestCase.everything.logsql=false
 org.melati.poem.test.PoemTestCase.everything.logcommits=false
 

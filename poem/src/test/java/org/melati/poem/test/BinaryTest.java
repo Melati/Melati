@@ -67,7 +67,6 @@ public class BinaryTest extends EverythingTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    System.err.println("IN BinaryTest" + getDb().getClass().getName());
   }
 
   /**
@@ -79,7 +78,6 @@ public class BinaryTest extends EverythingTestCase {
   }
 
   public void testCreate() {
-    System.err.println(getDb().getClass().getName());
     BinaryField aThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().firstSelection(null);
     System.out.println(
                aThing == null ?
@@ -89,5 +87,6 @@ public class BinaryTest extends EverythingTestCase {
     BinaryField bThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().newPersistent();
     bThing.setBinaryfield(new byte[] { 98, -3, -120 });
     bThing.makePersistent();
+    bThing.delete();
   }
 }

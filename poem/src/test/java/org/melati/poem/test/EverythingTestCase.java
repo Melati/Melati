@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 public abstract class EverythingTestCase extends PoemTestCase implements Test {
 
   /** Default db name */
-  public static final String databaseName = "poemtest"; // change to Everything
+  public static final String databaseName = "everything"; 
 
   /**
    * Constructor.

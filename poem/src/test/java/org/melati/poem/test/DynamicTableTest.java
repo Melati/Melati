@@ -15,7 +15,6 @@ import org.melati.poem.DisplayLevel;
 import org.melati.poem.DuplicateColumnNamePoemException;
 import org.melati.poem.DuplicateDeletedColumnPoemException;
 import org.melati.poem.DuplicateTroidColumnPoemException;
-import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.IntegrityFix;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
@@ -62,6 +61,7 @@ public class DynamicTableTest extends EverythingTestCase {
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
+    PoemThread.commit();
     PoemDatabaseFactory.removeDatabase(databaseName);
   } 
   

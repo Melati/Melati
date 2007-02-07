@@ -1,8 +1,12 @@
 package org.melati.poem.test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Enumeration;
+import java.util.Properties;
 
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
@@ -73,6 +77,14 @@ public abstract class PoemTestCase extends TestCase implements Test {
       checkDbUnchanged();
       assertEquals("Not all transactions free", 4, getDb().getFreeTransactionsCount());
     }
+  }
+  /** Properties, named for this class. */
+  public static Properties databaseDefs = null;
+
+  private Properties databaseDefs() {
+    if (databaseDefs == null)
+      databaseDefs = getProperties();
+    return databaseDefs;
   }
 
   /**
@@ -267,18 +279,25 @@ public abstract class PoemTestCase extends TestCase implements Test {
   }
 
   public Database getPoemDatabase() { 
-    return PoemDatabaseFactory.getDatabase(poemDatabaseName,
-            "jdbc:hsqldb:mem:" + poemDatabaseName,
-            "sa",
-            "","org.melati.poem.PoemDatabase",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+    return getDatabase(poemDatabaseName);
   }
-  public static Database getEverythingDatabase() { 
-    return PoemDatabaseFactory.getDatabase(everythingDatabaseName,
-            "jdbc:hsqldb:mem:" + everythingDatabaseName,
-            "sa",
-            "","org.melati.poem.test.TestDatabase",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  public Database getEverythingDatabase() { 
+    return getDatabase(everythingDatabaseName);
+  }
+  public Database getDatabase(String name){ 
+    Properties defs = databaseDefs();
+    String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
+
+    return PoemDatabaseFactory.getDatabase(name,
+            getOrDie(defs, pref + "url"), 
+            getOrDie(defs, pref + "user"),
+            getOrDie(defs, pref + "password"),
+            getOrDie(defs, pref + "class"),
+            getOrDie(defs, pref + "dbmsclass"),
+            new Boolean(getOrDie(defs, pref + "addconstraints")).booleanValue(),
+            new Boolean(getOrDie(defs, pref + "logsql")).booleanValue(),
+            new Boolean(getOrDie(defs, pref + "logcommits")).booleanValue(),
+            new Integer(getOrDie(defs, pref + "maxtransactions")).intValue());
   }
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;
@@ -290,6 +309,39 @@ public abstract class PoemTestCase extends TestCase implements Test {
       this.userToRunAs = AccessToken.root;
     else
       this.userToRunAs = userToRunAs;
+  }
+
+  private Properties getProperties() {
+    String className = "org.melati.poem.test.PoemTestCase";
+    String name = className + ".properties";
+    InputStream is = this.getClass().getResourceAsStream(name);
+
+    if (is == null)
+      throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));
+
+    Properties them = new Properties();
+    try {
+      them.load(is);
+    } catch (IOException e) {
+      throw new RuntimeException(new IOException("Corrupt properties file `" + name + "': " +
+      e.getMessage()));
+    }
+
+    return them;
+  }
+  /**
+   * Return a property.
+   * 
+   * @param properties the {@link Properties} object to look in 
+   * @param propertyName the property to get 
+   * @return the property value
+   * @throws NoSuchPropertyException if the property is not set
+   */
+  public static String getOrDie(Properties properties, String propertyName) {
+    String value = properties.getProperty(propertyName);
+    if (value == null)
+      throw new RuntimeException("Property " + propertyName + " not found in " + properties);
+    return value;
   }
 
 }

@@ -1,0 +1,26 @@
+
+org.melati.poem.test.PoemTestCase.poemtest.class=org.melati.poem.test.TestDatabase
+org.melati.poem.test.PoemTestCase.poemtest.dbmsclass=org.melati.poem.dbms.Hsqldb
+org.melati.poem.test.PoemTestCase.poemtest.url=jdbc:hsqldb:mem:poemtest
+org.melati.poem.test.PoemTestCase.poemtest.user=sa
+org.melati.poem.test.PoemTestCase.poemtest.password=
+org.melati.poem.test.PoemTestCase.poemtest.maxtransactions=4
+org.melati.poem.test.PoemTestCase.poemtest.addconstraints=true
+org.melati.poem.test.PoemTestCase.poemtest.logsql=false
+org.melati.poem.test.PoemTestCase.poemtest.logcommits=false
+
+# Used by the unit tests
+
+org.melati.poem.test.PoemTestCase.melatijunit.class=org.melati.poem.PoemDatabase
+org.melati.poem.test.PoemTestCase.melatijunit.dbmsclass=org.melati.poem.dbms.Hsqldb
+org.melati.poem.test.PoemTestCase.melatijunit.url=jdbc:hsqldb:mem:melatijunit
+org.melati.poem.test.PoemTestCase.melatijunit.user=sa
+org.melati.poem.test.PoemTestCase.melatijunit.password=
+org.melati.poem.test.PoemTestCase.melatijunit.maxtransactions=4
+org.melati.poem.test.PoemTestCase.melatijunit.addconstraints=true
+org.melati.poem.test.PoemTestCase.melatijunit.logsql=false
+org.melati.poem.test.PoemTestCase.melatijunit.logcommits=false
+
+
+
+

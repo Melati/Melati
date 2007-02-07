@@ -26,29 +26,28 @@ This page last updated: $Date$ $Author$
 
 <section name=" Testing ">
 <p>
-Until I retro-fitted the tests I used Melati for three years in the strong belief it was bug-free, 
+Until I retro-fitted the tests I used Melati for three years in the strong belief that it was bug free, 
 now I believe only tested software is bug free.
 </p>
 <p>
-The unit tests have been retro-fitted, JUnit had not been written when the code was first written, 
+The unit tests have been retro-fitted, JUnit did not exist when the code was first written, 
 so the objective of the tests is to achieve 100% branch coverage, not to have a unit test for every method.
 </p>
 <p>
-The excercise of retro-fitting has been very useful, as a learning excercise for me and 
-also to justify the claim that Melati is very well written. The number of errors highlighted by the tests 
-was very small but did point out a few worthwhile refactorings.
+The excercise of retro-fitting has been very useful.
+Having a comprehensive tests increases the speed of development of new features, such as adding support for a new database. 
 </p>
 <subsection name="JUnit tests">
 <p>
 Maven allows tests to be run in a single thread or a new thread per test.
-Running in a single thrad is considerably faster.
+Running in a single thread is considerably faster.
 To enable the tests to run in a single thread it is important to ensure that 
 tests clean up after themselves or different results will be returned when a 
 test is run on its own, in Eclipse for example, to when it is run as part of a suite.
 To this end all database tests inherit a method to ensure that the number of rows in the 
 database is unchanged.
 Currently there is no way to delete a column from a table, so the tests for column addition 
-are not well behaved, this is worked around by not not checking the number of rows in the ColumnInfo table.
+are not well behaved, this is worked around by not checking the number of rows in the ColumnInfo table.
 </p>
 <p>
 <a href="http://junit.org/">JUnit</a> tests are incorporated into the

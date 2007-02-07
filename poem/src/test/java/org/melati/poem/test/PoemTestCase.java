@@ -266,7 +266,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   private Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";
-    InputStream is = this.getClass().getResourceAsStream(name);
+    InputStream is = EverythingDatabaseTables.class.getResourceAsStream(name);
 
     if (is == null)
       throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));

@@ -73,7 +73,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
   public void testGetInitialisedDatabaseNames() {
     Vector them = PoemDatabaseFactory.getInitialisedDatabaseNames();
     assertEquals(2,them.size()); 
-    String name = (String)them.get(0);
+    String name = (String)them.get(1);
     assertEquals(EverythingTestCase.databaseName, name);
     
   }
@@ -95,7 +95,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
     return PoemDatabaseFactory.getDatabase(EverythingTestCase.databaseName,
             "jdbc:hsqldb:mem:" + EverythingTestCase.databaseName,
             "sa",
-            "","org.melati.poem.test.TestDatabase",
+            "","org.melati.poem.test.EverythingDatabase",
             "org.melati.poem.dbms.Hsqldb",false,false,false,4);
   }
 

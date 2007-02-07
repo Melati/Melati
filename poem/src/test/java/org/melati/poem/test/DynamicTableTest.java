@@ -51,31 +51,17 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    super.tearDown();
+    if (!problem) {
+      checkDbUnchanged();
+    }
   }
 
   protected void databaseUnchanged() { 
-    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("testdeletedcol");
-    if (ci != null) { 
-      System.err.println("Cleaning up: " + ci);
-      ci.delete();
-    }
-    ci = (ColumnInfo)getDb().getColumnInfoTable().getNameColumn().firstWhereEq("testdeletedcol2");
-    if (ci != null) { 
-      System.err.println("Cleaning up: " + ci);
-      ci.delete();
-    }
-    
     // It is not good enough to drop the new columns, as the deleted columnInfo's 
     // are still referred to, so drop the whole table
-    try { 
-      //getDb().sqlUpdate("ALTER TABLE " + getDb().getDbms().getQuotedName("dynamic") + 
-      //        " DROP COLUMN " + getDb().getDbms().getQuotedName("testdeletedcol"));
-      getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
-    } catch (ExecutingSQLPoemException e) { 
-      System.err.println(e.getMessage());
-      //assertTrue(e.getMessage().indexOf("it does not exist") > 0);
-    }
+    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
+    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
+    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
     PoemDatabaseFactory.removeDatabase(databaseName);
   } 
   
@@ -92,8 +78,7 @@ public class DynamicTableTest extends EverythingTestCase {
    */
   public void testAddColumnAndCommitTroid() {
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
-    ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
-        .newPersistent();
+    ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     TableInfo ti = dt.getTableInfo();
     columnInfo.setTableinfo(ti);
     columnInfo.setName("testtroidcol");

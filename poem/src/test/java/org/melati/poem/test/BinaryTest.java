@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
@@ -61,16 +61,18 @@ public class BinaryTest extends EverythingTestCase {
   public BinaryTest(String arg0) {
     super(arg0);
   }
-  /*
-   * @see TestCase#setUp()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.EverythingTestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
     System.err.println("IN BinaryTest" + getDb().getClass().getName());
   }
 
-  /*
-   * @see TestCase#tearDown()
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.test.EverythingTestCase#tearDown()
    */
   protected void tearDown() throws Exception {
     super.tearDown();

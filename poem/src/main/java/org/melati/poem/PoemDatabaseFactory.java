@@ -159,4 +159,11 @@ public final class PoemDatabaseFactory {
     return database;
   }
 
+  /**
+   * Enable a database to be reinitialised, used in tests.
+   * @param name name of db to remove
+   */
+  public static void removeDatabase(String name) { 
+    databases.remove(name);
+  }
 }

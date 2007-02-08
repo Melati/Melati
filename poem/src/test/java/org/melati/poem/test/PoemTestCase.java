@@ -78,7 +78,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
 
-  private Properties databaseDefs() {
+  public static  Properties databaseDefs() {
     if (databaseDefs == null)
       databaseDefs = getProperties();
     return databaseDefs;
@@ -263,7 +263,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
       this.userToRunAs = userToRunAs;
   }
 
-  private Properties getProperties() {
+  public static Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";
     InputStream is = EverythingDatabaseTables.class.getResourceAsStream(name);

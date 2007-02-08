@@ -33,7 +33,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
-  private int maxTrans = 0;
+  protected int maxTrans = 0;
   
   /** Default db name */
   public static final String databaseName = "melatijunit";  // change to poemtest

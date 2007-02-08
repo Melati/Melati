@@ -341,23 +341,6 @@ public class Oracle extends AnsiStandard {
   }
   
   /**
-   * NOTE This is NOT case insensitive,
-   * Term2 has its quotes stripped.
-   * 
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
-   * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL
-   */
-  public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    if (StringUtils.isQuoted(term2)) {
-      term2 = term2.substring(1, term2.length() - 1);
-    } 
-    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
-    
-    return term1 + " LIKE " + term2;
-  }
-
-  /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getForeignKeyDefinition
    */

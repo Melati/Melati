@@ -52,7 +52,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
@@ -162,7 +161,7 @@ public class SQLServer extends AnsiStandard {
   /**
    * Translates a MSSQL String into a Poem <code>StringPoemType</code>.
    */
-  public static class SQLServerStringPoemType extends StringPoemType {
+  //public static class SQLServerStringPoemType extends StringPoemType {
 
     /**
      * Constructor.
@@ -172,17 +171,17 @@ public class SQLServer extends AnsiStandard {
      * @param size
      *          length
      */
-    public SQLServerStringPoemType(boolean nullable, int size) {
-      super(nullable, size);
-    }
+    //public SQLServerStringPoemType(boolean nullable, int size) {
+    //  super(nullable, size);
+    //}
 
     // MSSQL returns metadata info size 2147483647 for its TEXT type
     // We set size to sqlServerTextHack for our Text type
-    protected boolean _canRepresent(SQLPoemType other) {
-      return (getSize() < 0 || getSize() == 2147483647
-              || getSize() == sqlServerTextHack || getSize() >= ((StringPoemType)other)
-              .getSize());
-    }
+    //protected boolean _canRepresent(SQLPoemType other) {
+    //  return (getSize() < 0 || getSize() == 2147483647
+    //          || getSize() == sqlServerTextHack || getSize() >= ((StringPoemType)other)
+    //          .getSize());
+    //}
 
     /**
      * {@inheritDoc}
@@ -195,7 +194,7 @@ public class SQLServer extends AnsiStandard {
      * !(!getNullable() && ((StringPoemType) other).getNullable()) ? other :
      * null; }
      */
-  }
+  //}
 
   /**
    * Accomodate our String size hack. {@inheritDoc}
@@ -220,7 +219,7 @@ public class SQLServer extends AnsiStandard {
       } else {
         return storage.canRepresent(type);
       }
-    } else if (storage instanceof SQLServerDatePoemType
+    } else if (storage instanceof DatePoemType
             && type instanceof TimestampPoemType) {
       if (!(!storage.getNullable() && type.getNullable())) {
         return type;
@@ -235,7 +234,7 @@ public class SQLServer extends AnsiStandard {
   /**
    * Translates a MSSQL Date into a Poem <code>DatePoemType</code>.
    */
-  public static class SQLServerDatePoemType extends DatePoemType {
+ // public static class SQLServerDatePoemType extends DatePoemType {
 
     /**
      * Constructor.
@@ -243,21 +242,21 @@ public class SQLServer extends AnsiStandard {
      * @param nullable
      *          nullability
      */
-    public SQLServerDatePoemType(boolean nullable) {
-      super(Types.DATE, "DATETIME", nullable);
-    }
+   // public SQLServerDatePoemType(boolean nullable) {
+   //   super(Types.DATE, "DATETIME", nullable);
+   // }
 
-    protected boolean _canRepresent(SQLPoemType other) {
-      return other instanceof DatePoemType
-              || other instanceof TimestampPoemType;
-    }
+   // protected boolean _canRepresent(SQLPoemType other) {
+   //   return other instanceof DatePoemType
+   //           || other instanceof TimestampPoemType;
+   // }
 
-  }
+ // }
 
   /**
    * Translates a MSSQL Date into a Poem <code>TimestampPoemType</code>.
    */
-  public static class SQLServerTimestampPoemType extends TimestampPoemType {
+  //public static class SQLServerTimestampPoemType extends TimestampPoemType {
 
     /**
      * Constructor.
@@ -265,10 +264,10 @@ public class SQLServer extends AnsiStandard {
      * @param nullable
      *          nullability
      */
-    public SQLServerTimestampPoemType(boolean nullable) {
-      super(Types.TIMESTAMP, "DATETIME", nullable);
-    }
-  }
+    //public SQLServerTimestampPoemType(boolean nullable) {
+    //  super(Types.TIMESTAMP, "DATETIME", nullable);
+    //}
+  //}
 
   /**
    * {@inheritDoc}
@@ -283,7 +282,7 @@ public class SQLServer extends AnsiStandard {
   }
 
   /**
-   * Translates an Oracle Boolean into a Poem <code>BooleanPoemType</code>.
+   * Translates an SQLServer Boolean into a Poem <code>BooleanPoemType</code>.
    */
   public static class SQLServerBooleanPoemType extends BooleanPoemType {
 
@@ -359,25 +358,27 @@ public class SQLServer extends AnsiStandard {
       System.err.println("");
     }
     */
-    if (md.getString("TYPE_NAME").equals("text"))
-      return new SQLServerStringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-                      .getInt("COLUMN_SIZE"));
+    // Not used in Poem 
+    //if (md.getString("TYPE_NAME").equals("text"))
+    //  return new SQLServerStringPoemType(
+    //          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+    //                  .getInt("COLUMN_SIZE"));
     // We use a magic number for text fields
     if (md.getString("TYPE_NAME").equals("varchar")
             && md.getInt("COLUMN_SIZE") == sqlServerTextHack)
-      return new SQLServerStringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-                      .getInt("COLUMN_SIZE"));
-    if (md.getString("TYPE_NAME").equals("char"))
       return new StringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-                      .getInt("COLUMN_SIZE"));
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, -1 );
+
+    // Not used in Poem 
+    //if (md.getString("TYPE_NAME").equals("char"))
+    //  return new StringPoemType(
+    //          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+    //                  .getInt("COLUMN_SIZE"));
     if (md.getString("TYPE_NAME").equals("float"))
       return new DoublePoemType(
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     if (md.getString("TYPE_NAME").equals("datetime"))
-      return new SQLServerDatePoemType(
+      return new DatePoemType(
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     if (md.getString("TYPE_NAME").equals("bit"))
       return new SQLServerBooleanPoemType(

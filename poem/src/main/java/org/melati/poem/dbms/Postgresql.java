@@ -66,6 +66,7 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.SeriousPoemException;
 import org.melati.poem.SQLPoemException;
+import org.melati.poem.util.StringUtils;
 
 
  /**
@@ -225,13 +226,5 @@ public class Postgresql extends AnsiStandard {
         return super.exceptionForUpdate(table, sql, insert, e);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
-   */
-  public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    return term1 + " ~* " + term2;
-  }
-  
 
 }

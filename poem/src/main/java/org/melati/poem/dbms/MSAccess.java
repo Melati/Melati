@@ -272,17 +272,4 @@ public class MSAccess extends AnsiStandard {
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
-   */
-  public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    if (StringUtils.isQuoted(term2)) {
-      term2 = term2.substring(1, term2.length() - 1);
-    } 
-    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
-    
-    return term1 + " LIKE " + term2;
-  }
-
 }

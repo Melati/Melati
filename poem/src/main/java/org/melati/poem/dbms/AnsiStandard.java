@@ -508,12 +508,17 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
-   * This is the MySQL syntax.
+   * This is the Postgresql syntax.
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#caseInsensitiveRegExpSQL(String, String)
    */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
-    return term1 + " REGEXP " + term2;
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    } 
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+    
+    return term1 + " ILIKE " + term2;
   }
 
   /**

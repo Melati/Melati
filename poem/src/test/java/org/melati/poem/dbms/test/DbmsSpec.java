@@ -297,19 +297,19 @@ public abstract class DbmsSpec extends EverythingTestCase {
    * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
    */
   public void testCaseInsensitiveRegExpSQL() {
-    String expected = "a REGEXP b";
+    String expected = "a ILIKE '%b%'";
     String actual = it.caseInsensitiveRegExpSQL("a", "b");
     assertEquals(expected, actual);
   }
 
   public void testCaseInsensitiveRegExpSQLQuoted() {
-    String expected = "a REGEXP \"b\"";
+    String expected = "a ILIKE '%b%'";
     String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
     assertEquals(expected, actual);
   }
 
   public void testCaseInsensitiveRegExpSQLBlank() {
-    String expected = " REGEXP ";
+    String expected = " ILIKE '%%'";
     String actual = it.caseInsensitiveRegExpSQL("", "");
     assertEquals(expected, actual);
   }

@@ -70,7 +70,7 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     Table extra = null;
     try { 
-      extra = getDb().getTable("test");
+      extra = getDb().getTable("addedtable");
     } catch (NoSuchTablePoemException e) {
       
     }
@@ -80,7 +80,7 @@ public class PoemDatabaseTest extends PoemTestCase {
         System.err.println("Cleaning up troid ");
       }
     }
-    TableInfo extraTI = (TableInfo)getDb().getTableInfoTable().getNameColumn().firstWhereEq("test");        
+    TableInfo extraTI = (TableInfo)getDb().getTableInfoTable().getNameColumn().firstWhereEq("addedtable");        
     if (extraTI != null) {
       extraTI.delete();
     }
@@ -496,20 +496,14 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTransactionsCount()
    */
   public void testGetTransactionsCount() {
-    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertTrue(getDb().getTransactionsCount() == 1);
-    else
-      assertTrue(getDb().getTransactionsCount() == 4);
+    assertTrue(getDb().getTransactionsCount() == 4);
   }
 
   /**
    * @see org.melati.poem.Database#getFreeTransactionsCount()
    */
   public void testGetFreeTransactionsCount() {
-    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertEquals(0,getDb().getFreeTransactionsCount());
-    else
-      assertEquals(3, getDb().getFreeTransactionsCount());
+    assertEquals(3, getDb().getFreeTransactionsCount());
   }
 
   /**

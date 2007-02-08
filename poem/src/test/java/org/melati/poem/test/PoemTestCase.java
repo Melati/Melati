@@ -33,6 +33,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
    */
   private String fName;
 
+  private int maxTrans = 0;
+  
   /** Default db name */
   public static final String databaseName = "melatijunit";  // change to poemtest
   
@@ -63,7 +65,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
   protected void setUp() throws Exception {
     super.setUp();
     problem = false;
-    assertEquals(4, getDb().getFreeTransactionsCount());
+    int freeTrans = getDb().getFreeTransactionsCount();
+    assertEquals("Not all transactions free", maxTrans, freeTrans);
   }
 
   /**
@@ -246,7 +249,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public Database getDatabase(String name){ 
     Properties defs = databaseDefs();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
-
+    maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
     return PoemDatabaseFactory.getDatabase(name,
             getOrDie(defs, pref + "url"), 
             getOrDie(defs, pref + "user"),
@@ -256,7 +259,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
             new Boolean(getOrDie(defs, pref + "addconstraints")).booleanValue(),
             new Boolean(getOrDie(defs, pref + "logsql")).booleanValue(),
             new Boolean(getOrDie(defs, pref + "logcommits")).booleanValue(),
-            new Integer(getOrDie(defs, pref + "maxtransactions")).intValue());
+            maxTrans);
   }
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;

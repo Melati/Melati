@@ -70,8 +70,8 @@ public abstract class PoemTestCase extends TestCase implements Test {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
+    checkDbUnchanged();
     if (!problem) {
-      checkDbUnchanged();
       assertEquals("Not all transactions free", 4, getDb().getFreeTransactionsCount());
     }
   }
@@ -140,6 +140,13 @@ public abstract class PoemTestCase extends TestCase implements Test {
     assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
     assertEquals("TableCategory changed", 2, getDb().getTableCategoryTable().count());
     assertEquals("User changed", 2, getDb().getUserTable().count());
+    //ColumnInfo newOne = null; 
+    //try{ 
+    //  newOne = (ColumnInfo)getDb().getColumnInfoTable().getObject(69);
+    //} catch (Exception e) {}
+    //if (newOne != null) { 
+    //  System.err.println(newOne.getName() + " " + newOne.getTableinfo().getName());
+    //}
     assertEquals("ColumnInfo changed", 69, getDb().getColumnInfoTable().count());
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
     checkTablesAndColumns(9,69);

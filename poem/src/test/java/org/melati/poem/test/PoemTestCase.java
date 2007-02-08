@@ -106,7 +106,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
       // Ensures that we are invoking on
       // the object that method belongs to.
       final Object _this = this;
-      getDb().inSession(getUserToRunAs(), // HACK
+      getDb().inSession(getUserToRunAs(), 
           new PoemTask() {
             public void run() {
               try {

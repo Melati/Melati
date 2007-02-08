@@ -1,12 +1,9 @@
 package org.melati.poem.test;
 
 
-import org.melati.poem.AccessToken;
 import org.melati.poem.Database;
-import org.melati.poem.PoemTask;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 
 /**
  * A TestCase that runs in a Database session.
@@ -34,41 +31,14 @@ public abstract class EverythingTestCase extends PoemTestCase implements Test {
   public EverythingTestCase(String name) {
     super(name);
   }
-  /**
-   * @see TestCase#setUp()
-   */
-  protected void setUp() throws Exception {
-    super.setUp();
-  }
-
-  /**
-   * @see TestCase#tearDown()
-   */
-  protected void tearDown() throws Exception {
-    if (!problem) {
-      checkDbUnchanged();
-      assertEquals("Not all transactions free", 4, getDb().getFreeTransactionsCount());
-    }
-  }
   
   /**
    * @return Returns the db.
    */
   public Database getDb() {
-    Database db = getDb(databaseName);
-    System.err.println(databaseName + ":" +db.toString());
-    return db;
+    return getDb(databaseName);
   }
   
-  protected void checkDbUnchanged() {
-    getDb().inSession(AccessToken.root, // HACK
-        new PoemTask() {
-          public void run() {
-            databaseUnchanged();
-          }
-        });
-
-  }
   protected void databaseUnchanged() { 
     assertEquals("Setting changed",0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());

@@ -610,6 +610,7 @@ public abstract class Database implements TransactionPool {
 
   /**
    * Find a transaction by its index.
+   * <p>
    * transaction(i).index() == i
    * @param index the index of the Transaction to return
    * @return the Transactoion with that index

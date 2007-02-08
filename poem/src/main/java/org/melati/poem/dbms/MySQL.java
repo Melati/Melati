@@ -43,7 +43,6 @@
 package org.melati.poem.dbms;
 
 import java.util.Enumeration;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -59,7 +58,6 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
-import org.melati.poem.SQLSeriousPoemException;
 
  /**
   * A Driver for MySQL.
@@ -137,28 +135,6 @@ public class MySQL extends AnsiStandard {
     setDriverClassName("org.gjt.mm.mysql.Driver");
   }
 
-
-  /** 
-   * The default windows installation of MySQL has autocommit set true, 
-   * which throws an SQLException when one issues a commit.
-   * This could conceivably be moved up to AnsiStandard.
-   *
-   * {@inheritDoc}
-   * @see org.melati.poem.dbms.AnsiStandard#getConnection
-   * @see org.melati.poem.dbms.Dbms#getConnection
-   *         (java.lang.String, java.lang.String, java.lang.String)
-   */
-  public Connection getConnection(String url, String user, String password)
-      throws ConnectionFailurePoemException {
-    Connection c = super.getConnection(url, user, password);
-    try {
-      c.setAutoCommit(false);
-    }
-    catch (SQLException e) {
-      throw new SQLSeriousPoemException(e);
-    }
-    return c;
-  }
 
 
  /**

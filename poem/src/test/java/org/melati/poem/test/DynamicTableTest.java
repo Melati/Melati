@@ -14,13 +14,19 @@ import org.melati.poem.Database;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.DuplicateColumnNamePoemException;
 import org.melati.poem.DuplicateDeletedColumnPoemException;
+import org.melati.poem.DuplicateTableNamePoemException;
 import org.melati.poem.DuplicateTroidColumnPoemException;
 import org.melati.poem.IntegrityFix;
+import org.melati.poem.NoSuchTablePoemException;
+import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
+import org.melati.poem.ReadPersistentAccessPoemException;
+import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.Searchability;
 import org.melati.poem.StandardIntegrityFix;
+import org.melati.poem.Table;
 import org.melati.poem.TableInfo;
 import org.melati.poem.util.EnumUtils;
 
@@ -58,6 +64,14 @@ public class DynamicTableTest extends EverythingTestCase {
   protected void databaseUnchanged() { 
     // It is not good enough to drop the new columns, as the deleted columnInfo's 
     // are still referred to, so drop the whole table
+    Table added = null;
+    try { 
+      added = getDb().getTable("addedtable");
+    } catch (NoSuchTablePoemException e) { 
+      e = null;
+    }
+    if (added != null && added.getTableInfo().statusExistent())
+      getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("addedtable"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
@@ -935,6 +949,178 @@ public class DynamicTableTest extends EverythingTestCase {
         .getCooked("testIntegrityfixcol")));
     columnInfo.delete();
     getDb().setLogSQL(false);
+  }
+  public void testExtraColumnAsField() {
+    TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    ti.setName("addedtable");
+    ti.setDisplayname("Junit created table");
+    ti.setDisplayorder(13);
+    ti.setSeqcached(new Boolean(false));
+    ti.setCategory_unsafe(new Integer(1));
+    ti.setCachelimit(0);
+    ti.makePersistent();
+    // PoemThread.commit();
+    Table extra = getDb().addTableAndCommit(ti, "id");
+    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    ci.setTableinfo(ti);
+    ci.setTypefactory(PoemTypeFactory.STRING);
+    ci.setNullable(false);
+    ci.setSize(-1);
+    ci.setWidth(20);
+    ci.setHeight(1);
+    ci.setPrecision(1);
+    ci.setScale(1);
+    ci.setName("extra");
+    ci.setDescription("Description of extra column");
+    ci.setDisplayname("Extra");
+    ci.setDisplayorder(10);
+    ci.setIndexed(true);
+    ci.setUnique(true);
+    ci.setSearchability(Searchability.yes);
+    ci.setDisplaylevel(DisplayLevel.primary);
+    ci.setUsereditable(true);
+    ci.setUsercreateable(true);
+
+    ci.makePersistent();
+    extra.addColumnAndCommit(ci);
+
+    Persistent extraInstance = extra.newPersistent();
+    PoemThread.commit();
+    assertNull(extraInstance.troid());
+    extraInstance.setCooked("extra", "Test");
+    extraInstance.makePersistent();
+    assertEquals("Test", extraInstance.getField("extra").getRaw());
+
+    // Show that guest cannot read
+    extra.getTableInfo().setDefaultcanread(getDb().administerCapability());
+    PoemThread.setAccessToken(getDb().guestAccessToken());
+    try {
+      extraInstance.getField("extra").getRaw();
+      fail("Should have bombed");
+    } catch (ReadPersistentAccessPoemException e) {
+      e = null;
+    }
+    // Do not tidy up here
+    // as we no longer have write priviledges.
+    // see our overidden version of poemDatabaseUnchanged()
+    //ci.delete();
+    //extra.troidColumn().getColumnInfo().delete();
+    //ti.delete();
+    //PoemThread.commit();
+  }
+
+  public void testAddTableAndCommit() throws Exception {
+    getDb().setLogCommits(true);
+    // getDb().setLogSQL(true);
+    TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    info.setName("addedtable");
+    info.setDisplayname("Junit created table");
+    info.setDisplayorder(13);
+    info.setSeqcached(new Boolean(false));
+    info.setCategory_unsafe(new Integer(1));
+    info.setCachelimit(0);
+    info.makePersistent();
+    PoemThread.commit();
+    Table extra = getDb().addTableAndCommit(info, "id");
+    ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    ci.setTableinfo(info);
+    ci.setTypefactory(PoemTypeFactory.STRING);
+    ci.setNullable(false);
+    ci.setSize(-1);
+    ci.setWidth(20);
+    ci.setHeight(1);
+    ci.setPrecision(1);
+    ci.setScale(1);
+    ci.setName("extra");
+    ci.setDescription("Description of extra column");
+    ci.setDisplayname("Extra");
+    ci.setDisplayorder(10);
+    ci.setIndexed(true);
+    ci.setUnique(true);
+    ci.setSearchability(Searchability.yes);
+    ci.setDisplaylevel(DisplayLevel.primary);
+    ci.setUsereditable(true);
+    ci.setUsercreateable(true);
+
+    ci.makePersistent();
+    extra.addColumnAndCommit(ci);
+    Persistent extraPersistent = extra.newPersistent();
+    PoemThread.commit();
+    assertNull(extraPersistent.troid());
+    extraPersistent.setCooked("extra", "Test");
+    extraPersistent.makePersistent();
+    assertEquals("Test", extraPersistent.getField("extra").getRaw());
+
+    extra.getTableInfo().setDefaultcanread(getDb().administerCapability());
+    extraPersistent.getField("extra").getRaw();
+
+    assertEquals(new Integer(0), extraPersistent.troid());
+    Enumeration cols = getDb().getColumnInfoTable().getTableinfoColumn()
+            .selectionWhereEq(info.troid());
+    int colCount = 0;
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo)cols.nextElement();
+      c.delete();
+      colCount++;
+    }
+    assertEquals(2, colCount);
+
+
+    PoemThread.commit();
+    String q = "DROP TABLE " + getDb().getDbms().getQuotedName("addedtable");
+    getDb().sqlUpdate(q);
+    PoemThread.commit();
+
+    try {
+      getDb().addTableAndCommit(info, "id");
+      fail("Should have blown up");
+    } catch (DuplicateTableNamePoemException e) {
+      e = null;
+    }
+    cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
+            info.troid());
+    colCount = 0;
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo)cols.nextElement();
+      c.delete();
+      colCount++;
+    }
+    assertEquals(1, colCount);
+
+    info.deleteAndCommit();
+    PoemThread.commit();
+    try {
+      getDb().addTableAndCommit(info, "id");
+      fail("Should have blown up");
+    } catch (RowDisappearedPoemException e) {
+      e = null;
+    }
+    getDb().sqlUpdate(q);
+
+    TableInfo info3 = (TableInfo)getDb().getTableInfoTable().newPersistent();
+    info3.setName("junit2");
+    info3.setDisplayname("Junit created table");
+    info3.setDisplayorder(13);
+    info3.setSeqcached(new Boolean(false));
+    info3.setCategory_unsafe(new Integer(1));
+    info3.setCachelimit(0);
+    info3.makePersistent();
+    PoemThread.commit();
+    getDb().addTableAndCommit(info3, "id");
+    cols = getDb().getColumnInfoTable().getTableinfoColumn().selectionWhereEq(
+            info3.troid());
+    int count = 0;
+    while (cols.hasMoreElements()) {
+      ColumnInfo c = (ColumnInfo)cols.nextElement();
+      c.delete();
+    }
+    assertEquals(0, count);
+    info3.deleteAndCommit();
+    PoemThread.commit();
+
+    q = "DROP TABLE " + getDb().getDbms().getQuotedName("junit2");
+    getDb().sqlUpdate(q);
+    PoemThread.commit();
   }
 
 

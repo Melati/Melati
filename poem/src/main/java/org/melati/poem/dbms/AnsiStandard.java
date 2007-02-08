@@ -71,6 +71,7 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TimestampPoemType;
@@ -158,6 +159,9 @@ public class AnsiStandard implements Dbms {
   }
 
   /**
+   * The default windows installation of MySQL has autocommit set true, 
+   * which throws an SQLException when one issues a commit.
+   * 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#getConnection(java.lang.String, java.lang.String, java.lang.String)
    */
@@ -199,9 +203,9 @@ public class AnsiStandard implements Dbms {
         throw new ConnectionFailurePoemException(e);
       }
     }
-
+    Connection c = null;
     try {
-      Connection c = DriverManager.getConnection(url, user, password);
+      c = DriverManager.getConnection(url, user, password);
       if (c == null) 
         throw new SQLException(
                       "Null connection from DriverManager using url: " + 
@@ -209,12 +213,19 @@ public class AnsiStandard implements Dbms {
                       " user: " + 
                       user + 
                       " password: " + password);
-      return c;
     } catch (java.sql.SQLException e) {
       throw new ConnectionFailurePoemException(e);
     }
+    try {
+      if (c.getAutoCommit())
+        c.setAutoCommit(false);
+    }
+    catch (java.sql.SQLException e) {
+      throw new SQLSeriousPoemException(e);
+    }
+    return c;
   }
-
+  
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.Dbms#preparedStatementPlaceholder(org.melati.poem.PoemType)

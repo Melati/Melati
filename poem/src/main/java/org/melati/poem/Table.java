@@ -1574,14 +1574,13 @@ public class Table implements Selectable {
     }
 
     if (deletedColumn != null ) {
-      System.err.println("We have a deleted");
       if(! includeDeleted) {
         if (whereClause.length() > 0) {
           whereClause += " AND";
         }
       }
       whereClause += " NOT " + dbms().booleanTrueExpression(deletedColumn);
-    }System.err.println("deleted is null");
+    }
 
     if (excludeUnselectable){
       String s = canSelectClause();
@@ -1852,10 +1851,9 @@ public class Table implements Selectable {
   /**
    * All the objects in the table which refer to a given object.  If none of
    * the table's columns are reference columns, the <TT>Enumeration</TT>
-   * returned will obviously be empty.  This is used by
-   * <TT>Persistent.delete()</TT> to determine whether deleting an object would
-   * destroy the integrity of any references.  It is not guaranteed to be
-   * quick to execute!
+   * returned will obviously be empty.  
+   * <p>
+   * It is not guaranteed to be quick to execute!
    *
    * @return an <TT>Enumeration</TT> of <TT>Persistent</TT>s
    */

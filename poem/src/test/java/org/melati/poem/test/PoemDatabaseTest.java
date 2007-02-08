@@ -408,6 +408,7 @@ public class PoemDatabaseTest extends PoemTestCase {
   }
 
   /**
+   * Need to be in separate transactions on postgresql. 
    * @see org.melati.poem.Database#sqlUpdate(String)
    */
   public void testSqlUpdate() {
@@ -418,6 +419,12 @@ public class PoemDatabaseTest extends PoemTestCase {
       e = null;
       // All ok
     }
+  }
+  /**
+   * Need to be in separate transactions on postgresql. 
+   * @see org.melati.poem.Database#sqlUpdate(String)
+   */
+  public void testSqlUpdate1() {
     try {
       getDb()
               .sqlUpdate(
@@ -427,6 +434,12 @@ public class PoemDatabaseTest extends PoemTestCase {
       e = null;
       // All ok
     }
+  }
+  /**
+   * Need to be in separate transactions on postgresql. 
+   * @see org.melati.poem.Database#sqlUpdate(String)
+   */
+  public void testSqlUpdate2() {
     getDb().setLogSQL(true);
     getDb().sqlUpdate(getDb().getDbms().createTableSql() + "RAWSQL (ID INT)");
     getDb().setLogSQL(false);

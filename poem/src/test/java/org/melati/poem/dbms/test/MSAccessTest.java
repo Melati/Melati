@@ -169,5 +169,27 @@ public class MSAccessTest extends DbmsSpec {
   }
 
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
+   */
+  public void testCaseInsensitiveRegExpSQL() {
+    String expected = "a LIKE '%b%'";
+    String actual = it.caseInsensitiveRegExpSQL("a", "b");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLQuoted() {
+    String expected = "a LIKE '%b%'";
+    String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
+    assertEquals(expected, actual);
+  }
+
+  public void testCaseInsensitiveRegExpSQLBlank() {
+    String expected = " LIKE '%%'";
+    String actual = it.caseInsensitiveRegExpSQL("", "");
+    assertEquals(expected, actual);
+  }
+
   
 }

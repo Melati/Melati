@@ -49,6 +49,7 @@ import java.sql.SQLException;
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.BinaryPoemType;
 import org.melati.poem.BooleanPoemType;
+import org.melati.poem.Column;
 import org.melati.poem.DatePoemType;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
@@ -271,5 +272,34 @@ public class MSAccess extends AnsiStandard {
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
+  
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.AnsiStandard#caseInsensitiveRegExpSQL
+   */
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    }
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+
+    return term1 + " LIKE " + term2;
+  }
+
+  
+  /**
+   * Accommodate SQLServer syntax. {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms# alterColumnNotNullableSQL(java.lang.String,
+   *      java.lang.String)
+   */
+  public String alterColumnNotNullableSQL(String tableName, Column column) {
+    System.err.println("Here");
+    return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
+            + getQuotedName(column.getName()) + " "
+            + column.getSQLType().sqlDefinition(this);
+  }
+
 
 }

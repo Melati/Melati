@@ -59,7 +59,6 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.util.StringUtils;
 
 /**
  * A Driver for Oracle (http://www.oracle.com/).

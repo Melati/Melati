@@ -18,6 +18,7 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.ReadPersistentAccessPoemException;
 import org.melati.poem.RowDisappearedPoemException;
+import org.melati.poem.SQLPoemException;
 import org.melati.poem.Searchability;
 import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
@@ -88,11 +89,17 @@ public class PoemDatabaseTest extends PoemTestCase {
     if (normal != null ) {
       normal.delete();
     }
-    try { 
-      getDb().sqlUpdate("DROP TABLE TEST");
+    try {
+      ResultSet rs = getDb().sqlQuery("SELECT * from " + getDb().getDbms().getQuotedName("addedtable"));
+      if (rs.first())
+        getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("addedtable"));
     } catch (ExecutingSQLPoemException e) { 
       System.err.println(e.getMessage());
       //assertTrue(e.getMessage().indexOf("it does not exist") > 0);
+    } catch (SQLPoemException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     super.databaseUnchanged();
   } 
@@ -113,10 +120,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#transactionsMax()
    */
   public void testTransactionsMax() {
-    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertEquals(1, getDb().transactionsMax());
-    else
-      assertEquals(4, getDb().transactionsMax());
+    assertEquals(4, getDb().transactionsMax());
   }
 
   /**
@@ -413,7 +417,7 @@ public class PoemDatabaseTest extends PoemTestCase {
 
   public void testExtraColumnAsField () {
     TableInfo info = (TableInfo) getDb().getTableInfoTable().newPersistent();
-    info.setName("test");
+    info.setName("addedtable");
     info.setDisplayname("Junit created table");
     info.setDisplayorder(13);
     info.setSeqcached(new Boolean(false));
@@ -482,10 +486,7 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testSetTransactionsMax() {
     int current = 0;
     current = getDb().transactionsMax();
-    if (getDb().getDbms().toString().indexOf("MSAccess") > 0)
-      assertEquals(1, getDb().transactionsMax());
-    else
-      assertEquals(4, getDb().transactionsMax());
+    assertEquals(4, current);
     getDb().setTransactionsMax(12);
     assertTrue(getDb().transactionsMax() == 12);
     getDb().setTransactionsMax(current);

@@ -661,14 +661,14 @@ public class TableTest extends PoemTestCase {
     String cnf = getDb().getUserTable().cnfWhereClause(
             getDb().getUserTable().selection());
     String expected = "((\"USER\".\"ID\" = 0 AND "+
-    "\"USER\".\"NAME\" LIKE \'%Melati guest user%\' AND " +
-    "\"USER\".\"LOGIN\" LIKE \'%_guest_%\' AND " +
-    "\"USER\".\"PASSWORD\" LIKE \'%guest%\') " +
-    "OR" +
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"NAME\"" , "Melati guest user") + " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"LOGIN\"","_guest_") + " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"PASSWORD\"","guest") +
+    ") OR" +
     " (\"USER\".\"ID\" = 1 AND " +
-    "\"USER\".\"NAME\" LIKE \'%Melati database administrator%\' AND " +
-    "\"USER\".\"LOGIN\" LIKE \'%_administrator_%\' AND " +
-    "\"USER\".\"PASSWORD\" LIKE \'%FIXME%\'))";
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"NAME\"","Melati database administrator") + " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"LOGIN\"","_administrator_") +" AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"PASSWORD\"","FIXME") + "))";
     assertEquals(expected.toUpperCase(),
             cnf.toUpperCase());
     cnf = getDb().getUserTable().cnfWhereClause(
@@ -1051,8 +1051,10 @@ public class TableTest extends PoemTestCase {
    */
   public void testCachedSelectionField() {
     // getDb().setLogSQL(true);
+    String whereClause = getDb().getTableInfoTable().getDisplayorderColumn().fullQuotedName() + 
+    "  <3000 AND " + getDb().getTableInfoTable().getDisplayorderColumn().fullQuotedName() + "  > 2000";
     Field userTableFields = getDb().getTableInfoTable()
-        .cachedSelectionField("\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000", null,
+        .cachedSelectionField(whereClause, null,
             true, null, "userTables");
     Enumeration them = userTableFields.getPossibilities();
     assertEquals("userTables: ", them.nextElement().toString());
@@ -1066,8 +1068,8 @@ public class TableTest extends PoemTestCase {
 
     // with order by
     userTableFields = getDb().getTableInfoTable()
-    .cachedSelectionField("\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000", 
-        "\"TABLEINFO\".\"DISPLAYNAME\"", true, null, "userTables");
+    .cachedSelectionField(whereClause, 
+            getDb().getTableInfoTable().getDisplaynameColumn().fullQuotedName(), true, null, "userTables");
     them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: ");
     assertEquals(them.nextElement().toString(), "userTables: Capability");
@@ -1080,8 +1082,8 @@ public class TableTest extends PoemTestCase {
 
     // without null option
     userTableFields = getDb().getTableInfoTable().cachedSelectionField(
-        "\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000",
-        "\"TABLEINFO\".\"DISPLAYNAME\"", false, null, "userTables");
+        whereClause,
+        getDb().getTableInfoTable().getDisplaynameColumn().fullQuotedName(), false, null, "userTables");
     them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: Capability");
     assertEquals(them.nextElement().toString(), "userTables: Group");
@@ -1093,8 +1095,8 @@ public class TableTest extends PoemTestCase {
 
     // with a troid
     userTableFields = getDb().getTableInfoTable().cachedSelectionField(
-        "\"TABLEINFO\".\"DISPLAYORDER\"  <3000 AND \"TABLEINFO\".\"DISPLAYORDER\"  > 2000",
-        "\"TABLEINFO\".\"DISPLAYNAME\"", false, new Integer(0), "userTables");
+        whereClause,
+        getDb().getTableInfoTable().getDisplaynameColumn().fullQuotedName(), false, new Integer(0), "userTables");
     them = userTableFields.getPossibilities();
     assertEquals(them.nextElement().toString(), "userTables: Capability");
     assertEquals(them.nextElement().toString(), "userTables: Group");

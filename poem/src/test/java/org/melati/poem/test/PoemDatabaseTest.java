@@ -61,7 +61,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#transactionsMax()
    */
   public void testTransactionsMax() {
-    assertEquals(4, getDb().transactionsMax());
+    assertEquals(maxTrans, getDb().transactionsMax());
   }
 
   /**
@@ -254,7 +254,7 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testSetTransactionsMax() {
     int current = 0;
     current = getDb().transactionsMax();
-    assertEquals(4, current);
+    assertEquals(maxTrans, current);
     getDb().setTransactionsMax(12);
     assertTrue(getDb().transactionsMax() == 12);
     getDb().setTransactionsMax(current);
@@ -264,7 +264,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getTransactionsCount()
    */
   public void testGetTransactionsCount() {
-    assertTrue(getDb().getTransactionsCount() == 4);
+    assertEquals(maxTrans, getDb().getTransactionsCount());
   }
 
   /**
@@ -292,17 +292,15 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#isFree(PoemTransaction)
    */
   public void testIsFree() {
-    if (!(getDb().getDbms().toString().indexOf("MSAccess") > 0)) {
-      assertTrue(getDb().isFree(getDb().poemTransaction(0)));
-      assertTrue(getDb().isFree(getDb().poemTransaction(1)));
-      assertTrue(getDb().isFree(getDb().poemTransaction(2)));
-      assertFalse(getDb().isFree(getDb().poemTransaction(3)));
-      try {
-        System.err.println(getDb().isFree(getDb().poemTransaction(4)));
-        fail("Should have caused exception");
-      } catch (ArrayIndexOutOfBoundsException e) {
-        e = null;
-      }
+    assertTrue(getDb().isFree(getDb().poemTransaction(0)));
+    assertTrue(getDb().isFree(getDb().poemTransaction(1)));
+    assertTrue(getDb().isFree(getDb().poemTransaction(2)));
+    assertFalse(getDb().isFree(getDb().poemTransaction(3)));
+    try {
+      System.err.println(getDb().isFree(getDb().poemTransaction(4)));
+      fail("Should have bombed.");
+    } catch (ArrayIndexOutOfBoundsException e) {
+      e = null;
     }
   }
 

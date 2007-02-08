@@ -292,8 +292,9 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#isFree(PoemTransaction)
    */
   public void testIsFree() {
-    for (int i = 0; i < maxTrans; i++)
+    for (int i = 0; i < maxTrans-1; i++)
       assertTrue(getDb().isFree(getDb().poemTransaction(i)));
+    assertFalse(getDb().isFree(getDb().poemTransaction(maxTrans-1)));
     
     try {
       System.err.println(getDb().isFree(getDb().poemTransaction(maxTrans)));

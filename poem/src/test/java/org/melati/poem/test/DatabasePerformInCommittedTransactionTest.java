@@ -1,8 +1,10 @@
 package org.melati.poem.test;
 
 import java.util.Enumeration;
+import java.util.Properties;
 
 import org.melati.poem.AccessToken;
+import org.melati.poem.Database;
 import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.Group;
 import org.melati.poem.Persistent;
@@ -141,13 +143,29 @@ public class DatabasePerformInCommittedTransactionTest
     if (dbName == null)
       throw new NullPointerException();
     try {
-      db = (PoemDatabase)PoemDatabaseFactory.getDatabase(dbName);
+      db = (PoemDatabase)getDatabase(dbName);
     } catch (DatabaseInitialisationPoemException e) {
       e.printStackTrace();
       fail(e.getMessage());
     }
   }
 
+  public Database getDatabase(String name){ 
+    Properties defs = PoemTestCase.databaseDefs();
+    String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
+
+    return PoemDatabaseFactory.getDatabase(name,
+            PoemTestCase.getOrDie(defs, pref + "url"), 
+            PoemTestCase.getOrDie(defs, pref + "user"),
+            PoemTestCase.getOrDie(defs, pref + "password"),
+            PoemTestCase.getOrDie(defs, pref + "class"),
+            PoemTestCase.getOrDie(defs, pref + "dbmsclass"),
+            new Boolean(PoemTestCase.getOrDie(defs, pref + "addconstraints")).booleanValue(),
+            new Boolean(PoemTestCase.getOrDie(defs, pref + "logsql")).booleanValue(),
+            new Boolean(PoemTestCase.getOrDie(defs, pref + "logcommits")).booleanValue(),
+            new Integer(PoemTestCase.getOrDie(defs, pref + "maxtransactions")).intValue());
+  }
+  
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;
     return userToRunAs;

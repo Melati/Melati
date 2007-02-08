@@ -271,7 +271,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getFreeTransactionsCount()
    */
   public void testGetFreeTransactionsCount() {
-    assertEquals(3, getDb().getFreeTransactionsCount());
+    assertEquals(maxTrans -1, getDb().getFreeTransactionsCount());
   }
 
   /**
@@ -292,12 +292,11 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#isFree(PoemTransaction)
    */
   public void testIsFree() {
-    assertTrue(getDb().isFree(getDb().poemTransaction(0)));
-    assertTrue(getDb().isFree(getDb().poemTransaction(1)));
-    assertTrue(getDb().isFree(getDb().poemTransaction(2)));
-    assertFalse(getDb().isFree(getDb().poemTransaction(3)));
+    for (int i = 0; i < maxTrans; i++)
+      assertTrue(getDb().isFree(getDb().poemTransaction(i)));
+    
     try {
-      System.err.println(getDb().isFree(getDb().poemTransaction(4)));
+      System.err.println(getDb().isFree(getDb().poemTransaction(maxTrans)));
       fail("Should have bombed.");
     } catch (ArrayIndexOutOfBoundsException e) {
       e = null;

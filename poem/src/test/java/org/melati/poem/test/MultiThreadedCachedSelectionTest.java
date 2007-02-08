@@ -262,8 +262,13 @@ public class MultiThreadedCachedSelectionTest extends EverythingTestCase {
       System.err.println(getDb().getFreeTransactionsCount() +  "!=" +  (getDb().transactionsMax() -1));
       setter.signal(null);
       getter.signal(null);
-      while(getDb().getFreeTransactionsCount() != getDb().transactionsMax() -1)
+      int max = getDb().transactionsMax() -1;
+      int trans = getDb().getFreeTransactionsCount();
+      while(trans != max) { 
         Thread.sleep(1000);
+        System.err.println("Slept because free transactions = " + trans);
+        trans = getDb().getFreeTransactionsCount();
+      }
     } catch (Exception e) {
       e.printStackTrace();
       fail();

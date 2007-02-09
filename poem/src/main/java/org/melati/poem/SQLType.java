@@ -93,7 +93,9 @@ public interface SQLType {
    */
   String sqlTypeDefinition(Dbms dbms);  
   /**
-   * Quoting a raw value, if appropriate for the Dbms.
+   * Quoting a raw value, if appropriate, for the Dbms.
+   * <p>
+   * numbers and booleans are not quoted for most dbms'.
    * @param raw sql value
    * @return the raw value with quotes if appropriate for the dbms
    */

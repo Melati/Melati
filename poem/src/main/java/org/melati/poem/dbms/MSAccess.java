@@ -58,6 +58,7 @@ import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
+import org.melati.poem.dbms.SQLServer.SQLServerBooleanPoemType;
 import org.melati.poem.util.StringUtils;
 /**
  * A Driver for the Microsoft Access database server.
@@ -69,6 +70,8 @@ public class MSAccess extends AnsiStandard {
   public static final int msAccessTextHack = 250;
   /** Size of memo fields. */
   public static final int msAccessMemoSize = 1073741823;
+  /** Size of binary fields. */
+  public static final int msAccessBinarySize = 510;
 
   /** Constructor. */
   public MSAccess() {
@@ -158,6 +161,21 @@ public class MSAccess extends AnsiStandard {
       return "BINARY"; // 512
     return "BINARY(" + size + ")";
   }
+
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.AnsiStandard#sqlBooleanValueOfRaw(java.lang.Object)
+   */
+  public String sqlBooleanValueOfRaw(Object raw) {
+    if (((Boolean)raw).booleanValue())
+      return "1";
+    else
+      return "0";
+  }
+
+  
+  
   /**
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#canRepresent(org.melati.poem.PoemType, org.melati.poem.PoemType)
@@ -170,6 +188,13 @@ public class MSAccess extends AnsiStandard {
       } else if (((StringPoemType)storage).getSize() == msAccessMemoSize
                  && ((StringPoemType)type).getSize() == -1) {
               return type;
+      } else {
+        return storage.canRepresent(type);
+      }
+    } else if (storage instanceof BinaryPoemType && type instanceof BinaryPoemType) {
+      if (((BinaryPoemType)storage).getSize() == msAccessBinarySize
+              && ((BinaryPoemType) type).getSize() == -1) {
+        return type;
       } else {
         return storage.canRepresent(type);
       }
@@ -270,6 +295,9 @@ public class MSAccess extends AnsiStandard {
     if (md.getString("TYPE_NAME").equals("SMALLINT"))
       return new IntegerPoemType(
                    md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
+    if (md.getString("TYPE_NAME").equals("bit"))
+      return new SQLServerBooleanPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);
     return super.defaultPoemTypeOfColumnMetaData(md);
   }
   
@@ -295,11 +323,20 @@ public class MSAccess extends AnsiStandard {
    *      java.lang.String)
    */
   public String alterColumnNotNullableSQL(String tableName, Column column) {
-    System.err.println("Here");
     return "ALTER TABLE " + getQuotedName(tableName) + " ALTER COLUMN "
             + getQuotedName(column.getName()) + " "
             + column.getSQLType().sqlDefinition(this);
   }
 
+  /**
+   * {@inheritDoc}
+   * 
+   * @see org.melati.poem.dbms.Dbms#selectLimit(java.lang.String, int)
+   */
+  public String selectLimit(String querySelection, int limit) {
+    return "SELECT TOP " + limit + " " + querySelection;
+  }
+
+  
 
 }

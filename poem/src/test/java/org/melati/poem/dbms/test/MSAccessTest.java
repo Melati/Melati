@@ -205,7 +205,7 @@ public class MSAccessTest extends DbmsSpec {
    *    selectLimit(java.lang.String, int)}.
    */
   public void testSelectLimit() {
-    assertEquals("SELECT TOP 1* FROM \"USER\"", it.selectLimit("* FROM \"USER\"", 1));
+    assertEquals("SELECT TOP 1 * FROM \"USER\"", it.selectLimit("* FROM \"USER\"", 1));
   }
 
   

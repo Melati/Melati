@@ -56,6 +56,7 @@ import org.melati.poem.Column;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLType;
 import org.melati.poem.Table;
 
 /**
@@ -357,5 +358,13 @@ public interface Dbms {
    * @return an expresion that evaluates to True ie the column name or column name = 1
    */
   String booleanTrueExpression(Column booleanColumn);
+
+  /**
+   * Used to set a not null value when 
+   * creating a non nullable column.
+   * @param sqlTypeName the type name
+   * @return a String suitable for substitution in UPDATE table SET field = ?
+   */
+  String getSqlDefaultValue(SQLType type);
   
 }

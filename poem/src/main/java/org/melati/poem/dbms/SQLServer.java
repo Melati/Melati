@@ -60,6 +60,7 @@ import org.melati.poem.DatePoemType;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.TimestampPoemType;
 import org.melati.poem.util.StringUtils;
@@ -488,5 +489,15 @@ public class SQLServer extends AnsiStandard {
     return booleanColumn.fullQuotedName() + "=1";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
+   */
+  public String getSqlDefaultValue(SQLType sqlType) {
+    if (sqlType instanceof BooleanPoemType) {
+      return ("0");
+    }
+    return super.getSqlDefaultValue(sqlType);
+  }
   
 }

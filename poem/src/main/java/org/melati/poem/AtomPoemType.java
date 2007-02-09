@@ -103,6 +103,15 @@ public abstract class AtomPoemType extends BasePoemType {
       return dbms.getSqlDefinition(sqlTypeName);
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.SQLType#sqlDefaultValue()
+   */
+  public String sqlDefaultValue(Dbms dbms) {
+    return dbms.getSqlDefaultValue(this);
+  }
+
+  
   protected String _toString() {
     return sqlTypeName;
   }

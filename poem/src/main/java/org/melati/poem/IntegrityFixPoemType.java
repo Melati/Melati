@@ -115,12 +115,4 @@ public class IntegrityFixPoemType extends IntegerPoemType {
     return "IntegrityFix";
   }
 
-  /**
-   * Set prevent as default.
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return StandardIntegrityFix.prevent.getIndex().toString();
-  }
 }

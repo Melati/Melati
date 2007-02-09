@@ -58,6 +58,7 @@ import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemType;
+import org.melati.poem.SQLType;
 import org.melati.poem.StringPoemType;
 
 /**
@@ -379,5 +380,15 @@ public class Oracle extends AnsiStandard {
     return booleanColumn.fullQuotedName() + "=1";
   }
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#getSqlDefaultValue(org.melati.poem.SQLType)
+   */
+  public String getSqlDefaultValue(SQLType sqlType) {
+    if (sqlType instanceof BooleanPoemType) {
+      return ("0");
+    }
+    return super.getSqlDefaultValue(sqlType);
+  }
 
 }

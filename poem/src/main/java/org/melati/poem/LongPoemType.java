@@ -136,11 +136,4 @@ public class LongPoemType extends AtomPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.LONG);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return "0";
-  }
 }

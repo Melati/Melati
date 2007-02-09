@@ -668,7 +668,7 @@ public class Table implements Selectable {
       dbModifyStructure(
           "UPDATE " + quotedName() +
           " SET " + column.quotedName() +
-          " = " + StringUtils.quoted(column.getSQLType().sqlDefaultValue(),'\''));
+          " = " + StringUtils.quoted(column.getSQLType().sqlDefaultValue(dbms()),'\''));
       dbModifyStructure(
           dbms().alterColumnNotNullableSQL(name, column));      
     }

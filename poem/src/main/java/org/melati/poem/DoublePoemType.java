@@ -107,11 +107,4 @@ public class DoublePoemType extends AtomPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.DOUBLE);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return "0.0";
-  }
 }

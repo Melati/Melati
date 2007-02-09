@@ -120,11 +120,4 @@ public class DatePoemType extends AtomPoemType {
       throws AccessPoemException {
     columnInfo.setTypefactory(PoemTypeFactory.DATE);
   }
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return new Date(new java.util.Date().getTime()).toString();
-  }
 }

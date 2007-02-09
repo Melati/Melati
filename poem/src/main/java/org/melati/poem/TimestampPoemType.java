@@ -138,12 +138,4 @@ public class TimestampPoemType extends AtomPoemType {
     return StringUtils.quoted(_stringOfRaw(raw), '\'');
   }
   
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return new Timestamp(System.currentTimeMillis()).toString();
-  }
-
 }

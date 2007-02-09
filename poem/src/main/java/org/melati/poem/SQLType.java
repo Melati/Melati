@@ -77,9 +77,10 @@ public interface SQLType {
   /**
    * Used to set a not null value when 
    * creating a non nullable column.
-   * @return a String suitable to substituted in UPDATE table SET field = ?
+   * @param dbms the dbms the value is suitable for 
+   * @return a String suitable for substitution in UPDATE table SET field = ?
    */
-  String sqlDefaultValue();
+  String sqlDefaultValue(Dbms dbms);
   
   /**
    * SQL type definition without nullability.

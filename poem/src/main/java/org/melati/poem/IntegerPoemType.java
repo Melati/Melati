@@ -134,11 +134,4 @@ public class IntegerPoemType extends AtomPoemType {
     columnInfo.setTypefactory(PoemTypeFactory.INTEGER);
   }
 
-  /**
-   * {@inheritDoc}
-   * @see org.melati.poem.SQLType#sqlDefaultValue()
-   */
-  public String sqlDefaultValue() {
-    return "0";
-  }
 }

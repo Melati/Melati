@@ -49,13 +49,16 @@
 
 package org.melati.poem.dbms;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Date;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Properties;
 
@@ -67,11 +70,16 @@ import org.melati.poem.DatePoemType;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.IntegerPoemType;
+import org.melati.poem.IntegrityFixPoemType;
 import org.melati.poem.LongPoemType;
+import org.melati.poem.PasswordPoemType;
+import org.melati.poem.PoemBugPoemException;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.SQLType;
+import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.Table;
 import org.melati.poem.TimestampPoemType;
@@ -597,6 +605,53 @@ public class AnsiStandard implements Dbms {
    */
   public String booleanTrueExpression(Column booleanColumn) {
     return booleanColumn.fullQuotedName();
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getSqlDefaultValue(java.lang.String)
+   */
+  public String getSqlDefaultValue(SQLType sqlType) {
+    if (sqlType instanceof BooleanPoemType) {
+      return ("false");
+    }
+    if (sqlType instanceof DoublePoemType) {
+      return ("0.0");
+    }
+    if (sqlType instanceof LongPoemType) {
+      return ("0");
+    }
+    if (sqlType instanceof BinaryPoemType) {
+      return "";
+    }
+    if (sqlType instanceof BigDecimalPoemType) {
+      return new BigDecimal(0.0).toString();
+    }
+    if (sqlType instanceof DatePoemType) {
+      return new Date(new java.util.Date().getTime()).toString();
+    }
+    if (sqlType instanceof TimestampPoemType) {
+      return new Timestamp(System.currentTimeMillis()).toString();
+    }
+    if (sqlType instanceof PasswordPoemType) {
+      return "FIXME";
+    }
+    if (sqlType instanceof StringPoemType) {
+      return "default";
+    }
+    //Set prevent as default fix
+    if (sqlType instanceof IntegrityFixPoemType) {
+      return StandardIntegrityFix.prevent.getIndex().toString();
+    }
+
+    // Defaults to User for ColumnPoemType
+    // Primary for SearchabilityPoemType
+    // This needs to be last, as types above extend IntegerPoemType
+    if (sqlType instanceof IntegerPoemType) {
+      return ("0");
+    }
+    throw new PoemBugPoemException("Unrecognised sqlType: " + sqlType);
+
   }
 
 }

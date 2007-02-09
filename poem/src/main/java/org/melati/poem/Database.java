@@ -121,6 +121,9 @@ public abstract class Database implements TransactionPool {
 
   private boolean initialised = false;
 
+  /**
+   * Initialise each table.
+   */
   private synchronized void init() {
     if (!initialised) {
       for (Enumeration t = this.tables.elements(); t.hasMoreElements();)
@@ -237,10 +240,10 @@ public abstract class Database implements TransactionPool {
       freeTransactions = (Vector)transactions.clone();
 
       try {
-        // Bootstrap: set up the tableinfo and columninfo tables
-
+        // Perform any table specific initialisation, none by default
         init();
 
+        // Bootstrap: set up the tableinfo and columninfo tables
         DatabaseMetaData m = committedConnection.getMetaData();
         getTableInfoTable().unifyWithDB(
             m.getColumns(null, dbms.getSchema(),

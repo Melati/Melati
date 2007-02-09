@@ -209,6 +209,7 @@ public abstract class Transaction {
     }
     catch (RuntimeException e) {
       try {
+        System.err.println("Rolling back due to " + e);
         finish(false);
       }
       catch (Exception ignore) {

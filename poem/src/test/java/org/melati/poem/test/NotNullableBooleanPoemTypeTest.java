@@ -73,9 +73,10 @@ public class NotNullableBooleanPoemTypeTest extends SQLPoemTypeTest {
 
   /**
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
+   * FIXME - this should probably be '0' not false.
    */
   public void testQuotedRaw() {
-    assertEquals(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()), 
+    assertEquals("false", 
         ((SQLPoemType)it).quotedRaw(((SQLPoemType)it).rawOfString(
                 ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
 

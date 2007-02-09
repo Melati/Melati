@@ -599,13 +599,13 @@ public class DynamicTableTest extends EverythingTestCase {
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
-        dt.getColumn("testpasswordcol").selectionWhereEq("default")).size());
+        dt.getColumn("testpasswordcol").selectionWhereEq("FIXME")).size());
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
-        dt.getColumn("testpasswordcol").selectionWhereEq("default")).size());
-    assertEquals("default", dt.two().getRaw("testpasswordcol"));
-    assertEquals("default", dt.two().getCooked("testpasswordcol"));
-    assertEquals("default", dt.getObject(0).getCooked("testpasswordcol"));
+        dt.getColumn("testpasswordcol").selectionWhereEq("FIXME")).size());
+    assertEquals("FIXME", dt.two().getRaw("testpasswordcol"));
+    assertEquals("FIXME", dt.two().getCooked("testpasswordcol"));
+    assertEquals("FIXME", dt.getObject(0).getCooked("testpasswordcol"));
     columnInfo.delete();
     getDb().setLogSQL(false);
   }

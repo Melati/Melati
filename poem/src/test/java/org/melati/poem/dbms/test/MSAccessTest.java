@@ -191,5 +191,22 @@ public class MSAccessTest extends DbmsSpec {
     assertEquals(expected, actual);
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * sqlBooleanValueOfRaw(java.lang.Object)}.
+   */
+  public void testSqlBooleanValueOfRaw() {
+    assertEquals("0", it.sqlBooleanValueOfRaw(Boolean.FALSE));        
+    assertEquals("1", it.sqlBooleanValueOfRaw(Boolean.TRUE));        
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   *    selectLimit(java.lang.String, int)}.
+   */
+  public void testSelectLimit() {
+    assertEquals("SELECT TOP 1* FROM \"USER\"", it.selectLimit("* FROM \"USER\"", 1));
+  }
+
   
 }

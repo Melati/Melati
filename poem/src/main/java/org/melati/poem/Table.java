@@ -1558,12 +1558,11 @@ public class Table implements Selectable {
    * It is the programmer's responsibility to ensure that the where clause 
    * is suitable for the target DBMS.
    * 
-   * FIXME Make private again after debugging
    * @param whereClause SQL fragment
    * @param includeDeleted Flag as to whether to include soft deleted records
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    */
-  public String appendWhereClauseFilters(String whereClause,
+  private String appendWhereClauseFilters(String whereClause,
                                           boolean includeDeleted,
                                           boolean excludeUnselectable) {
     if (whereClause == null || whereClause.trim().length() == 0) {

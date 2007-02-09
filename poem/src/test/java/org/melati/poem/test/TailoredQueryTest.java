@@ -296,8 +296,6 @@ public class TailoredQueryTest extends EverythingTestCase {
       db.getUserTable().troidColumn().fullQuotedName() + 
       " = " + 
       db.getProtectedTable().getSpyColumn().fullQuotedName();
-    whereClause = getDb().getUserTable().appendWhereClauseFilters(whereClause,false, false);
-    System.err.println(whereClause);  
     TailoredQuery q = new TailoredQuery(
                                         columns,
                                         otherTables,

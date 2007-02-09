@@ -586,6 +586,7 @@ public class Table implements Selectable {
       updateStatement.executeUpdate(sql);
       updateStatement.close();
       database.getCommittedConnection().commit();
+      if (database.logCommits()) database.log(new CommitLogEvent(null));
       database.incrementQueryCount();
       if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
     }
@@ -1276,7 +1277,7 @@ public class Table implements Selectable {
       return allTroidsLocal.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
-              PoemThread.inSession() ? PoemThread.transaction() : null);
+                            PoemThread.inSession() ? PoemThread.transaction() : null);
     }
 
   /**
@@ -2685,7 +2686,7 @@ public class Table implements Selectable {
       // Create any columns which do not exist in the dbms but are defined in java or metadata 
       for (int c = 0; c < columns.length; ++c) {
         if (dbColumns.get(columns[c]) == null) {
-        //  if (logSQL()) log("About to add missing column: " + columns[c]);
+          if (database.logSQL()) database.log("About to add missing column: " + columns[c]);
           dbAddColumn(columns[c]);
         }
       }
@@ -2758,9 +2759,9 @@ public class Table implements Selectable {
       PoemThread.writeDown();
 
     String sql = 
-        "SELECT " + troidColumn.quotedName() +
+        "SELECT " + troidColumn.fullQuotedName() +
         " FROM " + quotedName() +
-        " ORDER BY " + troidColumn.quotedName() + " DESC";
+        " ORDER BY " + troidColumn.fullQuotedName() + " DESC";
     try {
       Statement selectionStatement = getDatabase().getCommittedConnection().createStatement();
       ResultSet maxTroid =
@@ -2781,6 +2782,9 @@ public class Table implements Selectable {
     }
   }
 
+  /**
+   * Override this to perform pre-unification initialisation.
+   */
   protected void init() {
   }
 

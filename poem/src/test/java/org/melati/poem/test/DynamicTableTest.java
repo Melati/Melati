@@ -10,7 +10,6 @@ import java.util.Enumeration;
 
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.ColumnRenamePoemException;
-import org.melati.poem.Database;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.DuplicateColumnNamePoemException;
 import org.melati.poem.DuplicateDeletedColumnPoemException;
@@ -56,9 +55,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    if (!problem) {
-      checkDbUnchanged();
-    }
+    checkDbUnchanged();
   }
 
   protected void databaseUnchanged() { 
@@ -75,16 +72,11 @@ public class DynamicTableTest extends EverythingTestCase {
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
+    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tablecategory"));
     PoemThread.commit();
     PoemDatabaseFactory.removeDatabase(databaseName);
   } 
   
-  public Database getDb() {
-    Database db = super.getDb(); 
-    db.setLogSQL(true);
-    return db;
-  }
-
   
 
   /**
@@ -333,6 +325,8 @@ public class DynamicTableTest extends EverythingTestCase {
    */
   public void testAddColumnAndCommitInteger() {
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
+    // Two records are created on initialisation
+    assertEquals(2, EnumUtils.vectorOf(dt.selection()).size());
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -358,7 +352,7 @@ public class DynamicTableTest extends EverythingTestCase {
     getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
-        dt.getColumn("testintegercol").selectionWhereEq(new Integer(0))).size());
+            dt.getColumn("testintegercol").selectionWhereEq(new Integer(0))).size());
     PoemThread.commit();
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testintegercol").selectionWhereEq(new Integer(0))).size());

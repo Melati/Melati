@@ -57,17 +57,13 @@ public abstract class FixedPointAtomPoemType extends AtomPoemType {
   /**
    * Constructor.
    * @param sqlTypeCode from Types
-   * @param sqlTypeName name od sql type
+   * @param sqlTypeName name of sql type
    * @param nullable whether nulls are allowable values
    * @param precision how many places to the left of decimal point 
    * @param scale howmany places to right of decimal point
    */
-  public FixedPointAtomPoemType(
-    int sqlTypeCode,
-    String sqlTypeName,
-    boolean nullable,
-    int precision,
-    int scale) {
+  public FixedPointAtomPoemType(int sqlTypeCode, String sqlTypeName, boolean nullable,
+      int precision, int scale) {
     super(sqlTypeCode, sqlTypeName, nullable);
     this.precision = precision;
     this.scale = scale;

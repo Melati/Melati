@@ -109,7 +109,7 @@ public class OracleTest extends DbmsSpec {
   public void testMelatiName() {
     assertEquals("name", it.melatiName("name"));
     assertEquals(null, it.melatiName(null));
-    assertEquals("~msaccess special", it.melatiName("~MSAccess special"));
+    assertEquals("~special", it.melatiName("~Special"));
   }
 
   /**

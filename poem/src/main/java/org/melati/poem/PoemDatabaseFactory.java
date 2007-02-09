@@ -135,13 +135,14 @@ public final class PoemDatabaseFactory {
 
         database = (Database)databaseObject;
 
-        database.connect(dbmsClass, url, user, password, maxTransactions);
-
         // Set properties
         if (logSQL)
           database.setLogSQL(true);
         if (logCommits)
           database.setLogCommits(true);
+
+        database.connect(dbmsClass, url, user, password, maxTransactions);
+
         if (addConstraints)
           database.addConstraints();
       }

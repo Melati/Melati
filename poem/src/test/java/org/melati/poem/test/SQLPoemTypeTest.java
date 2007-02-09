@@ -93,10 +93,10 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.SQLType#quotedRaw(java.lang.Object)}.
    */
   public void testQuotedRaw() {
-    assertEquals("'" +((SQLPoemType)it).sqlDefaultValue() + "'", 
+    assertEquals("'" +((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()) + "'", 
         ((SQLPoemType)it).quotedRaw(
             ((SQLPoemType)it).rawOfString(
-                ((SQLPoemType)it).sqlDefaultValue())));
+                ((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
 
   }
 
@@ -136,7 +136,7 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
       e2 = null;
     }
     try {
-      String sVal = ((SQLType)it).sqlDefaultValue();
+      String sVal = ((SQLType)it).sqlDefaultValue(getDb().getDbms());
 
       Object value = it.rawOfString(sVal);
       try {
@@ -224,7 +224,7 @@ abstract public class SQLPoemTypeTest extends PoemTestCase {
       e = null;
     } 
     try {
-      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType)it).sqlDefaultValue())));
+      it.assertValidCooked(it.cookedOfRaw(it.rawOfString(((SQLPoemType)it).sqlDefaultValue(getDb().getDbms()))));
     } catch (ClassCastException e){
       assertTrue(it instanceof NonSQLPoemType);
     }

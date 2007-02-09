@@ -250,7 +250,7 @@ public abstract class DbmsSpec extends PoemTestCase {
   public void testMelatiName() {
     assertEquals("name", it.melatiName("name"));
     assertEquals(null, it.melatiName(null));
-    assertEquals("~special", it.melatiName("~Special"));
+    assertEquals("~Special", it.melatiName("~Special"));
   }
 
   /**

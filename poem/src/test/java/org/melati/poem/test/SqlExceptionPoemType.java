@@ -16,6 +16,7 @@ import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemType;
 import org.melati.poem.TypeMismatchPoemException;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.dbms.Dbms;
 
 public class SqlExceptionPoemType extends AtomPoemType {
 
@@ -47,7 +48,6 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * @see org.melati.poem.BasePoemType#_canRepresent(org.melati.poem.SQLPoemType)
    */
   protected boolean _canRepresent(SQLPoemType other) {
-    // TODO Auto-generated method stub
     return false;
   }
 
@@ -76,7 +76,6 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * @see org.melati.poem.BasePoemType#_saveColumnInfo(org.melati.poem.ColumnInfo)
    */
   protected void _saveColumnInfo(ColumnInfo info) throws AccessPoemException {
-    // TODO Auto-generated method stub
 
   }
 
@@ -97,8 +96,7 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * 
    * @see org.melati.poem.SQLType#sqlDefaultValue()
    */
-  public String sqlDefaultValue() {
-    // TODO Auto-generated method stub
+  public String sqlDefaultValue(Dbms dbms) {
     return "1";
   }
 
@@ -108,7 +106,6 @@ public class SqlExceptionPoemType extends AtomPoemType {
    * @see org.melati.poem.PoemType#toDsdType()
    */
   public String toDsdType() {
-    // TODO Auto-generated method stub
     return null;
   }
 

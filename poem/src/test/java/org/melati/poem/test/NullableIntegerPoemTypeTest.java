@@ -5,6 +5,7 @@ package org.melati.poem.test;
 
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.ValidationPoemException;
+import org.melati.poem.dbms.Dbms;
 
 /**
  * @author timp
@@ -56,11 +57,6 @@ public class NullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest 
   }
 
 
-  public void testAssertValidCooked() {
-    // TODO Auto-generated method stub
-    super.testAssertValidCooked();
-  }
-
 
   class RangedIntegerPoemType extends IntegerPoemType {
     /**
@@ -77,7 +73,7 @@ public class NullableIntegerPoemTypeTest extends NotNullableIntegerPoemTypeTest 
      * {@inheritDoc}
      * @see org.melati.poem.IntegerPoemType#sqlDefaultValue()
      */
-    public String sqlDefaultValue() {
+    public String sqlDefaultValue(Dbms Any) {
       return "2";
     }
     

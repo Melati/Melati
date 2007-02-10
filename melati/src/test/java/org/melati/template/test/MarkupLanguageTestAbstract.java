@@ -12,7 +12,6 @@ import org.melati.poem.Database;
 import org.melati.poem.Field;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.util.test.Node;
-import org.melati.poem.test.PoemTestCase;
 import org.melati.template.AttributeMarkupLanguage;
 import org.melati.template.MarkupLanguage;
 import org.melati.template.NotFoundException;
@@ -33,7 +32,7 @@ import junit.framework.TestCase;
  * @author timp
  * @since 14-May-2006
  */
-abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
+abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
 
   protected static MelatiConfig mc = null;
   protected static TemplateEngine templateEngine = null;
@@ -62,7 +61,6 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
    */
   protected void setUp() throws Exception
   {
-    setDbName("tree");
     super.setUp();
     melatiConfig();
     templateEngine = mc.getTemplateEngine();
@@ -93,6 +91,7 @@ abstract public class MarkupLanguageTestAbstract extends PoemTestCase {
   }
 
   public Database getTreeDatabase() { 
+    maxTrans = 4;
     return PoemDatabaseFactory.getDatabase("tree",
             "jdbc:hsqldb:mem:" + "tree",
             "sa",

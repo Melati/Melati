@@ -11,7 +11,7 @@ import org.melati.poem.test.PoemTestCase;
 
 public class ContactTest extends PoemTestCase {
 
-  private static String contactsDatabaseName = "contacts";
+  private static String databaseName = "contacts";
   
   private Contact root = null;
   private Contact a = null;
@@ -68,7 +68,7 @@ public class ContactTest extends PoemTestCase {
    * @return Returns the dbName.
    */
   protected String getDbName() {
-    return contactsDatabaseName;
+    return databaseName;
   }
   
   public Database getDb(String dbNameP) {
@@ -78,13 +78,14 @@ public class ContactTest extends PoemTestCase {
   }
 
   public  Database getPoemDatabase() { 
-    return PoemDatabaseFactory.getDatabase(contactsDatabaseName,
-            "jdbc:hsqldb:mem:" + contactsDatabaseName,
+    maxTrans = 4;
+    return PoemDatabaseFactory.getDatabase(databaseName,
+            "jdbc:hsqldb:mem:" + databaseName,
             "sa",
             "","org.melati.example.contacts.ContactsDatabase",
             "org.melati.poem.dbms.Hsqldb",false,false,false,4);
   }
-  protected void poemDatabaseUnchanged() { 
+  protected void databaseUnchanged() { 
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());

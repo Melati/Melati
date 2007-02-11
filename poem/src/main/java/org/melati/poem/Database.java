@@ -1204,6 +1204,9 @@ public abstract class Database implements TransactionPool {
   
   /**
    * Set administrator capability to default.
+   * <p>
+   * NOTE Once a database has had its <tt>canAdminister</tt> capability set 
+   * there is no mechanism to set it back to null. 
    */
   public void setCanAdminister() {
     canAdminister = administerCapability();

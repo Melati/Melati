@@ -25,8 +25,9 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   protected void setUp() throws Exception {
+    PoemDatabaseFactory.removeDatabase(databaseName);
     super.setUp();
-
+    assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
 
   protected void tearDown() throws Exception {
@@ -302,6 +303,7 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
     ThrowingConnection.startThrowing("prepareStatement");
     try {
       super.testReferencesToPersistent();
+      fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
@@ -319,6 +321,7 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
     ThrowingConnection.startThrowing("prepareStatement");
     try {
       super.testSetCanAdminister();
+      fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }

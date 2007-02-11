@@ -11,38 +11,23 @@ import java.sql.Statement;
 import java.util.Hashtable;
 
 /**
-*  A Statement which can throw SQLException on command.
+*  A {@link Statement} decorated to throw SQLException on command.
 *  
  * @author timp
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingStatement implements Statement {
-
+public class ThrowingStatement extends Thrower implements Statement {
   Statement s = null;
-
-  static Hashtable throwers = new Hashtable();
+  { 
+    throwers = new Hashtable();
+  }
 
   /**
    * 
    */
   public ThrowingStatement(Statement s) {
     this.s = s;
-  }
-
-  public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
-  }
-
-  public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
-  }
-
-  private boolean shouldThrow(String methodName) {
-    if (throwers.get(methodName) == null
-        || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
   }
 
   /**

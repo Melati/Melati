@@ -22,6 +22,7 @@ import java.sql.SQLWarning;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Hashtable;
 
 /**
  *  A PreparedStatement which can throw SQLException on command.
@@ -32,6 +33,10 @@ import java.util.Calendar;
  */
 public class ThrowingPreparedStatement extends Thrower implements
     PreparedStatement {
+  { 
+    throwers = new Hashtable();
+  }
+
   PreparedStatement p = null;
 
   /**
@@ -84,7 +89,7 @@ public class ThrowingPreparedStatement extends Thrower implements
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeQuery();
+    return new ThrowingResultSet(p.executeQuery());
   }
 
   /**
@@ -596,7 +601,7 @@ public class ThrowingPreparedStatement extends Thrower implements
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeQuery(sql);
+    return new ThrowingResultSet(p.executeQuery(sql));
   }
 
   /**
@@ -694,7 +699,7 @@ public class ThrowingPreparedStatement extends Thrower implements
     if (shouldThrow("getGeneratedKeys"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getGeneratedKeys();
+    return new ThrowingResultSet(p.getGeneratedKeys());
   }
 
   /**
@@ -766,7 +771,7 @@ public class ThrowingPreparedStatement extends Thrower implements
     if (shouldThrow("getResultSet"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getResultSet();
+    return new ThrowingResultSet(p.getResultSet());
   }
 
   /**

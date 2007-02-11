@@ -5,6 +5,7 @@ package org.melati.poem.dbms.test;
 
 import java.util.Hashtable;
 
+
 /**
  * A class which can throw on demand.
  * 
@@ -13,7 +14,8 @@ import java.util.Hashtable;
  *
  */
 public abstract class Thrower {
-  static Hashtable throwers = new Hashtable();
+  protected static Hashtable throwers;
+
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);
   }

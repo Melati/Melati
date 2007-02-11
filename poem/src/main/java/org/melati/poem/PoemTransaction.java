@@ -60,7 +60,7 @@ public class PoemTransaction extends Transaction {
   /**
    * Constructor.
    */
-  PoemTransaction(Database database, Connection connection, int index) {
+  public PoemTransaction(Database database, Connection connection, int index) {
     super(database, index);
     this.database = database;
     this.connection = connection;

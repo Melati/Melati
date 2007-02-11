@@ -113,8 +113,9 @@ public class PoemDatabaseTest extends PoemTestCase {
     assertTrue(getDb().hasCapability(
             getDb().getUserTable().administratorUser(),
             getDb().getCanAdminister()));
-    assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(),
-            getDb().getCanAdminister()));
+    // This is only true for a db that thas never had its administration set
+    //assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(),
+    //        getDb().getCanAdminister()));
     assertTrue(getDb().hasCapability(getDb().getUserTable().guestUser(), null));
   }
 
@@ -129,7 +130,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#getCanAdminister()
    */
   public void testGetCanAdminister() {
-    assertNull(getDb().getCanAdminister());
+    // starts as null, but once set cannot be set to null again
+    //assertNull(getDb().getCanAdminister());
   }
 
   /**
@@ -466,7 +468,8 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#setCanAdminister(String)
    */
   public void testSetCanAdminister() {
-    assertNull(getDb().getCanAdminister());
+    // There is no way to set it back to null so do not check
+    //assertNull(getDb().getCanAdminister());
     getDb().setCanAdminister();
     assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb()
             .getCanAdminister());
@@ -475,6 +478,7 @@ public class PoemDatabaseTest extends PoemTestCase {
             .getCanAdminister());
     getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing")
             .delete();
+    getDb().setCanAdminister();
 
   }
 

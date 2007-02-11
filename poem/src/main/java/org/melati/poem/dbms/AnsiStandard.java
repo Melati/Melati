@@ -87,7 +87,9 @@ import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.util.StringUtils;
 
 /**
- * An SQL 92 compliant Database Management System. Should there ever be such a
+ * An SQL 92 compliant Database Management System. 
+ * <p>
+ * Should there ever be such a
  * thing then you wouldn't need to extend this, but all DBs used with Melati so
  * far have needed to extend the standard with their own variations.
  */

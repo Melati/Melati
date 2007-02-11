@@ -56,9 +56,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * A Driver for HSQLDB (http://www.hsqldb.org/).
  *
- * Note that HSQLDB uppercases any name that isn't quoted, 
- * this strictness uncovered a few loopholes,
- * now all names in Melati should be quoted.
+ * Note that HSQLDB uppercases any name that isn't quoted. 
  *
  **/
 

@@ -31,10 +31,19 @@ import java.util.Hashtable;
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingPreparedStatement extends Thrower implements
+public class ThrowingPreparedStatement implements
     PreparedStatement {
-  { 
-    throwers = new Hashtable();
+  static Hashtable throwers = new Hashtable();
+  public static void startThrowing(String methodName) {
+    throwers.put(methodName, Boolean.TRUE);
+  }
+  public static void stopThrowing(String methodName) {
+    throwers.put(methodName, Boolean.FALSE);
+  }
+  public static boolean shouldThrow(String methodName) { 
+    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
+      return false;
+    return true;
   }
 
   PreparedStatement p = null;

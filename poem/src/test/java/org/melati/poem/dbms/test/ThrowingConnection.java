@@ -21,9 +21,18 @@ import java.util.Map;
  * @since 10 Feb 2007
  *
  */
-public class ThrowingConnection extends Thrower implements Connection {
-  { 
-    throwers = new Hashtable();
+public class ThrowingConnection implements Connection {
+  static Hashtable throwers = new Hashtable();
+  public static void startThrowing(String methodName) {
+    throwers.put(methodName, Boolean.TRUE);
+  }
+  public static void stopThrowing(String methodName) {
+    throwers.put(methodName, Boolean.FALSE);
+  }
+  public static boolean shouldThrow(String methodName) { 
+    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
+      return false;
+    return true;
   }
 
   Connection c = null;

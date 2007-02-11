@@ -17,7 +17,20 @@ import java.util.Hashtable;
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingStatement extends Thrower implements Statement {
+public class ThrowingStatement implements Statement {
+  static Hashtable throwers = new Hashtable();
+  public static void startThrowing(String methodName) {
+    throwers.put(methodName, Boolean.TRUE);
+  }
+  public static void stopThrowing(String methodName) {
+    throwers.put(methodName, Boolean.FALSE);
+  }
+  public static boolean shouldThrow(String methodName) { 
+    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
+      return false;
+    return true;
+  }
+
   Statement s = null;
   { 
     throwers = new Hashtable();

@@ -28,9 +28,18 @@ import java.util.Map;
  * @since 11 Feb 2007
  *
  */
-public class ThrowingResultSet extends Thrower implements ResultSet {
-  { 
-    throwers = new Hashtable();
+public class ThrowingResultSet implements ResultSet {
+  static Hashtable throwers = new Hashtable();
+  public static void startThrowing(String methodName) {
+    throwers.put(methodName, Boolean.TRUE);
+  }
+  public static void stopThrowing(String methodName) {
+    throwers.put(methodName, Boolean.FALSE);
+  }
+  public static boolean shouldThrow(String methodName) { 
+    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
+      return false;
+    return true;
   }
 
   ResultSet r = null;

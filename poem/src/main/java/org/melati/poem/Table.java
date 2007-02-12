@@ -293,9 +293,7 @@ public class Table implements Selectable {
       if (id != null && id.intValue() == columnInfoID)
         return column;
     }
-    throw new PoemBugPoemException(
-            "Non existent column ID " + columnInfoID + 
-            " requested for table " + name);
+    return null; // Happens when columns exists but not defined in DSD
   }
 
   /**

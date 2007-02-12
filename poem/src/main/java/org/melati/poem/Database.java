@@ -787,7 +787,8 @@ public abstract class Database implements TransactionPool {
 
   /**
    * End a db session.
-   * This is the very manual way of doing db work - not reccomended -
+   * <p>
+   * This is the very manual way of doing db work - not recommended -
    * use inSession.
    */
   public void endSession() {

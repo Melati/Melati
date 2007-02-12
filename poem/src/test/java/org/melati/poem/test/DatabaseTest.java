@@ -3,12 +3,15 @@
  */
 package org.melati.poem.test;
 
+
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
+import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.dbms.test.ThrowingResultSet;
 
 import junit.framework.TestCase;
 
@@ -61,7 +64,16 @@ public class DatabaseTest extends TestCase {
       return db;
     }
   }
+  private static Database getThrowingDb() { 
+    if (db != null) db = null;
+    db = new PoemDatabase();
+    db.connect("org.melati.poem.dbms.test.HsqldbThrower", "jdbc:hsqldb:mem:m2",
+      "sa", "", 8);
+    assertEquals(8, db.getFreeTransactionsCount());
+    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
+    return db;
 
+  }
 
   /**
    * Test method for {@link org.melati.poem.Database#Database()}.
@@ -87,6 +99,25 @@ public class DatabaseTest extends TestCase {
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
+  }
+  /**
+   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   */
+  public void testConnectThrowing() { 
+    ThrowingResultSet.startThrowing("next");     
+    try { 
+      getThrowingDb();
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
+    assertEquals(8, db.getFreeTransactionsCount());
+    db.shutdown();
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
+    ThrowingResultSet.stopThrowing("next");     
   }
 
   /**

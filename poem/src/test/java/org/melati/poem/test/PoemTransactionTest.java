@@ -3,6 +3,10 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.PoemThread;
+import org.melati.poem.PoemTransaction;
+import org.melati.poem.User;
+
 /**
  * @author timp
  * @since 11 Feb 2007
@@ -34,10 +38,11 @@ public class PoemTransactionTest extends PoemTestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.PoemTransaction#PoemTransaction(org.melati.poem.Database, java.sql.Connection, int)}.
+   * Test method for {@link org.melati.poem.PoemTransaction#
+   * PoemTransaction(org.melati.poem.Database, java.sql.Connection, int)}.
    */
   public void testPoemTransaction() {
-    
+    new PoemTransaction(getDb(),getDb().getCommittedConnection(),1);
   }
 
   /**
@@ -65,13 +70,26 @@ public class PoemTransactionTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.transaction.Transaction#commit()}.
    */
   public void testCommit() {
-    
+    User u = new User("tester","tester","tester");
+    getDb().getUserTable().create(u); 
+    assertEquals("tester",u.getName());
+    u.setName("tester2");
+    // get the logSQL line covered
+    PoemThread.commit();
+    u.delete();    
   }
 
   /**
    * Test method for {@link org.melati.poem.transaction.Transaction#rollback()}.
    */
   public void testRollback() {
+    User u = new User("tester","tester","tester");
+    getDb().getUserTable().create(u); 
+    assertEquals("tester",u.getName());
+    u.setName("tester2");
+    // get the logSQL line covered
+    PoemThread.rollback();
+    u.delete();    
     
   }
 

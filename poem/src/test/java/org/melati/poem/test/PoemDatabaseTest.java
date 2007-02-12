@@ -476,9 +476,9 @@ public class PoemDatabaseTest extends PoemTestCase {
     getDb().setCanAdminister("testing");
     assertEquals(getDb().getCapabilityTable().get("testing"), getDb()
             .getCanAdminister());
+    getDb().setCanAdminister();
     getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing")
             .delete();
-    getDb().setCanAdminister();
 
   }
 

@@ -100,8 +100,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       BigDecimal x = rs.getBigDecimal(col);
-      return rs.wasNull() ? null : x;
-    }
+      return rs.wasNull() ? null : x; }
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object real)

@@ -71,8 +71,7 @@ public class DoublePoemType extends AtomPoemType {
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       double x = rs.getDouble(col);
-      return rs.wasNull() ? null : new Double(x);
-    }
+      return rs.wasNull() ? null : new Double(x); }
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object real)

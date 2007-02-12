@@ -94,8 +94,7 @@ public class IntegerPoemType extends AtomPoemType {
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       int i = rs.getInt(col);
-      return i == 0 && rs.wasNull() ? null : new Integer(i);
-    }
+      return i == 0 && rs.wasNull() ? null : new Integer(i); }
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object integer)

@@ -121,8 +121,7 @@ public class PreparedStatementFactory extends CachedIndexFactory {
    * @return a new or cached PreparedStatement
    */
   public PreparedStatement preparedStatement(PoemTransaction transaction) {
-    return (PreparedStatement)get(transaction == null ?
-                                          0 : transaction.index + 1);
+    return (PreparedStatement)get(transaction == null ? 0 : transaction.index + 1);
   }
 
   /**

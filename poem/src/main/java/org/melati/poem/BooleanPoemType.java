@@ -78,8 +78,7 @@ public class BooleanPoemType extends AtomPoemType {
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       boolean b = rs.getBoolean(col);
-      return rs.wasNull() ? null : b ? Boolean.TRUE : Boolean.FALSE;
-    }
+      return rs.wasNull() ? null : b ? Boolean.TRUE : Boolean.FALSE; }
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object bool)

@@ -371,10 +371,10 @@ public class SQLServer extends AnsiStandard {
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, -1 );
 
     // Not used in Poem 
-    //if (md.getString("TYPE_NAME").equals("char"))
-    //  return new StringPoemType(
-    //          md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
-    //                  .getInt("COLUMN_SIZE"));
+    if (md.getString("TYPE_NAME").equals("char"))
+      return new StringPoemType(
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, md
+                      .getInt("COLUMN_SIZE"));
     if (md.getString("TYPE_NAME").equals("float"))
       return new DoublePoemType(
               md.getInt("NULLABLE") == DatabaseMetaData.columnNullable);

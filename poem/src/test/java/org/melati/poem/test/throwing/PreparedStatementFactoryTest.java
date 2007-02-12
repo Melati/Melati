@@ -3,8 +3,6 @@
  */
 package org.melati.poem.test.throwing;
 
-import java.util.Properties;
-
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PreparedSQLSeriousPoemException;
@@ -27,26 +25,25 @@ public class PreparedStatementFactoryTest extends
   public PreparedStatementFactoryTest(String name) {
     super(name);
   }
+  
   protected void setUp() throws Exception {
     PoemDatabaseFactory.removeDatabase(databaseName);
     super.setUp();
     assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
 
-
   public Database getDatabase(String name) {
-    Properties defs = databaseDefs();
-    String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
-    maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
-    return PoemDatabaseFactory.getDatabase(name, 
-        getOrDie(defs, pref + "url"),
-        getOrDie(defs, pref + "user"), 
-        getOrDie(defs, pref + "password"),
-        getOrDie(defs, pref + "class"),
+    maxTrans = 4;
+    Database db = PoemDatabaseFactory.getDatabase(name, 
+        "jdbc:hsqldb:mem:" + name,
+        "sa", 
+        "",
+        "org.melati.poem.PoemDatabase",
         "org.melati.poem.dbms.test.HsqldbThrower", 
-        new Boolean(getOrDie(defs, pref + "addconstraints")).booleanValue(), 
-        new Boolean(getOrDie(defs, pref + "logsql")).booleanValue(), 
-        new Boolean(getOrDie(defs, pref + "logcommits")).booleanValue(), maxTrans);
+        false, 
+        false, 
+        false, maxTrans);
+    return db;
   }
 
   public void testGet() {

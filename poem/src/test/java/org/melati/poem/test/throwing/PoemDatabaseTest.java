@@ -3,8 +3,6 @@
  */
 package org.melati.poem.test.throwing;
 
-import java.util.Properties;
-
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLPoemException;
@@ -35,16 +33,17 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   public Database getDatabase(String name) {
-    Properties defs = databaseDefs();
-    String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
-    maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
-    return PoemDatabaseFactory.getDatabase(name, getOrDie(defs, pref + "url"),
-        getOrDie(defs, pref + "user"), getOrDie(defs, pref + "password"),
-        getOrDie(defs, pref + "class"),
-        "org.melati.poem.dbms.test.HsqldbThrower", new Boolean(getOrDie(defs,
-            pref + "addconstraints")).booleanValue(), new Boolean(getOrDie(
-            defs, pref + "logsql")).booleanValue(), new Boolean(getOrDie(defs,
-            pref + "logcommits")).booleanValue(), maxTrans);
+    maxTrans = 4;
+    Database db = PoemDatabaseFactory.getDatabase(name, 
+        "jdbc:hsqldb:mem:" + name,
+        "sa", 
+        "",
+        "org.melati.poem.PoemDatabase",
+        "org.melati.poem.dbms.test.HsqldbThrower", 
+        false, 
+        false, 
+        false, maxTrans);
+    return db;
   }
 
   public void testAddConstraints() {
@@ -320,12 +319,22 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   public void testSetCanAdminister() {
     ThrowingConnection.startThrowing("prepareStatement");
     try {
-      super.testSetCanAdminister();
+      getDb().setCanAdminister();
+      assertEquals(getDb().getCapabilityTable().get("_administer_"), getDb()
+              .getCanAdminister());
+      getDb().setCanAdminister("testing");
+      assertEquals(getDb().getCapabilityTable().get("testing"), getDb()
+              .getCanAdminister());
+      getDb().setCanAdminister();
+      getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing")
+      .delete();
       fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
     ThrowingConnection.stopThrowing("prepareStatement");
+    getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing")
+    .delete();
   }
 
   public void testSetLogCommits() {

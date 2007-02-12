@@ -3,10 +3,13 @@
  */
 package org.melati.poem.test.throwing;
 
-import java.util.Properties;
-
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
+import org.melati.poem.PoemThread;
+import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.User;
+import org.melati.poem.dbms.test.ThrowingConnection;
+import org.melati.poem.dbms.test.ThrowingPreparedStatement;
 
 /**
  * @author timp
@@ -29,58 +32,88 @@ public class PoemTransactionTest extends
     super.setUp();
     assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
+  
   public Database getDatabase(String name) {
-    Properties defs = databaseDefs();
-    String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
-    maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
-    return PoemDatabaseFactory.getDatabase(name, 
-        getOrDie(defs, pref + "url"),
-        getOrDie(defs, pref + "user"), getOrDie(defs, pref + "password"),
-        getOrDie(defs, pref + "class"),
+    maxTrans = 4;
+    Database db = PoemDatabaseFactory.getDatabase(name, 
+        "jdbc:hsqldb:mem:" + name,
+        "sa", 
+        "",
+        "org.melati.poem.PoemDatabase",
         "org.melati.poem.dbms.test.HsqldbThrower", 
-        new Boolean(getOrDie(defs, pref + "addconstraints")).booleanValue(), 
-        new Boolean(getOrDie(defs, pref + "logsql")).booleanValue(), 
-        new Boolean(getOrDie(defs, pref + "logcommits")).booleanValue(), maxTrans);
+        false, 
+        false, 
+        false, maxTrans);
+    return db;
   }
 
   public void testClose() {
-    // TODO Auto-generated method stub
+    ThrowingPreparedStatement.startThrowing("executeQuery");
     super.testClose();
+    ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testCommit() {
-    // TODO Auto-generated method stub
-    super.testCommit();
+    ThrowingConnection.startThrowing("commit");
+    try { 
+      super.testCommit();
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());      
+    }
+    ThrowingConnection.stopThrowing("commit");
   }
 
   public void testGetBlockedOn() {
-    // TODO Auto-generated method stub
+    ThrowingPreparedStatement.startThrowing("executeQuery");
     super.testGetBlockedOn();
+    ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testGetDatabase() {
-    // TODO Auto-generated method stub
+    ThrowingPreparedStatement.startThrowing("executeQuery");
     super.testGetDatabase();
+    ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testPoemTransaction() {
-    // TODO Auto-generated method stub
-    super.testPoemTransaction();
+    ThrowingConnection.startThrowing("setAutoCommit");
+    try { 
+      super.testPoemTransaction();
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());      
+    }
+    ThrowingConnection.stopThrowing("setAutoCommit");
   }
 
   public void testRollback() {
-    // TODO Auto-generated method stub
-    super.testRollback();
+    ThrowingConnection.startThrowing("rollback");
+    User u = new User("tester","tester","tester");
+    try { 
+      getDb().getUserTable().create(u); 
+      assertEquals("tester",u.getName());
+      u.setName("tester2");
+      // get the logSQL line covered
+      PoemThread.rollback();
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());      
+    }
+    ThrowingConnection.stopThrowing("rollback");
+    u.delete();    
   }
 
   public void testToString() {
-    // TODO Auto-generated method stub
+    ThrowingPreparedStatement.startThrowing("executeQuery");
     super.testToString();
+    ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testWriteDown() {
-    // TODO Auto-generated method stub
+    ThrowingPreparedStatement.startThrowing("executeQuery");
     super.testWriteDown();
+    ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
 }

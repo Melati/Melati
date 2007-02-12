@@ -60,11 +60,17 @@ import java.util.Vector;
 public abstract class CachedQuery {
 
   protected PreparedStatementFactory statements = null;
+
   protected Vector rows = null;
+
   private long tableSerial;
+
   protected Table table;
+
   private String query;
+
   private Table otherTables[];
+
   private long otherTablesSerial[];
 
   /**
@@ -76,7 +82,7 @@ public abstract class CachedQuery {
    */
   public CachedQuery(final Table table,
                      final String query,
-                     final Table otherTables[]) {
+          final Table otherTables[]) {
     this.table = table;
     this.query = query;
     this.otherTables = otherTables;
@@ -107,24 +113,22 @@ public abstract class CachedQuery {
         try {
           while (rs.next())
             rowsLocal.addElement(extract(rs));
+        } finally {
+          try {
+            rs.close();
+          } catch (Exception e) {
+            // Report the real problem above
+            e = null; // shut Checkstyle up!
+          }
         }
-        finally {
-          try { 
-                rs.close(); 
-              } catch (Exception e) {
-                // Report the real problem above
-                e = null; // shut Checkstyle up!
-              }
-        }
-      }
-      catch (SQLException e) {
+      } catch (SQLException e) {
         throw new SQLSeriousPoemException(e);
       }
       this.rows = rowsLocal;
       updateSerials(token.transaction);
     }
   }
-  
+
   private boolean somethingHasChanged(PoemTransaction transaction) {
     if (table.serial(transaction) != tableSerial)
       return true;
@@ -142,7 +146,7 @@ public abstract class CachedQuery {
   private void updateSerials(PoemTransaction transaction) {
     tableSerial = table.serial(transaction);
     if (otherTables != null) {
-      for (int i=0; i<otherTables.length; i++) {
+      for (int i = 0; i < otherTables.length; i++) {
         otherTablesSerial[i] = otherTables[i].serial(transaction);
       }
     }
@@ -162,9 +166,10 @@ public abstract class CachedQuery {
   protected void setQuery(String query) {
     this.query = query;
   }
-  
+
   /**
    * {@inheritDoc}
+   * 
    * @see java.lang.Object#toString()
    */
   public String toString() {

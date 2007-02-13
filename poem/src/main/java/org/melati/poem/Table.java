@@ -2644,11 +2644,11 @@ public class Table implements Selectable {
           // magically make eligible columns called "id" and "deleted"
           // into troid and soft-deleted-flag columns
 
-          if (troidColumn == null && colName.equalsIgnoreCase("id") &&
+          if (troidColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("id")) &&
               dbms().canRepresent(colType, TroidPoemType.it) != null)
             colType = TroidPoemType.it;
 
-          if (deletedColumn == null && colName.equalsIgnoreCase("deleted") &&
+          if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
               dbms().canRepresent(colType, DeletedPoemType.it) != null)
             colType = DeletedPoemType.it;
 

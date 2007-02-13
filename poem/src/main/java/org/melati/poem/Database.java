@@ -326,7 +326,7 @@ public abstract class Database implements TransactionPool {
    */
   protected synchronized void defineTable(Table table)
       throws DuplicateTableNamePoemException {
-    if (tablesByName.get(table.getName()) != null)
+    if (tablesByName.get(table.getName().toLowerCase()) != null)
       throw new DuplicateTableNamePoemException(this, table.getName());
     redefineTable(table);
   }
@@ -335,14 +335,14 @@ public abstract class Database implements TransactionPool {
     if (table.getDatabase() != this)
       throw new TableInUsePoemException(this, table);
 
-    if (tablesByName.get(table.getName()) == null) {
-      tablesByName.put(table.getName(), table);
+    if (tablesByName.get(table.getName().toLowerCase()) == null) {
+      tablesByName.put(table.getName().toLowerCase(), table);
       tables.addElement(table);
     }
     else
       tables.setElementAt(table,
                           tables.indexOf(
-                              tablesByName.put(table.getName(), table)));
+                              tablesByName.put(table.getName().toLowerCase(), table)));
 
     displayTables = null;
   }
@@ -387,13 +387,13 @@ public abstract class Database implements TransactionPool {
 
   private synchronized void unifyWithDB() throws PoemException, SQLException {
 
-    // Check all tables against tableInfo, silently defining the ones
-    // that don't exist
+    // Check all tables defined in the dsd against tableInfo, 
+    // defining the ones that don't exist
 
     for (Enumeration ti = getTableInfoTable().selection();
          ti.hasMoreElements();) {
       TableInfo tableInfo = (TableInfo)ti.nextElement();
-      Table table = (Table)tablesByName.get(tableInfo.getName());
+      Table table = (Table)tablesByName.get(tableInfo.getName().toLowerCase());
       if (table == null) {
         if (logSQL()) log("Defining table:" + tableInfo.getName());
         table = new Table(this, tableInfo.getName(),
@@ -403,7 +403,7 @@ public abstract class Database implements TransactionPool {
       table.setTableInfo(tableInfo);
     }
 
-    // Conversely, add tableInfo for the tables that aren't there
+    // Conversely, add tableInfo for the tables that do not have an entry in tableInfo
 
     for (Enumeration t = tables.elements(); t.hasMoreElements();)
       ((Table)t.nextElement()).createTableInfo();
@@ -426,26 +426,28 @@ public abstract class Database implements TransactionPool {
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
       if (tableName == null) break; //dbms returning grotty table name
       Table table = tableName == null ? null :
-                                          (Table)tablesByName.get(tableName);
+                                          (Table)tablesByName.get(tableName.toLowerCase());
       if (table == null) {
         if (logSQL()) log("table null but named:" + tableName);
 
         // but we only want to include them if they have a plausible troid:
         ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
             dbms.getJdbcMetadataName(dbms.unreservedName("id")));
-        if (idCol.next() && dbms.canRepresent(
-                defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
-          if (logSQL()) log("Got an ID col");
-          try {
-            table = new Table(this, tableName,
-                              DefinitionSource.sqlMetaData);
-            defineTable(table);
-          }
-          catch (DuplicateTableNamePoemException e) {
-            throw new UnexpectedExceptionPoemException(e);
-          }
-          table.createTableInfo();
-        }
+        if (idCol.next()) { 
+          //log("Got an ID col");
+          if (dbms.canRepresent(
+                  defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
+            try {
+              table = new Table(this, tableName,
+                                DefinitionSource.sqlMetaData);
+              defineTable(table);
+            }
+            catch (DuplicateTableNamePoemException e) {
+              throw new UnexpectedExceptionPoemException(e);
+            }
+            table.createTableInfo();
+          }//else log("Can represent failed");
+        }//else log("Not got an ID col");
         /**
         // Try to promote the primary key to a troid
         else {
@@ -839,7 +841,7 @@ public abstract class Database implements TransactionPool {
    *             if no table with the given name exists in the RDBMS
    */
   public final Table getTable(String name) throws NoSuchTablePoemException {
-    Table table = (Table)tablesByName.get(name);
+    Table table = (Table)tablesByName.get(name.toLowerCase());
     if (table == null) throw new NoSuchTablePoemException(this, name);
     return table;
   }

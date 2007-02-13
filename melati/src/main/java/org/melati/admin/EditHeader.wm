@@ -70,7 +70,7 @@ target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">T
    <!-- IMG src="$admin.StaticURL/tree.gif" alt="Tree view" -->
    </a>
 #end
-   <FONT FACE="Arial, Helvetica" size="2">&nbsp;<div style='display:inline;'title='$table.Description'>$table.DisplayName</div>:
+   <FONT FACE="Arial, Helvetica" size="2">&nbsp;<div style='display:inline; #if($table.Description) #begin 'title='$table.Description' #end>$table.DisplayName</div>:
 <a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()"
 title="Display $ml.rendered($object)">

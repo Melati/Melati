@@ -29,8 +29,13 @@ This page last updated: $Date$ $Author$
 Use to generate a prototypical Melati project.
 </P>
 <pre>
-mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.melati -DartifactId=melati-example-contacts
+<input type='text' size='180' 
+value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.melati -DartifactId=melati-example-contacts' />
 </pre>
+<p>
+This will create a slightly broken project. 
+You will need to re-arrange directories.
+</p>
 </section>
 </body>
 </document>

@@ -1,4 +1,4 @@
-package ${groupId}.model;
+package ${groupId}.${artifactId}.model;
 
 
 // Put your table definitions here

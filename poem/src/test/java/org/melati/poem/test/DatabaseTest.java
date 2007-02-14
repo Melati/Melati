@@ -4,13 +4,19 @@
 package org.melati.poem.test;
 
 
+
 import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
+import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.UnificationPoemException;
+import org.melati.poem.User;
+import org.melati.poem.dbms.test.ThrowingConnection;
+import org.melati.poem.dbms.test.ThrowingDatabaseMetaData;
 import org.melati.poem.dbms.test.ThrowingResultSet;
 
 import junit.framework.TestCase;
@@ -108,7 +114,7 @@ public class DatabaseTest extends TestCase {
     try { 
       getThrowingDb();
       fail("Should have blown up");
-    } catch (SQLSeriousPoemException e) {
+    } catch (UnificationPoemException e) {
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
@@ -121,6 +127,61 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
+   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   */
+  public void testConnectThrowing2() { 
+    ThrowingResultSet.startThrowing("close");     
+    try { 
+      getThrowingDb();
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) {
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
+    assertEquals(8, db.getFreeTransactionsCount());
+    db.shutdown();
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
+    ThrowingResultSet.stopThrowing("close");     
+  }
+  /**
+   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   */
+  public void testConnectThrowing3() { 
+    ThrowingConnection.startThrowing("getMetaData");     
+    try { 
+      getThrowingDb();
+      fail("Should have blown up");
+    } catch (UnificationPoemException e) {
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    }
+    db.shutdown();
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
+    ThrowingConnection.stopThrowing("getMetaData");     
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
+   */
+  public void testConnectThrowing4() { 
+    ThrowingDatabaseMetaData.startThrowing("getTables");     
+    try { 
+      getThrowingDb();
+      fail("Should have blown up");
+    } catch (SQLPoemException e) {
+      assertEquals("DatabaseMetaData bombed", e.innermostException().getMessage());
+    }
+    db.shutdown();
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
+    ThrowingDatabaseMetaData.stopThrowing("getTables");     
+  }
+
+  /**
    * Test method for {@link org.melati.poem.Database#disconnect()}.
    */
   public void testDisconnect() {
@@ -128,9 +189,47 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
+   * Test method for {@link org.melati.poem.Database#disconnect()}.
+   */
+  public void testDisconnectThrowing() {
+    getThrowingDb();
+    db.shutdown();
+    ThrowingConnection.startThrowing("close");     
+    try { 
+      db.disconnect();
+      fail("Should have blown up");
+    } catch (SQLPoemException e) {
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    }
+    ThrowingConnection.stopThrowing("close");     
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
+    
+  }
+
+  /**
    * Test method for {@link org.melati.poem.Database#shutdown()}.
    */
   public void testShutdown() {
+    
+  }
+  /**
+   * Test method for {@link org.melati.poem.Database#shutdown()}.
+   */
+  public void testShutdownThrowing() {
+    getThrowingDb();
+    ThrowingConnection.startThrowing("isClosed");     
+    try { 
+      db.shutdown();
+      fail("Should have blown up");
+    } catch (SQLPoemException e) {
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    }
+    ThrowingConnection.stopThrowing("isClosed");     
+    db.disconnect();
+    assertEquals(0, db.getFreeTransactionsCount());
+    db = null;
     
   }
 
@@ -363,10 +462,10 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#givesCapabilitySQL(org.melati.poem.User, org.melati.poem.Capability)}.
+   * Test method for {@link org.melati.poem.Database#
+   * givesCapabilitySQL(org.melati.poem.User, org.melati.poem.Capability)}.
    */
   public void testGivesCapabilitySQL() {
-    
   }
 
   /**
@@ -374,6 +473,32 @@ public class DatabaseTest extends TestCase {
    */
   public void testHasCapability() {
     
+  }
+  /**
+   * @see org.melati.poem.Database#hasCapability(User, Capability)
+   */
+  public void testHasCapabilityThrowing() {
+    Database db = getThrowingDb();
+    db.beginSession(AccessToken.root);
+    ThrowingResultSet.startThrowing("next");
+    try { 
+      assertFalse(db.hasCapability(
+          db.guestUser(), db.administerCapability()));
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    ThrowingResultSet.startThrowing("close");
+    try { 
+      assertFalse(db.hasCapability(db.guestUser(), 
+          db.administerCapability()));
+      fail("Should have bombed");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    }
+    ThrowingResultSet.stopThrowing("next");
+    ThrowingResultSet.stopThrowing("close");
+    db.endSession();
   }
 
   /**

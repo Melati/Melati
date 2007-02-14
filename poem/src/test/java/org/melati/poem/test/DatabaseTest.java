@@ -13,6 +13,8 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.TableInfo;
+import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
 import org.melati.poem.dbms.test.ThrowingConnection;
@@ -234,10 +236,41 @@ public class DatabaseTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.poem.Database#addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
+   * Test method for {@link org.melati.poem.Database
+   * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
    */
   public void testAddTableAndCommit() {
-    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.Database
+   * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
+   */
+  public void testAddTableAndCommitThrowing() {
+    Database db = getThrowingDb();
+    getDb().beginSession(AccessToken.root);
+    TableInfo info = (TableInfo)db.getTableInfoTable().newPersistent();
+    info.setName("addedtable");
+    info.setDisplayname("Junit created table");
+    info.setDisplayorder(13);
+    info.setSeqcached(new Boolean(false));
+    info.setCategory_unsafe(new Integer(1));
+    info.setCachelimit(0);
+    info.makePersistent();
+    PoemThread.commit();
+    ThrowingConnection.startThrowing("getMetaData");
+    try { 
+      db.addTableAndCommit(info, "id");
+      fail("Should have blown up");
+    } catch (SQLPoemException e) {
+      assertEquals("Connection bombed", e.innermostException().getMessage());      
+    }
+    ThrowingConnection.stopThrowing("getMetaData");
+    db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("addedtable"));
+    db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("columninfo"));
+    db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("tableinfo"));
+    PoemThread.commit();
+    getDb().endSession();
   }
 
   /**
@@ -498,6 +531,16 @@ public class DatabaseTest extends TestCase {
     }
     ThrowingResultSet.stopThrowing("next");
     ThrowingResultSet.stopThrowing("close");
+
+    ThrowingConnection.startThrowing("createStatement");
+    try { 
+      assertFalse(db.hasCapability(db.guestUser(), 
+          db.administerCapability()));
+      fail("Should have bombed");
+    } catch (UnexpectedExceptionPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    }
+    ThrowingConnection.stopThrowing("createStatement");
     db.endSession();
   }
 

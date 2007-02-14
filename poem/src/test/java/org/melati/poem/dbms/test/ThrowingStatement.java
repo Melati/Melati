@@ -168,7 +168,7 @@ public class ThrowingStatement implements Statement {
     if (shouldThrow("executeQuery"))
       throw new SQLException("Statement bombed");
 
-    return s.executeQuery(sql);
+    return new ThrowingResultSet(s.executeQuery(sql));
   }
 
   /**
@@ -230,7 +230,7 @@ public class ThrowingStatement implements Statement {
     if (shouldThrow("getConnection"))
       throw new SQLException("Statement bombed");
 
-    return s.getConnection();
+    return new ThrowingConnection(s.getConnection());
   }
 
   /**
@@ -266,7 +266,7 @@ public class ThrowingStatement implements Statement {
     if (shouldThrow("getGeneratedKeys"))
       throw new SQLException("Statement bombed");
 
-    return s.getGeneratedKeys();
+    return new ThrowingResultSet(s.getGeneratedKeys());
   }
 
   /**
@@ -338,7 +338,7 @@ public class ThrowingStatement implements Statement {
     if (shouldThrow("getResultSet"))
       throw new SQLException("Statement bombed");
 
-    return s.getResultSet();
+    return new ThrowingResultSet(s.getResultSet());
   }
 
   /**

@@ -530,7 +530,7 @@ public class ThrowingResultSet implements ResultSet {
   public ResultSetMetaData getMetaData() throws SQLException {
     if (shouldThrow("getMetaData"))
       throw new SQLException("ResultSet bombed");
-    return r.getMetaData();
+    return new ThrowingResultSetMetaData(r.getMetaData());
   }
 
   /**
@@ -631,7 +631,7 @@ public class ThrowingResultSet implements ResultSet {
   public Statement getStatement() throws SQLException {
     if (shouldThrow("getStatement"))
       throw new SQLException("ResultSet bombed");
-    return r.getStatement();
+    return new ThrowingStatement(r.getStatement());
   }
 
   /**

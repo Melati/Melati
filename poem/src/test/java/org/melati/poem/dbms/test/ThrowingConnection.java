@@ -139,14 +139,13 @@ public class ThrowingConnection implements Connection {
   }
 
   /**
-   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#getMetaData()
    */
   public DatabaseMetaData getMetaData() throws SQLException {
     if (shouldThrow("getMetaData"))
       throw new SQLException("Connection bombed");
-    return c.getMetaData();
+    return new ThrowingDatabaseMetaData(c.getMetaData());
   }
 
   /**
@@ -221,6 +220,7 @@ public class ThrowingConnection implements Connection {
   }
 
   /**
+   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#prepareCall(java.lang.String, int, int)
    */
@@ -271,7 +271,7 @@ public class ThrowingConnection implements Connection {
       throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return c.prepareStatement(sql, columnIndexes);
+    return new ThrowingPreparedStatement(c.prepareStatement(sql, columnIndexes));
   }
 
   /**
@@ -282,7 +282,7 @@ public class ThrowingConnection implements Connection {
       throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return c.prepareStatement(sql, columnNames);
+    return new ThrowingPreparedStatement(c.prepareStatement(sql, columnNames));
   }
 
   /**
@@ -293,7 +293,7 @@ public class ThrowingConnection implements Connection {
       int resultSetConcurrency) throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return c.prepareStatement(sql, resultSetType, resultSetConcurrency);
+    return new ThrowingPreparedStatement(c.prepareStatement(sql, resultSetType, resultSetConcurrency));
   }
 
   /**
@@ -304,7 +304,7 @@ public class ThrowingConnection implements Connection {
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return c.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
+    return new ThrowingPreparedStatement(c.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
 
   /**
@@ -378,6 +378,7 @@ public class ThrowingConnection implements Connection {
   }
 
   /**
+   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#setSavepoint()
    */

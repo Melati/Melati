@@ -122,10 +122,11 @@ public class ThrowingPreparedStatement implements
     if (shouldThrow("getMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getMetaData();
+    return new ThrowingResultSetMetaData(p.getMetaData());
   }
 
   /**
+   * @todo 
    * {@inheritDoc}
    * 
    * @see java.sql.PreparedStatement#getParameterMetaData()
@@ -672,7 +673,7 @@ public class ThrowingPreparedStatement implements
     if (shouldThrow("getConnection"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getConnection();
+    return new ThrowingConnection(p.getConnection());
   }
 
   /**

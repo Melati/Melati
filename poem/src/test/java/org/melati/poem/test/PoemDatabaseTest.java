@@ -105,6 +105,18 @@ public class PoemDatabaseTest extends PoemTestCase {
     }
     assertEquals(2, count);
   }
+  /**
+   * @see org.melati.poem.Database#sqlQuery(String)
+   */
+  public void testSqlQueryThrows() {
+    String query = "select * from nonexistanttable" ;
+    try { 
+      getDb().sqlQuery(query);
+      fail("Should have blown up");
+    } catch (ExecutingSQLPoemException e) { 
+      e = null;
+    }
+  }
 
   /**
    * @see org.melati.poem.Database#hasCapability(User, Capability)

@@ -194,6 +194,29 @@ You will need to add something like the following to your generated files
   }
 </pre>
 </subsection>
+<subsection name=" Use a different primary key name ">
+<p>
+Melati needs an Integer representation of a table's primary key.
+</p>
+<p>
+If you have a suitable candidate but its name is not <tt>id</tt> but <tt>intkey</tt> then 
+subclass your chosen <tt>dbms</tt> class, such as <a href='/xref/org/melati/poem/dbms/SQLServer.html'>SQLServer</a> and provide a pair of methods:
+<pre>
+  public String melatiName(String name) {
+    if (name.equalsIgnoreCase("intkey"))
+      return "id";
+    return super.melatiName(name);
+  }
+
+
+  public String unreservedName(String name) {
+    if (name.equalsIgnoreCase("id"))
+      return "intkey";
+    return super.unreservedName(name);
+  }
+</pre>
+</p>
+</subsection>
 </section>
 </body>
 </document>

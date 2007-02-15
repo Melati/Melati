@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.melati.LogicalDatabase;
 import org.melati.poem.test.PoemTestCase;
+import org.melati.util.DatabaseInitException;
 
 /**
  * @author timp
@@ -67,6 +68,12 @@ public class LogicalDatabaseTest extends PoemTestCase {
       LogicalDatabase.getDatabase(null);
       fail("Should have blown up");
     } catch (NullPointerException e) {
+      e = null;
+    }
+    try { 
+      LogicalDatabase.getDatabase("bad");
+      fail("Should have blown up");
+    } catch (DatabaseInitException e) {
       e = null;
     }
   }

@@ -600,8 +600,7 @@ public abstract class Database implements TransactionPool {
       PoemTransaction transaction =
           (PoemTransaction)freeTransactions.lastElement();
       freeTransactions.setSize(freeTransactions.size() - 1);
-      return transaction;
-    }
+      return transaction; }
   }
 
   /**
@@ -915,6 +914,11 @@ public abstract class Database implements TransactionPool {
         });
   }
 
+  /**
+   * FIXME This should be removed as the situation it is designed to accomodate cannot occur
+   * @param columnInfoID
+   * @return the Column with the given troid
+   */
   Column columnWithColumnInfoID(int columnInfoID) {
     for (Enumeration t = tables.elements(); t.hasMoreElements();) {
       Column column =
@@ -922,7 +926,6 @@ public abstract class Database implements TransactionPool {
       if (column != null)
         return column;
     }
-
     return null;
   }
 

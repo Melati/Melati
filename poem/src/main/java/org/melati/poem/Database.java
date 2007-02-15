@@ -156,7 +156,7 @@ public abstract class Database implements TransactionPool {
    * <UL>
    *   <LI> Open <TT>this.transactionsMax()</TT> JDBC <TT>Connection</TT>s to
    *        the database for subsequent `pooling'
-   *
+   *   </LI>
    *   <LI> Unify (reconcile) the structural information about the database
    *        given in
    *
@@ -171,10 +171,7 @@ public abstract class Database implements TransactionPool {
    *
    *        Any tables or columns defined in the DSD or the metadata tables,
    *        but not present in the actual database, will be created.
-   *        FIXME
-   *         This doesn't work with Postgres 6.4.2 because <TT>ALTER TABLE ADD
-   *         COLUMN</TT> does not respect the <TT>NOT NULL</TT> attribute.
-   *
+   *        <BR>
    *        Conversely, entries will be created in the metadata tables for
    *        tables and columns that don't have them.  If an inconsistency is
    *        detected between any of the three information sources (such as a
@@ -184,6 +181,7 @@ public abstract class Database implements TransactionPool {
    *        untouched, except that in Postgres (at least) all structural
    *        updates happen immediately and irrevocably even if made from a
    *        transaction subsequently rolled back.
+   *   </LI>
    * </UL>
    *
    * @param dbmsclass   The Melati DBMS class (see org/melati/poem/dbms)

@@ -187,6 +187,20 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <xrefLocation>xref</xrefLocation>
      </configuration>
     </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <configuration>
+         <tags>
+          <tag>@todo</tag>
+          <tag>FIXME</tag>
+          <tag>@deprecated</tag>
+          <tag>HACK</tag>
+          <tag>NOTE</tag>
+          <tag>HACK</tag>
+         </tags>
+        </configuration>
+      </plugin>
    </plugins>
   </reporting>
   <distributionManagement>

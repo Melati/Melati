@@ -81,7 +81,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
 
-  public static  Properties databaseDefs() {
+  public  Properties databaseDefs() {
     if (databaseDefs == null)
       databaseDefs = getProperties();
     return databaseDefs;
@@ -273,10 +273,10 @@ public abstract class PoemTestCase extends TestCase implements Test {
       this.userToRunAs = userToRunAs;
   }
 
-  public static Properties getProperties() {
+  public Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";
-    InputStream is = EverythingDatabaseTables.class.getResourceAsStream(name);
+    InputStream is = this.getClass().getResourceAsStream(name);
 
     if (is == null)
       throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));
@@ -288,9 +288,9 @@ public abstract class PoemTestCase extends TestCase implements Test {
       throw new RuntimeException(new IOException("Corrupt properties file `" + name + "': " +
       e.getMessage()));
     }
-
     return them;
   }
+
   /**
    * Return a property.
    * 

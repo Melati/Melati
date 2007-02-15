@@ -1,5 +1,8 @@
 package org.melati.poem.test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -151,7 +154,7 @@ public class DatabasePerformInCommittedTransactionTest
   }
 
   public Database getDatabase(String name){ 
-    Properties defs = PoemTestCase.databaseDefs();
+    Properties defs = databaseDefs();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
 
     return PoemDatabaseFactory.getDatabase(name,
@@ -165,6 +168,32 @@ public class DatabasePerformInCommittedTransactionTest
             new Boolean(PoemTestCase.getOrDie(defs, pref + "logcommits")).booleanValue(),
             new Integer(PoemTestCase.getOrDie(defs, pref + "maxtransactions")).intValue());
   }
+
+  /** Properties, named for this class. */
+  public static Properties databaseDefs = null;
+  public  Properties databaseDefs() {
+    if (databaseDefs == null)
+      databaseDefs = getProperties();
+    return databaseDefs;
+  }
+  public Properties getProperties() {
+    String className = "org.melati.poem.test.PoemTestCase";
+    String name = className + ".properties";
+    InputStream is = this.getClass().getResourceAsStream(name);
+
+    if (is == null)
+      throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));
+
+    Properties them = new Properties();
+    try {
+      them.load(is);
+    } catch (IOException e) {
+      throw new RuntimeException(new IOException("Corrupt properties file `" + name + "': " +
+      e.getMessage()));
+    }
+    return them;
+  }
+
   
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;

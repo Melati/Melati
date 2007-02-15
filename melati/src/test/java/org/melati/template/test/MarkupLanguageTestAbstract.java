@@ -83,22 +83,6 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
   }
 
   
-  /**
-   * @return Returns the db.
-   */
-  public Database getDb() {
-    return getTreeDatabase();
-  }
-
-  public Database getTreeDatabase() { 
-    maxTrans = 4;
-    return PoemDatabaseFactory.getDatabase("tree",
-            "jdbc:hsqldb:mem:" + "tree",
-            "sa",
-            "","org.melati.util.test.TreeDatabase",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
-  }
-  
   
   /**
    * Test method for rendered(Exception).

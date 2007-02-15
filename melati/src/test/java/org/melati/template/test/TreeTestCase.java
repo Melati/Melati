@@ -3,6 +3,8 @@
  */
 package org.melati.template.test;
 
+import org.melati.poem.Database;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.test.PoemTestCase;
 
 /**
@@ -26,6 +28,23 @@ public class TreeTestCase extends PoemTestCase {
   public TreeTestCase(String name) {
     super(name);
   }
+  /**
+   * @return Returns the db.
+   */
+  public Database getDb() {
+    return getTreeDatabase();
+  }
+
+  public Database getTreeDatabase() { 
+    maxTrans = 4;
+    return PoemDatabaseFactory.getDatabase("tree",
+            "jdbc:hsqldb:mem:" + "tree",
+            "sa",
+            "","org.melati.util.test.TreeDatabase",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+  
+
   protected void databaseUnchanged() { 
     assertEquals("Setting changed", 0, getDb().getSettingTable().count());
     assertEquals("Group changed", 1, getDb().getGroupTable().count());

@@ -1534,6 +1534,14 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   }
 
   /**
+   * @param otherMatchTables the otherMatchTables to set
+   */
+  public void setOtherMatchTables(Table[] otherMatchTables) {
+    this.otherMatchTables = otherMatchTables;
+  }
+
+  
+  /**
    * Return any other tables involved in the SELECT query for which
    * this represents criteria.
    * <p>
@@ -1631,13 +1639,6 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
       return ! column.asField(Persistent.this).sameRawAs(column.asField(copy));
     }
 
-  }
-
-  /**
-   * @param otherMatchTables the otherMatchTables to set
-   */
-  public void setOtherMatchTables(Table[] otherMatchTables) {
-    this.otherMatchTables = otherMatchTables;
   }
 
 }

@@ -94,6 +94,21 @@ public final class PoemDatabaseFactory {
     return (Database)dbOrPending;   
   }
 
+  /**
+   * Return a database from the cache or create it.
+   * NOTE The first sucessful invocation will determine databases settings.  
+   * @param name a short name of the db
+   * @param url a JDBC url
+   * @param user user authorised to access the databse through JDBC
+   * @param password password for the user
+   * @param clazz the name of the (POEM) database class
+   * @param dbmsClass the name of the (POEM) dbms class
+   * @param addConstraints whether to add constraints to the databases JDBC meta data
+   * @param logSQL whether SQL statements should be logged
+   * @param logCommits whether commits should be logged
+   * @param maxTransactions the number of transactions (one less than the number of connections)
+   * @return a new or existing database
+   */
   public static Database getDatabase(String name, 
           String url, String user, String password, 
           String clazz, String dbmsClass, 

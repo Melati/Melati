@@ -139,6 +139,17 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       </includes>
       </resource>
    </resources>
+   <testResources>
+    <testResource>
+     <directory>src/test/java</directory>
+     <includes>
+      <include>**/*.dsd</include>
+      <include>**/*.properties</include>
+      <include>**/*.wm</include>
+      <include>**/*.vm</include>
+     </includes>
+    </testResource>
+   </testResources>
    <plugins>
     <plugin>
      <groupId>org.melati</groupId>

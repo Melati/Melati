@@ -76,6 +76,9 @@ public class SQLServer extends AnsiStandard {
    */
   public static final int sqlServerTextHack = 2333;
 
+  /**
+   * Maximum size of a binary field.
+   */
   public static final int sqlServerMaxBinarySize = 2147483647;
 
   /**
@@ -368,7 +371,7 @@ public class SQLServer extends AnsiStandard {
     if (md.getString("TYPE_NAME").equals("varchar")
             && md.getInt("COLUMN_SIZE") == sqlServerTextHack)
       return new StringPoemType(
-              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, -1 );
+              md.getInt("NULLABLE") == DatabaseMetaData.columnNullable, -1);
 
     // Not used in Poem 
     if (md.getString("TYPE_NAME").equals("char"))

@@ -59,11 +59,12 @@ public class CommitLogEvent extends PoemLogEvent {
     this.transaction = transaction;
   }
 
-  /** A description. 
+  /** 
    * {@inheritDoc}
    * @see java.lang.Object#toString()
    */
   public String toString() {
-    return transaction == null ? "Committed non transactioned connection" : "Committed transaction " + transaction.index;
+    return transaction == null ? "Committed non transactioned connection" : 
+      "Committed transaction " + transaction.index;
   }
 }

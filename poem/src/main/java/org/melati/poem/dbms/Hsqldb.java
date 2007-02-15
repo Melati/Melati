@@ -161,7 +161,7 @@ public class Hsqldb extends AnsiStandard {
     } else if (storage instanceof BinaryPoemType && type instanceof BinaryPoemType) {
       if (
            (
-             (((BinaryPoemType)storage).getSize() == 0 )
+             (((BinaryPoemType)storage).getSize() == 0)
              || 
              (((BinaryPoemType)storage).getSize() > ((BinaryPoemType)type).getSize())
            )

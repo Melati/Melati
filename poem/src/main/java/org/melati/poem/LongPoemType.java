@@ -95,7 +95,7 @@ public class LongPoemType extends AtomPoemType {
   protected Object _getRaw(ResultSet rs, int col) throws SQLException {
     synchronized (rs) {
       long i = rs.getLong(col);
-      return i == 0 && rs.wasNull() ? null : new Long(i);}
+      return i == 0 && rs.wasNull() ? null : new Long(i); }
   }
 
   protected void _setRaw(PreparedStatement ps, int col, Object integer)

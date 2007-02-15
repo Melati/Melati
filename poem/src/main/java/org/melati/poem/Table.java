@@ -1571,7 +1571,7 @@ public class Table implements Selectable {
       whereClause = "(" + whereClause + ")";
     }
 
-    if (deletedColumn != null ) {
+    if (deletedColumn != null) {
       if(! includeDeleted) {
         if (whereClause.length() > 0) {
           whereClause += " AND";

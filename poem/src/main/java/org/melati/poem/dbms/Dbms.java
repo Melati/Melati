@@ -362,7 +362,7 @@ public interface Dbms {
   /**
    * Used to set a not null value when 
    * creating a non nullable column.
-   * @param sqlTypeName the type name
+   * @param type the type name
    * @return a String suitable for substitution in UPDATE table SET field = ?
    */
   String getSqlDefaultValue(SQLType type);

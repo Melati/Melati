@@ -107,7 +107,7 @@ public class ColumnInfoTest extends PoemTestCase {
   * Test the odd circumstance in which the troid is known but the column is not.
   * Does not look like there is a circumstance in which this would work.
   */
-  public void testUnsetColumn() { 
+  public void putativeTestUnsetColumn() { 
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     ci.setId(0);
     ci.setName("testcolinfo");

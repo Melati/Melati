@@ -147,9 +147,9 @@ would be nice to have before a 1.0 release.
     <td>0.7.6</td>
     <td>
     <a href="/melati/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.<br />
-    Add default properties file.
+    Tests extended<br />
     </td>
-    <td></td>
+    <td>Done</td>
   </tr>
   <tr> 
     <td>0.7.8</td>

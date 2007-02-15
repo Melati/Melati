@@ -17,25 +17,17 @@
     <suppress checks="Header"
               files="/test/" />
 
-    <suppress checks="Header"
-              files="example" />
-    <suppress checks="Header"
-              files="prepro" />
      
     <!-- There are that many things you need to pass in -->
     <suppress checks="ParameterNumber"
               files="BaseFieldAttributes.java" />
     <suppress checks="ParameterNumber"
-              files="Email.java" />
+              files="PoemDatabaseFactory.java" />
 
     <suppress checks="MagicNumber"
               files="DatePoemtype.java" />
 
     <!-- Perfectly proper use of empty statements -->
-    <suppress checks="EmptyStatement"
-              files="HTMLUtils.java" />
-    <suppress checks="EmptyStatement"
-              files="HttpHeader.java" />
     <suppress checks="EmptyStatement"
               files="Transactioned.java" />
     
@@ -49,9 +41,6 @@
     <!-- Name deliberately chosen -->
     <suppress checks="LocalVariableName"
               files="FieldSet.java" />
-    <!-- Name deliberately chosen -->
-    <suppress checks="LocalVariableName"
-              files="MultipartDataDecoder.java" />
 
     <!-- Quite elegant really -->
     <suppress checks="InnerAssignment"
@@ -64,12 +53,6 @@
               files="StandardIntegrityFix.java" />
     <suppress checks="InnerAssignment"
               files="Postgresql.java" />
-    <suppress checks="InnerAssignment"
-              files="HTMLUtils.java" />
-    <suppress checks="InnerAssignment"
-              files="MultipartDataDecoder.java" />
-    <suppress checks="InnerAssignment"
-              files="HttpBasicAuthenticationAccessHandler.java" />
 
     <!-- no way to shorten output statements -->
     <suppress checks="MethodLength"
@@ -91,17 +74,6 @@
     <suppress checks="Header"
               files="generated" />
 
-    <!-- Not ours -->
-    <suppress checks=""
-              files="WebmacroStandalone.java" />
-    <suppress checks=""
-              files="FastWriter.java" />
-    <suppress checks=""
-              files="Metaphone.java" />
-    <suppress checks=""
-              files="Base64.java" />
-    <suppress checks=""
-              files="apache" />
 
     <!-- checkstyle wrong -->
     <suppress checks="DoubleCheckedLocking"

@@ -35,7 +35,6 @@ public class NotNullableSizedStringPoemTypeTest extends SizedAtomPoemTypeTest {
   }
 
   public void testAssertValidRaw() {
-    // TODO Auto-generated method stub
     super.testAssertValidRaw();
     try {
       it.assertValidRaw("123456789012345678901");

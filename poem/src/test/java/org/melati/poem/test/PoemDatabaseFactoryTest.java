@@ -8,6 +8,7 @@ import java.util.Vector;
 import junit.framework.TestCase;
 
 import org.melati.poem.Database;
+import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.PoemDatabaseFactory;
 
 
@@ -43,7 +44,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.LogicalDatabase#getDatabase(java.lang.String)}.
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory#getDatabase(String)}.
    * @throws Exception 
    */
   public void testGetDatabase() throws Exception {
@@ -53,12 +54,47 @@ public class PoemDatabaseFactoryTest extends TestCase {
     } catch (NullPointerException e) {
       e = null;
     }
+    assertNull(PoemDatabaseFactory.getDatabase("unknown"));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory
+   * #getDatabase(String, String, String, String, String, String, boolean, boolean, boolean, int)}.
+   * @throws Exception 
+   */
+  public void testGetDatabaseStringStringStringStringStringBooleanBooleanBooleanInt() throws Exception {
+    try { 
+      PoemDatabaseFactory.getDatabase(null);
+      fail("Should have blown up");
+    } catch (NullPointerException e) {
+      e = null;
+    }
+    
+    assertNull(PoemDatabaseFactory.getDatabase("unknown"));
+    try { 
+      PoemDatabaseFactory.getDatabase("badclassname",
+            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+            "sa",
+            "","org.melati.poem.PoemDatabaseNOT",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+    } catch (DatabaseInitialisationPoemException e) { 
+      assertTrue(e.innermostException() instanceof ClassNotFoundException);
+    }
+    try { 
+      PoemDatabaseFactory.getDatabase("badclassname",
+            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+            "sa",
+            "","java.lang.Exception",
+            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+    } catch (DatabaseInitialisationPoemException e) { 
+      assertTrue(e.innermostException() instanceof ClassCastException);
+    }
   }
 
 
   
   /**
-   * Test method for {@link org.melati.LogicalDatabase#initialisedDatabases()}.
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory#initialisedDatabases()}.
    */
   public void testInitialisedDatabases() {
     getPoemDatabase();
@@ -68,7 +104,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.LogicalDatabase#getInitialisedDatabaseNames()}.
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory#getInitialisedDatabaseNames()}.
    */
   public void testGetInitialisedDatabaseNames() {
     Vector them = PoemDatabaseFactory.getInitialisedDatabaseNames();
@@ -79,9 +115,9 @@ public class PoemDatabaseFactoryTest extends TestCase {
   }
 
   /**
-   * Test method for {@link org.melati.LogicalDatabase#setDatabaseDefs(java.util.Properties)}.
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory#removeDatabase(String)}.
    */
-  public void testSetDatabaseDefs() {
+  public void testRemoveDatabaseString() {
     
   }
   public Database getPoemDatabase() { 
@@ -89,7 +125,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
             "sa",
             "","org.melati.poem.PoemDatabase",
-            "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+            "org.melati.poem.dbms.Hsqldb",true,true,false,4);
   }
   public static Database getEverythingDatabase() { 
     return PoemDatabaseFactory.getDatabase(EverythingTestCase.databaseName,

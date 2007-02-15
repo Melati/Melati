@@ -60,7 +60,18 @@ build:
 
 </p>
 </subsection>
-<subsection name="Coverage notes">
+<subsection name=" Provoked SQLExceptions ">
+<p>
+The test suite contains a decorated version of the <tt>java.ja.sql</tt> API to cover 
+the handling of <tt>SQLException</tt>s thrown by the JDBC connection.
+</p>
+<p>
+The <tt>Connection</tt> and any <tt>sql</tt> object obtained from it can be instructed to 
+throw an exception by use of a static method. This enables coverage of exception handling in a 
+closed API.
+</p>
+</subsection>
+<subsection name=" Coverage notes">
 <ul>
 <li>org.melati
 <p>

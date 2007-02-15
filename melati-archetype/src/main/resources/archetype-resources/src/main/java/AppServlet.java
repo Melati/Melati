@@ -11,6 +11,7 @@ import org.melati.template.ServletTemplateContext;
 import ${groupId}.model.AppDatabase;
 
 /**
+ * Base servlet for ${artifactId} servlets.
  * @todo rename to ${artifactId}Servlet
  */
 public abstract class AppServlet extends TemplateServlet {

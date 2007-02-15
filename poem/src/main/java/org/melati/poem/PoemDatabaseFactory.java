@@ -116,7 +116,7 @@ public final class PoemDatabaseFactory {
    * Retrieve a database by name.
    *
    * @param name the name of the database
-   * @throws DatabaseInitException if any Exception is trapped
+   * @throws DatabaseInitialisationPoemException if any Exception is trapped
    * @return a <code>Database</code> with the name specified
    */
   public static Database getDatabase(String name) 

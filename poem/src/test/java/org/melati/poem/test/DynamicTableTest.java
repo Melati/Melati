@@ -707,7 +707,7 @@ public class DynamicTableTest extends EverythingTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void brokentestAddColumnAndCommitBinary() {
+  public void testAddColumnAndCommitBinary() {
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();

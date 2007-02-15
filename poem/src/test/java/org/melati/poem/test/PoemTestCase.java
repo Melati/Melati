@@ -26,7 +26,7 @@ import junit.framework.TestCase;
  * @author timp
  * @since 19-May-2006
  */
-public abstract class PoemTestCase extends TestCase implements Test {
+public class PoemTestCase extends TestCase implements Test {
 
   /**
    * The name of the test case
@@ -276,7 +276,7 @@ public abstract class PoemTestCase extends TestCase implements Test {
   public Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";
-    InputStream is = this.getClass().getResourceAsStream(name);
+    InputStream is = PoemTestCase.class.getResourceAsStream(name);
 
     if (is == null)
       throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));

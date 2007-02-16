@@ -192,6 +192,7 @@ public class AnsiStandard implements Dbms {
       }
     }
 
+    Connection c = null;
     if (driver != null) {
       Properties info = new Properties();
       if (user != null)
@@ -200,7 +201,7 @@ public class AnsiStandard implements Dbms {
         info.put("password", password);
 
       try {
-        Connection c = driver.connect(url, info);
+        c = driver.connect(url, info);
         if (c == null) 
           throw new SQLException(
                         "Null connection from driver using url: " + 
@@ -208,29 +209,32 @@ public class AnsiStandard implements Dbms {
                         " user: " + 
                         user + 
                         " password: " + password);
-        return c;
       } catch (SQLException e) {
         throw new ConnectionFailurePoemException(e);
       }
-    }
-    Connection c = null;
-    try {
-      c = DriverManager.getConnection(url, user, password);
-      if (c == null) 
-        throw new SQLException(
+    } else { 
+      try {
+        c = DriverManager.getConnection(url, user, password);
+        if (c == null) 
+          throw new SQLException(
                       "Null connection from DriverManager using url: " + 
                       url + 
                       " user: " + 
                       user + 
                       " password: " + password);
-    } catch (java.sql.SQLException e) {
-      throw new ConnectionFailurePoemException(e);
+      } catch (java.sql.SQLException e) {
+        throw new ConnectionFailurePoemException(e);
+      }
     }
     try {
       if (c.getAutoCommit())
         c.setAutoCommit(false);
+    } catch (java.sql.SQLException e) {
+      throw new SQLSeriousPoemException(e);
     }
-    catch (java.sql.SQLException e) {
+    try {
+      c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+    } catch (java.sql.SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
     return c;
@@ -454,6 +458,48 @@ public class AnsiStandard implements Dbms {
     StringBuffer b = new StringBuffer();
     StringUtils.appendQuoted(b, unreservedName(name), '"');
     return b.toString();
+  }
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
+   */
+  public String getQuotedValue(SQLType sqlType, String value) {
+    if (sqlType instanceof BooleanPoemType) {
+      return value;
+    }
+    if (sqlType instanceof DoublePoemType) {
+      return value;
+    }
+    if (sqlType instanceof LongPoemType) {
+      return value;
+    }
+    if (sqlType instanceof BinaryPoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof BigDecimalPoemType) {
+      return value;
+         }
+    if (sqlType instanceof DatePoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof TimestampPoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof PasswordPoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof StringPoemType) {
+      return StringUtils.quoted(value,'\'');
+    }
+    if (sqlType instanceof IntegrityFixPoemType) {
+      return value;
+    }
+    if (sqlType instanceof IntegerPoemType) {
+      return value;
+    }
+    throw new PoemBugPoemException("Unrecognised sqlType: " + sqlType);
+    
   }
 
   /**

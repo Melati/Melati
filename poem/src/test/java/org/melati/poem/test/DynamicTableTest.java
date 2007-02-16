@@ -105,7 +105,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.detail);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     try {
       columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
       fail("Should have blown up");
@@ -113,7 +112,6 @@ public class DynamicTableTest extends EverythingTestCase {
       e = null;
     }
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**

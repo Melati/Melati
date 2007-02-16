@@ -572,8 +572,8 @@ public class Table implements Selectable {
 
   protected void dbModifyStructure(String sql)
       throws StructuralModificationFailedPoemException {
+    
     // We have to do this to avoid blocking
-
     if (PoemThread.inSession())
       PoemThread.commit();
 
@@ -2181,8 +2181,8 @@ public class Table implements Selectable {
     // ALTER TABLE ADD COLUMN
 
     database.beginStructuralModification();
-    dbAddColumn(column);
     try {
+      dbAddColumn(column);
       synchronized (cache) {    // belt and braces
         uncacheContents();
         transactionStuffs.invalidate();
@@ -2692,8 +2692,8 @@ public class Table implements Selectable {
     if (troidColumn == null)
       throw new NoTroidColumnException(this);
 
-    // FIXME hack: info == null happens when *InfoTable are unified with
-    // the database---obviously they haven't been initialised yet but it
+    // HACK info == null happens when *InfoTable are unified with
+    // the database --- obviously they haven't been initialised yet but it
     // gets fixed in the next round when all tables (including them,
     // again) are unified
 

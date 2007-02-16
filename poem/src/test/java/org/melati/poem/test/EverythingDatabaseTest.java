@@ -51,7 +51,6 @@ public class EverythingDatabaseTest extends EverythingTestCase {
     "longfield (from the data structure definition)" + 
     "bigdecimalfield (from the data structure definition)" + 
     "timestampfield (from the data structure definition)" + 
-//    "node (from the data structure definition)" + 
     "everythingnormal (from the data structure definition)" + 
     "enextended (from the data structure definition)" + 
     "eaextended (from the data structure definition)" + 

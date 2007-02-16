@@ -422,57 +422,57 @@ public abstract class Database implements TransactionPool {
       if (logSQL()) log("Table:" + tableDescs.getString("TABLE_NAME") +
                         " Type:" + tableDescs.getString("TABLE_TYPE"));
       String tableName = dbms.melatiName(tableDescs.getString("TABLE_NAME"));
-      if (tableName == null) break; //dbms returning grotty table name
-      Table table = tableName == null ? null :
-                                          (Table)tablesByName.get(tableName.toLowerCase());
-      if (table == null) {
-        if (logSQL()) log("table null but named:" + tableName);
+      Table table= null;
+      if (tableName != null) { //dbms returning grotty table name (MSAccess)
+        table = (Table)tablesByName.get(tableName.toLowerCase());
+        if (table == null) {
+          if (logSQL()) log("table null but named:" + tableName);
 
-        // but we only want to include them if they have a plausible troid:
-        ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
-            dbms.getJdbcMetadataName(dbms.unreservedName("id")));
-        if (idCol.next()) { 
-          //log("Got an ID col");
-          if (dbms.canRepresent(
-                  defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
-            try {
-              table = new Table(this, tableName,
-                                DefinitionSource.sqlMetaData);
-              defineTable(table);
-            }
-            catch (DuplicateTableNamePoemException e) {
-              throw new UnexpectedExceptionPoemException(e);
-            }
-            table.createTableInfo();
-          }//else log("Can represent failed");
-        }//else log("Not got an ID col");
-        /**
-        // Try to promote the primary key to a troid
-        else {
-          ResultSet pKeys = m.getPrimaryKeys(null, dbms.getSchema(), tableName);
-          if (pKeys.next()) {
-            String keyName = pKeys.getString("COLUMN_NAME");
-            if (!pKeys.next()) {
-              ResultSet keyCol = m.getColumns(null, dbms.getSchema(),
-                                              tableName, keyName);
-              if (keyCol.next() &&
+          // but we only want to include them if they have a plausible troid:
+          ResultSet idCol = m.getColumns(null, dbms.getSchema(), dbms.unreservedName(tableName), 
+              dbms.getJdbcMetadataName(dbms.unreservedName("id")));
+          if (idCol.next()) { 
+            //log("Got an ID col");
+            if (dbms.canRepresent(
+                   defaultPoemTypeOfColumnMetaData(idCol), TroidPoemType.it) != null) {
+              try {
+                table = new Table(this, tableName,
+                                  DefinitionSource.sqlMetaData);
+                defineTable(table);
+              }
+              catch (DuplicateTableNamePoemException e) {
+                throw new UnexpectedExceptionPoemException(e);
+              }
+              table.createTableInfo();
+            }//else log("Can represent failed");
+          }//else log("Not got an ID col");
+          /*
+          // Try to promote the primary key to a troid
+          else {
+            ResultSet pKeys = m.getPrimaryKeys(null, dbms.getSchema(), tableName);
+            if (pKeys.next()) {
+              String keyName = pKeys.getString("COLUMN_NAME");
+              if (!pKeys.next()) {
+                ResultSet keyCol = m.getColumns(null, dbms.getSchema(),
+                                                tableName, keyName);
+                if (keyCol.next() &&
                   dbms.canRepresent(defaultPoemTypeOfColumnMetaData(keyCol),
                                     TroidPoemType.it) != null) {
-                if (logSQL()) log("Got a unique primary key");
-                try {
-                  defineTable(table = new Table(this, tableName,
-                                                DefinitionSource.sqlMetaData));
+                  if (logSQL()) log("Got a unique primary key");
+                  try {
+                    defineTable(table = new Table(this, tableName,
+                                                  DefinitionSource.sqlMetaData));
+                  }
+                  catch (DuplicateTableNamePoemException e) {
+                    throw new UnexpectedExceptionPoemException(e);
+                  }
+                  table.createTableInfo();
                 }
-                catch (DuplicateTableNamePoemException e) {
-                  throw new UnexpectedExceptionPoemException(e);
-                }
-                table.createTableInfo();
               }
             }
-          }
-        } */
-      }// else if (logSQL()) log("table not null:" + tableName);
-
+          } */
+        }// else if (logSQL()) log("table not null:" + tableName);
+      }
 
       if (table != null) {
 //         if (logSQL()) log("table not null now:" + tableName);

@@ -385,7 +385,7 @@ public abstract class Database implements TransactionPool {
 
   private synchronized void unifyWithDB() throws PoemException, SQLException {
 
-    // Check all tables defined in the dsd against tableInfo, 
+    // Check all tables defined in the tableInfo metadata table
     // defining the ones that don't exist
 
     for (Enumeration ti = getTableInfoTable().selection();

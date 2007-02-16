@@ -400,8 +400,9 @@ public class SQLServer extends AnsiStandard {
   /**
    * Ignore <TT>dtproperties</TT> as it is a 'System' table used to store
    * Entity Relationship diagrams which have a jdbc type of TABLE when it should
-   * probably have a jdbc type of 'SYSTEM TABLE'. {@inheritDoc}
+   * probably have a jdbc type of 'SYSTEM TABLE'. 
    * 
+   * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */
   public String melatiName(String name) {
@@ -500,7 +501,20 @@ public class SQLServer extends AnsiStandard {
     if (sqlType instanceof BooleanPoemType) {
       return ("0");
     }
+    if (sqlType instanceof BinaryPoemType) {
+      return "convert(varbinary, '')";
+    }
     return super.getSqlDefaultValue(sqlType);
   }
   
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#getQuotedValue(org.melati.poem.SQLType, java.lang.Object)
+   */
+  public String getQuotedValue(SQLType sqlType, String value) {
+    if (sqlType instanceof BinaryPoemType) {
+      return value;
+    }
+    return super.getQuotedValue(sqlType, value);
+  }  
 }

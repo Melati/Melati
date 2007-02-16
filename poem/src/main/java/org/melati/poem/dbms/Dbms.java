@@ -103,6 +103,15 @@ public interface Dbms {
   String getQuotedName(String name);
 
   /**
+   * Accomodate different quoting strategies for values.
+   * 
+   * @param sqlType the SQLType of the value
+   * @param value the value
+   * @return a String quoted appropriately
+   */
+  String getQuotedValue(SQLType sqlType, String value);
+  
+  /**
    * Some DBMSen (HSQLDB) use canonical uppercased names in the metadata but not 
    * in normal use. 
    * 

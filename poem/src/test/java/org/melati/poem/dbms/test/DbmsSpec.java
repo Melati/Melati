@@ -3,12 +3,14 @@
  */
 package org.melati.poem.dbms.test;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.melati.poem.BigDecimalPoemType;
 import org.melati.poem.DoublePoemType;
 import org.melati.poem.IntegerPoemType;
 import org.melati.poem.LongPoemType;
+import org.melati.poem.PoemThread;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.dbms.Dbms;
 import org.melati.poem.test.PoemTestCase;
@@ -55,9 +57,11 @@ public abstract class DbmsSpec extends PoemTestCase {
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getConnection(java.lang.String, java.lang.String, java.lang.String)}.
+   * @throws Exception 
    */
-  public void testGetConnection() {
-    
+  public void testGetConnection() throws Exception {
+    Connection c = PoemThread.transaction().getDatabase().getCommittedConnection();
+    assertEquals(Connection.TRANSACTION_READ_COMMITTED,c.getTransactionIsolation());
   }
 
   /**
@@ -80,6 +84,14 @@ public abstract class DbmsSpec extends PoemTestCase {
    * getQuotedName(java.lang.String)}.
    */
   public void testGetQuotedName() {
+    
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * getQuotedValue(org.melati.poem.SQLType, String).
+   */
+  public void testGetQuotedValue() {
     
   }
 

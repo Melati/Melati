@@ -232,11 +232,13 @@ public class AnsiStandard implements Dbms {
     } catch (java.sql.SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
+    /*
     try {
       c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
     } catch (java.sql.SQLException e) {
       throw new SQLSeriousPoemException(e);
     }
+    */
     return c;
   }
   

@@ -58,6 +58,7 @@ import org.melati.poem.BooleanPoemType;
 import org.melati.poem.StringPoemType;
 import org.melati.poem.ParsingPoemException;
 import org.melati.poem.SQLPoemException;
+import org.melati.poem.util.StringUtils;
 
  /**
   * A Driver for MySQL.
@@ -462,4 +463,26 @@ public class MySQL extends AnsiStandard {
         "AND groupcapability." + getQuotedName("group") + " IS NOT NULL " +
         "AND capability = " + capabilityExpr;
   }
+
+
+
+  public String caseInsensitiveRegExpSQL(String term1, String term2) {
+    if (StringUtils.isQuoted(term2)) {
+      term2 = term2.substring(1, term2.length() - 1);
+    } 
+    term2 = StringUtils.quoted(StringUtils.quoted(term2, '%'), '\'');
+    
+    return term1 + " LIKE " + term2;
+  }
+
+
+
+  public String alterColumnNotNullableSQL(String tableName, Column column) {
+    return "ALTER TABLE " + getQuotedName(tableName) +
+    " CHANGE " + getQuotedName(column.getName()) + " " + getQuotedName(column.getName()) +
+    " " + 
+    column.getSQLType().sqlDefinition(this);
+  }
+  
+  
 }

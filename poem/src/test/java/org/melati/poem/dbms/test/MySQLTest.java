@@ -50,6 +50,13 @@ public class MySQLTest extends DbmsSpec {
   }
 
   /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableOptionsSql()}.
+   */
+  public void testCreateTableOptionsSql() {
+    assertEquals(" TYPE='InnoDB' ", it.createTableOptionsSql());
+  }
+  
+  /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
    * getStringSqlDefinition(java.lang.String)}.
    */

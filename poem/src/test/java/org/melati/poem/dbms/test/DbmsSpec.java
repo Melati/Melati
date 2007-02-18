@@ -61,7 +61,8 @@ public abstract class DbmsSpec extends PoemTestCase {
    */
   public void testGetConnection() throws Exception {
     Connection c = PoemThread.transaction().getDatabase().getCommittedConnection();
-    assertEquals(Connection.TRANSACTION_READ_COMMITTED,c.getTransactionIsolation());
+    System.err.println(c.getTransactionIsolation());
+    assertTrue(c.getTransactionIsolation() >= Connection.TRANSACTION_READ_COMMITTED);
   }
 
   /**
@@ -119,6 +120,13 @@ public abstract class DbmsSpec extends PoemTestCase {
    */
   public void testCreateTableSql() {
     assertEquals("CREATE TABLE ", it.createTableSql());
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#createTableOptionsSql()}.
+   */
+  public void testCreateTableOptionsSql() {
+    assertEquals(" ", it.createTableOptionsSql());
   }
 
   /**

@@ -602,7 +602,7 @@ public class Table implements Selectable {
                  columns[c].getSQLType().sqlDefinition(dbms()));
     }
     sqb.append(")");
-
+    sqb.append(dbms().createTableOptionsSql());
     dbModifyStructure(sqb.toString());
   }
   

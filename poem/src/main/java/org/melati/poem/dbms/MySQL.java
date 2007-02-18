@@ -67,11 +67,6 @@ import org.melati.poem.util.StringUtils;
   * <b>Notes</b>
   * <ol>
   * <li>
-  *  Working with MySQL 3.23.24, MM.MySQL 2.0.11 JDBC driver (GPL)
-  *  from http://mmmysql.sourceforge.net
-  *  Also with 4.0.24-nt and driver mysql-connector-java-3.0.15-ga-bin.jar
-  * </li>
-  * <li>
   *  Use JDBC URL of type jdbc:mysql://[host][:port]/dbname[?param=value[...]]
   *  ie. the simpliest one has 3 slashes: jdbc:mysql:///melatitest
   * </li>
@@ -95,7 +90,7 @@ import org.melati.poem.util.StringUtils;
   * Start MySQL with transactioned tables as default. InnoDB is stable,
   *  BDB nearly stable.
   *  <code>getConnection</code> now returns a <code>Connection</code> 
-  *  with <code>autocommit</code> truned off through JDBC.
+  *  with <code>autocommit</code> turned off through JDBC.
   * 
   *  BDB tables of MySQL-Max 3.23.49 don't support full transactions
   *  - they lock whole table instead, until commit/rollback is called.
@@ -115,21 +110,21 @@ import org.melati.poem.util.StringUtils;
   * of 30MB, it creates 2 own log files  /var/lib/mysql/ib_logfile0
   * and ib_logfile1, both of size 5MB.
   * <br/>
-  *   InnoDB provides ACID compliancy (does it help us?)
+  * The table type is currently hardcoded in <tt>getCreateTableOptions</tt>.
   *
-  * Works for Timp:
-  *  safe_mysqld --user=mysql --ansi --default-table-type=BDB 
   * </li>
   * <li>
   *  <tt>boolean</tt> type works (both applications melatitest and contacts).
   *  Because MySQL returns metainfo about BOOL as TINYINT.
   * </li>
   * </ol>
-  * @todo Needs more work, see FIXMEs.
   */
 public class MySQL extends AnsiStandard {
+
   /** Size of indexes. */
   public static final int indexSize = 30;
+  /** Size of MySQL text fields. */
+  public static final int mysqlTextSize = 65535;
 
   /** Constructor - sets driver. */
   public MySQL() {
@@ -152,10 +147,8 @@ public class MySQL extends AnsiStandard {
     return " TYPE='InnoDB' ";
   }
 
-
-
 /**
-  * Retrieve a SQL type keyword used by the DBMS 
+  * Retrieve an SQL type keyword used by the DBMS 
   * for the given Melati type name.
   *
   * @param sqlTypeName the Melati internal type name
@@ -178,11 +171,12 @@ public class MySQL extends AnsiStandard {
   }
 
   /**
+   * Ignores size.
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#getBinarySqlDefinition(int)
    */
   public String getBinarySqlDefinition(int size) {
-    return "BLOB"; //How to define BLOB of limited size?
+    return "BLOB"; 
   }
 
 
@@ -214,7 +208,7 @@ public class MySQL extends AnsiStandard {
     protected boolean _canRepresent(SQLPoemType other) {
       return
         other instanceof StringPoemType &&
-              (getSize()<0 || getSize()==65535 ||
+              (getSize()<0 || getSize()==mysqlTextSize ||
                getSize()>=((StringPoemType)other).getSize());
     }
 
@@ -350,11 +344,9 @@ public class MySQL extends AnsiStandard {
     else if(md.getString("TYPE_NAME").equals("text"))
       return new MySQLStringPoemType(md.getInt("NULLABLE")==
           DatabaseMetaData.columnNullable, md.getInt("COLUMN_SIZE"));
-    // HACK Get it working
     else if(md.getString("TYPE_NAME").equals("smallint"))
       return new IntegerPoemType(md.getInt("NULLABLE") ==
             DatabaseMetaData.columnNullable);
-    // HACK Get it working
     else if(md.getString("TYPE_NAME").equals("char"))
       return new StringPoemType(md.getInt("NULLABLE") ==
           DatabaseMetaData.columnNullable, 1);
@@ -433,9 +425,9 @@ public class MySQL extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#unreservedName(java.lang.String)
    */
   public String unreservedName(String name) {
-    if(name.equalsIgnoreCase("group")) name = "melati_" + name;
-    if(name.equalsIgnoreCase("precision")) name = "melati_" + name;
-    if(name.equalsIgnoreCase("unique")) name = "melati_" + name;
+    if(name.equalsIgnoreCase("group")) name = "poem_" + name;
+    if(name.equalsIgnoreCase("precision")) name = "poem_" + name;
+    if(name.equalsIgnoreCase("unique")) name = "poem_" + name;
     return name;
   }
 
@@ -445,9 +437,9 @@ public class MySQL extends AnsiStandard {
    */
   public String melatiName(String name) {
     if (name == null) return name;
-    if(name.equalsIgnoreCase("melati_group")) name = "group";
-    if(name.equalsIgnoreCase("melati_precision")) name = "precision";
-    if(name.equalsIgnoreCase("melati_unique")) name = "unique";
+    if(name.equalsIgnoreCase("poem_group")) name = "group";
+    if(name.equalsIgnoreCase("poem_precision")) name = "precision";
+    if(name.equalsIgnoreCase("poem_unique")) name = "unique";
     return name;
   }
 
@@ -482,6 +474,11 @@ public class MySQL extends AnsiStandard {
 
 
 
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)
+   */
   public String caseInsensitiveRegExpSQL(String term1, String term2) {
     if (StringUtils.isQuoted(term2)) {
       term2 = term2.substring(1, term2.length() - 1);
@@ -491,8 +488,11 @@ public class MySQL extends AnsiStandard {
     return term1 + " LIKE " + term2;
   }
 
-
-
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#
+   * alterColumnNotNullableSQL(java.lang.String, org.melati.poem.Column)
+   */
   public String alterColumnNotNullableSQL(String tableName, Column column) {
     return "ALTER TABLE " + getQuotedName(tableName) +
     " CHANGE " + getQuotedName(column.getName()) + " " + getQuotedName(column.getName()) +

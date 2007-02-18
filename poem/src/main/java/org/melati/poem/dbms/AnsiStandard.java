@@ -257,7 +257,14 @@ public class AnsiStandard implements Dbms {
   public String createTableSql() {
     return "CREATE TABLE ";
   }
-
+  
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.Dbms#createTableOptionsSql()
+   */
+  public String createTableOptionsSql() {
+    return "";
+  }
 
   /**
    * {@inheritDoc}

@@ -136,9 +136,25 @@ public class MySQL extends AnsiStandard {
     setDriverClassName("org.gjt.mm.mysql.Driver");
   }
 
-
-
  /**
+  * {@inheritDoc}
+  * @see org.melati.poem.dbms.AnsiStandard#createTableSql()
+  */
+  public String createTableSql() {
+   return "CREATE TABLE ";
+  }
+
+  /**
+   * {@inheritDoc}
+   * @see org.melati.poem.dbms.AnsiStandard#createTableOptionsSql()
+   */
+  public String createTableOptionsSql() {
+    return " TYPE ='InnoDB' ";
+  }
+
+
+
+/**
   * Retrieve a SQL type keyword used by the DBMS 
   * for the given Melati type name.
   *

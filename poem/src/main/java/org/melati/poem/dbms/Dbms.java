@@ -375,5 +375,11 @@ public interface Dbms {
    * @return a String suitable for substitution in UPDATE table SET field = ?
    */
   String getSqlDefaultValue(SQLType type);
+
+  /**
+   * Accomodate table creation options.
+   * @return DMBS specific table creation options
+   */
+  String createTableOptionsSql();
   
 }

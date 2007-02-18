@@ -38,27 +38,27 @@
  *
  * Contact details for copyright holder:
  *
- *     William Chesters <williamc@paneris.org>
+ *     William Chesters <williamc At paneris.org>
  *     http://paneris.org/~williamc
  *     Obrechtstraat 114, 2517VX Den Haag, The Netherlands
  */
 
 package org.melati.poem.dbms;
 
-import java.sql.SQLException;
-import org.melati.poem.SQLPoemException;
+
+import org.melati.poem.NormalPoemException;
 
 /**
  * Thrown if there is a problem connecting to the underlying database.
  */
-public class ConnectionFailurePoemException extends SQLPoemException {
+public class ConnectionFailurePoemException extends NormalPoemException {
   private static final long serialVersionUID = 1L;
 
   /**
    * Constructor.
    * @param e an exception thrown by the jdbc driver or us
    */
-  public ConnectionFailurePoemException(SQLException e) {
+  public ConnectionFailurePoemException(Exception e) {
     super(e);
   }
 

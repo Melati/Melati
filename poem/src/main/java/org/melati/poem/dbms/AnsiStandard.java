@@ -77,7 +77,6 @@ import org.melati.poem.PoemBugPoemException;
 import org.melati.poem.PoemType;
 import org.melati.poem.SQLPoemException;
 import org.melati.poem.SQLPoemType;
-import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.SQLType;
 import org.melati.poem.StandardIntegrityFix;
 import org.melati.poem.StringPoemType;
@@ -178,68 +177,53 @@ public class AnsiStandard implements Dbms {
   public Connection getConnection(String url, String user, String password)
       throws ConnectionFailurePoemException {
     schema = user;
-    synchronized (driverClassName) {
-      if (!getDriverLoaded()) {
-        if (getDriverClassName() == null) {
-          throw new ConnectionFailurePoemException(new SQLException(
-              "No Driver Classname set in dbms specific class"));
+    try { 
+      synchronized (driverClassName) {
+        if (!getDriverLoaded()) {
+          if (getDriverClassName() == null)
+            throw new SQLException(
+                "No Driver Classname set in dbms specific class");
+          loadDriver();
         }
-        loadDriver();
       }
       if (!getDriverLoaded()) {
-        throw new ConnectionFailurePoemException(new SQLException(
-            "The Driver class " + getDriverClassName() + " failed to load"));
+        throw new SQLException(
+            "The Driver class " + getDriverClassName() + " failed to load");
       }
-    }
 
-    Connection c = null;
-    if (driver != null) {
-      Properties info = new Properties();
-      if (user != null)
-        info.put("user", user);
-      if (password != null)
-        info.put("password", password);
+      Connection c = null;
+      if (driver != null) {
+        Properties info = new Properties();
+        if (user != null)
+          info.put("user", user);
+        if (password != null)
+          info.put("password", password);
 
-      try {
         c = driver.connect(url, info);
         if (c == null) 
           throw new SQLException(
-                        "Null connection from driver using url: " + 
-                        url + 
-                        " user: " + 
-                        user + 
-                        " password: " + password);
-      } catch (SQLException e) {
-        throw new ConnectionFailurePoemException(e);
-      }
-    } else { 
-      try {
-        c = DriverManager.getConnection(url, user, password);
-        if (c == null) 
-          throw new SQLException(
-                      "Null connection from DriverManager using url: " + 
+                    "Null connection from driver using url: " + 
                       url + 
                       " user: " + 
                       user + 
                       " password: " + password);
-      } catch (java.sql.SQLException e) {
-        throw new ConnectionFailurePoemException(e);
+      } else { 
+        c = DriverManager.getConnection(url, user, password);
+        if (c == null) 
+          throw new SQLException(
+                    "Null connection from DriverManager using url: " + 
+                    url + 
+                    " user: " + 
+                    user + 
+                    " password: " + password);
       }
-    }
-    try {
       if (c.getAutoCommit())
         c.setAutoCommit(false);
-    } catch (java.sql.SQLException e) {
-      throw new SQLSeriousPoemException(e);
+        //c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED); 
+      return c;
+    } catch (Exception e ) { 
+      throw new ConnectionFailurePoemException(e);
     }
-    /*
-    try {
-      c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-    } catch (java.sql.SQLException e) {
-      throw new SQLSeriousPoemException(e);
-    }
-    */
-    return c;
   }
   
   /**

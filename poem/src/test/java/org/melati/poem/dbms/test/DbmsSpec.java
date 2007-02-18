@@ -126,7 +126,7 @@ public abstract class DbmsSpec extends PoemTestCase {
    * Test method for {@link org.melati.poem.dbms.Dbms#createTableOptionsSql()}.
    */
   public void testCreateTableOptionsSql() {
-    assertEquals(" ", it.createTableOptionsSql());
+    assertEquals("", it.createTableOptionsSql());
   }
 
   /**

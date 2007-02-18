@@ -149,7 +149,7 @@ public class MySQL extends AnsiStandard {
    * @see org.melati.poem.dbms.AnsiStandard#createTableOptionsSql()
    */
   public String createTableOptionsSql() {
-    return " TYPE ='InnoDB' ";
+    return " TYPE='InnoDB' ";
   }
 
 

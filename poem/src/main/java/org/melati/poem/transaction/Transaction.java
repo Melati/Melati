@@ -143,7 +143,7 @@ public abstract class Transaction {
   }
 
   /**
-   * Make persistent ie no loger able to be rolled back.
+   * Make persistent ie no longer able to be rolled back.
    */
   public void writeDown() {
     System.err.println("In writedown");
@@ -155,6 +155,7 @@ public abstract class Transaction {
       }
       System.err.println("Done elements");
     }
+    System.err.println("Leaving writedown");
   }
 
   private void unSee() {

@@ -1052,6 +1052,7 @@ public abstract class Database implements TransactionPool {
     try {
       Statement s = token.transaction.getConnection().createStatement();
       token.toTidy().add(s);
+      System.err.println("About to execute: " + sql);
       int n = s.executeUpdate(sql);
       if (logSQL())
         log(new SQLLogEvent(sql));

@@ -66,6 +66,7 @@ import org.melati.poem.StringPoemType;
  * 
  * @todo Testing required, code has been added to keep up with the interface 
  * without testing.
+ * 
  **/
 public class Oracle extends AnsiStandard {
 

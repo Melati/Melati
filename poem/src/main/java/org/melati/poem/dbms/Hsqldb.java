@@ -188,7 +188,8 @@ public class Hsqldb extends AnsiStandard {
   }
 
   /**
-   * @todo remove lowercase
+   * @todo Remove lowercase
+   * 
    * {@inheritDoc}
    * @see org.melati.poem.dbms.AnsiStandard#melatiName(java.lang.String)
    */

@@ -146,16 +146,10 @@ public abstract class Transaction {
    * Make persistent ie no longer able to be rolled back.
    */
   public void writeDown() {
-    System.err.println("In writedown");
     synchronized (touched) {
-      System.err.println("In writedown synchronised");
-      for (Enumeration p = touched.elements(); p.hasMoreElements();) {
-         System.err.println("In writedown synchronised element");
+      for (Enumeration p = touched.elements(); p.hasMoreElements();)
         ((Transactioned)p.nextElement()).writeDown(this);
-      }
-      System.err.println("Done elements");
     }
-    System.err.println("Leaving writedown");
   }
 
   private void unSee() {

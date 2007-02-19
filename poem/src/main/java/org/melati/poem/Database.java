@@ -1367,7 +1367,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * @return the non-transactioned jdbc Connection
+   * @return the jdbc Connection
    */
   public Connection getCommittedConnection() {
     return committedConnection;

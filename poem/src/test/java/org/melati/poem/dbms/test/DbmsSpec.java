@@ -62,7 +62,8 @@ public abstract class DbmsSpec extends PoemTestCase {
    */
   public void testGetConnection() throws Exception {
     Connection c = PoemThread.transaction().getDatabase().getCommittedConnection();
-    if (c.getClass().getName().indexOf("postgresql") == -1); {
+    
+    if (c.getClass().getName().indexOf("postgresql") == -1) {
       System.err.println(c.getTransactionIsolation());
       assertTrue(c.getTransactionIsolation() >= Connection.TRANSACTION_READ_COMMITTED);
     }

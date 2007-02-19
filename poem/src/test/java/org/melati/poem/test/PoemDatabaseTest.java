@@ -542,7 +542,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    * @see org.melati.poem.Database#quotedName(String)
    */
   public void testQuotedName() {
-    assertEquals("\"user\"", getDb().quotedName("user").toLowerCase());
+    assertEquals(getDb().getDbms().getQuotedName("user"), getDb().quotedName("user"));
   }
 
   /**

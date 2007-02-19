@@ -61,19 +61,26 @@ public class DynamicTableTest extends EverythingTestCase {
   protected void databaseUnchanged() { 
     // It is not good enough to drop the new columns, as the deleted columnInfo's 
     // are still referred to, so drop the whole table
+    System.err.println("In databaseUnchanged");
     Table added = null;
     try { 
       added = getDb().getTable("addedtable");
     } catch (NoSuchTablePoemException e) { 
       e = null;
     }
+    System.err.println("About to drop added");
     if (added != null && added.getTableInfo().statusExistent())
       getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("addedtable"));
+    System.err.println("About to drop dynamic");
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tablecategory"));
+    System.err.println("About to commit");
+    
     PoemThread.commit();
+    System.err.println("About to remove db");
+    
     PoemDatabaseFactory.removeDatabase(databaseName);
   } 
   

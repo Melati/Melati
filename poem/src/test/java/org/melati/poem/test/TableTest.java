@@ -14,6 +14,7 @@ import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
 import org.melati.poem.Initialiser;
+import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
@@ -132,7 +133,12 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getColumn(String)
    */
   public void testGetColumn() {
-
+    try { 
+      getDb().getUserTable().getColumn("nonexistantcolum");
+      fail("Should have blown up");
+    } catch (NoSuchColumnPoemException e) { 
+      e = null; 
+    }
   }
 
   /**

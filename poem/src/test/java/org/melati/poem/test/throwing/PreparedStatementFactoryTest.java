@@ -31,6 +31,11 @@ public class PreparedStatementFactoryTest extends
     super.setUp();
     assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
+  protected void tearDown() throws Exception {
+    super.tearDown();
+    PoemDatabaseFactory.removeDatabase(databaseName);
+  }
+
 
   public Database getDatabase(String name) {
     maxTrans = 4;

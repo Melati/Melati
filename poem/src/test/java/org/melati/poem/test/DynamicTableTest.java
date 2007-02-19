@@ -5,7 +5,7 @@ package org.melati.poem.test;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
@@ -37,8 +37,6 @@ import org.melati.poem.util.EnumUtils;
  * @since 01-Februray-2007
  */
 public class DynamicTableTest extends EverythingTestCase {
-  Connection c = null;
-  boolean skipTest = false;
   /**
    * Constructor for PoemTest.
    * @param arg0
@@ -52,60 +50,53 @@ public class DynamicTableTest extends EverythingTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    c = getDb().getCommittedConnection();
-    try {
-      if (c instanceof org.postgresql.jdbc1.AbstractJdbc1Connection && 
-        !((org.postgresql.jdbc1.AbstractJdbc1Connection)c).haveMinimumServerVersion("7.4")) { 
-        skipTest = true;
-      }
-    } catch (SQLException e1) {
-      e1.printStackTrace();
-    }
   }
 
   /**
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    if (!skipTest) 
-      checkDbUnchanged();
+    checkDbUnchanged();
   }
 
   protected void databaseUnchanged() { 
     // It is not good enough to drop the new columns, as the deleted columnInfo's 
     // are still referred to, so drop the whole table
-    System.err.println("In databaseUnchanged");
-    Table added = null;
+    PoemThread.commit();
+    dropTable("addedtable");
+    dropTable("addedtable2");
+    dropTable("dynamic");
+    dropTable("tableinfo");
+    dropTable("columninfo");
+    dropTable("tablecategory");
+    PoemDatabaseFactory.removeDatabase(databaseName);
+  } 
+  void dropTable(String tableName) { 
+    Connection c = getDb().getCommittedConnection();
+    Table table = null;
     try { 
-      added = getDb().getTable("addedtable");
+      table = getDb().getTable(tableName);
     } catch (NoSuchTablePoemException e) { 
       e = null;
     }
-    if (added != null && added.getTableInfo().statusExistent()) {
-      System.err.println("About to drop added");
-      getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("addedtable"));
+    try { 
+      Statement s = c.createStatement();
+      if (table != null && table.getTableInfo().statusExistent()) {
+        s.executeUpdate("DROP TABLE " + getDb().getDbms().getQuotedName(tableName));
+      }
+      s.close();
+      c.commit();
+    } catch (Exception e) { 
+      e.printStackTrace();
     }
-    System.err.println("About to drop dynamic");
-    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
-    System.err.println("About to drop tableinfo");
-    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
-    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
-    getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tablecategory"));
-    System.err.println("About to commit");
     
-    PoemThread.commit();
-    System.err.println("About to remove db");
-    
-    PoemDatabaseFactory.removeDatabase(databaseName);
-  } 
-  
+  }
   
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitTroid() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -135,13 +126,13 @@ public class DynamicTableTest extends EverythingTestCase {
       e = null;
     }
     columnInfo.delete();
+    PoemThread.commit();
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDeleted() throws Exception {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -165,7 +156,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testdeletedcol").selectionWhereEq(Boolean.FALSE)).size());
@@ -232,14 +222,12 @@ public class DynamicTableTest extends EverythingTestCase {
 //    getDb().uncacheContents();
 //    getDb().unifyWithDB();
     PoemThread.commit();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitType() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -263,7 +251,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = dt.selection();
@@ -283,7 +270,6 @@ public class DynamicTableTest extends EverythingTestCase {
     Enumeration en2 = dt.selection();
     t2 = (PoemTypeFactory) ((Dynamic) en2.nextElement()).getCooked("testtypecol");
     while (en2.hasMoreElements()) {
-      System.err.println(t2.getName());
       assertEquals(t2.getName(), ((PoemTypeFactory) ((Dynamic) en2.nextElement())
           .getCooked("testtypecol")).getName());
     }
@@ -298,14 +284,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals("user", ((PoemTypeFactory) dt.getObject(0).getCooked(
         "testtypecol")).getName());
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBoolean() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -329,7 +313,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testbooleancol").selectionWhereEq(Boolean.FALSE)).size());
@@ -341,14 +324,12 @@ public class DynamicTableTest extends EverythingTestCase {
         "testbooleancol"));
     assertEquals(Boolean.FALSE, dt.getObject(0).getCooked("testbooleancol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitInteger() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     // Two records are created on initialisation
     assertEquals(2, EnumUtils.vectorOf(dt.selection()).size());
@@ -374,7 +355,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
             dt.getColumn("testintegercol").selectionWhereEq(new Integer(0))).size());
@@ -387,13 +367,11 @@ public class DynamicTableTest extends EverythingTestCase {
         "testintegercol"));
     assertEquals(new Integer(0), dt.getObject(0).getCooked("testintegercol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitNullableInteger() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -417,7 +395,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(true);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(0, EnumUtils.vectorOf(
         dt.getColumn("testnullableintegercol").selectionWhereEq(new Integer(0))).size());
@@ -428,14 +405,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertNull(dt.two().getCooked("testnullableintegercol"));
     assertNull(dt.getObject(0).getCooked("testnullableintegercol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDouble() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -459,7 +434,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testdoublecol").selectionWhereEq(new Double(0))).size());
@@ -471,14 +445,12 @@ public class DynamicTableTest extends EverythingTestCase {
         "testdoublecol"));
     assertEquals(new Double(0), dt.getObject(0).getCooked("testdoublecol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitLong() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -502,7 +474,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testlongcol").selectionWhereEq(new Long(0))).size());
@@ -513,14 +484,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(new Long(0), dt.two().getCooked("testlongcol"));
     assertEquals(new Long(0), dt.getObject(0).getCooked("testlongcol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBigDecimal() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -544,7 +513,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
@@ -554,14 +522,12 @@ public class DynamicTableTest extends EverythingTestCase {
         dt.getColumn("testbigdecimalcol").selectionWhereEq(new BigDecimal(0.0)))
         .size());
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitString() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -585,7 +551,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("teststringcol").selectionWhereEq("default")).size());
@@ -596,14 +561,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals("default", dt.two().getCooked("teststringcol"));
     assertEquals("default", dt.getObject(0).getCooked("teststringcol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitPassword() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -627,7 +590,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testpasswordcol").selectionWhereEq("FIXME")).size());
@@ -638,14 +600,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals("FIXME", dt.two().getCooked("testpasswordcol"));
     assertEquals("FIXME", dt.getObject(0).getCooked("testpasswordcol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDate() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -669,7 +629,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     assertEquals(2, EnumUtils.vectorOf(
         dt.getColumn("testdatecol").selectionWhereEq(
@@ -685,14 +644,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(new java.sql.Date(new Date().getTime()).toString(), dt
         .getObject(0).getCooked("testdatecol").toString());
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitTimestamp() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -716,7 +673,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Timestamp t = null;
     Enumeration en = dt.selection();
@@ -734,14 +690,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(t, dt.two().getCooked("testtimestampcol"));
     assertEquals(t, dt.getObject(0).getCooked("testtimestampcol"));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBinary() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -765,7 +719,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     byte[] t = null;
     Enumeration en = dt.selection();
@@ -784,14 +737,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(t.length,
         ((byte[]) dt.getObject(0).getCooked("testbinarycol")).length);
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDisplaylevel() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -815,7 +766,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = dt.selection();
@@ -830,7 +780,6 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (DisplayLevel) ((Dynamic) en2.nextElement())
         .getCooked("testdisplaylevelcol");
     while (en2.hasMoreElements()) {
-      System.err.println(t2);
       assertEquals(t2, ((DisplayLevel) ((Dynamic) en2.nextElement())
           .getCooked("testdisplaylevelcol")));
     }
@@ -849,14 +798,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(DisplayLevel.primary, ((DisplayLevel) dt.getObject(0)
         .getCooked("testdisplaylevelcol")));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitSearchability() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -880,7 +827,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = dt.selection();
@@ -895,7 +841,6 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (Searchability) ((Dynamic) en2.nextElement())
         .getCooked("testsearchabilitycol");
     while (en2.hasMoreElements()) {
-      System.err.println(t2);
       assertEquals(t2, ((Searchability) ((Dynamic) en2.nextElement())
           .getCooked("testsearchabilitycol")));
     }
@@ -914,14 +859,12 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(Searchability.primary, ((Searchability) dt.getObject(0)
         .getCooked("testsearchabilitycol")));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
 
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitIntegrityfix() {
-    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -945,7 +888,6 @@ public class DynamicTableTest extends EverythingTestCase {
     columnInfo.setNullable(false);
     columnInfo.setDisplaylevel(DisplayLevel.record);
     columnInfo.makePersistent();
-    getDb().setLogSQL(true);
     columnInfo.getTableinfo().actualTable().addColumnAndCommit(columnInfo);
     Integer t = null;
     Enumeration en = dt.selection();
@@ -960,7 +902,6 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (IntegrityFix) ((Dynamic) en2.nextElement())
         .getCooked("testIntegrityfixcol");
     while (en2.hasMoreElements()) {
-      System.err.println(t2);
       assertEquals(t2, ((IntegrityFix) ((Dynamic) en2.nextElement())
           .getCooked("testIntegrityfixcol")));
     }
@@ -979,10 +920,8 @@ public class DynamicTableTest extends EverythingTestCase {
     assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix) dt.getObject(0)
         .getCooked("testIntegrityfixcol")));
     columnInfo.delete();
-    getDb().setLogSQL(false);
   }
   public void testExtraColumnAsField() {
-    if (skipTest) return;
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     ti.setName("addedtable");
     ti.setDisplayname("Junit created table");
@@ -1034,7 +973,7 @@ public class DynamicTableTest extends EverythingTestCase {
     }
     // Do not tidy up here
     // as we no longer have write priviledges.
-    // see our overidden version of poemDatabaseUnchanged()
+    // see our overidden version of databaseUnchanged()
     //ci.delete();
     //extra.troidColumn().getColumnInfo().delete();
     //ti.delete();
@@ -1042,9 +981,6 @@ public class DynamicTableTest extends EverythingTestCase {
   }
 
   public void testAddTableAndCommit() throws Exception {
-    if (skipTest) return;
-    getDb().setLogCommits(true);
-    // getDb().setLogSQL(true);
     TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
     info.setName("addedtable");
     info.setDisplayname("Junit created table");
@@ -1100,9 +1036,7 @@ public class DynamicTableTest extends EverythingTestCase {
 
 
     PoemThread.commit();
-    String q = "DROP TABLE " + getDb().getDbms().getQuotedName("addedtable");
-    getDb().sqlUpdate(q);
-    PoemThread.commit();
+    dropTable("addedtable");
 
     try {
       getDb().addTableAndCommit(info, "id");
@@ -1120,7 +1054,7 @@ public class DynamicTableTest extends EverythingTestCase {
     }
     assertEquals(1, colCount);
 
-    info.deleteAndCommit();
+    info.delete();
     PoemThread.commit();
     try {
       getDb().addTableAndCommit(info, "id");
@@ -1128,10 +1062,10 @@ public class DynamicTableTest extends EverythingTestCase {
     } catch (RowDisappearedPoemException e) {
       e = null;
     }
-    getDb().sqlUpdate(q);
+    dropTable("addedtable");
 
     TableInfo info3 = (TableInfo)getDb().getTableInfoTable().newPersistent();
-    info3.setName("junit2");
+    info3.setName("addedtable2");
     info3.setDisplayname("Junit created table");
     info3.setDisplayorder(13);
     info3.setSeqcached(new Boolean(false));
@@ -1151,9 +1085,6 @@ public class DynamicTableTest extends EverythingTestCase {
     info3.deleteAndCommit();
     PoemThread.commit();
 
-    q = "DROP TABLE " + getDb().getDbms().getQuotedName("junit2");
-    getDb().sqlUpdate(q);
-    PoemThread.commit();
   }
 
 

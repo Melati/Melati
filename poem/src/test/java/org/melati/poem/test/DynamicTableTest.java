@@ -68,11 +68,13 @@ public class DynamicTableTest extends EverythingTestCase {
     } catch (NoSuchTablePoemException e) { 
       e = null;
     }
-    System.err.println("About to drop added");
-    if (added != null && added.getTableInfo().statusExistent())
+    if (added != null && added.getTableInfo().statusExistent()) {
+      System.err.println("About to drop added");
       getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("addedtable"));
+    }
     System.err.println("About to drop dynamic");
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("dynamic"));
+    System.err.println("About to drop tableinfo");
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tableinfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("columninfo"));
     getDb().sqlUpdate("DROP TABLE " + getDb().getDbms().getQuotedName("tablecategory"));

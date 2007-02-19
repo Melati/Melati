@@ -146,9 +146,13 @@ public abstract class Transaction {
    * Make persistent ie no loger able to be rolled back.
    */
   public void writeDown() {
+    System.err.println("In writedown");
     synchronized (touched) {
-      for (Enumeration p = touched.elements(); p.hasMoreElements();)
+      System.err.println("In writedown synchronised");
+      for (Enumeration p = touched.elements(); p.hasMoreElements();) {
+         System.err.println("In writedown synchronised element");
         ((Transactioned)p.nextElement()).writeDown(this);
+      }
     }
   }
 

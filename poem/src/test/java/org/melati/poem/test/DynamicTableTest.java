@@ -91,7 +91,7 @@ public class DynamicTableTest extends EverythingTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void testAddColumnAndCommitTroid() {
+  public void NtestAddColumnAndCommitTroid() {
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     TableInfo ti = dt.getTableInfo();

@@ -83,6 +83,30 @@ ant go </code></pre>
 </p>
 </subsection>
 </section>
+<section name="Database Setup"> 
+<subsection name="MySQL">
+<p>
+Install MySQL with support for transactions, to use InnoDb this involves 
+uncomenting the innodb section of my.cnf.
+</p>
+<p>
+In Mysql create your databases:
+<pre>
+CREATE DATABASE everything;
+CREATE DATABASE melatijunit;
+</pre>
+</p>
+<p>
+Authorise the user that Poem will connect as:
+<pre>
+</pre>
+USE everything;
+GRANT ALL ON *.* to melati@localhost identified by 'melati';
+USE melatijunit;
+GRANT ALL ON *.* to melati@localhost identified by 'melati';
+</p>
+</subsection>
+</section>
 </body>
 </document>
 

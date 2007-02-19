@@ -26,16 +26,13 @@ This page last updated: $Date$ $Author$
 
 <section name=" Testing ">
 <p>
-Until I retro-fitted the tests I used Melati for three years in the strong belief that it was bug free, 
-now I believe only tested software is bug free.
+The unit tests have been retro-fitted, JUnit did not exist when the code 
+was first written, so the objective of the tests is to achieve 100% 
+branch coverage, not to have a unit test for every method.
 </p>
 <p>
-The unit tests have been retro-fitted, JUnit did not exist when the code was first written, 
-so the objective of the tests is to achieve 100% branch coverage, not to have a unit test for every method.
-</p>
-<p>
-The excercise of retro-fitting has been very useful.
-Having a comprehensive tests increases the speed of development of new features, such as adding support for a new database. 
+The tests are intended to serve two purposes: to act as a comprehensive 
+regression test and to give an example of usage for all public methods.
 </p>
 <subsection name="JUnit tests">
 <p>
@@ -43,11 +40,13 @@ Maven allows tests to be run in a single thread or a new thread per test.
 Running in a single thread is considerably faster.
 To enable the tests to run in a single thread it is important to ensure that 
 tests clean up after themselves or different results will be returned when a 
-test is run on its own, in Eclipse for example, to when it is run as part of a suite.
-To this end all database tests inherit a method to ensure that the number of rows in the 
-database is unchanged.
-Currently there is no way to delete a column from a table, so the tests for column addition 
-are not well behaved, this is worked around by not checking the number of rows in the ColumnInfo table.
+test is run on its own, in Eclipse for example, to when it is run as part of 
+a suite.
+To this end all database tests inherit a method to ensure that the 
+number of rows in the database is unchanged.
+Currently there is no way to delete a column from a table, so the tests 
+for column addition are not well behaved, this is worked around by not 
+checking the number of rows in the ColumnInfo table.
 </p>
 <p>
 <a href="http://junit.org/">JUnit</a> tests are incorporated into the
@@ -62,79 +61,14 @@ build:
 </subsection>
 <subsection name=" Provoked SQLExceptions ">
 <p>
-The test suite contains a decorated version of the <tt>java.ja.sql</tt> API to cover 
-the handling of <tt>SQLException</tt>s thrown by the JDBC connection.
+The test suite contains a decorated version of the <tt>java.ja.sql</tt> API to 
+cover the handling of <tt>SQLException</tt>s thrown by the JDBC connection.
 </p>
 <p>
-The <tt>Connection</tt> and any <tt>sql</tt> object obtained from it can be instructed to 
-throw an exception by use of a static method. This enables coverage of exception handling in a 
-closed API.
+The <tt>Connection</tt> and any <tt>sql</tt> object obtained from it can be 
+instructed to throw an exception by use of a static method. 
+This enables coverage of exception handling in a closed API.
 </p>
-</subsection>
-<subsection name=" Coverage notes">
-<ul>
-<li>org.melati
-<p>
-Finished.
-</p>
-</li>
-<li>org.melati.admin</li>
-<li>org.melati.app</li>
-<li>org.melati.login</li>
-<li>org.melati.poem
-<p>
-Almost finished, the last part is the most interesting.
-</p>
-<p>
-Notes on remaining non-coverage
-<ul>
-<li>
-Database
-<p>
-Finished - remaining exception handling is to artificail to cover
-</p>
-</li>
-</ul>
-</p>
-</li>
-<li>org.melati.poem.csv</li>
-<li>org.melati.poem.dbms
-<p>
-It is not envisaged that all dbmsen should be tested in a single run.
-The tests can be run against a particular dbms by changing the database urls in 
-<code>org.melati.LogicalDatabse.properties</code>.
-The tests use an HSQLDB mem database by default.
-</p>
-</li>
-<li>org.melati.poem.generated
-<p>
-This to be left until last, any methods not invoked are suspect.
-</p>
-</li>
-<li>org.melati.servlet</li>
-<li>org.melati.template</li>
-<p>
-Abstract tests written against interfaces.
-</p>
-<li>org.melati.template.velocity
-<p>
-Tests run by injecting into abstract tests.
-</p>
-</li>
-<li>org.melati.template.webmacro
-<p>
-Tests run by injecting into abstract tests.
-</p>
-</li>
-<li>org.melati.test</li>
-<p>
-Some of the manual tests are run using mocks.
-</p>
-<li>org.melati.util</li>
-<p>
-Not much explicit testing so far.
-</p>
-</ul>
 </subsection>
 <subsection name="Manual tests">
 <p>

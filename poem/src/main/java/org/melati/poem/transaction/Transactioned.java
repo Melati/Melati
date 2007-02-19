@@ -54,10 +54,10 @@ public abstract class Transactioned {
 
   protected boolean valid = true;
 
-  /* The transactions which have read us */
+  /** The transactions which have read us */
   private int seenMask = 0;
 
-  /* The transaction which is writing to us */
+  /** The transaction which is writing to us */
   private Transaction touchedBy = null;
   private TransactionPool transactionPool = null;
 

@@ -570,6 +570,13 @@ public class Table implements Selectable {
   // -----------
   // 
 
+  /**
+   * Use this for DDL statements, ie those which alter the structore of the db.
+   * Postgresql in particular does not like DDL statements being executed within a transaction.
+   * 
+   * @param sql the SQL DDL statement to execute
+   * @throws StructuralModificationFailedPoemException
+   */
   protected void dbModifyStructure(String sql)
       throws StructuralModificationFailedPoemException {
     
@@ -844,6 +851,10 @@ public class Table implements Selectable {
     }
   }
 
+  /**
+   * @param transaction possibly null if working with the committed transaction
+   * @param persistent the Persistent to load
+   */
   void load(PoemTransaction transaction, Persistent persistent) {
     load(transaction == null ?
             getCommittedTransactionStuff().get :

@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 import org.melati.poem.ResultSetEnumeration;
 import org.melati.poem.RowDisappearedPoemException;
 import org.melati.poem.User;
-import org.melati.poem.dbms.test.ThrowingResultSet;
 
 /**
  * @author timp
@@ -54,15 +53,13 @@ public class ResultSetEnumerationTest extends PoemTestCase {
    */
   public void testHasMoreElements() {
     Enumeration rse = getDb().getUserTable().getLoginColumn().selectionWhereEq("_guest_");
-    System.err.println(ThrowingResultSet.shouldThrow("close"));
-    System.err.println(rse.getClass().getName());
     while (rse.hasMoreElements()) {
       rse.nextElement();
     }
   }
 
   /**
-   * Test ov deviant useage.
+   * Test of deviant useage.
    * Test method for {@link org.melati.poem.ResultSetEnumeration#nextElement()}.
    */
   public void testNextElement() {
@@ -84,7 +81,7 @@ public class ResultSetEnumerationTest extends PoemTestCase {
       while(rse2.hasMoreElements()) { 
         rse2.nextElement();
       }
-      // fail("Should have blown up");
+      //fail("Should have blown up");
     } catch (RowDisappearedPoemException e) {
       e = null;
     }

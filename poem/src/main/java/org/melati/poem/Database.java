@@ -1052,9 +1052,7 @@ public abstract class Database implements TransactionPool {
     try {
       Statement s = token.transaction.getConnection().createStatement();
       token.toTidy().add(s);
-      System.err.println("About to execute: " + sql);
       int n = s.executeUpdate(sql);
-      System.err.println("Have executed: " + sql);
       if (logSQL())
         log(new SQLLogEvent(sql));
       incrementQueryCount();
@@ -1369,7 +1367,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * @return the jdbc Connection
+   * @return the non-transactioned jdbc Connection
    */
   public Connection getCommittedConnection() {
     return committedConnection;

@@ -4,6 +4,8 @@
 package org.melati.poem.test;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Enumeration;
@@ -35,7 +37,8 @@ import org.melati.poem.util.EnumUtils;
  * @since 01-Februray-2007
  */
 public class DynamicTableTest extends EverythingTestCase {
-
+  Connection c = null;
+  boolean skipTest = false;
   /**
    * Constructor for PoemTest.
    * @param arg0
@@ -49,13 +52,23 @@ public class DynamicTableTest extends EverythingTestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
+    c = getDb().getCommittedConnection();
+    try {
+      if (c instanceof org.postgresql.jdbc1.AbstractJdbc1Connection && 
+        !((org.postgresql.jdbc1.AbstractJdbc1Connection)c).haveMinimumServerVersion("7.4")) { 
+        skipTest = true;
+      }
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+    }
   }
 
   /**
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
-    checkDbUnchanged();
+    if (!skipTest) 
+      checkDbUnchanged();
   }
 
   protected void databaseUnchanged() { 
@@ -91,7 +104,8 @@ public class DynamicTableTest extends EverythingTestCase {
   /**
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
-  public void NtestAddColumnAndCommitTroid() {
+  public void testAddColumnAndCommitTroid() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     TableInfo ti = dt.getTableInfo();
@@ -127,6 +141,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDeleted() throws Exception {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -224,6 +239,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitType() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -289,6 +305,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBoolean() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -331,6 +348,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitInteger() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     // Two records are created on initialisation
     assertEquals(2, EnumUtils.vectorOf(dt.selection()).size());
@@ -375,6 +393,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitNullableInteger() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -416,6 +435,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDouble() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -458,6 +478,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitLong() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -499,6 +520,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBigDecimal() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -539,6 +561,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitString() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -580,6 +603,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitPassword() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -621,6 +645,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDate() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -667,6 +692,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitTimestamp() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -715,6 +741,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitBinary() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -764,6 +791,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitDisplaylevel() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -828,6 +856,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitSearchability() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -892,6 +921,7 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see org.melati.poem.Table#addColumnAndCommit(ColumnInfo)
    */
   public void testAddColumnAndCommitIntegrityfix() {
+    if (skipTest) return;
     DynamicTable dt = ((EverythingDatabase)getDb()).getDynamicTable();
     ColumnInfo columnInfo = (ColumnInfo) getDb().getColumnInfoTable()
         .newPersistent();
@@ -952,6 +982,7 @@ public class DynamicTableTest extends EverythingTestCase {
     getDb().setLogSQL(false);
   }
   public void testExtraColumnAsField() {
+    if (skipTest) return;
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     ti.setName("addedtable");
     ti.setDisplayname("Junit created table");
@@ -1011,6 +1042,7 @@ public class DynamicTableTest extends EverythingTestCase {
   }
 
   public void testAddTableAndCommit() throws Exception {
+    if (skipTest) return;
     getDb().setLogCommits(true);
     // getDb().setLogSQL(true);
     TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();

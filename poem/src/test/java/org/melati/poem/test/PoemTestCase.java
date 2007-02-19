@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import org.melati.poem.Database;
+import org.melati.poem.NoSuchTablePoemException;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.AccessToken;
 import org.melati.poem.Column;
@@ -17,8 +20,10 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 import org.melati.poem.DatabaseInitialisationPoemException;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 
 /**
  * A TestCase that runs in a Database session.
@@ -40,6 +45,10 @@ public class PoemTestCase extends TestCase implements Test {
   
   private AccessToken userToRunAs;
 
+  boolean problem = false;
+  String dbUrl = null;
+
+  protected static TestResult result;
   /**
    * Constructor.
    */
@@ -57,8 +66,6 @@ public class PoemTestCase extends TestCase implements Test {
     super(name);
     fName = name;
   }
-  boolean problem = false;
-  String dbUrl = null;
   /**
    * @see TestCase#setUp()
    */
@@ -78,15 +85,23 @@ public class PoemTestCase extends TestCase implements Test {
       assertEquals("Not all transactions free", maxTrans, getDb().getFreeTransactionsCount());
     }
   }
-  /** Properties, named for this class. */
-  public static Properties databaseDefs = null;
-
-  public  Properties databaseDefs() {
-    if (databaseDefs == null)
-      databaseDefs = getProperties();
-    return databaseDefs;
+  
+  /**
+   * Runs the test case and collects the results in TestResult.
+   */
+  public void run(TestResult result) {
+    PoemTestCase.result = result;
+    super.run(result);
   }
-
+  
+  static public void assertEquals(String message, int expected, int actual) {
+    try { 
+      Assert.assertEquals(message, expected, actual);
+    } catch (Error e) { 
+      result.stop();
+      throw e;
+    }
+  }
   /**
    * Run the test in a session.
    * 
@@ -126,6 +141,15 @@ public class PoemTestCase extends TestCase implements Test {
     }
   }
 
+  /** Properties, named for this class. */
+  public static Properties databaseDefs = null;
+
+  public  Properties databaseDefs() {
+    if (databaseDefs == null)
+      databaseDefs = getProperties();
+    return databaseDefs;
+  }
+
   protected void checkDbUnchanged() {
     getDb().inSession(AccessToken.root, // HACK
         new PoemTask() {
@@ -154,6 +178,27 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals("TableInfo changed", 9, getDb().getTableInfoTable().count());
     checkTablesAndColumns(9,69);
   }
+  
+  protected void dropTable(String tableName) { 
+    Connection c = getDb().getCommittedConnection();
+    Table table = null;
+    try { 
+      table = getDb().getTable(tableName);
+      Statement s = c.createStatement();
+      if (table != null && table.getTableInfo().statusExistent()) {
+        s.executeUpdate("DROP TABLE " + getDb().getDbms().getQuotedName(tableName));
+      }
+      s.close();
+      c.commit();
+    } catch (NoSuchTablePoemException e) { 
+      e = null;
+    } catch (Exception e) { 
+      e.printStackTrace();
+      fail("Something bombed");
+    }
+    
+  }
+ 
 
   protected void checkTablesAndColumns(int tableCount, int columnCount) {
     checkTables(tableCount);

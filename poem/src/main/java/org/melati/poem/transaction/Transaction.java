@@ -153,6 +153,7 @@ public abstract class Transaction {
          System.err.println("In writedown synchronised element");
         ((Transactioned)p.nextElement()).writeDown(this);
       }
+      System.err.println("Done elements");
     }
   }
 

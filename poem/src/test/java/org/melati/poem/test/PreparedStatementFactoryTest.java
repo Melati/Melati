@@ -62,7 +62,7 @@ public class PreparedStatementFactoryTest extends PoemTestCase {
   /**
    * Test method for {@link org.melati.poem.PreparedStatementFactory#preparedStatement()}.
    */
-  public void brokentestPreparedStatement() throws Exception {
+  public void testPreparedStatement() throws Exception {
     PreparedStatementFactory it = new PreparedStatementFactory(getDb(),
         getDb().getUserTable().selectionSQL(null,null,null,true,false));
     //System.err.println(it.toString());

@@ -55,10 +55,10 @@ public class PreparedStatementFactoryTest extends
     super.testGet();
   }
 
-  public void brokentestPreparedStatement() throws Exception {
+  public void testPreparedStatement() throws Exception {
     ThrowingConnection.startThrowing("prepareStatement");
     try {
-     // super.testPreparedStatement();
+      super.testPreparedStatement();
       fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());

@@ -266,7 +266,7 @@ public class EverythingNormalTableBase extends Table {
           }
 
           protected DisplayLevel defaultDisplayLevel() {
-            return DisplayLevel.summary;
+            return DisplayLevel.primary;
           }
 
           protected Searchability defaultSearchability() {

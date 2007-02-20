@@ -81,7 +81,7 @@ table EverythingNormal
       // (rangelimit_string = null)
       (displayorder = 2)
       // usercreateable
-      (displaylevel = summary)
+      (displaylevel = primary)
       (searchability = yes)
       // (displayorderpriority = null)
       // Not sortdescending

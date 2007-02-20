@@ -185,13 +185,6 @@ public class ProtectedPersistentTest extends PersistentTest {
     Persistent p = getDb().getGroupMembershipTable().getObject(0);
     Field f = p.getPrimaryDisplayField();
     assertEquals("id: 0", f.toString());
-    
-    Persistent p2 = ((EverythingDatabase)getDb()).getENExtendedTable().newPersistent();
-    p2.setCooked("stringfield2", "primary search field");
-    p2.makePersistent();
-    Field f2 = p2.getPrimaryDisplayField();
-    assertEquals("stringfield2: primary search field", f2.toString());
-    p2.delete();
   }
 
 

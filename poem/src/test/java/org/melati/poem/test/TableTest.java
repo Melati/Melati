@@ -661,21 +661,29 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * FIXME
    * @see org.melati.poem.Table#cnfWhereClause(Enumeration)
    */
   public void brokentestCnfWhereClauseEnumeration() {
     String cnf = getDb().getUserTable().cnfWhereClause(
             getDb().getUserTable().selection());
-    String expected = "((\"USER\".\"ID\" = 0 AND "+
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"NAME\"" , "Melati guest user") + " AND " +
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"LOGIN\"","_guest_") + " AND " +
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"PASSWORD\"","guest") +
+    String expected = "((" +  getDb().getDbms().getQuotedName("user") +"." + getDb().getDbms().getQuotedName("id") + 
+    " = 0 AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("name"), "Melati guest user") + 
+            " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("login"),"_guest_") + 
+            " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("password"),"guest") +
     ") OR" +
-    " (\"USER\".\"ID\" = 1 AND " +
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"NAME\"","Melati database administrator") + " AND " +
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"LOGIN\"","_administrator_") +" AND " +
-    getDb().getDbms().caseInsensitiveRegExpSQL("\"USER\".\"PASSWORD\"","FIXME") + "))";
+    " (" + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("id") + " = 1 AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("name"),"Melati database administrator") + " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("login"),"_administrator_") + " AND " +
+    getDb().getDbms().caseInsensitiveRegExpSQL(
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("password"),"FIXME") + "))";
     assertEquals(expected.toUpperCase(),
             cnf.toUpperCase());
     cnf = getDb().getUserTable().cnfWhereClause(

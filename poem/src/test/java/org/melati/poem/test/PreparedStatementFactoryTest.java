@@ -60,15 +60,15 @@ public class PreparedStatementFactoryTest extends PoemTestCase {
   }
 
   /**
-   * FIXME
    * Test method for {@link org.melati.poem.PreparedStatementFactory#preparedStatement()}.
    */
   public void brokentestPreparedStatement() throws Exception {
     PreparedStatementFactory it = new PreparedStatementFactory(getDb(),
         getDb().getUserTable().selectionSQL(null,null,null,true,false));
     //System.err.println(it.toString());
-    assertTrue(it.toString().toUpperCase().endsWith( 
-        "(SQL: SELECT \"USER\".\"ID\" FROM \"USER\" ORDER BY \"USER\".\"NAME\")"));
+    assertTrue(it.toString().endsWith("(SQL: SELECT " + getDb().getDbms().getQuotedName("user") + "." + 
+        getDb().getDbms().getQuotedName("id") + " FROM " + getDb().getDbms().getQuotedName("user") + 
+        " ORDER BY " + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("name") + ")"));
     PreparedStatement ps = it.preparedStatement();
     ResultSet rs = ps.executeQuery();
     rs.next();

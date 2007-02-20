@@ -80,9 +80,7 @@ public class DynamicTableTest extends EverythingTestCase {
     info.setCategory_unsafe(new Integer(1));
     info.setCachelimit(0);
     info.makePersistent();
-    PoemThread.commit();
     Table extra = getDb().addTableAndCommit(info, "id");
-    
     ColumnInfo ci = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     ci.setTableinfo(info);
     ci.setTypefactory(PoemTypeFactory.STRING);

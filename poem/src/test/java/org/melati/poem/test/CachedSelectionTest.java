@@ -152,13 +152,21 @@ public class CachedSelectionTest extends PoemTestCase {
     assertEquals(count + 15,getDb().getQueryCount());    
     assertEquals("_administrator_", cachedSelection.nth(0).toString());
     assertEquals(count + 15,getDb().getQueryCount());    
-    //FIXME
-   // assertEquals("org.melati.poem.CachedSelection ".toUpperCase() + 
-   //         "SELECT \"USER\".\"ID\" FROM \"USER\", \"GROUPMEMBERSHIP\", \"GROUP\" WHERE " + 
-   //         "(\"USER\".\"ID\" = 1 AND \"GROUPMEMBERSHIP\".\"USER\" = \"USER\".\"ID\" AND " + 
-   //         "\"GROUPMEMBERSHIP\".\"GROUP\" = \"GROUP\".\"ID\" AND " + 
-   //         "\"GROUP\".\"ID\" = 0) ORDER BY \"USER\".\"NAME\"", 
-   //         cachedSelection.toString().toUpperCase());
+    assertEquals("org.melati.poem.CachedSelection " + 
+            "SELECT " + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("id") + 
+            " FROM " + getDb().getDbms().getQuotedName("user") + ", " + 
+            getDb().getDbms().getQuotedName("groupmembership") + ", " + 
+            getDb().getDbms().getQuotedName("group") + " WHERE " + 
+            "(" + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("id") + 
+            " = 1 AND " + getDb().getDbms().getQuotedName("groupmembership") + "." + 
+            getDb().getDbms().getQuotedName("user") + " = " + 
+            getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("id") + " AND " + 
+            getDb().getDbms().getQuotedName("groupmembership")  + "." + getDb().getDbms().getQuotedName("group") + 
+            " = " + getDb().getDbms().getQuotedName("group") + "." + getDb().getDbms().getQuotedName("id") + 
+            " AND " + 
+            getDb().getDbms().getQuotedName("group") + "." + getDb().getDbms().getQuotedName("id") + 
+            " = 0) ORDER BY " + getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("name"), 
+            cachedSelection.toString());
     getDb().setLogSQL(false);
   }
   

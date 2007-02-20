@@ -592,8 +592,8 @@ public class Table implements Selectable {
       updateStatement.close();
       database.getCommittedConnection().commit();
       if (database.logCommits()) database.log(new CommitLogEvent(null));
-      database.incrementQueryCount();
       if (database.logSQL()) database.log(new StructuralModificationLogEvent(sql));
+      database.incrementQueryCount();
     }
     catch (SQLException e) {
       throw new StructuralModificationFailedPoemException(sql, e);

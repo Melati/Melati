@@ -41,14 +41,36 @@ This page last updated: $Date$ $Author$
   This can be used as your local <a href="/melati-webapp/org.melati.admin.Admin/melatitest/Main">desktop database</a>.
 </p>
 <subsection name="Maven quick start">
+<p>
+Install Maven from <a href="http://maven.apache.org/">maven.apache.org</a>.
+</p>
+<p>
+Change directory to a suitable directory (/dist or C:) and download using maven:
+<pre>
+
+mvn -DconnectionUrl=scm:cvs:pserver:anon@melati.org:/usr/cvsroot:melati -Dpassword=anon -DcheckoutDirectory=melati scm:checkout
+</pre>
+This will create a directory called melati containign the whole project.
+To install and generate the site documentation:
+<pre>
+cd melati
+mvn install site
+</pre>
+That's it!
+</p>
 </subsection>
 <subsection name="Testing">
 <p>
 To test your installation and illustrate a few capabilities 
-run through the <a href="Testing.html">tests</a>.
+run through the <a href="Testing.html">interactive tests</a> and run the unit tests 
+using the following command:
+<pre>
+mvn test
+</pre>
+Though the tests are automatically run during the install.
 </p>
 </subsection>
-<subsection name="Embrace and extend">
+<subsection name="Extending the contacts example">
 <p>
   If you want to use Melati to build a website you might start by 
   downloading and tinkering with the <a
@@ -84,6 +106,18 @@ ant go </code></pre>
 </subsection>
 </section>
 <section name="Database Setup"> 
+<subsection name="Postgresql">
+<p>
+Install Postgresql, enable tcp access by adding <tt>-i</tt> to the postmaster options.
+</p>
+<p>
+As the postgres user create your databases:
+<pre>
+createdb everything
+createdb melatijunit
+</pre>
+</p>
+</subsection>
 <subsection name="MySQL">
 <p>
 Install MySQL with support for transactions, to use InnoDb this involves 
@@ -104,6 +138,31 @@ USE everything;
 GRANT ALL ON *.* to melati@localhost identified by 'melati';
 USE melatijunit;
 GRANT ALL ON *.* to melati@localhost identified by 'melati';
+</p>
+</subsection>
+<subsection name="SQLServer">
+<p>
+Install SQLServer, enable login access rather than Windows authentication.
+Set a user and password
+</p>
+<p>
+In SQLServer Administrator user create your databases:
+<pre>
+everything
+melatijunit;
+</pre>
+</p>
+</subsection>
+<subsection name="MSAccess">
+<p>
+Create two empty databases called <tt>everything</tt> and <tt>melatijunit</tt>.
+</p>
+<p>
+In ODBC set them as ODBC system DSN datasources, called <tt>everything/tt> and <tt>melatijunit</tt>.
+</p>
+<p>
+There is currently a problem such that you have to rerun the tests a couple of times to get the tables to be recognised, 
+the test <tt>DynamicTableTest</tt> needs to be disabled.
 </p>
 </subsection>
 </section>

@@ -145,10 +145,10 @@ Install SQLServer, enable login access rather than Windows authentication.
 Set a user and password
 </p>
 <p>
-In SQLServer Administrator user create your databases:
+In SQLServer Administrator create your databases:
 <pre>
 everything
-melatijunit;
+melatijunit
 </pre>
 </p>
 </subsection>

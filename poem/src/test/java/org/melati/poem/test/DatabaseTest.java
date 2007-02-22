@@ -17,9 +17,9 @@ import org.melati.poem.TableInfo;
 import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
-import org.melati.poem.dbms.test.ThrowingConnection;
-import org.melati.poem.dbms.test.ThrowingDatabaseMetaData;
-import org.melati.poem.dbms.test.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.ThrowingConnection;
+import org.melati.poem.dbms.test.sql.ThrowingDatabaseMetaData;
+import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
 import junit.framework.TestCase;
 

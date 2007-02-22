@@ -11,7 +11,7 @@ import java.util.Hashtable;
  * @since 12 Feb 2007
  *
  */
-public class ThrowingResultSetMetaData implements ResultSetMetaData {
+public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaData {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

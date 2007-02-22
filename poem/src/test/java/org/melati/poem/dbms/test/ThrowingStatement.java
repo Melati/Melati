@@ -17,7 +17,7 @@ import java.util.Hashtable;
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingStatement implements Statement {
+public class ThrowingStatement extends Thrower implements Statement {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

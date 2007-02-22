@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Hashtable;
 
-public class ThrowingDatabaseMetaData implements DatabaseMetaData {
+public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaData {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

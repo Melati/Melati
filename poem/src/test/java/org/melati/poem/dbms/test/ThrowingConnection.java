@@ -21,7 +21,7 @@ import java.util.Map;
  * @since 10 Feb 2007
  *
  */
-public class ThrowingConnection implements Connection {
+public class ThrowingConnection extends Thrower implements Connection {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

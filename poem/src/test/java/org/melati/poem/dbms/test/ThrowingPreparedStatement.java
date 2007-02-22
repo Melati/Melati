@@ -31,8 +31,7 @@ import java.util.Hashtable;
  * @since 10 Feb 2007
  * 
  */
-public class ThrowingPreparedStatement implements
-    PreparedStatement {
+public class ThrowingPreparedStatement extends Thrower implements PreparedStatement {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

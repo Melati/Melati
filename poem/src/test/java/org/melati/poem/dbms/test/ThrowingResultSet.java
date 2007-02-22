@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 11 Feb 2007
  *
  */
-public class ThrowingResultSet implements ResultSet {
+public class ThrowingResultSet extends Thrower implements ResultSet {
   static Hashtable throwers = new Hashtable();
   public static void startThrowing(String methodName) {
     throwers.put(methodName, Boolean.TRUE);

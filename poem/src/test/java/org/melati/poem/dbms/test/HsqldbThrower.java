@@ -18,7 +18,7 @@ public class HsqldbThrower extends Hsqldb implements Dbms {
    * Constructor. 
    */
   public HsqldbThrower() {
-    setDriverClassName("org.melati.poem.dbms.test.ThrowingJdbcDriver");
+    setDriverClassName("org.melati.poem.dbms.test.HsqldbThrowingJdbcDriver");
   }
 
 }

@@ -6,7 +6,7 @@ package org.melati.poem.test.throwing;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
-import org.melati.poem.dbms.test.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
 /**
  * @author timp

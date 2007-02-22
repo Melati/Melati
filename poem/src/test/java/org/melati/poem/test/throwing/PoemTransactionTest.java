@@ -8,8 +8,8 @@ import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.User;
-import org.melati.poem.dbms.test.ThrowingConnection;
-import org.melati.poem.dbms.test.ThrowingPreparedStatement;
+import org.melati.poem.dbms.test.sql.ThrowingConnection;
+import org.melati.poem.dbms.test.sql.ThrowingPreparedStatement;
 
 /**
  * @author timp

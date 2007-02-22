@@ -663,7 +663,7 @@ public class TableTest extends PoemTestCase {
   /**
    * @see org.melati.poem.Table#cnfWhereClause(Enumeration)
    */
-  public void brokentestCnfWhereClauseEnumeration() {
+  public void testCnfWhereClauseEnumeration() {
     String cnf = getDb().getUserTable().cnfWhereClause(
             getDb().getUserTable().selection());
     String expected = "((" +  getDb().getDbms().getQuotedName("user") +"." + getDb().getDbms().getQuotedName("id") + 

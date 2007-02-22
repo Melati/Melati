@@ -6,6 +6,7 @@ package org.melati.poem.dbms.test;
 import java.sql.Driver;
 
 import org.hsqldb.jdbcDriver;
+import org.melati.poem.dbms.test.sql.ThrowingDriver;
 
 /**
  * A decorated Hsqldb {@link jdbcDriver}.
@@ -13,7 +14,7 @@ import org.hsqldb.jdbcDriver;
  * @since 10 Feb 2007
  *
  */
-public class HsqldbThrowingJdbcDriver extends DriverThrowingDecorated implements Driver {
+public class HsqldbThrowingJdbcDriver extends ThrowingDriver implements Driver {
 
   /**
    * Constructor.

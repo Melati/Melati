@@ -983,8 +983,9 @@ public class Table implements Selectable {
       };
 
   /**
-   * Empty table cache.
+   * Invalidate table cache.
    * Candidate for being made public.
+   * NOTE Invalidated cache elements are reloaded when next read
    */
   void uncacheContents() {
     cache.iterate(invalidator);

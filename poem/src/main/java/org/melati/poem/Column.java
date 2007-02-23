@@ -737,7 +737,7 @@ public abstract class Column implements FieldAttributes {
    * @param g The {@link Persistent} to load db values into
    * @throws LoadException
    */
-  public void load_unsafe(ResultSet rs, int rsCol, Persistent g)
+  void load_unsafe(ResultSet rs, int rsCol, Persistent g)
     throws LoadException {
     try {
       setRaw_unsafe(g, type.getRaw(rs, rsCol));
@@ -747,14 +747,14 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
-   * Save to database.
+   * Set value in a PreparedStatement wich is to be used to save to database.
    * 
    * @param g The {@link Persistent} containing unsaved values
    * @param ps <tt>PreparedStatement</tt> to save this column
    * @param psCol index of this Column in the PreparedStatement
    * @todo Double validation
    */
-  public void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
+  void save_unsafe(Persistent g, PreparedStatement ps, int psCol) {
     try {
       type.setRaw(ps, psCol, getRaw_unsafe(g));
     } catch (Exception e) {

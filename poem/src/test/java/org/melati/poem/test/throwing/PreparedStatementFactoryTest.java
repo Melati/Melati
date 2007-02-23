@@ -32,8 +32,11 @@ public class PreparedStatementFactoryTest extends
     assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
   protected void tearDown() throws Exception {
-    super.tearDown();
-    PoemDatabaseFactory.removeDatabase(databaseName);
+    try { 
+      super.tearDown();
+    } finally { 
+      PoemDatabaseFactory.removeDatabase(databaseName);      
+    }
   }
 
 

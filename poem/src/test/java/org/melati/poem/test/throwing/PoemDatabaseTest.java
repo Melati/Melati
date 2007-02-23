@@ -29,8 +29,11 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   protected void tearDown() throws Exception {
-    super.tearDown();
-    PoemDatabaseFactory.removeDatabase(databaseName);
+    try { 
+      super.tearDown();
+    } finally { 
+      PoemDatabaseFactory.removeDatabase(databaseName);
+    }
   }
 
   public Database getDatabase(String name) {

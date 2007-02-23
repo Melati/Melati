@@ -13,6 +13,7 @@ import org.melati.poem.CachedExists;
 import org.melati.poem.ColumnInfo;
 import org.melati.poem.DisplayLevel;
 import org.melati.poem.Field;
+import org.melati.poem.GroupTable;
 import org.melati.poem.Initialiser;
 import org.melati.poem.NoSuchColumnPoemException;
 import org.melati.poem.Persistent;
@@ -343,6 +344,15 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#writeDown(PoemTransaction, Persistent)
    */
   public void testWriteDown() {
+    User u = getDb().administratorUser();
+    String name = u.getName();
+    u.setName("changed");
+    PoemThread.commit();
+    assertEquals("changed", u.getName());
+    u.setName(name);
+    PoemThread.commit();
+    
+    assertEquals(name, u.getName());
 
   }
 
@@ -426,7 +436,9 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getObject(int)
    */
   public void testGetObjectInt() {
-
+    GroupTable t = getDb().getGroupTable();
+    Persistent p = t.getObject(0);
+    assertEquals(new Integer(0),p.troid());
   }
 
   /**
@@ -684,8 +696,7 @@ public class TableTest extends PoemTestCase {
             getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("login"),"_administrator_") + " AND " +
     getDb().getDbms().caseInsensitiveRegExpSQL(
             getDb().getDbms().getQuotedName("user") + "." + getDb().getDbms().getQuotedName("password"),"FIXME") + "))";
-    assertEquals(expected.toUpperCase(),
-            cnf.toUpperCase());
+    assertEquals(expected, cnf);
     cnf = getDb().getUserTable().cnfWhereClause(
             EmptyEnumeration.it);
     assertEquals("", cnf);

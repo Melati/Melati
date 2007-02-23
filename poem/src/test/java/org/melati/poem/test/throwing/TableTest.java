@@ -5,8 +5,12 @@ package org.melati.poem.test.throwing;
 
 import org.melati.poem.Database;
 import org.melati.poem.ExecutingSQLPoemException;
+import org.melati.poem.FieldContentsPoemException;
 import org.melati.poem.PoemDatabaseFactory;
+import org.melati.poem.SimpleRetrievalFailedPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
+import org.melati.poem.dbms.test.sql.ThrowingPreparedStatement;
+import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
 /**
  * @author timp
@@ -484,8 +488,18 @@ public class TableTest extends org.melati.poem.test.TableTest {
   }
 
   public void testGetObjectInt() {
-    
-    // super.testGetObjectInt();
+    getDb().uncacheContents();
+    ThrowingResultSet.startThrowing("next");
+    ThrowingResultSet.startThrowing("close");
+    try { 
+      super.testGetObjectInt();
+      fail("Should have blown up");
+    } catch (SimpleRetrievalFailedPoemException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingResultSet.stopThrowing("next");
+      ThrowingResultSet.stopThrowing("close");
+    }
   }
 
   public void testGetObjectInteger() {
@@ -739,8 +753,28 @@ public class TableTest extends org.melati.poem.test.TableTest {
   }
 
   public void testWriteDown() {
-    
-    // super.testWriteDown();
+    // Need to be able to fire on second invocation
+    // as this is blowing up on first 
+    ThrowingPreparedStatement.startThrowing("setInt");
+    try { 
+      super.testWriteDown();
+      fail("Should have blown up");
+    } catch (FieldContentsPoemException e) { 
+      assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingPreparedStatement.stopThrowing("setInt");
+    }
+  }
+  public void testWriteDown2() {
+    ThrowingPreparedStatement.startThrowing("executeUpdate");
+    try { 
+      super.testWriteDown();
+      fail("Should have blown up");
+    } catch (ExecutingSQLPoemException e) { 
+      assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingPreparedStatement.stopThrowing("executeUpdate");
+    }
   }
 
 }

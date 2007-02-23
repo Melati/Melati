@@ -262,9 +262,9 @@ public final class Cache {
   }
 
   private void assertInvariant() {
-    // Vector probs = invariantBreaches();
-    // if (probs.size() != 0)
-    //   throw new InconsistencyException(probs);
+     Vector probs = invariantBreaches();
+     if (probs.size() != 0)
+       throw new InconsistencyException(probs);
   }
 
   /**

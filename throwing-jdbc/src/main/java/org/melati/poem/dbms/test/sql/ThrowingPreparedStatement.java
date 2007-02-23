@@ -22,7 +22,6 @@ import java.sql.SQLWarning;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Hashtable;
 
 
 /**
@@ -33,26 +32,25 @@ import java.util.Hashtable;
  * 
  */
 public class ThrowingPreparedStatement extends Thrower implements PreparedStatement {
-  static Hashtable throwers = new Hashtable();
+  
+  final static String className = ThrowingPreparedStatement.class.getName() + ".";
   public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
+    Thrower.startThrowing(className  +  methodName);
   }
   public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
+    Thrower.stopThrowing(className  +  methodName);
   }
   public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
+    return Thrower.shouldThrow(className  +  methodName);
   }
 
-  PreparedStatement p = null;
+  PreparedStatement it = null;
 
   /**
    * @param statement
    */
   public ThrowingPreparedStatement(PreparedStatement statement) {
-    this.p = statement;
+    this.it = statement;
   }
 
   /**
@@ -63,7 +61,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void addBatch() throws SQLException {
     if (shouldThrow("addBatch"))
       throw new SQLException("PreparedStatement bombed");
-    p.addBatch();
+    it.addBatch();
   }
 
   /**
@@ -74,7 +72,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void clearParameters() throws SQLException {
     if (shouldThrow("clearParameters"))
       throw new SQLException("PreparedStatement bombed");
-    p.clearParameters();
+    it.clearParameters();
   }
 
   /**
@@ -86,7 +84,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("execute"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.execute();
+    return it.execute();
   }
 
   /**
@@ -98,7 +96,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(p.executeQuery());
+    return new ThrowingResultSet(it.executeQuery());
   }
 
   /**
@@ -110,7 +108,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeUpdate();
+    return it.executeUpdate();
   }
 
   /**
@@ -122,7 +120,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSetMetaData(p.getMetaData());
+    return new ThrowingResultSetMetaData(it.getMetaData());
   }
 
   /**
@@ -134,7 +132,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getParameterMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingParameterMetaData(p.getParameterMetaData());
+    return new ThrowingParameterMetaData(it.getParameterMetaData());
   }
 
   /**
@@ -145,7 +143,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setArray(int i, Array x) throws SQLException {
     if (shouldThrow("setArray"))
       throw new SQLException("PreparedStatement bombed");
-    p.setArray(i, x);
+    it.setArray(i, x);
 
   }
 
@@ -159,7 +157,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setAsciiStream"))
       throw new SQLException("PreparedStatement bombed");
-    p.setAsciiStream(parameterIndex, x, length);
+    it.setAsciiStream(parameterIndex, x, length);
   }
 
   /**
@@ -171,7 +169,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setBigDecimal"))
       throw new SQLException("PreparedStatement bombed");
-    p.setBigDecimal(parameterIndex, x);
+    it.setBigDecimal(parameterIndex, x);
   }
 
   /**
@@ -184,7 +182,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setBinaryStream"))
       throw new SQLException("PreparedStatement bombed");
-    p.setBinaryStream(parameterIndex, x, length);
+    it.setBinaryStream(parameterIndex, x, length);
   }
 
   /**
@@ -195,7 +193,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setBlob(int i, Blob x) throws SQLException {
     if (shouldThrow("setBlob"))
       throw new SQLException("PreparedStatement bombed");
-    p.setBlob(i, x);
+    it.setBlob(i, x);
   }
 
   /**
@@ -206,7 +204,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setBoolean(int parameterIndex, boolean x) throws SQLException {
     if (shouldThrow("setBoolean"))
       throw new SQLException("PreparedStatement bombed");
-    p.setBoolean(parameterIndex, x);
+    it.setBoolean(parameterIndex, x);
   }
 
   /**
@@ -217,7 +215,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setByte(int parameterIndex, byte x) throws SQLException {
     if (shouldThrow("setByte"))
       throw new SQLException("PreparedStatement bombed");
-    p.setByte(parameterIndex, x);
+    it.setByte(parameterIndex, x);
   }
 
   /**
@@ -228,7 +226,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setBytes(int parameterIndex, byte[] x) throws SQLException {
     if (shouldThrow("setBytes"))
       throw new SQLException("PreparedStatement bombed");
-    p.setBytes(parameterIndex, x);
+    it.setBytes(parameterIndex, x);
   }
 
   /**
@@ -241,7 +239,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setCharacterStream"))
       throw new SQLException("PreparedStatement bombed");
-    p.setCharacterStream(parameterIndex, reader, length);
+    it.setCharacterStream(parameterIndex, reader, length);
   }
 
   /**
@@ -252,7 +250,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setClob(int i, Clob x) throws SQLException {
     if (shouldThrow("setClob"))
       throw new SQLException("PreparedStatement bombed");
-    p.setClob(i, x);
+    it.setClob(i, x);
   }
 
   /**
@@ -263,7 +261,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setDate(int parameterIndex, Date x) throws SQLException {
     if (shouldThrow("setDate"))
       throw new SQLException("PreparedStatement bombed");
-    p.setDate(parameterIndex, x);
+    it.setDate(parameterIndex, x);
   }
 
   /**
@@ -276,7 +274,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setDate"))
       throw new SQLException("PreparedStatement bombed");
-    p.setDate(parameterIndex, x, cal);
+    it.setDate(parameterIndex, x, cal);
   }
 
   /**
@@ -287,7 +285,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setDouble(int parameterIndex, double x) throws SQLException {
     if (shouldThrow("setDouble"))
       throw new SQLException("PreparedStatement bombed");
-    p.setDouble(parameterIndex, x);
+    it.setDouble(parameterIndex, x);
   }
 
   /**
@@ -298,7 +296,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setFloat(int parameterIndex, float x) throws SQLException {
     if (shouldThrow("setFloat"))
       throw new SQLException("PreparedStatement bombed");
-    p.setFloat(parameterIndex, x);
+    it.setFloat(parameterIndex, x);
   }
 
   /**
@@ -309,7 +307,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setInt(int parameterIndex, int x) throws SQLException {
     if (shouldThrow("setInt"))
       throw new SQLException("PreparedStatement bombed");
-    p.setInt(parameterIndex, x);
+    it.setInt(parameterIndex, x);
   }
 
   /**
@@ -320,7 +318,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setLong(int parameterIndex, long x) throws SQLException {
     if (shouldThrow("setLong"))
       throw new SQLException("PreparedStatement bombed");
-    p.setLong(parameterIndex, x);
+    it.setLong(parameterIndex, x);
   }
 
   /**
@@ -331,7 +329,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setNull(int parameterIndex, int sqlType) throws SQLException {
     if (shouldThrow("setNull"))
       throw new SQLException("PreparedStatement bombed");
-    p.setNull(parameterIndex, sqlType);
+    it.setNull(parameterIndex, sqlType);
   }
 
   /**
@@ -343,7 +341,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setNull"))
       throw new SQLException("PreparedStatement bombed");
-    p.setNull(paramIndex, sqlType, typeName);
+    it.setNull(paramIndex, sqlType, typeName);
   }
 
   /**
@@ -354,7 +352,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setObject(int parameterIndex, Object x) throws SQLException {
     if (shouldThrow("setObject"))
       throw new SQLException("PreparedStatement bombed");
-    p.setObject(parameterIndex, x);
+    it.setObject(parameterIndex, x);
   }
 
   /**
@@ -366,7 +364,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setObject"))
       throw new SQLException("PreparedStatement bombed");
-    p.setObject(parameterIndex, x, targetSqlType);
+    it.setObject(parameterIndex, x, targetSqlType);
   }
 
   /**
@@ -378,7 +376,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       int scale) throws SQLException {
     if (shouldThrow("setObject"))
       throw new SQLException("PreparedStatement bombed");
-    p.setObject(parameterIndex, x, targetSqlType, scale);
+    it.setObject(parameterIndex, x, targetSqlType, scale);
   }
 
   /**
@@ -389,7 +387,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setRef(int i, Ref x) throws SQLException {
     if (shouldThrow("setRef"))
       throw new SQLException("PreparedStatement bombed");
-    p.setRef(i, x);
+    it.setRef(i, x);
   }
 
   /**
@@ -400,7 +398,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setShort(int parameterIndex, short x) throws SQLException {
     if (shouldThrow("setShort"))
       throw new SQLException("PreparedStatement bombed");
-    p.setShort(parameterIndex, x);
+    it.setShort(parameterIndex, x);
   }
 
   /**
@@ -411,7 +409,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setString(int parameterIndex, String x) throws SQLException {
     if (shouldThrow("setString"))
       throw new SQLException("PreparedStatement bombed");
-    p.setString(parameterIndex, x);
+    it.setString(parameterIndex, x);
   }
 
   /**
@@ -422,7 +420,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setTime(int parameterIndex, Time x) throws SQLException {
     if (shouldThrow("setTime"))
       throw new SQLException("PreparedStatement bombed");
-    p.setTime(parameterIndex, x);
+    it.setTime(parameterIndex, x);
   }
 
   /**
@@ -435,7 +433,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setTime"))
       throw new SQLException("PreparedStatement bombed");
-    p.setTime(parameterIndex, x, cal);
+    it.setTime(parameterIndex, x, cal);
   }
 
   /**
@@ -446,7 +444,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setTimestamp(int parameterIndex, Timestamp x) throws SQLException {
     if (shouldThrow("setTimestamp"))
       throw new SQLException("PreparedStatement bombed");
-    p.setTimestamp(parameterIndex, x);
+    it.setTimestamp(parameterIndex, x);
   }
 
   /**
@@ -459,7 +457,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
       throws SQLException {
     if (shouldThrow("setTimestamp"))
       throw new SQLException("PreparedStatement bombed");
-    p.setTimestamp(parameterIndex, x, cal);
+    it.setTimestamp(parameterIndex, x, cal);
   }
 
   /**
@@ -470,7 +468,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setURL(int parameterIndex, URL x) throws SQLException {
     if (shouldThrow("setURL"))
       throw new SQLException("PreparedStatement bombed");
-    p.setURL(parameterIndex, x);
+    it.setURL(parameterIndex, x);
   }
 
   /**
@@ -494,7 +492,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void addBatch(String sql) throws SQLException {
     if (shouldThrow("addBatch"))
       throw new SQLException("PreparedStatement bombed");
-    p.addBatch();
+    it.addBatch();
   }
 
   /**
@@ -505,7 +503,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void cancel() throws SQLException {
     if (shouldThrow("cancel"))
       throw new SQLException("PreparedStatement bombed");
-    p.cancel();
+    it.cancel();
   }
 
   /**
@@ -516,7 +514,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void clearBatch() throws SQLException {
     if (shouldThrow("clearBatch"))
       throw new SQLException("PreparedStatement bombed");
-    p.clearBatch();
+    it.clearBatch();
   }
 
   /**
@@ -527,7 +525,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void clearWarnings() throws SQLException {
     if (shouldThrow("clearWarnings"))
       throw new SQLException("PreparedStatement bombed");
-    p.clearWarnings();
+    it.clearWarnings();
   }
 
   /**
@@ -538,7 +536,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void close() throws SQLException {
     if (shouldThrow("close"))
       throw new SQLException("PreparedStatement bombed");
-    p.close();
+    it.close();
   }
 
   /**
@@ -550,7 +548,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("execute"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.execute(sql);
+    return it.execute(sql);
   }
 
   /**
@@ -562,7 +560,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("execute"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.execute(sql, autoGeneratedKeys);
+    return it.execute(sql, autoGeneratedKeys);
   }
 
   /**
@@ -574,7 +572,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("execute"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.execute(sql, columnIndexes);
+    return it.execute(sql, columnIndexes);
   }
 
   /**
@@ -586,7 +584,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("execute"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.execute(sql, columnNames);
+    return it.execute(sql, columnNames);
   }
 
   /**
@@ -598,7 +596,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeBatch"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeBatch();
+    return it.executeBatch();
   }
 
   /**
@@ -610,7 +608,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeQuery"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(p.executeQuery(sql));
+    return new ThrowingResultSet(it.executeQuery(sql));
   }
 
   /**
@@ -622,7 +620,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeUpdate(sql);
+    return it.executeUpdate(sql);
   }
 
   /**
@@ -635,7 +633,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeUpdate(sql, autoGeneratedKeys);
+    return it.executeUpdate(sql, autoGeneratedKeys);
   }
 
   /**
@@ -647,7 +645,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeUpdate(sql, columnIndexes);
+    return it.executeUpdate(sql, columnIndexes);
   }
 
   /**
@@ -660,7 +658,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("executeUpdate"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.executeUpdate(sql, columnNames);
+    return it.executeUpdate(sql, columnNames);
   }
 
   /**
@@ -672,7 +670,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getConnection"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingConnection(p.getConnection());
+    return new ThrowingConnection(it.getConnection());
   }
 
   /**
@@ -684,7 +682,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getFetchDirection"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getFetchDirection();
+    return it.getFetchDirection();
   }
 
   /**
@@ -696,7 +694,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getFetchSize"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getFetchSize();
+    return it.getFetchSize();
   }
 
   /**
@@ -708,7 +706,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getGeneratedKeys"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(p.getGeneratedKeys());
+    return new ThrowingResultSet(it.getGeneratedKeys());
   }
 
   /**
@@ -720,7 +718,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getMaxFieldSize"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getMaxFieldSize();
+    return it.getMaxFieldSize();
   }
 
   /**
@@ -732,7 +730,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getMaxRows"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getMaxRows();
+    return it.getMaxRows();
   }
 
   /**
@@ -744,7 +742,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getMoreResults"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getMoreResults();
+    return it.getMoreResults();
   }
 
   /**
@@ -756,7 +754,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getMoreResults"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getMoreResults(current);
+    return it.getMoreResults(current);
   }
 
   /**
@@ -768,7 +766,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getQueryTimeout"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getQueryTimeout();
+    return it.getQueryTimeout();
   }
 
   /**
@@ -780,7 +778,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getResultSet"))
       throw new SQLException("PreparedStatement bombed");
 
-    return new ThrowingResultSet(p.getResultSet());
+    return new ThrowingResultSet(it.getResultSet());
   }
 
   /**
@@ -792,7 +790,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getResultSetConcurrency"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getResultSetConcurrency();
+    return it.getResultSetConcurrency();
   }
 
   /**
@@ -804,7 +802,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getResultSetHoldability"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getResultSetHoldability();
+    return it.getResultSetHoldability();
   }
 
   /**
@@ -816,7 +814,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getResultSetType"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getResultSetType();
+    return it.getResultSetType();
   }
 
   /**
@@ -828,7 +826,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getUpdateCount"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getUpdateCount();
+    return it.getUpdateCount();
   }
 
   /**
@@ -840,7 +838,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getWarnings"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getWarnings();
+    return it.getWarnings();
   }
 
   /**
@@ -851,7 +849,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setCursorName(String name) throws SQLException {
     if (shouldThrow("setCursorName"))
       throw new SQLException("PreparedStatement bombed");
-    p.setCursorName(name);
+    it.setCursorName(name);
   }
 
   /**
@@ -862,7 +860,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setEscapeProcessing(boolean enable) throws SQLException {
     if (shouldThrow("setEscapeProcessing"))
       throw new SQLException("PreparedStatement bombed");
-    p.setEscapeProcessing(enable);
+    it.setEscapeProcessing(enable);
   }
 
   /**
@@ -873,7 +871,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setFetchDirection(int direction) throws SQLException {
     if (shouldThrow("setFetchDirection"))
       throw new SQLException("PreparedStatement bombed");
-    p.setFetchDirection(direction);
+    it.setFetchDirection(direction);
   }
 
   /**
@@ -884,7 +882,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setFetchSize(int rows) throws SQLException {
     if (shouldThrow("setFetchSize"))
       throw new SQLException("PreparedStatement bombed");
-    p.setFetchSize(rows);
+    it.setFetchSize(rows);
   }
 
   /**
@@ -895,7 +893,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setMaxFieldSize(int max) throws SQLException {
     if (shouldThrow("setMaxFieldSize"))
       throw new SQLException("PreparedStatement bombed");
-    p.setMaxFieldSize(max);
+    it.setMaxFieldSize(max);
   }
 
   /**
@@ -906,7 +904,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setMaxRows(int max) throws SQLException {
     if (shouldThrow("setMaxRows"))
       throw new SQLException("PreparedStatement bombed");
-    p.setMaxRows(max);
+    it.setMaxRows(max);
   }
 
   /**
@@ -917,7 +915,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   public void setQueryTimeout(int seconds) throws SQLException {
     if (shouldThrow("setQueryTimeout"))
       throw new SQLException("PreparedStatement bombed");
-    p.setQueryTimeout(seconds);
+    it.setQueryTimeout(seconds);
   }
 
 }

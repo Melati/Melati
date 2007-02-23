@@ -2,37 +2,47 @@ package org.melati.poem.dbms.test.sql;
 
 import java.sql.SQLException;
 import java.sql.Savepoint;
-import java.util.Hashtable;
 
 public class ThrowingSavepoint extends Thrower implements Savepoint {
-  static Hashtable throwers = new Hashtable();
+  final static String className = ThrowingSavepoint.class.getName() + ".";
   public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
+    Thrower.startThrowing(className  +  methodName);
   }
   public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
+    Thrower.stopThrowing(className  +  methodName);
   }
   public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
+    return Thrower.shouldThrow(className  +  methodName);
   }
-  Savepoint s = null;
   
+  Savepoint it = null;
+  
+  /**
+   * Constructor.
+   * @param savepoint to decorate
+   */
   public ThrowingSavepoint(Savepoint savepoint) {
-    this.s = savepoint;
+    this.it = savepoint;
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.sql.Savepoint#getSavepointId()
+   */
   public int getSavepointId() throws SQLException {
     if (shouldThrow("getSavepointId"))
       throw new SQLException("Savepoint bombed");
-    return s.getSavepointId();
+    return it.getSavepointId();
   }
 
+  /**
+   * {@inheritDoc}
+   * @see java.sql.Savepoint#getSavepointName()
+   */
   public String getSavepointName() throws SQLException {
     if (shouldThrow("getSavepointName"))
       throw new SQLException("Savepoint bombed");
-    return s.getSavepointName();
+    return it.getSavepointName();
   }
 
 }

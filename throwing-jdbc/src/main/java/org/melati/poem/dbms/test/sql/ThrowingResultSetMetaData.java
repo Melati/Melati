@@ -2,7 +2,6 @@ package org.melati.poem.dbms.test.sql;
 
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Hashtable;
 
 
 /**
@@ -13,149 +12,151 @@ import java.util.Hashtable;
  *
  */
 public class ThrowingResultSetMetaData extends Thrower implements ResultSetMetaData {
-  static Hashtable throwers = new Hashtable();
+  final static String className = ThrowingResultSetMetaData.class.getName() + ".";
   public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
+    Thrower.startThrowing(className  +  methodName);
   }
   public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
+    Thrower.stopThrowing(className  +  methodName);
   }
   public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
+    return Thrower.shouldThrow(className  +  methodName);
   }
 
-  ResultSetMetaData resultSetMetaData = null;
+  ResultSetMetaData it = null;
 
+  /**
+   * Constructor.
+   * @param r to decorate
+   */
   public ThrowingResultSetMetaData(ResultSetMetaData r) {
-    this.resultSetMetaData = r;
+    this.it = r;
   }
 
   public String getCatalogName(int column) throws SQLException {
     if (shouldThrow("getCatalogName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getCatalogName(column);
+    return it.getCatalogName(column);
   }
 
   public String getColumnClassName(int column) throws SQLException {
     if (shouldThrow("getColumnClassName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnClassName(column);
+    return it.getColumnClassName(column);
   }
 
   public int getColumnCount() throws SQLException {
     if (shouldThrow("getColumnCount"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnCount();
+    return it.getColumnCount();
   }
 
   public int getColumnDisplaySize(int column) throws SQLException {
     if (shouldThrow("getColumnDisplaySize"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnDisplaySize(column);
+    return it.getColumnDisplaySize(column);
   }
 
   public String getColumnLabel(int column) throws SQLException {
     if (shouldThrow("getColumnLabel"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnLabel(column);
+    return it.getColumnLabel(column);
   }
 
   public String getColumnName(int column) throws SQLException {
     if (shouldThrow("getColumnName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnName(column);
+    return it.getColumnName(column);
   }
 
   public int getColumnType(int column) throws SQLException {
     if (shouldThrow("getColumnType"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnType(column);
+    return it.getColumnType(column);
   }
 
   public String getColumnTypeName(int column) throws SQLException {
     if (shouldThrow("getColumnTypeName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getColumnTypeName(column);
+    return it.getColumnTypeName(column);
  }
 
   public int getPrecision(int column) throws SQLException {
     if (shouldThrow("getPrecision"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getPrecision(column);
+    return it.getPrecision(column);
   }
 
   public int getScale(int column) throws SQLException {
     if (shouldThrow("getScale"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getScale(column);
+    return it.getScale(column);
   }
 
   public String getSchemaName(int column) throws SQLException {
     if (shouldThrow("getSchemaName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getSchemaName(column);
+    return it.getSchemaName(column);
   }
 
   public String getTableName(int column) throws SQLException {
     if (shouldThrow("getTableName"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.getTableName(column);
+    return it.getTableName(column);
   }
 
   public boolean isAutoIncrement(int column) throws SQLException {
     if (shouldThrow("isAutoIncrement"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isAutoIncrement(column);
+    return it.isAutoIncrement(column);
   }
 
   public boolean isCaseSensitive(int column) throws SQLException {
     if (shouldThrow("isCaseSensitive"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isCaseSensitive(column);
+    return it.isCaseSensitive(column);
   }
 
   public boolean isCurrency(int column) throws SQLException {
     if (shouldThrow("isCurrency"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isCurrency(column);
+    return it.isCurrency(column);
   }
 
   public boolean isDefinitelyWritable(int column) throws SQLException {
     if (shouldThrow("isDefinitelyWritable"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isDefinitelyWritable(column);
+    return it.isDefinitelyWritable(column);
   }
 
   public int isNullable(int column) throws SQLException {
     if (shouldThrow("isNullable"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isNullable(column);
+    return it.isNullable(column);
   }
 
   public boolean isReadOnly(int column) throws SQLException {
     if (shouldThrow("isReadOnly"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isReadOnly(column);
+    return it.isReadOnly(column);
   }
 
   public boolean isSearchable(int column) throws SQLException {
     if (shouldThrow("isSearchable"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isSearchable(column);
+    return it.isSearchable(column);
   }
 
   public boolean isSigned(int column) throws SQLException {
     if (shouldThrow("isSigned"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isSigned(column);
+    return it.isSigned(column);
   }
 
   public boolean isWritable(int column) throws SQLException {
     if (shouldThrow("isWritable"))
       throw new SQLException("ResultSetMetaData bombed");
-    return resultSetMetaData.isWritable(column);
+    return it.isWritable(column);
   }
 
 }

@@ -18,6 +18,17 @@ import java.util.Properties;
  */
 public class ThrowingDriver implements Driver {
 
+  final static String className = ThrowingDriver.class.getName() + ".";
+  public static void startThrowing(String methodName) {
+    Thrower.startThrowing(className  +  methodName);
+  }
+  public static void stopThrowing(String methodName) {
+    Thrower.stopThrowing(className  +  methodName);
+  }
+  public static boolean shouldThrow(String methodName) { 
+    return Thrower.shouldThrow(className  +  methodName);
+  }
+
   private Driver it = null;
   /**
    * 
@@ -31,6 +42,8 @@ public class ThrowingDriver implements Driver {
    * @see java.sql.Driver#acceptsURL(java.lang.String)
    */
   public boolean acceptsURL(String url) throws SQLException {
+    if (shouldThrow("acceptsURL"))
+      throw new SQLException("Driver bombed");
     return it.acceptsURL(url);
   }
 
@@ -40,6 +53,8 @@ public class ThrowingDriver implements Driver {
    * @see java.sql.Driver#connect(java.lang.String, java.util.Properties)
    */
   public Connection connect(String url, Properties info) throws SQLException {
+    if (shouldThrow("connect"))
+      throw new SQLException("Driver bombed");
     return new ThrowingConnection(it.connect(url, info));
   }
 
@@ -65,6 +80,8 @@ public class ThrowingDriver implements Driver {
    */
   public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
       throws SQLException {
+    if (shouldThrow("getPropertyInfo"))
+      throw new SQLException("Driver bombed");
     return it.getPropertyInfo(url, info);
   }
 

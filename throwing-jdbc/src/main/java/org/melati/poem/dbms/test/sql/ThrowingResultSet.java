@@ -20,7 +20,6 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Hashtable;
 import java.util.Map;
 
 
@@ -30,25 +29,23 @@ import java.util.Map;
  *
  */
 public class ThrowingResultSet extends Thrower implements ResultSet {
-  static Hashtable throwers = new Hashtable();
+  final static String className = ThrowingResultSet.class.getName() + ".";
   public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
+    Thrower.startThrowing(className  +  methodName);
   }
   public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
+    Thrower.stopThrowing(className  +  methodName);
   }
   public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
+    return Thrower.shouldThrow(className  +  methodName);
   }
 
-  ResultSet r = null;
+  ResultSet it = null;
   /**
    * 
    */
   public ThrowingResultSet(ResultSet r) {
-    this.r = r;
+    this.it = r;
   }
 
   /**
@@ -58,7 +55,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean absolute(int row) throws SQLException {
     if (shouldThrow("absolute"))
       throw new SQLException("ResultSet bombed");
-     return r.absolute(row);
+     return it.absolute(row);
   }
 
   /**
@@ -68,7 +65,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void afterLast() throws SQLException {
     if (shouldThrow("afterLast"))
       throw new SQLException("ResultSet bombed");
-    r.afterLast();
+    it.afterLast();
   }
 
   /**
@@ -78,7 +75,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void beforeFirst() throws SQLException {
     if (shouldThrow("beforeFirst"))
       throw new SQLException("ResultSet bombed");
-    r.beforeFirst();
+    it.beforeFirst();
   }
 
   /**
@@ -88,7 +85,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void cancelRowUpdates() throws SQLException {
     if (shouldThrow("cancelRowUpdates"))
       throw new SQLException("ResultSet bombed");
-    r.cancelRowUpdates();
+    it.cancelRowUpdates();
   }
 
   /**
@@ -98,7 +95,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void clearWarnings() throws SQLException {
     if (shouldThrow("clearWarnings"))
       throw new SQLException("ResultSet bombed");
-    r.clearWarnings();
+    it.clearWarnings();
   }
 
   /**
@@ -108,7 +105,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void close() throws SQLException {
     if (shouldThrow("close"))
       throw new SQLException("ResultSet bombed");
-    r.close();
+    it.close();
   }
 
   /**
@@ -118,7 +115,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void deleteRow() throws SQLException {
     if (shouldThrow("deleteRow"))
       throw new SQLException("ResultSet bombed");
-    r.deleteRow();
+    it.deleteRow();
   }
 
   /**
@@ -128,7 +125,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int findColumn(String columnName) throws SQLException {
     if (shouldThrow("findColumn"))
       throw new SQLException("ResultSet bombed");
-    return r.findColumn(columnName);
+    return it.findColumn(columnName);
   }
 
   /**
@@ -138,7 +135,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean first() throws SQLException {
     if (shouldThrow("first"))
       throw new SQLException("ResultSet bombed");
-    return r.first();
+    return it.first();
   }
 
   /**
@@ -148,7 +145,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Array getArray(int i) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("ResultSet bombed");
-    return r.getArray(i);
+    return it.getArray(i);
   }
 
   /**
@@ -158,7 +155,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Array getArray(String colName) throws SQLException {
     if (shouldThrow("getArray"))
       throw new SQLException("ResultSet bombed");
-    return r.getArray(colName);
+    return it.getArray(colName);
   }
 
   /**
@@ -168,7 +165,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public InputStream getAsciiStream(int columnIndex) throws SQLException {
     if (shouldThrow("getAsciiStream"))
       throw new SQLException("ResultSet bombed");
-    return r.getAsciiStream(columnIndex);
+    return it.getAsciiStream(columnIndex);
   }
 
   /**
@@ -178,7 +175,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public InputStream getAsciiStream(String columnName) throws SQLException {
     if (shouldThrow("getAsciiStream"))
       throw new SQLException("ResultSet bombed");
-    return r.getAsciiStream(columnName);
+    return it.getAsciiStream(columnName);
   }
 
   /**
@@ -188,7 +185,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
     if (shouldThrow("getBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    return r.getBigDecimal(columnIndex);
+    return it.getBigDecimal(columnIndex);
   }
 
   /**
@@ -198,7 +195,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public BigDecimal getBigDecimal(String columnName) throws SQLException {
     if (shouldThrow("getBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    return r.getBigDecimal(columnName);
+    return it.getBigDecimal(columnName);
   }
 
   /**
@@ -230,7 +227,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public InputStream getBinaryStream(int columnIndex) throws SQLException {
     if (shouldThrow("getBinaryStream"))
       throw new SQLException("ResultSet bombed");
-    return r.getBinaryStream(columnIndex);
+    return it.getBinaryStream(columnIndex);
   }
 
   /**
@@ -241,7 +238,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     if (shouldThrow("getBinaryStream"))
       throw new SQLException("ResultSet bombed");
 
-    return r.getBinaryStream(columnName);
+    return it.getBinaryStream(columnName);
   }
 
   /**
@@ -251,7 +248,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Blob getBlob(int i) throws SQLException {
     if (shouldThrow("getBlob"))
       throw new SQLException("ResultSet bombed");
-    return r.getBlob(i);
+    return it.getBlob(i);
   }
 
   /**
@@ -261,7 +258,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Blob getBlob(String colName) throws SQLException {
     if (shouldThrow("getBlob"))
       throw new SQLException("ResultSet bombed");
-    return r.getBlob(colName);
+    return it.getBlob(colName);
   }
 
   /**
@@ -271,7 +268,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean getBoolean(int columnIndex) throws SQLException {
     if (shouldThrow("getBoolean"))
       throw new SQLException("ResultSet bombed");
-    return r.getBoolean(columnIndex);
+    return it.getBoolean(columnIndex);
   }
 
   /**
@@ -281,7 +278,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean getBoolean(String columnName) throws SQLException {
     if (shouldThrow("getBoolean"))
       throw new SQLException("ResultSet bombed");
-    return r.getBoolean(columnName);
+    return it.getBoolean(columnName);
   }
 
   /**
@@ -291,7 +288,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public byte getByte(int columnIndex) throws SQLException {
     if (shouldThrow("getByte"))
       throw new SQLException("ResultSet bombed");
-    return r.getByte(columnIndex);
+    return it.getByte(columnIndex);
   }
 
   /**
@@ -301,7 +298,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public byte getByte(String columnName) throws SQLException {
     if (shouldThrow("getByte"))
       throw new SQLException("ResultSet bombed");
-    return r.getByte(columnName);
+    return it.getByte(columnName);
   }
 
   /**
@@ -311,7 +308,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public byte[] getBytes(int columnIndex) throws SQLException {
     if (shouldThrow("getBytes"))
       throw new SQLException("ResultSet bombed");
-    return r.getBytes(columnIndex);
+    return it.getBytes(columnIndex);
   }
 
   /**
@@ -321,7 +318,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public byte[] getBytes(String columnName) throws SQLException {
     if (shouldThrow("getBytes"))
       throw new SQLException("ResultSet bombed");
-    return r.getBytes(columnName);
+    return it.getBytes(columnName);
   }
 
   /**
@@ -331,7 +328,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Reader getCharacterStream(int columnIndex) throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("ResultSet bombed");
-    return r.getCharacterStream(columnIndex);
+    return it.getCharacterStream(columnIndex);
   }
 
   /**
@@ -341,7 +338,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Reader getCharacterStream(String columnName) throws SQLException {
     if (shouldThrow("getCharacterStream"))
       throw new SQLException("ResultSet bombed");
-    return r.getCharacterStream(columnName);
+    return it.getCharacterStream(columnName);
   }
 
   /**
@@ -351,7 +348,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Clob getClob(int i) throws SQLException {
     if (shouldThrow("getClob"))
       throw new SQLException("ResultSet bombed");
-    return r.getClob(i);
+    return it.getClob(i);
   }
 
   /**
@@ -361,7 +358,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Clob getClob(String colName) throws SQLException {
     if (shouldThrow("getClob"))
       throw new SQLException("ResultSet bombed");
-    return r.getClob(colName);
+    return it.getClob(colName);
   }
 
   /**
@@ -371,7 +368,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getConcurrency() throws SQLException {
     if (shouldThrow("getConcurrency"))
       throw new SQLException("ResultSet bombed");
-    return r.getConcurrency();
+    return it.getConcurrency();
   }
 
   /**
@@ -381,7 +378,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public String getCursorName() throws SQLException {
     if (shouldThrow("getCursorName"))
       throw new SQLException("ResultSet bombed");
-    return r.getCursorName();
+    return it.getCursorName();
   }
 
   /**
@@ -391,7 +388,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Date getDate(int columnIndex) throws SQLException {
     if (shouldThrow("getDate"))
       throw new SQLException("ResultSet bombed");
-    return r.getDate(columnIndex);
+    return it.getDate(columnIndex);
   }
 
   /**
@@ -401,7 +398,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Date getDate(String columnName) throws SQLException {
     if (shouldThrow("getDate"))
       throw new SQLException("ResultSet bombed");
-    return r.getDate(columnName);
+    return it.getDate(columnName);
   }
 
   /**
@@ -411,7 +408,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Date getDate(int columnIndex, Calendar cal) throws SQLException {
     if (shouldThrow("getDate"))
       throw new SQLException("ResultSet bombed");
-    return r.getDate(columnIndex, cal);
+    return it.getDate(columnIndex, cal);
   }
 
   /**
@@ -421,7 +418,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Date getDate(String columnName, Calendar cal) throws SQLException {
     if (shouldThrow("getDate"))
       throw new SQLException("ResultSet bombed");
-    return r.getDate(columnName, cal);
+    return it.getDate(columnName, cal);
   }
 
   /**
@@ -431,7 +428,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public double getDouble(int columnIndex) throws SQLException {
     if (shouldThrow("getDouble"))
       throw new SQLException("ResultSet bombed");
-    return r.getDouble(columnIndex);
+    return it.getDouble(columnIndex);
   }
 
   /**
@@ -441,7 +438,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public double getDouble(String columnName) throws SQLException {
     if (shouldThrow("getDouble"))
       throw new SQLException("ResultSet bombed");
-    return r.getDouble(columnName);
+    return it.getDouble(columnName);
   }
 
   /**
@@ -451,7 +448,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getFetchDirection() throws SQLException {
     if (shouldThrow("getFetchDirection"))
       throw new SQLException("ResultSet bombed");
-    return r.getFetchDirection();
+    return it.getFetchDirection();
   }
 
   /**
@@ -461,7 +458,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getFetchSize() throws SQLException {
     if (shouldThrow("getFetchSize"))
       throw new SQLException("ResultSet bombed");
-    return r.getFetchSize();
+    return it.getFetchSize();
   }
 
   /**
@@ -471,7 +468,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public float getFloat(int columnIndex) throws SQLException {
     if (shouldThrow("getFloat"))
       throw new SQLException("ResultSet bombed");
-    return r.getFloat(columnIndex);
+    return it.getFloat(columnIndex);
   }
 
   /**
@@ -481,7 +478,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public float getFloat(String columnName) throws SQLException {
     if (shouldThrow("getFloat"))
       throw new SQLException("ResultSet bombed");
-    return r.getFloat(columnName);
+    return it.getFloat(columnName);
   }
 
   /**
@@ -491,7 +488,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getInt(int columnIndex) throws SQLException {
     if (shouldThrow("getInt"))
       throw new SQLException("ResultSet bombed");
-    return r.getInt(columnIndex);
+    return it.getInt(columnIndex);
   }
 
   /**
@@ -501,7 +498,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getInt(String columnName) throws SQLException {
     if (shouldThrow("getInt"))
       throw new SQLException("ResultSet bombed");
-    return r.getInt(columnName);
+    return it.getInt(columnName);
   }
 
   /**
@@ -511,7 +508,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public long getLong(int columnIndex) throws SQLException {
     if (shouldThrow("getLong"))
       throw new SQLException("ResultSet bombed");
-    return r.getLong(columnIndex);
+    return it.getLong(columnIndex);
   }
 
   /**
@@ -521,7 +518,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public long getLong(String columnName) throws SQLException {
     if (shouldThrow("getLong"))
       throw new SQLException("ResultSet bombed");
-    return r.getLong(columnName);
+    return it.getLong(columnName);
   }
 
   /**
@@ -531,7 +528,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public ResultSetMetaData getMetaData() throws SQLException {
     if (shouldThrow("getMetaData"))
       throw new SQLException("ResultSet bombed");
-    return new ThrowingResultSetMetaData(r.getMetaData());
+    return new ThrowingResultSetMetaData(it.getMetaData());
   }
 
   /**
@@ -541,7 +538,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Object getObject(int columnIndex) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
-    return r.getObject(columnIndex);
+    return it.getObject(columnIndex);
   }
 
   /**
@@ -551,7 +548,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Object getObject(String columnName) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
-    return r.getObject(columnName);
+    return it.getObject(columnName);
   }
 
   /**
@@ -562,7 +559,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
 
-    return r.getObject(i, map);
+    return it.getObject(i, map);
   }
 
   /**
@@ -572,7 +569,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Object getObject(String colName, Map map) throws SQLException {
     if (shouldThrow("getObject"))
       throw new SQLException("ResultSet bombed");
-    return r.getObject(colName, map);
+    return it.getObject(colName, map);
   }
 
   /**
@@ -582,7 +579,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Ref getRef(int i) throws SQLException {
     if (shouldThrow("getRef"))
       throw new SQLException("ResultSet bombed");
-    return r.getRef(i);
+    return it.getRef(i);
   }
 
   /**
@@ -592,7 +589,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Ref getRef(String colName) throws SQLException {
     if (shouldThrow("getRef"))
       throw new SQLException("ResultSet bombed");
-    return r.getRef(colName);
+    return it.getRef(colName);
   }
 
   /**
@@ -602,7 +599,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getRow() throws SQLException {
     if (shouldThrow("getRow"))
       throw new SQLException("ResultSet bombed");
-    return r.getRow();
+    return it.getRow();
   }
 
   /**
@@ -612,7 +609,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public short getShort(int columnIndex) throws SQLException {
     if (shouldThrow("getShort"))
       throw new SQLException("ResultSet bombed");
-    return r.getShort(columnIndex);
+    return it.getShort(columnIndex);
   }
 
   /**
@@ -622,7 +619,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public short getShort(String columnName) throws SQLException {
     if (shouldThrow("getShort"))
       throw new SQLException("ResultSet bombed");
-    return r.getShort(columnName);
+    return it.getShort(columnName);
   }
 
   /**
@@ -632,7 +629,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Statement getStatement() throws SQLException {
     if (shouldThrow("getStatement"))
       throw new SQLException("ResultSet bombed");
-    return new ThrowingStatement(r.getStatement());
+    return new ThrowingStatement(it.getStatement());
   }
 
   /**
@@ -642,7 +639,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public String getString(int columnIndex) throws SQLException {
     if (shouldThrow("getString"))
       throw new SQLException("ResultSet bombed");
-    return r.getString(columnIndex);
+    return it.getString(columnIndex);
   }
 
   /**
@@ -652,7 +649,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public String getString(String columnName) throws SQLException {
     if (shouldThrow("getString"))
       throw new SQLException("ResultSet bombed");
-    return r.getString(columnName);
+    return it.getString(columnName);
   }
 
   /**
@@ -662,7 +659,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Time getTime(int columnIndex) throws SQLException {
     if (shouldThrow("getTime"))
       throw new SQLException("ResultSet bombed");
-    return r.getTime(columnIndex);
+    return it.getTime(columnIndex);
   }
 
   /**
@@ -672,7 +669,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Time getTime(String columnName) throws SQLException {
     if (shouldThrow("getTime"))
       throw new SQLException("ResultSet bombed");
-    return r.getTime(columnName);
+    return it.getTime(columnName);
   }
 
   /**
@@ -682,7 +679,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Time getTime(int columnIndex, Calendar cal) throws SQLException {
     if (shouldThrow("getTime"))
       throw new SQLException("ResultSet bombed");
-    return r.getTime(columnIndex, cal);
+    return it.getTime(columnIndex, cal);
   }
 
   /**
@@ -692,7 +689,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Time getTime(String columnName, Calendar cal) throws SQLException {
     if (shouldThrow("getTime"))
       throw new SQLException("ResultSet bombed");
-    return r.getTime(columnName, cal);
+    return it.getTime(columnName, cal);
   }
 
   /**
@@ -702,7 +699,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Timestamp getTimestamp(int columnIndex) throws SQLException {
     if (shouldThrow("getTimestamp"))
       throw new SQLException("ResultSet bombed");
-    return r.getTimestamp(columnIndex);
+    return it.getTimestamp(columnIndex);
   }
 
   /**
@@ -712,7 +709,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public Timestamp getTimestamp(String columnName) throws SQLException {
     if (shouldThrow("getTimestamp"))
       throw new SQLException("ResultSet bombed");
-    return r.getTimestamp(columnName);
+    return it.getTimestamp(columnName);
   }
 
   /**
@@ -723,7 +720,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("getTimestamp"))
       throw new SQLException("ResultSet bombed");
-    return r.getTimestamp(columnIndex, cal);
+    return it.getTimestamp(columnIndex, cal);
   }
 
   /**
@@ -734,7 +731,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("getTimestamp"))
       throw new SQLException("ResultSet bombed");
-    return r.getTimestamp(columnName, cal);
+    return it.getTimestamp(columnName, cal);
   }
 
   /**
@@ -744,7 +741,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public int getType() throws SQLException {
     if (shouldThrow("getType"))
       throw new SQLException("ResultSet bombed");
-    return r.getType();
+    return it.getType();
   }
 
   /**
@@ -754,7 +751,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public URL getURL(int columnIndex) throws SQLException {
     if (shouldThrow("getURL"))
       throw new SQLException("ResultSet bombed");
-    return r.getURL(columnIndex);
+    return it.getURL(columnIndex);
   }
 
   /**
@@ -765,7 +762,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     if (shouldThrow("getURL"))
       throw new SQLException("ResultSet bombed");
 
-    return r.getURL(columnName);
+    return it.getURL(columnName);
   }
 
   /**
@@ -795,7 +792,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public SQLWarning getWarnings() throws SQLException {
     if (shouldThrow("getWarnings"))
       throw new SQLException("ResultSet bombed");
-    return r.getWarnings();
+    return it.getWarnings();
   }
 
   /**
@@ -805,7 +802,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void insertRow() throws SQLException {
     if (shouldThrow("insertRow"))
       throw new SQLException("ResultSet bombed");
-    r.insertRow();
+    it.insertRow();
   }
 
   /**
@@ -815,7 +812,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean isAfterLast() throws SQLException {
     if (shouldThrow("isAfterLast"))
       throw new SQLException("ResultSet bombed");
-    return r.isAfterLast();
+    return it.isAfterLast();
   }
 
   /**
@@ -825,7 +822,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean isBeforeFirst() throws SQLException {
     if (shouldThrow("isBeforeFirst"))
       throw new SQLException("ResultSet bombed");
-    return r.isBeforeFirst();
+    return it.isBeforeFirst();
   }
 
   /**
@@ -835,7 +832,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean isFirst() throws SQLException {
     if (shouldThrow("isFirst"))
       throw new SQLException("ResultSet bombed");
-    return r.isFirst();
+    return it.isFirst();
   }
 
   /**
@@ -845,7 +842,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean isLast() throws SQLException {
     if (shouldThrow("isLast"))
       throw new SQLException("ResultSet bombed");
-    return r.isLast();
+    return it.isLast();
   }
 
   /**
@@ -855,7 +852,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean last() throws SQLException {
     if (shouldThrow("last"))
       throw new SQLException("ResultSet bombed");
-    return r.last();
+    return it.last();
   }
 
   /**
@@ -865,7 +862,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void moveToCurrentRow() throws SQLException {
     if (shouldThrow("moveToCurrentRow"))
       throw new SQLException("ResultSet bombed");
-    r.moveToCurrentRow();
+    it.moveToCurrentRow();
   }
 
   /**
@@ -875,7 +872,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void moveToInsertRow() throws SQLException {
     if (shouldThrow("moveToInsertRow"))
       throw new SQLException("ResultSet bombed");
-    r.moveToInsertRow();
+    it.moveToInsertRow();
   }
 
   /**
@@ -886,7 +883,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
     if (shouldThrow("next"))
       throw new SQLException("ResultSet bombed");
 
-    return r.next();
+    return it.next();
   }
 
   /**
@@ -896,7 +893,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean previous() throws SQLException {
     if (shouldThrow("previous"))
       throw new SQLException("ResultSet bombed");
-    return r.previous();
+    return it.previous();
   }
 
   /**
@@ -906,7 +903,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void refreshRow() throws SQLException {
     if (shouldThrow("refreshRow"))
       throw new SQLException("ResultSet bombed");
-    r.refreshRow();
+    it.refreshRow();
   }
 
   /**
@@ -916,7 +913,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean relative(int rows) throws SQLException {
     if (shouldThrow("relative"))
       throw new SQLException("ResultSet bombed");
-    return r.relative(rows);
+    return it.relative(rows);
   }
 
   /**
@@ -926,7 +923,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean rowDeleted() throws SQLException {
     if (shouldThrow("rowDeleted"))
       throw new SQLException("ResultSet bombed");
-    return r.rowDeleted();
+    return it.rowDeleted();
   }
 
   /**
@@ -936,7 +933,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean rowInserted() throws SQLException {
     if (shouldThrow("rowInserted"))
       throw new SQLException("ResultSet bombed");
-    return r.rowInserted();
+    return it.rowInserted();
   }
 
   /**
@@ -946,7 +943,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean rowUpdated() throws SQLException {
     if (shouldThrow("rowUpdated"))
       throw new SQLException("ResultSet bombed");
-    return r.rowUpdated();
+    return it.rowUpdated();
   }
 
   /**
@@ -956,7 +953,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void setFetchDirection(int direction) throws SQLException {
     if (shouldThrow("setFetchDirection"))
       throw new SQLException("ResultSet bombed");
-    r.setFetchDirection(direction);
+    it.setFetchDirection(direction);
   }
 
   /**
@@ -966,7 +963,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void setFetchSize(int rows) throws SQLException {
     if (shouldThrow("setFetchSize"))
       throw new SQLException("ResultSet bombed");
-    r.setFetchSize(rows);
+    it.setFetchSize(rows);
   }
 
   /**
@@ -976,7 +973,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateArray(int columnIndex, Array x) throws SQLException {
     if (shouldThrow("updateArray"))
       throw new SQLException("ResultSet bombed");
-    r.updateArray(columnIndex, x);
+    it.updateArray(columnIndex, x);
   }
 
   /**
@@ -986,7 +983,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateArray(String columnName, Array x) throws SQLException {
     if (shouldThrow("updateArray"))
       throw new SQLException("ResultSet bombed");
-    r.updateArray(columnName, x);
+    it.updateArray(columnName, x);
   }
 
   /**
@@ -997,7 +994,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateAsciiStream(columnIndex, x, length);
+    it.updateAsciiStream(columnIndex, x, length);
   }
 
   /**
@@ -1008,7 +1005,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateAsciiStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateAsciiStream(columnName, x, length);
+    it.updateAsciiStream(columnName, x, length);
   }
 
   /**
@@ -1019,7 +1016,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    r.updateBigDecimal(columnIndex, x);
+    it.updateBigDecimal(columnIndex, x);
   }
 
   /**
@@ -1030,7 +1027,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateBigDecimal"))
       throw new SQLException("ResultSet bombed");
-    r.updateBigDecimal(columnName, x);
+    it.updateBigDecimal(columnName, x);
   }
 
   /**
@@ -1041,7 +1038,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateBinaryStream(columnIndex, x, length);
+    it.updateBinaryStream(columnIndex, x, length);
   }
 
   /**
@@ -1052,7 +1049,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateBinaryStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateBinaryStream(columnName, x, length);
+    it.updateBinaryStream(columnName, x, length);
   }
 
   /**
@@ -1062,7 +1059,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBlob(int columnIndex, Blob x) throws SQLException {
     if (shouldThrow("updateBlob"))
       throw new SQLException("ResultSet bombed");
-    r.updateBlob(columnIndex, x);
+    it.updateBlob(columnIndex, x);
   }
 
   /**
@@ -1072,7 +1069,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBlob(String columnName, Blob x) throws SQLException {
     if (shouldThrow("updateBlob"))
       throw new SQLException("ResultSet bombed");
-    r.updateBlob(columnName, x);
+    it.updateBlob(columnName, x);
   }
 
   /**
@@ -1082,7 +1079,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBoolean(int columnIndex, boolean x) throws SQLException {
     if (shouldThrow("updateBoolean"))
       throw new SQLException("ResultSet bombed");
-    r.updateBoolean(columnIndex, x);
+    it.updateBoolean(columnIndex, x);
   }
 
   /**
@@ -1092,7 +1089,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBoolean(String columnName, boolean x) throws SQLException {
     if (shouldThrow("updateBoolean"))
       throw new SQLException("ResultSet bombed");
-    r.updateBoolean(columnName, x);
+    it.updateBoolean(columnName, x);
   }
 
   /**
@@ -1102,7 +1099,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateByte(int columnIndex, byte x) throws SQLException {
     if (shouldThrow("updateByte"))
       throw new SQLException("ResultSet bombed");
-    r.updateByte(columnIndex, x);
+    it.updateByte(columnIndex, x);
   }
 
   /**
@@ -1112,7 +1109,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateByte(String columnName, byte x) throws SQLException {
     if (shouldThrow("updateByte"))
       throw new SQLException("ResultSet bombed");
-    r.updateByte(columnName, x);
+    it.updateByte(columnName, x);
   }
 
   /**
@@ -1122,7 +1119,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBytes(int columnIndex, byte[] x) throws SQLException {
     if (shouldThrow("updateBytes"))
       throw new SQLException("ResultSet bombed");
-    r.updateBytes(columnIndex, x);
+    it.updateBytes(columnIndex, x);
   }
 
   /**
@@ -1132,7 +1129,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateBytes(String columnName, byte[] x) throws SQLException {
     if (shouldThrow("updateBytes"))
       throw new SQLException("ResultSet bombed");
-    r.updateBytes(columnName, x);
+    it.updateBytes(columnName, x);
   }
 
   /**
@@ -1143,7 +1140,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateCharacterStream(columnIndex, x, length);
+    it.updateCharacterStream(columnIndex, x, length);
   }
 
   /**
@@ -1154,7 +1151,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateCharacterStream"))
       throw new SQLException("ResultSet bombed");
-    r.updateCharacterStream(columnName, reader, length);
+    it.updateCharacterStream(columnName, reader, length);
   }
 
   /**
@@ -1164,7 +1161,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateClob(int columnIndex, Clob x) throws SQLException {
     if (shouldThrow("updateClob"))
       throw new SQLException("ResultSet bombed");
-    r.updateClob(columnIndex, x);
+    it.updateClob(columnIndex, x);
   }
 
   /**
@@ -1174,7 +1171,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateClob(String columnName, Clob x) throws SQLException {
     if (shouldThrow("updateClob"))
       throw new SQLException("ResultSet bombed");
-    r.updateClob(columnName, x);
+    it.updateClob(columnName, x);
   }
 
   /**
@@ -1184,7 +1181,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateDate(int columnIndex, Date x) throws SQLException {
     if (shouldThrow("updateDate"))
       throw new SQLException("ResultSet bombed");
-    r.updateDate(columnIndex, x);
+    it.updateDate(columnIndex, x);
   }
 
   /**
@@ -1194,7 +1191,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateDate(String columnName, Date x) throws SQLException {
     if (shouldThrow("updateDate"))
       throw new SQLException("ResultSet bombed");
-    r.updateDate(columnName, x);
+    it.updateDate(columnName, x);
   }
 
   /**
@@ -1204,7 +1201,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateDouble(int columnIndex, double x) throws SQLException {
     if (shouldThrow("updateDouble"))
       throw new SQLException("ResultSet bombed");
-    r.updateDouble(columnIndex, x);
+    it.updateDouble(columnIndex, x);
   }
 
   /**
@@ -1214,7 +1211,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateDouble(String columnName, double x) throws SQLException {
     if (shouldThrow("updateDouble"))
       throw new SQLException("ResultSet bombed");
-    r.updateDouble(columnName, x);
+    it.updateDouble(columnName, x);
   }
 
   /**
@@ -1224,7 +1221,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateFloat(int columnIndex, float x) throws SQLException {
     if (shouldThrow("updateFloat"))
       throw new SQLException("ResultSet bombed");
-    r.updateFloat(columnIndex, x);
+    it.updateFloat(columnIndex, x);
   }
 
   /**
@@ -1234,7 +1231,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateFloat(String columnName, float x) throws SQLException {
     if (shouldThrow("updateFloat"))
       throw new SQLException("ResultSet bombed");
-    r.updateFloat(columnName, x);
+    it.updateFloat(columnName, x);
   }
 
   /**
@@ -1244,7 +1241,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateInt(int columnIndex, int x) throws SQLException {
     if (shouldThrow("updateInt"))
       throw new SQLException("ResultSet bombed");
-    r.updateInt(columnIndex, x);
+    it.updateInt(columnIndex, x);
   }
 
   /**
@@ -1254,7 +1251,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateInt(String columnName, int x) throws SQLException {
     if (shouldThrow("updateInt"))
       throw new SQLException("ResultSet bombed");
-    r.updateInt(columnName, x);
+    it.updateInt(columnName, x);
   }
 
   /**
@@ -1264,7 +1261,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateLong(int columnIndex, long x) throws SQLException {
     if (shouldThrow("updateLong"))
       throw new SQLException("ResultSet bombed");
-    r.updateLong(columnIndex, x);
+    it.updateLong(columnIndex, x);
   }
 
   /**
@@ -1274,7 +1271,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateLong(String columnName, long x) throws SQLException {
     if (shouldThrow("updateLong"))
       throw new SQLException("ResultSet bombed");
-    r.updateLong(columnName, x);
+    it.updateLong(columnName, x);
   }
 
   /**
@@ -1284,7 +1281,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateNull(int columnIndex) throws SQLException {
     if (shouldThrow("updateNull"))
       throw new SQLException("ResultSet bombed");
-    r.updateNull(columnIndex);
+    it.updateNull(columnIndex);
   }
 
   /**
@@ -1294,7 +1291,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateNull(String columnName) throws SQLException {
     if (shouldThrow("updateNull"))
       throw new SQLException("ResultSet bombed");
-    r.updateNull(columnName);
+    it.updateNull(columnName);
   }
 
   /**
@@ -1304,7 +1301,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateObject(int columnIndex, Object x) throws SQLException {
     if (shouldThrow("updateObject"))
       throw new SQLException("ResultSet bombed");
-    r.updateObject(columnIndex, x);
+    it.updateObject(columnIndex, x);
   }
 
   /**
@@ -1314,7 +1311,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateObject(String columnName, Object x) throws SQLException {
     if (shouldThrow("updateObject"))
       throw new SQLException("ResultSet bombed");
-    r.updateObject(columnName, x);
+    it.updateObject(columnName, x);
   }
 
   /**
@@ -1325,7 +1322,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateObject"))
       throw new SQLException("ResultSet bombed");
-    r.updateObject(columnIndex, x, scale);
+    it.updateObject(columnIndex, x, scale);
   }
 
   /**
@@ -1336,7 +1333,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateObject"))
       throw new SQLException("ResultSet bombed");
-    r.updateObject(columnName, x, scale);
+    it.updateObject(columnName, x, scale);
   }
 
   /**
@@ -1346,7 +1343,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateRef(int columnIndex, Ref x) throws SQLException {
     if (shouldThrow("updateRef"))
       throw new SQLException("ResultSet bombed");
-    r.updateRef(columnIndex, x);
+    it.updateRef(columnIndex, x);
   }
 
   /**
@@ -1356,7 +1353,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateRef(String columnName, Ref x) throws SQLException {
     if (shouldThrow("updateRef"))
       throw new SQLException("ResultSet bombed");
-    r.updateRef(columnName, x);
+    it.updateRef(columnName, x);
   }
 
   /**
@@ -1366,7 +1363,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateRow() throws SQLException {
     if (shouldThrow("updateRow"))
       throw new SQLException("ResultSet bombed");
-    r.updateRow();
+    it.updateRow();
   }
 
   /**
@@ -1376,7 +1373,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateShort(int columnIndex, short x) throws SQLException {
     if (shouldThrow("updateShort"))
       throw new SQLException("ResultSet bombed");
-    r.updateShort(columnIndex, x);
+    it.updateShort(columnIndex, x);
   }
 
   /**
@@ -1386,7 +1383,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateShort(String columnName, short x) throws SQLException {
     if (shouldThrow("updateShort"))
       throw new SQLException("ResultSet bombed");
-    r.updateShort(columnName, x);
+    it.updateShort(columnName, x);
   }
 
   /**
@@ -1396,7 +1393,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateString(int columnIndex, String x) throws SQLException {
     if (shouldThrow("updateString"))
       throw new SQLException("ResultSet bombed");
-    r.updateString(columnIndex, x);
+    it.updateString(columnIndex, x);
   }
 
   /**
@@ -1406,7 +1403,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateString(String columnName, String x) throws SQLException {
     if (shouldThrow("updateString"))
       throw new SQLException("ResultSet bombed");
-    r.updateString(columnName, x);
+    it.updateString(columnName, x);
   }
 
   /**
@@ -1416,7 +1413,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateTime(int columnIndex, Time x) throws SQLException {
     if (shouldThrow("updateTime"))
       throw new SQLException("ResultSet bombed");
-    r.updateTime(columnIndex, x);
+    it.updateTime(columnIndex, x);
   }
 
   /**
@@ -1426,7 +1423,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateTime(String columnName, Time x) throws SQLException {
     if (shouldThrow("updateTime"))
       throw new SQLException("ResultSet bombed");
-    r.updateTime(columnName, x);
+    it.updateTime(columnName, x);
   }
 
   /**
@@ -1436,7 +1433,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public void updateTimestamp(int columnIndex, Timestamp x) throws SQLException {
     if (shouldThrow("updateTimestamp"))
       throw new SQLException("ResultSet bombed");
-    r.updateTimestamp(columnIndex, x);
+    it.updateTimestamp(columnIndex, x);
   }
 
   /**
@@ -1447,7 +1444,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
       throws SQLException {
     if (shouldThrow("updateTimestamp"))
       throw new SQLException("ResultSet bombed");
-    r.updateTimestamp(columnName, x);
+    it.updateTimestamp(columnName, x);
   }
 
   /**
@@ -1457,7 +1454,7 @@ public class ThrowingResultSet extends Thrower implements ResultSet {
   public boolean wasNull() throws SQLException {
     if (shouldThrow("wasNull"))
       throw new SQLException("ResultSet bombed");
-    return r.wasNull();
+    return it.wasNull();
   }
 
 }

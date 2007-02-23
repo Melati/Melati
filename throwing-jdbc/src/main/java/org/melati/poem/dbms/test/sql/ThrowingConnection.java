@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Savepoint;
 import java.sql.Statement;
-import java.util.Hashtable;
 import java.util.Map;
 
 
@@ -23,27 +22,25 @@ import java.util.Map;
  *
  */
 public class ThrowingConnection extends Thrower implements Connection {
-  static Hashtable throwers = new Hashtable();
+  final static String className = ThrowingConnection.class.getName() + ".";
   public static void startThrowing(String methodName) {
-    throwers.put(methodName, Boolean.TRUE);
+    Thrower.startThrowing(className  +  methodName);
   }
   public static void stopThrowing(String methodName) {
-    throwers.put(methodName, Boolean.FALSE);
+    Thrower.stopThrowing(className  +  methodName);
   }
   public static boolean shouldThrow(String methodName) { 
-    if (throwers.get(methodName) == null || throwers.get(methodName) == Boolean.FALSE)
-      return false;
-    return true;
+    return Thrower.shouldThrow(className  +  methodName);
   }
 
-  Connection c = null;
+  Connection it = null;
   
   /**
    * @param c  a connection.
    * 
    */
   public ThrowingConnection(Connection c) {
-    this.c = c;
+    this.it = c;
   }
 
   
@@ -54,7 +51,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void clearWarnings() throws SQLException {
     if (shouldThrow("clearWarnings"))
       throw new SQLException("Connection bombed");
-    c.clearWarnings();
+    it.clearWarnings();
   }
 
   /**
@@ -64,7 +61,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void close() throws SQLException {
     if (shouldThrow("close"))
       throw new SQLException("Connection bombed");
-    c.close();
+    it.close();
   }
 
   /**
@@ -74,7 +71,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void commit() throws SQLException {
     if (shouldThrow("commit"))
       throw new SQLException("Connection bombed");
-    c.commit();
+    it.commit();
   }
 
   /**
@@ -84,7 +81,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Statement createStatement() throws SQLException {
     if (shouldThrow("createStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingStatement(c.createStatement());
+    return new ThrowingStatement(it.createStatement());
   }
 
   /**
@@ -95,7 +92,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       throws SQLException {
     if (shouldThrow("createStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingStatement(c.createStatement(resultSetType,resultSetConcurrency));
+    return new ThrowingStatement(it.createStatement(resultSetType,resultSetConcurrency));
   }
 
   /**
@@ -106,7 +103,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetHoldability) throws SQLException {
     if (shouldThrow("createStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingStatement(c.createStatement(resultSetType, resultSetConcurrency));
+    return new ThrowingStatement(it.createStatement(resultSetType, resultSetConcurrency));
   }
 
   /**
@@ -116,7 +113,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public boolean getAutoCommit() throws SQLException {
     if (shouldThrow("getAutoCommit"))
       throw new SQLException("Connection bombed");
-    return c.getAutoCommit();
+    return it.getAutoCommit();
   }
 
   /**
@@ -126,7 +123,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public String getCatalog() throws SQLException {
     if (shouldThrow("getCatalog"))
       throw new SQLException("Connection bombed");
-    return c.getCatalog();
+    return it.getCatalog();
   }
 
   /**
@@ -136,7 +133,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public int getHoldability() throws SQLException {
     if (shouldThrow("getHoldability"))
       throw new SQLException("Connection bombed");
-    return c.getHoldability();
+    return it.getHoldability();
   }
 
   /**
@@ -146,7 +143,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public DatabaseMetaData getMetaData() throws SQLException {
     if (shouldThrow("getMetaData"))
       throw new SQLException("Connection bombed");
-    return new ThrowingDatabaseMetaData(c.getMetaData());
+    return new ThrowingDatabaseMetaData(it.getMetaData());
   }
 
   /**
@@ -156,7 +153,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public int getTransactionIsolation() throws SQLException {
     if (shouldThrow("getTransactionIsolation"))
       throw new SQLException("Connection bombed");
-    return c.getTransactionIsolation();
+    return it.getTransactionIsolation();
   }
 
   /**
@@ -166,7 +163,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Map getTypeMap() throws SQLException {
     if (shouldThrow("getTypeMap()"))
       throw new SQLException("Connection bombed");
-    return c.getTypeMap();
+    return it.getTypeMap();
   }
 
   /**
@@ -176,7 +173,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public SQLWarning getWarnings() throws SQLException {
     if (shouldThrow("getWarnings"))
       throw new SQLException("Connection bombed");
-    return c.getWarnings();
+    return it.getWarnings();
   }
 
   /**
@@ -186,7 +183,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public boolean isClosed() throws SQLException {
     if (shouldThrow("isClosed"))
       throw new SQLException("Connection bombed");
-    return c.isClosed();
+    return it.isClosed();
   }
 
   /**
@@ -196,7 +193,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public boolean isReadOnly() throws SQLException {
     if (shouldThrow("isReadOnly"))
       throw new SQLException("Connection bombed");
-    return c.isReadOnly();
+    return it.isReadOnly();
   }
 
   /**
@@ -206,7 +203,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public String nativeSQL(String sql) throws SQLException {
     if (shouldThrow("nativeSQL"))
       throw new SQLException("Connection bombed");
-    return c.nativeSQL(sql);
+    return it.nativeSQL(sql);
   }
 
   /**
@@ -216,7 +213,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public CallableStatement prepareCall(String sql) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return new ThrowingCallableStatement(c.prepareCall(sql));
+    return new ThrowingCallableStatement(it.prepareCall(sql));
   }
 
   /**
@@ -227,7 +224,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return new ThrowingCallableStatement(c.prepareCall(sql, resultSetType, resultSetConcurrency));
+    return new ThrowingCallableStatement(it.prepareCall(sql, resultSetType, resultSetConcurrency));
   }
 
   /**
@@ -238,7 +235,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return new ThrowingCallableStatement(c.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
+    return new ThrowingCallableStatement(it.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
 
   /**
@@ -248,7 +245,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public PreparedStatement prepareStatement(String sql) throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql));
   }
 
   /**
@@ -259,7 +256,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql, autoGeneratedKeys));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql, autoGeneratedKeys));
   }
 
   /**
@@ -270,7 +267,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql, columnIndexes));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql, columnIndexes));
   }
 
   /**
@@ -281,7 +278,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql, columnNames));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql, columnNames));
   }
 
   /**
@@ -292,7 +289,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency) throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql, resultSetType, resultSetConcurrency));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql, resultSetType, resultSetConcurrency));
   }
 
   /**
@@ -303,7 +300,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
     if (shouldThrow("prepareStatement"))
       throw new SQLException("Connection bombed");
-    return new ThrowingPreparedStatement(c.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
+    return new ThrowingPreparedStatement(it.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
 
   /**
@@ -313,7 +310,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void releaseSavepoint(Savepoint savepoint) throws SQLException {
     if (shouldThrow("releaseSavepoint"))
       throw new SQLException("Connection bombed");
-    c.releaseSavepoint(savepoint);
+    it.releaseSavepoint(savepoint);
   }
 
   /**
@@ -323,7 +320,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void rollback() throws SQLException {
     if (shouldThrow("rollback"))
       throw new SQLException("Connection bombed");
-    c.rollback();
+    it.rollback();
   }
 
   /**
@@ -333,7 +330,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void rollback(Savepoint savepoint) throws SQLException {
     if (shouldThrow("rollback"))
       throw new SQLException("Connection bombed");
-    c.rollback(savepoint);
+    it.rollback(savepoint);
   }
 
   /**
@@ -343,7 +340,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setAutoCommit(boolean autoCommit) throws SQLException {
     if (shouldThrow("setAutoCommit"))
       throw new SQLException("Connection bombed");
-    c.setAutoCommit(autoCommit);
+    it.setAutoCommit(autoCommit);
   }
 
   /**
@@ -353,7 +350,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setCatalog(String catalog) throws SQLException {
     if (shouldThrow("setCatalog"))
       throw new SQLException("Connection bombed");
-    c.setCatalog(catalog);
+    it.setCatalog(catalog);
   }
 
   /**
@@ -363,7 +360,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setHoldability(int holdability) throws SQLException {
     if (shouldThrow("setHoldability"))
       throw new SQLException("Connection bombed");
-    c.setHoldability(holdability);
+    it.setHoldability(holdability);
   }
 
   /**
@@ -373,7 +370,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setReadOnly(boolean readOnly) throws SQLException {
     if (shouldThrow("setReadOnly"))
       throw new SQLException("Connection bombed");
-    c.setReadOnly(readOnly);
+    it.setReadOnly(readOnly);
   }
 
   /**
@@ -383,7 +380,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Savepoint setSavepoint() throws SQLException {
     if (shouldThrow("setSavepoint"))
       throw new SQLException("Connection bombed");
-    return new ThrowingSavepoint(c.setSavepoint());
+    return new ThrowingSavepoint(it.setSavepoint());
   }
 
   /**
@@ -393,7 +390,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Savepoint setSavepoint(String name) throws SQLException {
     if (shouldThrow("setSavepoint"))
       throw new SQLException("Connection bombed");
-    return new ThrowingSavepoint(c.setSavepoint(name));
+    return new ThrowingSavepoint(it.setSavepoint(name));
   }
 
   /**
@@ -403,7 +400,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setTransactionIsolation(int level) throws SQLException {
     if (shouldThrow("setTransactionIsolation"))
       throw new SQLException("Connection bombed");
-    c.setTransactionIsolation(level);
+    it.setTransactionIsolation(level);
   }
 
   /**
@@ -413,7 +410,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public void setTypeMap(Map map) throws SQLException {
     if (shouldThrow("setTypeMap"))
       throw new SQLException("Connection bombed");
-    c.setTypeMap(map);
+    it.setTypeMap(map);
   }
 
 }

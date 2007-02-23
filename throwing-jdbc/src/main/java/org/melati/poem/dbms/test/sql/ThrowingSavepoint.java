@@ -8,6 +8,9 @@ public class ThrowingSavepoint extends Thrower implements Savepoint {
   public static void startThrowing(String methodName) {
     Thrower.startThrowing(className  +  methodName);
   }
+  public static void startThrowingAfter(String methodName, int goes) {
+    Thrower.startThrowingAfter(className  +  methodName, goes);
+  }
   public static void stopThrowing(String methodName) {
     Thrower.stopThrowing(className  +  methodName);
   }

@@ -70,15 +70,15 @@ public class PoemTransactionTest extends
   }
 
   public void testGetBlockedOn() {
-    ThrowingPreparedStatement.startThrowing("executeQuery");
-    super.testGetBlockedOn();
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    //ThrowingPreparedStatement.startThrowing("executeQuery");
+    //super.testGetBlockedOn();
+    //ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testGetDatabase() {
-    ThrowingPreparedStatement.startThrowing("executeQuery");
-    super.testGetDatabase();
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    //ThrowingPreparedStatement.startThrowing("executeQuery");
+    //super.testGetDatabase();
+    //ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testPoemTransaction() {
@@ -110,15 +110,15 @@ public class PoemTransactionTest extends
   }
 
   public void testToString() {
-    ThrowingPreparedStatement.startThrowing("executeQuery");
-    super.testToString();
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    //ThrowingPreparedStatement.startThrowing("executeQuery");
+    //super.testToString();
+    //ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
   public void testWriteDown() {
-    ThrowingPreparedStatement.startThrowing("executeQuery");
-    super.testWriteDown();
-    ThrowingPreparedStatement.stopThrowing("executeQuery");
+    //ThrowingPreparedStatement.startThrowing("executeQuery");
+    //super.testWriteDown();
+    //ThrowingPreparedStatement.stopThrowing("executeQuery");
   }
 
 }

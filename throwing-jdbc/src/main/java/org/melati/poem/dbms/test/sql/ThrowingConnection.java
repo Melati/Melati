@@ -210,18 +210,16 @@ public class ThrowingConnection extends Thrower implements Connection {
   }
 
   /**
-   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#prepareCall(java.lang.String)
    */
   public CallableStatement prepareCall(String sql) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return c.prepareCall(sql);
+    return new ThrowingCallableStatement(c.prepareCall(sql));
   }
 
   /**
-   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#prepareCall(java.lang.String, int, int)
    */
@@ -229,7 +227,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return c.prepareCall(sql, resultSetType, resultSetConcurrency);
+    return new ThrowingCallableStatement(c.prepareCall(sql, resultSetType, resultSetConcurrency));
   }
 
   /**
@@ -240,7 +238,7 @@ public class ThrowingConnection extends Thrower implements Connection {
       int resultSetConcurrency, int resultSetHoldability) throws SQLException {
     if (shouldThrow("prepareCall"))
       throw new SQLException("Connection bombed");
-    return c.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
+    return new ThrowingCallableStatement(c.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability));
   }
 
   /**
@@ -379,14 +377,13 @@ public class ThrowingConnection extends Thrower implements Connection {
   }
 
   /**
-   * @todo
    * {@inheritDoc}
    * @see java.sql.Connection#setSavepoint()
    */
   public Savepoint setSavepoint() throws SQLException {
     if (shouldThrow("setSavepoint"))
       throw new SQLException("Connection bombed");
-    return c.setSavepoint();
+    return new ThrowingSavepoint(c.setSavepoint());
   }
 
   /**
@@ -396,7 +393,7 @@ public class ThrowingConnection extends Thrower implements Connection {
   public Savepoint setSavepoint(String name) throws SQLException {
     if (shouldThrow("setSavepoint"))
       throw new SQLException("Connection bombed");
-    return c.setSavepoint(name);
+    return new ThrowingSavepoint(c.setSavepoint(name));
   }
 
   /**

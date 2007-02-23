@@ -33,9 +33,6 @@ public class ThrowingStatement extends Thrower implements Statement {
   }
 
   Statement s = null;
-  { 
-    throwers = new Hashtable();
-  }
 
   /**
    * 

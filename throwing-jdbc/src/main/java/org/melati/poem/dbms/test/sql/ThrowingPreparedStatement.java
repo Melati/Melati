@@ -126,7 +126,6 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
   }
 
   /**
-   * @todo 
    * {@inheritDoc}
    * 
    * @see java.sql.PreparedStatement#getParameterMetaData()
@@ -135,7 +134,7 @@ public class ThrowingPreparedStatement extends Thrower implements PreparedStatem
     if (shouldThrow("getParameterMetaData"))
       throw new SQLException("PreparedStatement bombed");
 
-    return p.getParameterMetaData();
+    return new ThrowingParameterMetaData(p.getParameterMetaData());
   }
 
   /**

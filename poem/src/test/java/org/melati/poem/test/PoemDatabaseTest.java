@@ -454,8 +454,8 @@ public class PoemDatabaseTest extends PoemTestCase {
   public void testSqlUpdate2() {
     getDb().setLogSQL(true);
     getDb().sqlUpdate(getDb().getDbms().createTableSql() + "RAWSQL (ID INT)");
-    getDb().setLogSQL(false);
     getDb().sqlUpdate("DROP TABLE RAWSQL");
+    getDb().setLogSQL(false);
   }
 
   /**

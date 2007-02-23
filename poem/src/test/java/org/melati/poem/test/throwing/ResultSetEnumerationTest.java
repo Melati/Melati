@@ -50,7 +50,6 @@ public class ResultSetEnumerationTest extends
 
   public void testHasMoreElements() {
     ThrowingResultSet.startThrowing("close");
-    System.err.println(ThrowingResultSet.shouldThrow("close"));
     try { 
       super.testHasMoreElements();
       fail("Should have bombed");

@@ -113,11 +113,11 @@ public interface SQLType {
              ParsingPoemException;
 
   /**
-   * Set a column's value.
+   * Set a column of a PreparedStatement to the passed in value.
    * 
    * @param ps the Prepared Statement to modify
    * @param col the column within the PreparedStatement
-   * @param cooked the object value to set
+   * @param cooked the value to set
    */
   void setRaw(PreparedStatement ps, int col, Object cooked)
       throws TypeMismatchPoemException;

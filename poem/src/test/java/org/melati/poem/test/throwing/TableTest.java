@@ -7,6 +7,7 @@ import org.melati.poem.Database;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.FieldContentsPoemException;
 import org.melati.poem.PoemDatabaseFactory;
+import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.SimpleRetrievalFailedPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingPreparedStatement;
@@ -774,6 +775,19 @@ public class TableTest extends org.melati.poem.test.TableTest {
       assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
     } finally { 
       ThrowingPreparedStatement.stopThrowing("executeUpdate");
+    }
+  }
+  public void testWriteDown3() {
+    // Need to be able to fire on second invocation
+    // as this is blowing up on first 
+    ThrowingPreparedStatement.startThrowingAfter("setInt",1);
+    try { 
+      super.testWriteDown();
+      fail("Should have blown up");
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingPreparedStatement.stopThrowing("setInt");
     }
   }
 

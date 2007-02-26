@@ -4,15 +4,19 @@
 package org.melati.poem.test.throwing;
 
 import org.melati.poem.Database;
+import org.melati.poem.DatabaseInitialisationPoemException;
 import org.melati.poem.ExecutingSQLPoemException;
 import org.melati.poem.FieldContentsPoemException;
+import org.melati.poem.GroupCapability;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.SimplePrepareFailedPoemException;
 import org.melati.poem.SimpleRetrievalFailedPoemException;
 import org.melati.poem.Column.LoadException;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingPreparedStatement;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.ThrowingStatement;
 
 /**
  * @author timp
@@ -162,8 +166,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
   }
 
   public void testCachedCountPersistent() {
-    
-    // super.testCachedCountPersistent();
+    //super.testCachedCountPersistent();
   }
 
   public void testCachedCountPersistentBooleanBoolean() {
@@ -173,7 +176,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
 
   public void testCachedCountString() {
     
-    // super.testCachedCountString();
+    //super.testCachedCountString();
   }
 
   public void testCachedCountStringBoolean() {
@@ -250,6 +253,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
     ThrowingConnection.startThrowing("createStatement");
     try { 
       super.testCount();
+      fail("Should have bombed");
     } catch (ExecutingSQLPoemException e) { 
       assertEquals("Connection bombed", e.innermostException().getMessage());
     } finally {
@@ -515,6 +519,20 @@ public class TableTest extends org.melati.poem.test.TableTest {
     } finally { 
       ThrowingResultSet.stopThrowing("getInt");
     }
+    // Force bomb of simpleGet
+    getDb().getGroupTable().invalidateTransactionStuffs();
+    ThrowingConnection.startThrowingAfter("prepareStatement",2);
+    System.err.println("About to");
+    try { 
+      super.testGetObjectInt();
+      fail("Should have blown up");
+    } catch (SimplePrepareFailedPoemException e) { 
+      e.printStackTrace();
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingConnection.stopThrowing("prepareStatement");
+    }
+    
   }
 
   public void testGetObjectInteger() {
@@ -729,12 +747,19 @@ public class TableTest extends org.melati.poem.test.TableTest {
 
   public void testTroidSelectionPersistentStringBooleanBooleanPoemTransaction() {
     
-    // super.testTroidSelectionPersistentStringBooleanBooleanPoemTransaction();
+    //super.testTroidSelectionPersistentStringBooleanBooleanPoemTransaction();
   }
 
   public void testTroidSelectionStringStringBoolean() {
-    
-    // super.testTroidSelectionStringStringBoolean();
+    ThrowingConnection.startThrowing("createStatement");
+    try { 
+      super.testTroidSelectionStringStringBoolean();
+      fail("Should have bombed");
+    } catch (ExecutingSQLPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingConnection.stopThrowing("createStatement");      
+    }
   }
 
   public void testTroidSelectionStringStringBooleanPoemTransaction() {
@@ -768,8 +793,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
   }
 
   public void testWriteDown() {
-    // Need to be able to fire on second invocation
-    // as this is blowing up on first 
     ThrowingPreparedStatement.startThrowing("setInt");
     try { 
       super.testWriteDown();
@@ -779,6 +802,7 @@ public class TableTest extends org.melati.poem.test.TableTest {
     } finally { 
       ThrowingPreparedStatement.stopThrowing("setInt");
     }
+    
   }
   public void testWriteDown2() {
     ThrowingPreparedStatement.startThrowing("executeUpdate");
@@ -792,8 +816,6 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
   public void testWriteDown3() {
-    // Need to be able to fire on second invocation
-    // as this is blowing up on first 
     ThrowingPreparedStatement.startThrowingAfter("setInt",1);
     try { 
       super.testWriteDown();
@@ -804,5 +826,80 @@ public class TableTest extends org.melati.poem.test.TableTest {
       ThrowingPreparedStatement.stopThrowing("setInt");
     }
   }
+  public void testWriteDownInsert() {
+    ThrowingConnection.startThrowing("prepareStatement");
+    try { 
+      getDb().getGroupCapabilityTable().invalidateTransactionStuffs();
+      GroupCapability g = (GroupCapability)getDb().getGroupCapabilityTable().newPersistent();
+      g.setGroup_unsafe(new Integer(0));
+      g.setCapability_unsafe(new Integer(0));
+      g.makePersistent();
+      fail("Should have blown up");
+    } catch (SimplePrepareFailedPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingConnection.stopThrowing("prepareStatement");
+    }
+  }
 
+  public void testWriteDownModify() {
+    ThrowingConnection.startThrowingAfter("prepareStatement",1);
+    getDb().getUserTable().invalidateTransactionStuffs();
+    try { 
+      super.testWriteDown();
+      fail("Should have blown up");
+    } catch (SimplePrepareFailedPoemException e) { 
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingConnection.stopThrowing("prepareStatement");
+    }
+  }
+
+  public void testWriteDown5() {
+    ThrowingPreparedStatement.startThrowing("executeUpdate");
+    try { 
+      getDb().getGroupCapabilityTable().invalidateTransactionStuffs();
+      GroupCapability g = (GroupCapability)getDb().getGroupCapabilityTable().newPersistent();
+      g.setGroup_unsafe(new Integer(0));
+      g.setCapability_unsafe(new Integer(0));
+      g.makePersistent();
+      fail("Should have blown up");
+    } catch (ExecutingSQLPoemException e) { 
+      assertEquals("PreparedStatement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingPreparedStatement.stopThrowing("executeUpdate");
+    }
+  }
+
+  public void testWriteDownDelete() {
+    GroupCapability g = (GroupCapability)getDb().getGroupCapabilityTable().newPersistent();
+    g.setGroup_unsafe(new Integer(0));
+    g.setCapability_unsafe(new Integer(0));
+    g.makePersistent();
+    ThrowingStatement.startThrowing("executeUpdate");
+    getDb().getGroupCapabilityTable().invalidateTransactionStuffs();
+    try { 
+      g.delete();
+      fail("Should have blown up");
+    } catch (ExecutingSQLPoemException e) { 
+      assertEquals("Statement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingStatement.stopThrowing("executeUpdate");
+      g.delete();
+    }
+  }
+
+  public void testNextTroidBombs() { 
+    ThrowingStatement.startThrowing("close");
+    PoemDatabaseFactory.removeDatabase("melatijunit");
+    try { 
+      getDb();
+      fail("Should have blown up");
+    } catch (DatabaseInitialisationPoemException e) { 
+      e.printStackTrace();
+      assertEquals("Statement bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingStatement.stopThrowing("close");
+    }
+  }
 }

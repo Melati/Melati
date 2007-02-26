@@ -91,7 +91,7 @@ public interface PoemType {
    * 
    * @param rawString the String representation to convert
    * @return an Object of the correct type
-   * @throws ParsingPoemException if the Strinf representation is not well formed
+   * @throws ParsingPoemException if the String representation is not well formed
    * @throws ValidationPoemException if the raw has an illegal value
    */
   Object rawOfString(String rawString)

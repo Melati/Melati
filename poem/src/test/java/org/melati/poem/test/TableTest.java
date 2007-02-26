@@ -351,9 +351,7 @@ public class TableTest extends PoemTestCase {
     assertEquals("changed", u.getName());
     u.setName(name);
     PoemThread.commit();
-    
     assertEquals(name, u.getName());
-
   }
 
   /**
@@ -445,7 +443,6 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#selectionSQL(String, String, boolean)
    */
   public void testSelectionSQLStringStringBoolean() {
-
   }
 
   /**
@@ -461,7 +458,6 @@ public class TableTest extends PoemTestCase {
    *      PoemTransaction)
    */
   public void testTroidSelectionStringStringBooleanPoemTransaction() {
-
   }
 
   /**
@@ -490,7 +486,8 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#troidSelection(String, String, boolean)
    */
   public void testTroidSelectionStringStringBoolean() {
-
+    Enumeration en = getDb().getUserTable().troidSelection(null, null, true);
+    assertEquals(2, EnumUtils.vectorOf(en).size());
   }
 
   /**
@@ -634,6 +631,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#count()
    */
   public void testCount() {
+    assertEquals(2, getDb().getUserTable().count());
 
   }
 
@@ -1038,7 +1036,7 @@ public class TableTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.poem.Table#cachedCount(String)
+   * @see org.melati.poem.Table#cachedCount(Persistent)
    */
   public void testCachedCountPersistent() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();

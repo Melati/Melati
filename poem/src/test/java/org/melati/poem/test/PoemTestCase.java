@@ -18,7 +18,6 @@ import org.melati.poem.Column;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
-import org.melati.poem.DatabaseInitialisationPoemException;
 
 import junit.framework.Assert;
 import junit.framework.Test;
@@ -281,14 +280,7 @@ public class PoemTestCase extends TestCase implements Test {
   public Database getDb(String dbNameP) {
     if (dbNameP == null)
       throw new NullPointerException();
-    Database dbL = null;
-    try {
-      dbL = getDatabase(dbNameP);
-    } catch (DatabaseInitialisationPoemException e) {
-      e.printStackTrace();
-      fail(e.getMessage());
-    }
-    return dbL;
+    return getDatabase(dbNameP);
   }
 
   public Database getDatabase(String name){ 

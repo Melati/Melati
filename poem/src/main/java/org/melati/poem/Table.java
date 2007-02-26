@@ -293,7 +293,7 @@ public class Table implements Selectable {
       if (id != null && id.intValue() == columnInfoID)
         return column;
     }
-    return null; // Happens when columns exists but not defined in DSD
+    return null; // Happens when columns exist but are not defined in DSD
   }
 
   /**
@@ -792,6 +792,12 @@ public class Table implements Selectable {
   private TransactionStuff committedTransactionStuff = null;
 
   /**
+   * Used in tests.
+   */
+  public void invalidateTransactionStuffs() { 
+    transactionStuffs.invalidate();
+  }
+  /**
    * Called when working outside a Transaction.
    * @return the TransactionStuff for the committed transaction
    * @see org.melati.poem.PoemDatabase#inCommittedTransaction(AccessToken, PoemTask)
@@ -814,11 +820,10 @@ public class Table implements Selectable {
       synchronized (select) {
         select.setInt(1, persistent.troid().intValue());
         ResultSet rs = select.executeQuery();
+        if (database.logSQL())
+          database.log(new SQLLogEvent(select.toString()));
         database.incrementQueryCount();
         try {
-          if (database.logSQL())
-            database.log(new SQLLogEvent(select.toString()));
-
           if (!rs.next())
             persistent.setStatusNonexistent();
           else {
@@ -826,10 +831,8 @@ public class Table implements Selectable {
             for (int c = 0; c < columns.length; ++c)
               columns[c].load_unsafe(rs, c + 1, persistent);
           }
-
           persistent.dirty = false;
           persistent.markValid();
-
           if (rs.next())
             throw new DuplicateTroidPoemException(this, persistent.troid());
         }
@@ -842,9 +845,6 @@ public class Table implements Selectable {
     }
     catch (SQLException e) {
       throw new SimpleRetrievalFailedPoemException(e);
-    }
-    catch (ParsingPoemException e) {
-      throw new UnexpectedParsingPoemException(e);
     }
     catch (ValidationPoemException e) {
       throw new UnexpectedValidationPoemException(e);
@@ -1269,6 +1269,10 @@ public class Table implements Selectable {
    * If the orderByClause is an empty string, ie "", then no ordering is 
    * applied.
    *
+   * @param whereClause an SQL snippet
+   * @param orderByClause an SQL snippet
+   * @param includeDeleted whether to include deleted records, if any
+   * 
    * @return an <TT>Enumeration</TT> of <TT>Integer</TT>s, which can be mapped
    *         onto <TT>Persistent</TT> objects using <TT>getObject</TT>;
    *         or you can just use <TT>selection</TT>
@@ -1279,13 +1283,12 @@ public class Table implements Selectable {
   public Enumeration troidSelection(String whereClause, String orderByClause,
                                     boolean includeDeleted)
       throws SQLPoemException {
-    CachedSelection allTroidsLocal = this.allTroids;
-    if (allTroidsLocal != null &&
+    if (allTroids != null &&
         (whereClause == null || whereClause.equals("")) &&
         (orderByClause == null || orderByClause.equals("") ||
         orderByClause == /* sic, for speed */ defaultOrderByClause()) &&
-        !includeDeleted)
-      return allTroidsLocal.troids();
+        !includeDeleted) 
+      return allTroids.troids();
     else
       return troidSelection(whereClause, orderByClause, includeDeleted,
                             PoemThread.inSession() ? PoemThread.transaction() : null);

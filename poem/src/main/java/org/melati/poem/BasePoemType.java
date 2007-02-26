@@ -127,7 +127,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * Check if the raw value is valid, as expected.
    * @param raw an Object which should be of correct type
    */
-  public final void doubleCheckValidRaw(Object raw) {
+  private final void doubleCheckValidRaw(Object raw) {
     try {
       assertValidRaw(raw);
     }
@@ -256,7 +256,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * NOTE If it isn't valid then it isn't cooked.
    * @param cooked the cooked object
    */
-  public final void doubleCheckValidCooked(Object cooked) {
+  final void doubleCheckValidCooked(Object cooked) {
     try {
       assertValidCooked(cooked);
     }

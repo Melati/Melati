@@ -9,6 +9,7 @@ import org.melati.poem.FieldContentsPoemException;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.SimpleRetrievalFailedPoemException;
+import org.melati.poem.Column.LoadException;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingPreparedStatement;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
@@ -503,6 +504,16 @@ public class TableTest extends org.melati.poem.test.TableTest {
     } finally { 
       ThrowingResultSet.stopThrowing("next");
       ThrowingResultSet.stopThrowing("close");
+    }
+    getDb().uncacheContents();
+    ThrowingResultSet.startThrowing("getInt");
+    try { 
+      super.testGetObjectInt();
+      fail("Should have blown up");
+    } catch (LoadException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+    } finally { 
+      ThrowingResultSet.stopThrowing("getInt");
     }
   }
 

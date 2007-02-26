@@ -568,6 +568,7 @@ public abstract class Column implements FieldAttributes {
    * @param raw value 
    * @return an Enumeration of Integers 
    */
+  /*
   Enumeration troidSelectionWhereEq(Object raw) {
     return new ResultSetEnumeration(resultSetWhereEq(raw)) {
       public Object mapped(ResultSet rs) throws SQLException {
@@ -575,7 +576,8 @@ public abstract class Column implements FieldAttributes {
       }
     };
   }
-
+  */
+  
   /**
    * Get rows where column equal to value.
    * 
@@ -729,7 +731,7 @@ public abstract class Column implements FieldAttributes {
   }
 
   /**
-   * Load from Database.
+   * Load a Persistent field from a column of a ResultSet.
    * 
    * @todo Double validation
    * @param rs A <code>ResultSet</code>containing the value(s) to load
@@ -881,7 +883,7 @@ public abstract class Column implements FieldAttributes {
    * Find the next free value in an Integer column.
    * 
    * This is not used in Melati, but is used in Bibliomania. 
-   * Throws AppBugPoemException if this Column is not a troid column.
+   * Throws AppBugPoemException if this Column is not an Integer column.
    * 
    * @param whereClause
    * @return the incremented value 

@@ -1533,6 +1533,7 @@ table Protected
     ;
   Capability canSelect
     (displaylevel = record) 
+    (nullable)
     (description = "Capability required to select this row ")
     ;
   Boolean deleted

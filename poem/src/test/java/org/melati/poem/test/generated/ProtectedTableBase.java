@@ -425,7 +425,7 @@ public class ProtectedTableBase extends Table {
     defineColumn(col_canSelect =
         new Column(this, "canSelect",
                    new ReferencePoemType(getEverythingDatabaseTables().
-                                             getCapabilityTable(), false),
+                                             getCapabilityTable(), true),
                    DefinitionSource.dsd) { 
           public Object getCooked(Persistent g)
               throws AccessPoemException, PoemException {

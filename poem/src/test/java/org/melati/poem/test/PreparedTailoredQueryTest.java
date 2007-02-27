@@ -74,6 +74,16 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     spyMission.setDeleted(false);
     spyMission.makePersistent();
 
+    Protected nullCanSelectMission = (Protected)db.getProtectedTable().newPersistent();
+    nullCanSelectMission.setCanRead(null);
+    nullCanSelectMission.setCanSelect(null);
+    nullCanSelectMission.setCanWrite(moneyPenny);
+    nullCanSelectMission.setCanDelete(spyMaster);
+    nullCanSelectMission.setSpy(spy);
+    nullCanSelectMission.setMission("impossible");
+    nullCanSelectMission.setDeleted(false);
+    nullCanSelectMission.makePersistent();
+    
     final Column canReadColumn = db.getProtectedTable().getCanReadColumn();
     final PreparedTailoredQuery ptq = new PreparedTailoredQuery(
             new Column[] { canReadColumn }, new Table[0], canReadColumn
@@ -119,7 +129,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     PoemTask readAsGuest2 = new PoemTask() {
       public void run() {
         Enumeration en = ptq2.selection();
-        assertEquals(1, EnumUtils.vectorOf(en).size());
+        assertEquals(2, EnumUtils.vectorOf(en).size());
         try {
           en = ptq2.selection();
           while (en.hasMoreElements()) {
@@ -160,6 +170,7 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
     db.getProtectedTable().getTableInfo().setDefaultcanread(null);
     db.getUserTable().getTableInfo().setDefaultcanread(null);
     spyMission.delete();
+    nullCanSelectMission.delete();
     spy.delete();
     spyMaster.delete();
     moneyPenny.delete();
@@ -176,7 +187,9 @@ public class PreparedTailoredQueryTest extends EverythingTestCase {
 
   /**
    * Test method for
-   * {@link org.melati.poem.PreparedTailoredQuery#PreparedTailoredQuery(java.lang.String, org.melati.poem.Column[], org.melati.poem.Table[], java.lang.String, java.lang.String)}.
+   * {@link org.melati.poem.PreparedTailoredQuery#
+   * PreparedTailoredQuery(java.lang.String, org.melati.poem.Column[], 
+   *       org.melati.poem.Table[], java.lang.String, java.lang.String)}.
    */
   public void testPreparedTailoredQueryStringColumnArrayTableArrayStringString() {
 

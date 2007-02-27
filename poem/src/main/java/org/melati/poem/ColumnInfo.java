@@ -107,12 +107,13 @@ public class ColumnInfo extends ColumnInfoBase {
   private Column _column = null;
 
   /**
-   * FIXME There is no circumstance in which the column is null but the troid not where the column could be found.
    * @return the column
    */
   private Column column() {
-    if (_column == null && troid() != null)
-      _column = getDatabase().columnWithColumnInfoID(troid().intValue());
+    //There is no circumstance in which the column is null but the troid not 
+    // where the column could be found.
+    //if (_column == null && troid() != null)
+    //  _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;
   }
 

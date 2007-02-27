@@ -67,6 +67,7 @@ public class DisplayLevelTest extends TestCase {
    * Test method for {@link org.melati.poem.DisplayLevel#toString()}.
    */
   public void testToString() {
+    assertEquals("primary/0",DisplayLevel.named("primary").toString());
   }
 
 }

@@ -90,7 +90,8 @@ public class StandardIntegrityFixTest extends PoemTestCase {
    * Test method for {@link org.melati.poem.StandardIntegrityFix#toString()}.
    */
   public void testToString() {
-    
+    StandardIntegrityFix fix = StandardIntegrityFix.named("delete");
+    assertEquals("delete/0", fix.toString());
   }
 
 }

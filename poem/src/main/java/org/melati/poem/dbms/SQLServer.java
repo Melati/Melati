@@ -99,6 +99,8 @@ public class SQLServer extends AnsiStandard {
     // Works with 2003
     // setDriverClassName("com.inet.tds.TdsDriver");
 
+    // Not working
+    //setDriverClassName("easysoft.sql.jobDriver"); 
     // 2005
     setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
   }

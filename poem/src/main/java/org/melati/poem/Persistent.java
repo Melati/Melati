@@ -556,7 +556,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
    * to obtain a <TT>Capability</TT> for comparison against the caller's
    * <TT>AccessToken</TT>.
    * <p>
-   * NOTE if a canDelete column is defined then it will override this method.
+   * NOTE If a canDelete column is defined then it will override this method.
    *
    * @return the capability specified by the record's <TT>candelete</TT> field,
    *         or <TT>null</TT> if it doesn't have one or its value is SQL
@@ -612,6 +612,8 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   /**
    * The capability required to select the object.
    * <p>
+   * Any persistent which has a <tt>canSelect</tt> field will override this method. 
+   * <p>
    * There is no <code>assertCanSelect()</code> yet because I don't understand
    * this stale token stuff!
    *
@@ -621,7 +623,7 @@ public class Persistent extends Transactioned implements Cloneable, Persistable 
   protected Capability getCanSelect() {
     return null;
   }
-
+  
   /**
    * Check that you have create access to the object.  Which is to say: the
    * <TT>AccessToken</TT> associated with the POEM task executing in the

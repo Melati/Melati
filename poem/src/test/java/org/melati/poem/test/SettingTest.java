@@ -3,6 +3,7 @@
  */
 package org.melati.poem.test;
 
+import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.Setting;
 import org.melati.poem.Setting.SettingTypeMismatchException;
@@ -114,7 +115,7 @@ public class SettingTest extends PoemTestCase {
   }
 
   /**
-   * FIXME
+   * FIXME Should we be able to change nullability?
    * 
    * @see org.melati.poem.Setting#getRaw()
    */
@@ -123,13 +124,19 @@ public class SettingTest extends PoemTestCase {
         "eggs", "Test Setting", "A test setting");
     getDb().getSettingTable().create(s);
     s.setNullable(true);
+    //System.err.println("Type:"+ s.getType());
+    //System.err.println("Nullable:"+ s.toTypeParameter().getNullable());
     assertEquals("eggs", s.getValue());
     s.setValue(null);
     s.setNullable(false);
+    PoemThread.commit();
+    //System.err.println("Nullable:"+ s.toTypeParameter().getNullable());
+    //System.err.println("Type:"+ s.getType());
     try {
       s.getRaw();
-      // fail("Should have blown up.");
+     // fail("Should have blown up.");
     } catch (SettingValidationException e) {
+      e.printStackTrace();
       e = null;
     }
     s.delete();

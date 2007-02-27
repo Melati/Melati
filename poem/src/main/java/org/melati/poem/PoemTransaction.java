@@ -112,7 +112,7 @@ public class PoemTransaction extends Transaction {
     try {
       if (commit)
         commit();
-      else
+      else  // Not used in poem
         rollback();
     }
     finally {

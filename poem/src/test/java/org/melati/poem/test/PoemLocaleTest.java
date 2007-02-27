@@ -56,8 +56,14 @@ public class PoemLocaleTest extends TestCase {
   public void testFromLanguageTag() {
     assertEquals(PoemLocale.HERE, PoemLocale.fromLanguageTag("en-gb"));
     assertEquals("en_AU", PoemLocale.fromLanguageTag("en-au").toString());
+    assertEquals("en", PoemLocale.fromLanguageTag("en-").toString());
+    assertEquals("en", PoemLocale.fromLanguageTag("en-a").toString());
+    assertEquals("en", PoemLocale.fromLanguageTag("en-abc").toString());
+    assertEquals("en", PoemLocale.fromLanguageTag("en-abc-fr").toString());
+    assertEquals("en_AU", PoemLocale.fromLanguageTag("en-au-fr").toString());
 
     assertNull(PoemLocale.fromLanguageTag(""));
+    
   }
 
   /**

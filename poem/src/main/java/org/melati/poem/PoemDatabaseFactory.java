@@ -55,8 +55,6 @@ import java.util.Vector;
 public final class PoemDatabaseFactory {
 
   private static final Hashtable databases = new Hashtable();
-  /** The class name of this <code>LogicalDatabase</code>. */
-  public static final String className = "org.melati.LogicalDatabase";
 
 
   /**

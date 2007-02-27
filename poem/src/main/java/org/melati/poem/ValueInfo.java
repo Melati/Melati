@@ -125,6 +125,7 @@ public class ValueInfo extends ValueInfoBase {
   private SQLPoemType poemType = null;
 
   /**
+   * NOTE A type cannot be changed once initialised.
    * @return our SQLPoemType
    */
   public SQLPoemType getType() {
@@ -136,7 +137,6 @@ public class ValueInfo extends ValueInfoBase {
         // it's convenient to return the "most general" type available ...
         return StringPoemType.nullableInstance;
       }
-
       poemType = f.typeOf(getDatabase(), toTypeParameter());
     }
 

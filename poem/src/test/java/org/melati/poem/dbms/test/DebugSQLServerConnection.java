@@ -4,6 +4,11 @@ import java.io.PrintWriter;
 import java.sql.Driver;
 import java.sql.DriverManager;
 
+/**
+ * @author timp
+ * @since 3 May 2007
+ *
+ */
 public class DebugSQLServerConnection {
   private java.sql.Connection con = null;
 
@@ -24,7 +29,9 @@ public class DebugSQLServerConnection {
   // on a connection.
   //private final String selectMethod = "cursor";
 
-  // Constructor
+  /**
+   * Constructor.
+   */
   public DebugSQLServerConnection() {
   }
 
@@ -53,10 +60,9 @@ public class DebugSQLServerConnection {
     return con;
   }
 
-  /*
+  /**
    * Display the driver properties, database details
    */
-
   public void displayDbProperties() {
     java.sql.DatabaseMetaData dm = null;
     java.sql.ResultSet rs = null;
@@ -97,6 +103,11 @@ public class DebugSQLServerConnection {
     }
   }
 
+  /**
+   * Main.
+   * @param args
+   * @throws Exception
+   */
   public static void main(String[] args) throws Exception {
     DebugSQLServerConnection myDbTest = new DebugSQLServerConnection();
     myDbTest.displayDbProperties();

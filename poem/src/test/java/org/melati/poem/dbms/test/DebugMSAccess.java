@@ -1,5 +1,10 @@
 package org.melati.poem.dbms.test;
 
+/**
+ * @author timp
+ * @since 3 May 2007
+ *
+ */
 public class DebugMSAccess {
 
   /**

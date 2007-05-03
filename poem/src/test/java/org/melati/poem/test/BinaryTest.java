@@ -77,6 +77,9 @@ public class BinaryTest extends EverythingTestCase {
     super.tearDown();
   }
 
+  /**
+   * Test create. 
+   */
   public void testCreate() {
     BinaryField aThing = (BinaryField)((EverythingDatabase)getDb()).getBinaryFieldTable().firstSelection(null);
     System.out.println(

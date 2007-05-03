@@ -66,9 +66,15 @@ public class DynamicTable extends DynamicTableBase {
     dynamicTwo = (Dynamic)getNameColumn().ensure(dynamicTwo);
   }
 
+  /**
+   * @return persistent 
+   */
   public Persistent two() {
     return dynamicTwo;
   }
+  /**
+   * @return persistent 
+   */
   public Persistent one() {
     return dynamicOne;
   }

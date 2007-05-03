@@ -120,6 +120,9 @@ public class PoemDatabaseFactoryTest extends TestCase {
   public void testRemoveDatabaseString() {
     
   }
+  /**
+   * @return the minial poem db
+   */
   public Database getPoemDatabase() { 
     return PoemDatabaseFactory.getDatabase(PoemTestCase.databaseName,
             "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
@@ -127,6 +130,9 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "","org.melati.poem.PoemDatabase",
             "org.melati.poem.dbms.Hsqldb",true,true,false,4);
   }
+  /**
+   * @return the everything db
+   */
   public static Database getEverythingDatabase() { 
     return PoemDatabaseFactory.getDatabase(EverythingTestCase.databaseName,
             "jdbc:hsqldb:mem:" + EverythingTestCase.databaseName,

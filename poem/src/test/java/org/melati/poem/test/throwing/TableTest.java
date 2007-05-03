@@ -665,91 +665,163 @@ public class TableTest extends org.melati.poem.test.TableTest {
     // super.testSelectionPersistentStringBooleanBooleanIntInt();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSelectionSQLStringStringBoolean()
+   */
   public void testSelectionSQLStringStringBoolean() {
     
     // super.testSelectionSQLStringStringBoolean();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSelectionSQLStringStringStringBooleanBoolean()
+   */
   public void testSelectionSQLStringStringStringBooleanBoolean() {
     
     // super.testSelectionSQLStringStringStringBooleanBoolean();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSelectionString()
+   */
   public void testSelectionString() {
     
     // super.testSelectionString();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSelectionStringStringBoolean()
+   */
   public void testSelectionStringStringBoolean() {
     
     // super.testSelectionStringStringBoolean();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSelectionStringStringBooleanIntInt()
+   */
   public void testSelectionStringStringBooleanIntInt() {
     
     // super.testSelectionStringStringBooleanIntInt();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSerial()
+   */
   public void testSerial() {
     
     // super.testSerial();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSetCacheLimit()
+   */
   public void testSetCacheLimit() {
     
     // super.testSetCacheLimit();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSetDisplayColumn()
+   */
   public void testSetDisplayColumn() {
     
     // super.testSetDisplayColumn();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSetSearchColumn()
+   */
   public void testSetSearchColumn() {
     
     // super.testSetSearchColumn();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testSetTableInfo()
+   */
   public void testSetTableInfo() {
     
     // super.testSetTableInfo();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTable()
+   */
   public void testTable() {
     
     // super.testTable();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTableInfoID()
+   */
   public void testTableInfoID() {
     
     // super.testTableInfoID();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testToString()
+   */
   public void testToString() {
     
     // super.testToString();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTrimCache()
+   */
   public void testTrimCache() {
     
     // super.testTrimCache();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTroidColumn()
+   */
   public void testTroidColumn() {
     
     // super.testTroidColumn();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTroidFor()
+   */
   public void testTroidFor() {
     
     // super.testTroidFor();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTroidSelectionPersistentStringBooleanBooleanPoemTransaction()
+   */
   public void testTroidSelectionPersistentStringBooleanBooleanPoemTransaction() {
     
     //super.testTroidSelectionPersistentStringBooleanBooleanPoemTransaction();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTroidSelectionStringStringBoolean()
+   */
   public void testTroidSelectionStringStringBoolean() {
     ThrowingConnection.startThrowing("createStatement");
     try { 
@@ -762,36 +834,63 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testTroidSelectionStringStringBooleanPoemTransaction()
+   */
   public void testTroidSelectionStringStringBooleanPoemTransaction() {
     
     // super.testTroidSelectionStringStringBooleanPoemTransaction();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testUncacheContents()
+   */
   public void testUncacheContents() {
     
     // super.testUncacheContents();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testUnifyWithColumnInfo()
+   */
   public void testUnifyWithColumnInfo() {
     
     // super.testUnifyWithColumnInfo();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testUnifyWithDB()
+   */
   public void testUnifyWithDB() {
     
     // super.testUnifyWithDB();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testWhereClausePersistent()
+   */
   public void testWhereClausePersistent() {
     
     // super.testWhereClausePersistent();
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.TableTest#testWhereClausePersistentBooleanBoolean()
+   */
   public void testWhereClausePersistentBooleanBoolean() {
     
     // super.testWhereClausePersistentBooleanBoolean();
   }
 
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDown() {
     ThrowingPreparedStatement.startThrowing("setInt");
     try { 
@@ -804,6 +903,10 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
     
   }
+
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDown2() {
     ThrowingPreparedStatement.startThrowing("executeUpdate");
     try { 
@@ -815,6 +918,10 @@ public class TableTest extends org.melati.poem.test.TableTest {
       ThrowingPreparedStatement.stopThrowing("executeUpdate");
     }
   }
+
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDown3() {
     ThrowingPreparedStatement.startThrowingAfter("setInt",1);
     try { 
@@ -826,6 +933,10 @@ public class TableTest extends org.melati.poem.test.TableTest {
       ThrowingPreparedStatement.stopThrowing("setInt");
     }
   }
+
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDownInsert() {
     ThrowingConnection.startThrowing("prepareStatement");
     try { 
@@ -842,6 +953,9 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
 
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDownModify() {
     ThrowingConnection.startThrowingAfter("prepareStatement",1);
     getDb().getUserTable().invalidateTransactionStuffs();
@@ -855,6 +969,9 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
 
+  /**
+   * Test write down bombs. 
+   */
   public void testWriteDown5() {
     ThrowingPreparedStatement.startThrowing("executeUpdate");
     try { 
@@ -871,6 +988,9 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
 
+  /**
+   * Test write down bombs.
+   */
   public void testWriteDownDelete() {
     GroupCapability g = (GroupCapability)getDb().getGroupCapabilityTable().newPersistent();
     g.setGroup_unsafe(new Integer(0));
@@ -889,6 +1009,9 @@ public class TableTest extends org.melati.poem.test.TableTest {
     }
   }
 
+  /**
+   * Test that the next troid bombs.
+   */
   public void testNextTroidBombs() { 
     ThrowingStatement.startThrowing("close");
     PoemDatabaseFactory.removeDatabase("melatijunit");

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.melati.poem.test;
 
 import java.sql.PreparedStatement;
@@ -18,6 +15,12 @@ import org.melati.poem.TypeMismatchPoemException;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.dbms.Dbms;
 
+/**
+ * A PoemType which throws an exception when used. 
+ * @author timp
+ * @since 3 February 2007
+ *
+ */
 public class SqlExceptionPoemType extends AtomPoemType {
 
   /**

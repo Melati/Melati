@@ -51,6 +51,10 @@ public class IntegerEnumerationTest extends TestCase {
     }
     assertEquals(0, count);
   }
+
+  /**
+   * Test for {@link org.melati.poem.util.IntegerEnumeration}.
+   */
   public void testIntegerEnumeration() {
     IntegerEnumeration it = new IntegerEnumeration(0,1);
     int count = 0;
@@ -60,6 +64,9 @@ public class IntegerEnumerationTest extends TestCase {
     }
     assertEquals(1, count);
   }
+  /**
+   * Test for {@link org.melati.poem.util.IntegerEnumeration#max()}.
+   */
   public void testIntegerEnumerationMax() {
     int max = 9;
     IntegerEnumeration it = new IntegerEnumeration(max - 5, max);
@@ -70,6 +77,10 @@ public class IntegerEnumerationTest extends TestCase {
     }
     assertEquals(5, count);
   }
+  
+  /**
+   * Test for {@link org.melati.poem.util.IntegerEnumeration#nextElement()}.
+   */
   public void testNextElement() {
     int max = 9;
     IntegerEnumeration it = new IntegerEnumeration(max - 5, max);

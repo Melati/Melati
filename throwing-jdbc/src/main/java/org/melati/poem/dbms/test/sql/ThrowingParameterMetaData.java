@@ -3,6 +3,11 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.ParameterMetaData;
 import java.sql.SQLException;
 
+/**
+ * @author timp
+ * @since 22 Feb 2007
+ *
+ */
 public class ThrowingParameterMetaData extends Thrower implements
         ParameterMetaData {
   
@@ -22,6 +27,10 @@ public class ThrowingParameterMetaData extends Thrower implements
 
   ParameterMetaData it = null;
   
+  /**
+   * Constructor.
+   * @param parameterMetaData the ParameterMetaData to decorate
+   */
   public ThrowingParameterMetaData(ParameterMetaData parameterMetaData) {
     this.it = parameterMetaData;
   }

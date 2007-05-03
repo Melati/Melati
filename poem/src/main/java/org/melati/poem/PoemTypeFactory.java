@@ -121,17 +121,27 @@ public abstract class PoemTypeFactory {
   /** Type column factory. */
   public static final PoemTypeFactory TYPE;
     
-  /** Base type factories. */
-  public static final PoemTypeFactory BOOLEAN,
-    INTEGER,
-    DOUBLE,
-    LONG,
-    BIGDECIMAL,
-    STRING,
-    PASSWORD,
-    DATE,
-    TIMESTAMP,
-    BINARY;
+  /* Base type factories. */
+  /** Boolean base-type factory. */
+  public static final PoemTypeFactory BOOLEAN;
+  /** Integer base-type factory. */
+  public static final PoemTypeFactory INTEGER;
+  /** Double base-type factory. */
+  public static final PoemTypeFactory DOUBLE;
+  /** Long base-type factory. */
+  public static final PoemTypeFactory LONG;
+  /** BigDecimal base-type factory. */
+  public static final PoemTypeFactory BIGDECIMAL;
+  /** String base-type factory. */
+  public static final PoemTypeFactory STRING;
+  /** Password base-type factory. */
+  public static final PoemTypeFactory PASSWORD;
+  /** Date base-type factory. */
+  public static final PoemTypeFactory DATE;
+  /** Timestamp base-type factory. */
+  public static final PoemTypeFactory TIMESTAMP;
+  /** Binary base-type factory. */
+  public static final PoemTypeFactory BINARY;
 
   /** Poem Displaylevel factory. */
   public static final PoemTypeFactory  DISPLAYLEVEL;

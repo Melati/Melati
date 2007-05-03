@@ -60,7 +60,6 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeTest {
   }
 
   public void testAssertValidCooked() {
-    // TODO Auto-generated method stub
     super.testAssertValidCooked();
   }
 
@@ -80,10 +79,12 @@ public class NotNullableTimestampPoemTypeTest extends SQLPoemTypeTest {
   }
 
   public void testRawOfCooked() {
-    // TODO Auto-generated method stub
     super.testRawOfCooked();
   }
 
+  /**
+   * Test the full constructor. 
+   */
   public void testFullConstructor() {
     TimestampPoemType it2 = new MyTimestampPoemType(it.getNullable());
     assertEquals(it.getNullable(),it2.getNullable());

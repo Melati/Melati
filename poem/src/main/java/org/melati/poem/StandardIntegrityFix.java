@@ -88,8 +88,13 @@ public abstract class StandardIntegrityFix implements IntegrityFix {
     this.name = name;
   }
 
-  /** The fixes. */
-  public static final StandardIntegrityFix delete, clear, prevent;
+  /* The fixes. */
+  /** Delete referred objects. */
+  public static final StandardIntegrityFix delete;
+  /** Clear (make null) field in referring object. */
+  public static final StandardIntegrityFix clear; 
+  /** Disallow the deletion. */
+  public static final StandardIntegrityFix prevent;
 
   /**
    * Each {@link StandardIntegrityFix} differs from another by the 

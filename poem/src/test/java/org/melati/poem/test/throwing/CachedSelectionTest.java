@@ -5,12 +5,25 @@ import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 
+/**
+ * @author timp
+ * @since 3 February 2007
+ *
+ */
 public class CachedSelectionTest extends
         org.melati.poem.test.CachedSelectionTest {
 
+  /**
+   * Constructor.
+   */
   public CachedSelectionTest() {
   }
 
+  /**
+   * Constructor.
+   * 
+   * @param name test name
+   */
   public CachedSelectionTest(String name) {
     super(name);
   }
@@ -28,6 +41,10 @@ public class CachedSelectionTest extends
   }
 
   
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.PoemTestCase#getDatabase(java.lang.String)
+   */
   public Database getDatabase(String name) {
     maxTrans = 4;
     Database db = PoemDatabaseFactory.getDatabase(name, 
@@ -42,6 +59,10 @@ public class CachedSelectionTest extends
     return db;
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.CachedSelectionTest#testFirstObject()
+   */
   public void testFirstObject() {
     ThrowingResultSet.startThrowing("close");
     ThrowingResultSet.startThrowing("next");
@@ -56,12 +77,24 @@ public class CachedSelectionTest extends
 
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.CachedSelectionTest#testMultiTableSelection()
+   */
   public void testMultiTableSelection() {
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.CachedSelectionTest#testNth()
+   */
   public void testNth() {
   }
 
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.test.CachedSelectionTest#testToString()
+   */
   public void testToString() {
   }
 

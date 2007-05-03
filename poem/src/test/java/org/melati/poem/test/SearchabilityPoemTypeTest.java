@@ -40,6 +40,9 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
     it = new SearchabilityPoemType();
   }
 
+  /**
+   * Test {@link org.melati.poem.Searchability#toString()}.
+   */
   public void testToString() {
     assertEquals("searchability (INT (org.melati.poem.SearchabilityPoemType))", it.toString());
   }
@@ -69,6 +72,10 @@ public class SearchabilityPoemTypeTest extends NotNullableIntegerPoemTypeTest {
   public void testCanRepresent() {
     assertNull(it.canRepresent(new DisplayLevelPoemType()));
   }
+  
+  /**
+   * Test {@link org.melati.poem.Searchability#named(String)}.
+   */
   public void testNamed() {
     assertEquals(Searchability.primary, Searchability.named("primary"));
     try {

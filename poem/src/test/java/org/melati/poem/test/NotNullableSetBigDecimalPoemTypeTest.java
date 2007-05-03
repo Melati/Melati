@@ -35,9 +35,16 @@ public class NotNullableSetBigDecimalPoemTypeTest extends SQLPoemTypeTest {
     it = new BigDecimalPoemType(false, 22, 2);
   }
 
+  /**
+   * Test get total size. 
+   */
   public void testGetTotalSize() {
     assertEquals(24, ((FixedPointAtomPoemType)it).getTotalSize());
   }
+  
+  /**
+   * Test full constructor. 
+   */
   public void testWithPrecisionAndScale() {
     FixedPointAtomPoemType itAlso = (FixedPointAtomPoemType)it;
     assertEquals(it, itAlso.withPrecisionAndScale(itAlso.getPrecision(),itAlso.getScale()));

@@ -987,11 +987,17 @@ public class PersistentTest extends EverythingTestCase {
     assertTrue(p.otherMatchTables().length == 0);
   }
 
+  /**
+   * Test the representation of an uninitialised Persistent.
+   */
   public void testToStringNull() {
     Persistent unit = new Persistent();
     assertEquals("null/null", unit.toString());
   }
 
+  /**
+   * Test that two uninitialised Persistents are equal.
+   */
   public void testEqualsNull() {
     Persistent unitOne = new Persistent();
     Persistent unitTwo = new Persistent();

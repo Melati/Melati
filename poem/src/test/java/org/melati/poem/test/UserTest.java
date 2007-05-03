@@ -179,6 +179,9 @@ public class UserTest extends PoemTestCase {
     assertTrue(getDb().administratorUser().isAdministrator());    
   }
 
+  /**
+   * Test cascading delete works. 
+   */
   public void testIntegrityFixDelete() {
     User u = new User("tester","tester","tester");
     getDb().getUserTable().create(u); 

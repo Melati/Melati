@@ -143,7 +143,10 @@ public class PoemTestCase extends TestCase implements Test {
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
 
-  public  Properties databaseDefs() {
+  /**
+   * @return the database definitions
+   */
+  public Properties databaseDefs() {
     if (databaseDefs == null)
       databaseDefs = getProperties();
     return databaseDefs;
@@ -277,12 +280,20 @@ public class PoemTestCase extends TestCase implements Test {
     return getDb(databaseName);
   }
 
+  /**
+   * @param dbNameP the name of the logical db
+   * @return a Database
+   */
   public Database getDb(String dbNameP) {
     if (dbNameP == null)
       throw new NullPointerException();
     return getDatabase(dbNameP);
   }
 
+  /**
+   * @param name the name of the logical db
+   * @return a Database
+   */
   public Database getDatabase(String name){ 
     Properties defs = databaseDefs();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
@@ -298,11 +309,17 @@ public class PoemTestCase extends TestCase implements Test {
             new Boolean(getOrDie(defs, pref + "logcommits")).booleanValue(),
             maxTrans);
   }
+  /**
+   * @return the user
+   */
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;
     return userToRunAs;
   }
 
+  /**
+   * @param userToRunAs the user
+   */
   public void setUserToRunAs(AccessToken userToRunAs) {
     if (userToRunAs == null) 
       this.userToRunAs = AccessToken.root;
@@ -310,6 +327,9 @@ public class PoemTestCase extends TestCase implements Test {
       this.userToRunAs = userToRunAs;
   }
 
+  /**
+   * @return a Properties
+   */
   public Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";

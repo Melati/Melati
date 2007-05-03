@@ -99,6 +99,9 @@ public class NotNullableReferencePoemTypeTest extends SQLPoemTypeTest {
 
   }
 
+  /**
+Test with wrong parameters.   * 
+   */
   public void testBadConstructor() {
     try {
       new ReferencePoemType(null, false);

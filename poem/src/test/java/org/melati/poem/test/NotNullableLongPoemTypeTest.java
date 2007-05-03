@@ -87,6 +87,9 @@ public class NotNullableLongPoemTypeTest extends SQLPoemTypeTest {
     }
     
   }
+  /**
+   * Test full constructor.
+   */
   public void testFullConstructor() {
     LongPoemType it2 = new MyLongPoemType(it.getNullable());
     assertEquals(it.getNullable(),it2.getNullable());

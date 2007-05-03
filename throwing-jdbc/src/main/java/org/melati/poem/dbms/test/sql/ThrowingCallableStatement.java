@@ -21,6 +21,11 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
+/**
+ * @author timp
+ * @since 3 May 2007
+ *
+ */
 public class ThrowingCallableStatement extends Thrower implements
         CallableStatement {
 
@@ -40,6 +45,10 @@ public class ThrowingCallableStatement extends Thrower implements
 
   CallableStatement it = null;
   
+  /**
+   * Constructor. 
+   * @param callableStatement
+   */
   public ThrowingCallableStatement(CallableStatement callableStatement) {
     this.it = callableStatement;
   }

@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+/**
+ * @author timp
+ * @since 3 May 2007
+ *
+ */
 public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaData {
   final static String className = ThrowingDatabaseMetaData.class.getName() + ".";
   public static void startThrowing(String methodName) {
@@ -23,6 +28,10 @@ public class ThrowingDatabaseMetaData extends Thrower implements DatabaseMetaDat
 
   DatabaseMetaData it = null;
 
+  /**
+   * Decorator constructor. 
+   * @param d base object to decorate. 
+   */
   public ThrowingDatabaseMetaData(DatabaseMetaData d) {
     this.it = d;
   }

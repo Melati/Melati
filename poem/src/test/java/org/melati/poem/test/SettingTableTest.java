@@ -37,8 +37,8 @@ public class SettingTableTest extends PoemTestCase {
     super.tearDown();
   }
 
-  /*
-   * @see org.melati.poem.SettingTable.postInitialise()'
+  /**
+   * @see org.melati.poem.SettingTable#postInitialise()
    */
   public void testPostInitialise() {
 

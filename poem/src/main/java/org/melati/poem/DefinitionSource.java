@@ -72,10 +72,18 @@ public class DefinitionSource {
     return name;
   }
 
-  /** Defined definition sources. */
+  /* Defined definition sources. */
+  /** The DSD. */
   public static final DefinitionSource
-      dsd = new DefinitionSource("the data structure definition"),
-      infoTables = new DefinitionSource("the data dictionary"),
-      sqlMetaData = new DefinitionSource("the JDBC metadata"),
+      dsd = new DefinitionSource("the data structure definition");
+  /** The metadata tables. */
+  public static final DefinitionSource
+      infoTables = new DefinitionSource("the data dictionary");
+  /** The JDBC metatdata. */
+  public static final DefinitionSource
+      sqlMetaData = new DefinitionSource("the JDBC metadata");
+  /** The current running application; transitory, 
+   * as next time this data will be in the data dictionary. */
+  public static final DefinitionSource
       runtime = new DefinitionSource("the running application");
 }

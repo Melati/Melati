@@ -144,8 +144,8 @@ public class ValueInfo extends ValueInfoBase {
   }
 
   /**
-   * @param nullableP
-   * @return
+   * @param nullableP whether nullable
+   * @return A type
    */
   private SQLPoemType getRangeEndType(boolean nullableP) {
     // FIXME a little inefficient, but rarely used; also relies on BasePoemType

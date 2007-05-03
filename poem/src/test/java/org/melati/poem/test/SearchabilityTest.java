@@ -15,7 +15,7 @@ import junit.framework.TestCase;
 public class SearchabilityTest extends TestCase {
 
   /**
-   * {@inheritDoc}
+   * Constructor.
    * @param name
    */
   public SearchabilityTest(String name) {

@@ -105,6 +105,9 @@ public class CachedSelectionTest extends PoemTestCase {
     assertNull(cachedSelection.nth(999));
   }
 
+  /**
+   * Test multi-table selection.
+   */
   public void testMultiTableSelection() {
     getDb().uncacheContents();
     Table[] others = new Table[] {getDb().getGroupMembershipTable(),
@@ -170,6 +173,9 @@ public class CachedSelectionTest extends PoemTestCase {
     getDb().setLogSQL(false);
   }
   
+  /**
+   * Test toString. 
+   */
   public void testToString() {
     
   }

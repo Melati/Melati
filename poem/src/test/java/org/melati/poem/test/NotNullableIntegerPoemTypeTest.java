@@ -112,6 +112,9 @@ public class NotNullableIntegerPoemTypeTest extends SQLPoemTypeTest {
     }
     
   }
+  /**
+   * Test full constructor.
+   */
   public void testFullConstructor() {
     IntegerPoemType it2 = new MyIntegerPoemType(it.getNullable());
     assertEquals(it.getNullable(),it2.getNullable());

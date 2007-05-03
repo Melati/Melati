@@ -3,6 +3,11 @@ package org.melati.poem.dbms.test.sql;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 
+/**
+ * @author timp
+ * @since 10 Feb 2007
+ *
+ */
 public class ThrowingSavepoint extends Thrower implements Savepoint {
   final static String className = ThrowingSavepoint.class.getName() + ".";
   public static void startThrowing(String methodName) {

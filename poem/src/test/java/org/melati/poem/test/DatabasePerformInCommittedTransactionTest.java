@@ -146,6 +146,9 @@ public class DatabasePerformInCommittedTransactionTest
     return db;
   }
 
+  /**
+   * @param dbName the name of the db to set
+   */
   public void setDb(String dbName) {
     if (dbName == null)
       throw new NullPointerException();
@@ -157,6 +160,10 @@ public class DatabasePerformInCommittedTransactionTest
     }
   }
 
+  /**
+   * @param name the name of the logical database
+   * @return a database with that name 
+   */
   public Database getDatabase(String name){ 
     Properties defs = databaseDefs();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
@@ -176,11 +183,17 @@ public class DatabasePerformInCommittedTransactionTest
 
   /** Properties, named for this class. */
   public static Properties databaseDefs = null;
+  /**
+   * @returnthe databse defs
+   */
   public  Properties databaseDefs() {
     if (databaseDefs == null)
       databaseDefs = getProperties();
     return databaseDefs;
   }
+  /**
+   * @return a properties object
+   */
   public Properties getProperties() {
     String className = "org.melati.poem.test.PoemTestCase";
     String name = className + ".properties";
@@ -200,11 +213,17 @@ public class DatabasePerformInCommittedTransactionTest
   }
 
   
+  /**
+   * @return the user
+   */
   public AccessToken getUserToRunAs() {
     if (userToRunAs == null) return AccessToken.root;
     return userToRunAs;
   }
 
+  /**
+   * @param userToRunAs the user to set
+   */
   public void setUserToRunAs(AccessToken userToRunAs) {
     if (userToRunAs == null) 
       this.userToRunAs = AccessToken.root;

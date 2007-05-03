@@ -41,6 +41,9 @@ public class DeletedPoemTypeTest extends NotNullableBooleanPoemTypeTest {
     assertFalse(it.canRepresent(new DisplayLevelPoemType()) instanceof IntegerPoemType);
   }
 
+  /**
+   * Test toString.
+   */
   public void testToString() {
     assertEquals("deleted (BOOLEAN (org.melati.poem.DeletedPoemType))", it.toString());
   }

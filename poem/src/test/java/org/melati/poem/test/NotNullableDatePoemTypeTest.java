@@ -39,6 +39,9 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
     it = new DatePoemType(false);
   }
 
+  /**
+   * Test full constructor.
+   */
   public void testFullConstructor() {
     DatePoemType it2 = new DatePoemType(Types.DATE, "DATETIME", it.getNullable());
     assertNotNull(it.canRepresent(it2));
@@ -96,12 +99,9 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
 
   }
 
-  /*
-   * 
-   * Class under test for String toString()
-   *  
+  /**
+   * Test toString.
    */
-
   public void testToString() {
 
     DatePoemType t = new DatePoemType(true);
@@ -111,6 +111,9 @@ public class NotNullableDatePoemTypeTest extends SQLPoemTypeTest {
 
   }
 
+  /**
+   * Test equals.
+   */
   public void testEquals() {
 
     DatePoemType t = new DatePoemType(true);

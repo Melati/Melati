@@ -71,6 +71,9 @@ public class DynamicTableTest extends EverythingTestCase {
     PoemDatabaseFactory.removeDatabase(databaseName);
   } 
 
+  /**
+   * Test the addition of a table.
+   */
   public void testAddTableAndCommit() throws Exception {
     TableInfo info = (TableInfo)getDb().getTableInfoTable().newPersistent();
     info.setName("addedtable");
@@ -177,6 +180,9 @@ public class DynamicTableTest extends EverythingTestCase {
 
   }
 
+  /**
+   * Test that an added, 'extra', column can be represented as a field. 
+   */
   public void testExtraColumnAsField() {
     TableInfo ti = (TableInfo)getDb().getTableInfoTable().newPersistent();
     ti.setName("addedtable3");

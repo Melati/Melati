@@ -106,6 +106,9 @@ public class NotNullableBinaryPoemTypeTest extends SizedAtomPoemTypeTest {
     assertEquals(b[1],b[0]);
   }
 
+  /**
+   * Test toString.
+   */
   public void testToString() {
     assertEquals("binary(20)",it.toString());
   }

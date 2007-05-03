@@ -37,6 +37,9 @@ public class DisplayLevelPoemTypeTest extends NotNullableIntegerPoemTypeTest {
     it = new DisplayLevelPoemType();
   }
 
+  /**
+   * Test tString.
+   */
   public void testToString() {
     assertEquals("display level (INT (org.melati.poem.DisplayLevelPoemType))", it.toString());
   }

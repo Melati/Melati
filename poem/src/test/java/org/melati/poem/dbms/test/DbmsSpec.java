@@ -94,7 +94,7 @@ public abstract class DbmsSpec extends PoemTestCase {
 
   /**
    * Test method for {@link org.melati.poem.dbms.Dbms#
-   * getQuotedValue(org.melati.poem.SQLType, String).
+   * getQuotedValue(org.melati.poem.SQLType, String)} .
    */
   public void testGetQuotedValue() {
     
@@ -326,12 +326,20 @@ public abstract class DbmsSpec extends PoemTestCase {
     assertEquals(expected, actual);
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
+   */
   public void testCaseInsensitiveRegExpSQLQuoted() {
     String expected = "a ILIKE '%b%'";
     String actual = it.caseInsensitiveRegExpSQL("a", "\"b\"");
     assertEquals(expected, actual);
   }
 
+  /**
+   * Test method for {@link org.melati.poem.dbms.Dbms#
+   * caseInsensitiveRegExpSQL(java.lang.String, java.lang.String)}.
+   */
   public void testCaseInsensitiveRegExpSQLBlank() {
     String expected = " ILIKE '%%'";
     String actual = it.caseInsensitiveRegExpSQL("", "");

@@ -60,7 +60,9 @@ public final class Cache {
 
  /** A <code>key:value</code> pair. */
   private interface Node {
+    /** The key. */
     Object key();
+    /** The value. */
     Object value();
   }
 

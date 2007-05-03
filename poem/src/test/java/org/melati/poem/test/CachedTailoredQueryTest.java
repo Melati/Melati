@@ -54,7 +54,7 @@ public class CachedTailoredQueryTest extends PoemTestCase {
   /** 
    * This needs more thought.
    * 
-   * @see org.melati.poem.CachedTailoredQuery.selection_firstRaw()'
+   * @see org.melati.poem.CachedTailoredQuery#selection_firstRaw()
    */
   public void testSelection_firstRaw() {
     Column[] cols = new Column[1];

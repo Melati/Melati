@@ -112,6 +112,7 @@ public class ColumnInfo extends ColumnInfoBase {
   private Column column() {
     //There is no circumstance in which the column is null but the troid not 
     // where the column could be found.
+    // So this mthod has been removed from Database.
     //if (_column == null && troid() != null)
     //  _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;

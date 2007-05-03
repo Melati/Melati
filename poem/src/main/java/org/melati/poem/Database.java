@@ -915,21 +915,6 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * FIXME This should be removed as the situation it is designed to accomodate cannot occur
-   * @param columnInfoID
-   * @return the Column with the given troid
-   */
-  Column columnWithColumnInfoID(int columnInfoID) {
-    for (Enumeration t = tables.elements(); t.hasMoreElements();) {
-      Column column =
-          ((Table)t.nextElement()).columnWithColumnInfoID(columnInfoID);
-      if (column != null)
-        return column;
-    }
-    return null;
-  }
-
-  /**
    * @return The metadata table with information about all tables in the database.
    */
   public abstract TableInfoTable getTableInfoTable();
@@ -1367,7 +1352,7 @@ public abstract class Database implements TransactionPool {
   }
 
   /**
-   * @return the jdbc Connection
+   * @return the non-transactioned jdbc Connection
    */
   public Connection getCommittedConnection() {
     return committedConnection;

@@ -211,12 +211,6 @@ public class PersistentTest extends EverythingTestCase {
 
   }
 
-  /**
-   * @see org.melati.poem#Persistent.extras()
-   */
-  public void testExtras() {
-
-  }
 
   /**
    * @see org.melati.poem.Persistent#getTable()

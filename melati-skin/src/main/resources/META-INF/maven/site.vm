@@ -4,7 +4,7 @@
     #if( $banner.href )
       <a href="$banner.href" id="$id">
     #else
-        <span id="$id">
+        <div id="$id">
     #end
 
     #if( $banner.src )
@@ -16,7 +16,7 @@
         #if ( $banner.alt )
             #set ( $alt = $banner.alt )
         #else
-            #set ( $alt = "" )
+            #set ( $alt = $banner.name )
         #end
         <img src="$src" alt="$alt" />
     #else
@@ -26,7 +26,7 @@
     #if( $banner.href )
         </a>
     #else
-        </span>
+        </div>
     #end
   #end
 #end
@@ -67,7 +67,7 @@
     #foreach( $subitem in $item.items )
       #set ( $subitemHref = $PathTool.calculateLink( $subitem.href, $relativePath ) )
       #set ( $subitemHref = $subitemHref.replaceAll( "\\", "/" ) )
-
+      #set ( $display = false )
       #if ( $alignedFileName == $subitemHref )
         #set ( $display = true )
       #end
@@ -129,11 +129,13 @@
     #if ( $menu.name )
     <h5>$menu.name</h5>
     #end
+    #if ( $menu.items && $menu.items.size() > 0 )
     <ul>
       #foreach( $item in $menu.items )
         #menuItem( $item )
       #end
     </ul>
+    #end
   #end
 #end
 
@@ -254,20 +256,34 @@
                 #set ( $img = "images/logos/maven-feather.png" )
             #end
 
-            <a href="$href" title="$name" id="poweredBy">
+            <a href="$href" title="$name">
               #set ( $img = $PathTool.calculateLink( $img, $relativePath ) )
               #set ( $img = $img.replaceAll( "\\", "/" ) )
-              <img alt="$name" src="$img" />
+              <img  class="poweredBy"  
+                    alt="$name" 
+                    src="$img" 
+                    width="90"
+                    height="30"
+              />
             </a>
         #end
         #if( $poweredBy.isEmpty() )
-          <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" id="poweredBy">
-            <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png"></img>
+          <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven">
+            <img class="poweredBy" 
+                 alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" 
+                 src="$relativePath/images/logos/maven-feather.png" 
+                 width="90"
+                 height="30"
+                 border="2" />
           </a>
         #end
     #else
-        <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" id="poweredBy">
-          <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png"></img>
+        <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" >
+          <img class="poweredBy" 
+               alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" 
+               src="$relativePath/images/logos/maven-feather.png" border="1" />
+               width="90"
+               height="30"
         </a>
     #end
 #end
@@ -349,7 +365,10 @@
        #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
        #mainMenu( $decoration.body.menus )
        #poweredByLogo( $decoration.poweredBy )
-<SCRIPT type='text/javascript' language='JavaScript' src='http://www.ohloh.net/projects/5070;badge_js'></SCRIPT>       
+<br />
+<a href="http://www.ohloh.net/projects/5070">
+  <img class="poweredBy" border="2" src="http://www.ohloh.net/projects/5070/badge.gif" width="100" height="16"  alt="Ohloh Metrics" />
+</a>
        #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
       </div>
     </div>

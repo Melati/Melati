@@ -98,12 +98,10 @@ div.clear hr{
   margin-top: 10px;
   margin-bottom: 3px;
 }
-#poweredBy img {
+.poweredBy {
   display:block;
   margin: 20px 0 20px 17px;
   border: 1px solid black;
-  width: 90px;
-  height: 30px;
 }
 #search img {
     margin: 0px;

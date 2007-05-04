@@ -2,15 +2,10 @@
 
 <document>
 
-  <properties>
-    <title>Melati Skin</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
-    <keywords>
-site skin Maven Melati
-    </keywords>
-  </properties>
-
-  <body>
+ <properties>
+  <title>Melati Skin</title>
+ </properties>
+ <body>
 
 
 <!--

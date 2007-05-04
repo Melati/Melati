@@ -9,11 +9,13 @@
     <name>Melati</name>
     <src>http://www.melati.org/images/logo.jpg</src> 
     <href>http://www.melati.org/</href>
+    <alt>The flower of Java</alt>
   </bannerLeft>
   <bannerRight>
     <name>Melati</name>
     <src>http://www.melati.org/images/logo.jpg</src> 
     <href>http://www.melati.org/</href>
+    <alt>The flower of Java</alt>
   </bannerRight>
   <body>
     <links>
@@ -22,7 +24,6 @@
       <item name="PanEris.org"           href="http://www.paneris.org" />
       <item name="PanEris.net"           href="http://www.paneris.net" />
     </links>
-    <menu ref="parent" inherit="top" />
     <menu name="Melati">
         <item name="Home" href="index.html"/>
         <item name="Features" href="Features.html"/>

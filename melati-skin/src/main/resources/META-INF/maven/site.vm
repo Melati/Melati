@@ -349,6 +349,7 @@
        #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
        #mainMenu( $decoration.body.menus )
        #poweredByLogo( $decoration.poweredBy )
+<SCRIPT type='text/javascript' language='JavaScript' src='http://www.ohloh.net/projects/5070;badge_js'></SCRIPT>       
        #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
       </div>
     </div>

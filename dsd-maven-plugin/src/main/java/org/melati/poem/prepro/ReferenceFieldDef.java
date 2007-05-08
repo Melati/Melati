@@ -142,7 +142,7 @@ public class ReferenceFieldDef extends FieldDef {
     String targetTableAccessorMethod = "get" + type + "Table";
     String targetSuffix = type;
 
-    String db = "get" + table.dsd.databaseTablesClass + "()";
+    String db = "get" + table.dsd.databaseTablesClassName + "()";
 
     w.write(
       "\n /**\n"
@@ -265,7 +265,7 @@ public class ReferenceFieldDef extends FieldDef {
  /** @return the Java string for this <code>PoemType</code>. */
   public String poemTypeJava() {
     String targetTableAccessorMethod = "get" + type + "Table";
-    String db = "get" + table.dsd.databaseTablesClass + "()";
+    String db = "get" + table.dsd.databaseTablesClassName + "()";
 
     return
         "new ReferencePoemType(" + db + ".\n" + 

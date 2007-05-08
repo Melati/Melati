@@ -81,8 +81,8 @@ public class DSD {
   final String packageName;
   private final File dsdFile, dsdDir, dsdDirGen;
   private final String name;
-  final String databaseClass, databaseBaseClass;
-  final String databaseTablesClass, databaseTablesBaseClass;
+  final String databaseClassName, databaseBaseClassName;
+  final String databaseTablesClassName, databaseTablesBaseClassName;
   TableNamingStore nameStore;
 
   /* All tables defined in this DSD */
@@ -149,10 +149,10 @@ public class DSD {
     name = dot == -1 ? dsdFileName : dsdFileName.substring(0, dot);
 
     String nAme = StringUtils.capitalised(name);
-    databaseClass = nAme + "Database";
-    databaseBaseClass = nAme + "DatabaseBase";
-    databaseTablesClass = nAme + "DatabaseTables";
-    databaseTablesBaseClass = nAme + "DatabaseTablesBase";
+    databaseClassName = nAme + "Database";
+    databaseBaseClassName = nAme + "DatabaseBase";
+    databaseTablesClassName = nAme + "DatabaseTables";
+    databaseTablesBaseClassName = nAme + "DatabaseTablesBase";
     dsdDir = new File(new File(dsdFile.getAbsolutePath()).getParent());
     dsdDirGen = new File(
                   dsdDir.getAbsolutePath() + File.separator + "generated");
@@ -396,7 +396,7 @@ public class DSD {
             "/**\n" +
             " * Melati POEM generated Database base class.\n" +
             " */\n");
-    w.write("public class " + databaseBaseClass + " extends " +
+    w.write("public class " + databaseBaseClassName + " extends " +
             (packageName.equals("org.melati.poem") &&
                  name.equalsIgnoreCase("Poem") ?
                "Database" : "PoemDatabase") +" {\n\n");
@@ -408,7 +408,7 @@ public class DSD {
     }
 
     w.write("\n" +
-            "  protected " + databaseBaseClass + "() {\n");
+            "  protected " + databaseBaseClassName + "() {\n");
 
     for (Enumeration t = tablesInDatabase.elements(); t.hasMoreElements();) {
       TableDef td = ((TableDef)t.nextElement());
@@ -430,14 +430,14 @@ public class DSD {
 
   void generateDatabaseJava(Writer w) throws IOException {
     w.write("import " + packageName + ".generated." +
-              databaseBaseClass + ";\n");
+              databaseBaseClassName + ";\n");
     w.write("\n" +
             "/**\n" +
             " * Melati POEM generated, programmer modifiable stub.\n" +
             " */\n");
-    w.write("public class " + databaseClass +
-            " extends " + databaseBaseClass +
-            "\n                            implements " + databaseTablesClass);
+    w.write("public class " + databaseClassName +
+            " extends " + databaseBaseClassName +
+            "\n                            implements " + databaseTablesClassName);
     w.write(" {\n" +
             "  // programmer's domain-specific code here\n" +
             "}\n\n");
@@ -456,7 +456,7 @@ public class DSD {
     for (int j = 0; j < importedDSDs.size(); j++) {
       DSD dsd = (DSD)importedDSDs.elementAt(j);
       w.write("import " + dsd.packageName + "."+
-              dsd.databaseTablesClass + ";\n");
+              dsd.databaseTablesClassName + ";\n");
     }
 
     w.write("\n" +
@@ -464,17 +464,17 @@ public class DSD {
             " * Melati POEM generated base interface to the tables in \n" +
             " * " + packageName + ".\n" +
             " */\n");
-    w.write("public interface " + databaseTablesBaseClass);
+    w.write("public interface " + databaseTablesBaseClassName);
     boolean first = true;
     for (Enumeration t = importedDSDs.elements(); t.hasMoreElements();) {
       DSD dsd = ((DSD)t.nextElement());
       if (first) {
-        w.write("\n                       extends " + dsd.databaseTablesClass);
+        w.write("\n                       extends " + dsd.databaseTablesClassName);
         first = false;
       }
       else {
         w.write(",\n                               " +
-                dsd.databaseTablesClass);
+                dsd.databaseTablesClassName);
       }
     }
     w.write(" {\n\n");
@@ -488,22 +488,25 @@ public class DSD {
 
   void generateDatabaseTablesJava(Writer w) throws IOException {
     w.write("import " + packageName + ".generated." +
-              databaseTablesBaseClass + ";\n");
+              databaseTablesBaseClassName + ";\n");
     w.write("\n" +
             "/**\n" +
             " * Melati POEM generated, " +
             "programmer modifyable interface stub.\n" +
             " */\n");
-    w.write("public interface " + databaseTablesClass +
-            " extends " + databaseTablesBaseClass + " {\n" +
+    w.write("public interface " + databaseTablesClassName +
+            " extends " + databaseTablesBaseClassName + " {\n" +
             "  // programmer's domain-specific code here\n" +
             "}\n\n");
   }
 
+  /**
+   * Generate the java files.
+   */
   void generateJava() throws IOException, IllegalityException {
     final DSD this_ = this;
 
-    createJava(databaseBaseClass,
+    createJava(databaseBaseClassName,
                new Generator() {
                  public void process(Writer w) throws IOException {
                    this_.generateDatabaseBaseJava(w);
@@ -511,7 +514,7 @@ public class DSD {
                },
                true);
 
-    createJava(databaseClass,
+    createJava(databaseClassName,
                new Generator() {
                  public void process(Writer w) throws IOException {
                    this_.generateDatabaseJava(w);
@@ -519,7 +522,7 @@ public class DSD {
                },
                false);
 
-    createJava(databaseTablesBaseClass,
+    createJava(databaseTablesBaseClassName,
                new Generator() {
                  public void process(Writer w) throws IOException {
                    this_.generateDatabaseTablesBaseJava(w);
@@ -527,13 +530,13 @@ public class DSD {
                },
                true);
 
-    createJava(databaseTablesClass,
-        new Generator() {
-          public void process(Writer w) throws IOException {
-            this_.generateDatabaseTablesJava(w);
-          }
-        },
-        false);
+    createJava(databaseTablesClassName,
+            new Generator() {
+              public void process(Writer w) throws IOException {
+                this_.generateDatabaseTablesJava(w);
+              }
+            },
+            false);
 
     // Create a default package.html if it does not exist
     createPackageHTML(new Generator() {

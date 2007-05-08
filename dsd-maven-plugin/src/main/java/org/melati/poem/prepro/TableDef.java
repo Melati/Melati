@@ -268,9 +268,9 @@ public class TableDef {
     w.write("\n /**\n" + "  * Retrieves the Database object.\n" + "  * \n"
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
         + "#generateBaseJava \n" + "  * @return the database\n" + "  */\n");
-    w.write("  public " + dsd.databaseTablesClass + " get"
-        + dsd.databaseTablesClass + "() {\n" + "    return ("
-        + dsd.databaseTablesClass + ")getDatabase();\n" + "  }\n" + "\n");
+    w.write("  public " + dsd.databaseTablesClassName + " get"
+        + dsd.databaseTablesClassName + "() {\n" + "    return ("
+        + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n");
 
     w.write("\n /**\n" + "  * Retrieves the  <code>"
         + naming.tableMainClassShortName() + "</code> table \n"
@@ -411,9 +411,9 @@ public class TableDef {
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + "  * @return the database tables\n"
         + "  */\n");
-    w.write("  public " + dsd.databaseTablesClass + " get"
-        + dsd.databaseTablesClass + "() {\n" + "    return ("
-        + dsd.databaseTablesClass + ")getDatabase();\n" + "  }\n" + "\n"
+    w.write("  public " + dsd.databaseTablesClassName + " get"
+        + dsd.databaseTablesClassName + "() {\n" + "    return ("
+        + dsd.databaseTablesClassName + ")getDatabase();\n" + "  }\n" + "\n"
         + "  protected void init() throws PoemException {\n"
         + "    super.init();\n");
 
@@ -586,7 +586,7 @@ public class TableDef {
     // we may not have any fields in an in an overridden class
     // but we need the import for getTable
     addImport(naming.tableMainClassFQName(), "persistent");
-    addImport(dsd.packageName + "." + dsd.databaseTablesClass, "persistent");
+    addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "persistent");
 
     addImport("org.melati.poem.Database", "table");
     addImport("org.melati.poem.DefinitionSource", "table");
@@ -600,7 +600,7 @@ public class TableDef {
     } else {
       addImport(naming.superclassTableFQName(), "table");
     }
-    addImport(dsd.packageName + "." + dsd.databaseTablesClass, "table");
+    addImport(dsd.packageName + "." + dsd.databaseTablesClassName, "table");
 
     // Sort out the imports
     for (Enumeration i = imports.keys(); i.hasMoreElements();) {

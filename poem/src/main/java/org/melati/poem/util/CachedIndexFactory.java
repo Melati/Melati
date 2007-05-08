@@ -59,8 +59,8 @@ import java.util.Vector;
  * <p>
  * <code>null</code> object references can be cached and returned.
  * <p>
- * Individual elements can be removed from the cache, or all of
- * them.
+ * Individual elements can be removed from the cache or all elements 
+ * may be removed.
  */
 
 public abstract class CachedIndexFactory implements IndexFactory {
@@ -70,6 +70,7 @@ public abstract class CachedIndexFactory implements IndexFactory {
   protected abstract Object reallyGet(int index);
 
   /**
+   * Get either from cache or, failing that, really get it.
    * {@inheritDoc}
    * @see org.melati.poem.util.IndexFactory#get(int)
    */

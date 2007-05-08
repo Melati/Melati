@@ -109,7 +109,7 @@ public class PoemTypeFactoryTest extends PoemTestCase {
   public void testForCode() {
     PoemTypeFactory userType = PoemTypeFactory.forCode((Database)getDb(),0);
     assertEquals("User", userType.getDisplayName());
-    assertEquals("A registered user of the database", userType.getDescription());
+    assertEquals("A registered User of the database", userType.getDescription());
   }
 
 }

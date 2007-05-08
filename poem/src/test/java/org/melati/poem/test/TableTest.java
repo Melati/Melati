@@ -104,7 +104,7 @@ public class TableTest extends PoemTestCase {
    * @see org.melati.poem.Table#getDescription()
    */
   public void testGetDescription() {
-    assertEquals("A registered user of the database", getDb().getUserTable()
+    assertEquals("A registered User of the database", getDb().getUserTable()
         .getDescription());
   }
 

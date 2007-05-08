@@ -296,9 +296,13 @@ public class AnsiStandard implements Dbms {
    */
   public String getFixedPtSqlDefinition(int scale, int precision)
       throws SQLException {
-    if (scale < 0 || precision <= 0)
+    if (scale < 0 )
       throw new SQLException(
-          "negative scale or nonpositive precision not supported " + 
+          "negative scale not supported " + 
+          "in AnsiStandard DECIMALs");
+    if (precision <= 0)
+      throw new SQLException(
+          "nonpositive precision not supported " + 
           "in AnsiStandard DECIMALs");
 
     return "DECIMAL(" + precision + "," + scale + ")";

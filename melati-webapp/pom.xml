@@ -2,14 +2,13 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.5-RC5</version>
+    <version>0.7.6-RC2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>melati-webapp</artifactId>
   <packaging>war</packaging>
   <name>Melati Webapp</name>
-  <version>0.7.5-RC5</version>
   <url>http://melati.org/webapp</url>
   <distributionManagement>
     <site>
@@ -46,19 +45,19 @@
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.6-RC1</version>
+      <version>0.7.6-RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-odmg</artifactId>
-      <version>0.7.6-RC1</version>
+      <version>0.7.6-RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-contacts</artifactId>
-      <version>0.7.6-RC1</version>
+      <version>0.7.6-RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>

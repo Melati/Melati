@@ -16,7 +16,7 @@
     <module>melati-archetype</module>
     <module>melati-skin</module>
   </modules>  
-  <version>0.7.6-RC1</version>
+  <version>0.7.6-RC2</version>
   <description>
 Melati Java Web Development Suite
   </description>
@@ -36,7 +36,17 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <url>http://www.paneris.org/</url>
   </organization>
 
-  <ciManagement/>
+  <ciManagement>
+    <system>continuum</system>
+    <notifiers>
+     <notifier>
+      <type>mail</type>
+      <configuration>
+       <address>timp@champion.co.uk</address>
+      </configuration>
+     </notifier>
+    </notifiers>
+  </ciManagement>
 
   <distributionManagement>
     <repository>
@@ -377,7 +387,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <report>dependencies</report>
           <report>project-team</report>
           <report>mailing-list</report>
-          <!-- report>cim</report -->
+          <report>cim</report>
           <report>issue-tracking</report>
           <report>license</report>
           <report>scm</report>
@@ -385,10 +395,10 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         </reportSet>
        </reportSets>
       </plugin>
-      <!--plugin>
+      <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
-      </plugin-->
+      </plugin>
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>

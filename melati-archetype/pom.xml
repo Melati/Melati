@@ -11,6 +11,6 @@
   </parent>
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Archetype</name>
+  <name>Melati Archetype</name>
   <url>http://melati.org/melati-archetype/</url>
 </project>

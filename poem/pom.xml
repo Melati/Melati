@@ -2,13 +2,12 @@
   <parent>
     <groupId>org.melati</groupId>
     <artifactId>melati-parent</artifactId>
-    <version>0.7.6-RC1</version>
+    <version>0.7.6-RC2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.melati</groupId>
   <artifactId>poem</artifactId>
   <name>POEM</name>
-  <version>0.7.6-RC1</version>
   <url>http://melati.org/poem</url>
   <description>
   Persistent Object Engine for Melati.
@@ -165,7 +164,8 @@
       <excludes>
         <!-- Old example test -->
        <exclude>**/UserTableTest.java</exclude>
-       <!-- exclude>**/HsqldbTest.java</exclude-->
+       <!-- MSAccess problem -->
+       <!-- exclude>**/DynamicTableTest.java</exclude -->
        <!-- exclude>**/MultiThreadedCachedSelectionTest.java</exclude-->
        <!-- exclude>**/PoemThreadTest.java</exclude-->
        <!-- exclude>**/PostgresqlTest.java</exclude-->
@@ -173,7 +173,7 @@
        <!-- exclude>**/PoemDatabaseTest.java</exclude-->
        <!-- exclude>**/PoemServletTest.java</exclude -->
        <!-- exclude>**/TemplateServletTest.java</exclude -->
-       <!--exclude>**/*.java</exclude-->
+       <!-- exclude>**/*.java</exclude -->
       </excludes>
      </configuration>
     </plugin>

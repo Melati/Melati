@@ -52,6 +52,13 @@ import java.util.Hashtable;
  */
 public class TableNamingStore {
 
+  /**
+   * Constructor.
+   */
+  public TableNamingStore() {
+    super();
+ }
+
   Hashtable tablesByShortName = new Hashtable();
   Hashtable tablesByFQName = new Hashtable();
   boolean debug = false;
@@ -64,11 +71,11 @@ public class TableNamingStore {
    *                    one already encountered but does not extend it 
    * @return a newly created <code>TableNamingInfo</code> 
    */
-  public TableNamingInfo add(String packageName, String name, 
+  public TableNamingInfo add(String packageName, String projectNameIn, String name, 
                              String superclass)
       throws HiddenTableException {
 
-    TableNamingInfo info = new TableNamingInfo(packageName, name);
+    TableNamingInfo info = new TableNamingInfo(packageName, projectNameIn, name);
 
     // superclass could be FQ (e.g. 'org.melati.poem.User') 
     // or not (e.g. 'User')
@@ -90,7 +97,7 @@ public class TableNamingStore {
       } else {
         String pack = superclass.substring(0, superclass.lastIndexOf("."));
         String nam = superclass.substring(superclass.lastIndexOf(".")+1);
-        info.superclass = add(pack, nam, null);
+        info.superclass = add(pack, projectNameIn, nam, null);
       }
     }
 

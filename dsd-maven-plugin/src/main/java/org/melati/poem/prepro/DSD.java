@@ -83,6 +83,8 @@ public class DSD {
   private final String name;
   final String databaseClassName, databaseBaseClassName;
   final String databaseTablesClassName, databaseTablesBaseClassName;
+  /** The project name*/
+  final String projectName;
   TableNamingStore nameStore;
 
   /* All tables defined in this DSD */
@@ -148,17 +150,17 @@ public class DSD {
     int dot = dsdFileName.lastIndexOf('.');
     name = dot == -1 ? dsdFileName : dsdFileName.substring(0, dot);
 
-    String nAme = StringUtils.capitalised(name);
-    databaseClassName = nAme + "Database";
-    databaseBaseClassName = nAme + "DatabaseBase";
-    databaseTablesClassName = nAme + "DatabaseTables";
-    databaseTablesBaseClassName = nAme + "DatabaseTablesBase";
+    projectName = StringUtils.capitalised(name);
+    databaseClassName = projectName + "Database";
+    databaseBaseClassName = projectName + "DatabaseBase";
+    databaseTablesClassName = projectName + "DatabaseTables";
+    databaseTablesBaseClassName = projectName + "DatabaseTablesBase";
     dsdDir = new File(new File(dsdFile.getAbsolutePath()).getParent());
     dsdDirGen = new File(
                   dsdDir.getAbsolutePath() + File.separator + "generated");
 
     /* Read in the default Poem tables, if appropriate */
-    if (includePoem && !"Poem".equals(nAme)) {
+    if (includePoem && !"Poem".equals(projectName)) {
       DSD poemDSD = new DSD(filePath("org.melati.poem.Poem.dsd"),
                             nameStore, false);
       Vector poemTables = poemDSD.tablesInPackage;
@@ -500,6 +502,47 @@ public class DSD {
             "}\n\n");
   }
 
+  void generateTableJava(Writer w) throws IOException {
+    w.write("import org.melati.poem.Table;\n");
+    w.write("import org.melati.poem.DefinitionSource;\n");
+    w.write("import org.melati.poem.Database;\n");
+    w.write("import org.melati.poem.PoemException;\n");
+
+    w.write("\n" +
+            "/**\n" +
+            " * Melati POEM generated, " +
+            "programmer modifyable inheritance hook.\n" +
+            " */\n");
+    w.write("public class " + getTableClassName() +
+            " extends Table {\n");
+    
+    w.write("\n /**\n" + "  * Constructor. \n" + "  * \n" + "  * @generator "
+            + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
+            + "  * @param database          the POEM database we are using\n"
+            + "  * @param name              the name of this <code>Table</code>\n"
+            + "  * @param definitionSource  which definition is being used\n"
+            + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
+
+    w.write("\n" + "  public " + getTableClassName() + "(\n"
+            + "      Database database, String name,\n"
+            + "      DefinitionSource definitionSource)"
+            + " throws PoemException {\n"
+            + "    super(database, name, definitionSource);\n" + "  }\n" + "\n");
+
+    w.write("\n /**\n" + "  * Constructor.\n" + "  *\n" 
+            + "  * @generator "
+            + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
+            + "  * @param database          the POEM database we are using\n"
+            + "  * @param name              the name of this <code>Table</code>\n"
+            + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
+    w.write("  public " + getTableClassName() + "(\n"
+            + "      Database database, String name)" + " throws PoemException {\n"
+            + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" + "\n");
+
+    w.write("  // programmer's domain-specific code here\n" +
+    "}\n\n");
+  }
+  
   /**
    * Generate the java files.
    */
@@ -538,6 +581,14 @@ public class DSD {
             },
             false);
 
+    createJava(getTableClassName(),
+            new Generator() {
+              public void process(Writer w) throws IOException {
+                this_.generateTableJava(w);
+              }
+            },
+            false);
+    
     // Create a default package.html if it does not exist
     createPackageHTML(new Generator() {
       public void process(Writer w) throws IOException {
@@ -658,6 +709,20 @@ public class DSD {
        System.err.println(
           "Usage: java org.melati.poem.prepro.DSD <dsd file> [false]");
     }
+  }
+
+  /**
+   * @return the table class name
+   */
+  public String getTableClassName() {
+    return projectName + "Table";
+  }
+
+  /**
+   * @return the project name
+   */
+  public String getProjectName() {
+    return projectName;
   }
 
 }

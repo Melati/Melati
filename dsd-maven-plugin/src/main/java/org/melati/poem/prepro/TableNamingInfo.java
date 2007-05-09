@@ -62,7 +62,7 @@ public class TableNamingInfo {
   public String tableShortName = null;
 
   /** The TableNamingInfo of this Table's superclass (or null if extends
-      Persistent). */
+      Persistent or Table). */
   public TableNamingInfo superclass = null;
 
   /** 
@@ -90,13 +90,17 @@ public class TableNamingInfo {
    */
   public boolean hidden = false;
 
+  private String projectName;
+
   /**
    * Constructor.
    * @param packageNameIn  the fully qualified java name of this package
+   * @param projectName    the name of this project 
    * @param name           the name of this table
    */
-  public TableNamingInfo(String packageNameIn, String name) {
+  public TableNamingInfo(String packageNameIn, String projectNameIn, String name) {
     packageName = packageNameIn;
+    projectName = projectNameIn; 
     tableShortName = name;
     tableFQName = packageName + "." + name;
     superclass = null;
@@ -144,8 +148,12 @@ public class TableNamingInfo {
    */
   public String superclassTableUnambiguous() {
     return (superclass == null)
-            ? "Table"
+            ? getTableClassName()
             : superclass.tableMainClassUnambiguous();
+  }
+
+  private String getTableClassName() {
+    return projectName + "Table";
   }
 
   /** 
@@ -155,7 +163,7 @@ public class TableNamingInfo {
    */
   public String superclassTableFQName() {
     return (superclass == null)
-            ? "org.melati.poem.Table"
+            ? packageName + "." + getTableClassName()
             : superclass.tableMainClassFQName();
   }
   /** 
@@ -165,7 +173,7 @@ public class TableNamingInfo {
    */
   public String superclassTableShortName() {
     return (superclass == null)
-            ? "Table"
+            ? getTableClassName()
             : superclass.tableMainClassShortName();
   }
 

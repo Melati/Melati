@@ -128,7 +128,7 @@ public class TableDef {
     } else
       tokens.pushBack();
 
-    naming = nameStore.add(dsd.packageName, suffix, superclass);
+    naming = nameStore.add(dsd.packageName, dsd.getProjectName(), suffix, superclass);
 
     while (tokens.nextToken() == '(') {
       tokens.nextToken();

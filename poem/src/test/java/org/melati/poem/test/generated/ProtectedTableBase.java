@@ -15,11 +15,11 @@ import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.EverythingTable;
 import org.melati.poem.test.Protected;
 
 
@@ -30,7 +30,7 @@ import org.melati.poem.test.Protected;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ProtectedTableBase extends Table {
+public class ProtectedTableBase extends EverythingTable {
 
   private Column col_id = null;
   private Column col_spy = null;

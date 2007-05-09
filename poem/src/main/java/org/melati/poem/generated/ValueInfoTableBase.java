@@ -14,10 +14,10 @@ import org.melati.poem.IntegerPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.ValueInfo;
 
@@ -29,7 +29,7 @@ import org.melati.poem.ValueInfo;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ValueInfoTableBase extends Table {
+public class ValueInfoTableBase extends PoemTable {
 
   private Column col_displayname = null;
   private Column col_description = null;

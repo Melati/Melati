@@ -6,6 +6,7 @@ import org.melati.example.contacts.Category;
 import org.melati.example.contacts.Contact;
 import org.melati.example.contacts.ContactCategory;
 import org.melati.example.contacts.ContactsDatabaseTables;
+import org.melati.example.contacts.ContactsTable;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -17,7 +18,6 @@ import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StandardIntegrityFix;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 
@@ -29,7 +29,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ContactCategoryTableBase extends Table {
+public class ContactCategoryTableBase extends ContactsTable {
 
   private Column col_id = null;
   private Column col_category = null;

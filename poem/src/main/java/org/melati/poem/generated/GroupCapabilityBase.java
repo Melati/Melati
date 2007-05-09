@@ -56,7 +56,7 @@ public abstract class GroupCapabilityBase extends Persistent {
   */
   protected Integer id;
  /**
-  * group - The user-group which has the capability 
+  * group - The Group which has the capability 
   */
   protected Integer group;
  /**

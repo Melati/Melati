@@ -14,9 +14,9 @@ import org.melati.poem.GroupCapability;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 
@@ -28,7 +28,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupCapabilityTableBase extends Table {
+public class GroupCapabilityTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_group = null;
@@ -168,7 +168,7 @@ public class GroupCapabilityTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "The user-group which has the capability";
+            return "The Group which has the capability";
           }
 
           public Object getRaw_unsafe(Persistent g)
@@ -313,7 +313,7 @@ public class GroupCapabilityTableBase extends Table {
   }
 
   protected String defaultDescription() {
-    return "A record that users belonging to a given group possess a given capability";
+    return "A record that Users belonging to a given Group possess a given Capability";
   }
 
   protected String defaultCategory() {

@@ -12,10 +12,10 @@ import org.melati.poem.LongPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.EverythingTable;
 import org.melati.poem.test.LongField;
 
 
@@ -26,7 +26,7 @@ import org.melati.poem.test.LongField;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class LongFieldTableBase extends Table {
+public class LongFieldTableBase extends EverythingTable {
 
   private Column col_id = null;
   private Column col_longfield = null;

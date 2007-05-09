@@ -53,7 +53,7 @@ public abstract class CapabilityBase extends Persistent {
   */
   protected Integer id;
  /**
-  * name - A human-readable name for the capability 
+  * name - A human-readable name for the Capability 
   */
   protected String name;
 
@@ -189,7 +189,7 @@ public abstract class CapabilityBase extends Persistent {
   * Retrieves the Name value, with locking, for this 
   * <code>Capability</code> <code>Persistent</code>.
   * Field description: 
-  *   A human-readable name for the capability 
+  *   A human-readable name for the Capability 
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods 
   * @throws AccessPoemException 
@@ -210,7 +210,7 @@ public abstract class CapabilityBase extends Persistent {
   * Sets the <code>Name</code> value, with checking, for this 
   * <code>Capability</code> <code>Persistent</code>.
   * Field description: 
-  *   A human-readable name for the capability 
+  *   A human-readable name for the Capability 
   * 
   * @generator org.melati.poem.prepro.AtomFieldDef#generateBaseMethods  
   * @param cooked  a validated <code>int</code> 

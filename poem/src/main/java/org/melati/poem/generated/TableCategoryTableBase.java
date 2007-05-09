@@ -11,9 +11,9 @@ import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TableCategory;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
@@ -26,7 +26,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class TableCategoryTableBase extends Table {
+public class TableCategoryTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_name = null;

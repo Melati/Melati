@@ -12,9 +12,9 @@ import org.melati.poem.PasswordPoemType;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
@@ -27,7 +27,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class UserTableBase extends Table {
+public class UserTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -394,7 +394,7 @@ public class UserTableBase extends Table {
     return new User();
   }
   protected String defaultDescription() {
-    return "A registered user of the database";
+    return "A registered User of the database";
   }
 
   protected boolean defaultRememberAllTroids() {

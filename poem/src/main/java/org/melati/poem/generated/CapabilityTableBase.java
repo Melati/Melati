@@ -12,9 +12,9 @@ import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 
@@ -26,7 +26,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class CapabilityTableBase extends Table {
+public class CapabilityTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -168,7 +168,7 @@ public class CapabilityTableBase extends Table {
           }
 
           protected String defaultDescription() {
-            return "A human-readable name for the capability";
+            return "A human-readable name for the Capability";
           }
 
           protected boolean defaultUnique() {
@@ -249,7 +249,7 @@ public class CapabilityTableBase extends Table {
     return new Capability();
   }
   protected String defaultDescription() {
-    return "A capability which users can be required to possess before accessing data";
+    return "A Capability which Users can be required to possess before accessing data";
   }
 
   protected boolean defaultRememberAllTroids() {

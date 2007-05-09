@@ -13,10 +13,10 @@ import org.melati.poem.GroupMembership;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StandardIntegrityFix;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
@@ -29,7 +29,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupMembershipTableBase extends Table {
+public class GroupMembershipTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_user = null;
@@ -338,7 +338,7 @@ public class GroupMembershipTableBase extends Table {
   }
 
   protected String defaultDescription() {
-    return "A record that a given user is a member of a given group";
+    return "A record that a given User is a member of a given Group";
   }
 
   protected String defaultCategory() {

@@ -5,9 +5,9 @@ package org.melati.poem.test.generated;
 import org.melati.poem.Database;
 import org.melati.poem.DefinitionSource;
 import org.melati.poem.PoemException;
-import org.melati.poem.Table;
 import org.melati.poem.test.EmptyAbstractTable;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.EverythingTable;
 
 
 /**
@@ -17,7 +17,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class EmptyAbstractTableTableBase extends Table {
+public class EmptyAbstractTableTableBase extends EverythingTable {
 
 
  /**

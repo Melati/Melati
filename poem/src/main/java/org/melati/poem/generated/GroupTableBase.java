@@ -12,9 +12,9 @@ import org.melati.poem.Group;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemDatabaseTables;
 import org.melati.poem.PoemException;
+import org.melati.poem.PoemTable;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 
@@ -26,7 +26,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class GroupTableBase extends Table {
+public class GroupTableBase extends PoemTable {
 
   private Column col_id = null;
   private Column col_name = null;
@@ -249,7 +249,7 @@ public class GroupTableBase extends Table {
     return new Group();
   }
   protected String defaultDescription() {
-    return "A group to which registered users of the database can belong";
+    return "A Group to which registered Users of the database can belong";
   }
 
   protected boolean defaultRememberAllTroids() {

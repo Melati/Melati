@@ -5,6 +5,7 @@ package org.melati.example.contacts.generated;
 import java.sql.Date;
 import org.melati.example.contacts.Contact;
 import org.melati.example.contacts.ContactsDatabaseTables;
+import org.melati.example.contacts.ContactsTable;
 import org.melati.poem.AccessPoemException;
 import org.melati.poem.Column;
 import org.melati.poem.Database;
@@ -18,7 +19,6 @@ import org.melati.poem.PoemException;
 import org.melati.poem.ReferencePoemType;
 import org.melati.poem.Searchability;
 import org.melati.poem.StringPoemType;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.User;
 import org.melati.poem.ValidationPoemException;
@@ -31,7 +31,7 @@ import org.melati.poem.ValidationPoemException;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class ContactTableBase extends Table {
+public class ContactTableBase extends ContactsTable {
 
   private Column col_id = null;
   private Column col_name = null;

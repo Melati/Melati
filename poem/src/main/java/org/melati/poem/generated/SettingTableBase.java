@@ -296,7 +296,7 @@ public class SettingTableBase extends ValueInfoTable {
     return new Setting();
   }
   protected String defaultDescription() {
-    return "A configurable setting for the application";
+    return "A configurable Setting for the application, where a Setting can be of any object type";
   }
 
   protected boolean defaultRememberAllTroids() {

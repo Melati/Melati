@@ -13,11 +13,11 @@ import org.melati.poem.Field;
 import org.melati.poem.Persistent;
 import org.melati.poem.PoemException;
 import org.melati.poem.Searchability;
-import org.melati.poem.Table;
 import org.melati.poem.TroidPoemType;
 import org.melati.poem.ValidationPoemException;
 import org.melati.poem.test.DateField;
 import org.melati.poem.test.EverythingDatabaseTables;
+import org.melati.poem.test.EverythingTable;
 
 
 /**
@@ -27,7 +27,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
  */
 
-public class DateFieldTableBase extends Table {
+public class DateFieldTableBase extends EverythingTable {
 
   private Column col_id = null;
   private Column col_datefield = null;

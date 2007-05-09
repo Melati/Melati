@@ -17,7 +17,7 @@
 <module name="Checker">
 
     <module name="SuppressionFilter">
-      <property name="file" value="${basedir}/src/site/checkstyleSuppressions.xml" />
+      <property name="file" value="src/site/checkstyleSuppressions.xml" />
     </module>
 
     <!-- Checks that a package.html file exists for each package.     -->

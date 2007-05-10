@@ -370,13 +370,12 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <reporting>
      <plugins>
-      <!-- plugin>
+      <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <outputEncoding>UTF-8</outputEncoding>
         </configuration>
-        <version>2.0-beta-5</version>
-      </plugin -->
+      </plugin>
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -399,18 +398,18 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
-      <!--plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changelog-maven-plugin</artifactId>
-      </plugin-->
-      <!-- plugin>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>src/site/checkstyle.xml</configLocation>
           <xrefLocation>xref</xrefLocation>
         </configuration>
-      </plugin-->
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
@@ -443,7 +442,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
           <tag>@todo</tag>
           <tag>FIXME</tag>
           <tag>@deprecated</tag>
-          <tag>HACK</tag>
           <tag>NOTE</tag>
           <tag>HACK</tag>
          </tags>

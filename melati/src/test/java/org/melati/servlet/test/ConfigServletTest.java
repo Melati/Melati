@@ -260,6 +260,9 @@ public class ConfigServletTest extends TestCase {
 
   }
   
+  /**
+   * Test expection thrown during initialisation.
+   */
   public void testExceptionDuringInit() throws Exception {
     MockServletResponse response = new MockServletResponse();
     MockServletRequest request = new MockServletRequest();
@@ -303,7 +306,7 @@ public class ConfigServletTest extends TestCase {
   }
 
   /**
-   * @see org.melati.servlet.ConfigServlet.getSysAdminName()
+   * @see org.melati.servlet.ConfigServlet#getSysAdminName()
    */
   public void testGetSysAdminName() {
     Mock mockHttpServletRequest = new Mock(HttpServletRequest.class); 

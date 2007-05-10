@@ -73,7 +73,6 @@ import java.util.Hashtable;
  * December 1990, pp39-43.
  *
  */
-
 public class Metaphone {
 
     static String vowels = "AEIOU" ;
@@ -82,6 +81,9 @@ public class Metaphone {
 
     static final int maxCodeLen = 4 ;
 
+    /**
+     * 
+     */
     public static String pronunciation(String txt){
       int mtsz = 0  ;
       boolean hard = false ;
@@ -280,6 +282,9 @@ public class Metaphone {
       return code.toString();
     }
 
+  /**
+   * Main.
+   */
   public static void main(String[] args) throws Exception {
     BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
     Hashtable them = new Hashtable();

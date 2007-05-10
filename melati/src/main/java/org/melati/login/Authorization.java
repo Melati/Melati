@@ -53,7 +53,9 @@ import java.io.PrintStream;
  * A store for a username and password.
  */
 final class Authorization {
+  /** The username. */
   public String username = null;
+  /** The password. */
   public String password = null;
 
   /**

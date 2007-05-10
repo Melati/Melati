@@ -105,7 +105,7 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
   /**
    * Test method for buildRequest(Melati).
    * 
-   * @see org.melati.login.AccessHandler.buildRequest(Melati)
+   * @see org.melati.login.AccessHandler#buildRequest(Melati)
    */
   public void testBuildRequest() {
     try {
@@ -116,8 +116,8 @@ public abstract class AccessHandlerTestAbstract extends PoemTestCase {
     }
   }
 
-  /*
-   * Test method for 'org.melati.login.AccessHandler.establishUser(Melati)'
+  /**
+   * Test method for {@link org.melati.login.AccessHandler#establishUser(Melati)}.
    */
   public void testEstablishUser() {
     System.err.println("MA:"+ m.getArguments());

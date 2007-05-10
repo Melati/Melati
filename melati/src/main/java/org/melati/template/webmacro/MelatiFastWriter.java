@@ -61,6 +61,9 @@ public class MelatiFastWriter extends MelatiWriter
 
   protected OutputStream outputStream;
   
+  /**
+   * Constructor.
+   */
   public MelatiFastWriter(Broker broker, HttpServletResponse response) 
       throws IOException {
     this(broker, response.getOutputStream(), response.getCharacterEncoding());
@@ -71,6 +74,9 @@ public class MelatiFastWriter extends MelatiWriter
     this(response.getOutputStream(), response.getCharacterEncoding());
   }
 */  
+  /**
+   * Constructor.
+   */
   public MelatiFastWriter(Broker broker, OutputStream output, String encoding)
       throws IOException {
     // need to make this accessable to subclasses
@@ -85,6 +91,9 @@ public class MelatiFastWriter extends MelatiWriter
     out = FastWriter.getInstance(output, encoding);
   }
 */
+  /**
+   * @return the peer
+   */
   public FastWriter getPeer() {
     // as we can write to the underlying peer, the Flusher may not get started
     // so we should start it here

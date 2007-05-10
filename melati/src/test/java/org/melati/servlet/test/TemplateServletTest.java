@@ -51,7 +51,7 @@ public class TemplateServletTest extends PoemServletTest {
 
   /**
    * @throws ServletException 
-   * @see org.melati.servlet.PoemServlet.getSysAdminName()
+   * @see org.melati.servlet.PoemServlet#getSysAdminName()
    */
   public void testGetSysAdminName() throws ServletException {
     super.testGetSysAdminName();
@@ -59,20 +59,20 @@ public class TemplateServletTest extends PoemServletTest {
 
   /**
    * @throws ServletException 
-   * @see org.melati.servlet.PoemServlet.getSysAdminEmail()
+   * @see org.melati.servlet.PoemServlet#getSysAdminEmail()
    */
   public void testGetSysAdminEmail() throws ServletException {
     super.testGetSysAdminEmail();
   }
 
   /**
-   * @see org.melati.servlet.ConfigServlet.doGet(HttpServletRequest, HttpServletResponse)
+   * @see org.melati.servlet.ConfigServlet#doGet(HttpServletRequest, HttpServletResponse)
    */
   public void testDoGetHttpServletRequestHttpServletResponse() throws Exception {
     doGetPost(); 
   }
   /**
-   * @see org.melati.servlet.ConfigServlet.doPost(HttpServletRequest, HttpServletResponse)
+   * @see org.melati.servlet.ConfigServlet#doPost(HttpServletRequest, HttpServletResponse)
    */
   public void testDoPostHttpServletRequestHttpServletResponse() {
     //doGetPost(); 
@@ -347,7 +347,7 @@ public class TemplateServletTest extends PoemServletTest {
   }
 
   /**
-   * @see org.melati.servlet.ConfigServlet.writeConnectionPendingException(PrintWriter, Exception)
+   * @see org.melati.servlet.ConfigServlet#writeConnectionPendingException(PrintWriter, Exception)
    */
   public void testWriteConnectionPendingException() {
 

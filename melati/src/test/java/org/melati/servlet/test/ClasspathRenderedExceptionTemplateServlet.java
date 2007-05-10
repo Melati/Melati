@@ -16,6 +16,9 @@ public class ClasspathRenderedExceptionTemplateServlet extends TemplateServlet {
    */
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   */
   public ClasspathRenderedExceptionTemplateServlet() {
     super();
   }

@@ -60,6 +60,9 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
   private OutputStream underlying;
   private ByteArrayOutputStream buffer;
   
+  /**
+   * Constructor.
+   */
   public MelatiBufferedFastWriter(Broker broker, OutputStream output, 
                                   String encoding)
       throws IOException {
@@ -68,6 +71,9 @@ public class MelatiBufferedFastWriter extends MelatiFastWriter {
     underlying = output;
   }
 
+  /**
+   * Constructor.
+   */
   public MelatiBufferedFastWriter(Broker broker, HttpServletResponse response) 
       throws IOException {
     this(broker, response.getOutputStream(), response.getCharacterEncoding());

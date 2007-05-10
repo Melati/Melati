@@ -262,6 +262,9 @@ public class PoemServletTest extends TestCase {
 
   }
 
+  /**
+   * Test logical database.
+   */
   public void testLDB() throws Exception {
     MockServletResponse response = new MockServletResponse();
     MockServletRequest request = new MockServletRequest();

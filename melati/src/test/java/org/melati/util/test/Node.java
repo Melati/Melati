@@ -50,6 +50,12 @@ public class Node extends NodeBase implements Treeable {
     return (Node.arrayOf(getNodeTable().getParentColumn().referencesTo(this)));
   }
   
+  /**
+   * Create an array from a vector. 
+   * 
+   * @param v the vector
+   * @return an array
+   */
   public static Treeable[] arrayOf(Vector v) {
     Treeable[] arr;
     synchronized (v) {
@@ -60,6 +66,12 @@ public class Node extends NodeBase implements Treeable {
     return arr;
   }
 
+  /**
+   * Create an array from an enumeration. 
+   * 
+   * @param v the enumeration
+   * @return an array
+   */
   public static Treeable[] arrayOf(Enumeration e) {
     Vector v = EnumUtils.vectorOf(e);
     return arrayOf(v);

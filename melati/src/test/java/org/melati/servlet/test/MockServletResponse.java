@@ -12,6 +12,10 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author timp
+ *
+ */
 public class MockServletResponse implements HttpServletResponse {
 
     public void addCookie(Cookie arg0) {
@@ -86,6 +90,9 @@ public class MockServletResponse implements HttpServletResponse {
             }
         };
     }
+    /**
+     * @return what was written
+     */
     public String getWritten() {
       return bout.toString();
     }

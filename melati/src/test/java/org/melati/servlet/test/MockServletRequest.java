@@ -24,10 +24,17 @@ import javax.servlet.http.HttpSession;
 
 import org.melati.poem.util.EmptyEnumeration;
 
+/**
+ * @author timp
+ *
+ */
 public class MockServletRequest implements HttpServletRequest {
 
     Map parameters = new HashMap();
     
+    /**
+     * @param map the arameters
+     */
     public void setParameters(Map map) {
         parameters = map;
     }
@@ -49,6 +56,10 @@ public class MockServletRequest implements HttpServletRequest {
     public String getHeader(String arg0) {
         return (String)headers.get(arg0);
     }
+    /**
+     * @param key the header key
+     * @param value the value to set it to 
+     */
     public void setHeader(String key, String value) {
       headers.put(key, value);
     }
@@ -72,6 +83,9 @@ public class MockServletRequest implements HttpServletRequest {
     public String getPathInfo() {
         return pathInfo;
     }
+    /**
+     * @param info the info to set
+     */
     public void setPathInfo(String info) {
       pathInfo = info;
     }
@@ -108,6 +122,9 @@ public class MockServletRequest implements HttpServletRequest {
     public String getRequestURI() {
         return requestURI;
     }
+    /**
+     * @param uri the uri to set
+     */
     public void setRequestURI(String uri) {
       requestURI = uri;
     }
@@ -120,6 +137,9 @@ public class MockServletRequest implements HttpServletRequest {
         return "/mockServletPath/";
     }
     Object session;
+    /**
+     * @param s the session to set
+     */
     public void setSession(Object s){
       session = s;
     }
@@ -199,6 +219,9 @@ public class MockServletRequest implements HttpServletRequest {
     }
 
     String scheme = "http";
+    /**
+     * @param s the scheme to set
+     */
     public void setScheme(String s) {
       scheme = s;
     }

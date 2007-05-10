@@ -35,6 +35,9 @@ public class TreeTestCase extends PoemTestCase {
     return getTreeDatabase();
   }
 
+  /**
+   * @return the tree db
+   */
   public Database getTreeDatabase() { 
     maxTrans = 4;
     return PoemDatabaseFactory.getDatabase("tree",

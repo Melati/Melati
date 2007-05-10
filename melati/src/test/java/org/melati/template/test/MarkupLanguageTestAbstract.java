@@ -258,8 +258,17 @@ abstract public class MarkupLanguageTestAbstract extends TreeTestCase {
 
   }
 
+  /**
+   * An object which throws an exception when its toString method is called.
+   */
   class Bomber {
+    /**
+     * Constructor.
+     */
     public Bomber() {}
+    /** 
+     * Throw exception.
+     */
     public String toString() {
       if (true == true) throw new RuntimeException("Bomber bombed.");
       return "Did not bomb";

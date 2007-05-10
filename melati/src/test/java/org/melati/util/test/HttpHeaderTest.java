@@ -61,6 +61,9 @@ import org.melati.util.HttpHeader;
  */
 public class HttpHeaderTest extends TestCase {
 
+  /**
+   * Constructor.
+   */
   public HttpHeaderTest(String testCaseName) {
     super(testCaseName);
   }

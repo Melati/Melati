@@ -813,7 +813,7 @@ public class Admin extends TemplateServlet {
     Capability admin = PoemThread.database().getCanAdminister();
     AccessToken token = PoemThread.accessToken();
     if (!token.givesCapability(admin))
-      throw new AnticipatedException(new AccessPoemException(token, admin));
+      throw new AccessPoemException(token, admin);
 
     context.put("admin", new AdminUtils(melati));
     

@@ -16,6 +16,9 @@ public class ExceptionTemplateServlet extends TemplateServlet {
    */
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor.
+   */
   public ExceptionTemplateServlet() {
     super();
   }

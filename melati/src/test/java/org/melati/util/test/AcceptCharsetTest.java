@@ -63,6 +63,9 @@ import org.melati.util.HttpHeader;
  */
 public class AcceptCharsetTest extends TestCase {
 
+  /**
+   * Constructor.
+   */
   public AcceptCharsetTest(String testCaseName) {
     super(testCaseName);
   }

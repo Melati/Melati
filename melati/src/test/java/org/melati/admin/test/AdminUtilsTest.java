@@ -134,7 +134,7 @@ public class AdminUtilsTest extends PoemTestCase {
   }
 
   /**
-   * @see org.melati.admin.AdminUtils.SelectionRightURL(Table)
+   * @see org.melati.admin.AdminUtils#SelectionRightURL(Table)
    */
   public void testSelectionRightURL() {
     m.loadTableAndObject();

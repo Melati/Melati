@@ -65,19 +65,19 @@ Please contact <a href='mailto:$sysAdminEmail'>$sysAdminName</a>
 giving the URL of this page and the information given below.
 </p>
 #end
+<pre>
 <font color="green">
-<PRE>
 $object.Message
-</PRE>
 </font>
+</pre>
 
 <hr>
 #if ($error) #begin
+<pre>
 <font color="red">
-<PRE>
 $error
-</PRE>
 </font>
+</pre>
 #end
 </body>
 </html>

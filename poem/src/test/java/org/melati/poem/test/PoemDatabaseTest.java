@@ -189,7 +189,7 @@ public class PoemDatabaseTest extends PoemTestCase {
    */
   public void testToString() {
     String name = getDb().toString();
-    assertTrue(name.endsWith(databaseName));
+    assertTrue(name.endsWith(getDatabaseName()));
   }
 
   /**

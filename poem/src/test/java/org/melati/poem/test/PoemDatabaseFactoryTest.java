@@ -18,6 +18,8 @@ import org.melati.poem.PoemDatabaseFactory;
  *
  */
 public class PoemDatabaseFactoryTest extends TestCase {
+  /** Default db name */
+  private String databaseName = "melatijunit";  // change to poemtest
 
   /**
    * Constructor.
@@ -73,7 +75,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
     assertNull(PoemDatabaseFactory.getDatabase("unknown"));
     try { 
       PoemDatabaseFactory.getDatabase("badclassname",
-            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+            "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","org.melati.poem.PoemDatabaseNOT",
             "org.melati.poem.dbms.Hsqldb",false,false,false,4);
@@ -82,7 +84,7 @@ public class PoemDatabaseFactoryTest extends TestCase {
     }
     try { 
       PoemDatabaseFactory.getDatabase("badclassname",
-            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+            "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","java.lang.Exception",
             "org.melati.poem.dbms.Hsqldb",false,false,false,4);
@@ -124,8 +126,8 @@ public class PoemDatabaseFactoryTest extends TestCase {
    * @return the minial poem db
    */
   public Database getPoemDatabase() { 
-    return PoemDatabaseFactory.getDatabase(PoemTestCase.databaseName,
-            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+    return PoemDatabaseFactory.getDatabase(getDatabaseName(),
+            "jdbc:hsqldb:mem:" + getDatabaseName(),
             "sa",
             "","org.melati.poem.PoemDatabase",
             "org.melati.poem.dbms.Hsqldb",true,true,false,4);
@@ -139,6 +141,20 @@ public class PoemDatabaseFactoryTest extends TestCase {
             "sa",
             "","org.melati.poem.test.EverythingDatabase",
             "org.melati.poem.dbms.Hsqldb",false,false,false,4);
+  }
+
+  /**
+   * @return the db name
+   */
+  public String getDatabaseName() {
+    return databaseName;
+  }
+
+  /**
+   * @param databaseName the db name to set
+   */
+  public void setDatabaseName(String databaseName) {
+    this.databaseName = databaseName;
   }
 
 }

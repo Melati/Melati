@@ -40,14 +40,14 @@ public class PoemTestCase extends TestCase implements Test {
   protected int maxTrans = 0;
   
   /** Default db name */
-  public static final String databaseName = "melatijunit";  // change to poemtest
+  private String databaseName = "melatijunit";  // change to poemtest
   
   private AccessToken userToRunAs;
 
   boolean problem = false;
   String dbUrl = null;
 
-  protected static String propertiesFileName = "org.melati.poem.test.PoemTestCase.properties";
+  private String propertiesFileName = "org.melati.poem.test.PoemTestCase.properties";
   
   protected static TestResult result;
   /**
@@ -366,6 +366,20 @@ public class PoemTestCase extends TestCase implements Test {
    */
   public void setPropertiesFileName(String propertiesFileName) {
     this.propertiesFileName = propertiesFileName;
+  }
+
+  /**
+   * @return the db name
+   */
+  public String getDatabaseName() {
+    return databaseName;
+  }
+
+  /**
+   * @param databaseName the db name
+   */
+  public void setDatabaseName(String databaseName) {
+    this.databaseName = databaseName;
   }
 
 }

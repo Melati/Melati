@@ -23,7 +23,7 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   protected void setUp() throws Exception {
-    PoemDatabaseFactory.removeDatabase(databaseName);
+    PoemDatabaseFactory.removeDatabase(getDatabaseName());
     super.setUp();
     assertEquals("org.melati.poem.dbms.test.HsqldbThrower",getDb().getDbms().getClass().getName());
   }
@@ -32,7 +32,7 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
     try { 
       super.tearDown();
     } finally { 
-      PoemDatabaseFactory.removeDatabase(databaseName);
+      PoemDatabaseFactory.removeDatabase(getDatabaseName());
     }
   }
 

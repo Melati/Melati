@@ -184,6 +184,7 @@ public class Hsqldb extends AnsiStandard {
   public String unreservedName(String name) {
     if(name.equalsIgnoreCase("UNIQUE")) name = "MELATI_" + name.toUpperCase();
     if(name.equalsIgnoreCase("CONSTRAINT")) name = "MELATI_" + name.toUpperCase();
+    if(name.equalsIgnoreCase("USERS")) name = "MELATI_" + name.toUpperCase();
     return name.toUpperCase();
   }
 
@@ -197,6 +198,7 @@ public class Hsqldb extends AnsiStandard {
     if (name == null) return name;
     if(name.equalsIgnoreCase("MELATI_UNIQUE")) name = "unique";
     if(name.equalsIgnoreCase("MELATI_CONSTRAINT")) name = "constraint";
+    if(name.equalsIgnoreCase("MELATI_USERS")) name = "users";
     return name.toLowerCase();
   }
   

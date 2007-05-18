@@ -268,7 +268,7 @@ public class PoemTestCase extends TestCase implements Test {
    * @return Returns the db.
    */
   public Database getDb() {
-    return getDb(databaseName);
+    return getDb(getDatabaseName());
   }
 
   /**

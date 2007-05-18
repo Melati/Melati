@@ -47,6 +47,8 @@ public class PoemTestCase extends TestCase implements Test {
   boolean problem = false;
   String dbUrl = null;
 
+  protected static String propertiesFileName = "org.melati.poem.test.PoemTestCase.properties";
+  
   protected static TestResult result;
   /**
    * Constructor.
@@ -140,17 +142,6 @@ public class PoemTestCase extends TestCase implements Test {
     }
   }
 
-  /** Properties, named for this class. */
-  public static Properties databaseDefs = null;
-
-  /**
-   * @return the database definitions
-   */
-  public Properties databaseDefs() {
-    if (databaseDefs == null)
-      databaseDefs = getProperties();
-    return databaseDefs;
-  }
 
   protected void checkDbUnchanged() {
     getDb().inSession(AccessToken.root, // HACK
@@ -295,7 +286,7 @@ public class PoemTestCase extends TestCase implements Test {
    * @return a Database
    */
   public Database getDatabase(String name){ 
-    Properties defs = databaseDefs();
+    Properties defs = getProperties();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
     maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
     return PoemDatabaseFactory.getDatabase(name,
@@ -331,23 +322,23 @@ public class PoemTestCase extends TestCase implements Test {
    * @return a Properties
    */
   public Properties getProperties() {
-    String className = "org.melati.poem.test.PoemTestCase";
-    String name = className + ".properties";
-    InputStream is = PoemTestCase.class.getResourceAsStream(name);
+    InputStream is = PoemTestCase.class.getResourceAsStream(getPropertiesFileName());
 
     if (is == null)
-      throw new RuntimeException(new FileNotFoundException(name + ": is it in CLASSPATH?"));
+      throw new RuntimeException(
+              new FileNotFoundException(getPropertiesFileName() + ": is it in CLASSPATH?"));
 
     Properties them = new Properties();
     try {
       them.load(is);
     } catch (IOException e) {
-      throw new RuntimeException(new IOException("Corrupt properties file `" + name + "': " +
+      throw new RuntimeException(
+              new IOException("Corrupt properties file `" + getPropertiesFileName() + "': " +
       e.getMessage()));
     }
     return them;
   }
-
+  
   /**
    * Return a property.
    * 
@@ -361,6 +352,20 @@ public class PoemTestCase extends TestCase implements Test {
     if (value == null)
       throw new RuntimeException("Property " + propertyName + " not found in " + properties);
     return value;
+  }
+
+  /**
+   * @return the properties name
+   */
+  public String getPropertiesFileName() {
+    return propertiesFileName;
+  }
+
+  /**
+   * @param propertiesFileName the name to set
+   */
+  public void setPropertiesFileName(String propertiesFileName) {
+    this.propertiesFileName = propertiesFileName;
   }
 
 }

@@ -230,7 +230,7 @@ public class PoemTestCase extends TestCase implements Test {
               columnCount + " found:" + count);
       e = getDb().columns();
       while (e.hasMoreElements()) {
-        System.out.println((Column)e.nextElement());
+        System.out.println(e.nextElement());
       }      
     }
     assertEquals(columnCount, count);
@@ -331,6 +331,7 @@ public class PoemTestCase extends TestCase implements Test {
     Properties them = new Properties();
     try {
       them.load(is);
+      is.close();
     } catch (IOException e) {
       throw new RuntimeException(
               new IOException("Corrupt properties file `" + getPropertiesFileName() + "': " +

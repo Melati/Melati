@@ -295,24 +295,13 @@ public abstract class Database implements TransactionPool {
       }
       freeTransactions.removeAllElements();
       
+      getDbms().shutdown(committedConnection);
       committedConnection.close();
     } catch (SQLException e) {
       throw new SQLPoemException(e);
     }
     committedConnection = null;
   }
-
-  /**
-   * Shutdown the db nicely, currently only used by HSQLDB.
-   */
-  public void shutdown() {
-    try {
-      if (committedConnection != null)
-        getDbms().shutdown(committedConnection);
-    } catch (SQLException e) {
-      throw new SQLPoemException(e);
-    }
-  }  
   
   /**
    * Don't call this.  Tables should be defined either in the DSD (in which

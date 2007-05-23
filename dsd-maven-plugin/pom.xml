@@ -6,7 +6,6 @@
     <groupId>org.melati</groupId>
     <artifactId>melati-parent</artifactId>
     <version>0.7.6-RC2</version>
-    <relativePath>../</relativePath>
   </parent>
   <groupId>org.melati</groupId>
   <artifactId>maven-dsd-plugin</artifactId>

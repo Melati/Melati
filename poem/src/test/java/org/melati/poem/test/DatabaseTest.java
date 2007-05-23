@@ -103,7 +103,6 @@ public class DatabaseTest extends TestCase {
     }
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
     assertEquals(8, db.getFreeTransactionsCount());
-    db.shutdown();
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;

@@ -50,23 +50,26 @@ import java.util.Vector;
 /**
  * @author timp
  * @since 2 Feb 2007
- *
+ * 
  */
 public final class PoemDatabaseFactory {
 
   private static final Hashtable databases = new Hashtable();
 
+  private static PoemShutdownThread hookThread = new PoemShutdownThread();
 
   /**
    * Disallow instantiation.
    */
   private PoemDatabaseFactory() {
+    // Never called but stops Eclipse nagging
+    String foolEclipse = hookThread.getName();
+    hookThread.setName(foolEclipse);
   }
-  
 
-  /** 
+  /**
    * Retrieve the databases which have completed initialisation.
-   *
+   * 
    * @return a <code>Vector</code> of the initialised databases
    */
   public static Vector initialisedDatabases() {
@@ -83,13 +86,10 @@ public final class PoemDatabaseFactory {
     return dbs;
   }
 
-
-  /** 
-   * Retrieve the names of the databases which have 
-   * completed initialisation.
-   * Note that a databse which has not been used 
-   * will not have been initialised.
-   *
+  /**
+   * Retrieve the names of the databases which have completed initialisation.
+   * Note that a database which has not been used will not have been initialised.
+   * 
    * @return a <code>Vector</code> of the initialised database names
    */
   public static Vector getInitialisedDatabaseNames() {
@@ -107,18 +107,19 @@ public final class PoemDatabaseFactory {
     return dbs;
   }
 
-
   private static final Object pending = new Object();
 
-  /** 
+  /**
    * Retrieve a database by name.
-   *
-   * @param name the name of the database
-   * @throws DatabaseInitialisationPoemException if any Exception is trapped
+   * 
+   * @param name
+   *          the name of the database
+   * @throws DatabaseInitialisationPoemException
+   *           if any Exception is trapped
    * @return a <code>Database</code> with the name specified
    */
-  public static Database getDatabase(String name) 
-      throws DatabaseInitialisationPoemException {
+  public static Database getDatabase(String name)
+          throws DatabaseInitialisationPoemException {
     if (name == null)
       throw new NullPointerException();
 
@@ -129,30 +130,41 @@ public final class PoemDatabaseFactory {
     }
     if (dbOrPending == pending)
       throw new ConnectionPendingException(name);
-    return (Database)dbOrPending;   
+    return (Database)dbOrPending;
   }
 
   /**
-   * Return a database from the cache or create it.
-   * NOTE The first sucessful invocation will determine databases settings.  
-   * @param name a short name of the db
-   * @param url a JDBC url
-   * @param user user authorised to access the databse through JDBC
-   * @param password password for the user
-   * @param clazz the name of the (POEM) database class
-   * @param dbmsClass the name of the (POEM) dbms class
-   * @param addConstraints whether to add constraints to the databases JDBC meta data
-   * @param logSQL whether SQL statements should be logged
-   * @param logCommits whether commits should be logged
-   * @param maxTransactions the number of transactions (one less than the number of connections)
+   * Return a database from the cache or create it. NOTE The first sucessful
+   * invocation will determine databases settings.
+   * 
+   * @param name
+   *          a short name of the db
+   * @param url
+   *          a JDBC url
+   * @param user
+   *          user authorised to access the databse through JDBC
+   * @param password
+   *          password for the user
+   * @param clazz
+   *          the name of the (POEM) database class
+   * @param dbmsClass
+   *          the name of the (POEM) dbms class
+   * @param addConstraints
+   *          whether to add constraints to the databases JDBC meta data
+   * @param logSQL
+   *          whether SQL statements should be logged
+   * @param logCommits
+   *          whether commits should be logged
+   * @param maxTransactions
+   *          the number of transactions (one less than the number of
+   *          connections)
    * @return a new or existing database
    */
-  public static Database getDatabase(String name, 
-          String url, String user, String password, 
-          String clazz, String dbmsClass, 
+  public static Database getDatabase(String name, String url, String user,
+          String password, String clazz, String dbmsClass,
           boolean addConstraints, boolean logSQL, boolean logCommits,
           int maxTransactions) {
-    
+
     Object dbOrPending;
 
     synchronized (databases) {
@@ -162,7 +174,7 @@ public final class PoemDatabaseFactory {
       throw new ConnectionPendingException(name);
     if (dbOrPending != null)
       return (Database)dbOrPending;
-    
+
     // Set an entry whilst we load
     databases.put(name, pending);
 
@@ -173,18 +185,16 @@ public final class PoemDatabaseFactory {
         Object databaseObject = null;
 
         try {
-          databaseObject = Thread.currentThread().getContextClassLoader().
-                               loadClass(clazz).newInstance();
-        }
-        catch (Exception e) {
+          databaseObject = Thread.currentThread().getContextClassLoader()
+                  .loadClass(clazz).newInstance();
+        } catch (Exception e) {
           databaseObject = Class.forName(clazz).newInstance();
         }
 
-        if (!(databaseObject instanceof Database)) 
-          throw new ClassCastException(
-              "The .class=" + clazz + " entry named a class of type " +
-              databaseObject.getClass() + ", " +
-              "which is not an org.melati.poem.Database");
+        if (!(databaseObject instanceof Database))
+          throw new ClassCastException("The .class=" + clazz
+                  + " entry named a class of type " + databaseObject.getClass()
+                  + ", " + "which is not an org.melati.poem.Database");
 
         database = (Database)databaseObject;
 
@@ -198,16 +208,14 @@ public final class PoemDatabaseFactory {
 
         if (addConstraints)
           database.addConstraints();
-      }
-      finally {
+      } finally {
         // get it removed from the "initialising" state even if an Error, such
         // as no class found, occurs
         databases.remove(name);
       }
 
       databases.put(name, database);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new DatabaseInitialisationPoemException(name, e);
     }
     return database;
@@ -215,9 +223,48 @@ public final class PoemDatabaseFactory {
 
   /**
    * Enable a database to be reinitialised, used in tests.
-   * @param name name of db to remove
+   * 
+   * @param name
+   *          name of db to remove
    */
-  public static void removeDatabase(String name) { 
+  public static void removeDatabase(String name) {
     databases.remove(name);
   }
+
+  /**
+   * Shutdown databases cleanly when JVM exits.
+   * 
+   * @author timp
+   * @since 23 May 2007
+   * 
+   */
+  private static class PoemShutdownThread extends Thread {
+    /** Constructor. */
+    public PoemShutdownThread() {
+      super();
+      setName("PoemShutdownThread");
+      System.err.println("\n\n*** PoemShutDownThread registering. ***\n");
+      Runtime.getRuntime().addShutdownHook(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see java.lang.Thread#run()
+     */
+    public void run() {
+      System.err.println("\n\n*** PoemShutdownThread started. ***\n");
+      try {
+        Vector dbs = PoemDatabaseFactory.initialisedDatabases();
+        Enumeration them = dbs.elements();
+        while (them.hasMoreElements()) {
+          Database db = (Database)them.nextElement();
+          db.disconnect();
+        }
+      } catch (Exception ee) {
+        ee.printStackTrace();
+      }
+    }
+  }
+
 }

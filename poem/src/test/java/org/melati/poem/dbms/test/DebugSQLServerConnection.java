@@ -43,7 +43,8 @@ public class DebugSQLServerConnection {
   private java.sql.Connection getConnection() {
     try {
       Class driverClass = Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-      if (driverClass == null) System.err.println("No class found");
+      if (driverClass == null) 
+        throw new RuntimeException("No class found");
       Driver driver = (Driver) driverClass.newInstance();
 
       DriverManager.setLogWriter(new PrintWriter(System.out));

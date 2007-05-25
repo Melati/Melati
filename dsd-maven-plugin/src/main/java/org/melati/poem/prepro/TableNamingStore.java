@@ -64,7 +64,10 @@ public class TableNamingStore {
   boolean debug = false;
 
   /**
+   * Add a table to the naming store. 
+   * 
    * @param packageName fully qualified java package name
+   * @param projectNameIn short name of project
    * @param name        the name of this table
    * @param superclass  not null if table extends another
    * @throws HiddenTableException if this table has the same name as 

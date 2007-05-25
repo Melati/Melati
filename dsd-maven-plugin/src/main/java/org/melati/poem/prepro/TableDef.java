@@ -59,8 +59,10 @@ import java.io.IOException;
 public class TableDef {
 
   DSD dsd;
-  final String name;
+  /** Mixed case name. */
   final String suffix;
+  /** Lowercase name. */
+  final String name;
   String displayName;
   String description;
   String category;

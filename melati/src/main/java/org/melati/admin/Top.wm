@@ -121,7 +121,7 @@
         onclick="parent['admin_bottom'].location = '$melati.LogoutURL?returnURL='+parent['admin_bottom'].location.href;">
  #end
  <input type="button" value=" Home " 
-        title="Display the home page, as set in the setting table, in the main frame"
+        title="Display the home page, the HomepageUrl set in the setting table, in the main frame"
  #if ($database.SettingTable.get("HomepageUrl")) #begin
         onclick="parent['admin_bottom'].location = '$database.SettingTable.get("HomepageUrl")';"
  #end #else #begin

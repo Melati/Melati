@@ -39,7 +39,7 @@
 ##
 ## Contact details for copyright holder:
 ##
-##     Tim Joyce <timj@paneris.org>
+##     Tim Joyce <timj At paneris.org>
 ##     http://paneris.org/~timj
 ##
 #set $onVariableException = $melati.PassbackVariableExceptionHandler
@@ -52,25 +52,25 @@
 #set $returnURL = ""
 #end
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
-<HEAD>
+<html>
+<head>
  <title>Edit a $ml.rendered($table.DisplayName) Record</title>
  <meta name="CVS Id" content="\$Id$">
  <link rel="stylesheet" title="Default" href="$admin.StaticURL/admin.css"
       type="text/css" media="screen">
-</HEAD>
+</head>
 
-<BODY bgcolor="#E9EDFD">
+<body bgcolor="#E9EDFD">
 <table cellpadding="4" cellspacing="4" width="100%">
  <tr>
   <td valign="top">
 #if ($admin.isTreeable($object)) #begin
    <a href="$admin.TreeURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
-target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">Tree
-   <!-- IMG src="$admin.StaticURL/tree.gif" alt="Tree view" -->
+target="admin_edit$object.Table.Name$object.troid()" title="Display tree view">
+   <img src="$admin.StaticURL/tree.gif" alt="Tree view" />
    </a>
 #end
-   <FONT FACE="Arial, Helvetica" size="2">&nbsp;<div style='display:inline; #if($table.Description) #begin 'title='$table.Description' #end>$table.DisplayName</div>:
+   <font face="Arial, Helvetica" size="2">&nbsp;<div style='display:inline; #if($table.Description) #begin 'title='$table.Description' #end>$table.DisplayName</div>:
 <a href= "$admin.EditURL($object)?returnTarget=$returnTarget&amp;returnURL=$returnURL"
 target="admin_edit$object.Table.Name$object.troid()"
 title="Display $ml.rendered($object)">
@@ -81,7 +81,7 @@ $ml.rendered($object)</a>
 #if ($references.hasMoreElements()) #begin
   <td align="right" valign="top">
    <p>
-    <font FACE="Arial, Helvetica" size="-1">
+    <font face="Arial, Helvetica" size="-1">
 #foreach $column in $references #begin
 [&nbsp;<a href=$admin.SelectionRightURL($column.Table)?field_$ml.rendered($column.Name)=$ml.Attr.rendered($object.Troid) 
           target="admin_edit$object.Table.Name$object.troid()"
@@ -93,6 +93,6 @@ $ml.rendered($object)</a>
 #end 
 </tr>
 </table>
-</BODY>
-</HTML>
+</body>
+</html>
 

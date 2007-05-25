@@ -1920,6 +1920,10 @@ public class Table implements Selectable {
 
   private int nextTroid = -1;
 
+  /**
+   * @param persistent unused parameter, but might be needed in another troid schema
+   * @return the next Troid
+   */
   protected synchronized Integer troidFor(Persistent persistent) {
     if (nextTroid == -1)
       throw new PoemBugPoemException("Troid still unitialised in " + name);

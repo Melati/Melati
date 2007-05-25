@@ -60,14 +60,13 @@ import org.melati.poem.dbms.Dbms;
  * */
 public class BigDecimalPoemType extends FixedPointAtomPoemType {
 
-  static final String sqlTypeName = "DECIMAL"; 
   /**
    * Constructor.
    * 
    * @param nullable whether nullable 
    */
   public BigDecimalPoemType(boolean nullable) {
-    super(Types.DECIMAL, sqlTypeName, nullable, 22, 2);
+    super(Types.DECIMAL, "DECIMAL", nullable, 22, 2);
   }
 
   /**
@@ -78,7 +77,7 @@ public class BigDecimalPoemType extends FixedPointAtomPoemType {
    * @param scale defaults to 2
    */
   public BigDecimalPoemType(boolean nullable, int precision, int scale) {
-    super(Types.DECIMAL, sqlTypeName, nullable, precision, scale);
+    super(Types.DECIMAL, "DECIMAL", nullable, precision, scale);
     // because a newly added column of this type won't have valid 
     // numbers, we fix that here...
     // This does not appear to be needed - timp 01/01/2006

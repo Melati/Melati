@@ -62,9 +62,11 @@ import org.melati.poem.PoemThread;
 /**
  * A record within a CSV File.
  */
-public class CSVRecord extends Vector {
+public class CSVRecord {
   private static final long serialVersionUID = 1L;
 
+  private Vector fields;
+  
   /** The value of the primary key of this record, from the csv file */
   String primaryKeyValue = null;
 
@@ -86,6 +88,7 @@ public class CSVRecord extends Vector {
   public CSVRecord(Table table) {
     super();
     this.table = table;
+    this.fields = new Vector();
   }
 
   /**
@@ -94,7 +97,7 @@ public class CSVRecord extends Vector {
   public synchronized void addField(CSVField field) {
     if (field.column.isPrimaryKey)
       primaryKeyValue = field.value;
-    addElement(field);
+    fields.addElement(field);
   }
 
   /**
@@ -107,9 +110,9 @@ public class CSVRecord extends Vector {
       return;
     Persistent newObj = table.newPersistent();
 
-    for(int j = 0; j < size(); j++) {
-      CSVColumn col = ((CSVField)elementAt(j)).column;
-      String csvValue = ((CSVField)elementAt(j)).value;
+    for(int j = 0; j < fields.size(); j++) {
+      CSVColumn col = ((CSVField)fields.elementAt(j)).column;
+      String csvValue = ((CSVField)fields.elementAt(j)).value;
       if (col.foreignTable == null) {
         if (col.poemName != null) {
           try {
@@ -227,6 +230,13 @@ public class CSVRecord extends Vector {
    */
   public int getLineNo() {
     return lineNo;
+  }
+
+  /**
+   * @return the fields 
+   */
+  public Vector getFields() {
+    return fields;
   }
 
 }

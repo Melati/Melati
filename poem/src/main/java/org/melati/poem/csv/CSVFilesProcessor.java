@@ -48,6 +48,7 @@ import java.io.Writer;
 import java.io.IOException;
 
 import org.melati.poem.Database;
+import org.melati.poem.PoemBugPoemException;
 import org.melati.poem.PoemThread;
 import org.melati.poem.Table;
 
@@ -189,12 +190,21 @@ public class CSVFilesProcessor {
   }
 
   /**
+   * @param o output log to write to
    * @throws NoPrimaryKeyInCSVTableException
+   * @throws CSVWriteDownException
    */
   protected void writeData(Writer o) throws NoPrimaryKeyInCSVTableException,
       CSVWriteDownException {
-    for (int i = 0; i < tables.size(); i++)
-      ((CSVTable) tables.elementAt(i)).writeRecords();
+    for (int i = 0; i < tables.size(); i++) {
+      CSVTable t = (CSVTable) tables.elementAt(i);
+      try {
+        o.write("Writing " + t.getName() + ".\n");
+      } catch (IOException e) {
+        throw new PoemBugPoemException("Problem writing log", e);
+      }
+      t.writeRecords();
+    }
   }
 
 }

@@ -34,9 +34,77 @@ The inheritance hierarchy is a little convoluted, but it results in the classes 
 programmer should edit being in a single package, with the main bulk of the generated 
 files being created in a sub-directory (<tt>generated</tt>).
 </p>
+<subsection name= " Standard POEM generated classes " >
+<p>
+A typical DSD for an object <tt>MyObject</tt>
+</p>
+<pre>
+package org.myorg.myproject;
+
+table MyObject
+  (displayorder = 2010)
+  (description = "A thing")
+  (category = "User")
+  (seqcached) {  
+
+  Integer id
+    (primary) 
+    (description = "The Table Row Object ID")
+    (displaylevel = detail) 
+    (displayorder = 10);
+
+  String name (size = 60)
+    (displayname = "Full name")
+    (description = "The thing's real name")
+    (displayorderpriority = 0) 
+    (displaylevel = primary) 
+    (searchability = primary) 
+    (displayorder = 20)
+    (indexed);
+...                         
+}
+</pre>
+<p>
+Processing the DSD results in four files being generated: 
+</p>
+<table>
+<tr>
+<td>
+<tt>
+org.myorg.myproject.MyObject.java
+</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>
+org.myorg.myproject.MyObjectTable.java
+</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>
+org.myorg.myproject.generated.MyObjectBase.java
+</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>
+org.myorg.myproject.generated.MyObjectTableBase.java
+</tt>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</table>
+</subsection>
 <subsection name=" Extending POEM generated Table classes ">
 <p>
-The class heirarchy for a standard generated table called <tt>MyTable</tt> in package <tt>org.myorg.myproject</tt> 
+The class heirarchy for a standard generated table for records of <tt>MyObject</tt> object in package <tt>org.myorg.myproject</tt> 
 would be:
 </p>
 <table>
@@ -57,12 +125,12 @@ would be:
 </tr>
 <tr>
 <td>
-<tt>org.myorg.myproject.generated.MyTableBase</tt>
+<tt>org.myorg.myproject.generated.MyObjectTableBase</tt>
 </td>
 </tr>
 <tr>
 <td>
-<tt>org.myorg.myproject.MyTable</tt>
+<tt>org.myorg.myproject.MyObjectTable</tt>
 </td>
 </tr>
 </table>
@@ -72,21 +140,25 @@ This structure enables the programmer to override any method inheritted from
 </p>
 <p>
 It also enables the POEM metadata tables and the project tables to be treated separately. 
-For example the project tables could have a different unique key (TROID) allocation 
-algorithm from the metadata tables by overriding <tt>troidFor(Persistent persistent)</tt>.
+For example project tables could have a different unique key (TROID) allocation 
+algorithm from that used for the metadata tables by overriding <tt>troidFor(Persistent persistent)</tt>.
 </p>
 </subsection>
 <subsection name=" Extending POEM generated Persistent classes ">
 <p>
-The DSD supports the notion of abstract tables and of extension.
+The DSD supports abstract tables and one table extending another, possibly abstract, 
+table.
+</p>
+<p>
 An abstract table has its code generated in the same way as a 
 concrete table, but it is not represented in the underlying database.
 </p>
 <p>
-If all you have a group of tables all of which have a field of the same type, 
+If you have a group of tables all of which have a field of the same type, 
 creation timestamp, updating user, parent record for example, then these fields can 
 be defined in an abstract table and the target table can extend it. 
-The POEM DSD itself uses this technique:
+The <a href="/cgi-bin/cvsweb.cgi/~checkout~/melati/poem/src/main/java/org/melati/poem/Poem.dsd">POEM DSD</a>
+ itself uses this technique:
 </p>
 <pre>
 abstract table ValueInfo {
@@ -127,24 +199,41 @@ Even if your tables do not share fields of common type you can still use this te
 as abstract tables do not have to contain any fields.
 </p>
 <p>
-For example project tables can be made Treeable by creating an abstract table 
-to the DSD and extending from it:
+For example project tables can be made Treeable by defining 
+an abstract table and extending from it in the DSD:
 </p>
 <pre>
 package org.myorg.myproject;
 
 
-abstract table MyProjectTreeable
-  (description = "A treeable record")
-{}
+abstract table MyProjectTreeable{
+}
 
-table MyPersistent extends MyProjectTreeable
-{
-....
+table MyObject extends MyProjectTreeable
+  (displayorder = 2010)
+  (description = "A thing")
+  (category = "User")
+  (seqcached) {  
+
+  Integer id
+    (primary) 
+    (description = "The Table Row Object ID")
+    (displaylevel = detail) 
+    (displayorder = 10);
+
+  String name (size = 60)
+    (displayname = "Full name")
+    (description = "The thing's real name")
+    (displayorderpriority = 0) 
+    (displaylevel = primary) 
+    (searchability = primary) 
+    (displayorder = 20)
+    (indexed);
+...                         
 }
 </pre>
 <p>
-The resulting class hierarchy 
+The resulting class hierarchy for the extended <tt>MyObject</tt>
 </p>
 <table>
 <tr>
@@ -169,33 +258,79 @@ The resulting class hierarchy
 </tr>
 <tr>
 <td>
-<tt>org.myorg.myproject.generated.MyPersistentBase</tt>
+<tt>org.myorg.myproject.generated.MyObjectBase</tt>
 </td>
 </tr>
 <tr>
 <td>
-<tt>org.myorg.myproject.MyPersistent</tt>
+<tt>org.myorg.myproject.MyObject</tt>
 </td>
 </tr>
 </table>
 
 <p>
-adding the following to <tt>MyprojectTable.java</tt>:
+and the corresponding class hierarchy for the extended <tt>MyObjectTable</tt>
+</p>
+<table>
+<tr>
+<td>
+<tt>java.lang.Object</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.melati.poem.Table</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.myorg.myproject.MyProjectTable</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.myorg.myproject.generated.MyProjectTreeableTableBase</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.myorg.myproject.generated.MyProjectTreeableTable</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.myorg.myproject.generated.MyObjectBaseTable</tt>
+</td>
+</tr>
+<tr>
+<td>
+<tt>org.myorg.myproject.MyObjectTable</tt>
+</td>
+</tr>
+</table>
+<p>
+Note that the Table class inherits from <tt>org.myorg.myproject.MyProjectTable</tt> but that 
+there is no equivalent for the <tt>Persistent</tt> itself, as extending from an abstract table 
+is more fine grained.
+</p>
+<p>
+Once the processor has generated the sources you can modify <tt>MyProjectTreeable.java</tt>,
+to implement an interface for example:
 </p>
 <pre>
-public class MyprojectTreeable extends AdaptTreeableBase implements Treeable {
+public class MyProjectTreeable extends MyProjectTreeableBase implements Treeable {
 
  /**
   * Constructor 
-  * for a <code>Persistent</code> <code>AdaptTreeable</code> object.
+  * for a <code>Persistent</code> <code>MyProjectTreeable</code> object.
   * <p>
   * Description: 
-  *   A treeable Adapt record. 
+  *   A treeable record. 
   * </p>
   * 
   * @generator org.melati.poem.prepro.TableDef#generateMainJava 
   */
-  public AdaptTreeable() { }
+  public MyProjectTreeable() { }
 
   // programmer's domain-specific code here
 

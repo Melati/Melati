@@ -243,7 +243,7 @@ public final class PoemDatabaseFactory {
     public PoemShutdownThread() {
       super();
       setName("PoemShutdownThread");
-      System.err.println("\n\n*** PoemShutDownThread registering. ***\n");
+      System.err.println("\n\n*** PoemShutdownThread registering. ***\n");
       Runtime.getRuntime().addShutdownHook(this);
     }
 
@@ -253,7 +253,7 @@ public final class PoemDatabaseFactory {
      * @see java.lang.Thread#run()
      */
     public void run() {
-      System.err.println("\n\n*** PoemShutdownThread started. ***\n");
+      System.err.println("\n\n*** PoemShutdownThread starting to shutdown. ***\n");
       try {
         Vector dbs = PoemDatabaseFactory.initialisedDatabases();
         Enumeration them = dbs.elements();

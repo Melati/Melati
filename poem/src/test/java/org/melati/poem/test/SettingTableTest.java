@@ -71,9 +71,9 @@ public class SettingTableTest extends PoemTestCase {
     assertNull(getDb().getSettingTable().getCooked("nullIntegerSetting"));
     Setting setting3 = getDb().getSettingTable().ensure("integerSettingA", 13, "Integer",
          "A set Integer setting");
-    assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
+    assertEquals(new Integer(13), getDb().getSettingTable().getCooked(
          "integerSettingA"));
-    assertEquals(new Integer(13), (Integer)getDb().getSettingTable().getCooked(
+    assertEquals(new Integer(13), getDb().getSettingTable().getCooked(
          "integerSettingA"));
     
     stringSetting.delete();
@@ -87,7 +87,7 @@ public class SettingTableTest extends PoemTestCase {
   public void testGet() {
     Setting setting1 = getDb().getSettingTable().ensure("integerSettingG", 12, "Integer",
         "A set Integer setting");
-    assertEquals("12", (String)getDb().getSettingTable().get("integerSettingG"));
+    assertEquals("12", getDb().getSettingTable().get("integerSettingG"));
     assertNull(getDb().getSettingTable().get("unsetSetting"));
     setting1.delete();
 

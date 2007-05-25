@@ -48,8 +48,8 @@ public class GroupCapabilityTest extends PoemTestCase {
    * GroupCapability(org.melati.poem.Group, org.melati.poem.Capability)}.
    */
   public void testGroupCapabilityGroupCapability() {
-    Group g = (Group)getDb().getGroupTable().ensure("testgroup");
-    Capability c = (Capability)getDb().getCapabilityTable().ensure("testing");
+    Group g = getDb().getGroupTable().ensure("testgroup");
+    Capability c = getDb().getCapabilityTable().ensure("testing");
     GroupCapability gc = new GroupCapability(g, c);
     getDb().getGroupCapabilityTable().create(gc);
     assertEquals("testgroup",gc.getGroup().getName());
@@ -81,8 +81,8 @@ public class GroupCapabilityTest extends PoemTestCase {
    * ensure(org.melati.poem.Group, org.melati.poem.Capability)}.
    */
   public void testEnsureGroupCapability() {
-    Group g = (Group)getDb().getGroupTable().ensure("testgroup");
-    Capability c = (Capability)getDb().getCapabilityTable().ensure("testing");
+    Group g = getDb().getGroupTable().ensure("testgroup");
+    Capability c = getDb().getCapabilityTable().ensure("testing");
     GroupCapability gc = getDb().getGroupCapabilityTable().ensure(g,c);
     assertEquals("testgroup",gc.getGroup().getName());
     assertEquals("testing",gc.getCapability().getName());

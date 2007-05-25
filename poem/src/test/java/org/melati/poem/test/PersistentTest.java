@@ -435,7 +435,7 @@ public class PersistentTest extends EverythingTestCase {
    */
   public void testGetCookedString() {
     Persistent p = getDb().getUserTable().administratorUser();
-    String name = (String)p.getCookedString("name", PoemLocale.HERE, DateFormat.MEDIUM);
+    String name = p.getCookedString("name", PoemLocale.HERE, DateFormat.MEDIUM);
     assertEquals("Melati database administrator", name);
     Persistent p2 = getDb().getUserTable().getTableInfo();
     String c = p2.getCookedString("category", PoemLocale.HERE, DateFormat.MEDIUM);
@@ -570,7 +570,7 @@ public class PersistentTest extends EverythingTestCase {
    * @see org.melati.poem.Persistent#delete(Map)
    */
   public void testDeleteMap() {
-    TableInfo ti = (TableInfo)getDb().getUserTable().getTableInfo();
+    TableInfo ti = getDb().getUserTable().getTableInfo();
     try { 
       ti.delete();
       fail("Should have bombed");
@@ -858,7 +858,7 @@ public class PersistentTest extends EverythingTestCase {
     User u = (User)getDb().getUserTable().newPersistent();
     d = u.dump();
     assertTrue(d.startsWith("user/null"));
-    u = (User)getDb().getUserTable().guestUser();
+    u = getDb().getUserTable().guestUser();
     d = u.dump();
     assertTrue(d.startsWith("user/0"));
 
@@ -894,7 +894,7 @@ public class PersistentTest extends EverythingTestCase {
     User u = (User)getDb().getUserTable().newPersistent();
     u.dump(ps);
     assertTrue(baos.toString().startsWith("user/null"));
-    u = (User)getDb().getUserTable().guestUser();
+    u = getDb().getUserTable().guestUser();
     baos = new ByteArrayOutputStream();
     ps = new PrintStream(baos);
     u.dump(ps);

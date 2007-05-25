@@ -411,7 +411,7 @@ public class DynamicTableTest extends EverythingTestCase {
     while (en.hasMoreElements()) {
       d = (Dynamic) en.nextElement();
       if (d.statusExistent()) {
-        assertEquals(t, (Integer)d.getRaw("testtypecol"));
+        assertEquals(t, d.getRaw("testtypecol"));
         count++;
       }
     }
@@ -829,7 +829,7 @@ public class DynamicTableTest extends EverythingTestCase {
     Enumeration en = dt.selection();
     t = (Timestamp) ((Dynamic) en.nextElement()).getRaw("testtimestampcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Timestamp) ((Dynamic) en.nextElement())
+      assertEquals(t, ((Dynamic) en.nextElement())
           .getRaw("testtimestampcol"));
     }
     assertEquals(2, EnumUtils.vectorOf(
@@ -922,7 +922,7 @@ public class DynamicTableTest extends EverythingTestCase {
     Enumeration en = dt.selection();
     t = (Integer) ((Dynamic) en.nextElement()).getRaw("testdisplaylevelcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
+      assertEquals(t,  ((Dynamic) en.nextElement())
           .getRaw("testdisplaylevelcol"));
     }
 
@@ -931,8 +931,8 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (DisplayLevel) ((Dynamic) en2.nextElement())
         .getCooked("testdisplaylevelcol");
     while (en2.hasMoreElements()) {
-      assertEquals(t2, ((DisplayLevel) ((Dynamic) en2.nextElement())
-          .getCooked("testdisplaylevelcol")));
+      assertEquals(t2, ((Dynamic) en2.nextElement())
+          .getCooked("testdisplaylevelcol"));
     }
 
     assertEquals(2, EnumUtils.vectorOf(
@@ -944,10 +944,10 @@ public class DynamicTableTest extends EverythingTestCase {
         .size());
     assertEquals(new Integer(0), dt.two().getRaw(
         "testdisplaylevelcol"));
-    assertEquals(DisplayLevel.primary, ((DisplayLevel) dt.two()
-        .getCooked("testdisplaylevelcol")));
-    assertEquals(DisplayLevel.primary, ((DisplayLevel) dt.getObject(0)
-        .getCooked("testdisplaylevelcol")));
+    assertEquals(DisplayLevel.primary, dt.two()
+        .getCooked("testdisplaylevelcol"));
+    assertEquals(DisplayLevel.primary, dt.getObject(0)
+        .getCooked("testdisplaylevelcol"));
     columnInfo.delete();
   }
 
@@ -983,7 +983,7 @@ public class DynamicTableTest extends EverythingTestCase {
     Enumeration en = dt.selection();
     t = (Integer) ((Dynamic) en.nextElement()).getRaw("testsearchabilitycol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
+      assertEquals(t, ((Dynamic) en.nextElement())
           .getRaw("testsearchabilitycol"));
     }
 
@@ -992,8 +992,8 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (Searchability) ((Dynamic) en2.nextElement())
         .getCooked("testsearchabilitycol");
     while (en2.hasMoreElements()) {
-      assertEquals(t2, ((Searchability) ((Dynamic) en2.nextElement())
-          .getCooked("testsearchabilitycol")));
+      assertEquals(t2, ((Dynamic) en2.nextElement())
+          .getCooked("testsearchabilitycol"));
     }
 
     assertEquals(2, EnumUtils.vectorOf(
@@ -1005,10 +1005,10 @@ public class DynamicTableTest extends EverythingTestCase {
         .size());
     assertEquals(new Integer(0), dt.two().getRaw(
         "testsearchabilitycol"));
-    assertEquals(Searchability.primary, ((Searchability) dt.two()
-        .getCooked("testsearchabilitycol")));
-    assertEquals(Searchability.primary, ((Searchability) dt.getObject(0)
-        .getCooked("testsearchabilitycol")));
+    assertEquals(Searchability.primary, dt.two()
+        .getCooked("testsearchabilitycol"));
+    assertEquals(Searchability.primary,  dt.getObject(0)
+        .getCooked("testsearchabilitycol"));
     columnInfo.delete();
   }
 
@@ -1044,7 +1044,7 @@ public class DynamicTableTest extends EverythingTestCase {
     Enumeration en = dt.selection();
     t = (Integer) ((Dynamic) en.nextElement()).getRaw("testIntegrityfixcol");
     while (en.hasMoreElements()) {
-      assertEquals(t, (Integer) ((Dynamic) en.nextElement())
+      assertEquals(t, ((Dynamic) en.nextElement())
           .getRaw("testIntegrityfixcol"));
     }
 
@@ -1053,8 +1053,8 @@ public class DynamicTableTest extends EverythingTestCase {
     t2 = (IntegrityFix) ((Dynamic) en2.nextElement())
         .getCooked("testIntegrityfixcol");
     while (en2.hasMoreElements()) {
-      assertEquals(t2, ((IntegrityFix) ((Dynamic) en2.nextElement())
-          .getCooked("testIntegrityfixcol")));
+      assertEquals(t2, ((Dynamic) en2.nextElement())
+          .getCooked("testIntegrityfixcol"));
     }
 
     assertEquals(2, EnumUtils.vectorOf(
@@ -1066,10 +1066,10 @@ public class DynamicTableTest extends EverythingTestCase {
         .size());
     assertEquals(new Integer(2), dt.two().getRaw(
         "testIntegrityfixcol"));
-    assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix) dt
-        .two().getCooked("testIntegrityfixcol")));
-    assertEquals(StandardIntegrityFix.prevent, ((IntegrityFix) dt.getObject(0)
-        .getCooked("testIntegrityfixcol")));
+    assertEquals(StandardIntegrityFix.prevent, 
+        dt.two().getCooked("testIntegrityfixcol"));
+    assertEquals(StandardIntegrityFix.prevent, 
+        dt.getObject(0).getCooked("testIntegrityfixcol"));
     columnInfo.delete();
   }
 

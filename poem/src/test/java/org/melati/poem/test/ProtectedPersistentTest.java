@@ -210,14 +210,14 @@ public class ProtectedPersistentTest extends PersistentTest {
     spyMission.setDeleted(false);
     spyMission.makePersistent();
 
-    Group officeWorkers = (Group)db.getGroupTable().ensure("officeWorkers");
+    Group officeWorkers = db.getGroupTable().ensure("officeWorkers");
     GroupMembership inOfficeWorkersMoneyPenny = (GroupMembership)db.getGroupMembershipTable().newPersistent();
     inOfficeWorkersMoneyPenny.setGroup(officeWorkers);
     inOfficeWorkersMoneyPenny.setUser(moneypenny);
     inOfficeWorkersMoneyPenny.makePersistent();
     GroupCapability officeWorkersMonitor = db.getGroupCapabilityTable().ensure(officeWorkers, monitor);
     
-    Group spyMasters = (Group)db.getGroupTable().ensure("spyMasters");
+    Group spyMasters = db.getGroupTable().ensure("spyMasters");
     GroupMembership inSpyMastersSmiley = (GroupMembership)db.getGroupMembershipTable().newPersistent();
     inSpyMastersSmiley.setGroup(spyMasters);
     inSpyMastersSmiley.setUser(smiley);

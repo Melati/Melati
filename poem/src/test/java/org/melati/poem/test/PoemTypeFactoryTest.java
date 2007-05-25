@@ -107,7 +107,8 @@ public class PoemTypeFactoryTest extends PoemTestCase {
    * forCode(org.melati.poem.Database, int)}.
    */
   public void testForCode() {
-    PoemTypeFactory userType = PoemTypeFactory.forCode((Database)getDb(),0);
+    Database db = getDb();
+    PoemTypeFactory userType = PoemTypeFactory.forCode(db,0);
     assertEquals("User", userType.getDisplayName());
     assertEquals("A registered User of the database", userType.getDescription());
   }

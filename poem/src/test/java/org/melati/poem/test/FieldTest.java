@@ -247,7 +247,7 @@ public class FieldTest extends PoemTestCase {
     Field stringField2 = stringField.withRaw("stringField2");
     assertEquals("stringField2", (String)stringField2.getRaw());
     Field integerField2 = stringField.withRaw(new Integer(2));
-    assertEquals(new Integer(2), (Integer)integerField2.getRaw());
+    assertEquals(new Integer(2), integerField2.getRaw());
   }
 
   /**

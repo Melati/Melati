@@ -73,7 +73,7 @@
       <artifactId>poem</artifactId>
       <version>0.7.6-RC2</version>
       <classifier>tests</classifier>
-      <scope>compile</scope>
+      <scope>test</scope>
     </dependency>
 
     <dependency>

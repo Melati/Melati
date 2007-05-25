@@ -326,10 +326,10 @@ public class CSVTable {
           output.write(", Poem Troid = " + record.poemRecord.troid() + "\n");
 
         if (fieldDetails) {
-          for (int j = 0; j < record.size(); j++) {
-            CSVField field = (CSVField)record.elementAt(j);
+          for (int j = 0; j < record.getFields().size(); j++) {
+            CSVField field = (CSVField)record.getFields().elementAt(j);
             output.write(field.column + "=\"" + field.value);
-            if (j < record.size()-1)
+            if (j < record.getFields().size()-1)
               output.write("\",");
             else
               output.write("\"\n");

@@ -221,7 +221,7 @@ public class AnsiStandard implements Dbms {
         c.setAutoCommit(false);
         //c.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED); 
       return c;
-    } catch (Exception e ) { 
+    } catch (Exception e) { 
       throw new ConnectionFailurePoemException(e);
     }
   }
@@ -296,7 +296,7 @@ public class AnsiStandard implements Dbms {
    */
   public String getFixedPtSqlDefinition(int scale, int precision)
       throws SQLException {
-    if (scale < 0 )
+    if (scale < 0)
       throw new SQLException(
           "negative scale not supported " + 
           "in AnsiStandard DECIMALs");

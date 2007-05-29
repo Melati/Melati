@@ -104,8 +104,8 @@ org.myorg.myproject.generated.MyObjectTableBase.java
 </subsection>
 <subsection name=" Extending POEM generated Table classes ">
 <p>
-The class heirarchy for a standard generated table for records of <tt>MyObject</tt> object in package <tt>org.myorg.myproject</tt> 
-would be:
+The class heirarchy for a standard generated table for records of type <tt>MyObject</tt> 
+in package <tt>org.myorg.myproject</tt> would be:
 </p>
 <table>
 <tr>
@@ -146,8 +146,7 @@ algorithm from that used for the metadata tables by overriding <tt>troidFor(Pers
 </subsection>
 <subsection name=" Extending POEM generated Persistent classes ">
 <p>
-The DSD supports abstract tables and one table extending another, possibly abstract, 
-table.
+The DSD supports abstract tables and table extension, where the extended table may be abstract.
 </p>
 <p>
 An abstract table has its code generated in the same way as a 
@@ -155,7 +154,7 @@ concrete table, but it is not represented in the underlying database.
 </p>
 <p>
 If you have a group of tables all of which have a field of the same type, 
-creation timestamp, updating user, parent record for example, then these fields can 
+(for example creation timestamp, updating user, parent record etc), then these fields can 
 be defined in an abstract table and the target table can extend it. 
 The <a href="/cgi-bin/cvsweb.cgi/~checkout~/melati/poem/src/main/java/org/melati/poem/Poem.dsd">POEM DSD</a>
  itself uses this technique:

@@ -16,7 +16,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>User</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class UserBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class UserBase extends Persistent {
   * Retrieves the  <code>UserTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the UserTable
   */
   public UserTable getUserTable() {

@@ -21,7 +21,7 @@ import org.melati.poem.ValueInfo;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>ColumnInfo</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class ColumnInfoBase extends ValueInfo {
 
@@ -41,7 +41,7 @@ public abstract class ColumnInfoBase extends ValueInfo {
   * Retrieves the  <code>ColumnInfoTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the ColumnInfoTable
   */
   public ColumnInfoTable getColumnInfoTable() {

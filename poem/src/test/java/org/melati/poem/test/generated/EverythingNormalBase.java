@@ -19,7 +19,7 @@ import org.melati.poem.test.EverythingNormalTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>EverythingNormal</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class EverythingNormalBase extends Persistent {
 
@@ -39,7 +39,7 @@ public abstract class EverythingNormalBase extends Persistent {
   * Retrieves the  <code>EverythingNormalTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EverythingNormalTable
   */
   public EverythingNormalTable getEverythingNormalTable() {

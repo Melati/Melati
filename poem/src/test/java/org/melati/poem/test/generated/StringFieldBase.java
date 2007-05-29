@@ -16,7 +16,7 @@ import org.melati.poem.test.StringFieldTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>StringField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class StringFieldBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class StringFieldBase extends Persistent {
   * Retrieves the  <code>StringFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the StringFieldTable
   */
   public StringFieldTable getStringFieldTable() {

@@ -17,7 +17,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>BigdecimalField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class BigdecimalFieldBase extends Persistent {
 
@@ -37,7 +37,7 @@ public abstract class BigdecimalFieldBase extends Persistent {
   * Retrieves the  <code>BigdecimalFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BigdecimalFieldTable
   */
   public BigdecimalFieldTable getBigdecimalFieldTable() {

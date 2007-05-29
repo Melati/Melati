@@ -17,7 +17,7 @@ import org.melati.poem.test.TimestampFieldTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>TimestampField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class TimestampFieldBase extends Persistent {
 
@@ -37,7 +37,7 @@ public abstract class TimestampFieldBase extends Persistent {
   * Retrieves the  <code>TimestampFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the TimestampFieldTable
   */
   public TimestampFieldTable getTimestampFieldTable() {

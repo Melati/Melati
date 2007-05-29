@@ -13,7 +13,7 @@ public class ContactsTable extends Table {
  /**
   * Constructor. 
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
+  * @generator org.melati.poem.prepro.DSD#generateProjectTableJava 
   * @param database          the POEM database we are using
   * @param name              the name of this <code>Table</code>
   * @param definitionSource  which definition is being used
@@ -24,20 +24,6 @@ public class ContactsTable extends Table {
       Database database, String name,
       DefinitionSource definitionSource) throws PoemException {
     super(database, name, definitionSource);
-  }
-
-
- /**
-  * Constructor.
-  *
-  * @generator org.melati.poem.prepro.TableDef#generateTableBaseJava 
-  * @param database          the POEM database we are using
-  * @param name              the name of this <code>Table</code>
-  * @throws PoemException    if anything goes wrong
-  */
-  public ContactsTable(
-      Database database, String name) throws PoemException {
-    this(database, name, DefinitionSource.dsd);
   }
 
   // programmer's domain-specific code here

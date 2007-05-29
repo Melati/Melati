@@ -16,7 +16,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>BooleanField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class BooleanFieldBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class BooleanFieldBase extends Persistent {
   * Retrieves the  <code>BooleanFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the BooleanFieldTable
   */
   public BooleanFieldTable getBooleanFieldTable() {

@@ -16,7 +16,7 @@ import org.melati.poem.test.IntegerFieldTable;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>IntegerField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class IntegerFieldBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class IntegerFieldBase extends Persistent {
   * Retrieves the  <code>IntegerFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the IntegerFieldTable
   */
   public IntegerFieldTable getIntegerFieldTable() {

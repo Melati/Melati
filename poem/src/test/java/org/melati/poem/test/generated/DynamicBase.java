@@ -16,7 +16,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>Dynamic</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class DynamicBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class DynamicBase extends Persistent {
   * Retrieves the  <code>DynamicTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DynamicTable
   */
   public DynamicTable getDynamicTable() {

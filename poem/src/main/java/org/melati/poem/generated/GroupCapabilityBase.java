@@ -19,7 +19,7 @@ import org.melati.poem.ValidationPoemException;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>GroupCapability</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class GroupCapabilityBase extends Persistent {
 
@@ -39,7 +39,7 @@ public abstract class GroupCapabilityBase extends Persistent {
   * Retrieves the  <code>GroupCapabilityTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the GroupCapabilityTable
   */
   public GroupCapabilityTable getGroupCapabilityTable() {

@@ -16,7 +16,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>DoubleField</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class DoubleFieldBase extends Persistent {
 
@@ -36,7 +36,7 @@ public abstract class DoubleFieldBase extends Persistent {
   * Retrieves the  <code>DoubleFieldTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the DoubleFieldTable
   */
   public DoubleFieldTable getDoubleFieldTable() {

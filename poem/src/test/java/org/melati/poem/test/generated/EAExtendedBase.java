@@ -19,7 +19,7 @@ import org.melati.poem.test.EverythingDatabaseTables;
  * Melati POEM generated abstract base class for a <code>Persistent</code> 
  * <code>EAExtended</code> Object.
  *
- * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+ * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
  */
 public abstract class EAExtendedBase extends EverythingAbstract {
 
@@ -39,7 +39,7 @@ public abstract class EAExtendedBase extends EverythingAbstract {
   * Retrieves the  <code>EAExtendedTable</code> table 
   * which this <code>Persistent</code> is from.
   * 
-  * @generator org.melati.poem.prepro.TableDef#generateBaseJava 
+  * @generator org.melati.poem.prepro.TableDef#generatePersistentBaseJava 
   * @return the EAExtendedTable
   */
   public EAExtendedTable getEAExtendedTable() {

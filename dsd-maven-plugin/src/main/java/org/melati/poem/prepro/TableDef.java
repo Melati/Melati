@@ -242,11 +242,11 @@ public class TableDef {
 
   /**
    * @param w
-   *        PersistentBase
+   *        Persistent Base writer
    * @throws IOException
    *         if a problem with the file system is encountered
    */
-  public void generateBaseJava(Writer w)
+  public void generatePersistentBaseJava(Writer w)
       throws IOException {
 
     w.write("\n");
@@ -263,7 +263,7 @@ public class TableDef {
         + " * Melati POEM generated abstract base class for a "
         + "<code>Persistent</code> \n" + " * <code>" + suffix
         + "</code> Object.\n" + " *\n" + " * @generator "
-        + "org.melati.poem.prepro.TableDef" + "#generateBaseJava \n" + " */\n");
+        + "org.melati.poem.prepro.TableDef" + "#generatePersistentBaseJava \n" + " */\n");
     w.write("public abstract class " + naming.baseClassShortName()
         + " extends " + naming.superclassMainShortName() + " {\n" + "\n");
 
@@ -278,7 +278,7 @@ public class TableDef {
         + naming.tableMainClassShortName() + "</code> table \n"
         + "  * which this <code>Persistent</code> is from.\n" + "  * \n"
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
-        + "#generateBaseJava \n" 
+        + "#generatePersistentBaseJava \n" 
         + "  * @return the " + requiredReturnClass
         + "\n" + "  */\n");
     w.write("  public " + requiredReturnClass + " "
@@ -320,11 +320,11 @@ public class TableDef {
 
   /**
    * @param w
-   *        Persistent
+   *        Persistent writer
    * @throws IOException
    *         if a problem with the file system is encountered
    */
-  public void generateMainJava(Writer w)
+  public void generatePersistentJava(Writer w)
       throws IOException {
 
     w.write("import " + dsd.packageName + ".generated."
@@ -341,7 +341,7 @@ public class TableDef {
             + " * </p>\n" : ""));
     w.write(fieldSummaryTable());
     w.write(" * \n" + " * @generator " + "org.melati.poem.prepro.TableDef"
-        + "#generateMainJava \n" + " */\n");
+        + "#generatePersistentJava \n" + " */\n");
     w.write("public class " + naming.mainClassShortName() + " extends "
         + naming.baseClassShortName() + " {\n");
 
@@ -357,7 +357,7 @@ public class TableDef {
                         .lastIndexOf(".") != description.length() - 1) ? "."
                         : ""))) + "  * </p>\n") : "") + "  * \n"
             + "  * @generator " + "org.melati.poem.prepro.TableDef"
-            + "#generateMainJava \n" + "  */\n");
+            + "#generatePersistentJava \n" + "  */\n");
 
     w.write("  public " + naming.mainClassShortName() + "() { }\n" + "\n"
         + "  // programmer's domain-specific code here\n" + "}\n");
@@ -378,7 +378,8 @@ public class TableDef {
     w.write("\n");
     w.write("\n" + "/**\n" + " * Melati POEM generated base class for \n"
         + "<code>Table</code> <code>" + suffix + "</code>.\n");
-    w.write(" *\n" + " * @generator " + "org.melati.poem.prepro.TableDef"
+    w.write(" *\n" 
+        + " * @generator " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + " */\n");
     w.write("\npublic class " + naming.tableBaseClassShortName() + " extends "
         + naming.superclassTableShortName() + " {\n" + "\n");
@@ -389,8 +390,9 @@ public class TableDef {
       w.write(" = null;\n");
     }
 
-    w.write("\n /**\n" + "  * Constructor. \n" + "  * \n" + "  * @generator "
-        + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
+    w.write("\n /**\n" + "  * Constructor. \n" 
+        + "  * \n" 
+        + "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param database          the POEM database we are using\n"
         + "  * @param name              the name of this <code>Table</code>\n"
         + "  * @param definitionSource  which definition is being used\n"
@@ -401,7 +403,9 @@ public class TableDef {
         + " throws PoemException {\n"
         + "    super(database, name, definitionSource);\n" + "  }\n" + "\n");
 
-    w.write("\n /**\n" + "  * Constructor.\n" + "  *\n" + "  * @generator "
+    w.write("\n /**\n" + "  * Constructor.\n" 
+        + "  *\n" 
+        + "  * @generator "
         + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param database          the POEM database we are using\n"
         + "  * @param name              the name of this <code>Table</code>\n"
@@ -438,7 +442,9 @@ public class TableDef {
 
     w.write("\n /**\n" + "  * Retrieve the <code>"
         + naming.mainClassShortName() + "</code> as a <code>"
-        + requiredReturnClass + "</code>.\n" + "  *\n" + "  * @generator "
+        + requiredReturnClass + "</code>.\n" 
+        + "  *\n" 
+        + "  * @generator "
         + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param troid a Table Row Oject ID\n"
         + "  * @return the <code>Persistent</code> identified "
@@ -449,8 +455,10 @@ public class TableDef {
         + "  }\n" + "\n");
 
     w.write("\n /**\n" + "  * Retrieve the <code>"
-        + naming.mainClassShortName() + "</code> \n" + "  * as a <code>"
-        + requiredReturnClass + "</code>.\n" + "  *\n" + "  * @generator "
+        + naming.mainClassShortName() + "</code> \n" 
+        + "  * as a <code>" + requiredReturnClass + "</code>.\n" 
+        + "  *\n" 
+        + "  * @generator "
         + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
         + "  * @param troid a Table Row Object ID\n"
         + "  * @return the <code>Persistent</code> identified " + "  */\n");
@@ -498,7 +506,7 @@ public class TableDef {
    * @throws IOException
    *         if a problem with the file system is encountered
    */
-  public void generateTableMainJava(Writer w)
+  public void generateTableJava(Writer w)
       throws IOException {
 
     w.write("import " + naming.tableBaseClassFQName() + ";\n");
@@ -517,8 +525,8 @@ public class TableDef {
                 .lastIndexOf(".") != description.length() - 1) ? "." : "")))
             + " * </p>\n" : "") + " *\n");
     w.write(fieldSummaryTable());
-    w.write(" * \n" + " * @generator  " + "org.melati.poem.prepro.TableDef"
-        + "#generateTableMainJava \n" + " */\n");
+    w.write(" * \n" 
+        + " * @generator  " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n" + " */\n");
     w.write("public class " + naming.tableMainClassShortName() + " extends "
         + naming.tableBaseClassShortName() + " {\n");
     Object o = new Object() {
@@ -526,9 +534,7 @@ public class TableDef {
         return "\n /**\n"
             + "  * Constructor.\n"
             + "  * \n"
-            + "  * @generator "
-            + "org.melati.poem.prepro.TableDef"
-            + "#generateTableMainJava \n"
+            + "  * @generator " + "org.melati.poem.prepro.TableDef" + "#generateTableJava \n"
             + "  * @param database          the POEM database we are using\n"
             + "  * @param name              the name of this <code>Table</code>\n"
             + "  * @param definitionSource  which definition is being used\n"
@@ -654,14 +660,14 @@ public class TableDef {
     dsd.createJava(naming.baseClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
-        this_.generateBaseJava(w);
+        this_.generatePersistentBaseJava(w);
       }
     }, true);
 
     dsd.createJava(naming.mainClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
-        this_.generateMainJava(w);
+        this_.generatePersistentJava(w);
       }
     }, false);
 
@@ -675,7 +681,7 @@ public class TableDef {
     dsd.createJava(naming.tableMainClassShortName(), new Generator() {
       public void process(Writer w)
           throws IOException {
-        this_.generateTableMainJava(w);
+        this_.generateTableJava(w);
       }
     }, false);
   }

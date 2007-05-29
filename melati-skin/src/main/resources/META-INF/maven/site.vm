@@ -2,7 +2,7 @@
 #macro ( banner $banner $id )
   #if ( $banner )
     #if( $banner.href )
-      <a href="$banner.href" id="$id">
+      <a href="$banner.href" id="$id" #if( $banner.alt ) title="$banner.alt" #end >
     #else
         <div id="$id">
     #end

@@ -71,8 +71,10 @@ public class StringUtilsTest extends TestCase {
     assertEquals("",buff.toString());
     StringUtils.appendEscaped(buff, "a$b", '$');
     assertEquals("a\\$b",buff.toString());
+    StringUtils.appendEscaped(buff, "a$a$a$a", '$');
+    assertEquals("a\\$ba\\$a\\$a\\$a",buff.toString());
     StringUtils.appendEscaped(buff, "c\\d", '$');
-    assertEquals("a\\$bc\\\\d",buff.toString());
+    assertEquals("a\\$ba\\$a\\$a\\$ac\\\\d",buff.toString());
   }
 
   /**

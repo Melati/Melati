@@ -134,6 +134,7 @@ public class StringUtilsTest extends TestCase {
     String[] them = {"one", "two", "three"};
     assertEquals("one,two,three", StringUtils.concatenated(",",them));
     assertEquals("onetwothree", StringUtils.concatenated(null,them));
+    assertEquals("", StringUtils.concatenated(null,new String[] {}));
   }
 
   /**

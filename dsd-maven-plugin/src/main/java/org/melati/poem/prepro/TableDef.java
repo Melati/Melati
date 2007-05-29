@@ -403,16 +403,21 @@ public class TableDef {
         + " throws PoemException {\n"
         + "    super(database, name, definitionSource);\n" + "  }\n" + "\n");
 
-    w.write("\n /**\n" + "  * Constructor.\n" 
-        + "  *\n" 
-        + "  * @generator "
-        + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
-        + "  * @param database          the POEM database we are using\n"
-        + "  * @param name              the name of this <code>Table</code>\n"
-        + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
-    w.write("  public " + naming.tableBaseClassShortName() + "(\n"
-        + "      Database database, String name)" + " throws PoemException {\n"
-        + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" + "\n");
+    
+    //w.write("\n /**\n" + "  * Constructor.\n" 
+    //    + "  *\n" 
+    //    + "  * @generator "
+    //    + "org.melati.poem.prepro.TableDef" + "#generateTableBaseJava \n"
+    //    + "  * @param database          the POEM database we are using\n"
+    //    + "  * @param name              the name of this <code>Table</code>\n"
+    //    + "  * @throws PoemException    if anything goes wrong\n" 
+    //    + "  */\n");
+    //w.write("  public " + naming.tableBaseClassShortName() + "(\n"
+    //    + "      Database database, String name)" 
+    //    + " throws PoemException {\n"
+    //    + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" 
+    //    + "\n");
+    
     w.write("\n /**\n" + "  * Get the database tables.\n" + "  *\n"
         + "  * @generator " + "org.melati.poem.prepro.TableDef"
         + "#generateTableBaseJava \n" + "  * @return the database tables\n"

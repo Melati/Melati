@@ -507,7 +507,7 @@ public class DSD {
    * 
    * @param w the project table writer
    */
-  void generateTableJava(Writer w) throws IOException {
+  void generateProjectTableJava(Writer w) throws IOException {
     w.write("import org.melati.poem.Table;\n");
     w.write("import org.melati.poem.DefinitionSource;\n");
     w.write("import org.melati.poem.Database;\n");
@@ -518,32 +518,30 @@ public class DSD {
             " * Melati POEM generated, " +
             "programmer modifyable inheritance hook.\n" +
             " */\n");
-    w.write("public class " + getTableClassName() +
+    w.write("public class " + getProjectTableClassName() +
             " extends Table {\n");
     
     w.write("\n /**\n" + "  * Constructor. \n" + "  * \n" 
-            + "  * @generator "
-            + "org.melati.poem.prepro.DSD" + "#generateTableJava \n"
+            + "  * @generator " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
             + "  * @param database          the POEM database we are using\n"
             + "  * @param name              the name of this <code>Table</code>\n"
             + "  * @param definitionSource  which definition is being used\n"
             + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
 
-    w.write("\n" + "  public " + getTableClassName() + "(\n"
+    w.write("\n" + "  public " + getProjectTableClassName() + "(\n"
             + "      Database database, String name,\n"
             + "      DefinitionSource definitionSource)"
             + " throws PoemException {\n"
             + "    super(database, name, definitionSource);\n" + "  }\n" + "\n");
 
-    w.write("\n /**\n" + "  * Constructor.\n" + "  *\n" 
-            + "  * @generator "
-            + "org.melati.poem.prepro.DSD" + "#generateTableJava \n"
-            + "  * @param database          the POEM database we are using\n"
-            + "  * @param name              the name of this <code>Table</code>\n"
-            + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
-    w.write("  public " + getTableClassName() + "(\n"
-            + "      Database database, String name)" + " throws PoemException {\n"
-            + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" + "\n");
+    //w.write("\n /**\n" + "  * Constructor.\n" + "  *\n" 
+    //        + "  * @generator " + "org.melati.poem.prepro.DSD" + "#generateProjectTableJava \n"
+    //        + "  * @param database          the POEM database we are using\n"
+    //        + "  * @param name              the name of this <code>Table</code>\n"
+    //        + "  * @throws PoemException    if anything goes wrong\n" + "  */\n");
+    //w.write("  public " + getProjectTableClassName() + "(\n"
+    //        + "      Database database, String name)" + " throws PoemException {\n"
+    //        + "    this(database, name, DefinitionSource.dsd);\n" + "  }\n" + "\n");
 
     w.write("  // programmer's domain-specific code here\n" +
     "}\n\n");
@@ -587,10 +585,10 @@ public class DSD {
             },
             false);
 
-    createJava(getTableClassName(),
+    createJava(getProjectTableClassName(),
             new Generator() {
               public void process(Writer w) throws IOException {
-                this_.generateTableJava(w);
+                this_.generateProjectTableJava(w);
               }
             },
             false);
@@ -718,9 +716,9 @@ public class DSD {
   }
 
   /**
-   * @return the project table class name
+   * @return the name of the class from which all project tables inherit
    */
-  public String getTableClassName() {
+  public String getProjectTableClassName() {
     return projectName + "Table";
   }
 

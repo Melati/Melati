@@ -47,7 +47,7 @@ Install Maven from <a href="http://maven.apache.org/">maven.apache.org</a>.
 <p>
 Change directory to a suitable directory (/dist or C:) and download using maven:
 <pre>
-mvn -DconnectionUrl=scm:cvs:pserver:anon@melati.org:/usr/cvsroot:melati -Dpassword=anon -DcheckoutDirectory=melati scm:checkout
+mvn -DconnectionUrl=scm:cvs:pserver:anonymous@melati.org:/usr/cvsroot:melati -Dpassword=anon -DcheckoutDirectory=melati scm:checkout
 </pre>
 This will create a directory called melati containing the whole project.
 To install and generate the site documentation:

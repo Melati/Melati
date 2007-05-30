@@ -33,7 +33,7 @@ public class ContactsDatabase extends ContactsDatabaseBase
             "Eden");
         Contact lamech =
           getContactTable().ensure(
-            "lamech",
+            "Lamech",
              getContactTable().ensure(
               "Methusael",
               getContactTable().ensure(

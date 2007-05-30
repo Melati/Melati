@@ -56,15 +56,12 @@ public final class PoemDatabaseFactory {
 
   private static final Hashtable databases = new Hashtable();
 
-  private static PoemShutdownThread hookThread = new PoemShutdownThread();
+  private static PoemShutdownThread poemShutdownThread = new PoemShutdownThread();
 
   /**
    * Disallow instantiation.
    */
   private PoemDatabaseFactory() {
-    // Never called but stops Eclipse nagging
-    String foolEclipse = hookThread.getName();
-    hookThread.setName(foolEclipse);
   }
 
   /**
@@ -232,39 +229,80 @@ public final class PoemDatabaseFactory {
   }
 
   /**
+   * Disconnect from all initialised databases.
+   */
+  public static void disconnectFromDatabases() { 
+    try {
+      Vector dbs = PoemDatabaseFactory.initialisedDatabases();
+      Enumeration them = dbs.elements();
+      while (them.hasMoreElements()) {
+        Database db = (Database)them.nextElement();
+        db.disconnect();
+      }
+    } catch (Exception ee) {
+      ee.printStackTrace();
+    }    
+  }
+  /**
    * Shutdown databases cleanly when JVM exits.
+   * 
+   * This method is called in one of two ways: when the jvm exits or when a 
+   * ServletContext is detroyed.
+   * Jetty, and presumably other servlet containers, registers its listeners as 
+   * shutdown hooks too, so there is no way of determining which is to be executed first.
+   * 
+   * If PoemDatabaseFactory has not been initialised before the ContextListener is 
+   * activated then this thread will be created but will fail to register.
+   * It will then be run by the ContextListener.
+   * 
+   * It may well be that the registered thread will be run before the ContextListener thread, 
+   * or visa versa, so there is a synchronised variable to ensure it actually does something 
+   * only the first time. 
    * 
    * @author timp
    * @since 23 May 2007
+   * @see org.melati.servlet.PoemServletContextListener
    * 
    */
-  private static class PoemShutdownThread extends Thread {
+  public static class PoemShutdownThread extends Thread {
     /** Constructor. */
     public PoemShutdownThread() {
       super();
       setName("PoemShutdownThread");
-      System.err.println("\n\n*** PoemShutdownThread registering. ***\n");
-      Runtime.getRuntime().addShutdownHook(this);
+      try { 
+        Runtime.getRuntime().addShutdownHook(this);
+        System.err.println("\n\n*** PoemShutdownThread registered. ***\n");
+      } catch (IllegalStateException e) { 
+        //System.err.println("\n\n*** PoemShutdownThread tried to register during shutdown. ***\n");
+        
+        // Happens when the PoemServletContextListener 
+        // tries to shutdown databases when none have yet been 
+        // initialised.
+        e = null;
+      }
     }
-
+    private static Boolean haveRun = new Boolean(false);
     /**
      * {@inheritDoc}
      * 
      * @see java.lang.Thread#run()
      */
     public void run() {
-      System.err.println("\n\n*** PoemShutdownThread starting to shutdown. ***\n");
-      try {
-        Vector dbs = PoemDatabaseFactory.initialisedDatabases();
-        Enumeration them = dbs.elements();
-        while (them.hasMoreElements()) {
-          Database db = (Database)them.nextElement();
-          db.disconnect();
-        }
-      } catch (Exception ee) {
-        ee.printStackTrace();
+      synchronized(haveRun) { 
+        if (!haveRun.booleanValue()) {
+          haveRun = new Boolean(true);
+          System.err.println("\n\n*** PoemShutdownThread starting to shutdown. ***\n");
+          disconnectFromDatabases();
+        } else 
+          System.err.println("\n\n*** PoemShutdownThread has already run. ***\n");
       }
-    }
+     }
+  }
+  /**
+   * @return the poemShutdownThread
+   */
+  public static PoemShutdownThread getPoemShutdownThread() {
+    return poemShutdownThread;
   }
 
 }

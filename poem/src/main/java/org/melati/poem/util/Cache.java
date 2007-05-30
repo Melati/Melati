@@ -287,6 +287,13 @@ public final class Cache {
     this.maxSize = maxSize;
   }
 
+  /**
+   * Get maximum size of Cache.
+   */
+  public int getSize() {
+    return maxSize;
+  }
+
   private synchronized void gc() {
     DroppedNode dropped;
     while ((dropped = (DroppedNode)collectedValuesQueue.poll()) != null) {
@@ -296,8 +303,13 @@ public final class Cache {
   }
 
   /**
-   * Reduce size of cache.
-   * @param maxSizeP maximum size cache may grow to 
+   * Reduce number of units held in the cache, without cchanging 
+   * the size of cache.
+   * 
+   * This is intended for cache maintenance, enabling only the 
+   * most frequently used items to remain in the cache, whilst 
+   * the others are dropped. 
+   * @param maxSizeP maximum number of units to hold 
    */
   public synchronized void trim(int maxSizeP) {
     gc();

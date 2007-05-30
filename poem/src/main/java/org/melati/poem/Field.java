@@ -291,8 +291,8 @@ public class Field implements FieldAttributes, Cloneable {
   }
 
   /**
-   * Might be a bit big for soem Reference types or null 
-   * for String or Integer Types.
+   * Might be a bit big for some Reference types.
+   * Returns <code>null</code> for String or Integer Types.
    * 
    * @return All possible values or null.
    */

@@ -321,6 +321,9 @@
     <url-pattern>/org.melati.example.contacts.ContactView/*</url-pattern>
   </servlet-mapping>
 
+  <listener>
+    <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
+  </listener>
 </web-app>
 
 

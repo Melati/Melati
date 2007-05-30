@@ -190,13 +190,29 @@ public class StringUtilsTest extends TestCase {
    */
   public void testHexDecodingChar() {
     assertEquals(new Integer(10), new Integer(StringUtils.hexDecoding('A')));
+    assertEquals(new Integer(10), new Integer(StringUtils.hexDecoding('a')));
+    assertEquals(new Integer(15), new Integer(StringUtils.hexDecoding('F')));
+    assertEquals(new Integer(15), new Integer(StringUtils.hexDecoding('f')));
+    try { 
+      StringUtils.hexDecoding('g');
+      fail("should have bombed");
+    } catch (IllegalArgumentException e) {
+      e = null;      
+    }
   }
 
   /**
    * Test method for {@link org.melati.util.StringUtils#hexDecoding(String)}.
    */
   public void testHexDecodingString() {
-    assertEquals("A", new String(StringUtils.hexDecoding("41")));
+    byte[] b = StringUtils.hexDecoding("41");
+    assertEquals(new Integer(65), new Integer(b[0]));
+    try { 
+      StringUtils.hexDecoding("411");
+      fail("should have bombed");
+    } catch (IllegalArgumentException e) {
+      e = null;      
+    }
   }
 
   /**

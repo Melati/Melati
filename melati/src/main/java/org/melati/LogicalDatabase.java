@@ -92,7 +92,7 @@ public final class LogicalDatabase {
   /** 
    * Retrieve the names of the databases which have 
    * completed initialisation.
-   * Note that a databse which has not been used 
+   * Note that a database which has not been used 
    * will not have been initialised.
    *
    * @return a <code>Vector</code> of the initialised database names

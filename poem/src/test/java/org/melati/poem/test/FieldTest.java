@@ -301,6 +301,15 @@ public class FieldTest extends PoemTestCase {
     assertNull(en);
     en = integerField.getFirst1000Possibilities();
     assertNull(en);
+    
+    Field tableCategoryField = getDb().getTableInfoTable().getCategoryColumn().asEmptyField();
+    Enumeration possibleCategories = tableCategoryField.getFirst1000Possibilities();
+    int counter = 0;
+    while (possibleCategories.hasMoreElements()) {
+      counter++;
+      possibleCategories.nextElement();
+    }
+    assertEquals(2, counter);
   }
 
   /**

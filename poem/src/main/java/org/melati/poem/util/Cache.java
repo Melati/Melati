@@ -338,6 +338,9 @@ public final class Cache {
 
   /**
    * Remove from cache.
+   * 
+   * If key is not in the cache then does nothing. 
+   * 
    * @param key cache key field
    */
   public synchronized void delete(Object key) {

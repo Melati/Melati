@@ -2749,8 +2749,8 @@ public class Table implements Selectable {
               column.unifyWithIndex(index);
               dbHasIndexForColumn.put(column, Boolean.TRUE);
             } else {
-              System.err.println("Not creating index because one exists with different name:" + 
-                  mdIndexName.toUpperCase() + " != " + expectedIndex);
+              //System.err.println("Not creating index because one exists with different name:" + 
+              //    mdIndexName.toUpperCase() + " != " + expectedIndex);
             }
           } 
           // else it is a compound index ??

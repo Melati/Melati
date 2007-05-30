@@ -55,6 +55,9 @@ import org.melati.poem.PoemException;
 
 /**
  * A store of known objects.
+ * 
+ * The cache cannot contain nulls, as there would be no mechanism to 
+ * distinguish between a held null value and an unheld value.
  */
 public final class Cache {
 
@@ -303,12 +306,13 @@ public final class Cache {
   }
 
   /**
-   * Reduce number of units held in the cache, without cchanging 
-   * the size of cache.
+   * Reduce number of units held in the cache, without changing 
+   * its size.
    * 
    * This is intended for cache maintenance, enabling only the 
    * most frequently used items to remain in the cache, whilst 
    * the others are dropped. 
+   * 
    * @param maxSizeP maximum number of units to hold 
    */
   public synchronized void trim(int maxSizeP) {
@@ -415,12 +419,7 @@ public final class Cache {
           held.putBefore(theMRU);
           theMRU = held;
         }
-      }
-      else {
-        if (node.value() == null)
-        // This probably doesn't happen
-          return null;
-
+      } else {
         held = new HeldNode(key, node.value());
         table.put(key, held);
         ++heldNodes;

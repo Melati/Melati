@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     tim Pizey <timp At paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.poem;

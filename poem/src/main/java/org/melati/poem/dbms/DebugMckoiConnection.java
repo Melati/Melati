@@ -53,7 +53,7 @@ import java.sql.Statement;
  * @since 8 Feb 2007 copied from http://www.mckoi.com/database/UseEmbeddedApp.html
  *
  */
-public class DebugMckoiConnection {
+public final class DebugMckoiConnection {
 
     private DebugMckoiConnection () {}
     /**

@@ -32,6 +32,7 @@ public final class Base64 {
    private static final byte UPPER_TWO  = (byte) (64 + 128);
    private static final byte LOWER_SIX  = (byte) (1 + 2 + 4 + 8 + 16 + 32);
 
+   private Base64() {}
 
    /**
     * Get the plain text version of a base64 encoded string.
@@ -143,7 +144,7 @@ public final class Base64 {
          // first char: upper 6 bytes
          ptext = plain[ppos];
          sixbits = (byte) ((ptext & UPPER_SIX) >>> 2); 
-         encoded.append( base64(sixbits) );
+         encoded.append(base64(sixbits));
 
          // second char: lower 2, upper 4
          sixbits = (byte) ((ptext & LOWER_TWO) << 4);
@@ -156,7 +157,7 @@ public final class Base64 {
             cutShort = true;
          }
          sixbits |= (byte) ((ptext & UPPER_FOUR) >>> 4);
-         encoded.append( base64(sixbits) );
+         encoded.append(base64(sixbits));
          if (cutShort) {
             encoded.append("==");
             return encoded.toString();
@@ -172,7 +173,7 @@ public final class Base64 {
             cutShort = true;
          }
          sixbits |= (byte) ((ptext & UPPER_TWO) >>> 6);
-         encoded.append( base64(sixbits) );
+         encoded.append(base64(sixbits));
          if (cutShort) {
             encoded.append("=");
             return encoded.toString();
@@ -180,7 +181,7 @@ public final class Base64 {
 
          // fourth char: lower six
          sixbits = (byte) (ptext & LOWER_SIX);
-         encoded.append( base64(sixbits) );
+         encoded.append(base64(sixbits));
 
          // increment loop
          ppos++;

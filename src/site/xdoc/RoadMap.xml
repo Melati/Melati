@@ -147,7 +147,9 @@ would be nice to have before a 1.0 release.
     <td>0.7.6</td>
     <td>
     <a href="/melati/apidocs/org/melati/poem/package-summary.html#MelatiPoemSeparation">Melati / POEM separation</a>.<br />
-    Tests extended<br />
+    Tests extended.<br />
+    DSD processor adds project table class to enable project specific extension of table methods.<br />
+    JVM shutdown hook or context listener shuts down HSQLDB.<br />
     </td>
     <td><b>done</b></td>
   </tr>

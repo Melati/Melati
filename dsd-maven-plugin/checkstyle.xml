@@ -47,7 +47,7 @@
         </module -->
         <module name="LineLength">
           <property name="max" value="120"/>
-          <property name="ignorePattern" value="$Source:"/>
+          <property name="ignorePattern" value="Source:"/>
         </module>
 
         <!-- Checks for Javadoc comments.                     -->

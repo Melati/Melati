@@ -110,11 +110,10 @@ public class ColumnInfo extends ColumnInfoBase {
    * @return the column
    */
   private Column column() {
-    //There is no circumstance in which the column is null but the troid not 
-    // where the column could be found.
-    // So this mthod has been removed from Database.
-    //if (_column == null && troid() != null)
-    //  _column = getDatabase().columnWithColumnInfoID(troid().intValue());
+    // I have not fathomed how this circumstance arrives, but 
+    // it can in Eclipse (though not in maven)
+    if (_column == null && troid() != null)
+      _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;
   }
 
@@ -182,15 +181,11 @@ public class ColumnInfo extends ColumnInfoBase {
       if (!(f.getType() instanceof TroidPoemType) 
           && !n.equals("name") 
           && !n.equals("typefactory") 
-          && !n.equals("tableinfo") 
-          && !(n.equals("size")
-               && !(column().getType() instanceof SizedAtomPoemType)) 
-          && !(n.equals("integrityfix")
-               && !(column().getType() instanceof ReferencePoemType)) 
-          && !(n.equals("precision")
-               && !(column().getType() instanceof FixedPointAtomPoemType))
-          && !(n.equals("scale")
-               && !(column().getType() instanceof FixedPointAtomPoemType)))
+          && !n.equals("tableinfo")
+          && !(n.equals("size") && !(f.getType() instanceof SizedAtomPoemType))
+          && !(n.equals("integrityfix") && !(f.getType() instanceof ReferencePoemType)) 
+          && !(n.equals("precision")    && !(f.getType() instanceof FixedPointAtomPoemType))
+          && !(n.equals("scale")        && !(f.getType() instanceof FixedPointAtomPoemType)))
         v.addElement(f);
     }
     return v.elements();

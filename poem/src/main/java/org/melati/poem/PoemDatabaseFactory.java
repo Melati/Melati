@@ -281,7 +281,7 @@ public final class PoemDatabaseFactory {
         e = null;
       }
     }
-    private static Boolean haveRun = new Boolean(false);
+    private static Boolean haveRun = Boolean.FALSE;
     /**
      * {@inheritDoc}
      * 
@@ -290,7 +290,7 @@ public final class PoemDatabaseFactory {
     public void run() {
       synchronized(haveRun) { 
         if (!haveRun.booleanValue()) {
-          haveRun = new Boolean(true);
+          haveRun = Boolean.TRUE;
           System.err.println("\n\n*** PoemShutdownThread starting to shutdown. ***\n");
           disconnectFromDatabases();
         } else 

@@ -72,21 +72,21 @@ public class ColumnInfoTest extends PoemTestCase {
    * setDisplaylevelIndex(java.lang.Integer)}.
    */
   public void testSetDisplaylevelIndex() {
-    ColumnInfo ci = getDb().getUserTable().getPasswordColumn().getColumnInfo();
-    assertEquals(DisplayLevel.record, ci.getDisplaylevel());
+    ColumnInfo passwordCI = getDb().getUserTable().getPasswordColumn().getColumnInfo();
+    ColumnInfo nameCI =     getDb().getUserTable().getNameColumn().getColumnInfo();
+    assertEquals(DisplayLevel.record, passwordCI.getDisplaylevel());
+    assertEquals(DisplayLevel.primary,    nameCI.getDisplaylevel());
+
     assertEquals("name", getDb().getUserTable().displayColumn().getName());
-    assertEquals(DisplayLevel.primary, 
-        getDb().getUserTable().getNameColumn().getDisplayLevel());
-    ci.setDisplaylevelIndex(DisplayLevel.primary.getIndex());
+    
+    passwordCI.setDisplaylevelIndex(DisplayLevel.primary.getIndex());
+    assertEquals(DisplayLevel.primary, passwordCI.getDisplaylevel());
     assertEquals(DisplayLevel.summary, 
-        getDb().getUserTable().getNameColumn().getDisplayLevel());
-    assertEquals(DisplayLevel.primary, ci.getDisplaylevel());
+            getDb().getUserTable().getNameColumn().getDisplayLevel());
     assertEquals("password",  getDb().getUserTable().displayColumn().getName());
-    ci.setDisplaylevelIndex(DisplayLevel.record.getIndex());
+    passwordCI.setDisplaylevelIndex(DisplayLevel.record.getIndex());
     getDb().getUserTable().getNameColumn().getColumnInfo().
         setDisplaylevelIndex(DisplayLevel.primary.getIndex());
-    getDb().getUserTable().getPasswordColumn().getColumnInfo().
-        setDisplaylevelIndex(DisplayLevel.record.getIndex());
   }
 
   /**
@@ -94,6 +94,20 @@ public class ColumnInfoTest extends PoemTestCase {
    */
   public void testGetDsdQualifiers() {
     ColumnInfo ci = getDb().getUserTable().getPasswordColumn().getColumnInfo();
+    Enumeration them = ci.getDsdQualifiers();
+    int counter = 0;
+    while (them.hasMoreElements()) {
+      counter++;
+      them.nextElement();
+    }
+    assertEquals(18, counter);
+  }
+
+  /**
+   * As it is used in DSD.wm
+   */
+  public void testGetDsdQualifiers2() {
+    ColumnInfo ci = getDb().getUserTable().getIdColumn().getColumnInfo();
     Enumeration them = ci.getDsdQualifiers();
     int counter = 0;
     while (them.hasMoreElements()) {

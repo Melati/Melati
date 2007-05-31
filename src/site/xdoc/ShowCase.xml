@@ -4,7 +4,7 @@
 
   <properties>
     <title>Melati - Java SQL Website Development Engine</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
+    <author email="timp At paneris.org">Tim Pizey</author>
     <keywords>
       Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
       Objects, Object Oriented, J2EE replacement
@@ -30,7 +30,7 @@ This page last updated: $Date$ $Author$
   <a href="http://www.paneris.org/">PanEris</a>. 
   <br />
   The source code for these sites is 
-  <a href="http://www.paneris.org/">available</a> to illustrate 
+  <a href="http://www.paneris.net/">available</a> to illustrate 
   the use of Melati.
 </p>
 <table width="0%" border="1" cellpadding="5" cellspacing="0">
@@ -46,8 +46,23 @@ This page last updated: $Date$ $Author$
   <tr> 
     <td> 
       <h3><a 
+           href="http://www.paneris.com/rimauresq/Display/en/page/Home.html"
+           >www.rimauresq.fr</a></h3>
+      <h4><a href="http://www.paneris.net/rimauresq/">Maven project site</a></h4>
+      <p>Rimauresq Wines - a bi-lingual 
+         <a href="http://paneris.net/site/">MelatiSite</a> brochure site 
+         with enquiries and order placement.</p>
+    </td>
+    <td align="center"><img src="/images/rimauresq.png" width="250"
+    height="205" /></td>
+  </tr>
+
+  <tr> 
+    <td> 
+      <h3><a 
            href="http://www.w-v-m.com"
            >www.w-v-m.com</a></h3>
+      <h4><a href="http://wvm.paneris.net">Maven project site</a></h4>
       <p>Wemyss Vintage Malts - a simple 
          <a href="http://paneris.net/site/">MelatiSite</a> brochure site 
          with enquiries and order placement.</p>
@@ -55,6 +70,16 @@ This page last updated: $Date$ $Author$
     <td align="center"><img src="/images/wvm.png" width="250"
     height="205" /></td>
   </tr>
+
+  <tr> 
+    <td> 
+      <h3><a href="http://www.jammyjoes.com">www.jammyjoes.com</a></h3>
+      <h4><a href="http://jammyjoes.paneris.net">Maven project site</a></h4>
+      <p>JammyJoes sells high quality kids toys.</p>
+    </td>
+    <td><img src="/images/jammyjoes.jpg" width="195" height="183" /></td>
+  </tr>
+
   <tr> 
     <td> 
       <h3><a 
@@ -67,6 +92,7 @@ This page last updated: $Date$ $Author$
     <td align="center"><img src="/images/begbroke.jpg" width="250"
     height="205" /></td>
   </tr>
+
   <tr> 
     <td> 
       <h3><a 
@@ -78,14 +104,8 @@ This page last updated: $Date$ $Author$
     <td align="center"><img src="/images/balthazarEnsemble.jpg" width="195"
     height="183" /></td>
   </tr>
-  <tr> 
-    <td> 
-      <h3><a href="http://www.jammyjoes.com">www.jammyjoes.com</a></h3>
-      <h4><a href="http://jammyjoes.paneris.net">Maven project site</a></h4>
-      <p>JammyJoes sells high quality kids toys.</p>
-    </td>
-    <td><img src="/images/jammyjoes.jpg" width="195" height="183" /></td>
-  </tr>
+  
+
   <tr> 
     <td> 
       <h3><a href="http://www.financial-training.com"

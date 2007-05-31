@@ -902,6 +902,20 @@ public abstract class Database implements TransactionPool {
           }
         });
   }
+   
+  /**    
+   * @param columnInfoID   
+   * @return the Column with the given troid   
+   */  
+  Column columnWithColumnInfoID(int columnInfoID) {  
+    for (Enumeration t = tables.elements(); t.hasMoreElements();) {  
+      Column column =  
+          ((Table)t.nextElement()).columnWithColumnInfoID(columnInfoID);   
+      if (column != null)  
+        return column;   
+    }  
+    return null;   
+  }  
 
   /**
    * @return The metadata table with information about all tables in the database.

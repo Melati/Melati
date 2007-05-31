@@ -45,6 +45,11 @@
 #if ($Form.comments) #begin
 #set $c = true
 #end
+## Add comments if variable has been set in context
+#if ($comments) #begin
+#set $c = true
+#end
+
 ## Add system, dynamically created and inherited tables if user requests them
 #if ($Form.all) #begin
 #set $all = true

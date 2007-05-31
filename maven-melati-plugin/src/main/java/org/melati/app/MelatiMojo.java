@@ -38,7 +38,7 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.app;
@@ -109,14 +109,14 @@ public class MelatiMojo extends AbstractMojo {
       app = (App)instanceOfNamedClass(appName, "org.melati.app.App");
       app.run(new String[] {db,  table, troid});
     } catch (InstantiationException e) {
-      throw new MojoExecutionException( "Could not load main class. Terminating", e );      
+      throw new MojoExecutionException("Could not load main class. Terminating", e);
     }
   }
   /**
    * Instantiate an interface.
    * 
    * @param className the name of the Class
-   * @param base the interface Class
+   * @param interfaceName the name of the interface Class
    * @return a new object
    * @throws InstantiationException 
    *   if the named class does not descend from the interface

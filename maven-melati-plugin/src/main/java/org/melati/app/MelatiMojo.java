@@ -96,6 +96,14 @@ public class MelatiMojo extends AbstractMojo {
    */
   private String troid;
 
+  /**
+   * Method.
+   * 
+   * @parameter expression="Main"
+   * @required
+   */
+  private String method;
+
   
   public void execute()
       throws MojoExecutionException {
@@ -107,7 +115,7 @@ public class MelatiMojo extends AbstractMojo {
     App app;
     try {
       app = (App)instanceOfNamedClass(appName, "org.melati.app.App");
-      app.run(new String[] {db,  table, troid});
+      app.run(new String[] {db,  table, troid, method});
     } catch (InstantiationException e) {
       throw new MojoExecutionException("Could not load main class. Terminating", e);
     }

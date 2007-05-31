@@ -289,8 +289,9 @@ public class PoemTestCase extends TestCase implements Test {
     Properties defs = getProperties();
     String pref = "org.melati.poem.test.PoemTestCase." + name + ".";
     maxTrans = new Integer(getOrDie(defs, pref + "maxtransactions")).intValue();
+    String url = getOrDie(defs, pref + "url");
     return PoemDatabaseFactory.getDatabase(name,
-            getOrDie(defs, pref + "url"), 
+            url, 
             getOrDie(defs, pref + "user"),
             getOrDie(defs, pref + "password"),
             getOrDie(defs, pref + "class"),

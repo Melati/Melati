@@ -202,7 +202,8 @@ public abstract class PoemApp extends ConfigApp implements  App {
    */
   public void term(Melati melati) throws MelatiException  {
     super.term(melati);
-    melati.getDatabase().disconnect();
+    // Now closed in jvm shutdown hook
+    //melati.getDatabase().disconnect();
   }
   
   /**

@@ -103,7 +103,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.6-RC1</version>
+      <version>0.7.6-RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -170,7 +170,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-users
       <dependency>
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
-       <version>0.7.6-RC1</version>
+       <version>0.7.6-RC2</version>
       </dependency>
      </dependencies>
     </plugin>

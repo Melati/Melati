@@ -178,14 +178,14 @@ public class ColumnInfo extends ColumnInfoBase {
     while (allFields.hasMoreElements()) {
       Field f = (Field) allFields.nextElement();
       String n = f.getName();
-      if (!(f.getType() instanceof TroidPoemType) 
-          && !n.equals("name") 
-          && !n.equals("typefactory") 
-          && !n.equals("tableinfo")
-          && !(n.equals("size") && !(f.getType() instanceof SizedAtomPoemType))
-          && !(n.equals("integrityfix") && !(f.getType() instanceof ReferencePoemType)) 
-          && !(n.equals("precision")    && !(f.getType() instanceof FixedPointAtomPoemType))
-          && !(n.equals("scale")        && !(f.getType() instanceof FixedPointAtomPoemType)))
+      if (!(f.getType() instanceof TroidPoemType)  // The id of this columnInfo record, not the target 
+          && !n.equals("name")  // Name is not a qualifier
+          && !n.equals("typefactory")   
+          && !n.equals("tableinfo") // The tableInfo of this columnInfo, not the target
+          && !(n.equals("size") && !(column().getType() instanceof SizedAtomPoemType))
+          && !(n.equals("integrityfix") && !(column().getType() instanceof ReferencePoemType)) 
+          && !(n.equals("precision")    && !(column().getType() instanceof FixedPointAtomPoemType))
+          && !(n.equals("scale")        && !(column().getType() instanceof FixedPointAtomPoemType)))
         v.addElement(f);
     }
     return v.elements();

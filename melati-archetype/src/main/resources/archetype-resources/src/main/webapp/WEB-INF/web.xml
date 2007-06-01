@@ -295,6 +295,9 @@
     <url-pattern>/Logout/*</url-pattern>
   </servlet-mapping>
 
+  <listener>
+    <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
+  </listener>
 
 </web-app>
 

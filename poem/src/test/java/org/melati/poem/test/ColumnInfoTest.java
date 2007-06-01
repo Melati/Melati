@@ -114,7 +114,7 @@ public class ColumnInfoTest extends PoemTestCase {
       counter++;
       them.nextElement();
     }
-    assertEquals(18, counter);
+    assertEquals(15, counter);
   }
 
  /** 

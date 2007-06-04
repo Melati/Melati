@@ -1,8 +1,12 @@
 package org.melati.poem.test;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.sql.Connection;
@@ -20,6 +24,7 @@ import org.melati.poem.PoemTask;
 import org.melati.poem.Table;
 
 import junit.framework.Assert;
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
@@ -158,7 +163,7 @@ public class PoemTestCase extends TestCase implements Test {
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
     assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
     assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
-    assertEquals("TableCategory changed", 2, getDb().getTableCategoryTable().count());
+    assertEquals("TableCategory changed", 3, getDb().getTableCategoryTable().count());
     assertEquals("User changed", 2, getDb().getUserTable().count());
     //ColumnInfo newOne = null; 
     //try{ 
@@ -384,4 +389,61 @@ public class PoemTestCase extends TestCase implements Test {
     this.databaseName = databaseName;
   }
 
+  /**
+   * Taken from junit-addons.sourceforge.net.
+   * Asserts that two files are equal. Throws an
+   * <tt>AssertionFailedError</tt> if they are not.<p>
+   *
+   * <b>Note</b>: This assertion method rely on the standard
+   * <tt>junit.framework.Assert(String expected, String actual)</tt> method
+   * to compare the lines of the files.  JUnit > 3.8 provides a nicer way to
+   * display differences between two strings but since only lines are
+   * compared (and not entire paragraphs) you can still use JUnit 3.7.
+   */
+  public static void assertEquals(String message,
+                                  File expected,
+                                  File actual) {
+      Assert.assertNotNull(expected);
+      Assert.assertNotNull(actual);
+
+      Assert.assertTrue("File does not exist [" + expected.getAbsolutePath() + "]", expected.exists());
+      Assert.assertTrue("File does not exist [" + actual.getAbsolutePath() + "]", actual.exists());
+
+      Assert.assertTrue("Expected file not readable", expected.canRead());
+      Assert.assertTrue("Actual file not readable", actual.canRead());
+
+      FileInputStream eis = null;
+      FileInputStream ais = null;
+
+      try {
+          try {
+              eis = new FileInputStream(expected);
+              ais = new FileInputStream(actual);
+  
+              BufferedReader expData = new BufferedReader(new InputStreamReader(eis));
+              BufferedReader actData = new BufferedReader(new InputStreamReader(ais));
+  
+              Assert.assertNotNull(message, expData);
+              Assert.assertNotNull(message, actData);
+  
+              assertEquals(message, expData, actData);
+          } finally {
+              eis.close();
+              ais.close();
+          }
+      } catch (IOException e) {
+          throw new AssertionFailedError(e.toString());
+      }
+  }
+
+  /**
+   * Asserts that two files are equal. Throws an
+   * <tt>AssertionFailedError</tt> if they are not.
+   */
+  public static void assertEquals(File expected,
+                                  File actual) {
+      assertEquals(null, expected, actual);
+  }
+
+  
 }

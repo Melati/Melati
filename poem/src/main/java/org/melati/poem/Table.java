@@ -357,6 +357,11 @@ public class Table implements Selectable {
     searchColumn = column;
   }
 
+  /**
+   * If the troidColumn has yet to be set then returns an empty string.
+   *  
+   * @return comma separated list of the columns to order by
+   */
   protected String defaultOrderByClause() {
     String clause = defaultOrderByClause;
 
@@ -383,7 +388,7 @@ public class Table implements Selectable {
             }
           });
 
-      if (clause.equals(""))
+      if (clause.equals("") && displayColumn() != null)
         clause = displayColumn().fullQuotedName();
 
       defaultOrderByClause = clause;
@@ -1247,7 +1252,9 @@ public class Table implements Selectable {
 
   protected void rememberAllTroids(boolean flag) {
     if (flag) {
-      if (allTroids == null)
+      if (allTroids == null &&
+              // troid column can be null during unification
+              troidColumn() != null)
         allTroids = new CachedSelection(this, null, null);
     }
     else
@@ -2596,7 +2603,7 @@ public class Table implements Selectable {
   }
 
   protected String defaultCategory() {
-    return "Normal";
+    return TableCategoryTable.normalTableCategoryName;
   }
 
   /**

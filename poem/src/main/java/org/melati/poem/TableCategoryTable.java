@@ -89,6 +89,8 @@ public class TableCategoryTable extends TableCategoryTableBase {
 
   // programmer's domain-specific code here
 
+  /** Category name for normal tables. */
+  public static final String normalTableCategoryName = "Normal";
  /**
   * Create an entry with the given name if it doesn't exist.
   * @param name the name of the Category
@@ -101,7 +103,7 @@ public class TableCategoryTable extends TableCategoryTableBase {
   }
   
  /**
-  * Setup default access capabilities.
+  * Setup default access capabilities and ensure that the Normal category exists.
   */
   protected void postInitialise() {
     super.postInitialise();
@@ -111,5 +113,7 @@ public class TableCategoryTable extends TableCategoryTableBase {
       getTableInfo().setDefaultcanwrite(getDatabase().administerCapability());
     if (getTableInfo().getCancreate() == null)
       getTableInfo().setCancreate(getDatabase().administerCapability());
+
+    ensure(normalTableCategoryName);
   }
 }

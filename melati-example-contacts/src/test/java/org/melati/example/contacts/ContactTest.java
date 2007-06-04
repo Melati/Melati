@@ -91,7 +91,7 @@ public class ContactTest extends PoemTestCase {
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
     assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
     assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
-    assertEquals("TableCategory changed", 4, getDb().getTableCategoryTable().count());
+    assertEquals("TableCategory changed", 5, getDb().getTableCategoryTable().count());
     assertEquals("User changed", 2, getDb().getUserTable().count());
     assertEquals("ColumnInfo changed", 81, getDb().getColumnInfoTable().count());
     assertEquals("TableInfo changed", 12, getDb().getTableInfoTable().count());

@@ -93,7 +93,7 @@ package $(package);
 
 
 #foreach $table in $database.getDisplayTables() #begin
-#if ($table.Class.Name.indexOf($package) == 0 || $all) #begin
+#if ($table.Class.Name.indexOf($package) == 0 || $table.Class.Name.equals("org.melati.poem.Table") || $all) #begin
 #if ($c) #begin
 //   $table
 //   $table.Class.Name

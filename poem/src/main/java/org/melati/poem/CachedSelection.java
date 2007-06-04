@@ -73,8 +73,7 @@ public class CachedSelection extends CachedQuery {
         fromClause += ", " + otherTables[i].quotedName();
       }
     }
-    setQuery(table.selectionSQL(fromClause, whereClause, 
-        orderByClause == null ? table.defaultOrderByClause() : orderByClause, false, true));
+    setQuery(table.selectionSQL(fromClause, whereClause, orderByClause, false, true));
     
   }
 

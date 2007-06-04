@@ -45,24 +45,49 @@ package org.melati.app;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Goal which runs a Melati command.
  * 
+ * @requiresDependencyResolution runtime
  * @goal run
- * @phase compile
  */
 public class MelatiMojo extends AbstractMojo {
-
   /**
-   * Location of the output file.
+   * The maven project.
+   *
+   * @parameter expression="${executedProject}"
+   * @required
+   * @readonly
+   */
+  private MavenProject project;
+  
+  /**
+   * Location of the output directory.
    * 
    * @parameter expression="${project.build.directory}"
    * @required
    */
   private File outputDirectory;
+
+  /**
+   * Name of the output file.
+   * 
+   * @parameter expression="output.txt"
+   * @required
+   */
+  private String outputFile;
 
   /**
    * Application name.
@@ -104,6 +129,22 @@ public class MelatiMojo extends AbstractMojo {
    */
   private String method;
 
+  /**
+   * The directory containing generated classes.
+   *
+   * @parameter expression="${project.build.outputDirectory}"
+   * @required
+   * 
+   */
+  private File classesDirectory;
+  
+  
+  public File getClassesDirectory()
+  {
+      return this.classesDirectory;
+  }
+
+
   
   public void execute()
       throws MojoExecutionException {
@@ -115,10 +156,21 @@ public class MelatiMojo extends AbstractMojo {
     App app;
     try {
       app = (App)instanceOfNamedClass(appName, "org.melati.app.App");
-      app.run(new String[] {db,  table, troid, method});
     } catch (InstantiationException e) {
       throw new MojoExecutionException("Could not load main class. Terminating", e);
     }
+    File out = new File(f, outputFile);
+    try {
+      out.createNewFile();
+    } catch (IOException e) {
+      throw new MojoExecutionException("Could not create output file: " + outputFile, e);
+    }
+    try {
+      app.setOutput(new PrintStream(out));
+    } catch (FileNotFoundException e) {
+      throw new MojoExecutionException("Could not find created output file: " + outputFile, e);
+    }
+    app.run(new String[] {db,  table, troid, method});
   }
   /**
    * Instantiate an interface.
@@ -145,5 +197,47 @@ public class MelatiMojo extends AbstractMojo {
               "Error instantiating " + className + ": " + e.toString());
     }
   }
+  public MavenProject getProject()
+  {
+      return this.project;
+  }
 
+  private List getDependencyFiles ()
+  {
+      List dependencyFiles = new ArrayList();
+      for ( Iterator iter = getProject().getArtifacts().iterator(); iter.hasNext(); )
+      {
+          Artifact artifact = (Artifact) iter.next();
+          // Include runtime and compile time libraries, and possibly test libs too
+          if (((!Artifact.SCOPE_PROVIDED.equals(artifact.getScope())) && (!Artifact.SCOPE_TEST.equals( artifact.getScope()))))
+          {
+              dependencyFiles.add(artifact.getFile());
+              getLog().debug( "Adding artifact " + artifact.getFile().getName() + " for WEB-INF/lib " );   
+          }
+      }
+      return dependencyFiles; 
+  }
+  
+  
+  private List setUpClassPath()
+  {
+      List classPathFiles = new ArrayList();       
+      
+      if (getClassesDirectory() != null)
+          classPathFiles.add(getClassesDirectory());
+      
+      //now add all of the dependencies
+      classPathFiles.addAll(getDependencyFiles());
+      
+      if (getLog().isDebugEnabled())
+      {
+          for (int i = 0; i < classPathFiles.size(); i++)
+          {
+              getLog().debug("classpath element: "+ ((File) classPathFiles.get(i)).getName());
+          }
+      }
+      return classPathFiles;
+  }
+
+  
 }

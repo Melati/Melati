@@ -330,7 +330,6 @@ public abstract class Database implements TransactionPool {
       tables.setElementAt(table,
                           tables.indexOf(
                               tablesByName.put(table.getName().toLowerCase(), table)));
-
     displayTables = null;
   }
 
@@ -353,11 +352,11 @@ public abstract class Database implements TransactionPool {
 
     Table table = new Table(this, info.getName(),
                             DefinitionSource.infoTables);
-    table.setTableInfo(info);
     table.defineColumn(new ExtraColumn(table, troidName,
                                        TroidPoemType.it,
                                        DefinitionSource.infoTables,
                                        table.extrasIndex++));
+    table.setTableInfo(info);
     table.unifyWithColumnInfo();
     try {
       table.unifyWithDB(null);

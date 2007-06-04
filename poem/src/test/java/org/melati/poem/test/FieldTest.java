@@ -309,7 +309,7 @@ public class FieldTest extends PoemTestCase {
       counter++;
       possibleCategories.nextElement();
     }
-    assertEquals(2, counter);
+    assertEquals(3, counter);
   }
 
   /**

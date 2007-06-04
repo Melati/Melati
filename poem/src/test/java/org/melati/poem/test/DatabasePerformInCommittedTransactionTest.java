@@ -95,7 +95,7 @@ public class DatabasePerformInCommittedTransactionTest
     assertEquals(1, getDb().getGroupMembershipTable().count());
     assertEquals(5, getDb().getCapabilityTable().count());
     assertEquals(1, getDb().getGroupCapabilityTable().count());
-    assertEquals(2, getDb().getTableCategoryTable().count());
+    assertEquals(3, getDb().getTableCategoryTable().count());
     assertEquals(2, getDb().getUserTable().count());
     assertEquals(69, getDb().getColumnInfoTable().count());
     assertEquals(9, getDb().getTableInfoTable().count());

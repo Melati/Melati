@@ -71,11 +71,11 @@ public class CachedTailoredQueryTest extends PoemTestCase {
     int queries2 = getDb().getQueryCount();
     assertEquals(queries, queries2);
     //getDb().setLogSQL(true);
-    assertEquals(2,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
+    assertEquals(3,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries3 = getDb().getQueryCount();
     // Hmm looks like the cache is working
     //assertEquals(queries2 + 2, queries3); 
-    assertEquals(2,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
+    assertEquals(3,EnumUtils.vectorOf(ctq.selection_firstRaw()).size());
     int queries4 = getDb().getQueryCount();
     assertEquals(queries3, queries4);
 

@@ -11,7 +11,6 @@
     <module>melati-example-contacts</module>
     <module>melati-example-odmg</module>
     <module>maven-dsd-plugin</module>
-    <module>maven-melati-plugin</module>
     <module>melati-webapp</module>
     <module>melati-archetype</module>
     <module>melati-skin</module>

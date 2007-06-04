@@ -52,6 +52,8 @@ import java.util.Properties;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.util.DatabaseInitException;
+import org.melati.util.FormatPropertyException;
+import org.melati.util.NoSuchPropertyException;
 import org.melati.util.PropertiesUtils;
 
 /**
@@ -112,23 +114,44 @@ public final class LogicalDatabase {
       throws DatabaseInitException {
     Database db = PoemDatabaseFactory.getDatabase(name);
     if (db == null) {
-      try {
         
-        Properties defs = databaseDefs();
+        Properties defs;
+        try {
+          defs = databaseDefs();
+        } catch (IOException e) {
+          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+        }
         String pref = className + "." + name + ".";
-        String url = PropertiesUtils.getOrDie(defs, pref + "url");
-        String user = PropertiesUtils.getOrDie(defs, pref + "user");
-        String pass = PropertiesUtils.getOrDie(defs, pref + "pass");
-        String clazz = PropertiesUtils.getOrDie(defs, pref + "class");
-        String dbmsClass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
-        String addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
-        String logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
-        String logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
-        // max transactions default to 8 if not set
-        int maxTrans = PropertiesUtils.
+        String url = null;
+        String user = null;
+        String pass = null;
+        String clazz = null;
+        String dbmsClass = null;
+        String addConstraints = null;
+        String logSQL  = null;
+        String logCommits = null;
+        int maxTrans;
+        try {
+        
+          url = PropertiesUtils.getOrDie(defs, pref + "url");
+          user = PropertiesUtils.getOrDie(defs, pref + "user");
+          pass = PropertiesUtils.getOrDie(defs, pref + "pass");
+          clazz = PropertiesUtils.getOrDie(defs, pref + "class");
+          dbmsClass = PropertiesUtils.getOrDie(defs, pref + "dbmsclass");
+          addConstraints = PropertiesUtils.getOrDefault(defs, pref + "addconstraints", "false");
+          logSQL = PropertiesUtils.getOrDefault(defs, pref + "logsql", "false");
+          logCommits = PropertiesUtils.getOrDefault(defs, pref + "logcommits", "false");
+          // max transactions default to 8 if not set
+          maxTrans = PropertiesUtils.
                            getOrDefault_int(defs, pref + "maxtransactions", 8);
 
-        db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
+        } catch (NoSuchPropertyException e) {
+          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+        } catch (FormatPropertyException e) {
+          throw new DatabaseInitException(getDefaultPropertiesName(),name, e);
+        }
+        try {
+          db = PoemDatabaseFactory.getDatabase(name, url, user, pass, 
                 clazz, dbmsClass, 
                 new Boolean(addConstraints).booleanValue(), 
                 new Boolean(logSQL).booleanValue(), 

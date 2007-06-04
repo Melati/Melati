@@ -54,7 +54,7 @@ public class TreeTestCase extends PoemTestCase {
     assertEquals("GroupMembership changed", 1, getDb().getGroupMembershipTable().count());
     assertEquals("Capability changed", 5, getDb().getCapabilityTable().count());
     assertEquals("GroupCapability changed", 1, getDb().getGroupCapabilityTable().count());
-    assertEquals("TableCategory changed", 3, getDb().getTableCategoryTable().count());
+    assertEquals("TableCategory changed", 4, getDb().getTableCategoryTable().count());
     assertEquals("User changed", 2, getDb().getUserTable().count());
     //ColumnInfo newOne = null; 
     //try{ 

@@ -1,0 +1,2 @@
+mvn clean source:jar javadoc:jar install site site:deploy 
+#maven multiproject:site

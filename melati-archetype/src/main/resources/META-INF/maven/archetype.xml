@@ -9,6 +9,12 @@
   <testSources>
     <source>src/test/java/AppTest.java</source>
   </testSources>
+  <resources>
+    <resource>src/main/conf/org/melati/org.melati.LogicalDatabase.properties</resource>
+    <resource>src/main/conf/org/melati/org.melati.MelatiServlet.properties</resource>
+    <resource>src/main/webapp/index.jsp</resource>
+    <resource>src/main/webapp/WEB-INF/web.xml</resource>
+  </resources>
   <siteResources>
     <resource>src/site/site.xml</resource>
     <resource>src/site/checkstyle.xml</resource>

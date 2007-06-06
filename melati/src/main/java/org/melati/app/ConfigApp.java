@@ -44,12 +44,21 @@
 
 package org.melati.app;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 
 import org.melati.Melati;
 import org.melati.MelatiConfig;
 import org.melati.PoemContext;
 
+import org.melati.login.AccessHandler;
+import org.melati.login.OpenAccessHandler;
+import org.melati.poem.util.ArrayUtils;
+import org.melati.util.ConfigException;
+import org.melati.util.InstantiationPropertyException;
 import org.melati.util.MelatiException;
 import org.melati.util.MelatiWriter;
 import org.melati.util.MelatiSimpleWriter;
@@ -81,6 +90,8 @@ public abstract class ConfigApp implements App {
   protected static MelatiConfig melatiConfig;
   private String defaultPropertiesName = "org.melati.MelatiApp";
 
+  protected PrintStream output = System.out;
+  
   /**
    * Initialise.
    *
@@ -94,12 +105,11 @@ public abstract class ConfigApp implements App {
     } catch (MelatiException e) {
       throw new UnexpectedExceptionException(e);
     }
-    MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(System.out));
+    String[] unnamedArguments = applyNamedArguments(args);
+    MelatiWriter out = new MelatiSimpleWriter(new OutputStreamWriter(output));
     Melati melati = new Melati(melatiConfig, out);
-    melati.setArguments(args);
-    PoemContext poemContext;
-    poemContext = poemContext(melati);
-    melati.setPoemContext(poemContext);
+    melati.setArguments(unnamedArguments);
+    melati.setPoemContext(poemContext(melati));
     
     return melati;
   }
@@ -115,6 +125,13 @@ public abstract class ConfigApp implements App {
 
   /** 
    * Set application properties from the default properties file.
+   * 
+   * This method will look for a properties file called 
+   * <tt>org.melati.MelatiApp.properties</tt>; failing to find that it will 
+   * read any  <tt>org.melati.MelatiServlet.properties</tt> and set the access 
+   * handler to <code>OpenAccessHandler</code>; failing that it will accept 
+   * the defaults again setting the access 
+   * handler to <code>OpenAccessHandler</code>.
    * 
    * To override any setting from MelatiApp.properties,
    * simply override this method and return a vaild MelatiConfig.
@@ -132,21 +149,37 @@ public abstract class ConfigApp implements App {
    * @throws MelatiException if anything goes wrong with Melati
    */
   protected MelatiConfig melatiConfig() throws MelatiException {
-    return new MelatiConfig(defaultPropertiesName);
+    MelatiConfig config = null;
+    try { 
+      config = new MelatiConfig(defaultPropertiesName); 
+    } catch (ConfigException e) { 
+      try { 
+        config = new MelatiConfig(MelatiConfig.defaultPropertiesName);
+        try { 
+          config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
+        } catch (Exception e1) {
+          throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e1);
+        }
+      } catch (ConfigException e1) { 
+        config = new MelatiConfig();
+        try {
+          config.setAccessHandler((AccessHandler)OpenAccessHandler.class.newInstance());
+        } catch (Exception e2) {
+          throw new InstantiationPropertyException(OpenAccessHandler.class.getName(), e2);
+        }
+      }
+    }
+    return config;
   }
   
   /**
    * Do our thing.
    */
-  public void run(String[] args) {
-    try {
+  public void run(String[] args) throws Exception {
       final Melati melati = init(args);
       doConfiguredRequest(melati);
       melati.write();
       term(melati);
-    } catch (Exception e) {
-      throw new UnexpectedExceptionException(e);
-    }
   }
 
   /** 
@@ -178,10 +211,46 @@ public abstract class ConfigApp implements App {
     if (arguments.length > 0)
      it.setMethod(arguments[arguments.length - 1]);
    return it;
- }
+  }
+
+  
+  protected String[] applyNamedArguments(String[] arguments) { 
+    String[] unnamedArguments = new String[] {}; 
+    boolean nextIsOutput = false;
+    for (int i = 0; i < arguments.length; i++) { 
+      if (arguments[i].startsWith("-o"))
+        nextIsOutput = true;
+      else if (nextIsOutput)
+        try {
+          setOutput(arguments[i]);
+        } catch (IOException e) {
+          throw new RuntimeException("Problem setting output to " + arguments[i], e);
+        }
+      else  { 
+        unnamedArguments = (String[])ArrayUtils.added(unnamedArguments, arguments[i]);
+      }
+    }
+      
+    return unnamedArguments;    
+  }
+  
+  private void setOutput(String path) throws IOException { 
+    File output = new File(path).getCanonicalFile();
+    output.mkdirs();
+    output.createNewFile();
+    setOutput(new PrintStream(new FileOutputStream(output)));
+  }
   
   
- /**
+ /** 
+   * {@inheritDoc}
+   * @see org.melati.app.App#setOutput(java.io.PrintStream)
+   */
+  public void setOutput(PrintStream out) {
+    output = out;
+  }
+
+/**
   * Instantiate this method to build up your own output.
   * 
   * @param melati a configured {@link Melati}

@@ -72,6 +72,12 @@ public class PropertyException extends MelatiException {
   }
 
   /** Constructor. */
+  public PropertyException(String propertyName, Exception problem) {
+    super(problem);
+    this.propertyName = propertyName;
+  }
+
+  /** Constructor. */
   public PropertyException(Properties properties, String propertyName) {
     this(properties, propertyName, null);
   }

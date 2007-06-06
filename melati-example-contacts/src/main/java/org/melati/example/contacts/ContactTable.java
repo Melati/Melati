@@ -53,6 +53,9 @@ public class ContactTable extends ContactTableBase {
 
   // programmer's domain-specific code here
 
+  /**
+   * @return the existing or newly created Contact
+   */
   public Contact ensure(String name, Contact owner, String address) {
     Contact contact = (Contact)getNameColumn().firstWhereEq(name);
     if (contact != null)

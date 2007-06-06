@@ -43,10 +43,13 @@ public class Contact extends ContactBase implements Treeable {
   /**
    * Thrown when an attempt to make a descendant an ancestor is made.
    * @author timp
-   * @param message
    */
   public class DescendantParentException extends AnticipatedException {
     private static final long serialVersionUID = 1L;
+    /**
+     * Constructor.
+     * @param message the message to display
+     */
     public DescendantParentException(String message) {
       super(message);
     }
@@ -64,6 +67,9 @@ public class Contact extends ContactBase implements Treeable {
   public Contact() { }
   // programmer's domain-specific code here
 
+  /**
+   * @return whether contact is in the category
+   */
   public boolean isIn(Category category) {
      ContactsDatabase db = (ContactsDatabase)getContactsDatabaseTables();
      String sql = db.quotedName("contact") + " = " + getTroid() + " AND " +
@@ -89,6 +95,9 @@ public class Contact extends ContactBase implements Treeable {
                selectionWhereEq(troid())));
   }
 
+  /**
+   * @return the ancestors
+   */
   public ArrayList getAncestors() {
     ArrayList l = new ArrayList();
     Contact p = getOwner();
@@ -106,6 +115,10 @@ public class Contact extends ContactBase implements Treeable {
     super.setOwner(cooked);
   }
 
+  /**
+   * @param v vector od Treeables
+   * @return an array of Treeables
+   */
   public static Treeable[] arrayOf(Vector v) {
     Treeable[] arr;
     synchronized (v) {
@@ -114,6 +127,10 @@ public class Contact extends ContactBase implements Treeable {
     }
     return arr;
   }
+  /**
+   * @param e enumeration of Treeables
+   * @return an array of Treeables
+   */
   public static Treeable[] arrayOf(Enumeration e) {
     Vector v = EnumUtils.vectorOf(e);
     return arrayOf(v);

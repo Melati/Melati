@@ -1,3 +1,7 @@
+#macro ( capitalise $stringIn )
+  #set ($firstChar = $stringIn.substring(0,1).toUpperCase())
+  #set ($rest = $stringIn.substring(1))
+${firstChar}${rest}#end
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE web-app
@@ -5,15 +9,15 @@
   "http://java.sun.com/dtd/web-app_2_3.dtd">
 
   <!-- ============================================================= -->
-  <!--  A simple Servlet 2.3 setup for Melati                        -->
+  <!--  A simple Servlet 2.3 setup for #capitalise(${artifactId})                        -->
   <!--                                                               -->
-  <!-- $Date$                                  -->
-  <!-- $Author$                                               -->
+  <!-- \$Date$                                  -->
+  <!-- \$Author$                                               -->
   <!--                                                               -->
   <!-- ============================================================= -->
 <web-app>
 
-  <display-name>Melati</display-name>
+  <display-name>#capitalise(${artifactId})</display-name>
 
 <!-- Register every servlet used in the site -->
 
@@ -298,6 +302,20 @@
   <listener>
     <listener-class>org.melati.servlet.PoemServletContextListener</listener-class>
   </listener>
+
+<!-- ${artifactId} specific -->
+  <servlet>
+    <servlet-name>${groupId}.${artifactId}.#capitalise(${artifactId})Servlet</servlet-name>
+    <servlet-class>${groupId}.${artifactId}.#capitalise(${artifactId})Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>${groupId}.${artifactId}.#capitalise(${artifactId})Servlet</servlet-name>
+    <url-pattern>/${groupId}.${artifactId}.#capitalise(${artifactId})Servlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>${groupId}.${artifactId}.#capitalise(${artifactId})Servlet</servlet-name>
+    <url-pattern>/#capitalise(${artifactId})Servlet/*</url-pattern>
+  </servlet-mapping>
 
 </web-app>
 

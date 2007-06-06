@@ -231,7 +231,7 @@ public class MelatiConfigTest extends TestCase {
    * @see org.melati.MelatiConfig#getPoemLocale()
    */
   public void testGetPoemLocale() throws Exception {
-    MelatiConfig mc = new MelatiConfig();
+   // MelatiConfig mc = new MelatiConfig();
    // assertEquals(mc.getPoemLocale(), mc.getMelatiLocale());
 
   }

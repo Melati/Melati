@@ -33,8 +33,24 @@ Use to generate a prototypical Melati project.
 value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.melati -DartifactId=melati-example-contacts' />
 </pre>
 <p>
-This will create a slightly broken project. 
-You will need to re-arrange directories.
+This will create a project. 
+</p>
+<p>
+You can then run:
+</p>
+<pre>
+mvn test jetty:run
+</pre>
+<p>
+This will create an empty database and allow you to edit it at <a href="http://localhost:8080/">http://localhost:8080/</a>.
+You shoudl login using the username <tt>_administrator_</tt> and password <tt>FIXME</tt> then add table definitionas and 
+column definitions.
+</p>
+<p>
+When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
+</p>
+<p>
+New java files will be generated when you next run <tt>mvn test</tt>.
 </p>
 </section>
 </body>

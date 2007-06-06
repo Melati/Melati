@@ -73,7 +73,8 @@ import org.melati.util.PropertiesUtils;
 public class MelatiConfig {
 
   private Properties configuration = null;
-  private String defaultPropertiesName = "org.melati.MelatiServlet";
+  /** The properties file name. */
+  public static String defaultPropertiesName = "org.melati.MelatiServlet";
   /** The properties file name in use */
   private String propertiesName;
 
@@ -98,6 +99,20 @@ public class MelatiConfig {
    */
   public MelatiConfig()
       throws MelatiException {
+    try {
+      configuration =
+        PropertiesUtils.fromResource(getClass(), defaultPropertiesName + ".properties");
+    }
+    catch (FileNotFoundException e) {
+      configuration = new Properties();
+      // TimJ: i think that if we don't have a properties file, it is pretty fatal
+      // TimP: Naah
+    }
+    catch (IOException e) {
+      throw new ConfigException("The file " + defaultPropertiesName + ".properties" +
+                                " could not be read." +
+                                " Full Error: " + e.toString());
+    }
     init(defaultPropertiesName);
   }
 
@@ -111,8 +126,34 @@ public class MelatiConfig {
    *         if anything goes wrong.
    */
   public MelatiConfig(String propertiesName)
-      throws MelatiException {
+    throws MelatiException {
+    this.propertiesName = propertiesName;
+    try {
+      configuration =
+        PropertiesUtils.fromResource(getClass(), propertiesName + ".properties");
+    }
+    catch (FileNotFoundException e) {
+      throw new ConfigException("The file " + propertiesName + "properties" +
+                                " could not be found." +
+                                " Is it in your CLASSPATH?  Full Error: " +
+                                e.toString());
+    }
+    catch (IOException e) {
+      throw new ConfigException("The file " + propertiesName + ".properties" +
+                                " could not be read." +
+                                " Full Error: " + e.toString());
+    }
     init(propertiesName);
+  }
+
+  /**
+   * Comnstructor from a given Properties object.
+   * @param properties the properies object to look in 
+   */
+  public MelatiConfig(Properties properties)  
+    throws MelatiException {
+    configuration = properties;
+    init(defaultPropertiesName);
   }
 
   void init(String propertiesNameIn)
@@ -130,23 +171,6 @@ public class MelatiConfig {
     String preferredCharsetsProp = pref + "preferredCharsets";
     String loginPageServletClassNameProp = pref + "loginPageServletClassName";
     String logoutPageServletClassNameProp = pref + "logoutPageServletClassName";
-    try {
-      configuration =
-        PropertiesUtils.fromResource(getClass(), pref + "properties");
-    }
-    catch (FileNotFoundException e) {
-      // i think that if we don't have a properties file, it is pretty fatal
-      // configuration = new Properties();
-      throw new ConfigException("The file " + pref + "properties" +
-                                " could not be found." +
-                                " Is it in your CLASSPATH?  Full Error: " +
-                                e.toString());
-    }
-    catch (IOException e) {
-      throw new ConfigException("The file " + pref + "properties" +
-                                " could not be read." +
-                                " Full Error: " + e.toString());
-    }
 
     try {
       setAccessHandler((AccessHandler)PropertiesUtils.
@@ -199,11 +223,16 @@ public class MelatiConfig {
                                preferredCharsetsProp,
                                "ISO-8859-1, UTF-8, UTF-16")).wordIterator()));
 
-      setJavascriptLibraryURL(PropertiesUtils.getOrDie(
-                                                  configuration,
-                                                  javascriptLibraryURLProp));
+      setJavascriptLibraryURL(PropertiesUtils.getOrDefault(
+              configuration,
+              javascriptLibraryURLProp,
+              "/melati-static/admin/"));
 
-      setStaticURL(PropertiesUtils.getOrDie(configuration, staticURLProp));
+      setStaticURL(PropertiesUtils.getOrDefault(
+              configuration, 
+              staticURLProp,
+              "/melati-static/"
+              ));
 
       setTemplatePath(PropertiesUtils.getOrDefault(configuration,
           templatePathProp, "."));

@@ -50,6 +50,7 @@ import java.io.PrintWriter;
 import org.melati.Melati;
 import org.melati.PoemContext;
 import org.melati.poem.AccessPoemException;
+import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTask;
 import org.melati.poem.AccessToken;
@@ -202,8 +203,9 @@ public abstract class PoemApp extends ConfigApp implements  App {
    */
   public void term(Melati melati) throws MelatiException  {
     super.term(melati);
-    // Now closed in jvm shutdown hook
-    //melati.getDatabase().disconnect();
+    System.err.println("PoemApp closing dbs");
+    Thread shutdown = PoemDatabaseFactory.getPoemShutdownThread();
+    shutdown.run();
   }
   
   /**
@@ -303,19 +305,7 @@ public abstract class PoemApp extends ConfigApp implements  App {
     PoemContext pc = new PoemContext();
     if (args.length > 0) {
       pc.setLogicalDatabase(args[0]);
-      String[] munched = (String[])ArrayUtils.section(args,  1,  args.length);
-      String[] withoutParams = new String[]{};
-      boolean ignoreNext = false;
-      for (int i = 0; i < munched.length; i++) {
-        if (munched[i].startsWith("-")) {
-          ignoreNext = true;
-        } else if (ignoreNext) {
-          ignoreNext = false;
-        } else {
-          withoutParams = (String[])ArrayUtils.added(withoutParams, munched[i]);
-        }
-      }
-      setTableTroidMethod(pc, withoutParams);
+      setTableTroidMethod(pc, (String[])ArrayUtils.section(args,  1,  args.length));
     }
 
     return pc;

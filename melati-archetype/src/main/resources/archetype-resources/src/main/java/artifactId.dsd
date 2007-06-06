@@ -1,9 +1,0 @@
-package ${groupId}.model;
-
-
-// Put your table definitions here
-
-table Setting extends Setting
-    (displayorder = 3040)  {
-  // So we can modify settings
-}

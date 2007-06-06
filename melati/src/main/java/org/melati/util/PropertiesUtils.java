@@ -184,36 +184,23 @@ public final class PropertiesUtils {
   /**
    * Instantiate an interface.
    * 
-   * @param properties a {@link Properties} 
-   * @param propertyName the name of the property
-   * @param base the interface Class
-   * @param defaulT the default Class
+   * @param className the name of the class
+   * @param interfaceClassName the interface Class name
    * @return a new object
    * @throws InstantiationPropertyException 
    *   if the named class does not descend from the interface
    */
-  public static Object instanceOfNamedClass(Properties properties, 
-                           String propertyName, Class base, Class defaulT)
+  public static Object instanceOfNamedClass(String className, String interfaceClassName)
       throws InstantiationPropertyException {
-    String className =  (String)properties.get(propertyName);
-    if (className == null)
     try {
-      return defaulT.newInstance();
-    }
-    catch (Exception e) {
-      throw new RuntimeException(e.toString());
-    }
-    else {
-      try {
-        Class clazz = Class.forName(className);
-        if (!base.isAssignableFrom(clazz))
-        throw new ClassCastException(clazz + " is not descended from " +
-        base);
+      Class interfaceClass = Class.forName(interfaceClassName);
+      Class clazz = Class.forName(className);
+      if (!interfaceClass.isAssignableFrom(clazz))
+        throw new ClassCastException(
+                clazz + " is not descended from " + interfaceClass);
         return clazz.newInstance();
-      }
-      catch (Exception e) {
-        throw new InstantiationPropertyException(properties, propertyName, e);
-      }
+    } catch (Exception e) {
+      throw new InstantiationPropertyException(className, e);
     }
   }
 
@@ -222,25 +209,25 @@ public final class PropertiesUtils {
    * 
    * @param properties a {@link Properties} 
    * @param propertyName the name of the property
-   * @param baseName     the interface 
+   * @param interfaceClassName     the interface name
    * @param defaultName  a default concrete class if the property is undefined
    * @return a new Object
    * @throws InstantiationPropertyException if there is a problem
    */
   public static Object instanceOfNamedClass(Properties properties, 
                                             String propertyName,
-                                            String baseName, 
+                                            String interfaceClassName, 
                                             String defaultName)
   throws InstantiationPropertyException {
-    Class base, defaulT;
-    try {
-      base = Class.forName(baseName);
-      defaulT = Class.forName(defaultName);
-    }
-    catch (Exception e) {
-      throw new RuntimeException(e.toString());
-    }
-
-    return instanceOfNamedClass(properties, propertyName, base, defaulT);
+    String className =  (String)properties.get(propertyName);
+    if (className == null)
+      try {
+        Class defaultClass = Class.forName(defaultName);
+        return defaultClass.newInstance();
+      }
+      catch (Exception e) {
+        throw new RuntimeException(e.toString());
+      }
+    return instanceOfNamedClass(className, interfaceClassName);
   }
 }

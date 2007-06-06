@@ -38,10 +38,12 @@
  *
  * Contact details for copyright holder:
  *
- *     Tim Pizey <timp@paneris.org>
+ *     Tim Pizey <timp At paneris.org>
  *     http://paneris.org/~timp
  */
 package org.melati.app;
+
+import java.io.PrintStream;
 
 /**
  * A command line application.
@@ -51,6 +53,13 @@ public interface App {
   /**
    * Process a command line with its arguments.
    */
-  void run(String[] args);
+  void run(String[] args) throws Exception;
+  
+  /**
+   * Set output.
+   * Call this before calling run to change output from System.out.
+   * @param out where to write to
+   */
+  void setOutput(PrintStream out);
 }
 

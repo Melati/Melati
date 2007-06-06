@@ -9,6 +9,9 @@ import org.melati.poem.PoemThread;
 import org.melati.poem.User;
 import org.melati.poem.test.PoemTestCase;
 
+/**
+ * @author timp
+ */
 public class ContactTest extends PoemTestCase {
 
   private static String databaseName = "contacts";
@@ -23,6 +26,9 @@ public class ContactTest extends PoemTestCase {
   private Contact y = null;
   private Contact z = null;
   
+  /**
+   * Constructor.
+   */
   public ContactTest(String arg0) {
     super(arg0);
   }
@@ -77,6 +83,9 @@ public class ContactTest extends PoemTestCase {
     return getPoemDatabase();
   }
 
+  /**
+   * @return a db
+   */
   public  Database getPoemDatabase() { 
     maxTrans = 4;
     return PoemDatabaseFactory.getDatabase(databaseName,
@@ -98,6 +107,9 @@ public class ContactTest extends PoemTestCase {
     checkTablesAndColumns(12,81);
   }
   
+  /**
+   * Test setOwner.
+   */
   public void testSetOwner() {
     try { 
       root.setOwner(z);
@@ -107,10 +119,16 @@ public class ContactTest extends PoemTestCase {
     }
   }
 
+  /**
+   * Test isIn.
+   */
   public void testIsIn() {
     //fail("Not yet implemented");
   }
 
+  /**
+   * Test getChildren.
+   */
   public void testGetChildren() {
     assertTrue(root.getChildren().length == 3);
   }
@@ -126,10 +144,16 @@ public class ContactTest extends PoemTestCase {
     assertTrue(s.getAncestors().toArray().length == 2);
 }
 
+  /**
+   * Test arrayOf.
+   */
   public void testArrayOfVector() {
    // fail("Not yet implemented");
   }
 
+  /**
+   * Test arrayOf.
+   */
   public void testArrayOfEnumeration() {
     // fail("Not yet implemented");
   }

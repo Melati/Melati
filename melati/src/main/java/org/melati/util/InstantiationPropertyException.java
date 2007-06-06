@@ -66,6 +66,15 @@ public class InstantiationPropertyException extends PropertyException {
   }
 
   /**
+   * Constructor with properties, property name and problem.
+   * @param propertyName the name of the property with the problem
+   * @param problem and Exception 
+   */
+  public InstantiationPropertyException(String propertyName, Exception problem) {
+    super(propertyName, problem);
+  }
+
+  /**
    * {@inheritDoc}
    * @see org.melati.util.PropertyException#getMessage()
    */

@@ -3,6 +3,8 @@
  */
 package org.melati.test;
 
+import java.util.Properties;
+
 import org.melati.MelatiConfig;
 import org.melati.servlet.FormDataAdaptorFactory;
 import org.melati.template.SimpleDateAdaptor;
@@ -76,6 +78,15 @@ public class MelatiConfigTest extends TestCase {
 
   }
 
+  /**
+   * @see org.melati.MelatiConfig#MelatiConfig(Properties)
+   */
+  public void testMelatiConfigProperties() throws Exception {
+    Properties p = new Properties();
+    p.setProperty("org.melati.MelatiServlet.staticURL", "test");
+    MelatiConfig mc = new MelatiConfig(p);
+    assertEquals("test", mc.getStaticURL());
+  }
   /**
    * @see org.melati.MelatiConfig#getServletTemplateEngine()
    */
@@ -219,7 +230,9 @@ public class MelatiConfigTest extends TestCase {
   /**
    * @see org.melati.MelatiConfig#getPoemLocale()
    */
-  public void testGetPoemLocale() {
+  public void testGetPoemLocale() throws Exception {
+    MelatiConfig mc = new MelatiConfig();
+   // assertEquals(mc.getPoemLocale(), mc.getMelatiLocale());
 
   }
 

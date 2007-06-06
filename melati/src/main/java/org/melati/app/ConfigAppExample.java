@@ -73,7 +73,7 @@ public class ConfigAppExample extends ConfigApp {
    * 
    * @param args can only be <code>method</code> 
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     ConfigAppExample me = new ConfigAppExample();
     me.run(args);
   }

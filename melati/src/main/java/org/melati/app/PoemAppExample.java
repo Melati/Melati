@@ -93,7 +93,7 @@ public class PoemAppExample extends PoemApp {
    * 
    * @param args in format <code>db table troid method</code> 
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     PoemAppExample me = new PoemAppExample();
     me.run(args);
   }

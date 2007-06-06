@@ -89,7 +89,7 @@ public class TemplateAppExample extends TemplateApp {
    * @param args in format <code>db table troid method</code>
    *             where method is a template name
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     TemplateAppExample me = new TemplateAppExample();
     me.run(args);
   }

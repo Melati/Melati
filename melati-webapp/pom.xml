@@ -5,7 +5,6 @@
     <version>0.7.6-RC2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.melati</groupId>
   <artifactId>melati-webapp</artifactId>
   <packaging>war</packaging>
   <name>Melati Webapp</name>
@@ -45,19 +44,19 @@
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.6-RC2</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-odmg</artifactId>
-      <version>0.7.6-RC2</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati-example-contacts</artifactId>
-      <version>0.7.6-RC2</version>
+      <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -73,8 +72,6 @@
        <groupId>org.apache.maven.plugins</groupId>
        <artifactId>maven-site-plugin</artifactId>
        <configuration>
-        <!--templateDirectory>file:/melati/maven/template/</templateDirectory>
-        <template>maven-site.vm</template-->
         <outputEncoding>UTF-8</outputEncoding>
        </configuration>
       </plugin>

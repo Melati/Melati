@@ -5,7 +5,6 @@
     <version>0.7.6-RC2</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.melati</groupId>
   <artifactId>poem</artifactId>
   <name>POEM</name>
   <url>http://melati.org/poem</url>
@@ -133,7 +132,7 @@
       <dependency>
        <groupId>org.melati</groupId>
        <artifactId>poem</artifactId>
-       <version>0.7.6-RC2</version>
+       <version>${project.version}</version>
       </dependency>
      </dependencies>
     </plugin>

@@ -7,7 +7,7 @@
     <source>src/main/java/model/App.dsd</source>
   </sources>
   <testSources>
-    <source>src/test/java/AppTest.java</source>
+    <source>src/test/java/model/test/PoemTest.java</source>
   </testSources>
   <resources>
     <resource>src/main/conf/org/melati/org.melati.LogicalDatabase.properties</resource>

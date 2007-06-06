@@ -1,3 +1,4 @@
+#set ($dollar = "$")
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="${artifactId}">
   <skin>
@@ -27,6 +28,6 @@
         <item name="Download" href="Download.html"/>
         <item name="Usage" href="Usage.html"/>
     </menu>
-    ${reports}
+    ${dollar}{reports}
   </body>
 </project>

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.melati.Melati;
 import org.melati.servlet.Form;
-import org.melati.servlet.TemplateServlet;
 import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.template.ServletTemplateContext;
@@ -14,7 +13,7 @@ import org.melati.template.ServletTemplateContext;
   *  Example servlet to display or edit a contact and its categories.
   *
   */
-public class ContactView extends TemplateServlet {
+public class ContactView extends ContactsServlet {
   private static final long serialVersionUID = 1L;
 
   protected String doTemplateRequest(Melati melati, ServletTemplateContext context)

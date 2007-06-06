@@ -1,4 +1,9 @@
-package ${groupId};
+#macro ( capitalise $stringIn )
+  #set ($firstChar = $stringIn.substring(0,1).toUpperCase())
+  #set ($rest = $stringIn.substring(1))
+${firstChar}${rest}#end
+
+package ${groupId}.${artifactId};
 
 import java.io.File;
 import java.io.IOException;
@@ -8,16 +13,15 @@ import javax.servlet.ServletException;
 import org.melati.Melati;
 import org.melati.servlet.TemplateServlet;
 import org.melati.template.ServletTemplateContext;
-import ${groupId}.model.AppDatabase;
+import ${groupId}.${artifactId}.model.#capitalise(${artifactId})Database;
 
 /**
- * Base servlet for ${artifactId} servlets.
- * @todo rename to ${artifactId}Servlet
+ * Base servlet for #capitalise(${artifactId}) servlets.
  */
-public abstract class AppServlet extends TemplateServlet {
+public abstract class #capitalise(${artifactId})Servlet extends TemplateServlet {
 
 
-  public static final String templatePrefix = "${artifactId}/view/";
+  public static final String templatePrefix = "${groupId.replace(".","/")}/${artifactId}/view/";
 
   public String getSysAdminName () {
     return "TimP";

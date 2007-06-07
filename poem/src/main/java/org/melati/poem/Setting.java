@@ -165,7 +165,7 @@ public class Setting extends SettingBase {
 
   /**
    * Set from a raw value; checking that the value is of the correct type first.
-   * @param raw teh raw to set
+   * @param raw the raw to set
    */
   public void setRaw(Object raw) {
     String string;

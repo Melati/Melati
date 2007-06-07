@@ -52,7 +52,7 @@ package org.melati.poem;
  */
 public interface FieldAttributes {
   /**
-   * @return the machien name of the field
+   * @return the machine name of the field
    */
   String getName();
   /**

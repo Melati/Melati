@@ -3,6 +3,8 @@
  */
 package org.melati.poem.test;
 
+import java.sql.Date;
+
 import org.melati.poem.PoemThread;
 import org.melati.poem.PoemTypeFactory;
 import org.melati.poem.Setting;
@@ -112,6 +114,16 @@ public class SettingTest extends PoemTestCase {
     }
 
     integerSetting.delete();
+    
+    Setting timestampSetting = getDb().getSettingTable().ensure("timestampSetting",
+            PoemTypeFactory.TIMESTAMP, new Date(System.currentTimeMillis()), "Timestamp", "A timestamp setting");
+    try { 
+      timestampSetting.setRaw("Not a date");
+      fail("Should have bombed");
+    } catch (SettingValidationException e) { 
+      e = null;
+    }
+    timestampSetting.delete();
   }
 
   /**

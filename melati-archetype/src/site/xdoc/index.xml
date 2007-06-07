@@ -25,9 +25,7 @@ This page last updated: $Date$ $Author$
 <!-- menu -->
 
 <section name=" Melati Maven Archetype">
-<P>
-Use to generate a prototypical Melati project.
-</P>
+<subsection name=" Generate a prototypical Melati project ">
 <pre>
 <input type='text' size='180' 
 value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactId=melati-archetype -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.melati -DartifactId=melati-example-contacts' />
@@ -35,6 +33,8 @@ value = 'mvn archetype:create -DarchetypeGroupId=org.melati -DarchetypeArtifactI
 <p>
 This will create a project. 
 </p>
+</subsection>
+<subsection name=" Iterative modelling ">
 <p>
 You can then run:
 </p>
@@ -43,15 +43,16 @@ mvn test jetty:run
 </pre>
 <p>
 This will create an empty database and allow you to edit it at <a href="http://localhost:8080/">http://localhost:8080/</a>.
-You shoudl login using the username <tt>_administrator_</tt> and password <tt>FIXME</tt> then add table definitionas and 
+You should login using the username <tt>_administrator_</tt> and password <tt>FIXME</tt> then add table definitions and 
 column definitions.
 </p>
 <p>
 When you have finished, for now, stop Jetty with <tt>Ctrl-C</tt>.
 </p>
 <p>
-New java files will be generated when you next run <tt>mvn test</tt>.
+New java files will be generated next time you run <tt>mvn test</tt>.
 </p>
+</subsection>
 </section>
 </body>
 </document>

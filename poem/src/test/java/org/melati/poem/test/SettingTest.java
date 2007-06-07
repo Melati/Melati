@@ -143,6 +143,8 @@ public class SettingTest extends PoemTestCase {
 
   /**
    * FIXME Should we be able to change nullability?
+   * You cannot change the type, so hard to see how 
+   * Exception could be thrown in getRaw().
    * 
    * @see org.melati.poem.Setting#getRaw()
    */

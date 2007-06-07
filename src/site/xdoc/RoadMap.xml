@@ -164,6 +164,7 @@ would be nice to have before a 1.0 release.
         Support and use of <a href="http://maven.apache.org/">Maven</a> (1 and 2). <br />
         Bundled with Jetty and HSQLDB. <br />
         Support for <a href="http://www.eclipse.org/">Eclipse</a> (No warnings shown).<br />
+        Archetype supports iterative modelling. <br />
     </td>
     <td><b>done</b></td>
   </tr>

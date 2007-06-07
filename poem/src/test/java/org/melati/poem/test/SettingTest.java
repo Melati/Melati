@@ -77,7 +77,22 @@ public class SettingTest extends PoemTestCase {
    * @see org.melati.poem.Setting#getValueField()
    */
   public void testGetValueField() {
+    Setting s = new Setting(PoemTypeFactory.STRING.getCode(), "testSetting",
+            "eggs", "Test Setting", "A test setting");
+    getDb().getSettingTable().create(s);
+    assertEquals("eggs", s.getValueField().getCooked());
 
+    s.delete();
+
+    s = new Setting(PoemTypeFactory.PASSWORD.getCode(), "columnSetting",
+            "0", "Password", "A test setting");
+    getDb().getSettingTable().create(s);
+    s.setRaw(getDb().getUserTable().administratorUser().getPasswordField());
+    assertEquals("password: FIXME", s.getValueField().getCooked());
+    s.delete();
+    
+
+ 
   }
 
   /**
@@ -86,10 +101,10 @@ public class SettingTest extends PoemTestCase {
    */
   public void testSettingIntegerStringStringStringString() {
     Setting s = new Setting(PoemTypeFactory.STRING.getCode(), "testSetting",
-        "eggs", "Test Setting", "A test setting");
-    getDb().getSettingTable().create(s);
-    assertEquals("eggs", s.getValue());
-    s.delete();
+            "eggs", "Test Setting", "A test setting");
+        getDb().getSettingTable().create(s);
+        assertEquals("eggs", s.getValue());
+        s.delete();
   }
 
   /**

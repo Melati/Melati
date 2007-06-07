@@ -392,7 +392,7 @@ table ColumnInfo extends org.melati.poem.ValueInfo
     (uneditable);
 
   (indexed) String name (size = 50)
-    (displayorder = 300)
+    (displayorder = 50)
     (description = "A code-name for the field")
     (uneditable) 
     (displaylevel = record)

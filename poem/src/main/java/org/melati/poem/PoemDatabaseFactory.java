@@ -232,16 +232,12 @@ public final class PoemDatabaseFactory {
    * Disconnect from all initialised databases.
    */
   public static void disconnectFromDatabases() { 
-    try {
-      Vector dbs = PoemDatabaseFactory.initialisedDatabases();
-      Enumeration them = dbs.elements();
-      while (them.hasMoreElements()) {
-        Database db = (Database)them.nextElement();
-        db.disconnect();
-      }
-    } catch (Exception ee) {
-      ee.printStackTrace();
-    }    
+    Vector dbs = PoemDatabaseFactory.initialisedDatabases();
+    Enumeration them = dbs.elements();
+    while (them.hasMoreElements()) {
+      Database db = (Database)them.nextElement();
+      db.disconnect();
+    }
   }
   /**
    * Shutdown databases cleanly when JVM exits.

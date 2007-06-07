@@ -122,6 +122,14 @@ public class PoemDatabaseFactoryTest extends TestCase {
   public void testRemoveDatabaseString() {
     
   }
+  
+  /**
+   * Test method for {@link org.melati.poem.PoemDatabaseFactory#getPoemShutdownThread()}.
+   */
+  public void testGetPoemShutdownThread() {
+    Thread t = PoemDatabaseFactory.getPoemShutdownThread();
+    assertEquals("PoemShutdownThread", t.getName());
+  }
   /**
    * @return the minial poem db
    */

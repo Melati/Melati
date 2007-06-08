@@ -84,9 +84,10 @@ public class TableSortedMap extends TableMap implements SortedMap {
   public Object firstKey() {
     if(table.cachedCount((String)null).count() == 0) 
       throw new NoSuchElementException();
-    if (table.getObject(0) != null)
+    try { 
+      table.getObject(0);
       return new Integer(0);
-    else { 
+    } catch (NoSuchRowPoemException e) { 
       Persistent p = table.firstSelection(null);
       return p.troid();
     }

@@ -51,14 +51,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
 import java.util.Vector;
 
 import org.melati.poem.dbms.Dbms;
@@ -82,7 +76,7 @@ import org.melati.poem.util.StringUtils;
 /**
  * A Table.
  */
-public class Table implements Selectable, SortedMap {
+public class Table implements Selectable {
 
   /** Default limit for row cache. */
   public static final int CACHE_LIMIT_DEFAULT = 100;
@@ -1931,7 +1925,7 @@ public class Table implements Selectable, SortedMap {
     }
   }
 
-  private int nextTroid = -1;
+  protected int nextTroid = -1;
 
   /**
    * @param persistent unused parameter, but might be needed in another troid schema
@@ -2840,76 +2834,6 @@ public class Table implements Selectable, SortedMap {
     return (t instanceof Table &&
             ((Table)t).getName().equals(name));
     
-  }
-
-  public Comparator comparator() {
-    return null;
-  }
-
-  public Object firstKey() {
-    return null;
-  }
-
-  public SortedMap headMap(Object arg0) {
-    return null;
-  }
-
-  public Object lastKey() {
-    return null;
-  }
-
-  public SortedMap subMap(Object arg0, Object arg1) {
-    return null;
-  }
-
-  public SortedMap tailMap(Object arg0) {
-    return null;
-  }
-
-  public void clear() {
-  }
-
-  public boolean containsKey(Object key) {
-    return false;
-  }
-
-  public boolean containsValue(Object value) {
-    return false;
-  }
-
-  public Set entrySet() {
-    return null;
-  }
-
-  public Object get(Object key) {
-    return null;
-  }
-
-  public boolean isEmpty() {
-    return false;
-  }
-
-  public Set keySet() {
-    return null;
-  }
-
-  public Object put(Object arg0, Object arg1) {
-    return null;
-  }
-
-  public void putAll(Map arg0) {
-  }
-
-  public Object remove(Object key) {
-    return null;
-  }
-
-  public int size() {
-    return 0;
-  }
-
-  public Collection values() {
-    return Collections.list(selection());
   }
 
 }

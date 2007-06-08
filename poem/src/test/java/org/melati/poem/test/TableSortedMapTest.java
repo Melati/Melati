@@ -3,6 +3,9 @@
  */
 package org.melati.poem.test;
 
+import java.util.NoSuchElementException;
+
+import org.melati.poem.Setting;
 import org.melati.poem.TableMap;
 import org.melati.poem.TableSortedMap;
 
@@ -77,6 +80,18 @@ public class TableSortedMapTest extends TableMapTest {
    */
   public void testFirstKey() {
     assertEquals(new Integer(0), it.firstKey());
+    it.setTable(getDb().getSettingTable());
+    try { 
+      it.firstKey();
+      fail("Should have bombed.");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
+    Setting s1 = getDb().getSettingTable().ensure("s1", "s1", "S1", "test setting S1");
+    Setting s2 = getDb().getSettingTable().ensure("s2", "s2", "S2", "test setting S2");
+    s1.delete();
+    assertEquals(new Integer(1), it.firstKey());
+    s2.delete();
     try { 
       noArg.firstKey();
       fail("Should have bombed");
@@ -90,6 +105,13 @@ public class TableSortedMapTest extends TableMapTest {
    */
   public void testLastKey() {
     assertEquals(new Integer(2), it.lastKey());
+    it.setTable(getDb().getSettingTable());
+    try { 
+      it.lastKey();
+      fail("Should have bombed.");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
     try { 
       noArg.lastKey();
       fail("Should have bombed");

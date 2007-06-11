@@ -6,7 +6,11 @@ package org.melati.poem.test.throwing;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
+import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+import org.melati.poem.dbms.test.sql.ThrowingStatement;
 
 /**
  * @author timp
@@ -240,10 +244,9 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   public void testGivesCapabilitySQL() {
-    // ThrowingConnection.startThrowing("prepareStatement");
-
-    // super.testGivesCapabilitySQL();
-    // ThrowingConnection.stopThrowing("prepareStatement");
+    //ThrowingResultSet.startThrowing("next");
+    //super.testGivesCapabilitySQL();
+    //ThrowingResultSet.stopThrowing("next");
   }
 
   public void testGuestAccessToken() {
@@ -254,10 +257,22 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
   }
 
   public void testHasCapability() {
-    // ThrowingConnection.startThrowing("prepareStatement");
-
-    // super.testHasCapability();
-    // ThrowingConnection.stopThrowing("prepareStatement");
+    ThrowingStatement.startThrowing("executeQuery");
+    try { 
+      super.testHasCapability();
+    } catch (UnexpectedExceptionPoemException e) { 
+      assertEquals("Statement bombed", e.innermostException().getMessage());      
+      ThrowingStatement.stopThrowing("executeQuery");
+    }
+    ThrowingResultSet.startThrowing("next");
+    ThrowingResultSet.startThrowing("close");
+    try { 
+      super.testHasCapability();
+    } catch (SQLSeriousPoemException e) { 
+      assertEquals("ResultSet bombed", e.innermostException().getMessage());      
+      ThrowingResultSet.stopThrowing("next");
+      ThrowingResultSet.stopThrowing("close");
+    }
   }
 
   public void testInSession() {
@@ -309,8 +324,8 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
       fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
+      ThrowingConnection.stopThrowing("prepareStatement");
     }
-    ThrowingConnection.stopThrowing("prepareStatement");
   }
 
   public void testReferencesToTable() {
@@ -335,8 +350,8 @@ public class PoemDatabaseTest extends org.melati.poem.test.PoemDatabaseTest {
       fail("Should have bombed");
     } catch (SQLPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
+      ThrowingConnection.stopThrowing("prepareStatement");
     }
-    ThrowingConnection.stopThrowing("prepareStatement");
     getDb().getCapabilityTable().getNameColumn().firstWhereEq("testing")
     .delete();
   }

@@ -152,14 +152,16 @@ public class ColumnInfo extends ColumnInfoBase {
   */
   public void setDisplaylevelIndex(Integer index) {
     super.setDisplaylevelIndex(index);
-    if (index.equals(DisplayLevel.primary.getIndex())) {
-      Column column = column();
-      if (column != null) {
-        Table table = column.getTable();
-        Column previous = table.displayColumn();
-        if (previous != null && previous != column) {
+    Column column = column();
+    if (column != null) {
+      Table table = column.getTable();
+      Column previous = table.displayColumn();
+      if (previous != null && previous != column) {
+        if (index.equals(DisplayLevel.primary.getIndex())) {
           previous.setDisplayLevel(DisplayLevel.summary);
           table.setDisplayColumn(column);
+        } else { 
+          table.clearColumnInfoCaches();
         }
       }
     }

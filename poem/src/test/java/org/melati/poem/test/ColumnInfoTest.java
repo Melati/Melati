@@ -72,6 +72,15 @@ public class ColumnInfoTest extends PoemTestCase {
    * setDisplaylevelIndex(java.lang.Integer)}.
    */
   public void testSetDisplaylevelIndex() {
+    Enumeration them = getDb().getUserTable().getSummaryDisplayColumns();
+    int counter = 0;
+    while (them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(2, counter);
+
+    
     ColumnInfo passwordCI = getDb().getUserTable().getPasswordColumn().getColumnInfo();
     ColumnInfo nameCI =     getDb().getUserTable().getNameColumn().getColumnInfo();
     assertEquals(DisplayLevel.record, passwordCI.getDisplaylevel());
@@ -84,9 +93,21 @@ public class ColumnInfoTest extends PoemTestCase {
     assertEquals(DisplayLevel.summary, 
             getDb().getUserTable().getNameColumn().getDisplayLevel());
     assertEquals("password",  getDb().getUserTable().displayColumn().getName());
-    passwordCI.setDisplaylevelIndex(DisplayLevel.record.getIndex());
     getDb().getUserTable().getNameColumn().getColumnInfo().
         setDisplaylevelIndex(DisplayLevel.primary.getIndex());
+    assertEquals(DisplayLevel.summary, passwordCI.getDisplaylevel());
+
+    passwordCI.setDisplaylevelIndex(DisplayLevel.record.getIndex());
+    assertEquals(DisplayLevel.record, passwordCI.getDisplaylevel());
+
+    them = getDb().getUserTable().getSummaryDisplayColumns();
+    counter = 0;
+    while (them.hasMoreElements()) {
+      them.nextElement();
+      counter++;
+    }
+    assertEquals(2, counter);
+
   }
 
   /**

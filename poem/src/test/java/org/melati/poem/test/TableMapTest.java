@@ -38,7 +38,6 @@ public class TableMapTest extends PoemTestCase {
   }
 
   protected void createObjectsUnderTest() {
-    System.err.println("setting in TM");
     it = new TableMap(getDb().getUserTable());
     noArg = new TableMap();
   }

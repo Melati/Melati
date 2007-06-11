@@ -34,7 +34,6 @@ public class TableSortedMapTest extends TableMapTest {
   }
   
   protected void createObjectsUnderTest() {
-    System.err.println("setting in TSM");
     it = new TableSortedMap(getDb().getUserTable());
     noArg = new TableSortedMap();
   }

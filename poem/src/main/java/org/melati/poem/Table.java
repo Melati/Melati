@@ -397,7 +397,7 @@ public class Table implements Selectable {
     return clause;
   }
 
-  private void clearColumnInfoCaches() {
+  void clearColumnInfoCaches() {
     defaultOrderByClause = null;
     for (int i = 0; i < displayColumns.length; ++i)
       displayColumns[i] = null;

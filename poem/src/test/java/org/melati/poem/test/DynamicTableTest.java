@@ -59,7 +59,6 @@ public class DynamicTableTest extends EverythingTestCase {
   }
 
   protected void databaseUnchanged() { 
-    System.err.println("Deleting");
     // It is not good enough to drop the new columns, as the deleted columnInfo's 
     // are still referred to, so drop the whole table
     PoemThread.commit();

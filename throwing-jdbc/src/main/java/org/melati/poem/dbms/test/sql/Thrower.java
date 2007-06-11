@@ -31,7 +31,7 @@ public abstract class Thrower {
     throwers.put(methodName, new Integer(1 + goes));
   }
   /**
-   * Tell named method to start throwing exceptions.
+   * Tell named method to stop throwing exceptions.
    * @param methodName name in class.methodName format
    */
   public static void stopThrowing(String methodName) {

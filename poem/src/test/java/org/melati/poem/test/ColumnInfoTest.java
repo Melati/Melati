@@ -109,6 +109,39 @@ public class ColumnInfoTest extends PoemTestCase {
     assertEquals(2, counter);
 
   }
+  
+  /**
+   * There is some circumstance, which I have failed to reproduce in a Maven build, 
+   * where the columnInfo.column is null and the troid is not. 
+   * 
+   * I removed the method columnWithColumnInfoID, all built in Maven, 
+   * then started failing in Eclipse.
+   * 
+   * This test does call columnWithColumnInfoID but seems very contrived. 
+   */
+  public void testUnusualCircumstance() { 
+    ColumnInfo odd = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
+    odd.setName("odd");
+    odd.setDisplayname("Odd");
+    odd.setUsereditable(true);
+    odd.setUsercreateable(true);
+    odd.setDisplaylevel(DisplayLevel.primary);
+    odd.setSearchability(Searchability.primary);
+    odd.setIndexed(true);
+    odd.setUnique(true);
+    odd.setTypefactory(PoemTypeFactory.STRING);
+    odd.setNullable(true);
+    odd.setSize(-1);
+    odd.setWidth(10);
+    odd.setHeight(1);
+    odd.setPrecision(22);
+    odd.setScale(2);
+    odd.setDisplayorder(1);
+    odd.setTableinfo(getDb().getColumnInfoTable().getTableInfo());
+    getDb().getColumnInfoTable().create(odd);
+    odd.setDisplaylevelIndex(DisplayLevel.primary.getIndex());
+    odd.delete();
+  }
 
   /**
    * Test method for {@link org.melati.poem.ColumnInfo#getDsdQualifiers()}.

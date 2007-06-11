@@ -53,6 +53,8 @@ public class DynamicTableTest extends EverythingTestCase {
    * @see TestCase#tearDown()
    */
   protected void tearDown() throws Exception {
+    // Do not do super or we will create a db again
+    // super.tearDown();
     checkDbUnchanged();
   }
 

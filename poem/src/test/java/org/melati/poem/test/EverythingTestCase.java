@@ -38,6 +38,12 @@ public abstract class EverythingTestCase extends PoemTestCase implements Test {
   public Database getDb() {
     return getDb(databaseName);
   }
+  /**
+   * @return the db name
+   */
+  public String getDatabaseName() {
+    return databaseName;
+  }
   
   protected void databaseUnchanged() { 
     assertEquals("Setting changed",0, getDb().getSettingTable().count());

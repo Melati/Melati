@@ -119,7 +119,7 @@ public class ColumnInfoTest extends PoemTestCase {
    * 
    * This test does call columnWithColumnInfoID but seems very contrived. 
    */
-  public void testUnusualCircumstance() { 
+  public void testProgramaticCreation() { 
     ColumnInfo odd = (ColumnInfo)getDb().getColumnInfoTable().newPersistent();
     odd.setName("odd");
     odd.setDisplayname("Odd");
@@ -139,7 +139,12 @@ public class ColumnInfoTest extends PoemTestCase {
     odd.setDisplayorder(1);
     odd.setTableinfo(getDb().getColumnInfoTable().getTableInfo());
     getDb().getColumnInfoTable().create(odd);
+    
+    // This will do nothing as there is no table with a column 
+    // matching our newly created columnInfo.
     odd.setDisplaylevelIndex(DisplayLevel.primary.getIndex());
+
+    
     odd.delete();
   }
 

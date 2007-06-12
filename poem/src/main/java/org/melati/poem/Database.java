@@ -817,8 +817,8 @@ public abstract class Database implements TransactionPool {
    * @param name        The name of the table to return, as in the RDBMS
    *                    database.  It's case-sensitive, and some RDBMSs such as
    *                    Postgres 6.4.2 (and perhaps other versions) treat upper
-   *                    case letters in identifiers inconsistently, so this is
-   *                    likely to be a simple lower-case name.
+   *                    case letters in identifiers inconsistently, so the 
+   *                    name is forced to lowercase.
    *
    * @return the Table of that name 
    *

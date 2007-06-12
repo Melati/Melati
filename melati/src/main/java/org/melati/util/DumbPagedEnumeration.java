@@ -48,14 +48,12 @@ package org.melati.poem.util;
 import java.util.Enumeration;
 
 /**
- * A {@link PageEnumeration} which doesn't know how big it is.
+ * A {@link PagedEnumeration} which doesn't know how big it is.
  * Ideally SQL would allow you to start at an offset.
- * Also this class should probably be called 
- * DumbPagedEnumeration as this is not an enumeration of Pages.
  *
- * @todo Deprecate and rename
+ * @todo Deprecate
  */
-public class DumbPageEnumeration extends PageEnumerationBase {
+public class DumbPagedEnumeration extends PagedEnumerationBase {
   
   private boolean totalCountIsMinimum;
 
@@ -66,7 +64,7 @@ public class DumbPageEnumeration extends PageEnumerationBase {
    * @param pageSize  how many Elements to include upon a page 
    * @param countHorizon where to count to, may be less than total size of underlying Enumeration
    */
-  public DumbPageEnumeration(Enumeration base,
+  public DumbPagedEnumeration(Enumeration base,
                              int pageStart, int pageSize, int countHorizon) {
     pageStart = Math.max(pageStart, 1);
     this.pageStart = pageStart;
@@ -88,7 +86,7 @@ public class DumbPageEnumeration extends PageEnumerationBase {
    * @param pageSize  how many Elements to include upon a page 
    * @param countHorizon where to count to, may be less than total size of underlying Enumeration
    */
-  public DumbPageEnumeration(SkipEnumeration base,
+  public DumbPagedEnumeration(SkipEnumeration base,
                              int pageStart, int pageSize, int countHorizon) {
     this((Enumeration)base, pageStart, pageSize, countHorizon);
     // TPP 2007/01/12 Why is this constructor needed?
@@ -96,7 +94,7 @@ public class DumbPageEnumeration extends PageEnumerationBase {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumerationBase#getNextPageStart()
+   * @see org.melati.poem.util.PagedEnumerationBase#getNextPageStart()
    */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;

@@ -48,10 +48,10 @@ import java.util.Enumeration;
 
 
 /**
- * All the code common to {@link CountedDumbPageEnumeration}
- * and {@link DumbPageEnumeration}.
+ * All the code common to {@link CountedDumbPagedEnumeration}
+ * and {@link DumbPagedEnumeration}.
  */
-public abstract class PageEnumerationBase implements PageEnumeration {
+public abstract class PagedEnumerationBase implements PagedEnumeration {
   
   int pageStart, pageSize;
   Vector page;
@@ -85,12 +85,12 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   // 
   // -----------------
-  //  PageEnumeration
+  //  PagedEnumeration
   // -----------------
   // 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumeration#getPageStart()
+   * @see org.melati.poem.util.PagedEnumeration#getPageStart()
    */
   public int getPageStart() {
     return pageStart;
@@ -98,7 +98,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumeration#getPageEnd()
+   * @see org.melati.poem.util.PagedEnumeration#getPageEnd()
    */
   public int getPageEnd() {
     return pageStart + page.size() - 1;
@@ -106,7 +106,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumeration#getTotalCount()
+   * @see org.melati.poem.util.PagedEnumeration#getTotalCount()
    */
   public int getTotalCount() {
     return totalCount;
@@ -114,7 +114,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumeration#getNextPageStart()
+   * @see org.melati.poem.util.PagedEnumeration#getNextPageStart()
    */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
@@ -123,7 +123,7 @@ public abstract class PageEnumerationBase implements PageEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PageEnumeration#getPrevPageStart()
+   * @see org.melati.poem.util.PagedEnumeration#getPrevPageStart()
    */
   public Integer getPrevPageStart() {
     int it = pageStart - pageSize;

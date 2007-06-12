@@ -50,7 +50,7 @@ import java.util.Enumeration;
 /**
  * A paged enumeration.
  */
-public interface PageEnumeration extends Enumeration {
+public interface PagedEnumeration extends Enumeration {
 
   /**
    * @return the start record of the page, indexed from 1.

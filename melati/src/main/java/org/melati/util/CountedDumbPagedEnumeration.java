@@ -46,14 +46,12 @@ package org.melati.poem.util;
 import java.util.Enumeration;
 
 /**
- * A {@link PageEnumeration} which knows how big it is.
+ * A {@link PagedEnumeration} which knows how big it is.
  * Ideally SQL would allow you to start at an offset.
- * FIXME This class should be called DumbCountedPagedEnumeration 
- * as this is not an enumeration of Pages.
  *
- * @todo Deprecate and rename
+ * @todo Deprecate
  */
-public class CountedDumbPageEnumeration extends PageEnumerationBase {
+public class CountedDumbPagedEnumeration extends PagedEnumerationBase {
   
   /**
    * Constructor.
@@ -62,7 +60,7 @@ public class CountedDumbPageEnumeration extends PageEnumerationBase {
    * @param pageSize  how many Elements to include upon a page 
    * @param totalCount size of the underlying Enumeration
    */
-  public CountedDumbPageEnumeration(Enumeration base,
+  public CountedDumbPagedEnumeration(Enumeration base,
                              int pageStart, int pageSize, int totalCount) {
     pageStart = Math.max(pageStart, 1);
     this.pageStart = pageStart;

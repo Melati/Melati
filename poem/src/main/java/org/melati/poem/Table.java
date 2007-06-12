@@ -62,10 +62,10 @@ import org.melati.poem.util.ArrayEnumeration;
 import org.melati.poem.util.ArrayUtils;
 import org.melati.poem.util.Cache;
 import org.melati.poem.util.CachedIndexFactory;
-import org.melati.poem.util.CountedDumbPageEnumeration;
+import org.melati.poem.util.CountedDumbPagedEnumeration;
 import org.melati.poem.util.EnumUtils;
 import org.melati.poem.util.MappedEnumeration;
-import org.melati.poem.util.PageEnumeration;
+import org.melati.poem.util.PagedEnumeration;
 import org.melati.poem.util.Procedure;
 import org.melati.poem.util.FilteredEnumeration;
 import org.melati.poem.util.FlattenedEnumeration;
@@ -1464,11 +1464,11 @@ public class Table implements Selectable {
    * @see #selection(java.lang.String)
    * FIXME Needs excludeUnselectable
    */
-  public PageEnumeration selection(String whereClause, String orderByClause, 
+  public PagedEnumeration selection(String whereClause, String orderByClause, 
                                    boolean includeDeleted, int pageStart, 
                                    int pageSize)
       throws SQLPoemException {
-    return new CountedDumbPageEnumeration(
+    return new CountedDumbPagedEnumeration(
         selection(whereClause, orderByClause, includeDeleted),
         pageStart, pageSize, cachedCount(whereClause, includeDeleted).count());
   }
@@ -1484,12 +1484,12 @@ public class Table implements Selectable {
    * @param excludeUnselectable Whether to append unselectable exclusion SQL 
    * @return a paged enumeration
    */
-  public PageEnumeration selection(Persistent criteria, String orderByClause, 
+  public PagedEnumeration selection(Persistent criteria, String orderByClause, 
                                    boolean includeDeleted, 
                                    boolean excludeUnselectable, int pageStart, 
                                    int pageSize)
       throws SQLPoemException {
-    return new CountedDumbPageEnumeration(
+    return new CountedDumbPagedEnumeration(
         selection(criteria, orderByClause, includeDeleted, excludeUnselectable),
         pageStart, pageSize,
         cachedCount(criteria, includeDeleted, excludeUnselectable).count());

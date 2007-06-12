@@ -6,6 +6,7 @@ package org.melati.poem.util.test;
 import java.util.Vector;
 
 import org.melati.poem.util.ConsEnumeration;
+import org.melati.poem.util.LimitedEnumeration;
 
 import junit.framework.TestCase;
 
@@ -68,6 +69,22 @@ public class ConsEnumerationTest extends TestCase {
     assertTrue(c.hasMoreElements());
     c.skip();
     assertFalse(c.hasMoreElements());
+    
+    Vector them = new Vector();
+    them.add("a");
+    them.add("b");
+    them.add("c");
+    them.add("d");
+    LimitedEnumeration le = new LimitedEnumeration(them.elements(),2);
+    c = new ConsEnumeration("head", le);
+    c.nextElement();
+    c.skip();
+    assertEquals("b", c.nextElement());
+    
+    c = new ConsEnumeration("head", them.elements());
+    c.nextElement();
+    c.skip();
+    assertEquals("b", c.nextElement());
   }
 
 }

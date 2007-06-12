@@ -45,7 +45,7 @@ public class PoemTestCase extends TestCase implements Test {
   protected int maxTrans = 0;
   
   /** Default db name */
-  private String databaseName = "melatijunit";  // change to poemtest
+  public static String databaseName = "melatijunit";  // change to poemtest
   
   private AccessToken userToRunAs;
 

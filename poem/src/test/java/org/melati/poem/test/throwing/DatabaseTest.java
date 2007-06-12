@@ -3,10 +3,22 @@
  */
 package org.melati.poem.test.throwing;
 
+import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
+import org.melati.poem.Database;
+import org.melati.poem.PoemDatabase;
+import org.melati.poem.PoemDatabaseFactory;
+import org.melati.poem.PoemThread;
+import org.melati.poem.ReconnectionPoemException;
+import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLSeriousPoemException;
+import org.melati.poem.TableInfo;
+import org.melati.poem.UnexpectedExceptionPoemException;
 import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
+import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
+import org.melati.poem.test.PoemTestCase;
 
 /**
  * @author timp
@@ -16,31 +28,58 @@ import org.melati.poem.dbms.test.sql.ThrowingResultSet;
 public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
 
   /**
-   * @param name
+   * Constructor. 
+   * @param name test name
    */
   public DatabaseTest(String name) {
     super(name);
-    
   }
 
   protected void setUp() throws Exception {
-    
     super.setUp();
   }
 
   protected void tearDown() throws Exception {
-    
     super.tearDown();
+    db = null;
+    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
   }
 
+  private static Database db;
+  /**
+   * @return the db
+   */
+  private static Database getDb() {
+    int maxTrans = 4;
+    /* 
+    db = PoemDatabaseFactory.getDatabase(PoemTestCase.databaseName, 
+            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+            "sa", 
+            "",
+            "org.melati.poem.PoemDatabase",
+            "org.melati.poem.dbms.test.HsqldbThrower", 
+            false, 
+            false, 
+            false, maxTrans);
+    */
+    db = new PoemDatabase();
+    db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+            "sa", 
+            "",
+            maxTrans);
+    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
+    assertEquals(4, db.getFreeTransactionsCount());
+    return db;
+  }
+
+  
   public void testAddConstraints() {
-    
-    super.testAddConstraints();
+   // super.testAddConstraints();
   }
 
   public void testAddTableAndCommit() {
-    
-    super.testAddTableAndCommit();
+    //super.testAddTableAndCommit();
   }
 
   /**
@@ -48,9 +87,8 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
    * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
    */
   public void testAddTableAndCommitThrowing() {
-    /*
-    Database db = getThrowingDb();
-    getDb().beginSession(AccessToken.root);
+    Database db = getDb();
+    db.beginSession(AccessToken.root);
     TableInfo info = (TableInfo)db.getTableInfoTable().newPersistent();
     info.setName("addedtable");
     info.setDisplayname("Junit created table");
@@ -72,113 +110,101 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("columninfo"));
     db.sqlUpdate("DROP TABLE " + db.getDbms().getQuotedName("tableinfo"));
     PoemThread.commit();
-    getDb().endSession();
-    */
+    db.endSession();
   }
 
   public void testAdministerCapability() {
-    
-    super.testAdministerCapability();
+    //super.testAdministerCapability();
   }
 
   public void testAdministratorUser() {
-    
-    super.testAdministratorUser();
+    //super.testAdministratorUser();
   }
 
   public void testBeginExclusiveLock() {
-    
-    super.testBeginExclusiveLock();
+    //super.testBeginExclusiveLock();
   }
 
   public void testBeginSession() {
-    
-    super.testBeginSession();
+    //super.testBeginSession();
   }
 
   public void testColumns() {
-    
-    super.testColumns();
+    //super.testColumns();
   }
 
   public void testConnect() {
-    ThrowingResultSet.startThrowing("close");     
     try { 
-      super.testConnect();
-      //fail("Should have blown up");
-    } catch (UnificationPoemException e) {
-      assertEquals("ResultSet bombed", e.innermostException().getMessage());
+      getDb().connect("org.melati.poem.dbms.test.HsqldbThrower", 
+              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+              "sa", "", 8);
+      fail("Should have blown up");
+    } catch (ReconnectionPoemException e) {
+      e = null;
     }
-    ThrowingResultSet.stopThrowing("close");
-    /*
+    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
     ThrowingResultSet.startThrowing("close");     
     try { 
-      getThrowingDb();
+      getDb();
       fail("Should have blown up");
     } catch (SQLSeriousPoemException e) {
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
-    assertEquals(8, db.getFreeTransactionsCount());
-    db.shutdown();
+    ThrowingResultSet.stopThrowing("close");
+  }
+
+  /**
+   * Provoke an SQLException within unifyWithDB().
+   */
+  public void testConnect2() {
+    Database db = new PoemDatabase();
+    ThrowingConnection.startThrowingAfter("getMetaData",1);     
+    try { 
+      db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+              "sa", 
+              "",
+              4);
+      fail("Should have blown up");
+    } catch (SQLPoemException e) {
+      assertEquals("Connection bombed", e.innermostException().getMessage());
+    }
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    ThrowingResultSet.stopThrowing("close");
-    */     
-    
+    ThrowingConnection.stopThrowing("getMetaData");
   }
 
   /**
    * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
    */
   public void testConnectThrowing3() {
-    /*
+    Database db = getDb();
+    db.disconnect();
     ThrowingConnection.startThrowing("getMetaData");     
     try { 
-      getThrowingDb();
+      db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
+              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+              "sa", 
+              "",
+              4);
       fail("Should have blown up");
     } catch (UnificationPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());
     }
-    db.shutdown();
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
+    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
     ThrowingConnection.stopThrowing("getMetaData");
-    */     
-  }
-
-  /**
-   * Test method for {@link org.melati.poem.Database#connect(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int)}.
-   */
-  public void testConnectThrowing4() {
-    /*
-    ThrowingDatabaseMetaData.startThrowing("getTables");     
-    try { 
-      getThrowingDb();
-      fail("Should have blown up");
-    } catch (SQLPoemException e) {
-      assertEquals("DatabaseMetaData bombed", e.innermostException().getMessage());
-    }
-    db.shutdown();
-    db.disconnect();
-    assertEquals(0, db.getFreeTransactionsCount());
-    db = null;
-    ThowingDatabaseMetaData.stopThrowing("getTables");
-    */     
   }
 
   public void testDatabase() {
-    
-    super.testDatabase();
+   // super.testDatabase();
   }
 
   public void testDisconnect() {
-    
-    /*
-    getThrowingDb();
-    db.shutdown();
+    Database db = getDb();
     ThrowingConnection.startThrowing("close");     
     try { 
       db.disconnect();
@@ -190,162 +216,115 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    */
-    super.testDisconnect();
+    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
   }
 
 
   public void testDump() {
-    
-    super.testDump();
+    //super.testDump();
   }
 
   public void testDumpCacheAnalysis() {
-    
-    super.testDumpCacheAnalysis();
+    //super.testDumpCacheAnalysis();
   }
 
   public void testEndExclusiveLock() {
-    
-    super.testEndExclusiveLock();
+    //super.testEndExclusiveLock();
   }
 
   public void testEndSession() {
-    
-    super.testEndSession();
+    //super.testEndSession();
   }
-  /**
-   * Test method for {@link org.melati.poem.Database#shutdown()}.
-   */
-  public void testShutdown() {
-    /*
-    getThrowingDb();
-    ThrowingConnection.startThrowing("isClosed");     
-    try { 
-      db.shutdown();
-      fail("Should have blown up");
-    } catch (SQLPoemException e) {
-      assertEquals("Connection bombed", e.innermostException().getMessage());
-    }
-    ThrowingConnection.stopThrowing("isClosed");     
-    db.disconnect();
-    assertEquals(0, db.getFreeTransactionsCount());
-    db = null;
-    */
-  }
-
 
   public void testGetCanAdminister() {
-    
-    super.testGetCanAdminister();
+    // super.testGetCanAdminister();
   }
 
   public void testGetCapabilityTable() {
-    
-    super.testGetCapabilityTable();
+    // super.testGetCapabilityTable();
   }
 
   public void testGetColumnInfoTable() {
-    
-    super.testGetColumnInfoTable();
+    // super.testGetColumnInfoTable();
   }
 
   public void testGetCommittedConnection() {
-    
-    super.testGetCommittedConnection();
+    //super.testGetCommittedConnection();
   }
 
   public void testGetDbms() {
-    
-    super.testGetDbms();
+    //super.testGetDbms();
   }
 
   public void testGetDisplayTables() {
-    
-    super.testGetDisplayTables();
+    //super.testGetDisplayTables();
   }
 
   public void testGetFreeTransactionsCount() {
-    
-    super.testGetFreeTransactionsCount();
+    //super.testGetFreeTransactionsCount();
   }
 
   public void testGetGroupCapabilityTable() {
-    
-    super.testGetGroupCapabilityTable();
+    //super.testGetGroupCapabilityTable();
   }
 
   public void testGetGroupMembershipTable() {
-    
-    super.testGetGroupMembershipTable();
+    //super.testGetGroupMembershipTable();
   }
 
   public void testGetGroupTable() {
-    
-    super.testGetGroupTable();
+    //super.testGetGroupTable();
   }
 
   public void testGetQueryCount() {
-    
-    super.testGetQueryCount();
+    //super.testGetQueryCount();
   }
 
   public void testGetSettingTable() {
-    
-    super.testGetSettingTable();
+    //super.testGetSettingTable();
   }
 
   public void testGetTable() {
-    
-    super.testGetTable();
+   // super.testGetTable();
   }
 
   public void testGetTableCategoryTable() {
-    
-    super.testGetTableCategoryTable();
+    //super.testGetTableCategoryTable();
   }
 
   public void testGetTableInfoTable() {
-    
-    super.testGetTableInfoTable();
+    //super.testGetTableInfoTable();
   }
 
   public void testGetTransactionsCount() {
-    
-    super.testGetTransactionsCount();
+    //super.testGetTransactionsCount();
   }
 
   public void testGetUserTable() {
-    
-    super.testGetUserTable();
+    //super.testGetUserTable();
   }
 
   public void testGivesCapabilitySQL() {
-    
-    super.testGivesCapabilitySQL();
+    //super.testGivesCapabilitySQL();
   }
 
   public void testGuestAccessToken() {
-    
-    super.testGuestAccessToken();
+    //super.testGuestAccessToken();
   }
 
   public void testGuestUser() {
-    
-    super.testGuestUser();
+    //super.testGuestUser();
   }
 
   public void testHasCapability() {
-    
-    super.testHasCapability();
+    //super.testHasCapability();
   }
 
   /**
    * @see org.melati.poem.Database#hasCapability(User, Capability)
    */
   public void testHasCapabilityThrowing() {
-    /*
-    Database db = getThrowingDb();
+    Database db = getDb();
     db.beginSession(AccessToken.root);
     ThrowingResultSet.startThrowing("next");
     try { 
@@ -355,16 +334,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     } catch (SQLSeriousPoemException e) { 
       assertEquals("ResultSet bombed", e.innermostException().getMessage());
     }
-    ThrowingResultSet.startThrowing("close");
-    try { 
-      assertFalse(db.hasCapability(db.guestUser(), 
-          db.administerCapability()));
-      fail("Should have bombed");
-    } catch (SQLSeriousPoemException e) { 
-      assertEquals("ResultSet bombed", e.innermostException().getMessage());
-    }
     ThrowingResultSet.stopThrowing("next");
-    ThrowingResultSet.stopThrowing("close");
 
     ThrowingConnection.startThrowing("createStatement");
     try { 
@@ -376,124 +346,99 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     }
     ThrowingConnection.stopThrowing("createStatement");
     db.endSession();
-    */
   }
 
 
   public void testInCommittedTransaction() {
-    
-    super.testInCommittedTransaction();
+    //super.testInCommittedTransaction();
   }
 
   public void testIncrementQueryCount() {
-    
-    super.testIncrementQueryCount();
+    //super.testIncrementQueryCount();
   }
 
   public void testInSession() {
-    
-    super.testInSession();
+    //super.testInSession();
   }
 
   public void testIsFree() {
-    
-    super.testIsFree();
+    //super.testIsFree();
   }
 
   public void testLogCommits() {
-    
-    super.testLogCommits();
+    //super.testLogCommits();
   }
 
   public void testLogSQL() {
-    
-    super.testLogSQL();
+    //super.testLogSQL();
   }
 
   public void testPoemTransaction() {
-    
-    super.testPoemTransaction();
+    //super.testPoemTransaction();
   }
 
   public void testQuotedName() {
-    
-    super.testQuotedName();
+    //super.testQuotedName();
   }
 
   public void testReferencesToPersistent() {
-    
-    super.testReferencesToPersistent();
+    //super.testReferencesToPersistent();
   }
 
   public void testReferencesToTable() {
-    
-    super.testReferencesToTable();
+    //super.testReferencesToTable();
   }
 
   public void testSetCanAdminister() {
-    
     super.testSetCanAdminister();
   }
 
   public void testSetCanAdministerString() {
-    
-    super.testSetCanAdministerString();
+    //super.testSetCanAdministerString();
   }
 
   public void testSetLogCommits() {
-    
-    super.testSetLogCommits();
+    //super.testSetLogCommits();
   }
 
   public void testSetLogSQL() {
-    
-    super.testSetLogSQL();
+    //super.testSetLogSQL();
   }
 
   public void testSetTransactionsMax() {
-    
-    super.testSetTransactionsMax();
+    //super.testSetTransactionsMax();
   }
 
   public void testSqlQuery() {
-    
-    super.testSqlQuery();
+    //super.testSqlQuery();
   }
 
   public void testSqlUpdate() {
-    
-    super.testSqlUpdate();
+    //super.testSqlUpdate();
   }
 
   public void testTables() {
-    
-    super.testTables();
+    //super.testTables();
   }
 
   public void testToString() {
-    
-    super.testToString();
+    //super.testToString();
   }
 
   public void testTransaction() {
-    
-    super.testTransaction();
+    //super.testTransaction();
   }
 
   public void testTransactionsMax() {
-    
-    super.testTransactionsMax();
+    //super.testTransactionsMax();
   }
 
   public void testTrimCache() {
-    
-    super.testTrimCache();
+    //super.testTrimCache();
   }
 
   public void testUncacheContents() {
-    
-    super.testUncacheContents();
+    //super.testUncacheContents();
   }
-
 
 }

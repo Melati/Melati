@@ -48,8 +48,8 @@ import java.util.Enumeration;
 /**
  * A {@link PageEnumeration} which knows how big it is.
  * Ideally SQL would allow you to start at an offset.
- * Also this class should probably be called 
- * DumbCountedPagedEnumeration as this is not an enumeration of Pages.
+ * FIXME This class should be called DumbCountedPagedEnumeration 
+ * as this is not an enumeration of Pages.
  *
  * @todo Deprecate and rename
  */
@@ -68,24 +68,11 @@ public class CountedDumbPageEnumeration extends PageEnumerationBase {
     this.pageStart = pageStart;
     this.pageSize = pageSize;
     this.totalCount = totalCount;
-    // This is the bit that makes it dumb!
+    // FIXME This is the bit that makes it dumb!
     EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
     us = page.elements();
     currentPosition = pageStart -1; 
-  }
-
-  /**
-   * Constructor given a SkipEnumeration.
-   * @param base underlying Enumeration
-   * @param pageStart index of start of page 
-   * @param pageSize  how many Elements to include upon a page 
-   * @param totalCount size of the underlying Enumeration
-   */
-  public CountedDumbPageEnumeration(SkipEnumeration base,
-                             int pageStart, int pageSize, int totalCount) {
-    this((Enumeration)base, pageStart, pageSize, totalCount);
-    // TPP 2007/01/12 Why is this constructor needed?
   }
 
 }

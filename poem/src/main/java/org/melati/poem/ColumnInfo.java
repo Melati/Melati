@@ -111,7 +111,7 @@ public class ColumnInfo extends ColumnInfoBase {
    */
   private Column column() {
     // I have not fathomed how this circumstance arrives, but 
-    // it can in Eclipse (though not in maven)
+    // it can.
     if (_column == null && troid() != null)
       _column = getDatabase().columnWithColumnInfoID(troid().intValue());
     return _column;

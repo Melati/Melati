@@ -76,4 +76,21 @@ public interface PagedEnumeration extends Enumeration {
    * @return the start record of the next page, indexed from 1.
    */
   Integer getNextPageStart();
+  /**
+   * @return where we are in the sequence
+   */
+  public int getCurrentPosition();
+  /**
+   * @return the position of the next element in the sequence
+   */
+  public int getNextPosition();
+  /**
+   * @return whether there are more elements on this page
+   */
+  public boolean nextElementOnThisPage();
+  
+  /**
+   * @return the number of elements on a page
+   */
+  public int getPageSize();  
 }

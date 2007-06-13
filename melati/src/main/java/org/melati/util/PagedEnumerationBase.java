@@ -130,33 +130,33 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
     return it < 0 ? null : new Integer(it);
   }
 
-  // 
-  // Our methods
-  // 
-  
-  /**
-   * @return where we are in the sequence
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.util.PagedEnumeration#getCurrentPosition()
    */
   public int getCurrentPosition() {
     return currentPosition;
   }
 
-  /**
-   * @return the position of the next element in the sequence
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.util.PagedEnumeration#getNextPosition()
    */
   public int getNextPosition() {
     return hasMoreElements() ? currentPosition + 1 : 0;
   }
   
-  /**
-   * @return whether there are more elements on this page
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.util.PagedEnumeration#nextElementOnThisPage()
    */
   public boolean nextElementOnThisPage() {
     return hasMoreElements() && getPageEnd() >= getNextPosition();
   }
 
-  /**
-   * @return the number of elements on a page
+  /** 
+   * {@inheritDoc}
+   * @see org.melati.poem.util.PagedEnumeration#getPageSize()
    */
   public int getPageSize() {
     return page.size();

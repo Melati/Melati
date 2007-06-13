@@ -50,8 +50,6 @@ import java.util.Enumeration;
 /**
  * A {@link PagedEnumeration} which doesn't know how big it is.
  * Ideally SQL would allow you to start at an offset.
- *
- * @todo Deprecate
  */
 public class DumbPagedEnumeration extends PagedEnumerationBase {
   
@@ -69,14 +67,14 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
     pageStart = Math.max(pageStart, 1);
     this.pageStart = pageStart;
     this.pageSize = pageSize;
-    int c = EnumUtils.skip(base, pageStart - 1);
+    int offset = EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
     // This is the bit that makes it dumb!
-    totalCount = c + page.size() +
-                     EnumUtils.skip(base, countHorizon - (c + page.size()));
+    totalCount = offset + page.size() +
+                     EnumUtils.skip(base, countHorizon - (offset + page.size()));
     totalCountIsMinimum = base.hasMoreElements();
     us = page.elements();
-    currentPosition = pageStart-1; 
+    currentPosition = pageStart - 1; 
   }
 
   /**
@@ -85,7 +83,7 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
    */
   public Integer getNextPageStart() {
     int it = pageStart + pageSize;
-    return totalCountIsMinimum || it <= totalCount ? new Integer(it) : null;
+    return (totalCountIsMinimum || it <= totalCount) ? new Integer(it) : null;
   }
 
   /**

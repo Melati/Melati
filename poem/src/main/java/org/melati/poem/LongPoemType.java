@@ -59,7 +59,7 @@ import org.melati.poem.dbms.Dbms;
 public class LongPoemType extends AtomPoemType {
 
   /** Instance of a nullable LongPoemType. */
-  public static final LongPoemType nullable = new LongPoemType(true);
+  public static final LongPoemType nullableInstance = new LongPoemType(true);
 
   /**
    * Constructor.

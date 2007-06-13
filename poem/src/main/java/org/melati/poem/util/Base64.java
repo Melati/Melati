@@ -255,31 +255,6 @@ public final class Base64 {
       throw new NumberFormatException("Not a base64 digit: " + sixBits);
    }
 
-
-    /**
-     * Test harness.
-     */
-   public static void main(String arg[]) {
-
-      boolean encode;
-
-      if (arg.length < 2) {
-         System.out.println("Usage: Base64 encode|decode string");
-         return;
-      }
-
-      if (arg[0].equals("encode")) {
-         encode = true;
-      } else if (arg[0].equals("decode")) {
-         encode = false;
-      } else {
-         System.out.println("Unrecognized argument: " + arg[0]);
-         return;
-      }
-
-      System.out.println(encode ? encode(arg[1]) : decode(arg[1]));
-
-   }
 }
 
 

@@ -107,6 +107,7 @@ public class DatabaseTest extends TestCase {
   /**
    * Test method for {@link org.melati.poem.Database
    * #addTableAndCommit(org.melati.poem.TableInfo, java.lang.String)}.
+   * @see org.melati.poem.test.DynamicTableTest
    */
   public void testAddTableAndCommit() {
   }

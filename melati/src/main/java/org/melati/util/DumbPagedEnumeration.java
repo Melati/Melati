@@ -80,19 +80,6 @@ public class DumbPagedEnumeration extends PagedEnumerationBase {
   }
 
   /**
-   * Constructor given a SkipEnumeration.
-   * @param base underlying SkipEnumeration
-   * @param pageStart index of start of page 
-   * @param pageSize  how many Elements to include upon a page 
-   * @param countHorizon where to count to, may be less than total size of underlying Enumeration
-   */
-  public DumbPagedEnumeration(SkipEnumeration base,
-                             int pageStart, int pageSize, int countHorizon) {
-    this((Enumeration)base, pageStart, pageSize, countHorizon);
-    // TPP 2007/01/12 Why is this constructor needed?
-  }
-
-  /**
    * {@inheritDoc}
    * @see org.melati.poem.util.PagedEnumerationBase#getNextPageStart()
    */

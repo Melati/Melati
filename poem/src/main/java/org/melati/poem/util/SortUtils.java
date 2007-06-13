@@ -90,7 +90,7 @@ public final class SortUtils {
   /**
    * This is nicked from ocaml 2.03's Sort.array, in turn derived from
    * Sedgewick.  ocaml is a superb object/functional language from INRIA: 
-   * see http://caml.inria.fr.
+   * see http://caml.inria.fr/ .
    */
   private static void partlyQSort(Order cmp, Object[] arr, int lo, int hi) {
     if (hi - lo >= 6) {
@@ -136,7 +136,7 @@ public final class SortUtils {
   }
 
   /**
-   * Quick sort.
+   * Quick sort an array.
    * @param cmp ordering to use
    * @param arr Array to sort 
    */
@@ -147,7 +147,7 @@ public final class SortUtils {
   }
 
   /**
-   * Return a sorted Array.
+   * Return a new sorted Array.
    * @param cmp the ordering
    * @param arr the Array to sort
    * @return the sorted Array
@@ -159,7 +159,7 @@ public final class SortUtils {
   }
 
   /**
-   * Sort a Vector into an Array.
+   * Sort a Vector into a new Array.
    * @param cmp the ordering
    * @param v Vector to sort
    * @return an Array of the sorted Vector's Elements 
@@ -180,14 +180,4 @@ public final class SortUtils {
     return sorted(cmp, EnumUtils.vectorOf(e));
   }
 
-  /**
-   * Test rig.
-   * @param args arguments
-   * @throws Exception if anything fails
-   */
-  public static void main(String[] args) throws Exception {
-    qsort(DictionaryOrder.vanilla, args);
-    for (int i = 0; i < args.length; ++i)
-      System.out.println(args[i]);
-  }
 }

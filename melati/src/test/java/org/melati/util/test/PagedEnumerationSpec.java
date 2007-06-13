@@ -3,7 +3,6 @@
  */
 package org.melati.poem.util.test;
 
-import org.melati.poem.util.DumbPagedEnumeration;
 import org.melati.poem.util.PagedEnumeration;
 import org.melati.poem.util.PagedEnumerationBase.Page;
 

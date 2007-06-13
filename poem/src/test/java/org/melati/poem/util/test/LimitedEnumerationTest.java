@@ -24,6 +24,7 @@ public class LimitedEnumerationTest extends TestCase {
     super(name);
   }
   LimitedEnumeration it;
+  LimitedEnumeration it2;
   /** 
    * {@inheritDoc}
    * @see junit.framework.TestCase#setUp()
@@ -36,6 +37,7 @@ public class LimitedEnumerationTest extends TestCase {
     them.add("c");
     them.add("d");
     it = new LimitedEnumeration(them.elements(),2);
+    it2 = new LimitedEnumeration(new LimitedEnumeration(them.elements(),2),2);
   }
 
   /** 
@@ -80,11 +82,25 @@ public class LimitedEnumerationTest extends TestCase {
     it.skip();
     assertEquals("b", it.nextElement());
     try { 
-      assertEquals("c", it.nextElement());
+      it.nextElement();
       fail("Should have bombed");
     } catch (NoSuchElementException e) { 
       e = null;
     }
+    try { 
+      it.skip();
+      fail("Should have bombed");
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
+    it2.skip();
+    assertEquals("b", it2.nextElement());
+    try { 
+      it2.skip();
+    } catch (NoSuchElementException e) { 
+      e = null;
+    }
+    
   }
 
 }

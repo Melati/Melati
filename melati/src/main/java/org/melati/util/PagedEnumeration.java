@@ -46,6 +46,7 @@
 package org.melati.poem.util;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * A paged enumeration.
@@ -79,18 +80,22 @@ public interface PagedEnumeration extends Enumeration {
   /**
    * @return where we are in the sequence
    */
-  public int getCurrentPosition();
+  int getCurrentPosition();
   /**
    * @return the position of the next element in the sequence
    */
-  public int getNextPosition();
+  int getNextPosition();
   /**
    * @return whether there are more elements on this page
    */
-  public boolean nextElementOnThisPage();
-  
+  boolean nextElementOnThisPage();
   /**
    * @return the number of elements on a page
    */
-  public int getPageSize();  
+  int getPageSize();  
+  /**
+   * @return the start position of page
+   */
+  Vector getPages();
+  
 }

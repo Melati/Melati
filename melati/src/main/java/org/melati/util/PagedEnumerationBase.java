@@ -114,15 +114,6 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
 
   /**
    * {@inheritDoc}
-   * @see org.melati.poem.util.PagedEnumeration#getNextPageStart()
-   */
-  public Integer getNextPageStart() {
-    int it = pageStart + pageSize;
-    return it <= totalCount ? new Integer(it) : null;
-  }
-
-  /**
-   * {@inheritDoc}
    * @see org.melati.poem.util.PagedEnumeration#getPrevPageStart()
    */
   public Integer getPrevPageStart() {
@@ -167,11 +158,11 @@ public abstract class PagedEnumerationBase implements PagedEnumeration {
   /**
    * @return the start position of page
    */
-  public Vector getPageStartList() {
+  public Vector getPages() {
     Vector ret = new Vector(totalCount / pageSize);
     int i = 1;
-    while((i - 1)*pageSize < totalCount) {
-      ret.addElement(new Page(i,(i - 1)*pageSize+1));
+    while(((i - 1) * pageSize) < totalCount) {
+      ret.addElement(new Page(i, ((i - 1) * pageSize) + 1));
       i++;
     }
     return ret;

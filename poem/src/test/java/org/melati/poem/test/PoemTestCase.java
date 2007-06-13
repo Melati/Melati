@@ -428,8 +428,8 @@ public class PoemTestCase extends TestCase implements Test {
   
               assertEquals(message, expData, actData);
           } finally {
-              eis.close();
-              ais.close();
+              if (eis != null) eis.close();
+              if (ais != null) ais.close();
           }
       } catch (IOException e) {
           throw new AssertionFailedError(e.toString());

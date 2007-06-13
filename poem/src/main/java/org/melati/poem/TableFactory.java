@@ -83,7 +83,7 @@ public final class TableFactory {
     for (int i = 0; i < fields.length; i++) {
       if (Modifier.isPublic(fields[i].getModifiers())
               && !fields[i].getType().isArray()) {
-        System.err.println("adding public field " + fields[i]);
+        System.err.println("Storing public field " + fields[i]);
         Prop p = (Prop)props.get(fields[i].getName());
         if (p == null) {
           p = new Prop(fields[i].getName());
@@ -118,7 +118,7 @@ public final class TableFactory {
                 p.setSet(setClass);
           }
         }
-        if (methods[i].getName().startsWith("get")
+        if ((methods[i].getName().startsWith("get") || methods[i].getName().startsWith("is"))
                 && methods[i].getGenericParameterTypes().length == 0
                 && !methods[i].getReturnType().isArray()) {
           System.err.println("Storing getter " + methods[i].getName());
@@ -143,7 +143,9 @@ public final class TableFactory {
     while (propsEn.hasMoreElements()) {
       Prop p = (Prop)propsEn.nextElement();
       System.err.println("Adding column:" + p.getName());
-      if (p.getGot() != null && !p.isPublic)
+      if (p.getName().equalsIgnoreCase("id"))
+        throw new DefaultTroidNameInUsePoemException();
+      if (p.getGot() != null || p.isPublic)
         addColumn(table, p.getName(), p.getGot(), p.getGot() == p.getSet());
     }
 

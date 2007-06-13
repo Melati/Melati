@@ -386,7 +386,7 @@ public class PoemTestCase extends TestCase implements Test {
    * @param databaseName the db name
    */
   public void setDatabaseName(String databaseName) {
-    this.databaseName = databaseName;
+    PoemTestCase.databaseName = databaseName;
   }
 
   /**

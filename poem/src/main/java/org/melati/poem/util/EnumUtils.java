@@ -79,7 +79,7 @@ public final class EnumUtils {
   }
 
   /**
-   * Create a Vector of the first n Elemets of an Enumeration.
+   * Create a Vector of the first n Elements of an Enumeration.
    * If the number of elements in the Enumeration is less than 
    * n then the remaining elements of the Vector will be null.
    * @param e the input Enumeration

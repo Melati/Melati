@@ -48,8 +48,6 @@ import java.util.Enumeration;
 /**
  * A {@link PagedEnumeration} which knows how big it is.
  * Ideally SQL would allow you to start at an offset.
- *
- * @todo Deprecate
  */
 public class CountedDumbPagedEnumeration extends PagedEnumerationBase {
   
@@ -70,7 +68,7 @@ public class CountedDumbPagedEnumeration extends PagedEnumerationBase {
     EnumUtils.skip(base, pageStart - 1);
     page = EnumUtils.initial(base, pageSize);
     us = page.elements();
-    currentPosition = pageStart -1; 
+    currentPosition = pageStart - 1; 
   }
 
 }

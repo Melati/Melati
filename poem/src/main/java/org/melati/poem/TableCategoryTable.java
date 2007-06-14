@@ -91,6 +91,8 @@ public class TableCategoryTable extends TableCategoryTableBase {
 
   /** Category name for normal tables. */
   public static final String normalTableCategoryName = "Normal";
+  /** The category for ordinary data tables.   */
+  public static TableCategory NORMAL;
  /**
   * Create an entry with the given name if it doesn't exist.
   * @param name the name of the Category
@@ -114,6 +116,6 @@ public class TableCategoryTable extends TableCategoryTableBase {
     if (getTableInfo().getCancreate() == null)
       getTableInfo().setCancreate(getDatabase().administerCapability());
 
-    ensure(normalTableCategoryName);
+    NORMAL = ensure(normalTableCategoryName);
   }
 }

@@ -5,7 +5,7 @@ package org.melati.poem.test.throwing;
 
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabaseFactory;
-import org.melati.poem.SQLPoemException;
+import org.melati.poem.SQLSeriousPoemException;
 import org.melati.poem.dbms.test.sql.ThrowingDatabaseMetaData;
 
 /**
@@ -190,7 +190,7 @@ public class DynamicTableTest extends org.melati.poem.test.DynamicTableTest {
     ThrowingDatabaseMetaData.startThrowing("getIndexInfo");
     try { 
       super.testAddTableAndCommit();
-    } catch (SQLPoemException e) {
+    } catch (SQLSeriousPoemException e) {
       assertEquals("DatabaseMetaData bombed", e.innermostException().getMessage());      
       ThrowingDatabaseMetaData.stopThrowing("getIndexInfo");
     }

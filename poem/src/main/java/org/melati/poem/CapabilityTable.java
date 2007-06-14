@@ -47,7 +47,6 @@ package org.melati.poem;
 
 import org.melati.poem.generated.CapabilityTableBase;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * The {@link Table} of {@link Capability}s.
@@ -111,7 +110,7 @@ public class CapabilityTable extends CapabilityTableBase {
   * @see org.melati.poem.Table#defineColumn(Column, boolean) 
   */
   public synchronized void unifyWithDB(ResultSet colDescs)
-      throws SQLException, PoemException {
+      throws PoemException {
     super.unifyWithDB(colDescs);
 
     administer = ensure("_administer_");

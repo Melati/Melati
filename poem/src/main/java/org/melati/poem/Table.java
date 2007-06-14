@@ -2653,55 +2653,60 @@ public class Table implements Selectable {
    * @param colDescs a JDBC {@link ResultSet} describing the columns
    */
   protected synchronized void unifyWithDB(ResultSet colDescs)
-      throws SQLException, PoemException {
+      throws PoemException {
 
     Hashtable dbColumns = new Hashtable();
 
     int colCount = 0;
     if (colDescs != null){
 
-      for (; colDescs.next(); ++colCount) {
-        String colName = colDescs.getString("COLUMN_NAME");
-        Column column = _getColumn(dbms().melatiName(colName));
+      try {
+        for (; colDescs.next(); ++colCount) {
+          String colName = colDescs.getString("COLUMN_NAME");
+          Column column = _getColumn(dbms().melatiName(colName));
 
-        if (column == null) {
-          SQLPoemType colType =
-              database.defaultPoemTypeOfColumnMetaData(colDescs);
+          if (column == null) {
+            SQLPoemType colType =
+                database.defaultPoemTypeOfColumnMetaData(colDescs);
 
-          // magically make eligible columns called "id" and "deleted"
-          // into troid and soft-deleted-flag columns
+            // magically make eligible columns called "id" and "deleted"
+            // into troid and soft-deleted-flag columns
 
-          if (troidColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("id")) &&
-              dbms().canRepresent(colType, TroidPoemType.it) != null)
-            colType = TroidPoemType.it;
+            if (troidColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("id")) &&
+                dbms().canRepresent(colType, TroidPoemType.it) != null)
+              colType = TroidPoemType.it;
 
-          if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
-              dbms().canRepresent(colType, DeletedPoemType.it) != null)
-            colType = DeletedPoemType.it;
+            if (deletedColumn == null && colName.equalsIgnoreCase(dbms().unreservedName("deleted")) &&
+                dbms().canRepresent(colType, DeletedPoemType.it) != null)
+              colType = DeletedPoemType.it;
 
-          column = new ExtraColumn(this, 
-                                   dbms().melatiName(
-                                      colDescs.getString("COLUMN_NAME")),
-                                   colType, DefinitionSource.sqlMetaData,
-                                   extrasIndex++);
+            column = new ExtraColumn(this, 
+                                     dbms().melatiName(
+                                        colDescs.getString("COLUMN_NAME")),
+                                     colType, DefinitionSource.sqlMetaData,
+                                     extrasIndex++);
 
-          _defineColumn(column);
+            _defineColumn(column);
 
-          // HACK info == null happens when *InfoTable are unified with
-          // the database---obviously they haven't been initialised yet but it
-          // gets fixed in the next round when all tables (including them,
-          // again) are unified
+            // HACK info == null happens when *InfoTable are unified with
+            // the database---obviously they haven't been initialised yet but it
+            // gets fixed in the next round when all tables (including them,
+            // again) are unified
 
-          if (info != null)
-            column.createColumnInfo();
+            if (info != null)
+              column.createColumnInfo();
+          }
+          else {
+            column.assertMatches(colDescs);
+          }
+          dbColumns.put(column, Boolean.TRUE);
         }
-        else {
-          column.assertMatches(colDescs);
-        }
-        dbColumns.put(column, Boolean.TRUE);
+      } catch (SQLException e) {
+        throw new SQLSeriousPoemException(e);
       }
-    }  // else System.err.println(
-       //                 "Table.unifyWithDB called with null ResultsSet");
+      
+    }//   else System.err.println(
+     //                   "Table.unifyWithDB called with null ResultsSet");
 
     if (colCount == 0) {
       // No columns found in jdbc metadata, so table does not exist
@@ -2732,41 +2737,45 @@ public class Table implements Selectable {
       String unreservedName = dbms().getJdbcMetadataName(
                                   dbms().unreservedName(getName()));
       //System.err.println("Getting indexes for " + unreservedName);
-      ResultSet index =
-        getDatabase().getCommittedConnection().getMetaData().
+      ResultSet index;
+      try {
+        index = getDatabase().getCommittedConnection().getMetaData().
         // null, "" means ignore catalog, 
         // only retrieve those without a schema
         // null, null means ignore both
             getIndexInfo(null, dbms().getSchema(), 
                          unreservedName, 
                          false, true);
-      while (index.next()) {
-        try {
-          String mdIndexName = index.getString("INDEX_NAME");
-          String mdColName = index.getString("COLUMN_NAME");
-          if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
-            String columnName = dbms().melatiName(mdColName);
-            Column column = getColumn(columnName);
-            // Don't want to take account of non-melati indices
-            String expectedIndex = getName().toUpperCase() + "_" + 
-                                   columnName.toUpperCase() + "_INDEX";
-            // Old Postgresql version truncated name at 31 chars
-            if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-              //System.err.println("Found Expected Index:" + expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
-              column.unifyWithIndex(index);
-              dbHasIndexForColumn.put(column, Boolean.TRUE);
-            } else {
-              //System.err.println("Not creating index because one exists with different name:" + 
-              //    mdIndexName.toUpperCase() + " != " + expectedIndex);
-            }
-          } 
-          // else it is a compound index ??
+        while (index.next()) {
+          try {
+            String mdIndexName = index.getString("INDEX_NAME");
+            String mdColName = index.getString("COLUMN_NAME");
+            if (mdColName != null) { // which MSSQL and Oracle seem to return sometimes
+              String columnName = dbms().melatiName(mdColName);
+              Column column = getColumn(columnName);
+              // Don't want to take account of non-melati indices
+              String expectedIndex = getName().toUpperCase() + "_" + 
+                                     columnName.toUpperCase() + "_INDEX";
+              // Old Postgresql version truncated name at 31 chars
+              if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
+                //System.err.println("Found Expected Index:" + expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
+                column.unifyWithIndex(index);
+                dbHasIndexForColumn.put(column, Boolean.TRUE);
+              } else {
+                //System.err.println("Not creating index because one exists with different name:" + 
+                //    mdIndexName.toUpperCase() + " != " + expectedIndex);
+              }
+            } 
+            // else it is a compound index ??
           
+          }
+          catch (NoSuchColumnPoemException e) {
+            // will never happen
+            throw new UnexpectedExceptionPoemException(e);
+          }
         }
-        catch (NoSuchColumnPoemException e) {
-          // will never happen
-          throw new UnexpectedExceptionPoemException(e);
-        }
+      } catch (SQLException e) {
+        throw new SQLSeriousPoemException(e);
       }
 
       // Silently create any missing indices

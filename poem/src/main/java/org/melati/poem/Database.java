@@ -358,12 +358,7 @@ public abstract class Database implements TransactionPool {
                                        table.extrasIndex++));
     table.setTableInfo(info);
     table.unifyWithColumnInfo();
-    try {
-      table.unifyWithDB(null);
-    }
-    catch (SQLException e) {
-      throw new SQLPoemException(e);
-    }
+    table.unifyWithDB(null);
 
     PoemThread.commit();
     defineTable(table);

@@ -1,7 +1,6 @@
 package org.melati.poem.test;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import org.melati.poem.test.generated.DynamicTableBase;
 import org.melati.poem.DefinitionSource;
@@ -60,7 +59,7 @@ public class DynamicTable extends DynamicTableBase {
    * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
    */
   public synchronized void unifyWithDB(ResultSet colDescs)
-      throws SQLException, PoemException {
+      throws PoemException {
     super.unifyWithDB(colDescs);
     dynamicOne = (Dynamic)getNameColumn().ensure(dynamicOne);
     dynamicTwo = (Dynamic)getNameColumn().ensure(dynamicTwo);

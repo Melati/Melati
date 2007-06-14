@@ -46,7 +46,6 @@
 package org.melati.poem;
 
 import org.melati.poem.generated.UserTableBase;
-import java.sql.SQLException;
 import java.sql.ResultSet;
 
 /**
@@ -149,7 +148,7 @@ public class UserTable extends UserTableBase {
    * @see org.melati.poem.Table#unifyWithDB(java.sql.ResultSet)
    */
   public synchronized void unifyWithDB(ResultSet colDescs)
-      throws SQLException, PoemException {
+      throws PoemException {
     super.unifyWithDB(colDescs);
     guestUser = (User)getLoginColumn().ensure(guestUser);
     administratorUser = (User)getLoginColumn().ensure(administratorUser);

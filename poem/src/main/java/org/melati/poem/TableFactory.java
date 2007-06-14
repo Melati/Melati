@@ -5,7 +5,6 @@ package org.melati.poem;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -69,11 +68,7 @@ public final class TableFactory {
             DefinitionSource.runtime, table.extrasIndex++));
     table.setTableInfo(tableInfo);
     table.unifyWithColumnInfo();
-    try {
-      table.unifyWithDB(null);
-    } catch (SQLException e) {
-      throw new SQLPoemException(e);
-    }
+    table.unifyWithDB(null);
 
     PoemThread.commit();
     db.defineTable(table);

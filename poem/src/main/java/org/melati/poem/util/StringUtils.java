@@ -160,6 +160,18 @@ public class StringUtils {
     return new String(suffix);
   }
 
+  /**
+   * Uncaptialise the first character of the input string.
+   * 
+   * @param name String to uncapitalise
+   * @return the uncapitalised string
+   */
+  public static String uncapitalised(String name) {
+    char suffix[] = name.toCharArray();
+    suffix[0] = Character.toLowerCase(suffix[0]);
+    return new String(suffix);
+  }
+
  /**
   * As Perl <code>tr</code>; swap any occurances of any characters in the 
   * <code>from</code> string in the input string with the 

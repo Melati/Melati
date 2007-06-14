@@ -130,7 +130,7 @@ public class TableInfo extends TableInfoBase {
 
   /**
    * Constructor creates a {@link TableInfo} from a {@link Table}.
-   * Note This must be overridded if you extend TableInfo in your DSD.
+   * Note This must be overridden if you extend TableInfo in your DSD.
    * 
    * @param table from which to get metadata
    */

@@ -115,8 +115,8 @@ public class StringUtilsTest extends TestCase {
   /**
    * Test method for {@link org.melati.util.StringUtils#uncapitalised(String)}.
    */
-  public void testUnapitalised() {
-    assertEquals("capitalised", StringUtils.capitalised("Capitalised"));
+  public void testUncapitalised() {
+    assertEquals("capitalised", StringUtils.uncapitalised("Capitalised"));
   }
 
 

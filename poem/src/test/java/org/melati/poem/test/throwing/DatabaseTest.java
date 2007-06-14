@@ -7,7 +7,6 @@ import org.melati.poem.AccessToken;
 import org.melati.poem.Capability;
 import org.melati.poem.Database;
 import org.melati.poem.PoemDatabase;
-import org.melati.poem.PoemDatabaseFactory;
 import org.melati.poem.PoemThread;
 import org.melati.poem.ReconnectionPoemException;
 import org.melati.poem.SQLPoemException;
@@ -18,7 +17,6 @@ import org.melati.poem.UnificationPoemException;
 import org.melati.poem.User;
 import org.melati.poem.dbms.test.sql.ThrowingConnection;
 import org.melati.poem.dbms.test.sql.ThrowingResultSet;
-import org.melati.poem.test.PoemTestCase;
 
 /**
  * @author timp
@@ -42,7 +40,6 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
   protected void tearDown() throws Exception {
     super.tearDown();
     db = null;
-    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
   }
 
   private static Database db;
@@ -50,24 +47,12 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
    * @return the db
    */
   private static Database getDb() {
-    int maxTrans = 4;
-    /* 
-    db = PoemDatabaseFactory.getDatabase(PoemTestCase.databaseName, 
-            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
-            "sa", 
-            "",
-            "org.melati.poem.PoemDatabase",
-            "org.melati.poem.dbms.test.HsqldbThrower", 
-            false, 
-            false, 
-            false, maxTrans);
-    */
     db = new PoemDatabase();
     db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
-            "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+            "jdbc:hsqldb:mem:m2", 
             "sa", 
             "",
-            maxTrans);
+            4);
     assertTrue(db.getClass().getName() == "org.melati.poem.PoemDatabase");
     assertEquals(4, db.getFreeTransactionsCount());
     return db;
@@ -102,7 +87,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     try { 
       db.addTableAndCommit(info, "id");
       fail("Should have blown up");
-    } catch (SQLPoemException e) {
+    } catch (SQLSeriousPoemException e) {
       assertEquals("Connection bombed", e.innermostException().getMessage());      
     }
     ThrowingConnection.stopThrowing("getMetaData");
@@ -136,13 +121,12 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
   public void testConnect() {
     try { 
       getDb().connect("org.melati.poem.dbms.test.HsqldbThrower", 
-              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName,
+              "jdbc:hsqldb:mem:m2",
               "sa", "", 8);
       fail("Should have blown up");
     } catch (ReconnectionPoemException e) {
       e = null;
     }
-    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
     ThrowingResultSet.startThrowing("close");     
     try { 
       getDb();
@@ -161,7 +145,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     ThrowingConnection.startThrowingAfter("getMetaData",1);     
     try { 
       db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
-              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+              "jdbc:hsqldb:mem:m2", 
               "sa", 
               "",
               4);
@@ -184,7 +168,7 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     ThrowingConnection.startThrowing("getMetaData");     
     try { 
       db.connect("org.melati.poem.dbms.test.HsqldbThrower", 
-              "jdbc:hsqldb:mem:" + PoemTestCase.databaseName, 
+              "jdbc:hsqldb:mem:m2", 
               "sa", 
               "",
               4);
@@ -195,7 +179,6 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
     ThrowingConnection.stopThrowing("getMetaData");
   }
 
@@ -216,7 +199,6 @@ public class DatabaseTest extends org.melati.poem.test.DatabaseTest {
     db.disconnect();
     assertEquals(0, db.getFreeTransactionsCount());
     db = null;
-    PoemDatabaseFactory.removeDatabase(PoemTestCase.databaseName);
   }
 
 

@@ -1,5 +1,45 @@
-/**
- * 
+/*
+ * $Source$
+ * $Revision$
+ *
+ * Copyright (C) 2007 Tim Pizey
+ *
+ * Part of Melati (http://melati.org), a framework for the rapid
+ * development of clean, maintainable web applications.
+ *
+ * Melati is free software; Permission is granted to copy, distribute
+ * and/or modify this software under the terms either:
+ *
+ * a) the GNU General Public License as published by the Free Software
+ *    Foundation; either version 2 of the License, or (at your option)
+ *    any later version,
+ *
+ *    or
+ *
+ * b) any version of the Melati Software License, as published
+ *    at http://melati.org
+ *
+ * You should have received a copy of the GNU General Public License and
+ * the Melati Software License along with this program;
+ * if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA to obtain the
+ * GNU General Public License and visit http://melati.org to obtain the
+ * Melati Software License.
+ *
+ * Feel free to contact the Developers of Melati (http://melati.org),
+ * if you would like to work out a different arrangement than the options
+ * outlined here.  It is our intention to allow Melati to be used by as
+ * wide an audience as possible.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * Contact details for copyright holder:
+ *
+ *     Tim Pizey <timp At paneris.org>
+ *     http://paneris.org/~timp
  */
 package org.melati.poem;
 
@@ -8,7 +48,20 @@ import java.lang.reflect.Modifier;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import org.melati.poem.util.ClassUtils;
+import org.melati.poem.util.StringUtils;
+
+
 /**
+ * Given an Object or class create a set of Tables to represent the graph 
+ * it is the starting node of, and populate it for an Object.
+ * 
+ * The rules are a sub-set of the Hibernate rules: 
+ * Only public types can be persisted.
+ * Only members with a public setter and getter will be persisted.
+ * If the object has a field called Id then the Persistent troid column will be called 
+ * <tt>poemId</tt>.  
+ *  
  * @author timp
  * @since 12 Jun 2007
  * 
@@ -40,31 +93,36 @@ public final class TableFactory {
    * @return A new or existing table
    */
   public static Table fromClass(Database db, Class clazz) {
-    String name = clazz.getName();
-    System.err.println(name);
     if (clazz.isPrimitive())
       throw new IllegalArgumentException(
-              "Cannot create a Table for a primitive type");
+      "Cannot create a Table for a primitive type: " + clazz.getName());
+    if(!Modifier.isPublic(clazz.getModifiers())) 
+      throw new IllegalArgumentException(
+        "Cannot create a Table for a non public type: "+ clazz.getName());
     if (clazz.isArray())
-      throw new IllegalArgumentException("Cannot create a Table for an array");
+      throw new IllegalArgumentException("Cannot create a Table for an array: " + clazz.getName());
+    String name = clazz.getName();
     String simpleName = name.substring(name.lastIndexOf('.') + 1);
     try {
       return db.getTable(simpleName);
     } catch (NoSuchTablePoemException e) {
-      System.err.println(simpleName + " table not found");
+      System.err.println("Creating a table for : " + name);
     }
-    // OK So we have to create one
+    // We will have to create one
     TableInfo tableInfo = (TableInfo)db.getTableInfoTable().newPersistent();
     tableInfo.setName(simpleName);
-    tableInfo.setDisplayname("Introspection created table");
+    tableInfo.setDisplayname(simpleName + " introspected table");
     tableInfo.setDisplayorder(13);
     tableInfo.setSeqcached(new Boolean(false));
-    tableInfo.setCategory_unsafe(new Integer(1));
-    tableInfo.setCachelimit(0);
+    tableInfo.setCategory(TableCategoryTable.NORMAL);
+    tableInfo.setCachelimit(555);
     tableInfo.makePersistent();
 
     Table table = new Table(db, simpleName, DefinitionSource.runtime);
-    table.defineColumn(new ExtraColumn(table, "id", TroidPoemType.it,
+    String troidName = "id";
+    if (ClassUtils.getNoArgMethod(clazz, "getId") != null)
+      troidName = "poemId";
+    table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
             DefinitionSource.runtime, table.extrasIndex++));
     table.setTableInfo(tableInfo);
     table.unifyWithColumnInfo();
@@ -72,64 +130,54 @@ public final class TableFactory {
 
     PoemThread.commit();
     db.defineTable(table);
-
     Hashtable props = new Hashtable();
-    java.lang.reflect.Field[] fields = clazz.getFields();
-    for (int i = 0; i < fields.length; i++) {
-      if (Modifier.isPublic(fields[i].getModifiers())
-              && !fields[i].getType().isArray()) {
-        System.err.println("Storing public field " + fields[i]);
-        Prop p = (Prop)props.get(fields[i].getName());
-        if (p == null) {
-          p = new Prop(fields[i].getName());
-          p.setClazz(fields[i].getType());
-          p.setPublic(true);
-        } else 
-          throw new RuntimeException("Field " + fields[i].getName() + " Already seen.");
-      }
-    }
+
     Method[] methods = clazz.getMethods();
 
     for (int i = 0; i < methods.length; i++) {
-      // System.err.println(methods[i]);
       if (Modifier.isPublic(methods[i].getModifiers())) {
         if (methods[i].getName().startsWith("set")
-                && methods[i].getGenericParameterTypes().length == 1
-                && !methods[i].getGenericParameterTypes()[0].getClass()
+                && Character.isUpperCase(methods[i].getName().toCharArray()[3])
+                && methods[i].getParameterTypes().length == 1
+                && !methods[i].getParameterTypes()[0].getClass()
                         .isArray()) {
-          System.err.println("Storing setter " + methods[i].getName());
           String propName = methods[i].getName().substring(3);
+          propName = StringUtils.uncapitalised(propName);
           Prop p = (Prop)props.get(propName);
-          Class setClass = methods[i].getGenericParameterTypes()[0].getClass();
+          Class setClass = methods[i].getParameterTypes()[0];
           if (p == null) {
             p = new Prop(propName);
             p.setSet(setClass);
-            props.put(propName, p);
           } else { 
-            if (p.clazz != null && p.clazz == setClass)
-              p.setSet(setClass);
-            else 
-              if (p.getGot() != null && p.getGot() == setClass)
+            if (p.getGot() != null) { 
+              if(p.getGot() == setClass)
                 p.setSet(setClass);
+            } else { 
+              p.setSet(setClass);                
+            }
           }
+          props.put(propName, p);
         }
-        if ((methods[i].getName().startsWith("get") || methods[i].getName().startsWith("is"))
-                && methods[i].getGenericParameterTypes().length == 0
+        if (methods[i].getParameterTypes().length == 0
                 && !methods[i].getReturnType().isArray()) {
-          System.err.println("Storing getter " + methods[i].getName());
-          String propName = methods[i].getName().substring(3);
-          Prop p = (Prop)props.get(propName);
-          Class gotClass = methods[i].getReturnType();
-          if (p == null) {
-            p = new Prop(propName);
-            p.setGot(methods[i].getReturnType());
-            props.put(propName, p);
-          }else { 
-            if (p.clazz != null && p.clazz == gotClass)
+          String propName = null;
+          if ((methods[i].getName().startsWith("get")) && 
+               Character.isUpperCase(methods[i].getName().toCharArray()[3]))
+            propName = methods[i].getName().substring(3);
+          else if (methods[i].getName().startsWith("is") && 
+                   Character.isUpperCase(methods[i].getName().toCharArray()[2])) 
+            propName = methods[i].getName().substring(2);
+          if (propName != null) { 
+            propName = StringUtils.uncapitalised(propName);
+            Prop p = (Prop)props.get(propName);
+            Class gotClass = methods[i].getReturnType();
+            if (p == null) {
+              p = new Prop(propName);
               p.setGot(gotClass);
-            else 
-              if (p.getSet() != null && p.getSet() == gotClass)
-                p.setGot(gotClass);
+            } else { 
+              p.setGot(gotClass);
+            }
+            props.put(propName, p);
           }
         }
       }
@@ -137,20 +185,19 @@ public final class TableFactory {
     Enumeration propsEn = props.elements();
     while (propsEn.hasMoreElements()) {
       Prop p = (Prop)propsEn.nextElement();
-      System.err.println("Adding column:" + p.getName());
-      if (p.getName().equalsIgnoreCase("id"))
-        throw new DefaultTroidNameInUsePoemException();
-      if (p.getGot() != null || p.isPublic)
+      //System.err.println("Processing stored column:" + p.getName()
+      //        + ":" + p.getGot() + ":" + p.getSet() ); 
+      if (p.getGot() != null && 
+          p.getGot() == p.getSet()) { 
+        //System.err.println("Adding stored column:" + p.getName());
         addColumn(table, p.getName(), p.getGot(), p.getGot() == p.getSet());
+      }
     }
-
     return table;
   }
 
-  private static void addColumn(Table table, String name, Class field,
+  private static void addColumn(Table table, String name, Class fieldClass,
           boolean hasSetter) {
-    if (field == null)
-      throw new RuntimeException("Field " + name + " has null class");
     ColumnInfo columnInfo = (ColumnInfo)table.getDatabase()
             .getColumnInfoTable().newPersistent();
     columnInfo.setTableinfo(table.getInfo());
@@ -168,44 +215,44 @@ public final class TableFactory {
     columnInfo.setHeight(1);
     columnInfo.setPrecision(0);
     columnInfo.setScale(0);
-    columnInfo.setNullable(false);
+    columnInfo.setNullable(true);
     columnInfo.setDisplaylevel(DisplayLevel.record);
-    if (field == java.lang.Boolean.class) {
+    if (fieldClass == java.lang.Boolean.class) {
       columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
       columnInfo.setSize(1);
       columnInfo.setWidth(10);
-    } else if (field == boolean.class) {
+    } else if (fieldClass == boolean.class) {
       columnInfo.setTypefactory(PoemTypeFactory.BOOLEAN);
       columnInfo.setSize(1);
       columnInfo.setWidth(10);
-    } else if (field == java.lang.Integer.class) {
+    } else if (fieldClass == java.lang.Integer.class) {
       columnInfo.setTypefactory(PoemTypeFactory.INTEGER);
-    } else if (field == int.class) {
+    } else if (fieldClass == int.class) {
       columnInfo.setTypefactory(PoemTypeFactory.INTEGER);
-    } else if (field == java.lang.Double.class) {
+    } else if (fieldClass == java.lang.Double.class) {
       columnInfo.setTypefactory(PoemTypeFactory.DOUBLE);
-    } else if (field == double.class) {
+    } else if (fieldClass == double.class) {
       columnInfo.setTypefactory(PoemTypeFactory.DOUBLE);
-    } else if (field == java.lang.Long.class) {
+    } else if (fieldClass == java.lang.Long.class) {
       columnInfo.setTypefactory(PoemTypeFactory.LONG);
-    } else if (field == long.class) {
+    } else if (fieldClass == long.class) {
       columnInfo.setTypefactory(PoemTypeFactory.LONG);
-    } else if (field == java.math.BigDecimal.class) {
+    } else if (fieldClass == java.math.BigDecimal.class) {
       columnInfo.setTypefactory(PoemTypeFactory.BIGDECIMAL);
       columnInfo.setPrecision(22);
       columnInfo.setScale(2);
-    } else if (field == java.lang.String.class) {
+    } else if (fieldClass == java.lang.String.class) {
       columnInfo.setTypefactory(PoemTypeFactory.STRING);
       columnInfo.setSize(-1);
-    } else if (field == java.sql.Date.class) {
+    } else if (fieldClass == java.sql.Date.class) {
       columnInfo.setTypefactory(PoemTypeFactory.DATE);
-    } else if (field == java.sql.Timestamp.class) {
+    } else if (fieldClass == java.sql.Timestamp.class) {
       columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);
     }
     // FIXME What about Binary?
     // FIXME Also arrays
     else {
-      Table referredTable = fromClass(table.getDatabase(), field);
+      Table referredTable = fromClass(table.getDatabase(), fieldClass);
       columnInfo.setTypefactory(PoemTypeFactory.forCode(table.getDatabase(),
               referredTable.info.troid().intValue()));
     }
@@ -220,11 +267,23 @@ public final class TableFactory {
     String name = null;
     Class set = null;
     Class got = null;
-    Class clazz = null;
-    boolean isPublic;
     
     Prop(String name) {
       this.name = name;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * @return the got
+     */
+    public Class getGot() {
+      return got;
     }
 
     /**
@@ -236,21 +295,6 @@ public final class TableFactory {
     }
 
     /**
-     * @param set
-     *          the Class of the setter
-     */
-    public void setSet(Class set) {
-      this.set = set;
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-      return name;
-    }
-
-    /**
      * @return the set
      */
     public Class getSet() {
@@ -258,38 +302,12 @@ public final class TableFactory {
     }
 
     /**
-     * @return the got
+     * @param set
+     *          the Class of the setter
      */
-    public Class getGot() {
-      return got;
+    public void setSet(Class set) {
+      this.set = set;
     }
 
-    /**
-     * @return the clazz
-     */
-    public Class getClazz() {
-      return clazz;
-    }
-
-    /**
-     * @param clazz the clazz to set
-     */
-    public void setClazz(Class clazz) {
-      this.clazz = clazz;
-    }
-
-    /**
-     * @return the isPublic
-     */
-    public boolean isPublic() {
-      return isPublic;
-    }
-
-    /**
-     * @param isPublic the isPublic to set
-     */
-    public void setPublic(boolean isPublic) {
-      this.isPublic = isPublic;
-    }
   }
 }

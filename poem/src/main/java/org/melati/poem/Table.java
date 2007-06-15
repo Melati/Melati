@@ -2073,7 +2073,8 @@ public class Table implements Selectable {
   }
 
   /**
-   * @return A freshly minted <TT>Persistent</TT> object for this table.
+   * @return A freshly minted floating <TT>Persistent</TT> object for this table, 
+   * ie one without a troid set
    */
   public Persistent newPersistent() {
     Persistent it = _newPersistent();

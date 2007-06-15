@@ -45,11 +45,11 @@ which can be useful for reporting, migrating to POEM or as your main persistance
 <subsection name="Comparison with Hibernate">
 <table>
 <tr><th></th><th>Hibernate</th><th>POEM</th></tr>
-<tr><td>Requires a noArg constructor</td>                         <td>Yes</td><td>Yes</tr>
-<tr><td>Setters and getters must be public</td>                   <td>No</td><td>Yes</tr> 
-<tr><td>Persist public fields</td>                                <td>Not by default</td><td>No</tr>
-<tr><td>Use existing id fields</td>                               <td>Yes</td><td>No</tr> 
-<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td></td>yes</tr>
+<tr><td>Requires a noArg constructor</td>                         <td>Yes</td><td>Yes</td></tr>
+<tr><td>Setters and getters must be public</td>                   <td>No</td><td>Yes</td></tr> 
+<tr><td>Persist public fields</td>                                <td>Not by default</td><td>No</td></tr>
+<tr><td>Use existing id fields</td>                               <td>Yes</td><td>No</td></tr> 
+<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td>yes</td></tr>
 </table>
 <p>
 POEM enforces Hibernate best practice, except we do not believe that POEM's Id field should rely upon any existing 

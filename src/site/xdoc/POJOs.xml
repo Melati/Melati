@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Melati - Java SQL Website Development Engine</title>
+    <author email="timp">Tim Pizey</author>
+    <keywords>
+      Persistence, Java, SQL, Database, Templates, Object Relational Mapping,
+      ORM, Objects, Object Oriented, J2EE replacement
+    </keywords>
+  </properties>
+
+  <body>
+
+
+<!--
+<p align="center">
+ <font size="-1"><i>
+This page last updated: $Date$ $Author$
+ </i></font>
+</p>
+-->
+  
+<!-- menu -->
+
+<section name=" Working with Plain Old Java Objects (POJOs) ">
+<p>
+The <it>'flexibility'</it> afforded by working with Plain Old Java Objects is bought at a price, 
+namely the use of introspection. 
+</p>
+<p>
+The use of a system such as POEM has the disadvantage that, due to Java's lack of multiple inheritance, 
+you have used your one opportunity to inherit.
+</p>
+<p>
+If POJOs can be avoided, and you are happy to use <tt>Persistents</p> as your base class then that is 
+the best way to use POEM however if you want to POEM enables you to persist a POJO Object graph to a database, 
+which can be useful for reporting, migrating to POEM or as your main persistance mechanism.
+</p>
+<subsection name="Persisting POJOs">
+</subsection>
+<subsection name="Resurrecting POJOs">
+</subsection>
+<subsection name="Comparison with Hibernate">
+<table>
+<tr><th></th><th>Hibernate</th><th>POEM</th></tr>
+<tr><td>Requires a noArg constructor</td>                         <td>Yes</td><td>Yes</tr>
+<tr><td>Setters and getters must be public</td>                   <td>No</td><td>Yes</tr> 
+<tr><td>Persist public fields</td>                                <td>Not by default</td><td>No</tr>
+<tr><td>Use existing id fields</td>                               <td>Yes</td><td>No</tr> 
+<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td></td>yes</tr>
+</table>
+<p>
+POEM enforces Hibernate best practice, except we do not believe that POEM's Id field should rely upon any existing 
+Id field, so if your POJO has a field called <tt>id</tt> then the troid column name will be <tt>poemId</tt> and 
+your <tt>id</tt> field will be used as a normal field. One assumes that the underlying database will plan queries effectively.
+</p>
+</subsection>
+</section>
+</body>
+</document>
+
+
+
+
+
+
+
+
+
+
+
+

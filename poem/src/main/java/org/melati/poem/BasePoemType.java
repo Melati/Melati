@@ -127,7 +127,7 @@ public abstract class BasePoemType implements SQLPoemType, Cloneable {
    * Check if the raw value is valid, as expected.
    * @param raw an Object which should be of correct type
    */
-  private final void doubleCheckValidRaw(Object raw) {
+  private void doubleCheckValidRaw(Object raw) {
     try {
       assertValidRaw(raw);
     }

@@ -188,7 +188,7 @@ public final class PersistentFactory {
       if (cooked != null) {
         String setterName = "set" + StringUtils.capitalised(col.getName());
         Method[] possibleSetters = ClassUtils.getOneArgumentMethods(pojo.getClass(), setterName);
-        if(possibleSetters.length == 0 )
+        if(possibleSetters.length == 0)
             throw new NoSuchMethodException("No setter called " + setterName
                     + " could be found " + "on Class " + pojo.getClass().getName());
         for (int i = 0; i < possibleSetters.length; i++) {

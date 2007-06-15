@@ -34,7 +34,7 @@ The use of a system such as POEM has the disadvantage that, due to Java's lack o
 you have used your one opportunity to inherit.
 </p>
 <p>
-If POJOs can be avoided, and you are happy to use <tt>Persistents</p> as your base class then that is 
+If POJOs can be avoided, and you are happy to use <tt>Persistents</tt> as your base class then that is 
 the best way to use POEM however if you want to POEM enables you to persist a POJO Object graph to a database, 
 which can be useful for reporting, migrating to POEM or as your main persistance mechanism.
 </p>

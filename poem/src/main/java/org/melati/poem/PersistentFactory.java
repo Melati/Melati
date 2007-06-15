@@ -43,7 +43,6 @@
  */
 package org.melati.poem;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
 
@@ -83,8 +82,10 @@ public final class PersistentFactory {
     Enumeration candidates = table.selection(p);
     while (candidates.hasMoreElements()) {
       candidate = (Persistent)candidates.nextElement();
-      if (commonFieldsEqual(p, candidate))
+      if (commonFieldsEqual(p, candidate)) { 
         p = candidate;
+        break;
+      } 
     }
     if (candidate == null)
       p.makePersistent();

@@ -26,22 +26,34 @@ This page last updated: $Date$ $Author$
 
 <section name=" Working with Plain Old Java Objects (POJOs) ">
 <p>
-The <it>'flexibility'</it> afforded by working with Plain Old Java Objects is bought at a price, 
+The <it>'flexibility'</it> afforded by working with 
+Plain Old Java Objects is bought at a price, 
 namely the use of introspection. 
 </p>
 <p>
-The use of a system such as POEM has the disadvantage that, due to Java's lack of multiple inheritance, 
+The use of a system such as POEM has the disadvantage that, 
+due to Java's lack of multiple inheritance, 
 you have used your one opportunity to inherit.
 </p>
 <p>
-If POJOs can be avoided, and you are happy to use <tt>Persistents</tt> as your base class then that is 
-the best way to use POEM however if you want to POEM enables you to persist a POJO Object graph to a database, 
-which can be useful for reporting, migrating to POEM or as your main persistance mechanism.
+If POJOs can be avoided, and you are happy to use <tt>Persistent</tt>s as 
+your base class then that is 
+the best way to use POEM. 
+However POEM enables you to persist a POJO Object graph to a database, 
+which can be useful for reporting, migrating to POEM or similar 
+POJO to database transformations. 
 </p>
-<subsection name="Persisting POJOs">
-</subsection>
-<subsection name="Resurrecting POJOs">
-</subsection>
+<p>
+This is not intended as your main persistance mechanism, as it 
+not designed with bidirectionality in mind. You can populate a POJO from a 
+databse record and visa versa but there is no attempt at transaction 
+handling or versioning, these issues are handled in POEM itself, 
+to use POEM as your persistence engine, 
+with transactions and access control then your objects 
+should inherit from <tt>Persistent</tt>; 
+if that is not an option then 
+<a href="http://www.hibernate.org/">Hibernate</a> is probably what you need.
+</p>
 <subsection name="Comparison with Hibernate">
 <table>
 <tr><th></th><th>Hibernate</th><th>POEM</th></tr>
@@ -52,10 +64,19 @@ which can be useful for reporting, migrating to POEM or as your main persistance
 <tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td>yes</td></tr>
 </table>
 <p>
-POEM enforces Hibernate best practice, except we do not believe that POEM's Id field should rely upon any existing 
-Id field, so if your POJO has a field called <tt>id</tt> then the troid column name will be <tt>poemId</tt> and 
-your <tt>id</tt> field will be used as a normal field. One assumes that the underlying database will plan queries effectively.
+POEM enforces Hibernate best practice, 
+except we do not believe that POEM's Id field should rely upon any existing 
+Id field. 
+If your POJO has a field called <tt>id</tt> then the troid column name 
+will be <tt>poemId</tt> and 
+your <tt>id</tt> field will be used as a normal field. 
+One assumes that the underlying database will plan queries effectively.
 </p>
+</subsection>
+<subsection name="Persisting POJOs">
+
+</subsection>
+<subsection name="Resurrecting POJOs">
 </subsection>
 </section>
 </body>

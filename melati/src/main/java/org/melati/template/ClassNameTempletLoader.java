@@ -203,7 +203,7 @@ public class ClassNameTempletLoader implements TempletLoader {
   }
 
   /**
-   * Get a templet name based upon class name.
+   * Get a templet name based for a class.
    * 
    * {@inheritDoc}
    * @see TempletLoader#templet(TemplateEngine, MarkupLanguage, Class)

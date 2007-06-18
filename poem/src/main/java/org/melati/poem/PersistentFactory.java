@@ -72,12 +72,19 @@ public final class PersistentFactory {
    * @return A new or existing Persistent
    */
   public static Persistent fromInstance(Database db, Object pojo) {
-    Table table;
-    if (pojo instanceof Persistent)
-      table = ((Persistent)pojo).getTable();
-    else
+    Table table = null;
+    Persistent p = null;
+    if (pojo instanceof Persistent) {
+      if (((Persistent)pojo).troid() != null) { 
+        return (Persistent)pojo;
+      } else {
+        p = populatedPersistent(((Persistent)pojo).getTable(), pojo);
+        p.makePersistent();
+        return p;
+      }
+    } else
       table = TableFactory.fromInstance(db, pojo);
-    Persistent p = populatedPersistent(table, pojo);
+    p = populatedPersistent(table, pojo);
     Persistent candidate = null;
     Enumeration candidates = table.selection(p);
     while (candidates.hasMoreElements()) {
@@ -114,6 +121,11 @@ public final class PersistentFactory {
    */
   public static Persistent populatedPersistent(Table table, Object pojo) {
     Persistent p = table.newPersistent();
+    if (pojo instanceof Persistent) 
+      if (((Persistent)pojo).troid() != null)
+        return table.getObject(((Persistent)pojo).troid().intValue());
+      else 
+        return ((Persistent)pojo);
     Class c = pojo.getClass();
     Enumeration columns = table.columns();
     while (columns.hasMoreElements()) {
@@ -183,7 +195,7 @@ public final class PersistentFactory {
     Enumeration columns = persistent.getTable().columns();
     while (columns.hasMoreElements()) {
       Column col = (Column)columns.nextElement();
-      if(col.isTroidColumn()) continue;
+      if(col.isTroidColumn() && !(pojo instanceof Persistent)) continue;
       Object cooked = col.getCooked(persistent);
       if (cooked != null) {
         String setterName = "set" + StringUtils.capitalised(col.getName());

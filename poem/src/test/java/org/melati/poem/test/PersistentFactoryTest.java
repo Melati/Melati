@@ -8,6 +8,8 @@ import java.util.Properties;
 import org.melati.poem.Persistent;
 import org.melati.poem.PersistentFactory;
 import org.melati.poem.PoemDatabaseFactory;
+import org.melati.poem.User;
+import org.melati.poem.test.pojo.ClassWithByteArrayMember;
 import org.melati.poem.test.pojo.ClassWithId;
 import org.melati.poem.test.pojo.ClassWithNoIdAndPrivateMembers;
 import org.melati.poem.test.pojo.ClassWithNoIdAndPublicMembers;
@@ -69,6 +71,19 @@ public class PersistentFactoryTest extends PoemTestCase {
   public void testFromKnownInstance() {
     assertEquals(getDb().getUserTable().administratorUser(), 
             PersistentFactory.fromInstance(getDb(), getDb().getUserTable().administratorUser()));
+  }
+
+  /**
+   * Test method for {@link org.melati.poem.PersistentFactory#fromInstance(java.lang.Object)}.
+   */
+  public void testFromFloatingPersistent() {
+    User u = (User)getDb().getUserTable().newPersistent();
+    u.setLogin("test");
+    u.setName("Test");
+    u.setPassword("test");
+    User u2 = (User)PersistentFactory.fromInstance(getDb(), u);
+    assertNotNull(u2.troid());
+    u2.delete();
   }
 
   /**
@@ -134,6 +149,15 @@ public class PersistentFactoryTest extends PoemTestCase {
     assertEquals(new Integer(0), persisted.troid());
     assertEquals(new Integer(0), persisted.getCooked("poemId"));
     assertEquals(new Integer(99), persisted.getCooked("id"));
+  }
+  /**
+   * Test persisting an oject with a byte array member.
+   */
+  public void testPersistentFromPojoWithBinaryField() { 
+    ClassWithByteArrayMember pojo = new ClassWithByteArrayMember();
+    pojo.setBinaryField(new byte[] {34,35,36});
+    Persistent persisted = PersistentFactory.fromInstance(getDb(), pojo);
+    assertEquals(35,((byte[])persisted.getCooked("binaryField"))[1]);
   }
   
   /**

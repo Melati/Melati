@@ -37,16 +37,19 @@ you have used your one opportunity to inherit.
 </p>
 <p>
 If POJOs can be avoided, and you are happy to use <tt>Persistent</tt>s as 
-your base class then that is 
-the best way to use POEM. 
-However POEM enables you to persist a POJO Object graph to a database, 
+your base class, then that is the best way to use POEM. 
+However POEM enables you to persist a POJO object graph to a database, 
 which can be useful for reporting, migrating to POEM or similar 
-POJO to database transformations. 
+POJO to database transformations. It also enables you to populate 
+an object graph from its classes. 
 </p>
 <p>
-This is not intended as your main persistance mechanism, as it 
+What POEM does not attempt to do is 
+keep track of changes to the POJO such that the system can tell which 
+is most current the POJO or the store.
+It is not intended as your main persistance mechanism, as it 
 not designed with bidirectionality in mind. You can populate a POJO from a 
-databse record and visa versa but there is no attempt at transaction 
+database record and visa versa but there is no attempt at transaction 
 handling or versioning, these issues are handled in POEM itself, 
 to use POEM as your persistence engine, 
 with transactions and access control then your objects 
@@ -61,22 +64,34 @@ if that is not an option then
 <tr><td>Setters and getters must be public</td>                   <td>No</td><td>Yes</td></tr> 
 <tr><td>Persist public fields</td>                                <td>Not by default</td><td>No</td></tr>
 <tr><td>Use existing id fields</td>                               <td>Yes</td><td>No</td></tr> 
-<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td>yes</td></tr>
+<tr><td>Fields must have both a setter and a getter</td>          <td>Not sure</td><td>Yes</td></tr>
 </table>
 <p>
 POEM enforces Hibernate best practice, 
-except we do not believe that POEM's Id field should rely upon any existing 
-Id field. 
-If your POJO has a field called <tt>id</tt> then the troid column name 
-will be <tt>poemId</tt> and 
+except we do not believe that POEM's <tt>troid</tt> field should rely upon 
+any existing <tt>id</tt> field. 
+If your POJO has a field called <tt>id</tt> and is not an instance of <tt>Persistent</tt> 
+then the <tt>troid</tt> column name will be <tt>poemId</tt> and 
 your <tt>id</tt> field will be used as a normal field. 
-One assumes that the underlying database will plan queries effectively.
+The underlying database will plan queries effectively.
 </p>
 </subsection>
 <subsection name="Persisting POJOs">
-
+<p>
+To persist an instance of a class:
+</p>
+<pre>
+    Persistent persisted = PersistentFactory.fromInstance(getDb(), pojo);
+</pre>
 </subsection>
 <subsection name="Resurrecting POJOs">
+<p>
+To populate an instance of a class:
+</p>
+<pre>
+AClass pojo  = (AClass)PersistentFactory.from(
+              getDb().getAClassTable().getObject(0), AClass.class);
+</pre>
 </subsection>
 </section>
 </body>

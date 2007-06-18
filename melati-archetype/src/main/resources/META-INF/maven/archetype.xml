@@ -23,6 +23,6 @@
     <resource>src/site/xdoc/index.xml</resource>
     <resource>src/site/xdoc/Usage.xml</resource>
     <resource>src/site/xdoc/Download.xml</resource>
-    <resource filtering="false">src/site/xdocs/favicon.ico</resource>
+    <resource filtering="false">src/site/xdoc/favicon.ico</resource>
   </siteResources>
 </archetype>

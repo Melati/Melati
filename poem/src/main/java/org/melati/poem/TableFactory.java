@@ -99,7 +99,7 @@ public final class TableFactory {
     if(!Modifier.isPublic(clazz.getModifiers())) 
       throw new IllegalArgumentException(
         "Cannot create a Table for a non public type: "+ clazz.getName());
-    if (clazz.isArray())
+    if (clazz.isArray() && !(clazz == byte[].class))
       throw new IllegalArgumentException("Cannot create a Table for an array: " + clazz.getName());
     String name = clazz.getName();
     String simpleName = name.substring(name.lastIndexOf('.') + 1);
@@ -120,7 +120,8 @@ public final class TableFactory {
 
     Table table = new Table(db, simpleName, DefinitionSource.runtime);
     String troidName = "id";
-    if (ClassUtils.getNoArgMethod(clazz, "getId") != null)
+    if (ClassUtils.getNoArgMethod(clazz, "getId") != null &&
+        clazz != Persistent.class)
       troidName = "poemId";
     table.defineColumn(new ExtraColumn(table, troidName, TroidPoemType.it,
             DefinitionSource.runtime, table.extrasIndex++));
@@ -139,8 +140,8 @@ public final class TableFactory {
         if (methods[i].getName().startsWith("set")
                 && Character.isUpperCase(methods[i].getName().toCharArray()[3])
                 && methods[i].getParameterTypes().length == 1
-                && !methods[i].getParameterTypes()[0].getClass()
-                        .isArray()) {
+                && (methods[i].getParameterTypes()[0].getClass() == byte[].class || 
+                    !methods[i].getParameterTypes()[0].getClass().isArray())) {
           String propName = methods[i].getName().substring(3);
           propName = StringUtils.uncapitalised(propName);
           Prop p = (Prop)props.get(propName);
@@ -158,8 +159,10 @@ public final class TableFactory {
           }
           props.put(propName, p);
         }
+        
         if (methods[i].getParameterTypes().length == 0
-                && !methods[i].getReturnType().isArray()) {
+                && (methods[i].getReturnType().getClass() == byte[].class || 
+                        !methods[i].getReturnType().getClass().isArray())) {
           String propName = null;
           if ((methods[i].getName().startsWith("get")) && 
                Character.isUpperCase(methods[i].getName().toCharArray()[3]))
@@ -248,9 +251,9 @@ public final class TableFactory {
       columnInfo.setTypefactory(PoemTypeFactory.DATE);
     } else if (fieldClass == java.sql.Timestamp.class) {
       columnInfo.setTypefactory(PoemTypeFactory.TIMESTAMP);
+    } else if (fieldClass == byte[].class) {
+      columnInfo.setTypefactory(PoemTypeFactory.BINARY);
     }
-    // FIXME What about Binary?
-    // FIXME Also arrays
     else {
       Table referredTable = fromClass(table.getDatabase(), fieldClass);
       columnInfo.setTypefactory(PoemTypeFactory.forCode(table.getDatabase(),

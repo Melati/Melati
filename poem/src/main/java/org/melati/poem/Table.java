@@ -465,7 +465,7 @@ public class Table implements Selectable {
   public final int displayColumnsCount(DisplayLevel level) {
     int l = level.getIndex().intValue();
     if (displayColumns[l] == null)
-      // FIXME race
+      // FIXME Race (TPP I can't see a race condition here)
       displayColumns(level);
 
     return displayColumns[l].length;
@@ -553,7 +553,7 @@ public class Table implements Selectable {
    */ 
   public final int getSearchCriterionColumnsCount() {
     if (searchColumns == null)
-      // FIXME race
+      // FIXME Race (TPP I can't see a race condition here)
       getSearchCriterionColumns();
       
     return searchColumns.length;
@@ -948,7 +948,7 @@ public class Table implements Selectable {
   }
 
   void writeDown(PoemTransaction transaction, Persistent persistent) {
-    // no race, provided that the one-thread-per-transaction parity is
+    // NOTE No race, provided that the one-thread-per-transaction parity is
     // maintained
 
     if (persistent.dirty) {

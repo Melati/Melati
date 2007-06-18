@@ -2,7 +2,7 @@
   <parent>
     <artifactId>melati-parent</artifactId>
     <groupId>org.melati</groupId>
-    <version>0.7.6-RC2</version>
+    <version>0.7.7-RC1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>melati-example-contacts</artifactId>
@@ -13,13 +13,6 @@
       <artifactId>melati</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.melati</groupId>
-      <artifactId>poem</artifactId>
-      <version>0.7.6-RC2</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

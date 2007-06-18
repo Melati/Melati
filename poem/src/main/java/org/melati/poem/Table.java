@@ -2759,7 +2759,8 @@ public class Table implements Selectable {
                                      columnName.toUpperCase() + "_INDEX";
               // Old Postgresql version truncated name at 31 chars
               if (expectedIndex.indexOf(mdIndexName.toUpperCase()) == 0) {
-                //System.err.println("Found Expected Index:" + expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
+                //System.err.println("Found Expected Index:" + 
+                // expectedIndex + " IndexName:" + mdIndexName.toUpperCase());
                 column.unifyWithIndex(index);
                 dbHasIndexForColumn.put(column, Boolean.TRUE);
               } else {

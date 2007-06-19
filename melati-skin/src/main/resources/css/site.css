@@ -4,12 +4,70 @@
 /* Built in HTML Elements */
 
 BODY {
-  COLOR: #aa3300; 
+  COLOR: #cc3344; 
 }
+
+PRE { 
+  border: 1px solid #999999;
+  margin: 2px;
+  padding: 5px;
+  color: #333333;
+  font-family: monospace;
+}
+
+h1 { 
+  background-color: #f8cce8;
+  COLOR: #cc3344; 
+}
+h2 { 
+  background-color: #f8cce8;
+  COLOR: #c40d81; 
+}
+h3 { 
+  background-color: #ea88c6;
+  COLOR: #FFeeee; 
+}
+h4 { 
+  background-color: #ea88c6;
+  COLOR: #cc3344; 
+}
+#navcolumn h5 { 
+  background-color: #ea88c6;
+  padding-left: 3px;
+  COLOR: #c40d81; 
+}
+h6 { 
+  background-color: #ea88c6;
+  COLOR: #cc3344; 
+}
+
+#banner { 
+  background-color: #fcf0fa;
+  COLOR: #cc3344; 
+}
+
+#breadcrumbs { 
+  background-color: #f8cce8;
+  COLOR: #cc3344; 
+}
+
+#leftColumn {
+  background-color: #fcf0fa;
+  COLOR: #cc3344; 
+} 
 
 .created {
   background-color: lime;
-  COLOR: #aa3300; 
 }
 
+table.bodyTable th {
+  background-color: #ea88c6;
+}
 
+table.bodyTable tr.a {
+  background-color: #f8cce8;
+}
+
+table.bodyTable tr.b {
+  background-color: #fcf0fa;
+}

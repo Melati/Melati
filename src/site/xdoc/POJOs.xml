@@ -89,8 +89,7 @@ To persist an instance of a class:
 To populate an instance of a class:
 </p>
 <pre>
-AClass pojo  = (AClass)PersistentFactory.from(
-              getDb().getAClassTable().getObject(0), AClass.class);
+    AClass pojo  = (AClass)PersistentFactory.from(getDb().getAClassTable().getObject(id), AClass.class);
 </pre>
 </subsection>
 </section>

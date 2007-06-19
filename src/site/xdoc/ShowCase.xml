@@ -105,38 +105,13 @@ This page last updated: $Date$ $Author$
     height="183" /></td>
   </tr>
   
-
-  <tr> 
-    <td> 
-      <h3><a href="http://www.financial-training.com"
-           >www.financial-training.com</a></h3>
-      <h4><a href="http://ftc.paneris.net">Maven project site</a></h4>
-
-      <p>The Financial Training Company uses a bespoke version of the
-      <a href="http://shopping.paneris.net">Melati Ecommerce
-      System</a> 
-      and <a href="http://boards.paneris.net">Melati Boards</a> internally.</p>
-    </td>
-    <td><img src="/images/financial-training.jpg" 
-             width="195" height="183" /></td>
-  </tr>
   <tr>
     <td>
-      <h3><a href="http://www.pianosonline.co.uk/"
-           >www.PianosOnline.co.uk</a></h3>
-      <h4><a href="http://pol.paneris.net">Maven project site</a></h4>
-      <p>Pianos Online assists users finding and buying pianos.</p>
+      <h3><a href="http://paneris.net/">www.paneris.net</a></h3>
+      <p>Other examples of sites that are no longer online but which have working code can be seen at 
+      <a href="http://paneris.net/">www.paneris.net</a>.</p>
     </td>
-    <td><img src="/images/pol.jpg" width="195" height="183" /></td>
-  </tr>
-  <tr>
-    <td>
-      <h3><a href="https://secure.gtl.uk.com/"
-           >secure.gtl.uk.com</a></h3>
-      <h4><a href="http://gtl.paneris.net">Maven project site</a></h4>
-      <p>Allows the upload of files to a server under different accounts.</p>
-    </td>
-    <td><img src="/images/gtl.jpg" width="195" height="183" /></td>
+    <td></td>
   </tr>
 </table>
 </section>

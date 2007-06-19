@@ -27,6 +27,8 @@
               files="BaseFieldAttributes.java" />
     <suppress checks="ParameterNumber"
               files="Email.java" />
+    <suppress checks="ParameterNumber"
+              files="PoemDatabaseFactory.java" />
 
     <suppress checks="MagicNumber"
               files="DatePoemtype.java" />

@@ -60,7 +60,7 @@ Melati assumes that the dbms will plan queries effectively using whatever keys i
 <section name=" The database application balance ">
 <p>
 The balance of responsibility between an application and its datastore is a key consideration 
-in a systems architecture.
+in the architecture of a system.
 </p>
 <p>
 POEM is designed to enable rapid prototyping and to be database agnostic. This means that 

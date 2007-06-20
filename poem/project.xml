@@ -218,7 +218,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     <developer>
       <name>Samuel Goldstein</name>
       <id>samuelg</id>
-      <email>samuelg@paneris.org</email>
+      <email>samuelg At paneris.org</email>
       <organization>1969 Communications Inc</organization>
       <roles>
         <role>Developer</role>
@@ -325,7 +325,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
     </dependency>
     <dependency>
       <id>hsqldb</id>
-      <version>1.8.0.1</version>
+      <version>1.8.0.7</version>
       <url>http://www.hsqldb.org/</url>
       <properties>
          <war.bundle>true</war.bundle>
@@ -402,7 +402,6 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
     <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
 
-    <!--aspectSourceDirectory/-->
 
     <!-- Unit test cases -->
     <unitTest>
@@ -410,14 +409,16 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
         <include>**/*Test.java</include>
       </includes>
       <excludes>
-        <exclude>**/CachedSelectionTest.java</exclude>
         <exclude>**/UserTableTest.java</exclude>
       </excludes>
       <resources>
         <resource>
-          <directory>src/webapp/WEB-INF/classes</directory>
+          <directory>src/test/java</directory>
           <includes>
-            <include>**/*.properties</include>
+           <include>**/*.dsd</include>
+           <include>**/*.properties</include>
+           <include>**/*.wm</include>
+           <include>**/*.vm</include>
           </includes>
         </resource>
       </resources>
